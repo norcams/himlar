@@ -2,7 +2,18 @@
 # vi: set ft=ruby :
 
 $provision=<<SHELL
-command -v r10k 2>/dev/null || sudo gem install r10k --no-ri --no-rdoc
+
+install_puppet()
+{
+  rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm
+  yum install -y puppet facter
+}
+
+export PATH=$PATH:/usr/local/bin
+command -v puppet >/dev/null || install_puppet
+command -v gem >/dev/null || sudo yum -y install rubygems
+command -v r10k >/dev/null || sudo gem install r10k --no-ri --no-rdoc
+
 SHELL
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
@@ -17,4 +28,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.customize ["modifyvm", :id, "--memory", 1024]
   end
 
+  config.vm.provision :shell, :inline => $provision
+
+  if Vagrant.has_plugin?("vagrant-cachier")
+    config.cache.scope = :machine
+  end
+
 end
+
