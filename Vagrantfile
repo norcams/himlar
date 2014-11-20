@@ -10,6 +10,7 @@ install_puppet()
 }
 
 export PATH=$PATH:/usr/local/bin
+command -v git >/dev/null 2>&1    || sudo yum -y install git
 command -v puppet >/dev/null 2>&1 || install_puppet
 command -v gem >/dev/null 2>&1    || sudo yum -y install rubygems
 command -v r10k >/dev/null 2>&1   || sudo gem install r10k --no-ri --no-rdoc
