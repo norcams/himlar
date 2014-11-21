@@ -1,0 +1,13 @@
+---
+:hierarchy:
+    - "nodes/%{::verified_host}"
+    - "%{::location}/%{::role}"
+    - "default/%{::role}"
+    - common
+
+:merge_behavior: deeper
+:backends:
+    - yaml
+:yaml:
+    :datadir: /etc/puppet/hieradata
+
