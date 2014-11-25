@@ -1,5 +1,9 @@
 ---
 sudo::configs:
+  requiretty:
+    priority: 5
+    content: 'Defaults:vagrant !requiretty'
   vagrant:
+    priority: 10
     content: 'vagrant ALL=(ALL) NOPASSWD:ALL'
 
