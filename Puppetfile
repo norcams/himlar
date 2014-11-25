@@ -1,9 +1,9 @@
-# Puppetfile
 #
+# Puppetfile
 #
 mod 'profile',
   :git => 'https://github.com/norcams/himlar-profile',
-  :ref => '0.1.0
+  :ref => '0.1.0'
 
 #
 # profile::base
@@ -23,10 +23,6 @@ mod 'ssh',
 mod 'ntp',
   :git => 'https://github.com/puppetlabs/puppetlabs-ntp',
   :ref => '3.3.0'
-
-mod 'account',
-  :git => 'https://github.com/Mylezeem/puppet-account.git',
-  :ref => 'multiple_accounts'
 
 #
 # Common lib
