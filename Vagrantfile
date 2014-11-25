@@ -25,7 +25,7 @@ $puppetrun=<<SHELL
   cd $source && r10k --verbose 3 puppetfile install
 
   puppet config set trusted_node_data true
-  puppet config set environmentpath \$confdir/environment
+  puppet config set environmentpath ${environment%/*}
   puppet config set hiera_config $source/hiera.yaml
   puppet config set certname base-vagrant-dev.vagrant.local
   puppet apply --verbose --debug $source/site.pp
