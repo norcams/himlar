@@ -2,37 +2,54 @@
 # vi: set ft=ruby :
 
 $provision=<<SHELL
-
-install_puppet()
-{
-  rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm
-  yum install -y puppet facter
-}
-
-export PATH=$PATH:/usr/local/bin
-command -v git >/dev/null 2>&1    || sudo yum -y install git
-command -v puppet >/dev/null 2>&1 || install_puppet
-command -v gem >/dev/null 2>&1    || sudo yum -y install rubygems
-command -v r10k >/dev/null 2>&1   || sudo gem install r10k --no-ri --no-rdoc
-
+  install_puppet_and_tooling()
+  {
+    rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm
+    yum install -y puppet facter rubygems rubygem-deep_merge \
+      rubygem-puppet-lint git
+  }
+  export PATH=$PATH:/usr/local/bin
+  command -v puppet >/dev/null 2>&1 || install_puppet_and_tooling
+  command -v r10k >/dev/null 2>&1   || gem install r10k --no-ri --no-rdoc
 SHELL
 
-# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
-VAGRANTFILE_API_VERSION = "2"
+$puppetrun=<<SHELL
+  export PATH=$PATH:/usr/local/bin
+  environment=/etc/puppet/environments/production
+  source=/vagrant
+
+  mkdir -p $environment $source/modules
+  ln -sf $source/hieradata /etc/puppet/hieradata
+  ln -sf $source/modules $environment/modules
+
+  cd $source && r10k --verbose 3 puppetfile install
+
+  puppet config set trusted_node_data true
+  puppet config set environmentpath \$confdir/environment
+  puppet config set hiera_config $source/hiera.yaml
+  puppet config set certname base-vagrant-dev.vagrant.local
+  puppet apply --verbose --debug $source/site.pp
+SHELL
+
+VAGRANTFILE_API_VERSION = '2'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "norcams/centos7"
+  config.vm.box = 'norcams/centos7'
 
-  config.vm.provider :virtualbox do |vb|
-    vb.customize ["modifyvm", :id, "--ioapic", "on"]
-    vb.customize ["modifyvm", :id, "--cpus", 2]
-    vb.customize ["modifyvm", :id, "--memory", 1024]
-  end
+  config.vm.synced_folder '.', '/vagrant', type: 'rsync',
+    rsync__exclude: [ '.git/', '.vagrant/' ]
 
   config.vm.provision :shell, :inline => $provision
+  config.vm.provision :shell, :inline => $puppetrun
 
-  if Vagrant.has_plugin?("vagrant-cachier")
+  if Vagrant.has_plugin?('vagrant-cachier')
     config.cache.scope = :machine
+  end
+
+  config.vm.provider :virtualbox do |provider, override|
+    provider.customize ['modifyvm', :id, '--ioapic', 'on']
+    provider.customize ['modifyvm', :id, '--cpus', 2]
+    provider.customize ['modifyvm', :id, '--memory', 1024]
   end
 
 end
