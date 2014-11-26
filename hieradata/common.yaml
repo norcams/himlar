@@ -2,7 +2,7 @@
 classes:
   - profile::base
 
-ssh::server::storeconfigs_enabled: true
+ssh::server::storeconfigs_enabled: false
 
 ssh::server::options:
     # Need this for 2FA (saz-ssh-modulen disables default)
