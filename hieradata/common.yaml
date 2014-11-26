@@ -2,3 +2,11 @@
 classes:
   - profile::base
 
+ssh::server::storeconfigs_enabled: true
+
+ssh::server::options:
+    # Need this for 2FA (saz-ssh-modulen disables default)
+    ChallengeResponseAuthentication: 'yes'
+    # module enables this but just to make sure
+    UsePAM: 'yes'
+
