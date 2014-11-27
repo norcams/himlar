@@ -8,3 +8,11 @@ ntp::servers:
   - 2.pool.ntp.org
   - 3.pool.ntp.org
 
+ssh::server::storeconfigs_enabled: false
+
+ssh::server::options:
+    # Need this for 2FA (saz-ssh-modulen disables default)
+    ChallengeResponseAuthentication: 'yes'
+    # module enables this but just to make sure
+    UsePAM: 'yes'
+
