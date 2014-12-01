@@ -1,0 +1,6 @@
+---
+ssh::server::options:
+  # Need this for 2FA (saz-ssh-modulen disables default)
+  ChallengeResponseAuthentication: yes
+  UsePAM: yes
+
