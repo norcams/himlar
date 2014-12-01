@@ -2,9 +2,8 @@
 # Puppetfile
 #
 mod 'profile',
-  :git => 'https://github.com/beddari/himlar-profile',
-#  :ref => '0.1.0'
-  :branch => 'manage_options'
+  :git => 'https://github.com/norcams/himlar-profile',
+  :ref => '0.2.0'
 
 #
 # profile::base

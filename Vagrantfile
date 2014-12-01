@@ -19,8 +19,8 @@ $puppetrun=<<SHELL
   source=/vagrant
 
   mkdir -p $environment $source/modules
-  ln -sf $source/hieradata /etc/puppet/hieradata
-  ln -sf $source/modules $environment/modules
+  ln -sf $source/hieradata /etc/puppet/
+  ln -sf $source/modules $environment/
 
   cd $source && r10k --verbose 3 puppetfile install
 
@@ -28,7 +28,8 @@ $puppetrun=<<SHELL
   puppet config set environmentpath ${environment%/*}
   puppet config set hiera_config $source/hiera.yaml
   puppet config set certname base-vagrant-dev.vagrant.local
-  puppet apply --verbose --debug $source/site.pp
+  puppet config set disable_warnings deprecations
+  puppet apply --verbose $source/site.pp
 SHELL
 
 VAGRANTFILE_API_VERSION = '2'
