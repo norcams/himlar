@@ -1,6 +1,19 @@
 ---
 classes:
-  - profile::base
+  - profile::base::base
+
+profile::base::base::manage_epel:       true
+profile::base::base::manage_accounts:   true
+profile::base::base::manage_logging:    false
+profile::base::base::manage_monitoring: false
+profile::base::base::manage_sshd:       true
+profile::base::base::manage_ntp:        true
+profile::base::base::manage_sudo:       true
+profile::base::base::manage_authconfig: false
+profile::base::base::base_packages:     false
+
+profile::base::accounts::accounts:
+  {}
 
 ntp::servers:
   - 0.pool.ntp.org

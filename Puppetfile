@@ -3,7 +3,7 @@
 #
 mod 'profile',
   :git => 'https://github.com/norcams/himlar-profile',
-  :ref => '0.1.0'
+  :ref => '0.2.0'
 
 #
 # profile::base
@@ -24,6 +24,10 @@ mod 'ntp',
   :git => 'https://github.com/puppetlabs/puppetlabs-ntp',
   :ref => '3.3.0'
 
+mod 'account',
+  :git => 'https://github.com/Mylezeem/puppet-account.git',
+  :ref => 'multiple_accounts'
+
 #
 # Common lib
 #
@@ -34,4 +38,8 @@ mod 'stdlib',
 mod 'concat',
   :git => 'https://github.com/puppetlabs/puppetlabs-concat',
   :ref => '1.1.2'
+
+mod 'augeasproviders',
+  :git => 'https://github.com/hercules-team/augeasproviders',
+  :ref => 'v1.2.0'
 
