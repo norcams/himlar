@@ -2,8 +2,9 @@
 :hierarchy:
     - "nodes/%{::verified_certname}"
     - "%{::location}/%{::role}"
-    - "default/%{::role}"
-    - common
+    - "%{::location}/common"
+    - "defaults/%{::role}"
+    - "defaults/common"
 
 :merge_behavior: deeper
 :backends:
