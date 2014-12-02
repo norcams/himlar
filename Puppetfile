@@ -5,6 +5,12 @@ mod 'profile',
   :git => 'https://github.com/norcams/himlar-profile',
   :ref => '0.2.0'
 
+# admin role
+#
+mod 'googleauthenticator',
+  :git => 'https://github.com/camptocamp/puppet-googleauthenticator',
+  :ref => '1.0.1'
+
 #
 # profile::base
 #
