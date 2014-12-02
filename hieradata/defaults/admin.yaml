@@ -2,8 +2,14 @@
 profile::base::accounts::accounts:
   beddari:
     ssh_key: AAAAB3NzaC1yc2EAAAADAQABAAABAQDV5iURXYrx45xuyHkqlSaU/8WFF+z61YXvfjjV2gVBn9b7vFVFXjQ+Fo4GAUPd+jsv9qBgdWrqZTlVY/k0hrjMnZYOuEwAWQ58bXvFvlyY8FikwB1QxeTjH0wyjvGjZlqd8kruU8dwwzwQeAH3aehPNw2kb3OCsXVGp14t/hsJpHnbQwkjZX5tgAa2PV0GAhcDYaZBy31LJ4U9Qa644SKKGsKR26UKSq2LI/fep1v3oe2aNU5ixRtxKhtrdHnKl+/whqJjwAE4fC1PFMYMJnatzAYnwQ8OXWD4Vg7CU+bB/OXNu+vhpoHKibI089km6/3eT4USAhvu36HiwIFkb/sR
+    groups:
+      - wheel
+      - users
   mikaeld:
     ssh_key: AAAAB3NzaC1yc2EAAAABIwAAAQEAu6LmtQMkPIpHmUeHbfdA0425xDSRZpArCq7KuTYRurQOWssrPhMIpAa6OV2LPkpRLF0YIbzoHEXSqkgNwo6F1Qhy7E0l8TnKO5JtuctJtWUzvdesVniUszsXOg7543ZuEaA4qr2EPZSaASOemcMhUgr29wiUKaZF1h8LOXb3za7OORuWR/FW++HfUlPssmWA3R0KtC7OLhkum7c2+59rCaNYFIBUuepKURxDOqYI9sm7TdMw6+dbRUSsqUX2ITlcHhOYp2ehpnG/PpfIN/WFChudhAIDFFgTBImDtJ3Rx1oG45PB1f+r+IIZ6hzndkjqxdlTWpaY4q3ZOeGSFgCJVw==
+    groups:
+      - wheel
+      - users
 
 ssh::server::options:
   # Need this for 2FA (saz-ssh-modulen disables default)
