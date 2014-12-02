@@ -3,7 +3,8 @@
 #
 mod 'profile',
   :git => 'https://github.com/norcams/himlar-profile',
-  :ref => '0.2.0'
+#  :ref => '0.2.0'
+  :branch => 'master'
 
 # admin role
 #
