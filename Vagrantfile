@@ -2,34 +2,33 @@
 # vi: set ft=ruby :
 
 $provision=<<SHELL
-  install_puppet_and_tooling()
+  install_puppet_and_tools()
   {
     rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm
     yum install -y puppet facter rubygems rubygem-deep_merge \
       rubygem-puppet-lint git
+    # puppet settings
+    ln -sfT /vagrant/hieradata /etc/puppet/hieradata
+    puppet config set hiera_config /vagrant/hiera.yaml
+    puppet config set basemodulepath /vagrant/modules:/etc/puppet/modules
+    puppet config set disable_warnings deprecations
+    puppet config set trusted_node_data true
+  }
+  install_puppetfile()
+  {
+    PUPPETFILE=/vagrant/Puppetfile \
+    PUPPETFILE_DIR=/etc/puppet/modules \
+    r10k --verbose 4 puppetfile install
   }
   export PATH=$PATH:/usr/local/bin
-  command -v puppet >/dev/null 2>&1 || install_puppet_and_tooling
+  command -v puppet >/dev/null 2>&1 || install_puppet_and_tools
   command -v r10k >/dev/null 2>&1   || gem install r10k --no-ri --no-rdoc
+  test -d /etc/puppet/modules       || install_puppetfile
 SHELL
 
 $puppetrun=<<SHELL
-  export PATH=$PATH:/usr/local/bin
-  environment=/etc/puppet/environments/production
-  source=/vagrant
-
-  mkdir -p $environment $source/modules
-  ln -sf $source/hieradata /etc/puppet/
-  ln -sf $source/modules $environment/
-
-  cd $source && r10k --verbose 3 puppetfile install
-
-  puppet config set trusted_node_data true
-  puppet config set environmentpath ${environment%/*}
-  puppet config set hiera_config $source/hiera.yaml
   puppet config set certname base-vagrant-dev.vagrant.local
-  puppet config set disable_warnings deprecations
-  puppet apply --verbose $source/site.pp
+  puppet apply --verbose --debug /vagrant/manifests/site.pp
 SHELL
 
 VAGRANTFILE_API_VERSION = '2'
