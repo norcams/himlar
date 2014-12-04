@@ -23,3 +23,7 @@ googleauthenticator::pam::mode::modes:
   wheel-only:
     condition: 'user ingroup wheel'
 
+googleauthenticator::pam::modules:
+  sshd:
+    mode: wheel-only
+
