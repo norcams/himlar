@@ -16,8 +16,8 @@ profile::base::accounts::accounts:
 
 ssh::server::options:
   # Need this for 2FA (saz-ssh-modulen disables default)
-  ChallengeResponseAuthentication: yes
-  UsePAM: yes
+  ChallengeResponseAuthentication: 'yes'
+  UsePAM: 'yes'
 
 googleauthenticator::pam::mode::modes:
   wheel-only:
