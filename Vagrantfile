@@ -21,14 +21,14 @@ $provision=<<SHELL
     r10k --verbose 4 puppetfile install
   }
   export PATH=$PATH:/usr/local/bin
-  command -v puppet >/dev/null 2>&1 || install_puppet_and_tools
-  command -v r10k >/dev/null 2>&1   || gem install r10k --no-ri --no-rdoc
-  test -d /etc/puppet/modules       || install_puppetfile
+  command -v puppet >/dev/null 2>&1      || install_puppet_and_tools
+  command -v r10k >/dev/null 2>&1        || gem install r10k --no-ri --no-rdoc
+  test -n "$(ls -A /etc/puppet/modules)" || install_puppetfile
 SHELL
 
 $puppetrun=<<SHELL
   puppet config set certname base-vagrant-dev.vagrant.local
-  puppet apply --verbose --debug /vagrant/manifests/site.pp
+  puppet apply --verbose /vagrant/manifests/site.pp
 SHELL
 
 VAGRANTFILE_API_VERSION = '2'
