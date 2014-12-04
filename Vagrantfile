@@ -27,6 +27,13 @@ $provision=<<SHELL
 SHELL
 
 $puppetrun=<<SHELL
+  # remove modules that are overridden in /vagrant/modules
+  modules="$(ls -d /vagrant/modules/*/)"
+  for m in $modules; do
+    echo "$m is overridden in /vagrant/modules"
+    rm -rf /etc/puppet/$(echo ${m#/vagrant/})
+  done
+
   puppet config set certname base-vagrant-dev.vagrant.local
   puppet apply --verbose /vagrant/manifests/site.pp
 SHELL
