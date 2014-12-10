@@ -3,14 +3,14 @@
 #
 mod 'profile',
   :git => 'https://github.com/norcams/himlar-profile',
-#  :ref => '0.2.0'
-  :branch => 'master'
+  :ref => '0.3.0'
+#  :branch => 'master'
 
 # admin role
 #
 mod 'googleauthenticator',
-  :git => 'https://github.com/camptocamp/puppet-googleauthenticator',
-  :ref => '1.0.1'
+  :git => 'https://github.com/norcams/puppet-googleauthenticator',
+  :ref => 'norcams-0.1.0'
 
 #
 # profile::base

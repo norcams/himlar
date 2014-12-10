@@ -1,4 +1,10 @@
 ---
+account::accounts:
+  vagrant:
+    groups:
+      - wheel
+      - users
+
 sudo::configs:
   requiretty:
     priority: 5
