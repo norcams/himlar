@@ -9,7 +9,7 @@ mod 'profile',
 # admin role
 #
 mod 'googleauthenticator',
-  :git => 'https://github.com/camptocamp/puppet-googleauthenticator',
+  :git => 'https://github.com/norcams/puppet-googleauthenticator',
 #  :ref => '1.0.1'
   :branch => 'master'
 
