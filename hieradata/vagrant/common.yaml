@@ -1,8 +1,14 @@
 ---
+account::accounts:
+  vagrant:
+    groups:
+      - wheel
+      - users
+
 sudo::configs:
   requiretty:
     priority: 5
     content: 'Defaults:vagrant !requiretty'
   vagrant:
     priority: 10
-    content: 'vagrant ALL=(ALL) NOPASSWD:ALL'
+    content: 'vagrant ALL=(ALL) NOPASSWD:ALLi'
