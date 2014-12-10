@@ -35,6 +35,10 @@ mod 'account',
   :git => 'https://github.com/Mylezeem/puppet-account.git',
   :ref => 'multiple_accounts'
 
+mod 'timezone',
+  :git => 'https://github.com/saz/puppet-timezone.git',
+  :ref => 'v3.1.1'
+
 #
 # Common lib
 #
