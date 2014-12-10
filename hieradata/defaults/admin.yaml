@@ -15,13 +15,19 @@ profile::base::accounts::accounts:
       - users
 
 ssh::server::options:
-  # Need this for 2FA (saz-ssh-modulen disables default)
+  # Need this for 2FA (saz-ssh-module disables by default)
   ChallengeResponseAuthentication: 'yes'
+  # The second publickey is until the pam files are fixed
+  AuthenticationMethods: 'publickey,keyboard-interactive:pam publickey'
+  # Explicitly enable the required methods
   UsePAM: 'yes'
+  PasswordAuthentication: 'yes'
+  PubKeyAuthentication: 'yes'
 
 googleauthenticator::pam::mode::modes:
   wheel-only:
     condition: 'user ingroup wheel'
+    nullok: true
 
 googleauthenticator::pam::modules:
   sshd:
