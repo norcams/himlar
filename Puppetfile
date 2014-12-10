@@ -10,7 +10,8 @@ mod 'profile',
 #
 mod 'googleauthenticator',
   :git => 'https://github.com/camptocamp/puppet-googleauthenticator',
-  :ref => '1.0.1'
+#  :ref => '1.0.1'
+  :branch => 'master'
 
 #
 # profile::base
