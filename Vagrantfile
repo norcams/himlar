@@ -6,7 +6,7 @@ $provision=<<SHELL
   {
     rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm
     yum install -y puppet facter rubygems rubygem-deep_merge \
-      rubygem-puppet-lint git
+      rubygem-puppet-lint git vim inotify-tools
     # puppet settings
     ln -sfT /vagrant/hieradata /etc/puppet/hieradata
     puppet config set hiera_config /vagrant/hiera.yaml
