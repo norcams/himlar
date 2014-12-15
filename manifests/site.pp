@@ -8,8 +8,8 @@
 # Parse data from $trusted['certname'] for hiera lookup
 $verified_certname = $trusted['certname']
 $certname_a        = split($verified_certname, "-")
-$role              = $::certname_a[0]
-$location          = $::certname_a[1]
+$location          = $::certname_a[0]
+$role              = $::certname_a[1]
 
 hiera_include('classes', [])
 
