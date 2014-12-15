@@ -34,7 +34,7 @@ $puppetrun=<<SHELL
     rm -rf /etc/puppet/$(echo ${m#/vagrant/})
   done
 
-  puppet config set certname base-vagrant-dev.vagrant.local
+  puppet config set certname vagrant-base-dev.vagrant.local
   puppet apply --verbose /vagrant/manifests/site.pp
 SHELL
 
