@@ -7,7 +7,7 @@ mod 'himlar',
 #  :branch => 'master'
 
 mod 'profile',
-  :git => 'https://github.com/norcams/puppeels'
+  :git => 'https://github.com/norcams/puppeels',
   :branch => 'master'
 
 # admin role
