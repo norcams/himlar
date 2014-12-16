@@ -1,10 +1,14 @@
 #
 # Puppetfile
 #
-mod 'profile',
+mod 'himlar',
   :git => 'https://github.com/norcams/himlar-profile',
-  :ref => '0.3.0'
+  :ref => '0.4.0'
 #  :branch => 'master'
+
+mod 'profile',
+  :git => 'https://github.com/norcams/puppeels'
+  :branch => 'master'
 
 # admin role
 #
