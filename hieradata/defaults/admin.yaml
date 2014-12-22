@@ -18,6 +18,11 @@ account::accounts:
     groups:
       - wheel
       - users
+  torldre:
+    ssh_key: AAAAB3NzaC1kc3MAAACBAIAOOn1uU4Djl45V6ALi4qdAvktzYcLdIPQeC/MhQ6SDV/NusbTRC25rgPQzWHHLS4fPf1lE9ZUnGnEZIqhBIQf7fjYixz/k5s4C9NKvkvyufzX384LWbwo5RBbib0NCutT0OL2YpcJgkGeQZ/BFKwhlut2TP6rA8TOC7U7kRtKBAAAAFQCsBy43OnJchfOFQ1seoJhQnx5hawAAAIAuXEzgn7X2pDcSWqkAv7ikyn6jRA6IT+BuQgnaea/pUtuj/B2PbN+bf4K8GLL7L/Ep74WP0vvM3x4Angf9ny6Ss9Xr4rxKoShZTxpD5+eOVs8VarvFHSW8tt4V7EsXkpXdNUgrfZu/26VfqbRq5+VPFvNYQIhCEs1XSyR2CgW0fAAAAIAg4/b+URwyVWmCexSbQzFtdud+Vpwxo0wstd2xmhCbWIRKiLfKmm2BLeMugZgPPPSgQf4CdbcoPKYBCZxccfkJuTky4IDuZs6GPeM6MA1Bhttfa4KcOMhq52TIXarUYwbpjugUoQG+3n+xbTRarp0Ic/mj2BKtyZlX4ir/NlurQA==
+    groups:
+      - wheel
+      - users
 
 ssh::server::options:
   # Need this for 2FA (saz-ssh-module disables by default)
