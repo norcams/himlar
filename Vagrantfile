@@ -34,7 +34,10 @@ $puppetrun=<<SHELL
     rm -rf /etc/puppet/$(echo ${m#/vagrant/})
   done
 
-  puppet config set certname vagrant-base-dev.vagrant.local
+  if [ -z "$HIMLAR_CERT_NAME" ]; then
+    HIMLAR_CERT_NAME=vagrant-base-dev.vagrant.local
+  fi
+  puppet config set certname "$HIMLAR_CERT_NAME"
   puppet apply --verbose /vagrant/manifests/site.pp
 SHELL
 
