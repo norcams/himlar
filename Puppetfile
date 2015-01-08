@@ -17,6 +17,12 @@ mod 'googleauthenticator',
   :ref => 'norcams-0.1.0'
 
 #
+# controller role
+#
+mod 'garethr/erlang'
+mod 'puppetlabs/rabbitmq'
+
+#
 # profile::base
 #
 mod 'epel',
