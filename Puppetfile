@@ -20,7 +20,9 @@ mod 'googleauthenticator',
 # controller role
 #
 mod 'garethr/erlang'
-mod 'puppetlabs/rabbitmq'
+mod 'puppetlabs/rabbitmq',
+  :git => 'https://github.com/puppetlabs/puppetlabs-rabbitmq.git',
+  :ref => '3.1.0'
 
 #
 # profile::base
