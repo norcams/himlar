@@ -34,9 +34,8 @@ $puppetrun=<<SHELL
     rm -rf /etc/puppet/$(echo ${m#/vagrant/})
   done
 
-  # Place variables you want to be set while providing the machine in this
-  # file.  For instance HIMLAR_CERTNAME
-  [ -f /vagrant/.envvars ] && . /vagrant/.envvars
+  # Extract variable
+  HIMLAR_CERTNAME=#{ENV['HIMLAR_CERTNAME']}
 
   puppet config set certname "${HIMLAR_CERTNAME:-vagrant-base-dev.vagrant.local}"
   puppet apply --verbose /vagrant/manifests/site.pp
