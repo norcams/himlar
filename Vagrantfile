@@ -5,8 +5,9 @@ $provision=<<SHELL
   install_puppet_and_tools()
   {
     rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm
+    rpm -Uvh http://download.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
     yum install -y puppet facter rubygems rubygem-deep_merge \
-      rubygem-puppet-lint git vim inotify-tools
+      rubygem-puppet-lint git vim inotify-tools erlang
     # puppet settings
     ln -sfT /vagrant/hieradata /etc/puppet/hieradata
     puppet config set hiera_config /vagrant/hiera.yaml
