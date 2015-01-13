@@ -27,6 +27,12 @@ account::accounts:
     groups:
       - wheel
       - users
+  hanshj:
+    ssh_key_type: rsa
+    ssh_key: AAAAB3NzaC1yc2EAAAADAQABAAABAQDP0oBHkOyPFmjMZul68zcrf3cxLj7MCjLpswnSmgSxplXH5n0NOZ4NGAHASHmP4pEhVZx5FUZxBiXVdHj1aJdVBlblz3m3hq72Mpft5mYMJaaeCSCg0kwwt9p02MMIy/+3neLQc1HdxG93LaweGnFe8RLNCGHK93GZubnbUCEsVt6cO/edEqtZnRLE439Kx/DUXi7bf8S/+7Uh6inYQtgt/6ypG86iwSDxdWWx6jGv3BcTUJnbgGoQqUZ2Mn2RKBICFq2I+Vi4dFvGXcb9Jc5m9D4JCpwao6wiNtPD3aJUBlauE4yZa+Qv+V5tczCammOHSjx1qCfnLEQev5F9i0Bn
+    groups:
+      - wheel
+      - users
 
 ssh::server::options:
   # Need this for 2FA (saz-ssh-module disables by default)
