@@ -1,18 +1,19 @@
 ---
 classes:
-  - himlar::base::base
+  - profile::base::common
 
-himlar::base::base::manage_epel:       true
-himlar::base::base::manage_accounts:   true
-himlar::base::base::manage_logging:    false
-himlar::base::base::manage_monitoring: false
-himlar::base::base::manage_sshd:       true
-himlar::base::base::manage_ntp:        true
-himlar::base::base::manage_sudo:       true
-himlar::base::base::manage_authconfig: false
-himlar::base::base::base_packages:     false
+profile::base::common::manage_epel:       true
+profile::base::common::manage_accounts:   true
+profile::base::common::manage_logging:    false
+profile::base::common::manage_monitoring: false
+profile::base::common::manage_sshd:       true
+profile::base::common::manage_ntp:        true
+profile::base::common::manage_sudo:       true
+profile::base::common::manage_authconfig: false
+profile::base::common::common_packages:   false
+profile::base::common::manage_firewall:   false
 
-himlar::base::accounts::accounts:
+account::accounts:
   {}
 
 ntp::servers:
