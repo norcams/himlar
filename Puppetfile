@@ -10,14 +10,15 @@ mod 'profile',
   :git => 'https://github.com/norcams/puppeels',
   :branch => 'master'
 
-# admin role
+#
+# login
 #
 mod 'googleauthenticator',
   :git => 'https://github.com/norcams/puppet-googleauthenticator',
   :ref => 'norcams-0.1.0'
 
 #
-# controller role
+# controller
 #
 mod 'garethr/erlang'
 mod 'puppetlabs/firewall',

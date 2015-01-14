@@ -4,22 +4,32 @@ classes:
 
 account::accounts:
   beddari:
+    ssh_key_type: rsa
     ssh_key: AAAAB3NzaC1yc2EAAAADAQABAAABAQDV5iURXYrx45xuyHkqlSaU/8WFF+z61YXvfjjV2gVBn9b7vFVFXjQ+Fo4GAUPd+jsv9qBgdWrqZTlVY/k0hrjMnZYOuEwAWQ58bXvFvlyY8FikwB1QxeTjH0wyjvGjZlqd8kruU8dwwzwQeAH3aehPNw2kb3OCsXVGp14t/hsJpHnbQwkjZX5tgAa2PV0GAhcDYaZBy31LJ4U9Qa644SKKGsKR26UKSq2LI/fep1v3oe2aNU5ixRtxKhtrdHnKl+/whqJjwAE4fC1PFMYMJnatzAYnwQ8OXWD4Vg7CU+bB/OXNu+vhpoHKibI089km6/3eT4USAhvu36HiwIFkb/sR
     groups:
       - wheel
       - users
   ebm:
+    ssh_key_type: rsa
     ssh_key: AAAAB3NzaC1yc2EAAAADAQABAAABAQCuZ40vEBzipAk1E3JZ47/Ck8DjL0lWDkYIFbJE5O9qYPj9a0lHX9ytpNztI1flZvJXFo7ZzAi8xkwoiWtFCZgwjrzTjmynV8TH4zaJx5Y7q9uD6mMG+fQ0pq7TbEnS7HBAbEtfWa7zdMza6YkTvromfgrynfxgjJQ4CX8QpDiH61Ohn2ev+mjfIbAeveamJxrUEBHt5n2m6FXsztGGdYgl5Wq1xPn7Tcsp7LCEZSh+najaxw+vJscEPf0MiedTIU9RkvPfDk8rA5g0xjlsprt/HwxlDnRjizujiMWS6JEdPXP3R7w2g3/6Lg5wFxQIXUgYOKjLq0QYNlaWP6B7LPbb
     groups:
       - wheel
       - users
   mikaeld:
+    ssh_key_type: rsa
     ssh_key: AAAAB3NzaC1yc2EAAAABIwAAAQEAu6LmtQMkPIpHmUeHbfdA0425xDSRZpArCq7KuTYRurQOWssrPhMIpAa6OV2LPkpRLF0YIbzoHEXSqkgNwo6F1Qhy7E0l8TnKO5JtuctJtWUzvdesVniUszsXOg7543ZuEaA4qr2EPZSaASOemcMhUgr29wiUKaZF1h8LOXb3za7OORuWR/FW++HfUlPssmWA3R0KtC7OLhkum7c2+59rCaNYFIBUuepKURxDOqYI9sm7TdMw6+dbRUSsqUX2ITlcHhOYp2ehpnG/PpfIN/WFChudhAIDFFgTBImDtJ3Rx1oG45PB1f+r+IIZ6hzndkjqxdlTWpaY4q3ZOeGSFgCJVw==
     groups:
       - wheel
       - users
   torldre:
+    ssh_key_type: dsa
     ssh_key: AAAAB3NzaC1kc3MAAACBAIAOOn1uU4Djl45V6ALi4qdAvktzYcLdIPQeC/MhQ6SDV/NusbTRC25rgPQzWHHLS4fPf1lE9ZUnGnEZIqhBIQf7fjYixz/k5s4C9NKvkvyufzX384LWbwo5RBbib0NCutT0OL2YpcJgkGeQZ/BFKwhlut2TP6rA8TOC7U7kRtKBAAAAFQCsBy43OnJchfOFQ1seoJhQnx5hawAAAIAuXEzgn7X2pDcSWqkAv7ikyn6jRA6IT+BuQgnaea/pUtuj/B2PbN+bf4K8GLL7L/Ep74WP0vvM3x4Angf9ny6Ss9Xr4rxKoShZTxpD5+eOVs8VarvFHSW8tt4V7EsXkpXdNUgrfZu/26VfqbRq5+VPFvNYQIhCEs1XSyR2CgW0fAAAAIAg4/b+URwyVWmCexSbQzFtdud+Vpwxo0wstd2xmhCbWIRKiLfKmm2BLeMugZgPPPSgQf4CdbcoPKYBCZxccfkJuTky4IDuZs6GPeM6MA1Bhttfa4KcOMhq52TIXarUYwbpjugUoQG+3n+xbTRarp0Ic/mj2BKtyZlX4ir/NlurQA==
+    groups:
+      - wheel
+      - users
+  hanshj:
+    ssh_key_type: rsa
+    ssh_key: AAAAB3NzaC1yc2EAAAADAQABAAABAQDP0oBHkOyPFmjMZul68zcrf3cxLj7MCjLpswnSmgSxplXH5n0NOZ4NGAHASHmP4pEhVZx5FUZxBiXVdHj1aJdVBlblz3m3hq72Mpft5mYMJaaeCSCg0kwwt9p02MMIy/+3neLQc1HdxG93LaweGnFe8RLNCGHK93GZubnbUCEsVt6cO/edEqtZnRLE439Kx/DUXi7bf8S/+7Uh6inYQtgt/6ypG86iwSDxdWWx6jGv3BcTUJnbgGoQqUZ2Mn2RKBICFq2I+Vi4dFvGXcb9Jc5m9D4JCpwao6wiNtPD3aJUBlauE4yZa+Qv+V5tczCammOHSjx1qCfnLEQev5F9i0Bn
     groups:
       - wheel
       - users
