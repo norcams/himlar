@@ -8,7 +8,7 @@ for m in $modules; do
 done
 
 # Set default certname
-certname="vagrant-base-dev.vagrant.local"
+certname="vagrant-common-dev.vagrant.local"
 # Override with env var if present
 certname="${HIMLAR_CERTNAME:-$certname}"
 # Override from command line argument $1 if present
