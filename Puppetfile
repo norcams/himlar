@@ -17,16 +17,14 @@ mod 'googleauthenticator',
 # controller
 #
 mod 'garethr/erlang'
-mod 'puppetlabs/firewall',
-  :git => 'https://github.com/puppetlabs/puppetlabs-firewall.git',
-  :ref => '1.3.0'
-mod 'puppetlabs/rabbitmq',
-  :git => 'https://github.com/puppetlabs/puppetlabs-rabbitmq.git',
-  :ref => '3.1.0'
 
 mod 'puppetlabs/firewall',
   :git => 'https://github.com/puppetlabs/puppetlabs-firewall.git',
   :ref => '1.3.0'
+
+mod 'puppetlabs/rabbitmq',
+  :git => 'https://github.com/puppetlabs/puppetlabs-rabbitmq.git',
+  :ref => '3.1.0'
 
 #
 # profile::base
