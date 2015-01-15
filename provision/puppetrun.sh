@@ -9,6 +9,9 @@ done
 
 # Set default certname
 certname="vagrant-common-dev.vagrant.local"
+# Override with certname from puppet.conf if present
+certname_conf="$(puppet config print certname)"
+certname="${certname_conf:-$certname}"
 # Override with env var if present
 certname="${HIMLAR_CERTNAME:-$certname}"
 # Override from command line argument $1 if present
