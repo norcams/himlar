@@ -1,4 +1,6 @@
 classes:
-  - erlang
-  - profile::messaging::rabbitmq
+   - profile::messaging::rabbitmq
+   - erlang
+
+profile::messaging::rabbitmq::manage_firewall: false
 
