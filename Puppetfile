@@ -26,6 +26,30 @@ mod 'puppetlabs/rabbitmq',
   :git => 'https://github.com/puppetlabs/puppetlabs-rabbitmq.git',
   :ref => '3.1.0'
 
+mod 'puppetlabs/concat',
+  :git => 'https://github.com/puppetlabs/puppetlabs-concat.git',
+  :ref => '1.1.2'
+
+mod 'puppetlabs/stdlib',
+  :git => 'https://github.com/puppetlabs/puppetlabs-stdlib.git',
+  :ref => '4.5.1'
+
+mod 'puppetlabs/apache',
+  :git => 'https://github.com/puppetlabs/puppetlabs-apache.git',
+  :ref => '1.2.0'
+
+mod 'puppetlabs/inifile',
+  :git => 'https://github.com/puppetlabs/puppetlabs-inifile.git',
+  :ref => '1.2.0'
+
+mod 'puppetlabs/mysql',
+  :git => 'https://github.com/puppetlabs/puppetlabs-mysql.git',
+  :ref => '2.3.1'
+
+mod 'puppetlabs/keystone',
+  :git => 'https://github.com/puppetlabs/puppetlabs-keystone.git',
+  :ref => '4.2.0'
+
 #
 # profile::base
 #
