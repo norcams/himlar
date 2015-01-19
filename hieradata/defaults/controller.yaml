@@ -6,6 +6,8 @@ classes:
 profile::openstack::identiry::manage_firewall: false
 profile::messaging::rabbitmq::manage_firewall: false
 
-keystone::roles::admin::email: 'erlend.midttun@ntnu.no'
-keystone::roles::admin::password: 'Rema1000'
-keystone::admin_token: 'random_uuid'
+::keystone::roles::admin::email: 'erlend.midttun@ntnu.no'
+::keystone::roles::admin::password: 'Rema1000'
+::keystone::admin_token: 'random_uuid'
+
+::swift::keystone::auth

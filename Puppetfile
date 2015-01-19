@@ -50,6 +50,27 @@ mod 'puppetlabs/keystone',
   :git => 'https://github.com/puppetlabs/puppetlabs-keystone.git',
   :ref => '4.2.0'
 
+mod 'puppetlabs/rsync',
+  :git => 'https://github.com/puppetlabs/puppetlabs-rsync.git',
+  :ref => '0.3.1'
+
+mod 'puppetlabs/xinetd',
+  :git => 'https://github.com/puppetlabs/puppetlabs-xinetd.git',
+  :ref => '1.3.1'
+
+mod 'saz/memcached',
+  :git => 'https://github.com/puppetlabs/saz-memcached.git',
+  :ref => '2.6.0'
+
+mod 'saz/ssh',
+  :git => 'https://github.com/saz/puppet-ssh.git',
+  :ref => '2.4.0'
+
+mod 'puppetlabs/swift',
+  :git => 'https://github.com/puppetlabs/puppetlabs-swift.git',
+  :ref => '4.1.0'
+
+
 #
 # profile::base
 #
@@ -60,10 +81,6 @@ mod 'epel',
 mod 'sudo',
   :git => 'https://github.com/saz/puppet-sudo',
   :ref => 'v3.0.9'
-
-mod 'ssh',
-  :git => 'https://github.com/saz/puppet-ssh',
-  :ref => 'v2.4.0'
 
 mod 'ntp',
   :git => 'https://github.com/puppetlabs/puppetlabs-ntp',
@@ -80,14 +97,6 @@ mod 'timezone',
 #
 # Common lib
 #
-mod 'stdlib',
-  :git => 'https://github.com/puppetlabs/puppetlabs-stdlib',
-  :ref => '4.4.0'
-
-mod 'concat',
-  :git => 'https://github.com/puppetlabs/puppetlabs-concat',
-  :ref => '1.1.2'
-
 mod 'augeasproviders',
   :git => 'https://github.com/hercules-team/augeasproviders',
   :ref => 'v1.2.0'
