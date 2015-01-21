@@ -3,11 +3,19 @@ classes:
    - profile::openstack::identity
    - erlang
 
-profile::openstack::identiry::manage_firewall: false
 profile::messaging::rabbitmq::manage_firewall: false
 
-::keystone::roles::admin::email: 'erlend.midttun@ntnu.no'
-::keystone::roles::admin::password: 'Rema1000'
-::keystone::admin_token: 'random_uuid'
+profile::openstack::identity::ceilometer_enabled: false
+profile::openstack::identity::cinder_enabled:     false
+profile::openstack::identity::glance_enabled:     false
+profile::openstack::identity::neutron_enabled:    false
+profile::openstack::identity::nova_enabled:       false
+profile::openstack::identity::swift_enabled:      false
+profile::openstack::identity::trove_enabled:      false
+profile::openstack::identity::manage_firewall:    false
 
-::swift::keystone::auth
+
+keystone::roles::admin::email: 'erlend.midttun@ntnu.no'
+keystone::roles::admin::password: 'Rema1000'
+keystone::admin_token: '83308c80-a13f-11e4-a29a-34e6d71123b0'
+

@@ -60,11 +60,11 @@ mod 'puppetlabs/xinetd',
 
 mod 'saz/memcached',
   :git => 'https://github.com/saz/puppet-memcached.git',
-  :ref => '2.6.0'
+  :ref => 'v2.6.0'
 
 mod 'saz/ssh',
   :git => 'https://github.com/saz/puppet-ssh.git',
-  :ref => '2.4.0'
+  :ref => 'v2.4.0'
 
 mod 'puppetlabs/swift',
   :git => 'https://github.com/puppetlabs/puppetlabs-swift.git',
