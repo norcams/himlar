@@ -22,4 +22,4 @@ foreman_proxy::dhcp_interface:          eth2
 foreman_proxy::dhcp_range:              "10.0.0.100 10.0.0.250"
 foreman_proxy::dhcp_gateway:            10.0.0.1
 foreman_proxy::dhcp_nameservers:        "10.0.0.1, 10.0.0.2"
-#foreman_proxy::trusted_hosts:           []
+foreman_proxy::trusted_hosts:           [localhost]
