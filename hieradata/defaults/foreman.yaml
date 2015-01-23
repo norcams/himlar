@@ -13,6 +13,7 @@ foreman_proxy::ssl:                     false
 foreman_proxy::port:                    8000
 foreman_proxy::foreman_base_url:        http://127.0.0.1
 foreman_proxy::registered_proxy_url:    http://127.0.0.1:8000
+foreman_proxy::register_in_foreman:     true
 foreman_proxy::manage_sudoersd:         false
 foreman_proxy::puppetrun:               true
 foreman_proxy::puppetca:                true
@@ -22,4 +23,4 @@ foreman_proxy::dhcp_interface:          eth2
 foreman_proxy::dhcp_range:              "10.0.0.100 10.0.0.250"
 foreman_proxy::dhcp_gateway:            10.0.0.1
 foreman_proxy::dhcp_nameservers:        "10.0.0.1, 10.0.0.2"
-#foreman_proxy::trusted_hosts:           []
+foreman_proxy::trusted_hosts:           [localhost]

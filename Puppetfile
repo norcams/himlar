@@ -27,7 +27,7 @@ mod 'puppetlabs/rabbitmq',
 mod 'zack/r10k',
   :ref => '2.5.2'
 mod 'theforeman/foreman',
-  :git => 'https://github.com/theforeman/puppet-foreman.git'
+  :git => 'https://github.com/theforeman/puppet-foreman.git',
   :ref => 'a6d46edd41' # 2.3.1 ++
 mod 'theforeman/concat_native',
   :ref => '1.3.1'
