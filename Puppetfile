@@ -48,7 +48,7 @@ mod 'puppetlabs/mysql',
 
 mod 'puppetlabs/keystone',
   :git => 'https://github.com/puppetlabs/puppetlabs-keystone.git',
-  :ref => '4.2.0'
+  :ref => '5.0.0'
 
 mod 'puppetlabs/rsync',
   :git => 'https://github.com/puppetlabs/puppetlabs-rsync.git',
