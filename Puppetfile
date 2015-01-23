@@ -28,7 +28,7 @@ mod 'zack/r10k',
   :ref => '2.5.2'
 mod 'theforeman/foreman',
   :git => 'https://github.com/theforeman/puppet-foreman.git'
-#  :ref => '2.3.1'  Important bug fixed in master, but not in tagged releases yet
+  :ref => 'a6d46edd41' # 2.3.1 ++
 mod 'theforeman/concat_native',
   :ref => '1.3.1'
 mod 'theforeman/tftp',
