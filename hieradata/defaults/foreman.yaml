@@ -1,0 +1,25 @@
+---
+classes:
+  - profile::application::foreman
+  - foreman::cli
+  - profile::database::postgresql
+
+foreman::configure_epel_repo:           false
+foreman::admin_password:                changeme
+foreman::ssl:                           false
+foreman::foreman_url:                   http://10.0.0.1
+foreman::cli::manage_root_config:       true
+foreman_proxy::ssl:                     false
+foreman_proxy::port:                    8000
+foreman_proxy::foreman_base_url:        http://127.0.0.1
+foreman_proxy::registered_proxy_url:    http://127.0.0.1:8000
+foreman_proxy::manage_sudoersd:         false
+foreman_proxy::puppetrun:               true
+foreman_proxy::puppetca:                true
+foreman_proxy::dhcp:                    true
+foreman_proxy::dhcp_managed:            true
+foreman_proxy::dhcp_interface:          eth2
+foreman_proxy::dhcp_range:              "10.0.0.100 10.0.0.250"
+foreman_proxy::dhcp_gateway:            10.0.0.1
+foreman_proxy::dhcp_nameservers:        "10.0.0.1, 10.0.0.2"
+#foreman_proxy::trusted_hosts:           []
