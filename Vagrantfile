@@ -23,5 +23,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vbox.customize ['modifyvm', :id, '--memory', 1024]
   end
 
+  config.vm.provider :libvirt do |libvirt|
+    libvirt.driver = 'kvm'
+    libvirt.cpus = 2
+    libvirt.memory = 1024
+  end
 end
 
