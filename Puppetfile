@@ -34,7 +34,8 @@ mod 'theforeman/concat_native',
 mod 'theforeman/tftp',
   :ref => '1.4.3'
 mod 'theforeman/puppet',
-  :ref => '2.3.1'
+  :git => 'https://github.com/theforeman/puppet-puppet.git',
+  :ref => 'fd92b14686' # 2.3.1 ++
 mod 'theforeman/dns',
   :ref => '1.4.0'
 mod 'theforeman/dhcp',
