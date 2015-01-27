@@ -3,6 +3,7 @@ classes:
   - profile::application::foreman
   - foreman::cli
   - foreman::plugin::hooks
+  - foreman::plugin::discovery
   - profile::database::postgresql
 
 foreman::configure_epel_repo:           false
@@ -10,7 +11,6 @@ foreman::admin_password:                changeme
 foreman::ssl:                           false
 foreman::foreman_url:                   http://10.0.0.1
 foreman::cli::manage_root_config:       true
-foreman::plugin::package:               foreman_hooks
 foreman_proxy::ssl:                     false
 foreman_proxy::port:                    8000
 foreman_proxy::foreman_base_url:        http://127.0.0.1
