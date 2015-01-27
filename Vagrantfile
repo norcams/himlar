@@ -28,5 +28,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     libvirt.cpus = 2
     libvirt.memory = 1024
   end
+
+  if ENV['HIMLAR_BRIDGE']
+    config.vm.network :public_network, dev: ENV['HIMLAR_BRIDGE'], mode: 'bridge', auto_config: false
+  end
 end
 
