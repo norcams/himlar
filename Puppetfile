@@ -4,7 +4,7 @@
 
 mod 'profile',
   :git => 'https://github.com/norcams/puppeels',
-  :branch => 'norcams'
+  :ref => 'norcams'
 
 #
 # login
