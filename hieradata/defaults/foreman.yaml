@@ -4,6 +4,7 @@ classes:
   - foreman::cli
   - foreman::plugin::hooks
   - foreman::plugin::discovery
+  - foreman::plugin::templates
   - profile::database::postgresql
 
 foreman::configure_epel_repo:           false
