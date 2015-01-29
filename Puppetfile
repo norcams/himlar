@@ -4,7 +4,7 @@
 
 mod 'profile',
   :git => 'https://github.com/norcams/puppeels',
-  :branch => 'norcams'
+  :ref => 'norcams'
 
 #
 # login
@@ -70,6 +70,48 @@ mod 'puppetlabs/swift',
   :git => 'https://github.com/puppetlabs/puppetlabs-swift.git',
   :ref => '4.1.0'
 
+
+#
+# The Foreman
+#
+mod 'zack/r10k',
+  :ref => '2.5.2'
+mod 'theforeman/foreman',
+  :git => 'https://github.com/theforeman/puppet-foreman.git',
+  :ref => 'a6d46edd41' # 2.3.1 ++
+mod 'theforeman/concat_native',
+  :ref => '1.3.1'
+mod 'theforeman/tftp',
+  :ref => '1.4.3'
+mod 'theforeman/puppet',
+  :git => 'https://github.com/theforeman/puppet-puppet.git',
+  :ref => 'fd92b14686' # 2.3.1 ++
+mod 'theforeman/dns',
+  :ref => '1.4.0'
+mod 'theforeman/dhcp',
+  :ref => '1.4.0'
+mod 'theforeman/foreman_proxy',
+  :ref => '2.1.0'
+mod 'theforeman/git',
+  :ref => '1.4.0'
+mod 'puppetlabs/ruby',
+  :ref => '0.4.0'
+mod 'puppetlabs/xinetd',
+  :ref => '1.4.0'
+mod 'puppetlabs/apache',
+  :ref => '1.2.0'
+
+#
+# profile::database::postgresql
+#
+#mod 'yguenane/postgresqlrepo'
+#mod 'puppetlabs/postgresql'
+mod 'postgresqlrepo',
+:git => 'https://github.com/Mylezeem/puppet-postgresqlrepo.git',
+:ref => 'master'
+mod 'postgresql',
+:git => 'https://github.com/Mylezeem/puppetlabs-postgresql.git',
+:ref => 'pg_hba_rules'
 
 #
 # profile::base

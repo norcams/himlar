@@ -17,11 +17,20 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.cache.scope = :machine
   end
 
-  config.vm.provider :virtualbox do |provider, override|
-    provider.customize ['modifyvm', :id, '--ioapic', 'on']
-    provider.customize ['modifyvm', :id, '--cpus', 2]
-    provider.customize ['modifyvm', :id, '--memory', 1024]
+  config.vm.provider :virtualbox do |vbox|
+    vbox.customize ['modifyvm', :id, '--ioapic', 'on']
+    vbox.customize ['modifyvm', :id, '--cpus', 2]
+    vbox.customize ['modifyvm', :id, '--memory', 1024]
   end
 
+  config.vm.provider :libvirt do |libvirt|
+    libvirt.driver = 'kvm'
+    libvirt.cpus = 2
+    libvirt.memory = 1024
+  end
+
+  if ENV['HIMLAR_BRIDGE']
+    config.vm.network :public_network, dev: ENV['HIMLAR_BRIDGE'], mode: 'bridge', auto_config: false
+  end
 end
 
