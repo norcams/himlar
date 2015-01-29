@@ -20,14 +20,5 @@ provision_puppet()
   puppet config set trusted_node_data true
 }
 
-provision_puppetfile()
-{
-    PUPPETFILE=/opt/himlar/Puppetfile \
-    PUPPETFILE_DIR=/etc/puppet/modules \
-    r10k --verbose 4 puppetfile install
-}
-
-export PATH=$PATH:/usr/local/bin
 command -v puppet >/dev/null 2>&1                  || provision_puppet
-test -n "$(ls -A /etc/puppet/modules 2>/dev/null)" || provision_puppetfile
 
