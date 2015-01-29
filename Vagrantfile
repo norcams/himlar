@@ -11,6 +11,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     rsync__exclude: [ '.git/', '.vagrant/' ]
 
   config.vm.provision :shell, :path => 'provision/bootstrap.sh'
+  config.vm.provision :shell, :path => 'provision/puppetmodules.sh', args: ENV['HIMLAR_PUPPETFILE']
   config.vm.provision :shell, :path => 'provision/puppetrun.sh', args: ENV['HIMLAR_CERTNAME']
 
   if Vagrant.has_plugin?('vagrant-cachier')
