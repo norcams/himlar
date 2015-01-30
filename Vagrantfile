@@ -4,7 +4,13 @@
 VAGRANTFILE_API_VERSION = '2'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = 'norcams/centos7'
+
+  config.vm.define 'base', autostart: true, primary: true do |set|
+    set.vm.box = 'norcams/base'
+  end
+  config.vm.define 'netdev', autostart: false, primary: false do |set|
+    set.vm.box = 'norcams/netdev'
+  end
 
   config.vm.synced_folder '.', '/vagrant', disabled: true
   config.vm.synced_folder '.', '/opt/himlar', type: 'rsync',
