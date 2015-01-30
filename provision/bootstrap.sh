@@ -3,15 +3,28 @@
 provision_puppet()
 {
   # packages
-  rpm -ivh http://fedora.uib.no/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
-  rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm
-  yum install -y puppet facter rubygems rubygem-deep_merge \
-    rubygem-puppet-lint git vim inotify-tools
+  if command -v rpm >/dev/null 2>&1; then
+    # RHEL, CentOS, Fedora
+    rpm -ivh http://fedora.uib.no/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
+    rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm
+    yum install -y puppet facter rubygems rubygem-deep_merge \
+      rubygem-puppet-lint git vim inotify-tools
+  else
+    # Assume Debian/CumulusLinux
+    apt-get -y install ca-certificates
+    wget https://apt.puppetlabs.com/puppetlabs-release-wheezy.deb
+    dpkg -i puppetlabs-release-wheezy.deb
+    apt-get update && apt-get -y install puppet git ruby-deep-merge ruby-puppet-lint
+    # FIXME adding wheel group here temporarily
+    groupadd --system wheel
+  fi
+
   gem install r10k --no-ri --no-rdoc
 
   # file locations
-  ln -sfT /opt/himlar/hieradata /etc/puppet/hieradata
+  rm -rf /etc/puppet/manifests
   ln -sfT /opt/himlar/manifests /etc/puppet/manifests
+  ln -sfT /opt/himlar/hieradata /etc/puppet/hieradata
   ln -sfT /opt/himlar/hiera.yaml /etc/puppet/hiera.yaml
 
   # settings
