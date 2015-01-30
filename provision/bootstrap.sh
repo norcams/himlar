@@ -28,9 +28,9 @@ provision_puppet()
   ln -sfT /opt/himlar/hiera.yaml /etc/puppet/hiera.yaml
 
   # settings
-  puppet config set basemodulepath /opt/himlar/modules:/etc/puppet/modules
-  puppet config set disable_warnings deprecations
-  puppet config set trusted_node_data true
+  puppet config set --section main   basemodulepath    /opt/himlar/modules:/etc/puppet/modules
+  puppet config set --section main   disable_warnings  deprecations
+  puppet config set --section master trusted_node_data true
 }
 
 command -v puppet >/dev/null 2>&1                  || provision_puppet
