@@ -24,7 +24,7 @@ mod 'puppetlabs/rabbitmq',
 #
 # profile::network::leaf
 #
-mod 'quagga'
+mod 'quagga',
   :git => 'https://github.com/LeslieCarr/puppet-quagga',
   :ref => 'master'
 
