@@ -2,16 +2,16 @@
 classes:
   - profile::base::common
 
-profile::base::common::manage_epel:       true
-profile::base::common::manage_accounts:   true
-profile::base::common::manage_logging:    false
-profile::base::common::manage_monitoring: false
-profile::base::common::manage_sshd:       true
-profile::base::common::manage_ntp:        true
-profile::base::common::manage_sudo:       true
-profile::base::common::manage_authconfig: false
-profile::base::common::common_packages:   false
-profile::base::common::manage_firewall:   false
+profile::base::common::manage_augeasproviders: true
+profile::base::common::manage_epel:            true
+profile::base::common::manage_accounts:        true
+profile::base::common::manage_logging:         false
+profile::base::common::manage_monitoring:      false
+profile::base::common::manage_ssh:             true
+profile::base::common::manage_ntp:             true
+profile::base::common::manage_sudo:            true
+profile::base::common::manage_authconfig:      false
+profile::base::common::manage_firewall:        false
 
 account::accounts:
   {}
