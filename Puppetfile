@@ -22,6 +22,13 @@ mod 'puppetlabs/rabbitmq',
   :ref => '3.1.0'
 
 #
+# profile::network::leaf
+#
+mod 'quagga'
+  :git => 'https://github.com/LeslieCarr/puppet-quagga',
+  :ref => 'master'
+
+#
 # The Foreman
 #
 mod 'zack/r10k',
