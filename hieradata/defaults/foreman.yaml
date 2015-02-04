@@ -40,3 +40,7 @@ puppet::server_foreman_url:                   http://10.0.0.1
 puppet::server:                               true
 puppet::server_report_api:                    v2
 puppet::server_facts:                         true
+puppet::server_additional_settings:
+  'trusted_node_data': true
+  'disable_warnings': 'deprecations'
+
