@@ -57,7 +57,7 @@ hammer os set-default-template --id 1 \
 hammer os update --id 1 \
   --ptable-ids $(hammer partition-table list --per-page 10000 | grep "Kickstart default" | cut -d" " -f1)
 
-hammer proxy import-classes --environment "production" --id $(hammer proxy list | grep foreman | head -c2) 
+hammer proxy import-classes --environment "production" --id $(hammer proxy list | grep 127 | head -c2) 
 
 # Get our custom provision templates
 foreman-rake templates:sync repo="https://github.com/norcams/community-templates.git" branch="norcams"
