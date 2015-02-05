@@ -1,8 +1,6 @@
 profile::base::common::manage_networkifs:    true
 
 foreman::foreman_url:                   http://129.240.224.102
-foreman_proxy::dhcp:                    false
-foreman_proxy::dhcp_managed:            false
 foreman_proxy::dhcp_interface:          eth1
 foreman_proxy::dhcp_range:              "129.240.224.115 129.240.224.126"
 foreman_proxy::dhcp_gateway:            129.240.224.102
