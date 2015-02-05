@@ -21,9 +21,9 @@ provision_puppet()
 
   gem install r10k --no-ri --no-rdoc
 
-  # Temporary solution - download netcf gem and install. Needs netcf-devel
+  # Temporary solution - download netcf gem and install. Needs some packages to build
   wget -P /tmp/ http://folk.uib.no/edpto/ruby-netcf-0.0.2.gem
-  yum install -y netcf-devel
+  yum install -y netcf-devel gcc ruby-devel
   gem install /tmp/ruby-netcf-0.0.2.gem
 
   # file locations
