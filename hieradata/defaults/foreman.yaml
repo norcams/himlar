@@ -8,7 +8,9 @@ classes:
   - profile::database::postgresql
 
 foreman::configure_epel_repo:                 false
+foreman::admin_username:                      admin
 foreman::admin_password:                      changeme
+foreman::admin_email:                         admin@localhost.localdomain
 foreman::ssl:                                 false
 foreman::foreman_url:                         http://10.0.0.1
 foreman::cli::manage_root_config:             true
