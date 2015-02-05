@@ -12,7 +12,7 @@ puppet::server_foreman_url:             http://129.240.224.102
 
 networkInterfaces:
   eth1:
-    ipv4_ips:   129.240.224.102
+    ipv4_ips:   129.240.224.102/27
     ensure:     up
     start_mode: onboot
     type:       ethernet
