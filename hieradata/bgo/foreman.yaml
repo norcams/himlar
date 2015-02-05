@@ -1,0 +1,20 @@
+profile::base::common::manage_networkifs:    true
+
+foreman::foreman_url:                   http://172.16.32.11
+foreman_proxy::dhcp_range:              "172.16.32.200 172.16.32.250"
+foreman_proxy::dhcp_gateway:            172.16.32.1
+foreman_proxy::dhcp_nameservers:        "129.177.6.54, 129.177.12.31"
+foreman_proxy::tftp_servername:         172.16.32.11
+puppet::server_foreman_url:             http://172.16.32.11
+
+networkInterfaces:
+  eth1:
+    ipv4_ips:   172.16.32.11/21
+    ensure:     up
+    start_mode: onboot
+    type:       ethernet
+  eth2:
+    ipv4_ips:   172.16.24.11/21
+    ensure:     up
+    start_mode: onboot
+    type:	ethernet
