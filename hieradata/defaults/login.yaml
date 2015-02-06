@@ -33,6 +33,12 @@ account::accounts:
     groups:
       - wheel
       - users
+  hege:
+    ssh_key_type: rsa
+    ssh_key: AAAAB3NzaC1yc2EAAAABIwAAAQEAzfByKwhw9v7wzYZY4m4qvdVy/+Qzp+Q2bFuTcSQG9aN9C928LSPkM8RmfTKYA8xWgvVfki+EsgSTwG3Bbb9jO19DCvb+lvFXpcZhDbDzHd9JuK9+bLeNWG5FToFDfo207PlMwwn9tHUVcBIAH9wk+Nes2gBVYONLyPMVnebEH3GsLuzrombAO56ubapsn4y4r5kAqtlhcSkozoRQKNrb7EqOZn+7RMNcdjKYEBSb5yA0aDRUeqxGYts6qCExdSVtgTn+4ITIHCV5YmIlxP7buJRQisOjToixdmKy/FLkN9iBQwf4n6IpvdzPHjsvQtqhLICVRBOV6Y4tdWjiH0wjwQ==
+    groups:
+      - wheel
+      - users
 
 ssh::server::options:
   # Need this for 2FA (saz-ssh-module disables by default)
