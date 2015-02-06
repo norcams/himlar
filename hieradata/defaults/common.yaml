@@ -1,6 +1,8 @@
 ---
 classes:
   - profile::base::common
+classes_bootstrap:
+  - profile::base::common
 
 profile::base::common::manage_augeasproviders: true
 profile::base::common::manage_epel:            true
