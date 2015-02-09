@@ -39,6 +39,8 @@ account::accounts:
     groups:
       - wheel
       - users
+  iaas:
+    ensure: absent
 
 ssh::server::options:
   # Need this for 2FA (saz-ssh-module disables by default)
