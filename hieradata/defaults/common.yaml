@@ -31,5 +31,8 @@ ntp::servers:
   - 3.pool.ntp.org
 
 ssh::server::storeconfigs_enabled: false
+ssh::server::options:
+  PermitRootLogin: 'no'
+  PasswordAuthentication: 'no'
 
 timezone::timezone: "Europe/Oslo"
