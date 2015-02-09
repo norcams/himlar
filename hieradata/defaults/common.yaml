@@ -23,6 +23,8 @@ account::accounts:
     groups:
       - wheel
       - users
+  vagrant:
+    ensure: absent
 
 ntp::servers:
   - 0.pool.ntp.org
