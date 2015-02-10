@@ -22,6 +22,7 @@ hammer subnet update --name "mgmt" \
   --dns-id $(hammer proxy list | grep foreman | head -c2)
 hammer subnet info --name "mgmt"
 hammer subnet update --name "mgmt" --from 172.16.32.200 --to 172.16.32.250
+hammer domain update --name mgmt.iaas.intern --dns-id $(hammer proxy list | grep foreman | head -c2)
 
 hammer subnet create --name "bmc" \
   --network "172.16.24.0" \
@@ -32,6 +33,7 @@ hammer subnet create --name "bmc" \
 
 hammer subnet update --name "bmc" \
   --domain-ids $(hammer domain list | grep "bmc.iaas.intern" | head -c1)
+hammer domain update --name bmc.iaas.intern --dns-id $(hammer proxy list | grep foreman | head -c2)
 
 hammer environment create --name "production"
 hammer environment info --name "production"
