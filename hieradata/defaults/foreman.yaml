@@ -38,6 +38,8 @@ foreman_proxy::dns_managed:                   false
 foreman_proxy::bmc:                           true
 foreman_proxy::puppetrun:                     true
 foreman_proxy::puppetca:                      true
+foreman_proxy::bmc:                           true
+foreman_proxy::bmc_default_provider:          'freeipmi'
 puppet::server_foreman_url:                   http://10.0.0.1
 puppet::server:                               true
 puppet::server_report_api:                    v2
