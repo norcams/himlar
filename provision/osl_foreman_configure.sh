@@ -5,7 +5,7 @@ hammer domain info --name "iaas.uio.no"
 
 hammer subnet create --name "mgmt" \
   --network "129.240.224.96" \
-  --mask "255.255.225.224" \
+  --mask "255.255.255.224" \
   --gateway "129.240.224.97" \
   --dns-primary "129.240.2.3" \
   --dns-secondary "129.240.2.40"
@@ -19,7 +19,7 @@ hammer subnet update --name "mgmt" \
 hammer subnet update --name "mgmt" \
   --dns-id $(hammer proxy list | grep foreman | head -c2)
 hammer subnet info --name "mgmt"
-hammer subnet update --name "mgmt" --from 192.240.224.115 --to 129.240.224.126
+hammer subnet update --name "mgmt" --from 129.240.224.115 --to 129.240.224.126
 
 hammer subnet create --name "oob" \
   --network "129.240.224.64" \
@@ -61,12 +61,12 @@ hammer proxy import-classes --environment "production" --id $(hammer proxy list 
 foreman-rake templates:sync repo="https://github.com/norcams/community-templates.git" branch="norcams"
 
 # Find id for safemode_render
-safemode=$(curl -s -S -k -u admin:"$1" http://127.0.0.1/api/v2/settings/?search="Safemode_render" | grep id | cut -d ',' -f1 | sed 's/[^0-9]*//g')
+safemode=$(curl -s -S -k -u admin:$1 http://127.0.0.1/api/v2/settings/?search="Safemode_render" | grep id | cut -d ',' -f1 | sed 's/[^0-9]*//g')
 
 # Set Safemode_render to true or false - return true or false
-settingid=$(echo $(curl -s -S -k -u admin:"$1" http://127.0.0.1/api/v2/settings/$safemode/?search="Safemode_render"?page="true") | cut -d ',' -f1 | sed 's/[^0-9]*//g') && myresult=$(curl -s -S -k -u admin:"$1" -X PUT -H "Content-Type:application/json" -H "Accept:application/json,version=2" -d "{\"setting\": {\"value\": \"false\"}}" http://127.0.0.1/api/v2/settings/$settingid) && echo "$myresult" | sed -e 's/.*value//g' | tr -dc '[:alnum:]\n\r'
+settingid=$(echo $(curl -s -S -k -u admin:$1 http://127.0.0.1/api/v2/settings/$safemode/?search="Safemode_render"?page="true") | cut -d ',' -f1 | sed 's/[^0-9]*//g') && myresult=$(curl -s -S -k -u admin:$1 -X PUT -H "Content-Type:application/json" -H "Accept:application/json,version=2" -d "{\"setting\": {\"value\": \"false\"}}" http://127.0.0.1/api/v2/settings/$settingid) && echo "$myresult" | sed -e 's/.*value//g' | tr -dc '[:alnum:]\n\r'
 
 # Deploy new default pxe config to smart proxy
-curl -k -u admin:"$1" http://127.0.0.1/api/v2/config_templates/build_pxe_default
+curl -k -u admin:$1 http://127.0.0.1/api/v2/config_templates/build_pxe_default
 
-settingid=$(echo $(curl -s -S -k -u admin:"$1" http://127.0.0.1/api/v2/settings/$safemode/?search="Safemode_render"?page="true") | cut -d ',' -f1 | sed 's/[^0-9]*//g') && myresult=$(curl -s -S -k -u admin:"$1" -X PUT -H "Content-Type:application/json" -H "Accept:application/json,version=2" -d "{\"setting\": {\"value\": \"true\"}}" http://127.0.0.1/api/v2/settings/$settingid) && echo "$myresult" | sed -e 's/.*value//g' | tr -dc '[:alnum:]\n\r'
+settingid=$(echo $(curl -s -S -k -u admin:$1 http://127.0.0.1/api/v2/settings/$safemode/?search="Safemode_render"?page="true") | cut -d ',' -f1 | sed 's/[^0-9]*//g') && myresult=$(curl -s -S -k -u admin:$1 -X PUT -H "Content-Type:application/json" -H "Accept:application/json,version=2" -d "{\"setting\": {\"value\": \"true\"}}" http://127.0.0.1/api/v2/settings/$settingid) && echo "$myresult" | sed -e 's/.*value//g' | tr -dc '[:alnum:]\n\r'
