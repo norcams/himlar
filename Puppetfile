@@ -102,6 +102,13 @@ mod 'netcf',
   :ref => '4c3142e4f7' # Feb 05, 2015
 
 #
+# libvirt
+#
+mod 'libvirt',
+  :git => 'https://github.com/thias/puppet-libvirt',
+  :ref => '0.3.2'
+
+#
 # Common lib
 #
 mod 'stdlib',
