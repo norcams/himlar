@@ -43,3 +43,8 @@ ssh::server::options:
   PasswordAuthentication: 'no'
 
 timezone::timezone: "Europe/Oslo"
+
+puppet::additional_settings:
+  'trusted_node_data': true
+  'disable_warnings': 'deprecations'
+
