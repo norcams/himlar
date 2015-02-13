@@ -3,7 +3,7 @@
 TPATH=`VBoxManage list systemproperties | grep -i "default machine folder:" \
   | cut -b 24- | awk '{gsub(/^ +| +$/,"")}1'`
 
-VMNAME="foreman-pxetest"
+VMNAME="${1:-"foreman-pxeinstance"}"
 VMPATH="$TPATH/$VMNAME"
 
 VBoxManage createvm --name "$VMNAME" --register --ostype RedHat_64
@@ -16,4 +16,7 @@ VBoxManage storagectl "$VMNAME" --name "SATA Controller" \
   --add sata --controller IntelAHCI --hostiocache on --bootable on
 VBoxManage storageattach "$VMNAME" --storagectl "SATA Controller" \
   --type hdd --port 0 --device 0 --medium "$VMPATH/$VMNAME.vdi"
+
+VBoxManage modifyvm $VMNAME --boot4 net
+VBoxManage startvm $VMNAME
 
