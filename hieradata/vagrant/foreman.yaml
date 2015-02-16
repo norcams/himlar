@@ -4,14 +4,17 @@ profile::base::common::manage_networkifs:     true
 foreman_proxy::dhcp_interface:                eth1
 
 foreman::foreman_url:                         http://10.0.2.15
-foreman_proxy::dhcp_range:                    "10.0.1.100 10.0.1.250"
-foreman_proxy::dhcp_gateway:                  10.0.1.1
-foreman_proxy::dhcp_nameservers:              "10.0.2.1, 10.0.2.2"
+foreman_proxy::dhcp_range:                    '10.0.3.100 10.0.3.199'
+foreman_proxy::dhcp_gateway:                  10.0.3.15
+foreman_proxy::dhcp_nameservers:              10.0.2.15
+foreman_proxy::tftp_servername:               10.0.3.15
+foreman_proxy::dns:                           true
+foreman_proxy::dns_managed:                   true
 puppet::server_foreman_url:                   http://10.0.2.15
 
 networkInterfaces:
   eth1:
-    ipv4_ips:   10.0.1.2/24
+    ipv4_ips:   10.0.3.15/24
     ensure:     up
     start_mode: onboot
     type:       ethernet

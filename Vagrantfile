@@ -43,7 +43,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.network :public_network, dev: ENV['HIMLAR_BRIDGE2'], mode: 'bridge', auto_config: false
   end
   if ENV['HIMLAR_INTERN']
-    config.vm.network :private_network, ip: '10.0.1.2', auto_config: false
+    config.vm.network :private_network, ip: '10.0.3.15', auto_config: false
   end
 
 end
