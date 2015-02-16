@@ -45,6 +45,7 @@ ssh::server::options:
 timezone::timezone: "Europe/Oslo"
 
 puppet::additional_settings:
+  'certname': "%{::verified_certname}"
   'trusted_node_data': true
   'disable_warnings': 'deprecations'
 
