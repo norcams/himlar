@@ -19,6 +19,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Pass environment variables to the provisioning scripts
   env_data = ENV.select { |k, _| /^HIMLAR_|^FACTER_/i.match(k) }
   args = env_data.map { |k, v| "#{k}=#{v}" }
+  if args.any?
+    puts "Args: #{args}"
+  end
 
   config.vm.provision :shell, :path => 'provision/bootstrap.sh', args: args
   config.vm.provision :shell, :path => 'provision/puppetmodules.sh', args: args

@@ -38,7 +38,11 @@ provision_puppet()
   puppet config set --section main basemodulepath /opt/himlar/modules:/etc/puppet/modules
   puppet config set --section main disable_warnings deprecations
   puppet config set --section main trusted_node_data true
+
+  # Let puppetrun.sh pick up that we are now in boostrap mode
+  touch /opt/himlar/bootstrap && echo "Created bootstrap marker: /opt/himlar/bootstrap"
 }
 
 command -v puppet >/dev/null 2>&1                  || provision_puppet
+
 
