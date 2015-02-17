@@ -33,6 +33,8 @@ foreman_proxy::dns_managed:                   false
 foreman_proxy::bmc:                           true
 foreman_proxy::puppetrun:                     true
 foreman_proxy::puppetca:                      true
+foreman_proxy::bmc:                           true
+foreman_proxy::bmc_default_provider:          'freeipmi'
 puppet::server:                               false
 puppet::server_report_api:                    v2
 puppet::server_facts:                         true
