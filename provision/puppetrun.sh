@@ -1,14 +1,54 @@
 #!/bin/bash
 
-# Set default certname
-certname="vagrant-common-dev.vagrant.local"
-# Use certname from puppet.conf if present
-grep -q certname /etc/puppet/puppet.conf && certname="$(puppet config print certname)"
-# Use certname from env var if present
-certname="${HIMLAR_CERTNAME:-$certname}"
-# Use certname from command line argument if present
-certname="${1:-$certname}"
-# Write final certname to puppet.conf
-puppet config set certname $certname
+set_certname()
+{
+  # Set default certname
+  certname="vagrant-common-dev.vagrant.local"
+  # Use certname from puppet.conf if it is present
+  grep -q certname /etc/puppet/puppet.conf && certname="$(puppet config print certname)"
+  # Override with certname from env var if present
+  certname="${HIMLAR_CERTNAME:-$certname}"
+  # Write final certname to puppet.conf
+  puppet config set --section main certname $certname
+}
 
-puppet apply --verbose --disable_warnings=deprecations --trusted_node_data /etc/puppet/manifests/site.pp
+bootstraprun()
+{
+  # Run bootstrap if bootstrap file is present
+  # If the run exits with 0, remove the marker file
+  if [[ -f "/opt/himlar/bootstrap" ]]; then
+    FACTER_RUNMODE=bootstrap puppetrun --disable_warnings=deprecations --trusted_node_data
+    if [[ $? -eq 0 ]]; then
+      echo -n "puppetrun.sh: bootstrap finished - "
+      rm -fv /opt/himlar/bootstrap
+    fi
+  fi
+}
+
+puppetrun()
+{
+  puppet apply --verbose "$@" /etc/puppet/manifests/site.pp
+}
+
+# Source command line options as env vars
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    HIMLAR_*=*|FACTER_*=*)
+      export $1
+      shift
+      ;;
+    *)
+      # unknown
+      shift
+      ;;
+  esac
+done
+
+# Set certname
+set_certname
+
+# Do bootstrap run if needed
+bootstraprun
+
+# Run Puppet
+puppetrun
