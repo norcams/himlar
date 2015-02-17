@@ -45,6 +45,8 @@ ssh::server::options:
 timezone::timezone: "Europe/Oslo"
 
 puppet::additional_settings:
+  'basemodulepath'   : '/etc/puppet/modules:/opt/himlar/modules'
+  'certname'         : "%{::verified_certname}"
   'trusted_node_data': true
-  'disable_warnings': 'deprecations'
+  'disable_warnings' : 'deprecations'
 
