@@ -39,6 +39,18 @@ account::accounts:
     groups:
       - wheel
       - users
+  raymond:
+    ssh_key_type: rsa
+    ssh_key: AAAAB3NzaC1yc2EAAAADAQABAAACAQCdT7QHIcmvOtNiTJI8emS0E8YGohzw4tpNKI5VkgY4oPzwcXHKNW+4FNViO+2ikBhf0seGPxtKUlpf0jBfUkMRb95GtzWPQSAOtyGihn4CsQs2mWekwE8jOILJTc6Pi8ht92ai7DSc1Nnv6Uss28rgLoSI9PAo3nXNZEYhG5shJS+Ks1Ut0xw0NT2D/ZYIihMXk2xwbraIYq99xUKJ7zKPHCW/1mMba5gtPTk27Q4wWX5yg+TuBpsvqyKMj1/sJ2KY0dmZhVvFhFMpAUoC5AYxryUXepksYnIiQ5hPUI6oCTLIoV8i67kVfL2FgvX7IkDrrAUw3M2MnPJa63gDXPVUNjJE2v/5/4Ik66N1AE04Jdb8FrplSogG525uSIda3saMoV6R+krlV0UBwml1beaBUHWodKu/ML1CMU1Lpb/vAg2ylIbBQByR/pxGPVeUD001ACb2bUMJmco62468nu27vHiY08QqRpav13wtMxqITGGYsMYslosIwHqd91BYCDVqF1OgfSTYTqBH2SZZcJVpChOSAIB4quBMkIOFwnFpG+mSrEpbprKg5BNXSMIXTiMFb/SH2+r+rNvbY+ssCs+CwjpDdO8PS4W1v3AHXZFrORP7meQR4Xd9mOvsPeMh63UscMpNsGvTentOhunacf6uhkTKut/3skxmlLyiiIPKPQ==
+    groups:
+      - wheel
+      - users
+  trondham:
+    ssh_key_type: rsa
+    ssh_key: ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAr3c4y9UTQstrocwRDdq8tkb8d33VIX4x07iKYanZmnrcGwQ7efT3rEN2tmJUEQumNSL+ZVdsCH/2pT37L8uyxsRlSdnz5bQbe0Sj2dq4ahpIadrDH7n858EmN+chEwgz5QRyWT4SanC9ce/9EyJbl8C0U34mgJV+pIwSGhFhWKXJ624ja+kMXVd6+5rG+rlukMjolFoxE+ijZqzU1EwUtuKD1oMFGeszdpEChhhGO/9T1L7MyaIcDOUOmMgXjdgRtVmS1QY5HYikvc68wBV1FDRn1pvEd3UJTobU87FA9XircbazvD64ghNWK7dqikUgnW/OQsKLoLfyPEUn39v2wQ== trondham@tux.uio.no
+    groups:
+      - wheel
+      - users
   iaas:
     ensure: absent
 

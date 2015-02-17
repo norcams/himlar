@@ -11,4 +11,4 @@ certname="${1:-$certname}"
 # Write final certname to puppet.conf
 puppet config set certname $certname
 
-puppet apply --verbose /etc/puppet/manifests/site.pp
+puppet apply --verbose --disable_warnings=deprecations --trusted_node_data /etc/puppet/manifests/site.pp
