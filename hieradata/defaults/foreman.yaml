@@ -52,6 +52,8 @@ puppet::server_directory_environments:        false
 #foreman_proxy::dns_server:                    10.0.2.15
 #foreman_proxy::dns_managed:                   true
 #puppet::server_foreman_url:                   http://10.0.2.15
+#dhcp::onie_inst_def_url:                     'http://10.0.0.1/cumulus-powerpc.bin'
+#dhcp::cumulus_provision_url:                 'http://10.0.0.1/provision.sh'
 #
 #profile::base::common::manage_networkifs:     true
 #networkInterfaces:
