@@ -17,7 +17,7 @@ bootstraprun()
   # Run bootstrap if bootstrap file is present
   # If the run exits with 0, remove the marker file
   if [[ -f "/opt/himlar/bootstrap" ]]; then
-    FACTER_RUNMODE=bootstrap puppetrun --disable_warnings=deprecations --trusted-node-data
+    FACTER_RUNMODE=bootstrap puppetrun --disable_warnings=deprecations --trusted_node_data
     if [[ $? -eq 0 ]]; then
       echo "Removing bootstrap maker: /opt/himlar/bootstrap"
       rm /opt/himlar/bootstrap
