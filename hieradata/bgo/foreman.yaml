@@ -8,7 +8,7 @@ foreman_proxy::dns_provider:            nsupdate
 foreman_proxy::dns_server:              129.177.6.54
 puppet::server_foreman_url:             http://172.16.32.11
 dhcp::onie_inst_def_url:               'http://172.16.32.1/onie-installer-powerpc'
-dhcp::cumulus-provision-url:           'http://172.16.32.1/provision.sh'
+dhcp::cumulus_provision_url:           'http://172.16.32.1/provision.sh'
 
 profile::base::common::manage_networkifs:    true
 networkInterfaces:
