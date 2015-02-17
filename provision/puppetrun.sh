@@ -1,10 +1,5 @@
 #!/bin/bash
 
-puppetrun()
-{
-  puppet apply --verbose --disable_warnings=deprecations --trusted_node_data /etc/puppet/manifests/site.pp
-}
-
 set_certname()
 {
   # Set default certname
@@ -15,6 +10,24 @@ set_certname()
   certname="${HIMLAR_CERTNAME:-$certname}"
   # Write final certname to puppet.conf
   puppet config set --section main certname $certname
+}
+
+bootstraprun()
+{
+  # Run bootstrap if bootstrap file is present
+  # If the run exits with 0, remove the marker file
+  if [[ -f "/opt/himlar/bootstrap" ]]; then
+    FACTER_RUNMODE=bootstrap puppetrun --disable_warnings=deprecations --trusted-node-data
+    if [[ $? -eq 0 ]]; then
+      echo "Removing bootstrap maker: /opt/himlar/bootstrap"
+      rm /opt/himlar/bootstrap
+    fi
+  fi
+}
+
+puppetrun()
+{
+  puppet apply --verbose "$@" /etc/puppet/manifests/site.pp
 }
 
 # Source command line options as env vars
@@ -34,10 +47,8 @@ done
 # Set certname
 set_certname
 
-# Run bootstrap if bootstrap file is present
-# If the run exits with 0, remove the marker file
-if [[ -f "/opt/himlar/bootstrap" ]]; then
-  FACTER_RUNMODE=bootstrap puppetrun && rm /opt/himlar/bootstrap
-fi
+# Do bootstrap run if needed
+bootstraprun
 
+# Run Puppet
 puppetrun
