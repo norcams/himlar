@@ -16,28 +16,28 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder '.', '/opt/himlar', type: 'rsync',
     rsync__exclude: [ '.git/', '.vagrant/' ]
 
-  config.vm.provision :shell, :path => 'provision/bootstrap.sh'
-  config.vm.provision :shell, :path => 'provision/puppetmodules.sh', args: ENV['HIMLAR_PUPPETFILE']
-  config.vm.provision :shell, :path => 'provision/puppetrun.sh', args: ENV['HIMLAR_CERTNAME']
+  # Pass environment variables to the provisioning scripts
+  env_data = ENV.select { |k, _| /^HIMLAR_|^FACTER_/i.match(k) }
+  args = env_data.map { |k, v| "#{k}=#{v}" }
 
-  if Vagrant.has_plugin?('vagrant-cachier')
-    config.cache.scope = :machine
-  end
+  config.vm.provision :shell, :path => 'provision/bootstrap.sh', args: args
+  config.vm.provision :shell, :path => 'provision/puppetmodules.sh', args: args
+  config.vm.provision :shell, :path => 'provision/puppetrun.sh', args: args
 
   config.vm.provider :virtualbox do |vbox|
     vbox.customize ['modifyvm', :id, '--ioapic', 'on']
     vbox.customize ['modifyvm', :id, '--cpus', 2]
-    vbox.customize ['modifyvm', :id, '--memory', 1024]
+    vbox.customize ['modifyvm', :id, '--memory', 2048]
   end
 
   config.vm.provider :libvirt do |libvirt|
     libvirt.driver = 'kvm'
     libvirt.cpus = 2
-    libvirt.memory = 1024
+    libvirt.memory = 2048
   end
 
-  if ENV['HIMLAR_BRIDGE1']
-    config.vm.network :public_network, dev: ENV['HIMLAR_BRIDGE1'], mode: 'bridge', auto_config: false
+  if ENV['HIMLAR_BRIDGE']
+    config.vm.network :public_network, dev: ENV['HIMLAR_BRIDGE'], mode: 'bridge', auto_config: false
   end
   if ENV['HIMLAR_BRIDGE2']
     config.vm.network :public_network, dev: ENV['HIMLAR_BRIDGE2'], mode: 'bridge', auto_config: false
@@ -46,5 +46,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.network :private_network, ip: '10.0.3.15', auto_config: false
   end
 
+  if Vagrant.has_plugin?('vagrant-cachier')
+    config.cache.scope = :machine
+  end
 end
 

@@ -20,13 +20,26 @@ override_modules()
 etc_puppet_modules="$(ls -d /etc/puppet/modules/*/ 2>/dev/null)"
 opt_himlar_modules="$(ls -d /opt/himlar/modules/*/ 2>/dev/null)"
 
+# Source command line options as env vars
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    HIMLAR_*=*|FACTER_*=*)
+      export $1
+      shift
+      ;;
+    *)
+      # unknown
+      shift
+      ;;
+  esac
+done
+
 # Default value is to NOT provision from Puppetfile
 # We provison Puppetfile if /etc/puppet/modules is empty, if HIMLAR_PUPPETFILE
 # is set to 'deploy' or if puppetmodules.sh is given the 'deploy' parameter
 puppetfile=false
 [[ -z "$etc_puppet_modules" ]]      && puppetfile=true
 [[ $HIMLAR_PUPPETFILE = "deploy" ]] && puppetfile=true
-[[ $1 = "deploy" ]]                 && puppetfile=true
 [[ "$puppetfile" = "true" ]] && provision_from_puppetfile
 
 # If /opt/himlar/modules contains a module deployed via rsync, use that instead
