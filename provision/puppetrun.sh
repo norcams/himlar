@@ -19,8 +19,8 @@ bootstraprun()
   if [[ -f "/opt/himlar/bootstrap" ]]; then
     FACTER_RUNMODE=bootstrap puppetrun --disable_warnings=deprecations --trusted_node_data
     if [[ $? -eq 0 ]]; then
-      echo "Removing bootstrap maker: /opt/himlar/bootstrap"
-      rm /opt/himlar/bootstrap
+      echo -n "puppetrun.sh: bootstrap finished - "
+      rm -fv /opt/himlar/bootstrap
     fi
   fi
 }
