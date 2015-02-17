@@ -1,17 +1,16 @@
 #!/bin/bash
 
-hammer domain create --name "iaas.uio.no"
-hammer domain info --name "iaas.uio.no"
+hammer domain create --name "vagrant.local"
+hammer domain info --name "vagrant.local"
 
 hammer subnet create --name "mgmt" \
-  --network "129.240.224.96" \
-  --mask "255.255.255.224" \
-  --gateway "129.240.224.97" \
-  --dns-primary "129.240.2.3" \
-  --dns-secondary "129.240.2.40"
+  --network "10.0.3.0" \
+  --mask "255.255.255.0" \
+  --gateway "10.0.3.15" \
+  --dns-primary "10.0.2.15"
 
 hammer subnet update --name "mgmt" \
-  --domain-ids $(hammer domain list | grep "iaas.uio.no" | head -c1)
+  --domain-ids $(hammer domain list | grep "vagrant.local" | head -c1)
 hammer subnet update --name "mgmt" \
   --dhcp-id $(hammer proxy list | grep foreman | head -c2)
 hammer subnet update --name "mgmt" \
@@ -19,17 +18,17 @@ hammer subnet update --name "mgmt" \
 hammer subnet update --name "mgmt" \
   --dns-id $(hammer proxy list | grep foreman | head -c2)
 hammer subnet info --name "mgmt"
-hammer subnet update --name "mgmt" --from 129.240.224.115 --to 129.240.224.126
+hammer subnet update --name "mgmt" --from 10.0.3.100 --to 10.0.3.199
 
-hammer subnet create --name "oob" \
-  --network "129.240.224.64" \
-  --mask "255.255.255.224" \
-  --gateway "129.240.224.65" \
-  --dns-primary "129.240.2.3" \
-  --dns-secondary "129.240.2.40"
-
-hammer subnet update --name "oob" \
-  --domain-ids $(hammer domain list | grep "iaas.uio.no" | head -c1)
+#hammer subnet create --name "oob" \
+#  --network "129.240.224.64" \
+#  --mask "255.255.255.224" \
+#  --gateway "129.240.224.65" \
+#  --dns-primary "129.240.2.3" \
+#  --dns-secondary "129.240.2.40"
+#
+#hammer subnet update --name "oob" \
+#  --domain-ids $(hammer domain list | grep "vagrant.local" | head -c1)
 
 hammer environment create --name "production"
 hammer environment info --name "production"
