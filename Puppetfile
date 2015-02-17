@@ -46,7 +46,9 @@ mod 'theforeman/puppet',
 mod 'theforeman/dns',
   :ref => '1.4.0'
 mod 'theforeman/dhcp',
-  :ref => '1.4.0'
+#  :ref => '1.4.0'
+  :ref => 'https://github.com/norcams/puppet-dhcp.git',
+  :ref => '2dd89ddb9c' # v1.5, feb 17, 2015
 mod 'theforeman/foreman_proxy',
   :ref => '2.1.0'
 mod 'theforeman/git',
