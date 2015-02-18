@@ -51,24 +51,20 @@ hammer template update --name "Kickstart default PXELinux ifs" --operatingsystem
 hammer template update --name "Kickstart_openstack" --operatingsystem-ids 1
 
 hammer os set-default-template --id 1 \
-  --config-template-id $(hammer template list --per-page 10000 | grep "Kickstart_openstack"|cut -d" " -f1) 
+  --config-template-id $(hammer template list --per-page 10000 | grep "Kickstart_openstack"|cut -d" " -f1)
 hammer os set-default-template --id 1 \
   --config-template-id $(hammer template list --per-page 10000 | grep "Kickstart default PXELinux ifs" | cut -d" " -f1)
 hammer os update --id 1 \
   --ptable-ids $(hammer partition-table list --per-page 10000 | grep "Kickstart default" | cut -d" " -f1)
 
-hammer proxy import-classes --environment "production" --id $(hammer proxy list | grep 127 | head -c2) 
+hammer proxy import-classes --environment "production" --id $(hammer proxy list | grep 127 | head -c2)
 
 # Get our custom provision templates
 foreman-rake templates:sync repo="https://github.com/norcams/community-templates.git" branch="norcams"
-
-# Find id for safemode_render
-safemode=$(curl -s -S -k -u admin:$1 http://127.0.0.1/api/v2/settings/?search="Safemode_render" | grep id | cut -d ',' -f1 | sed 's/[^0-9]*//g')
-
-# Set Safemode_render to true or false - return true or false
-settingid=$(echo $(curl -s -S -k -u admin:$1 http://127.0.0.1/api/v2/settings/$safemode/?search="Safemode_render"?page="true") | cut -d ',' -f1 | sed 's/[^0-9]*//g') && myresult=$(curl -s -S -k -u admin:$1 -X PUT -H "Content-Type:application/json" -H "Accept:application/json,version=2" -d "{\"setting\": {\"value\": \"false\"}}" http://127.0.0.1/api/v2/settings/$settingid) && echo "$myresult" | sed -e 's/.*value//g' | tr -dc '[:alnum:]\n\r'
-
-# Deploy new default pxe config to smart proxy
+# Set safemode_render to false
+foreman-rake config -- -k safemode_render -v false
+# Render new default pxe config to smart proxy
 curl -k -u admin:$1 http://127.0.0.1/api/v2/config_templates/build_pxe_default
+# Set safemode_render to true
+foreman-rake config -- -k safemode_render -v true
 
-settingid=$(echo $(curl -s -S -k -u admin:$1 http://127.0.0.1/api/v2/settings/$safemode/?search="Safemode_render"?page="true") | cut -d ',' -f1 | sed 's/[^0-9]*//g') && myresult=$(curl -s -S -k -u admin:$1 -X PUT -H "Content-Type:application/json" -H "Accept:application/json,version=2" -d "{\"setting\": {\"value\": \"true\"}}" http://127.0.0.1/api/v2/settings/$settingid) && echo "$myresult" | sed -e 's/.*value//g' | tr -dc '[:alnum:]\n\r'
