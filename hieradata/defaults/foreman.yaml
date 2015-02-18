@@ -15,9 +15,6 @@ foreman::admin_email:                         admin@localhost.localdomain
 foreman::ssl:                                 false
 foreman::cli::manage_root_config:             true
 foreman::plugin::discovery::install_images:   true
-foreman::plugin::discovery::source:           http://folk.uib.no/edpto/fdi-image-2.1.0/
-foreman::plugin::discovery::kernel:           foreman-discovery-image.iso-vmlinuz
-foreman::plugin::discovery::initrd:           foreman-discovery-image.iso-img
 foreman_proxy::ssl:                           false
 foreman_proxy::port:                          8000
 foreman_proxy::foreman_base_url:              http://127.0.0.1
