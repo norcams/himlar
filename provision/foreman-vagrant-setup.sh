@@ -14,12 +14,11 @@ hammer subnet create --name "mgmt" \
 
 hammer subnet update --name "mgmt" \
   --domain-ids $(hammer domain list | grep "vagrant.local" | head -c1)
-hammer subnet update --name "mgmt" \
-  --dhcp-id $(hammer proxy list | grep foreman | head -c2)
-hammer subnet update --name "mgmt" \
-  --tftp-id $(hammer proxy list | grep foreman | head -c2)
-hammer subnet update --name "mgmt" \
-  --dns-id $(hammer proxy list | grep foreman | head -c2)
+
+# Assume DHCP, TFTP and DNS is managed through proxy id 1
+hammer subnet update --name "mgmt" --dhcp-id 1
+hammer subnet update --name "mgmt" --tftp-id 1
+hammer subnet update --name "mgmt" --dns-id 1
 hammer subnet info --name "mgmt"
 hammer subnet update --name "mgmt" --from 10.0.3.100 --to 10.0.3.199
 
@@ -33,8 +32,10 @@ hammer subnet update --name "mgmt" --from 10.0.3.100 --to 10.0.3.199
 #hammer subnet update --name "oob" \
 #  --domain-ids $(hammer domain list | grep "vagrant.local" | head -c1)
 
+# Set up Puppet environment and import classes from proxy id 1
 hammer environment create --name "production"
 hammer environment info --name "production"
+hammer proxy import-classes --environment "production" --id 1
 
 wget -P /tmp http://folk.uib.no/edpto/provision_openstack.erb
 wget -P /tmp http://folk.uib.no/edpto/provision_kickstart_ifs.erb
@@ -56,8 +57,6 @@ hammer os set-default-template --id 1 \
   --config-template-id $(hammer template list --per-page 10000 | grep "Kickstart default PXELinux ifs" | cut -d" " -f1)
 hammer os update --id 1 \
   --ptable-ids $(hammer partition-table list --per-page 10000 | grep "Kickstart default" | cut -d" " -f1)
-
-hammer proxy import-classes --environment "production" --id $(hammer proxy list | grep 127 | head -c2)
 
 # Get our custom provision templates
 foreman-rake templates:sync repo="https://github.com/norcams/community-templates.git" branch="norcams"
