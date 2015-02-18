@@ -1,5 +1,8 @@
 #!/bin/bash
 
+foreman-rake config -- -k foreman_url -v http://10.0.3.15
+foreman-rake config -- -k unattended_url -v http://10.0.3.15
+
 hammer domain create --name "vagrant.local"
 hammer domain info --name "vagrant.local"
 
