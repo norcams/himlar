@@ -11,8 +11,8 @@ provision_from_puppetfile()
 override_modules()
 {
   # remove modules that exists in /opt/himlar/modules
-  for m in $modules; do
-    echo "WARNING: $m deployed from both Puppetfile and modules/ - using modules/$m"
+  for m in $opt_himlar_modules; do
+    echo "WARNING: Module $m overrides Puppetfile"
     rm -rf /etc/puppet/$(echo ${m#/opt/himlar/}) 2>/dev/null
   done
 }
