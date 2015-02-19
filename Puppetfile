@@ -109,7 +109,7 @@ mod 'hostname',
 
 mod 'resolv_conf',
   :git => 'https://github.com/saz/puppet-resolv_conf',
-  :ref => '3.0.3'
+  :ref => 'v3.0.3'
 
 #
 # libvirt
