@@ -29,6 +29,8 @@ networkInterfaces:
 
 profile::webserver::apache::manage_firewall:    false
 definedVhosts:
-  "bgo-files-1.mgmt.iaas.intern":
-    servername: bgo-files-1.mgmt.iaas.intern
-    docroot: '/opt/repo'
+  "files":
+    servername:     bgo-files-1.mgmt.iaas.intern
+    port:           80
+    docroot:        '/opt/repo'
+    docroot_owner:  'iaas'
