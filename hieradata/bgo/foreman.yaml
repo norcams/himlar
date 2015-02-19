@@ -1,3 +1,7 @@
+---
+classes:
+  - profile::webserver::apache
+
 foreman::foreman_url:                   http://172.16.32.11
 foreman_proxy::dhcp_range:              '172.16.32.200 172.16.32.250'
 foreman_proxy::dhcp_gateway:            172.16.32.1
@@ -7,8 +11,8 @@ foreman_proxy::tftp_servername:         172.16.32.11
 foreman_proxy::dns_provider:            nsupdate
 foreman_proxy::dns_server:              129.177.6.54
 puppet::server_foreman_url:             http://172.16.32.11
-dhcp::onie_inst_def_url:               'http://172.16.32.1/onie-installer-powerpc'
-dhcp::cumulus_provision_url:           'http://172.16.32.1/provision.sh'
+dhcp::onie_inst_def_url:               'http://bgo-files-01.mgmt.iaas.intern/onie-installer-powerpc'
+dhcp::cumulus_provision_url:           'http://bgo-files-01.mgmt.iaas.intern/provision.sh'
 
 profile::base::common::manage_networkifs:    true
 networkInterfaces:
@@ -22,3 +26,11 @@ networkInterfaces:
     ensure:     up
     start_mode: onboot
     type:       ethernet
+
+profile::webserver::apache::manage_firewall:    false
+definedVhosts:
+  "files":
+    servername:     bgo-files-1.mgmt.iaas.intern
+    port:           80
+    docroot:        '/opt/repo'
+    docroot_owner:  'iaas'
