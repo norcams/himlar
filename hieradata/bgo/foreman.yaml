@@ -1,3 +1,7 @@
+---
+classes:
+  - profile::webserver::apache
+
 foreman::foreman_url:                   http://172.16.32.11
 foreman_proxy::dhcp_range:              '172.16.32.200 172.16.32.250'
 foreman_proxy::dhcp_gateway:            172.16.32.1
@@ -23,9 +27,8 @@ networkInterfaces:
     start_mode: onboot
     type:       ethernet
 
-profile::base::common::manage_vhosts:        true
+profile::webserver::apache::manage_firewall:    false
 definedVhosts:
   "bgo-files-1.mgmt.iaas.intern":
     servername: bgo-files-1.mgmt.iaas.intern
     docroot: '/opt/repo'
-
