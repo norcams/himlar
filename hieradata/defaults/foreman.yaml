@@ -37,6 +37,8 @@ puppet::server:                               false
 puppet::server_report_api:                    v2
 puppet::server_facts:                         true
 puppet::server_directory_environments:        false
+puppet::server_environments:                  []
+puppet::server_external_nodes:                ''
 
 #
 # Location specific parameters
