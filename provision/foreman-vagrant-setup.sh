@@ -1,10 +1,21 @@
 #!/bin/bash
 
-foreman-rake config -- -k foreman_url -v http://10.0.3.15
-foreman-rake config -- -k unattended_url -v http://10.0.3.15
+# Register foreman host in DNS
+echo -e "update add vagrant-foreman-dev.vagrant.local 3600 A 10.0.3.15\nsend\n" \
+  | nsupdate -k /etc/rndc.key
+
+# Register CNAME for foreman, puppetmaster
+echo -e "update add admin.vagrant.local 3600 CNAME vagrant-foreman-dev.vagrant.local.\nsend\n" \
+  | nsupdate -k /etc/rndc.key
+echo -e "update add puppet.vagrant.local 3600 CNAME vagrant-foreman-dev.vagrant.local.\nsend\n" \
+  | nsupdate -k /etc/rndc.key
+
+foreman-rake config -- -k foreman_url -v http://admin.vagrant.local
+foreman-rake config -- -k unattended_url -v http://admin.vagrant.local
 
 hammer domain create --name "vagrant.local"
 hammer domain info --name "vagrant.local"
+hammer domain update --name "vagrant.local" --dns-id 1
 
 hammer subnet create --name "mgmt" \
   --network "10.0.3.0" \
