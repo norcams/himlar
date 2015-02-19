@@ -19,7 +19,7 @@ foreman_proxy::dns_reverse:                   '3.0.10.in-addr.arpa'
 puppet::server_directory_environments:        true
 puppet::server_foreman_url:                   http://admin.vagrant.local
 puppet::puppetmaster:                         puppet.vagrant.local
-resolv_conf::nameservers:                     10.0.3.15
+resolv_conf::nameservers:                     ['10.0.3.15']
 resolv_conf::searchpath:                      'vagrant.local'
 
 profile::base::common::manage_networkifs:     true
