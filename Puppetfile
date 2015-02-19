@@ -107,6 +107,10 @@ mod 'hostname',
   :git => 'https://github.com/peopleware/puppet-hostname',
   :ref => '0.0.2'
 
+mod 'resolv_conf',
+  :git => 'https://github.com/saz/puppet-resolv_conf',
+  :ref => '3.0.3'
+
 #
 # libvirt
 #
