@@ -1,4 +1,9 @@
-foreman::foreman_url:                         http://10.0.3.15
+classes:
+  - hostname
+classes_bootstrap:
+  - hostname
+
+foreman::foreman_url:                         http://admin.vagrant.local
 foreman_proxy::dhcp_range:                    '10.0.3.100 10.0.3.199'
 foreman_proxy::dhcp_gateway:                  10.0.3.15
 foreman_proxy::dhcp_nameservers:              10.0.3.15
@@ -9,7 +14,9 @@ foreman_proxy::dns_managed:                   true
 foreman_proxy::dns_forwarders:                ['8.8.8.8']
 foreman_proxy::dns_zone:                      'vagrant.local'
 foreman_proxy::dns_reverse:                   '3.0.10.in-addr.arpa'
-puppet::server_foreman_url:                   http://10.0.3.15
+puppet::server_directory_environments:        true
+puppet::server_foreman_url:                   http://admin.vagrant.local
+puppet::puppetmaster:                         puppet.vagrant.local
 
 profile::base::common::manage_networkifs:     true
 networkInterfaces:

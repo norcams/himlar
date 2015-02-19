@@ -73,7 +73,7 @@ mod 'postgresql',
 :ref => 'pg_hba_rules'
 
 #
-# profile::base
+# profile::base::common
 #
 mod 'epel',
   :git => 'https://github.com/stahnma/puppet-module-epel',
@@ -102,6 +102,10 @@ mod 'timezone',
 mod 'netcf',
   :git => 'https://github.com/raphink/puppet-netcf.git',
   :ref => '4c3142e4f7' # Feb 05, 2015
+
+mod 'hostname'
+  :git => 'https://github.com/peopleware/puppet-hostname',
+  :ref => '0.0.2'
 
 #
 # libvirt
