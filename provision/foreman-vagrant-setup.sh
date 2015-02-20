@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Switch vagrant box to use its own internal DNS
+sed -i 's/192.168.121.1/10.0.3.15/' /etc/resolv.conf
+
 # Register foreman host in DNS
 echo "server 10.0.3.15
       update add vagrant-foreman-dev.vagrant.local 3600 A 10.0.3.15
