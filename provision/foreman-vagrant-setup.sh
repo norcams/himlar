@@ -1,17 +1,21 @@
 #!/bin/bash
 
 # Register foreman host in DNS
-echo -e "update add vagrant-foreman-dev.vagrant.local 3600 A 10.0.3.15\nsend\n" \
-  | nsupdate -k /etc/rndc.key
+echo "server 10.0.3.15
+      update add vagrant-foreman-dev.vagrant.local 3600 A 10.0.3.15
+      send" | nsupdate -k /etc/rndc.key
+# Register CNAMEs for foreman, puppetmaster
+echo "server 10.0.3.15
+      update add admin.vagrant.local 3600 CNAME vagrant-foreman-dev.vagrant.local.
+      send" | nsupdate -k /etc/rndc.key
+echo "server 10.0.3.15
+      update add puppet.vagrant.local 3600 CNAME vagrant-foreman-dev.vagrant.local.
+      send" | nsupdate -k /etc/rndc.key
 
-# Register CNAME for foreman, puppetmaster
-echo -e "update add admin.vagrant.local 3600 CNAME vagrant-foreman-dev.vagrant.local.\nsend\n" \
-  | nsupdate -k /etc/rndc.key
-echo -e "update add puppet.vagrant.local 3600 CNAME vagrant-foreman-dev.vagrant.local.\nsend\n" \
-  | nsupdate -k /etc/rndc.key
-
-foreman-rake config -- -k foreman_url -v http://admin.vagrant.local
-foreman-rake config -- -k unattended_url -v http://admin.vagrant.local
+foreman-rake config -- -k foreman_url -v https://admin.vagrant.local
+foreman-rake config -- -k unattended_url -v https://admin.vagrant.local
+# TODO fix puppemaster validation
+foreman-rake config -- -k restrict_registered_puppetmasters -v false
 
 hammer domain create --name "vagrant.local"
 hammer domain info --name "vagrant.local"
@@ -74,7 +78,7 @@ foreman-rake templates:sync repo="https://github.com/norcams/community-templates
 # Set safemode_render to false
 foreman-rake config -- -k safemode_render -v false
 # Render new default pxe config to smart proxy
-curl -k -u admin:$1 http://127.0.0.1/api/v2/config_templates/build_pxe_default
+curl -k -u admin:$1 https://admin.vagrant.local/api/v2/config_templates/build_pxe_default
 # Set safemode_render to true
 foreman-rake config -- -k safemode_render -v true
 
