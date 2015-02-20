@@ -3,7 +3,6 @@ classes:
   - resolv_conf
 classes_bootstrap:
   - hostname
-  - resolv_conf
 
 foreman::foreman_url:                         http://admin.vagrant.local
 foreman_proxy::dhcp_range:                    '10.0.3.100 10.0.3.199'
