@@ -3,7 +3,6 @@ classes:
 classes_bootstrap:
   - hostname
 
-foreman::foreman_url:                         https://admin.vagrant.local
 foreman_proxy::dhcp_range:                    '10.0.3.100 10.0.3.199'
 foreman_proxy::dhcp_gateway:                  10.0.3.15
 foreman_proxy::dhcp_nameservers:              10.0.3.15
@@ -15,7 +14,6 @@ foreman_proxy::dns_forwarders:                ['8.8.8.8']
 foreman_proxy::dns_zone:                      'vagrant.local'
 foreman_proxy::dns_reverse:                   '3.0.10.in-addr.arpa'
 puppet::server:                               true
-puppet::server_foreman_url:                   https://admin.vagrant.local
 puppet::puppetmaster:                         puppet.vagrant.local
 resolv_conf::nameservers:                     ['10.0.3.15']
 resolv_conf::searchpath:                      'vagrant.local'
