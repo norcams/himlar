@@ -13,10 +13,6 @@ foreman_proxy::dns_managed:                   true
 foreman_proxy::dns_forwarders:                ['8.8.8.8']
 foreman_proxy::dns_zone:                      'vagrant.local'
 foreman_proxy::dns_reverse:                   '3.0.10.in-addr.arpa'
-puppet::server:                               true
-puppet::puppetmaster:                         puppet.vagrant.local
-resolv_conf::nameservers:                     ['10.0.3.15']
-resolv_conf::searchpath:                      'vagrant.local'
 
 profile::base::common::manage_networkifs:     true
 networkInterfaces:
