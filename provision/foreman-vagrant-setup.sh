@@ -27,8 +27,8 @@ hammer domain update --name "vagrant.local" --dns-id 1
 hammer subnet create --name "mgmt" \
   --network "10.0.3.0" \
   --mask "255.255.255.0" \
-  --gateway "10.0.3.15" \
-  --dns-primary "10.0.2.15"
+  --gateway "10.0.3.1" \
+  --dns-primary "10.0.3.15"
 
 hammer subnet update --name "mgmt" \
   --domain-ids $(hammer domain list | grep "vagrant.local" | head -c1)
