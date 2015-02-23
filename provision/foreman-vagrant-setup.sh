@@ -22,7 +22,7 @@ echo "server 10.0.3.15
       send" | nsupdate -k /etc/rndc.key
 
 foreman-rake config -- -k foreman_url -v https://admin.vagrant.local
-foreman-rake config -- -k unattended_url -v https://admin.vagrant.local
+foreman-rake config -- -k unattended_url -v http://admin.vagrant.local
 # TODO fix puppemaster validation
 foreman-rake config -- -k restrict_registered_puppetmasters -v false
 
