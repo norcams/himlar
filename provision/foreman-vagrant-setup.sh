@@ -84,7 +84,7 @@ hammer os update --id 1 \
   --ptable-ids $(hammer partition-table list --per-page 10000 | grep "Kickstart default" | cut -d" " -f1)
 
 # Set global default root password for provisioned instances
-hammer global-parameter set --name root_pass --value $(openssl passwd -1 himlar-changeme)
+foreman-rake config -- -k root_pass --value $(openssl passwd -1 himlar-changeme)
 # Enable Puppetlabs repo to enable Puppet bootstrap logic in kickstart template
 hammer global-parameter set --name enable-puppetlabs-repo --value true
 
