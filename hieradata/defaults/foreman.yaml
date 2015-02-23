@@ -23,11 +23,10 @@ foreman_proxy::dhcp:                          true
 foreman_proxy::dhcp_managed:                  true
 foreman_proxy::dns:                           true
 foreman_proxy::dns_managed:                   false
-foreman_proxy::bmc:                           true
 foreman_proxy::puppetrun:                     true
 foreman_proxy::puppetca:                      true
 foreman_proxy::bmc:                           true
-foreman_proxy::bmc_default_provider:          'freeipmi'
+foreman_proxy::bmc_default_provider:          'ipmitool'
 puppet::server:                               true
 puppet::dns_alt_names:                        ["puppet.%{domain}","puppetca.%{domain}","admin.%{domain}"]
 puppet::server_directory_environments:        false
