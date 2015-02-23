@@ -5,7 +5,7 @@ foreman_proxy::dhcp_interface:          eth1
 foreman_proxy::tftp_servername:         129.240.224.102
 puppet::server_foreman_url:             http://129.240.224.102
 
-networkInterfaces:
+network_if:
   eth1:
     ipv4_ips:   129.240.224.102/27
     ensure:     up
