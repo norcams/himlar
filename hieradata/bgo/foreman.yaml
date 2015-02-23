@@ -15,7 +15,7 @@ dhcp::onie_inst_def_url:               'http://bgo-files-01.mgmt.iaas.intern/oni
 dhcp::cumulus_provision_url:           'http://bgo-files-01.mgmt.iaas.intern/provision.sh'
 
 profile::base::common::manage_networkifs:    true
-networkInterfaces:
+network_if:
   eth1:
     ipv4_ips:   172.16.24.11/21
     ensure:     up
