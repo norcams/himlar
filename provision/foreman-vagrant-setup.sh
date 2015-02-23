@@ -2,6 +2,7 @@
 
 # Switch vagrant box to use its own internal DNS
 sed -i 's/192.168.121.1/10.0.3.15/' /etc/resolv.conf
+echo 'option domain-name-servers 10.0.3.15' > /etc/dhcp/dhclient-eth0.conf
 
 # Register foreman host in DNS
 echo "server 10.0.3.15
