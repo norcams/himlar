@@ -1,11 +1,14 @@
 #!/bin/bash
 
-# Switch vagrant box to use its own internal DNS
-sed -i 's/192.168.121.1/10.0.3.15/' /etc/resolv.conf
+# Switch to use own internal DNS
 puppet apply -e "
-augeas { 'peerdns setup':
+augeas { 'peerdns no':
   context => '/files/etc/sysconfig/network-scripts/ifcfg-eth0',
   changes => [ 'set PEERDNS no' ],
+}
+augeas { 'switch nameserver':
+  context => '/files/etc/resolv.conf',
+  changes => [ 'set nameserver 10.0.3.15' ],
 }
 "
 
@@ -23,8 +26,6 @@ echo "server 10.0.3.15
 
 foreman-rake config -- -k foreman_url -v https://admin.vagrant.local
 foreman-rake config -- -k unattended_url -v http://admin.vagrant.local
-# TODO fix puppemaster validation
-foreman-rake config -- -k restrict_registered_puppetmasters -v false
 
 hammer domain create --name "vagrant.local"
 hammer domain info --name "vagrant.local"
@@ -81,6 +82,14 @@ hammer os set-default-template --id 1 \
   --config-template-id $(hammer template list --per-page 10000 | grep "Kickstart default PXELinux ifs" | cut -d" " -f1)
 hammer os update --id 1 \
   --ptable-ids $(hammer partition-table list --per-page 10000 | grep "Kickstart default" | cut -d" " -f1)
+
+# Set global default root password for provisioned instances
+hammer global-parameter set --name root_pass --value $(openssl passwd -1 himlar-changeme)
+# Enable Puppetlabs repo to enable Puppet bootstrap logic in kickstart template
+hammer global-parameter set --name enable-puppetlabs-repo --value true
+
+# Create a base hostgroup
+hammer hostgroup create --name "base" --architecture "x86_64" --domain-id 1 --environment "production" --operatingsystem-id 1 --medium "CentOS mirror" --ptable "Kickstart default" --subnet "mgmt" --puppet-proxy-id 1 --puppet-ca-proxy-id 1
 
 # Get our custom provision templates
 foreman-rake templates:sync repo="https://github.com/norcams/community-templates.git" branch="norcams"
