@@ -1,7 +1,63 @@
----
+--
 classes:
-   - profile::messaging::rabbitmq
-   - erlang
+   - profile::virtualization::libvirt
 
-profile::messaging::rabbitmq::manage_firewall: false
+libvirt::unix_sock_group:         wheel
+libvirt::unix_sock_rw_perms:	  0770
+libvirt::listen_tls:              false
+libvirt::listen_tcp:              true
+libvirt::auth_tcp:                none
+libvirt::sysconfig:
+  LIBVIRTD_ARGS:                  '--listen'
+libvirt::qemu_vnc_listen:         '0.0.0.0'
+libvirt::qemu_vnc_sasl:           false
+libvirt::qemu_vnc_tls:            false
+
+libvirt_networks:
+  direct-net:
+    ensure:              enabled
+    autostart:           true
+    forward_mode:        bridge
+    bridge:              br0
+
+libvirt_pool:
+  diskpool:
+    ensure:              present
+    autostart:           true
+    type:                dir
+    target:              "/var/lib/pool-dir"
+
+
+profile::base::common::manage_networkifs:    true
+
+netcf_if:
+  br0:
+    ensure:      up
+    definition:  '
+      <interface type="bridge" name="br0">
+        <start mode="onboot"/>
+        <mtu size="1500"/>
+        <protocol family="ipv4">
+          <ip address="172.16.32.100" prefix="21"/>
+          <route gateway="172.16.32.1"/>
+        </protocol>
+        <bridge stp="off">
+          <interface type="ethernet" name="em3">
+          </interface>
+        </bridge>
+      </interface>'
+#  br1:
+#    ensure:      up
+#    definition:  '<interface type="bridge" name="br1">
+#      <start mode="onboot"/>
+#      <mtu size="1500"/>
+#      <protocol family="ipv4">
+#        <ip address="172.16.40.100" prefix="21"/>
+#        <route gateway="172.16.40.1"/>
+#      </protocol>
+#      <bridge stp="off">
+#        <interface type="ethernet" name="em4">
+#        </interface>
+#      </bridge>
+#    </interface>'
 
