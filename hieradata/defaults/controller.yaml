@@ -27,3 +27,37 @@ libvirt_pool:
     type:                dir
     target:              "/var/lib/pool-dir"
 
+
+profile::base::common::manage_networkifs:    true
+
+netcf_if:
+  br0:
+    ensure:      up
+    definition:  '
+      <interface type="bridge" name="br0">
+        <start mode="onboot"/>
+        <mtu size="1500"/>
+        <protocol family="ipv4">
+          <ip address="172.16.32.100" prefix="21"/>
+          <route gateway="172.16.32.1"/>
+        </protocol>
+        <bridge stp="off">
+          <interface type="ethernet" name="em3">
+          </interface>
+        </bridge>
+      </interface>'
+#  br1:
+#    ensure:      up
+#    definition:  '<interface type="bridge" name="br1">
+#      <start mode="onboot"/>
+#      <mtu size="1500"/>
+#      <protocol family="ipv4">
+#        <ip address="172.16.40.100" prefix="21"/>
+#        <route gateway="172.16.40.1"/>
+#      </protocol>
+#      <bridge stp="off">
+#        <interface type="ethernet" name="em4">
+#        </interface>
+#      </bridge>
+#    </interface>'
+
