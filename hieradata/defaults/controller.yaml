@@ -1,7 +1,29 @@
----
+--
 classes:
-   - profile::messaging::rabbitmq
-   - erlang
+   - profile::virtualization::libvirt
 
-profile::messaging::rabbitmq::manage_firewall: false
+libvirt::unix_sock_group:         wheel
+libvirt::unix_sock_rw_perms:	  0770
+libvirt::listen_tls:              false
+libvirt::listen_tcp:              true
+libvirt::auth_tcp:                none
+libvirt::sysconfig:
+  LIBVIRTD_ARGS:                  '--listen'
+libvirt::qemu_vnc_listen:         '0.0.0.0'
+libvirt::qemu_vnc_sasl:           true
+libvirt::qemu_vnc_tls:            true
+
+libvirt_networks:
+  direct-net:
+    ensure:              enabled
+    autostart:           true
+    forward_mode:        bridge
+    bridge:              br2
+
+libvirt_pool:
+  diskpool:
+    ensure:              present
+    autostart:           true
+    type:                dir
+    target:              "/var/lib/pool-dir"
 
