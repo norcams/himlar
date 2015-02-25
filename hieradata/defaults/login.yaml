@@ -51,6 +51,12 @@ account::accounts:
     groups:
       - wheel
       - users
+  kskurtveit:
+    ssh_key_type: rsa
+    ssh_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDV35F8Vrk0VlPQfwHO1O2bfB0gMrOZvD19eamOrxA//GwIKLZtq1slCsy5S2tacj29mYfMGC09GYSLqiUGB+sI/LobTOw22kt+37XF/2QOjJpox8K425f2Bh8Owlgf79YxQcdurvhOnNdA5OvcY2BFYAMAxgQg+F9fISYqggwPhYp1SJpuZaT9eomd4PtTG1TZ3Jc77Z254YQCByB7LlPw/pqOm4CxOqai2v9Fj1hCxaQcepfPS05/NjHF6oVoVklCYHGgV8NCvXRU+CyaUl03fvOrXZ0JPBVEP53+fHIHaQsgnm3HaKbURL/+CIjT1FPKyBg0DwU3xQWclL9u9tXh kristian.skurtveit@gmail.com
+    groups:
+      - wheel
+      - users
   iaas:
     ensure: absent
 
