@@ -10,15 +10,15 @@ libvirt::auth_tcp:                none
 libvirt::sysconfig:
   LIBVIRTD_ARGS:                  '--listen'
 libvirt::qemu_vnc_listen:         '0.0.0.0'
-libvirt::qemu_vnc_sasl:           true
-libvirt::qemu_vnc_tls:            true
+libvirt::qemu_vnc_sasl:           false
+libvirt::qemu_vnc_tls:            false
 
 libvirt_networks:
   direct-net:
     ensure:              enabled
     autostart:           true
     forward_mode:        bridge
-    bridge:              br2
+    bridge:              br0
 
 libvirt_pool:
   diskpool:
