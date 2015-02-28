@@ -1,31 +1,35 @@
 ---
 classes:
   - profile::webserver::apache
+  - hostname
+classes_bootstrap:
+  - hostname
 
-foreman::foreman_url:                   http://172.16.32.11
 foreman_proxy::dhcp_range:              '172.16.32.200 172.16.32.250'
 foreman_proxy::dhcp_gateway:            172.16.32.1
 foreman_proxy::dhcp_nameservers:        '129.177.6.54, 129.177.12.31'
 foreman_proxy::dhcp_interface:          eth2
-foreman_proxy::tftp_servername:         172.16.32.11
+#foreman_proxy::tftp_servername:         172.16.32.11
 foreman_proxy::dns_provider:            nsupdate
 foreman_proxy::dns_server:              129.177.6.54
-puppet::server_foreman_url:             http://172.16.32.11
+foreman_proxy::dns_managed:             true
+foreman_proxy::dns_zone:               'mgmt.iaas.intern'
+#foreman_proxy::dns_reverse:            '3.0.10.in-addr.arpa'
 dhcp::onie_inst_def_url:               'http://bgo-files-01.mgmt.iaas.intern/onie-installer-powerpc'
 dhcp::cumulus_provision_url:           'http://bgo-files-01.mgmt.iaas.intern/provision.sh'
 
-profile::base::common::manage_networkifs:    true
-network_if:
-  eth1:
-    ipv4_ips:   172.16.24.11/21
-    ensure:     up
-    start_mode: onboot
-    type:       ethernet
-  eth2:
-    ipv4_ips:   172.16.32.11/21
-    ensure:     up
-    start_mode: onboot
-    type:       ethernet
+#profile::base::common::manage_networkifs:    true
+#network_if:
+#  eth1:
+#    ipv4_ips:   172.16.24.11/21
+#    ensure:     up
+#    start_mode: onboot
+#    type:       ethernet
+#  eth2:
+#    ipv4_ips:   172.16.32.11/21
+#    ensure:     up
+#    start_mode: onboot
+#    type:       ethernet
 
 profile::webserver::apache::manage_firewall:    false
 definedVhosts:
