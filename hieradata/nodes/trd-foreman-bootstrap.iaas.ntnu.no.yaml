@@ -1,0 +1,27 @@
+classes:
+  - hostname
+classes_bootstrap:
+  - hostname
+
+foreman_proxy::dhcp_interface:                eth1
+foreman_proxy::tftp_servername:               10.171.91.15
+foreman_proxy::dns_server:                    10.171.91.15
+
+profile::base::common::manage_networkifs:     true
+network_if:
+  eth0:
+    ipv4_ips:   129.241.14.144/24
+    ensure:     up
+    start_mode: onboot
+    type:       ethernet
+  eth1:
+    ipv4_ips:   10.171.91.15/24
+    ensure:     up
+    start_mode: onboot
+    type:       ethernet
+  eth2:
+    ipv4_ips:   10.171.86.15/24
+    ensure:     up
+    start_mode: onboot
+    type:       ethernet
+
