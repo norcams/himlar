@@ -2,11 +2,11 @@
 
 
 # Register Foreman host in DNS and CNAMEs admin and puppet
-#echo "server alfalfa.uib.no
-#      update add trd-foreman-bootstrap.mgmt.iaas.ntnu.no 300 A 10.171.91.11
-#      update add admin.mgmt.iaas.ntnu.no 3600 CNAME trd-foreman-bootstrap.mgmt.iaas.ntnu.no
-#      update add puppet.mgmt.iaas.ntnu.no 3600 CNAME trd-foreman-bootstrap.mgmt.iaas.ntnu.no
-#      send" | nsupdate -k /etc/rndc.key
+echo "server dyndns.it.ntnu.no
+      update add trd-foreman-bootstrap.mgmt.iaas.ntnu.no 300 A 10.171.91.11
+      update add admin.mgmt.iaas.ntnu.no 3600 CNAME trd-foreman-bootstrap.mgmt.iaas.ntnu.no
+      update add puppet.mgmt.iaas.ntnu.no 3600 CNAME trd-foreman-bootstrap.mgmt.iaas.ntnu.no
+      send" | nsupdate -k /etc/rndc.key
 
 #
 # Foreman settings
@@ -30,7 +30,7 @@ hammer domain info --name "mgmt.iaas.ntnu.no"
 
 hammer subnet create --name "mgmt" \
   --network "10.171.91.0" \
-  --mask "255.255.255" \
+  --mask "255.255.255.0" \
   --gateway "10.171.91.1" \
   --dns-primary "129.241.0.200" \
   --dns-secondary "129.241.0.201"
@@ -48,7 +48,7 @@ hammer domain update --name mgmt.iaas.ntnu.no --dns-id 1
 
 hammer subnet create --name "oob" \
   --network "10.171.86.0" \
-  --mask "255.255.255" \
+  --mask "255.255.255.0" \
   --gateway "10.171.86.1" \
   --dns-primary "129.241.0.200" \
   --dns-secondary "129.241.0.200"
