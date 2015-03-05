@@ -51,3 +51,31 @@ puppet::additional_settings:
   'trusted_node_data': true
   'disable_warnings' : 'deprecations'
 
+#
+# Ceph parameters
+#
+ceph::profile::params::manage_repo:                 false
+ceph::profile::params::release:                     'firefly'
+######## Ceph.conf
+ceph::profile::params::fsid:                        '4b5c8c0a-ff60-454b-a1b4-9747aa737d19'
+ceph::profile::params::authentication_type:         'cephx'
+ceph::profile::params::mon_initial_members:         'bgo-cephmon-01,bgo-cephmon-02'
+ceph::profile::params::mon_host:                    '172.16.32.90:6789,172.16.32.223:6789'
+ceph::profile::params::osd_pool_default_pg_num:     '200'
+ceph::profile::params::osd_pool_default_pgp_num:    '200'
+ceph::profile::params::osd_pool_default_size:       '2'
+ceph::profile::params::osd_pool_default_min_size:   '1'
+ceph::profile::params::cluster_network:             '172.16.32.0/21'
+ceph::profile::params::public_network:              '172.16.32.0/21'
+######## Keys
+ceph::profile::params::mon_key:                     'AQATGHJTUCBqIBAA7M2yafV1xctn1pgr3GcKPg=='
+# as an alternative to specifying the mon key you can provide an exising keyring
+#ceph::profile::params::mon_keyring: '/etc/ceph/ceph.mon.keyring'
+ceph::profile::params::admin_key:                   'AQBMGHJTkC8HKhAAJ7NH255wYypgm1oVuV41MA=='
+ceph::profile::params::admin_key_mode:              '0600'
+ceph::profile::params::bootstrap_osd_key:           'AQARG3JTsDDEHhAAVinHPiqvJkUi5Mww/URupw=='
+ceph::profile::params::bootstrap_mds_key:           'AQCztJdSyNb0NBAASA2yPZPuwXeIQnDJ9O8gVw=='
+ceph::profile::params::osds:
+  '/var/osd1':
+    journal: '/var/osd1-journal'
+
