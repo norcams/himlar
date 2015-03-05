@@ -69,10 +69,16 @@ mod 'postgresql', :ref => 'pg_hba_rules',        :git => github + 'Mylezeem/pupp
 mod 'libvirt', :ref => '0.3.2',                  :git => github + 'thias/puppet-libvirt'
 
 #
+# ceph
+#
+mod 'ceph', :ref => '7f7847315c',                :git => github + 'stackforge/puppet-ceph'
+
+#
 # Common libs
 #
 mod 'stdlib', :ref => '4.4.0',                   :git => github + 'puppetlabs/puppetlabs-stdlib'
 mod 'concat', :ref => '1.1.2',                   :git => github + 'puppetlabs/puppetlabs-concat'
+mod 'inifile', :ref => '1.2.x',                  :git => github + 'puppetlabs/inifile'
 mod 'augeasproviders', :ref => 'v2.1.3',         :git => github + 'hercules-team/augeasproviders'
 mod 'augeasproviders_apache', :ref => '2.0.0',   :git => github + 'hercules-team/augeasproviders_apache'
 mod 'augeasproviders_core', :ref => '2.1.1',     :git => github + 'hercules-team/augeasproviders_core'
