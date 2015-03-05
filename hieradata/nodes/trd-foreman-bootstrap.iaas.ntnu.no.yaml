@@ -3,9 +3,10 @@ classes:
 classes_bootstrap:
   - hostname
 
+foreman_proxy::dhcp_range:                    '10.171.91.10 10.171.91.14'
 foreman_proxy::dhcp_interface:                eth1
-foreman_proxy::tftp_servername:               10.171.91.15
-foreman_proxy::dns_server:                    10.171.91.15
+foreman_proxy::tftp_servername:               10.171.91.11
+foreman_proxy::dns_server:                    10.171.91.11
 
 profile::base::common::manage_networkifs:     true
 network_if:
@@ -15,12 +16,12 @@ network_if:
     start_mode: onboot
     type:       ethernet
   eth1:
-    ipv4_ips:   10.171.91.15/24
+    ipv4_ips:   10.171.91.11/24
     ensure:     up
     start_mode: onboot
     type:       ethernet
   eth2:
-    ipv4_ips:   10.171.86.15/24
+    ipv4_ips:   10.171.86.11/24
     ensure:     up
     start_mode: onboot
     type:       ethernet
