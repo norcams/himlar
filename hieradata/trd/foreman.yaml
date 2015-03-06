@@ -7,6 +7,6 @@ foreman_proxy::dhcp_gateway:                  10.171.91.1
 foreman_proxy::dhcp_nameservers:              '129.241.0.200, 129.241.0.201'
 foreman_proxy::dns_managed:                   true
 foreman_proxy::dns_forwarders:                ['8.8.8.8']
-foreman_proxy::dns_zone:                      'vagrant.local'
+foreman_proxy::dns_zone:                      'iaas.ntnu.no'
 foreman_proxy::dns_reverse:                   '91.171.10.in-addr.arpa'
-
+foreman_proxy::dns_server:                    129.241.18.117

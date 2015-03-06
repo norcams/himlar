@@ -6,7 +6,6 @@ classes_bootstrap:
 foreman_proxy::dhcp_range:                    '10.171.91.10 10.171.91.14'
 foreman_proxy::dhcp_interface:                eth1
 foreman_proxy::tftp_servername:               10.171.91.11
-foreman_proxy::dns_server:                    10.171.91.11
 
 profile::base::common::manage_networkifs:     true
 network_if:

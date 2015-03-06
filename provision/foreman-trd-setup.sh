@@ -4,9 +4,12 @@
 # Register Foreman host in DNS and CNAMEs admin and puppet
 echo "server dyndns.it.ntnu.no
       update add trd-foreman-bootstrap.mgmt.iaas.ntnu.no. 300 A 10.171.91.11
-      update add 11.91.171.10.in-addr.arpa. 3600 PTR trd-foreman-bootstrap.mgmt.iaas.ntnu.no.
       update add admin.mgmt.iaas.ntnu.no. 3600 CNAME trd-foreman-bootstrap.mgmt.iaas.ntnu.no.
       update add puppet.mgmt.iaas.ntnu.no. 3600 CNAME trd-foreman-bootstrap.mgmt.iaas.ntnu.no.
+      send" | nsupdate -k /etc/rndc.key
+
+echo "server dyndns.it.ntnu.no
+      update add 11.91.171.10.in-addr.arpa. 3600 PTR trd-foreman-bootstrap.mgmt.iaas.ntnu.no.
       send" | nsupdate -k /etc/rndc.key
 
 #
