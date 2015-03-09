@@ -73,11 +73,15 @@ hammer proxy import-classes --environment "production" --id 1
 # TEMP FIX wrong url for some CentOS mirrors throug mirror.centos.org http://projects.theforeman.org/issues/6884
 hammer medium update --id 1 --path 'http://centos.uib.no/$version/os/$arch'
 
+# Download and create partition table
+wget -P http://folk.uib.no/edpto/provision_partition.erb
+hammer partition-table create --name "Kickstart partition instdev" --os-family Redhat --file /tmp/provision_partition.erb
+
 # Create OS
 hammer os create --name CentOS --major 7 --minor 0.1406 --description "CentOS 7.0" --family Redhat \
   --architecture-ids 1 \
   --medium-ids $(hammer medium list | grep CentOS | head -c1) \
-  --ptable-ids $(hammer partition-table list | grep "Kickstart default" | head -c1) 
+  --ptable-ids $(hammer partition-table list | grep "Kickstart partition instdev" | head -c1) 
 
 # Download and create templates
 wget -P /tmp http://folk.uib.no/edpto/provision_openstack.erb
