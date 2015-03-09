@@ -36,7 +36,7 @@ hammer environment info --name "production"
 
 wget -P /tmp http://folk.uib.no/edpto/provision_openstack.erb
 wget -P /tmp http://folk.uib.no/edpto/provision_kickstart_ifs.erb
-wget -P	/tmp http://folk.uib.no/edpto/provision_partition.erb
+wget -P /tmp http://folk.uib.no/edpto/provision_partition.erb
 
 hammer partition-table create --name "Kickstart partition instdev" --os-family Redhat --file /tmp/provision_partition.erb
 hammer template create --name "Kickstart_openstack" --type provision --file /tmp/provision_openstack.erb

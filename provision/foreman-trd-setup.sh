@@ -78,7 +78,7 @@ hammer proxy import-classes --environment "production" --id 1
 hammer medium update --id 1 --path 'http://centos.uib.no/$version/os/$arch'
 
 # Download and create partition	table
-wget -P	http://folk.uib.no/edpto/provision_partition.erb
+wget -P http://folk.uib.no/edpto/provision_partition.erb
 hammer partition-table create --name "Kickstart partition instdev" --os-family Redhat --file /tmp/provision_partition.erb
 
 # Create OS
