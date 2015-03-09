@@ -78,8 +78,8 @@ hammer proxy import-classes --environment "production" --id 1
 hammer medium update --id 1 --path 'http://centos.uib.no/$version/os/$arch'
 
 # Download and create partition	table
-wget -P http://folk.uib.no/edpto/provision_partition.erb
-hammer partition-table create --name "Kickstart partition instdev" --os-family Redhat --file /tmp/provision_partition.erb
+wget -P /tmp https://github.com/norcams/community-templates/blob/norcams/kickstart/norcams_disklayout.erb
+hammer partition-table create --name "Kickstart partition instdev" --os-family Redhat --file /tmp/norcams_disklayout.erb
 
 # Create OS
 hammer os create --name CentOS --major 7 --minor 0.1406 --description "CentOS 7.0" --family Redhat \
@@ -88,10 +88,10 @@ hammer os create --name CentOS --major 7 --minor 0.1406 --description "CentOS 7.
   --ptable-ids $(hammer partition-table list | grep "Kickstart partition instdev" | head -c1) 
 
 # Download and create templates
-wget -P /tmp http://folk.uib.no/edpto/provision_openstack.erb
-wget -P	/tmp http://folk.uib.no/edpto/provision_kickstart_ifs.erb
-hammer template create --name "Kickstart_openstack" --type provision --file /tmp/provision_openstack.erb
-hammer template create --name "Kickstart default PXELinux ifs" --type PXELinux --file /tmp/provision_kickstart_ifs.erb
+wget -P /tmp https://github.com/norcams/community-templates/blob/norcams/kickstart/norcams_provision.erb
+wget -P	/tmp https://github.com/norcams/community-templates/blob/norcams/kickstart/norcams_PXELinux.erb
+hammer template create --name "Kickstart_openstack" --type provision --file /tmp/norcams_provision.erb
+hammer template create --name "Kickstart default PXELinux ifs" --type PXELinux --file /tmp/norcams_provision.erb
 # Assign templates to OS
 hammer template update --name "Kickstart default PXELinux ifs" --operatingsystem-ids 1
 hammer template update --name "Kickstart_openstack" --operatingsystem-ids 1
