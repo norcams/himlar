@@ -34,16 +34,18 @@ hammer subnet update --name "oob" \
 hammer environment create --name "production"
 hammer environment info --name "production"
 
-wget -P /tmp http://folk.uib.no/edpto/provision_openstack.erb
-wget -P /tmp http://folk.uib.no/edpto/provision_kickstart_ifs.erb
+wget -P /tmp https://github.com/norcams/community-templates/blob/norcams/kickstart/norcams_provision.erb
+wget -P /tmp https://github.com/norcams/community-templates/blob/norcams/kickstart/norcams_PXELinux.erb
+wget -P /tmp https://github.com/norcams/community-templates/blob/norcams/kickstart/norcams_disklayout.erb
 
-hammer template create --name "Kickstart_openstack" --type provision --file /tmp/provision_openstack.erb
-hammer template create --name "Kickstart default PXELinux ifs" --type PXELinux --file /tmp/provision_kickstart_ifs.erb
+hammer partition-table create --name "Kickstart partition instdev" --os-family Redhat --file /tmp/norcams_disklayout.erb
+hammer template create --name "Kickstart_openstack" --type provision --file /tmp/norcams_provision.erb
+hammer template create --name "Kickstart default PXELinux ifs" --type PXELinux --file /tmp/norcams_PXELinux.erb
 
 hammer os create --name CentOS --major 7 --minor 0.1406 --description "CentOS 7.0" --family Redhat \
   --architecture-ids 1 \
   --medium-ids $(hammer medium list | grep CentOS | head -c1) \
-  --ptable-ids $(hammer partition-table list | grep "Kickstart default" | head -c1) 
+  --ptable-ids $(hammer partition-table list | grep "Kickstart partition instdev" | head -c1) 
 
 hammer template update --name "Kickstart default PXELinux ifs" --operatingsystem-ids 1
 hammer template update --name "Kickstart_openstack" --operatingsystem-ids 1
