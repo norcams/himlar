@@ -85,7 +85,7 @@ hammer os create --name CentOS --major 7 --minor 0.1406 --description "CentOS 7.
 
 # Download and create templates
 wget -P /tmp https://github.com/norcams/community-templates/blob/norcams/kickstart/norcams_provision.erb
-wget -P	/tmp https://github.com/norcams/community-templates/blob/norcams/kickstart/norcams_PXELinux.erb
+wget -P /tmp https://github.com/norcams/community-templates/blob/norcams/kickstart/norcams_PXELinux.erb
 hammer template create --name "Kickstart_openstack" --type provision --file /tmp/norcams_provision.erb
 hammer template create --name "Kickstart default PXELinux ifs" --type PXELinux --file /tmp/norcams_PXELinux.erb
 # Assign templates to OS
