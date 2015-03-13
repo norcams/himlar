@@ -22,6 +22,7 @@ mod 'netcf', :ref => '4c3142e4f7',               :git => github + 'raphink/puppe
 mod 'hostname', :ref => '0.0.2',                 :git => github + 'peopleware/puppet-hostname'
 mod 'resolv_conf', :ref => 'v3.0.3',             :git => github + 'saz/puppet-resolv_conf'
 
+#
 # profile::base::login
 #
 mod 'googleauthenticator', :ref => 'norcams-0.1.0', :git => github + 'norcams/puppet-googleauthenticator'
@@ -40,22 +41,22 @@ mod 'quagga', :ref => 'master',                  :git => github + 'LeslieCarr/pu
 #
 # profile::application::foreman
 #
-mod 'zack/r10k', :ref => '2.5.2'                 # forge
+mod 'zack/r10k', '2.5.2'                         # forge
 mod 'theforeman/foreman', :ref => '2f9e173b',    :git => github + 'theforeman/puppet-foreman.git'
-mod 'theforeman/concat_native', :ref => '1.3.1'  # forge
-mod 'theforeman/tftp', :ref => '1.4.3'           # forge
+mod 'theforeman/concat_native', '1.3.1'          # forge
+mod 'theforeman/tftp', '1.4.3'                   # forge
 mod 'theforeman/puppet', :ref => '4cc662969',    :git => github + 'theforeman/puppet-puppet.git'
-mod 'theforeman/dns', :ref => '1.4.0'            # forge
+mod 'theforeman/dns', '1.4.0'                    # forge
 mod 'theforeman/dhcp', :ref => '2dd89ddb9c',     :git => github + 'norcams/puppet-dhcp.git'
-mod 'theforeman/foreman_proxy', :ref => '2.1.0'  # forge
-mod 'theforeman/git', :ref => '1.4.0'            # forge
-mod 'puppetlabs/ruby', :ref => '0.4.0'           # forge
-mod 'puppetlabs/xinetd', :ref => '1.4.0'         # forge
+mod 'theforeman/foreman_proxy', '2.1.0'          # forge
+mod 'theforeman/git', '1.4.0'                    # forge
+mod 'puppetlabs/ruby', '0.4.0'                   # forge
+mod 'puppetlabs/xinetd', '1.4.0'                 # forge
 
 #
 # profile::webserver::apache
 #
-mod 'puppetlabs/apache', :ref => '1.2.0'         # forge
+mod 'puppetlabs/apache', '1.2.0'                 # forge
 
 #
 # profile::database::postgresql
