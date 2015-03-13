@@ -40,7 +40,7 @@ echo '
 hammer domain create --name "vagrant.local"
 hammer domain info --name "vagrant.local"
 hammer domain update --name "vagrant.local" --dns-id 1
-hammer subnet create --name "mgmt"
+hammer subnet create --name "mgmt" \
   --network "10.0.3.0" \
   --mask "255.255.255.0" \
   --gateway "10.0.3.1" \
