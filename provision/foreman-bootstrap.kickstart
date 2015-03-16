@@ -7,7 +7,7 @@ lang en_US.UTF-8
 selinux --permissive
 keyboard us
 skipx
-network --bootproto dhcp
+network --bootproto dhcp --hostname bootstrap-common
 rootpw --iscrypted $1$de0ytuAp$9wuB2AJxYQrEM9Hxa4Ihp/
 firewall --service=ssh
 authconfig --useshadow --passalgo=sha256 --kickstart
@@ -113,6 +113,7 @@ yum -t -y -e 0 update
 echo "Running Puppet bootstrap"
 yum -y install git
 git clone https://github.com/norcams/himlar /opt/himlar
+cd /opt/himlar; git checkout libvirt_tftp_bootstrap
 /opt/himlar/provision/bootstrap.sh
 /opt/himlar/provision/puppetmodules.sh
 HIMLAR_CERTNAME=bootstrap-common /opt/himlar/provision/puppetrun.sh

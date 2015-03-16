@@ -47,6 +47,7 @@ virsh net-create foreman-bootstrap.xml
 # Serve kickstart file
 #
 pgrep -f "python -m SimpleHTTPServer" | xargs --no-run-if-empty kill
+mkdir -p /var/www/html
 cp -f foreman-bootstrap.kickstart /var/www/html/ks.cfg
 cd /var/www/html && python -m SimpleHTTPServer &
 
