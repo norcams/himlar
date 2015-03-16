@@ -1,0 +1,19 @@
+<network>
+  <name>foreman-bootstrap</name>
+  <forward mode='bridge'>
+  </forward>
+  <bridge name='pxebr' stp='on' delay='0'/>
+  <dns>
+    <host ip='10.171.91.3'>
+      <hostname>kickstart</hostname>
+    </host>
+  </dns>
+  <ip address='10.171.91.3' netmask='255.255.255.0'>
+    <tftp root='/var/lib/tftpboot'/>
+    <dhcp>
+      <range start='10.171.91.200' end='10.171.91.254'/>
+      <bootp file='pxelinux.0'/>
+    </dhcp>
+  </ip>
+</network>
+
