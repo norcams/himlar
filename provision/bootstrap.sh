@@ -1,6 +1,6 @@
 #!/bin/bash
 
-provision_puppet()
+bootstrap_puppet()
 {
   # packages
   if command -v yum >/dev/null 2>&1; then
@@ -23,7 +23,7 @@ provision_puppet()
 
   gem install r10k --no-ri --no-rdoc
 
-  # Temporary solution - download netcf gem and install. Needs some packages to build
+  # TODO: Package netcf within puppet-omnibus
   wget -P /tmp/ http://folk.uib.no/edpto/ruby-netcf-0.0.2.gem
   yum install -y netcf-devel gcc ruby-devel
   gem install /tmp/ruby-netcf-0.0.2.gem
@@ -43,6 +43,5 @@ provision_puppet()
   touch /opt/himlar/bootstrap && echo "Created bootstrap marker: /opt/himlar/bootstrap"
 }
 
-command -v puppet >/dev/null 2>&1                  || provision_puppet
-
+grep -q "/opt/himlar" /etc/puppet/puppet.conf || bootstrap_puppet
 
