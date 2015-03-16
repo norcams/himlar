@@ -7,7 +7,7 @@ lang en_US.UTF-8
 selinux --permissive
 keyboard us
 skipx
-network --bootproto dhcp --hostname vagrant-libvirt-test.vagrant.local
+network --bootproto dhcp
 rootpw --iscrypted $1$de0ytuAp$9wuB2AJxYQrEM9Hxa4Ihp/
 firewall --service=ssh
 authconfig --useshadow --passalgo=sha256 --kickstart
@@ -53,7 +53,7 @@ cp -va /etc/resolv.conf /mnt/sysimage/etc/resolv.conf
 ) 2>&1 | tee /mnt/sysimage/root/install.postnochroot.log
 %end
 %post
-logger "Starting anaconda vagrant-libvirt-test.vagrant.local postinstall"
+logger "Starting anaconda postinstall"
 exec < /dev/tty3 > /dev/tty3
 #changing to VT 3 so that we can see whats going on....
 /usr/bin/chvt 3
@@ -115,7 +115,7 @@ yum -y install git
 git clone https://github.com/norcams/himlar /opt/himlar
 /opt/himlar/provision/bootstrap.sh
 /opt/himlar/provision/puppetmodules.sh
-/opt/himlar/provision/puppetrun.sh
+HIMLAR_CERTNAME=bootstrap-common /opt/himlar/provision/puppetrun.sh
 
 sync
 
