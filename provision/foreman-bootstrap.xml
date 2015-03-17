@@ -7,14 +7,14 @@
   </forward>
   <bridge name='pxebr' stp='on' delay='0'/>
   <dns>
-    <host ip='10.0.3.1'>
+    <host ip='xxxIPxxx'>
       <hostname>kickstart</hostname>
     </host>
   </dns>
-  <ip address='10.0.3.1' netmask='255.255.255.0'>
+  <ip address='xxxIPxxx' netmask='xxxNETMASKxxx'>
     <tftp root='/var/lib/tftpboot'/>
     <dhcp>
-      <range start='10.0.3.200' end='10.0.3.254'/>
+      <range start='xxxRANGE_STARTxxx' end='xxxRANGE_ENDxxx'/>
       <bootp file='pxelinux.0'/>
     </dhcp>
   </ip>
