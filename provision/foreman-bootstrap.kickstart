@@ -5,13 +5,13 @@ unsupported_hardware
 url --url http://mirror.centos.org/centos/7.0.1406/os/x86_64
 lang en_US.UTF-8
 selinux --permissive
-keyboard us
+keyboard no
 skipx
-network --bootproto dhcp --hostname bootstrap-common
+network --bootproto dhcp --hostname xxxHOSTNAMExxx
 rootpw --iscrypted $1$de0ytuAp$9wuB2AJxYQrEM9Hxa4Ihp/
 firewall --service=ssh
 authconfig --useshadow --passalgo=sha256 --kickstart
-timezone --utc UTC
+timezone --utc Europe/Oslo
 services --disabled gpm,sendmail,cups,pcmcia,isdn,rawdevices,hpoj,bluetooth,openibd,avahi-daemon,avahi-dnsconfd,hidd,hplip,pcscd
 
 
@@ -21,12 +21,13 @@ repo --name=puppetlabs-deps --baseurl=http://yum.puppetlabs.com/el/7/dependencie
 
 bootloader --location=mbr --append="nofb quiet splash=quiet"
 
-
 zerombr
   clearpart --all --initlabel
-  autopart
-
-
+  part /boot --fstype xfs --size 512 --asprimary
+  part pv.sda --ondisk=sda --size=1 --grow --asprimary
+  volgroup vg_root pv.sda
+    logvol swap --name=lv_swap --vgname=vg_root --size=256
+    logvol / --name=lv_root --vg_name=vg_root --fstype=xfs --grow --maxsize=10240
 
 text
 reboot
@@ -113,10 +114,9 @@ yum -t -y -e 0 update
 echo "Running Puppet bootstrap"
 yum -y install git
 git clone https://github.com/norcams/himlar /opt/himlar
-cd /opt/himlar; git checkout libvirt_tftp_bootstrap
 /opt/himlar/provision/bootstrap.sh
 /opt/himlar/provision/puppetmodules.sh
-HIMLAR_CERTNAME=bootstrap-common /opt/himlar/provision/puppetrun.sh
+FACTER_RUNMODE=bootstrap HIMLAR_CERTNAME=xxxCERTNAMExxx /opt/himlar/provision/puppetrun.sh
 
 sync
 
