@@ -48,6 +48,29 @@ virsh net-create foreman-bootstrap.xml
 #
 pgrep -f "python -m SimpleHTTPServer" | xargs --no-run-if-empty kill
 mkdir -p /var/www/html
+
+case "$1" in
+  trd)
+    kickstart_hostname="trd-controller-1.mgmt.iaas.ntnu.no"
+    kickstart_certname="trd-controller-1.iaas.ntnu.no"
+    ;;
+  osl)
+    kickstart_hostname="osl-controller-1.iaas.uio.no"
+    kickstart_certname="$kickstart_hostname"
+    ;;
+  bgo)
+    kickstart_hostname="bgo-controller-1.mgmt.iaas.intern"
+    kickstart_certname="bgo-controller-1.iaas.uib.no"
+    ;;
+  *)
+    kickstart_hostname="dev-controler-1.vagrant.local"
+    kickstart_certname="$kickstart_hostname"
+    ;;
+esac
+
 cp -f foreman-bootstrap.kickstart /var/www/html/ks.cfg
+sed -i 's/xxxHOSTNAMExxx/'$kickstart_hostname'/' /var/www/html/ks.cfg
+sed -i 's/xxxCERTNAMExxx/'$kickstart_certname'/' /var/www/html/ks.cfg
+
 cd /var/www/html && python -m SimpleHTTPServer &
 
