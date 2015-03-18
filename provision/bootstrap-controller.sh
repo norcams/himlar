@@ -4,7 +4,7 @@ case "$1" in
   trd)
     kickstart_hostname="trd-controller-1.mgmt.iaas.ntnu.no"
     kickstart_certname="trd-controller-1.iaas.ntnu.no"
-    kickstart_ip=10.171.91.3
+    kickstart_server=10.171.91.3
     kickstart_netmask=255.255.255.0
     kickstart_range_start=10.171.91.200
     kickstart_range_end=10.171.91.254
@@ -12,7 +12,7 @@ case "$1" in
   osl)
     kickstart_hostname="osl-controller-1.iaas.uio.no"
     kickstart_certname="$kickstart_hostname"
-    kickstart_ip=129.240.224.102
+    kickstart_server=129.240.224.102
     kickstart_netmask=255.255.255.224
     kickstart_range_start=129.240.224.115
     kickstart_range_end=129.240.224.126
@@ -20,7 +20,7 @@ case "$1" in
   bgo)
     kickstart_hostname="bgo-controller-1.mgmt.iaas.intern"
     kickstart_certname="bgo-controller-1.iaas.uib.no"
-    kickstart_ip=172.16.32.6
+    kickstart_server=172.16.32.6
     kickstart_netmask=255.255.248.0
     kickstart_range_start=172.16.32.200
     kickstart_range_end=172.16.32.254
@@ -28,7 +28,7 @@ case "$1" in
   *)
     kickstart_hostname="dev-controller-1.vagrant.local"
     kickstart_certname="$kickstart_hostname"
-    kickstart_ip=10.0.3.6
+    kickstart_server=10.0.3.6
     kickstart_netmask=255.255.255.0
     kickstart_range_start=10.0.3.200
     kickstart_range_end=10.0.3.254
@@ -65,24 +65,24 @@ curl -f -L -C - -o /var/lib/tftpboot/boot/vmlinuz \
 #
 # Write pxelinux.cfg/default
 #
-echo '
+echo "
 default linux
 label linux
 kernel boot/vmlinuz
-append initrd=boot/initrd.img ks=http://kickstart:8000/ks.cfg network ks.sendmac net.ifnames=0
+append initrd=boot/initrd.img ks=http://kickstart:8000/${kickstart_certname}.cfg network ks.sendmac net.ifnames=0
 IPAPPEND 2
-' > /var/lib/tftpboot/pxelinux.cfg/default
+" > /var/lib/tftpboot/pxelinux.cfg/default
 
 #
 # Create (and start) the network with DHCP and TFTP services enabled
 #
-cp foreman-bootstrap.xml /tmp
-sed -i 's/xxxIPxxx/'$kickstart_ip'/' /tmp/foreman-bootstrap.xml
-sed -i 's/xxxNETMASKxxx/'$kickstart_netmask'/' /tmp/foreman-bootstrap.xml
-sed -i 's/xxxRANGE_STARTxxx/'$kickstart_range_start'/' /tmp/foreman-bootstrap.xml
-sed -i 's/xxxRANGE_ENDxxx/'$kickstart_range_end'/' /tmp/foreman-bootstrap.xml
-virsh net-list | grep foreman-bootstrap && virsh net-destroy foreman-bootstrap
-virsh net-create /tmp/foreman-bootstrap.xml
+cp bootstrap-controller.xml /tmp
+sed -i 's/xxxIPxxx/'$kickstart_server'/' /tmp/bootstrap-controller.xml
+sed -i 's/xxxNETMASKxxx/'$kickstart_netmask'/' /tmp/bootstrap-controller.xml
+sed -i 's/xxxRANGE_STARTxxx/'$kickstart_range_start'/' /tmp/bootstrap-controller.xml
+sed -i 's/xxxRANGE_ENDxxx/'$kickstart_range_end'/' /tmp/bootstrap-controller.xml
+virsh net-list | grep bootstrap-controller && virsh net-destroy bootstrap-controller
+virsh net-create /tmp/bootstrap-controller.xml
 
 #
 # Serve kickstart file
@@ -90,9 +90,9 @@ virsh net-create /tmp/foreman-bootstrap.xml
 pgrep -f "python -m SimpleHTTPServer" | xargs --no-run-if-empty kill
 mkdir -p /var/www/html
 
-cp -f foreman-bootstrap.kickstart /var/www/html/ks.cfg
-sed -i 's/xxxHOSTNAMExxx/'$kickstart_hostname'/' /var/www/html/ks.cfg
-sed -i 's/xxxCERTNAMExxx/'$kickstart_certname'/' /var/www/html/ks.cfg
+cp -f bootstrap.kickstart /var/www/html/${kickstart_certname}.cfg
+sed -i 's/xxxHOSTNAMExxx/'$kickstart_hostname'/' /var/www/html/${kickstart_certname}.cfg
+sed -i 's/xxxCERTNAMExxx/'$kickstart_certname'/' /var/www/html/${kickstart_certname}.cfg
 
 cd /var/www/html && python -m SimpleHTTPServer &
 
