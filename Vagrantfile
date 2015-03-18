@@ -23,7 +23,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     puts "Args: #{args}"
   end
 
-  config.vm.provision :shell, :path => 'provision/bootstrap.sh', args: args
+  config.vm.provision :shell, :path => 'provision/puppetbootstrap.sh', args: args
   config.vm.provision :shell, :path => 'provision/puppetmodules.sh', args: args
   config.vm.provision :shell, :path => 'provision/puppetrun.sh', args: args
 

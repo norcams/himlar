@@ -114,7 +114,7 @@ yum -t -y -e 0 update
 echo "Running Puppet bootstrap"
 yum -y install git
 git clone https://github.com/norcams/himlar /opt/himlar
-/opt/himlar/provision/bootstrap.sh
+/opt/himlar/provision/puppetbootstrap.sh
 /opt/himlar/provision/puppetmodules.sh
 FACTER_RUNMODE=bootstrap HIMLAR_CERTNAME=xxxCERTNAMExxx /opt/himlar/provision/puppetrun.sh
 

@@ -65,24 +65,24 @@ curl -f -L -C - -o /var/lib/tftpboot/boot/vmlinuz \
 #
 # Write pxelinux.cfg/default
 #
-echo '
+echo "
 default linux
 label linux
 kernel boot/vmlinuz
-append initrd=boot/initrd.img ks=http://kickstart:8000/ks.cfg network ks.sendmac net.ifnames=0
+append initrd=boot/initrd.img ks=http://kickstart:8000/${kickstart_certname}.cfg network ks.sendmac net.ifnames=0
 IPAPPEND 2
-' > /var/lib/tftpboot/pxelinux.cfg/default
+" > /var/lib/tftpboot/pxelinux.cfg/default
 
 #
 # Create (and start) the network with DHCP and TFTP services enabled
 #
-cp foreman-bootstrap.xml /tmp
-sed -i 's/xxxIPxxx/'$kickstart_ip'/' /tmp/foreman-bootstrap.xml
-sed -i 's/xxxNETMASKxxx/'$kickstart_netmask'/' /tmp/foreman-bootstrap.xml
-sed -i 's/xxxRANGE_STARTxxx/'$kickstart_range_start'/' /tmp/foreman-bootstrap.xml
-sed -i 's/xxxRANGE_ENDxxx/'$kickstart_range_end'/' /tmp/foreman-bootstrap.xml
-virsh net-list | grep foreman-bootstrap && virsh net-destroy foreman-bootstrap
-virsh net-create /tmp/foreman-bootstrap.xml
+cp bootstrap-controller.xml /tmp
+sed -i 's/xxxIPxxx/'$kickstart_ip'/' /tmp/bootstrap-controller.xml
+sed -i 's/xxxNETMASKxxx/'$kickstart_netmask'/' /tmp/bootstrap-controller.xml
+sed -i 's/xxxRANGE_STARTxxx/'$kickstart_range_start'/' /tmp/bootstrap-controller.xml
+sed -i 's/xxxRANGE_ENDxxx/'$kickstart_range_end'/' /tmp/bootstrap-controller.xml
+virsh net-list | grep bootstrap-controller && virsh net-destroy bootstrap-controller
+virsh net-create /tmp/bootstrap-controller.xml
 
 #
 # Serve kickstart file
@@ -90,9 +90,9 @@ virsh net-create /tmp/foreman-bootstrap.xml
 pgrep -f "python -m SimpleHTTPServer" | xargs --no-run-if-empty kill
 mkdir -p /var/www/html
 
-cp -f foreman-bootstrap.kickstart /var/www/html/ks.cfg
-sed -i 's/xxxHOSTNAMExxx/'$kickstart_hostname'/' /var/www/html/ks.cfg
-sed -i 's/xxxCERTNAMExxx/'$kickstart_certname'/' /var/www/html/ks.cfg
+cp -f bootstrap-controller.kickstart /var/www/html/${kickstart_certname}.cfg
+sed -i 's/xxxHOSTNAMExxx/'$kickstart_hostname'/' /var/www/html/${kickstart_certname}.cfg
+sed -i 's/xxxCERTNAMExxx/'$kickstart_certname'/' /var/www/html/${kickstart_certname}.cfg
 
 cd /var/www/html && python -m SimpleHTTPServer &
 
