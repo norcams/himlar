@@ -56,7 +56,8 @@ cd /var/www/html && python -m SimpleHTTPServer &
 #
 virsh destroy ${kickstart_certname}
 virsh undefine ${kickstart_certname}
-virsh vol-delete --pool diskpool ${kickstart_certname}
+virsh vol-delete --pool diskpool ${kickstart_certname}.img
+virsh pool-refresh diskpool
 virt-install -v \
   -n "${kickstart_certname}" \
   -r 4096 \
