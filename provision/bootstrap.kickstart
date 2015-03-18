@@ -24,7 +24,7 @@ bootloader --location=mbr --append="nofb quiet splash=quiet"
 zerombr
   clearpart --all --initlabel
   part /boot --fstype xfs --size 512 --asprimary
-  part pv.sda --ondisk=sda --size=1 --grow --asprimary
+  part pv.sda --size=1 --grow --asprimary
   volgroup vg_root pv.sda
     logvol swap --name=lv_swap --vgname=vg_root --size=256
     logvol / --name=lv_root --vgname=vg_root --fstype=xfs --size=1 --grow --maxsize=10240
