@@ -25,12 +25,16 @@ case "$1" in
     kickstart_netmask=255.255.248.0
     kickstart_gw=172.16.32.1
     ;;
-  *)
+  dev)
     kickstart_hostname="dev-foreman-1.vagrant.local"
     kickstart_certname="$kickstart_hostname"
     kickstart_ip=10.0.3.5
     kickstart_netmask=255.255.255.0
     kickstart_gw=10.0.3.1
+    ;;
+  *)
+    echo "You need to specify a location."
+    exit 1
     ;;
 esac
 
@@ -57,7 +61,7 @@ virt-install -v \
   --os-variant=rhel7 \
   --accelerate \
   -w network=direct-net \
-  --disk /var/lib/libvirt/images/${kickstart_certname}.img,size=10 \
+  --disk /var/lib/libvirt/images/${kickstart_certname}.img,size=10 --force \
   -l http://centos.uib.no/7.0.1406/os/x86_64/ \
   --graphics spice,listen=${controller_ip} --noautoconsole \
   -x "ks=http://${controller_ip}:8000/${kickstart_certname}.cfg network ks.sendmac net.ifnames=0 ip=${kickstart_ip} netmask=${kickstart_netmask} gateway=${kickstart_gw} dns=8.8.8.8" \
