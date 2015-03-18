@@ -57,7 +57,7 @@ virt-install -v \
   --os-variant=rhel7 \
   --accelerate \
   -w network=direct-net \
-  --disk size=10 \
+  --disk /var/lib/libvirt/images/${kickstart_certname}.img,size=10 \
   -l http://centos.uib.no/7.0.1406/os/x86_64/ \
   --graphics spice,listen=${controller_ip} --noautoconsole \
   -x "ks=http://${controller_ip}:8000/${kickstart_certname}.cfg network ks.sendmac net.ifnames=0 ip=${kickstart_ip} netmask=${kickstart_netmask} gateway=${kickstart_gw} dns=8.8.8.8" \
