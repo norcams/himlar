@@ -76,7 +76,7 @@ IPAPPEND 2
 #
 # Create (and start) the network with DHCP and TFTP services enabled
 #
-cp bootstrap-controller.xml /tmp
+cp -f /opt/himlar/provision/bootstrap-controller.xml /tmp
 sed -i 's/xxxIPxxx/'$kickstart_server'/' /tmp/bootstrap-controller.xml
 sed -i 's/xxxNETMASKxxx/'$kickstart_netmask'/' /tmp/bootstrap-controller.xml
 sed -i 's/xxxRANGE_STARTxxx/'$kickstart_range_start'/' /tmp/bootstrap-controller.xml
@@ -90,7 +90,7 @@ virsh net-create /tmp/bootstrap-controller.xml
 pgrep -f "python -m SimpleHTTPServer" | xargs --no-run-if-empty kill
 mkdir -p /var/www/html
 
-cp -f bootstrap.kickstart /var/www/html/${kickstart_certname}.cfg
+cp -f /opt/himlar/provision/bootstrap.kickstart /var/www/html/${kickstart_certname}.cfg
 sed -i 's/xxxHOSTNAMExxx/'$kickstart_hostname'/' /var/www/html/${kickstart_certname}.cfg
 sed -i 's/xxxCERTNAMExxx/'$kickstart_certname'/' /var/www/html/${kickstart_certname}.cfg
 

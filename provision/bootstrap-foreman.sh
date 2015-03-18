@@ -41,7 +41,7 @@ esac
 pgrep -f "python -m SimpleHTTPServer" | xargs --no-run-if-empty kill
 mkdir -p /var/www/html
 
-cp -f bootstrap.kickstart /var/www/html/${kickstart_certname}.cfg
+cp -f /opt/himlar/provision/bootstrap.kickstart /var/www/html/${kickstart_certname}.cfg
 sed -i 's/xxxHOSTNAMExxx/'$kickstart_hostname'/' /var/www/html/${kickstart_certname}.cfg
 sed -i 's/xxxCERTNAMExxx/'$kickstart_certname'/' /var/www/html/${kickstart_certname}.cfg
 
