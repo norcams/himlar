@@ -27,7 +27,7 @@ zerombr
   part pv.sda --ondisk=sda --size=1 --grow --asprimary
   volgroup vg_root pv.sda
     logvol swap --name=lv_swap --vgname=vg_root --size=256
-    logvol / --name=lv_root --vgname=vg_root --fstype=xfs --grow --maxsize=10240
+    logvol / --name=lv_root --vgname=vg_root --fstype=xfs --size=1 --grow --maxsize=10240
 
 text
 reboot
