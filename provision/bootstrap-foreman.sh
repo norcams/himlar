@@ -62,6 +62,7 @@ virt-install -v \
   -n "${kickstart_certname}" \
   -r 4096 \
   --vcpus 2 \
+  --autostart \
   --os-variant=rhel7 \
   --accelerate \
   -w network=direct-net \
