@@ -1,8 +1,4 @@
-classes:
-  - hostname
-classes_bootstrap:
-  - hostname
-
+---
 profile::base::common::manage_networkifs:     true
 network_if:
   eth0:
