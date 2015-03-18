@@ -52,8 +52,11 @@ sed -i 's/xxxCERTNAMExxx/'$kickstart_certname'/' /var/www/html/${kickstart_certn
 cd /var/www/html && python -m SimpleHTTPServer &
 
 #
-# Run virt-install to build <loc>-foreman-1
+# Run virt-install to build (or rebuild) <loc>-foreman-1
 #
+virsh destroy ${kickstart_certname}
+virsh undefine ${kickstart_certname}
+virsh vol-delete --pool diskpool ${kickstart_certname}
 virt-install -v \
   -n "${kickstart_certname}" \
   -r 4096 \
@@ -61,9 +64,9 @@ virt-install -v \
   --os-variant=rhel7 \
   --accelerate \
   -w network=direct-net \
-  --disk /var/lib/libvirt/images/${kickstart_certname}.img,size=10 --force \
+  --disk pool=diskpool,size=10 --force \
   -l http://centos.uib.no/7.0.1406/os/x86_64/ \
-  --graphics spice,listen=${controller_ip} --noautoconsole \
+  --graphics vnc,listen=${controller_ip} --noautoconsole \
   -x "ks=http://${controller_ip}:8000/${kickstart_certname}.cfg network ks.sendmac net.ifnames=0 ip=${kickstart_ip} netmask=${kickstart_netmask} gateway=${kickstart_gw} dns=8.8.8.8" \
   &
 
