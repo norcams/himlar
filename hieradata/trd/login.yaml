@@ -4,3 +4,13 @@ classes:
 classes_bootstrap:
   - hostname
 
+profile::network::services::manage_dnsmasq: true
+
+dnsmasq_conf:
+  oob-interface:
+    content: 'interface=eth2'
+  oob-dhcp-range:
+    content: 'dhcp-range=10.171.86.100,10.171.86.199,12h'
+  oob-dhcp-gateway:
+    content: 'dhcp-option=3,10.171.86.1'
+

@@ -1,0 +1,22 @@
+---
+profile::network::services::manage_dnsmasq: true
+
+dnsmasq_dhcp:
+  mgmt:
+    dhcp_start: 129.240.224.107
+    dhcp_end: 129.240.224.107
+    netmask: 255.255.255.248
+    lease_time: 12h
+# oob:
+#   dhcp_start: 129.240.224.80
+#   dhcp_end: 129.240.224.94
+#   netmask: 255.255.255.248
+#   paramset: 'oob'
+# dnsmasq_dhcpoption:
+#   3:
+#     content: '129.240.224.65'
+#     paramtag: 'oob'
+
+dnsmasq::interface:
+  - eth0
+dnsmasq::service_ensure: 'stopped'

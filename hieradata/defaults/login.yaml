@@ -2,6 +2,13 @@
 classes:
   - profile::base::login
 
+profile::network::services::manage_dnsmasq: false
+
+dnsmasq::port: 0
+dnsmasq::dhcp_no_override: true
+dnsmasq::enable_tftp: true
+dnsmasq::dhcp_boot: 'pxelinux.0'
+
 account::accounts:
   beddari:
     ssh_key_type: rsa

@@ -12,14 +12,14 @@ augeas { 'peerdns no':
 }
 augeas { 'switch nameserver':
   context => '/files/etc/resolv.conf',
-  changes => [ 'set nameserver 10.0.3.15' ],
+  changes => [ 'set nameserver 10.0.3.5' ],
 }
 "
 # Register Foreman host in DNS and CNAMEs admin and puppet
-echo "server 10.0.3.15
-      update add vagrant-foreman-dev.vagrant.local 3600 A 10.0.3.15
-      update add admin.vagrant.local 3600 CNAME vagrant-foreman-dev.vagrant.local.
-      update add puppet.vagrant.local 3600 CNAME vagrant-foreman-dev.vagrant.local.
+echo "server 10.0.3.5
+      update add vagrant-foreman-dev.himlar.local 3600 A 10.0.3.5
+      update add admin.himlar.local 3600 CNAME vagrant-foreman-dev.himlar.local.
+      update add puppet.himlar.local 3600 CNAME vagrant-foreman-dev.himlar.local.
       send" | nsupdate -k /etc/rndc.key
 
 #
@@ -30,23 +30,23 @@ rootpw_md5=$(openssl passwd -1 $rootpw)
 echo '
   Setting["root_pass"]        = "'$rootpw_md5'"
   Setting["entries_per_page"] = 100
-  Setting["foreman_url"]      = "https://admin.vagrant.local"
-  Setting["unattended_url"]   = "http://admin.vagrant.local"
+  Setting["foreman_url"]      = "https://admin.himlar.local"
+  Setting["unattended_url"]   = "http://admin.himlar.local"
 ' | foreman-rake console
 
 #
 # Network configuration objects
 #
-hammer domain create --name "vagrant.local"
-hammer domain info --name "vagrant.local"
-hammer domain update --name "vagrant.local" --dns-id 1
+hammer domain create --name "himlar.local"
+hammer domain info --name "himlar.local"
+hammer domain update --name "himlar.local" --dns-id 1
 hammer subnet create --name "mgmt" \
   --network "10.0.3.0" \
   --mask "255.255.255.0" \
   --gateway "10.0.3.1" \
-  --dns-primary "10.0.3.15"
+  --dns-primary "10.0.3.5"
 hammer subnet update --name "mgmt" \
-  --domain-ids $(hammer domain list | grep "vagrant.local" | head -c1)
+  --domain-ids $(hammer domain list | grep "himlar.local" | head -c1)
 # Assume DHCP, TFTP and DNS is managed through proxy id 1
 hammer subnet update --name "mgmt" --dhcp-id 1
 hammer subnet update --name "mgmt" --tftp-id 1
@@ -61,7 +61,7 @@ hammer subnet update --name "mgmt" --from 10.0.3.100 --to 10.0.3.199
 #  --dns-primary "129.240.2.3" \
 #  --dns-secondary "129.240.2.40"
 #hammer subnet update --name "oob" \
-#  --domain-ids $(hammer domain list | grep "vagrant.local" | head -c1)
+#  --domain-ids $(hammer domain list | grep "himlar.local" | head -c1)
 
 #
 # Puppet settings

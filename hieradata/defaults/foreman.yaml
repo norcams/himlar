@@ -36,22 +36,22 @@ puppet::server_external_nodes:                ''
 #
 # Location specific parameters
 #
-#foreman::foreman_url:                         http://10.0.2.15
+#foreman::foreman_url:                         http://10.0.3.5
 #foreman_proxy::dhcp_range:                    '10.0.3.100 10.0.3.199'
-#foreman_proxy::dhcp_gateway:                  10.0.3.15
-#foreman_proxy::dhcp_nameservers:              10.0.2.15
+#foreman_proxy::dhcp_gateway:                  10.0.3.5
+#foreman_proxy::dhcp_nameservers:              10.0.3.5
 #foreman_proxy::dhcp_interface:                eth1
-#foreman_proxy::tftp_servername:               10.0.3.15
-#foreman_proxy::dns_server:                    10.0.2.15
+#foreman_proxy::tftp_servername:               10.0.3.5
+#foreman_proxy::dns_server:                    10.0.3.5
 #foreman_proxy::dns_managed:                   true
-#puppet::server_foreman_url:                   http://10.0.2.15
-#dhcp::onie_inst_def_url:                     'http://10.0.0.1/cumulus-powerpc.bin'
-#dhcp::cumulus_provision_url:                 'http://10.0.0.1/provision.sh'
+#puppet::server_foreman_url:                   http://10.0.3.5
+#dhcp::onie_inst_def_url:                     'http://10.0.3.5/cumulus-powerpc.bin'
+#dhcp::cumulus_provision_url:                 'http://10.0.3.5/provision.sh'
 #
 #profile::base::common::manage_networkifs:     true
 #networkInterfaces:
 #  eth1:
-#    ipv4_ips:   10.0.3.15/24
+#    ipv4_ips:   10.0.3.5/24
 #    ensure:     up
 #    start_mode: onboot
 #    type:       ethernet

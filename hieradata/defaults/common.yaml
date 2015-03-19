@@ -52,6 +52,48 @@ puppet::additional_settings:
   'disable_warnings' : 'deprecations'
 
 #
+# Locations and environments metadata
+#
+locations:
+  bgo:
+    description: 'Bergen'
+  osl:
+    description: 'Oslo'
+  trd:
+    description: 'Trondheim'
+  vagrant:
+    description: 'Local development'
+environments:
+  production:
+    - bgo
+    - osl
+    - trd
+  development:
+    - vagrant
+
+#
+# Subnets at each location as gateway/cidr mask
+#
+subnets:
+  bgo:
+    mgmt: 172.16.32.1/21
+    oob: 172.16.24.1/21
+  osl:
+    mgmt: 129.240.224.97/27
+    oob: 129.240.224.65/27
+  trd:
+    mgmt: 10.171.91.1/24
+    oob: 10.171.86.1/24
+  vagrant:
+    mgmt: 10.0.3.1/24
+
+domains:
+  bgo: mgmt.iaas.intern
+  osl: iaas.uio.no
+  trd: mgmt.iaas.ntnu.no
+  vagrant: vagrant.local
+
+#
 # Ceph parameters
 #
 ceph::profile::params::manage_repo:                 false

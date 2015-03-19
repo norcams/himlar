@@ -7,7 +7,8 @@ local  = 'iaas@git.norcams.org:'
 #
 # profile
 #
-mod 'profile', :ref => 'norcams-0.1.5',          :git => github + 'norcams/puppeels'
+#### dnsmasq dev branch
+mod 'profile', :ref => 'dnsmasq',                :git => github + 'norcams/puppeels'
 
 #
 # profile::base::common
@@ -27,6 +28,7 @@ mod 'lvm', :ref => 'ordering',                   :git => github + 'TorLdre/puppe
 # profile::base::login
 #
 mod 'googleauthenticator', :ref => 'norcams-0.1.0', :git => github + 'norcams/puppet-googleauthenticator'
+mod 'dnsmasq', :ref => 'e3bbde05',               :git => github + 'saz/puppet-dnsmasq'
 
 #
 # profile::messaging::rabbitmq

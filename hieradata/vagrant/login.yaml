@@ -1,0 +1,19 @@
+---
+profile::network::services::manage_dnsmasq: true
+
+dnsmasq::interface:
+  - eth1
+
+dnsmasq_dhcp:
+
+  mgmt2:
+    dhcp_start: 10.0.4.100
+    dhcp_end: 10.0.4.199
+    netmask: 255.255.255.0
+    lease_time: 12h
+  mgmt:
+    dhcp_start: 10.0.3.100
+    dhcp_end: 10.0.3.199
+    netmask: 255.255.255.0
+    lease_time: 12h
+

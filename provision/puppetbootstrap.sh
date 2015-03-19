@@ -33,6 +33,7 @@ bootstrap_puppet()
   ln -sfT /opt/himlar/manifests /etc/puppet/manifests
   ln -sfT /opt/himlar/hieradata /etc/puppet/hieradata
   ln -sfT /opt/himlar/hiera.yaml /etc/puppet/hiera.yaml
+  ln -sfT /etc/puppet/hiera.yaml /etc/hiera.yaml
 
   # settings
   puppet config set --section main basemodulepath /opt/himlar/modules:/etc/puppet/modules
