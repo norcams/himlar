@@ -2,32 +2,28 @@
 
 case "$1" in
   trd)
-    kickstart_hostname="trd-controller-1.mgmt.iaas.ntnu.no"
-    kickstart_certname="trd-controller-1.iaas.ntnu.no"
+    kickstart_certname="trd-controller-1.mgmt.iaas.ntnu.no"
     kickstart_server=10.171.91.3
     kickstart_netmask=255.255.255.0
     kickstart_range_start=10.171.91.200
     kickstart_range_end=10.171.91.254
     ;;
   osl)
-    kickstart_hostname="osl-controller-1.iaas.uio.no"
-    kickstart_certname="$kickstart_hostname"
+    kickstart_certname="osl-controller-1.iaas.uio.no"
     kickstart_server=129.240.224.102
     kickstart_netmask=255.255.255.224
     kickstart_range_start=129.240.224.115
     kickstart_range_end=129.240.224.126
     ;;
   bgo)
-    kickstart_hostname="bgo-controller-1.mgmt.iaas.intern"
-    kickstart_certname="bgo-controller-1.iaas.uib.no"
+    kickstart_certname="bgo-controller-1.mgmt.iaas.intern"
     kickstart_server=172.16.32.6
     kickstart_netmask=255.255.248.0
     kickstart_range_start=172.16.32.200
     kickstart_range_end=172.16.32.254
     ;;
   *)
-    kickstart_hostname="dev-controller-1.vagrant.local"
-    kickstart_certname="$kickstart_hostname"
+    kickstart_certname="dev-controller-1.himlar.local"
     kickstart_server=10.0.3.6
     kickstart_netmask=255.255.255.0
     kickstart_range_start=10.0.3.200
@@ -91,7 +87,7 @@ pgrep -f "python -m SimpleHTTPServer" | xargs --no-run-if-empty kill
 mkdir -p /var/www/html
 
 cp -f /opt/himlar/provision/bootstrap.kickstart /var/www/html/${kickstart_certname}.cfg
-sed -i 's/xxxHOSTNAMExxx/'$kickstart_hostname'/' /var/www/html/${kickstart_certname}.cfg
+sed -i 's/xxxHOSTNAMExxx/'$kickstart_certname'/' /var/www/html/${kickstart_certname}.cfg
 sed -i 's/xxxCERTNAMExxx/'$kickstart_certname'/' /var/www/html/${kickstart_certname}.cfg
 
 cd /var/www/html && python -m SimpleHTTPServer &
