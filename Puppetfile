@@ -7,8 +7,7 @@ local  = 'iaas@git.norcams.org:'
 #
 # profile
 #
-#### dnsmasq dev branch
-mod 'profile', :ref => 'dnsmasq',                :git => github + 'norcams/puppeels'
+mod 'profile', :ref => 'norcams-0.1.6',          :git => github + 'norcams/puppeels'
 
 #
 # profile::base::common
@@ -28,7 +27,6 @@ mod 'lvm', :ref => 'ordering',                   :git => github + 'TorLdre/puppe
 # profile::base::login
 #
 mod 'googleauthenticator', :ref => 'norcams-0.1.0', :git => github + 'norcams/puppet-googleauthenticator'
-mod 'dnsmasq', :ref => 'e3bbde05',               :git => github + 'saz/puppet-dnsmasq'
 
 #
 # profile::messaging::rabbitmq
@@ -40,6 +38,12 @@ mod 'puppetlabs/rabbitmq', :ref => '3.1.0',      :git => github + 'puppetlabs/pu
 # profile::network::leaf
 #
 mod 'quagga', :ref => 'master',                  :git => github + 'LeslieCarr/puppet-quagga'
+
+#
+# profile::network::services
+#
+mod 'dnsmasq', :ref => 'norcams-0.1.0',          :git => github + 'norcams/puppet-dnsmasq'
+mod 'ipcalc', :ref => '1.2.2',                   :git => github + 'inkblot/puppet-ipcalc'
 
 #
 # profile::application::foreman
@@ -80,6 +84,7 @@ mod 'ceph', :ref => '7f7847315c',                :git => github + 'stackforge/pu
 #
 # Common libs
 #
+mod 'sitelib', :ref => '0.1.0',                  :git => github + 'norcams/himlar-sitelib'
 mod 'stdlib', :ref => '4.4.0',                   :git => github + 'puppetlabs/puppetlabs-stdlib'
 mod 'concat', :ref => '1.1.2',                   :git => github + 'puppetlabs/puppetlabs-concat'
 mod 'inifile', :ref => '1.2.x',                  :git => github + 'puppetlabs/puppetlabs-inifile'

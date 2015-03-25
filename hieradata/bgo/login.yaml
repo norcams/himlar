@@ -1,11 +1,3 @@
 ---
-profile::network::services::manage_dnsmasq: true
-
-dnsmasq_conf:
-  oob-interface:
-    content: 'interface=eth1'
-  oob-dhcp-range:
-    content: 'dhcp-range=172.16.24.100,172.16.24.199,12h'
-  oob-dhcp-gateway:
-    content: 'dhcp-option=3,172.16.24.1'
+profile::network::services::manage_dhcp: true
 

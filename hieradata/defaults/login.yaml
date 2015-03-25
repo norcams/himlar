@@ -1,13 +1,7 @@
 ---
 classes:
   - profile::base::login
-
-profile::network::services::manage_dnsmasq: false
-
-dnsmasq::port: 0
-dnsmasq::dhcp_no_override: true
-dnsmasq::enable_tftp: true
-dnsmasq::dhcp_boot: 'pxelinux.0'
+  - profile::network::services
 
 account::accounts:
   beddari:
