@@ -79,3 +79,103 @@ ceph::profile::params::admin_key_mode:              '0600'
 #  '/var/osd1':
 #    journal: '/var/osd1-journal'
 
+#
+# Location metadata
+#
+location_description: unset
+location_environment: unset
+location_tag: unset
+
+valid_location_tags:
+  - bgo
+  - osl
+  - trd
+  - vagrant
+valid_location_environments:
+  - prod
+  - dev
+
+#
+# Network configuration data
+#
+networks:
+  bgo:
+    domain:
+      mgmt: mgmt.iaas.intern
+      oob: oob.iaas.intern
+    subnet:
+      mgmt: 172.16.32.1/21
+      oob: 172.16.24.1/21
+    dhcp:
+      mgmt:
+        ensure: absent
+      oob:
+        ensure: present
+        interface: eth2
+        start_offset: 100
+        end_offset: 199
+        lease: 43200
+    nat:
+      mgmt:
+        ensure: present
+      oob:
+        ensure: present
+  osl:
+    domain:
+      mgmt: iaas.uio.no
+      oob: iaas.uio.no
+    subnet:
+      mgmt: 129.240.224.97/27
+      oob: 129.240.224.65/27
+    dhcp:
+      mgmt:
+        ensure: absent
+      oob:
+        ensure: absent
+    nat:
+      mgmt:
+        ensure: absent
+      oob:
+        ensure: absent
+  trd:
+    domain:
+      mgmt: mgmt.iaas.ntnu.no
+      oob: oob.iaas.ntnu.no
+    subnet:
+      mgmt: 10.171.91.1/24
+      oob: 10.171.86.1/24
+    dhcp:
+      mgmt:
+        ensure: absent
+      oob:
+        ensure: present
+        interface: eth2
+        start_offset: 100
+        end_offset: 199
+        lease: 43200
+    nat:
+      mgmt:
+        ensure: present
+      oob:
+        ensure: present
+  vagrant:
+    domain:
+      mgmt: himlar.local
+    subnet:
+      mgmt: 10.0.3.1/24
+      oob: 10.0.4.1/24
+    dhcp:
+      mgmt:
+        ensure: absent
+      oob:
+        ensure: present
+        interface: eth1
+        start_offset: 100
+        end_offset: 199
+        lease: 43200
+    nat:
+      mgmt:
+        ensure: present
+      oob:
+        ensure: present
+

@@ -46,7 +46,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.network :public_network, dev: ENV['HIMLAR_BRIDGE2'], mode: 'bridge', auto_config: false
   end
   if ENV['HIMLAR_INTERN'] || ENV['HIMLAR_PRIVATE']
-    config.vm.network :private_network, ip: '10.0.3.15', libvirt__dhcp_enabled: false, auto_config: false
+    config.vm.network :private_network, ip: '10.0.3.5', libvirt__dhcp_enabled: false, auto_config: false
   end
 
   if Vagrant.has_plugin?('vagrant-cachier')
