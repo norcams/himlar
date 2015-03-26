@@ -1,8 +1,10 @@
 ---
 classes:
   - profile::base::common
+  - profile::base::lvm
 classes_bootstrap:
   - profile::base::common
+  - profile::base::lvm
 
 profile::base::common::manage_augeasproviders: true
 profile::base::common::manage_epel:            true
