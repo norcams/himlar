@@ -1,0 +1,20 @@
+---
+profile::base::common::manage_networkifs:    true
+
+netcf_if:
+  br0:
+    ensure: present
+    definition:  '
+      <interface type="bridge" name="br0">
+        <start mode="onboot"/>
+        <mtu size="1500"/>
+        <protocol family="ipv4">
+          <ip address="120.240.224.107" prefix="24"/>
+          <route gateway="129.240.224.97"/>
+        </protocol>
+        <bridge stp="off">
+          <interface type="ethernet" name="em3">
+          </interface>
+        </bridge>
+      </interface>'
+
