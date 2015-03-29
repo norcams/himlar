@@ -1,6 +1,6 @@
 ---
 :hierarchy:
-    - "nodes/%{verified_certname}"
+    - "nodes/%{location}-%{role}-%{hostid}"
     - "%{location}/%{role}"
     - "%{location}/common"
     - "defaults/%{role}"

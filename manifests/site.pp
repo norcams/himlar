@@ -7,13 +7,17 @@
 #
 # Parse data from $trusted['certname'] for hiera lookup
 $verified_certname = $::trusted['certname']
-$certname_a        = split($::verified_certname, '-')
-$location          = $::certname_a[0]
-$role              = $::certname_a[1]
+$dot_a             = split($::verified_certname, '\.')
+$verified_hostid   = $dot_a[0]
+$dash_a            = split($::verified_hostid, '-')
+
+$location          = $::dash_a[0]
+$role              = $::dash_a[1]
+$hostid            = $::dash_a[2]
 
 # Query for classes_$runmode if $runmode is set
 if $::runmode {
-  hiera_include("classes_$runmode", [])
+  hiera_include("classes_${runmode}", [])
 } else {
   hiera_include('classes', [])
 }
