@@ -27,7 +27,7 @@ bootstraprun()
 
 puppetrun()
 {
-  puppet apply --verbose "$@" /etc/puppet/manifests/site.pp
+  puppet apply --verbose ${p_args[*]} /etc/puppet/manifests/site.pp
 }
 
 # Source command line options as env vars
@@ -38,7 +38,8 @@ while [[ $# -gt 0 ]]; do
       shift
       ;;
     *)
-      # unknown
+      # Passing through to Puppet
+      p_args+=("$1")
       shift
       ;;
   esac
