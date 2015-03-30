@@ -3,6 +3,8 @@ classes:
    - profile::virtualization::libvirt
    - foreman_bootstrap::instances
 
+profile::base::common::manage_lvm: true
+
 libvirt::unix_sock_group:         wheel
 libvirt::unix_sock_rw_perms:      0770
 libvirt::listen_tls:              false
@@ -27,6 +29,11 @@ libvirt_pool:
     autostart:           true
     type:                dir
     target:              /var/lib/libvirt/images
+
+logical_volume:
+  lv_libvirt:
+    volume_group: vg_root
+    mountpath: /var/lib/libvirt/images
 
 #
 #profile::base::common::manage_networkifs:    true
