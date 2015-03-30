@@ -1,0 +1,9 @@
+---
+foreman_bootstrap::virt_install:
+  osl-foreman-1.iaas.uio.no:
+    libvirt_pool: dirpool
+    libvirt_network: directnet
+    install_ip: 129.240.224.101
+    install_netmask: 255.255.255.224
+    install_gateway: 129.240.224.97
+

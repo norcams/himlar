@@ -1,6 +1,7 @@
 ---
 classes:
    - profile::virtualization::libvirt
+   - foreman_bootstrap::instances
 
 libvirt::unix_sock_group:         wheel
 libvirt::unix_sock_rw_perms:      0770
@@ -14,18 +15,18 @@ libvirt::qemu_vnc_sasl:           false
 libvirt::qemu_vnc_tls:            false
 
 libvirt_networks:
-  direct-net:
+  directnet:
     ensure:              enabled
     autostart:           true
     forward_mode:        bridge
     bridge:              br0
 
 libvirt_pool:
-  diskpool:
+  dirpool:
     ensure:              present
     autostart:           true
     type:                dir
-    target:              "/var/lib/pool-dir"
+    target:              /var/lib/libvirt/images
 
 #
 #profile::base::common::manage_networkifs:    true
@@ -45,3 +46,4 @@ libvirt_pool:
 #          </interface>
 #        </bridge>
 #      </interface>'
+

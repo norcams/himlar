@@ -2,6 +2,8 @@
 location_environment: prod
 location_description: Production environment in Oslo
 
+foreman_bootstrap::nameserver: 129.240.2.3
+
 ntp::servers:
   - ntp1.uio.no
   - ntp2.uio.no
