@@ -63,7 +63,7 @@ mod 'puppetlabs/xinetd', '1.4.0'                 # forge
 #
 # foreman_bootstrap
 #
-mod 'foreman_bootstrap', :ref => '0.1.2',        :git => github + 'norcams/puppet-foreman_bootstrap'
+mod 'foreman_bootstrap', :ref => '0.1.3',        :git => github + 'norcams/puppet-foreman_bootstrap'
 
 #
 # profile::webserver::apache
