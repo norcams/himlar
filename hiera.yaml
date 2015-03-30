@@ -1,10 +1,12 @@
 ---
 :hierarchy:
     - "nodes/%{location}-%{role}-%{hostid}"
-    - "%{location}/%{role}"
+    - "%{location}/roles/%{role}"
+    - "%{location}/modules/%{calling_module}"
     - "%{location}/common"
-    - "defaults/%{role}"
-    - "defaults/common"
+    - "common/roles/%{role}"
+    - "common/modules/%{calling_module}"
+    - "common/common"
 
 :merge_behavior: deeper
 :backends:
