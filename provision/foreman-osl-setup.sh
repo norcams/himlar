@@ -34,9 +34,9 @@ hammer subnet update --name "oob" \
 hammer environment create --name "production"
 hammer environment info --name "production"
 
-wget -P /tmp https://github.com/norcams/community-templates/blob/norcams/kickstart/norcams_provision.erb
-wget -P /tmp https://github.com/norcams/community-templates/blob/norcams/kickstart/norcams_PXELinux.erb
-wget -P /tmp https://github.com/norcams/community-templates/blob/norcams/kickstart/norcams_disklayout.erb
+wget -P /tmp https://raw.githubusercontent.com/norcams/community-templates/norcams/kickstart/norcams_provision.erb
+wget -P /tmp https://raw.githubusercontent.com/norcams/community-templates/norcams/kickstart/norcams_PXELinux.erb
+wget -P /tmp https://raw.githubusercontent.com/norcams/community-templates/norcams/kickstart/norcams_disklayout.erb
 
 hammer partition-table create --name "Kickstart partition instdev" --os-family Redhat --file /tmp/norcams_disklayout.erb
 hammer template create --name "Kickstart_openstack" --type provision --file /tmp/norcams_provision.erb
