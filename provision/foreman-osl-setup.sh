@@ -63,12 +63,12 @@ hammer proxy import-classes --environment "production" --id 1
 #
 
 # Create OS
-hammer os create --name CentOS --major 7 --minor 0.1406 --description "CentOS 7.0" --family Redhat \
+hammer os create --name CentOS --major 7 --description "CentOS 7" --family Redhat \
   --architecture-ids 1 \
   --medium-ids $(hammer medium list | grep CentOS | head -c1)
 
 # Get our custom provision templates
-foreman-rake templates:sync repo="https://github.com/norcams/community-templates.git" branch="0.1.1" associate="always"
+foreman-rake templates:sync repo="https://github.com/norcams/community-templates.git" branch="0.2.0" associate="always"
 
 hammer os set-default-template --id 1 \
   --config-template-id $(hammer template list --per-page 10000 | grep "norcams Kickstart default"|cut -d" " -f1)
