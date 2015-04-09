@@ -11,7 +11,7 @@ echo "server alfalfa.uib.no
 #
 # Foreman settings
 #
-rootpw='himlar-changeme'
+rootpw='Himlarchangeme'
 rootpw_md5=$(openssl passwd -1 $rootpw)
 echo '
   Setting["root_pass"]        = "'$rootpw_md5'"
@@ -70,39 +70,24 @@ hammer proxy import-classes --environment "production" --id 1
 # Provisioning and discovery setup
 #
 
-# TEMP FIX wrong url for some CentOS mirrors throug mirror.centos.org http://projects.theforeman.org/issues/6884
-hammer medium update --id 1 --path 'http://centos.uib.no/$version/os/$arch'
-
-# Download and create partition table
-wget -P /tmp https://github.com/norcams/community-templates/blob/norcams/kickstart/norcams_disklayout.erb
-hammer partition-table create --name "Kickstart partition instdev" --os-family Redhat --file /tmp/norcams_disklayout.erb
-
 # Create OS
-hammer os create --name CentOS --major 7 --minor 0.1406 --description "CentOS 7.0" --family Redhat \
+hammer os create --name CentOS --major 7 --description "CentOS 7" --family Redhat \
   --architecture-ids 1 \
-  --medium-ids $(hammer medium list | grep CentOS | head -c1) \
-  --ptable-ids $(hammer partition-table list | grep "Kickstart partition instdev" | head -c1) 
-
-# Download and create templates
-wget -P /tmp https://github.com/norcams/community-templates/blob/norcams/kickstart/norcams_provision.erb
-wget -P /tmp https://github.com/norcams/community-templates/blob/norcams/kickstart/norcams_PXELinux.erb
-hammer template create --name "Kickstart_openstack" --type provision --file /tmp/norcams_provision.erb
-hammer template create --name "Kickstart default PXELinux ifs" --type PXELinux --file /tmp/norcams_PXELinux.erb
-# Assign templates to OS
-hammer template update --name "Kickstart default PXELinux ifs" --operatingsystem-ids 1
-hammer template update --name "Kickstart_openstack" --operatingsystem-ids 1
-hammer os set-default-template --id 1 \
-  --config-template-id $(hammer template list --per-page 10000 | grep "Kickstart_openstack"|cut -d" " -f1) 
-hammer os set-default-template --id 1 \
-  --config-template-id $(hammer template list --per-page 10000 | grep "Kickstart default PXELinux ifs" | cut -d" " -f1)
-hammer os update --id 1 \
-  --ptable-ids $(hammer partition-table list --per-page 10000 | grep "Kickstart default" | cut -d" " -f1)
-
-# Create a base hostgroup with all services on proxy id 1
-hammer hostgroup create --name "base" --architecture "x86_64" --domain-id 1 --environment "production" --operatingsystem-id 1 --medium "CentOS mirror" --ptable "Kickstart default" --subnet-id 1 --puppet-proxy-id 1 --puppet-ca-proxy-id 1
+  --medium-ids $(hammer medium list | grep CentOS | head -c1)
 
 # Get our custom provision templates
-foreman-rake templates:sync repo="https://github.com/norcams/community-templates.git" branch="norcams"
+foreman-rake templates:sync repo="https://github.com/norcams/community-templates.git" branch="0.2.0" associate="always"
+
+hammer os set-default-template --id 1 \
+  --config-template-id $(hammer template list --per-page 10000 | grep "norcams Kickstart default"|cut -d" " -f1)
+hammer os set-default-template --id 1 \
+  --config-template-id $(hammer template list --per-page 10000 | grep "norcams PXELinux default" |cut -d" " -f1)
+hammer os update --id 1 \
+  --ptable-ids $(hammer partition-table list --per-page 10000  | grep "norcams ptable default"   |cut -d" " -f1)
+
+# Create a base hostgroup with all services on proxy id 1
+hammer hostgroup create --name "base" --architecture "x86_64" --domain-id 1 --environment "production" --operatingsystem-id 1 --medium "CentOS mirror" --ptable "norcams ptable default" --subnet-id 1 --puppet-proxy-id 1 --puppet-ca-proxy-id 1
+
 # Render pxe default with safe mode rendering false - this is required for the discovery image
 # to get the foreman_url setting passed through to the kernel from the template
 echo '
