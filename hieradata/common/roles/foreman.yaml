@@ -17,6 +17,7 @@ foreman::admin_email:                         admin@localhost.localdomain
 foreman::ssl:                                 true
 foreman::cli::manage_root_config:             true
 foreman::plugin::discovery::install_images:   true
+foreman_proxy::log_level:                     DEBUG
 foreman_proxy::ssl:                           true
 foreman_proxy::register_in_foreman:           true
 foreman_proxy::manage_sudoersd:               false
