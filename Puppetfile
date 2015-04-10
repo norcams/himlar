@@ -64,7 +64,7 @@ mod 'hiera_eyaml', :ref => '0.1.1',              :git => github + 'norcams/puppe
 #
 # foreman_bootstrap
 #
-mod 'foreman_bootstrap', :ref => '0.1.3',        :git => github + 'norcams/puppet-foreman_bootstrap'
+mod 'foreman_bootstrap', :ref => '0.1.4',        :git => github + 'norcams/puppet-foreman_bootstrap'
 
 #
 # profile::webserver::apache
