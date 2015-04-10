@@ -46,6 +46,7 @@ subnet_opts="
   --domain-ids "$(hammer domain list | grep "iaas.uio.no" | head -c1)"
   --dhcp-id 1
   --tftp-id 1
+  --dns-id ''
 "
 #  --dns-id 1
 #"
