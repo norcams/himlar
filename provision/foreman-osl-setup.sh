@@ -1,13 +1,13 @@
 #!/bin/bash -xv
 
-
+#
 # Register Foreman host in DNS and CNAMEs admin and puppet
+#
 echo "server 129.240.2.6
       update add osl-foreman-1.iaas.uio.no. 3600 A 129.240.224.101
       update add admin.iaas.uio.no. 3600 CNAME osl-foreman-1.iaas.uio.no.
       update add puppet.iaas.uio.no. 3600 CNAME osl-foreman-1.iaas.uio.no.
       send" | nsupdate -k /etc/rndc.key
-
 #echo "server 129.240.2.6
 #      update add 101.224.240.129.in-addr.arpa. 3600 PTR osl-foreman-1.iaas.uio.no.
 #      send" | nsupdate -k /etc/rndc.key
@@ -27,26 +27,30 @@ echo '
 #
 # Network configuration objects
 #
-hammer domain create --name "iaas.uio.no"
-hammer domain info --name "iaas.uio.no"
-
-hammer subnet create --name "mgmt" \
-  --network "129.240.224.96" \
-  --mask "255.255.255.224" \
-  --gateway "129.240.224.97" \
-  --dns-primary "129.240.2.3" \
-  --dns-secondary "129.240.2.40"
-
-hammer subnet update --name "mgmt" \
-  --domain-ids $(hammer domain list | grep "iaas.uio.no" | head -c1)
-hammer subnet update --name "mgmt" \
-  --dhcp-id 1
-hammer subnet update --name "mgmt" \
-  --tftp-id 1
-hammer subnet update --name "mgmt" \
+domain_opts="
+  --name iaas.uio.no
   --dns-id 1
-hammer subnet update --name "mgmt" --from 129.240.224.115 --to 129.240.224.126
-hammer subnet info --name "mgmt"
+"
+hammer domain create $domain_opts
+hammer domain update $domain_opts
+
+subnet_opts="
+  --name mgmt
+  --network 129.240.224.96
+  --mask 255.255.255.224
+  --gateway 129.240.224.97
+  --dns-primary 129.240.2.3
+  --dns-secondary 129.240.2.40
+  --from 129.240.224.115
+  --to 129.240.224.126
+  --domain-ids "$(hammer domain list | grep "iaas.uio.no" | head -c1)"
+  --dhcp-id 1
+  --tftp-id 1
+"
+#  --dns-id 1
+#"
+hammer subnet create $subnet_opts
+hammer subnet update $subnet_opts
 
 #
 # Puppet settings
