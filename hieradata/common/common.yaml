@@ -1,8 +1,10 @@
 ---
 classes:
   - profile::base::common
+  - profile::base::lvm
 classes_bootstrap:
   - profile::base::common
+  - profile::base::lvm
 
 profile::base::common::manage_augeasproviders: true
 profile::base::common::manage_epel:            true
@@ -51,6 +53,34 @@ puppet::additional_settings:
   'certname'         : "%{::verified_certname}"
   'trusted_node_data': true
   'disable_warnings' : 'deprecations'
+
+#
+# Ceph parameters
+#
+ceph::profile::params::manage_repo:                 false
+ceph::profile::params::release:                     'firefly'
+######## Ceph.conf - Cluster and location spesific data
+ceph::profile::params::fsid:                        '4b5c8c0a-ff60-454b-a1b4-9747aa737d19'
+ceph::profile::params::authentication_type:         'cephx'
+#ceph::profile::params::mon_initial_members:         'cephmon-1, cephmon-2'
+#ceph::profile::params::mon_host:                    '10.0.0.10:6789, 10.0.0.11:6789'
+ceph::profile::params::osd_pool_default_pg_num:     '4096'
+ceph::profile::params::osd_pool_default_pgp_num:    '4096'
+ceph::profile::params::osd_pool_default_size:       '3'
+ceph::profile::params::osd_pool_default_min_size:   '1'
+#ceph::profile::params::cluster_network:             '10.0.0.0/24'
+#ceph::profile::params::public_network:              '10.0.0.0/24'
+######## Keys - Cluster and location spesific data
+ceph::profile::params::mon_key:                     'AQATGHJTUCBqIBAA7M2yafV1xctn1pgr3GcKPg=='
+## as an alternative to specifying the mon key you can provide an exising keyring
+##ceph::profile::params::mon_keyring: '/etc/ceph/ceph.mon.keyring'
+ceph::profile::params::admin_key:                   'AQBMGHJTkC8HKhAAJ7NH255wYypgm1oVuV41MA=='
+ceph::profile::params::admin_key_mode:              '0600'
+ceph::profile::params::bootstrap_osd_key:           'AQARG3JTsDDEHhAAVinHPiqvJkUi5Mww/URupw=='
+ceph::profile::params::bootstrap_mds_key:           'AQCztJdSyNb0NBAASA2yPZPuwXeIQnDJ9O8gVw=='
+#ceph::profile::params::osds:
+#  '/var/osd1':
+#    journal: '/var/osd1-journal'
 
 #
 # Location metadata
