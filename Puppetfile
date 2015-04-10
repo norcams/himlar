@@ -80,7 +80,7 @@ mod 'postgresql', :ref => 'pg_hba_rules',        :git => github + 'Mylezeem/pupp
 #
 # libvirt
 #
-mod 'libvirt', :ref => '0.3.2',                  :git => github + 'thias/puppet-libvirt'
+mod 'libvirt', :ref => '0.3.2-norcams1',         :git => github + 'norcams/puppet-libvirt'
 
 #
 # ceph
