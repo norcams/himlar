@@ -18,10 +18,11 @@ echo "server 129.240.2.6
 rootpw='Himlarchangeme'
 rootpw_md5=$(openssl passwd -1 $rootpw)
 echo '
-  Setting["root_pass"]        = "'$rootpw_md5'"
-  Setting["entries_per_page"] = 100
-  Setting["foreman_url"]      = "https://osl-foreman-1.iaas.uio.no"
-  Setting["unattended_url"]   = "http://osl-foreman-1.iaas.uio.no"
+  Setting["root_pass"]                  = "'$rootpw_md5'"
+  Setting["entries_per_page"]           = 100
+  Setting["foreman_url"]                = "https://osl-foreman-1.iaas.uio.no"
+  Setting["unattended_url"]             = "http://osl-foreman-1.iaas.uio.no"
+  Setting["trusted_puppetmaster_hosts"] = [ "osl-foreman-1.iaas.uio.no" ]
 ' | foreman-rake console
 
 #
@@ -46,9 +47,8 @@ subnet_opts="
   --domain-ids "$(hammer domain list | grep "iaas.uio.no" | head -c1)"
   --dhcp-id 1
   --tftp-id 1
-  --dns-id ''
 "
-#  --dns-id 1
+# --dns-id 1
 #"
 hammer subnet create $subnet_opts
 hammer subnet update $subnet_opts
