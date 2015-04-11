@@ -4,6 +4,7 @@ classes:
    - foreman_bootstrap::instances
 
 profile::base::common::manage_lvm: true
+profile::virtualization::libvirt::manage_firewall: true
 
 libvirt::unix_sock_group:         wheel
 libvirt::unix_sock_rw_perms:      0770

@@ -7,7 +7,7 @@ local  = 'iaas@git.norcams.org:'
 #
 # profile
 #
-mod 'profile', :ref => 'norcams-0.1.8',          :git => github + 'norcams/puppeels'
+mod 'profile', :ref => 'norcams-0.2.0',          :git => github + 'norcams/puppeels'
 
 #
 # profile::base::common
@@ -22,6 +22,7 @@ mod 'netcf', :ref => '4c3142e4f7',               :git => github + 'raphink/puppe
 mod 'hostname', :ref => '0.0.2',                 :git => github + 'peopleware/puppet-hostname'
 mod 'resolv_conf', :ref => 'v3.0.3',             :git => github + 'saz/puppet-resolv_conf'
 mod 'lvm', :ref => 'ordering',                   :git => github + 'TorLdre/puppetlabs-lvm'
+mod 'firewall', :ref => '1.5.0',                 :git => github + 'puppetlabs/puppetlabs-firewall'
 
 #
 # profile::base::login

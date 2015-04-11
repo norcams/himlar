@@ -8,7 +8,8 @@ classes:
   - foreman::plugin::templates
   - profile::database::postgresql
 
-profile::application::foreman::manage_eyaml:  true
+profile::application::foreman::manage_eyaml:    true
+profile::application::foreman::manage_firewall: true
 
 foreman::configure_epel_repo:                 false
 foreman::admin_username:                      admin

@@ -4,6 +4,8 @@ classes:
   - profile::network::services
   - foreman_bootstrap::instances
 
+profile::base::common::manage_firewall: false
+
 account::accounts:
   beddari:
     ssh_key_type: rsa
