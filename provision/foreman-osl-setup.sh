@@ -8,9 +8,6 @@ echo "server 129.240.2.6
       update add admin.iaas.uio.no. 3600 CNAME osl-foreman-1.iaas.uio.no.
       update add puppet.iaas.uio.no. 3600 CNAME osl-foreman-1.iaas.uio.no.
       send" | nsupdate -k /etc/rndc.key
-#echo "server 129.240.2.6
-#      update add 101.224.240.129.in-addr.arpa. 3600 PTR osl-foreman-1.iaas.uio.no.
-#      send" | nsupdate -k /etc/rndc.key
 
 #
 # Foreman settings

@@ -1,15 +1,12 @@
 #!/bin/bash -xv
 
-
+#
 # Register Foreman host in DNS and CNAMEs admin and puppet
+#
 echo "server dyndns.it.ntnu.no
-      update add trd-foreman-bootstrap.mgmt.iaas.ntnu.no. 300 A 10.171.91.11
-      update add admin.mgmt.iaas.ntnu.no. 3600 CNAME trd-foreman-bootstrap.mgmt.iaas.ntnu.no.
-      update add puppet.mgmt.iaas.ntnu.no. 3600 CNAME trd-foreman-bootstrap.mgmt.iaas.ntnu.no.
-      send" | nsupdate -k /etc/rndc.key
-
-echo "server dyndns.it.ntnu.no
-      update add 11.91.171.10.in-addr.arpa. 3600 PTR trd-foreman-bootstrap.mgmt.iaas.ntnu.no.
+      update add trd-foreman-1.mgmt.iaas.ntnu.no. 3600 A 10.171.91.5
+      update add admin.mgmt.iaas.ntnu.no. 3600 CNAME trd-foreman-1.mgmt.iaas.ntnu.no.
+      update add puppet.mgmt.iaas.ntnu.no. 3600 CNAME trd-foreman-1.mgmt.iaas.ntnu.no.
       send" | nsupdate -k /etc/rndc.key
 
 #
@@ -18,47 +15,40 @@ echo "server dyndns.it.ntnu.no
 rootpw='Himlarchangeme'
 rootpw_md5=$(openssl passwd -1 $rootpw)
 echo '
-  Setting["root_pass"]        = "'$rootpw_md5'"
-  Setting["entries_per_page"] = 100
-  Setting["foreman_url"]      = "https://admin.mgmt.iaas.ntnu.no"
-  Setting["unattended_url"]   = "http://admin.mgmt.iaas.ntnu.no"
+  Setting["root_pass"]                  = "'$rootpw_md5'"
+  Setting["entries_per_page"]           = 100
+  Setting["foreman_url"]                = "https://trd-foreman-1.mgmt.iaas.ntnu.no"
+  Setting["unattended_url"]             = "http://trd-foreman-1.mgmt.iaas.ntnu.no"
+  Setting["trusted_puppetmaster_hosts"] = [ "trd-foreman-1.mgmt.iaas.ntnu.no" ]
 ' | foreman-rake console
 
 #
 # Network configuration objects
 #
-hammer domain create --name "oob.iaas.ntnu.no"
-hammer domain info --name "oob.iaas.ntnu.no"
-hammer domain create --name "mgmt.iaas.ntnu.no"
-hammer domain info --name "mgmt.iaas.ntnu.no"
-
-hammer subnet create --name "mgmt" \
-  --network "10.171.91.0" \
-  --mask "255.255.255.0" \
-  --gateway "10.171.91.1" \
-  --dns-primary "129.241.0.200" \
-  --dns-secondary "129.241.0.201"
-hammer subnet update --name "mgmt" \
-  --domain-ids $(hammer domain list | grep "mgmt.iaas.ntnu.no" | head -c1)
-hammer subnet update --name "mgmt" \
-  --dhcp-id 1
-hammer subnet update --name "mgmt" \
-  --tftp-id 1
-hammer subnet update --name "mgmt" \
+domain_opts="
+  --name mgmt.iaas.ntnu.no
   --dns-id 1
-hammer subnet info --name "mgmt"
-hammer subnet update --name "mgmt" --from 10.171.91.200 --to 10.171.91.250
-hammer domain update --name mgmt.iaas.ntnu.no --dns-id 1
+"
+hammer domain create $domain_opts
+hammer domain update $domain_opts
 
-hammer subnet create --name "oob" \
-  --network "10.171.86.0" \
-  --mask "255.255.255.0" \
-  --gateway "10.171.86.1" \
-  --dns-primary "129.241.0.200" \
-  --dns-secondary "129.241.0.200"
-hammer subnet update --name "oob" \
-  --domain-ids $(hammer domain list | grep "oob.iaas.ntnu.no" | head -c1)
-hammer domain update --name oob.iaas.ntnu.no --dns-id 1
+subnet_opts="
+  --name mgmt
+  --network 10.171.91.5
+  --mask 255.255.255.0
+  --gateway 10.171.91.1
+  --dns-primary 129.241.0.200
+  --dns-secondary 129.241.0.201
+  --from 10.171.91.200
+  --to 10.171.91.250
+  --domain-ids "$(hammer domain list | grep "mgmt.iaas.ntnu.no" | head -c1)"
+  --dhcp-id 1
+  --tftp-id 1
+"
+# --dns-id 1
+#"
+hammer subnet create $subnet_opts
+hammer subnet update $subnet_opts
 
 #
 # Puppet settings
@@ -100,4 +90,3 @@ echo '
   ConfigTemplate.build_pxe_default(self)
   Setting["safemode_render"] = true
 ' | foreman-rake console
-
