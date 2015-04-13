@@ -83,7 +83,7 @@ hammer os create --name CentOS --major 7 --description "CentOS 7" --family Redha
   --medium-ids $(hammer medium list | grep CentOS | head -c1)
 
 # Get our custom provision templates
-foreman-rake templates:sync repo="https://github.com/norcams/community-templates.git" branch="0.2.0" associate="always"
+foreman-rake templates:sync repo="https://github.com/norcams/community-templates.git" branch="0.2.1" associate="always"
 
 hammer os set-default-template --id 1 \
   --config-template-id $(hammer template list --per-page 10000 | grep "norcams Kickstart default"|cut -d" " -f1)

@@ -34,7 +34,7 @@ hammer domain update $domain_opts
 
 subnet_opts="
   --name mgmt
-  --network 10.171.91.5
+  --network 10.171.91.0
   --mask 255.255.255.0
   --gateway 10.171.91.1
   --dns-primary 129.241.0.200
@@ -70,7 +70,7 @@ hammer os create --name CentOS --major 7 --description "CentOS 7" --family Redha
   --medium-ids $(hammer medium list | grep CentOS | head -c1)
 
 # Get our custom provision templates
-foreman-rake templates:sync repo="https://github.com/norcams/community-templates.git" branch="0.2.0" associate="always"
+foreman-rake templates:sync repo="https://github.com/norcams/community-templates.git" branch="0.2.1" associate="always"
 
 hammer os set-default-template --id 1 \
   --config-template-id $(hammer template list --per-page 10000 | grep "norcams Kickstart default"|cut -d" " -f1)
