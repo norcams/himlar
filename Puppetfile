@@ -59,7 +59,7 @@ mod 'theforeman/foreman_proxy', '2.1.0'          # forge
 mod 'theforeman/git', '1.4.0'                    # forge
 mod 'puppetlabs/ruby', '0.4.0'                   # forge
 mod 'puppetlabs/xinetd', '1.4.0'                 # forge
-mod 'hiera_eyaml', :ref => '0.1.1',              :git => github + 'norcams/puppet-hiera_eyaml'
+mod 'eyaml', :ref => '0.2.0',                    :git => github + 'ghoneycutt/puppet-module-eyaml'
 
 #
 # foreman_bootstrap
