@@ -1,6 +1,9 @@
 ---
 classes:
-  - ceph::profile::mon
+  - profile::storage::cephosd
+  - profile::storage::cephosd_firewall
+classes_bootstrap:
+  - profile::storage::cephosd_firewall
 
 profile::base::manage_lvm:	 true
 
