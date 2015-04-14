@@ -1,61 +1,62 @@
 ---
 classes:
   - profile::application::foreman
+  - profile::database::postgresql
+  - profile::webserver::apache
+  - hostname
   - foreman::cli
   - foreman::compute::libvirt
   - foreman::plugin::hooks
   - foreman::plugin::discovery
   - foreman::plugin::templates
-  - profile::database::postgresql
+classes_bootstrap:
+  - hostname
 
 profile::application::foreman::manage_eyaml:    true
 profile::application::foreman::manage_firewall: true
 
-foreman::configure_epel_repo:                 false
-foreman::admin_username:                      admin
-foreman::admin_password:                      changeme
-foreman::admin_email:                         admin@localhost.localdomain
-foreman::ssl:                                 true
-foreman::cli::manage_root_config:             true
-foreman::plugin::discovery::install_images:   true
-foreman_proxy::log_level:                     DEBUG
-foreman_proxy::ssl:                           true
-foreman_proxy::register_in_foreman:           true
-foreman_proxy::manage_sudoersd:               false
-foreman_proxy::tftp:                          true
-foreman_proxy::dhcp:                          true
-foreman_proxy::dhcp_managed:                  true
-foreman_proxy::dns:                           true
-foreman_proxy::dns_managed:                   false
-foreman_proxy::puppetrun:                     true
-foreman_proxy::puppetca:                      true
-foreman_proxy::bmc:                           true
-foreman_proxy::bmc_default_provider:          'ipmitool'
-puppet::server:                               true
-puppet::dns_alt_names:                        ["puppet.%{domain}","puppetca.%{domain}","admin.%{domain}"]
-puppet::server_directory_environments:        false
-puppet::server_environments:                  []
-puppet::server_external_nodes:                ''
+foreman::foreman_url:                       "https://%{fqdn}"
+foreman::configure_epel_repo:               false
+foreman::admin_username:                    'admin'
+foreman::admin_password:                    'changeme'
+foreman::admin_email:                       'admin@localhost.localdomain'
+foreman::ssl:                               true
+foreman::cli::manage_root_config:           true
+foreman::plugin::discovery::install_images: true
 
-#
-# Location specific parameters
-#
-#foreman::foreman_url:                         http://10.0.3.5
-#foreman_proxy::dhcp_range:                    '10.0.3.100 10.0.3.199'
-#foreman_proxy::dhcp_gateway:                  10.0.3.5
-#foreman_proxy::dhcp_nameservers:              10.0.3.5
-#foreman_proxy::dhcp_interface:                eth1
-#foreman_proxy::tftp_servername:               10.0.3.5
-#foreman_proxy::dns_server:                    10.0.3.5
-#foreman_proxy::dns_managed:                   true
-#puppet::server_foreman_url:                   http://10.0.3.5
-#dhcp::onie_inst_def_url:                     'http://10.0.3.5/cumulus-powerpc.bin'
-#dhcp::cumulus_provision_url:                 'http://10.0.3.5/provision.sh'
-#
-#profile::base::common::manage_networkifs:     true
-#networkInterfaces:
-#  eth1:
-#    ipv4_ips:   10.0.3.5/24
-#    ensure:     up
-#    start_mode: onboot
-#    type:       ethernet
+foreman_proxy::log_level:            'DEBUG'
+foreman_proxy::ssl:                  true
+foreman_proxy::register_in_foreman:  true
+foreman_proxy::manage_sudoersd:      false
+foreman_proxy::tftp:                 true
+foreman_prxoy::tftp_servername:      "%{ipaddress}"
+foreman_proxy::dhcp:                 true
+foreman_proxy::dhcp_interface:       'eth0'
+foreman_proxy::dhcp_managed:         true
+foreman_proxy::dns:                  true
+foreman_proxy::dns_forwarders:       ['8.8.8.8']
+foreman_proxy::dns_managed:          true
+foreman_prxoy::dns_provider:         'nsupdate'
+foreman_proxy::puppetrun:            true
+foreman_proxy::puppetca:             true
+foreman_proxy::bmc:                  true
+foreman_proxy::bmc_default_provider: 'ipmitool'
+
+puppet::server:                        true
+puppet::server_foreman_url:            "https://%{fqdn}"
+puppet::dns_alt_names:                 ["puppet.%{domain}","puppetca.%{domain}","admin.%{domain}"]
+puppet::server_directory_environments: false
+puppet::server_environments:           []
+puppet::server_external_nodes:         ''
+
+profile::webserver::apache::manage_firewall:  false
+profile::webserver::apache::vhost_definition:
+  'files':
+    servername:     "%{fqdn}"
+    port:           80
+    docroot:        '/opt/repo'
+    docroot_owner:  'iaas'
+
+dhcp::onie_inst_def_url:     "http://%{fqdn}/cumuluslinux/onie-installer-powerpc"
+dhcp::cumulus_provision_url: "http://%{fqdn}/cumuluslinux/provision.sh"
+
