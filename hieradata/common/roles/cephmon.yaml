@@ -1,5 +1,8 @@
 ---
 classes:
   - profile::storage::cephmon
+  - profile::storage::cephmon_firewall
+classes_bootstrap:
+  - profile::storage::cephmon_firewall
 
-profile::storage::cephmon::manage_firewall:    true
+profile::storage::cephmon_firewall::manage_firewall:  true
