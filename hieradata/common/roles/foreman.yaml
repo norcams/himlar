@@ -36,7 +36,8 @@ foreman_proxy::dhcp_managed:         true
 foreman_proxy::dns:                  true
 foreman_proxy::dns_forwarders:       ['8.8.8.8']
 foreman_proxy::dns_managed:          true
-foreman_prxoy::dns_provider:         'nsupdate'
+foreman_proxy::dns_provider:         'nsupdate'
+foreman_proxy::keyfile:              "/opt/repo/secrets/rndc-%{location}.key"
 foreman_proxy::puppetrun:            true
 foreman_proxy::puppetca:             true
 foreman_proxy::bmc:                  true
@@ -51,12 +52,12 @@ puppet::server_external_nodes:         ''
 
 profile::webserver::apache::manage_firewall:  false
 profile::webserver::apache::vhost_definition:
-  'files':
-    servername:     "%{fqdn}"
+  'repo':
+    servername:     "repo.%{domain}"
     port:           80
-    docroot:        '/opt/repo'
+    docroot:        '/opt/repo/public'
     docroot_owner:  'iaas'
 
-dhcp::onie_inst_def_url:     "http://%{fqdn}/cumuluslinux/onie-installer-powerpc"
-dhcp::cumulus_provision_url: "http://%{fqdn}/cumuluslinux/provision.sh"
+dhcp::onie_inst_def_url:     "http://repo.%{domain}/cumuluslinux/onie-installer-powerpc"
+dhcp::cumulus_provision_url: "http://repo.%{domain}/cumuluslinux/provision.sh"
 
