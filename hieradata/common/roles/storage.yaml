@@ -2,8 +2,10 @@
 classes:
   - profile::storage::cephosd
   - profile::storage::cephosd_firewall
+  - profile::base::lvm
 classes_bootstrap:
   - profile::storage::cephosd_firewall
+  - profile::base::lvm
 
 profile::base::manage_lvm:                           true
 profile::storage::cephosd_firewall::manage_firewall: true
