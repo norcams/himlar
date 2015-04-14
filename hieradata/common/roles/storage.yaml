@@ -1,3 +1,7 @@
+---
+classes:
+  - ceph::profile::mon
+
 profile::base::manage_lvm:	 true
 
 lvm::volume_groups:
@@ -50,3 +54,8 @@ lvm::volume_groups:
         fs_type:     xfs
         mountpath:   "/journal/journalb5"
 
+ceph::profile::params::osds:
+  '/dev/sdc':
+    journal: '/journal/journala1'
+  '/dev/sdd':
+    journal: '/journal/journala2'
