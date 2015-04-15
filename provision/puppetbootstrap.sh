@@ -23,10 +23,7 @@ bootstrap_puppet()
 
   gem install r10k --no-ri --no-rdoc
 
-  # TODO: Package netcf within puppet-omnibus
-  wget -P /tmp/ http://folk.uib.no/edpto/ruby-netcf-0.0.2.gem
-  yum install -y netcf-devel gcc ruby-devel
-  gem install /tmp/ruby-netcf-0.0.2.gem
+  yum install -y http://folk.uio.no/beddari/libnetcf-ruby-0.0.2-1.x86_64.rpm
 
   # file locations
   rm -rf /etc/puppet/manifests

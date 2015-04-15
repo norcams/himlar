@@ -4,7 +4,24 @@ classes:
    - foreman_bootstrap::instances
 
 profile::base::common::manage_lvm: true
+
 profile::virtualization::libvirt::manage_firewall: true
+profile::virtualization::libvirt::firewall_extras:
+  'graphics':
+    port: 5900-5999
+
+profile::virtualization::libvirt::networks:
+  directnet:
+    ensure:              enabled
+    autostart:           true
+    forward_mode:        bridge
+    bridge:              br0
+profile::virtualization::libvirt::pools:
+  dirpool:
+    ensure:              present
+    autostart:           true
+    type:                dir
+    target:              /var/lib/libvirt/images
 
 libvirt::unix_sock_group:         wheel
 libvirt::unix_sock_rw_perms:      0770
@@ -16,20 +33,6 @@ libvirt::sysconfig:
 libvirt::qemu_vnc_listen:         '0.0.0.0'
 libvirt::qemu_vnc_sasl:           false
 libvirt::qemu_vnc_tls:            false
-
-libvirt_networks:
-  directnet:
-    ensure:              enabled
-    autostart:           true
-    forward_mode:        bridge
-    bridge:              br0
-
-libvirt_pool:
-  dirpool:
-    ensure:              present
-    autostart:           true
-    type:                dir
-    target:              /var/lib/libvirt/images
 
 lvm::logical_volume:
   lv_libvirt:

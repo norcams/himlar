@@ -7,7 +7,7 @@ local  = 'iaas@git.norcams.org:'
 #
 # profile
 #
-mod 'profile', :ref => 'norcams-0.2.0',          :git => github + 'norcams/puppeels'
+mod 'profile', :ref => 'norcams-0.2.1',          :git => github + 'norcams/puppeels'
 
 #
 # profile::base::common
@@ -60,7 +60,7 @@ mod 'theforeman/foreman_proxy', '2.1.0'          # forge
 mod 'theforeman/git', '1.4.0'                    # forge
 mod 'puppetlabs/ruby', '0.4.0'                   # forge
 mod 'puppetlabs/xinetd', '1.4.0'                 # forge
-mod 'eyaml', :ref => '0.2.0',                    :git => github + 'ghoneycutt/puppet-module-eyaml'
+mod 'eyaml', :ref => 'v0.3.0',                   :git => github + 'ghoneycutt/puppet-module-eyaml'
 
 #
 # foreman_bootstrap
