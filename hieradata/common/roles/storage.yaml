@@ -10,6 +10,11 @@ classes_bootstrap:
 profile::base::manage_lvm:                           true
 profile::storage::cephosd_firewall::manage_firewall: true
 
+account::accounts:
+  cinder:
+    groups:
+      - cinder
+
 lvm::volume_groups:
   vg_journala:
     physical_volumes:
@@ -62,6 +67,13 @@ lvm::volume_groups:
 
 ceph::profile::params::osds:
   '/dev/sdc':
-    journal: '/journal/journala1'
+    journal: '/journal/journala1/journal'
   '/dev/sdd':
-    journal: '/journal/journala2'
+    journal: '/journal/journala2/journal'
+  '/dev/sde':
+    journal: '/journal/journala3/journal'
+  '/dev/sdf':
+    journal: '/journal/journala4/journal'
+  '/dev/sdg':
+    journal: '/journal/journala5/journal'
+
