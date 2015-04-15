@@ -37,7 +37,7 @@ foreman_proxy::dns:                  true
 foreman_proxy::dns_forwarders:       ['8.8.8.8']
 foreman_proxy::dns_managed:          true
 foreman_proxy::dns_provider:         'nsupdate'
-foreman_proxy::keyfile:              "/opt/repo/secrets/rndc-%{location}.key"
+foreman_proxy::keyfile:              "/opt/repo/secrets/nodes/%{hostname}/etc/rndc-%{location}.key"
 foreman_proxy::puppetrun:            true
 foreman_proxy::puppetca:             true
 foreman_proxy::bmc:                  true
