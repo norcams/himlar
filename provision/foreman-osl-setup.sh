@@ -7,7 +7,8 @@ echo "server 129.240.2.6
       update add osl-foreman-1.iaas.uio.no. 3600 A 129.240.224.101
       update add admin.iaas.uio.no. 3600 CNAME osl-foreman-1.iaas.uio.no.
       update add puppet.iaas.uio.no. 3600 CNAME osl-foreman-1.iaas.uio.no.
-      send" | nsupdate -k /etc/rndc.key
+      update add repo.iaas.uio.no. 3600 CNAME osl-foreman-1.iaas.uio.no.
+      send" | nsupdate -k /opt/repo/secrets/nodes/osl-foreman-1/etc/rndc-osl.key
 
 #
 # Foreman settings

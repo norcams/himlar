@@ -7,7 +7,8 @@ echo "server alfalfa.uib.no
       update add bgo-foreman-1.mgmt.iaas.intern. 3600 A 129.240.224.101
       update add admin.mgmt.iaas.intern. 3600 CNAME bgo-foreman-1.mgmt.iaas.intern.
       update add puppet.mgmt.iaas.intern. 3600 CNAME bgo-foreman-1.mgmt.iaas.intern.
-      send" | nsupdate -k /etc/rndc.key
+      update add repo.mgmt.iaas.intern. 3600 CNAME bgo-foreman-1.mgmt.iaas.intern.
+      send" | nsupdate -k /opt/repo/secrets/nodes/bgo-foreman-1/etc/rndc-bgo.key
 
 #
 # Foreman settings

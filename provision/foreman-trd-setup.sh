@@ -7,7 +7,8 @@ echo "server dyndns.it.ntnu.no
       update add trd-foreman-1.mgmt.iaas.ntnu.no. 3600 A 10.171.91.5
       update add admin.mgmt.iaas.ntnu.no. 3600 CNAME trd-foreman-1.mgmt.iaas.ntnu.no.
       update add puppet.mgmt.iaas.ntnu.no. 3600 CNAME trd-foreman-1.mgmt.iaas.ntnu.no.
-      send" | nsupdate -k /etc/rndc.key
+      update add repo.mgmt.iaas.ntnu.no. 3600 CNAME trd-foreman-1.mgmt.iaas.ntnu.no.
+      send" | nsupdate -k /opt/repo/secrets/nodes/trd-foreman-1/etc/rndc-trd.key
 
 #
 # Foreman settings
