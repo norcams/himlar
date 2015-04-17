@@ -27,7 +27,7 @@ bootstraprun()
 
 puppetrun()
 {
-  puppet apply --verbose ${p_args[*]} /etc/puppet/manifests/site.pp
+  puppet apply --verbose --show_diff ${p_args[*]} /etc/puppet/manifests/site.pp
 }
 
 # Source command line options as env vars
