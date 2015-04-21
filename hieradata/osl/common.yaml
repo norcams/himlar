@@ -10,13 +10,15 @@ ntp::servers:
 
 profile::network::services::dns_options:
   CNAME:
-    ttl: 3600
-    keyfile: "/opt/repo/secrets/nodes/%{hostname}/etc/rndc-%{location}.key"
-    server: '129.240.2.6'
+    default:
+      ttl: 3600
+      keyfile: "/opt/repo/secrets/nodes/%{hostname}/etc/rndc-%{location}.key"
+      server: '129.240.2.6'
   A:
-    ttl: 86400
-    keyfile: "/opt/repo/secrets/nodes/%{hostname}/etc/rndc-%{location}.key"
-    server: '129.240.2.6'
+    default:
+      ttl: 86400
+      keyfile: "/opt/repo/secrets/nodes/%{hostname}/etc/rndc-%{location}.key"
+      server: '129.240.2.6'
 
 profile::network::services::dns_records:
   CNAME:

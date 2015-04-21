@@ -2,6 +2,7 @@
 classes:
   - profile::application::foreman
   - profile::database::postgresql
+  - profile::network::services
   - profile::webserver::apache
   - hostname
   - foreman::cli
@@ -14,6 +15,7 @@ classes_bootstrap:
 
 profile::application::foreman::manage_eyaml:    true
 profile::application::foreman::manage_firewall: true
+profile::network::services::manage_dns_records: true
 
 foreman::foreman_url:                       "https://%{fqdn}"
 foreman::configure_epel_repo:               false
