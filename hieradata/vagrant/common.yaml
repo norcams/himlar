@@ -32,14 +32,24 @@ foreman_bootstrap::virt_install:
     install_netmask: 255.255.255.0
     install_gateway: 10.0.3.1
 
+profile::network::services::dns_options:
+  CNAME:
+    ttl: 3600
+    keyfile: "/opt/repo/secrets/nodes/%{hostname}/etc/rndc-%{location}.key"
+    server: '10.0.3.5'
+  A:
+    ttl: 86400
+    keyfile: "/opt/repo/secrets/nodes/%{hostname}/etc/rndc-%{location}.key"
+    server: '10.0.3.5'
+
 profile::network::services::dns_records:
   CNAME:
     'puppet.himlar.local':                 'vagrant-foreman-1.himlar.local'
     'admin.himlar.local':                  'vagrant-foreman-1.himlar.local'
     'repo.himlar.local':                   'vagrant-foreman-1.himlar.local'
   A:
-    'vagrant-foreman-1.himlar.local':      '10.171.91.5'
-    'vagrant-controller-1.himlar.local':   '10.171.91.11'
-    'vagrant-controller-2.himlar.local':   '10.171.91.12'
-    'vagrant-controller-3.himlar.local':   '10.171.91.13'
+    'vagrant-foreman-1.himlar.local':      '10.0.3.5'
+    'vagrant-controller-1.himlar.local':   '10.0.3.11'
+    'vagrant-controller-2.himlar.local':   '10.0.3.12'
+    'vagrant-controller-3.himlar.local':   '10.0.3.13'
 

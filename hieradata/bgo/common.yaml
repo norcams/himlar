@@ -11,6 +11,16 @@ ceph::profile::params::mon_host:                    '172.16.32.90:6789, 172.16.3
 ceph::profile::params::cluster_network:             '172.16.32.0/21'
 ceph::profile::params::public_network:              '172.16.32.0/21'
 
+profile::network::services::dns_options:
+  CNAME:
+    ttl: 3600
+    keyfile: "/opt/repo/secrets/nodes/%{hostname}/etc/rndc-%{location}.key"
+    server: 'alfalfa.uib.no'
+  A:
+    ttl: 86400
+    keyfile: "/opt/repo/secrets/nodes/%{hostname}/etc/rndc-%{location}.key"
+    server: 'alfalfa.uib.no'
+
 profile::network::services::dns_records:
   CNAME:
     'puppet.mgmt.iaas.intern':             'bgo-foreman-1.mgmt.iaas.intern'
