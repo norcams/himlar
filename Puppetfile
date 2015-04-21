@@ -30,6 +30,11 @@ mod 'firewall', :ref => '1.5.0',                 :git => github + 'puppetlabs/pu
 mod 'googleauthenticator', :ref => 'norcams-0.1.0', :git => github + 'norcams/puppet-googleauthenticator'
 
 #
+# profile::openstack
+#
+mod 'keystone', :ref => '9b54046486',            :git => github + 'enovance/puppet-keystone'
+
+#
 # profile::messaging::rabbitmq
 #
 mod 'garethr/erlang'
@@ -78,6 +83,11 @@ mod 'puppetlabs/apache', '1.2.0'                 # forge
 #
 mod 'postgresqlrepo', :ref => 'master',          :git => github + 'Mylezeem/puppet-postgresqlrepo.git'
 mod 'postgresql', :ref => 'pg_hba_rules',        :git => github + 'Mylezeem/puppetlabs-postgresql.git'
+
+#
+# mysql
+#
+mod 'mysql', :ref => '8b814d4d2c',               :git => github + 'enovance/puppetlabs-mysql.git'
 
 #
 # libvirt
