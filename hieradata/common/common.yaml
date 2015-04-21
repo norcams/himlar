@@ -152,3 +152,11 @@ networks:
       oob:
         ensure: present
 
+profile::network::services::dns_options:
+  CNAME:
+    ttl: 3600
+    keyfile: "/etc/
+  A:
+    ttl: 86400
+    keyfile: "/etc/
+

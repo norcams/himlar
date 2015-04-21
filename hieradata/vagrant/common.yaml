@@ -32,3 +32,14 @@ foreman_bootstrap::virt_install:
     install_netmask: 255.255.255.0
     install_gateway: 10.0.3.1
 
+profile::network::services::dns_records:
+  CNAME:
+    'puppet.himlar.local':                 'vagrant-foreman-1.himlar.local'
+    'admin.himlar.local':                  'vagrant-foreman-1.himlar.local'
+    'repo.himlar.local':                   'vagrant-foreman-1.himlar.local'
+  A:
+    'vagrant-foreman-1.himlar.local':      '10.171.91.5'
+    'vagrant-controller-1.himlar.local':   '10.171.91.11'
+    'vagrant-controller-2.himlar.local':   '10.171.91.12'
+    'vagrant-controller-3.himlar.local':   '10.171.91.13'
+

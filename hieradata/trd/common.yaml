@@ -5,3 +5,15 @@ location_description: Production environment in Trondheim
 ntp::servers:
   - ntp.ntnu.no
   - ntp2.ntnu.no
+
+profile::network::services::dns_records:
+  CNAME:
+    'puppet.mgmt.iaas.ntnu.no':            'trd-foreman-1.mgmt.iaas.ntnu.no'
+    'admin.mgmt.iaas.ntnu.no':             'trd-foreman-1.mgmt.iaas.ntnu.no'
+    'repo.mgmt.iaas.ntnu.no':              'trd-foreman-1.mgmt.iaas.ntnu.no'
+  A:
+    'trd-foreman-1.mgmt.iaas.ntnu.no':     '10.171.91.5'
+    'trd-controller-1.mgmt.iaas.ntnu.no':  '10.171.91.11'
+    'trd-controller-2.mgmt.iaas.ntnu.no':  '10.171.91.12'
+    'trd-controller-3.mgmt.iaas.ntnu.no':  '10.171.91.13'
+
