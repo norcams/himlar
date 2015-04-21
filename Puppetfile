@@ -61,6 +61,7 @@ mod 'theforeman/git', '1.4.0'                    # forge
 mod 'puppetlabs/ruby', '0.4.0'                   # forge
 mod 'puppetlabs/xinetd', '1.4.0'                 # forge
 mod 'eyaml', :ref => 'v0.3.0',                   :git => github + 'ghoneycutt/puppet-module-eyaml'
+mod 'bind', :ref => 'keyfile_resource_record',   :git => github + 'norcams/puppet-bind'
 
 #
 # foreman_bootstrap
