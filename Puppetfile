@@ -98,6 +98,12 @@ mod 'openstacklib', :ref => '5.0.0',             :git => github + 'stackforge/pu
 mod 'glance', :ref => '3cd398e9',                :git => github + 'stackforge/puppet-glance'
 
 #
+# profile::openstack::compute
+#
+mod 'nova', :ref => '23ba8212cf',                :git => github + 'stackforge/puppet-nova'
+mod 'sysctl', :ref => 'v0.0.8',                  :git => github + 'duritong/puppet-sysctl'
+
+#
 # libvirt
 #
 mod 'libvirt', :ref => '0.3.2-norcams1',         :git => github + 'norcams/puppet-libvirt'
