@@ -88,8 +88,13 @@ mod 'postgresql', :ref => 'pg_hba_rules',        :git => github + 'Mylezeem/pupp
 # profile::database::mariadb
 #
 #mod 'mariadbrepo', ref => '0.2.1',               :git => github + 'Mylezeem/puppet-mariadbrepo'
-mod 'staging', :ref => 'bc434a71e1',             :git => github + 'enovance/puppet-staging.git'
-mod 'mysql', :ref => '8b814d4d2c',               :git => github + 'enovance/puppetlabs-mysql.git'
+mod 'staging', :ref => '1.0.4',                  :git => github + 'nanliu/puppet-staging'
+mod 'mysql', :ref => '3.3.0',                    :git => github + 'puppetlabs/puppetlabs-mysql'
+
+#
+# profile::messaging::rabbitmq
+#
+mod 'rabbitmq', :ref => '5.1.0',                 :git => github + 'puppetlabs/puppetlabs-rabbitmq'
 
 #
 # libvirt
@@ -105,7 +110,7 @@ mod 'ceph', :ref => 'b6ab15b47c',                :git => github + 'stackforge/pu
 # Common libs
 #
 mod 'sitelib', :ref => '0.1.0',                  :git => github + 'norcams/himlar-sitelib'
-mod 'stdlib', :ref => '4.4.0',                   :git => github + 'puppetlabs/puppetlabs-stdlib'
+mod 'stdlib', :ref => '4.6.0',                   :git => github + 'puppetlabs/puppetlabs-stdlib'
 mod 'concat', :ref => '1.1.2',                   :git => github + 'puppetlabs/puppetlabs-concat'
 mod 'inifile', :ref => '1.2.x',                  :git => github + 'puppetlabs/puppetlabs-inifile'
 mod 'augeasproviders', :ref => 'v2.1.3',         :git => github + 'hercules-team/augeasproviders'
