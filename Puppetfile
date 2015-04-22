@@ -30,17 +30,6 @@ mod 'firewall', :ref => '1.5.0',                 :git => github + 'puppetlabs/pu
 mod 'googleauthenticator', :ref => 'norcams-0.1.0', :git => github + 'norcams/puppet-googleauthenticator'
 
 #
-# profile::openstack
-#
-mod 'keystone', :ref => '9b54046486',            :git => github + 'enovance/puppet-keystone'
-
-#
-# profile::messaging::rabbitmq
-#
-mod 'garethr/erlang'
-mod 'puppetlabs/rabbitmq', :ref => '3.1.0',      :git => github + 'puppetlabs/puppetlabs-rabbitmq.git'
-
-#
 # profile::network::leaf
 #
 mod 'quagga', :ref => 'master',                  :git => github + 'LeslieCarr/puppet-quagga'
@@ -94,7 +83,14 @@ mod 'mysql', :ref => '3.3.0',                    :git => github + 'puppetlabs/pu
 #
 # profile::messaging::rabbitmq
 #
+mod 'garethr/erlang'
 mod 'rabbitmq', :ref => '5.1.0',                 :git => github + 'puppetlabs/puppetlabs-rabbitmq'
+
+#
+# profile::openstack::identity
+#
+mod 'keystone', :ref => '9b54046486',            :git => github + 'enovance/puppet-keystone'
+mod 'openstacklib', :ref => '5.0.0',             :git => github + 'stackforge/puppet-openstacklib'
 
 #
 # libvirt
