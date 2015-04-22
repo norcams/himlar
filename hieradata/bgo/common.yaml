@@ -13,13 +13,15 @@ ceph::profile::params::public_network:              '172.16.32.0/21'
 
 profile::network::services::dns_options:
   CNAME:
-    ttl: 3600
-    keyfile: "/opt/repo/secrets/nodes/%{hostname}/etc/rndc-%{location}.key"
-    server: 'alfalfa.uib.no'
+    default:
+      ttl: 3600
+      keyfile: "/opt/repo/secrets/nodes/%{hostname}/etc/rndc-%{location}.key"
+      server: 'alfalfa.uib.no'
   A:
-    ttl: 86400
-    keyfile: "/opt/repo/secrets/nodes/%{hostname}/etc/rndc-%{location}.key"
-    server: 'alfalfa.uib.no'
+    default:
+      ttl: 86400
+      keyfile: "/opt/repo/secrets/nodes/%{hostname}/etc/rndc-%{location}.key"
+      server: 'alfalfa.uib.no'
 
 profile::network::services::dns_records:
   CNAME:

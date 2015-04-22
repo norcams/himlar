@@ -8,13 +8,15 @@ ntp::servers:
 
 profile::network::services::dns_options:
   CNAME:
-    ttl: 3600
-    keyfile: "/opt/repo/secrets/nodes/%{hostname}/etc/rndc-%{location}.key"
-    server: 'dyndns.it.ntnu.no'
+    default:
+      ttl: 3600
+      keyfile: "/opt/repo/secrets/nodes/%{hostname}/etc/rndc-%{location}.key"
+      server: 'dyndns.it.ntnu.no'
   A:
-    ttl: 86400
-    keyfile: "/opt/repo/secrets/nodes/%{hostname}/etc/rndc-%{location}.key"
-    server: 'dyndns.it.ntnu.no'
+    default:
+      ttl: 86400
+      keyfile: "/opt/repo/secrets/nodes/%{hostname}/etc/rndc-%{location}.key"
+      server: 'dyndns.it.ntnu.no'
 
 profile::network::services::dns_records:
   CNAME:
