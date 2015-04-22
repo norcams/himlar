@@ -85,8 +85,10 @@ mod 'postgresqlrepo', :ref => 'master',          :git => github + 'Mylezeem/pupp
 mod 'postgresql', :ref => 'pg_hba_rules',        :git => github + 'Mylezeem/puppetlabs-postgresql.git'
 
 #
-# mysql
+# profile::database::mariadb
 #
+#mod 'mariadbrepo', ref => '0.2.1',               :git => github + 'Mylezeem/puppet-mariadbrepo'
+mod 'staging', :ref => 'bc434a71e1',             :git => github + 'enovance/puppet-staging.git'
 mod 'mysql', :ref => '8b814d4d2c',               :git => github + 'enovance/puppetlabs-mysql.git'
 
 #
