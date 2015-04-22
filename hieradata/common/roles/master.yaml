@@ -2,6 +2,7 @@
 classes:
    - profile::database::mariadb
 
+profile::database::mariadb::manage_repo: false
 profile::base::common::manage_lvm: false
 
 lvm::logical_volume:
