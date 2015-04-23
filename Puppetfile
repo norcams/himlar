@@ -30,12 +30,6 @@ mod 'firewall', :ref => '1.5.0',                 :git => github + 'puppetlabs/pu
 mod 'googleauthenticator', :ref => 'norcams-0.1.0', :git => github + 'norcams/puppet-googleauthenticator'
 
 #
-# profile::messaging::rabbitmq
-#
-mod 'garethr/erlang'
-mod 'puppetlabs/rabbitmq', :ref => '3.1.0',      :git => github + 'puppetlabs/puppetlabs-rabbitmq.git'
-
-#
 # profile::network::leaf
 #
 mod 'quagga', :ref => 'master',                  :git => github + 'LeslieCarr/puppet-quagga'
@@ -80,6 +74,25 @@ mod 'postgresqlrepo', :ref => 'master',          :git => github + 'Mylezeem/pupp
 mod 'postgresql', :ref => 'pg_hba_rules',        :git => github + 'Mylezeem/puppetlabs-postgresql.git'
 
 #
+# profile::database::mariadb
+#
+#mod 'mariadbrepo', ref => '0.2.1',               :git => github + 'Mylezeem/puppet-mariadbrepo'
+mod 'staging', :ref => '1.0.4',                  :git => github + 'nanliu/puppet-staging'
+mod 'mysql', :ref => '3.3.0',                    :git => github + 'puppetlabs/puppetlabs-mysql'
+
+#
+# profile::messaging::rabbitmq
+#
+mod 'garethr/erlang'
+mod 'rabbitmq', :ref => '5.1.0',                 :git => github + 'puppetlabs/puppetlabs-rabbitmq'
+
+#
+# profile::openstack::identity
+#
+mod 'keystone', :ref => '9b54046486',            :git => github + 'enovance/puppet-keystone'
+mod 'openstacklib', :ref => '5.0.0',             :git => github + 'stackforge/puppet-openstacklib'
+
+#
 # libvirt
 #
 mod 'libvirt', :ref => '0.3.2-norcams1',         :git => github + 'norcams/puppet-libvirt'
@@ -93,7 +106,7 @@ mod 'ceph', :ref => 'b6ab15b47c',                :git => github + 'stackforge/pu
 # Common libs
 #
 mod 'sitelib', :ref => '0.1.0',                  :git => github + 'norcams/himlar-sitelib'
-mod 'stdlib', :ref => '4.4.0',                   :git => github + 'puppetlabs/puppetlabs-stdlib'
+mod 'stdlib', :ref => '4.6.0',                   :git => github + 'puppetlabs/puppetlabs-stdlib'
 mod 'concat', :ref => '1.1.2',                   :git => github + 'puppetlabs/puppetlabs-concat'
 mod 'inifile', :ref => '1.2.x',                  :git => github + 'puppetlabs/puppetlabs-inifile'
 mod 'augeasproviders', :ref => 'v2.1.3',         :git => github + 'hercules-team/augeasproviders'
