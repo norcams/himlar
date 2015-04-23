@@ -13,7 +13,7 @@ mod 'profile', :ref => 'norcams-0.4.0',          :git => github + 'norcams/puppe
 # profile::base::common
 #
 mod 'epel', :ref => '1.0.0',                     :git => github + 'stahnma/puppet-module-epel'
-mod 'sudo', :ref => 'v3.0.9',                    :git => github + 'saz/puppet-sudo'
+mod 'sudo', :ref => '80cbf884',                  :git => github + 'saz/puppet-sudo'
 mod 'ssh', :ref => 'v2.4.0',                     :git => github + 'saz/puppet-ssh'
 mod 'ntp', :ref => '3.3.0',                      :git => github + 'puppetlabs/puppetlabs-ntp'
 mod 'account', :ref => 'multiple_accounts',      :git => github + 'Mylezeem/puppet-account.git'
