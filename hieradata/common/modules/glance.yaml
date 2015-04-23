@@ -1,0 +1,19 @@
+glance::api::keystone_password: glance_pass
+glance::api::bind_host: "%{ipaddress}"
+glance::api::auth_host: "%{ipaddress}"
+glance::api::database_connection: "mysql://glance:glance_pass@%{ipaddress}/glance"
+glance::api::workers: 1
+glance::api::registry_host: "%{ipaddress}"
+
+glance::registry::keystone_password: glance_pass
+glance::registry::bind_host: "%{ipaddress}"
+glance::registry::auth_host: "%{ipaddress}"
+glance::registry::database_connection: "mysql://glance:glance_pass@%{ipaddress}/glance"
+
+glance::db::mysql::password: glance_pass
+glance::db::mysql::host: '%'
+
+glance::keystone::auth::password: glance_pass
+glance::keystone::auth::public_address: "%{ipaddress}"
+glance::keystone::auth::admin_address: "%{ipaddress}"
+glance::keystone::auth::internal_address: "%{ipaddress}"
