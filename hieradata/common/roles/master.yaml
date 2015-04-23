@@ -8,6 +8,7 @@ classes:
    - profile::openstack::compute::api
    - profile::openstack::compute::scheduler
    - profile::openstack::compute::conductor
+   - profile::openstack::dashboard
 
 profile::openstack::database::sql::keystone_enabled: true
 profile::openstack::database::sql::glance_enabled:   true
