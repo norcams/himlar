@@ -87,21 +87,19 @@ mod 'garethr/erlang'
 mod 'rabbitmq', :ref => '5.1.0',                 :git => github + 'puppetlabs/puppetlabs-rabbitmq'
 
 #
-# profile::openstack::identity
+# profile::openstack::*
 #
 mod 'keystone', :ref => '9b54046486',            :git => github + 'enovance/puppet-keystone'
-mod 'openstacklib', :ref => '5.0.0',             :git => github + 'stackforge/puppet-openstacklib'
-
-#
-# profile::openstack::image
-#
 mod 'glance', :ref => '3cd398e9',                :git => github + 'stackforge/puppet-glance'
+mod 'nova', :ref => '23ba8212cf',                :git => github + 'stackforge/puppet-nova'
+mod 'cinder', :ref => '9075f74163',              :git => github + 'stackforge/puppet-cinder'
+
+mod 'openstacklib', :ref => '5.0.0',             :git => github + 'stackforge/puppet-openstacklib'
+mod 'sysctl', :ref => 'v0.0.8',                  :git => github + 'duritong/puppet-sysctl'
 
 #
-# profile::openstack::compute
+# profile::openstack::
 #
-mod 'nova', :ref => '23ba8212cf',                :git => github + 'stackforge/puppet-nova'
-mod 'sysctl', :ref => 'v0.0.8',                  :git => github + 'duritong/puppet-sysctl'
 
 #
 # libvirt

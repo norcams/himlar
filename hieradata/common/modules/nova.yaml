@@ -1,0 +1,28 @@
+nova::database_connection: "mysql://nova:nova_pass@%{ipaddress}/nova"
+nova::glance_api_servers: "%{ipaddress}:9292"
+nova::rabbit_host: "%{ipaddress}"
+
+nova::api::admin_password: nova_pass
+nova::api::enabled: true
+nova::api::auth_host: "%{ipaddress}"
+nova::api::api_bind_address: "%{ipaddress}"
+nova::api::metadata_listen: "%{ipaddress}"
+
+nova::scheduler::enabled: true
+
+nova::network::neutron::neutron_admin_password: neutron_pass
+nova::network::neutron::neutron_url: "http://%{ipaddress}:9696"
+nova::network::neutron::neutron_admin_auth_url: "http://%{ipaddress}:35357/v2.0"
+
+nova::conductor::enabled: true
+
+nova::db::mysql::password: nova_pass
+nova::db::mysql::host: '%'
+
+nova::keystone::auth::password: nova_pass
+nova::keystone::auth::public_address: "%{ipaddress}"
+nova::keystone::auth::admin_address: "%{ipaddress}"
+nova::keystone::auth::internal_address: "%{ipaddress}"
+
+nova::compute::enabled: true
+nova::compute::libvirt::libvirt_virt_type: qemu
