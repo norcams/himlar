@@ -1,0 +1,14 @@
+---
+classes:
+   - profile::openstack::compute::hypervisor
+
+profile::openstack::compute::hypervisor::manage_telemetry: false
+
+profile::base::common::manage_lvm: false
+
+lvm::logical_volume:
+  lv_var:
+    volume_group: vg_root
+    fs_type: xfs
+    mountpath: /var/lib/ekstradisk
+

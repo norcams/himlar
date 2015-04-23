@@ -13,7 +13,7 @@ mod 'profile', :ref => 'norcams-0.4.0',          :git => github + 'norcams/puppe
 # profile::base::common
 #
 mod 'epel', :ref => '1.0.0',                     :git => github + 'stahnma/puppet-module-epel'
-mod 'sudo', :ref => 'v3.0.9',                    :git => github + 'saz/puppet-sudo'
+mod 'sudo', :ref => '80cbf884',                  :git => github + 'saz/puppet-sudo'
 mod 'ssh', :ref => 'v2.4.0',                     :git => github + 'saz/puppet-ssh'
 mod 'ntp', :ref => '3.3.0',                      :git => github + 'puppetlabs/puppetlabs-ntp'
 mod 'account', :ref => 'multiple_accounts',      :git => github + 'Mylezeem/puppet-account.git'
@@ -87,15 +87,19 @@ mod 'garethr/erlang'
 mod 'rabbitmq', :ref => '5.1.0',                 :git => github + 'puppetlabs/puppetlabs-rabbitmq'
 
 #
-# profile::openstack::identity
+# profile::openstack::*
 #
 mod 'keystone', :ref => '9b54046486',            :git => github + 'enovance/puppet-keystone'
+mod 'glance', :ref => '3cd398e9',                :git => github + 'stackforge/puppet-glance'
+mod 'nova', :ref => '23ba8212cf',                :git => github + 'stackforge/puppet-nova'
+mod 'cinder', :ref => '9075f74163',              :git => github + 'stackforge/puppet-cinder'
+
 mod 'openstacklib', :ref => '5.0.0',             :git => github + 'stackforge/puppet-openstacklib'
+mod 'sysctl', :ref => 'v0.0.8',                  :git => github + 'duritong/puppet-sysctl'
 
 #
-# profile::openstack::image
+# profile::openstack::
 #
-mod 'glance', :ref => '3cd398e9',                :git => github + 'stackforge/puppet-glance'
 
 #
 # libvirt
