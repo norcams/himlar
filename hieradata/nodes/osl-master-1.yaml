@@ -1,0 +1,9 @@
+---
+profile::base::common::manage_networkifs:     true
+network_if:
+  eth0:
+    ipv4_ips:   129.240.224.102/27
+    ensure:     up
+    start_mode: onboot
+    type:       ethernet
+
