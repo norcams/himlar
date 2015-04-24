@@ -10,4 +10,3 @@ horizon::neutron_options:
 horizon::wsgi::apache::priority: 10
 horizon::wsgi::apache::bind_address: "%{ipaddress}"
 horizon::bind_address: "%{ipaddress}"
-horizon::keystone_host: "%{ipaddress}"
