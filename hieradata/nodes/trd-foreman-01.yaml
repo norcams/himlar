@@ -1,14 +1,9 @@
-profile::base::common::manage_networkifs:    true
-
-netcf_if:
+---
+profile::base::common::manage_networkifs:     true
+network_if:
   eth0:
-    ensure: present
-    definition:  '
-      <interface type="ethernet" name="eth0">
-        <start mode="onboot"/>
-        <mtu size="1500"/>
-        <protocol family="ipv4">
-          <ip address="10.171.91.5" prefix="24"/>
-          <route gateway="10.171.91.1"/>
-        </protocol>
-      </interface>'
+    ipv4_ips:   10.171.91.5/24
+    ensure:     up
+    start_mode: onboot
+    type:       ethernet
+
