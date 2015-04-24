@@ -25,7 +25,6 @@ profile::network::services::dns_records:
     'repo.mgmt.iaas.ntnu.no':              'trd-foreman-1.mgmt.iaas.ntnu.no'
     'master.mgmt.iaas.ntnu.no':            'trd-master-01.mgmt.iaas.ntnu.no'
   A:
-<<<<<<< HEAD
     'trd-cephmon-01.mgmt.iaas.ntnu.no':    '10.171.91.203'
     'trd-cephmon-02.mgmt.iaas.ntnu.no':    '10.171.91.205'
     'trd-cephmon-03.mgmt.iaas.ntnu.no':    '10.171.91.207'
@@ -42,24 +41,6 @@ profile::network::services::dns_records:
     'trd-storage-03.mgmt.iaas.ntnu.no':    '10.171.91.101'
     'trd-storage-04.mgmt.iaas.ntnu.no':    '10.171.91.105'
     'trd-storage-05.mgmt.iaas.ntnu.no':    '10.171.91.103'
-=======
-    'trd-cephmon-01.mgmt.iaas.ntnu.no':     '10.171.91.203'
-    'trd-cephmon-02.mgmt.iaas.ntnu.no':     '10.171.91.205'
-    'trd-cephmon-03.mgmt.iaas.ntnu.no':     '10.171.91.207'
-    'trd-compute-02.mgmt.iaas.ntnu.no':     '10.171.91.109'
-    'trd-compute-03.mgmt.iaas.ntnu.no':     '10.171.91.110'
-    'trd-compute-01.mgmt.iaas.ntnu.no':     '10.171.91.108'
-    'trd-controller-1.mgmt.iaas.ntnu.no':   '10.171.91.11'
-    'trd-controller-02.mgmt.iaas.ntnu.no':  '10.171.91.12'
-    'trd-controller-03.mgmt.iaas.ntnu.no':  '10.171.91.13'
-    'trd-foreman-1.mgmt.iaas.ntnu.no':      '10.171.91.5'
-    'trd-storage-01.mgmt.iaas.ntnu.no':     '10.171.91.100'
-    'trd-storage-02.mgmt.iaas.ntnu.no':     '10.171.91.102'
-    'trd-storage-03.mgmt.iaas.ntnu.no':     '10.171.91.101'
-    'trd-storage-04.mgmt.iaas.ntnu.no':     '10.171.91.105'
-    'trd-storage-05.mgmt.iaas.ntnu.no':     '10.171.91.103'
-
->>>>>>> TRD change of IP adress scheme
 
 ceph::profile::params::mon_initial_members:         'trd-cephmon-01, trd-cephmon-02, trd-cephmon-03'
 ceph::profile::params::mon_host:                    '10.171.91.203:6789, 10.171.91.205:6789, 10.171.91.207:6789'
