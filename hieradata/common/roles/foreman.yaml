@@ -32,7 +32,7 @@ foreman_proxy::register_in_foreman:  true
 foreman_proxy::manage_sudoersd:      false
 foreman_proxy::tftp:                 true
 foreman_prxoy::tftp_servername:      "%{ipaddress}"
-foreman_proxy::dhcp:                 false
+foreman_proxy::dhcp:                 true
 foreman_proxy::dhcp_interface:       'eth0'
 foreman_proxy::dhcp_managed:         true
 foreman_proxy::dns:                  false
