@@ -69,15 +69,19 @@ common_config()
 
   # Create and update subnet
   hammer subnet create --name mgmt \
-    --network    $mgmt_network \
-    --mask       $mgmt_netmask || true
+    --network       $mgmt_network \
+    --mask          $mgmt_netmask || true
   hammer subnet update --name mgmt \
-    --network    $mgmt_network \
-    --mask       $mgmt_netmask \
-    --domain-ids $foreman_domain_id \
-    --tftp-id    $foreman_proxy_id \
-    --dns-id     '' \
-    --dhcp-id    ''
+    --network       $mgmt_network \
+    --mask          $mgmt_netmask \
+    --ipam          None \
+    --domain-ids    $foreman_domain_id \
+    --tftp-id       $foreman_proxy_id \
+    --dns-primary   '' \
+    --dns-secondary '' \
+    --gateway       '' \
+    --dns-id        '' \
+    --dhcp-id       ''
   foreman_subnet_id=$(hammer --csv subnet info --name mgmt | tail -n1 | cut -d, -f1)
 
   #
