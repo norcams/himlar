@@ -3,6 +3,7 @@ foreman_proxy::dhcp_range:       '10.0.3.100 10.0.3.199'
 foreman_proxy::dhcp_gateway:     '10.0.3.1'
 foreman_proxy::dhcp_nameservers: '10.0.3.5'
 foreman_proxy::dhcp_interface:   'eth1'
+foreman_proxy::dns_managed:      true
 foreman_proxy::dns_server:       '10.0.3.5'
 foreman_proxy::keyfile:          '/etc/rndc.key'
 
