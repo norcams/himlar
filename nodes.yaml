@@ -1,0 +1,20 @@
+defaults:
+  cpus:     2
+  memory:   2048
+  box:      'norcams/base'
+  domain:   'himlar.local'
+  networks:
+    - mgmt
+
+nodes:
+  - name: 'vagrant-foreman-01'
+  - name: 'vagrant-master-01'
+  - name: 'vagrant-compute-01'
+  - name: 'vagrant-leaf-01'
+    box:  'norcams/netdev'
+
+networks:
+  mgmt:
+    net:         10.0.3
+    auto_config: true
+
