@@ -1,19 +1,10 @@
 ---
-profile::base::common::manage_networkifs:     true
-network_if:
-  eth0:
-    ipv4_ips:   129.241.14.143/24
-    ensure:     up
-    start_mode: onboot
-    type:       ethernet
-  eth1:
-    ipv4_ips:   10.171.91.1/24
-    ensure:     up
-    start_mode: onboot
-    type:       ethernet
-  eth2:
-    ipv4_ips:   10.171.86.1/24
-    ensure:     up
-    start_mode: onboot
-    type:       ethernet
+profile::base::common::manage_networkifs: false
+
+#
+# Not managing interfaces on login role yet
+#
+# eth0: 129.241.14.143/24
+# eth1: 10.171.91.1/24
+# eth2: 10.171.86.1/24
 

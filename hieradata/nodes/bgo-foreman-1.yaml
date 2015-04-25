@@ -1,9 +1,15 @@
----
-profile::base::common::manage_networkifs:     true
-network_if:
+profile::base::common::manage_networkifs:    true
+
+netcf_if:
   eth0:
-    ipv4_ips:   172.16.32.11/21
-    ensure:     up
-    start_mode: onboot
-    type:       ethernet
+    ensure: present
+    definition:  '
+      <interface type="ethernet" name="em3">
+        <start mode="onboot"/>
+        <mtu size="1500"/>
+        <protocol family="ipv4">
+          <ip address="172.16.32.11" prefix="21"/>
+          <route gateway="172.16.32.1"/>
+        </protocol>
+      </interface>'
 

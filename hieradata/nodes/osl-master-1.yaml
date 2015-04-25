@@ -1,9 +1,15 @@
 ---
-profile::base::common::manage_networkifs:     true
-network_if:
+profile::base::common::manage_networkifs:    true
+netcf_if:
   eth0:
-    ipv4_ips:   129.240.224.102/27
-    ensure:     up
-    start_mode: onboot
-    type:       ethernet
+    ensure: present
+    definition:  '
+      <interface type="ethernet" name="eth0">
+        <start mode="onboot"/>
+        <mtu size="1500"/>
+        <protocol family="ipv4">
+          <ip address="129.240.224.102" prefix="27"/>
+          <route gateway="129.240.224.97"/>
+        </protocol>
+      </interface>'
 
