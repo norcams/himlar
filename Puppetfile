@@ -12,7 +12,6 @@ mod 'profile', :ref => 'norcams-0.4.0',          :git => github + 'norcams/puppe
 #
 # profile::base::common
 #
-mod 'epel', :ref => '1.0.0',                     :git => github + 'stahnma/puppet-module-epel'
 mod 'sudo', :ref => '80cbf884',                  :git => github + 'saz/puppet-sudo'
 mod 'ssh', :ref => 'v2.4.0',                     :git => github + 'saz/puppet-ssh'
 mod 'ntp', :ref => '3.3.0',                      :git => github + 'puppetlabs/puppetlabs-ntp'
@@ -96,12 +95,9 @@ mod 'cinder', :ref => '9075f74163',              :git => github + 'stackforge/pu
 mod 'horizon', :ref => 'f04c638817',             :git => github + 'stackforge/puppet-horizon'
 
 mod 'openstacklib', :ref => '5.0.0',             :git => github + 'stackforge/puppet-openstacklib'
+mod 'openstack_extras', :ref => 'd4af0036a4',    :git => github + 'stackforge/puppet-openstack_extras'
 mod 'sysctl', :ref => 'v0.0.8',                  :git => github + 'duritong/puppet-sysctl'
 mod 'memcached', :ref => 'd009260de3',           :git => github + 'saz/puppet-memcached'
-
-#
-# profile::openstack::
-#
 
 #
 # libvirt

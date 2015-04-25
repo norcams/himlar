@@ -1,0 +1,37 @@
+yum_base_mirror: 'http://centos.uib.no'
+yum_epel_mirror: 'http://fedora.uib.no/epel'
+
+openstack_extras::repo::redhat::redhat::purge_unmanaged: true
+openstack_extras::repo::redhat::redhat::package_require: true
+openstack_extras::repo::redhat::redhat::manage_epel: false
+openstack_extras::repo::redhat::redhat::manage_rdo: false
+
+openstack_extras::repo::redhat::redhat::repo_hash:
+  'CentOS-Base':
+    'descr': 'CentOS-$releasever - Base'
+    'baseurl': "%{hiera('yum_base_mirror')}/$releasever/os/$basearch/"
+  'CentOS-Updates':
+    'descr': 'CentOS-$releasever - Updates'
+    'baseurl': "%{hiera('yum_base_mirror')}/$releasever/updates/$basearch/"
+  'CentOS-Extras':
+    'descr': 'CentOS-$releasever - Extras'
+    'baseurl': "%{hiera('yum_base_mirror')}/$releasever/extras/$basearch/"
+  'epel':
+    'descr': "Extra Packages for Enterprise Linux %{operatingsystemmajrelease} - $basearch"
+    'baseurl': "%{hiera('yum_epel_mirror')}/$releasever/$basearch/"
+    'gpgkey': 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7'
+    'failovermethod': 'priority'
+  'puppetlabs':
+    'descr': Puppetlabs Yum Repo
+    'baseurl':  'http://yum.puppetlabs.com/el/$releasever/products/$basearch/'
+    'gpgkey':   'http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs'
+    'gpgcheck': 1
+  'puppetlabs-deps':
+    'descr': Puppetlabs Dependencies Yum Repo
+    'baseurl':  'http://yum.puppetlabs.com/el/$releasever/dependencies/$basearch/'
+    'gpgkey':   'http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs'
+    'gpgcheck': 1
+openstack_extras::repo::redhat::redhat::gpgkey_hash:
+  '/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7':
+    'source': 'puppet:///modules/openstack_extras/RPM-GPG-KEY-EPEL-7'
+

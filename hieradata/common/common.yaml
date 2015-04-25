@@ -5,7 +5,7 @@ classes_bootstrap:
   - profile::base::common
 
 profile::base::common::manage_augeasproviders: true
-profile::base::common::manage_epel:            true
+profile::base::common::manage_epel:            false
 profile::base::common::manage_accounts:        true
 profile::base::common::manage_logging:         false
 profile::base::common::manage_monitoring:      false

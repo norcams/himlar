@@ -10,6 +10,8 @@ classes:
    - profile::openstack::compute::conductor
    - profile::openstack::dashboard
 
+openstack_extras::repo::redhat::redhat::manage_rdo: true
+
 profile::openstack::database::sql::keystone_enabled: true
 profile::openstack::database::sql::glance_enabled:   true
 profile::openstack::database::sql::nova_enabled:     true
