@@ -7,7 +7,6 @@ bootstrap_puppet()
     # RHEL, CentOS, Fedora
     rpm -ivh http://fedora.uib.no/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
     rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm
-    rpm -ivh http://rdo.fedorapeople.org/rdo-release.rpm
     yum -y update
     yum install -y puppet facter rubygems rubygem-deep_merge \
       rubygem-puppet-lint git vim inotify-tools
