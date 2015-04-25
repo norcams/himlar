@@ -4,54 +4,6 @@ classes:
 classes_bootstrap:
   - profile::base::common
 
-profile::base::common::manage_augeasproviders: true
-profile::base::common::manage_epel:            false
-profile::base::common::manage_accounts:        true
-profile::base::common::manage_logging:         false
-profile::base::common::manage_monitoring:      false
-profile::base::common::manage_ssh:             true
-profile::base::common::manage_ntp:             true
-profile::base::common::manage_sudo:            true
-profile::base::common::manage_authconfig:      false
-profile::base::common::manage_firewall:        true
-profile::base::common::manage_timezones:       true
-
-account::accounts:
-  iaas:
-    ssh_key_type: rsa
-    ssh_key: AAAAB3NzaC1yc2EAAAADAQABAAABAQC+OF1sQvpZdYhxVJgrd+1P84/AegFJHY5W0SLIO8dF4K6CP08bJNwg+5eD8kxebmoXTJlfIRC1onJfjDPl94x9F3x18zib3kiSIPnkN7BsCZIxTcN1czHRUEtyOPG9JlKCagaXwHkBIzYIngF9hwBix9ZetuYieiZU/rhnk7x/zNxmjqPBf26rEI1qk4S6xYoAJjx0YFUbLYYiqc7YxGypo0ag99nKaZpy2p5mMyYGn4nGmlCzSG+aANokvlz8gwVzThaIPB8s0YYdXf1w/1OdFcUuW8Wm3AonFZcVhGfJy3yaAZDvbpWI1JVbJ9hMOo5Tml6nx8FM8MU6mAoamgRT
-    groups:
-      - wheel
-      - users
-  vagrant:
-    ensure: absent
-
-sudo::configs:
-  wheel:
-    priority: 15
-    content: '%wheel ALL=(ALL) NOPASSWD:ALL'
-
-ntp::servers:
-  - 0.pool.ntp.org
-  - 1.pool.ntp.org
-  - 2.pool.ntp.org
-  - 3.pool.ntp.org
-
-ssh::server::storeconfigs_enabled: false
-ssh::server::options:
-  PermitRootLogin: 'no'
-  PasswordAuthentication: 'no'
-
-timezone::timezone: "Europe/Oslo"
-
-puppet::puppetmaster: "puppet.%{domain}"
-puppet::show_diff: true
-puppet::additional_settings:
-  'basemodulepath'   : '/etc/puppet/modules:/opt/himlar/modules'
-  'certname'         : "%{::verified_certname}"
-  'trusted_node_data': true
-  'disable_warnings' : 'deprecations'
-
 #
 # Location metadata
 #
