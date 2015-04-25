@@ -21,7 +21,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   if ENV['HIMLAR_MULTINODE']
     settings['nodes'].each_with_index do |node, i|
-      config.vm.define node['name'] do |box|
+      config.vm.define node['name'], autostart: false, primary: false do |box|
         box.vm.hostname = node['name'] + "." + node['domain']
         box.vm.box = node['box']
         box.vm.box_url = node['box_url']
