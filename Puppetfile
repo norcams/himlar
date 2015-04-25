@@ -7,7 +7,7 @@ local  = 'iaas@git.norcams.org:'
 #
 # profile
 #
-mod 'profile', :ref => 'norcams-0.4.0',          :git => github + 'norcams/puppeels'
+mod 'profile', :ref => 'norcams-0.5.0',          :git => github + 'norcams/puppeels'
 
 #
 # profile::base::common
@@ -15,7 +15,7 @@ mod 'profile', :ref => 'norcams-0.4.0',          :git => github + 'norcams/puppe
 mod 'sudo', :ref => '80cbf884',                  :git => github + 'saz/puppet-sudo'
 mod 'ssh', :ref => 'v2.4.0',                     :git => github + 'saz/puppet-ssh'
 mod 'ntp', :ref => '3.3.0',                      :git => github + 'puppetlabs/puppetlabs-ntp'
-mod 'account', :ref => 'multiple_accounts',      :git => github + 'Mylezeem/puppet-account.git'
+mod 'accounts', :ref => 'e12dd12bb8',            :git => github + 'norcams/puppet-accounts'
 mod 'timezone', :ref => 'v3.1.1',                :git => github + 'saz/puppet-timezone.git'
 mod 'netcf', :ref => '4c3142e4f7',               :git => github + 'raphink/puppet-netcf.git'
 mod 'hostname', :ref => '0.0.2',                 :git => github + 'peopleware/puppet-hostname'

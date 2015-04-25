@@ -1,3 +1,8 @@
 ---
 profile::network::services::manage_dhcp: true
 
+accounts::accounts:
+  'vagrant':
+    ensure: present
+  'iaas':
+    ensure: absent

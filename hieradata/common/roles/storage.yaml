@@ -10,10 +10,13 @@ classes_bootstrap:
 profile::base::manage_lvm:                           true
 profile::storage::cephosd_firewall::manage_firewall: true
 
-account::accounts:
-  cinder:
-    groups:
-      - cinder
+accounts::accounts:
+  'cinder':
+    ensure: present
+
+accounts::users:
+  'cinder':
+     groups: [ 'cinder' ]
 
 lvm::volume_groups:
   vg_journala:

@@ -6,62 +6,12 @@ classes:
 
 profile::base::common::manage_firewall: false
 
-account::accounts:
-  beddari:
-    ssh_key_type: rsa
-    ssh_key: AAAAB3NzaC1yc2EAAAADAQABAAABAQDV5iURXYrx45xuyHkqlSaU/8WFF+z61YXvfjjV2gVBn9b7vFVFXjQ+Fo4GAUPd+jsv9qBgdWrqZTlVY/k0hrjMnZYOuEwAWQ58bXvFvlyY8FikwB1QxeTjH0wyjvGjZlqd8kruU8dwwzwQeAH3aehPNw2kb3OCsXVGp14t/hsJpHnbQwkjZX5tgAa2PV0GAhcDYaZBy31LJ4U9Qa644SKKGsKR26UKSq2LI/fep1v3oe2aNU5ixRtxKhtrdHnKl+/whqJjwAE4fC1PFMYMJnatzAYnwQ8OXWD4Vg7CU+bB/OXNu+vhpoHKibI089km6/3eT4USAhvu36HiwIFkb/sR
-    groups:
-      - wheel
-      - users
-  ebm:
-    ssh_key_type: rsa
-    ssh_key: AAAAB3NzaC1yc2EAAAADAQABAAABAQCuZ40vEBzipAk1E3JZ47/Ck8DjL0lWDkYIFbJE5O9qYPj9a0lHX9ytpNztI1flZvJXFo7ZzAi8xkwoiWtFCZgwjrzTjmynV8TH4zaJx5Y7q9uD6mMG+fQ0pq7TbEnS7HBAbEtfWa7zdMza6YkTvromfgrynfxgjJQ4CX8QpDiH61Ohn2ev+mjfIbAeveamJxrUEBHt5n2m6FXsztGGdYgl5Wq1xPn7Tcsp7LCEZSh+najaxw+vJscEPf0MiedTIU9RkvPfDk8rA5g0xjlsprt/HwxlDnRjizujiMWS6JEdPXP3R7w2g3/6Lg5wFxQIXUgYOKjLq0QYNlaWP6B7LPbb
-    groups:
-      - wheel
-      - users
-  mikaeld:
-    ssh_key_type: rsa
-    ssh_key: AAAAB3NzaC1yc2EAAAABIwAAAQEAu6LmtQMkPIpHmUeHbfdA0425xDSRZpArCq7KuTYRurQOWssrPhMIpAa6OV2LPkpRLF0YIbzoHEXSqkgNwo6F1Qhy7E0l8TnKO5JtuctJtWUzvdesVniUszsXOg7543ZuEaA4qr2EPZSaASOemcMhUgr29wiUKaZF1h8LOXb3za7OORuWR/FW++HfUlPssmWA3R0KtC7OLhkum7c2+59rCaNYFIBUuepKURxDOqYI9sm7TdMw6+dbRUSsqUX2ITlcHhOYp2ehpnG/PpfIN/WFChudhAIDFFgTBImDtJ3Rx1oG45PB1f+r+IIZ6hzndkjqxdlTWpaY4q3ZOeGSFgCJVw==
-    groups:
-      - wheel
-      - users
-  torldre:
-    ssh_key_type: dsa
-    ssh_key: AAAAB3NzaC1kc3MAAACBAIAOOn1uU4Djl45V6ALi4qdAvktzYcLdIPQeC/MhQ6SDV/NusbTRC25rgPQzWHHLS4fPf1lE9ZUnGnEZIqhBIQf7fjYixz/k5s4C9NKvkvyufzX384LWbwo5RBbib0NCutT0OL2YpcJgkGeQZ/BFKwhlut2TP6rA8TOC7U7kRtKBAAAAFQCsBy43OnJchfOFQ1seoJhQnx5hawAAAIAuXEzgn7X2pDcSWqkAv7ikyn6jRA6IT+BuQgnaea/pUtuj/B2PbN+bf4K8GLL7L/Ep74WP0vvM3x4Angf9ny6Ss9Xr4rxKoShZTxpD5+eOVs8VarvFHSW8tt4V7EsXkpXdNUgrfZu/26VfqbRq5+VPFvNYQIhCEs1XSyR2CgW0fAAAAIAg4/b+URwyVWmCexSbQzFtdud+Vpwxo0wstd2xmhCbWIRKiLfKmm2BLeMugZgPPPSgQf4CdbcoPKYBCZxccfkJuTky4IDuZs6GPeM6MA1Bhttfa4KcOMhq52TIXarUYwbpjugUoQG+3n+xbTRarp0Ic/mj2BKtyZlX4ir/NlurQA==
-    groups:
-      - wheel
-      - users
-  hanshj:
-    ssh_key_type: rsa
-    ssh_key: AAAAB3NzaC1yc2EAAAADAQABAAABAQDP0oBHkOyPFmjMZul68zcrf3cxLj7MCjLpswnSmgSxplXH5n0NOZ4NGAHASHmP4pEhVZx5FUZxBiXVdHj1aJdVBlblz3m3hq72Mpft5mYMJaaeCSCg0kwwt9p02MMIy/+3neLQc1HdxG93LaweGnFe8RLNCGHK93GZubnbUCEsVt6cO/edEqtZnRLE439Kx/DUXi7bf8S/+7Uh6inYQtgt/6ypG86iwSDxdWWx6jGv3BcTUJnbgGoQqUZ2Mn2RKBICFq2I+Vi4dFvGXcb9Jc5m9D4JCpwao6wiNtPD3aJUBlauE4yZa+Qv+V5tczCammOHSjx1qCfnLEQev5F9i0Bn
-    groups:
-      - wheel
-      - users
-  hege:
-    ssh_key_type: rsa
-    ssh_key: AAAAB3NzaC1yc2EAAAABIwAAAQEAzfByKwhw9v7wzYZY4m4qvdVy/+Qzp+Q2bFuTcSQG9aN9C928LSPkM8RmfTKYA8xWgvVfki+EsgSTwG3Bbb9jO19DCvb+lvFXpcZhDbDzHd9JuK9+bLeNWG5FToFDfo207PlMwwn9tHUVcBIAH9wk+Nes2gBVYONLyPMVnebEH3GsLuzrombAO56ubapsn4y4r5kAqtlhcSkozoRQKNrb7EqOZn+7RMNcdjKYEBSb5yA0aDRUeqxGYts6qCExdSVtgTn+4ITIHCV5YmIlxP7buJRQisOjToixdmKy/FLkN9iBQwf4n6IpvdzPHjsvQtqhLICVRBOV6Y4tdWjiH0wjwQ==
-    groups:
-      - wheel
-      - users
-  raymond:
-    ssh_key_type: rsa
-    ssh_key: AAAAB3NzaC1yc2EAAAADAQABAAACAQCdT7QHIcmvOtNiTJI8emS0E8YGohzw4tpNKI5VkgY4oPzwcXHKNW+4FNViO+2ikBhf0seGPxtKUlpf0jBfUkMRb95GtzWPQSAOtyGihn4CsQs2mWekwE8jOILJTc6Pi8ht92ai7DSc1Nnv6Uss28rgLoSI9PAo3nXNZEYhG5shJS+Ks1Ut0xw0NT2D/ZYIihMXk2xwbraIYq99xUKJ7zKPHCW/1mMba5gtPTk27Q4wWX5yg+TuBpsvqyKMj1/sJ2KY0dmZhVvFhFMpAUoC5AYxryUXepksYnIiQ5hPUI6oCTLIoV8i67kVfL2FgvX7IkDrrAUw3M2MnPJa63gDXPVUNjJE2v/5/4Ik66N1AE04Jdb8FrplSogG525uSIda3saMoV6R+krlV0UBwml1beaBUHWodKu/ML1CMU1Lpb/vAg2ylIbBQByR/pxGPVeUD001ACb2bUMJmco62468nu27vHiY08QqRpav13wtMxqITGGYsMYslosIwHqd91BYCDVqF1OgfSTYTqBH2SZZcJVpChOSAIB4quBMkIOFwnFpG+mSrEpbprKg5BNXSMIXTiMFb/SH2+r+rNvbY+ssCs+CwjpDdO8PS4W1v3AHXZFrORP7meQR4Xd9mOvsPeMh63UscMpNsGvTentOhunacf6uhkTKut/3skxmlLyiiIPKPQ==
-    groups:
-      - wheel
-      - users
-  trondham:
-    ssh_key_type: rsa
-    ssh_key: AAAAB3NzaC1yc2EAAAABIwAAAQEAr3c4y9UTQstrocwRDdq8tkb8d33VIX4x07iKYanZmnrcGwQ7efT3rEN2tmJUEQumNSL+ZVdsCH/2pT37L8uyxsRlSdnz5bQbe0Sj2dq4ahpIadrDH7n858EmN+chEwgz5QRyWT4SanC9ce/9EyJbl8C0U34mgJV+pIwSGhFhWKXJ624ja+kMXVd6+5rG+rlukMjolFoxE+ijZqzU1EwUtuKD1oMFGeszdpEChhhGO/9T1L7MyaIcDOUOmMgXjdgRtVmS1QY5HYikvc68wBV1FDRn1pvEd3UJTobU87FA9XircbazvD64ghNWK7dqikUgnW/OQsKLoLfyPEUn39v2wQ==
-    groups:
-      - wheel
-      - users
-  kskurtveit:
-    ssh_key_type: rsa
-    ssh_key: AAAAB3NzaC1yc2EAAAADAQABAAABAQDV35F8Vrk0VlPQfwHO1O2bfB0gMrOZvD19eamOrxA//GwIKLZtq1slCsy5S2tacj29mYfMGC09GYSLqiUGB+sI/LobTOw22kt+37XF/2QOjJpox8K425f2Bh8Owlgf79YxQcdurvhOnNdA5OvcY2BFYAMAxgQg+F9fISYqggwPhYp1SJpuZaT9eomd4PtTG1TZ3Jc77Z254YQCByB7LlPw/pqOm4CxOqai2v9Fj1hCxaQcepfPS05/NjHF6oVoVklCYHGgV8NCvXRU+CyaUl03fvOrXZ0JPBVEP53+fHIHaQsgnm3HaKbURL/+CIjT1FPKyBg0DwU3xQWclL9u9tXh
-    groups:
-      - wheel
-      - users
-  iaas:
+accounts::accounts:
+  '@admins':
+    ensure: present
+  'vagrant':
+    ensure: absent
+  'iaas':
     ensure: absent
 
 ssh::server::options:
