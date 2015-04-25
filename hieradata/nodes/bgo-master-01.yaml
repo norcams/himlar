@@ -1,14 +1,14 @@
 profile::base::common::manage_networkifs:    true
 
 netcf_if:
-  em3:
+  eth0:
     ensure: present
     definition:  '
-      <interface type="ethernet" name="em3">
+      <interface type="ethernet" name="eth0">
         <start mode="onboot"/>
         <mtu size="1500"/>
         <protocol family="ipv4">
-          <ip address="172.16.32.94" prefix="21"/>
+          <ip address="172.16.32.20" prefix="21"/>
           <route gateway="172.16.32.1"/>
         </protocol>
       </interface>'
