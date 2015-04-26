@@ -1,6 +1,8 @@
 ---
+puppet::runinterval:  900
+puppet::runmode:      'cron'
 puppet::puppetmaster: "puppet.%{domain}"
-puppet::show_diff: true
+puppet::show_diff:    true
 puppet::additional_settings:
   'basemodulepath'   : '/etc/puppet/modules:/opt/himlar/modules'
   'certname'         : "%{::verified_certname}"
