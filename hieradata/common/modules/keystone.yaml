@@ -1,19 +1,19 @@
 ---
 keystone::db::mysql::password: key_pass
-keystone::db::mysql::host: "%{ipaddress}"
+keystone::db::mysql::host: '%'
 
 keystone::roles::admin::email: user@example.com
 keystone::roles::admin::password: admin_pass
 
-keystone::endpoint::public_url:   "http://%{ipaddress}:5000"
-keystone::endpoint::internal_url: "http://%{ipaddress}:5000"
-keystone::endpoint::admin_url:    "http://%{ipaddress}:35357"
+keystone::endpoint::public_url:   "http://%{hiera('service__address__keystone')}:5000"
+keystone::endpoint::internal_url: "http://%{hiera('service__address__keystone')}:5000"
+keystone::endpoint::admin_url:    "http://%{hiera('service__address__keystone')}:35357"
 keystone::endpoint::region:       'RegionOne'
 
 keystone::admin_token: admintoken
-keystone::public_bind_host: "%{ipaddress}"
-keystone::admin_bind_host: "%{ipaddress}"
-keystone::public_endpoint: "http://%{ipaddress}:5000"
-#keystone::admin_endpoint: "http://%{ipaddress}:35357"
-keystone::database_connection: "mysql://keystone:key_pass@%{ipaddress}/keystone"
+keystone::public_bind_host: "%{hiera('mgmt_address')}"
+keystone::admin_bind_host: "%{hiera('mgmt_address')}"
+#keystone::public_endpoint: "http://%{hiera('service__address__keystone')}:5000"
+#keystone::admin_endpoint: "http://%{hiera('internal_addreess')}:35357"
+keystone::database_connection: "mysql://keystone:key_pass@%{%{hiera('service__address__mysql')}}/keystone"
 

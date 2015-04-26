@@ -21,10 +21,24 @@ valid_location_environments:
   - dev
 
 #
-# Default mgmt interface
+# Default interfaces
 #
-mgmt_interface: 'eth0'
-mgmt_address:   "%{ipaddress_eth0}"
+mgmt_interface:      'eth0'
+mgmt_address:        "%{ipaddress_eth0}"
+
+#
+# Openstack services
+#
+# These defaults will only work when all services are installed on the
+# same box - they need to be overridden per location
+#
+service__address__mysql:           "%{hiera('mgmt_address')}"
+service__address__rabbitmq:        "%{hiera('mgmt_address')}"
+service__address__keystone:        "%{hiera('mgmt_address')}"
+service__address__glance_registry: "%{hiera('mgmt_address')}"
+service__address__glance_api:      "%{hiera('mgmt_address')}"
+service__address__nova_api:        "%{hiera('mgmt_address')}"
+service__address__neutron_server:  "%{hiera('mgmt_address')}"
 
 #
 # Network configuration data

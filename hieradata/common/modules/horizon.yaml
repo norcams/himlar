@@ -1,12 +1,12 @@
 horizon::openstack_endpoint_type: internalURL
 horizon::fqdn: "*"
 horizon::secret_key: horizon_secret
-horizon::servername: "%{ipaddress}"
-horizon::keystone_url: "http://%{ipaddress}:5000/v2.0/"
+horizon::servername: "%{hiera('mgmt_address')}"
+horizon::keystone_url: "http://%{hiera('service__address__keystone')}:5000/v2.0/"
 horizon::neutron_options:
   'enable_lb': false
   'enable_firewall': false
   'enable_vpn': false
 horizon::wsgi::apache::priority: 10
-horizon::wsgi::apache::bind_address: "%{ipaddress}"
-horizon::bind_address: "%{ipaddress}"
+horizon::wsgi::apache::bind_address: "%{hiera('mgmt_address')}"
+horizon::bind_address: "%{hiera('mgmt_address')}"
