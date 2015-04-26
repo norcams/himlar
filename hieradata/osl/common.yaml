@@ -2,6 +2,16 @@
 location_environment: prod
 location_description: Production environment in Oslo
 
+service__address__mysql:             '129.240.224.102'
+service__address__rabbitmq:          '129.240.224.102'
+service__address__keystone:          '129.240.224.102'
+service__address__glance_registry:   '129.240.224.102'
+service__address__glance_api:        '129.240.224.102'
+service__address__nova_api:          '129.240.224.102'
+service__address__nova_api_metadata: '129.240.224.102'
+service__address__neutron_server:    '129.240.224.102'
+service__address__consoleproxy:      '129.240.224.102'
+
 foreman_bootstrap::nameserver: 129.240.2.3
 
 ntp::servers:
