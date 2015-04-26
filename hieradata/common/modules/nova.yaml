@@ -24,5 +24,10 @@ nova::keystone::auth::public_address: "%{hiera('service__address__nova_api')}"
 nova::keystone::auth::admin_address: "%{hiera('service__address__nova_api')}"
 nova::keystone::auth::internal_address: "%{hiera('service__address__nova_api')}"
 
-nova::compute::enabled: true
+nova::consoleauth::enabled: true
 
+nova::vncproxy::enabled: true
+
+nova::compute::enabled: true
+nova::compute::vnc_enable: true
+nova::compute::vncproxy_host: "%{hiera('service__address__consoleproxy')}"
