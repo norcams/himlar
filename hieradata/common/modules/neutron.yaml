@@ -24,7 +24,7 @@ neutron::agents::metadata::auth_url: "http://%{hiera('service__address__keystone
 neutron::agents::metadata::metadata_ip: "%{hiera('service__address__nova_api_metadata')}"
 
 neutron::agents::ml2::ovs::bridge_uplinks:
-  - "br-ex:%{hiera('mgmt_interface')"
+  - "br-ex:%{hiera('mgmt_interface')}"
 neutron::agents::ml2::ovs::bridge_mappings:
   - 'default:br-ex'
 neutron::agents::ml2::ovs::local_ip: "%{hiera('mgmt_address')}"
