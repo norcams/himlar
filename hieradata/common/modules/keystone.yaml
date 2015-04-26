@@ -15,5 +15,5 @@ keystone::public_bind_host: "%{hiera('mgmt_address')}"
 keystone::admin_bind_host: "%{hiera('mgmt_address')}"
 #keystone::public_endpoint: "http://%{hiera('service__address__keystone')}:5000"
 #keystone::admin_endpoint: "http://%{hiera('internal_addreess')}:35357"
-keystone::database_connection: "mysql://keystone:key_pass@%{%{hiera('service__address__mysql')}}/keystone"
+keystone::database_connection: "mysql://keystone:key_pass@%{%{hiera('service__address__mysql')}/keystone"
 
