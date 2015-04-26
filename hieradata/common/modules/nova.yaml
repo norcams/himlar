@@ -1,5 +1,5 @@
 nova::database_connection: "mysql://nova:nova_pass@%{hiera('service__address__mysql')}/nova"
-nova::glance_api_servers: "%{hiera('service__address__glance_api)}:9292"
+nova::glance_api_servers: "%{hiera('service__address__glance_api')}:9292"
 nova::rabbit_host: "%{hiera('service__address__rabbitmq')}"
 
 nova::api::admin_password: nova_pass
