@@ -1,35 +1,20 @@
 ---
 classes:
-   - profile::openstack::database::sql
    - profile::messaging::rabbitmq
-   - profile::openstack::identity
-   - profile::openstack::image::api
-   - profile::openstack::image::registry
    - profile::openstack::compute::api
    - profile::openstack::compute::scheduler
    - profile::openstack::compute::conductor
    - profile::openstack::dashboard
+   - profile::openstack::database::sql
+   - profile::openstack::identity
+   - profile::openstack::image::api
+   - profile::openstack::image::registry
+   - profile::openstack::network::controller
+   - profile::openstack::network::dhcp
+   - profile::openstack::network::l3
+   - profile::openstack::network::metadata
 
 openstack_extras::repo::redhat::redhat::manage_rdo: true
-
-profile::openstack::database::sql::keystone_enabled: true
-profile::openstack::database::sql::glance_enabled:   true
-profile::openstack::database::sql::nova_enabled:     true
-profile::openstack::database::sql::neutron_enabled:  false
-profile::openstack::database::sql::heat_enabled:     false
-profile::openstack::database::sql::trove_enabled:    false
-
-profile::openstack::identity::ceilometer_enabled: false
-profile::openstack::identity::cinder_enabled:     false
-profile::openstack::identity::glance_enabled:     true
-profile::openstack::identity::neutron_enabled:    false
-profile::openstack::identity::nova_enabled:       true
-profile::openstack::identity::swift_enabled:      false
-profile::openstack::identity::trove_enabled:      false
-
-profile::openstack::image::api::backend: 'file'
-
-profile::database::mariadb::manage_repo: false
 
 profile::base::common::manage_lvm: false
 

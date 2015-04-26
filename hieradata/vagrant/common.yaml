@@ -14,13 +14,14 @@ mgmt_address:        "%{ipaddress_eth0}"
 # These defaults will only work when all services are installed on the
 # same box - they need to be overridden per location
 #
-service__address__mysql:           "10.0.3.14"
-service__address__rabbitmq:        "10.0.3.14"
-service__address__keystone:        "10.0.3.14"
-service__address__glance_registry: "10.0.3.14"
-service__address__glance_api:      "10.0.3.14"
-service__address__nova_api:        "10.0.3.14"
-service__address__neutron_server:  "10.0.3.14"
+service__address__mysql:             "10.0.3.14"
+service__address__rabbitmq:          "10.0.3.14"
+service__address__keystone:          "10.0.3.14"
+service__address__glance_registry:   "10.0.3.14"
+service__address__glance_api:        "10.0.3.14"
+service__address__nova_api:          "10.0.3.14"
+service__address__nova_api_metadata: "10.0.3.14"
+service__address__neutron_server:    "10.0.3.14"
 
 #
 # Accounts in vagrant

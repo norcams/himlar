@@ -1,0 +1,47 @@
+neutron::bind_host: "%{hiera('mgmt_address')}"
+neutron::core_plugin: neutron.plugins.ml2.plugin.Ml2Plugin
+neutron::rabbit_password: guest
+neutron::service_plugins:
+  - neutron.services.l3_router.l3_router_plugin.L3RouterPlugin
+neutron::rabbit_host: "%{hiera('service__address__rabbitmq')}"
+
+neutron::server::sync_db: true
+neutron::server::auth_host: "%{hiera('service__address__keystone')}"
+neutron::server::database_connection: "mysql://neutron:neutron_pass@%{hiera('service__address__mysql')}/neutron"
+neutron::server::auth_password: neutron_pass
+
+neutron::server::notifications::notify_nova_on_port_status_changes: true
+neutron::server::notifications::notify_nova_on_port_data_changes: true
+neutron::server::notifications::nova_admin_auth_url: "http://%{hiera('service__address__keystone')}:35357/v2.0"
+neutron::server::notifications::nova_url: "http://%{hiera('service__address__nova_api')}:8774/v2"
+neutron::server::notifications::nova_admin_username: nova
+neutron::server::notifications::nova_admin_password: nova_pass
+
+
+neutron::agents::metadata::auth_password: neutron_pass
+neutron::agents::metadata::shared_secret: a_secret
+neutron::agents::metadata::auth_url: "http://%{hiera('service__address__keystone')}:35357/v2.0"
+neutron::agents::metadata::metadata_ip: "%{hiera('service__address__nova_api_metadata')}"
+
+neutron::agents::ml2::ovs::bridge_uplinks:
+  - "br-ex:%{hiera('mgmt_interface')"
+neutron::agents::ml2::ovs::bridge_mappings:
+  - 'default:br-ex'
+neutron::agents::ml2::ovs::local_ip: "%{hiera('mgmt_address')}"
+neutron::agents::ml2::ovs::enable_tunneling: true
+neutron::agents::ml2::ovs::tunnel_types:
+  - gre
+neutron::plugins::ml2::type_drivers:
+  - gre
+neutron::plugins::ml2::tenant_network_types:
+  - gre
+neutron::plugins::ml2::mechanism_drivers:
+  - openvswitch
+
+neutron::db::mysql::password: neutron_pass
+neutron::db::mysql::host: '%'
+
+neutron::keystone::auth::password: neutron_pass
+neutron::keystone::auth::public_address: "%{hiera('service__address__neutron_server')}"
+neutron::keystone::auth::admin_address: "%{hiera('service__address__neutron_server')}"
+neutron::keystone::auth::internal_address: "%{hiera('service__address__neutron_server')}"

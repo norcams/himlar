@@ -3,9 +3,6 @@ classes:
    - profile::openstack::compute::hypervisor
 
 openstack_extras::repo::redhat::redhat::manage_rdo: true
-
-profile::openstack::compute::hypervisor::manage_telemetry: false
-
 profile::base::common::manage_lvm: false
 
 mgmt_interface: 'em3'
