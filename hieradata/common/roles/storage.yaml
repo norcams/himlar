@@ -8,6 +8,10 @@ classes_bootstrap:
   - profile::base::lvm
 
 profile::base::manage_lvm:                           true
+
+mgmt_interface: 'em3'
+mgmt_address:   "%{ipaddress_em3}"
+
 profile::storage::cephosd_firewall::manage_firewall: true
 
 account::accounts:

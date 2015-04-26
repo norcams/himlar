@@ -46,13 +46,17 @@ profile::network::services::dns_options:
 
 profile::network::services::dns_records:
   CNAME:
-    'puppet.himlar.local':                 'vagrant-foreman-dev.himlar.local'
-    'admin.himlar.local':                  'vagrant-foreman-dev.himlar.local'
-    'repo.himlar.local':                   'vagrant-foreman-dev.himlar.local'
-    'master.himlar.local':                 'vagrant-master-dev.himlar.local'
+    'puppet.himlar.local':                 'vagrant-foreman-box.himlar.local'
+    'admin.himlar.local':                  'vagrant-foreman-box.himlar.local'
+    'repo.himlar.local':                   'vagrant-foreman-box.himlar.local'
   A:
-    'vagrant-foreman-dev.himlar.local':      '10.0.3.5'
-    'vagrant-controller-dev.himlar.local':   '10.0.3.11'
-    'vagrant-master-dev.himlar.local':       '10.0.3.6'
-    'vagrant-compute-dev.himlar.local':      '10.0.3.14'
+    'vagrant-foreman-box.himlar.local':      '10.0.3.5'
+    'vagrant-compute-box.himlar.local':      '10.0.3.11'
+    'vagrant-compute-pxe.himlar.local':      '10.0.3.111'
+    'vagrant-controller-box.himlar.local':   '10.0.3.12'
+    'vagrant-controller-pxe.himlar.local':   '10.0.3.112'
+    'vagrant-login-box.himlar.local':        '10.0.3.13'
+    'vagrant-login-pxe.himlar.local':        '10.0.3.113'
+    'vagrant-master-box.himlar.local':       '10.0.3.14'
+    'vagrant-master-pxe.himlar.local':       '10.0.3.114'
 

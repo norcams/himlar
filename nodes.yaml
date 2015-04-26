@@ -7,10 +7,11 @@ defaults:
     - mgmt
 
 nodes:
-  - name: 'vagrant-foreman-01'
-  - name: 'vagrant-master-01'
-  - name: 'vagrant-compute-01'
-  - name: 'vagrant-leaf-01'
+  - name: 'vagrant-compute-box'
+  - name: 'vagrant-controller-box'
+  - name: 'vagrant-login-box'
+  - name: 'vagrant-master-box'
+  - name: 'vagrant-leaf-box'
     box:  'norcams/netdev'
 
 networks:

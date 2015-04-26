@@ -21,6 +21,12 @@ valid_location_environments:
   - dev
 
 #
+# Default mgmt interface
+#
+mgmt_interface: 'eth0'
+mgmt_address:   "%{ipaddress_eth0}"
+
+#
 # Network configuration data
 #
 networks:

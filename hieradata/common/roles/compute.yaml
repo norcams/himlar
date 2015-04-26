@@ -8,6 +8,9 @@ profile::openstack::compute::hypervisor::manage_telemetry: false
 
 profile::base::common::manage_lvm: false
 
+mgmt_interface: 'em3'
+mgmt_address:   "%{ipaddress_em3}"
+
 lvm::logical_volume:
   lv_var:
     volume_group: vg_root

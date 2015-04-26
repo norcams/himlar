@@ -8,7 +8,7 @@ netcf_if:
         <start mode="onboot"/>
         <mtu size="1500"/>
         <protocol family="ipv4">
-          <ip address="10.0.3.6" prefix="24"/>
+          <ip address="10.0.3.114" prefix="24"/>
           <route gateway="10.0.3.1"/>
         </protocol>
       </interface>'
