@@ -31,9 +31,9 @@ foreman_proxy::ssl:                  true
 foreman_proxy::register_in_foreman:  true
 foreman_proxy::manage_sudoersd:      false
 foreman_proxy::tftp:                 true
-foreman_prxoy::tftp_servername:      "%{ipaddress}"
+foreman_proxy::tftp_servername:      "%{hiera('mgmt_address')}"
 foreman_proxy::dhcp:                 true
-foreman_proxy::dhcp_interface:       'eth0'
+foreman_proxy::dhcp_interface:       "%{hiera('mgmt_interface')}"
 foreman_proxy::dhcp_managed:         true
 foreman_proxy::dns:                  false
 foreman_proxy::dns_forwarders:       ['8.8.8.8']
@@ -48,9 +48,6 @@ foreman_proxy::bmc_default_provider: 'ipmitool'
 puppet::server:                        true
 puppet::server_foreman_url:            "https://%{fqdn}"
 puppet::dns_alt_names:                 ["puppet.%{domain}","puppetca.%{domain}","admin.%{domain}"]
-puppet::server_directory_environments: false
-puppet::server_environments:           []
-puppet::server_external_nodes:         ''
 
 profile::webserver::apache::manage_firewall:  false
 profile::webserver::apache::vhost_definition:

@@ -31,14 +31,9 @@ bootstrap_puppet()
   ln -sfT /opt/himlar/hiera.yaml /etc/puppet/hiera.yaml
   ln -sfT /etc/puppet/hiera.yaml /etc/hiera.yaml
 
-  # settings
-  puppet config set --section main basemodulepath /opt/himlar/modules:/etc/puppet/modules
-  puppet config set --section main disable_warnings deprecations
-  puppet config set --section main trusted_node_data true
-
   # Let puppetrun.sh pick up that we are now in bootstrap mode
   touch /opt/himlar/bootstrap && echo "Created bootstrap marker: /opt/himlar/bootstrap"
 }
 
-grep -q "/opt/himlar" /etc/puppet/puppet.conf || bootstrap_puppet
+grep --quiet --silent himlar /var/lib/puppet/state/last_run_report.yaml || bootstrap_puppet
 
