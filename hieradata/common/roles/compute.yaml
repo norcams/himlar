@@ -3,16 +3,15 @@ classes:
    - profile::openstack::compute::hypervisor
 
 openstack_extras::repo::redhat::redhat::manage_rdo: true
-profile::base::common::manage_lvm: false
+profile::base::common::manage_lvm: true
 
 mgmt_interface: 'em3'
 mgmt_address:   "%{ipaddress_em3}"
 
 lvm::logical_volume:
-  lv_var:
+  lv_instances:
     volume_group: vg_root
     fs_type: xfs
-    mountpath: /var/lib/ekstradisk
+    mountpath: /var/lib/nova/instances
 
 sudo::purge: false
-
