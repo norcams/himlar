@@ -42,6 +42,7 @@ profile::network::services::dns_records:
     'trd-storage-04.mgmt.iaas.ntnu.no':    '10.171.91.105'
     'trd-storage-05.mgmt.iaas.ntnu.no':    '10.171.91.103'
 
+
 ceph::profile::params::mon_initial_members:         'trd-cephmon-01, trd-cephmon-02, trd-cephmon-03'
 ceph::profile::params::mon_host:                    '10.171.91.203:6789, 10.171.91.205:6789, 10.171.91.207:6789'
 ceph::profile::params::cluster_network:             '10.171.91.0/24'
