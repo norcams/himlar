@@ -23,8 +23,9 @@ neutron::agents::metadata::shared_secret: a_secret
 neutron::agents::metadata::auth_url: "http://%{hiera('service__address__keystone')}:35357/v2.0"
 neutron::agents::metadata::metadata_ip: "%{hiera('service__address__nova_api_metadata')}"
 
-neutron::agents::ml2::ovs::bridge_uplinks:
-  - "br-ex:%{hiera('mgmt_interface')}"
+# Do not connect br-ex by default
+#neutron::agents::ml2::ovs::bridge_uplinks:
+#  - "br-ex:eth2"
 neutron::agents::ml2::ovs::bridge_mappings:
   - 'default:br-ex'
 neutron::agents::ml2::ovs::local_ip: "%{hiera('mgmt_address')}"
