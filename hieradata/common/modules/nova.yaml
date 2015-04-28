@@ -12,6 +12,7 @@ nova::keystone::auth::admin_address: "%{hiera('service__address__nova_api')}"
 nova::keystone::auth::internal_address: "%{hiera('service__address__nova_api')}"
 
 nova::api::admin_password: nova_pass
+nova::api::neutron_metadata_proxy_shared_secret: a_secret
 nova::api::enabled: true
 nova::api::auth_host: "%{hiera('service__address__keystone')}"
 nova::api::api_bind_address: "%{hiera('mgmt_address')}"
