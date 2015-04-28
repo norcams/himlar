@@ -76,12 +76,7 @@ accounts::usergroups:
     - 'raymond'
     - 'torldre'
     - 'trondham'
-  'cinder':
-    - 'cinder'
 
 accounts::accounts:
   'iaas':
     ensure: present
-  'cinder':
-    ensure: present
-
