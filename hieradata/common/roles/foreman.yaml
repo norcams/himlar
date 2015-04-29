@@ -4,14 +4,11 @@ classes:
   - profile::database::postgresql
   - profile::network::services
   - profile::webserver::apache
-  - hostname
   - foreman::cli
   - foreman::compute::libvirt
   - foreman::plugin::hooks
   - foreman::plugin::discovery
   - foreman::plugin::templates
-classes_bootstrap:
-  - hostname
 
 profile::application::foreman::manage_eyaml:    true
 profile::application::foreman::manage_firewall: true

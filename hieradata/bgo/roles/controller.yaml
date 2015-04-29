@@ -1,9 +1,9 @@
 ---
 foreman_bootstrap::virt_install:
-  bgo-foreman-1.mgmt.iaas.intern:
-    libvirt_pool: dirpool
-    libvirt_network: directnet
-    install_ip: 172.16.32.5
-    install_netmask: 255.255.248.0
-    install_gateway: 172.16.32.1
-
+  bgo-foreman-01:
+    domain:          'mgmt.iaas.intern'
+    libvirt_pool:    'dirpool'
+    libvirt_network: 'directnet'
+    install_ip:      '172.16.32.5'
+    install_netmask: '255.255.248.0'
+    install_gateway: '172.16.32.1'

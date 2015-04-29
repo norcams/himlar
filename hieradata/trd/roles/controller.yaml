@@ -1,9 +1,10 @@
 ---
 foreman_bootstrap::virt_install:
-  trd-foreman-1.mgmt.iaas.ntnu.no:
-    libvirt_pool: dirpool
-    libvirt_network: directnet
-    install_ip: 10.171.91.5
-    install_netmask: 255.255.255.0
-    install_gateway: 10.171.91.1
+  trd-foreman-01:
+    domain:          'iaas.ntnu.no'
+    libvirt_pool:    'dirpool'
+    libvirt_network: 'directnet'
+    install_ip:      '10.171.91.5'
+    install_netmask: '255.255.255.0'
+    install_gateway: '10.171.91.1'
 
