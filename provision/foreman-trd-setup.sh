@@ -4,10 +4,10 @@
 # Register Foreman host in DNS and CNAMEs admin and puppet
 #
 echo "server dyndns.it.ntnu.no
-      update add trd-foreman-1.mgmt.iaas.ntnu.no. 3600 A 10.171.91.5
-      update add admin.mgmt.iaas.ntnu.no. 3600 CNAME trd-foreman-1.mgmt.iaas.ntnu.no.
-      update add puppet.mgmt.iaas.ntnu.no. 3600 CNAME trd-foreman-1.mgmt.iaas.ntnu.no.
-      update add repo.mgmt.iaas.ntnu.no. 3600 CNAME trd-foreman-1.mgmt.iaas.ntnu.no.
+      update add trd-foreman-1.iaas.ntnu.no. 3600 A 10.171.91.5
+      update add admin.iaas.ntnu.no. 3600 CNAME trd-foreman-1.iaas.ntnu.no.
+      update add puppet.iaas.ntnu.no. 3600 CNAME trd-foreman-1.iaas.ntnu.no.
+      update add repo.iaas.ntnu.no. 3600 CNAME trd-foreman-1.iaas.ntnu.no.
       send" | nsupdate -k /opt/repo/secrets/nodes/trd-foreman-1/etc/rndc-trd.key
 
 #
@@ -18,23 +18,23 @@ rootpw_md5=$(openssl passwd -1 $rootpw)
 echo '
   Setting["root_pass"]                  = "'$rootpw_md5'"
   Setting["entries_per_page"]           = 100
-  Setting["foreman_url"]                = "https://trd-foreman-1.mgmt.iaas.ntnu.no"
-  Setting["unattended_url"]             = "http://trd-foreman-1.mgmt.iaas.ntnu.no"
-  Setting["trusted_puppetmaster_hosts"] = [ "trd-foreman-1.mgmt.iaas.ntnu.no" ]
+  Setting["foreman_url"]                = "https://trd-foreman-1.iaas.ntnu.no"
+  Setting["unattended_url"]             = "http://trd-foreman-1.iaas.ntnu.no"
+  Setting["trusted_puppetmaster_hosts"] = [ "trd-foreman-1.iaas.ntnu.no" ]
 ' | foreman-rake console
 
 #
 # Network configuration objects
 #
 domain_opts="
-  --name mgmt.iaas.ntnu.no
+  --name iaas.ntnu.no
   --dns-id 1
 "
 hammer domain create $domain_opts
 hammer domain update $domain_opts
 
 subnet_opts="
-  --name mgmt
+  --name iaas.ntnu.no
   --network 10.171.91.0
   --mask 255.255.255.0
   --gateway 10.171.91.1
@@ -42,7 +42,7 @@ subnet_opts="
   --dns-secondary 129.241.0.201
   --from 10.171.91.200
   --to 10.171.91.250
-  --domain-ids "$(hammer domain list | grep "mgmt.iaas.ntnu.no" | head -c1)"
+  --domain-ids "$(hammer domain list | grep "iaas.ntnu.no" | head -c1)"
   --dhcp-id 1
   --tftp-id 1
 "
