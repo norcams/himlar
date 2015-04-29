@@ -20,17 +20,17 @@ profile::network::services::dns_options:
 
 profile::network::services::dns_records:
   CNAME:
-    'puppet.iaas.ntnu.no':            'trd-foreman-1.iaas.ntnu.no'
-    'admin.iaas.ntnu.no':             'trd-foreman-1.iaas.ntnu.no'
-    'repo.iaas.ntnu.no':              'trd-foreman-1.iaas.ntnu.no'
+    'puppet.iaas.ntnu.no':            'trd-foreman-01.iaas.ntnu.no'
+    'admin.iaas.ntnu.no':             'trd-foreman-01.iaas.ntnu.no'
+    'repo.iaas.ntnu.no':              'trd-foreman-01.iaas.ntnu.no'
     'master.iaas.ntnu.no':            'trd-master-01.iaas.ntnu.no'
   A:
-    'trd-login-1.iaas.ntnu.no':       '10.171.91.1'
-    'trd-foreman-1.iaas.ntnu.no':     '10.171.91.5'
+    'trd-login-01.iaas.ntnu.no':      '10.171.91.1'
+    'trd-foreman-01.iaas.ntnu.no':    '10.171.91.5'
     'trd-master-01.iaas.ntnu.no':     '10.171.91.6'
-    'trd-controller-1.iaas.ntnu.no':  '10.171.91.11'
-    'trd-controller-2.iaas.ntnu.no':  '10.171.91.12'
-    'trd-controller-3.iaas.ntnu.no':  '10.171.91.13'
+    'trd-controller-01.iaas.ntnu.no': '10.171.91.11'
+    'trd-controller-02.iaas.ntnu.no': '10.171.91.12'
+    'trd-controller-03.iaas.ntnu.no': '10.171.91.13'
     'trd-compute-01.iaas.ntnu.no':    '10.171.91.14'
     'trd-compute-02.iaas.ntnu.no':    '10.171.91.15'
     'trd-compute-03.iaas.ntnu.no':    '10.171.91.16'
