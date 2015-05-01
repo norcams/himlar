@@ -35,15 +35,15 @@ profile::network::services::dns_options:
 
 profile::network::services::dns_records:
   CNAME:
-    'puppet.mgmt.iaas.intern':             'bgo-foreman-1.mgmt.iaas.intern'
-    'admin.mgmt.iaas.intern':              'bgo-foreman-1.mgmt.iaas.intern'
-    'repo.mgmt.iaas.intern':               'bgo-foreman-1.mgmt.iaas.intern'
+    'puppet.mgmt.iaas.intern':             'bgo-foreman-01.mgmt.iaas.intern'
+    'admin.mgmt.iaas.intern':              'bgo-foreman-01.mgmt.iaas.intern'
+    'repo.mgmt.iaas.intern':               'bgo-foreman-01.mgmt.iaas.intern'
     'master.mgmt.iaas.intern':             'bgo-master-01.mgmt.iaas.intern'
   A:
     'uh-sky-dev-sw.mgmt.iaas.intern':      '172.16.32.9'
     'bgo-mgmt-01.mgmt.iaas.intern':        '172.16.32.10'
-    'bgo-foreman-1.mgmt.iaas.intern':	   '172.16.32.11'
-    'bgo-master-01.mgmt.iaas.intern':	   '172.16.32.20'
+    'bgo-foreman-01.mgmt.iaas.intern':     '172.16.32.11'
+    'bgo-master-01.mgmt.iaas.intern':      '172.16.32.20'
     'bgo-cephmon-01.mgmt.iaas.intern':     '172.16.32.90'
     'bgo-cephmon-02.mgmt.iaas.intern':     '172.16.32.91'
     'bgo-cephmon-03.mgmt.iaas.intern':     '172.16.32.92'
