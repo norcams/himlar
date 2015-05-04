@@ -1,0 +1,45 @@
+---
+location_environment: dev01
+location_description: Development environment physically in Bergen
+
+service__address__mysql:             '192.168.10.20'
+service__address__rabbitmq:          '192.168.10.20'
+service__address__keystone:          '192.168.10.20'
+service__address__glance_registry:   '192.168.10.20'
+service__address__glance_api:        '192.168.10.20'
+service__address__nova_api:          '192.168.10.20'
+service__address__nova_api_metadata: '192.168.10.20'
+service__address__neutron_server:    '192.168.10.20'
+service__address__consoleproxy:      '192.168.10.20'
+
+ntp::servers:
+  - ntp.uib.no
+  - ntp2.uib.no
+
+ceph::profile::params::mon_initial_members:         'dev01-cephmon-01, dev01-cephmon-02, dev01-cephmon-03'
+ceph::profile::params::mon_host:                    '192.168.10.90:6789, 192.168.10.91:6789, 192.168.10.92:6789'
+ceph::profile::params::cluster_network:             '192.168.10.0/24'
+ceph::profile::params::public_network:              '192.168.10.0/24'
+
+profile::network::services::dns_options:
+  CNAME:
+    default:
+      ttl: 3600
+      keyfile: "/opt/repo/secrets/nodes/%{hostname}/etc/rndc-%{location}.key"
+      server: 'alfalfa.uib.no'
+  A:
+    default:
+      ttl: 86400
+      keyfile: "/opt/repo/secrets/nodes/%{hostname}/etc/rndc-%{location}.key"
+      server: 'alfalfa.uib.no'
+
+profile::network::services::dns_records:
+  CNAME:
+    'puppet.mgmt.dev.iaas.intern':             'dev01-foreman-01.mgmt.dev.iaas.intern'
+    'admin.mgmt.dev.iaas.intern':              'dev01-foreman-01.mgmt.dev.iaas.intern'
+    'repo.mgmt.dev.iaas.intern':               'dev01-foreman-01.mgmt.dev.iaas.intern'
+    'master.mgmt.dev.iaas.intern':             'dev01-master-01.mgmt.dev.iaas.intern'
+  A:
+    'dev01-foreman-01.mgmt.dev.iaas.intern':     '192.168.10.11'
+    'dev01-master-01.mgmt.dev.iaas.intern':      '192.168.10.20'
+    'dev01-controller-01.mgmt.dev.iaas.intern':  '192.168.10.5'
