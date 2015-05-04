@@ -1,0 +1,9 @@
+---
+foreman_bootstrap::virt_install:
+  dev01-foreman-1:
+    domain:          'mgmt.dev.iaas.intern'
+    libvirt_pool:    'dirpool'
+    libvirt_network: 'directnet'
+    install_ip:      '192.168.10.11'
+    install_netmask: '255.255.255.0'
+    install_gateway: '192.168.10.1'
