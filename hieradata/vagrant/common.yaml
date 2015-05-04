@@ -51,21 +51,6 @@ sudo::configs:
     priority: 10
     content: 'vagrant ALL=(ALL) NOPASSWD:ALL'
 
-foreman_bootstrap::tftp_install:
-  vagrant-controller-1.himlar.local:
-    dhcp_interface: eth1
-    dhcp_range_start: 10.0.3.100
-    dhcp_range_end: 10.0.3.199
-    dhcp_gateway: 10.0.3.1
-
-foreman_bootstrap::virt_install:
-  vagrant-foreman-1.himlar.local:
-    libvirt_pool: dirpool
-    libvirt_network: directnet
-    install_ip: 10.0.3.5
-    install_netmask: 255.255.255.0
-    install_gateway: 10.0.3.1
-
 profile::network::services::dns_options:
   CNAME:
     default:
