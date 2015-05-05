@@ -14,7 +14,7 @@ openstack_extras::repo::redhat::redhat::purge_unmanaged: false
 openstack_extras::repo::redhat::redhat::repo_hash:
   'epel':
     'descr': "Extra Packages for Enterprise Linux %{operatingsystemmajrelease} - $basearch"
-    'mirrorlist': 'https://mirrors.fedoraproject.org/metalink?repo=epel-debug-7&arch=$basearch'
+    'baseurl': "%{hiera('yum_epel_mirror')}/7/$basearch/"
     'gpgkey': 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7'
     'failovermethod': 'priority'
   'puppetlabs':
