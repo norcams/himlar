@@ -122,6 +122,9 @@ common_config()
   hammer os set-default-template --id 1 --config-template-id $norcams_provision_id
   hammer os set-default-template --id 1 --config-template-id $norcams_pxelinux_id
 
+  # Create Puppet environment
+  hammer environment create --name production || true
+
   # Create a base hostgroup
   hammer hostgroup create --name base || true
   hammer hostgroup update --name base \
