@@ -117,7 +117,7 @@ common_config()
     --family Redhat \
     --architecture-ids 1 \
     --medium-ids ${medium_id_2},${medium_id_1} \
-    --ptable-ids $norcams_ptable_id
+    --partition-table-ids $norcams_ptable_id
   # Set default Kickstart and PXELinux templates
   hammer os set-default-template --id 1 --config-template-id $norcams_provision_id
   hammer os set-default-template --id 1 --config-template-id $norcams_pxelinux_id
@@ -129,7 +129,7 @@ common_config()
     --domain-id $foreman_domain_id \
     --operatingsystem-id 1 \
     --medium-id $medium_id_2 \
-    --ptable-id $norcams_ptable_id \
+    --partition-table-id $norcams_ptable_id \
     --subnet-id $foreman_subnet_id \
     --puppet-proxy-id $foreman_proxy_id \
     --puppet-ca-proxy-id $foreman_proxy_id \
