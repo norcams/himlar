@@ -1,6 +1,7 @@
 ---
 profile::network::services::manage_dhcp: false
 
+foreman_bootstrap::nameserver: '129.177.6.54'
 foreman_bootstrap::tftp_install:
   bgo-controller-01:
     domain:           'mgmt.iaas.intern'
