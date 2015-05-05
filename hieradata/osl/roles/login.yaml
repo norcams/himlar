@@ -2,7 +2,7 @@
 profile::network::services::manage_dhcp: false
 
 foreman_bootstrap::tftp_install:
-  osl-controller-1:
+  osl-controller-01:
     domain:           'iaas.uio.no'
     dhcp_interface:   'em1'
     dhcp_range_start: '129.240.224.118'
