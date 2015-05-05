@@ -9,3 +9,25 @@ foreman_bootstrap::tftp_install:
     dhcp_range_end:   '129.240.224.126'
     dhcp_gateway:     '129.240.224.97'
 
+openstack_extras::repo::redhat::redhat::purge_unmanaged: false
+
+openstack_extras::repo::redhat::redhat::repo_hash:
+  'epel':
+    'descr': "Extra Packages for Enterprise Linux %{operatingsystemmajrelease} - $basearch"
+    'mirrorlist': 'https://mirrors.fedoraproject.org/metalink?repo=epel-debug-7&arch=$basearch'
+    'gpgkey': 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7'
+    'failovermethod': 'priority'
+  'puppetlabs':
+    'descr': Puppetlabs Yum Repo
+    'baseurl':  'http://yum.puppetlabs.com/el/$releasever/products/$basearch/'
+    'gpgkey':   'http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs'
+    'gpgcheck': 1
+  'puppetlabs-deps':
+    'descr': Puppetlabs Dependencies Yum Repo
+    'baseurl':  'http://yum.puppetlabs.com/el/$releasever/dependencies/$basearch/'
+    'gpgkey':   'http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs'
+    'gpgcheck': 1
+openstack_extras::repo::redhat::redhat::gpgkey_hash:
+  '/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7':
+    'source': 'puppet:///modules/openstack_extras/RPM-GPG-KEY-EPEL-7'
+
