@@ -113,6 +113,9 @@ common_config()
   norcams_pxelinux_id=$(hammer --csv template list --per-page 1000 | grep 'norcams PXELinux default' | cut -d, -f1)
   norcams_ptable_id=$(hammer --csv partition-table list --per-page 1000 | grep 'norcams ptable default' | cut -d, -f1)
 
+  # Associate partition template with Redhat family of OSes
+  hammer partition-table update --id $norcams_ptable_id --os-family Redhat
+
   # Create and update OS (we assume OS id is 1 for now)
   hammer os create --name CentOS --major 7 || true
   hammer os update --id 1 --name CentOS --major 7 \
@@ -121,7 +124,9 @@ common_config()
     --architecture-ids 1 \
     --medium-ids ${medium_id_2},${medium_id_1} \
     --partition-table-ids $norcams_ptable_id
-  # Set default Kickstart and PXELinux templates
+  # Set default Kickstart and PXELinux templates and associate with os
+  hammer template update --id $norcams_provision_id --operatingsystem-ids 1
+  hammer template update --id $norcams_pxelinux_id --operatingsystem-ids 1
   hammer os set-default-template --id 1 --config-template-id $norcams_provision_id
   hammer os set-default-template --id 1 --config-template-id $norcams_pxelinux_id
 
