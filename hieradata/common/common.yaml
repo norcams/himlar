@@ -18,6 +18,7 @@ valid_location_tags:
   - osl
   - trd
   - vagrant
+  - dev01
 valid_location_environments:
   - prod
   - dev
@@ -123,4 +124,19 @@ networks:
         ensure: present
       oob:
         ensure: present
+  dev01:
+    domain:
+      mgmt: mgmt.dev.iaas.intern
+    subnet:
+      mgmt: 192.168.10.0/24
+    dhcp:
+      mgmt:
+        ensure: absent
+      oob:
+        ensure: absent
+    nat:
+      mgmt:
+        ensure: absent
+      oob:
+        ensure: absent
 
