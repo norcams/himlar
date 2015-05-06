@@ -44,8 +44,11 @@ osl_config()
 {
   return;
 }
-
 trd_config()
+{
+  return;
+}
+dev01_config()
 {
   return;
 }
@@ -182,6 +185,9 @@ case $foreman_fqdn in
     ;;
   trd-foreman-*)
     trd_config
+    ;;
+  dev01-foreman-*)
+    dev01_config
     ;;
 esac
 common_config
