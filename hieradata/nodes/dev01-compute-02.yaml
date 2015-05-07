@@ -9,7 +9,7 @@ netcf_if:
         <start mode="onboot"/>
         <mtu size="9000"/>
         <protocol family="ipv4">
-          <ip address="192.168.10.22" prefix="24"/>
+          <ip address="192.168.10.23" prefix="24"/>
           <route gateway="192.168.10.1"/>
         </protocol>
         <bridge stp="off">
@@ -25,3 +25,4 @@ netcf_if:
 
 mgmt_interface: 'br0'
 mgmt_address:   "%{ipaddress_br0}"
+
