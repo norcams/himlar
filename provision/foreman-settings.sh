@@ -146,6 +146,12 @@ common_config()
     --puppet-ca-proxy-id $foreman_proxy_id \
     --environment production
 
+  # Create storage hostgroup to set special paramters
+  hammer hostgroup create --name storage --parent base || true
+  hammer hostgroup set-parameter --hostgroup storage \
+     --name installdevice \
+     --value sdm
+
   #
   # Foreman global settings
   #
