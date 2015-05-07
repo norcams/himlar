@@ -7,13 +7,13 @@ defaults:
     - mgmt
 
 nodes:
+  - name: 'vagrant-cephmon-box'
   - name: 'vagrant-compute-box'
   - name: 'vagrant-controller-box'
+  - name: 'vagrant-leaf-box'
+    box:  'norcams/netdev'
   - name: 'vagrant-login-box'
   - name: 'vagrant-master-box'
-  - name: 'vagrant-leaf-box'
-  - name: 'vagrant-cephmon-box'
-    box:  'norcams/netdev'
 
 networks:
   mgmt:
