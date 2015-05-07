@@ -1,0 +1,24 @@
+---
+profile::base::common::manage_networkifs:    true
+
+netcf_if:
+  br0:
+    ensure: present
+    definition:  '
+      <interface type="bridge" name="br0">
+        <start mode="onboot"/>
+        <mtu size="9000"/>
+        <protocol family="ipv4">
+          <ip address="192.168.10.22" prefix="24"/>
+          <route gateway="192.168.10.1"/>
+        </protocol>
+        <bridge stp="off">
+          <interface type="bond" name="bond0">
+            <bond mode="balance-alb">
+              <miimon freq="100"/>
+              <interface type="ethernet" name="eth0"/>
+              <interface type="ethernet" name="eth1"/>
+            </bond>
+          </interface>
+        </bridge>
+      </interface>'
