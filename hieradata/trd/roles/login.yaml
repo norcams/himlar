@@ -1,6 +1,14 @@
 ---
 profile::network::services::manage_dhcp: true
 
+foreman_bootstrap::tftp_install:
+  trd-controller-03:
+    domain:           'iaas.ntnu.no'
+    dhcp_interface:   'br0'
+    dhcp_range_start: '10.171.91.118'
+    dhcp_range_end:   '10.171.91.126'
+    dhcp_gateway:     '10.171.91.1'
+
 openstack_extras::repo::redhat::redhat::purge_unmanaged: false
 
 openstack_extras::repo::redhat::redhat::repo_hash:
