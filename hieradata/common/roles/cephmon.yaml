@@ -8,6 +8,10 @@ include:
 
 profile::storage::cephmon_firewall::manage_firewall:  true
 
+accounts::users:
+  'cinder':
+    ensure: present
+
 accounts::usergroups:
   'cinder':
     - 'cinder'
