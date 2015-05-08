@@ -1,0 +1,18 @@
+profile::base::common::manage_networkifs:    true
+
+netcf_if:
+  em1:
+    ensure: present
+    definition:  '
+      <interface type="ethernet" name="em1">
+        <start mode="onboot"/>
+        <mtu size="1500"/>
+        <protocol family="ipv4">
+          <ip address="192.168.10.24" prefix="24"/>
+          <route gateway="192.168.10.1"/>
+        </protocol>
+      </interface>'
+
+mgmt_interface: 'em1'
+mgmt_address:   "%{ipaddress_em1}"
+
