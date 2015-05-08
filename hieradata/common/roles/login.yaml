@@ -1,8 +1,9 @@
 ---
-classes:
-  - profile::base::login
-  - profile::network::services
-  - foreman_bootstrap::instances
+include:
+  default:
+    - profile::base::login
+    - profile::network::services
+    - foreman_bootstrap::instances
 
 profile::base::common::manage_firewall: false
 
