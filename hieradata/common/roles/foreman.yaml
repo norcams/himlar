@@ -1,14 +1,15 @@
 ---
-classes:
-  - profile::application::foreman
-  - profile::database::postgresql
-  - profile::network::services
-  - profile::webserver::apache
-  - foreman::cli
-  - foreman::compute::libvirt
-  - foreman::plugin::hooks
-  - foreman::plugin::discovery
-  - foreman::plugin::templates
+include:
+  default:
+    - profile::application::foreman
+    - profile::database::postgresql
+    - profile::network::services
+    - profile::webserver::apache
+    - foreman::cli
+    - foreman::compute::libvirt
+    - foreman::plugin::hooks
+    - foreman::plugin::discovery
+    - foreman::plugin::templates
 
 profile::application::foreman::manage_eyaml:    true
 profile::application::foreman::manage_firewall: true

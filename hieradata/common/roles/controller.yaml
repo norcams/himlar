@@ -1,7 +1,8 @@
 ---
-classes:
-   - profile::virtualization::libvirt
-   - foreman_bootstrap::instances
+include:
+  default:
+    - profile::virtualization::libvirt
+    - foreman_bootstrap::instances
 
 profile::base::common::manage_lvm: true
 

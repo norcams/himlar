@@ -1,20 +1,21 @@
 ---
-classes:
-   - profile::messaging::rabbitmq
-   - profile::openstack::compute::api
-   - profile::openstack::compute::scheduler
-   - profile::openstack::compute::conductor
-   - profile::openstack::compute::consoleauth
-   - profile::openstack::compute::consoleproxy
-   - profile::openstack::dashboard
-   - profile::openstack::database::sql
-   - profile::openstack::identity
-   - profile::openstack::image::api
-   - profile::openstack::image::registry
-   - profile::openstack::network::controller
-   - profile::openstack::network::dhcp
-   - profile::openstack::network::l3
-   - profile::openstack::network::metadata
+include:
+  default:
+    - profile::messaging::rabbitmq
+    - profile::openstack::compute::api
+    - profile::openstack::compute::scheduler
+    - profile::openstack::compute::conductor
+    - profile::openstack::compute::consoleauth
+    - profile::openstack::compute::consoleproxy
+    - profile::openstack::dashboard
+    - profile::openstack::database::sql
+    - profile::openstack::identity
+    - profile::openstack::image::api
+    - profile::openstack::image::registry
+    - profile::openstack::network::controller
+    - profile::openstack::network::dhcp
+    - profile::openstack::network::l3
+    - profile::openstack::network::metadata
 
 openstack_extras::repo::redhat::redhat::manage_rdo: true
 

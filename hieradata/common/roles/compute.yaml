@@ -1,6 +1,7 @@
 ---
-classes:
-   - profile::openstack::compute::hypervisor
+include:
+  default:
+    - profile::openstack::compute::hypervisor
 
 openstack_extras::repo::redhat::redhat::manage_rdo: true
 profile::base::common::manage_lvm: true

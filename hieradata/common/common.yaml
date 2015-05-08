@@ -1,10 +1,11 @@
 ---
-classes:
-  - profile::base::common
-  - hostname
-classes_bootstrap:
-  - profile::base::common
-  - hostname
+include:
+  default:
+    - profile::base::common
+    - hostname
+  bootstrap:
+    - profile::base::common
+    - hostname
 
 #
 # Location metadata
