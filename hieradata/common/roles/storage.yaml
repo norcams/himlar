@@ -19,13 +19,13 @@ accounts::users:
   'cinder':
     ensure: present
 
+accounts::usergroups:
+  'cinder':
+    - 'cinder'
+
 accounts::accounts:
   'cinder':
     ensure: present
-
-accounts::users:
-  'cinder':
-     groups: [ 'cinder' ]
 
 lvm::volume_groups:
   vg_journala:
