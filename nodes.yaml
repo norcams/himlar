@@ -1,19 +1,23 @@
 defaults:
+  box:      'norcams/base'
+  location: 'vagrant'
+  domain:   'himlar.local'
+  hostid:   'box'
   cpus:     2
   memory:   2048
-  box:      'norcams/base'
-  domain:   'himlar.local'
   networks:
     - mgmt
 
 nodes:
-  - name: 'vagrant-cephmon-box'
-  - name: 'vagrant-compute-box'
-  - name: 'vagrant-controller-box'
-  - name: 'vagrant-leaf-box'
-    box:  'norcams/netdev'
-  - name: 'vagrant-login-box'
-  - name: 'vagrant-master-box'
+  - role: 'cephmon'
+  - role: 'compute'
+  - role: 'controller'
+  - role: 'foreman'
+  - role: 'leaf'
+    box: 'norcams/netdev'
+  - role: 'login'
+  - role: 'master'
+  - role: 'storage'
 
 networks:
   mgmt:
