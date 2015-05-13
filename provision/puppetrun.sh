@@ -29,6 +29,7 @@ puppetrun()
     --certname $certname \
     --disable_warnings=deprecations \
     --trusted_node_data \
+    --no-stringify_facts \
     --basemodulepath /opt/himlar/modules:/etc/puppet/modules \
     ${p_args[*]} \
     /etc/puppet/manifests/site.pp
