@@ -17,6 +17,7 @@ mod 'ssh', :ref => 'v2.4.0',                     :git => github + 'saz/puppet-ss
 mod 'ntp', :ref => '3.3.0',                      :git => github + 'puppetlabs/puppetlabs-ntp'
 mod 'accounts', :ref => 'e12dd12bb8',            :git => github + 'norcams/puppet-accounts'
 mod 'timezone', :ref => 'v3.1.1',                :git => github + 'saz/puppet-timezone.git'
+mod 'keyboard', :ref => '0.1.0',                 :git => github + 'norcams/puppet-keyboard'
 mod 'netcf', :ref => '4c3142e4f7',               :git => github + 'raphink/puppet-netcf.git'
 mod 'hostname', :ref => '0.0.2',                 :git => github + 'peopleware/puppet-hostname'
 mod 'resolv_conf', :ref => 'v3.0.3',             :git => github + 'saz/puppet-resolv_conf'
