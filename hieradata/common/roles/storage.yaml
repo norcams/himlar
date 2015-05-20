@@ -2,6 +2,7 @@
 include:
   default:
     - profile::storage::cephosd
+    - profile::storage::cephpool
     - profile::storage::cephosd_firewall
     - profile::base::lvm
   bootstrap:
@@ -89,3 +90,12 @@ ceph::profile::params::osds:
   '/dev/sdg':
     journal: '/journal/journala5/journal'
 
+ceph::profile::params::pools:
+  'volumes':
+     pg_num: 128
+  'images':
+     pg_num: 128
+  'backups':
+     pg_num: 128
+  'vms':
+     pg_num: 128

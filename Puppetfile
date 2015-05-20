@@ -7,7 +7,7 @@ local  = 'iaas@git.norcams.org:'
 #
 # profile
 #
-mod 'profile', :ref => 'norcams-0.5.4',          :git => github + 'norcams/puppeels'
+mod 'profile', :ref => 'norcams-0.5.5',          :git => github + 'norcams/puppeels'
 
 #
 # profile::base::common
@@ -110,7 +110,7 @@ mod 'libvirt', :ref => '0.3.2-norcams1',         :git => github + 'norcams/puppe
 #
 # ceph
 #
-mod 'ceph', :ref => 'b6ab15b47c',                :git => github + 'stackforge/puppet-ceph'
+mod 'ceph', :ref => 'ee8dd1763c',                :git => github + 'norcams/puppet-ceph'
 
 #
 # Common libs
