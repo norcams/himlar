@@ -2,6 +2,7 @@
 include:
   default:
     - profile::openstack::compute::hypervisor
+    - ceph::profile::client
 
 openstack_extras::repo::redhat::redhat::manage_rdo: true
 profile::base::common::manage_lvm: true
@@ -16,3 +17,15 @@ lvm::logical_volume:
     mountpath: /var/lib/nova/instances
 
 sudo::purge: false
+
+accounts::users:
+  'cinder':
+    ensure: present
+
+accounts::usergroups:
+  'cinder':
+    - 'cinder'
+
+accounts::accounts:
+  'cinder':
+    ensure: present
