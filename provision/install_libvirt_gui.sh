@@ -3,9 +3,12 @@
 sudo yum -y install virt-manager virt-viewer
 
 # Allow users to connect to VMs locally
-sudo sh -c 'echo "[libvirt Admin Access]
-Identity=unix-group:wheel
-Action=org.libvirt.unix.manage
-ResultAny=yes
-ResultInactive=yes
-ResultActive=yes " > /etc/polkit-1/localauthority/50-local.d/50-iaas.libvirt-access.pkla'
+echo '
+polkit.addRule(function(action, subject) {
+  if ((action.id == "org.libvirt.unix.manage"
+    || action.id == "org.libvirt.unix.monitor")
+    && subject.isInGroup("wheel")) {
+    return polkit.Result.YES;
+  }
+});
+' | sudo tee /etc/polkit-1/rules.d/10.libvirt.rules
