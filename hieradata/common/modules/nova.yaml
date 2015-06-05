@@ -33,4 +33,5 @@ nova::compute::vnc_enable: true
 nova::compute::vncserver_proxyclient_address: "%{hiera('mgmt_address')}"
 nova::compute::vncproxy_host: "%{hiera('service__address__consoleproxy')}"
 nova::compute::libvirt::vncserver_listen: "%{hiera('mgmt_address')}"
+nova::compute::rbd::libvirt_rbd_user: cinder
 nova::compute::rbd::libvirt_rbd_secret_uuid: 2cae509f-5fdb-463b-9bcc-9b819d1389dd

@@ -2,6 +2,7 @@
 include:
   default:
     - profile::openstack::compute::hypervisor
+    - nova::compute::rbd
     - ceph::profile::client
 
 openstack_extras::repo::redhat::redhat::manage_rdo: true
