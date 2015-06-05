@@ -1,0 +1,28 @@
+profile::base::common::manage_networkifs:    true
+
+netcf_if:
+  eth0:
+    ensure: present
+    definition:  '
+      <interface type="ethernet" name="eth0">
+        <start mode="onboot"/>
+        <mtu size="1500"/>
+        <protocol family="ipv4">
+          <ip address="129.177.6.156" prefix="24"/>
+          <route gateway="129.177.6.1"/>
+        <protocol family="ipv4">
+          <ip address="2001:700:200:6::156" prefix="128"/>
+          <route gateway="2001:700:200:6::1"/>
+        </protocol>
+      </interface>'
+  eth1:
+    ensure: present
+    definition:  '
+      <interface type="ethernet" name="eth1">
+        <start mode="onboot"/>
+        <mtu size="1500"/>
+        <protocol family="ipv4">
+          <ip address="192.168.10.2" prefix="24"/>
+        </protocol>
+      </interface>'
+
