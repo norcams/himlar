@@ -47,13 +47,6 @@ ceph::profile::params::client_keys:
     user: 'cinder'
     group: 'cinder'
     cap_mon: 'allow r'
-    cap_osd: 'allow class-read object_prefix rbd_children, allow rwx pool=volumes'
-  'client.cinder':
-    secret: 'AQBypF1V2JYiChAA2qYbjM6jbXJBMmpXPkvwBg=='
-    mode: '0600'
-    user: 'cinder'
-    group: 'cinder'
-    cap_mon: 'allow r'
     cap_osd: 'allow class-read object_prefix rbd_children, allow rwx pool=volumes, allow rwx pool=vms, allow rx pool=images'
 #ceph::profile::params::osds:
 #  '/var/osd1':
