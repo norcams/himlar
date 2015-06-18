@@ -79,3 +79,32 @@ profile::network::services::dns_records:
     'vagrant-master-box.himlar.local':       '10.0.3.14'
     'vagrant-master-pxe.himlar.local':       '10.0.3.114'
 
+bmcremote::hostdata:
+  osl-compute-01:
+    ip: 129.240.224.80
+    settings:
+      set_1:
+        order: 01
+        check:
+          idrac.ipv4.address: 129.240.224.80
+        set:
+          idrac.ipv4.enable: Enabled
+          idrac.ipv4.dhcpenable: Disabled
+          idrac.ipv4.address: 1.2.3.4
+          idrac.ipv4.gateway: 1.2.3.4
+          idrac.ipv4.netmask: 1.2.3.4
+          idrac.ipv6.enable: Disabled
+        exec:
+          {}
+      set_2:
+        order: 02
+        check:
+          bios.biosbootsettings.bootmode: Bios
+          bios.biosbootsettings.bootseq: NIC.Integrated.1-3-1,HardDisk.List.1-1
+        set:
+          bios.biosbootsettings.bootmode: Bios
+          bios.biosbootsettings.bootseq: NIC.Integrated.1-3-1,HardDisk.List.1-1
+        exec:
+          - jobqueue create BIOS.Setup.1-1
+
+
