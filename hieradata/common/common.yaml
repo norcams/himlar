@@ -39,6 +39,7 @@ service__address__glance_api:        "master.%{domain}"
 service__address__nova_api:          "master.%{domain}"
 service__address__nova_api_metadata: "master.%{domain}"
 service__address__neutron_server:    "master.%{domain}"
+service__address__cinder_api:        "master.%{domain}"
 
 #
 # Network configuration data

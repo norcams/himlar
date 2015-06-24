@@ -12,6 +12,10 @@ include:
     - profile::openstack::identity
     - profile::openstack::image::api
     - profile::openstack::image::registry
+    - profile::openstack::volume
+    - profile::openstack::volume::api
+    - profile::openstack::volume::scheduler
+    - cinder::db::mysql
     - profile::openstack::network::controller
     - profile::openstack::network::dhcp
     - profile::openstack::network::l3
