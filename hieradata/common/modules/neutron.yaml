@@ -40,7 +40,9 @@ neutron::plugins::ml2::mechanism_drivers:
   - openvswitch
 
 neutron::db::mysql::password: neutron_pass
-neutron::db::mysql::host: '%'
+neutron::db::mysql::allowed_hosts:
+  - 'localhost'
+  - '%'
 
 neutron::keystone::auth::password: neutron_pass
 neutron::keystone::auth::public_address: "%{hiera('service__address__neutron_server')}"
