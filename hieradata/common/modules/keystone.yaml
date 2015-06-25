@@ -1,6 +1,8 @@
 ---
 keystone::db::mysql::password: key_pass
-keystone::db::mysql::host: '%'
+keystone::db::mysql::allowed_hosts:
+  - 'localhost'
+  - '%'
 
 keystone::roles::admin::email: user@example.com
 keystone::roles::admin::password: admin_pass
