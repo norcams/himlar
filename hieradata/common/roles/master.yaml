@@ -15,6 +15,8 @@ include:
     - profile::openstack::volume
     - profile::openstack::volume::api
     - profile::openstack::volume::scheduler
+    - profile::openstack::volume::storage
+    - cinder::setup_test_volume
     - profile::openstack::network::controller
     - profile::openstack::network::dhcp
     - profile::openstack::network::l3
