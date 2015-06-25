@@ -7,7 +7,7 @@ local  = 'iaas@git.norcams.org:'
 #
 # profile
 #
-mod 'profile', :ref => 'norcams-0.5.6',          :git => github + 'norcams/puppeels'
+mod 'profile', :ref => 'norcams-0.5.7',          :git => github + 'norcams/puppeels'
 
 #
 # profile::base::common
@@ -89,10 +89,10 @@ mod 'rabbitmq', :ref => '5.1.0',                 :git => github + 'puppetlabs/pu
 #
 # profile::openstack::*
 #
-mod 'keystone', :ref => '9b54046486',            :git => github + 'enovance/puppet-keystone'
+mod 'keystone', :ref => '4b2e330152',            :git => github + 'enovance/puppet-keystone'
 mod 'glance', :ref => '3cd398e9',                :git => github + 'stackforge/puppet-glance'
 mod 'nova', :ref => '23ba8212cf',                :git => github + 'stackforge/puppet-nova'
-mod 'cinder', :ref => '9075f74163',              :git => github + 'stackforge/puppet-cinder'
+mod 'cinder', :ref => '9a409d9cc7',              :git => github + 'stackforge/puppet-cinder'
 mod 'horizon', :ref => 'f04c638817',             :git => github + 'stackforge/puppet-horizon'
 mod 'neutron', :ref => 'd5628a9ca1',             :git => github + 'stackforge/puppet-neutron'
 
