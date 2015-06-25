@@ -2,6 +2,7 @@
 include:
   default:
     - profile::openstack::compute::hypervisor
+    - profile::openstack::volume
     - nova::compute::rbd
     - ceph::profile::client
 
