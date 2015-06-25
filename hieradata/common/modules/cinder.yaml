@@ -22,3 +22,5 @@ cinder::keystone::auth::auth_name: 'cinder'
 cinder::keystone::auth::public_address:   "%{hiera('service__address__cinder_api')}"
 cinder::keystone::auth::admin_address:    "%{hiera('service__address__cinder_api')}"
 cinder::keystone::auth::internal_address: "%{hiera('service__address__cinder_api')}"
+
+cinder::volume::iscsi::iscsi_ip_address:  "%{hiera('service__address__cinder_api')}"

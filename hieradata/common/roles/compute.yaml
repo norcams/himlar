@@ -2,7 +2,7 @@
 include:
   default:
     - profile::openstack::compute::hypervisor
-    - ceph::profile::client
+    - profile::openstack::volume
 
 openstack_extras::repo::redhat::redhat::manage_rdo: true
 profile::base::common::manage_lvm: true
