@@ -12,12 +12,16 @@ include:
     - profile::openstack::identity
     - profile::openstack::image::api
     - profile::openstack::image::registry
+    - profile::openstack::volume
+    - profile::openstack::volume::api
+    - profile::openstack::volume::scheduler
     - profile::openstack::network::controller
     - profile::openstack::network::dhcp
     - profile::openstack::network::l3
     - profile::openstack::network::metadata
 
 openstack_extras::repo::redhat::redhat::manage_rdo: true
+profile::openstack::database::sql::cinder_enabled:  true
 
 profile::base::common::manage_lvm: false
 

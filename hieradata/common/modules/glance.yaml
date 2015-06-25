@@ -11,7 +11,9 @@ glance::registry::auth_host: "%{hiera('service__address__keystone')}"
 glance::registry::database_connection: "mysql://glance:glance_pass@%{hiera('service__address__mysql')}/glance"
 
 glance::db::mysql::password: glance_pass
-glance::db::mysql::host: '%'
+glance::db::mysql::allowed_hosts:
+  - 'localhost'
+  - '%'
 
 glance::keystone::auth::password: glance_pass
 glance::keystone::auth::public_address: "%{hiera('service__address__glance_api')}"
