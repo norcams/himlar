@@ -21,6 +21,7 @@ include:
     - profile::openstack::network::dhcp
     - profile::openstack::network::l3
     - profile::openstack::network::metadata
+    - profile::application::etcd
 
 openstack_extras::repo::redhat::redhat::manage_rdo: true
 profile::openstack::database::sql::cinder_enabled:  true
@@ -39,3 +40,4 @@ apache::default_mods: false
 apache::default_vhost: false
 apache::default_confd_files: false
 
+etcd::mode: cluster
