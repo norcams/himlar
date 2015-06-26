@@ -31,7 +31,20 @@ openstack_extras::repo::redhat::redhat::repo_hash:
     'baseurl':  'http://yum.puppetlabs.com/el/$releasever/dependencies/$basearch/'
     'gpgkey':   'http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs'
     'gpgcheck': 1
+  'rdo-release':
+    'descr': 'OpenStack Juno Repository'
+    'baseurl': 'http://repos.fedorapeople.org/repos/openstack/openstack-juno/epel-7/'
+    'enabled': 1
+    'gpgcheck': 1
+    'gpgkey': 'https://raw.githubusercontent.com/puppetlabs/puppetlabs-openstack/master/files/RPM-GPG-KEY-RDO-Juno'
+    'priority': 14
+  'calico':
+    'descr': Calico Repository
+    'baseurl':  'http://binaries.projectcalico.org/rpm/'
+    'gpgkey':   'http://binaries.projectcalico.org/rpm/key'
+    'gpgcheck': 1
+    'priority': 97
+
 openstack_extras::repo::redhat::redhat::gpgkey_hash:
   '/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7':
     'source': 'puppet:///modules/openstack_extras/RPM-GPG-KEY-EPEL-7'
-
