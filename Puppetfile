@@ -41,6 +41,11 @@ mod 'dnsmasq', :ref => 'norcams-0.1.0',          :git => github + 'norcams/puppe
 mod 'ipcalc', :ref => '1.2.2',                   :git => github + 'inkblot/puppet-ipcalc'
 
 #
+# profile::application::etcd
+#
+mod 'etcd', :ref => '0efd30bbaa',                :git => github + 'norcams/puppet-etcd'
+
+#
 # profile::application::foreman
 #
 mod 'zack/r10k', '2.5.2'                         # forge
