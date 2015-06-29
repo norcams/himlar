@@ -12,6 +12,7 @@ service__address__nova_api_metadata: '129.240.224.102'
 service__address__neutron_server:    '129.240.224.102'
 service__address__consoleproxy:      '129.240.224.102'
 service__address__cinder_api:        '129.240.224.102'
+service__address__etcd_cluster:      '["osl-master-01.iaas.uio.no=http://129.240.224.102:2380"]'
 
 foreman_bootstrap::nameserver: 129.240.2.3
 
