@@ -7,7 +7,7 @@ include:
 
 openstack_extras::repo::redhat::redhat::manage_rdo: true
 profile::base::common::manage_lvm: true
-etcd::initial_cluster: "%{hiera('service__address__etcd_cluster')}"
+etcd::initial_cluster: ["%{hiera('service__address__etcd_cluster')}"]
 etcd::mode: 'proxy'
 
 mgmt_interface: 'em3'
