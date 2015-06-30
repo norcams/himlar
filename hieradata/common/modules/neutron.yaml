@@ -44,6 +44,8 @@ neutron::db::mysql::allowed_hosts:
   - 'localhost'
   - '%'
 
+neutron::dhcp_agents_per_network: '4'
+
 neutron::keystone::auth::password: neutron_pass
 neutron::keystone::auth::public_address: "%{hiera('service__address__neutron_server')}"
 neutron::keystone::auth::admin_address: "%{hiera('service__address__neutron_server')}"
