@@ -23,21 +23,13 @@ neutron::agents::metadata::shared_secret: a_secret
 neutron::agents::metadata::auth_url: "http://%{hiera('service__address__keystone')}:35357/v2.0"
 neutron::agents::metadata::metadata_ip: "%{hiera('service__address__nova_api_metadata')}"
 
-# Do not connect br-ex by default
-#neutron::agents::ml2::ovs::bridge_uplinks:
-#  - "br-ex:eth2"
-neutron::agents::ml2::ovs::bridge_mappings:
-  - 'default:br-ex'
-neutron::agents::ml2::ovs::local_ip: "%{hiera('mgmt_address')}"
-neutron::agents::ml2::ovs::enable_tunneling: true
-neutron::agents::ml2::ovs::tunnel_types:
-  - gre
 neutron::plugins::ml2::type_drivers:
-  - gre
+  - local
+  - flat
 neutron::plugins::ml2::tenant_network_types:
-  - gre
+  - local
 neutron::plugins::ml2::mechanism_drivers:
-  - openvswitch
+  - calico
 
 neutron::db::mysql::password: neutron_pass
 neutron::db::mysql::allowed_hosts:
