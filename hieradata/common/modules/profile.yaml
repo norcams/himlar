@@ -40,7 +40,7 @@ profile::openstack::identity::nova_enabled:       true
 profile::openstack::identity::swift_enabled:      false
 profile::openstack::identity::trove_enabled:      false
 
-profile::openstack::image::api::backend: 'file'
+profile::openstack::image::api::backend: 'rbd'
 
 profile::database::mariadb::manage_repo: false
 
