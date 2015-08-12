@@ -37,7 +37,7 @@ openstack_extras::repo::redhat::redhat::repo_hash:
     'baseurl': 'http://repos.fedorapeople.org/repos/openstack/openstack-juno/epel-7/'
     'enabled': 1
     'gpgcheck': 1
-    'gpgkey': 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-RDO-Juno'
+    'gpgkey': 'https://raw.githubusercontent.com/puppetlabs/puppetlabs-openstack/master/files/RPM-GPG-KEY-RDO-Juno'
     'priority': 14
 
 openstack_extras::repo::redhat::redhat::gpgkey_hash:
