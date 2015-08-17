@@ -15,6 +15,7 @@ glance::registry::database_connection: "mysql://glance:glance_pass@%{hiera('serv
 
 glance::db::mysql::password: glance_pass
 glance::db::mysql::allowed_hosts:
+  - 'trd-master-01.iaas.ntnu.no'
   - 'localhost'
   - '%'
 
