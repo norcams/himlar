@@ -41,6 +41,7 @@ neutron::plugins::ml2::mechanism_drivers:
 
 neutron::db::mysql::password: neutron_pass
 neutron::db::mysql::allowed_hosts:
+  - 'trd-master-01.iaas.ntnu.no'
   - 'localhost'
   - '%'
 
