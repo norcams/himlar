@@ -15,7 +15,7 @@ keystone::endpoint::region:       'RegionOne'
 
 keystone::admin_token: admintoken
 keystone::verbose: True
-keystone::debug: True
+keystone::debug: False
 keystone::public_bind_host: "%{hiera('mgmt_address')}"
 keystone::admin_bind_host: "%{hiera('mgmt_address')}"
 #keystone::public_endpoint: "http://%{hiera('service__address__keystone')}:5000"
