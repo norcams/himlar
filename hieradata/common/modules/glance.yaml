@@ -4,6 +4,7 @@ glance::api::auth_host: "%{hiera('service__address__keystone')}"
 glance::api::database_connection: "mysql://glance:glance_pass@%{hiera('service__address__mysql')}/glance"
 glance::api::workers: 1
 glance::api::registry_host: "%{hiera('service__address__glance_registry')}"
+glance::api::verbose: True
 glance::api::known_stores:
   - 'glance.store.rbd.Store'
 glance::api::show_image_direct_url: True
