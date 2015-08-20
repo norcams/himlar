@@ -7,7 +7,6 @@ include:
     - ceph::profile::client
     - profile::application::etcd
 
-openstack_extras::repo::redhat::redhat::manage_rdo: true
 profile::base::common::manage_lvm: true
 etcd::initial_cluster: ["%{hiera('service__address__etcd_cluster')}"]
 etcd::mode: 'proxy'

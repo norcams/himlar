@@ -21,6 +21,7 @@ openstack_extras::repo::redhat::redhat::repo_hash:
     'baseurl': "%{hiera('yum_epel_mirror')}/$releasever/$basearch/"
     'gpgkey': 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7'
     'failovermethod': 'priority'
+    'priority': 25
   'puppetlabs':
     'descr': Puppetlabs Yum Repo
     'baseurl':  'http://yum.puppetlabs.com/el/$releasever/products/$basearch/'
@@ -31,6 +32,14 @@ openstack_extras::repo::redhat::redhat::repo_hash:
     'baseurl':  'http://yum.puppetlabs.com/el/$releasever/dependencies/$basearch/'
     'gpgkey':   'http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs'
     'gpgcheck': 1
+  'rdo-release':
+    'descr': 'OpenStack Juno Repository'
+    'baseurl': 'http://repos.fedorapeople.org/repos/openstack/openstack-juno/epel-7/'
+    'enabled': 1
+    'gpgcheck': 1
+    'gpgkey': 'https://raw.githubusercontent.com/puppetlabs/puppetlabs-openstack/master/files/RPM-GPG-KEY-RDO-Juno'
+    'priority': 14
+
 openstack_extras::repo::redhat::redhat::gpgkey_hash:
   '/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7':
     'source': 'puppet:///modules/openstack_extras/RPM-GPG-KEY-EPEL-7'

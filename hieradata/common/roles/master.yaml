@@ -22,8 +22,8 @@ include:
     - profile::openstack::network::l3
     - profile::openstack::network::metadata
     - profile::application::etcd
+    - ceph::profile::client
 
-openstack_extras::repo::redhat::redhat::manage_rdo: true
 profile::openstack::database::sql::cinder_enabled:  true
 
 profile::base::common::manage_lvm: false
@@ -41,3 +41,15 @@ apache::default_vhost: false
 apache::default_confd_files: false
 
 etcd::mode: cluster
+
+accounts::users:
+  'cinder':
+    ensure: present
+
+accounts::usergroups:
+  'cinder':
+    - 'cinder'
+
+accounts::accounts:
+  'cinder':
+    ensure: present

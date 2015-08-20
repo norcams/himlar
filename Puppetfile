@@ -95,7 +95,7 @@ mod 'rabbitmq', :ref => '5.1.0',                 :git => github + 'puppetlabs/pu
 # profile::openstack::*
 #
 mod 'keystone', :ref => '4b2e330152',            :git => github + 'enovance/puppet-keystone'
-mod 'glance', :ref => '3cd398e9',                :git => github + 'stackforge/puppet-glance'
+mod 'glance', :ref => 'dbcfaf9b2e',              :git => github + 'norcams/puppet-glance'
 mod 'nova', :ref => '23ba8212cf',                :git => github + 'stackforge/puppet-nova'
 mod 'cinder', :ref => '9a409d9cc7',              :git => github + 'stackforge/puppet-cinder'
 mod 'horizon', :ref => 'f04c638817',             :git => github + 'stackforge/puppet-horizon'
@@ -115,7 +115,7 @@ mod 'libvirt', :ref => '0.3.2-norcams1',         :git => github + 'norcams/puppe
 #
 # ceph
 #
-mod 'ceph', :ref => 'ee8dd1763c',                :git => github + 'norcams/puppet-ceph'
+mod 'ceph', :ref => 'cc4e23c535',                :git => github + 'norcams/puppet-ceph'
 
 #
 # Common libs
