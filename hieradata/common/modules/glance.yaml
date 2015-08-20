@@ -1,3 +1,4 @@
+---
 glance::api::keystone_password: glance_pass
 glance::api::bind_host: "%{hiera('mgmt_address')}"
 glance::api::auth_host: "%{hiera('service__address__keystone')}"
@@ -10,7 +11,7 @@ glance::api::known_stores:
   - 'glance.store.rbd.Store'
 glance::api::show_image_direct_url: True
 
-glance::backend::rbd::rbd_store_user: 'cinder'
+glance::backend::rbd::rbd_store_user: 'glance'
 
 glance::registry::keystone_password: glance_pass
 glance::registry::bind_host: "%{hiera('mgmt_address')}"
@@ -19,7 +20,6 @@ glance::registry::database_connection: "mysql://glance:glance_pass@%{hiera('serv
 
 glance::db::mysql::password: glance_pass
 glance::db::mysql::allowed_hosts:
-  - 'trd-master-01.iaas.ntnu.no'
   - 'localhost'
   - '%'
 

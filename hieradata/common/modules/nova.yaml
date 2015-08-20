@@ -5,7 +5,6 @@ nova::vncproxy::enabled: true
 
 nova::db::mysql::password: nova_pass
 nova::db::mysql::allowed_hosts:
-  - 'trd-master-01.iaas.ntnu.no'
   - 'localhost'
   - '%'
 
