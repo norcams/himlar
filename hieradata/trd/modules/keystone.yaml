@@ -1,2 +1,6 @@
 ---
-keystone::db::mysql::host: 'trd-master-01.iaas.ntnu.no'
+keystone::db::mysql::allowed_hosts:
+  - 'trd-master-01.iaas.ntnu.no'
+  - 'localhost'
+  - '%'
+

@@ -12,12 +12,19 @@ include:
     - profile::openstack::identity
     - profile::openstack::image::api
     - profile::openstack::image::registry
+    - profile::openstack::volume
+    - profile::openstack::volume::api
+    - profile::openstack::volume::scheduler
+    - profile::openstack::volume::storage
+    - cinder::setup_test_volume
     - profile::openstack::network::controller
     - profile::openstack::network::dhcp
     - profile::openstack::network::l3
     - profile::openstack::network::metadata
+    - profile::application::etcd
+    - ceph::profile::client
 
-openstack_extras::repo::redhat::redhat::manage_rdo: true
+profile::openstack::database::sql::cinder_enabled:  true
 
 profile::base::common::manage_lvm: false
 
@@ -33,3 +40,16 @@ apache::default_mods: false
 apache::default_vhost: false
 apache::default_confd_files: false
 
+etcd::mode: cluster
+
+accounts::users:
+  'cinder':
+    ensure: present
+
+accounts::usergroups:
+  'cinder':
+    - 'cinder'
+
+accounts::accounts:
+  'cinder':
+    ensure: present

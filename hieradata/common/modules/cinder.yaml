@@ -1,0 +1,26 @@
+cinder::sql_connection:      "mysql://cinder:cinder_pass@%{hiera('service__address__mysql')}/cinder"
+
+cinder::db::mysql::allowed_hosts:
+  - 'localhost'
+  - '%'
+cinder::db::mysql::dbname:   'cinder'
+cinder::db::mysql::user:     'cinder'
+cinder::db::mysql::password: 'cinder_pass'
+
+cinder::rabbit_password:     'guest'
+cinder::rabbit_host:         "%{hiera('service__address__rabbitmq')}"
+
+cinder::api::keystone_password:  'cinder_pass'
+cinder::api::keystone_user:	 'cinder'
+cinder::api::keystone_enabled:   true
+cinder::api::auth_uri:           "http://%{hiera('service__address__keystone')}:5000/v2.0"
+cinder::api::keystone_auth_host: "%{hiera('service__address__keystone')}"
+
+cinder::keystone::auth::password:  'cinder_pass'
+cinder::keystone::auth::auth_name: 'cinder'
+
+cinder::keystone::auth::public_address:   "%{hiera('service__address__cinder_api')}"
+cinder::keystone::auth::admin_address:    "%{hiera('service__address__cinder_api')}"
+cinder::keystone::auth::internal_address: "%{hiera('service__address__cinder_api')}"
+
+cinder::volume::iscsi::iscsi_ip_address:  "%{hiera('service__address__cinder_api')}"

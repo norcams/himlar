@@ -11,6 +11,8 @@ service__address__nova_api:          '10.171.91.6'
 service__address__nova_api_metadata: '10.171.91.6'
 service__address__neutron_server:    '10.171.91.6'
 service__address__consoleproxy:      '10.171.91.6'
+service__address__cinder_api:        '10.171.91.6'
+service__address__etcd_cluster:      '["trd-master-01.iaas.ntnu.no=http://10.171.91.6:2380"]'
 
 ntp::servers:
   - ntp.ntnu.no

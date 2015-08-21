@@ -2,15 +2,15 @@
 #
 # Ceph parameters
 #
-ceph::profile::params::manage_repo:                 false
-ceph::profile::params::release:                     'firefly'
+ceph::profile::params::manage_repo:                 true
+ceph::profile::params::release:                     'hammer'
 ######## Ceph.conf - Cluster and location spesific data
 ceph::profile::params::fsid:                        '4b5c8c0a-ff60-454b-a1b4-9747aa737d19'
 ceph::profile::params::authentication_type:         'cephx'
 #ceph::profile::params::mon_initial_members:         'cephmon-1, cephmon-2'
 #ceph::profile::params::mon_host:                    '10.0.0.10:6789, 10.0.0.11:6789'
-ceph::profile::params::osd_pool_default_pg_num:     '4096'
-ceph::profile::params::osd_pool_default_pgp_num:    '4096'
+ceph::profile::params::osd_pool_default_pg_num:     '8192'
+ceph::profile::params::osd_pool_default_pgp_num:    '8192'
 ceph::profile::params::osd_pool_default_size:       '3'
 ceph::profile::params::osd_pool_default_min_size:   '2'
 #ceph::profile::params::cluster_network:             '10.0.0.0/24'
@@ -48,6 +48,13 @@ ceph::profile::params::client_keys:
     group: 'cinder'
     cap_mon: 'allow r'
     cap_osd: 'allow class-read object_prefix rbd_children, allow rwx pool=volumes, allow rwx pool=vms, allow rx pool=images'
+  'client.glance':
+    secret: 'AQBypF1V2JYiChAA2qYbjM6jbXJBMmpXPkvwBg=='
+    mode: '0600'
+    user: 'glance'
+    group: 'glance'
+    cap_mon: 'allow r'
+    cap_osd: 'allow class-read object_prefix rbd_children, allow rwx pool=images'
 #ceph::profile::params::osds:
 #  '/var/osd1':
 #    journal: '/var/osd1-journal'

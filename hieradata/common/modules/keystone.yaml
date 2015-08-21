@@ -1,6 +1,8 @@
 ---
 keystone::db::mysql::password: key_pass
-keystone::db::mysql::host: '%'
+keystone::db::mysql::allowed_hosts:
+  - 'localhost'
+  - '%'
 
 keystone::roles::admin::email: user@example.com
 keystone::roles::admin::password: admin_pass
@@ -11,6 +13,8 @@ keystone::endpoint::admin_url:    "http://%{hiera('service__address__keystone')}
 keystone::endpoint::region:       'RegionOne'
 
 keystone::admin_token: admintoken
+keystone::verbose: True
+keystone::debug: False
 keystone::public_bind_host: "%{hiera('mgmt_address')}"
 keystone::admin_bind_host: "%{hiera('mgmt_address')}"
 #keystone::public_endpoint: "http://%{hiera('service__address__keystone')}:5000"

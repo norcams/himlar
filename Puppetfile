@@ -7,7 +7,7 @@ local  = 'iaas@git.norcams.org:'
 #
 # profile
 #
-mod 'profile', :ref => 'norcams-0.5.5',          :git => github + 'norcams/puppeels'
+mod 'profile', :ref => 'norcams-0.5.9',          :git => github + 'norcams/puppeels'
 
 #
 # profile::base::common
@@ -39,6 +39,11 @@ mod 'quagga', :ref => 'master',                  :git => github + 'LeslieCarr/pu
 #
 mod 'dnsmasq', :ref => 'norcams-0.1.0',          :git => github + 'norcams/puppet-dnsmasq'
 mod 'ipcalc', :ref => '1.2.2',                   :git => github + 'inkblot/puppet-ipcalc'
+
+#
+# profile::application::etcd
+#
+mod 'etcd', :ref => '0efd30bbaa',                :git => github + 'norcams/puppet-etcd'
 
 #
 # profile::application::foreman
@@ -89,10 +94,10 @@ mod 'rabbitmq', :ref => '5.1.0',                 :git => github + 'puppetlabs/pu
 #
 # profile::openstack::*
 #
-mod 'keystone', :ref => '9b54046486',            :git => github + 'enovance/puppet-keystone'
-mod 'glance', :ref => '3cd398e9',                :git => github + 'stackforge/puppet-glance'
+mod 'keystone', :ref => '4b2e330152',            :git => github + 'enovance/puppet-keystone'
+mod 'glance', :ref => 'dbcfaf9b2e',              :git => github + 'norcams/puppet-glance'
 mod 'nova', :ref => '23ba8212cf',                :git => github + 'stackforge/puppet-nova'
-mod 'cinder', :ref => '9075f74163',              :git => github + 'stackforge/puppet-cinder'
+mod 'cinder', :ref => '9a409d9cc7',              :git => github + 'stackforge/puppet-cinder'
 mod 'horizon', :ref => 'f04c638817',             :git => github + 'stackforge/puppet-horizon'
 mod 'neutron', :ref => 'd5628a9ca1',             :git => github + 'stackforge/puppet-neutron'
 
@@ -110,7 +115,7 @@ mod 'libvirt', :ref => '0.3.2-norcams1',         :git => github + 'norcams/puppe
 #
 # ceph
 #
-mod 'ceph', :ref => 'ee8dd1763c',                :git => github + 'norcams/puppet-ceph'
+mod 'ceph', :ref => 'cc4e23c535',                :git => github + 'norcams/puppet-ceph'
 
 #
 # Common libs

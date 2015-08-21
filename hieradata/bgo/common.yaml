@@ -11,6 +11,8 @@ service__address__nova_api:          '172.16.32.20'
 service__address__nova_api_metadata: '172.16.32.20'
 service__address__neutron_server:    '172.16.32.20'
 service__address__consoleproxy:      '172.16.32.20'
+service__address__cinder_api:        '172.16.32.20'
+service__address__etcd_cluster:      '["bgo-master-01.mgmt.iaas.intern=http://172.16.32.20:2380"]'
 
 ntp::servers:
   - ntp.uib.no
