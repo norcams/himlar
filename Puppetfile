@@ -120,7 +120,6 @@ mod 'ceph', :ref => 'ee8dd1763c',                :git => github + 'norcams/puppe
 #
 # Common libs
 #
-mod 'sitelib', :ref => '0.1.0',                  :git => github + 'norcams/himlar-sitelib'
 mod 'stdlib', :ref => '4.6.0',                   :git => github + 'puppetlabs/puppetlabs-stdlib'
 mod 'concat', :ref => '1.1.2',                   :git => github + 'puppetlabs/puppetlabs-concat'
 mod 'inifile', :ref => '1.2.0',                  :git => github + 'puppetlabs/puppetlabs-inifile'
