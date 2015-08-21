@@ -16,7 +16,7 @@ $role              = $::dash_a[1]
 $hostid            = $::dash_a[2]
 
 # Set runmode to default if it is not provided
-if empty($::runmode) {
+if empty($runmode) {
   $runmode='default'
 }
 # Query for hash of classes to include
