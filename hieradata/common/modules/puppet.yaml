@@ -3,6 +3,7 @@ puppet::runinterval:  900
 puppet::runmode:      'cron'
 puppet::puppetmaster: "puppet.%{domain}"
 puppet::show_diff:    true
+puppet::classfile:    '$statedir/classes.txt'
 
 puppet::server_directory_environments: false
 puppet::server_environments:           []
