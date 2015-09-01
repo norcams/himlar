@@ -42,14 +42,3 @@ apache::default_confd_files: false
 
 etcd::mode: cluster
 
-accounts::users:
-  'cinder':
-    ensure: present
-
-accounts::usergroups:
-  'cinder':
-    - 'cinder'
-
-accounts::accounts:
-  'cinder':
-    ensure: present
