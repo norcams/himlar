@@ -1,8 +1,23 @@
-cinder::sql_connection:      "mysql://cinder:cinder_pass@%{hiera('service__address__mysql')}/cinder"
+cinder::database_connection:      "mysql://cinder:cinder_pass@%{hiera('service__address__mysql')}/cinder"
+cinder::verbose: true
+cinder::debug: true
+
+cinder::backends::enabled_backends:
+  - 'rbd'
+
+cinder::backend::rbd:
+  'volumes':
+    rbd_pool: 'volumes'
+    rbd_user: 'cinder'
+
+cinder::backend::rbd::rbd_secret_uuid: "%{hiera('libvirt__rbd_secret_uuid')}"
+cinder::backend::rbd::rbd_pool: 'volumes'
+cinder::backend::rbd::rbd_user: 'cinder'
 
 cinder::db::mysql::allowed_hosts:
   - 'localhost'
   - '%'
+
 cinder::db::mysql::dbname:   'cinder'
 cinder::db::mysql::user:     'cinder'
 cinder::db::mysql::password: 'cinder_pass'

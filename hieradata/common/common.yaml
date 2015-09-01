@@ -140,3 +140,8 @@ networks:
       oob:
         ensure: absent
 
+#
+# Authentication key between compute nodes and Ceph
+#
+libvirt__rbd_secret_uuid: 'dff27905-c49b-4480-afb4-914cc50c2997'
+

@@ -6,6 +6,7 @@ include:
     - nova::compute::rbd
     - ceph::profile::client
     - profile::application::etcd
+    - cinder::backends
 
 profile::base::common::manage_lvm: true
 etcd::initial_cluster: ["%{hiera('service__address__etcd_cluster')}"]
@@ -25,11 +26,17 @@ sudo::purge: false
 accounts::users:
   'cinder':
     ensure: present
+  'glance':
+    ensure: present
 
 accounts::usergroups:
   'cinder':
     - 'cinder'
+  'glance':
+    - 'glance'
 
 accounts::accounts:
   'cinder':
+    ensure: present
+  'glance':
     ensure: present
