@@ -35,6 +35,10 @@ nova::compute::vnc_enable: true
 nova::compute::vncserver_proxyclient_address: "%{hiera('mgmt_address')}"
 nova::compute::vncproxy_host: "%{hiera('service__address__consoleproxy')}"
 nova::compute::libvirt::vncserver_listen: "%{hiera('mgmt_address')}"
+nova::compute::libvirt::disk_cachemodes: "network=writeback"
+nova::compute::libvirt::libvirt_inject_password: false
+nova::compute::libvirt::libvirt_inject_key: false
+nova::compute::libvirt::libvirt_inject_partition: -2
 nova::compute::rbd::libvirt_rbd_user: cinder
 nova::compute::rbd::rbd_keyring: client.volumes
 nova::compute::rbd::libvirt_rbd_secret_uuid: "%{hiera('libvirt__rbd_secret_uuid')}"
