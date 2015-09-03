@@ -1,3 +1,6 @@
+---
+nova::verbose: true
+nova::debug: true
 nova::database_connection: "mysql://nova:nova_pass@%{hiera('service__address__mysql')}/nova"
 nova::glance_api_servers: "%{hiera('service__address__glance_api')}:9292"
 nova::rabbit_host: "%{hiera('service__address__rabbitmq')}"
@@ -35,5 +38,11 @@ nova::compute::vnc_enable: true
 nova::compute::vncserver_proxyclient_address: "%{hiera('mgmt_address')}"
 nova::compute::vncproxy_host: "%{hiera('service__address__consoleproxy')}"
 nova::compute::libvirt::vncserver_listen: "%{hiera('mgmt_address')}"
-nova::compute::rbd::libvirt_rbd_user: cinder
-nova::compute::rbd::libvirt_rbd_secret_uuid: 2cae509f-5fdb-463b-9bcc-9b819d1389dd
+nova::compute::libvirt::disk_cachemodes: "network=writeback"
+nova::compute::libvirt::libvirt_inject_password: false
+nova::compute::libvirt::libvirt_inject_key: false
+nova::compute::libvirt::libvirt_inject_partition: -2
+nova::compute::rbd::libvirt_rbd_user: volumes
+nova::compute::rbd::rbd_keyring: client.volumes
+nova::compute::rbd::libvirt_rbd_secret_uuid: "%{hiera('libvirt__rbd_secret_uuid')}"
+nova::compute::rbd::libvirt_images_rbd_pool: 'volumes'
