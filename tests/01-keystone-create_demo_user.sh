@@ -3,9 +3,9 @@ set -o errexit
 
 source ~/openstack.config
 
-osadmin project create --or-show demoproject
-osadmin user create --or-show --password himlar0pen demo
-osadmin user set --project demoproject demo
+openstack osadmin project create --or-show demoproject
+openstack osadmin user create --or-show --password himlar0pen demo
+openstack osadmin user set --project demoproject demo
 
-osuser user show demo
+openstack osuser user show demo
 

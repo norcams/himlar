@@ -13,15 +13,21 @@ accounts::users:
     ensure: present
   'glance':
     ensure: present
+  'nova':
+    ensure: present
 
 accounts::usergroups:
   'cinder':
     - 'cinder'
   'glance':
     - 'glance'
+  'nova':
+    - 'nova'
 
 accounts::accounts:
   'cinder':
     ensure: present
   'glance':
+    ensure: present
+  'nova':
     ensure: present

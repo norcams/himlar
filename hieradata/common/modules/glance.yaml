@@ -10,6 +10,7 @@ glance::api::debug: True
 glance::api::known_stores:
   - 'glance.store.rbd.Store'
 glance::api::show_image_direct_url: True
+glance::api::pipeline: keystone
 
 glance::backend::rbd::rbd_store_user: 'glance'
 

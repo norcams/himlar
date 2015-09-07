@@ -96,7 +96,7 @@ mod 'rabbitmq', :ref => '5.1.0',                 :git => github + 'puppetlabs/pu
 #
 mod 'keystone', :ref => '4b2e330152',            :git => github + 'enovance/puppet-keystone'
 mod 'glance', :ref => 'dbcfaf9b2e',              :git => github + 'norcams/puppet-glance'
-mod 'nova', :ref => '23ba8212cf',                :git => github + 'stackforge/puppet-nova'
+mod 'nova', :ref => '3f039d8207',                :git => github + 'stackforge/puppet-nova'
 mod 'cinder', :ref => '9a409d9cc7',              :git => github + 'stackforge/puppet-cinder'
 mod 'horizon', :ref => 'f04c638817',             :git => github + 'stackforge/puppet-horizon'
 mod 'neutron', :ref => 'd5628a9ca1',             :git => github + 'stackforge/puppet-neutron'
