@@ -17,11 +17,12 @@ neutron::server::notifications::nova_url: "http://%{hiera('service__address__nov
 neutron::server::notifications::nova_admin_username: nova
 neutron::server::notifications::nova_admin_password: nova_pass
 
-
+neutron::agents::dhcp::interface_driver: neutron.agent.linux.interface.RoutedInterfaceDriver
 neutron::agents::metadata::auth_password: neutron_pass
 neutron::agents::metadata::shared_secret: a_secret
 neutron::agents::metadata::auth_url: "http://%{hiera('service__address__keystone')}:35357/v2.0"
 neutron::agents::metadata::metadata_ip: "%{hiera('service__address__nova_api_metadata')}"
+
 
 neutron::plugins::ml2::type_drivers:
   - local
