@@ -41,3 +41,5 @@ apache::default_vhost: false
 apache::default_confd_files: false
 
 etcd::mode: cluster
+etcd::advertise_client_urls:
+  - 'http://%{::ipaddress}:2379'
