@@ -12,7 +12,7 @@ service__address__nova_api_metadata: '192.168.10.20'
 service__address__neutron_server:    '192.168.10.20'
 service__address__consoleproxy:      '192.168.10.20'
 service__address__cinder_api:        '192.168.10.20'
-service__address__etcd_cluster:      '["dev01-master-01.mgmt.dev.iaas.intern=http://192.168.10.20:2380"]'
+service__address__etcd_cluster:      'dev01-master-01.mgmt.dev.iaas.intern=http://192.168.10.20:2380'
 
 ntp::servers:
   - ntp.uib.no
