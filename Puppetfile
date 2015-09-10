@@ -45,7 +45,7 @@ mod 'ipcalc', :ref => '1.2.2',                   :git => github + 'inkblot/puppe
 #
 # profile::application::etcd
 #
-mod 'etcd', :ref => '0efd30bbaa',                :git => github + 'norcams/puppet-etcd'
+mod 'etcd', :ref => 'c26961fe94',                :git => github + 'norcams/puppet-etcd'
 
 #
 # profile::application::foreman
