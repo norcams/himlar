@@ -33,7 +33,7 @@ profile::openstack::database::sql::heat_enabled:     false
 profile::openstack::database::sql::trove_enabled:    false
 
 profile::openstack::identity::ceilometer_enabled: false
-profile::openstack::identity::cinder_enabled:     true
+profile::openstack::identity::cinder_enabled:     false
 profile::openstack::identity::glance_enabled:     true
 profile::openstack::identity::neutron_enabled:    true
 profile::openstack::identity::nova_enabled:       true
@@ -41,6 +41,8 @@ profile::openstack::identity::swift_enabled:      false
 profile::openstack::identity::trove_enabled:      false
 
 profile::openstack::image::api::backend: 'file'
+
+profile::openstack::network::l2_driver: calico
 
 profile::database::mariadb::manage_repo: false
 

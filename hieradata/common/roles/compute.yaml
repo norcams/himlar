@@ -3,9 +3,15 @@ include:
   default:
     - profile::openstack::compute::hypervisor
     - profile::openstack::volume
+    - profile::openstack::network
 
 openstack_extras::repo::redhat::redhat::manage_rdo: false
 profile::base::common::manage_lvm: true
+
+profile::openstack::network::l2_driver: calico
+
+calico::compute: true
+
 etcd::initial_cluster: ["%{hiera('service__address__etcd_cluster')}"]
 etcd::mode: 'proxy'
 
