@@ -18,7 +18,7 @@ nova::api::neutron_metadata_proxy_shared_secret: a_secret
 nova::api::enabled: true
 nova::api::auth_host: "%{hiera('service__address__keystone')}"
 nova::api::api_bind_address: "%{hiera('mgmt_address')}"
-nova::api::metadata_listen: "%{hiera('mgmt_address')}"
+#nova::api::metadata_listen: "%{hiera('mgmt_address')}"
 
 nova::scheduler::enabled: true
 
