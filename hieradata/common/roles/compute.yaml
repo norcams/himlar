@@ -12,9 +12,6 @@ profile::openstack::network::l2_driver: calico
 
 calico::compute: true
 
-nova::api::metadata_listen: "127.0.0.1"
-nova::api::enabled_apis: 'metadata'
-
 etcd::initial_cluster: ["%{hiera('service__address__etcd_cluster')}"]
 etcd::mode: 'proxy'
 
