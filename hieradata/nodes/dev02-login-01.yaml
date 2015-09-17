@@ -9,7 +9,7 @@ netcf_if:
         <start mode="onboot"/>
         <mtu size="1500"/>
         <protocol family="ipv4">
-          <ip address="129.241.14.143" prefix="25"/>
+          <ip address="129.241.14.144" prefix="25"/>
           <route gateway="129.241.14.129"/>
         </protocol>
       </interface>'
@@ -20,7 +20,7 @@ netcf_if:
         <start mode="onboot"/>
         <mtu size="1500"/>
         <protocol family="ipv4">
-          <ip address="10.171.91.1" prefix="24"/>
+          <ip address="10.171.92.1" prefix="24"/>
         </protocol>
       </interface>'
   eth2:
@@ -30,6 +30,6 @@ netcf_if:
         <start mode="onboot"/>
         <mtu size="1500"/>
         <protocol family="ipv4">
-          <ip address="10.171.86.1" prefix="24"/>
+          <ip address="10.171.93.1" prefix="24"/>
         </protocol>
       </interface>'
