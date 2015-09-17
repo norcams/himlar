@@ -9,8 +9,8 @@ netcf_if:
         <start mode="onboot"/>
         <mtu size="1500"/>
         <protocol family="ipv4">
-          <ip address="10.171.91.13" prefix="24"/>
-          <route gateway="10.171.91.1"/>
+          <ip address="10.171.92.13" prefix="24"/>
+          <route gateway="10.171.92.1"/>
         </protocol>
         <bridge stp="off">
           <interface type="ethernet" name="em2">
