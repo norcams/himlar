@@ -4,22 +4,33 @@ defaults:
   primary:   false
   location: 'vagrant'
   domain:   'himlar.local'
-  hostid:   'box'
   cpus:     2
   memory:   2048
   networks:
     - mgmt
 
+#
+# Nodes configuration examples:
+#
+# -name 'compute'
+#
+# Configured FQDN: vagrant-compute-box.vagrant.local
+#
+# -name 'c1'
+#   role: compute
+#
+# Configured FQDN: vagrant-compute-c1.vagrant.local
+#
 nodes:
-  - role: 'cephmon'
-  - role: 'compute'
-  - role: 'controller'
-  - role: 'foreman'
-  - role: 'leaf'
+  - name: 'cephmon'
+  - name: 'compute'
+  - name: 'controller'
+  - name: 'foreman'
+  - name: 'leaf'
     box: 'norcams/netdev'
-  - role: 'login'
-  - role: 'master'
-  - role: 'storage'
+  - name: 'login'
+  - name: 'master'
+  - name: 'storage'
 
 networks:
   mgmt:

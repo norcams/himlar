@@ -9,7 +9,7 @@ unless defined? settings
   # By default we only load a box with the role 'base' and set it to autostart
   unless ENV['HIMLAR_MULTINODE'] == 'true'
     settings['nodes'] = Array.new(1, Hash.new)
-    settings['nodes'][0]['role'] = 'base'
+    settings['nodes'][0]['name'] = 'base'
     settings['nodes'][0]['autostart'] = true
     settings['nodes'][0]['primary'] = true
   end
@@ -24,7 +24,9 @@ VAGRANTFILE_API_VERSION = '2'
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   settings['nodes'].each_with_index do |n, i|
-    config.vm.define n['role'], autostart: n['autostart'], primary: n['primary'] do |box|
+    n['hostid'] = n.key?('role') ? n['namë́'] : 'box'
+    n['role'] = n.key?('role') ? n['role'] : n['name']
+    config.vm.define n['name'], autostart: n['autostart'], primary: n['primary'] do |box|
       box.vm.hostname = "%s-%s-%s.%s" % [ n['location'],n['role'],n['hostid'],n['domain'] ]
       box.vm.box = n['box']
       box.vm.box_url = n['box_url']
