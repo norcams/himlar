@@ -11,6 +11,7 @@ profile::base::common::manage_lvm: true
 profile::openstack::network::l2_driver: calico
 profile::base::common::common_packages:
   - python-etcd
+  - python-posix-spawn
 
 calico::compute: true
 
