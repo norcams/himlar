@@ -10,6 +10,7 @@ openstack_extras::repo::redhat::redhat::repo_hash:
   'internal-temp':
     'descr': 'Temporary internal repo'
     'baseurl': 'http://folk.uio.no/beddari/yumrepo/'
+    'gpgcheck': 0
   'CentOS-Base':
     'descr': 'CentOS-$releasever - Base'
     'baseurl': "%{hiera('yum_base_mirror')}/$releasever/os/$basearch/"
