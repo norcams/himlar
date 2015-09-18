@@ -18,9 +18,9 @@ include:
     - profile::openstack::volume::storage
     - cinder::setup_test_volume
     - profile::openstack::network::controller
-    - profile::openstack::network::dhcp
-    - profile::openstack::network::l3
-    - profile::openstack::network::metadata
+#    - profile::openstack::network::dhcp
+#    - profile::openstack::network::l3
+#    - profile::openstack::network::metadata
     - profile::application::etcd
 
 openstack_extras::repo::redhat::redhat::manage_rdo: false
