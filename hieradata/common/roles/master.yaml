@@ -23,10 +23,12 @@ include:
 #    - profile::openstack::network::metadata
     - profile::application::etcd
 
-openstack_extras::repo::redhat::redhat::manage_rdo: false
 profile::openstack::database::sql::cinder_enabled:  true
-
 profile::base::common::manage_lvm: false
+
+calico::controller: true
+
+openstack_extras::repo::redhat::redhat::manage_rdo: false
 
 lvm::logical_volume:
   lv_var:
