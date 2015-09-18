@@ -25,6 +25,8 @@ include:
 
 profile::openstack::database::sql::cinder_enabled:  true
 profile::base::common::manage_lvm: false
+profile::base::common::common_packages:
+  - python-etcd
 
 calico::controller: true
 
