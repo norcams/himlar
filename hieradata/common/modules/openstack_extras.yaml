@@ -7,7 +7,7 @@ openstack_extras::repo::redhat::redhat::manage_epel: false
 openstack_extras::repo::redhat::redhat::manage_rdo: false
 
 openstack_extras::repo::redhat::redhat::repo_hash:
-  'internal-temp'
+  'internal-temp':
     'descr': 'Temporary internal repo'
     'baseurl': 'http://folk.uio.no/beddari/yumrepo/'
   'CentOS-Base':
