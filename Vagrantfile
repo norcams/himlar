@@ -6,8 +6,10 @@ require 'yaml'
 unless defined? settings
   configuration_file = File.join(File.dirname(__FILE__), 'nodes.yaml')
   settings = YAML.load(File.open(configuration_file, File::RDONLY).read)
-  # By default we only load a box with the role 'base' and set it to autostart
-  unless ENV['HIMLAR_MULTINODE'] == 'true'
+  if ENV.key?('HIMLAR_NODESET') && settings['nodesets'].key?(ENV['HIMLAR_NODESET'])
+      settings['nodes'] = settings['nodesets'][ENV['HIMLAR_NODESET']]
+  else
+    # Default to a single node with the role 'base' and set it to autostart
     settings['nodes'] = Array.new(1, Hash.new)
     settings['nodes'][0]['name'] = 'base'
     settings['nodes'][0]['autostart'] = true

@@ -1,36 +1,62 @@
+# Default values for all nodes
+#
+#   These settings can be overridden per node in the
+#
 defaults:
-  box:      'norcams/base'
+  box:       norcams/base
   autostart: false
   primary:   false
-  location: 'vagrant'
-  domain:   'himlar.local'
-  cpus:     2
-  memory:   2048
+  location:  vagrant
+  domain:    himlar.local
+  cpus:      2
+  memory:    2048
   networks:
     - mgmt
+    - transport
 
 #
-# Nodes configuration examples:
+# Nodesets configuration example:
 #
-# -name 'compute'
+#   simple:
+#     -name: master
+#     -name: compute
 #
-# Configured FQDN: vagrant-compute-box.vagrant.local
+#   This will configure two nodes with the following FQDNs:
+#     vagrant-master-box.himlar.local
+#     vagrant-compute-box.himlar.local
 #
-# -name 'c1'
-#   role: compute
+#   4nodes:
+#     -name: master
+#     -name c1
+#       role: compute
+#     -name c2
+#       role: compute
+#     -name gw
+#       role: gateway
 #
-# Configured FQDN: vagrant-compute-c1.vagrant.local
+#   This will configure four nodes with the following FQDNs:
+#     vagrant-master-box.himlar.local
+#     vagrant-compute-c1.himlar.local
+#     vagrant-compute-c2.himlar.local
+#     vagrant-gateway-gw.himlar.local
 #
-nodes:
-  - name: 'cephmon'
-  - name: 'compute'
-  - name: 'controller'
-  - name: 'foreman'
-  - name: 'leaf'
-    box: 'norcams/netdev'
-  - name: 'login'
-  - name: 'master'
-  - name: 'storage'
+nodesets:
+  roles:
+    - name: master
+    - name: cephmon
+    - name: compute
+    - name: controller
+    - name: foreman
+    - name: leaf
+      box: norcams/netdev
+    - name: login
+    - name: storage
+  net:
+    - name: master
+    - name: c1
+      role: compute
+    - name: c2
+      role: compute
 
 networks:
   mgmt:
