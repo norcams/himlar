@@ -48,7 +48,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vbox.customize ['modifyvm', :id, '--ioapic', 'on']
         vbox.customize ['modifyvm', :id, '--cpus',   n['cpus']]
         vbox.customize ['modifyvm', :id, '--memory', n['memory']]
-        vbox.customize ['modifyvm', :id, '--name',   n['role']]
+        vbox.customize ['modifyvm', :id, '--name',   n['name']]
       end
 
       box.vm.provider :libvirt do |libvirt|
