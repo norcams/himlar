@@ -12,7 +12,8 @@ defaults:
   memory:    2048
   networks:
     - mgmt
-    - transport
+    - transport_p1
+    - transport_p2
 
 #
 # Nodesets configuration example:
@@ -41,15 +42,13 @@ defaults:
 #     vagrant-gateway-gw.himlar.local
 #
 nodesets:
-  roles:
-    - name: master
-    - name: cephmon
-    - name: compute
+  all:
+    - name: login
     - name: controller
     - name: foreman
-    - name: leaf
-      box: norcams/netdev
-    - name: login
+    - name: master
+    - name: compute
+    - name: cephmon
     - name: storage
   net:
     - name: master
@@ -62,7 +61,10 @@ networks:
   mgmt:
     net:         10.0.3
     auto_config: true
-  transport:
-    net:         10.0.4
+  transport_p1:
+    net:         10.4.0
+    auto_config: true
+  transport_p2:
+    net:         10.5.0
     auto_config: true
 

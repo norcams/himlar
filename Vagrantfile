@@ -6,15 +6,18 @@ require 'yaml'
 unless defined? settings
   configuration_file = File.join(File.dirname(__FILE__), 'nodes.yaml')
   settings = YAML.load(File.open(configuration_file, File::RDONLY).read)
+
+  # Check if the value of env var HIMLAR_NODESET is a valid nodeset
   if ENV.key?('HIMLAR_NODESET') && settings['nodesets'].key?(ENV['HIMLAR_NODESET'])
-      settings['nodes'] = settings['nodesets'][ENV['HIMLAR_NODESET']]
+    settings['nodes'] = settings['nodesets'][ENV['HIMLAR_NODESET']]
   else
-    # Default to a single node with the role 'base' and set it to autostart
+    # Default to a single node with the role 'base' and autostart=true
     settings['nodes'] = Array.new(1, Hash.new)
     settings['nodes'][0]['name'] = 'base'
     settings['nodes'][0]['autostart'] = true
     settings['nodes'][0]['primary'] = true
   end
+
   # Map defaults settings to each node
   settings['nodes'].each do |n|
     n.merge!(settings['defaults']) { |key, nval, tval | nval }
