@@ -25,7 +25,6 @@ unless defined? settings
 end
 
 VAGRANTFILE_API_VERSION = '2'
-
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   settings['nodes'].each_with_index do |n, i|
@@ -58,6 +57,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
       box.vm.provider :libvirt do |libvirt|
         libvirt.driver = 'kvm'
+        libvirt.nested = true
         libvirt.cpus   = n['cpus']
         libvirt.memory = n['memory']
       end
@@ -73,8 +73,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.network :public_network, dev: ENV['HIMLAR_BRIDGE'], mode: 'bridge', auto_config: false
   end
 
+  # Optional plugins configuration
   if Vagrant.has_plugin?('vagrant-cachier')
     config.cache.scope = :machine
   end
-
+  if Vagrant.has_plugin?('vagrant-gatling-rsync')
+    config.gatling.rsync_on_startup = false
+  end
 end
