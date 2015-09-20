@@ -4,8 +4,13 @@
 require 'yaml'
 
 unless defined? settings
-  configuration_file = File.join(File.dirname(__FILE__), 'nodes.yaml')
-  settings = YAML.load(File.open(configuration_file, File::RDONLY).read)
+  # Use nodes.yaml.local if it exists, else use nodes.yaml
+  config = File.join(File.dirname(__FILE__), 'nodes.yaml')
+  local = File.join(File.dirname(__FILE__), 'nodes.yaml.local')
+  if File.exist?(local)
+    config = local
+  end
+  settings = YAML.load(File.open(config, File::RDONLY).read)
 
   # Check if the value of env var HIMLAR_NODESET is a valid nodeset
   if ENV.key?('HIMLAR_NODESET') && settings['nodesets'].key?(ENV['HIMLAR_NODESET'])
