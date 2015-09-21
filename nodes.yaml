@@ -12,8 +12,8 @@ defaults:
   memory:    2048
   networks:
     - mgmt
-    - transport_p1
-    - transport_p2
+    - transport1
+    - transport2
 
 #
 # Nodesets configuration example:
@@ -61,10 +61,10 @@ networks:
   mgmt:
     net:         10.0.3
     auto_config: true
-  transport_p1:
+  transport1:
     net:         10.4.0
     auto_config: true
-  transport_p2:
+  transport2:
     net:         10.5.0
     auto_config: true
 
