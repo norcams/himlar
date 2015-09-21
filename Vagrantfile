@@ -4,15 +4,25 @@
 require 'yaml'
 
 unless defined? settings
-  configuration_file = File.join(File.dirname(__FILE__), 'nodes.yaml')
-  settings = YAML.load(File.open(configuration_file, File::RDONLY).read)
-  # By default we only load a box with the role 'base' and set it to autostart
-  unless ENV['HIMLAR_MULTINODE'] == 'true'
+  # Use nodes.yaml.local if it exists, else use nodes.yaml
+  config = File.join(File.dirname(__FILE__), 'nodes.yaml')
+  local = File.join(File.dirname(__FILE__), 'nodes.yaml.local')
+  if File.exist?(local)
+    config = local
+  end
+  settings = YAML.load(File.open(config, File::RDONLY).read)
+
+  # Check if the value of env var HIMLAR_NODESET is a valid nodeset
+  if ENV.key?('HIMLAR_NODESET') && settings['nodesets'].key?(ENV['HIMLAR_NODESET'])
+    settings['nodes'] = settings['nodesets'][ENV['HIMLAR_NODESET']]
+  else
+    # Default to a single node with the role 'base' and autostart=true
     settings['nodes'] = Array.new(1, Hash.new)
     settings['nodes'][0]['name'] = 'base'
     settings['nodes'][0]['autostart'] = true
     settings['nodes'][0]['primary'] = true
   end
+
   # Map defaults settings to each node
   settings['nodes'].each do |n|
     n.merge!(settings['defaults']) { |key, nval, tval | nval }
@@ -24,7 +34,7 @@ VAGRANTFILE_API_VERSION = '2'
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   settings['nodes'].each_with_index do |n, i|
-    n['hostid'] = n.key?('role') ? n['name'] : 'box'
+    n['hostid'] = n.key?('role') ? n['namë́'] : 'box'
     n['role'] = n.key?('role') ? n['role'] : n['name']
     config.vm.define n['name'], autostart: n['autostart'], primary: n['primary'] do |box|
       box.vm.hostname = "%s-%s-%s.%s" % [ n['location'],n['role'],n['hostid'],n['domain'] ]
@@ -48,7 +58,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vbox.customize ['modifyvm', :id, '--ioapic', 'on']
         vbox.customize ['modifyvm', :id, '--cpus',   n['cpus']]
         vbox.customize ['modifyvm', :id, '--memory', n['memory']]
-        vbox.customize ['modifyvm', :id, '--name',   n['role']]
+        vbox.customize ['modifyvm', :id, '--name',   n['name']]
       end
 
       box.vm.provider :libvirt do |libvirt|
