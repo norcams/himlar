@@ -29,6 +29,8 @@ profile::base::common::common_packages:
   - python-etcd
 
 calico::controller: true
+calico::reflector: true
+bird::config_template_v4: calico/reflector/bird.conf.erb
 
 openstack_extras::repo::redhat::redhat::manage_rdo: false
 
