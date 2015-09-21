@@ -82,9 +82,7 @@ common_config()
     --tftp-id       $foreman_proxy_id \
     --dns-primary   '' \
     --dns-secondary '' \
-    --gateway       '' \
-    --dns-id        '' \
-    --dhcp-id       ''
+    --gateway       ''
   foreman_subnet_id=$(hammer --csv subnet info --name mgmt | tail -n1 | cut -d, -f1)
 
   #
