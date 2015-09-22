@@ -18,6 +18,7 @@ valid_location_tags:
   - trd
   - vagrant
   - dev01
+  - dev02
 valid_location_environments:
   - prod
   - dev
@@ -139,7 +140,22 @@ networks:
         ensure: absent
       oob:
         ensure: absent
-
+  dev02:
+    domain:
+      mgmt: dev.iaas.ntnu.no
+      oob: oob.iaas.ntnu.no
+    subnet:
+      mgmt: 10.171.92.1/24
+      oob: 10.171.93.1/24
+    dhcp:
+      mgmt:
+        ensure: absent
+      oob:
+        ensure: present
+        interface: eth2
+        start_offset: 100
+        end_offset: 199
+        lease: 43200
 #
 # Authentication key between compute nodes and Ceph
 #

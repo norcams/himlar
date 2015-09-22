@@ -1,0 +1,61 @@
+---
+location_environment: dev02
+location_description: Development environment physically in Trondheim
+
+service__address__mysql:             '10.171.92.6'
+service__address__rabbitmq:          '10.171.92.6'
+service__address__keystone:          '10.171.92.6'
+service__address__glance_registry:   '10.171.92.6'
+service__address__glance_api:        '10.171.92.6'
+service__address__nova_api:          '10.171.92.6'
+service__address__nova_api_metadata: '10.171.92.6'
+service__address__neutron_server:    '10.171.92.6'
+service__address__consoleproxy:      '10.171.92.6'
+service__address__cinder_api:        '10.171.92.6'
+service__address__etcd_cluster:      '["dev02-master-01.iaas.ntnu.no=http://10.171.92.6:2380"]'
+
+ntp::servers:
+  - ntp.ntnu.no
+  - ntp2.ntnu.no
+
+profile::network::services::dns_options:
+  CNAME:
+    default:
+      ttl: 3600
+      keyfile: "/opt/repo/secrets/nodes/%{hostname}/etc/rndc-%{location}.key"
+      server: 'dyndns.it.ntnu.no'
+  A:
+    default:
+      ttl: 86400
+      keyfile: "/opt/repo/secrets/nodes/%{hostname}/etc/rndc-%{location}.key"
+      server: 'dyndns.it.ntnu.no'
+
+profile::network::services::dns_records:
+  CNAME:
+    'puppet.dev.iaas.ntnu.no':            'dev02-foreman-01.dev.iaas.ntnu.no'
+    'admin.dev.iaas.ntnu.no':             'dev02-foreman-01.dev.iaas.ntnu.no'
+    'repo.dev.iaas.ntnu.no':              'dev02-foreman-01.dev.iaas.ntnu.no'
+    'master.dev.iaas.ntnu.no':            'dev02-master-01.dev.iaas.ntnu.no'
+  A:
+    'dev02-login-01.dev.iaas.ntnu.no':      '129.241.14.144'
+    'dev02-foreman-01.dev.iaas.ntnu.no':    '10.171.92.5'
+    'dev02-master-01.dev.iaas.ntnu.no':     '10.171.92.6'
+    'dev02-controller-01.dev.iaas.ntnu.no': '10.171.92.11'
+    'dev02-controller-02.dev.iaas.ntnu.no': '10.171.92.12'
+    'dev02-controller-03.dev.iaas.ntnu.no': '10.171.92.13'
+    'dev02-compute-01.dev.iaas.ntnu.no':    '10.171.92.14'
+    'dev02-compute-02.dev.iaas.ntnu.no':    '10.171.92.15'
+    'dev02-compute-03.dev.iaas.ntnu.no':    '10.171.92.16'
+    'dev02-storage-01.dev.iaas.ntnu.no':    '10.171.92.17'
+    'dev02-storage-02.dev.iaas.ntnu.no':    '10.171.92.18'
+    'dev02-storage-03.dev.iaas.ntnu.no':    '10.171.92.19'
+    'dev02-storage-04.dev.iaas.ntnu.no':    '10.171.92.20'
+    'dev02-storage-05.dev.iaas.ntnu.no':    '10.171.92.21'
+    'dev02-cephmon-01.dev.iaas.ntnu.no':    '10.171.92.30'
+    'dev02-cephmon-02.dev.iaas.ntnu.no':    '10.171.92.31'
+    'dev02-cephmon-03.dev.iaas.ntnu.no':    '10.171.92.32'
+
+ceph::profile::params::mon_initial_members:         'dev02-cephmon-01, dev02-cephmon-02, dev02-cephmon-03'
+ceph::profile::params::mon_host:                    '10.171.92.30:6789, 10.171.92.31:6789, 10.171.92.32:6789'
+ceph::profile::params::cluster_network:             '10.171.92.0/24'
+ceph::profile::params::public_network:              '10.171.92.0/24'
