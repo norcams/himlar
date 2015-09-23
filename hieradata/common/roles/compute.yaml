@@ -14,7 +14,6 @@ profile::base::common::common_packages:
   - python-posix-spawn
 
 calico::compute: true
-bird::config_template_v4: calico/compute/bird.conf.erb
 
 etcd::initial_cluster: ["%{hiera('service__address__etcd_cluster')}"]
 etcd::mode: 'proxy'
