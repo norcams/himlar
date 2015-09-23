@@ -1,11 +1,19 @@
 ---
 
-calico::reflector:peers:
-  ipv4:
-    - 10.0.3.12
-    - 10.0.3.13
+calico::reflector::client_defaults:
+  client_as: 65535
+  local_as: 65535
 
-calico::compute::reflectors:
-  ipv4:
-    - 10.4.0.11
+calico::reflector:clients:
+  c1:
+    ipv4: 10.4.0.12
+  c2:
+    ipv4: 10.4.0.13
 
+calico::compute::peer_defaults:
+  peer_as: 65535
+  local_as: 65535
+
+calico::compute::peers:
+  rr1:
+    ipv4: 10.4.0.11
