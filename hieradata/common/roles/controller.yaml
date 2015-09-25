@@ -45,13 +45,12 @@ lvm::logical_volume:
     fs_type: xfs
     mountpath: /var/lib/libvirt/images
 
-profile::application::consul::data::config_hash:
+consul::config_hash:
   'bind_addr': "%{ipaddress_eth1}"
   'server': true
   'ui_dir': '/opt/consul/ui'
   'ports':
     'https': '8550'
-  'client_addr': '0.0.0.0'
 
 #
 #profile::base::common::manage_networkifs:    true

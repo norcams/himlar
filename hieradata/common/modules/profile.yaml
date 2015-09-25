@@ -44,6 +44,6 @@ profile::openstack::image::api::backend: 'rbd'
 
 profile::database::mariadb::manage_repo: false
 
-profile::application::consul::data::config_hash:
+consul::config_hash:
   'data_dir': '/opt/consul'
   'enable_syslog': true
