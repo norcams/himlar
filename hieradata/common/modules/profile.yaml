@@ -47,3 +47,4 @@ profile::database::mariadb::manage_repo: false
 consul::config_hash:
   'data_dir': '/opt/consul'
   'enable_syslog': true
+  'bind_addr': "%{ipaddress_eth1}"

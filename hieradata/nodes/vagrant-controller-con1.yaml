@@ -4,4 +4,4 @@ mgmt_interface: 'eth1'
 mgmt_address:   "%{ipaddress_eth1}"
 
 consul::config_hash:
-  'bootstrap_expect': 1
+  'bootstrap': true

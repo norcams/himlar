@@ -46,7 +46,6 @@ lvm::logical_volume:
     mountpath: /var/lib/libvirt/images
 
 consul::config_hash:
-  'bind_addr': "%{ipaddress_eth1}"
   'server': true
   'ui_dir': '/opt/consul/ui'
   'ports':
