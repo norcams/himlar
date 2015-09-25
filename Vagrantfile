@@ -34,7 +34,7 @@ VAGRANTFILE_API_VERSION = '2'
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   settings['nodes'].each_with_index do |n, i|
-    n['hostid'] = n.key?('role') ? n['namë́'] : 'box'
+    n['hostid'] = n.key?('role') ? n['name'] : 'box'
     n['role'] = n.key?('role') ? n['role'] : n['name']
     config.vm.define n['name'], autostart: n['autostart'], primary: n['primary'] do |box|
       box.vm.hostname = "%s-%s-%s.%s" % [ n['location'],n['role'],n['hostid'],n['domain'] ]

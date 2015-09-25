@@ -7,6 +7,7 @@ include:
     - ceph::profile::client
     - profile::application::etcd
     - cinder::backends
+    - profile::application::consul
 
 profile::base::common::manage_lvm: true
 etcd::initial_cluster: ["%{hiera('service__address__etcd_cluster')}"]

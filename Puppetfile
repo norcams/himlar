@@ -118,6 +118,11 @@ mod 'libvirt', :ref => '0.3.2-norcams1',         :git => github + 'norcams/puppe
 mod 'ceph', :ref => 'cc4e23c535',                :git => github + 'norcams/puppet-ceph'
 
 #
+# profile::application::consul
+#
+mod 'consul', :ref => '7c428f4b2b',              :git => github + 'solarkennedy/puppet-consul'
+
+#
 # Common libs
 #
 mod 'stdlib', :ref => '4.6.0',                   :git => github + 'puppetlabs/puppetlabs-stdlib'
