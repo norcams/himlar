@@ -1,12 +1,6 @@
 ---
 profile::base::common::manage_lvm: false
 
-profile::application::consul::config_hash:
-  'data_dir': '/opt/consul'
-  'bind_addr': "%{ipaddress_eth1}"
-  'client_addr': '0.0.0.0'
-  'datacenter': 'osl-1'
-
 consul::services:
 
   'foreman':
