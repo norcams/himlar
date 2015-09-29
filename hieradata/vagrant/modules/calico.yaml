@@ -6,14 +6,15 @@ calico::reflector::client_defaults:
 
 calico::reflector::clients:
   c1:
-    ipv4: 10.4.0.12
+    peer_ipv4: 10.4.0.12
   c2:
-    ipv4: 10.4.0.13
+    peer_ipv4: 10.4.0.13
 
 calico::compute::peer_defaults:
   peer_as: 65535
   local_as: 65535
+  local_ipv4: "%{ipaddress_transport1}"
 
 calico::compute::peers:
   rr1:
-    ipv4: 10.4.0.11
+    peer_ipv4: 10.4.0.11
