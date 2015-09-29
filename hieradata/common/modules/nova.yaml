@@ -17,8 +17,8 @@ nova::api::admin_password: nova_pass
 nova::api::neutron_metadata_proxy_shared_secret: a_secret
 nova::api::enabled: true
 nova::api::auth_host: "%{hiera('service__address__keystone')}"
-nova::api::api_bind_address: "%{hiera('mgmt_address')}"
-#nova::api::metadata_listen: "%{hiera('mgmt_address')}"
+nova::api::api_bind_address: "%{ipaddress_mgmt1}"
+#nova::api::metadata_listen: "%{ipaddress_mgmt1}"
 
 nova::scheduler::enabled: true
 
@@ -32,7 +32,7 @@ nova::network::neutron::neutron_admin_auth_url: "http://%{hiera('service__addres
 
 nova::compute::enabled: true
 nova::compute::vnc_enable: true
-nova::compute::vncserver_proxyclient_address: "%{hiera('mgmt_address')}"
+nova::compute::vncserver_proxyclient_address: "%{ipaddress_mgmt1}"
 nova::compute::vncproxy_host: "%{hiera('service__address__consoleproxy')}"
-nova::compute::libvirt::vncserver_listen: "%{hiera('mgmt_address')}"
+nova::compute::libvirt::vncserver_listen: "%{ipaddress_mgmt1}"
 

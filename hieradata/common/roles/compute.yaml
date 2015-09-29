@@ -18,8 +18,9 @@ calico::compute: true
 etcd::initial_cluster: ["%{hiera('service__address__etcd_cluster')}"]
 etcd::mode: 'proxy'
 
-mgmt_interface: 'em3'
-mgmt_address:   "%{ipaddress_em3}"
+named_interfaces::config:
+  mgmt:
+    - em3
 
 lvm::logical_volume:
   lv_instances:

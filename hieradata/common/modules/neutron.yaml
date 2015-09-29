@@ -1,4 +1,4 @@
-neutron::bind_host: "%{hiera('mgmt_address')}"
+neutron::bind_host: "%{ipaddress_mgmt1}"
 neutron::core_plugin: neutron.plugins.ml2.plugin.Ml2Plugin
 neutron::rabbit_password: guest
 neutron::service_plugins:

@@ -6,8 +6,9 @@ include:
 
 profile::base::common::manage_lvm: true
 
-mgmt_interface: 'br0'
-mgmt_address:   "%{ipaddress_br0}"
+named_interfaces::config:
+  mgmt:
+    - br0
 
 profile::virtualization::libvirt::manage_firewall: true
 profile::virtualization::libvirt::firewall_extras:
