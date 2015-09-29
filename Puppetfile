@@ -35,12 +35,13 @@ mod 'googleauthenticator', :ref => 'norcams-0.1.0', :git => github + 'norcams/pu
 mod 'quagga', :ref => 'master',                  :git => github + 'LeslieCarr/puppet-quagga'
 
 #
-# profile::network::services
+# profile::network::
 #
 mod 'bird', :ref => 'master',                     :git => github + 'norcams/puppet-bird'
 mod 'calico', :ref => 'master',                   :git => github + 'norcams/puppet-calico'
 mod 'dnsmasq', :ref => 'norcams-0.1.0',          :git => github + 'norcams/puppet-dnsmasq'
 mod 'ipcalc', :ref => '1.2.2',                   :git => github + 'inkblot/puppet-ipcalc'
+mod 'named_interfaces', :ref => '0.1.0',         :git => github + 'norcams/puppet-named_interfaces'
 
 #
 # profile::application::etcd
