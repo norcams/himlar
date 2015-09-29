@@ -21,4 +21,10 @@ netcf_if:
             </bond>
           </interface>
         </bridge>
+      </interface>
+      <interface type="vlan" name "br0.914">
+        <start mode="onboot"/>
+        <vlan tag="914">
+          <interface name="br0"/>
+        </vlan>
       </interface>'
