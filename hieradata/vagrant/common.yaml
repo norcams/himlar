@@ -5,8 +5,14 @@ location_description: Local development environment using vagrant
 #
 # Default interfaces
 #
-mgmt_interface:      'eth0'
-mgmt_address:        "%{ipaddress_eth0}"
+mgmt_interface:      eth1
+mgmt_address:        "%{ipaddress_eth1}"
+named_interfaces:
+  mgmt:
+    - eth1
+  transport:
+    - eth2
+    - eth3
 
 #
 # Openstack services
