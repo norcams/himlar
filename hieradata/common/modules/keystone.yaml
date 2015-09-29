@@ -1,6 +1,7 @@
 ---
 keystone::db::mysql::password: key_pass
 keystone::db::mysql::allowed_hosts:
+  - "%{fqdn}"
   - 'localhost'
   - '%'
 
