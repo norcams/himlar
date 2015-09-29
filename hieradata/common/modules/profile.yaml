@@ -44,3 +44,6 @@ profile::openstack::image::api::backend: 'rbd'
 
 profile::database::mariadb::manage_repo: false
 
+consul::config_hash:
+  'enable_syslog': true
+  'bind_addr': "%{ipaddress_eth1}"

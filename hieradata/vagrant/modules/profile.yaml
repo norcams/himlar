@@ -1,2 +1,5 @@
 ---
 profile::base::common::manage_lvm: false
+
+consul::config_hash:
+  'datacenter': 'vagrant-1'

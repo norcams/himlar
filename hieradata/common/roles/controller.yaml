@@ -2,6 +2,7 @@
 include:
   default:
     - profile::virtualization::libvirt
+    - profile::application::consul
     - foreman_bootstrap::instances
 
 profile::base::common::manage_lvm: true
@@ -43,6 +44,12 @@ lvm::logical_volume:
     volume_group: vg_root
     fs_type: xfs
     mountpath: /var/lib/libvirt/images
+
+consul::config_hash:
+  'server': true
+  'ui_dir': '/opt/consul/ui'
+  'ports':
+    'https': '8550'
 
 #
 #profile::base::common::manage_networkifs:    true

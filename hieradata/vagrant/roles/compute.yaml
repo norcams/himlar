@@ -1,1 +1,7 @@
 ---
+consul::services:
+
+  'foreman':
+    tags: ["TheForeman"]
+    port: 80
+
