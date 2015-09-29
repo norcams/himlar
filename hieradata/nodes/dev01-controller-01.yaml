@@ -22,12 +22,3 @@ netcf_if:
           </interface>
         </bridge>
       </interface>'
-  br0.914:
-    ensure: present
-    definition:  '
-      <interface type="vlan" name "br0.914">
-        <start mode="onboot"/>
-        <vlan tag="914">
-          <interface name="br0"/>
-        </vlan>
-      </interface>'
