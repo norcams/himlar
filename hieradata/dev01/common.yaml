@@ -23,6 +23,13 @@ ceph::profile::params::mon_host:                    '192.168.10.90:6789, 192.168
 ceph::profile::params::cluster_network:             '192.168.10.0/24'
 ceph::profile::params::public_network:              '192.168.10.0/24'
 
+named_interfaces::config:
+  mgmt:
+     - eth0
+  transport:
+     - eth0.912
+     - eth1
+
 profile::network::services::dns_options:
   CNAME:
     default:
