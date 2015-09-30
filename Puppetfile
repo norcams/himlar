@@ -41,7 +41,7 @@ mod 'bird', :ref => 'master',                     :git => github + 'norcams/pupp
 mod 'calico', :ref => 'master',                   :git => github + 'norcams/puppet-calico'
 mod 'dnsmasq', :ref => 'norcams-0.1.0',          :git => github + 'norcams/puppet-dnsmasq'
 mod 'ipcalc', :ref => '1.2.2',                   :git => github + 'inkblot/puppet-ipcalc'
-mod 'named_interfaces', :ref => '0.1.0',         :git => github + 'norcams/puppet-named_interfaces'
+mod 'named_interfaces', :ref => '0.2.0',         :git => github + 'norcams/puppet-named_interfaces'
 
 #
 # profile::application::etcd
