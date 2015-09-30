@@ -14,8 +14,6 @@ profile::base::common::common_packages:
   - python-posix-spawn
 
 calico::compute: true
-
-etcd::initial_cluster: ["%{hiera('service__address__etcd_cluster')}"]
 etcd::mode: 'proxy'
 
 named_interfaces::config:

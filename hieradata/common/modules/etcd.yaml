@@ -1,0 +1,27 @@
+---
+# Defaull to proxy mode
+etcd::mode: 'proxy'
+
+# Member settings
+etcd::listen_peer_url:
+  - "http://0.0.0.0:2380"
+etcd::listen_client_url:
+  - "http://0.0.0.0:2379"
+  - "http://127.0.0.1:4001"
+#etcd::election_timeout:   1000
+#etcd::heartbeat_interval: 100
+#etcd::snapshot_count:     10000
+#etcd::max_snapshots:      5
+#etcd::max_wals:           5
+#etcd::cors:               []
+
+# Cluster settings
+etcd::initial_advertise_peer_urls:
+  - "http://%{hiera('service__address__etcd_cluster')}:2380"
+etcd::initial_cluster:
+  - "master=http://%{hiera('service__address__etcd_cluster')}:2380"
+etcd::initial_cluster_state: 'new'
+etcd::initial_cluster_token: 'etcd-cluster'
+etcd::advertise_client_urls:
+  - "http://%{hiera('service__address__etcd_cluster')}:2379"
+
