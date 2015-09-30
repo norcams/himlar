@@ -1,20 +1,13 @@
 ---
-
-calico::reflector::client_defaults:
-  peer_as: 65535
-  local_as: 65535
-
+# Reflector clients (must be set per location)
 calico::reflector::clients:
   c1:
-    peer_ipv4: 10.4.0.12
+    peer_ipv4: '10.4.0.12'
   c2:
-    peer_ipv4: 10.4.0.13
+    peer_ipv4: '10.4.0.13'
 
-calico::compute::peer_defaults:
-  peer_as: 65535
-  local_as: 65535
-  local_ipv4: "%{ipaddress_transport1}"
-
+# compute node to RR connection (set per location)
 calico::compute::peers:
   rr1:
-    peer_ipv4: 10.4.0.11
+    peer_ipv4: '10.4.0.11'
+
