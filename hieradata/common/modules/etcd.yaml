@@ -8,6 +8,7 @@ etcd::listen_peer_url:
 etcd::listen_client_url:
   - "http://0.0.0.0:2379"
   - "http://127.0.0.1:4001"
+etcd::node_name: "%{hostname}"
 #etcd::election_timeout:   1000
 #etcd::heartbeat_interval: 100
 #etcd::snapshot_count:     10000
