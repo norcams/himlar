@@ -1,6 +1,8 @@
 ---
 # Calico module default data
 
+calico::debug: false
+
 # Reflector settings
 calico::reflector::client_defaults:
   peer_as: 65535
