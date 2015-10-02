@@ -2,26 +2,30 @@
 profile::base::common::manage_networkifs:    true
 
 netcf_if:
-  br0:
+  eth0:
     ensure: present
-    definition:  '
-      <interface type="bridge" name="br0">
+    definition: '
+      <interface type="ethernet" name="eth0">
         <start mode="onboot"/>
         <mtu size="9000"/>
         <protocol family="ipv4">
           <ip address="192.168.10.25" prefix="24"/>
           <route gateway="192.168.10.1"/>
         </protocol>
-        <bridge stp="off">
-          <interface type="bond" name="bond0">
-            <bond mode="balance-alb">
-              <miimon freq="100"/>
-              <interface type="ethernet" name="eth0"/>
-              <interface type="ethernet" name="eth1"/>
-            </bond>
-          </interface>
-        </bridge>
+      </interface>'
+  eth0.912:
+    ensure: present
+    definition: '
+      <interface type="vlan" name="eth0.912">
+        <start mode="onboot"/>
+        <protocol family="ipv4">
+          <ip address="10.4.0.25" prefix="24"/>
+          <route gateway="10.4.0.4"/>
+        </protocol>
+        <vlan tag="912">
+          <interface name="eth0"/>
+        </vlan>
       </interface>'
 
-mgmt_interface: 'br0'
-mgmt_address:   "%{ipaddress_br0}"
+mgmt_interface: 'eth0'
+mgmt_address: "%{ipaddress_eth0}"
