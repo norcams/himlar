@@ -38,7 +38,8 @@ neutron::db::mysql::allowed_hosts:
   - 'localhost'
   - '%'
 
-neutron::dhcp_agents_per_network: '4'
+# http://docs.projectcalico.org/en/stable/configuration.html#neutron-server-etc-neutron-neutron-conf
+neutron::dhcp_agents_per_network: '9999'
 
 neutron::keystone::auth::password: neutron_pass
 neutron::keystone::auth::public_address: "%{hiera('service__address__neutron_server')}"
