@@ -1,9 +1,15 @@
 neutron::bind_host: "%{ipaddress_mgmt1}"
 neutron::core_plugin: neutron.plugins.ml2.plugin.Ml2Plugin
-neutron::rabbit_password: guest
 neutron::service_plugins:
   - neutron.services.l3_router.l3_router_plugin.L3RouterPlugin
+neutron::rabbit_password: guest
 neutron::rabbit_host: "%{hiera('service__address__rabbitmq')}"
+# http://docs.projectcalico.org/en/stable/configuration.html#neutron-server-etc-neutron-neutron-conf
+neutron::dhcp_agents_per_network: '9999'
+
+# Package overrides until calico has 2014.2.3 packages
+neutron::package_ensure:               '2014.2.2calico1.0.0-1.el7'
+neutron::plugins::ml2::package_ensure: '2014.2.2calico1.0.0-1.el7'
 
 neutron::server::sync_db: true
 neutron::server::auth_host: "%{hiera('service__address__keystone')}"
@@ -23,7 +29,6 @@ neutron::agents::metadata::shared_secret: a_secret
 neutron::agents::metadata::auth_url: "http://%{hiera('service__address__keystone')}:35357/v2.0"
 neutron::agents::metadata::metadata_ip: "%{hiera('service__address__nova_api_metadata')}"
 
-
 neutron::plugins::ml2::type_drivers:
   - local
   - flat
@@ -37,9 +42,6 @@ neutron::db::mysql::allowed_hosts:
   - "%{fqdn}"
   - 'localhost'
   - '%'
-
-# http://docs.projectcalico.org/en/stable/configuration.html#neutron-server-etc-neutron-neutron-conf
-neutron::dhcp_agents_per_network: '9999'
 
 neutron::keystone::auth::password: neutron_pass
 neutron::keystone::auth::public_address: "%{hiera('service__address__neutron_server')}"
