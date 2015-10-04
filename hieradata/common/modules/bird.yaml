@@ -1,4 +1,8 @@
 ---
+bird::enable_v6: true
 bird::manage_conf: false
 bird::manage_service: true
-bird::enable_v6: true
+bird::service_v4_enable: true
+bird::service_v4_ensure: running
+bird::service_v6_enable: true
+bird::service_v6_ensure: running
