@@ -19,7 +19,7 @@ netcf_if:
       <interface type="vlan" name="eth0.912">
         <start mode="onboot"/>
         <protocol family="ipv4">
-          <ip address="10.4.0.23" prefix="24"/>
+          <ip address="172.17.16.23" prefix="20"/>
           <route gateway="10.4.0.4"/>
         </protocol>
         <vlan tag="912">
