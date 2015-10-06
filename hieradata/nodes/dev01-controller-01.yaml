@@ -17,8 +17,14 @@ netcf_if:
             <bond mode="balance-alb">
               <miimon freq="100"/>
               <interface type="ethernet" name="eth0"/>
-              <interface type="ethernet" name="eth1"/>
             </bond>
           </interface>
         </bridge>
+      </interface>'
+  eth1:
+    ensure: present
+    definition:  '
+      <interface type="ethernet" name="eth1">
+        <start mode="onboot"/>
+        <mtu size="9000"/>
       </interface>'
