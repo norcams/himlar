@@ -23,6 +23,12 @@ include:
 #    - profile::openstack::network::metadata
     - profile::application::etcd
 
+named_interfaces::config:
+  mgmt:
+     - eth0
+  transport:
+     - eth1
+
 profile::openstack::database::sql::cinder_enabled:  true
 profile::base::common::manage_lvm: false
 profile::base::common::common_packages:
