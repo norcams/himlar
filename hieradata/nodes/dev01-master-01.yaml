@@ -12,4 +12,14 @@ netcf_if:
           <route gateway="192.168.10.1"/>
         </protocol>
       </interface>'
+  eth1:
+    ensure: present
+    definition: '
+      <interface type="ethernet" name="eth1">
+        <start mode="onboot"/>
+        <mtu size="9000"/>
+        <protocol family="ipv4">
+          <ip address="172.17.16.21" prefix="20"/>
+        </protocol>
+      </interface>'
 
