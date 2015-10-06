@@ -2,6 +2,16 @@
 location_environment: prod
 location_description: Production environment in Oslo
 
+#
+## Default interfaces
+#
+named_interfaces::config:
+  mgmt:
+    - em3
+  transport:
+    - em1
+    - em2
+
 service__address__mysql:             '129.240.224.102'
 service__address__rabbitmq:          '129.240.224.102'
 service__address__keystone:          '129.240.224.102'
