@@ -1,7 +1,7 @@
 horizon::openstack_endpoint_type: internalURL
 horizon::fqdn: "*"
 horizon::secret_key: horizon_secret
-horizon::servername: "%{ipaddress_mgmt1}"
+horizon::servername: "%{ipaddress_service1}"
 horizon::keystone_url: "http://%{hiera('service__address__keystone')}:5000/v2.0/"
 horizon::neutron_options:
   'enable_lb': false
