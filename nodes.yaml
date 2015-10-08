@@ -56,6 +56,8 @@ nodesets:
       role: compute
     - name: c2
       role: compute
+    - name: gw
+      box: norcams/net
 
 networks:
   mgmt:
