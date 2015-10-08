@@ -39,7 +39,7 @@ mod 'quagga', :ref => 'master',                  :git => github + 'LeslieCarr/pu
 #
 mod 'bird', :ref => 'master',                    :git => github + 'norcams/puppet-bird'
 mod 'calico', :ref => 'master',                  :git => github + 'norcams/puppet-calico'
-mod 'dnsmasq', :ref => 'norcams-0.2.1',          :git => github + 'norcams/puppet-dnsmasq'
+mod 'dnsmasq', :ref => 'norcams-0.2.2',          :git => github + 'norcams/puppet-dnsmasq'
 mod 'ipcalc', :ref => '1.2.2',                   :git => github + 'inkblot/puppet-ipcalc'
 mod 'named_interfaces', :ref => '0.2.0',         :git => github + 'norcams/puppet-named_interfaces'
 
