@@ -4,6 +4,7 @@ include:
     - profile::openstack::compute::hypervisor
     - profile::openstack::volume
     - profile::openstack::network
+    - nova::config
 
 openstack_extras::repo::redhat::redhat::manage_rdo: false
 profile::base::common::manage_lvm: true
@@ -20,12 +21,6 @@ named_interfaces::config:
   mgmt:
     - em3
 
-lvm::logical_volume:
-  lv_instances:
-    volume_group: vg_root
-    fs_type: xfs
-    mountpath: /var/lib/nova/instances
-
 sudo::purge: false
 
 accounts::users:
@@ -39,3 +34,11 @@ accounts::usergroups:
 accounts::accounts:
   'cinder':
     ensure: present
+
+nova::config::nova_config:
+  libvirt/images_type:
+    value: lvm
+  libvirt/images_volume_group:
+    value: vg_ext
+  libvirt/sparse_logical_volumes:
+    value: true
