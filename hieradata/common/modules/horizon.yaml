@@ -8,5 +8,5 @@ horizon::neutron_options:
   'enable_firewall': false
   'enable_vpn': false
 horizon::wsgi::apache::priority: 10
-horizon::wsgi::apache::bind_address: "%{ipaddress_mgmt1}"
-horizon::bind_address: "%{ipaddress_mgmt1}"
+horizon::wsgi::apache::bind_address: "%{ipaddress_service1}"
+horizon::bind_address: "%{ipaddress_service1}"
