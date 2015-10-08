@@ -22,4 +22,12 @@ netcf_if:
           <ip address="172.17.16.20" prefix="20"/>
         </protocol>
       </interface>'
-
+  virh0:
+    ensure: present
+    definition:  '
+      <interface type="ethernet" name="dummy0">
+        <start mode="onboot"/>
+        <protocol family="ipv4">
+          <ip address="129.177.31.126" prefix="27"/>
+        </protocol>
+      </interface>'
