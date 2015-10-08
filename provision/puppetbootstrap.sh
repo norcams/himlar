@@ -5,7 +5,7 @@ bootstrap_puppet()
   # packages
   if command -v yum >/dev/null 2>&1; then
     # RHEL, CentOS, Fedora
-    rpm -ivh http://fedora.uib.no/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
+    rpm -ivh http://ftp.uninett.no/linux/epel/epel-release-latest-7.noarch.rpm
     rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm
     yum -y update
     yum install -y puppet facter rubygems rubygem-deep_merge \
