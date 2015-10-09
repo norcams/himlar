@@ -13,7 +13,12 @@ $dash_a            = split($::verified_host, '-')
 
 $location          = $::dash_a[0]
 $role              = $::dash_a[1]
-$hostid            = $::dash_a[2]
+if size($dash_a) == 4 {
+  $variant = $::dash_a[2]
+  $hostid  = $::dash_a[3]
+} else {
+  $hostid  = $::dash_a[2]
+}
 
 # Set runmode to default if it is not provided
 if empty($runmode) {

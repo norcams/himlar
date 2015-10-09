@@ -1,9 +1,11 @@
 ---
 :hierarchy:
-    - "nodes/%{location}-%{role}-%{hostid}"
+    - "nodes/%{verified_host}"
+    - "%{location}/roles/%{role}-%{variant}"
     - "%{location}/roles/%{role}"
     - "%{location}/modules/%{calling_module}"
     - "%{location}/common"
+    - "common/roles/%{role}-%{variant}"
     - "common/roles/%{role}"
     - "common/modules/%{calling_module}"
     - "common/common"
