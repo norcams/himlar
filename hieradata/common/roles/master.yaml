@@ -28,6 +28,8 @@ profile::base::common::manage_lvm: false
 profile::base::common::common_packages:
   - python-etcd
 
+profile::application::sslcert::create_new: true
+
 calico::controller: true
 calico::reflector: true
 
