@@ -22,7 +22,7 @@ netcf_if:
           <ip address="172.17.16.20" prefix="20"/>
         </protocol>
       </interface>'
-  virh0:
+  dummy0:
     ensure: present
     definition:  '
       <interface type="ethernet" name="dummy0">
