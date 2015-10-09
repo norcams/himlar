@@ -29,6 +29,12 @@ profile::base::common::common_packages:
   - python-etcd
 
 profile::application::sslcert::create_new: true
+profile::application::sslcert::cert_defines:
+  "%{fqdn}":
+    country:      'NO'
+    organization: 'private.org'
+    commonname:   "%{fqdn}"
+    owner:        apache
 
 calico::controller: true
 calico::reflector: true
