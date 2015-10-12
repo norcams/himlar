@@ -41,7 +41,7 @@ libvirt::qemu_vnc_tls:            false
 
 lvm::logical_volume:
   lv_libvirt:
-    volume_group: vg_root
+    volume_group: vg_ext
     fs_type: xfs
     mountpath: /var/lib/libvirt/images
 
