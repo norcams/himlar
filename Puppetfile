@@ -43,7 +43,7 @@ mod 'dnsmasq', :ref => 'v1.2.0',                 :git => github + 'saz/puppet-dn
 mod 'ipcalc', :ref => '1.2.2',                   :git => github + 'inkblot/puppet-ipcalc'
 mod 'named_interfaces', :ref => '0.2.0',         :git => github + 'norcams/puppet-named_interfaces'
 mod 'network', :ref => 'v3.1.24',                :git => github + 'example42/puppet-network'
-mod 'stdmod', :ref => '929ba74496'               :git => github + 'stdmod/stdmod'
+mod 'stdmod', :ref => '929ba74496',              :git => github + 'stdmod/stdmod'
 
 #
 # profile::application::etcd
