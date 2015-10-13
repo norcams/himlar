@@ -11,8 +11,8 @@ network::interfaces_hash:
     ipaddress: '172.17.16.22'
     netmask:   '255.255.240.0'
     gateway:   '172.17.16.1'
-    defroute:  yes
-    vlan:      yes
+    defroute:  'yes'
+    vlan:      'yes'
 
 mgmt_interface: 'eth0'
 mgmt_address: "%{ipaddress_eth0}"
