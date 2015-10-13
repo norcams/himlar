@@ -14,5 +14,12 @@ network::interfaces_hash:
     defroute:  'yes'
     vlan:      'yes'
 
+named_interfaces::config:
+  mgmt:
+     - em1
+  transport:
+     - em1_912
+     - em2
+
 mgmt_interface: 'em1'
 mgmt_address: "%{ipaddress_em1}"
