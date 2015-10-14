@@ -6,6 +6,8 @@ location_description: Local development environment using vagrant
 # Default interfaces
 #
 named_interfaces::config:
+  vagrant:
+    - eth0
   mgmt:
     - eth1
   transport:
