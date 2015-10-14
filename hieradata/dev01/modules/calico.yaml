@@ -11,6 +11,8 @@ calico::reflector::clients:
     peer_ipv4: '172.17.16.25'
   c5:
     peer_ipv4: '172.17.16.26'
+  c6:
+    peer_ipv4: '172.17.16.27'
 
 # compute node to RR connection (set per location)
 calico::compute::peers:
