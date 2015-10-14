@@ -1,0 +1,20 @@
+---
+include:
+  default:
+    - nova::config
+
+lvm::logical_volume:
+  lv_instances:
+    ensure: absent
+    createfs: false
+
+nova::config::nova_config:
+  libvirt/images_type:
+    value: lvm
+  libvirt/images_volume_group:
+    value: vg_ext
+  libvirt/sparse_logical_volumes:
+    value: true
+  libvirt/volume_clear:
+    value: none
+
