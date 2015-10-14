@@ -28,3 +28,12 @@ netcf_if:
         <start mode="onboot"/>
         <mtu size="9000"/>
       </interface>'
+
+lvm::volume_groups:
+  vg_root:
+    physical_volumes:
+      - /dev/sda2
+    logical_volumes:
+      lv_libvirt:
+        fs_type:   xfs
+        mountpath: "/var/lib/libvirt/images"
