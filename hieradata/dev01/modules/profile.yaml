@@ -1,8 +1,6 @@
 ---
-profile::base::common::manage_networkifs: true
-
 profile::openstack::dashboard::firewall_extras:
-  source: '10.0.0.0/8'
+  source: '129.177.0.0/16'
 profile::openstack::network::calico::firewall_extras:
-  source: '10.0.0.0/8'
+  source: '172.17.16.0/24'
 
