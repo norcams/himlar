@@ -1,2 +1,7 @@
 ---
-profile::base::common::manage_lvm: false
+profile::base::common::manage_lvm: true
+
+volume_group:
+  'vg_ext':
+    physical_volumes:
+      - '/dev/vda3'
