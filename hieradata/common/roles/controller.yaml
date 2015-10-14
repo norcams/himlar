@@ -39,11 +39,14 @@ libvirt::qemu_vnc_listen:         '0.0.0.0'
 libvirt::qemu_vnc_sasl:           false
 libvirt::qemu_vnc_tls:            false
 
-lvm::logical_volume:
-  lv_libvirt:
-    volume_group: vg_ext
-    fs_type: xfs
-    mountpath: /var/lib/libvirt/images
+lvm::volume_groups:
+  vg_ext:
+    physical_volumes:
+      - /dev/sda3
+    logical_volumes:
+      lv_ext:
+        fs_type:   xfs
+        mountpath: "/var/lib/libvirt/images"
 
 #
 #profile::base::common::manage_networkifs:    true
