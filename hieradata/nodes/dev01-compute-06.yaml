@@ -32,7 +32,7 @@ physical_volume:
     ensure: present
     force:  true
 
-volume_group:
+profile::base::lvm::volume_group:
   'vg_ext':
     physical_volumes:
       - '/dev/sda3'

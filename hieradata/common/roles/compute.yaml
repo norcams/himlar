@@ -45,7 +45,7 @@ nova::config::nova_config:
   libvirt/sparse_logical_volumes:
     value: true
 
-volume_group:
+profile::base::lvm::volume_group:
   'vg_ext':
     physical_volumes:
       - '/dev/sda3'
