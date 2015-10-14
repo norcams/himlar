@@ -8,7 +8,7 @@ netcf_if:
         <start mode="onboot"/>
         <mtu size="1500"/>
         <protocol family="ipv4">
-          <ip address="172.16.100.10" prefix="24"/>
+          <ip address="172.16.100.8" prefix="24"/>
         </protocol>
       </interface>'
   em3:
@@ -18,8 +18,7 @@ netcf_if:
         <start mode="onboot"/>
         <mtu size="1500"/>
         <protocol family="ipv4">
-          <ip address="129.240.224.112" prefix="27"/>
+          <ip address="129.240.224.110" prefix="27"/>
           <route gateway="129.240.224.97"/>
         </protocol>
       </interface>'
-

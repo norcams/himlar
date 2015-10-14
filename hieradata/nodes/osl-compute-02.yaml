@@ -1,10 +1,10 @@
 profile::base::common::manage_networkifs:    true
 
 netcf_if:
-  em1:
+  em4:
     ensure: present
     definition:  '
-      <interface type="ethernet" name="em1">
+      <interface type="ethernet" name="em4">
         <start mode="onboot"/>
         <mtu size="1500"/>
         <protocol family="ipv4">
