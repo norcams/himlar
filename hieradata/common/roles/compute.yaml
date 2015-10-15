@@ -41,9 +41,11 @@ profile::base::lvm::volume_group:
     physical_volumes:
       - '/dev/sda3'
 
-lvm::logical_volume:
-  lv_instances:
-    volume_group: vg_ext
-    fs_type: xfs
-    mountpath: /var/lib/nova/instances
-
+lvm::volume_groups:
+  'vg_ext':
+    physical_volumes:
+      - '/dev/sda3'
+    logical_volumes:
+      lv_instances:
+        fs_type:   xfs
+        mountpath: "/var/lib/nova/instances"
