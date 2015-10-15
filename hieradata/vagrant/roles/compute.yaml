@@ -1,7 +1,11 @@
 ---
 profile::base::common::manage_lvm: true
 
+profile::base::lvm::physical_volume:
+  '/dev/vda3':
+    ensure: present
+    force:  true
 profile::base::lvm::volume_group:
   'vg_ext':
     physical_volumes:
-      - '/dev/vda3'
+      - /dev/vda3

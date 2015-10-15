@@ -36,16 +36,16 @@ accounts::accounts:
   'cinder':
     ensure: present
 
+profile::base::lvm::physical_volume:
+  '/dev/sda3':
+    ensure: present
+    force:  true
 profile::base::lvm::volume_group:
   'vg_ext':
     physical_volumes:
-      - '/dev/sda3'
-
-lvm::volume_groups:
-  'vg_ext':
-    physical_volumes:
-      - '/dev/sda3'
-    logical_volumes:
-      lv_instances:
-        fs_type:   xfs
-        mountpath: "/var/lib/nova/instances"
+      - /dev/sda3
+profile::base::lvm::logical_volume:
+  'lv_instances':
+    volume_group: 'vg_ext'
+    fs_type:      "xfs"
+    mountpath:    "/var/lib/nova/instances"

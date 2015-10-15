@@ -24,20 +24,15 @@ named_interfaces::config:
 mgmt_interface: 'em1'
 mgmt_address: "%{ipaddress_em1}"
 
-physical_volume:
+profile::base::lvm::physical_volume:
   '/dev/sda3':
     ensure: present
     force:  true
   '/dev/sdb':
     ensure: present
     force:  true
-
-lvm::volume_groups:
+profile::base::lvm::volume_group:
   'vg_ext':
     physical_volumes:
-      - '/dev/sda3'
-      - '/dev/sdb'
-    logical_volumes:
-      lv_instances:
-        fs_type:   xfs
-        mountpath: "/var/lib/nova/instances"
+      - /dev/sda3
+      - /dev/sdb
