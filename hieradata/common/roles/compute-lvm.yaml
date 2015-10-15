@@ -3,7 +3,7 @@ include:
   default:
     - nova::config
 
-lvm::logical_volume:
+profile::base::lvm::logical_volume:
   lv_instances:
     ensure: absent
     createfs: false
