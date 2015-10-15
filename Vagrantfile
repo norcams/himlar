@@ -82,7 +82,4 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   if Vagrant.has_plugin?('vagrant-cachier')
     config.cache.scope = :machine
   end
-  if Vagrant.has_plugin?('vagrant-gatling-rsync')
-    config.gatling.rsync_on_startup = false
-  end
 end
