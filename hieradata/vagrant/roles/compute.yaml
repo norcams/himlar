@@ -1,5 +1,7 @@
 ---
-profile::base::common::manage_lvm: true
+# The current vagrant box image do not have vda3 parso switch
+# off lvm for compute on vagrant
+profile::base::common::manage_lvm: false
 
 profile::base::lvm::physical_volume:
   '/dev/vda3':
