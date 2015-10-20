@@ -1,15 +1,14 @@
-horizon::openstack_endpoint_type: internalURL
 horizon::fqdn: "*"
 horizon::secret_key: horizon_secret
-horizon::servername: "%{ipaddress_service1}"
+horizon::servername: "%{ipaddress_public1}"
 horizon::keystone_url: "http://%{hiera('service__address__keystone')}:5000/v2.0/"
 horizon::neutron_options:
   'enable_lb': false
   'enable_firewall': false
   'enable_vpn': false
 horizon::wsgi::apache::priority: 10
-horizon::wsgi::apache::bind_address: "%{ipaddress_service1}"
-horizon::bind_address: "%{ipaddress_service1}"
+horizon::wsgi::apache::bind_address: "%{ipaddress_public1}"
+horizon::bind_address: "%{ipaddress_public1}"
 horizon::listen_ssl: true
 horizon::horizon_ca: "/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem"
 horizon::horizon_cert: "/etc/ssl/certs/%{::fqdn}.crt"

@@ -1,4 +1,4 @@
-neutron::bind_host: "%{ipaddress_mgmt1}"
+neutron::bind_host: "%{ipaddress_public1}"
 neutron::core_plugin: neutron.plugins.ml2.plugin.Ml2Plugin
 neutron::service_plugins:
   - neutron.services.l3_router.l3_router_plugin.L3RouterPlugin
@@ -11,14 +11,15 @@ neutron::dhcp_agents_per_network: '9999'
 neutron::package_ensure:               '2014.2.2calico1.0.0-1.el7'
 neutron::plugins::ml2::package_ensure: '2014.2.2calico1.0.0-1.el7'
 
-neutron::server::sync_db: true
-neutron::server::auth_host: "%{hiera('service__address__keystone')}"
-neutron::server::database_connection: "mysql://neutron:neutron_pass@%{hiera('service__address__mysql')}/neutron"
+neutron::server::auth_host: "%{hiera('service__address__keystone_admin')}"
+neutron::server::auth_uri: "http://%{hiera('service__address__keystone')}:5000/"
 neutron::server::auth_password: neutron_pass
+neutron::server::sync_db: true
+neutron::server::database_connection: "mysql://neutron:neutron_pass@%{hiera('service__address__mysql')}/neutron"
 
 neutron::server::notifications::notify_nova_on_port_status_changes: true
 neutron::server::notifications::notify_nova_on_port_data_changes: true
-neutron::server::notifications::nova_admin_auth_url: "http://%{hiera('service__address__keystone')}:35357/v2.0"
+neutron::server::notifications::nova_admin_auth_url: "http://%{hiera('service__address__keystone_admin')}:35357/v2.0"
 neutron::server::notifications::nova_url: "http://%{hiera('service__address__nova_api')}:8774/v2"
 neutron::server::notifications::nova_admin_username: nova
 neutron::server::notifications::nova_admin_password: nova_pass
@@ -26,7 +27,7 @@ neutron::server::notifications::nova_admin_password: nova_pass
 neutron::agents::dhcp::interface_driver: neutron.agent.linux.interface.RoutedInterfaceDriver
 neutron::agents::metadata::auth_password: neutron_pass
 neutron::agents::metadata::shared_secret: a_secret
-neutron::agents::metadata::auth_url: "http://%{hiera('service__address__keystone')}:35357/v2.0"
+neutron::agents::metadata::auth_url: "http://%{hiera('service__address__keystone_admin')}:35357/v2.0"
 neutron::agents::metadata::metadata_ip: "%{hiera('service__address__nova_api_metadata')}"
 
 neutron::plugins::ml2::type_drivers:

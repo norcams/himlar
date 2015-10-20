@@ -12,10 +12,10 @@ cinder::rabbit_password:     'guest'
 cinder::rabbit_host:         "%{hiera('service__address__rabbitmq')}"
 
 cinder::api::keystone_password:  'cinder_pass'
-cinder::api::keystone_user:	 'cinder'
+cinder::api::keystone_user:      'cinder'
 cinder::api::keystone_enabled:   true
-cinder::api::auth_uri:           "http://%{hiera('service__address__keystone')}:5000/v2.0"
-cinder::api::keystone_auth_host: "%{hiera('service__address__keystone')}"
+cinder::api::auth_uri:           "http://%{hiera('service__address__keystone')}:5000/"
+cinder::api::keystone_auth_host: "%{hiera('service__address__keystone_admin')}"
 
 cinder::keystone::auth::password:  'cinder_pass'
 cinder::keystone::auth::auth_name: 'cinder'
