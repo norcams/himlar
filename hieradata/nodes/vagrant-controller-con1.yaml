@@ -1,0 +1,7 @@
+---
+profile::base::common::manage_networkifs: false
+mgmt_interface: 'eth1'
+mgmt_address:   "%{ipaddress_eth1}"
+
+consul::config_hash:
+  'bootstrap': true
