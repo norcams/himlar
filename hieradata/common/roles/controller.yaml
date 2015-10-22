@@ -48,6 +48,12 @@ lvm::volume_groups:
         fs_type:   xfs
         mountpath: "/var/lib/libvirt/images"
 
+consul::config_hash:
+  'server': true
+  'ui_dir': '/opt/consul/ui'
+  'ports':
+    'https': '8550'
+
 #
 #profile::base::common::manage_networkifs:    true
 #netcf_if:

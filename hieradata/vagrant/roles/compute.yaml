@@ -12,7 +12,7 @@ profile::base::lvm::volume_group:
     physical_volumes:
       - /dev/vda3
 
-# consul testdata
+# enable consul
 include:
   default:
     - profile::application::consul
