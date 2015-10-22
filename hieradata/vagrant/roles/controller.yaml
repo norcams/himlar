@@ -1,0 +1,12 @@
+---
+# consul testdata
+include:
+  default:
+    - profile::application::consul
+
+consul::config_hash:
+  'server': true
+  'ui_dir': '/opt/consul/ui'
+  'ports':
+    'https': '8550'
+

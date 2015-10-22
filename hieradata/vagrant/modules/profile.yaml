@@ -18,3 +18,9 @@ profile::openstack::image::registry::firewall_extras:
 profile::openstack::compute::api::firewall_extras:
   source: '10.0.0.0/8'
 
+# consul testdata
+consul::config_hash:
+  'datacenter':    'vagrant-1'
+  'enable_syslog': true
+  'bind_addr':     "%{ipaddress_mgmt1}"
+

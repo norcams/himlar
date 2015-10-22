@@ -11,3 +11,14 @@ profile::base::lvm::volume_group:
   'vg_ext':
     physical_volumes:
       - /dev/vda3
+
+# consul testdata
+include:
+  default:
+    - profile::application::consul
+
+consul::services:
+  'foreman':
+    tags: ["TheForeman"]
+    port: 80
+
