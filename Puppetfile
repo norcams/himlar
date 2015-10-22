@@ -56,6 +56,11 @@ mod 'etcd', :ref => 'c26961fe94',                :git => github + 'norcams/puppe
 mod 'openssl', :ref => '1.5.0',                  :git => github + 'camptocamp/puppet-openssl'
 
 #
+# profile::application::consul
+#
+mod 'consul', :ref => '7c428f4b2b',              :git => github + 'solarkennedy/puppet-consul'
+
+#
 # profile::application::foreman
 #
 mod 'zack/r10k', '2.5.2'                         # forge
