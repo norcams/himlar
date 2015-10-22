@@ -58,6 +58,17 @@ nodesets:
       role: compute
     - name: gw
       box: norcams/net
+  consul:
+    - name: com1
+      role: compute
+    - name: com2
+      role: compute
+    - name: con1
+      role: controller
+    - name: con2
+      role: controller
+    - name: con3
+      role: controller
 
 networks:
   mgmt:
