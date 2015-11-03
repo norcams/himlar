@@ -80,7 +80,7 @@ mod 'bind', :ref => 'keyfile_resource_record',   :git => github + 'norcams/puppe
 #
 # foreman_bootstrap
 #
-mod 'foreman_bootstrap', :ref => '0.1.5',        :git => github + 'norcams/puppet-foreman_bootstrap'
+mod 'foreman_bootstrap', :ref => '0.1.6',        :git => github + 'norcams/puppet-foreman_bootstrap'
 
 #
 # profile::webserver::apache
