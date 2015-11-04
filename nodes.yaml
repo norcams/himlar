@@ -59,8 +59,6 @@ nodesets:
     - name: gw
       box: norcams/net
   consul:
-    - name: master
-      memory: 4096
     - name: com1
       role: compute
     - name: com2

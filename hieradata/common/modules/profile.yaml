@@ -49,5 +49,5 @@ profile::database::mariadb::manage_repo: false
 
 consul::config_hash:
   'enable_syslog': true
-  'bind_addr':     "%{ipaddress_eth1}"
+  'bind_addr':     "%{ipaddress_mgmt1}"
 
