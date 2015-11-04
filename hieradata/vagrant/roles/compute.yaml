@@ -3,14 +3,14 @@
 # off lvm for compute on vagrant
 profile::base::common::manage_lvm: false
 
-profile::base::lvm::physical_volume:
-  '/dev/vda3':
-    ensure: present
-    force:  true
-profile::base::lvm::volume_group:
-  'vg_ext':
-    physical_volumes:
-      - /dev/vda3
+#profile::base::lvm::physical_volume:
+#  '/dev/vda3':
+#    ensure: present
+#    force:  true
+#profile::base::lvm::volume_group:
+#  'vg_ext':
+#    physical_volumes:
+#      - /dev/vda3
 
 # enable consul
 include:
