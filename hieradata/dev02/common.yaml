@@ -22,9 +22,10 @@ ntp::servers:
 
 named_interfaces::config:
   mgmt:
-    - br0
+    - eth0
   transport:
-    - em1
+    - eth1
+    - eth2
   public:
     - dummy0
 

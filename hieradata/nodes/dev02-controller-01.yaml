@@ -1,6 +1,12 @@
 ---
 profile::base::common::manage_networkifs:    true
 
+named_interfaces::config:
+  mgmt:
+    - br0
+  transport:
+    - em1
+
 network::interfaces_hash:
   'em1':
     onboot:    'yes'
