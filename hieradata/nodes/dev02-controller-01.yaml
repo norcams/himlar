@@ -3,7 +3,7 @@ profile::base::common::manage_networkifs:    true
 
 network::interfaces_hash:
   'em1':
-    onboot:    'no'
+    onboot:    'yes'
   'em2':
     onboot:    'yes'
     bridge:    'br0'

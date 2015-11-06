@@ -18,6 +18,14 @@ ntp::servers:
   - ntp.ntnu.no
   - ntp2.ntnu.no
 
+named_interfaces::config:
+  mgmt:
+    - em2
+  transport:
+    - em1
+  public:
+    - dummy0
+
 profile::network::services::dns_options:
   CNAME:
     default:
