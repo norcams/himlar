@@ -1,5 +1,11 @@
 ---
-# Reflector clients (must be set per location)
+calico::debug: false
+
+# Reflector settings
+calico::reflector::client_defaults:
+  peer_as: 65534
+  local_as: 65534
+
 calico::reflector::clients:
   c1:
     peer_ipv4: '172.31.66.14'
@@ -7,8 +13,15 @@ calico::reflector::clients:
     peer_ipv4: '172.31.66.15'
   c3:
     peer_ipv4: '172.31.66.16'
+  gw:
+    peer_ipv4: '172.31.66.1'
 
-# compute node to RR connection (set per location)
+# compute node settings
+calico::compute::peer_defaults:
+  peer_as: 65534
+  local_as: 65534
+  local_ipv4: "%{ipaddress_transport1}"
+
 calico::compute::peers:
   rr1:
     peer_ipv4: '172.31.66.6'
