@@ -1,12 +1,4 @@
 ---
-profile::base::common::manage_networkifs:    true
-
-named_interfaces::config:
-  mgmt:
-    - em2
-  transport:
-    - em1
-
 network::interfaces_hash:
   'em1':
     ipaddress: '172.31.66.16'
@@ -18,4 +10,3 @@ network::interfaces_hash:
     netmask:   '255.255.255.0'
     gateway:   '10.171.92.1'
     defroute:  no
-

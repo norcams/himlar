@@ -1,0 +1,8 @@
+---
+profile::base::common::manage_networkifs:    true
+
+named_interfaces::config:
+  mgmt:
+    - em2
+  transport:
+    - em1
