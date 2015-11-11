@@ -15,6 +15,8 @@ profile::application::foreman::manage_eyaml:    true
 profile::application::foreman::manage_firewall: true
 profile::network::services::manage_dns_records: true
 
+openstack_extras::repo::redhat::redhat::purge_unmanaged: false
+
 foreman::foreman_url:                       "https://%{fqdn}"
 foreman::configure_epel_repo:               false
 foreman::admin_username:                    'admin'
