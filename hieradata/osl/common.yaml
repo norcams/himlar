@@ -12,7 +12,7 @@ named_interfaces::config:
     - em1
     - em2
 
-service__address__mysql:             '129.240.224.102'
+service__address__mysql:             '129.240.224.103'
 service__address__rabbitmq:          '129.240.224.102'
 service__address__keystone:          '129.240.224.102'
 service__address__glance_registry:   '129.240.224.102'
@@ -48,9 +48,11 @@ profile::network::services::dns_records:
     'admin.iaas.uio.no':                   'osl-foreman-01.iaas.uio.no'
     'repo.iaas.uio.no':                    'osl-foreman-01.iaas.uio.no'
     'master.iaas.uio.no':                  'osl-master-01.iaas.uio.no'
+    'db.iaas.uio.no':                      'osl-db-01.iaas.uio.no'
   A:
     'osl-foreman-01.iaas.uio.no':          '129.240.224.101'
     'osl-master-01.iaas.uio.no':           '129.240.224.102'
+    'osl-db-01.iaas.uio.no':               '129.240.224.103'
     'osl-controller-01.iaas.uio.no':       '129.240.224.107'
     'osl-controller-02.iaas.uio.no':       '129.240.224.108'
     'osl-controller-03.iaas.uio.no':       '129.240.224.109'

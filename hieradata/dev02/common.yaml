@@ -12,7 +12,7 @@ service__address__consoleproxy:      '158.38.144.254'
 service__address__cinder_api:        '158.38.144.254'
 
 service__address__keystone_admin:    '10.171.92.6'
-service__address__mysql:             '10.171.92.6'
+service__address__mysql:             '10.171.92.7'
 service__address__rabbitmq:          '10.171.92.6'
 service__address__etcd_cluster:      '10.171.92.6'
 
@@ -47,10 +47,12 @@ profile::network::services::dns_records:
     'admin.dev.iaas.ntnu.no':             'dev02-foreman-01.dev.iaas.ntnu.no'
     'repo.dev.iaas.ntnu.no':              'dev02-foreman-01.dev.iaas.ntnu.no'
     'master.dev.iaas.ntnu.no':            'dev02-master-01.dev.iaas.ntnu.no'
+    'db.dev.iaas.ntnu.no':                'dev02-db-01.dev.iaas.ntnu.no'
   A:
     'dev02-login-01.dev.iaas.ntnu.no':      '129.241.14.144'
     'dev02-foreman-01.dev.iaas.ntnu.no':    '10.171.92.5'
     'dev02-master-01.dev.iaas.ntnu.no':     '10.171.92.6'
+    'dev02-db-01.dev.iaas.ntnu.no':         '10.171.92.7'
     'dev02-controller-01.dev.iaas.ntnu.no': '10.171.92.11'
     'dev02-controller-02.dev.iaas.ntnu.no': '10.171.92.12'
     'dev02-controller-03.dev.iaas.ntnu.no': '10.171.92.13'
