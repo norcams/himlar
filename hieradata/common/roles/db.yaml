@@ -1,0 +1,10 @@
+---
+include:
+  default:
+    - profile::openstack::database::sql
+
+profile::base::common::manage_lvm: false
+
+named_interfaces::config:
+  mgmt:
+     - eth0

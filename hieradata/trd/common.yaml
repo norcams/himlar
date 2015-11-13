@@ -2,7 +2,7 @@
 location_environment: prod
 location_description: Production environment in Trondheim
 
-service__address__mysql:             '10.171.91.6'
+service__address__mysql:             '10.171.91.7'
 service__address__rabbitmq:          '10.171.91.6'
 service__address__keystone:          '10.171.91.6'
 service__address__glance_registry:   '10.171.91.6'
@@ -36,10 +36,12 @@ profile::network::services::dns_records:
     'admin.iaas.ntnu.no':             'trd-foreman-01.iaas.ntnu.no'
     'repo.iaas.ntnu.no':              'trd-foreman-01.iaas.ntnu.no'
     'master.iaas.ntnu.no':            'trd-master-01.iaas.ntnu.no'
+    'db.iaas.ntnu.no':                'trd-db-01.iaas.ntnu.no'
   A:
     'trd-login-01.iaas.ntnu.no':      '129.241.14.143'
     'trd-foreman-01.iaas.ntnu.no':    '10.171.91.5'
     'trd-master-01.iaas.ntnu.no':     '10.171.91.6'
+    'trd-db-01.iaas.ntnu.no':         '10.171.91.7'
     'trd-controller-01.iaas.ntnu.no': '10.171.91.11'
     'trd-controller-02.iaas.ntnu.no': '10.171.91.12'
     'trd-controller-03.iaas.ntnu.no': '10.171.91.13'

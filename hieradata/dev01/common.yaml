@@ -12,7 +12,7 @@ service__address__consoleproxy:      '129.177.31.126'
 service__address__cinder_api:        '129.177.31.126'
 
 service__address__keystone_admin:    '192.168.10.20'
-service__address__mysql:             '192.168.10.20'
+service__address__mysql:             '192.168.10.21'
 service__address__rabbitmq:          '192.168.10.20'
 service__address__etcd_cluster:      '192.168.10.20'
 
@@ -52,6 +52,7 @@ profile::network::services::dns_records:
     'admin.mgmt.dev.iaas.intern':              'dev01-foreman-01.mgmt.dev.iaas.intern'
     'repo.mgmt.dev.iaas.intern':               'dev01-foreman-01.mgmt.dev.iaas.intern'
     'master.mgmt.dev.iaas.intern':             'dev01-master-01.mgmt.dev.iaas.intern'
+    'db.mgmt.dev.iaas.intern':                 'dev01-db-01.mgmt.dev.iaas.intern'
   A:
     'dev01-login.mgmt.dev.iaas.intern':          '192.168.10.2'
     'dev01-monitoring-01.mgmt.dev.iaas.intern':  '192.168.10.3'
@@ -60,6 +61,7 @@ profile::network::services::dns_records:
     'dev01-foreman-01.mgmt.dev.iaas.intern':     '192.168.10.11'
     'dev01-monitoring-01.mgmt.dev.iaas.intern':  '192.168.10.12'
     'dev01-master-01.mgmt.dev.iaas.intern':      '192.168.10.20'
+    'dev01-db-01.mgmt.dev.iaas.intern':          '192.168.10.21'
     'dev01-compute-01.mgmt.dev.iaas.intern':     '192.168.10.22'
     'dev01-compute-02.mgmt.dev.iaas.intern':     '192.168.10.23'
     'dev01-compute-03.mgmt.dev.iaas.intern':     '192.168.10.24'
