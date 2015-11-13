@@ -1,25 +1,15 @@
-profile::base::common::manage_networkifs:    true
-
-netcf_if:
-  em4:
-    ensure: present
-    definition:  '
-      <interface type="ethernet" name="em4">
-        <start mode="onboot"/>
-        <mtu size="1500"/>
-        <protocol family="ipv4">
-          <ip address="172.16.100.9" prefix="24"/>
-        </protocol>
-      </interface>'
-  em3:
-    ensure: present
-    definition:  '
-      <interface type="ethernet" name="em3">
-        <start mode="onboot"/>
-        <mtu size="1500"/>
-        <protocol family="ipv4">
-          <ip address="129.240.224.111" prefix="27"/>
-          <route gateway="129.240.224.97"/>
-        </protocol>
-      </interface>'
-
+---
+network::interfaces_hash:
+  'em1':
+    ipaddress: '172.18.32.9'
+    netmask:   '255.255.248.0'
+    defroute:  no
+  'em2':
+    ipaddress: '172.18.40.9'
+    netmask:   '255.255.248.0'
+    defroute:  no
+  'em3':
+    ipaddress: '129.240.224.111'
+    netmask:   '255.255.255.224'
+    gateway:   '129.240.224.97'
+    defroute:  yes

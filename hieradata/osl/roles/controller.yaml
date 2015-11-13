@@ -1,4 +1,11 @@
 ---
+named_interfaces::config:
+  mgmt:
+    - br0
+  transport:
+    - em1
+    - em2
+
 foreman_bootstrap::virt_install:
   osl-foreman-01:
     domain:          'iaas.uio.no'

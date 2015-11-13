@@ -7,21 +7,23 @@ location_description: Production environment in Oslo
 #
 named_interfaces::config:
   mgmt:
-    - em3
+    - eth0
   transport:
-    - em1
-    - em2
+    - eth1
+    - eth2
+  public:
+    - dummy0
 
-service__address__mysql:             '129.240.224.103'
+service__address__glance_api:        '158.37.63.254'
+service__address__nova_api:          '158.37.63.254'
+service__address__nova_api_metadata: '158.37.63.254'
+service__address__neutron_server:    '158.37.63.254'
+service__address__consoleproxy:      '158.37.63.254'
+service__address__cinder_api:        '158.37.63.254'
+
+service__address__keystone_admin:    '129.240.224.102'
+service__address__mysql:             '129.240.224.113'
 service__address__rabbitmq:          '129.240.224.102'
-service__address__keystone:          '129.240.224.102'
-service__address__glance_registry:   '129.240.224.102'
-service__address__glance_api:        '129.240.224.102'
-service__address__nova_api:          '129.240.224.102'
-service__address__nova_api_metadata: '129.240.224.102'
-service__address__neutron_server:    '129.240.224.102'
-service__address__consoleproxy:      '129.240.224.102'
-service__address__cinder_api:        '129.240.224.102'
 service__address__etcd_cluster:      '129.240.224.102'
 
 foreman_bootstrap::nameserver: 129.240.2.3
@@ -52,12 +54,11 @@ profile::network::services::dns_records:
   A:
     'osl-foreman-01.iaas.uio.no':          '129.240.224.101'
     'osl-master-01.iaas.uio.no':           '129.240.224.102'
-    'osl-db-01.iaas.uio.no':               '129.240.224.103'
+# 103,104,105,106 are routers
     'osl-controller-01.iaas.uio.no':       '129.240.224.107'
     'osl-controller-02.iaas.uio.no':       '129.240.224.108'
     'osl-controller-03.iaas.uio.no':       '129.240.224.109'
     'osl-compute-01.iaas.uio.no':          '129.240.224.110'
-    'osl-compute-lvm-01.iaas.uio.no':      '129.240.224.110'
     'osl-compute-02.iaas.uio.no':          '129.240.224.111'
     'osl-compute-03.iaas.uio.no':          '129.240.224.112'
-
+    'osl-db-01.iaas.uio.no':               '129.240.224.113'

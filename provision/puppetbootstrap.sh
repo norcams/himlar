@@ -22,8 +22,6 @@ bootstrap_puppet()
 
   gem install r10k --no-ri --no-rdoc
 
-  yum install -y http://folk.uio.no/beddari/libnetcf-ruby-0.0.2-1.x86_64.rpm
-
   # file locations
   rm -rf /etc/puppet/manifests
   ln -sfT /opt/himlar/manifests /etc/puppet/manifests
