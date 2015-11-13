@@ -1,4 +1,8 @@
 ---
+include:
+  default:
+    - profile::openstack::database::sql
+
 profile::firewall::rules:
   '020 allow all from transport network to public ip':
     destination: "%{ipaddress_public1}"
