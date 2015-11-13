@@ -144,7 +144,7 @@ mod 'augeasproviders', :ref => 'v2.1.3',         :git => github + 'hercules-team
 mod 'augeasproviders_apache', :ref => '2.0.0',   :git => github + 'hercules-team/augeasproviders_apache'
 mod 'augeasproviders_core', :ref => '2.1.1',     :git => github + 'hercules-team/augeasproviders_core'
 mod 'augeasproviders_base', :ref => '2.0.1',     :git => github + 'hercules-team/augeasproviders_base'
-mod 'augeasproviders_grub', :ref => '2.0.1',     :git => github + 'hercules-team/augeasproviders_grub'
+mod 'augeasproviders_grub', :ref => '86ad46f5',  :git => github + 'hercules-team/augeasproviders_grub'
 mod 'augeasproviders_mounttab', :ref =>'2.0.0',  :git => github + 'hercules-team/augeasproviders_mounttab'
 mod 'augeasproviders_nagios', :ref => '2.0.1',   :git => github + 'hercules-team/augeasproviders_nagios'
 mod 'augeasproviders_pam', :ref => '2.0.3',      :git => github + 'hercules-team/augeasproviders_pam'
