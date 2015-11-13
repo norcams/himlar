@@ -23,6 +23,7 @@ mod 'hostname', :ref => '0.0.2',                 :git => github + 'peopleware/pu
 mod 'resolv_conf', :ref => 'v3.0.3',             :git => github + 'saz/puppet-resolv_conf'
 mod 'lvm', :ref => '689d42a16c',                 :git => github + 'puppetlabs/puppetlabs-lvm'
 mod 'firewall', :ref => '1.5.0',                 :git => github + 'puppetlabs/puppetlabs-firewall'
+mod 'kmod', :ref => '2.1.0',                     :git => github + 'camptocamp/puppet-kmod'
 
 #
 # profile::base::login
