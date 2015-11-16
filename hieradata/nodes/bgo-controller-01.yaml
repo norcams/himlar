@@ -1,4 +1,6 @@
 ---
+profile::base::common::manage_networkifs: true
+
 network::interfaces_hash:
   'em1':
     onboot:    "yes"
