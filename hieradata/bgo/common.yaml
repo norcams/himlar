@@ -2,16 +2,18 @@
 location_environment: prod
 location_description: Production environment in Bergen
 
+service__address__keystone:          '158.39.77.254'
+service__address__glance_registry:   '158.39.77.254'
+service__address__glance_api:        '158.39.77.254'
+service__address__nova_api:          '158.39.77.254'
+service__address__nova_api_metadata: '158.39.77.254'
+service__address__neutron_server:    '158.39.77.254'
+service__address__consoleproxy:      '158.39.77.254'
+service__address__cinder_api:        '158.39.77.254'
+
+service__address__keystone_admin:    '172.16.32.20'
 service__address__mysql:             '172.16.32.21'
 service__address__rabbitmq:          '172.16.32.20'
-service__address__keystone:          '172.16.32.20'
-service__address__glance_registry:   '172.16.32.20'
-service__address__glance_api:        '172.16.32.20'
-service__address__nova_api:          '172.16.32.20'
-service__address__nova_api_metadata: '172.16.32.20'
-service__address__neutron_server:    '172.16.32.20'
-service__address__consoleproxy:      '172.16.32.20'
-service__address__cinder_api:        '172.16.32.20'
 service__address__etcd_cluster:      '172.16.32.20'
 
 ntp::servers:

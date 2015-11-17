@@ -1,0 +1,9 @@
+---
+named_interfaces::config:
+  mgmt:
+     - eth0
+  transport:
+     - eth1
+
+# reflectors on cumulus gws for prod
+calico::reflector: false

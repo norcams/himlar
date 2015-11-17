@@ -1,0 +1,25 @@
+---
+calico::debug: true
+
+# Reflector settings
+calico::reflector::client_defaults:
+  peer_as: 65502
+  local_as: 65502
+
+calico::reflector::clients:
+  c1:
+    peer_ipv4: '172.18.0.103'
+  c2:
+    peer_ipv4: '172.18.0.104'
+  c3:
+    peer_ipv4: '172.18.0.105'
+
+# compute node settings
+calico::compute::peer_defaults:
+  peer_as: 65502
+  local_as: 65502
+  local_ipv4: "%{ipaddress_transport1}"
+
+calico::compute::peers:
+  rr1:
+    peer_ipv4: '172.18.0.1'
