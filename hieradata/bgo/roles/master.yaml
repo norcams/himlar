@@ -4,6 +4,13 @@ named_interfaces::config:
      - eth0
   transport:
      - eth1
+  public:
+     - dummy0
+
+profile::firewall::rules:
+  '020 allow all from transport network to public ip':
+    destination: "%{ipaddress_public1}"
+    source: '172.18.0.0/19'
 
 # reflectors on cumulus gws for prod
 calico::reflector: false
