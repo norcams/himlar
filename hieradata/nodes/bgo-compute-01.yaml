@@ -1,15 +1,17 @@
+---
 profile::base::common::manage_networkifs:    true
 
-netcf_if:
-  em3:
-    ensure: present
-    definition:  '
-      <interface type="ethernet" name="em3">
-        <start mode="onboot"/>
-        <mtu size="1500"/>
-        <protocol family="ipv4">
-          <ip address="172.16.32.103" prefix="21"/>
-          <route gateway="172.16.32.1"/>
-        </protocol>
-      </interface>'
-
+network::interfaces_hash:
+  'em1':
+    ipaddress: '172.18.0.103'
+    netmask:   '255.255.248.0'
+    defroute:  no
+  'em2':
+    ipaddress: '172.18.8.103'
+    netmask:   '255.255.248.0'
+    defroute:  no
+  'em3':
+    ipaddress: '172.16.32.103'
+    netmask:   '255.255.248.0'
+    gateway:   '172.16.32.1'
+    defroute:  yes
