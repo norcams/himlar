@@ -1,0 +1,19 @@
+---
+profile::base::common::manage_networkifs: true
+
+network::interfaces_hash:
+  'em1':
+    onboot:    "yes"
+  'em2':
+    onboot:    "yes"
+  'em3':
+    onboot:    "yes"
+    bridge:    "br0"
+  'br0':
+    ipaddress: "172.16.32.101"
+    netmask:   "255.255.248.0"
+    gateway:   "172.16.32.1"
+    defroute:  "yes"
+    onboot:    "yes"
+    mtu:       "1500"
+    type:      'Bridge'
