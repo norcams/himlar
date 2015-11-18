@@ -3,13 +3,13 @@ network::interfaces_hash:
   'em1':
     ipaddress: '172.18.32.9'
     netmask:   '255.255.248.0'
-    defroute:  no
+    defroute:  'no'
   'em2':
     ipaddress: '172.18.40.9'
     netmask:   '255.255.248.0'
-    defroute:  no
+    defroute:  'no'
   'em3':
     ipaddress: '129.240.224.111'
     netmask:   '255.255.255.224'
     gateway:   '129.240.224.97'
-    defroute:  yes
+    defroute:  'yes'

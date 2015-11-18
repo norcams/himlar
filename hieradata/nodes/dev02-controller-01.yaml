@@ -1,6 +1,4 @@
 ---
-profile::base::common::manage_networkifs:    true
-
 named_interfaces::config:
   mgmt:
     - br0
@@ -17,7 +15,7 @@ network::interfaces_hash:
     ipaddress: '10.171.92.11'
     netmask:   '255.255.255.0'
     gateway:   '10.171.92.1'
-    defroute:  yes
+    defroute:  'yes'
     onboot:    'yes'
     mtu:       '1500'
     type:      'Bridge'

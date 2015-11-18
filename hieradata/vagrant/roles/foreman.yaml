@@ -8,10 +8,3 @@ foreman_proxy::dns_managed:      true
 foreman_proxy::dns_server:       '10.0.3.5'
 foreman_proxy::keyfile:          '/etc/rndc.key'
 
-profile::base::common::manage_networkifs: true
-network_if:
-  eth1:
-    ipv4_ips:   10.0.3.5/24
-    ensure:     up
-    start_mode: onboot
-    type:       ethernet

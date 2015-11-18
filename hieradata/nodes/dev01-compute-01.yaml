@@ -1,18 +1,13 @@
 ---
-profile::base::common::manage_networkifs:    true
-
 network::interfaces_hash:
   'eth0':
     ipaddress: '192.168.10.22'
     netmask:   '255.255.255.0'
     mtu:       '1500'
-    defroute:  no
+    defroute:  'no'
   'eth0.912':
     ipaddress: '172.17.16.22'
     netmask:   '255.255.240.0'
     gateway:   '172.17.16.1'
     defroute:  'yes'
     vlan:      'yes'
-
-mgmt_interface: 'eth0'
-mgmt_address: "%{ipaddress_eth0}"

@@ -1,15 +1,8 @@
-profile::base::common::manage_networkifs:    true
-
+---
 netcf_if:
-  eth0:
-    ensure: present
-    definition:  '
-      <interface type="ethernet" name="eth0">
-        <start mode="onboot"/>
-        <mtu size="1500"/>
-        <protocol family="ipv4">
-          <ip address="192.168.10.12" prefix="24"/>
-          <route gateway="192.168.10.1"/>
-        </protocol>
-      </interface>'
-
+  'eth0':
+    onboot:    'yes'
+    mtu:       '1500'
+    ipaddress: '192.168.10.12'
+    netmask:   '255.255.255.0'
+    gateway:   '192.168.10.1'
