@@ -1,15 +1,9 @@
 ---
-profile::base::common::manage_networkifs:    true
-
-netcf_if:
-  em1:
-    ensure: present
-    definition:  '
-      <interface type="ethernet" name="em1">
-        <start mode="onboot"/>
-        <mtu size="1500"/>
-        <protocol family="ipv4">
-          <ip address="10.171.92.32" prefix="24"/>
-          <route gateway="10.171.92.1"/>
-        </protocol>
-      </interface>'
+network::interfaces_hash:
+  'em1':
+    onboot:    'yes'
+    mtu:       '1500'
+    ipaddress: '10.171.92.32'
+    netmask:   '255.255.255.0'
+    gateway:   '10.171.92.1'
+    defroute:  'yes'

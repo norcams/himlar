@@ -1,17 +1,17 @@
 ---
 network::interfaces_hash:
   'em1':
-    onboot:    "yes"
+    onboot:    'yes'
   'em2':
-    onboot:    "yes"
+    onboot:    'yes'
   'em3':
-    onboot:    "yes"
-    bridge:    "br0"
+    onboot:    'yes'
+    bridge:    'br0'
   'br0':
-    ipaddress: "129.240.224.109"
-    netmask:   "255.255.255.224"
-    gateway:   "129.240.224.97"
-    defroute:  "yes"
-    onboot:    "yes"
-    mtu:       "1500"
+    ipaddress: '129.240.224.109'
+    netmask:   '255.255.255.224'
+    gateway:   '129.240.224.97'
+    defroute:  'yes'
+    onboot:    'yes'
+    mtu:       '1500'
     type:      'Bridge'

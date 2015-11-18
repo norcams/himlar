@@ -1,12 +1,10 @@
 ---
-profile::base::common::manage_networkifs:    true
-
 network::interfaces_hash:
   'em1':
     ipaddress: '192.168.10.27'
     netmask:   '255.255.255.0'
     mtu:       '1500'
-    defroute:  no
+    defroute:  'no'
   'em1.912':
     ipaddress: '172.17.16.27'
     netmask:   '255.255.240.0'
@@ -20,9 +18,6 @@ named_interfaces::config:
   transport:
      - em1_912
      - em2
-
-mgmt_interface: 'em1'
-mgmt_address: "%{ipaddress_em1}"
 
 profile::base::lvm::physical_volume:
   '/dev/sda3':

@@ -1,8 +1,9 @@
-profile::base::common::manage_networkifs:    true
-
+---
 network::interfaces_hash:
   'eth0':
+    onboot:    'yes'
+    mtu:       '1500'
     ipaddress: '192.168.10.21'
     netmask:   '255.255.255.0'
     gateway:   '192.168.10.1'
-    mtu:       '1500'
+    defroute:  'yes'
