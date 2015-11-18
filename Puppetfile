@@ -18,12 +18,13 @@ mod 'ntp', :ref => '3.3.0',                      :git => github + 'puppetlabs/pu
 mod 'accounts', :ref => 'e12dd12bb8',            :git => github + 'norcams/puppet-accounts'
 mod 'timezone', :ref => 'v3.1.1',                :git => github + 'saz/puppet-timezone.git'
 mod 'keyboard', :ref => '0.1.0',                 :git => github + 'norcams/puppet-keyboard'
-mod 'netcf', :ref => '4c3142e4f7',               :git => github + 'raphink/puppet-netcf.git'
 mod 'hostname', :ref => '0.0.2',                 :git => github + 'peopleware/puppet-hostname'
 mod 'resolv_conf', :ref => 'v3.0.3',             :git => github + 'saz/puppet-resolv_conf'
 mod 'lvm', :ref => '689d42a16c',                 :git => github + 'puppetlabs/puppetlabs-lvm'
 mod 'firewall', :ref => '1.5.0',                 :git => github + 'puppetlabs/puppetlabs-firewall'
 mod 'kmod', :ref => '2.1.0',                     :git => github + 'camptocamp/puppet-kmod'
+mod 'named_interfaces', :ref => '0.2.0',         :git => github + 'norcams/puppet-named_interfaces'
+mod 'network', :ref => '3aa66859b7',             :git => github + 'beddari/puppet-network'
 
 #
 # profile::base::login
@@ -42,9 +43,6 @@ mod 'bird', :ref => 'master',                    :git => github + 'norcams/puppe
 mod 'calico', :ref => 'master',                  :git => github + 'norcams/puppet-calico'
 mod 'dnsmasq', :ref => 'v1.2.0',                 :git => github + 'saz/puppet-dnsmasq'
 mod 'ipcalc', :ref => '1.2.2',                   :git => github + 'inkblot/puppet-ipcalc'
-mod 'named_interfaces', :ref => '0.2.0',         :git => github + 'norcams/puppet-named_interfaces'
-mod 'network', :ref => 'v3.1.26',                :git => github + 'example42/puppet-network'
-mod 'stdmod', :ref => '929ba74496',              :git => github + 'stdmod/stdmod'
 
 #
 # profile::application::etcd
