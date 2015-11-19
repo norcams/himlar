@@ -4,6 +4,8 @@ named_interfaces::config:
      - eth0
   transport:
      - eth1
+  public:
+     - dummy0
 
 # NOTE: reflectors will be on cumulus gws for prod
 calico::reflector: true
