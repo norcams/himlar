@@ -5,5 +5,5 @@ named_interfaces::config:
   transport:
      - eth1
 
-# reflectors on cumulus gws for prod
-calico::reflector: false
+# NOTE: reflectors will be on cumulus gws for prod
+calico::reflector: true
