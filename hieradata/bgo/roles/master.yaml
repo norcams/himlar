@@ -7,10 +7,10 @@ named_interfaces::config:
   public:
      - dummy0
 
+# NOTE: reflectors will be on cumulus gws for prod
+calico::reflector: true
+
 profile::firewall::rules:
   '020 allow all from transport network to public ip':
     destination: "%{ipaddress_public1}"
     source: '172.18.0.0/19'
-
-# reflectors on cumulus gws for prod
-calico::reflector: false
