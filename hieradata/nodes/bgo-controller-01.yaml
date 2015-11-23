@@ -8,9 +8,9 @@ network::interfaces_hash:
     onboot:    "yes"
     bridge:    "br0"
   'br0':
-    ipaddress: "172.16.32.100"
+    ipaddress: "172.16.0.100"
     netmask:   "255.255.248.0"
-    gateway:   "172.16.32.1"
+    gateway:   "172.16.0.1"
     defroute:  "yes"
     onboot:    "yes"
     mtu:       "1500"

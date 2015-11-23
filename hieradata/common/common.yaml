@@ -55,8 +55,8 @@ networks:
       mgmt: mgmt.iaas.intern
       oob: oob.iaas.intern
     subnet:
-      mgmt: 172.16.32.1/21
-      oob: 172.16.24.1/21
+      mgmt: 172.16.0.1/21
+      oob: 172.17.0.1/21
     dhcp:
       mgmt:
         ensure: absent
