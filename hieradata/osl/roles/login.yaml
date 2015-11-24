@@ -1,5 +1,6 @@
 ---
 profile::network::services::manage_dhcp: false
+profile::network::services::manage_nat: false
 
 foreman_bootstrap::tftp_install:
   osl-controller-01:

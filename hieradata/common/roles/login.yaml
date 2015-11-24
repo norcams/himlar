@@ -6,6 +6,7 @@ include:
     - foreman_bootstrap::instances
 
 profile::base::common::manage_firewall: false
+profile::network::services::manage_nat: true
 
 accounts::accounts:
   '@admins':
