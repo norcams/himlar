@@ -73,6 +73,12 @@ accounts::users:
   'trondham':
     comment: 'trondham@norcams'
     groups:  [ 'users', 'wheel' ]
+  'kyrreli':
+    comment: 'kyrreli@norcams'
+    groups:  [ 'users', 'wheel' ]
+  'knutvi':
+    comment: 'knutvi@norcams'
+    groups:  [ 'users', 'wheel' ]
 
 accounts::usergroups:
   'admins':
@@ -84,6 +90,8 @@ accounts::usergroups:
     - 'raymond'
     - 'torldre'
     - 'trondham'
+    - 'kyrreli'
+    - 'knutvi'
 
 accounts::accounts:
   'iaas':
