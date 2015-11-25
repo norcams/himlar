@@ -7,7 +7,7 @@ local  = 'iaas@git.norcams.org:'
 #
 # profile
 #
-mod 'profile', :ref => 'norcams-0.8.3',          :git => github + 'norcams/puppeels'
+mod 'profile', :ref => 'norcams-0.9.0',          :git => github + 'norcams/puppeels'
 
 #
 # profile::base::common
@@ -25,6 +25,8 @@ mod 'firewall', :ref => '1.5.0',                 :git => github + 'puppetlabs/pu
 mod 'kmod', :ref => '2.1.0',                     :git => github + 'camptocamp/puppet-kmod'
 mod 'named_interfaces', :ref => '0.2.0',         :git => github + 'norcams/puppet-named_interfaces'
 mod 'network', :ref => 'v3.1.26-11-g3aa6685',    :git => github + 'beddari/puppet-network'
+mod 'ipmi', :ref => 'v2.1.0',                    :git => github + 'jhoblitt/puppet-ipmi'
+mod 'lldp', :ref => '06523de010',                :git => github + 'norcams/puppet-lldp'
 
 #
 # profile::base::login
