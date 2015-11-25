@@ -9,6 +9,7 @@ unless defined? settings
   local = File.join(File.dirname(__FILE__), 'nodes.yaml.local')
   if File.exist?(local)
     config = local
+    puts "REMINDER: Local config file nodes.yaml.local is present"
   end
   settings = YAML.load(File.open(config, File::RDONLY).read)
 
