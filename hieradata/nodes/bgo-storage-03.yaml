@@ -1,5 +1,13 @@
 ---
 network::interfaces_hash:
+  'em1':
+    ipaddress: '172.18.0.108'
+    netmask:   '255.255.248.0'
+    defroute:  no
+  'em2':
+    ipaddress: '172.18.8.108'
+    netmask:   '255.255.248.0'
+    defroute:  no
   'em3':
     ipaddress: '172.16.0.108'
     netmask:   '255.255.248.0'
