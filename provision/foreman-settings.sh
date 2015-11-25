@@ -12,7 +12,8 @@ set -o xtrace
 foreman_fqdn=$(hostname -f)
 foreman_domain=${foreman_fqdn#*.}
 foreman_location=${foreman_fqdn%%-*}
-mgmt_interface=$(hiera foreman_proxy::dhcp_interface role=foreman location=$foreman_location)
+mgmt_interface=eth0
+#mgmt_interface=$(hiera foreman_proxy::dhcp_interface role=foreman location=$foreman_location)
 mgmt_network=$(facter network_${mgmt_interface})
 mgmt_netmask=$(facter netmask_${mgmt_interface})
 
@@ -82,9 +83,9 @@ common_config()
     --tftp-id       $foreman_proxy_id \
     --dns-primary   '' \
     --dns-secondary '' \
-    --gateway       '' \
-    --dns-id        '' \
-    --dhcp-id       ''
+    --gateway       ''
+#    --dns-id        '' \
+#    --dhcp-id       ''
   foreman_subnet_id=$(hammer --csv subnet info --name mgmt | tail -n1 | cut -d, -f1)
 
   #
