@@ -21,7 +21,7 @@ service__address__consoleproxy:      '158.39.48.254'
 service__address__cinder_api:        '158.39.48.254'
 
 service__address__keystone_admin:    '10.171.91.6'
-service__address__mysql:             '10.171.91.7'
+service__address__mysql:             '10.171.91.4'
 service__address__rabbitmq:          '10.171.91.6'
 service__address__etcd_cluster:      '10.171.91.6'
 
@@ -50,9 +50,9 @@ profile::network::services::dns_records:
     'db.iaas.ntnu.no':                'trd-db-01.iaas.ntnu.no'
   A:
     'trd-login-01.iaas.ntnu.no':      '129.241.14.143'
+    'trd-db-01.iaas.ntnu.no':         '10.171.91.4'
     'trd-foreman-01.iaas.ntnu.no':    '10.171.91.5'
     'trd-master-01.iaas.ntnu.no':     '10.171.91.6'
-    'trd-db-01.iaas.ntnu.no':         '10.171.91.7'
     'trd-controller-01.iaas.ntnu.no': '10.171.91.11'
     'trd-controller-02.iaas.ntnu.no': '10.171.91.12'
     'trd-controller-03.iaas.ntnu.no': '10.171.91.13'
