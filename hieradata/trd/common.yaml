@@ -2,16 +2,27 @@
 location_environment: prod
 location_description: Production environment in Trondheim
 
+named_interfaces::config:
+  mgmt:
+    - eth0
+  transport:
+    - eth1
+    - eth2
+  public:
+    - dummy0
+
+service__address__keystone:          '158.39.48.254'
+service__address__glance_registry:   '158.39.48.254'
+service__address__glance_api:        '158.39.48.254'
+service__address__nova_api:          '158.39.48.254'
+service__address__nova_api_metadata: '158.39.48.254'
+service__address__neutron_server:    '158.39.48.254'
+service__address__consoleproxy:      '158.39.48.254'
+service__address__cinder_api:        '158.39.48.254'
+
+service__address__keystone_admin:    '10.171.91.6'
 service__address__mysql:             '10.171.91.7'
 service__address__rabbitmq:          '10.171.91.6'
-service__address__keystone:          '10.171.91.6'
-service__address__glance_registry:   '10.171.91.6'
-service__address__glance_api:        '10.171.91.6'
-service__address__nova_api:          '10.171.91.6'
-service__address__nova_api_metadata: '10.171.91.6'
-service__address__neutron_server:    '10.171.91.6'
-service__address__consoleproxy:      '10.171.91.6'
-service__address__cinder_api:        '10.171.91.6'
 service__address__etcd_cluster:      '10.171.91.6'
 
 ntp::servers:
