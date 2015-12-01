@@ -5,3 +5,6 @@ named_interfaces::config:
   transport:
     - em1
     - em2
+
+profile::base::network::manage_httpproxy: 'true'
+profile::base::network::http_proxy:       "%{hiera('service__address__proxy')}:8888"

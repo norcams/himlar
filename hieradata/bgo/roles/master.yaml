@@ -14,3 +14,6 @@ profile::firewall::rules:
   '020 allow all from transport network to public ip':
     destination: "%{ipaddress_public1}"
     source: '172.18.0.0/19'
+
+profile::base::network::manage_httpproxy: 'true'
+profile::base::network::http_proxy:       "%{hiera('service__address__proxy')}:8888"
