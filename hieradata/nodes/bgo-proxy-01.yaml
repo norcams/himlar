@@ -5,6 +5,7 @@ network::interfaces_hash:
     netmask:   '255.255.248.0'
     gateway:   '172.16.0.1'
     mtu:       '1500'
+    peerdns:   'yes'
     dns1:      '129.177.6.54'
     dns2:      '129.177.12.31'
     domain:    'mgmt.iaas.intern'
