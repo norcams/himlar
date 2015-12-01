@@ -15,6 +15,7 @@ service__address__keystone_admin:    '172.16.0.20'
 service__address__mysql:             '172.16.0.21'
 service__address__rabbitmq:          '172.16.0.20'
 service__address__etcd_cluster:      '172.16.0.20'
+service__address__proxy:             '172.16.0.12'
 
 ntp::servers:
   - ntp.uib.no
