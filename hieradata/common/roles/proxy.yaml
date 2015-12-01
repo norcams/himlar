@@ -1,0 +1,8 @@
+---
+include:
+  default:
+    - profile::network::services
+
+profile::network::services::dns_proxy: true
+profile::network::services::http_proxy: true
+

@@ -7,7 +7,7 @@ local  = 'iaas@git.norcams.org:'
 #
 # profile
 #
-mod 'profile', :ref => 'norcams-0.9.1',          :git => github + 'norcams/puppeels'
+mod 'profile', :ref => 'norcams-0.10.0',         :git => github + 'norcams/puppeels'
 
 #
 # profile::base::common
@@ -45,6 +45,7 @@ mod 'bird', :ref => 'master',                    :git => github + 'norcams/puppe
 mod 'calico', :ref => 'master',                  :git => github + 'norcams/puppet-calico'
 mod 'dnsmasq', :ref => 'v1.2.0',                 :git => github + 'saz/puppet-dnsmasq'
 mod 'ipcalc', :ref => '1.2.2',                   :git => github + 'inkblot/puppet-ipcalc'
+mod 'tinyproxy', :ref => 'bc56e3ecc2',           :git => github + 'earsdown/puppet-tinyproxy'
 
 #
 # profile::application::etcd
