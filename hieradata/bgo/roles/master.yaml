@@ -7,6 +7,11 @@ named_interfaces::config:
   public:
      - dummy0
 
+ntp::servers:
+  - 172.16.0.100
+  - 172.16.0.101
+  - 172.16.0.102
+
 # NOTE: reflectors will be on cumulus gws for prod
 calico::reflector: true
 

@@ -14,3 +14,5 @@ foreman_bootstrap::virt_install:
     install_ip:      '172.16.0.11'
     install_netmask: '255.255.248.0'
     install_gateway: '172.16.0.1'
+
+profile::network::services::ntp_server: 'true'

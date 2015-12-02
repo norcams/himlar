@@ -1,10 +1,18 @@
 ---
-named_interfaces::config:
+include:
+  bootstrap:
+    profile::base::network
+
   mgmt:
     - em3
   transport:
     - em1
     - em2
+
+ntp::servers:
+  - 172.16.0.100
+  - 172.16.0.101
+  - 172.16.0.102
 
 profile::base::network::manage_httpproxy: 'true'
 profile::base::network::http_proxy:       "%{hiera('service__address__proxy')}:8888"
