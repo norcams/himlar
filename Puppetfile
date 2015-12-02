@@ -7,7 +7,7 @@ local  = 'iaas@git.norcams.org:'
 #
 # profile
 #
-mod 'profile', :ref => 'norcams-0.10.2',         :git => github + 'norcams/puppeels'
+mod 'profile', :ref => 'norcams-0.10.3',         :git => github + 'norcams/puppeels'
 
 #
 # profile::base::common
