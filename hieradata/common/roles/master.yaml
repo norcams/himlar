@@ -55,3 +55,8 @@ apache::default_confd_files: false
 
 etcd::mode: cluster
 etcd::node_name: 'master'
+
+profile::openstack::network::policies:
+  create_network:
+    key:   'create_network'
+    value: 'rule:admin_only'
