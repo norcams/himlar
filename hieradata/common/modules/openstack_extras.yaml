@@ -40,7 +40,7 @@ openstack_extras::repo::redhat::redhat::repo_hash:
     'baseurl': 'http://mirror.centos.org/centos/7/cloud/$basearch/openstack-liberty/'
     'enabled': 1
     'gpgcheck': 1
-    'gpgkey': 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7'
+    'gpgkey': 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Cloud'
     'priority': 14
   'calico':
     'descr': Calico Repository
@@ -50,5 +50,7 @@ openstack_extras::repo::redhat::redhat::repo_hash:
     'priority': 13
 
 openstack_extras::repo::redhat::redhat::gpgkey_hash:
+  '/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7':
+    'source': 'puppet:///modules/openstack_extras/RPM-GPG-KEY-EPEL-7'
   '/etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Cloud':
     'source': 'puppet:///modules/openstack_extras/RPM-GPG-KEY-CentOS-SIG-Cloud'
