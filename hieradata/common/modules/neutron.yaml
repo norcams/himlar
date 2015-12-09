@@ -7,10 +7,6 @@ neutron::rabbit_host: "%{hiera('service__address__rabbitmq')}"
 # http://docs.projectcalico.org/en/stable/configuration.html#neutron-server-etc-neutron-neutron-conf
 neutron::dhcp_agents_per_network: '9999'
 
-# Package overrides until calico has 2014.2.3 packages
-neutron::package_ensure:               '2014.2.2calico1.0.0-1.el7'
-neutron::plugins::ml2::package_ensure: '2014.2.2calico1.0.0-1.el7'
-
 neutron::server::auth_host: "%{hiera('service__address__keystone_admin')}"
 neutron::server::auth_uri: "http://%{hiera('service__address__keystone')}:5000/"
 neutron::server::auth_password: neutron_pass
