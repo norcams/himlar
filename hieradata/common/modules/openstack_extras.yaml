@@ -50,5 +50,5 @@ openstack_extras::repo::redhat::redhat::repo_hash:
     'priority': 13
 
 openstack_extras::repo::redhat::redhat::gpgkey_hash:
-  '/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7':
-    'source': 'puppet:///modules/openstack_extras/RPM-GPG-KEY-EPEL-7'
+  '/etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Cloud':
+    'source': 'puppet:///modules/openstack_extras/RPM-GPG-KEY-CentOS-SIG-Cloud'
