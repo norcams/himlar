@@ -111,18 +111,17 @@ mod 'rabbitmq', :ref => '5.1.0',                 :git => github + 'puppetlabs/pu
 #
 # profile::openstack::*
 #
-mod 'keystone', :ref => '4b2e330152',            :git => github + 'enovance/puppet-keystone'
-mod 'glance', :ref => '3cd398e9',                :git => github + 'stackforge/puppet-glance'
-mod 'nova', :ref => '23ba8212cf',                :git => github + 'stackforge/puppet-nova'
-mod 'cinder', :ref => '9a409d9cc7',              :git => github + 'stackforge/puppet-cinder'
-mod 'horizon', :ref => 'f04c638817',             :git => github + 'stackforge/puppet-horizon'
-mod 'neutron', :ref => 'd5628a9ca1',             :git => github + 'stackforge/puppet-neutron'
+mod 'keystone', :ref => 'bee0264356',            :git => github + 'openstack/puppet-keystone'
+mod 'glance', :ref => 'f4495d93a0',              :git => github + 'openstack/puppet-glance'
+mod 'nova', :ref => 'a495b4010d',                :git => github + 'openstack/puppet-nova'
+mod 'cinder', :ref => '5add15bc80',              :git => github + 'openstack/puppet-cinder'
+mod 'horizon', :ref => '0d1398f418',             :git => github + 'openstack/puppet-horizon'
+mod 'neutron', :ref => '0f2cb57696',             :git => github + 'openstack/puppet-neutron'
 
-mod 'openstacklib', :ref => '5.0.0',             :git => github + 'stackforge/puppet-openstacklib'
-mod 'openstack_extras', :ref => 'd4af0036a4',    :git => github + 'stackforge/puppet-openstack_extras'
-mod 'vswitch', :ref => '0.3.0',                  :git => github + 'stackforge/puppet-vswitch'
+mod 'openstacklib', :ref => '7.0.0',             :git => github + 'openstack/puppet-openstacklib'
+mod 'openstack_extras', :ref => '7.0.0',         :git => github + 'openstack/puppet-openstack_extras'
 mod 'sysctl', :ref => 'v0.0.8',                  :git => github + 'duritong/puppet-sysctl'
-mod 'memcached', :ref => 'd009260de3',           :git => github + 'saz/puppet-memcached'
+mod 'memcached', :ref => 'v2.8.1',               :git => github + 'saz/puppet-memcached'
 
 #
 # libvirt
