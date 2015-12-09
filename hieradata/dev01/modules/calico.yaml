@@ -8,6 +8,8 @@ calico::reflector::client_defaults:
 
 # Reflector clients (must be set per location)
 calico::reflector::clients:
+  l1:
+    peer_ipv4: '172.17.16.1'
   c1:
     peer_ipv4: '172.17.16.22'
   c2:
