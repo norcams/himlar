@@ -18,7 +18,6 @@ glance::db::mysql::allowed_hosts:
   - 'localhost'
   - '%'
 
-glance::keystone::auth::password: glance_pass
-glance::keystone::auth::public_address: "%{hiera('service__address__glance_api')}"
-glance::keystone::auth::admin_address: "%{hiera('service__address__glance_api')}"
-glance::keystone::auth::internal_address: "%{hiera('service__address__glance_api')}"
+glance::keystone::auth::public_url: "http://%{hiera('service__address__glance_api')}:9292"
+glance::keystone::auth::admin_url: "http://%{hiera('service__address__glance_api')}:9292"
+glance::keystone::auth::internal_url: "http://%{hiera('service__address__glance_api')}:9292"
