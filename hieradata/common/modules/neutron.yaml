@@ -44,3 +44,6 @@ neutron::keystone::auth::password: neutron_pass
 neutron::keystone::auth::public_url: "http://%{hiera('service__address__neutron_server')}:9696"
 neutron::keystone::auth::internal_url: "http://%{hiera('service__address__neutron_server')}:9696"
 neutron::keystone::auth::admin_url: "http://%{hiera('service__address__neutron_server')}:9696"
+
+neutron::keystone::auth::region: "%{location}"
+neutron::server::auth_region: "%{location}"

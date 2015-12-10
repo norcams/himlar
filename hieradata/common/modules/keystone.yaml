@@ -18,3 +18,4 @@ keystone::public_bind_host: "%{ipaddress_public1}"
 keystone::admin_bind_host: "%{ipaddress_mgmt1}"
 keystone::database_connection: "mysql://keystone:key_pass@%{%{hiera('service__address__mysql')}/keystone"
 
+keystone::endpoint::region: "%{location}"
