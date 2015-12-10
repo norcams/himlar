@@ -22,3 +22,6 @@ glance::keystone::auth::password: "%{hiera('glance::api::keystone_password')}"
 glance::keystone::auth::public_url: "http://%{hiera('service__address__glance_api')}:9292"
 glance::keystone::auth::admin_url: "http://%{hiera('service__address__glance_api')}:9292"
 glance::keystone::auth::internal_url: "http://%{hiera('service__address__glance_api')}:9292"
+
+glance::keystone::auth::region: "%{location}"
+glance::api::os_region_name: "%{location}"

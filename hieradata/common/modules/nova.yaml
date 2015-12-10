@@ -45,3 +45,5 @@ nova::compute::vncserver_proxyclient_address: "%{ipaddress_mgmt1}"
 nova::compute::vncproxy_host: "%{hiera('service__address__consoleproxy')}"
 nova::compute::libvirt::vncserver_listen: "%{ipaddress_mgmt1}"
 
+nova::keystone::auth::region: "%{location}"
+nova::os_region_name: "%{location}"
