@@ -116,7 +116,7 @@ mod 'glance', :ref => 'f4495d93a0',              :git => github + 'openstack/pup
 mod 'nova', :ref => 'a495b4010d',                :git => github + 'openstack/puppet-nova'
 mod 'cinder', :ref => '5add15bc80',              :git => github + 'openstack/puppet-cinder'
 mod 'horizon', :ref => '0d1398f418',             :git => github + 'openstack/puppet-horizon'
-mod 'neutron', :ref => '0f2cb57696',             :git => github + 'openstack/puppet-neutron'
+mod 'neutron', :ref => '831434a6a7',             :git => github + 'openstack/puppet-neutron'
 
 mod 'openstacklib', :ref => '7.0.0',             :git => github + 'openstack/puppet-openstacklib'
 mod 'openstack_extras', :ref => '7.0.0',         :git => github + 'openstack/puppet-openstack_extras'
