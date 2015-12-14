@@ -9,22 +9,31 @@ unless defined? settings
   local = File.join(File.dirname(__FILE__), 'nodes.yaml.local')
   if File.exist?(local)
     config = local
-    puts "REMINDER: Local config file nodes.yaml.local is present"
+    puts "NOTE: Local config file nodes.yaml.local present"
   end
   settings = YAML.load(File.open(config, File::RDONLY).read)
 
-  # Check if the value of env var HIMLAR_NODESET is a valid nodeset
-  if ENV.key?('HIMLAR_NODESET') && settings['nodesets'].key?(ENV['HIMLAR_NODESET'])
-    settings['nodes'] = settings['nodesets'][ENV['HIMLAR_NODESET']]
-  else
-    # Default to a single node with the role 'base' and autostart=true
+  # Check if any nodesets are present
+  if settings.has_key?('nodesets')
+    # Check if the value of env var HIMLAR_NODESET is a valid nodeset
+    if ENV.key?('HIMLAR_NODESET')
+      if settings['nodesets'].key?(ENV['HIMLAR_NODESET'])
+        settings['nodes'] = settings['nodesets'][ENV['HIMLAR_NODESET']]
+      else
+        puts "WARNING: HIMLAR_NODESET not found, using default"
+      end
+    end
+  end
+
+  if settings['nodes'].nil?
+    # Enable a single node with the role 'base' and autostart=true
     settings['nodes'] = Array.new(1, Hash.new)
     settings['nodes'][0]['name'] = 'base'
     settings['nodes'][0]['autostart'] = true
     settings['nodes'][0]['primary'] = true
   end
 
-  # Map defaults settings to each node
+  # Map default settings to each node
   settings['nodes'].each do |n|
     n.merge!(settings['defaults']) { |key, nval, tval | nval }
   end
