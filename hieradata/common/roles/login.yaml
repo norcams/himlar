@@ -9,11 +9,29 @@ profile::base::common::manage_firewall: false
 profile::network::services::manage_nat: true
 
 accounts::accounts:
-  '@admins':
+  'beddari':
     ensure: present
-  'vagrant':
-    ensure: absent
+  'ebm':
+    ensure: present
+  'hege':
+    ensure: present
+    authorized_keys: [ 'hege_usit', 'hege_home' ]
+  'knutvi':
+    ensure: present
+  'kyrreli':
+    ensure: present
+  'mikaeld':
+    ensure: present
+  'raymond':
+    ensure: present
+  'torldre':
+    ensure: present
+  'trondham':
+    ensure: present
+  # disable system users
   'iaas':
+    ensure: absent
+  'vagrant':
     ensure: absent
 
 ssh::server::options:

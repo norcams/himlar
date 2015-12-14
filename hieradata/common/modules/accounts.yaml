@@ -1,47 +1,36 @@
 ---
 accounts::ssh_keys:
   'beddari':
-    comment: 'beddari@norcams'
     type:    'ssh-rsa'
     public: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDV5iURXYrx45xuyHkqlSaU/8WFF+z61YXvfjjV2gVBn9b7vFVFXjQ+Fo4GAUPd+jsv9qBgdWrqZTlVY/k0hrjMnZYOuEwAWQ58bXvFvlyY8FikwB1QxeTjH0wyjvGjZlqd8kruU8dwwzwQeAH3aehPNw2kb3OCsXVGp14t/hsJpHnbQwkjZX5tgAa2PV0GAhcDYaZBy31LJ4U9Qa644SKKGsKR26UKSq2LI/fep1v3oe2aNU5ixRtxKhtrdHnKl+/whqJjwAE4fC1PFMYMJnatzAYnwQ8OXWD4Vg7CU+bB/OXNu+vhpoHKibI089km6/3eT4USAhvu36HiwIFkb/sR'
   'ebm':
-    comment: 'ebm@norcams'
     type:    'ssh-rsa'
     public:  'AAAAB3NzaC1yc2EAAAADAQABAAABAQCuZ40vEBzipAk1E3JZ47/Ck8DjL0lWDkYIFbJE5O9qYPj9a0lHX9ytpNztI1flZvJXFo7ZzAi8xkwoiWtFCZgwjrzTjmynV8TH4zaJx5Y7q9uD6mMG+fQ0pq7TbEnS7HBAbEtfWa7zdMza6YkTvromfgrynfxgjJQ4CX8QpDiH61Ohn2ev+mjfIbAeveamJxrUEBHt5n2m6FXsztGGdYgl5Wq1xPn7Tcsp7LCEZSh+najaxw+vJscEPf0MiedTIU9RkvPfDk8rA5g0xjlsprt/HwxlDnRjizujiMWS6JEdPXP3R7w2g3/6Lg5wFxQIXUgYOKjLq0QYNlaWP6B7LPbb'
-  'hege':
-    comment: 'hege@norcams'
+  'hege_usit':
     type:    'ssh-rsa'
     public:  'AAAAB3NzaC1yc2EAAAABIwAAAQEAzfByKwhw9v7wzYZY4m4qvdVy/+Qzp+Q2bFuTcSQG9aN9C928LSPkM8RmfTKYA8xWgvVfki+EsgSTwG3Bbb9jO19DCvb+lvFXpcZhDbDzHd9JuK9+bLeNWG5FToFDfo207PlMwwn9tHUVcBIAH9wk+Nes2gBVYONLyPMVnebEH3GsLuzrombAO56ubapsn4y4r5kAqtlhcSkozoRQKNrb7EqOZn+7RMNcdjKYEBSb5yA0aDRUeqxGYts6qCExdSVtgTn+4ITIHCV5YmIlxP7buJRQisOjToixdmKy/FLkN9iBQwf4n6IpvdzPHjsvQtqhLICVRBOV6Y4tdWjiH0wjwQ=='
+  'hege_home':
+    type:    'ssh-rsa'
+    public:  'AAAAB3NzaC1yc2EAAAADAQABAAABAQDgWub64AvHP8bR+Ferv8qePqPFz7RKsARTERMWlVqzRzJnHSoTsShgFA1PODI56yNES2xS9pAn8xvRbIuo5ISKYUKviSXFge8kLbhF2XG1975Prlde5KLP+zaVzXQKHazWPdW8Yq0NBn6ItalKYwVmPXrfbTb1eEJ7AH1F0kpVSKH51wQoTXLOeDS4diwFcpgzmVK0xkQLYpmaHjrTsO08wrWVBFQh6Uy6CSNHM02ccIcnxA+e+2Cu5t6ZL7e8ux1Qp6DjWpGsEo6AZNqTK+jcDupgUfGkFwKUIUVwNlFmmJLlQ0uVmydjYtZvwBrcLwCs8IDPX8RNWGucoIPd+ovp'
   'iaas':
-    comment: 'iaas@norcams'
     type:    'ssh-rsa'
     public:  'AAAAB3NzaC1yc2EAAAADAQABAAABAQC+OF1sQvpZdYhxVJgrd+1P84/AegFJHY5W0SLIO8dF4K6CP08bJNwg+5eD8kxebmoXTJlfIRC1onJfjDPl94x9F3x18zib3kiSIPnkN7BsCZIxTcN1czHRUEtyOPG9JlKCagaXwHkBIzYIngF9hwBix9ZetuYieiZU/rhnk7x/zNxmjqPBf26rEI1qk4S6xYoAJjx0YFUbLYYiqc7YxGypo0ag99nKaZpy2p5mMyYGn4nGmlCzSG+aANokvlz8gwVzThaIPB8s0YYdXf1w/1OdFcUuW8Wm3AonFZcVhGfJy3yaAZDvbpWI1JVbJ9hMOo5Tml6nx8FM8MU6mAoamgRT'
-  'kskurtveit':
-    comment: 'kskurtveit@norcams'
-    type:    'ssh-rsa'
-    public:  'AAAAB3NzaC1yc2EAAAADAQABAAABAQDV35F8Vrk0VlPQfwHO1O2bfB0gMrOZvD19eamOrxA//GwIKLZtq1slCsy5S2tacj29mYfMGC09GYSLqiUGB+sI/LobTOw22kt+37XF/2QOjJpox8K425f2Bh8Owlgf79YxQcdurvhOnNdA5OvcY2BFYAMAxgQg+F9fISYqggwPhYp1SJpuZaT9eomd4PtTG1TZ3Jc77Z254YQCByB7LlPw/pqOm4CxOqai2v9Fj1hCxaQcepfPS05/NjHF6oVoVklCYHGgV8NCvXRU+CyaUl03fvOrXZ0JPBVEP53+fHIHaQsgnm3HaKbURL/+CIjT1FPKyBg0DwU3xQWclL9u9tXh'
   'mikaeld':
-    comment: 'mikaeld@norcams'
     type:    'ssh-rsa'
     public:  'AAAAB3NzaC1yc2EAAAABIwAAAQEAu6LmtQMkPIpHmUeHbfdA0425xDSRZpArCq7KuTYRurQOWssrPhMIpAa6OV2LPkpRLF0YIbzoHEXSqkgNwo6F1Qhy7E0l8TnKO5JtuctJtWUzvdesVniUszsXOg7543ZuEaA4qr2EPZSaASOemcMhUgr29wiUKaZF1h8LOXb3za7OORuWR/FW++HfUlPssmWA3R0KtC7OLhkum7c2+59rCaNYFIBUuepKURxDOqYI9sm7TdMw6+dbRUSsqUX2ITlcHhOYp2ehpnG/PpfIN/WFChudhAIDFFgTBImDtJ3Rx1oG45PB1f+r+IIZ6hzndkjqxdlTWpaY4q3ZOeGSFgCJVw=='
   'raymond':
-    comment: 'raymond@norcams'
     type:    'ssh-rsa'
     public:  'AAAAB3NzaC1yc2EAAAADAQABAAACAQCdT7QHIcmvOtNiTJI8emS0E8YGohzw4tpNKI5VkgY4oPzwcXHKNW+4FNViO+2ikBhf0seGPxtKUlpf0jBfUkMRb95GtzWPQSAOtyGihn4CsQs2mWekwE8jOILJTc6Pi8ht92ai7DSc1Nnv6Uss28rgLoSI9PAo3nXNZEYhG5shJS+Ks1Ut0xw0NT2D/ZYIihMXk2xwbraIYq99xUKJ7zKPHCW/1mMba5gtPTk27Q4wWX5yg+TuBpsvqyKMj1/sJ2KY0dmZhVvFhFMpAUoC5AYxryUXepksYnIiQ5hPUI6oCTLIoV8i67kVfL2FgvX7IkDrrAUw3M2MnPJa63gDXPVUNjJE2v/5/4Ik66N1AE04Jdb8FrplSogG525uSIda3saMoV6R+krlV0UBwml1beaBUHWodKu/ML1CMU1Lpb/vAg2ylIbBQByR/pxGPVeUD001ACb2bUMJmco62468nu27vHiY08QqRpav13wtMxqITGGYsMYslosIwHqd91BYCDVqF1OgfSTYTqBH2SZZcJVpChOSAIB4quBMkIOFwnFpG+mSrEpbprKg5BNXSMIXTiMFb/SH2+r+rNvbY+ssCs+CwjpDdO8PS4W1v3AHXZFrORP7meQR4Xd9mOvsPeMh63UscMpNsGvTentOhunacf6uhkTKut/3skxmlLyiiIPKPQ=='
   'torldre':
-    comment: 'torldre@norcams'
     type:    'ssh-dss'
     public:  'AAAAB3NzaC1kc3MAAACBAIAOOn1uU4Djl45V6ALi4qdAvktzYcLdIPQeC/MhQ6SDV/NusbTRC25rgPQzWHHLS4fPf1lE9ZUnGnEZIqhBIQf7fjYixz/k5s4C9NKvkvyufzX384LWbwo5RBbib0NCutT0OL2YpcJgkGeQZ/BFKwhlut2TP6rA8TOC7U7kRtKBAAAAFQCsBy43OnJchfOFQ1seoJhQnx5hawAAAIAuXEzgn7X2pDcSWqkAv7ikyn6jRA6IT+BuQgnaea/pUtuj/B2PbN+bf4K8GLL7L/Ep74WP0vvM3x4Angf9ny6Ss9Xr4rxKoShZTxpD5+eOVs8VarvFHSW8tt4V7EsXkpXdNUgrfZu/26VfqbRq5+VPFvNYQIhCEs1XSyR2CgW0fAAAAIAg4/b+URwyVWmCexSbQzFtdud+Vpwxo0wstd2xmhCbWIRKiLfKmm2BLeMugZgPPPSgQf4CdbcoPKYBCZxccfkJuTky4IDuZs6GPeM6MA1Bhttfa4KcOMhq52TIXarUYwbpjugUoQG+3n+xbTRarp0Ic/mj2BKtyZlX4ir/NlurQA=='
   'trondham':
-    comment: 'trondham@norcams'
     type:    'ssh-rsa'
     public:  'AAAAB3NzaC1yc2EAAAABIwAAAQEAr3c4y9UTQstrocwRDdq8tkb8d33VIX4x07iKYanZmnrcGwQ7efT3rEN2tmJUEQumNSL+ZVdsCH/2pT37L8uyxsRlSdnz5bQbe0Sj2dq4ahpIadrDH7n858EmN+chEwgz5QRyWT4SanC9ce/9EyJbl8C0U34mgJV+pIwSGhFhWKXJ624ja+kMXVd6+5rG+rlukMjolFoxE+ijZqzU1EwUtuKD1oMFGeszdpEChhhGO/9T1L7MyaIcDOUOmMgXjdgRtVmS1QY5HYikvc68wBV1FDRn1pvEd3UJTobU87FA9XircbazvD64ghNWK7dqikUgnW/OQsKLoLfyPEUn39v2wQ=='
   'kyrreli':
-    comment: 'kyrreli@norcams'
     type:    'ssh-rsa'
     public:  'AAAAB3NzaC1yc2EAAAABJQAAAQEAgHioc9KjonklTot4LgMmn1ZVV/UYZtgk5EG4TnfNri9JLRyv3EVuEdUEzoeJnVLH8CEWhysB8bIthikzC0tmlDKxWb0bc1GLEpFWN6daG8TJoaDW4SZTyA7SSZ4ImN7cmXsqVJ6jAajMLd869f8I5nbe9HdZIK0W6f/guoctnpLLQG29nnOf/0Eaa+nY2h34e+9HUVZuv2u/loDmp5K47QRh/D5qiTnoKq+8VSzSyRflFJoRih3nc+mR2E/FuglY1uBSeRCySH58WZ5dffMaUhTZd4DRMWJozo5ex60upFL3mHYo5iBZ3gRDw0Phefb0R1VzcXfDcnOsp+tQICaDUw=='
   'knutvi':
-    comment: 'knutvi@norcams'
     type:    'ssh-rsa'
     public:  'AAAAB3NzaC1yc2EAAAADAQABAAABAQDf8vEnb4aTt790h1iz9dFpa2lbBIpNg+A/I/Ra3YFdnwVxYChyKdJbZIsR8hOVqBdFRgDOUlvaIF3h8TFHe2WfmO9O4kR+R2eHag+4rfK7rPR4GOyOSSV3oMP7r3nnzDSi9RSIgtqCMruzhcXWcFYftqbyI9mOiiZrNu5IPfGOJghIbABZG2Zux+hswi4pYzeg1Q9dziE7blPivsrL8soX77v60jtwwOEvrW10wRC/JCCZY01WESSKSfWN4rC1WjcLYO6RYhG67OXqRdSlWLfmChpYIth1vHeYzAf3CDmntNHaSKGP4A0Vs03USVbDbkesZBIjZgmh9vK+BJxhbWcf'
 
@@ -58,9 +47,6 @@ accounts::users:
   'iaas':
     comment: 'iaas@norcams'
     groups:  [ 'users', 'wheel' ]
-  'kskurtveit':
-    comment: 'kskurtveit@norcams'
-    groups:  [ 'users', 'wheel' ]
   'mikaeld':
     comment: 'mikaeld@norcams'
     groups:  [ 'users', 'wheel' ]
@@ -80,19 +66,7 @@ accounts::users:
     comment: 'knutvi@norcams'
     groups:  [ 'users', 'wheel' ]
 
-accounts::usergroups:
-  'admins':
-    - 'beddari'
-    - 'ebm'
-    - 'hege'
-    - 'kskurtveit'
-    - 'mikaeld'
-    - 'raymond'
-    - 'torldre'
-    - 'trondham'
-    - 'kyrreli'
-    - 'knutvi'
-
 accounts::accounts:
   'iaas':
     ensure: present
+
