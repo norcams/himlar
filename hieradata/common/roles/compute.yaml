@@ -4,6 +4,7 @@ include:
     - profile::openstack::compute::hypervisor
     - profile::openstack::volume
     - profile::openstack::network
+    - profile::openstack::network::metadata
   bootstrap:
     - profile::base::lvm
 
