@@ -1,4 +1,8 @@
 ---
+include:
+  default:
+    - profile::network::services
+
 named_interfaces::config:
   mgmt:
     - br0
