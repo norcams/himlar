@@ -1,6 +1,7 @@
 ---
 include:
   default:
+    - profile::openstack::compute
     - profile::openstack::compute::hypervisor
     - profile::openstack::volume
     - profile::openstack::network
