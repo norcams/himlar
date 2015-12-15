@@ -47,3 +47,4 @@ nova::compute::libvirt::vncserver_listen: "%{ipaddress_mgmt1}"
 
 nova::keystone::auth::region: "%{location}"
 nova::os_region_name: "%{location}"
+nova::network::neutron::neutron_region_name: "%{location}"
