@@ -24,6 +24,7 @@ service__address__keystone_admin:    '10.171.91.6'
 service__address__mysql:             '10.171.91.4'
 service__address__rabbitmq:          '10.171.91.6'
 service__address__etcd_cluster:      '10.171.91.6'
+service__address__proxy:             '10.171.91.7'
 
 ntp::servers:
   - ntp.ntnu.no
@@ -53,6 +54,7 @@ profile::network::services::dns_records:
     'trd-db-01.iaas.ntnu.no':         '10.171.91.4'
     'trd-foreman-01.iaas.ntnu.no':    '10.171.91.5'
     'trd-master-01.iaas.ntnu.no':     '10.171.91.6'
+    'trd-proxy-01.iaas.ntnu.no':      '10.171.91.7'
     'trd-controller-01.iaas.ntnu.no': '10.171.91.11'
     'trd-controller-02.iaas.ntnu.no': '10.171.91.12'
     'trd-controller-03.iaas.ntnu.no': '10.171.91.13'
