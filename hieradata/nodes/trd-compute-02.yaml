@@ -3,7 +3,11 @@ network::interfaces_hash:
   'em1':
     ipaddress: '172.18.64.15'
     netmask:   '255.255.248.0'
-    defroute:  'no'
+    gateway:   '172.18.64.1'
+    peerdns:   'yes'
+    dns1:      "%{hiera('service__address__proxy')}"
+    domain:    'mgmt.iaas.intern'
+    defroute:  'yes'
   'em2':
     ipaddress: '172.18.72.15'
     netmask:   '255.255.248.0'
@@ -12,4 +16,4 @@ network::interfaces_hash:
     ipaddress: '10.171.91.15'
     netmask:   '255.255.255.0'
     gateway:   '10.171.91.1'
-    defroute:  'yes'
+    defroute:  'no'

@@ -1,4 +1,15 @@
 ---
+include:
+  default:
+    - profile::network::services
+
+named_interfaces::config:
+  mgmt:
+    - br0
+  transport:
+    - em1
+    - em2
+
 foreman_bootstrap::virt_install:
   trd-foreman-01:
     domain:          'iaas.ntnu.no'
@@ -7,3 +18,5 @@ foreman_bootstrap::virt_install:
     install_ip:      '10.171.91.5'
     install_netmask: '255.255.255.0'
     install_gateway: '10.171.91.1'
+
+profile::network::services::ntp_server: true

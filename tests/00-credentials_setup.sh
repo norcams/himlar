@@ -18,22 +18,32 @@ osdemo()
 }
 ' > ~/openstack.config
 
-echo "
+echo `
 export OS_USERNAME=demo
 export OS_TENANT_NAME=demoproject
 export OS_PASSWORD=himlar0pen
-export OS_AUTH_URL=http://10.0.3.14:5000/v2.0/
-export PS1='[\u@\h \W(keystone_demo)]\$ '
+export OS_AUTH_URL=http://10.0.3.14:5000/v3
+export OS_IDENTITY_API_VERSION=3
+export OS_USER_DOMAIN_NAME=${OS_USER_DOMAIN_NAME:-"Default"}
+export OS_PROJECT_DOMAIN_NAME=${OS_PROJECT_DOMAIN_NAME:-"Default"}
+export PS1='[\u@\h \W(keystone_admin)]\$ '
 export OS_NO_CACHE=1
-" > ~/keystonerc_demo
+alias openstack="/usr/bin/openstack"
+` > ~/keystonerc_demo
 
 
-echo "
+echo `
 export OS_USERNAME=admin
 export OS_TENANT_NAME=openstack
 export OS_PASSWORD=admin_pass
-export OS_AUTH_URL=http://10.0.3.14:5000/v2.0/
-export PS1='[\u@\h \W(keystone_admin)]\$ '
+export OS_REGION_NAME=dev01
+export OS_AUTH_URL=http://10.0.3.14:5000/v3
+export OS_IDENTITY_API_VERSION=3
+export OS_USER_DOMAIN_NAME=${OS_USER_DOMAIN_NAME:-"Default"}
+export OS_PROJECT_DOMAIN_NAME=${OS_PROJECT_DOMAIN_NAME:-"Default"}
+export PS1='[\u@\h \W(keystone_admin)]$ '
 export OS_NO_CACHE=1
-" > ~/keystonerc_admin
+alias openstack="/usr/bin/openstack"
+
+` > ~/keystonerc_admin
 

@@ -27,6 +27,7 @@ service__address__keystone_admin:    '129.240.224.102'
 service__address__mysql:             '129.240.224.113'
 service__address__rabbitmq:          '129.240.224.102'
 service__address__etcd_cluster:      '129.240.224.102'
+service__address__proxy:             '129.240.224.114'
 
 foreman_bootstrap::nameserver: 129.240.2.3
 
@@ -64,3 +65,4 @@ profile::network::services::dns_records:
     'osl-compute-02.iaas.uio.no':          '129.240.224.111'
     'osl-compute-03.iaas.uio.no':          '129.240.224.112'
     'osl-db-01.iaas.uio.no':               '129.240.224.113'
+    'osl-proxy-01.iaas.uio.no':            '129.240.224.114'

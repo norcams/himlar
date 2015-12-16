@@ -24,6 +24,7 @@ service__address__keystone_admin:    '10.171.91.6'
 service__address__mysql:             '10.171.91.4'
 service__address__rabbitmq:          '10.171.91.6'
 service__address__etcd_cluster:      '10.171.91.6'
+service__address__proxy:             '10.171.91.33'
 
 ntp::servers:
   - ntp.ntnu.no
@@ -67,6 +68,7 @@ profile::network::services::dns_records:
     'trd-cephmon-01.iaas.ntnu.no':    '10.171.91.30'
     'trd-cephmon-02.iaas.ntnu.no':    '10.171.91.31'
     'trd-cephmon-03.iaas.ntnu.no':    '10.171.91.32'
+    'trd-proxy-01.iaas.ntnu.no':      '10.171.91.33'
 
 ceph::profile::params::mon_initial_members:         'trd-cephmon-01, trd-cephmon-02, trd-cephmon-03'
 ceph::profile::params::mon_host:                    '10.171.91.30:6789, 10.171.91.31:6789, 10.171.91.32:6789'

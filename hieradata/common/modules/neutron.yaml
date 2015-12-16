@@ -7,10 +7,6 @@ neutron::rabbit_host: "%{hiera('service__address__rabbitmq')}"
 # http://docs.projectcalico.org/en/stable/configuration.html#neutron-server-etc-neutron-neutron-conf
 neutron::dhcp_agents_per_network: '9999'
 
-# Package overrides until calico has 2014.2.3 packages
-neutron::package_ensure:               '2014.2.2calico1.0.0-1.el7'
-neutron::plugins::ml2::package_ensure: '2014.2.2calico1.0.0-1.el7'
-
 neutron::server::auth_host: "%{hiera('service__address__keystone_admin')}"
 neutron::server::auth_uri: "http://%{hiera('service__address__keystone')}:5000/"
 neutron::server::auth_password: neutron_pass
@@ -24,11 +20,14 @@ neutron::server::notifications::nova_url: "http://%{hiera('service__address__nov
 neutron::server::notifications::nova_admin_username: nova
 neutron::server::notifications::nova_admin_password: nova_pass
 
-neutron::agents::dhcp::interface_driver: neutron.agent.linux.interface.RoutedInterfaceDriver
+neutron::agents::dhcp::interface_driver: networking_calico.agent.linux.interface.RoutedInterfaceDriver
+neutron::agents::dhcp::dhcp_driver: networking_calico.agent.linux.dhcp.DnsmasqRouted
+neutron::agents::dhcp::use_namespaces: false
 neutron::agents::metadata::auth_password: neutron_pass
 neutron::agents::metadata::shared_secret: a_secret
 neutron::agents::metadata::auth_url: "http://%{hiera('service__address__keystone_admin')}:35357/v2.0"
 neutron::agents::metadata::metadata_ip: "%{hiera('service__address__nova_api_metadata')}"
+neutron::agents::metadata::auth_region: "%{location}"
 
 neutron::plugins::ml2::type_drivers:
   - local
@@ -45,6 +44,9 @@ neutron::db::mysql::allowed_hosts:
   - '%'
 
 neutron::keystone::auth::password: neutron_pass
-neutron::keystone::auth::public_address: "%{hiera('service__address__neutron_server')}"
-neutron::keystone::auth::admin_address: "%{hiera('service__address__neutron_server')}"
-neutron::keystone::auth::internal_address: "%{hiera('service__address__neutron_server')}"
+neutron::keystone::auth::public_url: "http://%{hiera('service__address__neutron_server')}:9696"
+neutron::keystone::auth::internal_url: "http://%{hiera('service__address__neutron_server')}:9696"
+neutron::keystone::auth::admin_url: "http://%{hiera('service__address__neutron_server')}:9696"
+
+neutron::keystone::auth::region: "%{location}"
+neutron::server::auth_region: "%{location}"

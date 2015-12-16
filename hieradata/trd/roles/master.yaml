@@ -8,9 +8,9 @@ named_interfaces::config:
      - dummy0
 
 ntp::servers:
-  - 129.240.224.107
-  - 129.240.224.108
-  - 129.240.224.109
+  - 10.171.91.11
+  - 10.171.91.12
+  - 10.171.91.13
 
 # NOTE: reflectors will be on cumulus gws for prod
 calico::reflector: true
@@ -18,7 +18,7 @@ calico::reflector: true
 profile::firewall::rules:
   '020 allow all from transport network to public ip':
     destination: "%{ipaddress_public1}"
-    source: '172.18.32.0/19'
+    source: '172.18.64.0/19'
 
 profile::base::network::manage_httpproxy: 'true'
 profile::base::network::http_proxy:       "%{hiera('service__address__proxy')}:8888"

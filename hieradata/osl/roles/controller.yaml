@@ -1,4 +1,8 @@
 ---
+include:
+  default:
+    - profile::network::services
+
 named_interfaces::config:
   mgmt:
     - br0
@@ -14,3 +18,5 @@ foreman_bootstrap::virt_install:
     install_ip:      '129.240.224.101'
     install_netmask: '255.255.255.224'
     install_gateway: '129.240.224.97'
+
+profile::network::services::ntp_server: true

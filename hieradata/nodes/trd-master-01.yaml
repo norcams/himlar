@@ -5,14 +5,17 @@ network::interfaces_hash:
     netmask:   '255.255.255.0'
     gateway:   '10.171.91.1'
     mtu:       '1500'
-    defroute:  yes
+    peerdns:   'yes'
+    dns1:      "%{hiera('service__address__proxy')}"
+    domain:    'mgmt.iaas.intern'
+    defroute:  'no'
   'eth1':
     ipaddress: '172.18.64.6'
     netmask:   '255.255.248.0'
     gateway:   '172.18.64.1'
     srcaddr:   '158.39.77.254'
-    defroute:  no
+    defroute:  'yes'
   'dummy0':
     ipaddress: '158.39.48.254'
     netmask:   '255.255.255.255'
-    defroute:  no
+    defroute:  'no'

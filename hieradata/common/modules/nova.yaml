@@ -10,9 +10,16 @@ nova::db::mysql::allowed_hosts:
   - '%'
 
 nova::keystone::auth::password: nova_pass
-nova::keystone::auth::public_address: "%{hiera('service__address__nova_api')}"
-nova::keystone::auth::admin_address: "%{hiera('service__address__nova_api')}"
-nova::keystone::auth::internal_address: "%{hiera('service__address__nova_api')}"
+
+nova::keystone::auth::public_url: "http://%{hiera('service__address__nova_api')}:8774/v2/%(tenant_id)s"
+nova::keystone::auth::public_url_v3: "http://%{hiera('service__address__nova_api')}:8774/v3"
+nova::keystone::auth::ec2_public_url: "http://%{hiera('service__address__nova_api')}:8773/services/Cloud"
+nova::keystone::auth::admin_url: "http://%{hiera('service__address__nova_api')}:8774/v2/%(tenant_id)s"
+nova::keystone::auth::admin_url_v3: "http://%{hiera('service__address__nova_api')}:8774/v3"
+nova::keystone::auth::ec2_admin_url: "http://%{hiera('service__address__nova_api')}:8773/services/Admin"
+nova::keystone::auth::internal_url: "http://%{hiera('service__address__nova_api')}:8774/v2/%(tenant_id)s"
+nova::keystone::auth::internal_url_v3: "http://%{hiera('service__address__nova_api')}:8774/v3"
+nova::keystone::auth::ec2_internal_url:	"http://%{hiera('service__address__nova_api')}:8773/services/Cloud"
 
 nova::api::admin_password: nova_pass
 nova::api::neutron_metadata_proxy_shared_secret: a_secret
@@ -38,3 +45,6 @@ nova::compute::vncserver_proxyclient_address: "%{ipaddress_mgmt1}"
 nova::compute::vncproxy_host: "%{hiera('service__address__consoleproxy')}"
 nova::compute::libvirt::vncserver_listen: "%{ipaddress_mgmt1}"
 
+nova::keystone::auth::region: "%{location}"
+nova::os_region_name: "%{location}"
+nova::network::neutron::neutron_region_name: "%{location}"
