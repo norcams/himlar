@@ -29,6 +29,8 @@ export OS_PROJECT_DOMAIN_NAME=${OS_PROJECT_DOMAIN_NAME:-"Default"}
 export PS1='[\u@\h \W(keystone_admin)]\$ '
 export OS_NO_CACHE=1
 alias openstack="/usr/bin/openstack"
+unset http_proxy
+unset https_proxy
 ` > ~/keystonerc_demo
 
 
@@ -44,6 +46,7 @@ export OS_PROJECT_DOMAIN_NAME=${OS_PROJECT_DOMAIN_NAME:-"Default"}
 export PS1='[\u@\h \W(keystone_admin)]$ '
 export OS_NO_CACHE=1
 alias openstack="/usr/bin/openstack"
-
+unset http_proxy
+unset https_proxy
 ` > ~/keystonerc_admin
 
