@@ -15,6 +15,7 @@ profile::openstack::network::l2_driver: calico
 profile::base::common::common_packages:
   - python-etcd
   - posix-spawn
+  - networking-calico
 
 calico::compute: true
 etcd::mode: 'proxy'
