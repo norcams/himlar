@@ -1,4 +1,4 @@
-cinder::sql_connection:      "mysql://cinder:cinder_pass@%{hiera('service__address__mysql')}/cinder"
+cinder::database_connection:      "mysql://cinder:cinder_pass@%{hiera('service__address__mysql')}/cinder"
 
 cinder::db::mysql::allowed_hosts:
   - "%{fqdn}"
@@ -20,8 +20,8 @@ cinder::api::keystone_auth_host: "%{hiera('service__address__keystone_admin')}"
 cinder::keystone::auth::password:  'cinder_pass'
 cinder::keystone::auth::auth_name: 'cinder'
 
-cinder::keystone::auth::public_address:   "%{hiera('service__address__cinder_api')}"
-cinder::keystone::auth::admin_address:    "%{hiera('service__address__cinder_api')}"
-cinder::keystone::auth::internal_address: "%{hiera('service__address__cinder_api')}"
+cinder::keystone::auth::public_url:       "http://%{hiera('service__address__cinder_api')}:8776/v1/%(tenant_id)s"
+cinder::keystone::auth::admin_url:        "http://%{hiera('service__address__cinder_api')}:8776/v1/%(tenant_id)s"
+cinder::keystone::auth::internal_url:     "http://%{hiera('service__address__cinder_api')}:8776/v1/%(tenant_id)s"
 
 cinder::volume::iscsi::iscsi_ip_address:  "%{hiera('service__address__cinder_api')}"
