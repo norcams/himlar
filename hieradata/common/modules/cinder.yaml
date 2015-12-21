@@ -25,5 +25,8 @@ cinder::keystone::auth::region:    "%{location}"
 cinder::keystone::auth::public_url:       "http://%{hiera('service__address__cinder_api')}:8776/v1/%(tenant_id)s"
 cinder::keystone::auth::admin_url:        "http://%{hiera('service__address__cinder_api')}:8776/v1/%(tenant_id)s"
 cinder::keystone::auth::internal_url:     "http://%{hiera('service__address__cinder_api')}:8776/v1/%(tenant_id)s"
+cinder::keystone::auth::public_url_v2:    "http://%{hiera('service__address__cinder_api')}:8776/v2/%(tenant_id)s"
+cinder::keystone::auth::admin_url_v2:     "http://%{hiera('service__address__cinder_api')}:8776/v2/%(tenant_id)s"
+cinder::keystone::auth::internal_url_v2:  "http://%{hiera('service__address__cinder_api')}:8776/v2/%(tenant_id)s"
 
 cinder::volume::iscsi::iscsi_ip_address:  "%{hiera('service__address__cinder_api')}"
