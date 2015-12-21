@@ -1,0 +1,11 @@
+named_interfaces::config:
+  mgmt:
+     - eth0
+  transport:
+     - eth0_912
+     - eth1
+
+profile::base::lvm::physical_volume:
+  '/dev/sda3':
+    ensure: present
+    force:  true
