@@ -9,3 +9,7 @@ profile::base::lvm::physical_volume:
   '/dev/sda3':
     ensure: present
     force:  true
+
+ceph::profile::params::osds:
+  '/dev/sda3':
+    journal: '/journal/sda3'
