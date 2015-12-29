@@ -48,6 +48,21 @@ openstack_extras::repo::redhat::redhat::repo_hash:
     'gpgkey':   'http://binaries.projectcalico.org/rpm/key'
     'gpgcheck': 1
     'priority': 13
+  'ceph':
+    'descr': Ceph packages
+    'baseurl': 'http://download.ceph.com/rpm-infernalis/el7/$basearch'
+    'enabled': 1
+    'gpgcheck': 1
+    'gpgkey': 'https://download.ceph.com/keys/release.asc'
+    'priority': 2
+  'ceph-noarch':
+    'descr': Ceph noarch packages
+    'baseurl': 'http://download.ceph.com/rpm-infernalis/el7/noarch'
+    'enabled': 1
+    'gpgcheck': 1
+    'gpgkey': 'https://download.ceph.com/keys/release.asc'
+    'priority': 2
+
 
 openstack_extras::repo::redhat::redhat::gpgkey_hash:
   '/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7':
