@@ -7,3 +7,8 @@ network::interfaces_hash:
     netmask:   '255.255.255.0'
     gateway:   '192.168.10.1'
     defroute:  'yes'
+  'eth1':
+    ipaddress: '172.17.16.40'
+    netmask:   '255.255.240.0'
+    gateway:   '172.17.16.1'
+    defroute:  'no'
