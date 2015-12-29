@@ -21,9 +21,9 @@ ntp::servers:
   - ntp2.uib.no
 
 ceph::profile::params::mon_initial_members:         'dev01-cephmon-01, dev01-cephmon-02, dev01-cephmon-03'
-ceph::profile::params::mon_host:                    '192.168.10.40:6789, 192.168.10.41:6789, 192.168.10.42:6789'
-ceph::profile::params::cluster_network:             '192.168.10.0/24'
-ceph::profile::params::public_network:              '192.168.10.0/24'
+ceph::profile::params::mon_host:                    '172.17.16.40:6789, 172.17.16.41:6789, 172.17.16.42:6789'
+ceph::profile::params::cluster_network:             '172.17.16.0/20'
+ceph::profile::params::public_network:              '172.17.16.0/20'
 
 named_interfaces::config:
   mgmt:
