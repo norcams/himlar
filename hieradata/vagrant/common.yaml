@@ -37,20 +37,11 @@ service__address__rabbitmq:          '10.0.3.11'
 service__address__etcd_cluster:      '10.0.3.11'
 
 #
-# Accounts in vagrant
-#  - vagrant user as member of weel and users group
-#  - add all admin ssh keys to iaas user
+#  - Add vagrant user to wheel and users group
 #
 accounts::accounts:
   'vagrant':
     ensure: present
-    groups:
-      - 'wheel'
-      - 'users'
-  'iaas':
-    ensure: present
-    authorized_keys:
-      - '@admins'
     groups:
       - 'wheel'
       - 'users'
