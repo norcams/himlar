@@ -22,19 +22,19 @@ named_interfaces::config:
 # These defaults will only work when all services are installed on the
 # same box - they need to be overridden per location
 #
-service__address__keystone:          '10.4.0.11'
-service__address__glance_registry:   '10.4.0.11'
-service__address__glance_api:        '10.4.0.11'
-service__address__nova_api:          '10.4.0.11'
-service__address__nova_api_metadata: '10.4.0.11'
-service__address__neutron_server:    '10.4.0.11'
-service__address__consoleproxy:      '10.4.0.11'
-service__address__cinder_api:        '10.4.0.11'
+service__address__keystone:          '10.4.0.14'
+service__address__glance_registry:   '10.4.0.14'
+service__address__glance_api:        '10.4.0.14'
+service__address__nova_api:          '10.4.0.14'
+service__address__nova_api_metadata: '10.4.0.14'
+service__address__neutron_server:    '10.4.0.14'
+service__address__consoleproxy:      '10.4.0.14'
+service__address__cinder_api:        '10.4.0.14'
 
-service__address__keystone_admin:    '10.0.3.11'
-service__address__mysql:             '10.0.3.11'
-service__address__rabbitmq:          '10.0.3.11'
-service__address__etcd_cluster:      '10.0.3.11'
+service__address__keystone_admin:    '10.0.3.14'
+service__address__mysql:             '10.0.3.18'
+service__address__rabbitmq:          '10.0.3.14'
+service__address__etcd_cluster:      '10.0.3.14'
 
 #
 #  - Add vagrant user to wheel and users group
