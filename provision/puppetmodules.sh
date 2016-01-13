@@ -6,6 +6,8 @@ provision_from_puppetfile()
   export PUPPETFILE_DIR=/etc/puppet/modules
   /usr/local/bin/r10k --verbose 4 puppetfile purge
   /usr/local/bin/r10k --verbose 4 puppetfile install
+  # link profile module
+  ln -s -f /opt/himlar/profile /etc/puppet/modules/
 }
 
 override_modules()

@@ -5,11 +5,6 @@ github = 'https://github.com/'
 local  = 'iaas@git.norcams.org:'
 
 #
-# profile
-#
-mod 'profile', :ref => 'norcams-0.11',         :git => github + 'norcams/puppeels'
-
-#
 # profile::base::common
 #
 mod 'sudo', :ref => '80cbf884',                  :git => github + 'saz/puppet-sudo'
