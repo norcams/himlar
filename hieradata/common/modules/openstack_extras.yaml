@@ -50,14 +50,14 @@ openstack_extras::repo::redhat::redhat::repo_hash:
     'priority': 13
   'ceph':
     'descr': Ceph packages
-    'baseurl': 'http://download.ceph.com/rpm-infernalis/el7/$basearch'
+    'baseurl': 'http://download.ceph.com/rpm-hammer/el7/$basearch'
     'enabled': 1
     'gpgcheck': 1
     'gpgkey': 'https://download.ceph.com/keys/release.asc'
     'priority': 2
   'ceph-noarch':
     'descr': Ceph noarch packages
-    'baseurl': 'http://download.ceph.com/rpm-infernalis/el7/noarch'
+    'baseurl': 'http://download.ceph.com/rpm-hammer/el7/noarch'
     'enabled': 1
     'gpgcheck': 1
     'gpgkey': 'https://download.ceph.com/keys/release.asc'
