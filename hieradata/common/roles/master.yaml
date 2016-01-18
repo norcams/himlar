@@ -60,3 +60,6 @@ profile::openstack::network::policies:
   create_network:
     key:   'create_network'
     value: 'rule:admin_only'
+  create_router:
+    key:   'create_router'
+    value: 'rule:admin_only'
