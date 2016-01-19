@@ -21,9 +21,9 @@ ntp::servers:
   - ntp2.uib.no
 
 ceph::profile::params::mon_initial_members:         'dev01-cephmon-01, dev01-cephmon-02, dev01-cephmon-03'
-ceph::profile::params::mon_host:                    '192.168.10.90:6789, 192.168.10.91:6789, 192.168.10.92:6789'
-ceph::profile::params::cluster_network:             '192.168.10.0/24'
-ceph::profile::params::public_network:              '192.168.10.0/24'
+ceph::profile::params::mon_host:                    '172.17.16.40:6789, 172.17.16.41:6789, 172.17.16.42:6789'
+ceph::profile::params::cluster_network:             '172.17.16.0/20'
+ceph::profile::params::public_network:              '172.17.16.0/20'
 
 named_interfaces::config:
   mgmt:
@@ -68,3 +68,10 @@ profile::network::services::dns_records:
     'dev01-compute-04.mgmt.dev.iaas.intern':     '192.168.10.25'
     'dev01-compute-05.mgmt.dev.iaas.intern':     '192.168.10.26'
     'dev01-compute-06.mgmt.dev.iaas.intern':     '192.168.10.27'
+    'dev01-storage-01.mgmt.dev.iaas.intern':     '192.168.10.30'
+    'dev01-storage-02.mgmt.dev.iaas.intern':     '192.168.10.31'
+    'dev01-storage-03.mgmt.dev.iaas.intern':     '192.168.10.32'
+    'dev01-storage-04.mgmt.dev.iaas.intern':     '192.168.10.33'
+    'dev01-cephmon-01.mgmt.dev.iaas.intern':     '192.168.10.40'
+    'dev01-cephmon-02.mgmt.dev.iaas.intern':     '192.168.10.41'
+    'dev01-cephmon-03.mgmt.dev.iaas.intern':     '192.168.10.42'
