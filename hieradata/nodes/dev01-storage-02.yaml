@@ -2,6 +2,7 @@
 network::interfaces_hash:
   'eth0':
     ipaddress: '192.168.10.31'
+    gateway:   '192.168.10.1'
     netmask:   '255.255.255.0'
     mtu:       '1500'
     defroute:  'yes'
