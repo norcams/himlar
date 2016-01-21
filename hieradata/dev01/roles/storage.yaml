@@ -12,4 +12,4 @@ profile::base::lvm::physical_volume:
 
 ceph::profile::params::osds:
   '/dev/sda3':
-    journal: '/journal/sda3'
+    journal: '/var/lib/cephjournal-sda3'
