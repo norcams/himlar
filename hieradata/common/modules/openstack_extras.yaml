@@ -1,5 +1,5 @@
-yum_base_mirror: 'http://centos.uib.no'
-yum_epel_mirror: 'http://fedora.uib.no/epel'
+yum_base_mirror: 'http://ftp.uninett.no/linux/centos'
+yum_epel_mirror: 'http://ftp.uninett.no/linux/Epel'
 
 openstack_extras::repo::redhat::redhat::purge_unmanaged: true
 openstack_extras::repo::redhat::redhat::package_require: true
