@@ -1,0 +1,20 @@
+---
+named_interfaces::config:
+  mgmt:
+     - eth0
+  transport:
+     - eth1
+
+network::interfaces_hash:
+  'eth0':
+    onboot:    'yes'
+    mtu:       '1500'
+    ipaddress: '192.168.10.41'
+    netmask:   '255.255.255.0'
+    gateway:   '192.168.10.1'
+    defroute:  'yes'
+  'eth1':
+    ipaddress: '172.17.16.41'
+    netmask:   '255.255.240.0'
+    gateway:   '172.17.16.1'
+    defroute:  'no'
