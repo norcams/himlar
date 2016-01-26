@@ -6,9 +6,8 @@ network::interfaces_hash:
     netmask:   '255.255.255.0'
     mtu:       '1500'
     defroute:  'yes'
-  'eth0.912':
+  'eth2':
     ipaddress: '172.17.16.30'
     netmask:   '255.255.240.0'
     gateway:   '172.17.16.1'
     defroute:  'no'
-    vlan:      'yes'
