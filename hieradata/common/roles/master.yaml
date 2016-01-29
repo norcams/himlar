@@ -48,10 +48,6 @@ lvm::logical_volume:
 
 sudo::purge: false
 
-apache::default_mods: false
-apache::default_vhost: false
-apache::default_confd_files: false
-
 etcd::mode: cluster
 etcd::node_name: 'master'
 

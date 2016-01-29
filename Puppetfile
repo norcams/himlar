@@ -84,7 +84,7 @@ mod 'foreman_bootstrap', :ref => '0.1.6',        :git => github + 'norcams/puppe
 #
 # profile::webserver::apache
 #
-mod 'puppetlabs/apache', '1.2.0'                 # forge
+mod 'puppetlabs/apache', '1.7.1'                 # forge
 
 #
 # profile::database::postgresql
@@ -108,12 +108,12 @@ mod 'rabbitmq', :ref => '5.1.0',                 :git => github + 'puppetlabs/pu
 #
 # profile::openstack::*
 #
-mod 'keystone', :ref => 'bee0264356',            :git => github + 'openstack/puppet-keystone'
+mod 'keystone', :ref => '7.0.0-6-g7e8bbf6',      :git => github + 'norcams/puppet-keystone'
 mod 'glance', :ref => 'f4495d93a0',              :git => github + 'openstack/puppet-glance'
 mod 'nova', :ref => 'a495b4010d',                :git => github + 'openstack/puppet-nova'
 mod 'cinder', :ref => '5add15bc80',              :git => github + 'openstack/puppet-cinder'
 mod 'horizon', :ref => '7.0.0-2-ga6e7c64',       :git => github + 'norcams/puppet-horizon'
-mod 'neutron', :ref => '831434a6a7',             :git => github + 'norcams/puppet-neutron'
+mod 'neutron', :ref => '7.0.0-14-g51c6383',      :git => github + 'norcams/puppet-neutron'
 
 mod 'openstacklib', :ref => '7.0.0',             :git => github + 'openstack/puppet-openstacklib'
 mod 'openstack_extras', :ref => '7.0.0',         :git => github + 'openstack/puppet-openstack_extras'
@@ -152,4 +152,3 @@ mod 'augeasproviders_ssh', :ref => '2.2.2',      :git => github + 'hercules-team
 # This conflicts with duritong/sysctl which is used in openstack/* modules
 #mod 'augeasproviders_sysctl', :ref => '2.0.1',   :git => github + 'hercules-team/augeasproviders_sysctl'
 mod 'augeasproviders_syslog', :ref => '2.1.1',   :git => github + 'hercules-team/augeasproviders_syslog'
-
