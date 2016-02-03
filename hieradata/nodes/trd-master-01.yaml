@@ -7,7 +7,7 @@ network::interfaces_hash:
     mtu:       '1500'
     peerdns:   'yes'
     dns1:      "%{hiera('service__address__proxy')}"
-    domain:    'mgmt.iaas.intern'
+    domain:    'iaas.ntnu.no'
     defroute:  'no'
   'eth1':
     ipaddress: '172.18.64.6'
