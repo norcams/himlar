@@ -1,0 +1,10 @@
+---
+named_interfaces::config:
+  mgmt:
+     - eth0
+  transport:
+     - eth1
+  public:
+     - dummy0
+
+profile::base::network::manage_dummy: true
