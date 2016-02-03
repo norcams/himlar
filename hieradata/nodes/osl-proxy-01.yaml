@@ -3,12 +3,12 @@ network::interfaces_hash:
   'eth0':
     ipaddress: '129.240.224.114'
     netmask:   '255.255.255.224'
-    gateway:   '129.240.224.97'
     mtu:       '1500'
     peerdns:   'yes'
     dns1:      '129.240.2.3'
     dns2:      '129.240.2.40'
     domain:    'iaas.uio.no'
+    defroute:  'no'
   'eth1':
     ipaddress: '172.18.32.5'
     netmask:   '255.255.248.0'
