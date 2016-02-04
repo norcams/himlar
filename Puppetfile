@@ -61,14 +61,16 @@ mod 'consul', :ref => '7c428f4b2b',              :git => github + 'solarkennedy/
 # profile::application::foreman
 #
 mod 'zack/r10k', '2.5.2'                         # forge
-mod 'theforeman/foreman', :ref => '2f9e173b',    :git => github + 'theforeman/puppet-foreman.git'
+mod 'theforeman/foreman', :ref => '1d0a5d397c',  :git => github + 'theforeman/puppet-foreman.git'
 mod 'theforeman/concat_native', '1.3.1'          # forge
-mod 'theforeman/tftp', '1.4.3'                   # forge
+mod 'theforeman/tftp', '1.6.0'                   # forge
 mod 'theforeman/puppet', :ref => '4cc662969',    :git => github + 'theforeman/puppet-puppet.git'
 mod 'theforeman/dns', '1.4.0'                    # forge
-mod 'theforeman/dhcp', :ref => '2dd89ddb9c',     :git => github + 'norcams/puppet-dhcp.git'
-mod 'theforeman/foreman_proxy', '2.1.0'          # forge
+mod 'theforeman/dhcp', :ref => 'ffe95d5bb0',     :git => github + 'norcams/puppet-dhcp.git'
+mod 'theforeman/foreman_proxy', '2.4.2'          # forge
 mod 'theforeman/git', '1.4.0'                    # forge
+mod 'adrien/alternatives', '0.3.0'               # forge
+mod 'voxpupuli/extlib', :ref => '3ed4231eeb'     :git => github + 'voxpupuli/puppet-extlib.git'
 mod 'puppetlabs/ruby', '0.4.0'                   # forge
 mod 'puppetlabs/xinetd', '1.4.0'                 # forge
 mod 'eyaml', :ref => 'v0.3.0',                   :git => github + 'ghoneycutt/puppet-module-eyaml'
