@@ -66,7 +66,7 @@ mod 'theforeman/concat_native', '1.3.1'          # forge
 mod 'theforeman/tftp', '1.6.0'                   # forge
 mod 'theforeman/puppet', :ref => '26e1213d0d',   :git => github + 'theforeman/puppet-puppet.git'
 mod 'theforeman/dns', '1.4.0'                    # forge
-mod 'theforeman/dhcp', :ref => 'ffe95d5bb0',     :git => github + 'norcams/puppet-dhcp.git'
+mod 'theforeman/dhcp', :ref => '3a898b5a6c',     :git => github + 'norcams/puppet-dhcp.git'
 mod 'theforeman/foreman_proxy', '2.4.2'          # forge
 mod 'theforeman/git', '1.4.0'                    # forge
 mod 'adrien/alternatives', '0.3.0'               # forge
