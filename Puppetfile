@@ -64,7 +64,7 @@ mod 'zack/r10k', '2.5.2'                         # forge
 mod 'theforeman/foreman', :ref => '1d0a5d397c',  :git => github + 'theforeman/puppet-foreman.git'
 mod 'theforeman/concat_native', '1.3.1'          # forge
 mod 'theforeman/tftp', '1.6.0'                   # forge
-mod 'theforeman/puppet', :ref => '4cc662969',    :git => github + 'theforeman/puppet-puppet.git'
+mod 'theforeman/puppet', :ref => '26e1213d0d',   :git => github + 'theforeman/puppet-puppet.git'
 mod 'theforeman/dns', '1.4.0'                    # forge
 mod 'theforeman/dhcp', :ref => 'ffe95d5bb0',     :git => github + 'norcams/puppet-dhcp.git'
 mod 'theforeman/foreman_proxy', '2.4.2'          # forge
