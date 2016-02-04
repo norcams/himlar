@@ -70,7 +70,7 @@ mod 'theforeman/dhcp', :ref => 'ffe95d5bb0',     :git => github + 'norcams/puppe
 mod 'theforeman/foreman_proxy', '2.4.2'          # forge
 mod 'theforeman/git', '1.4.0'                    # forge
 mod 'adrien/alternatives', '0.3.0'               # forge
-mod 'voxpupuli/extlib', :ref => '3ed4231eeb'     :git => github + 'voxpupuli/puppet-extlib.git'
+mod 'voxpupuli/extlib', :ref => '3ed4231eeb',    :git => github + 'voxpupuli/puppet-extlib.git'
 mod 'puppetlabs/ruby', '0.4.0'                   # forge
 mod 'puppetlabs/xinetd', '1.4.0'                 # forge
 mod 'eyaml', :ref => 'v0.3.0',                   :git => github + 'ghoneycutt/puppet-module-eyaml'
