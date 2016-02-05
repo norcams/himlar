@@ -4,8 +4,8 @@ provision_from_puppetfile()
 {
   export PUPPETFILE=/opt/himlar/Puppetfile
   export PUPPETFILE_DIR=/etc/puppet/modules
-  /usr/local/bin/r10k --verbose 4 puppetfile purge
-  /usr/local/bin/r10k --verbose 4 puppetfile install
+  cd /opt/himlar && /usr/local/bin/r10k --verbose 4 puppetfile purge
+  cd /opt/himlar && /usr/local/bin/r10k --verbose 4 puppetfile install
   # link profile module
   ln -s -f /opt/himlar/profile /etc/puppet/modules/
 }
@@ -47,4 +47,3 @@ puppetfile=false
 # If /opt/himlar/modules contains a module deployed via rsync, use that instead
 # of the one in /etc/puppet/modules
 [[ -z "$opt_himlar_modules" ]] || override_modules
-
