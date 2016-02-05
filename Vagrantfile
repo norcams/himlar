@@ -7,11 +7,12 @@ unless defined? settings
   # Use nodes.yaml.local if it exists, else use nodes.yaml
   config = File.join(File.dirname(__FILE__), 'nodes.yaml')
   local = File.join(File.dirname(__FILE__), 'nodes.yaml.local')
+  settings = YAML.load(File.open(config, File::RDONLY).read)
   if File.exist?(local)
-    config = local
+    local_settings = YAML.load(File.open(local, File::RDONLY).read)
+    settings.merge!(local_settings)
     puts "NOTE: Local config file nodes.yaml.local present"
   end
-  settings = YAML.load(File.open(config, File::RDONLY).read)
 
   # Check if any nodesets are present
   if settings.has_key?('nodesets')
