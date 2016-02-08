@@ -1,7 +1,7 @@
 ---
 network::interfaces_hash:
   'em1':
-    ipaddress: '172.18.32.8'
+    ipaddress: '172.18.32.103'
     netmask:   '255.255.248.0'
     gateway:   '172.18.32.1'
     peerdns:   'yes'
@@ -9,11 +9,11 @@ network::interfaces_hash:
     domain:    'iaas.uio.no'
     defroute:  'yes'
   'em2':
-    ipaddress: '172.18.40.8'
+    ipaddress: '172.18.40.103'
     netmask:   '255.255.248.0'
     defroute:  'no'
   'em3':
-    ipaddress: '129.240.224.110'
-    netmask:   '255.255.255.224'
-    gateway:   '129.240.224.97'
+    ipaddress: '172.16.32.103'
+    netmask:   '255.255.248.0'
+    gateway:   '172.16.32.1'
     defroute:  'no'
