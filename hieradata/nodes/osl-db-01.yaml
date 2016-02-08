@@ -3,7 +3,7 @@ network::interfaces_hash:
   'eth0':
     onboot:    'yes'
     mtu:       '1500'
-    ipaddress: '129.240.224.113'
-    netmask:   '255.255.255.224'
-    gateway:   '129.240.224.114'
+    ipaddress: '172.16.32.21'
+    netmask:   '255.255.248.0'
+    gateway:   '172.16.32.12'
     defroute:  'yes'
