@@ -22,7 +22,6 @@ include:
 #    - profile::openstack::network::metadata
     - profile::application::etcd
 
-profile::openstack::database::sql::cinder_enabled:  true
 profile::base::network::manage_dummy: true
 profile::base::common::manage_lvm: false
 profile::base::common::common_packages:
