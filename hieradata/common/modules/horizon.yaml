@@ -1,7 +1,7 @@
 horizon::fqdn: "*"
 horizon::secret_key: horizon_secret
 horizon::servername: "%{ipaddress_public1}"
-horizon::keystone_url: "http://%{hiera('service__address__keystone')}:5000/v3/"
+horizon::keystone_url: "http://%{hiera('service__address__keystone')}:5000/v3"
 horizon::neutron_options:
   'enable_lb': false
   'enable_firewall': false
@@ -20,6 +20,6 @@ horizon::api_versions:
 horizon::websso_enabled: true
 horizon::websso_initial_choice: oidc
 horizon::websso_choices:
-  oidc: FEIDE Connect
+  oidc: Dataporten
   credentials: Local user
 
