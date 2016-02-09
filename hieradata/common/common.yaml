@@ -2,10 +2,12 @@
 include:
   default:
     - profile::base::common
+    - profile::base::firewall
   bootstrap:
     - profile::base::common
   firstboot:
     - profile::base::common
+    - profile::base::firewall
 
 #
 # Location metadata

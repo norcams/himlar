@@ -10,7 +10,6 @@ class profile::base::common (
   $manage_ntp             = false,
   $manage_sudo            = false,
   $manage_authconfig      = false,
-  $manage_firewall        = false,
   $manage_network         = false,
   $manage_lvm             = false,
   $manage_timezones       = false,
@@ -63,13 +62,6 @@ class profile::base::common (
 
   if $manage_authconfig {
     include ::authconfig
-  }
-
-  if $manage_firewall {
-    include ::firewall
-    include ::profile::firewall::pre
-    include ::profile::firewall::post
-    include ::profile::firewall
   }
 
   if $manage_network {
