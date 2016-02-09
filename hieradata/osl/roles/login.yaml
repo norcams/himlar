@@ -6,10 +6,10 @@ profile::network::services::manage_nat: false
 foreman_bootstrap::tftp_install:
   osl-controller-01:
     domain:           'iaas.uio.no'
-    dhcp_interface:   'em1'
-    dhcp_range_start: '129.240.224.118'
-    dhcp_range_end:   '129.240.224.126'
-    dhcp_gateway:     '129.240.224.97'
+    dhcp_interface:   'em3'
+    dhcp_range_start: '172.16.32.200'
+    dhcp_range_end:   '172.16.32.250'
+    dhcp_gateway:     '172.16.32.12'
 
 openstack_extras::repo::redhat::redhat::purge_unmanaged: false
 

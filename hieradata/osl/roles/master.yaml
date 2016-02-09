@@ -8,9 +8,9 @@ named_interfaces::config:
      - dummy0
 
 ntp::servers:
-  - 129.240.224.107
-  - 129.240.224.108
-  - 129.240.224.109
+  - 172.16.32.100
+  - 172.16.32.101
+  - 172.16.32.102
 
 # NOTE: reflectors will be on cumulus gws for prod
 calico::reflector: true
