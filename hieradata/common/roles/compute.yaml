@@ -7,6 +7,8 @@ include:
     - profile::openstack::network::metadata
   bootstrap:
     - profile::base::lvm
+  firstrun:
+    - profile::base::lvm
 
 openstack_extras::repo::redhat::redhat::manage_rdo: false
 profile::base::common::manage_lvm: true

@@ -6,8 +6,10 @@ include:
     - profile::storage::cephosd_firewall
     - profile::base::lvm
   bootstrap:
-    - profile::storage::cephosd_firewall
     - profile::base::lvm
+  firstrun:
+    - profile::base::lvm
+    - profile::storage::cephosd_firewall
 
 profile::base::manage_lvm:                           true
 
