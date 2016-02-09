@@ -10,10 +10,10 @@ keystone::roles::admin::password: admin_pass
 
 keystone::service_name: "httpd"
 
+keystone::endpoint::region: "%{location}"
 keystone::endpoint::public_url:   "http://%{hiera('service__address__keystone')}:5000"
 keystone::endpoint::internal_url: "http://%{hiera('service__address__keystone')}:5000"
 keystone::endpoint::admin_url:    "http://%{hiera('service__address__keystone_admin')}:35357"
-keystone::endpoint::region:       'RegionOne'
 
 keystone::wsgi::apache::ssl: false
 
@@ -22,4 +22,23 @@ keystone::public_bind_host: "%{ipaddress_public1}"
 keystone::admin_bind_host: "%{ipaddress_mgmt1}"
 keystone::database_connection: "mysql://keystone:key_pass@%{%{hiera('service__address__mysql')}/keystone"
 
-keystone::endpoint::region: "%{location}"
+keystone::federation::oidc::idp_name: dataporten
+keystone::federation::oidc::methods:
+  - password
+  - token
+  - oidc
+keystone::federation::oidc::provider_metadata_url: https://auth.feideconnect.no/.well-known/openid-configuration
+keystone::federation::oidc::remote_id_attribute: OIDC-iss
+keystone::federation::oidc::response_type: code
+keystone::federation::oidc::scope:
+  - email
+  - openid
+  - profile
+  - userid-feide
+# set per location in <location>/modules/keystone.yaml
+keystone::federation::oidc::trusted_dashboard: "https://%{ipaddress_public1}/dashboard/auth/websso/"
+keystone::federation::oidc::redirect_uri: "http://%{ipaddress_public1}:5000/v3/auth/OS-FEDERATION/websso/oidc/redirect"
+# set real values using secrets/<node>.yaml
+keystone::federation::oidc::client_id: 00000000-0000-0000-0000-000000000000
+keystone::federation::oidc::client_secret: 00000000-0000-0000-0000-000000000000
+keystone::federation::oidc::crypto_passphrase: openstack

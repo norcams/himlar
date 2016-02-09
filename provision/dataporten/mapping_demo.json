@@ -1,0 +1,26 @@
+[
+  {
+    "local": [
+      {
+        "user": {
+          "name": "{1}",
+          "id": "{0}"
+        },
+        "group": {
+          "name": "demo",
+          "domain": {
+            "id": "DOMAIN_ID"
+          }
+        }
+      }
+    ],
+    "remote": [
+      {
+        "type": "OIDC-email"
+      },
+      {
+        "type": "OIDC-sub"
+      }
+    ]
+  }
+]
