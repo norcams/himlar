@@ -28,7 +28,6 @@ keystone::federation::oidc::methods:
   - token
   - oidc
 keystone::federation::oidc::provider_metadata_url: https://auth.feideconnect.no/.well-known/openid-configuration
-keystone::federation::oidc::redirect_uri: http://10.4.0.14:5000/v3/auth/OS-FEDERATION/websso/oidc/redirect
 keystone::federation::oidc::remote_id_attribute: OIDC-iss
 keystone::federation::oidc::response_type: code
 keystone::federation::oidc::scope:
@@ -36,7 +35,9 @@ keystone::federation::oidc::scope:
   - openid
   - profile
   - userid-feide
-keystone::federation::oidc::trusted_dashboard: https://10.4.0.14/dashboard/auth/websso/
+# set per location in <location>/modules/keystone.yaml
+keystone::federation::oidc::trusted_dashboard: "https://%{ipaddress_public1}/dashboard/auth/websso/"
+keystone::federation::oidc::redirect_uri: "http://%{ipaddress_public1}:5000/v3/auth/OS-FEDERATION/websso/oidc/redirect"
 # set real values using secrets/<node>.yaml
 keystone::federation::oidc::client_id: 00000000-0000-0000-0000-000000000000
 keystone::federation::oidc::client_secret: 00000000-0000-0000-0000-000000000000
