@@ -72,6 +72,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       box.vm.provision :shell, :path => 'provision/puppetmodules.sh', args: args
       box.vm.provision :shell, :path => 'provision/puppetrun.sh', args: args
 
+      box.vm.provider :libvirt do |libvirt|
+        libvirt.driver = 'kvm'
+        libvirt.nested = true
+        libvirt.cpus   = n['cpus']
+        libvirt.memory = n['memory']
+      end
+
       box.vm.provider :virtualbox do |vbox|
         vbox.customize ['modifyvm', :id, '--ioapic', 'on']
         vbox.customize ['modifyvm', :id, '--cpus',   n['cpus']]
@@ -79,12 +86,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vbox.customize ['modifyvm', :id, '--name',   n['name']]
       end
 
-      box.vm.provider :libvirt do |libvirt|
-        libvirt.driver = 'kvm'
-        libvirt.nested = true
-        libvirt.cpus   = n['cpus']
-        libvirt.memory = n['memory']
-      end
     end
   end
 
