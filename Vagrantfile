@@ -10,14 +10,10 @@ unless defined? settings
   settings = YAML.load(File.open(config, File::RDONLY).read)
   if File.exist?(local)
     local_settings = YAML.load(File.open(local, File::RDONLY).read)
-    unless local_settings['defaults'].nil?
-      settings['defaults'].merge!(local_settings['defaults'])
-    end
-    unless local_settings['nodesets'].nil?
-      settings['nodesets'].merge!(local_settings['nodesets'])
-    end
-    unless local_settings['networks'].nil?
-      settings['networks'].merge!(local_settings['networks'])
+    local_settings.keys.each do |section|
+      unless local_settings[section].nil?
+        settings[section].merge!(local_settings[section])
+      end
     end
     puts "NOTE: Local config file nodes.yaml.local present"
   end
