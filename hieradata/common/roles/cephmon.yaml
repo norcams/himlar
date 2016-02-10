@@ -3,7 +3,7 @@ include:
   default:
     - profile::storage::cephmon
     - profile::storage::cephmon_firewall
-  firstboot:
+  bootstrap:
     - profile::storage::cephmon_firewall
 
 profile::storage::cephmon_firewall::manage_firewall:  true

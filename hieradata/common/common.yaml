@@ -3,9 +3,9 @@ include:
   default:
     - profile::base::common
     - profile::base::firewall
-  bootstrap:
+  kickstart:
     - profile::base::common
-  firstboot:
+  bootstrap:
     - profile::base::common
     - profile::base::firewall
 

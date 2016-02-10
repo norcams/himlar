@@ -5,9 +5,9 @@ include:
     - profile::storage::cephpool
     - profile::storage::cephosd_firewall
     - profile::base::lvm
-  bootstrap:
+  kickstart:
     - profile::base::lvm
-  firstboot:
+  bootstrap:
     - profile::base::lvm
     - profile::storage::cephosd_firewall
 

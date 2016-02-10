@@ -5,9 +5,9 @@ include:
     - profile::openstack::volume
     - profile::openstack::network
     - profile::openstack::network::metadata
-  bootstrap:
+  kickstart:
     - profile::base::lvm
-  firstboot:
+  bootstrap:
     - profile::base::lvm
 
 openstack_extras::repo::redhat::redhat::manage_rdo: false
