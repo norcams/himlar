@@ -7,7 +7,7 @@ include:
     - profile::openstack::network::metadata
   bootstrap:
     - profile::base::lvm
-  firstrun:
+  firstboot:
     - profile::base::lvm
 
 openstack_extras::repo::redhat::redhat::manage_rdo: false

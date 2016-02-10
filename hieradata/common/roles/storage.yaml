@@ -7,7 +7,7 @@ include:
     - profile::base::lvm
   bootstrap:
     - profile::base::lvm
-  firstrun:
+  firstboot:
     - profile::base::lvm
     - profile::storage::cephosd_firewall
 
