@@ -8,12 +8,12 @@ profile::base::common::manage_ssh:             true
 profile::base::common::manage_ntp:             true
 profile::base::common::manage_sudo:            true
 profile::base::common::manage_authconfig:      false
-profile::base::common::manage_firewall:        true
 profile::base::common::manage_timezones:       true
 profile::base::common::manage_keyboard:        true
 profile::base::common::manage_network:         true
 profile::base::common::include_virtual:        true
 profile::base::common::include_physical:       true
+profile::base::firewall::manage_firewall:      true
 
 profile::base::common::common_packages:
   - 'tcpdump'
