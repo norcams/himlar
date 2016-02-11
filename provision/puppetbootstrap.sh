@@ -22,13 +22,6 @@ bootstrap_puppet()
 
   gem install r10k --no-ri --no-rdoc
 
-  # file locations
-  rm -rf /etc/puppet/manifests
-  ln -sfT /opt/himlar/manifests /etc/puppet/manifests
-  ln -sfT /opt/himlar/hieradata /etc/puppet/hieradata
-  ln -sfT /opt/himlar/hiera.yaml /etc/puppet/hiera.yaml
-  ln -sfT /etc/puppet/hiera.yaml /etc/hiera.yaml
-
   # Let puppetrun.sh pick up that we are now in bootstrap mode
   touch /opt/himlar/bootstrap && echo "Created bootstrap marker: /opt/himlar/bootstrap"
 }

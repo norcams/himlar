@@ -2,12 +2,19 @@
 
 provision_from_puppetfile()
 {
+  # ensure file locations are correct
+  mkdir -p /etc/puppet/manifests
+  ln -sfT /opt/himlar/manifests/site.pp /etc/puppet/manifests/site.pp
+  ln -sfT /opt/himlar/hieradata /etc/puppet/hieradata
+  ln -sfT /opt/himlar/hiera.yaml /etc/puppet/hiera.yaml
+  ln -sfT /etc/puppet/hiera.yaml /etc/hiera.yaml
+
   export PUPPETFILE=/opt/himlar/Puppetfile
   export PUPPETFILE_DIR=/etc/puppet/modules
   cd /opt/himlar && /usr/local/bin/r10k --verbose 4 puppetfile purge
   cd /opt/himlar && /usr/local/bin/r10k --verbose 4 puppetfile install
-  # link profile module
-  ln -s -f /opt/himlar/profile /etc/puppet/modules/
+  # link in profile module after running r10k
+  ln -sf /opt/himlar/profile /etc/puppet/modules/
 }
 
 override_modules()
