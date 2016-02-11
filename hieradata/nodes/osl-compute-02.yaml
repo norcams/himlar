@@ -3,7 +3,7 @@ network::interfaces_hash:
   'em1':
     ipaddress: '172.18.32.104'
     netmask:   '255.255.248.0'
-    gateway:   '172.18.32.12'
+    gateway:   '172.18.32.1'
     peerdns:   'yes'
     dns1:      "%{hiera('service__address__proxy')}"
     domain:    'iaas.uio.no'
