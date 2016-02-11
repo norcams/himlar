@@ -3,8 +3,8 @@
 provision_from_puppetfile()
 {
   # ensure file locations are correct
-  rm -rf /etc/puppet/manifests
-  ln -sfT /opt/himlar/manifests /etc/puppet/manifests
+  mkdir -p /etc/puppet/manifests
+  ln -sfT /opt/himlar/manifests/site.pp /etc/puppet/manifests/site.pp
   ln -sfT /opt/himlar/hieradata /etc/puppet/hieradata
   ln -sfT /opt/himlar/hiera.yaml /etc/puppet/hiera.yaml
   ln -sfT /etc/puppet/hiera.yaml /etc/hiera.yaml
