@@ -20,14 +20,15 @@ unless defined? settings
 
   # Check if any nodesets are present
   if settings.has_key?('nodesets')
+    # Default nodeset
+    nodeset = 'default'
     # Check if the value of env var HIMLAR_NODESET is a valid nodeset
-    if ENV.key?('HIMLAR_NODESET')
-      if settings['nodesets'].key?(ENV['HIMLAR_NODESET'])
-        settings['nodes'] = settings['nodesets'][ENV['HIMLAR_NODESET']]
-      else
-        puts "WARNING: HIMLAR_NODESET not found, using default"
-      end
+    if settings['nodesets'].key?(ENV['HIMLAR_NODESET'])
+      nodeset = ENV['HIMLAR_NODESET']
+    else
+      puts "WARNING: No data found for nodeset \"%s\" - using %s" % [ENV['HIMLAR_NODESET'], nodeset]
     end
+    settings['nodes'] = settings['nodesets'][nodeset]
   end
 
   if settings['nodes'].nil?
@@ -48,9 +49,9 @@ VAGRANTFILE_API_VERSION = '2'
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   settings['nodes'].each_with_index do |n, i|
-    n['hostid'] = n.key?('role') ? n['name'] : 'box'
-    n['role'] = n.key?('role') ? n['role'] : n['name']
-    config.vm.define n['name'], autostart: n['autostart'], primary: n['primary'] do |box|
+    instance_name = n.key?('hostid') ? n['role'] + '-' + n['hostid'] : n['role']
+    n['hostid'] = 'box' unless n.key('hostid')
+    config.vm.define instance_name, autostart: n['autostart'], primary: n['primary'] do |box|
       box.vm.hostname = "%s-%s-%s.%s" % [ n['location'],n['role'],n['hostid'],n['domain'] ]
       box.vm.box = n['box']
       box.vm.box_url = n['box_url']
