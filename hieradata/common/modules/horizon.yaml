@@ -14,6 +14,7 @@ horizon::horizon_ca: "/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem"
 horizon::horizon_cert: "/etc/ssl/certs/%{::fqdn}.crt"
 horizon::horizon_key:  "/etc/ssl/certs/%{::fqdn}.key"
 
+horizon::keystone_multidomain_support: false
 horizon::api_versions:
   'identity': 3
 
