@@ -8,12 +8,13 @@ profile::base::common::manage_ssh:             true
 profile::base::common::manage_ntp:             true
 profile::base::common::manage_sudo:            true
 profile::base::common::manage_authconfig:      false
+profile::base::common::manage_firewall:        true
 profile::base::common::manage_timezones:       true
 profile::base::common::manage_keyboard:        true
 profile::base::common::manage_network:         true
 profile::base::common::include_virtual:        true
 profile::base::common::include_physical:       true
-profile::base::firewall::manage_firewall:      true
+profile::base::common::manage_passwords:       true
 
 profile::base::common::common_packages:
   - 'tcpdump'
@@ -32,7 +33,6 @@ profile::openstack::database::sql::keystone_enabled: true
 profile::openstack::database::sql::glance_enabled:   true
 profile::openstack::database::sql::nova_enabled:     true
 profile::openstack::database::sql::neutron_enabled:  true
-profile::openstack::database::sql::cinder_enabled:   true
 profile::openstack::database::sql::heat_enabled:     false
 profile::openstack::database::sql::trove_enabled:    false
 

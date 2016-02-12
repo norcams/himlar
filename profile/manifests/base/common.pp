@@ -10,10 +10,12 @@ class profile::base::common (
   $manage_ntp             = false,
   $manage_sudo            = false,
   $manage_authconfig      = false,
+  $manage_firewall        = false,
   $manage_network         = false,
   $manage_lvm             = false,
   $manage_timezones       = false,
   $manage_keyboard        = false,
+  $manage_passwords       = false,
   $include_physical       = false,
   $include_virtual        = false,
   $common_packages        = [],
@@ -64,6 +66,13 @@ class profile::base::common (
     include ::authconfig
   }
 
+  if $manage_firewall {
+    include ::firewall
+    include ::profile::firewall::pre
+    include ::profile::firewall::post
+    include ::profile::firewall
+  }
+
   if $manage_network {
     include ::profile::base::network
   }
@@ -78,6 +87,10 @@ class profile::base::common (
 
   if $manage_keyboard {
     include keyboard
+  }
+
+  if $manage_passwords  {
+    include ::profile::base::passwords
   }
 
   if $include_physical and ($::is_virtual == false) {
