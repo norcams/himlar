@@ -23,10 +23,12 @@ unless defined? settings
     # Default nodeset
     nodeset = 'default'
     # Check if the value of env var HIMLAR_NODESET is a valid nodeset
-    if settings['nodesets'].key?(ENV['HIMLAR_NODESET'])
-      nodeset = ENV['HIMLAR_NODESET']
-    else
-      puts "WARNING: No data found for nodeset \"%s\" - using %s" % [ENV['HIMLAR_NODESET'], nodeset]
+    if ENV.key?('HIMLAR_NODESET')
+      if settings['nodesets'].key?(ENV['HIMLAR_NODESET'])
+        nodeset = ENV['HIMLAR_NODESET']
+      else
+        puts "WARNING: No data found for nodeset \"%s\" - using %s" % [ENV['HIMLAR_NODESET'], nodeset]
+      end
     end
     settings['nodes'] = settings['nodesets'][nodeset]
   end
