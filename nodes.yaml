@@ -71,6 +71,10 @@ nodesets:
       role: controller
     - name: con3
       role: controller
+  lb:
+    - name: db
+    - name: controller
+    - name: lb
 
 networks:
   mgmt:
