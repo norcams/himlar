@@ -24,7 +24,7 @@ include:
 
 profile::base::network::manage_dummy: true
 profile::base::common::manage_lvm: false
-profile::base::common::common_packages:
+profile::base::common::packages:
   - python-etcd
 
 profile::application::sslcert::create_new: true
