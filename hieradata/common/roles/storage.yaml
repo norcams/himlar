@@ -27,10 +27,16 @@ accounts::accounts:
   'cinder':
     ensure: present
 
+ceph::profile::params::osd_journal_size: '10240'
+
 profile::storage::cephpool::pools:
   'rbd':
     ensure: absent
   'volumes':
     ensure: present
+    pg_num: 1500
+    pgp_num: 1500
   'images':
     ensure: present
+    pg_num: 1500
+    pgp_num: 1500
