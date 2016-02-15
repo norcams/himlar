@@ -27,12 +27,10 @@ accounts::accounts:
   'cinder':
     ensure: present
 
-ceph::profile::params::pools:
+profile::storage::cephpool::pools:
+  'rbd':
+    ensure: absent
   'volumes':
-     pg_num: 128
+    ensure: present
   'images':
-     pg_num: 128
-  'backups':
-     pg_num: 128
-  'vms':
-     pg_num: 128
+    ensure: present
