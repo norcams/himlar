@@ -10,18 +10,17 @@ class profile::base::common (
   $manage_ntp             = false,
   $manage_sudo            = false,
   $manage_authconfig      = false,
-  $manage_firewall        = false,
   $manage_network         = false,
   $manage_lvm             = false,
   $manage_timezones       = false,
   $manage_keyboard        = false,
   $include_physical       = false,
   $include_virtual        = false,
-  $common_packages        = [],
-  $common_packages_ensure = 'installed',
-  $common_classes         = [],
+  $packages               = [],
+  $packages_ensure        = 'installed',
+  $classes                = [],
 ) {
-  include $common_classes
+  include $classes
 
   if $manage_augeasproviders {
     include ::augeasproviders::instances
@@ -65,13 +64,6 @@ class profile::base::common (
     include ::authconfig
   }
 
-  if $manage_firewall {
-    include ::firewall
-    include ::profile::firewall::pre
-    include ::profile::firewall::post
-    include ::profile::firewall
-  }
-
   if $manage_network {
     include ::profile::base::network
   }
@@ -96,10 +88,10 @@ class profile::base::common (
     include ::profile::base::virtual
   }
 
-  if $common_packages {
-    $base_common_packages = hiera_array('profile::base::common::common_packages')
-    package { $base_common_packages:
-      ensure => $common_packages_ensure
+  if $packages {
+    $install_packages = hiera_array('profile::base::common::packages')
+    package { $install_packages:
+      ensure => $packages_ensure
     }
   }
 

@@ -5,9 +5,11 @@ include:
     - profile::storage::cephpool
     - profile::storage::cephosd_firewall
     - profile::base::lvm
-  bootstrap:
-    - profile::storage::cephosd_firewall
+  kickstart:
     - profile::base::lvm
+  bootstrap:
+    - profile::base::lvm
+    - profile::storage::cephosd_firewall
 
 profile::base::manage_lvm:                           true
 

@@ -5,6 +5,8 @@ include:
     - profile::openstack::volume
     - profile::openstack::network
     - profile::openstack::network::metadata
+  kickstart:
+    - profile::base::lvm
   bootstrap:
     - profile::base::lvm
 
@@ -12,7 +14,7 @@ openstack_extras::repo::redhat::redhat::manage_rdo: false
 profile::base::common::manage_lvm: true
 
 profile::openstack::network::l2_driver: calico
-profile::base::common::common_packages:
+profile::base::common::packages:
   - python-etcd
   - posix-spawn
   - networking-calico

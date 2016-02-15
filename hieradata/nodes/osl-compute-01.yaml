@@ -3,17 +3,19 @@ network::interfaces_hash:
   'em1':
     ipaddress: '172.18.32.103'
     netmask:   '255.255.248.0'
-    gateway:   '172.18.32.12'
-    peerdns:   'yes'
-    dns1:      "%{hiera('service__address__proxy')}"
-    domain:    'iaas.uio.no'
+    gateway:   '172.18.32.1'
     defroute:  'yes'
   'em2':
     ipaddress: '172.18.40.103'
     netmask:   '255.255.248.0'
+    gateway:   '172.18.40.1'
     defroute:  'no'
   'em3':
     ipaddress: '172.16.32.103'
     netmask:   '255.255.248.0'
     gateway:   '172.16.32.1'
     defroute:  'no'
+    peerdns:   'yes'
+    dns1:      "%{hiera('service__address__proxy')}"
+    domain:    'iaas.uio.no'
+

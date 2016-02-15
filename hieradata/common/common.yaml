@@ -2,8 +2,12 @@
 include:
   default:
     - profile::base::common
+    - profile::base::firewall
+  kickstart:
+    - profile::base::common
   bootstrap:
     - profile::base::common
+    - profile::base::firewall
 
 #
 # Location metadata
