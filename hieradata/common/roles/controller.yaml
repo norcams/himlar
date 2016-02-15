@@ -5,6 +5,8 @@ include:
     - foreman_bootstrap::instances
 
 profile::base::common::manage_lvm: true
+profile::base::common::packages:
+  - bridge-utils
 
 named_interfaces::config:
   mgmt:
