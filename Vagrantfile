@@ -10,28 +10,27 @@ unless defined? settings
   settings = YAML.load(File.open(config, File::RDONLY).read)
   if File.exist?(local)
     local_settings = YAML.load(File.open(local, File::RDONLY).read)
-    unless local_settings['defaults'].nil?
-      settings['defaults'].merge!(local_settings['defaults'])
-    end
-    unless local_settings['nodesets'].nil?
-      settings['nodesets'].merge!(local_settings['nodesets'])
-    end
-    unless local_settings['networks'].nil?
-      settings['networks'].merge!(local_settings['networks'])
+    local_settings.keys.each do |section|
+      unless local_settings[section].nil?
+        settings[section].merge!(local_settings[section])
+      end
     end
     puts "NOTE: Local config file nodes.yaml.local present"
   end
 
   # Check if any nodesets are present
   if settings.has_key?('nodesets')
+    # Default nodeset
+    nodeset = 'default'
     # Check if the value of env var HIMLAR_NODESET is a valid nodeset
     if ENV.key?('HIMLAR_NODESET')
       if settings['nodesets'].key?(ENV['HIMLAR_NODESET'])
-        settings['nodes'] = settings['nodesets'][ENV['HIMLAR_NODESET']]
+        nodeset = ENV['HIMLAR_NODESET']
       else
-        puts "WARNING: HIMLAR_NODESET not found, using default"
+        puts "WARNING: No data found for nodeset \"%s\" - using %s" % [ENV['HIMLAR_NODESET'], nodeset]
       end
     end
+    settings['nodes'] = settings['nodesets'][nodeset]
   end
 
   if settings['nodes'].nil?
@@ -52,9 +51,9 @@ VAGRANTFILE_API_VERSION = '2'
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   settings['nodes'].each_with_index do |n, i|
-    n['hostid'] = n.key?('role') ? n['name'] : 'box'
-    n['role'] = n.key?('role') ? n['role'] : n['name']
-    config.vm.define n['name'], autostart: n['autostart'], primary: n['primary'] do |box|
+    instance_name = n.key?('hostid') ? n['role'] + '-' + n['hostid'] : n['role']
+    n['hostid'] = 'box' unless n.key('hostid')
+    config.vm.define instance_name, autostart: n['autostart'], primary: n['primary'] do |box|
       box.vm.hostname = "%s-%s-%s.%s" % [ n['location'],n['role'],n['hostid'],n['domain'] ]
       box.vm.box = n['box']
       box.vm.box_url = n['box_url']
