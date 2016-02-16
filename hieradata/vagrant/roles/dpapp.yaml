@@ -1,0 +1,5 @@
+---
+profile::firewall::rules:
+  '020 allow all from transport network to public ip':
+    destination: "%{ipaddress_public1}"
+    source: '172.31.24.0/24'
