@@ -1,12 +1,23 @@
 #!/bin/bash -ux
+
+## Sanity check
+if [ $# -ne 1 ]; then
+  echo "Warning: no mapping type passed. To change run"
+  echo "./setup.sh personal"
+  type='demo'
+else
+  # Do not trust user to get this right!
+  type='personal'
+fi
+
 # configuration
 region="vagrant"
 os_rc_file="/opt/himlar/provision/dataporten/openstack.rc.${region}"
 domain="dataporten"
 idp_name="dataporten"
 idp_endpoint="https://auth.feideconnect.no"
-mapping_name="dataporten_demo"
-mapping_rules="/opt/himlar/provision/dataporten/mapping_demo.json"
+mapping_name="dataporten_${type}"
+mapping_rules="/opt/himlar/provision/dataporten/mapping_${type}.json"
 
 # Create domain and demo project
 puppet apply --test /opt/himlar/provision/dataporten/dataporten_domain.pp
@@ -68,4 +79,3 @@ if [[ $param == "destroy" ]]; then
 fi
 
 systemctl restart httpd
-
