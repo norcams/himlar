@@ -2,7 +2,7 @@
 
 To test this use HIMLAR_NODESET=connect
 
-Make sure you have two FEIDE connect appliactions her:
+Make sure you have two FEIDE connect appliactions here:
 https://dashboard.feideconnect.no
 
 ### Dataporten Application
