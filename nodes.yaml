@@ -60,6 +60,24 @@ nodesets:
         - "mgmt"
         - "transport1"
         - "transport2"
+  connect:
+    - role: "db"
+      cpus:   1
+      memory: 1024
+      networks:
+        - "mgmt"
+        - "service"
+    - role: "master"
+      memory: 3096
+      networks:
+        - "mgmt"
+        - "service"
+        - "public"
+    - role: "dpapp"
+      networks:
+        - "mgmt"
+        - "public"
+        - "service"
   infra:
     - role: "login"
     - role: "controller"
@@ -99,4 +117,3 @@ networks:
   transport2:
     net: "172.31.33"
     auto_config: false
-
