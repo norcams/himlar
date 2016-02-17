@@ -1,6 +1,7 @@
 class profile::openstack::volume::api(
   $manage_firewall = true,
   $firewall_extras = {},
+  $enable_multibackend = false,
 ){
   include profile::openstack::volume
 
@@ -16,5 +17,14 @@ class profile::openstack::volume::api(
           port   => 3260,
           extras => $firewall_extras,
     }
+  }
+
+  if $enable_multibackend {
+    include cinder::backends
+
+    create_resources(cinder::backend::rbd, hiera('profile::openstack::volume::backend::rbd', {}))
+    create_resources(cinder::type, hiera('profile::openstack::volume::type', {}))
+  } else {
+    include ::cinder::setup_test_volume
   }
 }
