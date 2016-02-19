@@ -13,6 +13,8 @@ defaults:
   memory:    2048
   networks:
     - "mgmt"
+    - "service"
+    - "public"
 
 #
 # Nodesets configuration example:
@@ -45,21 +47,9 @@ nodesets:
     - role: "db"
       cpus:   1
       memory: 1024
-      networks:
-        - "mgmt"
-        - "service"
     - role: "master"
       memory: 3096
-      networks:
-        - "mgmt"
-        - "service"
-        - "public"
     - role: "compute"
-      hostid: "01"
-      networks:
-        - "mgmt"
-        - "transport1"
-        - "transport2"
   infra:
     - role: "login"
     - role: "controller"

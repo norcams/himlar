@@ -13,9 +13,9 @@ profile::base::lvm::volume_group:
       - /dev/vda3
 
 # enable consul
-include:
-  default:
-    - profile::application::consul
+#include:
+#  default:
+#    - profile::application::consul
 
 consul::services:
   'foreman':

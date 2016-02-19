@@ -6,8 +6,16 @@ calico::reflector::clients:
   compute02:
     peer_ipv4: '172.31.16.104'
 
+# compute node settings
+calico::compute::peer_defaults:
+  peer_as: 65535
+  local_as: 65535
+  local_ipv4: "%{ipaddress}"
+
 # compute node to RR connection (set per location)
 calico::compute::peers:
   rr1:
-    peer_ipv4: '172.32.16.20'
+    peer_ipv4: '172.31.32.1'
+  rr2:
+    peer_ipv4: '172.31.33.1'
 
