@@ -25,6 +25,10 @@ ceph::profile::params::mon_host:                    '172.17.16.40:6789, 172.17.1
 ceph::profile::params::cluster_network:             '172.17.16.0/20'
 ceph::profile::params::public_network:              '172.17.16.0/20'
 
+profile::openstack::volume::manage_rbd: true
+profile::openstack::volume::api::enable_multibackend: true
+profile::openstack::compute::hypervisor::manage_libvirt_rbd: true
+
 named_interfaces::config:
   mgmt:
      - eth0
