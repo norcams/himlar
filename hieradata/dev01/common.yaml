@@ -27,6 +27,7 @@ ceph::profile::params::public_network:              '172.17.16.0/20'
 
 profile::openstack::volume::manage_rbd: true
 profile::openstack::volume::api::enable_multibackend: true
+profile::openstack::compute::hypervisor::manage_libvirt_rbd: true
 
 named_interfaces::config:
   mgmt:
