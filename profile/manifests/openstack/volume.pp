@@ -1,10 +1,10 @@
 class profile::openstack::volume(
-  $enable_rbd = false,
+  $manage_rbd = false,
 ) {
   include ::cinder
   include ::cinder::ceilometer
 
-  if $enable_rbd {
+  if $manage_rbd {
     include profile::storage::cephclient
   }
 }
