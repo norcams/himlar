@@ -5,6 +5,7 @@ glance::api::auth_uri: "http://%{hiera('service__address__keystone')}:5000/"
 glance::api::database_connection: "mysql://glance:glance_pass@%{hiera('service__address__mysql')}/glance"
 glance::api::workers: 1
 glance::api::registry_host: "%{hiera('service__address__glance_registry')}"
+glance::api::show_image_direct_url: true
 
 glance::registry::keystone_password: glance_pass
 glance::registry::bind_host: "%{ipaddress_public1}"
@@ -25,3 +26,6 @@ glance::keystone::auth::internal_url: "http://%{hiera('service__address__glance_
 
 glance::keystone::auth::region: "%{location}"
 glance::api::os_region_name: "%{location}"
+
+glance::backend::rbd::rbd_store_user: 'glance'
+glance::backend::rbd::rbd_store_pool: 'images'
