@@ -58,6 +58,11 @@ mod 'openssl', :ref => '1.5.0',                  :git => github + 'camptocamp/pu
 mod 'consul', :ref => '7c428f4b2b',              :git => github + 'solarkennedy/puppet-consul'
 
 #
+# profile::application::dpapp
+#
+mod 'dpapp', :ref => '0.1',                      :git => github + 'norcams/puppet-dpapp'
+
+#
 # profile::application::foreman
 #
 mod 'zack/r10k', '2.5.2'                         # forge

@@ -52,7 +52,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   settings['nodes'].each_with_index do |n, i|
     instance_name = n.key?('hostid') ? n['role'] + '-' + n['hostid'] : n['role']
-    n['hostid'] = 'box' unless n.key('hostid')
+    n['hostid'] = '01' unless n.key?('hostid')
     config.vm.define instance_name, autostart: n['autostart'], primary: n['primary'] do |box|
       box.vm.hostname = "%s-%s-%s.%s" % [ n['location'],n['role'],n['hostid'],n['domain'] ]
       box.vm.box = n['box']
@@ -82,7 +82,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vbox.customize ['modifyvm', :id, '--ioapic', 'on']
         vbox.customize ['modifyvm', :id, '--cpus',   n['cpus']]
         vbox.customize ['modifyvm', :id, '--memory', n['memory']]
-        vbox.customize ['modifyvm', :id, '--name',   n['name']]
+        vbox.customize ['modifyvm', :id, '--name',   instance_name]
       end
 
     end
