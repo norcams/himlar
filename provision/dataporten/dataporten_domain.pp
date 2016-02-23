@@ -4,10 +4,9 @@ keystone_domain { "dataporten":
   is_default  => false,
 }
 
-keystone_tenant { "demo":
-  ensure      => present,
-  description => "Dataporten demo project",
-  domain      => "dataporten",
-  enabled     => True,
-}
-
+#keystone_tenant { "demo":
+#  ensure      => present,
+#  description => "Dataporten demo project",
+#  domain      => "dataporten",
+#  enabled     => True,
+#}
