@@ -9,9 +9,9 @@ network::interfaces_hash:
     onboot:     'yes'
     mtu:        '9000'
     type:       'Bridge'
-    ipaddress:  '192.168.10.6'
+    ipaddress:  '172.31.1.6'
     netmask:    '255.255.255.0'
-    gateway:    '192.168.10.1'
+    gateway:    '172.31.1.1'
     defroute:   'yes'
     bridge_stp: 'off'
   'eth0':
