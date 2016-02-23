@@ -82,7 +82,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vbox.customize ['modifyvm', :id, '--ioapic', 'on']
         vbox.customize ['modifyvm', :id, '--cpus',   n['cpus']]
         vbox.customize ['modifyvm', :id, '--memory', n['memory']]
-        vbox.customize ['modifyvm', :id, '--name',   n['name']]
+        vbox.customize ['modifyvm', :id, '--name',   instance_name]
       end
 
     end
