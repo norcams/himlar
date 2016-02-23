@@ -31,13 +31,19 @@ sudo::purge: false
 accounts::users:
   'cinder':
     ensure: present
+  'glance':
+    ensure: present
 
 accounts::usergroups:
   'cinder':
     - 'cinder'
+  'glance':
+    - 'glance'
 
 accounts::accounts:
   'cinder':
+    ensure: present
+  'glance':
     ensure: present
 
 profile::base::lvm::physical_volume:
