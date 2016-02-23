@@ -6,9 +6,8 @@ named_interfaces::config:
      - eth1
   service:
      - eth2
-  transport:
+  public:
      - eth3
-     - eth4
 
 network::interfaces_hash:
   'eth1':
@@ -24,13 +23,6 @@ network::interfaces_hash:
   'eth3':
     onboot:    'yes'
     mtu:       '1500'
-    ipaddress: '172.31.32.103'
-    netmask:   '255.255.255.0'
-    gateway:   '172.32.32.1'
-    defroute:  'yes'
-  'eth4':
-    onboot:    'yes'
-    mtu:       '1500'
-    ipaddress: '172.31.33.103'
+    ipaddress: '172.31.24.103'
     netmask:   '255.255.255.0'
 
