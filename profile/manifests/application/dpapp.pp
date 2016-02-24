@@ -19,8 +19,8 @@ class profile::application::dpapp(
     destination => $::ipaddress_public1,
     extras => {
       ensure => $manage_firewall? { true => present , default => absent },
-      jump => 'REDIRECT',
-      toports => '6543',
+      jump => 'DNAT',
+      todest => '$::ipaddress_public1:6543',
       table => 'nat',
       action => undef,
       state => undef
