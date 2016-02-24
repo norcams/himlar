@@ -5,6 +5,8 @@ include:
 
 profile::application::dpapp::manage_firewall: true
 
+profile::base::network::manage_dummy: true
+
 dpapp::keystone_url:        "http://%{hiera('service__address__keystone')}:5000/v3"
 dpapp::horizon_url:         "http://%{hiera('service__address__keystone')}"
 dpapp::port:                '6543'
