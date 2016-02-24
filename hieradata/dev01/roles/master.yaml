@@ -10,5 +10,5 @@ named_interfaces::config:
 profile::firewall::rules:
   '020 allow all from transport network to public ip':
     destination: "%{ipaddress_public1}"
-    source: '172.17.16.0/20'
+    source: '172.31.34.0/24'
 

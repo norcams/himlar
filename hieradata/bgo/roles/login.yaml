@@ -12,6 +12,6 @@ foreman_bootstrap::tftp_install:
   dev01-controller-01:
     domain:           'mgmt.dev.iaas.intern'
     dhcp_interface:   'eth3'
-    dhcp_range_start: '192.168.10.100'
-    dhcp_range_end:   '192.168.10.120'
-    dhcp_gateway:     '192.168.10.1'
+    dhcp_range_start: '172.31.1.100'
+    dhcp_range_end:   '172.31.1.120'
+    dhcp_gateway:     '172.31.1.1'

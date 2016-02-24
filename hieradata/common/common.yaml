@@ -137,7 +137,7 @@ networks:
     domain:
       mgmt: mgmt.dev.iaas.intern
     subnet:
-      mgmt: 192.168.10.0/24
+      mgmt: 172.31.1.0/24
     dhcp:
       mgmt:
         ensure: absent
