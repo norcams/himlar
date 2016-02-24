@@ -8,6 +8,9 @@ include:
 
 profile::storage::cephmon_firewall::manage_firewall:  true
 
+profile::base::common::packages:
+  - redhat-lsb-core
+
 accounts::users:
   'cinder':
     ensure: present

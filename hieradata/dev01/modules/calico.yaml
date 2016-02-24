@@ -9,19 +9,19 @@ calico::reflector::client_defaults:
 # Reflector clients (must be set per location)
 calico::reflector::clients:
   l1:
-    peer_ipv4: '172.17.16.1'
+    peer_ipv4: '172.31.34.1'
   c1:
-    peer_ipv4: '172.17.16.22'
+    peer_ipv4: '172.31.34.22'
   c2:
-    peer_ipv4: '172.17.16.23'
+    peer_ipv4: '172.31.34.23'
   c3:
-    peer_ipv4: '172.17.16.24'
+    peer_ipv4: '172.31.34.24'
   c4:
-    peer_ipv4: '172.17.16.25'
+    peer_ipv4: '172.31.34.25'
   c5:
-    peer_ipv4: '172.17.16.26'
+    peer_ipv4: '172.31.34.26'
   c6:
-    peer_ipv4: '172.17.16.27'
+    peer_ipv4: '172.31.34.27'
 
 # compute node settings
 calico::compute::peer_defaults:
@@ -32,5 +32,5 @@ calico::compute::peer_defaults:
 # compute node to RR connection (set per location)
 calico::compute::peers:
   rr1:
-    peer_ipv4: '172.17.16.20'
+    peer_ipv4: '172.31.34.20'
 

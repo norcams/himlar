@@ -43,6 +43,7 @@ named_interfaces::config:
 service__address__mysql:             "db.%{domain}"
 service__address__rabbitmq:          "master.%{domain}"
 service__address__keystone:          "master.%{domain}"
+service__address__horizon:           "master.%{domain}"
 service__address__glance_registry:   "master.%{domain}"
 service__address__glance_api:        "master.%{domain}"
 service__address__nova_api:          "master.%{domain}"
@@ -137,7 +138,7 @@ networks:
     domain:
       mgmt: mgmt.dev.iaas.intern
     subnet:
-      mgmt: 192.168.10.0/24
+      mgmt: 172.31.1.0/24
     dhcp:
       mgmt:
         ensure: absent

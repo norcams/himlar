@@ -18,6 +18,7 @@ named_interfaces::config:
 # same box - they need to be overridden per location
 #
 service__address__keystone:          '172.31.24.20'
+service__address__horizon:           '172.31.24.20'
 service__address__glance_registry:   '172.31.24.20'
 service__address__glance_api:        '172.31.24.20'
 service__address__nova_api:          '172.31.24.20'
@@ -76,4 +77,3 @@ profile::network::services::dns_records:
     'vagrant-login-pxe.himlar.local':        '10.0.3.113'
     'vagrant-master-box.himlar.local':       '10.0.3.14'
     'vagrant-master-pxe.himlar.local':       '10.0.3.114'
-
