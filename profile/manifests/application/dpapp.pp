@@ -20,7 +20,7 @@ class profile::application::dpapp(
     extras => {
       ensure => $manage_firewall? { true => present , default => absent },
       jump => 'DNAT',
-      todest => '$::ipaddress_public1:6543',
+      todest => "$::ipaddress_public1:6543",
       table => 'nat',
       action => undef,
       state => undef
