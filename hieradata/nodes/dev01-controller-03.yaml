@@ -1,15 +1,23 @@
 ---
 network::interfaces_hash:
   'eth0':
-    ipaddress: '172.31.1.7'
-    netmask:   '255.255.255.0'
-    mtu:       '1500'
-    defroute:  'no'
+    onboot:     'yes'
+    mtu:        '9000'
+    bridge:     'br0'
+  'br0':
+    onboot:     'yes'
+    mtu:        '9000'
+    type:       'Bridge'
+    ipaddress:  '172.31.1.7'
+    netmask:    '255.255.255.0'
+    gateway:    '172.31.1.1'
+    defroute:   'yes'
+    bridge_stp: 'off'
   'eth0.912':
     ipaddress: '172.31.34.7'
     netmask:   '255.255.255.0'
     gateway:   '172.31.34.1'
-    defroute:  'yes'
+    defroute:  'no'
     vlan:      'yes'
   'eth1':
     ipaddress: '172.31.35.7'
@@ -20,7 +28,7 @@ network::interfaces_hash:
 
 named_interfaces::config:
   mgmt:
-     - eth0
+     - br0
   transport:
      - em0_912
      - em1
