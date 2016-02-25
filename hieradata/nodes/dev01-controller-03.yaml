@@ -13,13 +13,13 @@ network::interfaces_hash:
     gateway:    '172.31.1.1'
     defroute:   'yes'
     bridge_stp: 'off'
-  'eth0.912':
+  'eth1.912':
     ipaddress: '172.31.34.7'
     netmask:   '255.255.255.0'
     gateway:   '172.31.34.1'
     defroute:  'no'
     vlan:      'yes'
-  'eth1':
+  'eth1.913':
     ipaddress: '172.31.35.7'
     netmask:   '255.255.255.0'
     gateway:   '172.31.35.1'
@@ -30,5 +30,5 @@ named_interfaces::config:
   mgmt:
      - br0
   transport:
-     - em0_912
-     - em1
+     - em1_912
+     - em1_913
