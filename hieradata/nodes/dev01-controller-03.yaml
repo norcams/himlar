@@ -23,7 +23,7 @@ network::interfaces_hash:
     ipaddress: '172.31.35.7'
     netmask:   '255.255.255.0'
     gateway:   '172.31.35.1'
-    mtu:       '1500'
+    vlan:      'yes'
     defroute:  'no'
 
 named_interfaces::config:
