@@ -11,3 +11,9 @@ network::interfaces_hash:
     gateway:   '172.31.34.1'
     defroute:  'yes'
     vlan:      'yes'
+  'eth1':
+    ipaddress: '172.31.35.24'
+    netmask:   '255.255.255.0'
+    gateway:   '172.31.35.1'
+    mtu:       '1500'
+    defroute:  'no'
