@@ -2,6 +2,8 @@
 
 provision_from_puppetfile()
 {
+  # MIGRATION: remove old symlink if it is present
+  test -L /etc/puppet/manifests && rm -f /etc/puppet/manifests
   # ensure file locations are correct
   mkdir -p /etc/puppet/manifests
   ln -sfT /opt/himlar/manifests/site.pp /etc/puppet/manifests/site.pp
