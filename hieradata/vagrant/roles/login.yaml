@@ -6,3 +6,6 @@ accounts::accounts:
     ensure: present
   'iaas':
     ensure: absent
+
+profile::application::git::settings:
+  hostname: "login%{::hostid}"
