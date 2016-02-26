@@ -3,6 +3,7 @@ include:
   default:
     - profile::base::login
     - profile::network::services
+    - profile::application::git
     - foreman_bootstrap::instances
 
 profile::base::firewall::manage_firewall: false
@@ -52,3 +53,9 @@ googleauthenticator::pam::mode::modes:
 googleauthenticator::pam::modules:
   sshd:
     mode: wheel-only
+
+profile::application::git::settings:
+  hostname:     "git.%{::domain}"
+  upstream:     'enable'
+  mirroring:    'enable'
+  site_info:    'Please see http://iaas.readthedocs.org for more info'
