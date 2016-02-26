@@ -1,0 +1,13 @@
+---
+named_interfaces::config:
+  vagrant:
+     - eth0
+  mgmt:
+     - eth1
+
+network::interfaces_hash:
+  'eth1':
+    onboot:    'yes'
+    mtu:       '1500'
+    ipaddress: '172.31.0.51'
+    netmask:   '255.255.255.0'

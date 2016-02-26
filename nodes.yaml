@@ -50,6 +50,13 @@ nodesets:
     - role: "master"
       memory: 3096
     - role: "compute"
+  access:
+    - role: "db"
+      cpus:   1
+      memory: 1024
+    - role: "master"
+      memory: 3096
+    - role: "dpapp"
   infra:
     - role: "login"
     - role: "controller"
@@ -89,4 +96,3 @@ networks:
   transport2:
     net: "172.31.33"
     auto_config: false
-

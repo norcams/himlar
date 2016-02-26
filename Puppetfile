@@ -63,6 +63,10 @@ mod 'consul', :ref => '7c428f4b2b',              :git => github + 'solarkennedy/
 mod 'dpapp', :ref => '0.1',                      :git => github + 'norcams/puppet-dpapp'
 
 #
+# profile::application::git
+#
+mod 'gitolite', :ref => '1.0',                   :git => github + 'uib/puppet-gitolite'
+
 # profile::application::foreman
 #
 mod 'zack/r10k', '2.5.2'                         # forge
