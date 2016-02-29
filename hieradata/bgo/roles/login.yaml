@@ -15,3 +15,6 @@ foreman_bootstrap::tftp_install:
     dhcp_range_start: '172.31.1.100'
     dhcp_range_end:   '172.31.1.120'
     dhcp_gateway:     '172.31.1.1'
+
+profile::application::git::settings:
+  hostname: "bgo"
