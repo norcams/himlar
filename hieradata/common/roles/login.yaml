@@ -42,7 +42,7 @@ ssh::server::options:
   AuthenticationMethods: 'publickey,keyboard-interactive:pam publickey'
   # Explicitly enable the required methods
   UsePAM: 'yes'
-  PasswordAuthentication: 'yes'
+  PasswordAuthentication: 'no'
   PubKeyAuthentication: 'yes'
 
 googleauthenticator::pam::mode::modes:
