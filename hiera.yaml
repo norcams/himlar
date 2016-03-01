@@ -1,6 +1,7 @@
 ---
 :hierarchy:
-    - "secrets/%{verified_host}.secrets"
+    - "secrets/nodes/%{verified_host}.secrets"
+    - "secrets/common.secrets"
     - "nodes/%{verified_host}"
     - "%{location}/roles/%{role}-%{variant}"
     - "%{location}/roles/%{role}"
@@ -16,4 +17,3 @@
     - yaml
 :yaml:
     :datadir: /etc/puppet/hieradata
-
