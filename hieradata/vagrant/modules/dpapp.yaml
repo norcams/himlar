@@ -1,0 +1,6 @@
+---
+dpapp::host:        '172.31.24.22'
+dpapp::deployment:  'develop'
+
+# Override this in secrets/nodes/<location>-dpapp-01.secrets.yaml
+dpapp::admin_pw:    'admin_pass'
