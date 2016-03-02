@@ -77,3 +77,5 @@ profile::network::services::dns_records:
     'vagrant-login-pxe.himlar.local':        '10.0.3.113'
     'vagrant-master-box.himlar.local':       '10.0.3.14'
     'vagrant-master-pxe.himlar.local':       '10.0.3.114'
+
+profile::network::yum-proxy::yum_proxy: 'http://updateproxy.uio.no:3128'

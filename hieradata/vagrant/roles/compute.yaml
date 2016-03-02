@@ -1,4 +1,8 @@
 ---
+include:
+  default:
+    -  profile::network::yum-proxy
+
 # The current vagrant box image do not have vda3 parso switch
 # off lvm for compute on vagrant
 profile::base::common::manage_lvm: false
