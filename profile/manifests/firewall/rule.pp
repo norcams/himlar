@@ -39,6 +39,21 @@ define profile::firewall::rule (
   $rule = merge($basic, $extras)
   validate_hash($rule)
 
-  create_resources('firewall', { "${title}" => $rule })
+  # We can only expand source or destination, not both!
+  if is_array($source) {
+    profile::firewall::expand_rule { $source:
+      rule => $rule,
+      type => 'source',
+      rule_name => $name
+    }
+  } elsif is_array($destination) {
+    profile::firewall::expand_rule { $destination:
+      rule => $rule,
+      type => 'destination',
+      rule_name => $name
+    }
+  } else {
+    create_resources('firewall', { "${title}" => $rule })
+  }
 
 }
