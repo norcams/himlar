@@ -12,8 +12,10 @@ class profile::openstack::dashboard(
   }
 
   if $manage_firewall {
+    $allow_from_network = hiera_array('allow_from_network')
     profile::firewall::rule { '235 openstack-dashboard accept tcp':
       port    => [80,443],
+      source  => $allow_from_network,
       extras  => $firewall_extras,
     }
   }

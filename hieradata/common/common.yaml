@@ -28,6 +28,14 @@ valid_location_environments:
   - dev
 
 #
+# Use this for firewall rules to allow only from some networks
+#
+allow_from_network:
+  - '129.177.0.0/16'
+  - '129.240.0.0/16'
+  - '158.37.63.0/24'
+
+#
 # Default interfaces
 #
 named_interfaces::config:
