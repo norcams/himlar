@@ -11,8 +11,8 @@ named_interfaces::config:
   mgmt:
     - eth1
 
-#allow_from_network:
-#  - '172.31.24.0/24'
+allow_from_network:
+  - '172.31.24.0/24'
 
 #
 # Openstack services
