@@ -10,17 +10,9 @@ profile::base::firewall::manage_firewall: false
 profile::network::services::manage_nat: true
 
 accounts::accounts:
-  'beddari':
-    ensure: present
-  'ebm':
-    ensure: present
   'hege':
     ensure: present
     authorized_keys: [ 'hege_usit', 'hege_home' ]
-  'knutvi':
-    ensure: present
-  'kyrreli':
-    ensure: present
   'mikaeld':
     ensure: present
   'raymond':

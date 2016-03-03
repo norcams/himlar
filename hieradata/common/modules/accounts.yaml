@@ -1,11 +1,5 @@
 ---
 accounts::ssh_keys:
-  'beddari':
-    type:    'ssh-rsa'
-    public: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDV5iURXYrx45xuyHkqlSaU/8WFF+z61YXvfjjV2gVBn9b7vFVFXjQ+Fo4GAUPd+jsv9qBgdWrqZTlVY/k0hrjMnZYOuEwAWQ58bXvFvlyY8FikwB1QxeTjH0wyjvGjZlqd8kruU8dwwzwQeAH3aehPNw2kb3OCsXVGp14t/hsJpHnbQwkjZX5tgAa2PV0GAhcDYaZBy31LJ4U9Qa644SKKGsKR26UKSq2LI/fep1v3oe2aNU5ixRtxKhtrdHnKl+/whqJjwAE4fC1PFMYMJnatzAYnwQ8OXWD4Vg7CU+bB/OXNu+vhpoHKibI089km6/3eT4USAhvu36HiwIFkb/sR'
-  'ebm':
-    type:    'ssh-rsa'
-    public:  'AAAAB3NzaC1yc2EAAAADAQABAAABAQCuZ40vEBzipAk1E3JZ47/Ck8DjL0lWDkYIFbJE5O9qYPj9a0lHX9ytpNztI1flZvJXFo7ZzAi8xkwoiWtFCZgwjrzTjmynV8TH4zaJx5Y7q9uD6mMG+fQ0pq7TbEnS7HBAbEtfWa7zdMza6YkTvromfgrynfxgjJQ4CX8QpDiH61Ohn2ev+mjfIbAeveamJxrUEBHt5n2m6FXsztGGdYgl5Wq1xPn7Tcsp7LCEZSh+najaxw+vJscEPf0MiedTIU9RkvPfDk8rA5g0xjlsprt/HwxlDnRjizujiMWS6JEdPXP3R7w2g3/6Lg5wFxQIXUgYOKjLq0QYNlaWP6B7LPbb'
   'hege_usit':
     type:    'ssh-rsa'
     public:  'AAAAB3NzaC1yc2EAAAABIwAAAQEAzfByKwhw9v7wzYZY4m4qvdVy/+Qzp+Q2bFuTcSQG9aN9C928LSPkM8RmfTKYA8xWgvVfki+EsgSTwG3Bbb9jO19DCvb+lvFXpcZhDbDzHd9JuK9+bLeNWG5FToFDfo207PlMwwn9tHUVcBIAH9wk+Nes2gBVYONLyPMVnebEH3GsLuzrombAO56ubapsn4y4r5kAqtlhcSkozoRQKNrb7EqOZn+7RMNcdjKYEBSb5yA0aDRUeqxGYts6qCExdSVtgTn+4ITIHCV5YmIlxP7buJRQisOjToixdmKy/FLkN9iBQwf4n6IpvdzPHjsvQtqhLICVRBOV6Y4tdWjiH0wjwQ=='
@@ -27,20 +21,8 @@ accounts::ssh_keys:
   'trondham':
     type:    'ssh-rsa'
     public:  'AAAAB3NzaC1yc2EAAAABIwAAAQEAr3c4y9UTQstrocwRDdq8tkb8d33VIX4x07iKYanZmnrcGwQ7efT3rEN2tmJUEQumNSL+ZVdsCH/2pT37L8uyxsRlSdnz5bQbe0Sj2dq4ahpIadrDH7n858EmN+chEwgz5QRyWT4SanC9ce/9EyJbl8C0U34mgJV+pIwSGhFhWKXJ624ja+kMXVd6+5rG+rlukMjolFoxE+ijZqzU1EwUtuKD1oMFGeszdpEChhhGO/9T1L7MyaIcDOUOmMgXjdgRtVmS1QY5HYikvc68wBV1FDRn1pvEd3UJTobU87FA9XircbazvD64ghNWK7dqikUgnW/OQsKLoLfyPEUn39v2wQ=='
-  'kyrreli':
-    type:    'ssh-rsa'
-    public:  'AAAAB3NzaC1yc2EAAAABJQAAAQEAgHioc9KjonklTot4LgMmn1ZVV/UYZtgk5EG4TnfNri9JLRyv3EVuEdUEzoeJnVLH8CEWhysB8bIthikzC0tmlDKxWb0bc1GLEpFWN6daG8TJoaDW4SZTyA7SSZ4ImN7cmXsqVJ6jAajMLd869f8I5nbe9HdZIK0W6f/guoctnpLLQG29nnOf/0Eaa+nY2h34e+9HUVZuv2u/loDmp5K47QRh/D5qiTnoKq+8VSzSyRflFJoRih3nc+mR2E/FuglY1uBSeRCySH58WZ5dffMaUhTZd4DRMWJozo5ex60upFL3mHYo5iBZ3gRDw0Phefb0R1VzcXfDcnOsp+tQICaDUw=='
-  'knutvi':
-    type:    'ssh-rsa'
-    public:  'AAAAB3NzaC1yc2EAAAADAQABAAABAQDf8vEnb4aTt790h1iz9dFpa2lbBIpNg+A/I/Ra3YFdnwVxYChyKdJbZIsR8hOVqBdFRgDOUlvaIF3h8TFHe2WfmO9O4kR+R2eHag+4rfK7rPR4GOyOSSV3oMP7r3nnzDSi9RSIgtqCMruzhcXWcFYftqbyI9mOiiZrNu5IPfGOJghIbABZG2Zux+hswi4pYzeg1Q9dziE7blPivsrL8soX77v60jtwwOEvrW10wRC/JCCZY01WESSKSfWN4rC1WjcLYO6RYhG67OXqRdSlWLfmChpYIth1vHeYzAf3CDmntNHaSKGP4A0Vs03USVbDbkesZBIjZgmh9vK+BJxhbWcf'
 
 accounts::users:
-  'beddari':
-    comment: 'beddari@norcams'
-    groups:  [ 'users', 'wheel' ]
-  'ebm':
-    comment: 'ebm@norcams'
-    groups:  [ 'users', 'wheel' ]
   'hege':
     comment: 'hege@norcams'
     groups:  [ 'users', 'wheel' ]
@@ -59,14 +41,7 @@ accounts::users:
   'trondham':
     comment: 'trondham@norcams'
     groups:  [ 'users', 'wheel' ]
-  'kyrreli':
-    comment: 'kyrreli@norcams'
-    groups:  [ 'users', 'wheel' ]
-  'knutvi':
-    comment: 'knutvi@norcams'
-    groups:  [ 'users', 'wheel' ]
 
 accounts::accounts:
   'iaas':
     ensure: present
-
