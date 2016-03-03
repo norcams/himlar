@@ -1,0 +1,8 @@
+---
+dpapp::keystone_url:        "http://%{hiera('service__address__keystone')}:5000/v3"
+dpapp::horizon_url:         "https://%{hiera('service__address__keystone')}"
+dpapp::port:                '6543'
+
+# Override these in secrets/nodes/<location>-dpapp-01.secrets.yaml
+dpapp::oauth_client_id:     'nnnnnnnn-nnnn-nnnn-nnnn-nnnnnnnnnnnn'
+dpapp::oauth_client_secret: 'nnnnnnnn-nnnn-nnnn-nnnn-nnnnnnnnnnnn'
