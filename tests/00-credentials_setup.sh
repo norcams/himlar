@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo '
+cat <<'END_CONFIG' > ~/openstack.config
 os_url="http://10.0.3.14:35357/v2.0"
 os_token="admintoken"
 ostoken()
@@ -16,9 +16,10 @@ osdemo()
 {
   openstack --os-username $os_username --os-password $os_password --os-project-name $os_project_name --os-auth-url $os_auth_url "$@"
 }
-' > ~/openstack.config
+END_CONFIG
 
-echo `
+
+cat <<'END_DEMO' > ~/keystonerc_demo
 export OS_USERNAME=demo
 export OS_TENANT_NAME=demoproject
 export OS_PASSWORD=himlar0pen
@@ -31,10 +32,10 @@ export OS_NO_CACHE=1
 alias openstack="/usr/bin/openstack"
 unset http_proxy
 unset https_proxy
-` > ~/keystonerc_demo
+END_DEMO
 
 
-echo `
+cat <<'END_ADMIN' > ~/keystonerc_admin
 export OS_USERNAME=admin
 export OS_TENANT_NAME=openstack
 export OS_PASSWORD=admin_pass
@@ -48,5 +49,4 @@ export OS_NO_CACHE=1
 alias openstack="/usr/bin/openstack"
 unset http_proxy
 unset https_proxy
-` > ~/keystonerc_admin
-
+END_ADMIN
