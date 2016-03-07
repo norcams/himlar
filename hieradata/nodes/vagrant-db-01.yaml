@@ -4,7 +4,7 @@ named_interfaces::config:
      - eth0
   mgmt:
      - eth1
-  service:
+  transport:
      - eth2
 
 network::interfaces_hash:
@@ -18,4 +18,3 @@ network::interfaces_hash:
     mtu:       '1500'
     ipaddress: '172.31.16.21'
     netmask:   '255.255.255.0'
-
