@@ -7,7 +7,6 @@ include:
     - profile::openstack::compute::conductor
     - profile::openstack::compute::consoleauth
     - profile::openstack::compute::consoleproxy
-    - profile::openstack::dashboard
     - profile::openstack::identity
     - profile::openstack::image::api
     - profile::openstack::image::registry
@@ -20,19 +19,20 @@ include:
 #    - profile::openstack::network::l3
 #    - profile::openstack::network::metadata
     - profile::application::etcd
+    - profile::openstack::dataporten
 
-profile::base::network::manage_dummy: true
 profile::base::common::manage_lvm: false
 profile::base::common::packages:
   - python-etcd
 
-profile::application::sslcert::create_new: true
-profile::application::sslcert::cert_defines:
-  "%{fqdn}":
-    country:      'NO'
-    organization: 'private.org'
-    commonname:   "%{fqdn}"
-    owner:        apache
+profile::openstack::identity::roles_extra:
+  - user
+
+profile::openstack::dataporten::domain:
+  dataporten:
+    ensure:       present
+    description:  'Federated users from Dataporten'
+    is_default:   false
 
 calico::controller: true
 calico::reflector: true
