@@ -1,0 +1,37 @@
+---
+include:
+  default:
+    - profile::openstack::dashboard
+
+profile::base::network::manage_dummy: true
+
+profile::application::sslcert::create_new: true
+profile::application::sslcert::cert_defines:
+  "%{fqdn}":
+    country:      'NO'
+    organization: 'private.org'
+    commonname:   "%{fqdn}"
+    owner:        apache
+
+profile::openstack::dashboard::vhost_definition:
+  keystone_api:
+    vhost_name:         "%{hiera('service__address__horizon')}"
+    servername:         "%{hiera('service__address__horizon')}"
+    port:               '5000'
+    docroot:            '/var/www/html'
+    manage_docroot:     false
+    proxy_dest:         "http://%{hiera('service__address__keystone')}:5000"
+  nova_api:
+    vhost_name:         "%{hiera('service__address__horizon')}"
+    servername:         "%{hiera('service__address__horizon')}"
+    port:               '8774'
+    docroot:            '/var/www/html'
+    manage_docroot:     false
+    proxy_dest:         "http://%{hiera('service__address__nova_api')}:8774"
+  cinder_api:
+    vhost_name:         "%{hiera('service__address__horizon')}"
+    servername:         "%{hiera('service__address__horizon')}"
+    port:               '8776'
+    docroot:            '/var/www/html'
+    manage_docroot:     false
+    proxy_dest:         "http://%{hiera('service__address__cinder_api')}:8776"
