@@ -1,7 +1,8 @@
-horizon::fqdn: "*"
+horizon::server_aliases: '*'
+horizon::allowed_hosts: '*'
 horizon::secret_key: horizon_secret
 horizon::servername: "%{ipaddress_public1}"
-horizon::keystone_url: "http://%{hiera('service__address__keystone')}:5000/v3"
+horizon::keystone_url: "http://%{hiera('service__address__keystone_public')}:5000/v3"
 horizon::neutron_options:
   'enable_lb': false
   'enable_firewall': false
@@ -14,6 +15,9 @@ horizon::horizon_ca: "/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem"
 horizon::horizon_cert: "/etc/ssl/certs/%{::fqdn}.crt"
 horizon::horizon_key:  "/etc/ssl/certs/%{::fqdn}.key"
 
+horizon::openstack_endpoint_type: 'internalURL'
+horizon::keystone_default_role: 'user'
+
 horizon::keystone_multidomain_support: false
 horizon::api_versions:
   'identity': 3
@@ -23,4 +27,3 @@ horizon::websso_initial_choice: oidc
 horizon::websso_choices:
   oidc: Dataporten
   credentials: Local user
-
