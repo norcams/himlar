@@ -21,11 +21,11 @@ fi
 
 
 secrets_dir='/opt/repo/secrets/hieradata'
-mkdir -p ${secrets_dir}
 
-if [ -f ${secrets_dir}/.git ]; then
+if [ -d ${secrets_dir}/.git ]; then
   cd ${secrets_dir} && git pull
 else
+  mkdir -p ${secrets_dir}
   git clone git:hieradata/secrets ${secrets_dir}
 fi
 
