@@ -1,18 +1,18 @@
 ---
 network::interfaces_hash:
   'em1':
-    ipaddress: '172.31.1.26'
+    ipaddress: '172.31.1.104'
     netmask:   '255.255.255.0'
     mtu:       '1500'
     defroute:  'no'
   'em1.912':
-    ipaddress: '172.31.34.26'
+    ipaddress: '172.31.34.104'
     netmask:   '255.255.255.0'
     gateway:   '172.31.34.1'
     defroute:  'yes'
     vlan:      'yes'
   'em2':
-    ipaddress: '172.31.35.26'
+    ipaddress: '172.31.35.104'
     netmask:   '255.255.255.0'
     gateway:   '172.31.35.1'
     mtu:       '1500'
@@ -24,6 +24,8 @@ named_interfaces::config:
   transport:
      - em1_912
      - em2
+  service:
+     - em1_912
 
 profile::base::lvm::physical_volume:
   '/dev/sda3':
