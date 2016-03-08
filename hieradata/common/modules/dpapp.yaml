@@ -6,3 +6,5 @@ dpapp::port:                '6543'
 # Override these in secrets/nodes/<location>-dpapp-01.secrets.yaml
 dpapp::oauth_client_id:     'nnnnnnnn-nnnn-nnnn-nnnn-nnnnnnnnnnnn'
 dpapp::oauth_client_secret: 'nnnnnnnn-nnnn-nnnn-nnnn-nnnnnnnnnnnn'
+
+dpapp::admin_pw:            "%{hiera('admin_password')}"
