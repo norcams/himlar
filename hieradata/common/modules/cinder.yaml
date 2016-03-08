@@ -1,7 +1,7 @@
 cinder::database_connection:      "mysql://cinder:cinder_pass@%{hiera('service__address__mysql')}/cinder"
 
 cinder::db::mysql::allowed_hosts:
-  - "%{fqdn}"
+  - "%{ipaddress_service1}"
   - 'localhost'
   - '%'
 cinder::db::mysql::dbname:   'cinder'
