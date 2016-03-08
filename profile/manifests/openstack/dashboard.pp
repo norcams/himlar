@@ -2,6 +2,7 @@ class profile::openstack::dashboard(
   $manage_ssl_cert = true,
   $manage_firewall = true,
   $firewall_extras = {},
+  $vhost_definition = {}
 ) {
   include ::horizon
 
@@ -13,10 +14,14 @@ class profile::openstack::dashboard(
 
   if $manage_firewall {
     $allow_from_network = hiera_array('allow_from_network')
-    profile::firewall::rule { '235 openstack-dashboard accept tcp':
-      port    => [80,443],
+    profile::firewall::rule { '235 openstack-dashboard and api accept tcp':
+      port    => [80,443,5000,8774,8774],
       source  => $allow_from_network,
       extras  => $firewall_extras,
     }
   }
+
+  # Used for API proxy
+  create_resources('::apache::vhost', $vhost_definition)
+
 }

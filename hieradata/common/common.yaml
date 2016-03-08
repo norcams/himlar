@@ -51,13 +51,20 @@ named_interfaces::config:
 service__address__mysql:             "db.%{domain}"
 service__address__rabbitmq:          "master.%{domain}"
 service__address__keystone:          "master.%{domain}"
-service__address__horizon:           "master.%{domain}"
 service__address__glance_registry:   "master.%{domain}"
 service__address__glance_api:        "master.%{domain}"
 service__address__nova_api:          "master.%{domain}"
 service__address__nova_api_metadata: "master.%{domain}"
 service__address__neutron_server:    "master.%{domain}"
 service__address__cinder_api:        "master.%{domain}"
+
+service__address__horizon:           "dashboard.%{domain}"
+service__address__keystone_public:   "dashboard.%{domain}"
+service__address__glance_public_api: "dashboard.%{domain}"
+service__address__nova_public_api:   "dashboard.%{domain}"
+service__address__neutron_public:    "dashboard.%{domain}"
+service__address__cinder_public_api: "dashboard.%{domain}"
+service__address__consoleproxy:      "dashboard.%{domain}"
 
 #
 # Network configuration data
