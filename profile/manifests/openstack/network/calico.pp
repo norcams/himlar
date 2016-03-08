@@ -54,9 +54,9 @@ class profile::openstack::network::calico(
     # Depend on $::service_interfaces and $::transport_interfaces fact
     # - on master, $::service_interfaces will return an array with a single if
     # - on compute, $::transport_interfaces will return one or two ifs
-    if is_array($::service_interfaces) {
-      calico_interface { $::service_interfaces: }
-    }
+#    if is_array($::service_interfaces) {
+#      calico_interface { $::service_interfaces: }
+#    }
     if is_array($::transport_interfaces) {
       calico_interface { $::transport_interfaces: }
     }
