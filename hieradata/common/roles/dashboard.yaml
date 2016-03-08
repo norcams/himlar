@@ -13,11 +13,16 @@ profile::application::sslcert::cert_defines:
     commonname:   "%{fqdn}"
     owner:        apache
 
+profile::base::common::packages:
+  - python-oslo-log
+  - python-openstackclient
+
 profile::openstack::dashboard::vhost_definition:
   keystone_api:
     vhost_name:         "%{hiera('service__address__horizon')}"
     servername:         "%{hiera('service__address__horizon')}"
     port:               '5000'
+    ip:                 "%{::ipaddress_public1}"
     docroot:            '/var/www/html'
     manage_docroot:     false
     proxy_dest:         "http://%{hiera('service__address__keystone')}:5000"
@@ -25,6 +30,7 @@ profile::openstack::dashboard::vhost_definition:
     vhost_name:         "%{hiera('service__address__horizon')}"
     servername:         "%{hiera('service__address__horizon')}"
     port:               '8774'
+    ip:                 "%{::ipaddress_public1}"
     docroot:            '/var/www/html'
     manage_docroot:     false
     proxy_dest:         "http://%{hiera('service__address__nova_api')}:8774"
@@ -32,6 +38,7 @@ profile::openstack::dashboard::vhost_definition:
     vhost_name:         "%{hiera('service__address__horizon')}"
     servername:         "%{hiera('service__address__horizon')}"
     port:               '8776'
+    ip:                 "%{::ipaddress_public1}"
     docroot:            '/var/www/html'
     manage_docroot:     false
     proxy_dest:         "http://%{hiera('service__address__cinder_api')}:8776"
