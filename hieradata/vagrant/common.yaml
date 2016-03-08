@@ -10,6 +10,12 @@ named_interfaces::config:
     - eth0
   mgmt:
     - eth1
+  transport:
+    - eth2
+  service:
+    - eth2
+  public:
+    - eth3
 
 allow_from_network:
   - '172.31.24.0/24'
@@ -27,7 +33,7 @@ service__address__neutron_public:    '172.31.24.22'
 service__address__cinder_public_api: '172.31.24.22'
 service__address__consoleproxy:      '172.31.24.22'
 
-# service/transport1
+# service/transport
 service__address__nova_api:          '172.31.16.20'
 service__address__nova_api_metadata: '172.31.16.20'
 service__address__glance_registry:   '172.31.16.20'

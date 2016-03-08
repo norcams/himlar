@@ -1,15 +1,4 @@
 ---
-named_interfaces::config:
-  vagrant:
-     - eth0
-  mgmt:
-     - eth1
-  service:
-     - eth2
-  transport:
-     - eth3
-     - eth4
-
 network::interfaces_hash:
   'eth1':
     onboot:    'yes'
@@ -33,4 +22,3 @@ network::interfaces_hash:
     mtu:       '1500'
     ipaddress: '172.31.33.104'
     netmask:   '255.255.255.0'
-
