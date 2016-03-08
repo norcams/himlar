@@ -25,6 +25,11 @@ etcd::mode: 'proxy'
 named_interfaces::config:
   mgmt:
     - em3
+  transport:
+    - em1
+    - em2
+  service:
+    - em1
 
 sudo::purge: false
 

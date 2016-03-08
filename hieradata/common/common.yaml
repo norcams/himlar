@@ -44,6 +44,10 @@ named_interfaces::config:
   transport:
     - eth1
     - eth2
+  service:
+    - eth1
+  public:
+    - dummy0
 
 #
 # Openstack services
