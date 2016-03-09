@@ -1,12 +1,4 @@
 ---
-named_interfaces::config:
-  mgmt:
-     - eth0
-  transport:
-     - eth1
-  public:
-     - dummy0
-
 ntp::servers:
   - 172.16.0.100
   - 172.16.0.101
