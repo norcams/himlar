@@ -92,4 +92,5 @@ profile::network::services::dns_records:
     'vagrant-master-box.himlar.local':       '10.0.3.14'
     'vagrant-master-pxe.himlar.local':       '10.0.3.114'
 
-profile::network::yum-proxy::yum_proxy: 'http://updateproxy.uio.no:3128'
+# to configure yum proxy set this appropriately
+#profile::network::yum-proxy::yum_proxy: 'http://updateproxy.uio.no:3128'
