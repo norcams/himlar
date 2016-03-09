@@ -23,9 +23,9 @@ ntp::servers:
   - ntp2.uib.no
 
 ceph::profile::params::mon_initial_members:         'bgo-cephmon-01, bgo-cephmon-02, bgo-cephmon-03'
-ceph::profile::params::mon_host:                    '172.16.0.90:6789, 172.16.0.91:6789, 172.16.0.92:6789'
-ceph::profile::params::cluster_network:             '172.16.0.0/21'
-ceph::profile::params::public_network:              '172.16.0.0/21'
+ceph::profile::params::mon_host:                    '172.18.0.90:6789, 172.18.0.91:6789, 172.18.0.92:6789'
+ceph::profile::params::cluster_network:             '172.18.0.0/21'
+ceph::profile::params::public_network:              '172.18.0.0/21'
 
 profile::network::services::dns_options:
   CNAME:

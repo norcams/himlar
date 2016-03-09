@@ -7,13 +7,13 @@ named_interfaces::config:
 
 network::interfaces_hash:
   'eth0':
-    ipaddress: '172.16.0.90'
+    ipaddress: '172.16.32.90'
     netmask:   '255.255.248.0'
-    gateway:   '172.16.0.1'
+    gateway:   '172.16.32.12'
     mtu:       '1500'
     defroute:  'yes'
   'eth1':
-    ipaddress: '172.18.0.90'
+    ipaddress: '172.18.32.90'
     netmask:   '255.255.248.0'
-    gateway:   '172.18.0.1'
+    gateway:   '172.18.32.1'
     defroute:  'no'

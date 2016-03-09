@@ -17,19 +17,8 @@ idp_endpoint="https://auth.feideconnect.no"
 mapping_name="dataporten_personal"
 mapping_rules="/opt/himlar/provision/dataporten/mapping_personal.json"
 
-# Create domain
-puppet apply --test /opt/himlar/provision/dataporten/dataporten_domain.pp
-
 # Load openstack client credentials and settings
 source "${os_rc_file}"
-
-# Create user role
-# check
-openstack role list | grep user
-# create
-if [[ $? -ne 0 ]]; then
-  openstack role create user
-fi
 
 # Create idp
 # check
@@ -44,10 +33,11 @@ fi
 openstack mapping list | grep ${mapping_name}
 # create
 if [[ $? -ne 0 ]]; then
+  curl --silent -o /tmp/mapping_personal.json https://raw.githubusercontent.com/norcams/himlar/master/provision/dataporten/mapping_personal.json
   # Find domain ID
   domain_id=$(openstack domain show $domain -f value -c id)
   # Replace DOMAIN_ID token with real ID in mapping rules
-  sed "s/DOMAIN_ID/$domain_id/" "${mapping_rules}" > /tmp/mapping.rules
+  sed "s/DOMAIN_ID/$domain_id/" /tmp/mapping_personal.json > /tmp/mapping.rules
   openstack mapping create "${mapping_name}" --rules /tmp/mapping.rules
 fi
 

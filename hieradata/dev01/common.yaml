@@ -2,20 +2,27 @@
 location_environment: dev01
 location_description: Development environment physically in Bergen
 
-service__address__keystone:          '129.177.31.126'
+# public
 service__address__horizon:           '129.177.31.126'
-service__address__glance_registry:   '129.177.31.126'
-service__address__glance_api:        '129.177.31.126'
-service__address__nova_api:          '129.177.31.126'
-service__address__nova_api_metadata: '129.177.31.126'
-service__address__neutron_server:    '129.177.31.126'
+service__address__keystone_public:   '129.177.31.126'
+service__address__glance_public_api: '129.177.31.126'
+service__address__nova_public_api:   '129.177.31.126'
+service__address__neutron_public:    '129.177.31.126'
+service__address__cinder_public_api: '129.177.31.126'
 service__address__consoleproxy:      '129.177.31.126'
-service__address__cinder_api:        '129.177.31.126'
 
-service__address__keystone_admin:    '172.31.1.20'
-service__address__mysql:             '172.31.1.21'
-service__address__rabbitmq:          '172.31.1.20'
-service__address__etcd_cluster:      '172.31.1.20'
+# service/transport1
+service__address__nova_api:          '172.31.34.20'
+service__address__nova_api_metadata: '172.31.34.20'
+service__address__glance_registry:   '172.31.34.20'
+service__address__glance_api:        '172.31.34.20'
+service__address__keystone:          '172.31.34.20'
+service__address__keystone_admin:    '172.31.34.20'
+service__address__rabbitmq:          '172.31.34.20'
+service__address__etcd_cluster:      '172.31.34.20'
+service__address__neutron_server:    '172.31.34.20'
+service__address__cinder_api:        '172.31.34.20'
+service__address__mysql:             '172.31.34.21'
 
 ntp::servers:
   - ntp.uib.no
@@ -32,15 +39,6 @@ profile::openstack::compute::hypervisor::manage_libvirt_rbd: true
 
 # If backend != file, you must explicitly define stores in %location/modules/glance.yaml
 profile::openstack::image::api::backend: 'rbd'
-
-named_interfaces::config:
-  mgmt:
-     - eth0
-  transport:
-     - eth0_912
-     - eth1
-  public:
-     - dummy0
 
 profile::network::services::dns_options:
   CNAME:
@@ -74,12 +72,7 @@ profile::network::services::dns_records:
     'dev01-dpapp-01.mgmt.dev.iaas.intern':       '172.31.1.19'
     'dev01-master-01.mgmt.dev.iaas.intern':      '172.31.1.20'
     'dev01-db-01.mgmt.dev.iaas.intern':          '172.31.1.21'
-    'dev01-compute-01.mgmt.dev.iaas.intern':     '172.31.1.22'
-    'dev01-compute-02.mgmt.dev.iaas.intern':     '172.31.1.23'
-    'dev01-compute-03.mgmt.dev.iaas.intern':     '172.31.1.24'
-    'dev01-compute-04.mgmt.dev.iaas.intern':     '172.31.1.25'
-    'dev01-compute-05.mgmt.dev.iaas.intern':     '172.31.1.26'
-    'dev01-compute-06.mgmt.dev.iaas.intern':     '172.31.1.27'
+    'dev01-dashboard-01.mgmt.dev.iaas.intern':   '172.31.1.22'
     'dev01-storage-01.mgmt.dev.iaas.intern':     '172.31.1.30'
     'dev01-storage-02.mgmt.dev.iaas.intern':     '172.31.1.31'
     'dev01-storage-03.mgmt.dev.iaas.intern':     '172.31.1.32'
@@ -87,3 +80,9 @@ profile::network::services::dns_records:
     'dev01-cephmon-01.mgmt.dev.iaas.intern':     '172.31.1.40'
     'dev01-cephmon-02.mgmt.dev.iaas.intern':     '172.31.1.41'
     'dev01-cephmon-03.mgmt.dev.iaas.intern':     '172.31.1.42'
+    'dev01-compute-01.mgmt.dev.iaas.intern':     '172.31.1.100'
+    'dev01-compute-02.mgmt.dev.iaas.intern':     '172.31.1.101'
+    'dev01-compute-03.mgmt.dev.iaas.intern':     '172.31.1.102'
+    'dev01-compute-04.mgmt.dev.iaas.intern':     '172.31.1.103'
+    'dev01-compute-05.mgmt.dev.iaas.intern':     '172.31.1.104'
+    'dev01-compute-06.mgmt.dev.iaas.intern':     '172.31.1.105'

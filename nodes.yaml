@@ -49,6 +49,9 @@ nodesets:
       memory: 1024
     - role: "master"
       memory: 3096
+    - role: "dashboard"
+      cpus:   1
+      memory: 1024
     - role: "compute"
   access:
     - role: "db"
@@ -57,6 +60,11 @@ nodesets:
     - role: "master"
       memory: 3096
     - role: "dpapp"
+      cpus:   1
+      memory: 1024
+    - role: "dashboard"
+      cpus:   1
+      memory: 1024
   infra:
     - role: "login"
     - role: "controller"

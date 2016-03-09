@@ -5,14 +5,14 @@ nova::vncproxy::enabled: true
 
 nova::db::mysql::password: nova_pass
 nova::db::mysql::allowed_hosts:
-  - "%{fqdn}"
+  - "%{ipaddress_service1}"
   - 'localhost'
   - '%'
 
 nova::keystone::auth::password: nova_pass
 
-nova::keystone::auth::public_url: "http://%{hiera('service__address__nova_api')}:8774/v2/%(tenant_id)s"
-nova::keystone::auth::public_url_v3: "http://%{hiera('service__address__nova_api')}:8774/v3"
+nova::keystone::auth::public_url: "http://%{hiera('service__address__nova_public_api')}:8774/v2/%(tenant_id)s"
+nova::keystone::auth::public_url_v3: "http://%{hiera('service__address__nova_public_api')}:8774/v3"
 nova::keystone::auth::ec2_public_url: "http://%{hiera('service__address__nova_api')}:8773/services/Cloud"
 nova::keystone::auth::admin_url: "http://%{hiera('service__address__nova_api')}:8774/v2/%(tenant_id)s"
 nova::keystone::auth::admin_url_v3: "http://%{hiera('service__address__nova_api')}:8774/v3"
@@ -26,7 +26,7 @@ nova::api::neutron_metadata_proxy_shared_secret: a_secret
 nova::api::enabled: true
 nova::api::auth_host: "%{hiera('service__address__keystone_admin')}"
 nova::api::auth_uri: "http://%{hiera('service__address__keystone')}:5000/"
-nova::api::api_bind_address: "%{ipaddress_public1}"
+nova::api::api_bind_address: "%{ipaddress_transport1}"
 #nova::api::metadata_listen: "%{ipaddress_public1}"
 
 nova::scheduler::enabled: true

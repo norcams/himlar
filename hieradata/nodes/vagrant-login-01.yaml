@@ -1,10 +1,4 @@
 ---
-named_interfaces::config:
-  vagrant:
-     - eth0
-  mgmt:
-     - eth1
-
 network::interfaces_hash:
   'eth1':
     onboot:    'yes'

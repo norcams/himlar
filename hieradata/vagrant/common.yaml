@@ -10,27 +10,41 @@ named_interfaces::config:
     - eth0
   mgmt:
     - eth1
+  transport:
+    - eth2
+  service:
+    - eth2
+  public:
+    - eth3
+
+allow_from_network:
+  - '172.31.24.0/24'
 
 #
 # Openstack services
 #
-# These defaults will only work when all services are installed on the
-# same box - they need to be overridden per location
-#
-service__address__keystone:          '172.31.24.20'
-service__address__horizon:           '172.31.24.20'
-service__address__glance_registry:   '172.31.24.20'
-service__address__glance_api:        '172.31.24.20'
-service__address__nova_api:          '172.31.24.20'
-service__address__nova_api_metadata: '172.31.24.20'
-service__address__neutron_server:    '172.31.24.20'
-service__address__consoleproxy:      '172.31.24.20'
-service__address__cinder_api:        '172.31.24.20'
 
+# public
+service__address__horizon:           '172.31.24.22'
+service__address__keystone_public:   '172.31.24.22'
+service__address__glance_public_api: '172.31.24.22'
+service__address__nova_public_api:   '172.31.24.22'
+service__address__neutron_public:    '172.31.24.22'
+service__address__cinder_public_api: '172.31.24.22'
+service__address__consoleproxy:      '172.31.24.22'
+
+# service/transport
+service__address__nova_api:          '172.31.16.20'
+service__address__nova_api_metadata: '172.31.16.20'
+service__address__glance_registry:   '172.31.16.20'
+service__address__glance_api:        '172.31.16.20'
+service__address__keystone:          '172.31.16.20'
 service__address__keystone_admin:    '172.31.16.20'
-service__address__mysql:             '172.31.16.21'
 service__address__rabbitmq:          '172.31.16.20'
 service__address__etcd_cluster:      '172.31.16.20'
+service__address__neutron_server:    '172.31.16.20'
+service__address__cinder_api:        '172.31.16.20'
+service__address__mysql:             '172.31.16.21'
 
 #
 #  - Add vagrant user to wheel and users group

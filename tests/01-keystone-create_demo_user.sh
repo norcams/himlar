@@ -2,10 +2,16 @@
 set -o errexit
 
 source ~/openstack.config
+source ~/keystonerc_admin
 
-osadmin project create --or-show demoproject
-osadmin user create --or-show --password himlar0pen demo
-osadmin user set --project demoproject demo
+# Create a demo tenant (project)
+openstack project create --or-show $os_demo_project_name
 
-osuser user show demo
+# Create a demo user
+openstack user create --or-show --password "$os_demo_password" $os_demo_username
 
+# Associate the demo user with the demo tenant
+openstack user set --project $os_demo_project_name $os_demo_username
+
+# Show the demo user
+openstack user show $os_demo_username
