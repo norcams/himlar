@@ -26,6 +26,7 @@ profile::openstack::dashboard::vhost_definition:
     docroot:            '/var/www/html'
     manage_docroot:     false
     proxy_dest:         "http://%{hiera('service__address__keystone')}:5000"
+    proxy_preserve_host: true
   nova_ec2_api:
     vhost_name:         "%{hiera('service__address__horizon')}"
     servername:         "%{hiera('service__address__horizon')}"
