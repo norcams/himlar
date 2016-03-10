@@ -26,6 +26,14 @@ profile::openstack::dashboard::vhost_definition:
     docroot:            '/var/www/html'
     manage_docroot:     false
     proxy_dest:         "http://%{hiera('service__address__keystone')}:5000"
+  nova_ec2_api:
+    vhost_name:         "%{hiera('service__address__horizon')}"
+    servername:         "%{hiera('service__address__horizon')}"
+    port:               '8773'
+    ip:                 "%{::ipaddress_public1}"
+    docroot:            '/var/www/html'
+    manage_docroot:     false
+    proxy_dest:         "http://%{hiera('service__address__nova_api')}:8773"
   nova_api:
     vhost_name:         "%{hiera('service__address__horizon')}"
     servername:         "%{hiera('service__address__horizon')}"
@@ -42,3 +50,19 @@ profile::openstack::dashboard::vhost_definition:
     docroot:            '/var/www/html'
     manage_docroot:     false
     proxy_dest:         "http://%{hiera('service__address__cinder_api')}:8776"
+  glance_api:
+    vhost_name:         "%{hiera('service__address__horizon')}"
+    servername:         "%{hiera('service__address__horizon')}"
+    port:               '9292'
+    ip:                 "%{::ipaddress_public1}"
+    docroot:            '/var/www/html'
+    manage_docroot:     false
+    proxy_dest:         "http://%{hiera('service__address__glance_api')}:9292"
+  neutron_server:
+    vhost_name:         "%{hiera('service__address__horizon')}"
+    servername:         "%{hiera('service__address__horizon')}"
+    port:               '9696'
+    ip:                 "%{::ipaddress_public1}"
+    docroot:            '/var/www/html'
+    manage_docroot:     false
+    proxy_dest:         "http://%{hiera('service__address__neutron_server')}:9696"
