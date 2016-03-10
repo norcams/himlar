@@ -13,7 +13,7 @@ nova::keystone::auth::password: nova_pass
 
 nova::keystone::auth::public_url: "http://%{hiera('service__address__nova_public_api')}:8774/v2/%(tenant_id)s"
 nova::keystone::auth::public_url_v3: "http://%{hiera('service__address__nova_public_api')}:8774/v3"
-nova::keystone::auth::ec2_public_url: "http://%{hiera('service__address__nova_api')}:8773/services/Cloud"
+nova::keystone::auth::ec2_public_url: "http://%{hiera('service__address__nova_public_api')}:8773/services/Cloud"
 nova::keystone::auth::admin_url: "http://%{hiera('service__address__nova_api')}:8774/v2/%(tenant_id)s"
 nova::keystone::auth::admin_url_v3: "http://%{hiera('service__address__nova_api')}:8774/v3"
 nova::keystone::auth::ec2_admin_url: "http://%{hiera('service__address__nova_api')}:8773/services/Admin"
