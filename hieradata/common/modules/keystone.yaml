@@ -19,8 +19,8 @@ keystone::endpoint::version:      "v3"
 keystone::wsgi::apache::ssl: false
 
 keystone::admin_token: admintoken
-keystone::public_bind_host: "%{ipaddress_transport1}"
-keystone::admin_bind_host: "%{ipaddress_mgmt1}"
+keystone::public_bind_host: "%{ipaddress_service1}"
+keystone::admin_bind_host: "%{ipaddress_service1}"
 keystone::database_connection: "mysql://keystone:key_pass@%{%{hiera('service__address__mysql')}/keystone"
 
 keystone::federation::oidc::idp_name: dataporten
