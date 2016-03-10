@@ -14,7 +14,7 @@ cinder::rabbit_host:         "%{hiera('service__address__rabbitmq')}"
 cinder::api::keystone_password:  'cinder_pass'
 cinder::api::keystone_user:      'cinder'
 cinder::api::keystone_enabled:   true
-cinder::api::auth_uri:           "http://%{hiera('service__address__keystone')}:5000/"
+cinder::api::auth_uri:           "http://%{hiera('service__address__keystone')}:5000/v3"
 cinder::api::keystone_auth_host: "%{hiera('service__address__keystone_admin')}"
 cinder::api::os_region_name:     "%{location}"
 
