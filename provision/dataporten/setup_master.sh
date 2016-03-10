@@ -18,6 +18,11 @@ mapping_name="dataporten_personal"
 mapping_rules="/opt/himlar/provision/dataporten/mapping_personal.json"
 
 # Load openstack client credentials and settings
+if [ ! -f "${os_rc_file}" ]; then
+  echo "Could not find ${os_rc_file}."
+  exit 1
+fi
+
 source "${os_rc_file}"
 
 # Create idp
