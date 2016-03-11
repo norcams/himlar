@@ -3,7 +3,7 @@ location_environment: prod
 location_description: Production environment in Oslo
 
 #
-## Default interfaces
+# Default interfaces
 #
 named_interfaces::config:
   mgmt:
@@ -11,6 +11,8 @@ named_interfaces::config:
   transport:
     - eth1
     - eth2
+  service:
+    - eth1
   public:
     - dummy0
 
