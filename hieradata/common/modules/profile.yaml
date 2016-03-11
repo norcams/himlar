@@ -13,7 +13,7 @@ profile::base::common::manage_keyboard:        true
 profile::base::common::manage_network:         true
 profile::base::common::include_virtual:        true
 profile::base::common::include_physical:       true
-profile::base::common::manage_firewall:        true
+profile::base::firewall::manage_firewall:      true
 
 profile::base::common::packages:
   - 'tcpdump'
