@@ -8,14 +8,13 @@ named_interfaces::config:
   service:
     - em1
 
-  ntp::servers:
+ntp::servers:
   - 172.16.32.100
   - 172.16.32.101
   - 172.16.32.102
-  
+
 profile::base::network::manage_httpproxy: 'true'
 profile::base::network::http_proxy:       "%{hiera('service__address__proxy')}:8888"
 
 puppet::cron_cmd: "if [ -e /etc/profile.d/proxy.sh ] ; then source /etc/profile.d/proxy.sh ; fi ; \
   /usr/bin/env puppet agent --config %{puppet::dir}/puppet.conf --onetime --no-daemonize"
-  
