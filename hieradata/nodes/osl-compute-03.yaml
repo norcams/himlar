@@ -4,6 +4,9 @@ network::interfaces_hash:
     ipaddress: '172.18.32.105'
     netmask:   '255.255.248.0'
     gateway:   '172.18.32.1'
+    peerdns:   'yes'
+    dns1:      "%{hiera('service__address__proxy')}"
+    domain:    'mgmt.iaas.intern'
     defroute:  'yes'
   'em2':
     ipaddress: '172.18.40.105'
@@ -15,7 +18,3 @@ network::interfaces_hash:
     netmask:   '255.255.248.0'
     gateway:   '172.16.32.1'
     defroute:  'no'
-    peerdns:   'yes'
-    dns1:      "%{hiera('service__address__proxy')}"
-    domain:    'iaas.uio.no'
-
