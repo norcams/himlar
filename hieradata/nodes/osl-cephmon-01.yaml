@@ -1,10 +1,4 @@
 ---
-named_interfaces::config:
-  mgmt:
-     - eth0
-  transport:
-     - eth1
-
 network::interfaces_hash:
   'eth0':
     ipaddress: '172.16.32.90'
