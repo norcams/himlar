@@ -2,20 +2,6 @@
 location_environment: prod
 location_description: Production environment in Oslo
 
-#
-# Default interfaces
-#
-named_interfaces::config:
-  mgmt:
-    - eth0
-  transport:
-    - eth1
-    - eth2
-  service:
-    - eth1
-  public:
-    - dummy0
-
 # public
 service__address__horizon:           '158.37.63.254'
 service__address__keystone_public:   '158.37.63.254'
