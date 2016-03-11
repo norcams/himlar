@@ -20,7 +20,6 @@ openstack_extras::repo::redhat::redhat::purge_unmanaged: false
 foreman::foreman_url:                       "https://%{fqdn}"
 foreman::configure_epel_repo:               false
 foreman::admin_username:                    'admin'
-foreman::admin_password:                    'changeme'
 foreman::admin_email:                       'admin@localhost.localdomain'
 foreman::ssl:                               true
 foreman::cli::manage_root_config:           true

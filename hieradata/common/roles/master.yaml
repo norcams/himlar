@@ -63,7 +63,7 @@ profile::openstack::volume::type:
     set_key: 'volume_backend_name'
     set_value: 'rbd-volumes'
     os_tenant_name: 'services'
-    os_password: 'cinder_pass'
+    os_password: "%{hiera('cinder::keystone::auth::password')}"
     os_username: 'cinder'
     os_region_name: "%{location}"
     os_auth_url: "http://%{hiera('service__address__keystone')}:5000/v2.0"
@@ -72,7 +72,7 @@ profile::openstack::volume::backend::rbd:
   rbd-volumes:
     rbd_pool: 'volumes'
     rbd_user: 'cinder'
-    rbd_secret_uuid: 'AQBypF1V2JYiChAA2qYbjM6jbXJBMmpXPkvwBg=='
+    rbd_secret_uuid: "%{hiera('rbd_volumes_rbd_secret_uuid')}"
 
 cinder::backends::enabled_backends:
   - rbd-volumes
