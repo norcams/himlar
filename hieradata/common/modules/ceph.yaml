@@ -9,10 +9,10 @@ ceph::profile::params::fsid:                        '4b5c8c0a-ff60-454b-a1b4-974
 ceph::profile::params::authentication_type:         'cephx'
 #ceph::profile::params::mon_initial_members:         'cephmon-1, cephmon-2'
 #ceph::profile::params::mon_host:                    '10.0.0.10:6789, 10.0.0.11:6789'
-ceph::profile::params::osd_pool_default_pg_num:     '4096'
-ceph::profile::params::osd_pool_default_pgp_num:    '4096'
+ceph::profile::params::osd_pool_default_pg_num:     '2048'
+ceph::profile::params::osd_pool_default_pgp_num:    '2048'
 ceph::profile::params::osd_pool_default_size:       '3'
-ceph::profile::params::osd_pool_default_min_size:   '2'
+ceph::profile::params::osd_pool_default_min_size:   '1'
 #ceph::profile::params::cluster_network:             '10.0.0.0/24'
 #ceph::profile::params::public_network:              '10.0.0.0/24'
 ######## Keys - Cluster and location spesific data
@@ -34,6 +34,13 @@ ceph::profile::params::client_keys:
     secret: 'AQCztJdSyNb0NBAASA2yPZPuwXeIQnDJ9O8gVw=='
     keyring_path: '/var/lib/ceph/bootstrap-mds/ceph.keyring'
     cap_mon: 'allow profile bootstrap-mds'
+  'client.glance':
+    secret: 'AQBGJ8dWKhgcNhAA+VU0GlKHcRLJSsJ8WouuSQ=='
+    mode: '0600'
+    user: 'glance'
+    group: 'glance'
+    cap_mon: 'allow r'
+    cap_osd: 'allow class-read object_prefix rbd_children, allow rwx pool=images'
   'client.volumes':
     secret: 'AQA4MPZTOGU0ARAAXH9a0fXxVq0X25n2yPREDw=='
     mode: '0600'

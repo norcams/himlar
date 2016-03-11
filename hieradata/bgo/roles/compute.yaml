@@ -5,6 +5,8 @@ named_interfaces::config:
   transport:
     - em1
     - em2
+  service:
+    - em1
 
 ntp::servers:
   - 172.16.0.100

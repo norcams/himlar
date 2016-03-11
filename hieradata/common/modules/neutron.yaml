@@ -1,4 +1,4 @@
-neutron::bind_host: "%{ipaddress_public1}"
+neutron::bind_host: "%{ipaddress_transport1}"
 neutron::core_plugin: neutron.plugins.ml2.plugin.Ml2Plugin
 neutron::service_plugins:
   - neutron.services.l3_router.l3_router_plugin.L3RouterPlugin
@@ -39,12 +39,12 @@ neutron::plugins::ml2::mechanism_drivers:
 
 neutron::db::mysql::password: neutron_pass
 neutron::db::mysql::allowed_hosts:
-  - "%{fqdn}"
+  - "%{ipaddress_service1}"
   - 'localhost'
   - '%'
 
 neutron::keystone::auth::password: neutron_pass
-neutron::keystone::auth::public_url: "http://%{hiera('service__address__neutron_server')}:9696"
+neutron::keystone::auth::public_url: "http://%{hiera('service__address__neutron_public')}:9696"
 neutron::keystone::auth::internal_url: "http://%{hiera('service__address__neutron_server')}:9696"
 neutron::keystone::auth::admin_url: "http://%{hiera('service__address__neutron_server')}:9696"
 

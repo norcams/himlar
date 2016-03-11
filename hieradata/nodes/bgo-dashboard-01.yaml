@@ -1,0 +1,21 @@
+---
+network::interfaces_hash:
+  'eth0':
+    ipaddress: '172.16.0.22'
+    netmask:   '255.255.248.0'
+    gateway:   '172.16.0.1'
+    mtu:       '1500'
+    peerdns:   'yes'
+    dns1:      "%{hiera('service__address__proxy')}"
+    domain:    'mgmt.iaas.intern'
+    defroute:  'no'
+  'eth1':
+    ipaddress: '172.18.0.22'
+    netmask:   '255.255.248.0'
+    gateway:   '172.18.0.1'
+    srcaddr:   '158.39.77.254'
+    defroute:  'yes'
+  'dummy0':
+    ipaddress: '158.39.77.254'
+    netmask:   '255.255.255.255'
+    defroute:  'no'

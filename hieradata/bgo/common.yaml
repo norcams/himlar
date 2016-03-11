@@ -2,29 +2,44 @@
 location_environment: prod
 location_description: Production environment in Bergen
 
-service__address__keystone:          '158.39.77.254'
-service__address__glance_registry:   '158.39.77.254'
-service__address__glance_api:        '158.39.77.254'
-service__address__nova_api:          '158.39.77.254'
-service__address__nova_api_metadata: '158.39.77.254'
-service__address__neutron_server:    '158.39.77.254'
+# public
+service__address__horizon:           '158.39.77.254'
+service__address__keystone_public:   '158.39.77.254'
+service__address__glance_public_api: '158.39.77.254'
+service__address__nova_public_api:   '158.39.77.254'
+service__address__neutron_public:    '158.39.77.254'
+service__address__cinder_public_api: '158.39.77.254'
 service__address__consoleproxy:      '158.39.77.254'
-service__address__cinder_api:        '158.39.77.254'
 
-service__address__keystone_admin:    '172.16.0.20'
-service__address__mysql:             '172.16.0.21'
-service__address__rabbitmq:          '172.16.0.20'
-service__address__etcd_cluster:      '172.16.0.20'
+# service/transport1
 service__address__proxy:             '172.16.0.12'
+service__address__nova_api:          '172.18.0.20'
+service__address__nova_api_metadata: '172.18.0.20'
+service__address__glance_registry:   '172.18.0.20'
+service__address__glance_api:        '172.18.0.20'
+service__address__keystone:          '172.18.0.20'
+service__address__keystone_admin:    '172.18.0.20'
+service__address__rabbitmq:          '172.18.0.20'
+service__address__etcd_cluster:      '172.18.0.20'
+service__address__neutron_server:    '172.18.0.20'
+service__address__cinder_api:        '172.18.0.20'
+service__address__mysql:             '172.18.0.21'
 
 ntp::servers:
   - ntp.uib.no
   - ntp2.uib.no
 
 ceph::profile::params::mon_initial_members:         'bgo-cephmon-01, bgo-cephmon-02, bgo-cephmon-03'
-ceph::profile::params::mon_host:                    '172.16.0.90:6789, 172.16.0.91:6789, 172.16.0.92:6789'
-ceph::profile::params::cluster_network:             '172.16.0.0/21'
-ceph::profile::params::public_network:              '172.16.0.0/21'
+ceph::profile::params::mon_host:                    '172.18.0.90:6789, 172.18.0.91:6789, 172.18.0.92:6789'
+ceph::profile::params::cluster_network:             '172.18.0.0/21'
+ceph::profile::params::public_network:              '172.18.0.0/21'
+
+profile::openstack::volume::manage_rbd: true
+profile::openstack::volume::api::enable_multibackend: true
+profile::openstack::compute::hypervisor::manage_libvirt_rbd: true
+
+# If backend != file, you must explicitly define stores in %location/modules/glance.yaml
+profile::openstack::image::api::backend: 'rbd'
 
 profile::network::services::dns_options:
   CNAME:
@@ -54,8 +69,10 @@ profile::network::services::dns_records:
     'bgo-mgmt-01.mgmt.iaas.intern':        '172.16.0.10'
     'bgo-foreman-01.mgmt.iaas.intern':     '172.16.0.11'
     'bgo-proxy-01.mgmt.iaas.intern':       '172.16.0.12'
+    'bgo-dpapp-01.mgmt.iaas.intern':       '172.16.0.19'
     'bgo-master-01.mgmt.iaas.intern':      '172.16.0.20'
     'bgo-db-01.mgmt.iaas.intern':          '172.16.0.21'
+    'bgo-dashboard-01.mgmt.iaas.intern':   '172.16.0.22'
     'bgo-cephmon-01.mgmt.iaas.intern':     '172.16.0.90'
     'bgo-cephmon-02.mgmt.iaas.intern':     '172.16.0.91'
     'bgo-cephmon-03.mgmt.iaas.intern':     '172.16.0.92'

@@ -3,23 +3,16 @@ include:
   default:
     - profile::base::login
     - profile::network::services
+    - profile::application::git
     - foreman_bootstrap::instances
 
 profile::base::firewall::manage_firewall: false
 profile::network::services::manage_nat: true
 
 accounts::accounts:
-  'beddari':
-    ensure: present
-  'ebm':
-    ensure: present
   'hege':
     ensure: present
     authorized_keys: [ 'hege_usit', 'hege_home' ]
-  'knutvi':
-    ensure: present
-  'kyrreli':
-    ensure: present
   'mikaeld':
     ensure: present
   'raymond':
@@ -41,7 +34,7 @@ ssh::server::options:
   AuthenticationMethods: 'publickey,keyboard-interactive:pam publickey'
   # Explicitly enable the required methods
   UsePAM: 'yes'
-  PasswordAuthentication: 'yes'
+  PasswordAuthentication: 'no'
   PubKeyAuthentication: 'yes'
 
 googleauthenticator::pam::mode::modes:
@@ -52,3 +45,9 @@ googleauthenticator::pam::mode::modes:
 googleauthenticator::pam::modules:
   sshd:
     mode: wheel-only
+
+profile::application::git::settings:
+  hostname:     "git.%{::domain}"
+  upstream:     'enable'
+  mirroring:    'enable'
+  site_info:    'Please see http://iaas.readthedocs.org for more info'

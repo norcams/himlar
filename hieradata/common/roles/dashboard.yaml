@@ -1,0 +1,69 @@
+---
+include:
+  default:
+    - profile::openstack::dashboard
+
+profile::base::network::manage_dummy: true
+
+profile::application::sslcert::create_new: true
+profile::application::sslcert::cert_defines:
+  "%{fqdn}":
+    country:      'NO'
+    organization: 'private.org'
+    commonname:   "%{fqdn}"
+    owner:        apache
+
+profile::base::common::packages:
+  - python-oslo-log
+  - python-openstackclient
+
+profile::openstack::dashboard::vhost_definition:
+  keystone_api:
+    vhost_name:         "%{hiera('service__address__horizon')}"
+    servername:         "%{hiera('service__address__horizon')}"
+    port:               '5000'
+    ip:                 "%{::ipaddress_public1}"
+    docroot:            '/var/www/html'
+    manage_docroot:     false
+    proxy_dest:         "http://%{hiera('service__address__keystone')}:5000"
+    proxy_preserve_host: true
+  nova_ec2_api:
+    vhost_name:         "%{hiera('service__address__horizon')}"
+    servername:         "%{hiera('service__address__horizon')}"
+    port:               '8773'
+    ip:                 "%{::ipaddress_public1}"
+    docroot:            '/var/www/html'
+    manage_docroot:     false
+    proxy_dest:         "http://%{hiera('service__address__nova_api')}:8773"
+  nova_api:
+    vhost_name:         "%{hiera('service__address__horizon')}"
+    servername:         "%{hiera('service__address__horizon')}"
+    port:               '8774'
+    ip:                 "%{::ipaddress_public1}"
+    docroot:            '/var/www/html'
+    manage_docroot:     false
+    proxy_dest:         "http://%{hiera('service__address__nova_api')}:8774"
+  cinder_api:
+    vhost_name:         "%{hiera('service__address__horizon')}"
+    servername:         "%{hiera('service__address__horizon')}"
+    port:               '8776'
+    ip:                 "%{::ipaddress_public1}"
+    docroot:            '/var/www/html'
+    manage_docroot:     false
+    proxy_dest:         "http://%{hiera('service__address__cinder_api')}:8776"
+  glance_api:
+    vhost_name:         "%{hiera('service__address__horizon')}"
+    servername:         "%{hiera('service__address__horizon')}"
+    port:               '9292'
+    ip:                 "%{::ipaddress_public1}"
+    docroot:            '/var/www/html'
+    manage_docroot:     false
+    proxy_dest:         "http://%{hiera('service__address__glance_api')}:9292"
+  neutron_server:
+    vhost_name:         "%{hiera('service__address__horizon')}"
+    servername:         "%{hiera('service__address__horizon')}"
+    port:               '9696'
+    ip:                 "%{::ipaddress_public1}"
+    docroot:            '/var/www/html'
+    manage_docroot:     false
+    proxy_dest:         "http://%{hiera('service__address__neutron_server')}:9696"

@@ -1,17 +1,13 @@
 ---
 network::interfaces_hash:
   'eth0':
-    ipaddress: '192.168.10.20'
+    ipaddress: '172.31.1.20'
     netmask:   '255.255.255.0'
+    gateway:   '172.31.1.1'
     mtu:       '1500'
-    defroute:  'no'
-  'eth1':
-    ipaddress: '172.17.16.20'
-    netmask:   '255.255.240.0'
-    gateway:   '172.17.16.1'
-    srcaddr:   '129.177.31.126'
     defroute:  'yes'
-  'dummy0':
-    ipaddress: '129.177.31.126'
-    netmask:   '255.255.255.255'
+  'eth1':
+    ipaddress: '172.31.34.20'
+    netmask:   '255.255.255.0'
+    gateway:   '172.31.34.1'
     defroute:  'no'

@@ -7,7 +7,6 @@ include:
     - profile::openstack::compute::conductor
     - profile::openstack::compute::consoleauth
     - profile::openstack::compute::consoleproxy
-    - profile::openstack::dashboard
     - profile::openstack::identity
     - profile::openstack::image::api
     - profile::openstack::image::registry
@@ -15,25 +14,25 @@ include:
     - profile::openstack::volume::api
     - profile::openstack::volume::scheduler
     - profile::openstack::volume::storage
-    - cinder::setup_test_volume
     - profile::openstack::network::controller
 #    - profile::openstack::network::dhcp
 #    - profile::openstack::network::l3
 #    - profile::openstack::network::metadata
     - profile::application::etcd
+    - profile::openstack::dataporten
 
-profile::base::network::manage_dummy: true
 profile::base::common::manage_lvm: false
-profile::base::common::common_packages:
+profile::base::common::packages:
   - python-etcd
 
-profile::application::sslcert::create_new: true
-profile::application::sslcert::cert_defines:
-  "%{fqdn}":
-    country:      'NO'
-    organization: 'private.org'
-    commonname:   "%{fqdn}"
-    owner:        apache
+profile::openstack::identity::roles_extra:
+  - user
+
+profile::openstack::dataporten::domain:
+  dataporten:
+    ensure:       present
+    description:  'Federated users from Dataporten'
+    is_default:   false
 
 calico::controller: true
 calico::reflector: true
@@ -58,3 +57,22 @@ profile::openstack::network::policies:
   create_router:
     key:   'create_router'
     value: 'rule:admin_only'
+
+profile::openstack::volume::type:
+  rbd:
+    set_key: 'volume_backend_name'
+    set_value: 'rbd-volumes'
+    os_tenant_name: 'services'
+    os_password: 'cinder_pass'
+    os_username: 'cinder'
+    os_region_name: "%{location}"
+    os_auth_url: "http://%{hiera('service__address__keystone')}:5000/v2.0"
+
+profile::openstack::volume::backend::rbd:
+  rbd-volumes:
+    rbd_pool: 'volumes'
+    rbd_user: 'cinder'
+    rbd_secret_uuid: 'AQBypF1V2JYiChAA2qYbjM6jbXJBMmpXPkvwBg=='
+
+cinder::backends::enabled_backends:
+  - rbd-volumes

@@ -1,27 +1,31 @@
 glance::api::keystone_password: glance_pass
-glance::api::bind_host: "%{ipaddress_public1}"
+glance::api::bind_host: "%{ipaddress_transport1}"
 glance::api::auth_host: "%{hiera('service__address__keystone_admin')}"
 glance::api::auth_uri: "http://%{hiera('service__address__keystone')}:5000/"
 glance::api::database_connection: "mysql://glance:glance_pass@%{hiera('service__address__mysql')}/glance"
 glance::api::workers: 1
 glance::api::registry_host: "%{hiera('service__address__glance_registry')}"
+glance::api::show_image_direct_url: true
 
 glance::registry::keystone_password: glance_pass
-glance::registry::bind_host: "%{ipaddress_public1}"
+glance::registry::bind_host: "%{ipaddress_transport1}"
 glance::registry::auth_host: "%{hiera('service__address__keystone_admin')}"
 glance::registry::auth_uri: "http://%{hiera('service__address__keystone')}:5000/"
 glance::registry::database_connection: "mysql://glance:glance_pass@%{hiera('service__address__mysql')}/glance"
 
 glance::db::mysql::password: glance_pass
 glance::db::mysql::allowed_hosts:
-  - "%{fqdn}"
+  - "%{ipaddress_service1}"
   - 'localhost'
   - '%'
 
 glance::keystone::auth::password: "%{hiera('glance::api::keystone_password')}"
-glance::keystone::auth::public_url: "http://%{hiera('service__address__glance_api')}:9292"
+glance::keystone::auth::public_url: "http://%{hiera('service__address__glance_public_api')}:9292"
 glance::keystone::auth::admin_url: "http://%{hiera('service__address__glance_api')}:9292"
 glance::keystone::auth::internal_url: "http://%{hiera('service__address__glance_api')}:9292"
 
 glance::keystone::auth::region: "%{location}"
 glance::api::os_region_name: "%{location}"
+
+glance::backend::rbd::rbd_store_user: 'glance'
+glance::backend::rbd::rbd_store_pool: 'images'

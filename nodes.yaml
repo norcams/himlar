@@ -1,19 +1,20 @@
 # Default values for all nodes
 #
-#   These settings can be overridden per node in the
+#  These settings can be overridden per node in the
+#  nodeset configurations
 #
 defaults:
-  box:       norcams/base
+  box:       "norcams/base"
   autostart: true
   primary:   false
-  location:  vagrant
-  domain:    himlar.local
+  location:  "vagrant"
+  domain:    "himlar.local"
   cpus:      2
   memory:    2048
   networks:
-    - mgmt
-    - transport1
-    - transport2
+    - "mgmt"
+    - "service"
+    - "public"
 
 #
 # Nodesets configuration example:
@@ -42,48 +43,64 @@ defaults:
 #     vagrant-gateway-gw.himlar.local
 #
 nodesets:
-  all:
-    - name: login
-    - name: controller
-    - name: foreman
-    - name: master
-    - name: compute
-    - name: cephmon
-    - name: storage
-    - name: db
-    - name: proxy
-  net:
-    - name: master
-    - name: c1
-      role: compute
-    - name: c2
-      role: compute
-    - name: gw
-      box: norcams/net
+  default:
+    - role: "db"
+      cpus:   1
+      memory: 1024
+    - role: "master"
+      memory: 3096
+    - role: "dashboard"
+      cpus:   1
+      memory: 1024
+    - role: "compute"
+  access:
+    - role: "db"
+      cpus:   1
+      memory: 1024
+    - role: "master"
+      memory: 3096
+    - role: "dpapp"
+      cpus:   1
+      memory: 1024
+    - role: "dashboard"
+      cpus:   1
+      memory: 1024
+  infra:
+    - role: "login"
+    - role: "controller"
+    - role: "foreman"
+    - role: "proxy"
+  ceph:
+    - role: "cephmon"
+    - role: "storage"
   consul:
-    - name: com1
-      role: compute
-    - name: com2
-      role: compute
-    - name: con1
-      role: controller
-    - name: con2
-      role: controller
-    - name: con3
-      role: controller
-  lb:
-    - name: db
-    - name: controller
-    - name: lb
+    - role: "compute"
+      hostid: "com1"
+    - role: "compute"
+      hostid: "com2"
+    - role: "controller"
+      hostid: "con1"
+    - role: "controller"
+      hostid: "con2"
+    - role: "controller"
+      hostid: "con3"
 
 networks:
   mgmt:
-    net:         10.0.3
-    auto_config: true
+    net: "172.31.0"
+    auto_config: false
+  oob:
+    net: "172.31.8"
+    auto_config: false
+  service:
+    net: "172.31.16"
+    auto_config: false
+  public:
+    net: "172.31.24"
+    auto_config: false
   transport1:
-    net:         10.4.0
-    auto_config: true
+    net: "172.31.32"
+    auto_config: false
   transport2:
-    net:         10.5.0
-    auto_config: true
-
+    net: "172.31.33"
+    auto_config: false

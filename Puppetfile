@@ -58,6 +58,15 @@ mod 'openssl', :ref => '1.5.0',                  :git => github + 'camptocamp/pu
 mod 'consul', :ref => '7c428f4b2b',              :git => github + 'solarkennedy/puppet-consul'
 
 #
+# profile::application::dpapp
+#
+mod 'dpapp', :ref => '0.2',                      :git => github + 'norcams/puppet-dpapp'
+
+#
+# profile::application::git
+#
+mod 'gitolite', :ref => '1.0',                   :git => github + 'uib/puppet-gitolite'
+
 # profile::application::foreman
 #
 mod 'zack/r10k', '2.5.2'                         # forge
@@ -128,7 +137,7 @@ mod 'libvirt', :ref => '0.3.2-norcams1',         :git => github + 'norcams/puppe
 #
 # ceph
 #
-mod 'ceph', :ref => 'd387b0725f',                :git => github + 'openstack/puppet-ceph'
+mod 'ceph', :ref => '998e023d8f',                :git => github + 'openstack/puppet-ceph'
 
 #
 # Common libs

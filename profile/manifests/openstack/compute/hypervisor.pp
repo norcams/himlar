@@ -1,5 +1,6 @@
 class profile::openstack::compute::hypervisor (
   $hypervisor_type = 'libvirt', # Possible value libvirt, vmware, xenserver
+  $manage_libvirt_rbd = false,
   $manage_telemetry = true,
   $manage_firewall = true,
   $firewall_extras = {},
@@ -14,6 +15,10 @@ class profile::openstack::compute::hypervisor (
     include "::nova::compute::${hypervisor_type}"
   } else {
     fail("Invalid hypervisor_type selected: ${hypervisor_type}")
+  }
+
+  if $manage_libvirt_rbd {
+    include ::nova::compute::rbd
   }
 
   if $manage_telemetry {

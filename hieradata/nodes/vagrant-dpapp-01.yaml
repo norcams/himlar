@@ -1,0 +1,19 @@
+---
+network::interfaces_hash:
+  'eth1':
+    onboot:    'yes'
+    mtu:       '1500'
+    ipaddress: '172.31.0.19'
+    netmask:   '255.255.255.0'
+  'eth2':
+    onboot:    'yes'
+    mtu:       '1500'
+    ipaddress: '172.31.16.19'
+    netmask:   '255.255.255.0'
+  'eth3':
+    onboot:    'yes'
+    mtu:       '1500'
+    ipaddress: '172.31.24.19'
+    netmask:   '255.255.255.0'
+    gateway:   '172.32.24.1'
+    defroute:  'yes'

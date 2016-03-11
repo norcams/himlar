@@ -3,5 +3,6 @@
 #
 class profile::storage::cephpool {
   require ::ceph::profile::client
-  include ::ceph::profile::pool
+
+  create_resources(ceph::pool, hiera('profile::storage::cephpool::pools', {}))
 }

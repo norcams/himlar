@@ -16,14 +16,14 @@ profile::base::common::include_virtual:        true
 profile::base::common::include_physical:       true
 profile::base::common::manage_passwords:       true
 
-profile::base::common::common_packages:
+profile::base::common::packages:
   - 'tcpdump'
   - 'tree'
   - 'htop'
   - 'vim-enhanced'
   - 'bind-utils'
 
-profile::base::common::common_classes:
+profile::base::common::classes:
   - puppet
   - openstack_extras::repo::redhat::redhat
 

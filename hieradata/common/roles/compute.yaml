@@ -14,7 +14,7 @@ openstack_extras::repo::redhat::redhat::manage_rdo: false
 profile::base::common::manage_lvm: true
 
 profile::openstack::network::l2_driver: calico
-profile::base::common::common_packages:
+profile::base::common::packages:
   - python-etcd
   - posix-spawn
   - networking-calico
@@ -25,19 +25,30 @@ etcd::mode: 'proxy'
 named_interfaces::config:
   mgmt:
     - em3
+  transport:
+    - em1
+    - em2
+  service:
+    - em1
 
 sudo::purge: false
 
 accounts::users:
   'cinder':
     ensure: present
+  'glance':
+    ensure: present
 
 accounts::usergroups:
   'cinder':
     - 'cinder'
+  'glance':
+    - 'glance'
 
 accounts::accounts:
   'cinder':
+    ensure: present
+  'glance':
     ensure: present
 
 profile::base::lvm::physical_volume:
