@@ -22,7 +22,11 @@ accounts::ssh_keys:
     type:    'ssh-rsa'
     public:  'AAAAB3NzaC1yc2EAAAABIwAAAQEAr3c4y9UTQstrocwRDdq8tkb8d33VIX4x07iKYanZmnrcGwQ7efT3rEN2tmJUEQumNSL+ZVdsCH/2pT37L8uyxsRlSdnz5bQbe0Sj2dq4ahpIadrDH7n858EmN+chEwgz5QRyWT4SanC9ce/9EyJbl8C0U34mgJV+pIwSGhFhWKXJ624ja+kMXVd6+5rG+rlukMjolFoxE+ijZqzU1EwUtuKD1oMFGeszdpEChhhGO/9T1L7MyaIcDOUOmMgXjdgRtVmS1QY5HYikvc68wBV1FDRn1pvEd3UJTobU87FA9XircbazvD64ghNWK7dqikUgnW/OQsKLoLfyPEUn39v2wQ=='
 
+  'jarleb':
+    type:    'ssh-rsa'
+    public:  'AAAAB3NzaC1yc2EAAAADAQABAAABAQDesDlHh5ebTaYdbI68QNd920BVba6am0gjD6UnbR1VyLV1KB5GeFDqnfVlvWC52BGNB6/qTXoPnBuHVY8/dY25o6CG/I0Rldl05ByN363ylPL3LY/+VjQlgoCaDDX3zsZg7etlWTCkjSRGYjOeQqy/fwBjHPGflNEl+6wsvpSTX8GCAR0B7383ALE5Fa0TZJ+qJ63mGYI8rwSDmF+ZOXC9eU/ve0hHfBl3N3Q+yWH33Twq8MPPa3ggohMk/007YFgjxyPAOfCZSBggFIYC1Qpo0E2tIZ02lj7qUauOnA8wCBccFJZCIZaJW8xxyNaLRaIGFsdI3709MUTjWxiindgx'
 accounts::users:
+
   'hege':
     comment: 'hege@norcams'
     groups:  [ 'users', 'wheel' ]
@@ -40,6 +44,9 @@ accounts::users:
     groups:  [ 'users', 'wheel' ]
   'trondham':
     comment: 'trondham@norcams'
+    groups:  [ 'users', 'wheel' ]
+  'jarleb':
+    comment: 'jarleb@norcams'
     groups:  [ 'users', 'wheel' ]
 
 accounts::accounts:
