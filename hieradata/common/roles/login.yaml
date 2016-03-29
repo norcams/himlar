@@ -21,6 +21,8 @@ accounts::accounts:
     ensure: present
   'trondham':
     ensure: present
+  'jarleb':
+    ensure: present
   # disable system users
   'iaas':
     ensure: absent
