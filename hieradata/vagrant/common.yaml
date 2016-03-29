@@ -97,3 +97,64 @@ profile::network::services::dns_records:
 
 # to configure yum proxy set this appropriately
 #profile::network::yum-proxy::yum_proxy: 'http://updateproxy.uio.no:3128'
+
+
+#
+## Secret data which for other environments are stored ooutside of this data tree
+#
+
+---
+
+admin_password:   'admin_pass'
+
+# ceph.yaml
+ceph::profile::params::mon_key:                     'AQATGHJTUCBqIBAA7M2yafV1xctn1pgr3GcKPg=='
+client.admin::secret:                               'AQBMGHJTkC8HKhAAJ7NH255wYypgm1oVuV41MA=='
+client.bootstrap-osd::secret:                       'AQARG3JTsDDEHhAAVinHPiqvJkUi5Mww/URupw=='
+client.bootstrap-mds::secret:                       'AQCztJdSyNb0NBAASA2yPZPuwXeIQnDJ9O8gVw=='
+client.glance::secret:                              'AQBGJ8dWKhgcNhAA+VU0GlKHcRLJSsJ8WouuSQ=='
+client.volumes::secret:                             'AQA4MPZTOGU0ARAAXH9a0fXxVq0X25n2yPREDw=='
+client.cinder::secret:                              'AQBypF1V2JYiChAA2qYbjM6jbXJBMmpXPkvwBg=='
+
+# cinder.yaml
+cinder::db::mysql::password:                        'cinder_pass'
+cinder::rabbit_password:                            'guest'
+cinder::api::keystone_password:                     'cinder_pass'
+cinder::keystone::auth::password:                   'cinder_pass'
+
+# foreman.yaml
+foreman::admin_password:                            'changeme'
+
+# glance.yaml
+glance::api::keystone_password:                     'glance_pass'
+glance::db::mysql::password:                        'glance_pass'
+
+# horizon.yaml
+horizon::secret_key:                                'horizon_secret'
+
+# keystone.yaml
+keystone::db::mysql::password:                      'key_pass'
+keystone::admin_token:                              'admintoken'
+
+# master.yaml
+rbd_volumes_rbd_secret_uuid:                        'AQBypF1V2JYiChAA2qYbjM6jbXJBMmpXPkvwBg=='
+
+# mysql.yaml
+mysql::server::root_password:                       'test123'
+
+# neutron.yaml
+neutron::rabbit_password:                           'guest'
+neutron::server::auth_password:                     'neutron_pass'
+neutron::db::mysql::password:                       'neutron_pass'
+neutron::keystone::auth::password:                  'neutron_pass'
+neutron::agents::metadata::auth_password:           'neutron_pass'
+neutron::agents::metadata::shared_secret:           'a_secret'
+neutron::server::notifications::nova_admin_password: 'nova_pass'
+
+# nova.yaml
+nova::db::mysql::password:                          'nova_pass'
+nova::keystone::auth::password:                     'nova_pass'
+nova::api::admin_password:                          'nova_pass'
+nova::api::neutron_metadata_proxy_shared_secret:    'a_secret'
+nova::network::neutron::neutron_admin_password:     'neutron_pass'
+
