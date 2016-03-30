@@ -43,3 +43,8 @@ neutron::keystone::auth::admin_url: "http://%{hiera('service__address__neutron_s
 
 neutron::keystone::auth::region: "%{location}"
 neutron::server::auth_region: "%{location}"
+
+neutron::server::auth_password:                      "%{hiera('neutron_api_password')}"
+neutron::keystone::auth::password:                   "%{hiera('neutron_api_password')}"
+neutron::agents::metadata::auth_password:            "%{hiera('neutron_api_password')}"
+neutron::server::notifications::nova_admin_password: "%{hiera('nova_api_password')}"
