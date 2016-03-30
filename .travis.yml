@@ -1,0 +1,41 @@
+---
+language: ruby
+
+# Run on Travis' container infra by setting sudo to false
+sudo: false
+
+# Delete dependency locks for matrix builds.
+before_install: rm Gemfile.lock || true
+
+rvm:
+  - 2.0.0
+  - 2.1.0
+
+script: bundle exec rake test
+
+env:
+  matrix:
+  - PUPPET_VERSION="~> 3.8.5"
+  - PUPPET_VERSION="~> 4.3.2" STRICT_VARIABLES=yes
+
+matrix:
+  exclude:
+  # Test only 3.8.0 on Ruby 2.0.0 and 4.3.0 on Ruby 2.1.0
+  - rvm: 2.0.0
+    env: PUPPET_VERSION="~> 4.3.2" STRICT_VARIABLES=yes
+  - rvm: 2.1.0
+    env: PUPPET_VERSION="~> 3.8.5"
+  allow_failures:
+  - rvm: 2.1.0
+    env: PUPPET_VERSION="~> 4.3.2" STRICT_VARIABLES=yes
+  fast_finish: true
+
+notifications:
+  irc: "chat.freenode.net#uh-sky"
+  #on_success: [always|never|change] # default: always
+  on_success: [change]
+  #on_failure: [always|never|change] # default: always
+  on_failure: [change]
+  use_notice: true
+  skip_join: true
+
