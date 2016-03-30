@@ -2,29 +2,24 @@ neutron::bind_host: "%{ipaddress_transport1}"
 neutron::core_plugin: neutron.plugins.ml2.plugin.Ml2Plugin
 neutron::service_plugins:
   - neutron.services.l3_router.l3_router_plugin.L3RouterPlugin
-neutron::rabbit_password: guest
 neutron::rabbit_host: "%{hiera('service__address__rabbitmq')}"
 # http://docs.projectcalico.org/en/stable/configuration.html#neutron-server-etc-neutron-neutron-conf
 neutron::dhcp_agents_per_network: '9999'
 
 neutron::server::auth_host: "%{hiera('service__address__keystone_admin')}"
 neutron::server::auth_uri: "http://%{hiera('service__address__keystone')}:5000/"
-neutron::server::auth_password: neutron_pass
 neutron::server::sync_db: true
-neutron::server::database_connection: "mysql://neutron:neutron_pass@%{hiera('service__address__mysql')}/neutron"
+neutron::server::database_connection: "mysql://neutron:%{hiera('neutron::db::mysql::password')}@%{hiera('service__address__mysql')}/neutron"
 
 neutron::server::notifications::notify_nova_on_port_status_changes: true
 neutron::server::notifications::notify_nova_on_port_data_changes: true
 neutron::server::notifications::nova_admin_auth_url: "http://%{hiera('service__address__keystone_admin')}:35357/v2.0"
 neutron::server::notifications::nova_url: "http://%{hiera('service__address__nova_api')}:8774/v2"
 neutron::server::notifications::nova_admin_username: nova
-neutron::server::notifications::nova_admin_password: nova_pass
 
 neutron::agents::dhcp::interface_driver: networking_calico.agent.linux.interface.RoutedInterfaceDriver
 neutron::agents::dhcp::dhcp_driver: networking_calico.agent.linux.dhcp.DnsmasqRouted
 neutron::agents::dhcp::use_namespaces: false
-neutron::agents::metadata::auth_password: neutron_pass
-neutron::agents::metadata::shared_secret: a_secret
 neutron::agents::metadata::auth_url: "http://%{hiera('service__address__keystone_admin')}:35357/v2.0"
 neutron::agents::metadata::metadata_ip: "%{hiera('service__address__nova_api_metadata')}"
 neutron::agents::metadata::auth_region: "%{location}"
@@ -37,13 +32,11 @@ neutron::plugins::ml2::tenant_network_types:
 neutron::plugins::ml2::mechanism_drivers:
   - calico
 
-neutron::db::mysql::password: neutron_pass
 neutron::db::mysql::allowed_hosts:
   - "%{ipaddress_service1}"
   - 'localhost'
   - '%'
 
-neutron::keystone::auth::password: neutron_pass
 neutron::keystone::auth::public_url: "http://%{hiera('service__address__neutron_public')}:9696"
 neutron::keystone::auth::internal_url: "http://%{hiera('service__address__neutron_server')}:9696"
 neutron::keystone::auth::admin_url: "http://%{hiera('service__address__neutron_server')}:9696"
