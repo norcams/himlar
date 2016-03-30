@@ -5,7 +5,7 @@ keystone::db::mysql::allowed_hosts:
   - '%'
 
 keystone::roles::admin::email: user@example.com
-keystone::roles::admin::password: "%{hiera('admin_password')}"
+keystone::roles::admin::password: "%{hiera('keystone_admin_password')}"
 
 keystone::service_name: "httpd"
 
