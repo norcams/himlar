@@ -1,15 +1,12 @@
-nova::database_connection: "mysql://nova:nova_pass@%{hiera('service__address__mysql')}/nova"
+nova::database_connection: "mysql://nova:%{hiera('nova::db::mysql::password')}@%{hiera('service__address__mysql')}/nova"
 nova::glance_api_servers: "%{hiera('service__address__glance_api')}:9292"
 nova::rabbit_host: "%{hiera('service__address__rabbitmq')}"
 nova::vncproxy::enabled: true
 
-nova::db::mysql::password: nova_pass
 nova::db::mysql::allowed_hosts:
   - "%{ipaddress_service1}"
   - 'localhost'
   - '%'
-
-nova::keystone::auth::password: nova_pass
 
 nova::keystone::auth::public_url: "http://%{hiera('service__address__nova_public_api')}:8774/v2/%(tenant_id)s"
 nova::keystone::auth::public_url_v3: "http://%{hiera('service__address__nova_public_api')}:8774/v3"
@@ -21,8 +18,6 @@ nova::keystone::auth::internal_url: "http://%{hiera('service__address__nova_api'
 nova::keystone::auth::internal_url_v3: "http://%{hiera('service__address__nova_api')}:8774/v3"
 nova::keystone::auth::ec2_internal_url:	"http://%{hiera('service__address__nova_api')}:8773/services/Cloud"
 
-nova::api::admin_password: nova_pass
-nova::api::neutron_metadata_proxy_shared_secret: a_secret
 nova::api::enabled: true
 nova::api::auth_host: "%{hiera('service__address__keystone_admin')}"
 nova::api::auth_uri: "http://%{hiera('service__address__keystone')}:5000/"
@@ -35,7 +30,6 @@ nova::conductor::enabled: true
 
 nova::consoleauth::enabled: true
 
-nova::network::neutron::neutron_admin_password: neutron_pass
 nova::network::neutron::neutron_url: "http://%{hiera('service__address__neutron_server')}:9696"
 nova::network::neutron::neutron_admin_auth_url: "http://%{hiera('service__address__keystone_admin')}:35357/v2.0"
 
