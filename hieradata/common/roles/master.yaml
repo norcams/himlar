@@ -72,7 +72,7 @@ profile::openstack::volume::backend::rbd:
   rbd-volumes:
     rbd_pool: 'volumes'
     rbd_user: 'cinder'
-    rbd_secret_uuid: "%{hiera('client.cinder::secret:')}"
+    rbd_secret_uuid: "%{hiera('client.cinder::secret')}"
 
 cinder::backends::enabled_backends:
   - rbd-volumes
