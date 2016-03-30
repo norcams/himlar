@@ -7,4 +7,4 @@ dpapp::port:                '6543'
 dpapp::oauth_client_id:     'nnnnnnnn-nnnn-nnnn-nnnn-nnnnnnnnnnnn'
 dpapp::oauth_client_secret: 'nnnnnnnn-nnnn-nnnn-nnnn-nnnnnnnnnnnn'
 
-dpapp::admin_pw:            "%{hiera('admin_password')}"
+dpapp::admin_pw:            "%{hiera('keystone_admin_password')}"

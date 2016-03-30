@@ -100,7 +100,6 @@ profile::network::services::dns_records:
 ## Secret data which for other environments are stored ooutside of this data tree
 #
 
-admin_password:   'admin_pass'
 
 # ceph.yaml
 ceph::profile::params::mon_key:                     'AQATGHJTUCBqIBAA7M2yafV1xctn1pgr3GcKPg=='
@@ -111,17 +110,21 @@ client.glance::secret:                              'AQBGJ8dWKhgcNhAA+VU0GlKHcRL
 client.volumes::secret:                             'AQA4MPZTOGU0ARAAXH9a0fXxVq0X25n2yPREDw=='
 client.cinder::secret:                              'AQBypF1V2JYiChAA2qYbjM6jbXJBMmpXPkvwBg=='
 
+# service user api password
+keystone_admin_password:                            'admin_pass'
+cinder_api_password:                                'cinder_pass'
+glance_api_password:                                'glance_pass'
+neutron_api_password:                               'nautron_pass'
+nova_api_password:                                  'nova_pass'
+
 # cinder.yaml
 cinder::db::mysql::password:                        'cinder_pass'
 cinder::rabbit_password:                            'guest'
-cinder::api::keystone_password:                     'cinder_pass'
-cinder::keystone::auth::password:                   'cinder_pass'
 
 # foreman.yaml
 foreman::admin_password:                            'changeme'
 
 # glance.yaml
-glance::api::keystone_password:                     'glance_pass'
 glance::db::mysql::password:                        'glance_pass'
 
 # horizon.yaml
@@ -139,17 +142,9 @@ mysql::server::root_password:                       'test123'
 
 # neutron.yaml
 neutron::rabbit_password:                           'guest'
-neutron::server::auth_password:                     'neutron_pass'
 neutron::db::mysql::password:                       'neutron_pass'
-neutron::keystone::auth::password:                  'neutron_pass'
-neutron::agents::metadata::auth_password:           'neutron_pass'
 neutron::agents::metadata::shared_secret:           'a_secret'
-neutron::server::notifications::nova_admin_password: 'nova_pass'
 
 # nova.yaml
 nova::db::mysql::password:                          'nova_pass'
-nova::keystone::auth::password:                     'nova_pass'
-nova::api::admin_password:                          'nova_pass'
 nova::api::neutron_metadata_proxy_shared_secret:    'a_secret'
-nova::network::neutron::neutron_admin_password:     'neutron_pass'
-

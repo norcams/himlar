@@ -27,3 +27,5 @@ glance::api::os_region_name: "%{location}"
 
 glance::backend::rbd::rbd_store_user: 'glance'
 glance::backend::rbd::rbd_store_pool: 'images'
+
+glance::api::keystone_password: "%{hiera('glance_api_password')}"
