@@ -1,8 +1,7 @@
 class profile::openstack::dashboard(
   $manage_ssl_cert = true,
   $manage_firewall = true,
-  $firewall_extras = {},
-  $vhost_definition = {}
+  $firewall_extras = {}
 ) {
   include ::horizon
 
@@ -20,8 +19,5 @@ class profile::openstack::dashboard(
       extras  => $firewall_extras,
     }
   }
-
-  # Used for API proxy
-  create_resources('::apache::vhost', $vhost_definition)
 
 }
