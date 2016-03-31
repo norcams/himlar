@@ -4,15 +4,15 @@
 #    destination: "%{ipaddress_public1}"
 #    source: '172.31.34.0/24'
 
-profile::openstack::createnetworks::networks:
+profile::openstack::resource::networks:
   public:
-    name:                  'public'
-    admin_state_up:        true
-    shared:                true
-    tenant_name:           'openstack'
+    name: 'public'
+    admin_state_up: true
+    shared: true
+    tenant_name: 'openstack'
     provider_network_type: 'local'
 
-profile::openstack::createnetworks::subnets:
+profile::openstack::resource::subnets:
   public:
     name: 'public'
     cidr: '129.177.31.96/27'
