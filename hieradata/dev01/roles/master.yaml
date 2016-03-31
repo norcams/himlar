@@ -15,7 +15,7 @@ profile::openstack::createnetworks::networks:
 profile::openstack::createnetworks::subnets:
   public:
     name: 'public'
-    cidr: '27'
+    cidr: '129.177.31.96/27'
     ip_version: '4'
     allocation_pools:
       - 'start=129.177.31.98,end=129.177.31.123'
