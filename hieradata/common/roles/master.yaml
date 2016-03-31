@@ -63,7 +63,7 @@ profile::openstack::volume::type:
     set_key: 'volume_backend_name'
     set_value: 'rbd-volumes'
     os_tenant_name: 'services'
-    os_password: "%{hiera('cinder::keystone::auth::password')}"
+    os_password: "%{hiera('cinder_api_password')}"
     os_username: 'cinder'
     os_region_name: "%{location}"
     os_auth_url: "http://%{hiera('service__address__keystone')}:5000/v2.0"
