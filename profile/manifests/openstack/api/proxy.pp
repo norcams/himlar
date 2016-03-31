@@ -7,7 +7,6 @@ define profile::openstack::api::proxy(
 ) {
 
   $basic = {
-    servername => $servername,
     port => $port,
     proxy_dest => $proxy_dest
   }
