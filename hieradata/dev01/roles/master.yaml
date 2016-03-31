@@ -3,3 +3,11 @@
 #  '020 allow all from transport network to public ip':
 #    destination: "%{ipaddress_public1}"
 #    source: '172.31.34.0/24'
+
+profile::openstack::createnetworks::networks:
+  public:
+    name:                  'public'
+    admin_state_up:        true
+    shared:                true
+    tenant_name:           'openstack'
+    provider_network_type: 'local'
