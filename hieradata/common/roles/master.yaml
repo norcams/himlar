@@ -26,6 +26,10 @@ profile::base::common::manage_lvm: false
 profile::base::common::packages:
   - python-etcd
 
+profile::openstack::identity::keystone_config:
+  DEFAULT/secure_proxy_ssl_header:
+    value:  'HTTP_X_FORWARDED_PROTO'
+
 profile::openstack::identity::roles_extra:
   - user
 

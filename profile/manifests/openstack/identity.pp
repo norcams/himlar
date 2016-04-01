@@ -10,6 +10,8 @@ class profile::openstack::identity (
   $manage_firewall    = true,
   $firewall_extras    = {},
   $firewall_extras_a  = {},
+  $manage_ssl_cert    = false,
+  $keystone_config    = {}
 ) {
 
   include ::keystone
@@ -18,6 +20,14 @@ class profile::openstack::identity (
   include ::keystone::cron::token_flush
   include ::keystone::wsgi::apache
   include ::keystone::federation::oidc
+
+  create_resources('keystone_config', $keystone_config)
+
+  if $manage_ssl_cert {
+    include profile::application::sslcert
+    Class['Profile::Application::Sslcert'] ~>
+    Service[$::keystone::params::service_name]
+  }
 
   if $swift_enabled {
     include ::swift::keystone::auth
