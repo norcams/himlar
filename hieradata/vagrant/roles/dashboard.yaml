@@ -1,0 +1,18 @@
+---
+include:
+  default:
+    - profile::network::localdns
+    - profile::openstack::adminrc
+
+profile::openstack::adminrc::auth_url:    "https://api.%{::domain)}:5000/v3"
+profile::openstack::adminrc::password:    "%{hiera('keystone_admin_password')}"
+profile::openstack::adminrc::region_name: "%{::location}"
+profile::openstack::adminrc::username:    'admin'
+profile::openstack::adminrc::cacert:      '/etc/pki/tls/certs/localhost.pem'
+profile::openstack::adminrc::tenant_name: 'openstack'
+
+profile::openstack::dashboard::manage_ssl_cert: true
+profile::application::sslcert::cert_name: 'vagrant'
+
+profile::application::sslcert::commonname: "api.%{domain}"
+profile::application::sslcert::altnames:   [ "dashboard.%{domain}" ]
