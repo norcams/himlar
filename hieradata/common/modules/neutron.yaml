@@ -37,7 +37,7 @@ neutron::db::mysql::allowed_hosts:
   - 'localhost'
   - '%'
 
-neutron::keystone::auth::public_url: "http://%{hiera('service__address__neutron_public')}:9696"
+neutron::keystone::auth::public_url: "%{hiera('endpoint_protocol')}://%{hiera('service__address__neutron_public')}:9696"
 neutron::keystone::auth::internal_url: "http://%{hiera('service__address__neutron_server')}:9696"
 neutron::keystone::auth::admin_url: "http://%{hiera('service__address__neutron_server')}:9696"
 
