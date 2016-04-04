@@ -1,5 +1,5 @@
 class profile::openstack::dashboard(
-  $manage_ssl_cert = true,
+  $manage_ssl_cert = false,
   $manage_firewall = true,
   $firewall_extras = {}
 ) {

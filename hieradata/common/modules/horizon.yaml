@@ -1,7 +1,7 @@
 horizon::server_aliases: '*'
 horizon::allowed_hosts: '*'
 horizon::servername: "%{ipaddress_public1}"
-horizon::keystone_url: "http://%{hiera('service__address__keystone_public')}:5000/v3"
+horizon::keystone_url: "%{hiera('endpoint_protocol')}://%{hiera('service__address__keystone_public')}:5000/v3"
 horizon::neutron_options:
   'enable_lb': false
   'enable_firewall': false
