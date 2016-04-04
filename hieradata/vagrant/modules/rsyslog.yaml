@@ -1,0 +1,13 @@
+---
+
+rsyslog::server::address:       "%{ipaddress_mgmt1}"
+rsyslog::server::port:          514
+rsyslog::server::server_dir:    '/opt/log'
+rsyslog::server::enable_udp:    true
+rsyslog::server::enable_tcp:    false
+
+rsyslog::client::remote_servers:
+  host:                         "%{hiera('service__address__rsyslog')}"
+  port:                         '514'
+  protocol:                     'udp'
+#  pattern:                      '*.*'

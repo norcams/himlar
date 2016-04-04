@@ -4,6 +4,9 @@ keystone::db::mysql::allowed_hosts:
   - 'localhost'
   - '%'
 
+keystone::use_syslog:   true
+keystone::log_facility: 'LOG_LOCAL2'
+
 keystone::roles::admin::email: user@example.com
 keystone::roles::admin::password: "%{hiera('keystone_admin_password')}"
 

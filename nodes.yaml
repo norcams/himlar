@@ -53,6 +53,9 @@ nodesets:
       cpus:   1
       memory: 1024
     - role: "compute"
+    - role: "logger"
+      cpus:   1
+      memory: 1024
   access:
     - role: "db"
       cpus:   1
@@ -63,6 +66,9 @@ nodesets:
       cpus:   1
       memory: 1024
     - role: "dashboard"
+      cpus:   1
+      memory: 1024
+    - role: "logger"
       cpus:   1
       memory: 1024
   infra:
