@@ -1,0 +1,3 @@
+---
+# neutron cli do not support ca_cert variable. Run without TSL in vagrant.
+neutron::keystone::auth::public_url: "http://%{hiera('service__address__neutron_server')}:9696"
