@@ -36,7 +36,7 @@ keystone::federation::oidc::scope:
   - userid-feide
 # set per location in <location>/modules/keystone.yaml
 keystone::federation::oidc::trusted_dashboard: "https://%{hiera('service__address__horizon')}/dashboard/auth/websso/"
-keystone::federation::oidc::redirect_uri: "http://%{hiera('service__address__horizon')}:5000/v3/auth/OS-FEDERATION/websso/oidc/redirect"
+keystone::federation::oidc::redirect_uri: "%{hiera('endpoint_protocol')}://%{hiera('service__address__keystone_public')}:5000/v3/auth/OS-FEDERATION/websso/oidc/redirect"
 # set real values using secrets/<node>.yaml
 keystone::federation::oidc::client_id: 00000000-0000-0000-0000-000000000000
 keystone::federation::oidc::client_secret: 00000000-0000-0000-0000-000000000000

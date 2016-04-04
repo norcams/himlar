@@ -1,5 +1,5 @@
 ---
-dpapp::keystone_url:        "http://%{hiera('service__address__keystone_public')}:5000/v3"
+dpapp::keystone_url:        "%{hiera('endpoint_protocol')}://%{hiera('service__address__keystone_public')}:5000/v3"
 dpapp::horizon_url:         "https://%{hiera('service__address__horizon')}"
 dpapp::port:                '6543'
 
