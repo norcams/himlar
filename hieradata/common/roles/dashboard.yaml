@@ -30,6 +30,7 @@ profile::openstack::api::vhosts:
     proxy_dest:         "http://%{hiera('service__address__keystone')}:5000"
     extra:
       proxy_preserve_host:  true
+      request_headers:      'set X-Forwarded-Proto "https"'
   nova_ec2_api:
     port:               '8773'
     proxy_dest:         "http://%{hiera('service__address__nova_api')}:8773"
