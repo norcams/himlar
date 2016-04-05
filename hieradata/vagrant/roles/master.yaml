@@ -4,3 +4,21 @@ include:
     - profile::network::localdns
 
 profile::openstack::adminrc::cacert:      '/opt/himlar/provision/ca/certs/ca-chain.cert.pem'
+
+profile::openstack::resource::networks:
+  private:
+    name: 'private'
+    admin_state_up: true
+    shared: true
+    tenant_name: 'openstack'
+    provider_network_type: 'local'
+
+profile::openstack::resource::subnets:
+  private:
+    name: 'private'
+    cidr: '10.1.0.0/24'
+    ip_version: '4'
+    allocation_pools:
+      - 'start=10.1.0.100,end=10.1.0.150'
+    network_name: 'private'
+    tenant_name: 'openstack'
