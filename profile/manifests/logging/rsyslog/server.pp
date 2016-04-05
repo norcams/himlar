@@ -1,5 +1,5 @@
 # rsyslog server
-class profile::logging::rsyslog(
+class profile::logging::rsyslog::server(
   $manage_firewall = true
 ) {
 

@@ -1,5 +1,5 @@
 # rsyslog client for Openstack
-class profile::openstack::rsyslog::client() {
+class profile::logging::rsyslog::client() {
 
   include ::rsyslog::client
 
