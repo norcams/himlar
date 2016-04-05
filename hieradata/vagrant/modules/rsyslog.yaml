@@ -2,12 +2,29 @@
 
 rsyslog::server::address:       "%{ipaddress_mgmt1}"
 rsyslog::server::port:          514
-rsyslog::server::server_dir:    '/opt/log'
+rsyslog::server::server_dir:    '/opt/log/'
 rsyslog::server::enable_udp:    true
-rsyslog::server::enable_tcp:    false
+rsyslog::server::enable_tcp:    true
+rsyslog::server::custom_config: 'profile/logging/rsyslog/server.conf.erb'
+rsyslog::server::log_templates:
+  - name:     'NovaFile'
+    template: '/opt/log/%hostname%/nova.log'
+  - name:     'NovaAll'
+    template: '/opt/log/nova.log'
+  - name:     'NeutronFile'
+    template: '/opt/log/%hostname%/neutron.log'
+  - name:     'NeutronAll'
+    template: '/opt/log/neutron.log'
+  - name:     'KeystoneFile'
+    template: '/opt/log/%hostname%/keystone.log'
+  - name:     'KeystoneAll'
+    template: '/opt/log/keystone.log'
+  - name:     'GlanceFile'
+    template: '/opt/log/%hostname%/glance.log'
+  - name:     'GlanceAll'
+    template: '/opt/log/glance.log'
 
-rsyslog::client::remote_servers:
-  host:                         "%{hiera('service__address__rsyslog')}"
-  port:                         '514'
-  protocol:                     'udp'
-#  pattern:                      '*.*'
+rsyslog::client::server:        "%{hiera('service__address__rsyslog')}"
+rsyslog::client::port:          '514'
+rsyslog::client::protocol:      'tcp'
+rsyslog::client::log_local:     true
