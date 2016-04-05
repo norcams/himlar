@@ -132,7 +132,7 @@ mod 'memcached', :ref => 'v2.8.1',               :git => github + 'saz/puppet-me
 #
 # libvirt
 #
-mod 'libvirt', :ref => '0.3.2-norcams1',         :git => github + 'norcams/puppet-libvirt'
+mod 'libvirt', :ref => '0.3.2-norcams2',         :git => github + 'norcams/puppet-libvirt'
 
 #
 # ceph
