@@ -1,2 +1,5 @@
 ---
 nova::compute::libvirt::libvirt_virt_type: qemu
+
+nova::use_syslog:   true
+nova::log_facility: 'LOG_LOCAL0'
