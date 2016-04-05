@@ -45,12 +45,10 @@ service__address__mysql:             '172.31.16.21'
 #
 #  - Add vagrant user to wheel and users group
 #
-accounts::accounts:
+accounts::users:
   'vagrant':
-    ensure: present
-    groups:
-      - 'wheel'
-      - 'users'
+    comment: 'vagrant system user'
+    groups:  [ 'users', 'wheel' ]
 
 sudo::configs:
   requiretty:

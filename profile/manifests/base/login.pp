@@ -17,7 +17,7 @@ class profile::base::login
   package { 'norcams-ga':
     provider => 'rpm',
     ensure   => 'installed',
-    source   => 'http://folk.uio.no/mikaeld/norcams-ga-0.1.0-0.x86_64.rpm'
+    source   => 'http://rpm.uio.no/uio-free/rhel/7Server/x86_64/uio-google-authenticator-0.3-1.20160314git750d40d.el7.x86_64.rpm'
   }
 
   pam { 'remove_password':
