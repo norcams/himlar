@@ -33,7 +33,7 @@ ssh::server::options:
   # Need this for 2FA (saz-ssh-module disables by default)
   ChallengeResponseAuthentication: 'yes'
   # The second publickey is until the pam files are fixed
-  AuthenticationMethods: 'publickey,keyboard-interactive:pam publickey'
+  AuthenticationMethods: 'publickey,keyboard-interactive:pam'
   # Explicitly enable the required methods
   UsePAM: 'yes'
   PasswordAuthentication: 'no'
