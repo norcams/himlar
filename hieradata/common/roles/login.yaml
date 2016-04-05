@@ -8,6 +8,7 @@ include:
 
 profile::base::firewall::manage_firewall: false
 profile::network::services::manage_nat: true
+puppet::runmode: 'none'
 
 accounts::accounts:
   'hege':
