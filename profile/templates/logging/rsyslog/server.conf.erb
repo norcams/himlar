@@ -1,0 +1,22 @@
+
+# File is managed by puppet
+
+<% # Common header across all templates -%>
+<%= scope.function_template(['rsyslog/server/_default-header.conf.erb']) %>
+
+# Template
+$Template dynAllMessages,"<%= scope.lookupvar('rsyslog::server::server_dir') -%>%hostname%<%= scope.lookupvar('rsyslog::server::logpath') -%>messages"
+
+# Rules
+local0.*            ?NovaAll
+local0.*            ?NovaFile
+local1.*            ?NeutronAll
+local1.*            ?NeutronFile
+local2.*            ?KeystoneAll
+local2.*            ?KeystoneFile
+local3.*            ?GlanceAll
+local3.*            ?GlanceFile
+*.*                 -?dynAllMessages
+
+<% # Common footer across all templates -%>
+<%= scope.function_template(['rsyslog/server/_default-footer.conf.erb']) %>

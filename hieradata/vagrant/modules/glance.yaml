@@ -1,0 +1,6 @@
+---
+glance::api::use_syslog:          true
+glance::api::log_facility:        'LOG_LOCAL3'
+
+glance::registry::use_syslog:     true
+glance::registry::log_facility:   'LOG_LOCAL3'

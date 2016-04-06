@@ -2,6 +2,7 @@
 include:
   default:
     - profile::network::localdns
+    - profile::logging::rsyslog::client
 
 profile::openstack::adminrc::cacert:      '/opt/himlar/provision/ca/certs/ca-chain.cert.pem'
 
