@@ -1,5 +1,7 @@
 #/bin/bash
 
+mkdir private certs
+
 /bin/openssl genrsa -out private/ca.key.pem 4096
 /bin/openssl req -config root.cnf \
       -key private/ca.key.pem \
