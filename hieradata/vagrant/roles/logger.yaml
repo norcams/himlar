@@ -2,3 +2,5 @@
 include:
   default:
     - profile::logging::rsyslog::server
+    - profile::logging::logstash
+    - profile::logging::elasticsearch
