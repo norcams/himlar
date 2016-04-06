@@ -1,6 +1,7 @@
 #
 class profile::base::network(
   $manage_dummy     = false,
+  $no_of_dummies    = 1,
   $manage_httpproxy = false,
   $http_proxy       = undef,
 ) {
@@ -22,6 +23,12 @@ class profile::base::network(
   if $manage_dummy {
     include ::kmod
     kmod::load { "dummy": }
+
+    kmod::option { "Number of dummy interfaces":
+      module => "dummy",
+      option => "numdummies",
+      value =>  "$no_of_dummies",
+    }
   }
 
   if $manage_httpproxy {
