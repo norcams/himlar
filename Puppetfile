@@ -91,6 +91,11 @@ mod 'bind', :ref => 'keyfile_resource_record',   :git => github + 'norcams/puppe
 mod 'foreman_bootstrap', :ref => '0.1.6',        :git => github + 'norcams/puppet-foreman_bootstrap'
 
 #
+# profile::logging
+#
+mod 'rsyslog', :ref => '115e358',                 :git => github + 'saz/puppet-rsyslog'
+
+#
 # profile::webserver::apache
 #
 mod 'puppetlabs/apache', '1.7.1'                 # forge
