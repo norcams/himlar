@@ -1,0 +1,5 @@
+<% if @remove_route -%>
+<% @remove_route_ifs.each do |interface| -%>
+ip route del $(ip route | grep <%= interface %> | awk {print $1}
+<% end -%>
+<% end -%>

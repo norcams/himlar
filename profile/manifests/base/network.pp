@@ -4,6 +4,8 @@ class profile::base::network(
   $no_of_dummies    = 1,
   $manage_httpproxy = false,
   $http_proxy       = undef,
+  $remove_route     = false,
+  $remove_route_ifs = undef,
 ) {
 
   # Set up extra logical fact names for network facts
@@ -28,6 +30,16 @@ class profile::base::network(
       module => "dummy",
       option => "numdummies",
       value =>  "$no_of_dummies",
+    }
+  }
+
+  # Delete link routes on ifup
+  if $remove_route {
+    file { '/sbin/ifup-local':
+      owner   => 'root',
+      group   => 'root',
+      mode    => '754',
+      content => template("${module_name}/network/ifup-local.erb"),
     }
   }
 
