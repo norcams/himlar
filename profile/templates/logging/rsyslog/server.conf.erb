@@ -18,7 +18,9 @@ local2.*            ?KeystoneAll;OpenstackFileFormat
 local2.*            ?KeystoneFile;OpenstackFileFormat
 local3.*            ?GlanceAll;OpenstackFileFormat
 local3.*            ?GlanceFile;OpenstackFileFormat
-*.*                 -?dynAllMessages
+local4.*            ?CinderAll;OpenstackFileFormat
+local4.*            ?CinderFile;OpenstackFileFormat
+*.*                 -?dynAllMessages;SyslogFileFormat
 
 <% # Common footer across all templates -%>
 <%= scope.function_template(['rsyslog/server/_default-footer.conf.erb']) %>
