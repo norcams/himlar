@@ -43,6 +43,9 @@ class profile::base::network(
     }
   }
 
+  # Create extra routes on ifup
+  create_resources(network::mroute, hiera_hash('profile::base::network::mroute', {}))
+
   if $manage_httpproxy {
     $ensure_value = $http_proxy ? {
       undef    => absent,
