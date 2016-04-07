@@ -1,10 +1,9 @@
 ---
 network::interfaces_hash:
-  'bond0':
-    onboot:       'yes'
-    mtu:          '9000'
-    bonding_opts: 'balance-alb miimon=100'
-    bridge:       'br0'
+  'eth0':
+    onboot:     'yes'
+    mtu:        '9000'
+    bridge:     'br0'
   'br0':
     onboot:     'yes'
     mtu:        '9000'
