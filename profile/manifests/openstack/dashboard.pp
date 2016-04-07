@@ -1,5 +1,6 @@
 class profile::openstack::dashboard(
   $manage_ssl_cert = false,
+  $ports = [80,443,5000,8773,8774,8776,9292,9696],
   $manage_firewall = true,
   $firewall_extras = {}
 ) {
@@ -13,9 +14,14 @@ class profile::openstack::dashboard(
 
   if $manage_firewall {
     $allow_from_network = hiera_array('allow_from_network')
-    profile::firewall::rule { '235 openstack-dashboard and api accept tcp':
-      port    => [80,443,5000,8773,8774,8776,9292,9696],
+    profile::firewall::rule { '235 public openstack-dashboard and api accept tcp':
+      port    => $ports,
       source  => $allow_from_network,
+      extras  => $firewall_extras,
+    }
+    profile::firewall::rule { '236 internal openstack-dashboard and api accept tcp':
+      port    => $ports,
+      source  => $::ipaddress_service1,
       extras  => $firewall_extras,
     }
   }
