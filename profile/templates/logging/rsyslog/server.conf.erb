@@ -1,5 +1,7 @@
 
 # File is managed by puppet
+$umask 0000
+$FileCreateMode 0644
 
 <% # Common header across all templates -%>
 <%= scope.function_template(['rsyslog/server/_default-header.conf.erb']) %>
