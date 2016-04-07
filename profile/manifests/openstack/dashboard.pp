@@ -21,7 +21,7 @@ class profile::openstack::dashboard(
     }
     profile::firewall::rule { '236 internal openstack-dashboard and api accept tcp':
       port    => $ports,
-      source  => $::ipaddress_service1,
+      source  => "${::network_service1}/${::netmask_service1}",
       extras  => $firewall_extras,
     }
   }
