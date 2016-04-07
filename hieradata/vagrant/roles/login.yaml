@@ -9,3 +9,7 @@ accounts::accounts:
 
 profile::application::git::settings:
   hostname: "login%{::hostid}"
+
+ssh::server::options:
+  'Match User vagrant':
+     AuthenticationMethods: 'publickey'

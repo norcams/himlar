@@ -8,7 +8,7 @@ local  = 'iaas@git.norcams.org:'
 # profile::base::common
 #
 mod 'sudo', :ref => '80cbf884',                  :git => github + 'saz/puppet-sudo'
-mod 'ssh', :ref => 'v2.4.0',                     :git => github + 'saz/puppet-ssh'
+mod 'ssh', :ref => 'v2.8.1',                     :git => github + 'saz/puppet-ssh'
 mod 'ntp', :ref => '3.3.0',                      :git => github + 'puppetlabs/puppetlabs-ntp'
 mod 'accounts', :ref => 'e12dd12bb8',            :git => github + 'norcams/puppet-accounts'
 mod 'timezone', :ref => 'v3.1.1',                :git => github + 'saz/puppet-timezone.git'
