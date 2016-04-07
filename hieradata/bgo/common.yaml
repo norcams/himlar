@@ -2,13 +2,15 @@
 location_environment: prod
 location_description: Production environment in Bergen
 
+endpoint_protocol: 'https'
+
 # public
-service__address__horizon:           '158.39.77.254'
-service__address__keystone_public:   '158.39.77.254'
-service__address__glance_public_api: '158.39.77.254'
-service__address__nova_public_api:   '158.39.77.254'
-service__address__neutron_public:    '158.39.77.254'
-service__address__cinder_public_api: '158.39.77.254'
+service__address__horizon:           'api.iaas.uib.no'
+service__address__keystone_public:   'api.iaas.uib.no'
+service__address__glance_public_api: 'api.iaas.uib.no'
+service__address__nova_public_api:   'api.iaas.uib.no'
+service__address__neutron_public:    'api.iaas.uib.no'
+service__address__cinder_public_api: 'api.iaas.uib.no'
 service__address__consoleproxy:      '158.39.77.254'
 
 # service/transport1
