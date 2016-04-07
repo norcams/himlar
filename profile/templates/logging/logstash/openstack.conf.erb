@@ -1,0 +1,64 @@
+input {
+	file {
+		path => "/opt/log/nova.log"
+		type => "nova"
+	}
+
+	file {
+		path => "/opt/log/glance.log"
+		type => "glance"
+	}
+
+	file {
+		path => "/opt/log/neutron.log"
+		type => "neutron"
+	}
+
+  file {
+    path => "/opt/log/cinder.log"
+    type => "cinder"
+  }
+
+	file {
+		path => "/opt/log/keystone.log"
+		type => "keystone"
+	}
+
+}
+
+filter {
+  grok {
+    match => [
+      "message", "%{TIMESTAMP_ISO8601:timestamp} %{NUMBER:response}%{SPACE} %{AUDITLOGLEVEL:level} \[%{PROG:program}\] %{GREEDYDATA:message}"
+    ]
+    add_tag => "glance"
+  }
+  grok {
+    match => [
+      "message", "%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:level} \[%{PROG:program}\]: %{GREEDYDATA:message}"
+    ]
+    add_tag => "keystone"
+  }
+
+  grok {
+    match =>
+      "message", "%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:loglevel} %{HOSTNAME:openstack_hostname} %{DATA:openstack_component} %{GREEDYDATA:message}"
+    add_tag => "nova"
+  }
+
+}
+
+output {
+
+  elasticsearch {
+    host => "127.0.0.1:9200"
+    protocol => "http"
+    cluster => "vagrant_elasticsearch"
+  }
+
+  if [loglevel] == "error" {
+    file {
+      path => "/opt/log/logstash/%{+YYYY-MM-dd}.log"
+    }
+  }
+}

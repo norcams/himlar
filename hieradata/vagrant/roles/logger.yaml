@@ -4,3 +4,12 @@ include:
     - profile::logging::rsyslog::server
     - profile::logging::logstash
     - profile::logging::elasticsearch
+
+profile::logging::elasticsearch::instances:
+  'openstack':
+    config:
+      'cluster.name':             "vagrant_elasticsearch"
+      'index.number_of_replicas': '0'
+      'index.number_of_shards':   '1'
+      'network.host':             '0.0.0.0'
+#    init_defaults: {}
