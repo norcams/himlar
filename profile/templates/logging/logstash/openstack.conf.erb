@@ -1,29 +1,29 @@
 input {
-	file {
-		path => "/opt/log/nova.log"
-		type => "nova"
-	}
 
-	file {
-		path => "/opt/log/glance.log"
-		type => "glance"
-	}
+  file {
+    path => "/opt/log/nova.log"
+    type => "nova"
+  }
 
-	file {
-		path => "/opt/log/neutron.log"
-		type => "neutron"
-	}
+  file {
+    path => "/opt/log/glance.log"
+    type => "glance"
+  }
+
+  file {
+    path => "/opt/log/neutron.log"
+    type => "neutron"
+  }
 
   file {
     path => "/opt/log/cinder.log"
     type => "cinder"
   }
 
-	file {
-		path => "/opt/log/keystone.log"
-		type => "keystone"
-	}
-
+  file {
+    path => "/opt/log/keystone.log"
+    type => "keystone"
+  }
 }
 
 filter {
