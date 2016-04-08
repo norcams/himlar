@@ -11,3 +11,25 @@ profile::base::network::manage_httpproxy: 'true'
 profile::base::network::http_proxy:       "%{hiera('service__address__proxy')}:8888"
 
 puppet::cron_cmd: "/usr/bin/env puppet agent --config %{puppet::dir}/puppet.conf --onetime --no-daemonize"
+
+profile::openstack::resource::networks:
+  public:
+    name: 'public'
+    admin_state_up: true
+    shared: true
+    tenant_name: 'openstack'
+    provider_network_type: 'local'
+
+profile::openstack::resource::subnets:
+  public:
+    name: 'public'
+    cidr: '158.37.63.0/24'
+    ip_version: '4'
+    allocation_pools:
+      - 'start=158.37.63.2,end=158.37.63.245'
+    gateway_ip: '158.37.63.1'
+    dns_nameservers:
+      - '129.240.2.40'
+      - '129.240.2.3'
+    network_name: 'public'
+    tenant_name: 'openstack'
