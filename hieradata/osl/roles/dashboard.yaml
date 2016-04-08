@@ -1,0 +1,22 @@
+---
+profile::openstack::api::vhosts:
+  keystone_api:
+    port:               '5000'
+    proxy_dest:         "http://%{hiera('service__address__keystone')}:5000"
+    extra:
+      proxy_preserve_host:  true
+  nova_ec2_api:
+    port:               '8773'
+    proxy_dest:         "http://%{hiera('service__address__nova_api')}:8773"
+  nova_api:
+    port:               '8774'
+    proxy_dest:         "http://%{hiera('service__address__nova_api')}:8774"
+  cinder_api:
+    port:               '8776'
+    proxy_dest:         "http://%{hiera('service__address__cinder_api')}:8776"
+  glance_api:
+    port:               '9292'
+    proxy_dest:         "http://%{hiera('service__address__glance_api')}:9292"
+  neutron_server:
+    port:               '9696'
+    proxy_dest:         "http://%{hiera('service__address__neutron_server')}:9696"
