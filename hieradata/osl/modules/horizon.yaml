@@ -1,5 +1,5 @@
 ---
-horizon::horizon_ca: "/etc/ssl/certs/DigiCertCA.crt"
-horizon::horizon_cert: "/etc/ssl/certs/dashboard_iaas_uio_no.crt"
-horizon::horizon_key:  "/etc/ssl/certs/dashboard_iaas_uio_no.key"
-horizon::servername: "dashboard.iaas.uio.no"
+horizon::horizon_ca:    "/etc/pki/tls/certs/DigiCertCA.crt"
+horizon::horizon_cert:  "/etc/pki/tls/certs/dashboard_iaas_uio_no.crt"
+horizon::horizon_key:   "/etc/pki/tls/private/dashboard_iaas_uio_no.key"
+horizon::servername:    "dashboard.iaas.uio.no"
