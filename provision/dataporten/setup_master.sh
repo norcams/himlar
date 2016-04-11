@@ -1,21 +1,12 @@
 #!/bin/bash -ux
 
-## find client credentials and settings file
-if [ $# -ne 1 ]; then
-  echo "Warning: no location provided. Using defaults for vagrant. To change run"
-  echo "./setup_master.sh osl"
-  os_rc_file="/opt/himlar/provision/dataporten/openstack.rc.vagrant"
-else
-  # Do not trust user to get this right!
-  os_rc_file='/root/keystonerc_admin'
-fi
-
 # configuration
 domain="dataporten"
 idp_name="dataporten"
 idp_endpoint="https://auth.dataporten.no"
 mapping_name="dataporten_personal"
 mapping_rules="/opt/himlar/provision/dataporten/mapping_personal.json"
+os_rc_file='/root/keystonerc_admin'
 
 # Load openstack client credentials and settings
 if [ ! -f "${os_rc_file}" ]; then
