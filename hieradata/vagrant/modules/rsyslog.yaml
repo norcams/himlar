@@ -1,12 +1,17 @@
 ---
 
-rsyslog::server::address:       "%{ipaddress_mgmt1}"
-rsyslog::server::port:          514
-rsyslog::server::server_dir:    '/opt/log/'
-rsyslog::server::enable_udp:    true
-rsyslog::server::enable_tcp:    true
-rsyslog::server::custom_config: 'profile/logging/rsyslog/server.conf.erb'
+rsyslog::server::address:             "%{ipaddress_mgmt1}"
+rsyslog::server::actionfiletemplate:  'RSYSLOG_FileFormat'
+rsyslog::server::port:                514
+rsyslog::server::server_dir:          '/opt/log/'
+rsyslog::server::enable_udp:          true
+rsyslog::server::enable_tcp:          true
+rsyslog::server::custom_config:       'profile/logging/rsyslog/server.conf.erb'
 rsyslog::server::log_templates:
+  - name:     'OpenstackFileFormat'
+    template: "%TIMESTAMP:::date-rfc3339% %syslogpriority-text% %HOSTNAME% %syslogtag%%msg:::drop-last-lf%\\n"
+  - name:     'SyslogFileFormat'
+    template: "%TIMESTAMP:::date-rfc3339% %pri-text% %HOSTNAME% %syslogtag%%msg:::drop-last-lf%\\n"
   - name:     'NovaFile'
     template: '/opt/log/%hostname%/nova.log'
   - name:     'NovaAll'
@@ -23,8 +28,12 @@ rsyslog::server::log_templates:
     template: '/opt/log/%hostname%/glance.log'
   - name:     'GlanceAll'
     template: '/opt/log/glance.log'
+  - name:     'CinderFile'
+    template: '/opt/log/%hostname%/cinder.log'
+  - name:     'CinderAll'
+    template: '/opt/log/cinder.log'
 
-rsyslog::client::server:        "%{hiera('service__address__rsyslog')}"
-rsyslog::client::port:          '514'
-rsyslog::client::protocol:      'tcp'
-rsyslog::client::log_local:     true
+rsyslog::client::server:              "%{hiera('service__address__rsyslog')}"
+rsyslog::client::port:                '514'
+rsyslog::client::protocol:            'tcp'
+rsyslog::client::log_local:           true

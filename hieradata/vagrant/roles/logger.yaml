@@ -2,3 +2,15 @@
 include:
   default:
     - profile::logging::rsyslog::server
+    - profile::logging::logstash
+    - profile::logging::elasticsearch
+
+profile::logging::elasticsearch::instances:
+  'openstack':
+    config:
+      'cluster.name':             "logger"
+      'index.number_of_replicas': '0'
+      'index.number_of_shards':   '1'
+      'network.host':             "0.0.0.0" #"%{ipaddress_mgmt1}"
+      'node.name':                "%{::hostname}"
+#    init_defaults: {}
