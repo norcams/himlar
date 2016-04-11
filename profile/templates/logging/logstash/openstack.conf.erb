@@ -8,30 +8,37 @@ input {
   file {
     path => "/opt/log/glance.log"
     type => "glance"
+    start_position => beginning
   }
 
   file {
     path => "/opt/log/neutron.log"
     type => "neutron"
+    start_position => beginning
   }
 
   file {
     path => "/opt/log/cinder.log"
     type => "cinder"
+    start_position => beginning
   }
 
   file {
     path => "/opt/log/keystone.log"
     type => "keystone"
+    start_position => beginning
   }
 }
 
 filter {
 
   grok {
+    break_on_match => true
     match => [
+      "message", "%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:loglevel} %{HOSTNAME:openstack_hostname} %{DATA:openstack_component}: %{GREEDYDATA:message}",
       "message", "%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:loglevel} %{HOSTNAME:openstack_hostname} %{DATA:openstack_component} %{GREEDYDATA:message}"
     ]
+    add_tag => "openstack_logs"
   }
 
 }
@@ -40,7 +47,13 @@ output {
   elasticsearch {
     host => "<%= @ipaddress_mgmt1 %>:9200"
     protocol => "http"
-    cluster => "openstack"
+    template => "/etc/logstash/elasticsearch-template.json"
     template_overwrite => "true"
   }
+
+	file {
+		path => "/var/log/logstash/%{openstack_hostname}-%{+YYYY-MM-dd}.log"
+		codec => "rubydebug"
+	}
+
 }
