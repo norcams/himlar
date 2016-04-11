@@ -1,10 +1,9 @@
 ---
 network::interfaces_hash:
-  'bond0':
-    onboot:       'yes'
-    mtu:          '9000'
-    bonding_opts: 'balance-alb miimon=100'
-    bridge:       'br0'
+  'eth0':
+    onboot:     'yes'
+    mtu:        '9000'
+    bridge:     'br0'
   'br0':
     onboot:     'yes'
     mtu:        '9000'
@@ -14,20 +13,39 @@ network::interfaces_hash:
     gateway:    '172.31.1.1'
     defroute:   'yes'
     bridge_stp: 'off'
-  'eth0':
+  'eth1.912':
+    ipaddress: '172.31.34.6'
+    netmask:   '255.255.255.0'
+    gateway:   '172.31.34.1'
+    defroute:  'yes'
+    vlan:      'yes'
+  'eth1.913':
+    ipaddress: '172.31.35.6'
+    netmask:   '255.255.255.0'
+    gateway:   '172.31.35.1'
+    vlan:      'yes'
+    defroute:  'no'
+  'dummy0':
+    ipaddress: '129.177.31.97'
+    netmask:   '255.255.255.224'
+    defroute:  'no'
+  'dummy1':
+    ipaddress: '172.31.16.1'
+    netmask:   '255.255.255.0'
+    defroute:  'no'
+  'tap-dev01dashboard01':
+    bootproto: 'none'
+    type:      'Tap'
     onboot:    'yes'
-    mtu:       '9000'
-    master:    'bond0'
-    slave:     'yes'
-  'eth1':
+  'tap-dev01dpapp01':
+    bootproto: 'none'
+    type:      'Tap'
     onboot:    'yes'
-    mtu:       '9000'
 
 lvm::volume_groups:
   vg_root:
     physical_volumes:
       - /dev/sda2
-      - /dev/sda3
     logical_volumes:
       lv_libvirt:
         fs_type:   xfs
