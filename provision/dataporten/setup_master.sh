@@ -13,7 +13,7 @@ fi
 # configuration
 domain="dataporten"
 idp_name="dataporten"
-idp_endpoint="https://auth.feideconnect.no"
+idp_endpoint="https://auth.dataporten.no"
 mapping_name="dataporten_personal"
 mapping_rules="/opt/himlar/provision/dataporten/mapping_personal.json"
 
