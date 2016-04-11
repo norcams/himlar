@@ -94,6 +94,10 @@ mod 'foreman_bootstrap', :ref => '0.1.6',        :git => github + 'norcams/puppe
 # profile::logging
 #
 mod 'rsyslog', :ref => '115e358',                 :git => github + 'saz/puppet-rsyslog'
+mod 'logstash', :ref => '0.5.1',                  :git => github + 'elastic/puppet-logstash'
+mod 'datacat', :ref => '9d2cd07b8777',            :git => github + 'richardc/puppet-datacat'
+mod 'elasticsearch', :ref => '0.10.3',            :git => github + 'elastic/puppet-elasticsearch'
+mod 'file_concat', :ref => '813132b5d77',         :git => github + 'electrical/puppet-lib-file_concat'
 
 #
 # profile::webserver::apache
