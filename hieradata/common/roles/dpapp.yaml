@@ -2,7 +2,44 @@
 include:
   default:
     - profile::application::dpapp
+    - profile::webserver::apache
 
 profile::application::dpapp::manage_firewall: true
 
 profile::base::network::manage_dummy: true
+
+apache::default_mods:   false
+
+profile::webserver::apache::manage_firewall:  false
+profile::webserver::apache::mods_enable:
+  - wsgi
+  - dir
+
+profile::webserver::apache::vhosts:
+  dpapp:
+    vhost_name:         "access.%{domain}"
+    servername:         "access.%{domain}"
+    port:               '80'
+    manage_docroot:     false
+    docroot:            '/var/www/html'
+    redirect_status:    'permanent'
+    redirect_dest:      "https://access.%{domain}/"
+  dpapp_ssl:
+    vhost_name:         "access.%{domain}"
+    servername:         "access.%{domain}"
+    port:               '443'
+    manage_docroot:     false
+    docroot:            '/var/www/html'
+    wsgi_application_group:  '%%{}{GLOBAL}'
+    wsgi_pass_authorization: 'on'
+    wsgi_daemon_process:     'dpapp'
+    wsgi_daemon_process_options:
+      threads:      '4'
+      python-path:  '/opt/dpapp/lib/python2.7/site-packages'
+    wsgi_script_aliases:
+      '/':   '/opt/dpapp/pyramid.wsgi'
+    directories:
+      - path:             '/opt/dpapp'
+        require:          'all granted'
+        custom_fragment:  'WSGIProcessGroup dpapp'
+    ssl:                  true
