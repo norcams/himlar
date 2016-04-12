@@ -6,6 +6,7 @@ class profile::base::network(
   $http_proxy       = undef,
   $remove_route     = false,
   $remove_route_ifs = undef,
+  $l3_router        = false,
 ) {
 
   # Set up extra logical fact names for network facts
@@ -40,6 +41,16 @@ class profile::base::network(
       group   => 'root',
       mode    => '754',
       content => template("${module_name}/network/ifup-local.erb"),
+    }
+  }
+
+  # In order to route to tap interfaces, ip forwarding must be enabled
+  if $l3_router {
+    sysctl::value { "net.ipv4.ip_forward":
+      value => 1,
+    }
+    sysctl::value { "net.ipv6.conf.all.forwarding":
+      value => 1,
     }
   }
 
