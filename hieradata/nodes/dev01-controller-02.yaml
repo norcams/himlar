@@ -32,14 +32,20 @@ network::interfaces_hash:
     ipaddress: '172.31.16.1'
     netmask:   '255.255.255.0'
     defroute:  'no'
-  'tap-dev01dashboard01':
+  'atap-dboard01':
     bootproto: 'none'
     type:      'Tap'
     onboot:    'yes'
-  'tap-dev01dpapp01':
+  'atap-dpapp01':
     bootproto: 'none'
     type:      'Tap'
     onboot:    'yes'
+
+profile::base::network::mroute:
+  'dummy0':
+    routes:
+      '129.177.31.125/32': 'atap-dpapp01'
+      '129.177.31.126/32': 'atap-dboard01'
 
 lvm::volume_groups:
   vg_root:
