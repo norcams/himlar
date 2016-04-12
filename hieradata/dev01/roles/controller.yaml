@@ -8,3 +8,50 @@ foreman_bootstrap::virt_install:
     install_ip:      '172.31.1.11'
     install_netmask: '255.255.255.0'
     install_gateway: '172.31.1.1'
+
+include:
+  default:
+    - profile::virtualization::libvirt
+    - foreman_bootstrap::instances
+    - calico
+    - calico::compute
+    - profile::network::bird
+
+calico::compute::manage_dhcp_agent: false
+calico::compute::manage_metadata_service: false
+calico::compute::felix_enable: false
+calico::compute::manage_qemu_settings: false
+calico::compute::bird_template: 'profile/bird/bird.conf.erb'
+
+libvirt::qemu_cgroup_device_acl:
+  - "/dev/null"
+  - "/dev/full"
+  - "/dev/zero"
+  - "/dev/random"
+  - "/dev/urandom"
+  - "/dev/ptmx"
+  - "/dev/kvm"
+  - "/dev/kqemu"
+  - "/dev/rtc"
+  - "/dev/hpet"
+  - "/dev/net/tun"
+libvirt::qemu_user: 'root'
+libvirt::qemu_group: 'root'
+libvirt::qemu_clear_emulator_capabilities: '0'
+
+profile::base::network::manage_dummy: true
+profile::base::network::no_of_dummies: 2
+profile::base::network::l3_router: true
+profile::base::network::remove_route: true
+profile::base::network::remove_route_ifs:
+  - dummy0
+  - dummy1
+
+named_interfaces::config:
+  mgmt:
+     - br0
+  transport:
+     - eth1_912
+     - eth1_913
+  service:
+     - eth1_912

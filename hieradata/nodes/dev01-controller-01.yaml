@@ -1,27 +1,37 @@
 ---
 network::interfaces_hash:
-  'bond0':
-    onboot:       'yes'
-    mtu:          '9000'
-    bonding_opts: 'balance-alb miimon=100'
-    bridge:       'br0'
+  'eth0':
+    onboot:     'yes'
+    mtu:        '9000'
+    bridge:     'br0'
   'br0':
     onboot:     'yes'
     mtu:        '9000'
     type:       'Bridge'
     ipaddress:  '172.31.1.5'
     netmask:    '255.255.255.0'
-    gateway:    '172.31.1.1'
-    defroute:   'yes'
+    defroute:   'no'
     bridge_stp: 'off'
-  'eth0':
-    onboot:    'yes'
-    mtu:       '9000'
-    master:    'bond0'
-    slave:     'yes'
-  'eth1':
-    onboot:    'yes'
-    mtu:       '9000'
+  'eth1.912':
+    ipaddress: '172.31.34.5'
+    netmask:   '255.255.255.0'
+    gateway:   '172.31.34.1'
+    vlan:      'yes'
+    defroute:  'no'
+  'eth1.913':
+    ipaddress: '172.31.35.5'
+    netmask:   '255.255.255.0'
+    gateway:   '172.31.35.1'
+    vlan:      'yes'
+    defroute:  'no'
+  'dummy0':
+    ipaddress: '129.177.31.97'
+    netmask:   '255.255.255.224'
+    defroute:  'no'
+  'dummy1':
+    ipaddress: '172.31.16.1'
+    netmask:   '255.255.255.0'
+    defroute:  'no'
 
 lvm::volume_groups:
   vg_root:

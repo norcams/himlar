@@ -6,12 +6,7 @@ network::interfaces_hash:
     mtu:       '1500'
     defroute:  'no'
   'eth1':
-    ipaddress: '172.31.34.19'
-    netmask:   '255.255.255.0'
-    gateway:   '172.31.34.1'
-    srcaddr:   '129.177.31.125'
-    defroute:  'yes'
-  'dummy0':
     ipaddress: '129.177.31.125'
-    netmask:   '255.255.255.255'
-    defroute:  'no'
+    netmask:   '255.255.255.224'
+    gateway:   '129.177.31.97'
+    defroute:  'yes'
