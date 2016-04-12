@@ -10,15 +10,14 @@ network::interfaces_hash:
     type:       'Bridge'
     ipaddress:  '172.31.1.6'
     netmask:    '255.255.255.0'
-    gateway:    '172.31.1.1'
-    defroute:   'yes'
+    defroute:   'no'
     bridge_stp: 'off'
   'eth1.912':
     ipaddress: '172.31.34.6'
     netmask:   '255.255.255.0'
     gateway:   '172.31.34.1'
-    defroute:  'yes'
     vlan:      'yes'
+    defroute:  'no'
   'eth1.913':
     ipaddress: '172.31.35.6'
     netmask:   '255.255.255.0'
@@ -46,6 +45,7 @@ lvm::volume_groups:
   vg_root:
     physical_volumes:
       - /dev/sda2
+      - /dev/sda3
     logical_volumes:
       lv_libvirt:
         fs_type:   xfs

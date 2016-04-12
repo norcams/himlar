@@ -10,15 +10,14 @@ network::interfaces_hash:
     type:       'Bridge'
     ipaddress:  '172.31.1.5'
     netmask:    '255.255.255.0'
-    gateway:    '172.31.1.1'
-    defroute:   'yes'
+    defroute:   'no'
     bridge_stp: 'off'
   'eth1.912':
     ipaddress: '172.31.34.5'
     netmask:   '255.255.255.0'
     gateway:   '172.31.34.1'
-    defroute:  'yes'
     vlan:      'yes'
+    defroute:  'no'
   'eth1.913':
     ipaddress: '172.31.35.5'
     netmask:   '255.255.255.0'
