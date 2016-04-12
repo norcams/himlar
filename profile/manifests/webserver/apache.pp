@@ -8,6 +8,7 @@
 #   mod 'puppetlabs/apache'
 #
 class profile::webserver::apache (
+  $manage_ssl_cert  = false,
   $dev_enable       = false,
   $mods_enable      = [],
   $vhost_definition = {},
@@ -25,6 +26,12 @@ class profile::webserver::apache (
   if !empty($mods_enable) {
     $modules = prefix($mods_enable, '::apache::mod::')
     class { $modules : }
+  }
+
+  if $manage_ssl_cert {
+    include profile::application::sslcert
+    Class['Profile::Application::Sslcert'] ~>
+    Class['Apache::Service']
   }
 
   create_resources('::apache::vhost', $vhost_definition)
