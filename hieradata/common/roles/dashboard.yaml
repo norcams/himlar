@@ -18,6 +18,7 @@ profile::base::common::packages:
   - python-openstackclient
 
 dpapp_referer: '^http://access\.'
+dashboard_referer: '^https://dashboard\.'
 
 profile::openstack::api::default_vhost_config:
   servername:           "%{hiera('service__address__horizon')}"
@@ -34,9 +35,11 @@ profile::openstack::api::vhosts:
       proxy_preserve_host:  true
       setenvif:
         - "Referer '%{hiera('dpapp_referer')}' access_referal"
+        - "Referer '%{hiera('dashboard_referer')}' dashboard_referal"
       request_headers:
         - 'set X-Forwarded-Proto "https"'
         - "set Host '%{hiera('service__address__keystone_public')}' env=access_referal"
+        - "set Host '%{hiera('service__address__keystone_public')}' env=dashboard_referal"
   nova_ec2_api:
     port:               '8773'
     proxy_dest:         "http://%{hiera('service__address__nova_api')}:8773"
