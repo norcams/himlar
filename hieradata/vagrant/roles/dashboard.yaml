@@ -3,15 +3,13 @@ include:
   default:
     - profile::network::localdns
 
-profile::openstack::adminrc::cacert:      '/opt/himlar/provision/ca/certs/ca-chain.cert.pem'
+profile::openstack::adminrc::cacert:            '/opt/himlar/provision/ca/certs/ca-chain.cert.pem'
 
 profile::openstack::dashboard::manage_ssl_cert: true
-profile::application::sslcert::cert_name: 'vagrant'
+profile::application::sslcert::cert_name:       'vagrant'
+profile::application::sslcert::commonname:      "dashboard.%{domain}"
 
-profile::application::sslcert::commonname: "dashboard.%{domain}"
-#profile::application::sslcert::altnames:
-#  - "DNS.1 = dashboard.%{domain}"
-#  - "DNS.2 = api.%{domain}"
+dpapp_referer: '^http://access\.himlar\.local/login\?'
 
 profile::openstack::api::default_vhost_config:
   servername:           "%{hiera('service__address__keystone_public')}"
@@ -23,26 +21,3 @@ profile::openstack::api::default_vhost_config:
   ssl_ca:               '/opt/himlar/provision/ca/certs/ca-chain.cert.pem'
   ssl_key:              '/etc/pki/tls/private/vagrant.key'
   ssl_cert:             '/etc/pki/tls/certs/vagrant.crt'
-
-profile::openstack::api::vhosts:
-  keystone_api:
-    port:               '5000'
-    proxy_dest:         "http://%{hiera('service__address__keystone')}:5000"
-    extra:
-      proxy_preserve_host:  true
-      request_headers:      'set X-Forwarded-Proto "https"'
-  nova_ec2_api:
-    port:               '8773'
-    proxy_dest:         "http://%{hiera('service__address__nova_api')}:8773"
-  nova_api:
-    port:               '8774'
-    proxy_dest:         "http://%{hiera('service__address__nova_api')}:8774"
-  cinder_api:
-    port:               '8776'
-    proxy_dest:         "http://%{hiera('service__address__cinder_api')}:8776"
-  glance_api:
-    port:               '9292'
-    proxy_dest:         "http://%{hiera('service__address__glance_api')}:9292"
-  neutron_server:
-    port:               '9696'
-    proxy_dest:         "http://%{hiera('service__address__neutron_server')}:9696"

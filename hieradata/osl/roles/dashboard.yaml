@@ -9,3 +9,5 @@ profile::openstack::api::default_vhost_config:
   ssl_ca:               "/etc/pki/tls/certs/DigiCertCA.crt"
   ssl_cert:             "/etc/pki/tls/certs/dashboard_iaas_uio_no.crt"
   ssl_key:              "/etc/pki/tls/private/dashboard_iaas_uio_no.key"
+
+dpapp_referer: '^http://access\.iaas\.uio\.no/login\?'
