@@ -6,6 +6,8 @@ include:
 
 profile::application::dpapp::manage_firewall: true
 
+dpapp::installdir:        '/opt/dpapp'
+
 profile::base::network::manage_dummy: true
 
 apache::default_mods:   false
@@ -35,11 +37,11 @@ profile::webserver::apache::vhosts:
     wsgi_daemon_process:     'dpapp'
     wsgi_daemon_process_options:
       threads:      '4'
-      python-path:  '/opt/dpapp/lib/python2.7/site-packages'
+      python-path:  "%{hiera('dpapp::installdir')}/lib/python2.7/site-packages"
     wsgi_script_aliases:
-      '/':   '/opt/dpapp/pyramid.wsgi'
+      '/':   "%{hiera('dpapp::installdir')}/pyramid.wsgi"
     directories:
-      - path:             '/opt/dpapp'
+      - path:             "%{hiera('dpapp::installdir')}"
         require:          'all granted'
         custom_fragment:  'WSGIProcessGroup dpapp'
     ssl:                  true
