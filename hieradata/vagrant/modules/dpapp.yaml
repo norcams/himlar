@@ -1,3 +1,4 @@
 ---
-dpapp::host:        '172.31.24.19'
-dpapp::deployment:  'develop'
+dpapp::deployment:        'develop'
+dpapp::keystone_cachain:  '/opt/himlar/provision/ca/certs/ca-chain.cert.pem'
+dpapp::log_level:         'INFO'
