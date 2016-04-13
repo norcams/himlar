@@ -1,10 +1,10 @@
 ---
 include:
   default:
-    - profile::application::dpapp
+    - profile::application::access
     - profile::webserver::apache
 
-profile::application::dpapp::manage_firewall: true
+profile::application::access::manage_firewall: true
 
 dpapp::installdir:        '/opt/dpapp'
 
