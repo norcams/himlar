@@ -5,7 +5,7 @@ ntp::servers:
   - 172.16.32.102
 
 # NOTE: reflectors will be on cumulus gws for prod
-calico::reflector: true
+calico::reflector: false
 
 profile::base::network::manage_httpproxy: 'true'
 profile::base::network::http_proxy:       "%{hiera('service__address__proxy')}:8888"
