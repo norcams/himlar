@@ -41,12 +41,3 @@ profile::base::network::mroute:
   'dummy0':
     routes:
       '129.177.31.125/32': 'atap-access01'
-
-lvm::volume_groups:
-  vg_root:
-    physical_volumes:
-      - /dev/sda2
-    logical_volumes:
-      lv_libvirt:
-        fs_type:   xfs
-        mountpath: "/var/lib/libvirt/images"
