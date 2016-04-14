@@ -4,6 +4,10 @@
 #    destination: "%{ipaddress_public1}"
 #    source: '172.31.34.0/24'
 
+calico::compute_manage_bird_config:   false
+calico::reflector::bird_template:     'calico/compute/bird.conf.erb'
+calico::reflector::bird6_template:    'calico/compute/bird6.conf.erb'
+
 profile::openstack::resource::networks:
   public:
     name: 'public'
