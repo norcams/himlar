@@ -10,6 +10,11 @@ named_interfaces::config:
     - em1
     - em2
 
+ntp::servers:
+  - 172.16.0.106
+  - 172.16.0.107
+  - 172.16.0.108
+
 foreman_bootstrap::virt_install:
   bgo-foreman-01:
     domain:          'mgmt.iaas.intern'
@@ -18,5 +23,3 @@ foreman_bootstrap::virt_install:
     install_ip:      '172.16.0.11'
     install_netmask: '255.255.248.0'
     install_gateway: '172.16.0.1'
-
-profile::network::services::ntp_server: true

@@ -9,6 +9,8 @@ named_interfaces::config:
 profile::base::network::manage_httpproxy: 'true'
 profile::base::network::http_proxy:       "%{hiera('service__address__proxy')}:8888"
 
+profile::network::services::ntp_server: true
+
 lvm::volume_groups:
   vg_journala:
     physical_volumes:
