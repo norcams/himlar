@@ -21,3 +21,11 @@ network::interfaces_hash:
     onboot:    "yes"
     mtu:       "1500"
     type:      'Bridge'
+  'dummy0':
+    ipaddress: '158.39.77.1'
+    netmask:   '255.255.255.0'
+    defroute:  'no'
+  'dummy1':
+    ipaddress: '172.19.0.1'
+    netmask:   '255.255.255.0'
+    defroute:  'no'
