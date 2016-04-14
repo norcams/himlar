@@ -43,6 +43,9 @@ profile::base::common::packages:
 named_interfaces::config:
   mgmt:
     - br0
+  transport:
+    - em1
+    - em2
 
 profile::virtualization::libvirt::manage_firewall: true
 profile::virtualization::libvirt::firewall_extras:

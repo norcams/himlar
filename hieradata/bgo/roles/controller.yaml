@@ -3,13 +3,6 @@ include:
   default:
     - profile::network::services
 
-named_interfaces::config:
-  mgmt:
-    - br0
-  transport:
-    - em1
-    - em2
-
 ntp::servers:
   - 172.16.0.106
   - 172.16.0.107
