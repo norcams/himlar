@@ -46,7 +46,6 @@ lvm::volume_groups:
   vg_root:
     physical_volumes:
       - /dev/sda2
-      - /dev/sda3
     logical_volumes:
       lv_libvirt:
         fs_type:   xfs
