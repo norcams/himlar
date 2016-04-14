@@ -9,7 +9,7 @@ profile::openstack::dashboard::manage_ssl_cert: true
 profile::application::sslcert::cert_name:       'vagrant'
 profile::application::sslcert::commonname:      "dashboard.%{domain}"
 
-dpapp_referer: '^http://access\.himlar\.local/login\?'
+dpapp_referer: '^https://access\.himlar\.local/login\?'
 
 profile::openstack::api::default_vhost_config:
   servername:           "%{hiera('service__address__keystone_public')}"

@@ -50,7 +50,7 @@ puppet::server_foreman_url:            "https://%{fqdn}"
 puppet::dns_alt_names:                 ["puppet.%{domain}","puppetca.%{domain}","admin.%{domain}"]
 
 profile::webserver::apache::manage_firewall:  false
-profile::webserver::apache::vhost_definition:
+profile::webserver::apache::vhosts:
   'repo':
     servername:     "repo.%{domain}"
     port:           80
@@ -59,4 +59,3 @@ profile::webserver::apache::vhost_definition:
 
 dhcp::onie_inst_def_url:     "http://repo.%{domain}/cumuluslinux/onie-installer-powerpc"
 dhcp::cumulus_provision_url: "http://repo.%{domain}/cumuluslinux/provision.sh"
-

@@ -1,8 +1,0 @@
----
-include:
-  default:
-    - profile::application::dpapp
-
-profile::application::dpapp::manage_firewall: true
-
-profile::base::network::manage_dummy: true

@@ -8,9 +8,9 @@
 #   mod 'puppetlabs/apache'
 #
 class profile::webserver::apache (
+  $manage_ssl_cert  = false,
   $dev_enable       = false,
   $mods_enable      = [],
-  $vhost_definition = {},
   $manage_firewall  = true,
   $firewall_ports   = [80, 443],
   $firewall_extras  = {}
@@ -27,7 +27,14 @@ class profile::webserver::apache (
     class { $modules : }
   }
 
-  create_resources('::apache::vhost', $vhost_definition)
+  if $manage_ssl_cert {
+    include profile::application::sslcert
+    Class['Profile::Application::Sslcert'] ~>
+    Class['Apache::Service']
+  }
+
+  $vhosts = hiera_hash('profile::webserver::apache::vhosts', {})
+  create_resources('::apache::vhost', $vhosts)
 
   if $manage_firewall {
     profile::firewall::rule { '100 apache accept tcp 80 443':
