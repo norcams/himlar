@@ -3,6 +3,7 @@ network::interfaces_hash:
   'em1':
     ipaddress: '172.18.0.100'
     netmask:   '255.255.248.0'
+    peerdns:   'yes'
     dns1:      "%{hiera('service__address__proxy')}"
     domain:    'mgmt.iaas.intern'
     defroute:  'no'
