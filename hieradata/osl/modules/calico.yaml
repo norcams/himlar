@@ -20,8 +20,13 @@ calico::reflector::clients:
 calico::compute::peer_defaults:
   peer_as: 65502
   local_as: 65502
-  local_ipv4: "%{ipaddress_transport1}"
 
 calico::compute::peers:
   rr1:
     peer_ipv4: '172.18.32.1'
+    local_pref: 100
+    local_ipv4: "%{ipaddress_transport1}"
+  rr2:
+    peer_ipv4: '172.18.40.1'
+    local_pref: 90
+    local_ipv4: "%{ipaddress_transport2}"
