@@ -3,12 +3,10 @@ include:
   default:
     - profile::network::services
 
-named_interfaces::config:
-  mgmt:
-    - br0
-  transport:
-    - em1
-    - em2
+ntp::servers:
+  - 172.16.32.106
+  - 172.16.32.107
+  - 172.16.32.108
 
 foreman_bootstrap::virt_install:
   osl-foreman-01:
@@ -18,5 +16,3 @@ foreman_bootstrap::virt_install:
     install_ip:      '172.16.32.11'
     install_netmask: '255.255.248.0'
     install_gateway: '172.16.32.12'
-
-profile::network::services::ntp_server: true
