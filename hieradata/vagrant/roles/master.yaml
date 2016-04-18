@@ -4,7 +4,11 @@ include:
     - profile::network::localdns
     - profile::logging::rsyslog::client
 
-profile::openstack::adminrc::cacert:      '/opt/himlar/provision/ca/certs/ca-chain.cert.pem'
+calico::compute_manage_bird_config:   false
+calico::reflector::bird_template:     'calico/compute/bird.conf.erb'
+calico::reflector::bird6_template:    'calico/compute/bird6.conf.erb'
+
+profile::openstack::adminrc::cacert:  '/opt/himlar/provision/ca/certs/ca-chain.cert.pem'
 
 profile::openstack::resource::networks:
   private:
