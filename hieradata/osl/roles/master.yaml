@@ -4,9 +4,6 @@ ntp::servers:
   - 172.16.32.107
   - 172.16.32.108
 
-profile::base::network::manage_httpproxy: 'true'
-profile::base::network::http_proxy:       "%{hiera('service__address__proxy')}:8888"
-
 puppet::cron_cmd: "/usr/bin/env puppet agent --config %{puppet::dir}/puppet.conf --onetime --no-daemonize"
 
 profile::openstack::resource::networks:
