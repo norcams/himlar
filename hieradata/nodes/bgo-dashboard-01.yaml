@@ -10,11 +10,11 @@ network::interfaces_hash:
     domain:    'mgmt.iaas.intern'
     defroute:  'no'
   'eth1':
+    ipaddress: '172.18.0.22'
+    netmask:   '255.255.248.0'
+    defroute:  'no'
+  'eth2':
     ipaddress: '158.39.77.254'
     netmask:   '255.255.255.0'
     gateway:   '158.39.77.1'
     defroute:  'yes'
-  'eth3':
-    ipaddress: '172.18.0.22'
-    netmask:   '255.255.248.0'
-    defroute:  'no'
