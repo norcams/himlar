@@ -3,3 +3,6 @@
 if [[ $(ip route | grep <%= interface %>) ]]; then ip route del $(ip route | grep <%= interface %> | awk '{print $1}'); fi
 <% end -%>
 <% end -%>
+
+# The tap devices need proxy_arp in order to be routed on the VMs subnet
+if [[ ${1:0:4} == "atap" ]]; then echo "1" > /proc/sys/net/ipv4/conf/$1/proxy_arp; fi
