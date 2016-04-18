@@ -4,7 +4,7 @@ class profile::openstack::api(
   $default_vhost_config = {}
 ) {
 
-  include apache::mod::headers
+  include ::apache::mod::headers
 
   create_resources('profile::openstack::api::proxy', $vhosts)
 
