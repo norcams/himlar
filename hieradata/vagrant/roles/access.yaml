@@ -13,11 +13,9 @@ apache::log_level:                              trace4
 # Uncomment this and run dpapp_develop.sh to change to develop mode
 #dpapp::installdir:        '/opt/dpapp.develop'
 
-profile::application::access::package_url: 'http://folk.uib.no/st02221/yum/himlar-dp-prep-1.0-1.el7.x86_64.rpm'
-
-#profile::webserver::apache::vhosts:
-#  dpapp_ssl:
-#    ssl:                  true
-#    ssl_ca:               '/opt/himlar/provision/ca/certs/ca-chain.cert.pem'
-#    ssl_key:              '/etc/pki/tls/private/vagrant.key'
-#    ssl_cert:             '/etc/pki/tls/certs/vagrant.crt'
+profile::webserver::apache::vhosts:
+  dpapp_ssl:
+    ssl:                  true
+    ssl_ca:               '/opt/himlar/provision/ca/certs/ca-chain.cert.pem'
+    ssl_key:              '/etc/pki/tls/private/vagrant.key'
+    ssl_cert:             '/etc/pki/tls/certs/vagrant.crt'
