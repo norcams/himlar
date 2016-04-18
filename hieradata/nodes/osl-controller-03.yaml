@@ -1,17 +1,41 @@
 ---
 network::interfaces_hash:
   'em1':
-    onboot:    'yes'
-  'em2':
-    onboot:    'yes'
-  'em3':
-    onboot:    'yes'
-    bridge:    'br0'
-  'br0':
-    ipaddress: '172.16.32.102'
+    ipaddress: '172.18.32.102'
     netmask:   '255.255.248.0'
-    gateway:   '172.16.32.12'
-    defroute:  'yes'
-    onboot:    'yes'
-    mtu:       '1500'
+    peerdns:   'yes'
+    dns1:      "%{hiera('service__address__proxy')}"
+    defroute:  'no'
+    onboot:    "yes"
+  'em2':
+    ipaddress: '172.18.40.102'
+    netmask:   '255.255.248.0'
+    defroute:  'no'
+    onboot:    "yes"
+  'em3':
+    onboot:    "yes"
+    bridge:    "br0"
+  'br0':
+    ipaddress: "172.16.32.102"
+    netmask:   "255.255.248.0"
+    defroute:  "no"
+    onboot:    "yes"
+    mtu:       "1500"
     type:      'Bridge'
+  'dummy0':
+    ipaddress: '158.37.63.1'
+    netmask:   '255.255.255.0'
+    defroute:  'no'
+  'dummy1':
+    ipaddress: '172.19.32.1'
+    netmask:   '255.255.255.0'
+    defroute:  'no'
+  'atap-dboard01':
+    bootproto: 'none'
+    type:      'Tap'
+    onboot:    'yes'
+
+profile::base::network::mroute:
+  'dummy0':
+    routes:
+      '158.37.63.254/32': 'atap-dboard01'
