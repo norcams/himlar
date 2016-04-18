@@ -9,9 +9,9 @@ named_interfaces::config:
     - em1
 
 ntp::servers:
-  - 172.16.32.100
-  - 172.16.32.101
-  - 172.16.32.102
+  - 172.16.32.106
+  - 172.16.32.107
+  - 172.16.32.108
 
 profile::base::network::manage_httpproxy: 'true'
 profile::base::network::http_proxy:       "%{hiera('service__address__proxy')}:8888"
