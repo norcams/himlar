@@ -9,8 +9,6 @@ profile::application::access::manage_firewall: true
 
 dpapp::installdir:        '/opt/dpapp'
 
-profile::base::network::manage_dummy: true
-
 apache::default_mods:   false
 
 profile::webserver::apache::manage_firewall:  false

@@ -11,8 +11,6 @@ profile::openstack::adminrc::region_name: "%{::location}"
 profile::openstack::adminrc::username:    'admin'
 profile::openstack::adminrc::tenant_name: 'openstack'
 
-profile::base::network::manage_dummy: true
-
 profile::base::common::packages:
   - python-oslo-log
   - python-openstackclient
