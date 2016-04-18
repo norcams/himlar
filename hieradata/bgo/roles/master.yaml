@@ -1,12 +1,11 @@
 ---
+include:
+  default:
+    - profile::network::yum-proxy
+
+puppet::cron_cmd: "/usr/bin/env puppet agent --config %{puppet::dir}/puppet.conf --onetime --no-daemonize"
+
 ntp::servers:
   - 172.16.0.106
   - 172.16.0.107
   - 172.16.0.108
-
-calico::compute_manage_bird_config:   false
-calico::reflector::bird_template:     'calico/compute/bird.conf.erb'
-calico::reflector::bird6_template:    'calico/compute/bird6.conf.erb'
-
-puppet::cron_cmd: "if [ -e /etc/profile.d/proxy.sh ] ; then source /etc/profile.d/proxy.sh ; fi ; \
-  /usr/bin/env puppet agent --config %{puppet::dir}/puppet.conf --onetime --no-daemonize"
