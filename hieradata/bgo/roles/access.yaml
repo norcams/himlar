@@ -1,3 +1,11 @@
 ---
-dpapp::host:          'access.iaas.uib.no'
-dpapp::horizon_url:   "https://dashboard.iaas.uib.no"
+profile::webserver::apache::vhosts:
+  dpapp:
+    vhost_name:         "access.iaas.uib.no"
+    servername:         "access.iaas.uib.no"
+  dpapp_ssl:
+    vhost_name:         "access.iaas.uib.no"
+    servername:         "access.iaas.uib.no"
+    ssl_ca:             "/etc/pki/tls/certs/DigiCertCA.crt"
+    ssl_cert:           "/etc/pki/tls/certs/access_iaas_uib_no.crt"
+    ssl_key:            "/etc/pki/tls/private/access_iaas_uib_no.key"
