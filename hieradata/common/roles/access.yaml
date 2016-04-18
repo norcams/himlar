@@ -7,6 +7,12 @@ include:
 profile::application::access::package_url: 'http://folk.uib.no/st02221/yum/himlar-dp-prep-1.0-2.el7.x86_64.rpm'
 profile::application::access::manage_firewall: true
 
+named_interfaces::config:
+  mgmt:
+    - eth0
+  public:
+    - eth1
+
 dpapp::installdir:        '/opt/dpapp'
 
 apache::default_mods:   false
