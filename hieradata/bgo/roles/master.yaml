@@ -3,6 +3,8 @@ include:
   default:
     - profile::network::yum-proxy
 
+profile::network::yum-proxy::yum_proxy: '172.16.0.12'
+
 puppet::cron_cmd: "/usr/bin/env puppet agent --config %{puppet::dir}/puppet.conf --onetime --no-daemonize"
 
 ntp::servers:
