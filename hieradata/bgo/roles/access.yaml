@@ -3,6 +3,7 @@ profile::webserver::apache::vhosts:
   dpapp:
     vhost_name:         "access.iaas.uib.no"
     servername:         "access.iaas.uib.no"
+    redirect_dest:      "https://access.iaas.uib.no/"
   dpapp_ssl:
     vhost_name:         "access.iaas.uib.no"
     servername:         "access.iaas.uib.no"
