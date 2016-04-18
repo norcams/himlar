@@ -10,7 +10,8 @@ class profile::application::sslcert (
     $organization = 'private.org',
     $email = 'user@example.com',
     $altnames = [],
-    $ca_dir = '/opt/himlar/provision/ca'
+    $ca_dir = '/opt/himlar/provision/ca',
+    $serial = fqdn_rand_string(10, '0123456789ABCDEF')
 ) {
 
   contain ::openssl
@@ -27,6 +28,10 @@ class profile::application::sslcert (
     template    => "${crt_dir}/${cert_name}.cnf",
     private_key => "${key_dir}/${cert_name}.key"
   } ->
+  file { "/tmp/serial":
+    ensure => present,
+    content => $serial
+  } ->
   exec { 'sign-sslcert':
     command => "/bin/openssl ca -config ${ca_dir}/root.cnf -batch \
                 -extensions server_cert -days 375 -create_serial -notext \
@@ -35,4 +40,8 @@ class profile::application::sslcert (
     creates => "${crt_dir}/${cert_name}.crt",
   }
 
+  info("/bin/openssl ca -config ${ca_dir}/root.cnf -batch \
+                -extensions server_cert -days 375 -create_serial -notext \
+                -md sha256 -in ${crt_dir}/${cert_name}.csr \
+                -out ${crt_dir}/${cert_name}.crt")
 }
