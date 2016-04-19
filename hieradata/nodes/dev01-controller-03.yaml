@@ -25,10 +25,3 @@ network::interfaces_hash:
     gateway:   '172.31.35.1'
     vlan:      'yes'
     defroute:  'no'
-
-named_interfaces::config:
-  mgmt:
-     - br0
-  transport:
-     - em1_912
-     - em1_913
