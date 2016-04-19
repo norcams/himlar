@@ -46,7 +46,7 @@ ssh::server::options:
 googleauthenticator::pam::mode::modes:
   wheel-only:
     condition: 'user ingroup wheel'
-    nullok: true
+    nullok: false
 
 googleauthenticator::pam::modules:
   sshd:
