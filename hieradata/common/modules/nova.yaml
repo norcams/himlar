@@ -26,6 +26,10 @@ nova::api::api_bind_address: "%{ipaddress_transport1}"
 #nova::api::metadata_listen: "%{ipaddress_public1}"
 
 nova::scheduler::enabled: true
+nova::scheduler::filter::ram_allocation_ratio:    '1.5'
+nova::scheduler::filter::max_instances_per_host:  '75'
+nova::scheduler::filter::disk_allocation_ratio:   '10'
+nova::scheduler::filter::cpu_allocation_ratio:    '16'
 
 nova::conductor::enabled: true
 
