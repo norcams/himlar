@@ -1,6 +1,4 @@
 ---
-profile::openstack::dashboard::service_net: '172.18.0.0/24'
-
 profile::openstack::api::default_vhost_config:
   servername:           "%{hiera('service__address__keystone_public')}"
   vhost_name:           "%{hiera('service__address__keystone_public')}"
@@ -14,3 +12,41 @@ profile::openstack::api::default_vhost_config:
 
 dpapp_referer: '^http://access\.iaas\.uib\.no/login\?'
 dashboard_referer: '^https://dashboard\.iaas\.uib\.no/dashboard'
+
+profile::openstack::api::vhosts:
+  keystone_api:
+    port:               '5000'
+    proxy_dest:         "http://%{hiera('service__address__keystone')}:5000"
+    extra:
+      proxy_preserve_host:  true
+      setenvif:
+        - "Referer '%{hiera('dpapp_referer')}' access_referal"
+        - "Referer '%{hiera('dashboard_referer')}' dashboard_referal"
+      request_headers:
+        - 'set X-Forwarded-Proto "https"'
+        - "set Host '%{hiera('service__address__keystone_public')}' env=access_referal"
+        - "set Host '%{hiera('service__address__keystone_public')}' env=dashboard_referal"
+  nova_ec2_api:
+    port:               '8773'
+    proxy_dest:         "http://%{hiera('service__address__nova_api')}:8773"
+  nova_api:
+    port:               '8774'
+    proxy_dest:         "http://%{hiera('service__address__nova_api')}:8774"
+  cinder_api:
+    port:               '8776'
+    proxy_dest:         "http://%{hiera('service__address__cinder_api')}:8776"
+  glance_api:
+    port:               '9292'
+    proxy_dest:         "http://%{hiera('service__address__glance_api')}:9292"
+  neutron_server:
+    port:               '9696'
+    proxy_dest:         "http://%{hiera('service__address__neutron_server')}:9696"
+  status:
+    port:               '80'
+    proxy_dest:         false
+    extra:
+      priority:         '05'
+      redirect_dest:    "http://iaas.readthedocs.org/en/latest/status.html"
+      ssl:              false
+      servername:       "status.iaas.uib.no"
+      vhost_name:       "status.iaas.uib.no"
