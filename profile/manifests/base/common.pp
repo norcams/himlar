@@ -28,6 +28,7 @@ class profile::base::common (
 
   if $manage_accounts {
     include ::accounts::instances
+    include ::accounts::root_user
   }
 
   if $manage_epel {

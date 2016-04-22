@@ -150,3 +150,6 @@ neutron::agents::metadata::shared_secret:           'a_secret'
 # nova.yaml
 nova::db::mysql::password:                          'nova_pass'
 nova::api::neutron_metadata_proxy_shared_secret:    'a_secret'
+
+# The root user password
+accounts::root_user::password:                      '$6$qVzsC5fQMqdF4gKw$.zFAu9LtxSAaPgbtZul/ZXUXpBgjaVJbQ.CIMo9eo5TslU8KU1SO/tjRZbh1hFM6RB55QFEzJlF5ejAgglk50.'
