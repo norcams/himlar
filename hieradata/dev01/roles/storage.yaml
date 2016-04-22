@@ -5,6 +5,8 @@ named_interfaces::config:
      - eth2
      - eth3
 
+profile::network::services::ntp_server: true
+
 lvm::volume_groups:
   vg_journala:
     physical_volumes:
