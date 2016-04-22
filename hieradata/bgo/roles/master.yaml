@@ -12,6 +12,8 @@ ntp::servers:
   - 172.16.0.107
   - 172.16.0.108
 
+profile::openstack::network::calico::manage_bird: false
+
 profile::openstack::resource::networks:
   public:
     name: 'public'

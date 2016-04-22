@@ -4,6 +4,8 @@
 #    destination: "%{ipaddress_public1}"
 #    source: '172.31.34.0/24'
 
+profile::openstack::network::calico::manage_bird: false
+
 profile::openstack::resource::networks:
   public:
     name: 'public'

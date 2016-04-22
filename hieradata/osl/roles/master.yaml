@@ -12,6 +12,8 @@ ntp::servers:
 
 puppet::cron_cmd: "/usr/bin/env puppet agent --config %{puppet::dir}/puppet.conf --onetime --no-daemonize"
 
+profile::openstack::network::calico::manage_bird: false
+
 profile::openstack::resource::networks:
   public:
     name: 'public'
