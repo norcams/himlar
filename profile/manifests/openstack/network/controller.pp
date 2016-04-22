@@ -1,6 +1,7 @@
 class profile::openstack::network::controller(
   $manage_neutron_policies = true,
   $neutron_policy_path = '/etc/neutron/policy.json',
+  $neutron_nova_insecure = false,
   $manage_firewall = true,
   $firewall_extras = {}
 ) {
@@ -14,6 +15,12 @@ class profile::openstack::network::controller(
       file_path => $neutron_policy_path,
     }
     create_resources('openstacklib::policy::base', hiera('profile::openstack::network::policies', {}))
+  }
+
+  if $neutron_nova_insecure {
+    neutron_config {
+      'nova/insecure': value => 'True';
+    }
   }
 
   if $manage_firewall {

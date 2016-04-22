@@ -9,22 +9,28 @@ calico::reflector::bird_template:     'calico/compute/bird.conf.erb'
 calico::reflector::bird6_template:    'calico/compute/bird6.conf.erb'
 calico::reflector: true
 
+profile::openstack::network::controller::neutron_nova_insecure: true
+
 profile::openstack::adminrc::cacert:  '/opt/himlar/provision/ca/certs/ca-chain.cert.pem'
 
 profile::openstack::resource::networks:
-  private:
-    name: 'private'
+  public:
+    name: 'public'
     admin_state_up: true
     shared: true
     tenant_name: 'openstack'
     provider_network_type: 'local'
 
 profile::openstack::resource::subnets:
-  private:
-    name: 'private'
-    cidr: '10.1.0.0/24'
+  public:
+    name: 'public'
+    cidr: '172.31.24.0/24'
     ip_version: '4'
     allocation_pools:
-      - 'start=10.1.0.100,end=10.1.0.150'
-    network_name: 'private'
+      - 'start=172.31.24.200,end=172.31.24.250'
+    gateway_ip: '172.31.24.1'
+    dns_nameservers:
+      - '129.177.6.54'
+      - '129.177.12.31'
+    network_name: 'public'
     tenant_name: 'openstack'
