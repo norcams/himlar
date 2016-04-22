@@ -10,5 +10,5 @@ profile::openstack::api::default_vhost_config:
   ssl_cert:             "/etc/pki/tls/certs/test_iaas_uib_no.crt"
   ssl_key:              "/etc/pki/tls/private/test_iaas_uib_no.key"
 
-dpapp_referer:      '^http://accesstest\.iaas\.uib\.no/login\?'
+dpapp_referer:      '^https://accesstest\.iaas\.uib\.no/login\?'
 dashboard_referer:  '^https://test\.iaas\.uib\.no/dashboard'
