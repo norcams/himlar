@@ -1,6 +1,6 @@
 ---
 horizon::allowed_hosts:                 '*'
-horizon::servername:                    "%{ipaddress_public1}"
+horizon::servername:                    "%{hiera('service__address__horizon')}"
 horizon::wsgi::apache::priority:        '10'
 horizon::wsgi::apache::bind_address:    "%{ipaddress_public1}"
 horizon::bind_address:                  "%{ipaddress_public1}"
