@@ -5,7 +5,8 @@ location_description: Production environment in Bergen
 endpoint_protocol: 'https'
 
 # public
-service__address__horizon:           'api.iaas.uib.no'
+service__address__status:            'status.iaas.uib.no'
+service__address__horizon:           'dashboard.iaas.uib.no'
 service__address__keystone_public:   'api.iaas.uib.no'
 service__address__glance_public_api: 'api.iaas.uib.no'
 service__address__nova_public_api:   'api.iaas.uib.no'

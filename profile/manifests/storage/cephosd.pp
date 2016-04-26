@@ -5,8 +5,8 @@ class profile::storage::cephosd {
   include ::ceph::profile::osd
 
   service { 'ceph-osd':
-    name      => 'ceph',
     ensure    => running,
+    name      => 'ceph',
     enable    => true,
     provider  => redhat,
     status    => "/sbin/service ceph status osd",

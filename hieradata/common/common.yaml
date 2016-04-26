@@ -72,6 +72,7 @@ service__address__nova_public_api:   "dashboard.%{domain}"
 service__address__neutron_public:    "dashboard.%{domain}"
 service__address__cinder_public_api: "dashboard.%{domain}"
 service__address__consoleproxy:      "dashboard.%{domain}"
+service__address__status:            "status.%{domain}"
 
 #
 # Network configuration data

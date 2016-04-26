@@ -1,27 +1,27 @@
 ---
-horizon::help_url: 'http://iaas.readthedocs.org/en/latest/status.html'
-horizon::server_aliases: '*'
-horizon::allowed_hosts: '*'
-horizon::servername: "%{ipaddress_public1}"
-horizon::keystone_url: "%{hiera('endpoint_protocol')}://%{hiera('service__address__keystone_public')}:5000/v3"
+horizon::allowed_hosts:                 '*'
+horizon::servername:                    "%{hiera('service__address__horizon')}"
+horizon::wsgi::apache::priority:        '10'
+horizon::wsgi::apache::bind_address:    "%{ipaddress_public1}"
+horizon::bind_address:                  "%{ipaddress_public1}"
+horizon::listen_ssl:                    true
+horizon::horizon_ca:                    "/etc/pki/tls/certs/DigiCertCA.crt"
+horizon::horizon_cert:                  "/etc/pki/tls/certs/%{hiera('dashboard_ssl_files')}.crt"
+horizon::horizon_key:                   "/etc/pki/tls/private/%{hiera('dashboard_ssl_files')}.key"
+horizon::secure_cookies:                true
+
+horizon::help_url:                      'http://iaas.readthedocs.org/en/latest/status.html'
+horizon::openstack_endpoint_type:       'internalURL'
+horizon::keystone_url:                  "%{hiera('endpoint_protocol')}://%{hiera('service__address__keystone_public')}:5000/v3"
+horizon::keystone_default_role:         'user'
+horizon::keystone_multidomain_support:  false
+horizon::api_versions:
+  'identity': 3
+
 horizon::neutron_options:
   'enable_lb': false
   'enable_firewall': false
   'enable_vpn': false
-horizon::wsgi::apache::priority: 10
-horizon::wsgi::apache::bind_address: "%{ipaddress_public1}"
-horizon::bind_address: "%{ipaddress_public1}"
-horizon::listen_ssl: true
-horizon::horizon_ca: "/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem"
-horizon::horizon_cert: "/etc/ssl/certs/%{::fqdn}.crt"
-horizon::horizon_key:  "/etc/ssl/certs/%{::fqdn}.key"
-
-horizon::openstack_endpoint_type: 'internalURL'
-horizon::keystone_default_role: 'user'
-
-horizon::keystone_multidomain_support: false
-horizon::api_versions:
-  'identity': 3
 
 horizon::websso_enabled: true
 horizon::websso_initial_choice: oidc

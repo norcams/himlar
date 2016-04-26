@@ -2,7 +2,7 @@
 # to configure yum proxy include this (and define proxy in for instance <loc>/common.yaml:
 #include:
 #  default:
-#    -  profile::network::yum-proxy
+#    -  profile::network::yum_proxy
 
 include:
   default:
@@ -11,7 +11,7 @@ include:
 # Because of this we cannot use syslog on master:
 # https://bugs.launchpad.net/kolla/liberty/+bug/1516306
 neutron::use_syslog:    true
-neutron::log_facility:  'LOG_LOCAL1'
+neutron::log_facility:  'LOG_LOCAL5'
 
 # The current vagrant box image do not have vda3 parso switch
 # off lvm for compute on vagrant

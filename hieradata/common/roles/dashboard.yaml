@@ -18,15 +18,19 @@ profile::base::common::packages:
   - python-oslo-log
   - python-openstackclient
 
-dpapp_referer: '^http://access\.'
-dashboard_referer: '^https://dashboard\.'
+dashboard_referer:    '^https://dashboard\.'
+dashboard_ssl_files:  "%{::fqdn}"
 
 profile::openstack::api::default_vhost_config:
-  servername:           "%{hiera('service__address__horizon')}"
-  vhost_name:           "%{hiera('service__address__horizon')}"
+  servername:           "%{hiera('service__address__keystone_public')}"
+  vhost_name:           "%{hiera('service__address__keystone_public')}"
   ip:                   "%{::ipaddress_public1}"
   docroot:              '/var/www/html'
   manage_docroot:       false
+  ssl:                  true
+  ssl_ca:               "/etc/pki/tls/certs/DigiCertCA.crt"
+  ssl_key:              "/etc/pki/tls/private/%{hiera('dashboard_ssl_files')}.key"
+  ssl_cert:             "/etc/pki/tls/certs/%{hiera('dashboard_ssl_files')}.crt"
 
 profile::openstack::api::vhosts:
   keystone_api:
@@ -35,11 +39,9 @@ profile::openstack::api::vhosts:
     extra:
       proxy_preserve_host:  true
       setenvif:
-        - "Referer '%{hiera('dpapp_referer')}' access_referal"
         - "Referer '%{hiera('dashboard_referer')}' dashboard_referal"
       request_headers:
         - 'set X-Forwarded-Proto "https"'
-        - "set Host '%{hiera('service__address__keystone_public')}' env=access_referal"
         - "set Host '%{hiera('service__address__keystone_public')}' env=dashboard_referal"
   nova_ec2_api:
     port:               '8773'
@@ -56,3 +58,12 @@ profile::openstack::api::vhosts:
   neutron_server:
     port:               '9696'
     proxy_dest:         "http://%{hiera('service__address__neutron_server')}:9696"
+  status:
+    port:               '80'
+    proxy_dest:         false
+    extra:
+      priority:         '05'
+      redirect_dest:    "http://iaas.readthedocs.org/en/latest/status.html"
+      ssl:              false
+      servername:       "%{hiera('service__address__status')}"
+      vhost_name:       "%{hiera('service__address__status')}"

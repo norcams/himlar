@@ -12,9 +12,9 @@ rsyslog::server::log_templates:
     template: "%TIMESTAMP:::date-rfc3339% %syslogpriority-text% %HOSTNAME% %syslogtag%%msg:::drop-last-lf%\\n"
   - name:     'SyslogFileFormat'
     template: "%TIMESTAMP:::date-rfc3339% %pri-text% %HOSTNAME% %syslogtag%%msg:::drop-last-lf%\\n"
-  - name:     'NovaFile'
+  - name:     'HorizonFile'
     template: '/opt/log/%hostname%/nova.log'
-  - name:     'NovaAll'
+  - name:     'HorizonAll'
     template: '/opt/log/nova.log'
   - name:     'NeutronFile'
     template: '/opt/log/%hostname%/neutron.log'
@@ -32,6 +32,10 @@ rsyslog::server::log_templates:
     template: '/opt/log/%hostname%/cinder.log'
   - name:     'CinderAll'
     template: '/opt/log/cinder.log'
+  - name:     'NovaFile'
+    template: '/opt/log/%hostname%/nova.log'
+  - name:     'NovaAll'
+    template: '/opt/log/nova.log'
 
 rsyslog::client::server:              "%{hiera('service__address__rsyslog')}"
 rsyslog::client::port:                '514'
