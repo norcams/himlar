@@ -45,7 +45,7 @@ profile::openstack::image::api::backend: 'rbd'
 profile::network::services::dns_options:
   CNAME:
     default:
-      ttl: 3600
+      ttl: 86400
       keyfile: "/opt/repo/secrets/nodes/%{hostname}/etc/rndc-%{location}.key"
       server: 'alfalfa.uib.no'
   A:
@@ -55,7 +55,7 @@ profile::network::services::dns_options:
       server: 'alfalfa.uib.no'
   PTR:
     default:
-      ttl: 600
+      ttl: 86400
       keyfile: "/opt/repo/secrets/nodes/%{hostname}/etc/rndc-%{location}.key"
       server: 'alfalfa.uib.no'
 
