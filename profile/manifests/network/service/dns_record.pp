@@ -12,6 +12,10 @@ define profile::network::service::dns_record(
       $record_name = $name
       $data = regsubst($records[$name],'(.*[^.])$','\1.')
     }
+    'PTR': {
+      $record_name = $name
+      $data = regsubst($records[$name],'(.*[^.])$','\1.')
+    }
     default: {
       $record_name = $name
       $data   = $records[$name]
