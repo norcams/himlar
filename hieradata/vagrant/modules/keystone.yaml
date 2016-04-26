@@ -1,7 +1,4 @@
 ---
-keystone::use_syslog:    true
-keystone::log_facility:  'LOG_LOCAL2'
-
 # Turn on very verbose logging
 keystone::verbose: true
 keystone::debug:   true

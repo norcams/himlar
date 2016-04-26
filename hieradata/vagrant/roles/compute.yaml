@@ -8,11 +8,6 @@ include:
   default:
     - profile::logging::rsyslog::client
 
-# Because of this we cannot use syslog on master:
-# https://bugs.launchpad.net/kolla/liberty/+bug/1516306
-neutron::use_syslog:    true
-neutron::log_facility:  'LOG_LOCAL5'
-
 # The current vagrant box image do not have vda3 parso switch
 # off lvm for compute on vagrant
 profile::base::common::manage_lvm: false
