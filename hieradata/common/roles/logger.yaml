@@ -9,6 +9,7 @@ rsyslog::perm_dir:    '0755'
 
 profile::logging::elasticsearch::instances:
   'openstack':
+    datadir:  '/opt/els/openstack'
     config:
       'cluster.name':             "logger"
       'index.number_of_replicas': '0'
@@ -18,3 +19,12 @@ profile::logging::elasticsearch::instances:
 
 profile::base::common::packages:
   - java-1.8.0-openjdk
+
+lvm::volume_groups:
+  vg_log:
+    physical_volumes:
+      - /dev/vdb
+    logical_volumes:
+      lv_log:
+        fs_type:   xfs
+        mountpath: "/opt"
