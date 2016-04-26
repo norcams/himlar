@@ -1,4 +1,7 @@
 ---
+rsyslog::system_log_rate_limit_interval:  '1'
+rsyslog::system_log_rateLimit_burst:      '500'
+
 rsyslog::server::address:             "%{ipaddress_mgmt1}"
 rsyslog::server::actionfiletemplate:  'RSYSLOG_FileFormat'
 rsyslog::server::port:                514
