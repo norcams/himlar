@@ -45,15 +45,12 @@ filter {
 
 output {
   elasticsearch {
-    host => "<%= @ipaddress_mgmt1 %>:9200"
-    protocol => "http"
-    template => "/etc/logstash/elasticsearch-template.json"
-    template_overwrite => "true"
+    hosts => "<%= @ipaddress_mgmt1 %>:9200"
   }
 
-	file {
-		path => "/var/log/logstash/%{openstack_hostname}-%{+YYYY-MM-dd}.log"
-		codec => "rubydebug"
-	}
+  file {
+    path => "/var/log/logstash/%{openstack_hostname}-%{+YYYY-MM-dd}.log"
+    codec => "rubydebug"
+  }
 
 }

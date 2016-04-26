@@ -1,5 +1,4 @@
 ---
-
 rsyslog::server::address:             "%{ipaddress_mgmt1}"
 rsyslog::server::actionfiletemplate:  'RSYSLOG_FileFormat'
 rsyslog::server::port:                514
@@ -13,9 +12,9 @@ rsyslog::server::log_templates:
   - name:     'SyslogFileFormat'
     template: "%TIMESTAMP:::date-rfc3339% %pri-text% %HOSTNAME% %syslogtag%%msg:::drop-last-lf%\\n"
   - name:     'HorizonFile'
-    template: '/opt/log/%hostname%/nova.log'
+    template: '/opt/log/%hostname%/horizon.log'
   - name:     'HorizonAll'
-    template: '/opt/log/nova.log'
+    template: '/opt/log/horizon.log'
   - name:     'NeutronFile'
     template: '/opt/log/%hostname%/neutron.log'
   - name:     'NeutronAll'
