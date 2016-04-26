@@ -2,6 +2,7 @@
 include:
   default:
     - profile::network::yum_proxy
+    - profile::logging::rsyslog::client
 
 profile::network::yum_proxy::yum_proxy: 'http://172.16.0.12:8888'
 

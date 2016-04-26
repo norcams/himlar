@@ -1,3 +1,7 @@
 ---
+include:
+  default:
+    - profile::logging::rsyslog::client
+
 dashboard_referer:    '^https://dashboard\.iaas\.uib\.no/dashboard'
 dashboard_ssl_files:  'dashboard_iaas_uib_no'
