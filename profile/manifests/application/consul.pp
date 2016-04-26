@@ -33,7 +33,7 @@ class profile::application::consul (
 #      "client_addr"      => "0.0.0.0",
 #      "advertise_addr"   => $ipaddress_eth0,
 #    }
-   }
+  }
 
   if $manage_firewall {
     profile::firewall::rule { '190 consul-dns accept tcp':

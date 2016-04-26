@@ -4,12 +4,12 @@ class profile::base::login
 {
   include googleauthenticator::pam::common
 
-  $pam_modes = hiera('googleauthenticator::pam::mode::modes', {}) 
+  $pam_modes = hiera('googleauthenticator::pam::mode::modes', {})
   if $pam_modes {
     create_resources('googleauthenticator::pam::mode', $pam_modes)
   }
 
-  $pam_modules = hiera('googleauthenticator::pam::modules', {}) 
+  $pam_modules = hiera('googleauthenticator::pam::modules', {})
   if $pam_modules {
     create_resources('googleauthenticator::pam', $pam_modules)
   }

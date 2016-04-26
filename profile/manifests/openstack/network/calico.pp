@@ -16,7 +16,10 @@ class profile::openstack::network::calico(
   }
 
   # Define a wrapper to avoid duplicating config per interface
+  # TODO: Make a proper define
+  # lint:ignore:autoloader_layout
   define calico_interface {
+  # lint:endignore
     $iniface_name = regsubst($name, '_', '.')
     profile::firewall::rule { "010 bird bgp - accept tcp to ${name}":
         proto   => 'tcp',
