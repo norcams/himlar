@@ -58,3 +58,7 @@ nova::network::neutron::neutron_region_name: "%{location}"
 nova::keystone::auth::password:                 "%{hiera('nova_api_password')}"
 nova::api::admin_password:                      "%{hiera('nova_api_password')}"
 nova::network::neutron::neutron_admin_password: "%{hiera('neutron_api_password')}"
+
+# logging
+nova::use_syslog:   true
+nova::log_facility: 'LOG_LOCAL0'
