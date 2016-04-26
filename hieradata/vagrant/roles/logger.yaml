@@ -5,12 +5,16 @@ include:
     - profile::logging::logstash
     - profile::logging::elasticsearch
 
+rsyslog::perm_dir:    '0755'
+
 profile::logging::elasticsearch::instances:
   'openstack':
     config:
       'cluster.name':             "logger"
       'index.number_of_replicas': '0'
       'index.number_of_shards':   '1'
-      'network.host':             "0.0.0.0" #"%{ipaddress_mgmt1}"
+      'network.host':             "%{ipaddress_mgmt1}"
       'node.name':                "%{::hostname}"
-#    init_defaults: {}
+
+profile::base::common::packages:
+  - java-1.8.0-openjdk
