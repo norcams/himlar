@@ -21,7 +21,7 @@ class profile::application::consul (
 #    install_method       => 'package',
     config_defaults      => hiera_hash('consul::config_hash'),
     config_hash          => {
-      "node_name"        => $hostname,
+      "node_name"        => $::hostname,
       "data_dir"         => "/opt/consul",
       "client_addr"      => "0.0.0.0",
     }
@@ -33,7 +33,7 @@ class profile::application::consul (
 #      "client_addr"      => "0.0.0.0",
 #      "advertise_addr"   => $ipaddress_eth0,
 #    }
-   }
+  }
 
   if $manage_firewall {
     profile::firewall::rule { '190 consul-dns accept tcp':

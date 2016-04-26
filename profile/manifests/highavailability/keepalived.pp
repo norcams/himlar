@@ -18,9 +18,9 @@ class profile::highavailability::keepalived (
   create_resources('keepalived::vrrp::instance', $keepalived_vrrp_instances)
 
   $allow_nonlocal_bind = bool2num($ip_nonlocal_bind)
-  sysctl { 'net.ipv4.ip_nonlocal_bind' :
+  sysctl { 'net.ipv4.ip_nonlocal_bind':
     ensure => present,
-    value  => "${allow_nonlocal_bind}",
+    value  => $allow_nonlocal_bind,
   }
 
 }

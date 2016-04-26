@@ -16,7 +16,12 @@ class profile::openstack::network::calico(
   }
 
   # Define a wrapper to avoid duplicating config per interface
+  # TODO: Make a proper define
+  # lint:ignore:nested_classes_or_defines
+  # lint:ignore:autoloader_layout
   define calico_interface {
+  # lint:endignore
+  # lint:endignore
     $iniface_name = regsubst($name, '_', '.')
     profile::firewall::rule { "010 bird bgp - accept tcp to ${name}":
         proto   => 'tcp',
@@ -40,7 +45,7 @@ class profile::openstack::network::calico(
       chain => 'POSTROUTING',
       port  => '68',
       extras => {
-        checksum_fill => 'true',
+        checksum_fill => true,
         table         => 'mangle',
         jump          => 'CHECKSUM',
         action        => undef,

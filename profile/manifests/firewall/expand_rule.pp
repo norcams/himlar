@@ -7,7 +7,7 @@ define profile::firewall::expand_rule(
 
   # Override $type with $name
   $with_source = {
-    "$type" => $name
+    "${type}" => $name
   }
 
   $real_rule = merge($rule, $with_source)

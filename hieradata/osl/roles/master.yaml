@@ -1,9 +1,9 @@
 ---
 include:
   default:
-    - profile::network::yum-proxy
+    - profile::network::yum_proxy
 
-profile::network::yum-proxy::yum_proxy: 'http://172.16.32.12:8888'
+profile::network::yum_proxy::yum_proxy: 'http://172.16.32.12:8888'
 
 ntp::servers:
   - 172.16.32.106
