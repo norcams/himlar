@@ -41,3 +41,7 @@ keystone::federation::oidc::redirect_uri: "%{hiera('endpoint_protocol')}://%{hie
 keystone::federation::oidc::client_id: 00000000-0000-0000-0000-000000000000
 keystone::federation::oidc::client_secret: 00000000-0000-0000-0000-000000000000
 keystone::federation::oidc::crypto_passphrase: openstack
+
+# logging
+keystone::use_syslog:    true
+keystone::log_facility:  'LOG_LOCAL2'

@@ -28,3 +28,7 @@ cinder::keystone::auth::internal_url_v2:  "http://%{hiera('service__address__cin
 cinder::volume::iscsi::iscsi_ip_address:  "%{hiera('service__address__cinder_api')}"
 cinder::api::keystone_password:           "%{hiera('cinder_api_password')}"
 cinder::keystone::auth::password:         "%{hiera('cinder_api_password')}"
+
+# logging
+cinder::use_syslog:     true
+cinder::log_facility:   'LOG_LOCAL4'
