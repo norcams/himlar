@@ -2,6 +2,7 @@
 class profile::application::access(
   $manage_firewall = true,
   $package_url = false,
+  $firewall_extras = {},
 ) {
 
   include ::dpapp
@@ -12,15 +13,13 @@ class profile::application::access(
     port   => [ 80, 443 ],
     destination => $::ipaddress_public1,
     source      => $allow_from_network,
-    extras => {
-      ensure => $manage_firewall? { true => present , default => absent }
-    }
+    extras      => $firewall_extras,
   }
 
   if $package_url {
     package { 'himlar-dp-prep':
-      provider => 'rpm',
       ensure   => 'installed',
+      provider => 'rpm',
       source   => $package_url,
       before   => Class['dpapp'],
     }

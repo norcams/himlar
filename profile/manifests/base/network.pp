@@ -30,7 +30,7 @@ class profile::base::network(
     kmod::option { "Number of dummy interfaces":
       module => "dummy",
       option => "numdummies",
-      value =>  "$no_of_dummies",
+      value =>  $no_of_dummies,
     }
   }
 
@@ -39,7 +39,7 @@ class profile::base::network(
     file { '/sbin/ifup-local':
       owner   => 'root',
       group   => 'root',
-      mode    => '754',
+      mode    => '0754',
       content => template("${module_name}/network/ifup-local.erb"),
     }
   }

@@ -2,7 +2,8 @@
 class profile::logging::elasticsearch(
   $instances = {},
   $manage_firewall = true,
-  $ports = [9200]
+  $ports = [9200],
+  $firewall_extras = {},
 ) {
 
   include ::elasticsearch
@@ -10,7 +11,7 @@ class profile::logging::elasticsearch(
   create_resources('elasticsearch::instance', $instances)
 
   info($instances)
-  
+
   if $manage_firewall {
     $allow_from_network = hiera_array('allow_from_network')
     profile::firewall::rule { '400 elasticsearch accept tcp':

@@ -26,7 +26,7 @@ class profile::openstack::network::controller(
   if $manage_firewall {
     profile::firewall::rule { '210 neutron-server accept tcp':
       port   => 9696,
-      extras => $extras
+      extras => $firewall_extras,
     }
   }
 }

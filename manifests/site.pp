@@ -33,7 +33,10 @@ $runmode_classes = $classes[$::runmode]
 info("certname=${verified_certname} location=${location} role=${role} hostid=${hostid} runmode=${::runmode}")
 info(join($runmode_classes,' '))
 
+# TODO: Move this define out
+# lint:ignore:autoloader_layout
 define site::include
+# lint:endignore
 {
   info($name)
   include $name
