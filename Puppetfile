@@ -22,6 +22,7 @@ mod 'named_interfaces', :ref => '0.2.0',         :git => github + 'norcams/puppe
 mod 'network', :ref => '4fb822167c',             :git => github + 'norcams/puppet-network'
 mod 'ipmi', :ref => 'c4309504fd',                :git => github + 'norcams/puppet-ipmi'
 mod 'lldp', :ref => '06523de010',                :git => github + 'norcams/puppet-lldp'
+mod 'apt', :ref => '2.2.2',                      :git => github + 'puppetlabs/puppetlabs-apt'
 
 #
 # profile::base::login
