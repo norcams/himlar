@@ -17,7 +17,6 @@ class profile::base::common (
   $include_physical       = false,
   $include_virtual        = false,
   $packages               = [],
-  $packages_ensure        = 'installed',
   $classes                = [],
 ) {
   include $classes
