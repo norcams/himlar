@@ -89,6 +89,6 @@ class profile::base::common (
   }
 
   if $packages {
-    create_resources('package', hiera('profile::base::common::packages', {}))
+    create_resources('package', hiera_hash('profile::base::common::packages', {}))
   }
 }
