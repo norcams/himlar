@@ -16,11 +16,12 @@ profile::base::common::include_physical:       true
 profile::base::firewall::manage_firewall:      true
 
 profile::base::common::packages:
-  - 'tcpdump'
-  - 'tree'
-  - 'htop'
-  - 'vim-enhanced'
-  - 'bind-utils'
+  'tcpdump': {}
+  'tree': {}
+  'htop': {}
+  'vim-enhanced': {}
+  'bind-utils': {}
+  'nano': {}
 
 profile::base::common::classes:
   - puppet

@@ -31,7 +31,13 @@ profile::openstack::adminrc::tenant_name: 'openstack'
 
 profile::base::common::manage_lvm: false
 profile::base::common::packages:
-  - python-etcd
+  'python-etcd': {}
+  'tcpdump': {}
+  'tree': {}
+  'htop': {}
+  'vim-enhanced': {}
+  'bind-utils': {}
+  'nano': {}
 
 profile::openstack::identity::keystone_config:
   DEFAULT/secure_proxy_ssl_header:

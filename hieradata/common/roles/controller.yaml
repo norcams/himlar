@@ -38,7 +38,13 @@ profile::base::network::remove_route_ifs:
   - dummy1
 profile::base::common::manage_lvm: true
 profile::base::common::packages:
-  - bridge-utils
+  'bridge-utils': {}
+  'tcpdump': {}
+  'tree': {}
+  'htop': {}
+  'vim-enhanced': {}
+  'bind-utils': {}
+  'nano': {}
 
 named_interfaces::config:
   mgmt:

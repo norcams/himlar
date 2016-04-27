@@ -16,7 +16,13 @@ profile::base::manage_lvm:                           true
 profile::storage::cephosd_firewall::manage_firewall: true
 
 profile::base::common::packages:
-  - redhat-lsb-core
+  'redhat-lsb-core': {}
+  'tcpdump': {}
+  'tree': {}
+  'htop': {}
+  'vim-enhanced': {}
+  'bind-utils': {}
+  'nano': {}
 
 accounts::users:
   'cinder':

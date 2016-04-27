@@ -19,7 +19,13 @@ profile::logging::elasticsearch::instances:
       'node.name':                "%{::hostname}"
 
 profile::base::common::packages:
-  - java-1.8.0-openjdk
+  'java-1.8.0-openjdk': {}
+  'tcpdump': {}
+  'tree': {}
+  'htop': {}
+  'vim-enhanced': {}
+  'bind-utils': {}
+  'nano': {}
 
 lvm::volume_groups:
   vg_log:
