@@ -3,6 +3,7 @@ class profile::network::services(
   $manage_dhcp        = false,
   $manage_nat         = false,
   $manage_dns_records = false,
+  $manage_dhcp_rsvs   = false,
   $dns_proxy          = false,
   $http_proxy         = false,
   $ntp_server         = false,
@@ -59,6 +60,10 @@ class profile::network::services(
         records => $dns_records,
       }
 
+    }
+
+    if $manage_dhcp_rsvs {
+      create_resources(dhcp::host, hiera_hash('profile::network::services::dhcp_reservation', {}))
     }
 
     # Enable a dns proxy server
