@@ -4,6 +4,7 @@ include:
     - profile::logging::rsyslog::server
     - profile::logging::logstash
     - profile::logging::elasticsearch
+    - profile::logging::kibana
 
 rsyslog::perm_dir:    '0755'
 
@@ -14,7 +15,7 @@ profile::logging::elasticsearch::instances:
       'cluster.name':             "logger"
       'index.number_of_replicas': '0'
       'index.number_of_shards':   '1'
-      'network.host':             "%{ipaddress_mgmt1}"
+      'network.host':             "127.0.0.1"
       'node.name':                "%{::hostname}"
 
 profile::base::common::packages:
