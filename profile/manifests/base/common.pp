@@ -16,7 +16,6 @@ class profile::base::common (
   $manage_keyboard        = false,
   $include_physical       = false,
   $include_virtual        = false,
-  $manage_packages        = true,
   $packages               = [],
   $packages_ensure        = 'installed',
   $classes                = [],
@@ -90,12 +89,11 @@ class profile::base::common (
     include ::profile::base::virtual
   }
 
-  if $manage_packages {
-    if $packages {
-      $install_packages = hiera_array('profile::base::common::packages')
-      package { $install_packages:
-        ensure => $packages_ensure
-      }
+  if $packages {
+    $install_packages = hiera_array('profile::base::common::packages')
+    package { $install_packages:
+    ensure => $packages_ensure
     }
   }
+
 }
