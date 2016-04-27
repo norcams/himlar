@@ -4,7 +4,10 @@ class profile::openstack::dashboard(
   $ports = [80,443,5000,6080,8773,8774,8776,9292,9696],
   $manage_firewall = true,
   $service_net = "${::network_service1}/${::netmask_service1}",
-  $firewall_extras = {}
+  $firewall_extras = {},
+  $manage_overrides = true,
+  $override_template = "${module_name}/openstack/horizon/local_settings.erb",
+  $site_branding = 'UH-IaaS'
 ) {
   include ::horizon
 
@@ -26,6 +29,19 @@ class profile::openstack::dashboard(
       source => $service_net,
       extras => $firewall_extras,
     }
+  }
+
+  if $manage_overrides {
+    file { '/usr/share/openstack-dashboard/openstack_dashboard/overrides.py':
+      ensure => present,
+      source => "puppet:///modules/${module_name}/openstack/horizon/overrides.py",
+      notify => Service['httpd']
+    }
+  }
+  concat::fragment { 'extra-local_settings.py':
+    target  => $::horizon::params::config_file,
+    content => template($override_template),
+    order   => '99',
   }
 
 }
