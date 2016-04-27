@@ -55,7 +55,7 @@ nodesets:
     - role: "compute"
     - role: "logger"
       cpus:   1
-      memory: 1024
+      memory: 2048
   access:
     - role: "db"
       cpus:   1
@@ -71,7 +71,7 @@ nodesets:
     - role: "compute"
     - role: "logger"
       cpus:   1
-      memory: 1024
+      memory: 2048
   infra:
     - role: "login"
     - role: "controller"
