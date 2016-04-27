@@ -38,7 +38,7 @@ profile::base::network::remove_route_ifs:
   - dummy1
 profile::base::common::manage_lvm: true
 profile::base::common::packages:
-  - bridge-utils
+  'bridge-utils': {}
 
 named_interfaces::config:
   mgmt:

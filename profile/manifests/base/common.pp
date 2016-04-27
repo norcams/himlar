@@ -17,7 +17,6 @@ class profile::base::common (
   $include_physical       = false,
   $include_virtual        = false,
   $packages               = [],
-  $packages_ensure        = 'installed',
   $classes                = [],
 ) {
   include $classes
@@ -90,10 +89,6 @@ class profile::base::common (
   }
 
   if $packages {
-    $install_packages = hiera_array('profile::base::common::packages')
-    package { $install_packages:
-      ensure => $packages_ensure
-    }
+    create_resources('package', hiera_hash('profile::base::common::packages', {}))
   }
-
 }

@@ -15,8 +15,8 @@ profile::openstack::adminrc::username:    'admin'
 profile::openstack::adminrc::tenant_name: 'openstack'
 
 profile::base::common::packages:
-  - python-oslo-log
-  - python-openstackclient
+  'python-oslo-log': {}
+  'python-openstackclient': {}
 
 dashboard_referer:    '^https://dashboard\.'
 dashboard_ssl_files:  "%{::fqdn}"
