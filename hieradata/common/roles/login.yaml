@@ -10,6 +10,9 @@ profile::base::firewall::manage_firewall: false
 profile::network::services::manage_nat: true
 puppet::runmode: 'none'
 
+profile::firewall::pre::ssh_settings:
+  source: "0.0.0.0/0"
+
 accounts::accounts:
   'hege':
     ensure: present
