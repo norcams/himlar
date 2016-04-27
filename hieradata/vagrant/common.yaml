@@ -22,6 +22,9 @@ allow_from_network:
 
 endpoint_protocol: 'https'
 
+profile::firewall::pre::ssh_settings:
+  source: "0.0.0.0/0"
+
 #
 # Openstack services
 #

@@ -9,6 +9,9 @@ include:
     - profile::base::common
     - profile::base::firewall
 
+profile::firewall::pre::ssh_settings:
+  source: "%{::network_mgmt1}/%{::netmask_mgmt1}"
+
 #
 # Location metadata
 #
