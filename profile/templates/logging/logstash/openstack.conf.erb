@@ -3,6 +3,7 @@ input {
   file {
     path => "/opt/log/nova.log"
     type => "nova"
+    start_position => beginning
   }
 
   file {
@@ -28,6 +29,13 @@ input {
     type => "keystone"
     start_position => beginning
   }
+
+  file {
+    path => "/opt/log/horizon.log"
+    type => "horizon"
+    start_position => beginning
+  }
+
 }
 
 filter {
