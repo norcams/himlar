@@ -2,4 +2,21 @@
 include:
   default:
     - profile::network::leaf
+    - profile::base::common
+  bootstrap:
+    - profile::base::common
 
+profile::base::common::classes:
+  - puppet
+
+profile::base::common::manage_keyboard:        false
+profile::base::common::manage_network:         false
+profile::base::common::include_virtual:        false
+profile::base::common::include_physical:       false
+profile::base::common::manage_sudo:            false
+profile::base::common::manage_packages:        false
+profile::base::firewall::manage_firewall:      false
+
+accounts::groups:
+  'wheel':
+    ensure: 'present'
