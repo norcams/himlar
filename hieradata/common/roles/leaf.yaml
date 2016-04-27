@@ -8,6 +8,7 @@ include:
 
 profile::base::common::classes:
   - puppet
+  - openstack_extras::repo::debian::debian
 
 profile::base::common::manage_keyboard:        false
 profile::base::common::manage_network:         false
@@ -20,3 +21,11 @@ profile::base::firewall::manage_firewall:      false
 accounts::groups:
   'wheel':
     ensure: 'present'
+
+openstack_extras::repo::debian::debian::package_require: true
+openstack_extras::repo::debian::debian::manage_uca: false
+openstack_extras::repo::debian::debian::manage_whz: false
+openstack_extras::repo::debian::debian::source_hash:
+  'wheezy':
+    'location': 'http://ftp.us.debian.org/debian/'
+    'repos':    'main contrib non-free'
