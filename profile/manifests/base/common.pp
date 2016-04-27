@@ -95,5 +95,4 @@ class profile::base::common (
       ensure => $packages_ensure
     }
   }
-
- }
+}
