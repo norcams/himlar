@@ -29,3 +29,9 @@ openstack_extras::repo::debian::debian::source_hash:
   'wheezy':
     'location': 'http://ftp.us.debian.org/debian/'
     'repos':    'main contrib non-free'
+
+profile::base::common::packages:
+  'vim-enhanced': { 'ensure': 'absent', }
+  'bind-utils': { 'ensure': 'absent', }
+  'libaugeas-ruby1.9.1': {}
+  'augeas-tools': {}
