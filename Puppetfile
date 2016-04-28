@@ -42,7 +42,7 @@ mod 'calico', :ref => 'reflector_fix',           :git => github + 'raykrist/pupp
 mod 'dnsmasq', :ref => 'v1.2.0',                 :git => github + 'saz/puppet-dnsmasq'
 mod 'ipcalc', :ref => '1.2.2',                   :git => github + 'inkblot/puppet-ipcalc'
 mod 'tinyproxy', :ref => 'bc56e3ecc2',           :git => github + 'earsdown/puppet-tinyproxy'
-mod 'cl-interfaces', :ref => '1.2.2',            :git => github + 'CumulusNetworks/cumulus-cl-interfaces-puppet'
+mod 'interfaces', :ref => '1.2.2',               :git => github + 'CumulusNetworks/cumulus-cl-interfaces-puppet'
 
 #
 # profile::application::etcd
