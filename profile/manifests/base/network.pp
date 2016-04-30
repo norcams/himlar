@@ -55,6 +55,11 @@ class profile::base::network(
     }
   }
 
+  if $node_multinic {
+    sysctl::value { "net.ipv4.conf.all.rp_filter":
+      value => 2,
+  }
+
   # Create extra routes on ifup
   create_resources(network::mroute, hiera_hash('profile::base::network::mroute', {}))
 
