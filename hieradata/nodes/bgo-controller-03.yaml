@@ -1,11 +1,4 @@
 ---
-named_interfaces::config:
-  mgmt:
-    - br0
-  transport:
-    - br1
-    - em2
-
 network::interfaces_hash:
   'em1':
     onboot:    "yes"
