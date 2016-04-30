@@ -23,19 +23,10 @@ network::interfaces_hash:
     vlan:      'yes'
     defroute:  'no'
   'dummy0':
-    ipaddress: '129.177.31.97'
-    netmask:   '255.255.255.224'
-    defroute:  'no'
-  'dummy1':
     ipaddress: '172.31.16.1'
     netmask:   '255.255.255.0'
     defroute:  'no'
-  'atap-access01':
-    bootproto: 'none'
-    type:      'Tap'
-    onboot:    'yes'
-
-profile::base::network::mroute:
-  'dummy0':
-    routes:
-      '129.177.31.125/32': 'atap-access01'
+  'dummy1':
+    ipaddress: '129.177.31.97'
+    netmask:   '255.255.255.224'
+    defroute:  'no'
