@@ -43,3 +43,5 @@ sudo::configs:
       - 'snmp ALL = NOPASSWD: /usr/cumulus/bin/cl-resource-query'
       - 'snmp ALL=(root) NOPASSWD: /sbin/ethtool -S *'
       - 'snmp ALL=(root) NOPASSWD: /sbin/ip'
+
+profile::base::network::cumulus_ifs: true
