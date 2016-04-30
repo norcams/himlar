@@ -61,8 +61,11 @@ class profile::base::network(
     }
   }
 
-  # Create extra routes on ifup
+  # Create extra routes, tables, rules on ifup
   create_resources(network::mroute, hiera_hash('profile::base::network::mroute', {}))
+  create_resources(network::routing_table, hiera_hash('profile::base::network::routing_tables', {}))
+  create_resources(network::route, hiera_hash('profile::base::network::routes', {}))
+  create_resources(network::rule, hiera_hash('profile::base::network::rules', {}))
 
   if $manage_httpproxy {
     $ensure_value = $http_proxy ? {
