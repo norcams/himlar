@@ -14,17 +14,17 @@ service__address__cinder_public_api: 'test.iaas.uib.no'
 service__address__consoleproxy:      '129.177.31.126'
 
 # service/transport1
-service__address__nova_api:          '172.31.34.20'
-service__address__nova_api_metadata: '172.31.34.20'
-service__address__glance_registry:   '172.31.34.20'
-service__address__glance_api:        '172.31.34.20'
-service__address__keystone:          '172.31.34.20'
-service__address__keystone_admin:    '172.31.34.20'
-service__address__rabbitmq:          '172.31.34.20'
-service__address__etcd_cluster:      '172.31.34.20'
-service__address__neutron_server:    '172.31.34.20'
-service__address__cinder_api:        '172.31.34.20'
-service__address__mysql:             '172.31.34.21'
+service__address__nova_api:          '172.31.16.20'
+service__address__nova_api_metadata: '172.31.16.20'
+service__address__glance_registry:   '172.31.16.20'
+service__address__glance_api:        '172.31.16.20'
+service__address__keystone:          '172.31.16.20'
+service__address__keystone_admin:    '172.31.16.20'
+service__address__rabbitmq:          '172.31.16.20'
+service__address__etcd_cluster:      '172.31.16.20'
+service__address__neutron_server:    '172.31.16.20'
+service__address__cinder_api:        '172.31.16.20'
+service__address__mysql:             '172.31.16.21'
 
 ntp::servers:
   - ntp.uib.no
