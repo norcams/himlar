@@ -58,11 +58,6 @@ profile::virtualization::libvirt::networks:
     autostart:           true
     forward_mode:        bridge
     bridge:              br0
-  transport_temp:
-    ensure:              enabled
-    autostart:           true
-    forward_mode:        bridge
-    bridge:              br1
 profile::virtualization::libvirt::pools:
   dirpool:
     ensure:              present
@@ -95,3 +90,4 @@ consul::config_hash:
   'ui_dir': '/opt/consul/ui'
   'ports':
     'https': '8550'
+
