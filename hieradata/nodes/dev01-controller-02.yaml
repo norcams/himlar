@@ -48,14 +48,14 @@ network::interfaces_hash:
     onboot:    'yes'
 
 profile::base::network::mroute:
-  'dummy1':
-    routes:
-      '129.177.31.125/32': 'atap0-access01'
-      '129.177.31.126/32': 'atap0-dboard01'
   'dummy0':
     routes:
-      '172.31.16.19':      'atap1-access01'
-      '172.31.16.22':      'atap1-dboard01'
+      '172.31.16.19':      'atap0-access01'
+      '172.31.16.22':      'atap0-dboard01'
+  'dummy1':
+    routes:
+      '129.177.31.125/32': 'atap1-access01'
+      '129.177.31.126/32': 'atap1-dboard01'
 
 lvm::volume_groups:
   vg_root:
