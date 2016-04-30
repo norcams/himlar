@@ -7,6 +7,7 @@ class profile::base::network(
   $remove_route     = false,
   $remove_route_ifs = undef,
   $l3_router        = false,
+  $node_multinic    = false,
 ) {
 
   # Set up extra logical fact names for network facts

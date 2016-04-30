@@ -3,6 +3,7 @@ include:
   default:
     - profile::network::services
 
+profile::base::network::node_multinic: true
 profile::network::services::dns_proxy: true
 profile::network::services::http_proxy: true
 profile::network::services::firewall_extras:

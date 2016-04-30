@@ -29,6 +29,7 @@ profile::openstack::adminrc::region_name: "%{::location}"
 profile::openstack::adminrc::username:    'admin'
 profile::openstack::adminrc::tenant_name: 'openstack'
 
+profile::base::network::node_multinic: true
 profile::base::common::manage_lvm: false
 profile::base::common::packages:
   'python-etcd': {}
