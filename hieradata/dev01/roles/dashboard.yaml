@@ -12,3 +12,5 @@ profile::openstack::api::default_vhost_config:
 
 dpapp_referer:      '^https://accesstest\.iaas\.uib\.no/login\?'
 dashboard_referer:  '^https://test\.iaas\.uib\.no/dashboard'
+
+profile::base::network::has_servicenet: true

@@ -10,3 +10,5 @@ profile::webserver::apache::vhosts:
     ssl_ca:             "/etc/pki/tls/certs/DigiCertCA.crt"
     ssl_cert:           "/etc/pki/tls/certs/accesstest_iaas_uib_no.crt"
     ssl_key:            "/etc/pki/tls/private/accesstest_iaas_uib_no.key"
+
+profile::base::network::has_servicenet: true
