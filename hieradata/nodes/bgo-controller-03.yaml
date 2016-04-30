@@ -1,8 +1,13 @@
 ---
 network::interfaces_hash:
   'em1':
+    ipaddress: '172.18.0.102'
+    netmask:   '255.255.248.0'
+    peerdns:   'yes'
+    dns1:      "%{hiera('service__address__proxy')}"
+    domain:    'mgmt.iaas.intern'
+    defroute:  'no'
     onboot:    "yes"
-    bridge:    'br1'
   'em2':
     ipaddress: '172.18.8.102'
     netmask:   '255.255.248.0'
@@ -16,16 +21,6 @@ network::interfaces_hash:
     netmask:   "255.255.248.0"
     gateway:   "172.16.0.1"
     defroute:  "no"
-    onboot:    "yes"
-    mtu:       "1500"
-    type:      'Bridge'
-  'br1':
-    ipaddress: '172.18.0.102'
-    netmask:   '255.255.248.0'
-    peerdns:   'yes'
-    dns1:      "%{hiera('service__address__proxy')}"
-    domain:    'mgmt.iaas.intern'
-    defroute:  'no'
     onboot:    "yes"
     mtu:       "1500"
     type:      'Bridge'
