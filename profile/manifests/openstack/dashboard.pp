@@ -1,7 +1,7 @@
 # Dashboard
 class profile::openstack::dashboard(
   $manage_ssl_cert = false,
-  $ports = [80,443,5000,6080,8773,8774,8776,9292,9696],
+  $ports = [80,443,5000,8773,8774,8776,9292,9696],
   $manage_firewall = true,
   $service_net = "${::network_service1}/${::netmask_service1}",
   $firewall_extras = {},
