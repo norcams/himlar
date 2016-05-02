@@ -68,8 +68,8 @@ class profile::base::network(
   # facts can not be used as these rules must be created in our initial kickstart run
   if $has_servicenet {
     # Get our named and node interfaces hashes
-    $named_interface_hash = hiera('named_interfaces::config')
-    $node_interface_hash = hiera('network::interfaces_hash')
+    $named_interface_hash = hiera_hash('named_interfaces::config')
+    $node_interface_hash = hiera_hash('network::interfaces_hash')
     # Extract our service interface, then som basic info for that interface
     $service_if = $named_interface_hash[service]
     $service_gateway = $node_interface_hash["$service_if"][gateway]
@@ -89,7 +89,7 @@ class profile::base::network(
     }
     # When answering requests to service interface, always send answer on this interface
     network::rule { $service_if:
-      iprule => [ "from $service_ifaddr/$service_ifmask lookup service-net", ],
+      iprule => [ "from ${service_ifaddr}/${service_ifmask} lookup service-net", ],
     }
   }
 
