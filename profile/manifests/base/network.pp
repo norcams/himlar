@@ -1,6 +1,7 @@
 #
 class profile::base::network(
   $manage_dummy     = false,
+  $net_ifnames      = true,
   $no_of_dummies    = 1,
   $manage_httpproxy = false,
   $http_proxy       = undef,
@@ -20,9 +21,11 @@ class profile::base::network(
 
   # - Set ifnames=0 and use old ifnames, e.g 'eth0'
   # - Use biosdevname on physical servers, e.g 'em1'
-  kernel_parameter { "net.ifnames":
-    ensure => present,
-    value  => "0",
+  if $net_ifnames {
+    kernel_parameter { "net.ifnames":
+      ensure => present,
+      value  => "0",
+    }
   }
 
   # Persistently install dummy module
