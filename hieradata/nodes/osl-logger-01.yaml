@@ -5,3 +5,5 @@ network::interfaces_hash:
     netmask:   '255.255.248.0'
     gateway:   '172.16.32.1'
     mtu:       '1500'
+    peerdns:   'yes'
+    dns1:      "%{hiera('service__address__proxy')}"
