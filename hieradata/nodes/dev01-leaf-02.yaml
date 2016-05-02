@@ -1,0 +1,19 @@
+---
+profile::base::network::cumulus_interfaces:
+  'eth0':
+    'ipv4': [ '172.31.1.9/24', ]
+
+# In production environment these should be VLAN aware
+# bridges and actually tagged. This is not possible in
+# dev01 environment, though.
+profile::base::network::cumulus_bridges:
+  'br100':
+    'ipv4': [ '172.31.34.2/24', ]
+    'ports': [ 'swp1', ]
+    'alias_name': 'Transport_1 L2 if'
+    'mtu': '1500'
+  'br200':
+    'ipv4': [ '172.31.35.2/24', ]
+    'ports': [ 'swp2', ]
+    'alias_name': 'Transport_2 L2 if'
+    'mtu': '1500'
