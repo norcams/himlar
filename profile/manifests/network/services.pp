@@ -50,7 +50,6 @@ class profile::network::services(
     }
 
     if $manage_dns_records {
-      ensure_resource('package', 'bind-utils', {'ensure' => 'installed'})
       $dns_options = hiera_hash('profile::network::services::dns_options')
       $dns_records = hiera_hash('profile::network::services::dns_records')
       $record_types = keys($dns_records)
