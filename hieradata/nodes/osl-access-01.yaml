@@ -9,6 +9,10 @@ network::interfaces_hash:
     domain:    'iaas.uio.no'
     defroute:  'no'
   'eth1':
+    ipaddress: '172.18.32.19'
+    netmask:   '255.255.248.0'
+    defroute:  'no'
+  'eth2':
     ipaddress: '158.37.63.252'
     netmask:   '255.255.255.0'
     gateway:   '158.37.63.1'
