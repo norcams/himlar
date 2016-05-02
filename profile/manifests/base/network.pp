@@ -123,6 +123,14 @@ class profile::base::network(
   }
 
   if $cumulus_ifs {
+    # For cumulus interfaces to work, we need a non default interfaces config file
+    file { '/etc/network/interfaces':
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0754',
+      content => template("${module_name}/network/cl-interfaces.erb"),
+    }
+
     create_resources(cumulus_interface, hiera_hash('profile::base::network::cumulus_interfaces', {}))
     create_resources(cumulus_bridge, hiera_hash('profile::base::network::cumulus_bridges', {}))
     create_resources(cumulus_bond, hiera_hash('profile::base::network::cumulus_bonds', {}))
