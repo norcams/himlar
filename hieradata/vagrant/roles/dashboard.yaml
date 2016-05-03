@@ -14,6 +14,8 @@ profile::application::sslcert::commonname:      "dashboard.%{domain}"
 
 dashboard_ssl_files: 'vagrant'
 
+profile::openstack::dashboard::site_branding: 'vagrant-iaas'
+
 profile::openstack::api::default_vhost_config:
   servername:           "%{hiera('service__address__keystone_public')}"
   vhost_name:           "%{hiera('service__address__keystone_public')}"
