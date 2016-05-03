@@ -28,9 +28,9 @@ class profile::application::sslcert (
     template    => "${crt_dir}/${cert_name}.cnf",
     private_key => "${key_dir}/${cert_name}.key"
   } ->
-  file { "/tmp/serial":
-    ensure => present,
-    content => $serial
+  exec { 'generate tmp serial':
+    command => '/bin/date +%s > /tmp/serial',
+    creates => '/tmp/serial'
   } ->
   exec { 'sign-sslcert':
     command => "/bin/openssl ca -config ${ca_dir}/root.cnf -batch \
