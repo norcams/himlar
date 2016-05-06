@@ -134,5 +134,11 @@ class profile::base::network(
     create_resources(cumulus_interface, hiera_hash('profile::base::network::cumulus_interfaces', {}))
     create_resources(cumulus_bridge, hiera_hash('profile::base::network::cumulus_bridges', {}))
     create_resources(cumulus_bond, hiera_hash('profile::base::network::cumulus_bonds', {}))
+
+    # Check for Cumulus Management VRF, enable if disabled
+    exec { "cl-mgmtvrf --enable":
+      path   => "/usr/bin:/usr/sbin:/bin",
+      unless => "cl-mgmtvrf --status",
+    }
   }
 }
