@@ -17,6 +17,7 @@ profile::base::common::manage_packages:        false
 profile::base::firewall::manage_firewall:      false
 profile::base::network::net_ifnames:           false
 profile::base::network::cumulus_ifs:           true
+network::config_file_per_interface:            true
 
 accounts::groups:
   'wheel':
