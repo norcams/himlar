@@ -14,3 +14,19 @@ profile::openstack::api::default_vhost_config:
 
 dpapp_referer:      '^https://access\.iaas\.uio\.no/login\?'
 dashboard_referer:  '^https://dashboard\.iaas\.uio\.no/dashboard'
+
+# Manage upload dir
+profile::base::common::manage_lvm: true
+profile::base::lvm::physical_volume:
+  '/dev/vdb':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_upload':
+    physical_volumes:
+      - /dev/vdb
+profile::base::lvm::logical_volume:
+  'lv_upload':
+    volume_group: 'vg_upload'
+    fs_type:      "xfs"
+    mountpath:    "/tmp"
