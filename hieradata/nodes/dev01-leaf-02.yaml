@@ -1,7 +1,9 @@
 ---
-profile::base::network::cumulus_interfaces:
+network::interfaces_hash:
   'eth0':
-    'ipv4': [ '172.31.1.9/24', ]
+    'ipaddress': '172.31.1.9/24'
+    'post_up': [ '/etc/network/if-up.d/z90-route-eth0', ]
+    'post_down': [ '/etc/network/if-down.d/z90-route-eth0', ]
 
 # In production environment these should be VLAN aware
 # bridges and actually tagged. This is not possible in
@@ -17,3 +19,11 @@ profile::base::network::cumulus_bridges:
     'ports': [ 'swp2', ]
     'alias_name': 'Transport_2 L2 if'
     'mtu': '1500'
+
+# Add default route for management VRF
+profile::base::network::routes:
+  'eth0':
+    'ipaddress': [ '0.0.0.0', ]
+    'netmask':   [ '0.0.0.0', ]
+    'gateway':   [ '172.31.1.1', ]
+    'table':     [ 'mgmt', ]
