@@ -14,7 +14,6 @@ service__address__cinder_public_api: 'dashboard.iaas.uio.no'
 service__address__consoleproxy:      '158.37.63.254'
 
 # service/transport1
-service__address__proxy:             '172.16.32.12'
 service__address__nova_api:          '172.18.32.20'
 service__address__nova_api_metadata: '172.18.32.20'
 service__address__glance_registry:   '172.18.32.20'
@@ -26,6 +25,10 @@ service__address__etcd_cluster:      '172.18.32.20'
 service__address__neutron_server:    '172.18.32.20'
 service__address__cinder_api:        '172.18.32.20'
 service__address__mysql:             '172.18.32.21'
+
+# mgmt
+service__address__proxy:             '172.16.32.12'
+service__address__rsyslog:           '172.16.32.18'
 
 foreman_bootstrap::nameserver: 129.240.2.3
 
