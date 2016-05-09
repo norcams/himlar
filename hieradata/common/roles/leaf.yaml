@@ -11,11 +11,13 @@ profile::base::common::classes:
   - openstack_extras::repo::debian::debian
 
 profile::base::common::manage_keyboard:        false
-profile::base::common::manage_network:         false
 profile::base::common::include_virtual:        false
 profile::base::common::include_physical:       false
 profile::base::common::manage_packages:        false
 profile::base::firewall::manage_firewall:      false
+profile::base::network::net_ifnames:           false
+profile::base::network::cumulus_ifs:           true
+network::config_file_per_interface:            true
 
 accounts::groups:
   'wheel':
@@ -34,6 +36,7 @@ profile::base::common::packages:
   'bind-utils': { 'ensure': 'absent', }
   'libaugeas-ruby1.9.1': {}
   'augeas-tools': {}
+  'cl-mgmtvrf': {}
 
 sudo::configs:
   snmp:
@@ -43,3 +46,7 @@ sudo::configs:
       - 'snmp ALL = NOPASSWD: /usr/cumulus/bin/cl-resource-query'
       - 'snmp ALL=(root) NOPASSWD: /sbin/ethtool -S *'
       - 'snmp ALL=(root) NOPASSWD: /sbin/ip'
+
+profile::base::network::cumulus_interfaces:
+  'lo':
+    'addr_method': 'loopback'

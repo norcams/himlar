@@ -1,6 +1,7 @@
 #
 class profile::base::network(
   $manage_dummy     = false,
+  $net_ifnames      = true,
   $no_of_dummies    = 1,
   $manage_httpproxy = false,
   $http_proxy       = undef,
@@ -9,6 +10,7 @@ class profile::base::network(
   $l3_router        = false,
   $node_multinic    = false,
   $has_servicenet   = false,
+  $cumulus_ifs      = false,
 ) {
 
   # Set up extra logical fact names for network facts
@@ -19,9 +21,11 @@ class profile::base::network(
 
   # - Set ifnames=0 and use old ifnames, e.g 'eth0'
   # - Use biosdevname on physical servers, e.g 'em1'
-  kernel_parameter { "net.ifnames":
-    ensure => present,
-    value  => "0",
+  if $net_ifnames {
+    kernel_parameter { "net.ifnames":
+      ensure => present,
+      value  => "0",
+    }
   }
 
   # Persistently install dummy module
@@ -115,6 +119,27 @@ class profile::base::network(
       ensure  => exported,
       target  => $target,
       value   => $http_proxy,
+    }
+  }
+
+  if $cumulus_ifs {
+    # For cumulus interfaces to work, we need a non default interfaces config file
+    file { '/etc/network/interfaces':
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0754',
+      content => template("${module_name}/network/cl-interfaces.erb"),
+    }
+
+    create_resources(cumulus_interface, hiera_hash('profile::base::network::cumulus_interfaces', {}))
+    create_resources(cumulus_bridge, hiera_hash('profile::base::network::cumulus_bridges', {}))
+    create_resources(cumulus_bond, hiera_hash('profile::base::network::cumulus_bonds', {}))
+
+    # Check for Cumulus Management VRF, enable if disabled
+    exec { "cl-mgmtvrf --enable":
+      path   => "/usr/bin:/usr/sbin:/bin",
+      unless => "cl-mgmtvrf --status",
+      onlyif => [ 'test -e /etc/network/interfaces.d/eth0', 'test -e /etc/network/if-up.d/z90-route-eth0' ]
     }
   }
 }
