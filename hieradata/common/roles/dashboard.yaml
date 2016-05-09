@@ -5,6 +5,7 @@ include:
     - profile::openstack::compute::consoleproxy
     - profile::openstack::api
     - profile::openstack::adminrc
+    - profile::logging::rsyslog::client
 
 profile::openstack::compute::consoleproxy::manage_firewall: false
 

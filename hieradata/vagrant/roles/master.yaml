@@ -2,7 +2,6 @@
 include:
   default:
     - profile::network::localdns
-    - profile::logging::rsyslog::client
 
 calico::compute_manage_bird_config:   false
 calico::reflector::bird_template:     'calico/compute/bird.conf.erb'
