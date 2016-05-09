@@ -11,3 +11,11 @@ openssl req -config root.cnf \
 openssl x509 -noout -text -in certs/ca.cert.pem
 
 cp -f certs/ca.cert.pem certs/ca-chain.cert.pem
+
+echo "
+To make the new CA work with your browser remember to edit /etc/hosts
+with the following lines on the machine you are running your browser:
+----------------------------------------------------------------------
+172.31.24.19    access.himlar.local
+172.31.24.22    dashboard.himlar.local
+"
