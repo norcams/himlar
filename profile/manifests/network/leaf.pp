@@ -10,6 +10,10 @@ class profile::network::leaf(
     file { '/tmp/licfile':
       ensure  => file,
       content => $cumulus_license,
+    } ->
+    cumulus_license { 'cumulus_license':
+      src => '/tmp/licfile',
+      notify => Service['switchd']
     }
   }
 }
