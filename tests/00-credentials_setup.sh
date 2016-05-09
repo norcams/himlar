@@ -23,8 +23,9 @@ cat <<'END_DEMO' > ~/keystonerc_demo
 export OS_USERNAME=demo
 export OS_TENANT_NAME=demoproject
 export OS_PASSWORD=himlar0pen
-export OS_AUTH_URL=http://172.31.24.22:5000/v3
+export OS_AUTH_URL=https://dashboard.himlar.local:5000/v3
 export OS_IDENTITY_API_VERSION=3
+export OS_CACERT=/opt/himlar/provision/ca/certs/ca-chain.cert.pem
 export OS_USER_DOMAIN_NAME=${OS_USER_DOMAIN_NAME:-"Default"}
 export OS_PROJECT_DOMAIN_NAME=${OS_PROJECT_DOMAIN_NAME:-"Default"}
 export PS1='\[\e[0;34m\][\u@\h \[\e[0;35m\]\W \[\e[0;33m\](demo)\[\e[0;34m\]]\$\[\e[0m\] '
@@ -33,20 +34,3 @@ alias openstack="/usr/bin/openstack"
 unset http_proxy
 unset https_proxy
 END_DEMO
-
-
-cat <<'END_ADMIN' > ~/keystonerc_admin
-export OS_USERNAME=admin
-export OS_TENANT_NAME=openstack
-export OS_PASSWORD=admin_pass
-export OS_REGION_NAME=vagrant
-export OS_AUTH_URL=http://172.31.24.22:5000/v3
-export OS_IDENTITY_API_VERSION=3
-export OS_USER_DOMAIN_NAME=${OS_USER_DOMAIN_NAME:-"Default"}
-export OS_PROJECT_DOMAIN_NAME=${OS_PROJECT_DOMAIN_NAME:-"Default"}
-export PS1='\[\e[0;34m\][\u@\h \[\e[0;35m\]\W \[\e[0;31m\](admin)\[\e[0;34m\]]\$\[\e[0m\] '
-export OS_NO_CACHE=1
-alias openstack="/usr/bin/openstack"
-unset http_proxy
-unset https_proxy
-END_ADMIN
