@@ -28,4 +28,9 @@ profile::base::network::routes:
     'gateway':   [ '172.31.1.1', ]
     'table':     [ 'mgmt', ]
 
+quagga::bgpd::bgp_neighbors:
+  'dev01-leaf-01':
+    'neighbor_ip': '172.31.34.1'
+    'neighbor_as': '65535'
+
 profile::network::leaf::manage_license: true

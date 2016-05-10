@@ -19,6 +19,14 @@ profile::base::network::net_ifnames:           false
 profile::base::network::cumulus_ifs:           true
 network::config_file_per_interface:            true
 
+quagga::params::zebra:  true
+quagga::params::bgpd:   true
+quagga::zebra:          true
+quagga::bgpd:           true
+quagga::bgpd::hostname: 'cumulus-test'
+quagga::bgpd::password: 'pass123'
+quagga::bgpd::bgp_as:   '65535'
+
 accounts::groups:
   'wheel':
     ensure: 'present'
