@@ -18,6 +18,6 @@ class profile::network::leaf(
   }
 
   if $manage_quagga {
-  	include quagga
+    include quagga
   }
 }
