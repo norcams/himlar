@@ -16,6 +16,8 @@ accounts::accounts:
   'hege':
     ensure: present
     authorized_keys: [ 'hege_usit', 'hege_home' ]
+  'kolbu':
+    ensure: present
   'mikaeld':
     ensure: present
   'raymond':
