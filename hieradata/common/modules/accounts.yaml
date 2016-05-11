@@ -9,6 +9,9 @@ accounts::ssh_keys:
   'iaas':
     type:    'ssh-rsa'
     public:  'AAAAB3NzaC1yc2EAAAADAQABAAABAQC+OF1sQvpZdYhxVJgrd+1P84/AegFJHY5W0SLIO8dF4K6CP08bJNwg+5eD8kxebmoXTJlfIRC1onJfjDPl94x9F3x18zib3kiSIPnkN7BsCZIxTcN1czHRUEtyOPG9JlKCagaXwHkBIzYIngF9hwBix9ZetuYieiZU/rhnk7x/zNxmjqPBf26rEI1qk4S6xYoAJjx0YFUbLYYiqc7YxGypo0ag99nKaZpy2p5mMyYGn4nGmlCzSG+aANokvlz8gwVzThaIPB8s0YYdXf1w/1OdFcUuW8Wm3AonFZcVhGfJy3yaAZDvbpWI1JVbJ9hMOo5Tml6nx8FM8MU6mAoamgRT'
+  'kolbu':
+    type:    'ssh-rsa'
+    public:  'AAAAB3NzaC1yc2EAAAABIwAAAgEAtmEzrYRHpqungHzKx1USkt1z7GX+qNe7Un0uJbxkvUt0JUhKFb929F0hmZIO+BgPIsLo0ivSO4HGqnr500tLKDEHLhqpv0823y02zDlEWcrci3ne7he2a+LxVVcZEjhiznO4AnoXOlxbKYylVMxoMDBPuTLr97gGzD3DQoEZGfPmO/7YqswAjIkxz03Ac0DQ9VUIymZ1wnEYLvYXm4C+0Vi4FVt7mPKID15yV+anfU1FtNrYbqxQZ/MDS+I97qmLQNE0EE9cdhCm5SQ6KI9Xk9qgtn3sJkWlVe1LnI8fy6V9ZvEhx5Tqrw7OnOFPz91vovGsKmzKr6UL0Cz62TggaMaXhzxeGcUTsg4x97Xdte3s46OPX1ykAGLMpGBt/1UvFtm1KRvnIFasBywupBuIJlemGxyud9DEj/ePvPU2S/DwUBv/aAHn9CBS0snRZ7k+Qs9l31f4h8f8RbIPIJGpLErKt/jVIXQ+Cigb0ruGn04Oj1UMwzSa/gStUyuZrLOo3olT84KpNys12szMH1obrbvKjuz/tJWjPJlKOd2lG9T5HIckEI3wmtcUHZKMLuu6SU7Rki7wyZ/v14ryY3Kc9QwVlDtVaLLZJP+a7NQzSxeTInqmKpNvdlz1bwhR43zR0e+fXzjbM8rUpK+4n6y7TZmhd6AZdzul2kUveup3Fpc='
   'mikaeld':
     type:    'ssh-rsa'
     public:  'AAAAB3NzaC1yc2EAAAABIwAAAQEAu6LmtQMkPIpHmUeHbfdA0425xDSRZpArCq7KuTYRurQOWssrPhMIpAa6OV2LPkpRLF0YIbzoHEXSqkgNwo6F1Qhy7E0l8TnKO5JtuctJtWUzvdesVniUszsXOg7543ZuEaA4qr2EPZSaASOemcMhUgr29wiUKaZF1h8LOXb3za7OORuWR/FW++HfUlPssmWA3R0KtC7OLhkum7c2+59rCaNYFIBUuepKURxDOqYI9sm7TdMw6+dbRUSsqUX2ITlcHhOYp2ehpnG/PpfIN/WFChudhAIDFFgTBImDtJ3Rx1oG45PB1f+r+IIZ6hzndkjqxdlTWpaY4q3ZOeGSFgCJVw=='
@@ -31,6 +34,9 @@ accounts::users:
     groups:  [ 'users', 'wheel' ]
   'iaas':
     comment: 'iaas@norcams'
+    groups:  [ 'users', 'wheel' ]
+  'kolbu':
+    comment: 'kolbu@norcams'
     groups:  [ 'users', 'wheel' ]
   'mikaeld':
     comment: 'mikaeld@norcams'
