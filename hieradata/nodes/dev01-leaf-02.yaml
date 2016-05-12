@@ -41,9 +41,8 @@ quagga::zebra::zebra_generic_options:
     'forwarding'
 
 quagga::bgpd::bgp_neighbors:
-  'dev01-leaf-01':
-    'neighbor_ip': '172.31.34.1'
-    'neighbor_as': '65535'
+  - '172.31.35.1 remote-as 65535'
+  - '172.31.35.1 soft-reconfiguration inbound'
 
 quagga::bgpd::bgp_options:
   - 'router-id 172.31.34.2'
