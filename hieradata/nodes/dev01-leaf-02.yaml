@@ -33,6 +33,15 @@ quagga::bgpd::bgp_neighbors:
     'neighbor_ip': '172.31.34.1'
     'neighbor_as': '65535'
 
+quagga::bgpd::bgp_options:
+  - 'router-id 172.31.34.2'
+  - 'log-neighbor-changes'
+  - 'default local-preference 200'
+
+quagga::bgpd::bgp_networks:
+  - '0.0.0.0/0'
+  - '172.31.34.0/24'
+
 quagga::bgpd::bgp_neighbor_groups:
   'rr-clients':
     'options':
@@ -40,7 +49,7 @@ quagga::bgpd::bgp_neighbor_groups:
       - 'route-reflector-client'
       - 'remote-as 65535'
       - 'soft-reconfiguration inbound'
-#      - 'route-map rr-client-allow in'
+      - 'route-map rr-client-allow in'
     'members':
       - '172.31.35.5'
       - '172.31.35.6'
@@ -52,13 +61,9 @@ quagga::bgpd::bgp_neighbor_groups:
       - '172.31.35.103'
       - '172.31.35.104'
       - '172.31.35.105'
-##  'other-clients':
-##    'options':
-##  - 'poor-group'
-##  - 'jalla1'
-##  - 'Tenk det ja'
-##  - 'Linje 4'
-##  - 'Linje 5'
+#  'other-clients':
+#    'options':
+#    - 'peer-group'
 
 quagga::bgpd::bgp_accesslist:
   '10':
@@ -72,10 +77,25 @@ quagga::bgpd::bgp_accesslist:
     - 'deny 172.31.16.0 0.0.0.255'
     - 'deny 172.31.35.0 0.0.0.255'
     - 'permit any'
-quagga::bgpd::bgp_ip_routes:
-  - 'ip route 10.0.0.0/8 Null0'
-  - 'ip route 129.177.31.96/27 Null0'
-  - 'ip route 172.31.1.0/24 Null0'
-  - 'ip route 172.31.16.0/24 Null0'
+#quagga::bgpd::bgp_ip_routes:
+#  - 'ip route 10.0.0.0/8 Null0'
+#  - 'ip route 129.177.31.96/27 Null0'
+#  - 'ip route 172.31.1.0/24 Null0'
+#  - 'ip route 172.31.16.0/24 Null0'
+
+quagga::bgpd::bgp_ip_prefix_list:
+  - 'routes-from-leaf1 seq 5 deny any'
+  - 'routes-to-leaf1 seq 5 permit 0.0.0.0/0'
+quagga::bgpd::bgp_route_maps:
+  'rr-client-allow permit 10':
+    - 'match ip address 10'
+  'peer-deny deny 10':
+    - 'match ip address 10'
+
+#quagga::bgpd::bgp_generic_options:
+#  'ip':
+#    'forwarding'
+#  'ipv6':
+#    'forwarding'
 
 profile::network::leaf::manage_license: true
