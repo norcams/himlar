@@ -3,8 +3,8 @@
 class profile::network::leaf(
   $manage_license     = false,
   $cumulus_license    = "user@example.com|00000000000000000000000000000000000000000000000000\n",
+  $manage_quagga      = true,
 ) {
-  include quagga
 
   if $manage_license {
     file { '/tmp/licfile':
@@ -15,5 +15,9 @@ class profile::network::leaf(
       src => '/tmp/licfile',
       notify => Service['switchd']
     }
+  }
+
+  if $manage_quagga {
+    include quagga
   }
 }
