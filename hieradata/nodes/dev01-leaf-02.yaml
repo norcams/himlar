@@ -28,6 +28,14 @@ profile::base::network::routes:
     'gateway':   [ '172.31.1.1', ]
     'table':     [ 'mgmt', ]
 
+quagga::zebra::zebra_interfaces:
+  'br100':
+    - 'link-detect'
+    - 'description linux-bridge'
+  'br200':
+    - 'link-detect'
+    - 'description linux-bridge'
+
 quagga::zebra::zebra_ip_routes:
   - '10.0.0.0/8 Null0'
   - '129.177.31.96/27 Null0'
