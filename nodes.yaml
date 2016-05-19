@@ -56,6 +56,8 @@ nodesets:
     - role: "logger"
       cpus:   1
       memory: 2048
+  base:
+    - role: "base"
   access:
     - role: "db"
       cpus:   1
