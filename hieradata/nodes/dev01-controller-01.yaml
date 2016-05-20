@@ -38,6 +38,10 @@ network::interfaces_hash:
     bootproto: 'none'
     type:      'Tap'
     onboot:    'yes'
+  'atap0-console01':
+    bootproto: 'none'
+    type:      'Tap'
+    onboot:    'yes'
 
 
 profile::base::network::mroute:
@@ -45,6 +49,10 @@ profile::base::network::mroute:
     routes:
       '172.31.16.20':      'atap0-master01'
       '172.31.16.21':      'atap0-db01'
+      '172.31.16.24':      'atap0-console01'
+  'dummy1':
+    routes:
+      '129.177.31.124':    'atap0-console01'
 
 lvm::volume_groups:
   vg_root:
