@@ -26,6 +26,10 @@ service__address__neutron_server:    '172.31.16.20'
 service__address__cinder_api:        '172.31.16.20'
 service__address__mysql:             '172.31.16.21'
 
+# mgmt
+service__address__proxy:             '172.31.1.12'
+service__address__rsyslog:           '172.31.1.18'
+
 ntp::servers:
   - ntp.uib.no
   - ntp2.uib.no
