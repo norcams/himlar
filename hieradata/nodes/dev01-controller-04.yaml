@@ -30,13 +30,3 @@ network::interfaces_hash:
     ipaddress: '129.177.31.97'
     netmask:   '255.255.255.224'
     defroute:  'no'
-
-lvm::volume_groups:
-  vg_root:
-    physical_volumes:
-      - /dev/sda2
-      - /dev/sda3
-    logical_volumes:
-      lv_libvirt:
-        fs_type:   xfs
-        mountpath: "/var/lib/libvirt/images"
