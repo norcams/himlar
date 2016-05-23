@@ -4,6 +4,8 @@ network::interfaces_hash:
     ipaddress: '172.31.1.103'
     netmask:   '255.255.255.0'
     mtu:       '1500'
+    dns1:      "%{hiera('service__address__proxy')}"
+    domain:    'mgmt.dev.iaas.intern'
     defroute:  'no'
   'eth0.912':
     ipaddress: '172.31.34.103'
