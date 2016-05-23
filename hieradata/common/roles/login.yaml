@@ -34,6 +34,11 @@ accounts::accounts:
   'vagrant':
     ensure: absent
 
+openstack_extras::repo::redhat::redhat::manage_rdo: true
+profile::base::common::packages:
+  'python-oslo-log': {}
+  'python-openstackclient': {}
+
 ssh::server::options:
   # Need this for 2FA (saz-ssh-module disables by default)
   ChallengeResponseAuthentication: 'yes'
