@@ -30,3 +30,12 @@ network::interfaces_hash:
     ipaddress: '129.177.31.97'
     netmask:   '255.255.255.224'
     defroute:  'no'
+
+named_interfaces::config:
+  mgmt:
+     - br0
+  transport:
+     - em2_912
+     - em2_913
+  service:
+     - em2_912
