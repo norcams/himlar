@@ -1,6 +1,6 @@
 ---
 network::interfaces_hash:
-  'eth0':
+  'em1':
     onboot:     'yes'
     mtu:        '9000'
     bridge:     'br0'
@@ -12,12 +12,12 @@ network::interfaces_hash:
     netmask:    '255.255.255.0'
     defroute:   'no'
     bridge_stp: 'off'
-  'eth1.912':
+  'em2.912':
     ipaddress: '172.31.34.7'
     netmask:   '255.255.255.0'
     vlan:      'yes'
     defroute:  'no'
-  'eth1.913':
+  'em2.913':
     ipaddress: '172.31.35.7'
     netmask:   '255.255.255.0'
     vlan:      'yes'
