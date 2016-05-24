@@ -28,7 +28,7 @@ if [[ $? -ne 0 ]]; then
   usage
 fi
 
-project_id=$(openstack project list | grep raymond.kristiansen@uib.no | awk '{ print $2 }')
+project_id=$(openstack project list | grep ${project} | awk '{ print $2 }')
 
 openstack user create \
 --domain ${domain} \
