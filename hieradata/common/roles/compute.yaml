@@ -6,9 +6,9 @@ include:
     - profile::openstack::network
     - profile::openstack::network::metadata
     - profile::logging::rsyslog::client
-    - profile::virtualization::nested
   kickstart:
     - profile::base::lvm
+    - profile::virtualization::nested
   bootstrap:
     - profile::base::lvm
 
