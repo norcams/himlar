@@ -12,8 +12,3 @@ network::interfaces_hash:
     netmask:   '255.255.255.0'
     gateway:   '172.31.34.1'
     defroute:  'no'
-
-profile::base::network::mroute:
-  'eth1':
-    routes:
-      '172.31.16.0/24': '172.31.34.5'
