@@ -104,3 +104,9 @@ ceph::profile::params::osds:
     journal: '/journal/journala14/journal'
   '/dev/sdq':
     journal: '/journal/journala15/journal'
+
+---
+profile::base::network::mroute:
+  'eth1':
+    routes:
+      '172.31.16.0/24': '172.31.34.1'
