@@ -2,6 +2,15 @@
 location_environment: dev01
 location_description: Development environment physically in Bergen
 
+#
+# Networks
+# See http://iaas.readthedocs.io/en/latest/installation/ip.html
+# For config that require network info about other network
+#
+network_service:    '172.31.16.0/24'
+network_transport:  '172.31.34.0/23'
+network_public:     '129.177.31.96/27'
+
 endpoint_protocol: 'https'
 
 # public

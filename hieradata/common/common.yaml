@@ -53,6 +53,16 @@ named_interfaces::config:
   public:
     - eth2
 
+#
+# Networks
+# See http://iaas.readthedocs.io/en/latest/installation/ip.html
+# For config that require network info about other network
+#
+network_service:    '0.0.0.0/32'
+network_transport:  '0.0.0.0/32'
+network_public:     '0.0.0.0/32'
+
+# API endpint protocole
 endpoint_protocol: 'http'
 
 #
