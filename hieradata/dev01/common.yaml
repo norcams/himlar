@@ -109,6 +109,7 @@ profile::network::services::dns_records:
     'dev01-compute-05.mgmt.dev.iaas.intern':     '172.31.1.104'
     'dev01-compute-06.mgmt.dev.iaas.intern':     '172.31.1.105'
   PTR:
+    '4.1.31.172.in-addr.arpa':                   'dev01-leaf-01.mgmt.dev.iaas.intern'
     '9.1.31.172.in-addr.arpa':                   'dev01-leaf-02.mgmt.dev.iaas.intern'
 
 profile::network::services::dhcp_reservation:
