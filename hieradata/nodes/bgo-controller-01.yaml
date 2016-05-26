@@ -32,3 +32,12 @@ network::interfaces_hash:
     ipaddress: '172.19.0.1'
     netmask:   '255.255.255.0'
     defroute:  'no'
+  'atap2-cephmon01':
+    bootproto: 'none'
+    type:      'Tap'
+    onboot:    'yes'
+
+profile::base::network::mroute:
+  'em1':
+    routes:
+      '172.18.0.90':      'atap2-cephmon01'
