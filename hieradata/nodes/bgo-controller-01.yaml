@@ -40,4 +40,4 @@ network::interfaces_hash:
 profile::base::network::mroute:
   'em1':
     routes:
-      '172.18.0.90':      'atap2-cephmon01'
+      '172.18.0.90/32':   'atap2-cephmon01'
