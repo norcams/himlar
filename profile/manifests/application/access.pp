@@ -22,6 +22,7 @@ class profile::application::access(
       provider => 'rpm',
       source   => $package_url,
       before   => Class['dpapp'],
+      notify   => Class['apache::service']
     }
   }
 
