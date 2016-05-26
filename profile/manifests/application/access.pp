@@ -18,7 +18,7 @@ class profile::application::access(
 
   if $package_url {
     package { 'himlar-dp-prep':
-      ensure   => 'installed',
+      ensure   => 'latest',
       provider => 'rpm',
       source   => $package_url,
       before   => Class['dpapp'],
