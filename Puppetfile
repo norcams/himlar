@@ -44,6 +44,7 @@ mod 'ipcalc', :ref => '1.2.2',                   :git => github + 'inkblot/puppe
 mod 'tinyproxy', :ref => 'bc56e3ecc2',           :git => github + 'earsdown/puppet-tinyproxy'
 mod 'interfaces', :ref => '1.2.2',               :git => github + 'CumulusNetworks/cumulus-cl-interfaces-puppet'
 mod 'cumulus_license', :ref => '1.1.0',          :git => github + 'CumulusNetworks/cumulus-cl-license-puppet'
+mod 'ipcalc', :ref => '1.2.2',                   :git => github + 'inkblot/puppet-ipcalc'
 
 #
 # profile::application::etcd
