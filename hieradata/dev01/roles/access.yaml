@@ -12,3 +12,5 @@ profile::webserver::apache::vhosts:
     ssl_key:            "/etc/pki/tls/private/accesstest_iaas_uib_no.key"
 
 profile::base::network::has_servicenet: true
+
+profile::application::access::package_url: 'http://folk.uib.no/st02221/yum/himlar-dp-prep-1.1-1.el7.x86_64.rpm'
