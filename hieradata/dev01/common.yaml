@@ -112,6 +112,9 @@ profile::network::services::dns_records:
     '9.1.31.172.in-addr.arpa':                   'dev01-leaf-02.mgmt.dev.iaas.intern'
 
 profile::network::services::dhcp_reservation:
+  dev01-leaf-01:
+    mac: '00:50:56:ae:59:33'
+    ip:  '172.31.1.4'
   dev01-leaf-02:
     mac: '00:50:56:ae:4b:f6'
     ip:  '172.31.1.9'
