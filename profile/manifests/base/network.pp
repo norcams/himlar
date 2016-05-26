@@ -79,6 +79,7 @@ class profile::base::network(
     $service_gateway = $node_interface_hash["$service_if"][gateway]
     $service_ifaddr = $node_interface_hash["$service_if"][ipaddress]
     $service_ifmask = $node_interface_hash["$service_if"][netmask]
+    $transport_network = hiera('network_transport')
 
     # Create a custom route table for service interface
     network::routing_table { 'service-net':
@@ -86,10 +87,10 @@ class profile::base::network(
     }
     # Create a default route for the service interface
     network::route { $service_if:
-      ipaddress => [ '0.0.0.0', ],
-      netmask   => [ '0.0.0.0', ],
-      gateway   => [ $service_gateway, ],
-      table     => [ '100', ]
+      ipaddress => [ '0.0.0.0', ip_address($transport_network), ],
+      netmask   => [ '0.0.0.0', ip_netmask($transport_network), ],
+      gateway   => [ $service_gateway, $service_gateway, ],
+      table     => [ '100', 'main', ]
     }
     # When answering requests to service interface, always send answer on this interface
     network::rule { $service_if:
