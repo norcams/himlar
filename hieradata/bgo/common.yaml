@@ -2,6 +2,15 @@
 location_environment: prod
 location_description: Production environment in Bergen
 
+#
+# Networks
+# See http://iaas.readthedocs.io/en/latest/installation/ip.html
+# For config that require network info about other network
+#
+network_service:    '172.19.0.0/21'
+network_transport:  '172.18.0.0/19'
+network_public:     '158.39.77.0/24'
+
 endpoint_protocol: 'https'
 
 # public

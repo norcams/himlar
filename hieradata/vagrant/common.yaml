@@ -3,6 +3,15 @@ location_environment: dev
 location_description: Local development environment using vagrant
 
 #
+# Networks
+# See http://iaas.readthedocs.io/en/latest/installation/ip.html
+# For config that require network info about other network
+#
+network_service:    '172.31.16.0/24'
+network_transport:  '172.31.16.0/24'
+network_public:     '172.31.24.0/24'
+
+#
 # Default interfaces
 #
 named_interfaces::config:
