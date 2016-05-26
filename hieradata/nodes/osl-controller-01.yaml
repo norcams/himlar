@@ -34,7 +34,7 @@ network::interfaces_hash:
     bootproto: 'none'
     type:      'Tap'
     onboot:    'yes'
-  'atap2-cephmon01':
+  'atap-cephmon01':
     bootproto: 'none'
     type:      'Tap'
     onboot:    'yes'
@@ -45,4 +45,4 @@ profile::base::network::mroute:
       '158.37.63.252/32': 'atap-access01'
   'em1':
     routes:
-      '172.18.32.90/32':  'atap2-cephmon01'
+      '172.18.32.90/32':  'atap-cephmon01'
