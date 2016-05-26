@@ -79,3 +79,8 @@ ceph::profile::params::osds:
     journal: '/journal/journalb4/journal'
   '/dev/sdl':
     journal: '/journal/journalb5/journal'
+
+profile::base::network::mroute:
+  'em1':
+    routes:
+      '172.19.0.0/21': '172.18.0.1'
