@@ -1,3 +1,16 @@
+---
+include:
+  default:
+    - calico
+    - calico::compute
+    - profile::network::bird
+
+calico::compute::manage_dhcp_agent: false
+calico::compute::manage_metadata_service: false
+calico::compute::felix_enable: false
+calico::compute::manage_qemu_settings: false
+calico::compute::bird_template: 'profile/bird/bird.conf.erb'
+
 named_interfaces::config:
   mgmt:
      - eth0
@@ -104,11 +117,3 @@ ceph::profile::params::osds:
     journal: '/journal/journala14/journal'
   '/dev/sdq':
     journal: '/journal/journala15/journal'
-
-profile::base::network::mroute:
-  'eth2':
-    routes:
-      '172.31.16.0/24': '172.31.34.1'
-      '172.31.34.40':   '172.31.34.6'
-      '172.31.34.41':   '172.31.34.7'
-      '172.31.34.42':   '172.31.34.5'
