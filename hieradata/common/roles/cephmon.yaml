@@ -8,6 +8,8 @@ include:
 
 profile::storage::cephmon_firewall::manage_firewall:  true
 
+profile::base::network::has_servicenet: true
+
 profile::base::common::packages:
   'redhat-lsb-core': {}
 

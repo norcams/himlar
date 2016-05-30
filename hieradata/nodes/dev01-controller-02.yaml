@@ -46,7 +46,7 @@ network::interfaces_hash:
     bootproto: 'none'
     type:      'Tap'
     onboot:    'yes'
-  'atap2-cephmon01':
+  'atap-cephmon01':
     bootproto: 'none'
     type:      'Tap'
     onboot:    'yes'
@@ -56,13 +56,11 @@ profile::base::network::mroute:
     routes:
       '172.31.16.19':      'atap0-access01'
       '172.31.16.22':      'atap0-dboard01'
+      '172.31.16.40':      'atap-cephmon01'
   'dummy1':
     routes:
       '129.177.31.125/32': 'atap1-access01'
       '129.177.31.126/32': 'atap1-dboard01'
-  'eth1.912':
-    routes:
-      '172.31.34.40':      'atap2-cephmon01'
 
 lvm::volume_groups:
   vg_root:
