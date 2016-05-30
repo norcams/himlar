@@ -46,7 +46,7 @@ ntp::servers:
 ceph::profile::params::mon_initial_members:         'dev01-cephmon-01, dev01-cephmon-02, dev01-cephmon-03'
 ceph::profile::params::mon_host:                    '172.31.34.40:6789, 172.31.34.41:6789, 172.31.34.42:6789'
 ceph::profile::params::cluster_network:             '172.31.34.0/24'
-ceph::profile::params::public_network:              '172.31.34.0/24'
+ceph::profile::params::public_network:              '172.31.16.0/24'
 
 profile::openstack::volume::manage_rbd: true
 profile::openstack::volume::api::enable_multibackend: true
