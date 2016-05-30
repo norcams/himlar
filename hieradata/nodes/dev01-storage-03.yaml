@@ -9,5 +9,8 @@ network::interfaces_hash:
   'eth2':
     ipaddress: '172.31.34.32'
     netmask:   '255.255.255.0'
-    gateway:   '172.31.34.1'
+    defroute:  'no'
+  'eth3':
+    ipaddress: '172.31.35.32'
+    netmask:   '255.255.255.0'
     defroute:  'no'
