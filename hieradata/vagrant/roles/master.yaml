@@ -1,7 +1,15 @@
 ---
+
+# In the vagrant environment the master role include the console(proxy) functionality
+# to conserve resources
+
 include:
   default:
     - profile::network::localdns
+    - profile::logging::rsyslog::client
+    - profile::openstack::compute::consoleproxy
+    - profile::application::sslcert
+
 
 calico::compute_manage_bird_config:   false
 calico::reflector::bird_template:     'calico/compute/bird.conf.erb'
@@ -33,3 +41,18 @@ profile::openstack::resource::subnets:
       - '129.177.12.31'
     network_name: 'public'
     tenant_name: 'openstack'
+
+
+# consoleproxy data (normally in 'console.yaml')
+
+profile::openstack::compute::consoleproxy::spice: true
+console_ssl_files:  "console.%{::domain}"
+
+nova::config::nova_config:
+    DEFAULT/ssl_only:
+      value: true
+    DEFAULT/cert:
+      value: "/etc/pki/tls/certs/%{hiera('console_ssl_files')}.crt"
+    DEFAULT/key:
+      value: "/etc/pki/tls/private/%{hiera('console_ssl_files')}.key"
+

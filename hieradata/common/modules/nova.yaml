@@ -1,7 +1,6 @@
 nova::database_connection: "mysql://nova:%{hiera('nova::db::mysql::password')}@%{hiera('service__address__mysql')}/nova"
 nova::glance_api_servers: "%{hiera('service__address__glance_api')}:9292"
 nova::rabbit_host: "%{hiera('service__address__rabbitmq')}"
-nova::vncproxy::enabled: true
 nova::cinder_catalog_info: 'volumev2:cinderv2:internalURL'
 
 nova::db::mysql::allowed_hosts:
@@ -39,10 +38,6 @@ nova::network::neutron::neutron_url: "http://%{hiera('service__address__neutron_
 nova::network::neutron::neutron_admin_auth_url: "http://%{hiera('service__address__keystone_admin')}:35357/v2.0"
 
 nova::compute::enabled: true
-nova::compute::vnc_enable: true
-nova::compute::vncserver_proxyclient_address: "%{ipaddress_mgmt1}"
-nova::compute::vncproxy_host: "%{hiera('service__address__consoleproxy')}"
-nova::compute::libvirt::vncserver_listen: "%{ipaddress_mgmt1}"
 
 nova::compute::rbd::libvirt_rbd_user: 'cinder'
 nova::compute::rbd::libvirt_rbd_secret_uuid: '363cb82c-793f-4aff-93f5-3332376c4369'
@@ -62,3 +57,16 @@ nova::network::neutron::neutron_admin_password: "%{hiera('neutron_api_password')
 # logging
 nova::use_syslog:   true
 nova::log_facility: 'LOG_LOCAL0'
+
+# VNC
+#nova::compute::vnc_enabled: true
+#nova::compute::vncserver_proxyclient_address: "%{ipaddress_mgmt1}"
+#nova::compute::vncproxy_host: "%{hiera('service__address__consoleproxy')}"
+#nova::compute::vncproxy_protocol: 'https'
+#nova::compute::libvirt::vncserver_listen: "%{ipaddress_mgmt1}"
+# SPICE testing
+nova::compute::vnc_enabled: false
+nova::compute::spice::server_proxyclient_address: "%{ipaddress_mgmt1}"
+nova::compute::spice::proxy_host: "%{hiera('service__address__consoleproxy')}"
+nova::compute::spice::proxy_protocol: 'https'
+nova::compute::spice::server_listen: "%{ipaddress_mgmt1}"
