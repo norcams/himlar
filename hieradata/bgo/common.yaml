@@ -13,6 +13,10 @@ network_public:     '158.39.77.0/24'
 
 endpoint_protocol: 'https'
 
+# Make sure bgo-login always has access
+allow_from_network:
+  - '129.177.6.133/32'
+
 # public
 service__address__status:            'status.iaas.uib.no'
 service__address__horizon:           'dashboard.iaas.uib.no'
