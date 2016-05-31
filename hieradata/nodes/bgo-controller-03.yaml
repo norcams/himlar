@@ -40,16 +40,9 @@ network::interfaces_hash:
     bootproto: 'none'
     type:      'Tap'
     onboot:    'yes'
-  'atap-cephmon03':
-    bootproto: 'none'
-    type:      'Tap'
-    onboot:    'yes'
 
 profile::base::network::mroute:
   'dummy0':
     routes:
       '158.39.77.254/32': 'atap-dboard01'
       '158.39.77.251/32': 'atap-console01'
-  'em1':
-    routes:
-      '172.18.0.92/32':   'atap-cephmon03'
