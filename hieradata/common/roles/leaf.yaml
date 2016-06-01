@@ -22,9 +22,9 @@ network::config_file_per_interface:            true
 quagga::zebra:              true
 quagga::bgpd:               true
 quagga::single_config_file: true
-quagga::quagga::hostname:     'cumulus-test'
-quagga::quagga::password:     'pass123'
-quagga::quagga::bgp_as:       '65535'
+quagga::quagga::hostname:   'cumulus-test'
+quagga::quagga::password:   'pass123'
+quagga::quagga::bgp_as:     '65535'
 
 accounts::groups:
   'wheel':
