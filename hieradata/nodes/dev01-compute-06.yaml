@@ -18,6 +18,10 @@ network::interfaces_hash:
     netmask:   '255.255.255.0'
     mtu:       '1500'
     defroute:  'no'
+  'dummy1':
+    ipaddress: '172.31.16.106'
+    netmask:   '255.255.255.0'
+    defroute:  'no'
 
 named_interfaces::config:
   mgmt:
