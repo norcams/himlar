@@ -62,6 +62,7 @@ quagga::quagga::zebra_interfaces:
     - 'link-detect'
 
 quagga::quagga::zebra_ip_routes:
+  - '0.0.0.0/0 129.177.1.197'
   - '10.0.0.0/8 Null0'
   - '129.177.31.96/27 Null0'
   - '172.31.1.0/24 Null0'
