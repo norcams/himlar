@@ -10,7 +10,7 @@ calico::compute::manage_metadata_service: false
 calico::compute::felix_enable: false
 calico::compute::manage_qemu_settings: false
 calico::compute::bird_template: 'profile/bird/bird.conf.erb'
-1
+
 profile::base::network::manage_dummy: true
 profile::base::network::no_of_dummies: 2
 profile::base::network::l3_router: true
