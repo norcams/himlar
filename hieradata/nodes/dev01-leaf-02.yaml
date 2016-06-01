@@ -28,7 +28,7 @@ profile::base::network::routes:
     'gateway':   [ '172.31.1.1', ]
     'table':     [ 'mgmt', ]
 
-quagga::zebra::zebra_interfaces:
+quagga::quagga::zebra_interfaces:
   'br100':
     - 'link-detect'
     - 'description linux-bridge'
@@ -36,32 +36,32 @@ quagga::zebra::zebra_interfaces:
     - 'link-detect'
     - 'description linux-bridge'
 
-quagga::zebra::zebra_ip_routes:
+quagga::quagga::zebra_ip_routes:
   - '10.0.0.0/8 Null0'
   - '129.177.31.96/27 Null0'
   - '172.31.1.0/24 Null0'
   - '172.31.16.0/24 Null0'
 
-quagga::zebra::zebra_generic_options:
+quagga::quagga::zebra_generic_options:
   'ip':
     'forwarding'
   'ipv6':
     'forwarding'
 
-quagga::bgpd::bgp_neighbors:
+quagga::quagga::bgp_neighbors:
   - '172.31.35.1 remote-as 65535'
   - '172.31.35.1 soft-reconfiguration inbound'
 
-quagga::bgpd::bgp_options:
+quagga::quagga::bgp_options:
   - 'router-id 172.31.34.2'
   - 'log-neighbor-changes'
   - 'default local-preference 200'
 
-quagga::bgpd::bgp_networks:
+quagga::quagga::bgp_networks:
   - '0.0.0.0/0'
   - '172.31.34.0/24'
 
-quagga::bgpd::bgp_neighbor_groups:
+quagga::quagga::bgp_neighbor_groups:
   'rr-clients':
     'options':
       - 'peer-group'
@@ -84,7 +84,7 @@ quagga::bgpd::bgp_neighbor_groups:
 #    'options':
 #    - 'peer-group'
 
-quagga::bgpd::bgp_accesslist:
+quagga::quagga::bgp_accesslist:
   '10':
     - 'permit 129.177.31.0 0.0.0.255'
     - 'permit 10.17.0.0 0.0.15.255'
@@ -97,11 +97,11 @@ quagga::bgpd::bgp_accesslist:
     - 'deny 172.31.35.0 0.0.0.255'
     - 'permit any'
 
-quagga::bgpd::bgp_ip_prefix_list:
+quagga::quagga::bgp_ip_prefix_list:
   - 'routes-from-leaf1 seq 5 deny any'
   - 'routes-to-leaf1 seq 5 permit 0.0.0.0/0'
 
-quagga::bgpd::bgp_route_maps:
+quagga::quagga::bgp_route_maps:
   'rr-client-allow permit 10':
     - 'match ip address 10'
   'peer-deny deny 10':
