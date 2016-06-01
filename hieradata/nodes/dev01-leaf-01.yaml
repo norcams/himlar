@@ -4,6 +4,8 @@ network::interfaces_hash:
     'ipaddress': '172.31.1.4/24'
     'post_up': [ '/etc/network/if-up.d/z90-route-eth0', ]
     'post_down': [ '/etc/network/if-down.d/z90-route-eth0', ]
+  'swp2':
+    'ipaddress': '172.31.228.1/30'
   'swp9':
     'ipaddress': '129.177.1.198/30'
     'post_up': [ '/etc/network/if-up.d/z90-route-swp9', ]
