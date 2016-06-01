@@ -35,6 +35,20 @@ quagga::quagga::zebra_interfaces:
   'br200':
     - 'link-detect'
     - 'description linux-bridge'
+  'swp1':
+    - 'link-detect'
+  'swp2':
+    - 'link-detect'
+  'swp3':
+    - 'link-detect'
+  'swp4':
+    - 'link-detect'
+  'swp5':
+    - 'link-detect'
+  'swp6':
+    - 'link-detect'
+  'swp7':
+    - 'link-detect'
 
 quagga::quagga::zebra_ip_routes:
   - '10.0.0.0/8 Null0'
