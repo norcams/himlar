@@ -32,7 +32,7 @@ mod 'googleauthenticator', :ref => 'norcams-0.1.0', :git => github + 'norcams/pu
 #
 # profile::network::leaf
 #
-mod 'quagga', :ref => 'master',                  :git => github + 'LeslieCarr/puppet-quagga'
+mod 'quagga', :ref => '0e3a7a16bb',              :git => github + 'norcams/puppet-quagga'
 
 #
 # profile::network::
