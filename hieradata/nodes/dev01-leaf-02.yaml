@@ -55,8 +55,7 @@ quagga::quagga::zebra_interfaces:
 quagga::quagga::zebra_ip_routes:
   - '10.0.0.0/8 Null0'
   - '129.177.31.96/27 Null0'
-  - '172.31.1.0/24 Null0'
-  - '172.31.16.0/24 Null0'
+  - 'ip route 172.16.0.0/12 Null0'
 
 quagga::quagga::zebra_generic_options:
   'ip':
@@ -65,17 +64,16 @@ quagga::quagga::zebra_generic_options:
     'forwarding'
 
 quagga::quagga::bgp_neighbors:
-  - '172.31.35.1 remote-as 65535'
-  - '172.31.35.1 soft-reconfiguration inbound'
+  - '172.31.228.1 remote-as 65535'
+  - '172.31.228.1 soft-reconfiguration inbound'
 
 quagga::quagga::bgp_options:
-  - 'router-id 172.31.34.2'
+  - 'router-id 172.31.35.2'
   - 'log-neighbor-changes'
   - 'default local-preference 200'
 
 quagga::quagga::bgp_networks:
-  - '0.0.0.0/0'
-  - '172.31.34.0/24'
+  - '172.31.35.0/24'
 
 quagga::quagga::bgp_neighbor_groups:
   'rr-clients':
