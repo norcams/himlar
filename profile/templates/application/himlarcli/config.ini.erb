@@ -14,8 +14,8 @@ url=<%= @foreman_url %>
 user=<%= @foreman_user %>
 password=<%= @foreman_password %>
 
-[maintenance]
-instance_file=active_instances.txt
+[state]
+db=db/state.db
 
 [mail]
 smtp=<%= @smtp %>
