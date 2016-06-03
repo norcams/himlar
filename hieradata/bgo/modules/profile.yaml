@@ -9,3 +9,6 @@ profile::openstack::image::registry::firewall_extras:
   source: '0.0.0.0/0'
 profile::openstack::compute::api::firewall_extras:
   source: '0.0.0.0/0'
+
+profile::application::himlarcli::smtp:      'smtp.uib.no'
+profile::application::himlarcli::from_addr: 'no-reply@uib.no'

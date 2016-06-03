@@ -51,7 +51,16 @@ profile::openstack::network::l2_driver: calico
 
 profile::database::mariadb::manage_repo: false
 
+profile::application::himlarcli::username:          'admin'
+profile::application::himlarcli::auth_url:          "%{hiera('endpoint_protocol')}://%{hiera('service__address__keystone_public')}:5000/v3"
+profile::application::himlarcli::password:          "%{hiera('keystone_admin_password')}"
+profile::application::himlarcli::region_name:       "%{::location}"
+profile::application::himlarcli::tenant_name:       'openstack'
+profile::application::himlarcli::default_domain:    'Default'
+profile::application::himlarcli::foreman_url:       "https://%{::location}-foreman-01.%{::domain}"
+profile::application::himlarcli::foreman_user:      'admin'
+profile::application::himlarcli::foreman_password:  "%{hiera('foreman::admin_password')}"
+
 consul::config_hash:
   'enable_syslog': true
   'bind_addr':     "%{ipaddress_mgmt1}"
-

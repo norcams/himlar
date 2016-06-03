@@ -1,0 +1,22 @@
+[openstack]
+auth_url=<%= @auth_url %>
+username=<%= @username %>
+password=<%= @password %>
+project_name=<%= @tenant_name %>
+default_domain=<%= @default_domain %>
+region=<%= @region_name %>
+<% if @cacert -%>
+keystone_cachain: <%= @cacert %>
+<% end -%>
+
+[foreman]
+url=<%= @foreman_url %>
+user=<%= @foreman_user %>
+password=<%= @foreman_password %>
+
+[maintenance]
+instance_file=active_instances.txt
+
+[mail]
+smtp=<%= @smtp %>
+from_addr=<%= @from_addr %>

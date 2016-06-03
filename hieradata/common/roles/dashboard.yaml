@@ -4,6 +4,7 @@ include:
     - profile::openstack::dashboard
     - profile::openstack::api
     - profile::openstack::adminrc
+    - profile::application::himlarcli
     - profile::logging::rsyslog::client
 
 profile::openstack::adminrc::auth_url:    "%{hiera('endpoint_protocol')}://%{hiera('service__address__keystone_public')}:5000/v3"
