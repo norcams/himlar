@@ -10,6 +10,9 @@ network::interfaces_hash:
     type:       'Bridge'
     ipaddress:  '172.31.1.6'
     netmask:    '255.255.255.0'
+    dns1:       "%{hiera('service__address__proxy')}"
+    domain:     'mgmt.dev.iaas.intern'
+    peerdns:    'yes'
     defroute:   'no'
     bridge_stp: 'off'
   'eth1.912':
