@@ -4,3 +4,5 @@ rabbitmq::delete_guest_user: false
 rabbitmq::node_ip_address: "%{ipaddress_service1}"
 rabbitmq::package_provider: yum
 rabbitmq::package_source: ''
+rabbitmq::config_variables:
+    loopback_users: "[]"
