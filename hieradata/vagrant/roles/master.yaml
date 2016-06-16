@@ -46,11 +46,9 @@ profile::openstack::resource::subnets:
 # consoleproxy data (normally in 'console.yaml')
 
 profile::openstack::compute::consoleproxy::spice: true
-console_ssl_files:  "console.%{::domain}"
+console_ssl_files:  "vagrant-master-01.himlar.local"
 
 nova::config::nova_config:
-    DEFAULT/ssl_only:
-      value: true
     DEFAULT/cert:
       value: "/etc/pki/tls/certs/%{hiera('console_ssl_files')}.crt"
     DEFAULT/key:

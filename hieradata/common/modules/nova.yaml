@@ -59,14 +59,14 @@ nova::use_syslog:   true
 nova::log_facility: 'LOG_LOCAL0'
 
 # VNC
-nova::compute::vnc_enabled: true
-nova::compute::vncserver_proxyclient_address: "%{ipaddress_mgmt1}"
-nova::compute::vncproxy_host: "%{hiera('service__address__consoleproxy')}"
-nova::compute::vncproxy_protocol: 'https'
-nova::compute::libvirt::vncserver_listen: "%{ipaddress_mgmt1}"
+#nova::compute::vnc_enabled: true
+#nova::compute::vncserver_proxyclient_address: "%{ipaddress_mgmt1}"
+#nova::compute::vncproxy_host: "%{hiera('service__address__consoleproxy')}"
+#nova::compute::vncproxy_protocol: 'https'
+#nova::compute::libvirt::vncserver_listen: "%{ipaddress_mgmt1}"
 # SPICE testing
-#nova::compute::vnc_enabled: false
-#nova::compute::spice::server_proxyclient_address: "%{ipaddress_mgmt1}"
-#nova::compute::spice::proxy_host: "%{hiera('service__address__consoleproxy')}"
-#nova::compute::spice::proxy_protocol: 'https'
-#nova::compute::spice::server_listen: "%{ipaddress_mgmt1}"
+nova::compute::vnc_enabled: false
+nova::compute::spice::server_proxyclient_address: "%{ipaddress_mgmt1}"
+nova::compute::spice::proxy_host: "%{hiera('service__address__consoleproxy')}"
+nova::compute::spice::proxy_protocol: 'https'
+nova::compute::spice::server_listen: "%{ipaddress_mgmt1}"
