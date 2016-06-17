@@ -131,6 +131,9 @@ glance_api_password:                                'glance_pass'
 neutron_api_password:                               'neutron_pass'
 nova_api_password:                                  'nova_pass'
 
+# rabbitmq
+rabbitmq::default_pass:                             'guest'
+
 # cinder.yaml
 cinder::db::mysql::password:                        'cinder_pass'
 cinder::rabbit_password:                            'guest'
