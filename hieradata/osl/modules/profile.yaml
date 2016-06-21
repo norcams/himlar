@@ -10,5 +10,7 @@ profile::openstack::image::registry::firewall_extras:
 profile::openstack::compute::api::firewall_extras:
   source: '0.0.0.0/0'
 
-profile::application::himlarcli::smtp:      'smtp.uio.no'
-profile::application::himlarcli::from_addr: 'noreply@usit.uio.no'
+profile::application::himlarcli::smtp:          'smtp.uio.no'
+profile::application::himlarcli::from_addr:     'noreply@usit.uio.no'
+profile::application::himlarcli::ldap_server:   'ldap.uio.no'
+profile::application::himlarcli::ldap_base_dn:  'dc=uio,dc=no'
