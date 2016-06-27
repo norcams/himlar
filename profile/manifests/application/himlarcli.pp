@@ -12,6 +12,7 @@ class profile::application::himlarcli(
   $foreman_user,
   $smtp,
   $from_addr,
+  $domain,
   $ldap_server = undef,
   $ldap_base_dn = undef,
   $cacert = undef
