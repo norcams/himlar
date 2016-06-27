@@ -10,9 +10,9 @@ profile::openstack::image::registry::firewall_extras:
 profile::openstack::compute::api::firewall_extras:
   source: "172.31.0.0/16"
 
-profile::application::himlarcli::keystone_cachain:  '/opt/himlar/provision/ca/certs/ca.cert.pem'
-profile::application::himlarcli::smtp:              ''
-profile::application::himlarcli::from_addr:         ''
+profile::application::himlarcli::cacert:      '/opt/himlar/provision/ca/certs/ca.cert.pem'
+profile::application::himlarcli::smtp:        ''
+profile::application::himlarcli::from_addr:   ''
 
 # consul testdata
 consul::config_hash:
