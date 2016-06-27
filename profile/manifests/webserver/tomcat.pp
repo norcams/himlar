@@ -50,5 +50,5 @@ class profile::webserver::tomcat (
   create_resources('tomcat::config::server::host', $hosts_config)
   create_resources('tomcat::config::server::service', $services_config)
   create_resources('tomcat::config::server::valve', $valves_config)
-  
+
 }

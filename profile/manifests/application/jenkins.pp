@@ -39,7 +39,7 @@ class profile::application::jenkins (
     mode    => '0755',
     require => Group['tomcat'],
   }
-    
+
   tomcat::setenv::entry { 'JENKINS_HOME' :
     value       => $jenkins_home,
     config_file => $config_file,
