@@ -15,6 +15,7 @@ Rake::Task[:lint].clear
 PuppetLint.configuration.relative = true
 PuppetLint.configuration.fail_on_warnings = true
 PuppetLint.configuration.send('disable_80chars')
+PuppetLint.configuration.send('disable_140chars')
 PuppetLint.configuration.send('disable_arrow_alignment')
 PuppetLint.configuration.send('disable_class_inherits_from_params_class')
 PuppetLint.configuration.send('disable_documentation')
@@ -35,4 +36,3 @@ task :test => [
   :syntax,
   :lint,
 ]
-
