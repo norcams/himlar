@@ -48,6 +48,8 @@ ntp::servers:
   - ntp.uib.no
   - ntp2.uib.no
 
+yum_proxy: 'http://bgo-proxy-01.mgmt.iaas.intern:8888'
+
 ceph::profile::params::mon_initial_members:         'bgo-cephmon-01, bgo-cephmon-02, bgo-cephmon-03'
 ceph::profile::params::mon_host:                    '172.18.0.90:6789, 172.18.0.91:6789, 172.18.0.92:6789'
 ceph::profile::params::cluster_network:             '172.18.0.0/21'

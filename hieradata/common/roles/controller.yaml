@@ -6,6 +6,13 @@ include:
     - calico
     - calico::compute
     - profile::network::bird
+  kickstart:
+    - profile::network::yum_proxy
+  bootstrap:
+    - profile::network::yum_proxy
+
+
+profile::network::yum_proxy::yum_proxy: "%{hiera('yum_proxy')}"
 
 calico::compute::manage_dhcp_agent: false
 calico::compute::manage_metadata_service: false
