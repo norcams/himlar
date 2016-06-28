@@ -12,6 +12,8 @@ include:
 profile::firewall::pre::ssh_settings:
   source: "%{::network_mgmt1}/%{::netmask_mgmt1}"
 
+profile::network::yum_proxy::yum_proxy: "http://%{hiera('service__address__proxy')}:8888"
+
 #
 # Location metadata
 #
@@ -93,6 +95,7 @@ service__address__cinder_public_api: "dashboard.%{domain}"
 service__address__consoleproxy:      "dashboard.%{domain}"
 service__address__status:            "status.%{domain}"
 service__address__rsyslog:           "logger.%{domain}"
+service__address__proxy:             "proxy.%{domain}"
 
 #
 # Network configuration data
