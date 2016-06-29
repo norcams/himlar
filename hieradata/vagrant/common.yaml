@@ -54,6 +54,10 @@ service__address__neutron_server:    '172.31.16.20'
 service__address__cinder_api:        '172.31.16.20'
 service__address__mysql:             '172.31.16.21'
 service__address__rsyslog:           '172.31.0.18'
+service__address__proxy:             ''
+
+# no proxy for vagrant environments
+profile::network::yum_proxy::yum_proxy: ''
 
 #
 #  - Add vagrant user to wheel and users group

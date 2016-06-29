@@ -1,5 +1,5 @@
 ---
-# to configure yum proxy include this (and define proxy in for instance <loc>/common.yaml:
+# include default for vagrant to avoid having to reinstall to test the proxy module
 #include:
 #  default:
 #    -  profile::network::yum_proxy

@@ -9,8 +9,10 @@ include:
   kickstart:
     - profile::base::lvm
     - profile::virtualization::nested
+    - profile::network::yum_proxy
   bootstrap:
     - profile::base::lvm
+    - profile::network::yum_proxy
 
 # Because of this we cannot use syslog on master:
 # https://bugs.launchpad.net/kolla/liberty/+bug/1516306
