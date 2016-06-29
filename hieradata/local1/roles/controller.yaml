@@ -1,0 +1,27 @@
+---
+named_interfaces::config:
+  mgmt:
+    - br0
+  transport:
+    - br1
+  service:
+    - br1
+
+# Turn off bird on controller until we use cumulus
+profile::openstack::network::calico::manage_bird: false
+
+profile::base::network::manage_dummy: false
+profile::base::network::l3_router: false
+profile::base::network::remove_route: false
+
+himlar_bootstrap::virt_install:
+  '%{location}-admin-01':
+    domain:          '%{domain}'
+    libvirt_pool:    'dirpool'
+    libvirt_network: 'directnet'
+    install_ip:      "%{hiera('netcfg_netpart_mgmt')}.11"
+    install_netmask: "%{hiera('netcfg_netmask_mgmt')}"
+    install_gateway: "%{hiera('netcfg_gateway_mgmt')}"
+    vm_vcpus:        1
+    vm_memory:       2048
+    vm_console:      false
