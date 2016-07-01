@@ -5,7 +5,6 @@ include:
   kickstart:
     - profile::network::yum_proxy
 
-profile::network::yum_proxy::yum_proxy: 'http://172.31.1.12:8888'
 profile::base::network::manage_dummy: true
 profile::base::network::no_of_dummies: 2
 
