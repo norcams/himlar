@@ -12,7 +12,9 @@ include:
 profile::firewall::pre::ssh_settings:
   source: "%{::network_mgmt1}/%{::netmask_mgmt1}"
 
-profile::network::yum_proxy::yum_proxy: "http://%{hiera('service__address__proxy')}:8888"
+profile::network::yum_proxy::yum_proxy:     "http://%{hiera('service__address__proxy')}:8888"
+profile::base::network::http_proxy:         "%{hiera('service__address__proxy')}:8888"
+profile::base::network::http_proxy_profile: '/root/proxy.sh'
 
 #
 # Location metadata
