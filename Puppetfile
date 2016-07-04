@@ -27,7 +27,7 @@ mod 'apt', :ref => '2.2.2',                      :git => github + 'puppetlabs/pu
 #
 # profile::base::login
 #
-mod 'googleauthenticator', :ref => 'norcams-0.1.0', :git => github + 'norcams/puppet-googleauthenticator'
+mod 'googleauthenticator', :ref => 'norcams-0.1.1', :git => github + 'norcams/puppet-googleauthenticator'
 
 #
 # profile::network::leaf
