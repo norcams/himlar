@@ -34,7 +34,7 @@ accounts::accounts:
   'vagrant':
     ensure: absent
 
-openstack_extras::repo::redhat::redhat::manage_rdo: true
+#openstack_extras::repo::redhat::redhat::manage_rdo: true
 profile::base::common::packages:
   'python-oslo-log': {}
   'python-openstackclient': {}
