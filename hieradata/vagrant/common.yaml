@@ -11,6 +11,10 @@ network_service:    '172.31.16.0/24'
 network_transport:  '172.31.16.0/24'
 network_public:     '172.31.24.0/24'
 
+nw_mgmt_first_octets:   '172.31.0'
+nw_mgmt_netmask:        '255.255.255.0'
+nw_mgmt_gateway:        '172.31.0.1'
+
 #
 # Default interfaces
 #

@@ -1,6 +1,4 @@
 ---
-profile::network::services::manage_dhcp: true
-
 accounts::accounts:
   'vagrant':
     ensure: present
@@ -13,3 +11,13 @@ profile::application::git::settings:
 ssh::server::options:
   'Match User vagrant':
      AuthenticationMethods: 'publickey'
+
+# Himlar bootstrap
+profile::bootstrap::himlar::manage_bootstrap_scripts: true
+himlar_bootstrap::tftp_install:
+  '%{location}-controller-01':
+    domain:           '%{domain}'
+    dhcp_interface:   'eth1'
+    dhcp_range_start: "%{hiera('nw_mgmt_first_octets')}.200"
+    dhcp_range_end:   "%{hiera('nw_mgmt_first_octets')}.250"
+    dhcp_gateway:     "%{hiera('nw_mgmt_first_octets')}.1"

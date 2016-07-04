@@ -1,6 +1,19 @@
 ---
 # enable consul
-include:
-  default:
-    - profile::application::consul
+#include:
+#  default:
+#    - profile::application::consul
 
+profile::base::common::manage_lvm: false
+
+himlar_bootstrap::virt_install:
+  '%{location}-admin-01':
+    domain:          '%{domain}'
+    libvirt_pool:    'dirpool'
+    libvirt_network: 'directnet'
+    install_ip:      "%{hiera('nw_mgmt_first_octets')}.11"
+    install_netmask: "%{hiera('nw_mgmt_netmask')}"
+    install_gateway: "%{hiera('nw_mgmt_gateway')}"
+    vm_vcpus:        1
+    vm_memory:       1024
+    vm_console:      false
