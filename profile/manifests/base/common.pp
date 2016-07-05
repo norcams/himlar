@@ -14,7 +14,7 @@ class profile::base::common (
   $manage_lvm             = false,
   $manage_timezones       = false,
   $manage_keyboard        = false,
-  $manage_packages        = true,
+  $manage_packages        = false,
   $include_physical       = false,
   $include_virtual        = false,
   $classes                = [],
