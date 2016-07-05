@@ -91,28 +91,23 @@ profile::network::services::dns_options:
     default:
       ttl: 3600
       keyfile: "/etc/rndc.key"
-      server: '10.0.3.5'
+      server: "%{hiera('nw_mgmt_first_octets')}.11"
   A:
     default:
       ttl: 86400
       keyfile: "/etc/rndc.key"
-      server: '10.0.3.5'
+      server: "%{hiera('nw_mgmt_first_octets')}.11"
 
 profile::network::services::dns_records:
   CNAME:
-    'puppet.himlar.local':                 'vagrant-foreman-box.himlar.local'
-    'admin.himlar.local':                  'vagrant-foreman-box.himlar.local'
-    'repo.himlar.local':                   'vagrant-foreman-box.himlar.local'
+    "puppet.%{domain}":                     "%{location}-admin-01.%{domain}"
+    "foreman.%{domain}":                    "%{location}-admin-01.%{domain}"
+    "repo.%{domain}":                       "%{location}-admin-01.%{domain}"
   A:
-    'vagrant-foreman-box.himlar.local':      '10.0.3.5'
-    'vagrant-compute-box.himlar.local':      '10.0.3.11'
-    'vagrant-compute-pxe.himlar.local':      '10.0.3.111'
-    'vagrant-controller-box.himlar.local':   '10.0.3.12'
-    'vagrant-controller-pxe.himlar.local':   '10.0.3.112'
-    'vagrant-login-box.himlar.local':        '10.0.3.13'
-    'vagrant-login-pxe.himlar.local':        '10.0.3.113'
-    'vagrant-master-box.himlar.local':       '10.0.3.14'
-    'vagrant-master-pxe.himlar.local':       '10.0.3.114'
+    "%{location}-login-01.%{domain}":       "%{hiera('nw_mgmt_first_octets')}.10"
+    "%{location}-admin-01.%{domain}":       "%{hiera('nw_mgmt_first_octets')}.11"
+    "%{location}-proxy-01.%{domain}":       "%{hiera('nw_mgmt_first_octets')}.12"
+    "%{location}-controller-01.%{domain}":  "%{hiera('nw_mgmt_first_octets')}.100"
 
 # to configure yum proxy set this appropriately
 #profile::network::yum_proxy::yum_proxy: 'http://updateproxy.uio.no:3128'
@@ -174,5 +169,5 @@ neutron::agents::metadata::shared_secret:           'a_secret'
 nova::db::mysql::password:                          'nova_pass'
 nova::api::neutron_metadata_proxy_shared_secret:    'a_secret'
 
-# The root user password
-accounts::root_user::password:                      '$6$qVzsC5fQMqdF4gKw$.zFAu9LtxSAaPgbtZul/ZXUXpBgjaVJbQ.CIMo9eo5TslU8KU1SO/tjRZbh1hFM6RB55QFEzJlF5ejAgglk50.'
+# The root user password: himlardev
+accounts::root_user::password:                      '$1$vagrant$z3l/WWbF3HllJk0tnqO3i/'

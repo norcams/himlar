@@ -1,0 +1,13 @@
+---
+# Enable DNS in vagrant
+foreman_proxy::dns:              true
+
+foreman_proxy::dns_managed:      true
+foreman_proxy::dns_server:       "%{hiera('nw_mgmt_first_octets')}.11"
+foreman_proxy::dns_interface:    'eth1'
+foreman_proxy::keyfile:          '/etc/rndc.key'
+
+foreman_proxy::dhcp_range:       "%{hiera('nw_mgmt_first_octets')}.200 %{hiera('nw_mgmt_first_octets')}.250"
+foreman_proxy::dhcp_gateway:     "%{hiera('nw_mgmt_first_octets')}.1"
+foreman_proxy::dhcp_nameservers: "%{hiera('nw_mgmt_first_octets')}.11"
+foreman_proxy::dhcp_interface:   'eth1'
