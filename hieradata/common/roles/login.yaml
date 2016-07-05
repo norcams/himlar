@@ -4,7 +4,7 @@ include:
     - profile::base::login
     - profile::network::services
     - profile::application::git
-    - foreman_bootstrap::instances
+    - profile::bootstrap::himlar
 
 profile::base::firewall::manage_firewall: false
 profile::network::services::manage_nat: true
