@@ -14,9 +14,9 @@ class profile::base::common (
   $manage_lvm             = false,
   $manage_timezones       = false,
   $manage_keyboard        = false,
+  $manage_packages        = false,
   $include_physical       = false,
   $include_virtual        = false,
-  $packages               = [],
   $classes                = [],
 ) {
   include $classes
@@ -88,7 +88,8 @@ class profile::base::common (
     include ::profile::base::virtual
   }
 
-  if $packages {
-    create_resources('package', hiera_hash('profile::base::common::packages', {}))
+  if $manage_packages {
+    $packages = hiera_hash('profile::base::common::packages', {})
+    create_resources('profile::base::package', $packages)
   }
 }
