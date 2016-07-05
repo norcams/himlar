@@ -2,6 +2,7 @@
 class profile::network::services(
   $manage_dhcp        = false,
   $manage_nat         = false,
+  $manage_mgmt_nat    = false,
   $manage_dns_records = false,
   $manage_dhcp_rsvs   = false,
   $dns_proxy          = false,
@@ -26,16 +27,38 @@ class profile::network::services(
       $dhcp_resources = prefix($dhcp_keys, 'dhcp_')
       profile::network::service::dhcp { $dhcp_resources:
         subnet => $subnet,
-        dhcp => $dhcp,
+        dhcp   => $dhcp,
       }
     }
 
     if $manage_nat {
       # This node is a gw, enable IP fwd
-      sysctl::value { "net.ipv4.ip_forward":
+      sysctl::value { 'net.ipv4.ip_forward':
         value => 1,
       }
-      # TODO: Add iptables nat rules
+    }
+
+    if $manage_mgmt_nat {
+      # Will set up iptables nat for mgmt based on iniface and outiface from
+      # network hash i common/common.yaml
+      profile::firewall::rule { '050 snat for mgmt':
+        chain  => 'POSTROUTING',
+        proto  => 'all',
+        extras => {
+          action   => undef,
+          jump     => 'MASQUERADE',
+          outiface => $nat['mgmt']['outiface'],
+          table    => 'nat',
+        }
+      }
+      profile::firewall::rule { '050 forward for mgmt':
+        chain   => 'FORWARD',
+        iniface => $nat['mgmt']['iniface'],
+        proto   => 'all',
+        extras  => {
+          outiface => $nat['mgmt']['outiface']
+        }
+      }
     }
 
     if $ntp_server {
