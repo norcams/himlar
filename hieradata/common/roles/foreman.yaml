@@ -5,11 +5,11 @@ include:
     - profile::database::postgresql
     - profile::network::services
     - profile::webserver::apache
-    - foreman::cli
-    - foreman::compute::libvirt
-    - foreman::plugin::hooks
-    - foreman::plugin::discovery
-    - foreman::plugin::templates
+#    - foreman::cli
+#    - foreman::compute::libvirt
+#    - foreman::plugin::hooks
+#    - foreman::plugin::discovery
+#    - foreman::plugin::templates
 
 profile::application::foreman::manage_eyaml:    true
 profile::application::foreman::manage_firewall: true
@@ -17,34 +17,6 @@ profile::network::services::manage_dns_records: true
 profile::network::services::manage_dhcp_rsvs:   true
 
 openstack_extras::repo::redhat::redhat::purge_unmanaged: false
-
-foreman::foreman_url:                       "https://%{fqdn}"
-foreman::configure_epel_repo:               false
-foreman::admin_username:                    'admin'
-foreman::admin_password:                    'changeme'
-foreman::admin_email:                       'admin@localhost.localdomain'
-foreman::ssl:                               true
-foreman::cli::manage_root_config:           true
-foreman::plugin::discovery::install_images: true
-
-foreman_proxy::log_level:            'DEBUG'
-foreman_proxy::ssl:                  true
-foreman_proxy::register_in_foreman:  true
-foreman_proxy::manage_sudoersd:      false
-foreman_proxy::tftp:                 true
-foreman_proxy::tftp_servername:      "%{ipaddress_mgmt1}"
-foreman_proxy::dhcp:                 true
-foreman_proxy::dhcp_interface:       "%{interface_mgmt1}"
-foreman_proxy::dhcp_managed:         true
-foreman_proxy::dns:                  false
-foreman_proxy::dns_forwarders:       ['8.8.8.8']
-foreman_proxy::dns_managed:          false
-foreman_proxy::dns_provider:         'nsupdate'
-foreman_proxy::keyfile:              "/opt/repo/secrets/nodes/%{hostname}/etc/rndc-%{location}.key"
-foreman_proxy::puppetrun:            true
-foreman_proxy::puppetca:             true
-foreman_proxy::bmc:                  true
-foreman_proxy::bmc_default_provider: 'ipmitool'
 
 puppet::server:                        true
 puppet::server_foreman_url:            "https://%{fqdn}"

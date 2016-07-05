@@ -13,6 +13,7 @@
 class profile::application::foreman(
   $manage_eyaml    = false,
   $manage_firewall = false,
+  $manage_repo_dir = false,
   $firewall_extras = {
     'http'   => {},
     'https'  => {},
@@ -29,8 +30,20 @@ class profile::application::foreman(
   include ::foreman
   include ::foreman_proxy
 
+  include ::foreman::cli
+  include ::foreman::compute::libvirt
+  include ::foreman::plugin::hooks
+  include ::foreman::plugin::discovery
+  include ::foreman::plugin::templates
+
   if $manage_eyaml {
     include ::eyaml
+  }
+
+  if $manage_repo_dir {
+    file { '/opt/repo':
+      ensure => directory
+    }
   }
 
   if $manage_firewall {
