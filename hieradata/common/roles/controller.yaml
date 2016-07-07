@@ -2,7 +2,7 @@
 include:
   default:
     - profile::virtualization::libvirt
-    - foreman_bootstrap::instances
+    - profile::bootstrap::himlar
     - calico
     - calico::compute
     - profile::network::bird
@@ -95,4 +95,3 @@ consul::config_hash:
   'ui_dir': '/opt/consul/ui'
   'ports':
     'https': '8550'
-
