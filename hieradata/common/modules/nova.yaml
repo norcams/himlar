@@ -1,6 +1,10 @@
 nova::database_connection: "mysql://nova:%{hiera('nova::db::mysql::password')}@%{hiera('service__address__mysql')}/nova"
 nova::glance_api_servers: "%{hiera('service__address__glance_api')}:9292"
-nova::rabbit_host: "%{hiera('service__address__rabbitmq')}"
+nova::rabbit_hosts:
+    - "%{hiera('service__address__rabbitmq')}"
+#nova::rabbit_hosts: 
+#    - '172.31.16.31:5672'
+#    - '172.31.16.32:5672'
 nova::cinder_catalog_info: 'volumev2:cinderv2:internalURL'
 
 nova::db::mysql::allowed_hosts:

@@ -2,7 +2,11 @@ neutron::bind_host: "%{ipaddress_transport1}"
 neutron::core_plugin: neutron.plugins.ml2.plugin.Ml2Plugin
 neutron::service_plugins:
   - neutron.services.l3_router.l3_router_plugin.L3RouterPlugin
-neutron::rabbit_host: "%{hiera('service__address__rabbitmq')}"
+#neutron::rabbit_hosts:
+#    - "%{hiera('service__address__rabbitmq')}"
+neutron::rabbit_hosts:
+     - '172.31.16.31:5672'
+#    - '172.31.16.32:5672'
 # http://docs.projectcalico.org/en/stable/configuration.html#neutron-server-etc-neutron-neutron-conf
 neutron::dhcp_agents_per_network: '9999'
 

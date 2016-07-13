@@ -7,7 +7,12 @@ cinder::db::mysql::allowed_hosts:
 cinder::db::mysql::dbname:   'cinder'
 cinder::db::mysql::user:     'cinder'
 
-cinder::rabbit_host:         "%{hiera('service__address__rabbitmq')}"
+#cinder::rabbit_host:         '172.31.16.31:5672'
+#cinder::rabbit_hosts:   
+#    - "%{hiera('service__address__rabbitmq')}"
+cinder::rabbit_hosts:
+    - '172.31.16.31:5672'
+#    - '172.31.16.32:5672'
 
 cinder::api::keystone_user:      'cinder'
 cinder::api::keystone_enabled:   true

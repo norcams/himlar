@@ -47,6 +47,14 @@ nodesets:
     - role: "db"
       cpus:   1
       memory: 1024
+    - role: "mq"
+      hostid: "01"
+      cpus:   2
+      memory: 1024
+    - role: "mq"
+      hostid: "02"
+      cpus:   1
+      memory: 1024
     - role: "master"
       memory: 3096
     - role: "dashboard"
