@@ -6,7 +6,7 @@ class profile::openstack::resource::dataporten(
 ) {
 
   if $manage_dataporten {
-    $domain = hiera_hash('profile::openstack::dataporten::domain', {})
+    $domain = hiera_hash('profile::openstack::resource::dataporten::domain', {})
     create_resources('keystone_domain', $domain)
   }
 
