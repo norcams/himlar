@@ -7,12 +7,6 @@ include:
     - profile::application::himlarcli
     - profile::logging::rsyslog::client
 
-profile::openstack::adminrc::auth_url:    "%{hiera('endpoint_protocol')}://%{hiera('service__address__keystone_public')}:5000/v3"
-profile::openstack::adminrc::password:    "%{hiera('keystone_admin_password')}"
-profile::openstack::adminrc::region_name: "%{::location}"
-profile::openstack::adminrc::username:    'admin'
-profile::openstack::adminrc::tenant_name: 'openstack'
-
 profile::base::network::node_multinic: true
 profile::base::common::packages:
   'python-oslo-log': {}
@@ -41,7 +35,7 @@ profile::openstack::api::vhosts:
       setenvif:
         - "Referer '%{hiera('dashboard_referer')}' dashboard_referal"
       request_headers:
-        - 'set X-Forwarded-Proto "https"'
+        - "set X-Forwarded-Proto '%{hiera('endpoint_protocol')}'"
         - "set Host '%{hiera('service__address__keystone_public')}' env=dashboard_referal"
   nova_ec2_api:
     port:               '8773'

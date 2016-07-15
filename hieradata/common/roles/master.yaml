@@ -25,12 +25,6 @@ include:
     - profile::application::himlarcli
     - profile::logging::rsyslog::client
 
-profile::openstack::adminrc::auth_url:    "%{hiera('endpoint_protocol')}://%{hiera('service__address__keystone_public')}:5000/v3"
-profile::openstack::adminrc::password:    "%{hiera('keystone_admin_password')}"
-profile::openstack::adminrc::region_name: "%{::location}"
-profile::openstack::adminrc::username:    'admin'
-profile::openstack::adminrc::tenant_name: 'openstack'
-
 profile::base::network::node_multinic: true
 profile::base::common::manage_lvm: false
 profile::base::common::packages:

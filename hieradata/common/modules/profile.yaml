@@ -64,6 +64,12 @@ profile::application::himlarcli::foreman_url:       "https://%{::location}-forem
 profile::application::himlarcli::foreman_user:      'admin'
 profile::application::himlarcli::foreman_password:  "%{hiera('foreman::admin_password')}"
 
+profile::openstack::adminrc::auth_url:    "%{hiera('endpoint_protocol')}://%{hiera('service__address__keystone_public')}:5000/v3"
+profile::openstack::adminrc::password:    "%{hiera('keystone_admin_password')}"
+profile::openstack::adminrc::region_name: "%{::location}"
+profile::openstack::adminrc::username:    'admin'
+profile::openstack::adminrc::tenant_name: 'openstack'
+
 consul::config_hash:
   'enable_syslog': true
   'bind_addr':     "%{ipaddress_mgmt1}"
