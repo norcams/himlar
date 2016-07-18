@@ -8,7 +8,7 @@ himlar_bootstrap::virt_install:
     install_netmask: '255.255.255.0'
     install_gateway: '172.28.0.10'
 
-############################# SHOULD BE REMOVED ################################
+################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
 profile::base::network::manage_dummy: false
 profile::base::network::l3_router: false
 profile::base::network::remove_route: false
