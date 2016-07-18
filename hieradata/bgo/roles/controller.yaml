@@ -2,6 +2,9 @@
 include:
   default:
     - profile::network::services
+    - calico
+    - calico::compute
+    - profile::network::bird
 
 ntp::servers:
   - 172.16.0.106

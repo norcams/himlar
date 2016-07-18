@@ -3,9 +3,6 @@ include:
   default:
     - profile::virtualization::libvirt
     - profile::bootstrap::himlar
-    - calico
-    - calico::compute
-    - profile::network::bird
   kickstart:
     - profile::network::yum_proxy
   bootstrap:
