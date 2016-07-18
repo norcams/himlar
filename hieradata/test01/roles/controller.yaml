@@ -7,7 +7,7 @@ himlar_bootstrap::virt_install:
     install_ip:      '172.28.0.11'
     install_netmask: '255.255.255.0'
     install_gateway: '172.28.0.10'
-    vm_console:      ''
+    vm_console:      false
 
 ################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
 profile::base::network::manage_dummy: false
