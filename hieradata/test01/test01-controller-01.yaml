@@ -1,0 +1,36 @@
+---
+network::interfaces_hash:
+  'em1':
+    onboot:     'yes'
+    mtu:        '9000'
+    bridge:     'br0'
+  'em2':
+    onboot:     'yes'
+    mtu:        '9000'
+    bridge:     'br0'
+  'br0':
+    onboot:     'yes'
+    type:       'Bridge'
+    ipaddress:  '172.28.0.100'
+    gateway:    '172.28.0.10'
+    netmask:    '255.255.255.0'
+    dns1:       '129.177.6.54'
+#    dns1:       "%{hiera('service__address__proxy')}"
+    domain:     'mgmt.test.iaas.intern'
+    peerdns:    'yes'
+    defroute:   'yes'
+    bridge_stp: 'off'
+  'br0.912':
+    onboot:     'yes'
+    vlan:       'yes'
+    type:       'Bridge'
+    ipaddress:  '172.30.0.100'
+    netmask:    '255.255.255.0'
+    defroute:   'no'
+    bridge_stp: 'off'
+
+named_interfaces::config:
+  mgmt:
+     - br0
+  trp:
+     - br0_912
