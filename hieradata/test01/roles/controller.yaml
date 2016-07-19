@@ -13,3 +13,15 @@ himlar_bootstrap::virt_install:
 profile::base::network::manage_dummy: false
 profile::base::network::l3_router: false
 profile::base::network::remove_route: false
+
+profile::virtualization::libvirt::networks:
+  directnet:
+    ensure:              enabled
+    autostart:           true
+    forward_mode:        bridge
+    bridge:              br0
+  trpnet:
+    ensure:              enabled
+    autostart:           true
+    forward_mode:        bridge
+    bridge:              br1
