@@ -13,9 +13,9 @@ profile::application::foreman::manage_repo_dir: true
 profile::network::services::manage_dns_records: true
 profile::network::services::manage_dhcp_rsvs:   true
 
-# Bind utils will be installed with foreman::dns
-profile::base::common::packages:
-  'bind-utils': { ensure: absent }
+## Bind utils will be installed with foreman::dns
+#profile::base::common::packages:
+#  'bind-utils': { ensure: absent }
 
 puppet::server:                        true
 puppet::server_foreman_url:            "https://%{fqdn}"
