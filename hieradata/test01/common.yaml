@@ -23,3 +23,28 @@ profile::network::services::dns_options:
       keyfile: "/opt/repo/secrets/nodes/%{hostname}/etc/rndc-%{location}.key"
       server: 'alfalfa.uib.no'
 
+profile::network::services::dns_records:
+  CNAME:
+    'puppet.mgmt.test.iaas.intern':             'test01-admin-01.mgmt.test.iaas.intern'
+    'admin.mgmt.test.iaas.intern':              'test01-admin-01.mgmt.test.iaas.intern'
+    'repo.mgmt.test.iaas.intern':               'test01-admin-01.mgmt.test.iaas.intern'
+    'master.mgmt.test.iaas.intern':             'test01-master-01.mgmt.test.iaas.intern'
+    'db.mgmt.test.iaas.intern':                 'test01-db-01.mgmt.test.iaas.intern'
+  A:
+    'test01-leaf-01.mgmt.test.iaas.intern':        '172.28.0.1'
+    'test01-leaf-02.mgmt.test.iaas.intern':        '172.28.0.2'
+    'test01-admin-01.mgmt.test.iaas.intern':       '172.28.0.11'
+    'test01-master-01.mgmt.test.iaas.intern':      '172.28.0.11'
+    'test01-db-01.mgmt.test.iaas.intern':          '172.28.0.41'
+    'test01-controller-01.mgmt.test.iaas.intern':  '172.28.0.100'
+  PTR:
+    '1.0.28.172.in-addr.arpa':                   'test01-leaf-01.mgmt.test.iaas.intern'
+    '2.0.28.172.in-addr.arpa':                   'test01-leaf-02.mgmt.test.iaas.intern'
+
+profile::network::services::dhcp_reservation:
+  test01-leaf-01:
+    mac: '00:50:56:ae:59:33'
+    ip:  '172.28.0.1'
+  test01-leaf-02:
+    mac: '00:50:56:ae:4b:f6'
+    ip:  '172.28.0.2'
