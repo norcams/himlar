@@ -171,6 +171,19 @@ networks:
         ensure: present
       oob:
         ensure: present
+  test01:
+    domain:
+      mgmt: mgmt.test.iaas.intern
+    subnet:
+      mgmt: 172.28.0.0/24
+    dhcp:
+      mgmt:
+        ensure: absent
+    nat:
+      mgmt:
+        ensure: present
+      oob:
+        ensure: present
   vagrant:
     domain:
       mgmt: himlar.local
