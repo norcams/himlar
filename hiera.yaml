@@ -2,6 +2,7 @@
 :hierarchy:
     - "secrets/nodes/%{verified_host}.secrets"
     - "secrets/%{location}-common.secrets"
+    - "nodes/%{location}/%{verified_host}"
     - "nodes/%{verified_host}"
     - "%{location}/roles/%{role}-%{variant}"
     - "%{location}/roles/%{role}"
