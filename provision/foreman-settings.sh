@@ -116,7 +116,7 @@ common_config()
   # Create ftp.uninett.no medium
   hammer medium create --name 'CentOS ftp.uninett.no' \
     --os-family Redhat \
-    --path 'http://ftp.uninett.no/centos/$version/os/$arch' || true
+    --path 'http://ftp.uninett.no/centos/7/os/$arch' || true
   # Save CentOS mirror ids
   medium_id_1=$(hammer --csv medium info --name 'CentOS mirror' | tail -n1 | cut -d, -f1)
   medium_id_2=$(hammer --csv medium info --name 'CentOS ftp.uninett.no' | tail -n1 | cut -d, -f1)
@@ -135,7 +135,7 @@ common_config()
   # Create and update OS (we assume OS id is 1 for now)
   hammer os create --name CentOS --major 7 || true
   hammer os update --id 1 --name CentOS --major 7 \
-    --description "CentOS 7" \
+    --description "CentOS 7.2" \
     --family Redhat \
     --architecture-ids 1 \
     --medium-ids ${medium_id_2},${medium_id_1} \
