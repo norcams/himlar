@@ -49,7 +49,7 @@ class profile::network::services(
           jump     => 'MASQUERADE',
           outiface => $nat['mgmt']['outiface'],
           table    => 'nat',
-          state    => undef,
+          state    => undef
         }
       }
       profile::firewall::rule { '050 forward for mgmt':
@@ -57,8 +57,8 @@ class profile::network::services(
         iniface => $nat['mgmt']['iniface'],
         proto   => 'all',
         extras  => {
-          outiface => $nat['mgmt']['outiface']
-          state    => undef,
+          outiface => $nat['mgmt']['outiface'],
+          state    => undef
         }
       }
     }
