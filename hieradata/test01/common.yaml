@@ -2,10 +2,6 @@
 location_environment: test01
 location_description: Test environment physically in Bergen
 
-# mgmt
-service__address__proxy:             '172.28.0.12'
-service__address__rsyslog:           '172.28.0.13'
-
 profile::network::services::dns_options:
   CNAME:
     default:
@@ -31,16 +27,16 @@ profile::network::services::dns_records:
     'master.mgmt.test.iaas.intern':             'test01-master-01.mgmt.test.iaas.intern'
     'db.mgmt.test.iaas.intern':                 'test01-db-01.mgmt.test.iaas.intern'
   A:
-    'test01-leaf-01.mgmt.test.iaas.intern':        '172.28.0.1'
-    'test01-leaf-02.mgmt.test.iaas.intern':        '172.28.0.2'
-    'test01-admin-01.mgmt.test.iaas.intern':       '172.28.0.11'
-    'test01-master-01.mgmt.test.iaas.intern':      '172.28.0.20'
-    'test01-db-01.mgmt.test.iaas.intern':          '172.28.0.41'
-    'test01-dashboard-01.mgmt.test.iaas.intern':   '172.28.0.51'
-    'test01-controller-01.mgmt.test.iaas.intern':  '172.28.0.100'
-    'test01-controller-02.mgmt.test.iaas.intern':  '172.28.0.101'
-    'test01-controller-03.mgmt.test.iaas.intern':  '172.28.0.102'
-    'test01-controller-04.mgmt.test.iaas.intern':  '172.28.0.111'
+    'test01-leaf-01.mgmt.test.iaas.intern':        '172.30.0.1'
+    'test01-leaf-02.mgmt.test.iaas.intern':        '172.30.0.2'
+    'test01-admin-01.mgmt.test.iaas.intern':       '172.30.0.11'
+    'test01-master-01.mgmt.test.iaas.intern':      '172.30.0.20'
+    'test01-db-01.mgmt.test.iaas.intern':          '172.30.0.41'
+    'test01-dashboard-01.mgmt.test.iaas.intern':   '172.30.0.51'
+    'test01-controller-01.mgmt.test.iaas.intern':  '172.30.0.100'
+    'test01-controller-02.mgmt.test.iaas.intern':  '172.30.0.101'
+    'test01-controller-03.mgmt.test.iaas.intern':  '172.30.0.102'
+    'test01-controller-04.mgmt.test.iaas.intern':  '172.30.0.111'
   PTR:
     '1.0.28.172.in-addr.arpa':                   'test01-leaf-01.mgmt.test.iaas.intern'
     '2.0.28.172.in-addr.arpa':                   'test01-leaf-02.mgmt.test.iaas.intern'
@@ -48,7 +44,50 @@ profile::network::services::dns_records:
 profile::network::services::dhcp_reservation:
   test01-leaf-01:
     mac: '00:50:56:ae:59:33'
-    ip:  '172.28.0.1'
+    ip:  '172.30.0.1'
   test01-leaf-02:
     mac: '00:50:56:ae:4b:f6'
-    ip:  '172.28.0.2'
+    ip:  '172.30.0.2'
+
+################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
+
+#
+# Default interfaces
+#
+named_interfaces::config:
+  mgmt:
+    - eth0
+  transport:
+    - eth1
+  service:
+    - eth1
+  public:
+    - dummy0
+
+endpoint_protocol: 'https'
+
+# public
+service__address__horizon:           'test.iaas.uib.no'
+service__address__keystone_public:   'test.iaas.uib.no'
+service__address__glance_public_api: 'test.iaas.uib.no'
+service__address__nova_public_api:   'test.iaas.uib.no'
+service__address__neutron_public:    'test.iaas.uib.no'
+service__address__cinder_public_api: 'test.iaas.uib.no'
+service__address__consoleproxy:      '129.177.31.126'
+
+# service/transport1
+service__address__nova_api:          '172.30.0.20'
+service__address__nova_api_metadata: '172.30.0.20'
+service__address__glance_registry:   '172.30.0.20'
+service__address__glance_api:        '172.30.0.20'
+service__address__keystone:          '172.30.0.20'
+service__address__keystone_admin:    '172.30.0.20'
+service__address__rabbitmq:          '172.30.0.20'
+service__address__etcd_cluster:      '172.30.0.20'
+service__address__neutron_server:    '172.30.0.20'
+service__address__cinder_api:        '172.30.0.20'
+service__address__mysql:             '172.30.0.21'
+
+# mgmt
+service__address__proxy:             '172.28.0.12'
+service__address__rsyslog:           '172.28.0.13'
