@@ -14,8 +14,7 @@ service__address__cinder_api:        '158.38.144.254'
 
 service__address__keystone_admin:    '10.171.92.6'
 service__address__mysql:             '10.171.92.7'
-service__address__rabbitmq:
-    - '10.171.92.6'
+service__address__rabbitmq:          '10.171.92.6'
 service__address__etcd_cluster:      '10.171.92.6'
 
 ntp::servers:
