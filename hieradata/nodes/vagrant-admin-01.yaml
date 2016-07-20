@@ -1,7 +1,0 @@
----
-network::interfaces_hash:
-  'eth1':
-    ipaddress: "%{hiera('nw_mgmt_first_octets')}.11"
-    netmask:   "%{hiera('nw_mgmt_netmask')}"
-#    gateway:   "%{hiera('nw_mgmt_gateway')}"
-    mtu:       '1500'

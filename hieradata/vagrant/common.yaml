@@ -1,6 +1,22 @@
 ---
+# Location setting
 location_environment: dev
 location_description: Local development environment using vagrant
+
+# Domains
+domain_public:          'vagrant.iaas.intern'
+domain_trp:             'trp.vagrant.iaas.intern'
+domain_mgmt:            'mgmt.vagrant.iaas.intern'
+
+# These should only be used to configure network in nodes!
+netcfg_netpart_trp:     '172.31.16'
+netcfg_netmask_trp:     '255.255.255.0'
+netcfg_netpart_mgmt:    '172.31.0'
+netcfg_netmask_mgmt:    '255.255.255.0'
+netcfg_gateway_mgmt:    '172.31.0.1'
+netcfg_peerdns1:        '172.31.0.1'
+netcfg_peerdns2:        '8.8.8.8'
+netcfg_domain:          "%{hiera('domain_mgmt')} %{hiera('domain_trp')} %{hiera('domain_public')}"
 
 #
 # Networks
@@ -10,10 +26,6 @@ location_description: Local development environment using vagrant
 network_service:    '172.31.16.0/24'
 network_transport:  '172.31.16.0/24'
 network_public:     '172.31.24.0/24'
-
-nw_mgmt_first_octets:   '172.31.0'
-nw_mgmt_netmask:        '255.255.255.0'
-nw_mgmt_gateway:        '172.31.0.1'
 
 #
 # Default interfaces
@@ -91,12 +103,12 @@ profile::network::services::dns_options:
     default:
       ttl: 3600
       keyfile: "/etc/rndc.key"
-      server: "%{hiera('nw_mgmt_first_octets')}.11"
+      server: "%{hiera('netcfg_netpart_mgmt')}.11"
   A:
     default:
       ttl: 86400
       keyfile: "/etc/rndc.key"
-      server: "%{hiera('nw_mgmt_first_octets')}.11"
+      server: "%{hiera('netcfg_netpart_mgmt')}.11"
 
 profile::network::services::dns_records:
   CNAME:
@@ -104,10 +116,10 @@ profile::network::services::dns_records:
     "foreman.%{domain}":                    "%{location}-admin-01.%{domain}"
     "repo.%{domain}":                       "%{location}-admin-01.%{domain}"
   A:
-    "%{location}-login-01.%{domain}":       "%{hiera('nw_mgmt_first_octets')}.10"
-    "%{location}-admin-01.%{domain}":       "%{hiera('nw_mgmt_first_octets')}.11"
-    "%{location}-proxy-01.%{domain}":       "%{hiera('nw_mgmt_first_octets')}.12"
-    "%{location}-controller-01.%{domain}":  "%{hiera('nw_mgmt_first_octets')}.100"
+    "%{location}-login-01.%{domain}":       "%{hiera('netcfg_netpart_mgmt')}.10"
+    "%{location}-admin-01.%{domain}":       "%{hiera('netcfg_netpart_mgmt')}.11"
+    "%{location}-proxy-01.%{domain}":       "%{hiera('netcfg_netpart_mgmt')}.12"
+    "%{location}-controller-01.%{domain}":  "%{hiera('netcfg_netpart_mgmt')}.100"
 
 # to configure yum proxy set this appropriately
 #profile::network::yum_proxy::yum_proxy: 'http://updateproxy.uio.no:3128'

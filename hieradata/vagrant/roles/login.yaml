@@ -18,6 +18,6 @@ himlar_bootstrap::tftp_install:
   '%{location}-controller-01':
     domain:           '%{domain}'
     dhcp_interface:   'eth1'
-    dhcp_range_start: "%{hiera('nw_mgmt_first_octets')}.200"
-    dhcp_range_end:   "%{hiera('nw_mgmt_first_octets')}.250"
-    dhcp_gateway:     "%{hiera('nw_mgmt_first_octets')}.1"
+    dhcp_range_start: "%{hiera('netcfg_netpart_mgmt')}.200"
+    dhcp_range_end:   "%{hiera('netcfg_netpart_mgmt')}.250"
+    dhcp_gateway:     "%{hiera('netcfg_netpart_mgmt')}.1"
