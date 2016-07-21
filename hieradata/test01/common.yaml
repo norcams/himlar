@@ -46,6 +46,10 @@ profile::network::services::dns_records:
     '1.0.28.172.in-addr.arpa':                   'test01-leaf-01.mgmt.test.iaas.intern'
     '2.0.28.172.in-addr.arpa':                   'test01-leaf-02.mgmt.test.iaas.intern'
 
+ntp::servers:
+  - ntp.uib.no
+  - ntp2.uib.no
+
 profile::network::services::dhcp_reservation:
   test01-leaf-01:
     mac: '00:50:56:ae:59:33'
