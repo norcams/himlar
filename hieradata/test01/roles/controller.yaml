@@ -10,6 +10,10 @@ himlar_bootstrap::virt_install:
     vm_console:      false
 
 ################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
+include:
+  default:
+    - profile::network::services
+
 profile::network::services::ntp_server: true
 
 profile::base::network::manage_dummy: false
