@@ -74,6 +74,13 @@ service__address__rabbitmq:
 service__address__rsyslog:           '172.31.0.18'
 service__address__proxy:             ''
 
+# Rabbitmq:
+# In vagrant default is master
+# Change to mq-01 and/or mq-02 for testing
+service__address__rabbitmq_01:       '172.31.16.20'
+service__address__rabbitmq_02:       '172.31.16.20'
+service__address__rabbitmq_03:       '172.31.16.20'
+
 # no proxy for vagrant environments
 profile::network::yum_proxy::yum_proxy: ''
 
@@ -99,6 +106,13 @@ profile::network::localdns::hosts:
     host_aliases: "api.%{::domain}"
   access.%{::domain}:
     ip: '172.31.24.19'
+  vagrant-master-01:
+    ip: '172.31.16.20'
+  vagrant-mq-01:
+    ip: '172.31.16.31'
+  vagrant-mq-02:
+    ip: '172.31.16.32'
+
 
 profile::network::services::dns_options:
   CNAME:
@@ -150,16 +164,18 @@ nova_api_password:                                  'nova_pass'
 
 # rabbitmq
 rabbitmq::default_pass:                             'guest'
+rabbitmq::erlang_cookie:                            'Himlardev667'
 
 # cinder.yaml
 cinder::db::mysql::password:                        'cinder_pass'
-cinder::rabbit_password:                            'guest'
+cinder::rabbit_password:                            'cinder_guest'
 
 # foreman.yaml
 foreman::admin_password:                            'changeme'
 
 # glance.yaml
 glance::db::mysql::password:                        'glance_pass'
+#glance::notify::rabbitmq::rabbit_password:          'glance_quest'
 
 # horizon.yaml
 horizon::secret_key:                                'horizon_secret'
@@ -175,13 +191,14 @@ rbd_volumes_rbd_secret_uuid:                        'AQBypF1V2JYiChAA2qYbjM6jbXJ
 mysql::server::root_password:                       'test123'
 
 # neutron.yaml
-neutron::rabbit_password:                           'guest'
+neutron::rabbit_password:                           'neutron_guest'
 neutron::db::mysql::password:                       'neutron_pass'
 neutron::agents::metadata::shared_secret:           'a_secret'
 
 # nova.yaml
 nova::db::mysql::password:                          'nova_pass'
 nova::api::neutron_metadata_proxy_shared_secret:    'a_secret'
+nova::rabbit_password:                              'nova_quest'
 
 # The root user password: himlardev
 accounts::root_user::password:                      '$1$vagrant$z3l/WWbF3HllJk0tnqO3i/'
