@@ -2,3 +2,40 @@
 include:
   default:
     - profile::messaging::rabbitmq
+    - profile::logging::rsyslog::client
+
+profile::messaging::rabbitmq::manage_rsyslog: true
+
+profile::messaging::rabbitmq::users:
+  nova:
+    password: "%{hiera('nova::rabbit_password')}"
+  cinder:
+    password: "%{hiera('cinder::rabbit_password')}"
+  neutron:
+    password: "%{hiera('neutron::rabbit_password')}"
+#  glance:
+#    password: "%{hiera('glance::rabbit_password')}"
+
+profile::messaging::rabbitmq::vhosts:
+  nova: {}
+  cinder: {}
+  neutron: {}
+#  glance: {}
+
+profile::messaging::rabbitmq::user_permissions:
+  'nova@nova':
+    configure_permission: '.*'
+    write_permission:     '.*'
+    read_permission:      '.*'
+  'cinder@cinder':
+    configure_permission: '.*'
+    write_permission:     '.*'
+    read_permission:      '.*'
+  'neutron@neutron':
+    configure_permission: '.*'
+    write_permission:     '.*'
+    read_permission:      '.*'
+#  'glance@glance':
+#    configure_permission: '.*'
+#    write_permission:     '.*'
+#    read_permission:      '.*'
