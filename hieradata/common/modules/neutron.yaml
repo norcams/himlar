@@ -2,11 +2,7 @@ neutron::bind_host: "%{ipaddress_transport1}"
 neutron::core_plugin: neutron.plugins.ml2.plugin.Ml2Plugin
 neutron::service_plugins:
   - neutron.services.l3_router.l3_router_plugin.L3RouterPlugin
-#neutron::rabbit_hosts:
-#    - "%{hiera('service__address__rabbitmq')}"
-neutron::rabbit_hosts:
-     - '172.31.16.31:5672'
-#    - '172.31.16.32:5672'
+
 # http://docs.projectcalico.org/en/stable/configuration.html#neutron-server-etc-neutron-neutron-conf
 neutron::dhcp_agents_per_network: '9999'
 
@@ -52,3 +48,11 @@ neutron::server::auth_password:                      "%{hiera('neutron_api_passw
 neutron::keystone::auth::password:                   "%{hiera('neutron_api_password')}"
 neutron::agents::metadata::auth_password:            "%{hiera('neutron_api_password')}"
 neutron::server::notifications::nova_admin_password: "%{hiera('nova_api_password')}"
+
+# rabbit mq
+neutron::rabbit_user:           'neutron'
+neutron::rabbit_virtual_host:   'neutron'
+neutron::rabbit_hosts:
+  - "%{hiera('service__address__rabbitmq_01')}:5672"
+  - "%{hiera('service__address__rabbitmq_02')}:5672"
+  - "%{hiera('service__address__rabbitmq_03')}:5672"
