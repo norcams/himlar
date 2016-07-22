@@ -11,5 +11,5 @@ rabbitmq::config_variables:
     'log_levels':     "[{connection, info}]"
 
 rabbitmq::config_cluster:             true
-rabbitmq::cluster_node_type:          'ram'
+rabbitmq::cluster_node_type:          'disc'
 rabbitmq::wipe_db_on_cookie_change:   true
