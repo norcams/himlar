@@ -1,6 +1,12 @@
 input {
 
   file {
+    path => "/opt/log/rabbitmq.log"
+    type => "rabbitmq"
+    start_position => beginning
+  }
+
+  file {
     path => "/opt/log/nova.log"
     type => "nova"
     start_position => beginning
@@ -39,16 +45,24 @@ input {
 }
 
 filter {
-
-  grok {
-    break_on_match => true
-    match => [
-      "message", "%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:loglevel} %{HOSTNAME:openstack_hostname} %{DATA:openstack_component}: %{GREEDYDATA:message}",
-      "message", "%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:loglevel} %{HOSTNAME:openstack_hostname} %{DATA:openstack_component} %{GREEDYDATA:message}"
-    ]
-    add_tag => "openstack_logs"
+  if [type] == "rabbitmq" {
+    grok {
+      break_on_match => true
+      match => [
+        "message", "%{TIMESTAMP_ISO8601:timestamp} local7.notice %{HOSTNAME:hostname} %{DATA:component} %{GREEDYDATA:message}"
+      ]
+      add_tag => "rabbitmq_logs"
+    }
+  } else {
+    grok {
+      break_on_match => true
+      match => [
+        "message", "%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:loglevel} %{HOSTNAME:hostname} %{DATA:component}: %{GREEDYDATA:message}",
+        "message", "%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:loglevel} %{HOSTNAME:hostname} %{DATA:component} %{GREEDYDATA:message}"
+      ]
+      add_tag => "openstack_logs"
+    }
   }
-
 }
 
 output {

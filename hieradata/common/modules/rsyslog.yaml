@@ -38,6 +38,8 @@ rsyslog::server::log_templates:
     template: '/opt/log/%hostname%/nova.log'
   - name:     'NovaAll'
     template: '/opt/log/nova.log'
+  - name:     'RabbitmqAll'
+    template: '/opt/log/rabbitmq.log'
 
 rsyslog::client::server:              "%{hiera('service__address__rsyslog')}"
 rsyslog::client::port:                '514'
