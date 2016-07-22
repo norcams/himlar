@@ -1,5 +1,4 @@
 ---
-# Turn on very verbose logging
+# Turn on verbose logging
 keystone::verbose: true
-keystone::debug:   true
-keystone::wsgi::apache::vhost_custom_fragment: "LogLevel trace4"
+#keystone::wsgi::apache::vhost_custom_fragment: "LogLevel trace4"
