@@ -8,8 +8,7 @@ include:
     - profile::openstack::compute::consoleauth
     - profile::openstack::compute::consoleproxy
     - profile::openstack::identity
-    - profile::openstack::image::api
-    - profile::openstack::image::registry
+    - profile::openstack::image
     - profile::openstack::volume
     - profile::openstack::volume::api
     - profile::openstack::volume::scheduler
@@ -25,8 +24,10 @@ include:
     - profile::application::himlarcli
     - profile::logging::rsyslog::client
 
-profile::base::network::node_multinic: true
-profile::base::common::manage_lvm: false
+#profile::openstack::image::notify_enabled:    true
+profile::openstack::image::registry_enabled:  true
+profile::base::network::node_multinic:        true
+profile::base::common::manage_lvm:            false
 profile::base::common::packages:
   'python-etcd': {}
 
