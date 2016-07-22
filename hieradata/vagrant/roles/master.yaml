@@ -9,12 +9,17 @@ include:
     - profile::logging::rsyslog::client
     - profile::openstack::compute::consoleproxy
     - profile::application::sslcert
+    - profile::messaging::rabbitmq
 
+#profile::messaging::rabbitmq::manage_rsyslog: true
 
 calico::compute_manage_bird_config:   false
 calico::reflector::bird_template:     'calico/compute/bird.conf.erb'
 calico::reflector::bird6_template:    'calico/compute/bird6.conf.erb'
 calico::reflector: true
+
+rabbitmq::cluster_nodes:
+  - 'vagrant-master-01'
 
 profile::openstack::network::controller::neutron_nova_insecure: true
 
@@ -53,4 +58,3 @@ nova::config::nova_config:
       value: "/etc/pki/tls/certs/%{hiera('console_ssl_files')}.crt"
     DEFAULT/key:
       value: "/etc/pki/tls/private/%{hiera('console_ssl_files')}.key"
-
