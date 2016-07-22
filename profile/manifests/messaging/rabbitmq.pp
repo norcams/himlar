@@ -14,6 +14,7 @@ class profile::messaging::rabbitmq (
   $exchanges        = {},
   $user_permissions = {},
   $plugins          = {},
+  $policy           = {},
   $manage_rsyslog   = false,
   $manage_firewall  = true,
   $firewall_extras  = {}
@@ -31,6 +32,7 @@ class profile::messaging::rabbitmq (
   create_resources('rabbitmq_exchange', $exchanges)
   create_resources('rabbitmq_user_permissions', $user_permissions)
   create_resources('rabbitmq_plugin', $plugins)
+  create_resources('rabbitmq_policy', $policy)
 
   if $manage_firewall {
     profile::firewall::rule { '201 rabbitmq accept tcp':
