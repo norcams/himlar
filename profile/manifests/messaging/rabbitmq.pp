@@ -14,15 +14,16 @@ class profile::messaging::rabbitmq (
   $exchanges        = {},
   $user_permissions = {},
   $plugins          = {},
+  $manage_rsyslog   = false,
   $manage_firewall  = true,
   $firewall_extras  = {}
 ) {
 
-  Class['rabbitmq'] -> Rabbitmq_vhost <<| |>>
-  Class['rabbitmq'] -> Rabbitmq_user <<| |>>
-  Class['rabbitmq'] -> Rabbitmq_user_permissions <<| |>>
-  Class['rabbitmq'] -> Rabbitmq_exchange <<| |>>
-  Class['rabbitmq'] -> Rabbitmq_plugin <<| |>>
+  #Class['rabbitmq'] -> Rabbitmq_vhost <<| |>>
+  #Class['rabbitmq'] -> Rabbitmq_user <<| |>>
+  #Class['rabbitmq'] -> Rabbitmq_user_permissions <<| |>>
+  #Class['rabbitmq'] -> Rabbitmq_exchange <<| |>>
+  #Class['rabbitmq'] -> Rabbitmq_plugin <<| |>>
 
   include ::rabbitmq
   create_resources('rabbitmq_user', $users)
@@ -53,4 +54,13 @@ class profile::messaging::rabbitmq (
       extras => $firewall_extras
     }
   }
+
+  if $manage_rsyslog {
+    rsyslog::imfile { 'rabbitmq':
+      file_name     => "/var/log/rabbitmq/rabbit@${::hostname}.log",
+      file_tag      => 'rabbitmq',
+      file_facility => 'local7',
+    }
+  }
+
 }
