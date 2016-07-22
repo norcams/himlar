@@ -10,3 +10,7 @@ profile::webserver::apache::vhosts:
     ssl_ca:             "/etc/pki/tls/certs/DigiCertCA.crt"
     ssl_cert:           "/etc/pki/tls/certs/accesstest_iaas_uib_no.crt"
     ssl_key:            "/etc/pki/tls/private/accesstest_iaas_uib_no.key"
+
+
+################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
+profile::base::network::manage_dummy: true
