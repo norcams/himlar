@@ -26,7 +26,6 @@ network::interfaces_hash:
     ipaddress:    '172.30.0.104'
     netmask:      '255.255.255.0'
     defroute:     'no'
-    vlan:         'yes'
 
 profile::base::lvm::physical_volume:
   '/dev/sda3':
