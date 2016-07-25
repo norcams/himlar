@@ -62,6 +62,13 @@ ceph::profile::params::mon_host:                    '172.30.0.91:6789, 172.30.0.
 ceph::profile::params::cluster_network:             '172.30.0.0/24'
 ceph::profile::params::public_network:              '172.30.0.0/24'
 
+profile::openstack::volume::manage_rbd: true
+profile::openstack::volume::api::enable_multibackend: true
+profile::openstack::compute::hypervisor::manage_libvirt_rbd: true
+
+# If backend != file, you must explicitly define stores in %location/modules/glance.yaml
+profile::openstack::image::api::backend: 'rbd'
+
 profile::network::services::dhcp_reservation:
   test01-leaf-01:
     mac: '00:50:56:ae:59:33'
