@@ -2,6 +2,7 @@
 class profile::openstack::image(
   $registry_enabled = false,
   $notify_enabled   = false,
+  $manage_rbd       = false,
 ) {
 
   include ::profile::openstack::image::api
@@ -14,4 +15,7 @@ class profile::openstack::image(
     include ::profile::openstack::image::notify
   }
 
+  if $manage_rbd {
+    include profile::storage::cephclient
+  }
 }
