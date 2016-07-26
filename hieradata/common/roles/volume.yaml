@@ -1,0 +1,17 @@
+---
+include:
+  default:
+    - profile::openstack::volume
+    - profile::openstack::volume::api
+    - profile::openstack::volume::scheduler
+    - profile::openstack::volume::storage
+    - profile::logging::rsyslog::client
+
+profile::openstack::volume::backend::rbd:
+  rbd-volumes:
+    rbd_pool: 'volumes'
+    rbd_user: 'cinder'
+    rbd_secret_uuid: "%{hiera('client.cinder::secret')}"
+
+cinder::backends::enabled_backends:
+  - rbd-volumes
