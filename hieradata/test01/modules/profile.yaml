@@ -5,3 +5,4 @@ profile::network::yum_proxy::yum_proxy: ''
 # Use UiB smtp
 profile::application::himlarcli::smtp:          'smtp.uib.no'
 profile::application::himlarcli::from_addr:     'no-reply@uib.no'
+profile::application::himlarcli::foreman_url:   "https://%{::location}-admin-01.%{::domain}"
