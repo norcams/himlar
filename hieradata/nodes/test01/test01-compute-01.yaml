@@ -1,0 +1,42 @@
+---
+network::interfaces_hash:
+  'em1':
+    onboot:       'yes'
+#    mtu:          '9000'
+    master:       'bond0'
+    slave:        'yes'
+  'em2':
+    onboot:       'yes'
+#    mtu:          '9000'
+    master:       'bond0'
+    slave:        'yes'
+  'bond0':
+    onboot:       'yes'
+    bonding_opts: 'mode=balance-alb miimon=100'
+#    bonding_opts: 'mode=802.3ad miimon=100 lacp_rate=1'
+    ipaddress:    '172.28.0.103'
+    netmask:      '255.255.255.0'
+    mtu:          '1500'
+    dns1:         "%{hiera('service__address__proxy')}"
+    domain:       'mgmt.dev.iaas.intern'
+    peerdns:      'yes'
+    defroute:     'no'
+  'bond0.912':
+    onboot:       'yes'
+    vlan:         'yes'
+    ipaddress:    '172.30.0.103'
+    netmask:      '255.255.255.0'
+    defroute:     'no'
+
+profile::base::lvm::physical_volume:
+  '/dev/sda3':
+    ensure: present
+    force:  true
+  '/dev/sdb':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_ext':
+    physical_volumes:
+      - /dev/sda3
+      - /dev/sdb

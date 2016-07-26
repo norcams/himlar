@@ -1,0 +1,30 @@
+---
+network::interfaces_hash:
+  'eth0':
+    onboot:       'yes'
+    ipaddress:    '172.28.0.106'
+    gateway:      '172.28.0.10'
+    netmask:      '255.255.255.0'
+    dns1:         '129.177.6.54'
+##    dns1:   "%{hiera('service__address__proxy')}"
+    domain:       'mgmt.test.iaas.intern'
+    peerdns:      'yes'
+    defroute:     'yes'
+  'eth2':
+    onboot:       'yes'
+    mtu:          '9000'
+    master:       'bond0'
+    slave:        'yes'
+  'eth3':
+    onboot:       'yes'
+    mtu:          '9000'
+    master:       'bond0'
+    slave:        'yes'
+  'bond0':
+    onboot:       'yes'
+    bonding_opts: 'mode=balance-alb miimon=100'
+#    bonding_opts: 'mode=802.3ad miimon=100 lacp_rate=1'
+    onboot:       'yes'
+    ipaddress:    '172.30.0.106'
+    netmask:      '255.255.255.0'
+    defroute:     'no'

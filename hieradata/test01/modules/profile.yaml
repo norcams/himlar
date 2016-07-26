@@ -1,0 +1,7 @@
+---
+# Do not use yum proxy on himlar bootstrap!
+profile::network::yum_proxy::yum_proxy: ''
+
+# Use UiB smtp
+profile::application::himlarcli::smtp:          'smtp.uib.no'
+profile::application::himlarcli::from_addr:     'no-reply@uib.no'
