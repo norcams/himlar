@@ -29,7 +29,6 @@ service__address__glance_registry:   '172.18.32.20'
 service__address__glance_api:        '172.18.32.20'
 service__address__keystone:          '172.18.32.20'
 service__address__keystone_admin:    '172.18.32.20'
-service__address__rabbitmq:          '172.18.32.20'
 service__address__etcd_cluster:      '172.18.32.20'
 service__address__neutron_server:    '172.18.32.20'
 service__address__cinder_api:        '172.18.32.20'
@@ -39,7 +38,12 @@ service__address__mysql:             '172.18.32.21'
 service__address__proxy:             '172.16.32.12'
 service__address__rsyslog:           '172.16.32.18'
 
-foreman_bootstrap::nameserver: 129.240.2.3
+# rabbitmq
+service__address__rabbitmq_01:       '172.18.32.31'
+service__address__rabbitmq_02:       '172.18.32.31'
+service__address__rabbitmq_03:       '172.18.32.31'
+
+foreman_bootstrap::nameserver: 129.240.2.3 # FIXME
 
 ntp::servers:
   - ntp1.uio.no
@@ -85,6 +89,7 @@ profile::network::services::dns_records:
     'osl-db-01.iaas.uio.no':          '172.16.32.21'
     'osl-dashboard-01.iaas.uio.no':   '172.16.32.22'
     'osl-console-01.iaas.uio.no':     '172.16.32.23'
+    'osl-mq-01.iaas.uio.no':          '172.16.32.31'
     'osl-cephmon-01.iaas.uio.no':     '172.16.32.90'
     'osl-cephmon-02.iaas.uio.no':     '172.16.32.91'
     'osl-cephmon-03.iaas.uio.no':     '172.16.32.92'
