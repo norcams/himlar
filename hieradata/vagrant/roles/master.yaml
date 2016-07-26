@@ -58,3 +58,47 @@ nova::config::nova_config:
       value: "/etc/pki/tls/certs/%{hiera('console_ssl_files')}.crt"
     DEFAULT/key:
       value: "/etc/pki/tls/private/%{hiera('console_ssl_files')}.key"
+
+# Default rabbitmq server in vagrant is master node
+profile::messaging::rabbitmq::users:
+  nova:
+    password: "%{hiera('nova::rabbit_password')}"
+  cinder:
+    password: "%{hiera('cinder::rabbit_password')}"
+  neutron:
+    password: "%{hiera('neutron::rabbit_password')}"
+#  glance:
+#    password: "%{hiera('glance::rabbit_password')}"
+
+profile::messaging::rabbitmq::vhosts:
+  nova: {}
+  cinder: {}
+  neutron: {}
+#  glance: {}
+
+profile::messaging::rabbitmq::user_permissions:
+  'nova@nova':
+    configure_permission: '.*'
+    write_permission:     '.*'
+    read_permission:      '.*'
+  'cinder@cinder':
+    configure_permission: '.*'
+    write_permission:     '.*'
+    read_permission:      '.*'
+  'neutron@neutron':
+    configure_permission: '.*'
+    write_permission:     '.*'
+    read_permission:      '.*'
+#  'glance@glance':
+#    configure_permission: '.*'
+#    write_permission:     '.*'
+#    read_permission:      '.*'
+
+profile::messaging::rabbitmq::policy:
+  ha-all@nova:
+    pattern:                '.*'
+    priority:               0
+    applyto:                'all'
+    definition:
+      'ha-mode':            'all'
+      'ha-sync-mode':       'automatic'
