@@ -34,7 +34,6 @@ service__address__glance_registry:   '172.18.0.20'
 service__address__glance_api:        '172.18.0.20'
 service__address__keystone:          '172.18.0.20'
 service__address__keystone_admin:    '172.18.0.20'
-service__address__rabbitmq:          '172.18.0.20'
 service__address__etcd_cluster:      '172.18.0.20'
 service__address__neutron_server:    '172.18.0.20'
 service__address__cinder_api:        '172.18.0.20'
@@ -43,6 +42,11 @@ service__address__mysql:             '172.18.0.21'
 # mgmt
 service__address__proxy:             '172.16.0.12'
 service__address__rsyslog:           '172.16.0.18'
+
+# rabbitmq
+service__address__rabbitmq_01:       '172.18.0.31'
+service__address__rabbitmq_02:       '172.18.0.31'
+service__address__rabbitmq_03:       '172.18.0.31'
 
 ntp::servers:
   - ntp.uib.no
@@ -94,6 +98,7 @@ profile::network::services::dns_records:
     'bgo-db-01.mgmt.iaas.intern':          '172.16.0.21'
     'bgo-dashboard-01.mgmt.iaas.intern':   '172.16.0.22'
     'bgo-console-01.mgmt.iaas.intern':     '172.16.0.23'
+    'bgo-mq-01.mgmt.iaas.intern':          '172.16.0.31'
     'bgo-cephmon-01.mgmt.iaas.intern':     '172.16.0.90'
     'bgo-cephmon-02.mgmt.iaas.intern':     '172.16.0.91'
     'bgo-cephmon-03.mgmt.iaas.intern':     '172.16.0.92'
