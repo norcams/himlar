@@ -8,17 +8,11 @@ profile::openstack::image::registry_enabled:  true
 accounts::users:
   'cinder':
     ensure: present
-  'glance':
-    ensure: present
 
 accounts::usergroups:
   'cinder':
     - 'cinder'
-  'glance':
-    - 'glance'
 
 accounts::accounts:
   'cinder':
-    ensure: present
-  'glance':
     ensure: present
