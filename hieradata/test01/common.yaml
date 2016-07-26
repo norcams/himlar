@@ -2,6 +2,12 @@
 location_environment: test01
 location_description: Test environment physically in Bergen
 
+# Service address
+service__address__rabbitmq_01:       '172.30.0.31'
+service__address__rabbitmq_02:       '172.30.0.31'
+service__address__rabbitmq_03:       '172.30.0.31'
+
+
 profile::network::services::dns_options:
   CNAME:
     default:
@@ -32,6 +38,7 @@ profile::network::services::dns_records:
     'test01-admin-01.mgmt.test.iaas.intern':       '172.28.0.11'
     'test01-proxy-01.mgmt.test.iaas.intern':       '172.28.0.12'
     'test01-master-01.mgmt.test.iaas.intern':      '172.28.0.20'
+    'test01-mq-01.mgmt.test.iaas.intern':          '172.28.0.31'
     'test01-db-01.mgmt.test.iaas.intern':          '172.28.0.41'
     'test01-dashboard-01.mgmt.test.iaas.intern':   '172.28.0.51'
     'test01-access-01.mgmt.test.iaas.intern':      '172.28.0.56'
@@ -110,7 +117,6 @@ service__address__glance_registry:   '172.30.0.20'
 service__address__glance_api:        '172.30.0.20'
 service__address__keystone:          '172.30.0.20'
 service__address__keystone_admin:    '172.30.0.20'
-service__address__rabbitmq:          '172.30.0.20'
 service__address__etcd_cluster:      '172.30.0.20'
 service__address__neutron_server:    '172.30.0.20'
 service__address__cinder_api:        '172.30.0.20'

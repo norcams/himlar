@@ -1,8 +1,15 @@
 ---
-rabbitmq::repos_ensure: false
-rabbitmq::delete_guest_user: false
-rabbitmq::node_ip_address: "%{ipaddress_service1}"
-rabbitmq::package_provider: yum
-rabbitmq::package_source: ''
+# Install rabbitmq_management plugin
+rabbitmq::admin_enable:               true
+
+rabbitmq::repos_ensure:               false
+rabbitmq::delete_guest_user:          true
+rabbitmq::node_ip_address:            "%{ipaddress_service1}" # FIXME
+rabbitmq::package_provider:           yum
+rabbitmq::package_source:             ''
 rabbitmq::config_variables:
-    loopback_users: "[]"
+    'log_levels':     "[{connection, info}]"
+
+rabbitmq::config_cluster:             true
+rabbitmq::cluster_node_type:          'disc'
+rabbitmq::wipe_db_on_cookie_change:   true

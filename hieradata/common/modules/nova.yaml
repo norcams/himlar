@@ -1,6 +1,6 @@
 nova::database_connection: "mysql://nova:%{hiera('nova::db::mysql::password')}@%{hiera('service__address__mysql')}/nova"
 nova::glance_api_servers: "%{hiera('service__address__glance_api')}:9292"
-nova::rabbit_host: "%{hiera('service__address__rabbitmq')}"
+
 nova::cinder_catalog_info: 'volumev2:cinderv2:internalURL'
 
 nova::db::mysql::allowed_hosts:
@@ -57,6 +57,14 @@ nova::network::neutron::neutron_admin_password: "%{hiera('neutron_api_password')
 # logging
 nova::use_syslog:   true
 nova::log_facility: 'LOG_LOCAL0'
+
+# rabbit mq (for rabbit_password see secrets)
+nova::rabbit_userid:        'nova'
+nova::rabbit_virtual_host:  'nova'
+nova::rabbit_hosts:
+  - "%{hiera('service__address__rabbitmq_01')}:5672"
+  - "%{hiera('service__address__rabbitmq_02')}:5672"
+  - "%{hiera('service__address__rabbitmq_03')}:5672"
 
 # VNC
 #nova::compute::vnc_enabled: true

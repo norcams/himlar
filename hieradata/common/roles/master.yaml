@@ -1,7 +1,6 @@
 ---
 include:
   default:
-    - profile::messaging::rabbitmq
     - profile::openstack::compute::api
     - profile::openstack::compute::scheduler
     - profile::openstack::compute::conductor

@@ -126,7 +126,7 @@ mod 'mysql', :ref => '3.3.0',                    :git => github + 'puppetlabs/pu
 # profile::messaging::rabbitmq
 #
 mod 'garethr/erlang'
-mod 'rabbitmq', :ref => '5.1.0',                 :git => github + 'puppetlabs/puppetlabs-rabbitmq'
+mod 'rabbitmq', :ref => '8527f20',                 :git => github + 'puppetlabs/puppetlabs-rabbitmq'
 
 #
 # profile::openstack::*
@@ -156,7 +156,7 @@ mod 'ceph', :ref => '998e023d8f',                :git => github + 'openstack/pup
 #
 # Common libs
 #
-mod 'stdlib', :ref => '4.6.0',                   :git => github + 'puppetlabs/puppetlabs-stdlib'
+mod 'stdlib', :ref => '4.12.0',                   :git => github + 'puppetlabs/puppetlabs-stdlib'
 mod 'concat', :ref => '1.1.2',                   :git => github + 'puppetlabs/puppetlabs-concat'
 mod 'hash_file', :ref => '1.0.2',                :git => github + 'fiddyspence/puppet-hash_file'
 mod 'inifile', :ref => '1.2.0',                  :git => github + 'puppetlabs/puppetlabs-inifile'

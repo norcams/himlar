@@ -1,0 +1,8 @@
+---
+include:
+  default:
+    - profile::network::localdns
+
+rabbitmq::cluster_nodes:
+  - 'vagrant-mq-01'
+  - 'vagrant-mq-02'

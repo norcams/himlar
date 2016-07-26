@@ -30,9 +30,17 @@ glance::backend::rbd::rbd_store_pool: 'images'
 
 glance::api::keystone_password: "%{hiera('glance_api_password')}"
 
-# logging
-glance::api::use_syslog:          true
-glance::api::log_facility:        'LOG_LOCAL3'
+# rabbit mq (only for notifications)
+#glance::notify::rabbitmq::rabbit_userid:         'glance'
+#glance::notify::rabbitmq::rabbit_virtual_host:   'glance'
+#glance::notify::rabbitmq::rabbit_hosts:
+#  - "%{hiera('service__address__rabbitmq_01')}:5672"
+#  - "%{hiera('service__address__rabbitmq_02')}:5672"
+#  - "%{hiera('service__address__rabbitmq_03')}:5672"
 
-glance::registry::use_syslog:     true
-glance::registry::log_facility:   'LOG_LOCAL3'
+# logging
+glance::api::use_syslog:                true
+glance::api::log_facility:              'LOG_LOCAL3'
+
+glance::registry::use_syslog:           true
+glance::registry::log_facility:         'LOG_LOCAL3'
