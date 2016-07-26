@@ -15,3 +15,15 @@ profile::openstack::volume::backend::rbd:
 
 cinder::backends::enabled_backends:
   - rbd-volumes
+
+accounts::users:
+  'glance':
+    ensure: present
+
+accounts::usergroups:
+  'glance':
+    - 'glance'
+
+accounts::accounts:
+  'glance':
+    ensure: present
