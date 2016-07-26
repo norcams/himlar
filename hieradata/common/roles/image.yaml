@@ -2,6 +2,7 @@
 include:
   default:
     - profile::openstack::image
+    - profile::logging::rsyslog::client
 
 profile::openstack::image::registry_enabled:  true
 
