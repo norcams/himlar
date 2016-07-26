@@ -74,13 +74,13 @@ mod 'gitolite', :ref => '1.0',                   :git => github + 'uib/puppet-gi
 # profile::application::foreman
 #
 mod 'zack/r10k', '2.5.2'                         # forge
-mod 'theforeman/foreman', :ref => '1d0a5d397c',  :git => github + 'theforeman/puppet-foreman.git'
+mod 'theforeman/foreman', :ref => '5.2.2',       :git => github + 'theforeman/puppet-foreman.git'
 mod 'theforeman/concat_native', '1.3.1'          # forge
-mod 'theforeman/tftp', '1.6.0'                   # forge
-mod 'theforeman/puppet', :ref => '26e1213d0d',   :git => github + 'theforeman/puppet-puppet.git'
-mod 'theforeman/dns', '1.4.0'                    # forge
-mod 'theforeman/dhcp', :ref => '8303b75',        :git => github + 'norcams/puppet-dhcp.git'
-mod 'theforeman/foreman_proxy', '2.4.2'          # forge
+mod 'theforeman/tftp', '1.8.1'                   # forge
+mod 'theforeman/puppet', :ref => '5.0.0',        :git => github + 'theforeman/puppet-puppet.git'
+mod 'theforeman/dns', '3.3.1'                    # forge
+mod 'theforeman/dhcp', :ref => '2.3.2-norcams',  :git => github + 'norcams/puppet-dhcp.git'
+mod 'theforeman/foreman_proxy', '3.0.1'          # forge
 mod 'theforeman/git', '1.4.0'                    # forge
 mod 'adrien/alternatives', '0.3.0'               # forge
 mod 'voxpupuli/extlib', :ref => '3ed4231eeb',    :git => github + 'voxpupuli/puppet-extlib.git'
@@ -112,8 +112,7 @@ mod 'puppetlabs/apache', '1.7.1'                 # forge
 #
 # profile::database::postgresql
 #
-mod 'postgresqlrepo', :ref => 'master',          :git => github + 'Mylezeem/puppet-postgresqlrepo.git'
-mod 'postgresql', :ref => 'pg_hba_rules',        :git => github + 'Mylezeem/puppetlabs-postgresql.git'
+mod 'postgresql', :ref => '4.7.1',                :git => github + 'puppetlabs/puppetlabs-postgresql.git'
 
 #
 # profile::database::mariadb
