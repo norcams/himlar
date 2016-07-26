@@ -7,6 +7,9 @@ include:
     - profile::openstack::volume::storage
     - profile::logging::rsyslog::client
 
+profile::base::common::packages:
+  'python-oslo-policy': {}
+
 profile::openstack::volume::backend::rbd:
   rbd-volumes:
     rbd_pool: 'volumes'
@@ -15,6 +18,8 @@ profile::openstack::volume::backend::rbd:
 
 cinder::backends::enabled_backends:
   - rbd-volumes
+
+sudo::purge: false
 
 accounts::users:
   'glance':
