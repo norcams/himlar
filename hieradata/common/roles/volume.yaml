@@ -29,8 +29,12 @@ profile::openstack::volume::backend::rbd:
 cinder::backends::enabled_backends:
   - rbd-volumes
 
+# openstack-cinder creates a sudoers.d file used to
+# load backend drivers
 sudo::purge: false
 
+# Add glance user for ceph client config defined in
+# common::modules::ceph
 accounts::users:
   'glance':
     ensure: present
