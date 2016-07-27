@@ -20,6 +20,15 @@ if size($dash_a) == 4 {
   $hostid  = $::dash_a[2]
 }
 
+if $network_mgmt1 {
+  $netpart_mgmt1 = regsubst($network_mgmt1,'^(\d+)\.(\d+)\.(\d+)\.(\d+)$','\1.\2.\3')
+  info("netpart_mgmt1: ${netpart_mgmt1}")
+}
+if $network_transport1 {
+  $netpart_transport1 = regsubst($network_transport1,'^(\d+)\.(\d+)\.(\d+)\.(\d+)$','\1.\2.\3')
+  info("netpart_transport1: ${netpart_transport1}")
+}
+
 # Set runmode to default if it is not provided
 if empty($runmode) {
   $runmode='default'
@@ -45,4 +54,3 @@ site::include { $runmode_classes: }
 
 # Empty default node
 node default { }
-
