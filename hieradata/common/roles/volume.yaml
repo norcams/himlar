@@ -1,0 +1,48 @@
+---
+include:
+  default:
+    - profile::openstack::volume
+    - profile::openstack::volume::api
+    - profile::openstack::volume::scheduler
+    - profile::openstack::volume::storage
+    - profile::logging::rsyslog::client
+
+profile::base::common::packages:
+  'python-oslo-policy': {}
+
+profile::openstack::volume::type:
+  rbd:
+    set_key: 'volume_backend_name'
+    set_value: 'rbd-volumes'
+    os_tenant_name: 'services'
+    os_password: "%{hiera('cinder_api_password')}"
+    os_username: 'cinder'
+    os_region_name: "%{location}"
+    os_auth_url: "http://%{hiera('service__address__keystone')}:5000/v2.0"
+
+profile::openstack::volume::backend::rbd:
+  rbd-volumes:
+    rbd_pool: 'volumes'
+    rbd_user: 'cinder'
+    rbd_secret_uuid: "%{hiera('client.cinder::secret')}"
+
+cinder::backends::enabled_backends:
+  - rbd-volumes
+
+# openstack-cinder creates a sudoers.d file used to
+# load backend drivers
+sudo::purge: false
+
+# Add glance user for ceph client config defined in
+# common::modules::ceph
+accounts::users:
+  'glance':
+    ensure: present
+
+accounts::usergroups:
+  'glance':
+    - 'glance'
+
+accounts::accounts:
+  'glance':
+    ensure: present
