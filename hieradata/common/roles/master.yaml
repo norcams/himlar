@@ -1,11 +1,8 @@
 ---
 include:
   default:
-    - profile::openstack::compute::api
-    - profile::openstack::compute::scheduler
-    - profile::openstack::compute::conductor
-    - profile::openstack::compute::consoleauth
-    - profile::openstack::compute::consoleproxy
+    - profile::openstack::command
+    - profile::openstack::compute
     - profile::openstack::identity
     - profile::openstack::image
     - profile::openstack::volume
@@ -22,6 +19,13 @@ include:
     - profile::openstack::adminrc
     - profile::application::himlarcli
     - profile::logging::rsyslog::client
+
+# nova services (aka command)
+profile::openstack::compute::api::manage_firewall:  true
+profile::openstack::command::enable_api:            true
+profile::openstack::command::enable_conductor:      true
+profile::openstack::command::enable_scheduler:      true
+profile::openstack::command::enable_consoleauth:    true
 
 #profile::openstack::image::notify_enabled:    true
 profile::openstack::image::registry_enabled:  true

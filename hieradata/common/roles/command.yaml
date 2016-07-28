@@ -4,20 +4,14 @@ include:
     - profile::openstack::command
     - profile::logging::rsyslog::client
 
-profile::openstack::command::enable_api:          true
-profile::openstack::command::enable_conductor:    true
-profile::openstack::command::enable_scheduler:    true
-profile::openstack::command::enable_consoleauth:  true
+profile::openstack::compute::api::manage_firewall:  true
+profile::openstack::command::enable_api:            true
+profile::openstack::command::enable_conductor:      true
+profile::openstack::command::enable_scheduler:      true
+profile::openstack::command::enable_consoleauth:    true
 
 profile::openstack::compute::api::firewall_extras:
   source: "%{::network_transport1}/%{::netmask_transport1}" #FIXME
 
-sudo::purge: false
-
 # TESTING FIXME
 nova::api::enabled_apis: 'ec2,osapi_compute'
-
-# firewall
-profile::openstack::compute::api::manage_firewall: true
-#profile::base::common::packages:
-#  'iptables-services': {}

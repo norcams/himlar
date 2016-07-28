@@ -1,8 +1,10 @@
+#
 class profile::openstack::compute::api(
-  $manage_firewall = true,
+  $manage_firewall = false,
   $firewall_extras = {}
 ) {
-  include ::profile::openstack::compute
+
+  include ::nova
   include ::nova::api
 
   if $manage_firewall {
@@ -16,9 +18,5 @@ class profile::openstack::compute::api(
       extras => $firewall_extras
     }
 
-    profile::firewall::rule { '220 nova-api-metadata accept tcp':
-      port   => 8775,
-      extras => $firewall_extras
-    }
   }
 }
