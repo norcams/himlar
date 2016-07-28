@@ -1,15 +1,4 @@
 ---
-profile::openstack::network::calico::firewall_extras:
-  source: "172.31.0.0/16"
-profile::openstack::network::controller::firewall_extras:
-  source: "172.31.0.0/16"
-profile::openstack::image::api::firewall_extras:
-  source: "172.31.0.0/16"
-profile::openstack::image::registry::firewall_extras:
-  source: "172.31.0.0/16"
-profile::openstack::compute::api::firewall_extras:
-  source: "172.31.0.0/16"
-
 profile::application::himlarcli::cacert:      '/opt/himlar/provision/ca/certs/ca.cert.pem'
 profile::application::himlarcli::smtp:        ''
 profile::application::himlarcli::from_addr:   ''
