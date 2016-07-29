@@ -5,13 +5,12 @@
 
 include:
   default:
-    - profile::network::localdns
     - profile::logging::rsyslog::client
     - profile::openstack::compute::consoleproxy
     - profile::application::sslcert
     - profile::messaging::rabbitmq
 
-#profile::messaging::rabbitmq::manage_rsyslog: true
+profile::messaging::rabbitmq::manage_rsyslog: true
 
 calico::compute_manage_bird_config:   false
 calico::reflector::bird_template:     'calico/compute/bird.conf.erb'
