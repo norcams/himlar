@@ -1,4 +1,8 @@
 ---
+include:
+  default:
+    - profile::development::network::dns
+
 # Location setting
 location_environment: dev
 location_description: Local development environment using vagrant
@@ -14,6 +18,8 @@ netcfg_netmask_trp:     '255.255.255.0'
 netcfg_netpart_mgmt:    '172.31.0'
 netcfg_netmask_mgmt:    '255.255.255.0'
 netcfg_gateway_mgmt:    '172.31.0.1'
+netcfg_netpart_public:  '172.31.24'
+netcfg_netmask_public:  '255.255.255.0'
 netcfg_peerdns1:        '172.31.0.1'
 netcfg_peerdns2:        '8.8.8.8'
 netcfg_domain:          "%{hiera('domain_mgmt')} %{hiera('domain_trp')} %{hiera('domain_public')}"
@@ -35,9 +41,11 @@ named_interfaces::config:
     - eth0
   mgmt:
     - eth1
-  transport:
+  transport: #FIXME
     - eth2
-  service:
+  trp:
+    - eth2
+  service: #FIXME
     - eth2
   public:
     - eth3
@@ -55,7 +63,15 @@ profile::firewall::pre::ssh_settings:
 #
 
 # public
-service__address__consoleproxy:      'console.himlar.local'
+service__address__status:            "status.%{hiera('domain_public')}"
+service__address__horizon:           "dashboard.%{hiera('domain_public')}"
+service__address__keystone_public:   "dashboard.%{hiera('domain_public')}"
+service__address__glance_public_api: "dashboard.%{hiera('domain_public')}"
+service__address__nova_public_api:   "dashboard.%{hiera('domain_public')}"
+service__address__neutron_public:    "dashboard.%{hiera('domain_public')}"
+service__address__cinder_public_api: "dashboard.%{hiera('domain_public')}"
+service__address__consoleproxy:      "console.%{hiera('domain_public')}"
+
 
 # service/transport
 service__address__nova_api:          '172.31.16.20'
@@ -67,7 +83,7 @@ service__address__keystone_admin:    '172.31.16.20'
 service__address__etcd_cluster:      '172.31.16.20'
 service__address__neutron_server:    '172.31.16.20'
 service__address__cinder_api:        '172.31.16.20'
-service__address__mysql:             '172.31.16.21'
+service__address__mysql:             '172.31.16.41'
 service__address__rsyslog:           '172.31.0.18'
 service__address__proxy:             ''
 
@@ -97,20 +113,6 @@ sudo::configs:
     priority: 10
     content: 'vagrant ALL=(ALL) NOPASSWD:ALL'
 
-profile::network::localdns::hosts:
-  dashboard.%{::domain}:
-    ip: '172.31.24.22'
-    host_aliases: "api.%{::domain}"
-  access.%{::domain}:
-    ip: '172.31.24.19'
-  vagrant-master-01:
-    ip: '172.31.16.20'
-  vagrant-mq-01:
-    ip: '172.31.16.31'
-  vagrant-mq-02:
-    ip: '172.31.16.32'
-
-
 profile::network::services::dns_options:
   CNAME:
     default:
@@ -129,10 +131,22 @@ profile::network::services::dns_records:
     "foreman.%{domain}":                    "%{location}-admin-01.%{domain}"
     "repo.%{domain}":                       "%{location}-admin-01.%{domain}"
   A:
-    "%{location}-login-01.%{domain}":       "%{hiera('netcfg_netpart_mgmt')}.10"
-    "%{location}-admin-01.%{domain}":       "%{hiera('netcfg_netpart_mgmt')}.11"
-    "%{location}-proxy-01.%{domain}":       "%{hiera('netcfg_netpart_mgmt')}.12"
-    "%{location}-controller-01.%{domain}":  "%{hiera('netcfg_netpart_mgmt')}.100"
+    "%{location}-login-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_netpart_mgmt')}.10"
+    "%{location}-admin-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_netpart_mgmt')}.11"
+    "%{location}-proxy-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_netpart_mgmt')}.12"
+    "%{location}-logger-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_netpart_mgmt')}.13"
+    "%{location}-master-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_netpart_mgmt')}.20"
+    "%{location}-mq-01.%{hiera('domain_mgmt')}":          "%{hiera('netcfg_netpart_mgmt')}.31"
+    "%{location}-mq-02.%{hiera('domain_mgmt')}":          "%{hiera('netcfg_netpart_mgmt')}.32"
+    "%{location}-db-01.%{hiera('domain_mgmt')}":          "%{hiera('netcfg_netpart_mgmt')}.41"
+    "%{location}-dashboard-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_netpart_mgmt')}.51"
+    "%{location}-access-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_netpart_mgmt')}.56"
+    "%{location}-console-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_netpart_mgmt')}.61"
+    "%{location}-controller-01.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_netpart_mgmt')}.100"
+    "%{location}-compute-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_netpart_mgmt')}.103"
+    "dashboard.%{hiera('domain_public')}":                "%{hiera('netcfg_netpart_public')}.51"
+    "access.%{hiera('domain_public')}":                   "%{hiera('netcfg_netpart_public')}.56"
+    "console.%{hiera('domain_public')}":                  "%{hiera('netcfg_netpart_public')}.61"
 
 # to configure yum proxy set this appropriately
 #profile::network::yum_proxy::yum_proxy: 'http://updateproxy.uio.no:3128'
