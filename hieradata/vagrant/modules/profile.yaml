@@ -1,7 +1,10 @@
 ---
+profile::development::network::dns::manage_hosts: true
+
 profile::application::himlarcli::cacert:      '/opt/himlar/provision/ca/certs/ca.cert.pem'
 profile::application::himlarcli::smtp:        ''
 profile::application::himlarcli::from_addr:   ''
+
 
 # consul testdata
 consul::config_hash:
