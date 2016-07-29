@@ -1,0 +1,28 @@
+---
+network::interfaces_hash:
+  'eth0':
+    onboot:    'yes'
+    bridge:    'br0'
+  'eth1':
+    onboot:    'yes'
+    bridge:    'br1'
+  'br0':
+    dns1:      "%{hiera('netcfg_peerdns1')}"
+    dns2:      "%{hiera('netcfg_peerdns2')}"
+    domain:    "%{domain}"
+    defroute:  'yes'
+    peerdns:   'yes'
+    onboot:    'yes'
+    ipaddress: "%{hiera('netcfg_netpart_mgmt')}.100"
+    netmask:   "%{hiera('netcfg_netmask_mgmt')}"
+    gateway:   "%{hiera('netcfg_gateway_mgmt')}"
+    type:      'Bridge'
+  'br1':
+    defroute:  'no'
+    onboot:    'yes'
+    ipaddress: "%{hiera('netcfg_netpart_trp')}.100"
+    netmask:   "%{hiera('netcfg_netmask_trp')}"
+    type:      'Bridge'
+
+# Use controller-01 for himlar bootstrap
+profile::bootstrap::himlar::manage_bootstrap_scripts: true
