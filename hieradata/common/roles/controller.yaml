@@ -3,11 +3,6 @@ include:
   default:
     - profile::virtualization::libvirt
     - profile::bootstrap::himlar
-  kickstart:
-    - profile::network::yum_proxy
-  bootstrap:
-    - profile::network::yum_proxy
-
 
 calico::compute::manage_dhcp_agent: false
 calico::compute::manage_metadata_service: false
