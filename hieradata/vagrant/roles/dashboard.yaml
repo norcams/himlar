@@ -1,15 +1,11 @@
 ---
-include:
-  default:
-    - profile::network::localdns
-
 profile::openstack::adminrc::cacert:            '/opt/himlar/provision/ca/certs/ca-chain.cert.pem'
 
 apache::log_level:                              warn
 
 profile::openstack::dashboard::manage_ssl_cert: true
 profile::application::sslcert::cert_name:       'vagrant'
-profile::application::sslcert::commonname:      "dashboard.%{domain}"
+profile::application::sslcert::commonname:      "dashboard.%{hiera('domain_public')}"
 
 dashboard_ssl_files: 'vagrant'
 
