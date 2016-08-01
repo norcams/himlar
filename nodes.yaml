@@ -8,92 +8,70 @@ defaults:
   autostart: true
   primary:   false
   location:  "vagrant"
-  domain:    "himlar.local"
-  cpus:      2
-  memory:    2048
+  domain:    "vagrant.iaas.intern"
+  cpus:      1
+  memory:    1024
   networks:
     - "mgmt"
-    - "service"
+    - "transport"
     - "public"
 
 #
 # Nodesets configuration example:
 #
 #   simple:
-#     -name: master
-#     -name: compute
+#     - role: master
+#     - role: compute
 #
 #   This will configure two nodes with the following FQDNs:
-#     vagrant-master-box.himlar.local
-#     vagrant-compute-box.himlar.local
+#     vagrant-master-01.vagrant.iaas.intern
+#     vagrant-compute-01.vagrant.iaas.intern
 #
 #   4nodes:
-#     -name: master
-#     -name c1
+#     - name: db
+#     - name: master
+#     - role: compute
+#       hostid: 01
 #       role: compute
-#     -name c2
-#       role: compute
-#     -name gw
-#       role: gateway
+#       hostid: 02
 #
 #   This will configure four nodes with the following FQDNs:
-#     vagrant-master-box.himlar.local
-#     vagrant-compute-c1.himlar.local
-#     vagrant-compute-c2.himlar.local
-#     vagrant-gateway-gw.himlar.local
+#     vagrant-db-01.vagrant.iaas.intern
+#     vagrant-master-01.vagrant.iaas.intern
+#     vagrant-compute-01.vagrant.iaas.intern
+#     vagrant-compute-02.vagrant.iaas.intern
 #
 nodesets:
   default:
-    - role: "db"
-      cpus:   1
-      memory: 1024
-    - role: "master"
+    - role:   "db"
+    - role:   "dashboard"
+    - role:   "master"
       memory: 3096
-    - role: "dashboard"
-      cpus:   1
-      memory: 1024
-    - role: "compute"
+    - role:   "compute"
+      memory: 2048
+      cpus:   2
+  full:
+    - role:   "db"
+    - role:   "dashboard"
+    - role:   "master"
+      memory: 3096
+    - role:   "compute"
+      memory: 2048
+      cpus:   2
+    - role:   "access"
+    - role:   "command"
+    - role:   "console"
+    - role:   "image"
+    - role:   "volume"
+    - role:   "mq"
+      hostid: "01"
+    - role:   "mq"
+      hostid: "02"
     - role: "logger"
       cpus:   1
       memory: 2048
   base:
     - role: "base"
-  access:
-    - role: "db"
-      cpus:   1
-      memory: 1024
-    - role: "master"
-      memory: 3096
-    - role: "access"
-      cpus:   1
-      memory: 1024
-    - role: "dashboard"
-      cpus:   1
-      memory: 1024
-    - role: "logger"
-      cpus:   1
-      memory: 2048
-  mq:
-    - role: "db"
-      cpus:   1
-      memory: 1024
-    - role: "mq"
-      hostid: "01"
-      cpus:   1
-      memory: 1024
-    - role: "mq"
-      hostid: "02"
-      cpus:   1
-      memory: 1024
-    - role: "master"
-      memory: 3096
-    - role: "dashboard"
-      cpus:   1
-      memory: 1024
-    - role: "compute"
-    - role: "logger"
-      cpus:   1
-      memory: 2048
   infra:
     - role: "login"
     - role: "controller"
@@ -121,15 +99,9 @@ networks:
   oob:
     net: "172.31.8"
     auto_config: false
-  service:
+  transport:
     net: "172.31.16"
     auto_config: false
   public:
     net: "172.31.24"
-    auto_config: false
-  transport1:
-    net: "172.31.32"
-    auto_config: false
-  transport2:
-    net: "172.31.33"
     auto_config: false
