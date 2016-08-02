@@ -12,8 +12,6 @@ include:
 profile::firewall::pre::ssh_settings:
   source: "%{::network_mgmt1}/%{::netmask_mgmt1}"
 
-profile::network::yum_proxy::yum_proxy: "http://%{hiera('service__address__proxy')}:8888"
-
 #
 # Location metadata
 #

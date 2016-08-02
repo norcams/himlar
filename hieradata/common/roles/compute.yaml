@@ -19,6 +19,8 @@ include:
 neutron::use_syslog:    true
 neutron::log_facility:  'LOG_LOCAL5'
 
+profile::network::yum_proxy::yum_proxy: "http://%{hiera('service__address__proxy')}:8888"
+
 openstack_extras::repo::redhat::redhat::manage_rdo: false
 profile::base::common::manage_lvm: true
 
