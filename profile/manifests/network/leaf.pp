@@ -3,7 +3,7 @@
 class profile::network::leaf(
   $manage_license     = false,
   $cumulus_license    = "user@example.com|00000000000000000000000000000000000000000000000000\n",
-  $manage_quagga      = true,
+  $manage_quagga      = false,
 ) {
 
   if $manage_license {
