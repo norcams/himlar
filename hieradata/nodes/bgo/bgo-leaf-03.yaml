@@ -33,26 +33,31 @@ profile::base::network::cumulus_bonds:
   'host1':
     'slaves': [ 'swp1', ]
     'clag_id': '1'
+    'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
   'host2':
     'slaves': [ 'swp2', ]
     'clag_id': '2'
+    'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
   'host3':
     'slaves': [ 'swp3', ]
     'clag_id': '3'
+    'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
   'host4':
     'slaves': [ 'swp4', ]
     'clag_id': '4'
+    'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
   'host5':
     'slaves': [ 'swp5', ]
     'clag_id': '5'
+    'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
 
