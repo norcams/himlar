@@ -13,7 +13,7 @@ class profile::network::leaf(
     } ->
     cumulus_license { 'cumulus_license':
       src => '/tmp/licfile',
-      notify => Service['switchd']
+#      notify => Service['switchd']
     }
   }
 
