@@ -10,15 +10,33 @@ network::interfaces_hash:
 profile::base::network::cumulus_interfaces:
   'bridge.100':
     'ipv4': [ '172.18.0.4/21', ]
+  'peerlink-leaf.4093':
+    'ipv4': [ '172.18.228.2/30', ]
+    'clagd_enable': true
+    'clagd_priority': '8192'
+    'clagd_peer_ip': '172.18.228.1'
+    'clagd_sys_mac': '44:38:39:ff:bb:1e'
+  'peerlink-spine.4094':
+    'ipv4': [ '172.18.228.6/30', ]
+    'clagd_enable': true
+    'clagd_priority': '8192'
+    'clagd_peer_ip': '172.18.228.5'
+    'clagd_sys_mac': '44:38:39:ff:aa:1f'
 
 profile::base::network::cumulus_bridges:
   'bridge':
     'vids': [ '100', ]
     'pvid': "100"
-    'ports': [ 'swp1-2', ]
+    'ports': [ 'swp1-5', ]
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'true'
+
+profile::base::network::cumulus_bonds:
+  'peerlink-leaf':
+    'slaves': [ 'swp49-50', ]
+  'peerlink-spine':
+    'slaves': [ 'swp51-52', ]
 
 # Add default route for management VRF
 profile::base::network::routes:
