@@ -37,6 +37,7 @@ profile::base::network::cumulus_bonds:
     'slaves': [ 'swp49-50', ]
   'peerlink-spine':
     'slaves': [ 'swp51-52', ]
+    'clag_id': '1'
 
 # Add default route for management VRF
 profile::base::network::routes:
