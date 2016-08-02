@@ -26,5 +26,4 @@ bootstrap_puppet()
   touch /opt/himlar/bootstrap && echo "Created bootstrap marker: /opt/himlar/bootstrap"
 }
 
-grep --quiet --silent himlar /var/lib/puppet/state/last_run_report.yaml || bootstrap_puppet
-
+grep --quiet --silent profile /var/lib/puppet/state/last_run_report.yaml || bootstrap_puppet
