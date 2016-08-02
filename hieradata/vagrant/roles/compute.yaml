@@ -11,6 +11,11 @@ profile::base::common::manage_lvm: false
 # The next two for testing proxy.sh creation, normally not needed in vagrant environments
 #profile::base::network::manage_httpproxy: 'true'
 #profile::base::network::http_proxy:       'updateproxy.uio.no:3128'
+#profile::base::network::http_proxy:       'www-cache.uib.no:81'
+
+# to configure yum proxy set this appropriately
+#profile::network::yum_proxy::yum_proxy: 'http://updateproxy.uio.no:3128'
+#profile::network::yum_proxy::yum_proxy: 'http://www-cache.uib.no:81'
 
 profile::base::lvm::physical_volume:
   '/dev/vda3':
