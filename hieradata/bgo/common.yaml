@@ -64,6 +64,20 @@ profile::openstack::compute::hypervisor::manage_libvirt_rbd: true
 # If backend != file, you must explicitly define stores in %location/modules/glance.yaml
 profile::openstack::image::api::backend: 'rbd'
 
+profile::network::services::dhcp_reservation:
+  bgo-leaf-01:
+    mac: '00:01:e8:d8:38:aa'
+    ip:  '172.16.0.4'
+  bgo-leaf-02:
+    mac: '00:01:e8:d8:36:e3'
+    ip:  '172.16.0.5'
+  bgo-leaf-03:
+    mac: '00:01:e8:d8:36:61'
+    ip:  '172.16.0.6'
+  bgo-leaf-04:
+    mac: '00:01:e8:d8:37:24'
+    ip:  '172.16.0.7'
+
 profile::network::services::dns_options:
   CNAME:
     default:
@@ -71,6 +85,11 @@ profile::network::services::dns_options:
       keyfile: "/opt/repo/secrets/nodes/%{hostname}/etc/rndc-%{location}.key"
       server: 'alfalfa.uib.no'
   A:
+    default:
+      ttl: 86400
+      keyfile: "/opt/repo/secrets/nodes/%{hostname}/etc/rndc-%{location}.key"
+      server: 'alfalfa.uib.no'
+  PTR:
     default:
       ttl: 86400
       keyfile: "/opt/repo/secrets/nodes/%{hostname}/etc/rndc-%{location}.key"
@@ -113,3 +132,8 @@ profile::network::services::dns_records:
     'bgo-storage-03.mgmt.iaas.intern':     '172.16.0.108'
     'bgo-storage-04.mgmt.iaas.intern':     '172.16.0.109'
     'bgo-storage-05.mgmt.iaas.intern':     '172.16.0.110'
+  PTR:
+    '4.0.16.172.in-addr.arpa':                   'bgo-leaf-01.mgmt.iaas.intern'
+    '5.0.16.172.in-addr.arpa':                   'bgo-leaf-02.mgmt.iaas.intern'
+    '6.0.16.172.in-addr.arpa':                   'bgo-leaf-03.mgmt.iaas.intern'
+    '7.0.16.172.in-addr.arpa':                   'bgo-leaf-04.mgmt.iaas.intern'
