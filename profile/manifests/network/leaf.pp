@@ -13,6 +13,7 @@ class profile::network::leaf(
     } ->
     cumulus_license { 'cumulus_license':
       src => '/tmp/licfile',
+#      Ideally restart switchd, but the service is not defined in our code.
 #      notify => Service['switchd']
     }
   }
