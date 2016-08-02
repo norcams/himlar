@@ -11,6 +11,7 @@ class profile::base::network(
   $node_multinic    = false,
   $has_servicenet   = false,
   $cumulus_ifs      = false,
+  $http_proxy_profile = '/etc/profile.d/proxy.sh',
 ) {
 
   # Set up extra logical fact names for network facts
@@ -109,7 +110,7 @@ class profile::base::network(
       undef    => absent,
       default => present,
     }
-    $target = "/etc/profile.d/proxy.sh"
+    $target = "$http_proxy_profile"
 
     shellvar { "http_proxy":
       ensure  => exported,

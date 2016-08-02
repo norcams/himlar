@@ -8,6 +8,10 @@
 # off lvm for compute on vagrant
 profile::base::common::manage_lvm: false
 
+# The next two for testing proxy.sh creation, normally not needed in vagrant environments
+#profile::base::network::manage_httpproxy: 'true'
+#profile::base::network::http_proxy:       'updateproxy.uio.no:3128'
+
 profile::base::lvm::physical_volume:
   '/dev/vda3':
     ensure: present
