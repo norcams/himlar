@@ -10,34 +10,51 @@ network::interfaces_hash:
 profile::base::network::cumulus_interfaces:
   'bridge.100':
     'ipv4': [ '172.18.0.4/21', ]
-  'peerlink-leaf.4093':
+  'peerlink-leaf.4094':
     'ipv4': [ '172.18.228.2/30', ]
     'clagd_enable': true
     'clagd_priority': '8192'
     'clagd_peer_ip': '172.18.228.1'
     'clagd_sys_mac': '44:38:39:ff:bb:1e'
-  'peerlink-spine.4094':
-    'ipv4': [ '172.18.228.6/30', ]
-    'clagd_enable': true
-    'clagd_priority': '8192'
-    'clagd_peer_ip': '172.18.228.5'
-    'clagd_sys_mac': '44:38:39:ff:aa:1f'
 
 profile::base::network::cumulus_bridges:
   'bridge':
-    'vids': [ '100', ]
-    'pvid': "100"
-    'ports': [ 'swp1-5', ]
+    'ports': [ 'host1', 'host2', 'host3', 'host4', 'host5', 'peerlink-leaf03', 'leaf01-02' ]
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'true'
 
 profile::base::network::cumulus_bonds:
-  'peerlink-leaf':
+  'peerlink-leaf03':
     'slaves': [ 'swp49-50', ]
-  'peerlink-spine':
+  'leaf01-02':
     'slaves': [ 'swp51-52', ]
+    'clag_id': '100'
+  'host1':
+    'slaves': [ 'swp1', ]
     'clag_id': '1'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host2':
+    'slaves': [ 'swp2', ]
+    'clag_id': '2'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host3':
+    'slaves': [ 'swp3', ]
+    'clag_id': '3'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host4':
+    'slaves': [ 'swp4', ]
+    'clag_id': '4'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host5':
+    'slaves': [ 'swp5', ]
+    'clag_id': '5'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
 
 # Add default route for management VRF
 profile::base::network::routes:
