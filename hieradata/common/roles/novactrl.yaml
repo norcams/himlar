@@ -1,7 +1,7 @@
 ---
 include:
   default:
-    - profile::openstack::command
+    - profile::openstack::novactrl
     - profile::logging::rsyslog::client
 
 profile::openstack::compute::api::manage_firewall:  true
