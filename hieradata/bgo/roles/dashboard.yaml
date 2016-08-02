@@ -17,3 +17,6 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_upload'
     fs_type:      "xfs"
     mountpath:    "/tmp"
+
+################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
+profile::base::network::manage_dummy: true
