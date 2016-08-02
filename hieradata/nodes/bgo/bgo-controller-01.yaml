@@ -1,34 +1,37 @@
 ---
 network::interfaces_hash:
   'em1':
-    ipaddress: '172.18.0.100'
-    netmask:   '255.255.248.0'
-    peerdns:   'yes'
-    dns1:      "%{hiera('service__address__proxy')}"
-    domain:    'mgmt.iaas.intern'
-    defroute:  'no'
-    onboot:    "yes"
+    onboot:       'yes'
+    master:       'bond1'
+    slave:        'yes'
   'em2':
-    ipaddress: '172.18.8.100'
-    netmask:   '255.255.248.0'
-    defroute:  'no'
-    onboot:    "yes"
+    onboot:       'yes'
+    master:       'bond1'
+    slave:        'yes'
   'em3':
-    onboot:    "yes"
-    bridge:    "br0"
+    onboot:       'yes'
+    bridge:       'br0'
+  'bond1':
+    onboot:       'yes'
+    bonding_opts: 'mode=802.3ad miimon=100 lacp_rate=1'
+    bridge:       'br1'
   'br0':
-    ipaddress: "172.16.0.100"
-    netmask:   "255.255.248.0"
-    gateway:   "172.16.0.1"
-    defroute:  "no"
-    onboot:    "yes"
-    mtu:       "1500"
-    type:      'Bridge'
-  'dummy0':
-    ipaddress: '158.39.77.1'
-    netmask:   '255.255.255.0'
-    defroute:  'no'
-  'dummy1':
-    ipaddress: '172.19.0.1'
-    netmask:   '255.255.255.0'
-    defroute:  'no'
+    ipaddress:    '172.16.0.100'
+    netmask:      '255.255.248.0'
+    gateway:      '172.16.0.1'
+    defroute:     'yes'
+    onboot:       'yes'
+    type:         'Bridge'
+    peerdns:      'yes'
+    dns1:         "%{hiera('service__address__proxy')}"
+    domain:       'mgmt.iaas.intern'
+  'br1':
+    onboot:       'yes'
+    type:         'Bridge'
+    ipaddress:    '172.18.0.100'
+    netmask:      '255.255.248.0'
+    defroute:     'no'
+    bridge_stp:   'off'
+
+# Use controller-01 for himlar bootstrap
+profile::bootstrap::himlar::manage_bootstrap_scripts: true

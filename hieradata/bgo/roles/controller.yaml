@@ -1,23 +1,42 @@
 ---
-include:
-  default:
-    - profile::network::services
-    - calico
-    - calico::compute
-    - profile::network::bird
-
-ntp::servers:
-  - 172.16.0.106
-  - 172.16.0.107
-  - 172.16.0.108
-
-foreman_bootstrap::virt_install:
-  bgo-foreman-01:
+himlar_bootstrap::virt_install:
+  '%{location}-admin-01':
     domain:          'mgmt.iaas.intern'
     libvirt_pool:    'dirpool'
     libvirt_network: 'directnet'
     install_ip:      '172.16.0.11'
     install_netmask: '255.255.248.0'
-    install_gateway: '172.16.0.1'
+    install_gateway: '172.16.0.10'
 
+################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
+include:
+  default:
+    - profile::network::services
+
+named_interfaces::config:
+  mgmt:
+     - br0
+  trp:
+     - br1
+
+profile::network::services::ntp_server:   true
+
+profile::base::network::manage_dummy:     false
+profile::base::network::l3_router:        false
+profile::base::network::remove_route:     false
+
+<<<<<<< HEAD
 profile::base::network::manage_httpproxy: 'true'
+=======
+profile::virtualization::libvirt::networks:
+  directnet:
+    ensure:              enabled
+    autostart:           true
+    forward_mode:        bridge
+    bridge:              br0
+  trpnet:
+    ensure:              enabled
+    autostart:           true
+    forward_mode:        bridge
+    bridge:              br1
+>>>>>>> Updated bgo-controller new network model
