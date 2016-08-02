@@ -10,7 +10,7 @@ network::interfaces_hash:
 profile::base::network::cumulus_interfaces:
   'bridge.100':
     'ipv4': [ '172.18.0.4/21', ]
-  'peerlink-leaf.4094':
+  'peerlink.4094':
     'ipv4': [ '172.18.228.2/30', ]
     'clagd_enable': true
     'clagd_priority': '8192'
@@ -19,13 +19,13 @@ profile::base::network::cumulus_interfaces:
 
 profile::base::network::cumulus_bridges:
   'bridge':
-    'ports': [ 'host1', 'host2', 'host3', 'host4', 'host5', 'peerlink-leaf03', 'leaf01-02' ]
+    'ports': [ 'host1', 'host2', 'host3', 'host4', 'host5', 'peerlink', 'leaf01-02' ]
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'true'
 
 profile::base::network::cumulus_bonds:
-  'peerlink-leaf03':
+  'peerlink':
     'slaves': [ 'swp49-50', ]
   'leaf01-02':
     'slaves': [ 'swp51-52', ]
