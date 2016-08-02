@@ -1,7 +1,7 @@
 ---
 include:
   default:
-    - profile::openstack::command
+    - profile::openstack::novactrl
     - profile::openstack::compute
     - profile::openstack::identity
     - profile::openstack::image
@@ -21,11 +21,11 @@ include:
     - profile::logging::rsyslog::client
 
 # nova services (aka command)
-profile::openstack::compute::api::manage_firewall:  true
-profile::openstack::command::enable_api:            true
-profile::openstack::command::enable_conductor:      true
-profile::openstack::command::enable_scheduler:      true
-profile::openstack::command::enable_consoleauth:    true
+profile::openstack::compute::api::manage_firewall:   true
+profile::openstack::novactrl::enable_api:            true
+profile::openstack::novactrl::enable_conductor:      true
+profile::openstack::novactrl::enable_scheduler:      true
+profile::openstack::novactrl::enable_consoleauth:    true
 
 #profile::openstack::image::notify_enabled:    true
 profile::openstack::image::registry_enabled:  true

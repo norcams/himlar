@@ -1,5 +1,5 @@
-# Profile class for the command node
-class profile::openstack::command(
+# Profile class for the nova control node
+class profile::openstack::novactrl(
   $enable_api           = false,
   $enable_scheduler     = false,
   $enable_consoleauth   = false,
