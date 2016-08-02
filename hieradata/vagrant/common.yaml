@@ -84,7 +84,7 @@ service__address__etcd_cluster:      '172.31.16.20'
 service__address__neutron_server:    '172.31.16.20'
 service__address__cinder_api:        '172.31.16.20'
 service__address__mysql:             '172.31.16.41'
-service__address__rsyslog:           '172.31.0.18'
+service__address__rsyslog:           '172.31.0.13'
 service__address__proxy:             ''
 
 # Rabbitmq:
@@ -142,20 +142,16 @@ profile::network::services::dns_records:
     "%{location}-dashboard-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_netpart_mgmt')}.51"
     "%{location}-access-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_netpart_mgmt')}.56"
     "%{location}-console-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_netpart_mgmt')}.61"
+    "%{location}-identity-01.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_netpart_mgmt')}.81"
     "%{location}-controller-01.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_netpart_mgmt')}.100"
     "%{location}-compute-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_netpart_mgmt')}.103"
     "dashboard.%{hiera('domain_public')}":                "%{hiera('netcfg_netpart_public')}.51"
     "access.%{hiera('domain_public')}":                   "%{hiera('netcfg_netpart_public')}.56"
     "console.%{hiera('domain_public')}":                  "%{hiera('netcfg_netpart_public')}.61"
 
-# to configure yum proxy set this appropriately
-#profile::network::yum_proxy::yum_proxy: 'http://updateproxy.uio.no:3128'
-
-
 #
 ## Secret data which for other environments are stored ooutside of this data tree
 #
-
 
 # ceph.yaml
 ceph::profile::params::mon_key:                     'AQATGHJTUCBqIBAA7M2yafV1xctn1pgr3GcKPg=='
