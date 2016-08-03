@@ -10,18 +10,66 @@ network::interfaces_hash:
     'post_up': [ '/etc/network/if-up.d/z90-route-swp48', ]
     'post_down': [ '/etc/network/if-down.d/z90-route-swp48', ]
 
+profile::base::network::cumulus_interfaces:
+  'bridge.100':
+    'ipv4': [ '172.18.0.1/21', ]
+  'peerlink.4094':
+    'ipv4': [ '172.18.228.1/30', ]
+    'clagd_enable': true
+    'clagd_priority': '4096'
+    'clagd_peer_ip': '172.18.228.2'
+    'clagd_sys_mac': '44:38:39:ff:bb:1c'
+
 profile::base::network::cumulus_bridges:
   'bridge':
-    'vids': [ '100', ]
-    'pvid': "100"
-    'ipv4': [ '172.30.0.1/24', ]
-    'ports': [ 'swp1-6', ]
+    'ports': [ 'host1', 'host2', 'host3', 'host4', 'host5', 'host6', 'peerlink', 'uplink' ]
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'true'
-  'bridge.100':
-    ipv4: [ '172.18.0.1/21', ]
-    pvid: '100'
+
+profile::base::network::cumulus_bonds:
+  'peerlink':
+    'slaves': [ 'swp49-50', ]
+  'uplink':
+    'slaves': [ 'swp51-52', ]
+    'clag_id': '100'
+    'pvid': '100'
+  'host1':
+    'slaves': [ 'swp1', ]
+    'clag_id': '1'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host2':
+    'slaves': [ 'swp2', ]
+    'clag_id': '2'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host3':
+    'slaves': [ 'swp3', ]
+    'clag_id': '3'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host4':
+    'slaves': [ 'swp4', ]
+    'clag_id': '4'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host5':
+    'slaves': [ 'swp5', ]
+    'clag_id': '5'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host6':
+    'slaves': [ 'swp6', ]
+    'clag_id': '6'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
 
 # Add default route for management VRF
 profile::base::network::routes:

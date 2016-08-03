@@ -7,6 +7,14 @@ network::interfaces_hash:
     'post_up': [ '/etc/network/if-up.d/z90-route-eth0', ]
     'post_down': [ '/etc/network/if-down.d/z90-route-eth0', ]
 
+# Add default route for management VRF
+profile::base::network::routes:
+  'eth0':
+    'ipaddress': [ '0.0.0.0', ]
+    'netmask':   [ '0.0.0.0', ]
+    'gateway':   [ '172.16.0.1', ]
+    'table':     [ 'mgmt', ]
+
 profile::base::network::cumulus_interfaces:
   'bridge.100':
     'ipv4': [ '172.18.0.3/21', ]
@@ -61,11 +69,3 @@ profile::base::network::cumulus_bonds:
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
-
-# Add default route for management VRF
-profile::base::network::routes:
-  'eth0':
-    'ipaddress': [ '0.0.0.0', ]
-    'netmask':   [ '0.0.0.0', ]
-    'gateway':   [ '172.16.0.1', ]
-    'table':     [ 'mgmt', ]
