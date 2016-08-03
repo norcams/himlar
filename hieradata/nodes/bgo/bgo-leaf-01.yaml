@@ -84,19 +84,20 @@ quagga::quagga::zebra_interfaces:
   'bridge':
     - 'link-detect'
     - 'description linux-bridge'
-  'swp1':
+  'bridge.100':
     - 'link-detect'
-  'swp2':
+    - 'description linux-bridge-100'
+  'host1':
     - 'link-detect'
-  'swp3':
+  'host2':
     - 'link-detect'
-  'swp4':
+  'host3':
     - 'link-detect'
-  'swp5':
+  'host4':
     - 'link-detect'
-  'swp6':
+  'host5':
     - 'link-detect'
-  'swp7':
+  'host6':
     - 'link-detect'
 
 quagga::quagga::zebra_ip_routes:
