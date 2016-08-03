@@ -17,3 +17,6 @@ profile::base::network::manage_httpproxy: 'true'
 
 puppet::cron_cmd: "if [ -e /etc/profile.d/proxy.sh ] ; then source /etc/profile.d/proxy.sh ; fi ; \
   /usr/bin/env puppet agent --config %{puppet::dir}/puppet.conf --onetime --no-daemonize"
+
+################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
+calico::compute::bird_template: 'profile/bird/bird.conf.erb'
