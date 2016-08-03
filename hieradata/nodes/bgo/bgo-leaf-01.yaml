@@ -22,7 +22,7 @@ profile::base::network::cumulus_interfaces:
   'bridge.100':
     'ipv4': [ '172.18.0.1/21', ]
   'peerlink.4094':
-    'ipv4': [ '172.18.228.1/30', ]
+    'ipv4': [ '172.18.228.1/24', ]
     'clagd_enable': true
     'clagd_priority': '4096'
     'clagd_peer_ip': '172.18.228.2'
@@ -34,6 +34,7 @@ profile::base::network::cumulus_bridges:
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'true'
+    'vids': [ '100', '4094', ]
 
 profile::base::network::cumulus_bonds:
   'peerlink':
