@@ -1,17 +1,8 @@
 ---
-named_interfaces::config:
-  mgmt:
-    - em3
-  transport:
-    - em1
-    - em2
-  service:
-    - em1
-
 ntp::servers:
-  - 172.16.0.106
-  - 172.16.0.107
-  - 172.16.0.108
+  - 172.16.0.100
+  - 172.16.0.101
+  - 172.16.0.102
 
 profile::base::network::manage_httpproxy: 'true'
 
@@ -20,3 +11,11 @@ puppet::cron_cmd: "if [ -e /etc/profile.d/proxy.sh ] ; then source /etc/profile.
 
 ################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
 calico::compute::bird_template: 'profile/bird/bird.conf.erb'
+
+named_interfaces::config:
+  mgmt:
+    - em3
+  transport:
+    - bond1
+  service:
+    - bond1
