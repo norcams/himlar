@@ -27,7 +27,7 @@ profile::base::network::cumulus_interfaces:
 
 profile::base::network::cumulus_bridges:
   'bridge':
-    'ports': [ 'host1', 'host2', 'host3', 'host4', 'host5', 'peerlink', 'uplink' ]
+    'ports': [ 'host1', 'host2', 'host3', 'host4', 'host5', 'peerlink', 'uplink1', 'uplink2' ]
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'true'
@@ -35,9 +35,15 @@ profile::base::network::cumulus_bridges:
 profile::base::network::cumulus_bonds:
   'peerlink':
     'slaves': [ 'swp49-50', ]
-  'uplink':
-    'slaves': [ 'swp51-52', ]
+# Uplink to leaf-01
+  'uplink1':
+    'slaves': [ 'swp51', ]
     'clag_id': '100'
+    'pvid': '100'
+# Uplink to leaf-02
+  'uplink2':
+    'slaves': [ 'swp52', ]
+    'clag_id': '101'
     'pvid': '100'
   'host1':
     'slaves': [ 'swp1', ]
