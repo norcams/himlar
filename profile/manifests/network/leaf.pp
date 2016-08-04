@@ -3,7 +3,7 @@
 class profile::network::leaf(
   $manage_license     = false,
   $cumulus_license    = "user@example.com|00000000000000000000000000000000000000000000000000\n",
-  $manage_quagga      = true,
+  $manage_quagga      = false,
 ) {
 
   if $manage_license {
@@ -13,7 +13,8 @@ class profile::network::leaf(
     } ->
     cumulus_license { 'cumulus_license':
       src => '/tmp/licfile',
-      notify => Service['switchd']
+#      Ideally restart switchd, but the service is not defined in our code.
+#      notify => Service['switchd']
     }
   }
 

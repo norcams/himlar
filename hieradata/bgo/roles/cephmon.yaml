@@ -1,5 +1,4 @@
----
-profile::base::network::mroute:
-  'em1':
-    routes:
-      '172.19.0.0/21': '172.18.0.1'
+
+# MUST be moved to common
+
+profile::base::network::has_servicenet: false
