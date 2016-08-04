@@ -83,7 +83,7 @@ mod 'theforeman/dhcp', :ref => '2.3.2-norcams',  :git => github + 'norcams/puppe
 mod 'theforeman/foreman_proxy', '3.0.1'          # forge
 mod 'theforeman/git', '1.4.0'                    # forge
 mod 'adrien/alternatives', '0.3.0'               # forge
-mod 'voxpupuli/extlib', :ref => '3ed4231eeb',    :git => github + 'voxpupuli/puppet-extlib.git'
+mod 'voxpupuli/extlib', :ref => 'v0.11.3',      :git => github + 'voxpupuli/puppet-extlib.git'
 mod 'puppetlabs/ruby', '0.4.0'                   # forge
 mod 'puppetlabs/xinetd', '1.4.0'                 # forge
 mod 'eyaml', :ref => 'v0.3.0',                   :git => github + 'ghoneycutt/puppet-module-eyaml'
@@ -155,7 +155,7 @@ mod 'ceph', :ref => '998e023d8f',                :git => github + 'openstack/pup
 #
 # Common libs
 #
-mod 'stdlib', :ref => '4.12.0',                   :git => github + 'puppetlabs/puppetlabs-stdlib'
+mod 'stdlib', :ref => '4.12.0',                  :git => github + 'puppetlabs/puppetlabs-stdlib'
 mod 'concat', :ref => '1.1.2',                   :git => github + 'puppetlabs/puppetlabs-concat'
 mod 'hash_file', :ref => '1.0.2',                :git => github + 'fiddyspence/puppet-hash_file'
 mod 'inifile', :ref => '1.2.0',                  :git => github + 'puppetlabs/puppetlabs-inifile'
