@@ -25,9 +25,6 @@ profile::base::network::manage_dummy:     false
 profile::base::network::l3_router:        false
 profile::base::network::remove_route:     false
 
-<<<<<<< HEAD
-profile::base::network::manage_httpproxy: 'true'
-=======
 profile::virtualization::libvirt::networks:
   directnet:
     ensure:              enabled
@@ -39,4 +36,3 @@ profile::virtualization::libvirt::networks:
     autostart:           true
     forward_mode:        bridge
     bridge:              br1
->>>>>>> Updated bgo-controller new network model
