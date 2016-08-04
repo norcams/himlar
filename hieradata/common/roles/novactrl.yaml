@@ -1,0 +1,17 @@
+---
+include:
+  default:
+    - profile::openstack::novactrl
+    - profile::logging::rsyslog::client
+
+profile::openstack::compute::api::manage_firewall:  true
+profile::openstack::novactrl::enable_api:            true
+profile::openstack::novactrl::enable_conductor:      true
+profile::openstack::novactrl::enable_scheduler:      true
+profile::openstack::novactrl::enable_consoleauth:    true
+
+profile::openstack::compute::api::firewall_extras:
+  source: "%{::network_transport1}/%{::netmask_transport1}" #FIXME
+
+# TESTING FIXME
+nova::api::enabled_apis: 'ec2,osapi_compute'
