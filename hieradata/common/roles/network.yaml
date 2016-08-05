@@ -1,0 +1,18 @@
+---
+include:
+  default:
+    - profile::openstack::network::controller
+    - profile::openstack::resource::createnetworks
+    - profile::logging::rsyslog::client
+
+calico::controller: true
+
+profile::openstack::network::policies:
+  create_network:
+    key:   'create_network'
+    value: 'rule:admin_only'
+  create_router:
+    key:   'create_router'
+    value: 'rule:admin_only'
+
+profile::openstack::network::calico::manage_bird: false
