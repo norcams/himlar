@@ -1,4 +1,5 @@
+#
 class profile::openstack::compute::consoleauth {
-  include ::profile::openstack::compute
+  include ::nova
   include ::nova::consoleauth
 }
