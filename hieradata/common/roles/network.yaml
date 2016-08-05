@@ -23,3 +23,7 @@ profile::openstack::network::policies:
     value: 'rule:admin_only'
 
 profile::openstack::network::calico::manage_bird: false
+
+# openstack-neutron-common creates a sudoers.d file that
+# maybe should be managed
+sudo::purge: false
