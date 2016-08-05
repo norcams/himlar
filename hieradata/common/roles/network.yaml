@@ -14,3 +14,5 @@ profile::openstack::network::policies:
   create_router:
     key:   'create_router'
     value: 'rule:admin_only'
+
+profile::openstack::network::calico::manage_bird: false
