@@ -3,7 +3,13 @@ include:
   default:
     - profile::openstack::network::controller
     - profile::openstack::resource::createnetworks
+    - profile::application::etcd
     - profile::logging::rsyslog::client
+
+profile::base::common::packages:
+  'python-etcd': {}
+
+etcd::mode: cluster
 
 calico::controller: true
 
