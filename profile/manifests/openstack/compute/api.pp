@@ -6,6 +6,7 @@ class profile::openstack::compute::api(
 
   include ::nova
   include ::nova::api
+  include ::nova::network::neutron
 
   if $manage_firewall {
     profile::firewall::rule { '220 nova-api accept tcp':
