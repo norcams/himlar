@@ -1,48 +1,34 @@
 ---
 network::interfaces_hash:
   'em1':
-    ipaddress: '172.18.32.101'
-    netmask:   '255.255.248.0'
-    peerdns:   'yes'
-    dns1:      "%{hiera('service__address__proxy')}"
-    defroute:  'no'
-    onboot:    "yes"
+    onboot:       'yes'
+    master:       'bond1'
+    slave:        'yes'
   'em2':
-    ipaddress: '172.18.40.101'
-    netmask:   '255.255.248.0'
-    defroute:  'no'
-    onboot:    "yes"
+    onboot:       'yes'
+    master:       'bond1'
+    slave:        'yes'
   'em3':
-    onboot:    "yes"
-    bridge:    "br0"
+    onboot:       'yes'
+    bridge:       'br0'
+  'bond1':
+    onboot:       'yes'
+    bonding_opts: 'mode=802.3ad miimon=100 lacp_rate=1'
+    bridge:       'br1'
   'br0':
-    ipaddress: "172.16.32.101"
-    netmask:   "255.255.248.0"
-    defroute:  "no"
-    onboot:    "yes"
-    mtu:       "1500"
-    type:      'Bridge'
-  'dummy0':
-    ipaddress: '158.37.63.1'
-    netmask:   '255.255.255.0'
-    defroute:  'no'
-  'dummy1':
-    ipaddress: '172.19.32.1'
-    netmask:   '255.255.255.0'
-    defroute:  'no'
-  'atap-proxy01':
-    bootproto: 'none'
-    type:      'Tap'
-    onboot:    'yes'
-  'atap-cephmon02':
-    bootproto: 'none'
-    type:      'Tap'
-    onboot:    'yes'
-
-profile::base::network::mroute:
-  'dummy0':
-    routes:
-      '158.37.63.253/32': 'atap-proxy01'
-  'em1':
-    routes:
-      '172.18.32.91/32':  'atap-cephmon02'
+    ipaddress:    '172.16.32.101'
+    netmask:      '255.255.248.0'
+    gateway:      '172.16.32.1'
+    defroute:     'yes'
+    onboot:       'yes'
+    type:         'Bridge'
+    peerdns:      'yes'
+    dns1:         "%{hiera('service__address__proxy')}"
+    domain:       'iaas.uio.no'
+  'br1':
+    onboot:       'yes'
+    type:         'Bridge'
+    ipaddress:    '172.18.32.101'
+    netmask:      '255.255.248.0'
+    defroute:     'no'
+    bridge_stp:   'off'
