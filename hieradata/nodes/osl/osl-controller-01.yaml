@@ -1,53 +1,37 @@
 ---
 network::interfaces_hash:
   'em1':
-    ipaddress: '172.18.32.100'
-    netmask:   '255.255.248.0'
-    peerdns:   'yes'
-    dns1:      "%{hiera('service__address__proxy')}"
-    defroute:  'no'
-    onboot:    "yes"
+    onboot:       'yes'
+    master:       'bond1'
+    slave:        'yes'
   'em2':
-    ipaddress: '172.18.40.100'
-    netmask:   '255.255.248.0'
-    defroute:  'no'
-    onboot:    "yes"
+    onboot:       'yes'
+    master:       'bond1'
+    slave:        'yes'
   'em3':
-    onboot:    "yes"
-    bridge:    "br0"
+    onboot:       'yes'
+    bridge:       'br0'
+  'bond1':
+    onboot:       'yes'
+    bonding_opts: 'mode=802.3ad miimon=100 lacp_rate=1'
+    bridge:       'br1'
   'br0':
-    ipaddress: "172.16.32.100"
-    netmask:   "255.255.248.0"
-    defroute:  "no"
-    onboot:    "yes"
-    mtu:       "1500"
-    type:      'Bridge'
-  'dummy0':
-    ipaddress: '158.37.63.1'
-    netmask:   '255.255.255.0'
-    defroute:  'no'
-  'dummy1':
-    ipaddress: '172.19.32.1'
-    netmask:   '255.255.255.0'
-    defroute:  'no'
-  'atap-access01':
-    bootproto: 'none'
-    type:      'Tap'
-    onboot:    'yes'
-  'atap-console01':
-    bootproto: 'none'
-    type:      'Tap'
-    onboot:    'yes'
-  'atap-cephmon01':
-    bootproto: 'none'
-    type:      'Tap'
-    onboot:    'yes'
+    ipaddress:    '172.16.32.100'
+    netmask:      '255.255.248.0'
+    gateway:      '172.16.32.1'
+    defroute:     'yes'
+    onboot:       'yes'
+    type:         'Bridge'
+    peerdns:      'yes'
+    dns1:         "%{hiera('service__address__proxy')}"
+    domain:       'iaas.uio.no'
+  'br1':
+    onboot:       'yes'
+    type:         'Bridge'
+    ipaddress:    '172.18.32.100'
+    netmask:      '255.255.248.0'
+    defroute:     'no'
+    bridge_stp:   'off'
 
-profile::base::network::mroute:
-  'dummy0':
-    routes:
-      '158.37.63.252/32': 'atap-access01'
-      '158.37.63.251/32': 'atap-console01'
-  'em1':
-    routes:
-      '172.18.32.90/32':  'atap-cephmon01'
+# Use controller-01 for himlar bootstrap
+profile::bootstrap::himlar::manage_bootstrap_scripts: true
