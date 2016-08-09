@@ -12,7 +12,7 @@ network::interfaces_hash:
     onboot:       'yes'
     ipaddress:    '172.16.32.108'
     netmask:      '255.255.248.0'
-    gateway:      '172.16.32.1'
+    gateway:      '172.16.32.12'
     defroute:     'no'
     dns1:         "%{hiera('service__address__proxy')}"
     domain:       'iaas.uio.no'
