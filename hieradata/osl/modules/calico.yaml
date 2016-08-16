@@ -7,12 +7,6 @@ calico::reflector::client_defaults:
   local_as: 65502
 
 calico::reflector::clients:
-  ctrl1:
-    peer_ipv4: '172.18.32.100'
-  ctrl2:
-    peer_ipv4: '172.18.32.101'
-  ctrl3:
-    peer_ipv4: '172.18.32.102'
   c1:
     peer_ipv4: '172.18.32.103'
   c2:
@@ -30,9 +24,3 @@ calico::compute::peer_defaults:
 calico::compute::peers:
   rr1:
     peer_ipv4: '172.18.32.1'
-    local_pref: 100
-    local_ipv4: "%{ipaddress_transport1}"
-  rr2:
-    peer_ipv4: '172.18.40.1'
-    local_pref: 90
-    local_ipv4: "%{ipaddress_transport2}"

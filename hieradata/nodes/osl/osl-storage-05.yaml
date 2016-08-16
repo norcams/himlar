@@ -1,0 +1,26 @@
+---
+network::interfaces_hash:
+  'em1':
+    onboot:       'yes'
+    master:       'bond1'
+    slave:        'yes'
+  'em2':
+    onboot:       'yes'
+    master:       'bond1'
+    slave:        'yes'
+  'em3':
+    onboot:       'yes'
+    ipaddress:    '172.16.32.110'
+    netmask:      '255.255.248.0'
+    gateway:      '172.16.32.12'
+    defroute:     'no'
+    dns1:         "%{hiera('service__address__proxy')}"
+    domain:       'iaas.uio.no'
+    peerdns:      'yes'
+  'bond1':
+    onboot:       'yes'
+    ipaddress:    '172.18.32.110'
+    netmask:      '255.255.248.0'
+    bonding_opts: 'mode=802.3ad miimon=100 lacp_rate=1'
+    defroute:     'no'
+

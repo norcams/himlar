@@ -3,10 +3,7 @@ named_interfaces::config:
   mgmt:
     - em3
   transport:
-    - em1
-    - em2
-
-profile::network::services::ntp_server: true
+    - bond1
 
 lvm::volume_groups:
   vg_journala:
@@ -79,8 +76,3 @@ ceph::profile::params::osds:
     journal: '/journal/journalb4/journal'
   '/dev/sdl':
     journal: '/journal/journalb5/journal'
-
-profile::base::network::mroute:
-  'em1':
-    routes:
-      '172.19.32.0/21': '172.18.32.1'

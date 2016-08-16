@@ -61,6 +61,20 @@ profile::openstack::compute::hypervisor::manage_libvirt_rbd: true
 # If backend != file, you must explicitly define stores in %location/modules/glance.yaml
 profile::openstack::image::api::backend: 'rbd'
 
+profile::network::services::dhcp_reservation:
+  osl-leaf-01:
+    mac: '00:01:e8:d8:46:f3'
+    ip:  '172.16.32.4'
+  osl-leaf-02:
+    mac: '00:01:e8:d8:38:28'
+    ip:  '172.16.32.5'
+  osl-leaf-03:
+    mac: '00:01:e8:d8:25:9f'
+    ip:  '172.16.32.6'
+  osl-leaf-04:
+    mac: '00:01:e8:d8:49:ff'
+    ip:  '172.16.32.7'
+
 profile::network::services::dns_options:
   CNAME:
     default:
@@ -81,6 +95,10 @@ profile::network::services::dns_records:
     'master.iaas.uio.no':                  'osl-master-01.iaas.uio.no'
     'db.iaas.uio.no':                      'osl-db-01.iaas.uio.no'
   A:
+    'osl-leaf-01.iaas.uio.no':        '172.16.32.4'
+    'osl-leaf-02.iaas.uio.no':        '172.16.32.5'
+    'osl-leaf-03.iaas.uio.no':        '172.16.32.6'
+    'osl-leaf-04.iaas.uio.no':        '172.16.32.7'
     'osl-foreman-01.iaas.uio.no':     '172.16.32.11'
     'osl-proxy-01.iaas.uio.no':       '172.16.32.12'
     'osl-logger-01.iaas.uio.no':      '172.16.32.18'
