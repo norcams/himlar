@@ -107,6 +107,7 @@ profile::network::services::dns_records:
     "%{location}-identity-01.%{hiera('domain_mgmt')}":    "%{netpart_mgmt1}.81"
     "%{location}-controller-01.%{hiera('domain_mgmt')}":  "%{netpart_mgmt1}.100"
     "%{location}-compute-01.%{hiera('domain_mgmt')}":     "%{netpart_mgmt1}.103"
+    "%{location}-compute-02.%{hiera('domain_mgmt')}":     "%{netpart_mgmt1}.104"
     "dashboard.%{hiera('domain_public')}":                "%{hiera('netcfg_netpart_public')}.254"
 #    "access.%{hiera('location_domain')}":     "%{hiera('nw_public_first_octets')}.252"
   PTR:
