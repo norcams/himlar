@@ -75,3 +75,12 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_ext'
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
+
+# Enable extra yum repo
+profile::base::yumrepo::repo_hash:
+  rdo-release:
+    ensure: present
+  calico:
+    ensure: present
+  ceph:
+    ensure: present

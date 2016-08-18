@@ -12,3 +12,8 @@ nova::config::nova_config:
       value: "/etc/pki/tls/certs/%{hiera('console_ssl_files')}.crt"
     DEFAULT/key:
       value: "/etc/pki/tls/private/%{hiera('console_ssl_files')}.key"
+
+# Enable extra yum repo
+profile::base::yumrepo::repo_hash:
+  rdo-release:
+    ensure: present

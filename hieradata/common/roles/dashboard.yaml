@@ -61,3 +61,8 @@ profile::openstack::api::vhosts:
       ssl:              false
       servername:       "%{hiera('service__address__status')}"
       vhost_name:       "%{hiera('service__address__status')}"
+
+# Enable extra yum repo
+profile::base::yumrepo::repo_hash:
+  rdo-release:
+    ensure: present

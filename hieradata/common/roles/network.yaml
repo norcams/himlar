@@ -28,3 +28,10 @@ profile::openstack::network::calico::manage_bird: false
 # openstack-neutron-common creates a sudoers.d file that
 # maybe should be managed
 sudo::purge: false
+
+# Enable extra yum repo
+profile::base::yumrepo::repo_hash:
+  rdo-release:
+    ensure: present
+  calico:
+    ensure: present

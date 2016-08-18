@@ -49,3 +49,8 @@ profile::storage::cephpool::pools:
     ensure: present
     pg_num: 512
     pgp_num: 512
+
+# Enable extra yum repo
+profile::base::yumrepo::repo_hash:
+  ceph:
+    ensure: present

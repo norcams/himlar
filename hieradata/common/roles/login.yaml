@@ -66,3 +66,8 @@ profile::application::git::settings:
   upstream:     'enable'
   mirroring:    'enable'
   site_info:    'Please see http://iaas.readthedocs.org for more info'
+
+# Enable extra yum repo
+profile::base::yumrepo::repo_hash:
+  rdo-release:
+    ensure: present
