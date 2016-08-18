@@ -8,9 +8,3 @@ profile::network::services::dns_proxy: true
 profile::network::services::http_proxy: true
 profile::network::services::firewall_extras:
   source: '%{network_mgmt1}/%{netmask_mgmt1}'
-
-named_interfaces::config:
-  mgmt:
-    - eth0
-  public:
-    - eth1
