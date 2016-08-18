@@ -6,9 +6,11 @@ network::interfaces_hash:
   'eth0.912':
     onboot:    'yes'
     bridge:    'br1'
+    vlan:      "yes"
   'eth0.913':
     onboot:    'yes'
     bridge:    'br2'
+    vlan:      "yes"
   'br0':
     dns1:      "%{hiera('netcfg_peerdns1')}"
     dns2:      "%{hiera('netcfg_peerdns2')}"

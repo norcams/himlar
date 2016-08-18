@@ -15,3 +15,4 @@ network::interfaces_hash:
     onboot:    'yes'
     ipaddress: "%{hiera('netcfg_netpart_trp')}.103"
     netmask:   "%{hiera('netcfg_netmask_trp')}"
+    vlan:      "yes"
