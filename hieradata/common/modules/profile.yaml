@@ -135,6 +135,22 @@ profile::base::yumrepo::repo_hash:
     gpgcheck:       1
     gpgkey:         'https://download.ceph.com/keys/release.asc'
     priority:       2
+  logstash:
+    ensure:         absent
+    descr:          'Logstash Centos Repo'
+    baseurl:        'http://packages.elasticsearch.org/logstash/2.3/centos'
+    enabled:        1
+    gpgcheck:       1
+    gpgkey:         'http://packages.elasticsearch.org/GPG-KEY-elasticsearch'
+    priority:       20
+  elasticsearch:
+    ensure:         absent
+    descr:          'Elasticsearch Centos Repo'
+    baseurl:        'http://packages.elastic.co/elasticsearch/2.x/centos'
+    enabled:        1
+    gpgcheck:       1
+    gpgkey:         'http://packages.elastic.co/GPG-KEY-elasticsearch'
+    priority:       20
 
 consul::config_hash:
   'enable_syslog': true
