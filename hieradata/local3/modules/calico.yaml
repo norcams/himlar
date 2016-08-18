@@ -3,6 +3,9 @@
 calico::reflector::clients:
   c01:
     peer_ipv4: "%{netpart_transport1}.103" #FIXME
+calico::reflector::clients:
+  c02:
+    peer_ipv4: "%{netpart_transport1}.104" #FIXME
 
 # compute node settings
 calico::compute::peer_defaults:
@@ -13,4 +16,4 @@ calico::compute::peer_defaults:
 # compute node to RR connection (set per location)
 calico::compute::peers:
   rr1:
-    peer_ipv4: "%{netpart_transport1}.20" #FIXME
+    peer_ipv4: "%{netpart_transport1}.1" #FIXME
