@@ -10,7 +10,7 @@ network::interfaces_hash:
     ipaddress: "%{hiera('netcfg_netpart_mgmt')}.103"
     netmask:   "%{hiera('netcfg_netmask_mgmt')}"
     gateway:   "%{hiera('netcfg_gateway_mgmt')}"
-  'eth1':
+  'eth0.912':
     defroute:  'no'
     onboot:    'yes'
     ipaddress: "%{hiera('netcfg_netpart_trp')}.103"
