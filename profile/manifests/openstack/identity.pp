@@ -1,3 +1,4 @@
+#
 class profile::openstack::identity (
   $ceilometer_enabled = true,
   $cinder_enabled     = true,
@@ -11,6 +12,7 @@ class profile::openstack::identity (
   $firewall_extras    = {},
   $firewall_extras_a  = {},
   $manage_ssl_cert    = false,
+  $manage_openidc     = false,
   $keystone_config    = {}
 ) {
 
@@ -19,7 +21,10 @@ class profile::openstack::identity (
   include ::keystone::endpoint
   include ::keystone::cron::token_flush
   include ::keystone::wsgi::apache
-  include ::keystone::federation::oidc
+
+  if $manage_openidc {
+    include ::keystone::federation::oidc
+  }
 
   create_resources('keystone_config', $keystone_config)
 
