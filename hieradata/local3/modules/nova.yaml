@@ -1,0 +1,3 @@
+---
+nova::db::mysql::allowed_hosts:
+  - "%{netpart_transport1}.%" # FIXME

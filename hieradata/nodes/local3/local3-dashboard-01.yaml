@@ -1,0 +1,21 @@
+---
+network::interfaces_hash:
+  'eth0':
+    ipaddress: "%{hiera('netcfg_netpart_mgmt')}.51"
+    netmask:   "%{hiera('netcfg_netmask_mgmt')}"
+    gateway:   "%{hiera('netcfg_gateway_mgmt')}"
+    mtu:       '1500'
+    dns1:      "%{hiera('netcfg_peerdns1')}"
+    dns2:      "%{hiera('netcfg_peerdns2')}"
+    domain:    "%{hiera('netcfg_domain')}"
+    defroute:  'no'
+    peerdns:   'yes'
+  'eth1':
+    onboot:    'yes'
+    ipaddress: "%{hiera('netcfg_netpart_trp')}.51"
+    netmask:   "%{hiera('netcfg_netmask_trp')}"
+    defroute:  'no'
+  'eth2':
+    ipaddress: '192.168.12.254'
+    netmask:   '255.255.255.0'
+    defroute:  'yes'

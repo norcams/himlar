@@ -1,0 +1,17 @@
+---
+dashboard_referer:    '^https://dashboard\.local\.iaas\.intern/dashboard'
+dashboard_ssl_files:  'dashboard.local.iaas.intern'
+
+profile::openstack::api::default_vhost_config:
+  servername:           "%{hiera('service__address__keystone_public')}"
+  vhost_name:           "%{hiera('service__address__keystone_public')}"
+  ip:                   "%{::ipaddress_public1}"
+  docroot:              '/var/www/html'
+  manage_docroot:       false
+  ssl:                  true
+  ssl_ca:               '/etc/pki/tls/certs/cachain.pem'
+  ssl_key:              '/etc/pki/tls/private/dashboard.local.iaas.intern.key'
+  ssl_cert:             '/etc/pki/tls/certs/dashboard.local.iaas.intern.crt'
+
+################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
+profile::base::network::manage_dummy: true

@@ -30,6 +30,7 @@ valid_location_tags:
   - dev01
   - dev02
   - local1
+  - local3
 valid_location_environments:
   - prod
   - dev
@@ -250,3 +251,20 @@ networks:
         ensure: present
         iniface: eth0
         outiface: eth1
+  local3:
+    domain:
+      mgmt: mgmt.local3.intern
+    subnet:
+      mgmt: 172.31.4.0/24
+    dhcp:
+      mgmt:
+        ensure: present
+        inferface: eth0
+        start_offset: 150
+        end_offset: 199
+        lease: 43200
+    nat:
+      mgmt:
+        ensure: present
+        iniface: eth1
+        outiface: eth0
