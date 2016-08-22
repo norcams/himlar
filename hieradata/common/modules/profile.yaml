@@ -85,7 +85,7 @@ profile::base::yumrepo::repo_hash:
     descr:          'CentOS-$releasever - Extras'
     baseurl:        "%{hiera('yum_base_mirror')}/$releasever/extras/$basearch/"
     priority:       1
-  puppetlabs':
+  puppetlabs:
     descr:          Puppetlabs Yum Repo
     baseurl:        'http://yum.puppetlabs.com/el/$releasever/products/$basearch/'
     gpgkey:         'http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs'
@@ -102,6 +102,11 @@ profile::base::yumrepo::repo_hash:
     metalink:       'https://mirrors.fedoraproject.org/metalink?repo=epel-7&arch=$basearch'
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7'
     failovermethod: 'priority'
+  uh-iaas:
+    descr:          'UH-IaaS repo'
+    baseurl:        "http://download.iaas.uio.no/uh-sky/yumrepo/"
+    priority:       10
+    gpgcheck:       0
 # Optional repos: enable them with ensure: present in common/role
   rdo-release:
     ensure:         absent
