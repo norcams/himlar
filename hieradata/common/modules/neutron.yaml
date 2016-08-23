@@ -18,13 +18,16 @@ neutron::server::notifications::nova_admin_auth_url: "http://%{hiera('service__a
 neutron::server::notifications::nova_url: "http://%{hiera('service__address__nova_api')}:8774/v2"
 neutron::server::notifications::nova_admin_username: nova
 
+# Uncomment for calico v1.3 and older
 #neutron::agents::dhcp::interface_driver: networking_calico.agent.linux.interface.RoutedInterfaceDriver
 #neutron::agents::dhcp::dhcp_driver: networking_calico.agent.linux.dhcp.DnsmasqRouted
 #neutron::agents::dhcp::use_namespaces: false
+
 neutron::agents::metadata::auth_url: "http://%{hiera('service__address__keystone_admin')}:35357/v2.0"
 neutron::agents::metadata::metadata_ip: "%{hiera('service__address__nova_api_metadata')}"
 neutron::agents::metadata::auth_region: "%{location}"
 
+# Uncomment for calico v1.3 and older
 #neutron::plugins::ml2::type_drivers:
 #  - local
 #  - flat
