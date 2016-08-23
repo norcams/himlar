@@ -104,7 +104,7 @@ profile::base::yumrepo::repo_hash:
     failovermethod: 'priority'
   uh-iaas:
     descr:          'UH-IaaS repo'
-    baseurl:        "http://download.iaas.uio.no/uh-sky/yumrepo/"
+    baseurl:        "https://download.iaas.uio.no/uh-sky/yumrepo/"
     priority:       10
     gpgcheck:       0
 # Optional repos: enable them with ensure: present in common/role
