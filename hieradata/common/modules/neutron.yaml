@@ -18,6 +18,7 @@ neutron::server::notifications::nova_admin_auth_url: "http://%{hiera('service__a
 neutron::server::notifications::nova_url: "http://%{hiera('service__address__nova_api')}:8774/v2"
 neutron::server::notifications::nova_admin_username: nova
 
+neutron::agents::dhcp::enabled: false
 # Uncomment for calico v1.3 and older
 #neutron::agents::dhcp::interface_driver: networking_calico.agent.linux.interface.RoutedInterfaceDriver
 #neutron::agents::dhcp::dhcp_driver: networking_calico.agent.linux.dhcp.DnsmasqRouted
