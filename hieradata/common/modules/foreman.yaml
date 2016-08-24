@@ -1,6 +1,7 @@
 ---
 foreman::foreman_url:                       "https://%{fqdn}"
-foreman::repo:                              '1.11'
+# Disable repo management
+foreman::custom_repo:                       true
 foreman::configure_epel_repo:               false
 foreman::admin_username:                    'admin'
 foreman::admin_password:                    'changeme'

@@ -156,6 +156,21 @@ profile::base::yumrepo::repo_hash:
     gpgcheck:       1
     gpgkey:         'http://packages.elastic.co/GPG-KEY-elasticsearch'
     priority:       20
+  foreman:
+    ensure:         absent
+    descr:          'Foreman repo'
+    baseurl:        'http://yum.theforeman.org/releases/1.11/el7/$basearch'
+    enabled:        1
+    gpgcheck:       1
+    gpgkey:         'http://yum.theforeman.org/releases/1.11/RPM-GPG-KEY-foreman'
+    priority:       20
+  foreman-plugins:
+    ensure:         absent
+    descr:          'Foreman Plugins repo'
+    baseurl:        'http://yum.theforeman.org/plugins/1.11/el7/$basearch'
+    enabled:        1
+    gpgcheck:       0
+    priority:       20
 
 consul::config_hash:
   'enable_syslog': true

@@ -13,6 +13,8 @@ profile::application::foreman::manage_repo_dir: true
 profile::network::services::manage_dns_records: true
 profile::network::services::manage_dhcp_rsvs:   true
 
+openstack_extras::repo::redhat::redhat::purge_unmanaged:  false
+
 ## Bind utils will be installed with foreman::dns
 #profile::base::common::packages:
 #  'bind-utils': { ensure: absent }
@@ -31,3 +33,10 @@ profile::webserver::apache::vhosts:
 
 dhcp::onie_inst_def_url:     "http://repo.%{domain}/cumuluslinux/onie-installer-powerpc"
 dhcp::cumulus_provision_url: "http://repo.%{domain}/cumuluslinux/provision.sh"
+
+# Enable extra yum repo
+profile::base::yumrepo::repo_hash:
+  foreman:
+    ensure: present
+  foreman-plugins:
+    ensure: present

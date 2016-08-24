@@ -1,7 +1,8 @@
 ---
 foreman_proxy::log_level:            'DEBUG'
 foreman_proxy::ssl:                  true
-foreman_proxy::repo:                 '1.11'
+# Disable repo management
+foreman_proxy::custom_repo:          true
 foreman_proxy::register_in_foreman:  true
 foreman_proxy::manage_sudoersd:      false
 foreman_proxy::tftp:                 true
