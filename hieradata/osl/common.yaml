@@ -2,6 +2,10 @@
 location_environment: prod
 location_description: Production environment in Oslo
 
+domain_public: 'iaas.uio.no'
+domain_trp:    '%{::domain}' #FIXME
+domain_mgmt:   'iaas.uio.no'
+
 #
 # Networks
 # See http://iaas.readthedocs.io/en/latest/installation/ip.html

@@ -1,12 +1,12 @@
 ---
 profile::webserver::apache::vhosts:
   dpapp:
-    vhost_name:           "access.%{hiera('location_domain')}"
-    servername:           "access.%{hiera('location_domain')}"
-    redirect_dest:        "https://access.%{hiera('location_domain')}/"
+    vhost_name:           "access.%{hiera('domain_public')}"
+    servername:           "access.%{hiera('domain_public')}"
+    redirect_dest:        "https://access.%{hiera('domain_public')}/"
   dpapp_ssl:
-    vhost_name:           "access.%{hiera('location_domain')}"
-    servername:           "access.%{hiera('location_domain')}"
+    vhost_name:           "access.%{hiera('domain_public')}"
+    servername:           "access.%{hiera('domain_public')}"
     ssl_ca:               '/etc/pki/tls/certs/cachain.pem'
     ssl_key:              '/etc/pki/tls/private/access.local3.intern.key'
     ssl_cert:             '/etc/pki/tls/certs/access.local3.intern.crt'

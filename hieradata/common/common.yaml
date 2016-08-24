@@ -18,8 +18,10 @@ profile::firewall::pre::ssh_settings:
 location_description: unset
 location_environment: unset
 location_tag: unset
-# Override this for public domain when it differ from mgmt domain
-location_domain: "%{domain}"
+
+domain_public: "%{::domain}"
+domain_trp:    "%{::domain}"
+domain_mgmt:   "%{::domain}"
 
 valid_location_tags:
   - bgo
@@ -81,31 +83,31 @@ endpoint_protocol: 'http'
 #
 
 # public
-service__address__status:            "status.%{hiera('location_domain')}"
-service__address__horizon:           "dashboard.%{hiera('location_domain')}"
-service__address__keystone_public:   "dashboard.%{hiera('location_domain')}"
-service__address__glance_public_api: "dashboard.%{hiera('location_domain')}"
-service__address__nova_public_api:   "dashboard.%{hiera('location_domain')}"
-service__address__neutron_public:    "dashboard.%{hiera('location_domain')}"
-service__address__cinder_public_api: "dashboard.%{hiera('location_domain')}"
-service__address__consoleproxy:      "dashboard.%{hiera('location_domain')}"
+service__address__status:            "status.%{hiera('domain_public')}"
+service__address__horizon:           "dashboard.%{hiera('domain_public')}"
+service__address__keystone_public:   "dashboard.%{hiera('domain_public')}"
+service__address__glance_public_api: "dashboard.%{hiera('domain_public')}"
+service__address__nova_public_api:   "dashboard.%{hiera('domain_public')}"
+service__address__neutron_public:    "dashboard.%{hiera('domain_public')}"
+service__address__cinder_public_api: "dashboard.%{hiera('domain_public')}"
+service__address__consoleproxy:      "dashboard.%{hiera('domain_public')}"
 
 # transport
-service__address__nova_api:          "master.%{domain}"
-service__address__nova_api_metadata: "master.%{domain}"
-service__address__glance_registry:   "master.%{domain}"
-service__address__glance_api:        "master.%{domain}"
-service__address__keystone:          "master.%{domain}"
-service__address__keystone_admin:    "master.%{domain}"
-service__address__rabbitmq:          "master.%{domain}"
-service__address__etcd_cluster:      "master.%{domain}"
-service__address__neutron_server:    "master.%{domain}"
-service__address__cinder_api:        "master.%{domain}"
-service__address__mysql:             "db.%{domain}"
+service__address__nova_api:          "master.%{hiera('domain_trp')}"
+service__address__nova_api_metadata: "master.%{hiera('domain_trp')}"
+service__address__glance_registry:   "master.%{hiera('domain_trp')}"
+service__address__glance_api:        "master.%{hiera('domain_trp')}"
+service__address__keystone:          "master.%{hiera('domain_trp')}"
+service__address__keystone_admin:    "master.%{hiera('domain_trp')}"
+service__address__rabbitmq:          "master.%{hiera('domain_trp')}"
+service__address__etcd_cluster:      "master.%{hiera('domain_trp')}"
+service__address__neutron_server:    "master.%{hiera('domain_trp')}"
+service__address__cinder_api:        "master.%{hiera('domain_trp')}"
+service__address__mysql:             "db.%{hiera('domain_trp')}"
 
 # mgmt
-service__address__rsyslog:           "logger.%{domain}"
-service__address__proxy:             "proxy.%{domain}"
+service__address__rsyslog:           "logger.%{hiera('domain_mgmt')}"
+service__address__proxy:             "proxy.%{hiera('domain_mgmt')}"
 
 #
 # Network configuration data
