@@ -28,6 +28,10 @@ if $network_transport1 {
   $netpart_transport1 = regsubst($network_transport1,'^(\d+)\.(\d+)\.(\d+)\.(\d+)$','\1.\2.\3')
   info("netpart_transport1: ${netpart_transport1}")
 }
+if $network_trp1 {
+  $netpart_trp1 = regsubst($network_trp1,'^(\d+)\.(\d+)\.(\d+)\.(\d+)$','\1.\2.\3')
+  info("netpart_trp1: ${netpart_trp1}")
+}
 
 # Set runmode to default if it is not provided
 if empty($runmode) {
