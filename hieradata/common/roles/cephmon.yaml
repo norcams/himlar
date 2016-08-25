@@ -30,3 +30,8 @@ accounts::accounts:
     ensure: present
   'glance':
     ensure: present
+
+# Enable extra yum repo
+profile::base::yumrepo::repo_hash:
+  ceph:
+    ensure: present

@@ -1,68 +1,8 @@
-yum_base_mirror: 'http://ftp.uninett.no/linux/centos'
-yum_epel_mirror: 'http://ftp.uninett.no/linux/Epel'
-
-openstack_extras::repo::redhat::redhat::purge_unmanaged: true
-openstack_extras::repo::redhat::redhat::package_require: true
-openstack_extras::repo::redhat::redhat::manage_epel: false
-openstack_extras::repo::redhat::redhat::manage_rdo: false
-
-openstack_extras::repo::redhat::redhat::repo_hash:
-  'internal-temp':
-    'descr': 'Temporary internal repo'
-    'baseurl': 'http://folk.uio.no/beddari/yumrepo/'
-    'gpgcheck': 0
-  'CentOS-Base':
-    'descr': 'CentOS-$releasever - Base'
-    'baseurl': "%{hiera('yum_base_mirror')}/$releasever/os/$basearch/"
-  'CentOS-Updates':
-    'descr': 'CentOS-$releasever - Updates'
-    'baseurl': "%{hiera('yum_base_mirror')}/$releasever/updates/$basearch/"
-  'CentOS-Extras':
-    'descr': 'CentOS-$releasever - Extras'
-    'baseurl': "%{hiera('yum_base_mirror')}/$releasever/extras/$basearch/"
-  'epel':
-    'descr': "Extra Packages for Enterprise Linux %{operatingsystemmajrelease} - $basearch"
-    'baseurl': "%{hiera('yum_epel_mirror')}/$releasever/$basearch/"
-    'gpgkey': 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7'
-    'failovermethod': 'priority'
-  'puppetlabs':
-    'descr': Puppetlabs Yum Repo
-    'baseurl':  'http://yum.puppetlabs.com/el/$releasever/products/$basearch/'
-    'gpgkey':   'http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs'
-    'gpgcheck': 1
-  'puppetlabs-deps':
-    'descr': Puppetlabs Dependencies Yum Repo
-    'baseurl':  'http://yum.puppetlabs.com/el/$releasever/dependencies/$basearch/'
-    'gpgkey':   'http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs'
-    'gpgcheck': 1
-  'rdo-release':
-    'descr': 'OpenStack Liberty Repository'
-    'baseurl': 'http://mirror.centos.org/centos/7/cloud/$basearch/openstack-liberty/'
-    'enabled': 1
-    'gpgcheck': 1
-    'gpgkey': 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Cloud'
-    'priority': 14
-  'calico':
-    'descr': Calico Repository
-    'baseurl':  'http://binaries.projectcalico.org/rpm_stable/'
-    'gpgkey':   'http://binaries.projectcalico.org/rpm/key'
-    'gpgcheck': 1
-    'priority': 13
-  'ceph':
-    'descr': Ceph packages
-    'baseurl': 'http://download.ceph.com/rpm-hammer/el7/$basearch'
-    'enabled': 1
-    'gpgcheck': 1
-    'gpgkey': 'https://download.ceph.com/keys/release.asc'
-    'priority': 2
-  'ceph-noarch':
-    'descr': Ceph noarch packages
-    'baseurl': 'http://download.ceph.com/rpm-hammer/el7/noarch'
-    'enabled': 1
-    'gpgcheck': 1
-    'gpgkey': 'https://download.ceph.com/keys/release.asc'
-    'priority': 2
-
+---
+openstack_extras::repo::redhat::redhat::purge_unmanaged:  true
+openstack_extras::repo::redhat::redhat::package_require:  true
+openstack_extras::repo::redhat::redhat::manage_epel:      false
+openstack_extras::repo::redhat::redhat::manage_rdo:       false
 
 openstack_extras::repo::redhat::redhat::gpgkey_hash:
   '/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7':

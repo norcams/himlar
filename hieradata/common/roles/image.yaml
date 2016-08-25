@@ -17,3 +17,10 @@ accounts::usergroups:
 accounts::accounts:
   'cinder':
     ensure: present
+
+# Enable extra yum repo
+profile::base::yumrepo::repo_hash:
+  rdo-release:
+    ensure: present
+  ceph:
+    ensure: present

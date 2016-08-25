@@ -15,10 +15,13 @@ class profile::base::common (
   $manage_timezones       = false,
   $manage_keyboard        = false,
   $manage_packages        = false,
+  $manage_yumrepo         = false,
+  $manage_puppet          = false,
   $include_physical       = false,
   $include_virtual        = false,
   $classes                = [],
 ) {
+  # Can be used to include custom classes (mostly for testing)
   include $classes
 
   if $manage_augeasproviders {
@@ -92,4 +95,19 @@ class profile::base::common (
     $packages = hiera_hash('profile::base::common::packages', {})
     create_resources('profile::base::package', $packages)
   }
+
+  if $manage_yumrepo {
+    include ::profile::base::yumrepo
+    # Use only ipv4 for resolve when managing yum repo
+    file_line { 'yum_resolv':
+      path  => '/etc/yum.conf',
+      line  => 'ip_resolve=4',
+      match => '^ip_resolve='
+    }
+  }
+
+  if $manage_puppet {
+    include ::puppet
+  }
+
 }

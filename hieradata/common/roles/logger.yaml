@@ -34,3 +34,10 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_log'
     fs_type:      "xfs"
     mountpath:    "/opt"
+
+# Enable extra yum repo
+profile::base::yumrepo::repo_hash:
+  logstash:
+    ensure: present
+  elasticsearch:
+    ensure: present

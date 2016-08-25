@@ -24,6 +24,8 @@ profile::network::yum_proxy::yum_proxy: "http://%{hiera('service__address__proxy
 openstack_extras::repo::redhat::redhat::manage_rdo: false
 profile::base::common::manage_lvm: true
 
+dnsmasq::package_ensure: '2.72_calico1.0.0-1.el7'
+
 profile::openstack::network::l2_driver: calico
 profile::base::common::packages:
   'python-etcd': {}
@@ -75,3 +77,12 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_ext'
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
+
+# Enable extra yum repo
+profile::base::yumrepo::repo_hash:
+  rdo-release:
+    ensure: present
+  calico:
+    ensure: present
+  ceph:
+    ensure: present
