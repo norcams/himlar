@@ -4,7 +4,6 @@ include:
     - profile::openstack::compute::hypervisor
     - profile::openstack::volume
     - profile::openstack::network
-    - profile::openstack::network::metadata
     - profile::logging::rsyslog::client
   kickstart:
     - profile::base::lvm
