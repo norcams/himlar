@@ -1,11 +1,5 @@
 neutron::bind_host: "%{ipaddress_transport1}"
-#neutron::core_plugin: neutron.plugins.ml2.plugin.Ml2Plugin
 neutron::core_plugin: 'calico'
-#neutron::service_plugins:
-#  - neutron.services.l3_router.l3_router_plugin.L3RouterPlugin
-
-## http://docs.projectcalico.org/en/stable/configuration.html#neutron-server-etc-neutron-neutron-conf
-#neutron::dhcp_agents_per_network: '9999'
 
 neutron::server::auth_host: "%{hiera('service__address__keystone_admin')}"
 neutron::server::auth_uri: "http://%{hiera('service__address__keystone')}:5000/"
@@ -19,19 +13,6 @@ neutron::server::notifications::nova_url: "http://%{hiera('service__address__nov
 neutron::server::notifications::nova_admin_username: nova
 
 neutron::agents::dhcp::enabled: false
-# Uncomment for calico v1.3 and older
-#neutron::agents::dhcp::interface_driver: networking_calico.agent.linux.interface.RoutedInterfaceDriver
-#neutron::agents::dhcp::dhcp_driver: networking_calico.agent.linux.dhcp.DnsmasqRouted
-#neutron::agents::dhcp::use_namespaces: false
-
-# Uncomment for calico v1.3 and older
-#neutron::plugins::ml2::type_drivers:
-#  - local
-#  - flat
-#neutron::plugins::ml2::tenant_network_types:
-#  - local
-#neutron::plugins::ml2::mechanism_drivers:
-#  - calico
 
 neutron::db::mysql::allowed_hosts:
   - "%{ipaddress_service1}"
