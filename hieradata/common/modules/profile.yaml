@@ -119,10 +119,10 @@ profile::base::yumrepo::repo_hash:
   calico:
     ensure:         absent
     descr:          'Calico Repository'
-    baseurl:        'http://binaries.projectcalico.org/rpm_stable/'
+    baseurl:        'http://binaries.projectcalico.org/rpm_calico-1.4/'
     enabled:        1
     gpgcheck:       1
-    gpgkey:         'http://binaries.projectcalico.org/rpm/key'
+    gpgkey:         'http://binaries.projectcalico.org/rpm_calico-1.4/key'
     priority:       15
   ceph:
     ensure:         absent

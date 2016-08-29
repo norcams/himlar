@@ -25,3 +25,6 @@ calico::compute::peer_defaults:
 #calico::compute::peers:
 #  rr1:
 #    peer_ipv4: '10.4.0.11'
+
+# New dhcp agent with the 1.4 release of calico
+calico::compute::compute_dhcp_agent: 'calico'

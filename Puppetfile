@@ -38,7 +38,7 @@ mod 'quagga', :ref => '0e3a7a16bb',              :git => github + 'norcams/puppe
 # profile::network::
 #
 mod 'bird', :ref => 'master',                    :git => github + 'norcams/puppet-bird'
-mod 'calico', :ref => 'reflector_fix',           :git => github + 'raykrist/puppet-calico'
+mod 'calico', :ref => 'calico-dhcp',             :git => github + 'norcams/puppet-calico'
 mod 'dnsmasq', :ref => 'v1.2.0',                 :git => github + 'saz/puppet-dnsmasq'
 mod 'ipcalc', :ref => '1.2.2',                   :git => github + 'inkblot/puppet-ipcalc'
 mod 'tinyproxy', :ref => 'bc56e3ecc2',           :git => github + 'earsdown/puppet-tinyproxy'

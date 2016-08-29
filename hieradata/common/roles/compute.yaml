@@ -4,7 +4,6 @@ include:
     - profile::openstack::compute::hypervisor
     - profile::openstack::volume
     - profile::openstack::network
-    - profile::openstack::network::metadata
     - profile::logging::rsyslog::client
   kickstart:
     - profile::base::lvm
@@ -26,7 +25,8 @@ profile::base::common::manage_lvm: true
 
 dnsmasq::package_ensure: '2.72_calico1.0.0-1.el7'
 
-profile::openstack::network::l2_driver: calico
+profile::openstack::network::plugin: calico
+
 profile::base::common::packages:
   'python-etcd': {}
   'posix-spawn': {}
