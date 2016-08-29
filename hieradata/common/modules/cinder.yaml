@@ -11,6 +11,7 @@ cinder::api::keystone_user:      'cinder'
 cinder::api::keystone_enabled:   true
 cinder::api::auth_uri:           "http://%{hiera('service__address__keystone')}:5000/v3"
 cinder::api::keystone_auth_host: "%{hiera('service__address__keystone_admin')}"
+cinder::api::identity_uri:       "http://%{hiera('service__address__keystone_admin')}:35357/"
 cinder::api::os_region_name:     "%{location}"
 
 cinder::keystone::auth::auth_name: 'cinder'
