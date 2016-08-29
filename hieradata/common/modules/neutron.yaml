@@ -3,6 +3,7 @@ neutron::core_plugin: 'calico'
 
 neutron::server::auth_host: "%{hiera('service__address__keystone_admin')}"
 neutron::server::auth_uri: "http://%{hiera('service__address__keystone')}:5000/"
+neutron::server::identity_uri: "http://%{hiera('service__address__keystone_admin')}:35357/"
 neutron::server::sync_db: true
 neutron::server::database_connection: "mysql://neutron:%{hiera('neutron::db::mysql::password')}@%{hiera('service__address__mysql')}/neutron"
 
