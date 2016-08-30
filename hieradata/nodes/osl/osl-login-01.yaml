@@ -27,3 +27,9 @@ network::interfaces_hash:
     onboot:       'yes'
     dns1:         "%{hiera('service__address__proxy')}"
     domain:       'iaas.uio.no'
+
+profile::base::network::routes:
+  'em1':
+    'ipaddress': [ '0.0.0.0', ]
+    'netmask':   [ '0.0.0.0', ]
+    'gateway':   [ '129.240.224.97', ]
