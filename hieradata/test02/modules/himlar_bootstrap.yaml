@@ -1,0 +1,7 @@
+---
+himlar_bootstrap::puppetrepo:  '-b test02 https://github.com/norcams/himlar'
+himlar_bootstrap::nameserver:  '129.240.2.3'
+
+################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
+# root pw is changeme
+himlar_bootstrap::rootpw:      '$1$WYxEZtjl$p7FADCWnip0OVmucqO4if/'
