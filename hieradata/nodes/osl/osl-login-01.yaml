@@ -1,0 +1,29 @@
+---
+network::interfaces_hash:
+  'em3':
+    ipaddress:    '172.17.32.10'
+    netmask:      '255.255.248.0'
+    defroute:     'no'
+    onboot:       'yes'
+    dns1:         "%{hiera('service__address__proxy')}"
+    domain:       'iaas.uio.no'
+  'em4':
+    ipaddress:    '172.16.32.10'
+    netmask:      '255.255.248.0'
+    defroute:     'no'
+    onboot:       'yes'
+    dns1:         "%{hiera('service__address__proxy')}"
+  'p2p3':
+    ipaddress:    '172.28.160.10'
+    netmask:      '255.255.255.0'
+    defroute:     'no'
+    onboot:       'yes'
+    dns1:         "%{hiera('service__address__proxy')}"
+    domain:       'iaas.uio.no'
+  'p2p4':
+    ipaddress:    '172.28.32.10'
+    netmask:      '255.255.255.0'
+    defroute:     'no'
+    onboot:       'yes'
+    dns1:         "%{hiera('service__address__proxy')}"
+    domain:       'iaas.uio.no'
