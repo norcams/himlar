@@ -1,37 +1,34 @@
 ---
-profile::base::common::manage_network: false
-profile::network::services::manage_dhcp: false
-profile::network::services::manage_nat: false
+profile::network::services::manage_dhcp:  false
+profile::network::services::manage_nat:   true
+profile::base::common::manage_network:    true
 
-foreman_bootstrap::tftp_install:
+openstack_extras::repo::redhat::redhat::purge_unmanaged: false
+
+# Disable centos yum repo
+profile::base::yumrepo::repo_hash:
+  CentOS-Base:
+    ensure: absent
+  CentOS-Updates:
+    ensure: absent
+  CentOS-Extras:
+    ensure: absent
+
+# Himlar bootstrap
+profile::bootstrap::himlar::manage_bootstrap_scripts: true
+himlar_bootstrap::tftp_install:
   osl-controller-01:
     domain:           'iaas.uio.no'
     dhcp_interface:   'em3'
     dhcp_range_start: '172.16.32.200'
     dhcp_range_end:   '172.16.32.250'
     dhcp_gateway:     '172.16.32.12'
-
-openstack_extras::repo::redhat::redhat::purge_unmanaged: false
-
-openstack_extras::repo::redhat::redhat::repo_hash:
-  'epel':
-    'descr': "Extra Packages for Enterprise Linux %{operatingsystemmajrelease} - $basearch"
-    'baseurl': "%{hiera('yum_epel_mirror')}/%{operatingsystemmajrelease}/$basearch/"
-    'gpgkey': 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7'
-    'failovermethod': 'priority'
-  'puppetlabs':
-    'descr': Puppetlabs Yum Repo
-    'baseurl':  'http://yum.puppetlabs.com/el/$releasever/products/$basearch/'
-    'gpgkey':   'http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs'
-    'gpgcheck': 1
-  'puppetlabs-deps':
-    'descr': Puppetlabs Dependencies Yum Repo
-    'baseurl':  'http://yum.puppetlabs.com/el/$releasever/dependencies/$basearch/'
-    'gpgkey':   'http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs'
-    'gpgcheck': 1
-openstack_extras::repo::redhat::redhat::gpgkey_hash:
-  '/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7':
-    'source': 'puppet:///modules/openstack_extras/RPM-GPG-KEY-EPEL-7'
+  'test02-controller-01':
+    domain:           'iaas.uio.no'
+    dhcp_interface:   'em3'
+    dhcp_range_start: "172.28.32.200"
+    dhcp_range_end:   "172.28.32.250"
+    dhcp_gateway:     "172.28.32.10"
 
 profile::application::git::settings:
   hostname: "osl"
