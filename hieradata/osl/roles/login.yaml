@@ -19,13 +19,13 @@ profile::bootstrap::himlar::manage_bootstrap_scripts: true
 himlar_bootstrap::tftp_install:
   osl-controller-01:
     domain:           'iaas.uio.no'
-    dhcp_interface:   'em3'
+    dhcp_interface:   'em4'
     dhcp_range_start: '172.16.32.200'
     dhcp_range_end:   '172.16.32.250'
-    dhcp_gateway:     '172.16.32.12'
+    dhcp_gateway:     '172.16.32.10'
   'test02-controller-01':
     domain:           'iaas.uio.no'
-    dhcp_interface:   'em3'
+    dhcp_interface:   'p2p4'
     dhcp_range_start: "172.28.32.200"
     dhcp_range_end:   "172.28.32.250"
     dhcp_gateway:     "172.28.32.10"
