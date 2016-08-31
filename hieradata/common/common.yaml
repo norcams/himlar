@@ -30,6 +30,7 @@ valid_location_tags:
   - osl
   - trd
   - test01
+  - test02
   - vagrant
   - dev01
   - dev02
@@ -179,6 +180,19 @@ networks:
       mgmt: mgmt.test.iaas.intern
     subnet:
       mgmt: 172.28.0.0/24
+    dhcp:
+      mgmt:
+        ensure: absent
+    nat:
+      mgmt:
+        ensure: present
+      oob:
+        ensure: present
+  test02:
+    domain:
+      mgmt: iaas.uio.no
+    subnet:
+      mgmt: 172.28.32.0/24
     dhcp:
       mgmt:
         ensure: absent
