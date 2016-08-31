@@ -1,17 +1,21 @@
 neutron::bind_host: "%{ipaddress_transport1}"
 neutron::core_plugin: 'calico'
 
-neutron::server::auth_host: "%{hiera('service__address__keystone_admin')}"
 neutron::server::auth_uri: "http://%{hiera('service__address__keystone')}:5000/"
-neutron::server::identity_uri: "http://%{hiera('service__address__keystone_admin')}:35357/"
+neutron::server::auth_url: "http://%{hiera('service__address__keystone_admin')}:35357/"
 neutron::server::sync_db: true
 neutron::server::database_connection: "mysql://neutron:%{hiera('neutron::db::mysql::password')}@%{hiera('service__address__mysql')}/neutron"
+neutron::server::username: 'neutron'
+neutron::server::password: "%{hiera('neutron_api_password')}"
+neutron::server::region_name: "%{location}"
 
 neutron::server::notifications::notify_nova_on_port_status_changes: true
 neutron::server::notifications::notify_nova_on_port_data_changes: true
-neutron::server::notifications::nova_admin_auth_url: "http://%{hiera('service__address__keystone_admin')}:35357/v2.0"
 neutron::server::notifications::nova_url: "http://%{hiera('service__address__nova_api')}:8774/v2"
-neutron::server::notifications::nova_admin_username: nova
+neutron::server::notifications::auth_url: "http://%{hiera('service__address__keystone_admin')}:35357"
+neutron::server::notifications::auth_type: 'password'
+neutron::server::notifications::username: 'nova'
+neutron::server::notifications::password: "%{hiera('nova_api_password')}"
 
 neutron::agents::dhcp::enabled: false
 
@@ -23,14 +27,8 @@ neutron::db::mysql::allowed_hosts:
 neutron::keystone::auth::public_url: "%{hiera('endpoint_protocol')}://%{hiera('service__address__neutron_public')}:9696"
 neutron::keystone::auth::internal_url: "http://%{hiera('service__address__neutron_server')}:9696"
 neutron::keystone::auth::admin_url: "http://%{hiera('service__address__neutron_server')}:9696"
-
 neutron::keystone::auth::region: "%{location}"
-neutron::server::auth_region: "%{location}"
-
-neutron::server::auth_password:                      "%{hiera('neutron_api_password')}"
-neutron::keystone::auth::password:                   "%{hiera('neutron_api_password')}"
-neutron::agents::metadata::auth_password:            "%{hiera('neutron_api_password')}"
-neutron::server::notifications::nova_admin_password: "%{hiera('nova_api_password')}"
+neutron::keystone::auth::password: "%{hiera('neutron_api_password')}"
 
 # rabbit mq
 neutron::rabbit_user:           'neutron'
