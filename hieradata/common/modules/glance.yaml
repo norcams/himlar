@@ -1,5 +1,4 @@
 glance::api::bind_host: "%{ipaddress_transport1}"
-glance::api::auth_host: "%{hiera('service__address__keystone_admin')}"
 glance::api::auth_uri: "http://%{hiera('service__address__keystone')}:5000/"
 glance::api::identity_uri: "http://%{hiera('service__address__keystone_admin')}:35357/"
 glance::api::database_connection: "mysql://glance:%{hiera('glance::db::mysql::password')}@%{hiera('service__address__mysql')}/glance"
@@ -9,7 +8,6 @@ glance::api::show_image_direct_url: true
 
 glance::registry::keystone_password: "%{hiera('glance::api::keystone_password')}"
 glance::registry::bind_host: "%{ipaddress_transport1}"
-glance::registry::auth_host: "%{hiera('service__address__keystone_admin')}"
 glance::registry::auth_uri: "http://%{hiera('service__address__keystone')}:5000/"
 glance::registry::identity_uri: "http://%{hiera('service__address__keystone_admin')}:35357/"
 glance::registry::database_connection: "mysql://glance:%{hiera('glance::db::mysql::password')}@%{hiera('service__address__mysql')}/glance"
