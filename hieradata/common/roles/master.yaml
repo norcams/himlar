@@ -27,7 +27,7 @@ profile::openstack::novactrl::enable_conductor:      true
 profile::openstack::novactrl::enable_scheduler:      true
 profile::openstack::novactrl::enable_consoleauth:    true
 
-profile::openstack::openrc::filename: '/root/keystone_adminrc'
+profile::openstack::openrc::filename: '/root/keystonerc_admin'
 
 #profile::openstack::image::notify_enabled:    true
 profile::openstack::image::registry_enabled:  true
