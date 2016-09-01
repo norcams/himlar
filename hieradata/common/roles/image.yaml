@@ -2,9 +2,14 @@
 include:
   default:
     - profile::openstack::image
+    - profile::openstack::openrc
     - profile::logging::rsyslog::client
 
 profile::openstack::image::registry_enabled:  true
+
+profile::openstack::openrc::password:     "%{hiera('glance_api_password')}"
+profile::openstack::openrc::username:     'glance'
+profile::openstack::openrc::project_name: 'services'
 
 accounts::users:
   'cinder':

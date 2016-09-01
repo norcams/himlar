@@ -5,6 +5,7 @@ include:
     - profile::openstack::volume
     - profile::openstack::network
     - profile::logging::rsyslog::client
+    - profile::openstack::openrc
   kickstart:
     - profile::base::lvm
     - profile::virtualization::nested
@@ -23,6 +24,10 @@ profile::network::yum_proxy::yum_proxy: "http://%{hiera('service__address__proxy
 openstack_extras::repo::redhat::redhat::manage_rdo: false
 profile::base::common::manage_lvm: true
 
+profile::openstack::openrc::password:     "%{hiera('nova_api_password')}"
+profile::openstack::openrc::username:     'nova'
+profile::openstack::openrc::project_name: 'services'
+
 dnsmasq::package_ensure: '2.72_calico1.0.0-1.el7'
 
 profile::openstack::network::plugin: calico
@@ -31,6 +36,7 @@ profile::base::common::packages:
   'python-etcd': {}
   'posix-spawn': {}
   'networking-calico': {}
+  'python-openstackclient': {}
 
 calico::compute: true
 etcd::mode: 'proxy'

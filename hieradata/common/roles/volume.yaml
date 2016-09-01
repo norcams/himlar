@@ -5,10 +5,16 @@ include:
     - profile::openstack::volume::api
     - profile::openstack::volume::scheduler
     - profile::openstack::volume::storage
+    - profile::openstack::openrc
     - profile::logging::rsyslog::client
 
 profile::base::common::packages:
   'python-oslo-policy': {}
+  'python-openstackclient': {}
+
+profile::openstack::openrc::password:     "%{hiera('cinder_api_password')}"
+profile::openstack::openrc::username:     'cinder'
+profile::openstack::openrc::project_name: 'services'
 
 profile::openstack::volume::type:
   rbd:

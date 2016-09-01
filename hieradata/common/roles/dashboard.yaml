@@ -3,9 +3,11 @@ include:
   default:
     - profile::openstack::dashboard
     - profile::openstack::api
-    - profile::openstack::adminrc
+    - profile::openstack::openrc
     - profile::application::himlarcli
     - profile::logging::rsyslog::client
+
+profile::openstack::openrc::filename: '/root/keystone_adminrc'
 
 profile::base::network::node_multinic: true
 profile::base::common::packages:
