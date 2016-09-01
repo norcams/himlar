@@ -4,6 +4,7 @@ include:
     - profile::openstack::network::controller
     - profile::openstack::resource::createnetworks
     - profile::application::etcd
+    - profile::openstack::openrc
     - profile::logging::rsyslog::client
 
 profile::base::common::packages:
@@ -14,6 +15,10 @@ etcd::mode: cluster
 etcd::node_name: 'master'
 
 calico::controller: true
+
+profile::openstack::openrc::password:     "%{hiera('neutron_api_password')}"
+profile::openstack::openrc::username:     'neutron'
+profile::openstack::openrc::project_name: 'services'
 
 profile::openstack::network::policies:
   create_network:

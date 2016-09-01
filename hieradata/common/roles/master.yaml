@@ -16,7 +16,7 @@ include:
 #    - profile::openstack::network::metadata
     - profile::application::etcd
     - profile::openstack::resource::dataporten
-    - profile::openstack::adminrc
+    - profile::openstack::openrc
     - profile::application::himlarcli
     - profile::logging::rsyslog::client
 
@@ -26,6 +26,8 @@ profile::openstack::novactrl::enable_api:            true
 profile::openstack::novactrl::enable_conductor:      true
 profile::openstack::novactrl::enable_scheduler:      true
 profile::openstack::novactrl::enable_consoleauth:    true
+
+profile::openstack::openrc::filename: '/root/keystone_adminrc'
 
 #profile::openstack::image::notify_enabled:    true
 profile::openstack::image::registry_enabled:  true
