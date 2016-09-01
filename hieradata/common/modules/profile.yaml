@@ -76,36 +76,29 @@ profile::base::yumrepo::repo_hash:
   CentOS-Base:
     descr:          'CentOS-$releasever - Base'
     baseurl:        "%{hiera('yum_base_mirror')}/$releasever/os/$basearch/"
-    priority:       1
   CentOS-Updates:
     descr:          'CentOS-$releasever - Updates'
     baseurl:        "%{hiera('yum_base_mirror')}/$releasever/updates/$basearch/"
-    priority:       1
   CentOS-Extras:
     descr:          'CentOS-$releasever - Extras'
     baseurl:        "%{hiera('yum_base_mirror')}/$releasever/extras/$basearch/"
-    priority:       1
   puppetlabs:
     descr:          Puppetlabs Yum Repo
     baseurl:        'http://yum.puppetlabs.com/el/$releasever/products/$basearch/'
     gpgkey:         'http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs'
     gpgcheck:       1
-    priority:       20
   puppetlabs-deps:
     descr:          Puppetlabs Dependencies Yum Repo
     baseurl:        'http://yum.puppetlabs.com/el/$releasever/dependencies/$basearch/'
     gpgkey:         'http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs'
     gpgcheck:       1
-    priority:       20
   epel:
     descr:          "Extra Packages for Enterprise Linux %{operatingsystemmajrelease} - $basearch"
     metalink:       'https://mirrors.fedoraproject.org/metalink?repo=epel-7&arch=$basearch'
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7'
-    failovermethod: 'priority'
   uh-iaas:
     descr:          'UH-IaaS repo'
     baseurl:        "https://download.iaas.uio.no/uh-sky/yumrepo/"
-    priority:       10
     gpgcheck:       0
 # Optional repos: enable them with ensure: present in common/role
   rdo-release:
@@ -115,7 +108,6 @@ profile::base::yumrepo::repo_hash:
     enabled:        1
     gpgcheck:       1
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Cloud'
-    priority:       98
   calico:
     ensure:         absent
     descr:          'Calico Repository'
@@ -123,7 +115,6 @@ profile::base::yumrepo::repo_hash:
     enabled:        1
     gpgcheck:       1
     gpgkey:         'http://binaries.projectcalico.org/rpm_calico-1.4/key'
-    priority:       15
   ceph:
     ensure:         absent
     descr:          'Ceph packages'
@@ -131,7 +122,6 @@ profile::base::yumrepo::repo_hash:
     enabled:        1
     gpgcheck:       1
     gpgkey:         'https://download.ceph.com/keys/release.asc'
-    priority:       2
   ceph-noarch:
     ensure:         absent
     descr:          'Ceph noarch packages'
@@ -139,7 +129,6 @@ profile::base::yumrepo::repo_hash:
     enabled:        1
     gpgcheck:       1
     gpgkey:         'https://download.ceph.com/keys/release.asc'
-    priority:       2
   logstash:
     ensure:         absent
     descr:          'Logstash Centos Repo'
@@ -147,7 +136,6 @@ profile::base::yumrepo::repo_hash:
     enabled:        1
     gpgcheck:       1
     gpgkey:         'http://packages.elasticsearch.org/GPG-KEY-elasticsearch'
-    priority:       20
   elasticsearch:
     ensure:         absent
     descr:          'Elasticsearch Centos Repo'
@@ -155,7 +143,6 @@ profile::base::yumrepo::repo_hash:
     enabled:        1
     gpgcheck:       1
     gpgkey:         'http://packages.elastic.co/GPG-KEY-elasticsearch'
-    priority:       20
   foreman:
     ensure:         absent
     descr:          'Foreman repo'
@@ -163,14 +150,12 @@ profile::base::yumrepo::repo_hash:
     enabled:        1
     gpgcheck:       1
     gpgkey:         'http://yum.theforeman.org/releases/1.11/RPM-GPG-KEY-foreman'
-    priority:       20
   foreman-plugins:
     ensure:         absent
     descr:          'Foreman Plugins repo'
     baseurl:        'http://yum.theforeman.org/plugins/1.11/el7/$basearch'
     enabled:        1
     gpgcheck:       0
-    priority:       20
 
 consul::config_hash:
   'enable_syslog': true
