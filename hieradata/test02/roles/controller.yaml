@@ -1,0 +1,33 @@
+---
+himlar_bootstrap::virt_install:
+  '%{location}-admin-01':
+    domain:          '%{domain}'
+    libvirt_pool:    'dirpool'
+    libvirt_network: 'directnet'
+    install_ip:      '172.28.32.11'
+    install_netmask: '255.255.255.0'
+    install_gateway: '172.28.32.10'
+    vm_console:      false
+
+################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
+include:
+  default:
+    - profile::network::services
+
+profile::network::services::ntp_server: true
+
+profile::base::network::manage_dummy: false
+profile::base::network::l3_router: false
+profile::base::network::remove_route: false
+
+profile::virtualization::libvirt::networks:
+  directnet:
+    ensure:              enabled
+    autostart:           true
+    forward_mode:        bridge
+    bridge:              br0
+  trpnet:
+    ensure:              enabled
+    autostart:           true
+    forward_mode:        bridge
+    bridge:              br1
