@@ -22,8 +22,6 @@ rabbitmq::cluster_nodes:
 
 profile::openstack::network::controller::neutron_nova_insecure: true
 
-profile::openstack::adminrc::cacert:  '/opt/himlar/provision/ca/certs/ca-chain.cert.pem'
-
 profile::openstack::resource::networks:
   public:
     name: 'public'
