@@ -74,6 +74,7 @@ service__address__consoleproxy:      "console.%{hiera('domain_public')}"
 
 
 # service/transport
+# In vagrant default is master. Remove to use nodes from common
 service__address__nova_api:          '172.31.16.20'
 service__address__nova_api_metadata: '172.31.16.20'
 service__address__glance_registry:   '172.31.16.20'
@@ -89,7 +90,7 @@ service__address__proxy:             ''
 
 # Rabbitmq:
 # In vagrant default is master
-# Change to mq-01 and/or mq-02 for testing
+# Remove these to test with mq-01
 service__address__rabbitmq_01:       '172.31.16.20'
 service__address__rabbitmq_02:       '172.31.16.20'
 service__address__rabbitmq_03:       '172.31.16.20'
@@ -138,13 +139,23 @@ profile::network::services::dns_records:
     "%{location}-master-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_netpart_mgmt')}.20"
     "%{location}-mq-01.%{hiera('domain_mgmt')}":          "%{hiera('netcfg_netpart_mgmt')}.31"
     "%{location}-mq-02.%{hiera('domain_mgmt')}":          "%{hiera('netcfg_netpart_mgmt')}.32"
+    "%{location}-image-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_netpart_mgmt')}.36"
     "%{location}-db-01.%{hiera('domain_mgmt')}":          "%{hiera('netcfg_netpart_mgmt')}.41"
+    "%{location}-volume-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_netpart_mgmt')}.46"
     "%{location}-dashboard-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_netpart_mgmt')}.51"
     "%{location}-access-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_netpart_mgmt')}.56"
     "%{location}-console-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_netpart_mgmt')}.61"
+    "%{location}-novvactrl-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_netpart_mgmt')}.66"
+    "%{location}-network-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_netpart_mgmt')}.71"
     "%{location}-identity-01.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_netpart_mgmt')}.81"
     "%{location}-controller-01.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_netpart_mgmt')}.100"
     "%{location}-compute-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_netpart_mgmt')}.103"
+    "mq01.%{hiera('domain_trp')}":                        "%{hiera('netcfg_netpart_trp')}.31"
+    "image.%{hiera('domain_trp')}":                       "%{hiera('netcfg_netpart_trp')}.36"
+    "volume.%{hiera('domain_trp')}":                      "%{hiera('netcfg_netpart_trp')}.46"
+    "novactrl.%{hiera('domain_trp')}":                    "%{hiera('netcfg_netpart_trp')}.66"
+    "network.%{hiera('domain_trp')}":                     "%{hiera('netcfg_netpart_trp')}.71"
+    "identity.%{hiera('domain_trp')}":                    "%{hiera('netcfg_netpart_trp')}.81"
     "dashboard.%{hiera('domain_public')}":                "%{hiera('netcfg_netpart_public')}.51"
     "access.%{hiera('domain_public')}":                   "%{hiera('netcfg_netpart_public')}.56"
     "console.%{hiera('domain_public')}":                  "%{hiera('netcfg_netpart_public')}.61"
