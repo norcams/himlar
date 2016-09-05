@@ -91,9 +91,9 @@ profile::network::services::dns_records:
     "proxy.%{hiera('domain_mgmt')}":                      "%{location}-proxy-01.%{hiera('domain_mgmt')}"
     "logger.%{hiera('domain_mgmt')}":                     "%{location}-logger-01.%{hiera('domain_mgmt')}"
     "master.%{hiera('domain_mgmt')}":                     "%{location}-master-01.%{hiera('domain_mgmt')}"
+    "%{location}-login-01.%{hiera('domain_mgmt')}":       "osl-login-01.%{hiera('domain_mgmt')}"
   A:
     "%{location}-leaf-01.%{hiera('domain_mgmt')}":        "%{netpart_mgmt1}.1"
-    "%{location}-login-01.%{hiera('domain_mgmt')}":       "%{netpart_mgmt1}.10"
     "%{location}-admin-01.%{hiera('domain_mgmt')}":       "%{netpart_mgmt1}.11"
     "%{location}-proxy-01.%{hiera('domain_mgmt')}":       "%{netpart_mgmt1}.12"
     "%{location}-logger-01.%{hiera('domain_mgmt')}":      "%{netpart_mgmt1}.13"
