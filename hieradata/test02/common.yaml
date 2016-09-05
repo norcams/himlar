@@ -71,17 +71,17 @@ profile::network::services::dns_options:
     default:
       ttl: 3600
       keyfile: "/etc/rndc.key"
-      server: "%{hiera('netcfg_netpart_mgmt')}.11"
+      server: "129.240.2.6"
   A:
     default:
       ttl: 86400
       keyfile: "/etc/rndc.key"
-      server: "%{hiera('netcfg_netpart_mgmt')}.11"
+      server: "129.240.2.6"
   PTR:
     default:
       ttl: 86400
       keyfile: "/etc/rndc.key"
-      server: "%{hiera('netcfg_netpart_mgmt')}.11"
+      server: "129.240.2.6"
 
 profile::network::services::dns_records:
   CNAME:
