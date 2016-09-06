@@ -2,9 +2,9 @@
 location_environment: 'test02'
 location_description: 'Test environment physically in OSL'
 
-domain_public: 'iaas.uio.no'
-domain_trp:    'iaas.uio.no'
-domain_mgmt:   'iaas.uio.no'
+domain_public: 'test.iaas.uio.no'
+domain_trp:    'test.iaas.uio.no'
+domain_mgmt:   'test.iaas.uio.no'
 
 location_dns1: '129.240.2.3'
 location_dns2: '129.240.2.40'
@@ -65,6 +65,10 @@ service__address__rsyslog:           "%{hiera('netcfg_netpart_mgmt')}.18"
 service__address__rabbitmq_01:       "%{hiera('netcfg_netpart_trp')}.31"
 service__address__rabbitmq_02:       "%{hiera('netcfg_netpart_trp')}.31"
 service__address__rabbitmq_03:       "%{hiera('netcfg_netpart_trp')}.31"
+
+ntp::servers:
+  - ntp1.uio.no
+  - ntp2.uio.no
 
 profile::network::services::dns_options:
   CNAME:

@@ -1,0 +1,8 @@
+---
+# Do not use yum proxy on himlar bootstrap!
+profile::network::yum_proxy::yum_proxy: ''
+
+profile::application::himlarcli::smtp:          'smtp.uio.no'
+profile::application::himlarcli::from_addr:     'noreply@usit.uio.no'
+profile::application::himlarcli::ldap_server:   'ldap.uio.no'
+profile::application::himlarcli::ldap_base_dn:  'dc=uio,dc=no'
