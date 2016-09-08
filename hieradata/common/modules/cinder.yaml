@@ -14,13 +14,16 @@ cinder::api::auth_uri:           "http://%{hiera('service__address__keystone')}:
 cinder::api::identity_uri:       "http://%{hiera('service__address__keystone_admin')}:35357/"
 cinder::api::os_region_name:     "%{location}"
 
-cinder::keystone::auth::auth_name:        'cinder'
-cinder::keystone::auth::region:           "%{location}"
-cinder::keystone::auth::password:         "%{hiera('cinder_api_password')}"
+cinder::keystone::auth::auth_name:             'cinder'
+cinder::keystone::auth::region:                "%{location}"
+cinder::keystone::auth::password:              "%{hiera('cinder_api_password')}"
+cinder::keystone::auth::configure_endpoint:    false
+cinder::keystone::auth::configure_endpoint_v2: true
+cinder::keystone::auth::configure_endpoint_v3: true
 
-cinder::keystone::auth::public_url:       "%{hiera('endpoint_protocol')}://%{hiera('service__address__cinder_public_api')}:8776/v1/%(tenant_id)s"
-cinder::keystone::auth::admin_url:        "http://%{hiera('service__address__cinder_api')}:8776/v1/%(tenant_id)s"
-cinder::keystone::auth::internal_url:     "http://%{hiera('service__address__cinder_api')}:8776/v1/%(tenant_id)s"
+#cinder::keystone::auth::public_url:       "%{hiera('endpoint_protocol')}://%{hiera('service__address__cinder_public_api')}:8776/v1/%(tenant_id)s"
+#cinder::keystone::auth::admin_url:        "http://%{hiera('service__address__cinder_api')}:8776/v1/%(tenant_id)s"
+#cinder::keystone::auth::internal_url:     "http://%{hiera('service__address__cinder_api')}:8776/v1/%(tenant_id)s"
 cinder::keystone::auth::public_url_v2:    "%{hiera('endpoint_protocol')}://%{hiera('service__address__cinder_public_api')}:8776/v2/%(tenant_id)s"
 cinder::keystone::auth::admin_url_v2:     "http://%{hiera('service__address__cinder_api')}:8776/v2/%(tenant_id)s"
 cinder::keystone::auth::internal_url_v2:  "http://%{hiera('service__address__cinder_api')}:8776/v2/%(tenant_id)s"
