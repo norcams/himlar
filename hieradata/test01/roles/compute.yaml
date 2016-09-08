@@ -19,6 +19,12 @@ puppet::cron_cmd: "if [ -e /etc/profile.d/proxy.sh ] ; then source /etc/profile.
   /usr/bin/env puppet agent --config %{puppet::dir}/puppet.conf --onetime --no-daemonize"
 
 ################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
+include:
+  default:
+    - profile::openstack::compute::migration
+
+profile::openstack::compute::migration::enable_nova_account: true
+
 calico::compute::bird_template: 'profile/bird/bird.conf.erb'
 
 # Enable intance migration via ssh
