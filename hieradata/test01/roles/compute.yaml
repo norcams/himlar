@@ -20,3 +20,7 @@ puppet::cron_cmd: "if [ -e /etc/profile.d/proxy.sh ] ; then source /etc/profile.
 
 ################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
 calico::compute::bird_template: 'profile/bird/bird.conf.erb'
+
+# Enable intance migration via ssh
+profile::firewall::pre::ssh_settings:
+  source: "0.0.0.0/0"
