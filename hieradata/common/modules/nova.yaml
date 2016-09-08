@@ -56,7 +56,7 @@ nova::consoleauth::enabled: true
 
 # neutron network (node: compute)
 nova::network::neutron::neutron_url:            "http://%{hiera('service__address__neutron_server')}:9696"
-nova::network::neutron::neutron_auth_url:  "http://%{hiera('service__address__keystone_admin')}:35357"
+nova::network::neutron::neutron_auth_url:  "http://%{hiera('service__address__keystone_admin')}:35357/v3"
 nova::network::neutron::neutron_region_name:    "%{location}"
 nova::network::neutron::neutron_password: "%{hiera('neutron_api_password')}"
 
