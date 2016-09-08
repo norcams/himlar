@@ -121,7 +121,7 @@ profile::network::services::dns_records:
     "%{location}-compute-03.%{hiera('domain_mgmt')}":     "%{netpart_mgmt1}.105"
 #    "dashboard.%{hiera('domain_public')}":                "%{hiera('netcfg_netpart_public')}.254"
 #    "access.%{hiera('domain_public')}":     "%{hiera('nw_public_first_octets')}.252"
-  PTR:
+#  PTR:
 #    "1.%{hiera('netcfg_reverse_dns')}":                   "%{location}-leaf-01.%{hiera('domain_mgmt')}"
 
 #profile::network::services::dhcp_reservation:
