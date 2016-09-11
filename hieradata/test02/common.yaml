@@ -90,6 +90,7 @@ profile::network::services::dns_options:
 profile::network::services::dns_records:
   CNAME:
     "puppet.%{hiera('domain_mgmt')}":                     "%{location}-admin-01.%{hiera('domain_mgmt')}"
+    "admin.%{hiera('domain_mgmt')}":                      "%{location}-admin-01.%{hiera('domain_mgmt')}"
     "foreman.%{hiera('domain_mgmt')}":                    "%{location}-admin-01.%{hiera('domain_mgmt')}"
     "repo.%{hiera('domain_mgmt')}":                       "%{location}-admin-01.%{hiera('domain_mgmt')}"
     "proxy.%{hiera('domain_mgmt')}":                      "%{location}-proxy-01.%{hiera('domain_mgmt')}"
