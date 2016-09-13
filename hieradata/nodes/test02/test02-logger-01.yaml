@@ -1,0 +1,9 @@
+---
+network::interfaces_hash:
+  'eth0':
+    ipaddress: '172.28.32.13'
+    netmask:   '255.255.255.0'
+    gateway:   '172.28.32.10'
+    mtu:       '1500'
+    peerdns:   'yes'
+    dns1:      "%{hiera('service__address__proxy')}"
