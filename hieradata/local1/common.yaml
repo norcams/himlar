@@ -1,0 +1,185 @@
+---
+location_environment: 'local1'
+location_description: 'Local development environment'
+
+domain_public:        'local.iaas.intern'
+domain_trp:           'trp.local.iaas.intern'
+domain_mgmt:          'mgmt.local.iaas.intern'
+
+
+# These should only be used to configure network in nodes!
+netcfg_netpart_trp:     '172.31.12'
+netcfg_netmask_trp:     '255.255.255.0'
+netcfg_netpart_mgmt:    '172.31.4'
+netcfg_netmask_mgmt:    '255.255.255.0'
+netcfg_gateway_mgmt:    '172.31.4.10'
+netcfg_peerdns1:        '172.31.4.11'
+#netcfg_peerdns1:        '8.8.8.8'
+netcfg_peerdns2:        '8.8.8.8'
+netcfg_domain:          "%{hiera('domain_mgmt')} %{hiera('domain_public')}"
+
+# We need to allow both trafic from mgmt (nat via login) and public net
+
+allow_from_network:
+  - '10.1.1.0/24'
+  - '172.31.4.0/24'
+  - '172.31.32.0/24'
+
+named_interfaces::config:
+  mgmt:
+    - eth0
+  transport:
+    - eth1
+  service:
+    - eth1
+  trp:
+    - eth1
+  public:
+    - eth2
+
+endpoint_protocol:      'https'
+
+# public
+service__address__status:            "status.%{hiera('domain_public')}"
+service__address__horizon:           "dashboard.%{hiera('domain_public')}"
+service__address__keystone_public:   "dashboard.%{hiera('domain_public')}"
+service__address__glance_public_api: "dashboard.%{hiera('domain_public')}"
+service__address__nova_public_api:   "dashboard.%{hiera('domain_public')}"
+service__address__neutron_public:    "dashboard.%{hiera('domain_public')}"
+service__address__cinder_public_api: "dashboard.%{hiera('domain_public')}"
+service__address__consoleproxy:      "dashboard.%{hiera('domain_public')}"
+
+# transport
+service__address__mysql:             "%{hiera('netcfg_netpart_trp')}.41"
+#service__address__keystone:          "identity.%{hiera('domain_trp')}"
+#service__address__keystone_admin:    "identity.%{hiera('domain_trp')}"
+#service__address__glance_registry:   "image.%{hiera('domain_trp')}"
+#service__address__glance_api:        "image.%{hiera('domain_trp')}"
+#service__address__nova_api:          "novactrl.%{hiera('domain_trp')}"
+service__address__nova_api_metadata: '127.0.0.1'
+#service__address__neutron_server:    "%{hiera('netcfg_netpart_trp')}.20"
+#service__address__etcd_cluster:      "%{hiera('netcfg_netpart_trp')}.20"
+#service__address__cinder_api:        "volume.%{hiera('domain_trp')}"
+
+# mgmt
+service__address__rsyslog:           "logger.%{hiera('domain_mgmt')}"
+
+# rabbitmq
+#service__address__rabbitmq_01:       "%{hiera('netcfg_netpart_trp')}.31"
+#service__address__rabbitmq_02:       "%{hiera('netcfg_netpart_trp')}.31"
+#service__address__rabbitmq_03:       "%{hiera('netcfg_netpart_trp')}.31"
+
+profile::network::services::dns_options:
+  CNAME:
+    default:
+      ttl: 3600
+      keyfile: "/etc/rndc.key"
+      server: "%{hiera('netcfg_netpart_mgmt')}.11"
+  A:
+    default:
+      ttl: 86400
+      keyfile: "/etc/rndc.key"
+      server: "%{hiera('netcfg_netpart_mgmt')}.11"
+
+profile::network::services::dns_records:
+  CNAME:
+    "puppet.%{hiera('domain_mgmt')}":                     "%{location}-admin-01.%{hiera('domain_mgmt')}"
+    "foreman.%{hiera('domain_mgmt')}":                    "%{location}-admin-01.%{hiera('domain_mgmt')}"
+    "repo.%{hiera('domain_mgmt')}":                       "%{location}-admin-01.%{hiera('domain_mgmt')}"
+    "proxy.%{hiera('domain_mgmt')}":                      "%{location}-proxy-01.%{hiera('domain_mgmt')}"
+    "logger.%{hiera('domain_mgmt')}":                     "%{location}-logger-01.%{hiera('domain_mgmt')}"
+    "master.%{hiera('domain_mgmt')}":                     "%{location}-master-01.%{hiera('domain_mgmt')}"
+  A:
+    "%{location}-leaf-01.%{hiera('domain_mgmt')}":        "%{netpart_mgmt1}.1"
+    "%{location}-login-01.%{hiera('domain_mgmt')}":       "%{netpart_mgmt1}.10"
+    "%{location}-admin-01.%{hiera('domain_mgmt')}":       "%{netpart_mgmt1}.11"
+    "%{location}-proxy-01.%{hiera('domain_mgmt')}":       "%{netpart_mgmt1}.12"
+    "%{location}-logger-01.%{hiera('domain_mgmt')}":      "%{netpart_mgmt1}.13"
+    "%{location}-master-01.%{hiera('domain_mgmt')}":      "%{netpart_mgmt1}.20"
+    "%{location}-mq-01.%{hiera('domain_mgmt')}":          "%{netpart_mgmt1}.31"
+    "%{location}-mq-02.%{hiera('domain_mgmt')}":          "%{netpart_mgmt1}.32"
+    "%{location}-image-01.%{hiera('domain_mgmt')}":       "%{netpart_mgmt1}.36"
+    "%{location}-db-01.%{hiera('domain_mgmt')}":          "%{netpart_mgmt1}.41"
+    "%{location}-volume-01.%{hiera('domain_mgmt')}":      "%{netpart_mgmt1}.46"
+    "%{location}-dashboard-01.%{hiera('domain_mgmt')}":   "%{netpart_mgmt1}.51"
+    "%{location}-access-01.%{hiera('domain_mgmt')}":      "%{netpart_mgmt1}.56"
+    "%{location}-console-01.%{hiera('domain_mgmt')}":     "%{netpart_mgmt1}.61"
+    "%{location}-novactrl-01.%{hiera('domain_mgmt')}":    "%{netpart_mgmt1}.66"
+    "%{location}-network-01.%{hiera('domain_mgmt')}":     "%{netpart_mgmt1}.71"
+    "%{location}-identity-01.%{hiera('domain_mgmt')}":    "%{netpart_mgmt1}.81"
+    "%{location}-controller-01.%{hiera('domain_mgmt')}":  "%{netpart_mgmt1}.100"
+    "%{location}-controller-02.%{hiera('domain_mgmt')}":  "%{netpart_mgmt1}.101"
+    "%{location}-compute-01.%{hiera('domain_mgmt')}":     "%{netpart_mgmt1}.103"
+    # Transport addresses
+    "mq01.%{hiera('domain_trp')}":                        "%{hiera('netcfg_netpart_trp')}.31"
+    "mq02.%{hiera('domain_trp')}":                        "%{hiera('netcfg_netpart_trp')}.32"
+    "image.%{hiera('domain_trp')}":                       "%{hiera('netcfg_netpart_trp')}.36"
+    "db.%{hiera('domain_trp')}":                          "%{hiera('netcfg_netpart_trp')}.41"
+    "volume.%{hiera('domain_trp')}":                      "%{hiera('netcfg_netpart_trp')}.46"
+    "novactrl.%{hiera('domain_trp')}":                    "%{hiera('netcfg_netpart_trp')}.66"
+    "network.%{hiera('domain_trp')}":                     "%{hiera('netcfg_netpart_trp')}.71"
+    "identity.%{hiera('domain_trp')}":                    "%{hiera('netcfg_netpart_trp')}.81"
+    # Run dashboard on mgmt until public is working
+    "dashboard.%{hiera('domain_public')}":                "%{netpart_mgmt1}.51"
+    "access.%{hiera('domain_public')}":                   "%{netpart_mgmt1}.56"
+
+
+#
+## Secret data which for other environments are stored ooutside of this data tree
+#
+
+# ceph.yaml
+ceph::profile::params::mon_key:                     'AQATGHJTUCBqIBAA7M2yafV1xctn1pgr3GcKPg=='
+client.admin::secret:                               'AQBMGHJTkC8HKhAAJ7NH255wYypgm1oVuV41MA=='
+client.bootstrap-osd::secret:                       'AQARG3JTsDDEHhAAVinHPiqvJkUi5Mww/URupw=='
+client.bootstrap-mds::secret:                       'AQCztJdSyNb0NBAASA2yPZPuwXeIQnDJ9O8gVw=='
+client.glance::secret:                              'AQBGJ8dWKhgcNhAA+VU0GlKHcRLJSsJ8WouuSQ=='
+client.volumes::secret:                             'AQA4MPZTOGU0ARAAXH9a0fXxVq0X25n2yPREDw=='
+client.cinder::secret:                              'AQBypF1V2JYiChAA2qYbjM6jbXJBMmpXPkvwBg=='
+
+# service user api password
+keystone_admin_password:                            'admin_pass'
+cinder_api_password:                                'cinder_pass'
+glance_api_password:                                'glance_pass'
+neutron_api_password:                               'neutron_pass'
+nova_api_password:                                  'nova_pass'
+
+# rabbitmq
+rabbitmq::default_pass:                             'guest'
+rabbitmq::erlang_cookie:                            'Himlardev667'
+
+# cinder.yaml
+cinder::db::mysql::password:                        'cinder_pass'
+cinder::rabbit_password:                            'cinder_guest'
+
+# foreman.yaml
+foreman::admin_password:                            'changeme'
+
+# glance.yaml
+glance::db::mysql::password:                        'glance_pass'
+
+# horizon.yaml
+horizon::secret_key:                                'horizon_secret'
+
+# keystone.yaml
+keystone::db::mysql::password:                      'key_pass'
+keystone::admin_token:                              'admintoken'
+
+# master.yaml
+rbd_volumes_rbd_secret_uuid:                        'AQBypF1V2JYiChAA2qYbjM6jbXJBMmpXPkvwBg=='
+
+# mysql.yaml
+mysql::server::root_password:                       'test123'
+
+# neutron.yaml
+neutron::rabbit_password:                           'neutron_guest'
+neutron::db::mysql::password:                       'neutron_pass'
+neutron::agents::metadata::shared_secret:           'a_secret'
+
+# nova.yaml
+nova::db::mysql::password:                          'nova_pass'
+nova::api::neutron_metadata_proxy_shared_secret:    'a_secret'
+nova::rabbit_password:                              'nova_quest'
+
+# The root user password
+#accounts::root_user::password:                      '$6$qVzsC5fQMqdF4gKw$.zFAu9LtxSAaPgbtZul/ZXUXpBgjaVJbQ.CIMo9eo5TslU8KU1SO/tjRZbh1hFM6RB55QFEzJlF5ejAgglk50.'
