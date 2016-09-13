@@ -29,3 +29,5 @@ profile::openstack::resource::dataporten::domain:
 profile::base::yumrepo::repo_hash:
   rdo-release:
     ensure: present
+
+openstack_version: 'mitaka' #FIXME
