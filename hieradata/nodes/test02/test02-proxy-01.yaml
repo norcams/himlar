@@ -7,3 +7,16 @@ network::interfaces_hash:
     mtu:       '1500'
     peerdns:   'yes'
     domain:    'test.iaas.uio.no'
+    defroute:  'yes'
+#    defroute:  'no'
+  'eth1':
+    ipaddress: '172.30.32.12'
+    netmask:   '255.255.255.0'
+    gateway:   '172.30.32.10'
+    srcaddr:   "%{hiera('netcfg_netpart_public')}.253"
+#    defroute:  'yes'
+    defroute:  'no'
+  'dummy0':
+    ipaddress: "%{hiera('netcfg_netpart_public')}.253"
+    netmask:   '255.255.255.255'
+    defroute:  'no'

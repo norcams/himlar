@@ -45,6 +45,15 @@ named_interfaces::config:
 
 endpoint_protocol:      'https'
 
+# public
+service__address__horizon:           "dashboard.%{hiera('domain_public')}"
+service__address__keystone_public:   "dashboard.%{hiera('domain_public')}"
+service__address__glance_public_api: "dashboard.%{hiera('domain_public')}"
+service__address__nova_public_api:   "dashboard.%{hiera('domain_public')}"
+service__address__neutron_public:    "dashboard.%{hiera('domain_public')}"
+service__address__cinder_public_api: "dashboard.%{hiera('domain_public')}"
+service__address__consoleproxy:      "console.%{hiera('domain_public')}"
+
 # transport
 service__address__mysql:             "%{hiera('netcfg_netpart_trp')}.41"
 service__address__keystone:          "%{hiera('netcfg_netpart_trp')}.81"
@@ -70,6 +79,13 @@ ntp::servers:
   - ntp1.uio.no
   - ntp2.uio.no
 
+profile::openstack::volume::manage_rbd: true
+profile::openstack::volume::api::enable_multibackend: true
+profile::openstack::compute::hypervisor::manage_libvirt_rbd: true
+
+# If backend != file, you must explicitly define stores in %location/modules/glance.yaml
+profile::openstack::image::api::backend: 'rbd'
+
 profile::network::services::dns_options:
   CNAME:
     default:
@@ -91,13 +107,12 @@ profile::network::services::dns_records:
   CNAME:
     "puppet.%{hiera('domain_mgmt')}":                     "%{location}-admin-01.%{hiera('domain_mgmt')}"
     "admin.%{hiera('domain_mgmt')}":                      "%{location}-admin-01.%{hiera('domain_mgmt')}"
-    "foreman.%{hiera('domain_mgmt')}":                    "%{location}-admin-01.%{hiera('domain_mgmt')}"
     "repo.%{hiera('domain_mgmt')}":                       "%{location}-admin-01.%{hiera('domain_mgmt')}"
     "proxy.%{hiera('domain_mgmt')}":                      "%{location}-proxy-01.%{hiera('domain_mgmt')}"
     "logger.%{hiera('domain_mgmt')}":                     "%{location}-logger-01.%{hiera('domain_mgmt')}"
-    "master.%{hiera('domain_mgmt')}":                     "%{location}-master-01.%{hiera('domain_mgmt')}"
     "%{location}-login-01.%{hiera('domain_mgmt')}":       "osl-login-01.%{hiera('domain_mgmt')}"
-    "dashboard.%{hiera('domain_mgmt')}":                 "%{location}-admin-01.%{hiera('domain_mgmt')}"
+    "dashboard.%{hiera('domain_mgmt')}":                  "%{location}-dashboard-01.%{hiera('domain_mgmt')}"
+    "console.%{hiera('domain_public')}":                  "%{location}-console-01.%{hiera('domain_mgmt')}"
   A:
     "%{location}-leaf-01.%{hiera('domain_mgmt')}":        "%{netpart_mgmt1}.1"
     "%{location}-admin-01.%{hiera('domain_mgmt')}":       "%{netpart_mgmt1}.11"
@@ -111,6 +126,7 @@ profile::network::services::dns_records:
     "%{location}-volume-01.%{hiera('domain_mgmt')}":      "%{netpart_mgmt1}.46"
     "%{location}-dashboard-01.%{hiera('domain_mgmt')}":   "%{netpart_mgmt1}.51"
     "%{location}-access-01.%{hiera('domain_mgmt')}":      "%{netpart_mgmt1}.56"
+    "%{location}-console-01.%{hiera('domain_mgmt')}":     "%{netpart_mgmt1}.61"
     "%{location}-novactrl-01.%{hiera('domain_mgmt')}":    "%{netpart_mgmt1}.66"
     "%{location}-network-01.%{hiera('domain_mgmt')}":     "%{netpart_mgmt1}.71"
     "%{location}-identity-01.%{hiera('domain_mgmt')}":    "%{netpart_mgmt1}.81"
