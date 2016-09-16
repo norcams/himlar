@@ -19,12 +19,18 @@ profile::openstack::identity::keystone_config:
 profile::openstack::identity::roles_extra:
   - user
 
+profile::openstack::identity::trusted_dashboard: "https://%{hiera('service__address__horizon')}/dashboard/auth/websso/"
 profile::openstack::resource::dataporten::manage_dataporten: true
 profile::openstack::resource::dataporten::domain:
   dataporten:
     ensure:       present
     description:  'Federated users from Dataporten'
     is_default:   false
+profile::openstack::resource::dataporten::identity_provider:
+  dataporten:
+    enabled:      true
+    remote_ids:   [ 'https://auth.dataporten.no' ]
+    description:  'Federated user from Dataporten'
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:

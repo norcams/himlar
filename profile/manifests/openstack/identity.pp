@@ -13,6 +13,7 @@ class profile::openstack::identity (
   $firewall_extras_a  = {},
   $manage_ssl_cert    = false,
   $manage_openidc     = false,
+  $trusted_dashboard  = undef,
   $keystone_config    = {}
 ) {
 
@@ -23,7 +24,15 @@ class profile::openstack::identity (
   include ::keystone::wsgi::apache
 
   if $manage_openidc {
-    include ::keystone::federation::oidc
+    include ::keystone::federation::openidc
+    if $trusted_dashboard {
+      keystone_config {
+        'federation/trusted_dashboard': value => $trusted_dashboard
+      }
+    }
+    keystone_config {
+      'federation/remote_id_attribute': value => 'OIDC-iss'
+    }
   }
 
   create_resources('keystone_config', $keystone_config)

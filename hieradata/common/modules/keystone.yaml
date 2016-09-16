@@ -21,26 +21,16 @@ keystone::public_bind_host: "%{ipaddress_service1}"
 keystone::admin_bind_host: "%{ipaddress_service1}"
 keystone::database_connection: "mysql://keystone:%{%{hiera('keystone::db::mysql::password')}@%{%{hiera('service__address__mysql')}/keystone"
 
-keystone::federation::oidc::idp_name: dataporten
-keystone::federation::oidc::methods:
-  - password
-  - token
-  - oidc
-keystone::federation::oidc::provider_metadata_url: https://auth.dataporten.no/.well-known/openid-configuration
-keystone::federation::oidc::remote_id_attribute: OIDC-iss
-keystone::federation::oidc::response_type: code
-keystone::federation::oidc::scope:
-  - email
-  - openid
-  - profile
-  - userid-feide
-# set per location in <location>/modules/keystone.yaml
-keystone::federation::oidc::trusted_dashboard: "https://%{hiera('service__address__horizon')}/dashboard/auth/websso/"
-keystone::federation::oidc::redirect_uri: "%{hiera('endpoint_protocol')}://%{hiera('service__address__keystone_public')}:5000/v3/auth/OS-FEDERATION/websso/oidc/redirect"
-# set real values using secrets/<node>.yaml
-keystone::federation::oidc::client_id: 00000000-0000-0000-0000-000000000000
-keystone::federation::oidc::client_secret: 00000000-0000-0000-0000-000000000000
-keystone::federation::oidc::crypto_passphrase: openstack
+# Federation
+keystone::federation::openidc::idp_name: 'dataporten'
+keystone::federation::openidc::methods:
+  - 'password'
+  - 'token'
+  - 'openidc'
+keystone::federation::openidc::openidc_response_type: 'code'
+keystone::federation::openidc::openidc_provider_metadata_url: 'https://auth.dataporten.no/.well-known/openid-configuration'
+keystone::federation::openidc::openidc_client_id: '00000000-0000-0000-0000-000000000000'
+keystone::federation::openidc::openidc_client_secret: '00000000-0000-0000-0000-000000000000'
 
 # logging
 keystone::use_syslog:    true
