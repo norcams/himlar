@@ -24,9 +24,9 @@ horizon::neutron_options:
   'enable_vpn': false
 
 horizon::websso_enabled: true
-horizon::websso_initial_choice: oidc
+horizon::websso_initial_choice: openidc
 horizon::websso_choices:
-  oidc: Dataporten
+  openidc: Dataporten
   credentials: Local user
 
 # logging
