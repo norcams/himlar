@@ -6,3 +6,6 @@ profile::application::himlarcli::smtp:          'smtp.uio.no'
 profile::application::himlarcli::from_addr:     'noreply@usit.uio.no'
 profile::application::himlarcli::ldap_server:   'ldap.uio.no'
 profile::application::himlarcli::ldap_base_dn:  'dc=uio,dc=no'
+
+profile::application::himlarcli::foreman_url:   "https://%{::location}-admin-01.%{::domain}"    # FIXME to common when all locations reinstalled
+

@@ -112,6 +112,7 @@ profile::network::services::dns_records:
     "logger.%{hiera('domain_mgmt')}":                     "%{location}-logger-01.%{hiera('domain_mgmt')}"
     "%{location}-login-01.%{hiera('domain_mgmt')}":       "osl-login-01.%{hiera('domain_mgmt')}"
     "dashboard.%{hiera('domain_mgmt')}":                  "%{location}-dashboard-01.%{hiera('domain_mgmt')}"
+    "status.%{hiera('domain_mgmt')}":                     "%{location}-dashboard-01.%{hiera('domain_mgmt')}"
     "console.%{hiera('domain_public')}":                  "%{location}-console-01.%{hiera('domain_mgmt')}"
   A:
     "%{location}-leaf-01.%{hiera('domain_mgmt')}":        "%{netpart_mgmt1}.1"
