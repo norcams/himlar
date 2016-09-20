@@ -3,6 +3,8 @@ include:
   default:
     - profile::openstack::compute::consoleproxy
 
+openstack_version: 'mitaka' #FIXME
+
 profile::openstack::compute::consoleproxy::spice: true
 
 nova::config::nova_config:
