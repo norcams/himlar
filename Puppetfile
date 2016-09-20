@@ -135,7 +135,7 @@ mod 'cinder', :ref => '5add15bc80',              :git => github + 'openstack/pup
 mod 'glance', :ref => 'f4495d93a0',              :git => github + 'openstack/puppet-glance'
 mod 'nova', :ref => 'a495b4010d',                :git => github + 'openstack/puppet-nova'
 mod 'neutron', :ref => '7.0.0-14-g51c6383',      :git => github + 'norcams/puppet-neutron'
-mod 'horizon', :ref => '7.0.0-2-ga6e7c64',       :git => github + 'norcams/puppet-horizon'
+mod 'horizon', :ref => 'norcams-mitaka',         :git => github + 'norcams/puppet-horizon'
 
 mod 'openstacklib', :ref => '8.2.0',             :git => github + 'openstack/puppet-openstacklib'
 mod 'openstack_extras', :ref => '8.2.0',         :git => github + 'openstack/puppet-openstack_extras'

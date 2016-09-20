@@ -7,6 +7,8 @@ include:
     - profile::application::himlarcli
     - profile::logging::rsyslog::client
 
+openstack_version: 'mitaka' #FIXME
+
 profile::openstack::openrc::filename: '/root/keystonerc_admin'
 
 profile::base::network::node_multinic: true
