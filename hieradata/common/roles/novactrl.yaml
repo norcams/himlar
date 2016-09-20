@@ -23,9 +23,6 @@ profile::openstack::compute::api::firewall_extras:
 profile::base::common::packages:
   'python-openstackclient': {}
 
-# TESTING FIXME
-nova::api::enabled_apis: 'ec2,osapi_compute'
-
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   rdo-release:

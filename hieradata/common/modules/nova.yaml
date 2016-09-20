@@ -1,5 +1,5 @@
 ---
-# Shared config (nodes: command, compute)
+# Shared config (nodes: novactrl, compute)
 nova::db::database_connection:     "mysql://nova:%{hiera('nova::db::mysql::password')}@%{hiera('service__address__mysql')}/nova"
 nova::db::api_database_connection: "mysql://nova_api:%{hiera('nova::db::mysql_api::password')}@%{hiera('service__address__mysql')}/nova_api"
 nova::glance_api_servers:          "http://%{hiera('service__address__glance_api')}:9292"
@@ -34,27 +34,28 @@ nova::keystone::auth::admin_url_v3:     "http://%{hiera('service__address__nova_
 nova::keystone::auth::internal_url:     "http://%{hiera('service__address__nova_api')}:8774/v2/%(tenant_id)s"
 nova::keystone::auth::internal_url_v3:  "http://%{hiera('service__address__nova_api')}:8774/v3"
 
-# api (node: command)
+# api (node: novactrl)
+nova::api::enabled_apis:                [ 'ec2', 'osapi_compute' ]
 nova::api::enabled:                     true
 nova::api::api_bind_address:            "%{ipaddress_transport1}"
 nova::api::admin_password:              "%{hiera('nova_api_password')}"
 nova::api::auth_uri:                    "http://%{hiera('service__address__keystone')}:5000/"
 nova::api::identity_uri:                "http://%{hiera('service__address__keystone_admin')}:35357/"
 
-# scheduler (node: command)
+# scheduler (node: novactrl)
 nova::scheduler::enabled:                         true
 nova::scheduler::filter::ram_allocation_ratio:    '1.5'
 nova::scheduler::filter::max_instances_per_host:  '75'
 nova::scheduler::filter::disk_allocation_ratio:   '10'
 nova::scheduler::filter::cpu_allocation_ratio:    '16'
 
-# conductor (node: command)
+# conductor (node: novactrl)
 nova::conductor::enabled: true
 
-# consoleauth (node: command)
+# consoleauth (node: novactrl)
 nova::consoleauth::enabled: true
 
-# neutron network (node: compute)
+# neutron network (node: compute and novactrl)
 nova::network::neutron::neutron_url:            "http://%{hiera('service__address__neutron_server')}:9696"
 nova::network::neutron::neutron_auth_url:  "http://%{hiera('service__address__keystone_admin')}:35357/v3"
 nova::network::neutron::neutron_region_name:    "%{location}"
