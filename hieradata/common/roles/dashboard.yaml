@@ -13,7 +13,6 @@ profile::openstack::openrc::filename: '/root/keystonerc_admin'
 
 profile::base::network::node_multinic: true
 profile::base::common::packages:
-  'python-oslo-log': {}
   'python-openstackclient': {}
 
 dashboard_referer:    '^https://dashboard\.'
