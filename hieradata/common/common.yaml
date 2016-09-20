@@ -23,6 +23,8 @@ domain_public: "%{::domain}"
 domain_trp:    "%{::domain}"
 domain_mgmt:   "%{::domain}"
 
+openstack_version: 'liberty'
+
 valid_location_tags:
   - bgo
   - osl
