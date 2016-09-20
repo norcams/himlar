@@ -47,7 +47,7 @@ service__address__glance_public_api: "dashboard.%{hiera('domain_public')}"
 service__address__nova_public_api:   "dashboard.%{hiera('domain_public')}"
 service__address__neutron_public:    "dashboard.%{hiera('domain_public')}"
 service__address__cinder_public_api: "dashboard.%{hiera('domain_public')}"
-service__address__consoleproxy:      "dashboard.%{hiera('domain_public')}"
+service__address__consoleproxy:      "console.%{hiera('domain_public')}"
 
 # transport
 service__address__mysql:             "%{hiera('netcfg_netpart_trp')}.41"
@@ -122,7 +122,7 @@ profile::network::services::dns_records:
     # Run dashboard on mgmt until public is working
     "dashboard.%{hiera('domain_public')}":                "%{netpart_mgmt1}.51"
     "access.%{hiera('domain_public')}":                   "%{netpart_mgmt1}.56"
-
+    "console.%{hiera('domain_public')}":                  "%{netpart_mgmt1}.61"
 
 #
 ## Secret data which for other environments are stored ooutside of this data tree
