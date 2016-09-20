@@ -5,6 +5,8 @@ include:
     - profile::logging::rsyslog::client
     - profile::openstack::openrc
 
+openstack_version: 'mitaka'
+
 profile::openstack::compute::api::manage_firewall:  true
 profile::openstack::novactrl::enable_api:           true
 profile::openstack::novactrl::enable_conductor:     true
