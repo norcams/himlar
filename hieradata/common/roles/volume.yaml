@@ -8,9 +8,12 @@ include:
     - profile::openstack::openrc
     - profile::logging::rsyslog::client
 
+openstack_version: 'mitaka'
+
 profile::base::common::packages:
-  'python-oslo-policy': {}
   'python-openstackclient': {}
+  'python2-oslo-policy': {}
+  'python-keystonemiddleware': {}
 
 profile::openstack::openrc::password:     "%{hiera('cinder_api_password')}"
 profile::openstack::openrc::username:     'cinder'
