@@ -21,3 +21,7 @@ project_dashboard.unregister(routers_panel.__class__)
 # Completely remove panel Network->Networks
 networks_panel = project_dashboard.get_panel("networks")
 project_dashboard.unregister(networks_panel.__class__)    # Disable Floating IPs
+
+# Remove "Volume Consistency Groups" tab
+from openstack_dashboard.dashboards.project.volumes import tabs
+tabs.CGroupsTab.allowed = NO
