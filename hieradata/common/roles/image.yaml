@@ -5,6 +5,8 @@ include:
     - profile::openstack::openrc
     - profile::logging::rsyslog::client
 
+openstack_version: 'mitaka'
+
 profile::openstack::image::registry_enabled:  true
 
 profile::openstack::openrc::password:     "%{hiera('glance_api_password')}"
