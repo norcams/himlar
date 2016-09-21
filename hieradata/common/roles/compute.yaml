@@ -14,6 +14,8 @@ include:
     - profile::base::lvm
     - profile::network::yum_proxy
 
+openstack_version: 'mitaka'
+
 # Because of this we cannot use syslog on master:
 # https://bugs.launchpad.net/kolla/liberty/+bug/1516306
 neutron::use_syslog:    true
