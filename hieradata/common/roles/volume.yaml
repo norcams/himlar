@@ -8,8 +8,6 @@ include:
     - profile::openstack::openrc
     - profile::logging::rsyslog::client
 
-openstack_version: 'mitaka'
-
 profile::base::common::packages:
   'python-openstackclient': {}
   'python2-oslo-policy': {}
