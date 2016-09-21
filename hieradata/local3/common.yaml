@@ -172,6 +172,7 @@ neutron::agents::metadata::shared_secret:           'a_secret'
 
 # nova.yaml
 nova::db::mysql::password:                          'nova_pass'
+nova::db::mysql_api::password:                      'nova_api_pass'
 nova::api::neutron_metadata_proxy_shared_secret:    'a_secret'
 nova::rabbit_password:                              'nova_quest'
 

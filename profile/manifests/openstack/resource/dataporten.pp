@@ -8,6 +8,11 @@ class profile::openstack::resource::dataporten(
   if $manage_dataporten {
     $domain = hiera_hash('profile::openstack::resource::dataporten::domain', {})
     create_resources('keystone_domain', $domain)
+
+    $idp = hiera_hash('profile::openstack::resource::dataporten::identity_provider', {})
+    create_resources('keystone_identity_provider', $idp)
   }
+
+
 
 }

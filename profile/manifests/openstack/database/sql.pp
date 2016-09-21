@@ -25,6 +25,7 @@ class profile::openstack::database::sql (
 
   if $nova_enabled {
     include ::nova::db::mysql
+    include ::nova::db::mysql_api
   }
 
   if $cinder_enabled {

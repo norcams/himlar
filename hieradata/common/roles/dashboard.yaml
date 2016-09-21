@@ -11,7 +11,6 @@ profile::openstack::openrc::filename: '/root/keystonerc_admin'
 
 profile::base::network::node_multinic: true
 profile::base::common::packages:
-  'python-oslo-log': {}
   'python-openstackclient': {}
 
 dashboard_referer:    '^https://dashboard\.'
@@ -38,7 +37,7 @@ profile::openstack::api::vhosts:
         - "Referer '%{hiera('dashboard_referer')}' dashboard_referal"
       request_headers:
         - "set X-Forwarded-Proto '%{hiera('endpoint_protocol')}'"
-        - "set Host '%{hiera('service__address__keystone_public')}' env=dashboard_referal"
+        - "set Host '%{hiera('service__address__keystone_public')}:5000' env=dashboard_referal"
   nova_ec2_api:
     port:               '8773'
     proxy_dest:         "http://%{hiera('service__address__nova_api')}:8773"
