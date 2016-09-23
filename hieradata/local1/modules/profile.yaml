@@ -8,3 +8,5 @@ profile::application::himlarcli::foreman_url:   "https://%{::location}-admin-01.
 
 profile::application::himlarcli::cacert:        '/etc/pki/tls/certs/cachain.pem'
 profile::openstack::openrc::cacert:             '/etc/pki/tls/certs/cachain.pem'
+
+profile::monitoring::sensu::agent::enable_agent: true
