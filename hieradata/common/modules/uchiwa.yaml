@@ -6,4 +6,4 @@ uchiwa::sensu_api_endpoints:
     port:     '4567'
     name:     "%{::location}"
     user:     'sensu'
-    password: "%{hiera('sensu_api_password')}"
+    pass:     "%{hiera('sensu_api_password')}"
