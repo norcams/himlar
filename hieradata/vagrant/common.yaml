@@ -2,6 +2,7 @@
 include:
   default:
     - profile::development::network::dns
+#    - profile::monitoring::sensu::agent
 
 # Location setting
 location_environment: dev
