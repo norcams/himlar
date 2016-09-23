@@ -1,6 +1,5 @@
 ---
-#profile::base::network::manage_httpproxy: 'true'
-#profile::base::network::http_proxy:       "%{hiera('service__address__proxy')}:8888"
+profile::base::network::manage_httpproxy: true
 
 calico::compute::bird_template: 'profile/bird/bird.conf.erb'
 

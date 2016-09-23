@@ -1,4 +1,8 @@
 ---
+include:
+  default:
+    - profile::monitoring::sensu::agent
+
 location_environment: 'local1'
 location_description: 'Local development environment'
 
@@ -63,6 +67,7 @@ service__address__nova_api_metadata: '127.0.0.1'
 
 # mgmt
 service__address__rsyslog:           "logger.%{hiera('domain_mgmt')}"
+mgmt_address_mq:                     "%{netpart_mgmt1}.31"
 
 # rabbitmq
 #service__address__rabbitmq_01:       "%{hiera('netcfg_netpart_trp')}.31"
@@ -88,14 +93,14 @@ profile::network::services::dns_records:
     "repo.%{hiera('domain_mgmt')}":                       "%{location}-admin-01.%{hiera('domain_mgmt')}"
     "proxy.%{hiera('domain_mgmt')}":                      "%{location}-proxy-01.%{hiera('domain_mgmt')}"
     "logger.%{hiera('domain_mgmt')}":                     "%{location}-logger-01.%{hiera('domain_mgmt')}"
-    "master.%{hiera('domain_mgmt')}":                     "%{location}-master-01.%{hiera('domain_mgmt')}"
+    "monitor.%{hiera('domain_mgmt')}":                    "%{location}-monitor-01.%{hiera('domain_mgmt')}"
   A:
     "%{location}-leaf-01.%{hiera('domain_mgmt')}":        "%{netpart_mgmt1}.1"
     "%{location}-login-01.%{hiera('domain_mgmt')}":       "%{netpart_mgmt1}.10"
     "%{location}-admin-01.%{hiera('domain_mgmt')}":       "%{netpart_mgmt1}.11"
     "%{location}-proxy-01.%{hiera('domain_mgmt')}":       "%{netpart_mgmt1}.12"
     "%{location}-logger-01.%{hiera('domain_mgmt')}":      "%{netpart_mgmt1}.13"
-    "%{location}-master-01.%{hiera('domain_mgmt')}":      "%{netpart_mgmt1}.20"
+    "%{location}-monitor-01.%{hiera('domain_mgmt')}":     "%{netpart_mgmt1}.14"
     "%{location}-mq-01.%{hiera('domain_mgmt')}":          "%{netpart_mgmt1}.31"
     "%{location}-mq-02.%{hiera('domain_mgmt')}":          "%{netpart_mgmt1}.32"
     "%{location}-image-01.%{hiera('domain_mgmt')}":       "%{netpart_mgmt1}.36"
@@ -181,6 +186,11 @@ nova::db::mysql::password:                          'nova_pass'
 nova::db::mysql_api::password:                      'nova_api_pass'
 nova::api::neutron_metadata_proxy_shared_secret:    'a_secret'
 nova::rabbit_password:                              'nova_quest'
+
+# sensu.yaml
+sensu::rabbit_password:                             'sensu_guest'
+sensu_api_password:                                 'sensu'
+graphite_secret_key:                                'graphite_pass'
 
 # The root user password
 #accounts::root_user::password:                      '$6$qVzsC5fQMqdF4gKw$.zFAu9LtxSAaPgbtZul/ZXUXpBgjaVJbQ.CIMo9eo5TslU8KU1SO/tjRZbh1hFM6RB55QFEzJlF5ejAgglk50.'
