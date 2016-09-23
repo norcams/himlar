@@ -1,16 +1,9 @@
 #
-# Author: Yanis Guenane <yguenane@gmail.com>
-# License: ApacheV2
-#
-# Puppet module :
-#   mod 'sensu/sensu'
-#
 class profile::monitoring::sensu::agent (
+  $enable_agent = false,
   $plugins = {},
   $checks  = {},
 ) {
-
-  Class['sensu'] -> Sensu::Plugin <||>
 
   include ::sensu
 

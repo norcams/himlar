@@ -115,6 +115,7 @@ service__address__rabbitmq_03:       "mq01.%{hiera('domain_trp')}"
 # mgmt
 service__address__rsyslog:           "logger.%{hiera('domain_mgmt')}"
 service__address__proxy:             "proxy.%{hiera('domain_mgmt')}"
+service__address__monitor:           "monitor.%{hiera('domain_mgmt')}"
 
 #
 # Network configuration data

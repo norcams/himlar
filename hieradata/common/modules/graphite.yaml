@@ -1,0 +1,8 @@
+---
+graphite::secret_key:     "%{hiera('graphite_secret_key')}"
+graphite::gr_timezone:    'Europe/Berlin'
+graphite::gr_web_server:  'apache'
+graphite::gr_storage_schemas:
+  - name:       'default'
+    pattern:    '.*'
+    retentions: '60s:12h,1h:7d,1d:90d'

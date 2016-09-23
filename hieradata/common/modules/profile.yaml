@@ -100,6 +100,10 @@ profile::base::yumrepo::repo_hash:
     descr:          'UH-IaaS repo'
     baseurl:        "https://download.iaas.uio.no/uh-sky/yumrepo/"
     gpgcheck:       0
+  sensu:
+    descr:          'Sensu repo'
+    baseurl:        'https://sensu.global.ssl.fastly.net/yum/7/$basearch'
+    gpgcheck:       0
 # Optional repos: enable them with ensure: present in common/role
   rdo-release:
     ensure:         absent
@@ -156,6 +160,19 @@ profile::base::yumrepo::repo_hash:
     baseurl:        'http://yum.theforeman.org/plugins/1.11/el7/$basearch'
     enabled:        1
     gpgcheck:       0
+
+
+# Turn on agant and add common sensu plugins
+profile::monitoring::sensu::agent::enable_agent: true
+profile::monitoring::sensu::agent::plugins:
+  sensu-plugins-disk-checks:
+    type: package
+  sensu-plugins-load-checks:
+    type: package
+  sensu-plugins-memory-checks:
+    type: package
+  sensu-plugins-vmstats:
+    type: package
 
 consul::config_hash:
   'enable_syslog': true

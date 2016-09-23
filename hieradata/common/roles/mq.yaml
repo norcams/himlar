@@ -13,6 +13,8 @@ profile::messaging::rabbitmq::users:
     password: "%{hiera('cinder::rabbit_password')}"
   neutron:
     password: "%{hiera('neutron::rabbit_password')}"
+  sensu:
+    password: "%{hiera('sensu::rabbit_password')}"
 #  glance:
 #    password: "%{hiera('glance::rabbit_password')}"
 
@@ -20,6 +22,7 @@ profile::messaging::rabbitmq::vhosts:
   nova: {}
   cinder: {}
   neutron: {}
+  sensu: {}
 #  glance: {}
 
 profile::messaging::rabbitmq::user_permissions:
@@ -32,6 +35,10 @@ profile::messaging::rabbitmq::user_permissions:
     write_permission:     '.*'
     read_permission:      '.*'
   'neutron@neutron':
+    configure_permission: '.*'
+    write_permission:     '.*'
+    read_permission:      '.*'
+  'sensu@sensu':
     configure_permission: '.*'
     write_permission:     '.*'
     read_permission:      '.*'

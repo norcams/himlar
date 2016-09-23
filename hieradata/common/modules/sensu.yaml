@@ -1,0 +1,64 @@
+---
+sensu::client:                  true
+sensu::server:                  false
+sensu::api:                     false
+sensu::purge:                   true
+sensu::api:                     false
+sensu::version:                 present
+sensu::install_repo:            false
+sensu::manage_repo:             false
+sensu::sensu_plugin_provider:   sensu_gem
+sensu::use_embedded_ruby:       true
+sensu::rabbitmq_host:           "%{hiera('mgmt_address_mq')}"
+sensu::rabbitmq_password:       "%{hiera('sensu::rabbit_password')}"
+sensu::rabbitmq_user:           'sensu'
+sensu::rabbitmq_vhost:          'sensu'
+sensu::rabbitmq_port:           '5672'
+
+# client
+sensu::client_address:          "%{ipaddress_mgmt1}"
+sensu::client_name:             "%{hostname}"
+sensu::client_custom:
+  graphite_load:    "http://%{hiera('service__address__monitor')}/render?from=-2h&target=aliasByNode(load.%{::hostname}.load_avg.*,3)&height=250&width=600&lineMode=connected&uchiwa_force_image=.jpg"
+  graphite_cpu:     "http://%{hiera('service__address__monitor')}/render?from=-2h&target=aliasByNode(vmstats.%{::hostname}.cpu.*,3)&height=250&width=600&lineMode=connected&uchiwa_force_image=.jpg"
+  graphite_io:      "http://%{hiera('service__address__monitor')}/render?from=-2h&target=aliasByNode(vmstats.%{::hostname}.io.*,3)&height=250&width=600&lineMode=connected&uchiwa_force_image=.jpg"
+  graphite_memory:  "http://%{hiera('service__address__monitor')}/render?from=-30min&target=aliasByMetric(memory.%{::hostname}.total)&target=aliasByMetric(memory.%{::hostname}.free)&target=aliasByMetric(memory.%{::hostname}.used)&height=250&width=600&lineMode=connected&uchiwa_force_image=.jpg"
+#  graphite_memory2:  "http://%{hiera('service__address__monitor')}/render?from=-2h&target=aliasByNode(vmstats.%{::hostname}.memory.*,3)&height=250&width=600&lineMode=connected&uchiwa_force_image=.jpg"
+sensu::subscriptions:
+  - 'metrics'
+  - 'checks'
+
+sensu::checks:
+  'metrics-vmstat':
+    type:         'metric'
+    command:      'metrics-vmstat.rb --scheme vmstats.%{::hostname}'
+    interval:     60
+    subscribers:  ['metrics']
+    handlers:     ['graphite_tcp']
+  'metrics-load':
+    type:         'metric'
+    command:      'metrics-load.rb --scheme load.%{::hostname}'
+    interval:     60
+    subscribers:  ['metrics']
+    handlers:     ['graphite_tcp']
+  'metrics-memory':
+    type:         'metric'
+    command:      'metrics-memory.rb --scheme memory.%{::hostname}'
+    interval:     60
+    subscribers:  ['metrics']
+    handlers:     ['graphite_tcp']
+  'check-disk-usage':
+    command:      'check-disk-usage.rb -w 70'
+    interval:     60
+    subscribers:  ['checks']
+  'check-load':
+    command:      'check-load.rb -p'
+    interval:     60
+    subscribers:  ['checks']
+
+# Server
+sensu::api_user:          'sensu'
+sensu::api_password:      "%{hiera('sensu_api_password')}"
+sensu::api_host:          '127.0.0.1'
+sensu::api_bind:          '127.0.0.1'
+sensu::api_port:          '4567'
