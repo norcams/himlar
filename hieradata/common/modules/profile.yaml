@@ -166,13 +166,17 @@ profile::base::yumrepo::repo_hash:
 profile::monitoring::sensu::agent::enable_agent: false
 profile::monitoring::sensu::agent::plugins:
   sensu-plugins-disk-checks:
-    type: package
+    type:     package
+    version:  '2.0.1'
   sensu-plugins-load-checks:
-    type: package
+    type:     package
+    version:  '1.0.0'
   sensu-plugins-memory-checks:
-    type: package
+    type:     package
+    version:  '1.0.2'
   sensu-plugins-vmstats:
-    type: package
+    type:     package
+    version:  '1.0.0'
 
 consul::config_hash:
   'enable_syslog': true
