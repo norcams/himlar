@@ -1,6 +1,9 @@
 ---
 profile::development::network::dns::manage_hosts: true
 
+# Set to true to enable monitoring in vagrant
+profile::monitoring::sensu::agent::enable_agent:  false
+
 profile::application::himlarcli::cacert:      '/opt/himlar/provision/ca/certs/ca-chain.cert.pem'
 profile::application::himlarcli::smtp:        ''
 profile::application::himlarcli::from_addr:   ''
