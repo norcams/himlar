@@ -3,6 +3,7 @@ include:
   default:
     - profile::base::common
     - profile::base::firewall
+    - profile::monitoring::sensu::agent
   kickstart:
     - profile::base::common
   bootstrap:

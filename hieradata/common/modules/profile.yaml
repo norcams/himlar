@@ -162,8 +162,8 @@ profile::base::yumrepo::repo_hash:
     gpgcheck:       0
 
 
-# Turn on agant and add common sensu plugins
-profile::monitoring::sensu::agent::enable_agent: true
+# Turn off agant as default and add common sensu plugins
+profile::monitoring::sensu::agent::enable_agent: false
 profile::monitoring::sensu::agent::plugins:
   sensu-plugins-disk-checks:
     type: package
