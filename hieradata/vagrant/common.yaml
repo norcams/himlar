@@ -2,6 +2,7 @@
 include:
   default:
     - profile::development::network::dns
+#    - profile::monitoring::sensu::agent
 
 # Location setting
 location_environment: dev
@@ -87,6 +88,7 @@ service__address__cinder_api:        '172.31.16.20'
 service__address__mysql:             '172.31.16.41'
 service__address__rsyslog:           '172.31.0.13'
 service__address__proxy:             ''
+service__address__monitor:           '172.31.0.14'
 
 # Rabbitmq:
 # In vagrant default is master
@@ -94,6 +96,7 @@ service__address__proxy:             ''
 service__address__rabbitmq_01:       '172.31.16.20'
 service__address__rabbitmq_02:       '172.31.16.20'
 service__address__rabbitmq_03:       '172.31.16.20'
+mgmt_address_mq:                     '172.31.0.20'
 
 # no proxy for vagrant environments
 profile::network::yum_proxy::yum_proxy: ''
@@ -136,6 +139,7 @@ profile::network::services::dns_records:
     "%{location}-admin-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_netpart_mgmt')}.11"
     "%{location}-proxy-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_netpart_mgmt')}.12"
     "%{location}-logger-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_netpart_mgmt')}.13"
+    "%{location}-monitor-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_netpart_mgmt')}.14"
     "%{location}-master-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_netpart_mgmt')}.20"
     "%{location}-mq-01.%{hiera('domain_mgmt')}":          "%{hiera('netcfg_netpart_mgmt')}.31"
     "%{location}-mq-02.%{hiera('domain_mgmt')}":          "%{hiera('netcfg_netpart_mgmt')}.32"
@@ -218,6 +222,11 @@ nova::db::mysql::password:                          'nova_pass'
 nova::db::mysql_api::password:                      'nova_api_pass'
 nova::api::neutron_metadata_proxy_shared_secret:    'a_secret'
 nova::rabbit_password:                              'nova_quest'
+
+# sensu.yaml
+sensu::rabbit_password:                             'sensu_guest'
+sensu_api_password:                                 'sensu'
+graphite_secret_key:                                'graphite_pass'
 
 # The root user password: himlardev
 accounts::root_user::password:                      '$1$vagrant$z3l/WWbF3HllJk0tnqO3i/'
