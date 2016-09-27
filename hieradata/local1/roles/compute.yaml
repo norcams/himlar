@@ -1,6 +1,10 @@
 ---
-#profile::base::network::manage_httpproxy: 'true'
-#profile::base::network::http_proxy:       "%{hiera('service__address__proxy')}:8888"
+include:
+  kickstart:
+    - profile::monitoring::sensu::agent
+
+profile::base::network::manage_httpproxy:         true
+profile::monitoring::sensu::agent::enable_agent:  true
 
 calico::compute::bird_template: 'profile/bird/bird.conf.erb'
 

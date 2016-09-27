@@ -105,6 +105,14 @@ mod 'elasticsearch', :ref => '0.10.3',            :git => github + 'elastic/pupp
 mod 'file_concat', :ref => '813132b5d77',         :git => github + 'electrical/puppet-lib-file_concat'
 
 #
+# profile::monitoring
+#
+mod 'sensu', :ref => '2.1.0',                     :git => github + 'sensu/sensu-puppet'
+mod 'uchiwa', :ref => '64ce619',                  :git => github + 'yelp/puppet-uchiwa'
+mod 'graphite', :ref => 'v6.0.4',                 :git => github + 'echocat/puppet-graphite.git'
+mod 'redis', :ref => '1.2.2',                     :git => github + 'arioch/puppet-redis'
+
+#
 # profile::webserver::apache
 #
 mod 'puppetlabs/apache', '1.10.0'                 # forge

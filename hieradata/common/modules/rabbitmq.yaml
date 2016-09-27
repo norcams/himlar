@@ -5,7 +5,7 @@ rabbitmq::admin_enable:               true
 rabbitmq::repos_ensure:               false
 rabbitmq::delete_guest_user:          true
 rabbitmq::file_limit:                 65536
-rabbitmq::node_ip_address:            "%{ipaddress_service1}" # FIXME
+rabbitmq::node_ip_address:            "0.0.0.0"
 rabbitmq::package_provider:           yum
 rabbitmq::package_source:             ''
 rabbitmq::config_variables:

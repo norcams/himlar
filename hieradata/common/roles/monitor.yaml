@@ -1,0 +1,21 @@
+---
+include:
+  default:
+    - profile::database::redis
+    - profile::monitoring::sensu::server
+
+# Sensu server
+sensu::server:              true
+sensu::api:                 true
+sensu::redis_host:          127.0.0.1
+
+profile::monitoring::sensu::server::manage_graphite:  true
+profile::monitoring::sensu::server::manage_firewall:  true
+profile::monitoring::sensu::server::manage_dashboard: true
+profile::monitoring::sensu::server::handlers:
+  graphite_tcp:
+    type: 'tcp'
+    socket:
+      host: '127.0.0.1'
+      port: 2003
+    mutator: 'only_check_output'

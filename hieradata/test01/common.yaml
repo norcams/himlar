@@ -1,4 +1,8 @@
 ---
+include:
+  default:
+    - profile::monitoring::sensu::agent
+
 location_environment: test01
 location_description: Test environment physically in Bergen
 
@@ -36,12 +40,15 @@ profile::network::services::dns_records:
     'repo.mgmt.test.iaas.intern':               'test01-admin-01.mgmt.test.iaas.intern'
     'master.mgmt.test.iaas.intern':             'test01-master-01.mgmt.test.iaas.intern'
     'db.mgmt.test.iaas.intern':                 'test01-db-01.mgmt.test.iaas.intern'
+    'logger.mgmt.test.iaas.intern':             'test01-logger-01.mgmt.test.iaas.intern'
+    'monitor.mgmt.test.iaas.intern':            'test01-monitor-01.mgmt.test.iaas.intern'
   A:
     'test01-leaf-01.mgmt.test.iaas.intern':        '172.28.0.1'
     'test01-leaf-02.mgmt.test.iaas.intern':        '172.28.0.2'
     'test01-admin-01.mgmt.test.iaas.intern':       '172.28.0.11'
     'test01-proxy-01.mgmt.test.iaas.intern':       '172.28.0.12'
     'test01-logger-01.mgmt.test.iaas.intern':      '172.28.0.13'
+    'test01-monitor-01.mgmt.test.iaas.intern':     '172.28.0.14'
     'test01-master-01.mgmt.test.iaas.intern':      '172.28.0.20'
     'test01-mq-01.mgmt.test.iaas.intern':          '172.28.0.31'
     'test01-image-01.mgmt.test.iaas.intern':       '172.28.0.36'
@@ -137,3 +144,4 @@ service__address__mysql:             '172.30.0.41'
 # mgmt
 service__address__proxy:             '172.28.0.12'
 service__address__rsyslog:           '172.28.0.13'
+mgmt_address_mq:                     '172.28.0.31'

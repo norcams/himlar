@@ -1,35 +1,21 @@
 #
-# Author: Yanis Guenane <yguenane@gmail.com>
-# License: ApacheV2
-#
-# Puppet module :
-#   mod 'sensu/sensu'
-#   mod 'puppetlabs/stdlib'
-#   mod 'puppetlabs/concat'
-#   mod 'puppetlabs/apache'
-#   mod 'maestrodev/wget'
-#   mod 'puppetlabs/gcc'
-#   mod 'thomasvandoren/redis'
-#   mod 'puppetlabs/apt'
-#   mod 'nanliu/staging'
-#   mod 'puppetlabs/rabbitmq'
-#   mod 'richardc/datacat'
-#   mod 'richardc/datacat'
-#   mod 'pauloconnor/uchiwa'
-#
 class profile::monitoring::sensu::server (
   $handlers                  = {},
-  $rabbitmq_user             = 'sensu',
-  $rabbitmq_password         = 'rabbitpassword',
-  $rabbitmq_vhost            = '/sensu',
-  $uchiwa_ip                 = $::ipaddress,
-  $proxy_dashboard           = true,
   $vhost_configuration       = {},
-  $manage_rabbitmq           = true,
-  $manage_redis              = true,
+  $manage_dashboard          = false,
+  $manage_rabbitmq           = false,
+  $manage_redis              = false,
+  $manage_graphite           = false,
+  $manage_firewall           = false,
+  $firewall_extras           = {}
 ) {
 
-  Class['sensu'] -> Class['uchiwa']
+  if $manage_dashboard {
+    Class['sensu'] -> Class['uchiwa']
+    include ::uchiwa
+    #include ::profile::webserver::apache
+    #create_resources('apache::vhost', $vhost_configuration)
+  }
 
   include ::profile::monitoring::sensu::agent
 
@@ -43,14 +29,18 @@ class profile::monitoring::sensu::server (
     Service['rabbitmq-server'] -> Class['sensu::package']
   }
 
-  if $proxy_dashboard {
-    include ::profile::webserver::apache
-    create_resources('apache::vhost', $vhost_configuration)
+  if $manage_graphite {
+    include ::graphite
+  }
+
+  if $manage_firewall {
+    profile::firewall::rule { '411 uchiwa accept tcp':
+      port        => [80, 3000],
+      destination => $::ipaddress_mgmt1,
+      extras      => $firewall_extras,
+    }
   }
 
   create_resources('sensu::handler', $handlers)
 
-  include ::uchiwa
-
 }
-
