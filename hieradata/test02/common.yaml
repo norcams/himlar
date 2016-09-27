@@ -1,4 +1,8 @@
 ---
+include:
+  default:
+    - profile::monitoring::sensu::agent
+
 location_environment: 'test02'
 location_description: 'Test environment physically in OSL'
 
@@ -69,6 +73,7 @@ service__address__etcd_cluster:      "%{hiera('netcfg_netpart_trp')}.71"
 # mgmt
 service__address__proxy:             "%{hiera('netcfg_netpart_mgmt')}.12"
 service__address__rsyslog:           "%{hiera('netcfg_netpart_mgmt')}.18"
+mgmt_address_mq:                     "%{hiera('netcfg_netpart_mgmt')}.31"
 
 # rabbitmq
 service__address__rabbitmq_01:       "%{hiera('netcfg_netpart_trp')}.31"
@@ -90,6 +95,11 @@ profile::openstack::compute::hypervisor::manage_libvirt_rbd: true
 
 # If backend != file, you must explicitly define stores in %location/modules/glance.yaml
 profile::openstack::image::api::backend: 'rbd'
+
+# sensu.yaml
+sensu::rabbit_password:                             'sensu_guest'
+sensu_api_password:                                 'sensu'
+graphite_secret_key:                                'graphite_pass'
 
 profile::network::services::dns_options:
   CNAME:
@@ -120,11 +130,13 @@ profile::network::services::dns_records:
     "dashboard.%{hiera('domain_mgmt')}":                  "%{location}-dashboard-01.%{hiera('domain_mgmt')}"
     "status.%{hiera('domain_mgmt')}":                     "%{location}-dashboard-01.%{hiera('domain_mgmt')}"
     "console.%{hiera('domain_public')}":                  "%{location}-console-01.%{hiera('domain_mgmt')}"
+    "monitor.%{hiera('domain_public')}":                  "%{location}-monitor-01.%{hiera('domain_mgmt')}"
   A:
     "%{location}-leaf-01.%{hiera('domain_mgmt')}":        "%{netpart_mgmt1}.1"
     "%{location}-admin-01.%{hiera('domain_mgmt')}":       "%{netpart_mgmt1}.11"
     "%{location}-proxy-01.%{hiera('domain_mgmt')}":       "%{netpart_mgmt1}.12"
     "%{location}-logger-01.%{hiera('domain_mgmt')}":      "%{netpart_mgmt1}.13"
+    "%{location}-monitor-01.%{hiera('domain_mgmt')}":     "%{netpart_mgmt1}.14"
     "%{location}-master-01.%{hiera('domain_mgmt')}":      "%{netpart_mgmt1}.20"
     "%{location}-mq-01.%{hiera('domain_mgmt')}":          "%{netpart_mgmt1}.31"
     "%{location}-mq-02.%{hiera('domain_mgmt')}":          "%{netpart_mgmt1}.32"
