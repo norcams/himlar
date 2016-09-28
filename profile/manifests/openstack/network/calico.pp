@@ -52,9 +52,6 @@ class profile::openstack::network::calico(
         state         => undef,
       },
     }
-    profile::firewall::rule { '912 nova-api-metadata accept tcp':
-      port   => 8775,
-    }
 
     # Depend on $::service_interfaces and $::transport_interfaces fact
     # - on master, $::service_interfaces will return an array with a single if
