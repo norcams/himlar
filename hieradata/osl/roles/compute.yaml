@@ -1,10 +1,15 @@
 ---
+include:
+  kickstart:
+    - profile::monitoring::sensu::agent
+
 ntp::servers:
   - 172.16.32.100
   - 172.16.32.101
   - 172.16.32.102
 
-profile::base::network::manage_httpproxy: 'true'
+profile::base::network::manage_httpproxy:         true
+profile::monitoring::sensu::agent::enable_agent:  true
 
 puppet::cron_cmd: "if [ -e /etc/profile.d/proxy.sh ] ; then source /etc/profile.d/proxy.sh ; fi ; \
   /usr/bin/env puppet agent --config %{puppet::dir}/puppet.conf --onetime --no-daemonize"
