@@ -7,9 +7,6 @@ include:
     - profile::openstack::openrc
     - profile::logging::rsyslog::client
 
-profile::base::common::packages:
-  'python-etcd': {}
-
 etcd::mode: cluster
 etcd::node_name: 'master'
 

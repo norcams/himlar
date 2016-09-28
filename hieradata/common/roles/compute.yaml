@@ -36,7 +36,6 @@ dnsmasq::package_ensure: '2.72_calico1.0.0-1.el7'
 profile::openstack::network::plugin: calico
 
 profile::base::common::packages:
-  'python-etcd': {}
   'posix-spawn': {}
   'networking-calico': {}
   'python-openstackclient': {}
