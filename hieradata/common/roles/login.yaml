@@ -36,8 +36,8 @@ accounts::accounts:
 
 #openstack_extras::repo::redhat::redhat::manage_rdo: true
 profile::base::common::packages:
-  'python-oslo-log': {}
   'python-openstackclient': {}
+#  'python-oslo-log': {}
 
 ssh::server::options:
   # Need this for 2FA (saz-ssh-module disables by default)
