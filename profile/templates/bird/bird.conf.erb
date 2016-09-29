@@ -33,6 +33,10 @@ protocol kernel {
   export all;     # Default is export none
 }
 
+protocol bfd {
+  neighbor <%= scope.function_hiera(['netcfg_trp_gateway']) %>;
+}
+
 # Watch interface up/down events.
 protocol device {
   scan time 2;    # Scan interfaces every 2 seconds
