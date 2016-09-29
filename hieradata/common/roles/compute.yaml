@@ -15,7 +15,7 @@ include:
     - profile::base::lvm
     - profile::network::yum_proxy
 
-# Need internt to install sensu plugins
+# Need internet to install sensu plugins
 profile::monitoring::sensu::agent::enable_agent:  false
 
 # Because of this we cannot use syslog on master:
@@ -24,6 +24,12 @@ neutron::use_syslog:    true
 neutron::log_facility:  'LOG_LOCAL5'
 
 profile::network::yum_proxy::yum_proxy: "http://%{hiera('service__address__proxy')}:8888"
+
+profile::openstack::compute::migration::enable_nova_account: true
+
+# Enable intance migration via ssh
+profile::firewall::pre::ssh_settings:
+  source: "0.0.0.0/0"
 
 openstack_extras::repo::redhat::redhat::manage_rdo: false
 profile::base::common::manage_lvm: true

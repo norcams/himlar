@@ -23,10 +23,4 @@ include:
   default:
     - profile::openstack::compute::migration
 
-profile::openstack::compute::migration::enable_nova_account: true
-
 calico::compute::bird_template: 'profile/bird/bird.conf.erb'
-
-# Enable intance migration via ssh
-profile::firewall::pre::ssh_settings:
-  source: "0.0.0.0/0"
