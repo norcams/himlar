@@ -45,30 +45,6 @@ osl_config()
 {
   return;
 }
-trd_config()
-{
-  return;
-}
-dev01_config()
-{
-  return;
-}
-local1_config()
-{
-  #
-  # Use the internal DNS server on vagrant, switch to it using Puppet
-  #
-  puppet apply -e "
-  augeas { 'peerdns no':
-    context => '/files/etc/sysconfig/network-scripts/ifcfg-eth0',
-    changes => [ 'set PEERDNS no' ],
-  }
-  augeas { 'switch nameserver':
-    context => '/files/etc/resolv.conf',
-    changes => [ 'set nameserver 172.31.200.11' ],
-  }
-  "
-}
 #
 # Common configuration
 #
@@ -210,14 +186,6 @@ case $foreman_fqdn in
   osl-foreman-*)
     osl_config
     ;;
-  trd-foreman-*)
-    trd_config
-    ;;
-  dev01-foreman-*)
-    dev01_config
-    ;;
-  local1-foreman-*)
-    local1_config
-    ;;
+
 esac
 common_config
