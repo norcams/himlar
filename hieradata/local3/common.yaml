@@ -6,6 +6,8 @@ domain_public: 'local.iaas.intern'
 domain_trp:    'trp.local.iaas.intern'
 domain_mgmt:   'mgmt.local.iaas.intern'
 
+netcfg_trp_gateway: '172.31.12.1'
+
 # These should only be used to configure network in nodes!
 netcfg_netpart_trp:     '172.31.12'
 netcfg_netmask_trp:     '255.255.255.0'
