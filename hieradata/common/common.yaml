@@ -63,13 +63,14 @@ allow_from_network:
 named_interfaces::config:
   mgmt:
     - eth0
-  transport:
+  transport: #FIXME
     - eth1
-    - eth2
-  service:
+  trp:
+    - eth1
+  service: #FIXME
     - eth1
   public:
-    - eth2
+    - dummy0
 
 #
 # Networks

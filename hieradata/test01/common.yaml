@@ -104,19 +104,6 @@ profile::network::services::dhcp_reservation:
 
 ################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
 
-#
-# Default interfaces
-#
-named_interfaces::config:
-  mgmt:
-    - eth0
-  transport:
-    - eth1
-  service:
-    - eth1
-  public:
-    - dummy0
-
 endpoint_protocol: 'https'
 
 # public

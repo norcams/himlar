@@ -29,18 +29,6 @@ allow_from_network:
   - '172.31.4.0/24'
   - '172.31.32.0/24'
 
-named_interfaces::config:
-  mgmt:
-    - eth0
-  transport:
-    - eth1
-  service:
-    - eth1
-  trp:
-    - eth1
-  public:
-    - eth2
-
 endpoint_protocol:      'https'
 
 # public
