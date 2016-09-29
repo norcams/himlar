@@ -19,3 +19,7 @@ named_interfaces::config:
     - bond1
   service:
     - bond1
+
+# Enable intance migration via ssh
+profile::firewall::pre::ssh_settings:
+  source: "0.0.0.0/0"
