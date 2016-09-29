@@ -1,6 +1,7 @@
 # Simple setup of IP forwarding and NAT with iptables
 class profile::network::nat(
   $enable_masquerade = false,
+  $enable_snat = false,
   $iniface = undef,
   $outiface = undef,
   $source = undef,
@@ -9,6 +10,20 @@ class profile::network::nat(
   # This node is a gw, enable IP fwd
   sysctl::value { 'net.ipv4.ip_forward':
     value => 1,
+  }
+
+  if $enable_snat {
+    profile::firewall::rule { '099 postrouting with snat':
+      chain  => 'POSTROUTING',
+      proto  => 'all',
+      extras => {
+        action   => undef,
+        jump     => 'SNAT',
+        tosource => $::ipaddress_public1,
+        table    => 'nat',
+        state    => undef
+      }
+    }
   }
 
   if $enable_masquerade {
