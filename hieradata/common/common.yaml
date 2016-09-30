@@ -260,9 +260,26 @@ networks:
         lease: 43200
   local1:
     domain:
-      mgmt: mgmt.local1.intern
+      mgmt: mgmt.local.iaas.intern
     subnet:
-      mgmt: 172.31.200.0/24
+      mgmt: 172.31.4.0/24
+    dhcp:
+      mgmt:
+        ensure: present
+        inferface: eth0
+        start_offset: 150
+        end_offset: 199
+        lease: 43200
+    nat:
+      mgmt:
+        ensure: present
+        iniface: eth0
+        outiface: eth1
+  local2:
+    domain:
+      mgmt: mgmt.local.iaas.intern
+    subnet:
+      mgmt: 172.31.5.0/24
     dhcp:
       mgmt:
         ensure: present
