@@ -1,0 +1,126 @@
+#!/bin/bash
+
+# UH IaaS database backup script
+#
+# Create regular backups of databases on login nodes.
+# Limitations which must be taken into account:
+#       - the DB machines can not initiate sync/file copy of any sort _to_ other nodes
+#       - the integrity of the dump files must be ensured (i.e: is the dump complete?)
+#
+# Basic routine follows this path:
+#
+# 1) the puppet database profile ensures a backup script from the puppetlabs-mysql module is in place on the db nodes
+# 2) the puppet login profile creates a script from this template and set up cron jobs which at regular intervals executes this from the login node(s):
+#
+#    a) create db dumps using the database profile generated dump script
+#    b) rsync dump files from db server
+#    c) remove old backups
+#
+#
+
+# exit codes
+ENORMAL=0
+EINVALOPT=1
+EINVALNODE=2
+
+# swap these to enable development debugging runs
+DEBUG=""
+#DEBUG="echo"
+
+# default empty -> MUST be provided through argument
+DB_SERVER=""                                # db node to backup, MUST be provided via an argument
+
+REPO_DIR="<%= @repodir %>"                  # top level internal repo directory (which is sync'ed between osl and bgo)
+BACKUP_DIR="${REPO_DIR}/dumps"              # directory to save retrieved db dumps in
+DUMP_DIR="<%= @dumpdir %>"                  # directory for db dumps on db node
+DB_DUMP_SCRIPT="<%= @db_dump_script %>"     # name of backup script on db node
+AGELIMIT=<%= @agelimit %>                   # days for backup rotation
+
+SSH_USER="iaas"
+FLAG="/tmp/db-dump.flag"
+
+
+#
+# short usage description
+
+usage()
+{
+	echo "This script ssh to a database node and executes $DB_DUMP_SCRIPT, after which"
+	echo "the dump files are syncronized (using rsync) to $BACKUP_DIR."
+	echo "Dumped files older than $AGELIMIT is removed"
+	echo
+	echo "Mandatory argument: databse node to back up"
+	echo
+	echo "Usage:"
+	echo "$0 [-h][-a <int>] <database node>"
+	echo
+	echo "-h	: print this usage text"
+	echo "-a <int>	: remove files older than <int> days (default:$AGELIMIT) - must be a positive integer greater than zero"
+}
+
+
+# clean up routine
+# removes backup dumps older than <argument> days
+
+cleanup()
+{
+    local expiration_days=$1
+
+    if [ $expiration_days -gt 0 ]; then
+        find "${BACKUP_DIR}/" -maxdepth 1 -name "*.sql*" -type f -mtime +$expiration_days -print0 | xargs -0 -r rm -f
+    else
+        echo "Ignoring invalid expiration dat ($expiration_days), not cleaning up\!"
+    fi
+}
+
+
+#
+# Main part
+#
+
+OPTIND=1
+while getopts ":ha:" opt; do
+    case $opt in
+
+        h)
+            usage
+            exit $ENORMAL
+            ;;
+	a)
+
+            if [[ $OPTARG > 0 ]]; then
+                $AGELIMIT=$OPTARG
+            else
+                echo "Ignoring invalid expiration day argument"
+            fi
+            ;;
+
+        \?)
+            echo "Unknown parameter!"
+            usage
+            exit $EINVALOPT
+            ;;
+
+    esac
+done
+shift "$((OPTIND-1))"
+
+: ${1?Error: must state node to backup as first argument}		# 'crash' if no arguments
+DB_SERVER=$1								# expect first argument if any to be relevant node to back up
+
+$DEBUG /usr/bin/ssh -tt $DB_SERVER -l $SSH_USER sudo $DB_DUMP_SCRIPT	# execute dump script on db node
+if [ $? -eq 0 ]; then
+    $DEBUG /usr/bin/rsync -a iaas@${DB_SERVER}:$DUMP_DIR/ $BACKUP_DIR	# retrive dump files
+    $DEBUG cleanup $AGELIMIT						# remove expired files
+    if [ $? -eq 0 ]; then
+        $DEBUG touch $FLAG
+    else
+        echo "SSH connection (and backup script execution) went well,"
+        echo "but something with the file synchronization went amiss\!"
+        exit $EINVALSYNC
+    fi
+else
+    echo "Could not connect to $DB_SERVER - is this a db node?"
+    exit $EINVALNODE
+fi
+

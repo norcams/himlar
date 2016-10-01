@@ -17,8 +17,30 @@ class profile::database::mariadb (
   $client_enabled  = true,
   $manage_repo     = true,
   $manage_firewall = true,
-  $firewall_extras = {}
+  $firewall_extras = {},
+
+  $backupuser         = '',
+  $backuppassword     = '',
+  $backuptopdir       = '/var/db/dumps',
+  $backupscript       = '',
+  $backupdirmode      = '0744',
+  $backupdirowner     = 'root',
+  $backupdirgroup     = 'root',
+  $backupcompress     = true,
+  $backuprotate       = 30,
+  $ignore_events      = true,
+  $delete_before_dump = false,
+  $backupdatabases    = [],
+  $file_per_database  = false,
+  $include_triggers   = false,
+  $include_routines   = false,
+  $ensure             = 'present',
+  $prescript          = false,
+  $postscript         = false,
+  $execpath           = '/usr/bin:/usr/sbin:/bin:/sbin',
 ) {
+
+  $backupdir = "${backuptopdir}/$::hostname"
 
   if $manage_repo {
     include ::mariadbrepo
@@ -40,4 +62,22 @@ class profile::database::mariadb (
       extras => $firewall_extras
     }
   }
+
+  file { 'mysqlbackup.sh':
+    ensure  => $ensure,
+    path    => $backupscript,
+    mode    => '0700',
+    owner   => 'root',
+    group   => 'root',
+    content => template('mysql/mysqlbackup.sh.erb'),
+  }
+
+  file { 'mysqlbackupdir':
+    ensure => 'directory',
+    path   => $backupdir,
+    mode   => $backupdirmode,
+    owner  => $backupdirowner,
+    group  => $backupdirgroup,
+  }
+
 }

@@ -38,6 +38,10 @@ profile::openstack::database::sql::cinder_enabled:   true
 profile::openstack::database::sql::heat_enabled:     false
 profile::openstack::database::sql::trove_enabled:    false
 
+# for db backup system (used by both login and mariadb profile)
+profile::database::mariadb::backuptopdir:        '/var/db/dumps'
+profile::database::mariadb::backupscript:        '/usr/local/sbin/mysqlbackup.sh'
+
 profile::openstack::identity::ceilometer_enabled: false
 profile::openstack::identity::cinder_enabled:     true
 profile::openstack::identity::glance_enabled:     true

@@ -12,6 +12,8 @@ ssh::server::options:
   'Match User vagrant':
      AuthenticationMethods: 'publickey'
 
+profile::base::login::db_servers:       [ 'vagrant-db-01' ]
+
 # Himlar bootstrap
 profile::bootstrap::himlar::manage_bootstrap_scripts: true
 himlar_bootstrap::tftp_install:
