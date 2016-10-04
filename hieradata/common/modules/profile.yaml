@@ -53,7 +53,7 @@ profile::openstack::network::l2_driver: calico
 profile::database::mariadb::manage_repo: false
 
 profile::application::himlarcli::username:          'admin'
-profile::application::himlarcli::auth_url:          "%{hiera('endpoint_protocol')}://%{hiera('service__address__keystone_public')}:5000/v3"
+profile::application::himlarcli::auth_url:          "%{hiera('endpoint_protocol')}://%{hiera('service__address__keystone_public')}:5000"
 profile::application::himlarcli::service_net:       "%{network_service1}/%{netmask_service1}"
 profile::application::himlarcli::password:          "%{hiera('keystone_admin_password')}"
 profile::application::himlarcli::region_name:       "%{::location}"

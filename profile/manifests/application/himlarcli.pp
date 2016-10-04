@@ -22,7 +22,12 @@ class profile::application::himlarcli(
     ensure => directory
   } ->
   file { '/etc/himlarcli/config.ini':
-    ensure => file,
+    ensure  => file,
     content => template("${module_name}/application/himlarcli/config.ini.erb"),
+  } ->
+  file { '/etc/himlarcli/clouds.yaml':
+    ensure  => file,
+    content => template("${module_name}/application/himlarcli/clouds.yaml.erb"),
   }
+
 }
