@@ -61,6 +61,11 @@ nova::network::neutron::neutron_auth_url:  "http://%{hiera('service__address__ke
 nova::network::neutron::neutron_region_name:    "%{location}"
 nova::network::neutron::neutron_password: "%{hiera('neutron_api_password')}"
 
+# remove need for confirmation when move or resize instance (node: compute and novactrl)
+nova::config::nova_config:
+  DEFAULT/resize_confirm_window:
+    value: true
+
 # compute (node: compute)
 nova::compute::enabled:                         true
 nova::compute::allow_resize_to_same_host:       true
