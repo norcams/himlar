@@ -61,8 +61,14 @@ nova::network::neutron::neutron_auth_url:  "http://%{hiera('service__address__ke
 nova::network::neutron::neutron_region_name:    "%{location}"
 nova::network::neutron::neutron_password: "%{hiera('neutron_api_password')}"
 
+# remove need for confirmation when move or resize instance (node: compute and novactrl)
+nova::config::nova_config:
+  DEFAULT/resize_confirm_window:
+    value: true
+
 # compute (node: compute)
 nova::compute::enabled:                         true
+nova::compute::allow_resize_to_same_host:       true
 nova::compute::rbd::libvirt_rbd_user:           'cinder'
 nova::compute::rbd::libvirt_rbd_secret_uuid:    '363cb82c-793f-4aff-93f5-3332376c4369'
 nova::compute::rbd::libvirt_images_rbd_pool:    'volumes'

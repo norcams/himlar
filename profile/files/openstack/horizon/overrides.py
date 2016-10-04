@@ -10,7 +10,6 @@ tabs.APIAccessTab.allowed = NO
 tables.AssociateIP.allowed = NO
 tables.SimpleAssociateIP.allowed = NO
 tables.SimpleDisassociateIP.allowed = NO
-tables.ResizeLink.allowed = NO
 
 project_dashboard = horizon.get_dashboard("project")
 

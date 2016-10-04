@@ -7,6 +7,8 @@ class profile::openstack::novactrl(
   $enable_conductor     = false
 ) {
 
+  include ::nova::config
+
   if $enable_api {
     include ::profile::openstack::compute::api
   }
