@@ -8,7 +8,7 @@ mysql::server::override_options:
     log-error:                      '/var/log/mysqld.log'
 #    skip-name-resolve:              'true'
     pid-file:                       "/var/lib/mysql/%{::hostname}.pid"
-    bind-address:                   "%{ipaddress_trp1}"
+    bind-address:                   "%{::ipaddress_trp1}"
     ssl:                            'true'
     ssl-ca:                         "%{hiera('db_ssl_ca')}"
     ssl-key:                        "%{hiera('db_ssl_key')}"
