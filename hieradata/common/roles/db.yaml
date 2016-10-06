@@ -3,5 +3,23 @@ include:
   default:
     - profile::openstack::database::sql
 
-profile::base::network::node_multinic: true
-profile::base::common::manage_lvm: false
+# These should be set to valid options per location
+db_ssl_key:       '/etc/mysql/server-key.pem'
+db_ssl_cert:      '/etc/mysql/server-cert.pem'
+db_ssl_ca:        '/etc/mysql/cacert.pem'
+
+# Galera options
+profile::base::common::packages:
+  'rsync':      {}
+  'socat':      {}
+
+profile::database::galera::wsrep_sst_secure_rsync:
+  ca:   "%{hiera('db_ssl_ca')}"
+  key:  "%{hiera('db_ssl_key')}"
+  cert: "%{hiera('db_ssl_cert')}"
+
+# Default values are no cluster and no tls
+# ONLY TURN ON CLUSTER ON INDIVIDUAL NODES!
+wsrep_provider_options: "base_host=%{::ipaddress_trp1};pc.recovery=1;"
+wsrep_sst_method:       'rsync'
+wsrep_cluster_address:  'gcomm://'

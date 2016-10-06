@@ -127,7 +127,7 @@ mod 'postgresql', :ref => '4.7.1',                :git => github + 'puppetlabs/p
 #
 #mod 'mariadbrepo', ref => '0.2.1',               :git => github + 'Mylezeem/puppet-mariadbrepo'
 mod 'staging', :ref => '1.0.4',                  :git => github + 'nanliu/puppet-staging'
-mod 'mysql', :ref => '3.3.0',                    :git => github + 'puppetlabs/puppetlabs-mysql'
+mod 'mysql', :ref => '3.9.0',                    :git => github + 'puppetlabs/puppetlabs-mysql'
 
 #
 # profile::messaging::rabbitmq
