@@ -3,9 +3,6 @@ include:
   default:
     - profile::openstack::database::sql
 
-profile::base::network::node_multinic: true
-profile::base::common::manage_lvm: false
-
 # These should be set to valid options per location
 db_ssl_key:       '/etc/mysql/server-key.pem'
 db_ssl_cert:      '/etc/mysql/server-cert.pem'
