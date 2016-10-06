@@ -2,6 +2,7 @@
 include:
   default:
     - profile::openstack::database::sql
+    - profile::monitoring::sensu::mysql
 
 # These should be set to valid options per location
 db_ssl_key:       '/etc/mysql/server-key.pem'
@@ -23,3 +24,28 @@ profile::database::galera::wsrep_sst_secure_rsync:
 wsrep_provider_options: "base_host=%{::ipaddress_trp1};pc.recovery=1;"
 wsrep_sst_method:       'rsync'
 wsrep_cluster_address:  'gcomm://'
+
+# Sensu
+profile::monitoring::sensu::agent::enable_agent: false
+profile::monitoring::sensu::mysql::password:  "%{hiera('sensu_mysql_password')}"
+profile::monitoring::sensu::mysql::manage_packages: true
+
+profile::monitoring::sensu::agent::plugins:
+  sensu-plugins-mysql:
+    type:         package
+    pkg_version:  '1.0.0'
+  sensu-plugins-percona:
+    type:         package
+    pkg_version:  '1.0.0'
+
+profile::monitoring::sensu::agent::checks:
+  'metrics-mysql-graphite':
+    type:         'metric'
+    command:      'metrics-mysql-graphite.rb --scheme mysql.%{::hostname} -h localhost -S /var/lib/mysql/mysql.sock --ini /etc/sensu/conf.d/mysql.ini'
+    interval:     60
+    subscribers:  ['metrics']
+    handlers:     ['graphite_tcp']
+  'check-mysql-alive':
+    command:      'check-mysql-alive.rb -h localhost -s /var/lib/mysql/mysql.sock --ini /etc/sensu/conf.d/mysql.ini'
+    interval:     60
+    subscribers:  ['checks']
