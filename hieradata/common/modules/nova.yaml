@@ -64,7 +64,7 @@ nova::network::neutron::neutron_password: "%{hiera('neutron_api_password')}"
 # remove need for confirmation when move or resize instance (node: compute and novactrl)
 nova::config::nova_config:
   DEFAULT/resize_confirm_window:
-    value: true
+    value: "1"
 
 # compute (node: compute)
 nova::compute::enabled:                         true
