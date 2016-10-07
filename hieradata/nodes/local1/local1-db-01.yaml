@@ -16,12 +16,18 @@ network::interfaces_hash:
     ipaddress: "%{hiera('netcfg_netpart_trp')}.41"
     netmask:   "%{hiera('netcfg_netmask_trp')}"
 
+include:
+  default:
+    - profile::database::galera
+
 profile::base::network::routes:
   'eth1':
     'ipaddress': [ '172.31.13.0', ]
     'netmask':   [ '255.255.255.0', ]
     'gateway':   [ "%{hiera('netcfg_trp_gateway')}", ]
     'table':     [ 'main', ]
+
+mysql::server::restart:         false
 
 profile::database::galera::firewall_extras:
   source: '172.31.13.41'
