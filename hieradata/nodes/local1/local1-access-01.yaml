@@ -8,10 +8,15 @@ network::interfaces_hash:
     dns1:      "%{hiera('netcfg_peerdns1')}"
     dns2:      "%{hiera('netcfg_peerdns2')}"
     domain:    "%{hiera('netcfg_domain')}"
-    defroute:  'yes'
+    defroute:  'no'
     peerdns:   'yes'
   'eth1':
-    defroute:  'no'
-    onboot:    'yes'
     ipaddress: "%{hiera('netcfg_netpart_trp')}.56"
     netmask:   "%{hiera('netcfg_netmask_trp')}"
+    gateway:   "%{hiera('netcfg_netpart_trp')}.1"
+    srcaddr:   "%{hiera('netcfg_netpart_public')}.252"
+    defroute:  'yes'
+  'dummy0':
+    ipaddress: "%{hiera('netcfg_netpart_public')}.252"
+    netmask:   '255.255.255.255'
+    defroute:  'no'

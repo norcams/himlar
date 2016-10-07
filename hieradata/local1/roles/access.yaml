@@ -10,3 +10,5 @@ profile::webserver::apache::vhosts:
     ssl_ca:               '/etc/pki/tls/certs/cachain.pem'
     ssl_key:              '/etc/pki/tls/private/access.local.iaas.intern.key'
     ssl_cert:             '/etc/pki/tls/certs/access.local.iaas.intern.crt'
+
+profile::base::network::manage_dummy: true
