@@ -15,7 +15,9 @@ class profile::database::galera(
   $manage_mysqld = false,
   $wsrep_sst_secure_rsync = {},
   $manage_firewall = true,
-  $firewall_extras = {}
+  $firewall_extras = {
+    source => '0.0.0.0/32'
+  }
 ) {
 
   if $manage_mysqld {
