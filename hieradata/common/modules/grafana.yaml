@@ -1,0 +1,17 @@
+---
+grafana::install_method:        package
+grafana::package_source:        'https://grafanarel.s3.amazonaws.com/builds/grafana-3.1.1-1470047149.x86_64.rpm'
+grafana::manage_package_repo:   false
+grafana::cfg:
+  app_mode: 'production'
+  server:
+    http_port:    '8080'
+    http_addr:    "%{::ipaddress_mgmt1}"
+  security:
+    admin_user:     'admin'
+    admin_password: "%{hiera('grafana_admin_password')}"
+  auth.anonymous:
+    enable:         true
+    org_name:       'norcams'
+  user:
+    allow_sign_up:  false
