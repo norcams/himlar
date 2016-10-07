@@ -227,6 +227,8 @@ nova::rabbit_password:                              'nova_quest'
 sensu::rabbit_password:                             'sensu_guest'
 sensu_api_password:                                 'sensu'
 graphite_secret_key:                                'graphite_pass'
+sensu_mysql_password:                               'sensu_pass'
+grafana_admin_password:                             'changeme'
 
 # The root user password: himlardev
 accounts::root_user::password:                      '$1$vagrant$z3l/WWbF3HllJk0tnqO3i/'
