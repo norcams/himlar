@@ -3,6 +3,10 @@ include:
   default:
     - profile::database::redis
     - profile::monitoring::sensu::server
+    - profile::monitoring::grafana
+
+# Grafana
+profile::monitoring::grafana::manage_firewall: true
 
 # Sensu server
 sensu::server:              true
