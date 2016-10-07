@@ -10,11 +10,11 @@ profile::openstack::resource::networks:
 profile::openstack::resource::subnets:
   public:
     name: 'public'
-    cidr: '192.168.12.0/24'
+    cidr: "%{hiera('netcfg_netpart_public')}.0/24"
     ip_version: '4'
     allocation_pools:
-      - 'start=192.168.12.20,end=192.168.12.180'
-    gateway_ip: '192.168.12.1'
+      - "start=%{hiera('netcfg_netpart_public')}.20,end=%{hiera('netcfg_netpart_public')}.180"
+    gateway_ip: "%{hiera('netcfg_netpart_public')}.1"
     dns_nameservers:
       - '129.177.6.54'
       - '129.177.12.31'
