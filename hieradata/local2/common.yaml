@@ -10,6 +10,7 @@ domain_public:        'local.iaas.intern'
 domain_trp:           'trp.local.iaas.intern'
 domain_mgmt:          'mgmt.local.iaas.intern'
 
+netcfg_trp_gateway: '172.31.13.1'
 
 # These should only be used to configure network in nodes!
 netcfg_netpart_trp:     '172.31.13'
@@ -17,6 +18,8 @@ netcfg_netmask_trp:     '255.255.255.0'
 netcfg_netpart_mgmt:    '172.31.5'
 netcfg_netmask_mgmt:    '255.255.255.0'
 netcfg_gateway_mgmt:    '172.31.5.10'
+netcfg_netmask_public:  '255.255.255.0'
+netcfg_netpart_public:  '192.168.13'
 netcfg_peerdns1:        '172.31.5.11'
 #netcfg_peerdns1:        '8.8.8.8'
 netcfg_peerdns2:        '8.8.8.8'
@@ -25,7 +28,10 @@ netcfg_domain:          "%{hiera('domain_mgmt')} %{hiera('domain_public')}"
 # We need to allow both trafic from mgmt (nat via login) and public net
 
 allow_from_network:
-  - '172.31.5.0/24'
+  - "%{hiera('netcfg_netpart_trp')}.0/24"
+  - "%{hiera('netcfg_netpart_public')}.0/24"
+  - '192.168.122.0/24'
+  - '192.168.12.0/24'
 
 named_interfaces::config:
   mgmt:
@@ -44,22 +50,22 @@ endpoint_protocol:      'https'
 # public
 service__address__status:            "status.%{hiera('domain_public')}"
 service__address__horizon:           "dashboard.%{hiera('domain_public')}"
-service__address__keystone_public:   "dashboard.%{hiera('domain_public')}"
-service__address__glance_public_api: "dashboard.%{hiera('domain_public')}"
-service__address__nova_public_api:   "dashboard.%{hiera('domain_public')}"
-service__address__neutron_public:    "dashboard.%{hiera('domain_public')}"
-service__address__cinder_public_api: "dashboard.%{hiera('domain_public')}"
+service__address__keystone_public:   "api2.%{hiera('domain_public')}"
+service__address__glance_public_api: "api2.%{hiera('domain_public')}"
+service__address__nova_public_api:   "api2.%{hiera('domain_public')}"
+service__address__neutron_public:    "%{hiera('netcfg_netpart_trp')}.71"
+service__address__cinder_public_api: "api2.%{hiera('domain_public')}"
 service__address__consoleproxy:      "console.%{hiera('domain_public')}"
 
 # transport
-service__address__mysql:             "%{hiera('netcfg_netpart_trp')}.41"
+service__address__mysql:              "db02.%{hiera('domain_trp')}"
 #service__address__keystone:          "identity.%{hiera('domain_trp')}"
 #service__address__keystone_admin:    "identity.%{hiera('domain_trp')}"
 #service__address__glance_registry:   "image.%{hiera('domain_trp')}"
 #service__address__glance_api:        "image.%{hiera('domain_trp')}"
 #service__address__nova_api:          "novactrl.%{hiera('domain_trp')}"
 service__address__nova_api_metadata: '127.0.0.1'
-#service__address__neutron_server:    "%{hiera('netcfg_netpart_trp')}.20"
+service__address__neutron_server:    "%{hiera('netcfg_netpart_trp')}.71"
 #service__address__etcd_cluster:      "%{hiera('netcfg_netpart_trp')}.20"
 #service__address__cinder_api:        "volume.%{hiera('domain_trp')}"
 
@@ -103,6 +109,7 @@ profile::network::services::dns_records:
     "%{location}-mq-02.%{hiera('domain_mgmt')}":          "%{netpart_mgmt1}.32"
     "%{location}-image-01.%{hiera('domain_mgmt')}":       "%{netpart_mgmt1}.36"
     "%{location}-db-01.%{hiera('domain_mgmt')}":          "%{netpart_mgmt1}.41"
+    "%{location}-db-02.%{hiera('domain_mgmt')}":          "%{netpart_mgmt1}.42"
     "%{location}-volume-01.%{hiera('domain_mgmt')}":      "%{netpart_mgmt1}.46"
     "%{location}-dashboard-01.%{hiera('domain_mgmt')}":   "%{netpart_mgmt1}.51"
     "%{location}-access-01.%{hiera('domain_mgmt')}":      "%{netpart_mgmt1}.56"
@@ -117,15 +124,18 @@ profile::network::services::dns_records:
     "mq01.%{hiera('domain_trp')}":                        "%{hiera('netcfg_netpart_trp')}.31"
     "mq02.%{hiera('domain_trp')}":                        "%{hiera('netcfg_netpart_trp')}.32"
     "image.%{hiera('domain_trp')}":                       "%{hiera('netcfg_netpart_trp')}.36"
-    "db.%{hiera('domain_trp')}":                          "%{hiera('netcfg_netpart_trp')}.41"
+    "db01.%{hiera('domain_trp')}":                        "%{hiera('netcfg_netpart_trp')}.41"
+    "db02.%{hiera('domain_trp')}":                        "%{hiera('netcfg_netpart_trp')}.42"
     "volume.%{hiera('domain_trp')}":                      "%{hiera('netcfg_netpart_trp')}.46"
     "novactrl.%{hiera('domain_trp')}":                    "%{hiera('netcfg_netpart_trp')}.66"
     "network.%{hiera('domain_trp')}":                     "%{hiera('netcfg_netpart_trp')}.71"
     "identity.%{hiera('domain_trp')}":                    "%{hiera('netcfg_netpart_trp')}.81"
-    # Run dashboard on mgmt until public is working
-    "dashboard.%{hiera('domain_public')}":                "%{netpart_mgmt1}.51"
-    "access.%{hiera('domain_public')}":                   "%{netpart_mgmt1}.56"
-    "console.%{hiera('domain_public')}":                  "%{netpart_mgmt1}.61"
+    # public
+    "dashboard.%{hiera('domain_public')}":                "%{hiera('netcfg_netpart_public')}.254"
+    "api2.%{hiera('domain_public')}":                     "%{hiera('netcfg_netpart_public')}.254"
+    "api1.%{hiera('domain_public')}":                     '192.168.12.254'
+    "access.%{hiera('domain_public')}":                   "%{hiera('netcfg_netpart_public')}.252"
+    "console.%{hiera('domain_public')}":                  "%{hiera('netcfg_netpart_public')}.251"
 
 #
 ## Secret data which for other environments are stored ooutside of this data tree
@@ -189,6 +199,7 @@ nova::rabbit_password:                              'nova_quest'
 sensu::rabbit_password:                             'sensu_guest'
 sensu_api_password:                                 'sensu'
 graphite_secret_key:                                'graphite_pass'
+sensu_mysql_password:                               'sensu'
 
 # The root user password
 #accounts::root_user::password:                      '$6$qVzsC5fQMqdF4gKw$.zFAu9LtxSAaPgbtZul/ZXUXpBgjaVJbQ.CIMo9eo5TslU8KU1SO/tjRZbh1hFM6RB55QFEzJlF5ejAgglk50.'
