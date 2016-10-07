@@ -27,7 +27,8 @@ profile::base::network::routes:
     'gateway':   [ "%{hiera('netcfg_trp_gateway')}", ]
     'table':     [ 'main', ]
 
-mysql::server::restart:         false
+#mysql::server::restart:           false
+mysql::server::create_root_user:  false
 
 profile::database::galera::firewall_extras:
   source: '172.31.12.41'
