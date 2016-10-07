@@ -1,0 +1,4 @@
+---
+horizon::horizon_ca:      '/etc/pki/tls/certs/cachain.pem'
+horizon::ssl_no_verify:   true
+horizon::openstack_endpoint_type:       'publicURL'
