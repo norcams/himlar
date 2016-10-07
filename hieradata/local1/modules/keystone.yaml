@@ -1,5 +1,7 @@
 ---
 keystone::db::mysql::allowed_hosts:
-  - "%{netpart_transport1}.%" # FIXME
+  - "%{netpart_trp1}.%" # FIXME
+  - '172.31.13.%'
 
-keystone::verbose:   true
+keystone::verbose:             true
+keystone::database_connection: "mysql://keystone:%{hiera('keystone::db::mysql::password')}@db01.%{hiera('domain_trp')}/keystone"

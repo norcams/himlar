@@ -1,0 +1,7 @@
+---
+#profile::monitoring::sensu::agent::enable_agent: true
+
+# Enable extra yum repo
+profile::base::yumrepo::repo_hash:
+  mariadb:
+    ensure: present
