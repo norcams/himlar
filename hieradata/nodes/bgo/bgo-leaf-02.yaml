@@ -18,6 +18,9 @@ profile::base::network::cumulus_interfaces:
     'ipv4': [ '172.18.0.2/21', ]
     'virtual_ip': '172.18.7.1/21'
     'virtual_mac': '00:00:5e:00:01:01'
+  'bridge.101':
+    'virtual_ip': '158.39.77.249/24'
+    'virtual_mac': '00:00:5e:00:02:01'
   'peerlink.4094':
     'ipv4': [ '172.18.228.2/24', ]
     'clagd_enable': true
@@ -33,7 +36,7 @@ profile::base::network::cumulus_bridges:
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'true'
-    'vids': [ '100', '4094', ]
+    'vids': [ '100', '101', '4094', ]
 
 profile::base::network::cumulus_bonds:
   'peerlink':
