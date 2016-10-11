@@ -47,11 +47,11 @@ service__address__keystone_admin:    '172.18.0.81'
 service__address__etcd_cluster:      '172.18.0.71'
 service__address__neutron_server:    '172.18.0.71'
 service__address__cinder_api:        '172.18.0.46'
-service__address__mysql:             '172.18.0.21'
+service__address__mysql:             '172.18.0.41'
 
 # mgmt
 service__address__proxy:             '172.16.0.12'
-service__address__rsyslog:           '172.16.0.18'
+service__address__rsyslog:           '172.16.0.13'
 mgmt_address_mq:                     '172.16.0.31'
 
 # rabbitmq
@@ -64,7 +64,7 @@ ntp::servers:
   - ntp2.uib.no
 
 ceph::profile::params::mon_initial_members:         'bgo-cephmon-01, bgo-cephmon-02, bgo-cephmon-03'
-ceph::profile::params::mon_host:                    '172.18.0.90:6789, 172.18.0.91:6789, 172.18.0.92:6789'
+ceph::profile::params::mon_host:                    '172.18.0.91:6789, 172.18.0.92:6789, 172.18.0.93:6789'
 ceph::profile::params::cluster_network:             '172.18.0.0/21'
 ceph::profile::params::public_network:              '172.18.0.0/21'
 
@@ -108,9 +108,9 @@ profile::network::services::dns_options:
 
 profile::network::services::dns_records:
   CNAME:
-    'puppet.mgmt.iaas.intern':             'bgo-foreman-01.mgmt.iaas.intern'
-    'admin.mgmt.iaas.intern':              'bgo-foreman-01.mgmt.iaas.intern'
-    'repo.mgmt.iaas.intern':               'bgo-foreman-01.mgmt.iaas.intern'
+    'puppet.mgmt.iaas.intern':             'bgo-admin-01.mgmt.iaas.intern'
+    'admin.mgmt.iaas.intern':              'bgo-admin-01.mgmt.iaas.intern'
+    'repo.mgmt.iaas.intern':               'bgo-admin-01.mgmt.iaas.intern'
     'monitor.mgmt.iaas.intern':            'bgo-monitor-01.mgmt.iaas.intern'
     'db.mgmt.iaas.intern':                 'bgo-db-01.mgmt.iaas.intern'
   A:
@@ -119,25 +119,24 @@ profile::network::services::dns_records:
     'bgo-leaf-03.mgmt.iaas.intern':        '172.16.0.6'
     'bgo-leaf-04.mgmt.iaas.intern':        '172.16.0.7'
     'uh-sky-dev-sw.mgmt.iaas.intern':      '172.16.0.9'
-    'bgo-mgmt-01.mgmt.iaas.intern':        '172.16.0.10'
-    'bgo-foreman-01.mgmt.iaas.intern':     '172.16.0.11'
+    'bgo-login-01.mgmt.iaas.intern':       '172.16.0.10'
+    'bgo-admin-01.mgmt.iaas.intern':       '172.16.0.11'
     'bgo-proxy-01.mgmt.iaas.intern':       '172.16.0.12'
+    'bgo-logger-01.mgmt.iaas.intern':      '172.16.0.13'
     'bgo-monitor-01.mgmt.iaas.intern':     '172.16.0.14'
-    'bgo-logger-01.mgmt.iaas.intern':      '172.16.0.18'
-    'bgo-access-01.mgmt.iaas.intern':      '172.16.0.19'
-    'bgo-master-01.mgmt.iaas.intern':      '172.16.0.20'
-    'bgo-db-01.mgmt.iaas.intern':          '172.16.0.21'
-    'bgo-dashboard-01.mgmt.iaas.intern':   '172.16.0.22'
-    'bgo-console-01.mgmt.iaas.intern':     '172.16.0.23'
     'bgo-mq-01.mgmt.iaas.intern':          '172.16.0.31'
     'bgo-image-01.mgmt.iaas.intern':       '172.16.0.36'
+    'bgo-db-01.mgmt.iaas.intern':          '172.16.0.41'
     'bgo-volume-01.mgmt.iaas.intern':      '172.16.0.46'
+    'bgo-dashboard-01.mgmt.iaas.intern':   '172.16.0.51'
+    'bgo-access-01.mgmt.iaas.intern':      '172.16.0.56'
+    'bgo-console-01.mgmt.iaas.intern':     '172.16.0.61'
     'bgo-novactrl-01.mgmt.iaas.intern':    '172.16.0.66'
     'bgo-network-01.mgmt.iaas.intern':     '172.16.0.71'
     'bgo-identity-01.mgmt.iaas.intern':    '172.16.0.81'
-    'bgo-cephmon-01.mgmt.iaas.intern':     '172.16.0.90'
-    'bgo-cephmon-02.mgmt.iaas.intern':     '172.16.0.91'
-    'bgo-cephmon-03.mgmt.iaas.intern':     '172.16.0.92'
+    'bgo-cephmon-01.mgmt.iaas.intern':     '172.16.0.91'
+    'bgo-cephmon-02.mgmt.iaas.intern':     '172.16.0.92'
+    'bgo-cephmon-03.mgmt.iaas.intern':     '172.16.0.93'
     'bgo-controller-01.mgmt.iaas.intern':  '172.16.0.100'
     'bgo-controller-02.mgmt.iaas.intern':  '172.16.0.101'
     'bgo-controller-03.mgmt.iaas.intern':  '172.16.0.102'
