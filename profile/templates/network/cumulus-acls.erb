@@ -1,0 +1,14 @@
+# File managed by Puppet - do not edit
+
+<% @rule_vars.each do |rulevar| -%><%= rulevar %>
+<% end -%>
+
+[iptables]
+<% @iptables.each do |rule| -%><%= rule %>
+<% end -%>
+[ip6tables]
+<% @ip6tables.each do |rule| -%><%= rule %>
+<% end -%>
+[ebtables]
+<% @ebtables.each do |rule| -%><%= rule %>
+<% end -%>
