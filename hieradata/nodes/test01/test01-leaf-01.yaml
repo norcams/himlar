@@ -4,21 +4,17 @@ network::interfaces_hash:
     'ipaddress': '172.28.0.1/24'
     'post_up': [ '/etc/network/if-up.d/z90-route-eth0', ]
     'post_down': [ '/etc/network/if-down.d/z90-route-eth0', ]
-    'dns_nameservers': '172.28.0.11'
-    'dns_search': "%{hiera('domain_mgmt')}"
+#    'dns_nameservers': '172.28.0.11'
+#    'dns_search': "%{hiera('domain_mgmt')}"
 #  'swp3':
 #    'ipaddress': '172.31.228.1/30'
-  'swp9':
-    'ipaddress': '129.177.1.198/30'
-    'post_up': [ '/etc/network/if-up.d/z90-route-swp9', ]
-    'post_down': [ '/etc/network/if-down.d/z90-route-swp9', ]
 
 # In production environment these should be VLAN aware
 # bridges and actually tagged. This is not possible in
 # dev01 environment, though.
 profile::base::network::cumulus_bridges:
   'br100':
-    'ipv4': [ '172.30.0.1/24', ]
+    'ipv4': [ '172.30.0.1/24', '129.177.31.123/27', ]
     'ports': [ 'swp1', ]
     'alias_name': 'Transport L2 if'
     'mtu': '1500'
@@ -35,6 +31,10 @@ profile::base::network::routes:
     'netmask':   [ '0.0.0.0', ]
     'gateway':   [ '129.177.1.197', ]
     'table':     [ 'main', ]
+
+profile::base::network::cumulus_interfaces:
+  'swp9':
+    'ipv4': [ '129.177.1.198/30', ]
 
 quagga::quagga::zebra_interfaces:
   'br100':
@@ -122,3 +122,4 @@ quagga::quagga::bgp_route_maps:
     - 'match ip address 10'
 
 profile::network::leaf::manage_license: false
+quagga::manage_package: false
