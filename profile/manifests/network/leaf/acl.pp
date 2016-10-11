@@ -21,7 +21,7 @@
     validate_array($ip6tables)
     validate_array($ebtables)
 
-    file { "${name}":
+    file { $name:
       ensure   => present,
       mode     => '0644',
       owner    => 'root',
