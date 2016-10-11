@@ -42,11 +42,11 @@ service__address__keystone_admin:    '172.18.32.81'
 service__address__etcd_cluster:      '172.18.32.71'
 service__address__neutron_server:    '172.18.32.71'
 service__address__cinder_api:        '172.18.32.46'
-service__address__mysql:             '172.18.32.21'
+service__address__mysql:             '172.18.32.41'
 
 # mgmt
 service__address__proxy:             '172.16.32.12'
-service__address__rsyslog:           '172.16.32.18'
+service__address__rsyslog:           '172.16.32.13'
 mgmt_address_mq:                     '172.16.32.31'
 
 # rabbitmq
@@ -54,7 +54,7 @@ service__address__rabbitmq_01:       '172.18.32.31'
 service__address__rabbitmq_02:       '172.18.32.31'
 service__address__rabbitmq_03:       '172.18.32.31'
 
-foreman_bootstrap::nameserver: 129.240.2.3 # FIXME
+himlar_bootstrap::nameserver: 129.240.2.3 # FIXME
 
 ntp::servers:
   - ntp1.uio.no
@@ -116,24 +116,23 @@ profile::network::services::dns_records:
     'osl-leaf-02.iaas.uio.no':        '172.16.32.5'
     'osl-leaf-03.iaas.uio.no':        '172.16.32.6'
     'osl-leaf-04.iaas.uio.no':        '172.16.32.7'
-    'osl-foreman-01.iaas.uio.no':     '172.16.32.11'
+    'osl-admin-01.iaas.uio.no':       '172.16.32.11'
     'osl-proxy-01.iaas.uio.no':       '172.16.32.12'
+    'osl-logger-01.iaas.uio.no':      '172.16.32.13'
     'osl-monitor-01.iaas.uio.no':     '172.16.32.14'
-    'osl-logger-01.iaas.uio.no':      '172.16.32.18'
-    'osl-access-01.iaas.uio.no':      '172.16.32.19'
-    'osl-master-01.iaas.uio.no':      '172.16.32.20'
-    'osl-db-01.iaas.uio.no':          '172.16.32.21'
-    'osl-dashboard-01.iaas.uio.no':   '172.16.32.22'
-    'osl-console-01.iaas.uio.no':     '172.16.32.23'
     'osl-mq-01.iaas.uio.no':          '172.16.32.31'
     'osl-image-01.iaas.uio.no':       '172.16.32.36'
+    'osl-db-01.iaas.uio.no':          '172.16.32.41'
     'osl-volume-01.iaas.uio.no':      '172.16.32.46'
+    'osl-dashboard-01.iaas.uio.no':   '172.16.32.51'
+    'osl-access-01.iaas.uio.no':      '172.16.32.56'
+    'osl-console-01.iaas.uio.no':     '172.16.32.61'
     'osl-novactrl-01.iaas.uio.no':    '172.16.32.66'
     'osl-network-01.iaas.uio.no':     '172.16.32.71'
     'osl-identity-01.iaas.uio.no':    '172.16.32.81'
-    'osl-cephmon-01.iaas.uio.no':     '172.16.32.90'
-    'osl-cephmon-02.iaas.uio.no':     '172.16.32.91'
-    'osl-cephmon-03.iaas.uio.no':     '172.16.32.92'
+    'osl-cephmon-01.iaas.uio.no':     '172.16.32.91'
+    'osl-cephmon-02.iaas.uio.no':     '172.16.32.92'
+    'osl-cephmon-03.iaas.uio.no':     '172.16.32.93'
     'osl-controller-01.iaas.uio.no':  '172.16.32.100'
     'osl-controller-02.iaas.uio.no':  '172.16.32.101'
     'osl-controller-03.iaas.uio.no':  '172.16.32.102'
