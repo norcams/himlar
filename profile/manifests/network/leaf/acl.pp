@@ -23,7 +23,7 @@
 
     file { "${name}":
       ensure   => present,
-      mode     => '644',
+      mode     => '0644',
       owner    => 'root',
       group    => 'root',
       path     => "${cumulus_acls_dir}/${name}",
