@@ -79,16 +79,16 @@ profile::openstack::image::api::backend: 'rbd'
 profile::network::services::dhcp_reservation:
   bgo-leaf-01:
     mac: '00:01:e8:d8:38:aa'
-    ip:  '172.16.0.4'
+    ip:  '172.16.0.1'
   bgo-leaf-02:
     mac: '00:01:e8:d8:36:e3'
-    ip:  '172.16.0.5'
+    ip:  '172.16.0.2'
   bgo-leaf-03:
     mac: '00:01:e8:d8:36:61'
-    ip:  '172.16.0.6'
+    ip:  '172.16.0.3'
   bgo-leaf-04:
     mac: '00:01:e8:d8:37:24'
-    ip:  '172.16.0.7'
+    ip:  '172.16.0.4'
 
 profile::network::services::dns_options:
   CNAME:
@@ -115,10 +115,10 @@ profile::network::services::dns_records:
     'monitor.mgmt.iaas.intern':            'bgo-monitor-01.mgmt.iaas.intern'
     'db.mgmt.iaas.intern':                 'bgo-db-01.mgmt.iaas.intern'
   A:
-    'bgo-leaf-01.mgmt.iaas.intern':        '172.16.0.4'
-    'bgo-leaf-02.mgmt.iaas.intern':        '172.16.0.5'
-    'bgo-leaf-03.mgmt.iaas.intern':        '172.16.0.6'
-    'bgo-leaf-04.mgmt.iaas.intern':        '172.16.0.7'
+    'bgo-leaf-01.mgmt.iaas.intern':        '172.16.0.1'
+    'bgo-leaf-02.mgmt.iaas.intern':        '172.16.0.2'
+    'bgo-leaf-03.mgmt.iaas.intern':        '172.16.0.3'
+    'bgo-leaf-04.mgmt.iaas.intern':        '172.16.0.4'
     'uh-sky-dev-sw.mgmt.iaas.intern':      '172.16.0.9'
     'bgo-login-01.mgmt.iaas.intern':       '172.16.0.10'
     'bgo-admin-01.mgmt.iaas.intern':       '172.16.0.11'
@@ -150,7 +150,7 @@ profile::network::services::dns_records:
     'bgo-storage-04.mgmt.iaas.intern':     '172.16.0.109'
     'bgo-storage-05.mgmt.iaas.intern':     '172.16.0.110'
   PTR:
-    '4.0.16.172.in-addr.arpa':                   'bgo-leaf-01.mgmt.iaas.intern'
-    '5.0.16.172.in-addr.arpa':                   'bgo-leaf-02.mgmt.iaas.intern'
-    '6.0.16.172.in-addr.arpa':                   'bgo-leaf-03.mgmt.iaas.intern'
-    '7.0.16.172.in-addr.arpa':                   'bgo-leaf-04.mgmt.iaas.intern'
+    '1.0.16.172.in-addr.arpa':                   'bgo-leaf-01.mgmt.iaas.intern'
+    '2.0.16.172.in-addr.arpa':                   'bgo-leaf-02.mgmt.iaas.intern'
+    '3.0.16.172.in-addr.arpa':                   'bgo-leaf-03.mgmt.iaas.intern'
+    '4.0.16.172.in-addr.arpa':                   'bgo-leaf-04.mgmt.iaas.intern'
