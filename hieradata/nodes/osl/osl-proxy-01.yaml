@@ -7,12 +7,12 @@ network::interfaces_hash:
     peerdns:   'yes'
     dns1:      '129.240.2.3'
     dns2:      '129.240.2.40'
-    domain:    'iaas.uio.no'
+    domain:    "%{hiera('domain_mgmt')}"
     defroute:  'no'
   'eth1':
     ipaddress: '172.18.32.12'
     netmask:   '255.255.248.0'
-    gateway:   '172.18.32.1'
+    gateway:   "%{hiera('netcfg_trp_gateway')}"
     srcaddr:   '158.37.63.253'
     defroute:  'yes'
   'dummy0':

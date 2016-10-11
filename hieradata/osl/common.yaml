@@ -10,7 +10,8 @@ domain_public: 'iaas.uio.no'
 domain_trp:    '%{::domain}' #FIXME
 domain_mgmt:   'iaas.uio.no'
 
-netcfg_trp_gateway: '172.18.32.1'
+netcfg_mgmt_gateway: '172.18.32.1'
+netcfg_trp_gateway:  '172.18.32.1'
 
 #
 # Networks
