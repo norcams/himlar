@@ -5,7 +5,6 @@ class profile::network::leaf(
   $cumulus_license    = "user@example.com|00000000000000000000000000000000000000000000000000\n",
   $manage_quagga      = false,
   $manage_acls        = false,
-  $acls               = {},
 ) {
 
   if $manage_acls {
@@ -26,9 +25,5 @@ class profile::network::leaf(
 
   if $manage_quagga {
     include quagga
-  }
-
-  if $manage_acls {
-
   }
 }
