@@ -1,7 +1,6 @@
 ---
 profile::network::services::manage_dhcp:  false
 profile::network::services::manage_nat:   true
-profile::base::common::manage_network:    true
 
 openstack_extras::repo::redhat::redhat::purge_unmanaged: false
 
