@@ -12,7 +12,6 @@ network::interfaces_hash:
     onboot:       'yes'
     ipaddress:    '172.16.0.103'
     netmask:      '255.255.248.0'
-    gateway:      "%{hiera('netcfg_mgmt_gateway')}"
     defroute:     'no'
     dns1:         "%{hiera('service__address__proxy')}"
     domain:       'mgmt.iaas.intern'
