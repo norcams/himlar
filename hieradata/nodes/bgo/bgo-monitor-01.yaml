@@ -4,5 +4,6 @@ network::interfaces_hash:
     onboot:    'yes'
     ipaddress: '172.16.0.14'
     netmask:   '255.255.248.0'
-    gateway:   '172.16.0.12'
+    gateway:   "%{hiera('netcfg_mgmt_gateway')}"
     mtu:       '1500'
+    defroute:  'yes'
