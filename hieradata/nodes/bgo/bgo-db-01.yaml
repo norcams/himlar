@@ -5,8 +5,50 @@ network::interfaces_hash:
     netmask:   '255.255.248.0'
     gateway:   "%{hiera('netcfg_mgmt_gateway')}"
     mtu:       '1500'
+    peerdns:   'yes'
+    dns1:      "%{hiera('service__address__proxy')}"
+    domain:    'mgmt.iaas.intern'
     defroute:  'yes'
   'eth1':
     ipaddress: '172.18.0.41'
     netmask:   '255.255.248.0'
     defroute:  'no'
+
+include:
+  default:
+    - profile::database::galera
+
+profile::base::network::routes:
+  'eth1':
+    'ipaddress': [ '172.31.13.0', ]
+    'netmask':   [ '255.255.255.0', ]
+    'gateway':   [ "%{hiera('netcfg_trp_gateway')}", ]
+    'table':     [ 'main', ]
+
+# If wsrep_cluster_address is set the first node cannot restart mysqld
+#mysql::server::restart:         false
+
+profile::database::galera::firewall_extras:
+  source: '172.31.13.41'
+
+db_ssl_key:       '/etc/pki/tls/private/db01.bgo.uhdc.no.key.pem'
+db_ssl_cert:      '/etc/pki/tls/certs/db01.bgo.uhdc.no.cert.pem'
+db_ssl_ca:        '/etc/pki/tls/certs/cachain.pem'
+
+# Enable ssl for wsrep and sst
+wsrep_provider_options: "base_host=%{::ipaddress_trp1};pc.recovery=1;socket.ssl_key=%{hiera('db_ssl_key')};socket.ssl_cert=%{hiera('db_ssl_cert')};socket.ssl_ca=%{hiera('db_ssl_ca')}"
+wsrep_sst_method:       'secure_rsync'
+#wsrep_cluster_address:  'gcomm://172.31.12.41,172.31.13.41'
+
+profile::openstack::database::sql::keystone_enabled:  true
+profile::openstack::database::sql::glance_enabled:    false
+profile::openstack::database::sql::nova_enabled:      false
+profile::openstack::database::sql::neutron_enabled:   false
+profile::openstack::database::sql::cinder_enabled:    false
+
+# sensu
+profile::monitoring::sensu::agent::checks:
+  'check-wsrep-ready':
+    command:      "check-wsrep-ready.rb -u sensu -h localhost -p %{hiera('sensu_mysql_password')}"
+    interval:     60
+    subscribers:  ['checks']
