@@ -22,7 +22,7 @@ himlar_bootstrap::tftp_install:
     dhcp_range_start: '172.16.32.200'
     dhcp_range_end:   '172.16.32.250'
     dhcp_gateway:     '172.16.32.10'
-    macaddress:       'ec:f4:bb:c7:fb:cc'
+    macaddress:       '01-ec:f4:bb:c7:fb:cc'
   'test02-controller-01':
     domain:           'iaas.uio.no'
     dhcp_interface:   'p2p4'
