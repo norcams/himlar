@@ -7,6 +7,8 @@ himlar_bootstrap::virt_install:
     install_ip:      '172.16.0.11'
     install_netmask: '255.255.248.0'
     install_gateway: '172.16.0.10'
+    vm_vcpus:        2
+    vm_memory:       8096
 
 ################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
 include:
