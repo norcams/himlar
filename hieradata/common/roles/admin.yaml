@@ -6,6 +6,8 @@ include:
     - profile::network::services
     - profile::webserver::apache
 
+foreman_version: '1.13'
+
 profile::application::foreman::manage_eyaml:    true
 profile::application::foreman::manage_firewall: true
 profile::application::foreman::manage_repo_dir: true

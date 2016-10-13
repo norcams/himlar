@@ -3,6 +3,7 @@ foreman::foreman_url:                       "https://%{fqdn}"
 # Disable repo management
 foreman::custom_repo:                       true
 foreman::configure_epel_repo:               false
+foreman::configure_scl_repo:                true
 foreman::admin_username:                    'admin'
 foreman::admin_password:                    'changeme'
 foreman::admin_email:                       'admin@localhost.localdomain'

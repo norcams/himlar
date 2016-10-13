@@ -150,14 +150,14 @@ profile::base::yumrepo::repo_hash:
   foreman:
     ensure:         absent
     descr:          'Foreman repo'
-    baseurl:        'http://yum.theforeman.org/releases/1.11/el7/$basearch'
+    baseurl:        "http://yum.theforeman.org/releases/%{hiera('openstack_version')}/el7/$basearch"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         'http://yum.theforeman.org/releases/1.11/RPM-GPG-KEY-foreman'
+    gpgkey:         "http://yum.theforeman.org/releases/%{hiera('openstack_version')}/RPM-GPG-KEY-foreman"
   foreman-plugins:
     ensure:         absent
     descr:          'Foreman Plugins repo'
-    baseurl:        'http://yum.theforeman.org/plugins/1.11/el7/$basearch'
+    baseurl:        "http://yum.theforeman.org/plugins/%{hiera('foreman_version')}/el7/$basearch"
     enabled:        1
     gpgcheck:       0
   mariadb:
