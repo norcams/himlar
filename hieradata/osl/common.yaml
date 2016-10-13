@@ -106,18 +106,18 @@ profile::network::services::dns_options:
 
 profile::network::services::dns_records:
   CNAME:
-    'puppet.iaas.uio.no':                  'osl-foreman-01.iaas.uio.no'
-    'admin.iaas.uio.no':                   'osl-foreman-01.iaas.uio.no'
-    'repo.iaas.uio.no':                    'osl-foreman-01.iaas.uio.no'
-    'master.iaas.uio.no':                  'osl-master-01.iaas.uio.no'
-    'db.iaas.uio.no':                      'osl-db-01.iaas.uio.no'
+    'admin.iaas.uio.no':                   'osl-admin-01.iaas.uio.no'
+    'repo.iaas.uio.no':                    'osl-admin-01.iaas.uio.no'
     'monitor.iaas.uio.no':                 'osl-monitor-01.iaas.uio.no'
+    'logger.iaas.uio.no':                  'osl-logger-01.iaas.uio.no'
+    'foreman.iaas.uio.no':                 'osl-admin-01.iaas.uio.no'
   A:
     'osl-leaf-01.iaas.uio.no':        '172.16.32.4'
     'osl-leaf-02.iaas.uio.no':        '172.16.32.5'
     'osl-leaf-03.iaas.uio.no':        '172.16.32.6'
     'osl-leaf-04.iaas.uio.no':        '172.16.32.7'
     'osl-admin-01.iaas.uio.no':       '172.16.32.11'
+    'puppet.iaas.uio.no':             '172.16.32.11'
     'osl-proxy-01.iaas.uio.no':       '172.16.32.12'
     'osl-logger-01.iaas.uio.no':      '172.16.32.13'
     'osl-monitor-01.iaas.uio.no':     '172.16.32.14'
