@@ -106,10 +106,11 @@ profile::network::services::dns_options:
 profile::network::services::dns_records:
   CNAME:
     'puppet.mgmt.iaas.intern':             'bgo-admin-01.mgmt.iaas.intern'
+    'foreman.mgmt.iaas.intern':            'bgo-admin-01.mgmt.iaas.intern'
     'admin.mgmt.iaas.intern':              'bgo-admin-01.mgmt.iaas.intern'
     'repo.mgmt.iaas.intern':               'bgo-admin-01.mgmt.iaas.intern'
     'monitor.mgmt.iaas.intern':            'bgo-monitor-01.mgmt.iaas.intern'
-    'db.mgmt.iaas.intern':                 'bgo-db-01.mgmt.iaas.intern'
+    'logger.mgmt.iaas.intern':             'bgo-logger-01.mgmt.iaas.intern'
   A:
     'bgo-leaf-01.mgmt.iaas.intern':        '172.16.0.1'
     'bgo-leaf-02.mgmt.iaas.intern':        '172.16.0.2'
