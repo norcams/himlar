@@ -19,6 +19,7 @@ profile::development::network::dns::manage_hosts: true
 profile::base::network::manage_dummy:             true
 profile::network::nat::enable_snat:               true
 profile::network::nat::source:                    "%{::network_mgmt1}/%{::netmask_mgmt1}"
+profile::network::nat::outiface:                  'eth1'
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:

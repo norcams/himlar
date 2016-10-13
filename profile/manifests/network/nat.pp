@@ -21,6 +21,7 @@ class profile::network::nat(
         jump     => 'SNAT',
         tosource => $::ipaddress_public1,
         table    => 'nat',
+        outiface => $outiface,
         state    => undef
       }
     }
