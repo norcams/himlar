@@ -3,7 +3,7 @@ profile::network::leaf::manage_quagga:         false
 
 network::interfaces_hash:
   'eth0':
-    'ipaddress': '172.16.0.7/21'
+    'ipaddress': '172.16.0.4/21'
     'post_up': [ '/etc/network/if-up.d/z90-route-eth0', ]
     'post_down': [ '/etc/network/if-down.d/z90-route-eth0', ]
 
