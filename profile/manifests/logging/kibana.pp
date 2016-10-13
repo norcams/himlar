@@ -26,7 +26,8 @@ class profile::logging::kibana(
 
   if $manage_service {
     service { 'kibana':
-      ensure => running
+      ensure  => running,
+      require => Package['kibana']
     }
   }
 
