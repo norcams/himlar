@@ -12,7 +12,7 @@ profile::base::network::routes:
   'eth0':
     'ipaddress': [ '0.0.0.0', ]
     'netmask':   [ '0.0.0.0', ]
-    'gateway':   [ '172.16.0.1', ]
+    'gateway':   [ "%{hiera('netcfg_mgmt_gateway')}", ]
     'table':     [ 'mgmt', ]
 
 profile::base::network::cumulus_interfaces:
