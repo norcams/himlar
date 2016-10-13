@@ -14,7 +14,7 @@ network::interfaces_hash:
     netmask:      '255.255.248.0'
     defroute:     'no'
     dns1:         "%{hiera('service__address__proxy')}"
-    domain:       'mgmt.iaas.intern'
+    domain:       "%{hiera('netcfg_dns_search')}"
     peerdns:      'yes'
   'bond1':
     onboot:       'yes'

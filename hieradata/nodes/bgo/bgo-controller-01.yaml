@@ -23,8 +23,8 @@ network::interfaces_hash:
     onboot:       'yes'
     type:         'Bridge'
     peerdns:      'yes'
-    dns1:         "%{hiera('service__address__proxy')}"
-    domain:       'mgmt.iaas.intern'
+    dns1:         "%{hiera('netcfg_dns_server1')}"
+    domain:       "%{hiera('netcfg_dns_search')}"
   'br1':
     onboot:       'yes'
     type:         'Bridge'

@@ -10,9 +10,12 @@ network::interfaces_hash:
     netmask:      '255.255.248.0'
     defroute:     'no'
     onboot:       'yes'
+    dns1:         '129.177.6.54'
+    dns2:         "%{hiera('netcfg_dns_server2')}"
+    domain:       "%{hiera('netcfg_dns_search')} mgmt.test.iaas.intern"
+    peerdns:      'yes'
   'eth3':
     ipaddress:    '172.17.0.10'
     netmask:      '255.255.248.0'
     defroute:     'no'
     onboot:       'yes'
-
