@@ -2,6 +2,7 @@
 #
 class profile::base::physical
 {
+  include ::lldp
   include ::ipmi
 
   # Configure 82599ES SFP+ interface module options
