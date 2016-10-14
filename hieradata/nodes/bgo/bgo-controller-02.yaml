@@ -38,6 +38,3 @@ network::interfaces_hash:
     netmask:      '255.255.248.0'
     defroute:     'no'
     bridge_stp:   'off'
-
-# Use controller-01 for himlar bootstrap
-profile::bootstrap::himlar::manage_bootstrap_scripts: true
