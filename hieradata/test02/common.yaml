@@ -132,6 +132,7 @@ profile::network::services::dns_records:
     "%{location}-mq-02.%{hiera('domain_mgmt')}":          "%{netpart_mgmt1}.32"
     "%{location}-image-01.%{hiera('domain_mgmt')}":       "%{netpart_mgmt1}.36"
     "%{location}-db-01.%{hiera('domain_mgmt')}":          "%{netpart_mgmt1}.41"
+    "%{location}-db-02.%{hiera('domain_mgmt')}":          "%{netpart_mgmt1}.42"
     "%{location}-volume-01.%{hiera('domain_mgmt')}":      "%{netpart_mgmt1}.46"
     "%{location}-dashboard-01.%{hiera('domain_mgmt')}":   "%{netpart_mgmt1}.51"
     "%{location}-access-01.%{hiera('domain_mgmt')}":      "%{netpart_mgmt1}.56"
