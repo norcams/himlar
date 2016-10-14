@@ -12,14 +12,9 @@ class profile::network::leaf(
   }
 
   if $manage_license {
-    file { '/tmp/licfile':
+    file { '/etc/cumulus/.license':
       ensure  => file,
       content => $cumulus_license,
-    } ->
-    cumulus_license { 'cumulus_license':
-      src => '/tmp/licfile',
-#      Ideally restart switchd, but the service is not defined in our code.
-#      notify => Service['switchd']
     }
   }
 
