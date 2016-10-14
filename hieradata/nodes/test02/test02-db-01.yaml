@@ -5,10 +5,29 @@ network::interfaces_hash:
     mtu:       '1500'
     ipaddress: '172.28.32.41'
     netmask:   '255.255.255.0'
-    gateway:   '172.28.32.10'
+    gateway:   "%{hiera('netcfg_gateway_mgmt')}"
+    peerdns:   'yes'
+    dns1:      "%{hiera('location_dns1')}"
+    domain:    "%{hiera('netcfg_domain')}"
     defroute:  'yes'
   'eth1':
     ipaddress: '172.30.32.41'
     netmask:   '255.255.255.0'
-    gateway:   '172.30.32.1'
     defroute:  'no'
+
+include:
+  default:
+    - profile::database::galera
+
+profile::openstack::database::sql::keystone_enabled:  true
+profile::openstack::database::sql::glance_enabled:    false
+profile::openstack::database::sql::nova_enabled:      false
+profile::openstack::database::sql::neutron_enabled:   false
+profile::openstack::database::sql::cinder_enabled:    false
+
+# sensu
+profile::monitoring::sensu::agent::checks:
+  'check-wsrep-ready':
+    command:      "check-wsrep-ready.rb -u sensu -h localhost -p %{hiera('sensu_mysql_password')}"
+    interval:     60
+    subscribers:  ['checks']

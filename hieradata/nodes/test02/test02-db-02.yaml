@@ -1,0 +1,21 @@
+---
+network::interfaces_hash:
+  'eth0':
+    ipaddress: '172.28.32.42'
+    netmask:   '255.255.248.0'
+    gateway:   "%{hiera('netcfg_gateway_mgmt')}"
+    mtu:       '1500'
+    peerdns:   'yes'
+    dns1:      "%{hiera('location_dns1')}"
+    domain:    "%{hiera('netcfg_domain')}"
+    defroute:  'yes'
+  'eth1':
+    ipaddress: '172.30.32.42'
+    netmask:   '255.255.248.0'
+    defroute:  'no'
+
+profile::openstack::database::sql::keystone_enabled:  false
+profile::openstack::database::sql::glance_enabled:    true
+profile::openstack::database::sql::nova_enabled:      true
+profile::openstack::database::sql::neutron_enabled:   true
+profile::openstack::database::sql::cinder_enabled:    true

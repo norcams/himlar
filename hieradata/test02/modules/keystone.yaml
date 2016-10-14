@@ -1,0 +1,7 @@
+---
+keystone::federation::oidc::trusted_dashboard: "https://dashboard.iaas.ui0.no/dashboard/auth/websso/"
+keystone::db::mysql::allowed_hosts: # FIXME
+  - "%{netpart_trp1}.%"
+
+# keystone uses db-01
+keystone::database_connection: "mysql://keystone:%{hiera('keystone::db::mysql::password')}@172.28.32.41/keystone"
