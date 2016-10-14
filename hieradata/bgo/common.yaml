@@ -90,17 +90,17 @@ profile::network::services::dns_options:
   CNAME:
     default:
       ttl: 3600
-      keyfile: "/opt/repo/secrets/nodes/%{hostname}/etc/rndc-%{location}.key"
+      keyfile: "/etc/rndc-%{location}.key"
       server: 'alfalfa.uib.no'
   A:
     default:
       ttl: 86400
-      keyfile: "/opt/repo/secrets/nodes/%{hostname}/etc/rndc-%{location}.key"
+      keyfile: "/etc/rndc-%{location}.key"
       server: 'alfalfa.uib.no'
   PTR:
     default:
       ttl: 86400
-      keyfile: "/opt/repo/secrets/nodes/%{hostname}/etc/rndc-%{location}.key"
+      keyfile: "/etc/rndc-%{location}.key"
       server: 'alfalfa.uib.no'
 
 profile::network::services::dns_records:
