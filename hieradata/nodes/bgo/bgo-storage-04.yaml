@@ -1,29 +1,35 @@
 ---
 network::interfaces_hash:
   'em1':
-    onboot:       'yes'
-    master:       'bond1'
-    slave:        'yes'
+    onboot:        'yes'
+    devicetype:    'TeamPort'
+    team_master:   'team1'
+    team_port_cfg: '{ "prio" : 100 }'
   'em2':
-    onboot:       'yes'
-    master:       'bond1'
-    slave:        'yes'
+    onboot:        'yes'
+    devicetype:    'TeamPort'
+    team_master:   'team1'
+    team_port_cfg: '{ "prio" : 100 }'
   'em3':
-    onboot:       'yes'
-    ipaddress:    '172.16.0.109'
-    netmask:      '255.255.248.0'
-    gateway:      "%{hiera('netcfg_mgmt_gateway')}"
-    defroute:     'yes'
-    peerdns:      'yes'
-    dns1:         "%{hiera('netcfg_dns_server1')}"
-    domain:       "%{hiera('netcfg_dns_search')}"
-  'bond1':
-    onboot:       'yes'
-    ipaddress:    '172.18.0.109'
-    netmask:      '255.255.248.0'
-    bonding_opts: 'mode=802.3ad miimon=100 lacp_rate=1'
-    defroute:     'no'
-  'bond1.110':
+    onboot:        'yes'
+    ipaddress:     '172.16.0.109'
+    netmask:       '255.255.248.0'
+    gateway:       "%{hiera('netcfg_mgmt_gateway')}"
+    defroute:      'yes'
+    peerdns:       'yes'
+    dns1:          "%{hiera('netcfg_dns_server1')}"
+    domain:        "%{hiera('netcfg_dns_search')}"
+  'team1':
+    onboot:        'yes'
+    ipaddress:     '172.18.0.109'
+    netmask:       '255.255.248.0'
+    defroute:      'no'
+    devicetype:    'Team'
+    team_cfg: >-
+                   { "runner" : {  "name" : "lacp",  "active": true, "fast_rate" : true,
+                   "tx_hash": ["eth", "ipv4", "ipv6"], "tx_balancer": { "name": "basic" } },
+                   "link_watch" : {  "name" : "ethtool" } }
+  'team1.110':
     onboot:       'yes'
     ipaddress:    '172.20.0.109'
     netmask:      '255.255.248.0'
