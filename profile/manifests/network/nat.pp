@@ -22,6 +22,7 @@ class profile::network::nat(
         tosource => $::ipaddress_public1,
         table    => 'nat',
         outiface => $outiface,
+        source   => $source,
         state    => undef
       }
     }
