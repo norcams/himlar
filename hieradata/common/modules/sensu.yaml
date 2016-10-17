@@ -3,7 +3,6 @@ sensu::client:                  true
 sensu::server:                  false
 sensu::api:                     false
 sensu::purge:                   true
-sensu::api:                     false
 sensu::version:                 present
 sensu::install_repo:            false
 sensu::manage_repo:             false
@@ -59,6 +58,6 @@ sensu::checks:
 # Server
 sensu::api_user:          'sensu'
 sensu::api_password:      "%{hiera('sensu_api_password')}"
-sensu::api_host:          '127.0.0.1'
-sensu::api_bind:          '127.0.0.1'
+sensu::api_host:          "%{ipaddress_mgmt1}"
+sensu::api_bind:          "%{ipaddress_mgmt1}"
 sensu::api_port:          '4567'

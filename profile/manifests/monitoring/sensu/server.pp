@@ -35,7 +35,7 @@ class profile::monitoring::sensu::server (
 
   if $manage_firewall {
     profile::firewall::rule { '411 uchiwa accept tcp':
-      port        => [80, 3000],
+      port        => [80, 3000, 4567],
       destination => $::ipaddress_mgmt1,
       extras      => $firewall_extras,
     }
