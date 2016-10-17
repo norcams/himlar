@@ -1,8 +1,7 @@
 ---
 dashboard_referer:    '^https://dashboard\.iaas\.uib\.no/dashboard'
-dashboard_ssl_files:  'dashboard_iaas_uib_no'
 
-# Manage upload dir
+# Manage upload dir only in bgo? #FIXME
 profile::base::common::manage_lvm: true
 profile::base::lvm::physical_volume:
   '/dev/vdb':
@@ -17,6 +16,3 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_upload'
     fs_type:      "xfs"
     mountpath:    "/tmp"
-
-################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
-profile::base::network::manage_dummy: true
