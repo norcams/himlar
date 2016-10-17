@@ -9,7 +9,7 @@ network::interfaces_hash:
     domain:    "%{hiera('netcfg_dns_search')}"
     defroute:  'no'
   'eth1':
-    ipaddress: '172.18.0.22'
+    ipaddress: '172.18.0.51'
     netmask:   '255.255.248.0'
     gateway:   "%{hiera('netcfg_trp_gateway')}"
     srcaddr:   '158.39.77.254'
