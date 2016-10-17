@@ -16,6 +16,10 @@ url=<%= @foreman_url %>
 user=<%= @foreman_user %>
 password=<%= @foreman_password %>
 
+[statsd]
+server=<%= @statsd_server %>
+port = 8125
+
 [state]
 db=db/state.db
 
