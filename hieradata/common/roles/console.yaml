@@ -3,15 +3,19 @@ include:
   default:
     - profile::openstack::compute::consoleproxy
 
+profile::base::network::manage_dummy: true
+
 profile::openstack::compute::consoleproxy::spice: true
 
 nova::config::nova_config:
     DEFAULT/ssl_only:
       value: true
+    DEFAULT/ca_file:
+      value: "/etc/pki/tls/certs/cachain.pem"
     DEFAULT/cert:
-      value: "/etc/pki/tls/certs/%{hiera('console_ssl_files')}.crt"
-    DEFAULT/key:
-      value: "/etc/pki/tls/private/%{hiera('console_ssl_files')}.key"
+      value: "/etc/pki/tls/certs/console.%{hiera('domain_public')}.cert.pem"
+    DEFAULT/key_file:
+      value: "/etc/pki/tls/private/console.%{hiera('domain_public')}.key.pem"
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
