@@ -1,6 +1,5 @@
 ---
 dashboard_referer:    '^https://dashboard\.iaas\.uio\.no/dashboard'
-dashboard_ssl_files:  'dashboard_iaas_uio_no'
 
 # Manage upload dir
 profile::base::common::manage_lvm: true
@@ -17,7 +16,3 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_upload'
     fs_type:      "xfs"
     mountpath:    "/tmp"
-
-################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
-profile::base::network::manage_dummy: true
-
