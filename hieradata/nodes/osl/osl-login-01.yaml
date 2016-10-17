@@ -12,7 +12,7 @@ network::interfaces_hash:
     defroute:     'no'
     onboot:       'yes'
     dns1:         "%{hiera('service__address__proxy')}"
-    domain:       'iaas.uio.no'
+    domain:       "%{hiera('domain_mgmt')}"
   'p2p3':
     ipaddress:    '172.28.160.10'
     netmask:      '255.255.255.0'
