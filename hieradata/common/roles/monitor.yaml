@@ -4,9 +4,15 @@ include:
     - profile::database::redis
     - profile::monitoring::sensu::server
     - profile::monitoring::grafana
+    - profile::monitoring::statsd
 
-# Grafana
+# Grafana and statsd
 profile::monitoring::grafana::manage_firewall: true
+profile::monitoring::grafana::firewall_extras:
+  source: "%{::network_mgmt1}/%{::netmask_mgmt1}"
+profile::monitoring::statsd::manage_firewall:  true
+profile::monitoring::statsd::firewall_extras:
+  source: "%{::network_mgmt1}/%{::netmask_mgmt1}"
 
 # Sensu server
 sensu::server:              true
@@ -15,6 +21,8 @@ sensu::redis_host:          127.0.0.1
 
 profile::monitoring::sensu::server::manage_graphite:  true
 profile::monitoring::sensu::server::manage_firewall:  true
+profile::monitoring::sensu::server::firewall_extras:
+  source: "%{::network_mgmt1}/%{::netmask_mgmt1}"
 profile::monitoring::sensu::server::manage_dashboard: true
 profile::monitoring::sensu::server::handlers:
   graphite_tcp:
