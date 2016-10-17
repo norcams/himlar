@@ -5,7 +5,7 @@ horizon::wsgi::apache::priority:        '10'
 horizon::wsgi::apache::bind_address:    "%{ipaddress_public1}"
 horizon::bind_address:                  "%{ipaddress_public1}"
 horizon::listen_ssl:                    true
-horizon::horizon_key:                   "/etc/pki/tls/certs/cachain.pem"
+horizon::horizon_ca:                    "/etc/pki/tls/certs/cachain.pem"
 horizon::horizon_cert:                  "/etc/pki/tls/certs/dashboard.%{hiera('domain_public')}.cert.pem"
 horizon::horizon_key:                   "/etc/pki/tls/private/dashboard.%{hiera('domain_public')}.key.pem"
 horizon::secure_cookies:                true
