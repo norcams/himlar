@@ -2,7 +2,7 @@
 uchiwa::install_repo:   false
 uchiwa::refresh:        10
 uchiwa::sensu_api_endpoints:
-  - host:     127.0.0.1
+  - host:     "%{ipaddress_mgmt1}"
     port:     '4567'
     name:     "%{::location}"
     user:     'sensu'
