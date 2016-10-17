@@ -1,0 +1,9 @@
+---
+statsd::port:             '8125'
+statsd::address:          "%{ipaddress_mgmt1}"
+statsd::package_provider: 'yum'
+statsd::init_provider:    'systemd'
+statsd::configfile:       '/etc/statsd/config.js'
+statsd::mgmt_address:     "%{ipaddress_mgmt1}"
+statsd::graphiteHost:     '127.0.0.1'
+#statsd::debug:            true
