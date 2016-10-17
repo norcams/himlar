@@ -3,7 +3,7 @@ profile::network::leaf::manage_quagga:         false
 
 network::interfaces_hash:
   'eth0':
-    'ipaddress': '172.16.32.5/21'
+    'ipaddress': '172.16.32.2/21'
     'post_up': [ '/etc/network/if-up.d/z90-route-eth0', ]
     'post_down': [ '/etc/network/if-down.d/z90-route-eth0', ]
 
@@ -12,18 +12,23 @@ profile::base::network::routes:
   'eth0':
     'ipaddress': [ '0.0.0.0', ]
     'netmask':   [ '0.0.0.0', ]
-    'gateway':   [ '172.16.32.1', ]
+    'gateway':   [ "%{hiera('netcfg_mgmt_gateway')}", ]
     'table':     [ 'mgmt', ]
 
 profile::base::network::cumulus_interfaces:
   'bridge.100':
     'ipv4': [ '172.18.32.2/21', ]
+    'virtual_ip': '172.18.39.1/21'
+    'virtual_mac': '00:00:5e:00:01:01'
   'peerlink.4094':
     'ipv4': [ '172.18.228.2/24', ]
     'clagd_enable': true
     'clagd_priority': '8192'
     'clagd_peer_ip': '172.18.228.1'
     'clagd_sys_mac': '44:38:39:ff:bb:1c'
+# No uplink here yet
+#  'swp48':
+#    'ipaddress': '129.240.25.111/30'
 
 profile::base::network::cumulus_bridges:
   'bridge':
@@ -76,3 +81,90 @@ profile::base::network::cumulus_bonds:
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+
+quagga::quagga::zebra_interfaces:
+  'bridge':
+    - 'link-detect'
+    - 'description linux-bridge'
+  'bridge.100':
+    - 'link-detect'
+    - 'description linux-bridge-100'
+  'host1':
+    - 'link-detect'
+  'host2':
+    - 'link-detect'
+  'host3':
+    - 'link-detect'
+  'host4':
+    - 'link-detect'
+  'host5':
+    - 'link-detect'
+  'host6':
+    - 'link-detect'
+#  'swp48':
+#    - 'link-detect'
+
+quagga::quagga::zebra_ip_routes:
+  - '0.0.0.0/0 172.18.32.1'
+  - '10.0.0.0/8 Null0'
+  - '158.37.63.0/24 Null0'
+  - '158.37.63.251/32 172.18.32.23'
+  - '158.37.63.252/32 172.18.32.19'
+  - '158.37.63.253/32 172.18.32.12'
+  - '158.37.63.254/32 172.18.32.22'
+
+quagga::quagga::zebra_generic_options:
+  'ip':
+    'forwarding'
+  'ipv6':
+    'forwarding'
+
+quagga::quagga::bgp_neighbors:
+  - '172.31.228.1 remote-as 65502'
+  - '172.31.228.1 soft-reconfiguration inbound'
+
+quagga::quagga::bgp_as: '65502'
+
+quagga::quagga::bgp_options:
+  - 'router-id 172.18.32.2'
+  - 'log-neighbor-changes'
+  - 'default local-preference 200'
+
+quagga::quagga::bgp_networks:
+  - '0.0.0.0/0'
+  - '172.18.32.0/21'
+
+quagga::quagga::bgp_neighbor_groups:
+  'rr-clients':
+    'options':
+      - 'peer-group'
+      - 'remote-as 65502'
+      - 'route-reflector-client'
+      - 'soft-reconfiguration inbound'
+      - 'route-map rr-client-allow in'
+      - 'bfd'
+    'members':
+      - '172.18.32.103'
+      - '172.18.32.104'
+      - '172.18.32.105'
+
+quagga::quagga::bgp_accesslist:
+  '10':
+    - 'permit 158.37.63.0 0.0.0.255'
+    - 'permit 10.2.0.0 0.0.15.255'
+    - 'permit 172.18.32.0 0.0.0.255'
+  '20':
+    - 'deny 158.37.63.0 0.0.0.255'
+    - 'deny 10.2.0.0 0.0.15.255'
+    - 'deny 172.18.32.0 0.0.0.255'
+    - 'permit any'
+
+quagga::quagga::bgp_ip_prefix_list:
+  - 'routes-from-leaf1 seq 5 deny any'
+  - 'routes-to-leaf1 seq 5 permit 0.0.0.0/0'
+
+quagga::quagga::bgp_route_maps:
+  'rr-client-allow permit 10':
+    - 'match ip address 10'
+  'peer-deny deny 10':
+    - 'match ip address 10'

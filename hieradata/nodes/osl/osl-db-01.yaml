@@ -1,17 +1,18 @@
 ---
 network::interfaces_hash:
   'eth0':
-    onboot:    'yes'
-    mtu:       '1500'
     ipaddress: '172.16.32.41'
     netmask:   '255.255.248.0'
     gateway:   "%{hiera('netcfg_mgmt_gateway')}"
+    mtu:       '1500'
+    peerdns:   'yes'
+    dns1:      "%{hiera('netcfg_dns_server1')}"
+    domain:    "%{hiera('netcfg_dns_search')}"
     defroute:  'yes'
   'eth1':
     ipaddress: '172.18.32.41'
     netmask:   '255.255.248.0'
     defroute:  'no'
-
 include:
   default:
     - profile::database::galera
@@ -29,8 +30,8 @@ profile::base::network::routes:
 profile::database::galera::firewall_extras:
   source: '172.31.13.41'
 
-db_ssl_key:       '/etc/pki/tls/private/db01.bgo.uhdc.no.key.pem'
-db_ssl_cert:      '/etc/pki/tls/certs/db01.bgo.uhdc.no.cert.pem'
+db_ssl_key:       '/etc/pki/tls/private/db01.osl.uhdc.no.key.pem'
+db_ssl_cert:      '/etc/pki/tls/certs/db01.osl.uhdc.no.cert.pem'
 db_ssl_ca:        '/etc/pki/tls/certs/cachain.pem'
 
 # Enable ssl for wsrep and sst

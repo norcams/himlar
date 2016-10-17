@@ -1,32 +1,32 @@
 ---
 network::interfaces_hash:
   'eth0':
-    'ipaddress': '172.16.32.4/21'
+    'ipaddress': '172.16.32.1/21'
     'post_up': [ '/etc/network/if-up.d/z90-route-eth0', ]
     'post_down': [ '/etc/network/if-down.d/z90-route-eth0', ]
-# downlink interface
-  'swp48':
-    'ipaddress': '129.240.25.110/30'
-    'post_up': [ '/etc/network/if-up.d/z90-route-swp48', ]
-    'post_down': [ '/etc/network/if-down.d/z90-route-swp48', ]
 
 # Add default route for management VRF
 profile::base::network::routes:
   'eth0':
     'ipaddress': [ '0.0.0.0', ]
     'netmask':   [ '0.0.0.0', ]
-    'gateway':   [ '172.16.32.1', ]
+    'gateway':   [ "%{hiera('netcfg_mgmt_gateway')}", ]
     'table':     [ 'mgmt', ]
 
 profile::base::network::cumulus_interfaces:
   'bridge.100':
     'ipv4': [ '172.18.32.1/21', ]
+    'virtual_ip': '172.18.39.1/21'
+    'virtual_mac': '00:00:5e:00:01:01'
   'peerlink.4094':
     'ipv4': [ '172.18.228.1/24', ]
     'clagd_enable': true
     'clagd_priority': '4096'
     'clagd_peer_ip': '172.18.228.2'
     'clagd_sys_mac': '44:38:39:ff:bb:1c'
+# downlink interface
+  'swp48':
+    'ipaddress': '129.240.25.110/30'
 
 profile::base::network::cumulus_bridges:
   'bridge':
@@ -115,9 +115,9 @@ quagga::quagga::zebra_generic_options:
   'ipv6':
     'forwarding'
 
-#quagga::quagga::bgp_neighbors:
-#  - '172.31.228.2 remote-as 65535'
-#  - '172.31.228.2 soft-reconfiguration inbound'
+quagga::quagga::bgp_neighbors:
+  - '172.31.228.2 remote-as 65502'
+  - '172.31.228.2 soft-reconfiguration inbound'
 
 quagga::quagga::bgp_as: '65502'
 

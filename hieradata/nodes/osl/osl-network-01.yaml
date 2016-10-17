@@ -6,8 +6,8 @@ network::interfaces_hash:
     gateway:   "%{hiera('netcfg_mgmt_gateway')}"
     mtu:       '1500'
     peerdns:   'yes'
-    dns1:      "%{hiera('service__address__proxy')}"
-    domain:    "%{hiera('domain_mgmt')}"
+    dns1:      "%{hiera('netcfg_dns_server1')}"
+    domain:    "%{hiera('netcfg_dns_search')}"
     defroute:  'yes'
   'eth1':
     ipaddress: '172.18.32.71'
