@@ -7,11 +7,14 @@ location_environment: prod
 location_description: Production environment in Oslo
 
 domain_public: 'iaas.uio.no'
-domain_trp:    '%{::domain}' #FIXME
+domain_trp:    'trp.iaas.uio'
 domain_mgmt:   'iaas.uio.no'
 
-netcfg_mgmt_gateway: '172.18.32.1'
-netcfg_trp_gateway:  '172.18.32.1'
+netcfg_mgmt_gateway:  '172.18.32.1'
+netcfg_trp_gateway:   '172.18.39.1'
+netcfg_dns_server1:   '129.240.2.3'
+netcfg_dns_server2:   '129.240.2.40'
+netcfg_dns_search:    "%{hiera('domain_mgmt')}"
 
 #
 # Networks
@@ -25,12 +28,13 @@ network_public:     '158.37.63.0/24'
 endpoint_protocol: 'https'
 
 # public
+service__address__status:            'status.iaas.uio.no'
 service__address__horizon:           'dashboard.iaas.uio.no'
-service__address__keystone_public:   'dashboard.iaas.uio.no'
-service__address__glance_public_api: 'dashboard.iaas.uio.no'
-service__address__nova_public_api:   'dashboard.iaas.uio.no'
-service__address__neutron_public:    'dashboard.iaas.uio.no'
-service__address__cinder_public_api: 'dashboard.iaas.uio.no'
+service__address__keystone_public:   'api.iaas.uio.no'
+service__address__glance_public_api: 'api.iaas.uio.no'
+service__address__nova_public_api:   'api.iaas.uio.no'
+service__address__neutron_public:    'api.iaas.uio.no'
+service__address__cinder_public_api: 'api.iaas.uio.no'
 service__address__consoleproxy:      'console.iaas.uio.no'
 
 # service/transport1
@@ -63,7 +67,7 @@ ntp::servers:
 
 ceph::profile::params::mon_initial_members:         'osl-cephmon-01, osl-cephmon-02, osl-cephmon-03'
 ceph::profile::params::mon_host:                    '172.18.32.91:6789, 172.18.32.92:6789, 172.18.32.93:6789'
-ceph::profile::params::cluster_network:             '172.18.32.0/21'
+ceph::profile::params::cluster_network:             '172.20.32.0/21'
 ceph::profile::params::public_network:              '172.18.32.0/21'
 
 profile::openstack::volume::manage_rbd: true
@@ -106,18 +110,19 @@ profile::network::services::dns_options:
 
 profile::network::services::dns_records:
   CNAME:
+    'puppet.iaas.uio.no':                  'osl-admin-01.iaas.uio.no'
     'admin.iaas.uio.no':                   'osl-admin-01.iaas.uio.no'
     'repo.iaas.uio.no':                    'osl-admin-01.iaas.uio.no'
     'monitor.iaas.uio.no':                 'osl-monitor-01.iaas.uio.no'
     'logger.iaas.uio.no':                  'osl-logger-01.iaas.uio.no'
     'foreman.iaas.uio.no':                 'osl-admin-01.iaas.uio.no'
   A:
-    'osl-leaf-01.iaas.uio.no':        '172.16.32.4'
-    'osl-leaf-02.iaas.uio.no':        '172.16.32.5'
-    'osl-leaf-03.iaas.uio.no':        '172.16.32.6'
-    'osl-leaf-04.iaas.uio.no':        '172.16.32.7'
+    'osl-leaf-01.iaas.uio.no':        '172.16.32.1'
+    'osl-leaf-02.iaas.uio.no':        '172.16.32.2'
+    'osl-leaf-03.iaas.uio.no':        '172.16.32.3'
+    'osl-leaf-04.iaas.uio.no':        '172.16.32.4'
+    'osl-login.iaas.uio.no':          '172.16.32.10'
     'osl-admin-01.iaas.uio.no':       '172.16.32.11'
-    'puppet.iaas.uio.no':             '172.16.32.11'
     'osl-proxy-01.iaas.uio.no':       '172.16.32.12'
     'osl-logger-01.iaas.uio.no':      '172.16.32.13'
     'osl-monitor-01.iaas.uio.no':     '172.16.32.14'
