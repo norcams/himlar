@@ -4,6 +4,8 @@ include:
     - profile::application::access
     - profile::webserver::apache
 
+profile::base::network::manage_dummy: true
+
 profile::application::access::package_url: 'https://download.iaas.uio.no/uh-sky/rpm/himlar-dp-prep-1.1-1.el7.x86_64.rpm'
 profile::application::access::manage_firewall: true
 
@@ -18,15 +20,15 @@ profile::webserver::apache::mods_enable:
 
 profile::webserver::apache::vhosts:
   dpapp:
-    vhost_name:         "access.%{domain}"
-    servername:         "access.%{domain}"
+    vhost_name:         "access.%{hiera('domain_public')}"
+    servername:         "access.%{hiera('domain_public')}"
     port:               '80'
     manage_docroot:     false
     docroot:            '/var/www/html'
-    redirect_dest:      "https://access.%{domain}/"
+    redirect_dest:      "https://access.%{hiera('domain_public')}/"
   dpapp_ssl:
-    vhost_name:         "access.%{domain}"
-    servername:         "access.%{domain}"
+    vhost_name:         "access.%{hiera('domain_public')}"
+    servername:         "access.%{hiera('domain_public')}"
     port:               '443'
     manage_docroot:     false
     docroot:            '/var/www/html'
@@ -43,3 +45,6 @@ profile::webserver::apache::vhosts:
         require:          'all granted'
         custom_fragment:  'WSGIProcessGroup dpapp'
     ssl:                  true
+    ssl_ca:               "/etc/pki/tls/certs/cachain.pem"
+    ssl_cert:             "/etc/pki/tls/certs/access.%{hiera('domain_public')}.cert.pem"
+    ssl_key:              "/etc/pki/tls/private/access.%{hiera('domain_public')}.key.pem"
