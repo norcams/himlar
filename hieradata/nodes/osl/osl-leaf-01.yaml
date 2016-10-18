@@ -26,7 +26,7 @@ profile::base::network::cumulus_interfaces:
     'clagd_sys_mac': '44:38:39:ff:bb:1c'
 # downlink interface
   'swp48':
-    'ipaddress': '129.240.25.110/30'
+    'ipv4': ['129.240.25.110/30']
 
 profile::base::network::cumulus_bridges:
   'bridge':
@@ -104,7 +104,7 @@ quagga::quagga::zebra_ip_routes:
   - '0.0.0.0/0 129.240.25.109'
   - '10.0.0.0/8 Null0'
   - '158.37.63.0/24 Null0'
-  - '158.37.63.251/32 172.18.32.41'
+  - '158.37.63.249/32 172.18.32.41'
   - '158.37.63.251/32 172.18.32.61'
   - '158.37.63.252/32 172.18.32.56'
   - '158.37.63.253/32 172.18.32.12'
