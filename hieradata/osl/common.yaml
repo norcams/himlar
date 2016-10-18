@@ -85,16 +85,16 @@ graphite_secret_key:                     'graphite_pass'
 profile::network::services::dhcp_reservation:
   osl-leaf-01:
     mac: '00:01:e8:d8:46:f3'
-    ip:  '172.16.32.4'
+    ip:  '172.16.32.1'
   osl-leaf-02:
     mac: '00:01:e8:d8:38:28'
-    ip:  '172.16.32.5'
+    ip:  '172.16.32.2'
   osl-leaf-03:
     mac: '00:01:e8:d8:25:9f'
-    ip:  '172.16.32.6'
+    ip:  '172.16.32.3'
   osl-leaf-04:
     mac: '00:01:e8:d8:49:ff'
-    ip:  '172.16.32.7'
+    ip:  '172.16.32.4'
 
 profile::network::services::dns_options:
   CNAME:
