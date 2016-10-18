@@ -1,4 +1,5 @@
 #!/bin/bash
+export PATH=$PATH:/bin/:/usr/bin:/sbin:/usr/sbin
 
 # Be conservative
 set -o errexit
