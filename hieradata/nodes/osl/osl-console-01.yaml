@@ -1,18 +1,17 @@
 ---
 network::interfaces_hash:
   'eth0':
-    ipaddress: '172.16.32.23'
+    ipaddress: '172.16.32.61'
     netmask:   '255.255.248.0'
-    gateway:   '172.16.32.12'
     mtu:       '1500'
     peerdns:   'yes'
-    dns1:      "%{hiera('service__address__proxy')}"
-    domain:    'iaas.uio.no'
+    dns1:      "%{hiera('netcfg_dns_server1')}"
+    domain:    "%{hiera('netcfg_dns_search')}"
     defroute:  'no'
   'eth1':
-    ipaddress: '172.18.32.23'
+    ipaddress: '172.18.32.61'
     netmask:   '255.255.248.0'
-    gateway:   '172.18.32.1'
+    gateway:   "%{hiera('netcfg_trp_gateway')}"
     srcaddr:   '158.37.63.251'
     defroute:  'yes'
   'dummy0':
