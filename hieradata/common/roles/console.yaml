@@ -14,7 +14,7 @@ nova::config::nova_config:
       value: "/etc/pki/tls/certs/cachain.pem"
     DEFAULT/cert:
       value: "/etc/pki/tls/certs/console.%{hiera('domain_public')}.cert.pem"
-    DEFAULT/key_file:
+    DEFAULT/key:
       value: "/etc/pki/tls/private/console.%{hiera('domain_public')}.key.pem"
 
 # Enable extra yum repo
