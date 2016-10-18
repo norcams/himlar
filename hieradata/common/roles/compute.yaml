@@ -99,5 +99,6 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   calico:
     ensure: present
+    exclude: 'calico-dhcp-agent' #FIXME
   ceph:
     ensure: present
