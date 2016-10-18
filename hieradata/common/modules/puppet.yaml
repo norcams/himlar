@@ -1,7 +1,7 @@
 ---
 puppet::runinterval:  900
 puppet::runmode:      'cron'
-puppet::puppetmaster: "puppet.%{domain}"
+puppet::puppetmaster: "puppet.%{hiera('domain_mgmt')}"
 puppet::show_diff:    true
 puppet::classfile:    '$statedir/classes.txt'
 
@@ -15,4 +15,3 @@ puppet::additional_settings:
   'trusted_node_data': true
   'disable_warnings' : 'deprecations'
   'stringify_facts'  : 'false'
-
