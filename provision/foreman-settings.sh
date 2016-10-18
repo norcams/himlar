@@ -1,5 +1,4 @@
 #!/bin/bash
-export PATH=$PATH:/bin/:/usr/bin:/sbin:/usr/sbin
 
 # Be conservative
 set -o errexit
@@ -56,18 +55,18 @@ common_config()
   #
 
   # Create and update domain
-  hammer domain create --name $foreman_domain || true
-  hammer domain update --name $foreman_domain --dns-id ''
-  foreman_domain_id=$(hammer --csv domain info --name $foreman_domain | tail -n1 | cut -d, -f1)
+  /bin/hammer domain create --name $foreman_domain || true
+  /bin/hammer domain update --name $foreman_domain --dns-id ''
+  foreman_domain_id=$(/bin/hammer --csv domain info --name $foreman_domain | tail -n1 | cut -d, -f1)
 
   # Find smart proxy ID to use for tftp
-  foreman_proxy_id=$(hammer --csv proxy info --name $foreman_fqdn | tail -n1 | cut -d, -f1)
+  foreman_proxy_id=$(/bin/hammer --csv proxy info --name $foreman_fqdn | tail -n1 | cut -d, -f1)
 
   # Create and update subnet
-  hammer subnet create --name mgmt \
+  /bin/hammer subnet create --name mgmt \
     --network       $mgmt_network \
     --mask          $mgmt_netmask || true
-  hammer subnet update --name mgmt \
+  /bin/hammer subnet update --name mgmt \
     --network       $mgmt_network \
     --mask          $mgmt_netmask \
     --ipam          None \
@@ -78,57 +77,57 @@ common_config()
     --gateway       ''
 #    --dns-id        '' \
 #    --dhcp-id       ''
-  foreman_subnet_id=$(hammer --csv subnet info --name mgmt | tail -n1 | cut -d, -f1)
+  foreman_subnet_id=$(/bin/hammer --csv subnet info --name mgmt | tail -n1 | cut -d, -f1)
 
   #
   # Provisioning and discovery setup
   #
 
   # Enable puppetlabs repo
-  hammer global-parameter set --name enable-puppetlabs-repo --value true
+  /bin/hammer global-parameter set --name enable-puppetlabs-repo --value true
   # Enable clokcsync in Kickstart
-  hammer global-parameter set --name time-zone --value 'Europe/Oslo'
-  hammer global-parameter set --name ntp-server --value 'no.pool.ntp.org'
+  /bin/hammer global-parameter set --name time-zone --value 'Europe/Oslo'
+  /bin/hammer global-parameter set --name ntp-server --value 'no.pool.ntp.org'
 
   # Create ftp.uninett.no medium
-  hammer medium create --name 'CentOS ftp.uninett.no' \
+  /bin/hammer medium create --name 'CentOS ftp.uninett.no' \
     --os-family Redhat \
     --path 'http://ftp.uninett.no/centos/7/os/$arch' || true
   # Save CentOS mirror ids
-  medium_id_1=$(hammer --csv medium info --name 'CentOS mirror' | tail -n1 | cut -d, -f1)
-  medium_id_2=$(hammer --csv medium info --name 'CentOS ftp.uninett.no' | tail -n1 | cut -d, -f1)
+  medium_id_1=$(/bin/hammer --csv medium info --name 'CentOS mirror' | tail -n1 | cut -d, -f1)
+  medium_id_2=$(/bin/hammer --csv medium info --name 'CentOS ftp.uninett.no' | tail -n1 | cut -d, -f1)
 
   # Sync our custom provision templates
-  foreman-rake templates:sync \
+  /sbin/foreman-rake templates:sync \
     repo="https://github.com/norcams/community-templates.git" branch="norcams" associate="always"
   # Save template ids
-  norcams_provision_id=$(hammer --csv template list --per-page 1000 | grep 'norcams Kickstart default' | cut -d, -f1)
-  norcams_pxelinux_id=$(hammer --csv template list --per-page 1000 | grep 'norcams PXELinux default' | cut -d, -f1)
-  norcams_ptable_id=$(hammer --csv partition-table list --per-page 1000 | grep 'norcams ptable default' | cut -d, -f1)
+  norcams_provision_id=$(/bin/hammer --csv template list --per-page 1000 | grep 'norcams Kickstart default' | cut -d, -f1)
+  norcams_pxelinux_id=$(/bin/hammer --csv template list --per-page 1000 | grep 'norcams PXELinux default' | cut -d, -f1)
+  norcams_ptable_id=$(/bin/hammer --csv partition-table list --per-page 1000 | grep 'norcams ptable default' | cut -d, -f1)
 
   # Associate partition template with Redhat family of OSes
-  hammer partition-table update --id $norcams_ptable_id --os-family Redhat
+  /bin/hammer partition-table update --id $norcams_ptable_id --os-family Redhat
 
   # Create and update OS (we assume OS id is 1 for now)
-  hammer os create --name CentOS --major 7 || true
-  hammer os update --id 1 --name CentOS --major 7 \
+  /bin/hammer os create --name CentOS --major 7 || true
+  /bin/hammer os update --id 1 --name CentOS --major 7 \
     --description "CentOS 7.2" \
     --family Redhat \
     --architecture-ids 1 \
     --medium-ids ${medium_id_2},${medium_id_1} \
     --partition-table-ids $norcams_ptable_id
   # Set default Kickstart and PXELinux templates and associate with os
-  hammer template update --id $norcams_provision_id --operatingsystem-ids 1
-  hammer template update --id $norcams_pxelinux_id --operatingsystem-ids 1
-  hammer os set-default-template --id 1 --config-template-id $norcams_provision_id
-  hammer os set-default-template --id 1 --config-template-id $norcams_pxelinux_id
+  /bin/hammer template update --id $norcams_provision_id --operatingsystem-ids 1
+  /bin/hammer template update --id $norcams_pxelinux_id --operatingsystem-ids 1
+  /bin/hammer os set-default-template --id 1 --config-template-id $norcams_provision_id
+  /bin/hammer os set-default-template --id 1 --config-template-id $norcams_pxelinux_id
 
   # Create Puppet environment
-  hammer environment create --name production || true
+  /bin/hammer environment create --name production || true
 
   # Create a base hostgroup
-  hammer hostgroup create --name base || true
-  hammer hostgroup update --name base \
+  /bin/hammer hostgroup create --name base || true
+  /bin/hammer hostgroup update --name base \
     --architecture x86_64 \
     --domain-id $foreman_domain_id \
     --operatingsystem-id 1 \
@@ -140,8 +139,8 @@ common_config()
     --environment production
 
   # Create storage hostgroup to set special paramters
-  hammer hostgroup create --name storage --parent base || true
-  hammer hostgroup set-parameter --hostgroup storage \
+  /bin/hammer hostgroup create --name storage --parent base || true
+  /bin/hammer hostgroup set-parameter --hostgroup storage \
      --name installdevice \
      --value sdm
 
@@ -171,7 +170,7 @@ common_config()
     ProvisioningTemplate.build_pxe_default(self)
     Setting["safemode_render"] = true
 
-  ' | foreman-rake console
+  ' | /sbin/foreman-rake console
 }
 
 #
