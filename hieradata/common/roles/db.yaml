@@ -49,3 +49,8 @@ profile::monitoring::sensu::agent::checks:
     command:      'check-mysql-alive.rb -h localhost -s /var/lib/mysql/mysql.sock --ini /etc/sensu/conf.d/mysql.ini'
     interval:     60
     subscribers:  ['checks']
+
+# Enable extra yum repo
+profile::base::yumrepo::repo_hash:
+  mariadb:
+    ensure: present
