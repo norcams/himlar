@@ -165,7 +165,7 @@ profile::base::yumrepo::repo_hash:
     ensure:         absent
     descr:          'MariaDB 10.1 repo'
     baseurl:        'http://yum.mariadb.org/10.1/centos7-amd64'
-    gpgkey:         'https://yum.mariadb.org/RPM-GPG-KEY-MariaDB'
+    gpgkey:         'http://yum.mariadb.org/RPM-GPG-KEY-MariaDB'
     gpgcheck:       '1'
 
 
