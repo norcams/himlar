@@ -7,9 +7,9 @@ profile::webserver::apache::vhosts:
   dpapp_ssl:
     vhost_name:         "access.test.iaas.uio.no"
     servername:         "access.test.iaas.uio.no"
-    ssl_ca:             "/etc/pki/tls/certs/DigiCertCA.crt"
-    ssl_cert:           "/etc/pki/tls/certs/access_test_iaas_uio_no.crt"
-    ssl_key:            "/etc/pki/tls/private/access_test_iaas_uio_no.key"
+    ssl_ca:             "/etc/pki/tls/certs/cachain.pem"
+    ssl_cert:           "/etc/pki/tls/certs/access.test.iaas.uio.no.cert.pem"
+    ssl_key:            ".etc/pki/tls/private/access.test.iaas.uio.no.key.pem"
 
 
 ################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
