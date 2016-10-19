@@ -24,6 +24,7 @@ profile::database::galera::wsrep_sst_secure_rsync:
 wsrep_provider_options: "base_host=%{::ipaddress_trp1};pc.recovery=1;"
 wsrep_sst_method:       'rsync'
 wsrep_cluster_address:  'gcomm://'
+wsrep_node_address:     "%{::ipaddress_trp1}"
 
 # Sensu
 profile::monitoring::sensu::agent::enable_agent: false
