@@ -27,7 +27,7 @@ include:
     - profile::database::galera
 
 # If wsrep_cluster_address is set the first node cannot restart mysqld
-#mysql::server::restart:         false
+mysql::server::restart:         false
 
 profile::database::galera::firewall_extras:
   source: '158.37.63.249'
@@ -39,7 +39,7 @@ db_ssl_ca:        '/etc/pki/tls/certs/cachain.pem'
 # Enable ssl for wsrep and sst
 wsrep_provider_options: "base_host=%{::ipaddress_trp1};pc.recovery=1;socket.ssl_key=%{hiera('db_ssl_key')};socket.ssl_cert=%{hiera('db_ssl_cert')};socket.ssl_ca=%{hiera('db_ssl_ca')}"
 wsrep_sst_method:       'secure_rsync'
-#wsrep_cluster_address:  'gcomm://158.39.77.249,158.37.63.249'
+wsrep_cluster_address:  'gcomm://158.39.77.249,158.37.63.249'
 
 profile::openstack::database::sql::keystone_enabled:  true
 profile::openstack::database::sql::glance_enabled:    false
