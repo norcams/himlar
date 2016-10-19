@@ -29,6 +29,8 @@ include:
 # If wsrep_cluster_address is set the first node cannot restart mysqld
 #mysql::server::restart:         false
 
+mysql::server::create_root_user:  false
+
 profile::database::galera::firewall_extras:
   source: '158.39.77.249'
 
