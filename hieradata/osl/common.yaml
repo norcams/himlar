@@ -34,11 +34,11 @@ allow_from_network:
 # public
 service__address__status:            'status.iaas.uio.no'
 service__address__horizon:           'dashboard.iaas.uio.no'
-service__address__keystone_public:   'api.iaas.uio.no'
-service__address__glance_public_api: 'api.iaas.uio.no'
-service__address__nova_public_api:   'api.iaas.uio.no'
-service__address__neutron_public:    'api.iaas.uio.no'
-service__address__cinder_public_api: 'api.iaas.uio.no'
+service__address__keystone_public:   'dashboard.iaas.uio.no'
+service__address__glance_public_api: 'dashboard.iaas.uio.no'
+service__address__nova_public_api:   'dashboard.iaas.uio.no'
+service__address__neutron_public:    'dashboard.iaas.uio.no'
+service__address__cinder_public_api: 'dashboard.iaas.uio.no'
 service__address__consoleproxy:      'console.iaas.uio.no'
 
 # service/transport1
