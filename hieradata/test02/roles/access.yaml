@@ -9,7 +9,7 @@ profile::webserver::apache::vhosts:
     servername:         "access.test.iaas.uio.no"
     ssl_ca:             "/etc/pki/tls/certs/cachain.pem"
     ssl_cert:           "/etc/pki/tls/certs/access.test.iaas.uio.no.cert.pem"
-    ssl_key:            ".etc/pki/tls/private/access.test.iaas.uio.no.key.pem"
+    ssl_key:            "/etc/pki/tls/private/access.test.iaas.uio.no.key.pem"
 
 
 ################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
