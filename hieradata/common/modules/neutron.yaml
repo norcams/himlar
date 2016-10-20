@@ -1,3 +1,4 @@
+---
 neutron::bind_host: "%{ipaddress_transport1}"
 neutron::core_plugin: 'calico'
 
@@ -16,7 +17,7 @@ neutron::server::notifications::auth_url: "http://%{hiera('service__address__key
 neutron::server::notifications::auth_type: 'password'
 neutron::server::notifications::username: 'nova'
 neutron::server::notifications::password: "%{hiera('nova_api_password')}"
-
+neutron::server::notifications::region_name: "%{location}"
 neutron::agents::dhcp::enabled: false
 
 neutron::db::mysql::allowed_hosts:
@@ -37,3 +38,7 @@ neutron::rabbit_hosts:
   - "%{hiera('service__address__rabbitmq_01')}:5672"
   - "%{hiera('service__address__rabbitmq_02')}:5672"
   - "%{hiera('service__address__rabbitmq_03')}:5672"
+
+# logging
+neutron::use_syslog:    true
+neutron::log_facility:  LOG_LOCAL5
