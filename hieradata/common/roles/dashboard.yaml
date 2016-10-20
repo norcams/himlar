@@ -7,9 +7,11 @@ include:
     - profile::application::himlarcli
     - profile::logging::rsyslog::client
 
-profile::base::network::manage_dummy: true
-
-profile::openstack::openrc::filename: '/root/keystonerc_admin'
+profile::base::network::manage_dummy:             true
+profile::openstack::openrc::filename:             '/root/keystonerc_admin'
+profile::openstack::dashboard::manage_dashboard:  true
+profile::openstack::dashboard::manage_firewall:   true
+profile::openstack::dashboard::manage_overrides:  true
 
 profile::base::common::packages:
   'python-openstackclient': {}
