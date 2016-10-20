@@ -14,7 +14,7 @@ calico::reflector::clients:
   c3:
     peer_ipv4: '172.18.32.105'
   gw:
-    peer_ipv4: '172.18.32.1'
+    peer_ipv4: "%{hiera('netcfg_trp_gateway')}"
 
 # compute node settings
 calico::compute::peer_defaults:
@@ -23,4 +23,4 @@ calico::compute::peer_defaults:
 
 calico::compute::peers:
   rr1:
-    peer_ipv4: '172.18.32.1'
+    peer_ipv4: "%{hiera('netcfg_trp_gateway')}"
