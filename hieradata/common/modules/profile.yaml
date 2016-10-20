@@ -60,7 +60,7 @@ profile::application::himlarcli::region_name:       "%{::location}"
 profile::application::himlarcli::tenant_name:       'openstack'
 profile::application::himlarcli::default_domain:    'Default'
 profile::application::himlarcli::domain:            "%{::domain}"
-profile::application::himlarcli::foreman_url:       "https://%{::location}-foreman-01.%{::domain}"
+profile::application::himlarcli::foreman_url:       "https://%{::location}-admin-01.%{::domain}"
 profile::application::himlarcli::foreman_user:      'admin'
 profile::application::himlarcli::foreman_password:  "%{hiera('foreman::admin_password')}"
 profile::application::himlarcli::statsd_server:     "%{hiera('service__address__monitor')}"

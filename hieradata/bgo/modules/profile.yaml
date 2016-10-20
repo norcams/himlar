@@ -14,4 +14,3 @@ profile::application::himlarcli::smtp:          'smtp.uib.no'
 profile::application::himlarcli::from_addr:     'no-reply@uib.no'
 profile::application::himlarcli::ldap_server:   'ldap.uib.no'
 profile::application::himlarcli::ldap_base_dn:  'dc=uib,dc=no'
-profile::application::himlarcli::foreman_url:   "https://%{::location}-admin-01.%{::domain}" #FIXME
