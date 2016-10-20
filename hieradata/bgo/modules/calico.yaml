@@ -20,6 +20,7 @@ calico::reflector::clients:
 calico::compute::peer_defaults:
   peer_as: 65501
   local_as: 65501
+  local_ipv4: "%{ipaddress_trp1}"
 
 calico::compute::peers:
   rr1:
