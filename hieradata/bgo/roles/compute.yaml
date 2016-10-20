@@ -13,14 +13,3 @@ profile::monitoring::sensu::agent::enable_agent:  true
 
 puppet::cron_cmd: "if [ -e /root/proxy.sh ] ; then source /root/proxy.sh ; fi ; \
   /usr/bin/env puppet agent --config %{puppet::dir}/puppet.conf --onetime --no-daemonize"
-
-################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
-calico::compute::bird_template: 'profile/bird/bird.conf.erb'
-
-named_interfaces::config:
-  mgmt:
-    - em3
-  transport:
-    - team1
-  service:
-    - team1

@@ -50,14 +50,18 @@ profile::base::common::packages:
 calico::compute: true
 etcd::mode: 'proxy'
 
+calico::compute::bird_template: 'profile/bird/bird.conf.erb'
+
 named_interfaces::config:
   mgmt:
     - em3
-  transport:
-    - em1
-    - em2
-  service:
-    - em1
+  transport: #FIXME
+    - team1
+  trp:
+    - team1
+  service: #FIXME
+    - team1
+
 
 sudo::purge: false
 
