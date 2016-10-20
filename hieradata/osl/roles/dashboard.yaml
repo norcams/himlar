@@ -1,6 +1,7 @@
 ---
 # Disable dashboard on osl.
 profile::openstack::dashboard::manage_dashboard:  false #FIXME
+profile::openstack::api::manage_apache: true #FIXME
 
 dashboard_referer:    '^https://dashboard\.iaas\.uio\.no/dashboard'
 
