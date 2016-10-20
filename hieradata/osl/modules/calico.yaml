@@ -24,4 +24,6 @@ calico::compute::peer_defaults:
 
 calico::compute::peers:
   rr1:
-    peer_ipv4: "%{hiera('netcfg_trp_gateway')}"
+    peer_ipv4: '172.18.32.1'
+  rr2:
+    peer_ipv4: '172.18.32.2'
