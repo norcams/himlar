@@ -11,7 +11,7 @@ neutron::server::region_name: "%{location}"
 
 neutron::server::notifications::notify_nova_on_port_status_changes: true
 neutron::server::notifications::notify_nova_on_port_data_changes: true
-neutron::server::notifications::nova_url: "http://%{hiera('service__address__nova_api')}:8774/v2"
+neutron::server::notifications::nova_url: "%{hiera('endpoint_protocol')}://%{hiera('service__address__nova_public_api')}:8774/v2"
 neutron::server::notifications::auth_url: "http://%{hiera('service__address__keystone_admin')}:35357"
 neutron::server::notifications::auth_type: 'password'
 neutron::server::notifications::username: 'nova'
@@ -24,11 +24,11 @@ neutron::db::mysql::allowed_hosts:
   - 'localhost'
   - '%'
 
-neutron::keystone::auth::public_url:    "%{hiera('endpoint_protocol')}://%{hiera('service__address__neutron_public')}:9696"
-neutron::keystone::auth::internal_url:  "%{hiera('endpoint_protocol')}://%{hiera('service__address__neutron_public')}:9696"
-neutron::keystone::auth::admin_url:     "%{hiera('endpoint_protocol')}://%{hiera('service__address__neutron_public')}:9696"
-neutron::keystone::auth::region:        "%{location}"
-neutron::keystone::auth::password:      "%{hiera('neutron_api_password')}"
+neutron::keystone::auth::public_url: "%{hiera('endpoint_protocol')}://%{hiera('service__address__neutron_public')}:9696"
+neutron::keystone::auth::internal_url: "http://%{hiera('service__address__neutron_server')}:9696"
+neutron::keystone::auth::admin_url: "http://%{hiera('service__address__neutron_server')}:9696"
+neutron::keystone::auth::region: "%{location}"
+neutron::keystone::auth::password: "%{hiera('neutron_api_password')}"
 
 # rabbit mq
 neutron::rabbit_user:           'neutron'
