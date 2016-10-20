@@ -1,34 +1,44 @@
-glance::api::bind_host: "%{ipaddress_transport1}"
-glance::api::auth_uri: "http://%{hiera('service__address__keystone')}:5000/"
-glance::api::identity_uri: "http://%{hiera('service__address__keystone_admin')}:35357/"
-glance::api::database_connection: "mysql://glance:%{hiera('glance::db::mysql::password')}@%{hiera('service__address__mysql')}/glance"
-glance::api::workers: 1
-glance::api::registry_host: "%{hiera('service__address__glance_registry')}"
-glance::api::show_image_direct_url: true
-
-glance::registry::keystone_password: "%{hiera('glance::api::keystone_password')}"
-glance::registry::bind_host: "%{ipaddress_transport1}"
-glance::registry::auth_uri: "http://%{hiera('service__address__keystone')}:5000/"
-glance::registry::identity_uri: "http://%{hiera('service__address__keystone_admin')}:35357/"
-glance::registry::database_connection: "mysql://glance:%{hiera('glance::db::mysql::password')}@%{hiera('service__address__mysql')}/glance"
-
+---
+# db (node: image)
 glance::db::mysql::allowed_hosts:
-  - "%{ipaddress_service1}"
-  - 'localhost'
-  - '%'
+  - "%{netpart_trp1}.%"
 
-glance::keystone::auth::password: "%{hiera('glance::api::keystone_password')}"
-glance::keystone::auth::public_url: "%{hiera('endpoint_protocol')}://%{hiera('service__address__glance_public_api')}:9292"
-glance::keystone::auth::admin_url: "http://%{hiera('service__address__glance_api')}:9292"
-glance::keystone::auth::internal_url: "http://%{hiera('service__address__glance_api')}:9292"
+# api (node: image)
+glance::api::database_connection:       "mysql://glance:%{hiera('glance::db::mysql::password')}@%{hiera('service__address__mysql')}/glance"
+glance::api::os_region_name:            "%{location}"
+glance::api::bind_host:                 "%{::ipaddress_trp1}"
+glance::api::auth_uri:                  "http://%{hiera('service__address__keystone')}:5000/"
+glance::api::auth_region:               "%{location}"
+glance::api::identity_uri:              "http://%{hiera('service__address__keystone_admin')}:35357/"
+glance::api::keystone_password:         "%{hiera('glance_api_password')}"
+glance::api::keystone_user:             'glance'
+glance::api::workers:                   1
+glance::api::registry_host:             "%{hiera('service__address__glance_registry')}"
+glance::api::show_image_direct_url:     true
+glance::api::use_syslog:                true
+glance::api::log_facility:              'LOG_LOCAL3'
 
-glance::keystone::auth::region: "%{location}"
-glance::api::os_region_name: "%{location}"
+# registry (node: image)
+glance::registry::os_region_name:       "%{location}"
+glance::registry::keystone_password:    "%{hiera('glance::api::keystone_password')}"
+glance::registry::keystone_user:        'glance'
+glance::registry::bind_host:            "%{::ipaddress_trp1}"
+glance::registry::auth_uri:             "http://%{hiera('service__address__keystone')}:5000/"
+glance::registry::identity_uri:         "http://%{hiera('service__address__keystone_admin')}:35357/"
+glance::registry::database_connection:  "mysql://glance:%{hiera('glance::db::mysql::password')}@%{hiera('service__address__mysql')}/glance"
+glance::registry::use_syslog:           true
+glance::registry::log_facility:         'LOG_LOCAL3'
 
+# keystone auth (node: identity)
+glance::keystone::auth::password:       "%{hiera('glance::api::keystone_password')}"
+glance::keystone::auth::public_url:     "%{hiera('endpoint_protocol')}://%{hiera('service__address__glance_public_api')}:9292"
+glance::keystone::auth::admin_url:      "http://%{hiera('service__address__glance_api')}:9292"
+glance::keystone::auth::internal_url:   "http://%{hiera('service__address__glance_api')}:9292"
+glance::keystone::auth::region:         "%{location}"
+
+# backend (node: image)
 glance::backend::rbd::rbd_store_user: 'glance'
 glance::backend::rbd::rbd_store_pool: 'images'
-
-glance::api::keystone_password: "%{hiera('glance_api_password')}"
 
 # rabbit mq (only for notifications)
 #glance::notify::rabbitmq::rabbit_userid:         'glance'
@@ -37,10 +47,3 @@ glance::api::keystone_password: "%{hiera('glance_api_password')}"
 #  - "%{hiera('service__address__rabbitmq_01')}:5672"
 #  - "%{hiera('service__address__rabbitmq_02')}:5672"
 #  - "%{hiera('service__address__rabbitmq_03')}:5672"
-
-# logging
-glance::api::use_syslog:                true
-glance::api::log_facility:              'LOG_LOCAL3'
-
-glance::registry::use_syslog:           true
-glance::registry::log_facility:         'LOG_LOCAL3'
