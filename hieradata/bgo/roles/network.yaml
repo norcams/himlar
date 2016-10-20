@@ -1,7 +1,7 @@
 ---
 profile::openstack::resource::networks:
   public:
-    name: 'bgo-public'
+    name: 'public'
     admin_state_up: true
     shared: true
     tenant_name: 'openstack'
@@ -9,7 +9,7 @@ profile::openstack::resource::networks:
 
 profile::openstack::resource::subnets:
   public:
-    name: 'bgo-public'
+    name: 'public'
     cidr: '158.39.77.0/24'
     ip_version: '4'
     allocation_pools:
@@ -18,5 +18,5 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - '129.177.6.54'
       - '129.177.12.31'
-    network_name: 'bgo-public'
+    network_name: 'public'
     tenant_name: 'openstack'
