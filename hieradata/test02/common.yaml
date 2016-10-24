@@ -62,7 +62,7 @@ service__address__etcd_cluster:      "%{hiera('netcfg_netpart_trp')}.71"
 
 # mgmt
 service__address__proxy:             "%{hiera('netcfg_netpart_mgmt')}.12"
-service__address__rsyslog:           "%{hiera('netcfg_netpart_mgmt')}.18"
+service__address__rsyslog:           "%{hiera('netcfg_netpart_mgmt')}.13"
 mgmt_address_mq:                     "%{hiera('netcfg_netpart_mgmt')}.31"
 
 # rabbitmq
