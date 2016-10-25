@@ -1,5 +1,5 @@
 ---
-keystone::federation::oidc::trusted_dashboard: "https://dashboard.iaas.ui0.no/dashboard/auth/websso/"
+keystone::federation::oidc::trusted_dashboard: "https://dashboard.test.iaas.uio.no/dashboard/auth/websso/"
 keystone::db::mysql::allowed_hosts: # FIXME
   - "%{netpart_trp1}.%"
 
