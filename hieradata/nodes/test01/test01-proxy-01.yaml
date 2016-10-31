@@ -6,6 +6,17 @@ network::interfaces_hash:
     gateway:   '172.28.0.10'
     mtu:       '1500'
     peerdns:   'yes'
-    dns1:      '129.177.6.54'
-    dns2:      '129.177.12.31'
-    domain:    'mgmt.test.iaas.intern'
+    dns1:      "%{hiera('netcfg_dns_server1')}"
+    dns2:      "%{hiera('netcfg_dns_server2')}"
+    domain:    "%{hiera('netcfg_dns_search')}"
+    defroute:  'no'
+  'eth1':
+    ipaddress: '172.28.0.12'
+    netmask:   '255.255.248.0'
+    gateway:   "%{hiera('netcfg_trp_gateway')}"
+    srcaddr:   '129.177.31.123'
+    defroute:  'yes'
+  'dummy0':
+    ipaddress: '129.177.31.123'
+    netmask:   '255.255.255.255'
+    defroute:  'no'

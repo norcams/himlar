@@ -10,7 +10,11 @@ domain_public: 'iaas.uib.no'
 domain_trp:    'trp.test.iaas.intern'
 domain_mgmt:   'mgmt.test.iaas.intern'
 
-netcfg_trp_gateway: '172.30.0.1'
+netcfg_mgmt_gateway:  '172.28.0.10'
+netcfg_trp_gateway:   '172.30.0.1'
+netcfg_dns_server1:   '129.177.6.54'
+netcfg_dns_server2:   '129.177.12.31'
+netcfg_dns_search:    "%{hiera('domain_mgmt')}"
 
 # Service address
 service__address__rabbitmq_01:       '172.30.0.31'
