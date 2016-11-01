@@ -36,6 +36,14 @@ profile::application::git::settings:
 
 # Db backup
 profile::base::login::db_servers:
+  osl-db-01:
+    hour:     '*'
+    minute:   '20'
+    command:  '/usr/local/sbin/db-dump.sh osl-db-01 >/dev/null'
+  osl-db-02:
+    hour:     '*'
+    minute:   '30'
+    command:  '/usr/local/sbin/db-dump.sh osl-db-02 >/dev/null'
   test02-db-01:
     hour:     '*'
     minute:   '20'
