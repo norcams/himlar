@@ -1,0 +1,7 @@
+---
+include:
+  default:
+    - profile::application::sslcert
+
+profile::application::sslcert::cert_name:       'vagrant'
+profile::application::sslcert::commonname:      "api.%{hiera('domain_public')}"
