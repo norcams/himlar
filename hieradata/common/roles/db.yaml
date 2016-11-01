@@ -55,3 +55,16 @@ profile::monitoring::sensu::agent::checks:
 profile::base::yumrepo::repo_hash:
   mariadb:
     ensure: present
+
+
+# for backup
+
+# ... script creation
+profile::database::mariadb::backupuser:       'root'
+profile::database::mariadb::backuppassword:   "%{hiera('mysql::server::root_password')}"
+profile::database::mariadb::postscript:       "touch %{hiera('profile::database::mariadb::backuptopdir')}/$(hostname)-backupflag"
+profile::database::mariadb::file_per_database: true
+
+# ... for backup script usage
+profile::base::common::packages:
+  'bzip2': {}

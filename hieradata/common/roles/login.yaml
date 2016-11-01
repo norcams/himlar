@@ -71,3 +71,5 @@ profile::application::git::settings:
 profile::base::yumrepo::repo_hash:
   rdo-release:
     ensure: present
+
+profile::base::login::manage_db_backup: true

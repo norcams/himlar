@@ -1,7 +1,15 @@
 #
 #
-class profile::base::login
-{
+
+class profile::base::login (
+  $manage_db_backup = false,
+  $ensure           = 'present',
+  $agelimit         = '14',
+  $db_servers       = {},
+  $repodir          = '/opt/repo/secrets',
+) {
+
+
   include googleauthenticator::pam::common
 
   $pam_modes = hiera('googleauthenticator::pam::mode::modes', {})
@@ -26,6 +34,31 @@ class profile::base::login
     type    => 'auth',
     control => 'substack',
     module  => 'password-auth',
+  }
+
+  if $manage_db_backup  {
+    $dumpdir        = hiera('profile::database::mariadb::backuptopdir')
+    $db_dump_script = hiera('profile::database::mariadb::backupscript')
+
+    create_resources('cron', $db_servers)
+
+    file { 'db-dump.sh':
+      ensure  => $ensure,
+      path    => '/usr/local/sbin/db-dump.sh',
+      mode    => '0700',
+      owner   => 'root',
+      group   => 'root',
+      content => template("${module_name}/base/db-dump.sh.erb"),
+    }
+
+    file { 'db-dump-dir':
+      ensure  => 'directory',
+      path    => '/opt/repo/secrets/dumps',
+      mode    => '0700',
+      owner   => 'root',
+      group   => 'root',
+    }
+
   }
 
 }
