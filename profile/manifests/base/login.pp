@@ -5,7 +5,7 @@ class profile::base::login (
   $manage_db_backup = false,
   $ensure           = 'present',
   $agelimit         = '14',
-  $db_servers	    = [ '' ],
+  $db_servers       = {},
   $repodir          = '/opt/repo/secrets',
 ) {
 
