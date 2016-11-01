@@ -26,6 +26,12 @@ class profile::highavailability::loadbalancing::haproxy (
     create_resources('haproxy::userlist', $haproxy_userlists)
     create_resources('haproxy::peer', $haproxy_peers)
 
+    file { '/etc/haproxy/sorry.http':
+      ensure => present,
+      source => "puppet:///modules/${module_name}/loadbalancing/haproxy.sorry.http",
+      notify => Service['haproxy']
+    }
+
   }
 
   if $manage_firewall {
