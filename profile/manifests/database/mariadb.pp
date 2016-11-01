@@ -40,7 +40,7 @@ class profile::database::mariadb (
   $execpath           = '/usr/bin:/usr/sbin:/bin:/sbin',
 ) {
 
-  $backupdir = "${backuptopdir}/$::hostname"
+  $backupdir = "${backuptopdir}/${::hostname}"
 
   if $manage_repo {
     include ::mariadbrepo
