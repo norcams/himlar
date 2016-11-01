@@ -108,12 +108,12 @@ while getopts ":ha:" opt; do
 done
 shift "$((OPTIND-1))"
 
-: ${1?Error: must state node to backup as first argument}                   # 'crash' if no arguments
-DB_SERVER=$1                                                                # expect first argument if any to be relevant node to back up
+: ${1?Error: must state node to backup as first argument}                           # 'crash' if no arguments
+DB_SERVER=$1                                                                        # expect first argument if any to be relevant node to back up
 
-$DEBUG /usr/bin/ssh -tt $DB_SERVER -l $SSH_USER sudo $DB_DUMP_SCRIPT        # execute dump script on db node
+$DEBUG /usr/bin/ssh -qtt $DB_SERVER -l $SSH_USER sudo $DB_DUMP_SCRIPT               # execute dump script on db node
 if [ $? -eq 0 ]; then
-    $DEBUG /usr/bin/rsync -a ${SSH_USER}@${DB_SERVER}:${DUMP_DIR}/ ${BACKUP_DIR}   # retrive dump files
+    $DEBUG /usr/bin/rsync -a ${SSH_USER}@${DB_SERVER}:${DUMP_DIR}/ ${BACKUP_DIR}    # retrive dump files
     if [ $? -eq 0 ]; then
         $DEBUG touch $FLAG
     else
