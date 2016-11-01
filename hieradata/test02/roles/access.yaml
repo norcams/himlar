@@ -11,6 +11,7 @@ profile::webserver::apache::vhosts:
     ssl_cert:           "/etc/pki/tls/certs/access.test.iaas.uio.no.cert.pem"
     ssl_key:            "/etc/pki/tls/private/access.test.iaas.uio.no.key.pem"
 
+profile::application::access::package_url: 'https://download.iaas.uio.no/uh-sky/rpm/himlar-dp-prep-1.2-1.el7.x86_64.rpm'
 
 ################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
 profile::base::network::manage_dummy: true
