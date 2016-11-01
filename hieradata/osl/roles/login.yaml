@@ -33,3 +33,14 @@ himlar_bootstrap::tftp_install:
 
 profile::application::git::settings:
   hostname: "osl"
+
+# Db backup
+profile::base::login::db_servers:
+  test02-db-01:
+    hour:     '*'
+    minute:   '20'
+    command:  '/usr/local/sbin/db-dump.sh test02-db-01 >/dev/null'
+  test02-db-02:
+    hour:     '*'
+    minute:   '30'
+    command:  '/usr/local/sbin/db-dump.sh test02-db-02 >/dev/null'
