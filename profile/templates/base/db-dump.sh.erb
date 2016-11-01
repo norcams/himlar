@@ -37,6 +37,9 @@ DB_DUMP_SCRIPT="<%= @db_dump_script %>"     # name of backup script on db node
 AGELIMIT=<%= @agelimit %>                   # days for backup rotation
 
 SSH_USER="iaas"
+OWNER="<%= @dump_owner %>"                  # owner and group of dump files after retrieval
+GROUP="<%= @dump_group %>"
+
 FLAG="/tmp/db-dump.flag"
 
 
@@ -105,13 +108,12 @@ while getopts ":ha:" opt; do
 done
 shift "$((OPTIND-1))"
 
-: ${1?Error: must state node to backup as first argument}		# 'crash' if no arguments
-DB_SERVER=$1								# expect first argument if any to be relevant node to back up
+: ${1?Error: must state node to backup as first argument}                   # 'crash' if no arguments
+DB_SERVER=$1                                                                # expect first argument if any to be relevant node to back up
 
-$DEBUG /usr/bin/ssh -tt $DB_SERVER -l $SSH_USER sudo $DB_DUMP_SCRIPT	# execute dump script on db node
+$DEBUG /usr/bin/ssh -tt $DB_SERVER -l $SSH_USER sudo $DB_DUMP_SCRIPT        # execute dump script on db node
 if [ $? -eq 0 ]; then
-    $DEBUG /usr/bin/rsync -a iaas@${DB_SERVER}:$DUMP_DIR/ $BACKUP_DIR	# retrive dump files
-    $DEBUG cleanup $AGELIMIT						# remove expired files
+    $DEBUG /usr/bin/rsync -a iaas@${DB_SERVER}:${DUMP_DIR}/ ${BACKUP_DIR}   # retrive dump files
     if [ $? -eq 0 ]; then
         $DEBUG touch $FLAG
     else
@@ -119,6 +121,11 @@ if [ $? -eq 0 ]; then
         echo "but something with the file synchronization went amiss\!"
         exit $EINVALSYNC
     fi
+
+    chown -R ${OWNER}:${GROUP} ${BACKUP_DIR}
+    find ${BACKUP_DIR} -type f ! -perm g+rw -exec chmod g+rw {} \;
+    find ${BACKUP_DIR} -type d ! -perm g+rwx -exec chmod g+rwx {} \;
+    $DEBUG cleanup $AGELIMIT                                                # remove expired files
 else
     echo "Could not connect to $DB_SERVER - is this a db node?"
     exit $EINVALNODE

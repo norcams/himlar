@@ -7,6 +7,8 @@ class profile::base::login (
   $agelimit         = '14',
   $db_servers       = {},
   $repodir          = '/opt/repo/secrets',
+  $dump_owner       = '',
+  $dump_group       = '',
 ) {
 
 

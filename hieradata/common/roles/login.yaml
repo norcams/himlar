@@ -33,6 +33,14 @@ accounts::accounts:
     ensure: absent
   'vagrant':
     ensure: absent
+  'norcams':
+    ensure: present
+
+
+# special user for common files which should be synced between locations (can not be owned by root)
+accounts::users:
+  'norcams':
+    shell: '/bin/false'
 
 #openstack_extras::repo::redhat::redhat::manage_rdo: true
 profile::base::common::packages:
@@ -73,3 +81,6 @@ profile::base::yumrepo::repo_hash:
     ensure: present
 
 profile::base::login::manage_db_backup: true
+profile::base::login::dump_owner:      'norcams'
+profile::base::login::dump_group:      'wheel'
+
