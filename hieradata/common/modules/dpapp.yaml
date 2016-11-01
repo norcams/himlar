@@ -2,6 +2,7 @@
 dpapp::keystone_url:        "%{hiera('endpoint_protocol')}://%{hiera('service__address__keystone_public')}:5000/v3"
 dpapp::horizon_url:         "https://%{hiera('service__address__horizon')}"
 dpapp::dp_domain_name:      'dataporten'
+dpapp::region:              "%{::location}"
 
 # Override these in secrets/nodes/<location>-dpapp-01.secrets.yaml
 dpapp::oauth_client_id:     'nnnnnnnn-nnnn-nnnn-nnnn-nnnnnnnnnnnn'
