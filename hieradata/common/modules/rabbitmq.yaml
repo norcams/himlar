@@ -9,7 +9,8 @@ rabbitmq::node_ip_address:            "0.0.0.0"
 rabbitmq::package_provider:           yum
 rabbitmq::package_source:             ''
 rabbitmq::config_variables:
-    'log_levels':     "[{connection, info}]"
+    'log_levels':       "[{connection, info}]"
+    'loopback_users':   "[{local}]"
 
 rabbitmq::config_cluster:             true
 rabbitmq::cluster_node_type:          'disc'
