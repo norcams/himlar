@@ -27,7 +27,7 @@ class profile::database::mariadb (
   $backupdirowner     = 'root',
   $backupdirgroup     = 'root',
   $backupcompress     = true,
-  $backuprotate       = 30,
+  $backuprotate       = 24,
   $ignore_events      = true,
   $delete_before_dump = false,
   $backupdatabases    = [],

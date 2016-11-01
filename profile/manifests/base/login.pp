@@ -4,23 +4,11 @@
 class profile::base::login (
   $manage_db_backup = false,
   $ensure           = 'present',
-  $time             = ['*' , '55'],
   $agelimit         = '14',
   $db_servers	    = [ '' ],
   $repodir          = '/opt/repo/secrets',
 ) {
 
-  # workaround until puppet version with "each" iterator
-  define cronjob ( $time, $ensure, $node = $title )  {
-    cron { "db-backup_$node":
-      ensure  => $ensure,
-      command => "/usr/local/sbin/db-dump.sh $node >/dev/null",
-      user    => 'root',
-      hour    => $time[0],
-      minute  => $time[1],
-      require => [File['db-dump.sh']],
-    }
-  }
 
   include googleauthenticator::pam::common
 
@@ -52,6 +40,8 @@ class profile::base::login (
     $dumpdir        = hiera('profile::database::mariadb::backuptopdir')
     $db_dump_script = hiera('profile::database::mariadb::backupscript')
 
+    create_resources('cron', $db_servers)
+
     file { 'db-dump.sh':
       ensure  => $ensure,
       path    => '/usr/local/sbin/db-dump.sh',
@@ -69,22 +59,6 @@ class profile::base::login (
       group   => 'root',
     }
 
-    # when puppet with "each" iterator swap this with code below
-    cronjob { $db_servers:
-      time   => $time,
-      ensure => $ensure,
-    }
-
-#    $db_servers.each |String $node|  {
-#      cron { "db-backup_$node":
-#        ensure  => $ensure,
-#        command => "/usr/local/sbin/db-dump.sh $node",
-#        user    => 'root',
-#        hour    => $time[0],
-#        minute  => $time[1],
-#        require => [file['db-dump.sh']],
-#      }
-#    }
   }
 
 }

@@ -62,7 +62,6 @@ profile::base::yumrepo::repo_hash:
 # ... script creation
 profile::database::mariadb::backupuser:       'root'
 profile::database::mariadb::backuppassword:   "%{hiera('mysql::server::root_password')}"
-profile::database::mariadb::backuprotate:      2
 profile::database::mariadb::postscript:       "touch %{hiera('profile::database::mariadb::backuptopdir')}/$(hostname)-backupflag"
 profile::database::mariadb::file_per_database: true
 
