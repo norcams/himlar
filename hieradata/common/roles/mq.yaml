@@ -6,6 +6,15 @@ include:
 
 profile::messaging::rabbitmq::manage_rsyslog: true
 
+# Sensu
+profile::base::common::packages:
+  'gcc-c++': {}
+
+profile::monitoring::sensu::agent::plugins:
+  sensu-plugins-rabbitmq:
+    type:         package
+    pkg_version:  '2.0.0'
+
 profile::messaging::rabbitmq::users:
   nova:
     password: "%{hiera('nova::rabbit_password')}"
