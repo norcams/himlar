@@ -56,9 +56,9 @@ class profile::base::login (
     file { 'db-dump-dir':
       ensure  => 'directory',
       path    => '/opt/repo/secrets/dumps',
-      mode    => '0700',
-      owner   => 'root',
-      group   => 'root',
+      mode    => '0770',
+      owner   => $dump_owner,
+      group   => $dump_group,
     }
 
   }
