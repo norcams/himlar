@@ -4,6 +4,7 @@ include:
     - profile::highavailability::loadbalancing::haproxy
     - profile::logging::rsyslog::client
 
+profile::base::network::manage_dummy:                               true
 profile::highavailability::loadbalancing::haproxy::manage_haproxy:  true
 profile::highavailability::loadbalancing::haproxy::manage_firewall: true
 profile::highavailability::loadbalancing::haproxy::firewall_extras:
