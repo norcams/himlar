@@ -20,3 +20,22 @@ himlar_bootstrap::tftp_install:
 
 profile::application::git::settings:
   hostname: "bgo"
+
+# Db backup
+profile::base::login::db_servers:
+  bgo-db-01:
+    hour:     '*'
+    minute:   '20'
+    command:  '/usr/local/sbin/db-dump.sh bgo-db-01 >/dev/null'
+  bgo-db-02:
+    hour:     '*'
+    minute:   '30'
+    command:  '/usr/local/sbin/db-dump.sh bgo-db-02 >/dev/null'
+  test01-db-01:
+    hour:     '*'
+    minute:   '20'
+    command:  '/usr/local/sbin/db-dump.sh test01-db-01 >/dev/null'
+  test01-db-02:
+    hour:     '*'
+    minute:   '30'
+    command:  '/usr/local/sbin/db-dump.sh test01-db-02 >/dev/null'
