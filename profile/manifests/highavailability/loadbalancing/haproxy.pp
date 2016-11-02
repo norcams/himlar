@@ -2,6 +2,7 @@
 class profile::highavailability::loadbalancing::haproxy (
   $manage_haproxy          = false,
   $manage_firewall         = false,
+  $allow_from_network      = undef,
   $firewall_extras         = {},
   $haproxy_listens         = {},
   $haproxy_frontends       = {},
@@ -35,9 +36,16 @@ class profile::highavailability::loadbalancing::haproxy (
   }
 
   if $manage_firewall {
+    $hiera_allow_from_network = hiera_array('allow_from_network', undef)
+    $source = $allow_from_network? {
+      undef   => $hiera_allow_from_network,
+      ''      => $hiera_allow_from_network,
+      default => $allow_from_network
+    }
     profile::firewall::rule { '450 haproxy accept tcp':
       proto       => 'tcp',
       destination => $::ipaddress_public1,
+      source      => $source,
       extras      => $firewall_extras,
     }
   }
