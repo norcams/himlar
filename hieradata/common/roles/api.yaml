@@ -2,6 +2,7 @@
 include:
   default:
     - profile::highavailability::loadbalancing::haproxy
+    - profile::logging::rsyslog::client
 
 profile::highavailability::loadbalancing::haproxy::manage_haproxy:  true
 profile::highavailability::loadbalancing::haproxy::manage_firewall: true
