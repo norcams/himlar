@@ -164,7 +164,7 @@ mod 'ceph', :ref => '998e023d8f',                :git => github + 'openstack/pup
 #
 # ceph
 #
-mod 'haproxy', :ref => '1.5.0',                  :git => github + 'puppetlabs/haproxy'
+mod 'haproxy', :ref => '1.5.0',                  :git => github + 'puppetlabs/puppetlabs-haproxy'
 
 #
 # Common libs
