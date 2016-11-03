@@ -47,11 +47,15 @@ sensu::checks:
     subscribers:  ['metrics']
     handlers:     ['graphite_tcp']
   'check-disk-usage':
-    command:      'check-disk-usage.rb -w 70'
+    command:      'check-disk-usage.rb -w 70 -c 90'
     interval:     60
     subscribers:  ['checks']
   'check-load':
-    command:      'check-load.rb -p'
+    command:      'check-load.rb -p -w 3,2,1'
+    interval:     60
+    subscribers:  ['checks']
+  'check-memory-precent':
+    command:      'check-memory-percent.rb -w 50 -c 90'
     interval:     60
     subscribers:  ['checks']
 
