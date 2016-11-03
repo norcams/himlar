@@ -57,7 +57,7 @@ mod 'openssl', :ref => '1.5.0',                  :git => github + 'camptocamp/pu
 
 #
 # profile::application::consul
-#nodes.yaml
+#
 mod 'consul', :ref => '7c428f4b2b',              :git => github + 'solarkennedy/puppet-consul'
 
 #

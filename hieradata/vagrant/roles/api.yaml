@@ -5,3 +5,6 @@ include:
 
 profile::application::sslcert::cert_name:       'vagrant'
 profile::application::sslcert::commonname:      "api.%{hiera('domain_public')}"
+
+# Must be made on host by addeing key, cert, and ca into one file
+api_ssl_pem:  '/opt/himlar/provision/ca/certs/haproxy.pem'
