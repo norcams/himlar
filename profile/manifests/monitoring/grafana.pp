@@ -1,16 +1,24 @@
 #
 class profile::monitoring::grafana(
+  $enable                    = false,
+  $datasource                = {},
+  $dashboard                 = {},
   $manage_firewall           = false,
   $firewall_extras           = {}
 ) {
 
-  include ::grafana
+  if $enable {
+    include ::grafana
 
-  if $manage_firewall {
-    profile::firewall::rule { '412 grafana accept tcp':
-      port        => 8080,
-      destination => $::ipaddress_mgmt1,
-      extras      => $firewall_extras,
+    create_resources('grafana_dashboard', $dashboard, { require => Class['grafana::service'] })
+    create_resources('grafana_datasource', $datasource, { require => Class['grafana::service'] })
+
+    if $manage_firewall {
+      profile::firewall::rule { '412 grafana accept tcp':
+        port   => 8080,
+        extras => $firewall_extras,
+      }
     }
   }
+
 }
