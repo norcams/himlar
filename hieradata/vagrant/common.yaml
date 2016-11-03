@@ -2,7 +2,7 @@
 include:
   default:
     - profile::development::network::dns
-#    - profile::monitoring::sensu::agent
+    - profile::monitoring::sensu::agent
 
 # Location setting
 location_environment: dev
@@ -16,6 +16,7 @@ domain_mgmt:            'mgmt.vagrant.iaas.intern'
 # These should only be used to configure network in nodes!
 netcfg_netpart_trp:     '172.31.16'
 netcfg_netmask_trp:     '255.255.255.0'
+netcfg_trp_gateway:     '172.31.16.1'
 netcfg_netpart_mgmt:    '172.31.0'
 netcfg_netmask_mgmt:    '255.255.255.0'
 netcfg_gateway_mgmt:    '172.31.0.1'
@@ -66,25 +67,25 @@ profile::firewall::pre::ssh_settings:
 # public
 service__address__status:            "status.%{hiera('domain_public')}"
 service__address__horizon:           "dashboard.%{hiera('domain_public')}"
-service__address__keystone_public:   "dashboard.%{hiera('domain_public')}"
-service__address__glance_public_api: "dashboard.%{hiera('domain_public')}"
-service__address__nova_public_api:   "dashboard.%{hiera('domain_public')}"
-service__address__neutron_public:    "dashboard.%{hiera('domain_public')}"
-service__address__cinder_public_api: "dashboard.%{hiera('domain_public')}"
+service__address__keystone_public:   "api.%{hiera('domain_public')}"
+service__address__glance_public_api: "api.%{hiera('domain_public')}"
+service__address__nova_public_api:   "api.%{hiera('domain_public')}"
+service__address__neutron_public:    "api.%{hiera('domain_public')}"
+service__address__cinder_public_api: "api.%{hiera('domain_public')}"
 service__address__consoleproxy:      "console.%{hiera('domain_public')}"
 
 
 # service/transport
 # In vagrant default is master. Remove to use nodes from common
-service__address__nova_api:          '172.31.16.20'
-service__address__nova_api_metadata: '172.31.16.20'
-service__address__glance_registry:   '172.31.16.20'
-service__address__glance_api:        '172.31.16.20'
-service__address__keystone:          '172.31.16.20'
-service__address__keystone_admin:    '172.31.16.20'
-service__address__etcd_cluster:      '172.31.16.20'
-service__address__neutron_server:    '172.31.16.20'
-service__address__cinder_api:        '172.31.16.20'
+#service__address__nova_api:          '172.31.16.20'
+#service__address__nova_api_metadata: '172.31.16.20'
+#service__address__glance_registry:   '172.31.16.20'
+#service__address__glance_api:        '172.31.16.20'
+#service__address__keystone:          '172.31.16.20'
+#service__address__keystone_admin:    '172.31.16.20'
+#service__address__etcd_cluster:      '172.31.16.20'
+#service__address__neutron_server:    '172.31.16.20'
+#service__address__cinder_api:        '172.31.16.20'
 service__address__mysql:             '172.31.16.41'
 service__address__rsyslog:           '172.31.0.13'
 service__address__proxy:             ''
@@ -93,10 +94,10 @@ service__address__monitor:           '172.31.0.14'
 # Rabbitmq:
 # In vagrant default is master
 # Remove these to test with mq-01
-service__address__rabbitmq_01:       '172.31.16.20'
-service__address__rabbitmq_02:       '172.31.16.20'
-service__address__rabbitmq_03:       '172.31.16.20'
-mgmt_address_mq:                     '172.31.0.20'
+#service__address__rabbitmq_01:       '172.31.16.20'
+#service__address__rabbitmq_02:       '172.31.16.20'
+#service__address__rabbitmq_03:       '172.31.16.20'
+mgmt_address_mq:                     '172.31.0.31'
 
 # no proxy for vagrant environments
 profile::network::yum_proxy::yum_proxy: ''
@@ -153,8 +154,10 @@ profile::network::services::dns_records:
     "%{location}-novvactrl-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_netpart_mgmt')}.66"
     "%{location}-network-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_netpart_mgmt')}.71"
     "%{location}-identity-01.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_netpart_mgmt')}.81"
+    "%{location}-api-01.%{hiera('domain_mgmt')}":         "%{hiera('netcfg_netpart_mgmt')}.86"
     "%{location}-controller-01.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_netpart_mgmt')}.100"
     "%{location}-compute-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_netpart_mgmt')}.103"
+    "status.%{hiera('domain_trp')}":                      "%{hiera('netcfg_netpart_trp')}.21"
     "mq01.%{hiera('domain_trp')}":                        "%{hiera('netcfg_netpart_trp')}.31"
     "image.%{hiera('domain_trp')}":                       "%{hiera('netcfg_netpart_trp')}.36"
     "db01.%{hiera('domain_trp')}":                        "%{hiera('netcfg_netpart_trp')}.41"
@@ -166,6 +169,7 @@ profile::network::services::dns_records:
     "dashboard.%{hiera('domain_public')}":                "%{hiera('netcfg_netpart_public')}.51"
     "access.%{hiera('domain_public')}":                   "%{hiera('netcfg_netpart_public')}.56"
     "console.%{hiera('domain_public')}":                  "%{hiera('netcfg_netpart_public')}.61"
+    "api.%{hiera('domain_public')}":                      "%{hiera('netcfg_netpart_public')}.86"
 
 #
 ## Secret data which for other environments are stored ooutside of this data tree

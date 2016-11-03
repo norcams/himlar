@@ -56,7 +56,7 @@ profile::monitoring::sensu::agent::plugins:
 
 # metadata api check
 profile::monitoring::sensu::agent::checks:
-  'check-http':
+  'metadata-api':
     command:      "check-http.rb -u http://127.0.0.1:8775"
     interval:     30
     subscribers:  ['checks']

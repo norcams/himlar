@@ -1,4 +1,6 @@
 ---
 horizon::log_level:       'DEBUG'
+horizon::horizon_cert:    '/etc/pki/tls/certs/vagrant.crt'
+horizon::horizon_key:     '/etc/pki/tls/private/vagrant.key'
 horizon::horizon_ca:      '/opt/himlar/provision/ca/certs/ca-chain.cert.pem'
 horizon::ssl_no_verify:   true
