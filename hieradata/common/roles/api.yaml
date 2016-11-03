@@ -1,0 +1,72 @@
+---
+include:
+  default:
+    - profile::highavailability::loadbalancing::haproxy
+    - profile::logging::rsyslog::client
+
+profile::base::network::manage_dummy:                               true
+profile::highavailability::loadbalancing::haproxy::manage_haproxy:  true
+profile::highavailability::loadbalancing::haproxy::manage_firewall: true
+profile::highavailability::loadbalancing::haproxy::firewall_extras:
+  port: ['5000', '8774', '8776', '9292', '9696']
+
+api_ssl_pem:  'haproxy.pem'
+
+profile::highavailability::loadbalancing::haproxy::haproxy_listens:
+  identity:
+    options:
+      http-request:   'add-header X-Forwarded-Proto https if { ssl_fc }'
+    bind:
+      "%{::ipaddress_public1}:5000":  ['ssl', 'crt', "%{hiera('api_ssl_pem')}"]
+  compute:
+    options:
+      http-request:   'add-header X-Forwarded-Proto https if { ssl_fc }'
+    bind:
+      "%{::ipaddress_public1}:8774":  ['ssl', 'crt', "%{hiera('api_ssl_pem')}"]
+  volume:
+    options:
+      http-request:   'add-header X-Forwarded-Proto https if { ssl_fc }'
+    bind:
+      "%{::ipaddress_public1}:8776":  ['ssl', 'crt', "%{hiera('api_ssl_pem')}"]
+  image:
+    options:
+      http-request:   'add-header X-Forwarded-Proto https if { ssl_fc }'
+    bind:
+      "%{::ipaddress_public1}:9292":  ['ssl', 'crt', "%{hiera('api_ssl_pem')}"]
+  network:
+    options:
+      http-request:   'add-header X-Forwarded-Proto https if { ssl_fc }'
+    bind:
+      "%{::ipaddress_public1}:9696":  ['ssl', 'crt', "%{hiera('api_ssl_pem')}"]
+
+profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
+  identity:
+    listening_service:  'identity'
+    server_names:       ['identity-01']
+    ipaddresses:        ["%{hiera('service__address__keystone')}"]
+    ports:              '5000'
+    options:            'check'
+  compute:
+    listening_service:  'compute'
+    server_names:       ['novactrl-01']
+    ipaddresses:        ["%{hiera('service__address__nova_api')}"]
+    ports:              '8774'
+    options:            'check'
+  volume:
+    listening_service:  'volume'
+    server_names:       ['volume-01']
+    ipaddresses:        ["%{hiera('service__address__cinder_api')}"]
+    ports:              '8776'
+    options:            'check'
+  image:
+    listening_service:  'image'
+    server_names:       ['image-01']
+    ipaddresses:        ["%{hiera('service__address__glance_api')}"]
+    ports:              '9292'
+    options:            'check'
+  network:
+    listening_service:  'network'
+    server_names:       ['network-01']
+    ipaddresses:        ["%{hiera('service__address__neutron_server')}"]
+    ports:              '9696'
+    options:            'check'

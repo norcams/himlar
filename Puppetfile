@@ -162,10 +162,15 @@ mod 'libvirt', :ref => '0.3.2-norcams2',         :git => github + 'norcams/puppe
 mod 'ceph', :ref => '998e023d8f',                :git => github + 'openstack/puppet-ceph'
 
 #
+# ceph
+#
+mod 'haproxy', :ref => '1.5.0',                  :git => github + 'puppetlabs/puppetlabs-haproxy'
+
+#
 # Common libs
 #
 mod 'stdlib', :ref => '4.12.0',                  :git => github + 'puppetlabs/puppetlabs-stdlib'
-mod 'concat', :ref => '1.1.2',                   :git => github + 'puppetlabs/puppetlabs-concat'
+mod 'concat', :ref => '1.2.5',                   :git => github + 'puppetlabs/puppetlabs-concat'
 mod 'hash_file', :ref => '1.0.2',                :git => github + 'fiddyspence/puppet-hash_file'
 mod 'inifile', :ref => '1.5.0',                  :git => github + 'puppetlabs/puppetlabs-inifile'
 mod 'augeasproviders', :ref => 'v2.1.3',         :git => github + 'hercules-team/augeasproviders'
