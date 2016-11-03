@@ -8,10 +8,9 @@ profile::base::network::manage_dummy:                               true
 profile::highavailability::loadbalancing::haproxy::manage_haproxy:  true
 profile::highavailability::loadbalancing::haproxy::manage_firewall: true
 profile::highavailability::loadbalancing::haproxy::firewall_extras:
-  port: ['5000', '8774', '8776', '9292', '9696', '80', '443']
+  port: ['5000', '8774', '8776', '9292', '9696']
 
-api_ssl_pem:      "api.{hiera('domain_public')}.pem"
-status_ssl_pem:   "status.{hiera('domain_public')}.pem"
+api_ssl_pem:  'haproxy.pem'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_listens:
   identity:
@@ -39,13 +38,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_listens:
       http-request:   'add-header X-Forwarded-Proto https if { ssl_fc }'
     bind:
       "%{::ipaddress_public1}:9696":  ['ssl', 'crt', "%{hiera('api_ssl_pem')}"]
-  status:
-    options:
-      http-request:   'add-header X-Forwarded-Proto https if { ssl_fc }'
-      redirect:       'scheme https if !{ ssl_fc }'
-    bind:
-      "%{::ipaddress_public1}:443":  ['ssl', 'crt', "%{hiera('status_ssl_pem')}"]
-      "%{::ipaddress_public1}:80": []
 
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   identity:
@@ -77,10 +69,4 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     server_names:       ['network-01']
     ipaddresses:        ["%{hiera('service__address__neutron_server')}"]
     ports:              '9696'
-    options:            'check'
-  status:
-    listening_service:  'status'
-    server_names:       ['status-01']
-    ipaddresses:        ["status.%{hiera('domain_trp')}"]
-    ports:              '8080'
     options:            'check'

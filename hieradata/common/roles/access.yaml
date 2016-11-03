@@ -18,26 +18,6 @@ profile::webserver::apache::mods_enable:
   - wsgi
   - dir
 
-profile::base::common::packages:
-  'gcc-c++': {}
-
-profile::monitoring::sensu::agent::plugins:
-  sensu-plugins-http:
-    type:         package
-    pkg_version:  '1.0.0'
-
-profile::monitoring::sensu::agent::checks:
-  'metrics-curl':
-    type:         'metric'
-    command:      "metrics-curl.rb --scheme web.keystone.main_api -u http://%{hiera('service__address__keystone')}:5000/v3"
-    interval:     30
-    subscribers:  ['metrics']
-    handlers:     ['graphite_tcp']
-  'check-http':
-    command:      "check-http.rb -k -u https://%{hiera('service__address__keystone_public')}:5000/v3"
-    interval:     30
-    subscribers:  ['checks']
-
 profile::webserver::apache::vhosts:
   dpapp:
     vhost_name:         "access.%{hiera('domain_public')}"
