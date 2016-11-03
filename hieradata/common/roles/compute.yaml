@@ -46,6 +46,20 @@ profile::base::common::packages:
   'posix-spawn': {}
   'networking-calico': {}
   'python-openstackclient': {}
+  'gcc-c++': {}
+
+# Sensu (needs gcc-c++)
+profile::monitoring::sensu::agent::plugins:
+  sensu-plugins-http:
+    type:         package
+    pkg_version:  '1.0.0'
+
+# metadata api check
+profile::monitoring::sensu::agent::checks:
+  'check-http':
+    command:      "check-http.rb -u http://127.0.0.1:8775"
+    interval:     30
+    subscribers:  ['checks']
 
 calico::compute: true
 etcd::mode: 'proxy'
