@@ -71,43 +71,89 @@ named_interfaces::config:
   public:
     - dummy0
 
+#
+# Public addresses
+#
+public__address__api:             "api.%{hiera('domain_public')}"
+public__address__dashboard:       "dashboard.%{hiera('domain_public')}"
+public__address__access:          "access.%{hiera('domain_public')}"
+public__address__console:         "console.%{hiera('domain_public')}"
+
+#
+# Services (internal non openstack services)
+#
+service__address__db_01:          "db01.%{hiera('domain_trp')}"
+service__address__db_02:          "db02.%{hiera('domain_trp')}"
+service__address__status:         "status.%{hiera('domain_trp')}"
+service__address__rabbitmq_01:    "mq01.%{hiera('domain_trp')}"
+service__address__rabbitmq_02:    "mq01.%{hiera('domain_trp')}"
+service__address__rabbitmq_03:    "mq01.%{hiera('domain_trp')}"
+
+#
+# Management (proxy and logger must be IP)
+#
+mgmt__address__proxy:             '0.0.0.0/32'
+mgmt__address__logger:            '0.0.0.0/32'
+mgmt__address__monitor:           "monitor.%{hiera('domain_mgmt')}"
+
+#
+# Endpoints (including protocole)
+#
+endpoint__identity__admin:        "http://identity.%{hiera('domain_trp')"
+endpoint__identity__internal:     "http://identity.%{hiera('domain_trp')"
+endpoint__identity__public:       "https://identity.api.%{hiera('domain_public')}"
+endpoint__compute__admin:         "http://compute.%{hiera('domain_trp')"
+endpoint__compute__internal:      "http://compute.%{hiera('domain_trp')"
+endpoint__compute__public:        "https://compute.api.%{hiera('domain_public')}"
+endpoint__volume__admin:          "http://volume.%{hiera('domain_trp')"
+endpoint__volume__internal:       "http://volume.%{hiera('domain_trp')"
+endpoint__volume__public:         "https://volume.api.%{hiera('domain_public')}"
+endpoint__image__admin:           "http://image.%{hiera('domain_trp')"
+endpoint__image__internal:        "http://image.%{hiera('domain_trp')"
+endpoint__image__public:          "https://image.api.%{hiera('domain_public')}"
+endpoint__network__admin:         "http://network.%{hiera('domain_trp')"
+endpoint__network__internal:      "http://network.%{hiera('domain_trp')"
+endpoint__network__public:        "https://api.network.%{hiera('domain_public')}"
+
+
+
 
 # API endpint protocole
-endpoint_protocol: 'http'
+#endpoint_protocol: 'http' #FIXME
 
 #
 # Openstack services
 #
 
 # public
-service__address__status:            "status.%{hiera('domain_public')}"
-service__address__horizon:           "dashboard.%{hiera('domain_public')}"
-service__address__keystone_public:   "dashboard.%{hiera('domain_public')}"
-service__address__glance_public_api: "dashboard.%{hiera('domain_public')}"
-service__address__nova_public_api:   "dashboard.%{hiera('domain_public')}"
-service__address__neutron_public:    "dashboard.%{hiera('domain_public')}"
-service__address__cinder_public_api: "dashboard.%{hiera('domain_public')}"
-service__address__consoleproxy:      "console.%{hiera('domain_public')}"
+#service__address__status:            "status.%{hiera('domain_public')}"
+#service__address__horizon:           "dashboard.%{hiera('domain_public')}"
+#service__address__keystone_public:   "dashboard.%{hiera('domain_public')}"
+#service__address__glance_public_api: "dashboard.%{hiera('domain_public')}"
+#service__address__nova_public_api:   "dashboard.%{hiera('domain_public')}"
+#service__address__neutron_public:    "dashboard.%{hiera('domain_public')}"
+#service__address__cinder_public_api: "dashboard.%{hiera('domain_public')}"
+#service__address__consoleproxy:      "console.%{hiera('domain_public')}"
 
 # transport
-service__address__nova_api:          "novactrl.%{hiera('domain_trp')}"
-service__address__nova_api_metadata: '127.0.0.1'
-service__address__glance_registry:   "image.%{hiera('domain_trp')}"
-service__address__glance_api:        "image.%{hiera('domain_trp')}"
-service__address__keystone:          "identity.%{hiera('domain_trp')}"
-service__address__keystone_admin:    "identity.%{hiera('domain_trp')}"
-service__address__etcd_cluster:      "network.%{hiera('domain_trp')}"
-service__address__neutron_server:    "network.%{hiera('domain_trp')}"
-service__address__cinder_api:        "volume.%{hiera('domain_trp')}"
-service__address__mysql:             "db.%{hiera('domain_trp')}"
-service__address__rabbitmq_01:       "mq01.%{hiera('domain_trp')}"
-service__address__rabbitmq_02:       "mq01.%{hiera('domain_trp')}"
-service__address__rabbitmq_03:       "mq01.%{hiera('domain_trp')}"
+#service__address__nova_api:          "novactrl.%{hiera('domain_trp')}"
+#service__address__nova_api_metadata: '127.0.0.1'
+#service__address__glance_registry:   "image.%{hiera('domain_trp')}"
+#service__address__glance_api:        "image.%{hiera('domain_trp')}"
+#service__address__keystone:          "identity.%{hiera('domain_trp')}"
+#service__address__keystone_admin:    "identity.%{hiera('domain_trp')}"
+#service__address__etcd_cluster:      "network.%{hiera('domain_trp')}"
+#service__address__neutron_server:    "network.%{hiera('domain_trp')}"
+#service__address__cinder_api:        "volume.%{hiera('domain_trp')}"
+#service__address__mysql:             "db.%{hiera('domain_trp')}"
+#service__address__rabbitmq_01:       "mq01.%{hiera('domain_trp')}"
+#service__address__rabbitmq_02:       "mq01.%{hiera('domain_trp')}"
+#service__address__rabbitmq_03:       "mq01.%{hiera('domain_trp')}"
 
 # mgmt
-service__address__rsyslog:           "logger.%{hiera('domain_mgmt')}"
-service__address__proxy:             "proxy.%{hiera('domain_mgmt')}"
-service__address__monitor:           "monitor.%{hiera('domain_mgmt')}"
+#service__address__rsyslog:           "logger.%{hiera('domain_mgmt')}"
+#service__address__proxy:             "proxy.%{hiera('domain_mgmt')}"
+#service__address__monitor:           "monitor.%{hiera('domain_mgmt')}"
 
 #
 # Network configuration data
