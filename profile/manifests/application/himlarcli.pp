@@ -6,7 +6,6 @@ class profile::application::himlarcli(
   $default_domain,
   $region_name,
   $auth_url,
-  $service_net,
   $statsd_server,
   $foreman_url,
   $foreman_password,
