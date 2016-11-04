@@ -1,5 +1,5 @@
 ---
-puppet::runinterval:  900
+puppet::runinterval:  1800
 puppet::runmode:      'cron'
 puppet::puppetmaster: "puppet.%{hiera('domain_mgmt')}"
 puppet::show_diff:    true

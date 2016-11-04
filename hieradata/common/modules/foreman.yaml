@@ -1,5 +1,5 @@
 ---
-foreman::foreman_url:                       "https://%{fqdn}"
+foreman::foreman_url:                       "https://%{hiera('mgmt__address__foreman')}"
 # Disable repo management
 foreman::custom_repo:                       true
 foreman::configure_epel_repo:               false
