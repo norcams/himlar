@@ -17,7 +17,7 @@ profile::base::common::manage_puppet:          true
 profile::base::common::include_virtual:        true
 profile::base::common::include_physical:       true
 profile::base::firewall::manage_firewall:      true
-profile::base::network::http_proxy:            "%{hiera('service__address__proxy')}:8888"
+profile::base::network::http_proxy:            "%{hiera('mgmt__address__proxy')}:8888"
 profile::base::network::http_proxy_profile:    '/root/proxy.sh'
 
 profile::base::common::packages:
@@ -61,7 +61,7 @@ profile::openstack::network::l2_driver: calico
 profile::database::mariadb::manage_repo: false
 
 profile::application::himlarcli::username:          'admin'
-profile::application::himlarcli::auth_url:          "%{hiera('endpoint_protocol')}://%{hiera('service__address__keystone_public')}:5000"
+profile::application::himlarcli::auth_url:          "%{hiera('public__address__api')}"
 profile::application::himlarcli::password:          "%{hiera('keystone_admin_password')}"
 profile::application::himlarcli::region_name:       "%{::location}"
 profile::application::himlarcli::tenant_name:       'openstack'
@@ -70,9 +70,9 @@ profile::application::himlarcli::domain:            "%{::domain}"
 profile::application::himlarcli::foreman_url:       "https://%{::location}-admin-01.%{::domain}"
 profile::application::himlarcli::foreman_user:      'admin'
 profile::application::himlarcli::foreman_password:  "%{hiera('foreman::admin_password')}"
-profile::application::himlarcli::statsd_server:     "%{hiera('service__address__monitor')}"
+profile::application::himlarcli::statsd_server:     "%{hiera('mgmt__address__monitor')}"
 
-profile::openstack::openrc::auth_url:     "%{hiera('endpoint_protocol')}://%{hiera('service__address__keystone_public')}:5000/v3"
+profile::openstack::openrc::auth_url:     "%{hiera('public__address__api')}"
 profile::openstack::openrc::password:     "%{hiera('keystone_admin_password')}"
 profile::openstack::openrc::region_name:  "%{::location}"
 profile::openstack::openrc::username:     'admin'
@@ -152,6 +152,13 @@ profile::base::yumrepo::repo_hash:
     ensure:         absent
     descr:          'Elasticsearch Centos Repo'
     baseurl:        'http://packages.elastic.co/elasticsearch/2.x/centos'
+    enabled:        1
+    gpgcheck:       1
+    gpgkey:         'http://packages.elastic.co/GPG-KEY-elasticsearch'
+  curator:
+    ensure:         absent
+    descr:          'Elasticsearch Curator 4.x Centos Repo'
+    baseurl:        'http://packages.elastic.co/curator/4/centos/7'
     enabled:        1
     gpgcheck:       1
     gpgkey:         'http://packages.elastic.co/GPG-KEY-elasticsearch'

@@ -8,7 +8,7 @@ sensu::install_repo:            false
 sensu::manage_repo:             false
 sensu::sensu_plugin_provider:   sensu_gem
 sensu::use_embedded_ruby:       true
-sensu::rabbitmq_host:           "%{hiera('mgmt_address_mq')}"
+sensu::rabbitmq_host:           "%{hiera('mgmt__address__mq_01')}"
 sensu::rabbitmq_password:       "%{hiera('sensu::rabbit_password')}"
 sensu::rabbitmq_user:           'sensu'
 sensu::rabbitmq_vhost:          'sensu'
@@ -18,11 +18,11 @@ sensu::rabbitmq_port:           '5672'
 sensu::client_address:          "%{ipaddress_mgmt1}"
 sensu::client_name:             "%{hostname}"
 sensu::client_custom:
-  graphite_load:    "http://%{hiera('service__address__monitor')}/render?from=-24h&target=aliasByNode(load.%{::hostname}.load_avg.*,3)&height=250&width=600&lineMode=connected&uchiwa_force_image=.jpg"
-  graphite_cpu:     "http://%{hiera('service__address__monitor')}/render?from=-24h&target=aliasByNode(vmstats.%{::hostname}.cpu.*,3)&height=250&width=600&lineMode=connected&uchiwa_force_image=.jpg"
-  graphite_io:      "http://%{hiera('service__address__monitor')}/render?from=-24h&target=aliasByNode(vmstats.%{::hostname}.io.*,3)&height=250&width=600&lineMode=connected&uchiwa_force_image=.jpg"
-  graphite_memory:  "http://%{hiera('service__address__monitor')}/render?from=-24h&target=aliasByMetric(memory.%{::hostname}.total)&target=aliasByMetric(memory.%{::hostname}.free)&target=aliasByMetric(memory.%{::hostname}.used)&height=250&width=600&lineMode=connected&uchiwa_force_image=.jpg"
-#  graphite_memory2:  "http://%{hiera('service__address__monitor')}/render?from=-2h&target=aliasByNode(vmstats.%{::hostname}.memory.*,3)&height=250&width=600&lineMode=connected&uchiwa_force_image=.jpg"
+  graphite_load:    "http://%{hiera('mgmt__address__monitor')}/render?from=-24h&target=aliasByNode(load.%{::hostname}.load_avg.*,3)&height=250&width=600&lineMode=connected&uchiwa_force_image=.jpg"
+  graphite_cpu:     "http://%{hiera('mgmt__address__monitor')}/render?from=-24h&target=aliasByNode(vmstats.%{::hostname}.cpu.*,3)&height=250&width=600&lineMode=connected&uchiwa_force_image=.jpg"
+  graphite_io:      "http://%{hiera('mgmt__address__monitor')}/render?from=-24h&target=aliasByNode(vmstats.%{::hostname}.io.*,3)&height=250&width=600&lineMode=connected&uchiwa_force_image=.jpg"
+  graphite_memory:  "http://%{hiera('mgmt__address__monitor')}/render?from=-24h&target=aliasByMetric(memory.%{::hostname}.total)&target=aliasByMetric(memory.%{::hostname}.free)&target=aliasByMetric(memory.%{::hostname}.used)&height=250&width=600&lineMode=connected&uchiwa_force_image=.jpg"
+#  graphite_memory2:  "http://%{hiera('mgmt__address__monitor')}/render?from=-2h&target=aliasByNode(vmstats.%{::hostname}.memory.*,3)&height=250&width=600&lineMode=connected&uchiwa_force_image=.jpg"
 sensu::subscriptions:
   - 'metrics'
   - 'checks'

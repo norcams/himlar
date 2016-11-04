@@ -2,10 +2,12 @@
 include:
   default:
     - profile::openstack::compute::consoleproxy
+    - profile::logging::rsyslog::client
 
-profile::base::network::manage_dummy: true
-
-profile::openstack::compute::consoleproxy::spice: true
+profile::base::network::manage_dummy:                       true
+profile::base::firewall::purge_firewall:                    true
+profile::openstack::compute::consoleproxy::manage_firewall: true
+profile::openstack::compute::consoleproxy::spice:           true
 
 nova::config::nova_config:
     DEFAULT/ssl_only:

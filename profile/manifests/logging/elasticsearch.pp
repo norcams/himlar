@@ -4,6 +4,7 @@ class profile::logging::elasticsearch(
   $manage_firewall = true,
   $ports = [9200],
   $firewall_extras = {},
+  $manage_curator = false,
 ) {
 
   include ::elasticsearch
@@ -19,4 +20,19 @@ class profile::logging::elasticsearch(
     }
   }
 
+  if $manage_curator {
+    # Curator config
+    file { '/root/.curator':
+      ensure => directory,
+    } ->
+    file { '/root/.curator/curator.yml':
+      ensure  => file,
+      content => template("${module_name}/logging/elasticsearch/curator.yml"),
+    }
+    # action file
+    file { '/root/delete_indices.yml':
+      ensure  => file,
+      content => template("${module_name}/logging/elasticsearch/delete_indices.yml"),
+    }
+  }
 }

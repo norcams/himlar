@@ -41,7 +41,7 @@ rsyslog::server::log_templates:
   - name:     'RabbitmqAll'
     template: '/opt/log/rabbitmq.log'
 
-rsyslog::client::server:              "%{hiera('service__address__rsyslog')}"
+rsyslog::client::server:              "%{hiera('mgmt__address__logger')}"
 rsyslog::client::port:                '514'
 rsyslog::client::protocol:            'tcp'
 rsyslog::client::log_local:           true

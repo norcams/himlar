@@ -3,7 +3,6 @@ include:
   kickstart:
     - profile::monitoring::sensu::agent
 
-profile::base::network::manage_httpproxy:         true
 profile::monitoring::sensu::agent::enable_agent:  true
 
 calico::compute::bird_template: 'profile/bird/bird.conf.erb'

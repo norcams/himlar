@@ -1,17 +1,8 @@
 ---
-profile::openstack::api::default_vhost_config:
-  servername:           "%{hiera('service__address__keystone_public')}"
-  vhost_name:           "%{hiera('service__address__keystone_public')}"
-  ip:                   "%{::ipaddress_public1}"
-  docroot:              '/var/www/html'
-  manage_docroot:       false
-  ssl:                  true
-  ssl_ca:               "/etc/pki/tls/certs/DigiCertCA.crt"
-  ssl_cert:             "/etc/pki/tls/certs/test_iaas_uib_no.crt"
-  ssl_key:              "/etc/pki/tls/private/test_iaas_uib_no.key"
-
-dpapp_referer:      '^https://accesstest\.iaas\.uib\.no/login\?'
-dashboard_referer:  '^https://test\.iaas\.uib\.no/dashboard'
-
-################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
-profile::base::network::manage_dummy: true
+profile::openstack::dashboard::allow_from_network:
+  - '129.177.6.133/32'  # bgo-login
+  - '129.177.31.96/27'  # test01
+  - '129.177.10.189/32' # tor
+  - '129.177.10.212/32' # raymond
+  - '129.240.6.13/32'   # usit
+  - '129.240.6.14/32'   # usit

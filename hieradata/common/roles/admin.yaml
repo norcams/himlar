@@ -8,6 +8,7 @@ include:
 
 foreman_version: '1.12'
 
+profile::base::network::manage_hostname:        true
 profile::application::foreman::manage_eyaml:    true
 profile::application::foreman::manage_firewall: true
 profile::application::foreman::manage_repo_dir: true
@@ -20,9 +21,9 @@ openstack_extras::repo::redhat::redhat::purge_unmanaged:  false
 puppet::server:                        true
 puppet::server_foreman_url:            "https://%{hiera('mgmt__address__foreman')}"
 puppet::dns_alt_names:
-  - "puppet.%{hiera('domain_mgmt')"
-  - "puppetca.%{hiera('domain_mgmt')"
-  - "admin.%{hiera('domain_mgmt')"
+  - "puppet.%{hiera('domain_mgmt')}"
+  - "puppetca.%{hiera('domain_mgmt')}"
+  - "admin.%{hiera('domain_mgmt')}"
 
 profile::webserver::apache::manage_firewall:  false
 profile::webserver::apache::vhosts:

@@ -30,6 +30,7 @@ sensu::server:              true
 sensu::api:                 true
 sensu::redis_host:          127.0.0.1
 
+
 profile::monitoring::sensu::server::manage_graphite:  true
 profile::monitoring::sensu::server::manage_firewall:  true
 profile::monitoring::sensu::server::firewall_extras:
@@ -42,3 +43,59 @@ profile::monitoring::sensu::server::handlers:
       host: '127.0.0.1'
       port: 2003
     mutator: 'only_check_output'
+
+# api watch
+profile::base::common::packages:
+  'gcc-c++': {}
+
+profile::monitoring::sensu::agent::plugins:
+  sensu-plugins-http:
+    type:         package
+    pkg_version:  '1.0.0'
+
+# metadata api check
+profile::monitoring::sensu::agent::checks:
+  'identity-api-check':
+    command:      "check-http.rb -u %{hiera('endpoint__identity__public')} --response-code 300 -r"
+    interval:     30
+    subscribers:  ['checks']
+  'compute-api-check':
+    command:      "check-http.rb -u %{hiera('endpoint__compute__public')}"
+    interval:     30
+    subscribers:  ['checks']
+  'image-api-check':
+    command:      "check-http.rb -u %{hiera('endpoint__image__public')} --response-code 300 -r"
+    interval:     30
+    subscribers:  ['checks']
+  'volume-api-check':
+    command:      "check-http.rb -u %{hiera('endpoint__volume__public')} --response-code 300 -r"
+    interval:     30
+    subscribers:  ['checks']
+  'network-api-check':
+    command:      "check-http.rb -u %{hiera('endpoint__network__public')}"
+    interval:     30
+    subscribers:  ['checks']
+  'identity-api-metric':
+    type:         'metric'
+    command:      "metrics-curl.rb --scheme web.api.identity -u %{hiera('endpoint__identity__public')}"
+    interval:     60
+    subscribers:  ['metrics']
+    handlers:     ['graphite_tcp']
+  'compute-api-metric':
+    type:         'metric'
+    command:      "metrics-curl.rb --scheme web.api.compute -u %{hiera('endpoint__compute__public')}"
+    interval:     60
+    subscribers:  ['metrics']
+    handlers:     ['graphite_tcp']
+  'image-api-metric':
+    type:         'metric'
+    command:      "metrics-curl.rb --scheme web.api.image -u %{hiera('endpoint__image__public')}"
+    interval:     60
+    subscribers:  ['metrics']
+    handlers:     ['graphite_tcp']
+  'volume-api-metric':
+    type:         'metric'
+    command:      "metrics-curl.rb --scheme web.api.volume -u %{hiera('endpoint__volume__public')}"
+    interval:     60
+    subscribers:  ['metrics']
+    handlers:     ['graphite_tcp']

@@ -1,6 +1,7 @@
 ---
-dpapp::keystone_url:        "%{hiera('endpoint_protocol')}://%{hiera('service__address__keystone_public')}:5000/v3"
-dpapp::horizon_url:         "https://%{hiera('service__address__horizon')}"
+dpapp::host:                "%{hiera('public__address__access')}"
+dpapp::keystone_url:        "%{hiera('public__address__api')}"
+dpapp::horizon_url:         "https://%{hiera('public__address__dashboard')}"
 dpapp::dp_domain_name:      'dataporten'
 dpapp::region:              "%{::location}"
 

@@ -10,16 +10,16 @@ keystone::roles::admin::password: "%{hiera('keystone_admin_password')}"
 keystone::service_name: "httpd"
 
 keystone::endpoint::region:       "%{location}"
-keystone::endpoint::public_url:   "%{hiera('endpoint_protocol')}://%{hiera('service__address__keystone_public')}:5000"
-keystone::endpoint::internal_url: "http://%{hiera('service__address__keystone')}:5000"
-keystone::endpoint::admin_url:    "http://%{hiera('service__address__keystone_admin')}:35357"
+keystone::endpoint::public_url:   "%{hiera('endpoint__identity__public')}"
+keystone::endpoint::internal_url: "%{hiera('endpoint__identity__internal')}"
+keystone::endpoint::admin_url:    "%{hiera('endpoint__identity__admin')}"
 keystone::endpoint::version:      "v3"
 
 keystone::wsgi::apache::ssl:      false
 
-keystone::public_bind_host: "%{ipaddress_service1}"
-keystone::admin_bind_host: "%{ipaddress_service1}"
-keystone::database_connection: "mysql://keystone:%{%{hiera('keystone::db::mysql::password')}@%{%{hiera('service__address__mysql')}/keystone"
+keystone::public_bind_host:     "%{ipaddress_service1}"
+keystone::admin_bind_host:      "%{ipaddress_service1}"
+keystone::database_connection:  "mysql://keystone:%{%{hiera('keystone::db::mysql::password')}@db01.%{hiera('domain_trp')}/keystone"
 
 # Federation
 keystone::federation::openidc::idp_name: 'dataporten'

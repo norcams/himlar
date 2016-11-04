@@ -3,6 +3,13 @@ include:
   default:
     - profile::virtualization::libvirt
     - profile::bootstrap::himlar
+    - profile::network::services
+
+named_interfaces::config:
+  mgmt:
+     - br0
+  trp:
+     - br1
 
 calico::compute::manage_dhcp_agent: false
 calico::compute::manage_metadata_service: false
@@ -26,28 +33,16 @@ libvirt::qemu_user: 'root'
 libvirt::qemu_group: 'root'
 libvirt::qemu_clear_emulator_capabilities: '0'
 
-#profile::base::network::manage_dummy: true
-#profile::base::network::no_of_dummies: 2
-#profile::base::network::l3_router: true
-#profile::base::network::remove_route: true
-#profile::base::network::remove_route_ifs:
-#  - dummy0
-#  - dummy1
 profile::base::common::manage_lvm: true
 profile::base::common::packages:
   'bridge-utils': {}
-
-named_interfaces::config:
-  mgmt:
-    - br0
-  transport:
-    - em1
-    - em2
 
 profile::virtualization::libvirt::manage_firewall: true
 profile::virtualization::libvirt::firewall_extras:
   'graphics':
     port: 5900-5999
+
+profile::network::services::ntp_server: true
 
 profile::virtualization::libvirt::networks:
   directnet:
@@ -55,6 +50,12 @@ profile::virtualization::libvirt::networks:
     autostart:           true
     forward_mode:        bridge
     bridge:              br0
+  trpnet:
+    ensure:              enabled
+    autostart:           true
+    forward_mode:        bridge
+    bridge:              br1
+
 profile::virtualization::libvirt::pools:
   dirpool:
     ensure:              present

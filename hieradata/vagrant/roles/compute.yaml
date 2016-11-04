@@ -14,6 +14,7 @@ profile::base::common::manage_lvm: false
 #profile::base::network::http_proxy:       'www-cache.uib.no:81'
 
 # to configure yum proxy set this appropriately
+profile::network::yum_proxy::yum_proxy: ''
 #profile::network::yum_proxy::yum_proxy: 'http://updateproxy.uio.no:3128'
 #profile::network::yum_proxy::yum_proxy: 'http://www-cache.uib.no:81'
 

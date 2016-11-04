@@ -8,7 +8,6 @@ ntp::servers:
   - 172.16.32.101
   - 172.16.32.102
 
-profile::base::network::manage_httpproxy:         true
 profile::monitoring::sensu::agent::enable_agent:  true
 
 # FIXME - bør inn i common(?)

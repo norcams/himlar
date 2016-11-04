@@ -4,6 +4,8 @@ named_interfaces::config:
      - eth0
   transport:
      - bond0
+  trp:
+     - bond0
 
 lvm::volume_groups:
   vg_journala:
