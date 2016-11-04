@@ -16,6 +16,7 @@ domain_mgmt:            'mgmt.vagrant.iaas.intern'
 # These should only be used to configure network in nodes!
 netcfg_netpart_trp:     '172.31.16'
 netcfg_netmask_trp:     '255.255.255.0'
+netcfg_trp_gateway:     '172.31.16.1'
 netcfg_netpart_mgmt:    '172.31.0'
 netcfg_netmask_mgmt:    '255.255.255.0'
 netcfg_gateway_mgmt:    '172.31.0.1'
@@ -141,6 +142,7 @@ profile::network::services::dns_records:
     "%{location}-logger-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_netpart_mgmt')}.13"
     "%{location}-monitor-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_netpart_mgmt')}.14"
     "%{location}-master-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_netpart_mgmt')}.20"
+    "%{location}-status-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_netpart_mgmt')}.21"
     "%{location}-mq-01.%{hiera('domain_mgmt')}":          "%{hiera('netcfg_netpart_mgmt')}.31"
     "%{location}-mq-02.%{hiera('domain_mgmt')}":          "%{hiera('netcfg_netpart_mgmt')}.32"
     "%{location}-image-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_netpart_mgmt')}.36"
@@ -153,6 +155,7 @@ profile::network::services::dns_records:
     "%{location}-novvactrl-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_netpart_mgmt')}.66"
     "%{location}-network-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_netpart_mgmt')}.71"
     "%{location}-identity-01.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_netpart_mgmt')}.81"
+    "%{location}-api-01.%{hiera('domain_mgmt')}":         "%{hiera('netcfg_netpart_mgmt')}.86"
     "%{location}-controller-01.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_netpart_mgmt')}.100"
     "%{location}-compute-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_netpart_mgmt')}.103"
     "mq01.%{hiera('domain_trp')}":                        "%{hiera('netcfg_netpart_trp')}.31"
@@ -166,6 +169,7 @@ profile::network::services::dns_records:
     "dashboard.%{hiera('domain_public')}":                "%{hiera('netcfg_netpart_public')}.51"
     "access.%{hiera('domain_public')}":                   "%{hiera('netcfg_netpart_public')}.56"
     "console.%{hiera('domain_public')}":                  "%{hiera('netcfg_netpart_public')}.61"
+    "api.%{hiera('domain_public')}":                      "%{hiera('netcfg_netpart_public')}.86"
 
 #
 ## Secret data which for other environments are stored ooutside of this data tree
