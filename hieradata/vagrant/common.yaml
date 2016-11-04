@@ -158,6 +158,7 @@ profile::network::services::dns_records:
     "%{location}-api-01.%{hiera('domain_mgmt')}":         "%{hiera('netcfg_netpart_mgmt')}.86"
     "%{location}-controller-01.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_netpart_mgmt')}.100"
     "%{location}-compute-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_netpart_mgmt')}.103"
+    "status.%{hiera('domain_trp')}":                      "%{hiera('netcfg_netpart_trp')}.21"
     "mq01.%{hiera('domain_trp')}":                        "%{hiera('netcfg_netpart_trp')}.31"
     "image.%{hiera('domain_trp')}":                       "%{hiera('netcfg_netpart_trp')}.36"
     "db01.%{hiera('domain_trp')}":                        "%{hiera('netcfg_netpart_trp')}.41"
