@@ -16,8 +16,6 @@ netcfg_dns_server1:   '172.16.32.12'
 netcfg_dns_server2:   '129.240.2.40'
 netcfg_dns_search:    "%{hiera('domain_mgmt')}"
 
-network_transport:  '172.18.32.0/21' #FIXME (has_servicenet)
-
 endpoint_protocol: 'https'
 
 # public

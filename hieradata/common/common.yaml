@@ -9,21 +9,18 @@ include:
     - profile::base::common
     - profile::base::firewall
 
-profile::firewall::pre::ssh_settings:
-  source: "%{::network_mgmt1}/%{::netmask_mgmt1}"
-
 #
 # Location metadata
 #
 location_description: unset
 location_environment: unset
-location_tag: unset
+location_tag:         unset
 
-domain_public: "%{::domain}"
-domain_trp:    "%{::domain}"
-domain_mgmt:   "%{::domain}"
+domain_public:        "%{::domain}"
+domain_trp:           "%{::domain}"
+domain_mgmt:          "%{::domain}"
 
-openstack_version: 'mitaka'
+openstack_version:    'mitaka'
 
 valid_location_tags:
   - bgo
@@ -52,8 +49,8 @@ allow_from_network:
   - '158.38.178.0/24'
   - '129.240.6.13/32'
   - '129.240.6.14/32'
-  - '129.177.10.189/32'
-  - '129.177.10.212/32'
+  - '129.177.10.189/32' # tor
+  - '129.177.10.212/32' # raymond
   - '158.36.0.0/16'
   - '128.39.0.0/16'
   - '129.177.6.133/32' #bgo-login
@@ -74,14 +71,6 @@ named_interfaces::config:
   public:
     - dummy0
 
-#
-# Networks
-# See http://iaas.readthedocs.io/en/latest/installation/ip.html
-# For config that require network info about other network
-#
-network_service:    '0.0.0.0/32'
-network_transport:  '0.0.0.0/32'
-network_public:     '0.0.0.0/32'
 
 # API endpint protocole
 endpoint_protocol: 'http'

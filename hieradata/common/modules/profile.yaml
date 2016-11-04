@@ -28,6 +28,10 @@ profile::base::common::packages:
   'bind-utils': {}
   'nano': {}
 
+# SSH only from mgmt
+profile::firewall::pre::ssh_settings:
+  source: "%{::network_mgmt1}/%{::netmask_mgmt1}"
+
 profile::openstack::compute::hypervisor::manage_telemetry: false
 
 profile::openstack::database::sql::keystone_enabled: true

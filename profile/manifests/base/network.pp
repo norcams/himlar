@@ -71,7 +71,7 @@ class profile::base::network(
   # but default route is not through the service interface. We must create
   # a custom iproute2 table for the service interface. Our custom named_interfaces
   # facts can not be used as these rules must be created in our initial kickstart run
-  if $has_servicenet {
+  if $has_servicenet { #FIXME
     # Get our named and node interfaces hashes
     $named_interface_hash = hiera_hash('named_interfaces::config')
     $node_interface_hash = hiera_hash('network::interfaces_hash')
