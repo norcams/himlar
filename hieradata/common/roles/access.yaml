@@ -19,15 +19,15 @@ profile::webserver::apache::mods_enable:
 
 profile::webserver::apache::vhosts:
   dpapp:
-    vhost_name:         "access.%{hiera('domain_public')}"
-    servername:         "access.%{hiera('domain_public')}"
+    vhost_name:         "%{hiera('public__address__access')}"
+    servername:         "%{hiera('public__address__access')}"
     port:               '80'
     manage_docroot:     false
     docroot:            '/var/www/html'
-    redirect_dest:      "https://access.%{hiera('domain_public')}/"
+    redirect_dest:      "https://%{hiera('public__address__access')}/"
   dpapp_ssl:
-    vhost_name:         "access.%{hiera('domain_public')}"
-    servername:         "access.%{hiera('domain_public')}"
+    vhost_name:         "%{hiera('public__address__access')}"
+    servername:         "%{hiera('public__address__access')}"
     port:               '443'
     manage_docroot:     false
     docroot:            '/var/www/html'
@@ -45,5 +45,5 @@ profile::webserver::apache::vhosts:
         custom_fragment:  'WSGIProcessGroup dpapp'
     ssl:                  true
     ssl_ca:               "/etc/pki/tls/certs/cachain.pem"
-    ssl_cert:             "/etc/pki/tls/certs/access.%{hiera('domain_public')}.cert.pem"
-    ssl_key:              "/etc/pki/tls/private/access.%{hiera('domain_public')}.key.pem"
+    ssl_cert:             "/etc/pki/tls/certs/%{hiera('public__address__access')}.cert.pem"
+    ssl_key:              "/etc/pki/tls/private/%{hiera('public__address__access')}.key.pem"
