@@ -1,7 +1,7 @@
 ---
 himlar_bootstrap::virt_install:
   '%{location}-admin-01':
-    domain:          'iaas.uio.no'
+    domain:          'mgmt.osl.uhdc.no'
     libvirt_pool:    'dirpool'
     libvirt_network: 'directnet'
     install_ip:      '172.16.32.11'
@@ -10,28 +10,3 @@ himlar_bootstrap::virt_install:
     vm_vcpus:        2
     vm_memory:       8096
     vm_console:      false
-
-################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
-include:
-  default:
-    - profile::network::services
-
-named_interfaces::config:
-  mgmt:
-     - br0
-  trp:
-     - br1
-
-profile::network::services::ntp_server:   true
-
-profile::virtualization::libvirt::networks:
-  directnet:
-    ensure:              enabled
-    autostart:           true
-    forward_mode:        bridge
-    bridge:              br0
-  trpnet:
-    ensure:              enabled
-    autostart:           true
-    forward_mode:        bridge
-    bridge:              br1

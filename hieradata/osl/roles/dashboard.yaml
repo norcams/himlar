@@ -3,7 +3,14 @@
 profile::openstack::dashboard::manage_dashboard:  false #FIXME
 profile::openstack::api::manage_apache: true #FIXME
 
-dashboard_referer:    '^https://dashboard\.iaas\.uio\.no/dashboard'
+# Enable osl dashboard only from some
+profile::openstack::dashboard::allow_from_network:
+  - '129.240.224.100/32' # osl-login
+  - '158.37.63.0/24'     # osl
+  - '129.177.10.189/32'  # tor
+  - '129.177.10.212/32'  # raymond
+  - '129.240.6.13/32'    # usit
+  - '129.240.6.14/32'    # usit
 
 # Manage upload dir
 profile::base::common::manage_lvm: true
