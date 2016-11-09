@@ -8,7 +8,6 @@ include:
 
 foreman_version: '1.12'
 
-profile::base::network::manage_hostname:        true
 profile::application::foreman::manage_eyaml:    true
 profile::application::foreman::manage_firewall: true
 profile::application::foreman::manage_repo_dir: true
