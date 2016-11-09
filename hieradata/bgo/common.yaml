@@ -3,52 +3,48 @@ include:
   default:
     - profile::monitoring::sensu::agent
 
-location_environment: prod
-location_description: Production environment in Bergen
+location_environment:     'prod'
+location_description:     'Production environment in Bergen'
 
-domain_public: 'iaas.uib.no'
-domain_trp:    'trp.iaas.intern'
-domain_mgmt:   'mgmt.iaas.intern'
+domain_public:            'bgo.uh-iaas.no'
+domain_trp:               'bgo.uhdc.no'
+domain_mgmt:              'mgmt.bgo.uhdc.no'
 
-netcfg_mgmt_gateway:  '172.16.0.10'
-netcfg_trp_gateway:   '172.18.7.1'
-netcfg_dns_server1:   '129.177.6.54'
-netcfg_dns_server2:   '129.177.12.31'
-netcfg_dns_search:    "%{hiera('domain_mgmt')}"
+netcfg_mgmt_gateway:      '172.16.0.10'
+netcfg_mgmt_netpart:      '172.16.0'
+netcfg_mgmt_netmask:      '255.255.248.0'
+netcfg_trp_gateway:       '172.18.7.1'
+netcfg_trp_netpart:       '172.18.0'
+netcfg_trp_netmask:       '255.255.248.0'
+#netcfg_dns_server1:       '129.177.6.54'
+netcfg_dns_server1:       '172.16.0.12'
+netcfg_dns_server2:       '129.177.12.31'
+netcfg_dns_search:        "%{hiera('domain_mgmt')} %{hiera('domain_trp')}"
 
-endpoint_protocol: 'https'
+#
+# Public addresses (bgo host uh-iaas.no frontend)
+#
+public__address__api:             "https://api.uh-iaas.no:5000/v3"
+public__address__dashboard:       "dashboard.uh-iaas.no"
+public__address__access:          "access.uh-iaas.no"
 
-# public
-service__address__status:            'status.iaas.uib.no'
-service__address__horizon:           'dashboard.iaas.uib.no'
-service__address__keystone_public:   'api.iaas.uib.no'
-service__address__glance_public_api: 'api.iaas.uib.no'
-service__address__nova_public_api:   'api.iaas.uib.no'
-service__address__neutron_public:    'api.iaas.uib.no'
-service__address__cinder_public_api: 'api.iaas.uib.no'
-service__address__consoleproxy:      'console.iaas.uib.no'
-
-# service/transport1
-service__address__nova_api:          '172.18.0.66'
-service__address__nova_api_metadata: '127.0.0.1'
-service__address__glance_registry:   '172.18.0.36'
-service__address__glance_api:        '172.18.0.36'
-service__address__keystone:          '172.18.0.81'
-service__address__keystone_admin:    '172.18.0.81'
-service__address__etcd_cluster:      '172.18.0.71'
-service__address__neutron_server:    '172.18.0.71'
-service__address__cinder_api:        '172.18.0.46'
-service__address__mysql:             '172.18.0.42'
-
-# mgmt
-service__address__proxy:             '172.16.0.12'
-service__address__rsyslog:           '172.16.0.13'
-mgmt_address_mq:                     '172.16.0.31'
-
-# rabbitmq
-service__address__rabbitmq_01:       '172.18.0.31'
-service__address__rabbitmq_02:       '172.18.0.31'
-service__address__rabbitmq_03:       '172.18.0.31'
+#
+# DNS (merge of common and this)
+#
+profile::network::services::dns_records:
+  A:
+    # mgmt
+    "%{::location}-leaf-02.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_netpart')}.2"
+    "%{::location}-leaf-03.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_netpart')}.3"
+    "%{::location}-leaf-04.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_netpart')}.4"
+    # Used as CNAME for uh-iaas.no (http://iaas.readthedocs.io/en/latest/team/operations/dns.html)
+    'uh-api.iaas.uib.no':                               '158.39.77.250'
+    'uh-console.iaas.uib.no':                           '158.39.77.251'
+  PTR:
+    '1.0.16.172.in-addr.arpa':                          "%{::location}-leaf-01.%{hiera('domain_mgmt')}"
+    '2.0.16.172.in-addr.arpa':                          "%{::location}-leaf-02.%{hiera('domain_mgmt')}"
+    '3.0.16.172.in-addr.arpa':                          "%{::location}-leaf-03.%{hiera('domain_mgmt')}"
+    '4.0.16.172.in-addr.arpa':                          "%{::location}-leaf-04.%{hiera('domain_mgmt')}"
 
 ntp::servers:
   - ntp.uib.no
@@ -96,53 +92,3 @@ profile::network::services::dns_options:
       ttl: 86400
       keyfile: "/etc/rndc-%{location}.key"
       server: 'alfalfa.uib.no'
-
-profile::network::services::dns_records:
-  CNAME:
-    'puppet.mgmt.iaas.intern':             'bgo-admin-01.mgmt.iaas.intern'
-    'foreman.mgmt.iaas.intern':            'bgo-admin-01.mgmt.iaas.intern'
-    'admin.mgmt.iaas.intern':              'bgo-admin-01.mgmt.iaas.intern'
-    'repo.mgmt.iaas.intern':               'bgo-admin-01.mgmt.iaas.intern'
-    'monitor.mgmt.iaas.intern':            'bgo-monitor-01.mgmt.iaas.intern'
-    'logger.mgmt.iaas.intern':             'bgo-logger-01.mgmt.iaas.intern'
-  A:
-    'bgo-leaf-01.mgmt.iaas.intern':        '172.16.0.1'
-    'bgo-leaf-02.mgmt.iaas.intern':        '172.16.0.2'
-    'bgo-leaf-03.mgmt.iaas.intern':        '172.16.0.3'
-    'bgo-leaf-04.mgmt.iaas.intern':        '172.16.0.4'
-    'bgo-mgmt-01.mgmt.iaas.intern':        '172.16.0.9'
-    'bgo-login-01.mgmt.iaas.intern':       '172.16.0.10'
-    'bgo-admin-01.mgmt.iaas.intern':       '172.16.0.11'
-    'bgo-proxy-01.mgmt.iaas.intern':       '172.16.0.12'
-    'bgo-logger-01.mgmt.iaas.intern':      '172.16.0.13'
-    'bgo-monitor-01.mgmt.iaas.intern':     '172.16.0.14'
-    'bgo-mq-01.mgmt.iaas.intern':          '172.16.0.31'
-    'bgo-image-01.mgmt.iaas.intern':       '172.16.0.36'
-    'bgo-db-01.mgmt.iaas.intern':          '172.16.0.41'
-    'bgo-db-02.mgmt.iaas.intern':          '172.16.0.42'
-    'bgo-volume-01.mgmt.iaas.intern':      '172.16.0.46'
-    'bgo-dashboard-01.mgmt.iaas.intern':   '172.16.0.51'
-    'bgo-access-01.mgmt.iaas.intern':      '172.16.0.56'
-    'bgo-console-01.mgmt.iaas.intern':     '172.16.0.61'
-    'bgo-novactrl-01.mgmt.iaas.intern':    '172.16.0.66'
-    'bgo-network-01.mgmt.iaas.intern':     '172.16.0.71'
-    'bgo-identity-01.mgmt.iaas.intern':    '172.16.0.81'
-    'bgo-cephmon-01.mgmt.iaas.intern':     '172.16.0.91'
-    'bgo-cephmon-02.mgmt.iaas.intern':     '172.16.0.92'
-    'bgo-cephmon-03.mgmt.iaas.intern':     '172.16.0.93'
-    'bgo-controller-01.mgmt.iaas.intern':  '172.16.0.100'
-    'bgo-controller-02.mgmt.iaas.intern':  '172.16.0.101'
-    'bgo-controller-03.mgmt.iaas.intern':  '172.16.0.102'
-    'bgo-compute-01.mgmt.iaas.intern':     '172.16.0.103'
-    'bgo-compute-02.mgmt.iaas.intern':     '172.16.0.104'
-    'bgo-compute-03.mgmt.iaas.intern':     '172.16.0.105'
-    'bgo-storage-01.mgmt.iaas.intern':     '172.16.0.106'
-    'bgo-storage-02.mgmt.iaas.intern':     '172.16.0.107'
-    'bgo-storage-03.mgmt.iaas.intern':     '172.16.0.108'
-    'bgo-storage-04.mgmt.iaas.intern':     '172.16.0.109'
-    'bgo-storage-05.mgmt.iaas.intern':     '172.16.0.110'
-  PTR:
-    '1.0.16.172.in-addr.arpa':                   'bgo-leaf-01.mgmt.iaas.intern'
-    '2.0.16.172.in-addr.arpa':                   'bgo-leaf-02.mgmt.iaas.intern'
-    '3.0.16.172.in-addr.arpa':                   'bgo-leaf-03.mgmt.iaas.intern'
-    '4.0.16.172.in-addr.arpa':                   'bgo-leaf-04.mgmt.iaas.intern'

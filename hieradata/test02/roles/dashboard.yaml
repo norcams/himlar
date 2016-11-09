@@ -1,18 +1,4 @@
 ---
-dashboard_referer:    '^https://dashboard\.test\.iaas\.uio\.no/dashboard'
-dashboard_ssl_files:  'dashboard_test_iaas_uio_no'
-
-profile::openstack::api::default_vhost_config:
-  servername:           "%{hiera('service__address__keystone_public')}"
-  vhost_name:           "%{hiera('service__address__keystone_public')}"
-  ip:                   "%{::ipaddress_mgmt1}"
-  docroot:              '/var/www/html'
-  manage_docroot:       false
-  ssl:                  true
-  ssl_ca:               '/etc/pki/tls/certs/cachain.pem'
-  ssl_key:              '/etc/pki/tls/private/dashboard.test.iaas.uio.no.key.pem'
-  ssl_cert:             '/etc/pki/tls/certs/dashboard.test.iaas.uio.no.cert.pem'
-
 # Manage upload dir
 profile::base::common::manage_lvm: true
 profile::base::lvm::physical_volume:
@@ -28,7 +14,3 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_upload'
     fs_type:      "xfs"
     mountpath:    "/tmp"
-
-################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
-profile::base::network::manage_dummy: true
-

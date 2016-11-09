@@ -6,69 +6,42 @@ include:
 location_environment: 'test02'
 location_description: 'Test environment physically in OSL'
 
-domain_public: 'test.iaas.uio.no'
-domain_trp:    'test.iaas.uio.no'
-domain_mgmt:   'test.iaas.uio.no'
+domain_public:          'test.iaas.uio.no'
+domain_trp:             'test02.uhdc.no'
+domain_mgmt:            'mgmt.test02.uhdc.no'
 
-netcfg_trp_gateway: '172.30.32.1'
+netcfg_mgmt_gateway:    '172.28.32.10'
+netcfg_mgmt_netpart:    '172.28.32'
+netcfg_mgmt_netmask:    '255.255.255.0'
+netcfg_trp_gateway:     '172.30.32.1'
+netcfg_trp_netpart:     '172.30.32'
+netcfg_trp_netmask:     '255.255.255.0'
+netcfg_dns_server1:     '129.240.2.3'
+netcfg_dns_server2:     '129.240.2.40'
+netcfg_dns_search:      "%{hiera('domain_mgmt')} %{hiera('domain_trp')}"
 
-location_dns1: '129.240.2.3'
-location_dns2: '129.240.2.40'
+netcfg_netpart_public:  '192.168.12' # FIXME (delete)
+netcfg_netmask_public:  '255.255.255.0' # FIXME (delete)
 
-# These should only be used to configure network in nodes!
-netcfg_netpart_trp:     '172.30.32'
-netcfg_netmask_trp:     '255.255.255.0'
-netcfg_netpart_mgmt:    '172.28.32'
-netcfg_reverse_dns:     '32.28.172.in-addr.arpa'
-netcfg_netmask_mgmt:    '255.255.255.0'
-netcfg_gateway_mgmt:    '172.28.32.10'
-netcfg_netpart_public:  '192.168.12'
-netcfg_netmask_public:  '255.255.255.0'
-netcfg_peerdns1:        "%{hiera('location_dns1')}"
-#netcfg_peerdns1:        '8.8.8.8'
-netcfg_peerdns2:        "%{hiera('location_dns2')}"
-netcfg_domain:          "%{hiera('domain_mgmt')} %{hiera('domain_trp')} %{hiera('domain_public')}"
-
-# We need to allow both trafic from mgmt (nat via login) and public net
-
-allow_from_network:
-  - '129.177.11.0/24'
-  - '172.31.4.0/24'
-  - '172.31.12.0/24'
+allow_from_network: # FIXME (public net)
   - '192.168.12.0/24'
 
-endpoint_protocol:      'https'
-
-# public
-service__address__horizon:           "dashboard.%{hiera('domain_public')}"
-service__address__keystone_public:   "dashboard.%{hiera('domain_public')}"
-service__address__glance_public_api: "dashboard.%{hiera('domain_public')}"
-service__address__nova_public_api:   "dashboard.%{hiera('domain_public')}"
-service__address__neutron_public:    "dashboard.%{hiera('domain_public')}"
-service__address__cinder_public_api: "dashboard.%{hiera('domain_public')}"
-service__address__consoleproxy:      "console.%{hiera('domain_public')}"
-
-# transport
-service__address__mysql:             "%{hiera('netcfg_netpart_trp')}.42"
-service__address__keystone:          "%{hiera('netcfg_netpart_trp')}.81"
-service__address__keystone_admin:    "%{hiera('netcfg_netpart_trp')}.81"
-service__address__glance_registry:   "%{hiera('netcfg_netpart_trp')}.36"
-service__address__glance_api:        "%{hiera('netcfg_netpart_trp')}.36"
-service__address__nova_api:          "%{hiera('netcfg_netpart_trp')}.66"
-service__address__nova_api_metadata: "127.0.0.1"
-service__address__neutron_server:    "%{hiera('netcfg_netpart_trp')}.71"
-service__address__cinder_api:        "%{hiera('netcfg_netpart_trp')}.46"
-service__address__etcd_cluster:      "%{hiera('netcfg_netpart_trp')}.71"
-
-# mgmt
-service__address__proxy:             "%{hiera('netcfg_netpart_mgmt')}.12"
-service__address__rsyslog:           "%{hiera('netcfg_netpart_mgmt')}.13"
-mgmt_address_mq:                     "%{hiera('netcfg_netpart_mgmt')}.31"
-
-# rabbitmq
-service__address__rabbitmq_01:       "%{hiera('netcfg_netpart_trp')}.31"
-service__address__rabbitmq_02:       "%{hiera('netcfg_netpart_trp')}.31"
-service__address__rabbitmq_03:       "%{hiera('netcfg_netpart_trp')}.31"
+#
+# DNS (merge of common and this)
+#
+profile::network::services::dns_records:
+  A:
+    # public
+    "api.%{hiera('domain_public')}":                        "%{hiera('netcfg_mgmt_netpart')}.86" #FIXME (mgmt net)
+    "identity.api.%{hiera('domain_public')}":               "%{hiera('netcfg_mgmt_netpart')}.86" #FIXME (mgmt net)
+    "network.api.%{hiera('domain_public')}":                "%{hiera('netcfg_mgmt_netpart')}.86" #FIXME (mgmt net)
+    "image.api.%{hiera('domain_public')}":                  "%{hiera('netcfg_mgmt_netpart')}.86" #FIXME (mgmt net)
+    "volume.api.%{hiera('domain_public')}":                 "%{hiera('netcfg_mgmt_netpart')}.86" #FIXME (mgmt net)
+    "compute.api.%{hiera('domain_public')}":                "%{hiera('netcfg_mgmt_netpart')}.86" #FIXME (mgmt net)
+    "status.%{hiera('domain_public')}":                     "%{hiera('netcfg_mgmt_netpart')}.86" #FIXME (mgmt net)
+    "access.%{hiera('domain_public')}":                     "%{hiera('netcfg_mgmt_netpart')}.56" #FIXME (mgmt net)
+    "console.%{hiera('domain_public')}":                    "%{hiera('netcfg_mgmt_netpart')}.61" #FIXME (mgmt net)
+    "dashboard.%{hiera('domain_public')}":                  "%{hiera('netcfg_mgmt_netpart')}.51" #FIXME (mgmt net)
 
 ntp::servers:
   - ntp1.uio.no
@@ -86,11 +59,6 @@ profile::openstack::compute::hypervisor::manage_libvirt_rbd: true
 # If backend != file, you must explicitly define stores in %location/modules/glance.yaml
 profile::openstack::image::api::backend: 'rbd'
 
-# sensu.yaml
-sensu::rabbit_password:                             'sensu_guest'
-sensu_api_password:                                 'sensu'
-graphite_secret_key:                                'graphite_pass'
-
 profile::network::services::dns_options:
   CNAME:
     default:
@@ -107,59 +75,3 @@ profile::network::services::dns_options:
       ttl: 86400
       keyfile: "/etc/rndc.key"
       server: "129.240.2.6"
-
-profile::network::services::dns_records:
-  CNAME:
-    "puppet.%{hiera('domain_mgmt')}":                     "%{location}-admin-01.%{hiera('domain_mgmt')}"
-    "admin.%{hiera('domain_mgmt')}":                      "%{location}-admin-01.%{hiera('domain_mgmt')}"
-    "access.%{hiera('domain_mgmt')}":                     "%{location}-access-01.%{hiera('domain_mgmt')}"
-    "repo.%{hiera('domain_mgmt')}":                       "%{location}-admin-01.%{hiera('domain_mgmt')}"
-    "proxy.%{hiera('domain_mgmt')}":                      "%{location}-proxy-01.%{hiera('domain_mgmt')}"
-    "logger.%{hiera('domain_mgmt')}":                     "%{location}-logger-01.%{hiera('domain_mgmt')}"
-    "%{location}-login-01.%{hiera('domain_mgmt')}":       "osl-login-01.%{hiera('domain_mgmt')}"
-    "dashboard.%{hiera('domain_mgmt')}":                  "%{location}-dashboard-01.%{hiera('domain_mgmt')}"
-    "status.%{hiera('domain_mgmt')}":                     "%{location}-dashboard-01.%{hiera('domain_mgmt')}"
-    "console.%{hiera('domain_public')}":                  "%{location}-console-01.%{hiera('domain_mgmt')}"
-    "monitor.%{hiera('domain_public')}":                  "%{location}-monitor-01.%{hiera('domain_mgmt')}"
-  A:
-    "%{location}-leaf-01.%{hiera('domain_mgmt')}":        "%{netpart_mgmt1}.1"
-    "%{location}-admin-01.%{hiera('domain_mgmt')}":       "%{netpart_mgmt1}.11"
-    "%{location}-proxy-01.%{hiera('domain_mgmt')}":       "%{netpart_mgmt1}.12"
-    "%{location}-logger-01.%{hiera('domain_mgmt')}":      "%{netpart_mgmt1}.13"
-    "%{location}-monitor-01.%{hiera('domain_mgmt')}":     "%{netpart_mgmt1}.14"
-    "%{location}-master-01.%{hiera('domain_mgmt')}":      "%{netpart_mgmt1}.20"
-    "%{location}-mq-01.%{hiera('domain_mgmt')}":          "%{netpart_mgmt1}.31"
-    "%{location}-mq-02.%{hiera('domain_mgmt')}":          "%{netpart_mgmt1}.32"
-    "%{location}-image-01.%{hiera('domain_mgmt')}":       "%{netpart_mgmt1}.36"
-    "%{location}-db-01.%{hiera('domain_mgmt')}":          "%{netpart_mgmt1}.41"
-    "%{location}-db-02.%{hiera('domain_mgmt')}":          "%{netpart_mgmt1}.42"
-    "%{location}-volume-01.%{hiera('domain_mgmt')}":      "%{netpart_mgmt1}.46"
-    "%{location}-dashboard-01.%{hiera('domain_mgmt')}":   "%{netpart_mgmt1}.51"
-    "%{location}-access-01.%{hiera('domain_mgmt')}":      "%{netpart_mgmt1}.56"
-    "%{location}-console-01.%{hiera('domain_mgmt')}":     "%{netpart_mgmt1}.61"
-    "%{location}-novactrl-01.%{hiera('domain_mgmt')}":    "%{netpart_mgmt1}.66"
-    "%{location}-network-01.%{hiera('domain_mgmt')}":     "%{netpart_mgmt1}.71"
-    "%{location}-identity-01.%{hiera('domain_mgmt')}":    "%{netpart_mgmt1}.81"
-    "%{location}-cephmon-01.%{hiera('domain_mgmt')}":     "%{netpart_mgmt1}.91"
-    "%{location}-cephmon-02.%{hiera('domain_mgmt')}":     "%{netpart_mgmt1}.92"
-    "%{location}-cephmon-03.%{hiera('domain_mgmt')}":     "%{netpart_mgmt1}.93"
-    "%{location}-controller-01.%{hiera('domain_mgmt')}":  "%{netpart_mgmt1}.100"
-    "%{location}-controller-02.%{hiera('domain_mgmt')}":  "%{netpart_mgmt1}.101"
-    "%{location}-controller-03.%{hiera('domain_mgmt')}":  "%{netpart_mgmt1}.102"
-    "%{location}-compute-01.%{hiera('domain_mgmt')}":     "%{netpart_mgmt1}.103"
-    "%{location}-compute-02.%{hiera('domain_mgmt')}":     "%{netpart_mgmt1}.104"
-    "%{location}-compute-03.%{hiera('domain_mgmt')}":     "%{netpart_mgmt1}.105"
-    "%{location}-storage-01.%{hiera('domain_mgmt')}":     "%{netpart_mgmt1}.106"
-    "%{location}-storage-02.%{hiera('domain_mgmt')}":     "%{netpart_mgmt1}.107"
-    "%{location}-storage-03.%{hiera('domain_mgmt')}":     "%{netpart_mgmt1}.108"
-    "%{location}-storage-04.%{hiera('domain_mgmt')}":     "%{netpart_mgmt1}.109"
-    "%{location}-storage-05.%{hiera('domain_mgmt')}":     "%{netpart_mgmt1}.110"
-#    "dashboard.%{hiera('domain_public')}":                "%{hiera('netcfg_netpart_public')}.254"
-#    "access.%{hiera('domain_public')}":     "%{hiera('nw_public_first_octets')}.252"
-#  PTR:
-#    "1.%{hiera('netcfg_reverse_dns')}":                   "%{location}-leaf-01.%{hiera('domain_mgmt')}"
-
-#profile::network::services::dhcp_reservation:
-#  local3-leaf-01:
-#    mac: '00:0c:29:ff:be:2f'
-#    ip:  '172.31.4.1'

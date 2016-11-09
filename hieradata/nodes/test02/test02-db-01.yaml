@@ -7,8 +7,8 @@ network::interfaces_hash:
     netmask:   '255.255.255.0'
     gateway:   "%{hiera('netcfg_gateway_mgmt')}"
     peerdns:   'yes'
-    dns1:      "%{hiera('location_dns1')}"
-    domain:    "%{hiera('netcfg_domain')}"
+    dns1:      "%{hiera('netcfg_dns_server1')}"
+    domain:    "%{hiera('netcfg_dns_search')}"
     defroute:  'yes'
   'eth1':
     ipaddress: '172.30.32.41'

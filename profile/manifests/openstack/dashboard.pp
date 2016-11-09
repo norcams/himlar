@@ -2,8 +2,9 @@
 class profile::openstack::dashboard(
   $manage_dashboard   = false,
   $manage_ssl_cert    = false,
-  $ports              = [80,443,5000,8773,8774,8776,9292,9696],
+  $ports              = [80, 443],
   $manage_firewall    = false,
+  $allow_from_network = undef,
   $internal_net       = "${::network_trp1}/${::netmask_trp1}",
   $firewall_extras    = {},
   $manage_overrides   = false,
@@ -27,15 +28,15 @@ class profile::openstack::dashboard(
   }
 
   if $manage_firewall {
-    $allow_from_network = hiera_array('allow_from_network')
-    profile::firewall::rule { '235 public openstack-dashboard and api accept tcp':
-      port   => $ports,
-      source => $allow_from_network,
-      extras => $firewall_extras,
+    $hiera_allow_from_network = hiera_array('allow_from_network', undef)
+    $source = $allow_from_network? {
+      undef   => $hiera_allow_from_network,
+      ''      => $hiera_allow_from_network,
+      default => $allow_from_network
     }
-    profile::firewall::rule { '236 internal openstack-dashboard and api accept tcp':
+    profile::firewall::rule { '235 public openstack-dashboard accept tcp':
       port   => $ports,
-      source => $internal_net,
+      source => $source,
       extras => $firewall_extras,
     }
   }

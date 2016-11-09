@@ -12,6 +12,7 @@ class profile::base::network(
   $has_servicenet   = false,
   $cumulus_ifs      = false,
   $http_proxy_profile = '/etc/profile.d/proxy.sh',
+  $manage_hostname  = false
 ) {
 
   # Set up extra logical fact names for network facts
@@ -19,6 +20,17 @@ class profile::base::network(
 
   # example42 network module
   include ::network
+
+  if $manage_hostname {
+    $domain_mgmt = hiera('domain_mgmt', $::domain)
+    $hostname = "${::hostname}.${domain_mgmt}"
+    if $::osfamily == 'RedHat' {
+      exec { 'sethostname':
+        command => "/usr/bin/hostnamectl set-hostname ${hostname}",
+        unless  => "/usr/bin/hostnamectl status | grep 'Static hostname: ${hostname}'",
+      }
+    }
+  }
 
   # - Set ifnames=0 and use old ifnames, e.g 'eth0'
   # - Use biosdevname on physical servers, e.g 'em1'

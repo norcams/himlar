@@ -8,6 +8,7 @@ include:
 
 rsyslog::perm_dir:    '0755'
 
+profile::logging::elasticsearch::manage_curator: true
 profile::logging::elasticsearch::instances:
   'openstack':
     datadir:  '/opt/els/openstack'
@@ -19,7 +20,8 @@ profile::logging::elasticsearch::instances:
       'node.name':                "%{::hostname}"
 
 profile::base::common::packages:
-  'java-1.8.0-openjdk': {}
+  'java-1.8.0-openjdk':     {}
+  'elasticsearch-curator':  {}
 
 profile::base::lvm::physical_volume:
   '/dev/vdb':
@@ -40,4 +42,6 @@ profile::base::yumrepo::repo_hash:
   logstash:
     ensure: present
   elasticsearch:
+    ensure: present
+  curator:
     ensure: present

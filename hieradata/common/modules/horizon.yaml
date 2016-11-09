@@ -1,6 +1,6 @@
 ---
 horizon::allowed_hosts:                 '*'
-horizon::servername:                    "%{hiera('service__address__horizon')}"
+horizon::servername:                    "%{hiera('public__address__dashboard')}"
 horizon::wsgi::apache::priority:        '10'
 horizon::wsgi::apache::bind_address:    "%{ipaddress_public1}"
 horizon::bind_address:                  "%{ipaddress_public1}"
@@ -10,9 +10,9 @@ horizon::horizon_cert:                  "/etc/pki/tls/certs/dashboard.%{hiera('d
 horizon::horizon_key:                   "/etc/pki/tls/private/dashboard.%{hiera('domain_public')}.key.pem"
 horizon::secure_cookies:                true
 
-horizon::help_url:                      'http://iaas.readthedocs.org/en/latest/status.html'
+horizon::help_url:                      'http://docs.uh-iaas.no'
 horizon::openstack_endpoint_type:       'internalURL'
-horizon::keystone_url:                  "%{hiera('endpoint_protocol')}://%{hiera('service__address__keystone_public')}:5000/v3"
+horizon::keystone_url:                  "%{hiera('endpoint__identity__public')}/v3"
 horizon::keystone_default_role:         'user'
 horizon::keystone_multidomain_support:  false
 horizon::api_versions:

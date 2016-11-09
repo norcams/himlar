@@ -3,32 +3,47 @@ include:
   default:
     - profile::monitoring::sensu::agent
 
-location_environment: prod
-location_description: Production environment in Oslo
+location_environment:     'prod'
+location_description:     'Production environment in Oslo'
 
-domain_public: 'iaas.uio.no'
-domain_trp:    'trp.iaas.uio'
-domain_mgmt:   'iaas.uio.no'
+domain_public:            'osl.uh-iaas.no'
+domain_trp:               'osl.uhdc.no'
+domain_mgmt:              'mgmt.osl.uhdc.no'
 
-netcfg_mgmt_gateway:  '172.16.32.12'
-netcfg_trp_gateway:   '172.18.39.1'
-netcfg_dns_server1:   '172.16.32.12'
-netcfg_dns_server2:   '129.240.2.40'
-netcfg_dns_search:    "%{hiera('domain_mgmt')}"
+netcfg_mgmt_gateway:      '172.16.32.12'
+netcfg_mgmt_netpart:      '172.16.32'
+netcfg_mgmt_netmask:      '255.255.248.0'
+netcfg_trp_gateway:       '172.18.39.1'
+netcfg_trp_netpart:       '172.18.32'
+netcfg_trp_netmask:       '255.255.248.0'
+#netcfg_dns_server1:       '129.240.2.3'
+netcfg_dns_server1:       '172.16.32.12'
+netcfg_dns_server2:       '129.240.2.40'
+netcfg_dns_search:        "%{hiera('domain_mgmt')} %{hiera('domain_trp')}"
 
-endpoint_protocol: 'https'
+#
+# Public addresses (bgo host uh-iaas.no frontend)
+#
+public__address__api:             "https://api.uh-iaas.no:5000/v3"
+public__address__dashboard:       "dashboard.uh-iaas.no"
+public__address__access:          "access.uh-iaas.no"
 
-# public
-service__address__status:            'status.iaas.uio.no'
-service__address__horizon:           'dashboard.iaas.uio.no'
-service__address__keystone_public:   'api.iaas.uio.no'
-service__address__glance_public_api: 'api.iaas.uio.no'
-service__address__nova_public_api:   'api.iaas.uio.no'
-service__address__neutron_public:    'api.iaas.uio.no'
-service__address__cinder_public_api: 'api.iaas.uio.no'
-service__address__consoleproxy:      'console.iaas.uio.no'
+#
+# DNS (merge of common and this)
+#
+profile::network::services::dns_records:
+  A:
+    # mgmt
+    "%{::location}-leaf-02.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_netpart')}.2"
+    "%{::location}-leaf-03.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_netpart')}.3"
+    "%{::location}-leaf-04.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_netpart')}.4"
+    # Used as CNAME for uh-iaas.no (http://iaas.readthedocs.io/en/latest/team/operations/dns.html)
+    'uh-dboard.iaas.uio.no':                            '158.39.77.254'
+    'uh-access.iaas.uio.no':                            '158.39.77.252'
+    'uh-status.iaas.uio.no':                            '158.39.77.254'
+    'uh-api.iaas.uio.no':                               '158.39.77.254'
+    'uh-console.iaas.uio.no':                           '158.39.77.251'
 
-# service/transport1
 service__address__nova_api:          '172.18.32.66'
 service__address__nova_api_metadata: '127.0.0.1'
 service__address__glance_registry:   '172.18.32.36'
@@ -49,8 +64,6 @@ mgmt_address_mq:                     '172.16.32.31'
 service__address__rabbitmq_01:       '172.18.32.31'
 service__address__rabbitmq_02:       '172.18.32.31'
 service__address__rabbitmq_03:       '172.18.32.31'
-
-himlar_bootstrap::nameserver: 129.240.2.3 # FIXME
 
 ntp::servers:
   - ntp1.uio.no
@@ -93,55 +106,3 @@ profile::network::services::dns_options:
       ttl: 86400
       keyfile: "/etc/rndc-%{location}.key"
       server: '129.240.2.6'
-
-profile::network::services::dns_records:
-  CNAME:
-    'puppet.iaas.uio.no':                  'osl-admin-01.iaas.uio.no'
-    'admin.iaas.uio.no':                   'osl-admin-01.iaas.uio.no'
-    'repo.iaas.uio.no':                    'osl-admin-01.iaas.uio.no'
-    'monitor.iaas.uio.no':                 'osl-monitor-01.iaas.uio.no'
-    'logger.iaas.uio.no':                  'osl-logger-01.iaas.uio.no'
-    'foreman.iaas.uio.no':                 'osl-admin-01.iaas.uio.no'
-  A:
-    'osl-leaf-01.iaas.uio.no':        '172.16.32.1'
-    'osl-leaf-02.iaas.uio.no':        '172.16.32.2'
-    'osl-leaf-03.iaas.uio.no':        '172.16.32.3'
-    'osl-leaf-04.iaas.uio.no':        '172.16.32.4'
-    'osl-login.iaas.uio.no':          '172.16.32.10'
-    'osl-admin-01.iaas.uio.no':       '172.16.32.11'
-    'osl-proxy-01.iaas.uio.no':       '172.16.32.12'
-    'osl-logger-01.iaas.uio.no':      '172.16.32.13'
-    'osl-monitor-01.iaas.uio.no':     '172.16.32.14'
-    'osl-mq-01.iaas.uio.no':          '172.16.32.31'
-    'osl-image-01.iaas.uio.no':       '172.16.32.36'
-    'osl-db-01.iaas.uio.no':          '172.16.32.41'
-    'osl-db-02.iaas.uio.no':          '172.16.32.42'
-    'osl-volume-01.iaas.uio.no':      '172.16.32.46'
-    'osl-dashboard-01.iaas.uio.no':   '172.16.32.51'
-    'osl-access-01.iaas.uio.no':      '172.16.32.56'
-    'osl-console-01.iaas.uio.no':     '172.16.32.61'
-    'osl-novactrl-01.iaas.uio.no':    '172.16.32.66'
-    'osl-network-01.iaas.uio.no':     '172.16.32.71'
-    'osl-identity-01.iaas.uio.no':    '172.16.32.81'
-    'osl-cephmon-01.iaas.uio.no':     '172.16.32.91'
-    'osl-cephmon-02.iaas.uio.no':     '172.16.32.92'
-    'osl-cephmon-03.iaas.uio.no':     '172.16.32.93'
-    'osl-controller-01.iaas.uio.no':  '172.16.32.100'
-    'osl-controller-02.iaas.uio.no':  '172.16.32.101'
-    'osl-controller-03.iaas.uio.no':  '172.16.32.102'
-    'osl-compute-01.iaas.uio.no':     '172.16.32.103'
-    'osl-compute-02.iaas.uio.no':     '172.16.32.104'
-    'osl-compute-03.iaas.uio.no':     '172.16.32.105'
-    'osl-storage-01.iaas.uio.no':     '172.16.32.106'
-    'osl-storage-02.iaas.uio.no':     '172.16.32.107'
-    'osl-storage-03.iaas.uio.no':     '172.16.32.108'
-    'osl-storage-04.iaas.uio.no':     '172.16.32.109'
-    'osl-storage-05.iaas.uio.no':     '172.16.32.110'
-    'api.iaas.uio.no':                '158.37.63.254'
-    'osl-login-01.iaas.uio.no':       '129.240.224.100'
-    # Used as CNAME for uh-iaas.no
-    'uh-dboard.iaas.uio.no':          '158.39.77.254'
-    'uh-access.iaas.uio.no':          '158.39.77.252'
-    'uh-status.iaas.uio.no':          '158.39.77.254'
-    'uh-api.iaas.uio.no':             '158.39.77.254'
-    'uh-console.iaas.uio.no':         '158.39.77.251'

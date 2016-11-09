@@ -2,18 +2,15 @@
 network::interfaces_hash:
   'eth0':
     onboot:       'yes'
-    mtu:          '9000'
     master:       'bond0'
     slave:        'yes'
   'eth1':
     onboot:       'yes'
-    mtu:          '9000'
     master:       'bond0'
     slave:        'yes'
   'bond0':
     onboot:       'yes'
     bonding_opts: 'mode=balance-alb miimon=100'
-#    bonding_opts: 'mode=802.3ad miimon=100 lacp_rate=1'
     bridge:       'br0'
   'bond0.912':
     onboot:       'yes'
@@ -22,12 +19,12 @@ network::interfaces_hash:
   'br0':
     onboot:       'yes'
     type:         'Bridge'
-    ipaddress:    '172.28.0.111'
-    gateway:      '172.28.0.10'
-    netmask:      '255.255.255.0'
-    dns1:         '129.177.6.54'
-##    dns1:   "%{hiera('service__address__proxy')}"
-    domain:       'mgmt.test.iaas.intern'
+    ipaddress:    "%{hiera('netcfg_mgmt_netpart')}.111"
+    netmask:      "%{hiera('netcfg_mgmt_netmask')}"
+    gateway:      "%{hiera('netcfg_mgmt_gateway')}"
+    dns1:         "%{hiera('netcfg_dns_server1')}"
+    dns2:         "%{hiera('netcfg_dns_server2')}"
+    domain:       "%{hiera('netcfg_dns_search')}"
     peerdns:      'yes'
     defroute:     'yes'
     bridge_stp:   'off'
@@ -35,18 +32,7 @@ network::interfaces_hash:
     onboot:       'yes'
     vlan:         'yes'
     type:         'Bridge'
-    ipaddress:    '172.30.0.111'
-    netmask:      '255.255.255.0'
+    ipaddress:    "%{hiera('netcfg_trp_netpart')}.111"
+    netmask:      "%{hiera('netcfg_trp_netmask')}"
     defroute:     'no'
     bridge_stp:   'off'
-
-# Use controller-01 for himlar bootstrap
-profile::bootstrap::himlar::manage_bootstrap_scripts: true
-
-################ TEMP DATA - SHALL BE FIXED IN COMMON #########################
-
-named_interfaces::config:
-  mgmt:
-     - br0
-  trp:
-     - br1

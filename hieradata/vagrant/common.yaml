@@ -99,9 +99,6 @@ service__address__rabbitmq_02:       '172.31.16.20'
 service__address__rabbitmq_03:       '172.31.16.20'
 mgmt_address_mq:                     '172.31.0.20'
 
-# no proxy for vagrant environments
-profile::network::yum_proxy::yum_proxy: ''
-
 #
 #  - Add vagrant user to wheel and users group
 #

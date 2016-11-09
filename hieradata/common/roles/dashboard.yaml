@@ -2,68 +2,13 @@
 include:
   default:
     - profile::openstack::dashboard
-    - profile::openstack::api
-    - profile::openstack::openrc
-    - profile::application::himlarcli
     - profile::logging::rsyslog::client
 
 profile::base::network::manage_dummy:             true
-profile::openstack::openrc::filename:             '/root/keystonerc_admin'
+profile::base::firewall::purge_firewall:          true
 profile::openstack::dashboard::manage_dashboard:  true
 profile::openstack::dashboard::manage_firewall:   true
 profile::openstack::dashboard::manage_overrides:  true
-
-profile::base::common::packages:
-  'python-openstackclient': {}
-
-dashboard_referer:    '^https://dashboard\.'
-
-profile::openstack::api::default_vhost_config:
-  servername:           "%{hiera('service__address__keystone_public')}"
-  vhost_name:           "%{hiera('service__address__keystone_public')}"
-  ip:                   "%{::ipaddress_public1}"
-  docroot:              '/var/www/html'
-  manage_docroot:       false
-  ssl:                  true
-  ssl_ca:               "/etc/pki/tls/certs/cachain.pem"
-  ssl_cert:             "/etc/pki/tls/certs/dashboard.%{hiera('domain_public')}.cert.pem"
-  ssl_key:              "/etc/pki/tls/private/dashboard.%{hiera('domain_public')}.key.pem"
-
-profile::openstack::api::vhosts:
-  keystone_api:
-    port:               '5000'
-    proxy_dest:         "http://%{hiera('service__address__keystone')}:5000"
-    extra:
-      proxy_preserve_host:  true
-      setenvif:
-        - "Referer '%{hiera('dashboard_referer')}' dashboard_referal"
-      request_headers:
-        - "set X-Forwarded-Proto '%{hiera('endpoint_protocol')}'"
-        - "set Host '%{hiera('service__address__keystone_public')}:5000' env=dashboard_referal"
-  nova_ec2_api:
-    port:               '8773'
-    proxy_dest:         "http://%{hiera('service__address__nova_api')}:8773"
-  nova_api:
-    port:               '8774'
-    proxy_dest:         "http://%{hiera('service__address__nova_api')}:8774"
-  cinder_api:
-    port:               '8776'
-    proxy_dest:         "http://%{hiera('service__address__cinder_api')}:8776"
-  glance_api:
-    port:               '9292'
-    proxy_dest:         "http://%{hiera('service__address__glance_api')}:9292"
-  neutron_server:
-    port:               '9696'
-    proxy_dest:         "http://%{hiera('service__address__neutron_server')}:9696"
-  status:
-    port:               '80'
-    proxy_dest:         false
-    extra:
-      priority:         '05'
-      redirect_dest:    "http://iaas.readthedocs.org/en/latest/status.html"
-      ssl:              false
-      servername:       "%{hiera('service__address__status')}"
-      vhost_name:       "%{hiera('service__address__status')}"
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:

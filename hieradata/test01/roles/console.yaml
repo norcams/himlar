@@ -1,5 +1,8 @@
 ---
-console_ssl_files:  "consoletest_iaas_uib_no"
-
-################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
-profile::base::network::manage_dummy: true
+profile::openstack::compute::consoleproxy::allow_from_network:
+  - '129.177.6.133/32'  # bgo-login
+  - '129.177.31.96/27'  # test01
+  - '129.177.10.189/32' # tor
+  - '129.177.10.212/32' # raymond
+  - '129.240.6.13/32'   # usit
+  - '129.240.6.14/32'   # usit

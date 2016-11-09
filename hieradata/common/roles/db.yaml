@@ -27,7 +27,6 @@ wsrep_cluster_address:  'gcomm://'
 wsrep_node_address:     "%{::ipaddress_trp1}"
 
 # Sensu
-profile::monitoring::sensu::agent::enable_agent: false
 profile::monitoring::sensu::mysql::password:  "%{hiera('sensu_mysql_password')}"
 profile::monitoring::sensu::mysql::manage_packages: true
 

@@ -3,24 +3,47 @@ include:
   default:
     - profile::monitoring::sensu::agent
 
-location_environment: test01
-location_description: Test environment physically in Bergen
+location_environment:   'test01'
+location_description:   'Test environment physically in Bergen'
 
-domain_public: 'iaas.uib.no'
-domain_trp:    'trp.test.iaas.intern'
-domain_mgmt:   'mgmt.test.iaas.intern'
+domain_public:          'test.iaas.uib.no'
+domain_trp:             'test01.uhdc.no'
+domain_mgmt:            'mgmt.test01.uhdc.no'
 
-netcfg_mgmt_gateway:  '172.28.0.10'
-netcfg_trp_gateway:   '172.30.0.1'
-netcfg_dns_server1:   '129.177.6.54'
-netcfg_dns_server2:   '129.177.12.31'
-netcfg_dns_search:    "%{hiera('domain_mgmt')}"
+netcfg_mgmt_gateway:    '172.28.0.12'
+netcfg_mgmt_netpart:    '172.28.0'
+netcfg_mgmt_netmask:    '255.255.255.0'
+netcfg_trp_gateway:     '172.30.0.1'
+netcfg_trp_netpart:     '172.30.0'
+netcfg_trp_netmask:     '255.255.255.0'
+netcfg_dns_server1:     '172.28.0.12'
+netcfg_dns_server2:     '129.177.12.31'
+netcfg_dns_search:      "%{hiera('domain_mgmt')} %{hiera('domain_trp')}"
 
-# Service address
-service__address__rabbitmq_01:       '172.30.0.31'
-service__address__rabbitmq_02:       '172.30.0.31'
-service__address__rabbitmq_03:       '172.30.0.31'
+#
+# Services (internal non openstack services)
+#
+service__address__mysql:  "db01.%{hiera('domain_trp')}" #FIXME
 
+#
+# DNS (merge of common and this)
+#
+profile::network::services::dns_records:
+  A:
+    # mgmt
+    "%{::location}-controller-04.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_netpart')}.111"
+    "%{::location}-compute-04.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.112"
+    # public
+    "api.%{hiera('domain_public')}":                        '129.177.31.122'
+    "identity.api.%{hiera('domain_public')}":               '129.177.31.122'
+    "network.api.%{hiera('domain_public')}":                '129.177.31.122'
+    "image.api.%{hiera('domain_public')}":                  '129.177.31.122'
+    "volume.api.%{hiera('domain_public')}":                 '129.177.31.122'
+    "compute.api.%{hiera('domain_public')}":                '129.177.31.122'
+    "status.%{hiera('domain_public')}":                     '129.177.31.122'
+    "access.%{hiera('domain_public')}":                     '129.177.31.124'
+    "console.%{hiera('domain_public')}":                    '129.177.31.125'
+    "dashboard.%{hiera('domain_public')}":                  '129.177.31.126'
 
 profile::network::services::dns_options:
   CNAME:
@@ -38,52 +61,6 @@ profile::network::services::dns_options:
       ttl: 86400
       keyfile: "/etc/rndc-%{location}.key"
       server: 'alfalfa.uib.no'
-
-profile::network::services::dns_records:
-  CNAME:
-    'puppet.mgmt.test.iaas.intern':             'test01-admin-01.mgmt.test.iaas.intern'
-    'admin.mgmt.test.iaas.intern':              'test01-admin-01.mgmt.test.iaas.intern'
-    'repo.mgmt.test.iaas.intern':               'test01-admin-01.mgmt.test.iaas.intern'
-    'master.mgmt.test.iaas.intern':             'test01-master-01.mgmt.test.iaas.intern'
-    'db.mgmt.test.iaas.intern':                 'test01-db-01.mgmt.test.iaas.intern'
-    'logger.mgmt.test.iaas.intern':             'test01-logger-01.mgmt.test.iaas.intern'
-    'monitor.mgmt.test.iaas.intern':            'test01-monitor-01.mgmt.test.iaas.intern'
-  A:
-    'test01-leaf-01.mgmt.test.iaas.intern':        '172.28.0.1'
-    'test01-leaf-02.mgmt.test.iaas.intern':        '172.28.0.2'
-    'test01-admin-01.mgmt.test.iaas.intern':       '172.28.0.11'
-    'test01-proxy-01.mgmt.test.iaas.intern':       '172.28.0.12'
-    'test01-logger-01.mgmt.test.iaas.intern':      '172.28.0.13'
-    'test01-monitor-01.mgmt.test.iaas.intern':     '172.28.0.14'
-    'test01-master-01.mgmt.test.iaas.intern':      '172.28.0.20'
-    'test01-mq-01.mgmt.test.iaas.intern':          '172.28.0.31'
-    'test01-image-01.mgmt.test.iaas.intern':       '172.28.0.36'
-    'test01-db-01.mgmt.test.iaas.intern':          '172.28.0.41'
-    'test01-volume-01.mgmt.test.iaas.intern':      '172.28.0.46'
-    'test01-dashboard-01.mgmt.test.iaas.intern':   '172.28.0.51'
-    'test01-access-01.mgmt.test.iaas.intern':      '172.28.0.56'
-    'test01-console-01.mgmt.test.iaas.intern':     '172.28.0.61'
-    'test01-novactrl-01.mgmt.test.iaas.intern':    '172.28.0.66'
-    'test01-network-01.mgmt.test.iaas.intern':     '172.28.0.71'
-    'test01-identity-01.mgmt.test.iaas.intern':    '172.28.0.81'
-    'test01-api-01.mgmt.test.iaas.intern':         '172.28.0.86'
-    'test01-cephmon-01.mgmt.test.iaas.intern':     '172.28.0.91'
-    'test01-cephmon-02.mgmt.test.iaas.intern':     '172.28.0.92'
-    'test01-cephmon-03.mgmt.test.iaas.intern':     '172.28.0.93'
-    'test01-controller-01.mgmt.test.iaas.intern':  '172.28.0.100'
-    'test01-controller-02.mgmt.test.iaas.intern':  '172.28.0.101'
-    'test01-controller-03.mgmt.test.iaas.intern':  '172.28.0.102'
-    'test01-compute-01.mgmt.test.iaas.intern':     '172.28.0.103'
-    'test01-compute-02.mgmt.test.iaas.intern':     '172.28.0.104'
-    'test01-compute-03.mgmt.test.iaas.intern':     '172.28.0.105'
-    'test01-storage-01.mgmt.test.iaas.intern':     '172.28.0.106'
-    'test01-storage-02.mgmt.test.iaas.intern':     '172.28.0.107'
-    'test01-storage-03.mgmt.test.iaas.intern':     '172.28.0.108'
-    'test01-controller-04.mgmt.test.iaas.intern':  '172.28.0.111'
-    'test01-compute-04.mgmt.test.iaas.intern':     '172.28.0.112'
-  PTR:
-    '1.0.28.172.in-addr.arpa':                   'test01-leaf-01.mgmt.test.iaas.intern'
-    '2.0.28.172.in-addr.arpa':                   'test01-leaf-02.mgmt.test.iaas.intern'
 
 ntp::servers:
   - ntp.uib.no
@@ -108,34 +85,3 @@ profile::network::services::dhcp_reservation:
   test01-leaf-02:
     mac: '00:50:56:ae:4b:f6'
     ip:  '172.30.0.2'
-
-################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
-
-endpoint_protocol: 'https'
-
-# public
-service__address__horizon:           'test.iaas.uib.no'
-service__address__keystone_public:   'test.iaas.uib.no'
-service__address__glance_public_api: 'test.iaas.uib.no'
-service__address__nova_public_api:   'test.iaas.uib.no'
-service__address__neutron_public:    'test.iaas.uib.no'
-service__address__cinder_public_api: 'test.iaas.uib.no'
-service__address__consoleproxy:      '129.177.31.125'
-
-# service/transport1
-service__address__nova_api:          '172.30.0.66'
-# metadata FIXME
-service__address__nova_api_metadata: '127.0.0.1'
-service__address__glance_registry:   '172.30.0.36'
-service__address__glance_api:        '172.30.0.36'
-service__address__keystone:          '172.30.0.81'
-service__address__keystone_admin:    '172.30.0.81'
-service__address__etcd_cluster:      '172.30.0.71'
-service__address__neutron_server:    '172.30.0.71'
-service__address__cinder_api:        '172.30.0.46'
-service__address__mysql:             '172.30.0.41'
-
-# mgmt
-service__address__proxy:             '172.28.0.12'
-service__address__rsyslog:           '172.28.0.13'
-mgmt_address_mq:                     '172.28.0.31'

@@ -71,43 +71,108 @@ named_interfaces::config:
   public:
     - dummy0
 
-
-# API endpint protocole
-endpoint_protocol: 'http'
+#
+# Public addresses
+#
+public__address__api:             "https://api.%{hiera('domain_public')}:5000/v3"
+public__address__dashboard:       "dashboard.%{hiera('domain_public')}"
+public__address__access:          "access.%{hiera('domain_public')}"
+public__address__console:         "console.%{hiera('domain_public')}"
 
 #
-# Openstack services
+# Services (internal non openstack services)
 #
+service__address__mysql:          "db02.%{hiera('domain_trp')}"
+service__address__status:         "status.%{hiera('domain_trp')}"
+service__address__etcd_cluster:   "network.%{hiera('domain_trp')}"
+service__address__rabbitmq_01:    "mq01.%{hiera('domain_trp')}"
+service__address__rabbitmq_02:    "mq01.%{hiera('domain_trp')}"
+service__address__rabbitmq_03:    "mq01.%{hiera('domain_trp')}"
+service__address__cinder_ip:      "%{hiera('netcfg_trp_netpart')}.46"
+service__address__consoleproxy:
+#
+# Management (proxy and logger must be IP)
+#
+mgmt__address__proxy:             "%{hiera('netcfg_mgmt_netpart')}.12"
+mgmt__address__logger:            "%{hiera('netcfg_mgmt_netpart')}.13"
+mgmt__address__monitor:           "monitor.%{hiera('domain_mgmt')}"
+mgmt__address__foreman:           "%{::location}-admin-01.%{hiera('domain_mgmt')}"
+mgmt__address__repo:              "repo.%{hiera('domain_mgmt')}"
+mgmt__address__mq_01:             "%{hiera('netcfg_mgmt_netpart')}.31"
 
-# public
-service__address__status:            "status.%{hiera('domain_public')}"
-service__address__horizon:           "dashboard.%{hiera('domain_public')}"
-service__address__keystone_public:   "dashboard.%{hiera('domain_public')}"
-service__address__glance_public_api: "dashboard.%{hiera('domain_public')}"
-service__address__nova_public_api:   "dashboard.%{hiera('domain_public')}"
-service__address__neutron_public:    "dashboard.%{hiera('domain_public')}"
-service__address__cinder_public_api: "dashboard.%{hiera('domain_public')}"
-service__address__consoleproxy:      "console.%{hiera('domain_public')}"
+#
+# Endpoints (including protocole)
+#
+endpoint__identity__admin:        "http://identity.%{hiera('domain_trp')}:35357"
+endpoint__identity__internal:     "http://identity.%{hiera('domain_trp')}:5000"
+endpoint__identity__public:       "https://identity.api.%{hiera('domain_public')}:5000"
+endpoint__compute__admin:         "http://compute.%{hiera('domain_trp')}:8774"
+endpoint__compute__internal:      "http://compute.%{hiera('domain_trp')}:8774"
+endpoint__compute__public:        "https://compute.api.%{hiera('domain_public')}:8774"
+endpoint__volume__admin:          "http://volume.%{hiera('domain_trp')}:8776"
+endpoint__volume__internal:       "http://volume.%{hiera('domain_trp')}:8776"
+endpoint__volume__public:         "https://volume.api.%{hiera('domain_public')}:8776"
+endpoint__image__admin:           "http://image.%{hiera('domain_trp')}:9292"
+endpoint__image__internal:        "http://image.%{hiera('domain_trp')}:9292"
+endpoint__image__public:          "https://image.api.%{hiera('domain_public')}:9292"
+endpoint__network__admin:         "http://network.%{hiera('domain_trp')}:9696"
+endpoint__network__internal:      "http://network.%{hiera('domain_trp')}:9696"
+endpoint__network__public:        "https://network.api.%{hiera('domain_public')}:9696"
 
-# transport
-service__address__nova_api:          "novactrl.%{hiera('domain_trp')}"
-service__address__nova_api_metadata: '127.0.0.1'
-service__address__glance_registry:   "image.%{hiera('domain_trp')}"
-service__address__glance_api:        "image.%{hiera('domain_trp')}"
-service__address__keystone:          "identity.%{hiera('domain_trp')}"
-service__address__keystone_admin:    "identity.%{hiera('domain_trp')}"
-service__address__etcd_cluster:      "network.%{hiera('domain_trp')}"
-service__address__neutron_server:    "network.%{hiera('domain_trp')}"
-service__address__cinder_api:        "volume.%{hiera('domain_trp')}"
-service__address__mysql:             "db.%{hiera('domain_trp')}"
-service__address__rabbitmq_01:       "mq01.%{hiera('domain_trp')}"
-service__address__rabbitmq_02:       "mq01.%{hiera('domain_trp')}"
-service__address__rabbitmq_03:       "mq01.%{hiera('domain_trp')}"
-
-# mgmt
-service__address__rsyslog:           "logger.%{hiera('domain_mgmt')}"
-service__address__proxy:             "proxy.%{hiera('domain_mgmt')}"
-service__address__monitor:           "monitor.%{hiera('domain_mgmt')}"
+#
+# DNS (merge of this and location)
+#
+profile::network::services::dns_records:
+  A:
+    # hostname
+    "%{::location}-leaf-01.%{hiera('domain_mgmt')}":        "%{hiera('netcfg_mgmt_netpart')}.1"
+    "%{::location}-admin-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_mgmt_netpart')}.11"
+    "%{::location}-proxy-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_mgmt_netpart')}.12"
+    "%{::location}-logger-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_netpart')}.13"
+    "%{::location}-monitor-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.14"
+    "%{::location}-status-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_netpart')}.21"
+    "%{::location}-mq-01.%{hiera('domain_mgmt')}":          "%{hiera('netcfg_mgmt_netpart')}.31"
+    "%{::location}-image-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_mgmt_netpart')}.36"
+    "%{::location}-db-01.%{hiera('domain_mgmt')}":          "%{hiera('netcfg_mgmt_netpart')}.41"
+    "%{::location}-db-02.%{hiera('domain_mgmt')}":          "%{hiera('netcfg_mgmt_netpart')}.42"
+    "%{::location}-volume-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_netpart')}.46"
+    "%{::location}-access-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_netpart')}.56"
+    "%{::location}-dashboard-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_mgmt_netpart')}.51"
+    "%{::location}-console-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.61"
+    "%{::location}-novactrl-01.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_netpart')}.66"
+    "%{::location}-network-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.71"
+    "%{::location}-identity-01.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_netpart')}.81"
+    "%{::location}-api-01.%{hiera('domain_mgmt')}":         "%{hiera('netcfg_mgmt_netpart')}.86"
+    "%{::location}-cephmon-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.91"
+    "%{::location}-cephmon-02.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.92"
+    "%{::location}-cephmon-03.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.93"
+    "%{::location}-controller-01.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_netpart')}.100"
+    "%{::location}-controller-02.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_netpart')}.101"
+    "%{::location}-controller-03.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_netpart')}.102"
+    "%{::location}-compute-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.103"
+    "%{::location}-compute-02.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.104"
+    "%{::location}-compute-03.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.105"
+    "%{::location}-storage-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.106"
+    "%{::location}-storage-02.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.107"
+    "%{::location}-storage-03.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.108"
+    "%{::location}-storage-04.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.109"
+    "%{::location}-storage-05.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.110"
+    # mgmt
+    "foreman.%{hiera('domain_mgmt')}":                      "%{hiera('netcfg_mgmt_netpart')}.11"
+    "puppet.%{hiera('domain_mgmt')}":                       "%{hiera('netcfg_mgmt_netpart')}.11"
+    "repo.%{hiera('domain_mgmt')}":                         "%{hiera('netcfg_mgmt_netpart')}.11"
+    "logger.%{hiera('domain_mgmt')}":                       "%{hiera('netcfg_mgmt_netpart')}.13"
+    "monitor.%{hiera('domain_mgmt')}":                      "%{hiera('netcfg_mgmt_netpart')}.14"
+    # trp
+    "status.%{hiera('domain_trp')}":                        "%{hiera('netcfg_trp_netpart')}.21"
+    "mq01.%{hiera('domain_trp')}":                          "%{hiera('netcfg_trp_netpart')}.31"
+    "image.%{hiera('domain_trp')}":                         "%{hiera('netcfg_trp_netpart')}.36"
+    "db01.%{hiera('domain_trp')}":                          "%{hiera('netcfg_trp_netpart')}.41"
+    "db02.%{hiera('domain_trp')}":                          "%{hiera('netcfg_trp_netpart')}.42"
+    "volume.%{hiera('domain_trp')}":                        "%{hiera('netcfg_trp_netpart')}.46"
+    "compute.%{hiera('domain_trp')}":                       "%{hiera('netcfg_trp_netpart')}.66"
+    "network.%{hiera('domain_trp')}":                       "%{hiera('netcfg_trp_netpart')}.71"
+    "identity.%{hiera('domain_trp')}":                      "%{hiera('netcfg_trp_netpart')}.81"
 
 #
 # Network configuration data

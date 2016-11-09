@@ -1,0 +1,33 @@
+---
+# Override warning and critical level and check interval
+sensu::checks:
+  'metrics-vmstat':
+    type:         'metric'
+    command:      'metrics-vmstat.rb --scheme vmstats.%{::hostname}'
+    interval:     120
+    subscribers:  ['metrics']
+    handlers:     ['graphite_tcp']
+  'metrics-load':
+    type:         'metric'
+    command:      'metrics-load.rb --scheme load.%{::hostname}'
+    interval:     120
+    subscribers:  ['metrics']
+    handlers:     ['graphite_tcp']
+  'metrics-memory':
+    type:         'metric'
+    command:      'metrics-memory.rb --scheme memory.%{::hostname}'
+    interval:     120
+    subscribers:  ['metrics']
+    handlers:     ['graphite_tcp']
+  'check-disk-usage':
+    command:      'check-disk-usage.rb -w 80 -c 90'
+    interval:     120
+    subscribers:  ['checks']
+  'check-load':
+    command:      'check-load.rb -p -w 3,2,1'
+    interval:     120
+    subscribers:  ['checks']
+  'check-memory-precent':
+    command:      'check-memory-percent.rb -w 80 -c 90'
+    interval:     120
+    subscribers:  ['checks']

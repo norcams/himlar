@@ -30,6 +30,6 @@ profile::monitoring::grafana::datasource:
     grafana_user:       'admin'
     grafana_password:   "%{hiera('grafana_admin_password')}"
     type:               'graphite'
-    url:                "http://%{hiera('service__address__monitor')}"
+    url:                "http://%{hiera('mgmt__address__monitor')}"
     access_mode:        'proxy'
     is_default:          true

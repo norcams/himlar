@@ -1,15 +1,8 @@
 ---
-profile::webserver::apache::vhosts:
-  dpapp:
-    vhost_name:         "accesstest.iaas.uib.no"
-    servername:         "accesstest.iaas.uib.no"
-    redirect_dest:      "https://accesstest.iaas.uib.no/"
-  dpapp_ssl:
-    vhost_name:         "accesstest.iaas.uib.no"
-    servername:         "accesstest.iaas.uib.no"
-    ssl_ca:             "/etc/pki/tls/certs/DigiCertCA.crt"
-    ssl_cert:           "/etc/pki/tls/certs/accesstest_iaas_uib_no.crt"
-    ssl_key:            "/etc/pki/tls/private/accesstest_iaas_uib_no.key"
-
-################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
-profile::base::network::manage_dummy: true
+profile::application::access::allow_from_network:
+  - '129.177.6.133/32'  # bgo-login
+  - '129.177.31.96/27'  # test01
+  - '129.177.10.189/32' # tor
+  - '129.177.10.212/32' # raymond
+  - '129.240.6.13/32'   # usit
+  - '129.240.6.14/32'   # usit

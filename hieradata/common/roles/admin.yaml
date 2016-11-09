@@ -8,27 +8,27 @@ include:
 
 foreman_version: '1.12'
 
+profile::base::network::manage_hostname:        true
 profile::application::foreman::manage_eyaml:    true
 profile::application::foreman::manage_firewall: true
 profile::application::foreman::manage_repo_dir: true
-
 profile::network::services::manage_dns_records: true
 profile::network::services::manage_dhcp_rsvs:   true
 
+# We need SCL repos
 openstack_extras::repo::redhat::redhat::purge_unmanaged:  false
 
-## Bind utils will be installed with foreman::dns
-#profile::base::common::packages:
-#  'bind-utils': { ensure: absent }
-
 puppet::server:                        true
-puppet::server_foreman_url:            "https://%{fqdn}"
-puppet::dns_alt_names:                 ["puppet.%{domain}","puppetca.%{domain}","admin.%{domain}"]
+puppet::server_foreman_url:            "https://%{hiera('mgmt__address__foreman')}"
+puppet::dns_alt_names:
+  - "puppet.%{hiera('domain_mgmt')}"
+  - "puppetca.%{hiera('domain_mgmt')}"
+  - "admin.%{hiera('domain_mgmt')}"
 
 profile::webserver::apache::manage_firewall:  false
 profile::webserver::apache::vhosts:
   'repo':
-    servername:     "repo.%{domain}"
+    servername:     "%{hiera('mgmt__address__repo')}"
     port:           80
     docroot:        '/opt/repo/public'
     docroot_owner:  'iaas'

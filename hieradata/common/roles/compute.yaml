@@ -11,25 +11,28 @@ include:
     - profile::base::lvm
     - profile::virtualization::nested
     - profile::network::yum_proxy
+    - profile::monitoring::sensu::agent
   bootstrap:
     - profile::base::lvm
     - profile::network::yum_proxy
-
-# Need internet to install sensu plugins
-profile::monitoring::sensu::agent::enable_agent:  false
 
 # Because of this we cannot use syslog on master:
 # https://bugs.launchpad.net/kolla/liberty/+bug/1516306
 neutron::use_syslog:    true
 neutron::log_facility:  'LOG_LOCAL5'
 
-profile::network::yum_proxy::yum_proxy: "http://%{hiera('service__address__proxy')}:8888"
+profile::base::network::manage_httpproxy: true
+profile::network::yum_proxy::yum_proxy:   "http://%{hiera('mgmt__address__proxy')}:8888"
+
+# Source proxy for internet access during puppetrun
+puppet::cron_cmd: "if [ -e /root/proxy.sh ] ; then source /root/proxy.sh ; fi ; \
+  /usr/bin/env puppet agent --config %{puppet::dir}/puppet.conf --onetime --no-daemonize"
 
 profile::openstack::compute::migration::enable_nova_account: true
 
 # Enable intance migration via ssh
 profile::firewall::pre::ssh_settings:
-  source: "0.0.0.0/0"
+  source: "0.0.0.0/0" #FIXME (limit source)
 
 openstack_extras::repo::redhat::redhat::manage_rdo: false
 profile::base::common::manage_lvm: true
