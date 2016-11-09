@@ -25,7 +25,7 @@ class profile::base::network(
     $domain_mgmt = hiera('domain_mgmt', $::domain)
     $hostname = "${::hostname}.${domain_mgmt}"
     if $::osfamily == 'RedHat' {
-      exec { 'sethostname':
+      exec { 'himlar_sethostname':
         command => "/usr/bin/hostnamectl set-hostname ${hostname}",
         unless  => "/usr/bin/hostnamectl status | grep 'Static hostname: ${hostname}'",
       }
