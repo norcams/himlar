@@ -3,5 +3,5 @@ horizon::openstack_endpoint_type:       'publicURL' #FIXME
 
 # Both regions use the local identity service
 horizon::available_regions:
-  - [ "https://%{hiera('endpoint__identity__public')}:5000/v3", "%{location}"]
+  - [ "%{hiera('endpoint__identity__public')}", "%{location}"]
   - [ "https://dashboard.iaas.uio.no:5000/v3", 'osl']
