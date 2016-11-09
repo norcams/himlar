@@ -1,7 +1,7 @@
 ---
 himlar_bootstrap::virt_install:
   '%{location}-admin-01':
-    domain:          'mgmt.iaas.intern'
+    domain:          'mgmt.bgo.uhdc.no'
     libvirt_pool:    'dirpool'
     libvirt_network: 'directnet'
     install_ip:      '172.16.0.11'
