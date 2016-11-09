@@ -1,7 +1,5 @@
 ---
-dashboard_referer:    '^https://dashboard\.iaas\.uib\.no/dashboard'
-
-# Manage upload dir only in bgo? #FIXME
+# Manage upload #FIXME
 profile::base::common::manage_lvm: true
 profile::base::lvm::physical_volume:
   '/dev/vdb':
