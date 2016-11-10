@@ -1,5 +1,6 @@
 class profile::openstack::volume(
-  $manage_rbd = false,
+  $manage_rbd    = false,
+  $manage_quotas = false
 ) {
   include ::cinder
   include ::cinder::client
@@ -7,5 +8,9 @@ class profile::openstack::volume(
 
   if $manage_rbd {
     include profile::storage::cephclient
+  }
+
+  if $manage_quotas {
+  	include cinder::quota
   }
 }
