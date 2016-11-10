@@ -2,6 +2,7 @@ class profile::openstack::network(
   $l2_driver = 'ovs',
   $plugin    = 'ml2',
   $manage_firewall = true,
+  $manage_quotas   = false,
   $firewall_extras = {},
 ){
   include ::neutron
@@ -43,6 +44,10 @@ class profile::openstack::network(
       }
       default: {}
     }
+  }
+
+  if $manage_quotas {
+    include neutron::quota
   }
 
 }
