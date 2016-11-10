@@ -5,7 +5,7 @@ network::interfaces_hash:
     mtu:       '1500'
     ipaddress: '172.28.32.41'
     netmask:   '255.255.255.0'
-    gateway:   "%{hiera('netcfg_gateway_mgmt')}"
+    gateway:   "%{hiera('netcfg_mgmt_gateway')}"
     peerdns:   'yes'
     dns1:      "%{hiera('netcfg_dns_server1')}"
     domain:    "%{hiera('netcfg_dns_search')}"
