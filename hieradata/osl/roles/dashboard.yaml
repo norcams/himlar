@@ -1,7 +1,7 @@
 ---
 # Disable dashboard on osl.
 profile::openstack::dashboard::manage_dashboard:  false #FIXME
-profile::openstack::api::manage_apache: true #FIXME
+profile::openstack::api::manage_apache: false #FIXME
 
 # Enable osl dashboard only from some
 profile::openstack::dashboard::allow_from_network:
