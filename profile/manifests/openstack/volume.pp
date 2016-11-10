@@ -11,6 +11,6 @@ class profile::openstack::volume(
   }
 
   if $manage_quotas {
-  	include cinder::quota
+    include cinder::quota
   }
 }
