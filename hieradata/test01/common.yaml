@@ -49,17 +49,17 @@ profile::network::services::dns_records:
 profile::network::services::dns_options:
   CNAME:
     default:
-      ttl: 86400
+      ttl: 3600
       keyfile: "/etc/rndc-%{location}.key"
       server: 'alfalfa.uib.no'
   A:
     default:
-      ttl: 86400
+      ttl: 3600
       keyfile: "/etc/rndc-%{location}.key"
       server: 'alfalfa.uib.no'
   PTR:
     default:
-      ttl: 86400
+      ttl: 3600
       keyfile: "/etc/rndc-%{location}.key"
       server: 'alfalfa.uib.no'
 
