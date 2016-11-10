@@ -16,6 +16,7 @@ location_description: unset
 location_environment: unset
 location_tag:         unset
 
+domain_frontend:      "%{::domain}"
 domain_public:        "%{::domain}"
 domain_trp:           "%{::domain}"
 domain_mgmt:          "%{::domain}"
@@ -74,9 +75,9 @@ named_interfaces::config:
 #
 # Public addresses
 #
-public__address__api:             "https://api.%{hiera('domain_public')}:5000/v3"
-public__address__dashboard:       "dashboard.%{hiera('domain_public')}"
-public__address__access:          "access.%{hiera('domain_public')}"
+public__address__api:             "https://api.%{hiera('domain_frontend')}:5000/v3"
+public__address__dashboard:       "dashboard.%{hiera('domain_frontend')}"
+public__address__access:          "access.%{hiera('domain_frontend')}"
 public__address__console:         "console.%{hiera('domain_public')}"
 
 #
