@@ -10,7 +10,7 @@ domain_public:            'osl.uh-iaas.no'
 domain_trp:               'osl.uhdc.no'
 domain_mgmt:              'mgmt.osl.uhdc.no'
 
-netcfg_mgmt_gateway:      '172.16.32.12'
+netcfg_mgmt_gateway:      '172.16.32.10'
 netcfg_mgmt_netpart:      '172.16.32'
 netcfg_mgmt_netmask:      '255.255.248.0'
 netcfg_trp_gateway:       '172.18.39.1'
@@ -43,27 +43,6 @@ profile::network::services::dns_records:
     'uh-status.iaas.uio.no':                            '158.39.77.250'
     'uh-api.iaas.uio.no':                               '158.37.63.250'
     'uh-console.iaas.uio.no':                           '158.37.63.251'
-
-service__address__nova_api:          '172.18.32.66'
-service__address__nova_api_metadata: '127.0.0.1'
-service__address__glance_registry:   '172.18.32.36'
-service__address__glance_api:        '172.18.32.36'
-service__address__keystone:          '172.18.32.81'
-service__address__keystone_admin:    '172.18.32.81'
-service__address__etcd_cluster:      '172.18.32.71'
-service__address__neutron_server:    '172.18.32.71'
-service__address__cinder_api:        '172.18.32.46'
-service__address__mysql:             '172.18.32.42'
-
-# mgmt
-service__address__proxy:             '172.16.32.12'
-service__address__rsyslog:           '172.16.32.13'
-mgmt_address_mq:                     '172.16.32.31'
-
-# rabbitmq
-service__address__rabbitmq_01:       '172.18.32.31'
-service__address__rabbitmq_02:       '172.18.32.31'
-service__address__rabbitmq_03:       '172.18.32.31'
 
 ntp::servers:
   - ntp1.uio.no
