@@ -1,5 +1,6 @@
 ---
 # Disable dashboard on osl.
+profile::openstack::dashboard::manage_overrides: false #FIXME
 profile::openstack::dashboard::manage_dashboard:  false #FIXME
 profile::openstack::api::manage_apache: false #FIXME
 
