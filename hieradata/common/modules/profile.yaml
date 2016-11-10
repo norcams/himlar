@@ -103,7 +103,7 @@ profile::base::yumrepo::repo_hash:
     gpgcheck:       1
   epel:
     descr:          "Extra Packages for Enterprise Linux %{operatingsystemmajrelease} - $basearch"
-    metalink:       "%{hiera('yum_base_mirror')}/epel"
+    baseurl:        "%{hiera('yum_base_mirror')}/epel"
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7'
   uh-iaas:
     descr:          'UH-IaaS repo'
