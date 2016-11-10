@@ -4,7 +4,8 @@ class profile::openstack::novactrl(
   $enable_scheduler     = false,
   $enable_consoleauth   = false,
   $enable_consoleproxy  = false,
-  $enable_conductor     = false
+  $enable_conductor     = false,
+  $manage_quotas        = false
 ) {
 
   include ::nova::config
@@ -27,5 +28,9 @@ class profile::openstack::novactrl(
 
   if $enable_conductor {
     include ::profile::openstack::compute::conductor
+  }
+
+  if $manage_quotas {
+    include ::nova::quota
   }
 }
