@@ -1,6 +1,7 @@
 ---
 horizon::allowed_hosts:                 '*'
 horizon::servername:                    "%{hiera('public__address__dashboard')}"
+horizon::server_aliases:                "dashboard-%{::location}.%{hiera('domain_frontend')}"
 horizon::wsgi::apache::priority:        '10'
 horizon::wsgi::apache::bind_address:    "%{ipaddress_public1}"
 horizon::bind_address:                  "%{ipaddress_public1}"
@@ -28,6 +29,8 @@ horizon::websso_initial_choice: openidc
 horizon::websso_choices:
   openidc: Dataporten
   credentials: Local user
+
+
 
 # logging
 horizon::log_handler:     'syslog'
