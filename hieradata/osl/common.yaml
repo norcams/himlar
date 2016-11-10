@@ -103,6 +103,6 @@ profile::network::services::dns_options:
       server: '129.240.2.6'
   A:
     default:
-      ttl: 86400
+      ttl: 3600
       keyfile: "/etc/rndc-%{location}.key"
       server: '129.240.2.6'
