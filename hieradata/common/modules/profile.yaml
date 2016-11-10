@@ -159,7 +159,7 @@ profile::base::yumrepo::repo_hash:
   curator:
     ensure:         absent
     descr:          'Elasticsearch Curator 4.x Centos Repo'
-    baseurl:        "%{hiera('yum_base_mirror')}/curator/4/centos/7"
+    baseurl:        "%{hiera('yum_base_mirror')}/curator/"
     enabled:        1
     gpgcheck:       1
     gpgkey:         "%{hiera('yum_base_mirror')}/GPG-KEY-elasticsearch"
