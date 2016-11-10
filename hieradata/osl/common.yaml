@@ -40,9 +40,9 @@ profile::network::services::dns_records:
     # Used as CNAME for uh-iaas.no (http://iaas.readthedocs.io/en/latest/team/operations/dns.html)
     'uh-dboard.iaas.uio.no':                            '158.39.77.254'
     'uh-access.iaas.uio.no':                            '158.39.77.252'
-    'uh-status.iaas.uio.no':                            '158.39.77.254'
-    'uh-api.iaas.uio.no':                               '158.39.77.254'
-    'uh-console.iaas.uio.no':                           '158.39.77.251'
+    'uh-status.iaas.uio.no':                            '158.39.77.250'
+    'uh-api.iaas.uio.no':                               '158.37.63.250'
+    'uh-console.iaas.uio.no':                           '158.37.63.251'
 
 service__address__nova_api:          '172.18.32.66'
 service__address__nova_api_metadata: '127.0.0.1'
