@@ -56,9 +56,9 @@ nova::conductor::enabled: true
 nova::consoleauth::enabled: true
 
 # default qoutas (node: novactrl)
-nova::quota::quota_instances:    '10'
-nova::quota::quota_cores:        '20'
-nova::quota::quota_ram:          '51200'
+nova::quota::quota_instances:    '2'
+nova::quota::quota_cores:        '4'
+nova::quota::quota_ram:          '8192'
 
 # neutron network (node: compute and novactrl)
 nova::network::neutron::neutron_url:            "%{hiera('endpoint__network__internal')}"
