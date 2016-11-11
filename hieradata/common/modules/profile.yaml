@@ -85,12 +85,18 @@ profile::base::yumrepo::repo_hash:
   CentOS-Base:
     descr:          'CentOS-$releasever - Base'
     baseurl:        "%{hiera('yum_base_mirror')}/centos-base/"
+    gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7'
+    gpgcheck:       1
   CentOS-Updates:
     descr:          'CentOS-$releasever - Updates'
     baseurl:        "%{hiera('yum_base_mirror')}/centos-updates/"
+    gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7'
+    gpgcheck:       1
   CentOS-Extras:
     descr:          'CentOS-$releasever - Extras'
     baseurl:        "%{hiera('yum_base_mirror')}/centos-extras/"
+    gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7'
+    gpgcheck:       1
   puppetlabs:
     descr:          Puppetlabs Yum Repo
     baseurl:        "%{hiera('yum_base_mirror')}/puppetlabs/"
