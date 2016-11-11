@@ -90,12 +90,12 @@ common_config()
   /bin/hammer global-parameter set --name ntp-server --value 'no.pool.ntp.org'
 
   # Create ftp.uninett.no medium
-  /bin/hammer medium create --name 'CentOS ftp.uninett.no' \
+  /bin/hammer medium create --name 'CentOS download.iaas.uio.no' \
     --os-family Redhat \
-    --path 'http://ftp.uninett.no/centos/7/os/$arch' || true
+    --path 'https://download.iaas.uio.no/uh-iaas/prod/centos-base' || true
   # Save CentOS mirror ids
   medium_id_1=$(/bin/hammer --csv medium info --name 'CentOS mirror' | tail -n1 | cut -d, -f1)
-  medium_id_2=$(/bin/hammer --csv medium info --name 'CentOS ftp.uninett.no' | tail -n1 | cut -d, -f1)
+  medium_id_2=$(/bin/hammer --csv medium info --name 'CentOS download.iaas.uio.no' | tail -n1 | cut -d, -f1)
 
   # Sync our custom provision templates
   /sbin/foreman-rake templates:sync \
