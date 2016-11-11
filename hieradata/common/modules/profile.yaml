@@ -80,7 +80,7 @@ profile::openstack::openrc::username:     'admin'
 profile::openstack::openrc::project_name: 'openstack'
 
 # All yum repos go here
-yum_base_mirror:    'https://download.iaas.uio.no/uh-iaas/prod/'
+yum_base_mirror:    'https://download.iaas.uio.no/uh-iaas/prod'
 profile::base::yumrepo::repo_hash:
   CentOS-Base:
     descr:          'CentOS-$releasever - Base'
