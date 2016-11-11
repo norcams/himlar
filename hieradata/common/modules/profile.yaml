@@ -80,107 +80,107 @@ profile::openstack::openrc::username:     'admin'
 profile::openstack::openrc::project_name: 'openstack'
 
 # All yum repos go here
-yum_base_mirror:    'http://mirror.centos.org/centos'
+yum_base_mirror:    'https://download.iaas.uio.no/uh-iaas/prod'
 profile::base::yumrepo::repo_hash:
   CentOS-Base:
     descr:          'CentOS-$releasever - Base'
-    baseurl:        "%{hiera('yum_base_mirror')}/$releasever/os/$basearch/"
+    baseurl:        "%{hiera('yum_base_mirror')}/centos-base/"
   CentOS-Updates:
     descr:          'CentOS-$releasever - Updates'
-    baseurl:        "%{hiera('yum_base_mirror')}/$releasever/updates/$basearch/"
+    baseurl:        "%{hiera('yum_base_mirror')}/centos-updates/"
   CentOS-Extras:
     descr:          'CentOS-$releasever - Extras'
-    baseurl:        "%{hiera('yum_base_mirror')}/$releasever/extras/$basearch/"
+    baseurl:        "%{hiera('yum_base_mirror')}/centos-extras/"
   puppetlabs:
     descr:          Puppetlabs Yum Repo
-    baseurl:        'http://yum.puppetlabs.com/el/$releasever/products/$basearch/'
-    gpgkey:         'http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs'
+    baseurl:        "%{hiera('yum_base_mirror')}/puppetlabs/"
+    gpgkey:         "%{hiera('yum_base_mirror')}/puppetlabs/RPM-GPG-KEY-puppetlabs"
     gpgcheck:       1
   puppetlabs-deps:
     descr:          Puppetlabs Dependencies Yum Repo
-    baseurl:        'http://yum.puppetlabs.com/el/$releasever/dependencies/$basearch/'
-    gpgkey:         'http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs'
+    baseurl:        "%{hiera('yum_base_mirror')}/puppetlabs-deps/"
+    gpgkey:         "%{hiera('yum_base_mirror')}/puppetlabs-deps/RPM-GPG-KEY-puppetlabs"
     gpgcheck:       1
   epel:
     descr:          "Extra Packages for Enterprise Linux %{operatingsystemmajrelease} - $basearch"
-    metalink:       'https://mirrors.fedoraproject.org/metalink?repo=epel-7&arch=$basearch'
+    baseurl:        "%{hiera('yum_base_mirror')}/epel"
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7'
   uh-iaas:
     descr:          'UH-IaaS repo'
-    baseurl:        "https://download.iaas.uio.no/uh-sky/yumrepo/"
+    baseurl:        "%{hiera('yum_base_mirror')}/uh-iaas/"
     gpgcheck:       0
   sensu:
     descr:          'Sensu repo'
-    baseurl:        'https://sensu.global.ssl.fastly.net/yum/7/$basearch'
+    baseurl:        "%{hiera('yum_base_mirror')}/sensu/"
     gpgcheck:       0
 # Optional repos: enable them with ensure: present in common/role
   rdo-release:
     ensure:         absent
     descr:          "OpenStack %{hiera('openstack_version')} repository"
-    baseurl:        "http://mirror.centos.org/centos/7/cloud/$basearch/openstack-%{hiera('openstack_version')}/"
+    baseurl:        "%{hiera('yum_base_mirror')}/rdo-release/"
     enabled:        1
     gpgcheck:       1
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Cloud'
   calico:
     ensure:         absent
     descr:          'Calico Repository'
-    baseurl:        'http://binaries.projectcalico.org/rpm_calico-1.4/'
+    baseurl:        "%{hiera('yum_base_mirror')}/calico/"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         'http://binaries.projectcalico.org/rpm_calico-1.4/key'
+    gpgkey:         "%{hiera('yum_base_mirror')}/calico/key"
   ceph:
     ensure:         absent
     descr:          'Ceph packages'
-    baseurl:        'http://download.ceph.com/rpm-hammer/el7/$basearch'
+    baseurl:        "%{hiera('yum_base_mirror')}/ceph/"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         'https://download.ceph.com/keys/release.asc'
+    gpgkey:         "%{hiera('yum_base_mirror')}/ceph/release.asc"
   ceph-noarch:
     ensure:         absent
     descr:          'Ceph noarch packages'
-    baseurl:        'http://download.ceph.com/rpm-hammer/el7/noarch'
+    baseurl:        "%{hiera('yum_base_mirror')}/ceph-noarch/noarch"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         'https://download.ceph.com/keys/release.asc'
+    gpgkey:         "%{hiera('yum_base_mirror')}/ceph-noarch/release.asc"
   logstash:
     ensure:         absent
     descr:          'Logstash Centos Repo'
-    baseurl:        'http://packages.elasticsearch.org/logstash/2.3/centos'
+    baseurl:        "%{hiera('yum_base_mirror')}/logstash/"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         'http://packages.elasticsearch.org/GPG-KEY-elasticsearch'
+    gpgkey:         "%{hiera('yum_base_mirror')}/logstash/GPG-KEY-elasticsearch"
   elasticsearch:
     ensure:         absent
     descr:          'Elasticsearch Centos Repo'
-    baseurl:        'http://packages.elastic.co/elasticsearch/2.x/centos'
+    baseurl:        "%{hiera('yum_base_mirror')}/elasticsearch/"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         'http://packages.elastic.co/GPG-KEY-elasticsearch'
+    gpgkey:         "%{hiera('yum_base_mirror')}/elasticsearch/GPG-KEY-elasticsearch"
   curator:
     ensure:         absent
     descr:          'Elasticsearch Curator 4.x Centos Repo'
-    baseurl:        'http://packages.elastic.co/curator/4/centos/7'
+    baseurl:        "%{hiera('yum_base_mirror')}/curator/"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         'http://packages.elastic.co/GPG-KEY-elasticsearch'
+    gpgkey:         "%{hiera('yum_base_mirror')}/GPG-KEY-elasticsearch"
   foreman:
     ensure:         absent
     descr:          'Foreman repo'
-    baseurl:        "http://yum.theforeman.org/releases/%{hiera('foreman_version')}/el7/$basearch"
+    baseurl:        "%{hiera('yum_base_mirror')}/foreman-1.12"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         "http://yum.theforeman.org/releases/%{hiera('foreman_version')}/RPM-GPG-KEY-foreman"
+    gpgkey:         "%{hiera('yum_base_mirror')}/foreman-1.12/RPM-GPG-KEY-foreman"
   foreman-plugins:
     ensure:         absent
     descr:          'Foreman Plugins repo'
-    baseurl:        "http://yum.theforeman.org/plugins/%{hiera('foreman_version')}/el7/$basearch"
+    baseurl:        "%{hiera('yum_base_mirror')}/foreman-plugins-1.12"
     enabled:        1
     gpgcheck:       0
   mariadb:
     ensure:         absent
     descr:          'MariaDB 10.1 repo'
-    baseurl:        'http://yum.mariadb.org/10.1/centos7-amd64'
-    gpgkey:         'http://yum.mariadb.org/RPM-GPG-KEY-MariaDB'
+    baseurl:        "%{hiera('yum_base_mirror')}/mariadb"
+    gpgkey:         "%{hiera('yum_base_mirror')}/mariadb/RPM-GPG-KEY-MariaDB"
     gpgcheck:       '1'
 
 
