@@ -17,6 +17,7 @@ class profile::base::common (
   $manage_packages        = false,
   $manage_yumrepo         = false,
   $manage_puppet          = false,
+  $manage_cron            = false,
   $include_physical       = false,
   $include_virtual        = false,
   $classes                = [],
@@ -52,6 +53,10 @@ class profile::base::common (
   if $manage_ssh {
     include ::ssh::client
     include ::ssh::server
+  }
+
+  if $manage_cron {
+    include ::profile::base::cron
   }
 
   if $manage_ntp {
