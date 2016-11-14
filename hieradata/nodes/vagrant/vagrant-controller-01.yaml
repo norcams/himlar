@@ -3,13 +3,13 @@ network::interfaces_hash:
   'eth1':
     onboot:    'yes'
     mtu:       '1500'
-    ipaddress: "%{hiera('netcfg_netpart_mgmt')}.100"
-    netmask:   "%{hiera('netcfg_netmask_mgmt')}"
+    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.100"
+    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
   'eth2':
     onboot:    'yes'
     mtu:       '1500'
-    ipaddress: '172.31.16.100'
-    netmask:   '255.255.255.0'
+    ipaddress: "%{hiera('netcfg_trp_netpart')}.100"
+    netmask:   "%{hiera('netcfg_trp_netmask')}"
 
 # Add this to make vagrant-controller-01 the jump point for boostrap
 profile::bootstrap::himlar::manage_bootstrap_scripts: true
