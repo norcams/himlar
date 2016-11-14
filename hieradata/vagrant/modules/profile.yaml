@@ -10,3 +10,6 @@ profile::openstack::openrc::cacert:           '/opt/himlar/provision/ca/certs/ca
 # consul testdata
 consul::config_hash:
   "datacenter":    "vagrant-1"
+
+# no proxy for vagrant environments
+profile::network::yum_proxy::yum_proxy: ''
