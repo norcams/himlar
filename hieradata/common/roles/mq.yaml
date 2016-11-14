@@ -9,6 +9,7 @@ profile::messaging::rabbitmq::manage_rsyslog: true
 # Sensu
 profile::base::common::packages:
   'gcc-c++': {}
+  'make': {}
 
 profile::monitoring::sensu::agent::plugins:
   sensu-plugins-rabbitmq:

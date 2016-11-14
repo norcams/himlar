@@ -46,7 +46,8 @@ profile::monitoring::sensu::server::handlers:
 
 # api watch
 profile::base::common::packages:
-  'gcc-c++': {}
+  'gcc-c++':  {}
+  'make':     {}
 
 profile::monitoring::sensu::agent::plugins:
   sensu-plugins-http:
