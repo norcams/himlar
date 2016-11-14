@@ -3,7 +3,7 @@ profile::base::common::manage_cron: true
 profile::base::cron::crontabs:
   stats:
     hour:     '*'
-    minute:   [20,40]
+    minute:   [14,29,44,59]
     command:  '/opt/himlarcli/bin/gen_stats.sh >/dev/null'
   checks:
     hour:     '*'
