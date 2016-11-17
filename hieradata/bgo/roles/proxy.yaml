@@ -9,3 +9,8 @@ profile::base::cron::crontabs:
     hour:     '*'
     minute:   '*/5'
     command:  '/opt/himlarcli/bin/check_services.sh >/dev/null'
+  update_images:
+    hour:     '10'
+    minute:   '10'
+    weekday:  '1'
+    command:  '/opt/himlarcli/bin/update_images.sh >/dev/null'
