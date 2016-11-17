@@ -20,9 +20,11 @@ nova::rabbit_hosts:
 
 # mysql database (node: db)
 nova::db::mysql::allowed_hosts:
-  - "%{netpart_transport1}.%" # FIXME
+  - "%{netpart_transport1}.%"
+  - "compute.%{hiera('domain_trp')}"
 nova::db::mysql_api::allowed_hosts:
-  - "%{netpart_transport1}.%" # FIXME
+  - "%{netpart_transport1}.%"
+  - "compute.%{hiera('domain_trp')}"
 
 # keystone auth (node: identity)
 nova::keystone::auth::region:           "%{location}"

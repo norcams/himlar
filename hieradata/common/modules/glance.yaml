@@ -2,6 +2,7 @@
 # db (node: image)
 glance::db::mysql::allowed_hosts:
   - "%{netpart_trp1}.%"
+  - "image.%{hiera('domain_trp')}"
 
 # api (node: image)
 glance::api::database_connection:       "mysql://glance:%{hiera('glance::db::mysql::password')}@%{hiera('service__address__mysql')}/glance"

@@ -21,6 +21,7 @@ neutron::agents::dhcp::enabled: false
 
 neutron::db::mysql::allowed_hosts:
   - "%{netpart_trp1}.%"
+  - "network.%{hiera('domain_trp')}"
 
 # rabbit mq
 neutron::rabbit_user:           'neutron'

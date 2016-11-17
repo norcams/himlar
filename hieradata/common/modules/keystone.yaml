@@ -1,6 +1,7 @@
 ---
 keystone::db::mysql::allowed_hosts:
   - "%{netpart_trp1}.%"
+  - "identity.%{hiera('domain_trp')}"
 
 keystone::roles::admin::email: user@example.com
 keystone::roles::admin::password: "%{hiera('keystone_admin_password')}"

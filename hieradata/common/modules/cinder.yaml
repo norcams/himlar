@@ -6,6 +6,7 @@ cinder::db::mysql::dbname:   'cinder'
 cinder::db::mysql::user:     'cinder'
 cinder::db::mysql::allowed_hosts:
   - "%{netpart_trp1}.%"
+  - "volume.%{hiera('domain_trp')}"
 
 # cinder api (node: volume)
 cinder::api::keystone_user:      'cinder'
