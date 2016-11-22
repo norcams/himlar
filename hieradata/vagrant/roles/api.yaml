@@ -8,8 +8,8 @@ profile::application::sslcert::commonname:      "api.%{hiera('domain_public')}"
 
 # These can be created from vagrant certs found on ca_setup and added to
 # '/opt/himlar/provision/ca/certs' on the vagrant host.
-star_api_ssl_pem:   'api.vagrant.iaas.intern.pem'
-api_ssl_pem:        'api.vagrant.iaas.intern.pem'
+star_api_ssl_pem:   'star.api.vagrant.iaas.intern.pem'
+api_ssl_pem:        'star.api.vagrant.iaas.intern.pem'
 status_ssl_pem:     'status.vagrant.iaas.intern.pem'
 
 
