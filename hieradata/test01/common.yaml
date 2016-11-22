@@ -22,11 +22,6 @@ netcfg_dns_server2:     '129.177.12.31'
 netcfg_dns_search:      "%{hiera('domain_mgmt')} %{hiera('domain_trp')}"
 
 #
-# Services (internal non openstack services)
-#
-service__address__mysql:  "db01.%{hiera('domain_trp')}" #FIXME
-
-#
 # DNS (merge of common and this)
 #
 profile::network::services::dns_records:
