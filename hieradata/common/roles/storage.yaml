@@ -52,5 +52,5 @@ profile::storage::cephpool::pools:
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
-  ceph:
+  ceph-jewel:
     ensure: present
