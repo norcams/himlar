@@ -1,10 +1,5 @@
 ---
-# Disable dashboard on osl.
-profile::openstack::dashboard::manage_overrides: false #FIXME
-profile::openstack::dashboard::manage_dashboard:  false #FIXME
-profile::openstack::api::manage_apache: false #FIXME
-
-# Enable osl dashboard only from some
+# Enable osl dashboard only from some network
 profile::openstack::dashboard::allow_from_network:
   - '129.240.224.100/32' # osl-login
   - '158.37.63.0/24'     # osl
