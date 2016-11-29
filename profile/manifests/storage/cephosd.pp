@@ -6,12 +6,9 @@ class profile::storage::cephosd {
 
   service { 'ceph-osd':
     ensure    => running,
-    name      => 'ceph',
+    name      => 'ceph-osd@[0-9]*.service',
     enable    => true,
-    provider  => redhat,
-    status    => "/sbin/service ceph status osd",
-    start     => "/sbin/service ceph start osd",
-    restart   => "/sbin/service ceph start osd",
+    provider  => systemd,
     require   => Class[ceph::osds],
   }
 
@@ -23,7 +20,7 @@ class profile::storage::cephosd {
 
   # ceph service must be started once before service status works
   exec { 'initial start of osds':
-    command     => '/sbin/service ceph start osd',
+    command     => '/bin/systemctl start -l ceph-osd@[0-9]*.serviced',
     require     => File['/var/lib/ceph-configured'],
     refreshonly => true,
   }
