@@ -44,5 +44,7 @@ ssh::server::options:
   # No 2FA possible with gitolite
   'Match User git Address 129.177.6.133':
     AuthenticationMethods: 'publickey'
+  'Match User git Address 2001:700:200:6::133':
+    AuthenticationMethods: 'publickey'
   'Match User git Address 129.240.224.100':
     AuthenticationMethods: 'publickey'
