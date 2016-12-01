@@ -52,3 +52,10 @@ profile::base::login::db_servers:
     hour:     '*'
     minute:   '30'
     command:  '/usr/local/sbin/db-dump.sh test02-db-02 >/dev/null'
+
+ssh::server::options:
+  # No 2FA possible with gitolite
+  'Match User git Address 129.177.6.133':
+    AuthenticationMethods: 'publickey'
+  'Match User git Address 129.240.224.100':
+    AuthenticationMethods: 'publickey'

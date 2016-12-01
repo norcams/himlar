@@ -56,9 +56,6 @@ ssh::server::options:
   UsePAM: 'yes'
   PasswordAuthentication: 'no'
   PubKeyAuthentication: 'yes'
-  # No 2FA possible with gitolite
-  'Match User git':
-    AuthenticationMethods: 'publickey'
 
 googleauthenticator::pam::mode::modes:
   wheel-only:
