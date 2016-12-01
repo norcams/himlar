@@ -21,7 +21,6 @@ keystone::admin_bind_host:      "%{ipaddress_service1}"
 keystone::database_connection:  "mysql://keystone:%{%{hiera('keystone::db::mysql::password')}@db01.%{hiera('domain_trp')}/keystone"
 
 # Federation
-keystone::federation::oidc::trusted_dashboard:  "https://%{hiera('public__address__dashboard')}/dashboard/auth/websso/"
 keystone::federation::openidc::idp_name:        'dataporten'
 keystone::federation::openidc::methods:
   - 'password'
