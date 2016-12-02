@@ -43,6 +43,7 @@ profile::network::services::dns_records:
     "access.%{hiera('domain_public')}":                     "%{hiera('netcfg_mgmt_netpart')}.56" #FIXME (mgmt net)
     "console.%{hiera('domain_public')}":                    "%{hiera('netcfg_mgmt_netpart')}.61" #FIXME (mgmt net)
     "dashboard.%{hiera('domain_public')}":                  "%{hiera('netcfg_mgmt_netpart')}.51" #FIXME (mgmt net)
+    "%{::location}-controller-00.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_netpart')}.99"
 
 ntp::servers:
   - ntp1.uio.no
