@@ -37,6 +37,16 @@ network::interfaces_hash:
 # Use controller-01 for himlar bootstrap
 profile::bootstrap::himlar::manage_bootstrap_scripts: true
 
+# On this host sdd is the OS disk
+lvm::volume_groups:
+  vg_ext:
+    physical_volumes:
+      - /dev/sda3
+    logical_volumes:
+      lv_ext:
+        fs_type:   xfs
+        mountpath: "/var/lib/libvirt/images"
+
 ################ TEMP DATA - SHALL BE FIXED IN COMMON #########################
 
 named_interfaces::config:
