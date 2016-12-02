@@ -15,6 +15,12 @@ network::interfaces_hash:
     dns1:         '129.240.2.3'
     dns2:         '129.240.2.40'
     domain:       "%{hiera('domain_mgmt')} test.iaas.uio.no osl.uhdc.no test02.uhdc.no"
+  'p2p1':
+    ipaddress:    '10.17.32.10'
+    netmask:      '255.255.255.0'
+    defroute:     'no'
+    onboot:       'yes'
+    dns1:         "%{hiera('service__address__proxy')}"
   'p2p3':
     ipaddress:    '172.28.160.10'
     netmask:      '255.255.255.0'
