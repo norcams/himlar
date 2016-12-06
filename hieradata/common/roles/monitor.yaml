@@ -37,20 +37,38 @@ profile::monitoring::sensu::server::firewall_extras:
   source: "%{::network_mgmt1}/%{::netmask_mgmt1}"
 profile::monitoring::sensu::server::manage_dashboard: true
 profile::monitoring::sensu::server::handlers:
+  default:
+    type: 'set'
+    handlers:
+      - slack
   graphite_tcp:
     type: 'tcp'
     socket:
       host: '127.0.0.1'
       port: 2003
     mutator: 'only_check_output'
+  slack:
+    type:         'pipe'
+    command:      'cat'
+
+profile::monitoring::sensu::server::filters:
+  normal:
+    negate: true
+    attributes:
+      check:
+        interval: 60
+      occurrences: "eval: value != 1 && value % 10 != 0"
 
 # api watch
 profile::base::common::packages:
-  'gcc-c++':  {}
-  'make':     {}
+  'gcc-c++':            {}
+  'make':               {}
 
 profile::monitoring::sensu::agent::plugins:
   sensu-plugins-http:
+    type:         package
+    pkg_version:  '1.0.0'
+  sensu-plugins-slack:
     type:         package
     pkg_version:  '1.0.0'
 
@@ -58,23 +76,23 @@ profile::monitoring::sensu::agent::plugins:
 profile::monitoring::sensu::agent::checks:
   'identity-api-check':
     command:      "check-http.rb -u %{hiera('endpoint__identity__public')} --response-code 300 -r"
-    interval:     30
+    interval:     60
     subscribers:  ['checks']
   'compute-api-check':
     command:      "check-http.rb -u %{hiera('endpoint__compute__public')}"
-    interval:     30
+    interval:     60
     subscribers:  ['checks']
   'image-api-check':
     command:      "check-http.rb -u %{hiera('endpoint__image__public')} --response-code 300 -r"
-    interval:     30
+    interval:     60
     subscribers:  ['checks']
   'volume-api-check':
     command:      "check-http.rb -u %{hiera('endpoint__volume__public')} --response-code 300 -r"
-    interval:     30
+    interval:     60
     subscribers:  ['checks']
   'network-api-check':
     command:      "check-http.rb -u %{hiera('endpoint__network__public')}"
-    interval:     30
+    interval:     60
     subscribers:  ['checks']
   'identity-api-metric':
     type:         'metric'

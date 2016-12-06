@@ -1,6 +1,5 @@
 #
 class profile::monitoring::sensu::server (
-  $handlers                  = {},
   $vhost_configuration       = {},
   $manage_dashboard          = false,
   $manage_rabbitmq           = false,
@@ -41,6 +40,9 @@ class profile::monitoring::sensu::server (
     }
   }
 
+  $handlers  = hiera_hash('profile::monitoring::sensu::server::handlers', {})
+  $filters  = hiera_hash('profile::monitoring::sensu::server::filters', {})
   create_resources('sensu::handler', $handlers)
+  create_resources('sensu::filter', $filters)
 
 }

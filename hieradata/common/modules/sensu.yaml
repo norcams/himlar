@@ -17,6 +17,11 @@ sensu::rabbitmq_port:           '5672'
 # client
 sensu::client_address:          "%{ipaddress_mgmt1}"
 sensu::client_name:             "%{hostname}"
+sensu::client_keepalive:
+  handler:    'default'
+  thresholds:
+    warning:  40
+    critical: 60
 sensu::client_custom:
   graphite_load:    "http://%{hiera('mgmt__address__monitor')}/render?from=-24h&target=aliasByNode(load.%{::hostname}.load_avg.*,3)&height=250&width=600&lineMode=connected&uchiwa_force_image=.jpg"
   graphite_cpu:     "http://%{hiera('mgmt__address__monitor')}/render?from=-24h&target=aliasByNode(vmstats.%{::hostname}.cpu.*,3)&height=250&width=600&lineMode=connected&uchiwa_force_image=.jpg"
