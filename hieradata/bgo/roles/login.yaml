@@ -48,3 +48,5 @@ ssh::server::options:
     AuthenticationMethods: 'publickey'
   'Match User git Address 129.240.224.100':
     AuthenticationMethods: 'publickey'
+  'Match User git Address 172.16.0.0/21':
+    AuthenticationMethods: 'publickey'
