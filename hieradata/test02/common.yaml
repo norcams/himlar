@@ -3,8 +3,8 @@ include:
   default:
     - profile::monitoring::sensu::agent
 
-location_environment: 'test02'
-location_description: 'Test environment physically in OSL'
+location_environment:   'test02'
+location_description:   'Test environment physically in OSL'
 
 domain_frontend:        'test.iaas.uio.no'
 domain_public:          'test.iaas.uio.no'
@@ -19,13 +19,14 @@ netcfg_trp_netpart:     '172.30.32'
 netcfg_trp_netmask:     '255.255.255.0'
 netcfg_dns_server1:     '129.240.2.3'
 netcfg_dns_server2:     '129.240.2.40'
-netcfg_dns_search:      "%{hiera('domain_mgmt')} %{hiera('domain_trp')}"
+netcfg_dns_search:      "%{hiera('domain_mgmt')} %{hiera('domain_trp')} %{hiera('domain_mgmt')}"
 
-netcfg_netpart_public:  '192.168.12' # FIXME (delete)
+netcfg_netpart_public:  '10.100.200.0' # FIXME (delete)
 netcfg_netmask_public:  '255.255.255.0' # FIXME (delete)
 
-allow_from_network: # FIXME (public net)
-  - '192.168.12.0/24'
+allow_from_network: # FIXME (public net and mgmt net)
+  - '10.100.200.0/24'
+  - '172.28.32.0/24'
 
 #
 # DNS (merge of common and this)
