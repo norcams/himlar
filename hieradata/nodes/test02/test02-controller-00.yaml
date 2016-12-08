@@ -11,6 +11,14 @@ network::interfaces_hash:
   'em3':
     onboot:       'yes'
     bridge:       'br0'
+  'em4':
+    onboot:       'yes'
+    ipaddress:    '129.240.121.146'
+    netmask:      '255.255.255.0'
+#    gateway:      '129.240.121.1'
+    defroute:     'no'
+    dns1:         "%{hiera('mgmt__address__proxy')}"
+    domain:       'test.iaas.uio.no'
   'bond1':
     onboot:       'yes'
     bonding_opts: 'mode=802.3ad miimon=100 lacp_rate=1'
