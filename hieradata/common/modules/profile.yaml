@@ -151,17 +151,17 @@ profile::base::yumrepo::repo_hash:
   ceph-jewel:
     ensure:         absent
     descr:          'Ceph Jewel packages'
-    baseurl:        "https://iaas-repo.uio.no/uh-iaas/repo/ceph-jewel/"
+    baseurl:        "%{hiera('yum_base_mirror')}/ceph-jewel/"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         "https://iaas-repo.uio.no/uh-iaas/repo/ceph-jewel/release.asc"
+    gpgkey:         "%{hiera('yum_base_mirror')}/ceph-jewel/release.asc"
   ceph-jewel-noarch:
     ensure:         absent
     descr:          'Ceph noarch packages'
-    baseurl:        "https://iaas-repo.uio.no/uh-iaas/repo//ceph-jewel-noarch/noarch"
+    baseurl:        "%{hiera('yum_base_mirror')}/ceph-jewel-noarch/noarch"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         "https://iaas-repo.uio.no/uh-iaas/repo/ceph-jewel-noarch/release.asc"
+    gpgkey:         "%{hiera('yum_base_mirror')}/ceph-jewel-noarch/release.asc"
   logstash:
     ensure:         absent
     descr:          'Logstash Centos Repo'
