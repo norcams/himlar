@@ -1,0 +1,105 @@
+---
+network::interfaces_hash:
+  'eth0':
+    'ipaddress': '172.28.32.1/24'
+    'post_up': [ '/etc/network/if-up.d/z90-route-eth0', ]
+    'post_down': [ '/etc/network/if-down.d/z90-route-eth0', ]
+#    'dns_nameservers': '172.28.32.12'
+#    'dns_search': "%{hiera('domain_mgmt')}"
+#  'swp3':
+#    'ipaddress': '172.31.228.1/30'
+
+# In production environment these should be VLAN aware
+# bridges and actually tagged. This is not possible in
+# dev01 environment, though.
+profile::base::network::cumulus_bridges:
+  'br100':
+    'ipv4': [ '172.30.32.1/24', ]
+    'ports': [ 'swp1', ]
+    'alias_name': 'Transport L2 if'
+    'mtu': '1500'
+
+# Add default route for management VRF
+profile::base::network::routes:
+  'eth0':
+    'ipaddress': [ '0.0.0.0', ]
+    'netmask':   [ '0.0.0.0', ]
+    'gateway':   [ '172.28.32.10', ]
+    'table':     [ 'mgmt', ]
+
+quagga::quagga::zebra_interfaces:
+  'br100':
+    - 'link-detect'
+    - 'description linux-bridge'
+  'swp1':
+    - 'link-detect'
+
+quagga::quagga::zebra_ip_routes:
+  - '0.0.0.0/0 172.30.32.99'
+  - '10.0.0.0/8 Null0'
+  - '10.100.200.250/32 172.30.32.86'
+  - '10.100.200.251/32 172.30.32.61'
+  - '10.100.200.252/32 172.30.32.56'
+  - '10.100.200.253/32 172.30.32.12'
+  - '10.100.200.254/32 172.30.32.51'
+
+quagga::quagga::zebra_generic_options:
+  'ip':
+    'forwarding'
+  'ipv6':
+    'forwarding'
+
+#quagga::quagga::bgp_neighbors:
+#  - '172.31.228.2 remote-as 65535'
+#  - '172.31.228.2 soft-reconfiguration inbound'
+
+quagga::quagga::bgp_options:
+  - 'router-id 172.30.32.1'
+  - 'log-neighbor-changes'
+  - 'default local-preference 200'
+
+quagga::quagga::bgp_networks:
+  - '0.0.0.0/0'
+  - '10.100.200.0/24'
+  - '172.30.32.0/24'
+
+quagga::quagga::bgp_neighbor_groups:
+  'rr-clients':
+    'options':
+      - 'peer-group'
+      - 'remote-as 65535'
+      - 'route-reflector-client'
+      - 'soft-reconfiguration inbound'
+      - 'route-map rr-client-allow in'
+      - 'bfd'
+    'members':
+      - '172.30.32.103'
+      - '172.30.32.104'
+      - '172.30.32.105'
+#  'other-clients':
+#    'options':
+#    - 'peer-group'
+
+quagga::quagga::bgp_accesslist:
+  '10':
+    - 'permit 10.100.200.0 0.0.0.255'
+    - 'permit 10.18.0.0 0.0.15.255'
+    - 'permit 172.30.32.0 0.0.0.255'
+  '20':
+    - 'deny 10.100.200.0 0.0.0.255'
+    - 'deny 10.18.0.0 0.0.15.255'
+    - 'deny 172.30.32.0 0.0.0.255'
+    - 'permit any'
+
+quagga::quagga::bgp_ip_prefix_list:
+  - 'routes-from-leaf1 seq 5 deny any'
+  - 'routes-to-leaf1 seq 5 permit 0.0.0.0/0'
+
+quagga::quagga::bgp_route_maps:
+  'rr-client-allow permit 10':
+    - 'match ip address 10'
+  'peer-deny deny 10':
+    - 'match ip address 10'
+
+profile::network::leaf::manage_license: false
+quagga::manage_package: false

@@ -9,7 +9,9 @@ class profile::openstack::dashboard(
   $firewall_extras    = {},
   $manage_overrides   = false,
   $override_template  = "${module_name}/openstack/horizon/local_settings.erb",
-  $site_branding      = 'UH-IaaS'
+  $site_branding      = 'UH-IaaS',
+  $change_uploaddir   = false,
+  $custom_uploaddir   = '/image-upload'
 ) {
 
   if $manage_dashboard {
@@ -46,6 +48,13 @@ class profile::openstack::dashboard(
       ensure => present,
       source => "puppet:///modules/${module_name}/openstack/horizon/overrides.py",
       notify => Service['httpd']
+    }
+  }
+
+  if $change_uploaddir {
+    file { $custom_uploaddir:
+      ensure => 'directory',
+      owner  => 'apache',
     }
   }
 }

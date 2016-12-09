@@ -70,7 +70,7 @@ cleanup()
     local expiration_days=$1
 
     if [ $expiration_days -gt 0 ]; then
-        find "${BACKUP_DIR}/" -maxdepth 1 -name "*.sql*" -type f -mtime +$expiration_days -print0 | xargs -0 -r rm -f
+        find "${BACKUP_DIR}/" -maxdepth 2 -name "*.sql*" -type f -mtime +$expiration_days -print0 | xargs -0 -r rm -f
     else
         echo "Ignoring invalid expiration dat ($expiration_days), not cleaning up\!"
     fi

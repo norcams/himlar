@@ -3,3 +3,6 @@ SITE_BRANDING = '<%= @site_branding %>'
 <% if @manage_overrides -%>
 HORIZON_CONFIG['customization_module'] = 'openstack_dashboard.overrides'
 <% end -%>
+<% if @change_uploaddir -%>
+FILE_UPLOAD_TEMP_DIR = '<%= @custom_uploaddir %>'
+<% end -%>
