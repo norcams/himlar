@@ -26,15 +26,6 @@ profile::base::network::routes:
     'netmask':   [ '0.0.0.0', ]
     'gateway':   [ '172.28.32.10', ]
     'table':     [ 'mgmt', ]
-  'swp9':
-    'ipaddress': [ '0.0.0.0', ]
-    'netmask':   [ '0.0.0.0', ]
-    'gateway':   [ '129.177.1.197', ]
-    'table':     [ 'main', ]
-
-profile::base::network::cumulus_interfaces:
-  'swp9':
-    'ipv4': [ '129.177.1.198/30', ]
 
 quagga::quagga::zebra_interfaces:
   'br100':
@@ -42,28 +33,10 @@ quagga::quagga::zebra_interfaces:
     - 'description linux-bridge'
   'swp1':
     - 'link-detect'
-  'swp2':
-    - 'link-detect'
-  'swp3':
-    - 'link-detect'
-  'swp4':
-    - 'link-detect'
-  'swp5':
-    - 'link-detect'
-  'swp6':
-    - 'link-detect'
-  'swp7':
-    - 'link-detect'
 
 quagga::quagga::zebra_ip_routes:
-  - '0.0.0.0/0 129.177.1.197'
+  - '0.0.0.0/0 172.30.32.99'
   - '10.0.0.0/8 Null0'
-  - '129.177.31.96/27 Null0'
-  - '129.177.31.122/32 172.30.0.86'
-  - '129.177.31.123/32 172.30.0.12'
-  - '129.177.31.124/32 172.30.0.56'
-  - '129.177.31.125/32 172.30.0.61'
-  - '129.177.31.126/32 172.30.0.51'
 
 quagga::quagga::zebra_generic_options:
   'ip':
