@@ -159,7 +159,7 @@ mod 'libvirt', :ref => '0.3.2-norcams2',         :git => github + 'norcams/puppe
 #
 # ceph
 #
-mod 'ceph', :ref => '998e023d8f',                :git => github + 'openstack/puppet-ceph'
+mod 'ceph', :ref => '6a12d71f43',                :git => github + 'openstack/puppet-ceph'
 
 #
 # ceph

@@ -121,5 +121,5 @@ profile::base::yumrepo::repo_hash:
   calico:
     ensure: present
     exclude: 'calico-dhcp-agent' #FIXME
-  ceph:
+  ceph-jewel:
     ensure: present
