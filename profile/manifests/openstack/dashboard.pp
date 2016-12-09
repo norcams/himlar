@@ -52,7 +52,7 @@ class profile::openstack::dashboard(
   }
 
   if $change_uploaddir {
-    file { "$custom_uploaddir":
+    file { $custom_uploaddir:
       ensure => 'directory',
       owner  => 'apache',
     }
