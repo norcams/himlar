@@ -13,14 +13,14 @@ calico::reflector::clients:
     peer_ipv4: '172.30.32.104'
   c3:
     peer_ipv4: '172.30.32.105'
-#  gw:
-#    peer_ipv4: '172.30.32.1'
+  gw:
+    peer_ipv4: '172.30.32.1'
 
 # compute node settings
 calico::compute::peer_defaults:
   peer_as: 65565
   local_as: 65565
 
-#calico::compute::peers:
-#  rr1:
-#    peer_ipv4: '172.30.32.1'
+calico::compute::peers:
+  rr1:
+    peer_ipv4: '172.30.32.1'
