@@ -14,3 +14,6 @@ profile::openstack::dashboard::manage_overrides:  true
 profile::base::yumrepo::repo_hash:
   rdo-release:
     ensure: present
+
+# Change default image upload dir from horizon
+profile::openstack::dashboard::change_uploaddir: true

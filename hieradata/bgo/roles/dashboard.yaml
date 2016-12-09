@@ -1,7 +1,4 @@
 ---
-# Manage upload
-profile::openstack::dashboard::change_uploaddir: true
-
 profile::base::common::manage_lvm: true
 profile::base::lvm::physical_volume:
   '/dev/vdb':
