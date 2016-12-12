@@ -20,7 +20,7 @@ class profile::storage::cephosd {
 
   # ceph service must be started once before service status works
   exec { 'initial start of osds':
-    command     => '/bin/systemctl start -l ceph-osd@[0-9]*.service',
+    command     => '/bin/systemctl start -l ceph-osd.target',
     require     => File['/var/lib/ceph-configured'],
     refreshonly => true,
   }
