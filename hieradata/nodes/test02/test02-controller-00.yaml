@@ -55,6 +55,13 @@ lvm::volume_groups:
         fs_type:   xfs
         mountpath: "/var/lib/libvirt/images"
 
+# route to public net via leaf-01
+# (test02 is a special case since leaf runs inside this node)
+network::mroutes_hash:
+  br1:
+    routes:
+      10.100.200.0/24:  172.30.32.1
+
 ################ TEMP DATA - SHALL BE FIXED IN COMMON #########################
 
 named_interfaces::config:

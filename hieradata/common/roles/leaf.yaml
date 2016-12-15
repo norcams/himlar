@@ -26,7 +26,7 @@ quagga::bgpd:               true
 quagga::single_config_file: true
 quagga::quagga::hostname:   'cumulus-test'
 quagga::quagga::password:   'pass123'
-quagga::quagga::bgp_as:     '65535'
+quagga::quagga::bgp_as:     "%{hiera('bgp_as')}"
 
 accounts::groups:
   'wheel':

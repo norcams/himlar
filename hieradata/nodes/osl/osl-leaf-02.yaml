@@ -120,10 +120,10 @@ quagga::quagga::zebra_generic_options:
     'forwarding'
 
 quagga::quagga::bgp_neighbors:
-  - '172.31.228.1 remote-as 65502'
+  - "172.31.228.1 remote-as %{hiera('bgp_as')}"
   - '172.31.228.1 soft-reconfiguration inbound'
 
-quagga::quagga::bgp_as: '65502'
+quagga::quagga::bgp_as: "%{hiera('bgp_as')}"
 
 quagga::quagga::bgp_options:
   - 'router-id 172.18.32.2'
@@ -138,7 +138,7 @@ quagga::quagga::bgp_neighbor_groups:
   'rr-clients':
     'options':
       - 'peer-group'
-      - 'remote-as 65502'
+      - "remote-as %{hiera('bgp_as')}"
       - 'route-reflector-client'
       - 'soft-reconfiguration inbound'
       - 'route-map rr-client-allow in'

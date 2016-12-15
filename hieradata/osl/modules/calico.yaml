@@ -3,8 +3,8 @@ calico::debug: false
 
 # Reflector settings
 calico::reflector::client_defaults:
-  peer_as: 65502
-  local_as: 65502
+  peer_as: "%{hiera('bgp_as')}"
+  local_as: "%{hiera('bgp_as')}"
 
 calico::reflector::clients:
   c1:
@@ -18,8 +18,8 @@ calico::reflector::clients:
 
 # compute node settings
 calico::compute::peer_defaults:
-  peer_as: 65502
-  local_as: 65502
+  peer_as: "%{hiera('bgp_as')}"
+  local_as: "%{hiera('bgp_as')}"
   local_ipv4: "%{ipaddress_transport1}"
 
 calico::compute::peers:
