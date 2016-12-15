@@ -16,6 +16,8 @@ location_description: unset
 location_environment: unset
 location_tag:         unset
 
+bgp_as:                 '65000'
+
 domain_frontend:      "%{::domain}"
 domain_public:        "%{::domain}"
 domain_trp:           "%{::domain}"

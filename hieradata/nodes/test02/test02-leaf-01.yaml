@@ -67,7 +67,7 @@ quagga::quagga::bgp_neighbor_groups:
   'rr-clients':
     'options':
       - 'peer-group'
-      - 'remote-as 65535'
+      - "remote-as %{hiera('bgp_as')}"
       - 'route-reflector-client'
       - 'soft-reconfiguration inbound'
       - 'route-map rr-client-allow in'

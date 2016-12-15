@@ -18,8 +18,8 @@ calico::reflector::clients:
 
 # compute node settings
 calico::compute::peer_defaults:
-  peer_as: 65565
-  local_as: 65565
+  peer_as: "%{hiera('bgp_as')}"
+  local_as: "%{hiera('bgp_as')}"
 
 calico::compute::peers:
   rr1:
