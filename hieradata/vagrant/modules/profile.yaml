@@ -1,12 +1,15 @@
 ---
 profile::development::network::dns::manage_hosts: true
 
-profile::application::himlarcli::cacert:      '/opt/himlar/provision/ca/certs/ca-chain.cert.pem'
+profile::application::himlarcli::cacert:      '/opt/himlar/provision/ca/himlar/ca-chain.cert.pem'
 profile::application::himlarcli::smtp:        ''
 profile::application::himlarcli::from_addr:   ''
 
-profile::openstack::openrc::cacert:           '/opt/himlar/provision/ca/certs/ca-chain.cert.pem'
+profile::openstack::openrc::cacert:           '/opt/himlar/provision/ca/himlar/ca-chain.cert.pem'
 
 # consul testdata
 consul::config_hash:
   "datacenter":    "vagrant-1"
+
+# no proxy for vagrant environments
+profile::network::yum_proxy::yum_proxy: ''

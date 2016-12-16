@@ -5,17 +5,4 @@ profile::openstack::dashboard::manage_ssl_cert: true
 profile::application::sslcert::cert_name:       'vagrant'
 profile::application::sslcert::commonname:      "dashboard.%{hiera('domain_public')}"
 
-dashboard_ssl_files: 'vagrant'
-
 profile::openstack::dashboard::site_branding: 'vagrant-iaas'
-
-profile::openstack::api::default_vhost_config:
-  servername:           "%{hiera('service__address__keystone_public')}"
-  vhost_name:           "%{hiera('service__address__keystone_public')}"
-  ip:                   "%{::ipaddress_public1}"
-  docroot:              '/var/www/html'
-  manage_docroot:       false
-  ssl:                  true
-  ssl_ca:               '/opt/himlar/provision/ca/certs/ca-chain.cert.pem'
-  ssl_key:              '/etc/pki/tls/private/vagrant.key'
-  ssl_cert:             '/etc/pki/tls/certs/vagrant.crt'

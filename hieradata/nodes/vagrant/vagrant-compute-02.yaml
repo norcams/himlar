@@ -3,22 +3,10 @@ network::interfaces_hash:
   'eth1':
     onboot:    'yes'
     mtu:       '1500'
-    ipaddress: '172.31.0.104'
-    netmask:   '255.255.255.0'
+    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.104"
+    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
   'eth2':
     onboot:    'yes'
     mtu:       '1500'
-    ipaddress: '172.31.16.104'
-    netmask:   '255.255.255.0'
-  'eth3':
-    onboot:    'yes'
-    mtu:       '1500'
-    ipaddress: '172.31.32.104'
-    netmask:   '255.255.255.0'
-    gateway:   '172.32.32.1'
-    defroute:  'yes'
-  'eth4':
-    onboot:    'yes'
-    mtu:       '1500'
-    ipaddress: '172.31.33.104'
-    netmask:   '255.255.255.0'
+    ipaddress: "%{hiera('netcfg_trp_netpart')}.104"
+    netmask:   "%{hiera('netcfg_trp_netmask')}"

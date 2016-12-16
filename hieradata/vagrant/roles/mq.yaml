@@ -4,3 +4,7 @@
 rabbitmq::cluster_nodes:
   - 'vagrant-mq-01'
   - 'vagrant-mq-02'
+
+# Sensu
+profile::base::common::packages:
+  'make': {}

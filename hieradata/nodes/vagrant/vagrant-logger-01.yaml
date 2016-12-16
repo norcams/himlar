@@ -3,5 +3,5 @@ network::interfaces_hash:
   'eth1':
     onboot:    'yes'
     mtu:       '1500'
-    ipaddress: "%{hiera('netcfg_netpart_mgmt')}.13"
-    netmask:   "%{hiera('netcfg_netmask_mgmt')}"
+    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.13"
+    netmask:   "%{hiera('netcfg_mgmt_netmask')}"

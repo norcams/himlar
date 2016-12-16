@@ -2,38 +2,34 @@
 include:
   default:
     - profile::development::network::dns
-#    - profile::monitoring::sensu::agent
+    - profile::monitoring::sensu::agent
 
 # Location setting
 location_environment: dev
 location_description: Local development environment using vagrant
 
-# Domains
+domain_frontend:        'vagrant.iaas.intern'
 domain_public:          'vagrant.iaas.intern'
 domain_trp:             'trp.vagrant.iaas.intern'
 domain_mgmt:            'mgmt.vagrant.iaas.intern'
 
-# These should only be used to configure network in nodes!
-netcfg_netpart_trp:     '172.31.16'
-netcfg_netmask_trp:     '255.255.255.0'
+netcfg_mgmt_gateway:    '172.31.0.1'
+netcfg_mgmt_netpart:    '172.31.0'
+netcfg_mgmt_netmask:    '255.255.255.0'
 netcfg_trp_gateway:     '172.31.16.1'
-netcfg_netpart_mgmt:    '172.31.0'
-netcfg_netmask_mgmt:    '255.255.255.0'
-netcfg_gateway_mgmt:    '172.31.0.1'
-netcfg_netpart_public:  '172.31.24'
-netcfg_netmask_public:  '255.255.255.0'
-netcfg_peerdns1:        '172.31.0.1'
-netcfg_peerdns2:        '8.8.8.8'
-netcfg_domain:          "%{hiera('domain_mgmt')} %{hiera('domain_trp')} %{hiera('domain_public')}"
+netcfg_trp_netpart:     '172.31.16'
+netcfg_trp_netmask:     '255.255.255.0'
+netcfg_public_netpart:  '172.31.24'
+netcfg_public_netmask:  '255.255.255.0'
+netcfg_dns_server1:     '172.31.0.1'
+netcfg_dns_server2:     '8.8.8.8'
+netcfg_dns_search:      "%{hiera('domain_mgmt')} %{hiera('domain_trp')}"
+
 
 #
-# Networks
-# See http://iaas.readthedocs.io/en/latest/installation/ip.html
-# For config that require network info about other network
+# Services (internal non openstack services)
 #
-network_service:    '172.31.16.0/24'
-network_transport:  '172.31.16.0/24'
-network_public:     '172.31.24.0/24'
+service__address__mysql:  "db01.%{hiera('domain_trp')}" #FIXME
 
 #
 # Default interfaces
@@ -43,11 +39,11 @@ named_interfaces::config:
     - eth0
   mgmt:
     - eth1
-  transport: #FIXME
-    - eth2
   trp:
     - eth2
-  service: #FIXME
+  service: #FIXME (delete)
+    - eth2
+  transport: #FIXME (delete)
     - eth2
   public:
     - eth3
@@ -55,49 +51,9 @@ named_interfaces::config:
 allow_from_network:
   - '172.31.24.0/24'
 
-endpoint_protocol: 'https'
-
 profile::firewall::pre::ssh_settings:
   source: "0.0.0.0/0"
 
-#
-# Openstack services
-#
-
-# public
-service__address__status:            "status.%{hiera('domain_public')}"
-service__address__horizon:           "dashboard.%{hiera('domain_public')}"
-service__address__keystone_public:   "dashboard.%{hiera('domain_public')}"
-service__address__glance_public_api: "dashboard.%{hiera('domain_public')}"
-service__address__nova_public_api:   "dashboard.%{hiera('domain_public')}"
-service__address__neutron_public:    "dashboard.%{hiera('domain_public')}"
-service__address__cinder_public_api: "dashboard.%{hiera('domain_public')}"
-service__address__consoleproxy:      "console.%{hiera('domain_public')}"
-
-
-# service/transport
-# In vagrant default is master. Remove to use nodes from common
-service__address__nova_api:          '172.31.16.20'
-service__address__nova_api_metadata: '172.31.16.20'
-service__address__glance_registry:   '172.31.16.20'
-service__address__glance_api:        '172.31.16.20'
-service__address__keystone:          '172.31.16.20'
-service__address__keystone_admin:    '172.31.16.20'
-service__address__etcd_cluster:      '172.31.16.20'
-service__address__neutron_server:    '172.31.16.20'
-service__address__cinder_api:        '172.31.16.20'
-service__address__mysql:             '172.31.16.41'
-service__address__rsyslog:           '172.31.0.13'
-service__address__proxy:             ''
-service__address__monitor:           '172.31.0.14'
-
-# Rabbitmq:
-# In vagrant default is master
-# Remove these to test with mq-01
-service__address__rabbitmq_01:       '172.31.16.20'
-service__address__rabbitmq_02:       '172.31.16.20'
-service__address__rabbitmq_03:       '172.31.16.20'
-mgmt_address_mq:                     '172.31.0.20'
 
 #
 #  - Add vagrant user to wheel and users group
@@ -120,54 +76,27 @@ profile::network::services::dns_options:
     default:
       ttl: 3600
       keyfile: "/etc/rndc.key"
-      server: "%{hiera('netcfg_netpart_mgmt')}.11"
+      server: "%{hiera('netcfg_mgmt_netpart')}.11"
   A:
     default:
-      ttl: 86400
+      ttl: 3600
       keyfile: "/etc/rndc.key"
-      server: "%{hiera('netcfg_netpart_mgmt')}.11"
+      server: "%{hiera('netcfg_mgmt_netpart')}.11"
 
+#
+# DNS (merge of common and this)
+#
 profile::network::services::dns_records:
-  CNAME:
-    "puppet.%{domain}":                     "%{location}-admin-01.%{domain}"
-    "foreman.%{domain}":                    "%{location}-admin-01.%{domain}"
-    "repo.%{domain}":                       "%{location}-admin-01.%{domain}"
   A:
-    "%{location}-login-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_netpart_mgmt')}.10"
-    "%{location}-admin-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_netpart_mgmt')}.11"
-    "%{location}-proxy-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_netpart_mgmt')}.12"
-    "%{location}-logger-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_netpart_mgmt')}.13"
-    "%{location}-monitor-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_netpart_mgmt')}.14"
-    "%{location}-master-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_netpart_mgmt')}.20"
-    "%{location}-status-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_netpart_mgmt')}.21"
-    "%{location}-mq-01.%{hiera('domain_mgmt')}":          "%{hiera('netcfg_netpart_mgmt')}.31"
-    "%{location}-mq-02.%{hiera('domain_mgmt')}":          "%{hiera('netcfg_netpart_mgmt')}.32"
-    "%{location}-image-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_netpart_mgmt')}.36"
-    "%{location}-db-01.%{hiera('domain_mgmt')}":          "%{hiera('netcfg_netpart_mgmt')}.41"
-    "%{location}-db-02.%{hiera('domain_mgmt')}":          "%{hiera('netcfg_netpart_mgmt')}.42"
-    "%{location}-volume-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_netpart_mgmt')}.46"
-    "%{location}-dashboard-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_netpart_mgmt')}.51"
-    "%{location}-access-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_netpart_mgmt')}.56"
-    "%{location}-console-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_netpart_mgmt')}.61"
-    "%{location}-novvactrl-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_netpart_mgmt')}.66"
-    "%{location}-network-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_netpart_mgmt')}.71"
-    "%{location}-identity-01.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_netpart_mgmt')}.81"
-    "%{location}-api-01.%{hiera('domain_mgmt')}":         "%{hiera('netcfg_netpart_mgmt')}.86"
-    "%{location}-controller-01.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_netpart_mgmt')}.100"
-    "%{location}-compute-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_netpart_mgmt')}.103"
-    "status.%{hiera('domain_trp')}":                      "%{hiera('netcfg_netpart_trp')}.21"
-    "mq01.%{hiera('domain_trp')}":                        "%{hiera('netcfg_netpart_trp')}.31"
-    "image.%{hiera('domain_trp')}":                       "%{hiera('netcfg_netpart_trp')}.36"
-    "db01.%{hiera('domain_trp')}":                        "%{hiera('netcfg_netpart_trp')}.41"
-    "db02.%{hiera('domain_trp')}":                        "%{hiera('netcfg_netpart_trp')}.42"
-    "volume.%{hiera('domain_trp')}":                      "%{hiera('netcfg_netpart_trp')}.46"
-    "novactrl.%{hiera('domain_trp')}":                    "%{hiera('netcfg_netpart_trp')}.66"
-    "network.%{hiera('domain_trp')}":                     "%{hiera('netcfg_netpart_trp')}.71"
-    "identity.%{hiera('domain_trp')}":                    "%{hiera('netcfg_netpart_trp')}.81"
-    "dashboard.%{hiera('domain_public')}":                "%{hiera('netcfg_netpart_public')}.51"
-    "access.%{hiera('domain_public')}":                   "%{hiera('netcfg_netpart_public')}.56"
-    "console.%{hiera('domain_public')}":                  "%{hiera('netcfg_netpart_public')}.61"
-    "api.%{hiera('domain_public')}":                      "%{hiera('netcfg_netpart_public')}.86"
+    "dashboard.%{hiera('domain_public')}":                "%{hiera('netcfg_public_netpart')}.51"
+    "access.%{hiera('domain_public')}":                   "%{hiera('netcfg_public_netpart')}.56"
+    "console.%{hiera('domain_public')}":                  "%{hiera('netcfg_public_netpart')}.61"
+    "api.%{hiera('domain_public')}":                      "%{hiera('netcfg_public_netpart')}.86"
+    "identity.api.%{hiera('domain_public')}":             "%{hiera('netcfg_public_netpart')}.86"
+    "image.api.%{hiera('domain_public')}":                "%{hiera('netcfg_public_netpart')}.86"
+    "network.api.%{hiera('domain_public')}":              "%{hiera('netcfg_public_netpart')}.86"
+    "compute.api.%{hiera('domain_public')}":              "%{hiera('netcfg_public_netpart')}.86"
+    "volume.api.%{hiera('domain_public')}":               "%{hiera('netcfg_public_netpart')}.86"
 
 #
 ## Secret data which for other environments are stored ooutside of this data tree
