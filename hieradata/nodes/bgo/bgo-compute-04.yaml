@@ -38,7 +38,7 @@ profile::base::lvm::volume_group:
     physical_volumes:
       - /dev/sdb
 profile::base::lvm::logical_volume:
-  'lv_instances':
+  'lv_images':
     volume_group: 'vg_images'
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances/_base"
