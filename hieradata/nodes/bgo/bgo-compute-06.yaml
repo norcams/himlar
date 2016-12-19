@@ -30,13 +30,13 @@ network::interfaces_hash:
                    "link_watch" : {  "name" : "ethtool" } }
 
 profile::base::lvm::physical_volume:
-  '/dev/sdb':
+  '/dev/sdb1':
     ensure: present
     force:  true
 profile::base::lvm::volume_group:
   'vg_images':
     physical_volumes:
-      - /dev/sdb
+      - /dev/sdb1
 profile::base::lvm::logical_volume:
   'lv_images':
     volume_group: 'vg_images'
