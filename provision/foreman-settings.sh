@@ -143,7 +143,11 @@ common_config()
   /bin/hammer hostgroup set-parameter --hostgroup storage \
      --name installdevice \
      --value sdm
-
+  # Create compute hostgroup to set special paramters
+  /bin/hammer hostgroup create --name compute --parent base || true
+  /bin/hammer hostgroup set-parameter --hostgroup compute \
+     --name installdevice \
+     --value sda
   #
   # Foreman global settings
   #
