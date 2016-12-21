@@ -38,3 +38,31 @@ network::interfaces_hash:
     netmask:      '255.255.248.0'
     defroute:     'no'
     bridge_stp:   'off'
+
+profile::virtualization::libvirt::pools:
+  dirpool:
+    ensure:              present
+    autostart:           true
+    type:                dir
+    target:              /var/lib/libvirt/images
+  dirpool:
+    ensure:              present
+    autostart:           true
+    type:                dir
+    target:              /var/lib/libvirt/masstorage
+
+lvm::volume_groups:
+  vg_ext:
+    physical_volumes:
+      - /dev/sdb
+    logical_volumes:
+      lv_ext:
+        fs_type:   xfs
+        mountpath: "/var/lib/libvirt/images"
+  vg_masstorage:
+    physical_volumes:
+      - /dev/sdc
+    logical_volumes:
+      lv_masstorage:
+        fs_type:   xfs
+        mountpath: "/var/lib/libvirt/masstorage"
