@@ -45,7 +45,7 @@ profile::virtualization::libvirt::pools:
     autostart:           true
     type:                dir
     target:              /var/lib/libvirt/images
-  dirpool:
+  masstorage:
     ensure:              present
     autostart:           true
     type:                dir
