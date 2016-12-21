@@ -163,6 +163,7 @@ profile::network::services::dns_records:
     "%{::location}-compute-04.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.111"
     "%{::location}-compute-05.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.112"
     "%{::location}-compute-06.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.113"
+    "%{::location}-controller-04.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_netpart')}.114"
     # mgmt
     "foreman.%{hiera('domain_mgmt')}":                      "%{hiera('netcfg_mgmt_netpart')}.11"
     "puppet.%{hiera('domain_mgmt')}":                       "%{hiera('netcfg_mgmt_netpart')}.11"
