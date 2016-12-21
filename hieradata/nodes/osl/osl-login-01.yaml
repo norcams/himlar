@@ -21,6 +21,12 @@ network::interfaces_hash:
     defroute:     'no'
     onboot:       'yes'
     dns1:         "%{hiera('service__address__proxy')}"
+  'p2p2':
+    ipaddress:    '172.30.32.10'
+    netmask:      '255.255.255.0'
+    defroute:     'no'
+    onboot:       'yes'
+    dns1:         "%{hiera('service__address__proxy')}"
   'p2p3':
     ipaddress:    '172.28.160.10'
     netmask:      '255.255.255.0'

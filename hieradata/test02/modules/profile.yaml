@@ -6,3 +6,6 @@ profile::application::himlarcli::smtp:          'smtp.uio.no'
 profile::application::himlarcli::from_addr:     'noreply@usit.uio.no'
 profile::application::himlarcli::ldap_server:   'ldap.uio.no'
 profile::application::himlarcli::ldap_base_dn:  'dc=uio,dc=no'
+
+# test02 is up and coming; on 'test'
+yum_base_mirror:    'https://download.iaas.uio.no/uh-iaas/test'
