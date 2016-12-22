@@ -46,6 +46,6 @@ profile::base::network::routes:
     'netmask':   [ '0.0.0.0', ]
     'gateway':   [ '129.240.224.97', ]
   'p2p2':
-    'ipaddress': [ "%{hiera('netcfg_netpart_public')}", ]
-    'netmask':   [ "%{hiera('netcfg_netmask_public')}", ]
-    'gateway':   [ '10.100.200.1', ]
+    'ipaddress': [ '10.100.200.0', ]
+    'netmask':   [ '255.255.255.0', ]
+    'gateway':   [ '172.30.32.1', ]
