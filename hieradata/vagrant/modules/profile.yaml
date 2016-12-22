@@ -7,6 +7,9 @@ profile::application::himlarcli::from_addr:   ''
 
 profile::openstack::openrc::cacert:           '/opt/himlar/provision/ca/himlar/ca-chain.cert.pem'
 
+# Use newest test repositories
+yum_base_mirror:    'https://download.iaas.uio.no/uh-iaas/test'
+
 # consul testdata
 consul::config_hash:
   "datacenter":    "vagrant-1"
