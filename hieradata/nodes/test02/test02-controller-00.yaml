@@ -15,8 +15,8 @@ network::interfaces_hash:
     onboot:       'yes'
     ipaddress:    '129.240.121.146'
     netmask:      '255.255.255.0'
-#    gateway:      '129.240.121.1'
-    defroute:     'no'
+    gateway:      '129.240.121.1'
+    defroute:     'yes'
     dns1:         "%{hiera('mgmt__address__proxy')}"
     domain:       'test.iaas.uio.no'
   'bond1':
@@ -25,9 +25,9 @@ network::interfaces_hash:
     bridge:       'br1'
   'br0':
     ipaddress:    '172.28.32.99'
-    gateway:      '172.28.32.10'
+#    gateway:      '172.28.32.10'
     netmask:      '255.255.255.0'
-    defroute:     'yes'
+    defroute:     'no'
     onboot:       'yes'
     type:         'Bridge'
 #    peerdns:      'yes'
