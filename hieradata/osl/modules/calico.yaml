@@ -13,6 +13,12 @@ calico::reflector::clients:
     peer_ipv4: '172.18.32.104'
   c3:
     peer_ipv4: '172.18.32.105'
+  c4:
+    peer_ipv4: '172.18.32.111'
+  c5:
+    peer_ipv4: '172.18.32.112'
+  c6:
+    peer_ipv4: '172.18.32.113'
   gw:
     peer_ipv4: "%{hiera('netcfg_trp_gateway')}"
 
