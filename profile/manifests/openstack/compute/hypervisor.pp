@@ -3,6 +3,7 @@ class profile::openstack::compute::hypervisor (
   $manage_libvirt_rbd = false,
   $manage_telemetry = true,
   $manage_firewall = true,
+  $fix_snapshot_loc = false, # FIXME - Should probably be removed for newton release
   $firewall_extras = {},
 ) {
   include ::profile::openstack::compute
@@ -34,6 +35,18 @@ class profile::openstack::compute::hypervisor (
     profile::firewall::rule{ '224 migration accept tcp':
       port   => ['16509', '49152-49215'],
       extras => $firewall_extras,
+    }
+  }
+
+  # FIXME - Should probably be removed for newton release
+  if $fix_snapshot_loc {
+    file { '/var/lib/nova/instances/save':
+      ensure => 'directory',
+    } ->
+    file { '/var/lib/libvirt/qemu/save':
+      ensure => 'link',
+      target => '/var/lib/nova/instances/save',
+      force  => true,
     }
   }
 }

@@ -64,6 +64,8 @@ profile::monitoring::sensu::agent::checks:
     interval:     30
     subscribers:  ['checks']
 
+profile::openstack::compute::hypervisor::fix_snapshot_loc: true # FIXME - Should probably be removed for newton release
+
 calico::compute: true
 etcd::mode: 'proxy'
 
