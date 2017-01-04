@@ -42,8 +42,6 @@ class profile::openstack::compute::hypervisor (
   if $fix_snapshot_loc {
     file { '/var/lib/nova/instances/save':
       ensure => 'directory',
-      owner  => 'nova',
-      group  => 'nova',
     } ->
     file { '/var/lib/libvirt/qemu/save':
       ensure => 'link',
