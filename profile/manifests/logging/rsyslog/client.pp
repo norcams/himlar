@@ -1,6 +1,10 @@
 # rsyslog client for Openstack
-class profile::logging::rsyslog::client() {
+class profile::logging::rsyslog::client(
+  $manage_rsyslog = false,
+) {
 
-  include ::rsyslog::client
+  if $manage_rsyslog {
+    include ::rsyslog::client
+  }
 
 }
