@@ -14,7 +14,9 @@ keystone::endpoint::internal_url: "%{hiera('endpoint__identity__internal')}"
 keystone::endpoint::admin_url:    "%{hiera('endpoint__identity__admin')}"
 keystone::endpoint::version:      "v3"
 
-keystone::wsgi::apache::ssl:      false
+keystone::wsgi::apache::ssl:              false
+keystone::wsgi::apache::bind_host:        "%{ipaddress_trp1}"
+keystone::wsgi::apache::admin_bind_host:  "%{ipaddress_trp1}"
 
 keystone::public_bind_host:     "%{ipaddress_service1}"
 keystone::admin_bind_host:      "%{ipaddress_service1}"

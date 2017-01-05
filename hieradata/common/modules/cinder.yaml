@@ -14,7 +14,8 @@ cinder::api::keystone_enabled:   true
 cinder::api::keystone_password:  "%{hiera('cinder_api_password')}"
 cinder::api::auth_uri:           "%{hiera('endpoint__identity__internal')}/v3"
 cinder::api::identity_uri:       "%{hiera('endpoint__identity__admin')}"
-cinder::api::os_region_name:     "%{location}"
+cinder::api::os_region_name:     "%{::location}"
+cinder::api::bind_host:          "%{::ipaddress_trp1}"
 
 cinder::volume::iscsi::iscsi_ip_address:        "%{hiera('service__address__cinder_ip')}"
 
