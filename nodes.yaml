@@ -43,13 +43,18 @@ defaults:
 #
 nodesets:
   default:
-    - role:   "db"
-    - role:   "dashboard"
-    - role:   "master"
+    - role:   "api"
       memory: 3096
+      cpus:   2
+      location:  "minimal"
+    - role:   "dashboard"
+      location:  "minimal"
+    - role:   "access"
+      location:  "minimal"
     - role:   "compute"
       memory: 2048
       cpus:   2
+      location:  "minimal"
   full:
     - role:   "db"
     - role:   "dashboard"
