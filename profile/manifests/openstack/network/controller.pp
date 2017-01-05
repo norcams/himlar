@@ -1,4 +1,4 @@
-# 
+#
 class profile::openstack::network::controller(
   $manage_neutron_policies = true,
   $neutron_policy_path = '/etc/neutron/policy.json',
@@ -19,8 +19,8 @@ class profile::openstack::network::controller(
       file_path => $neutron_policy_path,
     }
     $policy = hiera('profile::openstack::network::policies', {})
-    create_resources('openstacklib::policy::base', $policy,
-                { require => Class[::neutron::server] })
+    create_resources('openstacklib::policy::base', $policy)
+                #{ require => Class[::neutron::server] })
   }
 
   if $neutron_nova_insecure {
