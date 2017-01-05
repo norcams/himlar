@@ -15,6 +15,7 @@ network::interfaces_hash:
 profile::base::network::cumulus_bridges:
   'br100':
     'ipv4': [ '172.30.0.1/24', ]
+    'ipv6': [ 'fd00::1/64', ]
     'ports': [ 'swp1', ]
     'alias_name': 'Transport L2 if'
     'mtu': '1500'
@@ -35,6 +36,7 @@ profile::base::network::routes:
 profile::base::network::cumulus_interfaces:
   'swp9':
     'ipv4': [ '129.177.1.198/30', ]
+    'ipv6': [ '2001:700:200:914::10/64', ]
 
 quagga::quagga::zebra_interfaces:
   'br100':
@@ -55,6 +57,8 @@ quagga::quagga::zebra_interfaces:
   'swp7':
     - 'link-detect'
 
+quagga::quagga::zebra_ip6_routes:
+  - '::/0 2001:700:200:914::1'
 quagga::quagga::zebra_ip_routes:
   - '0.0.0.0/0 129.177.1.197'
   - '10.0.0.0/8 Null0'
@@ -85,6 +89,9 @@ quagga::quagga::bgp_options:
 quagga::quagga::bgp_networks:
   - '0.0.0.0/0'
   - '172.30.0.0/24'
+quagga::quagga::bgp_networks:
+  - '::/0'
+  - 'fd00::/64'
 
 quagga::quagga::bgp_neighbor_groups:
   'rr-clients':
@@ -100,6 +107,7 @@ quagga::quagga::bgp_neighbor_groups:
       - '172.30.0.104'
       - '172.30.0.105'
       - '172.30.0.112'
+      - 'fd00::103'
 #  'other-clients':
 #    'options':
 #    - 'peer-group'
