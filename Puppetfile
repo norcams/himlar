@@ -102,6 +102,7 @@ mod 'logstash', :ref => '0.5.1',                  :git => github + 'elastic/pupp
 mod 'datacat', :ref => '9d2cd07b8777',            :git => github + 'richardc/puppet-datacat'
 mod 'elasticsearch', :ref => '0.10.3',            :git => github + 'elastic/puppet-elasticsearch'
 mod 'file_concat', :ref => '813132b5d77',         :git => github + 'electrical/puppet-lib-file_concat'
+mod 'logrotate', :ref => 'v1.4.0',                :git => github + 'yo61/puppet-logrotate'
 
 #
 # profile::monitoring

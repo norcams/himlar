@@ -5,9 +5,11 @@ include:
     - profile::logging::logstash
     - profile::logging::elasticsearch
     - profile::logging::kibana
+    - profile::logging::logrotate
 
 rsyslog::perm_dir:    '0755'
 
+profile::logging::logrotate::manage_logrotate:   true
 profile::logging::elasticsearch::manage_curator: true
 profile::logging::elasticsearch::instances:
   'openstack':
@@ -36,6 +38,16 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_log'
     fs_type:      "xfs"
     mountpath:    "/opt"
+
+logrotate::rules:
+  openstack:
+    path:           '/opt/log/*.log'
+    rotate:         7
+    postrotate:     '/bin/kill -HUP `cat /var/run/syslogd.pid 2> /dev/null` 2> /dev/null || true'
+    sharedscripts:  true
+    missingok:      true
+    rotate_every:   daily
+
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
