@@ -1,9 +1,4 @@
 ---
-# include default for vagrant to avoid having to reinstall to test the proxy module
-#include:
-#  default:
-#    -  profile::network::yum_proxy
-
 # The current vagrant box image do not have vda3 parso switch
 # off lvm for compute on vagrant
 profile::base::common::manage_lvm: false
@@ -26,13 +21,3 @@ profile::base::lvm::volume_group:
   'vg_ext':
     physical_volumes:
       - /dev/vda3
-
-# enable consul
-#include:
-#  default:
-#    - profile::application::consul
-
-consul::services:
-  'foreman':
-    tags: ["TheForeman"]
-    port: 80

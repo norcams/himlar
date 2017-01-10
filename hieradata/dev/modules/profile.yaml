@@ -10,5 +10,9 @@ profile::openstack::openrc::cacert:           '/opt/himlar/provision/ca/himlar/c
 # Use newest test repositories
 yum_base_mirror:    'https://download.iaas.uio.no/uh-iaas/test'
 
+# consul testdata
+consul::config_hash:
+  "datacenter":    "vagrant-1"
+
 # no proxy for vagrant environments
 profile::network::yum_proxy::yum_proxy: ''

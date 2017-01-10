@@ -2,10 +2,11 @@
 include:
   default:
     - profile::development::network::dns
+    - profile::monitoring::sensu::agent
 
 # Location setting
 location_environment: dev
-location_description: Local minimal development environment using vagrant
+location_description: Local development environment using vagrant
 
 domain_frontend:        'vagrant.iaas.intern'
 domain_public:          'vagrant.iaas.intern'
@@ -24,16 +25,11 @@ netcfg_dns_server1:     '172.31.0.1'
 netcfg_dns_server2:     '8.8.8.8'
 netcfg_dns_search:      "%{hiera('domain_mgmt')} %{hiera('domain_trp')}"
 
+
 #
 # Services (internal non openstack services)
 #
-service__address__mysql:          "db02.%{hiera('domain_trp')}"
-service__address__status:         "status.%{hiera('domain_trp')}"
-service__address__etcd_cluster:   "network.%{hiera('domain_trp')}"
-service__address__rabbitmq_01:    "mq01.%{hiera('domain_trp')}"
-service__address__rabbitmq_02:    "mq01.%{hiera('domain_trp')}"
-service__address__rabbitmq_03:    "mq01.%{hiera('domain_trp')}"
-service__address__cinder_ip:      "%{hiera('netcfg_trp_netpart')}.86"
+service__address__mysql:  "db01.%{hiera('domain_trp')}" #FIXME
 
 #
 # Default interfaces
@@ -45,12 +41,12 @@ named_interfaces::config:
     - eth1
   trp:
     - eth2
-  public:
-    - eth3
   service: #FIXME (delete)
     - eth2
   transport: #FIXME (delete)
     - eth2
+  public:
+    - eth3
 
 allow_from_network:
   - '172.31.24.0/24'
@@ -58,30 +54,6 @@ allow_from_network:
 profile::firewall::pre::ssh_settings:
   source: "0.0.0.0/0"
 
-#
-# DNS (merge of this and location)
-#
-profile::network::services::dns_records:
-  A:
-    # public
-    "dashboard.%{hiera('domain_public')}":                "%{hiera('netcfg_public_netpart')}.51"
-    "access.%{hiera('domain_public')}":                   "%{hiera('netcfg_public_netpart')}.56"
-    "console.%{hiera('domain_public')}":                  "%{hiera('netcfg_public_netpart')}.61"
-    "api.%{hiera('domain_public')}":                      "%{hiera('netcfg_public_netpart')}.86"
-    "identity.api.%{hiera('domain_public')}":             "%{hiera('netcfg_public_netpart')}.86"
-    "image.api.%{hiera('domain_public')}":                "%{hiera('netcfg_public_netpart')}.86"
-    "network.api.%{hiera('domain_public')}":              "%{hiera('netcfg_public_netpart')}.86"
-    "compute.api.%{hiera('domain_public')}":              "%{hiera('netcfg_public_netpart')}.86"
-    "volume.api.%{hiera('domain_public')}":               "%{hiera('netcfg_public_netpart')}.86"
-    # trp
-    "mq01.%{hiera('domain_trp')}":                          "%{hiera('netcfg_trp_netpart')}.86"
-    "image.%{hiera('domain_trp')}":                         "%{hiera('netcfg_trp_netpart')}.86"
-    "db01.%{hiera('domain_trp')}":                          "%{hiera('netcfg_trp_netpart')}.86"
-    "db02.%{hiera('domain_trp')}":                          "%{hiera('netcfg_trp_netpart')}.86"
-    "volume.%{hiera('domain_trp')}":                        "%{hiera('netcfg_trp_netpart')}.86"
-    "compute.%{hiera('domain_trp')}":                       "%{hiera('netcfg_trp_netpart')}.86"
-    "network.%{hiera('domain_trp')}":                       "%{hiera('netcfg_trp_netpart')}.86"
-    "identity.%{hiera('domain_trp')}":                      "%{hiera('netcfg_trp_netpart')}.86"
 
 #
 #  - Add vagrant user to wheel and users group
@@ -98,6 +70,33 @@ sudo::configs:
   vagrant:
     priority: 10
     content: 'vagrant ALL=(ALL) NOPASSWD:ALL'
+
+profile::network::services::dns_options:
+  CNAME:
+    default:
+      ttl: 3600
+      keyfile: "/etc/rndc.key"
+      server: "%{hiera('netcfg_mgmt_netpart')}.11"
+  A:
+    default:
+      ttl: 3600
+      keyfile: "/etc/rndc.key"
+      server: "%{hiera('netcfg_mgmt_netpart')}.11"
+
+#
+# DNS (merge of common and this)
+#
+profile::network::services::dns_records:
+  A:
+    "dashboard.%{hiera('domain_public')}":                "%{hiera('netcfg_public_netpart')}.51"
+    "access.%{hiera('domain_public')}":                   "%{hiera('netcfg_public_netpart')}.56"
+    "console.%{hiera('domain_public')}":                  "%{hiera('netcfg_public_netpart')}.61"
+    "api.%{hiera('domain_public')}":                      "%{hiera('netcfg_public_netpart')}.86"
+    "identity.api.%{hiera('domain_public')}":             "%{hiera('netcfg_public_netpart')}.86"
+    "image.api.%{hiera('domain_public')}":                "%{hiera('netcfg_public_netpart')}.86"
+    "network.api.%{hiera('domain_public')}":              "%{hiera('netcfg_public_netpart')}.86"
+    "compute.api.%{hiera('domain_public')}":              "%{hiera('netcfg_public_netpart')}.86"
+    "volume.api.%{hiera('domain_public')}":               "%{hiera('netcfg_public_netpart')}.86"
 
 #
 ## Secret data which for other environments are stored ooutside of this data tree
