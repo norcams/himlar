@@ -6,6 +6,7 @@ include:
     - profile::logging::rsyslog::client
 
 profile::openstack::image::registry_enabled:  true
+profile::openstack::image::manage_policy:     true
 
 profile::openstack::openrc::password:     "%{hiera('glance_api_password')}"
 profile::openstack::openrc::username:     'glance'
