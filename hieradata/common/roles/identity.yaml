@@ -17,6 +17,7 @@ profile::openstack::identity::keystone_config:
 
 profile::openstack::identity::roles_extra:
   - user
+  - superuser
 
 profile::openstack::identity::trusted_dashboard: "https://%{hiera('public__address__dashboard')}/dashboard/auth/websso/"
 profile::openstack::resource::dataporten::manage_dataporten: true
