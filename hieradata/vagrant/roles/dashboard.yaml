@@ -1,8 +1,13 @@
 ---
-apache::log_level:                              warn
+include:
+  default:
+    - profile::application::openssl
 
-profile::openstack::dashboard::manage_ssl_cert: true
-profile::application::sslcert::cert_name:       'vagrant'
-profile::application::sslcert::commonname:      "dashboard.%{hiera('domain_public')}"
+profile::application::openssl::manage_ca_cert:  true
+profile::application::openssl::certs:
+  "dashboard.%{hiera('domain_public')}":
+    cn:     "dashboard.%{hiera('domain_public')}"
+
+apache::log_level:                              warn
 
 profile::openstack::dashboard::site_branding: 'vagrant-iaas'
