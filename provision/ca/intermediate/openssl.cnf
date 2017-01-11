@@ -7,12 +7,12 @@ default_ca = CA_default
 
 [ CA_default ]
 # Directory and file locations.
-dir               = intermediate
+dir               = /opt/himlar/provision/ca/intermediate
 certs             = $dir/certs
 crl_dir           = $dir/crl
 new_certs_dir     = $dir/newcerts
 database          = $dir/index.txt
-serial            = $dir/serial
+serial            = /tmp/serial
 RANDFILE          = $dir/private/.rand
 email_in_dn       = no
 
