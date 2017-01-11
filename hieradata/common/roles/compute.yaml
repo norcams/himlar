@@ -69,7 +69,8 @@ profile::openstack::compute::hypervisor::fix_snapshot_loc: true # FIXME - Should
 calico::compute: true
 etcd::mode: 'proxy'
 
-calico::compute::bird_template: 'profile/bird/bird.conf.erb'
+calico::compute::bird_template:  'profile/bird/bird.conf.erb'
+calico::compute::bird6_template: 'profile/bird/bird6.conf.erb'
 
 named_interfaces::config:
   mgmt:
