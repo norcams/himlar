@@ -11,23 +11,24 @@ RANDFILE                = $ENV::HOME/.rnd
 [ req ]
 default_bits            = 2048
 default_md              = sha256
-default_keyfile         = privkey.pem
-distinguished_name      = req_distinguished_name
+distinguished_name      = dn
 prompt                  = no
-string_mask             = utf8only
+utf8                    = yes
 <% if @altnames and not @altnames.empty? -%>
-req_extensions          = req_ext
+req_extensions          = v3_req
+
+[ v3_req ]
+subjectAltName = @alt_names
 <% end -%>
 
-[ req_distinguished_name ]
-countryName                     = NO
-organizationName                = <%= @organization %>
-commonName                      = <%= @commonname %>
-<% unless @email.nil? -%>
-emailAddress                    = <%= @email %>
-<% end -%>
+[ dn ]
+countryName             = NO
+organizationName        = UH-IaaS
+commonName              = <%= @cn %>
 
 <% unless @altnames.empty? -%>
-[ req_ext ]
-subjectAltName = "<%= @altnames.collect! {|i| "DNS: #{i}" }.join(', ') -%>"
-<% end %>
+[ alt_names ]
+<% @altnames.each_with_index do |item, index|  -%>
+DNS.<%= index+1 %> = <%= item %>
+<% end -%>
+<% end -%>
