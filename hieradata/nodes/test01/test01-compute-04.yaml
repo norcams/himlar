@@ -12,6 +12,8 @@ network::interfaces_hash:
     onboot:       'yes'
     bonding_opts: 'mode=balance-alb miimon=100'
     ipaddress:    "%{hiera('netcfg_mgmt_netpart')}.112"
+    ipv6init:     'yes'
+    ipv6addr:     "%{hiera('netcfg_mgmt_netpart6')}::112/%{hiera('netcfg_mgmt_netmask')}"
     netmask:      "%{hiera('netcfg_mgmt_netmask')}"
     dns1:         "%{hiera('mgmt__address__proxy')}"
     domain:       "%{hiera('netcfg_dns_search')}"
