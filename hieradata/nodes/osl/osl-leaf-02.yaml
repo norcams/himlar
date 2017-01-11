@@ -25,8 +25,8 @@ profile::base::network::cumulus_interfaces:
     'clagd_peer_ip': '172.18.228.1'
     'clagd_sys_mac': '44:38:39:ff:bb:1c'
 # No uplink here yet
-#  'swp48':
-#    'ipaddress': '129.240.25.110/30'
+  'swp48':
+    'ipaddress': '129.240.25.110/30'
 
 profile::base::network::cumulus_bridges:
   'bridge':
