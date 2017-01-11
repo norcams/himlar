@@ -41,6 +41,12 @@ glance::keystone::auth::region:         "%{::location}"
 glance::backend::rbd::rbd_store_user: 'glance'
 glance::backend::rbd::rbd_store_pool: 'images'
 
+# policy (node: image)
+glance::policy::policies:
+  publicize_image:
+    key:    'publicize_image'
+    value:  'role:superuser or role:admin'
+
 # rabbit mq (only for notifications)
 #glance::notify::rabbitmq::rabbit_userid:         'glance'
 #glance::notify::rabbitmq::rabbit_virtual_host:   'glance'
