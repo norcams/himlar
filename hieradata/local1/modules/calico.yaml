@@ -1,9 +1,4 @@
 ---
-# Reflector clients (must be set per location)
-calico::reflector::clients:
-  c01:
-    peer_ipv4: "%{netpart_transport1}.103" #FIXME
-
 # compute node settings
 calico::compute::peer_defaults:
   peer_as: 65535
