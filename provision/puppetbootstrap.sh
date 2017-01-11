@@ -1,12 +1,66 @@
 #!/bin/bash
 
+el_repos()
+{
+  if [ "$#" -ne 1 ]; then
+    repo='https://download.iaas.uio.no/uh-iaas/test'
+  else
+    repo="https://download.iaas.uio.no/uh-iaas/${1}"
+  fi
+
+  cat > /etc/yum.repos.d/epel.repo <<- EOM
+[epel]
+name=Extra Packages for Enterprise Linux 7 - \$basearch
+failovermethod=priority
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+baseurl=$repo/epel
+EOM
+  cat > /etc/yum.repos.d/puppetlabs.repo <<- EOM
+[puppetlabs-deps]
+name=Puppetlabs Dependencies Yum Repo
+baseurl=$repo/puppetlabs-deps/
+gpgkey=$repo/puppetlabs-deps/RPM-GPG-KEY-puppetlabs
+enabled=1
+gpgcheck=1
+
+[puppetlabs]
+name=Puppetlabs Yum Repo
+baseurl=$repo/puppetlabs/
+enabled=1
+gpgcheck=1
+gpgkey=$repo/puppetlabs/RPM-GPG-KEY-puppetlabs
+EOM
+  cat > /etc/yum.repos.d/CentOS-Base.repo <<- EOM
+[base]
+name=CentOS-\$releasever - Base
+baseurl=$repo/centos-base/
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+
+[updates]
+name=CentOS-\$releasever - Updates
+baseurl=$repo/centos-updates/
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+
+[extras]
+name=CentOS-\$releasever - Extras
+baseurl=$repo/centos-extras/
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+EOM
+}
+
 bootstrap_puppet()
 {
   # packages
   if command -v yum >/dev/null 2>&1; then
     # RHEL, CentOS, Fedora
-    rpm -ivh http://ftp.uninett.no/linux/epel/epel-release-latest-7.noarch.rpm
-    rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm
+    yum install -y epel-release
+    el_repos test
+    yum clean all
     yum -y update
     yum install -y puppet facter rubygems rubygem-deep_merge \
       rubygem-puppet-lint git vim inotify-tools
