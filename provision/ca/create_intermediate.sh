@@ -20,7 +20,7 @@ openssl req -config intermediate/openssl.cnf -new -sha256 \
 # Sign with root ca
 openssl ca -config openssl.cnf -extensions v3_intermediate_ca \
     -days 3650 -notext -md sha256 -passin file:passfile \
-    -in intermediate/csr/intermediate.csr.pem \
+    -in intermediate/csr/intermediate.csr.pem -batch \
     -out intermediate/certs/intermediate.cert.pem
 
 chmod 444 intermediate/certs/intermediate.cert.pem
