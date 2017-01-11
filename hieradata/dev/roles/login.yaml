@@ -26,4 +26,4 @@ profile::base::login::db_servers:
   vagrant-db-01:
     hour:     '*'
     minute:   '20'
-    command:  '/usr/local/sbin/db-dump.sh vagrant-db-01 >/dev/null'
+    command:  '/usr/local/sbin/db-dump.sh dev-db-01 >/dev/null'

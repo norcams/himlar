@@ -1,21 +1,15 @@
 ---
 include:
   default:
-    - profile::application::sslcert
+    - profile::application::openssl
 
-profile::application::sslcert::cert_name:       'vagrant'
-profile::application::sslcert::commonname:      "api.%{hiera('domain_public')}"
-
-# These can be created from vagrant certs found on ca_setup and added to
-# '/opt/himlar/provision/ca/certs' on the vagrant host.
-star_api_ssl_pem:   'star.api.vagrant.iaas.intern.pem'
-api_ssl_pem:        'star.api.vagrant.iaas.intern.pem'
-status_ssl_pem:     'status.vagrant.iaas.intern.pem'
-
-
-profile::base::common::manage_cron: true
-profile::base::cron::crontabs:
-  test:
-    hour:     '*'
-    minute:   '40'
-    command:  'echo "hurra"'
+profile::application::openssl::certs:
+  "star.api.%{hiera('domain_public')}":
+    cn:     "*.api.%{hiera('domain_public')}"
+    concat: true
+  "status.%{hiera('domain_public')}":
+    cn:     "status.%{hiera('domain_public')}"
+    concat: true
+  "api.%{hiera('domain_public')}":
+    cn:     "api.%{hiera('domain_public')}"
+    concat: true

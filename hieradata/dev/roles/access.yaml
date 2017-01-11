@@ -1,17 +1,15 @@
 ---
-profile::webserver::apache::manage_ssl_cert:    true
-profile::application::sslcert::cert_name:       'vagrant'
-profile::application::sslcert::commonname:      "access.%{hiera('domain_public')}"
+include:
+  default:
+    - profile::application::openssl
+
+profile::application::openssl::manage_ca_cert:  true
+profile::application::openssl::certs:
+  "access.%{hiera('domain_public')}":
+    cn:     "access.%{hiera('domain_public')}"
 
 # Very verbose logging in vagrant
 apache::log_level:                              trace4
 
 # Uncomment this and run dpapp_develop.sh to change to develop mode
 #dpapp::installdir:        '/opt/dpapp.develop'
-
-profile::webserver::apache::vhosts:
-  dpapp_ssl:
-    ssl:                  true
-    ssl_ca:               '/opt/himlar/provision/ca/certs/ca-chain.cert.pem'
-    ssl_key:              '/etc/pki/tls/private/vagrant.key'
-    ssl_cert:             '/etc/pki/tls/certs/vagrant.crt'
