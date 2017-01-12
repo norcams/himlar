@@ -22,7 +22,7 @@ define profile::firewall::rule (
   $destination = undef,
   $iniface     = undef,
   $chain       = 'INPUT',
-  $provider    = 'iptables'
+  $provider    = 'iptables',
   $extras      = {},
 ) {
 
