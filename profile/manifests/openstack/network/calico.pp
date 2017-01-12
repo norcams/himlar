@@ -35,6 +35,7 @@ class profile::openstack::network::calico(
         iniface  => $iniface_name,
         extras   => $profile::openstack::network::calico::firewall_extras,
         provider => ip6tables,
+    }
   }
 
   if $manage_firewall {
