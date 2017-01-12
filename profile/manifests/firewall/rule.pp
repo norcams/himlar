@@ -22,6 +22,7 @@ define profile::firewall::rule (
   $destination = undef,
   $iniface     = undef,
   $chain       = 'INPUT',
+  $provider    = 'iptables'
   $extras      = {},
 ) {
 
@@ -34,6 +35,7 @@ define profile::firewall::rule (
     'destination' => $destination,
     'iniface'     => $iniface,
     'chain'       => $chain,
+    'provider'    => $provider
   }
 
   $rule = merge($basic, $extras)
