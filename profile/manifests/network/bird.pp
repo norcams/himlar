@@ -6,9 +6,9 @@ class profile::network::bird(
 
   include ::bird
 
-  if $manage_firewall {
+#  if $manage_firewall {
     # do nothing ... yet
-  }
+#  }
 
 }
 

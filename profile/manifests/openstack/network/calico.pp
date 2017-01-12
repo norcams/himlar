@@ -34,7 +34,7 @@ class profile::openstack::network::calico(
         port     => '179',
         iniface  => $iniface_name,
         extras   => $profile::openstack::network::calico::firewall_extras,
-        provider => ip6tables,
+        provider => 'ip6tables',
     }
   }
 
