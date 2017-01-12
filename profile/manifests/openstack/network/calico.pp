@@ -29,6 +29,12 @@ class profile::openstack::network::calico(
         iniface => $iniface_name,
         extras  => $profile::openstack::network::calico::firewall_extras,
     }
+    profile::firewall::rule { "010 bird bgp - accept tcp to ${name}-ipv6":
+        proto    => 'tcp',
+        port     => '179',
+        iniface  => $iniface_name,
+        extras   => $profile::openstack::network::calico::firewall_extras,
+        provider => ip6tables,
   }
 
   if $manage_firewall {
