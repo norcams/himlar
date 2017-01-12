@@ -107,6 +107,8 @@ quagga::quagga::bgp_neighbor_groups:
       - '172.30.0.104'
       - '172.30.0.105'
       - '172.30.0.112'
+    'options6':
+      - 'route-reflector-client'
     'members6':
       - 'fd00::103'
       - 'fd00::104'
