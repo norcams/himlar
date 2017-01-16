@@ -51,9 +51,9 @@ mod 'ipcalc', :ref => '1.2.2',                   :git => github + 'inkblot/puppe
 mod 'etcd', :ref => 'c26961fe94',                :git => github + 'norcams/puppet-etcd'
 
 #
-# profile::application::sslcert
+# profile::application::openssl
 #
-mod 'openssl', :ref => '1.5.0',                  :git => github + 'camptocamp/puppet-openssl'
+mod 'openssl', :ref => '1.9.0',                  :git => github + 'camptocamp/puppet-openssl'
 
 #
 # profile::application::consul

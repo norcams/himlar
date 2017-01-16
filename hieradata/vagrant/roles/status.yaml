@@ -1,4 +1,0 @@
----
-profile::webserver::apache::manage_ssl_cert:    true
-profile::application::sslcert::cert_name:       'vagrant'
-profile::application::sslcert::commonname:      "status.%{hiera('domain_public')}"

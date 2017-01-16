@@ -7,13 +7,13 @@ defaults:
   box:       "norcams/base"
   autostart: true
   primary:   false
-  location:  "vagrant"
-  domain:    "vagrant.iaas.intern"
+  location:  "dev"
+  domain:    "dev.iaas.intern"
   cpus:      1
   memory:    1024
   networks:
     - "mgmt"
-    - "transport"
+    - "trp"
     - "public"
 
 #
@@ -43,59 +43,46 @@ defaults:
 #
 nodesets:
   default:
-    - role:   "db"
-    - role:   "dashboard"
-    - role:   "master"
-      memory: 3096
-    - role:   "compute"
-      memory: 2048
-      cpus:   2
+    - role:       "api"
+      memory:     3096
+      cpus:       2
+      location:   "vagrant"
+    - role:       "dashboard"
+      location:   "vagrant"
+    - role:       "access"
+      location:   "vagrant"
+    - role:       "compute"
+      memory:     2048
+      cpus:       2
+      location:   "vagrant"
   full:
-    - role:   "db"
-    - role:   "dashboard"
-    - role:   "master"
-      memory: 3096
-    - role:   "compute"
-      memory: 2048
-      cpus:   2
-    - role:   "access"
-    - role:   "novactrl"
-    - role:   "identity"
-    - role:   "console"
-    - role:   "image"
-    - role:   "network"
-    - role:   "volume"
-    - role:   "api"
-    - role:   "mq"
-      hostid: "01"
-    - role:   "mq"
-      hostid: "02"
-    - role: "monitor"
-    - role: "status"
-    - role: "logger"
-      cpus:   1
-      memory: 2048
-  base:
-    - role: "base"
+    - role:       "db"
+    - role:       "mq"
+    - role:       "api"
+    - role:       "identity"
+    - role:       "novactrl"
+    - role:       "image"
+    - role:       "network"
+    - role:       "volume"
+    - role:       "dashboard"
+    - role:       "access"
+    - role:       "console"
+    - role:       "compute"
+      memory:     2048
+      cpus:       2
+    - role:       "monitor"
+    - role:       "logger"
+      cpus:       1
+      memory:     2048
+    - role:       "status"
   infra:
-    - role: "login"
-    - role: "controller"
-    - role: "admin"
-    - role: "proxy"
+    - role:       "login"
+    - role:       "controller"
+    - role:       "admin"
+    - role:       "proxy"
   ceph:
-    - role: "cephmon"
-    - role: "storage"
-  consul:
-    - role: "compute"
-      hostid: "com1"
-    - role: "compute"
-      hostid: "com2"
-    - role: "controller"
-      hostid: "con1"
-    - role: "controller"
-      hostid: "con2"
-    - role: "controller"
-      hostid: "con3"
+    - role:       "cephmon"
+    - role:       "storage"
 
 networks:
   mgmt:
@@ -104,7 +91,7 @@ networks:
   oob:
     net: "172.31.8"
     auto_config: false
-  transport:
+  trp:
     net: "172.31.16"
     auto_config: false
   public:

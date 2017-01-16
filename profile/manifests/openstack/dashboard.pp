@@ -1,7 +1,6 @@
 # Dashboard
 class profile::openstack::dashboard(
   $manage_dashboard   = false,
-  $manage_ssl_cert    = false,
   $ports              = [80, 443],
   $manage_firewall    = false,
   $allow_from_network = undef,
@@ -21,12 +20,6 @@ class profile::openstack::dashboard(
       content => template($override_template),
       order   => '99',
     }
-  }
-
-  if $manage_ssl_cert {
-    include profile::application::sslcert
-    Class['Profile::Application::Sslcert'] ~>
-    Service[$::horizon::params::http_service]
   }
 
   if $manage_firewall {

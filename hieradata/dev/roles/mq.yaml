@@ -2,8 +2,8 @@
 # To use the mq-nodes in vagrant update service__address__rabbitmq_[1-3]
 # in vagrant/common.yaml
 rabbitmq::cluster_nodes:
-  - 'vagrant-mq-01'
-  - 'vagrant-mq-02'
+  - 'dev-mq-01'
+  - 'dev-mq-02'
 
 # Sensu
 profile::base::common::packages:

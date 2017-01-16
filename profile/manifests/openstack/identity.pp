@@ -37,12 +37,6 @@ class profile::openstack::identity (
 
   create_resources('keystone_config', $keystone_config)
 
-  if $manage_ssl_cert {
-    include profile::application::sslcert
-    Class['Profile::Application::Sslcert'] ~>
-    Service[$::keystone::params::service_name]
-  }
-
   if $swift_enabled {
     include ::swift::keystone::auth
     include ::swift::keystone::dispersion
