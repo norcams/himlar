@@ -75,23 +75,23 @@ profile::monitoring::sensu::agent::plugins:
 # metadata api check
 profile::monitoring::sensu::agent::checks:
   'identity-api-check':
-    command:      "check-http.rb -u %{hiera('endpoint__identity__public')} --response-code 300 -r"
+    command:      "check-http.rb -u %{hiera('endpoint__identity__public')} --response-code 300 -r %{hiera('sensu_ssl_cachain')}"
     interval:     60
     subscribers:  ['checks']
   'compute-api-check':
-    command:      "check-http.rb -u %{hiera('endpoint__compute__public')}"
+    command:      "check-http.rb -u %{hiera('endpoint__compute__public')} %{hiera('sensu_ssl_cachain')}"
     interval:     60
     subscribers:  ['checks']
   'image-api-check':
-    command:      "check-http.rb -u %{hiera('endpoint__image__public')} --response-code 300 -r"
+    command:      "check-http.rb -u %{hiera('endpoint__image__public')} --response-code 300 -r %{hiera('sensu_ssl_cachain')}"
     interval:     60
     subscribers:  ['checks']
   'volume-api-check':
-    command:      "check-http.rb -u %{hiera('endpoint__volume__public')} --response-code 300 -r"
+    command:      "check-http.rb -u %{hiera('endpoint__volume__public')} --response-code 300 -r %{hiera('sensu_ssl_cachain')}"
     interval:     60
     subscribers:  ['checks']
   'network-api-check':
-    command:      "check-http.rb -u %{hiera('endpoint__network__public')}"
+    command:      "check-http.rb -u %{hiera('endpoint__network__public')} %{hiera('sensu_ssl_cachain')}"
     interval:     60
     subscribers:  ['checks']
   'identity-api-metric':

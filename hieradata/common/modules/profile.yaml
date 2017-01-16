@@ -206,6 +206,7 @@ profile::base::yumrepo::repo_hash:
 
 
 # Turn on agant and add common sensu plugins
+sensu_ssl_cachain: ''
 profile::monitoring::sensu::agent::enable_agent: true
 profile::monitoring::sensu::agent::plugins:
   sensu-plugins-disk-checks:
