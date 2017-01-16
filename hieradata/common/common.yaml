@@ -284,7 +284,7 @@ networks:
         ensure: present
   vagrant:
     domain:
-      mgmt: himlar.local
+      mgmt: mgmt.vagrant.iaas.intern
     subnet:
       mgmt: 10.0.3.1/24
       oob: 10.0.4.1/24
@@ -302,6 +302,17 @@ networks:
         ensure: present
       oob:
         ensure: present
+  dev:
+    domain:
+      mgmt: mgmt.dev.iaas.intern
+    subnet:
+      mgmt: 172.31.0.0/24
+    dhcp:
+      mgmt:
+        ensure: absent
+    nat:
+      mgmt:
+        ensure: absent
   dev01:
     domain:
       mgmt: mgmt.dev.iaas.intern
