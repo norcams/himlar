@@ -54,11 +54,11 @@ class profile::base::login (
     }
 
     file { 'db-dump-dir':
-      ensure  => 'directory',
-      path    => '/opt/repo/secrets/dumps',
-      mode    => '0770',
-      owner   => $dump_owner,
-      group   => $dump_group,
+      ensure => 'directory',
+      path   => '/opt/repo/secrets/dumps',
+      mode   => '0775',
+      owner  => $dump_owner,
+      group  => $dump_group,
     }
 
   }
