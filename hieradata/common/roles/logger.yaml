@@ -42,11 +42,11 @@ profile::base::lvm::logical_volume:
 logrotate::rules:
   openstack:
     path:           '/opt/log/*.log'
-    rotate:         14
+    rotate:         12
     postrotate:     '/bin/kill -HUP `cat /var/run/syslogd.pid 2> /dev/null` 2> /dev/null || true'
     sharedscripts:  true
     missingok:      true
-    rotate_every:   daily
+    rotate_every:   weekly
   messages:
     path:           '/opt/log/*/messages'
     rotate:         12
