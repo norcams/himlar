@@ -50,8 +50,11 @@ ssh::server::options:
   # osl-login-01
   'Match User git Address 129.240.224.100':
     AuthenticationMethods: 'publickey'
-  # internal mgmt network
+  # internal mgmt network bgo
   'Match User git Address 172.16.0.0/21':
+    AuthenticationMethods: 'publickey'
+  # internal mgmt network test01
+  'Match User git Address 172.28.0.0/24':
     AuthenticationMethods: 'publickey'
   # download/repo-server
   'Match User git Address 129.240.121.86':
