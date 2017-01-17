@@ -1,8 +1,6 @@
 #
 class profile::monitoring::grafana(
   $enable                    = false,
-  $datasource                = {},
-  $dashboard                 = {},
   $manage_firewall           = false,
   $firewall_extras           = {}
 ) {
@@ -10,7 +8,10 @@ class profile::monitoring::grafana(
   if $enable {
     include ::grafana
 
-    create_resources('grafana_dashboard', $dashboard, { require => Class['grafana::service'] })
+    $dashboard = hiera_hash('profile::monitoring::grafana::dashboard', {})
+    $datasource = hiera_hash('profile::monitoring::grafana::datasource', {})
+
+    create_resources('profile::monitoring::grafana::dashboard', $dashboard, { require => Class['grafana::service'] })
     create_resources('grafana_datasource', $datasource, { require => Class['grafana::service'] })
 
     if $manage_firewall {

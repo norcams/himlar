@@ -25,6 +25,13 @@ profile::monitoring::grafana::datasource:
     access_mode:        'proxy'
     is_default:          true
 
+profile::monitoring::grafana::dashboard:
+  'Compute Hosts':
+    grafana_url:        "http://%{::ipaddress_mgmt1}:8080"
+    grafana_user:       'admin'
+    grafana_password:   "%{hiera('grafana_admin_password')}"
+    content:            'instances.json'
+
 # Sensu server
 sensu::server:              true
 sensu::api:                 true
