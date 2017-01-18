@@ -4,6 +4,7 @@ include:
     - profile::openstack::novactrl
     - profile::logging::rsyslog::client
     - profile::openstack::openrc
+    - profile::openstack::resource::host_aggregate
 
 profile::openstack::compute::api::manage_firewall:  true
 profile::openstack::novactrl::enable_api:           true
