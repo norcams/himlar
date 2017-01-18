@@ -32,7 +32,8 @@ puppet::cron_cmd: "if [ -e /root/proxy.sh ] ; then source /root/proxy.sh ; fi ; 
   /usr/bin/env puppet agent --config %{puppet::dir}/puppet.conf --onetime --no-daemonize"
 
 profile::openstack::compute::migration::enable_nova_account: true
-
+# Set .ssh dir for nova to 0755 to enable sensu checks
+profile::openstack::compute::migration::chmod_ssh_dir:       true
 # Enable intance migration via ssh
 profile::firewall::pre::ssh_settings:
   source: "0.0.0.0/0" #FIXME (limit source)
@@ -73,7 +74,7 @@ profile::monitoring::sensu::agent::checks:
     interval:     60
     subscribers:  ['checks']
   'nova-ssh-key':
-    command:      "check-file-exists.rb -f /var/lib/nova/.ssh/id_rsa"
+    command:      "check-file-exists.rb -f /var/lib/nova/.ssh/config"
     interval:     60
     subscribers:  ['checks']
   'metrics-disk':
