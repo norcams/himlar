@@ -5,7 +5,8 @@ class profile::openstack::novactrl(
   $enable_consoleauth   = false,
   $enable_consoleproxy  = false,
   $enable_conductor     = false,
-  $manage_quotas        = false
+  $manage_quotas        = false,
+  $manage_az            = false
 ) {
 
   include ::nova::config
@@ -33,4 +34,9 @@ class profile::openstack::novactrl(
   if $manage_quotas {
     include ::nova::quota
   }
+
+  if $manage_az {
+    include ::nova::availability_zone
+  }
+
 }

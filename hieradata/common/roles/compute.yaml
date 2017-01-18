@@ -21,6 +21,9 @@ include:
 neutron::use_syslog:    true
 neutron::log_facility:  'LOG_LOCAL5'
 
+# Manage default availability zone
+profile::openstack::compute::manage_az:            true
+
 profile::base::network::manage_httpproxy: true
 profile::network::yum_proxy::yum_proxy:   "http://%{hiera('mgmt__address__proxy')}:8888"
 
