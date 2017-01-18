@@ -60,10 +60,20 @@ profile::monitoring::sensu::agent::plugins:
     type:         package
     pkg_version:  '1.0.0'
 
+profile::monitoring::sensu::agent::plugin_gems:
+  sensu-plugins-himlar:
+    ensure:   '0.1.0'
+    provider: 'sensu_gem'
+    source:   'http://download.iaas.uio.no/uh-iaas/gem'
+
 # metadata api check
 profile::monitoring::sensu::agent::checks:
   'metadata-api':
     command:      "check-http.rb -u http://127.0.0.1:8775"
+    interval:     60
+    subscribers:  ['checks']
+  'nova-ssh-key':
+    command:      "check-file-exists.rb -f /var/lib/nova/.ssh/id_rsa"
     interval:     60
     subscribers:  ['checks']
   'metrics-disk':
