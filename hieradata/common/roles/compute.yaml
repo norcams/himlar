@@ -64,8 +64,14 @@ profile::monitoring::sensu::agent::plugins:
 profile::monitoring::sensu::agent::checks:
   'metadata-api':
     command:      "check-http.rb -u http://127.0.0.1:8775"
-    interval:     30
+    interval:     60
     subscribers:  ['checks']
+  'metrics-disk':
+    type:         'metric'
+    command:      'metrics-disk-usage.rb --scheme disk.%{::hostname} -f -B G'
+    interval:     60
+    subscribers:  ['metrics']
+    handlers:     ['graphite_tcp']
 
 profile::openstack::compute::hypervisor::fix_snapshot_loc: true # FIXME - Should probably be removed for newton release
 
