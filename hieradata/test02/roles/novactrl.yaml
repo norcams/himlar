@@ -1,0 +1,8 @@
+---
+profile::openstack::resource::host_aggregate:
+  rotate1:
+    availability_zone: "%{::location}-default-1"
+  rotate2:
+    availability_zone: "%{::location}-default-1"
+  rotate3:
+    availability_zone: "%{::location}-default-1"
