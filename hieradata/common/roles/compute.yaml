@@ -73,10 +73,10 @@ profile::monitoring::sensu::agent::checks:
     command:      "check-http.rb -u http://127.0.0.1:8775"
     interval:     60
     subscribers:  ['checks']
-  'nova-ssh-key':
-    command:      "check-file-exists.rb -f /var/lib/nova/.ssh/config"
-    interval:     60
-    subscribers:  ['checks']
+#  'nova-ssh-key':
+#    command:      "check-file-exists.rb -f /var/lib/nova/.ssh/config"
+#    interval:     60
+#    subscribers:  ['checks']
   'metrics-disk':
     type:         'metric'
     command:      'metrics-disk-usage.rb --scheme disk.%{::hostname} -f -B G'
