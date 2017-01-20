@@ -1,8 +1,14 @@
 ---
 profile::openstack::resource::host_aggregate:
-  rotate1:
+  group1:
     availability_zone: "%{::location}-default-1"
-  rotate2:
+    hosts:
+      - "%{::location}-compute-01.%{hiera('domain_mgmt')}"
+  group2:
     availability_zone: "%{::location}-default-1"
-  rotate3:
+    hosts:
+      - "%{::location}-compute-02.%{hiera('domain_mgmt')}"
+  group3:
     availability_zone: "%{::location}-default-1"
+    hosts:
+      - "%{::location}-compute-03.%{hiera('domain_mgmt')}"
