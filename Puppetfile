@@ -89,10 +89,9 @@ mod 'eyaml', :ref => 'v0.3.0',                   :git => github + 'ghoneycutt/pu
 mod 'bind', :ref => 'keyfile_resource_record',   :git => github + 'norcams/puppet-bind'
 
 #
-# foreman_bootstrap
+# bootstrap
 #
-mod 'foreman_bootstrap', :ref => '0.1.6',        :git => github + 'norcams/puppet-foreman_bootstrap'
-mod 'himlar_bootstrap', :ref => 'master',        :git => github + 'norcams/puppet-himlar_bootstrap'
+mod 'himlar_bootstrap', :ref => '1.0.0',         :git => github + 'norcams/puppet-himlar_bootstrap'
 
 #
 # profile::logging
