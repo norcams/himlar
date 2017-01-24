@@ -88,6 +88,9 @@ nova::compute::rbd::rbd_keyring:                'client.cinder'
 nova::compute::rbd::ephemeral_storage:          false
 nova::compute::rbd::manage_ceph_client:         false
 
+# set image properties hw_scsi_model=virtio-scsi and hw_disk_bus=scsi to enable
+nova::compute::libvirt::libvirt_hw_disk_discard: 'unmap'
+
 # migrate (node: compute)
 nova::nova_public_key:
   type: ssh-rsa
