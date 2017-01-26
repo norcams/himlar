@@ -17,3 +17,10 @@ profile::base::yumrepo::repo_hash:
 
 # Change default image upload dir from horizon
 profile::openstack::dashboard::change_uploaddir: true
+
+
+profile::openstack::dashboard::policies:
+  glance_publicize_image:
+    file_path:  '/etc/openstack-dashboard/glance_policy.json'
+    key:        'publicize_image'
+    value:      'role:superuser or role:admin'
