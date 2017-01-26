@@ -22,6 +22,9 @@ class profile::openstack::dashboard(
     }
   }
 
+  $policies = hiera_hash('profile::openstack::dashboard::policies')
+  create_resources('openstacklib::policy::base', $policies)
+
   if $manage_firewall {
     $hiera_allow_from_network = hiera_array('allow_from_network', undef)
     $source = $allow_from_network? {
