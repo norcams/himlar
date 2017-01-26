@@ -40,7 +40,7 @@ network::interfaces_hash:
     netmask:      "%{hiera('netcfg_trp_netmask')}"
     defroute:     'no'
     bridge_stp:   'off'
-  'br1':
+  'br2':
     onboot:       'yes'
     vlan:         'yes'
     type:         'Bridge'
