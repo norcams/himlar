@@ -60,7 +60,7 @@ sensu::checks:
     interval:     60
     subscribers:  ['checks']
   'check-memory-precent':
-    command:      'check-memory-percent.rb -w 50 -c 90'
+    command:      'check-memory-percent.rb -w 70 -c 90'
     interval:     60
     subscribers:  ['checks']
 
