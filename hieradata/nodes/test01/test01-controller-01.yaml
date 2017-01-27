@@ -16,6 +16,10 @@ network::interfaces_hash:
     onboot:       'yes'
     bridge:       'br1'
     vlan:         'yes'
+  'bond0.913':
+    onboot:       'yes'
+    bridge:       'br2'
+    vlan:         'yes'
   'br0':
     onboot:       'yes'
     type:         'Bridge'
@@ -34,6 +38,14 @@ network::interfaces_hash:
     type:         'Bridge'
     ipaddress:    "%{hiera('netcfg_trp_netpart')}.100"
     netmask:      "%{hiera('netcfg_trp_netmask')}"
+    defroute:     'no'
+    bridge_stp:   'off'
+  'br2':
+    onboot:       'yes'
+    vlan:         'yes'
+    type:         'Bridge'
+    ipaddress:    "172.28.159.100"
+    netmask:      "255.255.255.0"
     defroute:     'no'
     bridge_stp:   'off'
 

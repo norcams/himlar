@@ -8,3 +8,20 @@ himlar_bootstrap::virt_install:
     install_netmask: '255.255.255.0'
     install_gateway: '172.28.0.10'
     vm_console:      false
+
+profile::virtualization::libvirt::networks:
+  directnet:
+    ensure:              enabled
+    autostart:           true
+    forward_mode:        bridge
+    bridge:              br0
+  trpnet:
+    ensure:              enabled
+    autostart:           true
+    forward_mode:        bridge
+    bridge:              br1
+  oobnet:
+    ensure:              enabled
+    autostart:           true
+    forward_mode:        bridge
+    bridge:              br2

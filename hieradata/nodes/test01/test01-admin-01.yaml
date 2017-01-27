@@ -10,3 +10,9 @@ network::interfaces_hash:
     dns2:      "%{hiera('netcfg_dns_server2')}"
     domain:    "%{hiera('netcfg_dns_search')}"
     defroute:  'yes'
+  'eth1':
+    onboot:    'yes'
+    mtu:       '1500'
+    ipaddress: "172.28.159.11"
+    netmask:   "255.255.255.0"
+    defroute:  'no'
