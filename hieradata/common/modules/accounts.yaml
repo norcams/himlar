@@ -27,6 +27,9 @@ accounts::ssh_keys:
   'jarleb':
     type:    'ssh-rsa'
     public:  'AAAAB3NzaC1yc2EAAAADAQABAAABAQDesDlHh5ebTaYdbI68QNd920BVba6am0gjD6UnbR1VyLV1KB5GeFDqnfVlvWC52BGNB6/qTXoPnBuHVY8/dY25o6CG/I0Rldl05ByN363ylPL3LY/+VjQlgoCaDDX3zsZg7etlWTCkjSRGYjOeQqy/fwBjHPGflNEl+6wsvpSTX8GCAR0B7383ALE5Fa0TZJ+qJ63mGYI8rwSDmF+ZOXC9eU/ve0hHfBl3N3Q+yWH33Twq8MPPa3ggohMk/007YFgjxyPAOfCZSBggFIYC1Qpo0E2tIZ02lj7qUauOnA8wCBccFJZCIZaJW8xxyNaLRaIGFsdI3709MUTjWxiindgx'
+  'andersv':
+    type:    'ssh-rsa'
+    public:  'AAAAB3NzaC1yc2EAAAADAQABAAABAQCmrsGC+0KaGyozoY6pQIZySTfsPdR9qg0zUxsIZRC0z4KyG59gnsPhH6HjBOO0MvXi4SiMY2Me0FTbVAL1LXRFSqSKJa0y2nA1l3zuvZhtcDKUXJVp4ir9cTkcuGFrWaMzORPvbv6VI5BpX6y5UY0VBRV3KUsUiU/wD3axEhageTLdfRjdIrcq4RAz5VCkGCnQ3rMv2O4+OSYg7+cIwSaXMnxLPCDj+j/CjbfH7vaguB6lM9+J3upfvw+HVDj/wqqFXFXtgoHbA9/ObJUJwg2fFVeXb7af3EWOLwjiKbifKDE+gCBoVZH9QPc2uYKCn0bM8sgSCa6PK5vi7U15RH+l'
 
 accounts::users:
   'hege':
@@ -52,6 +55,9 @@ accounts::users:
     groups:  [ 'users', 'wheel' ]
   'jarleb':
     comment: 'jarleb@norcams'
+    groups:  [ 'users', 'wheel' ]
+  'andersv':
+    comment: 'andersv@norcams'
     groups:  [ 'users', 'wheel' ]
 
 accounts::accounts:
