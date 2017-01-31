@@ -28,6 +28,7 @@ class profile::database::mariadb (
   $backupdirgroup     = 'root',
   $backupcompress     = true,
   $backuprotate       = 24,
+  $maxallowedpacket   = 1024,
   $ignore_events      = true,
   $delete_before_dump = false,
   $backupdatabases    = [],
