@@ -5,3 +5,8 @@ nova::verbose:   true
 
 #nova::compute::allow_resize_to_same_host:   true
 #nova::scheduler::filter::scheduler_default_filters: ['AllHostsFilter']
+
+nova::policy::policies:
+  nova_disable_reboot:
+    key:   'os_compute_api:servers:reboot'
+    value: 'role:admin'
