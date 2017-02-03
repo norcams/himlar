@@ -12,9 +12,3 @@ yum_base_mirror:    'https://download.iaas.uio.no/uh-iaas/snapshots/2017-01-11-0
 
 # no proxy for vagrant environments
 profile::network::yum_proxy::yum_proxy: ''
-
-profile::openstack::dashboard::policies:
-  horizon_disable_reboot:
-    file_path:  '/etc/openstack-dashboard/nova_policy.json'
-    key:        'compute:reboot'
-    value:      'role:admin'
