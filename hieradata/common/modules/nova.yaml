@@ -106,3 +106,9 @@ nova::compute::spice::server_proxyclient_address: "%{::ipaddress_trp1}"
 nova::compute::spice::proxy_host:                 "console.%{hiera('domain_public')}"
 nova::compute::spice::proxy_protocol:             'https'
 nova::compute::spice::server_listen:              "%{::ipaddress_trp1}"
+
+# Disable reboot through api until DHCP is fixed upstream (calico)
+nova::policy::policies:
+  nova_disable_reboot:
+    key:   'os_compute_api:servers:reboot'
+    value: 'role:admin'
