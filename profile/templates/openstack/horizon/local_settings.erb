@@ -6,3 +6,6 @@ HORIZON_CONFIG['customization_module'] = 'openstack_dashboard.overrides'
 <% if @change_uploaddir -%>
 FILE_UPLOAD_TEMP_DIR = '<%= @custom_uploaddir %>'
 <% end -%>
+<% if @enable_pwd_retrieval -%>
+OPENSTACK_ENABLE_PASSWORD_RETRIEVE = '<%= @enable_pwd_retrieval %>'
+<% end -%>
