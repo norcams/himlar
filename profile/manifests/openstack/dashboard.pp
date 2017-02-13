@@ -1,16 +1,17 @@
 # Dashboard
 class profile::openstack::dashboard(
-  $manage_dashboard   = false,
-  $ports              = [80, 443],
-  $manage_firewall    = false,
-  $allow_from_network = undef,
-  $internal_net       = "${::network_trp1}/${::netmask_trp1}",
-  $firewall_extras    = {},
-  $manage_overrides   = false,
-  $override_template  = "${module_name}/openstack/horizon/local_settings.erb",
-  $site_branding      = 'UH-IaaS',
-  $change_uploaddir   = false,
-  $custom_uploaddir   = '/image-upload'
+  $manage_dashboard     = false,
+  $ports                = [80, 443],
+  $manage_firewall      = false,
+  $allow_from_network   = undef,
+  $internal_net         = "${::network_trp1}/${::netmask_trp1}",
+  $firewall_extras      = {},
+  $manage_overrides     = false,
+  $override_template    = "${module_name}/openstack/horizon/local_settings.erb",
+  $site_branding        = 'UH-IaaS',
+  $change_uploaddir     = false,
+  $custom_uploaddir     = '/image-upload',
+  $enable_pwd_retrieval = false
 ) {
 
   if $manage_dashboard {

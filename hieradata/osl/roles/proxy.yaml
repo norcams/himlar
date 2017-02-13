@@ -1,5 +1,6 @@
 ---
 profile::base::common::manage_cron: true
+profile::base::common::manage_lvm: true
 profile::base::cron::crontabs:
   stats:
     hour:     '*'
@@ -14,3 +15,17 @@ profile::base::cron::crontabs:
     minute:   '10'
     weekday:  '1'
     command:  '/opt/himlarcli/bin/update_images.sh >/dev/null'
+
+profile::base::lvm::physical_volume:
+  '/dev/vdb':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_opt':
+    physical_volumes:
+      - /dev/vdb
+profile::base::lvm::logical_volume:
+  'lv_opt':
+    volume_group: 'vg_opt'
+    fs_type:      "xfs"
+    mountpath:    "/opt"
