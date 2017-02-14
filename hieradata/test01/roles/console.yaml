@@ -2,6 +2,7 @@
 profile::openstack::compute::consoleproxy::allow_from_network:
   - '129.177.6.133/32'  # bgo-login
   - '129.177.31.96/27'  # test01
+  - '129.177.10.111/32' # anders
   - '129.177.10.189/32' # tor
   - '129.177.10.212/32' # raymond
   - '129.240.6.13/32'   # usit

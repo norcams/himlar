@@ -63,6 +63,7 @@ profile::database::mariadb::backupuser:       'root'
 profile::database::mariadb::backuppassword:   "%{hiera('mysql::server::root_password')}"
 profile::database::mariadb::postscript:       "date >  %{hiera('profile::database::mariadb::backuptopdir')}/$(hostname)-backupflag"
 profile::database::mariadb::file_per_database: true
+profile::database::mariadb::maxallowedpacket:  4096
 
 # ... for backup script usage
 profile::base::common::packages:

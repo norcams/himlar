@@ -4,11 +4,12 @@ include:
     - profile::openstack::dashboard
     - profile::logging::rsyslog::client
 
-profile::base::network::manage_dummy:             true
-profile::base::firewall::purge_firewall:          true
-profile::openstack::dashboard::manage_dashboard:  true
-profile::openstack::dashboard::manage_firewall:   true
-profile::openstack::dashboard::manage_overrides:  true
+profile::base::network::manage_dummy:                true
+profile::base::firewall::purge_firewall:             true
+profile::openstack::dashboard::manage_dashboard:     true
+profile::openstack::dashboard::manage_firewall:      true
+profile::openstack::dashboard::manage_overrides:     true
+profile::openstack::dashboard::enable_pwd_retrieval: true
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:

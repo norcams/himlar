@@ -70,9 +70,9 @@ cleanup()
     local expiration_days=$1
 
     if [ $expiration_days -gt 0 ]; then
-        find "${BACKUP_DIR}/" -ignore_readdir_race -maxdepth 2 -name "*.sql*" -type f -mtime +$expiration_days -print0 | xargs -0 -r rm -f
+        find "${BACKUP_DIR}/${DB_SERVER}/" -ignore_readdir_race -maxdepth 2 -name "*.sql*" -type f -mtime +$expiration_days -print0 | xargs -0 -r rm -f
     else
-        echo "Ignoring invalid expiration dat ($expiration_days), not cleaning up\!"
+        echo "Ignoring invalid expiration date ($expiration_days), not cleaning up\!"
     fi
 }
 
@@ -122,9 +122,9 @@ if [ $? -eq 0 ]; then
         exit $EINVALSYNC
     fi
 
-    chown -R ${OWNER}:${GROUP} ${BACKUP_DIR}
-    find ${BACKUP_DIR} -type f ! -perm g+rw -exec chmod g+rw {} \;
-    find ${BACKUP_DIR} -type d ! -perm g+rwx -exec chmod g+rwx {} \;
+    chown -R ${OWNER}:${GROUP} ${BACKUP_DIR}/${DB_SERVER}
+    find ${BACKUP_DIR}/${DB_SERVER} -type f ! -perm -g+rw -exec chmod g+rw {} \;
+    find ${BACKUP_DIR}/${DB_SERVER} -type d ! -perm -g+rwx -exec chmod g+rwx {} \;
     $DEBUG cleanup $AGELIMIT                                                # remove expired files
 else
     echo "Could not connect to $DB_SERVER - is this a db node?"
