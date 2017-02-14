@@ -7,7 +7,7 @@ profile::monitoring::sensu::server::handlers:
     config:
       webhook_url:  "%{hiera('sensu_slack_webhook')}"
       channel:      '#vakt'
-#    severities:
-#      - 'ok'
-#      - 'critical'
-#      - 'unknown'
+    severities:
+      - 'ok'
+      - 'critical'
+      - 'unknown'
