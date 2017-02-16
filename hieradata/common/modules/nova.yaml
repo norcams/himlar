@@ -74,9 +74,12 @@ nova::network::neutron::neutron_region_name:    "%{::location}"
 nova::network::neutron::neutron_password:       "%{hiera('neutron_api_password')}"
 
 # remove need for confirmation when move or resize instance (node: compute and novactrl)
+# Use rsync, not ssh for migrate transport to support sparse images
 nova::config::nova_config:
   DEFAULT/resize_confirm_window:
     value: "1"
+  libvirt/remote_filesystem_transport:
+    value: 'rsync'
 
 # compute (node: compute)
 nova::compute::enabled:                         true
@@ -87,6 +90,9 @@ nova::compute::rbd::libvirt_images_rbd_pool:    'volumes'
 nova::compute::rbd::rbd_keyring:                'client.cinder'
 nova::compute::rbd::ephemeral_storage:          false
 nova::compute::rbd::manage_ceph_client:         false
+
+# set image properties hw_scsi_model=virtio-scsi and hw_disk_bus=scsi to enable
+nova::compute::libvirt::libvirt_hw_disk_discard: 'unmap'
 
 # migrate (node: compute)
 nova::nova_public_key:

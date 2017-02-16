@@ -121,6 +121,13 @@ profile::base::yumrepo::repo_hash:
     baseurl:        "%{hiera('yum_base_mirror')}/sensu/"
     gpgcheck:       0
 # Optional repos: enable them with ensure: present in common/role
+  centos-qemu-ev:
+    ensure:         absent
+    descr:          "CentOS-QEMU-EV repository. See http://wiki.centos.org/SpecialInterestGroup/Virtualization"
+    baseurl:        "%{hiera('yum_base_mirror')}/centos-qemu-ev"
+    enabled:        1
+    gpgcheck:       1
+    gpgkey:         'https://www.centos.org/keys/RPM-GPG-KEY-CentOS-SIG-Virtualization'
   rdo-release:
     ensure:         absent
     descr:          "OpenStack %{hiera('openstack_version')} repository"
