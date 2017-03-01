@@ -45,7 +45,7 @@ nova::api::auth_uri:                    "%{hiera('endpoint__identity__internal')
 nova::api::identity_uri:                "%{hiera('endpoint__identity__admin')}"
 
 # scheduler (node: novactrl)
-nova::scheduler::enabled:                         true
+nova::scheduler::enabled:                           true
 nova::scheduler::filter::ram_allocation_ratio:      '1.5'
 nova::scheduler::filter::max_instances_per_host:    '67'
 nova::scheduler::filter::disk_allocation_ratio:     '10'
