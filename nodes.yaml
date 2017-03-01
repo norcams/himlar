@@ -20,20 +20,20 @@ defaults:
 # Nodesets configuration example:
 #
 #   simple:
-#     - role: master
-#     - role: compute
+#     - role: "master"
+#     - role: "compute"
 #
 #   This will configure two nodes with the following FQDNs:
 #     vagrant-master-01.vagrant.iaas.intern
 #     vagrant-compute-01.vagrant.iaas.intern
 #
 #   4nodes:
-#     - name: db
-#     - name: master
-#     - role: compute
-#       hostid: 01
-#       role: compute
-#       hostid: 02
+#     - name: "db"
+#     - name: "master"
+#     - role: "compute"
+#       hostid: "01"
+#     - role: "compute"
+#       hostid: "02"
 #
 #   This will configure four nodes with the following FQDNs:
 #     vagrant-db-01.vagrant.iaas.intern
