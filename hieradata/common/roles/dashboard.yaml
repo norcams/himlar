@@ -25,3 +25,7 @@ profile::openstack::dashboard::policies:
     file_path:  '/etc/openstack-dashboard/glance_policy.json'
     key:        'publicize_image'
     value:      'role:superuser or role:admin'
+  compute_resize:
+    file_path:  '/etc/openstack-dashboard/nova_policy.json'
+    key:        'compute:resize'
+    value:      'role:admin'
