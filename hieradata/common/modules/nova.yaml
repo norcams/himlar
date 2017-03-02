@@ -129,3 +129,6 @@ nova::policy::policies:
   nova_disable_reboot:
     key:   'os_compute_api:servers:reboot'
     value: 'role:admin'
+  nova_compute_resize:
+    key:   'compute:resize'
+    value: 'role:admin'
