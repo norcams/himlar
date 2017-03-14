@@ -26,7 +26,7 @@ mod 'apt', :ref => '2.2.2',                      :git => github + 'puppetlabs/pu
 #
 # FreeBSD spesific
 #
-mod 'bsd', '1.2.0'                               # forge
+mod 'zleslie/bsd', '1.2.0'                       # forge
 
 #
 # profile::base::login
