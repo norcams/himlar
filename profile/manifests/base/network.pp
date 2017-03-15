@@ -22,10 +22,6 @@ class profile::base::network(
   if $::osfamily == 'FreeBSD' {
     include ::bsd::network
 
-    package { 'ipaddress':
-      ensure   => 'present',
-      provider => 'gem',
-    }
   } else {
     include ::network
   }
