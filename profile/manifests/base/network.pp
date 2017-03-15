@@ -21,6 +21,9 @@ class profile::base::network(
   # example42 network module or bsd
   if $::osfamily == 'FreeBSD' {
     include ::bsd::network
+    include ::resolv_conf
+
+    create_resources(bsd::network::interface, hiera('network::interfaces_hash', {}))
 
   } else {
     include ::network
