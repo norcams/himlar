@@ -32,6 +32,12 @@ class profile::base::common (
   if $manage_accounts {
     include ::accounts::instances
     include ::accounts::root_user
+    if $::osfamily == 'FreeBSD' {
+      group { 'users':
+        ensure => present,
+        gid    => '100',
+      }
+    }
   }
 
   if $manage_epel {
