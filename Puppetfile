@@ -26,7 +26,8 @@ mod 'apt', :ref => '2.2.2',                      :git => github + 'puppetlabs/pu
 #
 # FreeBSD spesific
 #
-mod 'zleslie/bsd', '1.2.0'                       # forge
+mod 'bsd', :ref => 'f73d8edaf8'                  :git => github + 'norcams/puppet-bsd'
+mod 'resolv_conf' :ref => 'v3.1.0'               :git => github + 'saz/puppet-resolv_conf'
 
 #
 # profile::base::login
