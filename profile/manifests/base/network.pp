@@ -21,8 +21,13 @@ class profile::base::network(
   # example42 network module or bsd
   if $::osfamily == 'FreeBSD' {
     include ::bsd::network
+
+    package { 'ipaddress':
+      ensure   => 'present',
+      provider => 'gem',
+    }
   } else {
-  include ::network
+    include ::network
   }
 
   if $manage_hostname {
