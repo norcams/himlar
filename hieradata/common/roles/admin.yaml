@@ -41,3 +41,8 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   foreman-plugins:
     ensure: present
+
+# Enable gem installation
+profile::base::common::manage_gems: true
+profile::base::common::gems:
+  'ipaddress': {}
