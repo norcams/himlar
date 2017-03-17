@@ -1,4 +1,10 @@
 ---
+include:
+  default:
+    - profile::network::nat
+
+bsd::network::v4forwarding: true
+
 profile::base::network::net_ifnames:             false
 profile::base::common::manage_keyboard:          false
 profile::base::common::manage_yumrepo:           false
