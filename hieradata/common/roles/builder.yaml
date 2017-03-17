@@ -1,0 +1,27 @@
+---
+include:
+  default:
+    - profile::openstack::openrc
+    - profile::application::himlarcli
+    - profile::development::network::dns
+    - profile::network::services
+    - profile::network::nat
+
+profile::base::common::packages:
+  'python-openstackclient': {}
+
+profile::network::services::firewall_extras:
+  source: '%{network_mgmt1}/%{netmask_mgmt1}'
+
+profile::network::services::dns_proxy:            true
+profile::network::services::http_proxy:           true
+profile::development::network::dns::manage_hosts: true
+profile::base::network::manage_dummy:             true
+profile::network::nat::enable_snat:               true
+profile::network::nat::source:                    "%{::network_mgmt1}/%{::netmask_mgmt1}"
+profile::network::nat::outiface:                  'eth1'
+
+# Enable extra yum repo
+profile::base::yumrepo::repo_hash:
+  rdo-release:
+    ensure: present
