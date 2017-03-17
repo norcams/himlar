@@ -8,8 +8,14 @@ class profile::network::nat(
 ) {
 
   # This node is a gw, enable IP fwd
-  sysctl::value { 'net.ipv4.ip_forward':
-    value => 1,
+  case $::kernel {
+    'Linux': {
+      sysctl::value { 'net.ipv4.ip_forward':
+      value => 1,
+      }
+    }
+    default: {
+    }
   }
 
   if $enable_snat {
