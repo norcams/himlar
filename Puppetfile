@@ -28,6 +28,7 @@ mod 'apt', :ref => '2.2.2',                      :git => github + 'puppetlabs/pu
 #
 mod 'bsd', :ref => '209a74375d',                 :git => github + 'norcams/puppet-bsd'
 mod 'resolv_conf', :ref => 'v3.1.0',             :git => github + 'saz/puppet-resolv_conf'
+mod 'pf', :ref => 'v1.2.0',                      :git => github + 'xaque208/pf'
 
 #
 # profile::base::login
