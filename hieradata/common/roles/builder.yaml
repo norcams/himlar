@@ -2,7 +2,6 @@
 include:
   default:
     - profile::openstack::openrc
-    - profile::application::himlarcli
     - profile::webserver::apache
 
 profile::base::common::packages:
