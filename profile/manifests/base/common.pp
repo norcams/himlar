@@ -15,6 +15,7 @@ class profile::base::common (
   $manage_timezones       = false,
   $manage_keyboard        = false,
   $manage_packages        = false,
+  $manage_gems            = false,
   $manage_yumrepo         = false,
   $manage_puppet          = false,
   $manage_cron            = false,
@@ -32,6 +33,12 @@ class profile::base::common (
   if $manage_accounts {
     include ::accounts::instances
     include ::accounts::root_user
+    if $::osfamily == 'FreeBSD' {
+      group { 'users':
+        ensure => present,
+        gid    => '100',
+      }
+    }
   }
 
   if $manage_epel {
@@ -99,6 +106,11 @@ class profile::base::common (
   if $manage_packages {
     $packages = hiera_hash('profile::base::common::packages', {})
     create_resources('profile::base::package', $packages)
+  }
+
+  if $manage_gems {
+    $gems = hiera_hash('profile::base::common::gems', {})
+    create_resources('profile::base::gem', $gems)
   }
 
   if $manage_yumrepo {

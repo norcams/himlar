@@ -18,8 +18,16 @@ class profile::base::network(
   # Set up extra logical fact names for network facts
   include ::named_interfaces
 
-  # example42 network module
-  include ::network
+  # example42 network module or bsd
+  if $::osfamily == 'FreeBSD' {
+    include ::bsd::network
+    include ::resolv_conf
+
+    create_resources(bsd::network::interface, hiera('network::interfaces_hash', {}))
+
+  } else {
+    include ::network
+  }
 
   if $manage_hostname {
     $domain_mgmt = hiera('domain_mgmt', $::domain)

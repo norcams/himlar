@@ -11,7 +11,7 @@ mod 'sudo', :ref => '80cbf884',                  :git => github + 'saz/puppet-su
 mod 'ssh', :ref => 'v2.8.1',                     :git => github + 'saz/puppet-ssh'
 mod 'ntp', :ref => '3.3.0',                      :git => github + 'puppetlabs/puppetlabs-ntp'
 mod 'accounts', :ref => '06955a9455',            :git => github + 'norcams/puppet-accounts'
-mod 'timezone', :ref => 'v3.1.1',                :git => github + 'saz/puppet-timezone.git'
+mod 'timezone', :ref => 'v3.4.0',                :git => github + 'saz/puppet-timezone.git'
 mod 'debconf', :ref => 'v2.0.0',                 :git => github + 'smoeding/puppet-debconf'
 mod 'keyboard', :ref => '0.1.0',                 :git => github + 'norcams/puppet-keyboard'
 mod 'hostname', :ref => '0.0.2',                 :git => github + 'peopleware/puppet-hostname'
@@ -24,6 +24,12 @@ mod 'network', :ref => '10e6e1f140',             :git => github + 'norcams/puppe
 mod 'ipmi', :ref => 'c4309504fd',                :git => github + 'norcams/puppet-ipmi'
 mod 'lldp', :ref => '06523de010',                :git => github + 'norcams/puppet-lldp'
 mod 'apt', :ref => '2.2.2',                      :git => github + 'puppetlabs/puppetlabs-apt'
+#
+# FreeBSD spesific
+#
+mod 'bsd', :ref => '209a74375d',                 :git => github + 'norcams/puppet-bsd'
+mod 'resolv_conf', :ref => 'v3.1.0',             :git => github + 'saz/puppet-resolv_conf'
+mod 'pf', :ref => '1.2.0',                       :git => github + 'xaque208/puppet-pf'
 
 #
 # profile::base::login
@@ -149,7 +155,7 @@ mod 'keystone', :ref => 'norcams-mitaka',        :git => github + 'norcams/puppe
 
 mod 'openstacklib', :ref => '8.2.0',             :git => github + 'openstack/puppet-openstacklib'
 mod 'openstack_extras', :ref => '8.2.0',         :git => github + 'openstack/puppet-openstack_extras'
-mod 'sysctl', :ref => 'v0.0.8',                  :git => github + 'duritong/puppet-sysctl'
+mod 'sysctl', :ref => 'v0.0.11',                 :git => github + 'duritong/puppet-sysctl'
 mod 'memcached', :ref => 'v2.8.1',               :git => github + 'saz/puppet-memcached'
 
 #
