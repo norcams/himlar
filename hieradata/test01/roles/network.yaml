@@ -10,11 +10,11 @@ profile::openstack::resource::networks:
 profile::openstack::resource::subnets:
   public:
     name: 'public'
-    cidr: '129.177.31.96/27'
+    cidr: '129.177.31.64/27'
     ip_version: '4'
     allocation_pools:
-      - 'start=129.177.31.98,end=129.177.31.121'
-    gateway_ip: '129.177.31.97'
+      - 'start=129.177.31.66,end=129.177.31.94'
+    gateway_ip: '129.177.31.65'
     dns_nameservers:
       - '129.177.6.54'
       - '129.177.12.31'
