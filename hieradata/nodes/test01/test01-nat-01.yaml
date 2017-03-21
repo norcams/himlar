@@ -4,6 +4,12 @@ bsd::network::v4gateway: "%{hiera('netcfg_mgmt_gateway')}"
 network::interfaces_hash:
   'vtnet0':
     description: 'Management Interface'
-    addresses:   [ '172.28.0.26/24', ]
+    addresses:   [ "%{hiera('netcfg_mgmt_netpart')}.26/%{hiera('netcfg_mgmt_netmask')}", ]
+  'vtnet1':
+    description: 'Transport Interface'
+    addresses:   [ "%{hiera('netcfg_trp_netpart')}.26/%{hiera('netcfg_trp_netmask')}", ]
+  'tap0':
+    description: 'Public Interface'
+    addresses:   [ '129.177.31.121/32', ]
 
 resolv_conf::nameservers: [ "%{hiera('netcfg_dns_server1')}", "%{hiera('netcfg_dns_server2')}", ]

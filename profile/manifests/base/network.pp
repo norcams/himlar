@@ -23,6 +23,13 @@ class profile::base::network(
     include ::bsd::network
     include ::resolv_conf
 
+    shellvar { "Load bsd tap device":
+      ensure   => present,
+      target   => "/etc/rc.conf",
+      variable => "cloned_interfaces",
+      value    => "tap0",
+    }
+
     create_resources(bsd::network::interface, hiera('network::interfaces_hash', {}))
 
   } else {
