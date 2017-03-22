@@ -1,4 +1,12 @@
 ---
+named_interfaces::config:
+  mgmt:
+     - vtnet0
+  trp:
+     - vtnet1
+  public:
+     - tap0
+
 include:
   default:
     - profile::network::nat
