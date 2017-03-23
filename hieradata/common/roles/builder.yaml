@@ -14,7 +14,7 @@ profile::base::yumrepo::repo_hash:
 
 profile::webserver::apache::vhosts:
   'builds':
-    servername:     "repo.%{domain}"
+    servername:     "builds.%{hiera('domain_mgmt')}"
     port:           80
     docroot:        '/opt/images/public_builds'
     docroot_owner:  'iaas'
