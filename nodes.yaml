@@ -75,6 +75,7 @@ nodesets:
       cpus:       1
       memory:     2048
     - role:       "status"
+    - role:       "builder"
   infra:
     - role:       "login"
     - role:       "controller"
