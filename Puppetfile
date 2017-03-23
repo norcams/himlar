@@ -115,7 +115,7 @@ mod 'logrotate', :ref => 'v1.4.0',                :git => github + 'yo61/puppet-
 #
 mod 'sensu', :ref => '2.1.0',                     :git => github + 'sensu/sensu-puppet'
 mod 'uchiwa', :ref => '64ce619',                  :git => github + 'yelp/puppet-uchiwa'
-mod 'graphite', :ref => 'v6.0.4',                 :git => github + 'echocat/puppet-graphite.git'
+mod 'graphite', :ref => 'bbe7c92',                :git => github + 'norcams/puppet-graphite.git'
 mod 'redis', :ref => '1.2.2',                     :git => github + 'arioch/puppet-redis'
 mod 'grafana', :ref => '6d426d5',                 :git => github + 'bfraser/puppet-grafana'
 mod 'statsd', :ref => '2.6.0',                    :git => github + 'justindowning/puppet-statsd'
