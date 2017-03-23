@@ -27,6 +27,8 @@ profile::application::openssl::certs:
     concat: true
   "api.%{hiera('domain_public')}":
     cn:     "api.%{hiera('domain_public')}"
+    altnames:
+      - "api.%{hiera('domain_public')}"
     concat: true
 
 #
