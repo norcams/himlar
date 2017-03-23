@@ -3,6 +3,7 @@ include:
   default:
     - profile::openstack::dashboard
     - profile::logging::rsyslog::client
+    - profile::webserver::apache
 
 profile::base::network::manage_dummy:                true
 profile::base::firewall::purge_firewall:             true
@@ -10,6 +11,8 @@ profile::openstack::dashboard::manage_dashboard:     true
 profile::openstack::dashboard::manage_firewall:      true
 profile::openstack::dashboard::manage_overrides:     true
 profile::openstack::dashboard::enable_pwd_retrieval: true
+profile::webserver::apache::mods_enable:
+  - status
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
@@ -19,7 +22,27 @@ profile::base::yumrepo::repo_hash:
 # Change default image upload dir from horizon
 profile::openstack::dashboard::change_uploaddir: true
 
+# Sensu
+profile::monitoring::sensu::agent::plugins:
+  sensu-plugins-apache:
+    type:         package
+    pkg_version:  '0.0.5'
 
+profile::monitoring::sensu::agent::checks:
+  'metrics-httpd-overview':
+    type:         'metric'
+    command:      "metrics-apache-graphite.rb --scheme haproxy.%{::hostname} -h 127.0.0.1"
+    interval:     60
+    subscribers:  ['metrics']
+    handlers:     ['graphite_tcp']
+
+profile::webserver::apache::vhosts:
+  status:
+    ip:                 '127.0.0.1'
+    port:               '80'
+    manage_docroot:     false
+    docroot:            '/var/www/html'
+    
 profile::openstack::dashboard::policies:
   glance_publicize_image:
     file_path:  '/etc/openstack-dashboard/glance_policy.json'
