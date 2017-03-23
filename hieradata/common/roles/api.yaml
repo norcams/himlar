@@ -4,6 +4,20 @@ include:
     - profile::highavailability::loadbalancing::haproxy
     - profile::logging::rsyslog::client
 
+# Sensu
+profile::monitoring::sensu::agent::plugins:
+  sensu-plugins-haproxy:
+    type:         package
+    pkg_version:  '1.1.0'
+
+profile::monitoring::sensu::agent::checks:
+  'metrics-haproxy-overview':
+    type:         'metric'
+    command:      "metrics-haproxy.rb --scheme haproxy.%{::hostname} -c 127.0.0.1 -P 9000 -q haproxy_stats"
+    interval:     60
+    subscribers:  ['metrics']
+    handlers:     ['graphite_tcp']
+
 profile::base::firewall::purge_firewall:                            true
 profile::base::network::manage_dummy:                               true
 profile::highavailability::loadbalancing::haproxy::manage_haproxy:  true
@@ -48,6 +62,15 @@ profile::highavailability::loadbalancing::haproxy::haproxy_listens:
     bind:
       "%{::ipaddress_public1}:443":  ['ssl', 'crt', "%{hiera('status_ssl_pem')}"]
       "%{::ipaddress_public1}:80": []
+  monitor:
+    options:
+      stats:
+        - 'enable'
+        - 'hide-version'
+        - 'realm Sensu\ Monitor\ Stats'
+        - 'uri /haproxy_stats '
+    bind:
+      '127.0.0.1:9000': []
 
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   identity:
