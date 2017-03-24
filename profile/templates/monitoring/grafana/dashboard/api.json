@@ -146,7 +146,7 @@
               "refId": "A"
             },
             {
-              "target": "haproxy.*.$api.connection_errors",
+              "target": "derivative(haproxy.*.$api.connection_errors)",
               "refId": "B"
             },
             {
@@ -239,11 +239,11 @@
           "id": 3,
           "targets": [
             {
-              "target": "haproxy.*.$api.bytes_in",
+              "target": "derivative(haproxy.*.$api.bytes_in)",
               "refId": "A"
             },
             {
-              "target": "haproxy.*.$api.bytes_out",
+              "target": "derivative(haproxy.*.$api.bytes_out)",
               "refId": "B"
             }
           ],
@@ -293,7 +293,8 @@
             "total": false,
             "avg": true,
             "rightSide": true,
-            "alignAsTable": true
+            "alignAsTable": true,
+            "sideWidth": 250
           },
           "nullPointMode": "connected",
           "steppedLine": true,
@@ -313,7 +314,7 @@
     }
   ],
   "time": {
-    "from": "now-12h",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {
@@ -361,7 +362,7 @@
   "annotations": {
     "list": []
   },
-  "refresh": false,
+  "refresh": "30s",
   "schemaVersion": 12,
   "version": 5,
   "links": [],
