@@ -35,3 +35,12 @@ profile::highavailability::loadbalancing::haproxy::haproxy_listens:
     bind:
       "%{::ipaddress_mgmt1}:443":  ['ssl', 'crt', "%{hiera('status_ssl_pem')}"]
       "%{::ipaddress_mgmt1}:80": []
+  monitor:
+    options:
+      stats:
+        - 'enable'
+        - 'hide-version'
+        - 'realm Sensu\ Monitor\ Stats'
+        - 'uri /haproxy_stats '
+    bind:
+      '127.0.0.1:9000': []
