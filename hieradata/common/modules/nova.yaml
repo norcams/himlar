@@ -132,3 +132,6 @@ nova::policy::policies:
   nova_compute_resize:
     key:   'os_compute_api:servers:resize'
     value: 'role:admin'
+  nova_disable_shelve:
+    key:   'os_compute_api:servers:shelve'
+    value: 'role:admin'
