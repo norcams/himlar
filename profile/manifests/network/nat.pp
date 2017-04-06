@@ -14,6 +14,14 @@ class profile::network::nat(
       value => 1,
       }
     }
+    'FreeBSD': {
+      shellvar { "Enable PF for NAT":
+        ensure   => present,
+        target   => "/etc/rc.conf",
+        variable => "pf_enable",
+        value    => "YES",
+      }
+    }
     default: {
     }
   }
