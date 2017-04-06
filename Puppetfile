@@ -195,3 +195,4 @@ mod 'augeasproviders_ssh', :ref => '2.2.2',      :git => github + 'hercules-team
 # This conflicts with duritong/sysctl which is used in openstack/* modules
 #mod 'augeasproviders_sysctl', :ref => '2.0.1',   :git => github + 'hercules-team/augeasproviders_sysctl'
 mod 'augeasproviders_syslog', :ref => '2.1.1',   :git => github + 'hercules-team/augeasproviders_syslog'
+mod 'puppetdbquery', :ref => '2.2.0',            :git => github + 'dalen/puppet-puppetdbquery'
