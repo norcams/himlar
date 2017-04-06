@@ -45,8 +45,6 @@ profile::openstack::openrc::password:     "%{hiera('nova_api_password')}"
 profile::openstack::openrc::username:     'nova'
 profile::openstack::openrc::project_name: 'services'
 
-dnsmasq::package_ensure: '2.72_calico1.0.0-1.el7'
-
 profile::openstack::network::plugin: calico
 
 profile::base::common::packages:
