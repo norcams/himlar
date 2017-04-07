@@ -2,7 +2,8 @@
 profile::network::nat::outiface:          'eth0' #FIXME
 profile::network::nat::enable_snat:       false #FIXME
 profile::network::nat::enable_masquerade: true #FIXME
-profile::base::common::manage_lvm: true
+profile::base::common::manage_cron:       true
+profile::base::common::manage_lvm:        true
 
 profile::base::lvm::physical_volume:
   '/dev/vdb':
