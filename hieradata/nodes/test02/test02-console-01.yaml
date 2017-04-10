@@ -19,5 +19,5 @@ network::interfaces_hash:
     defroute:  'no'
   'dummy0':
     ipaddress: "%{hiera('netcfg_netpart_public')}.251"
-    netmask:   '255.255.255.0'
+    netmask:   '255.255.255.255'
     defroute:  'no'
