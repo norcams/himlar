@@ -1,6 +1,6 @@
 ---
 grafana::install_method:        package
-grafana::package_source:        'https://grafanarel.s3.amazonaws.com/builds/grafana-3.1.1-1470047149.x86_64.rpm'
+grafana::package_source:        'https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana-4.2.0-1.x86_64.rpm'
 grafana::manage_package_repo:   false
 grafana::cfg:
   app_mode: 'production'
