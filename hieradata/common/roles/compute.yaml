@@ -21,6 +21,8 @@ include:
 neutron::use_syslog:    true
 neutron::log_facility:  'LOG_LOCAL5'
 
+profile::openstack::compute::hypervisor::manage_resume_guests_state:  true
+
 # Manage default availability zone
 profile::openstack::compute::manage_az:            true
 

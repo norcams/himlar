@@ -3,6 +3,7 @@ class profile::openstack::compute::hypervisor (
   $manage_libvirt_rbd = false,
   $manage_telemetry = true,
   $manage_firewall = true,
+  $manage_resume_guests_state = false, #FIXME - this will be in nova module for newton
   $fix_snapshot_loc = false, # FIXME - Should probably be removed for newton release
   $firewall_extras = {},
 ) {
@@ -35,6 +36,13 @@ class profile::openstack::compute::hypervisor (
     profile::firewall::rule{ '224 migration accept tcp':
       port   => ['16509', '49152-49215'],
       extras => $firewall_extras,
+    }
+  }
+
+  #FIXME - this will be in nova module for newton
+  if $manage_resume_guests_state {
+    nova_config { 'DEFAULT/resume_guests_state_on_host_boot' :
+      value => true,
     }
   }
 
