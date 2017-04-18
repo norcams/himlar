@@ -13,7 +13,7 @@ profile::monitoring::sensu::agent::plugins:
 profile::monitoring::sensu::agent::checks:
   'metrics-haproxy-overview':
     type:         'metric'
-    command:      "metrics-haproxy.rb --scheme haproxy.%{::hostname} -c 127.0.0.1 -P 9000 -q haproxy_stats"
+    command:      "metrics-haproxy.rb --scheme haproxy.%{::hostname} --server-metrics -c 127.0.0.1 -P 9000 -q haproxy_stats"
     interval:     60
     subscribers:  ['metrics']
     handlers:     ['graphite_tcp']
