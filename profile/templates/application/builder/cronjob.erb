@@ -1,0 +1,19 @@
+#!/bin/sh
+set -euxo pipefail
+
+/opt/imagebuilder/bin/imagebuilder bootstrap \
+-a <%= @az %> \
+-u <%= @url -%><%= @latest %> \
+-c <%= @url -%><%= @checksum_file %> \
+-t <%= @checksum %> \
+-n <%= @image_name %>
+-r <%= @min_ram %> \
+-d <%= @min_disk %> \
+-f qcow2 \
+| /usr/bin/xargs -I % \
+/opt/imagebuilder/bin/imagebuilder build \
+-n <%= @image_name %> \
+-s % \
+-a <%= @az %> \
+-u <%= @username %> \
+-d
