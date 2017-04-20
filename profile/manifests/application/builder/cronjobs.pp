@@ -1,7 +1,4 @@
 define profile::application::builder::cronjobs(
-    $ensure        = present,
-    $period        = 'weekly',
-    $az            = $profile::application::builder::az,
     $image_name,
     $url,
     $latest,
@@ -9,7 +6,10 @@ define profile::application::builder::cronjobs(
     $checksum,
     $min_ram,
     $min_disk,
-    $username
+    $username,
+    $ensure        = present,
+    $period        = 'weekly',
+    $az            = $profile::application::builder::az
 ) {
 
   file { "/etc/cron.${period}/${name}":
