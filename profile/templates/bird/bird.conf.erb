@@ -51,7 +51,7 @@ protocol kernel {
   learn;          # Learn all alien routes from the kernel
   scan time 2;    # Scan kernel routing table every 2 seconds
   persist;        # Don't remove routes on bird shutdown
-  import filter import_kernel;
+#  import filter import_kernel;
   import all;
   graceful restart;
   export all;     # Default is export none
