@@ -29,7 +29,6 @@ mod 'apt', :ref => '2.2.2',                      :git => github + 'puppetlabs/pu
 #
 mod 'bsd', :ref => '209a74375d',                 :git => github + 'norcams/puppet-bsd'
 mod 'resolv_conf', :ref => 'v3.1.0',             :git => github + 'saz/puppet-resolv_conf'
-mod 'pf', :ref => '0.1.2',                       :git => github + 'xaque208/puppet-pf'
 
 #
 # profile::base::login
@@ -195,4 +194,3 @@ mod 'augeasproviders_ssh', :ref => '2.2.2',      :git => github + 'hercules-team
 # This conflicts with duritong/sysctl which is used in openstack/* modules
 #mod 'augeasproviders_sysctl', :ref => '2.0.1',   :git => github + 'hercules-team/augeasproviders_sysctl'
 mod 'augeasproviders_syslog', :ref => '2.1.1',   :git => github + 'hercules-team/augeasproviders_syslog'
-mod 'puppetdbquery', :ref => '2.2.0',            :git => github + 'dalen/puppet-puppetdbquery'
