@@ -5,7 +5,6 @@ class profile::base::firewall (
 ) {
   if $manage_firewall {
     if $::osfamily == 'FreeBSD' {
-      include pf
     } else {
       if $purge_firewall {
         resources { 'firewall':
