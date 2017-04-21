@@ -13,8 +13,6 @@ include:
 
 bsd::network::v4forwarding: true
 
-pf::template: "profile/pf-nat/pf-nat.erb"
-
 profile::base::network::net_ifnames:             false
 profile::base::common::manage_keyboard:          false
 profile::base::common::manage_yumrepo:           false
