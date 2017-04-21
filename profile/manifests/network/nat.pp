@@ -19,16 +19,16 @@ class profile::network::nat(
         ensure   => present,
         target   => "/etc/rc.conf",
         variable => "pf_enable",
-        value    => "YES",
+        value    => "YES"
       }
       package { 'bird':
-        ensure   => installed,
+        ensure   => installed
       }
       shellvar { "Enable bird router":
         ensure   => present,
         target   => "/etc/rc.conf",
         variable => "bird_enable",
-        value    => "YES",
+        value    => "YES"
       }
       file { '/usr/local/etc/bird.conf':
         ensure   => file,
@@ -36,9 +36,18 @@ class profile::network::nat(
         notify   => Service['bird']
       }
       service { 'bird':
-        enable      => true,
-        ensure      => running,
-        require     => Package['bird'],
+        enable   => true,
+        ensure   => running,
+        require  => Package['bird']
+      }
+      file { '/etc/pf.conf':
+        ensure   => file,
+        content  => template("${module_name}/network/pf.conf.erb"),
+        notify   => Service['pf']
+      }
+      service { 'pf':
+        enable   => true,
+        ensure   => running
       }
     }
     default: {
