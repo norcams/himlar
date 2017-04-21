@@ -1,0 +1,17 @@
+#
+# This file is managed by puppet!
+#
+
+#
+# Options
+#
+
+set limit { states 1500000, frags 500000, src-nodes 100000 }
+set timeout { adaptive.start 0, adaptive.end 0 }
+set optimization conservative
+set skip on lo0 
+
+nat pass on vtnet1 from <%= scope.function_hiera(['netcfg_priv_network']) %> to any -> <%= scope.function_hiera(['netcfg_pub_natgw']) %>
+
+block in on vtnet1 from !<%= scope.function_hiera(['netcfg_priv_network']) %>
+pass inet proto icmp from any to any
