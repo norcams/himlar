@@ -7,24 +7,24 @@
 #
 network::interfaces_hash:
   'eth0':
-    'ipaddress': "%{hiera('netcfg_netpart_mgmt')}.1/24"
+    'ipaddress': "%{hiera('netcfg_mgmt_netpart')}.1/24"
     'post_up': [ '/etc/network/if-up.d/z90-route-eth0', ]
     'post_down': [ '/etc/network/if-down.d/z90-route-eth0', ]
   'swp1':
     'ipaddress': '192.168.122.2/24'
     'post_up': [ '/etc/network/if-up.d/z90-route-swp1', ]
     'post_down': [ '/etc/network/if-down.d/z90-route-swp1', ]
-  'swp3':
-    'ipaddress': '192.168.20.1/29'
-    'post_up': [ '/etc/network/if-up.d/z90-route-swp3', ]
-    'post_down': [ '/etc/network/if-down.d/z90-route-swp3', ]
+#  'swp3':
+#    'ipaddress': '192.168.20.1/29'
+#    'post_up': [ '/etc/network/if-up.d/z90-route-swp3', ]
+#    'post_down': [ '/etc/network/if-down.d/z90-route-swp3', ]
 
 # In production environment these should be VLAN aware
 # bridges and actually tagged. This is not possible in
 # local3 environment, though.
 profile::base::network::cumulus_bridges:
   'bridge':
-    'ipv4': [ "%{hiera('netcfg_netpart_trp')}.1/24", ]
+    'ipv4': [ "%{hiera('netcfg_trp_netpart')}.1/24", ]
     'ports': [ 'swp2', ]
     'alias_name': 'Transport L2 if'
     'mtu': '1500'
@@ -34,18 +34,18 @@ profile::base::network::routes:
   'eth0':
     'ipaddress': [ '0.0.0.0', ]
     'netmask':   [ '0.0.0.0', ]
-    'gateway':   [ "%{hiera('netcfg_gateway_mgmt')}", ]
+    'gateway':   [ "%{hiera('netcfg_mgmt_gateway')}", ]
     'table':     [ 'mgmt', ]
   'swp1':
     'ipaddress': [ '0.0.0.0', ]
     'netmask':   [ '0.0.0.0', ]
     'gateway':   [ '192.168.122.1', ]
     'table':     [ 'main', ]
-  'swp3':
-    'ipaddress': [ '172.31.13.0', ]
-    'netmask':   [ '255.255.255.0', ]
-    'gateway':   [ '192.168.20.2', ]
-    'table':     [ 'main', ]
+#  'swp3':
+#    'ipaddress': [ '172.31.13.0', ]
+#    'netmask':   [ '255.255.255.0', ]
+#    'gateway':   [ '192.168.20.2', ]
+#    'table':     [ 'main', ]
 
 quagga::quagga::zebra_interfaces:
   'bridge':
@@ -55,18 +55,19 @@ quagga::quagga::zebra_interfaces:
     - 'link-detect'
   'swp2':
     - 'link-detect'
-  'swp3':
-    - 'link-detect'
+#  'swp3':
+#    - 'link-detect'
 
 quagga::quagga::zebra_ip_routes:
   - '0.0.0.0/0 192.168.122.1'
   - '10.0.0.0/8 Null0'
-  - "%{hiera('netcfg_netpart_public')}.0/24 Null0"
-  - "%{hiera('netcfg_netpart_public')}.254/32 %{hiera('netcfg_netpart_trp')}.51"
-  - "%{hiera('netcfg_netpart_public')}.253/32 %{hiera('netcfg_netpart_trp')}.12"
-  - "%{hiera('netcfg_netpart_public')}.252/32 %{hiera('netcfg_netpart_trp')}.56"
-  - "%{hiera('netcfg_netpart_public')}.251/32 %{hiera('netcfg_netpart_trp')}.61"
-  - "172.31.13.0/24 192.168.20.2"
+  - "%{hiera('netcfg_public_netpart')}.0/24 Null0"
+  - "%{hiera('netcfg_public_netpart')}.254/32 %{hiera('netcfg_trp_netpart')}.51"
+  - "%{hiera('netcfg_public_netpart')}.253/32 %{hiera('netcfg_trp_netpart')}.12"
+  - "%{hiera('netcfg_public_netpart')}.252/32 %{hiera('netcfg_trp_netpart')}.56"
+  - "%{hiera('netcfg_public_netpart')}.251/32 %{hiera('netcfg_trp_netpart')}.61"
+  - "%{hiera('netcfg_public_netpart')}.250/32 %{hiera('netcfg_trp_netpart')}.86"
+#  - "172.31.13.0/24 192.168.20.2"
 
 quagga::quagga::zebra_generic_options:
   'ip':
@@ -79,13 +80,13 @@ quagga::quagga::zebra_generic_options:
 #  - '172.31.228.2 soft-reconfiguration inbound'
 
 quagga::quagga::bgp_options:
-  - "router-id %{hiera('netcfg_netpart_trp')}.1"
+  - "router-id %{hiera('netcfg_trp_netpart')}.1"
   - 'log-neighbor-changes'
   - 'default local-preference 200'
 
 quagga::quagga::bgp_networks:
   - '0.0.0.0/0'
-  - "%{hiera('netcfg_netpart_trp')}.0/24"
+  - "%{hiera('netcfg_trp_netpart')}.0/24"
 
 quagga::quagga::bgp_neighbor_groups:
   'rr-clients':
@@ -97,7 +98,7 @@ quagga::quagga::bgp_neighbor_groups:
       - 'route-map rr-client-allow in'
       - 'bfd'
     'members':
-      - "%{hiera('netcfg_netpart_trp')}.103"
+      - "%{hiera('netcfg_trp_netpart')}.103"
 #      - '172.31.12.104'
 #  'other-clients':
 #    'options':
@@ -105,13 +106,13 @@ quagga::quagga::bgp_neighbor_groups:
 
 quagga::quagga::bgp_accesslist:
   '10':
-    - "permit %{hiera('netcfg_netpart_public')}.0 0.0.0.255"
+    - "permit %{hiera('netcfg_public_netpart')}.0 0.0.0.255"
     - 'permit 10.17.0.0 0.0.15.255'
-    - "permit %{hiera('netcfg_netpart_trp')}.0 0.0.0.255"
+    - "permit %{hiera('netcfg_trp_netpart')}.0 0.0.0.255"
   '20':
-    - "deny %{hiera('netcfg_netpart_public')}.0 0.0.0.255"
+    - "deny %{hiera('netcfg_public_netpart')}.0 0.0.0.255"
     - 'deny 10.17.0.0 0.0.15.255'
-    - "deny %{hiera('netcfg_netpart_trp')}.0 0.0.0.255"
+    - "deny %{hiera('netcfg_trp_netpart')}.0 0.0.0.255"
     - 'permit any'
 
 quagga::quagga::bgp_ip_prefix_list:
