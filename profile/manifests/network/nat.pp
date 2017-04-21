@@ -39,6 +39,7 @@ class profile::network::nat(
         enable      => true,
         ensure      => running,
         require     => Package['bird'],
+      }
     }
     default: {
     }
