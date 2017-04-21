@@ -1,0 +1,12 @@
+---
+# We need to set up NAT on leaf for nodes with "public" network
+include:
+  default:
+    - profile::network::nat
+
+profile::network::nat::source:            "%{hiera('netcfg_public_netpart')}.0/24"
+profile::network::nat::outiface:          'swp1'
+profile::network::nat::enable_masquerade: true
+
+profile::base::common::packages:
+  'iptables-persistent': {}
