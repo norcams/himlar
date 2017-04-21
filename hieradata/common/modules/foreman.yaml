@@ -11,3 +11,4 @@ foreman::ssl:                               true
 foreman::cli::manage_root_config:           true
 foreman::plugin::discovery::install_images: true
 foreman::db_host:                           '127.0.0.1'
+foreman::config::passenger::serveraliases:  [ "foreman.%{hiera('domain_mgmt')}" ]
