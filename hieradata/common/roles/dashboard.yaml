@@ -8,6 +8,7 @@ include:
 profile::base::network::manage_dummy:                true
 profile::base::firewall::purge_firewall:             true
 profile::openstack::dashboard::manage_dashboard:     true
+profile::webserver::apache::manage_firewall:         false
 profile::openstack::dashboard::manage_firewall:      true
 profile::openstack::dashboard::manage_overrides:     true
 profile::openstack::dashboard::enable_pwd_retrieval: true
