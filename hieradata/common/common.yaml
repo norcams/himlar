@@ -360,7 +360,7 @@ networks:
         lease: 43200
   local1:
     domain:
-      mgmt: mgmt.local.iaas.intern
+      mgmt: mgmt.local1.iaas.intern
     subnet:
       mgmt: 172.31.4.0/24
     dhcp:
@@ -377,7 +377,7 @@ networks:
         outiface: eth1
   local2:
     domain:
-      mgmt: mgmt.local.iaas.intern
+      mgmt: mgmt.local2.iaas.intern
     subnet:
       mgmt: 172.31.5.0/24
     dhcp:
