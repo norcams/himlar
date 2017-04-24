@@ -23,7 +23,7 @@ profile::base::network::manage_dummy:                               true
 profile::highavailability::loadbalancing::haproxy::manage_haproxy:  true
 profile::highavailability::loadbalancing::haproxy::manage_firewall: true
 profile::highavailability::loadbalancing::haproxy::firewall_extras:
-  port: ['5000', '8774', '8776', '9292', '9696', '80', '443']
+  dport: ['5000', '8774', '8776', '9292', '9696', '80', '443']
 
 star_api_ssl_pem: "star.api.%{hiera('domain_public')}.pem"
 api_ssl_pem:      "api.%{hiera('domain_public')}.pem"
