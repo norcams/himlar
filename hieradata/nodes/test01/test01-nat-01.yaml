@@ -1,6 +1,4 @@
 ---
-bsd::network::v4gateway: "%{hiera('netcfg_mgmt_gateway')}"
-
 network::interfaces_hash:
   'vtnet0':
     description: 'Management Interface'
