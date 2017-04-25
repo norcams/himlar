@@ -10,7 +10,7 @@ set optimization conservative
 set skip on lo0
 
 # sNAT traffic on public interface
-nat pass on $trp_if from <%= scope.function_hiera(['netcfg_priv_network']) %> to any -> <%= scope.function_hiera(['netcfg_pub_natgw']) %>
+nat pass on $trp_if from 0.0.0.0/0 to any -> <%= scope.function_hiera(['netcfg_pub_natgw']) %>
 
 # Drop inbound traffic on public interface
 block in on $trp_if from !<%= scope.function_hiera(['netcfg_priv_network']) %>
