@@ -110,17 +110,18 @@ common_config()
 
   # Create and update OS (we assume OS id is 1 for now)
   /bin/hammer os create --name CentOS --major 7 || true
-  /bin/hammer os update --id 1 --name CentOS --major 7 \
-    --description "CentOS 7.2" \
+  centos_os=$(/bin/hammer --csv os list --per-page 1000 | grep 'CentOS 7.3' | cut -d, -f1)
+  /bin/hammer os update --id $centos_os --name CentOS --major 7 \
+    --description "CentOS 7.3" \
     --family Redhat \
     --architecture-ids 1 \
     --medium-ids ${medium_id_2},${medium_id_1} \
     --partition-table-ids $norcams_ptable_id
   # Set default Kickstart and PXELinux templates and associate with os
-  /bin/hammer template update --id $norcams_provision_id --operatingsystem-ids 1
-  /bin/hammer template update --id $norcams_pxelinux_id --operatingsystem-ids 1
-  /bin/hammer os set-default-template --id 1 --config-template-id $norcams_provision_id
-  /bin/hammer os set-default-template --id 1 --config-template-id $norcams_pxelinux_id
+  /bin/hammer template update --id $norcams_provision_id --operatingsystem-ids $centos_os
+  /bin/hammer template update --id $norcams_pxelinux_id --operatingsystem-ids $centos_os
+  /bin/hammer os set-default-template --id $centos_os --config-template-id $norcams_provision_id
+  /bin/hammer os set-default-template --id $centos_os --config-template-id $norcams_pxelinux_id
 
   # Create Puppet environment
   /bin/hammer environment create --name production || true
