@@ -36,8 +36,8 @@ class profile::network::nat(
         notify   => Service['bird']
       }
       service { 'bird':
-        enable   => true,
         ensure   => running,
+        enable   => true,
         require  => Package['bird']
       }
       file { '/etc/pf.conf':
@@ -46,8 +46,8 @@ class profile::network::nat(
         notify   => Service['pf']
       }
       service { 'pf':
-        enable   => true,
-        ensure   => running
+        ensure   => running,
+        enable   => true
       }
     }
     default: {
