@@ -131,7 +131,7 @@ common_config()
   /bin/hammer hostgroup update --name base \
     --architecture x86_64 \
     --domain-id $foreman_domain_id \
-    --operatingsystem-id 1 \
+    --operatingsystem-id $centos_os \
     --medium-id $medium_id_2 \
     --partition-table-id $norcams_ptable_id \
     --subnet-id $foreman_subnet_id \
