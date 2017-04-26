@@ -28,6 +28,7 @@ define profile::firewall::rule (
 ) {
 
   if $port { # port is depricated. Use dport. FIXME report $port
+    warning('NORCAMS: Use of $port in firewall rules are depricated! Use $dport.')
     $basic = {
       'dport'       => $port,
       'proto'       => $proto,
