@@ -2,12 +2,14 @@
 include:
   default:
     - profile::openstack::identity
+    - profile::openstack::resource::imagebuilder
     - profile::openstack::resource::dataporten
     - profile::openstack::openrc
     - profile::application::himlarcli
     - profile::logging::rsyslog::client
 
 profile::openstack::identity::manage_openidc: true
+profile::openstack::resource::imagebuilder::manage: true
 
 profile::openstack::openrc::filename: '/root/keystonerc_admin'
 
