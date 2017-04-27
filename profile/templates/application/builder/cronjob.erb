@@ -1,6 +1,11 @@
 #!/bin/sh
 set -euxo pipefail
 
+. <%= @rc_file %>
+
+export IB_TEMPLATE_DIR=<%= @template_dir %>
+export IB_DOWNLOAD_DIR=<%= @download_dir %>
+
 /opt/imagebuilder/bin/imagebuilder bootstrap \
 -a <%= @az %> \
 -u <%= @url -%><%= @latest %> \

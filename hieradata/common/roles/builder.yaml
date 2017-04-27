@@ -22,6 +22,13 @@ profile::webserver::apache::vhosts:
     docroot:        '/opt/images/public_builds'
     docroot_owner:  'iaas'
 
+profile::openstack::openrc::filename: '/home/imagebuilder/openrc'
+profile::openstack::openrc::username: 'imagebuilder'
+profile::openstack::openrc::project_name: 'imagebuilder'
+
+profile::application::builder::template_dir: '/opt/imagebuilder'
+profile::application::builder::download_dir: '/opt/images/public_builds'
+profile::application::builder::rc_file: '/home/imagebuilder/openrc'
 profile::application::builder::images:
   'cirros':
     'image_name':       'CirrOS debug image'
