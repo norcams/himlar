@@ -38,10 +38,10 @@ filter import_bgp {
 
 table private;
 
-protocol static {
-  route 0.0.0.0/0 via <%= scope.function_hiera(['netcfg_priv_gateway']) %>;
-  table private;
-}
+#protocol static {
+#  route 0.0.0.0/0 via <%= scope.function_hiera(['netcfg_priv_gateway']) %>;
+#  table private;
+#}
 
 # Configure synchronization between BIRD's routing tables and the
 # kernel.
