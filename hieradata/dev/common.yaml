@@ -157,6 +157,9 @@ nova::db::mysql_api::password:                      'nova_api_pass'
 nova::api::neutron_metadata_proxy_shared_secret:    'a_secret'
 nova::rabbit_password:                              'nova_quest'
 
+# imagebuilder
+profile::openstack::resource::imagebuilder::password: 'imagebuilder_pass'
+
 # sensu.yaml
 sensu::rabbit_password:                             'sensu_guest'
 sensu_api_password:                                 'sensu'
