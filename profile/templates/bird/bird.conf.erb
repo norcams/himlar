@@ -39,7 +39,7 @@ filter import_bgp {
 table private;
 
 protocol static {
-  route 0.0.0.0/0 via 172.30.0.12;
+  route 0.0.0.0/0 via <%= scope.function_hiera(['netcfg_priv_gateway']) %>;
   table private;
 }
 
