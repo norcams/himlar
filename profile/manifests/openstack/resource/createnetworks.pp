@@ -1,8 +1,11 @@
-# Class: profile::openstack::resource::createnetworks
 #
+# Class: profile::openstack::resource::createnetworks
 #
 class profile::openstack::resource::createnetworks {
 
-  create_resources(neutron_network, hiera_hash('profile::openstack::resource::networks', {}))
-  create_resources(neutron_subnet, hiera_hash('profile::openstack::resource::subnets', {}))
+  $networks = hiera_hash('profile::openstack::resource::networks', {})
+  $subnets = hiera_hash('profile::openstack::resource::subnets', {})
+  create_resources(neutron_network, $networks, { require => Class['neutron']})
+  create_resources(neutron_subnet, { require => Class['neutron']})
+
 }

@@ -17,7 +17,7 @@ mod 'keyboard', :ref => '0.1.0',                 :git => github + 'norcams/puppe
 mod 'hostname', :ref => '0.0.2',                 :git => github + 'peopleware/puppet-hostname'
 mod 'resolv_conf', :ref => 'v3.0.3',             :git => github + 'saz/puppet-resolv_conf'
 mod 'lvm', :ref => '689d42a16c',                 :git => github + 'puppetlabs/puppetlabs-lvm'
-mod 'firewall', :ref => '1.5.0',                 :git => github + 'puppetlabs/puppetlabs-firewall'
+mod 'firewall', :ref => '1.8.2',                 :git => github + 'puppetlabs/puppetlabs-firewall'
 mod 'kmod', :ref => '2.1.0',                     :git => github + 'camptocamp/puppet-kmod'
 mod 'named_interfaces', :ref => '4e457dec37',    :git => github + 'norcams/puppet-named_interfaces'
 mod 'network', :ref => '10e6e1f140',             :git => github + 'norcams/puppet-network'
