@@ -27,7 +27,7 @@ class profile::application::builder (
   } ->
   user { $user:
     ensure     => present,
-    managehome => 'true',
+    managehome => true,
     gid        => $group
   }
 
