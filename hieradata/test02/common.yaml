@@ -26,6 +26,13 @@ netcfg_dns_search:      "%{hiera('domain_mgmt')} %{hiera('domain_trp')} %{hiera(
 netcfg_netpart_public:  '10.100.200.0' # FIXME (delete)
 netcfg_netmask_public:  '255.255.255.0' # FIXME (delete)
 
+netcfg_priv_gateway:    '172.30.32.26'
+netcfg_priv_network:    '10.0.244.0/24'
+netcfg_pub_natgw:       '10.100.200.248'
+netcfg_trp_rr:
+  rr1:
+    peer_ipv4: '172.30.32.1'
+
 allow_from_network: # FIXME (public net and mgmt net)
   - '10.100.200.0/24'
   - '172.28.32.0/24'
