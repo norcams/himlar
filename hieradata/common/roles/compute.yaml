@@ -155,17 +155,3 @@ profile::base::yumrepo::repo_hash:
     exclude: 'calico-dhcp-agent' #FIXME
   ceph-jewel:
     ensure: present
-
-# Add custom routing table for private network to NAT
-profile::base::network::routes:
-  "%{::interface_trp1}":
-    'ipaddress': [ '0.0.0.0', ]
-    'netmask':   [ '0.0.0.0', ]
-    'gateway':   [ "%{hiera('netcfg_priv_gateway')}", ]
-    'table':     [ 'private', ]
-profile::base::network::routing_tables:
-  'private':
-    'table_id':  '240'
-profile::base::network::rules:
-  "%{::interface_trp1}":
-    iprule: [ "from %{hiera('netcfg_priv_network')} lookup private", ]
