@@ -46,7 +46,7 @@ class profile::firewall::pre(
 
   if $manage_ssh {
     profile::firewall::rule{ '003 accept ssh':
-      port   => '22',
+      dport  => '22',
       extras => $ssh_settings,
     }
   }

@@ -15,6 +15,7 @@
 #
 define profile::firewall::rule (
   $port        = undef,
+  $dport       = undef,
   $proto       = 'tcp',
   $action      = 'accept',
   $state       = ['NEW'],
@@ -26,32 +27,47 @@ define profile::firewall::rule (
   $extras      = {},
 ) {
 
-  $basic = {
-    'port'        => $port,
-    'proto'       => $proto,
-    'action'      => $action,
-    'state'       => $state,
-    'source'      => $source,
-    'destination' => $destination,
-    'iniface'     => $iniface,
-    'chain'       => $chain,
-    'provider'    => $provider
-  }
+  if $port { # port is depricated. Use dport. FIXME report $port
+    warning('NORCAMS: Use of $port in firewall rules are depricated! Use $dport.')
+    $basic = {
+      'dport'       => $port,
+      'proto'       => $proto,
+      'action'      => $action,
+      'state'       => $state,
+      'source'      => $source,
+      'destination' => $destination,
+      'iniface'     => $iniface,
+      'chain'       => $chain,
+      'provider'    => $provider
+    }
+  } else {
+    $basic = {
+      'dport'       => $dport,
+      'proto'       => $proto,
+      'action'      => $action,
+      'state'       => $state,
+      'source'      => $source,
+      'destination' => $destination,
+      'iniface'     => $iniface,
+      'chain'       => $chain,
+      'provider'    => $provider
+    }
 
+  }
   $rule = merge($basic, $extras)
   validate_hash($rule)
 
   # We can only expand source or destination, not both!
   if is_array($source) {
     profile::firewall::expand_rule { $source:
-      rule => $rule,
-      type => 'source',
+      rule      => $rule,
+      type      => 'source',
       rule_name => $name
     }
   } elsif is_array($destination) {
     profile::firewall::expand_rule { $destination:
-      rule => $rule,
-      type => 'destination',
+      rule      => $rule,
+      type      => 'destination',
       rule_name => $name
     }
   } else {
