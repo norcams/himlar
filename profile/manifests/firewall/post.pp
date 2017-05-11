@@ -19,9 +19,11 @@ class profile::firewall::post(
   $firewall_settings = {},
 ){
 
-  firewall { '998 log all':
-    proto => 'all',
-    jump  => 'LOG',
+  if $log {
+    firewall { '998 log all':
+      proto => 'all',
+      jump  => 'LOG',
+    }
   }
 
   if $debug {
