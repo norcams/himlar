@@ -7,6 +7,8 @@ profile::application::openssl::manage_ca_cert:  true
 profile::application::openssl::certs:
   "dashboard.%{hiera('domain_public')}":
     cn:     "dashboard.%{hiera('domain_public')}"
+    altnames:
+      - "dashboard.%{hiera('domain_public')}"
 
 apache::log_level:                              warn
 

@@ -6,6 +6,8 @@ include:
 profile::application::openssl::certs:
   "star.api.%{hiera('domain_public')}":
     cn:     "*.api.%{hiera('domain_public')}"
+    altnames:
+      - "*.api.%{hiera('domain_public')}"
     concat: true
   "status.%{hiera('domain_public')}":
     cn:     "status.%{hiera('domain_public')}"
