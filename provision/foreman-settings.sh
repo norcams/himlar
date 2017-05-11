@@ -138,7 +138,8 @@ common_config()
     --description "FreeBSD 11.0" \
     --family Freebsd \
     --architecture-ids $freebsd_arch \
-    --medium-ids ${freebsd_medium_id_1}
+    --medium-ids ${freebsd_medium_id_1} \
+    --partition-table-ids $freebsd_ptable_id
   /bin/hammer template update --id $freebsd_provision_id --operatingsystem-ids $freebsd_os
   /bin/hammer template update --id $freebsd_pxelinux_id --operatingsystem-ids $freebsd_os
   /bin/hammer template update --id $freebsd_finish_id --operatingsystem-ids $freebsd_os
