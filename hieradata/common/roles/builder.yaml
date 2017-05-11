@@ -2,6 +2,7 @@
 include:
   default:
     - profile::openstack::openrc
+    - profile::logging::rsyslog::client
     - profile::webserver::apache
     - profile::application::builder
 
