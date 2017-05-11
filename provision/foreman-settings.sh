@@ -130,7 +130,7 @@ common_config()
   /bin/hammer os set-default-template --id $centos_os --config-template-id $norcams_pxelinux_id
 
   # Add FreeBSD and new arch
-  /bin/hammer architecture create --name amd64
+  /bin/hammer architecture create --name amd64 || true
   freebsd_arch=$(/bin/hammer --csv architecture list | grep 'amd64' | cut -d, -f1)
   /bin/hammer os create --name FreeBSD --major 11 --minor 0 || true
   freebsd_os=$(/bin/hammer --csv os list --per-page 1000 | grep 'FreeBSD 11' | cut -d, -f1)
@@ -138,7 +138,7 @@ common_config()
     --description "FreeBSD 11.0" \
     --family Freebsd \
     --architecture-ids $freebsd_arch \
-    --medium-ids ${freebsd_medium_id_1} \
+    --medium-ids ${freebsd_medium_id_1}
   /bin/hammer template update --id $freebsd_provision_id --operatingsystem-ids $freebsd_os
   /bin/hammer template update --id $freebsd_pxelinux_id --operatingsystem-ids $freebsd_os
   /bin/hammer template update --id $freebsd_finish_id --operatingsystem-ids $freebsd_os
