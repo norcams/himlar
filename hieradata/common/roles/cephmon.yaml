@@ -29,6 +29,12 @@ accounts::accounts:
   'glance':
     ensure: present
 
+# Sensu
+profile::monitoring::sensu::agent::plugins:
+  sensu-plugins-ceph:
+    type:         package
+    pkg_version:  '0.0.5'
+
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   ceph-jewel:
