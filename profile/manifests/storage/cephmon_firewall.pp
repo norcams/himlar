@@ -9,7 +9,7 @@ class profile::storage::cephmon_firewall(
 ) {
   if $manage_firewall {
     profile::firewall::rule { '100 ceph-mon accept tcp':
-      port   => 6789,
+      dport  => 6789,
       extras => $firewall_extras['mon_listen']
     }
   }
