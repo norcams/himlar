@@ -5,7 +5,6 @@ include:
     - profile::webserver::apache
 
 profile::base::network::manage_dummy:           true
-profile::base::firewall::purge_firewall:        true
 profile::webserver::apache::manage_firewall:    false
 profile::application::access::manage_firewall:  true
 profile::application::access::package_url:      'https://download.iaas.uio.no/uh-iaas/rpm/himlar-dp-prep-1.4-1.el7.x86_64.rpm'

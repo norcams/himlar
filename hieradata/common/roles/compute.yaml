@@ -39,6 +39,8 @@ profile::openstack::compute::migration::chmod_ssh_dir:       true
 # Enable intance migration via ssh
 profile::firewall::pre::ssh_settings:
   source: "0.0.0.0/0" #FIXME (limit source)
+# compute nodes write firewall rules on the fly, thou shalt not purge
+profile::base::firewall::purge_firewall: false
 
 openstack_extras::repo::redhat::redhat::manage_rdo: false
 profile::base::common::manage_lvm: true

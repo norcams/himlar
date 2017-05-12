@@ -18,7 +18,6 @@ profile::monitoring::sensu::agent::checks:
     subscribers:  ['metrics']
     handlers:     ['graphite_tcp']
 
-profile::base::firewall::purge_firewall:                            true
 profile::base::network::manage_dummy:                               true
 profile::highavailability::loadbalancing::haproxy::manage_haproxy:  true
 profile::highavailability::loadbalancing::haproxy::manage_firewall: true

@@ -39,6 +39,8 @@ valid_location_environments:
   - prod
   - dev
 
+profile::base::firewall::purge_firewall: true
+
 #
 # Use this for firewall rules to allow only from some networks
 #
