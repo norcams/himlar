@@ -14,6 +14,42 @@ class profile::network::nat(
       value => 1,
       }
     }
+    'FreeBSD': {
+      shellvar { "Enable PF for NAT":
+        ensure   => present,
+        target   => "/etc/rc.conf",
+        variable => "pf_enable",
+        value    => "YES"
+      }
+      package { 'bird':
+        ensure   => installed
+      }
+      shellvar { "Enable bird router":
+        ensure   => present,
+        target   => "/etc/rc.conf",
+        variable => "bird_enable",
+        value    => "YES"
+      }
+      file { '/usr/local/etc/bird.conf':
+        ensure   => file,
+        content  => template("${module_name}/bird/bird-nat.conf.erb"),
+        notify   => Service['bird']
+      }
+      service { 'bird':
+        ensure   => running,
+        enable   => true,
+        require  => Package['bird']
+      }
+      file { '/etc/pf.conf':
+        ensure   => file,
+        content  => template("${module_name}/network/pf.conf.erb"),
+        notify   => Service['pf']
+      }
+      service { 'pf':
+        ensure   => running,
+        enable   => true
+      }
+    }
     default: {
     }
   }

@@ -19,7 +19,7 @@ mod 'resolv_conf', :ref => 'v3.0.3',             :git => github + 'saz/puppet-re
 mod 'lvm', :ref => '689d42a16c',                 :git => github + 'puppetlabs/puppetlabs-lvm'
 mod 'firewall', :ref => '1.8.2',                 :git => github + 'puppetlabs/puppetlabs-firewall'
 mod 'kmod', :ref => '2.1.0',                     :git => github + 'camptocamp/puppet-kmod'
-mod 'named_interfaces', :ref => '4e457dec37',    :git => github + 'norcams/puppet-named_interfaces'
+mod 'named_interfaces', :ref => '88ce713994',    :git => github + 'norcams/puppet-named_interfaces'
 mod 'network', :ref => '10e6e1f140',             :git => github + 'norcams/puppet-network'
 mod 'ipmi', :ref => 'c4309504fd',                :git => github + 'norcams/puppet-ipmi'
 mod 'lldp', :ref => '06523de010',                :git => github + 'norcams/puppet-lldp'
@@ -29,7 +29,6 @@ mod 'apt', :ref => '2.2.2',                      :git => github + 'puppetlabs/pu
 #
 mod 'bsd', :ref => '209a74375d',                 :git => github + 'norcams/puppet-bsd'
 mod 'resolv_conf', :ref => 'v3.1.0',             :git => github + 'saz/puppet-resolv_conf'
-mod 'pf', :ref => '0.1.2',                       :git => github + 'xaque208/puppet-pf'
 
 #
 # profile::base::login

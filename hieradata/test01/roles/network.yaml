@@ -6,6 +6,12 @@ profile::openstack::resource::networks:
     shared: true
     tenant_name: 'openstack'
     provider_network_type: 'local'
+  private:
+    name: 'private'
+    admin_state_up: true
+    shared: true
+    tenant_name: 'openstack'
+    provider_network_type: 'local'
 
 profile::openstack::resource::subnets:
   public:
@@ -19,4 +25,16 @@ profile::openstack::resource::subnets:
       - '129.177.6.54'
       - '129.177.12.31'
     network_name: 'public'
+    tenant_name: 'openstack'
+  private:
+    name: 'private'
+    cidr: '10.0.250.0/24'
+    ip_version: '4'
+    allocation_pools:
+      - 'start=10.0.250.10,end=10.0.250.250'
+    gateway_ip: '10.0.250.1'
+    dns_nameservers:
+      - '129.177.6.54'
+      - '129.177.12.31'
+    network_name: 'private'
     tenant_name: 'openstack'

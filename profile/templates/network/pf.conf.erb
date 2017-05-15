@@ -1,0 +1,28 @@
+#
+# This file is managed by puppet!
+#
+
+trp_if = <%= @interface_trp1 %>
+
+set limit { states 1500000, frags 500000, src-nodes 100000 }
+set timeout { adaptive.start 0, adaptive.end 0 }
+set optimization conservative
+set skip on lo0
+
+# sNAT traffic on public interface
+nat pass on $trp_if from 0.0.0.0/0 to !<%= @network_trp1 %>/<%= @cidr_trp1 %> -> <%= scope.function_hiera(['netcfg_pub_natgw']) %>
+
+# Drop inbound traffic on public interface
+block in on $trp_if from !<%= scope.function_hiera(['netcfg_priv_network']) %>
+
+# Allow ping
+pass inet proto icmp from any to any
+
+# Allow bgp and bfd on transport network
+pass in proto tcp from <%= scope.function_hiera(['netcfg_trp_gateway']) %> port 179
+pass in proto udp from <%= scope.function_hiera(['netcfg_trp_gateway']) %>
+pass inet proto tcp from $trp_if to any
+pass inet proto udp from $trp_if to any
+
+# Drop instance traffic to NAT host
+block in on $trp_if from <%= scope.function_hiera(['netcfg_priv_network']) %> to $trp_if
