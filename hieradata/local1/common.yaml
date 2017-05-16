@@ -126,7 +126,7 @@ nova::api::neutron_metadata_proxy_shared_secret:    'a_secret'
 nova::rabbit_password:                              'nova_quest'
 
 # imagebuilder
-profile::openstack::resource::imagebuilder::password: 'imagebuilder_pass'
+imagebuilder_password:                              'imagebuilder_pass'
 
 # sensu.yaml
 sensu::rabbit_password:                             'sensu_guest'
