@@ -8,8 +8,9 @@ include:
     - profile::application::himlarcli
     - profile::logging::rsyslog::client
 
-profile::openstack::identity::manage_openidc: true
-profile::openstack::resource::imagebuilder::manage: true
+profile::openstack::identity::manage_openidc:         true
+profile::openstack::resource::imagebuilder::manage:   true
+profile::openstack::resource::imagebuilder::password: "%{hiera('imagebuilder_password')}"
 
 profile::openstack::openrc::filename: '/root/keystonerc_admin'
 

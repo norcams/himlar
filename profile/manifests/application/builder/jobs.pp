@@ -21,6 +21,7 @@ define profile::application::builder::jobs(
     ensure  => $ensure,
     content => template("${module_name}/application/builder/cronjob.erb"),
     owner   => $user,
-    group   => $group
+    group   => $group,
+    mode    => '0755'
   }
 }

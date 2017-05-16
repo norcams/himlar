@@ -5,6 +5,8 @@ class profile::application::builder (
   $az    = undef,
   $user  = 'imagebuilder',
   $group = 'imagebuilder',
+  $flavor = 'm1.small',
+  $insecure = false,
 ) {
 
   if $az {
@@ -20,6 +22,21 @@ class profile::application::builder (
   file { '/opt/images/public_builds':
     ensure => directory,
     mode   => '0755'
+  }
+
+  file { '/etc/imagebuilder':
+    ensure => directory,
+    mode   => '0755'
+  } ->
+  file { '/etc/imagebuilder/config':
+    ensure  => file,
+    mode    => '0644',
+    content => "[main]\ntemplate_dir = ${template_dir}\ndownload_dir = ${download_dir}\n"
+  } ->
+  file { "${template_dir}/template":
+    ensure  => file,
+    mode    => '0644',
+    content => template("${module_name}/application/builder/template.erb"),
   }
 
   group { $group:
