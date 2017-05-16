@@ -173,6 +173,19 @@ common_config()
   /bin/hammer hostgroup set-parameter --hostgroup compute \
      --name installdevice \
      --value sda
+  # Create a hostgroup for FreeBSD nodes
+  /bin/hammer hostgroup create --name freebsd-nat --parent base || true
+  /bin/hammer hostgroup update --name freebsd-nat \
+    --architecture amd64 \
+    --domain-id $foreman_domain_id \
+    --operatingsystem-id $freebsd_os \
+    --medium-id $freebsd_medium_id_1 \
+    --partition-table-id $freebsd_ptable_id \
+    --subnet-id $foreman_subnet_id \
+    --puppet-proxy-id $foreman_proxy_id \
+    --puppet-ca-proxy-id $foreman_proxy_id \
+    --environment production
+
   #
   # Foreman global settings
   #
