@@ -3,6 +3,9 @@ set -euxo pipefail
 
 . <%= @rc_file %>
 
+# FIXME: Debug user
+touch /tmp/$(date +"%Y-%m-%d_%H%M")
+
 # Hack to find packer in /usr/bin/ when run as root
 export PATH=/usr/bin:/usr/local/bin:/bin:/usr/local/sbin:/usr/sbin
 
@@ -17,7 +20,7 @@ export PATH=/usr/bin:/usr/local/bin:/bin:/usr/local/sbin:/usr/sbin
 -f qcow2 \
 | /usr/bin/xargs -I % \
 /opt/imagebuilder/bin/imagebuilder build \
--n '<%= @image_name %>' \
+-n '<%= @name %>' \
 -s % \
 -a <%= @az %> \
 -u <%= @username %> \
