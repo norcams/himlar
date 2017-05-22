@@ -45,7 +45,8 @@ class profile::application::builder (
   user { $user:
     ensure     => present,
     managehome => true,
-    gid        => $group
+    gid        => $group,
+    before     => Class['profile::openstack::openrc']
   }
 
   create_resources('profile::application::builder::jobs', hiera_hash('profile::application::builder::images', {}))
