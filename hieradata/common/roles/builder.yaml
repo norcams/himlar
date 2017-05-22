@@ -12,6 +12,20 @@ profile::base::common::packages:
   'packer': {}
   'python34': {}
 
+profile::base::lvm::physical_volume:
+  '/dev/vdb':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_images':
+    physical_volumes:
+      - /dev/vdb
+profile::base::lvm::logical_volume:
+  'lv_images':
+    volume_group: 'vg_images'
+    fs_type:      "xfs"
+    mountpath:    "/opt"
+
 profile::webserver::apache::vhosts:
   'builds':
     servername:     "builds.%{hiera('domain_mgmt')}"
