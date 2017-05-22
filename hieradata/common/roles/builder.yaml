@@ -8,9 +8,9 @@ include:
 
 profile::base::common::packages:
   'python-openstackclient': {}
-  'imagebuilder': {}
   'packer': {}
   'python34': {}
+  'qemu-img': {}
 
 profile::base::lvm::physical_volume:
   '/dev/vdb':

@@ -3,6 +3,7 @@ class profile::application::builder (
   $template_dir,
   $download_dir,
   $az    = undef,
+  $package = 'imagebuilder',
   $user  = 'imagebuilder',
   $group = 'imagebuilder',
   $flavor = 'm1.small',
@@ -13,6 +14,10 @@ class profile::application::builder (
     $real_az = $az
   } else {
     $real_az = "${::location}-default-1"
+  }
+
+  package { $package:
+    ensure => installed
   }
 
   file { '/opt/images':
