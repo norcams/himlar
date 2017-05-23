@@ -9,6 +9,7 @@ define profile::application::builder::jobs(
     $username,
     $ensure        = present,
     $path          = 'weekly',
+    $flavor        = $profile::application::builder::flavor,
     $az            = $profile::application::builder::real_az,
     $user          = $profile::application::builder::user,
     $group         = $profile::application::builder::group,

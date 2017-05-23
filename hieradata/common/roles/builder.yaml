@@ -59,8 +59,9 @@ profile::application::builder::images:
     'checksum_file':    'sha256sum.txt'
     'checksum':         'sha256'
     'min_ram':          1024
-    'min_disk':         3
+    'min_disk':         8
     'username':         'centos'
+    'flavor':           'img.centos'
   'centos7':
     'image_name':       'IMAGEBUILDER CentOS 7'
     'url':              'http://cloud.centos.org/centos/7/images/'
@@ -68,8 +69,9 @@ profile::application::builder::images:
     'checksum_file':    'sha256sum.txt'
     'checksum':         'sha256'
     'min_ram':          768
-    'min_disk':         3
+    'min_disk':         8
     'username':         'centos'
+    'flavor':           'img.centos'
   'fedora_25':
     'image_name':       'IMAGEBUILDER Fedora 25'
     'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/25/CloudImages/x86_64/images/'
@@ -79,6 +81,7 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         3
     'username':         'fedora'
+    'flavor':           'img.fedora'
   'ubuntu_1604':
     'image_name':       'IMAGEBUILDER Ubuntu server 16.04'
     'url':              'https://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-disk1.img'
