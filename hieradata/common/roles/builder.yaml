@@ -82,7 +82,7 @@ profile::application::builder::images:
     'username':         'fedora'
   'ubuntu_1604':
     'image_name':       'IMAGEBUILDER Ubuntu server 16.04'
-    'url':              'https://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-disk1.img'
+    'url':              'https://cloud-images.ubuntu.com/xenial/current/'
     'latest':           'xenial-server-cloudimg-amd64-disk1.img'
     'checksum_file':    'SHA256SUMS'
     'checksum':         'sha256'
@@ -92,7 +92,7 @@ profile::application::builder::images:
   'debian8':
     'image_name':       'IMAGEBUILDER Debian Jessie 8'
     'url':              'http://cdimage.debian.org/cdimage/openstack/current-8/'
-    'latest':           'debian-8-openstack-amd64.qcow2'
+    'latest':           'debian-8-20170521-openstack-amd64.qcow2'
     'checksum_file':    'SHA256SUMS'
     'checksum':         'sha256'
     'min_ram':          768
