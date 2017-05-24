@@ -34,14 +34,15 @@ profile::webserver::apache::vhosts:
     docroot:        '/opt/images/public_builds'
     docroot_owner:  'iaas'
 
-profile::openstack::openrc::filename:     '/home/imagebuilder/openrc'
-profile::openstack::openrc::username:     'imagebuilder'
-profile::openstack::openrc::project_name: 'imagebuilder'
-profile::openstack::openrc::password:     "%{hiera('imagebuilder_password')}"
+profile::openstack::openrc::filename:         '/home/imagebuilder/openrc'
+profile::openstack::openrc::username:         'imagebuilder'
+profile::openstack::openrc::project_name:     'imagebuilder'
+profile::openstack::openrc::password:         "%{hiera('imagebuilder_password')}"
 
-profile::application::builder::template_dir: '/etc/imagebuilder'
-profile::application::builder::download_dir: '/opt/images/public_builds'
-profile::application::builder::rc_file: '/home/imagebuilder/openrc'
+profile::application::builder::flavor:        'img.zerodisk'
+profile::application::builder::template_dir:  '/etc/imagebuilder'
+profile::application::builder::download_dir:  '/opt/images/public_builds'
+profile::application::builder::rc_file:       '/home/imagebuilder/openrc'
 profile::application::builder::images:
   'cirros':
     'image_name':       'IMAGEBUILDER CirrOS'
@@ -52,7 +53,6 @@ profile::application::builder::images:
     'min_ram':          256
     'min_disk':         1
     'username':         'cirros'
-    'flavor':           'img.cirros'
   'centos6':
     'image_name':       'IMAGEBUILDER CentOS 6'
     'url':              'http://cloud.centos.org/centos/6/images/'
@@ -62,7 +62,6 @@ profile::application::builder::images:
     'min_ram':          1024
     'min_disk':         8
     'username':         'centos'
-    'flavor':           'img.centos'
   'centos7':
     'image_name':       'IMAGEBUILDER CentOS 7'
     'url':              'http://cloud.centos.org/centos/7/images/'
@@ -72,7 +71,6 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         8
     'username':         'centos'
-    'flavor':           'img.centos'
   'fedora_25':
     'image_name':       'IMAGEBUILDER Fedora 25'
     'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/25/CloudImages/x86_64/images/'
@@ -82,7 +80,6 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         3
     'username':         'fedora'
-    'flavor':           'img.fedora'
   'ubuntu_1604':
     'image_name':       'IMAGEBUILDER Ubuntu server 16.04'
     'url':              'https://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-disk1.img'
