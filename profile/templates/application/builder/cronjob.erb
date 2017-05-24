@@ -40,4 +40,7 @@ if [ $(which qemu-img) ]; then
   rm -f ${tmp_file}
 fi
 
+# Create latest symlink
+ln -srf ${filename} /opt/images/public_builds/<%= @name %>-latest.qcow2
+
 # FIXME remove old images
