@@ -7,4 +7,4 @@ nova::compute::rbd::libvirt_rbd_user: 'cinder'
 
 # Optimize cache mode for ceph
 nova::compute::libvirt::libvirt_disk_cachemodes:
-  - network: writeback
+  - '"network=writeback"'
