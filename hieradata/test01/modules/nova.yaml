@@ -1,0 +1,3 @@
+---
+# Use ceph cluster for instance disk
+nova::compute::rbd::ephemeral_storage: true
