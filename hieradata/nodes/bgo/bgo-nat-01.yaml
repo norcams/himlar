@@ -8,6 +8,6 @@ network::interfaces_hash:
     addresses:   [ "%{hiera('netcfg_trp_netpart')}.26/%{hiera('netcfg_trp_netmask')}", ]
   'tap0':
     description: 'Public Interface'
-    addresses:   [ '129.177.31.121/32', ]
+    addresses:   [ "%{hiera('netcfg_pub_natgw')}/32", ]
 
 resolv_conf::nameservers: [ "%{hiera('netcfg_dns_server1')}", "%{hiera('netcfg_dns_server2')}", ]

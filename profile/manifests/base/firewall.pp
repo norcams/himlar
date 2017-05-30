@@ -4,14 +4,17 @@ class profile::base::firewall (
   $purge_firewall         = false
 ) {
   if $manage_firewall {
-    if $purge_firewall {
-      resources { 'firewall':
-        purge => true
+    if $::osfamily == 'FreeBSD' {
+    } else {
+      if $purge_firewall {
+        resources { 'firewall':
+          purge => true
+        }
       }
+      include ::firewall
+      include ::profile::firewall::pre
+      include ::profile::firewall::post
+      include ::profile::firewall
     }
-    include ::firewall
-    include ::profile::firewall::pre
-    include ::profile::firewall::post
-    include ::profile::firewall
   }
 }

@@ -96,6 +96,7 @@ common_config()
   # Save CentOS mirror ids
   medium_id_1=$(/bin/hammer --csv medium info --name 'CentOS mirror' | tail -n1 | cut -d, -f1)
   medium_id_2=$(/bin/hammer --csv medium info --name 'CentOS download.iaas.uio.no' | tail -n1 | cut -d, -f1)
+  freebsd_medium_id_1=$(/bin/hammer --csv medium info --name 'FreeBSD mirror' | tail -n1 | cut -d, -f1)
 
   # Sync our custom provision templates
   /sbin/foreman-rake templates:sync \
@@ -104,11 +105,16 @@ common_config()
   norcams_provision_id=$(/bin/hammer --csv template list --per-page 1000 | grep 'norcams Kickstart default' | cut -d, -f1)
   norcams_pxelinux_id=$(/bin/hammer --csv template list --per-page 1000 | grep 'norcams PXELinux default' | cut -d, -f1)
   norcams_ptable_id=$(/bin/hammer --csv partition-table list --per-page 1000 | grep 'norcams ptable default' | cut -d, -f1)
+  freebsd_provision_id=$(/bin/hammer --csv template list --per-page 1000 | grep 'Community FreeBSD' | grep 'provision' | cut -d, -f1)
+  freebsd_pxelinux_id=$(/bin/hammer --csv template list --per-page 1000 | grep 'Community FreeBSD' | grep 'PXELinux' | cut -d, -f1)
+  freebsd_finish_id=$(/bin/hammer --csv template list --per-page 1000 | grep 'Community FreeBSD' | grep 'finish' | cut -d, -f1)
+  freebsd_ptable_id=$(/bin/hammer --csv partition-table list --per-page 1000 | grep 'FreeBSD,Freebsd' | cut -d, -f1)
 
   # Associate partition template with Redhat family of OSes
   /bin/hammer partition-table update --id $norcams_ptable_id --os-family Redhat
+  /bin/hammer partition-table update --id $freebsd_ptable_id --os-family Freebsd
 
-  # Create and update OS (we assume OS id is 1 for now)
+  # Create and update OS
   /bin/hammer os create --name CentOS --major 7 || true
   centos_os=$(/bin/hammer --csv os list --per-page 1000 | grep 'CentOS 7.3' | cut -d, -f1)
   /bin/hammer os update --id $centos_os --name CentOS --major 7 \
@@ -122,6 +128,24 @@ common_config()
   /bin/hammer template update --id $norcams_pxelinux_id --operatingsystem-ids $centos_os
   /bin/hammer os set-default-template --id $centos_os --config-template-id $norcams_provision_id
   /bin/hammer os set-default-template --id $centos_os --config-template-id $norcams_pxelinux_id
+
+  # Add FreeBSD and new arch
+  /bin/hammer architecture create --name amd64 || true
+  freebsd_arch=$(/bin/hammer --csv architecture list | grep 'amd64' | cut -d, -f1)
+  /bin/hammer os create --name FreeBSD --major 11 --minor 0 || true
+  freebsd_os=$(/bin/hammer --csv os list --per-page 1000 | grep 'FreeBSD 11' | cut -d, -f1)
+  /bin/hammer os update --id $freebsd_os --name FreeBSD --major 11 \
+    --description "FreeBSD 11.0" \
+    --family Freebsd \
+    --architecture-ids $freebsd_arch \
+    --medium-ids ${freebsd_medium_id_1} \
+    --partition-table-ids $freebsd_ptable_id
+  /bin/hammer template update --id $freebsd_provision_id --operatingsystem-ids $freebsd_os
+  /bin/hammer template update --id $freebsd_pxelinux_id --operatingsystem-ids $freebsd_os
+  /bin/hammer template update --id $freebsd_finish_id --operatingsystem-ids $freebsd_os
+  /bin/hammer os set-default-template --id $freebsd_os --config-template-id $freebsd_provision_id
+  /bin/hammer os set-default-template --id $freebsd_os --config-template-id $freebsd_pxelinux_id
+  /bin/hammer os set-default-template --id $freebsd_os --config-template-id $freebsd_finish_id
 
   # Create Puppet environment
   /bin/hammer environment create --name production || true
@@ -149,6 +173,19 @@ common_config()
   /bin/hammer hostgroup set-parameter --hostgroup compute \
      --name installdevice \
      --value sda
+  # Create a hostgroup for FreeBSD nodes
+  /bin/hammer hostgroup create --name freebsd-nat --parent base || true
+  /bin/hammer hostgroup update --name freebsd-nat \
+    --architecture amd64 \
+    --domain-id $foreman_domain_id \
+    --operatingsystem-id $freebsd_os \
+    --medium-id $freebsd_medium_id_1 \
+    --partition-table-id $freebsd_ptable_id \
+    --subnet-id $foreman_subnet_id \
+    --puppet-proxy-id $foreman_proxy_id \
+    --puppet-ca-proxy-id $foreman_proxy_id \
+    --environment production
+
   #
   # Foreman global settings
   #

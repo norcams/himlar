@@ -105,6 +105,7 @@ quagga::quagga::bgp_neighbor_groups:
       - 'route-map rr-client-allow in'
       - 'bfd'
     'members':
+      - '172.30.0.26'
       - '172.30.0.103'
       - '172.30.0.104'
       - '172.30.0.105'
@@ -123,11 +124,11 @@ quagga::quagga::bgp_neighbor_groups:
 quagga::quagga::bgp_accesslist:
   '10':
     - 'permit 129.177.31.0 0.0.0.255'
-    - 'permit 10.17.0.0 0.0.15.255'
+    - 'permit 10.0.250.0 0.0.0.255'
     - 'permit 172.30.0.0 0.0.0.255'
   '20':
     - 'deny 129.177.31.0 0.0.0.255'
-    - 'deny 10.17.0.0 0.0.15.255'
+    - 'deny 10.0.250.0 0.0.0.255'
     - 'deny 172.30.0.0 0.0.0.255'
     - 'permit any'
 

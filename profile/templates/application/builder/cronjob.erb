@@ -1,24 +1,46 @@
-#!/bin/sh
+#!/bin/bash
 set -euxo pipefail
 
 . <%= @rc_file %>
 
-export IB_TEMPLATE_DIR=<%= @template_dir %>
-export IB_DOWNLOAD_DIR=<%= @download_dir %>
+# FIXME: Debug user
+touch /tmp/$(date +"%Y-%m-%d_%H%M")
+
+# Hack to find packer in /usr/bin/ when run as root
+export PATH=/usr/bin:/usr/local/bin:/bin:/usr/local/sbin:/usr/sbin
 
 /opt/imagebuilder/bin/imagebuilder bootstrap \
 -a <%= @az %> \
 -u <%= @url -%><%= @latest %> \
 -c <%= @url -%><%= @checksum_file %> \
 -t <%= @checksum %> \
--n <%= @image_name %>
+-n '<%= @image_name %>' \
 -r <%= @min_ram %> \
 -d <%= @min_disk %> \
 -f qcow2 \
 | /usr/bin/xargs -I % \
 /opt/imagebuilder/bin/imagebuilder build \
--n <%= @image_name %> \
+-n '<%= @name %>' \
 -s % \
 -a <%= @az %> \
 -u <%= @username %> \
--d
+-f <%= @flavor %> \
+-d \
+-x \
+-v \
+--debug
+
+# Compress image
+filename=/opt/images/public_builds/<%= @name %>-$(date +"%Y%m%d").qcow2
+tmp_file=/opt/images/public_builds/<%= @name %>.tmp
+
+if [ $(which qemu-img) ]; then
+  mv -f ${filename} ${tmp_file}
+  qemu-img convert -O qcow2 -c ${tmp_file} ${filename}
+  rm -f ${tmp_file}
+fi
+
+# Create latest symlink
+ln -srf ${filename} /opt/images/public_builds/<%= @name %>-latest.qcow2
+
+# FIXME remove old images

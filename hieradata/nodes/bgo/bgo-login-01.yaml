@@ -12,7 +12,7 @@ network::interfaces_hash:
     onboot:       'yes'
     dns1:         '129.177.6.54'
     dns2:         "%{hiera('netcfg_dns_server2')}"
-    domain:       "%{hiera('netcfg_dns_search')} mgmt.test.iaas.intern"
+    domain:       "%{hiera('netcfg_dns_search')} mgmt.test01.uhdc.no"
     peerdns:      'yes'
   'eth2:1':
     ipaddress:    '10.17.0.10'

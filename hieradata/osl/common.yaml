@@ -23,6 +23,14 @@ netcfg_trp_netmask:       '255.255.248.0'
 netcfg_dns_server1:       '172.16.32.12'
 netcfg_dns_server2:       '129.240.2.40'
 netcfg_dns_search:        "%{hiera('domain_mgmt')} %{hiera('domain_trp')}"
+netcfg_priv_gateway:      '172.18.32.26'
+netcfg_priv_network:      '10.2.0.0/20'
+netcfg_pub_natgw:         '158.37.63.248'
+netcfg_trp_rr:
+  rr1:
+    peer_ipv4: '172.18.0.1'
+  rr2:
+    peer_ipv4: '172.18.0.2'
 
 #
 # Public addresses (bgo host uh-iaas.no frontend)

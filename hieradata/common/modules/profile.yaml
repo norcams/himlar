@@ -190,7 +190,7 @@ profile::base::yumrepo::repo_hash:
     baseurl:        "%{hiera('yum_base_mirror')}/curator/"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/GPG-KEY-elasticsearch"
+    gpgkey:         "%{hiera('yum_base_mirror')}/curator/GPG-KEY-elasticsearch"
   foreman:
     ensure:         absent
     descr:          'Foreman repo'

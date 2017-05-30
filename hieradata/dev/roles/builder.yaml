@@ -1,2 +1,24 @@
 ---
-profile::application::builder::az:  'test01-default-1'
+profile::application::builder::insecure:  true
+profile::application::builder::flavor:    'm1.tiny' #only cirros
+profile::application::builder::images:
+  'cirros':
+    'image_name':       'IMAGEBUILDER CirrOS'
+    'url':              'http://download.cirros-cloud.net/0.3.4/'
+    'latest':           'cirros-0.3.4-x86_64-disk.img'
+    'checksum_file':    'MD5SUMS'
+    'checksum':         'md5'
+    'min_ram':          256
+    'min_disk':         1
+    'username':         'cirros'
+    'path':             'hourly'
+  'centos6':
+    'ensure':           'absent'
+  'centos7':
+    'ensure':           'absent'
+  'fedora_25':
+    'ensure':           'absent'
+  'ubuntu_1604':
+    'ensure':           'absent'
+  'debian8':
+    'ensure':           'absent'

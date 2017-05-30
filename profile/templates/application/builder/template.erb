@@ -1,0 +1,29 @@
+{
+  "builders": [{
+    "type": "openstack",
+      "image_name": "{{user `image_name`}}",
+      "source_image": "{{user `source_image`}}",
+      "flavor": "{{user `flavor`}}",
+      "tenant_name": "imagebuilder",
+      "domain_name": "Default",
+<% if @insecure -%>
+      "insecure": "true",
+<% end -%>
+      "security_groups": "{{user `security_group`}}",
+      "ssh_username": "{{user `ssh_username`}}",
+      "ssh_keypair_name": "{{user `ssh_keypair_name`}}",
+      "ssh_private_key_file": "{{user `ssh_key_path`}}",
+      "ssh_pty": "true",
+      "availability_zone": "{{user `availability_zone`}}"
+  }],
+  "post-processors": [{
+    "type": "manifest",
+    "output": "{{user `manifest_path`}}"
+  }],
+  "provisioners": [{
+    "scripts": [
+      "/opt/imagebuilder/scripts/fstrim.sh"
+    ],
+    "type": "shell"
+  }]
+}

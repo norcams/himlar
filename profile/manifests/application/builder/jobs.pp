@@ -9,6 +9,7 @@ define profile::application::builder::jobs(
     $username,
     $ensure        = present,
     $path          = 'weekly',
+    $flavor        = $profile::application::builder::flavor,
     $az            = $profile::application::builder::real_az,
     $user          = $profile::application::builder::user,
     $group         = $profile::application::builder::group,
@@ -21,6 +22,7 @@ define profile::application::builder::jobs(
     ensure  => $ensure,
     content => template("${module_name}/application/builder/cronjob.erb"),
     owner   => $user,
-    group   => $group
+    group   => $group,
+    mode    => '0755'
   }
 }

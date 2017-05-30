@@ -24,7 +24,12 @@ netcfg_public_netmask:  '255.255.255.0'
 netcfg_dns_server1:     '172.31.0.1'
 netcfg_dns_server2:     '8.8.8.8'
 netcfg_dns_search:      "%{hiera('domain_mgmt')} %{hiera('domain_trp')}"
-
+netcfg_priv_gateway:    '172.31.16.26'
+netcfg_priv_network:    '10.0.252.0/24'
+netcfg_pub_natgw:       '172.31.24.248'
+netcfg_trp_rr:
+  rr1:
+    peer_ipv4: '172.31.16.1'
 
 #
 # Services (internal non openstack services)
@@ -158,7 +163,7 @@ nova::api::neutron_metadata_proxy_shared_secret:    'a_secret'
 nova::rabbit_password:                              'nova_quest'
 
 # imagebuilder
-profile::openstack::resource::imagebuilder::password: 'imagebuilder_pass'
+imagebuilder_password:                              'imagebuilder_pass'
 
 # sensu.yaml
 sensu::rabbit_password:                             'sensu_guest'
