@@ -44,15 +44,6 @@ profile::application::builder::template_dir:  '/etc/imagebuilder'
 profile::application::builder::download_dir:  '/opt/images/public_builds'
 profile::application::builder::rc_file:       '/home/imagebuilder/openrc'
 profile::application::builder::images:
-  'cirros':
-    'image_name':       'IMAGEBUILDER CirrOS'
-    'url':              'http://download.cirros-cloud.net/0.3.5/'
-    'latest':           'cirros-0.3.5-x86_64-disk.img'
-    'checksum_file':    'MD5SUMS'
-    'checksum':         'md5'
-    'min_ram':          256
-    'min_disk':         1
-    'username':         'cirros'
   'centos6':
     'image_name':       'IMAGEBUILDER CentOS 6'
     'url':              'http://cloud.centos.org/centos/6/images/'
