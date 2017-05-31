@@ -137,8 +137,16 @@ profile::base::yumrepo::repo_hash:
   ceph-jewel:
     ensure: present
 
-# Compute nodes need only cinder keys
+# Compute nodes need only admin and cinder keys
 ceph::profile::params::client_keys:
+  'client.admin':
+    secret: "%{hiera('client.admin::secret')}"
+    mode: '0600'
+    user: 'ceph'
+    group: 'ceph'
+    cap_mon: 'allow *'
+    cap_osd: 'allow *'
+    cap_mds: 'allow *'
   'client.cinder':
     secret: "%{hiera('client.cinder::secret')}"
     mode: '0600'
