@@ -5,3 +5,14 @@ network::interfaces_hash:
     netmask:   '255.255.255.0'
     gateway:   '172.28.32.10'
     mtu:       '1500'
+  'eth1':
+    ipaddress: '172.30.32.15'
+    netmask:   '255.255.255.0'
+    gateway:   '172.30.32.10'
+    mtu:       '1500'
+profile::base::network::routes:
+  'eth1':
+    'ipaddress': [ '10.100.200.0', ]
+    'netmask':   [ '255.255.255.0', ]
+    'gateway':   [ '172.30.32.1', ]
+    'table':     [ 'main', ]
