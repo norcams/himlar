@@ -113,26 +113,7 @@ named_interfaces::config:
   service: #FIXME
     - team1
 
-
 sudo::purge: false
-
-accounts::users:
-  'cinder':
-    ensure: present
-  'glance':
-    ensure: present
-
-accounts::usergroups:
-  'cinder':
-    - 'cinder'
-  'glance':
-    - 'glance'
-
-accounts::accounts:
-  'cinder':
-    ensure: present
-  'glance':
-    ensure: present
 
 profile::base::lvm::physical_volume:
   '/dev/sda3':
@@ -157,3 +138,21 @@ profile::base::yumrepo::repo_hash:
     exclude: 'calico-dhcp-agent' #FIXME
   ceph-jewel:
     ensure: present
+
+# Compute nodes need only admin and cinder keys
+ceph::profile::params::client_keys:
+  'client.admin':
+    secret: "%{hiera('client.admin::secret')}"
+    mode: '0600'
+    user: 'ceph'
+    group: 'ceph'
+    cap_mon: 'allow *'
+    cap_osd: 'allow *'
+    cap_mds: 'allow *'
+  'client.cinder':
+    secret: "%{hiera('client.cinder::secret')}"
+    mode: '0600'
+    user: 'nova'
+    group: 'nova'
+    cap_mon: 'allow r'
+    cap_osd: 'allow class-read object_prefix rbd_children, allow rwx pool=volumes, allow rwx pool=vms, allow rwx pool=images'
