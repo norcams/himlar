@@ -12,7 +12,7 @@ class profile::openstack::resource::imagebuilder(
     keystone_user { $user:
       ensure   => $ensure,
       enabled  => true,
-      password => 'imagebuilder_pass'
+      password => $password
     } ->
     keystone_tenant { $project:
       ensure      => $ensure,

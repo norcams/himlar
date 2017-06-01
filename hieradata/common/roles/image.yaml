@@ -12,21 +12,19 @@ profile::openstack::openrc::password:     "%{hiera('glance_api_password')}"
 profile::openstack::openrc::username:     'glance'
 profile::openstack::openrc::project_name: 'services'
 
-accounts::users:
-  'cinder':
-    ensure: present
-
-accounts::usergroups:
-  'cinder':
-    - 'cinder'
-
-accounts::accounts:
-  'cinder':
-    ensure: present
-
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   rdo-release:
     ensure: present
   ceph-jewel:
     ensure: present
+
+# Image nodes need only glance key
+ceph::profile::params::client_keys:
+  'client.glance':
+    secret: "%{hiera('client.glance::secret')}"
+    mode: '0600'
+    user: 'glance'
+    group: 'glance'
+    cap_mon: 'allow r'
+    cap_osd: 'allow class-read object_prefix rbd_children, allow rwx pool=images'
