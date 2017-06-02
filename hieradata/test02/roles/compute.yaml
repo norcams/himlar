@@ -39,3 +39,5 @@ profile::base::network::rules:
 
 ################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
 calico::compute::bird_template: 'profile/bird/bird.conf.erb'
+
+nova::debug: true
