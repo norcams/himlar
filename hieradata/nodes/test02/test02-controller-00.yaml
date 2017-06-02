@@ -71,10 +71,10 @@ network::mroutes_hash:
     routes:
       10.100.200.0/24:  172.30.32.1
 
-################ TEMP DATA - SHALL BE FIXED IN COMMON #########################
-
 named_interfaces::config:
   mgmt:
-     - br0
+    - br0
   trp:
-     - br1
+    - br1
+  public:
+    - em4
