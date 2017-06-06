@@ -133,7 +133,7 @@ profile::base::lvm::logical_volume:
 profile::base::yumrepo::repo_hash:
   rdo-release:
     ensure: present
-  calico:
+  calico22:
     ensure: present
     exclude: 'calico-dhcp-agent' #FIXME
   ceph-jewel:
