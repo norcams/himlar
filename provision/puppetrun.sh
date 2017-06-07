@@ -1,11 +1,16 @@
 #!/bin/bash
 
+if command -v pkg >/dev/null 2>&1; then
+  # Directory prefix for FreeBSD
+  PUPPET_PREFIX=/usr/local
+fi
+
 set_certname()
 {
   # Set default certname
   certname="vagrant-base-dev.himlar.local"
   # Use certname from puppet.conf if it is present
-  grep -q certname /etc/puppet/puppet.conf && certname="$(puppet config print certname)"
+  grep -q certname $PUPPET_PREFIX/etc/puppet/puppet.conf && certname="$(puppet config print certname)"
   # Override with certname from env var if present
   certname="${HIMLAR_CERTNAME:-$certname}"
 }
@@ -31,9 +36,9 @@ puppetrun()
     --trusted_node_data \
     --no-stringify_facts \
     --write-catalog-summary \
-    --basemodulepath /opt/himlar/modules:/etc/puppet/modules \
+    --basemodulepath /opt/himlar/modules:$PUPPET_PREFIX/etc/puppet/modules \
     ${p_args[*]} \
-    /etc/puppet/manifests/site.pp
+    $PUPPET_PREFIX/etc/puppet/manifests/site.pp
 }
 
 # Source command line options as env vars
