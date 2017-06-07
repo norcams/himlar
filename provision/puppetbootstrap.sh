@@ -80,6 +80,8 @@ bootstrap_puppet()
     # FreeBSD
     pkg install -y puppet38 git rubygem-deep_merge rubygem-puppet-lint bash
     ln -s /usr/local/bin/bash /bin/bash
+    # FreeBSD spesific use
+    gem install ipaddress
   fi
 
   gem install r10k --no-ri --no-rdoc
