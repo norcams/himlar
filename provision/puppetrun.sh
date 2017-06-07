@@ -28,6 +28,13 @@ bootstraprun()
       rm -fv /opt/himlar/bootstrap
     fi
   fi
+
+  # Manually restart FreeBSD interfaces
+  if command -v pkg >/dev/null 2>&1; then
+    service netif restart vtnet1
+    service netif restart vtnet2
+    service netif restart tap0
+  fi
 }
 
 puppetrun()
