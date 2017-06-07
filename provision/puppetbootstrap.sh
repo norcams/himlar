@@ -64,7 +64,6 @@ bootstrap_puppet()
     yum -y update
     yum install -y puppet facter rubygems rubygem-deep_merge \
       rubygem-puppet-lint git vim inotify-tools
-    REPORT_DIR=/var/lib/puppet/state
   fi
 
   if command -v apt-get >/dev/null 2>&1; then
@@ -75,14 +74,12 @@ bootstrap_puppet()
     apt-get update && apt-get -y install puppet git ruby-deep-merge ruby-puppet-lint
     # FIXME adding wheel group here temporarily
     groupadd --system wheel
-    REPORT_DIR=/var/lib/puppet/state
   fi
 
   if command -v pkg >/dev/null 2>&1; then
     # FreeBSD
     pkg install -y puppet38 git rubygem-deep_merge rubygem-puppet-lint bash
     ln -s /usr/local/bin/bash /bin/bash
-    REPORT_DIR=/var/puppet/state
   fi
 
   gem install r10k --no-ri --no-rdoc
@@ -90,5 +87,11 @@ bootstrap_puppet()
   # Let puppetrun.sh pick up that we are now in bootstrap mode
   touch /opt/himlar/bootstrap && echo "Created bootstrap marker: /opt/himlar/bootstrap"
 }
+
+if command -v pkg >/dev/null 2>&1; then
+  REPORT_DIR=/var/puppet/state
+else
+  REPORT_DIR=/var/lib/puppet/state
+fi
 
 grep --quiet --silent profile $REPORT_DIR/last_run_report.yaml || bootstrap_puppet
