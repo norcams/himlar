@@ -3,6 +3,8 @@
 if command -v pkg >/dev/null 2>&1; then
   # Directory prefix for FreeBSD
   PUPPET_PREFIX=/usr/local
+  # FreeBSD needs extra symlink
+  ln -s /usr/local/etc/puppet/hieradata/ /etc/puppet/hieradata
 fi
 
 set_certname()
