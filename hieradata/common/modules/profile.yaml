@@ -142,6 +142,13 @@ profile::base::yumrepo::repo_hash:
     enabled:        1
     gpgcheck:       1
     gpgkey:         "%{hiera('yum_base_mirror')}/calico/key"
+  calico22:
+    ensure:         absent
+    descr:          'Calico22 Repository'
+    baseurl:        "%{hiera('yum_base_mirror')}/calico22/"
+    enabled:        1
+    gpgcheck:       1
+    gpgkey:         "%{hiera('yum_base_mirror')}/calico22/key"
   ceph:
     ensure:         absent
     descr:          'Ceph packages'
