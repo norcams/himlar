@@ -1,22 +1,30 @@
 #!/bin/bash
 
+if command -v pkg >/dev/null 2>&1; then
+  # Directory prefix for FreeBSD
+  PUPPET_PREFIX=/usr/local
+  LN_OPTS="-sf"
+else
+  LN_OPTS="-sfT"
+fi
+
 provision_from_puppetfile()
 {
   # MIGRATION: remove old symlink if it is present
   test -L /etc/puppet/manifests && rm -f /etc/puppet/manifests
   # ensure file locations are correct
   mkdir -p /etc/puppet/manifests
-  ln -sfT /opt/himlar/manifests/site.pp /etc/puppet/manifests/site.pp
-  ln -sfT /opt/himlar/hieradata /etc/puppet/hieradata
-  ln -sfT /opt/himlar/hiera.yaml /etc/puppet/hiera.yaml
-  ln -sfT /etc/puppet/hiera.yaml /etc/hiera.yaml
+  ln $LN_OPTS /opt/himlar/manifests/site.pp $PUPPET_PREFIX/etc/puppet/manifests/site.pp
+  ln $LN_OPTS /opt/himlar/hieradata $PUPPET_PREFIX/etc/puppet/hieradata
+  ln $LN_OPTS /opt/himlar/hiera.yaml $PUPPET_PREFIX/etc/puppet/hiera.yaml
+  ln $LN_OPTS /etc/puppet/hiera.yaml $PUPPET_PREFIX/etc/hiera.yaml
 
   export PUPPETFILE=/opt/himlar/Puppetfile
-  export PUPPETFILE_DIR=/etc/puppet/modules
+  export PUPPETFILE_DIR=$PUPPET_PREFIX/etc/puppet/modules
   cd /opt/himlar && /usr/local/bin/r10k --verbose 4 puppetfile purge
   cd /opt/himlar && /usr/local/bin/r10k --verbose 4 puppetfile install
   # link in profile module after running r10k
-  ln -sf /opt/himlar/profile /etc/puppet/modules/
+  ln -sf /opt/himlar/profile $PUPPET_PREFIX/etc/puppet/modules/
 }
 
 override_modules()
@@ -24,11 +32,11 @@ override_modules()
   # remove modules that exists in /opt/himlar/modules
   for m in $opt_himlar_modules; do
     echo "WARNING: Module $m overrides Puppetfile"
-    rm -rf /etc/puppet/$(echo ${m#/opt/himlar/}) 2>/dev/null
+    rm -rf $PUPPET_PREFIX/etc/puppet/$(echo ${m#/opt/himlar/}) 2>/dev/null
   done
 }
 
-etc_puppet_modules="$(ls -d /etc/puppet/modules/*/ 2>/dev/null)"
+etc_puppet_modules="$(ls -d $PUPPET_PREFIX/etc/puppet/modules/*/ 2>/dev/null)"
 opt_himlar_modules="$(ls -d /opt/himlar/modules/*/ 2>/dev/null)"
 
 # Source command line options as env vars
