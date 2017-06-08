@@ -15,7 +15,7 @@ mod 'timezone', :ref => 'v3.4.0',                :git => github + 'saz/puppet-ti
 mod 'debconf', :ref => 'v2.0.0',                 :git => github + 'smoeding/puppet-debconf'
 mod 'keyboard', :ref => '0.1.0',                 :git => github + 'norcams/puppet-keyboard'
 mod 'hostname', :ref => '0.0.2',                 :git => github + 'peopleware/puppet-hostname'
-mod 'resolv_conf', :ref => 'v3.0.3',             :git => github + 'saz/puppet-resolv_conf'
+mod 'resolv_conf', :ref => 'v3.1.0',             :git => github + 'saz/puppet-resolv_conf'
 mod 'lvm', :ref => '689d42a16c',                 :git => github + 'puppetlabs/puppetlabs-lvm'
 mod 'firewall', :ref => '1.8.2',                 :git => github + 'puppetlabs/puppetlabs-firewall'
 mod 'kmod', :ref => '2.1.0',                     :git => github + 'camptocamp/puppet-kmod'
@@ -28,7 +28,6 @@ mod 'apt', :ref => '2.2.2',                      :git => github + 'puppetlabs/pu
 # FreeBSD spesific
 #
 mod 'bsd', :ref => '209a74375d',                 :git => github + 'norcams/puppet-bsd'
-mod 'resolv_conf', :ref => 'v3.1.0',             :git => github + 'saz/puppet-resolv_conf'
 
 #
 # profile::base::login
@@ -49,7 +48,6 @@ mod 'dnsmasq', :ref => 'v1.2.0',                 :git => github + 'saz/puppet-dn
 mod 'ipcalc', :ref => '1.2.2',                   :git => github + 'inkblot/puppet-ipcalc'
 mod 'tinyproxy', :ref => 'bc56e3ecc2',           :git => github + 'earsdown/puppet-tinyproxy'
 mod 'interfaces', :ref => '1.2.2',               :git => github + 'CumulusNetworks/cumulus-cl-interfaces-puppet'
-mod 'ipcalc', :ref => '1.2.2',                   :git => github + 'inkblot/puppet-ipcalc'
 
 #
 # profile::application::etcd
