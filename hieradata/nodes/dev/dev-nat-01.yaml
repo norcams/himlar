@@ -1,0 +1,13 @@
+---
+network::interfaces_hash:
+  'vtnet1':
+    description: 'Management Interface'
+    addresses:   [ "%{hiera('netcfg_mgmt_netpart')}.26/%{hiera('netcfg_mgmt_netmask')}", ]
+  'vtnet2':
+    description: 'Transport Interface'
+    addresses:   [ "%{hiera('netcfg_trp_netpart')}.26/%{hiera('netcfg_trp_netmask')}", ]
+  'tap0':
+    description: 'Public Interface'
+    addresses:   [ "%{hiera('netcfg_pub_natgw')}/32", ]
+
+resolv_conf::nameservers: [ "%{hiera('netcfg_dns_server1')}", "%{hiera('netcfg_dns_server2')}", ]
