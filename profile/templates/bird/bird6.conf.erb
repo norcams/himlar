@@ -33,6 +33,10 @@ protocol kernel {
   export all;     # Default is export none
 }
 
+protocol bfd {
+<% scope.function_hiera(['netcfg_trp_rr']).each do |name| %><%if name[1]['peer_ipv6'] %>  neighbor <%= name[1]['peer_ipv6'] %>;
+<% end %><% end %>}
+
 # Watch interface up/down events.
 protocol device {
   scan time 2;    # Scan interfaces every 2 seconds
