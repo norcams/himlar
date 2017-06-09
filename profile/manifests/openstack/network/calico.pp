@@ -49,7 +49,6 @@ class profile::openstack::network::calico(
     profile::firewall::rule { '912 bird allow bfd':
       proto  => 'udp',
       port   => ['3784','3785','4784','4785'],
-      source => hiera('netcfg_trp_gateway')
     }
     # Per https://github.com/projectcalico/calico/blob/master/rpm/calico.spec#L43-L48
     profile::firewall::rule { '911 calico - mangle checksum for dhcp':
