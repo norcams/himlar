@@ -34,7 +34,7 @@ profile::network::leaf::acls:
     rule_vars:
       - "INGRESS_CHAIN = INPUT"
     iptables:
-      - "-A $INGRESS_CHAIN ! -s %{hiera('netcfg_mgmt_netpart')}.0/%{hiera('netcfg_mgmt_netmask')} -p tcp --dport 179 -j DROP"
+      - "-A $INGRESS_CHAIN ! -s %{hiera('netcfg_trp_netpart')}.0/%{hiera('netcfg_trp_netmask')} -p tcp --dport 179 -j DROP"
       - "-A $INGRESS_CHAIN -s %{hiera('netcfg_mgmt_netpart')}.0/%{hiera('netcfg_mgmt_netmask')} -p tcp --dport 22 -j ACCEPT"
       - "-A $INGRESS_CHAIN -s %{hiera('netcfg_trp_netpart')}.0/%{hiera('netcfg_trp_netmask')} -p tcp --dport 22 -j ACCEPT"
       - "-A $INGRESS_CHAIN -p tcp --dport 22 -j DROP"
