@@ -10,3 +10,8 @@ network::interfaces_hash:
     domain:    "%{hiera('netcfg_dns_search')}"
     defroute:  'yes'
     peerdns:   'yes'
+  'eth1':
+    defroute:  'no'
+    onboot:    'yes'
+    ipaddress: "%{hiera('netcfg_trp_netpart')}.15"
+    netmask:   "%{hiera('netcfg_trp_netmask')}"

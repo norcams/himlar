@@ -131,7 +131,7 @@ profile::base::yumrepo::repo_hash:
   rdo-release:
     ensure:         absent
     descr:          "OpenStack %{hiera('openstack_version')} repository"
-    baseurl:        "%{hiera('yum_base_mirror')}/rdo-release/"
+    baseurl:        "%{hiera('yum_base_mirror')}/rdo-%{hiera('openstack_version')}/"
     enabled:        1
     gpgcheck:       1
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Cloud'
