@@ -52,6 +52,11 @@ class profile::application::builder (
     managehome => true,
     gid        => $group,
     before     => Class['profile::openstack::openrc']
+  } ->
+  file { "/home/${user}/build_scripts":
+    ensure => directory,
+    owner  => $user,
+    group  => $group
   }
 
   create_resources('profile::application::builder::jobs', hiera_hash('profile::application::builder::images', {}))
