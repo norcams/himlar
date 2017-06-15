@@ -20,3 +20,15 @@ profile::openstack::resource::subnets:
       - '129.240.2.3'
     network_name: 'public'
     tenant_name: 'openstack'
+  public2:
+    name: 'public2'
+    cidr: '158.39.75.0/24'
+    ip_version: '4'
+    allocation_pools:
+      - 'start=158.39.75.2,end=158.39.75.245'
+    gateway_ip: '158.39.75.1'
+    dns_nameservers:
+      - '129.240.2.40'
+      - '129.240.2.3'
+    network_name: 'public'
+    tenant_name: 'openstack'

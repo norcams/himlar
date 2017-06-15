@@ -134,6 +134,7 @@ quagga::quagga::zebra_ip_routes:
   - '158.37.63.252/32 172.18.32.56'
   - '158.37.63.253/32 172.18.32.12'
   - '158.37.63.254/32 172.18.32.51'
+  - '158.39.75.0/24 Null0'
 
 quagga::quagga::zebra_generic_options:
   'ip':
@@ -179,10 +180,12 @@ quagga::quagga::bgp_neighbor_groups:
 quagga::quagga::bgp_accesslist:
   '10':
     - 'permit 158.37.63.0 0.0.0.255'
+    - 'permit 158.39.75.0 0.0.0.255'
     - 'permit 10.2.0.0 0.0.15.255'
     - 'permit 172.18.32.0 0.0.0.255'
   '20':
     - 'deny 158.37.63.0 0.0.0.255'
+    - 'deny 158.39.75.0 0.0.0.255'
     - 'deny 10.2.0.0 0.0.15.255'
     - 'deny 172.18.32.0 0.0.0.255'
     - 'permit any'
