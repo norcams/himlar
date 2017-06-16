@@ -24,14 +24,12 @@ define profile::application::builder::jobs(
     group   => $group,
     mode    => '0755',
     require => File["/home/${user}/build_scripts"]
-  }
-
+  } ->
   cron { $name:
     ensure  => $ensure,
     command => "/home/${user}/build_scripts/${name}",
     user    => $user,
     weekday => 'Wednesday',
-    require => File["/home/${user}/build_scripts"]
   }
 
 }
