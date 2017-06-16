@@ -158,7 +158,7 @@ class profile::base::network(
     file { '/opt/rule-checks/':
       ensure  => directory,
     } ~>
-    file { "rule-rulecheck.sh":
+    file { "rule4-rulecheck.sh":
       ensure  => present,
       owner   => root,
       group   => root,
