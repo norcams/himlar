@@ -166,14 +166,6 @@ class profile::base::network(
       path    => "/opt/rule-checks/rule4-check.sh",
       content => template("${module_name}/network/rule4-rulecheck.erb"),
     } ~>
-    file { "rule-rulecheck.sh":
-      ensure  => present,
-      owner   => root,
-      group   => root,
-      mode    => '0755',
-      path    => "/opt/rule-checks/rule4-check.sh",
-      content => template("${module_name}/network/rule4-rulecheck.erb"),
-    } ~>
     file { "rule6-rulecheck.sh":
       ensure  => present,
       owner   => root,
