@@ -31,6 +31,7 @@ netcfg_pub_natgw:       '129.177.31.121'
 netcfg_trp_rr:
   rr1:
     peer_ipv4: '172.30.0.1'
+    peer_ipv6: 'fd00::1'
 
 #
 # DNS (merge of common and this)
@@ -92,3 +93,54 @@ profile::network::services::dhcp_reservation:
   test01-leaf-02:
     mac: '00:50:56:ae:4b:f6'
     ip:  '172.30.0.2'
+
+profile::openstack::resource::networks:
+  public:
+    name: 'public'
+    admin_state_up: true
+    shared: true
+    tenant_name: 'openstack'
+    provider_network_type: 'local'
+  private:
+    name: 'private'
+    admin_state_up: true
+    shared: true
+    tenant_name: 'openstack'
+    provider_network_type: 'local'
+
+profile::openstack::resource::subnets:
+  public:
+    name: 'public'
+    cidr: '129.177.31.64/27'
+    ip_version: '4'
+    allocation_pools:
+      - 'start=129.177.31.66,end=129.177.31.94'
+    gateway_ip: '129.177.31.65'
+    dns_nameservers:
+      - '129.177.6.54'
+      - '129.177.12.31'
+    network_name: 'public'
+    tenant_name: 'openstack'
+  private:
+    name: 'private'
+    cidr: '10.0.250.0/24'
+    ip_version: '4'
+    allocation_pools:
+      - 'start=10.0.250.10,end=10.0.250.250'
+    gateway_ip: '10.0.250.1'
+    dns_nameservers:
+      - '129.177.6.54'
+      - '129.177.12.31'
+    network_name: 'private'
+    tenant_name: 'openstack'
+  public_ipv6:
+    name: 'public_ipv6'
+    cidr: '2001:700:200:915::/64'
+    ip_version: '6'
+    allocation_pools:
+      - 'start=2001:700:200:915::1000,end=2001:700:200:915::1fff'
+    gateway_ip: '2001:700:200:915::1'
+    dns_nameservers:
+      - '2001:700:200:6::a1f:a1fa'
+    network_name: 'private'
+    tenant_name: 'openstack'

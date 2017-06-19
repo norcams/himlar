@@ -22,16 +22,27 @@ filter export_bgp {
   reject;
 }
 
+filter import_kernel {
+  if  (ifname ~ "tap*") || (net = ::/0) then {
+    accept;
+  }
+  reject;
+}
+
 # Configure synchronization between BIRD's routing tables and the
 # kernel.
 protocol kernel {
   learn;          # Learn all alien routes from the kernel
   persist;        # Don't remove routes on bird shutdown
   scan time 2;    # Scan kernel routing table every 2 seconds
-  import all;
+  import filter import_kernel;
   graceful restart;
   export all;     # Default is export none
 }
+
+protocol bfd {
+<% scope.function_hiera(['netcfg_trp_rr']).each do |name| %><%if name[1]['peer_ipv6'] %>  neighbor <%= name[1]['peer_ipv6'] %>;
+<% end %><% end %>}
 
 # Watch interface up/down events.
 protocol device {

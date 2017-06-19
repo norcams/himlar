@@ -12,6 +12,7 @@ class profile::base::network(
   $has_servicenet   = false,
   $cumulus_ifs      = false,
   $http_proxy_profile = '/etc/profile.d/proxy.sh',
+  $manage_neutron_blackhole = false,
   $manage_hostname  = false
 ) {
 
@@ -130,7 +131,72 @@ class profile::base::network(
   create_resources(network::mroute, hiera_hash('profile::base::network::mroute', {}))
   create_resources(network::routing_table, hiera_hash('profile::base::network::routing_tables', {}))
   create_resources(network::route, hiera_hash('profile::base::network::routes', {}))
-  create_resources(network::rule, hiera_hash('profile::base::network::rules', {}))
+    if $manage_neutron_blackhole != true {
+    create_resources(network::rule, hiera_hash('profile::base::network::rules', {}))
+  } else {
+    $named_interface_hash = hiera('named_interfaces::config')
+    $transport_if = $named_interface_hash[trp]
+    $rules_hash = hiera_hash('profile::base::network::rules')
+    $trp_rules = $rules_hash["${transport_if}"]['iprule']
+    $neutron_subnets = hiera('profile::openstack::resource::subnets')
+    file { "rule-${transport_if}":
+      ensure  => present,
+      owner   => root,
+      group   => root,
+      mode    => '0644',
+      path    => "/etc/sysconfig/network-scripts/rule-${transport_if}",
+      content => template("${module_name}/network/rule4-interface.erb"),
+    }
+    file { "rule6-${transport_if}":
+      ensure  => present,
+      owner   => root,
+      group   => root,
+      mode    => '0644',
+      path    => "/etc/sysconfig/network-scripts/rule6-${transport_if}",
+      content => template("${module_name}/network/rule6-interface.erb"),
+    }
+    file { '/opt/rule-checks/':
+      ensure  => directory,
+    } ~>
+    file { "rule4-rulecheck.sh":
+      ensure  => present,
+      owner   => root,
+      group   => root,
+      mode    => '0755',
+      path    => "/opt/rule-checks/rule4-check.sh",
+      content => template("${module_name}/network/rule4-rulecheck.erb"),
+    } ~>
+    file { "rule6-rulecheck.sh":
+      ensure  => present,
+      owner   => root,
+      group   => root,
+      mode    => '0755',
+      path    => "/opt/rule-checks/rule6-check.sh",
+      content => template("${module_name}/network/rule6-rulecheck.erb"),
+    } ~>
+    file { "rule4-enforce.sh":
+      ensure  => present,
+      owner   => root,
+      group   => root,
+      mode    => '0755',
+      path    => "/opt/rule-checks/rule4-enforce.sh",
+      content => template("${module_name}/network/rule4-enforce.erb"),
+    } ~>
+    file { "rule6-enforce.sh":
+      ensure  => present,
+      owner   => root,
+      group   => root,
+      mode    => '0755',
+      path    => "/opt/rule-checks/rule6-enforce.sh",
+      content => template("${module_name}/network/rule6-enforce.erb"),
+    } ~>
+    exec { '/opt/rule-checks/rule4-enforce.sh':
+      unless  => '/opt/rule-checks/rule4-check.sh',
+    } ->
+    exec { '/opt/rule-checks/rule6-enforce.sh':
+      unless  => '/opt/rule-checks/rule6-check.sh',
+    }
+  }
 
   if $manage_httpproxy {
     $ensure_value = $http_proxy ? {
