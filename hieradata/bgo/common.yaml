@@ -17,8 +17,11 @@ netcfg_mgmt_gateway:      '172.16.0.12'
 netcfg_mgmt_netpart:      '172.16.0'
 netcfg_mgmt_netmask:      '255.255.248.0'
 netcfg_trp_gateway:       '172.18.7.1'
+netcfg_trp_gateway6:      'fd00::1'
 netcfg_trp_netpart:       '172.18.0'
+netcfg_trp_netpart6:      'fd00'
 netcfg_trp_netmask:       '255.255.248.0'
+netcfg_trp_netmask6:      '64'
 #netcfg_dns_server1:       '129.177.6.54'
 netcfg_dns_server1:       '172.16.0.12'
 netcfg_dns_server2:       '129.177.12.31'
@@ -105,3 +108,37 @@ profile::network::services::dns_options:
       ttl: 3600
       keyfile: "/etc/rndc-%{location}.key"
       server: 'alfalfa.uib.no'
+
+profile::openstack::resource::networks:
+  public:
+    name: 'public'
+    admin_state_up: true
+    shared: true
+    tenant_name: 'openstack'
+    provider_network_type: 'local'
+
+profile::openstack::resource::subnets:
+  public:
+    name: 'public'
+    cidr: '158.39.77.0/24'
+    ip_version: '4'
+    allocation_pools:
+      - 'start=158.39.77.2,end=158.39.77.245'
+    gateway_ip: '158.39.77.1'
+    dns_nameservers:
+      - '129.177.6.54'
+      - '129.177.12.31'
+    network_name: 'public'
+    tenant_name: 'openstack'
+  public2:
+    name: 'public2'
+    cidr: '158.39.74.0/24'
+    ip_version: '4'
+    allocation_pools:
+      - 'start=158.39.74.2,end=158.39.74.245'
+    gateway_ip: '158.39.74.1'
+    dns_nameservers:
+      - '129.177.6.54'
+      - '129.177.12.31'
+    network_name: 'public'
+    tenant_name: 'openstack'

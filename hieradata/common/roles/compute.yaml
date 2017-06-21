@@ -52,7 +52,6 @@ profile::openstack::openrc::project_name: 'services'
 profile::openstack::network::plugin: calico
 
 profile::base::common::packages:
-  'posix-spawn': {}
   'networking-calico': {}
   'python-openstackclient': {}
   'gcc-c++': {}
