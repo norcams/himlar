@@ -18,6 +18,7 @@ profile::base::firewall::manage_firewall:         false
 profile::base::network::net_ifnames:              false
 profile::monitoring::sensu::agent::enable_agent:  false
 profile::network::leaf::manage_quagga:            true
+profile::network::leaf::manage_acls:              true
 profile::base::network::cumulus_ifs:              true
 network::config_file_per_interface:               true
 
@@ -27,6 +28,18 @@ quagga::single_config_file: true
 quagga::quagga::hostname:   'cumulus-test'
 quagga::quagga::password:   'pass123'
 quagga::quagga::bgp_as:     "%{hiera('bgp_as')}"
+
+profile::network::leaf::acls:
+  '02control_plane_custom.rules':
+    rule_vars:
+      - "INGRESS_CHAIN = INPUT"
+    iptables:
+      - "-A $INGRESS_CHAIN ! -s %{hiera('netcfg_trp_netpart')}.0/%{hiera('netcfg_trp_netmask')} -p tcp --dport 179 -j DROP"
+      - "-A $INGRESS_CHAIN -s %{hiera('netcfg_mgmt_netpart')}.0/%{hiera('netcfg_mgmt_netmask')} -p tcp --dport 22 -j ACCEPT"
+      - "-A $INGRESS_CHAIN -s %{hiera('netcfg_trp_netpart')}.0/%{hiera('netcfg_trp_netmask')} -p tcp --dport 22 -j ACCEPT"
+      - "-A $INGRESS_CHAIN -p tcp --dport 22 -j DROP"
+    ip6tables:
+      - "-A $INGRESS_CHAIN ! -s %{hiera('netcfg_trp_netpart6')}::/%{hiera('netcfg_trp_netmask6')} -p tcp -m multiport --dports 22,179 -j DROP"
 
 accounts::groups:
   'wheel':

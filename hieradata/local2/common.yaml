@@ -16,8 +16,11 @@ netcfg_trp_gateway: '172.31.13.1'
 netcfg_netpart_trp:     '172.31.13'
 netcfg_netmask_trp:     '255.255.255.0'
 netcfg_netpart_mgmt:    '172.31.5'
+netcfg_trp_gateway6:    'fd00::1'
 netcfg_netmask_mgmt:    '255.255.255.0'
+netcfg_trp_netpart6:    'fd00'
 netcfg_gateway_mgmt:    '172.31.5.10'
+netcfg_trp_netmask6:    '64'
 netcfg_netmask_public:  '255.255.255.0'
 netcfg_netpart_public:  '192.168.13'
 netcfg_peerdns1:        '172.31.5.11'
@@ -209,3 +212,25 @@ sensu_mysql_password:                               'sensu'
 
 # The root user password
 #accounts::root_user::password:                      '$6$qVzsC5fQMqdF4gKw$.zFAu9LtxSAaPgbtZul/ZXUXpBgjaVJbQ.CIMo9eo5TslU8KU1SO/tjRZbh1hFM6RB55QFEzJlF5ejAgglk50.'
+
+profile::openstack::resource::networks:
+  public:
+    name: 'public'
+    admin_state_up: true
+    shared: true
+    tenant_name: 'openstack'
+    provider_network_type: 'local'
+
+profile::openstack::resource::subnets:
+  public:
+    name: 'public'
+    cidr: "%{hiera('netcfg_netpart_public')}.0/24"
+    ip_version: '4'
+    allocation_pools:
+      - "start=%{hiera('netcfg_netpart_public')}.20,end=%{hiera('netcfg_netpart_public')}.180"
+    gateway_ip: "%{hiera('netcfg_netpart_public')}.1"
+    dns_nameservers:
+      - '129.177.6.54'
+      - '129.177.12.31'
+    network_name: 'public'
+    tenant_name: 'openstack'

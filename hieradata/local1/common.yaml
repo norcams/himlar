@@ -15,8 +15,11 @@ domain_mgmt:          'mgmt.local1.iaas.intern'
 netcfg_trp_netpart:     '172.31.12'
 netcfg_trp_netmask:     '255.255.255.0'
 netcfg_trp_gateway:     '172.31.12.1'
+netcfg_trp_gateway6:    'fd00::1'
 netcfg_mgmt_netpart:    '172.31.4'
+netcfg_trp_netpart6:    'fd00'
 netcfg_mgmt_netmask:    '255.255.255.0'
+netcfg_trp_netmask6:    '64'
 netcfg_mgmt_gateway:    '172.31.4.10'
 netcfg_public_netmask:  '255.255.255.0'
 netcfg_public_netpart:  '192.168.12'
@@ -137,3 +140,25 @@ grafana_admin_password:                             'changeme'
 
 # The root user password
 #accounts::root_user::password:                      '$6$qVzsC5fQMqdF4gKw$.zFAu9LtxSAaPgbtZul/ZXUXpBgjaVJbQ.CIMo9eo5TslU8KU1SO/tjRZbh1hFM6RB55QFEzJlF5ejAgglk50.'
+
+profile::openstack::resource::networks:
+  public:
+    name: 'public'
+    admin_state_up: true
+    shared: true
+    tenant_name: 'openstack'
+    provider_network_type: 'local'
+
+profile::openstack::resource::subnets:
+  public:
+    name: 'public'
+    cidr: "%{hiera('netcfg_public_netpart')}.0/24"
+    ip_version: '4'
+    allocation_pools:
+      - "start=%{hiera('netcfg_public_netpart')}.20,end=%{hiera('netcfg_public_netpart')}.180"
+    gateway_ip: "%{hiera('netcfg_public_netpart')}.1"
+    dns_nameservers:
+      - '129.177.6.54'
+      - '129.177.12.31'
+    network_name: 'public'
+    tenant_name: 'openstack'

@@ -16,20 +16,6 @@ ntp::servers:
 
 # Add custom routing table for private network to NAT
 profile::base::network::routes:
-  'eth0.100':
-    'ipaddress': [ '0.0.0.0', ]
-    'netmask':   [ '0.0.0.0', ]
-    'gateway':   [ "%{hiera('netcfg_priv_gateway')}", ]
-    'table':     [ 'private', ]
-profile::base::network::routing_tables:
-  'private':
-    'table_id':  '240'
-profile::base::network::rules:
-  'eth0.100':
-    iprule: [ "from %{hiera('netcfg_priv_network')} lookup private", ]
-
-# Add custom routing table for private network to NAT
-profile::base::network::routes:
   'bond0.912':
     'ipaddress': [ '0.0.0.0', ]
     'netmask':   [ '0.0.0.0', ]
@@ -41,3 +27,4 @@ profile::base::network::routing_tables:
 profile::base::network::rules:
   'bond0.912':
     iprule: [ "from %{hiera('netcfg_priv_network')} lookup private", ]
+profile::base::network::manage_neutron_blackhole: true

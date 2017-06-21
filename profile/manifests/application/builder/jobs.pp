@@ -8,7 +8,6 @@ define profile::application::builder::jobs(
     $min_disk,
     $username,
     $ensure        = present,
-    $path          = 'weekly',
     $flavor        = $profile::application::builder::flavor,
     $az            = $profile::application::builder::real_az,
     $user          = $profile::application::builder::user,
@@ -18,11 +17,19 @@ define profile::application::builder::jobs(
     $rc_file       = $profile::application::builder::rc_file
 ) {
 
-  file { "/etc/cron.${path}/${name}":
+  file { "/home/${user}/build_scripts/${name}":
     ensure  => $ensure,
-    content => template("${module_name}/application/builder/cronjob.erb"),
+    content => template("${module_name}/application/builder/build_script.erb"),
     owner   => $user,
     group   => $group,
-    mode    => '0755'
+    mode    => '0755',
+    require => File["/home/${user}/build_scripts"]
+  } ->
+  cron { $name:
+    ensure  => $ensure,
+    command => "/home/${user}/build_scripts/${name}",
+    user    => $user,
+    weekday => 'Wednesday',
   }
+
 }
