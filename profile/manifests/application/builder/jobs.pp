@@ -17,6 +17,8 @@ define profile::application::builder::jobs(
     $rc_file       = $profile::application::builder::rc_file
 ) {
 
+  $hour = fqdn_rand(23, $name)
+
   file { "/home/${user}/build_scripts/${name}":
     ensure  => $ensure,
     content => template("${module_name}/application/builder/build_script.erb"),
@@ -30,7 +32,7 @@ define profile::application::builder::jobs(
     command => "/home/${user}/build_scripts/${name}",
     user    => $user,
     weekday => 'Wednesday',
-    hour    => fqdn_rand(12),
+    hour    => $hour,
     minute  => 0
   }
 
