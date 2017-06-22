@@ -27,6 +27,7 @@ profile::base::network::cumulus_interfaces:
 # No uplink here yet
   'swp48':
     'ipv4': '129.240.25.110/30'
+    'ipv6': '2001:700:100:aa3::22/126'
 
 profile::base::network::cumulus_bridges:
   'bridge':
