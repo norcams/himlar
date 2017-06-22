@@ -30,6 +30,8 @@ define profile::application::builder::jobs(
     command => "/home/${user}/build_scripts/${name}",
     user    => $user,
     weekday => 'Wednesday',
+    hour    => fqdn_rand(12),
+    minute  => 0
   }
 
 }
