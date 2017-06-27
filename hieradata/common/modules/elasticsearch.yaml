@@ -1,2 +1,4 @@
 ---
-elasticsearch::manage_repo:   false
+elasticsearch::manage_repo:                   false
+elasticsearch::file_rolling_type:             'rollingFile'
+elasticsearch::rolling_file_max_backup_index: 10
