@@ -80,6 +80,8 @@ nodesets:
       memory:     1024
       cpus:       1
       box:        "norcams/freebsd"
+    - role:       "admin"
+      memory:     3096
   infra:
     - role:       "login"
     - role:       "controller"
