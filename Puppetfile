@@ -110,7 +110,7 @@ mod 'logrotate', :ref => 'v1.4.0',                :git => github + 'yo61/puppet-
 #
 # profile::monitoring
 #
-mod 'sensu', :ref => '2.1.0',                     :git => github + 'sensu/sensu-puppet'
+mod 'sensu', :ref => 'v2.1.0',                     :git => github + 'sensu/sensu-puppet'
 mod 'uchiwa', :ref => '64ce619',                  :git => github + 'yelp/puppet-uchiwa'
 mod 'graphite', :ref => 'bbe7c92',                :git => github + 'norcams/puppet-graphite.git'
 mod 'redis', :ref => '1.2.2',                     :git => github + 'arioch/puppet-redis'
