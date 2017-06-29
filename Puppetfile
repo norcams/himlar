@@ -103,14 +103,14 @@ mod 'himlar_bootstrap', :ref => '1.0.0',         :git => github + 'norcams/puppe
 mod 'rsyslog', :ref => '115e358',                 :git => github + 'saz/puppet-rsyslog'
 mod 'logstash', :ref => '0.5.1',                  :git => github + 'elastic/puppet-logstash'
 mod 'datacat', :ref => '9d2cd07b8777',            :git => github + 'richardc/puppet-datacat'
-mod 'elasticsearch', :ref => '0.10.3',            :git => github + 'elastic/puppet-elasticsearch'
+mod 'elasticsearch', :ref => '5.3.1',             :git => github + 'elastic/puppet-elasticsearch'
 mod 'file_concat', :ref => '813132b5d77',         :git => github + 'electrical/puppet-lib-file_concat'
 mod 'logrotate', :ref => 'v1.4.0',                :git => github + 'yo61/puppet-logrotate'
 
 #
 # profile::monitoring
 #
-mod 'sensu', :ref => '2.1.0',                     :git => github + 'sensu/sensu-puppet'
+mod 'sensu', :ref => 'v2.1.0',                    :git => github + 'sensu/sensu-puppet'
 mod 'uchiwa', :ref => '64ce619',                  :git => github + 'yelp/puppet-uchiwa'
 mod 'graphite', :ref => 'bbe7c92',                :git => github + 'norcams/puppet-graphite.git'
 mod 'redis', :ref => '1.2.2',                     :git => github + 'arioch/puppet-redis'
