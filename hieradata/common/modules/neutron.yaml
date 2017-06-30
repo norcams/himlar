@@ -9,6 +9,8 @@ neutron::server::database_connection: "mysql://neutron:%{hiera('neutron::db::mys
 neutron::server::username: 'neutron'
 neutron::server::password: "%{hiera('neutron_api_password')}"
 neutron::server::region_name: "%{::location}"
+neutron::server::user_domain_id:  'default'
+neutron::server::project_domain_id:  'default'
 
 neutron::server::notifications::notify_nova_on_port_status_changes: true
 neutron::server::notifications::notify_nova_on_port_data_changes:   true
