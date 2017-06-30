@@ -28,7 +28,7 @@ profile::base::lvm::logical_volume:
 
 profile::webserver::apache::vhosts:
   'builds':
-    servername:     "builds.%{hiera('domain_mgmt')}"
+    servername:     "builder.%{hiera('domain_mgmt')}"
     ip:             "%{::ipaddress_mgmt1}"
     port:           80
     docroot:        '/opt/images/public_builds'
