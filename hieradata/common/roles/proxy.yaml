@@ -31,7 +31,7 @@ profile::monitoring::sensu::agent::plugin_gems:
 profile::monitoring::sensu::agent::checks:
   'nova-compute-metrics':
     type:         'metric'
-    command:      "/opt/sensu/embedded/lib/ruby/gems/2.3.0/gems/sensu-plugins-openstack-0.2.0/bin/nova/nova-hypervisor-metrics.py -s compute -t openstack -d Default -r %{::location} -p %{hiera('keystone_admin_password')} -a %{hiera('public__address__api')} %{hiera('sensu_ssl_cachain')}"
+    command:      "/opt/sensu/embedded/lib/ruby/gems/2.4.0/gems/sensu-plugins-openstack-0.2.0/bin/nova/nova-hypervisor-metrics.py -s compute -t openstack -d Default -r %{::location} -p %{hiera('keystone_admin_password')} -a %{hiera('public__address__api')} %{hiera('sensu_ssl_cachain')}"
     interval:     60
     subscribers:  ['metrics']
     handlers:     ['graphite_tcp']
