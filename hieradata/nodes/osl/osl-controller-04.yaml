@@ -39,6 +39,15 @@ network::interfaces_hash:
     defroute:     'no'
     bridge_stp:   'off'
 
+lvm::volume_groups:
+  vg_ext:
+    physical_volumes:
+      - /dev/sdb
+    logical_volumes:
+      lv_ext:
+        fs_type:   xfs
+        mountpath: "/var/lib/libvirt/images"
+
 #profile::virtualization::libvirt::pools:
 #  dirpool:
 #    ensure:              present
@@ -52,13 +61,6 @@ network::interfaces_hash:
 #    target:              /var/lib/libvirt/masstorage
 #
 #lvm::volume_groups:
-#  vg_ext:
-#    physical_volumes:
-#      - /dev/sdb
-#    logical_volumes:
-#      lv_ext:
-#        fs_type:   xfs
-#        mountpath: "/var/lib/libvirt/images"
 #  vg_masstorage:
 #    physical_volumes:
 #      - /dev/sdc
