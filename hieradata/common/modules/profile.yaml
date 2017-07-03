@@ -201,14 +201,14 @@ profile::base::yumrepo::repo_hash:
   foreman:
     ensure:         absent
     descr:          'Foreman repo'
-    baseurl:        "%{hiera('yum_base_mirror')}/foreman-1.12"
+    baseurl:        "%{hiera('yum_base_mirror')}/foreman-1.13"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/foreman-1.12/RPM-GPG-KEY-foreman"
+    gpgkey:         "%{hiera('yum_base_mirror')}/foreman-1.13/RPM-GPG-KEY-foreman"
   foreman-plugins:
     ensure:         absent
     descr:          'Foreman Plugins repo'
-    baseurl:        "%{hiera('yum_base_mirror')}/foreman-plugins-1.12"
+    baseurl:        "%{hiera('yum_base_mirror')}/foreman-plugins-1.13"
     enabled:        1
     gpgcheck:       0
   mariadb:

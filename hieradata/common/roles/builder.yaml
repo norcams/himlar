@@ -28,7 +28,7 @@ profile::base::lvm::logical_volume:
 
 profile::webserver::apache::vhosts:
   'builds':
-    servername:     "builds.%{hiera('domain_mgmt')}"
+    servername:     "builder.%{hiera('domain_mgmt')}"
     ip:             "%{::ipaddress_mgmt1}"
     port:           80
     docroot:        '/opt/images/public_builds'
@@ -83,7 +83,16 @@ profile::application::builder::images:
   'debian8':
     'image_name':       'IMAGEBUILDER Debian Jessie 8'
     'url':              'http://cdimage.debian.org/cdimage/openstack/current-8/'
-    'latest':           'debian-8-20170521-openstack-amd64.qcow2'
+    'latest':           'debian-8-openstack-amd64.qcow2'
+    'checksum_file':    'SHA256SUMS'
+    'checksum':         'sha256'
+    'min_ram':          768
+    'min_disk':         3
+    'username':         'debian'
+  'debian9':
+    'image_name':       'IMAGEBUILDER Debian Stretch 9'
+    'url':              'http://cdimage.debian.org/cdimage/openstack/current-9/'
+    'latest':           'debian-9-openstack-amd64.qcow2'
     'checksum_file':    'SHA256SUMS'
     'checksum':         'sha256'
     'min_ram':          768

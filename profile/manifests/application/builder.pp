@@ -26,7 +26,9 @@ class profile::application::builder (
   } ->
   file { '/opt/images/public_builds':
     ensure => directory,
-    mode   => '0755'
+    mode   => '0755',
+    owner  => $user,
+    group  => $group
   }
 
   file { '/etc/imagebuilder':

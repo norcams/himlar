@@ -42,6 +42,13 @@ input {
     start_position => beginning
   }
 
+  file {
+    path => "/opt/log/*/messages"
+    type => "syslog"
+    start_position => beginning
+  }
+
+
 }
 
 filter {
@@ -53,7 +60,7 @@ filter {
       ]
       add_tag => "rabbitmq_logs"
     }
-  } else {
+  } else if [type] =~ /^(nova|glance|neutron|cinder|keystone|horzion)$/ {
     grok {
       break_on_match => true
       match => [
@@ -61,6 +68,17 @@ filter {
         "message", "%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:loglevel} %{HOSTNAME:hostname} %{DATA:component} %{GREEDYDATA:message}"
       ]
       add_tag => "openstack_logs"
+    }
+  } else if [type] == "syslog" {
+    if [message] =~ /(?i)nova|glance|neutron|cinder|keystone|horzion|calico|etcd/ {
+        drop{}
+    }
+    grok {
+      break_on_match => true
+      match => [
+        "message", "%{TIMESTAMP_ISO8601:timestamp} %{WORD:syslog_type}.%{WORD:loglevel} %{HOSTNAME:hostname} %{GREEDYDATA:message}"
+      ]
+      add_tag => "system_logs"
     }
   }
 }

@@ -47,6 +47,7 @@ logrotate::rules:
     sharedscripts:  true
     missingok:      true
     rotate_every:   weekly
+    compress:       true
   messages:
     path:           '/opt/log/*/messages'
     rotate:         12
