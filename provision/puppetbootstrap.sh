@@ -84,6 +84,7 @@ bootstrap_puppet()
     gem install ipaddress
   fi
 
+  gem install puppet_forge -v 2.2.6
   gem install r10k --no-ri --no-rdoc
 
   # Let puppetrun.sh pick up that we are now in bootstrap mode
