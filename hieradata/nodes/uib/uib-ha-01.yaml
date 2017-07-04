@@ -43,9 +43,8 @@ profile::base::network::routes:
     'gateway':   [ '129.177.15.1', ]
     'table':     [ '15nett', ]
 profile::base::network::routing_tables:
-  'private':
+  '15nett':
     'table_id':  '15'
 profile::base::network::rules:
   'bond0.15':
     iprule: [ 'from 129.177.15.0/24 lookup 15nett', ]
-

@@ -29,7 +29,7 @@ network::interfaces_hash:
     gateway:      '129.177.6.1'
     defroute:     'yes'
     vlan:         'yes'
-  'bond0.6':
+  'bond0.15':
     onboot:	  'yes'
     ipaddress:    '129.177.15.97'
     netmask:	  '255.255.255.0'
@@ -43,7 +43,7 @@ profile::base::network::routes:
     'gateway':   [ '129.177.15.1', ]
     'table':     [ '15nett', ]
 profile::base::network::routing_tables:
-  'private':
+  '15nett':
     'table_id':  '15'
 profile::base::network::rules:
   'bond0.15':
