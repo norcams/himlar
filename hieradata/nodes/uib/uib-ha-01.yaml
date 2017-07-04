@@ -29,3 +29,23 @@ network::interfaces_hash:
     gateway:      '129.177.6.1'
     defroute:     'yes'
     vlan:         'yes'
+  'bond0.15':
+    onboot:	  'yes'
+    ipaddress:    '129.177.15.96'
+    netmask:	  '255.255.255.0'
+    gateway:	  '129.177.15.1'
+    defroute:     'no'
+    vlan:         'yes'
+profile::base::network::routes:
+  'bond0.15':
+    'ipaddress': [ '0.0.0.0', ]
+    'netmask':   [ '0.0.0.0', ]
+    'gateway':   [ '129.177.15.1', ]
+    'table':     [ '15nett', ]
+profile::base::network::routing_tables:
+  'private':
+    'table_id':  '15'
+profile::base::network::rules:
+  'bond0.15':
+    iprule: [ 'from 129.177.15.0/24 lookup 15nett', ]
+
