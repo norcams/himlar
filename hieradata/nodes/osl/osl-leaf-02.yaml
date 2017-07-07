@@ -16,7 +16,8 @@ profile::base::network::routes:
 profile::base::network::cumulus_interfaces:
   'bridge.100':
     'ipv4': [ '172.18.32.2/21', ]
-    'virtual_ip': '172.18.39.1/21'
+    'ipv6': [ 'fd32::2/64', ]
+    'virtual_ip': '172.18.39.1/21 fd32::3901/64'
     'virtual_mac': '00:00:5e:00:01:01'
   'peerlink.4094':
     'ipv4': [ '172.18.228.2/24', ]
@@ -27,6 +28,7 @@ profile::base::network::cumulus_interfaces:
 # No uplink here yet
   'swp48':
     'ipv4': '129.240.25.110/30'
+    'ipv6': '2001:700:100:aa3::22/126'
 
 profile::base::network::cumulus_bridges:
   'bridge':
@@ -126,6 +128,8 @@ quagga::quagga::zebra_interfaces:
 #  'swp48':
 #    - 'link-detect'
 
+quagga::quagga::zebra_ip6_routes:
+  - '::/0 2001:700:100:aa3::21'
 quagga::quagga::zebra_ip_routes:
   - '0.0.0.0/0 129.240.25.109'
   - '10.0.0.0/8 Null0'
@@ -158,6 +162,9 @@ quagga::quagga::bgp_options:
 quagga::quagga::bgp_networks:
   - '0.0.0.0/0'
   - '172.18.32.0/21'
+quagga::quagga::bgp_networks6:
+  - '::/0'
+  - 'fd32::/64'
 
 quagga::quagga::bgp_neighbor_groups:
   'rr-clients':
@@ -169,12 +176,22 @@ quagga::quagga::bgp_neighbor_groups:
       - 'route-map rr-client-allow in'
       - 'bfd'
     'members':
+      - '172.18.32.26'
       - '172.18.32.103'
       - '172.18.32.104'
       - '172.18.32.105'
       - '172.18.32.111'
       - '172.18.32.112'
       - '172.18.32.113'
+    'options6':
+      - 'route-reflector-client'
+    'members6':
+      - 'fd32::103'
+      - 'fd32::104'
+      - 'fd32::105'
+      - 'fd32::111'
+      - 'fd32::112'
+      - 'fd32::113'
 
 quagga::quagga::bgp_accesslist:
   '10':

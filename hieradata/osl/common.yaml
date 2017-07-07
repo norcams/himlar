@@ -17,9 +17,9 @@ netcfg_mgmt_gateway:      '172.16.32.12'
 netcfg_mgmt_netpart:      '172.16.32'
 netcfg_mgmt_netmask:      '255.255.248.0'
 netcfg_trp_gateway:       '172.18.39.1'
-netcfg_trp_gateway6:      'fd00::1'
+netcfg_trp_gateway6:      'fd39::1'
 netcfg_trp_netpart:       '172.18.32'
-netcfg_trp_netpart6:      'fd00'
+netcfg_trp_netpart6:      'fd32'
 netcfg_trp_netmask:       '255.255.248.0'
 netcfg_trp_netmask6:      '64'
 #netcfg_dns_server1:       '129.240.2.3'
@@ -32,8 +32,10 @@ netcfg_pub_natgw:         '158.37.63.248'
 netcfg_trp_rr:
   rr1:
     peer_ipv4: '172.18.32.1'
+    peer_ipv6: 'fd32::1'
   rr2:
     peer_ipv4: '172.18.32.2'
+    peer_ipv6: 'fd32::2'
 
 #
 # Public addresses (bgo host uh-iaas.no frontend)
