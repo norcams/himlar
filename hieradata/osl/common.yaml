@@ -32,8 +32,10 @@ netcfg_pub_natgw:         '158.37.63.248'
 netcfg_trp_rr:
   rr1:
     peer_ipv4: '172.18.32.1'
+    peer_ipv6: 'fd32::1'
   rr2:
     peer_ipv4: '172.18.32.2'
+    peer_ipv6: 'fd32::2'
 
 #
 # Public addresses (bgo host uh-iaas.no frontend)
