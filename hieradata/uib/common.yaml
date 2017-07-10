@@ -1,0 +1,28 @@
+---
+location_environment:     'prod'
+location_description:     'Production external services UiB'
+
+domain_frontend:          'uib.no'
+domain_public:            'iaas.uib.no'
+domain_trp:               'bgo.uhdc.no'
+domain_mgmt:              'mgmt.uib.uhdc.no'
+
+netcfg_mgmt_gateway:      '172.31.0.10'
+netcfg_mgmt_netpart:      '172.31.0'
+netcfg_mgmt_netmask:      '255.255.248.0'
+netcfg_dns_server1:       '129.177.6.54'
+netcfg_dns_server2:       '129.177.12.31'
+netcfg_dns_search:        "uib.no"
+
+#
+# Default interfaces
+#
+named_interfaces::config:
+  mgmt:
+    - em1
+  public:
+    - bond0.6
+
+ntp::servers:
+  - ntp.uib.no
+  - ntp2.uib.no

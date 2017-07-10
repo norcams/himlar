@@ -200,15 +200,15 @@ profile::base::yumrepo::repo_hash:
     gpgkey:         "%{hiera('yum_base_mirror')}/curator/GPG-KEY-elasticsearch"
   foreman:
     ensure:         absent
-    descr:          'Foreman repo'
-    baseurl:        "%{hiera('yum_base_mirror')}/foreman-1.13"
+    descr:          "Foreman %{hiera('foreman_version')} repo"
+    baseurl:        "%{hiera('yum_base_mirror')}/foreman-%{hiera('foreman_version')}"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/foreman-1.13/RPM-GPG-KEY-foreman"
+    gpgkey:         "%{hiera('yum_base_mirror')}/foreman-%{hiera('foreman_version')}/RPM-GPG-KEY-foreman"
   foreman-plugins:
     ensure:         absent
-    descr:          'Foreman Plugins repo'
-    baseurl:        "%{hiera('yum_base_mirror')}/foreman-plugins-1.13"
+    descr:          "Foreman %{hiera('foreman_version')} Plugins repo"
+    baseurl:        "%{hiera('yum_base_mirror')}/foreman-plugins-%{hiera('foreman_version')}"
     enabled:        1
     gpgcheck:       0
   mariadb:

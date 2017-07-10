@@ -20,7 +20,7 @@ mod 'lvm', :ref => '689d42a16c',                 :git => github + 'puppetlabs/pu
 mod 'firewall', :ref => '1.8.2',                 :git => github + 'puppetlabs/puppetlabs-firewall'
 mod 'kmod', :ref => '2.1.0',                     :git => github + 'camptocamp/puppet-kmod'
 mod 'named_interfaces', :ref => '88ce713994',    :git => github + 'norcams/puppet-named_interfaces'
-mod 'network', :ref => '10e6e1f140',             :git => github + 'norcams/puppet-network'
+mod 'network', :ref => 'e739f24fa3',             :git => github + 'norcams/puppet-network'
 mod 'ipmi', :ref => 'c4309504fd',                :git => github + 'norcams/puppet-ipmi'
 mod 'lldp', :ref => '06523de010',                :git => github + 'norcams/puppet-lldp'
 mod 'apt', :ref => '2.2.2',                      :git => github + 'puppetlabs/puppetlabs-apt'
@@ -77,14 +77,14 @@ mod 'gitolite', :ref => '1.0',                   :git => github + 'uib/puppet-gi
 # profile::application::foreman
 #
 mod 'zack/r10k', '2.5.2'                         # forge
-mod 'theforeman/foreman', :ref => '6.0.0',       :git => github + 'theforeman/puppet-foreman.git'
+mod 'theforeman/foreman', :ref => '7.0.0',       :git => github + 'theforeman/puppet-foreman.git'
 mod 'theforeman/concat_native', '1.5.0'          # forge
-mod 'theforeman/tftp', '1.8.2'                   # forge
+mod 'theforeman/tftp', '2.0.0'                   # forge
 mod 'theforeman/puppet', :ref => '6.0.1',        :git => github + 'theforeman/puppet-puppet.git'
-mod 'theforeman/dns', '3.4.1'                    # forge
-mod 'theforeman/dhcp', :ref => '2.3.2-norcams',  :git => github + 'norcams/puppet-dhcp.git'
-mod 'theforeman/foreman_proxy', '4.0.3'          # forge
-mod 'theforeman/git', '1.6.0'                    # forge
+mod 'theforeman/dns', '4.0.0'                    # forge
+mod 'theforeman/dhcp', :ref => '3.1.1-norcams',  :git => github + 'norcams/puppet-dhcp.git'
+mod 'theforeman/foreman_proxy', '5.0.0'          # forge
+mod 'theforeman/git', '2.0.0'                    # forge
 mod 'adrien/alternatives', '0.3.0'               # forge
 mod 'voxpupuli/extlib', :ref => 'v0.11.3',      :git => github + 'voxpupuli/puppet-extlib.git'
 mod 'puppetlabs/ruby', '0.5.0'                   # forge

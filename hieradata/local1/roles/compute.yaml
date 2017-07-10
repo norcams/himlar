@@ -7,6 +7,10 @@ profile::monitoring::sensu::agent::enable_agent:  true
 
 calico::compute::bird_template: 'profile/bird/bird.conf.erb'
 
+ntp::servers:
+  - "%{hiera('netcfg_mgmt_netpart')}.100"
+  - "%{hiera('netcfg_mgmt_netpart')}.101"
+
 named_interfaces::config:
   mgmt:
     - eth0
