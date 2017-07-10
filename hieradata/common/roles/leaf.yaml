@@ -33,13 +33,16 @@ profile::network::leaf::acls:
   '02control_plane_custom.rules':
     rule_vars:
       - "INGRESS_CHAIN = INPUT"
+      - "INGRESS_INTF = swp+"
     iptables:
-      - "-A $INGRESS_CHAIN ! -s %{hiera('netcfg_trp_netpart')}.0/%{hiera('netcfg_trp_netmask')} -p tcp --dport 179 -j DROP"
+      - "-A $INGRESS_CHAIN -s %{hiera('netcfg_trp_netpart')}.0/%{hiera('netcfg_trp_netmask')} -p tcp --dport 179 -j ACCEPT"
+      - "-A $INGRESS_CHAIN -p tcp --dport 179 -j DROP"
       - "-A $INGRESS_CHAIN -s %{hiera('netcfg_mgmt_netpart')}.0/%{hiera('netcfg_mgmt_netmask')} -p tcp --dport 22 -j ACCEPT"
       - "-A $INGRESS_CHAIN -s %{hiera('netcfg_trp_netpart')}.0/%{hiera('netcfg_trp_netmask')} -p tcp --dport 22 -j ACCEPT"
       - "-A $INGRESS_CHAIN -p tcp --dport 22 -j DROP"
     ip6tables:
-      - "-A $INGRESS_CHAIN ! -s %{hiera('netcfg_trp_netpart6')}::/%{hiera('netcfg_trp_netmask6')} -p tcp -m multiport --dports 22,179 -j DROP"
+      - "-A $INGRESS_CHAIN --in-interface $INGRESS_INTF -s %{hiera('netcfg_trp_netpart6')}::/%{hiera('netcfg_trp_netmask6')} -p tcp -m multiport --dports 22,179 -j ACCEPT"
+      - "-A $INGRESS_CHAIN --in-interface $INGRESS_INTF -p tcp  -m multiport --dports 22,179 -j DROP"
 
 accounts::groups:
   'wheel':
