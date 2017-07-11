@@ -15,6 +15,34 @@ corosync_cluster_vip2:    "%{hiera('netcfg_public_netpart')}.201"
 corosync_cluster_vip3:    "%{hiera('netcfg_public_netpart')}.91"
 corosync_cluster_vip4:    "%{hiera('netcfg_public_netpart')}.114"
 
+# Firewall
+profile::firewall::rules::custom_rules:
+  '451 haproxy http for public vip1':
+    proto:        'tcp'
+    dport:        [ '80', '443' ]
+    destination:  "%{hiera('corosync_cluster_vip1')}"
+  '452 haproxy http for public vip2':
+    proto:        'tcp'
+    dport:        [ '80', '443' ]
+    destination:  "%{hiera('corosync_cluster_vip2')}"
+  '453 haproxy http for internal vip3':
+    proto:        'tcp'
+    dport:        [ '80', '443' ]
+    source:       '129.177.0.0/16'
+    destination:  "%{hiera('corosync_cluster_vip3')}"
+  '454 haproxy http for internal vip4':
+    proto:        'tcp'
+    dport:        [ '80', '443' ]
+    source:       '129.177.0.0/16'
+    destination:  "%{hiera('corosync_cluster_vip4')}"
+  '455 haproxy status':
+    proto:        'tcp'
+    dport:        ['9000']
+    source:       '129.177.10.0/24'
+    destination:
+      - "%{hiera('corosync_cluster_vip4')}"
+      - "%{hiera('corosync_cluster_vip3')}"
+
 # Corosync VIP and HAproxy
 profile::highavailability::corosync::primitives:
   'pubip1':
