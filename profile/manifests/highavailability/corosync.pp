@@ -8,6 +8,7 @@ class profile::highavailability::corosync(
   $properties      = {},
   $primitives      = {},
   $locations       = {},
+  $colocations     = {},
   $clones          = {},
   $firewall_extras = {}
 ) {
@@ -18,6 +19,7 @@ class profile::highavailability::corosync(
     create_resources('cs_property', $properties)
     create_resources('cs_primitive', $primitives)
     create_resources('cs_location', $locations)
+    create_resources('cs_colocation', $colocations)
     create_resources('cs_clone', $clones)
   }
 

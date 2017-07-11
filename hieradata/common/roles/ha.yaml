@@ -21,6 +21,13 @@ haproxy::defaults_options:
   mode:         'http'
   option:       [ 'redispatch', 'forwardfor', 'http-server-close' ]
   balance:      'roundrobin'
+  timeout:
+    - 'http-request 10s'
+    - 'queue 1m'
+    - 'connect 10s'
+    - 'client 1m'
+    - 'server 1m'
+    - 'check 10s'
 
 profile::highavailability::loadbalancing::haproxy::manage_haproxy:  true
 profile::highavailability::loadbalancing::haproxy::haproxy_listens:
@@ -44,7 +51,7 @@ profile::highavailability::corosync::firewall_extras:
   source: "%{::network_mgmt1}/%{::netmask_mgmt1}"
 profile::highavailability::corosync::properties:
   default-resource-stickiness:
-    value:  100
+    value:  '0'
   no-quorum-policy:
     value:  'ignore'
   stonith-enabled:
@@ -59,9 +66,9 @@ profile::highavailability::corosync::primitives:
       'ip':               "%{hiera('corosync_cluster_vip1')}"
       'cidr_netmask':     '24'
     operations:
-      'monitor':
-        'interval':       '10s'
-        'timeout':        '20s'
+      'monitor':          { 'interval': '10s', 'timeout': '20s' }
+      'start':            { 'interval': '0s', 'timeout': '20s' }
+      'stop':             { 'interval': '0s', 'timeout': '20s' }
   'vip2':
     'primitive_class':    'ocf'
     'primitive_type':     'IPaddr2'
@@ -70,9 +77,9 @@ profile::highavailability::corosync::primitives:
       'ip':               "%{hiera('corosync_cluster_vip2')}"
       'cidr_netmask':     '24'
     operations:
-      'monitor':
-        'interval':       '10s'
-        'timeout':        '20s'
+      'monitor':          { 'interval': '10s', 'timeout': '20s' }
+      'start':            { 'interval': '0s', 'timeout': '20s' }
+      'stop':             { 'interval': '0s', 'timeout': '20s' }
   'haproxy':
     'primitive_class':    'systemd'
     'primitive_type':     'haproxy'
@@ -81,6 +88,12 @@ profile::highavailability::corosync::primitives:
         'interval':       '10s'
         'timeout':        '20s'
         'on-fail':        'standby' # set the node standby if this service fails
+
+profile::highavailability::corosync::colocation:
+  'vip1_haproxy':
+    primitives:   ['clone_haproxy', 'vip1']
+  'vip2_haproxy':
+    primitives:   ['clone_haproxy', 'vip2']
 
 profile::highavailability::corosync::clones:
   'clone_haproxy':

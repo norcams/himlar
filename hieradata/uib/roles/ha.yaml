@@ -53,9 +53,9 @@ profile::highavailability::corosync::primitives:
       'ip':               "%{hiera('corosync_cluster_vip1')}"
       'cidr_netmask':     '24'
     operations:
-      'monitor':
-        'interval':       '10s'
-        'timeout':        '20s'
+      'monitor':          { 'interval': '10s', 'timeout': '20s' }
+      'start':            { 'interval': '0s', 'timeout': '20s' }
+      'stop':             { 'interval': '0s', 'timeout': '20s' }
   'pubip2':
     'primitive_class':    'ocf'
     'primitive_type':     'IPaddr2'
@@ -64,9 +64,9 @@ profile::highavailability::corosync::primitives:
       'ip':               "%{hiera('corosync_cluster_vip2')}"
       'cidr_netmask':     '24'
     operations:
-      'monitor':
-        'interval':       '10s'
-        'timeout':        '20s'
+      'monitor':          { 'interval': '10s', 'timeout': '20s' }
+      'start':            { 'interval': '0s', 'timeout': '20s' }
+      'stop':             { 'interval': '0s', 'timeout': '20s' }
   'uibip1':
     'primitive_class':    'ocf'
     'primitive_type':     'IPaddr2'
@@ -75,9 +75,9 @@ profile::highavailability::corosync::primitives:
       'ip':               "%{hiera('corosync_cluster_vip3')}"
       'cidr_netmask':     '24'
     operations:
-      'monitor':
-        'interval':       '10s'
-        'timeout':        '20s'
+      'monitor':          { 'interval': '10s', 'timeout': '20s' }
+      'start':            { 'interval': '0s', 'timeout': '20s' }
+      'stop':             { 'interval': '0s', 'timeout': '20s' }
   'uibip2':
     'primitive_class':    'ocf'
     'primitive_type':     'IPaddr2'
@@ -86,17 +86,16 @@ profile::highavailability::corosync::primitives:
       'ip':               "%{hiera('corosync_cluster_vip4')}"
       'cidr_netmask':     '24'
     operations:
-      'monitor':
-        'interval':       '10s'
-        'timeout':        '20s'
+      'monitor':          { 'interval': '10s', 'timeout': '20s' }
+      'start':            { 'interval': '0s', 'timeout': '20s' }
+      'stop':             { 'interval': '0s', 'timeout': '20s' }
   'haproxy':
     'primitive_class':    'systemd'
     'primitive_type':     'haproxy'
     'operations':
-      'monitor':
-        'interval':       '10s'
-        'timeout':        '20s'
-        'on-fail':        'standby' # set the node standby if this service fails
+      'monitor':          { 'interval': '5s', 'timeout': '20s' }
+      'start':            { 'interval': '0s', 'timeout': '20s' }
+      'stop':             { 'interval': '0s', 'timeout': '20s' }
 
 profile::highavailability::corosync::locations:
   'pubip_location1':
@@ -115,3 +114,13 @@ profile::highavailability::corosync::locations:
     primitive:  'uibip2'
     node_name:  "%hiera('corosync_cluster_node2')"
     score:      'INFINITY'
+
+profile::highavailability::corosync::colocations:
+  'pubip1_haproxy':
+    primitives:   ['clone_haproxy', 'pubip1']
+  'pubip2_haproxy':
+    primitives:   ['clone_haproxy', 'pubip2']
+  'uibip1_haproxy':
+    primitives:   ['clone_haproxy', 'uibip1']
+  'uibip2_haproxy':
+    primitives:   ['clone_haproxy', 'uibip2']
