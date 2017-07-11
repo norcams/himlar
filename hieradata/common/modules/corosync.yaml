@@ -1,0 +1,11 @@
+---
+corosync::cluster_name:               '%{::location}-ha'
+corosync::bind_address:               '%{::ipaddress_public1}'
+corosync::syslog_priority:            'warning'
+corosync::enable_secauth:             false
+corosync::set_votequorum:             true
+corosync::manage_pacemaker_service:   true
+
+# These must be overridden with IP for all nodes!
+corosync::unicast_addresses:          ['%{::ipaddress_public1}']
+corosync::quorum_members:             ['%{::ipaddress_public1}']

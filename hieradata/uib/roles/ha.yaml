@@ -1,0 +1,89 @@
+---
+corosync::unicast_addresses:
+  - "%{hiera('netcfg_public_netpart')}.96"
+  - "%{hiera('netcfg_public_netpart')}.97"
+
+corosync::quorum_members:
+  - "%{hiera('netcfg_public_netpart')}.96"
+  - "%{hiera('netcfg_public_netpart')}.97"
+
+corosync_cluster_node1:   "%{::location}-ha-01.%{hiera('domain_mgmt')}"
+corosync_cluster_node2:   "%{::location}-ha-02.%{hiera('domain_mgmt')}"
+
+corosync_cluster_vip1:    "%{hiera('netcfg_public_netpart')}.200"
+corosync_cluster_vip2:    "%{hiera('netcfg_public_netpart')}.201"
+corosync_cluster_vip3:    "%{hiera('netcfg_public_netpart')}.91"
+corosync_cluster_vip4:    "%{hiera('netcfg_public_netpart')}.114"
+
+# Corosync VIP and HAproxy
+profile::highavailability::corosync::primitives:
+  'pubip1':
+    'primitive_class':    'ocf'
+    'primitive_type':     'IPaddr2'
+    'provided_by':        'heartbeat'
+    'parameters':
+      'ip':               "%{hiera('corosync_cluster_vip1')}"
+      'cidr_netmask':     '24'
+    operations:
+      'monitor':
+        'interval':       '10s'
+        'timeout':        '20s'
+  'pubip2':
+    'primitive_class':    'ocf'
+    'primitive_type':     'IPaddr2'
+    'provided_by':        'heartbeat'
+    'parameters':
+      'ip':               "%{hiera('corosync_cluster_vip2')}"
+      'cidr_netmask':     '24'
+    operations:
+      'monitor':
+        'interval':       '10s'
+        'timeout':        '20s'
+  'uibip1':
+    'primitive_class':    'ocf'
+    'primitive_type':     'IPaddr2'
+    'provided_by':        'heartbeat'
+    'parameters':
+      'ip':               "%{hiera('corosync_cluster_vip3')}"
+      'cidr_netmask':     '24'
+    operations:
+      'monitor':
+        'interval':       '10s'
+        'timeout':        '20s'
+  'uibip2':
+    'primitive_class':    'ocf'
+    'primitive_type':     'IPaddr2'
+    'provided_by':        'heartbeat'
+    'parameters':
+      'ip':               "%{hiera('corosync_cluster_vip4')}"
+      'cidr_netmask':     '24'
+    operations:
+      'monitor':
+        'interval':       '10s'
+        'timeout':        '20s'
+  'haproxy':
+    'primitive_class':    'systemd'
+    'primitive_type':     'haproxy'
+    'operations':
+      'monitor':
+        'interval':       '10s'
+        'timeout':        '20s'
+        'on-fail':        'standby' # set the node standby if this service fails
+
+profile::highavailability::corosync::locations:
+  'pubip_location1':
+    primitive:  'pubip1'
+    node_name:  "%hiera('corosync_cluster_node1')"
+    score:      'INFINITY'
+  'pubip_location2':
+    primitive:  'pubip2'
+    node_name:  "%hiera('corosync_cluster_node2')"
+    score:      'INFINITY'
+  'uibip_location1':
+    primitive:  'uibip1'
+    node_name:  "%hiera('corosync_cluster_node1')"
+    score:      'INFINITY'
+  'uibip_location2':
+    primitive:  'uibip2'
+    node_name:  "%hiera('corosync_cluster_node2')"
+    score:      'INFINITY'

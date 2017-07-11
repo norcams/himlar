@@ -166,9 +166,10 @@ mod 'libvirt', :ref => '0.3.2-norcams2',         :git => github + 'norcams/puppe
 mod 'ceph', :ref => '6a12d71f43',                :git => github + 'openstack/puppet-ceph'
 
 #
-# ceph
+# ha
 #
 mod 'haproxy', :ref => '1.5.0',                  :git => github + 'puppetlabs/puppetlabs-haproxy'
+mod 'corosync', :ref => 'v5.0.0',                :git => github + 'voxpupuli/puppet-corosync'
 
 #
 # Common libs
