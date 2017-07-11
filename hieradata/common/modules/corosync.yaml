@@ -1,0 +1,9 @@
+---
+corosync::cluster_name:               '%{::location}-ha'
+corosync::bind_address:               '%{::ipaddress_public1}'
+corosync::unicast_addresses:          ['%{::ipaddress_public1}']
+corosync::quorum_members:             ['%{::ipaddress_public1}']
+corosync::syslog_priority:            'info' #FIXME
+corosync::enable_secauth:             false
+corosync::set_votequorum:             true #not needed for 2 node setup
+corosync::manage_pacemaker_service:   true
