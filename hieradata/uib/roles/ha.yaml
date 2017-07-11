@@ -43,6 +43,38 @@ profile::firewall::rules::custom_rules:
       - "%{hiera('corosync_cluster_vip4')}"
       - "%{hiera('corosync_cluster_vip3')}"
 
+# HAproxy
+profile::highavailability::loadbalancing::haproxy::haproxy_backends:
+  bk_default: {}
+  bk_dashboard: {}
+
+profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
+  'uib_domains':
+    mappings:
+      - "test.uh-iaas.no":                      'bk_dashboard'
+
+profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
+  uib-http:
+    bind:
+      "%{hiera('corosync_cluster_vip3')}:80": []
+      "%{hiera('corosync_cluster_vip4')}:80": []
+    options:
+      use_backend: '%[req.hdr(host),lower,map(/etc/haproxy/uib_domains.map,bk_default)]'
+  uib-https:
+    bind:
+      "%{hiera('corosync_cluster_vip3')}:80": []
+      "%{hiera('corosync_cluster_vip4')}:80": []
+    options:
+      use_backend: '%[req.hdr(host),lower,map(/etc/haproxy/uib_domains.map,bk_default)]'
+
+profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
+  'dashboard':
+    listening_service:  'bk_dashboard'
+    ports:              80
+    server_names:       ['osl-dashboard-01', 'bgo-dashboard-01']
+    ipaddresses:        [158.37.63.254, 158.39.77.254]
+    options:            'check'
+
 # Corosync VIP and HAproxy
 profile::highavailability::corosync::primitives:
   'pubip1':
