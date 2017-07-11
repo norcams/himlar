@@ -70,7 +70,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   'dashboard':
     listening_service:  'bk_dashboard'
-    ports:              80
+    ports:              443
     server_names:       ['osl-dashboard-01', 'bgo-dashboard-01']
     ipaddresses:        [158.37.63.254, 158.39.77.254]
     options:            'check'
