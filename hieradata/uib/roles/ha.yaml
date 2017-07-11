@@ -59,11 +59,12 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       "%{hiera('corosync_cluster_vip3')}:80": []
       "%{hiera('corosync_cluster_vip4')}:80": []
     options:
-      use_backend: '%[req.hdr(host),lower,map(/etc/haproxy/uib_domains.map,bk_default)]'
+      #use_backend: '%[req.hdr(host),lower,map(/etc/haproxy/uib_domains.map,bk_default)]'
+      redirect:       'scheme https if !{ ssl_fc }'
   uib-https:
     bind:
-      "%{hiera('corosync_cluster_vip3')}:80": []
-      "%{hiera('corosync_cluster_vip4')}:80": []
+      "%{hiera('corosync_cluster_vip3')}:443": []
+      "%{hiera('corosync_cluster_vip4')}:443": []
     options:
       use_backend: '%[req.hdr(host),lower,map(/etc/haproxy/uib_domains.map,bk_default)]'
 
