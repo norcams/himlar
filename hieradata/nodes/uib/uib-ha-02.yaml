@@ -52,3 +52,5 @@ profile::base::network::routing_tables:
 profile::base::network::rules:
   'bond0.15':
     iprule: [ 'from 129.177.15.0/24 lookup 15nett', ]
+profile::highavailability::corosync::firewall_extras:
+  source: "%{hiera('netcfg_public_netpart')}.96"

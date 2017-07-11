@@ -39,7 +39,9 @@ profile::highavailability::loadbalancing::haproxy::haproxy_listens:
 #
 profile::highavailability::corosync::manage_corosync: true
 profile::highavailability::corosync::manage_firewall: true
-
+# This should be overridden in nodes with opposite node ip
+profile::highavailability::corosync::firewall_extras:
+  source: "%{::network_mgmt1}/%{::netmask_mgmt1}"
 profile::highavailability::corosync::properties:
   default-resource-stickiness:
     value:  100

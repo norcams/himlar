@@ -16,3 +16,6 @@ network::interfaces_hash:
     ipaddress: "%{hiera('netcfg_public_netpart')}.16"
     netmask:   "%{hiera('netcfg_public_netmask')}"
     defroute:  'no'
+
+profile::highavailability::corosync::firewall_extras:
+  source: "%{hiera('netcfg_public_netpart')}.17"
