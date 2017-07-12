@@ -18,28 +18,27 @@ profile::firewall::rules::custom_rules:           {}
 # HAproxy
 #
 haproxy::defaults_options:
-  mode:         'http'
-  option:       [ 'redispatch', 'forwardfor', 'http-server-close' ]
-  balance:      'roundrobin'
+  log:          'global'
+  stats:        []
+  option:       ['dontlognull']
   timeout:
-    - 'http-request 10s'
-    - 'queue 1m'
     - 'connect 10s'
-    - 'client 1m'
-    - 'server 1m'
-    - 'check 10s'
+    - 'client 10s'
+    - 'server 10s'
 
 profile::highavailability::loadbalancing::haproxy::manage_haproxy:  true
 profile::highavailability::loadbalancing::haproxy::haproxy_listens:
   monitor:
+    mode: 'http'
     options:
+      option: ['httplog']
       stats:
         - 'enable'
         - 'hide-version'
         - 'realm Monitor\ Stats'
         - 'uri /'
     bind:
-      "*:9000": []
+      "0.0.0.0:9000": []
 
 #
 # Corosync and pacemaker
