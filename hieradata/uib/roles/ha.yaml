@@ -75,7 +75,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       acl:          'uib_src src 129.177.0.0/16'
       tcp-request:
         - 'inspect-delay 2s'
-        - 'content reject unless uib_src'
+        - 'connection reject unless uib_src'
       use_backend:  bk_https_test
 
 #      option:       'socket-stats'
