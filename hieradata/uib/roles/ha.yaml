@@ -63,12 +63,18 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
     mode: 'http'
     bind:
       "0.0.0.0:80": []
+    options:
+      acl:          'uib_src src 129.177.0.0/16'
+      block:        'unless uib_src'
   uib-https:
     mode: 'tcp'
     bind:
       "0.0.0.0:443": []
     options:
+      acl:          'uib_src src 129.177.0.0/16'
+      block:        'unless uib_src'
       use_backend:  bk_https_test
+
 #      option:       'socket-stats'
 #      tcp-request:
 #        - 'inspect-delay 5s'
