@@ -42,6 +42,7 @@ profile::firewall::rules::custom_rules:
     destination:
       - "%{hiera('corosync_cluster_vip4')}"
       - "%{hiera('corosync_cluster_vip3')}"
+      - '%{::ipaddress_public1}'
 
 # HAproxy
 haproxy::defaults_options:
