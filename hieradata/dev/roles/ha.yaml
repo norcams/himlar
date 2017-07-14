@@ -1,4 +1,8 @@
 ---
+#include:
+#  default:
+#    - profile::logging::rsyslog::client
+
 corosync::unicast_addresses:
   - "%{hiera('netcfg_public_netpart')}.16"
   - "%{hiera('netcfg_public_netpart')}.17"
@@ -15,77 +19,124 @@ corosync_cluster_vip2:    "%{hiera('netcfg_public_netpart')}.7"
 corosync_cluster_vip3:    "%{hiera('netcfg_public_netpart')}.8"
 corosync_cluster_vip4:    "%{hiera('netcfg_public_netpart')}.9"
 
-# Firewall rules
+# Firewall rules full access to everything!
 profile::firewall::rules::custom_rules:
-  '451 haproxy http for public vip1':
-    proto:        'tcp'
-    dport:        [ '80', '443' ]
-    destination:  "%{hiera('corosync_cluster_vip1')}"
-  '452 haproxy http for public vip2':
-    proto:        'tcp'
-    dport:        [ '80', '443' ]
-    destination:  "%{hiera('corosync_cluster_vip2')}"
-  '453 haproxy http for internal vip3':
+  '451 haproxy http':
     proto:        'tcp'
     dport:        [ '80', '443' ]
     source:       '0.0.0.0/0'
-    destination:  "%{hiera('corosync_cluster_vip3')}"
-  '454 haproxy http for internal vip4':
-    proto:        'tcp'
-    dport:        [ '80', '443' ]
-    source:       '0.0.0.0/0'
-    destination:  "%{hiera('corosync_cluster_vip4')}"
   '455 haproxy status':
     proto:        'tcp'
     dport:        ['9000']
     source:       '0.0.0.0/0'
-    destination:
-      - "%{hiera('corosync_cluster_vip4')}"
-      - "%{hiera('corosync_cluster_vip3')}"
 
-
+#
 # Example with mapping, frontend and backend
-
+#
 # Mapping: DNS -> backend
 profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
-  'openstack_domains':
+  'uib_domains':
     ensure: present
     mappings:
-      - "monitor.%{hiera('domain_mgmt')}":     'bk_monitor'
-      - "logger.%{hiera('domain_mgmt')}":      'bk_logger'
+      - "%{hiera('public__address__access')}":      'uib-https-uh-access'
+      - "%{hiera('public__address__dashboard')}":   'uib-https-uh-dashboard'
+  'public_domains':
+    ensure: present
+    mappings:
+      - "%{hiera('public__address__access')}":      'uib-https-uh-access'
+      - "%{hiera('public__address__dashboard')}":   'uib-https-uh-dashboard'
 
 # Backends (servers are added with balancermember)
 profile::highavailability::loadbalancing::haproxy::haproxy_backends:
-  bk_monitor: {}
-  bk_logger: {}
+  uib-https-uh-access:
+    mode: 'tcp'
+    options:
+      - option:       ['ssl-hello-chk']
+      - stick-table:  'type binary len 32 size 30k expire 30m'
+      - acl:
+        - 'clienthello req_ssl_hello_type 1'
+        - 'serverhello rep_ssl_hello_type 2'
+      - tcp-request:
+        - 'inspect-delay 15s'
+        - 'content reject unless clienthello'
+      - tcp-response:
+        - 'content reject unless serverhello'
+      - stick:
+        - 'on payload_lv(43,1) if clienthello'
+        - 'store-response payload_lv(43,1) if serverhello'
+  uib-https-uh-dashboard:
+    mode: 'tcp'
+    options:
+      - option:       ['ssl-hello-chk']
+      - stick-table:  'type binary len 32 size 30k expire 30m'
+      - acl:
+        - 'clienthello req_ssl_hello_type 1'
+        - 'serverhello rep_ssl_hello_type 2'
+      - tcp-request:
+        - 'inspect-delay 15s'
+        - 'content reject unless clienthello'
+      - tcp-response:
+        - 'content reject unless serverhello'
+      - stick:
+        - 'on payload_lv(43,1) if clienthello'
+        - 'store-response payload_lv(43,1) if serverhello'
 
 # Backend members
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
-  'monitor':
-    listening_service:  'bk_monitor'
-    ports:              3000
-    server_names:       ['%{::location}-monitor-01']
-    ipaddresses:        ["%{hiera('netcfg_mgmt_netpart')}.14"]
+  'uib-https-uh-access':
+    listening_service:  'uib-https-uh-access'
+    ports:              443
+    server_names:       ['%{::location}-access-01']
+    ipaddresses:        ["%{hiera('netcfg_public_netpart')}.56"]
     options:            'check'
-  'logger':
-    listening_service:  'bk_logger'
-    ports:              5601
-    server_names:       ['%{::location}-logger-01']
-    ipaddresses:        ["%{hiera('netcfg_mgmt_netpart')}.13"]
+  'uib-https-uh-dashboard':
+    listening_service:  'uib-https-uh-dashboard'
+    ports:              443
+    server_names:       ['%{::location}-dashboard-01']
+    ipaddresses:        ["%{hiera('netcfg_public_netpart')}.51"]
     options:            'check'
 
 # Frontend: backends are found from mapping file
 profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
-  http-all:
-    ipaddress:  '0.0.0.0'
-    ports:      '80'
+  public-http:
+    mode:               'http'
+    bind:
+      "%{hiera('corosync_cluster_vip1')}:80": []
+      "%{hiera('corosync_cluster_vip2')}:80": []
     options:
-      use_backend: '%[req.hdr(host),lower,map(/etc/haproxy/openstack_domains.map,bk_default)]'
-  https-all:
-    ipaddress:  '0.0.0.0'
-    ports:      '443'
+      - option:         'httplog'
+      - redirect:       'scheme https if !{ ssl_fc }'
+  public-https:
+    mode:               'tcp'
+    bind:
+      "%{hiera('corosync_cluster_vip1')}:443": []
+      "%{hiera('corosync_cluster_vip2')}:443": []
     options:
-      use_backend: '%[req.hdr(host),lower,map(/etc/haproxy/openstack_domains.map,bk_default)]'
+      - option:         'tcplog'
+      - tcp-request:
+        - 'inspect-delay 5s'
+        - 'content accept if { req_ssl_hello_type 1 }'
+      - use_backend:      '%[req_ssl_sni,lower,map(/etc/haproxy/public_domains.map)]'
+  uib-http:
+    mode:               'http'
+    bind:
+      "%{hiera('corosync_cluster_vip3')}:80": []
+      "%{hiera('corosync_cluster_vip4')}:80": []
+    options:
+      - option:         'httplog'
+      - redirect:       'scheme https if !{ ssl_fc }'
+  uib-https:
+    mode:               'tcp'
+    bind:
+      "%{hiera('corosync_cluster_vip3')}:443": []
+      "%{hiera('corosync_cluster_vip4')}:443": []
+    options:
+      - option:         'tcplog'
+      - tcp-request:
+        - 'inspect-delay 5s'
+        - 'content accept if { req_ssl_hello_type 1 }'
+      - use_backend:      '%[req_ssl_sni,lower,map(/etc/haproxy/uib_domains.map)]'
+
 
 # Corosync uib
 # Corosync VIP and HAproxy
