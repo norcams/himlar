@@ -83,13 +83,13 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
 
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   'uib-https-sfb':
-    listening_service:  'uib-https-uh-dashboard'
+    listening_service:  'uib-https-sfb'
     ports:              443
     server_names:       ['sfb-fe01.uib.no', 'sfb-fe02.uib.no', 'sfb-fe03.uib.no']
     ipaddresses:        ['129.177.14.231','129.177.14.232','129.177.14.233']
     options:            'check'
   'public-https-sfb':
-    listening_service:  'uib-https-uh-dashboard'
+    listening_service:  'public-https-sfb'
     ports:              4443
     server_names:       ['sfb-fe01.uib.no', 'sfb-fe02.uib.no', 'sfb-fe03.uib.no']
     ipaddresses:        ['129.177.14.231','129.177.14.232','129.177.14.233']
