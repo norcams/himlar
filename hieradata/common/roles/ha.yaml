@@ -17,17 +17,22 @@ profile::firewall::rules::custom_rules:           {}
 #
 # HAproxy
 #
+# HAproxy
+haproxy::global_options:
+  log:          '127.0.0.1 local6 debug alert'
+
 haproxy::defaults_options:
-  log:          'global' #FIXME turn of debug logging in production
+  log:          'global'
   stats:        []
   option:       ['dontlognull']
   timeout:
-    - 'connect 10s'
+    - 'connect 30s'
     - 'client 10s'
     - 'server 10s'
 
+profile::highavailability::loadbalancing::haproxy::manage_haproxy:        true
 profile::highavailability::loadbalancing::haproxy::enable_remote_logging: true
-profile::highavailability::loadbalancing::haproxy::manage_haproxy:  true
+profile::highavailability::loadbalancing::haproxy::enable_nonlocal_bind:  true
 profile::highavailability::loadbalancing::haproxy::haproxy_listens:
   monitor:
     mode: 'http'
@@ -40,7 +45,9 @@ profile::highavailability::loadbalancing::haproxy::haproxy_listens:
         - 'realm Monitor\ Stats'
         - 'uri /'
     bind:
-      "0.0.0.0:9000": []
+      "%{hiera('corosync_cluster_vip1')}:9000": []
+      "%{hiera('corosync_cluster_vip2')}:9000": []
+      '%{::ipaddress_public1}:9000':            []
 
 #
 # Corosync and pacemaker

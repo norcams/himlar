@@ -11,6 +11,7 @@ class profile::highavailability::loadbalancing::haproxy (
   $haproxy_userlists       = {},
   $haproxy_peers           = {},
   $haproxy_mapfile         = {},
+  $enable_nonlocal_bind    = false,
   $enable_remote_logging   = false
 ) {
 
@@ -60,6 +61,12 @@ class profile::highavailability::loadbalancing::haproxy (
       destination => $::ipaddress_public1,
       source      => $source,
       extras      => $firewall_extras,
+    }
+  }
+
+  if $enable_nonlocal_bind {
+    sysctl::value { 'net.ipv4.ip_nonlocal_bind':
+      value => 1,
     }
   }
 
