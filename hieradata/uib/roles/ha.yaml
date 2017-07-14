@@ -58,14 +58,42 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
   uib_domains:
     ensure: present
     mappings:
-      - "dashboard.uh-iaas.no":                 'uib-https-uh-dashboard'
-      - "dashboard-ha.uh-iaas.no":              'uib-https-uh-dashboard'
-      - "access.uh-iaas.no":                    'uib-https-uh-access'
-      - "access-ha.uh-iaas.no":                 'uib-https-uh-access'
+      - 'meet.uib.no':                            'uib-https-sfb'
+      - 'dialin.uib.no':                          'uib-https-sfb'
+      - 'lyncdiscoverinternal.uib.no':            'uib-https-sfb'
+      - 'lyncdiscoverinternal.uni.no':            'uib-https-sfb'
+      - 'lyncdiscoverinternal.holbergprisen.no':  'uib-https-sfb'
+      - 'lyncdiscoverinternal.bergento.no':       'uib-https-sfb'
+      - 'sfb-webpool01.uib.no':                   'uib-https-sfb'
+      - 'lyncadmin.uib.no':                       'uib-https-sfb'
+      - "dashboard.uh-iaas.no":                   'uib-https-uh-dashboard'
+      - "dashboard-ha.uh-iaas.no":                'uib-https-uh-dashboard'
+      - "access.uh-iaas.no":                      'uib-https-uh-access'
+      - "access-ha.uh-iaas.no":                   'uib-https-uh-access'
   public_domains:
     ensure: present
+    mappings:
+      - 'meet.uib.no':                            'public-https-sfb'
+      - 'dialin.uib.no':                          'public-https-sfb'
+      - 'lyncdiscover.uib.no':                    'public-https-sfb'
+      - 'lyncdiscover.uni.no':                    'public-https-sfb'
+      - 'lyncdiscover.holbergprisen.no':          'public-https-sfb'
+      - 'lyncdiscover.bergento.no':               'public-https-sfb'
+      - 'sfb-webext01.uib.no':                    'public-https-sfb'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
+  'uib-https-sfb':
+    listening_service:  'uib-https-uh-dashboard'
+    ports:              443
+    server_names:       ['sfb-fe01.uib.no', 'sfb-fe02.uib.no', 'sfb-fe03.uib.no']
+    ipaddresses:        ['129.177.14.231','129.177.14.232','129.177.14.233']
+    options:            'check'
+  'public-https-sfb':
+    listening_service:  'uib-https-uh-dashboard'
+    ports:              4443
+    server_names:       ['sfb-fe01.uib.no', 'sfb-fe02.uib.no', 'sfb-fe03.uib.no']
+    ipaddresses:        ['129.177.14.231','129.177.14.232','129.177.14.233']
+    options:            'check'
   'uib-https-dashboard':
     listening_service:  'uib-https-uh-dashboard'
     ports:              443
@@ -80,6 +108,16 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     options:            'check'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_backends:
+  uib-https-sfb:
+    mode:             'tcp'
+    options:
+      - balance:      'source'
+      - option:       ['ssl-hello-chk']
+  public-https-sfb:
+    mode:             'tcp'
+    options:
+      - balance:      'source'
+      - option:       ['ssl-hello-chk']
   uib-https-uh-dashboard:
     mode: 'tcp'
     options:
