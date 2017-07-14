@@ -18,7 +18,7 @@ profile::firewall::rules::custom_rules:           {}
 # HAproxy
 #
 haproxy::defaults_options:
-  log:          'global'
+  log:          'global' #FIXME turn of debug logging in production
   stats:        []
   option:       ['dontlognull']
   timeout:
@@ -26,6 +26,7 @@ haproxy::defaults_options:
     - 'client 10s'
     - 'server 10s'
 
+profile::highavailability::loadbalancing::haproxy::enable_remote_logging: true
 profile::highavailability::loadbalancing::haproxy::manage_haproxy:  true
 profile::highavailability::loadbalancing::haproxy::haproxy_listens:
   monitor:
@@ -35,6 +36,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_listens:
       stats:
         - 'enable'
         - 'hide-version'
+        - 'show-node'
         - 'realm Monitor\ Stats'
         - 'uri /'
     bind:
