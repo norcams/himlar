@@ -42,55 +42,163 @@ profile::firewall::rules::custom_rules:
     destination:
       - "%{hiera('corosync_cluster_vip4')}"
       - "%{hiera('corosync_cluster_vip3')}"
+      - '%{::ipaddress_public1}'
 
 # HAproxy
+haproxy::global_options:
+  log:          '127.0.0.1 local6 info alert'
+  nbproc:       '2'
+  cpu-map:      ['1 0', '2 2']
+  maxconn:      '10000' # per core
 haproxy::defaults_options:
-  log:          'global'
+  log:          'global'  #FIXME turn of debug logging in production
   stats:        []
   option:       ['dontlognull']
+  maxconn:      '2000' # per frontend
   timeout:
     - 'connect 10s'
     - 'client 10s'
     - 'server 10s'
 
-profile::highavailability::loadbalancing::haproxy::haproxy_backends:
-  bk_https_test: {}
-
-#profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
-
-profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
-  uib-http:
-    mode: 'http'
-    bind:
-      "0.0.0.0:80": []
-    options:
-      acl:          'uib_src src 129.177.0.0/16'
-      http-request:
-        - 'allow if uib_src'
-  uib-https:
-    mode: 'tcp'
-    bind:
-      "0.0.0.0:443": []
-    options:
-      acl:          'uib_src src 129.177.0.0/16'
-      tcp-request:
-        - 'inspect-delay 2s'
-        - 'content accept if uib_src'
-      use_backend:  bk_https_test
-
-#      option:       'socket-stats'
-#      tcp-request:
-#        - 'inspect-delay 5s'
-#        - 'content accept if { req_ssl_hello_type 1 }'
-#      use_backend:  '%[req.hdr(host),lower,map(/etc/haproxy/uib_domains.map,bk_default)]'
+profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
+  uib_domains:
+    ensure: present
+    mappings:
+      - 'meet.uib.no':                            'uib-https-sfb'
+      - 'dialin.uib.no':                          'uib-https-sfb'
+      - 'lyncdiscoverinternal.uib.no':            'uib-https-sfb'
+      - 'lyncdiscoverinternal.uni.no':            'uib-https-sfb'
+      - 'lyncdiscoverinternal.holbergprisen.no':  'uib-https-sfb'
+      - 'lyncdiscoverinternal.bergento.no':       'uib-https-sfb'
+      - 'sfb-webpool01.uib.no':                   'uib-https-sfb'
+      - 'lyncadmin.uib.no':                       'uib-https-sfb'
+      - "dashboard.uh-iaas.no":                   'uib-https-uh-dashboard'
+      - "dashboard-ha.uh-iaas.no":                'uib-https-uh-dashboard'
+      - "access.uh-iaas.no":                      'uib-https-uh-access'
+      - "access-ha.uh-iaas.no":                   'uib-https-uh-access'
+      - "status.uh-iaas.no":                      'uib-https-uh-status'
+      - "status-ha.uh-iaas.no":                   'uib-https-uh-status'
+  public_domains:
+    ensure: present
+    mappings:
+      - 'meet.uib.no':                            'public-https-sfb'
+      - 'dialin.uib.no':                          'public-https-sfb'
+      - 'lyncdiscover.uib.no':                    'public-https-sfb'
+      - 'lyncdiscover.uni.no':                    'public-https-sfb'
+      - 'lyncdiscover.holbergprisen.no':          'public-https-sfb'
+      - 'lyncdiscover.bergento.no':               'public-https-sfb'
+      - 'sfb-webext01.uib.no':                    'public-https-sfb'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
-  'https_test':
-    listening_service:  'bk_https_test'
+  'uib-https-sfb':
+    listening_service:  'uib-https-sfb'
+    ports:              443
+    server_names:       ['sfb-fe01.uib.no', 'sfb-fe02.uib.no', 'sfb-fe03.uib.no']
+    ipaddresses:        ['129.177.14.231','129.177.14.232','129.177.14.233']
+    options:            'check'
+  'public-https-sfb':
+    listening_service:  'public-https-sfb'
+    ports:              4443
+    server_names:       ['sfb-fe01.uib.no', 'sfb-fe02.uib.no', 'sfb-fe03.uib.no']
+    ipaddresses:        ['129.177.14.231','129.177.14.232','129.177.14.233']
+    options:            'check'
+  'uib-https-dashboard':
+    listening_service:  'uib-https-uh-dashboard'
     ports:              443
     server_names:       ['osl-dashboard-01', 'bgo-dashboard-01']
     ipaddresses:        [158.37.63.254, 158.39.77.254]
     options:            'check'
+  uib-https-uh-access:
+    listening_service:  'uib-https-uh-access'
+    ports:              443
+    server_names:       ['bgo-access-01']
+    ipaddresses:        [158.39.77.252]
+    options:            'check'
+  uib-https-uh-status:
+    listening_service:  'uib-https-uh-status'
+    ports:              443
+    server_names:       ['bgo-status-01', 'osl-status-01']
+    ipaddresses:        ['158.39.77.250', '158.37.63.250']
+    options:            'check'
+
+profile::highavailability::loadbalancing::haproxy::haproxy_backends:
+  uib-https-sfb:
+    mode:             'tcp'
+    options:
+      - balance:      'source'
+      - option:       ['ssl-hello-chk']
+  public-https-sfb:
+    mode:             'tcp'
+    options:
+      - balance:      'source'
+      - option:       ['ssl-hello-chk']
+  uib-https-uh-status:
+    mode:             'tcp'
+    options:
+      - balance:      'roundrobin'
+      - option:       ['ssl-hello-chk']
+  uib-https-uh-access:
+    mode: 'tcp'
+    options:
+      - balance:      'source'
+      - option:       ['ssl-hello-chk']
+  uib-https-uh-dashboard:
+    mode: 'tcp'
+    options:
+      - balance:      'source'
+      - option:       ['ssl-hello-chk']
+#      - stick-table:  'type binary len 32 size 30k expire 30m'
+#      - acl:
+#        - 'clienthello req_ssl_hello_type 1'
+#        - 'serverhello rep_ssl_hello_type 2'
+#      - tcp-request:
+#        - 'inspect-delay 15s'
+#        - 'content reject unless clienthello'
+#      - tcp-response:
+#        - 'content reject unless serverhello'
+#      - stick:
+#        - 'on payload_lv(43,1) if clienthello'
+#        - 'store-response payload_lv(43,1) if serverhello'
+
+profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
+  public-http:
+    mode:               'http'
+    bind:
+      "%{hiera('corosync_cluster_vip1')}:80": []
+      "%{hiera('corosync_cluster_vip2')}:80": []
+    options:
+      - option:         'httplog'
+      - redirect:       'scheme https if !{ ssl_fc }'
+  public-https:
+    mode:               'tcp'
+    bind:
+      "%{hiera('corosync_cluster_vip1')}:443": []
+      "%{hiera('corosync_cluster_vip2')}:443": []
+    options:
+      - option:         'tcplog'
+      - tcp-request:
+        - 'inspect-delay 5s'
+        - 'content accept if { req_ssl_hello_type 1 }'
+      - use_backend:      '%[req_ssl_sni,lower,map(/etc/haproxy/public_domains.map)]'
+  uib-http:
+    mode:               'http'
+    bind:
+      "%{hiera('corosync_cluster_vip3')}:80": []
+      "%{hiera('corosync_cluster_vip4')}:80": []
+    options:
+      - option:         'httplog'
+      - redirect:       'scheme https if !{ ssl_fc }'
+  uib-https:
+    mode:               'tcp'
+    bind:
+      "%{hiera('corosync_cluster_vip3')}:443": []
+      "%{hiera('corosync_cluster_vip4')}:443": []
+    options:
+      - option:         'tcplog'
+      - tcp-request:
+        - 'inspect-delay 5s'
+        - 'content accept if { req_ssl_hello_type 1 }'
+      - use_backend:      '%[req_ssl_sni,lower,map(/etc/haproxy/uib_domains.map)]'
 
 # Corosync VIP and HAproxy
 profile::highavailability::corosync::primitives:
