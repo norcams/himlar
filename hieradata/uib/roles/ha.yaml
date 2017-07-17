@@ -49,11 +49,12 @@ haproxy::global_options:
   log:          '127.0.0.1 local6 info alert'
   nbproc:       '2'
   cpu-map:      ['1 0', '2 2']
-
+  maxconn:      '10000' # per core
 haproxy::defaults_options:
   log:          'global'  #FIXME turn of debug logging in production
   stats:        []
   option:       ['dontlognull']
+  maxconn:      '2000' # per frontend
   timeout:
     - 'connect 10s'
     - 'client 10s'
