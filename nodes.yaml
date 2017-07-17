@@ -82,6 +82,11 @@ nodesets:
       box:        "norcams/freebsd"
     - role:       "admin"
       memory:     3096
+  ha:
+    - role:       'ha'
+      hostid:     '01'
+    - role:       'ha'
+      hostid:     '02'  
   infra:
     - role:       "login"
     - role:       "controller"
