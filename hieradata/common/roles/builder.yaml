@@ -71,6 +71,15 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         3
     'username':         'fedora'
+  'fedora_26':
+    'image_name':       'IMAGEBUILDER Fedora 26'
+    'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/26/CloudImages/x86_64/images/'
+    'latest':           'Fedora-Cloud-Base-26-1.5.x86_64.qcow2'
+    'checksum_file':    'Fedora-CloudImages-26-1.5-x86_64-CHECKSUM'
+    'checksum':         'sha256'
+    'min_ram':          768
+    'min_disk':         3
+    'username':         'fedora'
   'ubuntu_1604':
     'image_name':       'IMAGEBUILDER Ubuntu server 16.04'
     'url':              'https://cloud-images.ubuntu.com/xenial/current/'
@@ -81,7 +90,7 @@ profile::application::builder::images:
     'min_disk':         3
     'username':         'ubuntu'
   'debian8':
-    'image_name':       'IMAGEBUILDER Debian Jessie 8'
+    'image_name':       'IMAGEBUILDER Debian 8'
     'url':              'http://cdimage.debian.org/cdimage/openstack/current-8/'
     'latest':           'debian-8-openstack-amd64.qcow2'
     'checksum_file':    'SHA256SUMS'
@@ -90,7 +99,7 @@ profile::application::builder::images:
     'min_disk':         3
     'username':         'debian'
   'debian9':
-    'image_name':       'IMAGEBUILDER Debian Stretch 9'
+    'image_name':       'IMAGEBUILDER Debian 9'
     'url':              'http://cdimage.debian.org/cdimage/openstack/current-9/'
     'latest':           'debian-9-openstack-amd64.qcow2'
     'checksum_file':    'SHA256SUMS'
