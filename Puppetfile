@@ -149,10 +149,11 @@ mod 'cinder', :ref => '8.2.0',                   :git => github + 'openstack/pup
 mod 'neutron', :ref => '8.3.0',                  :git => github + 'openstack/puppet-neutron'
 mod 'nova', :ref => '8.2.0',                     :git => github + 'openstack/puppet-nova'
 mod 'horizon', :ref => 'norcams-mitaka',         :git => github + 'norcams/puppet-horizon'
-mod 'keystone', :ref => 'norcams-mitaka',        :git => github + 'norcams/puppet-keystone'
+mod 'keystone', :ref => 'norcams/newton',        :git => github + 'norcams/puppet-keystone'
 
-mod 'openstacklib', :ref => '8.2.0',             :git => github + 'openstack/puppet-openstacklib'
-mod 'openstack_extras', :ref => '8.2.0',         :git => github + 'openstack/puppet-openstack_extras'
+mod 'oslo', :ref => '9.5.0',                     :git => github + 'openstack/puppet-oslo'
+mod 'openstacklib', :ref => '9.5.0',             :git => github + 'openstack/puppet-openstacklib'
+mod 'openstack_extras', :ref => '9.5.0',         :git => github + 'openstack/puppet-openstack_extras'
 mod 'sysctl', :ref => 'v0.0.11',                 :git => github + 'duritong/puppet-sysctl'
 mod 'memcached', :ref => 'v2.8.1',               :git => github + 'saz/puppet-memcached'
 
