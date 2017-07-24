@@ -1,28 +1,32 @@
 #
 class profile::openstack::identity (
-  $ceilometer_enabled = true,
-  $cinder_enabled     = true,
-  $glance_enabled     = true,
-  $neutron_enabled    = true,
-  $nova_enabled       = true,
-  $swift_enabled      = true,
-  $trove_enabled      = true,
-  $roles_extra        = [],
-  $manage_firewall    = true,
-  $firewall_extras    = {},
-  $firewall_extras_a  = {},
-  $manage_ssl_cert    = false,
-  $manage_openidc     = false,
-  $trusted_dashboard  = undef,
-  $keystone_config    = {}
+  $ceilometer_enabled       = false,
+  $cinder_enabled           = false,
+  $glance_enabled           = false,
+  $neutron_enabled          = false,
+  $nova_enabled             = false,
+  $swift_enabled            = false,
+  $trove_enabled            = false,
+  $roles_extra              = [],
+  $manage_firewall          = true,
+  $firewall_extras          = {},
+  $firewall_extras_a        = {},
+  $manage_ssl_cert          = false,
+  $manage_openidc           = false,
+  $trusted_dashboard        = undef,
+  $disable_admin_token_auth = false,
+  $keystone_config          = {}
 ) {
 
   include ::keystone
   include ::keystone::roles::admin
   include ::keystone::endpoint
-  include ::keystone::cron::token_flush
+  include ::keystone::cron::token_flush # FIXME
   include ::keystone::wsgi::apache
 
+  if $disable_admin_token_auth {
+    include ::keystone::disable_admin_token_auth
+  }
   if $manage_openidc {
     include ::keystone::federation::openidc
     if $trusted_dashboard {
@@ -74,11 +78,11 @@ class profile::openstack::identity (
 
   if $manage_firewall {
     profile::firewall::rule { '228 keystone accept tcp':
-      port   => 5000,
+      dport  => 5000,
       extras => $firewall_extras
     }
     profile::firewall::rule { '229 keystone-admin accept tcp':
-      port   => 35357,
+      dport  => 35357,
       extras => $firewall_extras_a
     }
   }
