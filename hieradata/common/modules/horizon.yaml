@@ -24,7 +24,13 @@ horizon::neutron_options:
   'enable_firewall': false
   'enable_vpn': false
 
-horizon::websso_enabled: true
+horizon::image_backend:
+  image_formats:
+    '':       'Select format'
+    'qcow2':  'QCOW2 - QEMU Emulator'
+    'raw':    'Raw'
+
+horizon::websso_enabled:        'True'
 horizon::websso_initial_choice: openidc
 horizon::websso_choices:
   openidc: Dataporten
