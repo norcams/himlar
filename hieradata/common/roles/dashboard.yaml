@@ -5,6 +5,8 @@ include:
     - profile::logging::rsyslog::client
     - profile::webserver::apache
 
+openstack_version:  'newton' #FIXME remove after upgrade
+
 profile::base::network::manage_dummy:                true
 profile::openstack::dashboard::manage_dashboard:     true
 profile::webserver::apache::manage_firewall:         false
@@ -52,3 +54,7 @@ profile::openstack::dashboard::policies:
     file_path:  '/etc/openstack-dashboard/nova_policy.json'
     key:        'compute:resize'
     value:      'role:admin'
+#  upload_image:
+#    key:        'volume_extension:volume_actions:upload_image'
+#    value:      'role:admin'
+#    file_path:  '/etc/openstack-dashboard/cinder_policy.json'
