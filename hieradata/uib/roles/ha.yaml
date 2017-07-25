@@ -97,8 +97,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ipaddresses:        ['129.177.14.231','129.177.14.232','129.177.14.233']
     options:
       - 'check'
-      - 'check-ssl'
-      - 'ca-file /etc/pki/tls/cert.pem'
+      - 'port 80'
   'public-https-sfb':
     listening_service:  'public-https-sfb'
     ports:              4443
@@ -106,9 +105,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ipaddresses:        ['129.177.14.231','129.177.14.232','129.177.14.233']
     options:
       - 'check'
-      - 'check-ssl'
-      - 'port 443'
-      - 'ca-file /etc/pki/tls/cert.pem'
+      - 'port 80'
   'uib-https-dashboard':
     listening_service:  'uib-https-uh-dashboard'
     ports:              443
@@ -134,13 +131,13 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     options:
       - balance:      'roundrobin'
       - option:
-        - 'httpchk /meet/'
+        - 'httpchk /healthcheck.html'
   public-https-sfb:
     mode:             'tcp'
     options:
       - balance:      'roundrobin'
       - option:
-        - 'httpchk /meet/'
+        - 'httpchk /healthcheck.html'
   uib-https-uh-status:
     mode:             'tcp'
     options:

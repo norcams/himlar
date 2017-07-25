@@ -85,7 +85,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     options:
       - balance:      'roundrobin'
       - option:
-        - 'httpchk /meet/'
+        - 'httpchk /healthcheck.html'
 
 # Backend members
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
@@ -108,8 +108,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ipaddresses:        ['129.177.14.231','129.177.14.232','129.177.14.233']
     options:
       - 'check'
-      - 'check-ssl'
-      - 'ca-file /etc/pki/tls/cert.pem'
+      - 'port 80'
 
 # Frontend: backends are found from mapping file
 profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
