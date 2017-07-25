@@ -29,7 +29,7 @@ define profile::application::builder::jobs(
   } ->
   cron { $name:
     ensure  => $ensure,
-    command => "/home/${user}/build_scripts/${name}",
+    command => "/home/${user}/build_scripts/${name} || logger -p cron.err -t imagebuilder Failed building image ${name}",
     user    => $user,
     weekday => 'Wednesday',
     hour    => $hour,
