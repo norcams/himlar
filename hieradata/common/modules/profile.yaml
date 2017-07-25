@@ -67,7 +67,7 @@ profile::application::himlarcli::auth_url:          "%{hiera('public__address__a
 profile::application::himlarcli::password:          "%{hiera('keystone_admin_password')}"
 profile::application::himlarcli::region_name:       "%{::location}"
 profile::application::himlarcli::tenant_name:       'openstack'
-profile::application::himlarcli::default_domain:    'Default'
+profile::application::himlarcli::default_domain:    'default'
 profile::application::himlarcli::domain:            "%{::domain}"
 profile::application::himlarcli::foreman_url:       "https://%{::location}-admin-01.%{::domain}"
 profile::application::himlarcli::foreman_user:      'admin'
