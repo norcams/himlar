@@ -107,6 +107,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     options:
       - 'check'
       - 'check-ssl'
+      - 'port 443'
       - 'ca-file /etc/pki/tls/cert.pem'
   'uib-https-dashboard':
     listening_service:  'uib-https-uh-dashboard'
