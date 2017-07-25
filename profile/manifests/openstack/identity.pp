@@ -15,15 +15,19 @@ class profile::openstack::identity (
   $manage_openidc           = false,
   $trusted_dashboard        = undef,
   $disable_admin_token_auth = false,
+  $manage_token_rotate      = false,
   $keystone_config          = {}
 ) {
 
   include ::keystone
   include ::keystone::roles::admin
   include ::keystone::endpoint
-  include ::keystone::cron::token_flush # FIXME
+  include ::keystone::cron::token_flush # FIXME: remove after change to fernet
   include ::keystone::wsgi::apache
 
+  if $manage_token_rotate {
+    include ::keystone::cron::fernet_rotate
+  }
   if $disable_admin_token_auth {
     include ::keystone::disable_admin_token_auth
   }

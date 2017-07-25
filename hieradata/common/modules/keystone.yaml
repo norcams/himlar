@@ -12,9 +12,15 @@ keystone::admin_endpoint:                 "%{hiera('endpoint__identity__admin')}
 keystone::enable_proxy_headers_parsing:   true
 keystone::purge_config:                   true
 
-# token
-#keystone::token_provider:                 'fernet'
-#keystone::enable_fernet_setup:            true
+# notification (FIXME: should send cadf via rabbitmq to ceilomter)
+keystone::notification_driver:            'log'
+keystone::notification_format:            'basic'
+
+# token (FIXME: setup and rotate should only be run on one identity server!)
+keystone::token_provider:                 'fernet'
+keystone::enable_fernet_setup:            true
+keystone::cron::fernet_rotate::minute:    '15'
+keystone::cron::fernet_rotate::hour:      '3'
 
 # httpd
 keystone::wsgi::apache::ssl:              false
