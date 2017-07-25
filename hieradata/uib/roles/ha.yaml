@@ -95,13 +95,19 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ports:              443
     server_names:       ['sfb-fe01.uib.no', 'sfb-fe02.uib.no', 'sfb-fe03.uib.no']
     ipaddresses:        ['129.177.14.231','129.177.14.232','129.177.14.233']
-    options:            'check'
+    options:
+      - 'check'
+      - 'check-ssl'
+      - 'ca-file /etc/pki/tls/cert.pem'
   'public-https-sfb':
     listening_service:  'public-https-sfb'
     ports:              4443
     server_names:       ['sfb-fe01.uib.no', 'sfb-fe02.uib.no', 'sfb-fe03.uib.no']
     ipaddresses:        ['129.177.14.231','129.177.14.232','129.177.14.233']
-    options:            'check'
+    options:
+      - 'check'
+      - 'check-ssl'
+      - 'ca-file /etc/pki/tls/cert.pem'
   'uib-https-dashboard':
     listening_service:  'uib-https-uh-dashboard'
     ports:              443
@@ -125,13 +131,15 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
   uib-https-sfb:
     mode:             'tcp'
     options:
-      - balance:      'source'
-      - option:       ['ssl-hello-chk']
+      - balance:      'roundrobin'
+      - option:
+        - 'httpchk /meet/'
   public-https-sfb:
     mode:             'tcp'
     options:
-      - balance:      'source'
-      - option:       ['ssl-hello-chk']
+      - balance:      'roundrobin'
+      - option:
+        - 'httpchk /meet/'
   uib-https-uh-status:
     mode:             'tcp'
     options:
