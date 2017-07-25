@@ -32,4 +32,4 @@ profile::base::cron::crontabs:
     hour:     '10'
     minute:   '10'
     weekday:  '1'
-    command:  '/opt/himlarcli/bin/update_images.sh >/dev/null'
+    command:  '/opt/himlarcli/bin/image_update.sh >/dev/null'
