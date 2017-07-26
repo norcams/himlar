@@ -1,4 +1,7 @@
 ---
+# FIXME: testing new package
+profile::application::access::package_url:      'https://download.iaas.uio.no/uh-iaas/rpm/himlar-dp-prep-1.5-1.el7.x86_64.rpm'
+
 profile::webserver::apache::vhosts:
   dpapp:
     vhost_name:         "access.test.iaas.uio.no"
@@ -10,6 +13,3 @@ profile::webserver::apache::vhosts:
     ssl_ca:             "/etc/pki/tls/certs/cachain.pem"
     ssl_cert:           "/etc/pki/tls/certs/access.test.iaas.uio.no.cert.pem"
     ssl_key:            "/etc/pki/tls/private/access.test.iaas.uio.no.key.pem"
-
-################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
-profile::base::network::manage_dummy: true
