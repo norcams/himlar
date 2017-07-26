@@ -12,6 +12,7 @@
 #
 class profile::application::foreman(
   $manage_eyaml    = false,
+  $manage_r10k     = false,
   $manage_firewall = false,
   $manage_repo_dir = false,
   $firewall_extras = {
@@ -25,7 +26,6 @@ class profile::application::foreman(
   },
 ) {
 
-  include ::r10k
   include ::puppet
   include ::foreman
   include ::foreman_proxy
@@ -36,6 +36,13 @@ class profile::application::foreman(
   include ::foreman::plugin::discovery
   include ::foreman::plugin::templates
 
+  if $manage_r10k {
+    include ::r10k
+    file { '/etc/puppetlabs':
+      ensure => directory,
+      before => Class['r10k']
+    }
+  }
   if $manage_eyaml {
     include ::eyaml
   }

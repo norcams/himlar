@@ -2,7 +2,7 @@
 # git repo base URIs
 #
 github = 'https://github.com/'
-local  = 'iaas@git.norcams.org:'
+#local  = 'iaas@git.norcams.org:'
 
 #
 # profile::base::common
@@ -76,7 +76,7 @@ mod 'gitolite', :ref => '1.0',                   :git => github + 'uib/puppet-gi
 
 # profile::application::foreman
 #
-mod 'zack/r10k', '2.5.2'                         # forge
+mod 'voxpupuli/r10k', :ref => 'v4.2.0',          :git => github + 'voxpupuli/puppet-r10k'
 mod 'theforeman/foreman', :ref => '7.0.0',       :git => github + 'theforeman/puppet-foreman.git'
 mod 'theforeman/concat_native', '1.5.0'          # forge
 mod 'theforeman/tftp', '2.0.0'                   # forge
