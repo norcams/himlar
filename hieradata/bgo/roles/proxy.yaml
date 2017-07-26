@@ -11,10 +11,10 @@ profile::base::cron::crontabs:
     minute:   '*/5'
     command:  '/opt/himlarcli/bin/check_services.sh >/dev/null'
   update_images:
-    hour:     '10'
-    minute:   '10'
-    weekday:  '1'
-    command:  '/opt/himlarcli/bin/update_images.sh >/dev/null'
+    hour:     '7'
+    minute:   '15'
+    monthday: '1'
+    command:  '/opt/himlarcli/bin/image_update.sh >/dev/null'
 
 profile::base::lvm::physical_volume:
   '/dev/vdb':
