@@ -62,15 +62,6 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         8
     'username':         'centos'
-  'fedora_25':
-    'image_name':       'IMAGEBUILDER Fedora 25'
-    'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/25/CloudImages/x86_64/images/'
-    'latest':           'Fedora-Cloud-Base-25-1.3.x86_64.qcow2'
-    'checksum_file':    'Fedora-CloudImages-25-1.3-x86_64-CHECKSUM'
-    'checksum':         'sha256'
-    'min_ram':          768
-    'min_disk':         3
-    'username':         'fedora'
   'fedora_26':
     'image_name':       'IMAGEBUILDER Fedora 26'
     'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/26/CloudImages/x86_64/images/'
@@ -81,7 +72,7 @@ profile::application::builder::images:
     'min_disk':         3
     'username':         'fedora'
   'ubuntu_1604':
-    'image_name':       'IMAGEBUILDER Ubuntu server 16.04'
+    'image_name':       'IMAGEBUILDER Ubuntu 16.04 LTS'
     'url':              'https://cloud-images.ubuntu.com/xenial/current/'
     'latest':           'xenial-server-cloudimg-amd64-disk1.img'
     'checksum_file':    'SHA256SUMS'
@@ -89,15 +80,15 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         3
     'username':         'ubuntu'
-  'debian8':
-    'image_name':       'IMAGEBUILDER Debian 8'
-    'url':              'http://cdimage.debian.org/cdimage/openstack/current-8/'
-    'latest':           'debian-8-openstack-amd64.qcow2'
+  'ubuntu_1704':
+    'image_name':       'IMAGEBUILDER Ubuntu 17.04'
+    'url':              'https://cloud-images.ubuntu.com/zesty/current/'
+    'latest':           'zesty-server-cloudimg-amd64-disk1.img'
     'checksum_file':    'SHA256SUMS'
     'checksum':         'sha256'
     'min_ram':          768
     'min_disk':         3
-    'username':         'debian'
+    'username':         'ubuntu'
   'debian9':
     'image_name':       'IMAGEBUILDER Debian 9'
     'url':              'http://cdimage.debian.org/cdimage/openstack/current-9/'
