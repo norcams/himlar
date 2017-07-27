@@ -21,6 +21,8 @@ network::interfaces_hash:
     netmask:   '255.255.255.255'
     defroute:  'no'
 
+profile::base::network::manage_dummy: true
+
 include:
   default:
     - profile::database::galera
