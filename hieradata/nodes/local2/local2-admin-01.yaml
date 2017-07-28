@@ -9,4 +9,4 @@ network::interfaces_hash:
     dns2:      "%{hiera('netcfg_dns_server2')}"
     domain:    "%{hiera('netcfg_dns_search')}"
     defroute:  'yes'
-    peerdns:   'no'
+    peerdns:   'yes'
