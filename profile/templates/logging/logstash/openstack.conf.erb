@@ -61,6 +61,9 @@ filter {
       add_tag => "rabbitmq_logs"
     }
   } else if [type] =~ /^(nova|glance|neutron|cinder|keystone|horzion)$/ {
+    if [component] == "calico-dhcp-agent" and [message] =~ /(?i)MaxRetryError|ReadTimeoutError/ {
+      drop{}
+    }
     grok {
       break_on_match => true
       match => [
