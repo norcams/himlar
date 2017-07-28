@@ -7,9 +7,9 @@ location_environment: 'local2'
 location_description: 'Local development environment'
 
 domain_frontend:      'iaas.intern'
-domain_public:        'local1.iaas.intern'
-domain_trp:           'trp.local1.iaas.intern'
-domain_mgmt:          'mgmt.local1.iaas.intern'
+domain_public:        'local2.iaas.intern'
+domain_trp:           'trp.local2.iaas.intern'
+domain_mgmt:          'mgmt.local2.iaas.intern'
 
 # These should only be used to configure network in nodes!
 netcfg_trp_netpart:     '172.31.13'
@@ -70,7 +70,7 @@ profile::network::services::dns_records:
     "compute.api.%{hiera('domain_public')}":              "%{hiera('netcfg_public_netpart')}.250"
     "volume.api.%{hiera('domain_public')}":               "%{hiera('netcfg_public_netpart')}.250"
     # mgmt
-    "%{::location}-login-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_mgmt_netpart')}.10"
+    "%{::location}-login-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.10"
 
 #
 ## Secret data which for other environments are stored ooutside of this data tree
