@@ -17,10 +17,10 @@ keystone::notification_driver:            'log'
 keystone::notification_format:            'basic'
 
 # token (FIXME: setup and rotate should only be run on one identity server!)
-keystone::token_provider:                 'fernet'
-keystone::enable_fernet_setup:            true
-keystone::cron::fernet_rotate::minute:    '15'
-keystone::cron::fernet_rotate::hour:      '3'
+#keystone::token_provider:                 'fernet'
+#keystone::enable_fernet_setup:            true
+#keystone::cron::fernet_rotate::minute:    '15'
+#keystone::cron::fernet_rotate::hour:      '3'
 
 # httpd
 keystone::wsgi::apache::ssl:              false
