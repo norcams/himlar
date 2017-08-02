@@ -57,7 +57,7 @@ mod 'etcd', :ref => 'c26961fe94',                :git => github + 'norcams/puppe
 #
 # profile::application::openssl
 #
-mod 'openssl', :ref => '1.9.0',                  :git => github + 'camptocamp/puppet-openssl'
+mod 'openssl', :ref => '1.8.2',                  :git => github + 'camptocamp/puppet-openssl'
 
 #
 # profile::application::consul
@@ -131,8 +131,9 @@ mod 'postgresql', :ref => '4.7.1',                :git => github + 'puppetlabs/p
 # profile::database::mariadb
 #
 #mod 'mariadbrepo', ref => '0.2.1',               :git => github + 'Mylezeem/puppet-mariadbrepo'
-mod 'staging', :ref => '1.0.4',                  :git => github + 'nanliu/puppet-staging'
-mod 'mysql', :ref => '3.9.0',                    :git => github + 'puppetlabs/puppetlabs-mysql'
+mod 'staging', :ref => '1.0.4',                   :git => github + 'nanliu/puppet-staging'
+mod 'mysql', :ref => '3.9.0',                     :git => github + 'puppetlabs/puppetlabs-mysql'
+mod 'galera_arbitrator', :ref => '1.0.4',         :git => github + 'jadestorm/puppet-galera_arbitrator'
 
 #
 # profile::messaging::rabbitmq
