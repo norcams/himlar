@@ -45,10 +45,12 @@ profile::base::firewall::purge_firewall: true
 # Use this for firewall rules to allow only from some networks
 #
 allow_from_network:
-  - '129.177.0.0/16'
-  - '129.240.0.0/16'
-  - '158.37.63.0/24'
-  - '158.39.77.0/24'
+  - '129.177.0.0/16'     # UiB fastnett
+  - '129.240.0.0/16'     # UiO fastnett
+  - '158.37.63.0/24'     # OSL public #1
+  - '158.39.74.0/24'     # BGO public #2
+  - '158.39.75.0/24'     # OSL public #2
+  - '158.39.77.0/24'     # BGO public #1
   - '158.38.62.0/23'
   - '158.38.178.0/24'
   - '129.240.6.13/32'    # trond
