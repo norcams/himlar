@@ -37,15 +37,26 @@ define profile::application::openssl::cert(
       $command = "cat ${key_dir}/${cert_name}.key.pem ${crt_dir}/${cert_name}.cert.pem \
         ${ca_dir}/intermediate/certs/ca-chain.cert.pem ${crt_dir}/dhparam.pem \
         > ${crt_dir}/${cert_name}.pem"
+      $require = [Dhparam["${crt_dir}/dhparam.pem"], Exec["sign ${name}"]]
     } else {
       $command = "cat ${key_dir}/${cert_name}.key.pem ${crt_dir}/${cert_name}.cert.pem \
         ${ca_dir}/intermediate/certs/ca-chain.cert.pem > ${crt_dir}/${cert_name}.pem"
+      $require = Exec["sign ${name}"]
     }
     exec { "concat ${name}":
       command => $command,
       path    => '/bin',
       creates => "${crt_dir}/${cert_name}.pem",
-      require => Exec["sign ${name}"]
+      require => $require
+    }
+  } elsif $concat_dhparam {
+      $command = "cat ${crt_dir}/${cert_name}.cert.pem ${crt_dir}/dhparam.pem \
+        > ${crt_dir}/${cert_name}.pem"
+    exec { "concat dhparam ${name}":
+      command => $command,
+      path    => '/bin',
+      creates => "${crt_dir}/${cert_name}.pem",
+      require => [Dhparam["${crt_dir}/dhparam.pem"], Exec["sign ${name}"]]
     }
   }
 }

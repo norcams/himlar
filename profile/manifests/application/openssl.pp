@@ -26,7 +26,8 @@ class profile::application::openssl(
 
   if $manage_dhparam {
     dhparam { "${ssl_path}/certs/dhparam.pem":
-      size => 2048,
+      ensure => present,
+      size   => 2048,
     }
   }
 
