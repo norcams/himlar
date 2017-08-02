@@ -23,7 +23,7 @@ mysql::server::override_options:
     wsrep_log_conflicts:            'ON'
     wsrep_provider:                 '/usr/lib64/galera/libgalera_smm.so'
     wsrep_cluster_address:          "%{hiera('wsrep_cluster_address')}"
-    wsrep_cluster_name:             'openstack'
+    wsrep_cluster_name:             'keystone'
     wsrep_node_address:             "%{hiera('wsrep_node_address')}"
     wsrep_node_name:                "%{::hostname}"
     wsrep_sst_method:               "%{hiera('wsrep_sst_method')}"
