@@ -9,14 +9,19 @@
 #   If this is a hash with full path to key, cert and ca secure_rsync with
 #   TLS will be an option for wsrep_sst_method i my.conf
 #
+# [*firewall_rules*]
+#   Complete hash with all the rules needed for galere. See default for
+#   example. Default are open ports for all!
 #
 class profile::database::galera(
   $enable_galera_bootstrap = false,
   $manage_mysqld = false,
   $wsrep_sst_secure_rsync = {},
   $manage_firewall = true,
-  $firewall_extras = {
-    source => '0.0.0.0/32'
+  $firewall_rules = {
+    '211 galera accept tcp' => { 'proto' => 'tcp', 'dport' => ['4567', '4568']},
+    '212 galera accept udp' => { 'proto' => 'udp', 'dport' => ['4567', '4568']},
+    '213 wsrep sst accept tcp' => { 'proto' => 'tcp', 'dport' => '4444'},
   }
 ) {
 
@@ -51,20 +56,7 @@ class profile::database::galera(
   }
 
   if $manage_firewall {
-    profile::firewall::rule { '211 galera accept tcp':
-      proto  => 'tcp',
-      port   => ['4567', '4568'],
-      extras => $firewall_extras
-    }
-    profile::firewall::rule { '212 galera accept udp':
-      proto  => 'udp',
-      port   => ['4567', '4568'],
-      extras => $firewall_extras
-    }
-    profile::firewall::rule { '213 wsrep sst accept tcp':
-      port   => '4444',
-      extras => $firewall_extras
-    }
+    create_resources('profile::firewall::rule', $firewall_rules)
   }
 
 }
