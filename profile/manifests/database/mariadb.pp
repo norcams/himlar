@@ -59,7 +59,7 @@ class profile::database::mariadb (
 
   if $manage_firewall {
     profile::firewall::rule { '200 mysql accept tcp':
-      port   => 3306,
+      dport  => 3306,
       extras => $firewall_extras
     }
   }
