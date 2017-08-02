@@ -11,8 +11,9 @@ db_ssl_ca:        '/etc/mysql/cacert.pem'
 
 # Galera options
 profile::base::common::packages:
-  'rsync':      {}
-  'socat':      {}
+  'bzip2':    {}
+  'rsync':    {}
+  'socat':    {}
 
 profile::database::galera::wsrep_sst_secure_rsync:
   ca:   "%{hiera('db_ssl_ca')}"
@@ -64,7 +65,3 @@ profile::database::mariadb::backuppassword:   "%{hiera('mysql::server::root_pass
 profile::database::mariadb::postscript:       "date >  %{hiera('profile::database::mariadb::backuptopdir')}/$(hostname)-backupflag"
 profile::database::mariadb::file_per_database: true
 profile::database::mariadb::maxallowedpacket:  4096
-
-# ... for backup script usage
-profile::base::common::packages:
-  'bzip2': {}
