@@ -3,3 +3,4 @@ galera_arbitrator::packagename:     'galera'
 galera_arbitrator::galera_group:    'keystone'
 galera_arbitrator::galera_options:  "%{hiera('wsrep_provider_options')}"
 galera_arbitrator::galera_nodes:    "%{hiera('wsrep_cluster_address')}"
+galera_arbitrator::servicename:     'garbd.service'
