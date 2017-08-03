@@ -28,21 +28,20 @@ include:
     - profile::database::galera
 
 mysql::server::restart:         false
-profile::firewall::post::log:   true
 
 profile::database::galera::firewall_rules:
   '211 galera accept tcp db-02':
     'proto':  'tcp'
     'dport':  ['4567', '4568']
-    'source': '192.168.12.249/32'
+    'source': '192.168.122.1/32'
   '212 galera accept udp db-02':
     'proto':  'udp'
     'dport':  ['4567', '4568']
-    'source': '192.168.12.249/32'
+    'source': '192.168.122.1/32'
   '213 wsrep sst accept tcp for db-02':
     'proto':  'tcp'
     'dport':  '4444'
-    'source': '192.168.12.249/32'
+    'source': '192.168.122.1/32'
 
 db_ssl_key:       '/etc/pki/tls/private/db01.trp.local.iaas.intern.key'
 db_ssl_cert:      '/etc/pki/tls/certs/db01.trp.local.iaas.intern.crt'
