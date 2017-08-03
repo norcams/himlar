@@ -22,6 +22,8 @@ network::interfaces_hash:
     onboot:        'yes'
     ipaddress:     '172.18.0.111'
     netmask:       '255.255.248.0'
+    ipv6init:      'yes'
+    ipv6addr:      "%{hiera('netcfg_trp_netpart6')}::111/%{hiera('netcfg_trp_netmask6')}"
     defroute:      'no'
     devicetype:    'Team'
     team_config: >-
