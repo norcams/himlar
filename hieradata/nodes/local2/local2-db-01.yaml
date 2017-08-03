@@ -28,6 +28,7 @@ include:
     - profile::database::galera
 
 mysql::server::restart:         false
+profile::firewall::post::log:   true
 
 profile::database::galera::firewall_rules:
   '211 galera accept tcp db-02':
