@@ -78,7 +78,9 @@ bootstrap_puppet()
 
   if command -v pkg >/dev/null 2>&1; then
     # FreeBSD
-    pkg install -y puppet38 git rubygem-deep_merge rubygem-puppet-lint bash
+    pkg add -M https://download.iaas.uio.no/uh-iaas/ports/puppet38-3.8.7_1.txz
+    pkg check -d -y
+    pkg install -y rubygem-deep_merge rubygem-puppet-lint bash git
     ln -s /usr/local/bin/bash /bin/bash
     # FreeBSD spesific use
     gem install ipaddress
