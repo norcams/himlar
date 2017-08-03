@@ -11,24 +11,21 @@ network::interfaces_hash:
     ipaddress: "%{hiera('netcfg_trp_netpart')}.41"
     netmask:   "%{hiera('netcfg_trp_netmask')}"
 
-# This can be used for testing galere cluster in vagrant
-# db-01 and db-02 will work as master-master cluster
-# Valid SSL certs needed!
+#profile::database::galera::firewall_rules:
+#  '211 galera accept tcp db-02':
+#    'proto':  'tcp'
+#    'dport':  ['4567', '4568']
+#    'source': "%{hiera('netcfg_trp_netpart')}.42/32"
+#  '212 galera accept udp db-02':
+#    'proto':  'udp'
+#    'dport':  ['4567', '4568']
+#    'source': "%{hiera('netcfg_trp_netpart')}.42/32"
+#  '213 wsrep sst accept tcp for db-02':
+#    'proto':  'tcp'
+#    'dport':  '4444'
+#    'source': "%{hiera('netcfg_trp_netpart')}.42/32"
 
-#include:
-#  default:
-#    - profile::database::galera
-
-#mysql::server::restart:         false
-
-# Allow access from db-02
-#profile::database::galera::firewall_extras:
-#  source: "%{hiera('netcfg_trp_netpart')}.42"
-
-#db_ssl_key:       '/opt/himlar/provision/ca/mysql/server-key.pem'
-#db_ssl_cert:      '/opt/himlar/provision/ca/mysql/server-cert.pem'
-#db_ssl_ca:        '/opt/himlar/provision/ca/mysql/ca-cert.pem'
-
-#wsrep_provider_options: "base_host=%{::ipaddress_trp1};pc.recovery=1;socket.ssl_key=%{hiera('db_ssl_key')};socket.ssl_cert=%{hiera('db_ssl_cert')};socket.ssl_ca=%{hiera('db_ssl_ca')}"
-#wsrep_sst_method:       'secure_rsync'
-#wsrep_cluster_address:  "gcomm://%{hiera('netcfg_trp_netpart')}.41, %{hiera('netcfg_trp_netpart')}.42"
+# profile::openstack::database::sql::glance_enabled:    false
+# profile::openstack::database::sql::nova_enabled:      false
+# profile::openstack::database::sql::neutron_enabled:   false
+# profile::openstack::database::sql::cinder_enabled:    false
