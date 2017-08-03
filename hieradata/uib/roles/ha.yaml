@@ -88,6 +88,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - 'lyncdiscover.holbergprisen.no':          'public-https-sfb'
       - 'lyncdiscover.bergento.no':               'public-https-sfb'
       - 'sfb-webext01.uib.no':                    'public-https-sfb'
+      - 'mitt.uib.no':                            'public-https-mittuib'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   'uib-https-sfb':
@@ -106,6 +107,12 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     options:
       - 'check'
       - 'port 80'
+  'public-https-mittuib':
+    listening_service:  'public-https-mittuib'
+    ports:              443
+    server_names:       ['mitt.uib.no']
+    ipaddresses:        [129.177.6.11]
+    options:            'check'
   'uib-https-dashboard':
     listening_service:  'uib-https-uh-dashboard'
     ports:              443
@@ -138,6 +145,11 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
       - balance:      'roundrobin'
       - option:
         - 'httpchk /healthcheck.html'
+  public-https-mittuib:
+    mode:             'tcp'
+    options:
+      - balance:      'roundrobin'
+      - option:       ['ssl-hello-chk']
   uib-https-uh-status:
     mode:             'tcp'
     options:
