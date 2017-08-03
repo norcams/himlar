@@ -30,7 +30,7 @@ profile::base::network::cumulus_interfaces:
     'clagd_sys_mac': '44:38:39:ff:bb:1c'
   'swp48':
     'ipv4': [ '10.78.1.4/29', ]
-    'ipv6': 'fdff::b/124'
+    'ipv6': 'fdfd::a/124'
 
 profile::base::network::cumulus_bridges:
   'bridge':
@@ -139,7 +139,7 @@ quagga::quagga::zebra_interfaces:
     - 'link-detect'
 
 quagga::quagga::zebra_ip6_routes:
-  - '::/0 fdff::1'
+  - '::/0 fdfd::1'
   - '::/0 fd00::2'
 quagga::quagga::zebra_ip_routes:
   - '0.0.0.0/0 10.78.1.1'
