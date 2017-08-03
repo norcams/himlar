@@ -3,6 +3,38 @@
 #  default:
 #    - profile::logging::rsyslog::client
 
+# galera
+#include:
+#  default:
+#    - profile::application::openssl
+#    - profile::database::galera::arbitrator
+#
+#profile::database::galera::arbitrator::manage_arbitrator: true
+#profile::database::galera::arbitrator::manage_firewall:   true
+
+#profile::application::openssl::manage_ca_cert:            true
+#profile::application::openssl::manage_dhparam:            true
+#profile::application::openssl::certs:
+#  "db.%{hiera('domain_trp')}":
+#     cn:             "%{::hostname}.%{hiera('domain_trp')}"
+#     concat_dhparam: true
+#     altnames:
+#       - "%{::hostname}.%{hiera('domain_trp')}"
+#       - "db.%{hiera('domain_trp')}"
+#
+# db_ssl_key:       "/etc/pki/tls/private/db.%{hiera('domain_trp')}.key.pem"
+# db_ssl_cert:      "/etc/pki/tls/certs/db.%{hiera('domain_trp')}.pem" # concat dhparam
+# db_ssl_ca:        '/etc/pki/tls/certs/cachain.pem'
+#
+# wsrep_provider_options: "socket.ssl_key=%{hiera('db_ssl_key')};socket.ssl_cert=%{hiera('db_ssl_cert')};socket.ssl_ca=%{hiera('db_ssl_ca')};socket.ssl_cipher=AES128-SHA"
+# wsrep_cluster_address:  "%{hiera('netcfg_trp_netpart')}.41:4567,%{hiera('netcfg_trp_netpart')}:4567,%{hiera('corosync_cluster_vip1')}:4567"
+#
+# # Enable extra yum repo
+# profile::base::yumrepo::repo_hash:
+#   mariadb:
+#     ensure: present
+
+# corosync
 corosync::unicast_addresses:
   - "%{hiera('netcfg_public_netpart')}.16"
   - "%{hiera('netcfg_public_netpart')}.17"

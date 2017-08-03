@@ -86,7 +86,17 @@ nodesets:
     - role:       'ha'
       hostid:     '01'
     - role:       'ha'
-      hostid:     '02'  
+      hostid:     '02'
+  db:
+    - role:       'db'
+      hostid:     '01'
+    - role:       'db'
+      hostid:     '02'
+    # galera arbitrator
+    - role:       'ha'
+      hostid:     '01'
+    - role:       'ha'
+      hostid:     '02'
   infra:
     - role:       "login"
     - role:       "controller"
