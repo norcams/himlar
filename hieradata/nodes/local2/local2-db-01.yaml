@@ -1,7 +1,7 @@
 ---
 network::interfaces_hash:
   'eth0':
-    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.56"
+    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.41"
     netmask:   "%{hiera('netcfg_mgmt_netmask')}"
     gateway:   "%{hiera('netcfg_mgmt_gateway')}"
     mtu:       '1500'
@@ -11,13 +11,13 @@ network::interfaces_hash:
     defroute:  'no'
     peerdns:   'yes'
   'eth1':
-    ipaddress: "%{hiera('netcfg_trp_netpart')}.56"
+    ipaddress: "%{hiera('netcfg_trp_netpart')}.41"
     netmask:   "%{hiera('netcfg_trp_netmask')}"
     gateway:   "%{hiera('netcfg_trp_netpart')}.1"
-    srcaddr:   "%{hiera('netcfg_public_netpart')}.252"
+    srcaddr:   "%{hiera('netcfg_public_netpart')}.249"
     defroute:  'yes'
   'dummy0':
-    ipaddress: "%{hiera('netcfg_public_netpart')}.252"
+    ipaddress: "%{hiera('netcfg_public_netpart')}.249"
     netmask:   '255.255.255.255'
     defroute:  'no'
 
@@ -27,36 +27,43 @@ include:
   default:
     - profile::database::galera
 
-#profile::base::network::routes:
-#  'eth1':
-#    'ipaddress': [ '172.31.12.0', ]
-#    'netmask':   [ '255.255.255.0', ]
-#    'gateway':   [ "%{hiera('netcfg_trp_gateway')}", ]
-#    'table':     [ 'main', ]
+mysql::server::restart:         false
 
-#mysql::server::restart:         false
-
-profile::database::galera::firewall_extras:
-  source: '172.31.12.41'
+profile::database::galera::firewall_rules:
+  '211 galera accept tcp db-02':
+    'proto':  'tcp'
+    'dport':  ['4567', '4568']
+    'source': '192.168.12.249/32'
+  '212 galera accept udp db-02':
+    'proto':  'udp'
+    'dport':  ['4567', '4568']
+    'source': '192.168.12.249/32'
+  '213 wsrep sst accept tcp for db-02':
+    'proto':  'tcp'
+    'dport':  '4444'
+    'source': '192.168.12.249/32'
 
 db_ssl_key:       '/etc/pki/tls/private/db01.trp.local.iaas.intern.key'
 db_ssl_cert:      '/etc/pki/tls/certs/db01.trp.local.iaas.intern.crt'
 db_ssl_ca:        '/etc/pki/tls/certs/cachain.pem'
 
 # Enable ssl for wsrep and sst
-#wsrep_provider_options: "base_host=%{::ipaddress_trp1};pc.recovery=1;socket.ssl_key=%{hiera('db_ssl_key')};socket.ssl_cert=%{hiera('db_ssl_cert')};socket.ssl_ca=%{hiera('db_ssl_ca')}"
-#wsrep_sst_method:       'secure_rsync'
-#wsrep_cluster_address:  'gcomm://172.31.12.41,172.31.13.41'
+wsrep_provider_options: "base_host=%{::ipaddress_trp1};pc.recovery=1;socket.ssl_key=%{hiera('db_ssl_key')};socket.ssl_cert=%{hiera('db_ssl_cert')};socket.ssl_ca=%{hiera('db_ssl_ca')}"
+wsrep_sst_method:       'secure_rsync'
+wsrep_cluster_address:  'gcomm://192.168.12.249, 192.168.13.249'
 
-profile::openstack::database::sql::keystone_enabled:  true
+# Do not create root user for second server in cluster
+mysql::server::create_root_user: false
+
+profile::openstack::database::sql::keystone_enabled:  false
 profile::openstack::database::sql::glance_enabled:    false
 profile::openstack::database::sql::nova_enabled:      false
 profile::openstack::database::sql::neutron_enabled:   false
 profile::openstack::database::sql::cinder_enabled:    false
 
 # sensu
-profile::monitoring::sensu::agent::checks:
-  'check-wsrep-ready':
-    command:      "check-wsrep-ready.rb -u sensu -h localhost -p %{hiera('sensu_mysql_password')}"
-    interval:     60
-    subscribers:  ['checks']
+#profile::monitoring::sensu::agent::checks:
+#  'check-wsrep-ready':
+#    command:      "check-wsrep-ready.rb -u sensu -h localhost -p %{hiera('sensu_mysql_password')}"
+#    interval:     60
+#    subscribers:  ['checks']
