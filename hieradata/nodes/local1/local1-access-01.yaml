@@ -27,7 +27,7 @@ include:
     - profile::database::galera::arbitrator
 
 # Turn on firewall logging for firewall debug
-profile::firewall::post::log: true
+#profile::firewall::post::log: true
 
 profile::database::galera::arbitrator::manage_arbitrator: true
 profile::database::galera::arbitrator::manage_firewall:   true
@@ -44,11 +44,11 @@ profile::database::galera::arbitrator::firewall_rules:
   '211 galera accept tcp local1-db-01':
     'proto':  'tcp'
     'dport':  ['4567', '4568']
-    'source': "%{hiera('netcfg_trp_netpart')}.41"
+    'source': "%{hiera('netcfg_public_netpart')}.249"
   '212 galera accept udp local1-db-01':
     'proto':  'udp'
     'dport':  ['4567', '4568']
-    'source': "%{hiera('netcfg_trp_netpart')}.41"
+    'source': "%{hiera('netcfg_public_netpart')}.249"
 
 db_ssl_key:       '/etc/pki/tls/private/db01.trp.local.iaas.intern.key'
 db_ssl_cert:      '/etc/pki/tls/certs/db01.trp.local.iaas.intern.crt'

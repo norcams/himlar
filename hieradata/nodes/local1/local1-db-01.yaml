@@ -24,7 +24,7 @@ network::interfaces_hash:
 profile::base::network::manage_dummy: true
 
 # Turn on firewall logging for firewall debug
-profile::firewall::post::log: true
+#profile::firewall::post::log: true
 
 include:
   default:
@@ -48,11 +48,11 @@ profile::database::galera::firewall_rules:
   '211 galera accept tcp local1-access-01':
     'proto':  'tcp'
     'dport':  ['4567', '4568']
-    'source': "%{hiera('netcfg_trp_netpart')}.56"
+    'source': "%{hiera('netcfg_public_netpart')}.252"
   '212 galera accept udp local1-access-01':
     'proto':  'udp'
     'dport':  ['4567', '4568']
-    'source': "%{hiera('netcfg_trp_netpart')}.56"
+    'source': "%{hiera('netcfg_public_netpart')}.252"
 
 db_ssl_key:       '/etc/pki/tls/private/db01.trp.local.iaas.intern.key'
 db_ssl_cert:      '/etc/pki/tls/certs/db01.trp.local.iaas.intern.crt'
