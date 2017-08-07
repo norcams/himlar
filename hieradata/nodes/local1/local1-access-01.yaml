@@ -38,6 +38,14 @@ profile::database::galera::arbitrator::firewall_rules:
     'proto':  'udp'
     'dport':  ['4567', '4568']
     'source': '192.168.122.1/32'
+  '211 galera accept tcp local1-db-01':
+    'proto':  'tcp'
+    'dport':  ['4567', '4568']
+    'source': "%{hiera('netcfg_trp_netpart')}41"
+  '212 galera accept udp local1-db-01':
+    'proto':  'udp'
+    'dport':  ['4567', '4568']
+    'source': "%{hiera('netcfg_trp_netpart')}.41"
 
 db_ssl_key:       '/etc/pki/tls/private/db01.trp.local.iaas.intern.key'
 db_ssl_cert:      '/etc/pki/tls/certs/db01.trp.local.iaas.intern.crt'
