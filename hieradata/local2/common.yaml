@@ -38,8 +38,8 @@ netcfg_trp_rr:
 # We need to allow both trafic from mgmt (nat via login) and public net
 
 allow_from_network:
-  - "%{hiera('netcfg_netpart_trp')}.0/24"
-  - "%{hiera('netcfg_netpart_public')}.0/24"
+  - "%{hiera('netcfg_trp_netpart')}.0/24"
+  - "%{hiera('netcfg_public_netpart')}.0/24"
   - '192.168.122.0/24'
   - '192.168.12.0/24'
 
