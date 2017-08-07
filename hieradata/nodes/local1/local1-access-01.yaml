@@ -26,6 +26,9 @@ include:
   default:
     - profile::database::galera::arbitrator
 
+# Turn on firewall logging for firewall debug
+profile::firewall::post::log: true
+
 profile::database::galera::arbitrator::manage_arbitrator: true
 profile::database::galera::arbitrator::manage_firewall:   true
 
