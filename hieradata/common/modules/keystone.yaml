@@ -3,35 +3,54 @@ keystone::db::mysql::allowed_hosts:
   - "%{netpart_trp1}.%"
   - "identity.%{hiera('domain_trp')}"
 
-keystone::roles::admin::email: user@example.com
-keystone::roles::admin::password: "%{hiera('keystone_admin_password')}"
+keystone::database_connection:            "mysql://keystone:%{%{hiera('keystone::db::mysql::password')}@db01.%{hiera('domain_trp')}/keystone"
+keystone::service_name:                   'httpd'
+keystone::admin_password:                 "%{hiera('keystone_admin_password')}"
+keystone::public_bind_host:               "%{ipaddress_trp1}"
+keystone::admin_bind_host:                "%{ipaddress_trp1}"
+keystone::admin_endpoint:                 "%{hiera('endpoint__identity__admin')}"
+keystone::enable_proxy_headers_parsing:   true
+keystone::purge_config:                   true
 
-keystone::service_name: "httpd"
+# notification (FIXME: should send cadf via rabbitmq to ceilomter)
+keystone::notification_driver:            'log'
+keystone::notification_format:            'basic'
 
-keystone::endpoint::region:       "%{location}"
-keystone::endpoint::public_url:   "%{hiera('endpoint__identity__public')}"
-keystone::endpoint::internal_url: "%{hiera('endpoint__identity__internal')}"
-keystone::endpoint::admin_url:    "%{hiera('endpoint__identity__admin')}"
-keystone::endpoint::version:      "v3"
+# token (FIXME: setup and rotate should only be run on one identity server!)
+#keystone::token_provider:                 'fernet'
+#keystone::enable_fernet_setup:            true
+#keystone::cron::fernet_rotate::minute:    '15'
+#keystone::cron::fernet_rotate::hour:      '3'
 
+# httpd
 keystone::wsgi::apache::ssl:              false
 keystone::wsgi::apache::bind_host:        "%{ipaddress_trp1}"
 keystone::wsgi::apache::admin_bind_host:  "%{ipaddress_trp1}"
 
-keystone::public_bind_host:     "%{ipaddress_service1}"
-keystone::admin_bind_host:      "%{ipaddress_service1}"
-keystone::database_connection:  "mysql://keystone:%{%{hiera('keystone::db::mysql::password')}@db01.%{hiera('domain_trp')}/keystone"
+# roles
+keystone::roles::admin::email:            'support@uh-iaas.no'
+keystone::roles::admin::password:         "%{hiera('keystone_admin_password')}"
+keystone::roles::admin::admin_tenant:     'openstack'
+keystone::roles::admin::service_tenant:   'services'
+
+# endpoints
+keystone::endpoint::region:               "%{location}"
+keystone::endpoint::public_url:           "%{hiera('endpoint__identity__public')}"
+keystone::endpoint::internal_url:         "%{hiera('endpoint__identity__internal')}"
+keystone::endpoint::admin_url:            "%{hiera('endpoint__identity__admin')}"
+keystone::endpoint::version:              "v3"
 
 # Federation
-keystone::federation::openidc::idp_name:        'dataporten'
+keystone::federation::openidc::idp_name:  'dataporten'
 keystone::federation::openidc::methods:
   - 'password'
   - 'token'
   - 'openidc'
-keystone::federation::openidc::openidc_response_type: 'code'
+keystone::federation::openidc::openidc_response_type:         'code'
 keystone::federation::openidc::openidc_provider_metadata_url: 'https://auth.dataporten.no/.well-known/openid-configuration'
-keystone::federation::openidc::openidc_client_id: '00000000-0000-0000-0000-000000000000'
-keystone::federation::openidc::openidc_client_secret: '00000000-0000-0000-0000-000000000000'
+keystone::federation::openidc::openidc_client_id:             '00000000-0000-0000-0000-000000000000'
+keystone::federation::openidc::openidc_client_secret:         '00000000-0000-0000-0000-000000000000'
+#keystone::federation::openidc::module_plugin:                 'keystone.auth.openidc'
 
 # logging
 keystone::use_syslog:    true

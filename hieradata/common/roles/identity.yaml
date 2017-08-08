@@ -8,21 +8,28 @@ include:
     - profile::application::himlarcli
     - profile::logging::rsyslog::client
 
-profile::openstack::identity::manage_openidc:         true
-profile::openstack::resource::imagebuilder::manage:   true
-profile::openstack::resource::imagebuilder::password: "%{hiera('imagebuilder_password')}"
+openstack_version: 'newton' #FIXME: remove after full upgrade
 
-profile::openstack::openrc::filename: '/root/keystonerc_admin'
-
-profile::openstack::identity::keystone_config:
-  DEFAULT/secure_proxy_ssl_header:
-    value:  'HTTP_X_FORWARDED_PROTO'
-
+#profile::openstack::identity::manage_token_rotate:        true
+profile::openstack::identity::disable_admin_token_auth:   true
+profile::openstack::identity::manage_openidc:             true
+profile::openstack::identity::trusted_dashboard:          "https://%{hiera('public__address__dashboard')}/dashboard/auth/websso/"
 profile::openstack::identity::roles_extra:
   - user
   - superuser
+profile::openstack::identity::keystone_config:
+  'resource/list_limit':
+    value:  100
+  'resource/project_name_url_safe':
+    value:  'new'
+  'resource/domain_name_url_safe':
+    value:  'new'
 
-profile::openstack::identity::trusted_dashboard: "https://%{hiera('public__address__dashboard')}/dashboard/auth/websso/"
+profile::openstack::openrc::filename:                       '/root/keystonerc_admin'
+
+profile::openstack::resource::imagebuilder::manage:         true
+profile::openstack::resource::imagebuilder::password:       "%{hiera('imagebuilder_password')}"
+
 profile::openstack::resource::dataporten::manage_dataporten: true
 profile::openstack::resource::dataporten::domain:
   dataporten:
