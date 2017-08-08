@@ -70,8 +70,13 @@ profile::network::services::dns_records:
     "compute.api.%{hiera('domain_public')}":              "%{hiera('netcfg_public_netpart')}.250"
     "volume.api.%{hiera('domain_public')}":               "%{hiera('netcfg_public_netpart')}.250"
     # mgmt
-    "%{::location}-login-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_mgmt_netpart')}.10"
-
+    "%{::location}-login-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.10"
+    # local2
+    'identity.api.local2.iaas.intern':                    '192.168.13.250'
+    'image.api.local2.iaas.intern':                       '192.168.13.250'
+    'network.api.local2.iaas.intern':                     '192.168.13.250'
+    'compute.api.local2.iaas.intern':                     '192.168.13.250'
+    'volume.api.local2.iaas.intern':                      '192.168.13.250'
 #
 ## Secret data which for other environments are stored ooutside of this data tree
 #
