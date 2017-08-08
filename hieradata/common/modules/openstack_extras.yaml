@@ -3,6 +3,7 @@ openstack_extras::repo::redhat::redhat::purge_unmanaged:    true
 openstack_extras::repo::redhat::redhat::package_require:    true
 openstack_extras::repo::redhat::redhat::manage_epel:        false
 openstack_extras::repo::redhat::redhat::manage_rdo:         false
+openstack_extras::repo::redhat::redhat::manage_virt:        false
 openstack_extras::repo::redhat::redhat::manage_priorities:  false
 
 openstack_extras::repo::redhat::redhat::gpgkey_hash:
