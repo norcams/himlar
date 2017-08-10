@@ -54,7 +54,7 @@ mod 'interfaces', :ref => '1.2.2',               :git => github + 'CumulusNetwor
 #
 # profile::application::etcd
 #
-mod 'etcd', :ref => 'c26961fe94',                :git => github + 'norcams/puppet-etcd'
+mod 'etcd', :ref => '1.11.0',                    :git => github + 'cristifalcas/puppet-etcd'
 
 #
 # profile::application::openssl

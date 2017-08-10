@@ -1,14 +1,14 @@
 ---
 # Defaull to proxy mode
-etcd::mode: 'proxy'
+etcd::proxy: "on"
 
 # Member settings
-etcd::listen_peer_url:
+etcd::listen_peer_urls:
   - "http://0.0.0.0:2380"
-etcd::listen_client_url:
+etcd::listen_client_urls:
   - "http://0.0.0.0:2379"
   - "http://127.0.0.1:4001"
-etcd::node_name: "%{hostname}"
+etcd::etcd_name: "%{hostname}"
 #etcd::election_timeout:   1000
 #etcd::heartbeat_interval: 100
 #etcd::snapshot_count:     10000
@@ -17,12 +17,13 @@ etcd::node_name: "%{hostname}"
 #etcd::cors:               []
 
 # Cluster settings
-etcd::initial_advertise_peer_urls:
-  - "http://%{hiera('service__address__etcd_cluster')}:2380"
+# etcd::initial_advertise_peer_urls:
+#   - "http://%{hiera('service__address__etcd_cluster')}:2380"
 etcd::initial_cluster:
-  - "master=http://%{hiera('service__address__etcd_cluster')}:2380"
-etcd::initial_cluster_state: 'new'
-etcd::initial_cluster_token: 'etcd-cluster'
-etcd::advertise_client_urls:
-  - "http://%{hiera('service__address__etcd_cluster')}:2379"
+  - "%{::location}-network-01=http://%{hiera('netcfg_trp_netpart')}.71:2380"
+  - "%{::location}-network-02=http://%{hiera('netcfg_trp_netpart')}.72:2380"
+# etcd::initial_cluster_state: 'new'
+# etcd::initial_cluster_token: 'etcd-cluster'
+# etcd::advertise_client_urls:
+  # - "http://%{::fqdn}:2379"
 
