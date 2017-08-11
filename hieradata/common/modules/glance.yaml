@@ -27,7 +27,7 @@ glance::registry::use_syslog:           true
 glance::registry::log_facility:         'LOG_LOCAL3'
 
 glance::registry::authtoken::username:  'glance'
-glance::registry::authtoken::password:  "%{hiera('glance::api::keystone_password')}"
+glance::registry::authtoken::password:  "%{hiera('glance::api::authtoken::password')}"
 glance::registry::authtoken::auth_uri:  "%{hiera('endpoint__identity__internal')}"
 
 # keystone auth (node: identity)
