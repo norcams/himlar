@@ -21,14 +21,14 @@ glance::api::authtoken::password:       "%{hiera('glance_api_password')}"
 
 # registry (node: image)
 glance::registry::os_region_name:       "%{location}"
-glance::registry::keystone_password:    "%{hiera('glance::api::keystone_password')}"
-glance::registry::keystone_user:        'glance'
 glance::registry::bind_host:            "%{::ipaddress_trp1}"
-glance::registry::auth_uri:             "%{hiera('endpoint__identity__internal')}"
-glance::registry::identity_uri:         "%{hiera('endpoint__identity__admin')}"
 glance::registry::database_connection:  "mysql://glance:%{hiera('glance::db::mysql::password')}@%{hiera('service__address__mysql')}/glance"
 glance::registry::use_syslog:           true
 glance::registry::log_facility:         'LOG_LOCAL3'
+
+glance::registry::authtoken::username:  'glance'
+glance::registry::authtoken::password:  "%{hiera('glance::api::keystone_password')}"
+glance::registry::authtoken::auth_uri:  "%{hiera('endpoint__identity__internal')}"
 
 # keystone auth (node: identity)
 glance::keystone::auth::password:       "%{hiera('glance::api::keystone_password')}"
