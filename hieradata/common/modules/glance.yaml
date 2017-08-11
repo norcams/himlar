@@ -15,6 +15,7 @@ glance::api::use_syslog:                  true
 glance::api::log_facility:                'LOG_LOCAL3'
 
 glance::api::authtoken::auth_uri:         "%{hiera('endpoint__identity__internal')}"
+glance::api::authtoken::auth_url:         "%{hiera('endpoint__identity__admin')}"
 glance::api::authtoken::username:         'glance'
 glance::api::authtoken::password:         "%{hiera('glance_api_password')}"
 glance::api::authtoken::region_name:      "%{location}"
@@ -25,10 +26,12 @@ glance::registry::bind_host:              "%{::ipaddress_trp1}"
 glance::registry::database_connection:    "mysql://glance:%{hiera('glance::db::mysql::password')}@%{hiera('service__address__mysql')}/glance"
 glance::registry::use_syslog:             true
 glance::registry::log_facility:           'LOG_LOCAL3'
+glance::registry::enable_v1_registry:     false
 
 glance::registry::authtoken::username:    'glance'
 glance::registry::authtoken::password:    "%{hiera('glance::api::authtoken::password')}"
 glance::registry::authtoken::auth_uri:    "%{hiera('endpoint__identity__internal')}"
+glance::registry::authtoken::auth_url:    "%{hiera('endpoint__identity__admin')}"
 glance::registry::authtoken::region_name: "%{location}"
 
 # keystone auth (node: identity)
