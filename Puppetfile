@@ -144,7 +144,7 @@ mod 'rabbitmq', :ref => '8527f20',                 :git => github + 'puppetlabs/
 #
 # profile::openstack::*
 #
-mod 'glance', :ref => '8.2.0',                   :git => github + 'openstack/puppet-glance'
+mod 'glance', :ref => '9.6.0',                   :git => github + 'openstack/puppet-glance'
 mod 'cinder', :ref => '8.2.0',                   :git => github + 'openstack/puppet-cinder'
 mod 'neutron', :ref => '8.3.0',                  :git => github + 'openstack/puppet-neutron'
 mod 'nova', :ref => '8.2.0',                     :git => github + 'openstack/puppet-nova'

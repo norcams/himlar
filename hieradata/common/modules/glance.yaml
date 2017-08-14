@@ -5,33 +5,37 @@ glance::db::mysql::allowed_hosts:
   - "image.%{hiera('domain_trp')}"
 
 # api (node: image)
-glance::api::database_connection:       "mysql://glance:%{hiera('glance::db::mysql::password')}@%{hiera('service__address__mysql')}/glance"
-glance::api::os_region_name:            "%{location}"
-glance::api::bind_host:                 "%{::ipaddress_trp1}"
-glance::api::auth_uri:                  "%{hiera('endpoint__identity__internal')}"
-glance::api::auth_region:               "%{location}"
-glance::api::identity_uri:              "%{hiera('endpoint__identity__admin')}"
-glance::api::keystone_password:         "%{hiera('glance_api_password')}"
-glance::api::keystone_user:             'glance'
-glance::api::workers:                   1
-glance::api::registry_host:             "image.%{hiera('domain_trp')}"
-glance::api::show_image_direct_url:     true
-glance::api::use_syslog:                true
-glance::api::log_facility:              'LOG_LOCAL3'
+glance::api::database_connection:         "mysql://glance:%{hiera('glance::db::mysql::password')}@%{hiera('service__address__mysql')}/glance"
+glance::api::os_region_name:              "%{location}"
+glance::api::bind_host:                   "%{::ipaddress_trp1}"
+glance::api::workers:                     2
+glance::api::registry_host:               "image.%{hiera('domain_trp')}"
+glance::api::show_image_direct_url:       true
+glance::api::use_syslog:                  true
+glance::api::log_facility:                'LOG_LOCAL3'
+
+glance::api::authtoken::auth_uri:         "%{hiera('endpoint__identity__internal')}"
+glance::api::authtoken::auth_url:         "%{hiera('endpoint__identity__admin')}"
+glance::api::authtoken::username:         'glance'
+glance::api::authtoken::password:         "%{hiera('glance_api_password')}"
+glance::api::authtoken::region_name:      "%{location}"
 
 # registry (node: image)
-glance::registry::os_region_name:       "%{location}"
-glance::registry::keystone_password:    "%{hiera('glance::api::keystone_password')}"
-glance::registry::keystone_user:        'glance'
-glance::registry::bind_host:            "%{::ipaddress_trp1}"
-glance::registry::auth_uri:             "%{hiera('endpoint__identity__internal')}"
-glance::registry::identity_uri:         "%{hiera('endpoint__identity__admin')}"
-glance::registry::database_connection:  "mysql://glance:%{hiera('glance::db::mysql::password')}@%{hiera('service__address__mysql')}/glance"
-glance::registry::use_syslog:           true
-glance::registry::log_facility:         'LOG_LOCAL3'
+glance::registry::os_region_name:         "%{location}"
+glance::registry::bind_host:              "%{::ipaddress_trp1}"
+glance::registry::database_connection:    "mysql://glance:%{hiera('glance::db::mysql::password')}@%{hiera('service__address__mysql')}/glance"
+glance::registry::use_syslog:             true
+glance::registry::log_facility:           'LOG_LOCAL3'
+glance::registry::enable_v1_registry:     false
+
+glance::registry::authtoken::username:    'glance'
+glance::registry::authtoken::password:    "%{hiera('glance::api::authtoken::password')}"
+glance::registry::authtoken::auth_uri:    "%{hiera('endpoint__identity__internal')}"
+glance::registry::authtoken::auth_url:    "%{hiera('endpoint__identity__admin')}"
+glance::registry::authtoken::region_name: "%{location}"
 
 # keystone auth (node: identity)
-glance::keystone::auth::password:       "%{hiera('glance::api::keystone_password')}"
+glance::keystone::auth::password:       "%{hiera('glance::api::authtoken::password')}"
 glance::keystone::auth::public_url:     "%{hiera('endpoint__image__public')}"
 glance::keystone::auth::admin_url:      "%{hiera('endpoint__image__admin')}"
 glance::keystone::auth::internal_url:   "%{hiera('endpoint__image__internal')}"
