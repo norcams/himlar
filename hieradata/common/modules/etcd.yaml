@@ -17,13 +17,6 @@ etcd::etcd_name: "%{hostname}"
 #etcd::cors:               []
 
 # Cluster settings
-# etcd::initial_advertise_peer_urls:
-#   - "http://%{hiera('service__address__etcd_cluster')}:2380"
 etcd::initial_cluster:
   - "%{::location}-network-01=http://%{hiera('netcfg_trp_netpart')}.71:2380"
   - "%{::location}-network-02=http://%{hiera('netcfg_trp_netpart')}.72:2380"
-# etcd::initial_cluster_state: 'new'
-# etcd::initial_cluster_token: 'etcd-cluster'
-# etcd::advertise_client_urls:
-  # - "http://%{::fqdn}:2379"
-

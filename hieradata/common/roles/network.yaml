@@ -8,12 +8,8 @@ include:
     - profile::logging::rsyslog::client
 
 etcd::proxy: "off"
-# etcd::initial_advertise_peer_urls:
-#   - "http://127.0.0.1:2379"
 etcd::initial_cluster_state: 'new'
 etcd::initial_cluster_token: 'etcd-cluster'
-# etcd::advertise_client_urls:
-#   - "http://127.0.0.1:2379"
 
 calico::controller: true
 
