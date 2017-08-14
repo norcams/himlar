@@ -1,17 +1,17 @@
 ---
 etcd::initial_advertise_peer_urls:
-  - "http://%{hiera('netcfg_trp_netpart')}.71:2379"
+  - "http://%{hiera('netcfg_trp_netpart')}.72:2379"
 etcd::advertise_client_urls:
-  - "http://%{hiera('netcfg_trp_netpart')}.71:2379"
+  - "http://%{hiera('netcfg_trp_netpart')}.72:2379"
 
 network::interfaces_hash:
   'eth0':
-    ipaddress: '172.28.0.71'
+    ipaddress: '172.28.0.72'
     netmask:   '255.255.255.0'
     gateway:   '172.28.0.10'
     mtu:       '1500'
   'eth1':
-    ipaddress: '172.30.0.71'
+    ipaddress: '172.30.0.72'
     netmask:   '255.255.255.0'
     defroute:  'no'
     mtu:       '1500'
