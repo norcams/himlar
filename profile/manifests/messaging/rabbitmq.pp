@@ -17,7 +17,8 @@ class profile::messaging::rabbitmq (
   $policy           = {},
   $manage_rsyslog   = false,
   $manage_firewall  = true,
-  $firewall_extras  = {}
+  $firewall_extras  = {},
+  $rsyslog_facility = 'local6'
 ) {
 
   #Class['rabbitmq'] -> Rabbitmq_vhost <<| |>>
@@ -61,7 +62,7 @@ class profile::messaging::rabbitmq (
     rsyslog::imfile { 'rabbitmq':
       file_name     => "/var/log/rabbitmq/rabbit@${::hostname}.log",
       file_tag      => 'rabbitmq',
-      file_facility => 'local7',
+      file_facility => $rsyslog_facility,
     }
   }
 
