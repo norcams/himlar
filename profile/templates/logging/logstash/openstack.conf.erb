@@ -1,8 +1,8 @@
 input {
 
   file {
-    path => "/opt/log/rabbitmq.log"
-    type => "rabbitmq"
+    path => "/opt/log/norcams.log"
+    type => "syslog"
     start_position => beginning
   }
 
@@ -52,15 +52,7 @@ input {
 }
 
 filter {
-  if [type] == "rabbitmq" {
-    grok {
-      break_on_match => true
-      match => [
-        "message", "%{TIMESTAMP_ISO8601:timestamp} local7.notice %{HOSTNAME:hostname} %{DATA:component} %{GREEDYDATA:message}"
-      ]
-      add_tag => "rabbitmq_logs"
-    }
-  } else if [type] =~ /^(nova|glance|neutron|cinder|keystone|horzion)$/ {
+  if [type] =~ /^(nova|glance|neutron|cinder|keystone|horzion)$/ {
     if [component] == "calico-dhcp-agent" and [message] =~ /(?i)MaxRetryError|ReadTimeoutError/ {
       drop{}
     }
