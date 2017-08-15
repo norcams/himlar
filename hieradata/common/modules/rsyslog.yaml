@@ -14,6 +14,8 @@ rsyslog::server::log_templates:
     template: "%TIMESTAMP:::date-rfc3339% %syslogpriority-text% %HOSTNAME% %syslogtag%%msg:::drop-last-lf%\\n"
   - name:     'SyslogFileFormat'
     template: "%TIMESTAMP:::date-rfc3339% %pri-text% %HOSTNAME% %syslogtag%%msg:::drop-last-lf%\\n"
+  - name:     'NorcamsFileFormat'
+    template: "%TIMESTAMP:::date-rfc3339% %pri-text% %HOSTNAME% %syslogtag%%msg:::drop-last-lf%\\n"
 #  - name:     'HorizonFile'
 #    template: '/opt/log/%hostname%/horizon.log'
   - name:     'HorizonAll'
@@ -38,8 +40,9 @@ rsyslog::server::log_templates:
 #    template: '/opt/log/%hostname%/nova.log'
   - name:     'NovaAll'
     template: '/opt/log/nova.log'
-  - name:     'RabbitmqAll'
-    template: '/opt/log/rabbitmq.log'
+    # All custom logs for local6 uses this
+  - name:     'NorcamsAll'
+    template: '/opt/log/norcams.log'
 
 rsyslog::client::server:              "%{hiera('mgmt__address__logger')}"
 rsyslog::client::port:                '514'

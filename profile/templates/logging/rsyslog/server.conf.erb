@@ -11,18 +11,12 @@ $Template dynAllMessages,"<%= scope.lookupvar('rsyslog::server::server_dir') -%>
 
 # Rules
 local0.*            ?NovaAll;OpenstackFileFormat
-local0.*            ?NovaFile;OpenstackFileFormat
 local1.*            ?HorizonAll;OpenstackFileFormat
-local1.*            ?HorizonFile;OpenstackFileFormat
 local2.*            ?KeystoneAll;OpenstackFileFormat
-local2.*            ?KeystoneFile;OpenstackFileFormat
 local3.*            ?GlanceAll;OpenstackFileFormat
-local3.*            ?GlanceFile;OpenstackFileFormat
 local4.*            ?CinderAll;OpenstackFileFormat
-local4.*            ?CinderFile;OpenstackFileFormat
 local5.*            ?NeutronAll;OpenstackFileFormat
-local5.*            ?NeutronFile;OpenstackFileFormat
-local7.*            ?RabbitmqAll;SyslogFileFormat
+local6.*            ?NorcamsAll;NorcamsFileFormat
 *.*                 -?dynAllMessages;SyslogFileFormat
 
 <% # Common footer across all templates -%>
