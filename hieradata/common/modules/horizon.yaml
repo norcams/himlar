@@ -10,6 +10,7 @@ horizon::horizon_ca:                    "/etc/pki/tls/certs/cachain.pem"
 horizon::horizon_cert:                  "/etc/pki/tls/certs/%{hiera('public__address__dashboard')}.cert.pem"
 horizon::horizon_key:                   "/etc/pki/tls/private/%{hiera('public__address__dashboard')}.key.pem"
 horizon::secure_cookies:                true
+horizon::images_panel:                  'angular'
 
 horizon::help_url:                      'http://docs.uh-iaas.no'
 horizon::openstack_endpoint_type:       'publicURL'
