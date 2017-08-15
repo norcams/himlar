@@ -24,6 +24,13 @@ profile::highavailability::loadbalancing::haproxy::manage_firewall: true
 profile::highavailability::loadbalancing::haproxy::firewall_extras:
   dport: ['5000', '8774', '8776', '9292', '9696', '80', '443']
 
+# HAproxy
+haproxy::defaults_options:
+  mode:         'http'
+  option:       [ 'redispatch', 'forwardfor', 'http-server-close', 'httplog' ]
+  balance:      'roundrobin'
+  errorfile:    '503 /etc/haproxy/sorry.http'
+
 star_api_ssl_pem: "star.api.%{hiera('domain_public')}.pem"
 api_ssl_pem:      "api.%{hiera('domain_public')}.pem"
 status_ssl_pem:   "status.%{hiera('domain_public')}.pem"
