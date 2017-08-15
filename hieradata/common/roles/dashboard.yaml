@@ -13,6 +13,8 @@ profile::webserver::apache::manage_firewall:         false
 profile::openstack::dashboard::manage_firewall:      true
 profile::openstack::dashboard::manage_overrides:     true
 profile::openstack::dashboard::enable_pwd_retrieval: true
+profile::openstack::dashboard::enable_image_upload:  true
+profile::openstack::dashboard::image_upload_mode:    'legacy'
 profile::webserver::apache::mods_enable:
   - status
 
