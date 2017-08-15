@@ -12,7 +12,7 @@ horizon::horizon_key:                   "/etc/pki/tls/private/%{hiera('public__a
 horizon::secure_cookies:                true
 
 horizon::help_url:                      'http://docs.uh-iaas.no'
-horizon::openstack_endpoint_type:       'internalURL'
+horizon::openstack_endpoint_type:       'publicURL'
 horizon::keystone_url:                  "%{hiera('endpoint__identity__public')}/v3"
 horizon::keystone_default_role:         'user'
 horizon::keystone_multidomain_support:  false
