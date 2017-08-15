@@ -33,10 +33,7 @@ horizon::image_backend:
 horizon::websso_enabled:        'True'
 horizon::websso_initial_choice: openidc
 horizon::websso_choices:
-  openidc: Dataporten
-  credentials: Local user
-
-
+  - ['openidc', 'Dataporten']
 
 # logging
 horizon::log_handler:     'syslog'
