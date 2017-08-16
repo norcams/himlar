@@ -20,6 +20,16 @@ glance::api::authtoken::username:         'glance'
 glance::api::authtoken::password:         "%{hiera('glance_api_password')}"
 glance::api::authtoken::region_name:      "%{location}"
 
+glance::config::api_config:
+  cors/allowed_origin:
+    value:   "https://%{hiera('public__address__dashboard')}"
+  cors/allow_headers:
+    value: >-
+             'CONTENT-MD5,X-IMAGE-META-CHECKSUM,X-STORAGE-TOKEN,ACCEPT-ENCODING,X-AUTH-TOKEN,
+             X-IDENTITY-STATUS,X-ROLES,X-SERVICE-CATALOG,X-USER-ID,X-TENANT-ID,
+             X-OPENSTACK-REQUEST-ID,ACCEPT,ACCEPT-LANGUAGE,CONTENT-TYPE,CACHE-CONTROL,
+             CONTENT-LANGUAGE,EXPIRES,LAST-MODIFIED,PRAGMA,ORIGIN'
+
 # registry (node: image)
 glance::registry::os_region_name:         "%{location}"
 glance::registry::bind_host:              "%{::ipaddress_trp1}"
