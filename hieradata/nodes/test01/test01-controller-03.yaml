@@ -1,10 +1,10 @@
 ---
 network::interfaces_hash:
-  'eth0':
+  'em1':
     onboot:       'yes'
     master:       'bond0'
     slave:        'yes'
-  'eth1':
+  'em2':
     onboot:       'yes'
     master:       'bond0'
     slave:        'yes'
