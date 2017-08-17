@@ -9,15 +9,17 @@ cinder::db::mysql::allowed_hosts:
   - "volume.%{hiera('domain_trp')}"
 
 # cinder api (node: volume)
-cinder::api::keystone_user:      'cinder'
-cinder::api::keystone_enabled:   true
-cinder::api::keystone_password:  "%{hiera('cinder_api_password')}"
-cinder::api::auth_uri:           "%{hiera('endpoint__identity__internal')}/v3"
-cinder::api::identity_uri:       "%{hiera('endpoint__identity__admin')}"
-cinder::api::os_region_name:     "%{::location}"
-cinder::api::bind_host:          "%{::ipaddress_trp1}"
+cinder::api::keystone_enabled:            true
+cinder::api::os_region_name:              "%{::location}"
+cinder::api::bind_host:                   "%{::ipaddress_trp1}"
 
-cinder::volume::iscsi::iscsi_ip_address:        "%{hiera('service__address__cinder_ip')}"
+cinder::keystone::authtoken::username:    'cinder'
+cinder::keystone::authtoken::password:    "%{hiera('cinder_api_password')}"
+cinder::keystone::authtoken::auth_uri:    "%{hiera('endpoint__identity__internal')}"
+cinder::keystone::authtoken::auth_url:    "%{hiera('endpoint__identity__admin')}"
+cinder::keystone::authtoken::region_name: "%{::location}"
+
+cinder::volume::iscsi::iscsi_ip_address:  "%{hiera('service__address__cinder_ip')}"
 
 # default qoutas (node: volume)
 cinder::quota::quota_volumes:    '4'
