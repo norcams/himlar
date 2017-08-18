@@ -203,13 +203,13 @@ profile::network::services::dns_records:
     # trp
     "status.%{hiera('domain_trp')}":                        "%{hiera('netcfg_trp_netpart')}.21"
     "mq01.%{hiera('domain_trp')}":                          "%{hiera('netcfg_trp_netpart')}.31"
-    "image.%{hiera('domain_trp')}":                         "%{hiera('netcfg_trp_netpart')}.36"
     "db01.%{hiera('domain_trp')}":                          "%{hiera('netcfg_trp_netpart')}.41"
     "db02.%{hiera('domain_trp')}":                          "%{hiera('netcfg_trp_netpart')}.42"
-    "volume.%{hiera('domain_trp')}":                        "%{hiera('netcfg_trp_netpart')}.46"
-    "compute.%{hiera('domain_trp')}":                       "%{hiera('netcfg_trp_netpart')}.66"
-    "network.%{hiera('domain_trp')}":                       "%{hiera('netcfg_trp_netpart')}.71"
-    "identity.%{hiera('domain_trp')}":                      "%{hiera('netcfg_trp_netpart')}.81"
+    "image.%{hiera('domain_trp')}":                         "%{hiera('netcfg_trp_netpart')}.86"
+    "volume.%{hiera('domain_trp')}":                        "%{hiera('netcfg_trp_netpart')}.86"
+    "compute.%{hiera('domain_trp')}":                       "%{hiera('netcfg_trp_netpart')}.86"
+    "network.%{hiera('domain_trp')}":                       "%{hiera('netcfg_trp_netpart')}.86"
+    "identity.%{hiera('domain_trp')}":                      "%{hiera('netcfg_trp_netpart')}.86"
 
 #
 # Network configuration data
