@@ -40,3 +40,5 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   calico22:
     ensure: present
+
+openstack_version: 'newton' #FIXME: remove after full upgrade
