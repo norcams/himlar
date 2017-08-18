@@ -4,13 +4,6 @@ class profile::highavailability::loadbalancing::haproxy (
   $manage_firewall         = false,
   $allow_from_network      = undef,
   $firewall_extras         = {},
-  $haproxy_listens         = {},
-  $haproxy_frontends       = {},
-  $haproxy_backends        = {},
-  $haproxy_balancermembers = {},
-  $haproxy_userlists       = {},
-  $haproxy_peers           = {},
-  $haproxy_mapfile         = {},
   $enable_nonlocal_bind    = false,
   $enable_remote_logging   = false
 ) {
@@ -27,6 +20,16 @@ class profile::highavailability::loadbalancing::haproxy (
       collect_exported => false
     }
 
+    # We need to merge these from common and location
+    $haproxy_listens         = hiera_hash('profile::highavailability::loadbalancing::haproxy::haproxy_listens', {})
+    $haproxy_frontends       = hiera_hash('profile::highavailability::loadbalancing::haproxy::haproxy_frontends', {})
+    $haproxy_backends        = hiera_hash('profile::highavailability::loadbalancing::haproxy::haproxy_backends', {})
+    $haproxy_balancermembers = hiera_hash('profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers', {})
+    $haproxy_userlists       = hiera_hash('profile::highavailability::loadbalancing::haproxy::haproxy_userlists', {})
+    $haproxy_peers           = hiera_hash('profile::highavailability::loadbalancing::haproxy::haproxy_peers', {})
+    $haproxy_mapfile         = hiera_hash('profile::highavailability::loadbalancing::haproxy::haproxy_mapfile', {})
+    $haproxy_errorpage       = hiera_hash('profile::highavailability::loadbalancing::haproxy::haproxy_errorpage', {})
+
     create_resources('haproxy::listen', $haproxy_listens)
     create_resources('haproxy::backend', $haproxy_backends)
     create_resources('haproxy::frontend', $haproxy_frontends)
@@ -35,11 +38,7 @@ class profile::highavailability::loadbalancing::haproxy (
     create_resources('haproxy::mapfile', $haproxy_mapfile)
     create_resources('haproxy::peer', $haproxy_peers)
 
-    file { '/etc/haproxy/sorry.http':
-      ensure => present,
-      source => "puppet:///modules/${module_name}/loadbalancing/haproxy.sorry.http",
-      notify => Service['haproxy']
-    }
+    create_resources('profile::highavailability::loadbalancing::haproxy::errorpage', $haproxy_errorpage)
 
     file { '/root/watch-status.sh':
       ensure  => present,
