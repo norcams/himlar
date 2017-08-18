@@ -30,6 +30,9 @@ accounts::ssh_keys:
   'andersv':
     type:    'ssh-rsa'
     public:  'AAAAB3NzaC1yc2EAAAADAQABAAABAQCmrsGC+0KaGyozoY6pQIZySTfsPdR9qg0zUxsIZRC0z4KyG59gnsPhH6HjBOO0MvXi4SiMY2Me0FTbVAL1LXRFSqSKJa0y2nA1l3zuvZhtcDKUXJVp4ir9cTkcuGFrWaMzORPvbv6VI5BpX6y5UY0VBRV3KUsUiU/wD3axEhageTLdfRjdIrcq4RAz5VCkGCnQ3rMv2O4+OSYg7+cIwSaXMnxLPCDj+j/CjbfH7vaguB6lM9+J3upfvw+HVDj/wqqFXFXtgoHbA9/ObJUJwg2fFVeXb7af3EWOLwjiKbifKDE+gCBoVZH9QPc2uYKCn0bM8sgSCa6PK5vi7U15RH+l'
+  'tannazn':
+    type:    'ssh-rsa'
+    public:  'AAAAB3NzaC1yc2EAAAADAQABAAABAQDfzu58bck7wVUR++oVR/KUnqo29EMtkH0RQyN9nXou2O2jOjCyozKSugdM1/TGKiLNO3ZHSmx56NA01kTVky6YJCk2Bz6BsL4zMJnupsFztTUIRntijVFGnjfrHFPhuERcKPTDheiorSqzlUYTKvxDA8kgkJy+QDAfqnhTt/HBpk82jAV2aWoJYszc4AfEpfu/EUhPPRoOQrk5dTkSaJJjUCaHAhWioKk7TiPlmn/zeDpeqAxDn7DmD82Vh8InRpAm1s2lI+Z6K76X6ltbH/6OC+boi5FrIIjqymyvcMhOSjiAnswCahSAtKW14D3fGuq+EZW8N/CDS95l9sYPF3Xv'
 
 accounts::users:
   'hege':
@@ -59,6 +62,9 @@ accounts::users:
   'andersv':
     comment: 'andersv@norcams'
     groups:  [ 'users', 'wheel' ]
+  'tannazn':
+    comment: 'tannazn@norcams'
+    groups: [ 'users', 'wheel' ]
 
 accounts::accounts:
   'iaas':

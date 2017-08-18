@@ -37,6 +37,8 @@ accounts::accounts:
     ensure: absent
   'norcams':
     ensure: present
+  'tannazn':
+    ensure: present
 
 
 # special user for common files which should be synced between locations (can not be owned by root)
