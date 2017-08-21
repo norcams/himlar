@@ -26,8 +26,10 @@ profile::monitoring::sensu::agent::checks:
 profile::base::network::manage_dummy:                               true
 profile::highavailability::loadbalancing::haproxy::manage_haproxy:  true
 profile::highavailability::loadbalancing::haproxy::manage_firewall: true
-profile::highavailability::loadbalancing::haproxy::firewall_extras:
-  dport: ['5000', '8774', '8776', '9292', '9696', '80', '443']
+profile::highavailability::loadbalancing::haproxy::firewall_ports:
+  public:    ['5000', '8774', '8776', '9292', '9696', '80', '443']
+  internal:  ['5000', '8774', '8776', '9292', '9696', '35357']
+  mgmt:      ['9000']
 
 # HAproxy
 star_api_ssl_pem: "star.api.%{hiera('domain_public')}.pem"

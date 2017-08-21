@@ -4,6 +4,11 @@ class profile::highavailability::loadbalancing::haproxy (
   $manage_firewall         = false,
   $allow_from_network      = undef,
   $firewall_extras         = {},
+  $firewall_ports          = {
+    'public'   => ['5000'],
+    'internal' => ['35357'],
+    'mgmt'     => ['9000']
+  },
   $enable_nonlocal_bind    = false,
   $enable_remote_logging   = false
 ) {
@@ -55,11 +60,32 @@ class profile::highavailability::loadbalancing::haproxy (
       ''      => $hiera_allow_from_network,
       default => $allow_from_network
     }
-    profile::firewall::rule { '450 haproxy accept tcp':
+
+    validate_hash($firewall_extras)
+    validate_array($firewall_ports['public'])
+    validate_array($firewall_ports['internal'])
+    validate_array($firewall_ports['mgmt'])
+
+    profile::firewall::rule { '450 haproxy public accept tcp':
       proto       => 'tcp',
       destination => $::ipaddress_public1,
       source      => $source,
+      dport       => $firewall_ports['public'],
       extras      => $firewall_extras,
+    }
+    profile::firewall::rule { '451 haproxy internal accept tcp':
+      proto       => 'tcp',
+      destination => $::ipaddress_trp1,
+      source      => "${::network_trp1}/${::netmask_trp1}",
+      dport       => $firewall_ports['internal'],
+      extras      => $firewall_extras,
+    }
+    # Only monitor page on port 9000
+    profile::firewall::rule { '452 haproxy mgmt accept tcp':
+      proto       => 'tcp',
+      destination => $::ipaddress_mgmt1,
+      source      => "${::network_mgmt1}/${::netmask_mgmt1}",
+      dport       => $firewall_ports['mgmt']
     }
   }
 
