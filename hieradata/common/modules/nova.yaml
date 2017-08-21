@@ -29,9 +29,10 @@ nova::db::mysql_api::allowed_hosts:
 # keystone auth (node: identity)
 nova::keystone::auth::region:           "%{location}"
 nova::keystone::auth::password:         "%{hiera('nova_api_password')}"
-nova::keystone::auth::public_url:       "%{hiera('endpoint__compute__public')}/v3"
-nova::keystone::auth::admin_url:        "%{hiera('endpoint__compute__admin')}/v3"
-nova::keystone::auth::internal_url:     "%{hiera('endpoint__compute__internal')}/v3"
+nova::keystone::auth::public_url:       "%{hiera('endpoint__compute__public')}/v2.1/%(tenant_id)s"
+nova::keystone::auth::admin_url:        "%{hiera('endpoint__compute__admin')}/v2.1/%(tenant_id)s"
+nova::keystone::auth::internal_url:     "%{hiera('endpoint__compute__internal')}/2.1/%(tenant_id)s"
+
 
 # api (node: novactrl)
 nova::api::enabled_apis:                [ 'osapi_compute', ]
