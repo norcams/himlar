@@ -63,6 +63,7 @@ logrotate::rules:
             /usr/bin/mysqladmin --local flush-error-log flush-engine-log flush-general-log flush-slow-log
           fi
     sharedscripts:  true
+    copytruncate:   true
     missingok:      true
     rotate_every:   daily
     compress:       true
