@@ -52,6 +52,9 @@ keystone::federation::openidc::openidc_client_id:             '00000000-0000-000
 keystone::federation::openidc::openidc_client_secret:         '00000000-0000-0000-0000-000000000000'
 #keystone::federation::openidc::module_plugin:                 'keystone.auth.openidc'
 
+# cron
+keystone::cron::token_flush::maxdelay:    1800 # sek = 30 min
+
 # logging
 keystone::use_syslog:    true
 keystone::log_facility:  'LOG_LOCAL2'
