@@ -155,9 +155,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ports:              443
     server_names:       ['mitt.uib.no']
     ipaddresses:        [129.177.6.11]
-    options:
-      - 'check'
-      - redirect: 'scheme https if !{ ssl_fc }' # redirect http to https (only port 80)
+    options:            'check'
   'uib-https-dashboard':
     listening_service:  'uib-https-uh-dashboard'
     ports:              443
@@ -207,6 +205,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     options:
       - balance:      'roundrobin'
       - option:       ['ssl-hello-chk']
+      - redirect:     'scheme https if !{ ssl_fc }' # redirect http to https (only port 80)
   uib-https-uh-status:
     mode:             'tcp'
     options:
