@@ -1,4 +1,6 @@
 ---
+keystone::debug:  true #FIXME used for debug newton upgrade
+
 keystone::db::mysql::allowed_hosts:
   - "%{netpart_trp1}.%"
   - "identity.%{hiera('domain_trp')}"
