@@ -18,8 +18,6 @@ profile::openstack::identity::roles_extra:
   - user
   - superuser
 profile::openstack::identity::keystone_config:
-  'resource/list_limit':
-    value:  100
   'resource/project_name_url_safe':
     value:  'new'
   'resource/domain_name_url_safe':
