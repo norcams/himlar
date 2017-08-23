@@ -118,6 +118,12 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
       - balance:      'roundrobin'
       - option:
         - 'httpchk /healthcheck.html'
+  uib-http-sfb:
+    mode:             'http'
+    options:
+      - balance:      'roundrobin'
+      - option:
+        - 'httpchk /healthcheck.html'
 
 # Backend members
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
@@ -141,6 +147,13 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     options:
       - 'check'
       - 'port 80'
+  'uib-http-sfb':
+    listening_service:  'uib-http-sfb'
+    ports:              80
+    server_names:       ['sfb-fe01.uib.no', 'sfb-fe02.uib.no', 'sfb-fe03.uib.no']
+    ipaddresses:        ['129.177.14.231','129.177.14.232','129.177.14.233']
+    options:
+      - 'check'
 
 # Frontend: backends are found from mapping file
 profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
@@ -151,7 +164,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       "%{hiera('corosync_cluster_vip2')}:80": []
     options:
       - option:         'httplog'
-      - redirect:       'scheme https if !{ ssl_fc }'
+      - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/public_domains.map)]'
+      - capture:        'request header Host len 32' #for debug
   public-https:
     mode:               'tcp'
     bind:
@@ -170,7 +184,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       "%{hiera('corosync_cluster_vip4')}:80": []
     options:
       - option:         'httplog'
-      - redirect:       'scheme https if !{ ssl_fc }'
+      - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/uib_domains.map)]'
+      - capture:        'request header Host len 32' #for debug
   uib-https:
     mode:               'tcp'
     bind:
