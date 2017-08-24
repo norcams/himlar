@@ -94,14 +94,15 @@ nova::config::nova_config:
     value: 'rsync'
 
 # compute (node: compute)
-nova::compute::enabled:                         true
-nova::compute::allow_resize_to_same_host:       true
-nova::compute::rbd::libvirt_rbd_user:           'cinder'
-nova::compute::rbd::libvirt_rbd_secret_uuid:    '363cb82c-793f-4aff-93f5-3332376c4369'
-nova::compute::rbd::libvirt_images_rbd_pool:    'volumes'
-nova::compute::rbd::rbd_keyring:                'client.cinder'
-nova::compute::rbd::ephemeral_storage:          false
-nova::compute::rbd::manage_ceph_client:         false
+nova::compute::enabled:                          true
+nova::compute::allow_resize_to_same_host:        true
+nova::compute::resume_guests_state_on_host_boot: true
+nova::compute::rbd::libvirt_rbd_user:            'cinder'
+nova::compute::rbd::libvirt_rbd_secret_uuid:     '363cb82c-793f-4aff-93f5-3332376c4369'
+nova::compute::rbd::libvirt_images_rbd_pool:     'volumes'
+nova::compute::rbd::rbd_keyring:                 'client.cinder'
+nova::compute::rbd::ephemeral_storage:           false
+nova::compute::rbd::manage_ceph_client:          false
 
 # set image properties hw_scsi_model=virtio-scsi and hw_disk_bus=scsi to enable
 nova::compute::libvirt::libvirt_hw_disk_discard: 'unmap'
