@@ -1,10 +1,11 @@
 ---
 # Shared config (nodes: novactrl, compute)
-nova::db::database_connection:     "mysql://nova:%{hiera('nova::db::mysql::password')}@%{hiera('service__address__mysql')}/nova"
-nova::db::api_database_connection: "mysql://nova_api:%{hiera('nova::db::mysql_api::password')}@%{hiera('service__address__mysql')}/nova_api"
-nova::glance_api_servers:          "%{hiera('endpoint__image__internal')}"
-nova::cinder_catalog_info:         'volumev2:cinderv2:internalURL'
-nova::os_region_name:              "%{location}"
+nova::db::database_connection:           "mysql://nova:%{hiera('nova::db::mysql::password')}@%{hiera('service__address__mysql')}/nova"
+nova::db::api_database_connection:       "mysql://nova_api:%{hiera('nova::db::mysql_api::password')}@%{hiera('service__address__mysql')}/nova_api"
+nova::db::placement_database_connection: "mysql://nova_placement:%{hiera('nova::db::mysql_placement::password')}@%{hiera('service__address__mysql')}/nova_placement"
+nova::glance_api_servers:                "%{hiera('endpoint__image__internal')}"
+nova::cinder_catalog_info:               'volumev2:cinderv2:internalURL'
+nova::os_region_name:                    "%{location}"
 
 # logging
 nova::use_syslog:           true
@@ -23,6 +24,9 @@ nova::db::mysql::allowed_hosts:
   - "%{netpart_transport1}.%"
   - "compute.%{hiera('domain_trp')}"
 nova::db::mysql_api::allowed_hosts:
+  - "%{netpart_transport1}.%"
+  - "compute.%{hiera('domain_trp')}"
+nova::db::mysql_placement::allowed_hosts:
   - "%{netpart_transport1}.%"
   - "compute.%{hiera('domain_trp')}"
 
