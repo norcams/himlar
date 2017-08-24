@@ -60,7 +60,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       n['networks'].each do |net|
         ip = settings['networks'][net]['net'] + ".#{i+11}"
         auto_config = settings['networks'][net]['auto_config']
-        box.vm.network :private_network, ip: ip, libvirt__dhcp_enabled: auto_config, auto_config: auto_config
+        forwarding = settings['networks'][net]['forwarding']
+        box.vm.network :private_network, ip: ip, libvirt__dhcp_enabled: auto_config, auto_config: auto_config, forwarding: forwarding
       end
 
       # Pass environment variables to the provisioning scripts

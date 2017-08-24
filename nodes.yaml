@@ -70,18 +70,19 @@ nodesets:
     - role:       "compute"
       memory:     2048
       cpus:       2
-    - role:       "monitor"
     - role:       "logger"
       cpus:       1
       memory:     2048
-    - role:       "status"
-    - role:       "builder"
-    - role:       "nat"
-      memory:     1024
-      cpus:       1
-      box:        "norcams/freebsd"
-    - role:       "admin"
-      memory:     3096
+  # The following nodes are optional
+    # - role:       "monitor"
+    # - role:       "status"
+    # - role:       "builder"
+    # - role:       "nat"
+    #   memory:     1024
+    #   cpus:       1
+    #   box:        "norcams/freebsd"
+    # - role:       "admin"
+    #   memory:     3096
   ha:
     - role:       'ha'
       hostid:     '01'
@@ -110,12 +111,16 @@ networks:
   mgmt:
     net: "172.31.0"
     auto_config: false
+    forwarding: "none"
   oob:
     net: "172.31.8"
     auto_config: false
+    forwarding: "none"
   trp:
     net: "172.31.16"
     auto_config: false
+    forwarding: "none"
   public:
     net: "172.31.24"
     auto_config: false
+    forwarding: "route"
