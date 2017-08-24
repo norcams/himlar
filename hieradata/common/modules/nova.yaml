@@ -43,6 +43,8 @@ nova::api::enabled_apis:                [ 'osapi_compute', ]
 nova::api::enabled:                     true
 nova::api::api_bind_address:            "%{ipaddress_transport1}"
 
+nova::cells::enabled: false
+
 nova::keystone::authtoken::username:    'nova'
 nova::keystone::authtoken::password:    "%{hiera('nova_api_password')}"
 nova::keystone::authtoken::auth_url:    "%{hiera('endpoint__identity__admin')}"
