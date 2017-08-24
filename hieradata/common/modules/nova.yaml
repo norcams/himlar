@@ -37,7 +37,6 @@ nova::keystone::auth::public_url:       "%{hiera('endpoint__compute__public')}/v
 nova::keystone::auth::admin_url:        "%{hiera('endpoint__compute__admin')}/v2.1"
 nova::keystone::auth::internal_url:     "%{hiera('endpoint__compute__internal')}/2.1"
 
-
 # api (node: novactrl)
 nova::api::enabled_apis:                [ 'osapi_compute', ]
 nova::api::enabled:                     true
@@ -91,7 +90,6 @@ nova::network::neutron::neutron_auth_url:       "%{hiera('endpoint__identity__ad
 nova::network::neutron::neutron_region_name:    "%{::location}"
 nova::network::neutron::neutron_password:       "%{hiera('neutron_api_password')}"
 
-# remove need for confirmation when move or resize instance (node: compute and novactrl)
 # Use rsync, not ssh for migrate transport to support sparse images
 nova::config::nova_config:
   libvirt/remote_filesystem_transport:
