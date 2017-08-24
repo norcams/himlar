@@ -88,8 +88,6 @@ nova::network::neutron::neutron_password:       "%{hiera('neutron_api_password')
 # remove need for confirmation when move or resize instance (node: compute and novactrl)
 # Use rsync, not ssh for migrate transport to support sparse images
 nova::config::nova_config:
-  DEFAULT/resize_confirm_window:
-    value: "1"
   libvirt/remote_filesystem_transport:
     value: 'rsync'
 
@@ -97,6 +95,7 @@ nova::config::nova_config:
 nova::compute::enabled:                          true
 nova::compute::allow_resize_to_same_host:        true
 nova::compute::resume_guests_state_on_host_boot: true
+nova::compute::resize_confirm_window:            '1'
 nova::compute::rbd::libvirt_rbd_user:            'cinder'
 nova::compute::rbd::libvirt_rbd_secret_uuid:     '363cb82c-793f-4aff-93f5-3332376c4369'
 nova::compute::rbd::libvirt_images_rbd_pool:     'volumes'
