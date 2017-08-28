@@ -38,17 +38,17 @@ class profile::openstack::database::sql (
         ensure    => present,
         charset   => 'utf8',
       }
-      mysql_grant { "nova@$addr1.%/*.*":
+      mysql_grant { "nova@${addr1}.%/*.*":
         ensure    => present,
         privileges => ['ALL'],
         table    => '*.*',
-        user     => "nova@$addr1.%",
+        user     => "nova@${addr1}.%",
       }
-      mysql_grant { "nova@compute.$addr2/*.*":
+      mysql_grant { "nova@compute.${addr2}/*.*":
         ensure    => present,
         privileges => ['ALL'],
         table    => '*.*',
-        user     => "nova@compute.$addr2",
+        user     => "nova@compute.${addr2}",
       }
     }
   }
