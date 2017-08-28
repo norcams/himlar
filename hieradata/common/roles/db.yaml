@@ -3,6 +3,7 @@ include:
   default:
     - profile::openstack::database::sql
     - profile::monitoring::sensu::mysql
+    - profile::logging::logrotate
 
 # These should be set to valid options per location
 db_ssl_key:       '/etc/mysql/server-key.pem'
@@ -50,6 +51,22 @@ profile::monitoring::sensu::agent::checks:
     command:      'check-mysql-alive.rb -h localhost -s /var/lib/mysql/mysql.sock --ini /etc/sensu/conf.d/mysql.ini'
     interval:     60
     subscribers:  ['checks']
+
+# Logrotate
+profile::logging::logrotate::manage_logrotate:   true
+logrotate::rules:
+  mysql:
+    path:           '/var/log/mysqld.log'
+    rotate:         14
+    postrotate: >-
+      if test -x /usr/bin/mysqladmin && /usr/bin/mysqladmin ping &>/dev/null; then
+            /usr/bin/mysqladmin --local flush-error-log flush-engine-log flush-general-log flush-slow-log
+          fi
+    sharedscripts:  true
+    copytruncate:   true
+    missingok:      true
+    rotate_every:   daily
+    compress:       true
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:

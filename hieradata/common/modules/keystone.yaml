@@ -1,4 +1,6 @@
 ---
+keystone::debug:  true #FIXME used for debug newton upgrade
+
 keystone::db::mysql::allowed_hosts:
   - "%{netpart_trp1}.%"
   - "identity.%{hiera('domain_trp')}"
@@ -51,6 +53,9 @@ keystone::federation::openidc::openidc_provider_metadata_url: 'https://auth.data
 keystone::federation::openidc::openidc_client_id:             '00000000-0000-0000-0000-000000000000'
 keystone::federation::openidc::openidc_client_secret:         '00000000-0000-0000-0000-000000000000'
 #keystone::federation::openidc::module_plugin:                 'keystone.auth.openidc'
+
+# cron
+keystone::cron::token_flush::maxdelay:    1800 # sek = 30 min
 
 # logging
 keystone::use_syslog:    true

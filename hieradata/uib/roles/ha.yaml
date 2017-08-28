@@ -61,7 +61,7 @@ haproxy::defaults_options:
     - 'server 10s'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
-  uib_domains:
+  uib_https_domains:
     ensure: present
     mappings:
       - 'meet.uib.no':                            'uib-https-sfb'
@@ -78,7 +78,18 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - "access-ha.uh-iaas.no":                   'uib-https-uh-access'
       - "status.uh-iaas.no":                      'uib-https-uh-status'
       - "status-ha.uh-iaas.no":                   'uib-https-uh-status'
-  public_domains:
+  uib_http_domains:
+    ensure: present
+    mappings:
+      - 'meet.uib.no':                            'uib-http-sfb'
+      - 'dialin.uib.no':                          'uib-http-sfb'
+      - 'lyncdiscoverinternal.uib.no':            'uib-http-sfb'
+      - 'lyncdiscoverinternal.uni.no':            'uib-http-sfb'
+      - 'lyncdiscoverinternal.holbergprisen.no':  'uib-http-sfb'
+      - 'lyncdiscoverinternal.bergento.no':       'uib-http-sfb'
+      - 'sfb-webpool01.uib.no':                   'uib-http-sfb'
+      - 'lyncadmin.uib.no':                       'uib-http-sfb'
+  public_https_domains:
     ensure: present
     mappings:
       - 'meet.uib.no':                            'public-https-sfb'
@@ -89,6 +100,16 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - 'lyncdiscover.bergento.no':               'public-https-sfb'
       - 'sfb-webext01.uib.no':                    'public-https-sfb'
       - 'mitt.uib.no':                            'public-https-mittuib'
+  public_http_domains:
+    ensure: present
+    mappings:
+      - 'meet.uib.no':                            'public-http-sfb'
+      - 'dialin.uib.no':                          'public-http-sfb'
+      - 'lyncdiscover.uib.no':                    'public-http-sfb'
+      - 'lyncdiscover.uni.no':                    'public-http-sfb'
+      - 'lyncdiscover.holbergprisen.no':          'public-http-sfb'
+      - 'lyncdiscover.bergento.no':               'public-http-sfb'
+      - 'sfb-webext01.uib.no':                    'public-http-sfb'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   'uib-https-sfb':
@@ -99,9 +120,24 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     options:
       - 'check'
       - 'port 80'
+  'uib-http-sfb':
+    listening_service:  'uib-http-sfb'
+    ports:              80
+    server_names:       ['sfb-fe01.uib.no', 'sfb-fe02.uib.no', 'sfb-fe03.uib.no']
+    ipaddresses:        ['129.177.14.231','129.177.14.232','129.177.14.233']
+    options:
+      - 'check'
   'public-https-sfb':
     listening_service:  'public-https-sfb'
     ports:              4443
+    server_names:       ['sfb-fe01.uib.no', 'sfb-fe02.uib.no', 'sfb-fe03.uib.no']
+    ipaddresses:        ['129.177.14.231','129.177.14.232','129.177.14.233']
+    options:
+      - 'check'
+      - 'port 80'
+  'public-http-sfb':
+    listening_service:  'public-http-sfb'
+    ports:              8080
     server_names:       ['sfb-fe01.uib.no', 'sfb-fe02.uib.no', 'sfb-fe03.uib.no']
     ipaddresses:        ['129.177.14.231','129.177.14.232','129.177.14.233']
     options:
@@ -139,8 +175,20 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
       - balance:      'roundrobin'
       - option:
         - 'httpchk /healthcheck.html'
+  uib-http-sfb:
+    mode:             'http'
+    options:
+      - balance:      'roundrobin'
+      - option:
+        - 'httpchk /healthcheck.html'
   public-https-sfb:
     mode:             'tcp'
+    options:
+      - balance:      'roundrobin'
+      - option:
+        - 'httpchk /healthcheck.html'
+  public-http-sfb:
+    mode:             'http'
     options:
       - balance:      'roundrobin'
       - option:
@@ -186,7 +234,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       "%{hiera('corosync_cluster_vip2')}:80": []
     options:
       - option:         'httplog'
-      - redirect:       'scheme https if !{ ssl_fc }'
+      - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/public_http_domains.map)]'
+      - capture:        'request header Host len 32' #for debug
   public-https:
     mode:               'tcp'
     bind:
@@ -197,7 +246,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       - tcp-request:
         - 'inspect-delay 5s'
         - 'content accept if { req_ssl_hello_type 1 }'
-      - use_backend:      '%[req_ssl_sni,lower,map(/etc/haproxy/public_domains.map)]'
+      - use_backend:      '%[req_ssl_sni,lower,map(/etc/haproxy/public_https_domains.map)]'
   uib-http:
     mode:               'http'
     bind:
@@ -205,7 +254,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       "%{hiera('corosync_cluster_vip4')}:80": []
     options:
       - option:         'httplog'
-      - redirect:       'scheme https if !{ ssl_fc }'
+      - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/uib_http_domains.map)]'
+      - capture:        'request header Host len 32' #for debug
   uib-https:
     mode:               'tcp'
     bind:
@@ -216,7 +266,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       - tcp-request:
         - 'inspect-delay 5s'
         - 'content accept if { req_ssl_hello_type 1 }'
-      - use_backend:      '%[req_ssl_sni,lower,map(/etc/haproxy/uib_domains.map)]'
+      - use_backend:      '%[req_ssl_sni,lower,map(/etc/haproxy/uib_https_domains.map)]'
 
 # Corosync VIP and HAproxy
 profile::highavailability::corosync::primitives:
