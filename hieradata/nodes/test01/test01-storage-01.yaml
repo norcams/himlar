@@ -1,20 +1,10 @@
 ---
 network::interfaces_hash:
-  'eth0':
-    onboot:       'yes'
-    ipaddress:    "%{hiera('netcfg_mgmt_netpart')}.106"
-    netmask:      "%{hiera('netcfg_mgmt_netmask')}"
-    gateway:      "%{hiera('netcfg_mgmt_gateway')}"
-    dns1:         "%{hiera('netcfg_dns_server1')}"
-    dns2:         "%{hiera('netcfg_dns_server2')}"
-    domain:       "%{hiera('netcfg_dns_search')}"
-    peerdns:      'yes'
-    defroute:     'yes'
-  'eth2':
+  'em1':
     onboot:       'yes'
     master:       'bond0'
     slave:        'yes'
-  'eth3':
+  'em2':
     onboot:       'yes'
     master:       'bond0'
     slave:        'yes'
@@ -25,3 +15,13 @@ network::interfaces_hash:
     ipaddress:    "%{hiera('netcfg_trp_netpart')}.106"
     netmask:      "%{hiera('netcfg_trp_netmask')}"
     defroute:     'no'
+  'em3':
+    onboot:       'yes'
+    ipaddress:    "%{hiera('netcfg_mgmt_netpart')}.106"
+    netmask:      "%{hiera('netcfg_mgmt_netmask')}"
+    gateway:      "%{hiera('netcfg_mgmt_gateway')}"
+    dns1:         "%{hiera('netcfg_dns_server1')}"
+    dns2:         "%{hiera('netcfg_dns_server2')}"
+    domain:       "%{hiera('netcfg_dns_search')}"
+    peerdns:      'yes'
+    defroute:     'yes'
