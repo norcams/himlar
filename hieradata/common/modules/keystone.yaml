@@ -2,8 +2,7 @@
 keystone::debug:  true #FIXME used for debug newton upgrade
 
 keystone::db::mysql::allowed_hosts:
-  - "%{netpart_trp1}.%"
-  - "identity.%{hiera('domain_trp')}"
+  - "%{hiera('netcfg_trp_netpart')}.%"
 
 keystone::database_connection:            "mysql://keystone:%{%{hiera('keystone::db::mysql::password')}@db01.%{hiera('domain_trp')}/keystone"
 keystone::service_name:                   'httpd'

@@ -18,11 +18,9 @@ nova::default_transport_url:
 
 # mysql database (node: db)
 nova::db::mysql::allowed_hosts:
-  - "%{netpart_transport1}.%"
-  - "compute.%{hiera('domain_trp')}"
+  - "%{hiera('netcfg_trp_netpart')}.%"
 nova::db::mysql_api::allowed_hosts:
-  - "%{netpart_transport1}.%"
-  - "compute.%{hiera('domain_trp')}"
+  - "%{hiera('netcfg_trp_netpart')}.%"
 
 # keystone auth (node: identity)
 nova::keystone::auth::region:           "%{location}"

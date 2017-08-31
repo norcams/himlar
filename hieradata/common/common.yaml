@@ -113,7 +113,7 @@ public__address__console:         "console.%{hiera('domain_public')}"
 #
 service__address__mysql:          "db02.%{hiera('domain_trp')}"
 service__address__status:         "status.%{hiera('domain_trp')}"
-service__address__etcd_cluster:   "network.%{hiera('domain_trp')}"
+service__address__etcd_cluster:   "%{hiera('netcfg_trp_netpart')}.36"
 service__address__rabbitmq_01:    "mq01.%{hiera('domain_trp')}"
 service__address__rabbitmq_02:    "mq01.%{hiera('domain_trp')}"
 service__address__rabbitmq_03:    "mq01.%{hiera('domain_trp')}"

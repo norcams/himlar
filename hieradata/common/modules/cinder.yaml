@@ -5,8 +5,7 @@ cinder::database_connection:      "mysql://cinder:%{hiera('cinder::db::mysql::pa
 cinder::db::mysql::dbname:   'cinder'
 cinder::db::mysql::user:     'cinder'
 cinder::db::mysql::allowed_hosts:
-  - "%{netpart_trp1}.%"
-  - "volume.%{hiera('domain_trp')}"
+  - "%{hiera('netcfg_trp_netpart')}.%"
 
 # cinder api (node: volume)
 cinder::api::keystone_enabled:            true
