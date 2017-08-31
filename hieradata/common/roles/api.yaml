@@ -18,7 +18,7 @@ profile::monitoring::sensu::agent::plugins:
 profile::monitoring::sensu::agent::checks:
   'metrics-haproxy-overview':
     type:         'metric'
-    command:      "metrics-haproxy.rb --scheme haproxy.%{::hostname} --server-metrics -c 127.0.0.1 -P 9000 -q haproxy_stats"
+    command:      "metrics-haproxy.rb --scheme haproxy.%{::hostname} --server-metrics -c 127.0.0.1 -P 9000"
     interval:     60
     subscribers:  ['metrics']
     handlers:     ['graphite_tcp']
@@ -38,8 +38,17 @@ status_ssl_pem:   "status.%{hiera('domain_public')}.pem"
 
 haproxy::defaults_options:
   mode:         'http'
-  option:       [ 'redispatch', 'forwardfor', 'http-server-close', 'httplog', 'httpclose']
-  balance:      'roundrobin'
+  option:       [ 'redispatch', 'forwardfor', 'http-server-close', 'httplog', 'dontlognull']
+  balance:      'source'
+  retries:      '3'
+  maxconn:      '2000' # per frontend
+  timeout:
+    - 'http-request 10s'
+    - 'connect 10s'
+    - 'check 10s'
+    - 'client 1m'
+    - 'server 1m'
+    - 'queue 1m'
 
 # Domain mapping to backend
 profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
@@ -76,7 +85,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       "%{::ipaddress_public1}:80":    []
     options:
       - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/public_domains.map)]'
-      - capture:        'request header Host len 32' #for debug
+      - capture:        'request header Host len 64' #for debug
       - http-request:
         - 'add-header X-Forwarded-Proto https if { ssl_fc }'
         - 'set-header X-Forwarded-Port %[dst_port]'
@@ -91,14 +100,14 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       "%{::ipaddress_trp1}:9696":  [] # neutron
     options:
       - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/internal_domains.map)]'
-      - capture:        'request header Host len 32' #for debug
+      - capture:        'request header Host len 64' #for debug
   frontend_monitor:
     options:
       stats:
          - 'enable'
          - 'hide-version'
          - 'realm Sensu\ Monitor\ Stats'
-         - 'uri /haproxy_stats '
+         - 'uri /'
     bind:
       '%{::ipaddress_mgmt1}:9000':            []
       '127.0.0.1:9000':                       []
