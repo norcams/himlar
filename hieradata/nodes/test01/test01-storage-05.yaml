@@ -12,12 +12,12 @@ network::interfaces_hash:
     onboot:       'yes'
     bonding_opts: 'mode=balance-alb miimon=100'
     onboot:       'yes'
-    ipaddress:    "%{hiera('netcfg_trp_netpart')}.108"
+    ipaddress:    "%{hiera('netcfg_trp_netpart')}.110"
     netmask:      "%{hiera('netcfg_trp_netmask')}"
     defroute:     'no'
   'em3':
     onboot:       'yes'
-    ipaddress:    "%{hiera('netcfg_mgmt_netpart')}.108"
+    ipaddress:    "%{hiera('netcfg_mgmt_netpart')}.110"
     netmask:      "%{hiera('netcfg_mgmt_netmask')}"
     gateway:      "%{hiera('netcfg_mgmt_gateway')}"
     dns1:         "%{hiera('netcfg_dns_server1')}"
