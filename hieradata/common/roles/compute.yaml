@@ -21,8 +21,6 @@ include:
 neutron::use_syslog:    true
 neutron::log_facility:  'LOG_LOCAL5'
 
-profile::openstack::compute::hypervisor::manage_resume_guests_state:  true
-
 # Manage default availability zone
 profile::openstack::compute::manage_az:            true
 
@@ -155,3 +153,5 @@ ceph::profile::params::client_keys:
     group: 'nova'
     cap_mon: 'allow r'
     cap_osd: 'allow class-read object_prefix rbd_children, allow rwx pool=volumes, allow rwx pool=vms, allow rwx pool=images'
+
+openstack_version: 'newton' #FIXME: remove after full upgrade

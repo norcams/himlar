@@ -1,22 +1,20 @@
 ---
 # Shared config (nodes: novactrl, compute)
-nova::db::database_connection:     "mysql://nova:%{hiera('nova::db::mysql::password')}@%{hiera('service__address__mysql')}/nova"
-nova::db::api_database_connection: "mysql://nova_api:%{hiera('nova::db::mysql_api::password')}@%{hiera('service__address__mysql')}/nova_api"
-nova::glance_api_servers:          "%{hiera('endpoint__image__internal')}"
-nova::cinder_catalog_info:         'volumev2:cinderv2:internalURL'
-nova::os_region_name:              "%{location}"
+nova::db::database_connection:           "mysql://nova:%{hiera('nova::db::mysql::password')}@%{hiera('service__address__mysql')}/nova"
+nova::db::api_database_connection:       "mysql://nova_api:%{hiera('nova::db::mysql_api::password')}@%{hiera('service__address__mysql')}/nova_api"
+nova::glance_api_servers:                "%{hiera('endpoint__image__internal')}"
+nova::cinder_catalog_info:               'volumev2:cinderv2:internalURL'
+nova::os_region_name:                    "%{location}"
 
 # logging
 nova::use_syslog:           true
 nova::log_facility:         'LOG_LOCAL0'
 
 # rabbit mq (for rabbit_password see secrets)
-nova::rabbit_userid:        'nova'
-nova::rabbit_virtual_host:  'nova'
-nova::rabbit_hosts:
-  - "%{hiera('service__address__rabbitmq_01')}:5672"
-  - "%{hiera('service__address__rabbitmq_02')}:5672"
-  - "%{hiera('service__address__rabbitmq_03')}:5672"
+nova::default_transport_url:
+  "rabbit://nova:%{hiera('nova::rabbit_password')}@%{hiera('service__address__rabbitmq_01')}:5672,\
+  nova:%{hiera('nova::rabbit_password')}@%{hiera('service__address__rabbitmq_02')}:5672,\
+  nova:%{hiera('nova::rabbit_password')}@%{hiera('service__address__rabbitmq_03')}:5672/nova"
 
 # mysql database (node: db)
 nova::db::mysql::allowed_hosts:
@@ -29,20 +27,22 @@ nova::db::mysql_api::allowed_hosts:
 # keystone auth (node: identity)
 nova::keystone::auth::region:           "%{location}"
 nova::keystone::auth::password:         "%{hiera('nova_api_password')}"
-nova::keystone::auth::public_url:       "%{hiera('endpoint__compute__public')}/v2/%(tenant_id)s"
-nova::keystone::auth::public_url_v3:    "%{hiera('endpoint__compute__public')}/v3"
-nova::keystone::auth::admin_url:        "%{hiera('endpoint__compute__admin')}/v2/%(tenant_id)s"
-nova::keystone::auth::admin_url_v3:     "%{hiera('endpoint__compute__admin')}/v3"
-nova::keystone::auth::internal_url:     "%{hiera('endpoint__compute__internal')}/v2/%(tenant_id)s"
-nova::keystone::auth::internal_url_v3:  "%{hiera('endpoint__compute__internal')}/v3"
+nova::keystone::auth::public_url:       "%{hiera('endpoint__compute__public')}/v2.1/"
+nova::keystone::auth::admin_url:        "%{hiera('endpoint__compute__admin')}/v2.1/"
+nova::keystone::auth::internal_url:     "%{hiera('endpoint__compute__internal')}/v2.1/"
 
 # api (node: novactrl)
-nova::api::enabled_apis:                [ 'ec2', 'osapi_compute' ]
+nova::api::enabled_apis:                [ 'osapi_compute', ]
 nova::api::enabled:                     true
 nova::api::api_bind_address:            "%{ipaddress_transport1}"
-nova::api::admin_password:              "%{hiera('nova_api_password')}"
-nova::api::auth_uri:                    "%{hiera('endpoint__identity__internal')}"
-nova::api::identity_uri:                "%{hiera('endpoint__identity__admin')}"
+
+nova::cells::enabled: false
+
+nova::keystone::authtoken::username:    'nova'
+nova::keystone::authtoken::password:    "%{hiera('nova_api_password')}"
+nova::keystone::authtoken::auth_url:    "%{hiera('endpoint__identity__admin')}"
+nova::keystone::authtoken::auth_uri:    "%{hiera('endpoint__identity__internal')}"
+nova::keystone::authtoken::region_name: "%{::location}"
 
 # scheduler (node: novactrl)
 nova::scheduler::enabled:                           true
@@ -84,23 +84,22 @@ nova::network::neutron::neutron_auth_url:       "%{hiera('endpoint__identity__ad
 nova::network::neutron::neutron_region_name:    "%{::location}"
 nova::network::neutron::neutron_password:       "%{hiera('neutron_api_password')}"
 
-# remove need for confirmation when move or resize instance (node: compute and novactrl)
 # Use rsync, not ssh for migrate transport to support sparse images
 nova::config::nova_config:
-  DEFAULT/resize_confirm_window:
-    value: "1"
   libvirt/remote_filesystem_transport:
     value: 'rsync'
 
 # compute (node: compute)
-nova::compute::enabled:                         true
-nova::compute::allow_resize_to_same_host:       true
-nova::compute::rbd::libvirt_rbd_user:           'cinder'
-nova::compute::rbd::libvirt_rbd_secret_uuid:    '363cb82c-793f-4aff-93f5-3332376c4369'
-nova::compute::rbd::libvirt_images_rbd_pool:    'volumes'
-nova::compute::rbd::rbd_keyring:                'client.cinder'
-nova::compute::rbd::ephemeral_storage:          false
-nova::compute::rbd::manage_ceph_client:         false
+nova::compute::enabled:                          true
+nova::compute::allow_resize_to_same_host:        true
+nova::compute::resume_guests_state_on_host_boot: true
+nova::compute::resize_confirm_window:            '1'
+nova::compute::rbd::libvirt_rbd_user:            'cinder'
+nova::compute::rbd::libvirt_rbd_secret_uuid:     '363cb82c-793f-4aff-93f5-3332376c4369'
+nova::compute::rbd::libvirt_images_rbd_pool:     'volumes'
+nova::compute::rbd::rbd_keyring:                 'client.cinder'
+nova::compute::rbd::ephemeral_storage:           false
+nova::compute::rbd::manage_ceph_client:          false
 
 # set image properties hw_scsi_model=virtio-scsi and hw_disk_bus=scsi to enable
 nova::compute::libvirt::libvirt_hw_disk_discard: 'unmap'
