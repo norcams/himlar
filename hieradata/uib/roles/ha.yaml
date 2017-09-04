@@ -70,7 +70,7 @@ haproxy::global_options:
 haproxy::defaults_options:
   log:          'global'  #FIXME turn of debug logging in production
   stats:        []
-  option:       ['dontlognull', 'httplog', 'http-server-close', 'forwardfor', 'redispatch']
+  option:       ['dontlognull', 'httplog', 'http-server-close', 'redispatch']
   maxconn:      '2000' # per frontend
   timeout:
     - 'connect 10s'

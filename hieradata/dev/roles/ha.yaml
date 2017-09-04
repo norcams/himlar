@@ -57,10 +57,48 @@ profile::firewall::rules::custom_rules:
     proto:        'tcp'
     dport:        [ '80', '443' ]
     source:       '0.0.0.0/0'
+  '452 haproxy ldap':
+    proto:        'tcp'
+    dport:        [ '636', '389' ]
+    source:       '0.0.0.0/0'
   '455 haproxy status':
     proto:        'tcp'
     dport:        ['9000']
     source:       '0.0.0.0/0'
+
+# HAproxy
+haproxy::global_options:
+  log:          '127.0.0.1 local6 info alert'
+
+haproxy::defaults_options:
+  log:          'global'
+  stats:        []
+  option:       ['dontlognull', 'httplog', 'http-server-close', 'redispatch']
+  timeout:
+    - 'connect 10s'
+    - 'http-keep-alive 10s'
+    - 'check 10s'
+    - 'http-request 10s'
+    - 'client 30s'
+    - 'server 30s'
+    - 'queue 30s'
+
+# Allow ports in selinux|
+profile::base::selinux::ports:
+  sfb-https:
+    context:  'http_port_t'
+    protocol: 'tcp'
+    port:     '4443'
+  ldaps:
+    context:  'http_port_t'
+    protocol: 'tcp'
+    port:     '636'
+    argument: '-m'
+  ldap:
+    context:  'http_port_t'
+    protocol: 'tcp'
+    port:     '389'
+    argument: '-m'
 
 #
 # Example with mapping, frontend and backend
@@ -77,6 +115,11 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
     mappings:
       - "%{hiera('public__address__access')}":      'uib-https-uh-access'
       - "%{hiera('public__address__dashboard')}":   'uib-https-uh-dashboard'
+  uib_ldaps_domains:
+    ensure: present
+    mappings:
+      - 'ldap.test.uib.no':                         'bk-uib-ldaps'
+      - 'ldap.test.uib.no:636':                     'bk-uib-ldaps'
 
 # Backends (servers are added with balancermember)
 profile::highavailability::loadbalancing::haproxy::haproxy_backends:
@@ -124,6 +167,14 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
       - balance:      'roundrobin'
       - option:
         - 'httpchk /healthcheck.html'
+  bk-uib-ldaps:
+    mode:             'tcp'
+    options:
+      - balance:      'roundrobin'
+  bk-uib-ldap:
+    mode:             'tcp'
+    options:
+      - balance:      'roundrobin'
 
 # Backend members
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
@@ -152,6 +203,20 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ports:              80
     server_names:       ['sfb-fe01.uib.no', 'sfb-fe02.uib.no', 'sfb-fe03.uib.no']
     ipaddresses:        ['129.177.14.231','129.177.14.232','129.177.14.233']
+    options:
+      - 'check'
+  'uib-ldaps':
+    listening_service:  'bk-uib-ldaps'
+    ports:              '636'
+    server_names:       ['t1ldap01.uib.no']
+    ipaddresses:        ['129.177.5.183']
+    options:
+      - 'check'
+  'uib-ldap':
+    listening_service:  'bk-uib-ldap'
+    ports:              '389'
+    server_names:       ['t1ldap01.uib.no']
+    ipaddresses:        ['129.177.5.183']
     options:
       - 'check'
 
@@ -197,7 +262,30 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
         - 'inspect-delay 5s'
         - 'content accept if { req_ssl_hello_type 1 }'
       - use_backend:      '%[req_ssl_sni,lower,map(/etc/haproxy/uib_domains.map)]'
-
+  uib-ldaps:
+    mode:               'tcp'
+    bind:
+      "%{hiera('corosync_cluster_vip3')}:636": []
+      "%{hiera('corosync_cluster_vip4')}:636": []
+    options:
+      - option:         'tcplog'
+#      - tcp-request:
+#        - 'inspect-delay 5s'
+#        - 'content accept if { req_ssl_hello_type 1 }'
+#      - acl:
+#        - 'uib_test hdr_dom(host) -i 172.31.24.8'
+#      - use_backend:
+#        - 'bk-uib-ldaps if uib_test'
+      #- use_backend:      '%[req_ssl_sni,lower,map(/etc/haproxy/uib_ldaps_domains.map)]'
+      - default_backend:  bk-uib-ldaps
+  uib-ldap:
+    mode:               'tcp'
+    bind:
+      "%{hiera('corosync_cluster_vip3')}:389": []
+      "%{hiera('corosync_cluster_vip4')}:389": []
+    options:
+      - option:         'tcplog'
+      - use_backend:    'bk-uib-ldap'
 
 # Corosync uib
 # Corosync VIP and HAproxy
