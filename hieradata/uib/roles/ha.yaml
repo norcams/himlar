@@ -178,7 +178,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     options:
       - 'check'
   'public-ldaps-prod':
-    listening_service:  'public-ldap-prod'
+    listening_service:  'public-ldaps-prod'
     ports:              '636'
     server_names:       ['p1ldap01.uib.no', 'p2ldap01.uib.no', 'p1ldap02.uib.no', 'p2ldap02.uib.no']
     ipaddresses:        ['129.177.5.229', '129.177.5.230', '129.177.5.234', '129.177.5.236']
