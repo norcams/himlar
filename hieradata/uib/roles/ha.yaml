@@ -1,4 +1,21 @@
 ---
+# Allow ports in selinux|
+profile::base::selinux::ports:
+  sfb-https:
+    context:  'http_port_t'
+    protocol: 'tcp'
+    port:     '4443'
+  ldaps:
+    context:  'http_port_t'
+    protocol: 'tcp'
+    port:     '636'
+    argument: '-m'
+  ldap:
+    context:  'http_port_t'
+    protocol: 'tcp'
+    port:     '389'
+    argument: '-m'
+
 corosync::unicast_addresses:
   - "%{hiera('netcfg_public_netpart')}.96"
   - "%{hiera('netcfg_public_netpart')}.97"
@@ -19,20 +36,20 @@ corosync_cluster_vip4:    "%{hiera('netcfg_public_netpart')}.114"
 profile::firewall::rules::custom_rules:
   '451 haproxy http for public vip1':
     proto:        'tcp'
-    dport:        [ '80', '443' ]
+    dport:        [ '80', '443', '389', '636' ]
     destination:  "%{hiera('corosync_cluster_vip1')}"
   '452 haproxy http for public vip2':
     proto:        'tcp'
-    dport:        [ '80', '443' ]
+    dport:        [ '80', '443', '389', '636' ]
     destination:  "%{hiera('corosync_cluster_vip2')}"
   '453 haproxy http for internal vip3':
     proto:        'tcp'
-    dport:        [ '80', '443' ]
+    dport:        [ '80', '443', '389', '636' ]
     source:       '129.177.0.0/16'
     destination:  "%{hiera('corosync_cluster_vip3')}"
   '454 haproxy http for internal vip4':
     proto:        'tcp'
-    dport:        [ '80', '443' ]
+    dport:        [ '80', '443', '389', '636' ]
     source:       '129.177.0.0/16'
     destination:  "%{hiera('corosync_cluster_vip4')}"
   '455 haproxy status':
@@ -53,12 +70,16 @@ haproxy::global_options:
 haproxy::defaults_options:
   log:          'global'  #FIXME turn of debug logging in production
   stats:        []
-  option:       ['dontlognull']
+  option:       ['dontlognull', 'httplog', 'http-server-close', 'forwardfor', 'redispatch']
   maxconn:      '2000' # per frontend
   timeout:
     - 'connect 10s'
-    - 'client 10s'
-    - 'server 10s'
+    - 'http-keep-alive 10s'
+    - 'check 10s'
+    - 'http-request 10s'
+    - 'client 30s'
+    - 'server 30s'
+    - 'queue 30s'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
   uib_https_domains:
@@ -149,6 +170,20 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     server_names:       ['mitt.uib.no']
     ipaddresses:        [129.177.6.11]
     options:            'check'
+  'public-ldap-prod':
+    listening_service:  'public-ldap-prod'
+    ports:              '389'
+    server_names:       ['p1ldap01.uib.no', 'p2ldap01.uib.no', 'p1ldap02.uib.no', 'p2ldap02.uib.no']
+    ipaddresses:        ['129.177.5.229', '129.177.5.230', '129.177.5.234', '129.177.5.236']
+    options:
+      - 'check'
+  'public-ldaps-prod':
+    listening_service:  'public-ldap-prod'
+    ports:              '636'
+    server_names:       ['p1ldap01.uib.no', 'p2ldap01.uib.no', 'p1ldap02.uib.no', 'p2ldap02.uib.no']
+    ipaddresses:        ['129.177.5.229', '129.177.5.230', '129.177.5.234', '129.177.5.236']
+    options:
+      - 'check'
   'uib-https-dashboard':
     listening_service:  'uib-https-uh-dashboard'
     ports:              443
@@ -167,20 +202,22 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     server_names:       ['bgo-status-01', 'osl-status-01']
     ipaddresses:        ['158.39.77.250', '158.37.63.250']
     options:            'check'
+  'uib-ldap-test':
+    listening_service:  'uib-ldap-test'
+    ports:              '389'
+    server_names:       ['t1ldap01.uib.no']
+    ipaddresses:        ['129.177.5.183']
+    options:
+      - 'check'
+  'uib-ldaps-test':
+    listening_service:  'uib-ldaps-test'
+    ports:              '636'
+    server_names:       ['t1ldap01.uib.no']
+    ipaddresses:        ['129.177.5.183']
+    options:
+      - 'check'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_backends:
-  uib-https-sfb:
-    mode:             'tcp'
-    options:
-      - balance:      'roundrobin'
-      - option:
-        - 'httpchk /healthcheck.html'
-  uib-http-sfb:
-    mode:             'http'
-    options:
-      - balance:      'roundrobin'
-      - option:
-        - 'httpchk /healthcheck.html'
   public-https-sfb:
     mode:             'tcp'
     options:
@@ -198,6 +235,26 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     options:
       - balance:      'roundrobin'
       - option:       ['ssl-hello-chk']
+  public-ldaps-prod:
+    mode:             'tcp'
+    options:
+      - balance:      'roundrobin'
+  uib-https-sfb:
+    mode:             'tcp'
+    options:
+      - balance:      'roundrobin'
+      - option:
+        - 'httpchk /healthcheck.html'
+  uib-http-sfb:
+    mode:             'http'
+    options:
+      - balance:      'roundrobin'
+      - option:
+        - 'httpchk /healthcheck.html'
+  uib-ldaps-test:
+    mode:             'tcp'
+    options:
+      - balance:      'roundrobin'
   uib-https-uh-status:
     mode:             'tcp'
     options:
@@ -247,6 +304,22 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
         - 'inspect-delay 5s'
         - 'content accept if { req_ssl_hello_type 1 }'
       - use_backend:      '%[req_ssl_sni,lower,map(/etc/haproxy/public_https_domains.map)]'
+  public-ldap:
+    mode:               'tcp'
+    bind:
+      "%{hiera('corosync_cluster_vip1')}:389": []
+      "%{hiera('corosync_cluster_vip2')}:389": []
+    options:
+      - option:         'tcplog'
+      - use_backend:    'public-ldap-prod'
+  public-ldaps:
+    mode:               'tcp'
+    bind:
+      "%{hiera('corosync_cluster_vip1')}:636": []
+      "%{hiera('corosync_cluster_vip2')}:636": []
+    options:
+      - option:         'tcplog'
+      - use_backend:    'public-ldaps-prod'
   uib-http:
     mode:               'http'
     bind:
@@ -267,6 +340,22 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
         - 'inspect-delay 5s'
         - 'content accept if { req_ssl_hello_type 1 }'
       - use_backend:      '%[req_ssl_sni,lower,map(/etc/haproxy/uib_https_domains.map)]'
+  uib-ldap:
+    mode:               'tcp'
+    bind:
+      "%{hiera('corosync_cluster_vip3')}:389": []
+      "%{hiera('corosync_cluster_vip4')}:389": []
+    options:
+      - option:         'tcplog'
+      - use_backend:    'uib-ldap-test'
+  uib-ldaps:
+    mode:               'tcp'
+    bind:
+      "%{hiera('corosync_cluster_vip3')}:636": []
+      "%{hiera('corosync_cluster_vip4')}:636": []
+    options:
+      - option:         'tcplog'
+      - use_backend:    'uib-ldaps-test'
 
 # Corosync VIP and HAproxy
 profile::highavailability::corosync::primitives:

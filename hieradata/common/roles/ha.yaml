@@ -1,9 +1,13 @@
 ---
 include:
   default:
+    - profile::base::selinux
     - profile::highavailability::corosync
     - profile::highavailability::loadbalancing::haproxy
     - profile::firewall::rules
+
+# SElinux are enforcing on this role!!
+profile::base::selinux::manage_selinux: true
 
 profile::base::common::packages:
   'nmap-ncat': {}
