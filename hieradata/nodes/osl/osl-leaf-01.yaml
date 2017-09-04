@@ -31,7 +31,7 @@ profile::base::network::cumulus_interfaces:
 
 profile::base::network::cumulus_bridges:
   'bridge':
-    'ports': [ 'host1', 'host2', 'host3', 'host4', 'host5', 'host6', 'host7', 'host8', 'host9', 'peerlink', 'downlink' ]
+    'ports': [ 'host1', 'host2', 'host3', 'host4', 'host5', 'host6', 'host7', 'host8', 'host9', 'host10', 'peerlink', 'downlink' ]
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'true'
@@ -98,6 +98,12 @@ profile::base::network::cumulus_bonds:
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+  'host10':
+    'slaves': [ 'swp10', ]
+    'clag_id': '10'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
 
 quagga::quagga::zebra_interfaces:
   'bridge':
@@ -123,6 +129,8 @@ quagga::quagga::zebra_interfaces:
   'host8':
     - 'link-detect'
   'host9':
+    - 'link-detect'
+  'host10':
     - 'link-detect'
 
 quagga::quagga::zebra_ip6_routes:

@@ -1,11 +1,11 @@
 ---
 network::interfaces_hash:
-  'em1':
+  'p1p1':
     onboot:        'yes'
     devicetype:    'TeamPort'
     team_master:   'team1'
     team_port_cfg: '{ "prio" : 100 }'
-  'em2':
+  'p1p2':
     onboot:        'yes'
     devicetype:    'TeamPort'
     team_master:   'team1'
