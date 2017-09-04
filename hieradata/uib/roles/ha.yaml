@@ -235,6 +235,10 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     options:
       - balance:      'roundrobin'
       - option:       ['ssl-hello-chk']
+  public-ldap-prod:
+    mode:             'tcp'
+    options:
+      - balance:      'roundrobin'
   public-ldaps-prod:
     mode:             'tcp'
     options:
@@ -251,6 +255,10 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
       - balance:      'roundrobin'
       - option:
         - 'httpchk /healthcheck.html'
+  uib-ldap-test:
+    mode:             'tcp'
+    options:
+      - balance:      'roundrobin'
   uib-ldaps-test:
     mode:             'tcp'
     options:
