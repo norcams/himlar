@@ -238,11 +238,11 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
   public-ldap-prod:
     mode:             'tcp'
     options:
-      - balance:      'roundrobin'
+      - balance:      'leastconn'
   public-ldaps-prod:
     mode:             'tcp'
     options:
-      - balance:      'roundrobin'
+      - balance:      'leastconn'
   uib-https-sfb:
     mode:             'tcp'
     options:
@@ -258,11 +258,11 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
   uib-ldap-test:
     mode:             'tcp'
     options:
-      - balance:      'roundrobin'
+      - balance:      'leastconn'
   uib-ldaps-test:
     mode:             'tcp'
     options:
-      - balance:      'roundrobin'
+      - balance:      'leastconn'
   uib-https-uh-status:
     mode:             'tcp'
     options:
