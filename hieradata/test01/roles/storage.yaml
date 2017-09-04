@@ -66,31 +66,31 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_journala'
     fs_type:      xfs
     mountpath:    "/journal/journala10"
-  lv_journala11:
-    size:         7G
-    volume_group: 'vg_journala'
-    fs_type:      xfs
-    mountpath:    "/journal/journala11"
-  lv_journala12:
-    size:         7G
-    volume_group: 'vg_journala'
-    fs_type:      xfs
-    mountpath:    "/journal/journala12"
-  lv_journala13:
-    size:         7G
-    volume_group: 'vg_journala'
-    fs_type:      xfs
-    mountpath:    "/journal/journala13"
-  lv_journala14:
-    size:         7G
-    volume_group: 'vg_journala'
-    fs_type:      xfs
-    mountpath:    "/journal/journala14"
-  lv_journala15:
-    size:         7G
-    volume_group: 'vg_journala'
-    fs_type:      xfs
-    mountpath:    "/journal/journala15"
+#  lv_journala11:
+#    size:         7G
+#    volume_group: 'vg_journala'
+#    fs_type:      xfs
+#    mountpath:    "/journal/journala11"
+#  lv_journala12:
+#    size:         7G
+#    volume_group: 'vg_journala'
+#    fs_type:      xfs
+#    mountpath:    "/journal/journala12"
+#  lv_journala13:
+#    size:         7G
+#    volume_group: 'vg_journala'
+#    fs_type:      xfs
+#    mountpath:    "/journal/journala13"
+#  lv_journala14:
+#    size:         7G
+#    volume_group: 'vg_journala'
+#    fs_type:      xfs
+#    mountpath:    "/journal/journala14"
+#  lv_journala15:
+#    size:         7G
+#    volume_group: 'vg_journala'
+#    fs_type:      xfs
+#    mountpath:    "/journal/journala15"
 
 ceph::profile::params::osds:
   '/dev/sdc':
@@ -113,13 +113,13 @@ ceph::profile::params::osds:
     journal: '/journal/journala09/journal'
   '/dev/sdl':
     journal: '/journal/journala10/journal'
-  '/dev/sdm':
-    journal: '/journal/journala11/journal'
-  '/dev/sdn':
-    journal: '/journal/journala12/journal'
-  '/dev/sdo':
-    journal: '/journal/journala13/journal'
-  '/dev/sdp':
-    journal: '/journal/journala14/journal'
-  '/dev/sdq':
-    journal: '/journal/journala15/journal'
+#  '/dev/sdm':
+#    journal: '/journal/journala11/journal'
+#  '/dev/sdn':
+#    journal: '/journal/journala12/journal'
+#  '/dev/sdo':
+#    journal: '/journal/journala13/journal'
+#  '/dev/sdp':
+#    journal: '/journal/journala14/journal'
+#  '/dev/sdq':
+#    journal: '/journal/journala15/journal'
