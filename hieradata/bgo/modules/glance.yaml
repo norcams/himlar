@@ -1,4 +1,4 @@
 ---
-glance::api::known_stores:
- - glance.store.rbd.Store
- - glance.store.http.Store
+glance::api::stores:
+ - rbd
+ - http # FIXME - Remove after dashboard is upgraded to newton
