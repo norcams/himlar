@@ -2,6 +2,7 @@
 include:
   default:
     - profile::network::nat
+    - profile::base::login
 
 network::interfaces_hash:
   'em1':
