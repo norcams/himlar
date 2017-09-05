@@ -78,3 +78,44 @@ named_interfaces::config:
     - br1
   public:
     - em4
+
+# SSH access
+accounts::accounts:
+  'mikaeld':
+    ensure: present
+  'raymond':
+    ensure: present
+  'torldre':
+    ensure: present
+  'trondham':
+    ensure: present
+  'andersv':
+    ensure: present
+  'tannazn':
+    ensure: present
+
+googleauthenticator::pam::modules:
+  sshd:
+    mode: wheel-only
+
+googleauthenticator::pam::mode::modes:
+  wheel-only:
+    condition: 'user ingroup wheel'
+    nullok: false
+
+ssh::server::options:
+  # Need this for 2FA (saz-ssh-module disables by default)
+  ChallengeResponseAuthentication: 'yes'
+  # The second publickey is until the pam files are fixed
+  AuthenticationMethods: 'publickey,keyboard-interactive:pam'
+  # Explicitly enable the required methods
+  UsePAM: 'yes'
+  PasswordAuthentication: 'no'
+  PubKeyAuthentication: 'yes'
+  # No 2FA possible with iaas from mgmt
+  "Match User iaas Address %{hiera('netcfg_mgmt_netpart')}.0/24":
+    AuthenticationMethods: 'publickey'
+
+# SSH from everywhere
+profile::firewall::pre::ssh_settings:
+  source: "0.0.0.0/0"
