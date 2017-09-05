@@ -30,12 +30,19 @@ profile::base::network::routes:
     'netmask':   [ '0.0.0.0', ]
     'gateway':   [ '172.28.32.10', ]
     'table':     [ 'mgmt', ]
+  'swp1':
+    'ipaddress': [ '0.0.0.0', ]
+    'netmask':   [ '0.0.0.0', ]
+    'gateway':   [ '192.168.122.1', ]
+    'table':     [ 'main', ]
 
 quagga::quagga::zebra_interfaces:
   'bridge':
     - 'link-detect'
     - 'description linux-bridge'
   'swp1':
+    - 'link-detect'
+  'swp2':
     - 'link-detect'
 
 quagga::quagga::zebra_ip_routes:
