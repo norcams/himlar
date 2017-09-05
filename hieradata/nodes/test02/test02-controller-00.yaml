@@ -46,8 +46,8 @@ network::interfaces_hash:
     defroute:     'no'
     bridge_stp:   'off'
 
-# Use controller-01 for himlar bootstrap
-profile::bootstrap::himlar::manage_bootstrap_scripts: true
+# leaf-01 uses default network
+libvirt::defaultnetwork: true
 
 # NAT
 profile::network::nat::enable_snat: true
