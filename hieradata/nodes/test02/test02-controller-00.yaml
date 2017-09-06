@@ -50,6 +50,9 @@ network::interfaces_hash:
 # leaf-01 uses default network
 libvirt::defaultnetwork: true
 
+# libvirt write firewall rules on the fly for defaultnetwork
+profile::base::firewall::purge_firewall: false
+
 # NAT
 profile::network::nat::enable_snat: true
 profile::network::nat::source:      "%{hiera('netcfg_public_netpart')}.0/%{hiera('netcfg_public_netmask')}"
