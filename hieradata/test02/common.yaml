@@ -28,11 +28,6 @@ netcfg_dns_search:      "%{hiera('domain_mgmt')} %{hiera('domain_trp')} %{hiera(
 netcfg_public_netpart:  '10.100.200'
 netcfg_public_netmask:  '255.255.255.0'
 
-# THIS IS LEGACY DO NOT USE!
-netcfg_netpart_public:  '10.100.200.0' # FIXME (delete)
-netcfg_netmask_public:  '255.255.255.0' # FIXME (delete)
-# END
-
 netcfg_priv_gateway:    '172.30.32.26'
 netcfg_priv_network:    '10.0.244.0/24'
 netcfg_pub_natgw:       '10.100.200.248'
@@ -50,16 +45,16 @@ allow_from_network: # FIXME (public net and mgmt net)
 profile::network::services::dns_records:
   A:
     # public
-    "api.%{hiera('domain_public')}":                        "%{hiera('netcfg_mgmt_netpart')}.86" #FIXME (mgmt net)
-    "identity.api.%{hiera('domain_public')}":               "%{hiera('netcfg_mgmt_netpart')}.86" #FIXME (mgmt net)
-    "network.api.%{hiera('domain_public')}":                "%{hiera('netcfg_mgmt_netpart')}.86" #FIXME (mgmt net)
-    "image.api.%{hiera('domain_public')}":                  "%{hiera('netcfg_mgmt_netpart')}.86" #FIXME (mgmt net)
-    "volume.api.%{hiera('domain_public')}":                 "%{hiera('netcfg_mgmt_netpart')}.86" #FIXME (mgmt net)
-    "compute.api.%{hiera('domain_public')}":                "%{hiera('netcfg_mgmt_netpart')}.86" #FIXME (mgmt net)
-    "status.%{hiera('domain_public')}":                     "%{hiera('netcfg_mgmt_netpart')}.86" #FIXME (mgmt net)
-    "access.%{hiera('domain_public')}":                     "%{hiera('netcfg_public_netpart')}.252" #FIXME (mgmt net)
-    "console.%{hiera('domain_public')}":                    "%{hiera('netcfg_mgmt_netpart')}.61" #FIXME (mgmt net)
-    "dashboard.%{hiera('domain_public')}":                  "%{hiera('netcfg_mgmt_netpart')}.51" #FIXME (mgmt net)
+    "api.%{hiera('domain_public')}":                        "%{hiera('netcfg_public_netpart')}.250"
+    "identity.api.%{hiera('domain_public')}":               "%{hiera('netcfg_public_netpart')}.250"
+    "network.api.%{hiera('domain_public')}":                "%{hiera('netcfg_public_netpart')}.250"
+    "image.api.%{hiera('domain_public')}":                  "%{hiera('netcfg_public_netpart')}.250"
+    "volume.api.%{hiera('domain_public')}":                 "%{hiera('netcfg_public_netpart')}.250"
+    "compute.api.%{hiera('domain_public')}":                "%{hiera('netcfg_public_netpart')}.250"
+    "status.%{hiera('domain_public')}":                     "%{hiera('netcfg_public_netpart')}.250"
+    "access.%{hiera('domain_public')}":                     "%{hiera('netcfg_public_netpart')}.252"
+    "console.%{hiera('domain_public')}":                    "%{hiera('netcfg_public_netpart')}.251"
+    "dashboard.%{hiera('domain_public')}":                  "%{hiera('netcfg_public_netpart')}.254"
     "%{::location}-controller-00.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_netpart')}.99"
 
 ntp::servers:
