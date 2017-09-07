@@ -13,7 +13,7 @@ profile::base::common::packages:
   'python2-oslo-policy': {}
   'python-keystonemiddleware': {}
   'bash-completion': {}
-  'bash-completion-extra': {}
+  'bash-completion-extras': {}
   'jq': {}
 
 profile::openstack::openrc::password:     "%{hiera('cinder_api_password')}"
