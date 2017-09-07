@@ -4,8 +4,8 @@ network::interfaces_hash:
     'ipaddress': '172.28.32.1/24'
     'post_up': [ '/etc/network/if-up.d/z90-route-eth0', ]
     'post_down': [ '/etc/network/if-down.d/z90-route-eth0', ]
-#  'swp1':
-#    'ipaddress': '192.168.122.2/24'
+  'swp1':
+    'ipaddress': '192.168.122.2/24'
 #    'post_up': [ '/etc/network/if-up.d/z90-route-swp1', ]
 #    'post_down': [ '/etc/network/if-down.d/z90-route-swp1', ]
 #    'dns_nameservers': '172.28.32.12'
@@ -41,7 +41,7 @@ quagga::quagga::zebra_interfaces:
     - 'link-detect'
 
 quagga::quagga::zebra_ip_routes:
-  - '0.0.0.0/0 172.30.32.99'
+  - '0.0.0.0/0 192.168.122.1'
   - '10.0.0.0/8 Null0'
   - '10.100.200.250/32 172.30.32.86'
   - '10.100.200.251/32 172.30.32.61'
