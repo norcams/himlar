@@ -12,7 +12,7 @@ network::interfaces_hash:
   'eth1':
     ipaddress: '172.30.32.56'
     netmask:   '255.255.255.0'
-    gateway:   '172.30.32.10'
+    gateway:   '172.30.32.1'
     srcaddr:   "%{hiera('netcfg_netpart_public')}.252"
     defroute:  'yes'
   'dummy0':
