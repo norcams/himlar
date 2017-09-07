@@ -15,6 +15,9 @@ profile::base::common::packages:
   'bzip2':    {}
   'rsync':    {}
   'socat':    {}
+  'bash-completion': {}
+  'bash-completion-extra': {}
+  'jq': {}
 
 profile::database::galera::wsrep_sst_secure_rsync:
   ca:   "%{hiera('db_ssl_ca')}"

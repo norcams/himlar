@@ -11,6 +11,11 @@ include:
 #    - foreman::plugin::discovery
 #    - foreman::plugin::templates
 
+profile::base::common::packages:
+  'bash-completion': {}
+  'bash-completion-extra': {}
+  'jq': {}
+
 profile::application::foreman::manage_eyaml:    true
 profile::application::foreman::manage_firewall: true
 profile::network::services::manage_dns_records: true

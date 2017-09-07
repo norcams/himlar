@@ -15,6 +15,11 @@ profile::webserver::apache::mods_enable:
   - wsgi
   - dir
 
+profile::base::common::packages:
+  'bash-completion': {}
+  'bash-completion-extra': {}
+  'jq': {}
+
 profile::webserver::apache::vhosts:
   dpapp:
     vhost_name:         "%{hiera('public__address__access')}"

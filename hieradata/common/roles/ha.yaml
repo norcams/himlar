@@ -11,6 +11,9 @@ profile::base::selinux::manage_selinux: true
 
 profile::base::common::packages:
   'nmap-ncat': {}
+  'bash-completion': {}
+  'bash-completion-extra': {}
+  'jq': {}
 
 #
 # Firewall must be added in location or node section

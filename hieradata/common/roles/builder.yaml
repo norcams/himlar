@@ -11,6 +11,9 @@ profile::base::common::packages:
   'packer': {}
   'python34': {}
   'qemu-img': {}
+  'bash-completion': {}
+  'bash-completion-extra': {}
+  'jq': {}
 
 profile::base::lvm::physical_volume:
   '/dev/vdb':

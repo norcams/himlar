@@ -3,6 +3,11 @@ include:
   default:
     - profile::monitoring::grafana
 
+profile::base::common::packages:
+  'bash-completion': {}
+  'bash-completion-extra': {}
+  'jq': {}
+
 # Grafana
 profile::monitoring::grafana::enable:           true
 profile::monitoring::grafana::manage_firewall:  true

@@ -5,6 +5,11 @@ include:
     - profile::openstack::openrc
     - profile::logging::rsyslog::client
 
+profile::base::common::packages:
+  'bash-completion': {}
+  'bash-completion-extra': {}
+  'jq': {}
+
 profile::openstack::image::registry_enabled:  true
 profile::openstack::image::manage_policy:     true
 

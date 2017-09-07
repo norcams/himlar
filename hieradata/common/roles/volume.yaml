@@ -12,6 +12,9 @@ profile::base::common::packages:
   'python-openstackclient': {}
   'python2-oslo-policy': {}
   'python-keystonemiddleware': {}
+  'bash-completion': {}
+  'bash-completion-extra': {}
+  'jq': {}
 
 profile::openstack::openrc::password:     "%{hiera('cinder_api_password')}"
 profile::openstack::openrc::username:     'cinder'

@@ -8,6 +8,11 @@ profile::base::lvm::logical_volume:
     ensure: absent
     createfs: false
 
+profile::base::common::packages:
+  'bash-completion': {}
+  'bash-completion-extra': {}
+  'jq': {}
+
 nova::config::nova_config:
   libvirt/images_type:
     value: lvm

@@ -4,6 +4,11 @@ include:
     - profile::openstack::compute::consoleproxy
     - profile::logging::rsyslog::client
 
+profile::base::common::packages:
+  'bash-completion': {}
+  'bash-completion-extra': {}
+  'jq': {}
+
 profile::base::network::manage_dummy:                       true
 profile::openstack::compute::consoleproxy::manage_firewall: true
 profile::openstack::compute::consoleproxy::spice:           true

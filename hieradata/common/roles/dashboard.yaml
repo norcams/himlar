@@ -5,6 +5,11 @@ include:
     - profile::logging::rsyslog::client
     - profile::webserver::apache
 
+profile::base::common::packages:
+  'bash-completion': {}
+  'bash-completion-extra': {}
+  'jq': {}
+
 profile::base::network::manage_dummy:                true
 profile::openstack::dashboard::manage_dashboard:     true
 profile::webserver::apache::manage_firewall:         false

@@ -20,6 +20,11 @@ include:
     - profile::application::himlarcli
     - profile::logging::rsyslog::client
 
+profile::base::common::packages:
+  'bash-completion': {}
+  'bash-completion-extra': {}
+  'jq': {}
+
 # nova services (aka command)
 profile::openstack::compute::api::manage_firewall:   true
 profile::openstack::novactrl::enable_api:            true

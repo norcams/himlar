@@ -12,6 +12,11 @@ etcd::node_name: 'master'
 
 calico::controller: true
 
+profile::base::common::packages:
+  'bash-completion': {}
+  'bash-completion-extra': {}
+  'jq': {}
+
 profile::openstack::openrc::password:     "%{hiera('neutron_api_password')}"
 profile::openstack::openrc::username:     'neutron'
 profile::openstack::openrc::project_name: 'services'

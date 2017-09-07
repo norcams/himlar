@@ -10,6 +10,11 @@ include:
 
 openstack_version: 'newton' #FIXME: remove after full upgrade
 
+profile::base::common::packages:
+  'bash-completion': {}
+  'bash-completion-extra': {}
+  'jq': {}
+
 #profile::openstack::identity::manage_token_rotate:        true
 profile::openstack::identity::disable_admin_token_auth:   true
 profile::openstack::identity::manage_openidc:             true

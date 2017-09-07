@@ -49,6 +49,9 @@ accounts::users:
 #openstack_extras::repo::redhat::redhat::manage_rdo: true
 profile::base::common::packages:
   'python-openstackclient': {}
+  'bash-completion': {}
+  'bash-completion-extra': {}
+  'jq': {}
 #  'python-oslo-log': {}
 
 ssh::server::options:

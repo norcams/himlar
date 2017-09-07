@@ -24,6 +24,9 @@ profile::logging::elasticsearch::instances:
 profile::base::common::packages:
   'java-1.8.0-openjdk':     {}
   'elasticsearch-curator':  {}
+  'bash-completion': {}
+  'bash-completion-extra': {}
+  'jq': {}
 
 profile::base::lvm::physical_volume:
   '/dev/vdb':

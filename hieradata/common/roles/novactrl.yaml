@@ -23,6 +23,9 @@ profile::openstack::compute::api::firewall_extras:
 
 profile::base::common::packages:
   'python-openstackclient': {}
+  'bash-completion': {}
+  'bash-completion-extra': {}
+  'jq': {}
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:

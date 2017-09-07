@@ -10,6 +10,10 @@ profile::messaging::rabbitmq::manage_rsyslog: true
 profile::base::common::packages:
   'gcc-c++': {}
   'make': {}
+  'bash-completion': {}
+  'bash-completion-extra': {}
+  'jq': {}
+
 
 profile::monitoring::sensu::agent::plugins:
   sensu-plugins-rabbitmq:

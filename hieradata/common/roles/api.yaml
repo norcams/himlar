@@ -4,6 +4,11 @@ include:
     - profile::highavailability::loadbalancing::haproxy
     - profile::logging::rsyslog::client
 
+profile::base::common::packages:
+  'bash-completion': {}
+  'bash-completion-extra': {}
+  'jq': {}
+
 # Sensu
 profile::monitoring::sensu::agent::plugins:
   sensu-plugins-haproxy:
