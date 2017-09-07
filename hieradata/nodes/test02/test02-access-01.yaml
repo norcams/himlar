@@ -8,15 +8,13 @@ network::interfaces_hash:
     peerdns:   'yes'
     dns1:      "%{hiera('netcfg_dns_server1')}"
     domain:    'test.iaas.uio.no'
-#    defroute:  'no'
-    defroute:  'yes'
+    defroute:  'no'
   'eth1':
     ipaddress: '172.30.32.56'
     netmask:   '255.255.255.0'
     gateway:   '172.30.32.10'
     srcaddr:   "%{hiera('netcfg_netpart_public')}.252"
-#    defroute:  'yes'
-    defroute:  'no'
+    defroute:  'yes'
   'dummy0':
     ipaddress: "%{hiera('netcfg_netpart_public')}.252"
     netmask:   '255.255.255.255'
