@@ -46,6 +46,13 @@ network::interfaces_hash:
     netmask:      '255.255.255.0'
     defroute:     'no'
     bridge_stp:   'off'
+  'br2':
+    onboot:       'yes'
+    type:         'Bridge'
+    ipaddress:    '192.168.122.1'
+    netmask:      '255.255.255.0'
+    defroute:     'no'
+    bridge_stp:   'off'
 
 # NAT
 profile::network::nat::enable_snat: true
