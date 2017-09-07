@@ -72,7 +72,7 @@ lvm::volume_groups:
 # route to public net via leaf-01
 # (test02 is a special case since leaf runs inside this node)
 network::mroutes_hash:
-  br1:
+  br2:
     routes:
       10.100.200.0/24:  192.168.122.2
 
