@@ -9,7 +9,6 @@ network::interfaces_hash:
     dns2:      "%{hiera('netcfg_dns_server2')}"
     domain:    "%{hiera('netcfg_dns_search')}"
     defroute:  'no'
-    gateway:   "%{hiera('netcfg_mgmt_gateway')}"
   'eth1':
     ipaddress: "%{hiera('netcfg_trp_netpart')}.86"
     netmask:   "%{hiera('netcfg_trp_netmask')}"

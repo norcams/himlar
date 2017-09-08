@@ -17,7 +17,7 @@ network::interfaces_hash:
     bridge:       'br1'
   'br0':
     ipaddress:    '172.28.32.101'
-    gateway:      '172.28.32.10'
+    gateway:      "%{hiera('netcfg_mgmt_gateway')}"
     netmask:      '255.255.255.0'
     defroute:     'yes'
     onboot:       'yes'

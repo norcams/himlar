@@ -3,6 +3,6 @@ network::interfaces_hash:
   'eth0':
     ipaddress: '172.28.32.11'
     netmask:   '255.255.255.0'
-    gateway:   '172.28.32.10'
+    gateway:   "%{hiera('netcfg_mgmt_gateway')}"
     mtu:       '1500'
     defroute:  'yes'
