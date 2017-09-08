@@ -3,7 +3,6 @@ network::interfaces_hash:
   'eth0':
     ipaddress: '172.28.32.51'
     netmask:   '255.255.255.0'
-    gateway:   '172.28.32.10'
     mtu:       '1500'
     peerdns:   'yes'
     dns1:      "%{hiera('netcfg_dns_server1')}"
@@ -12,7 +11,7 @@ network::interfaces_hash:
   'eth1':
     ipaddress: '172.30.32.51'
     netmask:   '255.255.255.0'
-    gateway:   '172.30.32.10'
+    gateway:   "%{hiera('netcfg_trp_gateway')}"
     srcaddr:   "%{hiera('netcfg_public_netpart')}.254"
     defroute:  'yes'
   'dummy0':
