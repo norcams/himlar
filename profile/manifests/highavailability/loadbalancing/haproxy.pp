@@ -4,13 +4,11 @@ class profile::highavailability::loadbalancing::haproxy (
   $manage_firewall         = false,
   $allow_from_network      = undef,
   $firewall_extras         = {},
-  $haproxy_listens         = {},
-  $haproxy_frontends       = {},
-  $haproxy_backends        = {},
-  $haproxy_balancermembers = {},
-  $haproxy_userlists       = {},
-  $haproxy_peers           = {},
-  $haproxy_mapfile         = {},
+  $firewall_ports          = {
+    'public'   => ['5000'],
+    'internal' => ['35357'],
+    'mgmt'     => ['9000']
+  },
   $enable_nonlocal_bind    = false,
   $enable_remote_logging   = false
 ) {
@@ -27,6 +25,16 @@ class profile::highavailability::loadbalancing::haproxy (
       collect_exported => false
     }
 
+    # We need to merge these from common and location
+    $haproxy_listens         = hiera_hash('profile::highavailability::loadbalancing::haproxy::haproxy_listens', {})
+    $haproxy_frontends       = hiera_hash('profile::highavailability::loadbalancing::haproxy::haproxy_frontends', {})
+    $haproxy_backends        = hiera_hash('profile::highavailability::loadbalancing::haproxy::haproxy_backends', {})
+    $haproxy_balancermembers = hiera_hash('profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers', {})
+    $haproxy_userlists       = hiera_hash('profile::highavailability::loadbalancing::haproxy::haproxy_userlists', {})
+    $haproxy_peers           = hiera_hash('profile::highavailability::loadbalancing::haproxy::haproxy_peers', {})
+    $haproxy_mapfile         = hiera_hash('profile::highavailability::loadbalancing::haproxy::haproxy_mapfile', {})
+    $haproxy_errorpage       = hiera_hash('profile::highavailability::loadbalancing::haproxy::haproxy_errorpage', {})
+
     create_resources('haproxy::listen', $haproxy_listens)
     create_resources('haproxy::backend', $haproxy_backends)
     create_resources('haproxy::frontend', $haproxy_frontends)
@@ -35,11 +43,7 @@ class profile::highavailability::loadbalancing::haproxy (
     create_resources('haproxy::mapfile', $haproxy_mapfile)
     create_resources('haproxy::peer', $haproxy_peers)
 
-    file { '/etc/haproxy/sorry.http':
-      ensure => present,
-      source => "puppet:///modules/${module_name}/loadbalancing/haproxy.sorry.http",
-      notify => Service['haproxy']
-    }
+    create_resources('profile::highavailability::loadbalancing::haproxy::errorpage', $haproxy_errorpage)
 
     file { '/root/watch-status.sh':
       ensure  => present,
@@ -56,11 +60,32 @@ class profile::highavailability::loadbalancing::haproxy (
       ''      => $hiera_allow_from_network,
       default => $allow_from_network
     }
-    profile::firewall::rule { '450 haproxy accept tcp':
+
+    validate_hash($firewall_extras)
+    validate_array($firewall_ports['public'])
+    validate_array($firewall_ports['internal'])
+    validate_array($firewall_ports['mgmt'])
+
+    profile::firewall::rule { '450 haproxy public accept tcp':
       proto       => 'tcp',
       destination => $::ipaddress_public1,
       source      => $source,
+      dport       => $firewall_ports['public'],
       extras      => $firewall_extras,
+    }
+    profile::firewall::rule { '451 haproxy internal accept tcp':
+      proto       => 'tcp',
+      destination => $::ipaddress_trp1,
+      source      => "${::network_trp1}/${::netmask_trp1}",
+      dport       => $firewall_ports['internal'],
+      extras      => $firewall_extras,
+    }
+    # Only monitor page on port 9000
+    profile::firewall::rule { '452 haproxy mgmt accept tcp':
+      proto       => 'tcp',
+      destination => $::ipaddress_mgmt1,
+      source      => "${::network_mgmt1}/${::netmask_mgmt1}",
+      dport       => $firewall_ports['mgmt']
     }
   }
 

@@ -1,8 +1,3 @@
 ---
-neutron::db::mysql::allowed_hosts:
-  - "%{netpart_transport1}.%" # FIXME
-
-# neutron cli do not support ca_cert variable. Run without TSL in vagrant.
-neutron::keystone::auth::public_url: "%{hiera('endpoint__network__internal')}"
-
-neutron::verbose: true
+neutron::keystone::auth::public_url:  "%{hiera('endpoint__network__internal')}"
+neutron::keystone::authtoken::cafile: '/etc/pki/tls/certs/cachain.pem'

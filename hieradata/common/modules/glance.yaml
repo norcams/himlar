@@ -2,14 +2,13 @@
 # db (node: image)
 glance::db::mysql::allowed_hosts:
   - "%{netpart_trp1}.%"
-  - "image.%{hiera('domain_trp')}"
 
 # api (node: image)
 glance::api::database_connection:          "mysql://glance:%{hiera('glance::db::mysql::password')}@%{hiera('service__address__mysql')}/glance"
 glance::api::os_region_name:               "%{location}"
 glance::api::bind_host:                    "%{::ipaddress_trp1}"
 glance::api::workers:                      2
-glance::api::registry_host:                "image.%{hiera('domain_trp')}"
+glance::api::registry_host:                "%{::netpart_trp1}.36" #FIXME remove registry before image-02
 glance::api::show_image_direct_url:        true
 glance::api::show_multiple_locations:      true
 glance::api::use_syslog:                   true

@@ -1,0 +1,16 @@
+HTTP/1.0 <%=@code%> Service Unavailable
+Cache-Control: no-cache
+Connection: close
+Content-Type: text/html
+
+
+<html>
+<body>
+<h1><%=@header%></h1>
+<p><%=@content%></p>
+<br>
+<%- if @url %>
+<a href="<%= @url%>"><%= @url%></a>
+<%- end %>
+</body>
+</html>

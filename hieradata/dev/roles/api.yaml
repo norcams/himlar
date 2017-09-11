@@ -17,3 +17,18 @@ profile::application::openssl::certs:
     altnames:
       - "api.%{hiera('domain_public')}"
     concat: true
+
+#
+# Example of override network backend for more nodes
+#
+# profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
+#   network:
+#     listening_service:  'bk_network'
+#     ports:              9696
+#     server_names:
+#       - '%{::location}-network-01'
+#       - '%{::location}-network-02'
+#     ipaddresses:
+#       - "%{hiera('netcfg_trp_netpart')}.71"
+#       - "%{hiera('netcfg_trp_netpart')}.72"
+#     options:            'check'

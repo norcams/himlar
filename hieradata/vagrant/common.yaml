@@ -29,7 +29,6 @@ netcfg_dns_search:      "%{hiera('domain_mgmt')} %{hiera('domain_trp')}"
 #
 service__address__mysql:          "db02.%{hiera('domain_trp')}"
 service__address__status:         "status.%{hiera('domain_trp')}"
-service__address__etcd_cluster:   "network.%{hiera('domain_trp')}"
 service__address__rabbitmq_01:    "mq01.%{hiera('domain_trp')}"
 service__address__rabbitmq_02:    "mq01.%{hiera('domain_trp')}"
 service__address__rabbitmq_03:    "mq01.%{hiera('domain_trp')}"

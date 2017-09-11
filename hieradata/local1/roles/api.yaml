@@ -4,3 +4,6 @@ api_ssl_pem:      "api.%{hiera('domain_frontend')}.pem"
 status_ssl_pem:   "status.%{hiera('domain_frontend')}.pem"
 # Location only certs
 star_api_ssl_pem: "star.api.%{hiera('domain_public')}.pem"
+
+# Turn off sensu checks when debugging
+profile::monitoring::sensu::agent::enable_agent: false #FIXME temp
