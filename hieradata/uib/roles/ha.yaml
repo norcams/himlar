@@ -266,8 +266,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     mode:             'tcp'
     options:
       - balance:      'roundrobin'
-      - option:
-        - 'httpchk /rpc/healthcheck.htm'
   uib-ldap-test:
     mode:             'tcp'
     options:
