@@ -435,19 +435,19 @@ profile::highavailability::corosync::primitives:
 profile::highavailability::corosync::locations:
   'pubip_location1':
     primitive:  'pubip1'
-    node_name:  "%hiera('corosync_cluster_node1')"
+    node_name:  "%{hiera('corosync_cluster_node1')}"
     score:      'INFINITY'
   'pubip_location2':
     primitive:  'pubip2'
-    node_name:  "%hiera('corosync_cluster_node2')"
+    node_name:  "%{hiera('corosync_cluster_node2')}"
     score:      'INFINITY'
   'uibip_location1':
     primitive:  'uibip1'
-    node_name:  "%hiera('corosync_cluster_node1')"
+    node_name:  "%{hiera('corosync_cluster_node1')}"
     score:      'INFINITY'
   'uibip_location2':
     primitive:  'uibip2'
-    node_name:  "%hiera('corosync_cluster_node2')"
+    node_name:  "%{hiera('corosync_cluster_node2')}"
     score:      'INFINITY'
 
 profile::highavailability::corosync::colocations:
