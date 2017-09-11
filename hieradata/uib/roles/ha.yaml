@@ -93,6 +93,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - 'lyncdiscoverinternal.bergento.no':       'uib-https-sfb'
       - 'sfb-webpool01.uib.no':                   'uib-https-sfb'
       - 'lyncadmin.uib.no':                       'uib-https-sfb'
+      - 'exch.uib.no':                            'uib-https-exch'
       - "dashboard.uh-iaas.no":                   'uib-https-uh-dashboard'
       - "dashboard-ha.uh-iaas.no":                'uib-https-uh-dashboard'
       - "access.uh-iaas.no":                      'uib-https-uh-access'
@@ -184,6 +185,12 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ipaddresses:        ['129.177.5.229', '129.177.5.230', '129.177.5.234', '129.177.5.236']
     options:
       - 'check'
+  'uib-https-exch':
+    listening_service:  'uib-https-exch'
+    ports:              443
+    server_names:       ['exchange01.uib.no', 'exchange02.uib.no']
+    ipaddresses:        ['129.177.14.178','129.177.14.179']
+    options:            'check'
   'uib-https-dashboard':
     listening_service:  'uib-https-uh-dashboard'
     ports:              443
@@ -255,6 +262,12 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
       - balance:      'roundrobin'
       - option:
         - 'httpchk /healthcheck.html'
+  uib-https-exch:
+    mode:             'tcp'
+    options:
+      - balance:      'roundrobin'
+      - option:
+        - 'httpchk /rpc/healthcheck.htm'
   uib-ldap-test:
     mode:             'tcp'
     options:
