@@ -11,9 +11,9 @@ network::interfaces_hash:
     'post_up': [ '/etc/network/if-up.d/z90-route-eth0', ]
     'post_down': [ '/etc/network/if-down.d/z90-route-eth0', ]
   'swp1':
-    'ipaddress': '192.168.122.3/24'
-    'post_up': [ '/etc/network/if-up.d/z90-route-swp1', ]
-    'post_down': [ '/etc/network/if-down.d/z90-route-swp1', ]
+    'ipaddress': '192.168.113.2/24'
+#    'post_up': [ '/etc/network/if-up.d/z90-route-swp1', ]
+#    'post_down': [ '/etc/network/if-down.d/z90-route-swp1', ]
 #  'swp3':
 #    'ipaddress': '192.168.20.1/29'
 #    'post_up': [ '/etc/network/if-up.d/z90-route-swp3', ]
@@ -36,11 +36,11 @@ profile::base::network::routes:
     'netmask':   [ '0.0.0.0', ]
     'gateway':   [ "%{hiera('netcfg_mgmt_gateway')}", ]
     'table':     [ 'mgmt', ]
-  'swp1':
-    'ipaddress': [ '0.0.0.0', ]
-    'netmask':   [ '0.0.0.0', ]
-    'gateway':   [ '192.168.122.1', ]
-    'table':     [ 'main', ]
+  # 'swp1':
+  #   'ipaddress': [ '0.0.0.0', ]
+  #   'netmask':   [ '0.0.0.0', ]
+  #   'gateway':   [ '192.168.122.1', ]
+  #   'table':     [ 'main', ]
 #  'swp3':
 #    'ipaddress': [ '172.31.13.0', ]
 #    'netmask':   [ '255.255.255.0', ]
@@ -59,7 +59,7 @@ quagga::quagga::zebra_interfaces:
 #    - 'link-detect'
 
 quagga::quagga::zebra_ip_routes:
-  - '0.0.0.0/0 192.168.122.1'
+  - '0.0.0.0/0 192.168.113.1'
   - '10.0.0.0/8 Null0'
   - "%{hiera('netcfg_public_netpart')}.0/24 Null0"
   - "%{hiera('netcfg_public_netpart')}.254/32 %{hiera('netcfg_trp_netpart')}.51"
