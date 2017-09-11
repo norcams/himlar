@@ -38,6 +38,7 @@ netcfg_trp_rr:
 allow_from_network: # FIXME (public net and mgmt net)
   - '10.100.200.0/24'
   - '172.28.32.0/24'
+  - '192.168.122.1/32'
 
 #
 # DNS (merge of common and this)
