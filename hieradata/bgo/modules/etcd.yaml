@@ -1,0 +1,5 @@
+---
+# Cluster settings
+etcd::initial_cluster:
+  - "%{::location}-network-02=http://%{hiera('netcfg_trp_netpart')}.72:2380"
+  - "%{::location}-network-03=http://%{hiera('netcfg_trp_netpart')}.73:2380"

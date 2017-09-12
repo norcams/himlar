@@ -1,3 +1,8 @@
 ---
 api_ssl_pem:      "api.uh-iaas.no.pem"
 status_ssl_pem:   "status.uh-iaas.no.pem"
+
+profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
+  network:
+    server_names:       ['%{::location}-network-02', '%{::location}-network-03']
+    ipaddresses:        ["%{hiera('netcfg_trp_netpart')}.72", "%{hiera('netcfg_trp_netpart')}.73"]
