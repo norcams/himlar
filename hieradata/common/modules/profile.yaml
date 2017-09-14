@@ -149,34 +149,20 @@ profile::base::yumrepo::repo_hash:
     enabled:        1
     gpgcheck:       1
     gpgkey:         "%{hiera('yum_base_mirror')}/calico22/key"
-  ceph:
+  ceph-%{hiera('ceph_version')}:
     ensure:         absent
     descr:          'Ceph packages'
-    baseurl:        "%{hiera('yum_base_mirror')}/ceph/"
+    baseurl:        "%{hiera('yum_base_mirror')}/ceph-%{hiera('ceph_version')}/"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/ceph/release.asc"
-  ceph-noarch:
+    gpgkey:         "%{hiera('yum_base_mirror')}/ceph-%{hiera('ceph_version')}/release.asc"
+  ceph-%{hiera('ceph_version')}-noarch:
     ensure:         absent
     descr:          'Ceph noarch packages'
-    baseurl:        "%{hiera('yum_base_mirror')}/ceph-noarch/noarch"
+    baseurl:        "%{hiera('yum_base_mirror')}/ceph-%{hiera('ceph_version')}-noarch/noarch"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/ceph-noarch/release.asc"
-  ceph-jewel:
-    ensure:         absent
-    descr:          'Ceph Jewel packages'
-    baseurl:        "%{hiera('yum_base_mirror')}/ceph-jewel/"
-    enabled:        1
-    gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/ceph-jewel/release.asc"
-  ceph-jewel-noarch:
-    ensure:         absent
-    descr:          'Ceph noarch packages'
-    baseurl:        "%{hiera('yum_base_mirror')}/ceph-jewel-noarch/noarch"
-    enabled:        1
-    gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/ceph-jewel-noarch/release.asc"
+    gpgkey:         "%{hiera('yum_base_mirror')}/ceph-%{hiera('ceph_version')}-noarch/release.asc"
   logstash:
     ensure:         absent
     descr:          'Logstash Centos Repo'

@@ -48,8 +48,7 @@ sudo::purge: false
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   rdo-release:
-    ensure: present
-  ceph-jewel:
+  ceph-%{hiera('ceph_version')}:
     ensure: present
 
 # Volume nodes need only cinder keys
