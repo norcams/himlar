@@ -136,7 +136,7 @@ profile::base::yumrepo::repo_hash:
   calico22:
     ensure: present
     exclude: 'calico-dhcp-agent' #FIXME
-  ceph-jewel:
+  ceph-%{hiera('ceph_version')}:
     ensure: present
 
 # Compute nodes need only admin and cinder keys
