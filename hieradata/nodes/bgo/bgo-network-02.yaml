@@ -1,6 +1,6 @@
 ---
 etcd::initial_advertise_peer_urls:
-  - "http://%{hiera('netcfg_trp_netpart')}.72:2379"
+  - "http://%{hiera('netcfg_trp_netpart')}.72:2380"
 etcd::advertise_client_urls:
   - "http://%{hiera('netcfg_trp_netpart')}.72:2379"
 
