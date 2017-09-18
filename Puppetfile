@@ -150,7 +150,6 @@ mod 'glance', :ref => '9.6.0',                   :git => github + 'openstack/pup
 mod 'cinder', :ref => '9.5.0',                   :git => github + 'openstack/puppet-cinder'
 mod 'neutron', :ref => '9.5.0',                  :git => github + 'openstack/puppet-neutron'
 mod 'nova', :ref => '9.6.0',                     :git => github + 'openstack/puppet-nova'
-mod 'horizon', :ref => 'norcams-mitaka',         :git => github + 'norcams/puppet-horizon'
 mod 'keystone', :ref => 'norcams/newton',        :git => github + 'norcams/puppet-keystone'
 
 mod 'oslo', :ref => '9.5.0',                     :git => github + 'openstack/puppet-oslo'
