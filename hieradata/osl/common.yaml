@@ -61,9 +61,6 @@ profile::network::services::dns_records:
     'uh-status.iaas.uio.no':                                '158.37.63.250'
     'uh-api.iaas.uio.no':                                   '158.37.63.250'
     'uh-console.iaas.uio.no':                               '158.37.63.251'
-    "%{::location}-compute-07.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.115"
-    "%{::location}-compute-08.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.116"
-
 
 ntp::servers:
   - ntp1.uio.no
