@@ -11,7 +11,9 @@ class profile::openstack::dashboard(
   $site_branding        = 'UH-IaaS',
   $change_uploaddir     = false,
   $custom_uploaddir     = '/image-upload',
-  $enable_pwd_retrieval = false
+  $enable_pwd_retrieval = false,
+  $enable_image_upload  = false,
+  $image_upload_mode    = undef,
 ) {
 
   if $manage_dashboard {
