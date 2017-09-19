@@ -15,6 +15,6 @@ class profile::storage::cephmon_firewall(
     profile::firewall::rule { '101 ceph-mgr accept tcp':
       dport  => 6800,
       extras => $firewall_extras['mgr_listen']
-    } 
+    }
   }
 }
