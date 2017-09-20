@@ -1,6 +1,6 @@
 ---
 nova::network::neutron::neutron_ca_certificates_file: '/etc/pki/tls/certs/cachain.pem'
-nova::verbose: true
+nova::debug: true
 
 # cold migration
 nova::compute::allow_resize_to_same_host:   true
