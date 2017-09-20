@@ -10,8 +10,6 @@ profile::base::common::packages:
   'bash-completion-extras': {}
   'jq': {}
 
-openstack_version:  'newton' #FIXME remove after upgrade
-
 profile::base::network::manage_dummy:                true
 profile::openstack::dashboard::manage_dashboard:     true
 profile::webserver::apache::manage_firewall:         false
