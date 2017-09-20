@@ -1,12 +1,12 @@
 ---
 etcd::initial_advertise_peer_urls:
-  - "http://%{hiera('netcfg_trp_netpart')}.71:2380"
+  - "http://%{hiera('netcfg_trp_netpart')}.72:2380"
 etcd::advertise_client_urls:
-  - "http://%{hiera('netcfg_trp_netpart')}.71:2379"
+  - "http://%{hiera('netcfg_trp_netpart')}.72:2379"
 
 network::interfaces_hash:
   'eth0':
-    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.71"
+    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.72"
     netmask:   "%{hiera('netcfg_mgmt_netmask')}"
     gateway:   "%{hiera('netcfg_mgmt_gateway')}"
     mtu:       '1500'
@@ -18,5 +18,5 @@ network::interfaces_hash:
   'eth1':
     defroute:  'no'
     onboot:    'yes'
-    ipaddress: "%{hiera('netcfg_trp_netpart')}.71"
+    ipaddress: "%{hiera('netcfg_trp_netpart')}.72"
     netmask:   "%{hiera('netcfg_trp_netmask')}"
