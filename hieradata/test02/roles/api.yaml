@@ -1,2 +1,7 @@
 ---
 status_ssl_pem:   "api.%{hiera('domain_public')}.pem" #FIXME (status cert)
+
+profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
+  network:
+    server_names:       ['%{::location}-network-02']
+    ipaddresses:        ["%{hiera('netcfg_trp_netpart')}.72"]
