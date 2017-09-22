@@ -80,12 +80,19 @@ profile::messaging::rabbitmq::user_permissions:
     configure_permission: '.*'
     write_permission:     '.*'
     read_permission:      '.*'
-#  'local@*':
-#    read_permission:      '.*'
 #  'glance@glance':
 #    configure_permission: '.*'
 #    write_permission:     '.*'
 #    read_permission:      '.*'
+  # mgmt access for sensu and rabbitmqadmin dashboard
+  'local@nova':
+    read_permission:      '.*'
+  'local@cinder':
+    read_permission:      '.*'
+  'local@neutron':
+    read_permission:      '.*'
+  'local@sensu':
+    read_permission:      '.*'
 
 profile::messaging::rabbitmq::policy:
   ha-all@nova:
