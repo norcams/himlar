@@ -16,11 +16,6 @@ include:
     - profile::base::lvm
     - profile::network::yum_proxy
 
-# Because of this we cannot use syslog on master:
-# https://bugs.launchpad.net/kolla/liberty/+bug/1516306
-neutron::use_syslog:    true
-neutron::log_facility:  'LOG_LOCAL5'
-
 # Manage default availability zone
 profile::openstack::compute::manage_az:            true
 
