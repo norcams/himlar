@@ -28,6 +28,8 @@ profile::storage::fake_ssds:
   'sdb': {}
 
 ceph::profile::params::osds:
+  '/dev/sdb':
+    ensure: present
   '/dev/sdc':
     ensure: present
 #    db_device: '/dev/sdm'
