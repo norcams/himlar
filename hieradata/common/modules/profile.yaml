@@ -112,7 +112,7 @@ profile::base::yumrepo::repo_hash:
     descr:          "Extra Packages for Enterprise Linux %{operatingsystemmajrelease} - $basearch"
     baseurl:        "%{hiera('yum_base_mirror')}/epel"
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7'
-    exclude:        'zeromq' # FIXME epel version are higher than rdo
+    exclude:        'zeromq python2-uritemplate' # FIXME epel version conflicts with rdo
   uh-iaas:
     descr:          'UH-IaaS repo'
     baseurl:        "%{hiera('yum_base_mirror')}/uh-iaas/"
