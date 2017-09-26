@@ -7,6 +7,8 @@ named_interfaces::config:
   trp:
      - bond0
 
+profile::base::common::manage_fake_ssd: true
+
 #profile::base::lvm::physical_volume:
 #  '/dev/sda3':
 #    ensure: present
@@ -21,6 +23,9 @@ named_interfaces::config:
 #    volume_group: 'vg_journala'
 #    fs_type:      xfs
 #    mountpath:    "/journal/journala01"
+
+profile::storage::fake_ssds:
+  'sdb': {}
 
 ceph::profile::params::osds:
   '/dev/sdc':
