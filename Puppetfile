@@ -54,7 +54,7 @@ mod 'interfaces', :ref => '1.2.2',               :git => github + 'CumulusNetwor
 #
 # profile::application::etcd
 #
-mod 'etcd', :ref => 'c26961fe94',                :git => github + 'norcams/puppet-etcd'
+mod 'etcd', :ref => '1.11.0',                    :git => github + 'cristifalcas/puppet-etcd'
 
 #
 # profile::application::openssl
@@ -150,7 +150,7 @@ mod 'glance', :ref => '9.6.0',                   :git => github + 'openstack/pup
 mod 'cinder', :ref => '9.5.0',                   :git => github + 'openstack/puppet-cinder'
 mod 'neutron', :ref => '9.5.0',                  :git => github + 'openstack/puppet-neutron'
 mod 'nova', :ref => '9.6.0',                     :git => github + 'openstack/puppet-nova'
-mod 'horizon', :ref => 'norcams-mitaka',         :git => github + 'norcams/puppet-horizon'
+mod 'horizon', :ref => 'stable/newton',          :git => github + 'openstack/puppet-horizon'
 mod 'keystone', :ref => 'norcams/newton',        :git => github + 'norcams/puppet-keystone'
 
 mod 'oslo', :ref => '9.5.0',                     :git => github + 'openstack/puppet-oslo'

@@ -43,3 +43,6 @@ neutron::keystone::auth::internal_url:  "%{hiera('endpoint__network__internal')}
 neutron::keystone::auth::admin_url:     "%{hiera('endpoint__network__admin')}"
 neutron::keystone::auth::region:        "%{::location}"
 neutron::keystone::auth::password:      "%{hiera('neutron_api_password')}"
+
+# quota (node: network)
+neutron::quota::quota_port:   '-1'

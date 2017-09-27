@@ -8,8 +8,6 @@ include:
     - profile::application::himlarcli
     - profile::logging::rsyslog::client
 
-openstack_version: 'newton' #FIXME: remove after full upgrade
-
 profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}

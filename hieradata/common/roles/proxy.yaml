@@ -19,6 +19,7 @@ profile::network::services::firewall_extras:
 profile::network::services::dns_proxy:            true
 profile::network::services::http_proxy:           true
 profile::development::network::dns::manage_hosts: true
+profile::development::network::dns::use_dnsmasq:  true
 profile::base::network::manage_dummy:             true
 profile::network::nat::enable_snat:               true
 profile::network::nat::source:                    "%{::network_mgmt1}/%{::netmask_mgmt1}"
@@ -43,5 +44,3 @@ profile::monitoring::sensu::agent::checks:
 profile::base::yumrepo::repo_hash:
   rdo-release:
     ensure: present
-
-openstack_version: 'newton' #FIXME: remove after full upgrade

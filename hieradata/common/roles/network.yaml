@@ -7,10 +7,13 @@ include:
     - profile::openstack::openrc
     - profile::logging::rsyslog::client
 
-etcd::mode: cluster
-etcd::node_name: 'master'
+etcd::proxy: "off"
+etcd::initial_cluster_state: 'new'
+etcd::initial_cluster_token: 'etcd-cluster'
 
 calico::controller: true
+
+profile::openstack::network::manage_quotas: true
 
 profile::base::common::packages:
   'bash-completion': {}
@@ -45,5 +48,3 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   calico22:
     ensure: present
-
-openstack_version: 'newton' #FIXME: remove after full upgrade

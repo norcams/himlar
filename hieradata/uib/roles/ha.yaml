@@ -265,7 +265,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
   uib-https-exch:
     mode:             'tcp'
     options:
-      - balance:      'roundrobin'
+      - balance:      'source'
   uib-ldap-test:
     mode:             'tcp'
     options:

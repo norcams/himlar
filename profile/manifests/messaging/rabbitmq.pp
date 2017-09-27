@@ -37,23 +37,24 @@ class profile::messaging::rabbitmq (
 
   if $manage_firewall {
     profile::firewall::rule { '201 rabbitmq accept tcp':
-      port   => 5672,
+      dport  => 5672,
       extras => $firewall_extras
     }
-    profile::firewall::rule { '201 rabbitmq-mgmt accept tcp':
-      port   => 15672,
+    profile::firewall::rule { '201 rabbitmqadmin accept tcp':
+      dport  => 15672,
+      source => "${::network_mgmt1}/${::netmask_mgmt1}",
       extras => $firewall_extras
     }
     profile::firewall::rule { '201 rabbitmq-ednp accept tcp':
-      port   => 25672,
+      dport  => 25672,
       extras => $firewall_extras
     }
     profile::firewall::rule { '201 rabbitmq-epmd accept tcp':
-      port   => 4369,
+      dport  => 4369,
       extras => $firewall_extras
     }
     profile::firewall::rule { '201 rabbitmq-cluster accept tcp':
-      port   => [ 35197, 35198, 35199 ],
+      dport  => [ 35197, 35198, 35199 ],
       extras => $firewall_extras
     }
   }

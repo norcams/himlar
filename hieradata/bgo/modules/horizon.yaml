@@ -1,6 +1,4 @@
 ---
-horizon::openstack_endpoint_type:       'publicURL' #FIXME
-
 # Both regions use the local identity service
 horizon::available_regions:
   - [ "%{hiera('endpoint__identity__public')}/v3", "%{location}"]

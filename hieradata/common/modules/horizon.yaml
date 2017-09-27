@@ -10,9 +10,10 @@ horizon::horizon_ca:                    "/etc/pki/tls/certs/cachain.pem"
 horizon::horizon_cert:                  "/etc/pki/tls/certs/%{hiera('public__address__dashboard')}.cert.pem"
 horizon::horizon_key:                   "/etc/pki/tls/private/%{hiera('public__address__dashboard')}.key.pem"
 horizon::secure_cookies:                true
+horizon::images_panel:                  'angular'
 
 horizon::help_url:                      'http://docs.uh-iaas.no'
-horizon::openstack_endpoint_type:       'internalURL'
+horizon::openstack_endpoint_type:       'publicURL'
 horizon::keystone_url:                  "%{hiera('endpoint__identity__public')}/v3"
 horizon::keystone_default_role:         'user'
 horizon::keystone_multidomain_support:  false
@@ -24,13 +25,16 @@ horizon::neutron_options:
   'enable_firewall': false
   'enable_vpn': false
 
-horizon::websso_enabled: true
+horizon::image_backend:
+  image_formats:
+    '':       'Select format'
+    'qcow2':  'QCOW2 - QEMU Emulator'
+    'raw':    'Raw'
+
+horizon::websso_enabled:        'True'
 horizon::websso_initial_choice: openidc
 horizon::websso_choices:
-  openidc: Dataporten
-  credentials: Local user
-
-
+  - ['openidc', 'Dataporten']
 
 # logging
 horizon::log_handler:     'syslog'
