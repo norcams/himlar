@@ -56,4 +56,15 @@ class profile::openstack::dashboard(
       owner  => 'apache',
     }
   }
+  
+    if $change_region_selector {
+    file_line { 'clear_ file_content':
+      ensure => absent,
+      path  => '/usr/lib/python2.7/site-packages/horizon/templates/horizon/common/_region_selector.html',
+      match => '^.',
+      match_for_absence => true,
+      multiple => true,
+      replace => false,
+    }
+  }
 }
