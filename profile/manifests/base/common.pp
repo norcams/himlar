@@ -19,6 +19,7 @@ class profile::base::common (
   $manage_yumrepo         = false,
   $manage_puppet          = false,
   $manage_cron            = false,
+  $manage_fake_ssd        = false,
   $include_physical       = false,
   $include_virtual        = false,
   $classes                = [],
@@ -93,6 +94,11 @@ class profile::base::common (
 
   if $manage_keyboard {
     include keyboard
+  }
+
+  if $manage_fake_ssd {
+    $disk_devices = hiera('profile::storage::fake_ssds', {})
+    create_resources('profile::storage::fake_ssd', $disk_devices)
   }
 
   if $include_physical and ($::is_virtual == false) {

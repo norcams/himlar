@@ -7,112 +7,51 @@ named_interfaces::config:
   trp:
      - bond0
 
-profile::base::lvm::physical_volume:
-  '/dev/sda3':
-    ensure: present
-    force:  true
-profile::base::lvm::volume_group:
-  'vg_journala':
-    physical_volumes:
-      - /dev/sda3
-profile::base::lvm::logical_volume:
-  lv_journala01:
-    size:         7G
-    volume_group: 'vg_journala'
-    fs_type:      xfs
-    mountpath:    "/journal/journala01"
-  lv_journala02:
-    size:         7G
-    volume_group: 'vg_journala'
-    fs_type:      xfs
-    mountpath:    "/journal/journala02"
-  lv_journala03:
-    size:         7G
-    volume_group: 'vg_journala'
-    fs_type:      xfs
-    mountpath:    "/journal/journala03"
-  lv_journala04:
-    size:         7G
-    volume_group: 'vg_journala'
-    fs_type:      xfs
-    mountpath:    "/journal/journala04"
-  lv_journala05:
-    size:         7G
-    volume_group: 'vg_journala'
-    fs_type:      xfs
-    mountpath:    "/journal/journala05"
-  lv_journala06:
-    size:         7G
-    volume_group: 'vg_journala'
-    fs_type:      xfs
-    mountpath:    "/journal/journala06"
-  lv_journala07:
-    size:         7G
-    volume_group: 'vg_journala'
-    fs_type:      xfs
-    mountpath:    "/journal/journala07"
-  lv_journala08:
-    size:         7G
-    volume_group: 'vg_journala'
-    fs_type:      xfs
-    mountpath:    "/journal/journala08"
-  lv_journala09:
-    size:         7G
-    volume_group: 'vg_journala'
-    fs_type:      xfs
-    mountpath:    "/journal/journala09"
-  lv_journala10:
-    size:         7G
-    volume_group: 'vg_journala'
-    fs_type:      xfs
-    mountpath:    "/journal/journala10"
-#  lv_journala11:
-#    size:         7G
+profile::base::common::manage_fake_ssd: true
+
+#profile::base::lvm::physical_volume:
+#  '/dev/sda3':
+#    ensure: present
+#    force:  true
+#profile::base::lvm::volume_group:
+#  'vg_journala':
+#    physical_volumes:
+#      - /dev/sda3
+#profile::base::lvm::logical_volume:
+#  lv_journala01:
+#    size:         11G
 #    volume_group: 'vg_journala'
 #    fs_type:      xfs
-#    mountpath:    "/journal/journala11"
-#  lv_journala12:
-#    size:         7G
-#    volume_group: 'vg_journala'
-#    fs_type:      xfs
-#    mountpath:    "/journal/journala12"
-#  lv_journala13:
-#    size:         7G
-#    volume_group: 'vg_journala'
-#    fs_type:      xfs
-#    mountpath:    "/journal/journala13"
-#  lv_journala14:
-#    size:         7G
-#    volume_group: 'vg_journala'
-#    fs_type:      xfs
-#    mountpath:    "/journal/journala14"
-#  lv_journala15:
-#    size:         7G
-#    volume_group: 'vg_journala'
-#    fs_type:      xfs
-#    mountpath:    "/journal/journala15"
+#    mountpath:    "/journal/journala01"
+
+profile::storage::fake_ssds:
+  'sdb': {}
 
 ceph::profile::params::osds:
+  '/dev/sdb':
+    ensure: present
   '/dev/sdc':
-    journal: '/journal/journala01/journal'
+    ensure: present
+#    db_device: '/dev/sdm'
+#    wal_device: '/dev/sdm'
   '/dev/sdd':
-    journal: '/journal/journala02/journal'
+    ensure: present
   '/dev/sde':
-    journal: '/journal/journala03/journal'
+    ensure: present
   '/dev/sdf':
-    journal: '/journal/journala04/journal'
+    ensure: present
   '/dev/sdg':
-    journal: '/journal/journala05/journal'
+    ensure: present
   '/dev/sdh':
-    journal: '/journal/journala06/journal'
+    ensure: present
   '/dev/sdi':
-    journal: '/journal/journala07/journal'
+    ensure: present
   '/dev/sdj':
-    journal: '/journal/journala08/journal'
+    ensure: present
   '/dev/sdk':
-    journal: '/journal/journala09/journal'
+    ensure: present
   '/dev/sdl':
-    journal: '/journal/journala10/journal'
+    ensure: present
 #  '/dev/sdm':
 #    journal: '/journal/journala11/journal'
 #  '/dev/sdn':

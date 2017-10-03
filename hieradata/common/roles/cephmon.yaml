@@ -40,5 +40,5 @@ profile::monitoring::sensu::agent::plugins:
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
-  ceph-jewel:
+  ceph-%{hiera('ceph_version')}:
     ensure: present
