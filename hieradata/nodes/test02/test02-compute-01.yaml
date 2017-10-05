@@ -10,16 +10,19 @@ network::interfaces_hash:
     slave:        'yes'
   'em3':
     onboot:       'yes'
-    ipaddress:    '172.28.32.103'
-    netmask:      '255.255.255.0'
-    gateway:      "%{hiera('netcfg_mgmt_gateway')}"
-    defroute:     'no'
+    bonding_opts: 'mode=balance-alb miimon=100'
+    ipaddress:    "%{hiera('netcfg_mgmt_netpart')}.103"
+    netmask:      "%{hiera('netcfg_mgmt_netmask')}"
+    mtu:          '1500'
     dns1:         "%{hiera('mgmt__address__proxy')}"
-    domain:       'test.iaas.uio.no'
+    domain:       "%{hiera('netcfg_dns_search')}"
     peerdns:      'yes'
+    defroute:     'no'
   'bond1':
     onboot:       'yes'
-    ipaddress:    '172.30.32.103'
-    netmask:      '255.255.255.0'
-    bonding_opts: 'mode=802.3ad miimon=100 lacp_rate=1'
+    vlan:         'yes'
+    ipaddress:    "%{hiera('netcfg_trp_netpart')}.103"
+    netmask:      "%{hiera('netcfg_trp_netmask')}"
+    ipv6init:     'yes'
+    ipv6addr:     "%{hiera('netcfg_trp_netpart6')}::103/%{hiera('netcfg_trp_netmask6')}"
     defroute:     'no'

@@ -17,9 +17,9 @@ netcfg_mgmt_gateway:    '172.28.32.12'
 netcfg_mgmt_netpart:    '172.28.32'
 netcfg_mgmt_netmask:    '255.255.255.0'
 netcfg_trp_gateway:     '172.30.32.1'
-netcfg_trp_gateway6:    'fd00::1'
+netcfg_trp_gateway6:    'fd32::1'
 netcfg_trp_netpart:     '172.30.32'
-netcfg_trp_netpart6:    'fd00'
+netcfg_trp_netpart6:    'fd32'
 netcfg_trp_netmask:     '255.255.255.0'
 netcfg_trp_netmask6:    '64'
 netcfg_dns_server1:     '129.240.2.3'
@@ -34,6 +34,7 @@ netcfg_pub_natgw:       '10.100.200.248'
 netcfg_trp_rr:
   rr1:
     peer_ipv4: '172.30.32.1'
+    peer_ipv6: 'fd32::1'
 
 allow_from_network: # FIXME (public net and mgmt net)
   - '10.100.200.0/24'
