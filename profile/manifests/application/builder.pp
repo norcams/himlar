@@ -8,6 +8,7 @@ class profile::application::builder (
   $group = 'imagebuilder',
   $flavor = 'm1.small',
   $insecure = false,
+  $ipv6 = false
 ) {
 
   if $az {
