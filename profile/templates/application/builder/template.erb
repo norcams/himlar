@@ -23,6 +23,9 @@
   }],
   "provisioners": [{
     "scripts": [
+<% if @ipv6 -%>
+      "/opt/imagebuilder/scripts/enable_ipv6.sh",
+<% end -%>
       "/opt/imagebuilder/scripts/fstrim.sh",
       "/opt/imagebuilder/scripts/upgrade.sh"
     ],
