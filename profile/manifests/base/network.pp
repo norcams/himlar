@@ -231,10 +231,16 @@ class profile::base::network(
     create_resources(cumulus_bond, hiera_hash('profile::base::network::cumulus_bonds', {}))
 
     # Check for Cumulus Management VRF, enable if disabled
-    exec { "cl-mgmtvrf --enable":
-      path   => "/usr/bin:/usr/sbin:/bin",
-      unless => "cl-mgmtvrf --status",
-      onlyif => [ 'test -e /etc/network/interfaces.d/eth0', 'test -e /etc/network/if-up.d/z90-route-eth0' ]
+    case $::operatingsystemmajrelease {
+      '2': {
+        exec { "cl-mgmtvrf --enable":
+          path   => "/usr/bin:/usr/sbin:/bin",
+          unless => "cl-mgmtvrf --status",
+          onlyif => [ 'test -e /etc/network/interfaces.d/eth0', 'test -e /etc/network/if-up.d/z90-route-eth0' ]
+        }
+      }
+      default: {
+      }
     }
   }
 }
