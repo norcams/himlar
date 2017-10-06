@@ -44,6 +44,7 @@ profile::network::services::dns_records:
     "%{::location}-leaf-02.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_netpart')}.2"
     "%{::location}-leaf-03.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_netpart')}.3"
     "%{::location}-leaf-04.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_netpart')}.4"
+    "%{::location}-mgmt-01.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_netpart')}.5"
     "%{::location}-login-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_mgmt_netpart')}.10"
     "git.%{hiera('domain_mgmt')}":                      "%{hiera('netcfg_mgmt_netpart')}.10"
     # Used as CNAME for uh-iaas.no (http://iaas.readthedocs.io/en/latest/team/operations/dns.html)
@@ -61,6 +62,7 @@ profile::network::services::dns_records:
     '2.0.16.172.in-addr.arpa':                          "%{::location}-leaf-02.%{hiera('domain_mgmt')}"
     '3.0.16.172.in-addr.arpa':                          "%{::location}-leaf-03.%{hiera('domain_mgmt')}"
     '4.0.16.172.in-addr.arpa':                          "%{::location}-leaf-04.%{hiera('domain_mgmt')}"
+    '5.0.16.172.in-addr.arpa':                          "%{::location}-mgmt-01.%{hiera('domain_mgmt')}"
 
 ntp::servers:
   - ntp.uib.no

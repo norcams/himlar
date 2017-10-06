@@ -19,6 +19,7 @@ network::interfaces_hash:
 profile::base::network::cumulus_bridges:
   'bridge':
     'ipv4': [ '172.30.32.1/24', ]
+    'ipv6': [ 'fd32::1/64', ]
     'ports': [ 'swp2', ]
     'alias_name': 'Transport L2 if'
     'mtu': '1500'
@@ -70,6 +71,9 @@ quagga::quagga::bgp_networks:
   - '0.0.0.0/0'
   - '10.100.200.0/24'
   - '172.30.32.0/24'
+quagga::quagga::bgp_networks6:
+  - '::/0'
+  - 'fd32::/64'
 
 quagga::quagga::bgp_neighbor_groups:
   'rr-clients':
@@ -84,6 +88,12 @@ quagga::quagga::bgp_neighbor_groups:
       - '172.30.32.103'
       - '172.30.32.104'
       - '172.30.32.105'
+    'options6':
+      - 'route-reflector-client'
+    'members6':
+      - 'fd32::103'
+      - 'fd32::104'
+      - 'fd32::105'
 #  'other-clients':
 #    'options':
 #    - 'peer-group'
