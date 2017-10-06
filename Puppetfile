@@ -20,7 +20,7 @@ mod 'lvm', :ref => '689d42a16c',                 :git => github + 'puppetlabs/pu
 mod 'firewall', :ref => '1.8.2',                 :git => github + 'puppetlabs/puppetlabs-firewall'
 mod 'kmod', :ref => '2.1.0',                     :git => github + 'camptocamp/puppet-kmod'
 mod 'named_interfaces', :ref => '88ce713994',    :git => github + 'norcams/puppet-named_interfaces'
-mod 'network', :ref => 'e739f24fa3',             :git => github + 'norcams/puppet-network'
+mod 'network', :ref => '8b641b386f',             :git => github + 'norcams/puppet-network'
 mod 'ipmi', :ref => 'c4309504fd',                :git => github + 'norcams/puppet-ipmi'
 mod 'lldp', :ref => '06523de010',                :git => github + 'norcams/puppet-lldp'
 mod 'apt', :ref => '2.2.2',                      :git => github + 'puppetlabs/puppetlabs-apt'
