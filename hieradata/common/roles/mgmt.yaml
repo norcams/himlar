@@ -30,9 +30,9 @@ openstack_extras::repo::debian::debian::package_require: true
 openstack_extras::repo::debian::debian::manage_uca: false
 openstack_extras::repo::debian::debian::manage_whz: false
 openstack_extras::repo::debian::debian::source_hash:
-  'wheezy':
-    'location': 'http://ftp.us.debian.org/debian/'
-    'repos':    'main contrib non-free'
+  'jessie':
+    'location': 'http://ftp.no.debian.org/debian'
+    'repos':    'main'
 
 profile::base::common::packages:
   'vim-enhanced': { 'ensure': 'absent', }
