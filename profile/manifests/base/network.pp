@@ -241,8 +241,8 @@ class profile::base::network(
       }
       '3': {
         service { 'ntp@mgmt':
-          enable      => true,
-          ensure      => running,
+          ensure => running,
+          enable => true,
         }
       }
       default: {
