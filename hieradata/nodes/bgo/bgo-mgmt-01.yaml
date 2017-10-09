@@ -7,3 +7,36 @@ network::interfaces_hash:
   'mgmt':
     'ipaddress': '127.0.0.1/8'
     'vrf_table': 'auto'
+
+profile::base::network::cumulus_bridges:
+  'bridge':
+    'ports': [ 'swp1', 'swp2', 'swp3', 'swp4', 'swp5', 'swp42','swp43','swp44','swp45', 'swp46', 'swp48', ]
+    'alias_name': 'mgmt_ports'
+    'vlan_aware': 'true'
+    'stp': 'true'
+    'vids': [ '908', '909', ]
+
+profile::base::network::cumulus_interfaces:
+  'swp1':
+    'pvid': '908'
+  'swp2':
+    'pvid': '908'
+  'swp3':
+    'pvid': '908'
+  'swp4':
+    'pvid': '908'
+  'swp5':
+    'pvid': '908'
+  'swp42':
+    'pvid': '909'
+  'swp43':
+    'pvid': '909'
+  'swp44':
+    'pvid': '909'
+  'swp45':
+    'pvid': '909'
+  'swp46':
+    'pvid': '909'
+  'swp48':
+    'alias_name': 'uplink'
+    'vids': [ '908', '909', ]
