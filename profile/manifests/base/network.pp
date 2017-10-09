@@ -239,6 +239,12 @@ class profile::base::network(
           onlyif => [ 'test -e /etc/network/interfaces.d/eth0', 'test -e /etc/network/if-up.d/z90-route-eth0' ]
         }
       }
+      '3': {
+        service { 'ntp@mgmt':
+          enable      => true,
+          ensure      => running,
+        }
+      }
       default: {
       }
     }
