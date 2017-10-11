@@ -21,5 +21,5 @@ network::interfaces_hash:
     onboot:       'yes'
     ipaddress:    '172.30.32.107'
     netmask:      '255.255.255.0'
-    bonding_opts: 'mode=802.3ad miimon=100 lacp_rate=1'
+    bonding_opts: 'mode=balance-alb miimon=100'
     defroute:     'no'
