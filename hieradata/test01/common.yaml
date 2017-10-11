@@ -101,8 +101,8 @@ profile::openstack::resource::networks:
     shared: true
     tenant_name: 'openstack'
     provider_network_type: 'local'
-  public_IPv6:
-    name: 'public_IPv6'
+  IPv6:
+    name: 'IPv6'
     admin_state_up: true
     shared: true
     tenant_name: 'openstack'
@@ -131,7 +131,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - '129.177.6.54'
       - '129.177.12.31'
-    network_name: 'public_IPv6'
+    network_name: 'IPv6'
     tenant_name: 'openstack'
   public1_ipv6:
     name: 'public1_IPv6'
@@ -142,7 +142,7 @@ profile::openstack::resource::subnets:
     gateway_ip: '2001:700:200:915::1'
     dns_nameservers:
       - '2001:700:200:6::a1f:a1fa'
-    network_name: 'public_IPv6'
+    network_name: 'IPv6'
     tenant_name: 'openstack'
   public2_ipv6:
     name: 'public2_IPv6'
