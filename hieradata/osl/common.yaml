@@ -105,16 +105,16 @@ profile::network::services::dns_options:
       server: '129.240.2.6'
 
 profile::openstack::resource::networks:
-  public:
-    name: 'public'
+  dualStack:
+    name: 'dualStack'
     admin_state_up: true
     shared: true
     tenant_name: 'openstack'
     provider_network_type: 'local'
 
 profile::openstack::resource::subnets:
-  public:
-    name: 'public'
+  public1_IPv4:
+    name: 'public1_IPv4'
     cidr: '158.37.63.0/24'
     ip_version: '4'
     allocation_pools:
@@ -123,10 +123,10 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - '129.240.2.40'
       - '129.240.2.3'
-    network_name: 'public'
+    network_name: 'dualStack'
     tenant_name: 'openstack'
-  public2:
-    name: 'public2'
+  public2_IPv4:
+    name: 'public2_IPv4'
     cidr: '158.39.75.0/24'
     ip_version: '4'
     allocation_pools:
@@ -135,5 +135,5 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - '129.240.2.40'
       - '129.240.2.3'
-    network_name: 'public'
+    network_name: 'dualStack'
     tenant_name: 'openstack'

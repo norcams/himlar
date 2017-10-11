@@ -115,16 +115,16 @@ profile::network::services::dns_options:
       server: 'alfalfa.uib.no'
 
 profile::openstack::resource::networks:
-  public:
-    name: 'public'
+  dualStack:
+    name: 'dualStack'
     admin_state_up: true
     shared: true
     tenant_name: 'openstack'
     provider_network_type: 'local'
 
 profile::openstack::resource::subnets:
-  public:
-    name: 'public'
+  public1_IPv4:
+    name: 'public1_IPv4'
     cidr: '158.39.77.0/24'
     ip_version: '4'
     allocation_pools:
@@ -133,10 +133,10 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - '129.177.6.54'
       - '129.177.12.31'
-    network_name: 'public'
+    network_name: 'dualStack'
     tenant_name: 'openstack'
-  public2:
-    name: 'public2'
+  public2_IPv4:
+    name: 'public2_IPv4'
     cidr: '158.39.74.0/24'
     ip_version: '4'
     allocation_pools:
@@ -145,5 +145,5 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - '129.177.6.54'
       - '129.177.12.31'
-    network_name: 'public'
+    network_name: 'dualStack'
     tenant_name: 'openstack'
