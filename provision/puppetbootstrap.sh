@@ -99,4 +99,4 @@ else
   REPORT_DIR=/var/lib/puppet/state
 fi
 
-grep --quiet --silent profile $REPORT_DIR/last_run_report.yaml || bootstrap_puppet
+test -f $REPORT_DIR/last_run_report.yaml || bootstrap_puppet
