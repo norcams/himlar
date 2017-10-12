@@ -27,4 +27,4 @@ profile::database::mariadb::backuptopdir:         '/tmp'
 #
 # wsrep_provider_options: "base_host=%{::ipaddress_trp1};pc.recovery=1;socket.ssl_key=%{hiera('db_ssl_key')};socket.ssl_cert=%{hiera('db_ssl_cert')};socket.ssl_ca=%{hiera('db_ssl_ca')}"
 # wsrep_sst_method:       'secure_rsync'
-# wsrep_cluster_address:  "gcomm://%{hiera('netcfg_trp_netpart')}.41,%{hiera('netcfg_trp_netpart')}.42,172.31.24.6"
+# wsrep_cluster_address:  "gcomm://%{hiera('netcfg_trp_netpart')}.41,%{hiera('netcfg_trp_netpart')}.42,192.168.0.6"
