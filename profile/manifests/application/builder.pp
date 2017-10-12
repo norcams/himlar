@@ -7,6 +7,7 @@ class profile::application::builder (
   $user  = 'imagebuilder',
   $group = 'imagebuilder',
   $flavor = 'm1.small',
+  $network = 'imagebuilder'
   $insecure = false,
   $ipv6 = false
 ) {

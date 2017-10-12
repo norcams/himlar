@@ -9,6 +9,7 @@ define profile::application::builder::jobs(
     $username,
     $ensure        = present,
     $flavor        = $profile::application::builder::flavor,
+    $network       = $profile::application::builder::network,
     $az            = $profile::application::builder::real_az,
     $user          = $profile::application::builder::user,
     $group         = $profile::application::builder::group,
