@@ -7,8 +7,8 @@ defaults:
   box:       "norcams/base"
   autostart: true
   primary:   false
-  location:  "dev"
-  domain:    "dev.iaas.intern"
+  location:  "vagrant"
+  domain:    "mgmt.dev.iaas.intern"
   cpus:      1
   memory:    1024
   networks:
@@ -43,19 +43,6 @@ defaults:
 #
 nodesets:
   default:
-    - role:       "api"
-      memory:     4096
-      cpus:       2
-      location:   "vagrant"
-    - role:       "dashboard"
-      location:   "vagrant"
-    - role:       "access"
-      location:   "vagrant"
-    - role:       "compute"
-      memory:     2048
-      cpus:       2
-      location:   "vagrant"
-  full:
     - role:       "db"
     - role:       "mq"
     - role:       "api"
@@ -65,24 +52,26 @@ nodesets:
     - role:       "network"
     - role:       "volume"
     - role:       "dashboard"
-    - role:       "access"
-    - role:       "console"
     - role:       "compute"
       memory:     2048
       cpus:       2
-    - role:       "logger"
-      cpus:       1
-      memory:     2048
   # The following nodes are optional
+    # - role:       "access"
+    # - role:       "console"
     # - role:       "monitor"
     # - role:       "status"
     # - role:       "builder"
-    # - role:       "nat"
-    #   memory:     1024
+    # - role:       "proxy"
+    # - role:       "login"
+    # - role:       "controller"
+    # - role:       "logger"
     #   cpus:       1
+    #   memory:     2048
+    # - role:       "nat"
     #   box:        "norcams/freebsd"
     # - role:       "admin"
     #   memory:     3096
+    #
   ha:
     - role:       'ha'
       hostid:     '01'
@@ -98,11 +87,6 @@ nodesets:
       hostid:     '01'
     - role:       'ha'
       hostid:     '02'
-  infra:
-    - role:       "login"
-    - role:       "controller"
-    - role:       "admin"
-    - role:       "proxy"
   ceph:
     - role:       "cephmon"
     - role:       "storage"
@@ -112,15 +96,11 @@ networks:
     net: "172.31.0"
     auto_config: false
     forwarding: "none"
-  oob:
+  trp:
     net: "172.31.8"
     auto_config: false
     forwarding: "none"
-  trp:
-    net: "172.31.16"
+  public:
+    net: "192.168.0"
     auto_config: false
     forwarding: "none"
-  public:
-    net: "172.31.24"
-    auto_config: false
-    forwarding: "route"
