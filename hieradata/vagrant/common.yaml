@@ -93,16 +93,16 @@ profile::network::services::dns_options:
 #
 profile::network::services::dns_records:
   A:
-    "dashboard.%{hiera('domain_frontend')}":              "%{hiera('netcfg_public_netpart')}.51"
-    "access.%{hiera('domain_frontend')}":                 "%{hiera('netcfg_public_netpart')}.56"
-    "console.%{hiera('domain_public')}":                  "%{hiera('netcfg_public_netpart')}.61"
-    "api.%{hiera('domain_public')}":                      "%{hiera('netcfg_public_netpart')}.86"
-    "identity.api.%{hiera('domain_public')}":             "%{hiera('netcfg_public_netpart')}.86"
-    "image.api.%{hiera('domain_public')}":                "%{hiera('netcfg_public_netpart')}.86"
-    "network.api.%{hiera('domain_public')}":              "%{hiera('netcfg_public_netpart')}.86"
-    "compute.api.%{hiera('domain_public')}":              "%{hiera('netcfg_public_netpart')}.86"
-    "volume.api.%{hiera('domain_public')}":               "%{hiera('netcfg_public_netpart')}.86"
-    "status.%{hiera('domain_frontend')}":                 "%{hiera('netcfg_public_netpart')}.86"
+    "dashboard.%{hiera('domain_frontend')}":              "%{hiera('netcfg_public_netpart')}.254"
+    "access.%{hiera('domain_frontend')}":                 "%{hiera('netcfg_public_netpart')}.252"
+    "console.%{hiera('domain_public')}":                  "%{hiera('netcfg_public_netpart')}.251"
+    "api.%{hiera('domain_public')}":                      "%{hiera('netcfg_public_netpart')}.250"
+    "identity.api.%{hiera('domain_public')}":             "%{hiera('netcfg_public_netpart')}.250"
+    "image.api.%{hiera('domain_public')}":                "%{hiera('netcfg_public_netpart')}.250"
+    "network.api.%{hiera('domain_public')}":              "%{hiera('netcfg_public_netpart')}.250"
+    "compute.api.%{hiera('domain_public')}":              "%{hiera('netcfg_public_netpart')}.250"
+    "volume.api.%{hiera('domain_public')}":               "%{hiera('netcfg_public_netpart')}.250"
+    "status.%{hiera('domain_frontend')}":                 "%{hiera('netcfg_public_netpart')}.250"
 
 #
 ## Secret data which for other environments are stored ooutside of this data tree
