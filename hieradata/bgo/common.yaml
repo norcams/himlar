@@ -121,6 +121,12 @@ profile::openstack::resource::networks:
     shared: true
     tenant_name: 'openstack'
     provider_network_type: 'local'
+  imagebuilder:
+    name: 'imagebuilder'
+    admin_state_up: true
+    shared: false
+    tenant_name: 'imagebuilder'
+    provider_network_type: 'local'
 
 profile::openstack::resource::subnets:
   public1_IPv4:
@@ -147,3 +153,15 @@ profile::openstack::resource::subnets:
       - '129.177.12.31'
     network_name: 'dualStack'
     tenant_name: 'openstack'
+  public3_IPv4:
+    name: 'public3_IPv4'
+    cidr: '158.39.77.0/24'
+    ip_version: '4'
+    allocation_pools:
+      - 'start=158.39.77.246,end=158.39.77.247'
+    gateway_ip: '158.39.77.1'
+    dns_nameservers:
+      - '129.177.6.54'
+      - '129.177.12.31'
+    network_name: 'imagebuilder'
+    tenant_name: 'imagebuilder'
