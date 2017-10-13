@@ -20,7 +20,7 @@ profile::base::network::cumulus_bridges:
     'ports': [ 'swp1', 'swp2', ]
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
-    'stp': 'true'
+    'stp': 'false'
     'vids': [ '100', '101', ]
     'mtu': '1500'
 
