@@ -2,13 +2,17 @@
 #
 
 class profile::base::login (
-  $manage_db_backup = false,
-  $ensure           = 'present',
-  $agelimit         = '14',
-  $db_servers       = {},
-  $repodir          = '/opt/repo/secrets',
-  $dump_owner       = '',
-  $dump_group       = '',
+  $manage_db_backup         = false,
+  $manage_repo_incoming_dir = false,
+  $ensure                   = 'present',
+  $agelimit                 = '14',
+  $db_servers               = {},
+  $repodir                  = '/opt/repo/secrets',
+  $dump_owner               = '',
+  $dump_group               = '',
+  $repo_incoming_dir        = '/tmp/repo-incoming',
+  $repo_server              = 'iaas-repo.uio.no',
+  $yumrepo_path             = '/var/www/html/uh-iaas/yumrepo/'
 ) {
 
 
@@ -61,6 +65,42 @@ class profile::base::login (
       group  => $dump_group,
     }
 
+  }
+
+  if $manage_repo_incoming_dir {
+    package { 'incron':
+      ensure => installed
+    }
+
+    # Incron entry
+    file { '/etc/incron.d/incoming_package':
+      ensure  => present,
+      mode    => '0644',
+      owner   => root,
+      group   => root,
+      content => template("${module_name}/base/incron/incoming_package.erb"),
+      notify  => Service['incrond']
+    }
+
+    # Bash script runned by incron
+    file { '/usr/local/sbin/update-yumrepo.sh':
+      ensure  => present,
+      mode    => '0755',
+      owner   => root,
+      group   => root,
+      content => template("${module_name}/base/incron/update-yumrepo.sh.erb")
+    }
+
+    service { 'incrond':
+      ensure  => running
+    }
+
+    file { $repo_incoming_dir:
+      ensure => directory,
+      mode   => '0775',
+      owner  => root,
+      group  => wheel
+    }
   }
 
 }

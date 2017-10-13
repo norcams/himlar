@@ -1,0 +1,24 @@
+#!/bin/bash -ue
+set -e
+
+## Sanity check
+if [ $# -ne 2 ]; then
+  echo "I need two input parameters:"
+  echo "  update-yumrepo <incoming> <filename>"
+  exit 1
+fi
+
+incoming=$1
+file=$2
+remote_user=iaas
+
+# SCP file to repo server
+scp $file $remote_user@<%= @repo_server -%>:<%= @yumrepo_path %>
+
+# Run restorecon on repo server
+ssh -t $remote_user@<%= @repo_server %> sudo restorecon <%= @yumrepo_path -%>$file
+
+# Update repo
+ssh $remote_user@<%= @repo_server -%> /usr/bin/createrepo <%= @yumrepo_path -%>
+
+rm -f $incoming/$file
