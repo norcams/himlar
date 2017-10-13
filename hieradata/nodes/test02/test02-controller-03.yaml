@@ -2,19 +2,12 @@
 network::interfaces_hash:
   'em1':
     onboot:       'yes'
-    master:       'bond1'
-    slave:        'yes'
+    bridge:       'br1'
   'em2':
-    onboot:       'yes'
-    master:       'bond1'
-    slave:        'yes'
+    onboot:       'no'
   'em3':
     onboot:       'yes'
     bridge:       'br0'
-  'bond1':
-    onboot:       'yes'
-    bonding_opts: 'mode=balance-alb miimon=100'
-    bridge:       'br1'
   'br0':
     ipaddress:    '172.28.32.102'
     gateway:      "%{hiera('netcfg_mgmt_gateway')}"
@@ -22,8 +15,8 @@ network::interfaces_hash:
     defroute:     'yes'
     onboot:       'yes'
     type:         'Bridge'
-    peerdns:      'yes'
-#    peerdns:      'no'
+#    peerdns:      'yes'
+    peerdns:      'no'
     dns1:         "%{hiera('netcfg_dns_server1')}"
     domain:       'test.iaas.uio.no'
   'br1':
@@ -33,6 +26,9 @@ network::interfaces_hash:
     netmask:      '255.255.255.0'
     defroute:     'no'
     bridge_stp:   'off'
+
+# Use controller-01 for himlar bootstrap
+profile::bootstrap::himlar::manage_bootstrap_scripts: true
 
 ################ TEMP DATA - SHALL BE FIXED IN COMMON #########################
 

@@ -7,12 +7,9 @@ include:
 network::interfaces_hash:
   'em1':
     onboot:       'yes'
-    master:       'bond1'
-    slave:        'yes'
+    bridge:       'br1'
   'em2':
-    onboot:       'yes'
-    master:       'bond1'
-    slave:        'yes'
+    onboot:       'no'
   'em3':
     onboot:       'yes'
     bridge:       'br0'
@@ -24,10 +21,6 @@ network::interfaces_hash:
     defroute:     'yes'
     dns1:         "%{hiera('mgmt__address__proxy')}"
     domain:       'test.iaas.uio.no'
-  'bond1':
-    onboot:       'yes'
-    bonding_opts: 'mode=balance-alb miimon=100'
-    bridge:       'br1'
   'br0':
     ipaddress:    '172.28.32.99'
 #    gateway:      '172.28.32.10'

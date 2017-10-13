@@ -2,12 +2,12 @@
 network::interfaces_hash:
   'em1':
     onboot:       'yes'
-    master:       'bond1'
-    slave:        'yes'
+    onboot:       'yes'
+    ipaddress:    "%{hiera('netcfg_trp_netpart')}.108"
+    netmask:      "%{hiera('netcfg_trp_netmask')}"
+    defroute:     'no'
   'em2':
     onboot:       'no'
-    master:       'bond1'
-    slave:        'yes'
   'em3':
     onboot:       'yes'
     ipaddress:    '172.28.32.108'
@@ -17,9 +17,3 @@ network::interfaces_hash:
     dns1:         "%{hiera('netcfg_dns_server1')}"
     domain:       'test.iaas.uio.no'
     peerdns:      'yes'
-  'bond1':
-    onboot:       'yes'
-    ipaddress:    '172.30.32.108'
-    netmask:      '255.255.255.0'
-    bonding_opts: 'mode=balance-alb miimon=100'
-    defroute:     'no'
