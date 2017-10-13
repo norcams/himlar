@@ -8,10 +8,10 @@ include:
 location_environment: vagrant
 location_description: Local full development environment using vagrant
 
-domain_frontend:        'dev.iaas.intern'
-domain_public:          'dev.iaas.intern'
-domain_trp:             'trp.dev.iaas.intern'
-domain_mgmt:            'mgmt.dev.iaas.intern'
+domain_frontend:        'vagrant.iaas.intern'
+domain_public:          'vagrant.iaas.intern'
+domain_trp:             'trp.vagrant.iaas.intern'
+domain_mgmt:            'mgmt.vagrant.iaas.intern'
 
 netcfg_mgmt_gateway:    '172.31.0.1'
 netcfg_mgmt_netpart:    '172.31.0'
