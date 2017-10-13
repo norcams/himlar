@@ -8,7 +8,7 @@ defaults:
   autostart: true
   primary:   false
   location:  "vagrant"
-  domain:    "mgmt.dev.iaas.intern"
+  domain:    "mgmt.vagrant.iaas.intern"
   cpus:      1
   memory:    1024
   networks:
@@ -19,17 +19,8 @@ defaults:
 #
 # Nodesets configuration example:
 #
-#   simple:
-#     - role: "master"
-#     - role: "compute"
-#
-#   This will configure two nodes with the following FQDNs:
-#     vagrant-master-01.vagrant.iaas.intern
-#     vagrant-compute-01.vagrant.iaas.intern
-#
-#   4nodes:
+#   mynodes:
 #     - name: "db"
-#     - name: "master"
 #     - role: "compute"
 #       hostid: "01"
 #     - role: "compute"
@@ -37,7 +28,6 @@ defaults:
 #
 #   This will configure four nodes with the following FQDNs:
 #     vagrant-db-01.vagrant.iaas.intern
-#     vagrant-master-01.vagrant.iaas.intern
 #     vagrant-compute-01.vagrant.iaas.intern
 #     vagrant-compute-02.vagrant.iaas.intern
 #
@@ -56,21 +46,21 @@ nodesets:
       memory:     2048
       cpus:       2
   # The following nodes are optional
-    # - role:       "access"
-    # - role:       "console"
-    # - role:       "monitor"
-    # - role:       "status"
-    # - role:       "builder"
-    # - role:       "proxy"
-    # - role:       "login"
-    # - role:       "controller"
-    # - role:       "logger"
-    #   cpus:       1
-    #   memory:     2048
-    # - role:       "nat"
-    #   box:        "norcams/freebsd"
-    # - role:       "admin"
-    #   memory:     3096
+    #- role:       "access"
+    #- role:       "console"
+    #- role:       "monitor"
+    #- role:       "status"
+    #- role:       "builder"
+    #- role:       "proxy"
+    #- role:       "login"
+    #- role:       "controller"
+    #- role:       "logger"
+    #  cpus:       1
+    #  memory:     2048
+    #- role:       "nat"
+    #  box:        "norcams/freebsd"
+    #- role:       "admin"
+    #  memory:     3096
     #
   ha:
     - role:       'ha'
