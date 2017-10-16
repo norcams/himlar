@@ -13,6 +13,6 @@ network::interfaces_hash:
   'eth3':
     onboot:    'yes'
     mtu:       '1500'
-    ipaddress: "%{hiera('netcfg_public_netpart')}.56"
+    ipaddress: "%{hiera('netcfg_public_netpart')}.252"
     netmask:   "%{hiera('netcfg_public_netmask')}"
     defroute:  'no'

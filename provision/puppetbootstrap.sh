@@ -58,7 +58,7 @@ bootstrap_puppet()
   # packages
   if command -v yum >/dev/null 2>&1; then
     # RHEL, CentOS, Fedora
-    yum install -y epel-release
+    yum install -y epel-release # to get gpgkey for epel
     el_repos test
     yum clean all
     yum -y update
@@ -83,11 +83,11 @@ bootstrap_puppet()
     pkg install -y rubygem-deep_merge rubygem-puppet-lint bash git
     ln -s /usr/local/bin/bash /bin/bash
     # FreeBSD spesific use
-    gem install ipaddress
+    gem install -N ipaddress
   fi
 
-  gem install puppet_forge -v 2.2.6
-  gem install r10k --no-ri --no-rdoc
+  gem install -N puppet_forge -v 2.2.6
+  gem install -N r10k
 
   # Let puppetrun.sh pick up that we are now in bootstrap mode
   touch /opt/himlar/bootstrap && echo "Created bootstrap marker: /opt/himlar/bootstrap"
@@ -99,4 +99,4 @@ else
   REPORT_DIR=/var/lib/puppet/state
 fi
 
-grep --quiet --silent profile $REPORT_DIR/last_run_report.yaml || bootstrap_puppet
+test -f $REPORT_DIR/last_run_report.yaml || bootstrap_puppet
