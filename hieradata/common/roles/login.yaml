@@ -12,6 +12,8 @@ profile::network::services::manage_nat: true
 profile::firewall::pre::ssh_settings:
   source: "0.0.0.0/0"
 
+profile::base::login::manage_repo_incoming_dir: true
+
 accounts::accounts:
   'hege':
     ensure: present
