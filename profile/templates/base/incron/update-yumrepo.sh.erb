@@ -13,7 +13,7 @@ file=$2
 remote_user=iaas
 
 # SCP file to repo server
-scp $file $remote_user@<%= @repo_server -%>:<%= @yumrepo_path %>
+scp $incoming/$file $remote_user@<%= @repo_server -%>:<%= @yumrepo_path %>
 
 # Run restorecon on repo server
 ssh -t $remote_user@<%= @repo_server %> sudo restorecon <%= @yumrepo_path -%>$file
