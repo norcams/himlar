@@ -21,7 +21,7 @@ export PATH=/usr/bin:/usr/local/bin:/bin:/usr/local/sbin:/usr/sbin
 | /usr/bin/xargs -I % \
 /opt/imagebuilder/bin/imagebuilder build \
 -n '<%= @name %>' \
--N '<%= @network %> \
+-N '<%= @network %>' \
 -s % \
 -a <%= @az %> \
 -u <%= @username %> \
