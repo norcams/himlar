@@ -126,7 +126,7 @@ service__address__rabbitmq_03:    "mq01.%{hiera('domain_trp')}"
 service__address__cinder_ip:      "%{hiera('netcfg_trp_netpart')}.46"
 service__address__consoleproxy:
 service__address__ns_01:          "%{hiera('netcfg_trp_netpart')}.16"
-service__address__ns_02:          "%{hiera('netcfg_mgmt_netpart')}.17"
+service__address__ns_02:          "%{hiera('netcfg_trp_netpart')}.17"
 
 #
 # Management (proxy and logger must be IP)

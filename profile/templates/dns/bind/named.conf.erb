@@ -24,9 +24,7 @@ acl iaas_nets {
 controls  {
     inet 127.0.0.1 port 953 allow { 127.0.0.1; } keys { "rndc-key-admin"; };
     inet <%= @my_mgmt_addr %> port 953 allow { <%= @admin_mgmt_addr %>; } keys { "rndc-key-admin"; };
-<% if @master %>
-    #inet <%= @ns1_transport_addr %> port 953 allow { <%= @mdns_transport_addr %>; } keys { "rndc-key-mdns"; };
-<% end -%>
+    #inet <%= @my_transport_addr %> port 953 allow { <%= @mdns_transport_addr %>; } keys { "rndc-key-mdns"; };
 };
 
 # General options for named

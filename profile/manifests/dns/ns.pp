@@ -1,5 +1,6 @@
 class profile::dns::ns (
   $my_mgmt_addr = {},
+  $my_transport_addr = {},
   #$mdns_transport_addr = {},
   $admin_mgmt_addr = {},
   $ns1_mgmt_addr = {},
