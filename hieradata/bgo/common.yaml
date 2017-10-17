@@ -173,7 +173,7 @@ profile::openstack::resource::subnets:
     tenant_name: 'imagebuilder'
   public1_ipv6:
     name: 'public1_IPv6'
-    cidr: '2001:700:2:8300::/56'
+    cidr: '2001:700:2:8300::/64'
     ip_version: '6'
     allocation_pools:
       - 'start=2001:700:2:8300::1000,end=2001:700:2:8300::1fff'
@@ -185,7 +185,7 @@ profile::openstack::resource::subnets:
     tenant_name: 'openstack'
   public2_ipv6:
     name: 'public2_IPv6'
-    cidr: '2001:700:2:8300::/56'
+    cidr: '2001:700:2:8300::/64'
     ip_version: '6'
     allocation_pools:
       - 'start=2001:700:2:8300::2000,end=2001:700:2:8300::2fff'
