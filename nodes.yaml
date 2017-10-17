@@ -80,6 +80,13 @@ nodesets:
   ceph:
     - role:       "cephmon"
     - role:       "storage"
+  dns:
+    - role:       "db"
+    - role:       "admin"
+    - role:       "ns"
+      hostid:     "01"
+    - role:       "ns"
+      hostid:     "02"
 
 networks:
   mgmt:

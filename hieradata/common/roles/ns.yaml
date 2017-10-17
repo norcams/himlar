@@ -1,0 +1,12 @@
+---
+#profile::dns::ns::mdns_transport_addr: "%{hiera('service__address__mdns')}"
+profile::dns::ns::admin_mgmt_addr:     "%{hiera('netcfg_mgmt_netpart')}.11"
+profile::dns::ns::ns1_mgmt_addr:       "%{hiera('netcfg_mgmt_netpart')}.16"
+profile::dns::ns::ns2_mgmt_addr:       "%{hiera('netcfg_mgmt_netpart')}.17"
+profile::dns::ns::ns1_transport_addr:  "%{hiera('service__address__ns_01')}"
+profile::dns::ns::ns2_transport_addr:  "%{hiera('service__address__ns_02')}"
+profile::dns::ns::ns1_public_addr:     "%{hiera('public__address__ns_01')}"
+
+profile::dns::ns::manage_firewall: true
+profile::dns::ns::firewall_extras:
+  source: "%{::network_transport1}/%{::netmask_transport1}"
