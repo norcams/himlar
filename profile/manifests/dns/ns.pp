@@ -5,7 +5,6 @@ class profile::dns::ns (
   $ns1_mgmt_addr = {},
   $ns2_mgmt_addr = {},
   $ns1_transport_addr = {},
-  $ns2_transport_addr = {},
   $ns1_public_addr = {},
   $master = {},
   $manage_firewall = {},
