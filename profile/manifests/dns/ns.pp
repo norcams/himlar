@@ -84,10 +84,10 @@ class profile::dns::ns (
       ensure  => running,
       enable  => true,
       require => [
-                   File['/etc/rndc.conf'],
-                   File['/var/named'],
-                   File["/var/named/${internal_zone}.zone"],
-                   File['/etc/named.conf']
+                    File['/etc/rndc.conf'],
+                    File['/var/named'],
+                    File["/var/named/${internal_zone}.zone"],
+                    File['/etc/named.conf']
                  ],
     }
   }
@@ -96,9 +96,9 @@ class profile::dns::ns (
       ensure  => running,
       enable  => true,
       require => [
-                   File['/etc/rndc.conf'],
-                   File['/var/named'],
-                   File['/etc/named.conf']
+                    File['/etc/rndc.conf'],
+                    File['/var/named'],
+                    File['/etc/named.conf']
                  ],
     }
   }
