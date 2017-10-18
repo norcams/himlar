@@ -41,17 +41,12 @@ allow_from_network: # FIXME (public net and mgmt net)
   - '172.28.32.0/24'
   - '192.168.122.1/32'
 
-# DNS server
-public__address__ns_01:           "%{hiera('netcfg_mgmt_netpart')}.16"
-public__name__ns_01:              "ns.%{hiera('domain_mgmt')}"
-
 #
 # DNS (merge of common and this)
 #
 profile::network::services::dns_records:
   A:
     # public
-    "ns.%{hiera('domain_public')}":                         "%{hiera('netcfg_public_netpart')}.16"
     "api.%{hiera('domain_public')}":                        "%{hiera('netcfg_public_netpart')}.250"
     "identity.api.%{hiera('domain_public')}":               "%{hiera('netcfg_public_netpart')}.250"
     "network.api.%{hiera('domain_public')}":                "%{hiera('netcfg_public_netpart')}.250"

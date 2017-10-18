@@ -14,7 +14,7 @@ class profile::dns::ns (
   )
 {
   # Configure SELinux to enforcing
-  class { selinux:
+  class { 'selinux':
     mode => 'enforcing',
     type => 'targeted',
   }
@@ -81,38 +81,31 @@ class profile::dns::ns (
   # Define dependencies for the named service
   if $master {
     service { 'named':
-      ensure => running,
-      enable => true,
-      require => [ File['/etc/rndc.conf'],
+      ensure  => running,
+      enable  => true,
+      require => [
+                   File['/etc/rndc.conf'],
                    File['/var/named'],
                    File["/var/named/${internal_zone}.zone"],
-                   File['/etc/named.conf'] ],
+                   File['/etc/named.conf']
+                 ],
     }
   }
   else {
     service { 'named':
-      ensure => running,
-      enable => true,
-      require => [ File['/etc/rndc.conf'],
+      ensure  => running,
+      enable  => true,
+      require => [
+                   File['/etc/rndc.conf'],
                    File['/var/named'],
-                   File['/etc/named.conf'] ],
+                   File['/etc/named.conf']
+                 ],
     }
   }
 
   # Create the reverse zones (on master)
-  define reverse_zone($cidr, $origin, $filename) {
-    $internal_zone = $profile::dns::ns::internal_zone
-    file { "/var/named/$filename":
-      content      => template("${module_name}/dns/bind/reverse_zone.erb"),
-      notify       => Service['named'],
-      mode         => '0640',
-      owner        => 'root',
-      group        => 'named',
-      require      => Package['bind'],
-    }
-  }
   if $master {
-    create_resources('reverse_zone', $reverse_zones)
+    create_resources('profile::dns::reverse_zone', $reverse_zones)
   }
 
   # Open nameserver ports in the firewall
