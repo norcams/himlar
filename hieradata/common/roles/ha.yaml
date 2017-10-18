@@ -1,7 +1,6 @@
 ---
 include:
   default:
-    - profile::base::selinux
     - profile::highavailability::corosync
     - profile::highavailability::loadbalancing::haproxy
     - profile::firewall::rules
