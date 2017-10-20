@@ -84,10 +84,10 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         3
     'username':         'ubuntu'
-  'ubuntu_1704':
-    'image_name':       'IMAGEBUILDER Ubuntu 17.04'
-    'url':              'https://cloud-images.ubuntu.com/zesty/current/'
-    'latest':           'zesty-server-cloudimg-amd64.img'
+  'ubuntu_1710':
+    'image_name':       'IMAGEBUILDER Ubuntu 17.10'
+    'url':              'https://cloud-images.ubuntu.com/artful/current/'
+    'latest':           'artful-server-cloudimg-amd64.img'
     'checksum_file':    'SHA256SUMS'
     'checksum':         'sha256'
     'min_ram':          768
