@@ -111,6 +111,12 @@ profile::openstack::resource::networks:
     shared: true
     tenant_name: 'openstack'
     provider_network_type: 'local'
+  IPv6:
+    name: 'IPv6'
+    admin_state_up: true
+    shared: true
+    tenant_name: 'openstack'
+    provider_network_type: 'local'
   imagebuilder:
     name: 'imagebuilder'
     admin_state_up: true
@@ -155,3 +161,39 @@ profile::openstack::resource::subnets:
       - '129.240.2.3'
     network_name: 'imagebuilder'
     tenant_name: 'imagebuilder'
+  public1_ipv6:
+    name: 'public1_IPv6'
+    cidr: '2001:700:2:8200::/64'
+    ip_version: '6'
+    allocation_pools:
+      - 'start=2001:700:2:8200::1000,end=2001:700:2:8200:1fff'
+    gateway_ip: '2001:700:2:8200::1'
+    dns_nameservers:
+      - '2001:700:100:2::3'
+      - '2001:700:100:425::40'
+    network_name: 'IPv6'
+    tenant_name: 'openstack'
+  public2_ipv6:
+    name: 'public2_IPv6'
+    cidr: '2001:700:2:8200::/64'
+    ip_version: '6'
+    allocation_pools:
+      - 'start=2001:700:2:8200::2000,end=2001:700:2:8200:2fff'
+    gateway_ip: '2001:700:2:8200::1'
+    dns_nameservers:
+      - '2001:700:100:2::3'
+      - '2001:700:100:425::40'
+    network_name: 'dualStack'
+    tenant_name: 'openstack'
+  private1_IPv4:
+    name: 'private1_IPv4'
+    cidr: '10.2.0.0/22'
+    ip_version: '4'
+    allocation_pools:
+      - 'start=10.2.0.10,end=10.2.3.254'
+    gateway_ip: '10.1.0.1'
+    dns_nameservers:
+      - '129.240.2.40'
+      - '129.240.2.3'
+    network_name: 'IPv6'
+    tenant_name: 'openstack'
