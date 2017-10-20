@@ -1,0 +1,22 @@
+---
+include:
+  default:
+    - profile::dns::ns
+    - profile::dns::rndc_key
+    - profile::logging::rsyslog::client
+
+profile::dns::rndc_key::create_admin_key:    true
+profile::dns::rndc_key::create_mdns_key:     true
+profile::dns::rndc_key::host_is_bind_server: true
+
+profile::dns::ns::internal_zone: "vagrant.iaas.intern"
+
+profile::dns::ns::ptr_zones:
+  internal:
+    cidr: "172.31.0.0/16"
+    origin: "31.172"
+    filename: "reverse-172.31"
+  public:
+    cidr: "192.168.0/16"
+    origin: "168.192"
+    filename: "reverse-192.168"
