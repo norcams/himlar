@@ -166,7 +166,7 @@ profile::openstack::resource::subnets:
     cidr: '2001:700:2:8200::/64'
     ip_version: '6'
     allocation_pools:
-      - 'start=2001:700:2:8200::1000,end=2001:700:2:8200:1fff'
+      - 'start=2001:700:2:8200::1000,end=2001:700:2:8200::1fff'
     gateway_ip: '2001:700:2:8200::1'
     dns_nameservers:
       - '2001:700:100:2::3'
@@ -178,7 +178,7 @@ profile::openstack::resource::subnets:
     cidr: '2001:700:2:8200::/64'
     ip_version: '6'
     allocation_pools:
-      - 'start=2001:700:2:8200::2000,end=2001:700:2:8200:2fff'
+      - 'start=2001:700:2:8200::2000,end=2001:700:2:8200::2fff'
     gateway_ip: '2001:700:2:8200::1'
     dns_nameservers:
       - '2001:700:100:2::3'
