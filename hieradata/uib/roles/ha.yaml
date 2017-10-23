@@ -80,6 +80,7 @@ haproxy::defaults_options:
     - 'client 30s'
     - 'server 30s'
     - 'queue 30s'
+    - 'tunnel 3m' # needed for exchange
 
 profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
   uib_https_domains:

@@ -275,6 +275,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
         - 'inspect-delay 5s'
         - 'content accept if { req_ssl_hello_type 1 }'
       - use_backend:      '%[req_ssl_sni,lower,map(/etc/haproxy/uib_domains.map)]'
+      - timeout:
+        - 'tunnel 3m' # needed for exchange
   uib-ldaps:
     mode:               'tcp'
     bind:
