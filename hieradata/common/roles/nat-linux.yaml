@@ -23,6 +23,7 @@ profile::monitoring::sensu::agent::enable_agent: true
 profile::base::network::manage_dummy:            true
 
 profile::network::nat::enable_bird:              true
+profile::network::nat::manage_bird_firewall:     true
 
 profile::network::nat::enable_snat:              true
 profile::network::nat::source:                   "%{hiera('netcfg_priv_network')}"

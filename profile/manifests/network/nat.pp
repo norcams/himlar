@@ -38,7 +38,7 @@ class profile::network::nat(
         profile::firewall::rule { "010 bird bgp - accept tcp to ${name}":
           proto   => 'tcp',
           port    => '179',
-          iniface => ${::ipaddress_trp1},
+          iniface => $::ipaddress_trp1,
         }
       }
     }
