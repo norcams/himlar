@@ -1,0 +1,29 @@
+---
+include:
+  default:
+    - profile::network::nat
+    - profile::network::bird
+
+named_interfaces::config:
+  mgmt:
+    - eth0
+  trp:
+    - eth1
+  public:
+    - dummy0
+
+bsd::network::v4forwarding: false
+
+profile::base::network::net_ifnames:             true
+profile::base::common::manage_keyboard:          true
+profile::base::common::manage_yumrepo:           true
+profile::base::common::manage_packages:          true
+profile::monitoring::sensu::agent::enable_agent: true
+
+profile::base::network::manage_dummy:            true
+
+profile::network::nat::enable_bird:              true
+
+profile::network::nat::enable_snat:              true
+profile::network::nat::source:                   "%{hiera('netcfg_priv_network')}"
+profile::network::nat::outiface:                 "%{::ipaddress_trp1}"

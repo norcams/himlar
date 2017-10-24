@@ -18,3 +18,5 @@ profile::base::common::manage_keyboard:          false
 profile::base::common::manage_yumrepo:           false
 profile::base::common::manage_packages:          false
 profile::monitoring::sensu::agent::enable_agent: false
+
+profile::network::nat::enable_bird:              true
