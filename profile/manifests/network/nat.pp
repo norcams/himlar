@@ -1,6 +1,8 @@
 # Simple setup of IP forwarding and NAT with iptables
 class profile::network::nat(
   $enable_masquerade = false,
+  $enable_bird = false,
+  $manage_bird_firewall = false,
   $enable_snat = false,
   $iniface = undef,
   $outiface = undef,
@@ -13,6 +15,32 @@ class profile::network::nat(
       sysctl::value { 'net.ipv4.ip_forward':
       value => 1,
       }
+      if $enable_bird {
+        package { 'bird':
+          ensure   => installed
+        }
+        file { '/etc/bird.conf':
+          ensure   => file,
+          content  => template("${module_name}/bird/bird-nat.conf.erb"),
+          notify   => Service['bird']
+        }
+        service { 'bird':
+          ensure   => running,
+          enable   => true,
+          require  => Package['bird']
+        }
+      }
+      if $manage_bird_firewall {
+        profile::firewall::rule { '912 bird allow bfd':
+          proto  => 'udp',
+          port   => ['3784','3785','4784','4785'],
+        }
+        profile::firewall::rule { "010 bird bgp - accept tcp to ${name}":
+          proto   => 'tcp',
+          port    => '179',
+          iniface => ${::ipaddress_trp1},
+        }
+      }
     }
     'FreeBSD': {
       shellvar { "Enable PF for NAT":
@@ -20,25 +48,6 @@ class profile::network::nat(
         target   => "/etc/rc.conf",
         variable => "pf_enable",
         value    => "YES"
-      }
-      package { 'bird':
-        ensure   => installed
-      }
-      shellvar { "Enable bird router":
-        ensure   => present,
-        target   => "/etc/rc.conf",
-        variable => "bird_enable",
-        value    => "YES"
-      }
-      file { '/usr/local/etc/bird.conf':
-        ensure   => file,
-        content  => template("${module_name}/bird/bird-nat.conf.erb"),
-        notify   => Service['bird']
-      }
-      service { 'bird':
-        ensure   => running,
-        enable   => true,
-        require  => Package['bird']
       }
       file { '/etc/pf.conf':
         ensure   => file,
@@ -48,6 +57,27 @@ class profile::network::nat(
       service { 'pf':
         ensure   => running,
         enable   => true
+      }
+      if $enable_bird {
+        package { 'bird':
+          ensure   => installed
+        }
+        shellvar { "Enable bird router":
+          ensure   => present,
+          target   => "/etc/rc.conf",
+          variable => "bird_enable",
+          value    => "YES"
+        }
+        file { '/usr/local/etc/bird.conf':
+          ensure   => file,
+          content  => template("${module_name}/bird/bird-nat.conf.erb"),
+          notify   => Service['bird']
+        }
+        service { 'bird':
+          ensure   => running,
+          enable   => true,
+          require  => Package['bird']
+        }
       }
     }
     default: {
