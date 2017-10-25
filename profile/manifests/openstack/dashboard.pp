@@ -14,6 +14,7 @@ class profile::openstack::dashboard(
   $enable_pwd_retrieval = false,
   $enable_image_upload  = false,
   $image_upload_mode    = undef,
+  $change_region_selector = false
 ) {
 
   if $manage_dashboard {
@@ -54,6 +55,17 @@ class profile::openstack::dashboard(
     file { $custom_uploaddir:
       ensure => 'directory',
       owner  => 'apache',
+    }
+  }
+
+  if $change_region_selector {
+    file_line { 'clear_ file_content':
+      ensure            => absent,
+      path              => '/usr/lib/python2.7/site-packages/horizon/templates/horizon/common/_region_selector.html',
+      match             => '^.',
+      match_for_absence => true,
+      multiple          => true,
+      replace           => false,
     }
   }
 }
