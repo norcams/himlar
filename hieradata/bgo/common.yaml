@@ -173,11 +173,11 @@ profile::openstack::resource::subnets:
     tenant_name: 'imagebuilder'
   public1_ipv6:
     name: 'public1_IPv6'
-    cidr: '2001:700:2:8300::/64'
+    cidr: '2001:700:2:8301::/64'
     ip_version: '6'
     allocation_pools:
-      - 'start=2001:700:2:8300::1000,end=2001:700:2:8300::1fff'
-    gateway_ip: '2001:700:2:8300::1'
+      - 'start=2001:700:2:8301::1000,end=2001:700:2:8301::4fff'
+    gateway_ip: '2001:700:2:8301::1'
     dns_nameservers:
       - '2001:4860:4860::8888'
       - '2001:4860:4860::8844'
