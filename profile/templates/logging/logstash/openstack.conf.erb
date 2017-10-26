@@ -65,7 +65,7 @@ filter {
       add_tag => "openstack_logs"
     }
   } else if [type] == "syslog" {
-    if [message] =~ /(?i)nova|glance|neutron|cinder|keystone|horzion|calico|etcd/ {
+    if [message] =~ /(?i)nova|glance|neutron|cinder|keystone|horzion|calico-dhcp-agent|etcd/ {
         drop{}
     }
     grok {
