@@ -30,3 +30,20 @@ network::interfaces_hash:
                    { "runner" : {  "name" : "lacp",  "active": true, "fast_rate" : true,
                    "tx_hash": ["eth", "ipv4", "ipv6"], "tx_balancer": { "name": "basic" } },
                    "link_watch" : {  "name" : "ethtool" } }
+
+profile::base::lvm::physical_volume:
+  '/dev/sda3':
+    ensure: present
+    force:  true
+  '/dev/sdb':
+    ensure: present
+    force:  true
+  '/dev/sdc':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_ext':
+    physical_volumes:
+      - /dev/sda3
+      - /dev/sdb
+      - /dev/sdc
