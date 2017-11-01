@@ -9,14 +9,15 @@ network::interfaces_hash:
     mtu:       '1500'
     ipaddress: "%{hiera('netcfg_mgmt_netpart')}.17"
     netmask:   "%{hiera('netcfg_mgmt_netmask')}"
+    gateway:   "%{hiera('netcfg_mgmt_gateway')}"
     peerdns:   'yes'
-    dns1:      '129.240.2.3'
-    dns2:      '129.240.2.40'
+    dns1:      "%{hiera('netcfg_dns_server1')}"
     domain:    "%{hiera('netcfg_dns_search')}"
-    defroute:  'no'
+    defroute:  'yes'
   'eth1':
     onboot:    'yes'
     mtu:       '1500'
     ipaddress: "%{hiera('netcfg_trp_netpart')}.17"
     netmask:   "%{hiera('netcfg_trp_netmask')}"
     gateway:   "%{hiera('netcfg_trp_gateway')}"
+    defroute:  'no'
