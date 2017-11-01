@@ -1,0 +1,22 @@
+---
+include:
+  default:
+    - profile::dns::ns
+    - profile::dns::rndc_key
+    - profile::logging::rsyslog::client
+
+profile::dns::rndc_key::create_admin_key:    true
+profile::dns::rndc_key::create_mdns_key:     true
+profile::dns::rndc_key::host_is_bind_server: true
+
+profile::dns::ns::internal_zone: "test02.uhdc.no"
+
+profile::dns::ns::ptr_zones:
+  internal:
+    cidr: "172.28.0.0/16"
+    origin: "28.172"
+    filename: "reverse-172.28"
+  public:
+    cidr: "10.100.0.0/16"
+    origin: "100.10"
+    filename: "reverse-10.100"

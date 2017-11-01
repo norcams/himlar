@@ -47,6 +47,7 @@ allow_from_network: # FIXME (public net and mgmt net)
 profile::network::services::dns_records:
   A:
     # public
+    "ns.%{hiera('domain_public')}":                         "%{hiera('netcfg_public_netpart')}.16"
     "api.%{hiera('domain_public')}":                        "%{hiera('netcfg_public_netpart')}.250"
     "identity.api.%{hiera('domain_public')}":               "%{hiera('netcfg_public_netpart')}.250"
     "network.api.%{hiera('domain_public')}":                "%{hiera('netcfg_public_netpart')}.250"
@@ -58,6 +59,60 @@ profile::network::services::dns_records:
     "console.%{hiera('domain_public')}":                    "%{hiera('netcfg_public_netpart')}.251"
     "dashboard.%{hiera('domain_public')}":                  "%{hiera('netcfg_public_netpart')}.254"
     "%{::location}-controller-00.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_netpart')}.99"
+PTR:
+    # mgmt
+    '1.32.28.172.in-addr.arpa':    "%{::location}-leaf-01.%{hiera('domain_mgmt')}"
+    '11.32.28.172.in-addr.arpa':   "%{::location}-admin-01.%{hiera('domain_mgmt')}"
+    '12.32.28.172.in-addr.arpa':   "%{::location}-proxy-01.%{hiera('domain_mgmt')}"
+    '13.32.28.172.in-addr.arpa':   "%{::location}-logger-01.%{hiera('domain_mgmt')}"
+    '14.32.28.172.in-addr.arpa':   "%{::location}-monitor-01.%{hiera('domain_mgmt')}"
+    '15.32.28.172.in-addr.arpa':   "%{::location}-builder-01.%{hiera('domain_mgmt')}"
+    '16.32.28.172.in-addr.arpa':   "%{::location}-ns-01.%{hiera('domain_mgmt')}"
+    '17.32.28.172.in-addr.arpa':   "%{::location}-ns-02.%{hiera('domain_mgmt')}"
+    '21.32.28.172.in-addr.arpa':   "%{::location}-status-01.%{hiera('domain_mgmt')}"
+    '26.32.28.172.in-addr.arpa':   "%{::location}-nat-01.%{hiera('domain_mgmt')}"
+    '31.32.28.172.in-addr.arpa':   "%{::location}-mq-01.%{hiera('domain_mgmt')}"
+    '36.32.28.172.in-addr.arpa':   "%{::location}-image-01.%{hiera('domain_mgmt')}"
+    '41.32.28.172.in-addr.arpa':   "%{::location}-db-01.%{hiera('domain_mgmt')}"
+    '42.32.28.172.in-addr.arpa':   "%{::location}-db-02.%{hiera('domain_mgmt')}"
+    '46.32.28.172.in-addr.arpa':   "%{::location}-volume-01.%{hiera('domain_mgmt')}"
+    '51.32.28.172.in-addr.arpa':   "%{::location}-dashboard-01.%{hiera('domain_mgmt')}"
+    '56.32.28.172.in-addr.arpa':   "%{::location}-access-01.%{hiera('domain_mgmt')}"
+    '61.32.28.172.in-addr.arpa':   "%{::location}-console-01.%{hiera('domain_mgmt')}"
+    '66.32.28.172.in-addr.arpa':   "%{::location}-novactrl-01.%{hiera('domain_mgmt')}"
+    '71.32.28.172.in-addr.arpa':   "%{::location}-network-01.%{hiera('domain_mgmt')}"
+    '72.32.28.172.in-addr.arpa':   "%{::location}-network-02.%{hiera('domain_mgmt')}"
+    '73.32.28.172.in-addr.arpa':   "%{::location}-network-03.%{hiera('domain_mgmt')}"
+    '81.32.28.172.in-addr.arpa':   "%{::location}-identity-01.%{hiera('domain_mgmt')}"
+    '86.32.28.172.in-addr.arpa':   "%{::location}-api-01.%{hiera('domain_mgmt')}"
+    '91.32.28.172.in-addr.arpa':   "%{::location}-cephmon-01.%{hiera('domain_mgmt')}"
+    '92.32.28.172.in-addr.arpa':   "%{::location}-cephmon-02.%{hiera('domain_mgmt')}"
+    '93.32.28.172.in-addr.arpa':   "%{::location}-cephmon-03.%{hiera('domain_mgmt')}"
+    '99.32.28.172.in-addr.arpa':   "%{::location}-controller-00.%{hiera('domain_mgmt')}"
+    '100.32.28.172.in-addr.arpa':  "%{::location}-controller-01.%{hiera('domain_mgmt')}"
+    '101.32.28.172.in-addr.arpa':  "%{::location}-controller-02.%{hiera('domain_mgmt')}"
+    '102.32.28.172.in-addr.arpa':  "%{::location}-controller-03.%{hiera('domain_mgmt')}"
+    '103.32.28.172.in-addr.arpa':  "%{::location}-compute-01.%{hiera('domain_mgmt')}"
+    '104.32.28.172.in-addr.arpa':  "%{::location}-compute-02.%{hiera('domain_mgmt')}"
+    '105.32.28.172.in-addr.arpa':  "%{::location}-compute-03.%{hiera('domain_mgmt')}"
+    '106.32.28.172.in-addr.arpa':  "%{::location}-storage-01.%{hiera('domain_mgmt')}"
+    '107.32.28.172.in-addr.arpa':  "%{::location}-storage-02.%{hiera('domain_mgmt')}"
+    '108.32.28.172.in-addr.arpa':  "%{::location}-storage-03.%{hiera('domain_mgmt')}"
+    '109.32.28.172.in-addr.arpa':  "%{::location}-storage-04.%{hiera('domain_mgmt')}"
+    '110.32.28.172.in-addr.arpa':  "%{::location}-storage-05.%{hiera('domain_mgmt')}"
+    '111.32.28.172.in-addr.arpa':  "%{::location}-compute-04.%{hiera('domain_mgmt')}"
+    '112.32.28.172.in-addr.arpa':  "%{::location}-compute-05.%{hiera('domain_mgmt')}"
+    '113.32.28.172.in-addr.arpa':  "%{::location}-compute-06.%{hiera('domain_mgmt')}"
+    '114.32.28.172.in-addr.arpa':  "%{::location}-controller-04.%{hiera('domain_mgmt')}"
+    '115.32.28.172.in-addr.arpa':  "%{::location}-compute-07.%{hiera('domain_mgmt')}"
+    '115.32.28.172.in-addr.arpa':  "%{::location}-name-01.%{hiera('domain_mgmt')}"
+    '116.32.28.172.in-addr.arpa':  "%{::location}-compute-08.%{hiera('domain_mgmt')}"
+    # public
+    '16.200.100.10.in-addr.arpa':   "ns.%{hiera('domain_public')}"
+    '250.200.100.10.in-addr.arpa':  "api.%{hiera('domain_public')}"
+    '251.200.100.10.in-addr.arpa':  "console.%{hiera('domain_public')}"
+    '252.200.100.10.in-addr.arpa':  "access.%{hiera('domain_frontend')}"
+    '254.200.100.10.in-addr.arpa':  "dashboard.%{hiera('domain_frontend')}"
 
 ntp::servers:
   - ntp1.uio.no
@@ -79,18 +134,18 @@ profile::network::services::dns_options:
   CNAME:
     default:
       ttl: 3600
-      keyfile: "/etc/rndc.key"
-      server: "129.240.2.6"
+      keyfile: "/etc/rndc-admin.key"
+      server: "%{hiera('netcfg_mgmt_netpart')}.16"
   A:
     default:
       ttl: 3600
-      keyfile: "/etc/rndc.key"
-      server: "129.240.2.6"
+      keyfile: "/etc/rndc-admin.key"
+      server: "%{hiera('netcfg_mgmt_netpart')}.16"
   PTR:
     default:
-      ttl: 86400
-      keyfile: "/etc/rndc.key"
-      server: "129.240.2.6"
+      ttl: 3600
+      keyfile: "/etc/rndc-admin.key"
+      server: "%{hiera('netcfg_mgmt_netpart')}.16"
 
 profile::openstack::resource::networks:
   public:
