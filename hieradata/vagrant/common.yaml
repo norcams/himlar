@@ -154,7 +154,7 @@ profile::network::services::dns_records:
     '114.0.31.172.in-addr.arpa':    "%{::location}-controller-04.%{hiera('domain_mgmt')}"
     '115.0.31.172.in-addr.arpa':    "%{::location}-compute-07.%{hiera('domain_mgmt')}"
     '116.0.31.172.in-addr.arpa':    "%{::location}-compute-08.%{hiera('domain_mgmt')}"
-    '16.0.168.192.in-addr.arpa':    "ns01.%{hiera('domain_public')}"
+    '16.0.168.192.in-addr.arpa':    "ns.%{hiera('domain_public')}"
     '254.0.168.192.in-addr.arpa':   "dashboard.%{hiera('domain_frontend')}"
     '252.0.168.192.in-addr.arpa':   "access.%{hiera('domain_frontend')}"
     '251.0.168.192.in-addr.arpa':   "console.%{hiera('domain_public')}"

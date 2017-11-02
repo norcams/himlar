@@ -41,11 +41,11 @@ options  {
 };
 
 <% if @master %>
-<% forward_zones.each do |zone| -%>
-# Forward zone for <%= zone %> (master)
-zone "<%= zone %>" IN {
+<% forward_zones.each do |network, values| -%>
+# Forward zone for <%= network %>, <%= values["zone"] %> (master)
+zone "<%= values["zone"] %>" IN {
     type master;
-    file "/var/named/<%= zone %>.zone";
+    file "/var/named/<%= values["filename"] %>";
     allow-update { <%= @admin_mgmt_addr %>; };
     allow-query { 127.0.0.1; ::1; iaas_nets; };
     also-notify { <%= @ns2_mgmt_addr %>; };
@@ -62,9 +62,9 @@ zone "<%= values["origin"] %>.in-addr.arpa" IN {
 };
 <% end -%>
 <% else %>
-<% forward_zones.each do |zone| -%>
-# Forward zone for <%= zone %> (slave)
-zone "<%= zone %>" IN {
+<% forward_zones.each do |network, values| -%>
+# Forward zone for <%= network %>, <%= values["zone"] %> (slave)
+zone "<%= values["zone"] %>" IN {
     type slave;
     masters { <%= @ns1_mgmt_addr %>; <%= @ns1_public_addr %>; };
     allow-query { 127.0.0.1; ::1; iaas_nets; };

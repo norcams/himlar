@@ -14,7 +14,7 @@ class profile::dns::ns (
   )
 {
   # Our forward zones
-  $forward_zones = hiera_hash('profile::dns::ns::forward_zones', {})
+  $forward_zones = hiera_hash('profile::dns::ns::fw_zones', {})
 
   # Our reverse zones
   $reverse_zones = hiera_hash('profile::dns::ns::ptr_zones', {})
@@ -71,15 +71,15 @@ class profile::dns::ns (
   # Open nameserver ports in the firewall
   if $manage_firewall {
     profile::firewall::rule { '001 dns incoming tcp':
-      port   => 53,
+      dport  => 53,
       proto  => 'tcp'
     }
     profile::firewall::rule { '002 dns incoming udp':
-      port   => 53,
+      dport  => 53,
       proto  => 'udp'
     }
     profile::firewall::rule { '003 rndc incoming - bind only':
-      port   => 953,
+      dport  => 953,
       proto  => 'tcp',
       extras => $firewall_extras
     }
