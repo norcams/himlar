@@ -1,0 +1,13 @@
+; Forward zone for <%= @zone %>
+$ORIGIN <%= @zone %>.
+$TTL    3600
+@  IN	SOA	ns.<%= @zone %>.    root.<%= @zone %>. (
+                        2017092601         ; Serial
+                              3600         ; Refresh
+                              1800         ; Retry
+                            604800         ; Expire
+                            43200 )        ; Negative Cache TTL
+
+        IN      NS      ns.<%= @zone %>.
+
+ns  	  IN	  A		<%= @ns1_public_addr %>

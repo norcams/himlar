@@ -41,14 +41,16 @@ options  {
 };
 
 <% if @master %>
-# Our internal forward zone (master)
-zone "<%= @internal_zone %>" IN {
+<% forward_zones.each do |zone| -%>
+# Forward zone for <%= zone %> (master)
+zone "<%= zone %>" IN {
     type master;
-    file "/var/named/<%= @internal_zone %>.zone";
+    file "/var/named/<%= zone %>.zone";
     allow-update { <%= @admin_mgmt_addr %>; };
     allow-query { 127.0.0.1; ::1; iaas_nets; };
     also-notify { <%= @ns2_mgmt_addr %>; };
 };
+<% end -%>
 <% reverse_zones.each do |network, values| -%>
 # Reverse (PTR) zone for <%= network %> network, <%= values["cidr"] %> (master)
 zone "<%= values["origin"] %>.in-addr.arpa" IN {
@@ -60,12 +62,14 @@ zone "<%= values["origin"] %>.in-addr.arpa" IN {
 };
 <% end -%>
 <% else %>
-# Our internal forward zone (slave)
-zone "<%= @internal_zone %>" IN {
+<% forward_zones.each do |zone| -%>
+# Forward zone for <%= zone %> (slave)
+zone "<%= zone %>" IN {
     type slave;
     masters { <%= @ns1_mgmt_addr %>; <%= @ns1_public_addr %>; };
     allow-query { 127.0.0.1; ::1; iaas_nets; };
 };
+<% end -%>
 <% reverse_zones.each do |network, values| -%>
 # Reverse (PTR) zone for <%= network %> network, <%= values["cidr"] %> (slave)
 zone "<%= values["origin"] %>.in-addr.arpa" IN {
