@@ -35,7 +35,7 @@ options  {
     allow-recursion { 127.0.0.1; ::1; iaas_nets; };
     directory "/var/named";
     dnssec-enable yes;
-    dnssec-validation yes;
+    dnssec-validation no;
     empty-zones-enable yes;
     listen-on-v6 { any; };
 };
