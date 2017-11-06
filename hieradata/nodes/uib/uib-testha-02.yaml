@@ -1,0 +1,12 @@
+---
+network::interfaces_hash:
+  'eth0':
+    onboot:         'yes'
+    ipaddress:      '172.31.0.14'
+    netmask:        '255.255.248.0'
+    gateway:        "%{hiera('netcfg_mgmt_gateway')}"
+    defroute:       'yes'
+    peerdns:        'yes'
+    dns1:           "%{hiera('netcfg_dns_server1')}"
+    dns2:           "%{hiera('netcfg_dns_server2')}"
+    domain:         "%{hiera('netcfg_dns_search')}"
