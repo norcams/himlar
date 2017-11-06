@@ -141,11 +141,11 @@ profile::openstack::resource::subnets:
     tenant_name: 'openstack'
   public1_ipv6:
     name: 'public1_IPv6'
-    cidr: '2001:700:200:915::/64'
+    cidr: '2001:700:200:916::/64'
     ip_version: '6'
     allocation_pools:
-      - 'start=2001:700:200:915::1000,end=2001:700:200:915::1fff'
-    gateway_ip: '2001:700:200:915::1'
+      - 'start=2001:700:200:916::1000,end=2001:700:200:916::3fff'
+    gateway_ip: '2001:700:200:916::1'
     dns_nameservers:
       - '2001:700:200:6::a1f:a1fa'
     network_name: 'IPv6'

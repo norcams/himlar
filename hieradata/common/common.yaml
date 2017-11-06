@@ -175,7 +175,7 @@ profile::network::services::dns_records:
     "%{::location}-ns-01.%{hiera('domain_mgmt')}":          "%{hiera('netcfg_mgmt_netpart')}.16"
     "%{::location}-ns-02.%{hiera('domain_mgmt')}":          "%{hiera('netcfg_mgmt_netpart')}.17"
     "%{::location}-status-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_netpart')}.21"
-    "%{::location}-nat-01.%{hiera('domain_mgmt')}":         "%{hiera('netcfg_mgmt_netpart')}.26"
+    "%{::location}-nat-linux-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_mgmt_netpart')}.26"
     "%{::location}-mq-01.%{hiera('domain_mgmt')}":          "%{hiera('netcfg_mgmt_netpart')}.31"
     "%{::location}-image-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_mgmt_netpart')}.36"
     "%{::location}-db-01.%{hiera('domain_mgmt')}":          "%{hiera('netcfg_mgmt_netpart')}.41"
