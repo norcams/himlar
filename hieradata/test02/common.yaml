@@ -134,18 +134,39 @@ profile::network::services::dns_options:
   CNAME:
     default:
       ttl: 3600
-      keyfile: "/etc/rndc-admin.key"
-      server: "%{hiera('netcfg_mgmt_netpart')}.16"
+      keyfile: "/etc/rndc.key"
+      server: "129.240.2.6"
   A:
     default:
       ttl: 3600
-      keyfile: "/etc/rndc-admin.key"
-      server: "%{hiera('netcfg_mgmt_netpart')}.16"
+      keyfile: "/etc/rndc.key"
+      server: "129.240.2.6"
   PTR:
     default:
-      ttl: 3600
-      keyfile: "/etc/rndc-admin.key"
-      server: "%{hiera('netcfg_mgmt_netpart')}.16"
+      ttl: 86400
+      keyfile: "/etc/rndc.key"
+      server: "129.240.2.6"
+
+#--------------------------------------------------------------
+# NEW NAMESERVERS!
+#--------------------------------------------------------------
+# profile::network::services::dns_options:
+#   CNAME:
+#     default:
+#       ttl: 3600
+#       keyfile: "/etc/rndc-admin.key"
+#       server: "%{hiera('netcfg_mgmt_netpart')}.16"
+#   A:
+#     default:
+#       ttl: 3600
+#       keyfile: "/etc/rndc-admin.key"
+#       server: "%{hiera('netcfg_mgmt_netpart')}.16"
+#   PTR:
+#     default:
+#       ttl: 3600
+#       keyfile: "/etc/rndc-admin.key"
+#       server: "%{hiera('netcfg_mgmt_netpart')}.16"
+#--------------------------------------------------------------
 
 profile::openstack::resource::networks:
   public:
