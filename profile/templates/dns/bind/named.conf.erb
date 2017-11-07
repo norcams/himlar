@@ -35,20 +35,22 @@ options  {
     allow-recursion { 127.0.0.1; ::1; iaas_nets; };
     directory "/var/named";
     dnssec-enable yes;
-    dnssec-validation yes;
+    dnssec-validation no;
     empty-zones-enable yes;
     listen-on-v6 { any; };
 };
 
 <% if @master %>
-# Our internal forward zone (master)
-zone "<%= @internal_zone %>" IN {
+<% forward_zones.each do |network, values| -%>
+# Forward zone for <%= network %>, <%= values["zone"] %> (master)
+zone "<%= values["zone"] %>" IN {
     type master;
-    file "/var/named/<%= @internal_zone %>.zone";
+    file "/var/named/<%= values["filename"] %>";
     allow-update { <%= @admin_mgmt_addr %>; };
     allow-query { 127.0.0.1; ::1; iaas_nets; };
     also-notify { <%= @ns2_mgmt_addr %>; };
 };
+<% end -%>
 <% reverse_zones.each do |network, values| -%>
 # Reverse (PTR) zone for <%= network %> network, <%= values["cidr"] %> (master)
 zone "<%= values["origin"] %>.in-addr.arpa" IN {
@@ -60,12 +62,14 @@ zone "<%= values["origin"] %>.in-addr.arpa" IN {
 };
 <% end -%>
 <% else %>
-# Our internal forward zone (slave)
-zone "<%= @internal_zone %>" IN {
+<% forward_zones.each do |network, values| -%>
+# Forward zone for <%= network %>, <%= values["zone"] %> (slave)
+zone "<%= values["zone"] %>" IN {
     type slave;
     masters { <%= @ns1_mgmt_addr %>; <%= @ns1_public_addr %>; };
     allow-query { 127.0.0.1; ::1; iaas_nets; };
 };
+<% end -%>
 <% reverse_zones.each do |network, values| -%>
 # Reverse (PTR) zone for <%= network %> network, <%= values["cidr"] %> (slave)
 zone "<%= values["origin"] %>.in-addr.arpa" IN {

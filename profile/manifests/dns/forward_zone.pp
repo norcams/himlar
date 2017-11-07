@@ -1,11 +1,10 @@
-define profile::dns::reverse_zone($cidr, $origin, $filename) {
-  $internal_zone = $::profile::dns::ns::internal_zone
+define profile::dns::forward_zone($zone, $filename) {
 
   # Our name servers
   $name_servers = hiera_array('profile::dns::ns::name_servers', {})
 
   file { "/var/named/${filename}":
-    content      => template("${module_name}/dns/bind/reverse_zone.erb"),
+    content      => template("${module_name}/dns/bind/forward_zone.erb"),
     notify       => Service['named'],
     mode         => '0640',
     owner        => 'root',

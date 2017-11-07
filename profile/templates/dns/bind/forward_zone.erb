@@ -1,14 +1,15 @@
-; Reverse zone for <%= @cidr %>
-$ORIGIN <%= @origin %>.IN-ADDR.arpa.
+; Forward zone for <%= @zone %>
+$ORIGIN <%= @zone %>.
 $TTL    3600
-@  IN	SOA	ns.<%= @internal_zone %>.    root.<%= @internal_zone %>. (
-                        2017092601         ; Serial
+@  IN	SOA	ns.<%= @zone %>.    root.<%= @zone %>. (
+                        2017110201         ; Serial
                               3600         ; Refresh
                               1800         ; Retry
                             604800         ; Expire
                             43200 )        ; Negative Cache TTL
 
-; Name servers:
 <% name_servers.each do |ns| -%>
-      NS      <%= ns %>.
+        IN      NS      <%= ns %>.
 <% end -%>
+
+ns  	  IN	  A		<%= @ns1_public_addr %>
