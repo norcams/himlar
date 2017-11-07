@@ -78,21 +78,21 @@ mod 'gitolite', :ref => '1.0',                   :git => github + 'uib/puppet-gi
 
 # profile::application::foreman
 #
-mod 'voxpupuli/r10k', :ref => 'v4.2.0',          :git => github + 'voxpupuli/puppet-r10k'
-mod 'theforeman/foreman', :ref => '7.0.0',       :git => github + 'theforeman/puppet-foreman.git'
-mod 'theforeman/concat_native', '1.5.0'          # forge
-mod 'theforeman/tftp', '2.0.0'                   # forge
-mod 'theforeman/puppet', :ref => '6.0.1',        :git => github + 'theforeman/puppet-puppet.git'
-mod 'theforeman/dns', '4.0.0'                    # forge
-mod 'theforeman/dhcp', :ref => '3.1.1-norcams',  :git => github + 'norcams/puppet-dhcp.git'
-mod 'theforeman/foreman_proxy', '5.0.0'          # forge
-mod 'theforeman/git', '2.0.0'                    # forge
-mod 'adrien/alternatives', '0.3.0'               # forge
-mod 'voxpupuli/extlib', :ref => 'v0.11.3',      :git => github + 'voxpupuli/puppet-extlib.git'
-mod 'puppetlabs/ruby', '0.5.0'                   # forge
-mod 'puppetlabs/xinetd', '2.0.0'                 # forge
-mod 'eyaml', :ref => 'v0.3.0',                   :git => github + 'ghoneycutt/puppet-module-eyaml'
-mod 'bind', :ref => 'keyfile_resource_record',   :git => github + 'norcams/puppet-bind'
+mod 'voxpupuli/r10k', :ref => 'v4.2.0',            :git => github + 'voxpupuli/puppet-r10k'
+mod 'theforeman/foreman', :ref => '7.0.0',         :git => github + 'theforeman/puppet-foreman.git'
+mod 'theforeman/concat_native', '1.5.0'            # forge
+mod 'theforeman/tftp', '2.0.0'                     # forge
+mod 'theforeman/puppet', :ref => '6.0.1',          :git => github + 'theforeman/puppet-puppet.git'
+mod 'theforeman/dns', '4.0.0'                      # forge
+mod 'theforeman/dhcp', :ref => '3.1.1-norcams',    :git => github + 'norcams/puppet-dhcp.git'
+mod 'theforeman/foreman_proxy', :ref => '04abf5f', :git => github + 'theforeman/puppet-foreman_proxy.git'
+mod 'theforeman/git', '2.0.0'                      # forge
+mod 'adrien/alternatives', '0.3.0'                 # forge
+mod 'voxpupuli/extlib', :ref => 'v0.11.3',         :git => github + 'voxpupuli/puppet-extlib.git'
+mod 'puppetlabs/ruby', '0.5.0'                     # forge
+mod 'puppetlabs/xinetd', '2.0.0'                   # forge
+mod 'eyaml', :ref => 'v0.3.0',                     :git => github + 'ghoneycutt/puppet-module-eyaml'
+mod 'bind', :ref => 'keyfile_resource_record',     :git => github + 'norcams/puppet-bind'
 
 #
 # bootstrap
