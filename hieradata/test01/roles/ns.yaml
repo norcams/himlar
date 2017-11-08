@@ -1,0 +1,37 @@
+---
+include:
+  default:
+    - profile::dns::ns
+    - profile::dns::rndc_key
+    - profile::logging::rsyslog::client
+
+profile::dns::rndc_key::create_admin_key:    true
+profile::dns::rndc_key::create_mdns_key:     true
+profile::dns::rndc_key::host_is_bind_server: true
+
+profile::dns::ns::internal_zone: "test01.uhdc.no"
+
+# Name servers in zone file
+profile::dns::ns::name_servers:
+  - "ns.%{hiera('profile::dns::ns::internal_zone')}"
+  - "ns.test02.uhdc.no"
+
+# Forward zones
+profile::dns::ns::fw_zones:
+  internal:
+    zone: "%{hiera('profile::dns::ns::internal_zone')}"
+    filename: "%{hiera('profile::dns::ns::internal_zone')}.zone"
+  frontend:
+    zone: "iaas.uib.no"
+    filename: "iaas.uib.no.zone"
+
+# Reverse zones
+profile::dns::ns::ptr_zones:
+  internal:
+    cidr: "172.28.0.0/16"
+    origin: "28.172"
+    filename: "reverse-172.28"
+  public:
+    cidr: "129.177.0.0/16"
+    origin: "177.129"
+    filename: "reverse-129.177"
