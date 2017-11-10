@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 host='https://api.vagrant.iaas.intern:5000/v3'
 ca_dir='/opt/himlar/provision/ca'
