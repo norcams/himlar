@@ -105,7 +105,6 @@ PTR:
     '113.32.28.172.in-addr.arpa':  "%{::location}-compute-06.%{hiera('domain_mgmt')}"
     '114.32.28.172.in-addr.arpa':  "%{::location}-controller-04.%{hiera('domain_mgmt')}"
     '115.32.28.172.in-addr.arpa':  "%{::location}-compute-07.%{hiera('domain_mgmt')}"
-    '115.32.28.172.in-addr.arpa':  "%{::location}-name-01.%{hiera('domain_mgmt')}"
     '116.32.28.172.in-addr.arpa':  "%{::location}-compute-08.%{hiera('domain_mgmt')}"
     # public
     '16.200.100.10.in-addr.arpa':   "ns.%{hiera('domain_public')}"
