@@ -124,7 +124,7 @@ profile::openstack::resource::networks:
   IPv6:
     name: 'IPv6'
     admin_state_up: true
-    shared: false
+    shared: true
     tenant_name: 'openstack'
     provider_network_type: 'local'
   imagebuilder:
