@@ -128,6 +128,7 @@ profile::base::lvm::logical_volume:
 profile::base::yumrepo::repo_hash:
   rdo-release:
     ensure: present
+    exclude: 'openstack-neutron openstack-neutron-common python-neutron'
   calico22:
     ensure: present
     exclude: 'calico-dhcp-agent' #FIXME
