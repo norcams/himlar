@@ -29,9 +29,9 @@ profile::dns::ns::fw_zones:
 profile::dns::ns::ptr_zones:
   internal:
     cidr: "172.28.0.0/16"
-    origin: "28.172"
+    origin: "28.172.in-addr.arpa"
     filename: "reverse-172.28"
   public:
     cidr: "129.177.0.0/16"
-    origin: "177.129"
+    origin: "177.129.in-addr.arpa"
     filename: "reverse-129.177"
