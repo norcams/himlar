@@ -24,11 +24,9 @@ ceph::profile::params::osds:
     db_device:  '/dev/sdk'
     wal_device: '/dev/sdk'
   '/dev/sdf':
-    db_device:  '/dev/sdk'
-    wal_device: '/dev/sdk'
+    ensure:     'present'
   '/dev/sdg':
-    db_device:  '/dev/sdk'
-    wal_device: '/dev/sdk'
+    ensure:     'present'
 #  '/dev/sdh':
 #    db_device:  '/dev/sdk'
 #    wal_device: '/dev/sdk'
