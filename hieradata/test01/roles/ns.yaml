@@ -20,18 +20,18 @@ profile::dns::ns::name_servers:
 profile::dns::ns::fw_zones:
   internal:
     zone: "%{hiera('profile::dns::ns::internal_zone')}"
-    filename: "%{hiera('profile::dns::ns::internal_zone')}.zone"
+    filename: "%{hiera('profile::dns::ns::zonedir')}/%{hiera('profile::dns::ns::internal_zone')}"
   frontend:
     zone: "iaas.uib.no"
-    filename: "iaas.uib.no.zone"
+    filename: "%{hiera('profile::dns::ns::zonedir')}/iaas.uib.no"
 
 # Reverse zones
 profile::dns::ns::ptr_zones:
   internal:
     cidr: "172.28.0.0/16"
     origin: "28.172.in-addr.arpa"
-    filename: "reverse-172.28"
+    filename: "%{hiera('profile::dns::ns::zonedir')}/28.172.in-addr.arpa"
   public:
     cidr: "129.177.0.0/16"
     origin: "177.129.in-addr.arpa"
-    filename: "reverse-129.177"
+    filename: "%{hiera('profile::dns::ns::zonedir')}/177.129.in-addr.arpa"

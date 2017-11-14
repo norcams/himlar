@@ -10,7 +10,8 @@ class profile::dns::ns (
   $master = {},
   $manage_firewall = {},
   $firewall_extras = {},
-  $internal_zone = {}
+  $internal_zone = {},
+  $zonedir = {}
   )
 {
   # Our forward zones
@@ -40,6 +41,14 @@ class profile::dns::ns (
     group        => 'named',
     require      => Package['bind'],
   }
+  # Ensure that /var/named/$zonedir exists with correct permissions
+  file { "/var/named/${zonedir}":
+    ensure       => directory,
+    mode         => '0770',
+    owner        => 'root',
+    group        => 'named',
+    require      => Package['bind'],
+  }
   # Create named.conf from template
   file { '/etc/named.conf':
     content      => template("${module_name}/dns/bind/named.conf.erb"),
@@ -58,6 +67,7 @@ class profile::dns::ns (
     require => [
       File['/etc/rndc.conf'],
       File['/var/named'],
+      File["/var/named/${zonedir}"],
       File['/etc/named.conf']
       ],
   }

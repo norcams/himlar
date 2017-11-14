@@ -2,6 +2,7 @@
 profile::dns::ns::master: true
 profile::dns::ns::my_mgmt_addr:      "%{hiera('netcfg_mgmt_netpart')}.16"
 profile::dns::ns::my_transport_addr: "%{hiera('netcfg_trp_netpart')}.16"
+profile::dns::ns::zonedir: 'pz'
 
 network::interfaces_hash:
   'eth1':
