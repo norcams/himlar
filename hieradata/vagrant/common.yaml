@@ -101,7 +101,7 @@ profile::network::services::dns_records:
     "ns.%{hiera('domain_public')}":                       "%{hiera('netcfg_public_netpart')}.16"
     "dashboard.%{hiera('domain_frontend')}":              "%{hiera('netcfg_public_netpart')}.254"
     "access.%{hiera('domain_frontend')}":                 "%{hiera('netcfg_public_netpart')}.252"
-    "console.%{hiera('domain_public')}":                  "%{hiera('netcfg_public_netpart')}.251"
+    "console.%{hiera('domain_public')}":                  "%{hiera('netcfg_public_netpart')}.250"
     "api.%{hiera('domain_public')}":                      "%{hiera('netcfg_public_netpart')}.250"
     "identity.api.%{hiera('domain_public')}":             "%{hiera('netcfg_public_netpart')}.250"
     "image.api.%{hiera('domain_public')}":                "%{hiera('netcfg_public_netpart')}.250"

@@ -18,15 +18,15 @@ class profile::openstack::compute::consoleproxy(
 
 
   if $manage_firewall {
-    $hiera_allow_from_network = hiera_array('allow_from_network', undef)
-    $source = $allow_from_network? {
-      undef   => $hiera_allow_from_network,
-      ''      => $hiera_allow_from_network,
-      default => $allow_from_network
-    }
+  #  $hiera_allow_from_network = hiera_array('allow_from_network', undef)
+  #  $source = $allow_from_network? {
+  #    undef   => $hiera_allow_from_network,
+  #    ''      => $hiera_allow_from_network,
+  #    default => $allow_from_network
+  #  }
     profile::firewall::rule { '222 nova-proxy accept tcp':
       port   => $port,
-      source => $source,
+  #    source => $source,
       extras => $firewall_extras
     }
   }
