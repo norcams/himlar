@@ -26,7 +26,7 @@ class profile::openstack::compute::consoleproxy(
   #  }
     profile::firewall::rule { '222 nova-proxy accept tcp':
       port   => $port,
-  #    source => $source,
+  #s    source => $source,
       extras => $firewall_extras
     }
   }

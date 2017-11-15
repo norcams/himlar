@@ -64,6 +64,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - "image.api.%{hiera('domain_public')}:9292":     'bk_image'
       - "status.%{hiera('domain_frontend')}":           'bk_status'
       - "console.%{hiera('domain_public')}:6082":       'bk_console'
+      - "access.%{hiera('domain_frontend')}:443":       'bk_access' #access
   internal_domains:
     ensure: present
     mappings:
@@ -86,6 +87,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       "%{::ipaddress_public1}:443":   ['ssl', 'crt', "%{hiera('status_ssl_pem')}"]
       "%{::ipaddress_public1}:80":    []
       "%{::ipaddress_public1}:6082":  ['ssl', 'crt', "%{hiera('console_ssl_pem')}"]
+      "%{::ipaddress_public1}:443":   ['ssl', 'crt', "%{hiera('access_ssl_pem')}"] #access
     options:
       - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/public_domains.map)]'
       - capture:        'request header Host len 64' #for debug
@@ -145,6 +147,9 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     options:
       - option:       'httplog'
       - errorfile:    '503 /etc/haproxy/error.api.http'
+  bk_access:
+    options:
+      - option:       'httplog'           #access  
 
 # Servers for backends. This will be merged and can should be overridden i location
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
@@ -190,6 +195,12 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ipaddresses:        ["%{hiera('netcfg_trp_netpart')}.61"]
     ports:              '6082'
     options:            'check'
+  access:
+    listening_service:  'bk_access'                   #access
+    server_names:       ['%{::location}-access-01']
+    ipaddresses:        ["%{hiera('netcfg_trp_netpart')}.56"]
+    ports:              '443'
+    options:            'check'  
 
 
 # Errorpage for api, not used for status!
