@@ -74,6 +74,10 @@ class profile::openstack::identity (
     include ::trove::keystone::auth
   }
 
+  if $gnocchi_enabled {
+    include ::gnocchi::keystone::auth
+  }
+
   unless empty($roles_extra) {
     keystone_role { $roles_extra:
       ensure => present

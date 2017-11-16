@@ -41,6 +41,7 @@ profile::openstack::database::sql::glance_enabled:   true
 profile::openstack::database::sql::nova_enabled:     true
 profile::openstack::database::sql::neutron_enabled:  true
 profile::openstack::database::sql::cinder_enabled:   true
+profile::openstack::database::sql::gnocchi_enabled:  true
 profile::openstack::database::sql::heat_enabled:     false
 profile::openstack::database::sql::trove_enabled:    false
 
@@ -53,6 +54,7 @@ profile::openstack::identity::cinder_enabled:     true
 profile::openstack::identity::glance_enabled:     true
 profile::openstack::identity::neutron_enabled:    true
 profile::openstack::identity::nova_enabled:       true
+profile::openstack::identity::gnocchi_enabled:    true
 profile::openstack::identity::swift_enabled:      false
 profile::openstack::identity::trove_enabled:      false
 
