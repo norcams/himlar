@@ -1,0 +1,6 @@
+---
+gnocchi::keystone::authtoken::insecure:		true
+keystone::resource::authtoken::insecure:	true
+keystone::service::insecure:			true
+keystone::validate_insecure:			true
+keystone::validate_cacert:			false
