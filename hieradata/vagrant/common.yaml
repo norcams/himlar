@@ -120,6 +120,7 @@ profile::network::services::dns_records:
     "compute.api.%{hiera('domain_public')}":              "%{hiera('netcfg_public_netpart')}.250"
     "volume.api.%{hiera('domain_public')}":               "%{hiera('netcfg_public_netpart')}.250"
     "status.%{hiera('domain_frontend')}":                 "%{hiera('netcfg_public_netpart')}.250"
+    "metric.api.%{hiera('domain_frontend')}":             "%{hiera('netcfg_public_netpart')}.250"
   AAAA:
     "ns6.%{hiera('domain_public')}":                       "%{hiera('netcfg_public_netpart6')}::16"
   PTR:
@@ -210,7 +211,7 @@ foreman::admin_password:                            'changeme'
 
 # glance.yaml
 glance::db::mysql::password:                        'glance_pass'
-#glance::notify::rabbitmq::rabbit_password:          'glance_quest'
+#glance::notify::rabbitmq::rabbit_password:         'glance_quest'
 
 # horizon.yaml
 horizon::secret_key:                                'horizon_secret'
@@ -246,6 +247,13 @@ graphite_secret_key:                                'graphite_pass'
 sensu_mysql_password:                               'sensu_pass'
 grafana_admin_password:                             'changeme'
 local_rabbit_password:                              'local'
+
+# telemetry/metrics
+gnocchi::api::keystone_password:                    'gnocchi'
+gnocchi::db::mysql::password:                       'gnocchi_pass'
+ceilometer::keystone::authtoken:                    'ceilometer'
+ceilometer::telemetry_secret:                       'ceilometer'
+ceilometer::rabbit_password:                        'ceilometer'
 
 # The root user password: himlardev
 accounts::root_user::password:                      '$1$vagrant$z3l/WWbF3HllJk0tnqO3i/'
