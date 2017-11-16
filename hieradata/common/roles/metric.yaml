@@ -1,0 +1,17 @@
+---
+include:
+  default:
+    - profile::openstack::gnocchi
+    - profile::openstack::openrc
+
+
+# Enable extra yum repo
+profile::base::yumrepo::repo_hash:
+  rdo-release:
+    ensure: present
+
+profile::base::common::packages:
+  'python-openstackclient': {}
+
+profile::openstack::gnocchi::manage_firewall:       true
+gnocchi::api::sync_db:                              true

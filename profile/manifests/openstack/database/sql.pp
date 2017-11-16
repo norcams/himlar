@@ -6,6 +6,7 @@ class profile::openstack::database::sql (
   $heat_enabled     = false,
   $trove_enabled    = false,
   $cinder_enabled   = false,
+  $gnocchi_enabled  = false,
   $create_cell0     = false,
   $database         = 'mariadb',
 ) {
@@ -67,6 +68,10 @@ class profile::openstack::database::sql (
 
   if $trove_enabled {
     include ::trove::db::mysql
+  }
+
+  if $gnocchi_enabled {
+    include ::gnocchi::db::mysql
   }
 
 }
