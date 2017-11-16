@@ -7,17 +7,16 @@ define profile::network::service::dns_record(
   validate_hash($options)
   validate_hash($records)
 
+  $record_name = regsubst($name,'_.*$','')
+
   case $type {
     'CNAME': {
-      $record_name = $name
       $data = regsubst($records[$name],'(.*[^.])$','\1.')
     }
     'PTR': {
-      $record_name = $name
       $data = regsubst($records[$name],'(.*[^.])$','\1.')
     }
     default: {
-      $record_name = $name
       $data   = $records[$name]
     }
   }
@@ -29,7 +28,7 @@ define profile::network::service::dns_record(
   }
 
   $record = {
-    "${type}_record_${name}" => {
+    "${type}_record_${record_name}" => {
       'record' => $record_name,
       'type'   => $type,
       'data'   => $data,
