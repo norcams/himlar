@@ -11,18 +11,18 @@ define profile::network::service::dns_record(
 
   case $type {
     'CNAME': {
-      $data = regsubst($records[$name],'(.*[^.])$','\1.')
+      $data = regsubst($records[$record_name],'(.*[^.])$','\1.')
     }
     'PTR': {
-      $data = regsubst($records[$name],'(.*[^.])$','\1.')
+      $data = regsubst($records[$record_name],'(.*[^.])$','\1.')
     }
     default: {
-      $data   = $records[$name]
+      $data   = $records[$record_name]
     }
   }
 
-  if is_hash($options[$name]) {
-    $record_options = merge($options['default'], $options[$name])
+  if is_hash($options[$record_name]) {
+    $record_options = merge($options['default'], $options[$record_name])
   } else {
     $record_options = $options['default']
   }
