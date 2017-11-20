@@ -147,6 +147,13 @@ sensu_mysql_password:                               'sensu'
 grafana_admin_password:                             'changeme'
 local_rabbit_password:                              'local'
 
+# telemetry/metrics
+gnocchi::api::keystone_password:                    'gnocchi'
+gnocchi::db::mysql::password:                       'gnocchi_pass'
+ceilometer::keystone::authtoken:                    'ceilometer'
+ceilometer::telemetry_secret:                       'ceilometer'
+ceilometer::rabbit_password:                        'ceilometer'
+
 # The root user password
 #accounts::root_user::password:                      '$6$qVzsC5fQMqdF4gKw$.zFAu9LtxSAaPgbtZul/ZXUXpBgjaVJbQ.CIMo9eo5TslU8KU1SO/tjRZbh1hFM6RB55QFEzJlF5ejAgglk50.'
 
