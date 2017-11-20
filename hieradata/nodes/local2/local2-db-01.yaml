@@ -46,8 +46,8 @@ profile::database::galera::firewall_rules:
     'dport':  '4444'
     'source': '192.168.113.1/32'
 
-db_ssl_key:       '/etc/pki/tls/private/db01.trp.local.iaas.intern.key'
-db_ssl_cert:      '/etc/pki/tls/certs/db01.trp.local.iaas.intern.crt'
+db_ssl_key:       '/etc/pki/tls/private/db01.iaas.intern.key.pem'
+db_ssl_cert:      '/etc/pki/tls/certs/db01.iaas.intern.cert.pem'
 db_ssl_ca:        '/etc/pki/tls/certs/cachain.pem'
 
 # Enable ssl for wsrep and sst
