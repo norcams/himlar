@@ -38,3 +38,7 @@ profile::monitoring::grafana::datasource:
     url:                "http://%{hiera('mgmt__address__monitor')}"
     access_mode:        'proxy'
     is_default:          true
+
+
+# GET / HTTP/1.1
+# HOST: access.vagrant.iaas.intern
