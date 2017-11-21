@@ -27,7 +27,7 @@ profile::base::network::manage_dummy:                               true
 profile::highavailability::loadbalancing::haproxy::manage_haproxy:  true
 profile::highavailability::loadbalancing::haproxy::manage_firewall: true
 profile::highavailability::loadbalancing::haproxy::firewall_ports:
-  public:    ['5000', '8774', '8776', '9292', '9696', '80', '443', '6082'] 
+  public:    ['5000', '8774', '8776', '9292', '9696', '80', '443', '6082']
   internal:  ['5000', '8774', '8776', '9292', '9696', '35357', '80', '443', '6082'] #open the transport network via api
   mgmt:      ['9000']
 
@@ -65,7 +65,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - "image.api.%{hiera('domain_public')}:9292":     'bk_image'
       - "status.%{hiera('domain_frontend')}":           'bk_status'
       - "console.%{hiera('domain_public')}:6082":       'bk_console'
-      - "access.%{hiera('domain_frontend')}":        'bk_access' #access
+      - "access.%{hiera('domain_frontend')}":           'bk_access'
   internal_domains:
     ensure: present
     mappings:
@@ -86,7 +86,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       "%{::ipaddress_public1}:9292":  ['ssl', 'crt', "%{hiera('star_api_ssl_pem')}"]
       "%{::ipaddress_public1}:9696":  ['ssl', 'crt', "%{hiera('star_api_ssl_pem')}"]
       "%{::ipaddress_public1}:443":   ['ssl', 'crt', "%{hiera('access_ssl_pem')}", 'crt', "%{hiera('status_ssl_pem')}"] 
-    #  "%{::ipaddress_public1}:443": ['ssl', 'crt', "%{hiera('status_ssl_pem')}"]
       "%{::ipaddress_public1}:80":    []
       "%{::ipaddress_public1}:6082":  ['ssl', 'crt', "%{hiera('console_ssl_pem')}"]
     options:
@@ -95,7 +94,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       - http-request:
         - 'add-header X-Forwarded-Proto https if { ssl_fc }'
         - 'set-header X-Forwarded-Port %[dst_port]'
-    #  - redirect:       'scheme https if !{ ssl_fc }' # redirect all to https (only port 80)
+      - redirect:       'scheme https if !{ ssl_fc }' # redirect all to https (only port 80)
   frontend_internal:
     bind:
       "%{::ipaddress_trp1}:35357": [] # keystone-admin
@@ -150,7 +149,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
       - errorfile:    '503 /etc/haproxy/error.api.http'
   bk_access:
     options:
-      - option:       'httplog'           #access  
+      - option:       'httplog'  
 
 # Servers for backends. This will be merged and can should be overridden i location
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
@@ -197,7 +196,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ports:              '6082'
     options:            'check'
   access:
-    listening_service:  'bk_access'                   #access 
+    listening_service:  'bk_access'
     server_names:       ['%{::location}-access-01']
     ipaddresses:        ["%{hiera('netcfg_trp_netpart')}.56"]
     ports:              '80'
