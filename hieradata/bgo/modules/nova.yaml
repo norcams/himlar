@@ -2,3 +2,12 @@
 nova::nova_public_key:
   type: ssh-rsa
   key:  'AAAAB3NzaC1yc2EAAAADAQABAAACAQDNf/1dxJVGduz08wT8bHzwbkIS0vevD//51wpObuLXubG67lQvEtzG0sAjoTO+hRJKP6poKDRkUVoEoYN0o9Lo4I36xYfYXV4ewrDLQgQwYKSzyMsK0VDHp1kbRvS2OOegW4CLa98Bt8zII/3Q/6uYJeYww/Y9IiwZ+TFWw3sDVfY6w37q24oBu3wCHGhWsAznrJ2+kqnx2TMzw3ewEk+N06jAmi+ygCLKtFNnO1+WBBngAgTvBvTcWmMod6YpwFk3m+vapKNwXf4IkY8cecdppgZ8aOiwOCiW6UIUnU1jnI+z+SAOtN+9s7NGR85nWAHSULHN/mRrHgnlMf9Wwfk/Yo1YCOihimCb0/sgNkja3MgsDCHsWhMwGUZwMWrnelnYi/7TkLOZvi1DHZrHF35QSdembm0oN2mTeLv1n2VxCZk8zxppwg6+xe/VKMy5YyKlBDza2iVgbvjW+jYps4+fxXFglKsCba1xsdwCq70R0VhVDVedFT2rbpF8pXQgEzq5+G1XyasPmSpkVs6wxzahFzYo4SiHF3m8BuDYspk1BF8e/tOoSAAkzn5/S7RE3iWWkxdnWHpyW9bbzlVShUVojv8BgxPHT4Fz5P7k1Q/REi3LRoD9GGrIVmbL+0/Iggtv0ql3LQLVLw6HsrBBmrs4JGLECFfxvMBDDzuXfp3FgQ=='
+
+# Use ceph cluster for instance disk
+nova::compute::rbd::ephemeral_storage:            true
+nova::compute::rbd::libvirt_images_rbd_pool:      'vms'
+#nova::compute::rbd::libvirt_images_rbd_ceph_conf: '/etc/ceph/ceph.conf'
+
+# Optimize cache mode for ceph
+nova::compute::libvirt::libvirt_disk_cachemodes:
+  - '"network=writeback"'

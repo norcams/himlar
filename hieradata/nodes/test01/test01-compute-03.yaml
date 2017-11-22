@@ -25,3 +25,9 @@ network::interfaces_hash:
     ipv6init:     'yes'
     ipv6addr:     "%{hiera('netcfg_trp_netpart6')}::105/%{hiera('netcfg_trp_netmask6')}"
     defroute:     'no'
+
+# This compute host uses local storage for instances
+nova::compute::rbd::ephemeral_storage:            false
+nova::config::nova_config:
+  libvirt/images_type:
+    value: default
