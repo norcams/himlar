@@ -61,7 +61,7 @@ include:
   default:
     - profile::database::galera::arbitrator
 
-profile::database::galera::arbitrator::manage_arbitrator: true
+profile::database::galera::arbitrator::manage_arbitrator: false # we use uib-ha-02
 profile::database::galera::arbitrator::manage_firewall:   true
 
 profile::database::galera::arbitrator::firewall_rules:
@@ -87,4 +87,4 @@ db_ssl_cert:            '/etc/pki/tls/certs/ha01.uib.uhdc.no.cert.pem'
 db_ssl_ca:              '/etc/pki/tls/certs/cachain.pem'
 
 wsrep_provider_options: "socket.ssl_key=%{hiera('db_ssl_key')};socket.ssl_cert=%{hiera('db_ssl_cert')};socket.ssl_ca=%{hiera('db_ssl_ca')};socket.ssl_cipher=AES128-SHA"
-wsrep_cluster_address:  "158.39.77.249:4567, 158.37.63.249:4567, 129.177.6.96:4567"
+wsrep_cluster_address:  "158.39.77.249:4567 158.37.63.249:4567 129.177.6.96:4567"
