@@ -1,0 +1,8 @@
+# Use ceph cluster for instance disk
+nova::compute::rbd::ephemeral_storage:            true
+nova::compute::rbd::libvirt_images_rbd_pool:      'vms'
+#nova::compute::rbd::libvirt_images_rbd_ceph_conf: '/etc/ceph/ceph.conf'
+
+# Optimize cache mode for ceph
+nova::compute::libvirt::libvirt_disk_cachemodes:
+  - '"network=writeback"'
