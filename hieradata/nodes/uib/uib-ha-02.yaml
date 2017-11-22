@@ -81,8 +81,8 @@ profile::database::galera::arbitrator::firewall_rules:
     'dport':  ['4567', '4568']
     'source': '158.39.77.249'
 
-db_ssl_key:             '/etc/pki/tls/private/ha01.uib.uhdc.no.key.pem'
-db_ssl_cert:            '/etc/pki/tls/certs/ha01.uib.uhdc.no.cert.pem'
+db_ssl_key:             '/etc/pki/tls/private/ha02.uib.uhdc.no.key.pem'
+db_ssl_cert:            '/etc/pki/tls/certs/ha02.uib.uhdc.no.cert.pem'
 db_ssl_ca:              '/etc/pki/tls/certs/cachain.pem'
 
 wsrep_provider_options: "socket.ssl_key=%{hiera('db_ssl_key')};socket.ssl_cert=%{hiera('db_ssl_cert')};socket.ssl_ca=%{hiera('db_ssl_ca')};socket.ssl_cipher=AES128-SHA"
