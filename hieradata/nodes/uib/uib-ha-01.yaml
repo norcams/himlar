@@ -61,7 +61,7 @@ include:
   default:
     - profile::database::galera::arbitrator
 
-profile::database::galera::arbitrator::manage_arbitrator: true
+profile::database::galera::arbitrator::manage_arbitrator: false # we use uib-ha-02
 profile::database::galera::arbitrator::manage_firewall:   true
 
 profile::database::galera::arbitrator::firewall_rules:
