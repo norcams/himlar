@@ -28,7 +28,7 @@ profile::highavailability::loadbalancing::haproxy::manage_haproxy:  true
 profile::highavailability::loadbalancing::haproxy::manage_firewall: true
 profile::highavailability::loadbalancing::haproxy::firewall_ports:
   public:    ['5000', '8774', '8776', '9292', '9696', '80', '443', '6082']
-  internal:  ['5000', '8774', '8776', '9292', '9696', '35357', '80', '443', '6082'] #open the transport network via api
+  internal:  ['5000', '8774', '8776', '9292', '9696', '35357', '80', '443', '6082']
   mgmt:      ['9000']
 
 # HAproxy
