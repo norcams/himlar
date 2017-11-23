@@ -161,6 +161,11 @@ profile::network::services::dns_options:
       ttl: 3600
       keyfile: "/etc/rndc-%{location}.key"
       server: '129.240.2.6'
+  PTR:
+    default:
+      ttl: 3600
+      keyfile: "/etc/rndc-%{location}.key"
+      server: '129.240.2.6'
 
 #--------------------------------------------------------------
 # NEW NAMESERVERS!
