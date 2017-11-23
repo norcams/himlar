@@ -52,7 +52,10 @@ profile::webserver::apache::vhosts:
       - path:             "%{hiera('dpapp::installdir')}"
         require:          'all granted'
         custom_fragment:  'WSGIProcessGroup dpapp'
-    ssl:                  false #true
+  #  ssl:                  false #true
   #  ssl_ca:               "/etc/pki/tls/certs/cachain.pem"
   #  ssl_cert:             "/etc/pki/tls/certs/%{hiera('public__address__access')}.cert.pem"
   #  ssl_key:              "/etc/pki/tls/private/%{hiera('public__address__access')}.key.pem"
+
+  DEFAULT/ssl_only:
+    value: false

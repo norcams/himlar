@@ -1,7 +1,7 @@
 ---
 status_ssl_pem:   "api.%{hiera('domain_public')}.pem" #FIXME (status cert)
-console_ssl_pem:  "api.%{hiera('domain_public')}.pem" #FIXME (console cert)
-access_ssl_pem:   "api.%{hiera('domain_public')}.pem" #FIXME (access cert)
+console_ssl_pem:  "star.%{hiera('domain_public')}.pem" #FIXME (console cert)
+access_ssl_pem:   "star.%{hiera('domain_public')}.pem" #FIXME (access cert)
 
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   network:

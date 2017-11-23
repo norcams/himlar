@@ -230,7 +230,7 @@ profile::network::services::dns_records:
     "network.%{hiera('domain_trp')}":                       "%{hiera('netcfg_trp_netpart')}.86"
     "identity.%{hiera('domain_trp')}":                      "%{hiera('netcfg_trp_netpart')}.86"
     "console.%{hiera('domain_trp')}":                       "%{hiera('netcfg_trp_netpart')}.86"
-    "access.%{hiera('domain_trp')}":                        "%{hiera('netcfg_trp_netpart')}.86" #access
+    "access.%{hiera('domain_trp')}":                        "%{hiera('netcfg_trp_netpart')}.86"
 
 #
 # Network configuration data

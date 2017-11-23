@@ -215,5 +215,4 @@ profile::highavailability::loadbalancing::haproxy::haproxy_errorpage:
     code:     503
     header:   'Be Right Back'
     content:  'The console is down at the moment'
-    url:      "https://status.%{hiera('domain_frontend')}"
-
+    url:      "https://console.%{hiera('domain_frontend')}"
