@@ -105,6 +105,18 @@ profile::base::network::cumulus_bonds:
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+  'host11':
+    'slaves': [ 'swp11', ]
+    'clag_id': '11'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host12':
+    'slaves': [ 'swp12', ]
+    'clag_id': '12'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
 
 quagga::quagga::zebra_interfaces:
   'bridge':
@@ -132,6 +144,10 @@ quagga::quagga::zebra_interfaces:
   'host9':
     - 'link-detect'
   'host10':
+    - 'link-detect'
+  'host11':
+    - 'link-detect'
+  'host12':
     - 'link-detect'
 #  'swp48':
 #    - 'link-detect'
