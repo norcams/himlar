@@ -1,0 +1,41 @@
+---
+include:
+  default:
+    - profile::dns::ns
+    - profile::dns::rndc_key
+    - profile::logging::rsyslog::client
+
+profile::dns::rndc_key::create_admin_key:    true
+profile::dns::rndc_key::create_mdns_key:     true
+profile::dns::rndc_key::host_is_bind_server: true
+
+profile::dns::ns::internal_zone: "osl.uhdc.no"
+
+# Name servers in zone file
+profile::dns::ns::name_servers:
+  - "ns.%{hiera('profile::dns::ns::internal_zone')}"
+  - "ns.bgo.uhdc.no"
+
+# Forward zones
+profile::dns::ns::fw_zones:
+  internal:
+    zone: "%{hiera('profile::dns::ns::internal_zone')}"
+    filename: "%{hiera('profile::dns::ns::zonedir')}/%{hiera('profile::dns::ns::internal_zone')}"
+  frontend:
+    zone: "iaas.uio.no"
+    filename: "%{hiera('profile::dns::ns::zonedir')}/iaas.uio.no"
+
+# Reverse zones
+profile::dns::ns::ptr_zones:
+  internal:
+    cidr: "172.16.0.0/16"
+    origin: "16.172.in-addr.arpa"
+    filename: "%{hiera('profile::dns::ns::zonedir')}/16.172.in-addr.arpa"
+  public1:
+    cidr: "158.37.0.0/16"
+    origin: "37.158.in-addr.arpa"
+    filename: "%{hiera('profile::dns::ns::zonedir')}/37.158.in-addr.arpa"
+  public2:
+    cidr: "158.39.0.0/16"
+    origin: "39.158.in-addr.arpa"
+    filename: "%{hiera('profile::dns::ns::zonedir')}/39.158.in-addr.arpa"
