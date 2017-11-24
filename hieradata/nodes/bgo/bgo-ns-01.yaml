@@ -14,16 +14,18 @@ network::interfaces_hash:
     peerdns:   'yes'
     dns1:      "%{hiera('netcfg_dns_server1')}"
     domain:    "%{hiera('netcfg_dns_search')}"
-    defroute:  'no'
+#    defroute:  'no'
+    defroute:  'yes'
   'eth1':
     onboot:    'yes'
     mtu:       '1500'
     ipaddress: "%{hiera('netcfg_trp_netpart')}.16"
     netmask:   "%{hiera('netcfg_trp_netmask')}"
     gateway:   "%{hiera('netcfg_trp_gateway')}"
-    srcaddr:   '129.177.31.118'
-    defroute:  'yes'
-  'dummy0':
-    ipaddress: '129.177.31.118'
-    netmask:   '255.255.255.255'
+#    srcaddr:   "%{hiera('netcfg_public_netpart')}.16"
+#    defroute:  'yes'
     defroute:  'no'
+#  'dummy0':
+#    ipaddress: "%{hiera('netcfg_public_netpart')}.16"
+#    netmask:   '255.255.255.255'
+#    defroute:  'no'
