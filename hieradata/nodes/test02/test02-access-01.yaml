@@ -3,42 +3,18 @@ network::interfaces_hash:
   'eth0':
     ipaddress: '172.28.32.56'
     netmask:   '255.255.255.0'
-    gateway:   "%{hiera('netcfg_mgmt_gateway')}" #for access via api
     mtu:       '1500'
     peerdns:   'yes'
     dns1:      "%{hiera('netcfg_dns_server1')}"
     domain:    'test.iaas.uio.no'
-    defroute:  'yes' #'no'
+    defroute:  'no'
   'eth1':
     ipaddress: '172.30.32.56'
     netmask:   '255.255.255.0'
     gateway:   "%{hiera('netcfg_trp_gateway')}"
-#    srcaddr:   "%{hiera('netcfg_public_netpart')}.252"
-    defroute:  'no' #'yes'
-#  'dummy0':
-#    ipaddress: "%{hiera('netcfg_public_netpart')}.252"
-#    netmask:   '255.255.255.255'
-#    defroute:  'no'
-
-
----
-network::interfaces_hash:
-  'eth0':
-    ipaddress: '172.28.32.61'
-    netmask:   '255.255.255.0'
-    gateway:   "%{hiera('netcfg_mgmt_gateway')}"
-    mtu:       '1500'
-    peerdns:   'yes'
-    dns1:      "%{hiera('netcfg_dns_server1')}"
-    domain:    'test.iaas.uio.no'
+    srcaddr:   "%{hiera('netcfg_public_netpart')}.252"
     defroute:  'yes'
-  'eth1':
-    ipaddress: '172.30.32.61'
-    netmask:   '255.255.255.0'
-    gateway:   "%{hiera('netcfg_trp_gateway')}"
-#    srcaddr:   "%{hiera('netcfg_public_netpart')}.251"
+  'dummy0':
+    ipaddress: "%{hiera('netcfg_public_netpart')}.252"
+    netmask:   '255.255.255.255'
     defroute:  'no'
-#  'dummy0':
-#    ipaddress: "%{hiera('netcfg_public_netpart')}.251"
-#    netmask:   '255.255.255.255'
-#    defroute:  'no'

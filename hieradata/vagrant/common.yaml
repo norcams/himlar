@@ -100,7 +100,7 @@ profile::network::services::dns_records:
   A:
     "ns.%{hiera('domain_public')}":                       "%{hiera('netcfg_public_netpart')}.16"
     "dashboard.%{hiera('domain_frontend')}":              "%{hiera('netcfg_public_netpart')}.254"
-    "access.%{hiera('domain_frontend')}":                 "%{hiera('netcfg_public_netpart')}.250"
+    "access.%{hiera('domain_frontend')}":                 "%{hiera('netcfg_public_netpart')}.252"
     "console.%{hiera('domain_public')}":                  "%{hiera('netcfg_public_netpart')}.250"
     "api.%{hiera('domain_public')}":                      "%{hiera('netcfg_public_netpart')}.250"
     "identity.api.%{hiera('domain_public')}":             "%{hiera('netcfg_public_netpart')}.250"
@@ -156,9 +156,7 @@ profile::network::services::dns_records:
     '116.0.31.172.in-addr.arpa':    "%{::location}-compute-08.%{hiera('domain_mgmt')}"
     '16.0.168.192.in-addr.arpa':    "ns.%{hiera('domain_public')}"
     '254.0.168.192.in-addr.arpa':   "dashboard.%{hiera('domain_frontend')}"
-  # accesstest  '252.0.168.192.in-addr.arpa':   "access.%{hiera('domain_frontend')}"
-    '250.0.168.192.in-addr.arpa':   "access.%{hiera('domain_frontend')}"
-  # consoletest '251.0.168.192.in-addr.arpa':   "console.%{hiera('domain_public')}"
+    '252.0.168.192.in-addr.arpa':   "access.%{hiera('domain_frontend')}"
     '250.0.168.192.in-addr.arpa':   "console.%{hiera('domain_public')}"
     '250.0.168.192.in-addr.arpa':   "api.%{hiera('domain_public')}"
 
