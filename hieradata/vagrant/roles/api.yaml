@@ -20,9 +20,6 @@ profile::application::openssl::certs:
   "console.%{hiera('domain_public')}":
     cn:     "console.%{hiera('domain_public')}"
     concat: true
-  "access.%{hiera('domain_public')}":
-    cn:     "console.%{hiera('domain_public')}"
-    concat: true
 
 #
 # Example of override network backend for more nodes
