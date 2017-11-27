@@ -199,7 +199,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     listening_service:  'bk_access'
     server_names:       ['%{::location}-access-01']
     ipaddresses:        ["%{hiera('netcfg_trp_netpart')}.56"]
-    ports:              '80'
+    ports:              '80' #80
     options:            'check'  
 
 
