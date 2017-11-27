@@ -4,6 +4,9 @@ profile::dns::ns::my_mgmt_addr:      "%{hiera('netcfg_mgmt_netpart')}.16"
 profile::dns::ns::my_transport_addr: "%{hiera('netcfg_trp_netpart')}.16"
 profile::dns::ns::zonedir: 'pz'
 
+# Defined here instead of roles, as only ns-01 needs this
+profile::base::network::manage_dummy: true
+
 network::interfaces_hash:
   'eth0':
     onboot:    'yes'
