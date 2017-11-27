@@ -27,3 +27,8 @@ mysql::server::override_options:
     wsrep_node_name:                "%{::hostname}"
     wsrep_sst_method:               "%{hiera('wsrep_sst_method')}"
     wsrep_provider_options:         "%{hiera('wsrep_provider_options')}"
+  sst:
+    encrypt:                        4
+    tca:                            "%{hiera('db_ssl_ca')}"
+    tcert:                          "%{hiera('db_ssl_cert')}"
+    tkey:                           "%{hiera('db_ssl_key')}"
