@@ -7,9 +7,6 @@ include:
 profile::base::network::manage_dummy:           true
 profile::webserver::apache::manage_firewall:    false
 profile::application::access::manage_firewall:  true
-profile::openstack::application::access::firewall_extras:
-  source: "%{::network_trp1}/%{::netmask_trp1}"
-
 profile::application::access::package_url:      'https://download.iaas.uio.no/uh-iaas/rpm/himlar-dp-prep-1.5-3.el7.x86_64.rpm'
 dpapp::installdir:        '/opt/dpapp'
 
@@ -23,23 +20,22 @@ profile::base::common::packages:
   'bash-completion-extras': {}
   'jq': {}
 
-
 profile::webserver::apache::vhosts:
   dpapp:
-  #  vhost_name:         "%{hiera('public__address__access')}"
+    vhost_name:         "%{hiera('public__address__access')}"
     servername:         "%{hiera('public__address__access')}"
     serveraliases:      [ "access-%{::location}.%{hiera('domain_frontend')}" ]
     port:               '80'
     manage_docroot:     false
     docroot:            '/var/www/html'
-  #  redirect_dest:      "https://%{hiera('public__address__access')}/"
-#  dpapp_ssl:
-#    vhost_name:         "%{hiera('public__address__access')}"
-#    servername:         "%{hiera('public__address__access')}"
-#    serveraliases:      [ "access-%{::location}.%{hiera('domain_frontend')}" ]
-#    port:               '443'
-#    manage_docroot:     false
-#    docroot:            '/var/www/html'
+    redirect_dest:      "https://%{hiera('public__address__access')}/"
+  dpapp_ssl:
+    vhost_name:         "%{hiera('public__address__access')}"
+    servername:         "%{hiera('public__address__access')}"
+    serveraliases:      [ "access-%{::location}.%{hiera('domain_frontend')}" ]
+    port:               '443'
+    manage_docroot:     false
+    docroot:            '/var/www/html'
     wsgi_application_group:  '%%{}{GLOBAL}'
     wsgi_pass_authorization: 'on'
     wsgi_daemon_process:     'dpapp'
@@ -52,10 +48,7 @@ profile::webserver::apache::vhosts:
       - path:             "%{hiera('dpapp::installdir')}"
         require:          'all granted'
         custom_fragment:  'WSGIProcessGroup dpapp'
-  #  ssl:                  false #true
-  #  ssl_ca:               "/etc/pki/tls/certs/cachain.pem"
-  #  ssl_cert:             "/etc/pki/tls/certs/%{hiera('public__address__access')}.cert.pem"
-  #  ssl_key:              "/etc/pki/tls/private/%{hiera('public__address__access')}.key.pem"
-
-  DEFAULT/ssl_only:
-    value: false
+    ssl:                  true
+    ssl_ca:               "/etc/pki/tls/certs/cachain.pem"
+    ssl_cert:             "/etc/pki/tls/certs/%{hiera('public__address__access')}.cert.pem"
+    ssl_key:              "/etc/pki/tls/private/%{hiera('public__address__access')}.key.pem"

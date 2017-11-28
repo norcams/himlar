@@ -18,12 +18,6 @@ profile::openstack::compute::consoleproxy::firewall_extras:
 nova::config::nova_config:
     DEFAULT/ssl_only:
       value: false
-  #  DEFAULT/ca_file:
-  #    value: "/etc/pki/tls/certs/cachain.pem"
-  #  DEFAULT/cert:
-  #    value: "/etc/pki/tls/certs/console.%{hiera('domain_public')}.cert.pem"
-  #  DEFAULT/key:
-  #    value: "/etc/pki/tls/private/console.%{hiera('domain_public')}.key.pem"
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
