@@ -1,0 +1,35 @@
+---
+# Used to turn on wsrep_debug
+mysql::server::override_options:
+  client:
+    ssl-ca:                         "%{hiera('db_ssl_ca')}"
+  mysqld:
+    log-error:                      '/var/log/mysqld.log'
+#    skip-name-resolve:              'true'
+    pid-file:                       "/var/lib/mysql/%{::hostname}.pid"
+    bind-address:                   "%{::ipaddress_trp1}"
+    ssl:                            'true'
+    ssl-ca:                         "%{hiera('db_ssl_ca')}"
+    ssl-key:                        "%{hiera('db_ssl_key')}"
+    ssl-cert:                       "%{hiera('db_ssl_cert')}"
+    wsrep_sst_auth:                 "root:%{hiera('mysql::server::root_password')}"
+  galera:
+    binlog_format:                  'ROW'
+    default_storage_engine:         'InnoDB'
+    innodb_autoinc_lock_mode:       2
+    innodb_flush_log_at_trx_commit: 0
+    wsrep_debug:                    'ON'
+    wsrep_on:                       'ON'
+    wsrep_log_conflicts:            'ON'
+    wsrep_provider:                 '/usr/lib64/galera/libgalera_smm.so'
+    wsrep_cluster_address:          "%{hiera('wsrep_cluster_address')}"
+    wsrep_cluster_name:             'keystone'
+    wsrep_node_address:             "%{hiera('wsrep_node_address')}"
+    wsrep_node_name:                "%{::hostname}"
+    wsrep_sst_method:               "%{hiera('wsrep_sst_method')}"
+    wsrep_provider_options:         "%{hiera('wsrep_provider_options')}"
+  sst:
+    encrypt:                        4
+    tca:                            "%{hiera('db_ssl_ca')}"
+    tcert:                          "%{hiera('db_ssl_cert')}"
+    tkey:                           "%{hiera('db_ssl_key')}"

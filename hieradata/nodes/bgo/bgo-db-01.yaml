@@ -42,14 +42,22 @@ profile::database::galera::firewall_rules:
     'proto':  'tcp'
     'dport':  '4444'
     'source': '158.37.63.249'
-  '211 galera accept tcp uib-ha-01':
+  '214 galera accept tcp uib-ha-01':
     'proto':  'tcp'
     'dport':  ['4567', '4568']
     'source': '129.177.6.96'
-  '212 galera accept udp uib-ha-01':
+  '215 galera accept udp uib-ha-01':
     'proto':  'udp'
     'dport':  ['4567', '4568']
     'source': '129.177.6.96'
+  '216 galera accept tcp uib-ha-02':
+    'proto':  'tcp'
+    'dport':  ['4567', '4568']
+    'source': '129.177.6.97'
+  '217 galera accept udp uib-ha-02':
+    'proto':  'udp'
+    'dport':  ['4567', '4568']
+    'source': '129.177.6.97'
 
 db_ssl_key:       '/etc/pki/tls/private/db01.bgo.uhdc.no.key.pem'
 db_ssl_cert:      '/etc/pki/tls/certs/db01.bgo.uhdc.no.cert.pem'
@@ -66,6 +74,7 @@ profile::openstack::database::sql::glance_enabled:    false
 profile::openstack::database::sql::nova_enabled:      false
 profile::openstack::database::sql::neutron_enabled:   false
 profile::openstack::database::sql::cinder_enabled:    false
+profile::openstack::database::sql::gnocchi_enabled:   false
 
 # sensu
 profile::monitoring::sensu::agent::checks:

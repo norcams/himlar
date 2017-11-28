@@ -50,10 +50,10 @@ profile::database::galera::arbitrator::firewall_rules:
     'dport':  ['4567', '4568']
     'source': "%{hiera('netcfg_public_netpart')}.249"
 
-db_ssl_key:       '/etc/pki/tls/private/db01.trp.local.iaas.intern.key'
-db_ssl_cert:      '/etc/pki/tls/certs/db01.trp.local.iaas.intern.crt'
+db_ssl_key:       '/etc/pki/tls/private/db01.iaas.intern.key.pem'
+db_ssl_cert:      '/etc/pki/tls/certs/db01.iaas.intern.cert.pem'
 db_ssl_ca:        '/etc/pki/tls/certs/cachain.pem'
 
 wsrep_provider_options: "socket.ssl_key=%{hiera('db_ssl_key')};socket.ssl_cert=%{hiera('db_ssl_cert')};socket.ssl_ca=%{hiera('db_ssl_ca')};socket.ssl_cipher=AES128-SHA"
-wsrep_cluster_address:  '192.168.12.249:4567, 192.168.13.249:4567, 192.168.12.252:4567'
+wsrep_cluster_address:  '192.168.12.249:4567 192.168.13.249:4567 192.168.12.252:4567'
 wsrep_node_address:     '192.168.12.252'

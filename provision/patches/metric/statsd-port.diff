@@ -1,0 +1,11 @@
+--- a/usr/bin/gnocchi-api
++++ b/tmp/gnocchi-api
+@@ -16,7 +16,7 @@
+         description=build_wsgi_app.__doc__,
+         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+         usage='%(prog)s [-h] [--port PORT] -- [passed options]')
+-    parser.add_argument('--port', '-p', type=int, default=8000,
++    parser.add_argument('--port', '-p', type=int, default=8041,
+                         help='TCP port to listen on')
+     parser.add_argument('args',
+                         nargs=argparse.REMAINDER,

@@ -152,6 +152,7 @@ mod 'neutron', :ref => '9.5.0',                  :git => github + 'openstack/pup
 mod 'nova', :ref => '9.6.0',                     :git => github + 'openstack/puppet-nova'
 mod 'horizon', :ref => 'stable/newton',          :git => github + 'openstack/puppet-horizon'
 mod 'keystone', :ref => 'norcams/newton',        :git => github + 'norcams/puppet-keystone'
+mod 'gnocchi', :ref => '9.5.0',                  :git => github + 'openstack/puppet-gnocchi'
 
 mod 'oslo', :ref => '9.5.0',                     :git => github + 'openstack/puppet-oslo'
 mod 'openstacklib', :ref => '9.5.0',             :git => github + 'openstack/puppet-openstacklib'

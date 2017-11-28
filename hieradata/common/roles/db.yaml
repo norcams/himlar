@@ -12,10 +12,11 @@ db_ssl_ca:        '/etc/mysql/cacert.pem'
 
 # Galera options
 profile::base::common::packages:
-  'bzip2':    {}
-  'rsync':    {}
-  'socat':    {}
-  'bash-completion': {}
+  'bzip2':                  {}
+  'rsync':                  {}
+  'socat':                  {}
+  'MariaDB-backup':         {}
+  'bash-completion':        {}
   'bash-completion-extras': {}
   'jq': {}
 

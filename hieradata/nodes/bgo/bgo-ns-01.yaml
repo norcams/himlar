@@ -1,0 +1,31 @@
+---
+profile::dns::ns::master: true
+profile::dns::ns::my_mgmt_addr:      "%{hiera('netcfg_mgmt_netpart')}.16"
+profile::dns::ns::my_transport_addr: "%{hiera('netcfg_trp_netpart')}.16"
+profile::dns::ns::zonedir: 'pz'
+
+network::interfaces_hash:
+  'eth0':
+    onboot:    'yes'
+    mtu:       '1500'
+    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.16"
+    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
+    gateway:   "%{hiera('netcfg_mgmt_gateway')}"
+    peerdns:   'yes'
+    dns1:      "%{hiera('netcfg_dns_server1')}"
+    domain:    "%{hiera('netcfg_dns_search')}"
+#    defroute:  'no'
+    defroute:  'yes'
+  'eth1':
+    onboot:    'yes'
+    mtu:       '1500'
+    ipaddress: "%{hiera('netcfg_trp_netpart')}.16"
+    netmask:   "%{hiera('netcfg_trp_netmask')}"
+    gateway:   "%{hiera('netcfg_trp_gateway')}"
+#    srcaddr:   "%{hiera('netcfg_public_netpart')}.16"
+#    defroute:  'yes'
+    defroute:  'no'
+#  'dummy0':
+#    ipaddress: "%{hiera('netcfg_public_netpart')}.16"
+#    netmask:   '255.255.255.255'
+#    defroute:  'no'

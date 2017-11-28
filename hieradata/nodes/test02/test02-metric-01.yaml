@@ -1,0 +1,16 @@
+---
+network::interfaces_hash:
+  'eth0':
+    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.96"
+    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
+    gateway:   "%{hiera('netcfg_mgmt_gateway')}"
+    mtu:       '1500'
+    peerdns:   'yes'
+    dns1:      "%{hiera('netcfg_dns_server1')}"
+    domain:    'test.iaas.uio.no'
+    defroute:  'yes'
+  'eth1':
+    ipaddress: "%{hiera('netcfg_trp_netpart')}.96"
+    netmask:   "%{hiera('netcfg_trp_netmask')}"
+    gateway:   '172.30.32.1'
+    defroute:  'no'

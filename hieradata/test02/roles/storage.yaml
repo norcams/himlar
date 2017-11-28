@@ -4,51 +4,21 @@ named_interfaces::config:
      - em3
   trp:
      - bond1
-  transport:
-     - bond1
-  service:
-     - bond1
 
-lvm::volume_groups:
-  vg_journala:
-    physical_volumes:
-      - /dev/sdh
-    logical_volumes:
-      lv_journala01:
-        size:        15G
-        fs_type:     xfs
-        mountpath:   "/journal/journala01"
-      lv_journala02:
-        size:        15G
-        fs_type:     xfs
-        mountpath:   "/journal/journala02"
-      lv_journala03:
-        size:        15G
-        fs_type:     xfs
-        mountpath:   "/journal/journala03"
-      lv_journala04:
-        size:        15G
-        fs_type:     xfs
-        mountpath:   "/journal/journala04"
-      lv_journala05:
-        size:        15G
-        fs_type:     xfs
-        mountpath:   "/journal/journala05"
-      lv_journala06:
-        size:        15G
-        fs_type:     xfs
-        mountpath:   "/journal/journala06"
+profile::storage::fake_ssds:
+  'sdb': {}
+  'sdc': {}
 
 ceph::profile::params::osds:
   '/dev/sdb':
-    journal: '/journal/journala01/journal'
+    ensure: present
   '/dev/sdc':
-    journal: '/journal/journala02/journal'
+    ensure: present
   '/dev/sdd':
-    journal: '/journal/journala03/journal'
+    ensure: present
   '/dev/sde':
-    journal: '/journal/journala04/journal'
+    ensure: present
   '/dev/sdf':
-    journal: '/journal/journala05/journal'
+    ensure: present
   '/dev/sdg':
-    journal: '/journal/journala06/journal'
+    ensure: present

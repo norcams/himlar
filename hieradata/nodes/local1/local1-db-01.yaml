@@ -54,21 +54,26 @@ profile::database::galera::firewall_rules:
     'dport':  ['4567', '4568']
     'source': "%{hiera('netcfg_public_netpart')}.252"
 
-db_ssl_key:       '/etc/pki/tls/private/db01.trp.local.iaas.intern.key'
-db_ssl_cert:      '/etc/pki/tls/certs/db01.trp.local.iaas.intern.crt'
+db_ssl_key:       '/etc/pki/tls/private/db01.iaas.intern.key.pem'
+db_ssl_cert:      '/etc/pki/tls/certs/db01.iaas.intern.cert.pem'
 db_ssl_ca:        '/etc/pki/tls/certs/cachain.pem'
 
 # Enable ssl for wsrep and sst
 wsrep_provider_options: "base_host=%{::ipaddress_trp1};pc.recovery=1;socket.ssl_key=%{hiera('db_ssl_key')};socket.ssl_cert=%{hiera('db_ssl_cert')};socket.ssl_ca=%{hiera('db_ssl_ca')}"
-wsrep_sst_method:       'secure_rsync'
-wsrep_cluster_address:  'gcomm://192.168.12.249, 192.168.13.249, 192.168.12.252'
+wsrep_sst_method:       'mariabackup'
+wsrep_cluster_address:  'gcomm://192.168.12.249,192.168.13.249,192.168.12.252'
 wsrep_node_address:     '192.168.12.249'
+
+# Use this to test rsync without SSL
+#wsrep_provider_options: "base_host=%{::ipaddress_trp1};pc.recovery=1;"
+#wsrep_sst_method:       'rsync'
 
 profile::openstack::database::sql::keystone_enabled:  true
 profile::openstack::database::sql::glance_enabled:    false
 profile::openstack::database::sql::nova_enabled:      false
 profile::openstack::database::sql::neutron_enabled:   false
 profile::openstack::database::sql::cinder_enabled:    false
+profile::openstack::database::sql::gnocchi_enabled:   false
 
 # sensu
 profile::monitoring::sensu::agent::checks:

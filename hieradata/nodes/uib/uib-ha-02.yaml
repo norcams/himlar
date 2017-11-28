@@ -54,3 +54,36 @@ profile::base::network::rules:
     iprule: [ 'from 129.177.15.0/24 lookup 15nett', ]
 profile::highavailability::corosync::firewall_extras:
   source: "%{hiera('netcfg_public_netpart')}.96"
+
+# Galere arbitrator
+include:
+  default:
+    - profile::database::galera::arbitrator
+
+profile::database::galera::arbitrator::manage_arbitrator: true
+profile::database::galera::arbitrator::manage_firewall:   true
+
+profile::database::galera::arbitrator::firewall_rules:
+  '211 galera accept tcp osl-db-01':
+    'proto':  'tcp'
+    'dport':  ['4567', '4568']
+    'source': '158.37.63.249'
+  '212 galera accept udp osl-db-01':
+    'proto':  'udp'
+    'dport':  ['4567', '4568']
+    'source': '158.37.63.249'
+  '211 galera accept tcp bgo-db-01':
+    'proto':  'tcp'
+    'dport':  ['4567', '4568']
+    'source': '158.39.77.249'
+  '212 galera accept udp bgo-db-01':
+    'proto':  'udp'
+    'dport':  ['4567', '4568']
+    'source': '158.39.77.249'
+
+db_ssl_key:             '/etc/pki/tls/private/ha02.uib.uhdc.no.key.pem'
+db_ssl_cert:            '/etc/pki/tls/certs/ha02.uib.uhdc.no.cert.pem'
+db_ssl_ca:              '/etc/pki/tls/certs/cachain.pem'
+
+wsrep_provider_options: "socket.ssl_key=%{hiera('db_ssl_key')};socket.ssl_cert=%{hiera('db_ssl_cert')};socket.ssl_ca=%{hiera('db_ssl_ca')};socket.ssl_cipher=AES128-SHA"
+wsrep_cluster_address:  "158.39.77.249:4567 158.37.63.249:4567 129.177.6.97:4567"
