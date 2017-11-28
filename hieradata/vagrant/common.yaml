@@ -42,6 +42,9 @@ netcfg_trp_rr:
 #
 service__address__mysql:  "db01.%{hiera('domain_trp')}" #FIXME
 
+# DNS server
+public__address__ns_01:   "%{hiera('netcfg_public_netpart')}.16"
+
 #
 # Default interfaces
 #
