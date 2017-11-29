@@ -36,6 +36,9 @@ netcfg_trp_rr:
     peer_ipv4: '172.30.0.1'
     peer_ipv6: 'fd00::1'
 
+# DNS server
+public__address__ns_01: '129.177.31.118'
+
 #
 # DNS (merge of common and this)
 #
@@ -56,7 +59,7 @@ profile::network::services::dns_records:
     "access.%{hiera('domain_public')}":                     '129.177.31.124' 
     "console.%{hiera('domain_public')}":                    '129.177.31.122' #125
     "dashboard.%{hiera('domain_public')}":                  '129.177.31.126'
-PTR:
+  PTR:
     # mgmt
     "1.%{hiera('reverse_mgmt')}":      "%{::location}-leaf-01.%{hiera('domain_mgmt')}"
     "11.%{hiera('reverse_mgmt')}":     "%{::location}-admin-01.%{hiera('domain_mgmt')}"

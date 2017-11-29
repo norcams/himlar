@@ -44,6 +44,9 @@ allow_from_network: # FIXME (public net and mgmt net)
   - '172.28.32.0/24'
   - '192.168.122.1/32'
 
+# DNS server
+public__address__ns_01:   "%{hiera('netcfg_public_netpart')}.16"
+
 #
 # DNS (merge of common and this)
 #
