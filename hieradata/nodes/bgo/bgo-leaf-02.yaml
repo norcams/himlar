@@ -34,7 +34,7 @@ profile::base::network::cumulus_interfaces:
 
 profile::base::network::cumulus_bridges:
   'bridge':
-    'ports': [ 'host1', 'host2', 'host3', 'host4', 'host5', 'host6', 'host7', 'host8', 'host9', 'host10', 'peerlink', 'downlink' ]
+    'ports': [ 'host1', 'host2', 'host3', 'host4', 'host5', 'host6', 'host7', 'host8', 'host9', 'host10', 'host11', 'host12', 'host13', 'host14', 'peerlink', 'downlink' ]
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'true'
@@ -107,6 +107,30 @@ profile::base::network::cumulus_bonds:
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+  'host11':
+    'slaves': [ 'swp11', ]
+    'clag_id': '11'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host12':
+    'slaves': [ 'swp12', ]
+    'clag_id': '12'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host13':
+    'slaves': [ 'swp13', ]
+    'clag_id': '10'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host14':
+    'slaves': [ 'swp10', ]
+    'clag_id': '10'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
 
 quagga::quagga::zebra_interfaces:
   'bridge':
@@ -134,6 +158,14 @@ quagga::quagga::zebra_interfaces:
   'host9':
     - 'link-detect'
   'host10':
+    - 'link-detect'
+  'host11':
+    - 'link-detect'
+  'host12':
+    - 'link-detect'
+  'host13':
+    - 'link-detect'
+  'host14':
     - 'link-detect'
   'swp48':
     - 'link-detect'
@@ -195,6 +227,10 @@ quagga::quagga::bgp_neighbor_groups:
       - '172.18.0.111'
       - '172.18.0.112'
       - '172.18.0.113'
+      - '172.18.0.115'
+      - '172.18.0.116'
+      - '172.18.0.117'
+      - '172.18.0.118'
     'options6':
       - 'route-reflector-client'
     'members6':
@@ -204,6 +240,10 @@ quagga::quagga::bgp_neighbor_groups:
       - 'fd00::111'
       - 'fd00::112'
       - 'fd00::113'
+      - 'fd00::115'
+      - 'fd00::116'
+      - 'fd00::117'
+      - 'fd00::118'
 #  'other-clients':
 #    'options':
 #    - 'peer-group'
