@@ -236,6 +236,8 @@ profile::network::services::dns_records:
     "network.%{hiera('domain_trp')}":                       "%{hiera('netcfg_trp_netpart')}.86"
     "identity.%{hiera('domain_trp')}":                      "%{hiera('netcfg_trp_netpart')}.86"
     "metric.%{hiera('domain_trp')}":                        "%{hiera('netcfg_trp_netpart')}.96"
+  #  "console.%{hiera('domain_trp')}":                       "%{hiera('netcfg_trp_netpart')}.86"
+
 #
 # Network configuration data
 #
