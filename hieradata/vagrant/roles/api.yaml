@@ -17,6 +17,9 @@ profile::application::openssl::certs:
     altnames:
       - "api.%{hiera('domain_public')}"
     concat: true
+  "console.%{hiera('domain_public')}":
+    cn:     "console.%{hiera('domain_public')}"
+    concat: true
 
 #
 # Example of override network backend for more nodes
