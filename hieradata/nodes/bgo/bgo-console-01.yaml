@@ -4,17 +4,18 @@ network::interfaces_hash:
     ipaddress: '172.16.0.61'
     netmask:   '255.255.248.0'
     mtu:       '1500'
+    gateway:   "%{hiera('netcfg_mgmt_gateway')}"
     peerdns:   'yes'
     dns1:      "%{hiera('netcfg_dns_server1')}"
     domain:    "%{hiera('netcfg_dns_search')}"
-    defroute:  'no'
+    defroute:  'yes' #'no'
   'eth1':
     ipaddress: '172.18.0.61'
     netmask:   '255.255.248.0'
-    gateway:   "%{hiera('netcfg_trp_gateway')}"
-    srcaddr:   '158.39.77.251'
-    defroute:  'yes'
-  'dummy0':
-    ipaddress: '158.39.77.251'
-    netmask:   '255.255.255.255'
-    defroute:  'no'
+#    gateway:   "%{hiera('netcfg_trp_gateway')}"
+#    srcaddr:   '158.39.77.251'
+    defroute:  'no' #'yes'
+#  'dummy0':
+#    ipaddress: '158.39.77.251'
+#    netmask:   '255.255.255.255'
+#    defroute:  'no'

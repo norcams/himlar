@@ -17,7 +17,7 @@ location_description: unset
 location_environment: unset
 location_tag:         unset
 
-bgp_as:                 '65535'
+bgp_as:               '65535'
 
 domain_frontend:      "%{::domain}"
 domain_public:        "%{::domain}"
@@ -61,6 +61,7 @@ allow_from_network:
   - '129.177.10.189/32'  # tor
   - '129.177.10.212/32'  # raymond
   - '129.177.10.111/32'  # anders
+  - '129.240.202.64/32'  # usit
   - '158.36.0.0/16'      # UiA
   - '128.39.0.0/16'      # UiA
   - '158.37.216.0/21'    # UiA
@@ -237,7 +238,6 @@ profile::network::services::dns_records:
     "network.%{hiera('domain_trp')}":                       "%{hiera('netcfg_trp_netpart')}.86"
     "identity.%{hiera('domain_trp')}":                      "%{hiera('netcfg_trp_netpart')}.86"
     "metric.%{hiera('domain_trp')}":                        "%{hiera('netcfg_trp_netpart')}.96"
-
 
 #
 # Network configuration data

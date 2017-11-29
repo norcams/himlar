@@ -12,16 +12,12 @@ profile::base::common::packages:
 profile::base::network::manage_dummy:                       true
 profile::openstack::compute::consoleproxy::manage_firewall: true
 profile::openstack::compute::consoleproxy::spice:           true
+profile::openstack::compute::consoleproxy::firewall_extras:
+  source: "%{::network_trp1}/%{::netmask_trp1}"
 
 nova::config::nova_config:
     DEFAULT/ssl_only:
-      value: true
-    DEFAULT/ca_file:
-      value: "/etc/pki/tls/certs/cachain.pem"
-    DEFAULT/cert:
-      value: "/etc/pki/tls/certs/console.%{hiera('domain_public')}.cert.pem"
-    DEFAULT/key:
-      value: "/etc/pki/tls/private/console.%{hiera('domain_public')}.key.pem"
+      value: false
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:

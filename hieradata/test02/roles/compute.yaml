@@ -1,3 +1,4 @@
+
 ---
 include:
   kickstart:
@@ -7,11 +8,11 @@ named_interfaces::config:
   mgmt:
      - em3
   trp:
-     - bond1
+     - em1
   transport:
-     - bond1
+     - em1
   service:
-     - bond1
+     - em1
 
 ntp::servers:
   - 172.28.32.100
