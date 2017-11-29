@@ -19,7 +19,7 @@ calico::reflector::client_defaults:
 calico::compute::peer_defaults:
   peer_as: 65535
   local_as: 65535
-  local_ipv4: "%{ipaddress_transport1}"
+  local_ipv4: "%{ipaddress_trp1}"
 
 # compute node to RR connection (set per location)
 #calico::compute::peers:

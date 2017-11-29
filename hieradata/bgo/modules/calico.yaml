@@ -5,7 +5,7 @@ calico::debug: false
 calico::compute::peer_defaults:
   peer_as: "%{hiera('bgp_as')}"
   local_as: "%{hiera('bgp_as')}"
-  local_ipv4: "%{ipaddress_transport1}"
+  local_ipv4: "%{ipaddress_trp1}"
   local_ipv6: "%{ipaddress6_trp1}"
 
 calico::compute::peers:
