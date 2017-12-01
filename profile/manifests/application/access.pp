@@ -10,7 +10,7 @@ class profile::application::access(
 
   if $manage_firewall {
     profile::firewall::rule { '190 dpapp-http accept tcp':
-      dport       => [ 80 ], 
+      dport       => [80],
       extras      => $firewall_extras,
     }
   }
@@ -24,5 +24,4 @@ class profile::application::access(
       notify   => Class['apache::service']
     }
   }
-
 }
