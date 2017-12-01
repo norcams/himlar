@@ -28,6 +28,6 @@ profile::base::network::routes:
     'ipaddress': [ '::', ]
     'netmask':   [ '0', ]
     'gateway':   [ "%{hiera('netcfg_trp_gateway6')}", ]
-    'source':    [ '2001:700:2:83ff::12', ]
+    'source':    [ '2001:700:2:82ff::12', ]
     'table':     [ 'main', ]
     'family':    [ '6', ]
