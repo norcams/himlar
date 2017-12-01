@@ -154,6 +154,7 @@ quagga::quagga::zebra_interfaces:
 
 quagga::quagga::zebra_ip6_routes:
   - '::/0 2001:700:100:aa3::21'
+  - '2001:700:2:83ff::12/128 fd32::12'
 quagga::quagga::zebra_ip_routes:
   - '0.0.0.0/0 129.240.25.109'
   - '10.0.0.0/8 Null0'
