@@ -1,6 +1,8 @@
 ---
 api_ssl_pem:      "api.uh-iaas.no.pem"
 status_ssl_pem:   "status.uh-iaas.no.pem"
+#console_ssl_pem:  "console.uh-iaas.no.pem"
+#access_ssl_pem:   "access.uh-iaas.no.pem"
 
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   network:

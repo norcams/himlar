@@ -24,14 +24,6 @@ profile::base::common::packages:
   'jq': {}
 
 profile::webserver::apache::vhosts:
-#  dpapp:
-#    vhost_name:         "%{hiera('public__address__access')}"
-#    servername:         "%{hiera('public__address__access')}"
-#    serveraliases:      [ "access-%{::location}.%{hiera('domain_frontend')}" ]
-#    port:               '80'
-#    manage_docroot:     false
-#    docroot:            '/var/www/html'
-#    redirect_dest:      "https://%{hiera('public__address__access')}/"
   dpapp:
 #    vhost_name:         "%{hiera('public__address__access')}"
     servername:         "%{hiera('public__address__access')}"

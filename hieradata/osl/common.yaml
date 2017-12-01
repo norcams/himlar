@@ -62,7 +62,7 @@ profile::network::services::dns_records:
     "git.%{hiera('domain_mgmt')}":                          "%{hiera('netcfg_mgmt_netpart')}.10"
     # Used as CNAME for uh-iaas.no (http://iaas.readthedocs.io/en/latest/team/operations/dns.html)
     'uh-dboard.iaas.uio.no':                                '158.37.63.254'
-    'uh-access.iaas.uio.no':                                '158.37.63.252'
+    'uh-access.iaas.uio.no':                                '158.37.63.250' #252
     'uh-status.iaas.uio.no':                                '158.37.63.250'
     'uh-api.iaas.uio.no':                                   '158.37.63.250'
     'uh-console.iaas.uio.no':                               '158.37.63.250' #251
