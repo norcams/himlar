@@ -4,15 +4,20 @@ class profile::network::nat(
   $enable_bird = false,
   $manage_bird_firewall = false,
   $enable_snat = false,
+  $enable_snat6 = false,
   $iniface = undef,
   $outiface = undef,
   $source = undef,
+  $source6 = undef,
 ) {
 
   # This node is a gw, enable IP fwd
   case $::kernel {
     'Linux': {
       sysctl::value { 'net.ipv4.ip_forward':
+      value => 1,
+      }
+      sysctl::value { 'net.ipv6.conf.all.forwarding':
       value => 1,
       }
       if $enable_bird {
@@ -95,6 +100,23 @@ class profile::network::nat(
         table    => 'nat',
         outiface => $outiface,
         source   => $source,
+        state    => undef
+      }
+    }
+  }
+
+  if $enable_snat6 {
+    profile::firewall::rule { '099 postrouting with snat6':
+      chain    => 'POSTROUTING',
+      proto    => 'all',
+      provider => 'ip6tables',
+      extras => {
+        action   => undef,
+        jump     => 'SNAT',
+        tosource => $::ipaddress6_public1,
+        table    => 'nat',
+        outiface => $outiface,
+        source   => $source6,
         state    => undef
       }
     }

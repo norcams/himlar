@@ -36,6 +36,7 @@ profile::base::network::cumulus_interfaces:
     'ipv6': [ 'fd32::1/64', ]
   'bridge.101':
     'ipv4': [ '192.168.122.2/24', ]
+    'ipv6': [ 'fd30::2/64', ]
 
 # Add default route for management VRF
 profile::base::network::routes:
@@ -54,9 +55,12 @@ quagga::quagga::zebra_interfaces:
   'swp2':
     - 'link-detect'
 
+quagga::quagga::zebra_ip6_routes:
+  - '::/0 fd30::1'
 quagga::quagga::zebra_ip_routes:
   - '0.0.0.0/0 192.168.122.1'
   - '10.0.0.0/8 Null0'
+  - '10.100.200.248/32 172.30.32.26'
   - '10.100.200.250/32 172.30.32.86'
   - '10.100.200.251/32 172.30.32.61'
   - '10.100.200.252/32 172.30.32.56'
@@ -82,7 +86,6 @@ quagga::quagga::bgp_options:
 
 quagga::quagga::bgp_networks:
   - '0.0.0.0/0'
-  - '10.100.200.0/24'
   - '172.30.32.0/24'
 quagga::quagga::bgp_networks6:
   - '::/0'
@@ -114,11 +117,11 @@ quagga::quagga::bgp_neighbor_groups:
 quagga::quagga::bgp_accesslist:
   '10':
     - 'permit 10.100.200.0 0.0.0.255'
-    - 'permit 10.18.0.0 0.0.15.255'
+    - 'permit 10.0.244.0 0.0.0.255'
     - 'permit 172.30.32.0 0.0.0.255'
   '20':
     - 'deny 10.100.200.0 0.0.0.255'
-    - 'deny 10.18.0.0 0.0.15.255'
+    - 'deny 10.0.244.0 0.0.0.255'
     - 'deny 172.30.32.0 0.0.0.255'
     - 'permit any'
 
