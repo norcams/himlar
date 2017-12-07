@@ -61,7 +61,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - "identity.api.%{hiera('domain_public')}:5000":  'bk_identity'
       - "network.api.%{hiera('domain_public')}:9696":   'bk_network'
       - "metric.api.%{hiera('domain_public')}:8041":    'bk_metric'
-      - "compute.api.%{hiera('domain_public')}:8774":   'bk_compute' 
+      - "compute.api.%{hiera('domain_public')}:8774":   'bk_compute'
       - "volume.api.%{hiera('domain_public')}:8776":    'bk_volume'
       - "image.api.%{hiera('domain_public')}:9292":     'bk_image'
       - "status.%{hiera('domain_frontend')}":           'bk_status'
