@@ -65,7 +65,6 @@ profile::openstack::dashboard::policies:
 #    key:        'volume_extension:volume_actions:upload_image'
 #    value:      'role:admin'
 #    file_path:  '/etc/openstack-dashboard/cinder_policy.json'
-# SELinux - open ports for HAproxy 
 
 profile::base::selinux::boolean:
   'httpd_can_network_connect':
