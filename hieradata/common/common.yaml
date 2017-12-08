@@ -178,6 +178,7 @@ profile::network::services::dns_records:
     "%{::location}-builder-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.15"
     "%{::location}-ns-01.%{hiera('domain_mgmt')}":          "%{hiera('netcfg_mgmt_netpart')}.16"
     "%{::location}-ns-02.%{hiera('domain_mgmt')}":          "%{hiera('netcfg_mgmt_netpart')}.17"
+    "%{::location}-admin-02.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_mgmt_netpart')}.18"
     "%{::location}-status-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_netpart')}.21"
     "%{::location}-nat-linux-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_mgmt_netpart')}.26"
     "%{::location}-mq-01.%{hiera('domain_mgmt')}":          "%{hiera('netcfg_mgmt_netpart')}.31"
@@ -226,6 +227,8 @@ profile::network::services::dns_records:
     "builder.%{hiera('domain_mgmt')}":                      "%{hiera('netcfg_mgmt_netpart')}.15"
     "ns01.%{hiera('domain_mgmt')}":                         "%{hiera('netcfg_mgmt_netpart')}.16"
     "ns02.%{hiera('domain_mgmt')}":                         "%{hiera('netcfg_mgmt_netpart')}.17"
+    "foreman4.%{hiera('domain_mgmt')}":                     "%{hiera('netcfg_mgmt_netpart')}.18"
+    "puppet4.%{hiera('domain_mgmt')}":                      "%{hiera('netcfg_mgmt_netpart')}.18"
     # trp
     "status.%{hiera('domain_trp')}":                        "%{hiera('netcfg_trp_netpart')}.21"
     "mq01.%{hiera('domain_trp')}":                          "%{hiera('netcfg_trp_netpart')}.31"
