@@ -10,7 +10,7 @@ himlar_bootstrap::tftp_install:
     dhcp_range_start: '172.16.0.200'
     dhcp_range_end:   '172.16.0.250'
     dhcp_gateway:     '172.16.0.10'
-    macaddress:       '01-EC:F4:BB:CC:CE:F4'
+    macaddress:       'EC:F4:BB:CC:CE:F4'
   'test01-controller-01':
     domain:           'mgmt.test.iaas.intern'
     dhcp_interface:   'eth0'
