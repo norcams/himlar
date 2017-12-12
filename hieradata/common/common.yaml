@@ -218,6 +218,11 @@ profile::network::services::dns_records:
     "%{::location}-compute-08.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.116"
     "%{::location}-compute-09.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.117"
     "%{::location}-compute-10.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.118"
+    "%{::location}-object-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_netpart')}.119"
+    "%{::location}-object-02.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_netpart')}.120"
+    "%{::location}-object-03.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_netpart')}.121"
+    "%{::location}-object-04.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_netpart')}.122"
+    "%{::location}-object-05.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_netpart')}.123"
     # mgmt
     "foreman.%{hiera('domain_mgmt')}":                      "%{hiera('netcfg_mgmt_netpart')}.11"
     "puppet.%{hiera('domain_mgmt')}":                       "%{hiera('netcfg_mgmt_netpart')}.11"
