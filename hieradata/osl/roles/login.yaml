@@ -22,14 +22,14 @@ himlar_bootstrap::tftp_install:
     dhcp_range_start: '172.16.32.200'
     dhcp_range_end:   '172.16.32.250'
     dhcp_gateway:     '172.16.32.10'
-    macaddress:       '01-ec:f4:bb:c7:fb:cc'
+    macaddress:       'ec:f4:bb:c7:fb:cc'
   'test02-controller-01':
     domain:           'test.iaas.uio.no'
     dhcp_interface:   'p2p4'
     dhcp_range_start: "172.28.32.200"
     dhcp_range_end:   "172.28.32.250"
     dhcp_gateway:     "172.28.32.10"
-    macaddress:       '01-b8:ac:6f:91:67:4b'
+    macaddress:       'b8:ac:6f:91:67:4b'
 
 profile::application::git::settings:
   hostname: "osl"
