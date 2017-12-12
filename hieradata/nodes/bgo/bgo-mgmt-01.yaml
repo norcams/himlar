@@ -10,7 +10,7 @@ network::interfaces_hash:
 
 profile::base::network::cumulus_bridges:
   'bridge':
-    'ports': [ 'swp1', 'swp2', 'swp3', 'swp4', 'swp5', 'swp42','swp43','swp44','swp45', 'swp46', 'swp48', ]
+    'ports': [ 'swp1', 'swp2', 'swp3', 'swp4', 'swp5', 'swp6','swp7','swp8','swp9','swp10','swp37','swp38','swp39','swp40','swp41','swp42','swp43','swp44','swp45', 'swp46', 'swp48', ]
     'alias_name': 'mgmt_ports'
     'vlan_aware': 'true'
     'stp': 'true'
@@ -27,6 +27,26 @@ profile::base::network::cumulus_interfaces:
     'pvid': '908'
   'swp5':
     'pvid': '908'
+  'swp6':
+    'pvid': '908'
+  'swp7':
+    'pvid': '908'
+  'swp8':
+    'pvid': '908'
+  'swp9':
+    'pvid': '908'
+  'swp10':
+    'pvid': '908'
+  'swp37':
+    'pvid': '909'
+  'swp38':
+    'pvid': '909'
+  'swp39':
+    'pvid': '909'
+  'swp40':
+    'pvid': '909'
+  'swp41':
+    'pvid': '909'
   'swp42':
     'pvid': '909'
   'swp43':
