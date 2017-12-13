@@ -234,6 +234,7 @@ profile::network::services::dns_records:
     "ns02.%{hiera('domain_mgmt')}":                         "%{hiera('netcfg_mgmt_netpart')}.17"
     "foreman4.%{hiera('domain_mgmt')}":                     "%{hiera('netcfg_mgmt_netpart')}.18"
     "puppet4.%{hiera('domain_mgmt')}":                      "%{hiera('netcfg_mgmt_netpart')}.18"
+    "git.%{hiera('domain_mgmt')}":                          "%{hiera('netcfg_mgmt_netpart')}.10"
     # trp
     "status.%{hiera('domain_trp')}":                        "%{hiera('netcfg_trp_netpart')}.21"
     "mq01.%{hiera('domain_trp')}":                          "%{hiera('netcfg_trp_netpart')}.31"

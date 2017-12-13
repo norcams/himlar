@@ -51,7 +51,6 @@ profile::network::services::dns_records:
     "%{::location}-leaf-04.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_netpart')}.4"
     "%{::location}-mgmt-01.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_netpart')}.5"
     "%{::location}-login-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_mgmt_netpart')}.10"
-    "git.%{hiera('domain_mgmt')}":                      "%{hiera('netcfg_mgmt_netpart')}.10"
     # Used as CNAME for uh-iaas.no (http://iaas.readthedocs.io/en/latest/team/operations/dns.html)
     'uh-api.iaas.uib.no':                               '158.39.77.250'
     'uh-api-front.iaas.uib.no':                         '158.39.77.250'
