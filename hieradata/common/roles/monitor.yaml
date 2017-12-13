@@ -146,3 +146,15 @@ profile::monitoring::sensu::agent::checks:
     command:      "check-https-cert.rb -c 10 -w 20 -u https://%{hiera('public__address__console')}:6082 %{hiera('sensu_ssl_cachain')}"
     interval:     60
     subscribers:  ['checks']
+
+# logrotate
+profile::monitoring::sensu::server::manage_logrotate: true
+logrotate::rules:
+  monitor_logrotate:
+    path:           '/opt/graphite/storage/log/carbon-cache/carbon-cache-a/'
+    rotate:         1
+    rotate_every:   daily
+    dateext:        true
+    sharedscripts:  true
+    missingok:      true
+    compress:       true

@@ -9,3 +9,6 @@ graphite::gr_storage_schemas:
   - name:       'stats'
     pattern:    'stats.*'
     retentions: '60s:12h,1h:30d,1d:365d'
+
+# Logrotate
+graphite::gr_enable_logrotation:  false

@@ -6,6 +6,7 @@ class profile::monitoring::sensu::server (
   $manage_redis              = false,
   $manage_graphite           = false,
   $manage_firewall           = false,
+  $manage_logrotate          = false,
   $firewall_extras           = {}
 ) {
 
@@ -45,4 +46,7 @@ class profile::monitoring::sensu::server (
   create_resources('sensu::handler', $handlers)
   create_resources('sensu::filter', $filters)
 
+  if $manage_logrotate {
+    include ::logrotate
+  }
 }
