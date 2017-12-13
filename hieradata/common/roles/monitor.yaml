@@ -151,7 +151,7 @@ profile::monitoring::sensu::agent::checks:
 profile::monitoring::sensu::server::manage_logrotate: true
 logrotate::rules:
   monitor_logrotate:
-    path:           '/opt/graphite/storage/log/carbon-cache/carbon-cache-a/'
+    path:           '/opt/graphite/storage/log/carbon-cache/carbon-cache-a/*.log'
     rotate:         1
     rotate_every:   daily
     dateext:        true
