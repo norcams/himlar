@@ -27,7 +27,7 @@ netcfg_trp_netmask:     '255.255.255.0'
 netcfg_trp_netmask6:    '64'
 netcfg_dns_server1:     '129.240.2.3'
 netcfg_dns_server2:     '129.240.2.40'
-netcfg_dns_search:      "%{hiera('domain_mgmt')} %{hiera('domain_trp')} %{hiera('domain_mgmt')}"
+netcfg_dns_search:      "%{hiera('domain_mgmt')} %{hiera('domain_trp')} %{hiera('domain_public')}"
 netcfg_public_netpart:  '10.100.200'
 netcfg_public_netmask:  '255.255.255.0'
 netcfg_public_netpart6: 'fd34'
