@@ -10,15 +10,16 @@ profile::base::common::packages:
   'bash-completion-extras': {}
   'jq': {}
 
-profile::base::network::manage_dummy:                true
-profile::openstack::dashboard::manage_dashboard:     true
-profile::webserver::apache::manage_firewall:         false
-profile::openstack::dashboard::manage_firewall:      true
-profile::openstack::dashboard::manage_overrides:     true
-profile::openstack::dashboard::enable_pwd_retrieval: true
-profile::openstack::dashboard::enable_image_upload:  true
-profile::openstack::dashboard::change_region_selector:  true
-profile::openstack::dashboard::image_upload_mode:    'direct'
+profile::base::selinux::manage_selinux:                true
+profile::base::network::manage_dummy:                  true
+profile::openstack::dashboard::manage_dashboard:       true
+profile::webserver::apache::manage_firewall:           false
+profile::openstack::dashboard::manage_firewall:        true
+profile::openstack::dashboard::manage_overrides:       true
+profile::openstack::dashboard::enable_pwd_retrieval:   true
+profile::openstack::dashboard::enable_image_upload:    true
+profile::openstack::dashboard::change_region_selector: true
+profile::openstack::dashboard::image_upload_mode:     'direct'
 profile::webserver::apache::mods_enable:
   - status
 
@@ -64,3 +65,8 @@ profile::openstack::dashboard::policies:
 #    key:        'volume_extension:volume_actions:upload_image'
 #    value:      'role:admin'
 #    file_path:  '/etc/openstack-dashboard/cinder_policy.json'
+
+profile::base::selinux::boolean:
+  'httpd_can_network_connect':
+    ensure: 'on'
+    persistent: true
