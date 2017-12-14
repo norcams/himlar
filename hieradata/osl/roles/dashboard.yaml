@@ -1,4 +1,5 @@
 ---
+profile::base::selinux::manage_selinux: false
 # Enable osl dashboard only from some network
 profile::openstack::dashboard::allow_from_network:
   - '129.240.224.100/32' # osl-login

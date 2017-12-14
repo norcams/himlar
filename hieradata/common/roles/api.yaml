@@ -23,6 +23,7 @@ profile::monitoring::sensu::agent::checks:
     subscribers:  ['metrics']
     handlers:     ['graphite_tcp']
 
+profile::base::selinux::manage_selinux:                             true
 profile::base::network::manage_dummy:                               true
 profile::highavailability::loadbalancing::haproxy::manage_haproxy:  true
 profile::highavailability::loadbalancing::haproxy::manage_firewall: true
@@ -204,6 +205,46 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ipaddresses:        ["%{hiera('netcfg_trp_netpart')}.61"]
     ports:              '6082'
     options:            'check'
+
+# SELinux - open ports for HAproxy 
+profile::base::selinux::ports:
+  identity-http:
+    context:  'http_port_t'
+    protocol: 'tcp'
+    port:     '5000'
+    argument: '-m'
+  network-http:
+    context:  'http_port_t'
+    protocol: 'tcp'
+    port:     '9696'
+    argument: '-m'          
+  metric-http:
+    context:  'http_port_t'
+    protocol: 'tcp'
+    port:     '8041'
+  compute-http:
+    context:  'http_port_t'
+    protocol: 'tcp'
+    port:     '8774'
+    argument: '-m'
+  volume-http:
+    context:  'http_port_t'
+    protocol: 'tcp'
+    port:     '8776'
+  image-http:
+    context:  'http_port_t'
+    protocol: 'tcp'
+    port:     '9292'
+    argument: '-m'
+  status-http:
+    context:  'http_port_t'
+    protocol: 'tcp'
+    port:     '8080'
+    argument: '-m'
+  console-http:
+    context:  'http_port_t'
+    protocol: 'tcp'
+    port:     '6082' 
 
 # Errorpage for api, not used for status!
 profile::highavailability::loadbalancing::haproxy::haproxy_errorpage:
