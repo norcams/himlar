@@ -5,6 +5,7 @@ include:
     - profile::monitoring::sensu::server
     - profile::monitoring::grafana
     - profile::monitoring::statsd
+    - profile::logging::logrotate
 
 # Grafana and statsd
 profile::monitoring::grafana::enable:          true
@@ -148,7 +149,7 @@ profile::monitoring::sensu::agent::checks:
     subscribers:  ['checks']
 
 # logrotate
-profile::monitoring::sensu::server::manage_logrotate: true
+profile::logging::logrotate::manage_logrotate: true
 logrotate::rules:
   monitor_logrotate:
     path:           '/opt/graphite/storage/log/carbon-cache/carbon-cache-a/*.log'
