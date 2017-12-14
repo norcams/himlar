@@ -5,6 +5,7 @@ include:
     - profile::monitoring::sensu::server
     - profile::monitoring::grafana
     - profile::monitoring::statsd
+    - profile::logging::logrotate
 
 # Grafana and statsd
 profile::monitoring::grafana::enable:          true
@@ -146,3 +147,15 @@ profile::monitoring::sensu::agent::checks:
     command:      "check-https-cert.rb -c 10 -w 20 -u https://%{hiera('public__address__console')}:6082 %{hiera('sensu_ssl_cachain')}"
     interval:     60
     subscribers:  ['checks']
+
+# logrotate
+profile::logging::logrotate::manage_logrotate: true
+logrotate::rules:
+  monitor_logrotate:
+    path:           '/opt/graphite/storage/log/carbon-cache/carbon-cache-a/*.log'
+    rotate:         1
+    rotate_every:   daily
+    dateext:        true
+    sharedscripts:  true
+    missingok:      true
+    compress:       true
