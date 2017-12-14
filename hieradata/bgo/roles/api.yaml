@@ -2,7 +2,7 @@
 api_ssl_pem:      "api.uh-iaas.no.pem"
 status_ssl_pem:   "status.uh-iaas.no.pem"
 
-profile::base::selinux::manage_selinux:   false
+profile::base::selinux::manage_selinux:	false
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   network:
     server_names:       ['%{::location}-network-02', '%{::location}-network-03']

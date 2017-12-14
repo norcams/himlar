@@ -1,5 +1,5 @@
 ---
-horizon::allowed_hosts:                 '*'
+horizon::allowed_hosts:                 ".%{hiera('domain_frontend')}"
 horizon::servername:                    "%{hiera('public__address__dashboard')}"
 horizon::server_aliases:                "dashboard-%{::location}.%{hiera('domain_frontend')}"
 horizon::wsgi::apache::priority:        '10'
@@ -41,3 +41,13 @@ horizon::log_handler:     'syslog'
 horizon::wsgi::apache::extra_params:
   error_log_syslog: 'syslog:local1'
   error_log_file:   false
+
+# security
+horizon::DISABLE_PASSWORD_REVEAL:  'True' #teeeeeeeeeeeeeeeeeeeeeeeeest
+#horizon::password_autocomplete:   'off'
+#horizon::use_ssl:                 'True'
+#horizon::session_cookie_httponly: 'True'
+#horizon::access-control-allow-origin: ".%{hiera('domain_frontend')}"
+
+#Cross Origin Resource Sharing (CORS) header for Horizon
+#HTTP Strict Transport Security (HSTS) for Horizon

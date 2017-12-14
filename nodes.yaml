@@ -46,16 +46,16 @@ nodesets:
       memory:     4096 
       cpus:       2
   # The following nodes are optional
-    #- role:       "access"
-    #- role:       "console"
-    #- role:       "monitor"
+    - role:       "access"
+    - role:       "console"
+    - role:       "monitor"
     #- role:       "status"
     #- role:       "builder"
     #- role:       "proxy"
     #- role:       "login"
     #- role:       "controller"
     #- role:       "metric"
-    #- role:       "logger"
+    - role:       "logger"
     #  cpus:       1
     #  memory:     2048
     #- role:       "nat"

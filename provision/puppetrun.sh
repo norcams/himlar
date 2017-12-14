@@ -45,7 +45,7 @@ puppetrun()
     --trusted_node_data \
     --no-stringify_facts \
     --write-catalog-summary \
-    --basemodulepath /opt/himlar/modules:$PUPPET_PREFIX/etc/puppet/modules \
+    --basemodulepath /opt/himlar/modules:$PUPPET_PREFIX/etc/puppet/modules --verbose \
     ${p_args[*]} \
     $PUPPET_PREFIX/etc/puppet/manifests/site.pp
 }
