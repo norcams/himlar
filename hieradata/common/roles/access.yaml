@@ -10,7 +10,7 @@ profile::application::access::manage_firewall:  true
 profile::application::access::package_url:      'https://download.iaas.uio.no/uh-iaas/rpm/himlar-dp-prep-1.5-3.el7.x86_64.rpm'
 dpapp::installdir:        '/opt/dpapp'
 
-profile::application::access::::firewall_extras:
+profile::application::access::firewall_extras:
   source: "%{::network_trp1}/%{::netmask_trp1}"
 
 apache::default_mods:   false

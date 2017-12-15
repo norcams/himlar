@@ -10,7 +10,8 @@ class profile::application::access(
 
   if $manage_firewall {
     profile::firewall::rule { '190 dpapp-http accept tcp':
-      dport       => [80],
+      dport       => [80, 443],
+      destination => $::ipaddress_trp1,
       extras      => $firewall_extras,
     }
   }
