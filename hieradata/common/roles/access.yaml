@@ -25,9 +25,11 @@ profile::base::common::packages:
 
 profile::webserver::apache::vhosts:
   dpapp:
-#    vhost_name:         "%{hiera('public__address__access')}"
-    servername:         "%{hiera('public__address__access')}"
-    serveraliases:      [ "access-%{::location}.%{hiera('domain_frontend')}" ]
+    vhost_name:         "%{hostname}.%{hiera('domain_trp')}"
+    servername:         "%{hostname}.%{hiera('domain_trp')}"
+    serveraliases:
+     - "%{hiera('public__address__access')}"
+     - "access-%{::location}.%{hiera('domain_frontend')}"
     port:               '80'
     manage_docroot:     false
     docroot:            '/var/www/html'
@@ -43,7 +45,3 @@ profile::webserver::apache::vhosts:
       - path:             "%{hiera('dpapp::installdir')}"
         require:          'all granted'
         custom_fragment:  'WSGIProcessGroup dpapp'
-    ssl:                  false
-#    ssl_ca:               "/etc/pki/tls/certs/cachain.pem"
-#    ssl_cert:             "/etc/pki/tls/certs/%{hiera('public__address__access')}.cert.pem"
-#    ssl_key:              "/etc/pki/tls/private/%{hiera('public__address__access')}.key.pem"

@@ -91,7 +91,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       "%{::ipaddress_public1}:80":    []
       "%{::ipaddress_public1}:6082":  ['ssl', 'crt', "%{hiera('console_ssl_pem')}"]
     options:
-      - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/public_domains.map)]'
       - capture:        'request header Host len 64' #for debug
       - http-request:
         - 'add-header X-Forwarded-Proto https if { ssl_fc }'
@@ -108,8 +107,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       "%{::ipaddress_trp1}:9292":  [] # image
       "%{::ipaddress_trp1}:9696":  [] # neutron
     options:
-      - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/internal_domains.map)]'
       - capture:        'request header Host len 64' #for debug
+      - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/internal_domains.map)]'
   frontend_monitor:
     options:
       stats:
