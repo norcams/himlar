@@ -95,6 +95,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - 'sfb-webpool01.uib.no':                   'uib-https-sfb'
       - 'lyncadmin.uib.no':                       'uib-https-sfb'
       - 'exch.uib.no':                            'uib-https-exch'
+      - 'adm2.uib.no':                            'uib-https-adm'
       - "dashboard.uh-iaas.no":                   'uib-https-uh-dashboard'
       - "dashboard-ha.uh-iaas.no":                'uib-https-uh-dashboard'
       - "access.uh-iaas.no":                      'uib-https-uh-access'
@@ -112,6 +113,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - 'lyncdiscoverinternal.bergento.no':       'uib-http-sfb'
       - 'sfb-webpool01.uib.no':                   'uib-http-sfb'
       - 'lyncadmin.uib.no':                       'uib-http-sfb'
+      - 'adm2.uib.no':                            'uib-http-adm'
   public_https_domains:
     ensure: present
     mappings:
@@ -210,6 +212,20 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     server_names:       ['bgo-status-01', 'osl-status-01']
     ipaddresses:        ['158.39.77.250', '158.37.63.250']
     options:            'check'
+  'uib-https-adm':
+    listening_service:  'uib-https-adm'
+    ports:              443
+    server_names:       ['rd-web01.uib.no', 'rd-web02.uib.no']
+    ipaddresses:        ['129.177.14.13', '129.177.14.182']
+    options:
+      - 'check'
+  'uib-http-adm':
+    listening_service:  'uib-http-adm'
+    ports:              80
+    server_names:       ['rd-web01.uib.no', 'rd-web02.uib.no']
+    ipaddresses:        ['129.177.14.13', '129.177.14.182']
+    options:
+      - 'check'
   'uib-ldap-test':
     listening_service:  'uib-ldap-test'
     ports:              '389'
@@ -267,6 +283,14 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     mode:             'tcp'
     options:
       - balance:      'source'
+  uib-https-adm:
+    mode:             'tcp'
+    options:
+      - balance:      'roundrobin'
+  uib-http-adm:
+    mode:             'tcp'
+    options:
+      - balance:      'roundrobin'
   uib-ldap-test:
     mode:             'tcp'
     options:
