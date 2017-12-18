@@ -62,9 +62,10 @@ profile::network::services::dns_records:
     # Used as CNAME for uh-iaas.no (http://iaas.readthedocs.io/en/latest/team/operations/dns.html)
     'uh-dboard.iaas.uio.no':                                '158.37.63.254'
     'uh-access.iaas.uio.no':                                '158.37.63.252'
+    'uh-ns.iaas.uio.no':                                    '158.37.63.251'
     'uh-status.iaas.uio.no':                                '158.37.63.250'
     'uh-api.iaas.uio.no':                                   '158.37.63.250'
-    'uh-console.iaas.uio.no':                               '158.37.63.250' #251
+    'uh-console.iaas.uio.no':                               '158.37.63.250'
 #  PTR:
 #    # mgmt
 #    "1.%{hiera('reverse_mgmt')}":      "%{::location}-leaf-01.%{hiera('domain_mgmt')}"
@@ -118,7 +119,7 @@ profile::network::services::dns_records:
 #    "116.%{hiera('reverse_mgmt')}":    "%{::location}-compute-08.%{hiera('domain_mgmt')}"
 #    # public
 #    '250.63.37.158':  'uh-api.iaas.uio.no'
-#    '250.63.37.158':  'uh-console.iaas.uio.no'
+#    '251.63.37.158':  'uh-ns.iaas.uio.no'
 #    '252.63.37.158':  'uh-access.iaas.uio.no'
 #    '254.63.37.158':  'uh-dboard.iaas.uio.no'
 
