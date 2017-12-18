@@ -19,7 +19,7 @@ netcfg_mgmt_gateway:      '172.16.32.12'
 netcfg_mgmt_netpart:      '172.16.32'
 netcfg_mgmt_netmask:      '255.255.248.0'
 netcfg_trp_gateway:       '172.18.39.1'
-netcfg_trp_gateway6:      'fd39::1'
+netcfg_trp_gateway6:      'fd32::3901'
 netcfg_trp_netpart:       '172.18.32'
 netcfg_trp_netpart6:      'fd32'
 netcfg_trp_netmask:       '255.255.248.0'
@@ -59,13 +59,13 @@ profile::network::services::dns_records:
     "%{::location}-leaf-03.%{hiera('domain_mgmt')}":        "%{hiera('netcfg_mgmt_netpart')}.3"
     "%{::location}-leaf-04.%{hiera('domain_mgmt')}":        "%{hiera('netcfg_mgmt_netpart')}.4"
     "%{::location}-login-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_mgmt_netpart')}.10"
-    "git.%{hiera('domain_mgmt')}":                          "%{hiera('netcfg_mgmt_netpart')}.10"
     # Used as CNAME for uh-iaas.no (http://iaas.readthedocs.io/en/latest/team/operations/dns.html)
     'uh-dboard.iaas.uio.no':                                '158.37.63.254'
-    'uh-access.iaas.uio.no':                                '158.37.63.250' #252
+    'uh-access.iaas.uio.no':                                '158.37.63.250'
+    'uh-ns.iaas.uio.no':                                    '158.37.63.251'
     'uh-status.iaas.uio.no':                                '158.37.63.250'
     'uh-api.iaas.uio.no':                                   '158.37.63.250'
-    'uh-console.iaas.uio.no':                               '158.37.63.250' #251
+    'uh-console.iaas.uio.no':                               '158.37.63.250'
 #  PTR:
 #    # mgmt
 #    "1.%{hiera('reverse_mgmt')}":      "%{::location}-leaf-01.%{hiera('domain_mgmt')}"
@@ -119,7 +119,7 @@ profile::network::services::dns_records:
 #    "116.%{hiera('reverse_mgmt')}":    "%{::location}-compute-08.%{hiera('domain_mgmt')}"
 #    # public
 #    '250.63.37.158':  'uh-api.iaas.uio.no'
-#    '250.63.37.158':  'uh-console.iaas.uio.no'
+#    '251.63.37.158':  'uh-ns.iaas.uio.no'
 #    '252.63.37.158':  'uh-access.iaas.uio.no'
 #    '254.63.37.158':  'uh-dboard.iaas.uio.no'
 

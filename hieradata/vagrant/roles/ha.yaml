@@ -111,6 +111,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - "%{hiera('public__address__access')}":      'uib-https-uh-access'
       - "%{hiera('public__address__dashboard')}":   'uib-https-uh-dashboard'
       - 'exch.uib.no':                              'uib-https-exch'
+      - 'adm2.uib.no':                              'uib-https-adm'
   'public_domains':
     ensure: present
     mappings:
@@ -168,6 +169,10 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
       - balance:      'roundrobin'
       - option:
         - 'httpchk /healthcheck.html'
+  uib-https-adm:
+    mode:             'tcp'
+    options:
+      - balance:      'roundrobin'
   uib-https-exch:
     mode:             'tcp'
     options:
@@ -230,6 +235,13 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ports:              443
     server_names:       ['exchange01.uib.no', 'exchange02.uib.no']
     ipaddresses:        ['129.177.14.178','129.177.14.179']
+    options:
+      - 'check'
+  'uib-https-adm':
+    listening_service:  'uib-https-adm'
+    ports:              443
+    server_names:       ['rd-web01.uib.no', 'rd-web02.uib.no']
+    ipaddresses:        ['129.177.14.13', '129.177.14.182']
     options:
       - 'check'
 

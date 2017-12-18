@@ -14,8 +14,22 @@ network::interfaces_hash:
     netmask:   "%{hiera('netcfg_trp_netmask')}"
     gateway:   "%{hiera('netcfg_trp_gateway')}"
     srcaddr:   "%{hiera('netcfg_public_netpart')}.253"
+    ipv6init:  'yes'
+    ipv6addr:  "%{hiera('netcfg_trp_netpart6')}::12/%{hiera('netcfg_trp_netmask6')}"
     defroute:  'yes'
   'dummy0':
     ipaddress: "%{hiera('netcfg_public_netpart')}.253"
     netmask:   '255.255.255.255'
+    ipv6init:  'yes'
+    ipv6addr:  "%{hiera('netcfg_public_netpart6')}::12"
     defroute:  'no'
+
+profile::base::network::routes:
+  'eth1':
+    'ipaddress': [ '::', ]
+    'netmask':   [ '0', ]
+    'gateway':   [ 'fd32::1', ]
+    'source':    [ "%{hiera('netcfg_public_netpart6')}::12", ]
+    'table':     [ 'main', ]
+    'family':    [ '6', ]
+

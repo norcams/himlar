@@ -21,9 +21,9 @@ network::interfaces_hash:
     ipaddress: "%{hiera('netcfg_trp_netpart')}.16"
     netmask:   "%{hiera('netcfg_trp_netmask')}"
     gateway:   "%{hiera('netcfg_trp_gateway')}"
-    srcaddr:   "%{hiera('netcfg_public_netpart')}.16"
+    srcaddr:   "%{hiera('netcfg_public_netpart')}.251"
     defroute:  'yes'
   'dummy0':
-    ipaddress: "%{hiera('netcfg_public_netpart')}.16"
+    ipaddress: "%{hiera('netcfg_public_netpart')}.251"
     netmask:   '255.255.255.255'
     defroute:  'no'

@@ -151,10 +151,12 @@ quagga::quagga::zebra_interfaces:
 
 quagga::quagga::zebra_ip6_routes:
   - '::/0 fd32::2'
+  - '2001:700:2:82ff::12/128 fd32::12'
 quagga::quagga::zebra_ip_routes:
   - '0.0.0.0/0 172.18.228.2'
   - '10.0.0.0/8 Null0'
   - '158.37.63.0/24 Null0'
+  - '158.37.63.248/32 172.18.32.26'
   - '158.37.63.249/32 172.18.32.41'
   - '158.37.63.250/32 172.18.32.86'
   - '158.37.63.251/32 172.18.32.61'
@@ -215,6 +217,8 @@ quagga::quagga::bgp_neighbor_groups:
       - 'fd32::111'
       - 'fd32::112'
       - 'fd32::113'
+      - 'fd32::115'
+      - 'fd32::116'
 
 quagga::quagga::bgp_accesslist:
   '10':

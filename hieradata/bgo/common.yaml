@@ -19,7 +19,7 @@ netcfg_mgmt_gateway:      '172.16.0.12'
 netcfg_mgmt_netpart:      '172.16.0'
 netcfg_mgmt_netmask:      '255.255.248.0'
 netcfg_trp_gateway:       '172.18.7.1'
-netcfg_trp_gateway6:      'fd00::1'
+netcfg_trp_gateway6:      'fd00::701'
 netcfg_trp_netpart:       '172.18.0'
 netcfg_trp_netpart6:      'fd00'
 netcfg_trp_netmask:       '255.255.248.0'
@@ -51,13 +51,13 @@ profile::network::services::dns_records:
     "%{::location}-leaf-04.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_netpart')}.4"
     "%{::location}-mgmt-01.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_netpart')}.5"
     "%{::location}-login-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_mgmt_netpart')}.10"
-    "git.%{hiera('domain_mgmt')}":                      "%{hiera('netcfg_mgmt_netpart')}.10"
     # Used as CNAME for uh-iaas.no (http://iaas.readthedocs.io/en/latest/team/operations/dns.html)
     'uh-api.iaas.uib.no':                               '158.39.77.250'
     'uh-api-front.iaas.uib.no':                         '158.39.77.250'
-    'uh-console.iaas.uib.no':                           '158.39.77.250' #251
+    'uh-console.iaas.uib.no':                           '158.39.77.250'
     'uh-status-front.iaas.uib.no':                      '158.39.77.250'
     'uh-status.iaas.uib.no':                            '158.39.77.250'
+    'uh-ns.iaas.uib.no':                                '158.39.77.251'
     'uh-access-front.iaas.uib.no':                      '158.39.77.252'
     'uh-access.iaas.uib.no':                            '158.39.77.250' #252
     'uh-dboard-front.iaas.uib.no':                      '158.39.77.254'
@@ -116,7 +116,7 @@ profile::network::services::dns_records:
 #    "116.%{hiera('reverse_mgmt')}":    "%{::location}-compute-08.%{hiera('domain_mgmt')}"
 #    # public
 #    '250.77.39.158':  'uh-api.iaas.uib.no'
-#    '250.77.39.158':  'uh-console.iaas.uib.no'
+#    '251.77.39.158':  'uh-ns.iaas.uib.no'
 #    '252.77.39.158':  'uh-access.iaas.uib.no'
 #    '254.77.39.158':  'uh-dboard.iaas.uib.no'
 

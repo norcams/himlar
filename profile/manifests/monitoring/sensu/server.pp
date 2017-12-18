@@ -44,5 +44,4 @@ class profile::monitoring::sensu::server (
   $filters  = hiera_hash('profile::monitoring::sensu::server::filters', {})
   create_resources('sensu::handler', $handlers)
   create_resources('sensu::filter', $filters)
-
 }

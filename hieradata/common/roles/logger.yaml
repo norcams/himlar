@@ -45,19 +45,19 @@ profile::base::lvm::logical_volume:
 logrotate::rules:
   openstack:
     path:           '/opt/log/*.log'
-    rotate:         12
+    rotate:         30
     postrotate:     '/bin/kill -HUP `cat /var/run/syslogd.pid 2> /dev/null` 2> /dev/null || true'
     sharedscripts:  true
     missingok:      true
-    rotate_every:   weekly
+    rotate_every:   daily
     compress:       true
   messages:
     path:           '/opt/log/*/messages'
-    rotate:         12
+    rotate:         30
     postrotate:     '/bin/kill -HUP `cat /var/run/syslogd.pid 2> /dev/null` 2> /dev/null || true'
     sharedscripts:  true
     missingok:      true
-    rotate_every:   weekly
+    rotate_every:   daily
     compress:       true
 
 # Enable extra yum repo

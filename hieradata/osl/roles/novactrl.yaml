@@ -10,10 +10,11 @@ profile::openstack::resource::host_aggregate:
     availability_zone: "%{::location}-default-1"
 #    hosts: "%{::location}-compute-03.%{hiera('domain_mgmt')}, %{::location}-compute-06.%{hiera('domain_mgmt')}"
   group4:
-    availability_zone: "%{::location}-default-2"
+    availability_zone: "%{::location}-sentral-1"
     hosts: "%{::location}-compute-07.%{hiera('domain_mgmt')}, %{::location}-compute-08.%{hiera('domain_mgmt')}"
     metadata:
       filter_tenant_id: >-
         db3a36ac1c8e4af9b570433d3678226d,
         e3dcca3452924794a6aebdd21b5da249,
-        bf017d42f06c4eb590276eccb9d571dd
+        bf017d42f06c4eb590276eccb9d571dd,
+        3eae4805dcd6450fb98651f5a9dc9ded

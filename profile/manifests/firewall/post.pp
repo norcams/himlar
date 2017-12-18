@@ -42,4 +42,21 @@ class profile::firewall::post(
     notice('At this stage, all network traffic is blocked.')
   }
 
+  if $debug {
+    # purge all non-managed rules
+    resources { 'firewall':
+      purge    => true,
+      provider => 'ip6tables',
+    }
+    warning('debug enabled, purging all ipv6 non-managed rules')
+    warning('debug enabled, NO IPv6 TRAFFIC IS BLOCKED.')
+  } else {
+    profile::firewall::rule{ '999 ipv6 drop all':
+      proto    => 'all',
+      action   => 'drop',
+      extras   => $firewall_settings,
+      provider => 'ip6tables',
+    }
+    notice('At this stage, all network traffic is blocked.')
+  }
 }

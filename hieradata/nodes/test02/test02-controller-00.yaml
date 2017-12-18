@@ -18,6 +18,9 @@ network::interfaces_hash:
     ipaddress:    '129.240.121.146'
     netmask:      '255.255.255.0'
     gateway:      '129.240.121.1'
+    ipv6init:     'yes'
+    ipv6addr:     '2001:700:100:121::146/64'
+    ipv6_defaultgw: '2001:700:100:121::1'
     defroute:     'yes'
     dns1:         "%{hiera('mgmt__address__proxy')}"
     domain:       'test.iaas.uio.no'
@@ -44,13 +47,17 @@ network::interfaces_hash:
     type:         'Bridge'
     ipaddress:    '192.168.122.1'
     netmask:      '255.255.255.0'
+    ipv6init:     'yes'
+    ipv6addr:     'fd30::1/64'
     defroute:     'no'
     bridge_stp:   'off'
 
 # NAT
-profile::network::nat::enable_snat: true
-profile::network::nat::source:      "%{hiera('netcfg_public_netpart')}.0/%{hiera('netcfg_public_netmask')}"
-profile::network::nat::outiface:    'em4'
+profile::network::nat::enable_snat:  true
+profile::network::nat::source:       "%{hiera('netcfg_public_netpart')}.0/%{hiera('netcfg_public_netmask')}"
+profile::network::nat::enable_snat6: true
+profile::network::nat::source6:      "%{hiera('netcfg_public_netpart6')}::/%{hiera('netcfg_public_netmask6')}"
+profile::network::nat::outiface:     'em4'
 
 # On this host sdd is the OS disk
 lvm::volume_groups:
@@ -64,10 +71,23 @@ lvm::volume_groups:
 
 # route to public net via leaf-01
 # (test02 is a special case since leaf runs inside this node)
-network::mroutes_hash:
+profile::base::network::mroute:
   br2:
     routes:
       10.100.200.0/24:  192.168.122.2
+
+# Can not use this together with above without (simple) patch to himlar-network::route
+# (not patched due to cowardice and no time for extensive testing)
+# Additionally code below can not be used simultaneously with an IPv4 route as
+# that will all be put into a route46-<if> file instead of route6- and route-<if> ditto
+#
+#profile::base::network::routes:
+#  'br2':
+#    'ipaddress': [ 'fd34::', ]
+#    'netmask':   [ '0', ]
+#    'gateway':   [ 'fd30::2', ]
+#    'table':     [ 'main', ]
+#    'family':    [ '6', ]
 
 named_interfaces::config:
   mgmt:
