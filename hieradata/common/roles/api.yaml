@@ -57,16 +57,17 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
   public_domains:
     ensure: present
     mappings:
-      - "api.%{hiera('domain_frontend')}:5000":         'bk_identity'
-      - "identity.api.%{hiera('domain_public')}:5000":  'bk_identity'
-      - "network.api.%{hiera('domain_public')}:9696":   'bk_network'
-      - "metric.api.%{hiera('domain_public')}:8041":    'bk_metric'
-      - "compute.api.%{hiera('domain_public')}:8774":   'bk_compute'
-      - "volume.api.%{hiera('domain_public')}:8776":    'bk_volume'
-      - "image.api.%{hiera('domain_public')}:9292":     'bk_image'
-      - "status.%{hiera('domain_frontend')}":           'bk_status'
-      - "console.%{hiera('domain_public')}:6082":       'bk_console'
-      - "access.%{hiera('domain_frontend')}":           'bk_access'
+      - "api.%{hiera('domain_frontend')}:5000":             'bk_identity'
+      - "identity.api.%{hiera('domain_public')}:5000":      'bk_identity'
+      - "network.api.%{hiera('domain_public')}:9696":       'bk_network'
+      - "metric.api.%{hiera('domain_public')}:8041":        'bk_metric'
+      - "compute.api.%{hiera('domain_public')}:8774":       'bk_compute'
+      - "volume.api.%{hiera('domain_public')}:8776":        'bk_volume'
+      - "image.api.%{hiera('domain_public')}:9292":         'bk_image'
+      - "status.%{hiera('domain_frontend')}":               'bk_status'
+      - "console.%{hiera('domain_public')}:6082":           'bk_console'
+      - "access.%{hiera('domain_frontend')}":               'bk_access'
+      - "access-%{::location}.%{hiera('domain_frontend')}": 'bk_access'
   internal_domains:
     ensure: present
     mappings:
@@ -157,7 +158,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
       - errorfile:    '503 /etc/haproxy/error.api.http'
   bk_access:
     options:
-      - option:       'httplog'    
+      - option:       'httplog'
 
 # Servers for backends. This will be merged and can should be overridden i location
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
@@ -212,11 +213,11 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   access:
     listening_service:  'bk_access'
     server_names:       ['%{::location}-access-01']
-    ipaddresses:        ["%{hiera('netcfg_trp_netpart')}.56"] 
+    ipaddresses:        ["%{hiera('netcfg_trp_netpart')}.56"]
     ports:              '80'
     options:            'check'
 
-# SELinux - open ports for HAproxy 
+# SELinux - open ports for HAproxy
 profile::base::selinux::ports:
   identity-http:
     context:  'http_port_t'
@@ -227,7 +228,7 @@ profile::base::selinux::ports:
     context:  'http_port_t'
     protocol: 'tcp'
     port:     '9696'
-    argument: '-m'          
+    argument: '-m'
   metric-http:
     context:  'http_port_t'
     protocol: 'tcp'
@@ -254,7 +255,7 @@ profile::base::selinux::ports:
   console-http:
     context:  'http_port_t'
     protocol: 'tcp'
-    port:     '6082' 
+    port:     '6082'
 
 # Errorpage for api, not used for status!
 profile::highavailability::loadbalancing::haproxy::haproxy_errorpage:
