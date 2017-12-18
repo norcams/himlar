@@ -114,7 +114,7 @@ profile::network::services::dns_records:
   A:
     "ns.%{hiera('domain_public')}":                       "%{hiera('netcfg_public_netpart')}.16"
     "dashboard.%{hiera('domain_frontend')}":              "%{hiera('netcfg_public_netpart')}.254"
-    "access.%{hiera('domain_frontend')}":                 "%{hiera('netcfg_public_netpart')}.252"
+    "access.%{hiera('domain_frontend')}":                 "%{hiera('netcfg_public_netpart')}.250"
     "console.%{hiera('domain_public')}":                  "%{hiera('netcfg_public_netpart')}.250"
     "api.%{hiera('domain_public')}":                      "%{hiera('netcfg_public_netpart')}.250"
     "identity.api.%{hiera('domain_public')}":             "%{hiera('netcfg_public_netpart')}.250"
@@ -175,7 +175,7 @@ profile::network::services::dns_records:
     # public
     "16.%{hiera('reverse_public')}":    "ns.%{hiera('domain_public')}"
     "254.%{hiera('reverse_public')}":   "dashboard.%{hiera('domain_frontend')}"
-    "252.%{hiera('reverse_public')}":   "access.%{hiera('domain_frontend')}"
+    #"250.%{hiera('reverse_public')}":   "access.%{hiera('domain_frontend')}" #252
     #"250.%{hiera('reverse_public')}":   "console.%{hiera('domain_public')}" #251
     "250.%{hiera('reverse_public')}":   "api.%{hiera('domain_public')}"
     # public IPv6

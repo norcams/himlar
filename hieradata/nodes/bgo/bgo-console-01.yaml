@@ -8,14 +8,9 @@ network::interfaces_hash:
     peerdns:   'yes'
     dns1:      "%{hiera('netcfg_dns_server1')}"
     domain:    "%{hiera('netcfg_dns_search')}"
-    defroute:  'yes' #'no'
+    defroute:  'yes'
   'eth1':
     ipaddress: '172.18.0.61'
     netmask:   '255.255.248.0'
-#    gateway:   "%{hiera('netcfg_trp_gateway')}"
-#    srcaddr:   '158.39.77.251'
-    defroute:  'no' #'yes'
-#  'dummy0':
-#    ipaddress: '158.39.77.251'
-#    netmask:   '255.255.255.255'
-#    defroute:  'no'
+    defroute:  'no' 
+

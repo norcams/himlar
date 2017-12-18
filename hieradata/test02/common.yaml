@@ -62,9 +62,9 @@ profile::network::services::dns_records:
     "volume.api.%{hiera('domain_public')}":                 "%{hiera('netcfg_public_netpart')}.250"
     "compute.api.%{hiera('domain_public')}":                "%{hiera('netcfg_public_netpart')}.250"
     "status.%{hiera('domain_public')}":                     "%{hiera('netcfg_public_netpart')}.250"
-    "console.%{hiera('domain_public')}":                    "%{hiera('netcfg_public_netpart')}.250"
+    "access.%{hiera('domain_public')}":                     "%{hiera('netcfg_public_netpart')}.250" 
+    "console.%{hiera('domain_public')}":                    "%{hiera('netcfg_public_netpart')}.250" 
     "ns.%{hiera('domain_public')}":                         "%{hiera('netcfg_public_netpart')}.251"
-    "access.%{hiera('domain_public')}":                     "%{hiera('netcfg_public_netpart')}.252"
     "dashboard.%{hiera('domain_public')}":                  "%{hiera('netcfg_public_netpart')}.254"
     "%{::location}-controller-00.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_netpart')}.99"
 PTR:
@@ -116,8 +116,9 @@ PTR:
     "116.%{hiera('reverse_mgmt')}":    "%{::location}-compute-08.%{hiera('domain_mgmt')}"
     # public
     "250.%{hiera('reverse_public')}":  "api.%{hiera('domain_public')}"
+  #  "250.%{hiera('reverse_public')}":  "console.%{hiera('domain_public')}"
+  #  "250.%{hiera('reverse_public')}":  "access.%{hiera('domain_frontend')}"
     "251.%{hiera('reverse_public')}":  "ns.%{hiera('domain_public')}"
-    "252.%{hiera('reverse_public')}":  "access.%{hiera('domain_frontend')}"
     "254.%{hiera('reverse_public')}":  "dashboard.%{hiera('domain_frontend')}"
 
 ntp::servers:

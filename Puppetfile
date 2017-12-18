@@ -69,7 +69,7 @@ mod 'consul', :ref => '7c428f4b2b',              :git => github + 'solarkennedy/
 #
 # profile::application::dpapp
 #
-mod 'dpapp', :ref => '1.2',                      :git => github + 'norcams/puppet-dpapp'
+mod 'dpapp', :ref => '1.3',                      :git => github + 'norcams/puppet-dpapp'
 
 #
 # profile::application::git

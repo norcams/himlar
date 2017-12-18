@@ -240,6 +240,7 @@ profile::network::services::dns_records:
     "mq01.%{hiera('domain_trp')}":                          "%{hiera('netcfg_trp_netpart')}.31"
     "db01.%{hiera('domain_trp')}":                          "%{hiera('netcfg_trp_netpart')}.41"
     "db02.%{hiera('domain_trp')}":                          "%{hiera('netcfg_trp_netpart')}.42"
+    "%{::location}-access-01.%{hiera('domain_trp')}":       "%{hiera('netcfg_trp_netpart')}.56"
     "image.%{hiera('domain_trp')}":                         "%{hiera('netcfg_trp_netpart')}.86"
     "volume.%{hiera('domain_trp')}":                        "%{hiera('netcfg_trp_netpart')}.86"
     "compute.%{hiera('domain_trp')}":                       "%{hiera('netcfg_trp_netpart')}.86"

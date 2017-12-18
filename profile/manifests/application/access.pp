@@ -9,17 +9,8 @@ class profile::application::access(
   include ::dpapp
 
   if $manage_firewall {
-    $hiera_allow_from_network = hiera_array('allow_from_network', undef)
-    $source = $allow_from_network? {
-      undef   => $hiera_allow_from_network,
-      ''      => $hiera_allow_from_network,
-      default => $allow_from_network
-    }
-
     profile::firewall::rule { '190 dpapp-http accept tcp':
-      dport       => [ 80, 443 ],
-      destination => $::ipaddress_public1,
-      source      => $source,
+      dport       => [80],
       extras      => $firewall_extras,
     }
   }
@@ -33,5 +24,4 @@ class profile::application::access(
       notify   => Class['apache::service']
     }
   }
-
 }

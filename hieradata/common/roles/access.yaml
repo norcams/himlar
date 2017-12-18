@@ -10,6 +10,9 @@ profile::application::access::manage_firewall:  true
 profile::application::access::package_url:      'https://download.iaas.uio.no/uh-iaas/rpm/himlar-dp-prep-1.5-3.el7.x86_64.rpm'
 dpapp::installdir:        '/opt/dpapp'
 
+profile::application::access::firewall_extras:
+  source: "%{::network_trp1}/%{::netmask_trp1}"
+
 apache::default_mods:   false
 profile::webserver::apache::mods_enable:
   - wsgi
@@ -22,18 +25,12 @@ profile::base::common::packages:
 
 profile::webserver::apache::vhosts:
   dpapp:
-    vhost_name:         "%{hiera('public__address__access')}"
-    servername:         "%{hiera('public__address__access')}"
-    serveraliases:      [ "access-%{::location}.%{hiera('domain_frontend')}" ]
+    vhost_name:         "%{hostname}.%{hiera('domain_trp')}"
+    servername:         "%{hostname}.%{hiera('domain_trp')}"
+    serveraliases:
+     - "%{hiera('public__address__access')}"
+     - "access-%{::location}.%{hiera('domain_frontend')}"
     port:               '80'
-    manage_docroot:     false
-    docroot:            '/var/www/html'
-    redirect_dest:      "https://%{hiera('public__address__access')}/"
-  dpapp_ssl:
-    vhost_name:         "%{hiera('public__address__access')}"
-    servername:         "%{hiera('public__address__access')}"
-    serveraliases:      [ "access-%{::location}.%{hiera('domain_frontend')}" ]
-    port:               '443'
     manage_docroot:     false
     docroot:            '/var/www/html'
     wsgi_application_group:  '%%{}{GLOBAL}'
@@ -48,7 +45,3 @@ profile::webserver::apache::vhosts:
       - path:             "%{hiera('dpapp::installdir')}"
         require:          'all granted'
         custom_fragment:  'WSGIProcessGroup dpapp'
-    ssl:                  true
-    ssl_ca:               "/etc/pki/tls/certs/cachain.pem"
-    ssl_cert:             "/etc/pki/tls/certs/%{hiera('public__address__access')}.cert.pem"
-    ssl_key:              "/etc/pki/tls/private/%{hiera('public__address__access')}.key.pem"
