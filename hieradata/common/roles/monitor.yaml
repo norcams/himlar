@@ -159,3 +159,11 @@ logrotate::rules:
     sharedscripts:  true
     missingok:      true
     compress:       true
+  sensu_dashboard:
+    path:           '/var/log/uchiwa.log'
+    rotate:         3
+    rotate_every:   weekly
+    dateext:        true
+    sharedscripts:  true
+    missingok:      true
+    compress:       true
