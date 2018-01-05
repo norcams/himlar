@@ -144,7 +144,6 @@ grafana_admin_password:                             'changeme'
 local_rabbit_password:                              'local'
 
 # telemetry/metrics
-gnocchi::api::keystone_password:                    'gnocchi'
 gnocchi::db::mysql::password:                       'gnocchi_pass'
 ceilometer::keystone::authtoken:                    'ceilometer'
 ceilometer::telemetry_secret:                       'ceilometer'
