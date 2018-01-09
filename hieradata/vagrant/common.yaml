@@ -200,6 +200,8 @@ cinder_api_password:                                'cinder_pass'
 glance_api_password:                                'glance_pass'
 neutron_api_password:                               'neutron_pass'
 nova_api_password:                                  'nova_pass'
+gnocchi_api_password:                               'gnocchi'
+ceilometer_api_password:                            'ceilometer_pass'
 
 # rabbitmq
 rabbitmq::default_pass:                             'guest'
@@ -252,9 +254,8 @@ grafana_admin_password:                             'changeme'
 local_rabbit_password:                              'local'
 
 # telemetry/metrics
-gnocchi::api::keystone_password:                    'gnocchi'
 gnocchi::db::mysql::password:                       'gnocchi_pass'
-ceilometer::keystone::authtoken:                    'ceilometer'
+ceilometer::db::mysql::password:		    'ceilometer_pass'
 ceilometer::telemetry_secret:                       'ceilometer'
 ceilometer::rabbit_password:                        'ceilometer'
 

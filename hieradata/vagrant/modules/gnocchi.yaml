@@ -1,0 +1,2 @@
+---
+gnocchi::keystone::auth::public_url:          "%{hiera('endpoint__metric__internal')}"  
