@@ -1,6 +1,6 @@
 #
 class profile::openstack::compute(
-  $manage_az            = false
+  $manage_az            = false,
   $manage_telemetry     = false
 ) {
   include ::nova
