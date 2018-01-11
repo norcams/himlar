@@ -61,26 +61,17 @@ allow_from_network:
   - '129.177.10.189/32'  # tor
   - '129.177.10.212/32'  # raymond
   - '129.177.10.111/32'  # anders
-  - '129.240.202.64/32'  # usit
+  - '129.240.202.64/32'  # tannaz
   - '158.36.0.0/16'      # UiA
   - '128.39.0.0/16'      # UiA
   - '158.37.216.0/21'    # UiA
   - '158.37.240.0/20'    # UiA
   - '129.177.6.133/32'   # bgo-login
   - '129.240.224.100/32' # osl-login
-  - '193.157.136.0/22'   # UiO VPN
-  - '193.157.160.0/20'   # UiO WLAN - Eduroam - UiO-brukere
-  - '193.157.176.0/20'   # UiO WLAN - Eduroam - UiO-brukere
-  - '193.157.192.0/20'   # UiO WLAN - Eduroam - UiO-brukere
-  - '193.157.212.0/22'   # UiO WLAN - Eduroam - UiO-brukere
-  - '193.157.220.0/23'   # UiO WLAN - Eduroam - UiO-brukere
-  - '193.157.222.0/23'   # UiO WLAN - Eduroam - UiO-brukere
-  - '193.157.224.0/22'   # UiO WLAN - Eduroam - UiO-brukere
-  - '193.157.236.0/22'   # UiO WLAN - Eduroam - UiO-brukere
-  - '193.157.240.0/20'   # UiO WLAN - Eduroam - UiO-brukere
-  - '193.157.113.0/24'   # UiO WLAN - Eduroam - eksterne-brukere
-  - '193.157.115.0/25'   # UiO WLAN - Eduroam - eksterne-brukere
-  - '193.157.116.0/22'   # UiO WLAN - Eduroam - eksterne-brukere
+  - '193.157.108.0/22'   # UiO Eksterne
+  - '193.157.112.0/20'   # UiO Eksterne (SiO og andre)
+  - '193.157.128.0/17'   # UiO (gis tilgang til UiO-ressurser som for 129.240.0.0/16)
+  - '158.36.184.0/21'    # UiO Eksterne
   - '129.242.5.180/30'   # UiT ita
   - '129.242.4.227/32'   # UiT ita
   - '129.242.6.0/24'     # UiT ita
