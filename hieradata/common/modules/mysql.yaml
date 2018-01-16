@@ -13,6 +13,7 @@ mysql::server::override_options:
     ssl-ca:                         "%{hiera('db_ssl_ca')}"
     ssl-key:                        "%{hiera('db_ssl_key')}"
     ssl-cert:                       "%{hiera('db_ssl_cert')}"
+    wsrep_sst_auth:                 "root:%{hiera('mysql::server::root_password')}"
   galera:
     binlog_format:                  'ROW'
     default_storage_engine:         'InnoDB'
