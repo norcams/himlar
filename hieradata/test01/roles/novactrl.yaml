@@ -1,16 +1,14 @@
 ---
 profile::openstack::resource::host_aggregate:
   group1:
-    availability_zone: "%{::location}-default-2"
+    availability_zone: "%{::location}-default-1"
     hosts: "%{::location}-compute-01.%{hiera('domain_mgmt')}"
-    metadata:
-      filter_tenant_id: >-
-        5d81e653cd4c428fbb1e1cbb7c104048,
-        bf314ffcc9c34fd5ba36364105967b08,
-        9cc54d8f6eb34ba591f1679884089ee8
   group2:
     availability_zone: "%{::location}-default-1"
     hosts: "%{::location}-compute-02.%{hiera('domain_mgmt')}"
   group3:
     availability_zone: "%{::location}-default-1"
-    hosts: "%{::location}-compute-03.%{hiera('domain_mgmt')},%{::location}-compute-04.%{hiera('domain_mgmt')}"
+    hosts: "%{::location}-compute-03.%{hiera('domain_mgmt')}"
+  central1:
+    availability_zone: "%{::location}-sentral-1"
+    hosts: "%{::location}-compute-04.%{hiera('domain_mgmt')}"

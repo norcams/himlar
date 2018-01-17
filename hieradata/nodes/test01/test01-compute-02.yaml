@@ -26,6 +26,12 @@ network::interfaces_hash:
     ipv6addr:     "%{hiera('netcfg_trp_netpart6')}::104/%{hiera('netcfg_trp_netmask6')}"
     defroute:     'no'
 
+# This compute host uses local storage for instances
+nova::compute::rbd::ephemeral_storage:            false
+nova::config::nova_config:
+  libvirt/images_type:
+    value: default
+
 #profile::base::lvm::physical_volume:
 #  '/dev/sda3':
 #    ensure: present
