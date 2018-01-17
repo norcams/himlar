@@ -28,3 +28,5 @@ calico::compute::peer_defaults:
 
 # New dhcp agent with the 1.4 release of calico
 calico::compute::compute_dhcp_agent: 'calico'
+
+calico::compute::router_id: "%{ipaddress_mgmt1}"
