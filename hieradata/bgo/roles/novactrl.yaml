@@ -1,25 +1,20 @@
 ---
 profile::openstack::resource::host_aggregate:
   group1:
-    availability_zone: "%{::location}-default-1"
+    availability_zone: "%{::location}-legacy-1"
 #    hosts: "%{::location}-compute-01.%{hiera('domain_mgmt')}, %{::location}-compute-04.%{hiera('domain_mgmt')}"
   group2:
-    availability_zone: "%{::location}-default-1"
+    availability_zone: "%{::location}-legacy-1"
     hosts: "%{::location}-compute-02.%{hiera('domain_mgmt')}, %{::location}-compute-05.%{hiera('domain_mgmt')}"
   group3:
-    availability_zone: "%{::location}-default-1"
+    availability_zone: "%{::location}-legacy-1"
 #    hosts: "%{::location}-compute-03.%{hiera('domain_mgmt')}, %{::location}-compute-06.%{hiera('domain_mgmt')}"
-  group4:
+  central1:
     hosts: "%{::location}-compute-07.%{hiera('domain_mgmt')}, %{::location}-compute-08.%{hiera('domain_mgmt')}"
-    availability_zone: "%{::location}-hpc-1"
-    metadata:
-      filter_tenant_id: >-
-        e3dcca3452924794a6aebdd21b5da249,
-        db3a36ac1c8e4af9b570433d3678226d,
-        bf017d42f06c4eb590276eccb9d571dd
-  group5:
+    availability_zone: "%{::location}-default-1"
+  hpc1:
     hosts: "%{::location}-compute-09.%{hiera('domain_mgmt')}, %{::location}-compute-10.%{hiera('domain_mgmt')}"
-    availability_zone: "%{::location}-sentral-1"
+    availability_zone: "%{::location}-hpc-1"
     metadata:
       filter_tenant_id: >-
         e3dcca3452924794a6aebdd21b5da249,
