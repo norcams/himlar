@@ -7,3 +7,7 @@ nova::compute::rbd::libvirt_images_rbd_pool:      'vms'
 # Optimize cache mode for ceph
 nova::compute::libvirt::libvirt_disk_cachemodes:
   - '"network=writeback"'
+
+# set lowest common denominator for live migration compat
+nova::compute::libvirt::libvirt_cpu_mode:  'custom'
+nova::compute::libvirt::libvirt_cpu_model: 'Westmere'
