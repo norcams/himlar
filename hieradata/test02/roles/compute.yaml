@@ -27,10 +27,10 @@ puppet::cron_cmd: "if [ -e /root/proxy.sh ] ; then source /root/proxy.sh ; fi ; 
 # Add custom routing table for private network to NAT
 profile::base::network::routes:
   'em1':
-    'ipaddress': [ '0.0.0.0', ]
-    'netmask':   [ '0.0.0.0', ]
-    'gateway':   [ "%{hiera('netcfg_priv_gateway')}", ]
-    'table':     [ 'private', ]
+    'ipaddress': [ '0.0.0.0', '0.0.0.0', ]
+    'netmask':   [ '0.0.0.0', '0.0.0.0', ]
+    'gateway':   [ "%{hiera('netcfg_priv_gateway')}", "%{hiera('netcfg_trp_gateway')}" ]
+    'table':     [ 'private', 'main', ]
 profile::base::network::routing_tables:
   'private':
     'table_id':  '240'

@@ -54,7 +54,7 @@ protocol kernel {
 #  import filter import_kernel;
   import all;
   graceful restart;
-  export all;     # Default is export none
+  export filter import_bgp;     # Default is export none
 }
 
 protocol pipe {
