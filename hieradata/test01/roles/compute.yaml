@@ -1,11 +1,13 @@
 ---
 named_interfaces::config:
   mgmt:
-    - bond0
+     - bond0
   trp:
-    - bond0.912
-  live:
-    - bond0.912
+     - bond0.912
+  transport: #FIXME
+     - bond0.912
+  service: #FIXME
+     - bond0_912
 
 ntp::servers:
   - 172.28.0.100

@@ -6,11 +6,13 @@ include:
 
 named_interfaces::config:
   mgmt:
-    - em3
+     - em3
   trp:
-    - em1
-  live:
-    - em1
+     - em1
+  transport:
+     - em1
+  service:
+     - em1
 
 ntp::servers:
   - 172.28.32.100

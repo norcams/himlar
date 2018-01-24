@@ -18,8 +18,6 @@ named_interfaces::config:
     - eth0_100
   trp:
     - eth0_100
-  live:
-    - eth0_100
 
 # Add custom routing table for private network to NAT
 profile::base::network::routes:
