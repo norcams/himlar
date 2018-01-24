@@ -52,6 +52,8 @@ profile::messaging::rabbitmq::users:
   local:
     password: "%{hiera('local_rabbit_password')}"
     tags:     'monitoring'
+  ceilometer:
+    password: "%{hiera('ceilometer::rabbit_password')}"
 
 #  glance:
 #    password: "%{hiera('glance::rabbit_password')}"
@@ -61,6 +63,7 @@ profile::messaging::rabbitmq::vhosts:
   cinder: {}
   neutron: {}
   sensu: {}
+  ceilometer: {}
 #  glance: {}
 
 profile::messaging::rabbitmq::user_permissions:
@@ -80,6 +83,10 @@ profile::messaging::rabbitmq::user_permissions:
     configure_permission: '.*'
     write_permission:     '.*'
     read_permission:      '.*'
+  'ceilometer@ceilometer':
+    configure_permission: '.*'
+    write_permission:     '.*'
+    read_permission:      '.*'
 #  'glance@glance':
 #    configure_permission: '.*'
 #    write_permission:     '.*'
@@ -92,6 +99,8 @@ profile::messaging::rabbitmq::user_permissions:
   'local@neutron':
     read_permission:      '.*'
   'local@sensu':
+    read_permission:      '.*'
+  'local@ceilometer':
     read_permission:      '.*'
 
 profile::messaging::rabbitmq::policy:

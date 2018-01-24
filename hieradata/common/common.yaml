@@ -156,6 +156,8 @@ endpoint__network__public:        "https://network.api.%{hiera('domain_public')}
 endpoint__metric__admin:          "http://metric.%{hiera('domain_trp')}:8041"
 endpoint__metric__internal:       "http://metric.%{hiera('domain_trp')}:8041"
 endpoint__metric__public:         "https://metric.api.%{hiera('domain_public')}:8041"
+endpoint__telemetry__admin:       "http://telemetry.%{hiera('domain_trp')}:8777"
+endpoint__telemetry__internal:    "http://telemetry.%{hiera('domain_trp')}:8777"
 
 #
 # DNS (merge of this and location)
@@ -186,6 +188,7 @@ profile::network::services::dns_records:
     "%{::location}-network-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.71"
     "%{::location}-network-02.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.72"
     "%{::location}-network-03.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.73"
+    "%{::location}-telemetry-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_mgmt_netpart')}.76"
     "%{::location}-identity-01.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_netpart')}.81"
     "%{::location}-api-01.%{hiera('domain_mgmt')}":         "%{hiera('netcfg_mgmt_netpart')}.86"
     "%{::location}-cephmon-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.91"
@@ -234,6 +237,7 @@ profile::network::services::dns_records:
     "db01.%{hiera('domain_trp')}":                          "%{hiera('netcfg_trp_netpart')}.41"
     "db02.%{hiera('domain_trp')}":                          "%{hiera('netcfg_trp_netpart')}.42"
     "%{::location}-access-01.%{hiera('domain_trp')}":       "%{hiera('netcfg_trp_netpart')}.56"
+    "telemetry.%{hiera('domain_trp')}":                     "%{hiera('netcfg_trp_netpart')}.76"
     "image.%{hiera('domain_trp')}":                         "%{hiera('netcfg_trp_netpart')}.86"
     "volume.%{hiera('domain_trp')}":                        "%{hiera('netcfg_trp_netpart')}.86"
     "compute.%{hiera('domain_trp')}":                       "%{hiera('netcfg_trp_netpart')}.86"

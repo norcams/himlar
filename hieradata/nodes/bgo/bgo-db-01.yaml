@@ -69,12 +69,13 @@ wsrep_sst_method:       'mariabackup'
 wsrep_cluster_address:  'gcomm://158.39.77.249,158.37.63.249,129.177.6.96'
 wsrep_node_address:     '158.39.77.249'
 
-profile::openstack::database::sql::keystone_enabled:  true
-profile::openstack::database::sql::glance_enabled:    false
-profile::openstack::database::sql::nova_enabled:      false
-profile::openstack::database::sql::neutron_enabled:   false
-profile::openstack::database::sql::cinder_enabled:    false
-profile::openstack::database::sql::gnocchi_enabled:   false
+profile::openstack::database::sql::keystone_enabled:   true
+profile::openstack::database::sql::glance_enabled:     false
+profile::openstack::database::sql::nova_enabled:       false
+profile::openstack::database::sql::neutron_enabled:    false
+profile::openstack::database::sql::cinder_enabled:     false
+profile::openstack::database::sql::gnocchi_enabled:    false
+profile::openstack::database::sql::ceilometer_enabled: false
 
 # sensu
 profile::monitoring::sensu::agent::checks:

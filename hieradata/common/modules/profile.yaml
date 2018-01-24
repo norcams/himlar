@@ -36,6 +36,7 @@ profile::firewall::pre::ssh_settings:
 profile::logging::rsyslog::client::manage_rsyslog:         true
 profile::openstack::compute::hypervisor::manage_telemetry: false
 
+profile::openstack::database::sql::ceilometer_enabled: true
 profile::openstack::database::sql::keystone_enabled: true
 profile::openstack::database::sql::glance_enabled:   true
 profile::openstack::database::sql::nova_enabled:     true
@@ -49,7 +50,7 @@ profile::openstack::database::sql::trove_enabled:    false
 profile::database::mariadb::backuptopdir:        '/var/db/dumps'
 profile::database::mariadb::backupscript:        '/usr/local/sbin/mysqlbackup.sh'
 
-profile::openstack::identity::ceilometer_enabled: false
+profile::openstack::identity::ceilometer_enabled: true
 profile::openstack::identity::cinder_enabled:     true
 profile::openstack::identity::glance_enabled:     true
 profile::openstack::identity::neutron_enabled:    true

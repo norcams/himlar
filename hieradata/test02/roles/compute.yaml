@@ -42,3 +42,6 @@ profile::base::network::rules:
 calico::compute::bird_template: 'profile/bird/bird.conf.erb'
 
 nova::debug: true
+
+# remove when telemetry/ceilometer is up in all environments and move to common
+profile::openstack::compute::manage_telemetry: true

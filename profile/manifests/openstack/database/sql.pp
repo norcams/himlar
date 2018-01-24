@@ -7,6 +7,7 @@ class profile::openstack::database::sql (
   $trove_enabled    = false,
   $cinder_enabled   = false,
   $gnocchi_enabled  = false,
+  $ceilometer_enabled = false,
   $create_cell0     = false,
   $database         = 'mariadb',
 ) {
@@ -72,6 +73,10 @@ class profile::openstack::database::sql (
 
   if $gnocchi_enabled {
     include ::gnocchi::db::mysql
+  }
+
+  if $ceilometer_enabled {
+    include ::ceilometer::db::mysql
   }
 
 }

@@ -1,0 +1,50 @@
+---
+
+# db (node: ceilometer)
+ceilometer::db::database_connection:    "mysql://ceilometer:%{hiera('ceilometer::db::mysql::password')}@%{hiera('service__address__mysql')}/ceilometer"
+ceilometer::db::sync_db:                'true'
+ceilometer::db::mysql::dbname:          'ceilometer'
+ceilometer::db::mysql::user:            'ceilometer'
+ceilometer::db::mysql::allowed_hosts:
+  - "%{netpart_trp1}.%"
+
+
+ceilometer::collector::meter_dispatcher:                        [ 'gnocchi' ]
+ceilometer::collector::event_dispatcher:                        [ 'gnocchi' ]
+ceilometer::dispatcher::gnocchi::url:                           "%{hiera('endpoint__metric__internal')}"
+ceilometer::dispatcher::gnocchi::filter_servcie_activity:       'false'
+ceilometer::dispatcher::gnocchi::archive_policy:                'low'
+
+ceilometer::wsgi::apache::ssl:                    	false
+ceilometer::api::enabled:                         	true
+ceilometer::api:service_name:                    	'httpd'
+ceilometer::api::polling::compute_namespace:		false
+ceilometer::api::polling::instance_discovery_method:	'libvirt_metadata'
+
+# keystone auth (node: ceilometer)
+ceilometer::agent::auth::auth_password:          "%{hiera('ceilometer_api_password')}"
+ceilometer::agent::auth::auth_url:               "%{hiera('endpoint__identity__internal')}"
+ceilometer::agent::auth::auth_region:            "%{::location}"
+ceilometer::keystone::auth::password:            "%{hiera('ceilometer_api_password')}"
+ceilometer::keystone::auth::public_url:          "%{hiera('endpoint__telemetry__internal')}"
+ceilometer::keystone::auth::admin_url:           "%{hiera('endpoint__telemetry__admin')}"
+ceilometer::keystone::auth::internal_url:        "%{hiera('endpoint__telemetry__internal')}"
+ceilometer::keystone::auth::region:              "%{::location}"
+ceilometer::keystone::authtoken::password:       "%{hiera('ceilometer_api_password')}"
+ceilometer::keystone::authtoken::public_url:     "%{hiera('endpoint__telemetry__internal')}"
+ceilometer::keystone::authtoken::auth_uri:       "%{hiera('endpoint__identity__public')}"
+ceilometer::keystone::authtoken::auth_url:       "%{hiera('endpoint__identity__admin')}"
+ceilometer::keystone::authtoken::admin_url:      "%{hiera('endpoint__telemetry__admin')}"
+ceilometer::keystone::authtoken::internal_url:   "%{hiera('endpoint__telemetry__internal')}"
+
+# rabbit mq (for rabbit_password see secrets)
+ceilometer_rabbit_userid:			 'ceilometer'
+ceilometer::notification_transport_url:
+  "rabbit://%{hiera('ceilometer_rabbit_userid')}:%{hiera('ceilometer::rabbit_password')}@%{hiera('service__address__rabbitmq_01')}:5672,\
+  %{hiera('ceilometer_rabbit_userid')}:%{hiera('ceilometer::rabbit_password')}@%{hiera('service__address__rabbitmq_02')}:5672,\
+  %{hiera('ceilometer_rabbit_userid')}:%{hiera('ceilometer::rabbit_password')}@%{hiera('service__address__rabbitmq_03')}:5672/ceilometer"
+ceilometer::default_transport_url:
+  "rabbit://%{hiera('ceilometer_rabbit_userid')}:%{hiera('ceilometer::rabbit_password')}@%{hiera('service__address__rabbitmq_01')}:5672,\
+  %{hiera('ceilometer_rabbit_userid')}:%{hiera('ceilometer::rabbit_password')}@%{hiera('service__address__rabbitmq_02')}:5672,\
+  %{hiera('ceilometer_rabbit_userid')}:%{hiera('ceilometer::rabbit_password')}@%{hiera('service__address__rabbitmq_03')}:5672/ceilometer"
+
