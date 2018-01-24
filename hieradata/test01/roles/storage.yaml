@@ -1,11 +1,11 @@
 ---
 named_interfaces::config:
   mgmt:
-     - em3
-  transport:
-     - bond0
+    - em3
   trp:
-     - bond0
+    - bond0
+  ceph:
+    - bond0
 
 profile::base::common::manage_fake_ssd: true
 
