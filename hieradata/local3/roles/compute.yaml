@@ -4,11 +4,9 @@ calico::compute::bird_template: 'profile/bird/bird.conf.erb'
 named_interfaces::config:
   mgmt:
     - eth0
-  transport:
-    - eth0_912
-  service:
-    - eth0_912
   trp:
+    - eth0_912
+  live:
     - eth0_912
 
 # Add custom routing table for private network to NAT
