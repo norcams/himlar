@@ -34,8 +34,6 @@ network::interfaces_hash:
     onboot:        'yes'
     ipaddress:     "%{hiera('netcfg_live_netpart')}.118"
     netmask:       "%{hiera('netcfg_live_netmask')}"
-    ipv6init:      'yes'
-    ipv6addr:      "%{hiera('netcfg_live_netpart6')}::118/%{hiera('netcfg_live_netmask6')}"
     vlan:          'yes'
     defroute:      'no'
 
