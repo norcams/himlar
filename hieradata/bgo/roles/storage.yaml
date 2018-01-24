@@ -6,6 +6,8 @@ named_interfaces::config:
     - team1
   trp:
     - team1
+  ceph:
+    - team1.110
 
 ceph::profile::params::osds:
   '/dev/sda':
