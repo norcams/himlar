@@ -1,11 +1,9 @@
 ---
 named_interfaces::config:
   mgmt:
-    - em3
+     - em3
   trp:
-    - bond1
-  ceph:
-    - bond1
+     - bond1
 
 profile::storage::fake_ssds:
   'sdb': {}
