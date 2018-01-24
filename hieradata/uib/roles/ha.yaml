@@ -113,7 +113,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - 'lyncdiscoverinternal.bergento.no':       'uib-http-sfb'
       - 'sfb-webpool01.uib.no':                   'uib-http-sfb'
       - 'lyncadmin.uib.no':                       'uib-http-sfb'
-      - 'adm2.uib.no':                            'uib-http-adm'
+      - 'portal.uib.no':                          'uib-http-adm'
   public_https_domains:
     ensure: present
     mappings:
