@@ -49,7 +49,7 @@ haproxy::defaults_options:
     - 'connect 10s'
     - 'check 10s'
     - 'client 1m'
-    - 'server 1m'
+    - 'server 3m'
     - 'queue 1m'
 
 # Domain mapping to backend
