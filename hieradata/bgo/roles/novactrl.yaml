@@ -21,3 +21,11 @@ profile::openstack::resource::host_aggregate:
         db3a36ac1c8e4af9b570433d3678226d,
         bf017d42f06c4eb590276eccb9d571dd,
         3eae4805dcd6450fb98651f5a9dc9ded
+  placeholder1:
+    availability_zone: "%{::location}-iaas-team-only-1"
+    metadata:
+      filter_tenant_id: >-
+        e3dcca3452924794a6aebdd21b5da249,
+        db3a36ac1c8e4af9b570433d3678226d,
+        bf017d42f06c4eb590276eccb9d571dd,
+        3eae4805dcd6450fb98651f5a9dc9ded
