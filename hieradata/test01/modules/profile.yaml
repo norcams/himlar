@@ -5,3 +5,5 @@ profile::application::himlarcli::from_addr:     'no-reply@uib.no'
 
 # test01 is up and coming; on 'test'
 yum_base_mirror:    'https://download.iaas.uio.no/uh-iaas/test'
+
+profile::openstack::identity::ceilometer_enabled: false
