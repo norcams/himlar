@@ -14,6 +14,7 @@ profile::base::cron::crontabs:
     hour:     '7'
     minute:   '15'
     monthday: '1'
+    weekday:  '*'
     command:  '/opt/himlarcli/bin/image_update.sh >/dev/null'
 
 profile::base::lvm::physical_volume:
