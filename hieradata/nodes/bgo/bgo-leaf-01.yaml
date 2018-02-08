@@ -24,6 +24,7 @@ profile::base::network::cumulus_interfaces:
 #    'virtual_mac': '00:00:5e:00:02:01'
   'peerlink.4094':
     'ipv4': [ '172.18.228.1/24', ]
+    'ipv6': [ 'fd00:18:228::1/64', ]
     'clagd_enable': true
     'clagd_priority': '4096'
     'clagd_peer_ip': '172.18.228.2'
@@ -172,7 +173,7 @@ quagga::quagga::zebra_interfaces:
 
 quagga::quagga::zebra_ip6_routes:
   - '::/0 fdfd::1'
-  - '::/0 fd00::2'
+  - '::/0 fd00:18:228::2'
   - '2001:700:2:83ff::12/128 fd00::12'
 quagga::quagga::zebra_ip_routes:
   - '0.0.0.0/0 10.78.1.1'
