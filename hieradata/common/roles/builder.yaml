@@ -27,7 +27,7 @@ profile::base::lvm::logical_volume:
   'lv_images':
     volume_group: 'vg_images'
     fs_type:      "xfs"
-    mountpath:    "/opt"
+    mountpath:    "/opt/images"
 
 profile::webserver::apache::vhosts:
   'builds':
