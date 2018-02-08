@@ -1,20 +1,21 @@
 ---
 network::interfaces_hash:
   'em1':
-    onboot:       'yes'
-    ipaddress:    "%{hiera('netcfg_trp_netpart')}.104"
-    netmask:      "%{hiera('netcfg_trp_netmask')}"
-    ipv6init:     'yes'
-    ipv6addr:     "%{hiera('netcfg_trp_netpart6')}::104/%{hiera('netcfg_trp_netmask6')}"
-    defroute:     'no'
+    onboot:         'yes'
+    ipaddress:      "%{hiera('netcfg_trp_netpart')}.104"
+    netmask:        "%{hiera('netcfg_trp_netmask')}"
+    ipv6init:       'yes'
+    ipv6addr:       "%{hiera('netcfg_trp_netpart6')}::104/%{hiera('netcfg_trp_netmask6')}"
+    ipv6_defaultgw: "%{hiera('netcfg_trp_gateway6')}"
+    defroute:       'no'
   'em2':
-    onboot:       'no'
+    onboot:         'no'
   'em3':
-    onboot:       'yes'
-    ipaddress:    "%{hiera('netcfg_mgmt_netpart')}.104"
-    netmask:      "%{hiera('netcfg_mgmt_netmask')}"
-    mtu:          '1500'
-    dns1:         "%{hiera('mgmt__address__proxy')}"
-    domain:       "%{hiera('netcfg_dns_search')}"
-    peerdns:      'yes'
-    defroute:     'no'
+    onboot:         'yes'
+    ipaddress:      "%{hiera('netcfg_mgmt_netpart')}.104"
+    netmask:        "%{hiera('netcfg_mgmt_netmask')}"
+    mtu:            '1500'
+    dns1:           "%{hiera('mgmt__address__proxy')}"
+    domain:         "%{hiera('netcfg_dns_search')}"
+    peerdns:        'yes'
+    defroute:       'no'
