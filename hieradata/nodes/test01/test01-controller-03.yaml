@@ -36,3 +36,5 @@ network::interfaces_hash:
     netmask:      "%{hiera('netcfg_trp_netmask')}"
     defroute:     'no'
     bridge_stp:   'off'
+
+profile::bootstrap::himlar::manage_bootstrap_scripts: true
