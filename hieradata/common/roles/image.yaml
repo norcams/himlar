@@ -26,8 +26,8 @@ profile::base::yumrepo::repo_hash:
 
 # Image nodes need only glance key
 ceph::profile::params::client_keys:
-  'client.glance':
-    secret: "%{hiera('client.glance::secret')}"
+  'client_glance':
+    secret: "%{hiera('client_glance::secret')}"
     mode: '0600'
     user: 'glance'
     group: 'glance'

@@ -1,0 +1,9 @@
+---
+swift::proxy::log_headers:      true
+swift::proxy::log_level:        'DEBUG'
+
+swift::storage::all::log_level: 'DEBUG'
+
+swift::ringbuilder::part_power:       18
+swift::ringbuilder::replicas:         3
+swift::ringbuilder::min_part_hours:   1

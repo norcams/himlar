@@ -22,8 +22,8 @@ class profile::openstack::volume::api(
   if $enable_multibackend {
     include cinder::backends
 
-    create_resources(cinder::backend::rbd, hiera('profile::openstack::volume::backend::rbd', {}))
-    create_resources(cinder::type, hiera('profile::openstack::volume::type', {}))
+    create_resources(cinder::backend::rbd, lookup('profile::openstack::volume::backend::rbd', Hash, 'first', {}))
+    create_resources(cinder::type, lookup('profile::openstack::volume::type', Hash, 'first', {}))
   } else {
     include ::cinder::setup_test_volume
   }

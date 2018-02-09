@@ -6,7 +6,7 @@ class profile::development::network::dns(
 
   if $manage_hosts {
     # Fetch dns records
-    $dns = hiera_hash('profile::network::services::dns_records', {})
+    $dns = lookup('profile::network::services::dns_records', Hash, 'deep', {})
     # Create temp variable
     $list = join_keys_to_values($dns['A'], '|')
     # Update /etc/hosts

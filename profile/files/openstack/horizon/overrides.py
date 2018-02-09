@@ -13,6 +13,12 @@ tables.SimpleDisassociateIP.allowed = NO
 
 project_dashboard = horizon.get_dashboard("project")
 
+# Hide object storage for users without object role
+container_panel = project_dashboard.get_panel("containers")
+permissions = list()
+permissions.append('openstack.roles.object')
+container_panel.permissions = tuple(permissions)
+
 # Hide panel Network->Routers
 routers_panel = project_dashboard.get_panel("routers")
 permissions = list(getattr(routers_panel, 'permissions', []))

@@ -40,8 +40,8 @@ class profile::monitoring::sensu::server (
     }
   }
 
-  $handlers  = hiera_hash('profile::monitoring::sensu::server::handlers', {})
-  $filters  = hiera_hash('profile::monitoring::sensu::server::filters', {})
+  $handlers  = lookup('profile::monitoring::sensu::server::handlers', Hash, 'deep', {})
+  $filters  = lookup('profile::monitoring::sensu::server::filters', Hash, 'deep', {})
   create_resources('sensu::handler', $handlers)
   create_resources('sensu::filter', $filters)
 }

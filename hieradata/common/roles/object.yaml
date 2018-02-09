@@ -1,6 +1,32 @@
 ---
-named_interfaces::config:
-  mgmt:
-    - em3
-  trp:
-    - team1
+include:
+  default:
+    - profile::openstack::openrc
+    - profile::openstack::cache
+    - profile::openstack::object::storage
+    - profile::openstack::object::proxy
+    - profile::logging::rsyslog::client
+
+profile::openstack::object::proxy::manage_firewall:   true
+profile::openstack::object::proxy::manage_ringserver: true
+profile::openstack::object::proxy::firewall_extras:
+  source: "%{::network_trp1}/%{::netmask_trp1}"
+
+profile::openstack::object::storage::manage_firewall:   true
+profile::openstack::object::storage::firewall_extras:
+  source: "%{::network_trp1}/%{::netmask_trp1}"
+
+profile::base::common::packages:
+  'curl': {}
+
+profile::openstack::openrc::password:     "%{hiera('swift_api_password')}"
+profile::openstack::openrc::username:     'swift'
+profile::openstack::openrc::project_name: 'services'
+
+# Memcached max memory 75%
+memcached::max_memory: '75%'
+
+# Enable extra yum repo
+profile::base::yumrepo::repo_hash:
+  rdo-release:
+    ensure: present

@@ -1,0 +1,56 @@
+---
+
+# keystone auth (node: identity)
+swift::keystone::dispersion::auth_user:       'dispersion'
+swift::keystone::dispersion::auth_pass:       "%{hiera('dispersion_api_password')}"
+swift::keystone::dispersion::tenant:          'services'
+
+swift::keystone::auth::auth_name:             'swift'
+swift::keystone::auth::region:                "%{::location}"
+swift::keystone::auth::password:              "%{hiera('swift_api_password')}"
+swift::keystone::auth::tenant:                'services'
+swift::keystone::auth::operator_roles:        'object'
+swift::keystone::auth::public_url:            "%{hiera('endpoint__object__public')}/v1/AUTH_%(tenant_id)s"
+swift::keystone::auth::internal_url:          "%{hiera('endpoint__object__internal')}/v1/AUTH_%(tenant_id)s"
+swift::keystone::auth::admin_url:             "%{hiera('endpoint__object__internal')}"
+swift::keystone::auth::public_url_s3:         "%{hiera('endpoint__object__public')}"
+swift::keystone::auth::internal_url_s3:       "%{hiera('endpoint__object__internal')}"
+swift::keystone::auth::admin_url_s3:          "%{hiera('endpoint__object__internal')}"
+
+# storage (node: object)
+swift::storage::all::storage_local_net_ip:    '%{::ipaddress_trp1}'
+swift::storage::all::devices:                 '/srv/node'
+swift::storage::all::log_facility:            'LOG_LOCAL7'
+
+# proxy (node: object)
+swift::proxy::authtoken::auth_uri:            "%{hiera('endpoint__identity__internal')}"
+swift::proxy::authtoken::auth_url:            "%{hiera('endpoint__identity__admin')}"
+swift::proxy::authtoken::username:            'swift'
+swift::proxy::authtoken::password:            "%{hiera('swift_api_password')}"
+swift::proxy::authtoken::project_name:        'services'
+
+swift::proxy::keystone::operator_roles:       ['admin', 'object']
+swift::proxy::versioned_writes::allow_versioned_writes: true
+swift::proxy::proxy_local_net_ip:             '%{::ipaddress_trp1}'
+swift::proxy::port:                           '8080'
+swift::proxy::log_facility:                   'LOCAL7'
+swift::proxy::pipeline:
+  - 'gatekeeper'
+  - 'catch_errors'
+  - 'healthcheck'
+  - 'cache'
+#  - 'container_sync'
+  - 'authtoken'
+  - 'keystone'
+  - 'copy'
+  - 'dlo'
+  - 'versioned_writes'
+  - 'proxy-logging'
+  - 'proxy-server'
+
+# ringserver (node: object)
+swift::ringserver::local_net_ip:              '%{::ipaddress_trp1}'
+
+# testing (default disabled)
+swift::test_file::password:                   "%{hiera('keystone_admin_password')}"
+swift::test_file::auth_server:                "identity.%{hiera('domain_trp')}"

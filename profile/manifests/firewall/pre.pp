@@ -21,6 +21,8 @@ class profile::firewall::pre(
   $ipv6_icmp_settings   = {},
   $loopback_settings    = {},
   $ssh_settings         = {},
+  $ipv6_ssh_settings    = {},
+  $manage_ipv6_ssh      = false,
   $manage_ssh           = true,
 ){
 
@@ -49,6 +51,14 @@ class profile::firewall::pre(
     profile::firewall::rule{ '003 accept ssh':
       dport  => '22',
       extras => $ssh_settings,
+    }
+  }
+
+  if $manage_ipv6_ssh {
+    profile::firewall::rule{ '003 ipv6 accept ssh':
+      dport    => '22',
+      extras   => $ipv6_ssh_settings,
+      provider => 'ip6tables',
     }
   }
 

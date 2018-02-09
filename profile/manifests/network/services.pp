@@ -11,7 +11,7 @@ class profile::network::services(
   $manage_firewall    = true,
   $firewall_extras    = {}
 ) {
-  $networks = hiera_hash('networks', false)
+  $networks = lookup('networks', Hash, 'deep', false)
 
   if $networks {
     $subnet = $networks[$location]['subnet']
@@ -75,8 +75,8 @@ class profile::network::services(
     }
 
     if $manage_dns_records {
-      $dns_options = hiera_hash('profile::network::services::dns_options')
-      $dns_records = hiera_hash('profile::network::services::dns_records')
+      $dns_options = lookup('profile::network::services::dns_options', Hash, 'deep', {})
+      $dns_records = lookup('profile::network::services::dns_records', Hash, 'deep', {})
       $record_types = keys($dns_records)
 
       profile::network::service::dns_record_type { $record_types:
@@ -87,7 +87,7 @@ class profile::network::services(
     }
 
     if $manage_dhcp_rsvs {
-      create_resources(dhcp::host, hiera_hash('profile::network::services::dhcp_reservation', {}))
+      create_resources(dhcp::host, lookup('profile::network::services::dhcp_reservation', Hash, 'deep', {}))
     }
 
     # Enable a dns proxy server
@@ -96,12 +96,12 @@ class profile::network::services(
 
       if $manage_firewall {
         profile::firewall::rule { '020 dns-proxy accept tcp':
-          port   => 53,
+          dport  => 53,
           proto  => 'tcp',
           extras => $firewall_extras
         }
         profile::firewall::rule { '021 dns-proxy accept udp':
-          port   => 53,
+          dport  => 53,
           proto  => 'udp',
           extras => $firewall_extras
         }

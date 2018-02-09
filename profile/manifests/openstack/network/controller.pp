@@ -18,7 +18,7 @@ class profile::openstack::network::controller(
     Openstacklib::Policy::Base {
       file_path => $neutron_policy_path,
     }
-    $policy = hiera('profile::openstack::network::policies', {})
+    $policy = lookup('profile::openstack::network::policies', Hash, 'first', {})
     create_resources('openstacklib::policy::base', $policy)
                 #{ require => Class[::neutron::server] })
   }
@@ -30,9 +30,14 @@ class profile::openstack::network::controller(
   }
 
   if $manage_firewall {
-    profile::firewall::rule { '210 neutron-server accept tcp':
-      port   => 9696,
-      extras => $firewall_extras,
+    firewall { '210 neutron-server accept tcp':
+      proto    => 'tcp',
+      dport    => 9696,
+      action   => 'accept',
+      state    => ['NEW'],
+      source   => '0.0.0.0/0',
+      chain    => 'INPUT',
+      provider => 'iptables'
     }
   }
 }

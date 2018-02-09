@@ -15,11 +15,11 @@ named_interfaces::config:
   mgmt:
     - eth0
   transport:
-    - eth0_100
+    - eth0.100
   trp:
-    - eth0_100
+    - eth0.100
   live:
-    - eth0_100
+    - eth0.100
 
 # Add custom routing table for private network to NAT
 profile::base::network::routes:

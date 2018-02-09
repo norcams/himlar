@@ -9,7 +9,7 @@ profile::dns::ns::ns1_public_addr:     "%{hiera('public__address__ns_01')}"
 
 profile::dns::ns::manage_firewall: true
 profile::dns::ns::firewall_extras:
-  source: "%{::network_transport1}/%{::netmask_transport1}"
+  source: "%{::network_trp1}/%{::netmask_trp1}"
 
 profile::base::selinux::manage_selinux: true
 profile::base::selinux::boolean:

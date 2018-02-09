@@ -13,5 +13,6 @@ rabbitmq::config_variables:
     'loopback_users':   "[{local}]"
 
 rabbitmq::config_cluster:             true
+rabbitmq::config_ranch:               false
 rabbitmq::cluster_node_type:          'disc'
 rabbitmq::wipe_db_on_cookie_change:   true

@@ -19,7 +19,7 @@ profile::openstack::openrc::username:     'nova'
 profile::openstack::openrc::project_name: 'services'
 
 profile::openstack::compute::api::firewall_extras:
-  source: "%{::network_transport1}/%{::netmask_transport1}" #FIXME
+  source: "%{::network_trp1}/%{::netmask_trp1}"
 
 profile::base::common::packages:
   'python-openstackclient': {}

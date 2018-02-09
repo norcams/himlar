@@ -27,9 +27,10 @@ class profile::base::common (
   # Can be used to include custom classes (mostly for testing)
   include $classes
 
-  if $manage_augeasproviders {
-    include ::augeasproviders::instances
-  }
+  # Is this still needed? Non-compatible with Puppet 4
+  # if $manage_augeasproviders {
+  #   include ::augeasproviders::instances
+  # }
 
   if $manage_accounts {
     include ::accounts::instances
@@ -97,7 +98,7 @@ class profile::base::common (
   }
 
   if $manage_fake_ssd {
-    $disk_devices = hiera('profile::storage::fake_ssds', {})
+    $disk_devices = lookup('profile::storage::fake_ssds', Hash, 'deep', {})
     create_resources('profile::storage::fake_ssd', $disk_devices)
   }
 
@@ -110,12 +111,12 @@ class profile::base::common (
   }
 
   if $manage_packages {
-    $packages = hiera_hash('profile::base::common::packages', {})
+    $packages = lookup('profile::base::common::packages', Hash, 'deep', {})
     create_resources('profile::base::package', $packages)
   }
 
   if $manage_gems {
-    $gems = hiera_hash('profile::base::common::gems', {})
+    $gems = lookup('profile::base::common::gems', Hash, 'deep', {})
     create_resources('profile::base::gem', $gems)
   }
 

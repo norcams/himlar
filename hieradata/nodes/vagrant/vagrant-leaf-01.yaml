@@ -1,0 +1,32 @@
+---
+#
+# eth0 vagrant net
+# swp1 mgmt
+# swp2 trp
+# swp3
+# swp4
+# swp5
+network::interfaces_hash:
+  'eth0':
+    'enable_dhcp':  true
+  'swp1':
+    'ipaddress': "%{hiera('netcfg_mgmt_netpart')}.1/24"
+    'post_up': [ '/etc/network/if-up.d/z90-route-eth0', ]
+    'post_down': [ '/etc/network/if-down.d/z90-route-eth0', ]
+
+# In production environment these should be VLAN aware
+# bridges and actually tagged. This is not possible in
+# local3 environment, though.
+profile::base::network::cumulus_bridges:
+  'bridge':
+    'ipv4': [ "%{hiera('netcfg_trp_netpart')}.1/24", ]
+    'ports': [ 'swp2', ]
+    'alias_name': 'Transport L2 if'
+    'mtu': '1500'
+
+quagga::quagga::zebra_interfaces:
+  'bridge':
+    - 'link-detect'
+    - 'description linux-bridge'
+  'swp1':
+    - 'link-detect'

@@ -24,6 +24,7 @@ class profile::application::foreman(
     'tftp'   => {},
     'proxy'  => {},
   },
+  $push_facts      = false,
 ) {
 
   include ::puppet
@@ -51,6 +52,18 @@ class profile::application::foreman(
     file { '/opt/repo':
       ensure => directory
     }
+  }
+
+  # Push puppet facts to foreman
+  $push_facts_ensure = $push_facts? {
+    true    => 'present',
+    default => 'absent'
+  }
+  cron { 'push-puppet-facts-to-foreman':
+    ensure  => $push_facts_ensure,
+    command => '/etc/puppetlabs/puppet/node.rb --push-facts',
+    minute  => '30',
+    hour    => '*',
   }
 
   if $manage_firewall {

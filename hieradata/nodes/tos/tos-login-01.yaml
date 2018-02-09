@@ -1,0 +1,25 @@
+---
+network::interfaces_hash:
+  'eno16780032':
+    ipaddress:     '129.242.4.50'
+    netmask:       '255.255.255.0'
+    gateway:       '129.242.4.1'
+    defroute:      'yes'
+    onboot:        'yes'
+    dns1:          '129.242.9.253'
+#    dns2:          "%{hiera('netcfg_dns_server2')}"
+#    domain:        "%{hiera('netcfg_dns_search')} mgmt.tos.uhdc.no"
+#    peerdns:       'yes'
+  'eno33559296':
+#    ipaddress:     '10.246.10.5'
+#    netmask:       '255.255.255.0'
+    ipaddress:     '172.16.64.10'
+    netmask:       '255.255.248.0'
+    defroute:      'no'
+    onboot:        'yes'
+
+named_interfaces::config:
+  mgmt:
+    - eno33559296
+  public:
+    - eno16780032

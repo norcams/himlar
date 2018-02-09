@@ -7,16 +7,8 @@ himlar_bootstrap::virt_install:
     install_ip:      '172.28.32.11'
     install_netmask: '255.255.255.0'
     install_gateway: '172.28.32.10'
-    vm_console:      false
-  '%{location}-admin-02':
-    domain:          '%{domain}'
-    libvirt_pool:    'dirpool'
-    libvirt_network: 'directnet'
-    install_ip:      '172.28.32.18'
-    install_netmask: '255.255.255.0'
-    install_gateway: '172.28.32.10'
-    vm_console:      false
-
+    vm_console:       false
+    use_dhcp:         false
 
 ################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
 include:

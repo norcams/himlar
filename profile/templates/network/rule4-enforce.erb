@@ -2,14 +2,14 @@
 ### File managed by Puppet
 ###
 <% @neutron_subnets.each do |subnet,value| -%>
-<% if neutron_subnets[subnet]['ip_version'].eql? "4" -%>
+<% if @neutron_subnets[subnet]['ip_version'].eql? "4" -%>
 #
-testcidr=<%= neutron_subnets[subnet]['cidr'] %> ; rulefound=1
+testcidr=<%= @neutron_subnets[subnet]['cidr'] %> ; rulefound=1
 for rules in $(ip rule show | grep blackhole | grep "$testcidr" | cut -d ' ' -f 2); do
   if [ "$rules" = "$testcidr" ]; then rulefound=0 ; fi
 done
 if [ "$rulefound" = 1 ]; then
-  ip rule add from <%= neutron_subnets[subnet]['cidr'] %> to <%= scope.function_hiera(['netcfg_trp_netpart']) %>.0/<%= scope.function_hiera(['netcfg_trp_netmask']) %> blackhole
+  ip rule add from <%= @neutron_subnets[subnet]['cidr'] %> to <%= scope().call_function('hiera',['netcfg_trp_netpart']) %>.0/<%= scope().call_function('hiera',['netcfg_trp_netmask']) %> blackhole
 fi
 <% end -%>
 <% end -%>

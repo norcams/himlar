@@ -1,0 +1,95 @@
+---
+profile::openstack::object::proxy::test_file: true
+#profile::openstack::object::proxy::ring_server:
+#  account:
+#    ring_server:  '172.31.8.119'
+#  object:
+#    ring_server:  '172.31.8.119'
+#  container:
+#    ring_server:  '172.31.8.119'
+
+profile::openstack::object::storage::loopback:
+  'ssd': # fake temp SSD
+    base_dir: '/mnt'
+    seek:     '50000' # 50 MB
+  'sda': # fake SSD
+    base_dir: '/mnt'
+    seek:     '50000' # 50 MB
+  'sdb': # fake SSD
+    base_dir: '/mnt'
+    seek:     '50000' # 50 MB
+  'sdc': # fake HDD
+    base_dir: '/mnt'
+    seek:     '100000' # 100 MB
+  'sdd': # fake HDD
+    base_dir: '/mnt'
+    seek:     '100000' # 100 MB
+  'sde': # fake HDD
+    base_dir: '/mnt'
+    seek:     '100000' # 100 MB
+  'sdf': # fake HDD
+    base_dir: '/mnt'
+    seek:     '100000' # 100 MB
+  'sdg': # fake HDD
+    base_dir: '/mnt'
+    seek:     '100000' # 100 MB
+
+# Object ring
+profile::openstack::object::storage::ring_object_nodes:
+  "%{hiera('netcfg_trp_netpart')}.119:6000":
+    region: 1
+    zone:   1
+    weight: 100
+  "%{hiera('netcfg_trp_netpart')}.120:6000":
+    region: 1
+    zone:   2
+    weight: 100
+  "%{hiera('netcfg_trp_netpart')}.121:6000":
+    region: 1
+    zone:   3
+    weight: 100
+
+profile::openstack::object::storage::ring_object_devices:
+  - 'sdc'
+  - 'sdd'
+  - 'sde'
+  - 'sdf'
+  - 'sdg'
+
+# Container ring
+profile::openstack::object::storage::ring_container_nodes:
+  "%{hiera('netcfg_trp_netpart')}.119:6001":
+    region: 1
+    zone:   1
+    weight: 100
+  "%{hiera('netcfg_trp_netpart')}.120:6001":
+    region: 1
+    zone:   2
+    weight: 100
+  "%{hiera('netcfg_trp_netpart')}.121:6001":
+    region: 1
+    zone:   3
+    weight: 100
+
+profile::openstack::object::storage::ring_container_devices:
+  - 'sda'
+  - 'sdb'
+
+# Account ring
+profile::openstack::object::storage::ring_account_nodes:
+  "%{hiera('netcfg_trp_netpart')}.119:6002":
+    region: 1
+    zone:   1
+    weight: 100
+  "%{hiera('netcfg_trp_netpart')}.120:6002":
+    region: 1
+    zone:   2
+    weight: 100
+  "%{hiera('netcfg_trp_netpart')}.121:6002":
+    region: 1
+    zone:   3
+    weight: 100
+
+profile::openstack::object::storage::ring_account_devices:
+  - 'sda'
+  - 'sdb'

@@ -68,12 +68,13 @@ wsrep_node_address:     '192.168.12.249'
 #wsrep_provider_options: "base_host=%{::ipaddress_trp1};pc.recovery=1;"
 #wsrep_sst_method:       'rsync'
 
-profile::openstack::database::sql::keystone_enabled:  true
-profile::openstack::database::sql::glance_enabled:    false
-profile::openstack::database::sql::nova_enabled:      false
-profile::openstack::database::sql::neutron_enabled:   false
-profile::openstack::database::sql::cinder_enabled:    false
-profile::openstack::database::sql::gnocchi_enabled:   false
+profile::openstack::database::sql::keystone_enabled:    true
+profile::openstack::database::sql::glance_enabled:      false
+profile::openstack::database::sql::nova_enabled:        false
+profile::openstack::database::sql::neutron_enabled:     false
+profile::openstack::database::sql::cinder_enabled:      false
+profile::openstack::database::sql::gnocchi_enabled:     false
+profile::openstack::database::sql::ceilometer_enabled:  false
 
 # sensu
 profile::monitoring::sensu::agent::checks:

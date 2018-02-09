@@ -13,13 +13,23 @@ gnocchi::keystone::authtoken::admin_url:      "%{hiera('endpoint__metric__admin'
 gnocchi::keystone::authtoken::internal_url:   "%{hiera('endpoint__metric__internal')}"
 gnocchi::keystone::authtoken::region_name:    "%{::location}"
 
-# db (node: volume)
-gnocchi::database_connection:      "mysql://gnocchi:%{hiera('gnocchi::db::mysql::password')}@%{hiera('service__address__mysql')}/gnocchi"
-
+# db (node: metric)
+gnocchi::database_connection: "mysql://gnocchi:%{hiera('gnocchi::db::mysql::password')}@%{hiera('service__address__mysql')}/gnocchi"
 gnocchi::db::mysql::dbname:   'gnocchi'
 gnocchi::db::mysql::user:     'gnocchi'
 gnocchi::db::mysql::allowed_hosts:
   - "%{netpart_trp1}.%"
+
+# api (node: metric)
+gnocchi::api::enabled:              false
+gnocchi::api::manage_service:       false
+gnocchi::api::sync_db:              true
+
+gnocchi::wsgi::apache::server_name: "%{::location}-metric-01.%{hiera('domain_trp')}"
+gnocchi::wsgi::apache::bind_host:   "%{ipaddress_trp1}"
+gnocchi::wsgi::apache::port:        8041
+gnocchi::wsgi::apache::workers:     2
+gnocchi::wsgi::apache::ssl:         false
 
 # statsd
 gnocchi::statsd::resource_id:       577a85b8-1f77-47e7-ac6f-742b475657b9

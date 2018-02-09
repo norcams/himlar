@@ -8,5 +8,5 @@ profile::dns::rndc_key::create_mdns_key:     false
 profile::dns::rndc_key::host_is_bind_server: false
 
 # Bind utils will be installed with foreman::dns
-#profile::base::common::packages:
-#  'bind-utils': { ensure: absent }
+profile::base::common::packages:
+  'bind-utils': { ensure: absent }

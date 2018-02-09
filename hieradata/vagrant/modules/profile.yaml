@@ -14,3 +14,5 @@ sensu_ssl_cachain:  '-C /opt/himlar/provision/ca/intermediate/certs/ca-chain.cer
 
 # no proxy for vagrant environments
 profile::network::yum_proxy::yum_proxy: ''
+
+profile::openstack::identity::swift_enabled:      true

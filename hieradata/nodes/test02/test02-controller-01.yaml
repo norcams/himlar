@@ -26,14 +26,3 @@ network::interfaces_hash:
     netmask:      '255.255.255.0'
     defroute:     'no'
     bridge_stp:   'off'
-
-# Use controller-01 for himlar bootstrap
-profile::bootstrap::himlar::manage_bootstrap_scripts: true
-
-################ TEMP DATA - SHALL BE FIXED IN COMMON #########################
-
-named_interfaces::config:
-  mgmt:
-     - br0
-  trp:
-     - br1

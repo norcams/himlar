@@ -35,7 +35,7 @@ protocol kernel {
 }
 
 protocol bfd {
-  neighbor <%= scope.function_hiera(['netcfg_trp_gateway']) %>;
+  neighbor <%= scope().call_function('hiera',['netcfg_trp_gateway']) %>;
 }
 
 # Watch interface up/down events.
@@ -48,9 +48,9 @@ protocol direct {
    interface "*";
 }
 
-<% if scope.function_hiera(['netcfg_trp_rr']) -%><% scope.function_hiera(['netcfg_trp_rr']).each do |name, values| %>protocol bgp '<%= name %>_ipv4' {
-  local as <%= scope.function_hiera(['bgp_as']) %>;
-  neighbor <%= values["peer_ipv4"] %> as <%= scope.function_hiera(['bgp_as']) %>;
+<% if scope().call_function('hiera',['netcfg_trp_rr']) -%><% scope().call_function('hiera',['netcfg_trp_rr']).each do |name, values| %>protocol bgp '<%= name %>_ipv4' {
+  local as <%= scope().call_function('hiera',['bgp_as']) %>;
+  neighbor <%= values["peer_ipv4"] %> as <%= scope().call_function('hiera',['bgp_as']) %>;
   multihop;
   import all;
   graceful restart;

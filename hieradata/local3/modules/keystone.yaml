@@ -1,5 +1,5 @@
 ---
 keystone::db::mysql::allowed_hosts:
-  - "%{netpart_transport1}.%" # FIXME
+  - "%{netpart_trp1}.%"
 
 keystone::debug:   true

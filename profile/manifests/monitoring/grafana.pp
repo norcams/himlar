@@ -8,8 +8,8 @@ class profile::monitoring::grafana(
   if $enable {
     include ::grafana
 
-    $dashboard = hiera_hash('profile::monitoring::grafana::dashboard', {})
-    $datasource = hiera_hash('profile::monitoring::grafana::datasource', {})
+    $dashboard = lookup('profile::monitoring::grafana::dashboard', Hash, 'deep', {})
+    $datasource = lookup('profile::monitoring::grafana::datasource', Hash, 'deep', {})
 
     create_resources('profile::monitoring::grafana::dashboard', $dashboard, { require => Class['grafana::service'] })
     create_resources('grafana_datasource', $datasource, { require => Class['grafana::service'] })

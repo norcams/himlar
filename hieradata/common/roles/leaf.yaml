@@ -55,6 +55,9 @@ openstack_extras::repo::debian::debian::source_hash:
   'wheezy':
     'location': 'http://ftp.us.debian.org/debian/'
     'repos':    'main contrib non-free'
+  'uh-iaas':
+    'location': 'https://download.iaas.uio.no/uh-iaas/aptrepo/'
+    'repos':    'main'
 
 profile::base::common::packages:
   'vim-enhanced': { 'ensure': 'absent', }
@@ -62,6 +65,7 @@ profile::base::common::packages:
   'libaugeas-ruby1.9.1': {}
   'augeas-tools': {}
   'cl-mgmtvrf': {}
+  'python-apt': {}
 
 sudo::configs:
   snmp:

@@ -2,9 +2,9 @@
 ### File managed by Puppet
 ###
 <% @neutron_subnets.each do |subnet,value| -%>
-<% if neutron_subnets[subnet]['ip_version'].eql? "6" -%>
+<% if @neutron_subnets[subnet]['ip_version'].eql? "6" -%>
 #
-testcidr=<%= neutron_subnets[subnet]['cidr'] %> ; rulefound=1
+testcidr=<%= @neutron_subnets[subnet]['cidr'] %> ; rulefound=1
 for rules in $(ip -6 rule show | grep blackhole | grep "$testcidr" | cut -d ' ' -f 2); do
   if [ "$rules" = "$testcidr" ]; then rulefound=0 ; fi
 done

@@ -9,12 +9,12 @@ profile::base::yumrepo::repo_hash:
   rdo-release:
     ensure: present
 
-profile::openstack::telemetry::manage_firewall:       	true
+profile::openstack::telemetry::manage_firewall:         true
 
 profile::base::common::packages:
   'python-openstackclient': {}
 
-profile::openstack::openrc::password:     		"%{hiera('ceilometer_api_password')}"
-profile::openstack::openrc::username:     		'ceilometer'
-profile::openstack::openrc::project_name: 		'services'
+profile::openstack::openrc::password:                   "%{hiera('ceilometer_api_password')}"
+profile::openstack::openrc::username:                   'ceilometer'
+profile::openstack::openrc::project_name:               'services'
 

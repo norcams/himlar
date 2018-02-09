@@ -6,9 +6,9 @@ class profile::monitoring::sensu::agent (
   if $enable_agent {
     include ::sensu
 
-    $gems = hiera_hash('profile::monitoring::sensu::agent::plugin_gems', {})
-    $plugins = hiera_hash('profile::monitoring::sensu::agent::plugins', {})
-    $checks  = hiera_hash('profile::monitoring::sensu::agent::checks', {})
+    $gems = lookup('profile::monitoring::sensu::agent::plugin_gems', Hash, 'deep', {})
+    $plugins = lookup('profile::monitoring::sensu::agent::plugins', Hash, 'deep', {})
+    $checks  = lookup('profile::monitoring::sensu::agent::checks', Hash, 'deep', {})
 
     create_resources('::sensu::plugin', $plugins)
     create_resources('::sensu::check', $checks)

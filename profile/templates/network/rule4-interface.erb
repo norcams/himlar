@@ -5,7 +5,7 @@
 <%= rule %>
 <% end -%>
 <% @neutron_subnets.each do |subnet,value| -%>
-<% if neutron_subnets[subnet]['ip_version'].eql? "4" -%>
-from <%= neutron_subnets[subnet]['cidr'] %> to <%= scope.function_hiera(['netcfg_trp_netpart']) %>.0/<%= scope.function_hiera(['netcfg_trp_netmask']) %> blackhole
+<% if @neutron_subnets[subnet]['ip_version'].eql? "4" -%>
+from <%=  @neutron_subnets[subnet]['cidr'] %> to <%= scope().call_function('hiera',['netcfg_trp_netpart']) %>.0/<%= scope().call_function('hiera',['netcfg_trp_netmask']) %> blackhole
 <% end -%>
 <% end -%>

@@ -26,14 +26,14 @@ class profile::highavailability::loadbalancing::haproxy (
     }
 
     # We need to merge these from common and location
-    $haproxy_listens         = hiera_hash('profile::highavailability::loadbalancing::haproxy::haproxy_listens', {})
-    $haproxy_frontends       = hiera_hash('profile::highavailability::loadbalancing::haproxy::haproxy_frontends', {})
-    $haproxy_backends        = hiera_hash('profile::highavailability::loadbalancing::haproxy::haproxy_backends', {})
-    $haproxy_balancermembers = hiera_hash('profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers', {})
-    $haproxy_userlists       = hiera_hash('profile::highavailability::loadbalancing::haproxy::haproxy_userlists', {})
-    $haproxy_peers           = hiera_hash('profile::highavailability::loadbalancing::haproxy::haproxy_peers', {})
-    $haproxy_mapfile         = hiera_hash('profile::highavailability::loadbalancing::haproxy::haproxy_mapfile', {})
-    $haproxy_errorpage       = hiera_hash('profile::highavailability::loadbalancing::haproxy::haproxy_errorpage', {})
+    $haproxy_listens         = lookup('profile::highavailability::loadbalancing::haproxy::haproxy_listens', Hash, 'deep', {})
+    $haproxy_frontends       = lookup('profile::highavailability::loadbalancing::haproxy::haproxy_frontends', Hash, 'deep', {})
+    $haproxy_backends        = lookup('profile::highavailability::loadbalancing::haproxy::haproxy_backends', Hash, 'deep', {})
+    $haproxy_balancermembers = lookup('profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers', Hash, 'deep', {})
+    $haproxy_userlists       = lookup('profile::highavailability::loadbalancing::haproxy::haproxy_userlists', Hash, 'deep', {})
+    $haproxy_peers           = lookup('profile::highavailability::loadbalancing::haproxy::haproxy_peers', Hash, 'deep', {})
+    $haproxy_mapfile         = lookup('profile::highavailability::loadbalancing::haproxy::haproxy_mapfile', Hash, 'deep', {})
+    $haproxy_errorpage       = lookup('profile::highavailability::loadbalancing::haproxy::haproxy_errorpage', Hash, 'deep', {})
 
     create_resources('haproxy::listen', $haproxy_listens)
     create_resources('haproxy::backend', $haproxy_backends)
@@ -54,7 +54,7 @@ class profile::highavailability::loadbalancing::haproxy (
   }
 
   if $manage_firewall {
-    $hiera_allow_from_network = hiera_array('allow_from_network', undef)
+    $hiera_allow_from_network = lookup('allow_from_network', Array, 'unique', undef)
     $source = $allow_from_network? {
       undef   => $hiera_allow_from_network,
       ''      => $hiera_allow_from_network,

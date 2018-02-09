@@ -55,7 +55,7 @@ profile::base::yumrepo::repo_hash:
 # Volume nodes need only cinder keys
 ceph::profile::params::client_keys:
   'client.cinder':
-    secret: "%{hiera('client.cinder::secret')}"
+    secret: "%{hiera('client_cinder::secret')}"
     mode: '0600'
     user: 'cinder'
     group: 'cinder'

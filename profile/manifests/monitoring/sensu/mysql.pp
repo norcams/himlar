@@ -9,7 +9,7 @@ class profile::monitoring::sensu::mysql(
 ) {
 
   # Do nothing if agent is not enabled
-  $enable_agent = hiera('profile::monitoring::sensu::agent::enable_agent', false)
+  $enable_agent = lookup('profile::monitoring::sensu::agent::enable_agent', Boolean, 'first', false)
 
   if $enable_agent {
     mysql_user { "${user}@${host}":

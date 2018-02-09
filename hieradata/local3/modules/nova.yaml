@@ -1,3 +1,6 @@
 ---
 nova::db::mysql::allowed_hosts:
-  - "%{netpart_transport1}.%" # FIXME
+  - "%{netpart_trp1}.%"
+
+# Do not use placeholder AZ
+nova::availability_zone::default_availability_zone:           "%{::location}-default-1"

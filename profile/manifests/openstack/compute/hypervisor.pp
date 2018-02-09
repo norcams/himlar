@@ -33,7 +33,7 @@ class profile::openstack::compute::hypervisor (
 
   if $manage_firewall {
     profile::firewall::rule{ '223 vnc accept tcp':
-      port   => '5900-5999',
+      dport  => '5900-5999',
       extras => $firewall_extras,
     }
     profile::firewall::rule{ '224 migration accept tcp':
@@ -42,7 +42,7 @@ class profile::openstack::compute::hypervisor (
       source => "${::network_live1}/${::netmask_live1}",
     }
     profile::firewall::rule{ '224-1 migration accept tcp':
-      dport   => '16509',
+      dport  => '16509',
       extras => $firewall_extras,
       source => "${::network_live1}/${::netmask_live1}",
     }

@@ -10,3 +10,5 @@ profile::openstack::openrc::cacert:             '/etc/pki/tls/certs/cachain.pem'
 sensu_ssl_cachain:                              '-C /etc/pki/tls/certs/cachain.pem'
 
 yum_base_mirror:    'https://download.iaas.uio.no/uh-iaas/test'
+
+profile::openstack::identity::swift_enabled:      true

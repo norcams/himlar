@@ -8,18 +8,14 @@ ceilometer::db::mysql::user:            'ceilometer'
 ceilometer::db::mysql::allowed_hosts:
   - "%{netpart_trp1}.%"
 
-
 ceilometer::collector::meter_dispatcher:                        [ 'gnocchi' ]
 ceilometer::collector::event_dispatcher:                        [ 'gnocchi' ]
 ceilometer::dispatcher::gnocchi::url:                           "%{hiera('endpoint__metric__internal')}"
 ceilometer::dispatcher::gnocchi::filter_servcie_activity:       'false'
 ceilometer::dispatcher::gnocchi::archive_policy:                'low'
 
-ceilometer::wsgi::apache::ssl:                    	false
-ceilometer::api::enabled:                         	true
-ceilometer::api:service_name:                    	'httpd'
-ceilometer::api::polling::compute_namespace:		false
-ceilometer::api::polling::instance_discovery_method:	'libvirt_metadata'
+ceilometer::wsgi::apache::ssl:                                  false
+ceilometer::api::enabled:                                       false
 
 # keystone auth (node: ceilometer)
 ceilometer::agent::auth::auth_password:          "%{hiera('ceilometer_api_password')}"
@@ -38,7 +34,7 @@ ceilometer::keystone::authtoken::admin_url:      "%{hiera('endpoint__telemetry__
 ceilometer::keystone::authtoken::internal_url:   "%{hiera('endpoint__telemetry__internal')}"
 
 # rabbit mq (for rabbit_password see secrets)
-ceilometer_rabbit_userid:			 'ceilometer'
+ceilometer_rabbit_userid:                        'ceilometer'
 ceilometer::notification_transport_url:
   "rabbit://%{hiera('ceilometer_rabbit_userid')}:%{hiera('ceilometer::rabbit_password')}@%{hiera('service__address__rabbitmq_01')}:5672,\
   %{hiera('ceilometer_rabbit_userid')}:%{hiera('ceilometer::rabbit_password')}@%{hiera('service__address__rabbitmq_02')}:5672,\
@@ -47,4 +43,3 @@ ceilometer::default_transport_url:
   "rabbit://%{hiera('ceilometer_rabbit_userid')}:%{hiera('ceilometer::rabbit_password')}@%{hiera('service__address__rabbitmq_01')}:5672,\
   %{hiera('ceilometer_rabbit_userid')}:%{hiera('ceilometer::rabbit_password')}@%{hiera('service__address__rabbitmq_02')}:5672,\
   %{hiera('ceilometer_rabbit_userid')}:%{hiera('ceilometer::rabbit_password')}@%{hiera('service__address__rabbitmq_03')}:5672/ceilometer"
-

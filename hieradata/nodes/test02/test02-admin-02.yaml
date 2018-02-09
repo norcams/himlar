@@ -1,0 +1,32 @@
+---
+network::interfaces_hash:
+  'eth0':
+    ipaddress: '172.28.32.18'
+    netmask:   '255.255.255.0'
+    gateway:   "%{hiera('netcfg_mgmt_gateway')}"
+    mtu:       '1500'
+    defroute:  'yes'
+    dns1:      "%{hiera('netcfg_dns_server1')}"
+    domain:    "%{hiera('netcfg_dns_search')}"
+    peerdns:      'yes'
+
+profile::network::services::manage_dns_records: false
+profile::network::services::manage_dhcp_rsvs:   false
+
+profile::dns::rndc_key::create_admin_key:    false
+
+foreman_proxy::tftp: false
+foreman_proxy::dhcp: false
+foreman_proxy::dns:  false
+foreman_proxy::bmc:  false
+
+foreman::foreman_url: "https://test02-admin-02.mgmt.test02.uhdc.no"
+foreman::config::passenger::serveraliases:  [ "foreman4.%{hiera('domain_mgmt')}" ]
+
+puppet::server_foreman_url: "https://test02-admin-02.mgmt.test02.uhdc.no"
+puppet::puppetmaster: "puppet4.%{hiera('domain_mgmt')}"
+puppet::dns_alt_names:
+  - "puppet4.%{hiera('domain_mgmt')}"
+
+puppet::server_jvm_min_heap_size:       '512M'
+puppet::server_jvm_max_heap_size:       '512M'

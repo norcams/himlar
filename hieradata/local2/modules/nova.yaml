@@ -7,3 +7,6 @@ nova::compute::allow_resize_to_same_host:   true
 nova::nova_public_key:
   type: ssh-rsa
   key:  'AAAAB3NzaC1yc2EAAAADAQABAAABAQC9FkujkndZQbItH58wH6LVGnU8GySJK/kcUvMnFRI+vyzutIXwWvrTNxqOebv5BINL8hG1xQBm0Ti1xFee0mC8UdQkBiyte4ZxOroMRRd92iiMTT1AYgE28Jp5xMXjaVimQ5WlK0g7vARLxGmLk0mK8/6AWFjKl2eFa/VMGHEdJ4gtlfYwY79FIpshN7D8ixjZ9t9ROvdznh3GVs8UDF83yEg6Gyt/3Aq19s+kxmIgy7WIRj8lGRjhICe4lAuiO+87Dx2YPo3hr06TwfKzFnvvFt6AkMT1JPa4Qk8MWzYpWi8DvFH7ZWgGzUKjx/HxaR+EDl+tYHpqoHWcZqRHLYhR'
+
+# Do not use placeholder AZ
+nova::availability_zone::default_availability_zone:           "%{::location}-default-1"

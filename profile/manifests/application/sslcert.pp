@@ -35,13 +35,13 @@ class profile::application::sslcert (
   exec { 'sign-sslcert':
     command => "/bin/openssl ca -config ${ca_dir}/root.cnf -batch \
                 -extensions server_cert -days 375 -create_serial -notext \
-                -md sha256 -in ${crt_dir}/${cert_name}.csr \
+                -sha256 -in ${crt_dir}/${cert_name}.csr \
                 -out ${crt_dir}/${cert_name}.crt",
     creates => "${crt_dir}/${cert_name}.crt",
   }
 
   info("/bin/openssl ca -config ${ca_dir}/root.cnf -batch \
                 -extensions server_cert -days 375 -create_serial -notext \
-                -md sha256 -in ${crt_dir}/${cert_name}.csr \
+                -sha256 -in ${crt_dir}/${cert_name}.csr \
                 -out ${crt_dir}/${cert_name}.crt")
 }

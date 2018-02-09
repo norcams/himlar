@@ -8,7 +8,7 @@ class profile::network::leaf(
 ) {
 
   if $manage_acls {
-    create_resources(profile::network::leaf::acl, hiera_hash('profile::network::leaf::acls', {}))
+    create_resources(profile::network::leaf::acl, lookup('profile::network::leaf::acls', Hash, 'deep', {}))
   }
 
   if $manage_license {

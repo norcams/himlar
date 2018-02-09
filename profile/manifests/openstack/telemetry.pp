@@ -3,12 +3,13 @@ class profile::openstack::telemetry (
   $firewall_extras   = {},
 )  {
   include ::ceilometer
+  include ::nova
 
   # wrappe (mange av) disse i boolske variabler(?)
   include ::profile::openstack::telemetry::centralagent
   include ::profile::openstack::telemetry::collector
   include ::profile::openstack::telemetry::notification
-  include ::profile::openstack::telemetry::api
+#  include ::profile::openstack::telemetry::api
 
 #  include ::ceilometer::db
 #  include ::ceilometer::expirer

@@ -3,6 +3,11 @@
 #include:
 #  default:
 #    -  profile::network::yum_proxy
+#
+# include this to get automatic patching after installation
+include:
+  default:
+    - profile::development::patch
 
 # The current vagrant box image do not have vda3 parso switch
 # off lvm for compute on vagrant

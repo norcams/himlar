@@ -14,10 +14,10 @@ class profile::dns::ns (
   )
 {
   # Our forward zones
-  $forward_zones = hiera_hash('profile::dns::ns::fw_zones', {})
+  $forward_zones = lookup('profile::dns::ns::fw_zones', Hash, 'deep', {})
 
   # Our reverse zones
-  $reverse_zones = hiera_hash('profile::dns::ns::ptr_zones', {})
+  $reverse_zones = lookup('profile::dns::ns::ptr_zones', Hash, 'deep', {})
 
   # Make sure that bind is installed
   package { 'bind':
@@ -25,36 +25,36 @@ class profile::dns::ns (
   }
   # Create rndc.conf
   file { '/etc/rndc.conf':
-    content      => template("${module_name}/dns/bind/rndc.conf.erb"),
-    notify       => Service['named'],
-    mode         => '0640',
-    owner        => 'named',
-    group        => 'named',
-    require      => Package['bind'],
+    content => template("${module_name}/dns/bind/rndc.conf.erb"),
+    notify  => Service['named'],
+    mode    => '0640',
+    owner   => 'named',
+    group   => 'named',
+    require => Package['bind'],
   }
   # Ensure that /var/named exists with correct permissions
   file { '/var/named':
-    ensure       => directory,
-    mode         => '0770',
-    owner        => 'root',
-    group        => 'named',
-    require      => Package['bind'],
+    ensure  => directory,
+    mode    => '0770',
+    owner   => 'root',
+    group   => 'named',
+    require => Package['bind'],
   }
   # Ensure that /var/named/pz exists with correct permissions
   file { '/var/named/pz':
-    ensure       => directory,
-    mode         => '0770',
-    owner        => 'root',
-    group        => 'named',
-    require      => Package['bind'],
+    ensure  => directory,
+    mode    => '0770',
+    owner   => 'root',
+    group   => 'named',
+    require => Package['bind'],
   }
   # Ensure that /var/named/sz exists with correct permissions
   file { '/var/named/sz':
-    ensure       => directory,
-    mode         => '0770',
-    owner        => 'root',
-    group        => 'named',
-    require      => Package['bind'],
+    ensure  => directory,
+    mode    => '0770',
+    owner   => 'root',
+    group   => 'named',
+    require => Package['bind'],
   }
   # Create named.conf from template
   file { '/etc/named.conf':
@@ -89,12 +89,12 @@ class profile::dns::ns (
   # Open nameserver ports in the firewall
   if $manage_firewall {
     profile::firewall::rule { '001 dns incoming tcp':
-      dport  => 53,
-      proto  => 'tcp'
+      dport => 53,
+      proto => 'tcp'
     }
     profile::firewall::rule { '002 dns incoming udp':
-      dport  => 53,
-      proto  => 'udp'
+      dport => 53,
+      proto => 'udp'
     }
     profile::firewall::rule { '003 rndc incoming - bind only':
       dport  => 953,

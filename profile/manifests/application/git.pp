@@ -2,7 +2,7 @@
 class profile::application::git(
   $enable = true
 ) {
-  $settings = hiera_hash('profile::application::git::settings')
+  $settings = lookup('profile::application::git::settings', Hash, 'deep', {})
 
   if $enable {
     class { "::gitolite":

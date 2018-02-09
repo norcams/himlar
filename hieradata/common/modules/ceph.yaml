@@ -19,7 +19,7 @@ ceph::profile::params::osd_pool_default_min_size:   '1'
 ##ceph::profile::params::mon_keyring: '/etc/ceph/ceph.mon.keyring'
 ceph::profile::params::client_keys:
   'client.admin':
-    secret: "%{hiera('client.admin::secret')}"
+    secret: "%{hiera('client_admin::secret')}"
     mode: '0600'
     user: 'ceph'
     group: 'ceph'
@@ -28,29 +28,29 @@ ceph::profile::params::client_keys:
     cap_mds: 'allow *'
     cap_mgr: 'allow *'
   'client.bootstrap-osd':
-    secret: "%{hiera('client.bootstrap-osd::secret')}"
+    secret: "%{hiera('client_bootstrap-osd::secret')}"
     keyring_path: '/var/lib/ceph/bootstrap-osd/ceph.keyring'
     cap_mon: 'allow profile bootstrap-osd'
   'client.bootstrap-mds':
-    secret: "%{hiera('client.bootstrap-mds::secret')}"
+    secret: "%{hiera('client_bootstrap-mds::secret')}"
     keyring_path: '/var/lib/ceph/bootstrap-mds/ceph.keyring'
     cap_mon: 'allow profile bootstrap-mds'
   'client.glance':
-    secret: "%{hiera('client.glance::secret')}"
+    secret: "%{hiera('client_glance::secret')}"
     mode: '0600'
     user: 'glance'
     group: 'glance'
     cap_mon: 'allow r'
     cap_osd: 'allow class-read object_prefix rbd_children, allow rwx pool=images'
   'client.volumes':
-    secret: "%{hiera('client.volumes::secret')}"
+    secret: "%{hiera('client_volumes::secret')}"
     mode: '0600'
     user: 'cinder'
     group: 'cinder'
     cap_mon: 'allow r'
     cap_osd: 'allow class-read object_prefix rbd_children, allow rwx pool=volumes'
   'client.cinder':
-    secret: "%{hiera('client.cinder::secret')}"
+    secret: "%{hiera('client_cinder::secret')}"
     mode: '0600'
     user: 'cinder'
     group: 'cinder'

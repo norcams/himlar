@@ -5,7 +5,7 @@ class profile::openstack::compute::migration(
   if $enable_nova_account {
     user { 'nova':
       shell   => '/bin/bash',
-      require => Package['openstack-nova-common']
+      require => Package['nova-common']
     }
   }
 

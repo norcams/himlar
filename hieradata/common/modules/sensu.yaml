@@ -69,4 +69,4 @@ sensu::api_user:          'sensu'
 sensu::api_password:      "%{hiera('sensu_api_password')}"
 sensu::api_host:          "%{ipaddress_mgmt1}"
 sensu::api_bind:          "%{ipaddress_mgmt1}"
-sensu::api_port:          '4567'
+sensu::api_port:          4567

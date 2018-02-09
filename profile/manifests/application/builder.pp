@@ -63,5 +63,5 @@ class profile::application::builder (
     group  => $group
   }
 
-  create_resources('profile::application::builder::jobs', hiera_hash('profile::application::builder::images', {}))
+  create_resources('profile::application::builder::jobs', lookup('profile::application::builder::images', Hash, 'deep', {}))
 }

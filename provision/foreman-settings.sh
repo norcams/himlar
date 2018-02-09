@@ -16,6 +16,8 @@ mgmt_interface=eth0
 #mgmt_interface=$(hiera foreman_proxy::dhcp_interface role=foreman location=$foreman_location)
 mgmt_network=$(facter network_${mgmt_interface})
 mgmt_netmask=$(facter netmask_${mgmt_interface})
+#repo=$(sed -n 's/^baseurl=//p' CentOS-Base.repo | head -1 | rev | cut -d/ -f3- | rev)
+repo=$(sed -n 's/^baseurl=//p' /etc/yum.repos.d/CentOS-Base.repo | head -1)
 
 #
 # Location specific configs
@@ -83,8 +85,11 @@ common_config()
   # Provisioning and discovery setup
   #
 
-  # Enable puppetlabs repo
-  /bin/hammer global-parameter set --name enable-puppetlabs-repo --value true
+  # Enable puppetlabs repo for puppet 4 and disable for puppet 3
+  /bin/hammer global-parameter set --name enable-puppetlabs-repo --value false
+  /bin/hammer global-parameter set --name enable-puppetlabs-pc1-repo --value true
+  /bin/hammer global-parameter set --name run-puppet-in-installer --value true
+
   # Enable clokcsync in Kickstart
   /bin/hammer global-parameter set --name time-zone --value 'Europe/Oslo'
   /bin/hammer global-parameter set --name ntp-server --value 'no.pool.ntp.org'
@@ -92,7 +97,7 @@ common_config()
   # Create ftp.uninett.no medium
   /bin/hammer medium create --name 'CentOS download.iaas.uio.no' \
     --os-family Redhat \
-    --path 'https://download.iaas.uio.no/uh-iaas/prod/centos-base' || true
+    --path $repo || true
   # Save CentOS mirror ids
   medium_id_1=$(/bin/hammer --csv medium info --name 'CentOS mirror' | tail -n1 | cut -d, -f1)
   medium_id_2=$(/bin/hammer --csv medium info --name 'CentOS download.iaas.uio.no' | tail -n1 | cut -d, -f1)
@@ -100,7 +105,7 @@ common_config()
 
   # Sync our custom provision templates
   /sbin/foreman-rake templates:sync \
-    repo="https://github.com/norcams/community-templates.git" branch="norcams" associate="always"
+    repo="https://github.com/norcams/community-templates.git" branch="puppet4" associate="always"
   # Save template ids
   norcams_provision_id=$(/bin/hammer --csv template list --per-page 1000 | grep 'norcams Kickstart default' | cut -d, -f1)
   norcams_pxelinux_id=$(/bin/hammer --csv template list --per-page 1000 | grep 'norcams PXELinux default' | cut -d, -f1)
@@ -115,13 +120,13 @@ common_config()
   /bin/hammer partition-table update --id $freebsd_ptable_id --os-family Freebsd
 
   # Create and update OS
-  /bin/hammer os create --name CentOS --major 7 || true
-  centos_os=$(/bin/hammer --csv os list --per-page 1000 | grep 'CentOS 7.3' | cut -d, -f1)
-  /bin/hammer os update --id $centos_os --name CentOS --major 7 \
-    --description "CentOS 7.3" \
+  /bin/hammer --csv os list --per-page 1000 | grep 'CentOS 7' || /bin/hammer os create --name CentOS --major 7 || true
+  centos_os=$(/bin/hammer --csv os list --per-page 1000 | grep 'CentOS 7' | cut -d, -f1)
+  /bin/hammer os update --id $centos_os --name CentOS --major 7\
+    --description "CentOS 7.4.1708" \
     --family Redhat \
     --architecture-ids 1 \
-    --medium-ids ${medium_id_2},${medium_id_1} \
+    --medium-ids ${medium_id_2} \
     --partition-table-ids $norcams_ptable_id
   # Set default Kickstart and PXELinux templates and associate with os
   /bin/hammer template update --id $norcams_provision_id --operatingsystem-ids $centos_os

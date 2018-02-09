@@ -9,9 +9,6 @@ FILE_UPLOAD_TEMP_DIR = '<%= @custom_uploaddir %>'
 <% if @enable_pwd_retrieval -%>
 OPENSTACK_ENABLE_PASSWORD_RETRIEVE = '<%= @enable_pwd_retrieval %>'
 <% end -%>
-<% if @enable_image_upload -%>
-HORIZON_IMAGES_ALLOW_UPLOAD = '<%= @enable_image_upload %>'
-<% end -%>
 <% if @image_upload_mode -%>
 HORIZON_IMAGES_UPLOAD_MODE = '<%= @image_upload_mode %>'
 <% end -%>

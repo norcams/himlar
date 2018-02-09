@@ -12,3 +12,5 @@ profile::network::dns_extra_zone::zone:
 # Bind utils will be installed with foreman::dns
 profile::base::common::packages:
   'bind-utils': { ensure: absent }
+
+profile::application::foreman::push_facts:    true

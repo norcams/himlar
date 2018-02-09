@@ -1,0 +1,17 @@
+---
+include:
+  default:
+    - profile::network::ipsec
+  bootstrap:
+    - profile::network::ipsec
+
+profile::network::ipsec::enable:          true
+profile::network::ipsec::manage_firewall: true
+
+named_interfaces::config:
+  mgmt:
+     - em1
+  trp:
+     - p1p1
+  public:
+     - p1p2

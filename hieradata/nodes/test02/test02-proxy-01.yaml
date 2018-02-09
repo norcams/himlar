@@ -32,4 +32,3 @@ profile::base::network::routes:
     'source':    [ "%{hiera('netcfg_public_netpart6')}::12", ]
     'table':     [ 'main', ]
     'family':    [ '6', ]
-

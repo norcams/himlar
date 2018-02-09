@@ -1,4 +1,3 @@
-
 ---
 include:
   kickstart:
@@ -19,9 +18,6 @@ ntp::servers:
 
 profile::monitoring::sensu::agent::enable_agent:  true
 
-puppet::cron_cmd: "if [ -e /root/proxy.sh ] ; then source /root/proxy.sh ; fi ; \
-  /usr/bin/env puppet agent --config %{puppet::dir}/puppet.conf --onetime --no-daemonize"
-
 # Add custom routing table for private network to NAT
 profile::base::network::routes:
   'em1':
@@ -35,6 +31,7 @@ profile::base::network::routing_tables:
 profile::base::network::rules:
   'em1':
     iprule: [ "from %{hiera('netcfg_priv_network')} lookup private", ]
+profile::base::network::manage_neutron_blackhole: true
 
 ################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
 calico::compute::bird_template: 'profile/bird/bird.conf.erb'

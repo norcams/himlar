@@ -1,17 +1,17 @@
 ---
 accounts::ssh_keys:
-  'hege_usit':
-    type:    'ssh-rsa'
-    public:  'AAAAB3NzaC1yc2EAAAABIwAAAQEAzfByKwhw9v7wzYZY4m4qvdVy/+Qzp+Q2bFuTcSQG9aN9C928LSPkM8RmfTKYA8xWgvVfki+EsgSTwG3Bbb9jO19DCvb+lvFXpcZhDbDzHd9JuK9+bLeNWG5FToFDfo207PlMwwn9tHUVcBIAH9wk+Nes2gBVYONLyPMVnebEH3GsLuzrombAO56ubapsn4y4r5kAqtlhcSkozoRQKNrb7EqOZn+7RMNcdjKYEBSb5yA0aDRUeqxGYts6qCExdSVtgTn+4ITIHCV5YmIlxP7buJRQisOjToixdmKy/FLkN9iBQwf4n6IpvdzPHjsvQtqhLICVRBOV6Y4tdWjiH0wjwQ=='
-  'hege_home':
-    type:    'ssh-rsa'
-    public:  'AAAAB3NzaC1yc2EAAAADAQABAAABAQDgWub64AvHP8bR+Ferv8qePqPFz7RKsARTERMWlVqzRzJnHSoTsShgFA1PODI56yNES2xS9pAn8xvRbIuo5ISKYUKviSXFge8kLbhF2XG1975Prlde5KLP+zaVzXQKHazWPdW8Yq0NBn6ItalKYwVmPXrfbTb1eEJ7AH1F0kpVSKH51wQoTXLOeDS4diwFcpgzmVK0xkQLYpmaHjrTsO08wrWVBFQh6Uy6CSNHM02ccIcnxA+e+2Cu5t6ZL7e8ux1Qp6DjWpGsEo6AZNqTK+jcDupgUfGkFwKUIUVwNlFmmJLlQ0uVmydjYtZvwBrcLwCs8IDPX8RNWGucoIPd+ovp'
+#  'hege_usit':
+#    type:    'ssh-rsa'
+#    public:  'AAAAB3NzaC1yc2EAAAABIwAAAQEAzfByKwhw9v7wzYZY4m4qvdVy/+Qzp+Q2bFuTcSQG9aN9C928LSPkM8RmfTKYA8xWgvVfki+EsgSTwG3Bbb9jO19DCvb+lvFXpcZhDbDzHd9JuK9+bLeNWG5FToFDfo207PlMwwn9tHUVcBIAH9wk+Nes2gBVYONLyPMVnebEH3GsLuzrombAO56ubapsn4y4r5kAqtlhcSkozoRQKNrb7EqOZn+7RMNcdjKYEBSb5yA0aDRUeqxGYts6qCExdSVtgTn+4ITIHCV5YmIlxP7buJRQisOjToixdmKy/FLkN9iBQwf4n6IpvdzPHjsvQtqhLICVRBOV6Y4tdWjiH0wjwQ=='
+#  'hege_home':
+#    type:    'ssh-rsa'
+#    public:  'AAAAB3NzaC1yc2EAAAADAQABAAABAQDgWub64AvHP8bR+Ferv8qePqPFz7RKsARTERMWlVqzRzJnHSoTsShgFA1PODI56yNES2xS9pAn8xvRbIuo5ISKYUKviSXFge8kLbhF2XG1975Prlde5KLP+zaVzXQKHazWPdW8Yq0NBn6ItalKYwVmPXrfbTb1eEJ7AH1F0kpVSKH51wQoTXLOeDS4diwFcpgzmVK0xkQLYpmaHjrTsO08wrWVBFQh6Uy6CSNHM02ccIcnxA+e+2Cu5t6ZL7e8ux1Qp6DjWpGsEo6AZNqTK+jcDupgUfGkFwKUIUVwNlFmmJLlQ0uVmydjYtZvwBrcLwCs8IDPX8RNWGucoIPd+ovp'
   'iaas':
     type:    'ssh-rsa'
     public:  'AAAAB3NzaC1yc2EAAAADAQABAAABAQC+OF1sQvpZdYhxVJgrd+1P84/AegFJHY5W0SLIO8dF4K6CP08bJNwg+5eD8kxebmoXTJlfIRC1onJfjDPl94x9F3x18zib3kiSIPnkN7BsCZIxTcN1czHRUEtyOPG9JlKCagaXwHkBIzYIngF9hwBix9ZetuYieiZU/rhnk7x/zNxmjqPBf26rEI1qk4S6xYoAJjx0YFUbLYYiqc7YxGypo0ag99nKaZpy2p5mMyYGn4nGmlCzSG+aANokvlz8gwVzThaIPB8s0YYdXf1w/1OdFcUuW8Wm3AonFZcVhGfJy3yaAZDvbpWI1JVbJ9hMOo5Tml6nx8FM8MU6mAoamgRT'
-  'kolbu':
-    type:    'ssh-rsa'
-    public:  'AAAAB3NzaC1yc2EAAAABIwAAAgEAtmEzrYRHpqungHzKx1USkt1z7GX+qNe7Un0uJbxkvUt0JUhKFb929F0hmZIO+BgPIsLo0ivSO4HGqnr500tLKDEHLhqpv0823y02zDlEWcrci3ne7he2a+LxVVcZEjhiznO4AnoXOlxbKYylVMxoMDBPuTLr97gGzD3DQoEZGfPmO/7YqswAjIkxz03Ac0DQ9VUIymZ1wnEYLvYXm4C+0Vi4FVt7mPKID15yV+anfU1FtNrYbqxQZ/MDS+I97qmLQNE0EE9cdhCm5SQ6KI9Xk9qgtn3sJkWlVe1LnI8fy6V9ZvEhx5Tqrw7OnOFPz91vovGsKmzKr6UL0Cz62TggaMaXhzxeGcUTsg4x97Xdte3s46OPX1ykAGLMpGBt/1UvFtm1KRvnIFasBywupBuIJlemGxyud9DEj/ePvPU2S/DwUBv/aAHn9CBS0snRZ7k+Qs9l31f4h8f8RbIPIJGpLErKt/jVIXQ+Cigb0ruGn04Oj1UMwzSa/gStUyuZrLOo3olT84KpNys12szMH1obrbvKjuz/tJWjPJlKOd2lG9T5HIckEI3wmtcUHZKMLuu6SU7Rki7wyZ/v14ryY3Kc9QwVlDtVaLLZJP+a7NQzSxeTInqmKpNvdlz1bwhR43zR0e+fXzjbM8rUpK+4n6y7TZmhd6AZdzul2kUveup3Fpc='
+#  'kolbu':
+#    type:    'ssh-rsa'
+#    public:  'AAAAB3NzaC1yc2EAAAABIwAAAgEAtmEzrYRHpqungHzKx1USkt1z7GX+qNe7Un0uJbxkvUt0JUhKFb929F0hmZIO+BgPIsLo0ivSO4HGqnr500tLKDEHLhqpv0823y02zDlEWcrci3ne7he2a+LxVVcZEjhiznO4AnoXOlxbKYylVMxoMDBPuTLr97gGzD3DQoEZGfPmO/7YqswAjIkxz03Ac0DQ9VUIymZ1wnEYLvYXm4C+0Vi4FVt7mPKID15yV+anfU1FtNrYbqxQZ/MDS+I97qmLQNE0EE9cdhCm5SQ6KI9Xk9qgtn3sJkWlVe1LnI8fy6V9ZvEhx5Tqrw7OnOFPz91vovGsKmzKr6UL0Cz62TggaMaXhzxeGcUTsg4x97Xdte3s46OPX1ykAGLMpGBt/1UvFtm1KRvnIFasBywupBuIJlemGxyud9DEj/ePvPU2S/DwUBv/aAHn9CBS0snRZ7k+Qs9l31f4h8f8RbIPIJGpLErKt/jVIXQ+Cigb0ruGn04Oj1UMwzSa/gStUyuZrLOo3olT84KpNys12szMH1obrbvKjuz/tJWjPJlKOd2lG9T5HIckEI3wmtcUHZKMLuu6SU7Rki7wyZ/v14ryY3Kc9QwVlDtVaLLZJP+a7NQzSxeTInqmKpNvdlz1bwhR43zR0e+fXzjbM8rUpK+4n6y7TZmhd6AZdzul2kUveup3Fpc='
   'mikaeld':
     type:    'ssh-rsa'
     public:  'AAAAB3NzaC1yc2EAAAABIwAAAQEAu6LmtQMkPIpHmUeHbfdA0425xDSRZpArCq7KuTYRurQOWssrPhMIpAa6OV2LPkpRLF0YIbzoHEXSqkgNwo6F1Qhy7E0l8TnKO5JtuctJtWUzvdesVniUszsXOg7543ZuEaA4qr2EPZSaASOemcMhUgr29wiUKaZF1h8LOXb3za7OORuWR/FW++HfUlPssmWA3R0KtC7OLhkum7c2+59rCaNYFIBUuepKURxDOqYI9sm7TdMw6+dbRUSsqUX2ITlcHhOYp2ehpnG/PpfIN/WFChudhAIDFFgTBImDtJ3Rx1oG45PB1f+r+IIZ6hzndkjqxdlTWpaY4q3ZOeGSFgCJVw=='
@@ -24,9 +24,9 @@ accounts::ssh_keys:
   'trondham':
     type:    'ssh-rsa'
     public:  'AAAAB3NzaC1yc2EAAAABIwAAAQEAr3c4y9UTQstrocwRDdq8tkb8d33VIX4x07iKYanZmnrcGwQ7efT3rEN2tmJUEQumNSL+ZVdsCH/2pT37L8uyxsRlSdnz5bQbe0Sj2dq4ahpIadrDH7n858EmN+chEwgz5QRyWT4SanC9ce/9EyJbl8C0U34mgJV+pIwSGhFhWKXJ624ja+kMXVd6+5rG+rlukMjolFoxE+ijZqzU1EwUtuKD1oMFGeszdpEChhhGO/9T1L7MyaIcDOUOmMgXjdgRtVmS1QY5HYikvc68wBV1FDRn1pvEd3UJTobU87FA9XircbazvD64ghNWK7dqikUgnW/OQsKLoLfyPEUn39v2wQ=='
-  'jarleb':
-    type:    'ssh-rsa'
-    public:  'AAAAB3NzaC1yc2EAAAADAQABAAABAQDesDlHh5ebTaYdbI68QNd920BVba6am0gjD6UnbR1VyLV1KB5GeFDqnfVlvWC52BGNB6/qTXoPnBuHVY8/dY25o6CG/I0Rldl05ByN363ylPL3LY/+VjQlgoCaDDX3zsZg7etlWTCkjSRGYjOeQqy/fwBjHPGflNEl+6wsvpSTX8GCAR0B7383ALE5Fa0TZJ+qJ63mGYI8rwSDmF+ZOXC9eU/ve0hHfBl3N3Q+yWH33Twq8MPPa3ggohMk/007YFgjxyPAOfCZSBggFIYC1Qpo0E2tIZ02lj7qUauOnA8wCBccFJZCIZaJW8xxyNaLRaIGFsdI3709MUTjWxiindgx'
+#  'jarleb':
+#    type:    'ssh-rsa'
+#    public:  'AAAAB3NzaC1yc2EAAAADAQABAAABAQDesDlHh5ebTaYdbI68QNd920BVba6am0gjD6UnbR1VyLV1KB5GeFDqnfVlvWC52BGNB6/qTXoPnBuHVY8/dY25o6CG/I0Rldl05ByN363ylPL3LY/+VjQlgoCaDDX3zsZg7etlWTCkjSRGYjOeQqy/fwBjHPGflNEl+6wsvpSTX8GCAR0B7383ALE5Fa0TZJ+qJ63mGYI8rwSDmF+ZOXC9eU/ve0hHfBl3N3Q+yWH33Twq8MPPa3ggohMk/007YFgjxyPAOfCZSBggFIYC1Qpo0E2tIZ02lj7qUauOnA8wCBccFJZCIZaJW8xxyNaLRaIGFsdI3709MUTjWxiindgx'
   'andersv':
     type:    'ssh-rsa'
     public:  'AAAAB3NzaC1yc2EAAAADAQABAAABAQCmrsGC+0KaGyozoY6pQIZySTfsPdR9qg0zUxsIZRC0z4KyG59gnsPhH6HjBOO0MvXi4SiMY2Me0FTbVAL1LXRFSqSKJa0y2nA1l3zuvZhtcDKUXJVp4ir9cTkcuGFrWaMzORPvbv6VI5BpX6y5UY0VBRV3KUsUiU/wD3axEhageTLdfRjdIrcq4RAz5VCkGCnQ3rMv2O4+OSYg7+cIwSaXMnxLPCDj+j/CjbfH7vaguB6lM9+J3upfvw+HVDj/wqqFXFXtgoHbA9/ObJUJwg2fFVeXb7af3EWOLwjiKbifKDE+gCBoVZH9QPc2uYKCn0bM8sgSCa6PK5vi7U15RH+l'
@@ -35,15 +35,15 @@ accounts::ssh_keys:
     public:  'AAAAB3NzaC1yc2EAAAADAQABAAABAQDfzu58bck7wVUR++oVR/KUnqo29EMtkH0RQyN9nXou2O2jOjCyozKSugdM1/TGKiLNO3ZHSmx56NA01kTVky6YJCk2Bz6BsL4zMJnupsFztTUIRntijVFGnjfrHFPhuERcKPTDheiorSqzlUYTKvxDA8kgkJy+QDAfqnhTt/HBpk82jAV2aWoJYszc4AfEpfu/EUhPPRoOQrk5dTkSaJJjUCaHAhWioKk7TiPlmn/zeDpeqAxDn7DmD82Vh8InRpAm1s2lI+Z6K76X6ltbH/6OC+boi5FrIIjqymyvcMhOSjiAnswCahSAtKW14D3fGuq+EZW8N/CDS95l9sYPF3Xv'
 
 accounts::users:
-  'hege':
-    comment: 'hege@norcams'
-    groups:  [ 'users', 'wheel' ]
+#  'hege':
+#    comment: 'hege@norcams'
+#    groups:  [ 'users', 'wheel' ]
   'iaas':
     comment: 'iaas_norcams'
     groups:  [ 'users', 'wheel' ]
-  'kolbu':
-    comment: 'kolbu@norcams'
-    groups:  [ 'users', 'wheel' ]
+#  'kolbu':
+#    comment: 'kolbu@norcams'
+#    groups:  [ 'users', 'wheel' ]
   'mikaeld':
     comment: 'mikaeld@norcams'
     groups:  [ 'users', 'wheel' ]
@@ -56,9 +56,9 @@ accounts::users:
   'trondham':
     comment: 'trondham@norcams'
     groups:  [ 'users', 'wheel' ]
-  'jarleb':
-    comment: 'jarleb@norcams'
-    groups:  [ 'users', 'wheel' ]
+#  'jarleb':
+#    comment: 'jarleb@norcams'
+#    groups:  [ 'users', 'wheel' ]
   'andersv':
     comment: 'andersv@norcams'
     groups:  [ 'users', 'wheel' ]

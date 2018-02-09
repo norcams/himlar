@@ -15,11 +15,11 @@ profile::firewall::pre::ssh_settings:
 profile::base::login::manage_repo_incoming_dir: true
 
 accounts::accounts:
-  'hege':
-    ensure: present
-    authorized_keys: [ 'hege_usit', 'hege_home' ]
-  'kolbu':
-    ensure: present
+#  'hege':
+#    ensure: present
+#    authorized_keys: [ 'hege_usit', 'hege_home' ]
+#  'kolbu':
+#    ensure: present
   'mikaeld':
     ensure: present
   'raymond':
@@ -28,8 +28,8 @@ accounts::accounts:
     ensure: present
   'trondham':
     ensure: present
-  'jarleb':
-    ensure: present
+#  'jarleb':
+#    ensure: present
   'andersv':
     ensure: present
   # disable system users

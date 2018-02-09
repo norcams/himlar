@@ -1,0 +1,72 @@
+---
+profile::openstack::object::proxy::test_file: true
+
+# disks
+profile::openstack::object::storage::disk:
+  'vdb': {} # SSD
+  'vdc': {} # SSD
+  'vdd': {} # HDD
+  'vde': {} # HDD
+  'vdf': {} # HDD
+  'vdg': {} # HDD
+  'vdh': {} # HDD
+
+profile::openstack::object::storage::ring_account_devices:
+  - 'vdb'
+  - 'vdc'
+
+profile::openstack::object::storage::ring_container_devices:
+  - 'vdb'
+  - 'vdc'
+
+profile::openstack::object::storage::ring_object_devices:
+  - 'vdd'
+  - 'vde'
+  - 'vdf'
+  - 'vdg'
+  - 'vdh'
+
+# Account ring
+profile::openstack::object::storage::ring_account_nodes:
+  "%{hiera('netcfg_trp_netpart')}.119:6002":
+    region: 1
+    zone:   1
+    weight: 100
+  "%{hiera('netcfg_trp_netpart')}.120:6002":
+    region: 1
+    zone:   2
+    weight: 100
+  "%{hiera('netcfg_trp_netpart')}.121:6002":
+    region: 1
+    zone:   3
+    weight: 100
+
+# Container ring
+profile::openstack::object::storage::ring_container_nodes:
+  "%{hiera('netcfg_trp_netpart')}.119:6001":
+    region: 1
+    zone:   1
+    weight: 100
+  "%{hiera('netcfg_trp_netpart')}.120:6001":
+    region: 1
+    zone:   2
+    weight: 100
+  "%{hiera('netcfg_trp_netpart')}.121:6001":
+    region: 1
+    zone:   3
+    weight: 100
+
+# Object ring
+profile::openstack::object::storage::ring_object_nodes:
+  "%{hiera('netcfg_trp_netpart')}.119:6000":
+    region: 1
+    zone:   1
+    weight: 100
+  "%{hiera('netcfg_trp_netpart')}.120:6000":
+    region: 1
+    zone:   2
+    weight: 100
+  "%{hiera('netcfg_trp_netpart')}.121:6000":
+    region: 1
+    zone:   3
+    weight: 100

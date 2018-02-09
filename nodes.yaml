@@ -43,7 +43,7 @@ nodesets:
     - role:       "volume"
     - role:       "dashboard"
     - role:       "compute"
-      memory:     4096 
+      memory:     4096
       cpus:       2
   # The following nodes are optional
     #- role:       "access"
@@ -59,11 +59,19 @@ nodesets:
     #- role:       "logger"
     #  cpus:       1
     #  memory:     2048
+    #- role:       "object"
+    #  hostid:     '01'
+    #- role:       "object"
+    #  hostid:     '02'
+    #- role:       "object"
+    #  hostid:     '03'
     #- role:       "nat"
     #  box:        "norcams/freebsd"
     #- role:       "admin"
     #  memory:     3096
-    #
+    # To use leaf see cumulus help below
+    #- role:       "leaf"
+    #  box:        "norcams/net"
   ha:
     - role:       'ha'
       hostid:     '01'
@@ -103,3 +111,9 @@ networks:
     net: "192.168.0"
     auto_config: false
     forwarding: "route"
+
+#
+# To use cumulus in vagrant:
+#
+# Install gcc-c++
+# Then run: vagrant plugin install vagrant-cumulus

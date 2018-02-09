@@ -38,11 +38,6 @@ filter import_bgp {
 
 table private;
 
-#protocol static {
-#  route 0.0.0.0/0 via <%= scope.function_hiera(['netcfg_priv_gateway']) %>;
-#  table private;
-#}
-
 # Configure synchronization between BIRD's routing tables and the
 # kernel.
 protocol kernel {
@@ -75,7 +70,7 @@ protocol kernel {
 }
 
 protocol bfd {
-<% scope.function_hiera(['netcfg_trp_rr']).each do |name| %><%if name[1]['peer_ipv4'] %>  neighbor <%= name[1]['peer_ipv4'] %>;
+<% scope().call_function('hiera',['netcfg_trp_rr']).each do |name| %><%if name[1]['peer_ipv4'] %>  neighbor <%= name[1]['peer_ipv4'] %>;
 <% end %><% end %>}
 
 # Watch interface up/down events.

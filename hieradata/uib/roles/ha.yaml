@@ -16,6 +16,15 @@ profile::base::selinux::ports:
     port:     '389'
     argument: '-m'
 
+#
+# Default interfaces
+#
+named_interfaces::config:
+  mgmt:
+    - em1
+  public:
+    - bond0.6
+
 corosync::unicast_addresses:
   - "%{hiera('netcfg_public_netpart')}.96"
   - "%{hiera('netcfg_public_netpart')}.97"

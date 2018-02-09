@@ -9,7 +9,7 @@ class profile::firewall::rules (
 
   if $manage_custom_rules {
     info('custom rules')
-    $rules = hiera_hash('profile::firewall::rules::custom_rules', {})
+    $rules = lookup('profile::firewall::rules::custom_rules', Hash, 'deep', {})
     create_resources('profile::firewall::rule', $rules)
   }
 

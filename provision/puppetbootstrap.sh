@@ -18,19 +18,12 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
 baseurl=$repo/epel
 EOM
   cat > /etc/yum.repos.d/puppetlabs.repo <<- EOM
-[puppetlabs-deps]
-name=Puppetlabs Dependencies Yum Repo
-baseurl=$repo/puppetlabs-deps/
-gpgkey=$repo/puppetlabs-deps/RPM-GPG-KEY-puppetlabs
-enabled=1
-gpgcheck=1
-
 [puppetlabs]
-name=Puppetlabs Yum Repo
-baseurl=$repo/puppetlabs/
+name=Puppet 4 Yum Repo
+baseurl=$repo/puppetlabs-PC1/
+gpgkey=$repo/puppetlabs-PC1/RPM-GPG-KEY-puppet
 enabled=1
 gpgcheck=1
-gpgkey=$repo/puppetlabs/RPM-GPG-KEY-puppetlabs
 EOM
   cat > /etc/yum.repos.d/CentOS-Base.repo <<- EOM
 [base]
@@ -62,41 +55,32 @@ bootstrap_puppet()
     el_repos test
     yum clean all
     yum -y update
-    yum install -y puppet facter rubygems rubygem-deep_merge \
-      rubygem-puppet-lint git vim inotify-tools
+    yum install -y puppet-agent rubygems git vim inotify-tools
+    # Remove default version 3 hiera.yaml
+    rm -f /etc/puppetlabs/puppet/hiera.yaml
+
+    gem install -N puppet_forge -v 2.2.6
+    gem install -N r10k
   fi
 
   if command -v apt-get >/dev/null 2>&1; then
     # Assume Debian/CumulusLinux
-    apt-get -y install ca-certificates
-    wget https://apt.puppetlabs.com/puppetlabs-release-wheezy.deb
-    dpkg -i puppetlabs-release-wheezy.deb
-    apt-get update && apt-get -y install puppet git ruby-deep-merge ruby-puppet-lint
-    # FIXME adding wheel group here temporarily
-    groupadd --system wheel
-  fi
 
-  if command -v pkg >/dev/null 2>&1; then
-    # FreeBSD
-    pkg add -M https://download.iaas.uio.no/uh-iaas/ports/puppet38-3.8.7_1.txz
-    pkg check -d -y
-    pkg install -y rubygem-deep_merge rubygem-puppet-lint bash git
-    ln -s /usr/local/bin/bash /bin/bash
-    # FreeBSD spesific use
-    gem install -N ipaddress
-  fi
+    # Fix annoying debian thing
+    sed -i 's/^mesg n$/tty -s \&\& mesg n/g' /root/.profile
 
-  gem install -N puppet_forge -v 2.2.6
-  gem install -N r10k
+    wget -O /tmp/puppet-agent_1.10.9-1wheezy_amd64.deb https://download.iaas.uio.no/uh-iaas/aptrepo/pool/main/p/puppet-agent/puppet-agent_1.10.9-1wheezy_amd64.deb
+    dpkg -i /tmp/puppet-agent_1.10.9-1wheezy_amd64.deb
+    apt-get update
+    apt-get -y install git
+
+    gem install --no-ri --no-rdoc r10k
+  fi
 
   # Let puppetrun.sh pick up that we are now in bootstrap mode
   touch /opt/himlar/bootstrap && echo "Created bootstrap marker: /opt/himlar/bootstrap"
 }
 
-if command -v pkg >/dev/null 2>&1; then
-  REPORT_DIR=/var/puppet/state
-else
-  REPORT_DIR=/var/lib/puppet/state
-fi
+REPORT_DIR=/opt/puppetlabs/puppet/cache/state
 
 test -f $REPORT_DIR/last_run_report.yaml || bootstrap_puppet

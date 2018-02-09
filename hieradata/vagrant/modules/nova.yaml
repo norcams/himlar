@@ -8,3 +8,6 @@ nova::compute::libvirt::libvirt_virt_type: qemu
 
 # verbose logging in vagrant
 nova::verbose:   true
+
+# Do not use placeholder AZ
+nova::availability_zone::default_availability_zone:           "%{::location}-default-1"

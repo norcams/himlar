@@ -1,7 +1,5 @@
-require 'facter/util/virtual'
-
 def lspci_match(regex)
-  output = Facter::Util::Virtual.lspci
+  output = Facter::Core::Execution.execute("which lspci && lspci 2>/dev/null", timeout: 30)
   matches = output.scan(regex)
   matches.flatten.reject {|s| s.nil?}.length
 end

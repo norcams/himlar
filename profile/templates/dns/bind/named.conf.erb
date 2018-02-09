@@ -41,7 +41,7 @@ options  {
 };
 
 <% if @master %>
-<% forward_zones.each do |network, values| -%>
+<% @forward_zones.each do |network, values| -%>
 # Forward zone for <%= network %>, <%= values["zone"] %> (master)
 zone "<%= values["zone"] %>" IN {
     type master;
@@ -51,7 +51,7 @@ zone "<%= values["zone"] %>" IN {
     also-notify { <%= @ns2_mgmt_addr %>; };
 };
 <% end -%>
-<% reverse_zones.each do |network, values| -%>
+<% @reverse_zones.each do |network, values| -%>
 # Reverse (PTR) zone for <%= network %> network, <%= values["cidr"] %> (master)
 zone "<%= values["origin"] %>" IN {
     type master;
@@ -62,7 +62,7 @@ zone "<%= values["origin"] %>" IN {
 };
 <% end -%>
 <% else %>
-<% forward_zones.each do |network, values| -%>
+<% @forward_zones.each do |network, values| -%>
 # Forward zone for <%= network %>, <%= values["zone"] %> (slave)
 zone "<%= values["zone"] %>" IN {
     type slave;
@@ -71,7 +71,7 @@ zone "<%= values["zone"] %>" IN {
     allow-query { 127.0.0.1; ::1; iaas_nets; };
 };
 <% end -%>
-<% reverse_zones.each do |network, values| -%>
+<% @reverse_zones.each do |network, values| -%>
 # Reverse (PTR) zone for <%= network %> network, <%= values["cidr"] %> (slave)
 zone "<%= values["origin"] %>" IN {
     type slave;

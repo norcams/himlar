@@ -8,7 +8,7 @@ $TTL    3600
                             604800         ; Expire
                             43200 )        ; Negative Cache TTL
 
-<% name_servers.each do |ns| -%>
+<% @name_servers.each do |ns| -%>
         IN      NS      <%= ns %>.
 <% end -%>
 

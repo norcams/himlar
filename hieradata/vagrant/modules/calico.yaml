@@ -1,4 +1,6 @@
 ---
+calico::enable_ipv6: false
+
 # Reflector clients (must be set per location)
 # On vagrant, we use the service network for this
 calico::reflector::clients:

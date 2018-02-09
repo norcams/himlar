@@ -1,20 +1,39 @@
 ---
-:hierarchy:
-    - "secrets/nodes/%{verified_host}.secrets"
-    - "secrets/%{location}-common.secrets"
-    - "nodes/%{location}/%{verified_host}"
-    - "nodes/%{verified_host}"
-    - "%{location}/roles/%{role}-%{variant}"
-    - "%{location}/roles/%{role}"
-    - "%{location}/modules/%{calling_module}"
-    - "%{location}/common"
-    - "common/roles/%{role}-%{variant}"
-    - "common/roles/%{role}"
-    - "common/modules/%{calling_module}"
-    - "common/common"
+version: 5
 
-:merge_behavior: deeper
-:backends:
-    - yaml
-:yaml:
-    :datadir: /etc/puppet/hieradata
+defaults:
+  datadir: hieradata
+  data_hash: yaml_data
+
+hierarchy:
+  - name: "Secret data"
+    paths:
+      - "secrets/nodes/%{::verified_host}.secrets.yaml"
+      - "secrets/%{::location}-common.secrets.yaml"
+
+  - name: "Nodes"
+    paths:
+      - "nodes/%{::location}/%{::verified_host}.yaml"
+#      - "nodes/%{verified_host}"
+
+  - name: "Location roles"
+    paths:
+      - "%{::location}/roles/%{::role}-%{::variant}.yaml"
+      - "%{::location}/roles/%{::role}.yaml"
+
+  - name: "Location modules"
+    glob: "%{::location}/modules/*.yaml"
+
+  - name: "Location common"
+    path: "%{::location}/common.yaml"
+
+  - name: "Common roles"
+    paths:
+      - "common/roles/%{::role}-%{::variant}.yaml"
+      - "common/roles/%{::role}.yaml"
+
+  - name: "Common modules"
+    glob: "common/modules/*.yaml"
+
+  - name: "Common"
+    path: "common/common.yaml"

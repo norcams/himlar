@@ -26,7 +26,7 @@ class profile::webserver::apache (
     class { $modules : }
   }
 
-  $vhosts = hiera_hash('profile::webserver::apache::vhosts', {})
+  $vhosts = lookup('profile::webserver::apache::vhosts', Hash, 'deep', {})
   create_resources('::apache::vhost', $vhosts)
 
   if $manage_firewall {

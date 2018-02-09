@@ -8,7 +8,7 @@ class profile::application::openssl(
 
   include ::openssl
 
-  $certs = hiera_hash('profile::application::openssl::certs', {})
+  $certs = lookup('profile::application::openssl::certs', Hash, 'deep', {})
   create_resources('profile::application::openssl::cert', $certs,
     { require => Exec['generate /tmp/serial']})
 

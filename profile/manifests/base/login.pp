@@ -18,12 +18,12 @@ class profile::base::login (
 
   include googleauthenticator::pam::common
 
-  $pam_modes = hiera('googleauthenticator::pam::mode::modes', {})
+  $pam_modes = lookup('googleauthenticator::pam::mode::modes', Hash, 'first', {})
   if $pam_modes {
     create_resources('googleauthenticator::pam::mode', $pam_modes)
   }
 
-  $pam_modules = hiera('googleauthenticator::pam::modules', {})
+  $pam_modules = lookup('googleauthenticator::pam::modules', Hash, 'first', {})
   if $pam_modules {
     create_resources('googleauthenticator::pam', $pam_modules)
   }
@@ -43,8 +43,8 @@ class profile::base::login (
   }
 
   if $manage_db_backup  {
-    $dumpdir        = hiera('profile::database::mariadb::backuptopdir')
-    $db_dump_script = hiera('profile::database::mariadb::backupscript')
+    $dumpdir        = lookup('profile::database::mariadb::backuptopdir', String, 'first', '')
+    $db_dump_script = lookup('profile::database::mariadb::backupscript', String, 'first', '')
 
     create_resources('cron', $db_servers)
 

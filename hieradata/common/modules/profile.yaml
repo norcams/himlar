@@ -1,5 +1,6 @@
 ---
-profile::base::common::manage_augeasproviders: true
+# Is this still needed?
+# profile::base::common::manage_augeasproviders: true
 profile::base::common::manage_epel:            false
 profile::base::common::manage_accounts:        true
 profile::base::common::manage_logging:         false
@@ -103,8 +104,8 @@ profile::base::yumrepo::repo_hash:
     gpgcheck:       1
   puppetlabs:
     descr:          Puppetlabs Yum Repo
-    baseurl:        "%{hiera('yum_base_mirror')}/puppetlabs/"
-    gpgkey:         "%{hiera('yum_base_mirror')}/puppetlabs/RPM-GPG-KEY-puppetlabs"
+    baseurl:        "%{hiera('yum_base_mirror')}/puppetlabs-PC1/"
+    gpgkey:         "%{hiera('yum_base_mirror')}/puppetlabs-PC1/RPM-GPG-KEY-puppet"
     gpgcheck:       1
   puppetlabs-deps:
     descr:          Puppetlabs Dependencies Yum Repo

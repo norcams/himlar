@@ -12,12 +12,23 @@ fi
 
 certname=$1
 domain="${certname#*.}"
+puppet_bin=''
 
-# Upgrade and install puppet
+# Clean up old puppet
+apt-get -y purge puppet facter ruby-rgen puppet-common hiera
+rm -rf /var/lib/puppet
+rm -rf /etc/puppet
+
+# Upgrade
 apt-get update
 apt-get -y upgrade
-apt-get -y install puppet rsync
 
-FACTER_RUNMODE=bootstrap puppet agent -t --certname=${certname} --server puppet.${domain} --pluginsync --waitforcert 120
-puppet agent -t --certname=${certname} --server puppet.${domain}
-puppet agent -t
+# Install puppet repo PC1
+wget -O /tmp/puppetlabs-release-pc1-wheezy.deb http://apt.puppetlabs.com/puppetlabs-release-pc1-wheezy.deb
+dpkg -i /tmp/puppetlabs-release-pc1-wheezy.deb
+apt-get update
+
+apt-get -y install puppet-agent
+
+FACTER_RUNMODE=bootstrap ${puppet_bin} agent -t --certname=${certname} --server puppet.${domain} --waitforcert 120
+${puppet_bin} agent -t

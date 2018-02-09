@@ -19,7 +19,7 @@ class profile::application::consul (
 {
   class { "::consul":
 #    install_method       => 'package',
-    config_defaults      => hiera_hash('consul::config_hash'),
+    config_defaults      => lookup('consul::config_hash', Hash, 'deep', {}),
     config_hash          => {
       "node_name"        => $::hostname,
       "data_dir"         => "/opt/consul",

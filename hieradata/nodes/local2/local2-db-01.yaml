@@ -63,12 +63,13 @@ wsrep_node_address:     '192.168.13.249'
 # Do not create root user for second server in cluster
 mysql::server::create_root_user: false
 
-profile::openstack::database::sql::keystone_enabled:  false
-profile::openstack::database::sql::glance_enabled:    false
-profile::openstack::database::sql::nova_enabled:      false
-profile::openstack::database::sql::neutron_enabled:   false
-profile::openstack::database::sql::cinder_enabled:    false
-profile::openstack::database::sql::gnocchi_enabled:   false
+profile::openstack::database::sql::keystone_enabled:    false
+profile::openstack::database::sql::glance_enabled:      false
+profile::openstack::database::sql::nova_enabled:        false
+profile::openstack::database::sql::neutron_enabled:     false
+profile::openstack::database::sql::cinder_enabled:      false
+profile::openstack::database::sql::gnocchi_enabled:     false
+profile::openstack::database::sql::ceilometer_enabled:  false
 
 # sensu
 profile::monitoring::sensu::agent::checks:

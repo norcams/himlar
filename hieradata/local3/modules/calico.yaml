@@ -8,4 +8,4 @@ calico::compute::peer_defaults:
 # compute node to RR connection (set per location)
 calico::compute::peers:
   rr1:
-    peer_ipv4: "%{netpart_transport1}.1" #FIXME
+    peer_ipv4: "%{netpart_trp1}.1"

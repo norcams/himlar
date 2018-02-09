@@ -48,7 +48,7 @@ protocol kernel {
 }
 
 protocol bfd {
-<% scope.function_hiera(['netcfg_trp_rr']).each do |name| %><%if name[1]['peer_ipv6'] %>  neighbor <%= name[1]['peer_ipv6'] %>;
+<% scope().call_function('hiera',['netcfg_trp_rr']).each do |name| %><%if name[1]['peer_ipv6'] %>  neighbor <%= name[1]['peer_ipv6'] %>;
 <% end %><% end %>}
 
 # Watch interface up/down events.
