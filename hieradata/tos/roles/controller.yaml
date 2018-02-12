@@ -32,6 +32,14 @@ profile::virtualization::libvirt::networks:
     forward_mode:    bridge
     bridge:          br2
 
+named_interfaces::config:
+  mgmt:
+    - br0
+  trp:
+    - br1
+  client:
+    - br2
+
 lvm::volume_groups:
   vg_ext:
     physical_volumes:
