@@ -148,7 +148,7 @@ ntp::servers:
   - 2.no.pool.ntp.org
 
 ceph::profile::params::mon_initial_members:         'tos-cephmon-01, tos-cephmon-02, tos-cephmon-03'
-ceph::profile::params::mon_host:                    '172.18.64.91:6789, 172.18.64.92:6789, 172.18.64.93:6789'
+ceph::profile::params::mon_host:                    '10.246.16.91:6789, 10.246.16.92:6789, 10.246.16.93:6789'
 ceph::profile::params::cluster_network:             '172.20.64.0/21'
 ceph::profile::params::public_network:              '10.246.16.0/21'
 
