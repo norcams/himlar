@@ -15,7 +15,7 @@ ceilometer::dispatcher::gnocchi::filter_servcie_activity:       'false'
 ceilometer::dispatcher::gnocchi::archive_policy:                'low'
 
 ceilometer::wsgi::apache::ssl:                                  false
-ceilometer::api::enabled:                                       false
+ceilometer::api::enabled:                                       true
 
 # keystone auth (node: ceilometer)
 ceilometer::agent::auth::auth_password:          "%{hiera('ceilometer_api_password')}"
