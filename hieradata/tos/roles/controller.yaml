@@ -25,12 +25,12 @@ profile::virtualization::libvirt::networks:
     ensure:          enabled
     autostart:       true
     forward_mode:    bridge
-    bridge:          br1.168
+    bridge:          br1
   clientnet:
     ensure:          enabled
     autostart:       true
     forward_mode:    bridge
-    bridge:          br1.170
+    bridge:          br2
 
 lvm::volume_groups:
   vg_ext:
