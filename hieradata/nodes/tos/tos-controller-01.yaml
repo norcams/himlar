@@ -21,8 +21,6 @@ network::interfaces_hash:
                    "tx_hash": ["eth", "ipv4", "ipv6"], "tx_balancer": { "name": "basic" } },
                    "link_watch" : {  "name" : "ethtool" } }
   'team1.168':
-    ipaddress:    "%{hiera('netcfg_trp_netpart')}.100"
-    netmask:      "%{hiera('netcfg_trp_netmask')}"
     vlan:         'yes'
     defroute:     'no'
     bridge:       'br1'
@@ -42,7 +40,11 @@ network::interfaces_hash:
     domain:       "%{hiera('netcfg_dns_search')}"
   'br1':
     onboot:       'yes'
+    vlan:         'yes'
     type:         'Bridge'
+    ipaddress:    "%{hiera('netcfg_trp_netpart')}.100"
+    netmask:      "%{hiera('netcfg_trp_netmask')}"
+    defroute:     'no'
     bridge_stp:   'off'
   'br2':
     onboot:       'yes'
