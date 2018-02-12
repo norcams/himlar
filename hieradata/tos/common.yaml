@@ -24,6 +24,9 @@ netcfg_trp_netpart:       '172.18.64'
 netcfg_trp_netpart6:      'fd64'
 netcfg_trp_netmask:       '255.255.248.0'
 netcfg_trp_netmask6:      '64'
+netcfg_client_gateway:    '10.246.16.1'
+netcfg_client_netpart:    '10.246.16'
+netcfg_client_netmask:    '255.255.248.0'
 #netcfg_live_netpart:      '172.22.0'
 #netcfg_live_netmask:      '255.255.248.0'
 netcfg_dns_server1:       '172.16.64.11'
@@ -38,6 +41,19 @@ netcfg_pub_natgw:         '158.39.77.248'
 #    peer_ipv4: '172.18.64.1'
 #  rr2:
 #    peer_ipv4: '172.18.64.2'
+
+#
+# Default interfaces
+#
+named_interfaces::config:
+  mgmt:
+    - eth0
+  trp:
+    - eth1
+  client:
+    - eth2
+  public:
+    - dummy0
 
 # DNS server
 #public__address__ns_01:  FIXME
