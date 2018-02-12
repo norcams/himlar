@@ -34,10 +34,15 @@ network::interfaces_hash:
   'br1':
     onboot:       'yes'
     type:         'Bridge'
+    bridge_stp:   'off'
+  'br1.168':
     ipaddress:    '172.18.64.100'
     netmask:      '255.255.248.0'
+    vlan:         'yes'
     defroute:     'no'
-    bridge_stp:   'off'
+  'br1.170':
+    vlan:         'yes'
+    defroute:     'no'
 
 # Use controller-01 for himlar bootstrap
 profile::bootstrap::himlar::manage_bootstrap_scripts: true
