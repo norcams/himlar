@@ -1,31 +1,4 @@
 ---
-include:
-  default:
-    - profile::dns::ns
-    - profile::dns::rndc_key
-    - profile::logging::rsyslog::client
-
-profile::dns::rndc_key::host_is_bind_server:      true
-
-# DNS server addresses (used by file templates)
-#profile::dns::ns::mdns_transport_addr: "%{hiera('service__address__mdns')}"
-profile::dns::ns::admin_mgmt_addr:          "%{hiera('netcfg_mgmt_netpart')}.11"
-profile::dns::ns::ns_mgmt_addr:             "%{hiera('netcfg_mgmt_netpart')}.16"
-profile::dns::ns::resolver1_mgmt_addr:      "%{hiera('netcfg_mgmt_netpart')}.17"
-profile::dns::ns::resolver2_mgmt_addr:      "%{hiera('netcfg_mgmt_netpart')}.18"
-profile::dns::ns::ns_transport_addr:        "%{hiera('service__address__ns')}"
-profile::dns::ns::resolver1_transport_addr: "%{hiera('service__address__resolver_01')}"
-profile::dns::ns::resolver2_transport_addr: "%{hiera('service__address__resolver_02')}"
-profile::dns::ns::ns_public_addr:           "%{hiera('public__address__ns')}"
-profile::dns::ns::ns_public6_addr:          "%{hiera('public6__address__ns')}"
-profile::dns::ns::resolver1_public_addr:    "%{hiera('public__address__resolver_01')}"
-profile::dns::ns::resolver1_public6_addr:   "%{hiera('public6__address__resolver_01')}"
-
-# DNS server firewall configuration
-profile::dns::ns::manage_firewall: true
-profile::dns::ns::firewall_extras:
-  source: "%{::network_trp1}/%{::netmask_trp1}"
-
 # Our internal zone
 profile::dns::ns::internal_zone: "vagrant.iaas.intern"
 
