@@ -121,8 +121,9 @@ service__address__rabbitmq_03:    "mq01.%{hiera('domain_trp')}"
 service__address__cinder_ip:      "%{hiera('netcfg_trp_netpart')}.46"
 service__address__consoleproxy:
 service__address__metric:         "metric.%{hiera('domain_trp')}"
-service__address__ns_01:          "%{hiera('netcfg_trp_netpart')}.16"
-service__address__ns_02:          "%{hiera('netcfg_trp_netpart')}.17"
+service__address__ns:             "%{hiera('netcfg_trp_netpart')}.16"
+service__address__resolver_01:    "%{hiera('netcfg_trp_netpart')}.17"
+service__address__resolver_02:    "%{hiera('netcfg_trp_netpart')}.18"
 
 #
 # Management (proxy and logger must be IP)
@@ -133,8 +134,9 @@ mgmt__address__monitor:           "monitor.%{hiera('domain_mgmt')}"
 mgmt__address__foreman:           "%{::location}-admin-01.%{hiera('domain_mgmt')}"
 mgmt__address__repo:              "repo.%{hiera('domain_mgmt')}"
 mgmt__address__mq_01:             "%{hiera('netcfg_mgmt_netpart')}.31"
-mgmt__address__ns_01:             "%{hiera('netcfg_mgmt_netpart')}.16"
-mgmt__address__ns_02:             "%{hiera('netcfg_mgmt_netpart')}.17"
+mgmt__address__ns:                "%{hiera('netcfg_mgmt_netpart')}.16"
+mgmt__address__resolver_02:       "%{hiera('netcfg_mgmt_netpart')}.17"
+mgmt__address__resolver_03:       "%{hiera('netcfg_mgmt_netpart')}.18"
 
 #
 # Endpoints (including protocole)
@@ -176,7 +178,8 @@ profile::network::services::dns_records:
     "%{::location}-monitor-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.14"
     "%{::location}-builder-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.15"
     "%{::location}-ns-01.%{hiera('domain_mgmt')}":          "%{hiera('netcfg_mgmt_netpart')}.16"
-    "%{::location}-ns-02.%{hiera('domain_mgmt')}":          "%{hiera('netcfg_mgmt_netpart')}.17"
+    "%{::location}-resolver-01.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_netpart')}.17"
+    "%{::location}-resolver-02.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_netpart')}.18"
     "%{::location}-status-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_netpart')}.21"
     "%{::location}-nat-linux-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_mgmt_netpart')}.26"
     "%{::location}-mq-01.%{hiera('domain_mgmt')}":          "%{hiera('netcfg_mgmt_netpart')}.31"
@@ -229,8 +232,9 @@ profile::network::services::dns_records:
     "logger.%{hiera('domain_mgmt')}":                       "%{hiera('netcfg_mgmt_netpart')}.13"
     "monitor.%{hiera('domain_mgmt')}":                      "%{hiera('netcfg_mgmt_netpart')}.14"
     "builder.%{hiera('domain_mgmt')}":                      "%{hiera('netcfg_mgmt_netpart')}.15"
-    "ns01.%{hiera('domain_mgmt')}":                         "%{hiera('netcfg_mgmt_netpart')}.16"
-    "ns02.%{hiera('domain_mgmt')}":                         "%{hiera('netcfg_mgmt_netpart')}.17"
+    "ns.%{hiera('domain_mgmt')}":                           "%{hiera('netcfg_mgmt_netpart')}.16"
+    "resolver1.%{hiera('domain_mgmt')}":                    "%{hiera('netcfg_mgmt_netpart')}.17"
+    "resolver2.%{hiera('domain_mgmt')}":                    "%{hiera('netcfg_mgmt_netpart')}.18"
     "git.%{hiera('domain_mgmt')}":                          "%{hiera('netcfg_mgmt_netpart')}.10"
     # trp nodes
     "status.%{hiera('domain_trp')}":                        "%{hiera('netcfg_trp_netpart')}.21"

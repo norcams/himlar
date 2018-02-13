@@ -1,0 +1,9 @@
+---
+# This is the resolving name server
+profile::dns::ns::authoritative: false
+
+# Any zones should be placed in the "secondary zone" dir
+profile::dns::ns::zonedir: 'sz'
+
+# Turn on SELinux
+profile::base::selinux::manage_selinux: true

@@ -1,17 +1,14 @@
 ---
-#profile::dns::ns::mdns_transport_addr: "%{hiera('service__address__mdns')}"
-profile::dns::ns::admin_mgmt_addr:     "%{hiera('netcfg_mgmt_netpart')}.11"
-profile::dns::ns::ns1_mgmt_addr:       "%{hiera('netcfg_mgmt_netpart')}.16"
-profile::dns::ns::ns2_mgmt_addr:       "%{hiera('netcfg_mgmt_netpart')}.17"
-profile::dns::ns::ns1_transport_addr:  "%{hiera('service__address__ns_01')}"
-profile::dns::ns::ns2_transport_addr:  "%{hiera('service__address__ns_02')}"
-profile::dns::ns::ns1_public_addr:     "%{hiera('public__address__ns_01')}"
+# This is the authoritative name server
+profile::dns::ns::authoritative: true
 
-profile::dns::ns::manage_firewall: true
-profile::dns::ns::firewall_extras:
-  source: "%{::network_trp1}/%{::netmask_trp1}"
+# Any zones should be placed in the "primary zone" dir
+profile::dns::ns::zonedir: 'pz'
 
+# Turn on SELinux
 profile::base::selinux::manage_selinux: true
+
+# Turn on the "named_write_master_zones" SELinux boolean
 profile::base::selinux::boolean:
   'named_write_master_zones':
     ensure: 'on'

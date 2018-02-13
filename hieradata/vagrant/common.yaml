@@ -46,8 +46,11 @@ netcfg_trp_rr:
 #
 service__address__mysql:  "db01.%{hiera('domain_trp')}" #FIXME
 
-# DNS server
-public__address__ns_01:   "%{hiera('netcfg_public_netpart')}.16"
+# DNS servers
+public__address__ns:           "%{hiera('netcfg_public_netpart')}.251"
+public6__address__ns:          "%{hiera('netcfg_public_netpart6')}::251"
+public__address__resolver_01:  "%{hiera('netcfg_public_netpart')}.252"
+public6__address__resolver_01: "%{hiera('netcfg_public_netpart6')}::252"
 
 #
 # Default interfaces
@@ -114,8 +117,6 @@ profile::network::services::dns_options:
 #
 profile::network::services::dns_records:
   A:
-    "ns.%{hiera('domain_public')}":                       "%{hiera('netcfg_public_netpart')}.16"
-    "dashboard.%{hiera('domain_frontend')}":              "%{hiera('netcfg_public_netpart')}.254"
     "access.%{hiera('domain_frontend')}":                 "%{hiera('netcfg_public_netpart')}.250"
     "console.%{hiera('domain_public')}":                  "%{hiera('netcfg_public_netpart')}.250"
     "api.%{hiera('domain_public')}":                      "%{hiera('netcfg_public_netpart')}.250"
@@ -127,8 +128,12 @@ profile::network::services::dns_records:
     "status.%{hiera('domain_frontend')}":                 "%{hiera('netcfg_public_netpart')}.250"
     "metric.api.%{hiera('domain_public')}":               "%{hiera('netcfg_public_netpart')}.250"
     "object.api.%{hiera('domain_public')}":               "%{hiera('netcfg_public_netpart')}.250"
+    "ns.%{hiera('domain_public')}":                       "%{hiera('netcfg_public_netpart')}.251"
+    "resolver.%{hiera('domain_public')}":                 "%{hiera('netcfg_public_netpart')}.252"
+    "dashboard.%{hiera('domain_frontend')}":              "%{hiera('netcfg_public_netpart')}.254"
   AAAA:
-    "ns.%{hiera('domain_public')}":                       "%{hiera('netcfg_public_netpart6')}::16"
+    "ns.%{hiera('domain_public')}":                       "%{hiera('netcfg_public_netpart6')}::251"
+    "resolver.%{hiera('domain_public')}":                 "%{hiera('netcfg_public_netpart6')}::252"
   PTR:
     # mgmt
     "1.%{hiera('reverse_mgmt')}":      "%{::location}-leaf-01.%{hiera('domain_mgmt')}"
@@ -138,7 +143,8 @@ profile::network::services::dns_records:
     "14.%{hiera('reverse_mgmt')}":     "%{::location}-monitor-01.%{hiera('domain_mgmt')}"
     "15.%{hiera('reverse_mgmt')}":     "%{::location}-builder-01.%{hiera('domain_mgmt')}"
     "16.%{hiera('reverse_mgmt')}":     "%{::location}-ns-01.%{hiera('domain_mgmt')}"
-    "17.%{hiera('reverse_mgmt')}":     "%{::location}-ns-02.%{hiera('domain_mgmt')}"
+    "17.%{hiera('reverse_mgmt')}":     "%{::location}-resolver-01.%{hiera('domain_mgmt')}"
+    "18.%{hiera('reverse_mgmt')}":     "%{::location}-resolver-02.%{hiera('domain_mgmt')}"
     "21.%{hiera('reverse_mgmt')}":     "%{::location}-status-01.%{hiera('domain_mgmt')}"
     "26.%{hiera('reverse_mgmt')}":     "%{::location}-nat-01.%{hiera('domain_mgmt')}"
     "31.%{hiera('reverse_mgmt')}":     "%{::location}-mq-01.%{hiera('domain_mgmt')}"
@@ -175,14 +181,14 @@ profile::network::services::dns_records:
     "114.%{hiera('reverse_mgmt')}":    "%{::location}-controller-04.%{hiera('domain_mgmt')}"
     "115.%{hiera('reverse_mgmt')}":    "%{::location}-compute-07.%{hiera('domain_mgmt')}"
     "116.%{hiera('reverse_mgmt')}":    "%{::location}-compute-08.%{hiera('domain_mgmt')}"
-    # public
-    "16.%{hiera('reverse_public')}":    "ns.%{hiera('domain_public')}"
-    "254.%{hiera('reverse_public')}":   "dashboard.%{hiera('domain_frontend')}"
-    #"250.%{hiera('reverse_public')}":   "access.%{hiera('domain_frontend')}" #252
-    #"250.%{hiera('reverse_public')}":   "console.%{hiera('domain_public')}" #251
+    # public IPv4
     "250.%{hiera('reverse_public')}":   "api.%{hiera('domain_public')}"
+    "251.%{hiera('reverse_public')}":   "ns.%{hiera('domain_public')}"
+    "252.%{hiera('reverse_public')}":   "resolver.%{hiera('domain_public')}"
+    "254.%{hiera('reverse_public')}":   "dashboard.%{hiera('domain_frontend')}"
     # public IPv6
-    "6.1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.%{hiera('reverse_public6')}":  "ns.%{hiera('domain_public')}"
+    "1.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.%{hiera('reverse_public6')}":  "ns.%{hiera('domain_public')}"
+    "2.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.%{hiera('reverse_public6')}":  "resolver.%{hiera('domain_public')}"
 
 #
 ## Secret data which for other environments are stored ooutside of this data tree

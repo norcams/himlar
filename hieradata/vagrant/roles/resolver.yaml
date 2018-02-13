@@ -5,8 +5,6 @@ include:
     - profile::dns::rndc_key
     - profile::logging::rsyslog::client
 
-profile::dns::rndc_key::create_admin_key:         true
-profile::dns::rndc_key::create_mdns_key:          true
 profile::dns::rndc_key::host_is_bind_server:      true
 
 # DNS server addresses (used by file templates)
@@ -31,17 +29,15 @@ profile::dns::ns::firewall_extras:
 # Our internal zone
 profile::dns::ns::internal_zone: "vagrant.iaas.intern"
 
-# Name servers in zone file
-profile::dns::ns::name_servers:
-  - "ns.%{hiera('profile::dns::ns::internal_zone')}"
-
-# Forward zones, for which the name server is authoritative
+# Forward zones. Only zones that are "internal". Requests for records
+# in these zones will be forwarded to the authoritative DNS server
 profile::dns::ns::fw_zones:
   internal:
     zone: "%{hiera('profile::dns::ns::internal_zone')}"
     filename: "%{hiera('profile::dns::ns::zonedir')}/%{hiera('profile::dns::ns::internal_zone')}"
 
-# Reverse zones, for which the name server is authoritative
+# Reverse zones. Only zones that are "internal". Requests for records
+# in these zones will be forwarded to the authoritative DNS server
 profile::dns::ns::ptr_zones:
   internal:
     cidr: "172.31.0.0/16"
