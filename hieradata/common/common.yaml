@@ -232,9 +232,6 @@ profile::network::services::dns_records:
     "logger.%{hiera('domain_mgmt')}":                       "%{hiera('netcfg_mgmt_netpart')}.13"
     "monitor.%{hiera('domain_mgmt')}":                      "%{hiera('netcfg_mgmt_netpart')}.14"
     "builder.%{hiera('domain_mgmt')}":                      "%{hiera('netcfg_mgmt_netpart')}.15"
-    "ns.%{hiera('domain_mgmt')}":                           "%{hiera('netcfg_mgmt_netpart')}.16"
-    "resolver1.%{hiera('domain_mgmt')}":                    "%{hiera('netcfg_mgmt_netpart')}.17"
-    "resolver2.%{hiera('domain_mgmt')}":                    "%{hiera('netcfg_mgmt_netpart')}.18"
     "git.%{hiera('domain_mgmt')}":                          "%{hiera('netcfg_mgmt_netpart')}.10"
     # trp nodes
     "status.%{hiera('domain_trp')}":                        "%{hiera('netcfg_trp_netpart')}.21"
