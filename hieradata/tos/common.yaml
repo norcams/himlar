@@ -143,9 +143,8 @@ profile::network::services::dns_records:
 #    '254.77.39.158':  'uh-dboard.iaas.tos.no'
 
 ntp::servers:
-  - 0.no.pool.ntp.org
-  - 1.no.pool.ntp.org
-  - 2.no.pool.ntp.org
+  - ntp.uit.no
+  - ntp2.uit.no
 
 ceph::profile::params::mon_initial_members:         'tos-cephmon-01, tos-cephmon-02, tos-cephmon-03'
 ceph::profile::params::mon_host:                    '10.246.16.91:6789, 10.246.16.92:6789, 10.246.16.93:6789'
