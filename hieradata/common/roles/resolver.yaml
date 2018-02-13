@@ -7,9 +7,6 @@ include:
 # This is the resolving name server
 profile::dns::ns::authoritative: false
 
-# Any zones should be placed in the "secondary zone" dir
-profile::dns::ns::zonedir: 'sz'
-
 # DNS server addresses (used by file templates)
 #profile::dns::ns::mdns_transport_addr: "%{hiera('service__address__mdns')}"
 profile::dns::ns::admin_mgmt_addr:          "%{hiera('netcfg_mgmt_netpart')}.11"
