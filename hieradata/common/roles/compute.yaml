@@ -71,6 +71,10 @@ profile::monitoring::sensu::agent::checks:
     command:      "check-http.rb -u http://127.0.0.1:8775"
     interval:     60
     subscribers:  ['checks']
+  'etcd-client-health':
+    command:      "check-http.rb -u http://127.0.0.1:2379/health -q 'true' --response-code 405"
+    interval:     60
+    subscribers:  ['checks']
   'nova-ssh-key':
     command:      "sudo /opt/sensu/embedded/bin/check-file-exists.rb -f /var/lib/nova/.ssh/id_rsa"
     interval:     60
