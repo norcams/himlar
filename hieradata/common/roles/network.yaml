@@ -19,6 +19,7 @@ profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}
   'jq': {}
+  'gcc-c++': {}
 
 profile::openstack::openrc::password:     "%{hiera('neutron_api_password')}"
 profile::openstack::openrc::username:     'neutron'
@@ -35,6 +36,22 @@ profile::openstack::network::policies:
   create_router:
     key:   'create_router'
     value: 'rule:admin_only'
+
+# Sensu (needs gcc-c++)
+profile::monitoring::sensu::agent::plugins:
+  sensu-plugins-http:
+    type:         package
+    pkg_version:  '1.0.0'
+
+profile::monitoring::sensu::agent::checks:
+  'etcd-client-health':
+    command:      "check-http.rb -u http://127.0.0.1:2379/health -q 'true' --response-code 405"
+    interval:     60
+    subscribers:  ['checks']
+  'etcd-peer-health':
+    command:      "check-http.rb -u http://127.0.0.1:2380/version -q 'etcdcluster' --response-code 405"
+    interval:     60
+    subscribers:  ['checks']
 
 profile::openstack::network::calico::manage_bird: false
 
