@@ -37,5 +37,9 @@ gnocchi::statsd::resource_id:                 577a85b8-1f77-47e7-ac6f-742b475657
 gnocchi::statsd::flush_delay:                 60
 gnocchi::statsd::archive_policy_name:         'medium'
 
+# Depricated after pike (only used for metadata tags, but are mandatory)
+gnocchi::statsd::user_id:                     'gnocchi'
+gnocchi::statsd::project_id:                  'service'
+
 # newer version suggest redis here
 #gnocchi::storage::coordination_url: 'file://var/tmp'
