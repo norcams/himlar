@@ -81,6 +81,7 @@ zone "<%= values["zone"] %>" IN {
     forwarders {
         <%= @ns_mgmt_addr %>;
     };
+    forward only;
 };
 <% end -%>
 <% end %>
@@ -91,6 +92,7 @@ zone "<%= values["origin"] %>" IN {
     forwarders {
         <%= @ns_mgmt_addr %>;
     };
+    forward only;
 };
 <% end -%>
 <% end %>
