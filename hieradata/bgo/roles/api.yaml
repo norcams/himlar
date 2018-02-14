@@ -4,7 +4,7 @@ status_ssl_pem:   "status.uh-iaas.no.pem"
 #console_ssl_pem:  "console.uh-iaas.no.pem"
 #access_ssl_pem:   "access.uh-iaas.no.pem"
 
-profile::base::selinux::manage_selinux:	false
+profile::base::selinux::manage_selinux: false
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   network:
     server_names:       ['%{::location}-network-02', '%{::location}-network-03']
