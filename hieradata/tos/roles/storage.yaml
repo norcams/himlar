@@ -8,3 +8,57 @@ named_interfaces::config:
     - team1
   client:
     - team2
+
+/dev/nvme0n1
+
+ceph::profile::params::osds:
+  '/dev/nvme0n1':
+    ensure:     'present'
+  '/dev/sda':
+    db_device:  '/dev/sdn'
+    wal_device: '/dev/sdn'
+  '/dev/sdb':
+    db_device:  '/dev/sdn'
+    wal_device: '/dev/sdn'
+  '/dev/sdc':
+    db_device:  '/dev/sdn'
+    wal_device: '/dev/sdn'
+  '/dev/sdd':
+    db_device:  '/dev/sdn'
+    wal_device: '/dev/sdn'
+  '/dev/sde':
+    db_device:  '/dev/sdn'
+    wal_device: '/dev/sdn'
+  '/dev/sdf':
+    db_device:  '/dev/sdn'
+    wal_device: '/dev/sdn'
+  '/dev/sdg':
+    db_device:  '/dev/sdn'
+    wal_device: '/dev/sdn'
+  '/dev/sdh':
+    db_device:  '/dev/sdn'
+    wal_device: '/dev/sdn'
+  '/dev/sdi':
+    db_device:  '/dev/sdn'
+    wal_device: '/dev/sdn'
+  '/dev/sdj':
+    db_device:  '/dev/sdn'
+    wal_device: '/dev/sdn'
+  '/dev/sdk':
+    db_device:  '/dev/sdn'
+    wal_device: '/dev/sdn'
+  '/dev/sdl':
+    db_device:  '/dev/sdn'
+    wal_device: '/dev/sdn'
+  '/dev/sdo':
+    db_device:  '/dev/sdn'
+    wal_device: '/dev/sdn'
+  '/dev/sdp':
+    db_device:  '/dev/sdn'
+    wal_device: '/dev/sdn'
+  '/dev/sdq':
+    db_device:  '/dev/sdn'
+    wal_device: '/dev/sdn'
+  '/dev/sdr':
+    db_device:  '/dev/sdn'
+    wal_device: '/dev/sdn'
