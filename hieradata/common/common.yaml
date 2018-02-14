@@ -135,8 +135,8 @@ mgmt__address__foreman:           "%{::location}-admin-01.%{hiera('domain_mgmt')
 mgmt__address__repo:              "repo.%{hiera('domain_mgmt')}"
 mgmt__address__mq_01:             "%{hiera('netcfg_mgmt_netpart')}.31"
 mgmt__address__ns:                "%{hiera('netcfg_mgmt_netpart')}.16"
-mgmt__address__resolver_02:       "%{hiera('netcfg_mgmt_netpart')}.17"
-mgmt__address__resolver_03:       "%{hiera('netcfg_mgmt_netpart')}.18"
+mgmt__address__resolver_01:       "%{hiera('netcfg_mgmt_netpart')}.17"
+mgmt__address__resolver_02:       "%{hiera('netcfg_mgmt_netpart')}.18"
 
 #
 # Endpoints (including protocole)
