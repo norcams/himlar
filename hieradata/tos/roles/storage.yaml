@@ -14,9 +14,6 @@ named_interfaces::config:
 ceph::profile::params::osds:
   '/dev/nvme0n1':
     ensure:     'present'
-  '/dev/sda':
-    db_device:  '/dev/sdn'
-    wal_device: '/dev/sdn'
   '/dev/sdb':
     db_device:  '/dev/sdn'
     wal_device: '/dev/sdn'
@@ -48,6 +45,9 @@ ceph::profile::params::osds:
     db_device:  '/dev/sdn'
     wal_device: '/dev/sdn'
   '/dev/sdl':
+    db_device:  '/dev/sdn'
+    wal_device: '/dev/sdn'
+  '/dev/sdm':
     db_device:  '/dev/sdn'
     wal_device: '/dev/sdn'
   '/dev/sdo':
