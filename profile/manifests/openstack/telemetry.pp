@@ -16,7 +16,6 @@ class profile::openstack::telemetry (
   include ::ceilometer::client
   include ::ceilometer::agent::auth
   include ::ceilometer::agent::polling
-  include ::ceilometer::keystone::auth
   include ::ceilometer::keystone::authtoken
   include ::ceilometer::dispatcher::gnocchi
   include ::gnocchi::client
