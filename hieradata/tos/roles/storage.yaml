@@ -9,8 +9,6 @@ named_interfaces::config:
   client:
     - team2
 
-/dev/nvme0n1
-
 ceph::profile::params::osds:
   '/dev/nvme0n1':
     ensure:     'present'
