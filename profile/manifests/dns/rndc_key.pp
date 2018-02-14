@@ -1,9 +1,9 @@
 class profile::dns::rndc_key (
-  $create_admin_key    = false,
-  $create_mdns_key     = false,
-  $host_is_bind_server = false,
-  $rndc_secret_admin   = undef,
-  $rndc_secret_mdns    = undef
+  $create_admin_key          = false,
+  $create_mdns_key           = false,
+  $host_is_bind_server       = false,
+  $rndc_secret_admin         = undef,
+  $rndc_secret_mdns          = undef
 )
 {
 

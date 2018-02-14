@@ -3,11 +3,11 @@ class profile::dns::ns (
   $my_transport_addr = {},
   #$mdns_transport_addr = {},
   $admin_mgmt_addr = {},
-  $ns1_mgmt_addr = {},
-  $ns2_mgmt_addr = {},
-  $ns1_transport_addr = {},
-  $ns1_public_addr = {},
-  $master = {},
+  $ns_mgmt_addr = {},
+  $ns_transport_addr = {},
+  $ns_public_addr = {},
+  $ns_public6_addr = {},
+  $authoritative = {},
   $manage_firewall = {},
   $firewall_extras = {},
   $internal_zone = {}
@@ -23,14 +23,16 @@ class profile::dns::ns (
   package { 'bind':
     ensure => installed,
   }
-  # Create rndc.conf
-  file { '/etc/rndc.conf':
-    content => template("${module_name}/dns/bind/rndc.conf.erb"),
-    notify  => Service['named'],
-    mode    => '0640',
-    owner   => 'named',
-    group   => 'named',
-    require => Package['bind'],
+  if $authoritative {
+    # Create rndc.conf
+    file { '/etc/rndc.conf':
+      content => template("${module_name}/dns/bind/rndc.conf.erb"),
+      notify  => Service['named'],
+      mode    => '0640',
+      owner   => 'named',
+      group   => 'named',
+      require => Package['bind'],
+    }
   }
   # Ensure that /var/named exists with correct permissions
   file { '/var/named':
@@ -68,20 +70,34 @@ class profile::dns::ns (
   }
 
   # Define dependencies for the named service
-  service { 'named':
-    ensure  => running,
-    enable  => true,
-    require => [
-      File['/etc/rndc.conf'],
-      File['/var/named'],
-      File['/var/named/pz'],
-      File['/var/named/sz'],
-      File['/etc/named.conf']
-      ],
+  if $authoritative {
+    service { 'named':
+      ensure  => running,
+      enable  => true,
+      require => [
+        File['/etc/rndc.conf'],
+        File['/var/named'],
+        File['/var/named/pz'],
+        File['/var/named/sz'],
+        File['/etc/named.conf']
+        ],
+    }
+  }
+  else {
+    service { 'named':
+      ensure  => running,
+      enable  => true,
+      require => [
+        File['/var/named'],
+        File['/var/named/pz'],
+        File['/var/named/sz'],
+        File['/etc/named.conf']
+        ],
+    }
   }
 
-  # Create the zones (on master)
-  if $master {
+  # Create the zones (on authoritative host)
+  if $authoritative {
     create_resources('profile::dns::forward_zone', $forward_zones)
     create_resources('profile::dns::reverse_zone', $reverse_zones)
   }

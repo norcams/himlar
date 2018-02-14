@@ -1,0 +1,22 @@
+---
+# Our internal zone
+profile::dns::ns::internal_zone: "vagrant.iaas.intern"
+
+# Forward zones. Only zones that are "internal". Requests for records
+# in these zones will be forwarded to the authoritative DNS server
+profile::dns::ns::fw_zones:
+  internal:
+    zone: "%{hiera('profile::dns::ns::internal_zone')}"
+
+# Reverse zones. Only zones that are "internal". Requests for records
+# in these zones will be forwarded to the authoritative DNS server
+profile::dns::ns::ptr_zones:
+  internal:
+    cidr: "172.31.0.0/16"
+    origin: "31.172.in-addr.arpa"
+  public:
+    cidr: "192.168.0/16"
+    origin: "168.192.in-addr.arpa"
+  ipv6:
+    cidr: "fc00::/7"
+    origin: "c.f.ip6.arpa"

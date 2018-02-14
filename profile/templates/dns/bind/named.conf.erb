@@ -4,9 +4,11 @@
 # This file is managed by Puppet. Any changes will be lost!         #
 #===================================================================#
 
+<% if @authoritative %>
 # Include our RNDC keys
 include "/etc/rndc-mdns.key";
 include "/etc/rndc-admin.key";
+<% end -%>
 
 # Define an ACL that includes all UH-IaaS networks
 acl iaas_nets {
@@ -20,27 +22,38 @@ acl iaas_nets {
     2001:700:2:8200::/56; # osl IPv6
 };
 
+<% if @authoritative %>
 # Control which hosts can do updates via RNDC, using which keys
 controls  {
     inet 127.0.0.1 port 953 allow { 127.0.0.1; } keys { "rndc-key-admin"; };
     inet <%= @my_mgmt_addr %> port 953 allow { <%= @admin_mgmt_addr %>; } keys { "rndc-key-admin"; };
     #inet <%= @my_transport_addr %> port 953 allow { <%= @mdns_transport_addr %>; } keys { "rndc-key-mdns"; };
 };
+<% end -%>
 
 # General options for named
 options  {
-    allow-new-zones yes;
+<% if @authoritative %>
     allow-query { any; };
-    allow-query-cache { 127.0.0.1; ::1; iaas_nets; };
+    recursion no;
+    allow-recursion { none; };
+    allow-new-zones yes;
+<% else %>
+    allow-query { 127.0.0.1; ::1; iaas_nets; };
+    recursion yes;
     allow-recursion { 127.0.0.1; ::1; iaas_nets; };
+    allow-new-zones no;
+<% end -%>
     directory "/var/named";
+    dump-file "/var/named/data/named_dump.db";
+    statistics-file "/var/named/data/named.stats";
     dnssec-enable yes;
     dnssec-validation no;
     empty-zones-enable yes;
     listen-on-v6 { any; };
 };
 
-<% if @master %>
+<% if @authoritative %>
 <% @forward_zones.each do |network, values| -%>
 # Forward zone for <%= network %>, <%= values["zone"] %> (master)
 zone "<%= values["zone"] %>" IN {
@@ -48,7 +61,6 @@ zone "<%= values["zone"] %>" IN {
     file "<%= values["filename"] %>";
     allow-update { <%= @admin_mgmt_addr %>; };
     allow-query { 127.0.0.1; ::1; iaas_nets; };
-    also-notify { <%= @ns2_mgmt_addr %>; };
 };
 <% end -%>
 <% @reverse_zones.each do |network, values| -%>
@@ -58,26 +70,29 @@ zone "<%= values["origin"] %>" IN {
     file "<%= values["filename"] %>";
     allow-update { <%= @admin_mgmt_addr %>; };
     allow-query { 127.0.0.1; ::1; iaas_nets; };
-    also-notify { <%= @ns2_mgmt_addr %>; };
 };
 <% end -%>
 <% else %>
+<% unless @forward_zones.empty? %>
 <% @forward_zones.each do |network, values| -%>
-# Forward zone for <%= network %>, <%= values["zone"] %> (slave)
+# Forward zone for <%= network %>, <%= values["zone"] %> (forward)
 zone "<%= values["zone"] %>" IN {
-    type slave;
-    file "<%= values["filename"] %>";
-    masters { <%= @ns1_mgmt_addr %>; <%= @ns1_public_addr %>; };
-    allow-query { 127.0.0.1; ::1; iaas_nets; };
+    type forward;
+    forwarders {
+        <%= @ns_mgmt_addr %>;
+    };
+    forward only;
 };
 <% end -%>
+<% end %>
 <% @reverse_zones.each do |network, values| -%>
-# Reverse (PTR) zone for <%= network %> network, <%= values["cidr"] %> (slave)
+# Reverse (PTR) zone for <%= network %> network, <%= values["cidr"] %> (forward)
 zone "<%= values["origin"] %>" IN {
-    type slave;
-    file "<%= values["filename"] %>";
-    masters { <%= @ns1_mgmt_addr %>; <%= @ns1_public_addr %>; };
-    allow-query { 127.0.0.1; ::1; iaas_nets; };
+    type forward;
+    forwarders {
+        <%= @ns_mgmt_addr %>;
+    };
+    forward only;
 };
 <% end -%>
 <% end %>

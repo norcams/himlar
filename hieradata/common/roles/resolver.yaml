@@ -2,18 +2,10 @@
 include:
   default:
     - profile::dns::ns
-    - profile::dns::rndc_key
     - profile::logging::rsyslog::client
 
-profile::dns::rndc_key::create_admin_key:         true
-profile::dns::rndc_key::create_mdns_key:          true
-profile::dns::rndc_key::host_is_bind_server:      true
-
-# This is the authoritative name server
-profile::dns::ns::authoritative: true
-
-# Any zones should be placed in the "primary zone" dir
-profile::dns::ns::zonedir: 'pz'
+# This is the resolving name server
+profile::dns::ns::authoritative: false
 
 # DNS server addresses (used by file templates)
 #profile::dns::ns::mdns_transport_addr: "%{hiera('service__address__mdns')}"
@@ -36,9 +28,3 @@ profile::dns::ns::firewall_extras:
 
 # Turn on SELinux
 profile::base::selinux::manage_selinux: true
-
-# Turn on the "named_write_master_zones" SELinux boolean
-profile::base::selinux::boolean:
-  'named_write_master_zones':
-    ensure: 'on'
-    persistent: true
