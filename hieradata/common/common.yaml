@@ -225,6 +225,8 @@ profile::network::services::dns_records:
     "%{::location}-object-03.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_netpart')}.121"
     "%{::location}-object-04.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_netpart')}.122"
     "%{::location}-object-05.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_netpart')}.123"
+    "%{::location}-storage-06.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.124"
+    "%{::location}-storage-07.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.125"
     # mgmt nodes
     "foreman.%{hiera('domain_mgmt')}":                      "%{hiera('netcfg_mgmt_netpart')}.11"
     "puppet.%{hiera('domain_mgmt')}":                       "%{hiera('netcfg_mgmt_netpart')}.11"
