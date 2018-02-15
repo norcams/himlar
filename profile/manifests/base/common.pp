@@ -70,6 +70,11 @@ class profile::base::common (
 
   if $manage_ntp {
     include ::ntp
+
+    service { 'chronyd':
+      enable      => false,
+      ensure      => stopped,
+    }
   }
 
   if $manage_sudo {
