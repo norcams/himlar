@@ -125,7 +125,7 @@ mod 'statsd', :ref => '3.1.0',                      :git => github + 'justindown
 #
 # profile::webserver::apache
 #
-mod 'puppetlabs/apache', :ref => '2.3.0',           :git => github + 'puppetlabs/puppetlabs-apache'
+mod 'puppetlabs/apache', :ref => '2.0.0',           :git => github + 'puppetlabs/puppetlabs-apache'
 
 #
 # profile::database::postgresql
