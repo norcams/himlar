@@ -10,7 +10,9 @@ class profile::dns::ns (
   $authoritative = {},
   $manage_firewall = {},
   $firewall_extras = {},
-  $internal_zone = {}
+  $internal_zone = {},
+  $forward_everything = false,
+  $forwarders = {}
   )
 {
   # Our forward zones
