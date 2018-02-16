@@ -72,8 +72,8 @@ class profile::base::common (
     include ::ntp
 
     service { 'chronyd':
-      enable      => false,
-      ensure      => stopped,
+      ensure => stopped,
+      enable => false
     }
   }
 
