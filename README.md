@@ -1,5 +1,5 @@
 [![Build
-Status](https://api.travis-ci.org/norcams/himlar-puppet4.svg)](https://travis-ci.org/norcams/himlar-puppet4)
+Status](https://api.travis-ci.org/norcams/himlar.svg)](https://travis-ci.org/norcams/himlar)
 
 himlar
 ======
