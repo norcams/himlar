@@ -14,7 +14,7 @@ class profile::openstack::dashboard(
   $enable_pwd_retrieval = false,
   $image_upload_mode    = undef,
   $change_region_selector = false
-) { 
+) {
 
   if $manage_dashboard {
     include ::horizon
