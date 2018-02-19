@@ -25,13 +25,14 @@ network::interfaces_hash:
     defroute:      'no'
     onboot:        'yes'
   'eth4':
-    ipaddress:     '172.28.159.10'
-    netmask:       '255.255.255.0'
-    defroute:      'no'
-    onboot:        'yes'
-  'eth4':
     ipaddress:     '172.31.0.10'
     netmask:       '255.255.248.0'
     defroute:      'no'
     onboot:        'yes'
 #    manage_hwaddr: '00:50:56:ae:56:75'
+  'eth5':
+    ipaddress:     '172.28.159.10'
+    netmask:       '255.255.255.0'
+    defroute:      'no'
+    onboot:        'yes'
+#    manage_hwaddr: '00:50:56:ae:ed:9f'
