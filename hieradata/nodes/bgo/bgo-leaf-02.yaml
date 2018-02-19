@@ -24,7 +24,7 @@ profile::base::network::cumulus_interfaces:
 #    'virtual_mac': '00:00:5e:00:02:01'
   'peerlink.4094':
     'ipv4': [ '172.18.228.2/24', ]
-    'ipv6': [ 'fd00:18:228::1/64', ]
+    'ipv6': [ 'fd00:18:228::2/64', ]
     'clagd_enable': true
     'clagd_priority': '8192'
     'clagd_peer_ip': '172.18.228.1'
