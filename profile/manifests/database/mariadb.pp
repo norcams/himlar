@@ -81,7 +81,7 @@ class profile::database::mariadb (
     group  => $backupdirgroup,
   }
 
- file { '/var/db/dumps':
-  ensure => 'directory',
+  file { '/var/db/dumps':
+    ensure => 'directory',
  }
 }
