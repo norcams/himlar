@@ -13,8 +13,7 @@ class profile::openstack::dashboard(
   $custom_uploaddir     = '/image-upload',
   $enable_pwd_retrieval = false,
   $image_upload_mode    = undef,
-  $change_region_selector = false,
-  $change_login_footer  = false,
+  $change_region_selector = false
 ) { 
 
   if $manage_dashboard {
@@ -66,13 +65,6 @@ class profile::openstack::dashboard(
       match_for_absence => true,
       multiple          => true,
       replace           => false,
-    }
-  }
-
-  if $change_login_footer {
-    file { '/usr/share/openstack-dashboard/openstack_dashboard/templates/_login_footer.html':
-      ensure            => file,
-      content           => '<footer><center><b><p> UH-IaaS, Infrastructure for Your Research and Ideas</p></b><p>For more information about UH-IaaS, please visit:<a href="http://www.uh-iaas.no">www.uh-iaas.no</a></p></center></footer>',
     }
   }
 }
