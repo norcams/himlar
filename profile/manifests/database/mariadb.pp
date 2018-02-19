@@ -83,5 +83,5 @@ class profile::database::mariadb (
 
   file { '/var/db/dumps':
     ensure => 'directory',
- }
+  }
 }
