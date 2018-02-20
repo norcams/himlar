@@ -1,32 +1,68 @@
 class profile::openstack::telemetry (
-  $manage_firewall   = false,
-  $firewall_extras   = {},
-)  {
+  $pipeline_publishers      = [],
+  $manage_gnocchi_resources = false,
+  $manage_meters            = false,
+  $manage_polling           = false,
+  $polling_interval         = '600'
+) {
+
   include ::ceilometer
-  include ::nova
-
-  # wrappe (mange av) disse i boolske variabler(?)
-  include ::profile::openstack::telemetry::centralagent
-  include ::profile::openstack::telemetry::collector
-  include ::profile::openstack::telemetry::notification
-  include ::profile::openstack::telemetry::api
-
-#  include ::ceilometer::db
-#  include ::ceilometer::expirer
   include ::ceilometer::client
-  include ::ceilometer::agent::auth
-  include ::ceilometer::agent::polling
   include ::ceilometer::keystone::authtoken
+  #include ::ceilometer::expirer
+
+  # agents
+  include ::ceilometer::agent::auth
+  include ::ceilometer::agent::notification
+  include ::ceilometer::agent::polling
+
+  # gnocchi
   include ::ceilometer::dispatcher::gnocchi
   include ::gnocchi::client
 
+  if $manage_gnocchi_resources {
+    include ::ceilometer::db::sync
+    file { '/etc/ceilometer/gnocchi_resources.yaml':
+      ensure => file,
+      mode   => '0640',
+      owner  => 'root',
+      group  => 'ceilometer',
+      source => "puppet:///modules/${module_name}/openstack/telemetry/gnocchi_resources.yaml",
+      notify => Exec['ceilometer-upgrade']
+    }
+  }
 
-  if $manage_firewall {
-    profile::firewall::rule { '8777 ceilometer accept tcp':
-      port        => 8777,
-      proto       => 'tcp',
-      destination => $::ipaddress_trp1,
-      extras      => $firewall_extras,
+  if $manage_meters {
+    file { '/etc/ceilometer/meters.yaml':
+      ensure => file,
+      mode   => '0640',
+      owner  => 'root',
+      group  => 'ceilometer',
+      source => "puppet:///modules/${module_name}/openstack/telemetry/meters.yaml",
+      notify => Service['ceilometer-agent-notification', 'ceilometer-polling']
+    }
+  }
+
+  if $manage_polling {
+    file { '/etc/ceilometer/polling.yaml':
+      ensure  => present,
+      mode    => '0640',
+      owner   => 'root',
+      group   => 'ceilometer',
+      content => template("${module_name}/openstack/telemetry/polling.yaml.erb"),
+      notify  => Service['ceilometer-polling']
+    }
+  }
+
+  # FIXME This is a hack until pike where this is included in ceilometer::agent::notification
+  unless empty($pipeline_publishers) {
+    file { '/etc/ceilometer/pipeline.yaml':
+      ensure                  => present,
+      content                 => template("${module_name}/openstack/telemetry/pipeline.yaml.erb"),
+      selinux_ignore_defaults => true,
+      mode                    => '0640',
+      owner                   => 'root',
+      group                   => 'ceilometer',
     }
   }
 }
