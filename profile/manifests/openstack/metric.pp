@@ -25,16 +25,14 @@ class profile::openstack::metric (
 
   if $manage_firewall {
     profile::firewall::rule { '123 metric api accept tcp':
-      port        => $metric_ports,
-      proto       => 'tcp',
-      destination => $::ipaddress_trp1,
-      extras      => $firewall_extras,
+      dport  => $metric_ports,
+      proto  => 'tcp',
+      extras => $firewall_extras,
     }
-    profile::firewall::rule { '124 metricd accept iudp':
-      port        => 8125,
-      proto       => 'udp',
-      destination => $::ipaddress_trp1,
-      extras      => $firewall_extras,
+    profile::firewall::rule { '124 metricd accept udp':
+      dport  => 8125,
+      proto  => 'udp',
+      extras => $firewall_extras,
     }
   }
 }
