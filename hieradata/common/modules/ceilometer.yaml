@@ -27,7 +27,7 @@ ceilometer::agent::auth::auth_region:                           "%{::location}"
 # ceilometer notification agent (node: telemetry)
 ceilometer::agent::notification::manage_event_pipeline:         true
 ceilometer::agent::notification::event_pipeline_publishers:     ['gnocchi://']
-ceilometer::agent::notification::messaging_urls:                "rabbit://%{hiera('ceilometer_rabbit_access')}@%{hiera('service__address__rabbitmq_01')}:5672/ceilometer"
+ceilometer::agent::notification::messaging_urls:                "%{hiera('service__transport__url')}"
 
 # turn on namespace for in role
 ceilometer::agent::polling::central_namespace:                  false
