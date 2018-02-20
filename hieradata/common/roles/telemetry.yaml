@@ -4,16 +4,15 @@ include:
     - profile::openstack::openrc
     - profile::openstack::telemetry
 
-openstack_version: 'ocata'
+openstack_version: 'ocata' #FIXME
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   rdo-release:
     ensure: present
 
-# Do not use compute polling on telemetry node
-ceilometer::agent::polling::compute_namespace:            false
-ceilometer::agent::polling::ipmi_namespace:               false
+# telemetry runs the central polling
+ceilometer::agent::polling::central_namespace:            true
 
 profile::openstack::telemetry::manage_firewall:           true
 profile::openstack::telemetry::manage_gnocchi_resources:  true

@@ -7,6 +7,7 @@ class profile::openstack::telemetry (
 ) {
 
   include ::ceilometer
+  include ::ceilometer::config
   include ::ceilometer::client
   include ::ceilometer::keystone::authtoken
   #include ::ceilometer::expirer
