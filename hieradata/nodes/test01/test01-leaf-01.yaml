@@ -27,14 +27,14 @@ profile::base::network::routes:
     'netmask':   [ '0.0.0.0', ]
     'gateway':   [ '172.28.0.10', ]
     'table':     [ 'mgmt', ]
-  'swp9':
+  'swp7':
     'ipaddress': [ '0.0.0.0', ]
     'netmask':   [ '0.0.0.0', ]
     'gateway':   [ '129.177.1.197', ]
     'table':     [ 'main', ]
 
 profile::base::network::cumulus_interfaces:
-  'swp9':
+  'swp7':
     'ipv4': [ '129.177.1.198/30', ]
     'ipv6': [ '2001:700:200:914::10/64', ]
 
