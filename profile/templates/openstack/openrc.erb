@@ -12,5 +12,6 @@ export OS_CACERT=<%= @cacert %>
 <% end -%>
 export OS_USER_DOMAIN_NAME=<%= @user_domain_name %>
 export OS_PROJECT_DOMAIN_NAME=<%= @project_domain_name %>
+export OS_AUTH_PLUGIN=password
 export PS1='[\u@\h \W(keystone_<%= @region_name %>_<%= @username %>)]$ '
 export OS_NO_CACHE=1
