@@ -2,12 +2,13 @@
 # Authoritative name servers must have a public interface 
 profile::base::network::manage_dummy: true
 
-# Our internal zone
+# Public and internal zones
 profile::dns::ns::internal_zone: "test02.uhdc.no"
+profile::dns::ns::public_zone:   "test.iaas.uio.no"
 
 # Name servers in zone file
 profile::dns::ns::name_servers:
-  - "ns.%{hiera('profile::dns::ns::internal_zone')}"
+  - "ns.%{hiera('profile::dns::ns::public_zone')}"
 
 # Forward zones, for which the name server is authoritative
 profile::dns::ns::fw_zones:
@@ -15,8 +16,8 @@ profile::dns::ns::fw_zones:
     zone: "%{hiera('profile::dns::ns::internal_zone')}"
     filename: "%{hiera('profile::dns::ns::zonedir')}/%{hiera('profile::dns::ns::internal_zone')}"
   frontend:
-    zone: "iaas.uio.no"
-    filename: "%{hiera('profile::dns::ns::zonedir')}/iaas.uio.no"
+    zone: "%{hiera('profile::dns::ns::public_zone')}"
+    filename: "%{hiera('profile::dns::ns::zonedir')}/%{hiera('profile::dns::ns::public_zone')}"
 
 # Reverse zones, for which the name server is authoritative
 profile::dns::ns::ptr_zones:
