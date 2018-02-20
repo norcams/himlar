@@ -1,7 +1,7 @@
 ; Reverse zone for <%= @cidr %>
 $ORIGIN <%= @origin %>.
 $TTL    3600
-@  IN	SOA	ns.<%= @internal_zone %>.    root.<%= @internal_zone %>. (
+@  IN	SOA	ns.<%= @public_zone %>.    root.<%= @public_zone %>. (
                         2018021201         ; Serial
                               3600         ; Refresh
                               1800         ; Retry
