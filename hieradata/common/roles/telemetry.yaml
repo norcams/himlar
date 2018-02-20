@@ -17,9 +17,7 @@ ceilometer::agent::polling::central_namespace:            true
 profile::openstack::telemetry::manage_firewall:           true
 profile::openstack::telemetry::manage_gnocchi_resources:  true
 profile::openstack::telemetry::manage_meters:             true
-profile::openstack::telemetry::manage_polling:            true
-
-profile::openstack::telemetry::pipeline_publishers:       ['gnocchi://']
+profile::openstack::telemetry::pipeline::pipeline_publishers: ['gnocchi://']
 
 profile::base::common::packages:
   'python-openstackclient': {}

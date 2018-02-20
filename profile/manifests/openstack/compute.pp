@@ -8,9 +8,8 @@ class profile::openstack::compute(
   include ::nova::network::neutron
 
   if $manage_telemetry {
-    include ::ceilometer::agent::compute
-    include ::ceilometer::agent::auth
-    include ::ceilometer::keystone::authtoken
+    include ::profile::openstack::telemetry::polling
+    include ::profile::openstack::telemetry::pipeline
   }
 
   if $manage_az {
