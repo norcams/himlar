@@ -1,31 +1,26 @@
 ---
-include:
-  default:
-    - profile::dns::ns
-    - profile::dns::rndc_key
-    - profile::logging::rsyslog::client
+# Authoritative name servers must have a public interface 
+profile::base::network::manage_dummy: true
 
-profile::dns::rndc_key::create_admin_key:    true
-profile::dns::rndc_key::create_mdns_key:     true
-profile::dns::rndc_key::host_is_bind_server: true
-
+# Public and internal zones
 profile::dns::ns::internal_zone: "bgo.uhdc.no"
+profile::dns::ns::public_zone:   "bgo.uh-iaas.no"
+profile::dns::ns::frontend_zone: "uh-iaas.no"
 
 # Name servers in zone file
 profile::dns::ns::name_servers:
-  - "ns.%{hiera('profile::dns::ns::internal_zone')}"
-  - "ns.osl.uhdc.no"
+  - "ns.%{hiera('profile::dns::ns::public_zone')}"
 
-# Forward zones
+# Forward zones, for which the name server is authoritative
 profile::dns::ns::fw_zones:
   internal:
     zone: "%{hiera('profile::dns::ns::internal_zone')}"
     filename: "%{hiera('profile::dns::ns::zonedir')}/%{hiera('profile::dns::ns::internal_zone')}"
   frontend:
-    zone: "iaas.uib.no"
-    filename: "%{hiera('profile::dns::ns::zonedir')}/iaas.uib.no"
+    zone: "%{hiera('profile::dns::ns::public_zone')}"
+    filename: "%{hiera('profile::dns::ns::zonedir')}/%{hiera('profile::dns::ns::public_zone')}"
 
-# Reverse zones
+# Reverse zones, for which the name server is authoritative
 profile::dns::ns::ptr_zones:
   internal:
     cidr: "172.16.0.0/16"
@@ -35,3 +30,7 @@ profile::dns::ns::ptr_zones:
     cidr: "158.39.0.0/16"
     origin: "39.158.in-addr.arpa"
     filename: "%{hiera('profile::dns::ns::zonedir')}/39.158.in-addr.arpa"
+  ipv6:
+    cidr: "2001:700:2:83ff::/64"
+    origin: "f.f.3.8.0.0.7.0.2.0.0.0.1.0.0.2.ip6.arpa"
+    filename: "%{hiera('profile::dns::ns::zonedir')}/f.f.3.8.0.0.7.0.2.0.0.0.1.0.0.2.ip6.arpa"
