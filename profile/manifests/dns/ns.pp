@@ -12,7 +12,9 @@ class profile::dns::ns (
   $firewall_extras = {},
   $public_zone = {},
   $forward_everything = false,
-  $forwarders = {}
+  $forwarders = {},
+  $manual_zone_master = false,
+  $manual_zone_slave = false
   )
 {
   # Our forward zones
