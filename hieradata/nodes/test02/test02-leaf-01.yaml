@@ -57,6 +57,8 @@ quagga::quagga::zebra_interfaces:
 
 quagga::quagga::zebra_ip6_routes:
   - '::/0 fd30::1'
+  - 'fd34::251/128 fd32::16'
+  - 'fd34::252/128 fd32::17'
 quagga::quagga::zebra_ip_routes:
   - '0.0.0.0/0 192.168.122.1'
   - '10.0.0.0/8 Null0'

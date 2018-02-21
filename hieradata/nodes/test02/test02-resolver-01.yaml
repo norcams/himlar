@@ -28,4 +28,15 @@ network::interfaces_hash:
   'dummy0':
     ipaddress: "%{hiera('netcfg_public_netpart')}.252"
     netmask:   '255.255.255.255'
+    ipv6init:  'yes'
+    ipv6addr:  "%{hiera('netcfg_public_netpart6')}::252"
     defroute:  'no'
+
+profile::base::network::routes:
+  'eth1':
+    'ipaddress': [ '::', ]
+    'netmask':   [ '0', ]
+    'gateway':   [ 'fd32::1', ]
+    'source':    [ "%{hiera('netcfg_public_netpart6')}::252", ]
+    'table':     [ 'main', ]
+    'family':    [ '6', ]
