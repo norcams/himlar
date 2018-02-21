@@ -90,7 +90,8 @@ zone "<%= values["zone"] %>" IN {
     forward only;
 };
 <% end -%>
-<% end %>
+<% end -%>
+
 <% @reverse_zones.each do |network, values| -%>
 # Reverse (PTR) zone for <%= network %> network, <%= values["cidr"] %> (forward)
 zone "<%= values["origin"] %>" IN {
@@ -101,7 +102,24 @@ zone "<%= values["origin"] %>" IN {
     forward only;
 };
 <% end -%>
-<% end %>
+<% end -%>
+
+<% if @manual_zone_master %>
+# Forward zone for frontend, uh-iaas.no (MASTER)
+zone "uh-iaas.no" IN {
+    type master;
+    file "pz/uh-iaas.no";
+    allow-update { none; };
+    also-notify { <%= @ns_bgo_public_addr %>; };
+};
+<% elsif @manual_zone_slave %>
+# Forward zone for frontend, uh-iaas.no (SLAVE)
+zone "uh-iaas.no" IN {
+    type slave;
+    file "sz/uh-iaas.no";
+    masters { <%= @ns_osl_public_addr %>; };
+};
+<% end -%>
 
 # Zones recommended by RFC 1912
 include "/etc/named.rfc1912.zones";
