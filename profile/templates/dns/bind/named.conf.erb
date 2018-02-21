@@ -91,7 +91,6 @@ zone "<%= values["zone"] %>" IN {
 };
 <% end -%>
 <% end -%>
-
 <% @reverse_zones.each do |network, values| -%>
 # Reverse (PTR) zone for <%= network %> network, <%= values["cidr"] %> (forward)
 zone "<%= values["origin"] %>" IN {
@@ -104,20 +103,20 @@ zone "<%= values["origin"] %>" IN {
 <% end -%>
 <% end -%>
 
-<% if @manual_zone_master %>
+<% if @host_is_ns_master %>
 # Forward zone for frontend, uh-iaas.no (MASTER)
 zone "uh-iaas.no" IN {
     type master;
     file "pz/uh-iaas.no";
     allow-update { none; };
-    also-notify { <%= @ns_bgo_public_addr %>; };
+    also-notify { <% @ns_slave_servers.each do |slave| -%><%= slave %>; <% end -%>};
 };
-<% elsif @manual_zone_slave %>
+<% elsif @host_is_ns_slave %>
 # Forward zone for frontend, uh-iaas.no (SLAVE)
 zone "uh-iaas.no" IN {
     type slave;
     file "sz/uh-iaas.no";
-    masters { <%= @ns_osl_public_addr %>; };
+    masters { <%= @ns_master_server %>; };
 };
 <% end -%>
 
