@@ -53,7 +53,7 @@ profile::messaging::rabbitmq::users:
     password: "%{hiera('local_rabbit_password')}"
     tags:     'monitoring'
   ceilometer:
-    password: "%{hiera('ceilometer::rabbit_password')}"
+    password: "%{hiera('ceilometer_rabbit_password')}"
 
 #  glance:
 #    password: "%{hiera('glance::rabbit_password')}"
