@@ -6,6 +6,7 @@ include:
     - profile::monitoring::grafana
     - profile::monitoring::statsd
     - profile::logging::logrotate
+    - profile::openstack::openrc
 
 # Grafana and statsd
 profile::monitoring::grafana::enable:          true
@@ -43,6 +44,9 @@ sensu::server:              true
 sensu::api:                 true
 sensu::redis_host:          127.0.0.1
 
+profile::openstack::openrc::password:         "%{hiera('monitor_metric_password')}"
+profile::openstack::openrc::username:         'monitor'
+profile::openstack::openrc::project_name:     'services'
 
 profile::monitoring::sensu::server::manage_graphite:  true
 profile::monitoring::sensu::server::manage_firewall:  true
@@ -74,8 +78,9 @@ profile::monitoring::sensu::server::filters:
 
 # api watch
 profile::base::common::packages:
-  'gcc-c++':            {}
-  'make':               {}
+  'gcc-c++':                {}
+  'make':                   {}
+  'python-openstackclient': {}
 
 profile::monitoring::sensu::agent::plugins:
   sensu-plugins-http:
@@ -167,3 +172,8 @@ logrotate::rules:
     sharedscripts:  true
     missingok:      true
     compress:       true
+
+# Enable extra yum repo for openstack client
+profile::base::yumrepo::repo_hash:
+  rdo-release:
+    ensure: present
