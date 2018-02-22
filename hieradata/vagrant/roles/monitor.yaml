@@ -1,0 +1,25 @@
+---
+# With direct access to metric the browser will need to connect to the
+# public metric endpoint using domain name. 
+profile::monitoring::grafana::datasource:
+  graphite:
+    grafana_url:        "http://%{::ipaddress_mgmt1}:8080"
+    grafana_user:       'admin'
+    grafana_password:   "%{hiera('grafana_admin_password')}"
+    type:               'graphite'
+    url:                "http://%{::ipaddress_mgmt1}"
+    access_mode:        'proxy'
+    is_default:          true
+  metric:
+    grafana_url:        "http://%{::ipaddress_mgmt1}:8080"
+    grafana_user:       'admin'
+    grafana_password:   "%{hiera('grafana_admin_password')}"
+    type:               'gnocchixyz-gnocchi-datasource'
+    url:                "https://api.%{hiera('domain_frontend')}:5000"
+    access_mode:        'direct'
+    json_data:
+      mode:               'keystone'
+      password:           "%{hiera('monitor_metric_password')}"
+      username:           'monitor'
+      domain:             'default'
+      project:            'services'

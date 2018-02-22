@@ -23,6 +23,7 @@ ceilometer::keystone::authtoken::auth_url:            "%{hiera('endpoint__identi
 ceilometer::agent::auth::auth_password:                         "%{hiera('ceilometer_api_password')}"
 ceilometer::agent::auth::auth_url:                              "%{hiera('endpoint__identity__internal')}"
 ceilometer::agent::auth::auth_region:                           "%{::location}"
+ceilometer::agent::auth::auth_tenant_name:                      'services'
 
 # ceilometer notification agent (node: telemetry)
 ceilometer::agent::notification::manage_event_pipeline:         true
