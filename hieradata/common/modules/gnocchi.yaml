@@ -43,5 +43,10 @@ gnocchi::statsd::archive_policy_name:         'medium'
 gnocchi::statsd::user_id:                     'gnocchi'
 gnocchi::statsd::project_id:                  'service'
 
+# Allow direct access from grafana on monitor
+gnocchi::config::gnocchi_config:
+  'cors/allowed_origin':
+    value: "http://%{hiera('mgmt__address__monitor')}:8080"
+
 # newer version suggest redis here
 #gnocchi::storage::coordination_url: 'file://var/tmp'
