@@ -4,6 +4,7 @@ include:
     - profile::openstack::identity
     - profile::openstack::resource::imagebuilder
     - profile::openstack::resource::dataporten
+    - profile::openstack::resource::users
     - profile::openstack::openrc
     - profile::application::himlarcli
     - profile::logging::rsyslog::client
@@ -42,6 +43,22 @@ profile::openstack::resource::dataporten::identity_provider:
     enabled:      true
     remote_ids:   [ 'https://auth.dataporten.no' ]
     description:  'Federated user from Dataporten'
+
+# Custom users
+profile::openstack::resource::users::users:
+  status:
+    enabled:  true
+    email:    'status@localhost'
+    password: "%{hiera('status_metric_password')}"
+  monitor:
+    enabled:  true
+    email:    'monitor@localhost'
+    password: "%{hiera('monitor_metric_password')}"
+profile::openstack::resource::users::user_roles:
+  'status@services':
+    roles:    'user'
+  'monitor@services':
+    roles:    'user'
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:

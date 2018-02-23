@@ -4,17 +4,29 @@ include:
     - profile::openstack::openrc
     - profile::openstack::telemetry
 
+openstack_version: 'ocata' #FIXME
+
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   rdo-release:
     ensure: present
 
-profile::openstack::telemetry::manage_firewall:         true
+# telemetry runs the central polling
+ceilometer::agent::polling::central_namespace:            true
+
+profile::openstack::telemetry::manage_firewall:           true
+profile::openstack::telemetry::manage_gnocchi_resources:  true
+profile::openstack::telemetry::manage_meters:             true
+profile::openstack::telemetry::pipeline::pipeline_publishers: ['gnocchi://']
 
 profile::base::common::packages:
   'python-openstackclient': {}
+  'python2-oslo-db':        {}
+  'python-tooz':            {}
+  'python2-pecan':          {}
+  'python2-wsme':           {}
+  'python2-swiftclient':    {}
 
 profile::openstack::openrc::password:                   "%{hiera('ceilometer_api_password')}"
 profile::openstack::openrc::username:                   'ceilometer'
 profile::openstack::openrc::project_name:               'services'
-

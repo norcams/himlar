@@ -1,32 +1,52 @@
+#
 class profile::openstack::telemetry (
-  $manage_firewall   = false,
-  $firewall_extras   = {},
-)  {
+  $manage_gnocchi_resources = false,
+  $manage_meters            = false,
+  $manage_polling           = false,
+  $polling_interval         = '600'
+) {
+
   include ::ceilometer
-  include ::nova
-
-  # wrappe (mange av) disse i boolske variabler(?)
-  include ::profile::openstack::telemetry::centralagent
-  include ::profile::openstack::telemetry::collector
-  include ::profile::openstack::telemetry::notification
-  include ::profile::openstack::telemetry::api
-
-#  include ::ceilometer::db
-#  include ::ceilometer::expirer
+  include ::ceilometer::config
   include ::ceilometer::client
-  include ::ceilometer::agent::auth
-  include ::ceilometer::agent::polling
   include ::ceilometer::keystone::authtoken
+  #include ::ceilometer::expirer
+
+  # notification
+  include ::ceilometer::agent::auth
+  include ::ceilometer::agent::notification
+
+  # gnocchi
   include ::ceilometer::dispatcher::gnocchi
   include ::gnocchi::client
 
+  # pipeline hack
+  include ::profile::openstack::telemetry::pipeline
 
-  if $manage_firewall {
-    profile::firewall::rule { '8777 ceilometer accept tcp':
-      port        => 8777,
-      proto       => 'tcp',
-      destination => $::ipaddress_trp1,
-      extras      => $firewall_extras,
+  # polling
+  include ::profile::openstack::telemetry::polling
+
+  if $manage_gnocchi_resources {
+    include ::ceilometer::db::sync
+    file { '/etc/ceilometer/gnocchi_resources.yaml':
+      ensure => file,
+      mode   => '0640',
+      owner  => 'root',
+      group  => 'ceilometer',
+      source => "puppet:///modules/${module_name}/openstack/telemetry/gnocchi_resources.yaml",
+      notify => Exec['ceilometer-upgrade']
     }
   }
+
+  if $manage_meters {
+    file { '/etc/ceilometer/meters.yaml':
+      ensure => file,
+      mode   => '0640',
+      owner  => 'root',
+      group  => 'ceilometer',
+      source => "puppet:///modules/${module_name}/openstack/telemetry/meters.yaml",
+      notify => Service['ceilometer-agent-notification', 'ceilometer-polling']
+    }
+  }
+
 }

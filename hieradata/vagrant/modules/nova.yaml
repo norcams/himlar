@@ -11,3 +11,8 @@ nova::verbose:   true
 
 # Do not use placeholder AZ
 nova::availability_zone::default_availability_zone:           "%{::location}-default-1"
+
+# FIXME move to common
+nova::notification_driver:          'messagingv2'
+nova::notification_transport_url:   "%{hiera('service__transport__url')}"
+nova::notification_topics:          'notifications' # not used before ocata

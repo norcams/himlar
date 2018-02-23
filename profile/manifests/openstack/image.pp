@@ -4,6 +4,7 @@ class profile::openstack::image(
   $notify_enabled   = false,
   $manage_rbd       = false,
   $manage_policy    = false,
+  $manage_notify    = false
 ) {
 
   include ::profile::openstack::image::api
@@ -22,6 +23,10 @@ class profile::openstack::image(
 
   if $manage_policy {
     include ::glance::policy
+  }
+
+  if $manage_notify {
+    include ::glance::notify::rabbitmq
   }
 
 }

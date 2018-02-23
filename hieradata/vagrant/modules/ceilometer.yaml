@@ -1,0 +1,7 @@
+---
+ceilometer::debug: true
+
+# Use internal endpoints for ceilometer
+ceilometer::config::ceilometer_config:
+  'service_credentials/interface':
+    value:  'internal'

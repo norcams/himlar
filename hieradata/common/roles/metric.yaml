@@ -5,11 +5,15 @@ include:
     - profile::openstack::openrc
     - profile::logging::rsyslog::client
 
+openstack_version: 'ocata'
+
 profile::base::common::packages:
   'python-openstackclient': {}
 
 profile::openstack::metric::manage_firewall:  true
 profile::openstack::metric::manage_wsgi:      true
+profile::openstack::metric::firewall_extras:
+  source: "%{::network_trp1}/%{::netmask_trp1}"
 
 profile::openstack::openrc::password:         "%{hiera('gnocchi_api_password')}"
 profile::openstack::openrc::username:         'gnocchi'
