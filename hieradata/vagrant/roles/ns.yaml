@@ -5,19 +5,6 @@ profile::dns::ns::public_zone:   "vagrant.iaas.intern"
 
 # NS servers in zone file (with NS records)
 profile::dns::ns::ns_master: "ns.%{hiera('profile::dns::ns::public_zone')}"
-profile::dns::ns::ns_slaves:
-  - "tux.uio.no"
-  - "kipepeo.uio.no"
-
-# Master server for master-slave configuration
-profile::dns::ns::ns_master_ip_addresses:
-  - "%{hiera('public__address__ns')}"  # local ns IPv4 address
-  - "%{hiera('public6__address__ns')}" # local ns IPv6 address
-
-# Slave servers for master-slave configuration
-profile::dns::ns::ns_slave_ip_addresses:
-  - '158.39.77.251'        # ns.bgo.uh-iaas.no IPv4
-  - '2001:700:2:83ff::251' # ns.bgo.uh-iaas.no IPv6
 
 # Forward zones, for which the name server is authoritative
 profile::dns::ns::fw_zones:
@@ -47,19 +34,3 @@ profile::dns::ns::ptr_zones:
     cidr:     "fc00::/7"
     origin:   "c.f.ip6.arpa"
     filename: "pz/c.f.ip6.arpa"
-
-# Secondary forward zones, for which this ns is slave
-profile::dns::ns::fw_slave_zones:
-  test02_internal:
-    zone: 'test02.uhdc.no'
-    filename: "sz/test02.uhdc.no"
-  test02_frontend:
-    zone: 'test.iaas.uio.no'
-    filename: "sz/test.iaas.uio.no"
-
-# Secondary reverse zones, for which this ns is slave
-profile::dns::ns::ptr_slave_zones:
-  test02_mgmt:
-    cidr: "172.28.32.0/24"
-    origin: "32.28.172.in-addr.arpa"
-    filename: "sz/32.28.172.in-addr.arpa"
