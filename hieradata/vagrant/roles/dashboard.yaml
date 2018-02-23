@@ -2,6 +2,7 @@
 include:
   default:
     - profile::application::openssl
+    - profile::development::patch
 
 profile::application::openssl::manage_ca_cert:  true
 profile::application::openssl::certs:
