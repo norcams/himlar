@@ -1,7 +1,7 @@
 ; Reverse zone for <%= @cidr %>
 $ORIGIN <%= @origin %>.
 $TTL    3600
-@  IN	SOA	ns.<%= @public_zone %>.    root.<%= @public_zone %>. (
+@  IN	SOA	<%= @ns_master %>.    <%= @hostmaster %>. (
                         2018021201         ; Serial
                               3600         ; Refresh
                               1800         ; Retry
@@ -9,6 +9,7 @@ $TTL    3600
                             43200 )        ; Negative Cache TTL
 
 ; Name servers:
-<% @name_servers.each do |ns| -%>
+      NS      <%= @ns_master %>.
+<% @ns_slaves.each do |ns| -%>
       NS      <%= ns %>.
 <% end -%>

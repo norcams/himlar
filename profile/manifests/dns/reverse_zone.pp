@@ -1,8 +1,11 @@
 define profile::dns::reverse_zone($cidr, $origin, $filename) {
-  $public_zone = $::profile::dns::ns::public_zone
+
+  # Hostmaster email address
+  $hostmaster = $::profile::dns::ns::hostmaster
 
   # Our name servers
-  $name_servers = lookup('profile::dns::ns::name_servers', Array, 'deep', [])
+  $ns_master = $::profile::dns::ns::ns_master
+  $ns_slaves = lookup('profile::dns::ns::ns_slaves', Array, 'deep', [])
 
   file { "/var/named/${filename}":
     content => template("${module_name}/dns/bind/reverse_zone.erb"),

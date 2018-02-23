@@ -68,6 +68,9 @@ zone "<%= values["zone"] %>" IN {
     type master;
     file "<%= values["filename"] %>";
     allow-update { <%= @admin_mgmt_addr %>; };
+<% unless @ns_slave_ip_addresses.empty? -%>
+    also-notify { <% @ns_slave_ip_addresses.each do |slave| -%><%= slave %>; <% end -%>};
+<% end -%>
 };
 <% end -%>
 <% @reverse_zones.each do |network, values| -%>
@@ -76,7 +79,35 @@ zone "<%= values["origin"] %>" IN {
     type master;
     file "<%= values["filename"] %>";
     allow-update { <%= @admin_mgmt_addr %>; };
+<% unless @ns_slave_ip_addresses.empty? -%>
+    also-notify { <% @ns_slave_ip_addresses.each do |slave| -%><%= slave %>; <% end -%>};
+<% end -%>
 };
+<% end -%>
+
+<% unless @fw_slave_zones.empty? %>
+<% @fw_slave_zones.each do |network, values| -%>
+# Forward zone for <%= network %>, <%= values["zone"] %> (slave)
+zone "<%= values["zone"] %>" IN {
+    type slave;
+    file "<%= values["filename"] %>";
+<% unless @ns_master_ip_addresses.empty? -%>
+    masters { <% @ns_master_ip_addresses.each do |master| -%><%= master %>; <% end -%>};
+<% end -%>
+};
+<% end -%>
+<% end -%>
+<% unless @ptr_slave_zones.empty? %>
+<% @ptr_slave_zones.each do |network, values| -%>
+# Reverse (PTR) zone for <%= network %> network, <%= values["cidr"] %> (slave)
+zone "<%= values["origin"] %>" IN {
+    type slave;
+    file "<%= values["filename"] %>";
+<% unless @ns_master_ip_addresses.empty? -%>
+    masters { <% @ns_master_ip_addresses.each do |master| -%><%= master %>; <% end -%>};
+<% end -%>
+};
+<% end -%>
 <% end -%>
 <% else %>
 <% unless @forward_zones.empty? %>
@@ -90,7 +121,7 @@ zone "<%= values["zone"] %>" IN {
     forward only;
 };
 <% end -%>
-<% end %>
+<% end -%>
 <% @reverse_zones.each do |network, values| -%>
 # Reverse (PTR) zone for <%= network %> network, <%= values["cidr"] %> (forward)
 zone "<%= values["origin"] %>" IN {
@@ -101,7 +132,7 @@ zone "<%= values["origin"] %>" IN {
     forward only;
 };
 <% end -%>
-<% end %>
+<% end -%>
 
 # Zones recommended by RFC 1912
 include "/etc/named.rfc1912.zones";

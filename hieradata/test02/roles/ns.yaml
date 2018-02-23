@@ -7,29 +7,76 @@ profile::dns::ns::internal_zone: "test02.uhdc.no"
 profile::dns::ns::public_zone:   "test.iaas.uio.no"
 
 # Name servers in zone file
-profile::dns::ns::name_servers:
-  - "ns.%{hiera('profile::dns::ns::public_zone')}"
+profile::dns::ns::ns_master: "ns.%{hiera('profile::dns::ns::public_zone')}"
+#profile::dns::ns::ns_slaves:
+#  - "ns.test.iaas.uib.no"
+
+# Master server for master-slave configuration
+#profile::dns::ns::ns_master_ip_addresses:
+#  - "%{hiera('public__address__ns')}"  # local ns IPv4 address
+#  - "%{hiera('public6__address__ns')}" # local ns IPv6 address
+
+# Slave servers for master-slave configuration
+#profile::dns::ns::ns_slave_ip_addresses:
+#  - '129.177.31.117'         # ns.test.iaas.uib.no IPv4
+#  - '2001:700:200:916::3f17' # ns.test.iaas.uib.no IPv6
 
 # Forward zones, for which the name server is authoritative
 profile::dns::ns::fw_zones:
   internal:
     zone: "%{hiera('profile::dns::ns::internal_zone')}"
-    filename: "%{hiera('profile::dns::ns::zonedir')}/%{hiera('profile::dns::ns::internal_zone')}"
-  frontend:
+    filename: "pz/%{hiera('profile::dns::ns::internal_zone')}"
+  public:
     zone: "%{hiera('profile::dns::ns::public_zone')}"
-    filename: "%{hiera('profile::dns::ns::zonedir')}/%{hiera('profile::dns::ns::public_zone')}"
+    filename: "pz/%{hiera('profile::dns::ns::public_zone')}"
+    ns_a_records:
+      'ns': "%{hiera('public__address__ns')}"
+    ns_aaaa_records:
+      'ns': "%{hiera('public6__address__ns')}"
 
 # Reverse zones, for which the name server is authoritative
 profile::dns::ns::ptr_zones:
-  internal:
-    cidr: "172.28.0.0/16"
-    origin: "28.172.in-addr.arpa"
-    filename: "%{hiera('profile::dns::ns::zonedir')}/28.172.in-addr.arpa"
+  mgmt:
+    cidr: "172.28.32.0/24"
+    origin: "32.28.172.in-addr.arpa"
+    filename: "pz/32.28.172.in-addr.arpa"
+  transport:
+    cidr: "172.30.32.0/24"
+    origin: "32.30.172.in-addr.arpa"
+    filename: "pz/32.30.172.in-addr.arpa"
   public:
-    cidr: "10.100.0.0/16"
-    origin: "100.10.in-addr.arpa"
-    filename: "%{hiera('profile::dns::ns::zonedir')}/100.10.in-addr.arpa"
+    cidr: "10.100.200.0/24"
+    origin: "200.100.10.in-addr.arpa"
+    filename: "pz/200.100.10.in-addr.arpa"
   ipv6:
     cidr: "fd34::/7"
     origin: "4.3.d.f.ip6.arpa"
-    filename: "%{hiera('profile::dns::ns::zonedir')}/4.3.d.f.ip6.arpa"
+    filename: "pz/4.3.d.f.ip6.arpa"
+
+# Secondary forward zones, for which this ns is slave
+#profile::dns::ns::fw_slave_zones:
+#  test01_internal:
+#    zone: 'test01.uhdc.no'
+#    filename: "sz/test01.uhdc.no"
+#  test01_public:
+#    zone: 'test.iaas.uib.no'
+#    filename: "sz/test.iaas.uib.no"
+
+# Secondary reverse zones, for which this ns is slave
+#profile::dns::ns::ptr_slave_zones:
+#  test01_mgmt:
+#    cidr: "172.28.0.0/24"
+#    origin: "0.28.172.in-addr.arpa"
+#    filename: "sz/0.28.172.in-addr.arpa"
+#  test01_transport:
+#    cidr: "172.30.0.0/24"
+#    origin: "0.30.172.in-addr.arpa"
+#    filename: "sz/0.30.172.in-addr.arpa"
+#  test01_public:
+#    cidr: "129.177.31.0/24"
+#    origin: "31.177.129.in-addr.arpa"
+#    filename: "sz/31.177.129.in-addr.arpa"
+#  test01_ipv6:
+#    cidr: "2001:700:200:916::/64"
+#    origin: "6.1.9.0.0.0.2.0.0.0.7.0.1.0.0.2.ip6.arpa"
+#    filename: "sz/6.1.9.0.0.0.2.0.0.0.7.0.1.0.0.2.ip6.arpa"
