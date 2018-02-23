@@ -38,7 +38,7 @@ profile::openstack::volume::backend::rbd:
     rbd_user: 'cinder'
     rbd_secret_uuid: "%{hiera('client.cinder::secret')}"
     extra_options:
-      rbd_backend/report_discard_supported:
+      rbd-volumes/report_discard_supported:
         value: 'True'
 
 cinder::backends::enabled_backends:
