@@ -14,7 +14,7 @@ profile::dns::ns::forwarders:
 #profile::dns::ns::fw_zones:
 #  internal:
 #    zone: "%{hiera('profile::dns::ns::internal_zone')}"
-#  frontend:
+#  public:
 #    zone: "%{hiera('profile::dns::ns::public_zone')}"
 
 # Reverse zones. Only zones that are "internal". Requests for records
@@ -28,7 +28,7 @@ profile::dns::ns::ptr_zones:
     origin: "0.30.172.in-addr.arpa"
   public:
     cidr: "129.177.31.64/27"
-    origin: "64.31.177.129.in-addr.arpa"
+    origin: "31.177.129.in-addr.arpa"
   ipv6:
     cidr: "2001:700:200:916::/64"
     origin: "6.1.9.0.0.0.2.0.0.0.7.0.1.0.0.2.ip6.arpa"

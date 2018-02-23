@@ -15,7 +15,7 @@ profile::dns::ns::forwarders:
 #profile::dns::ns::fw_zones:
 #  internal:
 #    zone: "%{hiera('profile::dns::ns::internal_zone')}"
-#  frontend:
+#  public:
 #    zone: "%{hiera('profile::dns::ns::public_zone')}"
 
 # Reverse zones. Only zones that are "internal". Requests for records
