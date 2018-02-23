@@ -1,0 +1,32 @@
+---
+# Public and internal zones
+profile::dns::ns::internal_zone: "bgo.uhdc.no"
+profile::dns::ns::public_zone:   "bgo.uh-iaas.no"
+profile::dns::ns::frontend_zone: "uh-iaas.no"
+
+# Temporary: Forward everything to UiB resolvers
+profile::dns::ns::forward_everything: true
+profile::dns::ns::forwarders:
+  - "129.177.6.54"
+  - "129.177.12.31"
+
+# Forward zones. Only zones that are "internal". Requests for records
+# in these zones will be forwarded to the authoritative DNS server
+#profile::dns::ns::fw_zones:
+#  internal:
+#    zone: "%{hiera('profile::dns::ns::internal_zone')}"
+#  frontend:
+#    zone: "%{hiera('profile::dns::ns::public_zone')}"
+
+# Reverse zones. Only zones that are "internal". Requests for records
+# in these zones will be forwarded to the authoritative DNS server
+profile::dns::ns::ptr_zones:
+  internal:
+    cidr: "172.16.0.0/16"
+    origin: "16.172.in-addr.arpa"
+  public:
+    cidr: "158.39.0.0/16"
+    origin: "39.158.in-addr.arpa"
+  ipv6:
+    cidr: "2001:700:2:83ff::/64"
+    origin: "f.f.3.8.0.0.7.0.2.0.0.0.1.0.0.2.ip6.arpa"

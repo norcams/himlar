@@ -1,12 +1,15 @@
 ---
-profile::dns::ns::my_mgmt_addr:      "%{hiera('netcfg_mgmt_netpart')}.16"
-profile::dns::ns::my_transport_addr: "%{hiera('netcfg_trp_netpart')}.16"
+profile::dns::ns::my_mgmt_addr:      "%{hiera('netcfg_mgmt_netpart')}.17"
+profile::dns::ns::my_transport_addr: "%{hiera('netcfg_trp_netpart')}.17"
+
+# Defined here instead of roles, as only resolver-01 needs this
+profile::base::network::manage_dummy: true
 
 network::interfaces_hash:
   'eth0':
     onboot:    'yes'
     mtu:       '1500'
-    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.16"
+    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.17"
     netmask:   "%{hiera('netcfg_mgmt_netmask')}"
     gateway:   "%{hiera('netcfg_mgmt_gateway')}"
     peerdns:   'yes'
@@ -16,24 +19,24 @@ network::interfaces_hash:
   'eth1':
     onboot:    'yes'
     mtu:       '1500'
-    ipaddress: "%{hiera('netcfg_trp_netpart')}.16"
+    ipaddress: "%{hiera('netcfg_trp_netpart')}.17"
     netmask:   "%{hiera('netcfg_trp_netmask')}"
     gateway:   "%{hiera('netcfg_trp_gateway')}"
     srcaddr:   '158.39.77.251'
     ipv6init:  'yes'
-    ipv6addr:  '2001:700:2:83ff::16'
+    ipv6addr:  '2001:700:2:83ff::17'
     defroute:  'yes'
   'dummy0':
     ipaddress: '158.39.77.251'
     netmask:   '255.255.255.255'
     ipv6init:  'yes'
-    ipv6addr:  '2001:700:2:83ff::251'
+    ipv6addr:  '2001:700:2:83ff::252'
     defroute:  'no'
 profile::base::network::routes:
   'eth1':
     'ipaddress': [ '::', ]
     'netmask':   [ '0', ]
     'gateway':   [ "%{hiera('netcfg_trp_gateway6')}", ]
-    'source':    [ '2001:700:2:83ff::251', ]
+    'source':    [ '2001:700:2:83ff::252', ]
     'table':     [ 'main', ]
     'family':    [ '6', ]
