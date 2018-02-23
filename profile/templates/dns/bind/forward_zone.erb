@@ -1,16 +1,25 @@
 ; Forward zone for <%= @zone %>
 $ORIGIN <%= @zone %>.
 $TTL    3600
-@  IN	SOA	ns.<%= @zone %>.    root.<%= @zone %>. (
+@  IN	SOA	<%= @ns_master %>.    <%= @hostmaster %>. (
                         2018021201         ; Serial
                               3600         ; Refresh
                               1800         ; Retry
                             604800         ; Expire
                             43200 )        ; Negative Cache TTL
 
-<% @name_servers.each do |ns| -%>
-        IN      NS      <%= ns %>.
+        IN      NS      <%= @ns_master %>.
+<% @ns_slaves.each do |slave| -%>
+        IN      NS      <%= slave %>.
 <% end -%>
 
-ns  	  IN	  A		<%= @ns_public_addr %>
-ns  	  IN	  AAAA		<%= @ns_public6_addr %>
+<% unless @ns_a_records.empty? -%>
+<% @ns_a_records.each do |nsname,ip| -%>
+<%= nsname %>      IN      A             <%= ip %>
+<% end -%>
+<% end -%>
+<% unless @ns_aaaa_records.empty? -%>
+<% @ns_aaaa_records.each do |nsname,ip| -%>
+<%= nsname %>      IN      AAAA          <%= ip %>
+<% end -%>
+<% end -%>
