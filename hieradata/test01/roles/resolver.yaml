@@ -20,12 +20,15 @@ profile::dns::ns::forwarders:
 # Reverse zones. Only zones that are "internal". Requests for records
 # in these zones will be forwarded to the authoritative DNS server
 profile::dns::ns::ptr_zones:
-  internal:
-    cidr: "172.28.0.0/16"
-    origin: "28.172.in-addr.arpa"
+  mgmt:
+    cidr: "172.28.0.0/24"
+    origin: "0.28.172.in-addr.arpa"
+  transport:
+    cidr: "172.30.0.0/24"
+    origin: "0.30.172.in-addr.arpa"
   public:
-    cidr: "129.177.0.0/16"
-    origin: "177.129.in-addr.arpa"
+    cidr: "129.177.31.64/27"
+    origin: "64.31.177.129.in-addr.arpa"
   ipv6:
     cidr: "2001:700:200:916::/64"
     origin: "6.1.9.0.0.0.2.0.0.0.7.0.1.0.0.2.ip6.arpa"

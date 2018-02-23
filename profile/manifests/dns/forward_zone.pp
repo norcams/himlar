@@ -1,9 +1,15 @@
-define profile::dns::forward_zone($zone, $filename) {
-  $ns_public_addr  = $::profile::dns::ns::ns_public_addr
-  $ns_public6_addr = $::profile::dns::ns::ns_public6_addr
+define profile::dns::forward_zone (
+  $zone,
+  $filename,
+  $ns_a_records = {},
+  $ns_aaaa_records = {} )
+{
+  # Hostmaster email address
+  $hostmaster = $::profile::dns::ns::hostmaster
 
   # Our name servers
-  $name_servers = lookup('profile::dns::ns::name_servers', Array, 'deep', [])
+  $ns_master = $::profile::dns::ns::ns_master
+  $ns_slaves = lookup('profile::dns::ns::ns_slaves', Array, 'deep', [])
 
   file { "/var/named/${filename}":
     content => template("${module_name}/dns/bind/forward_zone.erb"),
