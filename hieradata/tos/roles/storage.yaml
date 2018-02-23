@@ -60,3 +60,7 @@ ceph::profile::params::osds:
   '/dev/sdr':
     db_device:  '/dev/sdn'
     wal_device: '/dev/sdn'
+
+profile::storage::cephpool::pools:
+  'rbd':
+    ensure: absent
