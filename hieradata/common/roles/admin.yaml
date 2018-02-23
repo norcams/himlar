@@ -17,6 +17,7 @@ profile::application::foreman::manage_eyaml:    false
 profile::application::foreman::manage_firewall: true
 profile::application::foreman::manage_repo_dir: true
 profile::application::foreman::manage_r10k:     true
+profile::application::foreman::push_facts:      true
 profile::network::services::manage_dns_records: true
 profile::network::services::manage_dhcp_rsvs:   true
 
