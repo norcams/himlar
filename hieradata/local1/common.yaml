@@ -170,7 +170,9 @@ local_rabbit_password:                              'local'
 gnocchi::db::mysql::password:                       'gnocchi_pass'
 ceilometer::db::mysql::password:                    'ceilometer_pass'
 ceilometer::telemetry_secret:                       'ceilometer'
-ceilometer::rabbit_password:                        'ceilometer'
+ceilometer_rabbit_password:                         'ceilometer'
+status_metric_password:                             'status_pass'
+monitor_metric_password:                            'monitor_pass'
 
 # object
 swift::swift_hash_path_suffix:                      'shared_secret'
