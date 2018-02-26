@@ -1,0 +1,4 @@
+---
+profile::openstack::identity::keystone_config:
+  'cors/allowed_origin': # allow gnocchi access on monitor
+    value:  "http://%{hiera('mgmt__address__monitor')}:8080"
