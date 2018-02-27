@@ -22,13 +22,13 @@ profile::openstack::openrc::project_name: 'services'
 
 profile::openstack::volume::type:
   rbd:
-    set_key: 'volume_backend_name'
-    set_value: 'rbd-volumes'
-    os_tenant_name: 'services'
-    os_password: "%{hiera('cinder_api_password')}"
-    os_username: 'cinder'
-    os_region_name: "%{location}"
-    os_auth_url: "%{hiera('endpoint__identity__internal')}/v2.0"
+    visibility: "public"
+    properties:
+      - 'volume_backend_name=rbd-volumes'
+#  rbd-ssd:
+#    visibility: "private"
+#    properties:
+#      - 'volume_backend_name=rbd-ssd'
 
 profile::openstack::volume::manage_quotas: true
 
