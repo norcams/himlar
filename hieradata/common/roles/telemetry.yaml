@@ -30,3 +30,5 @@ profile::base::common::packages:
 profile::openstack::openrc::password:                   "%{hiera('ceilometer_api_password')}"
 profile::openstack::openrc::username:                   'ceilometer'
 profile::openstack::openrc::project_name:               'services'
+
+profile::openstack::telemetry::polling::polling_interval: 3600   #FIXME
