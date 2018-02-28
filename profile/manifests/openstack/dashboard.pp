@@ -13,8 +13,9 @@ class profile::openstack::dashboard(
   $custom_uploaddir     = '/image-upload',
   $enable_pwd_retrieval = false,
   $image_upload_mode    = undef,
-  $change_region_selector = false
-) {
+  $change_region_selector = false,
+  $change_login_footer  = false,
+  ) {
 
   if $manage_dashboard {
     include ::horizon
@@ -65,6 +66,13 @@ class profile::openstack::dashboard(
       match_for_absence => true,
       multiple          => true,
       replace           => false,
+    }
+  }
+
+  if $change_login_footer {
+    file { '/usr/share/openstack-dashboard/openstack_dashboard/templates/_login_footer.html':
+      ensure    => present,
+      source => "puppet:///modules/${module_name}/openstack/horizon/_login_footer.html",
     }
   }
 }
