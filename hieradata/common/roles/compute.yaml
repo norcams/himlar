@@ -97,6 +97,8 @@ sudo::configs:
 
 profile::openstack::compute::hypervisor::fix_snapshot_loc: true # FIXME - Should probably be removed for newton release
 
+profile::openstack::telemetry::polling::polling_interval:  3600 # FIXME
+
 calico::compute: true
 etcd::mode: 'proxy'
 
