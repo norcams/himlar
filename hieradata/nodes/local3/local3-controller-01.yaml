@@ -27,15 +27,15 @@ network::interfaces_hash:
     defroute:  'yes'
     peerdns:   'yes'
     onboot:    'yes'
-    ipaddress: "%{hiera('netcfg_netpart_mgmt')}.100"
-    netmask:   "%{hiera('netcfg_netmask_mgmt')}"
-    gateway:   "%{hiera('netcfg_gateway_mgmt')}"
+    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.100"
+    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
+    gateway:   "%{hiera('netcfg_mgmt_gateway')}"
     type:      'Bridge'
   'br1':
     defroute:  'no'
     onboot:    'yes'
-    ipaddress: "%{hiera('netcfg_netpart_trp')}.100"
-    netmask:   "%{hiera('netcfg_netmask_trp')}"
+    ipaddress: "%{hiera('netcfg_trp_netpart')}.100"
+    netmask:   "%{hiera('netcfg_trp_netmask')}"
     type:      'Bridge'
   'br2':
     defroute:  'no'
