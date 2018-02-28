@@ -41,9 +41,11 @@ netcfg_trp_rr:
 
 allow_from_network:
   - '129.177.11.0/24'
-  - '172.31.4.0/24'
-  - '172.31.12.0/24'
+  - "%{hiera('netcfg_trp_netpart')}.0/24"
+  - "%{hiera('netcfg_public_netpart')}.0/24"
+  - '192.168.122.0/24'
   - '192.168.12.0/24'
+  - '192.168.112.0/24'
 
 endpoint_protocol:      'https'
 
@@ -87,34 +89,23 @@ profile::network::services::dns_options:
 
 profile::network::services::dns_records:
   CNAME:
-    "puppet.%{hiera('domain_mgmt')}":                     "%{location}-admin-01.%{hiera('domain_mgmt')}"
-    "foreman.%{hiera('domain_mgmt')}":                    "%{location}-admin-01.%{hiera('domain_mgmt')}"
-    "repo.%{hiera('domain_mgmt')}":                       "%{location}-admin-01.%{hiera('domain_mgmt')}"
     "proxy.%{hiera('domain_mgmt')}":                      "%{location}-proxy-01.%{hiera('domain_mgmt')}"
-    "logger.%{hiera('domain_mgmt')}":                     "%{location}-logger-01.%{hiera('domain_mgmt')}"
-    "master.%{hiera('domain_mgmt')}":                     "%{location}-master-01.%{hiera('domain_mgmt')}"
   A:
-    "%{location}-leaf-01.%{hiera('domain_mgmt')}":        "%{netpart_mgmt1}.1"
-    "%{location}-login-01.%{hiera('domain_mgmt')}":       "%{netpart_mgmt1}.10"
-    "%{location}-admin-01.%{hiera('domain_mgmt')}":       "%{netpart_mgmt1}.11"
-    "%{location}-proxy-01.%{hiera('domain_mgmt')}":       "%{netpart_mgmt1}.12"
-    "%{location}-logger-01.%{hiera('domain_mgmt')}":      "%{netpart_mgmt1}.13"
-    "%{location}-master-01.%{hiera('domain_mgmt')}":      "%{netpart_mgmt1}.20"
-    "%{location}-mq-01.%{hiera('domain_mgmt')}":          "%{netpart_mgmt1}.31"
-    "%{location}-mq-02.%{hiera('domain_mgmt')}":          "%{netpart_mgmt1}.32"
-    "%{location}-image-01.%{hiera('domain_mgmt')}":       "%{netpart_mgmt1}.36"
-    "%{location}-db-01.%{hiera('domain_mgmt')}":          "%{netpart_mgmt1}.41"
-    "%{location}-volume-01.%{hiera('domain_mgmt')}":      "%{netpart_mgmt1}.46"
-    "%{location}-dashboard-01.%{hiera('domain_mgmt')}":   "%{netpart_mgmt1}.51"
-    "%{location}-access-01.%{hiera('domain_mgmt')}":      "%{netpart_mgmt1}.56"
-    "%{location}-novactrl-01.%{hiera('domain_mgmt')}":    "%{netpart_mgmt1}.66"
-    "%{location}-network-01.%{hiera('domain_mgmt')}":     "%{netpart_mgmt1}.71"
-    "%{location}-identity-01.%{hiera('domain_mgmt')}":    "%{netpart_mgmt1}.81"
-    "%{location}-controller-01.%{hiera('domain_mgmt')}":  "%{netpart_mgmt1}.100"
-    "%{location}-compute-01.%{hiera('domain_mgmt')}":     "%{netpart_mgmt1}.103"
-    "%{location}-compute-02.%{hiera('domain_mgmt')}":     "%{netpart_mgmt1}.104"
-    "dashboard.%{hiera('domain_public')}":                "%{hiera('netcfg_netpart_public')}.254"
-#    "access.%{hiera('domain_public')}":     "%{hiera('nw_public_first_octets')}.252"
+    # public
+    "dashboard.%{hiera('domain_frontend')}":              "%{hiera('netcfg_public_netpart')}.254"
+    "api.%{hiera('domain_frontend')}":                    "%{hiera('netcfg_public_netpart')}.250"
+    "api.%{hiera('domain_public')}":                      "%{hiera('netcfg_public_netpart')}.250"
+    "access.%{hiera('domain_frontend')}":                 "%{hiera('netcfg_public_netpart')}.250"
+    "console.%{hiera('domain_public')}":                  "%{hiera('netcfg_public_netpart')}.250"
+    "identity.api.%{hiera('domain_public')}":             "%{hiera('netcfg_public_netpart')}.250"
+    "image.api.%{hiera('domain_public')}":                "%{hiera('netcfg_public_netpart')}.250"
+    "network.api.%{hiera('domain_public')}":              "%{hiera('netcfg_public_netpart')}.250"
+    "compute.api.%{hiera('domain_public')}":              "%{hiera('netcfg_public_netpart')}.250"
+    "volume.api.%{hiera('domain_public')}":               "%{hiera('netcfg_public_netpart')}.250"
+    "object.api.%{hiera('domain_public')}":               "%{hiera('netcfg_public_netpart')}.250"
+    "metric.api.%{hiera('domain_public')}":               "%{hiera('netcfg_public_netpart')}.250"
+    # mgmt
+    "%{::location}-login-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.10"
   PTR:
     "1.%{hiera('netcfg_reverse_dns')}":                   "%{location}-leaf-01.%{hiera('domain_mgmt')}"
 
@@ -136,20 +127,14 @@ client_glance::secret:                              'AQBGJ8dWKhgcNhAA+VU0GlKHcRL
 client_volumes::secret:                             'AQA4MPZTOGU0ARAAXH9a0fXxVq0X25n2yPREDw=='
 client_cinder::secret:                              'AQBypF1V2JYiChAA2qYbjM6jbXJBMmpXPkvwBg=='
 
-# FIXME: puppet 3 legacy params
-client.admin::secret:                               'AQBMGHJTkC8HKhAAJ7NH255wYypgm1oVuV41MA=='
-client.bootstrap-osd::secret:                       'AQARG3JTsDDEHhAAVinHPiqvJkUi5Mww/URupw=='
-client.bootstrap-mds::secret:                       'AQCztJdSyNb0NBAASA2yPZPuwXeIQnDJ9O8gVw=='
-client.glance::secret:                              'AQBGJ8dWKhgcNhAA+VU0GlKHcRLJSsJ8WouuSQ=='
-client.volumes::secret:                             'AQA4MPZTOGU0ARAAXH9a0fXxVq0X25n2yPREDw=='
-client.cinder::secret:                              'AQBypF1V2JYiChAA2qYbjM6jbXJBMmpXPkvwBg=='
-
 # service user api password
 keystone_admin_password:                            'admin_pass'
 cinder_api_password:                                'cinder_pass'
 glance_api_password:                                'glance_pass'
 neutron_api_password:                               'neutron_pass'
 nova_api_password:                                  'nova_pass'
+gnocchi_api_password:                               'gnocchi'
+ceilometer_api_password:                            'ceilometer_pass'
 
 # rabbitmq
 rabbitmq::default_pass:                             'guest'
@@ -189,5 +174,52 @@ nova::db::mysql_api::password:                      'nova_api_pass'
 nova::api::neutron_metadata_proxy_shared_secret:    'a_secret'
 nova::rabbit_password:                              'nova_quest'
 
+# imagebuilder
+imagebuilder_password:                              'imagebuilder_pass'
+
+# sensu.yaml
+sensu::rabbit_password:                             'sensu_guest'
+sensu_api_password:                                 'sensu'
+graphite_secret_key:                                'graphite_pass'
+sensu_mysql_password:                               'sensu'
+grafana_admin_password:                             'changeme'
+local_rabbit_password:                              'local'
+
+# telemetry/metrics
+gnocchi::db::mysql::password:                       'gnocchi_pass'
+ceilometer::db::mysql::password:                    'ceilometer_pass'
+ceilometer::telemetry_secret:                       'ceilometer'
+ceilometer_rabbit_password:                         'ceilometer'
+status_metric_password:                             'status_pass'
+monitor_metric_password:                            'monitor_pass'
+
+# object
+swift::swift_hash_path_suffix:                      'shared_secret'
+swift_api_password:                                 'swift_pass'
+dispersion_api_password:                            'dispersion_pass'
+
 # The root user password
 #accounts::root_user::password:                      '$6$qVzsC5fQMqdF4gKw$.zFAu9LtxSAaPgbtZul/ZXUXpBgjaVJbQ.CIMo9eo5TslU8KU1SO/tjRZbh1hFM6RB55QFEzJlF5ejAgglk50.'
+
+
+profile::openstack::resource::networks:
+  public:
+    name: 'public'
+    admin_state_up: true
+    shared: true
+    tenant_name: 'openstack'
+    provider_network_type: 'local'
+
+profile::openstack::resource::subnets:
+  public:
+    name: 'public'
+    cidr: "%{hiera('netcfg_public_netpart')}.0/24"
+    ip_version: '4'
+    allocation_pools:
+      - "start=%{hiera('netcfg_public_netpart')}.20,end=%{hiera('netcfg_public_netpart')}.180"
+    gateway_ip: "%{hiera('netcfg_public_netpart')}.1"
+    dns_nameservers:
+      - '129.177.6.54'
+      - '129.177.12.31'
+    network_name: 'public'
+    tenant_name: 'openstack'
