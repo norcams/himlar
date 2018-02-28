@@ -2,24 +2,30 @@
 include:
   default:
     - profile::bootstrap::himlar
+    - profile::network::nat
 
 # Manage NAT with iptables
 profile::base::firewall::manage_firewall:     true
-profile::network::services::manage_nat:       true
-profile::network::services::manage_mgmt_nat:  true
+profile::network::services::manage_nat:       false
+profile::network::nat::enable_masquerade:     true
+profile::network::nat::source:                "%{::network_mgmt1}/%{::netmask_mgmt1}"
 
 # Himlar bootstrap
 profile::bootstrap::himlar::manage_bootstrap_scripts: true
 himlar_bootstrap::tftp_install:
   '%{location}-controller-01':
     domain:           "%{hiera('domain_mgmt')}"
-    dhcp_interface:   'eth1'
-    dhcp_range_start: "%{hiera('netcfg_netpart_mgmt')}.200"
-    dhcp_range_end:   "%{hiera('netcfg_netpart_mgmt')}.240"
-    dhcp_gateway:     "%{hiera('netcfg_gateway_mgmt')}"
+    dhcp_interface:   'eth0'
+    dhcp_range_start: "%{hiera('netcfg_mgmt_netpart')}.200"
+    dhcp_range_end:   "%{hiera('netcfg_mgmt_netpart')}.250"
+    dhcp_gateway:     "%{hiera('netcfg_mgmt_gateway')}"
+    macaddress:       '00:23:24:5e:34:f1'
+
+ssh::server::options:
+  AuthenticationMethods: 'publickey'
 
 named_interfaces::config:
   mgmt:
-    - eth1
-  public:
     - eth0
+  public:
+    - eth1

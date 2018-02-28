@@ -2,7 +2,7 @@
 named_interfaces::config:
   mgmt:
     - br0
-  transport:
+  trp:
     - br1
   service:
     - br1
@@ -12,12 +12,13 @@ profile::openstack::network::calico::manage_bird: false
 
 himlar_bootstrap::virt_install:
   '%{location}-admin-01':
-    domain:          '%{domain}'
+    domain:          "%{hiera('domain_mgmt')}"
     libvirt_pool:    'dirpool'
     libvirt_network: 'directnet'
-    install_ip:      "%{hiera('netcfg_netpart_mgmt')}.11"
-    install_netmask: "%{hiera('netcfg_netmask_mgmt')}"
-    install_gateway: "%{hiera('netcfg_gateway_mgmt')}"
-    vm_vcpus:        1
-    vm_memory:       2048
+    install_ip:      "%{hiera('netcfg_mgmt_netpart')}.11"
+    install_netmask: "%{hiera('netcfg_mgmt_netmask')}"
+    install_gateway: "%{hiera('netcfg_mgmt_gateway')}"
+    vm_vcpus:        2
+    vm_memory:       4096
     vm_console:      false
+    use_dhcp:        false
