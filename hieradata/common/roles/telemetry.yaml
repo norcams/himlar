@@ -32,3 +32,4 @@ profile::openstack::openrc::username:                   'ceilometer'
 profile::openstack::openrc::project_name:               'services'
 
 profile::openstack::telemetry::polling::polling_interval: 3600   #FIXME
+profile::openstack::telemetry::polling::manage_polling:   true

@@ -2,7 +2,3 @@
 glance::api::stores:
  - rbd
  - http # FIXME - Remove after dashboard is upgraded to newton
-
-# FIXME move to common
-glance::notify::rabbitmq::default_transport_url:  "%{hiera('service__transport__url')}"
-glance::notify::rabbitmq::notification_driver:    'messagingv2'
