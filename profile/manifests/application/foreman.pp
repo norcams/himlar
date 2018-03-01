@@ -63,7 +63,7 @@ class profile::application::foreman(
     ensure  => $push_facts_ensure,
     command => '/etc/puppetlabs/puppet/node.rb --push-facts',
     minute  => '30',
-    hour    => '*',
+    hour    => '0',
   }
 
   if $manage_firewall {
