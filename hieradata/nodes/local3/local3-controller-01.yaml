@@ -1,14 +1,8 @@
 ---
 network::interfaces_hash:
   'eth0':
-    ipaddress: '129.177.11.98'
-    netmask:   '255.255.255.0'
-    defroute:  'yes'
     onboot:    'yes'
-    dns1:      '129.177.6.54'
-    dns2:      "%{hiera('netcfg_dns_server2')}"
-    domain:    "%{hiera('netcfg_dns_search')} mgmt.local.iaas.intern"
-    peerdns:   'yes'
+    bridge:    'br3'
   'eth1':
     onboot:    'yes'
     bridge:    'br0'
@@ -38,6 +32,11 @@ network::interfaces_hash:
     netmask:   "%{hiera('netcfg_trp_netmask')}"
     type:      'Bridge'
   'br2':
+    defroute:  'no'
+    onboot:    'yes'
+    bootproto: 'none'
+    type:      'Bridge'
+  'br3':
     defroute:  'no'
     onboot:    'yes'
     bootproto: 'none'

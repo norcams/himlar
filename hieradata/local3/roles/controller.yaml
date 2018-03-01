@@ -4,8 +4,8 @@ named_interfaces::config:
     - br0
   trp:
     - br1
-  service:
-    - br1
+  public:
+    - br3
 
 # Turn off bird on controller until we use cumulus
 profile::openstack::network::calico::manage_bird: false
