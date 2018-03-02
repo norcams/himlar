@@ -24,15 +24,16 @@ class profile::openstack::dashboard(
       target  => $::horizon::params::config_file,
       content => template($override_template),
       order   => '99',
+      notify  => Service['httpd']
     }
   }
 
   if $database {
     # Run syncdb if we use database backend
     exec { 'horizon syncdb':
-      command => '/usr/share/openstack-dashboard/manage.py syncdb --noinput && touch /etc/openstack-dashboard/.syncdb',
+      command => '/usr/share/openstack-dashboard/manage.py syncdb --noinput && touch /usr/share/openstack-dashboard/.syncdb',
       user    => 'root',
-      creates => '/etc/openstack-dashboard/.syncdb',
+      creates => '/usr/share/openstack-dashboard/.syncdb',
       require => [Concat::Fragment['extra-local_settings.py'], Package['horizon']]
     }
   }
