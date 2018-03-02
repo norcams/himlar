@@ -3,7 +3,7 @@ include:
   default:
     - profile::dns::rndc_key
 
-foreman_version: '1.15'
+foreman_version: '1.16'
 
 profile::dns::rndc_key::create_admin_key:    true
 profile::dns::rndc_key::create_mdns_key:     false
