@@ -19,6 +19,9 @@ include:
   default:
     - profile::database::galera
 
+# Drop dashboard database
+profile::openstack::database::sql::extra_databases: {}
+
 profile::openstack::database::sql::keystone_enabled:   true
 profile::openstack::database::sql::glance_enabled:     false
 profile::openstack::database::sql::nova_enabled:       false
