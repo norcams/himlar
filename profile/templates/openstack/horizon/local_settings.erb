@@ -15,3 +15,16 @@ HORIZON_IMAGES_UPLOAD_MODE = '<%= @image_upload_mode %>'
 <% if @change_login_footer -%>
 HORIZON_CONFIG['customization_module'] = 'openstack_dashboard._login_footer'
 <% end -%>
+<% if @database -%>
+DATABASES = {
+    'default': {
+        # Database configuration here
+        'ENGINE': '<% if @database['engine'] %><%=@database['engine']%><% else %>django.db.backends.mysql<% end %>',
+        'NAME': '<% if @database['database'] %><%=@database['database']%><% else %>horizon<% end %>',
+        'USER': '<% if @database['user'] %><%=@database['user']%><% else %>horizon<% end %>',
+        'PASSWORD': '<%=@database['password_hash']%>',
+        'HOST': '<% if @database['host'] %><%=@database['host']%><% else %>localhost<% end %>',
+        'default-character-set': 'utf8'
+    }
+}
+<% end -%>

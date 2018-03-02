@@ -10,12 +10,21 @@ class profile::openstack::database::sql (
   $ceilometer_enabled = false,
   $create_cell0     = false,
   $database         = 'mariadb',
+  $extra_databases  = {},
 ) {
 
   if $database in ['mariadb', 'postgresql'] {
     include "profile::database::${database}"
   } else {
     fail('invalid database backend selected: choose from mariadb or postgresql')
+  }
+
+  # This replaces password in extra_databases hash with a mysql hashed password
+  if $extra_databases {
+    $extra_databases.each |String $name, Hash $database| {
+      $database_real = merge(delete($database, 'password'), { 'password_hash' => mysql_password($database['password']) })
+      create_resources('openstacklib::db::mysql', { $name => $database_real })
+    }
   }
 
   if $keystone_enabled {
