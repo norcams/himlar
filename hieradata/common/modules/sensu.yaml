@@ -67,6 +67,10 @@ sensu::checks:
     command:      'check-process.rb -p cron'
     interval:     60
     subscribers:  ['checks'] # sudo sensu-install -p process-checks:0.0.6 teeest
+  'check-log':
+    command:      'check-log.rb -w 10'
+    interval:     60
+    subscribers:  ['checks']    
 
 # Server
 sensu::api_user:          'sensu'
