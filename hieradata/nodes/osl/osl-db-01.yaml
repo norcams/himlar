@@ -22,6 +22,9 @@ network::interfaces_hash:
 
 profile::base::network::manage_dummy: true
 
+# Drop dashboard database
+profile::openstack::database::sql::extra_databases: {}
+
 include:
   default:
     - profile::database::galera

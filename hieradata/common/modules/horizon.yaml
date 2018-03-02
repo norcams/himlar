@@ -36,6 +36,12 @@ horizon::websso_initial_choice: openidc
 horizon::websso_choices:
   - ['openidc', 'Dataporten']
 
+# cache and session
+horizon::cache_server_ip:               '127.0.0.1'
+horizon::cache_server_port:             '11211'
+horizon::cache_backend:                 'django.core.cache.backends.memcached.MemcachedCache'
+horizon::django_session_engine:         'django.contrib.sessions.backends.cached_db'
+
 # logging
 horizon::log_handler:     'syslog'
 horizon::wsgi::apache::extra_params:

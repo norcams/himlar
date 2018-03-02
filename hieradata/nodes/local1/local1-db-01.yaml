@@ -23,6 +23,9 @@ network::interfaces_hash:
 
 profile::base::network::manage_dummy: true
 
+# Drop dashboard database
+profile::openstack::database::sql::extra_databases: {}
+
 # Turn on firewall logging for firewall debug
 #profile::firewall::post::log: true
 

@@ -72,6 +72,12 @@ logrotate::rules:
     rotate_every:   daily
     compress:       true
 
+profile::openstack::database::sql::extra_databases:
+  horizon: # Session database
+    password:       "%{hiera('horizon_db_password')}"
+    user:           'horizon'
+    host:           "%{hiera('netcfg_trp_netpart')}.51"
+
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   mariadb:
