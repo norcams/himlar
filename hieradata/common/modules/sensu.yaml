@@ -63,6 +63,11 @@ sensu::checks:
     command:      'check-memory-percent.rb -w 70 -c 90'
     interval:     60
     subscribers:  ['checks']
+  'check-process':
+    command:      'check-process.rb -p cron'
+    interval:     60
+    subscribers:  ['checks'] # sudo sensu-install -p process-checks:0.0.6 teeest
+    handler:      'debug'
 
 # Server
 sensu::api_user:          'sensu'
