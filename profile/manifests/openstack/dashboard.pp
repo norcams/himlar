@@ -7,6 +7,7 @@ class profile::openstack::dashboard(
   $internal_net         = "${::network_trp1}/${::netmask_trp1}",
   $firewall_extras      = {},
   $manage_overrides     = false,
+  $database             = {},
   $override_template    = "${module_name}/openstack/horizon/local_settings.erb",
   $site_branding        = 'UH-IaaS',
   $change_uploaddir     = false,
@@ -23,6 +24,17 @@ class profile::openstack::dashboard(
       target  => $::horizon::params::config_file,
       content => template($override_template),
       order   => '99',
+      notify  => Service['httpd']
+    }
+  }
+
+  if $database {
+    # Run syncdb if we use database backend
+    exec { 'horizon syncdb':
+      command => '/usr/share/openstack-dashboard/manage.py syncdb --noinput && touch /usr/share/openstack-dashboard/.syncdb',
+      user    => 'root',
+      creates => '/usr/share/openstack-dashboard/.syncdb',
+      require => [Concat::Fragment['extra-local_settings.py'], Package['horizon']]
     }
   }
 

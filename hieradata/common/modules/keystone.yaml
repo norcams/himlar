@@ -1,6 +1,4 @@
 ---
-keystone::debug:  true #FIXME used for debug newton upgrade
-
 keystone::db::mysql::allowed_hosts:
   - "%{hiera('netcfg_trp_netpart')}.%"
 
