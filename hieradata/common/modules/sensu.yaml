@@ -66,11 +66,19 @@ sensu::checks:
   'check-process':
     command:      'check-process.rb -p cron'
     interval:     60
-    subscribers:  ['checks'] # sudo sensu-install -p process-checks:0.0.6 teeest
+    subscribers:  ['checks']
   'check-log':
-    command:      'check-log.rb -w 10'
+    command:      "sudo /opt/sensu/embedded/bin/check-log.rb -f /var/log/cron -w 1 -c 1 -q 'Failed building' -r"
     interval:     60
-    subscribers:  ['checks']    
+    subscribers:  ['checks']
+
+sudo::configs:
+  sensu_tty:
+    priority:   15
+    content:    'Defaults:sensu !requiretty'
+  sensu:
+    priority:   20
+    content:    'sensu ALL = (root) NOPASSWD: /opt/sensu/embedded/bin/check-log.rb'
 
 # Server
 sensu::api_user:          'sensu'
