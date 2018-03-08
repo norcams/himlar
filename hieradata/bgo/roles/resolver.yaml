@@ -1,0 +1,80 @@
+---
+# Public and internal zones
+profile::dns::ns::internal_zone: "bgo.uhdc.no"
+profile::dns::ns::public_zone:   "bgo.uh-iaas.no"
+profile::dns::ns::frontend_zone: "uh-iaas.no"
+
+# Temporary: Forward everything to UiB resolvers
+profile::dns::ns::forward_everything: true
+profile::dns::ns::forwarders:
+  - "129.177.6.54"
+  - "129.177.12.31"
+
+# Forward zones. Only zones that are "internal". Requests for records
+# in these zones will be forwarded to the authoritative DNS server
+#profile::dns::ns::fw_zones:
+#  internal:
+#    zone: "%{hiera('profile::dns::ns::internal_zone')}"
+#  frontend:
+#    zone: "%{hiera('profile::dns::ns::public_zone')}"
+
+# Reverse zones. Only zones that are "internal". Requests for records
+# in these zones will be forwarded to the authoritative DNS server
+profile::dns::ns::ptr_zones:
+  mgmt01:
+    cidr: "172.16.0.0/24"
+    origin: "0.16.172.in-addr.arpa"
+  mgmt02:
+    cidr: "172.16.1.0/24"
+    origin: "1.16.172.in-addr.arpa"
+  mgmt03:
+    cidr: "172.16.2.0/24"
+    origin: "2.16.172.in-addr.arpa"
+  mgmt04:
+    cidr: "172.16.3.0/24"
+    origin: "3.16.172.in-addr.arpa"
+  mgmt05:
+    cidr: "172.16.4.0/24"
+    origin: "4.16.172.in-addr.arpa"
+  mgmt06:
+    cidr: "172.16.5.0/24"
+    origin: "5.16.172.in-addr.arpa"
+  mgmt07:
+    cidr: "172.16.6.0/24"
+    origin: "6.16.172.in-addr.arpa"
+  mgmt08:
+    cidr: "172.18.7.0/24"
+    origin: "7.18.172.in-addr.arpa"
+  transport01:
+    cidr: "172.18.0.0/24"
+    origin: "0.18.172.in-addr.arpa"
+  transport02:
+    cidr: "172.18.1.0/24"
+    origin: "1.18.172.in-addr.arpa"
+  transport03:
+    cidr: "172.18.2.0/24"
+    origin: "2.18.172.in-addr.arpa"
+  transport04:
+    cidr: "172.18.3.0/24"
+    origin: "3.18.172.in-addr.arpa"
+  transport05:
+    cidr: "172.18.4.0/24"
+    origin: "4.18.172.in-addr.arpa"
+  transport06:
+    cidr: "172.18.5.0/24"
+    origin: "5.18.172.in-addr.arpa"
+  transport07:
+    cidr: "172.18.6.0/24"
+    origin: "6.18.172.in-addr.arpa"
+  transport08:
+    cidr: "172.18.7.0/24"
+    origin: "7.18.172.in-addr.arpa"
+  public01:
+    cidr: "158.39.74.0/24"
+    origin: "74.39.158.in-addr.arpa"
+  public02:
+    cidr: "158.39.77.0/24"
+    origin: "77.39.158.in-addr.arpa"
+  ipv6:
+    cidr: "2001:700:2:83ff::/64"
+    origin: "f.f.3.8.0.0.7.0.2.0.0.0.1.0.0.2.ip6.arpa"
