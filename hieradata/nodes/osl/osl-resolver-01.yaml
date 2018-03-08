@@ -1,8 +1,9 @@
 ---
-profile::dns::ns::master: false
 profile::dns::ns::my_mgmt_addr:      "%{hiera('netcfg_mgmt_netpart')}.17"
 profile::dns::ns::my_transport_addr: "%{hiera('netcfg_trp_netpart')}.17"
-profile::dns::ns::zonedir: 'sz'
+
+# Defined here instead of roles, as only resolver-01 needs this
+profile::base::network::manage_dummy: true
 
 network::interfaces_hash:
   'eth0':
@@ -14,11 +15,28 @@ network::interfaces_hash:
     peerdns:   'yes'
     dns1:      "%{hiera('netcfg_dns_server1')}"
     domain:    "%{hiera('netcfg_dns_search')}"
-    defroute:  'yes'
+    defroute:  'no'
   'eth1':
     onboot:    'yes'
     mtu:       '1500'
     ipaddress: "%{hiera('netcfg_trp_netpart')}.17"
     netmask:   "%{hiera('netcfg_trp_netmask')}"
     gateway:   "%{hiera('netcfg_trp_gateway')}"
+    srcaddr:   '158.37.63.252'
+    ipv6init:  'yes'
+    ipv6addr:  "%{hiera('netcfg_trp_netpart6')}::17/%{hiera('netcfg_trp_netmask6')}"
+    defroute:  'yes'
+  'dummy0':
+    ipaddress: '158.37.63.252'
+    netmask:   '255.255.255.255'
+    ipv6init:  'yes'
+    ipv6addr:  '2001:700:2:82ff::252'
     defroute:  'no'
+profile::base::network::routes:
+  'eth1':
+    'ipaddress': [ '::', ]
+    'netmask':   [ '0', ]
+    'gateway':   [ "%{hiera('netcfg_trp_gateway6')}", ]
+    'source':    [ '2001:700:2:82ff::252', ]
+    'table':     [ 'main', ]
+    'family':    [ '6', ]

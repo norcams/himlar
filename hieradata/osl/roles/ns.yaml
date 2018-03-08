@@ -1,41 +1,202 @@
 ---
-include:
-  default:
-    - profile::dns::ns
-    - profile::dns::rndc_key
-    - profile::logging::rsyslog::client
+# Authoritative name servers must have a public interface
+profile::base::network::manage_dummy: true
 
-profile::dns::rndc_key::create_admin_key:    true
-profile::dns::rndc_key::create_mdns_key:     true
-profile::dns::rndc_key::host_is_bind_server: true
-
+# Public and internal zones
 profile::dns::ns::internal_zone: "osl.uhdc.no"
+profile::dns::ns::public_zone:   "osl.uh-iaas.no"
+profile::dns::ns::frontend_zone: "uh-iaas.no"
 
 # Name servers in zone file
-profile::dns::ns::name_servers:
-  - "ns.%{hiera('profile::dns::ns::internal_zone')}"
-  - "ns.bgo.uhdc.no"
+profile::dns::ns::ns_master: "ns.%{hiera('profile::dns::ns::public_zone')}"
+profile::dns::ns::ns_slaves:
+  - "ns.bgo.uh-iaas.no"
 
-# Forward zones
+# Master server for master-slave configuration
+profile::dns::ns::ns_master_ip_addresses:
+  - "%{hiera('public__address__ns')}"  # local ns IPv4 address
+  - "%{hiera('public6__address__ns')}" # local ns IPv6 address
+
+# Slave servers for master-slave configuration
+profile::dns::ns::ns_slave_ip_addresses:
+  - '158.39.77.251'        # ns.bgo.uh-iaas.no IPv4
+  - '2001:700:2:83ff::251' # ns.bgo.uh-iaas.no IPv6
+
+# Forward zones, for which the name server is authoritative
 profile::dns::ns::fw_zones:
   internal:
     zone: "%{hiera('profile::dns::ns::internal_zone')}"
-    filename: "%{hiera('profile::dns::ns::zonedir')}/%{hiera('profile::dns::ns::internal_zone')}"
+    filename: "pz/%{hiera('profile::dns::ns::internal_zone')}"
+  public:
+    zone: "%{hiera('profile::dns::ns::public_zone')}"
+    filename: "pz/%{hiera('profile::dns::ns::public_zone')}"
   frontend:
-    zone: "iaas.uio.no"
-    filename: "%{hiera('profile::dns::ns::zonedir')}/iaas.uio.no"
+    zone: "%{hiera('profile::dns::ns::frontend_zone')}"
+    filename: "pz/%{hiera('profile::dns::ns::frontend_zone')}"
 
-# Reverse zones
+# Reverse zones, for which the name server is authoritative
 profile::dns::ns::ptr_zones:
-  internal:
-    cidr: "172.16.0.0/16"
-    origin: "16.172.in-addr.arpa"
-    filename: "%{hiera('profile::dns::ns::zonedir')}/16.172.in-addr.arpa"
-  public1:
-    cidr: "158.37.0.0/16"
-    origin: "37.158.in-addr.arpa"
-    filename: "%{hiera('profile::dns::ns::zonedir')}/37.158.in-addr.arpa"
-  public2:
-    cidr: "158.39.0.0/16"
-    origin: "39.158.in-addr.arpa"
-    filename: "%{hiera('profile::dns::ns::zonedir')}/39.158.in-addr.arpa"
+  mgmt01:
+    cidr: "172.16.32.0/24"
+    origin: "32.16.172.in-addr.arpa"
+    filename: "pz/32.16.172.in-addr.arpa"
+  mgmt02:
+    cidr: "172.16.33.0/24"
+    origin: "33.16.172.in-addr.arpa"
+    filename: "pz/33.16.172.in-addr.arpa"
+  mgmt03:
+    cidr: "172.16.34.0/24"
+    origin: "34.16.172.in-addr.arpa"
+    filename: "pz/34.16.172.in-addr.arpa"
+  mgmt04:
+    cidr: "172.16.35.0/24"
+    origin: "35.16.172.in-addr.arpa"
+    filename: "pz/35.16.172.in-addr.arpa"
+  mgmt05:
+    cidr: "172.16.36.0/24"
+    origin: "36.16.172.in-addr.arpa"
+    filename: "pz/36.16.172.in-addr.arpa"
+  mgmt06:
+    cidr: "172.16.37.0/24"
+    origin: "37.16.172.in-addr.arpa"
+    filename: "pz/37.16.172.in-addr.arpa"
+  mgmt07:
+    cidr: "172.16.38.0/24"
+    origin: "38.16.172.in-addr.arpa"
+    filename: "pz/38.16.172.in-addr.arpa"
+  mgmt08:
+    cidr: "172.16.39.0/24"
+    origin: "39.16.172.in-addr.arpa"
+    filename: "pz/39.16.172.in-addr.arpa"
+  transport01:
+    cidr: "172.18.32.0/24"
+    origin: "32.18.172.in-addr.arpa"
+    filename: "pz/32.18.172.in-addr.arpa"
+  transport02:
+    cidr: "172.18.33.0/24"
+    origin: "33.18.172.in-addr.arpa"
+    filename: "pz/33.18.172.in-addr.arpa"
+  transport03:
+    cidr: "172.18.34.0/24"
+    origin: "34.18.172.in-addr.arpa"
+    filename: "pz/34.18.172.in-addr.arpa"
+  transport04:
+    cidr: "172.18.35.0/24"
+    origin: "35.18.172.in-addr.arpa"
+    filename: "pz/35.18.172.in-addr.arpa"
+  transport05:
+    cidr: "172.18.36.0/24"
+    origin: "36.18.172.in-addr.arpa"
+    filename: "pz/36.18.172.in-addr.arpa"
+  transport06:
+    cidr: "172.18.37.0/24"
+    origin: "37.18.172.in-addr.arpa"
+    filename: "pz/37.18.172.in-addr.arpa"
+  transport07:
+    cidr: "172.18.38.0/24"
+    origin: "38.18.172.in-addr.arpa"
+    filename: "pz/38.18.172.in-addr.arpa"
+  transport08:
+    cidr: "172.18.39.0/24"
+    origin: "39.18.172.in-addr.arpa"
+    filename: "pz/39.18.172.in-addr.arpa"
+  public01:
+    cidr: "158.37.63.0/24"
+    origin: "63.37.158.in-addr.arpa"
+    filename: "pz/63.37.158.in-addr.arpa"
+  public02:
+    cidr: "158.39.75.0/24"
+    origin: "75.39.158.in-addr.arpa"
+    filename: "pz/75.39.158.in-addr.arpa"
+  ipv6:
+    cidr: "2001:700:2:82ff::/64"
+    origin: "f.f.2.8.0.0.7.0.2.0.0.0.1.0.0.2.ip6.arpa"
+    filename: "pz/f.f.2.8.0.0.7.0.2.0.0.0.1.0.0.2.ip6.arpa"
+
+# Secondary forward zones, for which this ns is slave
+profile::dns::ns::fw_slave_zones:
+  bgo_internal:
+    zone: "bgo.uhdc.no"
+    filename: "sz/bgo.uhdc.no"
+  bgo_public:
+    zone: "bgo.uh-iaas.no"
+    filename: "sz/bgo.uh-iaas.no"
+
+# Secondary reverse zones, for which this ns is slave
+profile::dns::ns::ptr_slave_zones:
+  bgo_mgmt01:
+    cidr: "172.16.0.0/24"
+    origin: "0.16.172.in-addr.arpa"
+    filename: "sz/0.16.172.in-addr.arpa"
+  bgo_mgmt02:
+    cidr: "172.16.1.0/24"
+    origin: "1.16.172.in-addr.arpa"
+    filename: "sz/1.16.172.in-addr.arpa"
+  bgo_mgmt03:
+    cidr: "172.16.2.0/24"
+    origin: "2.16.172.in-addr.arpa"
+    filename: "sz/2.16.172.in-addr.arpa"
+  bgo_mgmt04:
+    cidr: "172.16.3.0/24"
+    origin: "3.16.172.in-addr.arpa"
+    filename: "sz/3.16.172.in-addr.arpa"
+  bgo_mgmt05:
+    cidr: "172.16.4.0/24"
+    origin: "4.16.172.in-addr.arpa"
+    filename: "sz/4.16.172.in-addr.arpa"
+  bgo_mgmt06:
+    cidr: "172.16.5.0/24"
+    origin: "5.16.172.in-addr.arpa"
+    filename: "sz/5.16.172.in-addr.arpa"
+  bgo_mgmt07:
+    cidr: "172.16.6.0/24"
+    origin: "6.16.172.in-addr.arpa"
+    filename: "sz/6.16.172.in-addr.arpa"
+  bgo_mgmt08:
+    cidr: "172.18.7.0/24"
+    origin: "7.18.172.in-addr.arpa"
+    filename: "sz/7.18.172.in-addr.arpa"
+  bgo_transport01:
+    cidr: "172.18.0.0/24"
+    origin: "0.18.172.in-addr.arpa"
+    filename: "sz/0.18.172.in-addr.arpa"
+  bgo_transport02:
+    cidr: "172.18.1.0/24"
+    origin: "1.18.172.in-addr.arpa"
+    filename: "sz/1.18.172.in-addr.arpa"
+  bgo_transport03:
+    cidr: "172.18.2.0/24"
+    origin: "2.18.172.in-addr.arpa"
+    filename: "sz/2.18.172.in-addr.arpa"
+  bgo_transport04:
+    cidr: "172.18.3.0/24"
+    origin: "3.18.172.in-addr.arpa"
+    filename: "sz/3.18.172.in-addr.arpa"
+  bgo_transport05:
+    cidr: "172.18.4.0/24"
+    origin: "4.18.172.in-addr.arpa"
+    filename: "sz/4.18.172.in-addr.arpa"
+  bgo_transport06:
+    cidr: "172.18.5.0/24"
+    origin: "5.18.172.in-addr.arpa"
+    filename: "sz/5.18.172.in-addr.arpa"
+  bgo_transport07:
+    cidr: "172.18.6.0/24"
+    origin: "6.18.172.in-addr.arpa"
+    filename: "sz/6.18.172.in-addr.arpa"
+  bgo_transport08:
+    cidr: "172.18.7.0/24"
+    origin: "7.18.172.in-addr.arpa"
+    filename: "sz/7.18.172.in-addr.arpa"
+  bgo_public01:
+    cidr: "158.39.74.0/24"
+    origin: "74.39.158.in-addr.arpa"
+    filename: "sz/74.39.158.in-addr.arpa"
+  bgo_public02:
+    cidr: "158.39.77.0/24"
+    origin: "77.39.158.in-addr.arpa"
+    filename: "sz/77.39.158.in-addr.arpa"
+  bgo_ipv6:
+    cidr: "2001:700:2:83ff::/64"
+    origin: "f.f.3.8.0.0.7.0.2.0.0.0.1.0.0.2.ip6.arpa"
+    filename: "sz/f.f.3.8.0.0.7.0.2.0.0.0.1.0.0.2.ip6.arpa"
