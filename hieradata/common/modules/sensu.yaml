@@ -65,7 +65,7 @@ sensu::checks:
     subscribers:  ['checks']
   'check-process':
     command:      'check-process.rb -p cron'
-    interval:     360
+    interval:     300
     subscribers:  ['checks']
 
 # Server
