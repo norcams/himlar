@@ -225,6 +225,9 @@ profile::monitoring::sensu::agent::plugins:
   sensu-plugins-vmstats:
     type:         package
     pkg_version:  '1.0.0'
+  sensu-plugins-process-checks:
+    type:         package
+    pkg_version:  '0.0.6'
 
 consul::config_hash:
   'enable_syslog': true
