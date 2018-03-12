@@ -14,8 +14,8 @@ profile::dns::ns::ns_slaves:
 
 # Master server for master-slave configuration
 profile::dns::ns::ns_master_ip_addresses:
-  - "%{hiera('public__address__ns')}"  # local ns IPv4 address
-  - "%{hiera('public6__address__ns')}" # local ns IPv6 address
+  - '158.39.77.251'        # ns.bgo.uh-iaas.no IPv4
+  - '2001:700:2:83ff::251' # ns.bgo.uh-iaas.no IPv6
 
 # Slave servers for master-slave configuration
 profile::dns::ns::ns_slave_ip_addresses:

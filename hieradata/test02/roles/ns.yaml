@@ -13,8 +13,8 @@ profile::dns::ns::ns_master: "ns.%{hiera('profile::dns::ns::public_zone')}"
 
 # Master server for master-slave configuration
 #profile::dns::ns::ns_master_ip_addresses:
-#  - "%{hiera('public__address__ns')}"  # local ns IPv4 address
-#  - "%{hiera('public6__address__ns')}" # local ns IPv6 address
+#  - '129.177.31.117'         # ns.test.iaas.uib.no IPv4
+#  - '2001:700:200:916::3f17' # ns.test.iaas.uib.no IPv6
 
 # Slave servers for master-slave configuration
 #profile::dns::ns::ns_slave_ip_addresses:
