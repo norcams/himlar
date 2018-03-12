@@ -3,8 +3,8 @@ $ORIGIN <%= @zone %>.
 $TTL    3600
 @  IN	SOA	<%= @ns_master %>.    <%= @hostmaster %>. (
                         2018021201         ; Serial
-                              3600         ; Refresh
-                              1800         ; Retry
+                             14400         ; Refresh
+                              3600         ; Retry
                             604800         ; Expire
                             43200 )        ; Negative Cache TTL
 
