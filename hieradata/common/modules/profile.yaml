@@ -227,8 +227,6 @@ profile::monitoring::sensu::agent::plugins:
   sensu-plugins-process-checks:
     type:         package
     pkg_version:  '0.0.6'
-  sensu-plugins-logs:
-    type:         package
 
 consul::config_hash:
   'enable_syslog': true
