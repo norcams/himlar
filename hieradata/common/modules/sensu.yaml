@@ -63,6 +63,10 @@ sensu::checks:
     command:      'check-memory-percent.rb -w 70 -c 90'
     interval:     60
     subscribers:  ['checks']
+  'check-process':
+    command:      'check-process.rb -p cron'
+    interval:     300
+    subscribers:  ['checks']
 
 # Server
 sensu::api_user:          'sensu'

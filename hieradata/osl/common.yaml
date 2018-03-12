@@ -70,12 +70,17 @@ profile::network::services::dns_records:
     'uh-status.iaas.uio.no':                                '158.37.63.250'
     'uh-api.iaas.uio.no':                                   '158.37.63.250'
     'uh-console.iaas.uio.no':                               '158.37.63.250'
-    # location specific for DNS servers:
-    "ns.%{hiera('domain_public')}":                         '158.37.63.251'
+    # location specific for DNS resolver:
     "resolver.%{hiera('domain_public')}":                   '158.37.63.252'
+    # frontend for DNS NS:
+    "ns0.%{hiera('domain_frontend')}":                      '158.37.63.251'
+    "ns1.%{hiera('domain_frontend')}":                      '158.39.77.251'
   AAAA:
-    "ns.%{hiera('domain_public')}":                         '2001:700:2:82ff::251'
+    # location specific for DNS resolver:
     "resolver.%{hiera('domain_public')}":                   '2001:700:2:82ff::252'
+    # frontend for DNS NS:
+    "ns0.%{hiera('domain_frontend')}":                      '2001:700:2:82ff::251'
+    "ns1.%{hiera('domain_frontend')}":                      '2001:700:2:83ff::251'
   PTR:
     # mgmt
     "1.%{hiera('reverse_mgmt')}":      "%{::location}-leaf-01.%{hiera('domain_mgmt')}"
@@ -130,11 +135,11 @@ profile::network::services::dns_records:
     "116.%{hiera('reverse_mgmt')}":    "%{::location}-compute-08.%{hiera('domain_mgmt')}"
     # public IPv4
     '250.63.37.158':  'uh-api.iaas.uio.no'
-    '251.63.37.158':  "ns.%{hiera('domain_public')}"
+    '251.63.37.158':  "ns0.%{hiera('domain_frontend')}"
     '252.63.37.158':  "resolver.%{hiera('domain_public')}"
     '254.63.37.158':  'uh-dboard.iaas.uio.no'
     # public IPv6
-    '1.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.2.8.0.0.7.0.2.0.0.0.1.0.0.2.ip6.arpa':  "ns.%{hiera('domain_public')}"
+    '1.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.2.8.0.0.7.0.2.0.0.0.1.0.0.2.ip6.arpa':  "ns0.%{hiera('domain_frontend')}"
     '2.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.2.8.0.0.7.0.2.0.0.0.1.0.0.2.ip6.arpa':  "resolver.%{hiera('domain_public')}"
 
 ntp::servers:

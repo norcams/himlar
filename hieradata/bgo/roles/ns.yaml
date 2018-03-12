@@ -5,21 +5,22 @@ profile::base::network::manage_dummy: true
 # Public and internal zones
 profile::dns::ns::internal_zone: "bgo.uhdc.no"
 profile::dns::ns::public_zone:   "bgo.uh-iaas.no"
+profile::dns::ns::frontend_zone: "uh-iaas.no"
 
 # Name servers in zone file
-profile::dns::ns::ns_master: "ns.%{hiera('profile::dns::ns::public_zone')}"
+profile::dns::ns::ns_master: "ns1.%{hiera('profile::dns::ns::frontend_zone')}"
 profile::dns::ns::ns_slaves:
-  - "ns.osl.uh-iaas.no"
+  - "ns0.%{hiera('profile::dns::ns::frontend_zone')}"
 
 # Master server for master-slave configuration
 profile::dns::ns::ns_master_ip_addresses:
-  - "%{hiera('public__address__ns')}"  # local ns IPv4 address
-  - "%{hiera('public6__address__ns')}" # local ns IPv6 address
+  - '158.37.63.251'        # ns0.uh-iaas.no IPv4 (OSL)
+  - '2001:700:2:82ff::251' # ns0.uh-iaas.no IPv6 (OSL)
 
 # Slave servers for master-slave configuration
 profile::dns::ns::ns_slave_ip_addresses:
-  - '158.37.63.251'        # ns.osl.uh-iaas.no IPv4
-  - '2001:700:2:82ff::251' # ns.osl.uh-iaas.no IPv6
+  - '158.37.63.251'        # ns0.uh-iaas.no IPv4 (OSL)
+  - '2001:700:2:82ff::251' # ns0.uh-iaas.no IPv6 (OSL)
 
 # Forward zones, for which the name server is authoritative
 profile::dns::ns::fw_zones:
@@ -29,10 +30,6 @@ profile::dns::ns::fw_zones:
   public:
     zone: "%{hiera('profile::dns::ns::public_zone')}"
     filename: "pz/%{hiera('profile::dns::ns::public_zone')}"
-    ns_a_records:
-      'ns': "%{hiera('public__address__ns')}"
-    ns_aaaa_records:
-      'ns': "%{hiera('public6__address__ns')}"
 
 # Reverse zones, for which the name server is authoritative
 profile::dns::ns::ptr_zones:

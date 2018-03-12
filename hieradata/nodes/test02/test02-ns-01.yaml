@@ -21,6 +21,8 @@ network::interfaces_hash:
     netmask:   "%{hiera('netcfg_trp_netmask')}"
     gateway:   "%{hiera('netcfg_trp_gateway')}"
     srcaddr:   "%{hiera('netcfg_public_netpart')}.251"
+    ipv6init:  'yes'
+    ipv6addr:  "%{hiera('netcfg_trp_netpart6')}::16/%{hiera('netcfg_trp_netmask6')}"
     defroute:  'yes'
   'dummy0':
     ipaddress: "%{hiera('netcfg_public_netpart')}.251"
