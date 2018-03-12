@@ -75,17 +75,17 @@ profile::network::services::dns_options:
     default:
       ttl: 3600
       keyfile: "/etc/rndc.key"
-      server: "%{hiera('netcfg_netpart_mgmt')}.11"
+      server: "%{hiera('netcfg_mgmt_netpart')}.11"
   A:
     default:
       ttl: 86400
       keyfile: "/etc/rndc.key"
-      server: "%{hiera('netcfg_netpart_mgmt')}.11"
+      server: "%{hiera('netcfg_mgmt_netpart')}.11"
   PTR:
     default:
       ttl: 86400
       keyfile: "/etc/rndc.key"
-      server: "%{hiera('netcfg_netpart_mgmt')}.11"
+      server: "%{hiera('netcfg_mgmt_netpart')}.11"
 
 profile::network::services::dns_records:
   CNAME:
@@ -107,7 +107,8 @@ profile::network::services::dns_records:
     # mgmt
     "%{::location}-login-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.10"
   PTR:
-    "1.%{hiera('netcfg_reverse_dns')}":                   "%{location}-leaf-01.%{hiera('domain_mgmt')}"
+    "1.%{hiera('netcfg_reverse_dns')}":                   "%{::location}-leaf-01.%{hiera('domain_mgmt')}"
+    "10.%{hiera('reverse_mgmt')}":                        "%{::location}-login-01.%{hiera('domain_mgmt')}"
 
 profile::network::services::dhcp_reservation:
   local3-leaf-01:
@@ -199,7 +200,7 @@ swift_api_password:                                 'swift_pass'
 dispersion_api_password:                            'dispersion_pass'
 
 # The root user password
-#accounts::root_user::password:                      '$6$qVzsC5fQMqdF4gKw$.zFAu9LtxSAaPgbtZul/ZXUXpBgjaVJbQ.CIMo9eo5TslU8KU1SO/tjRZbh1hFM6RB55QFEzJlF5ejAgglk50.'
+accounts::root_user::password:                      '$6$qVzsC5fQMqdF4gKw$.zFAu9LtxSAaPgbtZul/ZXUXpBgjaVJbQ.CIMo9eo5TslU8KU1SO/tjRZbh1hFM6RB55QFEzJlF5ejAgglk50.'
 
 
 profile::openstack::resource::networks:
