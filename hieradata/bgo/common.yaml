@@ -68,11 +68,10 @@ profile::network::services::dns_records:
     'uh-access.iaas.uib.no':                            '158.39.77.250'
     'uh-dboard-front.iaas.uib.no':                      '158.39.77.254'
     'uh-dboard.iaas.uib.no':                            '158.39.77.254'
-    # location specific for DNS servers:
-    "ns.%{hiera('domain_public')}":                     '158.39.77.251'
+    # location specific for DNS resolver:
     "resolver.%{hiera('domain_public')}":               '158.39.77.252'
   AAAA:
-    "ns.%{hiera('domain_public')}":                     '2001:700:2:83ff::251'
+    # location specific for DNS resolver:
     "resolver.%{hiera('domain_public')}":               '2001:700:2:83ff::252'
   PTR:
     # mgmt
@@ -129,11 +128,11 @@ profile::network::services::dns_records:
     "116.%{hiera('reverse_mgmt')}":    "%{::location}-compute-08.%{hiera('domain_mgmt')}"
     # public IPv4
     '250.77.39.158':  'uh-api.iaas.uib.no'
-    '251.77.39.158':  "ns.%{hiera('domain_public')}"
+    '251.77.39.158':  "ns1.%{hiera('domain_frontend')}"
     '252.77.39.158':  "resolver.%{hiera('domain_public')}"
     '254.77.39.158':  'uh-dboard.iaas.uib.no'
     # public IPv6
-    '1.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.3.8.0.0.7.0.2.0.0.0.1.0.0.2.ip6.arpa':  "ns.%{hiera('domain_public')}"
+    '1.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.3.8.0.0.7.0.2.0.0.0.1.0.0.2.ip6.arpa':  "ns1.%{hiera('domain_frontend')}"
     '2.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.3.8.0.0.7.0.2.0.0.0.1.0.0.2.ip6.arpa':  "resolver.%{hiera('domain_public')}"
 
 ntp::servers:
