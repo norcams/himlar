@@ -79,8 +79,8 @@ profile::network::services::dns_records:
     # location specific for DNS resolver:
     "resolver.%{hiera('domain_public')}":                   '2001:700:2:82ff::252'
     # frontend for DNS NS:
-    "ns0.%{hiera('domain_frontent')}":                      '2001:700:2:82ff::251'
-    "ns1.%{hiera('domain_frontent')}":                      '2001:700:2:83ff::251'
+    "ns0.%{hiera('domain_frontend')}":                      '2001:700:2:82ff::251'
+    "ns1.%{hiera('domain_frontend')}":                      '2001:700:2:83ff::251'
   PTR:
     # mgmt
     "1.%{hiera('reverse_mgmt')}":      "%{::location}-leaf-01.%{hiera('domain_mgmt')}"
