@@ -1,0 +1,40 @@
+---
+network::interfaces_hash:
+  'eth0':
+    onboot:    'yes'
+    bridge:    'br0'
+  'eth0.912':
+    onboot:    'yes'
+    bridge:    'br1'
+    vlan:      "yes"
+  'eth0.913':
+    onboot:    'yes'
+    bridge:    'br2'
+    vlan:      "yes"
+  'br0':
+    dns1:      "%{hiera('netcfg_peerdns1')}"
+    dns2:      "%{hiera('netcfg_peerdns2')}"
+    domain:    "%{domain}"
+    defroute:  'yes'
+    peerdns:   'yes'
+    onboot:    'yes'
+    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.101"
+    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
+    gateway:   "%{hiera('netcfg_mgmt_gateway')}"
+    type:      'Bridge'
+  'br1':
+    defroute:  'no'
+    onboot:    'yes'
+    ipaddress: "%{hiera('netcfg_trp_netpart')}.101"
+    netmask:   "%{hiera('netcfg_trp_netmask')}"
+    type:      'Bridge'
+  'br2':
+    defroute:  'no'
+    onboot:    'yes'
+    bootproto: 'none'
+    type:      'Bridge'
+  'br3':
+    defroute:  'no'
+    onboot:    'yes'
+    bootproto: 'none'
+    type:      'Bridge'
