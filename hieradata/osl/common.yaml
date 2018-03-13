@@ -60,12 +60,14 @@ public6__address__resolver_01: '2001:700:2:82ff::252'
 profile::network::services::dns_records:
   CNAME:
     # frontend
-    "www.%{hiera('domain_frontend')}":        'norcams.github.io'
-    "docs.%{hiera('domain_frontend')}":       'uh-iaas.readthedocs.io'
-    "status.%{hiera('domain_frontend')}":     'uh-status-front.iaas.uib.no'
-    "access.%{hiera('domain_frontend')}":     'uh-access-front.iaas.uib.no'
-    "dashboard.%{hiera('domain_frontend')}":  'uh-dboard-front.iaas.uib.no'
-    "api.%{hiera('domain_frontend')}":        'uh-api-front.iaas.uib.no'
+    "www.%{hiera('domain_frontend')}":           'norcams.github.io'
+    "docs.%{hiera('domain_frontend')}":          'uh-iaas.readthedocs.io'
+    "status.%{hiera('domain_frontend')}":        'uh-status-front.iaas.uib.no'
+    "access.%{hiera('domain_frontend')}":        'uh-access-front.iaas.uib.no'
+    "dashboard.%{hiera('domain_frontend')}":     'uh-dboard-front.iaas.uib.no'
+    "api.%{hiera('domain_frontend')}":           'uh-api-front.iaas.uib.no'
+    "dashboard-osl.%{hiera('domain_frontend')}": 'uh-dboard.iaas.uio.no'
+    "dashboard-bgo.%{hiera('domain_frontend')}": 'uh-dboard.iaas.uib.no'
   A:
     # mgmt
     "%{::location}-leaf-02.%{hiera('domain_mgmt')}":        "%{hiera('netcfg_mgmt_netpart')}.2"
