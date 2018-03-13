@@ -1,4 +1,8 @@
 ---
+include:
+  default:
+    - profile::network::nat
+
 network::interfaces_hash:
   'eth0':
     'ipaddress': '172.31.4.1/24'
