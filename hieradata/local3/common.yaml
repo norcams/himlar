@@ -85,9 +85,6 @@ profile::network::services::dns_records:
     "metric.api.%{hiera('domain_public')}":               "%{hiera('netcfg_public_netpart')}.250"
     # mgmt
     "%{::location}-login-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.10"
-  PTR:
-    "1.%{hiera('netcfg_reverse_dns')}":                   "%{::location}-leaf-01.%{hiera('domain_mgmt')}"
-    "10.%{hiera('reverse_mgmt')}":                        "%{::location}-login-01.%{hiera('domain_mgmt')}"
 
 profile::network::services::dhcp_reservation:
   local3-leaf-01:
