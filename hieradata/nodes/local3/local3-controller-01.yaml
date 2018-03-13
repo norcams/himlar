@@ -57,14 +57,14 @@ lvm::volume_groups:
     physical_volumes:
       - /dev/sdf
     logical_volumes:
-      lv_ext:
+      lv_ext_evo:
         fs_type:   xfs
         mountpath: "/var/lib/libvirt/images_evo"
   vg_ext_ocz:
     physical_volumes:
       - /dev/sdg
     logical_volumes:
-      lv_ext:
+      lv_ext_ocz:
         fs_type:   xfs
         mountpath: "/var/lib/libvirt/images_ocz"
 
