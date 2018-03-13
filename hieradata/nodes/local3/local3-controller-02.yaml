@@ -38,12 +38,3 @@ network::interfaces_hash:
     onboot:    'yes'
     bootproto: 'none'
     type:      'Bridge'
-
-lvm::volume_groups:
-  vg_ext:
-    physical_volumes:
-      - /dev/sda3
-    logical_volumes:
-      lv_ext:
-        fs_type:   xfs
-        mountpath: "/var/lib/libvirt/images"
