@@ -25,7 +25,8 @@ profile::network::yum_proxy::yum_proxy:   "http://%{hiera('mgmt__address__proxy'
 # Source proxy for internet access during puppetrun
 #puppet::cron_cmd: "if [ -e /root/proxy.sh ] ; then source /root/proxy.sh ; fi ; \
 #  /usr/bin/env puppet agent --config %{puppet::dir}/puppet.conf --onetime --no-daemonize"
-puppet::cron_cmd: "/opt/puppetlabs/bin/puppet agent --config /etc/puppetlabs/puppet/puppet.conf --onetime --no-daemonize"
+puppet::cron_cmd: "if [ -e /root/proxy.sh ] ; then source /root/proxy.sh ; fi ; \
+  /opt/puppetlabs/bin/puppet agent --config /etc/puppetlabs/puppet/puppet.conf --onetime --no-daemonize"
 
 profile::openstack::compute::migration::enable_nova_account: true
 # Set .ssh dir for nova to 0755 to enable sensu checks
