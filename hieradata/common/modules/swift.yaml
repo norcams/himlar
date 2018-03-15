@@ -29,8 +29,6 @@ swift::proxy::authtoken::username:            'swift'
 swift::proxy::authtoken::password:            "%{hiera('swift_api_password')}"
 swift::proxy::authtoken::project_name:        'services'
 
-swift::proxy::keystone::operator_roles:       ['admin', 'object']
-swift::proxy::versioned_writes::allow_versioned_writes: true
 swift::proxy::proxy_local_net_ip:             '%{::ipaddress_trp1}'
 swift::proxy::port:                           '8080'
 swift::proxy::log_facility:                   'LOCAL7'
@@ -39,14 +37,38 @@ swift::proxy::pipeline:
   - 'catch_errors'
   - 'healthcheck'
   - 'cache'
-#  - 'container_sync'
+  - 'swift3'
+  - 's3token'
   - 'authtoken'
-  - 'keystone'
+  - 'keystoneauth'
   - 'copy'
   - 'dlo'
+  - 'slo'
   - 'versioned_writes'
   - 'proxy-logging'
+  - 'ceilometer'
   - 'proxy-server'
+
+# swift proxy iddleware (node: object)
+swift::proxy::keystoneauth::operator_roles:             ['admin', 'object']
+swift::proxy::versioned_writes::allow_versioned_writes: true
+#swift::proxy::crossdomain::cross_domain_policy:         "<allow-access-from domain=\"%{hiera('public__address__dashboard')}\" secure=\"false\" />"
+swift::proxy::copy::object_post_as_copy:                false
+
+# s3 (node: object)
+swift::proxy::s3token::auth_uri:                   "%{hiera('endpoint__identity__internal')}"
+#swift::proxy::s3token::insecure:                  true
+
+# ceilometer (node: object)
+swift::proxy::ceilometer::default_transport_url:  "%{hiera('service__transport__url')}"
+swift::proxy::ceilometer::driver:                 'messagingv2'
+swift::proxy::ceilometer::topic:                  'notifications'
+swift::proxy::ceilometer::auth_uri:               "%{hiera('endpoint__identity__internal')}"
+swift::proxy::ceilometer::auth_url:               "%{hiera('endpoint__identity__admin')}"
+swift::proxy::ceilometer::username:               'swift'
+swift::proxy::ceilometer::password:               "%{hiera('swift_api_password')}"
+swift::proxy::ceilometer::project_name:           'services'
+swift::proxy::ceilometer::group:                  'swift'
 
 # ringserver (node: object)
 swift::ringserver::local_net_ip:              '%{::ipaddress_trp1}'

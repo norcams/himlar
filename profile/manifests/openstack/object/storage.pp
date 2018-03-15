@@ -8,11 +8,12 @@ class profile::openstack::object::storage(
   Hash $ring_account_nodes              = {},
   Array[String] $ring_container_devices = [],
   Hash $ring_container_nodes            = {},
+  Hash $object_config                   = {},
   $loopback = {},
   $disk = {},
   $manage_firewall = false,
   $firewall_extras = {},
-  $firewall_ports = ['6000-6002']
+  $firewall_ports = ['6000-6002'],
 ) {
 
   include ::swift
@@ -22,6 +23,9 @@ class profile::openstack::object::storage(
   create_resources('swift::storage::loopback', $loopback)
   create_resources('swift::storage::disk', $disk)
   include ::swift::storage::all
+
+  # object-server.conf
+  create_resources('swift_object_config', $object_config)
 
   # Object ring devices
   $ring_object_nodes.each |$key, $value| {
