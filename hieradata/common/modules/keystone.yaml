@@ -11,9 +11,10 @@ keystone::admin_endpoint:                 "%{hiera('endpoint__identity__admin')}
 keystone::enable_proxy_headers_parsing:   true
 keystone::purge_config:                   true
 
-# notification (FIXME: should send cadf via rabbitmq to ceilomter)
-keystone::notification_driver:            'log'
-keystone::notification_format:            'basic'
+# notification
+keystone::notification_driver:            'messagingv2'
+keystone::notification_format:            'cadf'
+keystone::default_transport_url:          "%{hiera('service__transport__url')}"
 
 # token (FIXME: setup and rotate should only be run on one identity server!)
 #keystone::token_provider:                 'fernet'

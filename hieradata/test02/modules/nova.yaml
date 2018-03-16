@@ -9,8 +9,3 @@ nova::compute::rbd::libvirt_images_rbd_pool:      'vms'
 
 nova::compute::libvirt::libvirt_cpu_mode:         'custom'
 nova::compute::libvirt::libvirt_cpu_model:        'Nehalem'
-
-# FIXME move to common
-nova::notification_driver:          'messagingv2'
-nova::notification_transport_url:   "%{hiera('service__transport__url')}"
-nova::notification_topics:          'notifications' # not used before ocata
