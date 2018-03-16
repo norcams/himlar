@@ -53,7 +53,7 @@ profile::network::services::dns_records:
     "%{::location}-controller-04.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_netpart')}.111"
     "%{::location}-compute-04.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.112"
     # public
-    "ns.%{hiera('domain_public')}":                         '129.177.31.117'
+    "ns.%{hiera('domain_frontend')}":                       '129.177.31.117'
     "resolver.%{hiera('domain_public')}":                   '129.177.31.118'
     "api.%{hiera('domain_public')}":                        '129.177.31.122'
     "identity.api.%{hiera('domain_public')}":               '129.177.31.122'
@@ -66,7 +66,7 @@ profile::network::services::dns_records:
     "console.%{hiera('domain_public')}":                    '129.177.31.122' #125
     "dashboard.%{hiera('domain_public')}":                  '129.177.31.126'
   AAAA:
-    "ns.%{hiera('domain_public')}":       '2001:700:200:916::3f17'
+    "ns.%{hiera('domain_frontend')}":     '2001:700:200:916::3f17'
     "resolver.%{hiera('domain_public')}": '2001:700:200:916::3f18'
   PTR:
     # mgmt
@@ -116,12 +116,12 @@ profile::network::services::dns_records:
     "115.%{hiera('reverse_mgmt')}":    "%{::location}-compute-07.%{hiera('domain_mgmt')}"
     "116.%{hiera('reverse_mgmt')}":    "%{::location}-compute-08.%{hiera('domain_mgmt')}"
     # public IPv4
-    "117.%{hiera('reverse_public')}":  "ns.%{hiera('domain_public')}"
+    "117.%{hiera('reverse_public')}":  "ns.%{hiera('domain_frontend')}"
     "118.%{hiera('reverse_public')}":  "resolver.%{hiera('domain_public')}"
     "122.%{hiera('reverse_public')}":  "api.%{hiera('domain_public')}"
     "126.%{hiera('reverse_public')}":  "dashboard.%{hiera('domain_frontend')}"
     # public IPv6
-    "7.1.f.3.0.0.0.0.0.0.0.0.0.0.0.0.%{hiera('reverse_public6')}":  "ns.%{hiera('domain_public')}"
+    "7.1.f.3.0.0.0.0.0.0.0.0.0.0.0.0.%{hiera('reverse_public6')}":  "ns.%{hiera('domain_frontend')}"
     "8.1.f.3.0.0.0.0.0.0.0.0.0.0.0.0.%{hiera('reverse_public6')}":  "resolver.%{hiera('domain_public')}"
 
 
@@ -129,13 +129,17 @@ profile::network::services::dns_options:
   CNAME:
     default:
       ttl: 3600
-      keyfile: "/etc/rndc-%{location}.key"
-      server: 'alfalfa.uib.no'
+      keyfile: "/etc/rndc-admin.key"
+      server: "%{hiera('netcfg_mgmt_netpart')}.16"
+#      keyfile: "/etc/rndc-%{location}.key"
+#      server: 'alfalfa.uib.no'
   A:
     default:
       ttl: 3600
-      keyfile: "/etc/rndc-%{location}.key"
-      server: 'alfalfa.uib.no'
+      keyfile: "/etc/rndc-admin.key"
+      server: "%{hiera('netcfg_mgmt_netpart')}.16"
+#      keyfile: "/etc/rndc-%{location}.key"
+#      server: 'alfalfa.uib.no'
   AAAA:
     default:
       ttl: 3600

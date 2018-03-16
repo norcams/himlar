@@ -64,6 +64,8 @@ glance::policy::policies:
     value:  'role:superuser or role:admin'
 
 # rabbit mq (only for notifications)
+glance::notify::rabbitmq::default_transport_url:  "%{hiera('service__transport__url')}"
+glance::notify::rabbitmq::notification_driver:    'messagingv2'
 #glance::notify::rabbitmq::rabbit_userid:         'glance'
 #glance::notify::rabbitmq::rabbit_virtual_host:   'glance'
 #glance::notify::rabbitmq::rabbit_hosts:

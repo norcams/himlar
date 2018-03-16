@@ -1,4 +1,8 @@
 ---
+include:
+  default:
+    - profile::network::nat
+
 network::interfaces_hash:
   'eth0':
     'ipaddress': '172.31.4.1/24'
@@ -6,8 +10,8 @@ network::interfaces_hash:
     'post_down': [ '/etc/network/if-down.d/z90-route-eth0', ]
   'swp7':
     'ipaddress': '129.177.11.75/24'
-    'post_up': [ '/etc/network/if-up.d/z90-route-swp9', ]
-    'post_down': [ '/etc/network/if-down.d/z90-route-swp9', ]
+    'post_up': [ '/etc/network/if-up.d/z90-route-swp7', ]
+    'post_down': [ '/etc/network/if-down.d/z90-route-swp7', ]
 
 # In production environment these should be VLAN aware
 # bridges and actually tagged. This is not possible in

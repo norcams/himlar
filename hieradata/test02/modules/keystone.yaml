@@ -4,8 +4,3 @@ keystone::db::mysql::allowed_hosts: # FIXME
 
 # keystone uses db-01
 keystone::database_connection: "mysql://keystone:%{hiera('keystone::db::mysql::password')}@172.30.32.41/keystone"
-
-# FIXME move to common
-keystone::notification_driver:            'messagingv2'
-keystone::notification_format:            'cadf'
-keystone::default_transport_url:          "%{hiera('service__transport__url')}"

@@ -4,10 +4,10 @@ profile::dns::ns::internal_zone: "test01.uhdc.no"
 profile::dns::ns::public_zone:   "test.iaas.uib.no"
 
 # Temporary: Forward everything to UiB resolvers
-profile::dns::ns::forward_everything: true
-profile::dns::ns::forwarders:
-  - "129.177.6.54"
-  - "129.177.12.31"
+#profile::dns::ns::forward_everything: true
+#profile::dns::ns::forwarders:
+#  - "129.177.6.54"
+#  - "129.177.12.31"
 
 # Forward zones. Only zones that are "internal". Requests for records
 # in these zones will be forwarded to the authoritative DNS server

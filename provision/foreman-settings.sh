@@ -104,7 +104,7 @@ common_config()
 
   # Sync our custom provision templates
   /sbin/foreman-rake templates:sync \
-    repo="https://github.com/norcams/community-templates.git" branch="puppet4" associate="always"
+    repo="https://github.com/norcams/community-templates.git" branch="norcams" associate="always"
   # Save template ids
   norcams_provision_id=$(/bin/hammer --csv template list --per-page 1000 | grep 'norcams Kickstart default' | cut -d, -f1)
   norcams_pxelinux_id=$(/bin/hammer --csv template list --per-page 1000 | grep 'norcams PXELinux default' | cut -d, -f1)

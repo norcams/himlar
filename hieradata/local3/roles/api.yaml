@@ -1,0 +1,6 @@
+---
+# HAproxy
+star_api_ssl_pem: "star.api.%{hiera('domain_public')}.pem"
+api_ssl_pem:      "api.%{hiera('domain_public')}.pem"
+status_ssl_pem:   "status.%{hiera('domain_public')}.pem"
+console_ssl_pem:  "console.%{hiera('domain_public')}.pem"

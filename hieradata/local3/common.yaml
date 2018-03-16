@@ -1,10 +1,15 @@
 ---
+include:
+  default:
+    - profile::monitoring::sensu::agent
+
 location_environment: 'local3'
 location_description: 'Local development environment'
 
-domain_public: 'local3.iaas.intern'
-domain_trp:    'trp.local3.iaas.intern'
-domain_mgmt:   'mgmt.local3.iaas.intern'
+domain_frontend:      'iaas.intern'
+domain_public:        'local3.iaas.intern'
+domain_trp:           'trp.local3.iaas.intern'
+domain_mgmt:          'mgmt.local3.iaas.intern'
 
 netcfg_trp_gateway: '172.31.12.1'
 
@@ -49,27 +54,6 @@ allow_from_network:
 
 endpoint_protocol:      'https'
 
-# transport
-service__address__mysql:             "%{hiera('netcfg_netpart_trp')}.41"
-service__address__keystone:          "%{hiera('netcfg_netpart_trp')}.81"
-service__address__keystone_admin:    "%{hiera('netcfg_netpart_trp')}.81"
-service__address__glance_registry:   "%{hiera('netcfg_netpart_trp')}.36"
-service__address__glance_api:        "%{hiera('netcfg_netpart_trp')}.36"
-service__address__nova_api:          "%{hiera('netcfg_netpart_trp')}.66"
-service__address__nova_api_metadata: "127.0.0.1"
-service__address__neutron_server:    "%{hiera('netcfg_netpart_trp')}.71"
-service__address__cinder_api:        "%{hiera('netcfg_netpart_trp')}.46"
-service__address__etcd_cluster:      "%{hiera('netcfg_netpart_trp')}.71"
-
-# mgmt
-service__address__status:            "status.%{domain}"
-service__address__rsyslog:           "logger.%{domain}"
-
-# rabbitmq
-service__address__rabbitmq_01:       "%{hiera('netcfg_netpart_trp')}.31"
-service__address__rabbitmq_02:       "%{hiera('netcfg_netpart_trp')}.31"
-service__address__rabbitmq_03:       "%{hiera('netcfg_netpart_trp')}.31"
-
 profile::network::services::dns_options:
   CNAME:
     default:
@@ -106,9 +90,6 @@ profile::network::services::dns_records:
     "metric.api.%{hiera('domain_public')}":               "%{hiera('netcfg_public_netpart')}.250"
     # mgmt
     "%{::location}-login-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.10"
-  PTR:
-    "1.%{hiera('netcfg_reverse_dns')}":                   "%{::location}-leaf-01.%{hiera('domain_mgmt')}"
-    "10.%{hiera('reverse_mgmt')}":                        "%{::location}-login-01.%{hiera('domain_mgmt')}"
 
 profile::network::services::dhcp_reservation:
   local3-leaf-01:
@@ -200,8 +181,7 @@ swift_api_password:                                 'swift_pass'
 dispersion_api_password:                            'dispersion_pass'
 
 # The root user password
-accounts::root_user::password:                      '$6$qVzsC5fQMqdF4gKw$.zFAu9LtxSAaPgbtZul/ZXUXpBgjaVJbQ.CIMo9eo5TslU8KU1SO/tjRZbh1hFM6RB55QFEzJlF5ejAgglk50.'
-
+#accounts::root_user::password:                      '$6$qVzsC5fQMqdF4gKw$.zFAu9LtxSAaPgbtZul/ZXUXpBgjaVJbQ.CIMo9eo5TslU8KU1SO/tjRZbh1hFM6RB55QFEzJlF5ejAgglk50.'
 
 profile::openstack::resource::networks:
   public:

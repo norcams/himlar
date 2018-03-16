@@ -44,3 +44,43 @@ network::interfaces_hash:
 
 # Use controller-01 for himlar bootstrap
 profile::bootstrap::himlar::manage_bootstrap_scripts: true
+
+lvm::volume_groups:
+  vg_ext:
+    physical_volumes:
+      - /dev/sde3
+    logical_volumes:
+      lv_ext:
+        fs_type:   xfs
+        mountpath: "/var/lib/libvirt/images"
+  vg_ext_evo:
+    physical_volumes:
+      - /dev/sdf
+    logical_volumes:
+      lv_ext_evo:
+        fs_type:   xfs
+        mountpath: "/var/lib/libvirt/images_evo"
+  vg_ext_ocz:
+    physical_volumes:
+      - /dev/sdg
+    logical_volumes:
+      lv_ext_ocz:
+        fs_type:   xfs
+        mountpath: "/var/lib/libvirt/images_ocz"
+
+profile::virtualization::libvirt::pools:
+  dirpool:
+    ensure:              present
+    autostart:           true
+    type:                dir
+    target:              /var/lib/libvirt/images
+  dirpoolevo:
+    ensure:              present
+    autostart:           true
+    type:                dir
+    target:              /var/lib/libvirt/images_evo
+  dirpoolocz:
+    ensure:              present
+    autostart:           true
+    type:                dir
+    target:              /var/lib/libvirt/images_ocz

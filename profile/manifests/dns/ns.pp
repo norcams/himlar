@@ -118,9 +118,19 @@ class profile::dns::ns (
       dport => 53,
       proto => 'tcp'
     }
+    profile::firewall::rule { '001 dns incoming tcp IPv6':
+      dport    => 53,
+      proto    => 'tcp',
+      provider => 'ip6tables'
+    }
     profile::firewall::rule { '002 dns incoming udp':
       dport => 53,
       proto => 'udp'
+    }
+    profile::firewall::rule { '002 dns incoming udp IPv6':
+      dport    => 53,
+      proto    => 'udp',
+      provider => 'ip6tables'
     }
     profile::firewall::rule { '003 rndc incoming - bind only':
       dport  => 953,

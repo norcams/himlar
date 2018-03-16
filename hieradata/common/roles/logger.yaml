@@ -41,7 +41,7 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_log'
     fs_type:      "xfs"
     mountpath:    "/opt/log"
-    size:         '10G'
+    size:         '20G'
   'lv_els':
     volume_group: 'vg_log'
     fs_type:      "xfs"
@@ -50,7 +50,7 @@ profile::base::lvm::logical_volume:
 logrotate::rules:
   openstack:
     path:           '/opt/log/*.log'
-    rotate:         30
+    rotate:         7
     postrotate:     '/bin/kill -HUP `cat /var/run/syslogd.pid 2> /dev/null` 2> /dev/null || true'
     sharedscripts:  true
     missingok:      true
@@ -58,7 +58,7 @@ logrotate::rules:
     compress:       true
   messages:
     path:           '/opt/log/*/messages'
-    rotate:         30
+    rotate:         7
     postrotate:     '/bin/kill -HUP `cat /var/run/syslogd.pid 2> /dev/null` 2> /dev/null || true'
     sharedscripts:  true
     missingok:      true

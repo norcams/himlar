@@ -39,6 +39,13 @@ profile::dns::ns::fw_zones:
     ns_aaaa_records:
       'ns0': "%{hiera('public6__address__ns')}"
       'ns1': '2001:700:2:83ff::251'
+    delegations:
+      'osl':
+        - 'ns0.uh-iaas.no'
+        - 'ns1.uh-iaas.no'
+      'bgo':
+        - 'ns0.uh-iaas.no'
+        - 'ns1.uh-iaas.no'
 
 # Reverse zones, for which the name server is authoritative
 profile::dns::ns::ptr_zones:

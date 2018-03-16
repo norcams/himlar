@@ -131,6 +131,9 @@ nova::compute::spice::server_listen:              "%{::ipaddress_trp1}"
 nova::compute::instance_usage_audit:              true
 nova::compute::instance_usage_audit_period:       'hour'
 nova::notify_on_state_change:                     'vm_and_task_state'
+nova::notification_driver:                        'messagingv2'
+nova::notification_transport_url:                 "%{hiera('service__transport__url')}"
+nova::notification_topics:                        'notifications' # not used before ocata
 
 # Disable reboot through api until DHCP is fixed upstream (calico)
 nova::policy::policies:

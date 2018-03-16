@@ -6,7 +6,3 @@ glance::api::verbose:             true
 glance::registry::use_syslog:     true
 glance::registry::log_facility:   'LOG_LOCAL3'
 glance::registery::verbose:       true
-
-# FIXME move to common
-glance::notify::rabbitmq::default_transport_url:  "%{hiera('service__transport__url')}"
-glance::notify::rabbitmq::notification_driver:    'messagingv2'
