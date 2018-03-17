@@ -69,11 +69,13 @@ profile::firewall::rules::custom_rules:
 # HAproxy
 haproxy::global_options:
   log:          '127.0.0.1 local6 info alert'
+  maxconn:      '10000' # total connections per core
 
 haproxy::defaults_options:
   log:          'global'
   stats:        []
   option:       ['dontlognull', 'httplog', 'http-server-close', 'redispatch']
+  maxconn:      '2000' # default per frontend
   timeout:
     - 'connect 10s'
     - 'http-keep-alive 10s'
@@ -86,19 +88,17 @@ haproxy::defaults_options:
 # Allow ports in selinux|
 profile::base::selinux::ports:
   sfb-https:
-    context:  'http_port_t'
+    seltype:  'http_port_t'
     protocol: 'tcp'
-    port:     '4443'
+    port:     4443
   ldaps:
-    context:  'http_port_t'
+    seltype:  'http_port_t'
     protocol: 'tcp'
-    port:     '636'
-    argument: '-m'
+    port:     636
   ldap:
-    context:  'http_port_t'
+    seltype:  'http_port_t'
     protocol: 'tcp'
-    port:     '389'
-    argument: '-m'
+    port:     389
 
 #
 # Example with mapping, frontend and backend
@@ -273,6 +273,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       "%{hiera('corosync_cluster_vip3')}:80": []
       "%{hiera('corosync_cluster_vip4')}:80": []
     options:
+      - maxconn:        '10000'
       - option:         'httplog'
       - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/uib_domains.map)]'
       - capture:        'request header Host len 32' #for debug
@@ -282,6 +283,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       "%{hiera('corosync_cluster_vip3')}:443": []
       "%{hiera('corosync_cluster_vip4')}:443": []
     options:
+      - maxconn:        '10000'
       - option:         'tcplog'
       - tcp-request:
         - 'inspect-delay 5s'
