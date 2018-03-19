@@ -5,6 +5,8 @@ network::interfaces_hash:
     netmask:   '255.255.255.0'
     mtu:       '1500'
     defroute:  'no'
+    dns1:      "%{hiera('netcfg_dns_server1')}"
+    dns2:      "%{hiera('netcfg_dns_server2')}"
   'eth1':
     ipaddress: '172.30.0.51'
     netmask:   '255.255.255.0'
