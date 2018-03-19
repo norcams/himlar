@@ -13,7 +13,8 @@ network::interfaces_hash:
     bonding_opts:   'mode=balance-alb miimon=100'
     ipaddress:      "%{hiera('netcfg_mgmt_netpart')}.104"
     netmask:        "%{hiera('netcfg_mgmt_netmask')}"
-    dns1:           "%{hiera('mgmt__address__proxy')}"
+    dns1:           "%{hiera('netcfg_dns_server1')}"
+    dns2:           "%{hiera('netcfg_dns_server2')}"
     domain:         "%{hiera('netcfg_dns_search')}"
     peerdns:        'yes'
     defroute:       'no'
