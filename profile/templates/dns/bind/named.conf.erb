@@ -12,14 +12,15 @@ include "/etc/rndc-admin.key";
 
 # Define an ACL that includes all UH-IaaS networks
 acl iaas_nets {
-    172.16.0.0/12;        # internal rfc1918
-    192.168.0.0/24;       # vagrant public (rfc1918)
-    158.39.77.0/24;       # bgo IPv4
-    158.39.74.0/24;       # bgo IPv4
-    158.37.63.0/24;       # osl IPv4
-    158.39.75.0/24;       # osl IPv4
-    2001:700:2:8300::/56; # bgo IPv6
-    2001:700:2:8200::/56; # osl IPv6
+    172.16.0.0/12;         # internal rfc1918
+    192.168.0.0/24;        # vagrant public (rfc1918)
+    158.39.77.0/24;        # bgo IPv4
+    158.39.74.0/24;        # bgo IPv4
+    158.37.63.0/24;        # osl IPv4
+    158.39.75.0/24;        # osl IPv4
+    2001:700:2:8300::/56;  # bgo IPv6
+    2001:700:2:8200::/56;  # osl IPv6
+    2001:700:200:915::/64; # test01 IPv6
 };
 
 <% if @authoritative %>
