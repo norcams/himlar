@@ -91,11 +91,13 @@ profile::base::yumrepo::repo_hash:
     baseurl:        "%{hiera('yum_base_mirror')}/centos-base/"
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7'
     gpgcheck:       1
+    exclude:        'dnsmasq'
   CentOS-Updates:
     descr:          'CentOS-$releasever - Updates'
     baseurl:        "%{hiera('yum_base_mirror')}/centos-updates/"
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7'
     gpgcheck:       1
+    exclude:        'dnsmasq'
   CentOS-Extras:
     descr:          'CentOS-$releasever - Extras'
     baseurl:        "%{hiera('yum_base_mirror')}/centos-extras/"
