@@ -3,7 +3,6 @@ class profile::openstack::dashboard(
   $manage_dashboard     = false,
   $ports                = [80, 443],
   $manage_firewall      = false,
-  $allow_from_network   = undef,
   $internal_net         = "${::network_trp1}/${::netmask_trp1}",
   $firewall_extras      = {},
   $manage_overrides     = false,
@@ -42,15 +41,8 @@ class profile::openstack::dashboard(
   create_resources('openstacklib::policy::base', $policies, { require => Class['horizon']})
 
   if $manage_firewall {
-    $hiera_allow_from_network = lookup('allow_from_network', Array, 'unique', undef)
-    $source = $allow_from_network? {
-      undef   => $hiera_allow_from_network,
-      ''      => $hiera_allow_from_network,
-      default => $allow_from_network
-    }
     profile::firewall::rule { '235 public openstack-dashboard accept tcp':
       dport  => $ports,
-      source => $source,
       extras => $firewall_extras,
     }
   }
@@ -83,7 +75,7 @@ class profile::openstack::dashboard(
 
   if $change_login_footer {
     file { '/usr/share/openstack-dashboard/openstack_dashboard/templates/_login_footer.html':
-      ensure    => present,
+      ensure => present,
       source => "puppet:///modules/${module_name}/openstack/horizon/_login_footer.html",
     }
   }
