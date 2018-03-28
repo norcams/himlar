@@ -161,4 +161,4 @@ ceph::profile::params::client_keys:
     user: 'nova'
     group: 'nova'
     cap_mon: 'profile rbd'
-    cap_osd: 'profile rbd pool=volumes, allow rwx pool=vms, allow rwx pool=images'
+    cap_osd: 'profile rbd pool=volumes, profile rbd pool=vms, profile rbd pool=images'
