@@ -42,20 +42,13 @@ ceph::profile::params::client_keys:
     group: 'glance'
     cap_mon: 'profile rbd'
     cap_osd: 'profile rbd pool=images'
-  'client.volumes':
-    secret: "%{hiera('client_volumes::secret')}"
-    mode: '0600'
-    user: 'cinder'
-    group: 'cinder'
-    cap_mon: 'profile rbd'
-    cap_osd: 'profile rbd pool=volumes'
   'client.cinder':
     secret: "%{hiera('client_cinder::secret')}"
     mode: '0600'
     user: 'cinder'
     group: 'cinder'
     cap_mon: 'profile rbd'
-    cap_osd: 'profile rbd pool=images'
+    cap_osd: 'profile rbd pool=volumes, profile rbd pool=vms, profile rbd pool=images'
 #ceph::profile::params::osds:
 #  '/var/osd1':
 #    journal: '/var/osd1-journal'
