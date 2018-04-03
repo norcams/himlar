@@ -32,5 +32,5 @@ ceph::profile::params::client_keys:
     mode: '0600'
     user: 'glance'
     group: 'glance'
-    cap_mon: 'allow r'
-    cap_osd: 'allow class-read object_prefix rbd_children, allow rwx pool=images'
+    cap_mon: 'profile rbd'
+    cap_osd: 'profile rbd pool=images'

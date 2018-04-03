@@ -7,10 +7,31 @@ include:
     - profile::openstack::object::proxy
     - profile::logging::rsyslog::client
 
+openstack_version: 'ocata' #FIXME
+
 profile::openstack::object::proxy::manage_firewall:   true
 profile::openstack::object::proxy::manage_ringserver: true
+profile::openstack::object::proxy::manage_ceilometer: true
+profile::openstack::object::proxy::manage_swift3:     true
 profile::openstack::object::proxy::firewall_extras:
   source: "%{::network_trp1}/%{::netmask_trp1}"
+
+profile::openstack::object::proxy::proxy_config:
+  'filter:swift3/location':
+    value: '%{::location}'
+  'filter:swift3/dns_compliant_bucket_names':
+    value: true
+  'filter:authtoken/service_token_roles_required':
+    value: true
+
+# Note that S3 allows more headers than the default Swift object-server
+# configuration. In particular, You may need to add Cache-Control,
+# Content-Language, Expires, and X-Robots-Tag
+#
+# NOTE(raykrist): dropping this for now
+#profile::openstack::object::storage::object_config:
+#  'app:object-server/allowed_headers':
+#    value: 'Cache-Control, Content-Disposition, Content-Encoding, Content-Language, Expires, X-Delete-At, X-Object-Manifest, X-Robots-Tag, X-Static-Large-Object'
 
 profile::openstack::object::storage::manage_firewall:   true
 profile::openstack::object::storage::firewall_extras:
@@ -24,7 +45,7 @@ profile::openstack::openrc::username:     'swift'
 profile::openstack::openrc::project_name: 'services'
 
 # Memcached max memory 75%
-memcached::max_memory: '75%'
+memcached::max_memory: '50%'
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:

@@ -3,8 +3,6 @@ include:
   default:
     - profile::network::dns_extra_zone
 
-foreman_version: '1.16'
-
 # Add in addition to mgmt.tos.uhdc.no
 profile::network::dns_extra_zone::zone:
   - "%{hiera('domain_trp')}"

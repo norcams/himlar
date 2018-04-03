@@ -35,7 +35,7 @@ export PATH=/usr/bin:/usr/local/bin:/bin:/usr/local/sbin:/usr/sbin
 filename=/opt/images/public_builds/<%= @name %>-$(date +"%Y%m%d").qcow2
 tmp_file=/opt/images/public_builds/<%= @name %>.tmp
 
-if [ $(which qemu-img) ]; then
+if [ $(which qemu-img) ] && [ -f ${filename} ]; then
   mv -f ${filename} ${tmp_file}
   qemu-img convert -O qcow2 -c ${tmp_file} ${filename}
   rm -f ${tmp_file}

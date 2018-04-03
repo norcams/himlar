@@ -2,19 +2,17 @@
 # Allow ports in selinux|
 profile::base::selinux::ports:
   sfb-https:
-    context:  'http_port_t'
+    seltype:  'http_port_t'
     protocol: 'tcp'
-    port:     '4443'
+    port:     4443
   ldaps:
-    context:  'http_port_t'
+    seltype:  'http_port_t'
     protocol: 'tcp'
-    port:     '636'
-    argument: '-m'
+    port:     636
   ldap:
-    context:  'http_port_t'
+    seltype:  'http_port_t'
     protocol: 'tcp'
-    port:     '389'
-    argument: '-m'
+    port:     389
 
 #
 # Default interfaces
@@ -75,7 +73,7 @@ haproxy::global_options:
   log:          '127.0.0.1 local6 info alert'
   nbproc:       '2'
   cpu-map:      ['1 0', '2 2']
-  maxconn:      '10000' # per core
+  maxconn:      '20000' # per core
 haproxy::defaults_options:
   log:          'global'  #FIXME turn of debug logging in production
   stats:        []
@@ -379,6 +377,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       "%{hiera('corosync_cluster_vip3')}:80": []
       "%{hiera('corosync_cluster_vip4')}:80": []
     options:
+      - maxconn:        '16000' # max internal http connections
       - option:         'httplog'
       - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/uib_http_domains.map)]'
       - capture:        'request header Host len 32' #for debug
@@ -388,6 +387,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       "%{hiera('corosync_cluster_vip3')}:443": []
       "%{hiera('corosync_cluster_vip4')}:443": []
     options:
+      - maxconn:        '16000' # max internal https connections
       - option:         'tcplog'
       - tcp-request:
         - 'inspect-delay 5s'

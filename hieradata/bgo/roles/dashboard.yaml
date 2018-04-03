@@ -1,5 +1,4 @@
 ---
-profile::base::selinux::manage_selinux: false
 profile::base::common::manage_lvm: true
 profile::base::lvm::physical_volume:
   '/dev/vdb':

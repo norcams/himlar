@@ -7,6 +7,7 @@ class profile::highavailability::loadbalancing::haproxy (
   $firewall_ports          = {
     'public'   => ['5000'],
     'internal' => ['35357'],
+    'limited'  => ['80','443'],
     'mgmt'     => ['9000']
   },
   $enable_nonlocal_bind    = false,
@@ -65,11 +66,11 @@ class profile::highavailability::loadbalancing::haproxy (
     validate_array($firewall_ports['public'])
     validate_array($firewall_ports['internal'])
     validate_array($firewall_ports['mgmt'])
+    validate_array($firewall_ports['limited'])
 
     profile::firewall::rule { '450 haproxy public accept tcp':
       proto       => 'tcp',
       destination => $::ipaddress_public1,
-      source      => $source,
       dport       => $firewall_ports['public'],
       extras      => $firewall_extras,
     }
@@ -86,6 +87,13 @@ class profile::highavailability::loadbalancing::haproxy (
       destination => $::ipaddress_mgmt1,
       source      => "${::network_mgmt1}/${::netmask_mgmt1}",
       dport       => $firewall_ports['mgmt']
+    }
+    # Limited access for 80 and 443
+    profile::firewall::rule { '453 haproxy limited accept tcp':
+      proto       => 'tcp',
+      destination => $::ipaddress_public1,
+      source      => $source,
+      dport       => $firewall_ports['limited']
     }
   }
 
