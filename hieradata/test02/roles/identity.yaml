@@ -1,0 +1,13 @@
+---
+profile::base::selinux::manage_selinux:		true
+
+profile::base::selinux::boolean:
+  'httpd_can_network_connect':
+    ensure: 'on'
+    persistent: true
+  'httpd_can_network_connect_db':
+    ensure: 'on'
+    persistent: true
+  'httpd_use_openstack':
+    ensure: 'on'
+    persistent: true
