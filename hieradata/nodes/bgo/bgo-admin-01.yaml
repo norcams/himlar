@@ -9,3 +9,8 @@ network::interfaces_hash:
     dns1:      "%{hiera('netcfg_dns_server1')}"
     domain:    "%{hiera('netcfg_dns_search')}"
     defroute:  'yes'
+  'eth1':
+    ipaddress: '172.17.0.9'
+    netmask:   '255.255.248.0'
+    mtu:       '1500'
+    defroute:  'no'
