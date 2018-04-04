@@ -30,7 +30,7 @@ network::interfaces_hash:
     ipaddress: '158.39.77.252'
     netmask:   '255.255.255.255'
     ipv6init:  'yes'
-    ipv6addr:  '2001:700:2:83ff::252'
+    ipv6addr:  '2001:700:2:83ff::252/128'
     defroute:  'no'
 profile::base::network::routes:
   'eth1':

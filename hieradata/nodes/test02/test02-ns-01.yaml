@@ -28,7 +28,7 @@ network::interfaces_hash:
     ipaddress: "%{hiera('netcfg_public_netpart')}.251"
     netmask:   '255.255.255.255'
     ipv6init:  'yes'
-    ipv6addr:  "%{hiera('netcfg_public_netpart6')}::251"
+    ipv6addr:  "%{hiera('netcfg_public_netpart6')}::251/128"
     defroute:  'no'
 
 profile::base::network::routes:
