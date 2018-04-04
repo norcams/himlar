@@ -9,8 +9,8 @@ defaults:
   primary:   false
   location:  "vagrant"
   domain:    "mgmt.vagrant.iaas.intern"
-  cpus:      1
-  memory:    1024
+  cpus:      4 
+  memory:    2048
   networks:
     - "mgmt"
     - "trp"
