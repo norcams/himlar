@@ -1,4 +1,5 @@
 class profile::dns::ns (
+  $allowed_nets = undef,
   $my_mgmt_addr = {},
   $my_transport_addr = {},
   #$mdns_transport_addr = {},
