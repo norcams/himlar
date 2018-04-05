@@ -11,7 +11,7 @@ include "/etc/rndc-admin.key";
 <% end -%>
 
 <% if @allowed_nets -%>
-# Define an ACL that includes all UH-IaaS networks
+# Define an ACL for networks allowed to do queries
 acl allowed_nets {
 <% (1..@allowed_nets.length).each do |i| %>    <%= @allowed_nets[i-1] %>
 <% end%>};<% end -%>
