@@ -2,9 +2,6 @@
 profile::dns::ns::my_mgmt_addr:      "%{hiera('netcfg_mgmt_netpart')}.17"
 profile::dns::ns::my_transport_addr: "%{hiera('netcfg_trp_netpart')}.17"
 
-# Defined here instead of roles, as only resolver-01 needs this
-profile::base::network::manage_dummy: true
-
 network::interfaces_hash:
   'eth0':
     onboot:    'yes'
