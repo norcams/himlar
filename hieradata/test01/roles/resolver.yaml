@@ -41,6 +41,3 @@ profile::dns::ns::allowed_nets:
   - '2001:700:200:915::/64; # test01 IPv6'
   - '2001:700:200:916::/64; # test01 IPv6'
   - 'fd34::/64;             # test02 IPv6'
-
-profile::dns::ns::enable_bird:          true
-profile::dns::ns::manage_bird_firewall: true
