@@ -12,9 +12,6 @@ OPENSTACK_ENABLE_PASSWORD_RETRIEVE = '<%= @enable_pwd_retrieval %>'
 <% if @image_upload_mode -%>
 HORIZON_IMAGES_UPLOAD_MODE = '<%= @image_upload_mode %>'
 <% end -%>
-<% if @change_login_footer -%>
-HORIZON_CONFIG['customization_module'] = 'openstack_dashboard._login_footer'
-<% end -%>
 <% if @database -%>
 DATABASES = {
     'default': {
