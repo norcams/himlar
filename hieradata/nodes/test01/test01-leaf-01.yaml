@@ -91,6 +91,8 @@ quagga::quagga::bgp_options:
   - 'router-id 172.30.0.1'
   - 'log-neighbor-changes'
   - 'default local-preference 200'
+  - 'maximum-paths ibgp 3'
+  - 'bgp bestpath as-path multipath-relax'
 
 quagga::quagga::bgp_networks:
   - '0.0.0.0/0'
