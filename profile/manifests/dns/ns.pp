@@ -11,6 +11,7 @@ class profile::dns::ns (
   $ns_public6_addr = {},
   $authoritative = {},
   $manage_firewall = {},
+  $manage_bird_firewall = false,
   $firewall_extras = {},
   $public_zone = {},
   $forward_everything = false,
@@ -155,6 +156,17 @@ class profile::dns::ns (
       ensure   => running,
       enable   => true,
       require  => Package['bird']
+    }
+  }
+  if $manage_bird_firewall {
+    profile::firewall::rule { '912 bird allow bfd':
+      proto  => 'udp',
+      port   => ['3784','3785','4784','4785'],
+    }
+    profile::firewall::rule { "010 bird bgp - accept tcp to ${name}":
+      proto   => 'tcp',
+      port    => '179',
+      iniface => $::ipaddress_trp1,
     }
   }
 }
