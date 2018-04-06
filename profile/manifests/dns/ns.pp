@@ -1,5 +1,6 @@
 class profile::dns::ns (
   $allowed_nets = undef,
+  $enable_bird = false,
   $my_mgmt_addr = {},
   $my_transport_addr = {},
   #$mdns_transport_addr = {},
@@ -137,6 +138,23 @@ class profile::dns::ns (
       dport  => 953,
       proto  => 'tcp',
       extras => $firewall_extras
+    }
+  }
+
+  # Use BGP for anycast
+  if $enable_bird {
+    package { 'bird':
+      ensure   => installed
+    }
+    file { '/etc/bird.conf':
+      ensure   => file,
+      content  => template("${module_name}/bird/bird-resolver.conf.erb"),
+      notify   => Service['bird']
+    }
+    service { 'bird':
+      ensure   => running,
+      enable   => true,
+      require  => Package['bird']
     }
   }
 }
