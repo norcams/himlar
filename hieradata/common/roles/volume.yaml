@@ -16,6 +16,7 @@ profile::base::common::packages:
   'bash-completion-extras': {}
   'jq': {}
 
+profile::base::selinux::manage_selinux:   false
 profile::openstack::openrc::password:     "%{hiera('cinder_api_password')}"
 profile::openstack::openrc::username:     'cinder'
 profile::openstack::openrc::project_name: 'services'

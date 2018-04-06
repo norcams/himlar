@@ -14,6 +14,7 @@ profile::base::common::packages:
   'bash-completion-extras': {}
   'jq': {}
 
+profile::base::selinux::manage_selinux:                   false
 #profile::openstack::identity::manage_token_rotate:        true
 profile::openstack::identity::disable_admin_token_auth:   true
 profile::openstack::identity::manage_openidc:             true
@@ -66,3 +67,14 @@ profile::openstack::resource::users::user_roles:
 profile::base::yumrepo::repo_hash:
   rdo-release:
     ensure: present
+
+profile::base::selinux::boolean:
+  'httpd_can_network_connect':
+    ensure: 'on'
+    persistent: true
+  'httpd_can_network_connect_db':
+    ensure: 'on'
+    persistent: true
+  'httpd_use_openstack':
+    ensure: 'on'
+    persistent: true
