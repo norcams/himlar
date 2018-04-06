@@ -1,0 +1,47 @@
+
+router id <%= @ipaddress_trp1 %>;
+
+<% if @debug %>debug protocols all;
+<% end -%>
+
+filter export_bgp {
+  if (ifname ~ "dummy*") then {
+    if  net != 0.0.0.0/0 then accept;
+  }
+  reject;
+}
+
+# Configure synchronization between BIRD's routing tables and the
+# kernel.
+protocol kernel {
+  learn;          # Learn all alien routes from the kernel
+  device routes;  # protect kernel device routes from being overwritten or removed by IGP routes
+  scan time 2;    # Scan kernel routing table every 2 seconds
+  import all;
+  graceful restart;
+  export all;     # Default is export none
+}
+
+protocol bfd {
+<% scope().call_function('hiera',['netcfg_trp_rr']).each do |name| %><%if name[1]['peer_ipv4'] %>  neighbor <%= name[1]['peer_ipv4'] %>;
+<% end %><% end %>}
+
+# Watch interface up/down events.
+protocol device {
+  scan time 2;    # Scan interfaces every 2 seconds
+}
+
+protocol direct {
+   debug all;
+   interface "*";
+}
+
+<% if scope().call_function('hiera',['netcfg_trp_rr']) -%><% scope().call_function('hiera',['netcfg_trp_rr']).each do |name, values| %>protocol bgp '<%= name %>_ipv4' {
+  local as <%= scope().call_function('hiera',['bgp_as']) %>;
+  neighbor <%= values["peer_ipv4"] %> as <%= scope().call_function('hiera',['bgp_as']) %>;
+  multihop;
+  graceful restart;
+  export filter export_bgp;
+  source address <%= @ipaddress_trp1 %>;  # The local address we use for the TCP connection
+}
+<% end %><% end -%>
