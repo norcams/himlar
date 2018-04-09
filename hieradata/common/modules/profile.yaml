@@ -210,7 +210,6 @@ profile::base::yumrepo::repo_hash:
     gpgkey:         "%{hiera('yum_base_mirror')}/mariadb/RPM-GPG-KEY-MariaDB"
     gpgcheck:       '1'
 
-
 # Turn on agant and add common sensu plugins
 sensu_ssl_cachain: ''
 profile::monitoring::sensu::agent::enable_agent: true
