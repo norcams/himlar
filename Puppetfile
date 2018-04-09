@@ -115,7 +115,7 @@ mod 'logrotate', :ref => 'v1.4.0',                  :git => github + 'yo61/puppe
 #
 # profile::monitoring
 #
-mod 'sensu', :ref => 'v2.40.0',                     :git => github + 'sensu/sensu-puppet'
+mod 'sensu', :ref => 'v2.51.0',                     :git => github + 'sensu/sensu-puppet'
 mod 'uchiwa', :ref => 'v1.0.1',                     :git => github + 'yelp/puppet-uchiwa'
 mod 'graphite', :ref => 'v7.2.0',                   :git => github + 'echocat/puppet-graphite' # fixed upstream
 mod 'redis', :ref => 'v3.2.0',                      :git => github + 'arioch/puppet-redis'
@@ -187,7 +187,7 @@ mod 'corosync', :ref => 'v5.1.0',                   :git => github + 'voxpupuli/
 #
 # Common libs
 #
-mod 'stdlib', :ref => '4.21.0',                     :git => github + 'puppetlabs/puppetlabs-stdlib'
+mod 'stdlib', :ref => '4.24.0',                     :git => github + 'puppetlabs/puppetlabs-stdlib'
 mod 'concat', :ref => '4.1.0',                      :git => github + 'puppetlabs/puppetlabs-concat'
 mod 'hash_file', :ref => '1.0.3',                   :git => github + 'fiddyspence/puppet-hash_file' # ??
 mod 'inifile', :ref => '2.0.0',                     :git => github + 'puppetlabs/puppetlabs-inifile'
