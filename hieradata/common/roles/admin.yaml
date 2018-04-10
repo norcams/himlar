@@ -53,3 +53,10 @@ profile::base::yumrepo::repo_hash:
 profile::base::common::manage_gems: true
 profile::base::common::gems:
   'ipaddress': {}
+
+# (Some) admin nodes are connected to oob net
+named_interfaces::config:
+  mgmt:
+    - eth0
+  oob:
+    - eth1
