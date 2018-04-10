@@ -13,6 +13,10 @@ class profile::application::himlarcli(
   $smtp,
   $from_addr,
   $domain,
+  $mq_host,
+  $mq_username,
+  $mq_password,
+  $mq_vhost,
   $ldap_server = undef,
   $ldap_base_dn = undef,
   $cacert = undef

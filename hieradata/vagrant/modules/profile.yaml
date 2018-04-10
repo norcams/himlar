@@ -4,6 +4,7 @@ profile::development::network::dns::manage_hosts: true
 profile::application::himlarcli::cacert:      '/opt/himlar/provision/ca/intermediate/certs/ca-chain.cert.pem'
 profile::application::himlarcli::smtp:        ''
 profile::application::himlarcli::from_addr:   ''
+profile::application::himlarcli::mq_host:     "%{hiera('mgmt__address__mq_01')}"
 
 profile::openstack::openrc::cacert:           '/opt/himlar/provision/ca/intermediate/certs/ca-chain.cert.pem'
 

@@ -15,6 +15,12 @@ url=<%= @foreman_url %>
 user=<%= @foreman_user %>
 password=<%= @foreman_password %>
 
+[rabbitmq]
+host=<%= @mq_host %>
+username=<%= @mq_username %>
+password=<%= @mq_password %>
+vhost=<%= @mq_vhost %>
+
 [statsd]
 server=<%= @statsd_server %>
 port = 8125
