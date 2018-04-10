@@ -3,21 +3,10 @@ router id <%= @ipaddress_trp1 %>;
 
 <% if @debug %>debug protocols all;
 <% end -%>
-# We are only going to export routes from Calico interfaces.
-# Currently, 'tap*' is used by the OpenStack implimentation
-# and 'cali*' is used by the docker implimentation.
-# dummy1 is the interface that bare metal "service" addresses
-# should be bound to if they should be exported.
-# This will need to be updated as we add new interface names.
-#
-# Also filter out default, just in case.
-#
-# We should automate the build of this out of variables when
-# we have time.
 
 filter export_bgp {
-  if (ifname ~ "tap*") then {
-    if  net != 0.0.0.0/0 then accept;
+  if  net != 0.0.0.0/0 then {
+    accept;
   }
   reject;
 }
@@ -31,12 +20,12 @@ protocol kernel {
   scan time 2;    # Scan kernel routing table every 2 seconds
   import all;
   graceful restart;
-  export all;     # Default is export none
+  export filter export_bgp;
 }
 
 protocol bfd {
-  neighbor <%= scope().call_function('hiera',['netcfg_trp_gateway']) %>;
-}
+<% scope().call_function('hiera',['netcfg_trp_rr']).each do |name| %><%if name[1]['peer_ipv4'] %>  neighbor <%= name[1]['peer_ipv4'] %>;
+<% end %><% end %>}
 
 # Watch interface up/down events.
 protocol device {
