@@ -171,6 +171,9 @@ class profile::dns::ns (
     }
   }
   if $check_named_health {
+    file { '/opt/named-checks/':
+      ensure  => directory,
+    } ~>
     file { "named_check.sh":
       ensure  => present,
       owner   => root,
