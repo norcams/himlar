@@ -37,9 +37,11 @@ profile::dns::ns::allowed_nets:
   - '192.168.0.0/16;        # vagrant and localXY public (rfc1918)'
 
 # For anycast
-profile::dns::ns::enable_bird:          true
-profile::dns::ns::manage_bird_firewall: true
-profile::dns::ns::check_named_health:   true
+profile::dns::ns::enable_bird:           true
+profile::dns::ns::manage_bird_firewall:  true
+profile::dns::ns::enable_bird6:          true
+profile::dns::ns::manage_bird6_firewall: true
+profile::dns::ns::check_named_health:    true
 
 profile::base::cron::crontabs:
   check_named:
