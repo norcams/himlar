@@ -1,5 +1,6 @@
 class profile::dns::ns (
   $allowed_nets = undef,
+  $check_named_health = false,
   $enable_bird = false,
   $my_mgmt_addr = {},
   $my_transport_addr = {},
@@ -167,6 +168,16 @@ class profile::dns::ns (
       proto   => 'tcp',
       port    => '179',
       iniface => $::ipaddress_trp1,
+    }
+  }
+  if $check_named_health {
+    file { "named_check.sh":
+      ensure  => present,
+      owner   => root,
+      group   => root,
+      mode    => '0755',
+      path    => "/opt/named-checks/named_health.sh",
+      content => template("${module_name}/dns/bind/named_check.erb"),
     }
   }
 }
