@@ -44,5 +44,5 @@ profile::dns::ns::check_named_health:   true
 profile::base::cron::crontabs:
   check_named:
     hour:     '*'
-    minute:   '*/1'
+    minute:   '*'
     command:  '/opt/himlarcli/bin/gen_stats.sh >/dev/null'
