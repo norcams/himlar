@@ -120,6 +120,8 @@ quagga::quagga::bgp_neighbor_groups:
     'options6':
       - 'route-reflector-client'
     'members6':
+      - 'fd00::17'
+      - 'fd00::18'
       - 'fd00::103'
       - 'fd00::104'
       - 'fd00::105'
