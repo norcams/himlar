@@ -19,6 +19,6 @@ scp $incoming/$file $remote_user@<%= @repo_server -%>:<%= @yumrepo_path %>
 ssh -t $remote_user@<%= @repo_server %> sudo restorecon <%= @yumrepo_path -%>$file
 
 # Update repo
-ssh $remote_user@<%= @repo_server -%> /usr/bin/createrepo <%= @yumrepo_path -%>
+ssh -t $remote_user@<%= @repo_server -%> sudo /usr/bin/createrepo <%= @yumrepo_path -%>
 
 rm -f $incoming/$file
