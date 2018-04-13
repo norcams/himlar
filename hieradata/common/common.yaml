@@ -19,6 +19,9 @@ location_tag:         unset
 
 bgp_as:               65535
 
+netcfg_anycast_dns:   '8.8.8.8'              # Placeholder data for bird compute template
+netcfg_anycast_dns6:  '2001:4860:4860::8888' # Placeholder data for bird6 compute template
+
 domain_frontend:      "%{::domain}"
 domain_public:        "%{::domain}"
 domain_trp:           "%{::domain}"
