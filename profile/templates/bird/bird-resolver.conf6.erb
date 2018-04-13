@@ -20,7 +20,7 @@ filter import_bgp {
 }
 
 filter export_anycast {
-  if net =<%= scope().call_function('hiera',['netcfg_anycast_dns6']) %>//128 then {
+  if net =<%= scope().call_function('hiera',['netcfg_anycast_dns6']) %>/128 then {
     accept;
   }
 }
