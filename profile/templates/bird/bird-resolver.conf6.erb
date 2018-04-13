@@ -19,6 +19,12 @@ filter import_bgp {
   reject;
 }
 
+filter export_anycast {
+  if net =<%= scope().call_function('hiera',['netcfg_anycast_dns6']) %>//128 then {
+    accept;
+  }
+}
+
 # Configure synchronization between BIRD's routing tables and the
 # kernel.
 protocol kernel {
@@ -50,7 +56,7 @@ protocol direct {
   multihop;
   graceful restart;
   import filter import_bgp;
-  export filter export_bgp;
+  export filter export_anycast;
   source address <%= @ipaddress6_trp1 %>;  # The local address we use for the TCP connection
 }
 <% end %><% end -%>
