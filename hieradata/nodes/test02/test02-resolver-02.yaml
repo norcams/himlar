@@ -23,6 +23,6 @@ network::interfaces_hash:
   'dummy0':
     ipaddress: "%{hiera('netcfg_public_netpart')}.252"
     netmask:   '255.255.255.255'
-#    ipv6init:  'yes'
-#    ipv6addr:  "%{hiera('netcfg_public_netpart6')}::252/128"
+    ipv6init:  'yes'
+    ipv6addr:  "%{hiera('netcfg_public_netpart6')}::252/128"
     defroute:  'no'

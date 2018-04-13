@@ -109,7 +109,8 @@ quagga::quagga::bgp_neighbor_groups:
       - '172.30.32.104'
       - '172.30.32.105'
     'options6':
-      - 'route-reflector-client'
+      - 'neighbor rr-clients route-reflector-client'
+      - 'maximum-paths ibgp 3'
     'members6':
       - 'fd32::103'
       - 'fd32::104'
