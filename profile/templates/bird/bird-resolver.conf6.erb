@@ -4,7 +4,7 @@ router id <%= @ipaddress_trp1 %>;
 <% if @debug %>debug protocols all;<% end -%>
 
 filter export_bgp {
-  if  net != ::/0 then {
+  if  ((net != ::/0) || (net !=2002::)) then {
     accept;
   }
   reject;
