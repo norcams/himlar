@@ -204,6 +204,8 @@ quagga::quagga::bgp_neighbor_groups:
       - 'route-map rr-client-allow in'
       - 'bfd'
     'members':
+      - '172.18.32.17'
+      - '172.18.32.18'
       - '172.18.32.26'
       - '172.18.32.103'
       - '172.18.32.104'
@@ -217,6 +219,8 @@ quagga::quagga::bgp_neighbor_groups:
       - 'neighbor rr-clients route-reflector-client'
       - 'maximum-paths ibgp 3'
     'members6':
+      - 'fd32::17'
+      - 'fd32::18'
       - 'fd32::103'
       - 'fd32::104'
       - 'fd32::105'
