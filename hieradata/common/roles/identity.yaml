@@ -14,7 +14,8 @@ openstack_version: 'ocata' #FIXME: ocata upgrade
 
 profile::base::common::packages:
   'bash-completion': {}
-  'bash-completion-extras': {}
+#  'bash-completion-extras': {}
+  'htop': { ensure: absent }
   'jq': {}
   'sharutils': {}
   'MariaDB-client': {}
@@ -116,13 +117,24 @@ profile::openstack::resource::users::user_roles:
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   rdo-release:
+<<<<<<< HEAD
     ensure:   present
     exclude:  'mariadb*'
   mariadb:
     ensure:   present
+<<<<<<< HEAD
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
     includepkgs: 'htop bash-completion-extras'
+=======
+=======
+    ensure: present
+  mariadb:
+    ensure: present
+  epel:
+    ensure: absent #RDO do not work well with epel any more
+>>>>>>> Updated keystone and identity for ocata
+>>>>>>> Updated keystone and identity for ocata
 
 profile::base::selinux::boolean:
   'httpd_can_network_connect':
