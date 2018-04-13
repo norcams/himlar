@@ -1,5 +1,7 @@
 ---
-keystone::debug:                          true
+# Add dumpio module in vagrant/roles/identity.yaml for it to work
+# keystone::debug:                                true
+# keystone::wsgi::apache::vhost_custom_fragment:  'DumpIOInput On'
 
 # FIXME move to common
 keystone::notification_driver:            'messagingv2'
@@ -9,4 +11,4 @@ keystone::default_transport_url:          "%{hiera('service__transport__url')}"
 # s3_extension must also be in public_api
 keystone::config::keystone_paste_ini:
   'pipeline:public_api/pipeline':
-    value: 'cors sizelimit http_proxy_to_wsgi osprofiler url_normalize request_id build_auth_context token_auth json_body ec2_extension s3_extension public_service'
+    value: 'healthcheck cors sizelimit http_proxy_to_wsgi osprofiler url_normalize request_id build_auth_context token_auth json_body ec2_extension s3_extension public_service'
