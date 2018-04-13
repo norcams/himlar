@@ -80,9 +80,11 @@ quagga::quagga::zebra_generic_options:
 #  - '172.31.228.2 soft-reconfiguration inbound'
 
 quagga::quagga::bgp_options:
-  - "router-id %{hiera('netcfg_trp_netpart')}.1"
-  - 'log-neighbor-changes'
-  - 'default local-preference 200'
+  - "bgp router-id %{hiera('netcfg_trp_netpart')}.1"
+  - 'bgp log-neighbor-changes'
+  - 'bgp default local-preference 200'
+  - 'maximum-paths ibgp 3'
+  - 'bgp bestpath as-path multipath-relax'
 
 quagga::quagga::bgp_networks:
   - '0.0.0.0/0'

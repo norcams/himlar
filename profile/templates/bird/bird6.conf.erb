@@ -31,7 +31,9 @@ filter import_kernel {
 
 filter import_bgp {
   if  net != ::/0 then {
-    accept;
+    if net !=<%= scope().call_function('hiera',['netcfg_anycast_dns6']) %>/128 then {
+      accept;
+    }
   }
   reject;
 }

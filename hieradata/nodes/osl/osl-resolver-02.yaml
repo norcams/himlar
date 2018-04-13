@@ -18,5 +18,10 @@ network::interfaces_hash:
     mtu:       '1500'
     ipaddress: "%{hiera('netcfg_trp_netpart')}.18"
     netmask:   "%{hiera('netcfg_trp_netmask')}"
-    gateway:   "%{hiera('netcfg_trp_gateway')}"
+    defroute:  'no'
+  'dummy0':
+    ipaddress: '158.37.63.252'
+    netmask:   '255.255.255.255'
+    ipv6init:  'yes'
+    ipv6addr:  '2001:700:2:82ff::252/128'
     defroute:  'no'

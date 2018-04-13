@@ -10,18 +10,11 @@ include "/etc/rndc-mdns.key";
 include "/etc/rndc-admin.key";
 <% end -%>
 
-# Define an ACL that includes all UH-IaaS networks
-acl iaas_nets {
-    172.16.0.0/12;         # internal rfc1918
-    192.168.0.0/24;        # vagrant public (rfc1918)
-    158.39.77.0/24;        # bgo IPv4
-    158.39.74.0/24;        # bgo IPv4
-    158.37.63.0/24;        # osl IPv4
-    158.39.75.0/24;        # osl IPv4
-    2001:700:2:8300::/56;  # bgo IPv6
-    2001:700:2:8200::/56;  # osl IPv6
-    2001:700:200:915::/64; # test01 IPv6
-};
+<% if @allowed_nets -%>
+# Define an ACL for networks allowed to do queries
+acl allowed_nets {
+<% (1..@allowed_nets.length).each do |i| %>    <%= @allowed_nets[i-1] %>
+<% end%>};<% end -%>
 
 <% if @authoritative %>
 # Control which hosts can do updates via RNDC, using which keys
@@ -40,9 +33,9 @@ options  {
     allow-recursion { none; };
     allow-new-zones yes;
 <% else %>
-    allow-query { 127.0.0.1; ::1; iaas_nets; };
+    allow-query { 127.0.0.1; ::1; allowed_nets; };
     recursion yes;
-    allow-recursion { 127.0.0.1; ::1; iaas_nets; };
+    allow-recursion { 127.0.0.1; ::1; allowed_nets; };
     allow-new-zones no;
 <% end -%>
     directory "/var/named";

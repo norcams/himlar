@@ -1,0 +1,62 @@
+
+router id <%= @ipaddress_trp1 %>;
+
+<% if @debug %>debug protocols all;<% end -%>
+
+filter export_bgp {
+  if  ((net != ::/0) || (net !=2002::)) then {
+    accept;
+  }
+  reject;
+}
+
+filter import_bgp {
+  if  net != ::/0 then {
+    if net !=<%= scope().call_function('hiera',['netcfg_anycast_dns6']) %>/128 then {
+      accept;
+    }
+  }
+  reject;
+}
+
+filter export_anycast {
+  if net =<%= scope().call_function('hiera',['netcfg_anycast_dns6']) %>/128 then {
+    accept;
+  }
+}
+
+# Configure synchronization between BIRD's routing tables and the
+# kernel.
+protocol kernel {
+  learn;          # Learn all alien routes from the kernel
+  device routes;  # protect kernel device routes from being overwritten or removed by IGP routes
+  scan time 2;    # Scan kernel routing table every 2 seconds
+  import all;
+  graceful restart;
+  export filter export_bgp;
+}
+
+protocol bfd {
+<% scope().call_function('hiera',['netcfg_trp_rr']).each do |name| %><%if name[1]['peer_ipv6'] %>  neighbor <%= name[1]['peer_ipv6'] %>;
+<% end %><% end %>}
+
+# Watch interface up/down events.
+protocol device {
+  scan time 2;    # Scan interfaces every 2 seconds
+}
+
+protocol direct {
+   debug all;
+   interface "-dummy*", "*";
+}
+
+<% if scope().call_function('hiera',['netcfg_trp_rr']) -%><% scope().call_function('hiera',['netcfg_trp_rr']).each do |name, values| %>protocol bgp '<%= name %>_ipv6' {
+  local as <%= scope().call_function('hiera',['bgp_as']) %>;
+  neighbor <%= values["peer_ipv6"] %> as <%= scope().call_function('hiera',['bgp_as']) %>;
+  multihop;
+  graceful restart;
+  import filter import_bgp;
+  export filter export_anycast;
+  source address <%= @ipaddress6_trp1 %>;  # The local address we use for the TCP connection
+}
+<% end %><% end -%>

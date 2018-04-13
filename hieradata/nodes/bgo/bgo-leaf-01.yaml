@@ -204,9 +204,11 @@ quagga::quagga::bgp_neighbors:
 quagga::quagga::bgp_as: "%{hiera('bgp_as')}"
 
 quagga::quagga::bgp_options:
-  - 'router-id 172.18.0.1'
-  - 'log-neighbor-changes'
-  - 'default local-preference 200'
+  - "bgp router-id %{hiera('netcfg_trp_netpart')}.1"
+  - 'bgp log-neighbor-changes'
+  - 'bgp default local-preference 200'
+  - 'maximum-paths ibgp 3'
+  - 'bgp bestpath as-path multipath-relax'
 
 quagga::quagga::bgp_networks:
   - '0.0.0.0/0'
@@ -237,7 +239,8 @@ quagga::quagga::bgp_neighbor_groups:
       - '172.18.0.117'
       - '172.18.0.118'
     'options6':
-      - 'route-reflector-client'
+      - 'neighbor rr-clients route-reflector-client'
+      - 'maximum-paths ibgp 3'
     'members6':
       - 'fd00::103'
       - 'fd00::104'

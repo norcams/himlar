@@ -1,4 +1,8 @@
 class profile::dns::ns (
+  $allowed_nets = undef,
+  $check_named_health = false,
+  $enable_bird = false,
+  $enable_bird6 = false,
   $my_mgmt_addr = {},
   $my_transport_addr = {},
   #$mdns_transport_addr = {},
@@ -9,6 +13,8 @@ class profile::dns::ns (
   $ns_public6_addr = {},
   $authoritative = {},
   $manage_firewall = {},
+  $manage_bird_firewall = false,
+  $manage_bird6_firewall = false,
   $firewall_extras = {},
   $public_zone = {},
   $forward_everything = false,
@@ -136,6 +142,75 @@ class profile::dns::ns (
       dport  => 953,
       proto  => 'tcp',
       extras => $firewall_extras
+    }
+  }
+
+  # Use BGP for anycast
+  if $enable_bird {
+    package { 'bird':
+      ensure   => installed
+    }
+    file { '/etc/bird.conf':
+      ensure   => file,
+      content  => template("${module_name}/bird/bird-resolver.conf.erb"),
+      notify   => Service['bird']
+    }
+    service { 'bird':
+      ensure   => running,
+      enable   => true,
+      require  => Package['bird']
+    }
+  }
+  if $manage_bird_firewall {
+    profile::firewall::rule { '912 bird allow bfd':
+      proto    => 'udp',
+      port     => ['3784','3785','4784','4785'],
+    }
+    profile::firewall::rule { "010 bird bgp - accept tcp to ${name}":
+      proto    => 'tcp',
+      port     => '179',
+      iniface  => $::ipaddress_trp1,
+    }
+  }
+  if $enable_bird6 {
+    package { 'bird6':
+      ensure   => installed
+    }
+    file { '/etc/bird6.conf':
+      ensure   => file,
+      content  => template("${module_name}/bird/bird-resolver.conf6.erb"),
+      notify   => Service['bird6']
+    }
+    service { 'bird6':
+      ensure   => running,
+      enable   => true,
+      require  => Package['bird6']
+    }
+  }
+  if $manage_bird6_firewall {
+    profile::firewall::rule { '912 bird allow bfd ipv6':
+      proto    => 'udp',
+      port     => ['3784','3785','4784','4785'],
+      provider => 'ip6tables',
+    }
+    profile::firewall::rule { "010 bird bgp ipv6 - accept tcp to ${name}":
+      proto    => 'tcp',
+      port     => '179',
+      provider => 'ip6tables',
+      iniface  => $::ipaddress6_trp1,
+    }
+  }
+  if $check_named_health {
+    file { '/opt/named-checks/':
+      ensure   => directory,
+    } ~>
+    file { "named_check.sh":
+      ensure   => present,
+      owner    => root,
+      group    => root,
+      mode     => '0755',
+      path     => "/opt/named-checks/named_health.sh",
+      content  => template("${module_name}/dns/bind/named_check.erb"),
     }
   }
 }

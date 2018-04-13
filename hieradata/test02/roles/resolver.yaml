@@ -33,3 +33,12 @@ profile::dns::ns::ptr_zones:
   ipv6:
     cidr: "fd34::/7"
     origin: "4.3.d.f.ip6.arpa"
+
+profile::dns::ns::allowed_nets:
+  - '172.0.0.0/8;           # internal rfc1918'
+  - '10.0.0.0/8;            # rfc1918 for ipv6 only instances'
+  - '129.177.31.64/27;      # test01 IPv4'
+  - '129.177.31.96/27;      # test01 IPv4'
+  - '2001:700:200:915::/64; # test01 IPv6'
+  - '2001:700:200:916::/64; # test01 IPv6'
+  - 'fd34::/64;             # test02 IPv6'

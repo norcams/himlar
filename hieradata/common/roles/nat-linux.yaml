@@ -25,5 +25,5 @@ profile::network::nat::enable_bird:              true
 profile::network::nat::manage_bird_firewall:     true
 
 profile::network::nat::enable_snat:              true
-profile::network::nat::source:                   "%{hiera('netcfg_priv_network')}"
 profile::network::nat::outiface:                 "%{::interface_trp1}"
+profile::network::nat::source:                   "0.0.0.0/0"

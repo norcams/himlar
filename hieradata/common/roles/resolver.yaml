@@ -7,6 +7,9 @@ include:
 # This is the resolving name server
 profile::dns::ns::authoritative: false
 
+profile::base::network::manage_dummy: true
+profile::base::common::manage_cron: true
+
 # DNS server addresses (used by file templates)
 #profile::dns::ns::mdns_transport_addr: "%{hiera('service__address__mdns')}"
 profile::dns::ns::admin_mgmt_addr:          "%{hiera('netcfg_mgmt_netpart')}.11"
@@ -28,3 +31,20 @@ profile::dns::ns::firewall_extras:
 
 # Turn on SELinux
 profile::base::selinux::manage_selinux: true
+
+profile::dns::ns::allowed_nets:
+  - '172.0.0.0/8;           # internal rfc1918'
+  - '192.168.0.0/16;        # vagrant and localXY public (rfc1918)'
+
+# For anycast
+profile::dns::ns::enable_bird:           true
+profile::dns::ns::manage_bird_firewall:  true
+profile::dns::ns::enable_bird6:          true
+profile::dns::ns::manage_bird6_firewall: true
+profile::dns::ns::check_named_health:    true
+
+profile::base::cron::crontabs:
+  check_named:
+    hour:     '*'
+    minute:   '*'
+    command:  '/opt/himlarcli/bin/gen_stats.sh >/dev/null'
