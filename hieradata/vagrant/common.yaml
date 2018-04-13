@@ -5,6 +5,7 @@ include:
   default:
     - profile::development::network::dns
     - profile::monitoring::sensu::agent
+    - profile::application::openssl::catrust
 
 # Location setting
 location_environment: vagrant

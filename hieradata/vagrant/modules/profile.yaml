@@ -1,6 +1,8 @@
 ---
 profile::development::network::dns::manage_hosts: true
 
+profile::application::openssl::catrust::ca_cert: '/opt/himlar/provision/ca/intermediate/certs/ca-chain.cert.pem'
+
 profile::application::himlarcli::cacert:      '/opt/himlar/provision/ca/intermediate/certs/ca-chain.cert.pem'
 profile::application::himlarcli::smtp:        ''
 profile::application::himlarcli::from_addr:   ''
