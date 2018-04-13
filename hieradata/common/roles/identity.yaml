@@ -8,10 +8,14 @@ include:
     - profile::openstack::openrc
     - profile::application::himlarcli
     - profile::logging::rsyslog::client
+#    - profile::openstack::cache
+
+openstack_version: 'ocata' #FIXME: ocata upgrade
 
 profile::base::common::packages:
   'bash-completion': {}
-  'bash-completion-extras': {}
+#  'bash-completion-extras': {}
+  'htop': { ensure: absent }
   'jq': {}
   'sharutils': {}
   'MariaDB-client': {}
@@ -34,6 +38,8 @@ profile::openstack::identity::keystone_config:
     value:  'new'
   'cors/allowed_origin': # allow gnocchi access on monitor
     value:  "http://%{hiera('mgmt__address__monitor')}:8080"
+  'DEFAULT/notification_opt_out':
+    value:  'identity.authenticate.success'
 
 # Key rotation and syncronization
 profile::openstack::identity::cron_master:
@@ -71,7 +77,7 @@ profile::openstack::identity::fernet_active_keys:           "%{hiera('keystone::
 profile::openstack::identity::credential_active_keys:       "2"                                                 # no value for this in keystone module
 
 
-profile::openstack::openrc::filename:                       '/root/keystonerc_admin'
+#profile::openstack::openrc::filename:                       '/root/keystonerc_admin'
 
 profile::openstack::resource::imagebuilder::manage:         true
 profile::openstack::resource::imagebuilder::password:       "%{hiera('imagebuilder_password')}"
@@ -94,6 +100,7 @@ profile::openstack::resource::users::users:
     enabled:  true
     email:    'status@localhost'
     password: "%{hiera('status_metric_password')}"
+    domain:   "%{hiera('keystone__internal__domain')}"
   monitor:
     enabled:  true
     email:    'monitor@localhost'
