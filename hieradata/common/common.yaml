@@ -117,6 +117,12 @@ named_interfaces::config:
     - dummy0
 
 #
+# project and domain used for internal use
+#
+keystone__internal__project:  'services'
+keystone__internal__domain:   'Default'
+
+#
 # Public addresses
 #
 public__address__api:             "https://api.%{hiera('domain_frontend')}:5000/v3"
