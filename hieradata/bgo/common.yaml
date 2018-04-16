@@ -40,8 +40,10 @@ netcfg_anycast_dns6:      '2001:700:2:83ff::252'
 netcfg_trp_rr:
   rr1:
     peer_ipv4: '172.18.0.1'
+    peer_ipv6: 'fd00::1'
   rr2:
     peer_ipv4: '172.18.0.2'
+    peer_ipv6: 'fd00::2'
 
 # DNS servers
 public__address__ns:           '158.39.77.251'
