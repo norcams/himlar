@@ -139,7 +139,7 @@ profile::base::yumrepo::repo_hash:
   rdo-release:
     ensure: present
     exclude: 'openstack-neutron openstack-neutron-common python-neutron'
-  calico22:
+  calico26:
     ensure: present
     exclude: 'calico-dhcp-agent' #FIXME
   ceph-%{hiera('ceph_version')}:
