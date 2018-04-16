@@ -5,9 +5,14 @@
 DNSUP=`/usr/bin/dig @<%= scope().call_function('hiera',['netcfg_anycast_dns']) %> localhost. A +short +time=1`
 if [ "$DNSUP" != "127.0.0.1" ];
 then
-  /sbin/ip route del <%= scope().call_function('hiera',['netcfg_anycast_dns']) %>/32 dev dummy0
+  /sbin/ip route del <%= scope().call_function('hiera',['netcfg_anycast_dns']) %>/32 dev dummy0 > /dev/null
+  /sbin/ip -6 route del <%= scope().call_function('hiera',['netcfg_anycast_dns6']) %> dev dummy0 > /dev/null
+  /sbin/ip -6 route del <%= scope().call_function('hiera',['netcfg_anycast_dns6']) %> dev dummy0 > /dev/null
 else
   if ! /sbin/ip route | grep <%= scope().call_function('hiera',['netcfg_anycast_dns']) %> > /dev/null ; then
-    /sbin/ip route add <%= scope().call_function('hiera',['netcfg_anycast_dns']) %>/32 dev dummy0
+    /sbin/ip route add <%= scope().call_function('hiera',['netcfg_anycast_dns']) %>/32 dev dummy0 > /dev/null
+  fi
+  if ! /sbin/ip -6 route | grep <%= scope().call_function('hiera',['netcfg_anycast_dns6']) %> | grep -v kernel > /dev/null ; then
+    /sbin/ip -6 route add <%= scope().call_function('hiera',['netcfg_anycast_dns6']) %>/128 dev dummy0 > /dev/null
   fi
 fi
