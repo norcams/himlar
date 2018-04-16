@@ -23,6 +23,7 @@ filter export_anycast {
   if net =<%= scope().call_function('hiera',['netcfg_anycast_dns6']) %>/128 then {
     accept;
   }
+  reject;
 }
 
 # Configure synchronization between BIRD's routing tables and the
