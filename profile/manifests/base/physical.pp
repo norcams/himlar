@@ -38,7 +38,7 @@ class profile::base::physical
       gpgkey     => 'http://linux.dell.com/repo/hardware/dsu/public.key',
       enabled    => 1
     }
-    package { 'dsu':
+    package { 'dell-system-update':
       ensure => installed
     }
   }
