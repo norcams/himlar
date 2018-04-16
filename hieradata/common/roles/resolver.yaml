@@ -47,4 +47,4 @@ profile::base::cron::crontabs:
   check_named:
     hour:     '*'
     minute:   '*'
-    command:  '/opt/himlarcli/bin/gen_stats.sh >/dev/null'
+    command:  '/opt/named-checks/named_health.sh >/dev/null'
