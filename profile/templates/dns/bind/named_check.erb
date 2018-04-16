@@ -7,7 +7,7 @@ if [ "$DNSUP" != "127.0.0.1" ];
 then
   /sbin/ip route del <%= scope().call_function('hiera',['netcfg_anycast_dns']) %>/32 dev dummy0
 else
-  if ! /sbin/ip route | grep 129.177.31.118 > /dev/null ; then
+  if ! /sbin/ip route | grep <%= scope().call_function('hiera',['netcfg_anycast_dns']) %> > /dev/null ; then
     /sbin/ip route add <%= scope().call_function('hiera',['netcfg_anycast_dns']) %>/32 dev dummy0
   fi
 fi
