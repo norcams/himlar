@@ -184,7 +184,7 @@ quagga::quagga::bgp_neighbors:
 quagga::quagga::bgp_as: "%{hiera('bgp_as')}"
 
 quagga::quagga::bgp_options:
-  - "bgp router-id %{hiera('netcfg_trp_netpart')}.1"
+  - "bgp router-id %{hiera('netcfg_trp_netpart')}.2"
   - 'bgp log-neighbor-changes'
   - 'bgp default local-preference 200'
   - 'maximum-paths ibgp 3'
