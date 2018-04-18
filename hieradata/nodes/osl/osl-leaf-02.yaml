@@ -27,9 +27,6 @@ profile::base::network::cumulus_interfaces:
     'clagd_peer_ip': '172.18.228.1'
     'clagd_sys_mac': '44:38:39:ff:bb:1c'
 # No uplink here yet
-  'swp48':
-    'ipv4': '129.240.25.110/30'
-    'ipv6': '2001:700:100:aa3::22/126'
 
 profile::base::network::cumulus_bridges:
   'bridge':
@@ -154,7 +151,7 @@ quagga::quagga::zebra_interfaces:
 #    - 'link-detect'
 
 quagga::quagga::zebra_ip6_routes:
-  - '::/0 2001:700:100:aa3::21'
+  - '::/0 fd32:18:228::1'
   - '2001:700:2:8200::/64 Null0'
   - '2001:700:2:8201::/64 Null0'
   - '2001:700:2:82ff::12/128 fd32::12'
