@@ -10,7 +10,7 @@ profile::openstack::resource::host_aggregate:
     availability_zone: "%{::location}-legacy-1"
 #    hosts: "%{::location}-compute-03.%{hiera('domain_mgmt')}, %{::location}-compute-06.%{hiera('domain_mgmt')}"
   central1:
-    hosts: "%{::location}-compute-07.%{hiera('domain_mgmt')}, %{::location}-compute-08.%{hiera('domain_mgmt')}"
+#    hosts: "%{::location}-compute-07.%{hiera('domain_mgmt')}, %{::location}-compute-08.%{hiera('domain_mgmt')}"
     availability_zone: "%{::location}-default-1"
   hpc1:
     hosts: "%{::location}-compute-09.%{hiera('domain_mgmt')}, %{::location}-compute-10.%{hiera('domain_mgmt')}"
