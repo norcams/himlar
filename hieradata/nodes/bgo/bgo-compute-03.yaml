@@ -56,9 +56,8 @@ profile::base::lvm::logical_volume:
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
 
-# temporary central disk
-## This compute host uses local storage for instances
-#nova::compute::rbd::ephemeral_storage:            false
-#nova::config::nova_config:
-#  libvirt/images_type:
-#    value: default
+# This compute host uses local storage for instances
+nova::compute::rbd::ephemeral_storage:            false
+nova::config::nova_config:
+  libvirt/images_type:
+    value: default
