@@ -37,7 +37,7 @@ profile::openstack::dashboard::change_uploaddir: true
 profile::monitoring::sensu::agent::plugins:
   sensu-plugins-apache:
     type:         package
-    pkg_version:  '0.0.5'
+    pkg_version:  '2.0.0'
 
 profile::monitoring::sensu::agent::checks:
   'metrics-httpd-overview':

@@ -18,7 +18,7 @@ profile::base::common::packages:
 profile::monitoring::sensu::agent::plugins:
   sensu-plugins-rabbitmq:
     type:         package
-    pkg_version:  '3.5.0'
+    pkg_version:  '4.1.1'
 
 profile::monitoring::sensu::agent::checks:
   'metrics-rabbitmq-overview':

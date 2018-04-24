@@ -85,10 +85,10 @@ profile::base::common::packages:
 profile::monitoring::sensu::agent::plugins:
   sensu-plugins-http:
     type:         package
-    pkg_version:  '1.0.0'
+    pkg_version:  '2.8.4'
   sensu-plugins-slack:
     type:         package
-    pkg_version:  '1.0.0'
+    pkg_version:  '3.1.1'
 
 # metadata api check
 profile::monitoring::sensu::agent::checks:

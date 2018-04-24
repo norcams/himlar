@@ -24,7 +24,7 @@ sensu::checks:
     interval:     120
     subscribers:  ['checks']
   'check-load':
-    command:      'check-load.rb -p -w 3,2,1'
+    command:      'check-load.rb -w 3,2,1'
     interval:     120
     subscribers:  ['checks']
   'check-memory-precent':
