@@ -39,7 +39,7 @@ profile::monitoring::sensu::mysql::manage_packages: true
 profile::monitoring::sensu::agent::plugins:
   sensu-plugins-mysql:
     type:         package
-    pkg_version:  '1.0.0'
+    pkg_version:  '2.3.0'
   sensu-plugins-percona:
     type:         package
     pkg_version:  '1.1.0'

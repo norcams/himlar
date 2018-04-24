@@ -13,7 +13,7 @@ profile::base::common::packages:
 profile::monitoring::sensu::agent::plugins:
   sensu-plugins-haproxy:
     type:         package
-    pkg_version:  '1.1.0'
+    pkg_version:  '1.4.0'
 
 profile::monitoring::sensu::agent::checks:
   'metrics-haproxy-overview':
