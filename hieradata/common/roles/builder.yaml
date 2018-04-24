@@ -119,6 +119,8 @@ profile::monitoring::sensu::agent::checks:
   'check-log':
     command:      "sudo /opt/sensu/embedded/bin/check-log.rb -f /var/log/cron -w 1 -c 1 -q 'imagebuilder: Failed building' -r"
     interval:     60
+    auto_resolve: false
+    handlers:     'slack'
     subscribers:  ['checks']
 
 sudo::configs:
