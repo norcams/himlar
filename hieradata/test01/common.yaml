@@ -74,7 +74,7 @@ profile::network::services::dns_records:
     "resolver.%{hiera('domain_public')}": '2001:700:200:916::3f18'
   PTR:
     # mgmt
-    "1.%{hiera('reverse_mgmt')}":      "%{::location}-leaf-01.%{hiera('domain_mgmt')}"
+    "1.%{hiera('reverse_mgmt')}":      "%{::location}-torack-01.%{hiera('domain_mgmt')}"
     "11.%{hiera('reverse_mgmt')}":     "%{::location}-admin-01.%{hiera('domain_mgmt')}"
     "12.%{hiera('reverse_mgmt')}":     "%{::location}-proxy-01.%{hiera('domain_mgmt')}"
     "13.%{hiera('reverse_mgmt')}":     "%{::location}-logger-01.%{hiera('domain_mgmt')}"
