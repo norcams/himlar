@@ -4,6 +4,7 @@ class profile::network::leaf(
   $manage_license     = false,
   $cumulus_license    = "user@example.com|00000000000000000000000000000000000000000000000000\n",
   $manage_quagga      = false,
+  $manage_frrouting   = false,
   $manage_acls        = false,
 ) {
 
@@ -20,5 +21,9 @@ class profile::network::leaf(
 
   if $manage_quagga {
     include quagga
+  }
+
+  if $manage_frrouting {
+    include frrouting
   }
 }
