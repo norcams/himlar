@@ -25,11 +25,6 @@ profile::base::network::cumulus_bridges:
 
 # Add default route for management VRF
 profile::base::network::routes:
-  'eth0':
-    'ipaddress': [ '0.0.0.0', ]
-    'netmask':   [ '0.0.0.0', ]
-    'gateway':   [ '172.28.0.10', ]
-    'table':     [ 'mgmt', ]
   'swp3':
     'ipaddress': [ '0.0.0.0', ]
     'netmask':   [ '0.0.0.0', ]
