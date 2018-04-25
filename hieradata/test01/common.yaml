@@ -172,12 +172,12 @@ profile::openstack::compute::hypervisor::manage_libvirt_rbd: true
 profile::openstack::image::api::backend: 'rbd'
 
 profile::network::services::dhcp_reservation:
-  test01-leaf-01:
-    mac: '00:50:56:ae:59:33'
-    ip:  '172.30.0.1'
-  test01-leaf-02:
+  test01-torack-01:
+    mac: '00:50:56:ae:c7:af'
+    ip:  '172.28.0.1'
+  test01-torack-02:
     mac: '00:50:56:ae:4b:f6'
-    ip:  '172.30.0.2'
+    ip:  '172.28.0.2'
 
 profile::openstack::resource::networks:
   dualStack:
