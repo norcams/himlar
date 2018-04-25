@@ -38,9 +38,10 @@ mod 'selinux', :ref => 'v1.3.0',                    :git => github + 'voxpupuli/
 mod 'googleauthenticator', :ref => 'norcams-2.0.1', :git => github + 'norcams/puppet-googleauthenticator'
 
 #
-# profile::network::leaf
+# profile::network::leaf/torack
 #
 mod 'quagga', :ref => '3686521523',                 :git => github + 'norcams/puppet-quagga'
+mod 'frrouting', :ref => 'e2435e1376',              :git => github + 'norcams/puppet-frrouting'
 
 #
 # profile::network::
