@@ -18,7 +18,8 @@ profile::base::firewall::manage_firewall:         false
 profile::base::network::net_ifnames:              false
 profile::monitoring::sensu::agent::enable_agent:  false
 profile::network::leaf::manage_quagga:            false
-profile::network::leaf::manage_acls:              false
+profile::network::leaf::manage_frrouting:         true
+profile::network::leaf::manage_acls:              true
 profile::base::network::cumulus_ifs:              true
 network::config_file_per_interface:               true
 
