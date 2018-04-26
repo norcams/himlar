@@ -22,19 +22,6 @@ profile::base::network::cumulus_bridges:
     'alias_name': 'Transport L2 if'
     'mtu': '1500'
 
-# Add default route for management VRF
-profile::base::network::routes:
-  'eth0':
-    'ipaddress': [ '0.0.0.0', ]
-    'netmask':   [ '0.0.0.0', ]
-    'gateway':   [ '172.31.4.10', ]
-    'table':     [ 'mgmt', ]
-  'swp7':
-    'ipaddress': [ '0.0.0.0', ]
-    'netmask':   [ '0.0.0.0', ]
-    'gateway':   [ '129.177.11.1', ]
-    'table':     [ 'main', ]
-
 profile::base::network::cumulus_interfaces:
   'swp2':
     'ipv4': [ '129.177.11.75/24', ]
