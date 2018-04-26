@@ -1,0 +1,141 @@
+---
+network::interfaces_hash:
+  'eth0':
+    'ipaddress': '172.28.31.1/24'
+    'gateway':   "%{hiera('netcfg_mgmt_gateway')}"
+    'vrf':       'mgmt'
+  'mgmt':
+    'ipaddress': '127.0.0.1/8'
+    'vrf_table': 'auto'
+#    'post_up': [ '/etc/network/if-up.d/z90-route-swp1', ]
+#    'post_down': [ '/etc/network/if-down.d/z90-route-swp1', ]
+#    'dns_nameservers': '172.28.32.12'
+#    'dns_search': "%{hiera('domain_mgmt')}"
+#  'swp3':
+#    'ipaddress': '172.31.228.1/30'
+
+# In production environment these should be VLAN aware
+# bridges and actually tagged. This is not possible in
+# dev01 environment, though.
+
+profile::base::network::cumulus_bridges:
+  'bridge':
+    'ports': [ 'swp1', 'swp2', ]
+    'alias_name': 'Transport L2 if'
+    'vlan_aware': 'true'
+    'stp': 'false'
+    'vids': [ '100', '101', ]
+    'mtu': '1500'
+
+profile::base::network::cumulus_interfaces:
+  'swp1':
+    'pvid': '101'
+    'vids': '101'
+  'swp2':
+    'pvid': '100'
+    'vids': '100'
+  'bridge.100':
+    'ipv4': [ '172.30.32.1/24', ]
+    'ipv6': [ 'fd32::1/64', ]
+  'bridge.101':
+    'ipv4': [ '192.168.122.2/24', ]
+    'ipv6': [ 'fd30::2/64', ]
+
+frrouting::frrouting::zebra_interfaces:
+  'bridge':
+    - 'link-detect'
+    - 'description linux-bridge'
+  'swp1':
+    - 'link-detect'
+  'swp2':
+    - 'link-detect'
+
+frrouting::frrouting::zebra_ip6_routes:
+  - '::/0 fd30::1'
+  - 'fd34::251/128 fd32::16'
+frrouting::frrouting::zebra_ip_routes:
+  - '0.0.0.0/0 192.168.122.1'
+  - '10.0.0.0/8 Null0'
+  - '10.100.200.248/32 172.30.32.26'
+  - '10.100.200.250/32 172.30.32.86'
+  - '10.100.200.251/32 172.30.32.16'
+  - '10.100.200.253/32 172.30.32.12'
+  - '10.100.200.254/32 172.30.32.51'
+
+frrouting::frrouting::zebra_generic_options:
+  'ip':
+    'forwarding'
+  'ipv6':
+    'forwarding'
+
+#frrouting::frrouting::bgp_neighbors:
+#  - '172.31.228.2 remote-as 65535'
+#  - '172.31.228.2 soft-reconfiguration inbound'
+
+frrouting::frrouting::bgp_as: "%{hiera('bgp_as')}"
+
+frrouting::frrouting::bgp_options:
+  - "bgp router-id %{hiera('netcfg_trp_netpart')}.1"
+  - 'bgp log-neighbor-changes'
+  - 'bgp default local-preference 200'
+  - 'maximum-paths ibgp 3'
+  - 'bgp bestpath as-path multipath-relax'
+
+frrouting::frrouting::bgp_networks:
+  - '0.0.0.0/0'
+  - '172.30.32.0/24'
+frrouting::frrouting::bgp_networks6:
+  - '::/0'
+  - 'fd32::/64'
+
+frrouting::frrouting::bgp_neighbor_groups:
+  'rr-clients':
+    'options':
+      - 'peer-group'
+      - "remote-as %{hiera('bgp_as')}"
+      - 'route-reflector-client'
+      - 'soft-reconfiguration inbound'
+      - 'route-map rr-client-allow in'
+      - 'bfd'
+    'members':
+      - '172.30.32.17'
+      - '172.30.32.18'
+      - '172.30.32.103'
+      - '172.30.32.104'
+      - '172.30.32.105'
+    'options6':
+      - 'neighbor rr-clients route-reflector-client'
+      - 'maximum-paths ibgp 3'
+    'members6':
+      - 'fd32::17'
+      - 'fd32::18'
+      - 'fd32::103'
+      - 'fd32::104'
+      - 'fd32::105'
+#  'other-clients':
+#    'options':
+#    - 'peer-group'
+
+frrouting::frrouting::bgp_accesslist:
+  '10':
+    - 'permit 10.100.200.0 0.0.0.255'
+    - 'permit 10.0.244.0 0.0.0.255'
+    - 'permit 172.30.32.0 0.0.0.255'
+  '20':
+    - 'deny 10.100.200.0 0.0.0.255'
+    - 'deny 10.0.244.0 0.0.0.255'
+    - 'deny 172.30.32.0 0.0.0.255'
+    - 'permit any'
+
+frrouting::frrouting::bgp_ip_prefix_list:
+  - 'routes-from-leaf1 seq 5 deny any'
+  - 'routes-to-leaf1 seq 5 permit 0.0.0.0/0'
+
+frrouting::frrouting::bgp_route_maps:
+  'rr-client-allow permit 10':
+    - 'match ip address 10'
+  'peer-deny deny 10':
+    - 'match ip address 10'
+
+profile::network::leaf::manage_license: false
+frrouting::manage_package: false
