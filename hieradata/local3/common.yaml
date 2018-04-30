@@ -96,18 +96,31 @@ profile::network::services::dhcp_reservation:
     mac: '00:0c:29:ff:be:2f'
     ip:  '172.31.4.1'
 
+ceph::profile::params::mon_initial_members:         'local3-cephmon-01, local3-cephmon-02, local3-cephmon-03'
+ceph::profile::params::mon_host:                    '172.31.12.91:6789, 172.31.12.92:6789, 172.31.12.93:6789'
+ceph::profile::params::cluster_network:             '172.31.12.0/24'
+ceph::profile::params::public_network:              '172.31.12.0/24'
+
+profile::openstack::volume::manage_rbd: true
+profile::openstack::volume::api::enable_multibackend: true
+profile::openstack::compute::hypervisor::manage_libvirt_rbd: true
+
+# If backend != file, you must explicitly define stores in %location/modules/glance.yaml
+profile::openstack::image::api::backend: 'rbd'
+
 #
 ## Secret data which for other environments are stored ooutside of this data tree
 #
 
 # ceph.yaml
-ceph::profile::params::mon_key:                     'AQATGHJTUCBqIBAA7M2yafV1xctn1pgr3GcKPg=='
-client_admin::secret:                               'AQBMGHJTkC8HKhAAJ7NH255wYypgm1oVuV41MA=='
-client_bootstrap-osd::secret:                       'AQARG3JTsDDEHhAAVinHPiqvJkUi5Mww/URupw=='
-client_bootstrap-mds::secret:                       'AQCztJdSyNb0NBAASA2yPZPuwXeIQnDJ9O8gVw=='
-client_glance::secret:                              'AQBGJ8dWKhgcNhAA+VU0GlKHcRLJSsJ8WouuSQ=='
-client_volumes::secret:                             'AQA4MPZTOGU0ARAAXH9a0fXxVq0X25n2yPREDw=='
-client_cinder::secret:                              'AQBypF1V2JYiChAA2qYbjM6jbXJBMmpXPkvwBg=='
+ceph::profile::params::fsid:                        'cc91fb3d-6b18-4640-9743-1b9bb6b97d86'
+ceph::profile::params::mgr_key:                     'AQAOCudaiWQmKxAAjj6i10gfW887T2dYOCNLvw=='
+ceph::profile::params::mon_key:                     'AQBiBuda74XZIhAANsxa31M5wDiLenqEMqjH6g=='
+client_admin::secret:                               'AQCKBudajsWkDxAAbPpCrtTiZrwhjX0VsG7i6Q=='
+client_bootstrap-osd::secret:                       'AQCpBudas7f5CRAAoWjwsLyPafAoLAOVA0IvDQ=='
+client_bootstrap-mds::secret:                       'AQC9B+daWlaNCRAA1thFoG/FasdX4hy8QyYMLw=='
+client_glance::secret:                              'AQDHCOdar7nQMRAAZ2l4hxy7PHWKiT2bXAGXEg=='
+client_cinder::secret:                              'AQDvCOdaJ35QHRAAm1wr52RrldB4TareRfKdww=='
 
 # service user api password
 keystone_admin_password:                            'admin_pass'
