@@ -96,6 +96,18 @@ profile::network::services::dhcp_reservation:
     mac: '00:0c:29:ff:be:2f'
     ip:  '172.31.4.1'
 
+ceph::profile::params::mon_initial_members:         'local3-cephmon-01, local3-cephmon-02, local3-cephmon-03'
+ceph::profile::params::mon_host:                    '172.31.12.91:6789, 172.31.12.92:6789, 172.31.12.93:6789'
+ceph::profile::params::cluster_network:             '172.31.12.0/24'
+ceph::profile::params::public_network:              '172.31.12.0/24'
+
+profile::openstack::volume::manage_rbd: true
+profile::openstack::volume::api::enable_multibackend: true
+profile::openstack::compute::hypervisor::manage_libvirt_rbd: true
+
+# If backend != file, you must explicitly define stores in %location/modules/glance.yaml
+profile::openstack::image::api::backend: 'rbd'
+
 #
 ## Secret data which for other environments are stored ooutside of this data tree
 #
