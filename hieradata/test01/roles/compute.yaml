@@ -29,3 +29,7 @@ profile::base::network::manage_neutron_blackhole: true
 
 # remove when telemetry/ceilometer is up in all environments and move to common
 profile::openstack::compute::manage_telemetry: false
+
+profile::base::yumrepo::repo_hash:
+  centos-qemu-ev:
+    ensure: present
