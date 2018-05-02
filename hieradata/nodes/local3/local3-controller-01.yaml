@@ -78,21 +78,21 @@ lvm::volume_groups:
     physical_volumes:
       - /dev/sdb
     logical_volumes:
-      lv_ext_sata1:
+      lv_ext_sata2:
         fs_type:     xfs
         mountpath:   "/var/lib/libvirt/images_sata2"
   vg_ext_sata3:
     physical_volumes:
       - /dev/sdc
     logical_volumes:
-      lv_ext_sata1:
+      lv_ext_sata3:
         fs_type:     xfs
         mountpath:   "/var/lib/libvirt/images_sata3"
   vg_ext_sata4:
     physical_volumes:
       - /dev/sdd
     logical_volumes:
-      lv_ext_sata1:
+      lv_ext_sata4:
         fs_type:     xfs
         mountpath:   "/var/lib/libvirt/images_sata4"
 
@@ -122,7 +122,7 @@ profile::virtualization::libvirt::pools:
     autostart:           true
     type:                dir
     target:              /var/lib/libvirt/images_sata2
-  dirpoolsata3:
+  dirpoolsata3: 
     ensure:              present
     autostart:           true
     type:                dir
