@@ -67,6 +67,30 @@ lvm::volume_groups:
       lv_ext_ocz:
         fs_type:   xfs
         mountpath: "/var/lib/libvirt/images_ocz"
+  vg_ext_sata1:
+    physical_volumes:
+      - /dev/sda
+    logical_volumes:
+      fs_type:     xfs
+      mountpath:   "/var/lib/libvirt/images_sata1"
+  vg_ext_sata2:
+    physical_volumes:
+      - /dev/sdb
+    logical_volumes:
+      fs_type:     xfs
+      mountpath:   "/var/lib/libvirt/images_sata2"
+  vg_ext_sata3:
+    physical_volumes:
+      - /dev/sdc
+    logical_volumes:
+      fs_type:     xfs
+      mountpath:   "/var/lib/libvirt/images_sata2"
+  vg_ext_sata4:
+    physical_volumes:
+      - /dev/sdd
+    logical_volumes:
+      fs_type:     xfs
+      mountpath:   "/var/lib/libvirt/images_sata2"
 
 profile::virtualization::libvirt::pools:
   dirpool:
@@ -84,3 +108,23 @@ profile::virtualization::libvirt::pools:
     autostart:           true
     type:                dir
     target:              /var/lib/libvirt/images_ocz
+  dirpoolsata1:
+    ensure:              present
+    autostart:           true
+    type:                dir
+    target:              /var/lib/libvirt/images_sata1
+  dirpoolsata2:
+    ensure:              present
+    autostart:           true
+    type:                dir
+    target:              /var/lib/libvirt/images_sata2
+  dirpoolsata3:
+    ensure:              present
+    autostart:           true
+    type:                dir
+    target:              /var/lib/libvirt/images_sata3
+  dirpoolsata4:
+    ensure:              present
+    autostart:           true
+    type:                dir
+    target:              /var/lib/libvirt/images_sata4
