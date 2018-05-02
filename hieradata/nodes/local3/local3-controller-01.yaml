@@ -71,26 +71,30 @@ lvm::volume_groups:
     physical_volumes:
       - /dev/sda
     logical_volumes:
-      fs_type:     xfs
-      mountpath:   "/var/lib/libvirt/images_sata1"
+      lv_ext_sata1:
+        fs_type:     xfs
+        mountpath:   "/var/lib/libvirt/images_sata1"
   vg_ext_sata2:
     physical_volumes:
       - /dev/sdb
     logical_volumes:
-      fs_type:     xfs
-      mountpath:   "/var/lib/libvirt/images_sata2"
+      lv_ext_sata1:
+        fs_type:     xfs
+        mountpath:   "/var/lib/libvirt/images_sata2"
   vg_ext_sata3:
     physical_volumes:
       - /dev/sdc
     logical_volumes:
-      fs_type:     xfs
-      mountpath:   "/var/lib/libvirt/images_sata2"
+      lv_ext_sata1:
+        fs_type:     xfs
+        mountpath:   "/var/lib/libvirt/images_sata3"
   vg_ext_sata4:
     physical_volumes:
       - /dev/sdd
     logical_volumes:
-      fs_type:     xfs
-      mountpath:   "/var/lib/libvirt/images_sata2"
+      lv_ext_sata1:
+        fs_type:     xfs
+        mountpath:   "/var/lib/libvirt/images_sata4"
 
 profile::virtualization::libvirt::pools:
   dirpool:
