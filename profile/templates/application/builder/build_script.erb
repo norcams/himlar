@@ -42,7 +42,9 @@ if [ $(which qemu-img) ] && [ -f ${filename} ]; then
 fi
 
 # Create latest symlink
-ln -srf ${filename} /opt/images/public_builds/<%= @name %>-latest.qcow2
+if [ -f ${filename} ]; then
+  ln -srf ${filename} /opt/images/public_builds/<%= @name %>-latest.qcow2
+fi
 
 # Remove old images, always keeping the two most recent
 find /opt/images/public_builds/ -type f -iname <%= @name %>\* | sort -r | tail -n +3 | xargs rm -f
