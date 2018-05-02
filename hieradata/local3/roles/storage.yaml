@@ -31,3 +31,19 @@ ceph::profile::params::osds:
     ensure: present
   '/dev/vdj':
     ensure: present
+
+profile::storage::cephpool::pools:
+  'rbd':
+    ensure: absent
+  'volumes':
+    ensure: present
+    pg_num: 256
+    pgp_num: 256
+  'images':
+    ensure: present
+    pg_num: 256
+    pgp_num: 256
+  'vms':
+    ensure: present
+    pg_num: 64
+    pgp_num: 64
