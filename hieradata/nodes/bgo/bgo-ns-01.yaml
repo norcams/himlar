@@ -36,4 +36,4 @@ profile::base::network::routes:
     'gateway':   [ "%{hiera('netcfg_trp_gateway6')}", ]
     'source':    [ '2001:700:2:83ff::251', ]
     'table':     [ 'main', ]
-    'family':    [ '6', ]
+    'family':    [ 'inet6', ]

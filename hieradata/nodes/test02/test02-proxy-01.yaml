@@ -31,4 +31,4 @@ profile::base::network::routes:
     'gateway':   [ 'fd32::1', ]
     'source':    [ "%{hiera('netcfg_public_netpart6')}::12", ]
     'table':     [ 'main', ]
-    'family':    [ '6', ]
+    'family':    [ 'inet6', ]

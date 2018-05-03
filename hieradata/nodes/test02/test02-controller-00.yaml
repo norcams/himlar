@@ -72,23 +72,13 @@ lvm::volume_groups:
 
 # route to public net via leaf-01
 # (test02 is a special case since leaf runs inside this node)
-profile::base::network::mroute:
-  br2:
-    routes:
-      10.100.200.0/24:  192.168.122.2
-
-# Can not use this together with above without (simple) patch to himlar-network::route
-# (not patched due to cowardice and no time for extensive testing)
-# Additionally code below can not be used simultaneously with an IPv4 route as
-# that will all be put into a route46-<if> file instead of route6- and route-<if> ditto
-#
-#profile::base::network::routes:
-#  'br2':
-#    'ipaddress': [ 'fd34::', ]
-#    'netmask':   [ '0', ]
-#    'gateway':   [ 'fd30::2', ]
-#    'table':     [ 'main', ]
-#    'family':    [ '6', ]
+profile::base::network::routes:
+  'br2':
+    'ipaddress': [ 'fd34::', '10.100.200.0', ]
+    'netmask':   [ '0', '255.255.255.0', ]
+    'gateway':   [ 'fd30::2', '192.168.122.2', ]
+    'table':     [ 'main', 'main', ]
+    'family':    [ 'inet6', 'inet4', ]
 
 named_interfaces::config:
   mgmt:
