@@ -1,0 +1,249 @@
+---
+network::interfaces_hash:
+  'eth0':
+    'ipaddress': '172.16.32.7/21'
+    'gateway':   "%{hiera('netcfg_mgmt_gateway')}"
+    'vrf':       'mgmt'
+  'mgmt':
+    'ipaddress': '127.0.0.1/8'
+    'vrf_table': 'auto'
+
+profile::base::network::cumulus_interfaces:
+  'bridge.100':
+    'ipv4': [ '172.18.32.2/21', ]
+    'ipv6': [ 'fd32::2/64', ]
+    'virtual_ip': '172.18.39.1/21 fd32::3901/64'
+    'virtual_mac': '00:00:5e:00:01:01'
+  'peerlink.4094':
+    'ipv4': [ '172.18.228.2/24', ]
+    'ipv6': [ 'fd32:18:228::2/64', ]
+    'clagd_enable': true
+    'clagd_priority': '8192'
+    'clagd_peer_ip': '172.18.228.1'
+    'clagd_sys_mac': '44:38:39:ff:bb:1c'
+# No uplink here yet
+
+profile::base::network::cumulus_bridges:
+  'bridge':
+    'ports': [ 'host1', 'host2', 'host3', 'host4', 'host5', 'host6', 'host7', 'host8', 'host9', 'host10', 'host11', 'host12', 'peerlink', 'downlink' ]
+    'alias_name': 'Transport L2 if'
+    'vlan_aware': 'true'
+    'stp': 'true'
+    'vids': [ '100', '120', '4094', ]
+
+profile::base::network::cumulus_bonds:
+  'peerlink':
+    'slaves': [ 'swp49-50', ]
+  'downlink':
+    'slaves': [ 'swp51-52', ]
+    'clag_id': '100'
+    'pvid': '100'
+  'host1':
+    'slaves': [ 'swp1', ]
+    'clag_id': '1'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host2':
+    'slaves': [ 'swp2', ]
+    'clag_id': '2'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host3':
+    'slaves': [ 'swp3', ]
+    'clag_id': '3'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host4':
+    'slaves': [ 'swp4', ]
+    'clag_id': '4'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host5':
+    'slaves': [ 'swp5', ]
+    'clag_id': '5'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host6':
+    'slaves': [ 'swp6', ]
+    'clag_id': '6'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host7':
+    'slaves': [ 'swp7', ]
+    'clag_id': '7'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host8':
+    'slaves': [ 'swp8', ]
+    'clag_id': '8'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host9':
+    'slaves': [ 'swp9', ]
+    'clag_id': '9'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host10':
+    'slaves': [ 'swp10', ]
+    'clag_id': '10'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host11':
+    'slaves': [ 'swp11', ]
+    'clag_id': '11'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host12':
+    'slaves': [ 'swp12', ]
+    'clag_id': '12'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+
+frrouting::frrouting::zebra_interfaces:
+  'bridge':
+    - 'link-detect'
+    - 'description linux-bridge'
+  'bridge.100':
+    - 'link-detect'
+    - 'description linux-bridge-100'
+  'host1':
+    - 'link-detect'
+  'host2':
+    - 'link-detect'
+  'host3':
+    - 'link-detect'
+  'host4':
+    - 'link-detect'
+  'host5':
+    - 'link-detect'
+  'host6':
+    - 'link-detect'
+  'host7':
+    - 'link-detect'
+  'host8':
+    - 'link-detect'
+  'host9':
+    - 'link-detect'
+  'host10':
+    - 'link-detect'
+  'host11':
+    - 'link-detect'
+  'host12':
+    - 'link-detect'
+#  'swp48':
+#    - 'link-detect'
+
+frrouting::frrouting::zebra_ip6_routes:
+  - '::/0 fd32:18:228::1'
+  - '2001:700:2:8200::/64 Null0'
+  - '2001:700:2:8201::/64 Null0'
+  - '2001:700:2:82ff::12/128 fd32::12'
+  - '2001:700:2:82ff::251/128 fd32::16'
+frrouting::frrouting::zebra_ip_routes:
+  - '0.0.0.0/0 172.18.228.1'
+  - '10.0.0.0/8 Null0'
+  - '158.37.63.0/24 Null0'
+  - '158.37.63.248/32 172.18.32.26'
+  - '158.37.63.249/32 172.18.32.41'
+  - '158.37.63.250/32 172.18.32.86'
+  - '158.37.63.251/32 172.18.32.16'
+  - '158.37.63.253/32 172.18.32.12'
+  - '158.37.63.254/32 172.18.32.51'
+  - '158.39.75.0/24 Null0'
+
+frrouting::frrouting::zebra_generic_options:
+  'ip':
+    'forwarding'
+  'ipv6':
+    'forwarding'
+
+frrouting::frrouting::bgp_neighbors:
+  - "172.31.228.1 remote-as %{hiera('bgp_as')}"
+  - '172.31.228.1 soft-reconfiguration inbound'
+
+frrouting::frrouting::bgp_as: "%{hiera('bgp_as')}"
+
+frrouting::frrouting::bgp_options:
+  - "bgp router-id %{hiera('netcfg_trp_netpart')}.2"
+  - 'bgp log-neighbor-changes'
+  - 'bgp default local-preference 200'
+  - 'maximum-paths ibgp 3'
+  - 'bgp bestpath as-path multipath-relax'
+
+frrouting::frrouting::bgp_networks:
+  - '0.0.0.0/0'
+  - '172.18.32.0/21'
+frrouting::frrouting::bgp_networks6:
+  - '::/0'
+  - 'fd32::/64'
+
+frrouting::frrouting::bgp_neighbor_groups:
+  'rr-clients':
+    'options':
+      - 'peer-group'
+      - "remote-as %{hiera('bgp_as')}"
+      - 'route-reflector-client'
+      - 'soft-reconfiguration inbound'
+      - 'route-map rr-client-allow in'
+      - 'bfd'
+    'members':
+      - '172.18.32.17'
+      - '172.18.32.18'
+      - '172.18.32.26'
+      - '172.18.32.103'
+      - '172.18.32.104'
+      - '172.18.32.105'
+      - '172.18.32.111'
+      - '172.18.32.112'
+      - '172.18.32.113'
+      - '172.18.32.115'
+      - '172.18.32.116'
+    'options6':
+      - 'neighbor rr-clients route-reflector-client'
+      - 'maximum-paths ibgp 3'
+    'members6':
+      - 'fd32::17'
+      - 'fd32::18'
+      - 'fd32::103'
+      - 'fd32::104'
+      - 'fd32::105'
+      - 'fd32::111'
+      - 'fd32::112'
+      - 'fd32::113'
+      - 'fd32::115'
+      - 'fd32::116'
+
+frrouting::frrouting::bgp_accesslist:
+  '10':
+    - 'permit 158.37.63.0 0.0.0.255'
+    - 'permit 158.39.75.0 0.0.0.255'
+    - 'permit 10.2.0.0 0.0.15.255'
+    - 'permit 172.18.32.0 0.0.0.255'
+  '20':
+    - 'deny 158.37.63.0 0.0.0.255'
+    - 'deny 158.39.75.0 0.0.0.255'
+    - 'deny 10.2.0.0 0.0.15.255'
+    - 'deny 172.18.32.0 0.0.0.255'
+    - 'permit any'
+
+frrouting::frrouting::bgp_ip_prefix_list:
+  - 'routes-from-leaf1 seq 5 deny any'
+  - 'routes-to-leaf1 seq 5 permit 0.0.0.0/0'
+
+frrouting::frrouting::bgp_route_maps:
+  'rr-client-allow permit 10':
+    - 'match ip address 10'
+  'peer-deny deny 10':
+    - 'match ip address 10'
