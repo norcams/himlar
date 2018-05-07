@@ -22,7 +22,7 @@ profile::base::network::cumulus_interfaces:
     'clagd_peer_ip': '172.18.228.2'
     'clagd_sys_mac': '44:38:39:ff:bb:1c'
 # downlink interface
-  'swp48':
+  'swp54':
     'ipv4': '129.240.25.110/30'
     'ipv6': '2001:700:100:aa3::22/126'
 
@@ -36,9 +36,9 @@ profile::base::network::cumulus_bridges:
 
 profile::base::network::cumulus_bonds:
   'peerlink':
-    'slaves': [ 'swp49-50', ]
+    'slaves': [ 'swp25-26', ]
   'downlink':
-    'slaves': [ 'swp51-52', ]
+    'slaves': [ 'swp27-28', ]
     'clag_id': '100'
     'pvid': '100'
   'host1':

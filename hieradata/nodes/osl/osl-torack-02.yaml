@@ -33,9 +33,9 @@ profile::base::network::cumulus_bridges:
 
 profile::base::network::cumulus_bonds:
   'peerlink':
-    'slaves': [ 'swp49-50', ]
+    'slaves': [ 'swp25-26', ]
   'downlink':
-    'slaves': [ 'swp51-52', ]
+    'slaves': [ 'swp27-28', ]
     'clag_id': '100'
     'pvid': '100'
   'host1':
