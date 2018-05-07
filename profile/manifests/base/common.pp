@@ -22,6 +22,7 @@ class profile::base::common (
   $manage_fake_ssd        = false,
   $include_physical       = false,
   $include_virtual        = false,
+  $manage_logrotate       = false,
   $classes                = [],
 ) {
   # Can be used to include custom classes (mostly for testing)
@@ -137,6 +138,10 @@ class profile::base::common (
 
   if $manage_puppet {
     include ::puppet
+  }
+
+  if $manage_logrotate {
+    include ::logrotate
   }
 
 }
