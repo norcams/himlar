@@ -1,2 +1,25 @@
 ---
+include:
+  default:
+      - profile::logging::logrotate
+
 logrotate::hieramerge: true
+
+profile::logging::logrotate::manage_logrotate:   true
+logrotate::rules:
+  openstack:
+    path:           '/var/log/*.log'
+    rotate:         7
+    postrotate:     '/bin/kill -HUP `cat /var/run/syslogd.pid 2> /dev/null` 2> /dev/null || true'
+    sharedscripts:  true
+    missingok:      true
+    rotate_every:   daily
+    compress:       true
+  messages:
+    path:           '/var/log/*/messages'
+    rotate:         7
+    postrotate:     '/bin/kill -HUP `cat /var/run/syslogd.pid 2> /dev/null` 2> /dev/null || true'
+    sharedscripts:  true
+    missingok:      true
+    rotate_every:   daily
+    compress:       true
