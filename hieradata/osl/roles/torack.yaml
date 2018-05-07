@@ -1,5 +1,6 @@
 ---
 profile::network::leaf::manage_portconfig: true
+profile::network::leaf::manage_license:    true
 
 # Dellemc S4148 needs explicit config
 profile::network::leaf::cumulus_portconfigs:
