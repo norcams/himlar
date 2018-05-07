@@ -8,10 +8,10 @@
   ) {
 
   file_line {"ports_${name}":
-    line      => "${line}",
-    path      => "${path}",
-    ensure    => "${ensure}",
+    ensure    => $ensure,
+    line      => $line,
+    path      => $path,
     match     => "^${name}=.*$",
-    replace   => "${replace}",
+    replace   => $replace,
   }
 }
