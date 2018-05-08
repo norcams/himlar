@@ -162,3 +162,7 @@ ceph::profile::params::client_keys:
     group: 'nova'
     cap_mon: 'profile rbd'
     cap_osd: 'profile rbd pool=volumes, profile rbd pool=vms, profile rbd pool=images'
+
+profile::base::yumrepo::repo_hash:
+  centos-qemu-ev:
+    ensure: present
