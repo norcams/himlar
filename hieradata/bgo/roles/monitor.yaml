@@ -3,7 +3,9 @@ profile::monitoring::sensu::server::handlers:
   slack:
     type:           'pipe'
     command:        'handler-slack.rb'
-    filters:        ['normal']
+    filters:
+      - normal
+      - infrequent
     config:
       webhook_url:  "%{hiera('sensu_slack_webhook')}"
       channel:      '#vakt'

@@ -67,13 +67,22 @@ profile::monitoring::sensu::server::handlers:
   slack:
     type:         'pipe'
     command:      'cat'
+    filters:
+      - normal
+      - infrequent
 
 profile::monitoring::sensu::server::filters:
-  normal:
+  normal: # for slack only: will only work on interval 60
     negate: true
     attributes:
       check:
         interval: 60
+      occurrences: "eval: value != 2 && value % 10 != 0"
+  infrequent: # for slack only: will only work on interval 300
+    negate: true
+    attributes:
+      check:
+        interval: 300
       occurrences: "eval: value != 1 && value % 10 != 0"
 
 # api watch
