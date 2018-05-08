@@ -93,6 +93,15 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         3
     'username':         'ubuntu'
+  'ubuntu_1804':
+    'image_name':       'IMAGEBUILDER Ubuntu 18.04 LTS'
+    'url':              'https://cloud-images.ubuntu.com/bionic/current/'
+    'latest':           'bionic-server-cloudimg-amd64.img'
+    'checksum_file':    'SHA256SUMS'
+    'checksum':         'sha256'
+    'min_ram':          768
+    'min_disk':         3
+    'username':         'ubuntu'
   'debian9':
     'image_name':       'IMAGEBUILDER Debian 9'
     'url':              'http://cdimage.debian.org/cdimage/openstack/current-9/'
