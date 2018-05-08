@@ -1,7 +1,7 @@
 ---
 network::interfaces_hash:
   'eth0':
-    'ipaddress': '172.16.32.6/21'
+    'ipaddress': '172.16.32.1/21'
     'gateway':   "%{hiera('netcfg_mgmt_gateway')}"
     'vrf':       'mgmt'
   'mgmt':
@@ -148,6 +148,7 @@ frrouting::frrouting::zebra_interfaces:
 
 frrouting::frrouting::zebra_ip6_routes:
   - '::/0 2001:700:100:aa3::21'
+  - '::/0 fd32:18:228::2 50'
   - '2001:700:2:8200::/64 Null0'
   - '2001:700:2:8201::/64 Null0'
   - '2001:700:2:82ff::12/128 fd32::12'
