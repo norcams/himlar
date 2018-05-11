@@ -142,6 +142,12 @@ class profile::base::common (
 
   if $manage_logrotate {
     include ::logrotate
+    logrotate::rule { 'test':
+      path         => '/var/log/',
+      rotate       => 5,
+      rotate_every => 'day',
+      postrotate   => '/bin/kill -HUP `cat /var/run/syslogd.pid 2> /dev/null` 2> /dev/null || true',
+      compress     => true
+    }
   }
-
 }

@@ -46,9 +46,9 @@ nodesets:
       memory:     4096
       cpus:       2
   # The following nodes are optional
-    #- role:       "access"
+    - role:       "access"
     #- role:       "console"
-    #- role:       "monitor"
+    - role:       "monitor"
     #- role:       "status"
     #- role:       "builder"
     #- role:       "proxy"
