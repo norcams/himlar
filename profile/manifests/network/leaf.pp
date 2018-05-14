@@ -6,6 +6,8 @@ class profile::network::leaf(
   $manage_quagga      = false,
   $manage_frrouting   = false,
   $manage_acls        = false,
+  $manage_portconfig  = false,
+  $cumulus_portconfig = {},
 ) {
 
   if $manage_acls {
@@ -25,5 +27,8 @@ class profile::network::leaf(
 
   if $manage_frrouting {
     include frrouting
+  }
+  if $manage_portconfig {
+    create_resources(profile::network::leaf::cumulus_portconfig, lookup('profile::network::leaf::cumulus_portconfigs', Hash, 'deep', {}))
   }
 }

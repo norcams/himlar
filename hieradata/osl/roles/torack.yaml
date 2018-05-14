@@ -1,0 +1,18 @@
+---
+profile::network::leaf::manage_portconfig: true
+profile::network::leaf::manage_license:    true
+
+# Dellemc S4148 needs explicit config
+profile::network::leaf::cumulus_portconfigs:
+  25:
+    line:  "25=40G"
+  26:
+    line:  "26=40G"
+  27:
+    line:  "27=40G"
+  28:
+    line:  "28=40G"
+  29:
+    line:  "29=40G"
+  30:
+    line:  "30=40G"

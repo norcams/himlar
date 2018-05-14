@@ -75,6 +75,15 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         3
     'username':         'fedora'
+  'fedora_28':
+    'image_name':       'IMAGEBUILDER Fedora 28'
+    'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/28/Cloud/x86_64/images/'
+    'latest':           'Fedora-Cloud-Base-28-1.1.x86_64.qcow2'
+    'checksum_file':    'Fedora-Cloud-28-1.1-x86_64-CHECKSUM'
+    'checksum':         'sha256'
+    'min_ram':          768
+    'min_disk':         3
+    'username':         'fedora'
   'ubuntu_1604':
     'image_name':       'IMAGEBUILDER Ubuntu 16.04 LTS'
     'url':              'https://cloud-images.ubuntu.com/xenial/current/'
@@ -88,6 +97,15 @@ profile::application::builder::images:
     'image_name':       'IMAGEBUILDER Ubuntu 17.10'
     'url':              'https://cloud-images.ubuntu.com/artful/current/'
     'latest':           'artful-server-cloudimg-amd64.img'
+    'checksum_file':    'SHA256SUMS'
+    'checksum':         'sha256'
+    'min_ram':          768
+    'min_disk':         3
+    'username':         'ubuntu'
+  'ubuntu_1804':
+    'image_name':       'IMAGEBUILDER Ubuntu 18.04 LTS'
+    'url':              'https://cloud-images.ubuntu.com/bionic/current/'
+    'latest':           'bionic-server-cloudimg-amd64.img'
     'checksum_file':    'SHA256SUMS'
     'checksum':         'sha256'
     'min_ram':          768
