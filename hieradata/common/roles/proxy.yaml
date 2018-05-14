@@ -23,7 +23,7 @@ profile::development::network::dns::manage_hosts: true
 profile::development::network::dns::use_dnsmasq:  true
 profile::base::network::manage_dummy:             true
 profile::network::nat::enable_snat:               true
-profile::network::nat::source:                    "0.0.0.0/0"
+profile::network::nat::source:                    "%{::network_mgmt1}/%{::netmask_mgmt1}"
 profile::network::nat::outiface:                  'eth1'
 
 # sensu
