@@ -144,6 +144,8 @@ profile::base::yumrepo::repo_hash:
     exclude: 'calico-dhcp-agent' #FIXME
   ceph-%{hiera('ceph_version')}:
     ensure: present
+  centos-qemu-ev:
+    ensure: present
 
 # Compute nodes need only admin and cinder keys
 ceph::profile::params::client_keys:
@@ -162,7 +164,3 @@ ceph::profile::params::client_keys:
     group: 'nova'
     cap_mon: 'profile rbd'
     cap_osd: 'profile rbd pool=volumes, profile rbd pool=vms, profile rbd pool=images'
-
-profile::base::yumrepo::repo_hash:
-  centos-qemu-ev:
-    ensure: present
