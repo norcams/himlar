@@ -36,3 +36,8 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_ext'
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
+
+# Make libvirt use HW RNG instead of /dev/random
+nova::config::nova_config:
+  libvirt/rng_dev_path:
+    value: '/dev/hwrng'

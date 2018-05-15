@@ -18,3 +18,8 @@ profile::base::network::rules:
   'team1':
     iprule: [ "from %{hiera('netcfg_priv_network')} lookup private", ]
 profile::base::network::manage_neutron_blackhole: true
+
+# Make libvirt use HW RNG instead of /dev/random
+nova::config::nova_config:
+  libvirt/rng_dev_path:
+    value: '/dev/hwrng'
