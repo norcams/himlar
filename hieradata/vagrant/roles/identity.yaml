@@ -6,3 +6,4 @@ profile::openstack::identity::keystone_config:
     value:  'new'
   'cors/allowed_origin': # allow gnocchi access on monitor
     value:  "http://%{hiera('mgmt__address__monitor')}:8080"
+profile::base::selinux::manage_selinux:       true
