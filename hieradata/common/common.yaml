@@ -4,11 +4,13 @@ include:
     - profile::base::common
     - profile::base::firewall
     - profile::base::selinux
+    - profile::logging::logrotate
   kickstart:
     - profile::base::common
   bootstrap:
     - profile::base::common
     - profile::base::firewall
+
 
 #
 # Location metadata
@@ -485,14 +487,15 @@ networks:
         iniface: eth1
         outiface: eth0
 
-#logrotate
-#profile::logging::logrotate::manage_logrotate:   true
-# logrotate::rules:
-#   test:
-#     path:           '/var/log/*'
-#     rotate:         7
-#     postrotate:     '/bin/kill -HUP `cat /var/run/syslogd.pid 2> /dev/null` 2> /dev/null || true'
-#     sharedscripts:  true
-#     missingok:      true
-#     rotate_every:   daily
-#     compress:       true
+# logrotate 
+profile::logging::logrotate::manage_logrotate:      true
+logrotate::rules:
+  syslog:
+    path:           ['/var/log/cron', '/var/log/maillog', '/var/log/messages', '/var/log/secure', '/var/log/spooler']
+    rotate:         10
+    rotate_every:   daily
+    postrotate:     '/bin/kill -HUP `cat /var/run/syslogd.pid 2> /dev/null` 2> /dev/null || true'
+    dateext:        true
+    sharedscripts:  true
+    missingok:      true
+    compress:       true

@@ -6,5 +6,4 @@ class profile::logging::logrotate(
   if $manage_logrotate {
     include ::logrotate
   }
-
 }
