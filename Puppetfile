@@ -111,8 +111,8 @@ mod 'logstash', :ref => '5.3.0',                    :git => github + 'elastic/pu
 mod 'datacat', :ref => '0.6.2',                     :git => github + 'richardc/puppet-datacat'
 mod 'elasticsearch', :ref => '5.5.0',               :git => github + 'elastic/puppet-elasticsearch'
 mod 'file_concat', :ref => '1.0.1',                 :git => github + 'electrical/puppet-lib-file_concat'
-#mod 'logrotate', :ref => 'v1.4.0',                  :git => github + 'yo61/puppet-logrotate' # deprecated
-mod 'puppet-logrotate', :ref => 'v3.2.1',           :git => github + 'voxpupuli/puppet-logrotate'
+mod 'logrotate', :ref => 'v1.4.0',                  :git => github + 'yo61/puppet-logrotate' # deprecated
+#mod 'puppet-logrotate', :ref => 'v3.2.1',           :git => github + 'voxpupuli/puppet-logrotate'
 
 #
 # profile::monitoring
