@@ -53,7 +53,6 @@ profile::base::lvm::volume_group:
     physical_volumes:
       - /dev/sda3
       - /dev/sdb
-      - /dev/sdc
 profile::base::lvm::logical_volume:
   'lv_instances':
     volume_group: 'vg_ext'
@@ -61,7 +60,7 @@ profile::base::lvm::logical_volume:
     mountpath:    "/var/lib/nova/instances"
 
 # This compute host uses local storage for instances
-nova::compute::rbd::ephemeral_storage:            false
-nova::config::nova_config:
-  libvirt/images_type:
-    value: default
+#nova::compute::rbd::ephemeral_storage:            false
+#nova::config::nova_config:
+#  libvirt/images_type:
+#    value: default
