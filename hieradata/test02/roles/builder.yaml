@@ -1,6 +1,6 @@
 ---
-profile::application::builder::insecure:  true
-profile::application::builder::network:   'public'
+#profile::application::builder::insecure:  true
+#profile::application::builder::network:   'public'
 profile::base::common::manage_lvm:        true
 
 profile::base::lvm::logical_volume:
