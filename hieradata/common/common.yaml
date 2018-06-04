@@ -210,6 +210,7 @@ profile::network::services::dns_records:
     "%{::location}-network-03.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.73"
     "%{::location}-telemetry-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_mgmt_netpart')}.76"
     "%{::location}-identity-01.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_netpart')}.81"
+    "%{::location}-identity-02.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_netpart')}.82"
     "%{::location}-api-01.%{hiera('domain_mgmt')}":         "%{hiera('netcfg_mgmt_netpart')}.86"
     "%{::location}-cephmon-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.91"
     "%{::location}-cephmon-02.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.92"
