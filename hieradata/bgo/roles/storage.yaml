@@ -33,6 +33,5 @@ ceph::profile::params::osds:
     ensure:     'present'
   '/dev/sdi':
     ensure:     'present'
-#  '/dev/sdj':
-#    db_device:  '/dev/sdk'
-#    wal_device: '/dev/sdk'
+  '/dev/sdj':
+    ensure:     'present'
