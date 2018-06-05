@@ -13,7 +13,7 @@ network::interfaces_hash:
     ipaddress: "%{hiera('netcfg_trp_netpart')}.27"
     netmask:   "%{hiera('netcfg_trp_netmask')}"
     gateway:   "%{hiera('netcfg_trp_gateway')}"
-    srcaddr:   "%{hiera('netcfg_pub_natgw')}"
+    srcaddr:   "%{hiera('netcfg_pub_natgw2')}"
     defroute:  'yes'
   'dummy0':
     ipaddress: "%{hiera('netcfg_pub_natgw2')}"
