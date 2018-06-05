@@ -54,6 +54,7 @@ profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}
   'jq': {}
+  'rng-tools': {}
 #  'python-oslo-log': {}
 
 ssh::server::options:
@@ -89,4 +90,3 @@ profile::base::yumrepo::repo_hash:
 profile::base::login::manage_db_backup: true
 profile::base::login::dump_owner:      'norcams'
 profile::base::login::dump_group:      'wheel'
-
