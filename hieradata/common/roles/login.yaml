@@ -13,6 +13,7 @@ profile::firewall::pre::ssh_settings:
   source: "0.0.0.0/0"
 
 profile::base::login::manage_repo_incoming_dir: true
+profile::base::login::gpg_receiver:             "%{hiera('profile::base::common::gpg_receiver')}"
 
 accounts::accounts:
 #  'hege':

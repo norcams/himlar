@@ -30,6 +30,9 @@ profile::base::common::packages:
   'bind-utils': {}
   'nano': {}
 
+# common for identity and login
+profile::base::common::gpg_receiver:            'UH-IaaS Token Distributor'
+
 # SSH only from mgmt
 profile::firewall::pre::ssh_settings:
   source: "%{::network_mgmt1}/%{::netmask_mgmt1}"

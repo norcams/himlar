@@ -12,7 +12,8 @@ class profile::base::login (
   $dump_group               = '',
   $repo_incoming_dir        = '/tmp/repo-incoming',
   $repo_server              = 'iaas-repo.uio.no',
-  $yumrepo_path             = '/var/www/html/uh-iaas/yumrepo/'
+  $yumrepo_path             = '/var/www/html/uh-iaas/yumrepo/',
+  $gpg_receiver             = 'UH-IaaS Token Distributor'
 ) {
 
 
@@ -40,6 +41,15 @@ class profile::base::login (
     type    => 'auth',
     control => 'substack',
     module  => 'password-auth',
+  }
+
+  file { 'create-gpg.sh':
+    ensure  => $ensure,
+    path    => '/usr/local/sbin/create-gpg.sh',
+    mode    => '0755',
+    owner   => 'root',
+    group   => 'root',
+    content => template("${module_name}/base/create-gpg.sh.erb"),
   }
 
   if $manage_db_backup  {
