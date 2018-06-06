@@ -124,8 +124,8 @@ class profile::base::login (
       notify => Exec['daemon reload for rngd']
     }
 
-    exec { 'daemon reload for rngd'
-      command => '/usr/bin/systemctl daemon-reload',
+    exec { 'daemon reload for rngd':
+      command     => '/usr/bin/systemctl daemon-reload',
       refreshonly => true,
     }
 
@@ -133,5 +133,5 @@ class profile::base::login (
       ensure => running
     }
   }
-  
+
 }
