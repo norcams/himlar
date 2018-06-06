@@ -56,6 +56,7 @@ profile::openstack::identity::cron_slave:
     minute:   '35'
     command:  '/usr/local/sbin/token_dist.sh credentials >/dev/null'
 
+profile::openstack::identity::token_rotation_sync:          true
 profile::openstack::identity::fernet_key_repo:              "%{hiera('keystone::fernet_key_repository')}"
 profile::openstack::identity::credential_key_repo:          "%{hiera('keystone::credential_key_repository')}"
 profile::openstack::identity::db_host:                      "db01.%{hiera('domain_trp')}"
