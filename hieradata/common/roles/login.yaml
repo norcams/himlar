@@ -13,7 +13,7 @@ profile::firewall::pre::ssh_settings:
   source: "0.0.0.0/0"
 
 profile::base::login::manage_repo_incoming_dir: true
-profile::base::login::gpg_receiver:             "%{hiera('profile::base::common::gpg_receiver')}"
+profile::base::login::gpg_receiver:             "%{hiera('gpg_receiver')}"
 
 accounts::accounts:
 #  'hege':
@@ -90,4 +90,3 @@ profile::base::yumrepo::repo_hash:
 profile::base::login::manage_db_backup: true
 profile::base::login::dump_owner:      'norcams'
 profile::base::login::dump_group:      'wheel'
-
