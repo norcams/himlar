@@ -6,8 +6,9 @@ include:
     - profile::application::git
     - profile::bootstrap::himlar
 
+profile::base::login::manage_rngd:        true
 profile::base::firewall::manage_firewall: false
-profile::network::services::manage_nat: true
+profile::network::services::manage_nat:   true
 
 profile::firewall::pre::ssh_settings:
   source: "0.0.0.0/0"
