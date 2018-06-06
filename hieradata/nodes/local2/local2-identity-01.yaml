@@ -16,6 +16,4 @@ network::interfaces_hash:
     ipaddress: "%{hiera('netcfg_trp_netpart')}.81"
     netmask:   "%{hiera('netcfg_trp_netmask')}"
 
-keystone::enable_fernet_setup:            false
-keystone::enable_credential_setup:        false
 keystone::enable_bootstrap:               false
