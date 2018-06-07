@@ -11,7 +11,6 @@ profile::base::login::manage_rngd:        true
 
 # Manage NAT with iptables
 profile::base::firewall::manage_firewall:     true
-profile::base::firewall::purge_firewall:      false
 profile::network::services::manage_nat:       false
 profile::network::nat::enable_masquerade:     true
 profile::network::nat::source:                "%{::network_mgmt1}/%{::netmask_mgmt1}"
