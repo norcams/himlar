@@ -4,6 +4,7 @@
 class profile::base::login (
   $manage_db_backup         = false,
   $manage_repo_incoming_dir = false,
+  $manage_rngd              = false,
   $ensure                   = 'present',
   $agelimit                 = '14',
   $db_servers               = {},
@@ -12,7 +13,8 @@ class profile::base::login (
   $dump_group               = '',
   $repo_incoming_dir        = '/tmp/repo-incoming',
   $repo_server              = 'iaas-repo.uio.no',
-  $yumrepo_path             = '/var/www/html/uh-iaas/yumrepo/'
+  $yumrepo_path             = '/var/www/html/uh-iaas/yumrepo/',
+  $gpg_receiver             = 'UH-IaaS Token Distributor'
 ) {
 
 
@@ -40,6 +42,15 @@ class profile::base::login (
     type    => 'auth',
     control => 'substack',
     module  => 'password-auth',
+  }
+
+  file { 'create-gpg.sh':
+    ensure  => $ensure,
+    path    => '/usr/local/sbin/create-gpg.sh',
+    mode    => '0755',
+    owner   => 'root',
+    group   => 'root',
+    content => template("${module_name}/base/create-gpg.sh.erb"),
   }
 
   if $manage_db_backup  {
@@ -100,6 +111,26 @@ class profile::base::login (
       mode   => '0775',
       owner  => root,
       group  => wheel
+    }
+  }
+
+  if $manage_rngd {
+    file { '/etc/systemd/system/rngd.service':
+      ensure => present,
+      mode   => '0644',
+      owner  => root,
+      group  => root,
+      source => "puppet:///modules/${module_name}/common/systemd/rngd.service",
+      notify => Exec['daemon reload for rngd']
+    }
+
+    exec { 'daemon reload for rngd':
+      command     => '/usr/bin/systemctl daemon-reload',
+      refreshonly => true,
+    }
+
+    service { 'rngd.service':
+      ensure => running
     }
   }
 

@@ -19,6 +19,8 @@ location_tag:         unset
 
 bgp_as:               65535
 
+gpg_receiver:         'UH-IaaS Token Distributor'
+
 netcfg_anycast_dns:   '8.8.8.8'              # Placeholder data for bird compute template
 netcfg_anycast_dns6:  '2001:4860:4860::8888' # Placeholder data for bird6 compute template
 
@@ -212,6 +214,7 @@ profile::network::services::dns_records:
     "%{::location}-network-03.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.73"
     "%{::location}-telemetry-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_mgmt_netpart')}.76"
     "%{::location}-identity-01.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_netpart')}.81"
+    "%{::location}-identity-02.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_netpart')}.82"
     "%{::location}-api-01.%{hiera('domain_mgmt')}":         "%{hiera('netcfg_mgmt_netpart')}.86"
     "%{::location}-cephmon-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.91"
     "%{::location}-cephmon-02.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.92"

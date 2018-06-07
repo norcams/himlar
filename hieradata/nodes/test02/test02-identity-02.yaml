@@ -1,17 +1,16 @@
 ---
 network::interfaces_hash:
   'eth0':
-    ipaddress: '172.16.0.81'
-    netmask:   '255.255.248.0'
+    ipaddress: '172.28.32.82'
+    netmask:   '255.255.255.0'
     gateway:   "%{hiera('netcfg_mgmt_gateway')}"
     mtu:       '1500'
     peerdns:   'yes'
     dns1:      "%{hiera('netcfg_dns_server1')}"
-    domain:    "%{hiera('netcfg_dns_search')}"
+    domain:    'test.iaas.uio.no'
     defroute:  'yes'
   'eth1':
-    ipaddress: '172.18.0.81'
+    ipaddress: '172.30.32.82'
     netmask:   '255.255.248.0'
+    gateway:   '172.30.32.1'
     defroute:  'no'
-
-profile::openstack::identity::manage_token_rotate:        true
