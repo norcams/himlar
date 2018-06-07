@@ -1,5 +1,6 @@
 ---
 profile::network::services::manage_dhcp:  false
+profile::firewall::pre::manage_ipv6_ssh:  true
 
 # Himlar bootstrap
 profile::bootstrap::himlar::manage_bootstrap_scripts: true
@@ -20,6 +21,12 @@ himlar_bootstrap::tftp_install:
 
 profile::application::git::settings:
   hostname: "bgo"
+
+named_interfaces::config:
+  mgmt:
+    - eth2
+  public:
+    - eth1
 
 # Db backup
 profile::base::login::db_servers:
