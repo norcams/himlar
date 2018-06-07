@@ -92,7 +92,9 @@ cleanup()
     err=$?
     trap '' INT EXIT TERM
     cd $MASTERTMPDIR
-    echo rm -rf $tmpdir
+    if [ "${tmpdir##/tmp/}" != "${tmpdir}" ];then
+        rm -rf $tmpdir
+    fi
     exit $err
 }
 
@@ -221,7 +223,7 @@ push_keys()
     fi
 
     # remove old data from database table
-    $MYSQL ${DB_COMMON_OPTS} -e "delete from $key_table;" 
+    $MYSQL ${DB_COMMON_OPTS} -e "delete from $key_table;"
 
     # insert data from each file into database
     for keyfile in $dir/*.uue; do
@@ -258,7 +260,7 @@ pop_keys()
     for name in ${names[@]}; do
         name=${name##*/}                                                    # some rudimentary sanitizing
         # create file, adding stripped ending
-        $MYSQL ${DB_COMMON_OPTS} -N -r -e "select data from $key_table where name=$name;" > ${dir}/${name}.uue; 
+        $MYSQL ${DB_COMMON_OPTS} -N -r -e "select data from $key_table where name=$name;" > ${dir}/${name}.uue;
     done
 
     # count files: must be at least rotation_min number of files
@@ -346,4 +348,3 @@ else
 fi
 
 exit $EOK
-
