@@ -7,7 +7,7 @@ include:
     - profile::bootstrap::himlar
 
 profile::base::login::manage_rngd:        true
-profile::base::firewall::manage_firewall: false
+profile::base::firewall::manage_firewall: true
 profile::network::services::manage_nat:   true
 
 profile::firewall::pre::ssh_settings:
