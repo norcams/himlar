@@ -80,6 +80,14 @@ profile::openstack::database::sql::cinder_enabled:     false
 profile::openstack::database::sql::gnocchi_enabled:    false
 profile::openstack::database::sql::ceilometer_enabled: false
 
+keystone::db::mysql::allowed_hosts:
+  - "%{hiera('netcfg_trp_netpart')}.81"
+  - "%{hiera('netcfg_trp_netpart')}.82"
+  - "%{hiera('netcfg_trp_netpart')}.83"
+  - '172.18.32.81'
+  - '172.18.32.82'
+  - '172.18.32.83'
+
 # sensu
 profile::monitoring::sensu::agent::checks:
   'check-wsrep-ready':
