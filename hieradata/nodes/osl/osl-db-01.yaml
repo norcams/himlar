@@ -91,9 +91,21 @@ profile::monitoring::sensu::agent::checks:
 
 # token
 profile::database::mariadb::grants:
-  "keystone@%{hiera('netcfg_trp_netpart')}.%/token_keys.*":
-    ensure:     'present'
-    options:    ['GRANT']
-    privileges: ['SELECT', 'INSERT', 'DELETE', 'CREATE']
-    user:       "keystone@%{hiera('netcfg_trp_netpart')}.%"
-    table:      'token_keys.*'
+  "keystone@%{hiera('netcfg_trp_netpart')}.41/token_keys.*":
+    ensure:         'present'
+    options:        ['GRANT']
+    privileges:     ['SELECT', 'INSERT', 'DELETE', 'CREATE']
+    user:           "keystone@%{hiera('netcfg_trp_netpart')}.41"
+    table:          'token_keys.*'
+  "keystone@%{hiera('netcfg_trp_netpart')}.42/token_keys.*":
+    ensure:         'present'
+    options:        ['GRANT']
+    privileges:     ['SELECT', 'INSERT', 'DELETE', 'CREATE']
+    user:           "keystone@%{hiera('netcfg_trp_netpart')}.42"
+    table:          'token_keys.*'
+  "keystone@%{hiera('netcfg_trp_netpart')}.43/token_keys.*":
+    ensure:         'present'
+    options:        ['GRANT']
+    privileges:     ['SELECT', 'INSERT', 'DELETE', 'CREATE']
+    user:           "keystone@%{hiera('netcfg_trp_netpart')}.43"
+    table:          'token_keys.*'
