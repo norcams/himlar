@@ -104,9 +104,9 @@ profile::openstack::resource::users::user_roles:
 profile::base::yumrepo::repo_hash:
   rdo-release:
     ensure:   present
+    exclude:  'mariadb*'
   mariadb:
     ensure:   present
-    exclude:  'mariadb*'
 
 profile::base::selinux::boolean:
   'httpd_can_network_connect':
