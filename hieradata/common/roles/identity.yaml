@@ -14,8 +14,7 @@ openstack_version: 'ocata' #FIXME: ocata upgrade
 
 profile::base::common::packages:
   'bash-completion': {}
-#  'bash-completion-extras': {}
-  'htop': { ensure: absent }
+  'bash-completion-extras': {}
   'jq': {}
   'sharutils': {}
   'MariaDB-client': {}
@@ -76,9 +75,6 @@ profile::openstack::identity::gpg_receiver:                 "%{hiera('gpg_receiv
 profile::openstack::identity::fernet_active_keys:           "%{hiera('keystone::fernet_max_active_keys')}"
 profile::openstack::identity::credential_active_keys:       "2"                                                 # no value for this in keystone module
 
-
-#profile::openstack::openrc::filename:                       '/root/keystonerc_admin'
-
 profile::openstack::resource::imagebuilder::manage:         true
 profile::openstack::resource::imagebuilder::password:       "%{hiera('imagebuilder_password')}"
 
@@ -124,6 +120,8 @@ profile::base::yumrepo::repo_hash:
     exclude:  'mariadb*'
   mariadb:
     ensure:   present
+  epel:
+    ensure: absent #RDO do not work well with epel any more
 
 profile::base::selinux::boolean:
   'httpd_can_network_connect':
