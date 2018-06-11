@@ -103,9 +103,10 @@ profile::openstack::resource::users::user_roles:
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   rdo-release:
-    ensure: present
+    ensure:   present
   mariadb:
-    ensure: present
+    ensure:   present
+    exclude:  'mariadb*'
 
 profile::base::selinux::boolean:
   'httpd_can_network_connect':
