@@ -121,7 +121,7 @@ profile::base::yumrepo::repo_hash:
     descr:          "Extra Packages for Enterprise Linux %{operatingsystemmajrelease} - $basearch"
     baseurl:        "%{hiera('yum_base_mirror')}/epel"
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7'
-    exclude:        'zeromq python2-uritemplate python2-google-api-client' # FIXME epel version conflicts with rdo
+    exclude:        'zeromq python2-uritemplate python2-google-api-client' # FIXME when using RDO use whitelist includepkgs for EPEL!
   uh-iaas:
     descr:          'UH-IaaS repo'
     baseurl:        "%{hiera('yum_base_mirror')}/uh-iaas/"
