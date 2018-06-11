@@ -60,9 +60,7 @@ class profile::openstack::identity (
       group   => 'root',
       content => template("${module_name}/openstack/keystone/token_dist.erb")
     }
-    package { 'mariadb':
-      ensure => 'installed',
-    }
+
   }
 
   if $disable_admin_token_auth {
