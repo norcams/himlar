@@ -14,8 +14,7 @@ openstack_version: 'ocata' #FIXME: ocata upgrade
 
 profile::base::common::packages:
   'bash-completion': {}
-#  'bash-completion-extras': {}
-  'htop': { ensure: absent }
+  'bash-completion-extras': {}
   'jq': {}
   'sharutils': {}
   'MariaDB-client': {}
@@ -75,9 +74,6 @@ profile::openstack::identity::dbpw:                         "%{hiera('keystone::
 profile::openstack::identity::gpg_receiver:                 "%{hiera('gpg_receiver')}"
 profile::openstack::identity::fernet_active_keys:           "%{hiera('keystone::fernet_max_active_keys')}"
 profile::openstack::identity::credential_active_keys:       "2"                                                 # no value for this in keystone module
-
-
-#profile::openstack::openrc::filename:                       '/root/keystonerc_admin'
 
 profile::openstack::resource::imagebuilder::manage:         true
 profile::openstack::resource::imagebuilder::password:       "%{hiera('imagebuilder_password')}"
