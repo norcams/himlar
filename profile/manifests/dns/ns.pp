@@ -221,8 +221,8 @@ class profile::dns::ns (
       content  => template("${module_name}/dns/bind/named_check_service.erb"),
     } ~>
     service { 'named_health.service':
-      enable      => true,
       ensure      => running,
+      enable      => true,
       hasrestart  => true,
       hasstatus   => true,
     }
