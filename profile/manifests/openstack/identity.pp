@@ -28,7 +28,8 @@ class profile::openstack::identity (
   $credential_key_repo      = '',
   $dbpw                     = '',
   $db_host                  = '',
-  $gpg_receiver             = ''
+  $gpg_receiver             = '',
+  $manage_policy            = false,
 ) {
 
   include ::keystone
@@ -61,6 +62,10 @@ class profile::openstack::identity (
       content => template("${module_name}/openstack/keystone/token_dist.erb")
     }
 
+  }
+
+  if $manage_policy {
+    include ::keystone::policy
   }
 
   if $disable_admin_token_auth {
