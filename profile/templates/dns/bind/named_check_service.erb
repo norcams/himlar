@@ -1,0 +1,12 @@
+[Unit]
+Description=Check named health and manage multicast routes
+Wants=bird.service bird6.service
+After=bird.service bird6.service
+
+[Service]
+Type=simple
+RemainAfterExit=true
+ExecStart=/opt/named-checks/named_health.sh
+
+[Install]
+WantedBy=multi-user.target

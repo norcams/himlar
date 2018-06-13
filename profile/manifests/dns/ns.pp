@@ -212,5 +212,19 @@ class profile::dns::ns (
       path     => "/opt/named-checks/named_health.sh",
       content  => template("${module_name}/dns/bind/named_check.erb"),
     }
+    file { 'named_check_service':
+      ensure   => present,
+      owner    => root,
+      group    => root,
+      mode     => '0644',
+      path     => "/etc/systemd/system/named_health.service",
+      content  => template("${module_name}/dns/bind/named_check_service.erb"),
+    } ~>
+    service { 'named_health.service':
+      enable      => true,
+      ensure      => running,
+      hasrestart  => true,
+      hasstatus   => true,
+    }
   }
 }

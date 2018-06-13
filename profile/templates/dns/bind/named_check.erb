@@ -1,13 +1,33 @@
 #!/bin/bash
 
+_term() {
+  echo "Caught SIGTERM signal!"
+    /sbin/ip route del <%= scope().call_function('hiera',['netcfg_anycast_dns']) %>/32 dev dummy0 > /dev/null
+    /sbin/ip -6 route del <%= scope().call_function('hiera',['netcfg_anycast_dns6']) %> dev dummy0 > /dev/null
+    /sbin/ip -6 route del <%= scope().call_function('hiera',['netcfg_anycast_dns6']) %> dev dummy0 > /dev/null
+  /bin/sleep 3
+  exit 0
+#  kill -TERM "$child" 2>/dev/null
+}
+
+trap _term SIGTERM
+
 # Check health for local named daemon
-  
+
+while true
+do
 DNSUP=`/usr/bin/dig @<%= scope().call_function('hiera',['netcfg_anycast_dns']) %> localhost. A +short +time=1`
 if [ "$DNSUP" != "127.0.0.1" ];
 then
-  /sbin/ip route del <%= scope().call_function('hiera',['netcfg_anycast_dns']) %>/32 dev dummy0 > /dev/null
-  /sbin/ip -6 route del <%= scope().call_function('hiera',['netcfg_anycast_dns6']) %> dev dummy0 > /dev/null
-  /sbin/ip -6 route del <%= scope().call_function('hiera',['netcfg_anycast_dns6']) %> dev dummy0 > /dev/null
+  if /sbin/ip route | grep <%= scope().call_function('hiera',['netcfg_anycast_dns']) %> > /dev/null ; then
+    /sbin/ip route del <%= scope().call_function('hiera',['netcfg_anycast_dns']) %>/32 dev dummy0 > /dev/null
+  fi
+  if /sbin/ip -6 route | grep <%= scope().call_function('hiera',['netcfg_anycast_dns6']) %> | grep -v kernel > /dev/null ; then
+    /sbin/ip -6 route del <%= scope().call_function('hiera',['netcfg_anycast_dns6']) %> dev dummy0 > /dev/null
+  fi
+  if /sbin/ip -6 route | grep <%= scope().call_function('hiera',['netcfg_anycast_dns6']) %> | grep -v kernel > /dev/null ; then
+    /sbin/ip -6 route del <%= scope().call_function('hiera',['netcfg_anycast_dns6']) %> dev dummy0 > /dev/null
+  fi
 else
   if ! /sbin/ip route | grep <%= scope().call_function('hiera',['netcfg_anycast_dns']) %> > /dev/null ; then
     /sbin/ip route add <%= scope().call_function('hiera',['netcfg_anycast_dns']) %>/32 dev dummy0 > /dev/null
@@ -16,3 +36,7 @@ else
     /sbin/ip -6 route add <%= scope().call_function('hiera',['netcfg_anycast_dns6']) %>/128 dev dummy0 > /dev/null
   fi
 fi
+sleep 2
+done
+
+wait $!
