@@ -42,9 +42,3 @@ profile::dns::ns::manage_bird_firewall:  true
 profile::dns::ns::enable_bird6:          true
 profile::dns::ns::manage_bird6_firewall: true
 profile::dns::ns::check_named_health:    true
-
-profile::base::cron::crontabs:
-  check_named:
-    hour:     '*'
-    minute:   '*'
-    command:  '/opt/named-checks/named_health.sh >/dev/null'
