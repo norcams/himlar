@@ -32,7 +32,7 @@ profile::monitoring::grafana::dashboard:
     grafana_url:        "http://%{::ipaddress_mgmt1}:8080"
     grafana_user:       'admin'
     grafana_password:   "%{hiera('grafana_admin_password')}"
-    content:            'instances.json'
+    content:            'compute.json'
   'API':
     grafana_url:        "http://%{::ipaddress_mgmt1}:8080"
     grafana_user:       'admin'
