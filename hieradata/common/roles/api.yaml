@@ -67,6 +67,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - "image.api.%{hiera('domain_public')}:9292":         'bk_image'
       - "object.api.%{hiera('domain_public')}:8080":        'bk_object'
       - "status.%{hiera('domain_frontend')}":               'bk_status'
+      - "request.%{hiera('domain_frontend')}":              'bk_request'
       - "console.%{hiera('domain_public')}:6082":           'bk_console'
       - "access.%{hiera('domain_frontend')}":               'bk_access'
       - "access-%{::location}.%{hiera('domain_frontend')}": 'bk_access'
@@ -101,7 +102,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       - http-request:
         - 'add-header X-Forwarded-Proto https if { ssl_fc }'
         - 'set-header X-Forwarded-Port %[dst_port]'
-      - redirect:       'scheme https if !{ ssl_fc }' # redirect all to https (only port 80)
+      - acl:            'is_request hdr_beg(host) -i request'
+      - redirect:       'scheme https if !{ ssl_fc } !is_request' # redirect all to https (only port 80)
       - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/public_domains.map)]'
   frontend_internal:
     bind:
@@ -169,6 +171,9 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
   bk_access:
     options:
       - option:       'httplog'
+  bk_request:
+    options:
+      redirect:         'location https://skjema.uio.no/iaas-project'
 
 # Servers for backends. This will be merged and can should be overridden i location
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
