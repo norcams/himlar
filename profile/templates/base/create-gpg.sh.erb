@@ -1,0 +1,67 @@
+#!/bin/bash
+
+#
+# This script creates a GPG key without any passwords
+# which is targeted for the fernet distribution
+#
+# Argument (required): location (environment)
+#
+
+#USER="UH-IaaS Token Distributor"
+USER="<%= @gpg_receiver %>"
+COMMENT="For token distribution system"
+EMAIL="iaas-core@usit.uio.no"
+GPG=/usr/bin/gpg
+
+SECRETSBASE="/opt/repo/secrets/nodes"
+export GNUPGHOME=$(mktemp -d)
+GPGFILE=token-secret-key.gpg
+EXPORTFILE=$(mktemp)
+CONFFILE=$(mktemp)
+cat <<- EOF > $CONFFILE
+        %echo Generating GPG file for user "$USER"
+        %no-protection
+        Key-Type: RSA
+        Key-Length: 1024
+        Expire-Date: 0
+        Name-Real: $USER
+        Name-Comment: $COMMENT
+        Name-Email: $EMAIL
+EOF
+
+usage()
+{
+    echo
+    echo "$0 <location>"
+
+    echo "Note: location is required!"
+    echo "Key created is copied to \"${SECRETSBASE}/<loc>-identity-01\""
+    echo
+}
+
+
+if [ $# != 1 ]; then
+    usage
+    exit 1
+fi
+loc=$1
+
+$GPG --gen-key --batch -q $CONFFILE
+err=$?
+if [ $err != 0 ]; then
+    echo "GPG key creation failed: $err"
+    exit 2
+fi
+$GPG --export-secret-keys $USER > $EXPORTFILE
+err=$?
+if [ $err != 0 ]; then
+    echo "GPG key export failed: $err"
+    exit 3
+fi
+if [ ! -d ${SECRETSBASE}/${loc}-identity-01/ ]; then
+    mkdir -p ${SECRETSBASE}/${loc}-identity-01/
+fi
+mv $EXPORTFILE ${SECRETSBASE}/${loc}-identity-01/${GPGFILE}
+
+echo "Should have done (but does not dare): rm -f $GNUPGHOME $EXPORTFILE $CONFFILE"
+

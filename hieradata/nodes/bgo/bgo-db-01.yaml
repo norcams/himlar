@@ -80,9 +80,42 @@ profile::openstack::database::sql::cinder_enabled:     false
 profile::openstack::database::sql::gnocchi_enabled:    false
 profile::openstack::database::sql::ceilometer_enabled: false
 
+keystone::db::mysql::allowed_hosts:
+  - "%{hiera('netcfg_trp_netpart')}.81"
+  - "%{hiera('netcfg_trp_netpart')}.82"
+  - "%{hiera('netcfg_trp_netpart')}.83"
+  - '172.18.32.81'
+  - '172.18.32.82'
+  - '172.18.32.83'
+
 # sensu
 profile::monitoring::sensu::agent::checks:
   'check-wsrep-ready':
     command:      "check-wsrep-ready.rb -u sensu -h localhost -p %{hiera('sensu_mysql_password')}"
     interval:     60
     subscribers:  ['checks']
+
+# token
+profile::database::mariadb::databases:
+  'token_keys':
+    ensure:   'present'
+
+profile::database::mariadb::grants:
+  "keystone@%{hiera('netcfg_trp_netpart')}.81/token_keys.*":
+    ensure:         'present'
+    options:        ['GRANT']
+    privileges:     ['SELECT', 'INSERT', 'DELETE', 'CREATE']
+    user:           "keystone@%{hiera('netcfg_trp_netpart')}.81"
+    table:          'token_keys.*'
+  "keystone@%{hiera('netcfg_trp_netpart')}.82/token_keys.*":
+    ensure:         'present'
+    options:        ['GRANT']
+    privileges:     ['SELECT', 'INSERT', 'DELETE', 'CREATE']
+    user:           "keystone@%{hiera('netcfg_trp_netpart')}.82"
+    table:          'token_keys.*'
+  "keystone@%{hiera('netcfg_trp_netpart')}.83/token_keys.*":
+    ensure:         'present'
+    options:        ['GRANT']
+    privileges:     ['SELECT', 'INSERT', 'DELETE', 'CREATE']
+    user:           "keystone@%{hiera('netcfg_trp_netpart')}.83"
+    table:          'token_keys.*'

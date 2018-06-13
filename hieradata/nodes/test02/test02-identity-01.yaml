@@ -14,3 +14,5 @@ network::interfaces_hash:
     netmask:   '255.255.248.0'
     gateway:   '172.30.32.1'
     defroute:  'no'
+
+profile::openstack::identity::manage_token_rotate:        true

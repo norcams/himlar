@@ -80,3 +80,11 @@ profile::monitoring::sensu::agent::checks:
     command:      "check-wsrep-ready.rb -u sensu -h localhost -p %{hiera('sensu_mysql_password')}"
     interval:     60
     subscribers:  ['checks']
+
+profile::database::mariadb::grants:
+  "keystone@%{hiera('netcfg_trp_netpart')}.41/token_keys.*":
+    ensure:         'present'
+    options:        ['GRANT']
+    privileges:     ['SELECT', 'INSERT', 'DELETE', 'CREATE']
+    user:           "keystone@%{hiera('netcfg_trp_netpart')}.41"
+    table:          'token_keys.*'

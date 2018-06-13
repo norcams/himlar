@@ -1,6 +1,6 @@
 ---
 profile::network::services::manage_dhcp:  false
-profile::network::services::manage_nat:   true
+profile::firewall::pre::manage_ipv6_ssh:  true
 
 openstack_extras::repo::redhat::redhat::purge_unmanaged: false
 
@@ -33,6 +33,12 @@ himlar_bootstrap::tftp_install:
 
 profile::application::git::settings:
   hostname: "osl"
+
+named_interfaces::config:
+  mgmt:
+    - em4
+  public:
+    - em1
 
 # Db backup
 profile::base::login::db_servers:

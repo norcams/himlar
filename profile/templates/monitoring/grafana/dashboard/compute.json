@@ -19,18 +19,19 @@
       "version": "1.0.0"
     }
   ],
-  "id": null,
-  "title": "Compute Hosts",
-  "tags": ["puppet"],
-  "style": "dark",
-  "timezone": "browser",
+  "annotations": {
+    "list": []
+  },
   "editable": false,
+  "gnetId": null,
+  "graphTooltip": 0,
   "hideControls": true,
-  "sharedCrosshair": false,
+  "id": 1,
+  "links": [],
+  "refresh": false,
   "rows": [
     {
       "collapse": false,
-      "editable": true,
       "height": "250px",
       "panels": [
         {
@@ -41,14 +42,9 @@
           "editable": true,
           "error": false,
           "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
+          "grid": {},
+          "height": "350px",
           "id": 2,
-          "isNew": true,
           "legend": {
             "alignAsTable": true,
             "avg": true,
@@ -68,7 +64,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
-          "span": 12,
+          "span": 6,
           "stack": false,
           "steppedLine": true,
           "targets": [
@@ -77,6 +73,7 @@
               "target": "compute.$host.running_vms"
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "Running instances",
@@ -88,7 +85,10 @@
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -117,14 +117,9 @@
           "editable": true,
           "error": false,
           "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
+          "grid": {},
+          "height": "350",
           "id": 3,
-          "isNew": true,
           "legend": {
             "alignAsTable": true,
             "avg": true,
@@ -144,7 +139,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
-          "span": 12,
+          "span": 6,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -153,6 +148,7 @@
               "target": "disk.$host.var_lib_nova_instances.used_percentage"
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "Disk usage",
@@ -164,85 +160,10 @@
           },
           "type": "graph",
           "xaxis": {
-            "show": true
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ]
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "datasource": "graphite",
-          "decimals": 0,
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "height": "",
-          "id": 1,
-          "isNew": true,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": true,
-            "min": true,
-            "rightSide": false,
+            "mode": "time",
+            "name": null,
             "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "span": 12,
-          "stack": false,
-          "steppedLine": true,
-          "targets": [
-            {
-              "refId": "B",
-              "target": "compute.$host.vcpus_used"
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "vCPU",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 0,
-            "value_type": "cumulative"
-          },
-          "type": "graph",
-          "xaxis": {
-            "show": true
+            "values": []
           },
           "yaxes": [
             {
@@ -264,9 +185,202 @@
           ]
         }
       ],
-      "title": "Row"
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Row",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": 250,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "graphite",
+          "decimals": 0,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {},
+          "height": "350",
+          "id": 1,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": true,
+          "targets": [
+            {
+              "refId": "B",
+              "target": "compute.$host.vcpus_used"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "vCPU",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "decimals": null,
+          "fill": 1,
+          "height": "350",
+          "id": 4,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": true,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "B",
+              "target": "memory.$host.used"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Memory",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "label": null,
+              "logBase": 1,
+              "max": "550000000000",
+              "min": "10000000000",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Dashboard Row",
+      "titleSize": "h6"
     }
   ],
+  "schemaVersion": 14,
+  "style": "dark",
+  "tags": [
+    "puppet"
+  ],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {},
+        "datasource": "graphite",
+        "hide": 0,
+        "includeAll": false,
+        "label": null,
+        "multi": true,
+        "name": "host",
+        "options": [],
+        "query": "compute.*",
+        "refresh": 1,
+        "regex": "/.*-.*-.*/",
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
   "time": {
     "from": "now-7d",
     "to": "now"
@@ -296,30 +410,7 @@
       "30d"
     ]
   },
-  "templating": {
-    "list": [
-      {
-        "current": {},
-        "datasource": "graphite",
-        "hide": 0,
-        "includeAll": false,
-        "multi": true,
-        "name": "host",
-        "options": [],
-        "query": "compute.*",
-        "refresh": 1,
-        "regex": "/.*-.*-.*/",
-        "type": "query",
-        "useTags": false
-      }
-    ]
-  },
-  "annotations": {
-    "list": []
-  },
-  "refresh": "5m",
-  "schemaVersion": 12,
-  "version": 0,
-  "links": [],
-  "gnetId": null
+  "timezone": "browser",
+  "title": "Compute Hosts",
+  "version": 20559
 }

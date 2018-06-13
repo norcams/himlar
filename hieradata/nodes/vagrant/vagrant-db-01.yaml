@@ -29,3 +29,22 @@ network::interfaces_hash:
 # profile::openstack::database::sql::nova_enabled:      false
 # profile::openstack::database::sql::neutron_enabled:   false
 # profile::openstack::database::sql::cinder_enabled:    false
+
+# database for token rotation distribution
+profile::database::mariadb::databases:
+  'token_keys':
+    ensure:   'present'
+
+profile::database::mariadb::grants:
+  "keystone@%{hiera('netcfg_trp_netpart')}.41/token_keys.*":
+    ensure:     'present'
+    options:    ['GRANT']
+    privileges: ['SELECT', 'INSERT', 'DELETE', 'CREATE']
+    user:       "keystone@%{hiera('netcfg_trp_netpart')}.41"
+    table:      'token_keys.*'
+  "keystone@%{hiera('netcfg_trp_netpart')}.42/token_keys.*":
+    ensure:     'present'
+    options:    ['GRANT']
+    privileges: ['SELECT', 'INSERT', 'DELETE', 'CREATE']
+    user:       "keystone@%{hiera('netcfg_trp_netpart')}.42"
+    table:      'token_keys.*'

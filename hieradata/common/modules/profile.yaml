@@ -145,6 +145,7 @@ profile::base::yumrepo::repo_hash:
     enabled:        1
     gpgcheck:       1
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Cloud'
+    #exclude:        'mariadb*' FIXME: this should be added after adding mariadb repo to all roles connecting to db
   calico:
     ensure:         absent
     descr:          'Calico Repository'

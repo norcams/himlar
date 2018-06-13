@@ -1,6 +1,8 @@
 ---
 keystone::db::mysql::allowed_hosts:
-  - "%{hiera('netcfg_trp_netpart')}.%"
+  - "%{hiera('netcfg_trp_netpart')}.81"
+  - "%{hiera('netcfg_trp_netpart')}.82"
+  - "%{hiera('netcfg_trp_netpart')}.83"
 
 keystone::database_connection:            "mysql://keystone:%{hiera('keystone::db::mysql::password')}@db01.%{hiera('domain_trp')}/keystone"
 keystone::service_name:                   'httpd'
@@ -16,11 +18,14 @@ keystone::notification_driver:            'messagingv2'
 keystone::notification_format:            'cadf'
 keystone::default_transport_url:          "%{hiera('service__transport__url')}"
 
-# token (FIXME: setup and rotate should only be run on one identity server!)
-#keystone::token_provider:                 'fernet'
-#keystone::enable_fernet_setup:            true
-#keystone::cron::fernet_rotate::minute:    '15'
-#keystone::cron::fernet_rotate::hour:      '3'
+keystone::token_provider:                 'uuid'            # uuid until all environments switched to fernet
+keystone::fernet_max_active_keys:         '3'
+keystone::cron::fernet_rotate::minute:    '15'
+keystone::cron::fernet_rotate::hour:      '3'
+keystone::credential_key_repository:      '/etc/keystone/credential-keys'
+keystone::fernet_key_repository:          '/etc/keystone/fernet-keys'
+keystone::enable_fernet_setup:            true
+keystone::enable_credential_setup:        true
 
 # httpd
 keystone::wsgi::apache::ssl:              false

@@ -13,9 +13,10 @@ profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}
   'jq': {}
+  'sharutils': {}
+  'MariaDB-client': {}
 
 profile::base::selinux::manage_selinux:                   false
-#profile::openstack::identity::manage_token_rotate:        true
 profile::openstack::identity::disable_admin_token_auth:   true
 profile::openstack::identity::manage_openidc:             true
 profile::openstack::identity::trusted_dashboard:          "https://%{hiera('public__address__dashboard')}/dashboard/auth/websso/"
@@ -29,6 +30,42 @@ profile::openstack::identity::keystone_config:
     value:  'new'
   'cors/allowed_origin': # allow gnocchi access on monitor
     value:  "http://%{hiera('mgmt__address__monitor')}:8080"
+
+# Key rotation and syncronization
+profile::openstack::identity::cron_master:
+  'fernet':
+    hour:     '*'
+    minute:   '20'
+    command:  '/usr/local/sbin/token_dist.sh fernet >/dev/null'
+  'credentials':
+    hour:     '*'
+    minute:   '30'
+    command:  '/usr/local/sbin/token_dist.sh credentials >/dev/null'
+  'credential_rotate':
+    hour:     '3'
+    minute:   '25'
+    command:  'keystone-manage credential_rotate'
+    user:     'keystone'
+
+profile::openstack::identity::cron_slave:
+  'fernet':
+    hour:     '*'
+    minute:   '25'
+    command:  '/usr/local/sbin/token_dist.sh fernet >/dev/null'
+  'credentials':
+    hour:     '*'
+    minute:   '35'
+    command:  '/usr/local/sbin/token_dist.sh credentials >/dev/null'
+
+profile::openstack::identity::token_rotation_sync:          true
+profile::openstack::identity::fernet_key_repo:              "%{hiera('keystone::fernet_key_repository')}"
+profile::openstack::identity::credential_key_repo:          "%{hiera('keystone::credential_key_repository')}"
+profile::openstack::identity::db_host:                      "db01.%{hiera('domain_trp')}"
+profile::openstack::identity::dbpw:                         "%{hiera('keystone::db::mysql::password')}"
+profile::openstack::identity::gpg_receiver:                 "%{hiera('gpg_receiver')}"
+profile::openstack::identity::fernet_active_keys:           "%{hiera('keystone::fernet_max_active_keys')}"
+profile::openstack::identity::credential_active_keys:       "2"                                                 # no value for this in keystone module
+
 
 profile::openstack::openrc::filename:                       '/root/keystonerc_admin'
 
@@ -66,7 +103,10 @@ profile::openstack::resource::users::user_roles:
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   rdo-release:
-    ensure: present
+    ensure:   present
+    exclude:  'mariadb*'
+  mariadb:
+    ensure:   present
 
 profile::base::selinux::boolean:
   'httpd_can_network_connect':

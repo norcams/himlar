@@ -15,3 +15,6 @@ network::interfaces_hash:
     onboot:    'yes'
     ipaddress: "%{hiera('netcfg_trp_netpart')}.81"
     netmask:   "%{hiera('netcfg_trp_netmask')}"
+
+# Fernet master
+profile::openstack::identity::manage_token_rotate:        true

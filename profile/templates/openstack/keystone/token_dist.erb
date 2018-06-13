@@ -1,0 +1,350 @@
+#!/bin/bash
+
+#
+# token_dist.sh
+#
+# Expect one argument: the key type to handle
+# (currently credential or fernet keys).
+#
+# The basic logic summarized:
+#
+# 1) If key master:
+#    i) encrypt all tokens using gpg
+#   ii) uuencode encrypted keys
+#  iii) store token name and encoded data in database
+#
+# 2) If key slave:
+#    i) read all rows from database (which contains file names)
+#   ii) uudecode retrieved files
+#  iii) decrypt files using gpg
+#   iv) activate by moving to token directory
+#       and remove all previously existing tokens
+#
+# It is assumed that a shared GPG key is distributed to all nodes through an
+# out-of-band channel. The ID of this key is set in the "gpg_receiver"
+# (local variable name: RECEIEVER) option.
+#
+#
+# Authors rationale:
+#
+# - All encrypted (binary) files are uuencoded to ease database storage and retrieval.
+# - The database queries during retrieval is in a non-optimal implementation. This is
+#   due to the handling of data containing all kind of characters, including newlines.
+#   Since the number of files are small and the procedure is repeated infrequently, this
+#   should not impose any strain on systems involved.
+#
+
+
+FERNET_KEYDIR=<%= @fernet_key_repo %>
+CREDENTIALS_KEYDIR=<%= @credential_key_repo %>
+MASTER=<%= @manage_token_rotate %>
+MASTERTMPDIR=/tmp
+
+RECEIVER="<%= @gpg_receiver %>"                             # name of GPG key to use for encryption
+FERNET_ROTATION_MIN="<%= @fernet_active_keys %>"            # minimum number of keys (for sanity checking)
+CREDENTIAL_ROTATION_MIN="<%= @credential_active_keys %>"
+
+# DB connection
+TOKEN_DBUSER=keystone
+TOKEN_DBPW=<%= @dbpw %>
+TOKEN_DB=<%= @token_db %>
+TOKEN_DBHOST=<%= @db_host  %>
+DB_COMMON_OPTS="-sN -h ${TOKEN_DBHOST} -u${TOKEN_DBUSER} -p${TOKEN_DBPW} -D${TOKEN_DB}"
+FERNET_TABLE=fernet
+CREDENTIALS_TABLE=credentials
+CREATE_TABLE_SQL='
+SET sql_notes = 0;
+CREATE TABLE IF NOT EXISTS `fernet` (
+  `name` int(11) DEFAULT NULL,
+  `data` blob,
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `credentials` (
+  `name` int(11) DEFAULT NULL,
+  `data` blob,
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+SET sql_notes = 1
+'
+
+# define full path to important executables
+GPG=/usr/bin/gpg
+UUENCODE=/usr/bin/uuencode
+UUDECODE=/usr/bin/uudecode
+MYSQL=/usr/bin/mysql
+
+# EXIT code
+readonly EOK=0
+readonly EENCRYPT=1
+readonly EDECRYPT=2
+readonly ENOPOP=3
+readonly ENOPUSH=4
+readonly EPARAMETER=5
+readonly ENOKEYS=6
+
+
+# Exit routine
+#
+# Remove temporary directory and data
+#
+cleanup()
+{
+    err=$?
+    trap '' INT EXIT TERM
+    cd $MASTERTMPDIR
+    if [ "${tmpdir##/tmp/}" != "${tmpdir}" ];then
+        rm -rf $tmpdir
+    fi
+    exit $err
+}
+
+trap cleanup INT EXIT TERM
+
+tmpdir=$(mktemp -d -p $MASTERTMPDIR)
+
+
+usage()
+{
+    echo
+    echo "$0: Script which handles key token database storage and retrieval"
+    echo
+    echo "Invocation:"
+    echo "$0 [fernet|credentials]"
+    echo
+    echo "The tokens are either fernet tokens or credentials, each type stored"
+    echo "in distinct (hardcoded) directories."
+    echo "The tokens are copied to separate (temporary) storage and encrypted"
+    echo "before stored in the database."
+    echo "When retrieved the tokens are decrypted in a temporary storage area"
+    echo "before activated. All old data (not stored in database) is purged!"
+    echo
+    echo "The hiera data 'manage_key_rotate' decides if this is a *master*,"
+    echo "and thus to _store_ keys, or a *slave*, which retrieves them."
+    echo
+}
+
+
+# Create tables if not existing
+#
+# If new database with no tables prepared,
+# then make sure they gets created
+#
+create_tables()
+{
+   $MYSQL ${DB_COMMON_OPTS}  <<-EOF
+       $CREATE_TABLE_SQL
+EOF
+}
+
+
+# Encrypt keys
+#
+# Encrypt all files (assumed to be keys) in directory $1
+# Additionally uuencode them for safe storage in database
+# Encrypted and encoded files are stored in directory $2
+#
+encrypt_keys()
+{
+    if [ $# -ne 2 ]; then return $ENOKEYS; fi
+    keydir=$1
+    tmpdir=$2
+
+    # verify that a key is installed
+    keys=$($GPG --list-keys)
+    if [ "${keys}x" == "x"  ]; then return $ENOKEYS; fi
+
+    # encrypt each key token in keydir and store in tempdir
+    shopt -s nullglob                                                       # in case we got no gpg files
+    for keyfile in $keydir/*; do
+        name=${keyfile##*/}
+        # encrypt file
+        $GPG --trust-model always -e -r "$RECEIVER" $keyfile || { shopt -u nullglob; return $EENCRYPT; }
+        mv ${keyfile}.gpg ${tmpdir}/                                        # mv encrypted file to transfer directory
+        $UUENCODE ${tmpdir}/${name}.gpg ${name}.gpg > ${tmpdir}/${name}.uue # uuencode file
+    done
+    shopt -u nullglob                                                       # in case we got no gpg files
+
+    return $EOK
+}
+
+
+# Decrypt keys
+#
+# Decrypt all files in directory $1 named "*.uue"
+# All files assumed to be uuencoded after encryption.
+# Decrypted files named as original except "gpg" ending
+# Original removed after operation.
+#
+decrypt_keys()
+{
+    if [ $# -ne 1 ]; then return $ENOPUSH; fi
+    dir=$1
+
+    # decrypt all uuencoded and encrypted files in specified directory
+    num_files=0                                                             # no decrypted fiels initially
+    shopt -s nullglob                                                       # in case we got no gpg files
+    for keyfile in $dir/*.uue; do
+        name=${keyfile//\.uue}                                              # get full path without file extention
+        $UUDECODE -o ${name}.gpg $keyfile                                   # decode back to binary
+        $GPG -q -d ${name}.gpg > ${name} || return $EDECRYPT                # decrypt file
+        rm -f $keyfile ${name}.gpg                                          # remove decoded and encrypted originals
+        num_files=$((++num_file))                                           # increase count of decrypted files
+    done
+    shopt -u nullglob
+
+    # no files decrypted???
+    if [ ! $num_files -gt 0 ]; then return $EDECRYPT; fi
+
+    return $EOK
+}
+
+
+# Push keys (files) to database
+#
+# Push all files in directory $1 to database
+# All files expected to be keys to store.
+# Table used dependant upon parameter to script
+#
+push_keys()
+{
+
+    if [ $# -ne 1 ]; then return $ENOPUSH; fi
+    dir=$1
+
+    # before we clean up database tables: we DO have proper keys, right?
+    # count files: must be at least rotation_min number of files
+    pushd $dir >/dev/null
+    shopt -s nullglob                                                       # make sure '*' is not counted if no files present
+    num_files=(*)
+    shopt -u nullglob
+    popd >/dev/null
+    if [ `echo ${#num_files[@]}` -lt $rotation_min ]; then                  # check for required minimum
+        return $ENOPUSH
+    fi
+
+    # remove old data from database table
+    $MYSQL ${DB_COMMON_OPTS} -e "delete from $key_table;"
+
+    # insert data from each file into database
+    for keyfile in $dir/*.uue; do
+        name=${keyfile##*/}                                                 # basename, which is what is stored
+        name=${name//\.uue}                                                 # store name as integer, so strip ending as well
+        data=$(cat $keyfile)                                                # data to store in database
+        data=${data//\\/\\\\}                                               # some escaping to avoid mariadb confusion
+        data=${data//\'/\\\'}
+        data=${data//\"/\\\"}
+
+        # push filename and data into database
+        $MYSQL ${DB_COMMON_OPTS} -e "insert into $key_table ( name, data ) values ( \"$name\", \"$data\" );"
+    done
+}
+
+
+# Pop keys (files) from database.
+#
+# Data stored into files named after 'name' column in database.
+# Must be minimum of rotation_min files retrived to pass.
+# Expect argument of temporary directory where to store files into
+#
+pop_keys()
+{
+
+    if [ $# -ne 1 ]; then return $ENOPOP; fi
+    dir=$1
+
+    # check existence of directory to pop to
+    cd $dir || return $NOPOP
+
+    # loop to read filename and file data from database
+    names=($(${MYSQL} ${DB_COMMON_OPTS} -Nse "select name from $key_table;"))  # get all (file)names stored
+    for name in ${names[@]}; do
+        name=${name##*/}                                                    # some rudimentary sanitizing
+        # create file, adding stripped ending
+        $MYSQL ${DB_COMMON_OPTS} -N -r -e "select data from $key_table where name=$name;" > ${dir}/${name}.uue;
+    done
+
+    # count files: must be at least rotation_min number of files
+    shopt -s nullglob                                                       # make sure '*' is not counted if no files present
+    num_files=(*)
+    shopt -u nullglob
+    if [ ! `echo ${#num_files[@]}` -ge $rotation_min ]; then
+        return $ENOPOP
+    fi
+
+    return $EOK
+}
+
+
+
+# Main routine
+#
+
+keys=$1
+case $keys in
+    "fernet")
+        keydir=$FERNET_KEYDIR
+        key_table=$FERNET_TABLE
+        rotation_min=$FERNET_ROTATION_MIN
+        ;;
+    "credentials")
+        keydir=$CREDENTIALS_KEYDIR
+        key_table=$CREDENTIALS_TABLE
+        rotation_min=$CREDENTIAL_ROTATION_MIN
+        ;;
+    *)
+        usage
+        exit $EPARAMETER
+        ;;
+esac
+
+
+# Either push keys generated here (distributing)
+# or poll and activate keys generated elsewhere
+
+if [ "${MASTER}x" == "truex" ];  then
+
+    # This is a key master (which performs the key rotation)
+
+    # first make sure required tables are in place
+    create_tables
+
+    # get keys ready for distribution
+    encrypt_keys $keydir $tmpdir
+
+    # push to DB
+    if [ $? -eq 0 ]; then
+        push_keys $tmpdir
+    else
+        exit $EENCRYPT
+    fi
+else
+
+    # This is a key slave (which just retrieves new keys generated on master)
+
+    # Poll keys from DB
+    pop_keys $tmpdir
+    ret=$?
+    if [ $ret -ne 0 ]; then
+        exit $ret
+    fi
+
+    # decrypt and activate
+    decrypt_keys $tmpdir
+    if [ $? -eq 0 ]; then
+
+        # activate new keys
+        cp -f $tmpdir/* $keydir
+        chown keystone:keystone $keydir/*
+
+        # remove (old) keys no longer in use
+        for keyfile in $keydir/*; do
+            if [ ! -f ${tmpdir}/${keyfile##*/} ]; then
+                rm -f $keyfile
+            fi
+        done
+    else
+        exit $DEENCRYPT
+    fi
+fi
+
+exit $EOK
