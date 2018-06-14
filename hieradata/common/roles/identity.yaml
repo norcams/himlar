@@ -120,8 +120,9 @@ profile::base::yumrepo::repo_hash:
     exclude:  'mariadb*'
   mariadb:
     ensure:   present
-  epel:
-    ensure: absent #RDO do not work well with epel any more
+  epel: # should be absent when using RDO, but whitelist can also work
+    ensure:   present
+    includepkgs: 'htop bash-completion-extras'
 
 profile::base::selinux::boolean:
   'httpd_can_network_connect':
