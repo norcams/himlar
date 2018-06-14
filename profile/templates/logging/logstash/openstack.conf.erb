@@ -37,6 +37,12 @@ input {
   }
 
   file {
+    path => "/opt/log/swift.log"
+    type => "swift"
+    start_position => beginning
+  }
+
+  file {
     path => "/opt/log/horizon.log"
     type => "horizon"
     start_position => beginning
