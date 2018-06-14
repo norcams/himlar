@@ -10,6 +10,3 @@ keystone::default_transport_url:          "%{hiera('service__transport__url')}"
 keystone::config::keystone_paste_ini:
   'pipeline:public_api/pipeline':
     value: 'cors sizelimit http_proxy_to_wsgi osprofiler url_normalize request_id build_auth_context token_auth json_body ec2_extension s3_extension public_service'
-
-# until default switched from uuid
-keystone::token_provider:                 'fernet'
