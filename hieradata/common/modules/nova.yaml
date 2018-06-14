@@ -32,6 +32,13 @@ nova::keystone::auth::public_url:       "%{hiera('endpoint__compute__public')}/v
 nova::keystone::auth::admin_url:        "%{hiera('endpoint__compute__admin')}/v2.1/"
 nova::keystone::auth::internal_url:     "%{hiera('endpoint__compute__internal')}/v2.1/"
 
+# keystone placement auth (node: identity)
+nova::keystone::auth_placement::region:           "%{location}"
+nova::keystone::auth_placement::password:         "%{hiera('nova_placement_password')}"
+nova::keystone::auth_placement::public_url:       "%{hiera('endpoint__compute__public')}/placement/"
+nova::keystone::auth_placement::admin_url:        "%{hiera('endpoint__compute__admin')}/placement/"
+nova::keystone::auth_placement::internal_url:     "%{hiera('endpoint__compute__internal')}/placement/"
+
 # api (node: novactrl)
 nova::api::enabled_apis:                [ 'osapi_compute', ]
 nova::api::enabled:                     true

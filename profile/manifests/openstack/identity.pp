@@ -98,6 +98,7 @@ class profile::openstack::identity (
 
   if $nova_enabled {
     include ::nova::keystone::auth
+    include ::nova::keystone::auth_placement
   }
 
   if $neutron_enabled {
