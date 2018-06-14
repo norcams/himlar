@@ -52,7 +52,8 @@ profile::base::lvm::volume_group:
       - /dev/sdb
 
 # This compute host uses local storage for instances
-nova::compute::rbd::ephemeral_storage:            false
-nova::config::nova_config:
-  libvirt/images_type:
-    value: default
+# if the following lines are uncommented/active
+#nova::compute::rbd::ephemeral_storage:            false
+#nova::config::nova_config:
+#  libvirt/images_type:
+#    value: default
