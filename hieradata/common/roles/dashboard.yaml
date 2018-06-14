@@ -12,6 +12,7 @@ profile::base::common::packages:
   'bash-completion-extras': {}
   'jq': {}
 
+profile::base::common::manage_cron:                    true
 profile::base::selinux::manage_selinux:                true
 profile::base::network::manage_dummy:                  true
 profile::openstack::dashboard::manage_dashboard:       true
@@ -24,6 +25,14 @@ profile::openstack::dashboard::change_login_footer:    true
 profile::openstack::dashboard::image_upload_mode:     'direct'
 profile::webserver::apache::mods_enable:
   - status
+
+# cronjob to cleanup expired session from db
+profile::base::cron::crontabs:
+  django_clearsessions:
+    ensure:   present
+    command:  '/usr/share/openstack-dashboard/manage.py clearsessions > /dev/null 2>&1'
+    hour:     6
+    minute:   30
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
