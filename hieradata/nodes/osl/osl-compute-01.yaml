@@ -45,15 +45,11 @@ profile::base::lvm::physical_volume:
   '/dev/sdb':
     ensure: present
     force:  true
-  '/dev/sdc':
-    ensure: present
-    force:  true
 profile::base::lvm::volume_group:
   'vg_ext':
     physical_volumes:
       - /dev/sda3
       - /dev/sdb
-      - /dev/sdc
 
 # This compute host uses local storage for instances
 nova::compute::rbd::ephemeral_storage:            false
