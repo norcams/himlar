@@ -1,4 +1,6 @@
 ---
+profile::logging::rsyslog::client::manage_rsyslog:  false
+
 profile::development::network::dns::manage_hosts: true
 
 profile::application::openssl::catrust::ca_cert: '/opt/himlar/provision/ca/intermediate/certs/ca-chain.cert.pem'
