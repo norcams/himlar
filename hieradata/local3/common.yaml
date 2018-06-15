@@ -71,6 +71,12 @@ profile::network::services::dns_options:
       keyfile: "/etc/rndc.key"
       server: "%{hiera('netcfg_mgmt_netpart')}.11"
 
+endpoint__volume__public:         "https://volume.api.%{hiera('domain_frontend')}:8776"
+endpoint__image__public:          "https://image.api.%{hiera('domain_frontend')}:9292"
+endpoint__compute__public:        "https://compute.api.%{hiera('domain_frontend')}:8774"
+endpoint__network__public:        "https://network.api.%{hiera('domain_frontend')}:9696"
+endpoint__identity__public:       "https://identity.api.%{hiera('domain_frontend')}:5000"
+
 profile::network::services::dns_records:
   CNAME:
     "proxy.%{hiera('domain_mgmt')}":                      "%{location}-proxy-01.%{hiera('domain_mgmt')}"
@@ -82,10 +88,10 @@ profile::network::services::dns_records:
     "access.%{hiera('domain_frontend')}":                 "%{hiera('netcfg_public_netpart')}.250"
     "console.%{hiera('domain_public')}":                  "%{hiera('netcfg_public_netpart')}.250"
     "identity.api.%{hiera('domain_public')}":             "%{hiera('netcfg_public_netpart')}.250"
-    "image.api.%{hiera('domain_public')}":                "%{hiera('netcfg_public_netpart')}.250"
-    "network.api.%{hiera('domain_public')}":              "%{hiera('netcfg_public_netpart')}.250"
-    "compute.api.%{hiera('domain_public')}":              "%{hiera('netcfg_public_netpart')}.250"
-    "volume.api.%{hiera('domain_public')}":               "%{hiera('netcfg_public_netpart')}.250"
+    "image.api.%{hiera('domain_frontend')}":              "%{hiera('netcfg_public_netpart')}.250"
+    "network.api.%{hiera('domain_frontend')}":            "%{hiera('netcfg_public_netpart')}.250"
+    "compute.api.%{hiera('domain_frontend')}":            "%{hiera('netcfg_public_netpart')}.250"
+    "volume.api.%{hiera('domain_frontend')}":             "%{hiera('netcfg_public_netpart')}.250"
     "object.api.%{hiera('domain_public')}":               "%{hiera('netcfg_public_netpart')}.250"
     "metric.api.%{hiera('domain_public')}":               "%{hiera('netcfg_public_netpart')}.250"
     # mgmt

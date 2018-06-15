@@ -1,6 +1,35 @@
 ---
 # HAproxy
-star_api_ssl_pem: "star.api.%{hiera('domain_public')}.pem"
-api_ssl_pem:      "api.%{hiera('domain_public')}.pem"
-status_ssl_pem:   "status.%{hiera('domain_public')}.pem"
-console_ssl_pem:  "console.%{hiera('domain_public')}.pem"
+star_api_ssl_pem: "star.api.%{hiera('domain_frontend')}.pem"
+api_ssl_pem:      "api.%{hiera('domain_frontend')}.pem"
+status_ssl_pem:   "status.%{hiera('domain_frontend')}.pem"
+console_ssl_pem:  "console.%{hiera('domain_frontend')}.pem"
+
+# Domain mapping to backend - FIXME
+profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
+  public_domains:
+    ensure: present
+    mappings:
+      - "api.%{hiera('domain_frontend')}:5000":             'bk_identity'
+      - "identity.api.%{hiera('domain_frontend')}:5000":    'bk_identity'
+      - "network.api.%{hiera('domain_frontend')}:9696":     'bk_network'
+      - "metric.api.%{hiera('domain_frontend')}:8041":      'bk_metric'
+      - "compute.api.%{hiera('domain_frontend')}:8774":     'bk_compute'
+      - "volume.api.%{hiera('domain_frontend')}:8776":      'bk_volume'
+      - "image.api.%{hiera('domain_frontend')}:9292":       'bk_image'
+      - "object.api.%{hiera('domain_frontend')}:8080":      'bk_object'
+      - "status.%{hiera('domain_frontend')}":               'bk_status'
+      - "console.%{hiera('domain_frontend')}:6082":         'bk_console'
+      - "access.%{hiera('domain_frontend')}":               'bk_access'
+      - "access-%{::location}.%{hiera('domain_frontend')}": 'bk_access'
+  internal_domains:
+    ensure: present
+    mappings:
+      - "identity.%{hiera('domain_trp')}:5000":         'bk_identity'
+      - "identity.%{hiera('domain_trp')}:35357":        'bk_identity'
+      - "network.%{hiera('domain_trp')}:9696":          'bk_network'
+      - "metric.%{hiera('domain_trp')}:8041":           'bk_metric'
+      - "compute.%{hiera('domain_trp')}:8774":          'bk_compute'
+      - "volume.%{hiera('domain_trp')}:8776":           'bk_volume'
+      - "image.%{hiera('domain_trp')}:9292":            'bk_image'
+      - "object.%{hiera('domain_trp')}:8080":           'bk_object'
