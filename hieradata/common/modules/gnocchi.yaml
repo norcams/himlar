@@ -1,7 +1,7 @@
 ---
 # keystone setup (node: identity)
 gnocchi::keystone::auth::password:            "%{hiera('gnocchi_api_password')}"
-gnocchi::keystone::auth::public_url:          "%{hiera('endpoint__metric__public')}"
+gnocchi::keystone::auth::public_url:          "%{hiera('endpoint__metric__internal')}" #FIXME can be open for public later
 gnocchi::keystone::auth::admin_url:           "%{hiera('endpoint__metric__admin')}"
 gnocchi::keystone::auth::internal_url:        "%{hiera('endpoint__metric__internal')}"
 gnocchi::keystone::auth::region:              "%{::location}"
