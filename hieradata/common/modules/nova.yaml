@@ -41,6 +41,8 @@ nova::keystone::auth_placement::internal_url:     "%{hiera('endpoint__compute__i
 
 # placement auth url
 nova::placement::auth_url: "%{hiera('endpoint__identity__admin')}"
+nova::placement::os_region_name: "%{location}"
+nova::placement::password: "%{hiera('nova_placement_password')}"
 
 # api (node: novactrl)
 nova::api::enabled_apis:                [ 'osapi_compute', ]
