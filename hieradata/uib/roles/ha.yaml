@@ -238,7 +238,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ipaddresses:        ['129.177.14.13', '129.177.14.182']
     options:
       - 'check'
-      - tcp-request:  'content reject if { src -f /etc/haproxy/uib_vpn_net.list }'
   'uib-http-adm':
     listening_service:  'uib-http-adm'
     ports:              80
@@ -246,7 +245,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ipaddresses:        ['129.177.14.13', '129.177.14.182']
     options:
       - 'check'
-      - tcp-request:  'content reject if { src -f /etc/haproxy/uib_vpn_net.list }'
   'uib-ldap-test':
     listening_service:  'uib-ldap-test'
     ports:              '389'
@@ -308,10 +306,12 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     mode:             'tcp'
     options:
       - balance:      'roundrobin'
+      - tcp-request:  'content reject if { src -f /etc/haproxy/uib_vpn_net.list }'
   uib-http-adm:
     mode:             'tcp'
     options:
       - balance:      'roundrobin'
+      - tcp-request:  'content reject if { src -f /etc/haproxy/uib_vpn_net.list }'
   uib-ldap-test:
     mode:             'tcp'
     options:
