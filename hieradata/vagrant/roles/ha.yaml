@@ -100,6 +100,10 @@ profile::base::selinux::ports:
     protocol: 'tcp'
     port:     389
 
+profile::highavailability::loadbalancing::haproxy::access_list:
+  uib_vpn_net:
+    ips: [192.168.0.0/24]
+
 #
 # Example with mapping, frontend and backend
 #
@@ -111,7 +115,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - "%{hiera('public__address__access')}":      'uib-https-uh-access'
       - "%{hiera('public__address__dashboard')}":   'uib-https-uh-dashboard'
       - 'exch.uib.no':                              'uib-https-exch'
-      - 'adm2.uib.no':                              'uib-https-adm'
+      - 'portal.uib.no':                              'uib-https-adm'
   'public_domains':
     ensure: present
     mappings:
@@ -173,6 +177,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     mode:             'tcp'
     options:
       - balance:      'roundrobin'
+      - tcp-request:  'content reject if { src -f /etc/haproxy/uib_vpn_net.list }'
   uib-https-exch:
     mode:             'tcp'
     options:
