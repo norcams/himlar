@@ -11,7 +11,8 @@ class profile::highavailability::loadbalancing::haproxy (
     'mgmt'     => ['9000']
   },
   $enable_nonlocal_bind    = false,
-  $enable_remote_logging   = false
+  $enable_remote_logging   = false,
+  $access_list = {}
 ) {
 
   if $manage_haproxy {
@@ -43,7 +44,7 @@ class profile::highavailability::loadbalancing::haproxy (
     create_resources('haproxy::userlist', $haproxy_userlists)
     create_resources('haproxy::mapfile', $haproxy_mapfile)
     create_resources('haproxy::peer', $haproxy_peers)
-
+    create_resources('profile::highavailability::loadbalancing::haproxy::list', $access_list)
     create_resources('profile::highavailability::loadbalancing::haproxy::errorpage', $haproxy_errorpage)
 
     file { '/root/watch-status.sh':
