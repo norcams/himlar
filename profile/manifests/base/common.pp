@@ -22,7 +22,6 @@ class profile::base::common (
   $manage_fake_ssd        = false,
   $include_physical       = false,
   $include_virtual        = false,
-  $manage_logrotate       = false,
   $classes                = [],
 ) {
   # Can be used to include custom classes (mostly for testing)
