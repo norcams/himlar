@@ -7,7 +7,7 @@ location_environment: 'local3'
 location_description: 'Local development environment'
 
 domain_frontend:      'iaas.intern'
-domain_public:        'local3.iaas.intern'
+domain_public:        'iaas.intern'
 domain_trp:           'trp.local3.iaas.intern'
 domain_mgmt:          'mgmt.local3.iaas.intern'
 
@@ -70,12 +70,6 @@ profile::network::services::dns_options:
       ttl: 86400
       keyfile: "/etc/rndc.key"
       server: "%{hiera('netcfg_mgmt_netpart')}.11"
-
-endpoint__volume__public:         "https://volume.api.%{hiera('domain_frontend')}:8776"
-endpoint__image__public:          "https://image.api.%{hiera('domain_frontend')}:9292"
-endpoint__compute__public:        "https://compute.api.%{hiera('domain_frontend')}:8774"
-endpoint__network__public:        "https://network.api.%{hiera('domain_frontend')}:9696"
-endpoint__identity__public:       "https://identity.api.%{hiera('domain_frontend')}:5000"
 
 profile::network::services::dns_records:
   CNAME:
