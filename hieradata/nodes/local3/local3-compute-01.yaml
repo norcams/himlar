@@ -7,12 +7,12 @@ network::interfaces_hash:
     defroute:  'no'
     peerdns:   'yes'
     onboot:    'yes'
-    ipaddress: "%{hiera('netcfg_netpart_mgmt')}.103"
-    netmask:   "%{hiera('netcfg_netmask_mgmt')}"
-    gateway:   "%{hiera('netcfg_gateway_mgmt')}"
+    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.103"
+    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
+    gateway:   "%{hiera('netcfg_mgmt_gateway')}"
   'eth0.912':
     defroute:  'no'
     onboot:    'yes'
-    ipaddress: "%{hiera('netcfg_netpart_trp')}.103"
-    netmask:   "%{hiera('netcfg_netmask_trp')}"
+    ipaddress: "%{hiera('netcfg_trp_netpart')}.103"
+    netmask:   "%{hiera('netcfg_trp_netmask')}"
     vlan:      "yes"
