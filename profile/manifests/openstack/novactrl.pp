@@ -12,8 +12,9 @@ class profile::openstack::novactrl(
 ) {
 
   include ::nova
-  include ::nova::placement
+  include ::nova::api
   include ::nova::config
+  include ::nova::placement
   include ::nova::network::neutron
   include ::nova::wsgi::apache_placement
 
