@@ -71,6 +71,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - "network.api.%{hiera('domain_public')}:9696":       'bk_network'
       - "metric.api.%{hiera('domain_public')}:8041":        'bk_metric'
       - "compute.api.%{hiera('domain_public')}:8774":       'bk_compute'
+      - "placement.api.%{hiera('domain_public')}:80":       'bk_placement'
       - "volume.api.%{hiera('domain_public')}:8776":        'bk_volume'
       - "image.api.%{hiera('domain_public')}:9292":         'bk_image'
       - "object.api.%{hiera('domain_public')}:8080":        'bk_object'
@@ -90,6 +91,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - "network.%{hiera('domain_trp')}:9696":          'bk_network'
       - "metric.%{hiera('domain_trp')}:8041":           'bk_metric'
       - "compute.%{hiera('domain_trp')}:8774":          'bk_compute'
+      - "placement.%{hiera('domain_trp')}:80":          'bk_placement'
       - "volume.%{hiera('domain_trp')}:8776":           'bk_volume'
       - "image.%{hiera('domain_trp')}:9292":            'bk_image'
       - "dns.%{hiera('domain_trp')}:9001":              'bk_dns'
@@ -161,7 +163,11 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     options:
       - option:       'httplog'
       - errorfile:    '503 /etc/haproxy/error.api.http'
-  bk_volume:
+  bk_placement:
+    options:
+      - option:       'httplog'
+      - errorfile:    '503 /etc/haproxy/error.api.http'
+bk_volume:
     options:
       - option:       'httplog'
       - errorfile:    '503 /etc/haproxy/error.api.http'
@@ -228,6 +234,12 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     server_names:       ['%{::location}-novactrl-01']
     ipaddresses:        ["%{hiera('netcfg_trp_netpart')}.66"]
     ports:              '8774'
+    options:            'check'
+  placement:
+    listening_service:  'bk_placement'
+    server_names:       ['%{::location}-novactrl-01']
+    ipaddresses:        ["%{hiera('netcfg_trp_netpart')}.66"]
+    ports:              '80'
     options:            'check'
   volume:
     listening_service:  'bk_volume'
