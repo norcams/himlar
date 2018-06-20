@@ -11,6 +11,24 @@ class profile::openstack::novactrl(
   $firewall_extras      = {}
 ) {
 
+  if $manage_firewall {
+    profile::firewall::rule { '220 nova-placement-api accept tcp':
+      dport  => 80,
+      extras => $firewall_extras
+    }
+
+    profile::firewall::rule { '220 nova-api accept tcp':
+      dport  => 8774,
+      extras => $firewall_extras
+    }
+
+    profile::firewall::rule { '220 nova-api-ec2 accept tcp':
+      dport  => 8773,
+      extras => $firewall_extras
+    }
+
+  }
+
   include ::nova
   include ::nova::api
   include ::nova::config
@@ -41,24 +59,5 @@ class profile::openstack::novactrl(
   if $manage_az {
     include ::nova::availability_zone
   }
-
-  if $manage_firewall {
-    profile::firewall::rule { '220 nova-placement-api accept tcp':
-      port   => 80,
-      extras => $firewall_extras
-    }
-
-    profile::firewall::rule { '220 nova-api accept tcp':
-      port   => 8774,
-      extras => $firewall_extras
-    }
-
-    profile::firewall::rule { '220 nova-api-ec2 accept tcp':
-      port   => 8773,
-      extras => $firewall_extras
-    }
-
-  }
-
 
 }
