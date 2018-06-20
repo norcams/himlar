@@ -44,6 +44,9 @@ nova::placement::auth_url: "%{hiera('endpoint__identity__admin')}"
 nova::placement::os_region_name: "%{location}"
 nova::placement::password: "%{hiera('nova_placement_password')}"
 
+# placement wsgi
+nova::wsgi::apache_placement::ssl: false
+
 # api (node: novactrl)
 nova::api::enabled_apis:                [ 'osapi_compute', ]
 nova::api::enabled:                     true
