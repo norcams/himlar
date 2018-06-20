@@ -35,9 +35,9 @@ nova::keystone::auth::internal_url:     "%{hiera('endpoint__compute__internal')}
 # keystone placement auth (node: identity)
 nova::keystone::auth_placement::region:           "%{location}"
 nova::keystone::auth_placement::password:         "%{hiera('nova_placement_password')}"
-nova::keystone::auth_placement::public_url:       "%{hiera('endpoint__compute__public')}/placement/"
-nova::keystone::auth_placement::admin_url:        "%{hiera('endpoint__compute__admin')}/placement/"
-nova::keystone::auth_placement::internal_url:     "%{hiera('endpoint__compute__internal')}/placement/"
+nova::keystone::auth_placement::public_url:       "%{hiera('endpoint__placement__public')}/placement/"
+nova::keystone::auth_placement::admin_url:        "%{hiera('endpoint__placement__admin')}/placement/"
+nova::keystone::auth_placement::internal_url:     "%{hiera('endpoint__placement__internal')}/placement/"
 
 # placement auth url
 nova::placement::auth_url: "%{hiera('endpoint__identity__admin')}"
