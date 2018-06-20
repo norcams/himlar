@@ -128,6 +128,7 @@ profile::network::services::dns_records:
     "image.api.%{hiera('domain_public')}":                "%{hiera('netcfg_public_netpart')}.250"
     "network.api.%{hiera('domain_public')}":              "%{hiera('netcfg_public_netpart')}.250"
     "compute.api.%{hiera('domain_public')}":              "%{hiera('netcfg_public_netpart')}.250"
+    "placement.api.%{hiera('domain_public')}":            "%{hiera('netcfg_public_netpart')}.250"
     "volume.api.%{hiera('domain_public')}":               "%{hiera('netcfg_public_netpart')}.250"
     "status.%{hiera('domain_frontend')}":                 "%{hiera('netcfg_public_netpart')}.250"
     "metric.api.%{hiera('domain_public')}":               "%{hiera('netcfg_public_netpart')}.250"
