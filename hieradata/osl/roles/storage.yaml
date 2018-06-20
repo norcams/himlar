@@ -29,9 +29,8 @@ ceph::profile::params::osds:
     ensure:     'present'
   '/dev/sdg':
     ensure:     'present'
-#  '/dev/sdh':
-#    db_device:  '/dev/sdk'
-#    wal_device: '/dev/sdk'
+  '/dev/sdh':
+    ensure:     'present'
 #  '/dev/sdi':
 #    db_device:  '/dev/sdk'
 #    wal_device: '/dev/sdk'
