@@ -4,6 +4,7 @@ include:
     - profile::base::common
     - profile::base::firewall
     - profile::base::selinux
+    - profile::logging::logrotate
   kickstart:
     - profile::base::common
   bootstrap:

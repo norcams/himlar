@@ -21,6 +21,7 @@ profile::network::leaf::manage_quagga:            true
 profile::network::leaf::manage_acls:              true
 profile::base::network::cumulus_ifs:              true
 network::config_file_per_interface:               true
+profile::logging::logrotate::manage_logrotate:    false
 
 quagga::zebra:              true
 quagga::bgpd:               true
