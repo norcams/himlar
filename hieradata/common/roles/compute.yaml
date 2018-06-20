@@ -3,7 +3,6 @@ include:
   default:
     - profile::openstack::compute::migration
     - profile::openstack::compute::hypervisor
-    - profile::openstack::compute::placement
     - profile::openstack::volume
     - profile::openstack::network
     - profile::logging::rsyslog::client
