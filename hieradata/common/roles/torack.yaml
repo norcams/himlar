@@ -22,6 +22,7 @@ profile::network::leaf::manage_frrouting:         true
 profile::network::leaf::manage_acls:              true
 profile::base::network::cumulus_ifs:              true
 network::config_file_per_interface:               true
+profile::logging::logrotate::manage_logrotate:    false
 
 # ntp service managed by profile because of mgmt VRF
 ntp::service_enable: false
