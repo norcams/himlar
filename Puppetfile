@@ -111,7 +111,8 @@ mod 'logstash', :ref => '5.3.0',                    :git => github + 'elastic/pu
 mod 'datacat', :ref => '0.6.2',                     :git => github + 'richardc/puppet-datacat'
 mod 'elasticsearch', :ref => '5.5.0',               :git => github + 'elastic/puppet-elasticsearch'
 mod 'file_concat', :ref => '1.0.1',                 :git => github + 'electrical/puppet-lib-file_concat'
-mod 'logrotate', :ref => 'v1.4.0',                  :git => github + 'yo61/puppet-logrotate' # deprecated
+#mod 'logrotate', :ref => 'v1.4.0',                  :git => github + 'yo61/puppet-logrotate' # deprecated
+mod 'logrotate', :ref => 'v3.2.1',        		    :git => github + 'voxpupuli/puppet-logrotate'
 
 #
 # profile::monitoring
@@ -136,8 +137,8 @@ mod 'postgresql', :ref => '5.2.0',                  :git => github + 'puppetlabs
 #
 # profile::database::mariadb
 #
-# mod 'mariadbrepo', ref => '0.2.1',                  :git => github + 'Mylezeem/puppet-mariadbrepo'
-# mod 'staging', :ref => '1.0.4',                     :git => github + 'nanliu/puppet-staging' why this fork?
+# mod 'mariadbrepo', ref => '0.2.1',                :git => github + 'Mylezeem/puppet-mariadbrepo'
+# mod 'staging', :ref => '1.0.4',                   :git => github + 'nanliu/puppet-staging' why this fork?
 mod 'staging', :ref => 'v3.0.0',                    :git => github + 'voxpupuli/puppet-staging'
 mod 'mysql', :ref => '5.1.0',                       :git => github + 'puppetlabs/puppetlabs-mysql'
 mod 'galera_arbitrator', :ref => '1.0.4',           :git => github + 'jadestorm/puppet-galera_arbitrator'

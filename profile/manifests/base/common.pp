@@ -138,5 +138,4 @@ class profile::base::common (
   if $manage_puppet {
     include ::puppet
   }
-
 }
