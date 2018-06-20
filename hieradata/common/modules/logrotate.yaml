@@ -1,14 +1,2 @@
 ---
 logrotate::hieramerge: true
-
-# #logrotate
-# profile::logging::logrotate::manage_logrotate:   true
-# logrotate::rules:
-#   syslog:
-#     path:           {'/var/log/cron', '/var/log/maillog', '/var/log/messages', '/var/log/secure', '/var/log/spooler'}
-#     rotate:         7
-#     postrotate:     '/bin/kill -HUP `cat /var/run/syslogd.pid 2> /dev/null` 2> /dev/null || true'
-#     sharedscripts:  true
-#     missingok:      true
-#     rotate_every:   daily
-#     compress:       true
