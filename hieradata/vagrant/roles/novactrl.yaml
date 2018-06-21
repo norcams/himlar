@@ -8,4 +8,4 @@ profile::openstack::resource::host_aggregate:
     availability_zone: "%{::location}-default-1"
   group3:
     availability_zone: "%{::location}-default-1"
-profile::base::selinux::manage_selinux:       true
+profile::base::selinux::manage_selinux:       false
