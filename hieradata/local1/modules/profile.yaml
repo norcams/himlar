@@ -5,6 +5,8 @@ profile::application::himlarcli::from_addr:     'no-reply@uib.no'
 profile::application::himlarcli::ldap_server:   'ldap.uib.no'
 profile::application::himlarcli::ldap_base_dn:  'dc=uib,dc=no'
 
+profile::application::openssl::catrust::ca_cert: '/etc/pki/tls/certs/cachain.pem'
+
 profile::application::himlarcli::cacert:        '/etc/pki/tls/certs/cachain.pem'
 profile::openstack::openrc::cacert:             '/etc/pki/tls/certs/cachain.pem'
 sensu_ssl_cachain:                              '-C /etc/pki/tls/certs/cachain.pem'
