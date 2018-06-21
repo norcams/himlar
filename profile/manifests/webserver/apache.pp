@@ -31,7 +31,7 @@ class profile::webserver::apache (
 
   if $manage_firewall {
     profile::firewall::rule { '100 apache accept tcp 80 443':
-      port   => $firewall_ports,
+      dport  => $firewall_ports,
       extras => $firewall_extras
     }
   }
