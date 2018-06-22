@@ -71,6 +71,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - "console.%{hiera('domain_public')}:6082":           'bk_console'
       - "access.%{hiera('domain_frontend')}":               'bk_access'
       - "access-%{::location}.%{hiera('domain_frontend')}": 'bk_access'
+      - "report.%{hiera('domain_frontend')}":               'bk_report'
+      - "report-%{::location}.%{hiera('domain_frontend')}": 'bk_report'
   internal_domains:
     ensure: present
     mappings:
@@ -171,6 +173,9 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
   bk_access:
     options:
       - option:       'httplog'
+  bk_report:
+    options:
+      - option:       'httplog'
   bk_request:
     options:
       redirect:         'location https://skjema.uio.no/iaas-project'
@@ -245,6 +250,12 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     listening_service:  'bk_access'
     server_names:       ['%{::location}-access-01']
     ipaddresses:        ["%{hiera('netcfg_trp_netpart')}.56"]
+    ports:              '80'
+    options:            'check'
+  report:
+    listening_service:  'bk_report'
+    server_names:       ['%{::location}-report-01']
+    ipaddresses:        ["%{hiera('netcfg_trp_netpart')}.22"]
     ports:              '80'
     options:            'check'
 

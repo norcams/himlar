@@ -16,6 +16,7 @@ profile::application::openssl::certs:
     altnames:
       - "status.%{hiera('domain_public')}"
       - "access.%{hiera('domain_public')}"
+      - "report.%{hiera('domain_public')}"
     concat: true
   "api.%{hiera('domain_public')}":
     cn:     "api.%{hiera('domain_public')}"
