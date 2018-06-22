@@ -2,6 +2,7 @@
 include:
   default:
     - profile::webserver::apache
+    - profile::application::report
 
 profile::base::selinux::manage_selinux:       true
 
@@ -13,10 +14,10 @@ profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}
   'python-virtualenv':  {}
-  'report-app':
-    provider: 'rpm'
-    source:   'http://download.iaas.uio.no/uh-iaas/yumrepo/report-app-1.0-1.el7.x86_64.rpm'
-    notify:   Class[apache::service]
+  # 'report-app':
+  #   provider: 'rpm'
+  #   source:   'http://download.iaas.uio.no/uh-iaas/yumrepo/report-app-1.0-1.el7.x86_64.rpm'
+  #   notify:   Class[apache::service]
 
 apache::default_mods:   false
 profile::webserver::apache::mods_enable:
@@ -25,7 +26,6 @@ profile::webserver::apache::mods_enable:
   - alias
 
 profile::application::report::package_url: 'http://download.iaas.uio.no/uh-iaas/yumrepo/report-app-1.0-1.el7.x86_64.rpm'
-profile::application::report::mange_report_utils_dir: true
 
 profile::webserver::apache::vhosts:
   report-app:
