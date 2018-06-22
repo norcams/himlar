@@ -200,6 +200,7 @@ profile::network::services::dns_records:
     "%{::location}-resolver-01.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_netpart')}.17"
     "%{::location}-resolver-02.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_netpart')}.18"
     "%{::location}-status-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_netpart')}.21"
+    "%{::location}-report-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_netpart')}.22"
     "%{::location}-nat-linux-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_mgmt_netpart')}.26"
     "%{::location}-nat-linux-02.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_mgmt_netpart')}.27"
     "%{::location}-mq-01.%{hiera('domain_mgmt')}":          "%{hiera('netcfg_mgmt_netpart')}.31"

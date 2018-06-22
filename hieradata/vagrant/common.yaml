@@ -129,6 +129,7 @@ profile::network::services::dns_records:
     "status.%{hiera('domain_frontend')}":                 "%{hiera('netcfg_public_netpart')}.250"
     "metric.api.%{hiera('domain_public')}":               "%{hiera('netcfg_public_netpart')}.250"
     "object.api.%{hiera('domain_public')}":               "%{hiera('netcfg_public_netpart')}.250"
+    "report.%{hiera('domain_frontend')}":                 "%{hiera('netcfg_public_netpart')}.250"
     "ns.%{hiera('domain_public')}":                       "%{hiera('netcfg_public_netpart')}.251"
     "resolver.%{hiera('domain_public')}":                 "%{hiera('netcfg_public_netpart')}.252"
     "dashboard.%{hiera('domain_frontend')}":              "%{hiera('netcfg_public_netpart')}.254"
