@@ -57,6 +57,16 @@ keystone::federation::openidc::openidc_client_id:             '00000000-0000-000
 keystone::federation::openidc::openidc_client_secret:         '00000000-0000-0000-0000-000000000000'
 #keystone::federation::openidc::module_plugin:                 'keystone.auth.openidc'
 
+# override default policy
+keystone::policy::policies:
+  identity:get_user:
+    key:    'identity:get_user'
+    value:  'rule:admin_required or role:admin_view'
+  identity:list_users:
+    key:    'identity:list_users'
+    value:  'rule:admin_required or role:admin_view'
+
+
 # cron
 keystone::cron::token_flush::maxdelay:    1800 # sek = 30 min
 
