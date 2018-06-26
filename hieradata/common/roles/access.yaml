@@ -3,6 +3,12 @@ include:
   default:
     - profile::application::access
     - profile::webserver::apache
+    - profile::openstack::openrc
+
+# Read only admin user
+profile::openstack::openrc::username:         'access'
+profile::openstack::openrc::password:         "%{hiera('access_api_password')}"
+profile::openstack::openrc::project_name:     'services'
 
 profile::base::network::manage_dummy:           true
 profile::webserver::apache::manage_firewall:    false
@@ -22,6 +28,7 @@ profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}
   'jq': {}
+  'python-openstackclient': {}
 
 profile::webserver::apache::vhosts:
   dpapp:
@@ -45,3 +52,8 @@ profile::webserver::apache::vhosts:
       - path:             "%{hiera('dpapp::installdir')}"
         require:          'all granted'
         custom_fragment:  'WSGIProcessGroup dpapp'
+
+# RDO used for openstackclient
+profile::base::yumrepo::repo_hash:
+  rdo-release:
+    ensure: present
