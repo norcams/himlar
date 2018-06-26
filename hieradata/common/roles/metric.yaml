@@ -9,6 +9,7 @@ openstack_version: 'ocata'
 
 profile::base::common::packages:
   'python-openstackclient': {}
+  'openstack-selinux': {}
 
 profile::openstack::metric::manage_firewall:  true
 profile::openstack::metric::manage_wsgi:      true

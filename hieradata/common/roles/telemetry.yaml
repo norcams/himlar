@@ -26,6 +26,7 @@ profile::base::common::packages:
   'python2-pecan':          {}
   'python2-wsme':           {}
   'python2-swiftclient':    {}
+  'openstack-selinux':      {}
 
 profile::openstack::openrc::password:                   "%{hiera('ceilometer_api_password')}"
 profile::openstack::openrc::username:                   'ceilometer'

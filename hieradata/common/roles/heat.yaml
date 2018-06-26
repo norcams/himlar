@@ -1,0 +1,9 @@
+---
+#https://docs.openstack.org/project-install-guide/orchestration/newton/install-rdo.html
+
+
+# Enable extra yum repo
+profile::base::yumrepo::repo_hash:
+  rdo-release:
+    ensure: present
+ 

@@ -13,6 +13,7 @@ profile::base::common::packages:
   'bash-completion-extras': {}
   'jq': {}
   'python2-gnocchiclient': {}
+  'openstack-selinux': {}
 
 profile::network::services::firewall_extras:
   source: '%{network_mgmt1}/%{netmask_mgmt1}'

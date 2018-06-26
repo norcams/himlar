@@ -39,6 +39,7 @@ profile::openstack::object::storage::firewall_extras:
 
 profile::base::common::packages:
   'curl': {}
+  'openstack-selinux': {}
 
 profile::openstack::openrc::password:     "%{hiera('swift_api_password')}"
 profile::openstack::openrc::username:     'swift'

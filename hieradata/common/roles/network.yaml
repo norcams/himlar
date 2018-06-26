@@ -20,6 +20,7 @@ profile::base::common::packages:
   'bash-completion-extras': {}
   'jq': {}
   'gcc-c++': {}
+  'openstack-selinux': {}
 
 profile::openstack::openrc::password:     "%{hiera('neutron_api_password')}"
 profile::openstack::openrc::username:     'neutron'
