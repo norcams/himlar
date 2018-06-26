@@ -66,9 +66,7 @@ profile::network::services::dns_records:
   CNAME:
     "proxy.%{hiera('domain_mgmt')}":                      "%{location}-proxy-01.%{hiera('domain_mgmt')}"
   A:
-    # publicaccess_rabbit_password:                             'access_pass'
-himlarcli_rabbit_password:                          'himlarcli'
-
+    # public
     "dashboard.%{hiera('domain_frontend')}":              "%{hiera('netcfg_public_netpart')}.254"
     "api.%{hiera('domain_frontend')}":                    "%{hiera('netcfg_public_netpart')}.250"
     "api.%{hiera('domain_public')}":                      "%{hiera('netcfg_public_netpart')}.250"
