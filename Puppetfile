@@ -71,7 +71,7 @@ mod 'consul', :ref => 'v3.1.2',                     :git => github + 'solarkenne
 #
 # profile::application::dpapp
 #
-mod 'dpapp', :ref => '1.3',                      :git => github + 'norcams/puppet-dpapp'
+mod 'dpapp', :ref => '1.4',                         :git => github + 'norcams/puppet-dpapp'
 
 #
 # profile::application::git
