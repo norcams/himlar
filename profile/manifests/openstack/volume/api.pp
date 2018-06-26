@@ -1,12 +1,13 @@
 class profile::openstack::volume::api(
   $manage_firewall = true,
   $firewall_extras = {},
-  $enable_multibackend = false,
+  $enable_testbackend = false,
 ){
   include profile::openstack::volume
 
   include ::cinder::api
   include ::cinder::glance
+  include ::cinder::backends
 
   if $manage_firewall {
         profile::firewall::rule{ '8776 cinder-api accept tcp':
@@ -19,12 +20,10 @@ class profile::openstack::volume::api(
     }
   }
 
-  if $enable_multibackend {
-    include cinder::backends
-
+  if $enable_testbackend {
+    include ::cinder::setup_test_volume
+  } else  {
     create_resources(cinder::backend::rbd, lookup('profile::openstack::volume::backend::rbd', Hash, 'first', {}))
     create_resources(cinder_type_norcams, lookup('profile::openstack::volume::type', Hash, 'first', {}))
-  } else {
-    include ::cinder::setup_test_volume
   }
 }

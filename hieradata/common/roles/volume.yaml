@@ -8,8 +8,9 @@ include:
     - profile::openstack::openrc
     - profile::logging::rsyslog::client
 
+openstack_version: 'ocata' #FIXME
+
 profile::base::common::packages:
-  'python-openstackclient': {}
   'python2-oslo-policy': {}
   'python2-keystonemiddleware': {}
   'bash-completion': {}

@@ -5,6 +5,7 @@ class profile::openstack::volume(
 ) {
   include ::cinder
   include ::cinder::client
+  include ::cinder::config
   include ::cinder::ceilometer
 
   if $manage_rbd {
