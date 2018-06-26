@@ -227,6 +227,8 @@ access_api_password:                                'access_pass'
 # rabbitmq
 rabbitmq::default_pass:                             'guest'
 rabbitmq::erlang_cookie:                            'Himlardev667'
+access_rabbit_password:                             'access_pass'
+himlarcli_rabbit_password:                          'himlarcli'
 
 # cinder.yaml
 cinder::db::mysql::password:                        'cinder_pass'
@@ -287,9 +289,6 @@ monitor_metric_password:                            'monitor_pass'
 swift::swift_hash_path_suffix:                      'shared_secret'
 swift_api_password:                                 'swift_pass'
 dispersion_api_password:                            'dispersion_pass'
-
-# himlarcli
-himlarcli_rabbit_password:                          'himlarcli'
 
 # The root user password: himlardev
 accounts::root_user::password:                      '$1$vagrant$z3l/WWbF3HllJk0tnqO3i/'

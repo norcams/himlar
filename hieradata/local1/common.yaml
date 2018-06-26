@@ -66,7 +66,9 @@ profile::network::services::dns_records:
   CNAME:
     "proxy.%{hiera('domain_mgmt')}":                      "%{location}-proxy-01.%{hiera('domain_mgmt')}"
   A:
-    # public
+    # publicaccess_rabbit_password:                             'access_pass'
+himlarcli_rabbit_password:                          'himlarcli'
+
     "dashboard.%{hiera('domain_frontend')}":              "%{hiera('netcfg_public_netpart')}.254"
     "api.%{hiera('domain_frontend')}":                    "%{hiera('netcfg_public_netpart')}.250"
     "api.%{hiera('domain_public')}":                      "%{hiera('netcfg_public_netpart')}.250"
@@ -121,6 +123,8 @@ access_api_password:                                'access_pass'
 # rabbitmq
 rabbitmq::default_pass:                             'guest'
 rabbitmq::erlang_cookie:                            'Himlardev667'
+access_rabbit_password:                             'access_pass'
+himlarcli_rabbit_password:                          'himlarcli'
 
 # cinder.yaml
 cinder::db::mysql::password:                        'cinder_pass'
@@ -180,9 +184,6 @@ monitor_metric_password:                            'monitor_pass'
 swift::swift_hash_path_suffix:                      'shared_secret'
 swift_api_password:                                 'swift_pass'
 dispersion_api_password:                            'dispersion_pass'
-
-# himlarcli
-himlarcli_rabbit_password:                          'himlarcli'
 
 # The root user password
 #accounts::root_user::password:                      '$6$qVzsC5fQMqdF4gKw$.zFAu9LtxSAaPgbtZul/ZXUXpBgjaVJbQ.CIMo9eo5TslU8KU1SO/tjRZbh1hFM6RB55QFEzJlF5ejAgglk50.'

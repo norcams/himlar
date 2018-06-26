@@ -115,6 +115,8 @@ access_api_password:                                'access_pass'
 # rabbitmq
 rabbitmq::default_pass:                             'guest'
 rabbitmq::erlang_cookie:                            'Himlardev667'
+access_rabbit_password:                             'access_pass'
+himlarcli_rabbit_password:                          'himlarcli'
 
 # cinder.yaml
 cinder::db::mysql::password:                        'cinder_pass'
@@ -169,9 +171,6 @@ ceilometer::telemetry_secret:                       'ceilometer'
 ceilometer_rabbit_password:                         'ceilometer'
 status_metric_password:                             'status_pass'
 monitor_metric_password:                            'monitor_pass'
-
-# himlarcli
-himlarcli_rabbit_password:                          'himlarcli'
 
 # The root user password
 #accounts::root_user::password:                      '$6$qVzsC5fQMqdF4gKw$.zFAu9LtxSAaPgbtZul/ZXUXpBgjaVJbQ.CIMo9eo5TslU8KU1SO/tjRZbh1hFM6RB55QFEzJlF5ejAgglk50.'
