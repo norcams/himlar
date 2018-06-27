@@ -71,7 +71,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       box.vm.provision :shell, :path => 'provision/puppetbootstrap.sh', args: args
       box.vm.provision :shell, :path => 'provision/puppetmodules.sh', args: args
       box.vm.provision :shell, :path => 'provision/puppetrun.sh', args: args
-
       box.vm.provider :libvirt do |libvirt|
         libvirt.driver = 'kvm'
         libvirt.nested = true
@@ -89,6 +88,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
   end
 
+  config.ssh.insert_key = false
   config.vm.synced_folder '.', '/vagrant', disabled: true
   config.vm.synced_folder '.', '/opt/himlar', type: 'rsync',
     rsync__exclude: [ '.git/', '.vagrant/' ]
