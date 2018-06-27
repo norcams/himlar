@@ -4,6 +4,8 @@ dpapp::keystone_url:        "%{hiera('public__address__api')}"
 dpapp::horizon_url:         "https://%{hiera('public__address__dashboard')}"
 dpapp::dp_domain_name:      'dataporten'
 dpapp::region:              "%{::location}"
+dpapp::mq_host:             "%{hiera('mgmt__address__mq_01')}"
+dpapp::mq_password:         "%{hiera('access_rabbit_password')}"
 
 # Override these in secrets/nodes/<location>-dpapp-01.secrets.yaml
 dpapp::oauth_client_id:     'nnnnnnnn-nnnn-nnnn-nnnn-nnnnnnnnnnnn'

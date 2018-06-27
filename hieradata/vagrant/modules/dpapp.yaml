@@ -2,3 +2,7 @@
 dpapp::deployment:        'develop'
 dpapp::keystone_cachain:  '/etc/pki/tls/certs/cachain.pem'
 dpapp::log_level:         'INFO'
+
+# Use this to test access read only user FIXME
+#dpapp::admin_pw:            "%{hiera('access_api_password')}"
+#dpadd::admin_user:          'access'

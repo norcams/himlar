@@ -56,7 +56,8 @@ profile::messaging::rabbitmq::users:
     password: "%{hiera('ceilometer_rabbit_password')}"
   himlarcli:
     password: "%{hiera('himlarcli_rabbit_password')}"
-
+  access:
+    password: "%{hiera('access_rabbit_password')}"
 #  glance:
 #    password: "%{hiera('glance::rabbit_password')}"
 
@@ -91,6 +92,10 @@ profile::messaging::rabbitmq::user_permissions:
     write_permission:     '.*'
     read_permission:      '.*'
   'himlarcli@himlarcli':
+    configure_permission: '.*'
+    write_permission:     '.*'
+    read_permission:      '.*'
+  'access@himlarcli':
     configure_permission: '.*'
     write_permission:     '.*'
     read_permission:      '.*'
