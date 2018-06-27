@@ -9,6 +9,7 @@ profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}
   'jq': {}
+  'openstack-selinux': {}
 
 profile::base::selinux::manage_selinux:       false
 profile::openstack::image::registry_enabled:  true

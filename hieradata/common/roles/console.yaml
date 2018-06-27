@@ -8,6 +8,7 @@ profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}
   'jq': {}
+  'openstack-selinux': {}
 
 profile::base::network::manage_dummy:                       true
 profile::openstack::compute::consoleproxy::manage_firewall: true
