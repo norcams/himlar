@@ -93,15 +93,6 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         3
     'username':         'ubuntu'
-  'ubuntu_1710':
-    'image_name':       'IMAGEBUILDER Ubuntu 17.10'
-    'url':              'https://cloud-images.ubuntu.com/artful/current/'
-    'latest':           'artful-server-cloudimg-amd64.img'
-    'checksum_file':    'SHA256SUMS'
-    'checksum':         'sha256'
-    'min_ram':          768
-    'min_disk':         3
-    'username':         'ubuntu'
   'ubuntu_1804':
     'image_name':       'IMAGEBUILDER Ubuntu 18.04 LTS'
     'url':              'https://cloud-images.ubuntu.com/bionic/current/'
