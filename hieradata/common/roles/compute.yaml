@@ -7,6 +7,7 @@ include:
     - profile::openstack::network
     - profile::logging::rsyslog::client
     - profile::openstack::openrc
+    - profile::application::rngd
   kickstart:
     - profile::base::lvm
     - profile::virtualization::nested
@@ -21,6 +22,9 @@ profile::openstack::compute::manage_az:            true
 
 profile::base::network::manage_httpproxy: true
 profile::network::yum_proxy::yum_proxy:   "http://%{hiera('mgmt__address__proxy')}:8888"
+
+# enable rng daemon for better entropy
+profile::application::rngd::enable:       true
 
 # Source proxy for internet access during puppetrun
 #puppet::cron_cmd: "if [ -e /root/proxy.sh ] ; then source /root/proxy.sh ; fi ; \
