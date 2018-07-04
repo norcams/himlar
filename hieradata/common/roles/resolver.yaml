@@ -42,3 +42,16 @@ profile::dns::ns::manage_bird_firewall:  true
 profile::dns::ns::enable_bird6:          true
 profile::dns::ns::manage_bird6_firewall: true
 profile::dns::ns::check_named_health:    true
+
+profile::base::network::routes:
+  'eth1':
+    'ipaddress': [ '0.0.0.0', ]
+    'netmask':   [ '0.0.0.0', ]
+    'gateway':   [ "%{hiera('netcfg_trp_gateway')}", ]
+    'table':     [ 'anycast_return', ]
+profile::base::network::routing_tables:
+  'anycast_return':
+    'table_id':  '250'
+profile::base::network::rules:
+  'dummy0':
+    iprule: [ "from %{hiera('netcfg_anycast_dns')} lookup anycast_return", ]
