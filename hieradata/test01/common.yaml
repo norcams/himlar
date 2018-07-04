@@ -98,6 +98,7 @@ profile::network::services::dns_records:
     "72.%{hiera('reverse_mgmt')}":     "%{::location}-network-02.%{hiera('domain_mgmt')}"
     "73.%{hiera('reverse_mgmt')}":     "%{::location}-network-03.%{hiera('domain_mgmt')}"
     "81.%{hiera('reverse_mgmt')}":     "%{::location}-identity-01.%{hiera('domain_mgmt')}"
+    "82.%{hiera('reverse_mgmt')}":     "%{::location}-identity-02.%{hiera('domain_mgmt')}"
     "86.%{hiera('reverse_mgmt')}":     "%{::location}-api-01.%{hiera('domain_mgmt')}"
     "91.%{hiera('reverse_mgmt')}":     "%{::location}-cephmon-01.%{hiera('domain_mgmt')}"
     "92.%{hiera('reverse_mgmt')}":     "%{::location}-cephmon-02.%{hiera('domain_mgmt')}"

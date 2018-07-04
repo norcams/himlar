@@ -190,7 +190,10 @@ endpoint__object__public:         "https://object.api.%{hiera('domain_public')}:
 profile::network::services::dns_records:
   A:
     # hostname
-    "%{::location}-leaf-01.%{hiera('domain_mgmt')}":        "%{hiera('netcfg_mgmt_netpart')}.1"
+    "%{::location}-torack-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_netpart')}.1"
+    "%{::location}-torack-02.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_netpart')}.2"
+    "%{::location}-leaf-03.%{hiera('domain_mgmt')}":        "%{hiera('netcfg_mgmt_netpart')}.3"
+    "%{::location}-leaf-04.%{hiera('domain_mgmt')}":        "%{hiera('netcfg_mgmt_netpart')}.4"
     "%{::location}-admin-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_mgmt_netpart')}.11"
     "%{::location}-proxy-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_mgmt_netpart')}.12"
     "%{::location}-logger-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_netpart')}.13"
