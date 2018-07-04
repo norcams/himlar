@@ -4,7 +4,6 @@
 class profile::base::login (
   $manage_db_backup         = false,
   $manage_repo_incoming_dir = false,
-  $manage_rngd              = false,
   $ensure                   = 'present',
   $agelimit                 = '14',
   $db_servers               = {},
@@ -111,26 +110,6 @@ class profile::base::login (
       mode   => '0775',
       owner  => root,
       group  => wheel
-    }
-  }
-
-  if $manage_rngd {
-    file { '/etc/systemd/system/rngd.service':
-      ensure => present,
-      mode   => '0644',
-      owner  => root,
-      group  => root,
-      source => "puppet:///modules/${module_name}/common/systemd/rngd.service",
-      notify => Exec['daemon reload for rngd']
-    }
-
-    exec { 'daemon reload for rngd':
-      command     => '/usr/bin/systemctl daemon-reload',
-      refreshonly => true,
-    }
-
-    service { 'rngd.service':
-      ensure => running
     }
   }
 

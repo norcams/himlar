@@ -4,10 +4,11 @@ include:
     - profile::base::login
     - profile::network::services
     - profile::application::git
+    - profile::application::rngd
     - profile::bootstrap::himlar
     - profile::network::nat
 
-profile::base::login::manage_rngd:        true
+profile::application::rngd::enable:           true
 
 # Manage NAT with iptables
 profile::base::firewall::manage_firewall:     true
@@ -61,7 +62,6 @@ profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}
   'jq': {}
-  'rng-tools': {}
 #  'python-oslo-log': {}
   'openstack-selinux': {}
 
