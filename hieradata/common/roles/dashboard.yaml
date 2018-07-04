@@ -6,6 +6,8 @@ include:
     - profile::webserver::apache
     - profile::openstack::cache
 
+openstack_version: 'ocata' #FIXME
+
 profile::base::common::packages:
   'MySQL-python.x86_64': {}
   'bash-completion': {}
