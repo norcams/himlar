@@ -23,7 +23,6 @@ profile::openstack::novactrl::firewall_extras:
   source: "%{::network_trp1}/%{::netmask_trp1}"
 
 profile::base::common::packages:
-  'python-openstackclient': {}
   'bash-completion': {}
   'bash-completion-extras': {}
   'jq': {}
