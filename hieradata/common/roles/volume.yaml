@@ -47,6 +47,10 @@ profile::openstack::volume::backend::rbd:
 cinder::backends::enabled_backends:
   - rbd-volumes
 
+# access glance to create volumes from images
+cinder::glance::glance_api_servers: "%{hiera('endpoint__image__internal')}"
+cinder::glance::glance_api_version: "2"
+
 # openstack-cinder creates a sudoers.d file used to
 # load backend drivers
 sudo::purge: false
@@ -58,7 +62,7 @@ profile::base::yumrepo::repo_hash:
   ceph-%{hiera('ceph_version')}:
     ensure: present
 
-# Volume nodes need only cinder keys
+# Volume nodes need only cinder and glance keys
 ceph::profile::params::client_keys:
   'client.cinder':
     secret: "%{hiera('client_cinder::secret')}"
@@ -67,3 +71,10 @@ ceph::profile::params::client_keys:
     group: 'cinder'
     cap_mon: 'profile rbd'
     cap_osd: 'profile rbd pool=volumes, profile rbd pool=vms, profile rbd pool=images'
+  'client.glance':
+    secret: "%{hiera('client_glance::secret')}"
+    mode: '0600'
+    user: 'cinder'
+    group: 'cinder'
+    cap_mon: 'profile rbd'
+    cap_osd: 'profile rbd pool=images'
