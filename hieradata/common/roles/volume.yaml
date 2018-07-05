@@ -62,6 +62,9 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   ceph-%{hiera('ceph_version')}:
     ensure: present
+  epel: # should be absent when using RDO, but whitelist can also work
+    ensure:   present
+    includepkgs: 'htop bash-completion-extras'
 
 # Volume nodes need only cinder and glance keys
 ceph::profile::params::client_keys:
