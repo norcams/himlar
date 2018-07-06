@@ -12,7 +12,7 @@ class profile::openstack::dashboard(
   $change_uploaddir     = false,
   $custom_uploaddir     = '/image-upload',
   $enable_pwd_retrieval = false,
-  $enable_designate     = false,
+  $designate_enabled    = false,
   $image_upload_mode    = undef,
   $change_region_selector = false,
   $change_login_footer  = false,
@@ -64,7 +64,7 @@ class profile::openstack::dashboard(
   }
 
   # Designate plugin
-  if $enable_designate {
+  if $designate_enabled {
     file { '/usr/share/openstack-dashboard/openstack_dashboard/local/enabled/_1710_project_dns_panel_group.py':
       ensure => present,
       source => 'file:///usr/lib/python2.7/site-packages/designatedashboard/enabled/_1710_project_dns_panel_group.py',
