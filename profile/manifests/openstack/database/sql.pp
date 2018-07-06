@@ -6,6 +6,7 @@ class profile::openstack::database::sql (
   $heat_enabled     = false,
   $trove_enabled    = false,
   $cinder_enabled   = false,
+  $designate_enabled = false,
   $gnocchi_enabled  = false,
   $ceilometer_enabled = false,
   $create_cell0     = false,
@@ -78,6 +79,10 @@ class profile::openstack::database::sql (
 
   if $trove_enabled {
     include ::trove::db::mysql
+  }
+
+  if $designate_enabled {
+    include ::designate::db::mysql
   }
 
   if $gnocchi_enabled {

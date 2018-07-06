@@ -7,6 +7,7 @@ class profile::openstack::identity (
   $nova_enabled             = false,
   $swift_enabled            = false,
   $trove_enabled            = false,
+  $designate_enabled        = false,
   $gnocchi_enabled          = false,
   $roles_extra              = [],
   $manage_firewall          = true,
@@ -113,6 +114,10 @@ class profile::openstack::identity (
 
   if $trove_enabled {
     include ::trove::keystone::auth
+  }
+
+  if $designate_enabled {
+    include ::designate::keystone::auth
   }
 
   if $gnocchi_enabled {

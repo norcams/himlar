@@ -1,0 +1,110 @@
+---
+designate::db::mysql::allowed_hosts:
+  - "%{ipaddress_service1}"
+  - 'localhost'
+  - '%'
+
+# Logging via syslog
+designate::use_syslog: true
+
+#---------------------------------------------------------------------
+# RabbitMQ
+#---------------------------------------------------------------------
+designate::default_transport_url:
+  "rabbit://ceilometer:%{hiera('ceilometer_rabbit_password')}@%{hiera('service__address__rabbitmq_01')}:5672,ceilometer:%{hiera('ceilometer_rabbit_password')}@%{hiera('service__address__rabbitmq_02')}:5672,ceilometer:%{hiera('ceilometer_rabbit_password')}@%{hiera('service__address__rabbitmq_03')}:5672/ceilometer"
+designate::notification_transport_url:
+  "rabbit://designate:%{hiera('designate::rabbit_password')}@%{hiera('service__address__rabbitmq_01')}:5672,designate:%{hiera('designate::rabbit_password')}@%{hiera('service__address__rabbitmq_02')}:5672,designate:%{hiera('designate::rabbit_password')}@%{hiera('service__address__rabbitmq_03')}:5672/designate"
+
+#---------------------------------------------------------------------
+# Authentication
+#---------------------------------------------------------------------
+designate::keystone::auth::region:       "%{hiera('location_environment')}"
+designate::keystone::auth::public_url:   "%{hiera('endpoint__designate__public')}"
+designate::keystone::auth::admin_url:    "%{hiera('endpoint__designate__admin')}"
+designate::keystone::auth::internal_url: "%{hiera('endpoint__designate__internal')}"
+designate::keystone::auth::password:     "%{hiera('designate_api_password')}"
+
+designate::keystone::authtoken::password:          "%{hiera('designate_api_password')}"
+designate::keystone::authtoken::auth_url:          "%{hiera('endpoint__identity__admin')}"
+designate::keystone::authtoken::auth_uri:          "%{hiera('endpoint__identity__public')}"
+designate::keystone::authtoken::memcached_servers: '127.0.0.1'
+
+#---------------------------------------------------------------------
+# Central
+#---------------------------------------------------------------------
+designate::central::backend_driver:             'bind9'
+designate::central::managed_resource_email:     'iaas-core@usit.uio.no'
+designate::central::min_ttl:                    '300'
+
+#---------------------------------------------------------------------
+# API
+#---------------------------------------------------------------------
+designate::api::auth_strategy:     'keystone'
+designate::api::keystone_host:     "identity.%{hiera('domain_trp')}"
+designate::api::keystone_port:     '35357'
+designate::api::keystone_protocol: 'http'
+designate::api::keystone_tenant:   'services'
+designate::api::keystone_user:     'designate'
+designate::api::keystone_password: "%{hiera('designate_api_password')}"
+designate::api::enable_api_v1:     false
+designate::api::enable_api_v2:     true
+designate::api::enabled_extensions_v2:
+  - 'quotas'
+  - 'reports'
+# needs to be '0.0.0.0' for it to bind to localhost as well
+designate::api::listen:            "0.0.0.0:9001"
+designate::api::api_base_uri:      "\'http://%{hiera('service__address__designate_api')}:9001/\'"
+
+#---------------------------------------------------------------------
+# Database
+#---------------------------------------------------------------------
+designate::db::database_connection: "mysql+pymysql://designate:%{hiera('designate::db::mysql::password')}@%{hiera('service__address__mysql')}/designate"
+designate::db::mysql::host: "%{hiera('service__address__mysql')}"
+designate::db::sync_db: true
+designate::db::database_max_retries: "-1"
+
+#---------------------------------------------------------------------
+# Pool Manager
+#---------------------------------------------------------------------
+designate::pool_manager::pool_id: '794ccc2c-d751-44fe-b57f-8894c9f5c842'
+
+#---------------------------------------------------------------------
+# Pool Manager Cache
+#---------------------------------------------------------------------
+designate::pool_manager_cache::memcache::memcached_servers:
+  - "127.0.0.1"
+
+#---------------------------------------------------------------------
+# mDNS
+#---------------------------------------------------------------------
+# use defaults
+
+#---------------------------------------------------------------------
+# Sink
+#---------------------------------------------------------------------
+designate::sink::enabled_notification_handlers:
+  - "nova_fixed"
+
+#---------------------------------------------------------------------
+# Producer
+#---------------------------------------------------------------------
+# use defaults
+
+#---------------------------------------------------------------------
+# Worker
+#---------------------------------------------------------------------
+# use defaults
+
+#---------------------------------------------------------------------
+# Bind9 backend
+#---------------------------------------------------------------------
+designate::backend::bind9::rndc_host: "%{hiera('service__address__ns')}"
+
+#---------------------------------------------------------------------
+# Extra config
+#---------------------------------------------------------------------
+designate::config::designate_config:
+  handler:nova_fixed/formatv4:
+    value: "'vm-%(octet0)s-%(octet1)s-%(octet2)s-%(octet3)s.%(zone)s'"
+  handler:nova_fixed/formatv6:
+    value: "'vm-%(octet0)s-%(octet1)s-%(octet2)s-%(octet3)s.%(zone)s-%(octet4)s-%(octet5)s-%(octet6)s-%(octet7)s.%(zone)s'"

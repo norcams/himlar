@@ -5,7 +5,7 @@ class profile::dns::ns (
   $enable_bird6 = false,
   $my_mgmt_addr = {},
   $my_transport_addr = {},
-  #$mdns_transport_addr = {},
+  $mdns_transport_addr = {},
   $admin_mgmt_addr = {},
   $ns_mgmt_addr = {},
   $ns_transport_addr = {},

@@ -28,8 +28,8 @@ profile::base::network::manage_dummy:                               true
 profile::highavailability::loadbalancing::haproxy::manage_haproxy:  true
 profile::highavailability::loadbalancing::haproxy::manage_firewall: true
 profile::highavailability::loadbalancing::haproxy::firewall_ports:
-  public:    ['5000', '8041', '8774', '8776', '9292', '9696', '6082', '8080']
-  internal:  ['5000', '8041', '8774', '8776', '9292', '9696', '35357', '8080']
+  public:    ['5000', '8041', '8774', '8776', '9292', '9696', '6082', '8080', '9001']
+  internal:  ['5000', '8041', '8774', '8776', '9292', '9696', '35357', '8080', '9001']
   mgmt:      ['9000']
   limited:   ['80', '443']
 
@@ -66,6 +66,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - "volume.api.%{hiera('domain_public')}:8776":        'bk_volume'
       - "image.api.%{hiera('domain_public')}:9292":         'bk_image'
       - "object.api.%{hiera('domain_public')}:8080":        'bk_object'
+      - "dns.api.%{hiera('domain_public')}:9001":           'bk_dns'
       - "status.%{hiera('domain_frontend')}":               'bk_status'
       - "request.%{hiera('domain_frontend')}":              'bk_request'
       - "console.%{hiera('domain_public')}:6082":           'bk_console'
@@ -83,6 +84,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - "compute.%{hiera('domain_trp')}:8774":          'bk_compute'
       - "volume.%{hiera('domain_trp')}:8776":           'bk_volume'
       - "image.%{hiera('domain_trp')}:9292":            'bk_image'
+      - "dns.%{hiera('domain_trp')}:9001":              'bk_dns'
       - "object.%{hiera('domain_trp')}:8080":           'bk_object'
 
 # HAproxy backends: public, internal and haproxy monitor
@@ -96,6 +98,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       "%{::ipaddress_public1}:8776":  ['ssl', 'crt', "%{hiera('star_api_ssl_pem')}"]
       "%{::ipaddress_public1}:9292":  ['ssl', 'crt', "%{hiera('star_api_ssl_pem')}"]
       "%{::ipaddress_public1}:9696":  ['ssl', 'crt', "%{hiera('star_api_ssl_pem')}"]
+      "%{::ipaddress_public1}:9001":  ['ssl', 'crt', "%{hiera('star_api_ssl_pem')}"]
       "%{::ipaddress_public1}:443":   ['ssl', 'crt', "%{hiera('status_ssl_pem')}"]
       "%{::ipaddress_public1}:80":    []
       "%{::ipaddress_public1}:6082":  ['ssl', 'crt', "%{hiera('console_ssl_pem')}"]
@@ -117,6 +120,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       "%{::ipaddress_trp1}:9292":  [] # image
       "%{::ipaddress_trp1}:9696":  [] # neutron
       "%{::ipaddress_trp1}:8080":  [] # object
+      "%{::ipaddress_trp1}:9001":  [] # designate
     options:
       - capture:        'request header Host len 64' #for debug
       - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/internal_domains.map)]'
@@ -155,6 +159,10 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
       - option:       'httplog'
       - errorfile:    '503 /etc/haproxy/error.api.http'
   bk_metric:
+    options:
+      - option:       'httplog'
+      - errorfile:    '503 /etc/haproxy/error.api.http'
+  bk_dns:
     options:
       - option:       'httplog'
       - errorfile:    '503 /etc/haproxy/error.api.http'
@@ -240,6 +248,12 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ipaddresses:        ["%{hiera('netcfg_trp_netpart')}.21"]
     ports:              '8080'
     options:            'check'
+  dns:
+    listening_service:  'bk_dns'
+    server_names:       ['%{::location}-dns-01']
+    ipaddresses:        ["%{hiera('netcfg_trp_netpart')}.97"]
+    ports:              '9001'
+    options:            'check'
   console:
     listening_service:  'bk_console'
     server_names:       ['%{::location}-console-01']
@@ -293,6 +307,10 @@ profile::base::selinux::ports:
     seltype:  'http_port_t'
     protocol: 'tcp'
     port:     6082
+  dns-http:
+    seltype:  'http_port_t'
+    protocol: 'tcp'
+    port:     9001
 
 # Errorpage for api, not used for status!
 profile::highavailability::loadbalancing::haproxy::haproxy_errorpage:

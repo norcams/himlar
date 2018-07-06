@@ -129,6 +129,7 @@ profile::network::services::dns_records:
     "status.%{hiera('domain_frontend')}":                 "%{hiera('netcfg_public_netpart')}.250"
     "metric.api.%{hiera('domain_public')}":               "%{hiera('netcfg_public_netpart')}.250"
     "object.api.%{hiera('domain_public')}":               "%{hiera('netcfg_public_netpart')}.250"
+    "dns.api.%{hiera('domain_public')}":                  "%{hiera('netcfg_public_netpart')}.250"
     "report.%{hiera('domain_frontend')}":                 "%{hiera('netcfg_public_netpart')}.250"
     "ns.%{hiera('domain_public')}":                       "%{hiera('netcfg_public_netpart')}.251"
     "resolver.%{hiera('domain_public')}":                 "%{hiera('netcfg_public_netpart')}.252"
@@ -220,6 +221,7 @@ cinder_api_password:                                'cinder_pass'
 glance_api_password:                                'glance_pass'
 neutron_api_password:                               'neutron_pass'
 nova_api_password:                                  'nova_pass'
+designate_api_password:                             'designate_pass'
 gnocchi_api_password:                               'gnocchi'
 ceilometer_api_password:                            'ceilometer_pass'
 access_api_password:                                'access_pass'
@@ -265,6 +267,10 @@ nova::db::mysql::password:                          'nova_pass'
 nova::db::mysql_api::password:                      'nova_api_pass'
 nova::api::neutron_metadata_proxy_shared_secret:    'a_secret'
 nova::rabbit_password:                              'nova_quest'
+
+# designate.yaml
+designate::db::mysql::password:                     'designate_pass'
+designate::rabbit_password:                         'guest'
 
 # imagebuilder
 imagebuilder_password:                              'imagebuilder_pass'

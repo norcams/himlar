@@ -30,6 +30,10 @@ profile::dns::ns::fw_zones:
   public:
     zone: "%{hiera('profile::dns::ns::public_zone')}"
     filename: "pz/%{hiera('profile::dns::ns::public_zone')}"
+#    delegations:
+#      'customer':
+#        - 'ns0.uh-iaas.no'
+#        - 'ns1.uh-iaas.no'
   frontend:
     zone: "%{hiera('profile::dns::ns::frontend_zone')}"
     filename: "pz/%{hiera('profile::dns::ns::frontend_zone')}"
