@@ -3,7 +3,7 @@
 profile::dns::ns::internal_zone: "vagrant.iaas.intern"
 profile::dns::ns::public_zone:   "vagrant.iaas.intern"
 
-# NS servers in zone file (with NS records)
+# Name servers in zone file
 profile::dns::ns::ns_master: "ns.%{hiera('profile::dns::ns::public_zone')}"
 
 # Forward zones, for which the name server is authoritative
@@ -15,6 +15,9 @@ profile::dns::ns::fw_zones:
       'ns': "%{hiera('public__address__ns')}"
     ns_aaaa_records:
       'ns': "%{hiera('public6__address__ns')}"
+    delegations:
+      'customer':
+        - "ns.%{hiera('profile::dns::ns::public_zone')}"
 
 # Reverse zones, for which the name server is authoritative
 profile::dns::ns::ptr_zones:

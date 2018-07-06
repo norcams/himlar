@@ -16,6 +16,7 @@ profile::base::common::packages:
   'sharutils': {}
   'MariaDB-client': {}
   'openstack-selinux': {}
+  'python2-designateclient': {}
 
 profile::base::selinux::manage_selinux:                   false
 profile::openstack::identity::disable_admin_token_auth:   true
