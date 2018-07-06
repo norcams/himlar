@@ -20,7 +20,7 @@ profile::openstack::openrc::password:     "%{hiera('glance_api_password')}"
 profile::openstack::openrc::username:     'glance'
 profile::openstack::openrc::project_name: 'services'
 
-hieradata/common/roles/dashboard.yaml:openstack_version: 'ocata' #FIXME
+openstack_version: 'ocata' #FIXME
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
