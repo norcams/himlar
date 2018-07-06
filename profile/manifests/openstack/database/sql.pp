@@ -6,7 +6,7 @@ class profile::openstack::database::sql (
   $heat_enabled     = false,
   $trove_enabled    = false,
   $cinder_enabled   = false,
-  $designate_enabled = true,
+  $designate_enabled = false,
   $gnocchi_enabled  = false,
   $ceilometer_enabled = false,
   $create_cell0     = false,
