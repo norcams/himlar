@@ -27,7 +27,7 @@ $TTL    3600
 <% unless @delegations.empty? -%>
 <% @delegations.each do |subdomain,nslist| -%>
 <% nslist.each do |ns| -%>
-<%= subdomain %>   NS   <%= ns %>
+<%= subdomain %>   NS   <%= ns %>.
 <% end -%>
 <% end -%>
 <% end -%>
