@@ -126,7 +126,7 @@ public__address__console:         "console.%{hiera('domain_public')}"
 public__address__report:          "report.%{hiera('domain_frontend')}"
 
 # DNS servers
-public__name__ns_01:              "ns.%{hiera('domain_public')}"
+public__name__ns:                 "ns.%{hiera('domain_public')}"
 
 #
 # Services (internal non openstack services)
