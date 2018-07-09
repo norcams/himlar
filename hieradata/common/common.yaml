@@ -139,7 +139,6 @@ service__address__rabbitmq_02:    "mq01.%{hiera('domain_trp')}"
 service__address__rabbitmq_03:    "mq01.%{hiera('domain_trp')}"
 service__address__cinder_ip:      "%{hiera('netcfg_trp_netpart')}.46"
 service__address__consoleproxy:
-service__address__designate_api:  "dns.%{hiera('domain_trp')}"
 service__address__mdns:           "%{hiera('netcfg_trp_netpart')}.97"
 service__address__metric:         "metric.%{hiera('domain_trp')}"
 service__address__ns:             "%{hiera('netcfg_trp_netpart')}.16"
