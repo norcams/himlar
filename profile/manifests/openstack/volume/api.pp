@@ -6,6 +6,7 @@ class profile::openstack::volume::api(
   include profile::openstack::volume
 
   include ::cinder::api
+  include ::cinder::wsgi::apache
   include ::cinder::glance
   include ::cinder::backends
 

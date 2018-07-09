@@ -7,7 +7,6 @@ class profile::openstack::volume(
   include ::cinder::client
   include ::cinder::config
   include ::cinder::ceilometer
-  include ::cinder::wsgi::apache
 
   if $manage_rbd {
     include profile::storage::cephclient
