@@ -9,11 +9,6 @@ class profile::openstack::volume(
   include ::cinder::ceilometer
   include ::cinder::wsgi::apache
 
-  service { 'httpd':
-    enable      => true,
-    ensure      => running,
-  }
-
   if $manage_rbd {
     include profile::storage::cephclient
   }
