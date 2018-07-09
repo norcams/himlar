@@ -65,7 +65,9 @@ keystone::policy::policies:
   identity:list_users:
     key:    'identity:list_users'
     value:  'rule:admin_required or role:admin_view'
-
+  identity:list_domains:
+    key:    'identity:list_domains'
+    value:  'rule:admin_required or role:admin_view'
 
 # cron
 keystone::cron::token_flush::maxdelay:    1800 # sek = 30 min
