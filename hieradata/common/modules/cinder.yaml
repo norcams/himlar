@@ -10,8 +10,12 @@ cinder::db::mysql::allowed_hosts:
 # cinder api (node: volume)
 cinder::api::keystone_enabled:            true
 cinder::api::os_region_name:              "%{::location}"
-cinder::api::bind_host:                   "%{::ipaddress_trp1}"
-cinder::api::service_workers:             '4'
+cinder::api::service_name:                'httpd'
+
+# httpd
+cinder::wsgi::apache::ssl:                false
+cinder::wsgi::apache::bind_host:          "%{ipaddress_trp1}"
+cinder::wsgi::apache::workers:            4
 
 cinder::keystone::authtoken::username:    'cinder'
 cinder::keystone::authtoken::password:    "%{hiera('cinder_api_password')}"
