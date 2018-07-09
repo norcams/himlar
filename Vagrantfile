@@ -1,6 +1,9 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+# This is needed for vagrant version < 2.0.2
+Vagrant::DEFAULT_SERVER_URL.replace('https://vagrantcloud.com')
+
 require 'yaml'
 
 unless defined? settings
