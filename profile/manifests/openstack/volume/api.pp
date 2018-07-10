@@ -25,6 +25,6 @@ class profile::openstack::volume::api(
     include ::cinder::setup_test_volume
   } else  {
     create_resources(cinder::backend::rbd, lookup('profile::openstack::volume::backend::rbd', Hash, 'first', {}))
-    create_resources(cinder_type_norcams, lookup('profile::openstack::volume::type', Hash, 'first', {}))
+    create_resources(cinder_type_norcams, lookup('profile::openstack::volume::type', Hash, 'first', ), { require => Class['cinder::wsgi::apache'] })
   }
 }
