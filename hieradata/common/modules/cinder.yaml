@@ -8,7 +8,6 @@ cinder::db::mysql::allowed_hosts:
   - "%{hiera('netcfg_trp_netpart')}.%"
 
 # cinder api (node: volume)
-cinder::api::keystone_enabled:            true
 cinder::api::os_region_name:              "%{::location}"
 cinder::api::service_name:                'httpd'
 
