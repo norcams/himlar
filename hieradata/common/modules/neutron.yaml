@@ -26,12 +26,7 @@ neutron::db::mysql::allowed_hosts:
   - "%{hiera('netcfg_trp_netpart')}.%"
 
 # rabbit mq
-neutron::rabbit_user:           'neutron'
-neutron::rabbit_virtual_host:   'neutron'
-neutron::rabbit_hosts:
-  - "%{hiera('service__address__rabbitmq_01')}:5672"
-  - "%{hiera('service__address__rabbitmq_02')}:5672"
-  - "%{hiera('service__address__rabbitmq_03')}:5672"
+neutron::default_transport_url:         "%{hiera('service__transport__url')}"
 
 # logging
 neutron::use_syslog:    true
