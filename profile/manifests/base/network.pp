@@ -35,6 +35,11 @@ class profile::base::network(
         command     => "/bin/hostname ${hostname}",
         refreshonly => true
       }
+    } elsif fact('os.distro.codename') == 'jessie' {
+      exec { 'set jessie hostname':
+        command     => "/usr/bin/hostnamectl set-hostname ${hostname}",
+        unless      => "/usr/bin/hostnamectl status | grep 'Static hostname: ${hostname}'",
+      }
     } elsif $::osfamily == 'RedHat' {
       exec { 'himlar_sethostname':
         command => "/usr/bin/hostnamectl set-hostname ${hostname}",
