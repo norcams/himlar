@@ -26,7 +26,8 @@ neutron::db::mysql::allowed_hosts:
   - "%{hiera('netcfg_trp_netpart')}.%"
 
 # rabbit mq
-neutron::default_transport_url:         "%{hiera('service__transport__url')}"
+neutron::notification_transport_url:    "%{hiera('service__transport__url')}"
+neutron::default_transport_url:         "rabbit://neutron:%{hiera('neutron_rabbit_password')}@%{hiera('service__address__rabbitmq_01')}:5672/neutron"
 
 # logging
 neutron::use_syslog:    true
