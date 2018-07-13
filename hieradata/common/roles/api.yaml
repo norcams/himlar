@@ -32,7 +32,7 @@ profile::highavailability::loadbalancing::haproxy::manage_haproxy:  true
 profile::highavailability::loadbalancing::haproxy::manage_firewall: true
 profile::highavailability::loadbalancing::haproxy::firewall_ports:
   public:    ['5000', '8041', '8774', '8776', '9292', '9696', '6082', '8080', '8081', '9001']
-  internal:  ['5000', '8041', '8774', '8776', '9292', '9696', '35357', '8080', '9001']
+  internal:  ['5000', '8041', '8774', '8776', '9292', '9696', '35357', '8080', '8081', '9001']
   mgmt:      ['9000']
   limited:   ['80', '443']
 
@@ -91,7 +91,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - "network.%{hiera('domain_trp')}:9696":          'bk_network'
       - "metric.%{hiera('domain_trp')}:8041":           'bk_metric'
       - "compute.%{hiera('domain_trp')}:8774":          'bk_compute'
-      - "placement.%{hiera('domain_trp')}:80":          'bk_placement'
+      - "placement.%{hiera('domain_trp')}:8081":        'bk_placement'
       - "volume.%{hiera('domain_trp')}:8776":           'bk_volume'
       - "image.%{hiera('domain_trp')}:9292":            'bk_image'
       - "dns.%{hiera('domain_trp')}:9001":              'bk_dns'
@@ -135,6 +135,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       "%{::ipaddress_trp1}:9696":  [] # neutron
       "%{::ipaddress_trp1}:8080":  [] # object
       "%{::ipaddress_trp1}:9001":  [] # designate
+      "%{::ipaddress_trp1}:8081":  [] # placement
     options:
       - capture:        'request header Host len 64' #for debug
       - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/internal_domains.map)]'
