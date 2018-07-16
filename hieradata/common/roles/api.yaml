@@ -4,6 +4,9 @@ include:
     - profile::highavailability::loadbalancing::haproxy
     - profile::logging::rsyslog::client
 
+# FIXME Temp hack to block access to test01, all others will allow all connections
+block_api_connection:   'connection accept'
+
 profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}
@@ -52,6 +55,11 @@ haproxy::defaults_options:
     - 'client 1m'
     - 'server 3m'
     - 'queue 1m'
+
+# Access lists
+profile::highavailability::loadbalancing::haproxy::access_list:
+  testing_network:
+    ips:  "%{alias('allow_from_testing_network')}"
 
 # Domain mapping to backend
 profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
@@ -109,6 +117,9 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
         - 'set-header X-Forwarded-Port %[dst_port]'
       - acl:            'is_request hdr_beg(host) -i request'
       - redirect:       'scheme https if !{ ssl_fc } !is_request' # redirect all to https (only port 80)
+      - tcp-request:    "%{hiera('block_api_connection')}" # should only block in test01
+      # Uncomment this to restrict access to testing network only
+      #- use_backend:    'bk_maintenance unless { src -f /etc/haproxy/testing_network.list }'
       - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/public_domains.map)]'
   frontend_internal:
     bind:
@@ -187,6 +198,10 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
   bk_request:
     options:
       redirect:         'location https://skjema.uio.no/iaas-project'
+  bk_maintenance:
+    options:
+      - option:       'httplog'
+      - errorfile:    '503 /etc/haproxy/error.maintenance.http'
 
 # Servers for backends. This will be merged and can should be overridden i location
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
@@ -314,12 +329,16 @@ profile::base::selinux::ports:
 
 # Errorpage for api, not used for status!
 profile::highavailability::loadbalancing::haproxy::haproxy_errorpage:
+  'maintenance':
+    code:     503
+    header:   'Scheduled maintenance'
+    content:  'Unavailable due to scheduled maintenance. Be right back.'
+    url:      'https://twitter.com/uhiaas'
   'api':
     code:     503
     header:   'Be Right Back'
     content:  'The API are down at the moment'
     url:      "https://status.%{hiera('domain_frontend')}"
-
   'console':
     code:     503
     header:   'Be Right Back'

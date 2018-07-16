@@ -51,6 +51,18 @@ valid_location_environments:
 
 profile::base::firewall::purge_firewall: true
 
+allow_from_testing_network: # this do not merge!
+  - '129.240.202.12/32'  # trond
+  - '129.240.6.14/32'    # mikael
+  - '129.177.10.189/32'  # tor
+  - '129.177.10.212/32'  # raymond
+  - '158.39.74.6/32'     # raymond mgmt-admin-instance
+  - '129.177.10.111/32'  # anders
+  - '129.240.202.64/32'  # tannaz
+  - '129.177.6.133/32'   # bgo-login
+  - '129.240.224.100/32' # osl-login
+  - "%{hiera('public__ip__proxy')}/32"
+
 #
 # Use this for firewall rules to allow only from some networks
 #
@@ -127,6 +139,13 @@ public__address__report:          "report.%{hiera('domain_frontend')}"
 
 # DNS servers
 public__name__ns:                 "ns.%{hiera('domain_public')}"
+
+#
+# Public IPs
+#
+
+# In vagrant this is the host, otherwise it should be the NAT server used
+public__ip__proxy:                "%{hiera('netcfg_public_netpart')}.253"
 
 #
 # Services (internal non openstack services)

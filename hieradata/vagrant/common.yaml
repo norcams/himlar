@@ -53,6 +53,9 @@ public6__address__ns:          "%{hiera('netcfg_public_netpart6')}::251"
 public__address__resolver_01:  "%{hiera('netcfg_public_netpart')}.252"
 public6__address__resolver_01: "%{hiera('netcfg_public_netpart6')}::252"
 
+# In vagrant this is the host, otherwise it should be the NAT server used
+public__ip__proxy:             "%{hiera('netcfg_public_netpart')}.1"
+
 #
 # Default interfaces
 #
