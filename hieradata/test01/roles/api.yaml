@@ -5,6 +5,9 @@ status_ssl_pem:   "status.%{hiera('domain_public')}.pem"
 console_ssl_pem:  "status.%{hiera('domain_public')}.pem" #FIXME (cert)
 access_ssl_pem:   "status.%{hiera('domain_public')}.pem" #FIXME (cert)
 
+# Filter api access to testing network
+block_api_connection:   'connection reject unless { src -f /etc/haproxy/testing_network.list }'
+
 profile::highavailability::loadbalancing::haproxy::allow_from_network:
   - '129.177.6.133/32'  # bgo-login
   - '129.177.31.96/27'  # test01
