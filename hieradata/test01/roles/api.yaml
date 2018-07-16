@@ -6,8 +6,24 @@ console_ssl_pem:  "status.%{hiera('domain_public')}.pem" #FIXME (cert)
 access_ssl_pem:   "status.%{hiera('domain_public')}.pem" #FIXME (cert)
 
 # Filter api access to testing network
-block_api_connection:   'connection reject unless { src -f /etc/haproxy/testing_network.list }'
+block_api_connection:   'connection reject unless { src -f /etc/haproxy/test01_access.list }'
 
+profile::highavailability::loadbalancing::haproxy::access_list:
+  testing_network:
+    ips:
+      - "%{alias('allow_from_testing_network')}"
+  test01_access:
+    ips:
+      - '129.177.6.133/32'  # bgo-login
+      - '129.177.31.96/27'  # test01
+      - '129.177.10.111/32' # anders
+      - '129.177.10.189/32' # tor
+      - '129.177.10.212/32' # raymond
+      - '129.240.202.12/32' # trond
+      - '129.240.6.14/32'   # mikael
+      - '129.240.202.64/32' # tannaz
+
+# this will only work for status/access (port 80/443)
 profile::highavailability::loadbalancing::haproxy::allow_from_network:
   - '129.177.6.133/32'  # bgo-login
   - '129.177.31.96/27'  # test01
