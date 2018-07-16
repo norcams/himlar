@@ -40,7 +40,7 @@ profile::openstack::volume::backend::rbd:
   rbd-volumes:
     rbd_pool: 'volumes'
     rbd_user: 'cinder'
-    rbd_secret_uuid: "%{hiera('client_cinder::secret')}"
+    rbd_secret_uuid: "%{hiera('libvirt_rbd_secret_uuid')}"
     extra_options:
       rbd-volumes/report_discard_supported:
         value: 'True'
