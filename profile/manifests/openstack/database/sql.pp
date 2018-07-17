@@ -9,7 +9,6 @@ class profile::openstack::database::sql (
   $designate_enabled = false,
   $gnocchi_enabled  = false,
   $ceilometer_enabled = false,
-  $create_cell0     = false,
   $database         = 'mariadb',
   $extra_databases  = {},
 ) {
@@ -40,30 +39,6 @@ class profile::openstack::database::sql (
     include ::nova::db::mysql
     include ::nova::db::mysql_api
     include ::nova::db::mysql_placement
-
-    #FIXME nova puppet module creates database in ocata
-    if $create_cell0 {
-
-      $addr1 = lookup('netcfg_trp_netpart', String, 'first', '')
-      $addr2 = lookup('domain_trp', String, 'first', '')
-
-      mysql_database { 'nova_cell0':
-        ensure    => present,
-        charset   => 'utf8',
-      }
-      mysql_grant { "nova@${addr1}.%/*.*":
-        ensure    => present,
-        privileges => ['ALL'],
-        table    => '*.*',
-        user     => "nova@${addr1}.%",
-      }
-      # mysql_grant { "nova@compute.${addr2}/*.*":
-      #   ensure    => present,
-      #   privileges => ['ALL'],
-      #   table    => '*.*',
-      #   user     => "nova@compute.${addr2}",
-      #}
-    }
   }
 
   if $cinder_enabled {
