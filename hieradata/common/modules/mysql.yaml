@@ -1,18 +1,20 @@
 ---
 mysql::server::restart: true
 
+mysql__config__max_connections: 512
+mysql__config__wsrep_debug:     'OFF'
+
 mysql::server::override_options:
   client:
     ssl-ca:                         "%{hiera('db_ssl_ca')}"
   mysqld:
-    max_connections:                512
+    max_connections:                "%{hiera('mysql__config__max_connections')}"
     innodb_buffer_pool_instances:   1
     table_open_cache:               4096
     query_cache_size:               '32M'
-    query_cache_limit:              '4M'
-    join_buffer_size:               '512K'
+    query_cache_limit:              '8M'
+    join_buffer_size:               '1M'
     log-error:                      '/var/log/mysqld.log'
-#    skip-name-resolve:              'true'
     pid-file:                       "/var/lib/mysql/%{::hostname}.pid"
     bind-address:                   "%{::ipaddress_trp1}"
     ssl:                            'true'
@@ -25,7 +27,7 @@ mysql::server::override_options:
     default_storage_engine:         'InnoDB'
     innodb_autoinc_lock_mode:       2
     innodb_flush_log_at_trx_commit: 0
-#   wsrep_debug:                    'ON'
+    wsrep_debug:                    "%{hiera('mysql__config__wsrep_debug')}"
     wsrep_on:                       'ON'
     wsrep_log_conflicts:            'ON'
     wsrep_provider:                 '/usr/lib64/galera/libgalera_smm.so'
@@ -35,3 +37,8 @@ mysql::server::override_options:
     wsrep_node_name:                "%{::hostname}"
     wsrep_sst_method:               "%{hiera('wsrep_sst_method')}"
     wsrep_provider_options:         "%{hiera('wsrep_provider_options')}"
+  # sst: #used in testing in local
+  #   encrypt:                        4
+  #   tca:                            "%{hiera('db_ssl_ca')}"
+  #   tcert:                          "%{hiera('db_ssl_cert')}"
+  #   tkey:                           "%{hiera('db_ssl_key')}"
