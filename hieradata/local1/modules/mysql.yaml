@@ -4,6 +4,12 @@ mysql::server::override_options:
   client:
     ssl-ca:                         "%{hiera('db_ssl_ca')}"
   mysqld:
+    max_connections:                512
+    innodb_buffer_pool_instances:   1
+    table_open_cache:               4096
+    query_cache_size:               '32M'
+    query_cache_limit:              '4M'
+    join_buffer_size:               '512K'
     log-error:                      '/var/log/mysqld.log'
 #    skip-name-resolve:              'true'
     pid-file:                       "/var/lib/mysql/%{::hostname}.pid"
