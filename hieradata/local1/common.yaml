@@ -56,11 +56,6 @@ profile::network::services::dns_options:
       ttl: 600
       keyfile: "/etc/rndc.key"
       server: "%{hiera('netcfg_mgmt_netpart')}.11"
-  PTR:
-    default:
-      ttl: 600
-      keyfile: "/etc/rndc.key"
-      server: "%{hiera('netcfg_mgmt_netpart')}.11"
 
 profile::network::services::dns_records:
   CNAME:
