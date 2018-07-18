@@ -135,7 +135,7 @@ himlarcli_rabbit_password:                          'himlarcli'
 
 # cinder.yaml
 cinder::db::mysql::password:                        'cinder_pass'
-cinder::rabbit_password:                            'cinder_guest'
+cinder_rabbit_password:                             'cinder_guest'
 
 # foreman.yaml
 foreman::admin_password:                            'changeme'
