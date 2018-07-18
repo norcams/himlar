@@ -90,13 +90,17 @@ class profile::openstack::dashboard(
       match_for_absence => true,
       multiple          => true,
       replace           => false,
+      require           => Class['horizon'],
+      notify            => Service['httpd']
     }
   }
 
   if $change_login_footer {
     file { '/usr/share/openstack-dashboard/openstack_dashboard/templates/_login_footer.html':
-      ensure => present,
-      source => "puppet:///modules/${module_name}/openstack/horizon/_login_footer.html",
+      ensure  => present,
+      source  => "puppet:///modules/${module_name}/openstack/horizon/_login_footer.html",
+      require => Class['horizon'],
+      notify  => Service['httpd']
     }
   }
 }
