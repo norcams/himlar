@@ -7,8 +7,6 @@ include:
     - profile::openstack::object::proxy
     - profile::logging::rsyslog::client
 
-openstack_version: 'ocata' #FIXME
-
 profile::openstack::object::proxy::manage_firewall:   true
 profile::openstack::object::proxy::manage_ringserver: true
 profile::openstack::object::proxy::manage_ceilometer: true

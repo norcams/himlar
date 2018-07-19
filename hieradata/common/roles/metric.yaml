@@ -5,8 +5,6 @@ include:
     - profile::openstack::openrc
     - profile::logging::rsyslog::client
 
-openstack_version: 'ocata'
-
 profile::base::common::packages:
   'python-openstackclient': {}
   'openstack-selinux': {}

@@ -8,8 +8,6 @@ include:
     - profile::openstack::openrc
     - profile::logging::rsyslog::client
 
-openstack_version: 'ocata' #FIXME
-
 profile::base::common::packages:
   'python2-oslo-policy': {}
   'python2-keystonemiddleware': {}
