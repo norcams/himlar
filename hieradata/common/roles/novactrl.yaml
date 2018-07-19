@@ -7,7 +7,7 @@ include:
     - profile::openstack::resource::host_aggregate
 
 profile::base::selinux::manage_selinux:             false
-profile::openstack::compute::api::manage_firewall:  true
+profile::openstack::novactrl::manage_firewall:      true
 profile::openstack::novactrl::enable_api:           true
 profile::openstack::novactrl::enable_conductor:     true
 profile::openstack::novactrl::enable_scheduler:     true
@@ -19,11 +19,10 @@ profile::openstack::openrc::password:     "%{hiera('nova_api_password')}"
 profile::openstack::openrc::username:     'nova'
 profile::openstack::openrc::project_name: 'services'
 
-profile::openstack::compute::api::firewall_extras:
+profile::openstack::novactrl::firewall_extras:
   source: "%{::network_trp1}/%{::netmask_trp1}"
 
 profile::base::common::packages:
-  'python-openstackclient': {}
   'bash-completion': {}
   'bash-completion-extras': {}
   'jq': {}
@@ -33,3 +32,8 @@ profile::base::common::packages:
 profile::base::yumrepo::repo_hash:
   rdo-release:
     ensure: present
+  epel: # should be absent when using RDO, but whitelist can also work
+    ensure:   present
+    includepkgs: 'htop bash-completion-extras'
+
+openstack_version: 'ocata'

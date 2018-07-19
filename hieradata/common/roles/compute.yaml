@@ -52,7 +52,6 @@ profile::openstack::network::plugin: calico
 
 profile::base::common::packages:
   'networking-calico': {}
-  'python-openstackclient': {}
   'gcc-c++': {}
   'bash-completion': {}
   'bash-completion-extras': {}
@@ -143,7 +142,7 @@ profile::base::lvm::logical_volume:
 profile::base::yumrepo::repo_hash:
   rdo-release:
     ensure: present
-    exclude: 'openstack-neutron openstack-neutron-common python-neutron'
+#    exclude: 'openstack-neutron openstack-neutron-common python-neutron'
   calico26:
     ensure: present
     exclude: 'calico-dhcp-agent' #FIXME
@@ -151,6 +150,9 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   centos-qemu-ev:
     ensure: present
+  epel: # should be absent when using RDO, but whitelist can also work
+    ensure:   present
+    includepkgs: 'bird bird6 htop bash-completion-extras lttng-ust userspace-rcu libbabeltrace leveldb'
 
 # Compute nodes need only admin and cinder keys
 ceph::profile::params::client_keys:
@@ -169,3 +171,5 @@ ceph::profile::params::client_keys:
     group: 'nova'
     cap_mon: 'profile rbd'
     cap_osd: 'profile rbd pool=volumes, profile rbd pool=vms, profile rbd pool=images'
+
+openstack_version: 'ocata'

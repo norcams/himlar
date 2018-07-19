@@ -6,14 +6,35 @@ class profile::openstack::novactrl(
   $enable_consoleproxy  = false,
   $enable_conductor     = false,
   $manage_quotas        = false,
-  $manage_az            = false
+  $manage_az            = false,
+  $manage_firewall      = false,
+  $firewall_extras      = {}
 ) {
 
-  include ::nova::config
+  if $manage_firewall {
+    profile::firewall::rule { '220 nova-placement-api accept tcp':
+      dport  => 80,
+      extras => $firewall_extras
+    }
 
-  if $enable_api {
-    include ::profile::openstack::compute::api
+    profile::firewall::rule { '220 nova-api accept tcp':
+      dport  => 8774,
+      extras => $firewall_extras
+    }
+
+    profile::firewall::rule { '220 nova-api-ec2 accept tcp':
+      dport  => 8773,
+      extras => $firewall_extras
+    }
+
   }
+
+  include ::nova
+  include ::nova::api
+  include ::nova::config
+  include ::nova::placement
+  include ::nova::network::neutron
+  include ::nova::wsgi::apache_placement
 
   if $enable_scheduler {
     include ::profile::openstack::compute::scheduler

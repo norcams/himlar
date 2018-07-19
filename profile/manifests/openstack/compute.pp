@@ -5,6 +5,7 @@ class profile::openstack::compute(
 ) {
   include ::nova
   include ::nova::config
+  include ::nova::placement
   include ::nova::network::neutron
 
   if $manage_telemetry {
