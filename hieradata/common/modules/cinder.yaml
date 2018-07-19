@@ -1,17 +1,21 @@
 ---
-# db (node: volume)
-cinder::database_connection:      "mysql://cinder:%{hiera('cinder::db::mysql::password')}@%{hiera('service__address__mysql')}/cinder"
-
+# db (node: db-02)
 cinder::db::mysql::dbname:   'cinder'
 cinder::db::mysql::user:     'cinder'
 cinder::db::mysql::allowed_hosts:
   - "%{hiera('netcfg_trp_netpart')}.%"
 
+# db (node: volume)
+cinder::database_connection:      "mysql://cinder:%{hiera('cinder::db::mysql::password')}@%{hiera('service__address__mysql')}/cinder"
+
 # cinder api (node: volume)
-cinder::api::keystone_enabled:            true
 cinder::api::os_region_name:              "%{::location}"
-cinder::api::bind_host:                   "%{::ipaddress_trp1}"
-cinder::api::service_workers:             '4'
+cinder::api::service_name:                'httpd'
+
+# httpd
+cinder::wsgi::apache::ssl:                false
+cinder::wsgi::apache::bind_host:          "%{ipaddress_trp1}"
+cinder::wsgi::apache::workers:            4
 
 cinder::keystone::authtoken::username:    'cinder'
 cinder::keystone::authtoken::password:    "%{hiera('cinder_api_password')}"
@@ -41,12 +45,7 @@ cinder::keystone::auth::admin_url_v3:           "%{hiera('endpoint__volume__admi
 cinder::keystone::auth::internal_url_v3:        "%{hiera('endpoint__volume__internal')}/v3/%(tenant_id)s"
 
 # rabbit mq
-cinder::rabbit_userid:         'cinder'
-cinder::rabbit_virtual_host:   'cinder'
-cinder::rabbit_hosts:
-  - "%{hiera('service__address__rabbitmq_01')}:5672"
-  - "%{hiera('service__address__rabbitmq_02')}:5672"
-  - "%{hiera('service__address__rabbitmq_03')}:5672"
+cinder::default_transport_url:         "rabbit://cinder:%{hiera('cinder_rabbit_password')}@%{hiera('service__address__rabbitmq_01')}:5672/cinder"
 
 # logging
 cinder::use_syslog:             true

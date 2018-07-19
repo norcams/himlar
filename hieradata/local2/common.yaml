@@ -37,6 +37,8 @@ netcfg_trp_rr:
   rr1:
     peer_ipv4: '172.31.13.1'
 
+profile::openstack::volume::api::enable_testbackend:     'true'
+
 # We need to allow both trafic from mgmt (nat via login) and public net
 
 allow_from_network:
@@ -117,7 +119,7 @@ himlarcli_rabbit_password:                          'himlarcli'
 
 # cinder.yaml
 cinder::db::mysql::password:                        'cinder_pass'
-cinder::rabbit_password:                            'cinder_guest'
+cinder_rabbit_password:                             'cinder_guest'
 
 # foreman.yaml
 foreman::admin_password:                            'changeme'

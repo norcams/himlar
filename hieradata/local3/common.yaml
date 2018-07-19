@@ -97,7 +97,6 @@ ceph::profile::params::cluster_network:             '172.31.12.0/24'
 ceph::profile::params::public_network:              '172.31.12.0/24'
 
 profile::openstack::volume::manage_rbd: true
-profile::openstack::volume::api::enable_multibackend: true
 profile::openstack::compute::hypervisor::manage_libvirt_rbd: true
 
 # If backend != file, you must explicitly define stores in %location/modules/glance.yaml
@@ -136,7 +135,7 @@ himlarcli_rabbit_password:                          'himlarcli'
 
 # cinder.yaml
 cinder::db::mysql::password:                        'cinder_pass'
-cinder::rabbit_password:                            'cinder_guest'
+cinder_rabbit_password:                             'cinder_guest'
 
 # foreman.yaml
 foreman::admin_password:                            'changeme'

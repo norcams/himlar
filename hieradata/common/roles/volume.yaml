@@ -8,8 +8,9 @@ include:
     - profile::openstack::openrc
     - profile::logging::rsyslog::client
 
+openstack_version: 'ocata' #FIXME
+
 profile::base::common::packages:
-  'python-openstackclient': {}
   'python2-oslo-policy': {}
   'python2-keystonemiddleware': {}
   'bash-completion': {}
@@ -39,7 +40,7 @@ profile::openstack::volume::backend::rbd:
   rbd-volumes:
     rbd_pool: 'volumes'
     rbd_user: 'cinder'
-    rbd_secret_uuid: "%{hiera('client.cinder::secret')}"
+    rbd_secret_uuid: "%{hiera('libvirt_rbd_secret_uuid')}"
     extra_options:
       rbd-volumes/report_discard_supported:
         value: 'True'
@@ -61,6 +62,9 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   ceph-%{hiera('ceph_version')}:
     ensure: present
+  epel: # should be absent when using RDO, but whitelist can also work
+    ensure:   present
+    includepkgs: 'htop bash-completion-extras lttng-ust userspace-rcu libbabeltrace leveldb'
 
 # Volume nodes need only cinder and glance keys
 ceph::profile::params::client_keys:
