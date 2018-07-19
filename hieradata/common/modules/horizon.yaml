@@ -20,6 +20,12 @@ horizon::keystone_multidomain_support:  false
 horizon::api_versions:
   'identity': 3
 
+# Default for launch instance wizard
+horizon::instance_options:
+  create_volume: false
+  disable_volume: true
+  disable_volume_snapshot: true
+
 horizon::neutron_options:
   'enable_lb': false
   'enable_firewall': false

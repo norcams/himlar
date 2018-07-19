@@ -6,6 +6,8 @@ include:
     - profile::webserver::apache
     - profile::openstack::cache
 
+openstack_version: 'ocata' #FIXME
+
 profile::base::common::packages:
   'MySQL-python.x86_64': {}
   'bash-completion': {}
@@ -41,6 +43,9 @@ profile::base::cron::crontabs:
 profile::base::yumrepo::repo_hash:
   rdo-release:
     ensure: present
+  epel: # should be absent when using RDO, but whitelist can also work
+    ensure:   present
+    includepkgs: 'htop bash-completion-extras'
 
 # Change default image upload dir from horizon
 profile::openstack::dashboard::change_uploaddir: true
