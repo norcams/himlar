@@ -1,12 +1,21 @@
 ---
+# Turn on for debug
+# include:
+#   default:
+#     - apache::mod::dumpio
+#
+# apache::log_level:  dumpio:trace7
+
 profile::openstack::identity::keystone_config:
   'resource/project_name_url_safe':
-    value:  'off'
+    value:  'new'
   'resource/domain_name_url_safe':
     value:  'new'
   'cors/allowed_origin': # allow gnocchi access on monitor
     value:  "http://%{hiera('mgmt__address__monitor')}:8080"
-profile::base::selinux::manage_selinux:       true
+  'DEFAULT/notification_opt_out':
+    value:  'identity.authenticate.success'
+#  'DEFAULT/insecure_debug':
+#    value:  'true'
 
-# Key rotation and syncronization
-profile::openstack::identity::token_rotation_sync:          false
+profile::base::selinux::manage_selinux:       true

@@ -37,7 +37,6 @@ class profile::openstack::identity (
   include ::keystone::config
   include ::keystone::roles::admin
   include ::keystone::endpoint
-  include ::keystone::cron::token_flush # FIXME: remove after change to fernet
   include ::keystone::wsgi::apache
 
   # this system is part of a master/slave token cluster?
