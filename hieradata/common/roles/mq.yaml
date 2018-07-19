@@ -46,7 +46,7 @@ profile::messaging::rabbitmq::users:
   cinder:
     password: "%{hiera('cinder::rabbit_password')}"
   neutron:
-    password: "%{hiera('neutron::rabbit_password')}"
+    password: "%{hiera('neutron_rabbit_password')}"
   sensu:
     password: "%{hiera('sensu::rabbit_password')}"
   local:

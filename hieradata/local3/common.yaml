@@ -158,7 +158,7 @@ rbd_volumes_rbd_secret_uuid:                        'AQBypF1V2JYiChAA2qYbjM6jbXJ
 mysql::server::root_password:                       'test123'
 
 # neutron.yaml
-neutron::rabbit_password:                           'neutron_guest'
+neutron_rabbit_password:                            'neutron_guest'
 neutron::db::mysql::password:                       'neutron_pass'
 neutron::agents::metadata::shared_secret:           'a_secret'
 
