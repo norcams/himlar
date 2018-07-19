@@ -62,7 +62,7 @@ allow_from_testing_network: # this do not merge!
   - '129.177.6.133/32'   # bgo-login
   - '129.240.224.100/32' # osl-login
   - "%{hiera('public__ip__proxy')}/32"
-
+  - '192.168.122.1/32'
 #
 # Use this for firewall rules to allow only from some networks
 #
