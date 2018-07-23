@@ -8,6 +8,9 @@ include:
 profile::base::yumrepo::repo_hash:
   rdo-release:
     ensure: present
+  epel: # should be absent when using RDO, but whitelist can also work
+    ensure:   present
+    includepkgs: 'htop bash-completion-extras'
 
 # telemetry runs the central polling
 ceilometer::agent::polling::central_namespace:            true
