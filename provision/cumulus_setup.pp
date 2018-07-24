@@ -12,7 +12,6 @@ ssh_authorized_key { "iaas-on-iaas":
   user   => "iaas",
 }
 
-# sudoers temp hack
 exec { "allow nopasswd for sudo group":
   command => "echo '%sudo ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/iaas",
   creates => "/etc/sudoers.d/iaas",
