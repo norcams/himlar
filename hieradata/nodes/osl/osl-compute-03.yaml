@@ -44,6 +44,7 @@ profile::base::lvm::volume_group:
       - /dev/sda3
       - /dev/sdb
       - /dev/sdc
+      - /dev/sdd
 
 # This compute host uses local storage for instances
 nova::compute::rbd::ephemeral_storage:            false
