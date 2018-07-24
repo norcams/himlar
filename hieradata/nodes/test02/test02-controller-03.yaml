@@ -29,3 +29,31 @@ network::interfaces_hash:
 
 # Use controller-01 for himlar bootstrap
 profile::bootstrap::himlar::manage_bootstrap_scripts: true
+
+profile::virtualization::libvirt::pools:
+  dirpool:
+    ensure:              present
+    autostart:           true
+    type:                dir
+    target:              /var/lib/libvirt/images
+  masstorage:
+    ensure:              present
+    autostart:           true
+    type:                dir
+    target:              /var/lib/libvirt/masstorage
+
+lvm::volume_groups:
+  vg_ext:
+    physical_volumes:
+      - /dev/sda3
+    logical_volumes:
+      lv_ext:
+        fs_type:   xfs
+        mountpath: "/var/lib/libvirt/images"
+  vg_masstorage:
+    physical_volumes:
+      - /dev/sdb
+    logical_volumes:
+      lv_masstorage:
+        fs_type:   xfs
+        mountpath: "/var/lib/libvirt/masstorage"
