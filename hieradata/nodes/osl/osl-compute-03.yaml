@@ -38,6 +38,16 @@ network::interfaces_hash:
     vlan:          'yes'
     defroute:      'no'
 
+#
+# osl-compute-03 has the following hw-raid setup
+#
+#   2 x 200GB SDD (raid-1) as /dev/sda
+#   2 x 128GB HDD (raid-1) as /dev/sdb
+#   2 x 128GB HDD (raid-1) as /dev/sdc
+#   2 x 400GB SDD (raid-1) as /dev/sdd
+#
+# FIXME: The 4 HDD disks should be removed at next reinstall (trondham, 2018-07-24)
+#
 profile::base::lvm::volume_group:
   'vg_ext':
     physical_volumes:
