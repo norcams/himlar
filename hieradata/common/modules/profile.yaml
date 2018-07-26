@@ -112,11 +112,6 @@ profile::base::yumrepo::repo_hash:
     baseurl:        "%{hiera('yum_base_mirror')}/puppetlabs-PC1/"
     gpgkey:         "%{hiera('yum_base_mirror')}/puppetlabs-PC1/RPM-GPG-KEY-puppet"
     gpgcheck:       1
-  puppetlabs-deps:
-    descr:          Puppetlabs Dependencies Yum Repo
-    baseurl:        "%{hiera('yum_base_mirror')}/puppetlabs-deps/"
-    gpgkey:         "%{hiera('yum_base_mirror')}/puppetlabs-deps/RPM-GPG-KEY-puppetlabs"
-    gpgcheck:       1
   epel:
     descr:          "Extra Packages for Enterprise Linux %{operatingsystemmajrelease} - $basearch"
     baseurl:        "%{hiera('yum_base_mirror')}/epel"
@@ -214,6 +209,13 @@ profile::base::yumrepo::repo_hash:
     baseurl:        "%{hiera('yum_base_mirror')}/mariadb"
     gpgkey:         "%{hiera('yum_base_mirror')}/mariadb/RPM-GPG-KEY-MariaDB"
     gpgcheck:       '1'
+  grafana:
+    ensure:         absent
+    descr:          'MariaDB 10.1 repo'
+    baseurl:        "%{hiera('yum_base_mirror')}/grafana"
+    gpgkey:         "%{hiera('yum_base_mirror')}/grafana/gpg.key"
+    enabled:        1
+    gpgcheck:       1
 
 # Turn on agant and add common sensu plugins
 sensu_ssl_cachain: ''
