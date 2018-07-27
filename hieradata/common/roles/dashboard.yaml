@@ -62,13 +62,6 @@ profile::monitoring::sensu::agent::checks:
     subscribers:  ['metrics']
     handlers:     ['graphite_tcp']
 
-profile::webserver::apache::vhosts:
-  status:
-    ip:                 '127.0.0.1'
-    port:               '80'
-    manage_docroot:     false
-    docroot:            '/var/www/html'
-
 profile::openstack::dashboard::policies:
   glance_publicize_image:
     file_path:  '/etc/openstack-dashboard/glance_policy.json'
