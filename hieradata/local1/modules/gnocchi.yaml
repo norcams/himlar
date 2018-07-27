@@ -1,2 +1,6 @@
 ---
 gnocchi::debug: true
+
+gnocchi::wsgi::apache::workers:               1
+gnocchi::wsgi::apache::workers::threads:      1
+gnocchi::metricd::workers:                    1

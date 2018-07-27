@@ -6,3 +6,6 @@ horizon::ssl_no_verify:                 true
 horizon::available_regions:
   - [ "%{hiera('endpoint__identity__public')}/v3", "%{location}"]
   - [ "https://identity.api.local2.iaas.intern:5000/v3", 'local2']
+
+horizon::wsgi::apache::wsgi_processes:  1
+horizon::wsgi::apache::wsgi_threads:    1

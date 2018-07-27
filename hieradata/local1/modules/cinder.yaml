@@ -2,4 +2,5 @@
 cinder::db::mysql::allowed_hosts:
   - "%{netpart_trp1}.%"
 
-cinder::verbose: true
+cinder::wsgi::apache::workers:  1
+cinder::wsgi::apache::threads:  1

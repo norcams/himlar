@@ -3,3 +3,6 @@ neutron::keystone::auth::public_url:  "%{hiera('endpoint__network__internal')}"
 neutron::keystone::authtoken::cafile: '/etc/pki/tls/certs/cachain.pem'
 
 neutron::debug: true
+
+neutron::server::api_workers:           1
+neutron::server::rpc_workers:           1
