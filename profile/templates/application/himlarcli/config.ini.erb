@@ -32,6 +32,15 @@ db=db/state.db
 smtp=<%= @smtp %>
 from_addr=<%= @from_addr %>
 
+[mail]
+smtp=<%= @smtp %>
+from_addr=<%= @from_addr %>
+
+[slack]
+url=<%= @slack_webhook_url %>
+channel=<%= @slack_channel %>
+user=<%= @slack_user %>
+
 [ldap]
 server=<%= @ldap_server %>
 base_dn=<%= @ldap_base_dn %>
