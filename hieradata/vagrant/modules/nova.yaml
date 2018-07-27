@@ -11,3 +11,6 @@ nova::verbose:   true
 
 # Do not use placeholder AZ
 nova::availability_zone::default_availability_zone:           "%{::location}-default-1"
+
+nova::wsgi::apache_placement::threads:  1
+nova::wsgi::apache_placement::workers:  1

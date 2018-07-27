@@ -21,7 +21,7 @@ sensu_ssl_cachain:  '-k'
 # no proxy for vagrant environments
 profile::network::yum_proxy::yum_proxy: ''
 
-profile::openstack::identity::swift_enabled:      true
+profile::openstack::identity::swift_enabled:          false
 
 # Enable designate in vagrant
 profile::openstack::identity::designate_enabled:      true
