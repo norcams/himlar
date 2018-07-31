@@ -123,6 +123,7 @@ mod 'graphite', :ref => 'v7.2.0',                   :git => github + 'echocat/pu
 mod 'redis', :ref => 'v3.2.0',                      :git => github + 'arioch/puppet-redis'
 mod 'grafana', :ref => 'v4.0.3',                    :git => github + 'voxpupuli/puppet-grafana'
 mod 'statsd', :ref => '3.1.0',                      :git => github + 'justindowning/puppet-statsd'
+mod 'netdata', :ref => '249cf19',                   :git => github + 'dmcanally/denver-netdata'
 
 #
 # profile::webserver::apache

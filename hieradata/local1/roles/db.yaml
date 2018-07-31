@@ -1,0 +1,15 @@
+---
+include:
+  default:
+    - profile::monitoring::netdata
+
+profile::monitoring::netdata::manage_firewall:  true
+
+# Netdata access
+profile::database::mariadb::users:
+  'netdata@localhost':
+    ensure: present
+
+profile::database::mariadb::grants:
+  'netdata@localhost/*.*':
+    privileges: ['USAGE']
