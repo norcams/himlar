@@ -7,6 +7,8 @@ profile::application::himlarcli::ldap_base_dn:  'dc=uib,dc=no'
 
 profile::application::himlarcli::cacert:        '/etc/pki/tls/certs/cachain.pem'
 profile::openstack::openrc::cacert:             '/etc/pki/tls/certs/cachain.pem'
-sensu_ssl_cachain:                              '-C /etc/pki/tls/certs/cachain.pem'
+
+# Enable insecure ssl checks
+sensu_ssl_cachain:  '-k'
 
 yum_base_mirror:    'https://download.iaas.uio.no/uh-iaas/test'

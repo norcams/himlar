@@ -1,7 +1,4 @@
 ---
-# Make check over https insecure
-sensu_ssl_cachain: '-k'
-
 # With direct access to metric the browser will need to connect to the
 # public metric endpoint using domain name.
 profile::monitoring::grafana::datasource:

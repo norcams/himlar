@@ -15,7 +15,7 @@ profile::openstack::openrc::cacert:           '/opt/himlar/provision/ca/intermed
 # Use newest test repositories
 yum_base_mirror:    'https://download.iaas.uio.no/uh-iaas/test'
 
-#sensu_ssl_cachain:  '-C /opt/himlar/provision/ca/intermediate/certs/ca-chain.cert.pem'
+# Enable insecure ssl checks
 sensu_ssl_cachain:  '-k'
 
 # no proxy for vagrant environments
