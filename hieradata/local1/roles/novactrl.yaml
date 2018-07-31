@@ -1,4 +1,8 @@
 ---
+include:
+  default:
+    - profile::application::openssl::catrust
+
 profile::openstack::resource::host_aggregate:
   group1:
     availability_zone: "%{::location}-default-1"
