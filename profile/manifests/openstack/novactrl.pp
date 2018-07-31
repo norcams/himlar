@@ -13,7 +13,7 @@ class profile::openstack::novactrl(
 
   if $manage_firewall {
     profile::firewall::rule { '220 nova-placement-api accept tcp':
-      dport  => 80,
+      dport  => 8778,
       extras => $firewall_extras
     }
 

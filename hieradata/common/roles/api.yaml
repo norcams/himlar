@@ -241,7 +241,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     listening_service:  'bk_placement'
     server_names:       ['%{::location}-novactrl-01']
     ipaddresses:        ["%{hiera('netcfg_trp_netpart')}.66"]
-    ports:              '80'
+    ports:              '8778'
     options:            'check'
   volume:
     listening_service:  'bk_volume'
