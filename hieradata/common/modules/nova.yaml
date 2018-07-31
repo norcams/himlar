@@ -45,10 +45,11 @@ nova::placement::os_region_name: "%{location}"
 nova::placement::password: "%{hiera('nova_placement_password')}"
 
 # placement wsgi
-nova::wsgi::apache_placement::ssl:      false
-nova::wsgi::apache_placement::api_port: 8778
-nova::wsgi::apache_placement::threads:  2
-nova::wsgi::apache_placement::workers:  2
+nova::wsgi::apache_placement::ssl:        false
+nova::wsgi::apache_placement::api_port:   8778
+nova::wsgi::apache_placement::bind_host:  "%{ipaddress_trp1}"
+nova::wsgi::apache_placement::threads:    2
+nova::wsgi::apache_placement::workers:    2
 
 # api (node: novactrl)
 nova::api::enabled_apis:                [ 'osapi_compute', ]
