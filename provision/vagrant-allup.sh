@@ -20,7 +20,7 @@ EOF
 fi
 
 # Get nodes from nodes.yaml
-declare -a nodes=$(./provision/get_vagrant_nodes.pl)
+nodes=$(./provision/get_vagrant_nodes.pl)
 
 # Log directory
 logdir=/tmp/himlar-$USER
@@ -59,7 +59,7 @@ function prune_logs() {
 }
 
 # Bring up nodes in order
-for node in "${nodes[@]}"; do
+for node in $nodes; do
     rotate_logs $node
     vagrant up $node | tee $logdir/$node-$today
     rotate_logs $node
@@ -69,7 +69,7 @@ for node in "${nodes[@]}"; do
 done
 
 # Run puppet an extra time on each node
-for node in "${nodes[@]}"; do
+for node in $nodes; do
     vagrant provision $node | tee $logdir/$node-$today
     rotate_logs $node
 done
