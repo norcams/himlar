@@ -15,7 +15,12 @@ profile::openstack::identity::keystone_config:
     value:  "http://%{hiera('mgmt__address__monitor')}:8080"
   'DEFAULT/notification_opt_out':
     value:  'identity.authenticate.success'
-#  'DEFAULT/insecure_debug':
-#    value:  'true'
+  # Use this to test lockout in vagrant
+  # 'security_compliance/lockout_duration':
+  #   value:  '60'
+  # 'security_compliance/lockout_failure_attempts':
+  #   value:  '3'
+  # 'DEFAULT/insecure_debug':
+  #   value:  'true'
 
 profile::base::selinux::manage_selinux:       true
