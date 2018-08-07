@@ -1,4 +1,8 @@
 ---
+include:
+  default:
+    - profile::application::openssl::catrust
+
 named_interfaces::config:
   mgmt:
     - eth0
