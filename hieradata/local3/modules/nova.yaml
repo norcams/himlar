@@ -1,6 +1,12 @@
 ---
-nova::db::mysql::allowed_hosts:
-  - "%{netpart_trp1}.%"
+nova::network::neutron::neutron_ca_certificates_file: '/etc/pki/tls/certs/cachain.pem'
+nova::verbose: true
+
+# cold migration
+nova::compute::allow_resize_to_same_host:   true
+nova::nova_public_key:
+  type:  ssh-rsa
+  key:  'AAAAB3NzaC1yc2EAAAADAQABAAABAQDmkSeLYiuQ+DE95LsVje/nRMr9FOZWRcKKyuT4CLldnpMQg9wOc/6F++tALQRMab1hZUxpQdtLaGnNNZ2n4gohnf/wBJubqdmWArt2BewYpS5x2H3DfKmnnrALMNmXRSNQ9z2Q3nwBnyw+c1t/sR/nNe0OLbrecYNge9x19jn6C5WxH288y/yDdd1FgfOSgU3MeoETstV+UcD7ZUWoxVUXs3F4DiYJ7csA6xC4aecFvLN0VNWrl4OxkS3QViBv9ieqOtwPknrBykGPrFAt4eVr45WuvGJmgN6pKo4rrRK852PWeUiMYEeucGsA2EgPLeqCaXMyKpv/q3dPx/Mc9CEj'
 
 # Do not use placeholder AZ
 nova::availability_zone::default_availability_zone:           "%{::location}-default-1"
