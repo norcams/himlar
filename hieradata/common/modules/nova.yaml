@@ -117,6 +117,7 @@ nova::compute::enabled:                          true
 nova::compute::allow_resize_to_same_host:        true
 nova::compute::resume_guests_state_on_host_boot: true
 nova::compute::resize_confirm_window:            '1'
+nova::compute::reserved_host_memory:             '4096'
 nova::compute::rbd::libvirt_rbd_user:            'cinder'
 nova::compute::rbd::libvirt_rbd_secret_uuid:     '363cb82c-793f-4aff-93f5-3332376c4369'
 nova::compute::rbd::libvirt_images_rbd_pool:     'volumes'
