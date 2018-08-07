@@ -32,10 +32,6 @@ profile::base::common::packages:
   'yum-utils': {}
   'strace': {}
   'lsof': {}
-  'policycoreutils': {}
-  'policycoreutils-python': {}
-  'setools-console': {}
-  'setroubleshoot-server': {}
 
 # SSH only from mgmt
 profile::firewall::pre::ssh_settings:
