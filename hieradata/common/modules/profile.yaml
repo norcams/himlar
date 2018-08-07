@@ -220,7 +220,7 @@ profile::base::yumrepo::repo_hash:
     ensure:         absent
     descr:          'MariaDB 10.1 repo'
     baseurl:        "%{hiera('yum_base_mirror')}/grafana"
-    gpgkey:         "%{hiera('yum_base_mirror')}/grafana/gpg.key"
+    gpgkey:         "%{hiera('yum_base_mirror')}/grafana/RPM-GPG-KEY-grafana"
     enabled:        1
     gpgcheck:       1
 
