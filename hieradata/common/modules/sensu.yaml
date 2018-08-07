@@ -32,6 +32,9 @@ sensu::subscriptions:
   - 'metrics'
   - 'checks'
 
+sensu__memory__warn:     '80'
+sensu__memory__critical: '90'
+
 sensu::checks:
   'metrics-vmstat':
     type:         'metric'
@@ -60,7 +63,7 @@ sensu::checks:
     interval:     60
     subscribers:  ['checks']
   'check-memory-precent':
-    command:      'check-memory-percent.rb -w 70 -c 90'
+    command:      "check-memory-percent.rb -w %{hiera('sensu__memory__warn')} -c %{hiera('sensu__memory__critical')}"
     interval:     60
     subscribers:  ['checks']
   'check-process':
