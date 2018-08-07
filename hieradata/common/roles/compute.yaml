@@ -90,6 +90,10 @@ profile::monitoring::sensu::agent::checks:
     interval:     60
     subscribers:  ['metrics']
     handlers:     ['graphite_tcp']
+  'check-memory-precent':
+    command:      'check-memory-percent.rb -w 90 -c 98'
+    interval:     60
+    subscribers:  ['checks']
 
 sudo::configs:
   sensu_tty:
