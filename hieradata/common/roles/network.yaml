@@ -11,6 +11,8 @@ etcd::proxy: "off"
 etcd::initial_cluster_state: 'new'
 etcd::initial_cluster_token: 'etcd-cluster'
 
+profile::application::etcd::install_bootstrap_script: true
+
 calico::controller: true
 
 profile::openstack::network::manage_quotas: true
