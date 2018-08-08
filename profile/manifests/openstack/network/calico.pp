@@ -19,6 +19,9 @@ class profile::openstack::network::calico(
   if $manage_etcd_grpc_proxy {
     package { 'etcd':
       ensure => installed,
+    }
+    package { 'python-etcd3gw':
+      ensure => installed,
     } ~>
     file { "etcd_grpc_proxy":
       ensure   => present,
