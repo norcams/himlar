@@ -17,9 +17,9 @@ class profile::openstack::network::calico(
   }
 
   if $manage_etcd_grpc_proxy {
-    package { 'etcd':
-      ensure => installed,
-    }
+#    package { 'etcd':              # FIXME: sooner or later computes wont have etcd v2 proxy
+#      ensure => installed,
+#    }
     package { 'python-etcd3gw':
       ensure => installed,
     } ~>
