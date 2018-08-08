@@ -64,7 +64,7 @@ sudo::purge: false
 profile::base::yumrepo::repo_hash:
   rdo-release:
     ensure: present
-  calico26:
+  calico31:
     ensure: present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
