@@ -13,6 +13,7 @@ class profile::application::etcd(
   file { '/usr/local/sbin/bootstrap-etcd-member':
     ensure  => file,
     content => template("${module_name}/application/etcd/bootstrap-member.erb"),
+    mode    => '0755'
   }
 
   if $manage_firewall {
