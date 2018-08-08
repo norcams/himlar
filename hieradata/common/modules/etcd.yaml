@@ -19,3 +19,4 @@ etcd::etcd_name: "%{hostname}"
 # Cluster settings
 etcd::initial_cluster:
   - "%{::location}-network-01=http://%{hiera('netcfg_trp_netpart')}.71:2380"
+etcd_endpoints: "%{hiera('netcfg_trp_netpart')}.71:2379"

@@ -1,9 +1,11 @@
 #
 class profile::openstack::network::calico(
-  $manage_bird     = true,
-  $manage_etcd     = true,
-  $manage_firewall = true,
-  $firewall_extras = {},
+  $manage_bird               = true,
+  $manage_etcd               = false,
+  $manage_etcd_grpc_proxy    = false,
+  $etcd_grpc_proxy_endpoints = undef,
+  $manage_firewall           = true,
+  $firewall_extras           = {},
 ) {
   include ::calico
 
@@ -13,6 +15,26 @@ class profile::openstack::network::calico(
 
   if $manage_etcd {
     include ::profile::application::etcd
+  }
+
+  if $manage_etcd_grpc_proxy {
+    package { 'etcd':
+      ensure => installed,
+    } ~>
+    file { "etcd_grpc_proxy":
+      ensure   => present,
+      owner    => root,
+      group    => root,
+      mode     => '0644',
+      path     => "/etc/systemd/system/etcd-grpc-proxy.service",
+      content  => template("${module_name}/network/etcd_grpc_proxy_service.erb"),
+    } ~>
+    service { 'etcd-grpc-proxy.service':
+      ensure      => running,
+      enable      => true,
+      hasrestart  => true,
+      hasstatus   => true,
+    }
   }
 
   if $manage_firewall {
