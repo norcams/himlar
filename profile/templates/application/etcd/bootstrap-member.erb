@@ -1,0 +1,11 @@
+#!/bin/bash
+
+etcd \
+--name <%= @etcd_name %> \
+--listen-client-urls <%= Array(@listen_client_urls).join(',') %> \
+--advertise-client-urls <%= Array(@advertise_client_urls).join(',') %> \
+--listen-peer-urls <%= Array(@listen_peer_urls).join(',') %> \
+--initial-advertise-peer-urls <%= Array(@initial_advertise_peer_urls).join(',') %> \
+--initial-cluster <%= Array(@initial_cluster).join(',') %>  \
+--initial-cluster-state existing \
+--data-dir /var/lib/etcd/<%= @etcd_name %>.etcd
