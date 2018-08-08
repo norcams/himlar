@@ -3,7 +3,6 @@ class profile::openstack::network::calico(
   $manage_bird               = true,
   $manage_etcd               = false,
   $manage_etcd_grpc_proxy    = false,
-  $etcd_grpc_proxy_endpoints = undef,
   $manage_firewall           = true,
   $firewall_extras           = {},
 ) {
