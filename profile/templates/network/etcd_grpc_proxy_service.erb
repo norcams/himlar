@@ -10,7 +10,7 @@ WorkingDirectory=/var/lib/etcd/
 EnvironmentFile=-/etc/etcd/etcd.conf
 User=etcd
 # set GOMAXPROCS to number of processors
-ExecStart=/bin/bash -c "GOMAXPROCS=$(nproc) etcd grpc-proxy start --endpoints=<%= scope().call_function('hiera',['etcd_endpoints']) %> --listen-addr=127.0.0.1:2379"
+ExecStart=/bin/bash -c "GOMAXPROCS=$(nproc) etcd grpc-proxy start --endpoints=<%= scope().call_function('hiera',['etcd_endpoints']) %> --listen-addr=127.0.0.1:23790"
 Restart=on-failure
 LimitNOFILE=65536
 
