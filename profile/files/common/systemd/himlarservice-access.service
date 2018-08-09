@@ -1,0 +1,14 @@
+[Unit]
+Description=himlarservice for access app
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/himlarservice
+ExecStart=/opt/himlarservice/bin/python access.py start -f
+Restart=always
+PIDFile=/var/run/access-service.pid
+
+[Install]
+WantedBy=multi-user.target

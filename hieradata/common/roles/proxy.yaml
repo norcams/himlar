@@ -3,6 +3,7 @@ include:
   default:
     - profile::openstack::openrc
     - profile::application::himlarcli
+    - profile::application::himlarservice
     - profile::development::network::dns
     - profile::network::services
     - profile::network::nat
@@ -26,6 +27,7 @@ profile::base::network::manage_dummy:             true
 profile::network::nat::enable_snat:               true
 profile::network::nat::source:                    "%{::network_mgmt1}/%{::netmask_mgmt1}"
 profile::network::nat::outiface:                  'eth1'
+profile::application::himlarservice::package_url: 'http://download.iaas.uio.no/uh-iaas/rpm/himlarservice-1.0-1.el7.x86_64.rpm'
 
 # sensu
 profile::monitoring::sensu::agent::plugin_gems:
