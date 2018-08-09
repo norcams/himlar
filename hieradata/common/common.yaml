@@ -306,9 +306,7 @@ profile::network::services::dns_records:
     "%{::location}-metric-01.%{hiera('domain_trp')}":       "%{hiera('netcfg_trp_netpart')}.96"
     "%{::location}-report-01.%{hiera('domain_trp')}":       "%{hiera('netcfg_trp_netpart')}.22"
     # trp api services
-    "dns01.%{hiera('domain_trp')}":                         "%{hiera('netcfg_trp_netpart')}.34"
-    "dns02.%{hiera('domain_trp')}":                         "%{hiera('netcfg_trp_netpart')}.35"
-    "dns03.%{hiera('domain_trp')}":                         "%{hiera('netcfg_trp_netpart')}.39"
+    "dns.%{hiera('domain_trp')}":                           "%{hiera('netcfg_trp_netpart')}.86"
     "image.%{hiera('domain_trp')}":                         "%{hiera('netcfg_trp_netpart')}.86"
     "volume.%{hiera('domain_trp')}":                        "%{hiera('netcfg_trp_netpart')}.86"
     "compute.%{hiera('domain_trp')}":                       "%{hiera('netcfg_trp_netpart')}.86"
