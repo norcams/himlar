@@ -15,10 +15,13 @@ profile::openstack::openrc::password:     "%{hiera('designate_api_password')}"
 profile::openstack::openrc::username:     'designate'
 profile::openstack::openrc::project_name: 'services'
 
-profile::openstack::designate::mdns_transport_addr:   "%{hiera('service__address__mdns')}"
-profile::openstack::designate::ns_transport_addr:     "%{hiera('service__address__ns')}"
-profile::openstack::designate::ns_public_addr:        "%{hiera('public__address__ns')}"
-profile::openstack::designate::ns_public_name:        "%{hiera('public__name__ns')}"
+profile::openstack::designate::mdns_transport_addr:
+  - "%{hiera('service__address__mdns_01')}"
+  - "%{hiera('service__address__mdns_02')}"
+  - "%{hiera('service__address__mdns_03')}"
+profile::openstack::designate::ns_transport_addr:  "%{hiera('service__address__ns')}"
+profile::openstack::designate::ns_public_addr:     "%{hiera('public__address__ns')}"
+profile::openstack::designate::ns_public_name:     "%{hiera('public__name__ns')}"
 
 # Add iptables rules
 profile::openstack::designate::manage_firewall: true

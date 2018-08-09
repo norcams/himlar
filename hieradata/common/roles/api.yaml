@@ -279,8 +279,14 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     options:            'check'
   dns:
     listening_service:  'bk_dns'
-    server_names:       ['%{::location}-dns-01']
-    ipaddresses:        ["%{hiera('netcfg_trp_netpart')}.97"]
+    server_names:
+      - '%{::location}-dns-01'
+      - '%{::location}-dns-02'
+      - '%{::location}-dns-03'
+    ipaddresses:
+      - "%{hiera('netcfg_trp_netpart')}.34"
+      - "%{hiera('netcfg_trp_netpart')}.35"
+      - "%{hiera('netcfg_trp_netpart')}.39"
     ports:              '9001'
     options:            'check'
   console:

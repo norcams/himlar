@@ -12,8 +12,10 @@
     - type: bind9
       description: Bind9 Server ns
       masters:
-        - host: <%= @mdns_transport_addr %>
+<% @mdns_transport_addr.each do |addr| -%>
+        - host: <%= addr %>
           port: 5354
+<% end -%>
       options:
         rndc_host: <%= @ns_transport_addr %>
         rndc_port: 953
