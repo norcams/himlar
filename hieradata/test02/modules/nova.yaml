@@ -9,3 +9,18 @@ nova::compute::rbd::libvirt_images_rbd_pool:      'vms'
 
 nova::compute::libvirt::libvirt_cpu_mode:         'custom'
 nova::compute::libvirt::libvirt_cpu_model:        'Nehalem'
+
+# Testing windows host aggregate
+nova::scheduler::filter::scheduler_default_filters:
+  - "NumInstancesFilter"
+  - "RetryFilter"
+  - "AvailabilityZoneFilter"
+  - "RamFilter"
+  - "DiskFilter"
+  - "ComputeFilter"
+  - "ComputeCapabilitiesFilter"
+  - "ImagePropertiesFilter"
+  - "ServerGroupAntiAffinityFilter"
+  - "ServerGroupAffinityFilter"
+  - "AggregateMultiTenancyIsolation"
+  - "AggregateInstanceExtraSpecsFilter"
