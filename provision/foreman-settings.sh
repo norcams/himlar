@@ -58,7 +58,7 @@ common_config()
 
   # Create and update domain
   /bin/hammer domain create --name $foreman_domain || true
-  /bin/hammer domain update --name $foreman_domain --dns-id ''
+  /bin/hammer domain update --name $foreman_domain
   foreman_domain_id=$(/bin/hammer --csv domain info --name $foreman_domain | tail -n1 | cut -d, -f1)
 
   # Find smart proxy ID to use for tftp
