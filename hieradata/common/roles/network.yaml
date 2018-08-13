@@ -23,7 +23,7 @@ profile::base::common::packages:
   'jq': {}
   'gcc-c++': {}
   'openstack-selinux': {}
-  'python-etcd3gw': {}  # FIXME: Calico docs say it is needed, but it may not be
+  'python-etcd3gw': {}
 
 profile::openstack::openrc::password:     "%{hiera('neutron_api_password')}"
 profile::openstack::openrc::username:     'neutron'
