@@ -29,6 +29,9 @@ profile::base::common::packages:
   'vim-enhanced': {}
   'bind-utils': {}
   'nano': {}
+  'yum-utils': {}
+  'strace': {}
+  'lsof': {}
 
 # SSH only from mgmt
 profile::firewall::pre::ssh_settings:
