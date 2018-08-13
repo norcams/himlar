@@ -50,6 +50,9 @@ profile::openstack::openrc::project_name: 'services'
 
 profile::openstack::network::plugin: calico
 
+profile::openstack::network::calico::manage_etcd_grpc_proxy: true
+profile::openstack::network::calico::manage_etcd:            true
+
 profile::base::common::packages:
   'networking-calico': {}
   'gcc-c++': {}
@@ -146,9 +149,9 @@ profile::base::yumrepo::repo_hash:
   rdo-release:
     ensure: present
 #    exclude: 'openstack-neutron openstack-neutron-common python-neutron'
-  calico26:
+  calico31:
     ensure: present
-    exclude: 'calico-dhcp-agent' #FIXME
+    exclude: 'calico-dhcp-agent dnsmasq' #FIXME
   ceph-%{hiera('ceph_version')}:
     ensure: present
   centos-qemu-ev:
