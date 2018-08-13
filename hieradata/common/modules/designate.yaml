@@ -10,11 +10,8 @@ designate::use_syslog: true
 #---------------------------------------------------------------------
 # RabbitMQ
 #---------------------------------------------------------------------
-designate::default_transport_url:
-  "rabbit://ceilometer:%{hiera('ceilometer_rabbit_password')}@%{hiera('service__address__rabbitmq_01')}:5672,ceilometer:%{hiera('ceilometer_rabbit_password')}@%{hiera('service__address__rabbitmq_02')}:5672,ceilometer:%{hiera('ceilometer_rabbit_password')}@%{hiera('service__address__rabbitmq_03')}:5672/ceilometer"
-designate::notification_transport_url:
-  "rabbit://ceilometer:%{hiera('ceilometer_rabbit_password')}@%{hiera('service__address__rabbitmq_01')}:5672,ceilometer:%{hiera('ceilometer_rabbit_password')}@%{hiera('service__address__rabbitmq_02')}:5672,ceilometer:%{hiera('ceilometer_rabbit_password')}@%{hiera('service__address__rabbitmq_03')}:5672/ceilometer"
-#  "rabbit://designate:%{hiera('designate::rabbit_password')}@%{hiera('service__address__rabbitmq_01')}:5672,designate:%{hiera('designate::rabbit_password')}@%{hiera('service__address__rabbitmq_02')}:5672,designate:%{hiera('designate::rabbit_password')}@%{hiera('service__address__rabbitmq_03')}:5672/designate"
+designate::default_transport_url:       "%{hiera('service__transport__url')}"
+designate::notification_transport_url:  "%{hiera('service__transport__url')}"
 
 #---------------------------------------------------------------------
 # Authentication
