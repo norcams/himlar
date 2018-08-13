@@ -40,9 +40,10 @@ nova::keystone::auth_placement::admin_url:        "%{hiera('endpoint__placement_
 nova::keystone::auth_placement::internal_url:     "%{hiera('endpoint__placement__internal')}/placement/"
 
 # placement auth url
-nova::placement::auth_url: "%{hiera('endpoint__identity__admin')}"
-nova::placement::os_region_name: "%{location}"
-nova::placement::password: "%{hiera('nova_placement_password')}"
+nova::placement::auth_url:                "%{hiera('endpoint__identity__admin')}"
+nova::placement::os_region_name:          "%{location}"
+nova::placement::password:                "%{hiera('nova_placement_password')}"
+nova::placement::os_interface:            "internal"
 
 # placement wsgi
 nova::wsgi::apache_placement::ssl:        false
