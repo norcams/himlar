@@ -166,10 +166,12 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     options:
       - option:       'httplog'
       - errorfile:    '503 /etc/haproxy/error.api.http'
+      - balance:      'roundrobin'
   bk_placement:
     options:
       - option:       'httplog'
       - errorfile:    '503 /etc/haproxy/error.api.http'
+      - balance:      'roundrobin'
   bk_volume:
     options:
       - option:       'httplog'
