@@ -55,14 +55,14 @@ nova::wsgi::apache_placement::workers:    2
 # api (node: novactrl)
 nova::api::enabled_apis:                [ 'osapi_compute', ]
 nova::api::enabled:                     true
-nova::api::api_bind_address:            "%{ipaddress_trp1}"
+#nova::api::api_bind_address:            "%{ipaddress_trp1}"
 nova::api::service_name:                'httpd'
 
 # nova wsgi
-nova::wsgi::apache::ssl:        false
-nova::wsgi::apache::bind_host:  "%{ipaddress_trp1}"
-nova::wsgi::apache::threads:    2
-nova::wsgi::apache::workers:    2
+nova::wsgi::apache_api::ssl:        false
+nova::wsgi::apache_api::bind_host:  "%{ipaddress_trp1}"
+nova::wsgi::apache_api::threads:    2
+nova::wsgi::apache_api::workers:    2
 
 
 nova::cells::enabled: false
