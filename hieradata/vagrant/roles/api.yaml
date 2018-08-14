@@ -46,8 +46,8 @@ profile::application::openssl::certs:
 # Example of override compute backend for more nodes
 #
 # profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
-#   network:
-#     listening_service:  'bk_network'
+#   compute:
+#     listening_service:  'bk_compute'
 #     ports:              8774
 #     server_names:
 #       - '%{::location}-novactrl-01'
@@ -60,7 +60,7 @@ profile::application::openssl::certs:
 ## Example of override placement backend for more nodes
 #
 # profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
-#   network:
+#   placement:
 #     listening_service:  'bk_placement'
 #     ports:              8778
 #     server_names:
