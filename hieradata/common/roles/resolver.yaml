@@ -11,7 +11,6 @@ profile::base::network::manage_dummy: true
 profile::base::common::manage_cron: true
 
 # DNS server addresses (used by file templates)
-#profile::dns::ns::mdns_transport_addr: "%{hiera('service__address__mdns')}"
 profile::dns::ns::admin_mgmt_addr:          "%{hiera('netcfg_mgmt_netpart')}.11"
 profile::dns::ns::ns_mgmt_addr:             "%{hiera('netcfg_mgmt_netpart')}.16"
 profile::dns::ns::resolver1_mgmt_addr:      "%{hiera('netcfg_mgmt_netpart')}.17"
