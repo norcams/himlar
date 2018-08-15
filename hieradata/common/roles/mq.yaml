@@ -42,7 +42,7 @@ profile::monitoring::sensu::agent::checks:
 
 profile::messaging::rabbitmq::users:
   nova:
-    password: "%{hiera('nova::rabbit_password')}"
+    password: "%{hiera('nova_rabbit_password')}"
   cinder:
     password: "%{hiera('cinder_rabbit_password')}"
   neutron:
