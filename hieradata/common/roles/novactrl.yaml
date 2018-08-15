@@ -5,6 +5,7 @@ include:
     - profile::logging::rsyslog::client
     - profile::openstack::openrc
     - profile::openstack::resource::host_aggregate
+    - profile::openstack::cache
 
 profile::base::selinux::manage_selinux:             false
 profile::openstack::novactrl::manage_firewall:      true
@@ -35,3 +36,5 @@ profile::base::yumrepo::repo_hash:
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
     includepkgs: 'htop bash-completion-extras'
+
+memcached::max_memory: '20%'
