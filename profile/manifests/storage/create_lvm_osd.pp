@@ -8,10 +8,10 @@ define profile::storage::create_lvm_osd (
 ) {
 
   if $db_device {
-  	$add_db_device = "--block.db ${db_device}"
+    $add_db_device = "--block.db ${db_device}"
   }
   if $wal_device {
-  	$add_wal_device = "--block.wal ${wal_device}"
+    $add_wal_device = "--block.wal ${wal_device}"
   }
   # Create the osds
   exec { "create_lvm_osd-${name}":
