@@ -1,0 +1,20 @@
+---
+named_interfaces::config:
+  mgmt:
+    - eth0
+
+corosync::unicast_addresses:
+  - "%{hiera('netcfg_public2_netpart')}.190"
+  - "%{hiera('netcfg_public2_netpart')}.191"
+
+corosync::quorum_members:
+  - "%{hiera('netcfg_public2_netpart')}.190"
+  - "%{hiera('netcfg_public2_netpart')}.191"
+
+corosync_cluster_node1:   "%{::location}-ha-test-01.%{hiera('domain_mgmt')}"
+corosync_cluster_node2:   "%{::location}-ha-test-02.%{hiera('domain_mgmt')}"
+
+corosync_cluster_vip1:    "%{hiera('netcfg_public2_netpart')}.34" # public
+corosync_cluster_vip2:    "%{hiera('netcfg_public2_netpart')}.35" # public
+corosync_cluster_vip3:    "%{hiera('netcfg_public2_netpart')}.243" # uib
+corosync_cluster_vip4:    "%{hiera('netcfg_public2_netpart')}.244" # uib
