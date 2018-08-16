@@ -34,6 +34,10 @@
 #   mariadb:
 #     ensure: present
 
+#netdata
+profile::monitoring::netdata::firewall_extras:
+  source:       '0.0.0.0/0'
+
 # corosync
 corosync::unicast_addresses:
   - "%{hiera('netcfg_public_netpart')}.16"
