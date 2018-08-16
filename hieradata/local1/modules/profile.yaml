@@ -16,3 +16,5 @@ profile::openstack::identity::swift_enabled:      true
 
 # Enable insecure ssl checks
 sensu_ssl_cachain:  '-k'
+
+profile::application::access::package_url:      'http://download.iaas.uio.no/uh-iaas/rpm/himlar-dp-prep-2.0-2.el7.x86_64.rpm'
