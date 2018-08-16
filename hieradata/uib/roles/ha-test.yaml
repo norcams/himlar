@@ -2,6 +2,8 @@
 named_interfaces::config:
   mgmt:
     - eth0
+  public:
+    - eth1
 
 corosync::unicast_addresses:
   - "%{hiera('netcfg_public2_netpart')}.190"

@@ -16,3 +16,6 @@ network::interfaces_hash:
     netmask:        '255.255.255.0'
     gateway:        '129.177.5.1'
     defroute:       'no'
+
+profile::highavailability::corosync::firewall_extras:
+  source: "%{hiera('netcfg_public2_netpart')}.190"
