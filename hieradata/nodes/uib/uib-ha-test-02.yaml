@@ -5,17 +5,17 @@ network::interfaces_hash:
     ipaddress:      '172.31.0.14'
     netmask:        '255.255.248.0'
     gateway:        "%{hiera('netcfg_mgmt_gateway')}"
-    defroute:       'yes'
     peerdns:        'yes'
     dns1:           "%{hiera('netcfg_dns_server1')}"
     dns2:           "%{hiera('netcfg_dns_server2')}"
     domain:         "%{hiera('netcfg_dns_search')}"
+    defroute:       'no'
   'eth1':
     onboot:         'yes'
     ipaddress:      '129.177.5.191'
     netmask:        '255.255.255.0'
     gateway:        '129.177.5.1'
-    defroute:       'no'
+    defroute:       'yes'
 
 profile::highavailability::corosync::firewall_extras:
   source: "%{hiera('netcfg_public2_netpart')}.190"
