@@ -7,12 +7,15 @@ named_interfaces::config:
   ceph:
     - eth1
 
+#### FIXME move to common when all clusters are upgraded to mimic
+profile::storage::cephosd::create_osds: true
+
 profile::base::common::manage_fake_ssd: true
 
 profile::storage::fake_ssds:
   'vdb': {}
 
-ceph::profile::params::osds:
+profile::storage::cephosd::osds:
   '/dev/vdb':
     ensure: present
   '/dev/vdc':
