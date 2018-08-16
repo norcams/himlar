@@ -1,6 +1,7 @@
 #
 class profile::monitoring::netdata(
   $manage_firewall           = false,
+  $firewall_dest             = $::ipaddress_mgmt1,
   $firewall_extras           = {}
 ) {
 
@@ -10,7 +11,7 @@ class profile::monitoring::netdata(
     profile::firewall::rule { '466 netdata accept tcp':
       dport       => 19999,
       proto       => 'tcp',
-      destination => $::ipaddress_mgmt1,
+      destination => $firewall_dest,
       extras      => $firewall_extras,
     }
   }
