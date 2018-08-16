@@ -15,7 +15,7 @@ define profile::storage::create_lvm_osd (
   }
   # Create the osds
   exec { "create_lvm_osd-${name}":
-    command => "/sbin/ceph-volume lvm create --bluestore $add_db_device $add_wal_device --data ${name}",
+    command => "/sbin/ceph-volume lvm create --bluestore ${add_db_device} ${add_wal_device} --data ${name}",
     unless  => "/sbin/ceph-volume lvm list ${name} | grep ====== >/dev/null 2>&1",
   }
   # Ensure that the osd service is running
