@@ -11,7 +11,7 @@ profile::storage::fake_ssds:
   'sdb': {}
   'sdc': {}
 
-ceph::profile::params::osds:
+profile::storage::cephosd::osds:
   '/dev/sdb':
     ensure: present
   '/dev/sdc':
