@@ -59,30 +59,26 @@ public__ip__proxy:              '158.39.77.253'
 #
 profile::network::services::dns_records:
   A:
+    # Public records (<foo>.<location>.uh-iaas.no)
+    "console.%{hiera('domain_public')}":         '158.39.77.250'
+    "compute.api.%{hiera('domain_public')}":     '158.39.77.250'
+    "identity.api.%{hiera('domain_public')}":    '158.39.77.250'
+    "network.api.%{hiera('domain_public')}":     '158.39.77.250'
+    "image.api.%{hiera('domain_public')}":       '158.39.77.250'
+    "volume.api.%{hiera('domain_public')}":      '158.39.77.250'
+    "placement.api.%{hiera('domain_public')}":   '158.39.77.250'
+    "metric.api.%{hiera('domain_public')}":      '158.39.77.250'
+    "resolver.%{hiera('domain_public')}":        '158.39.77.252'
+
     # mgmt
-    "%{::location}-leaf-02.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_netpart')}.2"
-    "%{::location}-leaf-03.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_netpart')}.3"
-    "%{::location}-leaf-04.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_netpart')}.4"
-    "%{::location}-mgmt-01.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_netpart')}.5"
-    "%{::location}-login-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_mgmt_netpart')}.10"
-    # Used as CNAME for uh-iaas.no (http://iaas.readthedocs.io/en/latest/team/operations/dns.html)
-    'uh-api.iaas.uib.no':                               '158.39.77.250'
-    'uh-api-front.iaas.uib.no':                         '158.39.77.250'
-    'uh-console.iaas.uib.no':                           '158.39.77.250'
-    'uh-status-front.iaas.uib.no':                      '158.39.77.250'
-    'uh-status.iaas.uib.no':                            '158.39.77.250'
-    'uh-access-front.iaas.uib.no':                      '158.39.77.250'
-    'uh-access.iaas.uib.no':                            '158.39.77.250'
-    'uh-request-front.iaas.uib.no':                     '158.39.77.250'
-    'uh-report.iaas.uib.no':                            '158.39.77.250'
-    'uh-report-front.iaas.uib.no':                      '158.39.77.250'
-    'uh-dboard-front.iaas.uib.no':                      '158.39.77.254'
-    'uh-dboard.iaas.uib.no':                            '158.39.77.254'
-    # location specific for DNS resolver: FIXME do not work
-    #"resolver.%{hiera('domain_public')}":               '158.39.77.252'
+    "%{::location}-leaf-02.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_netpart')}.2"
+    "%{::location}-leaf-03.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_netpart')}.3"
+    "%{::location}-leaf-04.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_netpart')}.4"
+    "%{::location}-mgmt-01.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_netpart')}.5"
+    "%{::location}-login-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_netpart')}.10"
   AAAA:
-    # location specific for DNS resolver:
-    "resolver.%{hiera('domain_public')}":               '2001:700:2:83ff::252'
+    # Public records (<foo>.<location>.uh-iaas.no)
+    "resolver.%{hiera('domain_public')}":        '2001:700:2:83ff::252'
   PTR:
     # mgmt
     "1.%{hiera('reverse_mgmt')}":      "%{::location}-torack-01.%{hiera('domain_mgmt')}"
@@ -190,13 +186,13 @@ profile::network::services::dns_options:
   CNAME:
     default:
       ttl: 3600
-      keyfile: "/etc/rndc-%{location}.key"
-      server: 'alfalfa.uib.no'
+      keyfile: "/etc/rndc-admin.key"
+      server: "%{hiera('netcfg_mgmt_netpart')}.16"
   A:
     default:
       ttl: 3600
-      keyfile: "/etc/rndc-%{location}.key"
-      server: 'alfalfa.uib.no'
+      keyfile: "/etc/rndc-admin.key"
+      server: "%{hiera('netcfg_mgmt_netpart')}.16"
   AAAA:
     default:
       ttl: 3600
