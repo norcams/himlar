@@ -11,4 +11,6 @@ dpapp::mq_password:         "%{hiera('access_rabbit_password')}"
 dpapp::oauth_client_id:     'nnnnnnnn-nnnn-nnnn-nnnn-nnnnnnnnnnnn'
 dpapp::oauth_client_secret: 'nnnnnnnn-nnnn-nnnn-nnnn-nnnnnnnnnnnn'
 
-dpapp::admin_pw:            "%{hiera('keystone_admin_password')}"
+dpapp::admin_pw:            "%{hiera('access_api_password')}"
+dpapp::admin_user:          'access'
+dpapp::project_name:        'services'
