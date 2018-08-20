@@ -64,6 +64,16 @@ public__ip__proxy:             '158.37.63.253'
 # DNS (merge of common and this)
 #
 profile::network::services::dns_records:
+  CNAME:
+    # frontend
+    "www.%{hiera('domain_frontend')}":           'norcams.github.io'
+    "docs.%{hiera('domain_frontend')}":          'uh-iaas.readthedocs.io'
+    "status.%{hiera('domain_frontend')}":        'uh-status-front.iaas.uib.no'
+    "access.%{hiera('domain_frontend')}":        'uh-access-front.iaas.uib.no'
+    "dashboard.%{hiera('domain_frontend')}":     'uh-dboard-front.iaas.uib.no'
+    "api.%{hiera('domain_frontend')}":           'uh-api-front.iaas.uib.no'
+    "dashboard-osl.%{hiera('domain_frontend')}": 'uh-dboard.iaas.uio.no'
+    "dashboard-bgo.%{hiera('domain_frontend')}": 'uh-dboard.iaas.uib.no'
   A:
     # mgmt
     "%{::location}-leaf-02.%{hiera('domain_mgmt')}":        "%{hiera('netcfg_mgmt_netpart')}.2"
