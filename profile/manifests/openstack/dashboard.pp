@@ -16,6 +16,7 @@ class profile::openstack::dashboard(
   $image_upload_mode    = undef,
   $change_region_selector = false,
   $change_login_footer  = false,
+  $keystone_admin_roles = undef,
   ) {
 
   if $manage_dashboard {

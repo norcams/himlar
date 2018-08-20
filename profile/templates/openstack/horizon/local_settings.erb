@@ -25,3 +25,6 @@ DATABASES = {
     }
 }
 <% end -%>
+<% if @keystone_admin_roles -%>
+OPENSTACK_KEYSTONE_ADMIN_ROLES = '<%= @keystone_admin_roles %>'
+<% end -%>

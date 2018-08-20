@@ -1,0 +1,7 @@
+---
+profile::application::openssl::certs:
+  "dashboard.%{hiera('domain_mgmt')}":
+    cn:     "dashboard.%{hiera('domain_mgmt')}"
+    altnames:
+      - "dashboard.%{hiera('domain_mgmt')}"
+
