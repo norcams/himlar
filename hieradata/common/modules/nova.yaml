@@ -13,9 +13,9 @@ nova::log_facility:         'LOG_LOCAL0'
 
 # rabbit mq (for rabbit_password see secrets)
 nova::default_transport_url:
-  "rabbit://nova:%{hiera('nova::rabbit_password')}@%{hiera('service__address__rabbitmq_01')}:5672,\
-  nova:%{hiera('nova::rabbit_password')}@%{hiera('service__address__rabbitmq_02')}:5672,\
-  nova:%{hiera('nova::rabbit_password')}@%{hiera('service__address__rabbitmq_03')}:5672/nova"
+  "rabbit://nova:%{hiera('nova_rabbit_password')}@%{hiera('service__address__rabbitmq_01')}:5672,\
+  nova:%{hiera('nova_rabbit_password')}@%{hiera('service__address__rabbitmq_02')}:5672,\
+  nova:%{hiera('nova_rabbit_password')}@%{hiera('service__address__rabbitmq_03')}:5672/nova"
 
 # mysql database (node: db)
 nova::db::mysql::allowed_hosts:
