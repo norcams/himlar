@@ -250,6 +250,7 @@ profile::network::services::dns_records:
     "%{::location}-volume-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_netpart')}.46"
     "%{::location}-access-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_netpart')}.56"
     "%{::location}-dashboard-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_mgmt_netpart')}.51"
+    "%{::location}-dashboard-mgmt-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_netpart')}.54"
     "%{::location}-console-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.61"
     "%{::location}-novactrl-01.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_netpart')}.66"
     "%{::location}-network-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.71"
