@@ -191,13 +191,13 @@ profile::network::services::dns_options:
   CNAME:
     default:
       ttl: 3600
-      keyfile: "/etc/rndc-%{location}.key"
-      server: '129.240.2.6'
+      keyfile: "/etc/rndc-admin.key"
+      server: "%{hiera('netcfg_mgmt_netpart')}.16"
   A:
     default:
       ttl: 3600
-      keyfile: "/etc/rndc-%{location}.key"
-      server: '129.240.2.6'
+      keyfile: "/etc/rndc-admin.key"
+      server: "%{hiera('netcfg_mgmt_netpart')}.16"
   AAAA:
     default:
       ttl: 3600
