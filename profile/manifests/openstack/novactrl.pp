@@ -34,6 +34,7 @@ class profile::openstack::novactrl(
   include ::nova::config
   include ::nova::placement
   include ::nova::network::neutron
+  include ::nova::wsgi::apache_api
   include ::nova::wsgi::apache_placement
 
   if $enable_scheduler {
