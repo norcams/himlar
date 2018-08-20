@@ -6,15 +6,15 @@ network::interfaces_hash:
     mtu:       '1500'
     peerdns:   'yes'
     dns1:      "%{hiera('netcfg_dns_server1')}"
+    gateway:   "%{hiera('netcfg_mgmt_gateway')}"
     domain:    'test.iaas.uio.no'
-    defroute:  'no'
+    defroute:  'yes'
   'eth1':
     ipaddress: '172.30.32.54'
     netmask:   '255.255.255.0'
-    gateway:   "%{hiera('netcfg_trp_gateway')}"
-    srcaddr:   "%{hiera('netcfg_public_netpart')}.254"
-    defroute:  'yes'
+    defroute:  'no'
 #  'dummy0':
 #    ipaddress: "%{hiera('netcfg_public_netpart')}.254"
 #    netmask:   '255.255.255.255'
 #    defroute:  'no'
+
