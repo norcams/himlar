@@ -13,7 +13,7 @@ profile::openstack::openrc::project_name:     'services'
 profile::base::network::manage_dummy:           true
 profile::webserver::apache::manage_firewall:    false
 profile::application::access::manage_firewall:  true
-profile::application::access::package_url:      'https://download.iaas.uio.no/uh-iaas/rpm/himlar-dp-prep-1.5-3.el7.x86_64.rpm'
+profile::application::access::package_url:      'https://download.iaas.uio.no/uh-iaas/rpm/himlar-dp-prep-2.0-4.el7.x86_64.rpm'
 dpapp::installdir:        '/opt/dpapp'
 
 profile::application::access::firewall_extras:
