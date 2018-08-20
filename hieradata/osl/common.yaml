@@ -64,30 +64,50 @@ public__ip__proxy:             '158.37.63.253'
 # DNS (merge of common and this)
 #
 profile::network::services::dns_records:
+  CNAME:
+    "www.%{hiera('domain_frontend')}":           'norcams.github.io'
+    "docs.%{hiera('domain_frontend')}":          'uh-iaas.readthedocs.io'
   A:
+    # Frontend records (<foo>.uh-iaas.no)
+    "access.%{hiera('domain_frontend')}":        '158.39.77.250'
+    "access-osl.%{hiera('domain_frontend')}":    '158.37.63.250'
+    "access-bgo.%{hiera('domain_frontend')}":    '158.39.77.250'
+    "report.%{hiera('domain_frontend')}":        '158.39.77.250'
+    "report-osl.%{hiera('domain_frontend')}":    '158.37.63.250'
+    "report-bgo.%{hiera('domain_frontend')}":    '158.39.77.250'
+    "status.%{hiera('domain_frontend')}":        '158.39.77.250'
+    "status-osl.%{hiera('domain_frontend')}":    '158.37.63.250'
+    "status-bgo.%{hiera('domain_frontend')}":    '158.39.77.250'
+    "dashboard.%{hiera('domain_frontend')}":     '158.39.77.254'
+    "dashboard-osl.%{hiera('domain_frontend')}": '158.37.63.254'
+    "dashboard-bgo.%{hiera('domain_frontend')}": '158.39.77.254'
+    "request.%{hiera('domain_frontend')}":       '158.39.77.250'
+    "api.%{hiera('domain_frontend')}":           '158.39.77.250'
+    "ns0.%{hiera('domain_frontend')}":           '158.37.63.251'
+    "ns1.%{hiera('domain_frontend')}":           '158.39.77.251'
+
+    # Public records (<foo>.<location>.uh-iaas.no)
+    "console.%{hiera('domain_public')}":         '158.37.63.250'
+    "compute.api.%{hiera('domain_public')}":     '158.37.63.250'
+    "identity.api.%{hiera('domain_public')}":    '158.37.63.250'
+    "network.api.%{hiera('domain_public')}":     '158.37.63.250'
+    "image.api.%{hiera('domain_public')}":       '158.37.63.250'
+    "volume.api.%{hiera('domain_public')}":      '158.37.63.250'
+    "placement.api.%{hiera('domain_public')}":   '158.37.63.250'
+    "metric.api.%{hiera('domain_public')}":      '158.37.63.250'
+    "resolver.%{hiera('domain_public')}":        '158.37.63.252'
+
     # mgmt
-    "%{::location}-leaf-02.%{hiera('domain_mgmt')}":        "%{hiera('netcfg_mgmt_netpart')}.2"
-    "%{::location}-leaf-03.%{hiera('domain_mgmt')}":        "%{hiera('netcfg_mgmt_netpart')}.3"
-    "%{::location}-leaf-04.%{hiera('domain_mgmt')}":        "%{hiera('netcfg_mgmt_netpart')}.4"
-    "%{::location}-login-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_mgmt_netpart')}.10"
-    # Used as CNAME for uh-iaas.no (http://iaas.readthedocs.io/en/latest/team/operations/dns.html)
-    'uh-dboard.iaas.uio.no':                                '158.37.63.254'
-    'uh-access.iaas.uio.no':                                '158.37.63.250'
-    'uh-report.iaas.uio.no':                                '158.37.63.250'
-    'uh-status.iaas.uio.no':                                '158.37.63.250'
-    'uh-api.iaas.uio.no':                                   '158.37.63.250'
-    'uh-console.iaas.uio.no':                               '158.37.63.250'
-    # location specific for DNS resolver:
-    #"resolver.%{hiera('domain_public')}":                   '158.37.63.252'
-    # frontend for DNS NS:
-    #"ns0.%{hiera('domain_frontend')}":                      '158.37.63.251'
-    #"ns1.%{hiera('domain_frontend')}":                      '158.39.77.251'
+    "%{::location}-leaf-02.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_netpart')}.2"
+    "%{::location}-leaf-03.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_netpart')}.3"
+    "%{::location}-leaf-04.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_netpart')}.4"
+    "%{::location}-login-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_netpart')}.10"
   AAAA:
-    # location specific for DNS resolver:
-    "resolver.%{hiera('domain_public')}":                   '2001:700:2:82ff::252'
-    # frontend for DNS NS:
-    "ns0.%{hiera('domain_frontend')}":                      '2001:700:2:82ff::251'
-    "ns1.%{hiera('domain_frontend')}":                      '2001:700:2:83ff::251'
+    # Frontend records (<foo>.uh-iaas.no)
+    "ns0.%{hiera('domain_frontend')}":           '2001:700:2:82ff::251'
+    "ns1.%{hiera('domain_frontend')}":           '2001:700:2:83ff::251'
+    # Public records (<foo>.<location>.uh-iaas.no)
+    "resolver.%{hiera('domain_public')}":        '2001:700:2:82ff::252'
   PTR:
     # mgmt
     "1.%{hiera('reverse_mgmt')}":      "%{::location}-leaf-01.%{hiera('domain_mgmt')}"
@@ -191,13 +211,13 @@ profile::network::services::dns_options:
   CNAME:
     default:
       ttl: 3600
-      keyfile: "/etc/rndc-%{location}.key"
-      server: '129.240.2.6'
+      keyfile: "/etc/rndc-admin.key"
+      server: "%{hiera('netcfg_mgmt_netpart')}.16"
   A:
     default:
       ttl: 3600
-      keyfile: "/etc/rndc-%{location}.key"
-      server: '129.240.2.6'
+      keyfile: "/etc/rndc-admin.key"
+      server: "%{hiera('netcfg_mgmt_netpart')}.16"
   AAAA:
     default:
       ttl: 3600
