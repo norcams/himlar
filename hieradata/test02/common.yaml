@@ -82,8 +82,6 @@ profile::network::services::dns_records:
     "dashboard.%{hiera('domain_public')}":                  "%{hiera('netcfg_public_netpart')}.254"
     # Management network (entries that differ from common/common.yaml)
     "%{::location}-controller-00.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_netpart')}.99"
-    # mgmt temp!!
-    "puppet4.%{hiera('domain_mgmt')}":                      "%{hiera('netcfg_mgmt_netpart')}.11"
   AAAA:
     "ns.%{hiera('domain_public')}":                       "%{hiera('netcfg_public_netpart6')}::251"
     "resolver.%{hiera('domain_public')}":                 "%{hiera('netcfg_public_netpart6')}::252"

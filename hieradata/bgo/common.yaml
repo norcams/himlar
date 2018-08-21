@@ -71,9 +71,6 @@ profile::network::services::dns_records:
     "resolver.%{hiera('domain_public')}":        '158.39.77.252'
 
     # Management network (entries that differ from common/common.yaml)
-    "%{::location}-leaf-02.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_netpart')}.2"
-    "%{::location}-leaf-03.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_netpart')}.3"
-    "%{::location}-leaf-04.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_netpart')}.4"
     "%{::location}-mgmt-01.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_netpart')}.5"
     "%{::location}-login-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_netpart')}.10"
   AAAA:
@@ -81,9 +78,6 @@ profile::network::services::dns_records:
     "resolver.%{hiera('domain_public')}":        '2001:700:2:83ff::252'
   PTR:
     # Management network (entries that differ from common/common.yaml)
-    "2.%{hiera('reverse_mgmt')}":      "%{::location}-leaf-02.%{hiera('domain_mgmt')}"
-    "3.%{hiera('reverse_mgmt')}":      "%{::location}-leaf-03.%{hiera('domain_mgmt')}"
-    "4.%{hiera('reverse_mgmt')}":      "%{::location}-leaf-04.%{hiera('domain_mgmt')}"
     "5.%{hiera('reverse_mgmt')}":      "%{::location}-mgmt-01.%{hiera('domain_mgmt')}"
     "10.%{hiera('reverse_mgmt')}":     "%{::location}-login-01.%{hiera('domain_mgmt')}"
     # public IPv4 # FIXME do not work
