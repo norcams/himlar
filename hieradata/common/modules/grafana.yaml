@@ -21,6 +21,18 @@ grafana::plugins:
   gnocchixyz-gnocchi-datasource:
     ensure: present
 
+grafana::provisioning_dashboards:
+  apiVersion: 1
+  providers:
+    - name: 'default'
+      orgId: 1
+      folder: ''
+      type: file
+      disableDeletion: true
+      options:
+        path: '/var/lib/grafana/dashboards'
+        puppetsource: 'puppet:///modules/profile/monitoring/grafana/dashboard'
+
 grafana::provisioning_datasources:
   apiVersion: 1
   datasources:
