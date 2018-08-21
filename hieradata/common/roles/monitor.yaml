@@ -17,6 +17,18 @@ profile::monitoring::statsd::manage_firewall:  true
 profile::monitoring::statsd::firewall_extras:
   source: "%{::network_mgmt1}/%{::netmask_mgmt1}"
 
+grafana::provisioning_dashboards:
+  apiVersion: 1
+  providers:
+    - name: 'default'
+      orgId: 1
+      folder: ''
+      type: file
+      disableDeletion: true
+      options:
+        path: '/var/lib/grafana/dashboards'
+        puppetsource: 'puppet:///modules/profile/monitoring/grafana/dashboard'
+
 # Sensu server
 sensu::server:              true
 sensu::api:                 true
