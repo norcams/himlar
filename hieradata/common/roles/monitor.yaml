@@ -17,16 +17,6 @@ profile::monitoring::statsd::manage_firewall:  true
 profile::monitoring::statsd::firewall_extras:
   source: "%{::network_mgmt1}/%{::netmask_mgmt1}"
 
-profile::monitoring::grafana::datasource:
-  graphite:
-    grafana_url:        "http://%{::ipaddress_mgmt1}:8080"
-    grafana_user:       'admin'
-    grafana_password:   "%{hiera('grafana_admin_password')}"
-    type:               'graphite'
-    url:                "http://%{::ipaddress_mgmt1}"
-    access_mode:        'proxy'
-    is_default:          true
-
 profile::monitoring::grafana::dashboard:
   'Compute Hosts':
     grafana_url:        "http://%{::ipaddress_mgmt1}:8080"
@@ -195,4 +185,6 @@ logrotate::rules:
 # Enable extra yum repo for openstack client
 profile::base::yumrepo::repo_hash:
   rdo-release:
+    ensure: present
+  grafana:
     ensure: present

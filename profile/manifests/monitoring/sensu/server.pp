@@ -6,6 +6,7 @@ class profile::monitoring::sensu::server (
   $manage_redis              = false,
   $manage_graphite           = false,
   $manage_firewall           = false,
+  $custom_json               = {},
   $firewall_extras           = {}
 ) {
 
@@ -34,7 +35,7 @@ class profile::monitoring::sensu::server (
 
   if $manage_firewall {
     profile::firewall::rule { '411 uchiwa accept tcp':
-      port        => [80, 3000, 4567],
+      dport       => [80, 3000, 4567],
       destination => $::ipaddress_mgmt1,
       extras      => $firewall_extras,
     }
@@ -44,4 +45,7 @@ class profile::monitoring::sensu::server (
   $filters  = lookup('profile::monitoring::sensu::server::filters', Hash, 'deep', {})
   create_resources('sensu::handler', $handlers)
   create_resources('sensu::filter', $filters)
+
+  create_resources('sensu::write_json', $custom_json)
+
 }

@@ -1,6 +1,6 @@
 ---
-grafana::install_method:        package
-grafana::package_source:        'https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana-4.2.0-1.x86_64.rpm'
+grafana::install_method:        'repo'
+grafana::version:               '5.2.2'
 grafana::manage_package_repo:   false
 grafana::cfg:
   app_mode: 'production'
@@ -16,3 +16,32 @@ grafana::cfg:
   users:
     allow_sign_up:    false
     allow_org_create: false
+
+grafana::plugins:
+  gnocchixyz-gnocchi-datasource:
+    ensure: present
+
+grafana::provisioning_datasources:
+  apiVersion: 1
+  datasources:
+    - name:         'graphite'
+      type:         'graphite'
+      url:          "http://%{::ipaddress_mgmt1}"
+      access:       'proxy'
+      isDefault:    true
+      orgId:        1
+      version:      1
+      jsonData:
+        graphiteVersion: "0.9"
+    - name:         'metric'
+      type:         'gnocchixyz-gnocchi-datasource'
+      url:          "https://api.%{hiera('domain_frontend')}:5000"
+      access:       'proxy'
+      orgId:        1
+      version:      1
+      jsonData:
+        mode:               'keystone'
+        password:           "%{hiera('monitor_metric_password')}"
+        username:           'monitor'
+        domain:             'default'
+        project:            'services'
