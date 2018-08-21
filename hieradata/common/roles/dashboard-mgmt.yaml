@@ -4,10 +4,10 @@ horizon::servername:                    "dashboard.%{hiera('domain_mgmt')}"
 horizon::server_aliases:                "%{::fqdn}"
 horizon::wsgi::apache::bind_address:    "%{ipaddress_mgmt1}"
 horizon::bind_address:                  "%{ipaddress_mgmt1}"
-horizon::listen_ssl:                    true
-horizon::horizon_ca:                    "/etc/pki/tls/certs/cachain.pem"
-horizon::horizon_cert:                  "/etc/pki/tls/certs/%{hiera('public__address__dashboard')}.cert.pem"
-horizon::horizon_key:                   "/etc/pki/tls/private/%{hiera('public__address__dashboard')}.key.pem"
+horizon::listen_ssl:                    false
+#horizon::horizon_ca:                    "/etc/pki/tls/certs/cachain.pem"
+#horizon::horizon_cert:                  "/etc/pki/tls/certs/%{hiera('public__address__dashboard')}.cert.pem"
+#horizon::horizon_key:                   "/etc/pki/tls/private/%{hiera('public__address__dashboard')}.key.pem"
 
 horizon::openstack_endpoint_type:       'internalURL'
 horizon::keystone_url:                  "%{hiera('endpoint__identity__public')}/v3"
@@ -32,3 +32,5 @@ profile::openstack::dashboard::firewall_extras:
   iniface:        "%{::interface_mgmt1}"
 
 profile::openstack::dashboard::keystone_admin_roles:  '["admin"]'
+profile::openstack::dashboard::change_uploaddir:      'False'
+profile::base::common::manage_lvm:                    'True'
