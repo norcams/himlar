@@ -64,6 +64,8 @@ public__ip__proxy:             '158.37.63.253'
 # DNS (merge of common and this)
 #
 profile::network::services::dns_records:
+  MX:
+    "%{hiera('domain_frontend')}": [ '10 uninett-no.mx1.staysecuregroup.com.', '20 uninett-no.mx2.staysecuregroup.net.' ]
   CNAME:
     "www.%{hiera('domain_frontend')}":           'norcams.github.io'
     "docs.%{hiera('domain_frontend')}":          'uh-iaas.readthedocs.io'
@@ -153,6 +155,11 @@ profile::network::services::dhcp_reservation:
     ip:  '172.16.32.7'
 
 profile::network::services::dns_options:
+  MX:
+    default:
+      ttl: 3600
+      keyfile: "/etc/rndc-admin.key"
+      server: "%{hiera('netcfg_mgmt_netpart')}.16"
   CNAME:
     default:
       ttl: 3600
