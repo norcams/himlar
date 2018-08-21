@@ -7,6 +7,7 @@ define profile::network::service::dns_record(
   validate_hash($options)
   validate_hash($records)
 
+  # this is the key in record hash
   $record_name = regsubst($name,'_.*$','')
 
   case $type {
@@ -28,7 +29,7 @@ define profile::network::service::dns_record(
   }
 
   $record = {
-    "${type}_record_${record_name}" => {
+    "${type}_record_${name}" => {
       'record' => $record_name,
       'type'   => $type,
       'data'   => $data,
@@ -36,4 +37,3 @@ define profile::network::service::dns_record(
   }
   create_resources('resource_record', $record, $record_options)
 }
-
