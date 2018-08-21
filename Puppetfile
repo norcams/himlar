@@ -165,7 +165,7 @@ mod 'swift', :ref => 'norcams/ocata',               :git => github + 'norcams/pu
 mod 'ceilometer', :ref => '10.4.0',                 :git => github + 'openstack/puppet-ceilometer'
 mod 'designate', :ref => 'stable/pike',             :git => github + 'openstack/puppet-designate'
 
-mod 'oslo', :ref => '11.4.0',                       :git => github + 'openstack/puppet-oslo'
+mod 'oslo', :ref => '12.4.0',                       :git => github + 'openstack/puppet-oslo'
 mod 'openstacklib', :ref => '11.5.0',               :git => github + 'openstack/puppet-openstacklib'
 mod 'openstack_extras', :ref => '10.4.0',           :git => github + 'openstack/puppet-openstack_extras'
 mod 'sysctl', :ref => 'v0.0.11',                    :git => github + 'duritong/puppet-sysctl'
