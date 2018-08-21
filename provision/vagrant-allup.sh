@@ -23,6 +23,15 @@ EOF
     exit 0
 fi
 
+# Test if perl requirements are met
+for module in Readonly YAML::XS; do
+    if ! perl -e "use $module;" 2>/dev/null; then
+	echo "ERROR: Missing perl module $module. Suggested fix:"
+	echo "  sudo yum install 'perl($module)'"
+	exit 1
+    fi
+done
+
 # Get nodes from nodes.yaml
 nodes=$(./provision/get_vagrant_nodes.pl)
 
