@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Before you run the script:
+# yum install 'perl(Readonly)' 'perl(YAML::XS)'
+# generate CA passfile
+
 # Help text
 if [ "$1" == '-h' -o "$1" == '--help' ]; then
     cat <<'EOF'
