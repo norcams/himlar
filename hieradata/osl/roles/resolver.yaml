@@ -81,7 +81,7 @@ profile::dns::ns::ptr_zones:
     origin: "f.f.2.8.0.0.7.0.2.0.0.0.1.0.0.2.ip6.arpa"
 
 profile::dns::ns::allowed_nets:
-  - '172.0.0.0/8;           # internal rfc1918'
+  - '172.16.0.0/12;         # internal rfc1918'
   - '158.39.77.0/24;        # bgo IPv4'
   - '158.39.74.0/24;        # bgo IPv4'
   - '158.37.63.0/24;        # osl IPv4'
