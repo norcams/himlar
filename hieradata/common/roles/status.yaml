@@ -29,12 +29,7 @@ grafana::cfg:
     allow_sign_up:    false
     allow_org_create: false
 
-profile::monitoring::grafana::datasource:
-  graphite:
-    grafana_url:        'http://127.0.0.1:8080'
-    grafana_user:       'admin'
-    grafana_password:   "%{hiera('grafana_admin_password')}"
-    type:               'graphite'
-    url:                "http://%{hiera('mgmt__address__monitor')}"
-    access_mode:        'proxy'
-    is_default:          true
+# Enable extra yum repo for openstack client
+profile::base::yumrepo::repo_hash:
+  grafana:
+    ensure: present
