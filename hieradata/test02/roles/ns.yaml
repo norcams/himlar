@@ -8,7 +8,7 @@ profile::dns::ns::public_zone:   "test.iaas.uio.no"
 
 # Define an ACL for networks allowed to do complete zone transfer
 profile::dns::ns::allowed_transfer_nets:
-  - '172.16.0.0/12;        # rfc1918: 20-bit block (internal)'
+  - '172.16.0.0/12;         # rfc1918: 20-bit block (internal)'
 
 # Name servers in zone file
 profile::dns::ns::ns_master: "ns.%{hiera('profile::dns::ns::public_zone')}"
