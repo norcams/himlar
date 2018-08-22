@@ -32,6 +32,18 @@ profile::dns::ns::ns_public6_addr:          "%{hiera('public6__address__ns')}"
 profile::dns::ns::resolver1_public_addr:    "%{hiera('public__address__resolver_01')}"
 profile::dns::ns::resolver1_public6_addr:   "%{hiera('public6__address__resolver_01')}"
 
+# Define an ACL for networks allowed to do complete zone transfer
+profile::dns::ns::allowed_transfer_nets:
+  - '172.16.0.0/12;         # rfc1918: 20-bit block (internal)'
+  - '158.37.63.251;         # ns1.uh-iaas.no IPv4 (OSL)'
+  - '158.39.77.251;         # ns2.uh-iaas.no IPv4 (BGO)'
+  - '158.37.63.252;         # resolver.osl.uh-iaas.no IPv4 (OSL)'
+  - '158.39.77.252;         # resolver.bgo.uh-iaas.no IPv4 (BGO)'
+  - '2001:700:2:82ff::251;  # ns1.uh-iaas.no IPv6 (OSL)'
+  - '2001:700:2:83ff::251;  # ns2.uh-iaas.no IPv6 (BGO)'
+  - '2001:700:2:82ff::252;  # resolver.osl.uh-iaas.no IPv6 (OSL)'
+  - '2001:700:2:83ff::252;  # resolver.bgo.uh-iaas.no IPv6 (BGO)'
+
 # DNS server firewall configuration
 profile::dns::ns::manage_firewall: true
 profile::dns::ns::firewall_extras:

@@ -32,7 +32,7 @@ profile::dns::ns::firewall_extras:
 profile::base::selinux::manage_selinux: true
 
 profile::dns::ns::allowed_nets:
-  - '172.0.0.0/8;           # internal rfc1918'
+  - '172.16.0.0/12;         # internal rfc1918'
   - '192.168.0.0/16;        # vagrant and localXY public (rfc1918)'
 
 # For anycast
