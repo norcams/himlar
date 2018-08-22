@@ -7,6 +7,9 @@ named_interfaces::config:
   ceph:
     - bond1
 
+#### FIXME move to common when all clusters are upgraded to mimic
+profile::storage::cephosd::create_osds: true
+
 profile::storage::fake_ssds:
   'sdb': {}
   'sdc': {}
