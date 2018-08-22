@@ -32,6 +32,10 @@ profile::dns::ns::ns_public6_addr:          "%{hiera('public6__address__ns')}"
 profile::dns::ns::resolver1_public_addr:    "%{hiera('public__address__resolver_01')}"
 profile::dns::ns::resolver1_public6_addr:   "%{hiera('public6__address__resolver_01')}"
 
+# Define an ACL for networks allowed to do complete zone transfer
+profile::dns::ns::allowed_transfer_nets:
+  - '172.16.0.0/12;        # rfc1918: 20-bit block (internal)'
+
 # DNS server firewall configuration
 profile::dns::ns::manage_firewall: true
 profile::dns::ns::firewall_extras:

@@ -1,5 +1,6 @@
 class profile::dns::ns (
   $allowed_nets = undef,
+  $allowed_transfer_nets = undef,
   $check_named_health = false,
   $enable_bird = false,
   $enable_bird6 = false,
