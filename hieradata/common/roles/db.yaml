@@ -87,8 +87,6 @@ profile::openstack::database::sql::extra_databases:
     password:       "%{hiera('horizon_db_password')}"
     user:           'horizon'
     host:           "%{hiera('netcfg_trp_netpart')}.51"
-
-profile::openstack::database::sql::extra_databases:
   horizon-mgmt: # Session database
     password:       "%{hiera('horizon_db_password')}"
     user:           'horizon'
