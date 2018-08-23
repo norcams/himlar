@@ -4,7 +4,7 @@ horizon::servername:                    "dashboard.%{hiera('domain_mgmt')}"
 horizon::server_aliases:                "%{::fqdn}"
 horizon::wsgi::apache::bind_address:    "%{ipaddress_mgmt1}"
 horizon::bind_address:                  "%{ipaddress_mgmt1}"
-horizon::listen_ssl:                    'False'
+horizon::listen_ssl:                    false
 #horizon::horizon_ca:                    "/etc/pki/tls/certs/cachain.pem"
 #horizon::horizon_cert:                  "/etc/pki/tls/certs/%{hiera('public__address__dashboard')}.cert.pem"
 #horizon::horizon_key:                   "/etc/pki/tls/private/%{hiera('public__address__dashboard')}.key.pem"
@@ -12,16 +12,16 @@ horizon::listen_ssl:                    'False'
 horizon::openstack_endpoint_type:       'internalURL'
 horizon::keystone_url:                  "%{hiera('endpoint__identity__public')}/v3"
 horizon::keystone_default_role:         'user'
-horizon::secure_cookies:                'False'        # FIXME: since we're running without SSL for now
+horizon::secure_cookies:                false        # FIXME: since we're running without SSL for now
 
-horizon::websso_enabled:        'False'
+horizon::websso_enabled:        false
 
 horizon::keystone_options:
-  can_edit_user:                'False'
-  can_edit_group:               'False'
-  can_edit_project:             'False'
-  can_edit_domain:              'False'
-  can_edit_role:                'False'
+  can_edit_user:                False
+  can_edit_group:               False
+  can_edit_project:             False
+  can_edit_domain:              False
+  can_edit_role:                False
 
 # Session database
 profile::openstack::dashboard::database:
