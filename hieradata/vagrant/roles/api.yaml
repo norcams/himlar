@@ -41,3 +41,32 @@ profile::application::openssl::certs:
 #       - "%{hiera('netcfg_trp_netpart')}.71"
 #       - "%{hiera('netcfg_trp_netpart')}.72"
 #     options:            'check'
+
+
+# Example of override compute backend for more nodes
+#
+# profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
+#   compute:
+#     listening_service:  'bk_compute'
+#     ports:              8774
+#     server_names:
+#       - '%{::location}-novactrl-01'
+#       - '%{::location}-novactrl-02'
+#     ipaddresses:
+#       - "%{hiera('netcfg_trp_netpart')}.66"
+#       - "%{hiera('netcfg_trp_netpart')}.67"
+#     options:            'check'
+
+## Example of override placement backend for more nodes
+#
+# profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
+#   placement:
+#     listening_service:  'bk_placement'
+#     ports:              8778
+#     server_names:
+#       - '%{::location}-novactrl-01'
+#       - '%{::location}-novactrl-02'
+#     ipaddresses:
+#       - "%{hiera('netcfg_trp_netpart')}.66"
+#       - "%{hiera('netcfg_trp_netpart')}.67"
+#     options:            'check'

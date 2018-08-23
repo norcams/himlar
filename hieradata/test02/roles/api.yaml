@@ -5,5 +5,17 @@ access_ssl_pem:   "star.%{hiera('domain_public')}.pem"
 
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   network:
-    server_names:       ['%{::location}-network-02']
-    ipaddresses:        ["%{hiera('netcfg_trp_netpart')}.72"]
+    server_names:
+      - '%{::location}-network-02'
+    ipaddresses:
+      - "%{hiera('netcfg_trp_netpart')}.72"
+  compute:
+    server_names:
+      - '%{::location}-novactrl-02'
+    ipaddresses:
+      - "%{hiera('netcfg_trp_netpart')}.67"
+  placement:
+    server_names:
+      - '%{::location}-novactrl-02'
+    ipaddresses:
+      - "%{hiera('netcfg_trp_netpart')}.67"
