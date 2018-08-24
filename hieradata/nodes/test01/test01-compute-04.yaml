@@ -11,7 +11,7 @@ network::interfaces_hash:
   'bond0':
     onboot:         'yes'
     bonding_opts:   'mode=balance-alb miimon=100'
-    ipaddress:      "%{hiera('netcfg_mgmt_netpart')}.112"
+    ipaddress:      "%{hiera('netcfg_mgmt_netpart')}.111"
     netmask:        "%{hiera('netcfg_mgmt_netmask')}"
     dns1:           "%{hiera('netcfg_dns_server1')}"
     dns2:           "%{hiera('netcfg_dns_server2')}"
@@ -21,9 +21,9 @@ network::interfaces_hash:
   'bond0.912':
     onboot:         'yes'
     vlan:           'yes'
-    ipaddress:      "%{hiera('netcfg_trp_netpart')}.112"
+    ipaddress:      "%{hiera('netcfg_trp_netpart')}.111"
     netmask:        "%{hiera('netcfg_trp_netmask')}"
     ipv6init:       'yes'
-    ipv6addr:       "%{hiera('netcfg_trp_netpart6')}::112/%{hiera('netcfg_trp_netmask6')}"
+    ipv6addr:       "%{hiera('netcfg_trp_netpart6')}::111/%{hiera('netcfg_trp_netmask6')}"
     ipv6_defaultgw: "%{hiera('netcfg_trp_gateway6')}"
     defroute:       'no'
