@@ -22,6 +22,7 @@ glance::api::authtoken::auth_url:          "%{hiera('endpoint__identity__admin')
 glance::api::authtoken::username:          'glance'
 glance::api::authtoken::password:          "%{hiera('glance_api_password')}"
 glance::api::authtoken::region_name:       "%{location}"
+glance::api::authtoken::memcached_servers: '127.0.0.1:11211'
 
 glance::config::api_config:
   cors/allowed_origin:
