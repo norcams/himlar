@@ -6,6 +6,7 @@ include:
     - profile::openstack::volume::scheduler
     - profile::openstack::volume::storage
     - profile::openstack::openrc
+    - profile::openstack::cache
     - profile::logging::rsyslog::client
 
 profile::base::common::packages:
@@ -15,6 +16,7 @@ profile::base::common::packages:
   'bash-completion-extras': {}
   'jq': {}
   'openstack-selinux': {}
+  'python-memcached': {}
 
 # FIXME move to common
 openstack_version: 'pike'
