@@ -17,11 +17,12 @@ cinder::wsgi::apache::ssl:                false
 cinder::wsgi::apache::bind_host:          "%{ipaddress_trp1}"
 cinder::wsgi::apache::workers:            4
 
-cinder::keystone::authtoken::username:    'cinder'
-cinder::keystone::authtoken::password:    "%{hiera('cinder_api_password')}"
-cinder::keystone::authtoken::auth_uri:    "%{hiera('endpoint__identity__internal')}"
-cinder::keystone::authtoken::auth_url:    "%{hiera('endpoint__identity__admin')}"
-cinder::keystone::authtoken::region_name: "%{::location}"
+cinder::keystone::authtoken::username:          'cinder'
+cinder::keystone::authtoken::password:          "%{hiera('cinder_api_password')}"
+cinder::keystone::authtoken::auth_uri:          "%{hiera('endpoint__identity__internal')}"
+cinder::keystone::authtoken::auth_url:          "%{hiera('endpoint__identity__admin')}"
+cinder::keystone::authtoken::region_name:       "%{::location}"
+cinder::keystone::authtoken::memcached_servers: '127.0.0.1:11211'
 
 cinder::volume::iscsi::iscsi_ip_address:  "%{hiera('service__address__cinder_ip')}"
 
