@@ -119,8 +119,6 @@ nova::network::neutron::neutron_password:       "%{hiera('neutron_api_password')
 nova::config::nova_config:
   libvirt/remote_filesystem_transport:
     value: 'rsync'
-  libvirt/live_migration_inbound_addr:
-    value: "%{::ipaddress_live1}"
 
 # compute (node: compute)
 nova::compute::enabled:                          true
@@ -136,7 +134,8 @@ nova::compute::rbd::ephemeral_storage:           false
 nova::compute::rbd::manage_ceph_client:          false
 
 # enable libvirt tunneled migration
-nova::migration::libvirt::live_migration_tunnelled: true
+nova::migration::libvirt::live_migration_tunnelled:    true
+nova::migration::libvirt::live_migration_inbound_addr: "%{::ipaddress_live1}"
 
 # set image properties hw_scsi_model=virtio-scsi and hw_disk_bus=scsi to enable
 nova::compute::libvirt::libvirt_hw_disk_discard: 'unmap'
