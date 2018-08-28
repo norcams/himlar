@@ -52,7 +52,6 @@ cinder::backends::enabled_backends:
 
 # access glance to create volumes from images
 cinder::glance::glance_api_servers: "%{hiera('endpoint__image__internal')}"
-cinder::glance::glance_api_version: "2"
 
 # openstack-cinder creates a sudoers.d file used to
 # load backend drivers
