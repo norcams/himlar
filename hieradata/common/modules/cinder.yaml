@@ -26,11 +26,6 @@ cinder::keystone::authtoken::memcached_servers: '127.0.0.1:11211'
 
 cinder::volume::iscsi::iscsi_ip_address:  "%{hiera('service__address__cinder_ip')}"
 
-# default qoutas (node: volume)
-cinder::quota::quota_volumes:    '4'
-cinder::quota::quota_snapshots:  '12'
-cinder::quota::quota_gigabytes:  '100'
-
 # keystone auth (node: identity)
 cinder::keystone::auth::auth_name:              'cinder'
 cinder::keystone::auth::region:                 "%{::location}"
