@@ -20,7 +20,13 @@ neutron::server::notifications::auth_type:    'password'
 neutron::server::notifications::username:     'nova'
 neutron::server::notifications::password:     "%{hiera('nova_api_password')}"
 neutron::server::notifications::region_name:  "%{::location}"
-neutron::agents::dhcp::enabled: false
+neutron::server::service_name:                'httpd'
+neutron::agents::dhcp::enabled:               false
+
+neutron::wsgi::apache::ssl:       false
+neutron::wsgi::apache::bind_host: "%{ipaddress_trp1}"
+neutron::wsgi::apache::threads:   2
+neutron::wsgi::apache::workers:   2
 
 neutron::db::mysql::allowed_hosts:
   - "%{hiera('netcfg_trp_netpart')}.%"
