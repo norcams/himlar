@@ -53,7 +53,7 @@ class profile::base::login (
     content => template("${module_name}/base/create-gpg.sh.erb"),
   }
 
-  file { [ "${repodir}", "${secretsdir}", ]:
+  file { [ $repodir, $secretsdir, ]:
       ensure => 'directory',
       mode   => '0775',
       owner  => 'root',
