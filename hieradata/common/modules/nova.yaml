@@ -98,11 +98,6 @@ nova::conductor::enabled: true
 # consoleauth (node: novactrl)
 nova::consoleauth::enabled: true
 
-# default qoutas (node: novactrl)
-nova::quota::quota_instances:    '2'
-nova::quota::quota_cores:        '4'
-nova::quota::quota_ram:          '8192'
-
 # availability zone in nova.conf (node: compute and novactrl)
 nova::availability_zone::default_availability_zone:           "%{::location}-iaas-team-only-1"
 nova::availability_zone::default_schedule_zone:               "%{::location}-default-1"
