@@ -12,6 +12,7 @@ neutron::keystone::authtoken::password:            "%{hiera('neutron_api_passwor
 neutron::keystone::authtoken::region_name:         "%{::location}"
 neutron::keystone::authtoken::project_domain_name: 'default'
 neutron::keystone::authtoken::user_domain_name:    'default'
+neutron::keystone::authtoken::memcached_servers:   '127.0.0.1:11211'
 
 neutron::server::notifications::notify_nova_on_port_status_changes: true
 neutron::server::notifications::notify_nova_on_port_data_changes:   true

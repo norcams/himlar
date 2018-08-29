@@ -5,6 +5,7 @@ include:
     - profile::openstack::resource::createnetworks
     - profile::application::etcd
     - profile::openstack::openrc
+    - profile::openstack::cache
     - profile::logging::rsyslog::client
 
 openstack_version: 'pike' # FIXME move to common
@@ -26,6 +27,7 @@ profile::base::common::packages:
   'gcc-c++': {}
   'openstack-selinux': {}
   'python-etcd3gw': {}
+  'python-memcached': {}
 
 profile::openstack::openrc::password:     "%{hiera('neutron_api_password')}"
 profile::openstack::openrc::username:     'neutron'
