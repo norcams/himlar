@@ -3,7 +3,6 @@ class profile::openstack::novactrl(
   $enable_api           = false,
   $enable_scheduler     = false,
   $enable_conductor     = false,
-  $manage_quotas        = false,
   $manage_cells         = false,
   $manage_az            = false,
   $manage_firewall      = false,
@@ -48,10 +47,6 @@ class profile::openstack::novactrl(
 
   if $enable_conductor {
     include ::profile::openstack::compute::conductor
-  }
-
-  if $manage_quotas {
-    include ::nova::quota
   }
 
   if $manage_az {
