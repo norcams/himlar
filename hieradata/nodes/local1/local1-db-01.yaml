@@ -23,8 +23,9 @@ network::interfaces_hash:
 
 profile::base::network::manage_dummy: true
 
-# Drop dashboard database
+# Drop dashboard and report databases
 profile::openstack::database::sql::extra_databases: {}
+profile::database::mariadb::dbs: {}
 
 # Turn on firewall logging for firewall debug
 #profile::firewall::post::log: true
