@@ -5,7 +5,6 @@ import horizon
 NO = lambda *x: False
 
 tables.AssociateIP.allowed = NO
-tables.SimpleAssociateIP.allowed = NO
 tables.SimpleDisassociateIP.allowed = NO
 
 project_dashboard = horizon.get_dashboard("project")
@@ -51,6 +50,17 @@ settings = horizon.get_dashboard("settings")
 password_panel = settings.get_panel("password")
 settings.unregister(password_panel.__class__)
 
-# Remove "Volume Consistency Groups" tab
-from openstack_dashboard.dashboards.project.volumes import tabs
-tabs.CGroupsTab.allowed = NO
+# Hide panel Volumes-> Backups
+routers_panel = project_dashboard.get_panel("backups")
+permissions.append('openstack.roles.admin')
+routers_panel.permissions = tuple(permissions)
+
+# Hide panel Volumes-> Consistency Groups
+routers_panel = project_dashboard.get_panel("cgroups")
+permissions.append('openstack.roles.admin')
+routers_panel.permissions = tuple(permissions)
+
+# Hide panel Volumes-> Consistency Group Snapshots
+routers_panel = project_dashboard.get_panel("cg_snapshots")
+permissions.append('openstack.roles.admin')
+routers_panel.permissions = tuple(permissions)
