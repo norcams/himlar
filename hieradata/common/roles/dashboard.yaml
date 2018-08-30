@@ -29,6 +29,8 @@ profile::openstack::dashboard::image_upload_mode:     'direct'
 profile::webserver::apache::mods_enable:
   - status
 
+openstack_version: 'pike' # FIXME move to common
+
 # cronjob to cleanup expired session from db
 profile::base::cron::crontabs:
   django_clearsessions:
