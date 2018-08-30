@@ -10,6 +10,7 @@ class profile::openstack::dashboard(
   $database             = {},
   $override_template    = "${module_name}/openstack/horizon/local_settings.erb",
   $site_branding        = 'UH-IaaS',
+  $image_visibility     = 'private',
   $change_uploaddir     = false,
   $custom_uploaddir     = '/image-upload',
   $enable_pwd_retrieval = false,
