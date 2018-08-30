@@ -11,7 +11,7 @@ class profile::openstack::network::controller(
 
   include ::neutron::server
   include ::neutron::server::notifications
-  include ::neutron::wsgi::apache
+#  include ::neutron::wsgi::apache
   include ::neutron::config
 
   create_resources('neutron_config', $neutron_config)
