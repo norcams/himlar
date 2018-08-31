@@ -5,10 +5,10 @@ profile::dns::ns::public_zone:   "bgo.uh-iaas.no"
 profile::dns::ns::frontend_zone: "uh-iaas.no"
 
 # Temporary: Forward everything to UiB resolvers
-profile::dns::ns::forward_everything: true
-profile::dns::ns::forwarders:
-  - "129.177.6.54"
-  - "129.177.12.31"
+#profile::dns::ns::forward_everything: true
+#profile::dns::ns::forwarders:
+#  - "129.177.6.54"
+#  - "129.177.12.31"
 
 # Forward zones. Only zones that are "internal". Requests for records
 # in these zones will be forwarded to the authoritative DNS server

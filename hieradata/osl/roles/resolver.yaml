@@ -5,11 +5,11 @@ profile::dns::ns::public_zone:   "osl.uh-iaas.no"
 profile::dns::ns::frontend_zone: "uh-iaas.no"
 
 # Temporary: Forward everything to UiO resolvers
-profile::dns::ns::forward_everything: true
-profile::dns::ns::forwarders:
-  - "129.240.2.40"
-  - "129.240.2.27"
-  - "129.240.2.3"
+#profile::dns::ns::forward_everything: true
+#profile::dns::ns::forwarders:
+#  - "129.240.2.40"
+#  - "129.240.2.27"
+#  - "129.240.2.3"
 
 # Forward zones. Only zones that are "internal". Requests for records
 # in these zones will be forwarded to the authoritative DNS server
