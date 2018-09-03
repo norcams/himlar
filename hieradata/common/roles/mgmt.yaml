@@ -42,6 +42,7 @@ openstack_extras::repo::debian::debian::source_hash:
 profile::base::common::packages:
   'vim-enhanced': { 'ensure': 'absent', }
   'bind-utils': { 'ensure': 'absent', }
+  'yum-utils': { 'ensure': 'absent', }
   'augeas-tools': {}
 
 sudo::configs:
