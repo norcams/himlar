@@ -9,6 +9,8 @@ include:
     - profile::application::himlarcli
     - profile::logging::rsyslog::client
 #    - profile::openstack::cache
+  bootstrap:
+    - profile::openstack::openrc
 
 profile::base::common::packages:
   'bash-completion': {}
