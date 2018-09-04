@@ -27,3 +27,9 @@ profile::base::login::db_servers:
     hour:     '*'
     minute:   '20'
     command:  '/usr/local/sbin/db-dump.sh dev-db-01 >/dev/null'
+
+named_interfaces::config:
+  mgmt:                                                                                                                                                                                                                                                                         
+    - eth1
+  public:
+    - eth0
