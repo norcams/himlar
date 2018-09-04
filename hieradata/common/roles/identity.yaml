@@ -1,15 +1,18 @@
 ---
 include:
   default:
-    - profile::openstack::openrc
+    #- profile::openstack::openrc
     - profile::openstack::identity
     - profile::openstack::resource::imagebuilder
     - profile::openstack::resource::dataporten
     - profile::openstack::resource::users
-    #- profile::openstack::openrc
+    - profile::openstack::openrc
     - profile::application::himlarcli
     - profile::logging::rsyslog::client
 #    - profile::openstack::cache
+
+  bootstrap:
+    - profile::openstack::openrc
 
 profile::base::common::packages:
   'bash-completion': {}
