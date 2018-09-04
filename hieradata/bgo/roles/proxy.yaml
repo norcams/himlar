@@ -16,6 +16,10 @@ profile::base::cron::crontabs:
     monthday: '1'
     weekday:  '*'
     command:  '/opt/himlarcli/bin/image_update.sh >/dev/null'
+  sync_owners:
+    hour:     '*/6'
+    minute:   '30'
+    command:  '/opt/himlarcli/bin/sync_owners.sh >/dev/null'
 
 profile::base::lvm::physical_volume:
   '/dev/vdb':
