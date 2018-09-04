@@ -178,8 +178,7 @@ profile::openstack::resource::subnets:
       - 'start=158.39.77.2,end=158.39.77.245'
     gateway_ip: '158.39.77.1'
     dns_nameservers:
-      - '129.177.6.54'
-      - '129.177.12.31'
+      - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'dualStack'
     tenant_name: 'openstack'
   public2_IPv4:
@@ -190,8 +189,7 @@ profile::openstack::resource::subnets:
       - 'start=158.39.74.2,end=158.39.74.245'
     gateway_ip: '158.39.74.1'
     dns_nameservers:
-      - '129.177.6.54'
-      - '129.177.12.31'
+      - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'dualStack'
     tenant_name: 'openstack'
   public3_IPv4:
@@ -202,8 +200,7 @@ profile::openstack::resource::subnets:
       - 'start=158.39.77.246,end=158.39.77.246'
     gateway_ip: '158.39.77.1'
     dns_nameservers:
-      - '129.177.6.54'
-      - '129.177.12.31'
+      - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'imagebuilder'
     tenant_name: 'imagebuilder'
   public1_ipv6:
@@ -214,8 +211,7 @@ profile::openstack::resource::subnets:
       - 'start=2001:700:2:8301::1000,end=2001:700:2:8301::4fff'
     gateway_ip: '2001:700:2:8301::1'
     dns_nameservers:
-      - '2001:4860:4860::8888'
-      - '2001:4860:4860::8844'
+      - "%{hiera('netcfg_anycast_dns6')}"
     network_name: 'IPv6'
     tenant_name: 'openstack'
   public2_ipv6:
@@ -226,8 +222,7 @@ profile::openstack::resource::subnets:
       - 'start=2001:700:2:8300::2000,end=2001:700:2:8300::2fff'
     gateway_ip: '2001:700:2:8300::1'
     dns_nameservers:
-      - '2001:4860:4860::8888'
-      - '2001:4860:4860::8844'
+      - "%{hiera('netcfg_anycast_dns6')}"
     network_name: 'dualStack'
     tenant_name: 'openstack'
   private1_IPv4:
@@ -238,7 +233,6 @@ profile::openstack::resource::subnets:
       - 'start=10.1.0.10,end=10.1.3.254'
     gateway_ip: '10.1.0.1'
     dns_nameservers:
-      - '129.177.6.54'
-      - '129.177.12.31'
+      - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'IPv6'
     tenant_name: 'openstack'
