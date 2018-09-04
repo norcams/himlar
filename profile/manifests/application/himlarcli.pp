@@ -24,6 +24,7 @@ class profile::application::himlarcli(
   $mq_username,
   $mq_password,
   $mq_vhost,
+  $database_uri,
   $ldap_server = undef,
   $ldap_base_dn = undef,
   $cacert = undef

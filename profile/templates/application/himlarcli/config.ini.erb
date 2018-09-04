@@ -21,16 +21,15 @@ username=<%= @mq_username %>
 password=<%= @mq_password %>
 vhost=<%= @mq_vhost %>
 
+[db]
+database_uri=<%= @database_uri %>
+
 [statsd]
 server=<%= @statsd_server %>
 port = 8125
 
 [state]
 db=db/state.db
-
-[mail]
-smtp=<%= @smtp %>
-from_addr=<%= @from_addr %>
 
 [mail]
 smtp=<%= @smtp %>
