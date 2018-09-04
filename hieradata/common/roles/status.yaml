@@ -8,6 +8,9 @@ profile::base::common::packages:
   'bash-completion-extras': {}
   'jq': {}
 
+# Selinux
+profile::base::selinux::manage_selinux:         false
+
 # Grafana
 profile::monitoring::grafana::enable:           true
 profile::monitoring::grafana::manage_firewall:  true
