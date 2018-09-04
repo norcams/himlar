@@ -7,7 +7,8 @@ class profile::base::login (
   $ensure                   = 'present',
   $agelimit                 = '14',
   $db_servers               = {},
-  $repodir                  = '/opt/repo/secrets',
+  $repodir                  = '/opt/repo',
+  $secretsdir               = "${repodir}/secrets",
   $dump_owner               = '',
   $dump_group               = '',
   $repo_incoming_dir        = '/tmp/repo-incoming',
@@ -51,6 +52,13 @@ class profile::base::login (
     group   => 'root',
     content => template("${module_name}/base/create-gpg.sh.erb"),
   }
+
+  file { [ $repodir, $secretsdir, ]:
+      ensure => 'directory',
+      mode   => '0775',
+      owner  => 'root',
+      group  => 'root',
+    }
 
   if $manage_db_backup  {
     $dumpdir        = lookup('profile::database::mariadb::backuptopdir', String, 'first', '')
