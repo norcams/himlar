@@ -11,7 +11,7 @@ profile::base::common::packages:
   'jq': {}
   'openstack-selinux': {}
 
-profile::base::selinux::manage_selinux:       false
+profile::base::selinux::manage_selinux:       true
 profile::openstack::image::registry_enabled:  true
 profile::openstack::image::manage_policy:     true
 profile::openstack::image::manage_notify:     true
