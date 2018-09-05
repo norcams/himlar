@@ -3,7 +3,6 @@ include:
   default:
     - profile::application::openssl
 
-profile::base::selinux::manage_selinux:         true
 profile::application::openssl::manage_ca_cert:  true
 profile::application::openssl::certs:
   "access.%{hiera('domain_public')}":
