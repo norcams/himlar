@@ -1,7 +1,6 @@
 ---
 include:
   default:
-    #- profile::openstack::openrc
     - profile::openstack::identity
     - profile::openstack::resource::imagebuilder
     - profile::openstack::resource::dataporten
@@ -10,7 +9,6 @@ include:
     - profile::application::himlarcli
     - profile::logging::rsyslog::client
 #    - profile::openstack::cache
-
   bootstrap:
     - profile::openstack::openrc
 
