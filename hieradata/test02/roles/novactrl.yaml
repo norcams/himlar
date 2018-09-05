@@ -4,5 +4,3 @@ profile::openstack::resource::host_aggregate:
     availability_zone: "%{::location}-default-1"
   placeholder1:
     availability_zone: "%{::location}-iaas-team-only-1"
-
-profile::base::selinux::manage_selinux:   true
