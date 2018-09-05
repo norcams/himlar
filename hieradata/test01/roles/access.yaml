@@ -8,9 +8,6 @@ profile::application::access::allow_from_network:
   - '129.240.6.14/32'   # mikael
   - '129.240.202.64/32' # tannaz
 
-# Test selinux for access
-profile::base::selinux::manage_selinux:  true
-
 # Test new package
 #profile::application::access::package_url:      'https://download.iaas.uio.no/uh-iaas/rpm/himlar-dp-prep-1.3-1.el7.x86_64.rpm'
 

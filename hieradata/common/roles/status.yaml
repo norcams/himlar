@@ -9,7 +9,7 @@ profile::base::common::packages:
   'jq': {}
 
 # Selinux
-profile::base::selinux::manage_selinux:         false
+profile::base::selinux::manage_selinux:         true
 
 # Grafana
 profile::monitoring::grafana::enable:           true
