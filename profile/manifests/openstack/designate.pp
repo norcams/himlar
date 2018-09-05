@@ -16,14 +16,8 @@ class profile::openstack::designate (
   include ::designate::central
   include ::designate::mdns
   include ::designate::config
-  include ::designate::sink
-  include ::designate::pool_manager
-  include ::designate::pool_manager_cache::memcache
-
-  class { 'selinux':
-    mode => 'enforcing',
-    type => 'targeted',
-  }
+  include ::designate::worker
+  include ::designate::producer
 
   file { '/etc/designate/pools.yaml':
     content      => template("${module_name}/openstack/designate/pools.yaml.erb"),

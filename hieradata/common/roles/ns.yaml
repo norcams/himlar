@@ -18,8 +18,8 @@ profile::dns::ns::hostmaster: 'support.uh-iaas.no'
 # DNS server addresses (used by file templates)
 profile::dns::ns::mdns_transport_addr:
   - "%{hiera('service__address__mdns_01')}"
-  - "%{hiera('service__address__mdns_02')}"
-  - "%{hiera('service__address__mdns_03')}"
+#  - "%{hiera('service__address__mdns_02')}"
+#  - "%{hiera('service__address__mdns_03')}"
 profile::dns::ns::admin_mgmt_addr:          "%{hiera('netcfg_mgmt_netpart')}.11"
 profile::dns::ns::ns_mgmt_addr:             "%{hiera('netcfg_mgmt_netpart')}.16"
 profile::dns::ns::resolver1_mgmt_addr:      "%{hiera('netcfg_mgmt_netpart')}.17"
