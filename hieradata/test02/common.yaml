@@ -46,9 +46,6 @@ netcfg_trp_rr:
     peer_ipv4: '172.30.32.1'
     peer_ipv6: 'fd32::1'
 
-#### FIXME move to common when all ceph clusters are updated to mimic
-ceph_version:         'mimic'
-
 allow_from_network: # FIXME (public net and mgmt net)
   - '10.100.200.0/24'
   - '172.28.32.0/24'
