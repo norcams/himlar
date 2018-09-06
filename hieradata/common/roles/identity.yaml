@@ -6,7 +6,6 @@ include:
     - profile::openstack::resource::dataporten
     - profile::openstack::resource::users
     - profile::openstack::openrc
-    - profile::application::himlarcli
     - profile::logging::rsyslog::client
 #    - profile::openstack::cache
   bootstrap:
@@ -113,7 +112,7 @@ profile::openstack::resource::users::user_roles:
   'status@services':
     roles:    'user'
   'monitor@services':
-    roles:    'user'
+    roles:    'admin'
   'access@services':
     roles:    'admin_view'
 
