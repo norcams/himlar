@@ -9,9 +9,6 @@ named_interfaces::config:
   client:
     - team2
 
-#### FIXME move to common when all clusters are upgraded to mimic
-profile::storage::cephosd::create_osds: true
-
 profile::base::lvm::physical_volume:
   '/dev/sdn':
     ensure: present
