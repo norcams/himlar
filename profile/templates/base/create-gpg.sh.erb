@@ -35,7 +35,7 @@ usage()
     echo "$0 <location>"
 
     echo "Note: location is required!"
-    echo "Key created is copied to \"${SECRETSBASE}/<loc>-identity-01\""
+    echo "Key created is copied to \"${SECRETSBASE}/<loc>-identity\""
     echo
 }
 
@@ -58,10 +58,10 @@ if [ $err != 0 ]; then
     echo "GPG key export failed: $err"
     exit 3
 fi
-if [ ! -d ${SECRETSBASE}/${loc}-identity-01/ ]; then
-    mkdir -p ${SECRETSBASE}/${loc}-identity-01/
+if [ ! -d ${SECRETSBASE}/${loc}-identity/ ]; then
+    mkdir -p ${SECRETSBASE}/${loc}-identity/
 fi
-mv $EXPORTFILE ${SECRETSBASE}/${loc}-identity-01/${GPGFILE}
+mv $EXPORTFILE ${SECRETSBASE}/${loc}-identity/${GPGFILE}
 
 echo "Should have done (but does not dare): rm -f $GNUPGHOME $EXPORTFILE $CONFFILE"
 
