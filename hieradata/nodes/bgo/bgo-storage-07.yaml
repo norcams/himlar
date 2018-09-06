@@ -36,7 +36,21 @@ network::interfaces_hash:
     vlan:         'yes'
     defroute:     'no'
 
-ceph::profile::params::osds:
+# placeholder data
+profile::base::lvm::physical_volume:
+  '/dev/sdg':
+    ensure: present
+    force:  false
+profile::base::lvm::volume_group:
+  'vg_root':
+    physical_volumes:
+      - /dev/sdg
+profile::base::lvm::logical_volume:
+  'lv_root':
+    volume_group: 'vg_root'
+    createfs:     false
+
+profile::storage::cephosd::osds:
   '/dev/sda':
     ensure:     'present'
   '/dev/sdb':
