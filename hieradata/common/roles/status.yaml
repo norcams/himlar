@@ -17,6 +17,12 @@ profile::monitoring::grafana::manage_firewall:  true
 profile::monitoring::grafana::firewall_extras:
   source: "%{::network_trp1}/%{::netmask_trp1}"
 
+grafana::plugins:
+  gnocchixyz-gnocchi-datasource:
+    ensure: present
+  ryantxu-ajax-panel:
+    ensure: present
+
 grafana::cfg:
   app_mode: 'production'
   server:
