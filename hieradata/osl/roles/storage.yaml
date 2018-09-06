@@ -60,8 +60,6 @@ profile::base::lvm::logical_volume:
     size:         10G
 
 profile::storage::cephosd::osds:
-  '/dev/nvme0n1':
-    ensure:     'present'
   '/dev/sda':
     db_device:  'vg_cache/lv_dba'
     wal_device: 'vg_cache/lv_wala'
