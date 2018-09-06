@@ -17,6 +17,9 @@ profile::monitoring::statsd::manage_firewall:  true
 profile::monitoring::statsd::firewall_extras:
   source: "%{::network_mgmt1}/%{::netmask_mgmt1}"
 
+grafana_openstack_user: 'monitor'
+grafana_openstack_password: "%{hiera('monitor_metric_password')}"
+
 grafana::provisioning_dashboards:
   apiVersion: 1
   providers:

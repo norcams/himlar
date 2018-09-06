@@ -43,7 +43,7 @@ grafana::provisioning_datasources:
       version:      1
       jsonData:
         mode:               'keystone'
-        password:           "%{hiera('monitor_metric_password')}"
-        username:           'monitor'
+        password:           "%{hiera('grafana_openstack_password')}"
+        username:           "%{hiera('grafana_openstack_user')}"
         domain:             'default'
         project:            'services'
