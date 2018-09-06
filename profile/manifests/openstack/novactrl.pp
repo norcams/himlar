@@ -6,6 +6,7 @@ class profile::openstack::novactrl(
   $enable_consoleproxy  = false,
   $enable_conductor     = false,
   $manage_quotas        = false,
+  $manage_cells         = false,
   $manage_az            = false,
   $manage_firewall      = false,
   $firewall_extras      = {}
@@ -36,6 +37,12 @@ class profile::openstack::novactrl(
   include ::nova::network::neutron
   include ::nova::wsgi::apache_api
   include ::nova::wsgi::apache_placement
+
+  if $manage_cells {
+    # This should be fine to do even after the cells are setup:
+    # https://docs.openstack.org/nova/pike/cli/nova-manage.html#man-page-cells-v2
+    include ::nova::cell_v2::simple_setup
+  }
 
   if $enable_scheduler {
     include ::profile::openstack::compute::scheduler
