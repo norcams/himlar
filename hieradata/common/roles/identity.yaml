@@ -5,11 +5,8 @@ include:
     - profile::openstack::resource::imagebuilder
     - profile::openstack::resource::dataporten
     - profile::openstack::resource::users
-    - profile::openstack::openrc
     - profile::logging::rsyslog::client
 #    - profile::openstack::cache
-  bootstrap:
-    - profile::openstack::openrc
 
 profile::base::common::packages:
   'bash-completion': {}
