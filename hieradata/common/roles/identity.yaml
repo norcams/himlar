@@ -96,7 +96,7 @@ profile::openstack::resource::users::users:
     enabled:  true
     email:    'status@localhost'
     password: "%{hiera('status_metric_password')}"
-    domain:   "%{hiera('keystone__internal__domain')}"
+    domain:   "%{hiera('keystone__service__domain')}"
   monitor:
     enabled:  true
     email:    'monitor@localhost'

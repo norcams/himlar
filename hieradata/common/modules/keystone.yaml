@@ -41,9 +41,9 @@ keystone::wsgi::apache::admin_bind_host:  "%{ipaddress_trp1}"
 # roles
 keystone::roles::admin::email:                  'support@uh-iaas.no'
 keystone::roles::admin::password:               "%{hiera('keystone_admin_password')}"
-keystone::roles::admin::admin_tenant:           'openstack'
-keystone::roles::admin::service_tenant:         "%{hiera('keystone__internal__project')}"
-keystone::roles::admin::service_project_domain: "%{hiera('keystone__internal__domain')}"
+keystone::roles::admin::admin_tenant:           "%{hiera('keystone__admin__project')}"
+keystone::roles::admin::service_tenant:         "%{hiera('keystone__service__project')}"
+keystone::roles::admin::service_project_domain: "%{hiera('keystone__default__domain')}"
 
 # endpoints
 keystone::endpoint::region:               "%{location}"

@@ -131,8 +131,9 @@ named_interfaces::config:
 #
 # project and domain used for internal use
 #
-keystone__internal__project:  'services'
-keystone__internal__domain:   'Default'
+keystone__service__project:   'services'
+keystone__admin__project:     'openstack'
+keystone__default__domain:    'Default'
 
 #
 # Public addresses
