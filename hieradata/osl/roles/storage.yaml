@@ -75,13 +75,8 @@ profile::storage::cephosd::osds:
   '/dev/sde':
     db_device:  'vg_cache/lv_dbe'
     wal_device: 'vg_cache/lv_wale'
-  '/dev/sdf':
-    ensure:     'present'
-  '/dev/sdg':
-    ensure:     'present'
-  '/dev/sdh':
-    ensure:     'present'
-#  '/dev/sdi':
-#    ensure:     'present'
-#  '/dev/sdj':
-#    ensure:     'present'
+  '/dev/sdf': {}
+  '/dev/sdg': {}
+  '/dev/sdh': {}
+#  '/dev/sdi': {}
+#  '/dev/sdj': {}
