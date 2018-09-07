@@ -19,6 +19,8 @@ class profile::application::himlarcli(
   $twitter_api_secret_key,
   $twitter_access_token,
   $twitter_secret_token,
+  $status_url,
+  $status_token,
   $domain,
   $mq_host,
   $mq_username,

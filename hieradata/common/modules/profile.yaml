@@ -91,6 +91,9 @@ profile::application::himlarcli::twitter_api_key:        "%{hiera('himlarcli_twi
 profile::application::himlarcli::twitter_api_secret_key: "%{hiera('himlarcli_twitter_secretkey')}"
 profile::application::himlarcli::twitter_access_token:   "%{hiera('himlarcli_twitter_accesstoken')}"
 profile::application::himlarcli::twitter_secret_token:   "%{hiera('himlarcli_twitter_secrettoken')}"
+profile::application::himlarcli::status_url:             "https://report.%{hiera('domain_frontend')}/api/v1/status"
+profile::application::himlarcli::status_token:           "%{hiera('himlarcli_status_token')}"
+
 
 
 profile::openstack::openrc::auth_url:     "%{hiera('public__address__api')}"
