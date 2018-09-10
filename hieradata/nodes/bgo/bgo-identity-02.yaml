@@ -1,4 +1,7 @@
 ---
+include:
+  bootstrap:
+    - profile::openstack::openrc
 network::interfaces_hash:
   'eth0':
     ipaddress: '172.16.0.82'
