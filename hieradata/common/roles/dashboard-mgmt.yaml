@@ -12,15 +12,16 @@ horizon::listen_ssl:                    false
 horizon::openstack_endpoint_type:       'internalURL'
 horizon::keystone_url:                  "%{hiera('endpoint__identity__public')}/v3"
 horizon::keystone_default_role:         'user'
+horizon::secure_cookies:                false        # FIXME: since we're running without SSL for now
 
-horizon::websso_enabled:        'False'
+horizon::websso_enabled:        false
 
 horizon::keystone_options:
-  can_edit_user:                'False'
-  can_edit_group:               'False'
-  can_edit_project:             'False'
-  can_edit_domain:              'False'
-  can_edit_role:                'False'
+  can_edit_user:                False
+  can_edit_group:               False
+  can_edit_project:             False
+  can_edit_domain:              False
+  can_edit_role:                False
 
 # Session database
 profile::openstack::dashboard::database:
@@ -31,4 +32,4 @@ profile::openstack::dashboard::database:
 profile::openstack::dashboard::firewall_extras:
   iniface:        "%{::interface_mgmt1}"
 
-profile::openstack::dashboard::keystone_admin_roles:  '["admin"]'
+profile::openstack::dashboard::keystone_admin_roles:  ["admin"]

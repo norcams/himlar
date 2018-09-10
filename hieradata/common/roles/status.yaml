@@ -8,11 +8,23 @@ profile::base::common::packages:
   'bash-completion-extras': {}
   'jq': {}
 
+# Selinux
+profile::base::selinux::manage_selinux:         true
+
 # Grafana
 profile::monitoring::grafana::enable:           true
 profile::monitoring::grafana::manage_firewall:  true
 profile::monitoring::grafana::firewall_extras:
   source: "%{::network_trp1}/%{::netmask_trp1}"
+
+grafana_openstack_user: 'status'
+grafana_openstack_password: "%{hiera('status_metric_password')}"
+
+grafana::plugins:
+  gnocchixyz-gnocchi-datasource:
+    ensure: present
+  ryantxu-ajax-panel:
+    ensure: present
 
 grafana::cfg:
   app_mode: 'production'
@@ -29,12 +41,7 @@ grafana::cfg:
     allow_sign_up:    false
     allow_org_create: false
 
-profile::monitoring::grafana::datasource:
-  graphite:
-    grafana_url:        'http://127.0.0.1:8080'
-    grafana_user:       'admin'
-    grafana_password:   "%{hiera('grafana_admin_password')}"
-    type:               'graphite'
-    url:                "http://%{hiera('mgmt__address__monitor')}"
-    access_mode:        'proxy'
-    is_default:          true
+# Enable extra yum repo for openstack client
+profile::base::yumrepo::repo_hash:
+  grafana:
+    ensure: present

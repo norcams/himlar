@@ -74,8 +74,8 @@ profile::monitoring::sensu::agent::plugin_gems:
     source:   'http://download.iaas.uio.no/uh-iaas/gem'
 
 # sensu
-sensu__memory__warn:     '90'
-sensu__memory__critical: '95'
+sensu__memory__warn:     '95'
+sensu__memory__critical: '99'
 
 profile::monitoring::sensu::agent::checks:
   'metadata-api':

@@ -41,6 +41,8 @@ accounts::accounts:
 
 ceph::profile::params::osd_journal_size: '10240'
 
+profile::storage::cephosd::create_osds: true
+
 profile::storage::cephpool::pools:
   'rbd':
     ensure: absent

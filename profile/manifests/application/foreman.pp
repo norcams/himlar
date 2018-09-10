@@ -61,7 +61,7 @@ class profile::application::foreman(
   }
   cron { 'push-puppet-facts-to-foreman':
     ensure  => $push_facts_ensure,
-    command => '/etc/puppetlabs/puppet/node.rb --push-facts',
+    command => '/opt/himlar/provision/admin/remove_tap_interfaces_from_facts.py && /etc/puppetlabs/puppet/node.rb --push-facts',
     minute  => '30',
     hour    => '0',
   }

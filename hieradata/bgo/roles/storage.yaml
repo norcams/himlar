@@ -9,29 +9,74 @@ named_interfaces::config:
   ceph:
     - team1.110
 
-ceph::profile::params::osds:
+profile::base::lvm::physical_volume:
+  '/dev/sdk':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_cache':
+    physical_volumes:
+      - /dev/sdk
+profile::base::lvm::logical_volume:
+  'lv_wala':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         2G
+  'lv_dba':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         10G
+  'lv_walb':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         2G
+  'lv_dbb':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         10G
+  'lv_walc':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         2G
+  'lv_dbc':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         10G
+  'lv_wald':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         2G
+  'lv_dbd':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         10G
+  'lv_wale':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         2G
+  'lv_dbe':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         10G
+
+profile::storage::cephosd::osds:
   '/dev/sda':
-    db_device:  '/dev/sdk'
-    wal_device: '/dev/sdk'
+    db_device:  'vg_cache/lv_dba'
+    wal_device: 'vg_cache/lv_wala'
   '/dev/sdb':
-    db_device:  '/dev/sdk'
-    wal_device: '/dev/sdk'
+    db_device:  'vg_cache/lv_dbb'
+    wal_device: 'vg_cache/lv_walb'
   '/dev/sdc':
-    db_device:  '/dev/sdk'
-    wal_device: '/dev/sdk'
+    db_device:  'vg_cache/lv_dbc'
+    wal_device: 'vg_cache/lv_walc'
   '/dev/sdd':
-    db_device:  '/dev/sdk'
-    wal_device: '/dev/sdk'
+    db_device:  'vg_cache/lv_dbd'
+    wal_device: 'vg_cache/lv_wald'
   '/dev/sde':
-    db_device:  '/dev/sdk'
-    wal_device: '/dev/sdk'
-  '/dev/sdf':
-    ensure:     'present'
-  '/dev/sdg':
-    ensure:     'present'
-  '/dev/sdh':
-    ensure:     'present'
-  '/dev/sdi':
-    ensure:     'present'
-  '/dev/sdj':
-    ensure:     'present'
+    db_device:  'vg_cache/lv_dbe'
+    wal_device: 'vg_cache/lv_wale'
+  '/dev/sdf': {}
+  '/dev/sdg': {}
+  '/dev/sdh': {}
+  '/dev/sdi': {}
+  '/dev/sdj': {}

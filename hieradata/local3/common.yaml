@@ -36,9 +36,6 @@ netcfg_trp_rr:
   rr1:
     peer_ipv4: '172.31.12.1'
 
-#### FIXME move to common when all ceph clusters are updated to mimic
-ceph_version:         'mimic'
-
 # We need to allow both trafic from mgmt (nat via login) and public net
 
 allow_from_network:
@@ -195,6 +192,9 @@ monitor_metric_password:                            'monitor_pass'
 swift::swift_hash_path_suffix:                      'shared_secret'
 swift_api_password:                                 'swift_pass'
 dispersion_api_password:                            'dispersion_pass'
+
+# report
+report_db_password:                                 'report_pass'
 
 # The root user password
 #accounts::root_user::password:                      '$6$qVzsC5fQMqdF4gKw$.zFAu9LtxSAaPgbtZul/ZXUXpBgjaVJbQ.CIMo9eo5TslU8KU1SO/tjRZbh1hFM6RB55QFEzJlF5ejAgglk50.'

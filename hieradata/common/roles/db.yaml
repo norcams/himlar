@@ -91,7 +91,14 @@ profile::openstack::database::sql::extra_databases:
     password:       "%{hiera('horizon_db_password')}"
     user:           'horizon'
     host:           "%{hiera('netcfg_trp_netpart')}.54"
-    
+
+profile::database::mariadb::dbs:
+  report:
+    user:     'report'
+    host:     "%{hiera('netcfg_trp_netpart')}.%"
+    password: "%{hiera('report_db_password')}"
+    grant:    ['ALL']
+
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   mariadb:

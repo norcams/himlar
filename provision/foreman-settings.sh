@@ -148,7 +148,7 @@ common_config()
   /bin/hammer hostgroup create --name storage --parent base || true
   /bin/hammer hostgroup set-parameter --hostgroup storage \
      --name installdevice \
-     --value sdm
+     --value sdl
   # Create compute hostgroup to set special paramters
   /bin/hammer hostgroup create --name compute --parent base || true
   /bin/hammer hostgroup set-parameter --hostgroup compute \

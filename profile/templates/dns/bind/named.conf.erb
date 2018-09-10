@@ -16,6 +16,12 @@ acl allowed_nets {
 <% (1..@allowed_nets.length).each do |i| %>    <%= @allowed_nets[i-1] %>
 <% end%>};<% end -%>
 
+<% if @allowed_transfer_nets -%>
+# Define an ACL for networks allowed to do complete zone transfer
+acl allowed_transfer_nets {
+<% (1..@allowed_transfer_nets.length).each do |i| %>    <%= @allowed_transfer_nets[i-1] %>
+<% end%>};<% end -%>
+
 <% if @authoritative %>
 # Control which hosts can do updates via RNDC, using which keys
 controls  {
@@ -28,6 +34,7 @@ controls  {
 # General options for named
 options  {
 <% if @authoritative %>
+    allow-transfer { 127.0.0.1; ::1; allowed_transfer_nets; };
     allow-query { any; };
     recursion no;
     allow-recursion { none; };

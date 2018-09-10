@@ -7,9 +7,6 @@ named_interfaces::config:
   ceph:
     - bond0
 
-#### FIXME move to common when all clusters are upgraded to mimic
-profile::storage::cephosd::create_osds: true
-
 profile::base::common::manage_fake_ssd: true
 
 #profile::base::lvm::physical_volume:
@@ -31,30 +28,19 @@ profile::storage::fake_ssds:
   'sdb': {}
 
 profile::storage::cephosd::osds:
-  '/dev/sdb':
-    ensure: present
-  '/dev/sdc':
-    ensure: present
+  '/dev/sdb': {}
+  '/dev/sdc': {}
 #    db_device: '/dev/sdm'
 #    wal_device: '/dev/sdm'
-  '/dev/sdd':
-    ensure: present
-  '/dev/sde':
-    ensure: present
-  '/dev/sdf':
-    ensure: present
-  '/dev/sdg':
-    ensure: present
-  '/dev/sdh':
-    ensure: present
-  '/dev/sdi':
-    ensure: present
-  '/dev/sdj':
-    ensure: present
-  '/dev/sdk':
-    ensure: present
-  '/dev/sdl':
-    ensure: present
+  '/dev/sdd': {}
+  '/dev/sde': {}
+  '/dev/sdf': {}
+  '/dev/sdg': {}
+  '/dev/sdh': {}
+  '/dev/sdi': {}
+  '/dev/sdj': {}
+  '/dev/sdk': {}
+  '/dev/sdl': {}
 #  '/dev/sdm':
 #    journal: '/journal/journala11/journal'
 #  '/dev/sdn':

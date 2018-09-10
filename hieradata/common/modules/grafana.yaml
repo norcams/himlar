@@ -14,8 +14,10 @@ grafana::cfg:
     enable:         true
     org_name:       'norcams'
   users:
-    allow_sign_up:    false
-    allow_org_create: false
+    allow_sign_up:      false
+    allow_org_create:   false
+    auto_assign_org:    true
+    auto_assign_org_id: 1
 
 grafana::plugins:
   gnocchixyz-gnocchi-datasource:
@@ -26,7 +28,7 @@ grafana::provisioning_datasources:
   datasources:
     - name:         'graphite'
       type:         'graphite'
-      url:          "http://%{::ipaddress_mgmt1}"
+      url:          "http://%{hiera('mgmt__address__monitor')}"
       access:       'proxy'
       isDefault:    true
       orgId:        1
@@ -41,7 +43,7 @@ grafana::provisioning_datasources:
       version:      1
       jsonData:
         mode:               'keystone'
-        password:           "%{hiera('monitor_metric_password')}"
-        username:           'monitor'
+        password:           "%{hiera('grafana_openstack_password')}"
+        username:           "%{hiera('grafana_openstack_user')}"
         domain:             'default'
         project:            'services'

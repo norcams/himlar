@@ -18,12 +18,18 @@ himlar_bootstrap::tftp_install:
   '%{location}-controller-01':
     domain:           '%{domain}'
     dhcp_interface:   'eth1'
-    dhcp_range_start: "%{hiera('netcfg_netpart_mgmt')}.200"
-    dhcp_range_end:   "%{hiera('netcfg_netpart_mgmt')}.250"
-    dhcp_gateway:     "%{hiera('netcfg_netpart_mgmt')}.1"
+    dhcp_range_start: "%{hiera('netcfg_mgmt_netpart')}.200"
+    dhcp_range_end:   "%{hiera('netcfg_mgmt_netpart')}.250"
+    dhcp_gateway:     "%{hiera('netcfg_mgmt_netpart')}.1"
 
 profile::base::login::db_servers:
   vagrant-db-01:
     hour:     '*'
     minute:   '20'
     command:  '/usr/local/sbin/db-dump.sh dev-db-01 >/dev/null'
+
+named_interfaces::config:
+  mgmt:                                                                                                                                                                                                                                                                         
+    - eth1
+  public:
+    - eth0

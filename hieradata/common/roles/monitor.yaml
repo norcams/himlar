@@ -17,17 +17,20 @@ profile::monitoring::statsd::manage_firewall:  true
 profile::monitoring::statsd::firewall_extras:
   source: "%{::network_mgmt1}/%{::netmask_mgmt1}"
 
-profile::monitoring::grafana::dashboard:
-  'Compute Hosts':
-    grafana_url:        "http://%{::ipaddress_mgmt1}:8080"
-    grafana_user:       'admin'
-    grafana_password:   "%{hiera('grafana_admin_password')}"
-    content:            'compute.json'
-  'API':
-    grafana_url:        "http://%{::ipaddress_mgmt1}:8080"
-    grafana_user:       'admin'
-    grafana_password:   "%{hiera('grafana_admin_password')}"
-    content:            'api.json'
+grafana_openstack_user: 'monitor'
+grafana_openstack_password: "%{hiera('monitor_metric_password')}"
+
+grafana::provisioning_dashboards:
+  apiVersion: 1
+  providers:
+    - name: 'default'
+      orgId: 1
+      folder: ''
+      type: file
+      disableDeletion: true
+      options:
+        path: '/var/lib/grafana/dashboards'
+        puppetsource: 'puppet:///modules/profile/monitoring/grafana/dashboard'
 
 # Sensu server
 sensu::server:              true
@@ -188,3 +191,6 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   grafana:
     ensure: present
+  epel: # should be absent when using RDO, but whitelist can also work
+    ensure:   present
+    includepkgs: 'htop bash-completion-extras statsd python2-pip'

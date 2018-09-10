@@ -5,6 +5,10 @@ include:
     - profile::application::report
 
 profile::base::selinux::manage_selinux:       true
+profile::base::selinux::boolean:
+  'httpd_can_network_connect':
+    ensure: 'on'
+    persistent: true
 
 profile::webserver::apache::manage_firewall:  true
 profile::webserver::apache::firewall_ports:   80
@@ -25,7 +29,9 @@ profile::webserver::apache::mods_enable:
   - dir
   - alias
 
-profile::application::report::package_url: 'http://download.iaas.uio.no/uh-iaas/yumrepo/report-app-1.0-2.el7.x86_64.rpm'
+profile::application::report::package_url:  'http://download.iaas.uio.no/uh-iaas/yumrepo/report-app-1.0.1-1.el7.x86_64.rpm'
+profile::application::report::database_uri: "mysql+pymysql://report:%{hiera('report_db_password')}@%{hiera('service__address__mysql')}/report"
+profile::application::report::debug:        true
 
 profile::webserver::apache::vhosts:
   report-app:

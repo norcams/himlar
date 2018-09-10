@@ -36,16 +36,50 @@ network::interfaces_hash:
     vlan:         'yes'
     defroute:     'no'
 
-ceph::profile::params::osds:
+# placeholder data
+profile::base::lvm::physical_volume:
   '/dev/sda':
-    ensure:     'present'
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_cache':
+    physical_volumes:
+      - /dev/sda
+profile::base::lvm::logical_volume:
+  'lv_walf':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         2G
+  'lv_dbf':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         10G
+
+profile::storage::cephosd::osds:
+  '/dev/sda':
+    manage:     false
   '/dev/sdb':
-    ensure:     'present'
+    db_device:  false
+    wal_device: false
   '/dev/sdc':
-    ensure:     'present'
+    db_device:  false
+    wal_device: false
   '/dev/sdd':
-    ensure:     'present'
+    db_device:  false
+    wal_device: false
   '/dev/sde':
-    ensure:     'present'
+    db_device:  false
+    wal_device: false
   '/dev/sdf':
-    ensure:     'present'
+    db_device:  'vg_cache/lv_dbf'
+    wal_device: 'vg_cache/lv_walf'
+  '/dev/sdg':
+    manage:     false
+  '/dev/sdf':
+    manage:     false
+  '/dev/sdi':
+    manage:     false
+  '/dev/sdh':
+    manage:     false
+  '/dev/sdj':
+    manage:     false
