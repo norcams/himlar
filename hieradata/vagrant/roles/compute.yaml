@@ -9,6 +9,9 @@ include:
   default:
     - profile::development::patch
 
+# Set SELinux enforcing
+profile::base::selinux::manage_selinux: true
+
 # The current vagrant box image do not have vda3 parso switch
 # off lvm for compute on vagrant
 profile::base::common::manage_lvm: false
