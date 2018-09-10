@@ -15,9 +15,9 @@ keystone::purge_config:                   true
 keystone::enable_bootstrap:               true
 
 # cache
-#keystone::cache_enabled:                   true
-#keystone::memcache_servers:               '127.0.0.1:11211'
-#keystone::cache_backend:                  'oslo_cache.memcache_pool'
+keystone::cache_enabled:                   true
+keystone::memcache_servers:               '127.0.0.1:11211'
+keystone::cache_backend:                  'oslo_cache.memcache_pool'
 
 # notification
 keystone::notification_driver:            'messagingv2'

@@ -6,7 +6,7 @@ include:
     - profile::openstack::resource::dataporten
     - profile::openstack::resource::users
     - profile::logging::rsyslog::client
-#    - profile::openstack::cache
+    - profile::openstack::cache
 
 profile::base::common::packages:
   'bash-completion': {}
