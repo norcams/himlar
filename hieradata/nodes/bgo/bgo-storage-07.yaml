@@ -56,16 +56,34 @@ profile::base::lvm::logical_volume:
     size:         10G
 
 profile::storage::cephosd::osds:
-#  '/dev/sda':
-#    ensure:     'present'
+  '/dev/sda':
+    ensure:     'absent'
   '/dev/sdb':
     ensure:     'present'
+    db_device:  false
+    wal_device: false
   '/dev/sdc':
     ensure:     'present'
+    db_device:  false
+    wal_device: false
   '/dev/sdd':
     ensure:     'present'
+    db_device:  false
+    wal_device: false
   '/dev/sde':
     ensure:     'present'
+    db_device:  false
+    wal_device: false
   '/dev/sdf':
     db_device:  'vg_cache/lv_dbf'
     wal_device: 'vg_cache/lv_walf'
+  '/dev/sdg':
+    ensure:     'absent'
+  '/dev/sdf':
+    ensure:     'absent'
+  '/dev/sdi':
+    ensure:     'absent'
+  '/dev/sdh':
+    ensure:     'absent'
+  '/dev/sdj':
+    ensure:     'absent'
