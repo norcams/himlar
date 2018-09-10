@@ -4,8 +4,12 @@ designate::db::mysql::allowed_hosts:
   - 'localhost'
   - '%'
 
-# Logging via syslog
-designate::use_syslog: true
+#---------------------------------------------------------------------
+# Logging
+#---------------------------------------------------------------------
+designate::logging::use_syslog:  true
+designate::logging::use_journal: true
+designate::logging::use_json:    false
 
 #---------------------------------------------------------------------
 # RabbitMQ
@@ -50,8 +54,8 @@ designate::api::enabled_extensions_v2:
   - 'quotas'
   - 'reports'
 # needs to be '0.0.0.0' for it to bind to localhost as well
-designate::api::listen:            "0.0.0.0:9001"
-designate::api::api_base_uri:      "%{hiera('endpoint__designate__internal')}"
+designate::api::listen:             "0.0.0.0:9001"
+designate::api::api_base_uri:       "%{hiera('endpoint__designate__internal')}"
 
 #---------------------------------------------------------------------
 # Database
@@ -64,13 +68,12 @@ designate::db::database_max_retries: "-1"
 #---------------------------------------------------------------------
 # Pool Manager
 #---------------------------------------------------------------------
-designate::pool_manager::pool_id: '794ccc2c-d751-44fe-b57f-8894c9f5c842'
+# pool manager is deprecated
 
 #---------------------------------------------------------------------
 # Pool Manager Cache
 #---------------------------------------------------------------------
-designate::pool_manager_cache::memcache::memcached_servers:
-  - "127.0.0.1"
+# pool manager is deprecated
 
 #---------------------------------------------------------------------
 # mDNS
@@ -78,10 +81,10 @@ designate::pool_manager_cache::memcache::memcached_servers:
 # use defaults
 
 #---------------------------------------------------------------------
-# Sink
+# Sink (not used atm)
 #---------------------------------------------------------------------
-designate::sink::enabled_notification_handlers:
-  - "nova_fixed"
+#designate::sink::enabled_notification_handlers:
+#  - "nova_fixed"
 
 #---------------------------------------------------------------------
 # Producer

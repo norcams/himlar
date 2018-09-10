@@ -188,6 +188,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     options:
       - option:       'httplog'
       - errorfile:    '503 /etc/haproxy/error.api.http'
+      - balance:      'roundrobin'
   bk_object:
     options:
       - option:
@@ -282,14 +283,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     options:            'check'
   dns:
     listening_service:  'bk_dns'
-    server_names:
-      - '%{::location}-dns-01'
-      - '%{::location}-dns-02'
-      - '%{::location}-dns-03'
-    ipaddresses:
-      - "%{hiera('netcfg_trp_netpart')}.34"
-      - "%{hiera('netcfg_trp_netpart')}.35"
-      - "%{hiera('netcfg_trp_netpart')}.39"
+    server_names:       ['%{::location}-dns-01']
+    ipaddresses:        ["%{hiera('netcfg_trp_netpart')}.34"]
     ports:              '9001'
     options:            'check'
   console:

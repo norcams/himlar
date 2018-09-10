@@ -70,3 +70,16 @@ profile::application::openssl::certs:
 #       - "%{hiera('netcfg_trp_netpart')}.66"
 #       - "%{hiera('netcfg_trp_netpart')}.67"
 #     options:            'check'
+
+## Example of override dns backend for more nodes
+#
+# profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
+#   dns:
+#     server_names:
+#       - '%{::location}-dns-01'
+#       - '%{::location}-dns-02'
+#       - '%{::location}-dns-03'
+#     ipaddresses:
+#       - "%{hiera('netcfg_trp_netpart')}.34"
+#       - "%{hiera('netcfg_trp_netpart')}.35"
+#       - "%{hiera('netcfg_trp_netpart')}.39"
