@@ -157,14 +157,14 @@ public__ip__proxy:                "%{hiera('netcfg_public_netpart')}.253"
 #
 # Services (internal non openstack services)
 #
-service__address__mysql:          "db02.%{hiera('domain_trp')}"
+service__address__db_global:      "%{hiera('netcfg_trp_netpart')}.41"
+service__address__db_regional:    "%{hiera('netcfg_trp_netpart')}.43"
 service__address__status:         "status.%{hiera('domain_trp')}"
 service__address__etcd_cluster:   "%{hiera('netcfg_trp_netpart')}.71"
 service__address__rabbitmq_01:    "mq01.%{hiera('domain_trp')}"
 service__address__rabbitmq_02:    "mq01.%{hiera('domain_trp')}"
 service__address__rabbitmq_03:    "mq01.%{hiera('domain_trp')}"
 service__address__cinder_ip:      "%{hiera('netcfg_trp_netpart')}.46"
-service__address__consoleproxy:
 service__address__mdns_01:        "%{hiera('netcfg_trp_netpart')}.34"
 #service__address__mdns_02:        "%{hiera('netcfg_trp_netpart')}.35"
 #service__address__mdns_03:        "%{hiera('netcfg_trp_netpart')}.39"
@@ -305,8 +305,6 @@ profile::network::services::dns_records:
     # trp nodes
     "status.%{hiera('domain_trp')}":                        "%{hiera('netcfg_trp_netpart')}.21"
     "mq01.%{hiera('domain_trp')}":                          "%{hiera('netcfg_trp_netpart')}.31"
-    "db01.%{hiera('domain_trp')}":                          "%{hiera('netcfg_trp_netpart')}.41"
-    "db02.%{hiera('domain_trp')}":                          "%{hiera('netcfg_trp_netpart')}.42"
     "%{::location}-access-01.%{hiera('domain_trp')}":       "%{hiera('netcfg_trp_netpart')}.56"
     "%{::location}-metric-01.%{hiera('domain_trp')}":       "%{hiera('netcfg_trp_netpart')}.96"
     "%{::location}-report-01.%{hiera('domain_trp')}":       "%{hiera('netcfg_trp_netpart')}.22"

@@ -25,12 +25,6 @@ class profile::monitoring::sensu::mysql(
       require => Class['profile::monitoring::sensu::agent']
     }
 
-    if $manage_packages {
-      package { ['gcc', 'make', 'mariadb-devel']:
-        ensure => present,
-        before => Class['profile::monitoring::sensu::agent']
-      }
-    }
   } else {
     info('sensu agent disabled for mysql')
   }

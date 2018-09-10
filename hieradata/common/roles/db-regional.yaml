@@ -1,0 +1,17 @@
+---
+# Openstack databases
+profile::openstack::database::sql::glance_enabled:   true
+profile::openstack::database::sql::nova_enabled:     true
+profile::openstack::database::sql::neutron_enabled:  true
+profile::openstack::database::sql::cinder_enabled:   true
+profile::openstack::database::sql::gnocchi_enabled:  true
+
+profile::openstack::database::sql::extra_databases:
+  horizon: # Session database
+    password:       "%{hiera('horizon_db_password')}"
+    user:           'horizon'
+    host:           "%{hiera('netcfg_trp_netpart')}.51"
+  horizon-mgmt: # Session database
+    password:       "%{hiera('horizon_db_password')}"
+    user:           'horizon'
+    host:           "%{hiera('netcfg_trp_netpart')}.54"
