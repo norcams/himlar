@@ -40,15 +40,6 @@ profile::firewall::pre::ssh_settings:
 profile::logging::rsyslog::client::manage_rsyslog:         true
 profile::openstack::compute::hypervisor::manage_telemetry: false
 
-profile::openstack::database::sql::keystone_enabled: true
-profile::openstack::database::sql::glance_enabled:   true
-profile::openstack::database::sql::nova_enabled:     true
-profile::openstack::database::sql::neutron_enabled:  true
-profile::openstack::database::sql::cinder_enabled:   true
-profile::openstack::database::sql::gnocchi_enabled:  true
-profile::openstack::database::sql::heat_enabled:     false
-profile::openstack::database::sql::trove_enabled:    false
-
 # for db backup system (used by both login and mariadb profile)
 profile::database::mariadb::backuptopdir:        '/var/db/dumps'
 profile::database::mariadb::backupscript:        '/usr/local/sbin/mysqlbackup.sh'
@@ -79,7 +70,7 @@ profile::application::himlarcli::foreman_url:            "https://%{::location}-
 profile::application::himlarcli::foreman_user:           'admin'
 profile::application::himlarcli::foreman_password:       "%{hiera('foreman::admin_password')}"
 profile::application::himlarcli::statsd_server:          "%{hiera('mgmt__address__monitor')}"
-profile::application::himlarcli::database_uri:           "mysql+pymysql://report:%{hiera('report_db_password')}@%{hiera('service__address__mysql')}/report"
+profile::application::himlarcli::database_uri:           "mysql+pymysql://report:%{hiera('report_db_password')}@%{hiera('service__address__db_global')}/report"
 profile::application::himlarcli::mq_host:                "%{hiera('service__address__rabbitmq_01')}"
 profile::application::himlarcli::mq_username:            'himlarcli'
 profile::application::himlarcli::mq_password:             "%{hiera('himlarcli_rabbit_password')}"

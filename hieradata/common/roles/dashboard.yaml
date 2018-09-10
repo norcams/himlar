@@ -90,7 +90,7 @@ memcached::max_memory: '40%'
 profile::openstack::dashboard::database:
   database:       'horizon'
   password_hash:  "%{hiera('horizon_db_password')}"
-  host:           "%{hiera('service__address__mysql')}"
+  host:           "%{hiera('service__address__db_regional')}"
 
 profile::base::selinux::boolean:
   'httpd_can_network_connect':

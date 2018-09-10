@@ -43,11 +43,6 @@ netcfg_trp_rr:
 
 profile::openstack::volume::api::enable_testbackend:     'true'
 
-#
-# Services (internal non openstack services)
-#
-service__address__mysql:  "db01.%{hiera('domain_trp')}" #FIXME
-
 # DNS servers
 public__address__ns:           "%{hiera('netcfg_public_netpart')}.251"
 public6__address__ns:          "%{hiera('netcfg_public_netpart6')}::251"

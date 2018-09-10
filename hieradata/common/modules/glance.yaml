@@ -4,7 +4,7 @@ glance::db::mysql::allowed_hosts:
   - "%{netpart_trp1}.%"
 
 # api (node: image)
-glance::api::database_connection:          "mysql://glance:%{hiera('glance::db::mysql::password')}@%{hiera('service__address__mysql')}/glance"
+glance::api::database_connection:          "mysql://glance:%{hiera('glance::db::mysql::password')}@%{hiera('service__address__db_regional')}/glance"
 glance::api::os_region_name:               "%{location}"
 glance::api::bind_host:                    "%{::ipaddress_trp1}"
 glance::api::workers:                      2
@@ -34,7 +34,7 @@ glance::config::api_config:
 # registry (node: image)
 glance::registry::os_region_name:          "%{location}"
 glance::registry::bind_host:               "%{::ipaddress_trp1}"
-glance::registry::database_connection:     "mysql://glance:%{hiera('glance::db::mysql::password')}@%{hiera('service__address__mysql')}/glance"
+glance::registry::database_connection:     "mysql://glance:%{hiera('glance::db::mysql::password')}@%{hiera('service__address__db_regional')}/glance"
 glance::registry::use_syslog:              true
 glance::registry::log_facility:            'LOG_LOCAL3'
 glance::registry::enable_v1_registry:      false

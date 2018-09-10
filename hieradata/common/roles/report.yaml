@@ -30,7 +30,7 @@ profile::webserver::apache::mods_enable:
   - alias
 
 profile::application::report::package_url:  'http://download.iaas.uio.no/uh-iaas/yumrepo/report-app-1.0.1-1.el7.x86_64.rpm'
-profile::application::report::database_uri: "mysql+pymysql://report:%{hiera('report_db_password')}@%{hiera('service__address__mysql')}/report"
+profile::application::report::database_uri: "mysql+pymysql://report:%{hiera('report_db_password')}@%{hiera('service__address__db_global')}/report"
 profile::application::report::debug:        true
 
 profile::webserver::apache::vhosts:
