@@ -57,33 +57,29 @@ profile::base::lvm::logical_volume:
 
 profile::storage::cephosd::osds:
   '/dev/sda':
-    ensure:     'absent'
+    manage:     false
   '/dev/sdb':
-    ensure:     'present'
     db_device:  false
     wal_device: false
   '/dev/sdc':
-    ensure:     'present'
     db_device:  false
     wal_device: false
   '/dev/sdd':
-    ensure:     'present'
     db_device:  false
     wal_device: false
   '/dev/sde':
-    ensure:     'present'
     db_device:  false
     wal_device: false
   '/dev/sdf':
     db_device:  'vg_cache/lv_dbf'
     wal_device: 'vg_cache/lv_walf'
   '/dev/sdg':
-    ensure:     'absent'
+    manage:     false
   '/dev/sdf':
-    ensure:     'absent'
+    manage:     false
   '/dev/sdi':
-    ensure:     'absent'
+    manage:     false
   '/dev/sdh':
-    ensure:     'absent'
+    manage:     false
   '/dev/sdj':
-    ensure:     'absent'
+    manage:     false
