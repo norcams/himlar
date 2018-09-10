@@ -10,3 +10,14 @@ profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}
   'jq': {}
+
+# Sensu
+profile::monitoring::sensu::agent::plugins:
+  sensu-plugins-ceph:
+    type:         package
+    pkg_version:  '1.0.1'
+
+# Enable extra yum repo
+profile::base::yumrepo::repo_hash:
+  ceph-%{hiera('ceph_version')}:
+    ensure: present
