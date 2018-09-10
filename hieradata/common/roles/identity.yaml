@@ -96,21 +96,24 @@ profile::openstack::resource::users::users:
     enabled:  true
     email:    'status@localhost'
     password: "%{hiera('status_metric_password')}"
-    domain:   "%{hiera('keystone__service__domain')}"
+    domain:   "%{hiera('keystone__default__domain')}"
   monitor:
     enabled:  true
     email:    'monitor@localhost'
     password: "%{hiera('monitor_metric_password')}"
+    domain:   "%{hiera('keystone__default__domain')}"
   access:
     enabled:  true
     email:    'access@localhost'
     password: "%{hiera('access_api_password')}"
+    domain:   "%{hiera('keystone__default__domain')}"
+
 profile::openstack::resource::users::user_roles:
-  'status@services':
+  "status@%{hiera('keystone__service__project')}":
     roles:    'user'
-  'monitor@services':
+  "monitor@%{hiera('keystone__service__project')}":
     roles:    'admin'
-  'access@services':
+  "access@%{hiera('keystone__service__project')}":
     roles:    'admin_view'
 
 # Enable extra yum repo
