@@ -21,3 +21,15 @@ profile::monitoring::sensu::agent::plugins:
 profile::base::yumrepo::repo_hash:
   ceph-%{hiera('ceph_version')}:
     ensure: present
+
+ceph::profile::params::client_keys:
+  'client.admin':
+    secret: "%{hiera('client_admin::secret')}"
+    mode: '0600'
+    user: 'ceph'
+    group: 'ceph'
+    cap_mds: 'allow *'
+  'client.bootstrap-mds':
+    secret: "%{hiera('client_bootstrap-mds::secret')}"
+    keyring_path: '/var/lib/ceph/bootstrap-mds/ceph.keyring'
+    cap_mon: 'allow profile bootstrap-mds'

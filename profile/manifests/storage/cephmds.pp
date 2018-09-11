@@ -8,6 +8,7 @@ class profile::storage::cephmds (
   },
 ) {
 
+  include ::ceph::profile::client
   include ::ceph::profile::mds
 
   if $manage_firewall {
