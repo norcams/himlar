@@ -93,7 +93,7 @@ profile::application::himlarcli::twitter_access_token:   "%{hiera('himlarcli_twi
 profile::application::himlarcli::twitter_secret_token:   "%{hiera('himlarcli_twitter_secrettoken')}"
 profile::application::himlarcli::status_url:             "https://report.%{hiera('domain_frontend')}/api/v1/status"
 profile::application::himlarcli::status_token:           "%{hiera('himlarcli_status_token')}"
-profile::application::himlarcli::sensu_url:              "%{hiera('mgmt__address__monitor')}:4567"
+profile::application::himlarcli::sensu_url:              "http://%{hiera('mgmt__address__monitor')}:4567"
 profile::application::himlarcli::sensu_username:         'sensu'
 profile::application::himlarcli::sensu_password:         "%{hiera('sensu_api_password')}"
 
