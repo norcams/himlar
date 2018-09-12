@@ -26,3 +26,4 @@ profile::openstack::identity::swift_enabled:          false
 # Enable designate in vagrant
 profile::openstack::identity::designate_enabled:      true
 profile::openstack::database::sql::designate_enabled: true
+profile::openstack::dashboard::enable_designate:      true

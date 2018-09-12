@@ -5,3 +5,8 @@ profile::application::himlarcli::from_addr:     'no-reply@uib.no'
 
 # test01 is up and coming; on 'test'
 yum_base_mirror:    'https://download.iaas.uio.no/uh-iaas/test'
+
+# Enable designate in test01
+profile::openstack::identity::designate_enabled:      true
+profile::openstack::database::sql::designate_enabled: true
+profile::openstack::dashboard::enable_designate:      true
