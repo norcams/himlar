@@ -128,7 +128,7 @@ class profile::base::login (
     profile::firewall::rule { '335 management dns accept tcp':
       dport  => $ports,
       extras => {
-        iniface => $::interface_mgmt1, 
+        iniface => $::interface_mgmt1,
       },
     }
     profile::firewall::rule { '336 management dns accept udp':
