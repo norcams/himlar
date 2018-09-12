@@ -2,7 +2,7 @@
 class profile::openstack::resource::host_aggregate() {
 
   $defaults = {
-    metadata => { type => 'default' },
+    metadata => { type => 'standard' },
     require  => Nova::Generic_service['api'],
     notify   => Exec['nova-cell_v2-discover_hosts']
   }
