@@ -6,7 +6,9 @@ include:
   bootstrap:
     - profile::storage::cephmon_firewall
 
-profile::storage::cephmon_firewall::manage_firewall:  true
+profile::storage::cephmon::manage_dashboard:                    true
+profile::storage::cephmon_firewall::manage_firewall:            true
+profile::storage::cephmon_firewall::manage_dashboard_firewall:  "%{hiera('profile::storage::cephmon::manage_dashboard')}"
 
 profile::base::common::packages:
   'redhat-lsb-core': {}
