@@ -17,6 +17,7 @@ class profile::base::login (
   $gpg_receiver             = 'UH-IaaS Token Distributor',
   $manage_firewall          = false,
   $manage_dnsmasq           = false,
+  $ports                    = [ 53, ],
 ) {
 
 
@@ -126,12 +127,16 @@ class profile::base::login (
   if $manage_firewall and $manage_dnsmasq {
     profile::firewall::rule { '335 management dns accept tcp':
       dport  => $ports,
-      extras => { iniface => "$::interface_mgmt1", },
+      extras => {
+        iniface => $::interface_mgmt1, 
+      },
     }
     profile::firewall::rule { '336 management dns accept udp':
       dport  => $ports,
-      proto  => "udp",
-      extras => { iniface => "$::interface_mgmt1", },
+      proto  => 'udp',
+      extras => {
+        iniface => $::interface_mgmt1,
+      },
     }
   }
 
