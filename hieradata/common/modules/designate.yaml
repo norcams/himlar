@@ -1,24 +1,27 @@
 ---
-designate::db::mysql::allowed_hosts:
-  - "%{ipaddress_service1}"
-  - 'localhost'
-  - '%'
+# Configuration for Designate (DNS)
+#
+# Uses puppet-designate:
+#   https://github.com/openstack/puppet-designate
+#
+# UH-IaaS internal documentation:
+#   https://iaas.readthedocs.io/en/latest/team/operations/designate.html
 
 #---------------------------------------------------------------------
-# Logging
+# Logging (manifests/logging.pp)
 #---------------------------------------------------------------------
 designate::logging::use_syslog:  true
 designate::logging::use_journal: true
 designate::logging::use_json:    false
 
 #---------------------------------------------------------------------
-# RabbitMQ
+# RabbitMQ (manifests/init.pp)
 #---------------------------------------------------------------------
 designate::default_transport_url:       "%{hiera('service__transport__url')}"
 designate::notification_transport_url:  "%{hiera('service__transport__url')}"
 
 #---------------------------------------------------------------------
-# Authentication
+# Authentication (manifests/keystone/auth.pp)
 #---------------------------------------------------------------------
 designate::keystone::auth::region:       "%{hiera('location_environment')}"
 designate::keystone::auth::public_url:   "%{hiera('endpoint__designate__public')}"
@@ -26,20 +29,23 @@ designate::keystone::auth::admin_url:    "%{hiera('endpoint__designate__admin')}
 designate::keystone::auth::internal_url: "%{hiera('endpoint__designate__internal')}"
 designate::keystone::auth::password:     "%{hiera('designate_api_password')}"
 
+#---------------------------------------------------------------------
+# Authentication tokens (manifests/keystone/authtoken.pp)
+#---------------------------------------------------------------------
 designate::keystone::authtoken::password:          "%{hiera('designate_api_password')}"
 designate::keystone::authtoken::auth_url:          "%{hiera('endpoint__identity__admin')}"
 designate::keystone::authtoken::auth_uri:          "%{hiera('endpoint__identity__public')}"
 designate::keystone::authtoken::memcached_servers: '127.0.0.1'
 
 #---------------------------------------------------------------------
-# Central
+# Central (manifests/central.pp)
 #---------------------------------------------------------------------
 designate::central::backend_driver:             'bind9'
 designate::central::managed_resource_email:     'iaas-core@usit.uio.no'
 designate::central::min_ttl:                    '300'
 
 #---------------------------------------------------------------------
-# API
+# API (manifests/api.pp)
 #---------------------------------------------------------------------
 designate::api::auth_strategy:     'keystone'
 designate::api::keystone_host:     "identity.%{hiera('domain_trp')}"
@@ -58,54 +64,64 @@ designate::api::listen:             "0.0.0.0:9001"
 designate::api::api_base_uri:       "%{hiera('endpoint__designate__internal')}"
 
 #---------------------------------------------------------------------
-# Database
+# Database (manifests/db.pp)
 #---------------------------------------------------------------------
-designate::db::database_connection: "mysql+pymysql://designate:%{hiera('designate::db::mysql::password')}@%{hiera('service__address__mysql')}/designate"
-designate::db::mysql::host: "%{hiera('service__address__mysql')}"
+designate::db::database_connection: "mysql+pymysql://designate:%{hiera('designate::db::mysql::password')}@db01.%{hiera('domain_trp')}/designate"
 designate::db::sync_db: true
 designate::db::database_max_retries: "-1"
 
 #---------------------------------------------------------------------
-# Pool Manager
+# Database MySQL (manifests/db/mysql.pp)
 #---------------------------------------------------------------------
-# pool manager is deprecated
+designate::db::mysql::host:   "db01.%{hiera('domain_trp')}"
+designate::db::mysql::user:   "designate"
+designate::db::mysql::dbname: "designate"
+designate::db::mysql::allowed_hosts:
+  - "%{ipaddress_service1}"
+  - 'localhost'
+  - '%'
 
 #---------------------------------------------------------------------
-# Pool Manager Cache
+# Bind9 backend (manifests/backend/bind9.pp)
 #---------------------------------------------------------------------
-# pool manager is deprecated
+designate::backend::bind9::rndc_host: "%{hiera('service__address__ns')}"
 
 #---------------------------------------------------------------------
-# mDNS
+# mDNS (manifests/mdns.pp)
 #---------------------------------------------------------------------
 # use defaults
 
 #---------------------------------------------------------------------
-# Sink (not used atm)
+# Producer (manifests/producer.pp)
+#---------------------------------------------------------------------
+# use defaults
+
+#---------------------------------------------------------------------
+# Worker (manifests/worker.pp)
+#---------------------------------------------------------------------
+# use defaults
+
+#---------------------------------------------------------------------
+# Pool Manager (manifests/pool_manager.pp)
+#---------------------------------------------------------------------
+# pool manager is deprecated
+
+#---------------------------------------------------------------------
+# Pool Manager Cache (manifests/pool_manager_cache/memcache.pp)
+#---------------------------------------------------------------------
+# pool manager is deprecated
+
+#---------------------------------------------------------------------
+# Sink [NOT USED] (manifests/sink.pp)
 #---------------------------------------------------------------------
 #designate::sink::enabled_notification_handlers:
 #  - "nova_fixed"
 
 #---------------------------------------------------------------------
-# Producer
+# Extra config [NOT NEEDED WITHOUT SINK] (manifests/config.pp)
 #---------------------------------------------------------------------
-# use defaults
-
-#---------------------------------------------------------------------
-# Worker
-#---------------------------------------------------------------------
-# use defaults
-
-#---------------------------------------------------------------------
-# Bind9 backend
-#---------------------------------------------------------------------
-designate::backend::bind9::rndc_host: "%{hiera('service__address__ns')}"
-
-#---------------------------------------------------------------------
-# Extra config
-#---------------------------------------------------------------------
-designate::config::designate_config:
-  handler:nova_fixed/formatv4:
-    value: "'vm-%(octet0)s-%(octet1)s-%(octet2)s-%(octet3)s.%(zone)s'"
-  handler:nova_fixed/formatv6:
-    value: "'vm-%(octet0)s-%(octet1)s-%(octet2)s-%(octet3)s.%(zone)s-%(octet4)s-%(octet5)s-%(octet6)s-%(octet7)s.%(zone)s'"
+#designate::config::designate_config:
+#  handler:nova_fixed/formatv4:
+#    value: "'vm-%(octet0)s-%(octet1)s-%(octet2)s-%(octet3)s.%(zone)s'"
+#  handler:nova_fixed/formatv6:
+#    value: "'vm-%(octet0)s-%(octet1)s-%(octet2)s-%(octet3)s.%(zone)s-%(octet4)s-%(octet5)s-%(octet6)s-%(octet7)s.%(zone)s'"
