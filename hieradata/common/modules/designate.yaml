@@ -114,16 +114,6 @@ designate::backend::bind9::rndc_host: "%{hiera('service__address__ns')}"
 # use defaults
 
 #---------------------------------------------------------------------
-# Pool Manager (manifests/pool_manager.pp)
-#---------------------------------------------------------------------
-# pool manager is deprecated
-
-#---------------------------------------------------------------------
-# Pool Manager Cache (manifests/pool_manager_cache/memcache.pp)
-#---------------------------------------------------------------------
-# pool manager is deprecated
-
-#---------------------------------------------------------------------
 # Sink [NOT USED] (manifests/sink.pp)
 #---------------------------------------------------------------------
 #designate::sink::enabled_notification_handlers:
