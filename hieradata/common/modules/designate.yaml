@@ -9,6 +9,7 @@
 
 #---------------------------------------------------------------------
 # Logging (manifests/logging.pp)
+#   - runs on the DNS node
 #---------------------------------------------------------------------
 designate::logging::use_syslog:  true
 designate::logging::use_journal: true
@@ -16,12 +17,14 @@ designate::logging::use_json:    false
 
 #---------------------------------------------------------------------
 # RabbitMQ (manifests/init.pp)
+#   - runs on the DNS node
 #---------------------------------------------------------------------
 designate::default_transport_url:       "%{hiera('service__transport__url')}"
 designate::notification_transport_url:  "%{hiera('service__transport__url')}"
 
 #---------------------------------------------------------------------
 # Authentication (manifests/keystone/auth.pp)
+#   - runs on the IDENTITY node
 #---------------------------------------------------------------------
 designate::keystone::auth::region:       "%{hiera('location_environment')}"
 designate::keystone::auth::public_url:   "%{hiera('endpoint__designate__public')}"
@@ -31,6 +34,7 @@ designate::keystone::auth::password:     "%{hiera('designate_api_password')}"
 
 #---------------------------------------------------------------------
 # Authentication tokens (manifests/keystone/authtoken.pp)
+#   - runs on the DNS node
 #---------------------------------------------------------------------
 designate::keystone::authtoken::password:          "%{hiera('designate_api_password')}"
 designate::keystone::authtoken::auth_url:          "%{hiera('endpoint__identity__admin')}"
@@ -39,6 +43,7 @@ designate::keystone::authtoken::memcached_servers: '127.0.0.1'
 
 #---------------------------------------------------------------------
 # Central (manifests/central.pp)
+#   - runs on the DNS node
 #---------------------------------------------------------------------
 designate::central::backend_driver:             'bind9'
 designate::central::managed_resource_email:     'iaas-core@usit.uio.no'
@@ -46,6 +51,7 @@ designate::central::min_ttl:                    '300'
 
 #---------------------------------------------------------------------
 # API (manifests/api.pp)
+#   - runs on the DNS node
 #---------------------------------------------------------------------
 designate::api::auth_strategy:     'keystone'
 designate::api::keystone_host:     "identity.%{hiera('domain_trp')}"
@@ -65,6 +71,7 @@ designate::api::api_base_uri:       "%{hiera('endpoint__designate__internal')}"
 
 #---------------------------------------------------------------------
 # Database (manifests/db.pp)
+#   - runs on the DNS node
 #---------------------------------------------------------------------
 designate::db::database_connection: "mysql+pymysql://designate:%{hiera('designate::db::mysql::password')}@db01.%{hiera('domain_trp')}/designate"
 designate::db::sync_db: true
@@ -72,6 +79,7 @@ designate::db::database_max_retries: "-1"
 
 #---------------------------------------------------------------------
 # Database MySQL (manifests/db/mysql.pp)
+#   - runs on the DB node
 #---------------------------------------------------------------------
 designate::db::mysql::host:   "db01.%{hiera('domain_trp')}"
 designate::db::mysql::user:   "designate"
@@ -83,21 +91,25 @@ designate::db::mysql::allowed_hosts:
 
 #---------------------------------------------------------------------
 # Bind9 backend (manifests/backend/bind9.pp)
+#   - runs on the DNS node
 #---------------------------------------------------------------------
 designate::backend::bind9::rndc_host: "%{hiera('service__address__ns')}"
 
 #---------------------------------------------------------------------
 # mDNS (manifests/mdns.pp)
+#   - runs on the DNS node
 #---------------------------------------------------------------------
 # use defaults
 
 #---------------------------------------------------------------------
 # Producer (manifests/producer.pp)
+#   - runs on the DNS node
 #---------------------------------------------------------------------
 # use defaults
 
 #---------------------------------------------------------------------
 # Worker (manifests/worker.pp)
+#   - runs on the DNS node
 #---------------------------------------------------------------------
 # use defaults
 
@@ -119,6 +131,7 @@ designate::backend::bind9::rndc_host: "%{hiera('service__address__ns')}"
 
 #---------------------------------------------------------------------
 # Extra config [NOT NEEDED WITHOUT SINK] (manifests/config.pp)
+#   - runs on the DNS node
 #---------------------------------------------------------------------
 #designate::config::designate_config:
 #  handler:nova_fixed/formatv4:
