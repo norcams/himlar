@@ -14,7 +14,10 @@ class profile::base::login (
   $repo_incoming_dir        = '/tmp/repo-incoming',
   $repo_server              = 'iaas-repo.uio.no',
   $yumrepo_path             = '/var/www/html/uh-iaas/yumrepo/',
-  $gpg_receiver             = 'UH-IaaS Token Distributor'
+  $gpg_receiver             = 'UH-IaaS Token Distributor',
+  $manage_firewall          = false,
+  $manage_dnsmasq           = false,
+  $ports                    = [ 53, ],
 ) {
 
 
@@ -120,5 +123,22 @@ class profile::base::login (
       group  => wheel
     }
   }
+
+  if $manage_firewall and $manage_dnsmasq {
+    profile::firewall::rule { '335 management dns accept tcp':
+      dport  => $ports,
+      extras => {
+        iniface => $::interface_mgmt1,
+      },
+    }
+    profile::firewall::rule { '336 management dns accept udp':
+      dport  => $ports,
+      proto  => 'udp',
+      extras => {
+        iniface => $::interface_mgmt1,
+      },
+    }
+  }
+
 
 }

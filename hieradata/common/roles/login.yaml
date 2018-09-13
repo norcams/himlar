@@ -23,6 +23,8 @@ profile::firewall::pre::ssh_settings:
 
 profile::base::login::manage_repo_incoming_dir:   true
 profile::base::login::gpg_receiver:              "%{hiera('gpg_receiver')}"
+profile::base::login::manage_firewall:           "%{hiera('profile::base::firewall::manage_firewall')}"
+profile::base::login::manage_dnsmasq:             true
 
 accounts::accounts:
 #  'hege':
