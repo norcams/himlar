@@ -43,7 +43,7 @@ ceilometer::dispatcher::gnocchi::archive_policy:                'low'
 # ceilometer config (node: telemetry)
 ceilometer::db::sync_db:                                        true
 ceilometer::db::sync::extra_params:                             '--skip-metering-database'
-ceilometer::db::database_connection:                            "mysql://ceilometer:%{hiera('ceilometer::db::mysql::password')}@%{hiera('service__address__mysql')}/ceilometer"
+ceilometer::db::database_connection:                            "mysql://ceilometer:%{hiera('ceilometer::db::mysql::password')}@%{hiera('service__address__db_regional')}/ceilometer"
 # Use internal endpoints for ceilometer
 ceilometer::config::ceilometer_config:
   'service_credentials/interface':
