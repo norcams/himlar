@@ -24,31 +24,27 @@ network::interfaces_hash:
 # Turn on firewall logging for firewall debug
 #profile::firewall::post::log: true
 
-# Drop dashboard and report databases
-profile::openstack::database::sql::extra_databases: {}
-profile::database::mariadb::dbs: {}
-
-profile::base::network::manage_dummy: true
-
-include:
-  default:
-    - profile::database::galera
-
-mysql::server::restart:         false
-
 profile::database::galera::firewall_rules:
   '211 galera accept tcp nat':
     'proto':  'tcp'
     'dport':  ['4567', '4568']
-    'source': '192.168.113.1/32'
+    'source': '192.168.112.1/32'
   '212 galera accept udp nat':
     'proto':  'udp'
     'dport':  ['4567', '4568']
-    'source': '192.168.113.1/32'
+    'source': '192.168.112.1/32'
   '213 wsrep sst accept tcp for nat':
     'proto':  'tcp'
     'dport':  '4444'
-    'source': '192.168.113.1/32'
+    'source': '192.168.112.1/32'
+  '211 galera accept tcp local1-access-01':
+    'proto':  'tcp'
+    'dport':  ['4567', '4568']
+    'source': "%{hiera('netcfg_public_netpart')}.252"
+  '212 galera accept udp local1-access-01':
+    'proto':  'udp'
+    'dport':  ['4567', '4568']
+    'source': "%{hiera('netcfg_public_netpart')}.252"
 
 db_ssl_key:       '/etc/pki/tls/private/db01.iaas.intern.key.pem'
 db_ssl_cert:      '/etc/pki/tls/certs/db01.iaas.intern.cert.pem'
@@ -58,34 +54,8 @@ db_ssl_ca:        '/etc/pki/tls/certs/cachain.pem'
 wsrep_provider_options: "base_host=%{::ipaddress_trp1};pc.recovery=1;socket.ssl_key=%{hiera('db_ssl_key')};socket.ssl_cert=%{hiera('db_ssl_cert')};socket.ssl_ca=%{hiera('db_ssl_ca')}"
 wsrep_sst_method:       'mariabackup'
 wsrep_cluster_address:  'gcomm://192.168.12.249,192.168.13.249,192.168.12.252'
-wsrep_node_address:     '192.168.13.249'
+wsrep_node_address:     '192.168.12.249'
 
 # Use this to test rsync without SSL
 #wsrep_provider_options: "base_host=%{::ipaddress_trp1};pc.recovery=1;"
 #wsrep_sst_method:       'rsync'
-
-# Do not create root user for second server in cluster
-mysql::server::create_root_user: false
-
-profile::openstack::database::sql::keystone_enabled:    false
-profile::openstack::database::sql::glance_enabled:      false
-profile::openstack::database::sql::nova_enabled:        false
-profile::openstack::database::sql::neutron_enabled:     false
-profile::openstack::database::sql::cinder_enabled:      false
-profile::openstack::database::sql::gnocchi_enabled:     false
-profile::openstack::database::sql::ceilometer_enabled:  false
-
-# sensu
-profile::monitoring::sensu::agent::checks:
-  'check-wsrep-ready':
-    command:      "check-wsrep-ready.rb -u sensu -h localhost -p %{hiera('sensu_mysql_password')}"
-    interval:     60
-    subscribers:  ['checks']
-
-profile::database::mariadb::grants:
-  "keystone@%{hiera('netcfg_trp_netpart')}.81/token_keys.*":
-    ensure:         'present'
-    options:        ['GRANT']
-    privileges:     ['SELECT', 'INSERT', 'DELETE', 'CREATE']
-    user:           "keystone@%{hiera('netcfg_trp_netpart')}.81"
-    table:          'token_keys.*'
