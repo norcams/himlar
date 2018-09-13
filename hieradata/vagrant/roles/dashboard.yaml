@@ -14,6 +14,3 @@ profile::application::openssl::certs:
 apache::log_level:                              warn
 
 profile::openstack::dashboard::site_branding: 'dev-iaas'
-
-# Enable designate plugin
-profile::openstack::dashboard::enable_designate: true
