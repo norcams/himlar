@@ -1,4 +1,8 @@
 ---
+include:
+  default:
+    - profile::development::patch
+
 # Turn on for debug
 # include:
 #   default:
@@ -6,19 +10,18 @@
 #
 # apache::log_level:  dumpio:trace7
 
-profile::openstack::identity::keystone_config:
-  'resource/project_name_url_safe':
-    value:  'new'
-  'resource/domain_name_url_safe':
-    value:  'new'
-  'cors/allowed_origin': # allow gnocchi access on monitor
-    value:  "http://%{hiera('mgmt__address__monitor')}:8080"
-  'DEFAULT/notification_opt_out':
-    value:  'identity.authenticate.success'
-  # Use this to test lockout in vagrant
-  # 'security_compliance/lockout_duration':
-  #   value:  '60'
-  # 'security_compliance/lockout_failure_attempts':
-  #   value:  '3'
-  # 'DEFAULT/insecure_debug':
-  #   value:  'true'
+# profile::openstack::identity::keystone_config:
+#   'resource/project_name_url_safe':
+#     value:  'new'
+#   'resource/domain_name_url_safe':
+#     value:  'new'
+#   'cors/allowed_origin': # allow gnocchi access on monitor
+#     value:  "http://%{hiera('mgmt__address__monitor')}:8080"
+#   'DEFAULT/notification_opt_out':
+#     value:  'identity.authenticate.success'
+#   'security_compliance/lockout_duration':
+#     value:  '60'
+#   'security_compliance/lockout_failure_attempts':
+#     value:  '3'
+#   'DEFAULT/insecure_debug':
+#     value:  'true'
