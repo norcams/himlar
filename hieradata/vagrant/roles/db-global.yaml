@@ -27,6 +27,9 @@ profile::database::mariadb::grants:
 #   default:
 #     - profile::application::openssl
 #
+# Turn on firewall logging for firewall debug
+# profile::firewall::post::log: true
+
 # mysql::server::restart:         false
 #
 # profile::application::openssl::manage_ca_cert:  true

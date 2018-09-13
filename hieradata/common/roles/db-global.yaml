@@ -26,6 +26,7 @@ profile::database::galera::wsrep_sst_secure_rsync:
 
 # Openstack databases
 profile::openstack::database::sql::keystone_enabled:    true
+profile::openstack::database::sql::designate_enabled:   true
 
 profile::database::mariadb::dbs:
   report: # used in report api
