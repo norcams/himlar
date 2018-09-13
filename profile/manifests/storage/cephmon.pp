@@ -18,13 +18,13 @@ class profile::storage::cephmon (
     }
 
     exec { 'dashboard.crt':
-      command => "ceph config-key set mgr mgr/dashboard/crt -i ${crt_dir}/${cert_name}.crt",
+      command => "ceph config-key set mgr mgr/dashboard/crt -i ${crt_dir}/${cert_name}.cert.pem",
       path    => '/usr/bin:/usr/sbin:/bin',
       creates => '/etc/ceph/.ceph-dashboard-set-up',
     }
      ~>
     exec { 'dashboard.key':
-      command     => "ceph config-key set mgr mgr/dashboard/key -i ${key_dir}/${cert_name}.key",
+      command     => "ceph config-key set mgr mgr/dashboard/key -i ${key_dir}/${cert_name}.key.pem",
       path        => '/usr/bin:/usr/sbin:/bin',
       refreshonly => 'true',
     }
