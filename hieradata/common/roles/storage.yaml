@@ -3,6 +3,7 @@ include:
   default:
     - profile::storage::cephosd
     - profile::storage::cephpool
+    - profile::storage::cephfs
     - profile::storage::cephosd_firewall
     - profile::base::lvm
   kickstart:
@@ -43,6 +44,7 @@ ceph::profile::params::osd_journal_size: '10240'
 
 profile::storage::cephosd::create_osds: true
 
+profile::storage::cephpool::manage_ec_pools: false
 profile::storage::cephpool::pools:
   'rbd':
     ensure: absent
