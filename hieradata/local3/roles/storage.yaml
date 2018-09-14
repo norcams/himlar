@@ -9,6 +9,19 @@ named_interfaces::config:
 
 profile::base::common::manage_fake_ssd: true
 
+profile::storage::cephfs::create_cephfs: true
+
+profile::storage::cephpool::manage_ec_pools: true
+profile::storage::ceph_ecpool::ec_pools:
+  'manila_data':
+    manage:              true
+    allow_ec_overwrites: "true"
+
+profile::storage::cephfs::filesystems:
+  'files':
+    data_pool:     "manila_data"
+    metadata_pool: "manila_meta"
+
 profile::storage::fake_ssds:
   'vdb': {}
 
