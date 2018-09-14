@@ -6,6 +6,8 @@ class profile::storage::cephmon_firewall(
   $manage_dashboard_firewall = false,
   $firewall_extras           = {
     'mon_listen'   => {},
+    'mgr_listen'   => {},
+    'dash_listen'  => {},
   },
 ) {
   if $manage_firewall {
@@ -20,7 +22,7 @@ class profile::storage::cephmon_firewall(
     if $manage_dashboard_firewall {
       profile::firewall::rule { '102 ceph-dashboard accept tcp':
         dport  => 8443,
-        extras => $firewall_extras['mgr_listen']
+        extras => $firewall_extras['dash_listen']
       }
     }
   }

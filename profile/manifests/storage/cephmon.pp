@@ -29,6 +29,12 @@ class profile::storage::cephmon (
       refreshonly => 'true',
     }
      ~>
+    exec { 'reload dashboard':
+      command     => 'ceph mgr module disable dashboard && ceph mgr module enable dashboard',
+      path        => '/usr/bin:/usr/sbin:/bin',
+      refreshonly => 'true',
+    }
+     ~>
     exec { 'dashboard-user':
       command     => "ceph dashboard set-login-credentials $dashboard_user $dashboard_password && touch /etc/ceph/.ceph-dashboard-set-up",
       path        => '/usr/bin:/usr/sbin:/bin',
