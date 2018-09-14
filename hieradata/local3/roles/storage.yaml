@@ -18,7 +18,7 @@ profile::storage::ceph_ecpool::ec_pools:
     allow_ec_overwrites: "true"
 
 profile::storage::cephfs::filesystems:
-  'files':
+  'manila_hdd':
     data_pool:     "manila_data"
     metadata_pool: "manila_meta"
 
