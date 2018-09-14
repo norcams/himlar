@@ -9,7 +9,7 @@ define profile::storage::ceph_crushrules (
 ) {
 
   exec { "create_ceph_crushrule-${name}":
-    command     => "ceph osd crush rule ${rule_type} ${name} ${rule_root} $rule_failure_domain $rule_device_type && touch /etc/ceph/.${name}-crushrule-created",
+    command     => "ceph osd crush rule create-${rule_type} ${name} ${rule_root} $rule_failure_domain $rule_device_type && touch /etc/ceph/.${name}-crushrule-created",
     path        => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
     creates     => "/etc/ceph/.${name}-crushrule-created",
   }
