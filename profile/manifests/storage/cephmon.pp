@@ -7,7 +7,7 @@ class profile::storage::cephmon (
   $key_dir              = '/etc/pki/tls/private',
   $cert_name            = $::fqdn,
   $dashboard_user       = 'admin',
-  $dashboard_password   = undef,
+  $dashboard_password,
 ) {
   include ::ceph::profile::mon
   include ::ceph::profile::mgr
@@ -18,13 +18,13 @@ class profile::storage::cephmon (
     }
 
     exec { 'dashboard.crt':
-      command => "ceph config-key set mgr mgr/dashboard/crt -i ${crt_dir}/${cert_name}.cert.pem",
+      command => "ceph config-key set mgr/dashboard/crt -i ${crt_dir}/${cert_name}.cert.pem",
       path    => '/usr/bin:/usr/sbin:/bin',
       creates => '/etc/ceph/.ceph-dashboard-set-up',
     }
      ~>
     exec { 'dashboard.key':
-      command     => "ceph config-key set mgr mgr/dashboard/key -i ${key_dir}/${cert_name}.key.pem",
+      command     => "ceph config-key set mgr/dashboard/key -i ${key_dir}/${cert_name}.key.pem",
       path        => '/usr/bin:/usr/sbin:/bin',
       refreshonly => 'true',
     }
