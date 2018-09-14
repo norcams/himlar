@@ -13,6 +13,6 @@ class profile::storage::cephpool (
   }
   if $manage_cephpool_params {
     create_resources(profile::storage::ceph_crushrules, lookup('profile::storage::ceph_crushrules::rules', Hash, 'first'))
-    create_resources(profile::storage::cephpool_params, lookup('profile::storage::ceph_params::pools', Hash, 'first'))
+    create_resources(profile::storage::cephpool_params, lookup('profile::storage::cephpool_params::pools', Hash, 'first'))
   }
 }
