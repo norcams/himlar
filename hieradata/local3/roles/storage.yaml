@@ -12,10 +12,7 @@ profile::base::common::manage_fake_ssd: true
 profile::storage::cephfs::create_cephfs: true
 
 profile::storage::cephpool::manage_ec_pools: true
-profile::storage::ceph_ecpool::ec_pools:
-  'manila_data':
-    manage:              true
-    allow_ec_overwrites: "true"
+profile::storage::cephpool::manage_ceph_params: true
 
 profile::storage::cephfs::filesystems:
   'manila_hdd':
@@ -34,6 +31,10 @@ profile::storage::cephosd::osds:
   '/dev/vdg': {}
   '/dev/vdh': {}
 
+profile::storage::ceph_ecpool::ec_pools:
+  'manila_data':
+    manage:              true
+    allow_ec_overwrites: "true"
 profile::storage::cephpool::pools:
   'rbd':
     ensure: absent
@@ -49,3 +50,17 @@ profile::storage::cephpool::pools:
     ensure: present
     pg_num: 64
     pgp_num: 64
+  'manila_meta':
+    ensure: present
+    pg_num: 64
+    pgp_num: 64
+profile::storage::ceph_params::pools:
+  'volumes':
+    manage: false
+  'images':
+    replicas_min_size: 2
+  'vms':
+    replicas_min_size: 2
+  'manila_meta':
+    replicas_num:      5
+    replicas_min_size: 3
