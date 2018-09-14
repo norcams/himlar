@@ -65,3 +65,9 @@ profile::storage::cephpool::pools:
 profile::base::yumrepo::repo_hash:
   ceph-%{hiera('ceph_version')}:
     ensure: present
+
+profile::storage::ceph_crushrules::rules:
+  'hdd':
+    rule_device_type: "hdd"
+  'ssd':
+    rule_device_type: "sdd"
