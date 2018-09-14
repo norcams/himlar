@@ -11,8 +11,8 @@ profile::base::common::manage_fake_ssd: true
 
 profile::storage::cephfs::create_cephfs: true
 
-profile::storage::cephpool::manage_ec_pools: true
-profile::storage::cephpool::manage_ceph_params: true
+profile::storage::cephpool::manage_ec_pools:        true
+profile::storage::cephpool::manage_cephpool_params: true
 
 profile::storage::cephfs::filesystems:
   'manila_hdd':
@@ -54,13 +54,15 @@ profile::storage::cephpool::pools:
     ensure: present
     pg_num: 64
     pgp_num: 64
-profile::storage::ceph_params::pools:
+profile::storage::cephpool_params::pools:
   'volumes':
-    manage: false
+    replicas_min_size: 2
   'images':
     replicas_min_size: 2
   'vms':
     replicas_min_size: 2
+    crush_rule:        "ssd"
   'manila_meta':
     replicas_num:      5
     replicas_min_size: 3
+    crush_rule:        "ssd"
