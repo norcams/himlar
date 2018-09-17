@@ -13,3 +13,5 @@ profile::database::mariadb::users:
 profile::database::mariadb::grants:
   'netdata@localhost/*.*':
     privileges: ['USAGE']
+    table:      '*.*'
+    user:       'netdata@localhost'
