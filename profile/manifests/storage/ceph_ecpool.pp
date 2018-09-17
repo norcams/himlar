@@ -11,7 +11,7 @@ define profile::storage::ceph_ecpool (
   $plugin               = "jerasure",
   $k_data               = "3",
   $m_code               = "2",
-  $allow_ec_overwrites  = "false",
+  $allow_ec_overwrites  = false,
 ) {
 
   require ::ceph::profile::client
