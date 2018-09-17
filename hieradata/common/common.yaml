@@ -247,7 +247,7 @@ profile::network::services::dns_records:
     "%{::location}-image-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_mgmt_netpart')}.36"
     "%{::location}-dns-03.%{hiera('domain_mgmt')}":         "%{hiera('netcfg_mgmt_netpart')}.39"
     "%{::location}-db-global-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_mgmt_netpart')}.41"
-    "%{::location}-db-regional-03.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_netpart')}.43"
+    "%{::location}-db-regional-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_netpart')}.43"
     "%{::location}-volume-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_netpart')}.46"
     "%{::location}-access-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_netpart')}.56"
     "%{::location}-dashboard-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_mgmt_netpart')}.51"
