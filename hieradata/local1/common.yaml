@@ -157,7 +157,11 @@ nova::db::mysql::password:                          'nova_pass'
 nova::db::mysql_api::password:                      'nova_api_pass'
 nova::db::mysql_placement::password:                'nova_placement_pass'
 nova::api::neutron_metadata_proxy_shared_secret:    'a_secret'
-nova_rabbit_password:                              'nova_quest'
+nova_rabbit_password:                               'nova_quest'
+
+# designate.yaml
+designate::db::mysql::password:                     'designate_pass'
+designate::rabbit_password:                         'designate_guest'
 
 # imagebuilder
 imagebuilder_password:                              'imagebuilder_pass'
