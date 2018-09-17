@@ -12,6 +12,7 @@ ceph::profile::params::osd_pool_default_pg_num:     '2048'
 ceph::profile::params::osd_pool_default_pgp_num:    '2048'
 ceph::profile::params::osd_pool_default_size:       '3'
 ceph::profile::params::osd_pool_default_min_size:   '1'
+ceph::profile::params::public_addr:                 "%{ipaddress_trp1}" # Needed for mds
 #ceph::profile::params::cluster_network:             '10.0.0.0/24'
 #ceph::profile::params::public_network:              '10.0.0.0/24'
 ######## Keys - Cluster and location spesific data

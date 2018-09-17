@@ -1,0 +1,35 @@
+---
+include:
+  default:
+    - profile::storage::cephmds
+
+profile::storage::cephmds::manage_firewall:  true
+
+profile::base::common::packages:
+  'redhat-lsb-core': {}
+  'bash-completion': {}
+  'bash-completion-extras': {}
+  'jq': {}
+
+# Sensu
+profile::monitoring::sensu::agent::plugins:
+  sensu-plugins-ceph:
+    type:         package
+    pkg_version:  '1.0.1'
+
+# Enable extra yum repo
+profile::base::yumrepo::repo_hash:
+  ceph-%{hiera('ceph_version')}:
+    ensure: present
+
+ceph::profile::params::client_keys:
+  'client.admin':
+    secret: "%{hiera('client_admin::secret')}"
+    mode: '0600'
+    user: 'ceph'
+    group: 'ceph'
+    cap_mds: 'allow *'
+  'client.bootstrap-mds':
+    secret: "%{hiera('client_bootstrap-mds::secret')}"
+    keyring_path: '/var/lib/ceph/bootstrap-mds/ceph.keyring'
+    cap_mon: 'allow profile bootstrap-mds'
