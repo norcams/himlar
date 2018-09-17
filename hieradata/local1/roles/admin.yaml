@@ -8,6 +8,7 @@ profile::network::dns_extra_zone::zone:
   - "%{hiera('domain_trp')}"
   - "%{hiera('domain_public')}"
   - "%{hiera('domain_frontend')}"
+  - "%{hiera('reverse_mgmt')}"
 
 # Bind utils will be installed with foreman::dns
 profile::base::common::packages:
