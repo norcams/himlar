@@ -18,9 +18,9 @@ define profile::storage::ceph_ecpool (
 
   if $manage {
     exec { "create_ceph_ec_profile-${name}":
-      command     => "ceph osd erasure-code-profile set ${name} k=${k_data} m=${m_code} crush-device-class=${crush_device_class} crush-failure-domain=${crush_failure_domain} && touch /etc/ceph/.${name}-profile-created",
+      command     => "ceph osd erasure-code-profile set ${name} k=${k_data} m=${m_code} crush-device-class=${crush_device_class} crush-failure-domain=${crush_failure_domain} && touch /var/lib/ceph/.${name}-profile-created",
       path        => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
-      creates     => "/etc/ceph/.${name}-profile-created",
+      creates     => "/var/lib/ceph/.${name}-profile-created",
     } ~>
     exec { "create_ceph_ecpool-${name}":
       command     => "ceph osd pool create ${name} ${pg_num} ${pg_num} erasure ${name}",

@@ -10,23 +10,23 @@ define profile::storage::cephpool_params (
 
   if $replicas_num {
     exec { "set_osd_pool_replicas_num-${name}":
-      command     => "ceph osd pool set ${name} size ${replicas_num} && touch /etc/ceph/.${name}-replicas_num-created",
+      command     => "ceph osd pool set ${name} size ${replicas_num} && touch /var/lib/ceph/.${name}-replicas_num-created",
       path        => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
-      creates     => "/etc/ceph/.${name}-replicas_num-created",
+      creates     => "/var/lib/ceph/.${name}-replicas_num-created",
     }
   }
   if $replicas_min_size {
     exec { "set_osd_pool_replicas_min_size-${name}":
-      command     => "ceph osd pool set ${name} min_size ${replicas_min_size} && touch /etc/ceph/.${name}-replicas_min_size-created",
+      command     => "ceph osd pool set ${name} min_size ${replicas_min_size} && touch /var/lib/ceph/.${name}-replicas_min_size-created",
       path        => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
-      creates     => "/etc/ceph/.${name}-replicas_min_size-created",
+      creates     => "/var/lib/ceph/.${name}-replicas_min_size-created",
     }
   }
   if $crush_rule {
     exec { "set_osd_crush_rule-${name}":
-      command     => "ceph osd pool set ${name} crush_rule ${crush_rule} && touch /etc/ceph/.${name}-crush_rule-created",
+      command     => "ceph osd pool set ${name} crush_rule ${crush_rule} && touch /var/lib/ceph/.${name}-crush_rule-created",
       path        => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
-      creates     => "/etc/ceph/.${name}-crush_rule-created",
+      creates     => "/var/lib/ceph/.${name}-crush_rule-created",
     }
   }
 }
