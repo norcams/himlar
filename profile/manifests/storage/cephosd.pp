@@ -6,8 +6,6 @@ class profile::storage::cephosd(
 ) {
   include ::ceph::profile::osd
 
-#### FIXME remove after all clusters have been upgraded to mimic
-
   service { 'ceph-osd':
     ensure    => running,
     name      => 'ceph-osd@[0-9]*.service',
@@ -28,8 +26,6 @@ class profile::storage::cephosd(
     require     => File['/var/lib/ceph-configured'],
     refreshonly => true,
   }
-
-#### FIXME stop removal
 
   # Create lvm osds
   if $create_osds {
