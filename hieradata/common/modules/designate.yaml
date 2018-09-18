@@ -85,9 +85,7 @@ designate::db::mysql::host:   "db01.%{hiera('domain_trp')}"
 designate::db::mysql::user:   "designate"
 designate::db::mysql::dbname: "designate"
 designate::db::mysql::allowed_hosts:
-  - "%{ipaddress_service1}"
-  - 'localhost'
-  - '%'
+  - "%{hiera('netcfg_trp_netpart')}.%"
 
 #---------------------------------------------------------------------
 # Bind9 backend (manifests/backend/bind9.pp)
