@@ -81,7 +81,6 @@ designate::db::database_max_retries: "-1"
 # Database MySQL (manifests/db/mysql.pp)
 #   - runs on the DB node
 #---------------------------------------------------------------------
-designate::db::mysql::host:   "db01.%{hiera('domain_trp')}"
 designate::db::mysql::user:   "designate"
 designate::db::mysql::dbname: "designate"
 designate::db::mysql::allowed_hosts:
