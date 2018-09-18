@@ -1,0 +1,40 @@
+---
+profile::database::galera::firewall_rules:
+  '211 galera accept tcp bgo-db-01':
+    'proto':  'tcp'
+    'dport':  ['4567', '4568']
+    'source': '158.39.77.249'
+  '212 galera accept udp bgo-db-01':
+    'proto':  'udp'
+    'dport':  ['4567', '4568']
+    'source': '158.39.77.249'
+  '213 wsrep sst accept tcp for osl-db-01':
+    'proto':  'tcp'
+    'dport':  '4444'
+    'source': '158.39.77.249'
+  '214 galera accept tcp uib-ha-01':
+    'proto':  'tcp'
+    'dport':  ['4567', '4568']
+    'source': '129.177.6.96'
+  '215 galera accept udp uib-ha-01':
+    'proto':  'udp'
+    'dport':  ['4567', '4568']
+    'source': '129.177.6.96'
+  '216 galera accept tcp uib-ha-02':
+    'proto':  'tcp'
+    'dport':  ['4567', '4568']
+    'source': '129.177.6.97'
+  '217 galera accept udp uib-ha-02':
+    'proto':  'udp'
+    'dport':  ['4567', '4568']
+    'source': '129.177.6.97'
+
+db_ssl_key:       '/etc/pki/tls/private/db01.osl.uhdc.no.key.pem'
+db_ssl_cert:      '/etc/pki/tls/certs/db01.osl.uhdc.no.cert.pem'
+db_ssl_ca:        '/etc/pki/tls/certs/cachain.pem'
+
+# Enable ssl for wsrep and sst
+wsrep_provider_options: "base_host=%{::ipaddress_trp1};pc.recovery=1;socket.ssl_key=%{hiera('db_ssl_key')};socket.ssl_cert=%{hiera('db_ssl_cert')};socket.ssl_ca=%{hiera('db_ssl_ca')}"
+wsrep_sst_method:       'mariabackup'
+wsrep_cluster_address:  'gcomm://158.39.77.249,158.37.63.249,129.177.6.96'
+wsrep_node_address:     '158.37.63.249'
