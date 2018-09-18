@@ -73,7 +73,7 @@ designate::api::api_base_uri:       "%{hiera('endpoint__designate__public')}"
 # Database (manifests/db.pp)
 #   - runs on the DNS node
 #---------------------------------------------------------------------
-designate::db::database_connection: "mysql+pymysql://designate:%{hiera('designate::db::mysql::password')}@db01.%{hiera('domain_trp')}/designate"
+designate::db::database_connection: "mysql+pymysql://designate:%{hiera('designate::db::mysql::password')}@%{hiera('service__address__db_global')}/designate"
 designate::db::sync_db: true
 designate::db::database_max_retries: "-1"
 

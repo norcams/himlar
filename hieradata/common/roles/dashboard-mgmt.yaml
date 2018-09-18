@@ -27,7 +27,7 @@ horizon::keystone_options:
 profile::openstack::dashboard::database:
   database:       'horizon-mgmt'
   password_hash:  "%{hiera('horizon_db_password')}"
-  host:           "%{hiera('service__address__mysql')}"
+  host:           "%{hiera('service__address__db_regional')}"
 
 profile::openstack::dashboard::firewall_extras:
   iniface:        "%{::interface_mgmt1}"

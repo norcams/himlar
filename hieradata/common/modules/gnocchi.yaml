@@ -16,7 +16,7 @@ gnocchi::keystone::authtoken::internal_url:   "%{hiera('endpoint__metric__intern
 gnocchi::keystone::authtoken::region_name:    "%{::location}"
 
 # db (node: metric)
-gnocchi::database_connection: "mysql://gnocchi:%{hiera('gnocchi::db::mysql::password')}@%{hiera('service__address__mysql')}/gnocchi"
+gnocchi::database_connection: "mysql://gnocchi:%{hiera('gnocchi::db::mysql::password')}@%{hiera('service__address__db_regional')}/gnocchi"
 gnocchi::db::mysql::dbname:   'gnocchi'
 gnocchi::db::mysql::user:     'gnocchi'
 gnocchi::db::mysql::allowed_hosts:

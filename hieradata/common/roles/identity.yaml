@@ -69,7 +69,7 @@ profile::openstack::identity::cron_slave:
 profile::openstack::identity::token_rotation_sync:          true
 profile::openstack::identity::fernet_key_repo:              "%{hiera('keystone::fernet_key_repository')}"
 profile::openstack::identity::credential_key_repo:          "%{hiera('keystone::credential_key_repository')}"
-profile::openstack::identity::db_host:                      "db01.%{hiera('domain_trp')}"
+profile::openstack::identity::db_host:                      "%{hiera('service__address__db_global')}"
 profile::openstack::identity::dbpw:                         "%{hiera('keystone::db::mysql::password')}"
 profile::openstack::identity::gpg_receiver:                 "%{hiera('gpg_receiver')}"
 profile::openstack::identity::fernet_active_keys:           "%{hiera('keystone::fernet_max_active_keys')}"

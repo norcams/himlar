@@ -14,30 +14,5 @@ profile::database::mariadb::users:
 profile::database::mariadb::grants:
   'netdata@localhost/*.*':
     privileges: ['USAGE']
-#
-# Galera and SSL setup for galera
-#
-# include:
-#   default:
-#     - profile::application::openssl
-#     - profile::database::galera
-#
-# mysql::server::restart:         false
-#
-# profile::application::openssl::manage_ca_cert:  true
-# profile::application::openssl::manage_dhparam:  true
-# profile::application::openssl::certs:
-#   "db.%{hiera('domain_trp')}":
-#     cn:             "%{::hostname}.%{hiera('domain_trp')}"
-#     concat_dhparam: true
-#     altnames:
-#       - "%{::hostname}.%{hiera('domain_trp')}"
-#       - "db.%{hiera('domain_trp')}"
-#
-# db_ssl_key:       "/etc/pki/tls/private/db.%{hiera('domain_trp')}.key.pem"
-# db_ssl_cert:      "/etc/pki/tls/certs/db.%{hiera('domain_trp')}.pem" # concat dhparam
-# db_ssl_ca:        '/etc/pki/tls/certs/cachain.pem'
-#
-# wsrep_provider_options: "base_host=%{::ipaddress_trp1};pc.recovery=1;socket.ssl_key=%{hiera('db_ssl_key')};socket.ssl_cert=%{hiera('db_ssl_cert')};socket.ssl_ca=%{hiera('db_ssl_ca')}"
-# wsrep_sst_method:       'secure_rsync'
-# wsrep_cluster_address:  "gcomm://%{hiera('netcfg_trp_netpart')}.41,%{hiera('netcfg_trp_netpart')}.42,192.168.0.6"
+    table:      '*.*'
+    user:       'netdata@localhost'

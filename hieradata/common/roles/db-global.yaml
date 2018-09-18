@@ -1,0 +1,61 @@
+---
+include:
+  default:
+    - profile::database::galera
+
+mysql::server::restart:         false
+
+profile::base::common::packages:
+# Galera
+  'bzip2':                  {}
+  'rsync':                  {}
+  'socat':                  {}
+  'MariaDB-backup':         {}
+# Sensu plugin
+  'MariaDB-devel':          {}
+  'gcc':                    {}
+  'gcc-c++':                {}
+  'make':                   {}
+
+profile::base::network::manage_dummy: true
+
+profile::database::galera::wsrep_sst_secure_rsync:
+  ca:   "%{hiera('db_ssl_ca')}"
+  key:  "%{hiera('db_ssl_key')}"
+  cert: "%{hiera('db_ssl_cert')}"
+
+# Openstack databases
+profile::openstack::database::sql::keystone_enabled:    true
+profile::openstack::database::sql::designate_enabled:   true
+
+profile::database::mariadb::dbs:
+  report: # used in report api
+    user:     'report'
+    host:     "%{hiera('netcfg_trp_netpart')}.%"
+    password: "%{hiera('report_db_password')}"
+    grant:    ['ALL']
+
+# database for token rotation distribution
+profile::database::mariadb::databases:
+  'token_keys':
+    ensure:   'present'
+
+profile::database::mariadb::grants:
+  "keystone@%{hiera('netcfg_trp_netpart')}.%/token_keys.*":
+    ensure:     'present'
+    options:    ['GRANT']
+    privileges: ['SELECT', 'INSERT', 'DELETE', 'CREATE']
+    user:       "keystone@%{hiera('netcfg_trp_netpart')}.%"
+    table:      'token_keys.*'
+
+# sensu
+profile::monitoring::sensu::agent::plugins:
+  sensu-plugins-percona:
+    type:         package
+    pkg_version:  '1.1.0'
+
+profile::monitoring::sensu::agent::checks:
+  'check-wsrep-ready':
+    command:      "check-wsrep-ready.rb -u sensu -h localhost -p %{hiera('sensu_mysql_password')}"
+    interval:     60
+    subscribers:  ['checks']

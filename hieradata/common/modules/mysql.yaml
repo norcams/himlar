@@ -1,4 +1,6 @@
 ---
+mysql::client::package_name:    'MariaDB-client'
+
 mysql::server::restart: true
 
 mysql__config__max_connections: 512

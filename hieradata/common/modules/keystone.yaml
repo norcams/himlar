@@ -4,7 +4,7 @@ keystone::db::mysql::allowed_hosts:
   - "%{hiera('netcfg_trp_netpart')}.82"
   - "%{hiera('netcfg_trp_netpart')}.83"
 
-keystone::database_connection:            "mysql://keystone:%{hiera('keystone::db::mysql::password')}@db01.%{hiera('domain_trp')}/keystone"
+keystone::database_connection:            "mysql://keystone:%{hiera('keystone::db::mysql::password')}@%{hiera('service__address__db_global')}/keystone"
 keystone::service_name:                   'httpd'
 keystone::admin_password:                 "%{hiera('keystone_admin_password')}"
 keystone::public_bind_host:               "%{ipaddress_trp1}"
