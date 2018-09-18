@@ -1,24 +1,17 @@
 ---
 network::interfaces_hash:
   'eth0':
-    onboot:    'yes'
-    mtu:       '1500'
     ipaddress: "%{hiera('netcfg_mgmt_netpart')}.42"
     netmask:   "%{hiera('netcfg_mgmt_netmask')}"
     gateway:   "%{hiera('netcfg_mgmt_gateway')}"
-    peerdns:   'yes'
+    mtu:       1500
     dns1:      "%{hiera('netcfg_dns_server1')}"
     dns2:      "%{hiera('netcfg_dns_server2')}"
     domain:    "%{hiera('netcfg_dns_search')}"
+    peerdns:   'yes'
     defroute:  'yes'
   'eth1':
     ipaddress: "%{hiera('netcfg_trp_netpart')}.42"
     netmask:   "%{hiera('netcfg_trp_netmask')}"
     defroute:  'no'
-
-profile::openstack::database::sql::keystone_enabled:  false
-profile::openstack::database::sql::glance_enabled:    true
-profile::openstack::database::sql::nova_enabled:      true
-profile::openstack::database::sql::neutron_enabled:   true
-profile::openstack::database::sql::cinder_enabled:    true
-profile::openstack::database::sql::gnocchi_enabled:   true
+    mtu:       1500
