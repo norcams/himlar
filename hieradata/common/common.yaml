@@ -158,7 +158,7 @@ public__ip__proxy:                "%{hiera('netcfg_public_netpart')}.253"
 # Services (internal non openstack services)
 #
 service__address__db_global:      "%{hiera('netcfg_trp_netpart')}.41"
-service__address__db_regional:    "%{hiera('netcfg_trp_netpart')}.43"
+service__address__db_regional:    "%{hiera('netcfg_trp_netpart')}.42"
 service__address__status:         "status.%{hiera('domain_trp')}"
 service__address__etcd_cluster:   "%{hiera('netcfg_trp_netpart')}.71"
 service__address__rabbitmq_01:    "mq01.%{hiera('domain_trp')}"
@@ -247,7 +247,7 @@ profile::network::services::dns_records:
     "%{::location}-image-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_mgmt_netpart')}.36"
     "%{::location}-dns-03.%{hiera('domain_mgmt')}":         "%{hiera('netcfg_mgmt_netpart')}.39"
     "%{::location}-db-global-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_mgmt_netpart')}.41"
-    "%{::location}-db-regional-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_netpart')}.43"
+    "%{::location}-db-regional-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_netpart')}.42"
     "%{::location}-volume-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_netpart')}.46"
     "%{::location}-access-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_netpart')}.56"
     "%{::location}-dashboard-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_mgmt_netpart')}.51"
