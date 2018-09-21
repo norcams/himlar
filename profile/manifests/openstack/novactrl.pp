@@ -27,6 +27,11 @@ class profile::openstack::novactrl(
       extras => $firewall_extras
     }
 
+    profile::firewall::rule { '300 memcached accept tcp':
+      dport  => 11211,
+      extras => $firewall_extras
+    }  
+
   }
 
   include ::nova

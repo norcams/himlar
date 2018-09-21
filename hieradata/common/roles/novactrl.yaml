@@ -40,4 +40,4 @@ profile::base::yumrepo::repo_hash:
 # cache
 memcached::max_memory: '20%'
 novactrl::cache_enabled:      true
-novactrl::memcached_servers:  '%{::location}-novactrl-01:11211','%{::location}-novactrl-02:11211','%{::location}-novactrl-03:11211'
+novactrl::memcached_servers:  '%{::location}-novactrl-01:11211,%{::location}-novactrl-02:11211' #,'%{::location}-novactrl-03:11211'
