@@ -21,36 +21,5 @@ network::interfaces_hash:
     netmask:   '255.255.255.255'
     defroute:  'no'
 
-# Turn on firewall logging for firewall debug
-#profile::firewall::post::log: true
-
-profile::database::galera::firewall_rules:
-  '211 galera accept tcp nat':
-    'proto':  'tcp'
-    'dport':  ['4567', '4568']
-    'source': '192.168.113.1/32'
-  '212 galera accept udp nat':
-    'proto':  'udp'
-    'dport':  ['4567', '4568']
-    'source': '192.168.113.1/32'
-  '213 wsrep sst accept tcp for nat':
-    'proto':  'tcp'
-    'dport':  '4444'
-    'source': '192.168.113.1/32'
-
-db_ssl_key:       '/etc/pki/tls/private/db01.iaas.intern.key.pem'
-db_ssl_cert:      '/etc/pki/tls/certs/db01.iaas.intern.cert.pem'
-db_ssl_ca:        '/etc/pki/tls/certs/cachain.pem'
-
-# Enable ssl for wsrep and sst
-wsrep_provider_options: "base_host=%{::ipaddress_trp1};pc.recovery=1;socket.ssl_key=%{hiera('db_ssl_key')};socket.ssl_cert=%{hiera('db_ssl_cert')};socket.ssl_ca=%{hiera('db_ssl_ca')}"
-wsrep_sst_method:       'mariabackup'
-wsrep_cluster_address:  'gcomm://192.168.12.249,192.168.13.249,192.168.12.252'
-wsrep_node_address:     '192.168.13.249'
-
-# Use this to test rsync without SSL
-#wsrep_provider_options: "base_host=%{::ipaddress_trp1};pc.recovery=1;"
-#wsrep_sst_method:       'rsync'
-
 # Do not create root user for second server in cluster
 mysql::server::create_root_user: false
