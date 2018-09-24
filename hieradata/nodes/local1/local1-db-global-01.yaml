@@ -20,3 +20,6 @@ network::interfaces_hash:
     ipaddress: "%{hiera('netcfg_public_netpart')}.249"
     netmask:   '255.255.255.255'
     defroute:  'no'
+
+# Set to to true to bootstrap a new cluster
+mysql::server::create_root_user: false
