@@ -10,12 +10,15 @@ profile::base::common::packages:
   'bzip2':                  {}
   'rsync':                  {}
   'socat':                  {}
-  'MariaDB-backup':         {}
 # Sensu plugin
   'MariaDB-devel':          {}
   'gcc':                    {}
   'gcc-c++':                {}
   'make':                   {}
+
+# Packages needed to run
+profile::database::mariadb::packages:
+  - MariaDB-backup
 
 profile::base::network::manage_dummy: true
 
