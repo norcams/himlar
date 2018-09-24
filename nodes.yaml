@@ -33,7 +33,8 @@ defaults:
 #
 nodesets:
   default:
-    - role:       "db"
+    - role:       "db-global"
+    - role:       "db-regional"
     - role:       "mq"
     - role:       "api"
     - role:       "identity"
