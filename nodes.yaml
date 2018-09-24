@@ -95,7 +95,8 @@ nodesets:
     - role:       "cephmon"
     - role:       "storage"
   dns:
-    - role:       "db"
+    - role:       "db-global"
+    - role:       "db-regional"
     - role:       "mq"
     - role:       "api"
     - role:       "ns"
