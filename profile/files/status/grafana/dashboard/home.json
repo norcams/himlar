@@ -446,7 +446,7 @@
       "targets": [
         {}
       ],
-      "template": "<div ng-repeat=\"status in response\"><b>[{{ status.timestamp | date :'yyyy-mm-dd HH:mm:ss' :'+0000' }}]</b> {{ status.message }}</div>",
+      "template": "<div ng-repeat=\"status in response | orderBy: '-'\"><b>[{{ status.timestamp | date :'yyyy-MM-dd HH:mm:ss' :'+0000' }}]</b> {{ status.message }}</div>",
       "templateResponse": true,
       "title": "Important",
       "transparent": true,
@@ -477,7 +477,7 @@
       "targets": [
         {}
       ],
-      "template": "<div ng-repeat=\"status in response\"><b> [{{ status.timestamp | date :'yyyy-mm-dd HH:mm:ss' :'+0000' }}]</b> {{ status.message }}</div>",
+      "template": "<div ng-repeat=\"status in response | orderBy: '-'\"><b> [{{ status.timestamp | date :'yyyy-MM-dd HH:mm:ss' :'+0000' }}]</b> {{ status.message }}</div>",
       "templateResponse": true,
       "title": "News",
       "transparent": true,
