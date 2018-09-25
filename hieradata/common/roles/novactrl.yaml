@@ -38,4 +38,9 @@ profile::base::yumrepo::repo_hash:
     ensure:   present
     includepkgs: 'htop bash-completion-extras'
 
-memcached::max_memory: '20%'
+# cache
+memcached::max_memory:      '20%'
+memcached::package_ensure:  'present'
+memcached::service_enable:  true
+memcached::service_restart: true
+memcached::listen_ip:       "%{::ipaddress_trp1}"   

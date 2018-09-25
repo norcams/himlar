@@ -9,7 +9,8 @@ class profile::openstack::novactrl(
   $manage_cells         = false,
   $manage_az            = false,
   $manage_firewall      = false,
-  $firewall_extras      = {}
+  $firewall_extras      = {},
+  $memcached_source     = {}
 ) {
 
   if $manage_firewall {
@@ -27,6 +28,13 @@ class profile::openstack::novactrl(
       dport  => 8773,
       extras => $firewall_extras
     }
+
+    profile::firewall::rule { '300 memcached accept tcp':
+      dport  => 11211,
+      extras => $firewall_extras,
+      source => $memcached_source,
+    }  
+    
 
   }
 
