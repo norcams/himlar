@@ -41,6 +41,18 @@ grafana::cfg:
     allow_sign_up:    false
     allow_org_create: false
 
+grafana::provisioning_dashboards:
+  apiVersion: 1
+  providers:
+    - name: 'default'
+      orgId: 1
+      folder: ''
+      type: file
+      disableDeletion: true
+      options:
+        path: '/var/lib/grafana/dashboards'
+        puppetsource: 'puppet:///modules/profile/status/grafana/dashboard'
+
 # Enable extra yum repo for openstack client
 profile::base::yumrepo::repo_hash:
   grafana:

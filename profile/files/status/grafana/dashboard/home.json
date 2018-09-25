@@ -1,0 +1,744 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "We continuously monitor the status of UH-IaaS. If there are any interruptions in service, a note will be posted here.",
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 2,
+  "iteration": 1536230461532,
+  "links": [
+    {
+      "icon": "doc",
+      "tags": [],
+      "targetBlank": true,
+      "title": "Documentation",
+      "tooltip": "Enduser documentation",
+      "type": "link",
+      "url": "http://docs.uh-iaas.no"
+    },
+    {
+      "icon": "bolt",
+      "tags": [],
+      "title": "Get access",
+      "tooltip": "Provision personal project",
+      "type": "link",
+      "url": "https://access.uh-iaas.no"
+    },
+    {
+      "icon": "cloud",
+      "tags": [],
+      "title": "Login dashboard",
+      "tooltip": "Dashboard",
+      "type": "link",
+      "url": "https://dashboard.uh-iaas.no"
+    },
+    {
+      "icon": "doc",
+      "tags": [],
+      "title": "Known issues",
+      "tooltip": "List of currently known issues",
+      "type": "link",
+      "url": "http://docs.uh-iaas.no/en/latest/known-issues.html"
+    },
+    {
+      "icon": "question",
+      "tags": [],
+      "title": "Support",
+      "tooltip": "Where to get help",
+      "type": "link",
+      "url": "http://docs.uh-iaas.no/en/latest/support.html"
+    }
+  ],
+  "panels": [
+    {
+      "cacheTimeout": null,
+      "colorBackground": true,
+      "colorValue": false,
+      "colors": [
+        "rgba(245, 54, 54, 0.9)",
+        "rgba(237, 129, 40, 0.89)",
+        "rgba(55, 96, 54, 0.97)"
+      ],
+      "datasource": null,
+      "editable": true,
+      "error": false,
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 6,
+        "x": 0,
+        "y": 0
+      },
+      "height": "1px",
+      "hideTimeOverride": true,
+      "id": 4,
+      "interval": null,
+      "isNew": true,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "70%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "hide": false,
+          "refId": "A",
+          "target": "stats.gauges.uh-iaas.bgo.checks.api"
+        }
+      ],
+      "thresholds": "1,1",
+      "timeFrom": "5m",
+      "title": "api.$domain",
+      "type": "singlestat",
+      "valueFontSize": "100%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "DOWN",
+          "value": "0"
+        },
+        {
+          "op": "=",
+          "text": "UP",
+          "value": "1"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": true,
+      "colorValue": false,
+      "colors": [
+        "rgba(245, 54, 54, 0.9)",
+        "rgba(237, 129, 40, 0.89)",
+        "rgba(55, 96, 54, 0.97)"
+      ],
+      "datasource": null,
+      "editable": true,
+      "error": false,
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 6,
+        "x": 6,
+        "y": 0
+      },
+      "height": "25px",
+      "hideTimeOverride": true,
+      "id": 9,
+      "interval": null,
+      "isNew": true,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "70%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "hide": false,
+          "refId": "A",
+          "target": "stats.gauges.uh-iaas.bgo.checks.access"
+        }
+      ],
+      "thresholds": "1,1",
+      "timeFrom": "5m",
+      "title": "access.$domain",
+      "type": "singlestat",
+      "valueFontSize": "100%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "DOWN",
+          "value": "0"
+        },
+        {
+          "op": "=",
+          "text": "UP",
+          "value": "1"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": true,
+      "colorValue": false,
+      "colors": [
+        "rgba(245, 54, 54, 0.9)",
+        "rgba(237, 129, 40, 0.89)",
+        "rgba(55, 96, 54, 0.97)"
+      ],
+      "datasource": null,
+      "editable": true,
+      "error": false,
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 6,
+        "x": 12,
+        "y": 0
+      },
+      "height": "25px",
+      "hideTimeOverride": true,
+      "id": 10,
+      "interval": null,
+      "isNew": true,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "70%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "hide": false,
+          "refId": "A",
+          "target": "stats.gauges.uh-iaas.bgo.checks.dashboard"
+        }
+      ],
+      "thresholds": "1,1",
+      "timeFrom": "5m",
+      "title": "dashboard.$domain",
+      "type": "singlestat",
+      "valueFontSize": "100%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "DOWN",
+          "value": "0"
+        },
+        {
+          "op": "=",
+          "text": "UP",
+          "value": "1"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": true,
+      "colorValue": false,
+      "colors": [
+        "rgba(245, 54, 54, 0.9)",
+        "rgba(237, 129, 40, 0.89)",
+        "rgba(55, 96, 54, 0.97)"
+      ],
+      "datasource": null,
+      "editable": true,
+      "error": false,
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 6,
+        "x": 18,
+        "y": 0
+      },
+      "height": "25px",
+      "hideTimeOverride": true,
+      "id": 11,
+      "interval": null,
+      "isNew": true,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "70%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "hide": false,
+          "refId": "A",
+          "target": "stats.gauges.uh-iaas.bgo.checks.docs"
+        }
+      ],
+      "thresholds": "1,1",
+      "timeFrom": "5m",
+      "title": "docs.$domain",
+      "transparent": false,
+      "type": "singlestat",
+      "valueFontSize": "100%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "DOWN",
+          "value": "0"
+        },
+        {
+          "op": "=",
+          "text": "UP",
+          "value": "1"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "datasource": null,
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 2
+      },
+      "header_js": "{}",
+      "id": 6,
+      "links": [],
+      "method": "GET",
+      "mode": "template",
+      "params_js": "{limit: 10,\n message_type: 'important'}",
+      "responseType": "text",
+      "showTime": false,
+      "showTimeFormat": "YYYY-DD-MM HH:ss",
+      "showTimePrefix": null,
+      "showTimeValue": "request",
+      "skipSameURL": false,
+      "targets": [
+        {}
+      ],
+      "template": "<div ng-repeat=\"status in response\"><b>[{{ status.timestamp | date :'yyyy-mm-dd HH:mm:ss' :'+0000' }}]</b> {{ status.message }}</div>",
+      "templateResponse": true,
+      "title": "Important",
+      "transparent": true,
+      "type": "ryantxu-ajax-panel",
+      "url": "https://report.uh-iaas.no/api/v1/status",
+      "withCredentials": false
+    },
+    {
+      "datasource": null,
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 2
+      },
+      "header_js": "{}",
+      "id": 12,
+      "links": [],
+      "method": "GET",
+      "mode": "template",
+      "params_js": "{limit: 10,\n message_type: 'info'}",
+      "responseType": "text",
+      "showTime": false,
+      "showTimeFormat": "YYYY-mm-DD HH:ss",
+      "showTimePrefix": null,
+      "showTimeValue": "request",
+      "skipSameURL": false,
+      "targets": [
+        {}
+      ],
+      "template": "<div ng-repeat=\"status in response\"><b> [{{ status.timestamp | date :'yyyy-mm-dd HH:mm:ss' :'+0000' }}]</b> {{ status.message }}</div>",
+      "templateResponse": true,
+      "title": "News",
+      "transparent": true,
+      "type": "ryantxu-ajax-panel",
+      "url": "https://report.uh-iaas.no/api/v1/status",
+      "withCredentials": false
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "decimals": 0,
+      "editable": true,
+      "error": false,
+      "fill": 1,
+      "grid": {},
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 9
+      },
+      "height": "400px",
+      "hideTimeOverride": false,
+      "id": 2,
+      "isNew": true,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "hideEmpty": false,
+        "hideZero": false,
+        "max": true,
+        "min": true,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "connected",
+      "percentage": false,
+      "pointradius": 4,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": true,
+      "targets": [
+        {
+          "refId": "A",
+          "target": "aliasSub(stats.gauges.uh-iaas.*.instances, 'stats\\.gauges\\.uh-iaas\\.([^\\.]+?)\\.instances', '\\1')"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Instances",
+      "tooltip": {
+        "msResolution": false,
+        "shared": true,
+        "sort": 0,
+        "value_type": "cumulative"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {
+        "projects": "#6ED0E0",
+        "users": "#BA43A9"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "decimals": 0,
+      "editable": true,
+      "error": false,
+      "fill": 1,
+      "grid": {},
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 9
+      },
+      "height": "400px",
+      "id": 3,
+      "isNew": true,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "connected",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "users",
+          "yaxis": 1
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": true,
+      "targets": [
+        {
+          "refId": "A",
+          "target": "aliasByNode(stats.gauges.uh-iaas.bgo.{projects,users}, 4)",
+          "textEditor": false
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Projects and Users",
+      "tooltip": {
+        "msResolution": false,
+        "shared": true,
+        "sort": 0,
+        "value_type": "cumulative"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    }
+  ],
+  "refresh": "5m",
+  "schemaVersion": 16,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "text": "uh-iaas.no",
+          "value": "uh-iaas.no"
+        },
+        "datasource": null,
+        "hide": 2,
+        "includeAll": false,
+        "label": "",
+        "multi": false,
+        "name": "domain",
+        "options": [
+          {
+            "selected": true,
+            "text": "uh-iaas.no",
+            "value": "uh-iaas.no"
+          }
+        ],
+        "query": "uh-iaas.no",
+        "refresh": 0,
+        "type": "constant"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-7d",
+    "to": "now-1m"
+  },
+  "timepicker": {
+    "nowDelay": "1m",
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "browser",
+  "title": "Status",
+  "uid": "000000001",
+  "version": 160
+}
