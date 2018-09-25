@@ -4,7 +4,8 @@ class profile::application::report(
   $debug              = false,
   $package_url        = false,
   $config_dir         = '/etc/himlar',
-
+  $install_dir        = '/opt/report-app',
+  $db_sync            = false
 ) {
 
   if $package_url {
@@ -25,6 +26,17 @@ class profile::application::report(
     mode    => '0644',
     content => template("${module_name}/application/report/production.cfg.erb"),
     notify  => Class['apache::service']
+  }
+
+  if $db_sync {
+    exec { 'create api tables in db':
+      command => "${install_dir}/bin/python ${install_dir}/db-manage.py create api",
+      require => File["${config_dir}/production.cfg"]
+    }
+    exec { 'create oauth tables in db':
+      command => "${install_dir}/bin/python ${install_dir}/db-manage.py create oauth",
+      require => File["${config_dir}/production.cfg"]
+    }
   }
 
 }
