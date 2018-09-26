@@ -9,6 +9,7 @@ include:
 
 profile::base::selinux::manage_selinux:             true
 profile::openstack::novactrl::manage_firewall:      true
+profile::openstack::novactrl::memcached_source:     true
 profile::openstack::novactrl::enable_api:           true
 profile::openstack::novactrl::enable_conductor:     true
 profile::openstack::novactrl::enable_scheduler:     true
@@ -23,6 +24,8 @@ profile::openstack::openrc::project_name: 'services'
 
 profile::openstack::novactrl::firewall_extras:
   source: "%{::network_trp1}/%{::netmask_trp1}"
+profile::openstack::novactrl::memcached_source:
+  source: "%{hiera('netcfg_trp_netpart')}.66,%{hiera('netcfg_trp_netpart')}.67,%{hiera('netcfg_trp_netpart')}.68"
 
 profile::base::common::packages:
   'bash-completion': {}
