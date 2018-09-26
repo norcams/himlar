@@ -60,7 +60,7 @@ bootstrap_puppet()
     rm -f /etc/puppetlabs/puppet/hiera.yaml
 
     gem install -N puppet_forge -v 2.2.6
-    gem install -N r10k
+    gem install -N r10k -v 2.6.4
   fi
 
   if command -v apt-get >/dev/null 2>&1; then
