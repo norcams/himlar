@@ -8,6 +8,8 @@ include:
     - profile::logging::rsyslog::client
     - profile::openstack::cache
 
+openstack_version: 'pike'
+
 profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}
@@ -21,12 +23,15 @@ profile::base::selinux::manage_selinux:                   true
 profile::openstack::identity::disable_admin_token_auth:   true
 profile::openstack::identity::manage_openidc:             true
 profile::openstack::identity::manage_policy:              true
-profile::openstack::identity::trusted_dashboard:          "https://%{hiera('public__address__dashboard')}/dashboard/auth/websso/"
 profile::openstack::identity::roles_extra:
   - user
   - superuser
   - admin_view
 profile::openstack::identity::keystone_config:
+  'federation/trusted_dashboard':
+    value:  "https://%{hiera('public__address__dashboard')}/dashboard/auth/websso/"
+  'federation/remote_id_attribute':
+    value:  'OIDC-iss'
   'resource/project_name_url_safe':
     value:  'new'
   'resource/domain_name_url_safe':
