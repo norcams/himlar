@@ -36,3 +36,6 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_ext'
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
+
+# Set SELinux enforcing
+profile::base::selinux::manage_selinux: true
