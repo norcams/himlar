@@ -29,6 +29,3 @@ profile::base::network::manage_neutron_blackhole: true
 
 # remove when telemetry/ceilometer is up in all environments and move to common
 profile::openstack::compute::manage_telemetry: false
-
-# Set SELinux enforcing
-profile::base::selinux::manage_selinux: true
