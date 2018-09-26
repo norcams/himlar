@@ -30,22 +30,22 @@ named_interfaces::config:
 
 # Db backup
 profile::base::login::db_servers:
-  bgo-db-01:
+  bgo-db-global-01:
     hour:     '*'
     minute:   '20'
-    command:  '/usr/local/sbin/db-dump.sh bgo-db-01 >/dev/null'
-  bgo-db-02:
+    command:  '/usr/local/sbin/db-dump.sh bgo-db-global-01 >/dev/null'
+  bgo-db-regional-01:
     hour:     '*'
     minute:   '30'
-    command:  '/usr/local/sbin/db-dump.sh bgo-db-02 >/dev/null'
-  test01-db-01:
+    command:  '/usr/local/sbin/db-dump.sh bgo-db-regional-01 >/dev/null'
+  test01-db-global-01:
     hour:     '*'
     minute:   '20'
-    command:  '/usr/local/sbin/db-dump.sh test01-db-01 >/dev/null'
-  test01-db-02:
+    command:  '/usr/local/sbin/db-dump.sh test01-db-global-01 >/dev/null'
+  test01-db-regional-01:
     hour:     '*'
     minute:   '30'
-    command:  '/usr/local/sbin/db-dump.sh test01-db-02 >/dev/null'
+    command:  '/usr/local/sbin/db-dump.sh test01-db-regional-01 >/dev/null'
 
 ssh::server::options:
   # No 2FA possible with gitolite

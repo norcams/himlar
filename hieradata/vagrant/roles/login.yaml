@@ -23,10 +23,14 @@ himlar_bootstrap::tftp_install:
     dhcp_gateway:     "%{hiera('netcfg_mgmt_netpart')}.1"
 
 profile::base::login::db_servers:
-  vagrant-db-01:
+  vagrant-db-global-01:
     hour:     '*'
     minute:   '20'
-    command:  '/usr/local/sbin/db-dump.sh dev-db-01 >/dev/null'
+    command:  '/usr/local/sbin/db-dump.sh vagrant-db-global-01 >/dev/null'
+  vagrant-db-regional-01:
+    hour:     '*'
+    minute:   '30'
+    command:  '/usr/local/sbin/db-dump.sh vagrant-db-regional-01 >/dev/null'
 
 named_interfaces::config:
   mgmt:                                                                                                                                                                                                                                                                         
