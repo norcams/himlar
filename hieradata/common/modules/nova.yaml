@@ -171,10 +171,10 @@ nova::notification_topics:                        'notifications' # not used bef
 nova::policy::policies:
   nova_disable_reboot:
     key:   'os_compute_api:servers:reboot'
-    value: 'role:admin'
+    value: 'role:admin_or_owner'
   nova_compute_resize:
     key:   'os_compute_api:servers:resize'
-    value: 'role:admin'
+    value: 'role:admin_or_owner'
   nova_disable_shelve:
     key:   'os_compute_api:servers:shelve'
     value: 'role:admin'
