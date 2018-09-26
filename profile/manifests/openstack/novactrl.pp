@@ -32,7 +32,7 @@ class profile::openstack::novactrl(
       dport  => 11211,
       extras => $firewall_extras,
       source => $memcached_source,
-    }  
+    }
 
   }
 
