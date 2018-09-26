@@ -77,7 +77,7 @@ profile::openstack::dashboard::policies:
   compute_resize:
     file_path:  '/etc/openstack-dashboard/nova_policy.json'
     key:        'compute:resize'
-    value:      'role:admin'
+    value:      'role:admin_or_owner'
 #  upload_image:
 #    key:        'volume_extension:volume_actions:upload_image'
 #    value:      'role:admin'
