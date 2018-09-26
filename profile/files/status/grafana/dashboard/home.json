@@ -436,7 +436,7 @@
       "links": [],
       "method": "GET",
       "mode": "template",
-      "params_js": "{limit: 10,\n message_type: 'important'}",
+      "params_js": "{limit: 5,\n message_type: 'important'}",
       "responseType": "text",
       "showTime": false,
       "showTimeFormat": "YYYY-DD-MM HH:ss",
@@ -446,7 +446,7 @@
       "targets": [
         {}
       ],
-      "template": "<div ng-repeat=\"status in response | orderBy: '-'\"><b>[{{ status.timestamp | date :'yyyy-MM-dd HH:mm' :'+0000' }}]</b> {{ status.message }}</div>",
+      "template": "<div ng-repeat=\"status in response | orderBy: '-timestamp'\"><b>[{{ status.timestamp | date :'yyyy-MM-dd HH:mm' :'+0000' }}]</b> {{ status.message }}</div>",
       "templateResponse": true,
       "title": "Important",
       "transparent": true,
@@ -467,7 +467,7 @@
       "links": [],
       "method": "GET",
       "mode": "template",
-      "params_js": "{limit: 10,\n message_type: 'info'}",
+      "params_js": "{limit: 5,\n message_type: 'info'}",
       "responseType": "text",
       "showTime": false,
       "showTimeFormat": "YYYY-mm-DD HH:ss",
@@ -477,7 +477,7 @@
       "targets": [
         {}
       ],
-      "template": "<div ng-repeat=\"status in response | orderBy: '-'\"><b> [{{ status.timestamp | date :'yyyy-MM-dd HH:mm' :'+0000' }}]</b> {{ status.message }}</div>",
+      "template": "<div ng-repeat=\"status in response | orderBy: '-timestamp'\"><b> [{{ status.timestamp | date :'yyyy-MM-dd HH:mm' :'+0000' }}]</b> {{ status.message }}</div>",
       "templateResponse": true,
       "title": "News",
       "transparent": true,
