@@ -58,9 +58,9 @@ class profile::base::login (
 
   file { [ $repodir, $secretsdir, ]:
       ensure => 'directory',
-      mode   => '0775',
+      mode   => '2775',
       owner  => 'root',
-      group  => 'root',
+      group  => 'wheel',
     }
 
   if $manage_db_backup  {
@@ -81,7 +81,7 @@ class profile::base::login (
     file { 'db-dump-dir':
       ensure => 'directory',
       path   => '/opt/repo/secrets/dumps',
-      mode   => '0775',
+      mode   => '2775',
       owner  => $dump_owner,
       group  => $dump_group,
     }
