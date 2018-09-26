@@ -30,8 +30,7 @@ class profile::openstack::novactrl(
 
     profile::firewall::rule { '300 memcached accept tcp':
       dport  => 11211,
-      extras => $firewall_extras,
-      source => $memcached_source,
+      source => $memcached_source
     }
 
   }
