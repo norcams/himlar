@@ -39,8 +39,12 @@ class profile::openstack::dashboard(
     }
   }
 
+  $policy_defaults = {
+    notify  => Service['httpd'],
+    require => Class['horizon']
+  }
   $policies = lookup('profile::openstack::dashboard::policies', Hash, 'deep', {})
-  create_resources('openstacklib::policy::base', $policies, { require => Class['horizon']})
+  create_resources('openstacklib::policy::base', $policies, $policy_defaults)
 
   if $manage_firewall {
     profile::firewall::rule { '235 public openstack-dashboard accept tcp':
