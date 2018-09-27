@@ -97,7 +97,7 @@ profile::monitoring::sensu::agent::checks:
     interval:     60
     subscribers:  ['checks']
   'lease-file-check':
-    command:      'check-mtime.rb -f /var/lib/neutron/dhcp/$(ls -1 /var/lib/neutron/dhcp/ | head -n1)/leases'
+    command:      'check-mtime.rb -f /var/lib/neutron/dhcp/$(ls -1 /var/lib/neutron/dhcp/ | head -n1)/leases -c 3600 -w 1200'
     interval:     60
     subscribers:  ['checks']
   'metrics-disk':
