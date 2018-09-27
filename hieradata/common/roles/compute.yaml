@@ -69,10 +69,13 @@ profile::monitoring::sensu::agent::plugins:
   sensu-plugins-http:
     type:         package
     pkg_version:  '2.8.4'
+  sensu-plugins-filesystem-checks:
+    type:         package
+    pkg_version:  '1.0.0'
 
 profile::monitoring::sensu::agent::plugin_gems:
   sensu-plugins-himlar:
-    ensure:   '0.1.0'
+    ensure:   'absent'
     provider: 'sensu_gem'
     source:   'http://download.iaas.uio.no/uh-iaas/gem'
 
@@ -90,7 +93,11 @@ profile::monitoring::sensu::agent::checks:
     interval:     60
     subscribers:  ['checks']
   'nova-ssh-key':
-    command:      "sudo /opt/sensu/embedded/bin/check-file-exists.rb -f /var/lib/nova/.ssh/id_rsa"
+    command:      "sudo /opt/sensu/embedded/bin/check-file-exists.rb -c /var/lib/nova/.ssh/id_rsa"
+    interval:     60
+    subscribers:  ['checks']
+  'lease-file-check':
+    command:      'check-mtime.rb -f /var/lib/neutron/dhcp/$(ls -1 /var/lib/neutron/dhcp/ | head -n1)/leases'
     interval:     60
     subscribers:  ['checks']
   'metrics-disk':
