@@ -26,6 +26,8 @@ profile::openstack::compute::manage_az:            true
 profile::base::network::manage_httpproxy: true
 profile::network::yum_proxy::yum_proxy:   "http://%{hiera('mgmt__address__proxy')}:8888"
 
+profile::openstack::compute::manage_check_dhcp_lease_file: true
+
 # enable rng daemon for better entropy
 profile::application::rngd::enable:       true
 
@@ -96,8 +98,12 @@ profile::monitoring::sensu::agent::checks:
     command:      "sudo /opt/sensu/embedded/bin/check-file-exists.rb -c /var/lib/nova/.ssh/id_rsa"
     interval:     60
     subscribers:  ['checks']
-  'lease-file-check':
-    command:      'check-mtime.rb -f /var/lib/neutron/dhcp/$(ls -1 /var/lib/neutron/dhcp/ | head -n1)/leases -c 3600 -w 1200'
+  'first-lease-file-check':
+    command:      '/usr/local/bin/check-dhcp-lease-file.sh first 3600 1200'
+    interval:     60
+    subscribers:  ['checks']
+  'last-lease-file-check':
+    command:      '/usr/local/bin/check-dhcp-lease-file.sh last 3600 1200'
     interval:     60
     subscribers:  ['checks']
   'metrics-disk':
