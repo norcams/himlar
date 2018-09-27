@@ -124,7 +124,7 @@ if [ $? -eq 0 ]; then
 
     chown -R ${OWNER}:${GROUP} ${BACKUP_DIR}/${DB_SERVER}
     find ${BACKUP_DIR}/${DB_SERVER} -type f ! -perm -g+rw -exec chmod g+rw {} \;
-    find ${BACKUP_DIR}/${DB_SERVER} -type d ! -perm -g+rwx -exec chmod g+rwx {} \;
+    find ${BACKUP_DIR}/${DB_SERVER} -type d ! -perm -g+rwxs -exec chmod g+rwxs {} \;
     $DEBUG cleanup $AGELIMIT                                                # remove expired files
 else
     echo "Could not connect to $DB_SERVER - is this a db node?"
