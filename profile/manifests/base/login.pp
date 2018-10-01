@@ -11,7 +11,7 @@ class profile::base::login (
   $secretsdir               = "${repodir}/secrets",
   $dump_owner               = '',
   $dump_group               = '',
-  $repo_incoming_dir        = '/tmp/repo-incoming',
+  $repo_incoming_dir        = '/var/lib/repo-incoming',
   $repo_server              = 'iaas-repo.uio.no',
   $yumrepo_path             = '/var/www/html/uh-iaas/yumrepo/',
   $gpg_receiver             = 'UH-IaaS Token Distributor',
