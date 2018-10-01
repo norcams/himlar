@@ -119,7 +119,7 @@ sudo::configs:
     content:    'Defaults:sensu !requiretty'
   sensu:
     priority:   25
-    content:    'sensu ALL = (root) NOPASSWD: /opt/sensu/embedded/bin/check-file-exists.rb -f /var/lib/nova/.ssh/id_rsa'
+    content:    'sensu ALL = (root) NOPASSWD: /opt/sensu/embedded/bin/check-file-missing.rb -f /var/lib/nova/.ssh/id_rsa'
 
 
 profile::openstack::compute::hypervisor::fix_snapshot_loc: true # FIXME - Should probably be removed for newton release
