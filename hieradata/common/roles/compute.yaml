@@ -26,6 +26,8 @@ profile::openstack::compute::manage_az:            true
 profile::base::network::manage_httpproxy: true
 profile::network::yum_proxy::yum_proxy:   "http://%{hiera('mgmt__address__proxy')}:8888"
 
+profile::openstack::compute::manage_check_dhcp_lease_file: true
+
 # enable rng daemon for better entropy
 profile::application::rngd::enable:       true
 
@@ -69,10 +71,13 @@ profile::monitoring::sensu::agent::plugins:
   sensu-plugins-http:
     type:         package
     pkg_version:  '2.8.4'
+  sensu-plugins-filesystem-checks:
+    type:         package
+    pkg_version:  '1.0.0'
 
 profile::monitoring::sensu::agent::plugin_gems:
   sensu-plugins-himlar:
-    ensure:   '0.1.0'
+    ensure:   '0.2.0'
     provider: 'sensu_gem'
     source:   'http://download.iaas.uio.no/uh-iaas/gem'
 
@@ -90,7 +95,15 @@ profile::monitoring::sensu::agent::checks:
     interval:     60
     subscribers:  ['checks']
   'nova-ssh-key':
-    command:      "sudo /opt/sensu/embedded/bin/check-file-exists.rb -f /var/lib/nova/.ssh/id_rsa"
+    command:      "sudo /opt/sensu/embedded/bin/check-file-missing.rb -f /var/lib/nova/.ssh/id_rsa"
+    interval:     60
+    subscribers:  ['checks']
+  'first-lease-file-check':
+    command:      '/usr/local/bin/check-dhcp-lease-file.sh first 3600 1200'
+    interval:     60
+    subscribers:  ['checks']
+  'last-lease-file-check':
+    command:      '/usr/local/bin/check-dhcp-lease-file.sh last 3600 1200'
     interval:     60
     subscribers:  ['checks']
   'metrics-disk':
