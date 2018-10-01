@@ -68,15 +68,6 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         8
     'username':         'centos'
-  'fedora_27':
-    'image_name':       'IMAGEBUILDER Fedora 27'
-    'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/27/CloudImages/x86_64/images/'
-    'latest':           'Fedora-Cloud-Base-27-1.6.x86_64.qcow2'
-    'checksum_file':    'Fedora-CloudImages-27-1.6-x86_64-CHECKSUM'
-    'checksum':         'sha256'
-    'min_ram':          768
-    'min_disk':         3
-    'username':         'fedora'
   'fedora_28':
     'image_name':       'IMAGEBUILDER Fedora 28'
     'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/28/Cloud/x86_64/images/'
