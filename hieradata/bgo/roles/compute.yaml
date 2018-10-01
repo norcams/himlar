@@ -18,6 +18,3 @@ profile::base::network::rules:
   'team1':
     iprule: [ "from %{hiera('netcfg_priv_network')} lookup private", ]
 profile::base::network::manage_neutron_blackhole: true
-
-# Set SELinux enforcing
-profile::base::selinux::manage_selinux: true

@@ -17,6 +17,9 @@ include:
     - profile::base::lvm
     - profile::network::yum_proxy
 
+# Set SELinux mode to enforcing
+profile::base::selinux::manage_selinux: true
+
 # Manage default availability zone
 profile::openstack::compute::manage_az:            true
 
