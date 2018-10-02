@@ -9,6 +9,9 @@ profile::dns::rndc_key::create_admin_key:         true
 profile::dns::rndc_key::create_mdns_key:          true
 profile::dns::rndc_key::host_is_bind_server:      true
 
+# Authoritative name servers must have a public interface
+profile::base::network::manage_dummy: true
+
 # This is the authoritative name server
 profile::dns::ns::authoritative: true
 

@@ -1,7 +1,4 @@
 ---
-# Authoritative name servers must have a public interface
-profile::base::network::manage_dummy: true
-
 # Public and internal zones
 profile::dns::ns::internal_zone: "test01.uhdc.no"
 profile::dns::ns::public_zone:   "test.iaas.uib.no"
