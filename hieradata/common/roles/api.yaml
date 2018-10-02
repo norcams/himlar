@@ -219,15 +219,21 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   identity:
     listening_service:  'bk_identity'
-    ports:              5000
-    server_names:       ['%{::location}-identity-01']
-    ipaddresses:        ["%{hiera('netcfg_trp_netpart')}.81"]
+    server_names:       #['%{::location}-identity-01']
+      - "%{::location}-identity-01"
+      - "%{::location}-identity-02"
+      - "%{::location}-identity-03"
+    ipaddresses:        #["%{hiera('netcfg_trp_netpart')}.81"]
+      - "%{hiera('netcfg_trp_netpart')}.81"
+      - "%{hiera('netcfg_trp_netpart')}.82"
+      - "%{hiera('netcfg_trp_netpart')}.83"
+    ports:              '5000'
     options:            'check'
   network:
     listening_service:  'bk_network'
-    ports:              9696
     server_names:       ['%{::location}-network-01']
     ipaddresses:        ["%{hiera('netcfg_trp_netpart')}.71"]
+    ports:              '9696'
     options:            'check'
   metric:
     listening_service:  'bk_metric'
