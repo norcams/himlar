@@ -1,4 +1,10 @@
 ---
+# All extra identity nodes will need the the openrc file in bootstrap
+# If we bootstrap the keystone database from this node this must be removed first!
+include:
+  bootstrap:
+    - profile::openstack::openrc
+
 network::interfaces_hash:
   'eth1':
     onboot:    'yes'
@@ -10,9 +16,3 @@ network::interfaces_hash:
     mtu:       '1500'
     ipaddress: "%{hiera('netcfg_trp_netpart')}.82"
     netmask:   "%{hiera('netcfg_trp_netmask')}"
-
-# All extra identity nodes will need the the openrc file in bootstrap
-# If we bootstrap the keystone database from this node this must be removed first!
-include:
-  bootstrap:
-    - profile::openstack::openrc
