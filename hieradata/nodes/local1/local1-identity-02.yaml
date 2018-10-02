@@ -1,0 +1,23 @@
+---
+network::interfaces_hash:
+  'eth0':
+    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.82"
+    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
+    gateway:   "%{hiera('netcfg_mgmt_gateway')}"
+    mtu:       '1500'
+    dns1:      "%{hiera('netcfg_dns_server1')}"
+    dns2:      "%{hiera('netcfg_dns_server2')}"
+    domain:    "%{hiera('netcfg_dns_search')}"
+    defroute:  'yes'
+    peerdns:   'yes'
+  'eth1':
+    defroute:  'no'
+    onboot:    'yes'
+    ipaddress: "%{hiera('netcfg_trp_netpart')}.82"
+    netmask:   "%{hiera('netcfg_trp_netmask')}"
+
+# All extra identity nodes will need the the openrc file in bootstrap
+# If we bootstrap the keystone database from this node this must be removed first!
+include:
+  bootstrap:
+    - profile::openstack::openrc
