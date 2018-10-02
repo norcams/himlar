@@ -2,6 +2,8 @@
 include:
   kickstart:
     - profile::monitoring::sensu::agent
+  default:
+    - profile::application::openssl::catrust
 
 profile::monitoring::sensu::agent::enable_agent:  true
 

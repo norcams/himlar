@@ -1,4 +1,9 @@
 ---
+---
+include:
+  default:
+    - profile::application::openssl::catrust
+
 dashboard_referer:    '^https://dashboard\.local\.iaas\.intern/dashboard'
 dashboard_ssl_files:  'dashboard.local.iaas.intern'
 
