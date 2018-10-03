@@ -8,3 +8,7 @@ profile::openstack::resource::host_aggregate:
     availability_zone: "%{::location}-default-1"
   group3:
     availability_zone: "%{::location}-default-1"
+  windows1:
+    availability_zone: "%{::location}-default-1"
+    metadata:
+      type: 'windows'

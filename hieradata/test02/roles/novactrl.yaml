@@ -2,5 +2,9 @@
 profile::openstack::resource::host_aggregate:
   central1:
     availability_zone: "%{::location}-default-1"
+  windows1:
+    availability_zone: "%{::location}-default-1"
+    metadata:
+      type: 'windows'
   placeholder1:
     availability_zone: "%{::location}-iaas-team-only-1"

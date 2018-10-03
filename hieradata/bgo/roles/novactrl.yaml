@@ -12,15 +12,10 @@ profile::openstack::resource::host_aggregate:
   central1:
 #    hosts: "%{::location}-compute-07.%{hiera('domain_mgmt')}, %{::location}-compute-08.%{hiera('domain_mgmt')}"
     availability_zone: "%{::location}-default-1"
-  hpc1:
-    hosts: "%{::location}-compute-09.%{hiera('domain_mgmt')}, %{::location}-compute-10.%{hiera('domain_mgmt')}"
-    availability_zone: "%{::location}-hpc-1"
+  windows1:
+    availability_zone: "%{::location}-default-1"
     metadata:
-      filter_tenant_id: >-
-        e3dcca3452924794a6aebdd21b5da249,
-        db3a36ac1c8e4af9b570433d3678226d,
-        bf017d42f06c4eb590276eccb9d571dd,
-        3eae4805dcd6450fb98651f5a9dc9ded
+      type: 'windows'
   placeholder1:
     availability_zone: "%{::location}-iaas-team-only-1"
     metadata:
