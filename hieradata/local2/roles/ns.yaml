@@ -4,9 +4,6 @@ profile::dns::ns::internal_zone: "%{hiera('domain_public')}" # public and intern
 # Forward zones, for which the name server is authoritative
 profile::dns::ns::fw_zones:
   internal:
-    zone: "%{hiera('profile::dns::ns::internal_zone')}"
-    filename: "pz/%{hiera('profile::dns::ns::internal_zone')}"
-  public:
     zone: "%{hiera('profile::dns::ns::public_zone')}"
     filename: "pz/%{hiera('profile::dns::ns::public_zone')}"
     ns_a_records:
