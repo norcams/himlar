@@ -17,6 +17,9 @@ include:
     - profile::base::lvm
     - profile::network::yum_proxy
 
+# FIXME move to common
+openstack_version: 'pike'
+
 # Manage default availability zone
 profile::openstack::compute::manage_az:            true
 
