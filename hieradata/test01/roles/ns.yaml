@@ -40,7 +40,7 @@ profile::dns::ns::ptr_zones:
     origin: "%{hiera('reverse_public')}"
     filename: "pz/%{hiera('reverse_public')}"
   ipv6:
-    cidr: "2001:700:200:916::/64"
+    cidr: "2001:700:200:916::/64" #FIXME missing facts for IPv6 (see backlog)
     origin: "%{hiera('reverse_public6')}"
     filename: "pz/%{hiera('reverse_public6')}"
 
