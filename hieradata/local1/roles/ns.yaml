@@ -1,4 +1,6 @@
 ---
+profile::dns::ns::internal_zone: "%{hiera('domain_public')}" # public and internal are the same subdomain
+
 # Forward zones, for which the name server is authoritative
 profile::dns::ns::fw_zones:
   internal:
