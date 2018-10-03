@@ -11,6 +11,8 @@ domain_public:        'local1.iaas.intern'
 domain_trp:           'trp.local1.iaas.intern'
 domain_mgmt:          'mgmt.local1.iaas.intern'
 reverse_mgmt:         '4.31.172.in-addr.arpa'
+reverse_trp:          '12.31.172.in-addr.arpa'
+reverse_public:       '12.168.192.in-addr.arpa'
 
 # These should only be used to configure network in nodes!
 netcfg_trp_netpart:     '172.31.12'
