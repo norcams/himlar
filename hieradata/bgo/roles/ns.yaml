@@ -1,10 +1,5 @@
 ---
-# Authoritative name servers must have a public interface
-profile::base::network::manage_dummy: true
-
-# Public and internal zones
-profile::dns::ns::internal_zone: "bgo.uhdc.no"
-profile::dns::ns::public_zone:   "bgo.uh-iaas.no"
+# Frontend zone
 profile::dns::ns::frontend_zone: "uh-iaas.no"
 
 # Name servers in zone file

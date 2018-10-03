@@ -1,10 +1,4 @@
 ---
-# Public and internal zones
-profile::dns::ns::internal_zone: "test02.uhdc.no"
-profile::dns::ns::public_zone:   "test.iaas.uio.no"
-
-# Name servers in zone file
-profile::dns::ns::ns_master: "ns.%{hiera('profile::dns::ns::public_zone')}"
 #profile::dns::ns::ns_slaves:
 #  - "ns.test.iaas.uib.no"
 
