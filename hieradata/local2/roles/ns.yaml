@@ -11,11 +11,11 @@ profile::dns::ns::fw_zones:
 
 profile::dns::ns::ptr_zones:
   mgmt:
-    cidr: "%{::network_mgmt1}/%{::netmask_mgmt1}"
+    cidr: "%{::network_mgmt1}/%{::cidr_mgmt1}"
     origin: "%{hiera('reverse_mgmt')}"
     filename: "pz/%{hiera('reverse_mgmt')}"
   transport:
-    cidr: "%{::network_trp1}/%{::netmask_trp1}"
+    cidr: "%{::network_trp1}/%{::cidr_trp1}"
     origin: "%{hiera('reverse_trp')}"
     filename: "pz/%{hiera('reverse_trp')}"
   public:
