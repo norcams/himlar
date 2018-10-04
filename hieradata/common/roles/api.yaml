@@ -255,8 +255,12 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     options:            'check'
   volume:
     listening_service:  'bk_volume'
-    server_names:       ['%{::location}-volume-01']
-    ipaddresses:        ["%{hiera('netcfg_trp_netpart')}.46"]
+    server_names:
+      - "%{::location}-volume-01"
+      - "%{::location}-volume-02"
+    ipaddresses:
+      - "%{hiera('netcfg_trp_netpart')}.46"
+      - "%{hiera('netcfg_trp_netpart')}.47"
     ports:              '8776'
     options:            'check'
   image:
