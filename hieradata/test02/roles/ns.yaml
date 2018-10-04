@@ -21,18 +21,18 @@ profile::dns::ns::fw_zones:
     zone: "%{hiera('profile::dns::ns::public_zone')}"
     filename: "pz/%{hiera('profile::dns::ns::public_zone')}"
     ns_a_records:
-      'ns': "%{hiera('public__address__ns')}"
+      'ns': "%{hiera('public__ip__ns')}"
     ns_aaaa_records:
-      'ns': "%{hiera('public6__address__ns')}"
+      'ns': "%{hiera('public__ipv6__ns')}"
 
 # Reverse zones, for which the name server is authoritative
 profile::dns::ns::ptr_zones:
   mgmt:
-    cidr: "%{::network_mgmt1}/%{::netmask_mgmt1}"
+    cidr: "%{::network_mgmt1}/%{::cidr_mgmt1}"
     origin: "%{hiera('reverse_mgmt')}"
     filename: "pz/%{hiera('reverse_mgmt')}"
   transport:
-    cidr: "%{::network_trp1}/%{::netmask_trp1}"
+    cidr: "%{::network_trp1}/%{::cidr_trp1}"
     origin: "%{hiera('reverse_trp')}"
     filename: "pz/%{hiera('reverse_trp')}"
   public:

@@ -7,9 +7,7 @@ profile::dns::ns::fw_zones:
     zone: "%{hiera('profile::dns::ns::public_zone')}"
     filename: "pz/%{hiera('profile::dns::ns::public_zone')}"
     ns_a_records:
-      'ns': "%{hiera('public__address__ns')}"
-    ns_aaaa_records:
-      'ns': "%{hiera('public6__address__ns')}"
+      'ns': "%{hiera('public__ip__ns')}"
 
 profile::dns::ns::ptr_zones:
   mgmt:

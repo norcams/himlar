@@ -46,13 +46,11 @@ netcfg_trp_rr:
     peer_ipv4: '172.18.0.2'
     peer_ipv6: 'fd00::2'
 
-# DNS servers
-public__address__ns:           '158.39.77.251'
-public6__address__ns:          '2001:700:2:83ff::251'
-public__address__resolver_01:  '158.39.77.252'
-public6__address__resolver_01: '2001:700:2:83ff::252'
-
-public__ip__proxy:              '158.39.77.253'
+public__ip__proxy:             '158.39.77.253'
+public__ip__ns:                '158.39.77.251'
+public__ipv6__ns:              '2001:700:2:83ff::251'
+public__ip__resolver:          '158.39.77.252'
+public__ipv6__resolver:        '2001:700:2:83ff::252'
 
 #
 # DNS (merge of common and this)

@@ -44,13 +44,11 @@ netcfg_trp_rr:
     peer_ipv4: '172.30.0.1'
     peer_ipv6: 'fd00::1'
 
-# DNS servers
-public__address__ns:           '129.177.31.117'
-public6__address__ns:          '2001:700:200:917::3f17'
-public__address__resolver_01:  '129.177.31.118'
-public6__address__resolver_01: '2001:700:200:917::3f18'
-
 public__ip__proxy:              '129.177.31.123'
+public__ip__ns:                 '129.177.31.117'
+public__ipv6__ns:               '2001:700:200:917::3f17'
+public__ip__resolver:           '129.177.31.118'
+public__ipv6__resolver:         '2001:700:200:917::3f18'
 
 #
 # DNS (merge of common and this)

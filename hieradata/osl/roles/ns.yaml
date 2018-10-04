@@ -33,10 +33,10 @@ profile::dns::ns::fw_zones:
     zone: "%{hiera('profile::dns::ns::frontend_zone')}"
     filename: "pz/%{hiera('profile::dns::ns::frontend_zone')}"
     ns_a_records:
-      'ns1': "%{hiera('public__address__ns')}"
+      'ns1': "%{hiera('public__ip__ns')}"
       'ns2': '158.39.77.251'
     ns_aaaa_records:
-      'ns1': "%{hiera('public6__address__ns')}"
+      'ns1': "%{hiera('public__ipv6__ns')}"
       'ns2': '2001:700:2:83ff::251'
     delegations:
       'osl':
