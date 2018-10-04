@@ -3,3 +3,5 @@
 # FIXME: gjør mer generisk med variabler etc. og putt under common
 profile::storage::cephmon::cert_name:                           "cephmon.test.iaas.uio.no"
 
+# FIXME: inntil true overalt via common/roles/cephmon.yaml
+profile::storage::cephmon::manage_dashboard:                    true
