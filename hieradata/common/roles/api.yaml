@@ -261,8 +261,12 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     options:            'check'
   image:
     listening_service:  'bk_image'
-    server_names:       ['%{::location}-image-01']
-    ipaddresses:        ["%{hiera('netcfg_trp_netpart')}.36"]
+    server_names:
+      - '%{::location}-image-01'
+      - '%{::location}-image-02'
+    ipaddresses:
+      - "%{hiera('netcfg_trp_netpart')}.36"
+      - "%{hiera('netcfg_trp_netpart')}.37"
     ports:              '9292'
     options:            'check'
   object:
