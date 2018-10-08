@@ -1,0 +1,24 @@
+---
+profile::dns::ns::internal_zone: "%{hiera('domain_public')}" # public and internal are the same subdomain
+
+# Forward zones, for which the name server is authoritative
+profile::dns::ns::fw_zones:
+  internal:
+    zone: "%{hiera('profile::dns::ns::public_zone')}"
+    filename: "pz/%{hiera('profile::dns::ns::public_zone')}"
+    ns_a_records:
+      'ns': "%{hiera('public__ip__ns')}"
+
+profile::dns::ns::ptr_zones:
+  mgmt:
+    cidr: "%{::network_mgmt1}/%{::cidr_mgmt1}"
+    origin: "%{hiera('reverse_mgmt')}"
+    filename: "pz/%{hiera('reverse_mgmt')}"
+  transport:
+    cidr: "%{::network_trp1}/%{::cidr_trp1}"
+    origin: "%{hiera('reverse_trp')}"
+    filename: "pz/%{hiera('reverse_trp')}"
+  public:
+    cidr: "192.168.13.0/24" # facts for public1 are /32 and cannot be used here
+    origin: "%{hiera('reverse_public')}"
+    filename: "pz/%{hiera('reverse_public')}"

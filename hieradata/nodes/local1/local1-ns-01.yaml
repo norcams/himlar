@@ -3,8 +3,9 @@ network::interfaces_hash:
   'eth0':
     onboot:    'yes'
     mtu:       '1500'
-    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.17"
+    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.16"
     netmask:   "%{hiera('netcfg_mgmt_netmask')}"
+    gateway:   "%{hiera('netcfg_mgmt_gateway')}"
     peerdns:   'yes'
     dns1:      "%{hiera('netcfg_dns_server1')}"
     dns2:      "%{hiera('netcfg_dns_server2')}"
@@ -13,15 +14,12 @@ network::interfaces_hash:
   'eth1':
     onboot:    'yes'
     mtu:       '1500'
-    ipaddress: "%{hiera('netcfg_trp_netpart')}.17"
+    ipaddress: "%{hiera('netcfg_trp_netpart')}.16"
     netmask:   "%{hiera('netcfg_trp_netmask')}"
-    gateway:   "%{hiera('netcfg_trp_netpart')}.26"
-    ipv6init:  'yes'
-    ipv6addr:  "%{hiera('netcfg_trp_netpart6')}::17/%{hiera('netcfg_trp_netmask6')}"
+    gateway:   "%{hiera('netcfg_trp_gateway')}"
+    srcaddr:   "%{hiera('netcfg_public_netpart')}.251"
     defroute:  'yes'
   'dummy0':
-    ipaddress: "%{hiera('netcfg_public_netpart')}.252"
+    ipaddress: "%{hiera('netcfg_public_netpart')}.251"
     netmask:   '255.255.255.255'
-    ipv6init:  'yes'
-    ipv6addr:  "%{hiera('netcfg_public_netpart6')}::252/128"
     defroute:  'no'

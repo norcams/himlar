@@ -11,6 +11,8 @@ domain_public:        'local1.iaas.intern'
 domain_trp:           'trp.local1.iaas.intern'
 domain_mgmt:          'mgmt.local1.iaas.intern'
 reverse_mgmt:         '4.31.172.in-addr.arpa'
+reverse_trp:          '12.31.172.in-addr.arpa'
+reverse_public:       '12.168.192.in-addr.arpa'
 
 # These should only be used to configure network in nodes!
 netcfg_trp_netpart:     '172.31.12'
@@ -26,6 +28,8 @@ netcfg_mgmt_netmask:    '255.255.255.0'
 netcfg_mgmt_gateway:    '172.31.4.10'
 netcfg_public_netmask:  '255.255.255.0'
 netcfg_public_netpart:  '192.168.12'
+netcfg_public_netpart6: 'fd01'
+netcfg_public_netmask6: '64'
 netcfg_dns_server1:     '172.31.4.11'
 #netcfg_dns_server1:     '8.8.8.8'
 netcfg_dns_server2:     '8.8.8.8'
@@ -47,6 +51,11 @@ allow_from_network:
   - '192.168.122.0/24'
   - '192.168.12.0/24'
   - '192.168.112.0/24'
+
+public__ip__ns:             "%{hiera('netcfg_public_netpart')}.251"
+public__ipv6__ns:           "%{hiera('netcfg_public_netpart6')}::251"
+public__ip__resolver:       "%{hiera('netcfg_public_netpart')}.252"
+public__ipv6__resolver:     "%{hiera('netcfg_public_netpart6')}::251"
 
 profile::network::services::dns_options:
   CNAME:

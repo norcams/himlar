@@ -154,6 +154,9 @@ public__name__ns:                 "ns.%{hiera('domain_public')}"
 
 # In vagrant this is the host, otherwise it should be the NAT server used
 public__ip__proxy:                "%{hiera('netcfg_public_netpart')}.253"
+public__ip__ns:                   "%{hiera('netcfg_public_netpart')}.251"
+# FIXME: we will need to define netcfg_public_netpart6 first in all locations
+#public__ipv6__ns:                 "%{hiera('netcfg_public_netpart6')}::251"
 
 #
 # Services (internal non openstack services)
