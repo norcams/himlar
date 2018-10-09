@@ -18,10 +18,10 @@ profile::dns::ns::resolver2_mgmt_addr:      "%{hiera('netcfg_mgmt_netpart')}.18"
 profile::dns::ns::ns_transport_addr:        "%{hiera('service__address__ns')}"
 profile::dns::ns::resolver1_transport_addr: "%{hiera('service__address__resolver_01')}"
 profile::dns::ns::resolver2_transport_addr: "%{hiera('service__address__resolver_02')}"
-profile::dns::ns::ns_public_addr:           "%{hiera('public__address__ns')}"
-profile::dns::ns::ns_public6_addr:          "%{hiera('public6__address__ns')}"
-profile::dns::ns::resolver1_public_addr:    "%{hiera('public__address__resolver_01')}"
-profile::dns::ns::resolver1_public6_addr:   "%{hiera('public6__address__resolver_01')}"
+profile::dns::ns::ns_public_addr:           "%{hiera('public__ip__ns')}"
+profile::dns::ns::ns_public6_addr:          "%{hiera('public__ipv6__ns')}"
+profile::dns::ns::resolver1_public_addr:    "%{hiera('public__ip__resolver')}"
+profile::dns::ns::resolver1_public6_addr:   "%{hiera('public__ipv6__resolver')}"
 
 # DNS server firewall configuration
 profile::dns::ns::manage_firewall: true
