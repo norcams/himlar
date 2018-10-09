@@ -8,8 +8,9 @@
 #   - Opens up the SNMP port (161/UDP) in the firewall
 #   - Ensures that Openmanage and SNMP services are running
 #
-class profile::base::dell
-{
+class profile::base::dell (
+  $snmp_settings = {},
+){
   if fact('dmi.product.name') =~ '^PowerEdge [RTM][1-9][1-4]0.*' {
 
     # find Dell yum repos
