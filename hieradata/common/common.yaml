@@ -98,6 +98,7 @@ allow_from_network:
   - '158.39.17.0/25'     # UiT ita
   - '158.39.93.0/27'     # UiT ita
   - '158.39.87.96/28'    # UiT ita
+  - '129.242.183.0/24'   # UiT
   - '77.88.71.128/26'    # Kvantel (Simula/IFI project) NAT range
   - '77.88.125.0/24'     # Kvantel (Simula/IFI project)
   - '158.39.4.0/24'      # NorNett/UNINETT (Simula/IFI project)
@@ -153,6 +154,9 @@ public__name__ns:                 "ns.%{hiera('domain_public')}"
 
 # In vagrant this is the host, otherwise it should be the NAT server used
 public__ip__proxy:                "%{hiera('netcfg_public_netpart')}.253"
+public__ip__ns:                   "%{hiera('netcfg_public_netpart')}.251"
+# FIXME: we will need to define netcfg_public_netpart6 first in all locations
+#public__ipv6__ns:                 "%{hiera('netcfg_public_netpart6')}::251"
 
 #
 # Services (internal non openstack services)
@@ -249,6 +253,7 @@ profile::network::services::dns_records:
     "%{::location}-db-global-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_mgmt_netpart')}.41"
     "%{::location}-db-regional-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_netpart')}.42"
     "%{::location}-volume-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_netpart')}.46"
+    "%{::location}-volume-02.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_netpart')}.47"
     "%{::location}-access-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_netpart')}.56"
     "%{::location}-dashboard-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_mgmt_netpart')}.51"
     "%{::location}-dashboard-mgmt-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_netpart')}.54"
@@ -345,6 +350,7 @@ profile::network::services::dns_records:
     "41.%{hiera('reverse_mgmt')}":     "%{::location}-db-01.%{hiera('domain_mgmt')}"
     "42.%{hiera('reverse_mgmt')}":     "%{::location}-db-02.%{hiera('domain_mgmt')}"
     "46.%{hiera('reverse_mgmt')}":     "%{::location}-volume-01.%{hiera('domain_mgmt')}"
+    "47.%{hiera('reverse_mgmt')}":     "%{::location}-volume-02.%{hiera('domain_mgmt')}"
     "51.%{hiera('reverse_mgmt')}":     "%{::location}-dashboard-01.%{hiera('domain_mgmt')}"
     "54.%{hiera('reverse_mgmt')}":     "%{::location}-dashboard-mgmt-01.%{hiera('domain_mgmt')}"
     "56.%{hiera('reverse_mgmt')}":     "%{::location}-access-01.%{hiera('domain_mgmt')}"

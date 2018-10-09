@@ -64,8 +64,7 @@ quagga::quagga::zebra_ip_routes:
   - "%{hiera('netcfg_public_netpart')}.0/24 Null0"
   - "%{hiera('netcfg_public_netpart')}.254/32 %{hiera('netcfg_trp_netpart')}.51"
   - "%{hiera('netcfg_public_netpart')}.253/32 %{hiera('netcfg_trp_netpart')}.12"
-  - "%{hiera('netcfg_public_netpart')}.252/32 %{hiera('netcfg_trp_netpart')}.56"
-  - "%{hiera('netcfg_public_netpart')}.251/32 %{hiera('netcfg_trp_netpart')}.61"
+  - "%{hiera('netcfg_public_netpart')}.251/32 %{hiera('netcfg_trp_netpart')}.16"
   - "%{hiera('netcfg_public_netpart')}.250/32 %{hiera('netcfg_trp_netpart')}.86"
   - "%{hiera('netcfg_public_netpart')}.249/32 %{hiera('netcfg_trp_netpart')}.41" #db-01
 
