@@ -9,7 +9,7 @@
 #   - Ensures that Openmanage and SNMP services are running
 #
 class profile::base::dell (
-  $snmp_settings = {},
+  $snmp_firewall_settings = {},
 ){
   if fact('dmi.product.name') =~ '^PowerEdge [RTM][1-9][1-4]0.*' {
 
@@ -58,7 +58,7 @@ class profile::base::dell (
     profile::firewall::rule { '001 allow SNMP':
       port   => 161,
       proto  => 'udp',
-      extras => $snmp_settings,
+      extras => $snmp_firewall_settings,
     }
 
   }

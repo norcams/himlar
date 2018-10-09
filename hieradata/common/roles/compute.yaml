@@ -44,7 +44,7 @@ profile::openstack::compute::migration::chmod_ssh_dir:       true
 profile::firewall::pre::ssh_settings:
   source: "0.0.0.0/0" #FIXME (limit source)
 # SNMP only from mgmt
-profile::firewall::pre::snmp_settings:
+profile::base::dell::snmp_firewall_settings:
   source: "%{::network_mgmt1}/%{::netmask_mgmt1}"
 # compute nodes write firewall rules on the fly, thou shalt not purge
 profile::base::firewall::purge_firewall: false

@@ -80,5 +80,5 @@ consul::config_hash:
     'https': '8550'
 
 # SNMP only from mgmt
-profile::firewall::pre::snmp_settings:
+profile::base::dell::snmp_firewall_settings:
   source: "%{::network_mgmt1}/%{::netmask_mgmt1}"
