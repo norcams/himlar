@@ -88,6 +88,14 @@ class profile::base::login (
 
   }
 
+  file { '/usr/local/sbin/get-oob-ip':
+    ensure => present,
+    mode   => '0755',
+    owner  => root,
+    group  => root,
+    source => "puppet:///modules/${module_name}/base/get-oob-ip"
+  }
+
   if $manage_repo_incoming_dir {
     package { 'incron':
       ensure => installed
