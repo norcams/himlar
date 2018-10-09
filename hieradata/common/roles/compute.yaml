@@ -43,6 +43,9 @@ profile::openstack::compute::migration::chmod_ssh_dir:       true
 # Enable intance migration via ssh
 profile::firewall::pre::ssh_settings:
   source: "0.0.0.0/0" #FIXME (limit source)
+# SNMP only from mgmt
+profile::firewall::pre::snmp_settings:
+  source: "%{::network_mgmt1}/%{::netmask_mgmt1}"
 # compute nodes write firewall rules on the fly, thou shalt not purge
 profile::base::firewall::purge_firewall: false
 
@@ -174,7 +177,7 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
-    includepkgs: 'bird bird6 htop bash-completion-extras lttng-ust userspace-rcu libbabeltrace leveldb liboath py-bcrypt'
+    includepkgs: 'bird bird6 htop bash-completion-extras lttng-ust userspace-rcu libbabeltrace leveldb liboath py-bcrypt libsmbios smbios-utils-bin'
 
 # Compute nodes need only admin and cinder keys
 ceph::profile::params::client_keys:

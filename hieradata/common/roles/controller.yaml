@@ -78,3 +78,7 @@ consul::config_hash:
   'ui_dir': '/opt/consul/ui'
   'ports':
     'https': '8550'
+
+# SNMP only from mgmt
+profile::firewall::pre::snmp_settings:
+  source: "%{::network_mgmt1}/%{::netmask_mgmt1}"
