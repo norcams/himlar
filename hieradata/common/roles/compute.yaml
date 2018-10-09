@@ -99,11 +99,11 @@ profile::monitoring::sensu::agent::checks:
     interval:     60
     subscribers:  ['checks']
   'first-lease-file-check':
-    command:      '/usr/local/bin/check-dhcp-lease-file.sh first 3600 1200'
+    command:      '/usr/local/bin/check-dhcp-lease-file.sh first 14400 7200' # 4 and 2 hours
     interval:     60
     subscribers:  ['checks']
   'last-lease-file-check':
-    command:      '/usr/local/bin/check-dhcp-lease-file.sh last 3600 1200'
+    command:      '/usr/local/bin/check-dhcp-lease-file.sh last 14400 7200' # 4 and 2 hours
     interval:     60
     subscribers:  ['checks']
   'metrics-disk':
