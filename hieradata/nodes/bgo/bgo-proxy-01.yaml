@@ -27,7 +27,7 @@ profile::base::network::routes:
   'eth0':
     'ipaddress': [ '172.17.0.0', ]
     'netmask':   [ '255.255.248.0', ]
-    'gateway':   [ "%{hiera('netcfg_mgmt_gateway')}", ]
+    'gateway':   [ '172.16.0.10', ]
     'table':     [ 'main', ]
   'eth1':
     'ipaddress': [ '::', ]
