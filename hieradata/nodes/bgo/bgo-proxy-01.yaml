@@ -24,6 +24,11 @@ network::interfaces_hash:
     ipv6addr:  '2001:700:2:83ff::12/128'
     defroute:  'no'
 profile::base::network::routes:
+  'eth0':
+    'ipaddress': [ '172.17.0.0', ]
+    'netmask':   [ '255.255.248.0', ]
+    'gateway':   [ "%{hiera('netcfg_mgmt_gateway')}", ]
+    'table':     [ 'main', ]
   'eth1':
     'ipaddress': [ '::', ]
     'netmask':   [ '0', ]
