@@ -20,6 +20,7 @@ class profile::base::common (
   $manage_puppet          = false,
   $manage_cron            = false,
   $manage_fake_ssd        = false,
+  $manage_dell_hardware   = false,
   $include_physical       = false,
   $include_virtual        = false,
   $classes                = [],
@@ -109,7 +110,7 @@ class profile::base::common (
 
   if $include_physical and ($::is_virtual == false) {
     include ::profile::base::physical
-    if fact('manufacturer') == 'Dell Inc.' {
+    if $manage_dell_hardware {
       include ::profile::base::dell
     }
   }

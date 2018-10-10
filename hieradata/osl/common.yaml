@@ -6,6 +6,9 @@ include:
 location_environment:     'prod'
 location_description:     'Production environment in Oslo'
 
+# Disable management of Dell hardware
+profile::base::common::manage_dell_hardware: false
+
 domain_frontend:          'uh-iaas.no'
 domain_public:            'osl.uh-iaas.no'
 domain_trp:               'osl.uhdc.no'

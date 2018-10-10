@@ -7,6 +7,9 @@
 location_environment:     'prod'
 location_description:     'Production external services UiT'
 
+# Disable management of Dell hardware
+profile::base::common::manage_dell_hardware: false
+
 domain_trp:               'iaas.uib.no' 
 domain_mgmt:              'iaas.uib.no'
 
