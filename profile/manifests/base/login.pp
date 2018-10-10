@@ -5,7 +5,7 @@ class profile::base::login (
   $manage_db_backup         = false,
   $manage_repo_incoming_dir = false,
   $forward_oobnet           = false,
-  $oob_net                  = '10.0.0.0/24'
+  $oob_net                  = '10.0.0.0/24',
   $ensure                   = 'present',
   $agelimit                 = '14',
   $db_servers               = {},
