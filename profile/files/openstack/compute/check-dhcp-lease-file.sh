@@ -1,6 +1,6 @@
 #!/bin/bash
 
-host_limit=5
+host_limit=10
 dhcp_dir='/var/lib/neutron/dhcp/'
 
 if (($(ls -1 ${dhcp_dir} | wc -l) < 1)); then
