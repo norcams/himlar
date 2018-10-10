@@ -6,6 +6,7 @@ class profile::base::login (
   $manage_repo_incoming_dir = false,
   $forward_oobnet           = false,
   $oob_net                  = '10.0.0.0/24',
+  $oob_outiface             = undef,
   $ensure                   = 'present',
   $agelimit                 = '14',
   $db_servers               = {},
@@ -159,6 +160,7 @@ class profile::base::login (
         action      => undef,
         jump        => 'MASQUERADE',
         table       => 'nat',
+        outiface    => $oob_outiface,
         state       => undef
       }
     }
