@@ -288,8 +288,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     options:            'check'
   object:
     listening_service:  'bk_object'
-    server_names:       "%{alias('image__backend__names')}"
-    ipaddresses:        "%{alias('image__backend__ips')}"
+    server_names:       "%{alias('object__backend__names')}"
+    ipaddresses:        "%{alias('object__backend__ips')}"
     ports:              '8080'
     options:            'check'
   status:
