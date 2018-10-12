@@ -54,7 +54,7 @@ profile::monitoring::sensu::agent::checks:
     interval:     60
     subscribers:  ['checks']
   "check-openmanage-%{::location}-storage-02":
-    command:      "/usr/lib64/nagios/plugins/check_openmanage -B -s -e --linebreak REG -H %{::location}-storage-02.%{hiera('domain_mgmt')} -b ctrl_fw=0"
+    command:      "/usr/lib64/nagios/plugins/check_openmanage -B -s -e --linebreak REG -H %{::location}-storage-02.%{hiera('domain_mgmt')} -b bat=0:0/ctrl_fw=0"
     interval:     60
     subscribers:  ['checks']
   "check-openmanage-%{::location}-storage-03":
