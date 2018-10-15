@@ -40,8 +40,10 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   network:
     server_names:
       - '%{::location}-network-02'
+      - '%{::location}-network-03'
     ipaddresses:
       - "%{hiera('netcfg_trp_netpart')}.72"
+      - "%{hiera('netcfg_trp_netpart')}.73"
   compute:
     server_names:
       - '%{::location}-novactrl-02'
