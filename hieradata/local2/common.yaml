@@ -95,7 +95,7 @@ profile::network::services::dns_records:
     "placement.api.%{hiera('domain_public')}":            "%{hiera('netcfg_public_netpart')}.250"
     "volume.api.%{hiera('domain_public')}":               "%{hiera('netcfg_public_netpart')}.250"
     "dns.api.%{hiera('domain_public')}":                  "%{hiera('netcfg_public_netpart')}.250"
-    "ns.api.%{hiera('domain_public')}":                   "%{hiera('netcfg_public_netpart')}.250"
+    "ns.api.%{hiera('domain_public')}":                   "%{hiera('netcfg_public_netpart')}.251"
     # mgmt
     "%{::location}-login-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.10"
 
