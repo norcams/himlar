@@ -1,7 +1,9 @@
 # This class is included from common.pp if is_virtual is false
 #
-class profile::base::physical
-{
+class profile::base::physical (
+  $enable_redfish_sensu_check = false,
+  $enable_redfish_http_proxy  = undef,
+) {
   include ::lldp
   include ::ipmi
 
