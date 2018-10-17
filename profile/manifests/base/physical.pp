@@ -24,8 +24,8 @@ class profile::base::physical (
   }
 
   if $enable_redfish_sensu_check {
-    $bmc_network  = regsubst("$::ipaddress_trp1", '^(\d+)\.(\d+)\.(\d+)\.(\d+)$','\2',) - 1
-    $bmc_address  = regsubst("$::ipaddress_trp1", '^(\d+)\.(\d+)\.(\d+)\.(\d+)$',"\\1.${bmc_network}.\\3.\\4",)
+    $bmc_network  = regsubst($::ipaddress_trp1, '^(\d+)\.(\d+)\.(\d+)\.(\d+)$','\2',) - 1
+    $bmc_address  = regsubst($::ipaddress_trp1, '^(\d+)\.(\d+)\.(\d+)\.(\d+)$',"\\1.${bmc_network}.\\3.\\4",)
     $bmc_username = lookup("bmc_username", String, 'first', '')
     $bmc_password = lookup("bmc_password_${::location}", String, 'first', '')
     if $enable_redfish_http_proxy {
