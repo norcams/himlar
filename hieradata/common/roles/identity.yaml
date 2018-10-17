@@ -41,7 +41,7 @@ profile::openstack::identity::keystone_config:
   'DEFAULT/notification_opt_out':
     value:  'identity.authenticate.success'
   'security_compliance/lockout_duration':
-    value:  '3600'
+    value:  '900'
   'security_compliance/lockout_failure_attempts':
     value:  '10'
 
