@@ -195,27 +195,27 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   'public-http-uh-status':
     listening_service:  'public-http-uh-status'
     ports:              80
-    server_names:       ['status-osl.uh-iaas.no', 'status-bgo.uh-iaas.no']
+    server_names:       ['status-osl', 'status-bgo']
     ipaddresses:        ['158.37.63.250', '158.39.77.250']
     options:            'check'
   'public-https-uh-status':
     listening_service:  'public-https-uh-status'
     ports:              443
-    server_names:       ['status-osl.uh-iaas.no', 'status-bgo.uh-iaas.no']
+    server_names:       ['status-osl', 'status-bgo']
     ipaddresses:        ['158.37.63.250', '158.39.77.250']
-    options:            'check'
+    options:            'verify none inter 1000 check check-ssl'
   'public-http-uh-report':
     listening_service:  'public-http-uh-report'
     ports:              80
-    server_names:       ['report-osl.uh-iaas.no', 'report-bgo.uh-iaas.no']
+    server_names:       ['report-osl', 'report-bgo']
     ipaddresses:        ['158.37.63.250', '158.39.77.250']
     options:            'check'
   'public-https-uh-report':
     listening_service:  'public-https-uh-report'
     ports:              443
-    server_names:       ['report-osl.uh-iaas.no', 'report-bgo.uh-iaas.no']
+    server_names:       ['report-osl', 'report-bgo']
     ipaddresses:        ['158.37.63.250', '158.39.77.250']
-    options:            'check'
+    options:            'verify none inter 1000 check check-ssl'
   'public-ldap-prod':
     listening_service:  'public-ldap-prod'
     ports:              '389'
@@ -286,7 +286,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     mode:             'tcp'
     options:
       - balance:      'roundrobin'
-      - option:       ['ssl-hello-chk']
+      - option:
+        - 'httpchk HEAD / HTTP/1.1\r\nHost:\ status.uh-iaas.no'
   public-http-uh-report:
     mode:             'tcp'
     options:
@@ -296,8 +297,9 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     mode:             'tcp'
     options:
       - balance:      'roundrobin'
-      - option:       ['ssl-hello-chk']
       - tcp-request:  'content reject if !{ src -f /etc/haproxy/uhiaas-report.list }'
+      - option:
+        - 'httpchk HEAD / HTTP/1.1\r\nHost:\ report.uh-iaas.no'
   public-ldap-prod:
     mode:             'tcp'
     options:
