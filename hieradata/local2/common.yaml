@@ -47,7 +47,8 @@ netcfg_trp_rr:
 
 profile::openstack::volume::api::enable_testbackend:     'true'
 
-# We need to allow both trafic from mgmt (nat via login) and public net
+# We need to     'ns.local2.iaas.intern':                              '192.168.13.250'
+allow both trafic from mgmt (nat via login) and public net
 
 allow_from_network:
   - "%{hiera('netcfg_trp_netpart')}.0/24"
@@ -98,6 +99,13 @@ profile::network::services::dns_records:
     "ns.%{hiera('domain_public')}":                       "%{hiera('netcfg_public_netpart')}.251"
     # mgmt
     "%{::location}-login-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.10"
+    # local1
+    'identity.api.local1.iaas.intern':                    '192.168.13.251'
+    'image.api.local1.iaas.intern':                       '192.168.13.251'
+    'network.api.local1.iaas.intern':                     '192.168.13.251'
+    'compute.api.local1.iaas.intern':                     '192.168.13.251'
+    'volume.api.local1.iaas.intern':                      '192.168.13.251'
+    'ns.local1.iaas.intern':                              '192.168.13.251'
 
 #
 ## Secret data which for other environments are stored ooutside of this data tree
