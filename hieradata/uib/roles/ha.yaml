@@ -34,6 +34,14 @@ profile::highavailability::loadbalancing::haproxy::access_list:
       - 129.177.33.0/24 # vpn-ansatt
       - 129.177.48.0/24 # vpn-student
       - 129.177.49.0/24 # vpn-student
+  uhiaas-report:
+    ips:
+      - '158.37.63.0/24'     # OSL public #1
+      - '158.39.74.0/24'     # BGO public #2
+      - '158.39.75.0/24'     # OSL public #2
+      - '158.39.77.0/24'     # BGO public #1
+      - '129.177.6.0/24'     # UiB server net
+      - '129.177.10.0/24'    # UiB ita client net
 
 corosync::unicast_addresses:
   - "%{hiera('netcfg_public_netpart')}.96"
@@ -143,7 +151,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - 'lyncdiscover.holbergprisen.no':          'public-https-sfb'
       - 'lyncdiscover.bergento.no':               'public-https-sfb'
       - 'sfb-webext01.uib.no':                    'public-https-sfb'
-      - 'mitt.uib.no':                            'public-https-mittuib'
+      - 'report.uh-iaas.no':                      'public-https-report'
+      - 'status.uh-iaas.no':                      'public-https-uhiaas'
   public_http_domains:
     ensure: present
     mappings:
@@ -154,6 +163,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - 'lyncdiscover.holbergprisen.no':          'public-http-sfb'
       - 'lyncdiscover.bergento.no':               'public-http-sfb'
       - 'sfb-webext01.uib.no':                    'public-http-sfb'
+      - 'report.uh-iaas.no':                      'public-https-report'
+      - 'status.uh-iaas.no':                      'public-https-uhiaas'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   'uib-https-sfb':
@@ -187,11 +198,29 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     options:
       - 'check'
       - 'port 80'
-  'public-https-mittuib':
-    listening_service:  'public-https-mittuib'
+  'public-http-uhiaas':
+    listening_service:  'public-http-uhiaas'
+    ports:              80
+    server_names:       ['status-osl.uh-iaas.no', 'status-bgo.uh-iaas.no']
+    ipaddresses:        ['158.37.63.250', '158.39.77.250']
+    options:            'check'
+  'public-https-uhiaas':
+    listening_service:  'public-https-uhiaas'
     ports:              443
-    server_names:       ['mitt.uib.no']
-    ipaddresses:        [129.177.6.11]
+    server_names:       ['status-osl.uh-iaas.no', 'status-bgo.uh-iaas.no']
+    ipaddresses:        ['158.37.63.250', '158.39.77.250']
+    options:            'check'
+  'public-http-report':
+    listening_service:  'public-http-report'
+    ports:              80
+    server_names:       ['status-osl.uh-iaas.no', 'status-bgo.uh-iaas.no']
+    ipaddresses:        ['158.37.63.250', '158.39.77.250']
+    options:            'check'
+  'public-https-report':
+    listening_service:  'public-https-report'
+    ports:              443
+    server_names:       ['status-osl.uh-iaas.no', 'status-bgo.uh-iaas.no']
+    ipaddresses:        ['158.37.63.250', '158.39.77.250']
     options:            'check'
   'public-ldap-prod':
     listening_service:  'public-ldap-prod'
@@ -273,11 +302,26 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
       - balance:      'roundrobin'
       - option:
         - 'httpchk /healthcheck.html'
-  public-https-mittuib:
+  public-http-uhiaas:
+    mode:             'tcp'
+    options:
+      - balance:      'roundrobin'
+  public-https-uhiaas:
     mode:             'tcp'
     options:
       - balance:      'roundrobin'
       - option:       ['ssl-hello-chk']
+  public-http-report:
+    mode:             'tcp'
+    options:
+      - balance:      'roundrobin'
+      - tcp-request:  'content reject if !{ src -f /etc/haproxy/uhiaas-report.list }'
+  public-https-report:
+    mode:             'tcp'
+    options:
+      - balance:      'roundrobin'
+      - option:       ['ssl-hello-chk']
+      - tcp-request:  'content reject if !{ src -f /etc/haproxy/uhiaas-report.list }'
   public-ldap-prod:
     mode:             'tcp'
     options:
