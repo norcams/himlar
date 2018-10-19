@@ -10,12 +10,12 @@
 #
 class profile::base::dell (
   $snmp_firewall_settings = {},
-  $manage_dell_repos      = false,
-  $manage_dell_openmanage = false,
+  $manage_repos      = false,
+  $manage_openmanage = false,
 ){
   if fact('dmi.product.name') =~ '^PowerEdge [RTM][1-9][1-4]0.*' {
 
-    if $manage_dell_repos {
+    if $manage_repos {
 
       # find Dell yum repos
       $repo_hash = lookup('profile::base::dell::repo_hash', Hash, 'deep', {})
@@ -24,7 +24,7 @@ class profile::base::dell (
       create_resources('yumrepo', $repo_hash)
     }
 
-    if $manage_dell_openmanage {
+    if $manage_openmanage {
 
       # get Dell packages
       $packages = lookup('profile::base::dell::packages', Hash, 'deep', {})

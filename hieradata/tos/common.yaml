@@ -4,8 +4,8 @@
 #    - profile::monitoring::sensu::agent
 
 # Disable management of Dell repos and software
-profile::base::common::manage_dell_repos:      false
-profile::base::common::manage_dell_openmanage: false
+profile::base::dell::manage_repos:      false
+profile::base::dell::manage_openmanage: false
 
 location_environment:     'prod'
 location_description:     'Production environment in Tromso'
