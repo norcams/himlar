@@ -3,8 +3,9 @@
 #  default:
 #    - profile::monitoring::sensu::agent
 
-# Disable management of Dell hardware
-profile::base::common::manage_dell_hardware: false
+# Disable management of Dell repos and software
+profile::base::common::manage_dell_repos:      false
+profile::base::common::manage_dell_openmanage: false
 
 location_environment:     'prod'
 location_description:     'Production environment in Tromso'
