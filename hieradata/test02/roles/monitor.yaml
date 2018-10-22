@@ -26,15 +26,15 @@ profile::monitoring::grafana::datasource:
 
 profile::monitoring::sensu::agent::checks:
   "check-openmanage-%{::location}-controller-01":
-    command:      "/usr/lib64/nagios/plugins/check_openmanage -B -s -e --linebreak REG -H %{::location}-controller-01.%{hiera('domain_mgmt')} -b bat=0:0/ctrl_fw=0"
+    command:      "/usr/lib64/nagios/plugins/check_openmanage -B -s -e --linebreak REG -H %{::location}-controller-01.%{hiera('domain_mgmt')} -b bat=0:0"
     interval:     60
     subscribers:  ['checks']
   "check-openmanage-%{::location}-controller-02":
-    command:      "/usr/lib64/nagios/plugins/check_openmanage -B -s -e --linebreak REG -H %{::location}-controller-02.%{hiera('domain_mgmt')} -b ctrl_fw=0"
+    command:      "/usr/lib64/nagios/plugins/check_openmanage -B -s -e --linebreak REG -H %{::location}-controller-02.%{hiera('domain_mgmt')}"
     interval:     60
     subscribers:  ['checks']
   "check-openmanage-%{::location}-controller-03":
-    command:      "/usr/lib64/nagios/plugins/check_openmanage -B -s -e --linebreak REG -H %{::location}-controller-03.%{hiera('domain_mgmt')} -b bat=0:0/ctrl_fw=0"
+    command:      "/usr/lib64/nagios/plugins/check_openmanage -B -s -e --linebreak REG -H %{::location}-controller-03.%{hiera('domain_mgmt')} -b bat=0:0"
     interval:     60
     subscribers:  ['checks']
   "check-openmanage-%{::location}-compute-01":
