@@ -70,6 +70,7 @@ profile::network::services::dns_records:
   CNAME:
     "www.%{hiera('domain_frontend')}":           'norcams.github.io'
     "docs.%{hiera('domain_frontend')}":          'uh-iaas.readthedocs.io'
+    "status.%{hiera('domain_frontend')}":        'pubproxy.uib.no'
   A:
     # Frontend records (<foo>.uh-iaas.no)
     "access.%{hiera('domain_frontend')}":        '158.39.77.250'
@@ -78,7 +79,7 @@ profile::network::services::dns_records:
     "report.%{hiera('domain_frontend')}":        '158.39.77.250'
     "report-osl.%{hiera('domain_frontend')}":    '158.37.63.250'
     "report-bgo.%{hiera('domain_frontend')}":    '158.39.77.250'
-    "status.%{hiera('domain_frontend')}":        '158.39.77.250'
+    # "status.%{hiera('domain_frontend')}":        '158.39.77.250'
     "status-osl.%{hiera('domain_frontend')}":    '158.37.63.250'
     "status-bgo.%{hiera('domain_frontend')}":    '158.39.77.250'
     "dashboard.%{hiera('domain_frontend')}":     '158.39.77.254'
