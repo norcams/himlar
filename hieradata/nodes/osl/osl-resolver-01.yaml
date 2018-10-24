@@ -19,8 +19,8 @@ network::interfaces_hash:
     ipv6addr:  "%{hiera('netcfg_trp_netpart6')}::17/%{hiera('netcfg_trp_netmask6')}"
     defroute:  'yes'
   'dummy0':
-    ipaddress: '158.37.63.252'
+    ipaddress: "%{hiera('public__ip__resolver')}"
     netmask:   '255.255.255.255'
     ipv6init:  'yes'
-    ipv6addr:  '2001:700:2:82ff::252/128'
+    ipv6addr:  "%{hiera('public__ipv6__resolver')}/128"
     defroute:  'no'
