@@ -7,8 +7,8 @@ network::interfaces_hash:
     onboot:       'yes'
     dns1:         "%{hiera('service__address__proxy')}"
   'em4':
-    ipaddress:    '172.16.32.10'
-    netmask:      '255.255.248.0'
+    ipaddress:    "%{hiera('netcfg_mgmt_netpart')}.10"
+    netmask:      "%{hiera('netcfg_mgmt_netmask')}"
     defroute:     'no'
     onboot:       'yes'
     peerdns:      'yes'
