@@ -7,8 +7,6 @@ keystone::service_name:                   'httpd'
 keystone::admin_password:                 "%{hiera('keystone_admin_password')}"
 keystone::public_bind_host:               "%{ipaddress_trp1}"
 keystone::admin_bind_host:                "%{ipaddress_trp1}"
-keystone::admin_endpoint:                 "%{hiera('endpoint__identity__admin')}"
-keystone::public_endpoint:                "%{hiera('endpoint__identity__public')}"
 keystone::enable_proxy_headers_parsing:   true
 keystone::purge_config:                   true
 keystone::enable_bootstrap:               true
