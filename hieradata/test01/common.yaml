@@ -6,8 +6,9 @@ include:
 location_environment:   'test01'
 location_description:   'Test environment physically in Bergen'
 
-# Disable management of Dell hardware
-profile::base::common::manage_dell_hardware: false
+# Disable management of Dell repos and software
+profile::base::dell::manage_repos:      false
+profile::base::dell::manage_openmanage: false
 
 domain_frontend:        'test.iaas.uib.no'
 domain_public:          'test.iaas.uib.no'

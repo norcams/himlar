@@ -15,13 +15,14 @@ profile::base::common::manage_network:         true
 profile::base::common::manage_packages:        true
 profile::base::common::manage_yumrepo:         true
 profile::base::common::manage_puppet:          true
-profile::base::common::manage_dell_hardware:   true
 profile::base::common::include_virtual:        true
 profile::base::common::include_physical:       true
 profile::base::firewall::manage_firewall:      true
 profile::base::network::manage_hostname:       true
 profile::base::network::http_proxy:            "%{hiera('mgmt__address__proxy')}:8888"
 profile::base::network::http_proxy_profile:    '/root/proxy.sh'
+profile::base::dell::manage_repos:             true
+profile::base::dell::manage_openmanage:        true
 
 profile::base::common::packages:
   'tcpdump': {}

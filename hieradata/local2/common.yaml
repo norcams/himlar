@@ -7,8 +7,9 @@ profile::monitoring::sensu::agent::enable_agent: false
 location_environment: 'local2'
 location_description: 'Local development environment'
 
-# Disable management of Dell hardware
-profile::base::common::manage_dell_hardware: false
+# Disable management of Dell repos and software
+profile::base::dell::manage_repos:      false
+profile::base::dell::manage_openmanage: false
 
 domain_frontend:      'iaas.intern'
 domain_public:        'local2.iaas.intern'
