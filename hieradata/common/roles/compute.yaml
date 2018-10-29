@@ -20,6 +20,12 @@ include:
 # Set SELinux mode to enforcing
 profile::base::selinux::manage_selinux: true
 
+# Fix SELinux file context for Nova's .ssh
+profile::base::selinux::fcontext:
+  nova-dot-ssh:
+    seltype:  'ssh_home_t'
+    pathspec: '/var/lib/nova/\.ssh(/.*)?'
+
 # Manage default availability zone
 profile::openstack::compute::manage_az:            true
 
