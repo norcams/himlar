@@ -9,64 +9,38 @@ tables.SimpleDisassociateIP.allowed = NO
 
 project_dashboard = horizon.get_dashboard("project")
 identity_dashboard = horizon.get_dashboard("identity")
+settings_dashboard = horizon.get_dashboard("settings")
 
-# Hide object storage for users without object role
-container_panel = project_dashboard.get_panel("containers")
-permissions = list()
-permissions.append('openstack.roles.object')
-container_panel.permissions = tuple(permissions)
+# Remove the following panels from project
 
-# Hide panel Network->Routers
-routers_panel = project_dashboard.get_panel("routers")
-permissions = list(getattr(routers_panel, 'permissions', []))
-permissions.append('openstack.roles.admin')
-routers_panel.permissions = tuple(permissions)
+project_panels = list()
 
-# Hide panel Network->Networks for all but admin
-networks_panel = project_dashboard.get_panel("networks")
-permissions = list(getattr(networks_panel, 'permissions', []))
-permissions.append('openstack.roles.admin')
-networks_panel.permissions = tuple(permissions)
+# Object storage
+project_panels.append(project_dashboard.get_panel("containers"))
+# Network->Routers
+project_panels.append(project_dashboard.get_panel("routers"))
+# Network->Networks
+project_panels.append(project_dashboard.get_panel("networks"))
+# Network->Network Topology
+project_panels.append(project_dashboard.get_panel("network_topology"))
+# Network->Floating IPs
+project_panels.append(project_dashboard.get_panel("floating_ips"))
+# Compute->API
+project_panels.append(project_dashboard.get_panel("api_access"))
+# Volumes-> Backups
+project_panels.append(project_dashboard.get_panel("backups"))
+# Volumes-> Consistency Groups
+project_panels.append(project_dashboard.get_panel("cgroups"))
+# Volumes-> Consistency Group Snapshots
+project_panels.append(project_dashboard.get_panel("cg_snapshots"))
 
-# Hide panel Network->Network Topology for all but admin
-topology_panel = project_dashboard.get_panel("network_topology")
-permissions = list(getattr(topology_panel, 'permissions', []))
-permissions.append('openstack.roles.admin')
-topology_panel.permissions = tuple(permissions)
-
-# Hide panel Network->Floating IPs for all but admin
-floating_ips_panel = project_dashboard.get_panel("floating_ips")
-permissions = list(getattr(floating_ips_panel, 'permissions', []))
-permissions.append('openstack.roles.admin')
-floating_ips_panel.permissions = tuple(permissions)
-
-# Hide panel Compute->API Access for all but admin
-api_access_panel = project_dashboard.get_panel("api_access")
-permissions = list(getattr(api_access_panel, 'permissions', []))
-permissions.append('openstack.roles.admin')
-api_access_panel.permissions = tuple(permissions)
+for panel in project_panels:
+    project_dashboard.unregister(panel.__class__)
 
 # Remove change password
-settings = horizon.get_dashboard("settings")
-password_panel = settings.get_panel("password")
-settings.unregister(password_panel.__class__)
+password_panel = settings_dashboard.get_panel("password")
+settings_dashboard.unregister(password_panel.__class__)
 
-# Hide panel Volumes-> Backups
-routers_panel = project_dashboard.get_panel("backups")
-permissions.append('openstack.roles.admin')
-routers_panel.permissions = tuple(permissions)
-
-# Hide panel Volumes-> Consistency Groups
-routers_panel = project_dashboard.get_panel("cgroups")
-permissions.append('openstack.roles.admin')
-routers_panel.permissions = tuple(permissions)
-
-# Hide panel Volumes-> Consistency Group Snapshots
-routers_panel = project_dashboard.get_panel("cg_snapshots")
-permissions.append('openstack.roles.admin')
-routers_panel.permissions = tuple(permissions)
-
-# Hide panel Identity-> Users
-routers_panel = identity_dashboard.get_panel("users")
-permissions.append('openstack.roles.admin')
-routers_panel.permissions = tuple(permissions)
+# Remove Identity-> Users
+users_panel = identity_dashboard.get_panel("users")
+identity_dashboard.unregister(users_panel.__class__)
