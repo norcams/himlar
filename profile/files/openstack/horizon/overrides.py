@@ -8,6 +8,7 @@ tables.AssociateIP.allowed = NO
 tables.SimpleDisassociateIP.allowed = NO
 
 project_dashboard = horizon.get_dashboard("project")
+identity_dashboard = horizon.get_dashboard("identity")
 
 # Hide object storage for users without object role
 container_panel = project_dashboard.get_panel("containers")
@@ -62,5 +63,10 @@ routers_panel.permissions = tuple(permissions)
 
 # Hide panel Volumes-> Consistency Group Snapshots
 routers_panel = project_dashboard.get_panel("cg_snapshots")
+permissions.append('openstack.roles.admin')
+routers_panel.permissions = tuple(permissions)
+
+# Hide panel Identity-> Users
+routers_panel = identity_dashboard.get_panel("users")
 permissions.append('openstack.roles.admin')
 routers_panel.permissions = tuple(permissions)
