@@ -25,6 +25,10 @@ profile::base::selinux::fcontext:
   nova-dot-ssh:
     seltype:  'ssh_home_t'
     pathspec: '/var/lib/nova/\.ssh(/.*)?'
+profile::base::selinux::exec_restorecon:
+  nova-dot-ssh:
+    path:    '/var/lib/nova/.ssh'
+    recurse: true
 
 # Manage default availability zone
 profile::openstack::compute::manage_az:            true
