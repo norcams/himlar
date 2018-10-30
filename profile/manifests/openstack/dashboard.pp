@@ -63,9 +63,10 @@ class profile::openstack::dashboard(
 
   if $manage_overrides {
     file { '/usr/share/openstack-dashboard/openstack_dashboard/overrides.py':
-      ensure => present,
-      source => "puppet:///modules/${module_name}/openstack/horizon/overrides.py",
-      notify => Service['httpd']
+      ensure  => present,
+      source  => "puppet:///modules/${module_name}/openstack/horizon/overrides.py",
+      notify  => Service['httpd'],
+      require => Class['horizon']
     }
   }
 
