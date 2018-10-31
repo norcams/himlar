@@ -28,3 +28,6 @@ DATABASES = {
 <% if @keystone_admin_roles -%>
 OPENSTACK_KEYSTONE_ADMIN_ROLES = <%= @keystone_admin_roles %>
 <% end -%>
+CREATE_IMAGE_DEFAULTS = {
+    'image_visibility': '<%= @image_visibility -%>',
+}

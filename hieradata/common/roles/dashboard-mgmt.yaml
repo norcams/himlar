@@ -33,3 +33,4 @@ profile::openstack::dashboard::firewall_extras:
   iniface:        "%{::interface_mgmt1}"
 
 profile::openstack::dashboard::keystone_admin_roles:  ["admin"]
+profile::openstack::dashboard::manage_overrides: false
