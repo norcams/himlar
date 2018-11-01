@@ -234,7 +234,7 @@ profile::openstack::resource::subnets:
     cidr: '158.37.63.0/24'
     ip_version: '4'
     allocation_pools:
-      - 'start=158.37.63.246,end=158.37.63.246'
+      - 'start=158.37.63.246,end=158.37.63.247'
     gateway_ip: '158.37.63.1'
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
