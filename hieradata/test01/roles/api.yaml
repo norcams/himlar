@@ -35,22 +35,29 @@ profile::highavailability::loadbalancing::haproxy::allow_from_network:
   - '129.240.6.14/32'   # mikael
   - '129.240.202.64/32' # tannaz
 
-
-profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
-  network:
-    server_names:
-      - '%{::location}-network-02'
-      - '%{::location}-network-03'
-    ipaddresses:
-      - "%{hiera('netcfg_trp_netpart')}.72"
-      - "%{hiera('netcfg_trp_netpart')}.73"
-  compute:
-    server_names:
-      - '%{::location}-novactrl-02'
-    ipaddresses:
-      - "%{hiera('netcfg_trp_netpart')}.67"
-  placement:
-    server_names:
-      - '%{::location}-novactrl-02'
-    ipaddresses:
-      - "%{hiera('netcfg_trp_netpart')}.67"
+network__backend__names:
+  - '%{::location}-network-01'
+  - '%{::location}-network-02'
+  - '%{::location}-network-03'
+network__backend__ips:
+  - "%{hiera('netcfg_trp_netpart')}.71"
+  - "%{hiera('netcfg_trp_netpart')}.72"
+  - "%{hiera('netcfg_trp_netpart')}.73"
+compute__backend__names:
+  - '%{::location}-novactrl-01'
+  - '%{::location}-novactrl-02'
+compute__backend__ips:
+  - "%{hiera('netcfg_trp_netpart')}.66"
+  - "%{hiera('netcfg_trp_netpart')}.67"
+identity__backend__names:
+  - "%{::location}-identity-01"
+  - "%{::location}-identity-02"
+identity__backend__ips:
+  - "%{hiera('netcfg_trp_netpart')}.81"
+  - "%{hiera('netcfg_trp_netpart')}.82"
+volume__backend__names:
+  - "%{::location}-volume-01"
+  - "%{::location}-volume-02"
+volume__backend__ips:
+  - "%{hiera('netcfg_trp_netpart')}.46"
+  - "%{hiera('netcfg_trp_netpart')}.47"
