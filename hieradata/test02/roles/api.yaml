@@ -10,6 +10,7 @@ network__backend__names:
 network__backend__ips:
   - "%{hiera('netcfg_trp_netpart')}.71"
   - "%{hiera('netcfg_trp_netpart')}.72"
+  - "%{hiera('netcfg_trp_netpart')}.73"
 compute__backend__names:
   - '%{::location}-novactrl-01'
   - '%{::location}-novactrl-02'
