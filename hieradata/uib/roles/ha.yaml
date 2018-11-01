@@ -287,7 +287,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     options:
       - balance:      'source'
       - option:
-        - 'httpchk HEAD / HTTP/1.1\r\nHost:\ status.uh-iaas.no'
+        - 'httpchk HEAD /api/health HTTP/1.1\r\nHost:\ status.uh-iaas.no'
   public-http-uh-report:
     mode:             'tcp'
     options:
