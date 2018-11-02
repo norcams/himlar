@@ -127,28 +127,16 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
   public_http_domains:
     ensure: present
     mappings:
-      - 'report.uh-iaas.no':                      'public-https-uh-report'
-      - 'status.uh-iaas.no':                      'public-https-uh-status'
+      - 'report.uh-iaas.no':                      'public-http-uh-report'
+      - 'status.uh-iaas.no':                      'public-http-uh-status'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
-  'public-http-uh-status':
-    listening_service:  'public-http-uh-status'
-    ports:              80
-    server_names:       ['status-osl', 'status-bgo']
-    ipaddresses:        ['158.37.63.250', '158.39.77.250']
-    options:            'check'
   'public-https-uh-status':
     listening_service:  'public-https-uh-status'
     ports:              443
     server_names:       ['status-osl', 'status-bgo']
     ipaddresses:        ['158.37.63.250', '158.39.77.250']
     options:            'verify none inter 1000 check check-ssl'
-  'public-http-uh-report':
-    listening_service:  'public-http-uh-report'
-    ports:              80
-    server_names:       ['report-osl', 'report-bgo']
-    ipaddresses:        ['158.37.63.250', '158.39.77.250']
-    options:            'check'
   'public-https-uh-report':
     listening_service:  'public-https-uh-report'
     ports:              443
