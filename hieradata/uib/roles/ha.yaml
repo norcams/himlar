@@ -206,9 +206,10 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
 
 profile::highavailability::loadbalancing::haproxy::haproxy_backends:
   public-http-uh-status:
-    mode:             'tcp'
+    mode:             'http'
     options:
-      - balance:      'source'
+      - balance:      'roundrobin'
+      - redirect:     'scheme https if !{ ssl_fc }'
       - option:
         - 'httpchk HEAD /api/health HTTP/1.1\r\nHost:\ status.uh-iaas.no'
   public-https-uh-status:
@@ -218,9 +219,10 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
       - option:
         - 'httpchk HEAD /api/health HTTP/1.1\r\nHost:\ status.uh-iaas.no'
   public-http-uh-report:
-    mode:             'tcp'
+    mode:             'http'
     options:
-      - balance:      'source'
+      - balance:      'roundrobin'
+      - redirect:     'scheme https if !{ ssl_fc }'
       - acl:          'instance-api url_beg /api/v1/instance'
       - tcp-request:  'content reject if instance-api !{ src -f /etc/haproxy/uhiaas-report.list }'
       - option:
