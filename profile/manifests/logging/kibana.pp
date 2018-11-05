@@ -37,6 +37,6 @@ class profile::logging::kibana(
       ensure => absent,
       line   => 'server.host: "0.0.0.0"',
       path   => "/etc/kibana/kibana.yml",
-   }
+    }
   }
 }
