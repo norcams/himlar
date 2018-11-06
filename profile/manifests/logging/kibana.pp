@@ -34,7 +34,7 @@ class profile::logging::kibana(
 
   if $manage_variable {
     file_line { 'server_host':
-      ensure => absent,
+      ensure => present,
       line   => 'server.host: "0.0.0.0"',
       path   => "/etc/kibana/kibana.yml",
     }
