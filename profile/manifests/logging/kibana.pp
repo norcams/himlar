@@ -5,7 +5,7 @@ class profile::logging::kibana(
   $firewall_extras = {},
   $package_url = 'https://artifacts.elastic.co/downloads/kibana/kibana-6.4.2-x86_64.rpm',
   $manage_service = true,
-  $manage_variable = true
+  $manage_serverhost = true
 ) {
 
   if $package_url {
@@ -32,7 +32,7 @@ class profile::logging::kibana(
     }
   }
 
-  if $manage_variable {
+  if $manage_serverhost {
     file_line { 'server_host':
       ensure => present,
       line   => 'server.host: "0.0.0.0"',
