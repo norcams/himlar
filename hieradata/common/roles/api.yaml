@@ -119,7 +119,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       - http-request:
         - 'add-header X-Forwarded-Proto https if { ssl_fc }'
         - 'set-header X-Forwarded-Port %[dst_port]'
-        - 'set-header X-Forwarded-Host %[req.hdr(Host)]'
+      #  - 'set-header X-Forwarded-Host %[req.hdr(Host)]'
       - acl:            'is_request hdr_beg(host) -i request'
       - redirect:       'scheme https if !{ ssl_fc } !is_request' # redirect all to https (only port 80)
       - tcp-request:    "%{hiera('block_api_connection')}" # should only block in test01
