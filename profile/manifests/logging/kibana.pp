@@ -3,7 +3,7 @@ class profile::logging::kibana(
   $manage_firewall = true,
   $ports = [5601],
   $firewall_extras = {},
-  $package_url = 'https://artifacts.elastic.co/downloads/kibana/kibana-6.4.2-x86_64.rpm',
+  $package_url = 'https://artifacts.elastic.co/downloads/kibana/kibana-6.3.2-x86_64.rpm',
   $manage_service = true,
   $manage_serverhost = true
 ) {
