@@ -1,0 +1,57 @@
+---
+include:
+  default:
+    - profile::network::nat
+#    - profile::base::login
+
+network::interfaces_hash:
+  'em1':      # local1-mgmt
+    onboot:         'yes'
+    bridge:         'br0'
+  'em1.11':   # local2-mgmt
+    onboot:         'yes'
+    bridge:         'br1'
+    vlan:           'yes'
+  'em1.100':  # local1-trp
+    onboot:         'yes'
+    bridge:         'br2'
+    vlan:           'yes'
+  'em1.101':  # local2-trp
+    onboot:         'yes'
+    bridge:         'br3'
+    vlan:           'yes'
+  'em1.200':  # bridge
+    onboot:         'yes'
+    bridge:         'br4'
+    vlan:           'yes'
+  'em1.1349': # uib
+    vlan:           'yes'
+    'enable_dhcp':  true
+  'br0':
+    ipaddress:    "%{hiera('netcfg_mgmt_netpart')}.100"
+    netmask:      "%{hiera('netcfg_mgmt_netmask')}"
+    gateway:      "%{hiera('netcfg_mgmt_gateway')}"
+    defroute:     'yes' # FIXME
+    onboot:       'yes'
+    type:         'Bridge'
+    peerdns:      'yes'
+    dns1:         "%{hiera('netcfg_dns_server1')}"
+    dns2:         "%{hiera('netcfg_dns_server2')}"
+    domain:       "%{hiera('netcfg_dns_search')}"
+  'br1':
+    onboot:       'yes'
+  'br2':
+    defroute:     'no'
+    onboot:       'yes'
+    ipaddress:    "%{hiera('netcfg_trp_netpart')}.100"
+    netmask:      "%{hiera('netcfg_trp_netmask')}"
+    type:         'Bridge'
+  'br3':
+    onboot:       'yes'
+  'br4':
+    onboot:       'yes'
+    type:         'Bridge'
+    ipaddress:    '192.168.122.1'
+    netmask:      '255.255.255.0'
+    defroute:     'no'
+    bridge_stp:   'off'
