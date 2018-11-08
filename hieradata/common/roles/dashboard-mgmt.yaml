@@ -34,3 +34,10 @@ profile::openstack::dashboard::firewall_extras:
 
 profile::openstack::dashboard::keystone_admin_roles:  ["admin"]
 profile::openstack::dashboard::manage_overrides: false
+
+profile::openstack::dashboard::change_uploaddir:      'False'
+profile::base::common::manage_lvm:                    'False'
+profile::base::lvm::physical_volume: {}
+profile::base::lvm::volume_group: {}
+profile::base::lvm::logical_volume: {}
+
