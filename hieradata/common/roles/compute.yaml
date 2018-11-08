@@ -111,14 +111,14 @@ profile::monitoring::sensu::agent::checks:
     command:      "sudo /opt/sensu/embedded/bin/check-file-missing.rb -f /var/lib/nova/.ssh/id_rsa"
     interval:     60
     subscribers:  ['checks']
-  'first-lease-file-check':
-    command:      '/usr/local/bin/check-dhcp-lease-file.sh first 14400 7200' # 4 and 2 hours
-    interval:     60
-    subscribers:  ['checks']
-  'last-lease-file-check':
-    command:      '/usr/local/bin/check-dhcp-lease-file.sh last 14400 7200' # 4 and 2 hours
-    interval:     60
-    subscribers:  ['checks']
+  # 'first-lease-file-check':
+  #   command:      '/usr/local/bin/check-dhcp-lease-file.sh first 14400 7200' # 4 and 2 hours
+  #   interval:     60
+  #   subscribers:  ['checks']
+  # 'last-lease-file-check':
+  #   command:      '/usr/local/bin/check-dhcp-lease-file.sh last 14400 7200' # 4 and 2 hours
+  #   interval:     60
+  #   subscribers:  ['checks']
   'metrics-disk':
     type:         'metric'
     command:      'metrics-disk-usage.rb --scheme disk.%{::hostname} -f -B G'
