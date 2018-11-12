@@ -5,10 +5,11 @@ if [ ! "$result" ]; then
   exit 1
 fi
 if [ "$result" ]; then
-  echo "$result"
   if [ "$result" == '"OK"' ]; then
+    echo "$result"
     exit 0
   else
+    echo "Status $result - Check out-of-band controller" 
     exit 2
   fi
 fi
