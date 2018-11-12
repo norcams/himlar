@@ -13,7 +13,7 @@ profile::base::physical::enable_redfish_sensu_check: true
 profile::monitoring::sensu::agent::checks:
   'redfish-check':
     command:      '/usr/local/bin/redfish_check.sh'
-    interval:     300
+    interval:     1800
     subscribers:  ['checks']
 
 profile::base::lvm::physical_volume:
