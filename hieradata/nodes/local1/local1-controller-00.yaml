@@ -20,10 +20,6 @@ network::interfaces_hash:
     onboot:         'yes'
     bridge:         'br3'
     vlan:           'yes'
-  'em1.200':  # bridge
-    onboot:         'yes'
-    bridge:         'br4'
-    vlan:           'yes'
   'em1.1349': # uib
     vlan:           'yes'
     'enable_dhcp':  true
@@ -39,7 +35,11 @@ network::interfaces_hash:
     dns2:         "%{hiera('netcfg_dns_server2')}"
     domain:       "%{hiera('netcfg_dns_search')}"
   'br1':
+    ipaddress:    "172.31.5.99"
+    netmask:      "%{hiera('netcfg_mgmt_netmask')}"
+    defroute:     'no' # FIXME
     onboot:       'yes'
+    type:         'Bridge'
   'br2':
     defroute:     'no'
     onboot:       'yes'
@@ -48,20 +48,33 @@ network::interfaces_hash:
     type:         'Bridge'
   'br3':
     onboot:       'yes'
-  'br4':
+  'link1':
     onboot:       'yes'
     type:         'Bridge'
-    ipaddress:    '192.168.122.1'
+    ipaddress:    '192.168.112.1'
+    netmask:      '255.255.255.0'
+    defroute:     'no'
+    bridge_stp:   'off'
+  'link2':
+    onboot:       'yes'
+    type:         'Bridge'
+    ipaddress:    '192.168.113.1'
     netmask:      '255.255.255.0'
     defroute:     'no'
     bridge_stp:   'off'
 
 # route to public net via torack-01
 profile::base::network::routes:
-  'br4':
+  'link1':
     'ipaddress': [ "%{hiera('netcfg_public_netpart')}.0", ]
     'netmask':   [ "%{hiera('netcfg_public_netmask')}", ]
-    'gateway':   [ '192.168.122.2', ]
+    'gateway':   [ '192.168.112.2', ]
+    'table':     [ 'main', ]
+    'family':    [ inet4', ]
+  'link2':
+    'ipaddress': [ '192.168.13.0', ]
+    'netmask':   [ '255.255.255.0', ]
+    'gateway':   [ '192.168.113.2', ]
     'table':     [ 'main', ]
     'family':    [ 'inet4', ]
 
