@@ -23,7 +23,7 @@ profile::base::lvm::physical_volume:
 profile::base::lvm::volume_group:
   'vg_cache':
     physical_volumes:
-      - /dev/sdk
+      - /dev/sdi
 profile::base::lvm::logical_volume:
   'lv_wala':
     volume_group: 'vg_cache'
