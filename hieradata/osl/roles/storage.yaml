@@ -17,7 +17,7 @@ profile::monitoring::sensu::agent::checks:
     subscribers:  ['checks']
 
 profile::base::lvm::physical_volume:
-  '/dev/sdk':
+  '/dev/sdi':
     ensure: present
     force:  true
 profile::base::lvm::volume_group:
