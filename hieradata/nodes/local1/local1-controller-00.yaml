@@ -23,6 +23,9 @@ network::interfaces_hash:
   'em1.1349': # uib
     vlan:           'yes'
     'enable_dhcp':  true
+  'eth0': # uib
+    vlan:           'yes'
+    'enable_dhcp':  true
   'br0':
     ipaddress:    "%{hiera('netcfg_mgmt_netpart')}.99"
     netmask:      "%{hiera('netcfg_mgmt_netmask')}"
@@ -81,7 +84,7 @@ profile::base::network::routes:
 # NAT
 profile::network::nat::enable_snat:  true
 profile::network::nat::source:       "%{hiera('netcfg_public_netpart')}.0/%{hiera('netcfg_public_netmask')}"
-profile::network::nat::outiface:     'em1.1349'
+profile::network::nat::outiface:     'eth0'
 
 profile::network::services::ntp_server: false
 
