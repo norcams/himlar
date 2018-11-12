@@ -24,9 +24,11 @@ network::interfaces_hash:
     vlan:           'yes'
     'enable_dhcp':  true
   'eth0': # uib
-    'enable_dhcp':    true
-    'ipv6init':       'no'
-    'ipv6_autoconf':  'no'
+    enable_dhcp:    true
+    ipv6init:       'no'
+    ipv6_autoconf:  'no'
+    peerdns:        'no'
+    defroute:       'no'
   'br0':
     ipaddress:    "%{hiera('netcfg_mgmt_netpart')}.99"
     netmask:      "%{hiera('netcfg_mgmt_netmask')}"
