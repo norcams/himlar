@@ -2,7 +2,7 @@
 include:
   default:
     - profile::network::nat
-#    - profile::base::login
+    - profile::base::login
 
 network::interfaces_hash:
   'em1':      # local1-mgmt
@@ -55,3 +55,58 @@ network::interfaces_hash:
     netmask:      '255.255.255.0'
     defroute:     'no'
     bridge_stp:   'off'
+
+# route to public net via torack-01
+profile::base::network::routes:
+  'br4':
+    'ipaddress': [ "%{hiera('netcfg_public_netpart')}.0", ]
+    'netmask':   [ "%{hiera('netcfg_public_netmask')}", ]
+    'gateway':   [ '192.168.122.2', ]
+    'table':     [ 'main', ]
+    'family':    [ 'inet4', ]
+
+# NAT
+profile::network::nat::enable_snat:  true
+profile::network::nat::source:       "%{hiera('netcfg_public_netpart')}.0/%{hiera('netcfg_public_netmask')}"
+profile::network::nat::outiface:     'em1.1349'
+
+profile::network::services::ntp_server: false
+
+named_interfaces::config:
+  mgmt:
+    - br0
+  trp:
+    - br1
+  public:
+    - em1.1349
+
+# SSH access
+accounts::accounts:
+  'raymond':
+    ensure: present
+
+# SSH from everywhere
+profile::firewall::pre::ssh_settings:
+  source: "0.0.0.0/0"
+
+googleauthenticator::pam::modules:
+  sshd:
+    mode: wheel-only
+
+googleauthenticator::pam::mode::modes:
+  wheel-only:
+    condition: 'user ingroup wheel'
+    nullok: false
+
+ssh::server::options:
+  # Need this for 2FA (saz-ssh-module disables by default)
+  ChallengeResponseAuthentication: 'yes'
+  # The second publickey is until the pam files are fixed
+  AuthenticationMethods: 'publickey,keyboard-interactive:pam'
+  # Explicitly enable the required methods
+  UsePAM: 'yes'
+  PasswordAuthentication: 'no'
+  PubKeyAuthentication: 'yes'
+  # No 2FA possible with iaas from mgmt
+  "Match User iaas Address %{hiera('netcfg_mgmt_netpart')}.0/24":
+    AuthenticationMethods: 'publickey'
