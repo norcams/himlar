@@ -100,6 +100,7 @@ profile::network::services::dns_records:
     "ns.%{hiera('domain_public')}":                       "%{hiera('netcfg_public_netpart')}.251"
     # mgmt
     "%{::location}-login-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.10"
+    "%{::location}-controller-00.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_netpart')}.99"
     # local2
     'identity.api.local2.iaas.intern':                    '192.168.13.250'
     'image.api.local2.iaas.intern':                       '192.168.13.250'
