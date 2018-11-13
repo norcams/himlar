@@ -8,8 +8,6 @@ include:
     - profile::logging::rsyslog::client
     - profile::openstack::cache
 
-openstack_version: 'pike'
-
 profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}

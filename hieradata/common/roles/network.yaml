@@ -8,8 +8,6 @@ include:
     - profile::openstack::cache
     - profile::logging::rsyslog::client
 
-openstack_version: 'pike' # FIXME move to common
-
 etcd::proxy: "off"
 etcd::initial_cluster_state: 'new'
 etcd::initial_cluster_token: 'etcd-cluster'

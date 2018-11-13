@@ -18,9 +18,6 @@ profile::base::common::packages:
   'openstack-selinux': {}
   'python-memcached': {}
 
-# FIXME move to common
-openstack_version: 'pike'
-
 profile::base::selinux::manage_selinux:   true
 profile::openstack::openrc::password:     "%{hiera('cinder_api_password')}"
 profile::openstack::openrc::username:     'cinder'

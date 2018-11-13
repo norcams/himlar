@@ -30,9 +30,6 @@ profile::base::selinux::exec_restorecon:
     path:    '/var/lib/nova/.ssh'
     recurse: true
 
-# FIXME move to common
-openstack_version: 'pike'
-
 # Manage default availability zone
 profile::openstack::compute::manage_az:            true
 
