@@ -24,7 +24,7 @@ profile::base::network::cumulus_bridges:
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'false'
-    'vids': [ '200', '201', ]
+    'vids': [ '201', '200', ]
     'mtu': '1500'
 
 profile::base::network::cumulus_interfaces:
@@ -34,10 +34,10 @@ profile::base::network::cumulus_interfaces:
   'swp2':
     'pvid': '200'
     'vids': '200'
-  'bridge.200':
+  'bridge.201':
     'ipv4': [ "%{hiera('netcfg_trp_netpart')}.1/24", ]
 #    'ipv6': [ 'fd32::1/64', ]
-  'bridge.201':
+  'bridge.200':
     'ipv4': [ '192.168.112.2/24', ]
 #    'ipv6': [ 'fd30::2/64', ]
 
