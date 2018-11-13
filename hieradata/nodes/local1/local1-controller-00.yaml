@@ -28,12 +28,12 @@ network::interfaces_hash:
     ipv6init:       'no'
     ipv6_autoconf:  'no'
     peerdns:        'no'
-    defroute:       'no'
+    defroute:       'yes'
   'br0':
     ipaddress:    "%{hiera('netcfg_mgmt_netpart')}.99"
     netmask:      "%{hiera('netcfg_mgmt_netmask')}"
     gateway:      "%{hiera('netcfg_mgmt_gateway')}"
-    defroute:     'yes' # FIXME
+    defroute:     'no'
     onboot:       'yes'
     type:         'Bridge'
     peerdns:      'yes'
