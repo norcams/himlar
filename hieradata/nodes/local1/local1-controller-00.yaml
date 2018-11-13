@@ -84,6 +84,19 @@ profile::base::network::routes:
     'table':     [ 'main', ]
     'family':    [ 'inet4', ]
 
+profile::virtualization::libvirt::networks:
+  directnet:
+    ensure:              enabled
+    autostart:           true
+    forward_mode:        bridge
+    bridge:              br0
+  trpnet:
+    ensure:              enabled
+    autostart:           true
+    forward_mode:        bridge
+    bridge:              br2
+
+
 # NAT
 profile::network::nat::enable_snat:  true
 profile::network::nat::source:       "%{hiera('netcfg_public_netpart')}.0/%{hiera('netcfg_public_netmask')}"
