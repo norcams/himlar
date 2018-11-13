@@ -34,10 +34,10 @@ profile::base::network::cumulus_interfaces:
   'swp2':
     'pvid': '200'
     'vids': '200'
-  'bridge.100':
+  'bridge.200':
     'ipv4': [ "%{hiera('netcfg_trp_netpart')}.1/24", ]
 #    'ipv6': [ 'fd32::1/64', ]
-  'bridge.101':
+  'bridge.201':
     'ipv4': [ '192.168.112.2/24', ]
 #    'ipv6': [ 'fd30::2/64', ]
 
