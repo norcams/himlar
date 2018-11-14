@@ -1,0 +1,6 @@
+---
+elasticsearch::jvm_options:
+  - '-Xms512m'
+  - '-Xmx512m'
+  - '-Xss512k'
+  - '-XX:ParallelGCThreads=1'
