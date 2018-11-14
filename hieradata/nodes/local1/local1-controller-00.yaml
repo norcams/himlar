@@ -43,7 +43,7 @@ network::interfaces_hash:
   'br1':
     ipaddress:    "172.31.5.99"
     netmask:      "%{hiera('netcfg_mgmt_netmask')}"
-    defroute:     'no' # FIXME
+    defroute:     'no'
     onboot:       'yes'
     type:         'Bridge'
   'br2':
@@ -54,6 +54,7 @@ network::interfaces_hash:
     type:         'Bridge'
   'br3':
     onboot:       'yes'
+    type:         'Bridge'
   'link1':
     onboot:       'yes'
     type:         'Bridge'
