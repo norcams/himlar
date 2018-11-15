@@ -100,7 +100,10 @@ profile::virtualization::libvirt::networks:
 
 # NAT
 profile::network::nat::enable_snat:  true
-profile::network::nat::source:       "%{hiera('netcfg_public_netpart')}.0/%{hiera('netcfg_public_netmask')}"
+profile::network::nat::source:
+  - "%{hiera('netcfg_public_netpart')}.0/%{hiera('netcfg_public_netmask')}"
+  - "192.168.13.0/%{hiera('netcfg_public_netmask')}"
+
 profile::network::nat::outiface:     'eth0'
 
 profile::network::services::ntp_server: false
