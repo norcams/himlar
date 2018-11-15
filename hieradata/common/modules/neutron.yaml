@@ -47,8 +47,10 @@ neutron::keystone::auth::admin_url:     "%{hiera('endpoint__network__admin')}"
 neutron::keystone::auth::region:        "%{::location}"
 neutron::keystone::auth::password:      "%{hiera('neutron_api_password')}"
 
+neutron::config::server_config:
+  neutron/region_name:
+    value: "%{::location}"
 ## This may be set to true by default in the future
-#neutron::config::server_config:
 #  keystone_authtoken/service_token_roles_required:
 #    value: 'true'
 
