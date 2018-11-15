@@ -62,6 +62,7 @@ frrouting::frrouting::zebra_ip_routes:
   - "%{hiera('netcfg_public_netpart')}.253/32 %{hiera('netcfg_trp_netpart')}.12" # proxy
   - "%{hiera('netcfg_public_netpart')}.254/32 %{hiera('netcfg_trp_netpart')}.51" # dashboard
   - "%{hiera('netcfg_public_netpart')}.249/32 %{hiera('netcfg_trp_netpart')}.41" # db-global
+  - "%{hiera('netcfg_public_netpart')}.252/32 %{hiera('netcfg_trp_netpart')}.56" # access
 
 frrouting::frrouting::zebra_generic_options:
   'ip':
