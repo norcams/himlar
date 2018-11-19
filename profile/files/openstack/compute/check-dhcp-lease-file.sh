@@ -1,6 +1,8 @@
 #!/bin/bash
 
-host_limit=5
+# host limit are based on lines in host (two lines per host)
+host_limit=10*2
+
 dhcp_dir='/var/lib/neutron/dhcp/'
 
 if (($(ls -1 ${dhcp_dir} | wc -l) < 1)); then

@@ -109,6 +109,9 @@ class profile::base::common (
 
   if $include_physical and ($::is_virtual == false) {
     include ::profile::base::physical
+    if fact('manufacturer') == 'Dell Inc.' {
+      include ::profile::base::dell
+    }
   }
 
   if $include_virtual and ($::is_virtual == true) {

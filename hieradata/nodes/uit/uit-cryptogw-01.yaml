@@ -2,8 +2,8 @@
 network::interfaces_hash:
   'em1':
     onboot:         'yes'
-    ipaddress:      '172.31.0.250'
-    netmask:        '255.255.248.0'
+    ipaddress:      "%{hiera('netcfg_mgmt_netpart)}.250"
+    netmask:        "%{hiera('netcfg_mgmt_netmask')}"
     gateway:        "%{hiera('netcfg_mgmt_gateway')}"
     defroute:       'yes'
     peerdns:        'yes'

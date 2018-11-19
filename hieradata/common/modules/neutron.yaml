@@ -3,7 +3,7 @@ neutron::bind_host:   "%{ipaddress_trp1}"
 neutron::core_plugin: 'calico'
 
 neutron::server::sync_db: true
-neutron::server::database_connection: "mysql://neutron:%{hiera('neutron::db::mysql::password')}@%{hiera('service__address__db_regional')}/neutron"
+neutron::server::database_connection: "mysql+pymysql://neutron:%{hiera('neutron::db::mysql::password')}@%{hiera('service__address__db_regional')}/neutron"
 
 neutron::keystone::authtoken::auth_uri:            "%{hiera('endpoint__identity__internal')}"
 neutron::keystone::authtoken::auth_url:            "%{hiera('endpoint__identity__admin')}"
@@ -12,6 +12,7 @@ neutron::keystone::authtoken::password:            "%{hiera('neutron_api_passwor
 neutron::keystone::authtoken::region_name:         "%{::location}"
 neutron::keystone::authtoken::project_domain_name: 'default'
 neutron::keystone::authtoken::user_domain_name:    'default'
+neutron::keystone::authtoken::memcached_servers:   '127.0.0.1:11211'
 
 neutron::server::notifications::notify_nova_on_port_status_changes: true
 neutron::server::notifications::notify_nova_on_port_data_changes:   true
@@ -20,7 +21,13 @@ neutron::server::notifications::auth_type:    'password'
 neutron::server::notifications::username:     'nova'
 neutron::server::notifications::password:     "%{hiera('nova_api_password')}"
 neutron::server::notifications::region_name:  "%{::location}"
-neutron::agents::dhcp::enabled: false
+#neutron::server::service_name:                'httpd'
+neutron::agents::dhcp::enabled:               false
+
+#neutron::wsgi::apache::ssl:       false
+#neutron::wsgi::apache::bind_host: "%{ipaddress_trp1}"
+#neutron::wsgi::apache::threads:   2
+#neutron::wsgi::apache::workers:   2
 
 neutron::db::mysql::allowed_hosts:
   - "%{hiera('netcfg_trp_netpart')}.%"
@@ -39,6 +46,13 @@ neutron::keystone::auth::internal_url:  "%{hiera('endpoint__network__internal')}
 neutron::keystone::auth::admin_url:     "%{hiera('endpoint__network__admin')}"
 neutron::keystone::auth::region:        "%{::location}"
 neutron::keystone::auth::password:      "%{hiera('neutron_api_password')}"
+
+neutron::config::server_config:
+  neutron/region_name:
+    value: "%{::location}"
+## This may be set to true by default in the future
+#  keystone_authtoken/service_token_roles_required:
+#    value: 'true'
 
 # quota (node: network)
 neutron::quota::quota_port:   '-1'

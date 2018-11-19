@@ -1,0 +1,8 @@
+#!/usr/bin/env python3
+# Calculates the OOB ip address for a given host in IaaS.
+
+import socket
+import sys
+from ipaddress import ip_address
+
+print(ip_address(socket.gethostbyname(sys.argv[1])) + 65536)

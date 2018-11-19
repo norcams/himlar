@@ -13,3 +13,6 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_upload'
     fs_type:      "xfs"
     mountpath:    "/image-upload"
+
+profile::openstack::dashboard::allow_from_network:
+  - '0.0.0.0/0'     # Allow dashboard from everywhere

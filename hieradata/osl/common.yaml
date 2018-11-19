@@ -6,6 +6,10 @@ include:
 location_environment:     'prod'
 location_description:     'Production environment in Oslo'
 
+# Disable management of Dell repos and software
+profile::base::dell::manage_repos:      false
+profile::base::dell::manage_openmanage: false
+
 domain_frontend:          'uh-iaas.no'
 domain_public:            'osl.uh-iaas.no'
 domain_trp:               'osl.uhdc.no'
@@ -24,6 +28,8 @@ netcfg_trp_netpart:       '172.18.32'
 netcfg_trp_netpart6:      'fd32'
 netcfg_trp_netmask:       '255.255.248.0'
 netcfg_trp_netmask6:      '64'
+netcfg_ceph_netpart:      '172.20.32'
+netcfg_ceph_netmask:      '255.255.248.0'
 netcfg_live_netpart:      '172.22.32'
 netcfg_live_netmask:      '255.255.248.0'
 #netcfg_dns_server1:       '129.240.2.3'
@@ -52,13 +58,11 @@ public__address__api:             "https://api.uh-iaas.no:5000/v3"
 public__address__dashboard:       "dashboard.uh-iaas.no"
 public__address__access:          "access.uh-iaas.no"
 
-# DNS servers
-public__address__ns:           '158.37.63.251'
-public6__address__ns:          '2001:700:2:82ff::251'
-public__address__resolver_01:  '158.37.63.252'
-public6__address__resolver_01: '2001:700:2:82ff::252'
-
 public__ip__proxy:             '158.37.63.253'
+public__ip__ns:                '158.37.63.251'
+public__ipv6__ns:              '2001:700:2:82ff::251'
+public__ip__resolver:          '158.37.63.252'
+public__ipv6__resolver:        '2001:700:2:82ff::252'
 
 #
 # DNS (merge of common and this)
@@ -69,15 +73,17 @@ profile::network::services::dns_records:
   CNAME:
     "www.%{hiera('domain_frontend')}":           'norcams.github.io'
     "docs.%{hiera('domain_frontend')}":          'uh-iaas.readthedocs.io'
+    "status.%{hiera('domain_frontend')}":        'pubproxy.ha.uib.no'
+    "report.%{hiera('domain_frontend')}":        'pubproxy.ha.uib.no'
   A:
     # Frontend records (<foo>.uh-iaas.no)
     "access.%{hiera('domain_frontend')}":        '158.39.77.250'
     "access-osl.%{hiera('domain_frontend')}":    '158.37.63.250'
     "access-bgo.%{hiera('domain_frontend')}":    '158.39.77.250'
-    "report.%{hiera('domain_frontend')}":        '158.39.77.250'
+    # "report.%{hiera('domain_frontend')}":        '158.39.77.250'
     "report-osl.%{hiera('domain_frontend')}":    '158.37.63.250'
     "report-bgo.%{hiera('domain_frontend')}":    '158.39.77.250'
-    "status.%{hiera('domain_frontend')}":        '158.39.77.250'
+    # "status.%{hiera('domain_frontend')}":        '158.39.77.250'
     "status-osl.%{hiera('domain_frontend')}":    '158.37.63.250'
     "status-bgo.%{hiera('domain_frontend')}":    '158.39.77.250'
     "dashboard.%{hiera('domain_frontend')}":     '158.39.77.254'
@@ -229,7 +235,7 @@ profile::openstack::resource::subnets:
     cidr: '158.37.63.0/24'
     ip_version: '4'
     allocation_pools:
-      - 'start=158.37.63.246,end=158.37.63.246'
+      - 'start=158.37.63.246,end=158.37.63.247'
     gateway_ip: '158.37.63.1'
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"

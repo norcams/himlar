@@ -71,3 +71,7 @@ profile::storage::ceph_crushrules::rules:
     rule_device_type: "hdd"
   'ssd':
     rule_device_type: "sdd"
+
+# SNMP only from mgmt
+profile::base::dell::snmp_firewall_settings:
+  source: "%{::network_mgmt1}/%{::netmask_mgmt1}"

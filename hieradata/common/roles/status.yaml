@@ -51,7 +51,11 @@ grafana::provisioning_dashboards:
       disableDeletion: true
       options:
         path: '/var/lib/grafana/dashboards'
-        puppetsource: 'puppet:///modules/profile/status/grafana/dashboard'
+      #   puppetsource: 'puppet:///modules/profile/status/grafana/dashboard'
+
+profile::monitoring::grafana::dashboards:
+  home:
+    template: status
 
 # Enable extra yum repo for openstack client
 profile::base::yumrepo::repo_hash:

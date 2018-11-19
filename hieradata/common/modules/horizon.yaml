@@ -41,6 +41,8 @@ horizon::websso_enabled:        'True'
 horizon::websso_initial_choice: openidc
 horizon::websso_choices:
   - ['openidc', 'Dataporten']
+horizon::websso_idp_mapping:
+  openidc: [ 'dataporten', 'openidc' ]
 
 # cache and session
 horizon::cache_server_ip:               '127.0.0.1'

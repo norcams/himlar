@@ -25,7 +25,7 @@ profile::openstack::designate::mdns_transport_addr:
 #  - "%{hiera('service__address__mdns_02')}"
 #  - "%{hiera('service__address__mdns_03')}"
 profile::openstack::designate::ns_transport_addr:  "%{hiera('service__address__ns')}"
-profile::openstack::designate::ns_public_addr:     "%{hiera('public__address__ns')}"
+profile::openstack::designate::ns_public_addr:     "%{hiera('public__ip__ns')}"
 profile::openstack::designate::ns_public_name:     "%{hiera('public__name__ns')}"
 
 # Add iptables rules

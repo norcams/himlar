@@ -1,6 +1,9 @@
 ---
 profile::network::services::manage_dhcp:  false
 profile::firewall::pre::manage_ipv6_ssh:  true
+profile::base::login::forward_oobnet:     true
+profile::base::login::oob_net:            "172.17.0.0/21"
+profile::base::login::oob_outiface:       'eth3'
 
 # Himlar bootstrap
 profile::bootstrap::himlar::manage_bootstrap_scripts: true

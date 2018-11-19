@@ -30,12 +30,15 @@ class profile::application::report(
 
   if $db_sync {
     exec { 'create api tables in db':
-      command => "${install_dir}/bin/python ${install_dir}/db-manage.py create api",
-      require => File["${config_dir}/production.cfg"]
+      command => "${install_dir}/bin/python ${install_dir}/db-manage.py create api && touch ${install_dir}/.api.dbsync",
+      require => File["${config_dir}/production.cfg"],
+      creates => "${install_dir}/.api.dbsync"
     }
     exec { 'create oauth tables in db':
-      command => "${install_dir}/bin/python ${install_dir}/db-manage.py create oauth",
-      require => File["${config_dir}/production.cfg"]
+      command => "${install_dir}/bin/python ${install_dir}/db-manage.py create oauth && touch ${install_dir}/.oauth.dbsync",
+      require => File["${config_dir}/production.cfg"],
+      creates => "${install_dir}/.oauth.dbsync"
+
     }
   }
 

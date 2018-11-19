@@ -10,3 +10,10 @@ himlar_bootstrap::virt_install:
     vm_vcpus:        2
     vm_memory:       8096
     vm_console:      false
+
+profile::base::physical::enable_redfish_sensu_check: true
+profile::monitoring::sensu::agent::checks:
+  'redfish-check':
+    command:      '/usr/local/bin/redfish_check.sh'
+    interval:     1800
+    subscribers:  ['checks']

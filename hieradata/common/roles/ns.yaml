@@ -9,6 +9,16 @@ profile::dns::rndc_key::create_admin_key:         true
 profile::dns::rndc_key::create_mdns_key:          true
 profile::dns::rndc_key::host_is_bind_server:      true
 
+# Authoritative name servers must have a public interface
+profile::base::network::manage_dummy: true
+
+# Name servers in zone file
+profile::dns::ns::ns_master: "%{hiera('public__name__ns')}"
+
+# Public and internal zones
+profile::dns::ns::internal_zone: "%{hiera('domain_trp')}"
+profile::dns::ns::public_zone:   "%{hiera('domain_public')}"
+
 # This is the authoritative name server
 profile::dns::ns::authoritative: true
 
@@ -27,10 +37,10 @@ profile::dns::ns::resolver2_mgmt_addr:      "%{hiera('netcfg_mgmt_netpart')}.18"
 profile::dns::ns::ns_transport_addr:        "%{hiera('service__address__ns')}"
 profile::dns::ns::resolver1_transport_addr: "%{hiera('service__address__resolver_01')}"
 profile::dns::ns::resolver2_transport_addr: "%{hiera('service__address__resolver_02')}"
-profile::dns::ns::ns_public_addr:           "%{hiera('public__address__ns')}"
-profile::dns::ns::ns_public6_addr:          "%{hiera('public6__address__ns')}"
-profile::dns::ns::resolver1_public_addr:    "%{hiera('public__address__resolver_01')}"
-profile::dns::ns::resolver1_public6_addr:   "%{hiera('public6__address__resolver_01')}"
+profile::dns::ns::ns_public_addr:           "%{hiera('public__ip__ns')}"
+profile::dns::ns::ns_public6_addr:          "%{hiera('public__ipv6__ns')}"
+profile::dns::ns::resolver1_public_addr:    "%{hiera('public__ip__resolver')}"
+profile::dns::ns::resolver1_public6_addr:   "%{hiera('public__ipv6__resolver')}"
 
 # Define an ACL for networks allowed to do complete zone transfer
 profile::dns::ns::allowed_transfer_nets:

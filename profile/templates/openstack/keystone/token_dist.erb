@@ -109,7 +109,7 @@ usage()
     echo "$0: Script which handles key token database storage and retrieval"
     echo
     echo "Invocation:"
-    echo "$0 [fernet|credentials]"
+    echo "$0 fernet|credentials [slave]"
     echo
     echo "The tokens are either fernet tokens or credentials, each type stored"
     echo "in distinct (hardcoded) directories."
@@ -120,6 +120,8 @@ usage()
     echo
     echo "The hiera data 'manage_key_rotate' decides if this is a *master*,"
     echo "and thus to _store_ keys, or a *slave*, which retrieves them."
+    echo
+    echo "The optional 'slave' parameter will force the mode to slave mode"
     echo
 }
 
@@ -280,6 +282,15 @@ pop_keys()
 #
 
 keys=$1
+shift
+# dumb check for "forced slave" mode
+# this does not scale if more advanced command line handling is required
+if [ $# -gt 0 ]; then
+    if [ "${1}x" == "slavex" ]; then
+        MASTER="false"
+    fi
+fi 
+
 case $keys in
     "fernet")
         keydir=$FERNET_KEYDIR

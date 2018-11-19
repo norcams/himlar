@@ -1,4 +1,7 @@
 ---
+include:
+  default:
+    - profile::application::openssl::catrust
 
 cinder::backends::enabled_backends:
   - lvm

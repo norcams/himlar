@@ -20,6 +20,16 @@ include:
 # Set SELinux mode to enforcing
 profile::base::selinux::manage_selinux: true
 
+# Fix SELinux file context for Nova's .ssh
+profile::base::selinux::fcontext:
+  nova-dot-ssh:
+    seltype:  'ssh_home_t'
+    pathspec: '/var/lib/nova/\.ssh(/.*)?'
+profile::base::selinux::exec_restorecon:
+  nova-dot-ssh:
+    path:    '/var/lib/nova/.ssh'
+    recurse: true
+
 # Manage default availability zone
 profile::openstack::compute::manage_az:            true
 
@@ -43,6 +53,9 @@ profile::openstack::compute::migration::chmod_ssh_dir:       true
 # Enable intance migration via ssh
 profile::firewall::pre::ssh_settings:
   source: "0.0.0.0/0" #FIXME (limit source)
+# SNMP only from mgmt
+profile::base::dell::snmp_firewall_settings:
+  source: "%{::network_mgmt1}/%{::netmask_mgmt1}"
 # compute nodes write firewall rules on the fly, thou shalt not purge
 profile::base::firewall::purge_firewall: false
 
@@ -98,14 +111,14 @@ profile::monitoring::sensu::agent::checks:
     command:      "sudo /opt/sensu/embedded/bin/check-file-missing.rb -f /var/lib/nova/.ssh/id_rsa"
     interval:     60
     subscribers:  ['checks']
-  'first-lease-file-check':
-    command:      '/usr/local/bin/check-dhcp-lease-file.sh first 3600 1200'
-    interval:     60
-    subscribers:  ['checks']
-  'last-lease-file-check':
-    command:      '/usr/local/bin/check-dhcp-lease-file.sh last 3600 1200'
-    interval:     60
-    subscribers:  ['checks']
+  # 'first-lease-file-check':
+  #   command:      '/usr/local/bin/check-dhcp-lease-file.sh first 14400 7200' # 4 and 2 hours
+  #   interval:     60
+  #   subscribers:  ['checks']
+  # 'last-lease-file-check':
+  #   command:      '/usr/local/bin/check-dhcp-lease-file.sh last 14400 7200' # 4 and 2 hours
+  #   interval:     60
+  #   subscribers:  ['checks']
   'metrics-disk':
     type:         'metric'
     command:      'metrics-disk-usage.rb --scheme disk.%{::hostname} -f -B G'
@@ -174,7 +187,7 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
-    includepkgs: 'bird bird6 htop bash-completion-extras lttng-ust userspace-rcu libbabeltrace leveldb liboath py-bcrypt'
+    includepkgs: 'bird bird6 htop bash-completion-extras lttng-ust userspace-rcu libbabeltrace leveldb liboath py-bcrypt libsmbios smbios-utils-bin'
 
 # Compute nodes need only admin and cinder keys
 ceph::profile::params::client_keys:

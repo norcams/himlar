@@ -105,94 +105,36 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
   uib_https_domains:
     ensure: present
     mappings:
-      - 'meet.uib.no':                            'uib-https-sfb'
-      - 'dialin.uib.no':                          'uib-https-sfb'
-      - 'lyncdiscoverinternal.uib.no':            'uib-https-sfb'
-      - 'lyncdiscoverinternal.uni.no':            'uib-https-sfb'
-      - 'lyncdiscoverinternal.holbergprisen.no':  'uib-https-sfb'
-      - 'lyncdiscoverinternal.bergento.no':       'uib-https-sfb'
-      - 'sfb-webpool01.uib.no':                   'uib-https-sfb'
-      - 'lyncadmin.uib.no':                       'uib-https-sfb'
       - 'exch.uib.no':                            'uib-https-exch'
       - 'portal.uib.no':                          'uib-https-adm'
-      - "dashboard.uh-iaas.no":                   'uib-https-uh-dashboard'
-      - "dashboard-ha.uh-iaas.no":                'uib-https-uh-dashboard'
-      - "access.uh-iaas.no":                      'uib-https-uh-access'
-      - "access-ha.uh-iaas.no":                   'uib-https-uh-access'
-      - "status.uh-iaas.no":                      'uib-https-uh-status'
-      - "status-ha.uh-iaas.no":                   'uib-https-uh-status'
   uib_http_domains:
     ensure: present
     mappings:
-      - 'meet.uib.no':                            'uib-http-sfb'
-      - 'dialin.uib.no':                          'uib-http-sfb'
-      - 'lyncdiscoverinternal.uib.no':            'uib-http-sfb'
-      - 'lyncdiscoverinternal.uni.no':            'uib-http-sfb'
-      - 'lyncdiscoverinternal.holbergprisen.no':  'uib-http-sfb'
-      - 'lyncdiscoverinternal.bergento.no':       'uib-http-sfb'
-      - 'sfb-webpool01.uib.no':                   'uib-http-sfb'
-      - 'lyncadmin.uib.no':                       'uib-http-sfb'
       - 'portal.uib.no':                          'uib-http-adm'
   public_https_domains:
     ensure: present
     mappings:
-      - 'meet.uib.no':                            'public-https-sfb'
-      - 'dialin.uib.no':                          'public-https-sfb'
-      - 'lyncdiscover.uib.no':                    'public-https-sfb'
-      - 'lyncdiscover.uni.no':                    'public-https-sfb'
-      - 'lyncdiscover.holbergprisen.no':          'public-https-sfb'
-      - 'lyncdiscover.bergento.no':               'public-https-sfb'
-      - 'sfb-webext01.uib.no':                    'public-https-sfb'
-      - 'mitt.uib.no':                            'public-https-mittuib'
+      - 'report.uh-iaas.no':                      'public-https-uh-report'
+      - 'status.uh-iaas.no':                      'public-https-uh-status'
   public_http_domains:
     ensure: present
     mappings:
-      - 'meet.uib.no':                            'public-http-sfb'
-      - 'dialin.uib.no':                          'public-http-sfb'
-      - 'lyncdiscover.uib.no':                    'public-http-sfb'
-      - 'lyncdiscover.uni.no':                    'public-http-sfb'
-      - 'lyncdiscover.holbergprisen.no':          'public-http-sfb'
-      - 'lyncdiscover.bergento.no':               'public-http-sfb'
-      - 'sfb-webext01.uib.no':                    'public-http-sfb'
+      - 'report.uh-iaas.no':                      'public-http-uh-report'
+      - 'status.uh-iaas.no':                      'public-http-uh-status'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
-  'uib-https-sfb':
-    listening_service:  'uib-https-sfb'
+  'public-https-uh-status':
+    listening_service:  'public-https-uh-status'
     ports:              443
-    server_names:       ['sfb-fe01.uib.no', 'sfb-fe02.uib.no', 'sfb-fe03.uib.no']
-    ipaddresses:        ['129.177.14.231','129.177.14.232','129.177.14.233']
-    options:
-      - 'check'
-      - 'port 80'
-  'uib-http-sfb':
-    listening_service:  'uib-http-sfb'
-    ports:              80
-    server_names:       ['sfb-fe01.uib.no', 'sfb-fe02.uib.no', 'sfb-fe03.uib.no']
-    ipaddresses:        ['129.177.14.231','129.177.14.232','129.177.14.233']
-    options:
-      - 'check'
-  'public-https-sfb':
-    listening_service:  'public-https-sfb'
-    ports:              4443
-    server_names:       ['sfb-fe01.uib.no', 'sfb-fe02.uib.no', 'sfb-fe03.uib.no']
-    ipaddresses:        ['129.177.14.231','129.177.14.232','129.177.14.233']
-    options:
-      - 'check'
-      - 'port 80'
-  'public-http-sfb':
-    listening_service:  'public-http-sfb'
-    ports:              8080
-    server_names:       ['sfb-fe01.uib.no', 'sfb-fe02.uib.no', 'sfb-fe03.uib.no']
-    ipaddresses:        ['129.177.14.231','129.177.14.232','129.177.14.233']
-    options:
-      - 'check'
-      - 'port 80'
-  'public-https-mittuib':
-    listening_service:  'public-https-mittuib'
+    server_names:       ['status-osl', 'status-bgo']
+    ipaddresses:        ['158.37.63.250', '158.39.77.250']
+    options:            'verify none inter 1000 check check-ssl'
+  'public-https-uh-report':
+    listening_service:  'public-https-uh-report'
     ports:              443
-    server_names:       ['mitt.uib.no']
-    ipaddresses:        [129.177.6.11]
-    options:            'check'
+    server_names:       ['report-osl', 'report-bgo']
+    ipaddresses:        ['158.37.63.250', '158.39.77.250']
+    options:            'verify none inter 1000 check check-ssl'
   'public-ldap-prod':
     listening_service:  'public-ldap-prod'
     ports:              '389'
@@ -212,24 +154,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ports:              443
     server_names:       ['exchange01.uib.no', 'exchange02.uib.no']
     ipaddresses:        ['129.177.14.178','129.177.14.179']
-    options:            'check'
-  'uib-https-dashboard':
-    listening_service:  'uib-https-uh-dashboard'
-    ports:              443
-    server_names:       ['osl-dashboard-01', 'bgo-dashboard-01']
-    ipaddresses:        [158.37.63.254, 158.39.77.254]
-    options:            'check'
-  uib-https-uh-access:
-    listening_service:  'uib-https-uh-access'
-    ports:              443
-    server_names:       ['bgo-access-01']
-    ipaddresses:        [158.39.77.252]
-    options:            'check'
-  uib-https-uh-status:
-    listening_service:  'uib-https-uh-status'
-    ports:              443
-    server_names:       ['bgo-status-01', 'osl-status-01']
-    ipaddresses:        ['158.39.77.250', '158.37.63.250']
     options:            'check'
   'uib-https-adm':
     listening_service:  'uib-https-adm'
@@ -261,23 +185,28 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
       - 'check'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_backends:
-  public-https-sfb:
-    mode:             'tcp'
-    options:
-      - balance:      'roundrobin'
-      - option:
-        - 'httpchk /healthcheck.html'
-  public-http-sfb:
+  public-http-uh-status:
     mode:             'http'
     options:
       - balance:      'roundrobin'
-      - option:
-        - 'httpchk /healthcheck.html'
-  public-https-mittuib:
+      - redirect:     'scheme https if !{ ssl_fc }'
+  public-https-uh-status:
     mode:             'tcp'
     options:
+      - balance:      'source'
+      - option:
+        - 'httpchk HEAD /api/health HTTP/1.1\r\nHost:\ status.uh-iaas.no'
+  public-http-uh-report:
+    mode:             'http'
+    options:
       - balance:      'roundrobin'
-      - option:       ['ssl-hello-chk']
+      - redirect:     'scheme https if !{ ssl_fc }'
+  public-https-uh-report:
+    mode:             'tcp'
+    options:
+      - balance:      'source'
+      - option:
+        - 'httpchk HEAD /health HTTP/1.1\r\nHost:\ report.uh-iaas.no'
   public-ldap-prod:
     mode:             'tcp'
     options:
@@ -286,18 +215,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     mode:             'tcp'
     options:
       - balance:      'leastconn'
-  uib-https-sfb:
-    mode:             'tcp'
-    options:
-      - balance:      'roundrobin'
-      - option:
-        - 'httpchk /healthcheck.html'
-  uib-http-sfb:
-    mode:             'http'
-    options:
-      - balance:      'roundrobin'
-      - option:
-        - 'httpchk /healthcheck.html'
   uib-https-exch:
     mode:             'tcp'
     options:
@@ -320,21 +237,11 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     mode:             'tcp'
     options:
       - balance:      'leastconn'
-  uib-https-uh-status:
-    mode:             'tcp'
-    options:
-      - balance:      'roundrobin'
-      - option:       ['ssl-hello-chk']
-  uib-https-uh-access:
-    mode: 'tcp'
-    options:
-      - balance:      'source'
-      - option:       ['ssl-hello-chk']
-  uib-https-uh-dashboard:
-    mode: 'tcp'
-    options:
-      - balance:      'source'
-      - option:       ['ssl-hello-chk']
+#  uib-https-uh-dashboard:
+#    mode: 'tcp'
+#    options:
+#      - balance:      'source'
+#      - option:       ['ssl-hello-chk']
 #      - stick-table:  'type binary len 32 size 30k expire 30m'
 #      - acl:
 #        - 'clienthello req_ssl_hello_type 1'

@@ -27,8 +27,8 @@ network::interfaces_hash:
                    "tx_hash": ["eth", "ipv4", "ipv6"], "tx_balancer": { "name": "basic" } },
                    "link_watch" : {  "name" : "ethtool" } }
   'br0':
-    ipaddress:    '172.16.32.114'
-    netmask:      '255.255.248.0'
+    ipaddress:    "%{hiera('netcfg_mgmt_netpart')}.114"
+    netmask:      "%{hiera('netcfg_mgmt_netmask')}"
     gateway:      "%{hiera('netcfg_mgmt_gateway')}"
     defroute:     'yes'
     onboot:       'yes'
@@ -39,8 +39,8 @@ network::interfaces_hash:
   'br1':
     onboot:       'yes'
     type:         'Bridge'
-    ipaddress:    '172.18.32.114'
-    netmask:      '255.255.248.0'
+    ipaddress:    "%{hiera('netcfg_trp_netpart')}.114"
+    netmask:      "%{hiera('netcfg_trp_netmask')}"
     defroute:     'no'
     bridge_stp:   'off'
   'br3':

@@ -12,16 +12,16 @@ network::interfaces_hash:
     team_port_config: '{ "prio" : 100 }'
   'p4p2':
     onboot:        'yes'
-    ipaddress:     '172.16.0.116'
-    netmask:       '255.255.248.0'
+    ipaddress:     "%{hiera('netcfg_mgmt_netpart')}.116"
+    netmask:       "%{hiera('netcfg_mgmt_netmask')}"
     defroute:      'no'
     dns1:          "%{hiera('mgmt__address__proxy')}"
     domain:        "%{hiera('netcfg_dns_search')}"
     peerdns:       'yes'
   'team1':
     onboot:        'yes'
-    ipaddress:     '172.18.0.116'
-    netmask:       '255.255.248.0'
+    ipaddress:     "%{hiera('netcfg_trp_netpart')}.116"
+    netmask:       "%{hiera('netcfg_trp_netmask')}"
     ipv6init:      'yes'
     ipv6addr:      "%{hiera('netcfg_trp_netpart6')}::116/%{hiera('netcfg_trp_netmask6')}"
     ipv6_defaultgw: "%{hiera('netcfg_trp_gateway6')}"

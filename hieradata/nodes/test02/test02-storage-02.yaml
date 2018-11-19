@@ -10,10 +10,10 @@ network::interfaces_hash:
     onboot:       'no'
   'em3':
     onboot:       'yes'
-    ipaddress:    '172.28.32.107'
-    netmask:      '255.255.255.0'
+    ipaddress:    "%{hiera('netcfg_mgmt_netpart')}.107"
+    netmask:      "%{hiera('netcfg_mgmt_netmask')}"
     gateway:      "%{hiera('netcfg_mgmt_gateway')}"
     defroute:     'yes'
     dns1:         "%{hiera('netcfg_dns_server1')}"
-    domain:       'test.iaas.uio.no'
+    domain:       "%{hiera('domain_mgmt')}"
     peerdns:      'yes'
