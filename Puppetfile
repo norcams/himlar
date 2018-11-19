@@ -107,11 +107,11 @@ mod 'himlar_bootstrap', :ref => '1.0.4',            :git => github + 'norcams/pu
 # profile::logging
 #
 mod 'rsyslog', :ref => 'v5.0.0',                    :git => github + 'saz/puppet-rsyslog'
-mod 'logstash', :ref => '5.3.0',                    :git => github + 'elastic/puppet-logstash'
+mod 'logstash', :ref => '6.1.4',                    :git => github + 'elastic/puppet-logstash'
 mod 'datacat', :ref => '0.6.2',                     :git => github + 'richardc/puppet-datacat'
-mod 'elasticsearch', :ref => '5.5.0',               :git => github + 'elastic/puppet-elasticsearch'
+mod 'elasticsearch', :ref => '6.3.3',               :git => github + 'elastic/puppet-elasticsearch'
 mod 'file_concat', :ref => '1.0.1',                 :git => github + 'electrical/puppet-lib-file_concat'
-#mod 'logrotate', :ref => 'v1.4.0',                  :git => github + 'yo61/puppet-logrotate' # deprecated
+#mod 'logrotate', :ref => 'v1.4.0',                 :git => github + 'yo61/puppet-logrotate' # deprecated
 mod 'logrotate', :ref => 'v3.2.1',        		    :git => github + 'voxpupuli/puppet-logrotate'
 
 #
@@ -154,13 +154,13 @@ mod 'archive', :ref => 'v2.2.0',                    :git => github + 'voxpupuli/
 #
 # profile::openstack::*
 #
-mod 'glance', :ref => '10.4.0',                     :git => github + 'openstack/puppet-glance'
-mod 'cinder', :ref => '10.4.0',                     :git => github + 'openstack/puppet-cinder'
-mod 'neutron', :ref => '10.4.0',                    :git => github + 'openstack/puppet-neutron'
-mod 'nova', :ref => '10.5.0',                       :git => github + 'openstack/puppet-nova'
-mod 'horizon', :ref => '10.6.0',                    :git => github + 'openstack/puppet-horizon'
-mod 'keystone', :ref => 'norcams/ocata',            :git => github + 'norcams/puppet-keystone'
+mod 'glance', :ref => '11.5.0',                     :git => github + 'openstack/puppet-glance'
+mod 'cinder', :ref => '11.5.0',                     :git => github + 'openstack/puppet-cinder'
+mod 'neutron', :ref => '11.5.0',                    :git => github + 'openstack/puppet-neutron'
+mod 'nova', :ref => '11.5.0',                       :git => github + 'openstack/puppet-nova'
+mod 'horizon', :ref => '11.5.0',                    :git => github + 'openstack/puppet-horizon'
 mod 'gnocchi', :ref => '10.4.0',                    :git => github + 'openstack/puppet-gnocchi'
+mod 'keystone', :ref => 'norcams/pike',             :git => github + 'norcams/puppet-keystone'
 mod 'swift', :ref => 'norcams/ocata',               :git => github + 'norcams/puppet-swift'
 mod 'ceilometer', :ref => '10.4.0',                 :git => github + 'openstack/puppet-ceilometer'
 mod 'designate', :ref => '12.4.0',                  :git => github + 'openstack/puppet-designate'

@@ -6,6 +6,10 @@ include:
 location_environment: 'local3'
 location_description: 'Local development environment'
 
+# Disable management of Dell repos and software
+profile::base::dell::manage_repos:      false
+profile::base::dell::manage_openmanage: false
+
 domain_frontend:      'iaas.intern'
 domain_public:        'iaas.intern'
 domain_trp:           'trp.local3.iaas.intern'

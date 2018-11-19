@@ -7,11 +7,17 @@ profile::monitoring::sensu::agent::enable_agent: false
 location_environment: 'local2'
 location_description: 'Local development environment'
 
+# Disable management of Dell repos and software
+profile::base::dell::manage_repos:      false
+profile::base::dell::manage_openmanage: false
+
 domain_frontend:      'iaas.intern'
 domain_public:        'local2.iaas.intern'
 domain_trp:           'trp.local2.iaas.intern'
 domain_mgmt:          'mgmt.local2.iaas.intern'
 reverse_mgmt:         '5.31.172.in-addr.arpa'
+reverse_trp:          '13.31.172.in-addr.arpa'
+reverse_public:       '13.168.192.in-addr.arpa'
 
 # These should only be used to configure network in nodes!
 netcfg_trp_netpart:     '172.31.13'
@@ -20,11 +26,13 @@ netcfg_trp_gateway:     '172.31.13.1'
 netcfg_trp_gateway6:    'fd00::1'
 netcfg_trp_netpart6:    'fd00'
 netcfg_trp_netmask6:    '64'
+netcfg_public_netpart6: 'fd01'
+netcfg_public_netmask6: '64'
 netcfg_live_netpart:    '172.31.13'
 netcfg_live_netmask:    '255.255.255.0'
 netcfg_mgmt_netpart:    '172.31.5'
 netcfg_mgmt_netmask:    '255.255.255.0'
-netcfg_mgmt_gateway:    '172.31.5.10'
+netcfg_mgmt_gateway:    '172.31.5.12'
 netcfg_public_netmask:  '255.255.255.0'
 netcfg_public_netpart:  '192.168.13'
 netcfg_dns_server1:     '172.31.5.11'
@@ -41,13 +49,17 @@ netcfg_trp_rr:
 profile::openstack::volume::api::enable_testbackend:     'true'
 
 # We need to allow both trafic from mgmt (nat via login) and public net
-
 allow_from_network:
   - "%{hiera('netcfg_trp_netpart')}.0/24"
   - "%{hiera('netcfg_public_netpart')}.0/24"
   - '192.168.122.0/24'
   - '192.168.12.0/24'
   - '192.168.113.0/24'
+
+public__ip__ns:             "%{hiera('netcfg_public_netpart')}.251"
+public__ipv6__ns:           "%{hiera('netcfg_public_netpart6')}::251"
+public__ip__resolver:       "%{hiera('netcfg_public_netpart')}.252"
+public__ipv6__resolver:     "%{hiera('netcfg_public_netpart6')}::251"
 
 profile::network::services::dns_options:
   CNAME:
@@ -82,8 +94,17 @@ profile::network::services::dns_records:
     "compute.api.%{hiera('domain_public')}":              "%{hiera('netcfg_public_netpart')}.250"
     "placement.api.%{hiera('domain_public')}":            "%{hiera('netcfg_public_netpart')}.250"
     "volume.api.%{hiera('domain_public')}":               "%{hiera('netcfg_public_netpart')}.250"
+    "dns.api.%{hiera('domain_public')}":                  "%{hiera('netcfg_public_netpart')}.250"
+    "ns.%{hiera('domain_public')}":                       "%{hiera('netcfg_public_netpart')}.251"
     # mgmt
     "%{::location}-login-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.10"
+    # local1
+    'identity.api.local1.iaas.intern':                    '192.168.13.251'
+    'image.api.local1.iaas.intern':                       '192.168.13.251'
+    'network.api.local1.iaas.intern':                     '192.168.13.251'
+    'compute.api.local1.iaas.intern':                     '192.168.13.251'
+    'volume.api.local1.iaas.intern':                      '192.168.13.251'
+    'ns.local1.iaas.intern':                              '192.168.13.251'
 
 #
 ## Secret data which for other environments are stored ooutside of this data tree
@@ -116,6 +137,7 @@ nova_placement_password:                            'nova_pass'
 gnocchi_api_password:                               'gnocchi'
 ceilometer_api_password:                            'ceilometer_pass'
 access_api_password:                                'access_pass'
+designate_api_password:                             'designate_pass'
 
 # rabbitmq
 rabbitmq::default_pass:                             'guest'
@@ -186,7 +208,11 @@ monitor_metric_password:                            'monitor_pass'
 report_db_password:                                 'report_pass'
 
 # The root user password
-#accounts::root_user::password:                      '$6$qVzsC5fQMqdF4gKw$.zFAu9LtxSAaPgbtZul/ZXUXpBgjaVJbQ.CIMo9eo5TslU8KU1SO/tjRZbh1hFM6RB55QFEzJlF5ejAgglk50.'
+accounts::root_user::password:                      '$6$H1ChW9xip85kje4T$BFGLr2Hsx2m74NGG4tNOmM/Wpm1Ol/bgRHJkgioyZYX2T9FhgNL9s3dbtcw6HXGGktSefYSnIARIr588rv/xJ1'
+
+# rndc keys
+profile::dns::rndc_key::rndc_secret_admin: '5n5fC0m42JovwO9PJMTQYaNP7j5UcRjmL0Lsq4JXz8eZIrGILt/5Lo+MVzdr31GbYn9C/fPEe1Nvbjs8NgTG6w=='
+profile::dns::rndc_key::rndc_secret_mdns:  'CIGrQ5sAnoaQhRiDSXX+WUGg9Z0tiphT4BCKbp9A1ceOUr5hqAPiqNp/UHoApIXmIAgni+v90swVPmDfETsLdQ=='
 
 profile::openstack::resource::networks:
   public:

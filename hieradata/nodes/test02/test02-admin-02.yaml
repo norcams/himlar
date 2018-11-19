@@ -1,8 +1,8 @@
 ---
 network::interfaces_hash:
   'eth0':
-    ipaddress: '172.28.32.18'
-    netmask:   '255.255.255.0'
+    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.18"
+    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
     gateway:   "%{hiera('netcfg_mgmt_gateway')}"
     mtu:       '1500'
     defroute:  'yes'
@@ -20,10 +20,10 @@ foreman_proxy::dhcp: false
 foreman_proxy::dns:  false
 foreman_proxy::bmc:  false
 
-foreman::foreman_url: "https://test02-admin-02.mgmt.test02.uhdc.no"
+foreman::foreman_url: "https://test02-admin-02.%{hiera('domain_mgmt')}"
 foreman::config::passenger::serveraliases:  [ "foreman4.%{hiera('domain_mgmt')}" ]
 
-puppet::server_foreman_url: "https://test02-admin-02.mgmt.test02.uhdc.no"
+puppet::server_foreman_url: "https://test02-admin-02.%{hiera('domain_mgmt')}"
 puppet::puppetmaster: "puppet4.%{hiera('domain_mgmt')}"
 puppet::dns_alt_names:
   - "puppet4.%{hiera('domain_mgmt')}"

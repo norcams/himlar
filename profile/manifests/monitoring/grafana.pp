@@ -2,7 +2,8 @@
 class profile::monitoring::grafana(
   $enable                    = false,
   $manage_firewall           = false,
-  $firewall_extras           = {}
+  $firewall_extras           = {},
+  $grafana_dashboard         = {}
 ) {
 
   if $enable {
@@ -14,6 +15,11 @@ class profile::monitoring::grafana(
         extras => $firewall_extras,
       }
     }
+
+    # dashboard
+    $dashboards  = lookup('profile::monitoring::grafana::dashboards', Hash, 'deep', {})
+    create_resources('profile::monitoring::grafana::dashboard', $dashboards)
+
   }
 
 }

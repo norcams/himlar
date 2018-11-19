@@ -1,7 +1,4 @@
 ---
-profile::dns::ns::my_mgmt_addr:      "%{hiera('netcfg_mgmt_netpart')}.17"
-profile::dns::ns::my_transport_addr: "%{hiera('netcfg_trp_netpart')}.17"
-
 network::interfaces_hash:
   'eth0':
     onboot:    'yes'

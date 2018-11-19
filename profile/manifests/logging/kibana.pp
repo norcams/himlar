@@ -3,8 +3,9 @@ class profile::logging::kibana(
   $manage_firewall = true,
   $ports = [5601],
   $firewall_extras = {},
-  $package_url = 'https://download.elastic.co/kibana/kibana/kibana-4.5.0-1.x86_64.rpm',
-  $manage_service = true
+  $package_url = 'https://artifacts.elastic.co/downloads/kibana/kibana-6.3.2-x86_64.rpm',
+  $manage_service = true,
+  $manage_serverhost = true
 ) {
 
   if $package_url {
@@ -31,4 +32,11 @@ class profile::logging::kibana(
     }
   }
 
+  if $manage_serverhost {
+    file_line { 'server_host':
+      ensure => present,
+      line   => 'server.host: "0.0.0.0"',
+      path   => "/etc/kibana/kibana.yml",
+    }
+  }
 }

@@ -2,6 +2,7 @@
 include:
   default:
     - profile::openstack::compute::consoleproxy
+    - profile::openstack::compute::consoleauth
     - profile::logging::rsyslog::client
 
 profile::base::common::packages:

@@ -15,7 +15,6 @@ class profile::openstack::identity (
   $firewall_extras_a        = {},
   $manage_ssl_cert          = false,
   $manage_openidc           = false,
-  $trusted_dashboard        = undef,
   $disable_admin_token_auth = false,
   $token_rotation_sync      = false,
   $manage_token_rotate      = false,
@@ -75,14 +74,6 @@ class profile::openstack::identity (
 
   if $manage_openidc {
     include ::keystone::federation::openidc
-    if $trusted_dashboard {
-      keystone_config {
-        'federation/trusted_dashboard': value => $trusted_dashboard
-      }
-    }
-    keystone_config {
-      'federation/remote_id_attribute': value => 'OIDC-iss'
-    }
   }
 
   create_resources('keystone_config', $keystone_config)

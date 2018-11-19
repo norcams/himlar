@@ -1,0 +1,174 @@
+---
+network::interfaces_hash:
+  'em1':
+    onboot:        'yes'
+    devicetype:    'TeamPort'
+    team_master:   'team1'
+    team_port_config: '{ "prio" : 100 }'
+  'em2':
+    onboot:        'yes'
+    devicetype:    'TeamPort'
+    team_master:   'team1'
+    team_port_config: '{ "prio" : 100 }'
+  'em3':
+    onboot:        'yes'
+    ipaddress:     "%{hiera('netcfg_mgmt_netpart')}.124"
+    netmask:       "%{hiera('netcfg_mgmt_netmask')}"
+    gateway:       "%{hiera('netcfg_mgmt_gateway')}"
+    defroute:      'yes'
+    peerdns:       'yes'
+    dns1:          "%{hiera('netcfg_dns_server1')}"
+    domain:        "%{hiera('netcfg_dns_search')}"
+  'team1':
+    onboot:        'yes'
+    ipaddress:     "%{hiera('netcfg_trp_netpart')}.124"
+    netmask:       "%{hiera('netcfg_trp_netmask')}"
+    defroute:      'no'
+    devicetype:    'Team'
+    team_config: >-
+                   { "runner" : {  "name" : "lacp",  "active": true, "fast_rate" : true,
+                   "tx_hash": ["eth", "ipv4", "ipv6"], "tx_balancer": { "name": "basic" } },
+                   "link_watch" : {  "name" : "ethtool" } }
+  'team1.110':
+    onboot:       'yes'
+    ipaddress:     "%{hiera('netcfg_ceph_netpart')}.124"
+    netmask:       "%{hiera('netcfg_ceph_netmask')}"
+    vlan:         'yes'
+    defroute:     'no'
+
+profile::base::lvm::physical_volume:
+  '/dev/sdp':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_cache':
+    physical_volumes:
+      - /dev/sdp
+profile::base::lvm::logical_volume:
+  'lv_walf':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         2G
+  'lv_dbf':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         15G
+  'lv_walg':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         2G
+  'lv_dbg':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         15G
+  'lv_walh':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         2G
+  'lv_dbh':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         15G
+  'lv_wali':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         2G
+  'lv_dbi':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         15G
+  'lv_walj':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         2G
+  'lv_dbj':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         15G
+  'lv_walk':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         2G
+  'lv_dbk':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         15G
+  'lv_wall':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         2G
+  'lv_dbl':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         15G
+  'lv_walm':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         2G
+  'lv_dbm':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         15G
+  'lv_waln':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         2G
+  'lv_dbn':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         15G
+  'lv_walo':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         2G
+  'lv_dbo':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         15G
+
+profile::storage::cephosd::osds:
+  '/dev/sda':
+    db_device:  false
+    wal_device: false
+  '/dev/sdb':
+    db_device:  false
+    wal_device: false
+  '/dev/sdc':
+    db_device:  false
+    wal_device: false
+  '/dev/sdd':
+    db_device:  false
+    wal_device: false
+  '/dev/sde':
+    db_device:  false
+    wal_device: false
+  '/dev/sdf':
+    db_device:  'vg_cache/lv_dbf'
+    wal_device: 'vg_cache/lv_walf'
+  '/dev/sdg':
+    db_device:  'vg_cache/lv_dbg'
+    wal_device: 'vg_cache/lv_walg'
+  '/dev/sdh':
+    db_device:  'vg_cache/lv_dbh'
+    wal_device: 'vg_cache/lv_walh'
+  '/dev/sdi':
+    db_device:  'vg_cache/lv_dbi'
+    wal_device: 'vg_cache/lv_wali'
+  '/dev/sdj':
+    db_device:  'vg_cache/lv_dbj'
+    wal_device: 'vg_cache/lv_walj'
+  '/dev/sdk':
+    db_device:  'vg_cache/lv_dbk'
+    wal_device: 'vg_cache/lv_walk'
+  '/dev/sdl':
+    db_device:  'vg_cache/lv_dbl'
+    wal_device: 'vg_cache/lv_wall'
+  '/dev/sdm':
+    db_device:  'vg_cache/lv_dbm'
+    wal_device: 'vg_cache/lv_walm'
+  '/dev/sdn':
+    db_device:  'vg_cache/lv_dbn'
+    wal_device: 'vg_cache/lv_waln'
+  '/dev/sdo':
+    db_device:  'vg_cache/lv_dbo'
+    wal_device: 'vg_cache/lv_walo'

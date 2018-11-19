@@ -84,6 +84,7 @@ profile::base::common::packages:
   'make':                   {}
   'python-openstackclient': {}
   'openstack-selinux':      {}
+  'nagios-plugins-openmanage': {}
 
 profile::monitoring::sensu::agent::plugins:
   sensu-plugins-http:
@@ -193,4 +194,4 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
-    includepkgs: 'htop bash-completion-extras statsd python2-pip'
+    includepkgs: 'htop bash-completion-extras statsd python2-pip nagios-plugins-openmanage nagios-common perl-Config-Tiny perl-Crypt-DES perl-Digest*'

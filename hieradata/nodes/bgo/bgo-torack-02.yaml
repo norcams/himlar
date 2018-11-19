@@ -24,9 +24,12 @@ profile::base::network::cumulus_interfaces:
     'clagd_priority': '8192'
     'clagd_peer_ip': '172.18.228.1'
     'clagd_sys_mac': '44:38:39:ff:bb:1c'
-  'swp48':
-    'ipv4': [ '10.78.1.10/29', ]
-    'ipv6': 'fdfe::b/124'
+  'swp47':
+    'ipv4': [ '10.80.0.118/30', ]
+    'ipv6': 'fd00:1aa5:2::3/127'
+#  'swp48':
+#    'ipv4': [ '10.78.1.10/29', ]
+#    'ipv6': 'fdfe::b/124'
 
 profile::base::network::cumulus_bridges:
   'bridge':
@@ -163,18 +166,18 @@ frrouting::frrouting::zebra_interfaces:
     - 'link-detect'
   'host14':
     - 'link-detect'
-  'swp48':
+  'swp47':
     - 'link-detect'
 
 frrouting::frrouting::zebra_ip6_routes:
-  - '::/0 fdfe::2'
+  - '::/0 fd00:1aa5:2::2'
   - '::/0 fd00:18:228::1 50'
   - '2001:700:2:8300::/64 Null0'
   - '2001:700:2:8301::/64 Null0'
   - '2001:700:2:83ff::12/128 fd00::12'
   - '2001:700:2:83ff::251/128 fd00::16'
 frrouting::frrouting::zebra_ip_routes:
-  - '0.0.0.0/0 10.78.1.9'
+  - '0.0.0.0/0 10.80.0.117'
   - '0.0.0.0/0 172.18.0.1 50'
   - '10.0.0.0/8 Null0'
   - '158.39.74.0/24 Null0'

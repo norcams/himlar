@@ -36,3 +36,11 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_ext'
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
+
+profile::base::physical::enable_redfish_sensu_check: true
+profile::base::physical::enable_redfish_http_proxy:  true
+profile::monitoring::sensu::agent::checks:
+  'redfish-check':
+    command:      '/usr/local/bin/redfish_check.sh'
+    interval:     1800
+    subscribers:  ['checks']

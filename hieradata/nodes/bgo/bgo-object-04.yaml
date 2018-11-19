@@ -12,8 +12,8 @@ network::interfaces_hash:
     team_port_config: '{ "prio" : 100 }'
   'em3':
     onboot:        'yes'
-    ipaddress:     '172.16.0.122'
-    netmask:       '255.255.248.0'
+    ipaddress:     "%{hiera('netcfg_mgmt_netpart')}.122"
+    netmask:       "%{hiera('netcfg_mgmt_netmask')}"
     gateway:       "%{hiera('netcfg_mgmt_gateway')}"
     defroute:      'yes'
     dns1:          "%{hiera('mgmt__address__proxy')}"
@@ -21,8 +21,8 @@ network::interfaces_hash:
     peerdns:       'yes'
   'team1':
     onboot:        'yes'
-    ipaddress:     '172.18.0.122'
-    netmask:       '255.255.248.0'
+    ipaddress:     "%{hiera('netcfg_trp_netpart')}.122"
+    netmask:       "%{hiera('netcfg_trp_netmask')}"
     ipv6init:      'yes'
     ipv6addr:      "%{hiera('netcfg_trp_netpart6')}::122/%{hiera('netcfg_trp_netmask6')}"
     defroute:      'no'

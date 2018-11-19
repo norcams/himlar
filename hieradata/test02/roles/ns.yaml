@@ -1,13 +1,4 @@
 ---
-# Authoritative name servers must have a public interface
-profile::base::network::manage_dummy: true
-
-# Public and internal zones
-profile::dns::ns::internal_zone: "test02.uhdc.no"
-profile::dns::ns::public_zone:   "test.iaas.uio.no"
-
-# Name servers in zone file
-profile::dns::ns::ns_master: "ns.%{hiera('profile::dns::ns::public_zone')}"
 #profile::dns::ns::ns_slaves:
 #  - "ns.test.iaas.uib.no"
 
@@ -30,28 +21,28 @@ profile::dns::ns::fw_zones:
     zone: "%{hiera('profile::dns::ns::public_zone')}"
     filename: "pz/%{hiera('profile::dns::ns::public_zone')}"
     ns_a_records:
-      'ns': "%{hiera('public__address__ns')}"
+      'ns': "%{hiera('public__ip__ns')}"
     ns_aaaa_records:
-      'ns': "%{hiera('public6__address__ns')}"
+      'ns': "%{hiera('public__ipv6__ns')}"
 
 # Reverse zones, for which the name server is authoritative
 profile::dns::ns::ptr_zones:
   mgmt:
-    cidr: "172.28.32.0/24"
-    origin: "32.28.172.in-addr.arpa"
-    filename: "pz/32.28.172.in-addr.arpa"
+    cidr: "%{::network_mgmt1}/%{::cidr_mgmt1}"
+    origin: "%{hiera('reverse_mgmt')}"
+    filename: "pz/%{hiera('reverse_mgmt')}"
   transport:
-    cidr: "172.30.32.0/24"
-    origin: "32.30.172.in-addr.arpa"
-    filename: "pz/32.30.172.in-addr.arpa"
+    cidr: "%{::network_trp1}/%{::cidr_trp1}"
+    origin: "%{hiera('reverse_trp')}"
+    filename: "pz/%{hiera('reverse_trp')}"
   public:
-    cidr: "10.100.200.0/24"
-    origin: "200.100.10.in-addr.arpa"
-    filename: "pz/200.100.10.in-addr.arpa"
+    cidr: "10.100.200.0/24" # facts for public1 are /32 and cannot be used here
+    origin: "%{hiera('reverse_public')}"
+    filename: "pz/%{hiera('reverse_public')}"
   ipv6:
-    cidr: "fd34::/7"
-    origin: "4.3.d.f.ip6.arpa"
-    filename: "pz/4.3.d.f.ip6.arpa"
+    cidr: "fd34::/7" #FIXME missing facts for IPv6 (see backlog)
+    origin: "%{hiera('reverse_public6')}"
+    filename: "pz/%{hiera('reverse_public6')}"
 
 # Secondary forward zones, for which this ns is slave
 #profile::dns::ns::fw_slave_zones:

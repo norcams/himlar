@@ -6,8 +6,8 @@ network::interfaces_hash:
     defroute:      'no'
     onboot:        'yes'
   'eth2':
-    ipaddress:     '172.16.0.10'
-    netmask:       '255.255.248.0'
+    ipaddress:     "%{hiera('netcfg_mgmt_netpart')}.10"
+    netmask:       "%{hiera('netcfg_mgmt_netmask')}"
     defroute:      'no'
     onboot:        'yes'
     dns1:          '129.177.6.54'

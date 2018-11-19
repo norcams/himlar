@@ -1,13 +1,4 @@
 ---
-# Authoritative name servers must have a public interface
-profile::base::network::manage_dummy: true
-
-# Public and internal zones
-profile::dns::ns::internal_zone: "test01.uhdc.no"
-profile::dns::ns::public_zone:   "test.iaas.uib.no"
-
-# Name servers in zone file
-profile::dns::ns::ns_master: "ns.%{hiera('profile::dns::ns::public_zone')}"
 #profile::dns::ns::ns_slaves:
 #  - "ns.test.iaas.uio.no"
 
@@ -30,28 +21,28 @@ profile::dns::ns::fw_zones:
     zone: "%{hiera('profile::dns::ns::public_zone')}"
     filename: "pz/%{hiera('profile::dns::ns::public_zone')}"
     ns_a_records:
-      'ns': "%{hiera('public__address__ns')}"
+      'ns': "%{hiera('public__ip__ns')}"
     ns_aaaa_records:
-      'ns': "%{hiera('public6__address__ns')}"
+      'ns': "%{hiera('public__ipv6__ns')}"
 
 # Reverse zones, for which the name server is authoritative
 profile::dns::ns::ptr_zones:
   mgmt:
-    cidr: "172.28.0.0/24"
-    origin: "0.28.172.in-addr.arpa"
-    filename: "pz/0.28.172.in-addr.arpa"
+    cidr: "%{::network_mgmt1}/%{::cidr_mgmt1}"
+    origin: "%{hiera('reverse_mgmt')}"
+    filename: "pz/%{hiera('reverse_mgmt')}"
   transport:
-    cidr: "172.30.0.0/24"
-    origin: "0.30.172.in-addr.arpa"
-    filename: "pz/0.30.172.in-addr.arpa"
+    cidr: "%{::network_trp1}/%{::cidr_trp1}"
+    origin: "%{hiera('reverse_trp')}"
+    filename: "pz/%{hiera('reverse_trp')}"
   public:
-    cidr: "129.177.31.0/24"
-    origin: "31.177.129.in-addr.arpa"
-    filename: "pz/31.177.129.in-addr.arpa"
+    cidr: "129.177.31.0/24" # facts for public1 are /32 and cannot be used here
+    origin: "%{hiera('reverse_public')}"
+    filename: "pz/%{hiera('reverse_public')}"
   ipv6:
     cidr: "2001:700:200:916::/64"
-    origin: "6.1.9.0.0.0.2.0.0.0.7.0.1.0.0.2.ip6.arpa"
-    filename: "pz/6.1.9.0.0.0.2.0.0.0.7.0.1.0.0.2.ip6.arpa"
+    origin: "%{hiera('reverse_public6')}"
+    filename: "pz/%{hiera('reverse_public6')}"
 
 # Secondary forward zones, for which this ns is slave
 #profile::dns::ns::fw_slave_zones:

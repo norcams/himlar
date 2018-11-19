@@ -25,21 +25,21 @@ network::interfaces_hash:
     dns1:         "%{hiera('mgmt__address__proxy')}"
     domain:       'test.iaas.uio.no'
   'br0':
-    ipaddress:    '172.28.32.99'
+    ipaddress:    "%{hiera('netcfg_mgmt_netpart')}.99"
 #    gateway:      '172.28.32.10'
-    netmask:      '255.255.255.0'
+    netmask:      "%{hiera('netcfg_mgmt_netmask')}"
     defroute:     'no'
     onboot:       'yes'
     type:         'Bridge'
 #    peerdns:      'yes'
     peerdns:      'no'
     dns1:         "%{hiera('netcfg_dns_server1')}"
-    domain:       'test.iaas.uio.no'
+    domain:       "%{hiera('domain_mgmt')}"
   'br1':
     onboot:       'yes'
     type:         'Bridge'
-    ipaddress:    '172.30.32.99'
-    netmask:      '255.255.255.0'
+    ipaddress:    "%{hiera('netcfg_trp_netpart')}.99"
+    netmask:      "%{hiera('netcfg_trp_netmask')}"
     defroute:     'no'
     bridge_stp:   'off'
   'br2':

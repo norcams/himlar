@@ -7,6 +7,10 @@
 location_environment:     'prod'
 location_description:     'Production external services UiT'
 
+# Disable management of Dell repos and software
+profile::base::dell::manage_repos:      false
+profile::base::dell::manage_openmanage: false
+
 domain_trp:               'iaas.uib.no' 
 domain_mgmt:              'iaas.uib.no'
 

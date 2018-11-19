@@ -26,7 +26,7 @@ designate::notification_transport_url:  "%{hiera('service__transport__url')}"
 # Authentication (manifests/keystone/auth.pp)
 #   - runs on the IDENTITY node
 #---------------------------------------------------------------------
-designate::keystone::auth::region:       "%{hiera('location_environment')}"
+designate::keystone::auth::region:       "%{::location}"
 designate::keystone::auth::public_url:   "%{hiera('endpoint__designate__public')}"
 designate::keystone::auth::admin_url:    "%{hiera('endpoint__designate__admin')}"
 designate::keystone::auth::internal_url: "%{hiera('endpoint__designate__internal')}"
@@ -40,6 +40,7 @@ designate::keystone::authtoken::password:          "%{hiera('designate_api_passw
 designate::keystone::authtoken::auth_url:          "%{hiera('endpoint__identity__admin')}"
 designate::keystone::authtoken::auth_uri:          "%{hiera('endpoint__identity__public')}"
 designate::keystone::authtoken::memcached_servers: '127.0.0.1'
+designate::keystone::authtoken::region_name:       "%{::location}"
 
 #---------------------------------------------------------------------
 # Central (manifests/central.pp)

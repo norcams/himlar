@@ -14,6 +14,7 @@ domain_mgmt:            'mgmt.test02.uhdc.no'
 reverse_public:         '200.100.10.in-addr.arpa'
 reverse_public6:        '0.0.0.0.0.0.0.0.0.0.0.0.4.3.d.f.ip6.arpa'
 reverse_mgmt:           '32.28.172.in-addr.arpa'
+reverse_trp:            '32.30.172.in-addr.arpa'
 
 bgp_as:                 '65536'
 
@@ -51,11 +52,10 @@ allow_from_network: # FIXME (public net and mgmt net)
   - '172.28.32.0/24'
   - '192.168.122.1/32'
 
-# DNS servers
-public__address__ns:           "%{hiera('netcfg_public_netpart')}.251"
-public6__address__ns:          "%{hiera('netcfg_public_netpart6')}::251"
-public__address__resolver_01:  "%{hiera('netcfg_public_netpart')}.252"
-public6__address__resolver_01: "%{hiera('netcfg_public_netpart6')}::252"
+public__ip__ns:             "%{hiera('netcfg_public_netpart')}.251"
+public__ipv6__ns:           "%{hiera('netcfg_public_netpart6')}::251"
+public__ip__resolver:       "%{hiera('netcfg_public_netpart')}.252"
+public__ipv6__resolver:     "%{hiera('netcfg_public_netpart6')}::251"
 
 #
 # DNS (merge of common and this)

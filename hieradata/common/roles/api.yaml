@@ -119,6 +119,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       - http-request:
         - 'add-header X-Forwarded-Proto https if { ssl_fc }'
         - 'set-header X-Forwarded-Port %[dst_port]'
+      #  - 'set-header X-Forwarded-Host %[req.hdr(Host)]'
       - acl:            'is_request hdr_beg(host) -i request'
       - redirect:       'scheme https if !{ ssl_fc } !is_request' # redirect all to https (only port 80)
       - tcp-request:    "%{hiera('block_api_connection')}" # should only block in test01
@@ -216,99 +217,110 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
       - errorfile:    '503 /etc/haproxy/error.maintenance.http'
 
 # Servers for backends. This will be merged and can should be overridden i location
+
+# aliases
+identity__backend__names:  ["%{::location}-identity-01"]
+identity__backend__ips:    ["%{hiera('netcfg_trp_netpart')}.81"]
+network__backend__names:   ['%{::location}-network-01']
+network__backend__ips:     ["%{hiera('netcfg_trp_netpart')}.71"]
+metric__backend__names:    ['%{::location}-metric-01']
+metric__backend__ips:      ["%{hiera('netcfg_trp_netpart')}.96"]
+compute__backend__names:   ['%{::location}-novactrl-01']
+compute__backend__ips:     ["%{hiera('netcfg_trp_netpart')}.66"]
+volume__backend__names:    ["%{::location}-volume-01"]
+volume__backend__ips:      ["%{hiera('netcfg_trp_netpart')}.46"]
+image__backend__names:     ['%{::location}-image-01']
+image__backend__ips:       ["%{hiera('netcfg_trp_netpart')}.36"]
+object__backend__names:    []
+object__backend__ips:      []
+status__backend__names:    ['%{::location}-status-01']
+status__backend__ips:      ["%{hiera('netcfg_trp_netpart')}.21"]
+dns__backend__names:       ['%{::location}-dns-01']
+dns__backend__ips:         ["%{hiera('netcfg_trp_netpart')}.34"]
+console__backend__names:   ['%{::location}-console-01']
+console__backend__ips:     ["%{hiera('netcfg_trp_netpart')}.61"]
+access__backend__names:    ['%{::location}-access-01']
+access__backend__ips:      ["%{hiera('netcfg_trp_netpart')}.56"]
+report__backend__names:    ['%{::location}-report-01']
+report__backend__ips:      ["%{hiera('netcfg_trp_netpart')}.22"]
+
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   identity:
     listening_service:  'bk_identity'
-    server_names:       #['%{::location}-identity-01']
-      - "%{::location}-identity-01"
-      - "%{::location}-identity-02"
-      - "%{::location}-identity-03"
-    ipaddresses:        #["%{hiera('netcfg_trp_netpart')}.81"]
-      - "%{hiera('netcfg_trp_netpart')}.81"
-      - "%{hiera('netcfg_trp_netpart')}.82"
-      - "%{hiera('netcfg_trp_netpart')}.83"
+    server_names:       "%{alias('identity__backend__names')}"
+    ipaddresses:        "%{alias('identity__backend__ips')}"
     ports:              '5000'
     options:            'check'
   network:
     listening_service:  'bk_network'
-    server_names:       ['%{::location}-network-01']
-    ipaddresses:        ["%{hiera('netcfg_trp_netpart')}.71"]
+    server_names:       "%{alias('network__backend__names')}"
+    ipaddresses:        "%{alias('network__backend__ips')}"
     ports:              '9696'
     options:            'check'
   metric:
     listening_service:  'bk_metric'
-    server_names:       ['%{::location}-metric-01']
-    ipaddresses:        ["%{hiera('netcfg_trp_netpart')}.96"]
+    server_names:       "%{alias('metric__backend__names')}"
+    ipaddresses:        "%{alias('metric__backend__ips')}"
     ports:              '8041'
     options:            'check'
   compute:
     listening_service:  'bk_compute'
-    server_names:       ['%{::location}-novactrl-01']
-    ipaddresses:        ["%{hiera('netcfg_trp_netpart')}.66"]
+    server_names:       "%{alias('compute__backend__names')}"
+    ipaddresses:        "%{alias('compute__backend__ips')}"
     ports:              '8774'
     options:            'check'
   placement:
     listening_service:  'bk_placement'
-    server_names:       ['%{::location}-novactrl-01']
-    ipaddresses:        ["%{hiera('netcfg_trp_netpart')}.66"]
+    server_names:       "%{alias('compute__backend__names')}"
+    ipaddresses:        "%{alias('compute__backend__ips')}"
     ports:              '8778'
     options:            'check'
   volume:
     listening_service:  'bk_volume'
-    server_names:       ['%{::location}-volume-01']
-    ipaddresses:        ["%{hiera('netcfg_trp_netpart')}.46"]
+    server_names:       "%{alias('volume__backend__names')}"
+    ipaddresses:        "%{alias('volume__backend__ips')}"
     ports:              '8776'
     options:            'check'
   image:
     listening_service:  'bk_image'
-    server_names:       ['%{::location}-image-01']
-    ipaddresses:        ["%{hiera('netcfg_trp_netpart')}.36"]
+    server_names:       "%{alias('image__backend__names')}"
+    ipaddresses:        "%{alias('image__backend__ips')}"
     ports:              '9292'
     options:            'check'
   object:
     listening_service:  'bk_object'
-    server_names:
-      - '%{::location}-object-01'
-      - '%{::location}-object-02'
-      - '%{::location}-object-03'
-      - '%{::location}-object-04'
-      - '%{::location}-object-05'
-    ipaddresses:
-      - "%{hiera('netcfg_trp_netpart')}.119"
-      - "%{hiera('netcfg_trp_netpart')}.120"
-      - "%{hiera('netcfg_trp_netpart')}.121"
-      - "%{hiera('netcfg_trp_netpart')}.122"
-      - "%{hiera('netcfg_trp_netpart')}.123"
+    server_names:       "%{alias('object__backend__names')}"
+    ipaddresses:        "%{alias('object__backend__ips')}"
     ports:              '8080'
     options:            'check'
   status:
     listening_service:  'bk_status'
-    server_names:       ['%{::location}-status-01']
-    ipaddresses:        ["%{hiera('netcfg_trp_netpart')}.21"]
+    server_names:       "%{alias('status__backend__names')}"
+    ipaddresses:        "%{alias('status__backend__ips')}"
     ports:              '8080'
     options:            'check'
   dns:
     listening_service:  'bk_dns'
-    server_names:       ['%{::location}-dns-01']
-    ipaddresses:        ["%{hiera('netcfg_trp_netpart')}.34"]
+    server_names:       "%{alias('dns__backend__names')}"
+    ipaddresses:        "%{alias('dns__backend__ips')}"
     ports:              '9001'
     options:            'check'
   console:
     listening_service:  'bk_console'
-    server_names:       ['%{::location}-console-01']
-    ipaddresses:        ["%{hiera('netcfg_trp_netpart')}.61"]
+    server_names:       "%{alias('console__backend__names')}"
+    ipaddresses:        "%{alias('console__backend__ips')}"
     ports:              '6082'
     options:            'check'
   access:
     listening_service:  'bk_access'
-    server_names:       ['%{::location}-access-01']
-    ipaddresses:        ["%{hiera('netcfg_trp_netpart')}.56"]
+    server_names:       "%{alias('access__backend__names')}"
+    ipaddresses:        "%{alias('access__backend__ips')}"
     ports:              '80'
     options:            'check'
   report:
     listening_service:  'bk_report'
-    server_names:       ['%{::location}-report-01']
-    ipaddresses:        ["%{hiera('netcfg_trp_netpart')}.22"]
+    server_names:       "%{alias('report__backend__names')}"
+    ipaddresses:        "%{alias('report__backend__ips')}"
     ports:              '80'
     options:            'check'
 

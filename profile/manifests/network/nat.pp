@@ -93,13 +93,13 @@ class profile::network::nat(
     profile::firewall::rule { '099 postrouting with snat':
       chain  => 'POSTROUTING',
       proto  => 'all',
+      source => $source,
       extras => {
         action   => undef,
         jump     => 'SNAT',
         tosource => $::ipaddress_public1,
         table    => 'nat',
         outiface => $outiface,
-        source   => $source,
         state    => undef
       }
     }

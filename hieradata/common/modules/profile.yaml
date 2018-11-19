@@ -21,6 +21,8 @@ profile::base::firewall::manage_firewall:      true
 profile::base::network::manage_hostname:       true
 profile::base::network::http_proxy:            "%{hiera('mgmt__address__proxy')}:8888"
 profile::base::network::http_proxy_profile:    '/root/proxy.sh'
+profile::base::dell::manage_repos:             true
+profile::base::dell::manage_openmanage:        true
 
 profile::base::common::packages:
   'tcpdump': {}
@@ -223,6 +225,28 @@ profile::base::yumrepo::repo_hash:
     gpgkey:         "%{hiera('yum_base_mirror')}/grafana/RPM-GPG-KEY-grafana"
     enabled:        1
     gpgcheck:       1
+
+profile::base::dell::repo_hash:
+  dell-system-update_dependent:
+    descr:          "dell-system-update_dependent"
+    baseurl:        "%{hiera('yum_base_mirror')}/dell-system-update_dependent"
+    enabled:        1
+    gpgcheck:       1
+    gpgkey:         "%{hiera('yum_base_mirror')}/dell-system-update_dependent/public.key"
+  dell-system-update_independent:
+    descr:          "dell-system-update_independent"
+    baseurl:        "%{hiera('yum_base_mirror')}/dell-system-update_independent"
+    enabled:        1
+    gpgcheck:       1
+    gpgkey:         "%{hiera('yum_base_mirror')}/dell-system-update_independent/public.key"
+
+profile::base::dell::packages:
+  'srvadmin-all': {}
+  'dell-system-update': {}
+  'net-snmp': {}
+  'compat-libstdc++-33.i686': {}
+  'libstdc++.i686': {}
+  'libxml2.i686': {}
 
 # Turn on agant and add common sensu plugins
 sensu_ssl_cachain: ''

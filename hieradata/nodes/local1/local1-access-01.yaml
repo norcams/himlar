@@ -8,12 +8,17 @@ network::interfaces_hash:
     dns1:      "%{hiera('netcfg_dns_server1')}"
     dns2:      "%{hiera('netcfg_dns_server2')}"
     domain:    "%{hiera('netcfg_dns_search')}"
-    defroute:  'yes'
+    defroute:  'no'
     peerdns:   'yes'
   'eth1':
     ipaddress: "%{hiera('netcfg_trp_netpart')}.56"
     netmask:   "%{hiera('netcfg_trp_netmask')}"
-    defroute:  'no'
+    gateway:   "%{hiera('netcfg_trp_netpart')}.1"
+    srcaddr:   "%{hiera('netcfg_public_netpart')}.252"
+    defroute:  'yes'
+  'dummy0': # needed for galera cluster
+    ipaddress: "%{hiera('netcfg_public_netpart')}.252"
+    netmask:   '255.255.255.255'
 
 # Galere arbitrator
 include:

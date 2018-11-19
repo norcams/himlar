@@ -1,7 +1,7 @@
 ---
 network::interfaces_hash:
   'eth0':
-    ipaddress: '172.28.32.14'
-    netmask:   '255.255.255.0'
+    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.14"
+    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
     gateway:   "%{hiera('netcfg_mgmt_gateway')}"
     mtu:       '1500'

@@ -3,6 +3,10 @@
 #  default:
 #    - profile::monitoring::sensu::agent
 
+# Disable management of Dell repos and software
+profile::base::dell::manage_repos:      false
+profile::base::dell::manage_openmanage: false
+
 location_environment:     'prod'
 location_description:     'Production environment in Tromso'
 
@@ -56,9 +60,6 @@ named_interfaces::config:
     - eth2
   public:
     - dummy0
-
-# DNS server
-#public__address__ns_01:  FIXME
 
 # We need to allow both trafic from mgmt (nat via login) and public net
 

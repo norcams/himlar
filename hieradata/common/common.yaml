@@ -31,7 +31,7 @@ domain_public:        "%{::domain}"
 domain_trp:           "%{::domain}"
 domain_mgmt:          "%{::domain}"
 
-openstack_version:    'ocata'
+openstack_version:    'pike'
 
 ceph_version:         'mimic'
 
@@ -61,8 +61,11 @@ allow_from_testing_network: # this do not merge!
   - '129.240.202.64/32'  # tannaz
   - '129.177.6.133/32'   # bgo-login
   - '129.240.224.100/32' # osl-login
-  - "%{hiera('public__ip__proxy')}/32"
-  - '192.168.122.1/32'
+  - '158.39.77.254/32'  # bgo-dashboard
+  - '158.39.77.253/32'  # bgo-proxy-01
+  - '158.37.63.253/32'  # osl-proxy-01
+  - '192.168.122.1/32'  # test02
+
 #
 # Use this for firewall rules to allow only from some networks
 #
@@ -98,6 +101,9 @@ allow_from_network:
   - '158.39.17.0/25'     # UiT ita
   - '158.39.93.0/27'     # UiT ita
   - '158.39.87.96/28'    # UiT ita
+  - '129.242.183.0/24'   # UiT
+  - '129.242.180.0/24'   # UiT
+  - '129.242.158.0/24'   # UiT
   - '77.88.71.128/26'    # Kvantel (Simula/IFI project) NAT range
   - '77.88.125.0/24'     # Kvantel (Simula/IFI project)
   - '158.39.4.0/24'      # NorNett/UNINETT (Simula/IFI project)
@@ -153,6 +159,9 @@ public__name__ns:                 "ns.%{hiera('domain_public')}"
 
 # In vagrant this is the host, otherwise it should be the NAT server used
 public__ip__proxy:                "%{hiera('netcfg_public_netpart')}.253"
+public__ip__ns:                   "%{hiera('netcfg_public_netpart')}.251"
+# FIXME: we will need to define netcfg_public_netpart6 first in all locations
+#public__ipv6__ns:                 "%{hiera('netcfg_public_netpart6')}::251"
 
 #
 # Services (internal non openstack services)
@@ -249,6 +258,7 @@ profile::network::services::dns_records:
     "%{::location}-db-global-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_mgmt_netpart')}.41"
     "%{::location}-db-regional-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_netpart')}.42"
     "%{::location}-volume-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_netpart')}.46"
+    "%{::location}-volume-02.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_netpart')}.47"
     "%{::location}-access-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_netpart')}.56"
     "%{::location}-dashboard-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_mgmt_netpart')}.51"
     "%{::location}-dashboard-mgmt-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_netpart')}.54"
@@ -265,6 +275,7 @@ profile::network::services::dns_records:
     "%{::location}-cephmds-03.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.79"
     "%{::location}-identity-01.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_netpart')}.81"
     "%{::location}-identity-02.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_netpart')}.82"
+    "%{::location}-identity-03.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_netpart')}.83"
     "%{::location}-api-01.%{hiera('domain_mgmt')}":         "%{hiera('netcfg_mgmt_netpart')}.86"
     "%{::location}-cephmon-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.91"
     "%{::location}-cephmon-02.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.92"
@@ -345,6 +356,7 @@ profile::network::services::dns_records:
     "41.%{hiera('reverse_mgmt')}":     "%{::location}-db-01.%{hiera('domain_mgmt')}"
     "42.%{hiera('reverse_mgmt')}":     "%{::location}-db-02.%{hiera('domain_mgmt')}"
     "46.%{hiera('reverse_mgmt')}":     "%{::location}-volume-01.%{hiera('domain_mgmt')}"
+    "47.%{hiera('reverse_mgmt')}":     "%{::location}-volume-02.%{hiera('domain_mgmt')}"
     "51.%{hiera('reverse_mgmt')}":     "%{::location}-dashboard-01.%{hiera('domain_mgmt')}"
     "54.%{hiera('reverse_mgmt')}":     "%{::location}-dashboard-mgmt-01.%{hiera('domain_mgmt')}"
     "56.%{hiera('reverse_mgmt')}":     "%{::location}-access-01.%{hiera('domain_mgmt')}"
@@ -360,6 +372,7 @@ profile::network::services::dns_records:
     "79.%{hiera('reverse_mgmt')}":     "%{::location}-cephmds-03.%{hiera('domain_mgmt')}"
     "81.%{hiera('reverse_mgmt')}":     "%{::location}-identity-01.%{hiera('domain_mgmt')}"
     "82.%{hiera('reverse_mgmt')}":     "%{::location}-identity-02.%{hiera('domain_mgmt')}"
+    "83.%{hiera('reverse_mgmt')}":     "%{::location}-identity-03.%{hiera('domain_mgmt')}"
     "86.%{hiera('reverse_mgmt')}":     "%{::location}-api-01.%{hiera('domain_mgmt')}"
     "91.%{hiera('reverse_mgmt')}":     "%{::location}-cephmon-01.%{hiera('domain_mgmt')}"
     "92.%{hiera('reverse_mgmt')}":     "%{::location}-cephmon-02.%{hiera('domain_mgmt')}"
