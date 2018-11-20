@@ -4,7 +4,6 @@ class profile::openstack::designate (
   $my_nameservers = {},
   $my_pools = {},
   $my_targets = {},
-  $mdns_transport_addr = lookup('profile::dns::ns::mdns_transport_addr', Array, 'deep', []),
   $bind_servers = lookup('profile::openstack::designate::bind_servers', Hash, 'first', {})
 )
 {
