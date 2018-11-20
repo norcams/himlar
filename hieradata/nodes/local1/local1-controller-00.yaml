@@ -85,6 +85,7 @@ profile::base::network::routes:
     'table':     [ 'main', ]
     'family':    [ 'inet4', ]
 
+libvirt::defaultnetwork: true
 profile::virtualization::libvirt::networks:
   directnet:
     ensure:              enabled
