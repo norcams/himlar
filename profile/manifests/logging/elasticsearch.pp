@@ -1,6 +1,8 @@
 #
 class profile::logging::elasticsearch(
   $instances = {},
+  $templates = {},
+  $indexes   = {},
   $manage_firewall = true,
   $ports = [9200],
   $firewall_extras = {},
@@ -12,6 +14,8 @@ class profile::logging::elasticsearch(
   include ::elasticsearch
 
   create_resources('elasticsearch::instance', $instances)
+  create_resources('elasticsearch::template', $templates)
+  create_resources('elasticsearch::index', $indexes)
 
   if $manage_firewall {
     profile::firewall::rule { '400 elasticsearch accept tcp':

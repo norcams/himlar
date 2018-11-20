@@ -1,8 +1,8 @@
 ---
 network::interfaces_hash:
   'eth0':
-    ipaddress: '172.16.0.12'
-    netmask:   '255.255.248.0'
+    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.12"
+    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
     mtu:       '1500'
     peerdns:   'yes'
     dns1:      '129.177.6.54'
@@ -10,20 +10,25 @@ network::interfaces_hash:
     domain:    "%{hiera('netcfg_dns_search')}"
     defroute:  'no'
   'eth1':
-    ipaddress: '172.18.0.12'
-    netmask:   '255.255.248.0'
+    ipaddress: "%{hiera('netcfg_trp_netpart')}.12"
+    netmask:   "%{hiera('netcfg_trp_netmask')}"
     gateway:   "%{hiera('netcfg_trp_gateway')}"
-    srcaddr:   '158.39.77.253'
+    srcaddr:   "%{hiera('public__ip__proxy')}"
     ipv6init:  'yes'
     ipv6addr:  "%{hiera('netcfg_trp_netpart6')}::12/%{hiera('netcfg_trp_netmask6')}"
     defroute:  'yes'
   'dummy0':
-    ipaddress: '158.39.77.253'
+    ipaddress: "%{hiera('public__ip__proxy')}"
     netmask:   '255.255.255.255'
     ipv6init:  'yes'
     ipv6addr:  '2001:700:2:83ff::12/128'
     defroute:  'no'
 profile::base::network::routes:
+  'eth0':
+    'ipaddress': [ '172.17.0.0', ]
+    'netmask':   [ '255.255.248.0', ]
+    'gateway':   [ '172.16.0.10', ]
+    'table':     [ 'main', ]
   'eth1':
     'ipaddress': [ '::', ]
     'netmask':   [ '0', ]

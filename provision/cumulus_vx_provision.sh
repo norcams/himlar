@@ -12,7 +12,7 @@ fi
 
 certname=$1
 domain="${certname#*.}"
-puppet_bin=''
+puppet_bin='/opt/puppetlabs/bin/puppet'
 
 # Clean up old puppet
 apt-get -y purge puppet facter ruby-rgen puppet-common hiera

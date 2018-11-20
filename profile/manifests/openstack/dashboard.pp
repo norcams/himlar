@@ -81,14 +81,16 @@ class profile::openstack::dashboard(
   # Designate plugin
   if $enable_designate {
     file { '/usr/share/openstack-dashboard/openstack_dashboard/local/enabled/_1710_project_dns_panel_group.py':
-      ensure => present,
-      source => 'file:///usr/lib/python2.7/site-packages/designatedashboard/enabled/_1710_project_dns_panel_group.py',
-      notify => Service['httpd']
+      ensure  => present,
+      source  => 'file:///usr/lib/python2.7/site-packages/designatedashboard/enabled/_1710_project_dns_panel_group.py',
+      require => Class['horizon'],
+      notify  => Service['httpd']
     }
     file { '/usr/share/openstack-dashboard/openstack_dashboard/local/enabled/_1721_dns_zones_panel.py':
-      ensure => present,
-      source => 'file:///usr/lib/python2.7/site-packages/designatedashboard/enabled/_1721_dns_zones_panel.py',
-      notify => Service['httpd']
+      ensure  => present,
+      source  => 'file:///usr/lib/python2.7/site-packages/designatedashboard/enabled/_1721_dns_zones_panel.py',
+      require => Class['horizon'],
+      notify  => Service['httpd']
     }
 #    file { '/usr/share/openstack-dashboard/openstack_dashboard/local/enabled/_1722_dns_reversedns_panel.py':
 #      ensure => present,

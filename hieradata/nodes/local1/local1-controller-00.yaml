@@ -1,0 +1,149 @@
+---
+include:
+  default:
+    - profile::network::nat
+    - profile::base::login
+
+network::interfaces_hash:
+  'em1':      # local1-mgmt
+    onboot:         'yes'
+    bridge:         'br0'
+  'em1.11':   # local2-mgmt
+    onboot:         'yes'
+    bridge:         'br1'
+    vlan:           'yes'
+  'em1.100':  # local1-trp
+    onboot:         'yes'
+    bridge:         'br2'
+    vlan:           'yes'
+  'em1.101':  # local2-trp
+    onboot:         'yes'
+    bridge:         'br3'
+    vlan:           'yes'
+  'em1.1349': # uib
+    vlan:           'yes'
+    'enable_dhcp':  true
+  'eth0': # uib
+    enable_dhcp:    true
+    ipv6init:       'no'
+    ipv6_autoconf:  'no'
+    peerdns:        'no'
+    defroute:       'yes'
+  'br0':
+    ipaddress:    "%{hiera('netcfg_mgmt_netpart')}.99"
+    netmask:      "%{hiera('netcfg_mgmt_netmask')}"
+    gateway:      "%{hiera('netcfg_mgmt_gateway')}"
+    defroute:     'no'
+    onboot:       'yes'
+    type:         'Bridge'
+    peerdns:      'yes'
+    dns1:         "%{hiera('netcfg_dns_server1')}"
+    dns2:         "%{hiera('netcfg_dns_server2')}"
+    domain:       "%{hiera('netcfg_dns_search')}"
+  'br1':
+    ipaddress:    "172.31.5.99"
+    netmask:      "%{hiera('netcfg_mgmt_netmask')}"
+    defroute:     'no'
+    onboot:       'yes'
+    type:         'Bridge'
+  'br2':
+    defroute:     'no'
+    onboot:       'yes'
+    ipaddress:    "%{hiera('netcfg_trp_netpart')}.99"
+    netmask:      "%{hiera('netcfg_trp_netmask')}"
+    type:         'Bridge'
+  'br3':
+    onboot:       'yes'
+    type:         'Bridge'
+  'link1':
+    onboot:       'yes'
+    type:         'Bridge'
+    ipaddress:    '192.168.112.1'
+    netmask:      '255.255.255.0'
+    defroute:     'no'
+    bridge_stp:   'off'
+  'link2':
+    onboot:       'yes'
+    type:         'Bridge'
+    ipaddress:    '192.168.113.1'
+    netmask:      '255.255.255.0'
+    defroute:     'no'
+    bridge_stp:   'off'
+
+# route to public net via torack-01
+profile::base::network::routes:
+  'link1':
+    'ipaddress': [ "%{hiera('netcfg_public_netpart')}.0", ]
+    'netmask':   [ "%{hiera('netcfg_public_netmask')}", ]
+    'gateway':   [ '192.168.112.2', ]
+    'table':     [ 'main', ]
+    'family':    [ inet4', ]
+  'link2':
+    'ipaddress': [ '192.168.13.0', ]
+    'netmask':   [ '255.255.255.0', ]
+    'gateway':   [ '192.168.113.2', ]
+    'table':     [ 'main', ]
+    'family':    [ 'inet4', ]
+
+libvirt::defaultnetwork: true
+profile::virtualization::libvirt::networks:
+  directnet:
+    ensure:              enabled
+    autostart:           true
+    forward_mode:        bridge
+    bridge:              br0
+  trpnet:
+    ensure:              enabled
+    autostart:           true
+    forward_mode:        bridge
+    bridge:              br2
+
+
+# NAT
+profile::network::nat::enable_snat:  true
+profile::network::nat::source:
+  - "%{hiera('netcfg_public_netpart')}.0/%{hiera('netcfg_public_netmask')}"
+  - "192.168.13.0/%{hiera('netcfg_public_netmask')}"
+
+profile::network::nat::outiface:     'eth0'
+
+profile::network::services::ntp_server: false
+
+named_interfaces::config:
+  mgmt:
+    - br0
+  trp:
+    - br1
+  public:
+    - eth0
+
+# SSH access
+accounts::accounts:
+  'raymond':
+    ensure: present
+
+# SSH from everywhere
+profile::firewall::pre::ssh_settings:
+  source: "0.0.0.0/0"
+
+googleauthenticator::pam::modules:
+  sshd:
+    mode: wheel-only
+
+googleauthenticator::pam::mode::modes:
+  wheel-only:
+    condition: 'user ingroup wheel'
+    nullok: false
+
+ssh::server::options:
+  # Need this for 2FA (saz-ssh-module disables by default)
+  ChallengeResponseAuthentication: 'yes'
+  # The second publickey is until the pam files are fixed
+  AuthenticationMethods: 'publickey,keyboard-interactive:pam'
+  # Explicitly enable the required methods
+  UsePAM: 'yes'
+  PasswordAuthentication: 'no'
+  PubKeyAuthentication: 'yes'
+  # No 2FA possible with iaas from mgmt
+  "Match User iaas Address %{hiera('netcfg_mgmt_netpart')}.0/24":
+    AuthenticationMethods: 'publickey'

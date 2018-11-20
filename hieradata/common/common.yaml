@@ -31,7 +31,7 @@ domain_public:        "%{::domain}"
 domain_trp:           "%{::domain}"
 domain_mgmt:          "%{::domain}"
 
-openstack_version:    'ocata'
+openstack_version:    'pike'
 
 ceph_version:         'mimic'
 
@@ -61,8 +61,11 @@ allow_from_testing_network: # this do not merge!
   - '129.240.202.64/32'  # tannaz
   - '129.177.6.133/32'   # bgo-login
   - '129.240.224.100/32' # osl-login
-  - "%{hiera('public__ip__proxy')}/32"
-  - '192.168.122.1/32'
+  - '158.39.77.254/32'  # bgo-dashboard
+  - '158.39.77.253/32'  # bgo-proxy-01
+  - '158.37.63.253/32'  # osl-proxy-01
+  - '192.168.122.1/32'  # test02
+
 #
 # Use this for firewall rules to allow only from some networks
 #

@@ -4,6 +4,9 @@
 class profile::base::login (
   $manage_db_backup         = false,
   $manage_repo_incoming_dir = false,
+  $forward_oobnet           = false,
+  $oob_net                  = '10.0.0.0/24',
+  $oob_outiface             = undef,
   $ensure                   = 'present',
   $agelimit                 = '14',
   $db_servers               = {},
@@ -148,5 +151,18 @@ class profile::base::login (
     }
   }
 
-
+  if $forward_oobnet  {
+    profile::firewall::rule { '098 postrouting to out-of-band network':
+      chain         => 'POSTROUTING',
+      proto         => 'all',
+      destination   => $oob_net,
+      extras => {
+        action      => undef,
+        jump        => 'MASQUERADE',
+        table       => 'nat',
+        outiface    => $oob_outiface,
+        state       => undef
+      }
+    }
+  }
 }

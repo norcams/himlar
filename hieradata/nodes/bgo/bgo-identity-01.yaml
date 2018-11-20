@@ -7,8 +7,8 @@ include:
 
 network::interfaces_hash:
   'eth0':
-    ipaddress: '172.16.0.81'
-    netmask:   '255.255.248.0'
+    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.81"
+    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
     gateway:   "%{hiera('netcfg_mgmt_gateway')}"
     mtu:       '1500'
     peerdns:   'yes'
@@ -16,8 +16,8 @@ network::interfaces_hash:
     domain:    "%{hiera('netcfg_dns_search')}"
     defroute:  'yes'
   'eth1':
-    ipaddress: '172.18.0.81'
-    netmask:   '255.255.248.0'
+    ipaddress: "%{hiera('netcfg_trp_netpart')}.81"
+    netmask:   "%{hiera('netcfg_trp_netmask')}"
     defroute:  'no'
 
 profile::openstack::identity::manage_token_rotate:        true

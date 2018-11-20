@@ -4,6 +4,8 @@ include:
     - profile::openstack::openrc
     - profile::openstack::telemetry
 
+openstack_version:  'ocata' #FIXME
+
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   rdo-release:

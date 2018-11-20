@@ -4,12 +4,14 @@ include:
     - profile::openstack::image
     - profile::openstack::openrc
     - profile::logging::rsyslog::client
+    - profile::openstack::cache
 
 profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}
   'jq': {}
   'openstack-selinux': {}
+  'python-memcached': {}
 
 profile::base::selinux::manage_selinux:       true
 profile::openstack::image::registry_enabled:  true
@@ -19,6 +21,8 @@ profile::openstack::image::manage_notify:     true
 profile::openstack::openrc::password:     "%{hiera('glance_api_password')}"
 profile::openstack::openrc::username:     'glance'
 profile::openstack::openrc::project_name: 'services'
+
+memcached::max_memory: '20%'
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:

@@ -32,7 +32,7 @@ netcfg_live_netpart:    '172.31.13'
 netcfg_live_netmask:    '255.255.255.0'
 netcfg_mgmt_netpart:    '172.31.5'
 netcfg_mgmt_netmask:    '255.255.255.0'
-netcfg_mgmt_gateway:    '172.31.5.10'
+netcfg_mgmt_gateway:    '172.31.5.12'
 netcfg_public_netmask:  '255.255.255.0'
 netcfg_public_netpart:  '192.168.13'
 netcfg_dns_server1:     '172.31.5.11'
@@ -208,7 +208,7 @@ monitor_metric_password:                            'monitor_pass'
 report_db_password:                                 'report_pass'
 
 # The root user password
-#accounts::root_user::password:                      '$6$qVzsC5fQMqdF4gKw$.zFAu9LtxSAaPgbtZul/ZXUXpBgjaVJbQ.CIMo9eo5TslU8KU1SO/tjRZbh1hFM6RB55QFEzJlF5ejAgglk50.'
+accounts::root_user::password:                      '$6$H1ChW9xip85kje4T$BFGLr2Hsx2m74NGG4tNOmM/Wpm1Ol/bgRHJkgioyZYX2T9FhgNL9s3dbtcw6HXGGktSefYSnIARIr588rv/xJ1'
 
 # rndc keys
 profile::dns::rndc_key::rndc_secret_admin: '5n5fC0m42JovwO9PJMTQYaNP7j5UcRjmL0Lsq4JXz8eZIrGILt/5Lo+MVzdr31GbYn9C/fPEe1Nvbjs8NgTG6w=='

@@ -2,3 +2,7 @@
 elasticsearch::manage_repo:                   false
 elasticsearch::file_rolling_type:             'rollingFile'
 elasticsearch::rolling_file_max_backup_index: 10
+elasticsearch::api_protocol:                  'http'
+elasticsearch::api_host:                      '127.0.0.1'
+elasticsearch::api_port:                      9200
+elasticsearch::api_timeout:                   10

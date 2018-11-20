@@ -9,17 +9,26 @@ include:
 
 rsyslog::perm_dir:    '0755'
 
-profile::logging::logrotate::manage_logrotate:   true
-profile::logging::elasticsearch::manage_curator: true
+profile::logging::logrotate::manage_logrotate:    true
+profile::logging::elasticsearch::manage_curator:  true
+profile::logging::elasticsearch::manage_shards:   false
+profile::logging::elasticsearch::manage_replicas: false
+
 profile::logging::elasticsearch::instances:
   'openstack':
     datadir:  '/opt/els/openstack'
     config:
       'cluster.name':             "logger"
-      'index.number_of_replicas': '0'
-      'index.number_of_shards':   '1'
       'network.host':             "127.0.0.1"
       'node.name':                "%{::hostname}"
+
+profile::logging::elasticsearch::templates:
+  'logstash':
+    'content':
+        index_patterns: ['logstash-*']
+        settings:
+            'number_of_replicas': '0'
+            'number_of_shards':   '2'
 
 profile::base::common::packages:
   'java-1.8.0-openjdk':     {}
