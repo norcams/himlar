@@ -11,8 +11,6 @@ rsyslog::perm_dir:    '0755'
 
 profile::logging::logrotate::manage_logrotate:    true
 profile::logging::elasticsearch::manage_curator:  true
-profile::logging::elasticsearch::manage_shards:   false
-profile::logging::elasticsearch::manage_replicas: false
 
 profile::logging::elasticsearch::instances:
   'openstack':
