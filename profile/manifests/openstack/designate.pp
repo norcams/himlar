@@ -1,9 +1,5 @@
 class profile::openstack::designate (
   $manage_firewall = false,
-  $my_zones = {},
-  $my_nameservers = {},
-  $my_pools = {},
-  $my_targets = {},
   $bind_servers = lookup('profile::openstack::designate::bind_servers', Hash, 'first', {})
 )
 {
