@@ -66,3 +66,9 @@ profile::base::selinux::boolean:
   'httpd_can_network_connect':
     ensure: 'on'
     persistent: true
+  'httpd_tmp_exec':
+    ensure: 'on'
+    persistent: true
+  'httpd_execmem':
+    ensure: 'on'
+    persistent: true
