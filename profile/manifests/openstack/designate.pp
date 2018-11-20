@@ -1,13 +1,11 @@
 class profile::openstack::designate (
+  $manage_firewall = false,
   $my_zones = {},
   $my_nameservers = {},
   $my_pools = {},
   $my_targets = {},
-  $mdns_transport_addr = {},
-  $ns_transport_addr = {},
-  $ns_public_addr = {},
-  $ns_public_name = {},
-  $manage_firewall = false,
+  $mdns_transport_addr = lookup('profile::dns::ns::mdns_transport_addr', Array, 'deep', []),
+  $bind_servers = lookup('profile::openstack::designate::bind_servers', Hash, 'first', {})
 )
 {
   include ::designate
@@ -48,9 +46,13 @@ class profile::openstack::designate (
       port   => 9001,
       proto  => 'tcp'
     }
-    profile::firewall::rule { '002 designate mdns incoming':
+    profile::firewall::rule { '002 TCP designate mdns incoming':
       port   => 5354,
       proto  => 'tcp'
+    }
+    profile::firewall::rule { '003 UDP designate mdns incoming':
+      port   => 5354,
+      proto  => 'udp'
     }
   }
 }

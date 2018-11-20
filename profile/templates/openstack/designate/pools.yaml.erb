@@ -3,24 +3,30 @@
   description: Default Bind9 Pool
   attributes: {}
   nameservers:
-    - host: <%= @ns_public_addr %>
+<% @bind_servers.each do |ns_name,values| -%>
+    - host: <%= values["ns_public_addr"] %>
       port: 53
+<% end -%>
   ns_records:
-    - hostname: <%= @ns_public_name %>.
+<% @bind_servers.each do |ns_name,values| -%>
+    - hostname: <%= values["ns_public_name"] %>.
       priority: 1
+<% end -%>
   targets:
-    - type: bind9
-      description: Bind9 Server ns
+<% @bind_servers.each do |ns_name,values| -%>
+    - description: Bind9 Server <%= ns_name %>
+      type: bind9
       masters:
-<% @mdns_transport_addr.each do |addr| -%>
+<% values["mdns_addr"].each do |addr| -%>
         - host: <%= addr %>
           port: 5354
 <% end -%>
       options:
-        rndc_host: <%= @ns_transport_addr %>
+        rndc_host: <%= values["ns_transport_addr"] %>
         rndc_port: 953
         rndc_config_file: /etc/rndc.conf
         rndc_key_file: /etc/rndc-mdns.key
         port: 53
-        host: <%= @ns_transport_addr %>
+        host: <%= values["ns_transport_addr"] %>
+<% end -%>
   also_notifies: []

@@ -1,0 +1,17 @@
+---
+# Designate pools.yaml definitions
+profile::openstack::designate::bind_servers:
+  'osl-01':
+    ns_transport_addr: '172.18.32.16'
+    ns_public_addr:    '158.37.63.251'
+    ns_public_name:    'ns1.uh-iaas.no'
+    mdns_addr:
+      - '172.18.32.34'
+      - '172.18.0.34'
+  'bgo-01':
+    ns_transport_addr: '172.18.0.16'
+    ns_public_addr:    '158.39.77.251'
+    ns_public_name:    'ns2.uh-iaas.no'
+    mdns_addr:
+      - '172.18.32.34'
+      - '172.18.0.34'
