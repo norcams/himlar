@@ -1,6 +1,5 @@
 class profile::openstack::designate (
-  $manage_firewall = false,
-  $bind_servers = {}
+  $manage_firewall = false
 )
 {
   include ::designate
