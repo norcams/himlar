@@ -212,6 +212,12 @@ profile::base::yumrepo::repo_hash:
     baseurl:        "%{hiera('yum_base_mirror')}/foreman-plugins-%{hiera('foreman_version')}"
     enabled:        1
     gpgcheck:       0
+  foreman-rails:
+    ensure:         absent
+    descr:          "Foreman %{hiera('foreman_version')} Rails repo"
+    baseurl:        "%{hiera('yum_base_mirror')}/foreman-rails-%{hiera('foreman_version')}"
+    enabled:        1
+    gpgcheck:       0
   mariadb:
     ensure:         absent
     descr:          'MariaDB 10.1 repo'

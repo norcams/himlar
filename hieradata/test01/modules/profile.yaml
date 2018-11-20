@@ -10,12 +10,3 @@ yum_base_mirror:    'https://download.iaas.uio.no/uh-iaas/test'
 profile::openstack::identity::designate_enabled:      true
 profile::openstack::database::sql::designate_enabled: true
 profile::openstack::dashboard::enable_designate:      true
-
-profile::base::yumrepo::repo_hash:
-  foreman-rails:
-    ensure:         absent
-    descr:          "Foreman %{hiera('foreman_version')} Rails repo"
-    baseurl:        "%{hiera('yum_base_mirror')}/foreman-rails-%{hiera('foreman_version')}"
-    enabled:        1
-    gpgcheck:       0
-
