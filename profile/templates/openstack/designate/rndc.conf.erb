@@ -1,6 +1,6 @@
 include "/etc/rndc-mdns.key";
 options {
   default-key "rndc-key-mdns";
-  default-server <%= @ns_transport_addr %>;
+  default-server localhost;
   default-port 953;
 };
