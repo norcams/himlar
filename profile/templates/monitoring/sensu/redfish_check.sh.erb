@@ -1,6 +1,6 @@
 #!/bin/bash
-result=$(/bin/curl -s https://<%= @bmc_address %>/redfish/v1/Systems/System.Embedded.1 -k -u <%= @bmc_username %>:<%= @bmc_password %><%= @http_proxy_url %> --connect-timeout 15 |jq .Status.Health)
-if [ ! "$result" ]; then 
+result=$(/bin/curl -s https://<%= @bmc_address %>/redfish/v1/Systems/System.Embedded.1 -k -u <%= @bmc_username %>:<%= @bmc_password %><%= @http_proxy_url %> --connect-timeout 20 |jq .Status.Health)
+if [ ! "$result" ]; then
   echo "Error: could not connect to bmc - connection timeout"
   exit 1
 fi
@@ -9,7 +9,7 @@ if [ "$result" ]; then
     echo "$result"
     exit 0
   else
-    echo "Status $result - Check out-of-band controller" 
+    echo "Status $result - Check out-of-band controller"
     exit 2
   fi
 fi
