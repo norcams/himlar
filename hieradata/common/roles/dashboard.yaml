@@ -44,9 +44,6 @@ profile::base::yumrepo::repo_hash:
     ensure:   present
     includepkgs: 'htop bash-completion-extras'
 
-# Change default image upload dir from horizon
-profile::openstack::dashboard::change_uploaddir: true
-
 # Sensu
 profile::monitoring::sensu::agent::plugins:
   sensu-plugins-apache:
