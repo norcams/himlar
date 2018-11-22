@@ -18,3 +18,5 @@ profile::storage::cephosd::osds:
   '/dev/sde': {}
   '/dev/sdf': {}
   '/dev/sdg': {}
+
+check_ceph_argument:    "-i 'too many PGs per OSD.*'"
