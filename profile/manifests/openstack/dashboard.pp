@@ -82,7 +82,7 @@ class profile::openstack::dashboard(
   # "enable_designate" is set to true
   if $enable_designate {
     # get designate packages
-    designate_packages = lookup('profile::openstack::dashboard::designate_packages', Hash, 'deep', {})
+    $designate_packages = lookup('profile::openstack::dashboard::designate_packages', Hash, 'deep', {})
 
     # Install packages
     create_resources('profile::base::package', $designate_packages)
