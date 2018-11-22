@@ -90,7 +90,7 @@ class profile::highavailability::loadbalancing::haproxy (
       dport       => $firewall_ports['mgmt']
     }
     # Limited access for 80 and 443
-    if $firewall_ports['limited'] {
+    unless empty($firewall_ports['limited']) {
       profile::firewall::rule { '453 haproxy limited accept tcp':
         proto       => 'tcp',
         destination => $::ipaddress_public1,
