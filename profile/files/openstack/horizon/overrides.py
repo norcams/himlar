@@ -35,7 +35,7 @@ project_panels.append(project_dashboard.get_panel("cgroups"))
 # Volumes-> Consistency Group Snapshots
 project_panels.append(project_dashboard.get_panel("cg_snapshots"))
 # DNS->Reverse DNS
-if os.path.isfile("/usr/share/openstack-dashboard/openstack_dashboard/local/enabled/_1720_project_dns_panel.py"):
+if os.path.isfile("/usr/share/openstack-dashboard/openstack_dashboard/local/enabled/_1722_dns_reversedns_panel.py"):
     project_panels.append(project_dashboard.get_panel("reverse_dns"))
 
 for panel in project_panels:
