@@ -78,13 +78,10 @@ class profile::openstack::dashboard(
     }
   }
 
-  # Designate: Install the Designate plugin for Horizon if
-  # "enable_designate" is set to true
+  # Designate: Install the Designate plugin (RPM packages) for Horizon
+  # if "enable_designate" is set to true
   if $enable_designate {
-    # get designate packages
     $designate_packages = lookup('profile::openstack::dashboard::designate_packages', Hash, 'deep', {})
-
-    # Install packages
     create_resources('profile::base::package', $designate_packages)
   }
 
