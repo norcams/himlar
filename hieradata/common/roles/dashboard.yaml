@@ -11,8 +11,11 @@ profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}
   'jq': {}
-  'python2-designateclient': {}
   'openstack-selinux': {}
+
+profile::openstack::dashboard::designate_packages:
+  'python2-designateclient': {}
+  'openstack-designate-ui': {}
 
 profile::base::common::manage_cron:                    true
 profile::base::selinux::manage_selinux:                true

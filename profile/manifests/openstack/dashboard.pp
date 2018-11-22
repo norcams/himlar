@@ -78,46 +78,14 @@ class profile::openstack::dashboard(
     }
   }
 
-  # Designate plugin: Copy the plugin files if Designate is enabled,
-  # delete the plugin files if not
+  # Designate: Install the Designate plugin for Horizon if
+  # "enable_designate" is set to true
   if $enable_designate {
-    file { '/usr/share/openstack-dashboard/openstack_dashboard/local/enabled/_1710_project_dns_panel_group.py':
-      ensure  => present,
-      source  => 'file:///usr/lib/python2.7/site-packages/designatedashboard/enabled/_1710_project_dns_panel_group.py',
-      require => Class['horizon'],
-      notify  => Service['httpd'],
-    }
-    file { '/usr/share/openstack-dashboard/openstack_dashboard/local/enabled/_1720_project_dns_panel.py':
-      ensure  => present,
-      source  => 'file:///usr/lib/python2.7/site-packages/designatedashboard/enabled/_1720_project_dns_panel.py',
-      require => Class['horizon'],
-      notify  => Service['httpd'],
-    }
-    file { '/usr/share/openstack-dashboard/openstack_dashboard/local/enabled/_1721_dns_zones_panel.py':
-      ensure  => present,
-      source  => 'file:///usr/lib/python2.7/site-packages/designatedashboard/enabled/_1721_dns_zones_panel.py',
-      require => Class['horizon'],
-      notify  => Service['httpd'],
-    }
-  }
-  else {
-    tidy { 'delete-designate-plugin-stuff':
-      path    => '/usr/share/openstack-dashboard/openstack_dashboard/local/enabled',
-      recurse => 1,
-      matches => [ '_1710_project_dns_panel_group.py*', '_1720_project_dns_panel.py*', '_1721_dns_zones_panel.py*' ],
-      rmdirs  => false,
-      require => Class['horizon'],
-      notify  => Service['httpd'],
-    }
-  }
-  # We don't want the Designate reverse DNS panel in any case
-  tidy { 'delete-designate-reversedns-panel':
-    path    => '/usr/share/openstack-dashboard/openstack_dashboard/local/enabled',
-    recurse => 1,
-    matches => [ '_1722_dns_reversedns_panel.py*' ],
-    rmdirs  => false,
-    require => Class['horizon'],
-    notify  => Service['httpd'],
+    # get designate packages
+    designate_packages = lookup('profile::openstack::dashboard::designate_packages', Hash, 'deep', {})
+
+    # Install packages
+    create_resources('profile::base::package', $designate_packages)
   }
 
   if $change_region_selector {
