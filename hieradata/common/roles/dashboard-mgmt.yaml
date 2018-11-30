@@ -28,3 +28,11 @@ profile::openstack::dashboard::firewall_extras:
 profile::openstack::dashboard::keystone_admin_roles:  ["admin"]
 profile::openstack::dashboard::manage_overrides: false
 
+# Disable admin functionality (use mgmt dashboard for this)
+horizon::keystone_options:
+  can_edit_user:                True
+  can_edit_group:               True
+  can_edit_project:             True
+  can_edit_domain:              True
+  can_edit_role:                True
+
