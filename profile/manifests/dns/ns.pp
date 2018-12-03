@@ -6,6 +6,7 @@ class profile::dns::ns (
   $enable_bird6 = false,
   $my_mgmt_addr = $::ipaddress_mgmt1,
   $my_transport_addr = $::ipaddress_trp1,
+  $use_public_ip = false,
   $mdns_transport_addr = {},
   $admin_mgmt_addr = {},
   $ns_mgmt_addr = {},
@@ -26,6 +27,18 @@ class profile::dns::ns (
   $ns_master = {}
   )
 {
+
+  # Find my public IP, if use_public_ip = true. We'll try IPv6 first,
+  # fallback to IPv4
+  if $use_public_ip {
+    if fact('ipaddress6_public1') {
+      $my_public_addr = $::ipaddress6_public1
+    }
+    else {
+      $my_public_addr = $::ipaddress_public1
+    }
+  }
+
   # Our forward zones
   $forward_zones = lookup('profile::dns::ns::fw_zones', Hash, 'deep', {})
 

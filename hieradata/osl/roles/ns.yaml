@@ -2,6 +2,12 @@
 # Frontend zone
 profile::dns::ns::frontend_zone: "uh-iaas.no"
 
+# Designate server addresses (used by file templates)
+profile::dns::ns::use_public_ip: true
+profile::dns::ns::mdns_public_addr:
+  - '2001:700:2:82ff::256'
+  - '2001:700:2:83ff::256'
+
 # Name servers in zone file
 profile::dns::ns::ns_master: "ns1.%{hiera('profile::dns::ns::frontend_zone')}"
 profile::dns::ns::ns_slaves:

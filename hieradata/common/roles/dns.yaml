@@ -22,9 +22,9 @@ profile::base::selinux::manage_selinux: true
 # Designate pools.yaml definitions
 profile::openstack::designate::bind_servers:
   'default':
-    ns_transport_addr: "%{hiera('service__address__ns')}"
-    ns_public_addr:    "%{hiera('public__ip__ns')}"
-    ns_public_name:    "%{hiera('public__name__ns')}"
+    ns_rndc_addr:    "%{hiera('service__address__ns')}"
+    ns_public_addr:  "%{hiera('public__ip__ns')}"
+    ns_public_name:  "%{hiera('public__name__ns')}"
     mdns_addr:
       - "%{hiera('service__address__mdns_01')}"
 
