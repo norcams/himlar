@@ -1,6 +1,7 @@
 # Disable Floating IPs
 from openstack_dashboard.dashboards.project.instances import tables
 import horizon
+import os.path
 
 NO = lambda *x: False
 
@@ -33,6 +34,9 @@ project_panels.append(project_dashboard.get_panel("backups"))
 project_panels.append(project_dashboard.get_panel("cgroups"))
 # Volumes-> Consistency Group Snapshots
 project_panels.append(project_dashboard.get_panel("cg_snapshots"))
+# DNS->Reverse DNS
+if os.path.isfile("/usr/share/openstack-dashboard/openstack_dashboard/local/enabled/_1722_dns_reversedns_panel.py"):
+    project_panels.append(project_dashboard.get_panel("reverse_dns"))
 
 for panel in project_panels:
     project_dashboard.unregister(panel.__class__)
