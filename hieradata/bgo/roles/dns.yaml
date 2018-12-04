@@ -1,4 +1,7 @@
 ---
+# The Designate servers in OSL/BGO have public IPv6 addresses
+profile::base::network::manage_dummy: true
+
 # Designate pools.yaml definitions
 profile::openstack::designate::bind_servers:
   'osl-01':
