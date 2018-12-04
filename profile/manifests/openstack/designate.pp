@@ -50,5 +50,15 @@ class profile::openstack::designate (
       port   => 5354,
       proto  => 'udp'
     }
+    profile::firewall::rule { '002 TCP designate mdns incoming IPv6':
+      port   => 5354,
+      proto  => 'tcp',
+      provider => 'ip6tables'
+    }
+    profile::firewall::rule { '003 UDP designate mdns incoming IPv6':
+      port   => 5354,
+      proto  => 'udp',
+      provider => 'ip6tables'
+    }
   }
 }
