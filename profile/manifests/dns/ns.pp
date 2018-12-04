@@ -19,7 +19,6 @@ class profile::dns::ns (
   $manage_bird_firewall = false,
   $manage_bird6_firewall = false,
   $firewall_extras = {},
-  $firewall_extras_ipv6 = {},
   $public_zone = {},
   $forward_everything = false,
   $forwarders = {},
