@@ -8,6 +8,7 @@ class profile::dns::ns (
   $my_transport_addr = $::ipaddress_trp1,
   $use_public_ip = false,
   $mdns_transport_addr = {},
+  $mdns_public_addr = {},
   $admin_mgmt_addr = {},
   $ns_mgmt_addr = {},
   $ns_transport_addr = {},
