@@ -136,6 +136,12 @@ class profile::dns::ns (
 
   # Open nameserver ports in the firewall
   if $manage_firewall {
+    $hiera_rndc_sources_ipv6 = lookup('rndc_sources_ipv6', Array, 'unique', undef)
+    $source_ipv6 = $rndc_sources_ipv6? {
+      undef   => $hiera_rndc_sources_ipv6,
+      ''      => $hiera_rndc_sources_ipv6,
+      default => $rndc_sources_ipv6
+    }
     profile::firewall::rule { '001 dns incoming tcp':
       dport => 53,
       proto => 'tcp'
@@ -162,8 +168,8 @@ class profile::dns::ns (
     profile::firewall::rule { '003 rndc incoming IPv6':
       dport    => 953,
       proto    => 'tcp',
-      provider => 'ip6tables',
-      extras   => $firewall_extras_ipv6
+      source   => $source_ipv6,
+      provider => 'ip6tables'
     }
   }
 
