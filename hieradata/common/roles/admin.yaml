@@ -14,6 +14,8 @@ profile::base::common::packages:
   'jq': {}
   'python2-ruamel-yaml': {}
 
+apache::mod::passenger::manage_repo: false
+
 profile::application::foreman::manage_eyaml:    false
 profile::application::foreman::manage_firewall: true
 profile::application::foreman::manage_repo_dir: true
@@ -48,6 +50,8 @@ profile::base::yumrepo::repo_hash:
   foreman:
     ensure: present
   foreman-plugins:
+    ensure: present
+  passenger:
     ensure: present
 
 # Enable gem installation

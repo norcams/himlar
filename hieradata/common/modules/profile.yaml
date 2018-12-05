@@ -218,6 +218,12 @@ profile::base::yumrepo::repo_hash:
     baseurl:        "%{hiera('yum_base_mirror')}/foreman-rails-%{hiera('foreman_version')}"
     enabled:        1
     gpgcheck:       0
+  passenger:
+    ensure:         absent
+    descr:          "Passenger repo"
+    baseurl:        "%{hiera('yum_base_mirror')}/passenger"
+    enabled:        1
+    gpgcheck:       0
   mariadb:
     ensure:         absent
     descr:          'MariaDB 10.1 repo'
