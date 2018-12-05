@@ -36,11 +36,15 @@ designate::keystone::auth::password:     "%{hiera('designate_api_password')}"
 # Authentication tokens (manifests/keystone/authtoken.pp)
 #   - runs on the DNS node
 #---------------------------------------------------------------------
-designate::keystone::authtoken::password:          "%{hiera('designate_api_password')}"
-designate::keystone::authtoken::auth_url:          "%{hiera('endpoint__identity__admin')}"
-designate::keystone::authtoken::auth_uri:          "%{hiera('endpoint__identity__public')}"
-designate::keystone::authtoken::memcached_servers: '127.0.0.1'
-designate::keystone::authtoken::region_name:       "%{::location}"
+designate::keystone::authtoken::password:             "%{hiera('designate_api_password')}"
+designate::keystone::authtoken::auth_url:             "%{hiera('endpoint__identity__admin')}/v3"
+designate::keystone::authtoken::auth_uri:             "%{hiera('endpoint__identity__public')}"
+designate::keystone::authtoken::memcached_servers:    '127.0.0.1'
+designate::keystone::authtoken::region_name:          "%{::location}"
+designate::keystone::authtoken::auth_version:         'v3'
+designate::keystone::authtoken::user_domain_name:     "%{hiera('keystone__default__domain')}"
+designate::keystone::authtoken::project_domain_name:  "%{hiera('keystone__default__domain')}"
+designate::keystone::authtoken::project_name:         "%{hiera('keystone__service__project')}"
 
 #---------------------------------------------------------------------
 # Central (manifests/central.pp)
@@ -55,12 +59,6 @@ designate::central::min_ttl:                    '300'
 #   - runs on the DNS node
 #---------------------------------------------------------------------
 designate::api::auth_strategy:     'keystone'
-designate::api::keystone_host:     "identity.%{hiera('domain_trp')}"
-designate::api::keystone_port:     '35357'
-designate::api::keystone_protocol: 'http'
-designate::api::keystone_tenant:   'services'
-designate::api::keystone_user:     'designate'
-designate::api::keystone_password: "%{hiera('designate_api_password')}"
 designate::api::enable_api_v1:     false
 designate::api::enable_api_v2:     true
 designate::api::enabled_extensions_v2:
