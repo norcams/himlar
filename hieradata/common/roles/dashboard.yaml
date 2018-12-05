@@ -11,8 +11,11 @@ profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}
   'jq': {}
-  'python2-designateclient': {}
   'openstack-selinux': {}
+
+profile::openstack::dashboard::designate_packages:
+  'python2-designateclient': {}
+  'openstack-designate-ui': {}
 
 profile::base::common::manage_cron:                    true
 profile::base::selinux::manage_selinux:                true
@@ -92,3 +95,13 @@ profile::base::selinux::boolean:
   'httpd_can_network_connect':
     ensure: 'on'
     persistent: true
+
+# Disable admin functionality (use mgmt dashboard for this)
+horizon::keystone_options:
+  can_edit_user:                False
+  can_edit_group:               False
+  can_edit_project:             False
+  can_edit_domain:              False
+  can_edit_role:                False
+
+

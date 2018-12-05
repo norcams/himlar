@@ -13,10 +13,11 @@ puppet::server_foreman_facts:          true
 
 puppet::additional_settings:
   # 'basemodulepath'   : '/etc/puppetlabs/code/modules:/opt/himlar/modules'
-  'certname'         : "%{::verified_certname}"
-  'trusted_node_data': true
-  'disable_warnings' : 'deprecations'
-  'stringify_facts'  : 'false'
+  'certname':           "%{::verified_certname}"
+  'trusted_node_data':  'true'
+  'disable_warnings':   'deprecations'
+  'stringify_facts':    'false'
+  'usecacheonfailure':  'false'
 
 # puppet4 puppetserver
 puppet::server_jvm_min_heap_size:       '512M'

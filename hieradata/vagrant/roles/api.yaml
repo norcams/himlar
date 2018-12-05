@@ -5,6 +5,11 @@ include:
 
 profile::application::openssl::manage_ca_cert: true
 
+# Uncomment this to enable local logfile /var/log/haproxy.log
+# (will need clean install or full reinstall of rsyslog with all config files)
+#profile::highavailability::loadbalancing::haproxy::enable_remote_logging: true
+#profile::logging::rsyslog::client::manage_rsyslog:                        false
+
 profile::application::openssl::certs:
   "star.api.%{hiera('domain_public')}":
     cn:     "*.api.%{hiera('domain_public')}"

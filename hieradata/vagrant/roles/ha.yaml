@@ -72,7 +72,7 @@ profile::firewall::rules::custom_rules:
 
 # HAproxy
 haproxy::global_options:
-  log:          '127.0.0.1 local6 info alert'
+  log:          '127.0.0.1 local6 debug alert'
   maxconn:      '10000' # total connections per core
 
 haproxy::defaults_options:
@@ -104,67 +104,135 @@ profile::base::selinux::ports:
     protocol: 'tcp'
     port:     389
 
+# Access lists
 profile::highavailability::loadbalancing::haproxy::access_list:
   uib_vpn_net:
-    ips: [192.168.0.0/24]
+    ips:
+      - 129.177.138.114/32 # uib-guest
+      - 129.177.44.0/24 # vpn-gw
+      - 129.177.46.0/24 # vpn-gw
+      - 129.177.32.0/24 # vpn-ansatt
+      - 129.177.33.0/24 # vpn-ansatt
+      - 129.177.48.0/24 # vpn-student
+      - 129.177.49.0/24 # vpn-student
 
-#
-# Example with mapping, frontend and backend
-#
-# Mapping: DNS -> backend
 profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
-  'uib_domains':
+  uib_https_domains:
     ensure: present
     mappings:
-      - "%{hiera('public__address__access')}":      'uib-https-uh-access'
-      - "%{hiera('public__address__dashboard')}":   'uib-https-uh-dashboard'
-      - 'exch.uib.no':                              'uib-https-exch'
-      - 'portal.uib.no':                              'uib-https-adm'
-  'public_domains':
+      - 'exch.uib.no':                            'uib-https-exch'
+      - 'portal.uib.no':                          'uib-https-adm'
+  uib_http_domains:
     ensure: present
     mappings:
-      - "%{hiera('public__address__access')}":      'uib-https-uh-access'
-      - "%{hiera('public__address__dashboard')}":   'uib-https-uh-dashboard'
-  uib_ldaps_domains:
+      - 'portal.uib.no':                          'uib-http-adm'
+  public_https_domains:
     ensure: present
     mappings:
-      - 'ldap.test.uib.no':                         'bk-uib-ldaps'
-      - 'ldap.test.uib.no:636':                     'bk-uib-ldaps'
+      - 'report.uh-iaas.no':                      'public-https-uh-report'
+      - 'status.uh-iaas.no':                      'public-https-uh-status'
+  public_http_domains:
+    ensure: present
+    mappings:
+      - 'report.uh-iaas.no':                      'public-https-uh-report'
+      - 'status.uh-iaas.no':                      'public-https-uh-status'
 
-# Backends (servers are added with balancermember)
+profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
+  'public-https-uh-status':
+    listening_service:  'public-https-uh-status'
+    ports:              443
+    server_names:       ['status-osl', 'status-bgo']
+    ipaddresses:        ['158.37.63.250', '158.39.77.250']
+    options:            'verify none inter 1000 check check-ssl'
+  'public-https-uh-report':
+    listening_service:  'public-https-uh-report'
+    ports:              443
+    server_names:       ['report-osl', 'report-bgo']
+    ipaddresses:        ['158.37.63.250', '158.39.77.250']
+    options:            'verify none inter 1000 check check-ssl'
+#   'public-ldap-prod':
+#     listening_service:  'public-ldap-prod'
+#     ports:              '389'
+#     server_names:       ['p1ldap01.uib.no', 'p2ldap01.uib.no', 'p1ldap02.uib.no', 'p2ldap02.uib.no']
+#     ipaddresses:        ['129.177.5.229', '129.177.5.230', '129.177.5.234', '129.177.5.236']
+#     options:
+#       - 'check'
+#   'public-ldaps-prod':
+#     listening_service:  'public-ldaps-prod'
+#     ports:              '636'
+#     server_names:       ['p1ldap01.uib.no', 'p2ldap01.uib.no', 'p1ldap02.uib.no', 'p2ldap02.uib.no']
+#     ipaddresses:        ['129.177.5.229', '129.177.5.230', '129.177.5.234', '129.177.5.236']
+#     options:
+#       - 'check'
+#   'uib-https-exch':
+#     listening_service:  'uib-https-exch'
+#     ports:              443
+#     server_names:       ['exchange01.uib.no', 'exchange02.uib.no']
+#     ipaddresses:        ['129.177.14.178','129.177.14.179']
+#     options:            'check'
+#   'uib-https-adm':
+#     listening_service:  'uib-https-adm'
+#     ports:              443
+#     server_names:       ['rd-web01.uib.no', 'rd-web02.uib.no']
+#     ipaddresses:        ['129.177.14.13', '129.177.14.182']
+#     options:
+#       - 'check'
+#   'uib-http-adm':
+#     listening_service:  'uib-http-adm'
+#     ports:              80
+#     server_names:       ['rd-web01.uib.no', 'rd-web02.uib.no']
+#     ipaddresses:        ['129.177.14.13', '129.177.14.182']
+#     options:
+#       - 'check'
+#   'uib-ldap-test':
+#     listening_service:  'uib-ldap-test'
+#     ports:              '389'
+#     server_names:       ['t1ldap01.uib.no']
+#     ipaddresses:        ['129.177.5.183']
+#     options:
+#       - 'check'
+#   'uib-ldaps-test':
+#     listening_service:  'uib-ldaps-test'
+#     ports:              '636'
+#     server_names:       ['t1ldap01.uib.no']
+#     ipaddresses:        ['129.177.5.183']
+#     options:
+#       - 'check'
+#
 profile::highavailability::loadbalancing::haproxy::haproxy_backends:
-  uib-https-uh-access:
-    mode: 'tcp'
+  public-http-uh-status:
+    mode:             'http'
     options:
-      - option:       ['ssl-hello-chk']
-      - stick-table:  'type binary len 32 size 30k expire 30m'
-      - acl:
-        - 'clienthello req_ssl_hello_type 1'
-        - 'serverhello rep_ssl_hello_type 2'
-      - tcp-request:
-        - 'inspect-delay 15s'
-        - 'content reject unless clienthello'
-      - tcp-response:
-        - 'content reject unless serverhello'
-      - stick:
-        - 'on payload_lv(43,1) if clienthello'
-        - 'store-response payload_lv(43,1) if serverhello'
-  uib-https-uh-dashboard:
-    mode: 'tcp'
+      - balance:      'roundrobin'
+      - redirect:     'scheme https if !{ ssl_fc }'
+  public-https-uh-status:
+    mode:             'tcp'
     options:
-      - option:       ['ssl-hello-chk']
-      - stick-table:  'type binary len 32 size 30k expire 30m'
-      - acl:
-        - 'clienthello req_ssl_hello_type 1'
-        - 'serverhello rep_ssl_hello_type 2'
-      - tcp-request:
-        - 'inspect-delay 15s'
-        - 'content reject unless clienthello'
-      - tcp-response:
-        - 'content reject unless serverhello'
-      - stick:
-        - 'on payload_lv(43,1) if clienthello'
-        - 'store-response payload_lv(43,1) if serverhello'
+      - balance:      'source'
+      - option:
+        - 'httpchk HEAD /api/health HTTP/1.1\r\nHost:\ status.uh-iaas.no'
+  public-http-uh-report:
+    mode:             'http'
+    options:
+      - balance:      'roundrobin'
+      - redirect:     'scheme https if !{ ssl_fc }'
+  public-https-uh-report:
+    mode:             'tcp'
+    options:
+      - balance:      'source'
+      - acl:          'instance-api url_beg /api/v1/instance'
+      - tcp-request:  'content reject if instance-api'
+      #- tcp-request:  'content reject if !{ src -f /etc/haproxy/uhiaas-report.list }'
+      - option:
+        - 'httpchk HEAD /health HTTP/1.1\r\nHost:\ report.uh-iaas.no'
+  public-ldap-prod:
+    mode:             'tcp'
+    options:
+      - balance:      'leastconn'
+  public-ldaps-prod:
+    mode:             'tcp'
+    options:
+      - balance:      'leastconn'
   uib-https-sfb:
     mode:             'tcp'
     options:
@@ -177,84 +245,46 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
       - balance:      'roundrobin'
       - option:
         - 'httpchk /healthcheck.html'
+  uib-https-exch:
+    mode:             'tcp'
+    options:
+      - balance:      'source'
   uib-https-adm:
     mode:             'tcp'
     options:
       - balance:      'roundrobin'
       - tcp-request:  'content reject if { src -f /etc/haproxy/uib_vpn_net.list }'
-  uib-https-exch:
+  uib-http-adm:
     mode:             'tcp'
     options:
       - balance:      'roundrobin'
+      - tcp-request:  'content reject if { src -f /etc/haproxy/uib_vpn_net.list }'
+  uib-ldap-test:
+    mode:             'tcp'
+    options:
+      - balance:      'leastconn'
+  uib-ldaps-test:
+    mode:             'tcp'
+    options:
+      - balance:      'leastconn'
+#  uib-https-uh-dashboard:
+#    mode: 'tcp'
+#    options:
+#      - balance:      'source'
 #      - option:       ['ssl-hello-chk']
-  bk-uib-ldaps:
-    mode:             'tcp'
-    options:
-      - balance:      'roundrobin'
-  bk-uib-ldap:
-    mode:             'tcp'
-    options:
-      - balance:      'roundrobin'
+#      - stick-table:  'type binary len 32 size 30k expire 30m'
+#      - acl:
+#        - 'clienthello req_ssl_hello_type 1'
+#        - 'serverhello rep_ssl_hello_type 2'
+#      - tcp-request:
+#        - 'inspect-delay 15s'
+#        - 'content reject unless clienthello'
+#      - tcp-response:
+#        - 'content reject unless serverhello'
+#      - stick:
+#        - 'on payload_lv(43,1) if clienthello'
+#        - 'store-response payload_lv(43,1) if serverhello'
 
-# Backend members
-profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
-  'uib-https-uh-access':
-    listening_service:  'uib-https-uh-access'
-    ports:              443
-    server_names:       ['%{::location}-access-01']
-    ipaddresses:        ["%{hiera('netcfg_public_netpart')}.56"]
-    options:            'check'
-  'uib-https-uh-dashboard':
-    listening_service:  'uib-https-uh-dashboard'
-    ports:              443
-    server_names:       ['%{::location}-dashboard-01']
-    ipaddresses:        ["%{hiera('netcfg_public_netpart')}.51"]
-    options:            'check'
-  'uib-https-sfb':
-    listening_service:  'uib-https-sfb'
-    ports:              443
-    server_names:       ['sfb-fe01.uib.no', 'sfb-fe02.uib.no', 'sfb-fe03.uib.no']
-    ipaddresses:        ['129.177.14.231','129.177.14.232','129.177.14.233']
-    options:
-      - 'check'
-      - 'port 80'
-  'uib-http-sfb':
-    listening_service:  'uib-http-sfb'
-    ports:              80
-    server_names:       ['sfb-fe01.uib.no', 'sfb-fe02.uib.no', 'sfb-fe03.uib.no']
-    ipaddresses:        ['129.177.14.231','129.177.14.232','129.177.14.233']
-    options:
-      - 'check'
-  'uib-ldaps':
-    listening_service:  'bk-uib-ldaps'
-    ports:              '636'
-    server_names:       ['t1ldap01.uib.no']
-    ipaddresses:        ['129.177.5.183']
-    options:
-      - 'check'
-  'uib-ldap':
-    listening_service:  'bk-uib-ldap'
-    ports:              '389'
-    server_names:       ['t1ldap01.uib.no']
-    ipaddresses:        ['129.177.5.183']
-    options:
-      - 'check'
-  'uib-https-exch':
-    listening_service:  'uib-https-exch'
-    ports:              443
-    server_names:       ['exchange01.uib.no', 'exchange02.uib.no']
-    ipaddresses:        ['129.177.14.178','129.177.14.179']
-    options:
-      - 'check'
-  'uib-https-adm':
-    listening_service:  'uib-https-adm'
-    ports:              443
-    server_names:       ['rd-web01.uib.no', 'rd-web02.uib.no']
-    ipaddresses:        ['129.177.14.13', '129.177.14.182']
-    options:
-      - 'check'
-
-# Frontend: backends are found from mapping file
 profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
   public-http:
     mode:               'http'
@@ -263,7 +293,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       "%{hiera('corosync_cluster_vip2')}:80": []
     options:
       - option:         'httplog'
-      - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/public_domains.map)]'
+      - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/public_http_domains.map)]'
       - capture:        'request header Host len 32' #for debug
   public-https:
     mode:               'tcp'
@@ -275,16 +305,32 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       - tcp-request:
         - 'inspect-delay 5s'
         - 'content accept if { req_ssl_hello_type 1 }'
-      - use_backend:      '%[req_ssl_sni,lower,map(/etc/haproxy/public_domains.map)]'
+      - use_backend:      '%[req_ssl_sni,lower,map(/etc/haproxy/public_https_domains.map)]'
+  public-ldap:
+    mode:               'tcp'
+    bind:
+      "%{hiera('corosync_cluster_vip1')}:389": []
+      "%{hiera('corosync_cluster_vip2')}:389": []
+    options:
+      - option:         'tcplog'
+      - use_backend:    'public-ldap-prod'
+  public-ldaps:
+    mode:               'tcp'
+    bind:
+      "%{hiera('corosync_cluster_vip1')}:636": []
+      "%{hiera('corosync_cluster_vip2')}:636": []
+    options:
+      - option:         'tcplog'
+      - use_backend:    'public-ldaps-prod'
   uib-http:
     mode:               'http'
     bind:
       "%{hiera('corosync_cluster_vip3')}:80": []
       "%{hiera('corosync_cluster_vip4')}:80": []
     options:
-      - maxconn:        '10000'
+      - maxconn:        '16000' # max internal http connections
       - option:         'httplog'
-      - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/uib_domains.map)]'
+      - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/uib_http_domains.map)]'
       - capture:        'request header Host len 32' #for debug
   uib-https:
     mode:               'tcp'
@@ -292,30 +338,12 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       "%{hiera('corosync_cluster_vip3')}:443": []
       "%{hiera('corosync_cluster_vip4')}:443": []
     options:
-      - maxconn:        '10000'
+      - maxconn:        '16000' # max internal https connections
       - option:         'tcplog'
       - tcp-request:
         - 'inspect-delay 5s'
         - 'content accept if { req_ssl_hello_type 1 }'
-      - use_backend:      '%[req_ssl_sni,lower,map(/etc/haproxy/uib_domains.map)]'
-      - timeout:
-        - 'tunnel 3m' # needed for exchange
-  uib-ldaps:
-    mode:               'tcp'
-    bind:
-      "%{hiera('corosync_cluster_vip3')}:636": []
-      "%{hiera('corosync_cluster_vip4')}:636": []
-    options:
-      - option:         'tcplog'
-#      - tcp-request:
-#        - 'inspect-delay 5s'
-#        - 'content accept if { req_ssl_hello_type 1 }'
-#      - acl:
-#        - 'uib_test hdr_dom(host) -i 172.31.24.8'
-#      - use_backend:
-#        - 'bk-uib-ldaps if uib_test'
-      #- use_backend:      '%[req_ssl_sni,lower,map(/etc/haproxy/uib_ldaps_domains.map)]'
-      - default_backend:  bk-uib-ldaps
+      - use_backend:      '%[req_ssl_sni,lower,map(/etc/haproxy/uib_https_domains.map)]'
   uib-ldap:
     mode:               'tcp'
     bind:
@@ -323,7 +351,15 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       "%{hiera('corosync_cluster_vip4')}:389": []
     options:
       - option:         'tcplog'
-      - use_backend:    'bk-uib-ldap'
+      - use_backend:    'uib-ldap-test'
+  uib-ldaps:
+    mode:               'tcp'
+    bind:
+      "%{hiera('corosync_cluster_vip3')}:636": []
+      "%{hiera('corosync_cluster_vip4')}:636": []
+    options:
+      - option:         'tcplog'
+      - use_backend:    'uib-ldaps-test'
 
 # Corosync uib
 # Corosync VIP and HAproxy
