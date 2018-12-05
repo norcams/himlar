@@ -6,7 +6,9 @@ class profile::dns::ns (
   $enable_bird6 = false,
   $my_mgmt_addr = $::ipaddress_mgmt1,
   $my_transport_addr = $::ipaddress_trp1,
+  $use_public_ip = false,
   $mdns_transport_addr = {},
+  $mdns_public_addr = {},
   $admin_mgmt_addr = {},
   $ns_mgmt_addr = {},
   $ns_transport_addr = {},
@@ -26,6 +28,18 @@ class profile::dns::ns (
   $ns_master = {}
   )
 {
+
+  # Find my public IP, if use_public_ip = true. We'll try IPv6 first,
+  # fallback to IPv4
+  if $use_public_ip {
+    if fact('ipaddress6_public1') {
+      $my_public_addr = $::ipaddress6_public1
+    }
+    else {
+      $my_public_addr = $::ipaddress_public1
+    }
+  }
+
   # Our forward zones
   $forward_zones = lookup('profile::dns::ns::fw_zones', Hash, 'deep', {})
 
@@ -121,6 +135,7 @@ class profile::dns::ns (
 
   # Open nameserver ports in the firewall
   if $manage_firewall {
+    $rndc_sources_ipv6 = lookup('profile::dns::ns::rndc_sources_ipv6', Array, 'unique', ['::/0'])
     profile::firewall::rule { '001 dns incoming tcp':
       dport => 53,
       proto => 'tcp'
@@ -139,10 +154,16 @@ class profile::dns::ns (
       proto    => 'udp',
       provider => 'ip6tables'
     }
-    profile::firewall::rule { '003 rndc incoming - bind only':
+    profile::firewall::rule { '003 rndc incoming':
       dport  => 953,
       proto  => 'tcp',
       extras => $firewall_extras
+    }
+    profile::firewall::rule { '003 rndc incoming IPv6':
+      dport    => 953,
+      proto    => 'tcp',
+      source   => $rndc_sources_ipv6,
+      provider => 'ip6tables'
     }
   }
 

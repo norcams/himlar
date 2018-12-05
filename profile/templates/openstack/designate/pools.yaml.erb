@@ -22,11 +22,11 @@
           port: 5354
 <% end -%>
       options:
-        rndc_host: <%= values["ns_transport_addr"] %>
+        rndc_host: <%= values["ns_rndc_addr"] %>
         rndc_port: 953
         rndc_config_file: /etc/rndc.conf
         rndc_key_file: /etc/rndc-mdns.key
         port: 53
-        host: <%= values["ns_transport_addr"] %>
+        host: <%= values["ns_rndc_addr"] %>
 <% end -%>
   also_notifies: []
