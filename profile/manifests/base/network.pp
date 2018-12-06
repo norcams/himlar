@@ -180,7 +180,7 @@ class profile::base::network(
           $iftype = $ifname[0,4]
           $ifslaves = lookup('profile::base::network::network_auto_bonding', Hash, 'first', {})
           $ifslaves[$ifrole].each |$slave, $slaveopts| {
-            file { "jalla-${slave})":
+            file { "ifcfg-${slave})":
               ensure  => file,
               content => template("${module_name}/network/auto-if-${iftype}slave.erb"),
               path    => "/etc/sysconfig/network-scripts/ifcfg-${slave}",
@@ -194,7 +194,7 @@ class profile::base::network(
         }
 
         # Write interface file
-        file { "jalla-${ifname})":
+        file { "ifcfg-${ifname})":
           ensure  => file,
           content => template("${module_name}/network/auto-if.erb"),
           path    => "/etc/sysconfig/network-scripts/ifcfg-${ifname}",
