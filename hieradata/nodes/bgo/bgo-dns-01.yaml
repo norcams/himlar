@@ -9,7 +9,7 @@ network::interfaces_hash:
     peerdns:   'yes'
     dns1:      "%{hiera('netcfg_dns_server1')}"
     domain:    "%{hiera('netcfg_dns_search')}"
-    defroute:  'no'
+    defroute:  'yes'
   'eth1':
     onboot:    'yes'
     mtu:       '1500'
@@ -18,7 +18,7 @@ network::interfaces_hash:
     gateway:   "%{hiera('netcfg_trp_gateway')}"
     ipv6init:  'yes'
     ipv6addr:  "%{hiera('netcfg_trp_netpart6')}::34/%{hiera('netcfg_trp_netmask6')}"
-    defroute:  'yes'
+    defroute:  'no'
   'dummy0':
     ipv6init:  'yes'
     ipv6addr:  '2001:700:2:83ff::256/128'
