@@ -9,6 +9,7 @@ named_interfaces::config:
 
 profile::base::network::network_auto_opts:
   trp:
+    'ipv6init': 'yes'
     'bonding_opts': 'mode=balance-alb miimon=100'
 
 profile::base::network::network_auto_bonding:

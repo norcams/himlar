@@ -11,6 +11,10 @@ named_interfaces::config:
   live:
     - em1
 
+profile::base::network::network_auto_opts:
+  trp:
+    'ipv6init': 'yes'
+
 ntp::servers:
   - 172.28.32.100
   - 172.28.32.101
