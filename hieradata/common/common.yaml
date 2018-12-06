@@ -144,9 +144,9 @@ profile::base::network::network_auto_opts:
 
 profile::base::network::network_auto_bonding:
   trp:
-    em1: {}
+    em1:
       'team_port_config': '{ "prio" : 100 }'
-    em2: {}
+    em2:
       'team_port_config': '{ "prio" : 100 }'
 
 #
