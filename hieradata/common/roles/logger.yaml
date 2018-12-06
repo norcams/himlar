@@ -7,6 +7,10 @@ include:
     - profile::logging::kibana
     - profile::logging::logrotate
 
+named_interfaces::config:
+  mgmt:
+    - eth0
+
 rsyslog::perm_dir:    '0755'
 
 profile::logging::logrotate::manage_logrotate:    true

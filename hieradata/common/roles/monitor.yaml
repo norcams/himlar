@@ -8,6 +8,10 @@ include:
     - profile::logging::logrotate
     - profile::openstack::openrc
 
+named_interfaces::config:
+  mgmt:
+    - eth0
+
 # Grafana and statsd
 profile::monitoring::grafana::enable:          true
 profile::monitoring::grafana::manage_firewall: true
