@@ -56,6 +56,7 @@ frrouting::frrouting::zebra_interfaces:
 frrouting::frrouting::zebra_ip_routes:
   - '0.0.0.0/0 192.168.113.1' # controller-00
   - '10.0.0.0/8 Null0'
+  - "%{hiera('netcfg_public_netpart')}.245/32 %{hiera('netcfg_trp_netpart')}.34" # dns
   - "%{hiera('netcfg_public_netpart')}.248/32 %{hiera('netcfg_trp_netpart')}.26" # nat-linux
   - "%{hiera('netcfg_public_netpart')}.250/32 %{hiera('netcfg_trp_netpart')}.86" # api
   - "%{hiera('netcfg_public_netpart')}.251/32 %{hiera('netcfg_trp_netpart')}.16" # ns
