@@ -1,4 +1,9 @@
 ---
+
+include:
+  default:
+    - profile::application::openssl::catrust
+
 profile::base::common::manage_lvm:        true
 
 profile::base::lvm::physical_volume:
