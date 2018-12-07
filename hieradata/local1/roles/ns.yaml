@@ -1,4 +1,9 @@
 ---
+profile::base::common::manage_sysctl: true
+profile::base::common::sysctl_values:
+  'net.ipv6.conf.all.disable':
+    value: 1
+
 profile::dns::ns::internal_zone: "%{hiera('domain_public')}" # public and internal are the same subdomain
 
 # Designate server addresses (used by file templates)
