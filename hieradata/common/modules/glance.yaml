@@ -35,18 +35,18 @@ glance::config::api_config:
              CONTENT-LANGUAGE,EXPIRES,LAST-MODIFIED,PRAGMA,ORIGIN
 
 # registry (node: image)
-glance::registry::os_region_name:          "%{location}"
-glance::registry::bind_host:               "%{::ipaddress_trp1}"
-glance::registry::database_connection:     "mysql://glance:%{hiera('glance::db::mysql::password')}@%{hiera('service__address__db_regional')}/glance"
-glance::registry::use_syslog:              true
-glance::registry::log_facility:            'LOG_LOCAL3'
-glance::registry::enable_v1_registry:      false
+# glance::registry::os_region_name:          "%{location}"
+# glance::registry::bind_host:               "%{::ipaddress_trp1}"
+# glance::registry::database_connection:     "mysql://glance:%{hiera('glance::db::mysql::password')}@%{hiera('service__address__db_regional')}/glance"
+# glance::registry::use_syslog:              true
+# glance::registry::log_facility:            'LOG_LOCAL3'
+# glance::registry::enable_v1_registry:      false
 
-glance::registry::authtoken::username:     'glance'
-glance::registry::authtoken::password:     "%{hiera('glance_api_password')}"
-glance::registry::authtoken::auth_uri:     "%{hiera('endpoint__identity__internal')}"
-glance::registry::authtoken::auth_url:     "%{hiera('endpoint__identity__admin')}"
-glance::registry::authtoken::region_name:  "%{location}"
+# glance::registry::authtoken::username:     'glance'
+# glance::registry::authtoken::password:     "%{hiera('glance_api_password')}"
+# glance::registry::authtoken::auth_uri:     "%{hiera('endpoint__identity__internal')}"
+# glance::registry::authtoken::auth_url:     "%{hiera('endpoint__identity__admin')}"
+# glance::registry::authtoken::region_name:  "%{location}"
 
 # keystone auth (node: identity)
 glance::keystone::auth::auth_name:         'glance'
