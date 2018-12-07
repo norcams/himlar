@@ -110,7 +110,7 @@ class profile::base::common (
 
   if $manage_sysctl {
     $sysctl_values = lookup('profile::base::common::sysctl_values', Hash, 'deep', {})
-    create_resources ('sysctl', $sysctl_values)
+    create_resources ('sysctl::value', $sysctl_values)
   }
 
   if $include_physical and ($::is_virtual == false) {
