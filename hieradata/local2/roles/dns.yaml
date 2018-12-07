@@ -1,7 +1,7 @@
 ---
 profile::base::common::manage_sysctl: true
 profile::base::common::sysctl_values:
-  'net.ipv6.conf.all.disable':
+  'net.ipv6.conf.all.disable_ipv6':
     value: 1
 
 # Designate pools.yaml definitions
