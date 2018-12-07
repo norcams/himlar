@@ -7,6 +7,8 @@ include:
     - profile::openstack::openrc
     - profile::dns::rndc_key
 
+profile::base::network::manage_dummy:        true
+
 profile::dns::rndc_key::create_admin_key:    false
 profile::dns::rndc_key::create_mdns_key:     true
 profile::dns::rndc_key::host_is_bind_server: false
