@@ -1,2 +1,7 @@
 ---
 profile::base::selinux::manage_selinux:       true
+
+
+include:
+  default:
+    - profile::application::openssl::catrust
