@@ -75,3 +75,6 @@ glance::notify::rabbitmq::notification_driver:    'messagingv2'
 #  - "%{hiera('service__address__rabbitmq_01')}:5672"
 #  - "%{hiera('service__address__rabbitmq_02')}:5672"
 #  - "%{hiera('service__address__rabbitmq_03')}:5672"
+
+# Override repo "rdo-release"
+openstack_version: 'queens'
