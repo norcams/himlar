@@ -1,6 +1,17 @@
 ---
 profile::dns::ns::internal_zone: "%{hiera('domain_public')}" # public and internal are the same subdomain
 
+# Designate server addresses (used by file templates)
+profile::dns::ns::use_public_ip: true
+profile::dns::ns::mdns_public_addr:
+  - '192.168.12.245'
+
+# DNS server firewall configuration
+profile::dns::ns::firewall_extras:
+  source:
+    - '192.168.12.245'
+    - '192.168.13.245'
+
 # Forward zones, for which the name server is authoritative
 profile::dns::ns::fw_zones:
   internal:

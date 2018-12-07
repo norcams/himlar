@@ -1,0 +1,17 @@
+---
+# Designate pools.yaml definitions
+profile::openstack::designate::bind_servers:
+  'local1-01':
+    ns_rndc_addr:    "%{hiera('public__ip__ns')}"
+    ns_public_addr:  "%{hiera('public__ip__ns')}"
+    ns_public_name:  "ns1.%{hiera('domain_frontend')}"
+    mdns_addr:
+      - '192.168.12.245'
+      - '192.168.13.245'
+  'local2-01':
+    ns_rndc_addr:    '192.168.13.251'
+    ns_public_addr:  '192.168.13.251'
+    ns_public_name:  "ns2.%{hiera('domain_frontend')}"
+    mdns_addr:
+      - '192.168.12.245'
+      - '192.168.13.245'

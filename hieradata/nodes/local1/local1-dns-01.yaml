@@ -7,8 +7,15 @@ network::interfaces_hash:
     mtu:       '1500'
     dns1:      "%{hiera('netcfg_dns_server1')}"
     dns2:      "%{hiera('netcfg_dns_server2')}"
+    defroute:  'no'
+    peerdns:   'yes'
   'eth1':
     ipaddress: "%{hiera('netcfg_trp_netpart')}.34"
     netmask:   "%{hiera('netcfg_trp_netmask')}"
+    gateway:   "%{hiera('netcfg_trp_netpart')}.1"
+    srcaddr:   "%{hiera('netcfg_public_netpart')}.245"
+    defroute:  'yes'
+  'dummy0':
+    ipaddress: "%{hiera('netcfg_public_netpart')}.245"
+    netmask:   '255.255.255.255'
     defroute:  'no'
-    mtu:       '1500'
