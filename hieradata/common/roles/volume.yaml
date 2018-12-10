@@ -33,6 +33,7 @@ profile::openstack::volume::type:
 #    properties:
 #      - 'volume_backend_name=rbd-ssd'
 
+profile::openstack::volume::notify_service:   true
 profile::openstack::volume::manage_telemetry: true
 
 profile::openstack::volume::backend::rbd:

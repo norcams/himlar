@@ -1,7 +1,8 @@
 #
 class profile::openstack::volume(
   $manage_rbd    = false,
-  $manage_telemetry = false
+  $manage_telemetry = false,
+  $notify_service = false
 ) {
   include ::cinder
   include ::cinder::client
@@ -16,7 +17,9 @@ class profile::openstack::volume(
     include ::cinder::ceilometer
   }
 
-  # This will make sure httpd service will be restarted on config changes
-  Cinder_config <| |> ~> Class['apache::service']
+  if $notify_service {
+    # This will make sure httpd service will be restarted on config changes
+    Cinder_config <| |> ~> Class['apache::service']
+  }
 
 }
