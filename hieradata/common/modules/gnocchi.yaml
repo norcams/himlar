@@ -7,13 +7,16 @@ gnocchi::keystone::auth::internal_url:        "%{hiera('endpoint__metric__intern
 gnocchi::keystone::auth::region:              "%{::location}"
 
 # keystone auth (node: metric)
-gnocchi::keystone::authtoken::password:       "%{hiera('gnocchi_api_password')}"
-gnocchi::keystone::authtoken::public_url:     "%{hiera('endpoint__metric__public')}"
-gnocchi::keystone::authtoken::auth_uri:       "%{hiera('endpoint__metric__public')}"
-gnocchi::keystone::authtoken::auth_url:       "%{hiera('endpoint__identity__admin')}"
-gnocchi::keystone::authtoken::admin_url:      "%{hiera('endpoint__metric__admin')}"
-gnocchi::keystone::authtoken::internal_url:   "%{hiera('endpoint__metric__internal')}"
-gnocchi::keystone::authtoken::region_name:    "%{::location}"
+gnocchi::keystone::authtoken::password:             "%{hiera('gnocchi_api_password')}"
+gnocchi::keystone::authtoken::public_url:           "%{hiera('endpoint__metric__public')}"
+gnocchi::keystone::authtoken::auth_uri:             "%{hiera('endpoint__metric__public')}"
+gnocchi::keystone::authtoken::auth_url:             "%{hiera('endpoint__identity__admin')}/v3"
+gnocchi::keystone::authtoken::admin_url:            "%{hiera('endpoint__metric__admin')}"
+gnocchi::keystone::authtoken::internal_url:         "%{hiera('endpoint__metric__internal')}"
+gnocchi::keystone::authtoken::region_name:          "%{::location}"
+gnocchi::keystone::authtoken::project_domain_name:  "%{hiera('keystone__default__domain')}"
+gnocchi::keystone::authtoken::user_domain_name:     "%{hiera('keystone__default__domain')}"
+gnocchi::keystone::authtoken::project_name:         "%{hiera('keystone__service__project')}"
 
 # db (node: metric)
 gnocchi::database_connection: "mysql://gnocchi:%{hiera('gnocchi::db::mysql::password')}@%{hiera('service__address__db_regional')}/gnocchi"

@@ -17,12 +17,15 @@ glance::api::enable_proxy_headers_parsing: true
 glance::api::enable_v1_api:                false
 glance::api::enable_v2_api:                true
 
-glance::api::authtoken::auth_uri:          "%{hiera('endpoint__identity__internal')}"
-glance::api::authtoken::auth_url:          "%{hiera('endpoint__identity__admin')}"
-glance::api::authtoken::username:          'glance'
-glance::api::authtoken::password:          "%{hiera('glance_api_password')}"
-glance::api::authtoken::region_name:       "%{location}"
-glance::api::authtoken::memcached_servers: '127.0.0.1:11211'
+glance::api::authtoken::auth_uri:             "%{hiera('endpoint__identity__internal')}"
+glance::api::authtoken::auth_url:             "%{hiera('endpoint__identity__admin')}/v3"
+glance::api::authtoken::username:             'glance'
+glance::api::authtoken::password:             "%{hiera('glance_api_password')}"
+glance::api::authtoken::region_name:          "%{location}"
+glance::api::authtoken::memcached_servers:    '127.0.0.1:11211'
+glance::api::authtoken::project_domain_name:  "%{hiera('keystone__default__domain')}"
+glance::api::authtoken::user_domain_name:     "%{hiera('keystone__default__domain')}"
+glance::api::authtoken::project_name:         "%{hiera('keystone__service__project')}"
 
 glance::config::api_config:
   cors/allowed_origin:
@@ -42,11 +45,13 @@ glance::registry::use_syslog:              true
 glance::registry::log_facility:            'LOG_LOCAL3'
 glance::registry::enable_v1_registry:      false
 
-glance::registry::authtoken::username:     'glance'
-glance::registry::authtoken::password:     "%{hiera('glance_api_password')}"
-glance::registry::authtoken::auth_uri:     "%{hiera('endpoint__identity__internal')}"
-glance::registry::authtoken::auth_url:     "%{hiera('endpoint__identity__admin')}"
-glance::registry::authtoken::region_name:  "%{location}"
+glance::registry::authtoken::username:            'glance'
+glance::registry::authtoken::password:            "%{hiera('glance_api_password')}"
+glance::registry::authtoken::auth_uri:            "%{hiera('endpoint__identity__internal')}"
+glance::registry::authtoken::auth_url:            "%{hiera('endpoint__identity__admin')}/v3"
+glance::registry::authtoken::region_name:         "%{location}"
+glance::registry::authtoken::project_domain_name: "%{hiera('keystone__default__domain')}"
+glance::registry::authtoken::user_domain_name:    "%{hiera('keystone__default__domain')}"
 
 # keystone auth (node: identity)
 glance::keystone::auth::auth_name:         'glance'

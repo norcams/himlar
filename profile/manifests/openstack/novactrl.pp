@@ -35,6 +35,9 @@ class profile::openstack::novactrl(
   include ::nova::wsgi::apache_api
   include ::nova::wsgi::apache_placement
 
+  # This will make sure httpd service will be restarted on config changes
+  Nova_config <| |> ~> Class['apache::service']
+
   if $manage_cells {
     # This should be fine to do even after the cells are setup:
     # https://docs.openstack.org/nova/pike/cli/nova-manage.html#man-page-cells-v2
