@@ -38,8 +38,8 @@ class profile::openstack::designate (
   }
 
   if $manage_firewall {
-    $ns_sources_ipv4 = lookup('profile::dns::ns::rndc_sources_ipv4', Array, 'unique', ['127.0.0.1/8'])
-    $ns_sources_ipv6 = lookup('profile::dns::ns::rndc_sources_ipv6', Array, 'unique', ['::1/128'])
+    $ns_sources_ipv4 = lookup('profile::dns::ns::ns_sources_ipv4', Array, 'unique', ['127.0.0.1/8'])
+    $ns_sources_ipv6 = lookup('profile::dns::ns::ns_sources_ipv6', Array, 'unique', ['::1/128'])
     profile::firewall::rule { '001 designate incoming':
       port   => 9001,
       proto  => 'tcp'
