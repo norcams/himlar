@@ -27,19 +27,23 @@ acl allowed_transfer_nets {
 controls  {
     inet 127.0.0.1 port 953 allow { 127.0.0.1; } keys { "rndc-key-admin"; };
     inet <%= @my_mgmt_addr %> port 953 allow { <%= @admin_mgmt_addr %>; } keys { "rndc-key-admin"; };
+<% if @use_public_ip -%>
+    inet <%= @my_public_addr %> port 953 allow { <% @mdns_public_addr.each do |addr| -%><%= addr %>; <% end -%>} keys { "rndc-key-mdns"; };
+<% else -%>
     inet <%= @my_transport_addr %> port 953 allow { <% @mdns_transport_addr.each do |addr| -%><%= addr %>; <% end -%>} keys { "rndc-key-mdns"; };
+<% end -%>
 };
 <% end -%>
 
 # General options for named
 options  {
-<% if @authoritative %>
+<% if @authoritative -%>
     allow-transfer { 127.0.0.1; ::1; allowed_transfer_nets; };
     allow-query { any; };
     recursion no;
     allow-recursion { none; };
     allow-new-zones yes;
-<% else %>
+<% else -%>
     allow-query { 127.0.0.1; ::1; allowed_nets; };
     recursion yes;
     allow-recursion { 127.0.0.1; ::1; allowed_nets; };

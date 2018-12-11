@@ -74,16 +74,17 @@ class profile::network::services(
       }
     }
 
-    if $manage_dns_records {
-      $dns_options = lookup('profile::network::services::dns_options', Hash, 'deep', {})
-      $dns_records = lookup('profile::network::services::dns_records', Hash, 'deep', {})
-      $record_types = keys($dns_records)
+    unless fact('disable_nsupdate') {
+      if $manage_dns_records {
+        $dns_options = lookup('profile::network::services::dns_options', Hash, 'deep', {})
+        $dns_records = lookup('profile::network::services::dns_records', Hash, 'deep', {})
+        $record_types = keys($dns_records)
 
-      profile::network::service::dns_record_type { $record_types:
-        options => $dns_options,
-        records => $dns_records,
+        profile::network::service::dns_record_type { $record_types:
+          options => $dns_options,
+          records => $dns_records,
+        }
       }
-
     }
 
     if $manage_dhcp_rsvs {

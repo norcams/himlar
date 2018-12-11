@@ -40,10 +40,13 @@ nova::keystone::auth_placement::admin_url:        "%{hiera('endpoint__placement_
 nova::keystone::auth_placement::internal_url:     "%{hiera('endpoint__placement__internal')}/placement/"
 
 # placement auth url
-nova::placement::auth_url:                "%{hiera('endpoint__identity__admin')}"
+nova::placement::auth_url:                "%{hiera('endpoint__identity__admin')}/v3"
 nova::placement::os_region_name:          "%{location}"
 nova::placement::password:                "%{hiera('nova_placement_password')}"
 nova::placement::os_interface:            "internal"
+nova::placement::project_domain_name:     "%{hiera('keystone__default__domain')}"
+nova::placement::user_domain_name:        "%{hiera('keystone__default__domain')}"
+nova::placement::project_name:            "%{hiera('keystone__service__project')}"
 
 # placement wsgi
 nova::wsgi::apache_placement::ssl:        false
@@ -67,11 +70,15 @@ nova::wsgi::apache_api::workers:    2
 
 nova::cells::enabled: false
 
-nova::keystone::authtoken::username:    'nova'
-nova::keystone::authtoken::password:    "%{hiera('nova_api_password')}"
-nova::keystone::authtoken::auth_url:    "%{hiera('endpoint__identity__admin')}"
-nova::keystone::authtoken::auth_uri:    "%{hiera('endpoint__identity__internal')}"
-nova::keystone::authtoken::region_name: "%{::location}"
+nova::keystone::authtoken::username:            'nova'
+nova::keystone::authtoken::password:            "%{hiera('nova_api_password')}"
+nova::keystone::authtoken::auth_url:            "%{hiera('endpoint__identity__admin')}/v3"
+nova::keystone::authtoken::auth_uri:            "%{hiera('endpoint__identity__internal')}"
+nova::keystone::authtoken::region_name:         "%{::location}"
+nova::keystone::authtoken::auth_version:        'v3'
+nova::keystone::authtoken::project_domain_name: "%{hiera('keystone__default__domain')}"
+nova::keystone::authtoken::user_domain_name:    "%{hiera('keystone__default__domain')}"
+nova::keystone::authtoken::project_name:        "%{hiera('keystone__service__project')}"
 
 # scheduler (node: novactrl)
 nova::cpu_allocation_ratio:                         '16'
@@ -114,6 +121,8 @@ nova::network::neutron::neutron_password:       "%{hiera('neutron_api_password')
 nova::config::nova_config:
   libvirt/remote_filesystem_transport:
     value: 'rsync'
+#  keystone_authtoken/service_token_roles_required: FIXME enable this when tested
+#    value: true
 
 # compute (node: compute)
 nova::compute::enabled:                          true

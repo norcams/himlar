@@ -6,9 +6,7 @@ class profile::logging::elasticsearch(
   $manage_firewall = true,
   $ports = [9200],
   $firewall_extras = {},
-  $manage_curator = false,
-  $manage_replicas = true,
-  $manage_shards = true
+  $manage_curator = false
 ) {
 
   include ::elasticsearch
@@ -39,26 +37,6 @@ class profile::logging::elasticsearch(
     file { '/root/delete_indices.yml':
       ensure  => file,
       content => template("${module_name}/logging/elasticsearch/delete_indices.yml"),
-    }
-  }
-
-  if $manage_replicas {
-    file_line { 'index_replicas':
-      ensure    => absent,
-      path      => '/etc/elasticsearch/openstack/elasticsearch.yml',
-      match     => '^index.number_of_replicas*',
-      match_for_absence => true,
-      multiple  => true,
-    }
-  }
-
-  if $manage_shards {
-    file_line { 'index_shards':
-      ensure     => absent,
-      path       => '/etc/elasticsearch/openstack/elasticsearch.yml',
-      match      => '^index.number_of_shards*',
-      match_for_absence => true,
-      multiple   => true,
     }
   }
 }

@@ -17,6 +17,7 @@ class profile::base::common (
   $manage_packages        = false,
   $manage_gems            = false,
   $manage_yumrepo         = false,
+  $manage_sysctl          = false,
   $manage_puppet          = false,
   $manage_cron            = false,
   $manage_fake_ssd        = false,
@@ -105,6 +106,11 @@ class profile::base::common (
   if $manage_fake_ssd {
     $disk_devices = lookup('profile::storage::fake_ssds', Hash, 'deep', {})
     create_resources('profile::storage::fake_ssd', $disk_devices)
+  }
+
+  if $manage_sysctl {
+    $sysctl_values = lookup('profile::base::common::sysctl_values', Hash, 'deep', {})
+    create_resources ('sysctl::value', $sysctl_values)
   }
 
   if $include_physical and ($::is_virtual == false) {

@@ -75,3 +75,25 @@ profile::storage::ceph_crushrules::rules:
 # SNMP only from mgmt
 profile::base::dell::snmp_firewall_settings:
   source: "%{::network_mgmt1}/%{::netmask_mgmt1}"
+
+sudo::configs:
+  sensu_tty:
+    priority: 20
+    content:  'Defaults:sensu !requiretty'
+  sensu:
+    priority: 25
+    content:  'sensu ALL=(ALL) NOPASSWD: /opt/sensu/embedded/bin/check-ceph.rb'
+
+check_ceph_argument:    ''
+
+profile::monitoring::sensu::agent::checks:
+  'check-ceph':
+    command:      "/usr/bin/sudo /opt/sensu/embedded/bin/check-ceph.rb %{hiera('check_ceph_argument')}"
+    interval:     60
+    subscribers:  ['checks']
+
+profile::monitoring::sensu::agent::plugin_gems:
+  sensu-plugins-himlar:
+    ensure:   '0.3.0'
+    provider: 'sensu_gem'
+    source:   'http://download.iaas.uio.no/uh-iaas/gem'

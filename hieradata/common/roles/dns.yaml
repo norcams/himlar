@@ -7,6 +7,8 @@ include:
     - profile::openstack::openrc
     - profile::dns::rndc_key
 
+profile::base::network::manage_dummy:        true
+
 profile::dns::rndc_key::create_admin_key:    false
 profile::dns::rndc_key::create_mdns_key:     true
 profile::dns::rndc_key::host_is_bind_server: false
@@ -19,14 +21,14 @@ profile::openstack::openrc::project_name: 'services'
 # Set SELinux enforcing
 profile::base::selinux::manage_selinux: true
 
-# Various address definitions
-profile::openstack::designate::mdns_transport_addr:
-  - "%{hiera('service__address__mdns_01')}"
-#  - "%{hiera('service__address__mdns_02')}"
-#  - "%{hiera('service__address__mdns_03')}"
-profile::openstack::designate::ns_transport_addr:  "%{hiera('service__address__ns')}"
-profile::openstack::designate::ns_public_addr:     "%{hiera('public__ip__ns')}"
-profile::openstack::designate::ns_public_name:     "%{hiera('public__name__ns')}"
+# Designate pools.yaml definitions
+profile::openstack::designate::bind_servers:
+  'default':
+    ns_rndc_addr:    "%{hiera('service__address__ns')}"
+    ns_public_addr:  "%{hiera('public__ip__ns')}"
+    ns_public_name:  "%{hiera('public__name__ns')}"
+    mdns_addr:
+      - "%{hiera('service__address__mdns_01')}"
 
 # Add iptables rules
 profile::openstack::designate::manage_firewall: true

@@ -192,10 +192,10 @@ profile::base::yumrepo::repo_hash:
     enabled:        1
     gpgcheck:       1
     gpgkey:         "%{hiera('yum_base_mirror')}/elasticsearch/GPG-KEY-elasticsearch"
-  curator:
+  curator5:
     ensure:         absent
-    descr:          'Elasticsearch Curator 4.x Centos Repo'
-    baseurl:        "%{hiera('yum_base_mirror')}/curator/"
+    descr:          'Elasticsearch Curator 5.x Centos Repo'
+    baseurl:        "%{hiera('yum_base_mirror')}/curator5/"
     enabled:        1
     gpgcheck:       1
     gpgkey:         "%{hiera('yum_base_mirror')}/curator/GPG-KEY-elasticsearch"
@@ -210,6 +210,18 @@ profile::base::yumrepo::repo_hash:
     ensure:         absent
     descr:          "Foreman %{hiera('foreman_version')} Plugins repo"
     baseurl:        "%{hiera('yum_base_mirror')}/foreman-plugins-%{hiera('foreman_version')}"
+    enabled:        1
+    gpgcheck:       0
+  foreman-rails:
+    ensure:         absent
+    descr:          "Foreman %{hiera('foreman_version')} Rails repo"
+    baseurl:        "%{hiera('yum_base_mirror')}/foreman-rails-%{hiera('foreman_version')}"
+    enabled:        1
+    gpgcheck:       0
+  passenger:
+    ensure:         absent
+    descr:          "Passenger repo"
+    baseurl:        "%{hiera('yum_base_mirror')}/passenger"
     enabled:        1
     gpgcheck:       0
   mariadb:

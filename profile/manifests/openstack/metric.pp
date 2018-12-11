@@ -23,6 +23,9 @@ class profile::openstack::metric (
     include ::gnocchi::wsgi::apache
   }
 
+  # This will make sure httpd service will be restarted on config changes
+  Gnocchi_config <| |> ~> Class['apache::service']
+
   if $manage_firewall {
     profile::firewall::rule { '123 metric api accept tcp':
       dport  => $metric_ports,

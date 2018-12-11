@@ -16,13 +16,6 @@ horizon::secure_cookies:                false        # FIXME: since we're runnin
 
 horizon::websso_enabled:        false
 
-horizon::keystone_options:
-  can_edit_user:                False
-  can_edit_group:               False
-  can_edit_project:             False
-  can_edit_domain:              False
-  can_edit_role:                False
-
 # Session database
 profile::openstack::dashboard::database:
   database:       'horizon-mgmt'
@@ -34,3 +27,12 @@ profile::openstack::dashboard::firewall_extras:
 
 profile::openstack::dashboard::keystone_admin_roles:  ["admin"]
 profile::openstack::dashboard::manage_overrides: false
+
+# Disable admin functionality (use mgmt dashboard for this)
+horizon::keystone_options:
+  can_edit_user:                True
+  can_edit_group:               True
+  can_edit_project:             True
+  can_edit_domain:              True
+  can_edit_role:                True
+
