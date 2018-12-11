@@ -37,8 +37,8 @@ class profile::base::network(
       }
     } elsif fact('os.distro.codename') == 'jessie' {
       exec { 'set jessie hostname':
-        command     => "/usr/bin/hostnamectl set-hostname ${hostname}",
-        unless      => "/usr/bin/hostnamectl status | grep 'Static hostname: ${hostname}'",
+        command => "/usr/bin/hostnamectl set-hostname ${hostname}",
+        unless  => "/usr/bin/hostnamectl status | grep 'Static hostname: ${hostname}'",
       }
     } elsif $::osfamily == 'RedHat' {
       exec { 'himlar_sethostname':
@@ -208,7 +208,7 @@ class profile::base::network(
   create_resources(network::mroute, lookup('profile::base::network::mroute', Hash, 'deep', {}))
   create_resources(network::routing_table, lookup('profile::base::network::routing_tables', Hash, 'deep', {}))
   create_resources(network::route, lookup('profile::base::network::routes', Hash, 'deep', {}))
-    if $manage_neutron_blackhole != true {
+  unless $manage_neutron_blackhole {
     create_resources(network::rule, lookup('profile::base::network::rules', Hash, 'deep', {}))
   } else {
     $named_interface_hash = lookup('named_interfaces::config', Hash, 'first', {})
@@ -277,7 +277,7 @@ class profile::base::network(
 
   if $manage_httpproxy {
     $ensure_value = $http_proxy ? {
-      undef    => absent,
+      undef   => absent,
       default => present,
     }
     $target = $http_proxy_profile
@@ -311,9 +311,9 @@ class profile::base::network(
     case $::operatingsystemmajrelease {
       '2': {
         exec { "cl-mgmtvrf --enable":
-          path   => "/usr/bin:/usr/sbin:/bin",
-          unless => "cl-mgmtvrf --status",
-          onlyif => [ 'test -e /etc/network/interfaces.d/eth0', 'test -e /etc/network/if-up.d/z90-route-eth0' ],
+          path    => "/usr/bin:/usr/sbin:/bin",
+          unless  => "cl-mgmtvrf --status",
+          onlyif  => [ 'test -e /etc/network/interfaces.d/eth0', 'test -e /etc/network/if-up.d/z90-route-eth0' ],
           require => Package['cl-mgmtvrf']
         }
       }
