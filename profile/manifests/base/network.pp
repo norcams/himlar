@@ -136,7 +136,7 @@ class profile::base::network(
 
     # Create interface files only if an A record is defined in hiera
     # to avoid destroying existing network interfaces config
-    if ! empty($mgmtaddress) {
+    unless empty($mgmtaddress) {
       $mgmtnetwork = lookup("netcfg_mgmt_netpart", String, 'first', '')
       $addrbase = regsubst($mgmtnetwork, '^(\d+)\.(\d+)\.(\d+)$','\3',)
       $ouraddr = regsubst($mgmtaddress, '^(\d+)\.(\d+)\.(\d+)\.(\d+)$','\3',)
@@ -148,61 +148,61 @@ class profile::base::network(
       $ifopts = lookup('profile::base::network::network_auto_opts', Hash, 'deep', {})
       # Configure each interface
       $named_interface_hash.each |$ifrole, $ifnamed| {
-      $ifname = String($ifnamed[0])
+        $ifname = String($ifnamed[0])
 
-      # We must avoid duplicate interface files for logical constructs in named_interfaces, i.e trp vs transport, live etc
-      # Make interface files only for interfaces defined with network_auto_opts
-      if $ifopts[$ifrole] {
-        # Calculate ip address pr interface based on mgmt address, get gw and mask
-        $ipnetpart = lookup("netcfg_${ifrole}_netpart", String, 'first', '')
-        $netrole = regsubst($ipnetpart, '^(\d+)\.(\d+)\.(\d+)$','\3',) + $addrdiff
-        $newipaddr = regsubst($mgmtaddress, '^(\d+)\.(\d+)\.(\d+)\.(\d+)$',"\\1.\\2.${netrole}.\\4",)
-        $ifmask = lookup("netcfg_${ifrole}_netmask", String, 'first', '')
-        $ifgw = lookup("netcfg_${ifrole}_gateway", String, 'first', '')
+        # We must avoid duplicate interface files for logical constructs in named_interfaces, i.e trp vs transport, live etc
+        # Make interface files only for interfaces defined with network_auto_opts
+        if $ifopts[$ifrole] {
+          # Calculate ip address pr interface based on mgmt address, get gw and mask
+          $ipnetpart = lookup("netcfg_${ifrole}_netpart", String, 'first', '')
+          $netrole = regsubst($ipnetpart, '^(\d+)\.(\d+)\.(\d+)$','\3',) + $addrdiff
+          $newipaddr = regsubst($mgmtaddress, '^(\d+)\.(\d+)\.(\d+)\.(\d+)$',"\\1.\\2.${netrole}.\\4",)
+          $ifmask = lookup("netcfg_${ifrole}_netmask", String, 'first', '')
+          $ifgw = lookup("netcfg_${ifrole}_gateway", String, 'first', '')
 
-        # check for IPv6 configuration in options for this interface
-        if $ifopts[$ifrole]['ipv6init'] == 'yes' {
-          # Find network and diff from base
-          $ipnetpart6 = lookup("netcfg_${ifrole}_netpart6", String, 'first', '')
-          if String($addrdiff) != '0' {
-            $newipaddr6 = "${ipnetpart6}::${addrdiff}:${ipbyte}"
+          # check for IPv6 configuration in options for this interface
+          if $ifopts[$ifrole]['ipv6init'] == 'yes' {
+            # Find network and diff from base
+            $ipnetpart6 = lookup("netcfg_${ifrole}_netpart6", String, 'first', '')
+            if String($addrdiff) != '0' {
+              $newipaddr6 = "${ipnetpart6}::${addrdiff}:${ipbyte}"
+            }
+            else {
+              $newipaddr6 = "${ipnetpart6}::${ipbyte}"
+            }
+            $ifmask6 = lookup("netcfg_${ifrole}_netmask6", String, 'first', '')
+            $ifgw6 = lookup("netcfg_${ifrole}_gateway6", String, 'first', '')
           }
-          else {
-            $newipaddr6 = "${ipnetpart6}::${ipbyte}"
-          }
-          $ifmask6 = lookup("netcfg_${ifrole}_netmask6", String, 'first', '')
-          $ifgw6 = lookup("netcfg_${ifrole}_gateway6", String, 'first', '')
-        }
 
-        # Check for teaming or bonding
-        if (($ifname[0,4] == 'team') or ($ifname[0,4] == 'bond')) and !('.' in $ifname) {
-          # Determine type and create slave interfaces
-          $iftype = $ifname[0,4]
-          $ifslaves = lookup('profile::base::network::network_auto_bonding', Hash, 'first', {})
-          $ifslaves[$ifrole].each |$slave, $slaveopts| {
-            file { "ifcfg-${slave})":
-              ensure  => file,
-              content => template("${module_name}/network/auto-if-${iftype}slave.erb"),
-              path    => "/etc/sysconfig/network-scripts/ifcfg-${slave}",
+          # Check for teaming or bonding
+          if (($ifname[0,4] == 'team') or ($ifname[0,4] == 'bond')) and !('.' in $ifname) {
+            # Determine type and create slave interfaces
+            $iftype = $ifname[0,4]
+            $ifslaves = lookup('profile::base::network::network_auto_bonding', Hash, 'first', {})
+            $ifslaves[$ifrole].each |$slave, $slaveopts| {
+              file { "ifcfg-${slave})":
+                ensure  => file,
+                content => template("${module_name}/network/auto-if-${iftype}slave.erb"),
+                path    => "/etc/sysconfig/network-scripts/ifcfg-${slave}",
+              }
             }
           }
-        }
 
-        # check for VLAN interface
-        if '.' in $ifname {
-          $ifvlan = "yes"
-        }
+          # check for VLAN interface
+          if '.' in $ifname {
+            $ifvlan = "yes"
+          }
 
-        # Write interface file
-        file { "ifcfg-${ifname})":
-          ensure  => file,
-          content => template("${module_name}/network/auto-if.erb"),
-          path    => "/etc/sysconfig/network-scripts/ifcfg-${ifname}",
+          # Write interface file
+          file { "ifcfg-${ifname})":
+            ensure  => file,
+            content => template("${module_name}/network/auto-if.erb"),
+            path    => "/etc/sysconfig/network-scripts/ifcfg-${ifname}",
+          }
         }
       }
     }
   }
-}
 
   # Create extra routes, tables, rules on ifup
   create_resources(network::mroute, lookup('profile::base::network::mroute', Hash, 'deep', {}))
