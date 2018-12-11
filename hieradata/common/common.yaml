@@ -134,6 +134,21 @@ named_interfaces::config:
   public:
     - dummy0
 
+profile::base::network::network_auto_opts:
+  mgmt:
+    'dns1':     "%{hiera('netcfg_dns_server1')}"
+    'domain':   "%{hiera('netcfg_dns_search')}"
+    'defroute': 'yes'
+  trp:
+    'defroute': 'no'
+
+profile::base::network::network_auto_bonding:
+  trp:
+    em1:
+      'team_port_config': '{ "prio" : 100 }'
+    em2:
+      'team_port_config': '{ "prio" : 100 }'
+
 #
 # project and domain used for internal use
 #
