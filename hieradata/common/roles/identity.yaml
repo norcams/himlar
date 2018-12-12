@@ -8,6 +8,8 @@ include:
     - profile::logging::rsyslog::client
     - profile::openstack::cache
 
+openstack_version:    'queens' # FIXME: queens-upgrade
+
 profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}
@@ -27,6 +29,7 @@ profile::openstack::identity::roles_extra:
   - user
   - superuser
   - admin_view
+
 profile::openstack::identity::keystone_config:
   'federation/trusted_dashboard':
     value:  "https://%{hiera('public__address__dashboard')}/dashboard/auth/websso/"
