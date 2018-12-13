@@ -60,6 +60,8 @@ nodesets:
     #- role:       "metric"
     #- role:       "telemetry"
     #- role:       "dashboard-mgmt"
+    #- role:       "report"
+    #- role:       "coordinator"
     #- role:       "logger"
     #  cpus:       1
     #  memory:     2048
@@ -72,9 +74,12 @@ nodesets:
     #- role:       "nat"
     #  box:        "norcams/freebsd"
     #- role:       "admin"
+    #- role:       "ns"
     #  memory:     3096
     # To use leaf see cumulus help below
     #- role:       "leaf"
+    #  box:        "norcams/net"
+    #- role:       "mgmt"
     #  box:        "norcams/net"
   ha:
     - role:       'ha'
