@@ -187,6 +187,7 @@ mod 'ceph', :ref => '43863d13fc',                   :git => github + 'norcams/pu
 #
 mod 'haproxy', :ref => '1.5.0',                     :git => github + 'puppetlabs/puppetlabs-haproxy'
 mod 'corosync', :ref => 'v5.1.0',                   :git => github + 'voxpupuli/puppet-corosync'
+mod 'zookeeper', :ref => 'v0.8.1',                  :git => github + 'deric/puppet-zookeeper'
 
 #
 # Common libs
