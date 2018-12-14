@@ -67,7 +67,7 @@ define profile::firewall::rule (
     }
   } elsif is_array($destination) {
     # HACK: embed the name with the destination ip to allow muliple use of destination
-    $extended_destination = prefix($destination, "|${name}")
+    $extended_destination = prefix($destination, "${name}#")
     profile::firewall::expand_rule { $extended_destination:
       rule => $rule,
       type => 'destination',
