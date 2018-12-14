@@ -59,16 +59,18 @@ define profile::firewall::rule (
 
   # We can only expand source or destination, not both!
   if is_array($source) {
-    profile::firewall::expand_rule { $source:
-      rule      => $rule,
-      type      => 'source',
-      rule_name => $name
+    # HACK: embed the name with the source ip to allow muliple use of source
+    $extended_source = prefix($source, "${name}#")
+    profile::firewall::expand_rule { $extended_source:
+      rule => $rule,
+      type => 'source',
     }
   } elsif is_array($destination) {
-    profile::firewall::expand_rule { $destination:
-      rule      => $rule,
-      type      => 'destination',
-      rule_name => $name
+    # HACK: embed the name with the destination ip to allow muliple use of destination
+    $extended_destination = prefix($destination, "|${name}")
+    profile::firewall::expand_rule { $extended_destination:
+      rule => $rule,
+      type => 'destination',
     }
   } else {
     create_resources('firewall', { "${title}" => $rule })
