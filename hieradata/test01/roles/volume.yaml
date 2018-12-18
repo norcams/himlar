@@ -26,3 +26,7 @@ profile::openstack::volume::backend::rbd:
     extra_options:
       rbd-hdd-ec/report_discard_supported:
         value: 'True'
+
+cinder::backends::enabled_backends:
+  - rbd-volumes
+  - rbd-hdd-ec
