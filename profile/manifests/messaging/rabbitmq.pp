@@ -38,6 +38,7 @@ class profile::messaging::rabbitmq (
   if $manage_firewall {
     profile::firewall::rule { '201 rabbitmq accept tcp':
       dport  => 5672,
+    #  source => "${::network_trp1}/${::netmask_trp1}",
       extras => $firewall_extras
     }
     profile::firewall::rule { '201 rabbitmqadmin accept tcp':
