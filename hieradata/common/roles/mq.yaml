@@ -14,7 +14,6 @@ profile::base::common::packages:
   'bash-completion-extras': {}
   'jq': {}
 
-
 profile::monitoring::sensu::agent::plugins:
   sensu-plugins-rabbitmq:
     type:         package
@@ -38,7 +37,7 @@ profile::monitoring::sensu::agent::checks:
     command:      "metrics-rabbitmq-exchange.rb --scheme mq.%{::hostname} --user local --password %{hiera('local_rabbit_password')}"
     interval:     60
     subscribers:  ['metrics']
-    handlers:     ['graphite_tcp']
+    handlers: ['graphite_tcp']
 
 profile::messaging::rabbitmq::users:
   nova:
@@ -47,8 +46,6 @@ profile::messaging::rabbitmq::users:
     password: "%{hiera('cinder_rabbit_password')}"
   neutron:
     password: "%{hiera('neutron_rabbit_password')}"
-  sensu:
-    password: "%{hiera('sensu::rabbit_password')}"
   local:
     password: "%{hiera('local_rabbit_password')}"
     tags:     'monitoring'
@@ -67,7 +64,6 @@ profile::messaging::rabbitmq::vhosts:
   nova: {}
   cinder: {}
   neutron: {}
-  sensu: {}
   ceilometer: {}
   designate: {}
   himlarcli: {}
@@ -83,10 +79,6 @@ profile::messaging::rabbitmq::user_permissions:
     write_permission:     '.*'
     read_permission:      '.*'
   'neutron@neutron':
-    configure_permission: '.*'
-    write_permission:     '.*'
-    read_permission:      '.*'
-  'sensu@sensu':
     configure_permission: '.*'
     write_permission:     '.*'
     read_permission:      '.*'
