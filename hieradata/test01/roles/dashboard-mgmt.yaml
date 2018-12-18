@@ -1,0 +1,4 @@
+---
+profile::openstack::dashboard::allow_from_network:
+  - "%{hiera('netcfg_mgmt_netpart')}.0/%{hiera('netcfg_mgmt_netmask')}"  # bgo-login
+
