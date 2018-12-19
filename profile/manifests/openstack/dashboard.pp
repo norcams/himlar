@@ -19,6 +19,7 @@ class profile::openstack::dashboard(
   $change_region_selector = false,
   $change_login_footer  = false,
   $keystone_admin_roles = undef,
+  $reverse_dns          = false
   ) {
 
   if $manage_dashboard {
@@ -104,6 +105,14 @@ class profile::openstack::dashboard(
       source  => "puppet:///modules/${module_name}/openstack/horizon/_login_footer.html",
       require => Class['horizon'],
       notify  => Service['httpd']
+    }
+  }
+
+  # DNS Panel -> Reverse DNS
+  if  $reverse_dns {
+    file { 'reverse_dns':
+      ensure  => absent,
+      path => '/usr/share/openstack-dashboard/openstack_dashboard/local/enabled/_1722_dns_reversedns_panel.py',
     }
   }
 }
