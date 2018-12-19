@@ -1,7 +1,7 @@
 ---
 network::interfaces_hash:
   'eth0':
-    ipaddress: "%{hiera('netcfg_mgmt_netpart').12"
+    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.12"
     netmask:   "%{hiera('netcfg_mgmt_netmask')}"
     mtu:       '1500'
     peerdns:   'yes'
