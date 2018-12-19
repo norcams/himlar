@@ -27,7 +27,7 @@ project_panels.append(project_dashboard.get_panel("network_topology"))
 # Network->Floating IPs
 project_panels.append(project_dashboard.get_panel("floating_ips"))
 # Compute->API
-#project_panels.append(project_dashboard.get_panel("api_access"))
+project_panels.append(project_dashboard.get_panel("api_access"))
 # Volumes-> Backups
 project_panels.append(project_dashboard.get_panel("backups"))
 # Volumes-> Consistency Groups
@@ -37,9 +37,6 @@ project_panels.append(project_dashboard.get_panel("cg_snapshots"))
 
 for panel in project_panels:
     project_dashboard.unregister(panel.__class__)
-
-# Remove Compute->API
-project_panels.append(project_dashboard.get_panel("api_access"))
 
 # Remove change password
 password_panel = settings_dashboard.get_panel("password")
