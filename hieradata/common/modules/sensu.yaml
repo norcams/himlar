@@ -8,7 +8,7 @@ sensu::install_repo:            false
 sensu::manage_repo:             false
 sensu::sensu_plugin_provider:   sensu_gem
 sensu::use_embedded_ruby:       true
-sensu::rabbitmq_host:           "%{hiera('mgmt__address__mq_01')}"
+sensu::rabbitmq_host:           "%{hiera('mgmt__address__monitor')}"
 sensu::rabbitmq_password:       "%{hiera('sensu::rabbit_password')}"
 sensu::rabbitmq_user:           'sensu'
 sensu::rabbitmq_vhost:          'sensu'
