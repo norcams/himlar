@@ -111,8 +111,8 @@ class profile::openstack::dashboard(
   # DNS Panel -> Reverse DNS
   if  $reverse_dns {
     file { 'reverse_dns':
+      ensure  => absent,
       path => '/usr/share/openstack-dashboard/openstack_dashboard/local/enabled/_1722_dns_reversedns_panel.py',
-      ensure  => absent
     }
   }
 }
