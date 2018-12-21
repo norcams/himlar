@@ -12,7 +12,7 @@ network::interfaces_hash:
     team_port_config: '{ "prio" : 100 }'
   'em3':
     onboot:        'yes'
-    ipaddress:     "%{hiera('netcfg_mgmt_nepart')}.104"
+    ipaddress:     "%{hiera('netcfg_mgmt_netpart')}.104"
     netmask:       "%{hiera('netcfg_mgmt_netmask')}"
     defroute:      'no'
     dns1:          "%{hiera('mgmt__address__proxy')}"
@@ -39,7 +39,7 @@ network::interfaces_hash:
     defroute:      'no'
 
 # This compute host uses local storage for instances
-nova::compute::rbd::ephemeral_storage:            false
-nova::config::nova_config:
-  libvirt/images_type:
-    value: default
+#nova::compute::rbd::ephemeral_storage:            false
+#nova::config::nova_config:
+#  libvirt/images_type:
+#    value: default

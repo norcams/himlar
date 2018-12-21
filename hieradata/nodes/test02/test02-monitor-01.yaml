@@ -4,4 +4,5 @@ network::interfaces_hash:
     ipaddress: "%{hiera('netcfg_mgmt_netpart')}.14"
     netmask:   "%{hiera('netcfg_mgmt_netmask')}"
     gateway:   "%{hiera('netcfg_mgmt_gateway')}"
+    dns1:      "%{hiera('netcfg_dns_server1')}"
     mtu:       '1500'
