@@ -63,11 +63,13 @@ class profile::base::dell (
         notify  => Service['snmpd'],
       }
 
-      # Open the SNMP port (161/UDP) in the firewall
-      profile::firewall::rule { '001 allow SNMP':
-        dport  => 161,
-        proto  => 'udp',
-        extras => $snmp_firewall_settings,
+      if $::runmode == 'default' {
+        # Open the SNMP port (161/UDP) in the firewall
+        profile::firewall::rule { '001 allow SNMP':
+          dport  => 161,
+          proto  => 'udp',
+          extras => $snmp_firewall_settings,
+        }
       }
     }
   }
