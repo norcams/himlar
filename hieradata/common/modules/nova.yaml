@@ -79,6 +79,7 @@ nova::keystone::authtoken::auth_version:        'v3'
 nova::keystone::authtoken::project_domain_name: "%{hiera('keystone__default__domain')}"
 nova::keystone::authtoken::user_domain_name:    "%{hiera('keystone__default__domain')}"
 nova::keystone::authtoken::project_name:        "%{hiera('keystone__service__project')}"
+nova::keystone::authtoken::memcached_servers:   '127.0.0.1:11211'
 
 # scheduler (node: novactrl)
 nova::cpu_allocation_ratio:                         '16'
