@@ -274,11 +274,11 @@ consul::config_hash:
 
 # Disable reboot through Horizon (for other than root) until DHCP is fixed upstream (calico)
 # Disable shelve functionality since it is broken (instances are not unshelved successfully)
-#profile::openstack::dashboard::policies: # Does not work in Pike
-#  horizon_disable_reboot:
-#    file_path:  '/etc/openstack-dashboard/nova_policy.json'
-#    key:        'compute:reboot'
-#    value:      'role:user or role:admin'
+profile::openstack::dashboard::policies: # Does not work in Pike
+  horizon_disable_reboot:
+    file_path:  '/etc/openstack-dashboard/nova_policy.json'
+    key:        'compute:reboot'
+    value:      'role:user or role:admin'
   horizon_disable_shelve:
     file_path:  '/etc/openstack-dashboard/nova_policy.json'
     key:        'compute:shelve'
