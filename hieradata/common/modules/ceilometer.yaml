@@ -37,7 +37,6 @@ ceilometer::agent::polling::compute_namespace:                  false
 ceilometer::agent::polling::ipmi_namespace:                     false
 
 # gnocchi dispatcher (node: telemetry)
-ceilometer::dispatcher::gnocchi::url:                           "%{hiera('endpoint__metric__internal')}"
 ceilometer::dispatcher::gnocchi::filter_service_activity:       false
 ceilometer::dispatcher::gnocchi::archive_policy:                'low'
 
@@ -53,3 +52,5 @@ ceilometer::config::ceilometer_config:
 # rabbit mq (for rabbit_password see secrets)
 ceilometer_rabbit_access:           "ceilometer:%{hiera('ceilometer_rabbit_password')}"
 ceilometer::default_transport_url:  "rabbit://%{hiera('ceilometer_rabbit_access')}@%{hiera('service__address__rabbitmq_01')}:5672/ceilometer"
+
+openstack_version:    'queens'
