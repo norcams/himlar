@@ -53,7 +53,7 @@ profile::base::lvm::volume_group:
 
 # This compute host uses local storage for instances
 # if the following lines are uncommented/active
-nova::compute::rbd::ephemeral_storage:            false
-nova::config::nova_config:
-  libvirt/images_type:
-    value: default
+#nova::compute::rbd::ephemeral_storage:            false
+#nova::config::nova_config:
+#  libvirt/images_type:
+#    value: default
