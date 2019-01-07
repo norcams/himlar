@@ -19,8 +19,8 @@ profile::openstack::volume::backend::rbd:
       rbd-volumes/report_discard_supported:
         value: 'True'
   rbd-hdd-ec:
-    rbd_pool: 'volume_hdd_ec'
-    rbd_user: 'cinder'
+    rbd_pool: 'volumes_hdd_ec_meta'
+    rbd_user: 'cinder-hdd-ec'
     rbd_flatten_volume_from_snapshot: 'True'
     rbd_secret_uuid: "%{hiera('libvirt_rbd_secret_uuid')}"
     extra_options:

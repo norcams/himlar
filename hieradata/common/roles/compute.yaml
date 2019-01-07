@@ -206,3 +206,16 @@ ceph::profile::params::client_keys:
     group: 'nova'
     cap_mon: 'profile rbd'
     cap_osd: 'profile rbd pool=volumes, profile rbd pool=vms, profile rbd pool=images'
+  'client.cinder-hdd-ec':
+    secret: "%{hiera('client_cinder::secret')}"
+    mode: '0600'
+    user: 'cinder'
+    group: 'cinder'
+    cap_mon: 'profile rbd'
+    cap_osd: 'profile rbd pool=volumes_hdd_ec_meta, profile rbd pool=volumes_hdd_ec_data'
+
+profile::storage::cephclient::create_extraconf: true
+profile::storage::ceph_extraconf::config:
+  client_ecc_backend:
+    'config_key'  : "client.cinder-ecc-hd/rbd_default_data_pool"
+    'config_value': "volumes_hdd_ec_data"
