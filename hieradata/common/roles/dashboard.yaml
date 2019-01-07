@@ -68,14 +68,23 @@ profile::webserver::apache::vhosts:
     manage_docroot:     false
     docroot:            '/var/www/html'
 
+# We should change this to the same as the API services
 profile::openstack::dashboard::policies:
   glance_publicize_image:
     file_path:  '/etc/openstack-dashboard/glance_policy.json'
     key:        'publicize_image'
     value:      'role:superuser or role:admin'
-  compute_resize:
+  nova_disable_reboot:
     file_path:  '/etc/openstack-dashboard/nova_policy.json'
-    key:        'compute:resize'
+    key:        'os_compute_api:servers:reboot'
+    value:      'role:admin'
+  nova_compute_resize:
+    file_path:  '/etc/openstack-dashboard/nova_policy.json'
+    key:        'os_compute_api:servers:resize'
+    value:      'role:admin'
+  nova_disable_shelve:
+    file_path:  '/etc/openstack-dashboard/nova_policy.json'
+    key:        'os_compute_api:servers:shelve'
     value:      'role:admin'
 #  upload_image:
 #    key:        'volume_extension:volume_actions:upload_image'
@@ -103,5 +112,3 @@ horizon::keystone_options:
   can_edit_project:             False
   can_edit_domain:              False
   can_edit_role:                False
-
-
