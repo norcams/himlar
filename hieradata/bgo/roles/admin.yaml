@@ -3,6 +3,12 @@ include:
   default:
     - profile::dns::rndc_key
 
+foreman_version: '1.19'
+
+profile::base::yumrepo::repo_hash:
+  foreman-rails:
+    ensure: present
+
 profile::dns::rndc_key::create_admin_key:    true
 profile::dns::rndc_key::create_mdns_key:     false
 profile::dns::rndc_key::host_is_bind_server: false
