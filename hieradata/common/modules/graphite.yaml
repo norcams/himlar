@@ -3,12 +3,15 @@ graphite::secret_key:     "%{hiera('graphite_secret_key')}"
 graphite::gr_timezone:    'Europe/Berlin'
 graphite::gr_web_server:  'apache'
 graphite::gr_storage_schemas:
+  - name:       'stats'
+    pattern:    'stats.*'
+    retentions: '60s:12h,1h:30d,1d:365d,1w:10y'
   - name:       'default'
     pattern:    '.*'
     retentions: '60s:12h,1h:7d,1d:90d'
-  - name:       'stats'
-    pattern:    'stats.*'
-    retentions: '60s:12h,1h:30d,1d:365d'
 
-# Logrotate
-graphite::gr_enable_logrotation:  false
+# Turn off logging and logrotate to avoid full disks
+graphite::gr_enable_logrotation:              false
+graphite::gr_carbon_log_rotate:               false
+graphite::gr_log_listener_connections:        false
+graphite::gr_relay_log_listener_connections:  false
