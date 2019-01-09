@@ -305,7 +305,7 @@ class profile::base::network(
     file { 'opx-interfaces':
       ensure  => file,
       path    => '/etc/network/interfaces',
-      content => "# interfaces(5) file used by ifup(8) and ifdown(8)\r\n# Include files from /etc/network/interfaces.d:\r\n\r\nsource /etc/network/interfaces.d/*\r\nsource /etc/network/interfaces.d/*.cfg\r\n"
+      content => "# interfaces(5) file used by ifup(8) and ifdown(8)\r\n# Include files from /etc/network/interfaces.d:\r\n\r\nsource /etc/network/interfaces.d/*.cfg\r\n"
     }
   }
 
