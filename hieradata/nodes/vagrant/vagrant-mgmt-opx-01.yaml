@@ -1,0 +1,6 @@
+---
+network::interfaces_hash:
+  'eth0':
+    mtu:       '1500'
+    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.6"
+    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
