@@ -68,11 +68,18 @@ bootstrap_puppet()
 
     # Fix annoying debian thing
     sed -i 's/^mesg n$/tty -s \&\& mesg n/g' /root/.profile
-
-    wget -O /tmp/puppet-agent_1.10.9-1wheezy_amd64.deb https://download.iaas.uio.no/uh-iaas/aptrepo/pool/main/p/puppet-agent/puppet-agent_1.10.9-1wheezy_amd64.deb
-    dpkg -i /tmp/puppet-agent_1.10.9-1wheezy_amd64.deb
-    apt-get update
-    apt-get -y install git
+    # New debian version
+    if $(/bin/cat /etc/os-release | grep stretch > /dev/null 2>&1); then
+      wget -O /tmp/puppetlabs-release-pc1-stretch.deb http://apt.puppetlabs.com/puppetlabs-release-pc1-stretch.deb
+      dpkg -i /tmp/puppetlabs-release-pc1-stretch.deb
+      apt-get update
+      apt-get -y install git rubygems ruby-dev autoconf libtool lsb-release puppet-agent
+    else
+      wget -O /tmp/puppet-agent_1.10.9-1wheezy_amd64.deb https://download.iaas.uio.no/uh-iaas/aptrepo/pool/main/p/puppet-agent/puppet-agent_1.10.9-1wheezy_amd64.deb
+      dpkg -i /tmp/puppet-agent_1.10.9-1wheezy_amd64.deb
+      apt-get update
+      apt-get -y install git
+    fi
 
     gem install --no-ri --no-rdoc r10k
   fi
