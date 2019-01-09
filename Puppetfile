@@ -18,7 +18,7 @@ mod 'hostname', :ref => '0.0.2',                    :git => github + 'peopleware
 mod 'resolv_conf', :ref => 'v3.3.0',                :git => github + 'saz/puppet-resolv_conf'
 mod 'lvm', :ref => '1.0.0',                         :git => github + 'puppetlabs/puppetlabs-lvm'
 mod 'firewall', :ref => '1.8.2',                    :git => github + 'puppetlabs/puppetlabs-firewall'
-mod 'apt', :ref => '4.4.1',                         :git => github + 'puppetlabs/puppetlabs-apt'
+mod 'apt', :ref => '6.2.1',                         :git => github + 'puppetlabs/puppetlabs-apt'
 mod 'kmod', :ref => '2.2.0',                        :git => github + 'camptocamp/puppet-kmod'
 mod 'named_interfaces', :ref => '12482fc5c3',       :git => github + 'norcams/puppet-named_interfaces'
 mod 'network', :ref => '0bfc7cc2bc',                :git => github + 'norcams/puppet-network'
@@ -167,7 +167,7 @@ mod 'designate', :ref => '12.4.0',                  :git => github + 'openstack/
 
 mod 'oslo', :ref => '12.4.0',                       :git => github + 'openstack/puppet-oslo'
 mod 'openstacklib', :ref => '11.5.0',               :git => github + 'openstack/puppet-openstacklib'
-mod 'openstack_extras', :ref => '10.4.0',           :git => github + 'openstack/puppet-openstack_extras'
+mod 'openstack_extras', :ref => '11.5.0',           :git => github + 'openstack/puppet-openstack_extras'
 mod 'sysctl', :ref => 'v0.0.11',                    :git => github + 'duritong/puppet-sysctl'
 mod 'memcached', :ref => 'v3.0.2',                  :git => github + 'saz/puppet-memcached'
 mod 'rsync', :ref => '0.4.0',                       :git => github + 'puppetlabs/puppetlabs-rsync'
@@ -192,6 +192,7 @@ mod 'corosync', :ref => 'v5.1.0',                   :git => github + 'voxpupuli/
 # Common libs
 #
 mod 'stdlib', :ref => '4.24.0',                     :git => github + 'puppetlabs/puppetlabs-stdlib'
+mod 'translate', :ref => '1.2.0',                   :git => github + 'puppetlabs/puppetlabs-translate'
 mod 'concat', :ref => '4.1.0',                      :git => github + 'puppetlabs/puppetlabs-concat'
 mod 'hash_file', :ref => '1.0.3',                   :git => github + 'fiddyspence/puppet-hash_file' # ??
 mod 'inifile', :ref => '2.0.0',                     :git => github + 'puppetlabs/puppetlabs-inifile'
