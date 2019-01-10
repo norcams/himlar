@@ -144,3 +144,9 @@ ssh::server::options:
   # No 2FA possible with iaas from mgmt
   "Match User iaas Address %{hiera('netcfg_mgmt_netpart')}.0/24":
     AuthenticationMethods: 'publickey'
+  'Match User root':
+    PermitRootLogin: 'no'
+    PasswordAuthentication: 'no'
+  "Match User root Address %{hiera('netcfg_mgmt_netpart')}.0/24":
+    PermitRootLogin: 'yes'
+    PasswordAuthentication: 'yes'
