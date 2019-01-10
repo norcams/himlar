@@ -45,6 +45,14 @@ ceph::profile::params::osd_journal_size: '10240'
 profile::storage::cephosd::create_osds: true
 
 profile::storage::cephpool::manage_ec_pools: false
+
+profile::storage::ceph_ecpool::ec_pools:
+  'volume_hdd_ec_data':
+    pg_num:              "512"
+    manage:              true
+    allow_ec_overwrites: true
+    k_data:              "3"
+    m_code:              "2"
 profile::storage::cephpool::pools:
   'rbd':
     ensure: absent
@@ -60,6 +68,21 @@ profile::storage::cephpool::pools:
     ensure: present
     pg_num: 256
     pgp_num: 256
+  'volume_hdd_ec_meta':
+    ensure: present
+    pg_num: 256
+    pgp_num: 256
+profile::storage::cephpool_params::pools:
+  'volumes':
+    replicas_min_size: 3
+  'images':
+    replicas_min_size: 3
+  'vms':
+    replicas_min_size: 3
+    crush_rule:        "ssd"
+  'volume_hdd_ec_meta':
+    replicas_min_size: 3
+    crush_rule:        "ssd"
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
