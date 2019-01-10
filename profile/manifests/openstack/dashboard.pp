@@ -19,6 +19,7 @@ class profile::openstack::dashboard(
   $change_region_selector = false,
   $change_login_footer  = false,
   $keystone_admin_roles = undef,
+  $customize_logo       = false,
   ) {
 
   if $manage_dashboard {
@@ -102,6 +103,33 @@ class profile::openstack::dashboard(
     file { '/usr/share/openstack-dashboard/openstack_dashboard/templates/_login_footer.html':
       ensure  => present,
       source  => "puppet:///modules/${module_name}/openstack/horizon/_login_footer.html",
+      require => Class['horizon'],
+      notify  => Service['httpd']
+    }
+  }
+
+  if $customize_logo {
+    file { 'logo-splash.svg':
+      ensure  => present,
+      path    => '/usr/share/openstack-dashboard/openstack_dashboard/static/dashboard/img/logo-splash.svg',
+      source  => "puppet:///modules/${module_name}/openstack/horizon/logo-splash.svg",
+      replace => true,
+      require => Class['horizon'],
+      notify  => Service['httpd']
+    }
+    file { 'logo.svg':
+      ensure  => present,
+      path    => '/usr/share/openstack-dashboard/openstack_dashboard/static/dashboard/img/logo.svg',
+      source  => "puppet:///modules/${module_name}/openstack/horizon/logo.svg",
+      replace => true,
+      require => Class['horizon'],
+      notify  => Service['httpd']
+    }
+    file { 'favicon.ico':
+      ensure  => present,
+      path    => '/usr/share/openstack-dashboard/openstack_dashboard/static/dashboard/img/favicon.ico',
+      source  => "puppet:///modules/${module_name}/openstack/horizon/favicon.ico",
+      replace => true,
       require => Class['horizon'],
       notify  => Service['httpd']
     }
