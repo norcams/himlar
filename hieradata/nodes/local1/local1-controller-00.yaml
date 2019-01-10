@@ -5,25 +5,22 @@ include:
     - profile::base::login
 
 network::interfaces_hash:
-  'em1':      # local1-mgmt
+  'eth0':      # local1-mgmt
     onboot:         'yes'
     bridge:         'br0'
-  'em1.11':   # local2-mgmt
+  'eth0.11':   # local2-mgmt
     onboot:         'yes'
     bridge:         'br1'
     vlan:           'yes'
-  'em1.100':  # local1-trp
+  'eth0.100':  # local1-trp
     onboot:         'yes'
     bridge:         'br2'
     vlan:           'yes'
-  'em1.101':  # local2-trp
+  'eth0.101':  # local2-trp
     onboot:         'yes'
     bridge:         'br3'
     vlan:           'yes'
-  'em1.1349': # uib
-    vlan:           'yes'
-    'enable_dhcp':  true
-  'eth0': # uib
+  'eth1': # uib
     enable_dhcp:    true
     ipv6init:       'no'
     ipv6_autoconf:  'no'
@@ -115,7 +112,7 @@ named_interfaces::config:
   trp:
     - br1
   public:
-    - eth0
+    - eth1
 
 # SSH access
 accounts::accounts:
