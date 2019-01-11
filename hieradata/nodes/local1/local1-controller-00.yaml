@@ -115,11 +115,6 @@ named_interfaces::config:
   public:
     - eth1
 
-# SSH access
-accounts::accounts:
-  'raymond':
-    ensure: present
-
 # SSH from everywhere
 profile::firewall::pre::ssh_settings:
   source: "0.0.0.0/0"
