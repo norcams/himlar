@@ -7,6 +7,7 @@ class profile::base::login (
   $forward_oobnet           = false,
   $oob_net                  = '10.0.0.0/24',
   $oob_outiface             = undef,
+  $oob_dhcrelay             = false,
   $ensure                   = 'present',
   $agelimit                 = '14',
   $db_servers               = {},
@@ -97,6 +98,24 @@ class profile::base::login (
     owner  => root,
     group  => root,
     source => "puppet:///modules/${module_name}/base/get-oob-ip"
+  }
+
+  # Send bmc dhcp requests to admin node
+  if $oob_dhcrelay {
+    package { 'dhcrelay-package':
+      ensure => installed,
+      name   => 'dhcp',
+    } ~>
+    file { 'dhcrelay-startopts':
+      ensure  => file,
+      path    => '/etc/systemd/system/dhcrelay.service',
+      content => "ExecStart=/usr/sbin/dhcrelay -d --no-pid ${::network_mgmt1}.11 -i ${::interface_mgmt1}",
+    } ~>
+    service { 'dhcrelay':
+      ensure      => running,
+      name        => 'dhcrelay.service'
+      enable      => true,
+    }
   }
 
   if $manage_repo_incoming_dir {
