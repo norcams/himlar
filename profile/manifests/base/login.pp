@@ -122,6 +122,12 @@ class profile::base::login (
       name        => 'dhcrelay.service',
       enable      => true,
     }
+    if $manage_firewall {
+      profile::firewall::rule { '196 dhcprelay accept udp':
+        port   => 67,
+        proto  => 'udp',
+      }
+    }
   }
 
   if $manage_repo_incoming_dir {
