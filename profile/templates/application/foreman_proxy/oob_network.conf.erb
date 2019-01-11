@@ -1,7 +1,6 @@
 # out-of-band network definition
-subnet <%= scope.function_hiera(['netcfg_oob_netpart']) %>.0 netmask <%= scope.function_hiera(['netcfg_oob_netmask']) %> {
-  option routers <%= scope.function_hiera(['netcfg_oob_gateway']) %>;
-  ddns-updates off;
+subnet <%= scope().call_function('hiera',['netcfg_oob_netpart']) %>.0 netmask <%= scope().call_function('hiera',['netcfg_oob_netmask']) %> {
+  option routers <%= scope().call_function('hiera',['netcfg_oob_gateway']) %>;
   default-lease-time 43200;
   max-lease-time 86400;
 }
