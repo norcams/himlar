@@ -102,6 +102,7 @@ class profile::base::login (
 
   # Send bmc dhcp requests to admin node
   if $oob_dhcrelay {
+    $dhcp_network = lookup("netcfg_mgmt_netpart", String, 'first', '')
     package { 'dhcrelay-package':
       ensure => installed,
       name   => 'dhcp',
@@ -109,11 +110,12 @@ class profile::base::login (
     file { 'dhcrelay-startopts':
       ensure  => file,
       path    => '/etc/systemd/system/dhcrelay.service',
-      content => "ExecStart=/usr/sbin/dhcrelay -d --no-pid ${::network_mgmt1}.11 -i ${::interface_mgmt1}",
+      content => "[Service]\r\nExecStart=/usr/sbin/dhcrelay -d --no-pid ${dhcp_network}.11 -i ${oob_outiface}\r\n",
+      notify  => Service['dhcrelay'],
     } ~>
     service { 'dhcrelay':
       ensure      => running,
-      name        => 'dhcrelay.service'
+      name        => 'dhcrelay.service',
       enable      => true,
     }
   }
