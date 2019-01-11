@@ -3,5 +3,5 @@ subnet <%= scope().call_function('hiera',['netcfg_oob_netpart']) %>.0 netmask <%
   option routers <%= scope().call_function('hiera',['netcfg_oob_gateway']) %>;
   default-lease-time 43200;
   max-lease-time 86400;
-  option domain-name-servers <%= scope().call_function('hiera',['netcfg_mgmt_netpart']) %>.10;
+  option domain-name-servers <%= scope().call_function('hiera',['netcfg_oob_netpart']) %>.10;
 }
