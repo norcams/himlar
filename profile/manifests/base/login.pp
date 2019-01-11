@@ -113,14 +113,14 @@ class profile::base::login (
       content => "[Service]\r\nExecStart=/usr/sbin/dhcrelay -d --no-pid ${dhcp_network}.11 -i ${oob_outiface}\r\n",
       notify => Exec['daemon reload for dhcrelay'],
     } ~>
+    exec { 'daemon reload for dhcrelay':
+      command     => '/usr/bin/systemctl daemon-reload',
+      refreshonly => true,
+    } ~>
     service { 'dhcrelay':
       ensure      => running,
       name        => 'dhcrelay.service',
       enable      => true,
-    }
-    exec { 'daemon reload for dhcrelay':
-      command     => '/usr/bin/systemctl daemon-reload',
-      refreshonly => true,
     }
   }
 
