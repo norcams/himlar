@@ -107,6 +107,16 @@ profile::network::nat::outiface:     'eth1'
 
 profile::network::services::ntp_server: false
 
+# FIXME: This shuld be sda, but we changed cabinet and got sdb instead
+lvm::volume_groups:
+  vg_ext:
+    physical_volumes:
+      - /dev/sdb3
+    logical_volumes:
+      lv_ext:
+        fs_type:   xfs
+        mountpath: "/var/lib/libvirt/images"
+
 named_interfaces::config:
   mgmt:
     - br0
