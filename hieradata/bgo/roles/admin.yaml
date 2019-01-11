@@ -17,3 +17,7 @@ profile::application::foreman_proxy::serve_oob_dhcp: true
 
 dhcp::includes:
   - '/etc/dhcp/oob_network.conf'
+
+profile::webserver::apache::vhosts:
+  'repo':
+    serveraliases: [ "repo.%{hiera('domain_oob')}", ]
