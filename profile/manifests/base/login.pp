@@ -193,7 +193,7 @@ class profile::base::login (
         extras => {
           iniface => $::interface_oob1,
         },
-      }      
+      }
     }
   }
 
