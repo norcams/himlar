@@ -180,6 +180,21 @@ class profile::base::login (
         iniface => $::interface_mgmt1,
       },
     }
+    if $oob_dhcrelay {
+      profile::firewall::rule { '3351 management dns accept tcp for oob':
+        dport  => $ports,
+        extras => {
+          iniface => $::interface_oob1,
+        },
+      }
+      profile::firewall::rule { '3361 management dns accept udp for obb':
+        dport  => $ports,
+        proto  => 'udp',
+        extras => {
+          iniface => $::interface_oob1,
+        },
+      }      
+    }
   }
 
   if $forward_oobnet  {
