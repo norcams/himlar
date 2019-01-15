@@ -138,6 +138,20 @@ googleauthenticator::pam::mode::modes:
     condition: 'user ingroup wheel'
     nullok: false
 
+accounts::accounts:
+  'mikaeld':
+    ensure: present
+  'raymond':
+    ensure: present
+  'torldre':
+    ensure: present
+  'trondham':
+    ensure: present
+  'andersv':
+    ensure: present
+  'tannazn':
+    ensure: present
+
 ssh::server::options:
   # Need this for 2FA (saz-ssh-module disables by default)
   ChallengeResponseAuthentication: 'yes'
