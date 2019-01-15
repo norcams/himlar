@@ -19,10 +19,9 @@ dhcp::includes:
   - '/etc/dhcp/oob_network.conf'
 
 profile::webserver::apache::vhosts:
-  'repo':
-    serveraliases: [ "repo.%{hiera('domain_oob')}", ]
   'repo-oobip':
     servername:     "%{::ipaddress_oob1}"
     port:           80
     docroot:        '/opt/repo/public'
     docroot_owner:  'iaas'
+    serveraliases:  [ "repo.%{hiera('domain_oob')}", ]
