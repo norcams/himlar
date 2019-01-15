@@ -7,7 +7,7 @@ location_environment:     'prod'
 location_description:     'Production environment in Oslo'
 
 # Disable management of Dell repos and software
-profile::base::dell::manage_repos:      false
+profile::base::dell::manage_repos:      true
 profile::base::dell::manage_openmanage: false
 
 domain_frontend:          'uh-iaas.no'
