@@ -12,3 +12,16 @@ profile::base::yumrepo::repo_hash:
 profile::dns::rndc_key::create_admin_key:    true
 profile::dns::rndc_key::create_mdns_key:     false
 profile::dns::rndc_key::host_is_bind_server: false
+
+profile::application::foreman_proxy::serve_oob_dhcp: true
+
+dhcp::includes:
+  - '/etc/dhcp/oob_network.conf'
+
+profile::webserver::apache::vhosts:
+  'repo-oobip':
+    servername:     "%{::ipaddress_oob1}"
+    port:           80
+    docroot:        '/opt/repo/public'
+    docroot_owner:  'iaas'
+    serveraliases:  [ "repo.%{hiera('domain_oob')}", ]
