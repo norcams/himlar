@@ -38,27 +38,33 @@ class profile::openstack::designate (
   }
 
   if $manage_firewall {
+    $ns_sources_ipv4 = lookup('profile::openstack::designate::ns_sources_ipv4', Array, 'unique', ['127.0.0.1/8'])
+    $ns_sources_ipv6 = lookup('profile::openstack::designate::ns_sources_ipv6', Array, 'unique', ['::1/128'])
     profile::firewall::rule { '001 designate incoming':
       port   => 9001,
       proto  => 'tcp'
     }
     profile::firewall::rule { '002 TCP designate mdns incoming':
       port   => 5354,
-      proto  => 'tcp'
+      proto  => 'tcp',
+      source => $ns_sources_ipv4
     }
     profile::firewall::rule { '003 UDP designate mdns incoming':
       port   => 5354,
-      proto  => 'udp'
+      proto  => 'udp',
+      source => $ns_sources_ipv4
     }
     profile::firewall::rule { '002 TCP designate mdns incoming IPv6':
-      port   => 5354,
-      proto  => 'tcp',
-      provider => 'ip6tables'
+      port     => 5354,
+      proto    => 'tcp',
+      provider => 'ip6tables',
+      source   => $ns_sources_ipv6
     }
     profile::firewall::rule { '003 UDP designate mdns incoming IPv6':
-      port   => 5354,
-      proto  => 'udp',
-      provider => 'ip6tables'
+      port     => 5354,
+      proto    => 'udp',
+      provider => 'ip6tables',
+      source   => $ns_sources_ipv6
     }
   }
 }

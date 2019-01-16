@@ -7,3 +7,7 @@ profile::openstack::designate::bind_servers:
     ns_public_name:  'ns.test.iaas.uib.no'
     mdns_addr:
       - '2001:700:200:917::3f34'
+
+# Firewall configuration
+profile::openstack::designate::ns_sources_ipv6:
+  - '2001:700:200:917::3f17'
