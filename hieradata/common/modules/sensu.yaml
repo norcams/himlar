@@ -33,6 +33,8 @@ sensu::subscriptions:
   - 'checks'
 
 sensu__memory__check:     "check-memory-percent.rb -w 80 -c 90"
+sensu__disk__warning:     70
+sensu__disk__crtical:     90
 
 sensu::checks:
   'metrics-vmstat':
@@ -54,7 +56,7 @@ sensu::checks:
     subscribers:  ['metrics']
     handlers:     ['graphite_tcp']
   'check-disk-usage':
-    command:      "check-disk-usage.rb -p '/ceph/' -w 70 -c 90"
+    command:      "check-disk-usage.rb -p '/ceph/' -w %{hiera('sensu__disk__warning')} -c %{hiera('sensu__disk__crtical')}"
     interval:     60
     subscribers:  ['checks']
   'check-load':

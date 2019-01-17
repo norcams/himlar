@@ -96,6 +96,8 @@ profile::monitoring::sensu::agent::plugin_gems:
 
 # sensu
 sensu__memory__check:     "check-memory.rb -w 4096 -c 1024"
+sensu__disk__warning:     90
+sensu__disk__crtical:     95
 
 profile::monitoring::sensu::agent::checks:
   'metadata-api':
