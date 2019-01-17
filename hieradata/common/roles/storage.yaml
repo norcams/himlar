@@ -84,7 +84,7 @@ profile::storage::cephpool_params::pools:
     replicas_min_size:  3
     crush_rule:         "ssd"
     application_enable: 'rbd'
-  'volume_hdd_ec_data':
+  'volumes_hdd_ec_data':
     application_enable: 'rbd'
 
 # Enable extra yum repo
