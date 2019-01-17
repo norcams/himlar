@@ -83,12 +83,15 @@ profile::storage::cephpool::pools:
     pgp_num: 128
 profile::storage::cephpool_params::pools:
   'volumes':
-    replicas_min_size: 2
+    replicas_min_size:  2
   'images':
-    replicas_min_size: 2
+    replicas_min_size:  2
   'vms':
-    replicas_min_size: 2
-    crush_rule:        "ssd"
+    replicas_min_size:  2
+    crush_rule:         "ssd"
   'volume_hdd_ec_meta':
-    replicas_min_size: 2
-    crush_rule:        "hdd"
+    replicas_min_size:  2
+    crush_rule:         "hdd"
+    application_enable: 'rbd'
+  'volume_hdd_ec_data':
+    application_enable: 'rbd'
