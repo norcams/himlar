@@ -1,3 +1,8 @@
 ---
 profile::openstack::dashboard::allow_from_network:
   - '0.0.0.0/0'     # Allow dashboard from everywhere
+
+profile::openstack::dashboard::manage_systemd_unit: true
+profile::openstack::dashboard::httpd_systemd_extras:
+  'Service':
+    'LimitNOFILE': 32768
