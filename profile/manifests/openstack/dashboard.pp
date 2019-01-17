@@ -34,8 +34,8 @@ class profile::openstack::dashboard(
 
   if $manage_systemd_unit {
 
-    # Include our class to reload systemd
-    include ::profile::base::systemd::daemon_reload
+    # Include our systemd class
+    include ::profile::base::systemd
 
     # Get the contents of the httpd systemd unit extras
     $systemd_unit_content = lookup('profile::openstack::dashboard::httpd_systemd_extras', Hash, 'deep', {})
@@ -59,7 +59,7 @@ class profile::openstack::dashboard(
       content => template("${module_name}/base/systemd-unit.erb"),
       require => File['/etc/systemd/system/httpd.service.d'],
       notify  => [
-        Class['profile::base::systemd::daemon_reload'],
+        Exec['systemctl_daemon_reload'],
         Service['httpd'],
       ],
     }
