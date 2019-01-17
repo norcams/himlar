@@ -5,6 +5,7 @@ define profile::storage::cephpool_params (
   $replicas_num         = undef,
   $replicas_min_size    = undef,
   $crush_rule           = undef,
+  $application_enable   = undef,
 ) {
   require ::ceph::profile::client
 
@@ -27,6 +28,13 @@ define profile::storage::cephpool_params (
       command     => "ceph osd pool set ${name} crush_rule ${crush_rule} && touch /var/lib/ceph/.${name}-crush_rule-created",
       path        => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
       creates     => "/var/lib/ceph/.${name}-crush_rule-created",
+    }
+  }
+  if $application_enable {
+    exec { "enable_osd_pool_application-${name}":
+      command      => "ceph osd pool application enable ${name} ${application_enable} && touch /var/lib/ceph/.${name}-application-enabled",
+      path        => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
+      creates     => "/var/lib/ceph/.${name}-application-enabled",
     }
   }
 }
