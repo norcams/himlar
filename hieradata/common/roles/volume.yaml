@@ -93,5 +93,5 @@ ceph::profile::params::client_keys:
 profile::storage::cephclient::create_extraconf: true
 profile::storage::ceph_extraconf::config:
   client_ecc_backend:
-    'config_key'  : "client.cinder-ecc-hd/rbd_default_data_pool"
+    'config_key'  : "client.cinder-hdd-ec/rbd_default_data_pool"
     'config_value': "volumes_hdd_ec_data"

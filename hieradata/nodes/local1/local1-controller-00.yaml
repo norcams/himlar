@@ -107,6 +107,16 @@ profile::network::nat::outiface:     'eth1'
 
 profile::network::services::ntp_server: false
 
+# FIXME: This shuld be sda, but we changed cabinet and got sdb instead
+lvm::volume_groups:
+  vg_ext:
+    physical_volumes:
+      - /dev/sdb3
+    logical_volumes:
+      lv_ext:
+        fs_type:   xfs
+        mountpath: "/var/lib/libvirt/images"
+
 named_interfaces::config:
   mgmt:
     - br0
@@ -114,11 +124,6 @@ named_interfaces::config:
     - br1
   public:
     - eth1
-
-# SSH access
-accounts::accounts:
-  'raymond':
-    ensure: present
 
 # SSH from everywhere
 profile::firewall::pre::ssh_settings:
@@ -132,6 +137,20 @@ googleauthenticator::pam::mode::modes:
   wheel-only:
     condition: 'user ingroup wheel'
     nullok: false
+
+accounts::accounts:
+  'mikaeld':
+    ensure: present
+  'raymond':
+    ensure: present
+  'torldre':
+    ensure: present
+  'trondham':
+    ensure: present
+  'andersv':
+    ensure: present
+  'tannazn':
+    ensure: present
 
 ssh::server::options:
   # Need this for 2FA (saz-ssh-module disables by default)

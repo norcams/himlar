@@ -12,3 +12,96 @@ profile::base::yumrepo::repo_hash:
 profile::dns::rndc_key::create_admin_key:    true
 profile::dns::rndc_key::create_mdns_key:     false
 profile::dns::rndc_key::host_is_bind_server: false
+
+profile::application::foreman_proxy::serve_oob_dhcp: true
+
+dhcp::includes:
+  - '/etc/dhcp/oob_network.conf'
+
+profile::webserver::apache::vhosts:
+  'repo-oobip':
+    servername:     "%{::ipaddress_oob1}"
+    port:           80
+    docroot:        '/opt/repo/public'
+    docroot_owner:  'iaas'
+    serveraliases:  [ "repo.%{hiera('domain_oob')}", ]
+
+profile::network::services::dhcp_reservation:
+  osl-leaf-01:
+    mac: '00:01:e8:d8:3f:d7'
+    ip:  '172.16.32.1'
+  osl-leaf-02:
+    mac: '00:01:e8:d8:38:28'
+    ip:  '172.16.32.2'
+  osl-leaf-03:
+    mac: '00:01:e8:d8:25:9f'
+    ip:  '172.16.32.3'
+  osl-leaf-04:
+    mac: '00:01:e8:d8:49:ff'
+    ip:  '172.16.32.4'
+  osl-torack-01:
+    mac: 'e4:f0:04:b6:51:32'
+    ip:  '172.16.32.6'
+  osl-torack-02:
+    mac: 'e4:f0:04:b6:52:32'
+    ip:  '172.16.32.7'
+  osl-compute-01-bmc:
+    mac: 'b8:2a:72:fc:77:28'
+    ip:  '172.16.32.103'
+  osl-compute-02-bmc:
+    mac: 'b8:2a:72:fc:64:08'
+    ip:  '172.16.32.104'
+  osl-compute-03-bmc:
+    mac: 'b8:2a:72:fc:6f:cc'
+    ip:  '172.16.32.105'
+  osl-compute-04-bmc:
+    mac: '84:7b:eb:d7:04:4a'
+    ip:  '172.16.32.111'
+  osl-compute-05-bmc:
+    mac: '84:7b:eb:d7:04:24'
+    ip:  '172.16.32.112'
+  osl-compute-06-bmc:
+    mac: '84:7b:eb:d7:04:36'
+    ip:  '172.16.32.113'
+  osl-compute-07-bmc:
+    mac: 'f8:ca:b8:ff:99:e2'
+    ip:  '172.16.32.115'
+  osl-compute-08-bmc:
+    mac: 'f8:ca:b8:ff:ba:d6'
+    ip:  '172.16.32.116'
+  osl-controller-01-bmc:
+    mac: 'b8:2a:72:fc:3e:c8'
+    ip:  '172.16.32.100'
+  osl-controller-02-bmc:
+    mac: 'b8:2a:72:fc:3d:c2'
+    ip:  '172.16.32.101'
+  osl-controller-03-bmc:
+    mac: 'b8:2a:72:fc:3e:5a'
+    ip:  '172.16.32.102'
+  osl-controller-04-bmc:
+    mac: 'e0:db:55:05:35:7c'
+    ip:  '172.16.32.114'
+  osl-login-01-bmc:
+    mac: '18:03:73:ed:d3:91'
+    ip:  '172.16.32.10'
+  osl-storage-01-bmc:
+    mac: '5c:f9:dd:ff:15:94'
+    ip:  '172.16.32.106'
+  osl-storage-02-bmc:
+    mac: '5c:f9:dd:ff:16:1a'
+    ip:  '172.16.32.107'
+  osl-storage-03-bmc:
+    mac: '5c:f9:dd:ff:17:58'
+    ip:  '172.16.32.108'
+  osl-storage-04-bmc:
+    mac: '5c:f9:dd:ff:13:d2'
+    ip:  '172.16.32.109'
+  osl-storage-05-bmc:
+    mac: '5c:f9:dd:ff:1b:a6'
+    ip:  '172.16.32.110'
+  osl-storage-06-bmc:
+    mac: 'd0:94:66:8c:47:b3'
+    ip:  '172.16.32.124'
+  osl-storage-07-bmc:
+    mac: 'd0:94:66:8f:37:b7'
+    ip:  '172.16.32.125'

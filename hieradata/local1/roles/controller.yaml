@@ -9,6 +9,8 @@ named_interfaces::config:
   service:
     - br1
 
+libvirt::qemu_vnc_listen:         '%{::ipaddress_mgmt1}'
+
 # Turn off bird on controller until we use cumulus
 profile::openstack::network::calico::manage_bird: false
 

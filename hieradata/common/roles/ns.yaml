@@ -56,8 +56,8 @@ profile::dns::ns::allowed_transfer_nets:
 
 # DNS server firewall configuration
 profile::dns::ns::manage_firewall: true
-profile::dns::ns::firewall_extras:
-  source: "%{::network_trp1}/%{::netmask_trp1}"
+profile::dns::ns::rndc_sources_ipv4:
+  - "%{::network_trp1}/%{::netmask_trp1}"
 
 # Turn on SELinux
 profile::base::selinux::manage_selinux: true

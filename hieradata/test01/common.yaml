@@ -7,13 +7,14 @@ location_environment:   'test01'
 location_description:   'Test environment physically in Bergen'
 
 # Disable management of Dell repos and software
-profile::base::dell::manage_repos:      false
+profile::base::dell::manage_repos:      true
 profile::base::dell::manage_openmanage: false
 
 domain_frontend:        'test.iaas.uib.no'
 domain_public:          'test.iaas.uib.no'
 domain_trp:             'test01.uhdc.no'
 domain_mgmt:            'mgmt.test01.uhdc.no'
+domain_oob:             'oob.test01.uhdc.no'
 
 reverse_public:         '31.177.129.in-addr.arpa'
 reverse_public6:        '6.1.9.0.0.0.2.0.0.0.7.0.1.0.0.2.ip6.arpa'

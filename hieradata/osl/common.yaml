@@ -7,13 +7,14 @@ location_environment:     'prod'
 location_description:     'Production environment in Oslo'
 
 # Disable management of Dell repos and software
-profile::base::dell::manage_repos:      false
+profile::base::dell::manage_repos:      true
 profile::base::dell::manage_openmanage: false
 
 domain_frontend:          'uh-iaas.no'
 domain_public:            'osl.uh-iaas.no'
 domain_trp:               'osl.uhdc.no'
 domain_mgmt:              'mgmt.osl.uhdc.no'
+domain_oob:               'oob.osl.uhdc.no'
 
 reverse_mgmt:             '32.16.172.in-addr.arpa'
 
@@ -28,6 +29,9 @@ netcfg_trp_netpart:       '172.18.32'
 netcfg_trp_netpart6:      'fd32'
 netcfg_trp_netmask:       '255.255.248.0'
 netcfg_trp_netmask6:      '64'
+netcfg_oob_gateway:       '172.17.32.10'
+netcfg_oob_netpart:       '172.17.32'
+netcfg_oob_netmask:       '255.255.248.0'
 netcfg_ceph_netpart:      '172.20.32'
 netcfg_ceph_netmask:      '255.255.248.0'
 netcfg_live_netpart:      '172.22.32'
@@ -107,6 +111,7 @@ profile::network::services::dns_records:
 
     # Management network (entries that differ from common/common.yaml)
     "%{::location}-login-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_netpart')}.10"
+    "repo.%{hiera('domain_oob')}":                    "%{hiera('netcfg_oob_netpart')}.9"
   AAAA:
     # Frontend records (<foo>.uh-iaas.no)
     "ns1.%{hiera('domain_frontend')}":           '2001:700:2:82ff::251'
@@ -139,26 +144,6 @@ profile::openstack::compute::hypervisor::manage_libvirt_rbd: true
 
 # If backend != file, you must explicitly define stores in %location/modules/glance.yaml
 profile::openstack::image::api::backend: 'rbd'
-
-profile::network::services::dhcp_reservation:
-  osl-leaf-01:
-    mac: '00:01:e8:d8:3f:d7'
-    ip:  '172.16.32.1'
-  osl-leaf-02:
-    mac: '00:01:e8:d8:38:28'
-    ip:  '172.16.32.2'
-  osl-leaf-03:
-    mac: '00:01:e8:d8:25:9f'
-    ip:  '172.16.32.3'
-  osl-leaf-04:
-    mac: '00:01:e8:d8:49:ff'
-    ip:  '172.16.32.4'
-  osl-torack-01:
-    mac: 'e4:f0:04:b6:51:32'
-    ip:  '172.16.32.6'
-  osl-torack-02:
-    mac: 'e4:f0:04:b6:52:32'
-    ip:  '172.16.32.7'
 
 profile::network::services::dns_options:
   MX:
