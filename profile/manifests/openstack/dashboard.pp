@@ -19,6 +19,7 @@ class profile::openstack::dashboard(
   $change_region_selector = false,
   $change_login_footer  = false,
   $keystone_admin_roles = undef,
+  $manage_systemd_unit  = false,
   ) {
 
   if $manage_dashboard {
@@ -28,6 +29,39 @@ class profile::openstack::dashboard(
       content => template($override_template),
       order   => '99',
       notify  => Service['httpd']
+    }
+  }
+
+  if $manage_systemd_unit {
+
+    # Include our systemd class
+    include ::profile::base::systemd
+
+    # Get the contents of the httpd systemd unit extras
+    $systemd_unit_content = lookup('profile::openstack::dashboard::httpd_systemd_extras', Hash, 'deep', {})
+
+    # Create a directory for the system unit extras
+    file { '/etc/systemd/system/httpd.service.d':
+      ensure => 'directory',
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0755',
+      seltype => 'systemd_unit_file_t',
+    }
+
+    # Create the systemd unit extras file, and reload services if appropriate
+    file { '/etc/systemd/system/httpd.service.d/limits.conf':
+      ensure  => present,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      seltype => 'systemd_unit_file_t',
+      content => template("${module_name}/base/systemd-unit.erb"),
+      require => File['/etc/systemd/system/httpd.service.d'],
+      notify  => [
+        Exec['systemctl_daemon_reload'],
+        Service['httpd'],
+      ],
     }
   }
 
