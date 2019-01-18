@@ -323,6 +323,7 @@ profile::network::services::dns_records:
     "%{::location}-object-05.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_net_c0')}.123"
     "%{::location}-storage-06.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c0')}.124"
     "%{::location}-storage-07.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c0')}.125"
+    "%{::location}-mgmt-opx-01.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.1"
     # mgmt nodes
     "foreman.%{hiera('domain_mgmt')}":                      "%{hiera('netcfg_mgmt_net_c0')}.11"
     "puppet.%{hiera('domain_mgmt')}":                       "%{hiera('netcfg_mgmt_net_c0')}.11"
@@ -420,6 +421,7 @@ profile::network::services::dns_records:
     "123.%{hiera('reverse_mgmt_c0')}":    "%{::location}-object-05.%{hiera('domain_mgmt')}"
     "124.%{hiera('reverse_mgmt_c0')}":    "%{::location}-storage-06.%{hiera('domain_mgmt')}"
     "125.%{hiera('reverse_mgmt_c0')}":    "%{::location}-storage-07.%{hiera('domain_mgmt')}"
+    "1.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-opx-01.%{hiera('domain_mgmt')}"
 
 #
 # Network configuration data
