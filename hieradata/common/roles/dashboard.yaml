@@ -112,3 +112,9 @@ horizon::keystone_options:
   can_edit_project:             False
   can_edit_domain:              False
   can_edit_role:                False
+
+# Adjust the ulimit (number of open files) for Apache via systemd
+profile::openstack::dashboard::manage_systemd_unit: true
+profile::openstack::dashboard::httpd_systemd_extras:
+  'Service':
+    'LimitNOFILE': 32768
