@@ -56,7 +56,7 @@ profile::openstack::identity::openidc::methods:
   - 'password'
   - 'token'
   - 'openid'
-  - 'application_credential'
+#  - 'application_credential'
 profile::openstack::identity::openidc::openidc_response_type:         'code'
 profile::openstack::identity::openidc::openidc_provider_metadata_url: 'https://auth.dataporten.no/.well-known/openid-configuration'
 profile::openstack::identity::openidc::openidc_client_id:             '00000000-0000-0000-0000-000000000000'
