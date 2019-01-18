@@ -1,5 +1,6 @@
 ---
-profile::base::network::cumulus_ifs: false
-profile::base::network::opx_cleanup: true
+profile::base::network::cumulus_ifs:    false
+profile::base::network::opx_cleanup:    true
+profile::network::leaf::manage_license: false
 
 ntp::service_enable: true
