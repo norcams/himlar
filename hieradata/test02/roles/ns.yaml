@@ -27,14 +27,70 @@ profile::dns::ns::fw_zones:
 
 # Reverse zones, for which the name server is authoritative
 profile::dns::ns::ptr_zones:
-  mgmt:
-    cidr: "%{::network_mgmt1}/%{::cidr_mgmt1}"
-    origin: "%{hiera('reverse_mgmt')}"
-    filename: "pz/%{hiera('reverse_mgmt')}"
-  transport:
-    cidr: "%{::network_trp1}/%{::cidr_trp1}"
-    origin: "%{hiera('reverse_trp')}"
-    filename: "pz/%{hiera('reverse_trp')}"
+  mgmt01:
+    cidr:     "%{hiera('netcfg_mgmt_net_c0')}.0/24"
+    origin:   "%{hiera('reverse_mgmt_c0')}"
+    filename: "pz/%{hiera('reverse_mgmt_c0')}"
+  mgmt02:
+    cidr:     "%{hiera('netcfg_mgmt_net_c1')}.0/24"
+    origin:   "%{hiera('reverse_mgmt_c1')}"
+    filename: "pz/%{hiera('reverse_mgmt_c1')}"
+  mgmt03:
+    cidr:     "%{hiera('netcfg_mgmt_net_c2')}.0/24"
+    origin:   "%{hiera('reverse_mgmt_c2')}"
+    filename: "pz/%{hiera('reverse_mgmt_c2')}"
+  mgmt04:
+    cidr:     "%{hiera('netcfg_mgmt_net_c3')}.0/24"
+    origin:   "%{hiera('reverse_mgmt_c3')}"
+    filename: "pz/%{hiera('reverse_mgmt_c3')}"
+  mgmt05:
+    cidr:     "%{hiera('netcfg_mgmt_net_c4')}.0/24"
+    origin:   "%{hiera('reverse_mgmt_c4')}"
+    filename: "pz/%{hiera('reverse_mgmt_c4')}"
+  mgmt06:
+    cidr:     "%{hiera('netcfg_mgmt_net_c5')}.0/24"
+    origin:   "%{hiera('reverse_mgmt_c5')}"
+    filename: "pz/%{hiera('reverse_mgmt_c5')}"
+  mgmt07:
+    cidr:     "%{hiera('netcfg_mgmt_net_c6')}.0/24"
+    origin:   "%{hiera('reverse_mgmt_c6')}"
+    filename: "pz/%{hiera('reverse_mgmt_c6')}"
+  mgmt08:
+    cidr:     "%{hiera('netcfg_mgmt_net_c7')}.0/24"
+    origin:   "%{hiera('reverse_mgmt_c7')}"
+    filename: "pz/%{hiera('reverse_mgmt_c7')}"
+  transport01:
+    cidr:     "%{hiera('netcfg_trp_net_c0')}.0/24"
+    origin:   "%{hiera('reverse_trp_c0')}"
+    filename: "pz/%{hiera('reverse_trp_c0')}"
+  transport02:
+    cidr:     "%{hiera('netcfg_trp_net_c1')}.0/24"
+    origin:   "%{hiera('reverse_trp_c1')}"
+    filename: "pz/%{hiera('reverse_trp_c1')}"
+  transport03:
+    cidr:     "%{hiera('netcfg_trp_net_c2')}.0/24"
+    origin:   "%{hiera('reverse_trp_c2')}"
+    filename: "pz/%{hiera('reverse_trp_c2')}"
+  transport04:
+    cidr:     "%{hiera('netcfg_trp_net_c3')}.0/24"
+    origin:   "%{hiera('reverse_trp_c3')}"
+    filename: "pz/%{hiera('reverse_trp_c3')}"
+  transport05:
+    cidr:     "%{hiera('netcfg_trp_net_c4')}.0/24"
+    origin:   "%{hiera('reverse_trp_c4')}"
+    filename: "pz/%{hiera('reverse_trp_c4')}"
+  transport06:
+    cidr:     "%{hiera('netcfg_trp_net_c5')}.0/24"
+    origin:   "%{hiera('reverse_trp_c5')}"
+    filename: "pz/%{hiera('reverse_trp_c5')}"
+  transport07:
+    cidr:     "%{hiera('netcfg_trp_net_c6')}.0/24"
+    origin:   "%{hiera('reverse_trp_c6')}"
+    filename: "pz/%{hiera('reverse_trp_c6')}"
+  transport08:
+    cidr:     "%{hiera('netcfg_trp_net_c7')}.0/24"
+    origin:   "%{hiera('reverse_trp_c7')}"
+    filename: "pz/%{hiera('reverse_trp_c7')}"
   public:
     cidr: "10.100.200.0/24" # facts for public1 are /32 and cannot be used here
     origin: "%{hiera('reverse_public')}"
