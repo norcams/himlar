@@ -12,3 +12,9 @@ profile::network::dns_extra_zone::zone:
 # Bind utils will be installed with foreman::dns
 profile::base::common::packages:
   'bind-utils': { ensure: absent }
+
+foreman_version: '1.19'
+
+profile::base::yumrepo::repo_hash:
+  foreman-rails:
+    ensure: present

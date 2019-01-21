@@ -3,3 +3,4 @@ foreman_proxy::dhcp_range:       '172.16.32.200 172.16.32.250'
 foreman_proxy::dhcp_gateway:     "%{hiera('netcfg_mgmt_gateway')}"
 foreman_proxy::dhcp_nameservers: '129.240.2.3, 129.240.2.40'
 foreman_proxy::dns_server:       '129.240.2.6'
+foreman_proxy::puppetca_modular:  true

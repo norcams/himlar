@@ -7,6 +7,7 @@ class profile::base::login (
   $forward_oobnet           = false,
   $oob_net                  = '10.0.0.0/24',
   $oob_outiface             = undef,
+  $oob_dhcrelay             = false,
   $ensure                   = 'present',
   $agelimit                 = '14',
   $db_servers               = {},
@@ -99,6 +100,36 @@ class profile::base::login (
     source => "puppet:///modules/${module_name}/base/get-oob-ip"
   }
 
+  # Send bmc dhcp requests to admin node
+  if $oob_dhcrelay {
+    $dhcp_network = lookup("netcfg_mgmt_netpart", String, 'first', '')
+    package { 'dhcrelay-package':
+      ensure => installed,
+      name   => 'dhcp',
+    } ~>
+    file { 'dhcrelay-startopts':
+      ensure  => file,
+      path    => '/etc/systemd/system/dhcrelay.service',
+      content => "[Service]\r\nExecStart=/usr/sbin/dhcrelay -d --no-pid ${dhcp_network}.11 -i ${oob_outiface}\r\n",
+      notify => Exec['daemon reload for dhcrelay'],
+    } ~>
+    exec { 'daemon reload for dhcrelay':
+      command     => '/usr/bin/systemctl daemon-reload',
+      refreshonly => true,
+    } ~>
+    service { 'dhcrelay':
+      ensure      => running,
+      name        => 'dhcrelay.service',
+      enable      => true,
+    }
+    if $manage_firewall {
+      profile::firewall::rule { '196 dhcprelay accept udp':
+        port   => 67,
+        proto  => 'udp',
+      }
+    }
+  }
+
   if $manage_repo_incoming_dir {
     package { 'incron':
       ensure => installed
@@ -148,6 +179,21 @@ class profile::base::login (
       extras => {
         iniface => $::interface_mgmt1,
       },
+    }
+    if $oob_dhcrelay {
+      profile::firewall::rule { '3351 management dns accept tcp for oob':
+        dport  => $ports,
+        extras => {
+          iniface => $::interface_oob1,
+        },
+      }
+      profile::firewall::rule { '3361 management dns accept udp for obb':
+        dport  => $ports,
+        proto  => 'udp',
+        extras => {
+          iniface => $::interface_oob1,
+        },
+      }
     }
   }
 

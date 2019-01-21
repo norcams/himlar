@@ -10,12 +10,17 @@ profile::dns::ns::internal_zone: "%{hiera('domain_public')}" # public and intern
 profile::dns::ns::use_public_ip: true
 profile::dns::ns::mdns_public_addr:
   - '192.168.12.245'
+  - '192.168.13.245'
 
 # DNS server firewall configuration
-profile::dns::ns::firewall_extras:
-  source:
-    - '192.168.12.245'
-    - '192.168.13.245'
+profile::dns::ns::rndc_sources_ipv4:
+  - '192.168.12.245'
+  - '192.168.13.245'
+
+# Define an ACL for networks allowed to do complete zone transfer
+profile::dns::ns::allowed_transfer_nets:
+  - '172.16.0.0/12;  # rfc1918: 20-bit block (internal)'
+  - '192.168.0.0/16; # rfc1918: 16-bit block (test)'
 
 # Forward zones, for which the name server is authoritative
 profile::dns::ns::fw_zones:

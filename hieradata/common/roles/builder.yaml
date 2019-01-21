@@ -15,6 +15,10 @@ profile::base::common::packages:
   'bash-completion-extras': {}
   'jq': {}
 
+named_interfaces::config:
+  mgmt:
+    - eth0
+
 profile::base::lvm::physical_volume:
   '/dev/vdb':
     ensure: present

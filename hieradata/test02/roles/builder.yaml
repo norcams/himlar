@@ -3,8 +3,3 @@
 #profile::application::builder::network:   'public'
 profile::base::common::manage_lvm:        true
 
-profile::base::lvm::logical_volume:
-  'lv_images':
-    volume_group: 'vg_images'
-    fs_type:      "xfs"
-    mountpath:    "/opt/images"

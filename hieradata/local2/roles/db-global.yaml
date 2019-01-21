@@ -6,15 +6,15 @@ profile::database::galera::firewall_rules:
   '211 galera accept tcp nat':
     'proto':  'tcp'
     'dport':  ['4567', '4568']
-    'source': '192.168.113.1/32'
+    'source': '192.168.12.0/24'
   '212 galera accept udp nat':
     'proto':  'udp'
     'dport':  ['4567', '4568']
-    'source': '192.168.113.1/32'
+    'source': '192.168.12.0/24'
   '213 wsrep sst accept tcp for nat':
     'proto':  'tcp'
     'dport':  '4444'
-    'source': '192.168.113.1/32'
+    'source': '192.168.12.0/24'
 
 # Turn on firewall logging for firewall debug
 #profile::firewall::post::log: true

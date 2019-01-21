@@ -149,6 +149,7 @@ profile::base::yumrepo::repo_hash:
     enabled:        1
     gpgcheck:       1
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Cloud'
+    exclude:        'python2-bcrypt'
     #exclude:        'mariadb*' FIXME: this should be added after adding mariadb repo to all roles connecting to db
   calico:
     ensure:         absent
@@ -164,6 +165,13 @@ profile::base::yumrepo::repo_hash:
     enabled:        1
     gpgcheck:       1
     gpgkey:         "%{hiera('yum_base_mirror')}/calico31/key"
+  calico34:
+    ensure:         absent
+    descr:          'Calico 3.4 Repository'
+    baseurl:        "%{hiera('yum_base_mirror')}/calico34/"
+    enabled:        1
+    gpgcheck:       1
+    gpgkey:         "%{hiera('yum_base_mirror')}/calico34/key"
   ceph-%{hiera('ceph_version')}:
     ensure:         absent
     descr:          'Ceph packages'

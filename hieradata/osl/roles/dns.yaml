@@ -15,3 +15,8 @@ profile::openstack::designate::bind_servers:
     mdns_addr:
       - '2001:700:2:82ff::256'
       - '2001:700:2:83ff::256'
+
+# Firewall configuration
+profile::openstack::designate::ns_sources_ipv6:
+  - '2001:700:2:82ff::251'
+  - '2001:700:2:83ff::251'

@@ -6,15 +6,15 @@ profile::database::galera::firewall_rules:
   '211 galera accept tcp nat':
     'proto':  'tcp'
     'dport':  ['4567', '4568']
-    'source': '192.168.112.1/32'
+    'source': '192.168.13.249/32'
   '212 galera accept udp nat':
     'proto':  'udp'
     'dport':  ['4567', '4568']
-    'source': '192.168.112.1/32'
+    'source': '192.168.13.249/32'
   '213 wsrep sst accept tcp for nat':
     'proto':  'tcp'
     'dport':  '4444'
-    'source': '192.168.112.1/32'
+    'source': '192.168.13.249/32'
   '211 galera accept tcp local1-access-01':
     'proto':  'tcp'
     'dport':  ['4567', '4568']

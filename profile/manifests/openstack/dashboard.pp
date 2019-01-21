@@ -19,6 +19,8 @@ class profile::openstack::dashboard(
   $change_region_selector = false,
   $change_login_footer  = false,
   $keystone_admin_roles = undef,
+  $customize_logo       = false,
+  $manage_systemd_unit  = false,
   ) {
 
   if $manage_dashboard {
@@ -28,6 +30,39 @@ class profile::openstack::dashboard(
       content => template($override_template),
       order   => '99',
       notify  => Service['httpd']
+    }
+  }
+
+  if $manage_systemd_unit {
+
+    # Include our systemd class
+    include ::profile::base::systemd
+
+    # Get the contents of the httpd systemd unit extras
+    $systemd_unit_content = lookup('profile::openstack::dashboard::httpd_systemd_extras', Hash, 'deep', {})
+
+    # Create a directory for the system unit extras
+    file { '/etc/systemd/system/httpd.service.d':
+      ensure => 'directory',
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0755',
+      seltype => 'systemd_unit_file_t',
+    }
+
+    # Create the systemd unit extras file, and reload services if appropriate
+    file { '/etc/systemd/system/httpd.service.d/limits.conf':
+      ensure  => present,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      seltype => 'systemd_unit_file_t',
+      content => template("${module_name}/base/systemd-unit.erb"),
+      require => File['/etc/systemd/system/httpd.service.d'],
+      notify  => [
+        Exec['systemctl_daemon_reload'],
+        Service['httpd'],
+      ],
     }
   }
 
@@ -102,6 +137,33 @@ class profile::openstack::dashboard(
     file { '/usr/share/openstack-dashboard/openstack_dashboard/templates/_login_footer.html':
       ensure  => present,
       source  => "puppet:///modules/${module_name}/openstack/horizon/_login_footer.html",
+      require => Class['horizon'],
+      notify  => Service['httpd']
+    }
+  }
+
+  if $customize_logo {
+    file { 'logo-splash.svg':
+      ensure  => present,
+      path    => '/usr/share/openstack-dashboard/openstack_dashboard/static/dashboard/img/logo-splash.svg',
+      source  => "puppet:///modules/${module_name}/openstack/horizon/logo-splash.svg",
+      replace => true,
+      require => Class['horizon'],
+      notify  => Service['httpd']
+    }
+    file { 'logo.svg':
+      ensure  => present,
+      path    => '/usr/share/openstack-dashboard/openstack_dashboard/static/dashboard/img/logo.svg',
+      source  => "puppet:///modules/${module_name}/openstack/horizon/logo.svg",
+      replace => true,
+      require => Class['horizon'],
+      notify  => Service['httpd']
+    }
+    file { 'favicon.ico':
+      ensure  => present,
+      path    => '/usr/share/openstack-dashboard/openstack_dashboard/static/dashboard/img/favicon.ico',
+      source  => "puppet:///modules/${module_name}/openstack/horizon/favicon.ico",
+      replace => true,
       require => Class['horizon'],
       notify  => Service['httpd']
     }

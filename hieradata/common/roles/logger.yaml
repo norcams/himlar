@@ -7,6 +7,10 @@ include:
     - profile::logging::kibana
     - profile::logging::logrotate
 
+named_interfaces::config:
+  mgmt:
+    - eth0
+
 rsyslog::perm_dir:    '0755'
 
 profile::logging::logrotate::manage_logrotate:    true
@@ -26,7 +30,7 @@ profile::logging::elasticsearch::templates:
         index_patterns: ['logstash-*']
         settings:
             'number_of_replicas': '0'
-            'number_of_shards':   '2'
+            'number_of_shards':   '1'
 
 profile::base::common::packages:
   'java-1.8.0-openjdk':     {}

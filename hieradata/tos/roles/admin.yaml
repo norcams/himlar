@@ -9,6 +9,12 @@ profile::network::dns_extra_zone::zone:
   - "%{hiera('domain_public')}"
 #  - "%{hiera('domain_frontend')}"
 
+foreman_version: '1.19'
+
+profile::base::yumrepo::repo_hash:
+  foreman-rails:
+    ensure: present
+
 # Bind utils will be installed with foreman::dns
 profile::base::common::packages:
   'bind-utils': { ensure: absent }

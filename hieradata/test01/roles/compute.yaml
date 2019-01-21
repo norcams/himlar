@@ -7,6 +7,16 @@ named_interfaces::config:
   live:
     - bond0.912
 
+profile::base::network::network_auto_opts:
+  trp:
+    'ipv6init': 'yes'
+    'bonding_opts': 'mode=balance-alb miimon=100'
+
+profile::base::network::network_auto_bonding:
+  trp:
+    em1: {}
+    em2: {}
+
 ntp::servers:
   - 172.28.0.100
   - 172.28.0.101
@@ -29,3 +39,11 @@ profile::base::network::manage_neutron_blackhole: true
 
 # remove when telemetry/ceilometer is up in all environments and move to common
 profile::openstack::compute::manage_telemetry: false
+
+profile::base::yumrepo::repo_hash:
+  calico31:
+    ensure: absent
+  calico34:
+    ensure: present
+    exclude: 'calico-dhcp-agent dnsmasq'
+

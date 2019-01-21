@@ -1,0 +1,7 @@
+---
+profile::application::openssl::catrust: false
+
+# mgmt-opx has only eth0
+named_interfaces::config:
+  mgmt:
+    - eth0
