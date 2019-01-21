@@ -38,26 +38,8 @@ network::interfaces_hash:
     vlan:          'yes'
     defroute:      'no'
 
-#
-# osl-compute-03 has the following hw-raid setup
-#
-#   2 x 200GB SSD (raid-1) as /dev/sda
-#   2 x 146GB HDD (raid-1) as /dev/sdb
-#   2 x 146GB HDD (raid-1) as /dev/sdc
-#   2 x 400GB SSD (raid-1) as /dev/sdd
-#
-# FIXME: The 4 HDD disks should be removed at next reinstall (trondham, 2018-07-24)
-#
-profile::base::lvm::volume_group:
-  'vg_ext':
-    physical_volumes:
-      - /dev/sda3
-      - /dev/sdb
-      - /dev/sdc
-      - /dev/sdd
-
 # This compute host uses local storage for instances
-nova::compute::rbd::ephemeral_storage:            false
-nova::config::nova_config:
-  libvirt/images_type:
-    value: default
+# nova::compute::rbd::ephemeral_storage:            false
+# nova::config::nova_config:
+#   libvirt/images_type:
+#     value: default
