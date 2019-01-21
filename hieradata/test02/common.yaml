@@ -106,6 +106,7 @@ profile::network::services::dns_records:
     "status.%{hiera('domain_public')}":                     "%{hiera('netcfg_public_netpart')}.250"
     "metric.api.%{hiera('domain_public')}":                 "%{hiera('netcfg_public_netpart')}.250"
     "placement.api.%{hiera('domain_public')}":              "%{hiera('netcfg_public_netpart')}.250"
+    "dns.api.%{hiera('domain_public')}":                    "%{hiera('netcfg_public_netpart')}.250"
     "access.%{hiera('domain_public')}":                     "%{hiera('netcfg_public_netpart')}.250"
     "console.%{hiera('domain_public')}":                    "%{hiera('netcfg_public_netpart')}.250"
     "ns.%{hiera('domain_public')}":                         "%{hiera('netcfg_public_netpart')}.251"
