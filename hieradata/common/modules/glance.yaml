@@ -80,3 +80,5 @@ glance::notify::rabbitmq::notification_driver:    'messagingv2'
 #  - "%{hiera('service__address__rabbitmq_01')}:5672"
 #  - "%{hiera('service__address__rabbitmq_02')}:5672"
 #  - "%{hiera('service__address__rabbitmq_03')}:5672"
+
+openstack_version:    'queens'
