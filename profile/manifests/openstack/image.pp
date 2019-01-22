@@ -1,6 +1,6 @@
 #
 class profile::openstack::image(
-  $registry_enabled = false,
+#  $registry_enabled = false,
   $notify_enabled   = false,
   $manage_rbd       = false,
   $manage_policy    = false,
@@ -9,9 +9,9 @@ class profile::openstack::image(
 
   include ::profile::openstack::image::api
 
-  if $registry_enabled {
-    include ::profile::openstack::image::registry
-  }
+#  if $registry_enabled {
+#    include ::profile::openstack::image::registry
+#  }
 
   if $notify_enabled {
     include ::profile::openstack::image::notify
