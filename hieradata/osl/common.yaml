@@ -140,6 +140,7 @@ profile::network::services::dns_records:
     "volume.api.%{hiera('domain_public')}":      '158.37.63.250'
     "placement.api.%{hiera('domain_public')}":   '158.37.63.250'
     "metric.api.%{hiera('domain_public')}":      '158.37.63.250'
+    "dns.api.%{hiera('domain_public')}":         '158.37.63.250'
     "resolver.%{hiera('domain_public')}":        '158.37.63.252'
 
     # Management network (entries that differ from common/common.yaml)
@@ -150,7 +151,8 @@ profile::network::services::dns_records:
     "ns1.%{hiera('domain_frontend')}":           '2001:700:2:82ff::251'
     "ns2.%{hiera('domain_frontend')}":           '2001:700:2:83ff::251'
     # Public records (<foo>.<location>.uh-iaas.no)
-    "resolver.%{hiera('domain_public')}":        '2001:700:2:82ff::252'
+    "resolver.%{hiera('domain_public')}":             '2001:700:2:82ff::252'
+    "%{::location}-dns-01.%{hiera('domain_public')}": '2001:700:2:82ff::256'
   PTR:
     # Management network (entries that differ from common/common.yaml)
     "10.%{hiera('reverse_mgmt')}":     "%{::location}-login-01.%{hiera('domain_mgmt')}"
@@ -162,6 +164,7 @@ profile::network::services::dns_records:
     # public IPv6
     '1.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.2.8.0.0.7.0.2.0.0.0.1.0.0.2.ip6.arpa':  "ns1.%{hiera('domain_frontend')}"
     '2.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.2.8.0.0.7.0.2.0.0.0.1.0.0.2.ip6.arpa':  "resolver.%{hiera('domain_public')}"
+    '6.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.2.8.0.0.7.0.2.0.0.0.1.0.0.2.ip6.arpa':  "%{::location}-dns-01.%{hiera('domain_public')}"
 
 ntp::servers:
   - ntp1.uio.no
