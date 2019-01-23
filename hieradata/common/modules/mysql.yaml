@@ -14,9 +14,9 @@ mysql::server::override_options:
     innodb_buffer_pool_instances:   1
     table_open_cache:               8192
     query_cache_size:               '64M'
-    query_cache_limit:              '8M'
-    join_buffer_size:               '4M'
-    innodb_log_file_size:           '16M'
+    query_cache_limit:              '16M'
+    join_buffer_size:               '8M'
+    innodb_log_file_size:           '64M'
     innodb_buffer_pool_size:        '512M'
     log-error:                      '/var/log/mysqld.log'
     pid-file:                       "/var/lib/mysql/%{::hostname}.pid"
