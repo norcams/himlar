@@ -170,6 +170,9 @@ nova::notify_on_state_change:                     'vm_and_task_state'
 nova::notification_driver:                        'messagingv2'
 nova::notification_transport_url:                 "%{hiera('service__transport__url')}"
 nova::notification_topics:                        'notifications' # not used before ocata
+# FIXME: https://bugs.launchpad.net/ceilometer/+bug/1665449
+# Could be changed to both in the future
+nova::notification_format:                        'unversioned'
 
 # Disable reboot through api until DHCP is fixed upstream (calico)
 nova::policy::policies:
