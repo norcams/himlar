@@ -22,6 +22,7 @@ neutron::server::notifications::auth_type:    'password'
 neutron::server::notifications::username:     'nova'
 neutron::server::notifications::password:     "%{hiera('nova_api_password')}"
 neutron::server::notifications::region_name:  "%{::location}"
+neutron::server::notifications::endpoint_type: 'internal'
 #neutron::server::service_name:                'httpd'
 neutron::agents::dhcp::enabled:               false
 
