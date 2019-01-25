@@ -9,6 +9,9 @@ include:
 
 foreman_version: '1.16'
 
+sensu__disk__warning:     80
+sensu__disk__crtical:     90
+
 profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}
