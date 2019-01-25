@@ -8,6 +8,7 @@ include:
     - profile::openstack::openrc
     - profile::openstack::cache
     - profile::logging::rsyslog::client
+    - profile::webserver::apache::status
 
 profile::base::common::packages:
   'python2-oslo-policy': {}
@@ -55,6 +56,21 @@ cinder::glance::glance_api_servers: "%{hiera('endpoint__image__internal')}"
 # openstack-cinder creates a sudoers.d file used to
 # load backend drivers
 sudo::purge: false
+
+# Sensu
+profile::webserver::apache::status::manage_status: true
+profile::monitoring::sensu::agent::plugins:
+  sensu-plugins-apache:
+    type:         package
+    pkg_version:  '3.0.0'
+
+profile::monitoring::sensu::agent::checks:
+  'metrics-httpd-overview':
+    type:         'metric'
+    command:      "metrics-apache-graphite.rb --scheme httpd.%{::hostname} -h 127.0.0.1"
+    interval:     60
+    subscribers:  ['metrics']
+    handlers:     ['graphite_tcp']
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
