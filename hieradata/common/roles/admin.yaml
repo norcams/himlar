@@ -7,7 +7,9 @@ include:
     - profile::network::services
     - profile::webserver::apache
 
-foreman_version: '1.16'
+foreman_version: '1.19'
+
+profile::base::yumrepo::repo_hash:
 
 sensu__disk__warning:     80
 sensu__disk__crtical:     90
@@ -56,6 +58,8 @@ profile::base::yumrepo::repo_hash:
   foreman-plugins:
     ensure: present
   passenger:
+    ensure: present
+  foreman-rails:
     ensure: present
 
 # Enable gem installation
