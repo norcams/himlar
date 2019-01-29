@@ -19,15 +19,15 @@ class profile::base::tuned (
 
     # ensure that the service enabled and running
     service { 'tuned':
-      enable => true,
       ensure => true,
+      enable => true,
       require => Package['tuned'],
     }
 
     # set the tuned profile
     exec { 'set_tuned_profile':
-      command => "/usr/sbin/tuned-adm profile $tuned_profile",
-      unless  => "/usr/bin/grep -q $tuned_profile /etc/tuned/active_profile",
+      command => "/usr/sbin/tuned-adm profile ${tuned_profile}",
+      unless  => "/usr/bin/grep -q ${tuned_profile} /etc/tuned/active_profile",
     }
 
   }
