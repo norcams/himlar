@@ -26,7 +26,7 @@ class profile::base::tuned (
 
     # set the tuned profile
     exec { 'set_tuned_profile':
-      command => "/usr/sbin/tuned-adm profile $tuned_profile',
+      command => "/usr/sbin/tuned-adm profile $tuned_profile",
       unless  => "/usr/bin/grep -q $tuned_profile /etc/tuned/active_profile",
     }
 
