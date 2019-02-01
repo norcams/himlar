@@ -151,17 +151,17 @@ nova::nova_public_key:
 
 # console (node: compute)
 # VNC
-#nova::compute::vnc_enabled: true
-#nova::compute::vncserver_proxyclient_address: "%{ipaddress_mgmt1}"
-#nova::compute::vncproxy_host: "console.%{hiera('domain_public')}"
-#nova::compute::vncproxy_protocol: 'https'
-#nova::compute::libvirt::vncserver_listen: "%{ipaddress_mgmt1}"
+nova::compute::vnc_enabled: true
+nova::compute::vncserver_proxyclient_address: "%{ipaddress_mgmt1}"
+nova::compute::vncproxy_host: "console.%{hiera('domain_public')}"
+nova::compute::vncproxy_protocol: 'https'
+nova::compute::libvirt::vncserver_listen: "%{ipaddress_mgmt1}"
 # SPICE
-nova::compute::vnc_enabled:                       false
-nova::compute::spice::server_proxyclient_address: "%{::ipaddress_trp1}"
-nova::compute::spice::proxy_host:                 "console.%{hiera('domain_public')}"
-nova::compute::spice::proxy_protocol:             'https'
-nova::compute::spice::server_listen:              "%{::ipaddress_trp1}"
+# nova::compute::vnc_enabled:                       false
+# nova::compute::spice::server_proxyclient_address: "%{::ipaddress_trp1}"
+# nova::compute::spice::proxy_host:                 "console.%{hiera('domain_public')}"
+# nova::compute::spice::proxy_protocol:             'https'
+# nova::compute::spice::server_listen:              "%{::ipaddress_trp1}"
 
 # for telemetry reporting
 nova::compute::instance_usage_audit:              true
