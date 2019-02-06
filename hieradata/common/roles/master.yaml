@@ -35,7 +35,6 @@ profile::openstack::novactrl::enable_consoleauth:    true
 profile::openstack::openrc::filename: '/root/keystonerc_admin'
 
 #profile::openstack::image::notify_enabled:    true
-profile::openstack::image::registry_enabled:  true
 profile::base::common::manage_lvm:            false
 
 profile::openstack::identity::manage_openidc: true
