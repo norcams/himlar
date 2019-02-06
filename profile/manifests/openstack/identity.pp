@@ -73,7 +73,7 @@ class profile::openstack::identity (
   }
 
   if $manage_openidc {
-    include ::keystone::federation::openidc
+    include ::profile::openstack::identity::openidc
   }
 
   create_resources('keystone_config', $keystone_config)
