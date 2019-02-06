@@ -15,13 +15,13 @@ class profile::openstack::dashboard(
   $custom_uploaddir     = '/image-upload',
   $enable_pwd_retrieval = false,
   $enable_designate     = false,
-  $image_upload_mode    = undef,
   $change_region_selector = false,
   $change_login_footer  = false,
   $keystone_admin_roles = undef,
   $customize_logo       = false,
   $manage_systemd_unit  = false,
-  ) {
+  $user_menu_links      = undef,
+) {
 
   if $manage_dashboard {
     include ::horizon
@@ -68,10 +68,10 @@ class profile::openstack::dashboard(
 
   if $database {
     # Run syncdb if we use database backend
-    exec { 'horizon syncdb':
-      command => '/usr/share/openstack-dashboard/manage.py syncdb --noinput && touch /usr/share/openstack-dashboard/.syncdb',
+    exec { 'horizon migrate':
+      command => '/usr/share/openstack-dashboard/manage.py migrate --noinput && touch /usr/share/openstack-dashboard/.migrate',
       user    => 'root',
-      creates => '/usr/share/openstack-dashboard/.syncdb',
+      creates => '/usr/share/openstack-dashboard/.migrate',
       require => [Concat::Fragment['extra-local_settings.py'], Package['horizon']]
     }
   }

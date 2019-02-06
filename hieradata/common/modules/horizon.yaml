@@ -11,6 +11,7 @@ horizon::horizon_cert:                  "/etc/pki/tls/certs/%{hiera('public__add
 horizon::horizon_key:                   "/etc/pki/tls/private/%{hiera('public__address__dashboard')}.key.pem"
 horizon::secure_cookies:                true
 horizon::images_panel:                  'angular'
+horizon::horizon_upload_mode:           "'direct'"
 
 horizon::help_url:                      'http://docs.uh-iaas.no'
 horizon::openstack_endpoint_type:       'publicURL'
@@ -55,3 +56,5 @@ horizon::log_handler:     'syslog'
 horizon::wsgi::apache::extra_params:
   error_log_syslog: 'syslog:local1'
   error_log_file:   false
+
+openstack_version:    'queens'

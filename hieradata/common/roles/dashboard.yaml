@@ -111,3 +111,5 @@ profile::openstack::dashboard::manage_systemd_unit: true
 profile::openstack::dashboard::httpd_systemd_extras:
   'Service':
     'LimitNOFILE': 32768
+
+profile::openstack::dashboard::user_menu_links: '[]'
