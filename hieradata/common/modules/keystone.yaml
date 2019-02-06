@@ -2,7 +2,7 @@
 keystone::db::mysql::allowed_hosts:
   - "%{hiera('netcfg_trp_netpart')}.%"
 
-keystone::database_connection:            "mysql://keystone:%{hiera('keystone::db::mysql::password')}@%{hiera('service__address__db_global')}/keystone"
+keystone::database_connection:            "mysql+pymysql://keystone:%{hiera('keystone::db::mysql::password')}@%{hiera('service__address__db_global')}/keystone"
 keystone::service_name:                   'httpd'
 keystone::admin_password:                 "%{hiera('keystone_admin_password')}"
 keystone::public_bind_host:               "%{ipaddress_trp1}"
@@ -51,16 +51,19 @@ keystone::endpoint::admin_url:            "%{hiera('endpoint__identity__admin')}
 keystone::endpoint::version:              "v3"
 
 # Federation
-keystone::federation::openidc::idp_name:  'dataporten'
-keystone::federation::openidc::methods:
+profile::openstack::identity::openidc::idp_name:  'dataporten'
+profile::openstack::identity::openidc::methods:
   - 'password'
   - 'token'
-  - 'openidc'
-keystone::federation::openidc::openidc_response_type:         'code'
-keystone::federation::openidc::openidc_provider_metadata_url: 'https://auth.dataporten.no/.well-known/openid-configuration'
-keystone::federation::openidc::openidc_client_id:             '00000000-0000-0000-0000-000000000000'
-keystone::federation::openidc::openidc_client_secret:         '00000000-0000-0000-0000-000000000000'
-#keystone::federation::openidc::module_plugin:                 'keystone.auth.openidc'
+  - 'openid'
+#  - 'application_credential'
+profile::openstack::identity::openidc::openidc_response_type:         'code'
+profile::openstack::identity::openidc::openidc_provider_metadata_url: 'https://auth.dataporten.no/.well-known/openid-configuration'
+profile::openstack::identity::openidc::openidc_client_id:             '00000000-0000-0000-0000-000000000000'
+profile::openstack::identity::openidc::openidc_client_secret:         '00000000-0000-0000-0000-000000000000'
+profile::openstack::identity::openidc::module_plugin:                 'keystone.auth.plugins.mapped.Mapped'
+profile::openstack::identity::openidc::public_endpoint:               "%{hiera('endpoint__identity__public')}"
+profile::openstack::identity::openidc::admin_endpoint:                "%{hiera('endpoint__identity__admin')}"
 
 # override default policy
 keystone::policy::policies:

@@ -30,8 +30,10 @@ profile::openstack::designate::bind_servers:
     mdns_addr:
       - "%{hiera('service__address__mdns_01')}"
 
-# Add iptables rules
+# Firewall configuration
 profile::openstack::designate::manage_firewall: true
+profile::openstack::designate::ns_sources_ipv4:
+  - "%{hiera('service__address__ns')}"
 
 # Some extra packages we want installed
 profile::base::common::packages:

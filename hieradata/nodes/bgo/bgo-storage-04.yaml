@@ -21,8 +21,8 @@ network::interfaces_hash:
     domain:        "%{hiera('netcfg_dns_search')}"
   'team1':
     onboot:        'yes'
-    ipaddress:     "%{hiera('netcfg_mgmt_netpart')}.109"
-    netmask:       "%{hiera('netcfg_mgmt_netmask')}"
+    ipaddress:     "%{hiera('netcfg_trp_netpart')}.109"
+    netmask:       "%{hiera('netcfg_trp_netmask')}"
     defroute:      'no'
     devicetype:    'Team'
     team_config: >-

@@ -8,6 +8,7 @@ include:
     - profile::openstack::openrc
     - profile::openstack::cache
     - profile::logging::rsyslog::client
+    - profile::webserver::apache::status
 
 profile::base::common::packages:
   'python2-oslo-policy': {}
@@ -33,6 +34,7 @@ profile::openstack::volume::type:
 #    properties:
 #      - 'volume_backend_name=rbd-ssd'
 
+profile::openstack::volume::notify_service:   true
 profile::openstack::volume::manage_telemetry: true
 
 profile::openstack::volume::backend::rbd:
@@ -55,6 +57,21 @@ cinder::glance::glance_api_servers: "%{hiera('endpoint__image__internal')}"
 # load backend drivers
 sudo::purge: false
 
+# Sensu
+profile::webserver::apache::status::manage_status: true
+profile::monitoring::sensu::agent::plugins:
+  sensu-plugins-apache:
+    type:         package
+    pkg_version:  '3.0.0'
+
+profile::monitoring::sensu::agent::checks:
+  'metrics-httpd-overview':
+    type:         'metric'
+    command:      "metrics-apache-graphite.rb --scheme httpd.%{::hostname} -h 127.0.0.1"
+    interval:     60
+    subscribers:  ['metrics']
+    handlers:     ['graphite_tcp']
+
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   rdo-release:
@@ -63,7 +80,7 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
-    includepkgs: 'htop bash-completion-extras lttng-ust userspace-rcu libbabeltrace leveldb liboath py-bcrypt'
+    includepkgs: 'htop bash-completion-extras lttng-ust userspace-rcu libbabeltrace leveldb liboath py-bcrypt python2-bcrypt'
 
 # Volume nodes need only cinder and glance keys
 ceph::profile::params::client_keys:
@@ -81,3 +98,16 @@ ceph::profile::params::client_keys:
     group: 'cinder'
     cap_mon: 'profile rbd'
     cap_osd: 'profile rbd pool=images'
+  'client.cinder-hdd-ec':
+    secret: "%{hiera('client_cinder::secret')}"
+    mode: '0600'
+    user: 'cinder'
+    group: 'cinder'
+    cap_mon: 'profile rbd'
+    cap_osd: 'profile rbd pool=volumes_hdd_ec_meta, profile rbd pool=volumes_hdd_ec_data'
+
+profile::storage::cephclient::create_extraconf: true
+profile::storage::ceph_extraconf::config:
+  client_ecc_backend:
+    'config_key'  : "client.cinder-hdd-ec/rbd_default_data_pool"
+    'config_value': "volumes_hdd_ec_data"

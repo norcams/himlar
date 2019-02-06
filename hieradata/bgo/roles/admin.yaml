@@ -6,3 +6,120 @@ include:
 profile::dns::rndc_key::create_admin_key:    true
 profile::dns::rndc_key::create_mdns_key:     false
 profile::dns::rndc_key::host_is_bind_server: false
+
+profile::application::foreman_proxy::serve_oob_dhcp: true
+
+dhcp::includes:
+  - '/etc/dhcp/oob_network.conf'
+
+profile::webserver::apache::vhosts:
+  'repo-oobip':
+    servername:     "%{::ipaddress_oob1}"
+    port:           80
+    docroot:        '/opt/repo/public'
+    docroot_owner:  'iaas'
+    serveraliases:  [ "repo.%{hiera('domain_oob')}", ]
+
+profile::network::services::dhcp_reservation:
+  bgo-leaf-01:
+    mac: '00:01:e8:d8:38:aa'
+    ip:  '172.16.0.1'
+  bgo-leaf-02:
+    mac: '00:01:e8:d8:36:e3'
+    ip:  '172.16.0.2'
+  bgo-leaf-03:
+    mac: '00:01:e8:d8:36:61'
+    ip:  '172.16.0.3'
+  bgo-leaf-04:
+    mac: '00:01:e8:d8:37:24'
+    ip:  '172.16.0.4'
+  bgo-torack-01:
+    mac: '14:18:77:00:78:00'
+    ip:  '172.16.0.6'
+  bgo-torack-02:
+    mac: '14:18:77:01:22:00'
+    ip:  '172.16.0.7'
+  bgo-mgmt-02:
+    mac: '34:17:eb:32:45:80'
+    ip:  '172.16.0.5'
+  bgo-mgmt-opx-01:
+    mac: '3c:2c:30:33:fa:80'
+    ip:  '172.16.2.1'
+  bgo-compute-01-bmc:
+    mac: 'b8:2a:72:fc:71:32'
+    ip:  '172.17.0.103'
+  bgo-compute-02-bmc:
+    mac: 'b8:2a:72:fc:70:34'
+    ip:  '172.17.0.104'
+  bgo-compute-03-bmc:
+    mac: 'b8:2a:72:fc:73:36'
+    ip:  '172.17.0.105'
+  bgo-compute-04-bmc:
+    mac: '84:7b:eb:d6:b7:1a'
+    ip:  '172.17.0.111'
+  bgo-compute-05-bmc:
+    mac: '84:7b:eb:d6:b6:f2'
+    ip:  '172.17.0.112'
+  bgo-compute-06-bmc:
+    mac: '84:7b:eb:d6:b2:2e'
+    ip:  '172.17.0.113'
+  bgo-compute-07-bmc:
+    mac: 'f8:ca:b8:8c:ef:a0'
+    ip:  '172.17.0.115'
+  bgo-compute-08-bmc:
+    mac: 'f8:ca:b8:8c:ef:ad'
+    ip:  '172.17.0.116'
+  bgo-compute-09-bmc:
+    mac: 'f8:ca:b8:8c:ef:ba'
+    ip:  '172.17.0.117'
+  bgo-compute-10-bmc:
+    mac: 'f8:ca:b8:8c:ef:c7'
+    ip:  '172.17.0.118'
+  bgo-controller-01-bmc:
+    mac: 'b8:2a:72:fc:4c:7e'
+    ip:  '172.17.0.100'
+  bgo-controller-02-bmc:
+    mac: 'b8:2a:72:fc:46:d4'
+    ip:  '172.17.0.101'
+  bgo-controller-03-bmc:
+    mac: 'b8:2a:72:fc:42:92'
+    ip:  '172.17.0.102'
+  bgo-controller-04-bmc:
+    mac: 'b0:83:fe:e9:01:a5'
+    ip:  '172.17.0.114'
+  bgo-object-01-bmc:
+    mac: '50:9a:4c:a9:97:0e'
+    ip:  '172.17.0.119'
+  bgo-object-02-bmc:
+    mac: '50:9a:4c:a9:77:fa'
+    ip:  '172.17.0.120'
+  bgo-object-03-bmc:
+    mac: '50:9a:4c:a9:90:a8'
+    ip:  '172.17.0.121'
+  bgo-object-04-bmc:
+    mac: '50:9a:4c:a9:95:76'
+    ip:  '172.17.0.122'
+  bgo-object-05-bmc:
+    mac: '50:9a:4c:a9:90:b4'
+    ip:  '172.17.0.123'
+  bgo-storage-01-bmc:
+    mac: '18:fb:7b:99:3b:a6'
+    ip:  '172.17.0.106'
+  bgo-storage-02-bmc:
+    mac: '18:fb:7b:99:4f:50'
+    ip:  '172.17.0.107'
+  bgo-storage-03-bmc:
+    mac: '18:fb:7b:99:4f:be'
+    ip:  '172.17.0.108'
+  bgo-storage-04-bmc:
+    mac: '18:fb:7b:99:4f:da'
+    ip:  '172.17.0.109'
+  bgo-storage-05-bmc:
+    mac: '18:fb:7b:99:4f:fe'
+    ip:  '172.17.0.110'
+  bgo-storage-06-bmc:
+    mac: '58:8a:5a:e8:e8:b0'
+    ip:  '172.17.0.124'
+  bgo-storage-07-bmc:
+    mac: '58:8a:5a:e8:ef:e2'
+    ip:  '172.17.0.125'

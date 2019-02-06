@@ -36,3 +36,6 @@ horizon::keystone_options:
   can_edit_domain:              True
   can_edit_role:                True
 
+profile::openstack::dashboard::allow_from_network:
+  - "%{hiera('netcfg_mgmt_netpart')}.0/%{hiera('netcfg_mgmt_netmask')}"  # only allow from mgmt network (including sshuttle through login)
+

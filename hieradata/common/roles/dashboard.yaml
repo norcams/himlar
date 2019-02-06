@@ -3,7 +3,7 @@ include:
   default:
     - profile::openstack::dashboard
     - profile::logging::rsyslog::client
-    - profile::webserver::apache
+    - profile::webserver::apache::status
     - profile::openstack::cache
 
 profile::base::common::packages:
@@ -27,9 +27,8 @@ profile::openstack::dashboard::manage_overrides:       true
 profile::openstack::dashboard::enable_pwd_retrieval:   true
 profile::openstack::dashboard::change_region_selector: true
 profile::openstack::dashboard::change_login_footer:    true
+profile::openstack::dashboard::customize_logo:         true
 profile::openstack::dashboard::image_upload_mode:     'direct'
-profile::webserver::apache::mods_enable:
-  - status
 
 # cronjob to cleanup expired session from db
 profile::base::cron::crontabs:
@@ -48,10 +47,11 @@ profile::base::yumrepo::repo_hash:
     includepkgs: 'htop bash-completion-extras'
 
 # Sensu
+profile::webserver::apache::status::manage_status: true
 profile::monitoring::sensu::agent::plugins:
   sensu-plugins-apache:
     type:         package
-    pkg_version:  '2.0.0'
+    pkg_version:  '3.0.0'
 
 profile::monitoring::sensu::agent::checks:
   'metrics-httpd-overview':
@@ -61,21 +61,23 @@ profile::monitoring::sensu::agent::checks:
     subscribers:  ['metrics']
     handlers:     ['graphite_tcp']
 
-profile::webserver::apache::vhosts:
-  status:
-    ip:                 '127.0.0.1'
-    port:               '80'
-    manage_docroot:     false
-    docroot:            '/var/www/html'
-
+# We should change this to the same as the API services
 profile::openstack::dashboard::policies:
   glance_publicize_image:
     file_path:  '/etc/openstack-dashboard/glance_policy.json'
     key:        'publicize_image'
     value:      'role:superuser or role:admin'
-  compute_resize:
+  nova_disable_reboot:
     file_path:  '/etc/openstack-dashboard/nova_policy.json'
-    key:        'compute:resize'
+    key:        'os_compute_api:servers:reboot'
+    value:      'role:admin'
+  nova_compute_resize:
+    file_path:  '/etc/openstack-dashboard/nova_policy.json'
+    key:        'os_compute_api:servers:resize'
+    value:      'role:admin'
+  nova_disable_shelve:
+    file_path:  '/etc/openstack-dashboard/nova_policy.json'
+    key:        'os_compute_api:servers:shelve'
     value:      'role:admin'
 #  upload_image:
 #    key:        'volume_extension:volume_actions:upload_image'
@@ -104,4 +106,8 @@ horizon::keystone_options:
   can_edit_domain:              False
   can_edit_role:                False
 
-
+# Adjust the ulimit (number of open files) for Apache via systemd
+profile::openstack::dashboard::manage_systemd_unit: true
+profile::openstack::dashboard::httpd_systemd_extras:
+  'Service':
+    'LimitNOFILE': 32768

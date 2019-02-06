@@ -5,29 +5,27 @@ include:
     - profile::base::login
 
 network::interfaces_hash:
-  'em1':      # local1-mgmt
+  'eth0':      # local1-mgmt
     onboot:         'yes'
     bridge:         'br0'
-  'em1.11':   # local2-mgmt
+  'eth0.11':   # local2-mgmt
     onboot:         'yes'
     bridge:         'br1'
     vlan:           'yes'
-  'em1.100':  # local1-trp
+  'eth0.100':  # local1-trp
     onboot:         'yes'
     bridge:         'br2'
     vlan:           'yes'
-  'em1.101':  # local2-trp
+  'eth0.101':  # local2-trp
     onboot:         'yes'
     bridge:         'br3'
     vlan:           'yes'
-  'em1.1349': # uib
-    vlan:           'yes'
-    'enable_dhcp':  true
-  'eth0': # uib
+  'eth1': # uib
     enable_dhcp:    true
     ipv6init:       'no'
     ipv6_autoconf:  'no'
     peerdns:        'no'
+    peerntp:        'no'
     defroute:       'yes'
   'br0':
     ipaddress:    "%{hiera('netcfg_mgmt_netpart')}.99"
@@ -105,9 +103,19 @@ profile::network::nat::source:
   - "%{hiera('netcfg_public_netpart')}.0/%{hiera('netcfg_public_netmask')}"
   - "192.168.13.0/%{hiera('netcfg_public_netmask')}"
 
-profile::network::nat::outiface:     'eth0'
+profile::network::nat::outiface:     'eth1'
 
 profile::network::services::ntp_server: false
+
+# FIXME: This shuld be sda, but we changed cabinet and got sdb instead
+lvm::volume_groups:
+  vg_ext:
+    physical_volumes:
+      - /dev/sdb3
+    logical_volumes:
+      lv_ext:
+        fs_type:   xfs
+        mountpath: "/var/lib/libvirt/images"
 
 named_interfaces::config:
   mgmt:
@@ -115,12 +123,7 @@ named_interfaces::config:
   trp:
     - br1
   public:
-    - eth0
-
-# SSH access
-accounts::accounts:
-  'raymond':
-    ensure: present
+    - eth1
 
 # SSH from everywhere
 profile::firewall::pre::ssh_settings:
@@ -135,6 +138,20 @@ googleauthenticator::pam::mode::modes:
     condition: 'user ingroup wheel'
     nullok: false
 
+accounts::accounts:
+  'mikaeld':
+    ensure: present
+  'raymond':
+    ensure: present
+  'torldre':
+    ensure: present
+  'trondham':
+    ensure: present
+  'andersv':
+    ensure: present
+  'tannazn':
+    ensure: present
+
 ssh::server::options:
   # Need this for 2FA (saz-ssh-module disables by default)
   ChallengeResponseAuthentication: 'yes'
@@ -147,3 +164,9 @@ ssh::server::options:
   # No 2FA possible with iaas from mgmt
   "Match User iaas Address %{hiera('netcfg_mgmt_netpart')}.0/24":
     AuthenticationMethods: 'publickey'
+  'Match User root':
+    PermitRootLogin: 'no'
+    PasswordAuthentication: 'no'
+  "Match User root Address %{hiera('netcfg_mgmt_netpart')}.0/24":
+    PermitRootLogin: 'yes'
+    PasswordAuthentication: 'yes'

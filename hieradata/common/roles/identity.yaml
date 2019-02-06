@@ -7,6 +7,9 @@ include:
     - profile::openstack::resource::users
     - profile::logging::rsyslog::client
     - profile::openstack::cache
+    - profile::webserver::apache::status
+
+openstack_version:    'queens' # FIXME: queens-upgrade
 
 profile::base::common::packages:
   'bash-completion': {}
@@ -17,6 +20,8 @@ profile::base::common::packages:
   'openstack-selinux': {}
   'python2-designateclient': {}
 
+memcached::max_memory: '40%'
+
 profile::base::selinux::manage_selinux:                   true
 profile::openstack::identity::disable_admin_token_auth:   true
 profile::openstack::identity::manage_openidc:             true
@@ -25,6 +30,7 @@ profile::openstack::identity::roles_extra:
   - user
   - superuser
   - admin_view
+
 profile::openstack::identity::keystone_config:
   'federation/trusted_dashboard':
     value:  "https://%{hiera('public__address__dashboard')}/dashboard/auth/websso/"
@@ -118,6 +124,21 @@ profile::openstack::resource::users::user_roles:
     roles:    'admin'
   "access@%{hiera('keystone__service__project')}":
     roles:    'admin_view'
+
+# Sensu
+profile::webserver::apache::status::manage_status: true
+profile::monitoring::sensu::agent::plugins:
+  sensu-plugins-apache:
+    type:         package
+    pkg_version:  '3.0.0'
+
+profile::monitoring::sensu::agent::checks:
+  'metrics-httpd-overview':
+    type:         'metric'
+    command:      "metrics-apache-graphite.rb --scheme httpd.%{::hostname} -h 127.0.0.1"
+    interval:     60
+    subscribers:  ['metrics']
+    handlers:     ['graphite_tcp']
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:

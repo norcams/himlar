@@ -1,0 +1,8 @@
+---
+logstash::init_defaults:
+  LS_OPTS:  "--debug"
+logstash::jvm_options:
+  - '-Xms512m'
+  - '-Xmx512m'
+  - '-Xss512k'
+  - '-XX:ParallelGCThreads=1'

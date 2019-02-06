@@ -95,8 +95,9 @@ profile::monitoring::sensu::agent::plugin_gems:
     source:   'http://download.iaas.uio.no/uh-iaas/gem'
 
 # sensu
-sensu__memory__warn:     '95'
-sensu__memory__critical: '99'
+sensu__memory__check:     "check-memory.rb -w 4096 -c 1024"
+sensu__disk__warning:     90
+sensu__disk__crtical:     95
 
 profile::monitoring::sensu::agent::checks:
   'metadata-api':
@@ -187,7 +188,7 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
-    includepkgs: 'bird bird6 htop bash-completion-extras lttng-ust userspace-rcu libbabeltrace leveldb liboath py-bcrypt libsmbios smbios-utils-bin'
+    includepkgs: 'bird bird6 htop bash-completion-extras lttng-ust userspace-rcu libbabeltrace leveldb liboath py-bcrypt python2-bcrypt libsmbios smbios-utils-bin'
 
 # Compute nodes need only admin and cinder keys
 ceph::profile::params::client_keys:
@@ -206,3 +207,16 @@ ceph::profile::params::client_keys:
     group: 'nova'
     cap_mon: 'profile rbd'
     cap_osd: 'profile rbd pool=volumes, profile rbd pool=vms, profile rbd pool=images'
+  'client.cinder-hdd-ec':
+    secret: "%{hiera('client_cinder::secret')}"
+    mode: '0600'
+    user: 'cinder'
+    group: 'cinder'
+    cap_mon: 'profile rbd'
+    cap_osd: 'profile rbd pool=volumes_hdd_ec_meta, profile rbd pool=volumes_hdd_ec_data'
+
+profile::storage::cephclient::create_extraconf: true
+profile::storage::ceph_extraconf::config:
+  client_ecc_backend:
+    'config_key'  : "client.cinder-hdd-ec/rbd_default_data_pool"
+    'config_value': "volumes_hdd_ec_data"

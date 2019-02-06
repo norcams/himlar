@@ -8,7 +8,7 @@ sensu::install_repo:            false
 sensu::manage_repo:             false
 sensu::sensu_plugin_provider:   sensu_gem
 sensu::use_embedded_ruby:       true
-sensu::rabbitmq_host:           "%{hiera('mgmt__address__mq_01')}"
+sensu::rabbitmq_host:           "%{hiera('mgmt__address__monitor')}"
 sensu::rabbitmq_password:       "%{hiera('sensu::rabbit_password')}"
 sensu::rabbitmq_user:           'sensu'
 sensu::rabbitmq_vhost:          'sensu'
@@ -32,8 +32,9 @@ sensu::subscriptions:
   - 'metrics'
   - 'checks'
 
-sensu__memory__warn:     '80'
-sensu__memory__critical: '90'
+sensu__memory__check:     "check-memory-percent.rb -w 80 -c 90"
+sensu__disk__warning:     70
+sensu__disk__crtical:     90
 
 sensu::checks:
   'metrics-vmstat':
@@ -55,15 +56,15 @@ sensu::checks:
     subscribers:  ['metrics']
     handlers:     ['graphite_tcp']
   'check-disk-usage':
-    command:      "check-disk-usage.rb -p '/ceph/' -w 70 -c 90"
+    command:      "check-disk-usage.rb -p '/ceph/' -w %{hiera('sensu__disk__warning')} -c %{hiera('sensu__disk__crtical')}"
     interval:     60
     subscribers:  ['checks']
   'check-load':
     command:      'check-load.rb -w 3,2,1'
     interval:     60
     subscribers:  ['checks']
-  'check-memory-precent':
-    command:      "check-memory-percent.rb -w %{hiera('sensu__memory__warn')} -c %{hiera('sensu__memory__critical')}"
+  'check-memory':
+    command:      "%{hiera('sensu__memory__check')}"
     interval:     60
     subscribers:  ['checks']
   'check-process':

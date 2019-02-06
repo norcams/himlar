@@ -13,7 +13,7 @@ class profile::base::dell (
   $manage_repos      = false,
   $manage_openmanage = false,
 ){
-  if fact('dmi.product.name') =~ '^PowerEdge [RTM][1-9][1-4]0.*' {
+  if fact('dmi.product.name') =~ '^PowerEdge (FC|[RTM])[1-9][1-4]0.*' {
 
     if $manage_repos {
 
@@ -63,11 +63,13 @@ class profile::base::dell (
         notify  => Service['snmpd'],
       }
 
-      # Open the SNMP port (161/UDP) in the firewall
-      profile::firewall::rule { '001 allow SNMP':
-        dport  => 161,
-        proto  => 'udp',
-        extras => $snmp_firewall_settings,
+      if $::runmode == 'default' {
+        # Open the SNMP port (161/UDP) in the firewall
+        profile::firewall::rule { '001 allow SNMP':
+          dport  => 161,
+          proto  => 'udp',
+          extras => $snmp_firewall_settings,
+        }
       }
     }
   }

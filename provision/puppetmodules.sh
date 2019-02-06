@@ -11,10 +11,8 @@ provision_from_puppetfile()
   ln $LN_OPTS /opt/himlar/hieradata $CODE_PATH/$ENV_PATH/hieradata
   ln $LN_OPTS /opt/himlar/hiera.yaml $CODE_PATH/$ENV_PATH/hiera.yaml
 
-  export PUPPETFILE=/opt/himlar/Puppetfile
-  export PUPPETFILE_DIR=$CODE_PATH/modules
   cd /opt/himlar && /usr/local/bin/r10k --verbose 4 puppetfile purge
-  cd /opt/himlar && /usr/local/bin/r10k --verbose 4 puppetfile install
+  cd /opt/himlar && /usr/local/bin/r10k --verbose 4 puppetfile install --moduledir $CODE_PATH/modules --puppetfile /opt/himlar/Puppetfile
   # link in profile module after running r10k
   ln -sf /opt/himlar/profile $CODE_PATH/modules/
 }

@@ -4,3 +4,7 @@ profile::application::himlarcli::from_addr:     'noreply@usit.uio.no'
 profile::application::himlarcli::ldap_server:   'ldap.uio.no'
 profile::application::himlarcli::ldap_base_dn:  'dc=uio,dc=no'
 profile::application::himlarcli::slack_channel: '#iaas'
+
+# Enable designate in osl
+profile::openstack::identity::designate_enabled:  true
+profile::openstack::dashboard::enable_designate:  true

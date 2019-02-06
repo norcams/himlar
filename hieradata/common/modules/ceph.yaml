@@ -50,6 +50,13 @@ ceph::profile::params::client_keys:
     group: 'cinder'
     cap_mon: 'profile rbd'
     cap_osd: 'profile rbd pool=volumes, profile rbd pool=vms, profile rbd pool=images'
+  'client.cinder-hdd-ec':
+    secret: "%{hiera('client_cinder::secret')}"
+    mode: '0600'
+    user: 'cinder'
+    group: 'cinder'
+    cap_mon: 'profile rbd'
+    cap_osd: 'profile rbd pool=volumes_hdd_ec_meta, profile rbd pool=volumes_hdd_ec_data'
 #ceph::profile::params::osds:
 #  '/var/osd1':
 #    journal: '/var/osd1-journal'

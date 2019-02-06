@@ -8,3 +8,7 @@ profile::application::himlarcli::ldap_base_dn:  'dc=uio,dc=no'
 yum_base_mirror:    'https://download.iaas.uio.no/uh-iaas/test'
 
 profile::openstack::identity::swift_enabled:    true
+
+# Enable designate in test02
+profile::openstack::identity::designate_enabled:  true
+profile::openstack::dashboard::enable_designate:  true

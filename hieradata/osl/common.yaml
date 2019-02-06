@@ -7,27 +7,64 @@ location_environment:     'prod'
 location_description:     'Production environment in Oslo'
 
 # Disable management of Dell repos and software
-profile::base::dell::manage_repos:      false
+profile::base::dell::manage_repos:      true
 profile::base::dell::manage_openmanage: false
 
 domain_frontend:          'uh-iaas.no'
 domain_public:            'osl.uh-iaas.no'
 domain_trp:               'osl.uhdc.no'
 domain_mgmt:              'mgmt.osl.uhdc.no'
+domain_oob:               'oob.osl.uhdc.no'
 
 reverse_mgmt:             '32.16.172.in-addr.arpa'
+reverse_mgmt_c0:          '32.16.172.in-addr.arpa'
+reverse_mgmt_c1:          '33.16.172.in-addr.arpa'
+reverse_mgmt_c2:          '34.16.172.in-addr.arpa'
+reverse_mgmt_c3:          '35.16.172.in-addr.arpa'
+reverse_mgmt_c4:          '36.16.172.in-addr.arpa'
+reverse_mgmt_c5:          '37.16.172.in-addr.arpa'
+reverse_mgmt_c6:          '38.16.172.in-addr.arpa'
+reverse_mgmt_c7:          '39.16.172.in-addr.arpa'
+
+reverse_trp_c0:           '32.18.172.in-addr.arpa'
+reverse_trp_c1:           '33.18.172.in-addr.arpa'
+reverse_trp_c2:           '34.18.172.in-addr.arpa'
+reverse_trp_c3:           '35.18.172.in-addr.arpa'
+reverse_trp_c4:           '36.18.172.in-addr.arpa'
+reverse_trp_c5:           '37.18.172.in-addr.arpa'
+reverse_trp_c6:           '38.18.172.in-addr.arpa'
+reverse_trp_c7:           '39.18.172.in-addr.arpa'
 
 bgp_as:                   '65502'
 
 netcfg_mgmt_gateway:      '172.16.32.12'
 netcfg_mgmt_netpart:      '172.16.32'
 netcfg_mgmt_netmask:      '255.255.248.0'
+netcfg_mgmt_net_c0:       '172.16.32'
+netcfg_mgmt_net_c1:       '172.16.33'
+netcfg_mgmt_net_c2:       '172.16.34'
+netcfg_mgmt_net_c3:       '172.16.35'
+netcfg_mgmt_net_c4:       '172.16.36'
+netcfg_mgmt_net_c5:       '172.16.37'
+netcfg_mgmt_net_c6:       '172.16.38'
+netcfg_mgmt_net_c7:       '172.16.39'
 netcfg_trp_gateway:       '172.18.39.1'
 netcfg_trp_gateway6:      'fd32::3901'
 netcfg_trp_netpart:       '172.18.32'
 netcfg_trp_netpart6:      'fd32'
+netcfg_trp_net_c0:        '172.18.32'
+netcfg_trp_net_c1:        '172.18.33'
+netcfg_trp_net_c2:        '172.18.34'
+netcfg_trp_net_c3:        '172.18.35'
+netcfg_trp_net_c4:        '172.18.36'
+netcfg_trp_net_c5:        '172.18.37'
+netcfg_trp_net_c6:        '172.18.38'
+netcfg_trp_net_c7:        '172.18.39'
 netcfg_trp_netmask:       '255.255.248.0'
 netcfg_trp_netmask6:      '64'
+netcfg_oob_gateway:       '172.17.32.10'
+netcfg_oob_netpart:       '172.17.32'
+netcfg_oob_netmask:       '255.255.248.0'
 netcfg_ceph_netpart:      '172.20.32'
 netcfg_ceph_netmask:      '255.255.248.0'
 netcfg_live_netpart:      '172.22.32'
@@ -103,16 +140,19 @@ profile::network::services::dns_records:
     "volume.api.%{hiera('domain_public')}":      '158.37.63.250'
     "placement.api.%{hiera('domain_public')}":   '158.37.63.250'
     "metric.api.%{hiera('domain_public')}":      '158.37.63.250'
+    "dns.api.%{hiera('domain_public')}":         '158.37.63.250'
     "resolver.%{hiera('domain_public')}":        '158.37.63.252'
 
     # Management network (entries that differ from common/common.yaml)
     "%{::location}-login-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_netpart')}.10"
+    "repo.%{hiera('domain_oob')}":                    "%{hiera('netcfg_oob_netpart')}.9"
   AAAA:
     # Frontend records (<foo>.uh-iaas.no)
     "ns1.%{hiera('domain_frontend')}":           '2001:700:2:82ff::251'
     "ns2.%{hiera('domain_frontend')}":           '2001:700:2:83ff::251'
     # Public records (<foo>.<location>.uh-iaas.no)
-    "resolver.%{hiera('domain_public')}":        '2001:700:2:82ff::252'
+    "resolver.%{hiera('domain_public')}":             '2001:700:2:82ff::252'
+    "%{::location}-dns-01.%{hiera('domain_public')}": '2001:700:2:82ff::256'
   PTR:
     # Management network (entries that differ from common/common.yaml)
     "10.%{hiera('reverse_mgmt')}":     "%{::location}-login-01.%{hiera('domain_mgmt')}"
@@ -124,6 +164,7 @@ profile::network::services::dns_records:
     # public IPv6
     '1.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.2.8.0.0.7.0.2.0.0.0.1.0.0.2.ip6.arpa':  "ns1.%{hiera('domain_frontend')}"
     '2.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.2.8.0.0.7.0.2.0.0.0.1.0.0.2.ip6.arpa':  "resolver.%{hiera('domain_public')}"
+    '6.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.2.8.0.0.7.0.2.0.0.0.1.0.0.2.ip6.arpa':  "%{::location}-dns-01.%{hiera('domain_public')}"
 
 ntp::servers:
   - ntp1.uio.no
@@ -139,26 +180,6 @@ profile::openstack::compute::hypervisor::manage_libvirt_rbd: true
 
 # If backend != file, you must explicitly define stores in %location/modules/glance.yaml
 profile::openstack::image::api::backend: 'rbd'
-
-profile::network::services::dhcp_reservation:
-  osl-leaf-01:
-    mac: '00:01:e8:d8:3f:d7'
-    ip:  '172.16.32.1'
-  osl-leaf-02:
-    mac: '00:01:e8:d8:38:28'
-    ip:  '172.16.32.2'
-  osl-leaf-03:
-    mac: '00:01:e8:d8:25:9f'
-    ip:  '172.16.32.3'
-  osl-leaf-04:
-    mac: '00:01:e8:d8:49:ff'
-    ip:  '172.16.32.4'
-  osl-torack-01:
-    mac: 'e4:f0:04:b6:51:32'
-    ip:  '172.16.32.6'
-  osl-torack-02:
-    mac: 'e4:f0:04:b6:52:32'
-    ip:  '172.16.32.7'
 
 profile::network::services::dns_options:
   MX:

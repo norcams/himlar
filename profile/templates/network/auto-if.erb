@@ -1,0 +1,21 @@
+DEVICE='<%= @ifname %>'
+BOOTPROTO='none'
+ONBOOT='yes'
+TYPE='Ethernet'
+USERCTL='no'
+IPADDR='<%= @newipaddr %>'
+NETMASK='<%= @ifmask %>'
+GATEWAY='<%= @ifgw -%>'<% @ifopts.each do |key, hash| -%>
+<% if key == @ifrole -%> 
+<% hash.each do |key,value| -%>
+<%= key.upcase %>='<%= value %>'
+<% end -%><% end -%><% end -%>
+<% if @newipaddr6 -%>
+IPV6ADDR='<%= @newipaddr6 %>/<%= @ifmask6 %>'
+<% end -%>
+<% if @ifgw6 -%>
+IPV6_DEFAULTGW='<%= @ifgw6 %>'
+<% end -%>
+<% if @ifvlan -%>
+VLAN='<%= @ifvlan %>'
+<% end -%>
