@@ -17,13 +17,14 @@ neutron::keystone::authtoken::project_name:        "%{hiera('keystone__service__
 
 neutron::server::notifications::notify_nova_on_port_status_changes: true
 neutron::server::notifications::notify_nova_on_port_data_changes:   true
-neutron::server::notifications::auth_url:     "%{hiera('endpoint__identity__admin')}"
-neutron::server::notifications::auth_type:    'password'
-neutron::server::notifications::username:     'nova'
-neutron::server::notifications::password:     "%{hiera('nova_api_password')}"
-neutron::server::notifications::region_name:  "%{::location}"
-#neutron::server::service_name:                'httpd'
-neutron::agents::dhcp::enabled:               false
+neutron::server::notifications::auth_url:          "%{hiera('endpoint__identity__admin')}"
+neutron::server::notifications::auth_type:         'password'
+neutron::server::notifications::username:          'nova'
+neutron::server::notifications::password:          "%{hiera('nova_api_password')}"
+neutron::server::notifications::region_name:       "%{::location}"
+neutron::server::notifications::endpoint_type:     'internal'
+#neutron::server::service_name:                    'httpd'
+neutron::agents::dhcp::enabled:                    false
 
 #neutron::wsgi::apache::ssl:       false
 #neutron::wsgi::apache::bind_host: "%{ipaddress_trp1}"
@@ -57,3 +58,5 @@ neutron::config::server_config:
 
 # quota (node: network)
 neutron::quota::quota_port:   '-1'
+
+openstack_version:  'queens'

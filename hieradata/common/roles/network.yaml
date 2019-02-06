@@ -31,10 +31,6 @@ profile::openstack::openrc::password:     "%{hiera('neutron_api_password')}"
 profile::openstack::openrc::username:     'neutron'
 profile::openstack::openrc::project_name: 'services'
 
-profile::openstack::network::controller::neutron_config:
-  nova/endpoint_type:
-    value:  'internal'
-
 profile::openstack::network::policies:
   create_network:
     key:   'create_network'
