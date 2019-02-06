@@ -20,6 +20,8 @@ include:
 # Set SELinux mode to enforcing
 profile::base::selinux::manage_selinux: true
 
+openstack_version: 'queens' # FIXME
+
 # Fix SELinux file context for Nova's .ssh
 profile::base::selinux::fcontext:
   nova-dot-ssh:
