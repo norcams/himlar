@@ -68,10 +68,10 @@ class profile::openstack::dashboard(
 
   if $database {
     # Run syncdb if we use database backend
-    exec { 'horizon syncdb':
-      command => '/usr/share/openstack-dashboard/manage.py syncdb --noinput && touch /usr/share/openstack-dashboard/.syncdb',
+    exec { 'horizon migrate':
+      command => '/usr/share/openstack-dashboard/manage.py migrate --noinput && touch /usr/share/openstack-dashboard/.migrate',
       user    => 'root',
-      creates => '/usr/share/openstack-dashboard/.syncdb',
+      creates => '/usr/share/openstack-dashboard/.migrate',
       require => [Concat::Fragment['extra-local_settings.py'], Package['horizon']]
     }
   }
