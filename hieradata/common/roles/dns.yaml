@@ -45,9 +45,6 @@ profile::base::common::packages:
 # Don't purge sudo stuff
 sudo::purge: false
 
-# Override repo "rdo-release"
-openstack_version: 'queens'
-
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   rdo-release:

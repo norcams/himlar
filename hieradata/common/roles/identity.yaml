@@ -9,8 +9,6 @@ include:
     - profile::openstack::cache
     - profile::webserver::apache::status
 
-openstack_version:    'queens' # FIXME: queens-upgrade
-
 profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}

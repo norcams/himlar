@@ -56,5 +56,3 @@ horizon::log_handler:     'syslog'
 horizon::wsgi::apache::extra_params:
   error_log_syslog: 'syslog:local1'
   error_log_file:   false
-
-openstack_version:    'queens'
