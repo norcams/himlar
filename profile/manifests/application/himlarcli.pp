@@ -30,10 +30,13 @@ class profile::application::himlarcli(
   $mq_password,
   $mq_vhost,
   $database_uri,
+  $compute_api_version,
   $ldap_server = undef,
   $ldap_base_dn = undef,
   $cacert = undef
 ) {
+
+  info($compute_api_version)
 
   file { '/etc/himlarcli':
     ensure => directory
