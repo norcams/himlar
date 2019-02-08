@@ -18,6 +18,10 @@ gnocchi::keystone::authtoken::project_domain_name:  "%{hiera('keystone__default_
 gnocchi::keystone::authtoken::user_domain_name:     "%{hiera('keystone__default__domain')}"
 gnocchi::keystone::authtoken::project_name:         "%{hiera('keystone__service__project')}"
 
+# keystone middleware cache
+gnocchi::keystone::authtoken::memcached_servers:  '127.0.0.1:11211'
+gnocchi::keystone::authtoken::token_cache_time:   300
+
 # db (node: metric)
 gnocchi::database_connection: "mysql://gnocchi:%{hiera('gnocchi::db::mysql::password')}@%{hiera('service__address__db_regional')}/gnocchi"
 gnocchi::db::mysql::dbname:   'gnocchi'
