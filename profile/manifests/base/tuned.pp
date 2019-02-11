@@ -2,13 +2,13 @@
 #
 # Takes two parameters:
 #   manage_tuned  - boolean to turn on the management of tuned (default: false)
-#   tuned_profile - which tuned profile to set (default: none)
+#   tuned_profile - which tuned profile to set (default: undef)
 #
 # Author: trond
 #
 class profile::base::tuned (
   $manage_tuned  = false,
-  $tuned_profile = {},
+  $tuned_profile = undef,
 ){
 
   if $manage_tuned {
