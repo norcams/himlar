@@ -1,0 +1,9 @@
+---
+zookeeper::install_method:      'archive'
+zookeeper::archive_version:     '3.4.12'
+zookeeper::manage_service_file: true
+zookeeper::install_java:        true
+zookeeper::java_package:        'java-1.8.0-openjdk'
+
+zookeeper::client_ip:           '%{::ipaddress_trp1}'
+zookeeper::client_port:         2181

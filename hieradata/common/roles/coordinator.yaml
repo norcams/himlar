@@ -1,0 +1,12 @@
+---
+include:
+  default:
+    - profile::highavailability::zookeeper
+
+# Enable extra yum repo
+profile::base::yumrepo::repo_hash:
+  rdo-release:
+    ensure: present
+  epel: # should be absent when using RDO, but whitelist can also work
+    ensure:   present
+    includepkgs: ''
