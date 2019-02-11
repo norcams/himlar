@@ -28,5 +28,5 @@ profile::virtualization::libvirt::networks:
     bridge:              br2
 
 # Set tuned profile to "virtual-host"
-profile::base::tuned::manage_tuned:  false
+profile::base::tuned::manage_tuned:  true
 profile::base::tuned::tuned_profile: 'virtual-host'
