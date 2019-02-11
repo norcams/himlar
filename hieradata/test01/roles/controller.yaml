@@ -1,4 +1,8 @@
 ---
+include:
+  default:
+    - profile::base::tuned
+
 himlar_bootstrap::virt_install:
   '%{location}-admin-01':
     domain:          '%{domain}'
