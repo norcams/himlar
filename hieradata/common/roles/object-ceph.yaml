@@ -1,0 +1,97 @@
+---
+include:
+  default:
+    - profile::storage::cephosd
+    - profile::storage::cephpool
+    - profile::storage::cephosd_firewall
+    - profile::base::lvm
+  kickstart:
+    - profile::base::lvm
+  bootstrap:
+    - profile::base::lvm
+    - profile::storage::cephosd_firewall
+
+# Override default from modules/ceph.yaml
+ceph::profile::params::osd_journal_size:      '10240'
+ceph::profile::params::client_keys:
+  'client.admin':
+    secret: "%{hiera('client_admin::secret')}"
+    mode: '0600'
+    user: 'ceph'
+    group: 'ceph'
+    cap_mon: 'allow *'
+    cap_osd: 'allow *'
+    cap_mds: 'allow *'
+    cap_mgr: 'allow *'
+  'client.bootstrap-osd':
+    secret: "%{hiera('client_bootstrap-osd::secret')}"
+    keyring_path: '/var/lib/ceph/bootstrap-osd/ceph.keyring'
+    cap_mon: 'allow profile bootstrap-osd'
+
+profile::base::manage_lvm:                           true
+
+profile::base::common::packages:
+  'redhat-lsb-core': {}
+  'bash-completion': {}
+  'bash-completion-extras': {}
+  'jq': {}
+
+profile::storage::cephosd_firewall::manage_firewall: true
+profile::storage::cephosd::create_osds:              true
+
+profile::storage::cephpool::manage_ec_pools:        true
+profile::storage::cephpool::manage_cephpool_params: true
+
+profile::storage::ceph_ecpool::ec_pools:
+  'object_hdd_ec_data':
+    manage:              true
+    allow_ec_overwrites: true
+    k_data:              "2"
+    m_code:              "1"
+
+profile::storage::cephpool::pools:
+  'object_hdd_ec_meta':
+    ensure: present
+    pg_num: 64
+    pgp_num: 64
+
+profile::storage::cephpool_params::pools:
+  'object_hdd_ec_meta':
+    replicas_num:       5
+    replicas_min_size:  3
+    crush_rule:         "ssd"
+  # 'object_hdd_ec_data':
+  #   crush_rule:         "hdd"
+
+profile::storage::ceph_crushrules::rules:
+  'hdd':
+    rule_device_type: "hdd"
+  'ssd':
+    rule_device_type: "ssd"
+
+sudo::configs:
+  sensu_tty:
+    priority: 20
+    content:  'Defaults:sensu !requiretty'
+  sensu:
+    priority: 25
+    content:  'sensu ALL=(ALL) NOPASSWD: /opt/sensu/embedded/bin/check-ceph.rb'
+
+check_ceph_argument:    ''
+
+profile::monitoring::sensu::agent::checks:
+  'check-ceph':
+    command:      "/usr/bin/sudo /opt/sensu/embedded/bin/check-ceph.rb %{hiera('check_ceph_argument')}"
+    interval:     60
+    subscribers:  ['checks']
+
+profile::monitoring::sensu::agent::plugin_gems:
+  sensu-plugins-himlar:
+    ensure:   '0.3.0'
+    provider: 'sensu_gem'
+    source:   'http://download.iaas.uio.no/uh-iaas/gem'
+
+# Enable extra yum repo
+profile::base::yumrepo::repo_hash:
+  ceph-%{hiera('ceph_version')}:
+    ensure: present
