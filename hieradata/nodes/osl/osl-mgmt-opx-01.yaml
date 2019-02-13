@@ -1,8 +1,24 @@
 ---
 network::interfaces_hash:
   'eth0':
-    mtu:       '1500'
-    ipaddress: "%{hiera('netcfg_mgmt_net_c2')}.1"
-    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
-    gateway:   "%{hiera('netcfg_mgmt_gateway')}"
-    dns1:      "%{hiera('netcfg_dns_server1')}"
+    mtu:          '1500'
+    ipaddress:    "%{hiera('netcfg_mgmt_net_c2')}.1"
+    netmask:      "%{hiera('netcfg_mgmt_netmask')}"
+    gateway:      "%{hiera('netcfg_mgmt_gateway')}"
+    dns1:         "%{hiera('netcfg_dns_server1')}"
+  'br3378':
+    onboot:       'yes'
+    type:         'Bridge'
+    bridge_stp:   'off'
+    bridge_ports: [ 'e101-001-0', 'e101-002-0', 'e101-003-0', 'e101-004-0', 'e101-005-0', 'e101-006-0', 'e101-052-0.3378', ]
+  'br3379':
+    onboot:       'yes'
+    type:         'Bridge'
+    bridge_stp:   'off'
+    bridge_ports: [ 'e101-017-0', 'e101-018-0', 'e101-019-0', 'e101-020-0', 'e101-021-0', 'e101-022-0', 'e101-052-0.3379' ]
+  'e101-052-0.3378':
+    onboot:       'yes'
+    vid:          '3379'
+  'e101-052-0.3379':
+    onboot:       'yes'
+    vid:          '3379'
