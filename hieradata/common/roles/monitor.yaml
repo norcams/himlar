@@ -185,7 +185,7 @@ profile::monitoring::sensu::agent::checks:
     interval:     60
     subscribers:  ['checks']
   'cert-check-console':
-    command:      "check-https-cert.rb -c 10 -w 20 -u https://%{hiera('public__address__console')}:6082 %{hiera('sensu_ssl_cachain')}"
+    command:      "check-https-cert.rb -c 10 -w 20 -u https://%{hiera('public__address__console')}:6080 %{hiera('sensu_ssl_cachain')}"
     interval:     60
     subscribers:  ['checks']
   'metrics-rabbitmq-overview':
