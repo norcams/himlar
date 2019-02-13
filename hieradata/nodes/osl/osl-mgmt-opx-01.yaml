@@ -10,13 +10,13 @@ network::interfaces_hash:
     onboot:        'yes'
     type:          'Bridge'
     bridge_stp:    'off'
-    manage_method: 'none'
+    method:        'none'
     bridge_ports:  [ 'e101-001-0', 'e101-002-0', 'e101-003-0', 'e101-004-0', 'e101-005-0', 'e101-006-0', 'e101-052-0.3378', ]
   'br3379':
     onboot:        'yes'
     type:          'Bridge'
     bridge_stp:    'off'
-    manage_method: 'none'
+    method:        'none'
     bridge_ports:  [ 'e101-017-0', 'e101-018-0', 'e101-019-0', 'e101-020-0', 'e101-021-0', 'e101-022-0', 'e101-052-0.3379' ]
   'e101-052-0.3378':
     onboot:        'yes'
