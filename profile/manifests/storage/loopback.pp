@@ -6,7 +6,6 @@ define profile::storage::loopback(
   $ext_args     = '',
 ) {
 
-  info("dd if=/dev/zero of=${base_dir}/${name} bs=${byte_size} count=0 seek=${seek}")
   if(!defined(File[$base_dir])) {
     file { $base_dir:
       ensure => directory,

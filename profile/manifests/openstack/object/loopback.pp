@@ -3,9 +3,16 @@
 #
 class profile::openstack::object::loopback(
   $disks = {},
+  $before = undef,
+  $require = undef
 ) {
 
+  $defaults = {
+    require => $require,
+    before => $before
+  }
+
   # Use loopback for testing in vagrant and disk otherwise
-  create_resources('profile::storage::loopback', $disks)
+  create_resources('profile::storage::loopback', $disks, $defaults)
 
 }
