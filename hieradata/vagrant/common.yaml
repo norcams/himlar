@@ -193,6 +193,7 @@ client_bootstrap-mds::secret:                       'AQCztJdSyNb0NBAASA2yPZPuwXe
 client_glance::secret:                              'AQBGJ8dWKhgcNhAA+VU0GlKHcRLJSsJ8WouuSQ=='
 client_volumes::secret:                             'AQA4MPZTOGU0ARAAXH9a0fXxVq0X25n2yPREDw=='
 client_cinder::secret:                              'AQBypF1V2JYiChAA2qYbjM6jbXJBMmpXPkvwBg=='
+ceph_client_rgw_secret:                             'AQCVlWJcDbvrGRAANOeo5TVB29LcH+H9nPdarQ=='
 
 # service user api password
 keystone_admin_password:                            'admin_pass'
@@ -205,6 +206,7 @@ gnocchi_api_password:                               'gnocchi_pass'
 ceilometer_api_password:                            'ceilometer_pass'
 access_api_password:                                'access_pass'
 designate_api_password:                             'designate_pass'
+radosgw_api_password:                               'radosgw_pass'
 
 # rabbitmq
 rabbitmq::default_pass:                             'guest'
