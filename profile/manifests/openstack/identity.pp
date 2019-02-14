@@ -6,6 +6,7 @@ class profile::openstack::identity (
   $neutron_enabled          = false,
   $nova_enabled             = false,
   $swift_enabled            = false,
+  $radosgw_enabled          = false,
   $trove_enabled            = false,
   $designate_enabled        = false,
   $gnocchi_enabled          = false,
@@ -114,6 +115,10 @@ class profile::openstack::identity (
 
   if $gnocchi_enabled {
     include ::gnocchi::keystone::auth
+  }
+
+  if $radosgw_enabled {
+    include ::ceph::rgw::keystone::auth
   }
 
   unless empty($roles_extra) {

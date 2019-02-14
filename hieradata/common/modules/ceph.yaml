@@ -60,3 +60,15 @@ ceph::profile::params::client_keys:
 #ceph::profile::params::osds:
 #  '/var/osd1':
 #    journal: '/var/osd1-journal'
+
+# Used on identity to setup radosgw auth
+ceph::rgw::keystone::auth::password:     "%{hiera('radosgw_api_password')}"
+ceph::rgw::keystone::auth::user:         'radosgw'
+ceph::rgw::keystone::auth::email:        'radosgw@localhost'
+ceph::rgw::keystone::auth::roles:        ['admin']
+ceph::rgw::keystone::auth::public_url:   "%{hiera('endpoint__object__public')}/swift/v1"
+ceph::rgw::keystone::auth::admin_url:    "%{hiera('endpoint__object__admin')}/swift/v1"
+ceph::rgw::keystone::auth::internal_url: "%{hiera('endpoint__object__internal')}/swift/v1"
+ceph::rgw::keystone::auth::region:       '%{::location}'
+ceph::rgw::keystone::auth::tenant:       "%{hiera('keystone__service__project')}"
+ceph::rgw::keystone::auth::rgw_service:  'swift::object-store'
