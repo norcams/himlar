@@ -1,0 +1,33 @@
+---
+# Override default from modules/ceph.yaml
+ceph::profile::params::mon_host:                    '%{::netpart_trp1}.89:6789'
+ceph::profile::params::mon_initial_members:         '%{::location}-cephmon-object-01'
+ceph::profile::params::cluster_network:             '%{::netpart_trp1}.0/%{cidr_trp1}'
+ceph::profile::params::public_network:              '%{::netpart_trp1}.0/%{cidr_trp1}'
+ceph::profile::params::osd_pool_default_pg_num:     '64'
+ceph::profile::params::osd_pool_default_pgp_num:    '64'
+ceph::profile::params::osd_pool_default_size:       '3'
+ceph::profile::params::osd_pool_default_min_size:   '1'
+ceph::profile::params::client_keys:
+  'client.admin':
+    secret: "%{hiera('client_admin::secret')}"
+    mode: '0600'
+    user: 'ceph'
+    group: 'ceph'
+    cap_mon: 'allow *'
+    cap_osd: 'allow *'
+    cap_mds: 'allow *'
+    cap_mgr: 'allow *'
+  'client.bootstrap-osd':
+    secret: "%{hiera('client_bootstrap-osd::secret')}"
+    mode: '0600'
+    user: 'ceph'
+    group: 'ceph'
+    cap_mon: 'allow profile bootstrap-osd'
+  'client.radosgw.%{::location}-01':
+    secret: "%{hiera('ceph_client_rgw_secret')}"
+    mode: '0600'
+    user: 'ceph'
+    group: 'ceph'
+    cap_mon: 'allow *'
+    cap_osd: 'allow *'
