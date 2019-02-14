@@ -1,0 +1,66 @@
+---
+include:
+  default:
+    - profile::openstack::openrc
+    - profile::openstack::object::radosgw
+
+profile::openstack::openrc::password:     "%{hiera('radosgw_api_password')}"
+profile::openstack::openrc::username:     'radosgw'
+profile::openstack::openrc::project_name: "%{hiera('keystone__service__project')}"
+
+profile::openstack::object::radosgw::manage_firewall: true
+
+# Ceph radosgw
+ceph::profile::params::rgw_name:      "radosgw.%{::location}-01"
+ceph::profile::params::frontend_type: 'civetweb'
+ceph::profile::params::rgw_user:      'ceph'
+ceph::profile::params::rgw_frontends: "civetweb port=%{::ipaddress_trp1}:7480"
+
+# Ceph overrides
+ceph::profile::params::mon_host:              "%{::netpart_trp1}.89:6789"
+ceph::profile::params::mon_initial_members:   '%{::location}-cephmon-object-01'
+ceph::profile::params::cluster_network:       "%{::netpart_trp1}.0/%{cidr_trp1}"
+ceph::profile::params::public_network:        "%{::netpart_trp1}.0/%{cidr_trp1}"
+ceph::profile::params::client_keys:
+  'client.admin':
+    secret: "%{hiera('client_admin::secret')}"
+    mode: '0600'
+    user: 'ceph'
+    group: 'ceph'
+    cap_mon: 'allow *'
+    cap_osd: 'allow *'
+    cap_mds: 'allow *'
+    cap_mgr: 'allow *'
+  'client.bootstrap-osd':
+    secret: "%{hiera('client_bootstrap-osd::secret')}"
+    mode: '0600'
+    user: 'ceph'
+    group: 'ceph'
+    cap_mon: 'allow profile bootstrap-osd'
+  'client.radosgw.%{::location}-01':
+    secret: "%{hiera('ceph_client_rgw_secret')}"
+    mode: '0600'
+    user: 'ceph'
+    group: 'ceph'
+    cap_mon: 'allow *'
+    cap_osd: 'allow *'
+
+profile::openstack::object::radosgw::keystone:
+  "radosgw.%{::location}-01":
+    rgw_keystone_url:                 "%{hiera('endpoint__identity__public')}"
+    rgw_keystone_version:             'v3'
+    rgw_keystone_accepted_roles:      ['object', 'admin']
+    rgw_keystone_token_cache_size:    500
+    rgw_s3_auth_use_keystone:         true
+    use_pki:                          false
+    user:                             'ceph'
+    rgw_keystone_admin_domain:        "%{hiera('keystone__default__domain')}"
+    rgw_keystone_admin_project:       "%{hiera('keystone__service__project')}"
+    rgw_keystone_admin_user:          'radosgw'
+    rgw_keystone_admin_password:      "%{hiera('radosgw_api_password')}"
+    rgw_keystone_implicit_tenants:    true
+
+# Enable extra yum repo
+profile::base::yumrepo::repo_hash:
+  ceph-%{hiera('ceph_version')}:
+    ensure: present
