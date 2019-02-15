@@ -1,4 +1,8 @@
 ---
+include:
+  default:
+    - profile::base::tuned
+
 named_interfaces::config:
   mgmt:
     - bond0
@@ -47,3 +51,6 @@ profile::base::yumrepo::repo_hash:
     ensure: present
     exclude: 'calico-dhcp-agent dnsmasq'
 
+# Set tuned profile to "virtual-host"
+profile::base::tuned::manage_tuned:  true
+profile::base::tuned::tuned_profile: 'virtual-host'

@@ -1,4 +1,8 @@
 ---
+include:
+  default:
+    - profile::base::tuned
+
 himlar_bootstrap::virt_install:
   '%{location}-admin-01':
     domain:          '%{domain}'
@@ -26,3 +30,7 @@ profile::virtualization::libvirt::networks:
     autostart:           true
     forward_mode:        bridge
     bridge:              br2
+
+# Set tuned profile to "virtual-host"
+profile::base::tuned::manage_tuned:  true
+profile::base::tuned::tuned_profile: 'virtual-host'
