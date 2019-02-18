@@ -14,4 +14,16 @@ class profile::application::foreman_proxy (
       notify   => Service['dhcpd'],
     }
   }
+
+  # remove custom dhcpd systemd script if it exists
+  file { '/etc/systemd/system/dhcpd.service':
+    ensure => absent,
+    path   => '/etc/systemd/system/dhcpd.service',
+    notify => Exec['systemctl_daemon_reload'],
+  }
+  # Reload systemd
+  exec { 'systemctl_daemon_reload':
+    command     => '/usr/bin/systemctl daemon-reload',
+    refreshonly => true,
+  }
 }
