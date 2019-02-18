@@ -1,0 +1,13 @@
+---
+profile::storage::cephosd::osds:
+  'vdb': {} # SSD
+  'vdc': {} # SSD
+  'vdd': {} # HDD
+  'vde': {} # HDD
+  'vdf': {} # HDD
+  'vdg': {} # HDD
+  'vdh': {} # HDD
+
+profile::storage::fake_ssds:
+  'vdb': {}
+  'vdc': {}
