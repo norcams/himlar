@@ -31,7 +31,7 @@ profile::base::network::manage_dummy:                               true
 profile::highavailability::loadbalancing::haproxy::manage_haproxy:  true
 profile::highavailability::loadbalancing::haproxy::manage_firewall: true
 profile::highavailability::loadbalancing::haproxy::firewall_ports:
-  public:    ['80', '443', '5000', '8041', '8774', '8776', '9292', '9696', '6082', '8080', '8778', '9001']
+  public:    ['80', '443', '5000', '8041', '8774', '8776', '9292', '9696', '6080', '8080', '8778', '9001']
   internal:  ['5000', '8041', '8774', '8776', '9292', '9696', '35357', '8080', '8778', '9001']
   mgmt:      ['9000']
   limited:   []
@@ -79,7 +79,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - "status.%{hiera('domain_frontend')}":               'bk_status'
       - "status-%{::location}.%{hiera('domain_frontend')}": 'bk_status'
       - "request.%{hiera('domain_frontend')}":              'bk_request'
-      - "console.%{hiera('domain_public')}:6082":           'bk_console'
+      - "console.%{hiera('domain_public')}:6080":           'bk_console'
       - "access.%{hiera('domain_frontend')}":               'bk_access'
       - "access-%{::location}.%{hiera('domain_frontend')}": 'bk_access'
       - "report.%{hiera('domain_frontend')}":               'bk_report'
@@ -113,7 +113,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       "%{::ipaddress_public1}:9001":  ['ssl', 'crt', "%{hiera('star_api_ssl_pem')}"]
       "%{::ipaddress_public1}:443":   ['ssl', 'crt', "%{hiera('status_ssl_pem')}"]
       "%{::ipaddress_public1}:80":    []
-      "%{::ipaddress_public1}:6082":  ['ssl', 'crt', "%{hiera('console_ssl_pem')}"]
+      "%{::ipaddress_public1}:6080":  ['ssl', 'crt', "%{hiera('console_ssl_pem')}"]
     options:
       - capture:        'request header Host len 64' #for debug
       - http-request:
@@ -309,7 +309,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     listening_service:  'bk_console'
     server_names:       "%{alias('console__backend__names')}"
     ipaddresses:        "%{alias('console__backend__ips')}"
-    ports:              '6082'
+    ports:              '6080'
     options:            'check'
   access:
     listening_service:  'bk_access'
@@ -361,7 +361,7 @@ profile::base::selinux::ports:
   console-http:
     seltype:  'http_port_t'
     protocol: 'tcp'
-    port:     6082
+    port:     6080
   dns-http:
     seltype:  'http_port_t'
     protocol: 'tcp'
