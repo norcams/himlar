@@ -5,6 +5,8 @@ class profile::application::foreman_proxy (
   $serve_oob_dhcp = false,
 ) {
 
+  include ::profile::base::systemd
+
   # requires an include statement in role yaml
   if $serve_oob_dhcp {
     file { 'oob_network.conf':
@@ -19,11 +21,9 @@ class profile::application::foreman_proxy (
   file { '/etc/systemd/system/dhcpd.service':
     ensure => absent,
     path   => '/etc/systemd/system/dhcpd.service',
-    notify => Exec['systemctl_daemon_reload'],
-  }
-  # Reload systemd
-  exec { 'systemctl_daemon_reload':
-    command     => '/usr/bin/systemctl daemon-reload',
-    refreshonly => true,
+    notify  => [
+      Exec['systemctl_daemon_reload'],
+      Service['httpd'],
+    ],
   }
 }
