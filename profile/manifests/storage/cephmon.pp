@@ -17,18 +17,24 @@ class profile::storage::cephmon (
     ceph_config {
       'mon/mgr initial modules':    value => 'dashboard'
     }
-
     exec { 'dashboard.crt':
-      command => "ceph config-key set mgr/dashboard/crt -i ${crt_dir}/${cert_name}.cert.pem",
+      command => "ceph dashboard create-self-signed-cert",
       path    => '/usr/bin:/usr/sbin:/bin',
       creates => $flagfile,
     }
-      ~>
-    exec { 'dashboard.key':
-      command     => "ceph config-key set mgr/dashboard/key -i ${key_dir}/${cert_name}.key.pem",
-      path        => '/usr/bin:/usr/sbin:/bin',
-      refreshonly => true,
-    }
+
+
+#    exec { 'dashboard.crt':
+#      command => "ceph config-key set mgr/dashboard/crt -i ${crt_dir}/${cert_name}.cert.pem",
+#      path    => '/usr/bin:/usr/sbin:/bin',
+#      creates => $flagfile,
+#    }
+#      ~>
+#    exec { 'dashboard.key':
+#      command     => "ceph config-key set mgr/dashboard/key -i ${key_dir}/${cert_name}.key.pem",
+#      path        => '/usr/bin:/usr/sbin:/bin',
+#      refreshonly => true,
+#    }
       ~>
     exec { 'reload dashboard':
       command     => 'ceph mgr module disable dashboard && ceph mgr module enable dashboard',
