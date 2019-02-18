@@ -23,7 +23,7 @@ class profile::application::foreman_proxy (
     path   => '/etc/systemd/system/dhcpd.service',
     notify  => [
       Exec['systemctl_daemon_reload'],
-      Service['httpd'],
+      Service['dhcpd'],
     ],
   }
 }
