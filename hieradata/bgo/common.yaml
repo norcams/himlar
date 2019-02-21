@@ -123,10 +123,10 @@ profile::network::services::dns_records:
     "5.%{hiera('reverse_mgmt')}":      "%{::location}-mgmt-01.%{hiera('domain_mgmt')}"
     "10.%{hiera('reverse_mgmt')}":     "%{::location}-login-01.%{hiera('domain_mgmt')}"
     # public IPv4
-    '250.77.39.158':   "api.%{hiera('domain_frontend')}"
-    '251.77.39.158':   "ns2.%{hiera('domain_frontend')}"
-    '252.77.39.158':   "resolver.%{hiera('domain_public')}"
-    '254.77.39.158':   "dashboard.%{hiera('domain_frontend')}"
+    '250.77.39.158.in-addr.arpa':   "api.%{hiera('domain_frontend')}"
+    '251.77.39.158.in-addr.arpa':   "ns2.%{hiera('domain_frontend')}"
+    '252.77.39.158.in-addr.arpa':   "resolver.%{hiera('domain_public')}"
+    '254.77.39.158.in-addr.arpa':   "dashboard.%{hiera('domain_frontend')}"
     # public IPv6
     '1.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.3.8.0.0.7.0.2.0.0.0.1.0.0.2.ip6.arpa':  "ns2.%{hiera('domain_frontend')}"
     '2.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.3.8.0.0.7.0.2.0.0.0.1.0.0.2.ip6.arpa':  "resolver.%{hiera('domain_public')}"
