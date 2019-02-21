@@ -37,7 +37,6 @@ ceilometer::agent::polling::compute_namespace:                  false
 ceilometer::agent::polling::ipmi_namespace:                     false
 
 # gnocchi dispatcher (node: telemetry)
-ceilometer::dispatcher::gnocchi::url:                           "%{hiera('endpoint__metric__internal')}"
 ceilometer::dispatcher::gnocchi::filter_service_activity:       false
 ceilometer::dispatcher::gnocchi::archive_policy:                'low'
 

@@ -2,7 +2,6 @@
 
 resources:
   - resource_type: identity
-    archive_policy: low
     metrics:
       - 'identity.authenticate.success'
       - 'identity.authenticate.pending'
@@ -38,6 +37,8 @@ resources:
       - 'memory'
       - 'memory.usage'
       - 'memory.resident'
+      - 'memory.swap.in'
+      - 'memory.swap.out'
       - 'memory.bandwidth.total'
       - 'memory.bandwidth.local'
       - 'vcpus'
@@ -70,6 +71,7 @@ resources:
       image_ref: resource_metadata.image_ref
       display_name: resource_metadata.display_name
       flavor_id: resource_metadata.(instance_flavor_id|(flavor.id)|flavor_id)
+      flavor_name: resource_metadata.(instance_type|(flavor.name)|flavor_name)
       server_group: resource_metadata.user_metadata.server_group
     event_delete: compute.instance.delete.start
     event_attributes:
@@ -107,6 +109,8 @@ resources:
       - 'disk.device.write.bytes'
       - 'disk.device.write.bytes.rate'
       - 'disk.device.latency'
+      - 'disk.device.read.latency'
+      - 'disk.device.write.latency'
       - 'disk.device.iops'
       - 'disk.device.capacity'
       - 'disk.device.allocation'
@@ -146,21 +150,7 @@ resources:
   - resource_type: network
     metrics:
       - 'bandwidth'
-      - 'network'
-      - 'network.create'
-      - 'network.update'
-      - 'subnet'
-      - 'subnet.create'
-      - 'subnet.update'
-      - 'port'
-      - 'port.create'
-      - 'port.update'
-      - 'router'
-      - 'router.create'
-      - 'router.update'
       - 'ip.floating'
-      - 'ip.floating.create'
-      - 'ip.floating.update'
     event_delete: floatingip.delete.end
     event_attributes:
       id: resource_id
@@ -198,6 +188,24 @@ resources:
     event_attributes:
       id: resource_id
 
+  - resource_type: volume_provider
+    metrics:
+      - 'volume.provider.capacity.total'
+      - 'volume.provider.capacity.free'
+      - 'volume.provider.capacity.allocated'
+      - 'volume.provider.capacity.provisioned'
+      - 'volume.provider.capacity.virtual_free'
+
+  - resource_type: volume_provider_pool
+    metrics:
+      - 'volume.provider.pool.capacity.total'
+      - 'volume.provider.pool.capacity.free'
+      - 'volume.provider.pool.capacity.allocated'
+      - 'volume.provider.pool.capacity.provisioned'
+      - 'volume.provider.pool.capacity.virtual_free'
+    attributes:
+      provider: resource_metadata.provider
+
   - resource_type: host
     metrics:
       - 'hardware.cpu.load.1min'
@@ -222,6 +230,10 @@ resources:
     metrics:
       - 'hardware.disk.size.total'
       - 'hardware.disk.size.used'
+      - 'hardware.disk.read.bytes'
+      - 'hardware.disk.write.bytes'
+      - 'hardware.disk.read.requests'
+      - 'hardware.disk.write.requests'
     attributes:
       host_name: resource_metadata.resource_url
       device_name: resource_metadata.device
@@ -234,3 +246,38 @@ resources:
     attributes:
       host_name: resource_metadata.resource_url
       device_name: resource_metadata.name
+
+  - resource_type: nova_compute
+    metrics:
+      - 'compute.node.cpu.frequency'
+      - 'compute.node.cpu.idle.percent'
+      - 'compute.node.cpu.idle.time'
+      - 'compute.node.cpu.iowait.percent'
+      - 'compute.node.cpu.iowait.time'
+      - 'compute.node.cpu.kernel.percent'
+      - 'compute.node.cpu.kernel.time'
+      - 'compute.node.cpu.percent'
+      - 'compute.node.cpu.user.percent'
+      - 'compute.node.cpu.user.time'
+    attributes:
+      host_name: resource_metadata.host
+
+  - resource_type: port
+    metrics:
+      - 'port'
+      - 'port.uptime'
+      - 'port.receive.packets'
+      - 'port.transmit.packets'
+      - 'port.receive.bytes'
+      - 'port.transmit.bytes'
+      - 'port.receive.drops'
+      - 'port.receive.errors'
+    attributes:
+      controller: resource_metadata.controller
+
+  - resource_type: switch_table
+    metrics:
+      - 'switch.table.active.entries'
+    attributes:
+      controller: resource_metadata.controller
+      switch: resource_metadata.switch

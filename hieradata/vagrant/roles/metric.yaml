@@ -1,9 +1,11 @@
 ---
-gnocchi::keystone::authtoken::insecure:		true
-keystone::resource::authtoken::insecure:	true
-keystone::service::insecure:			true
-keystone::validate_insecure:			true
-keystone::validate_cacert:			false
+gnocchi::keystone::authtoken::insecure:     true
+keystone::resource::authtoken::insecure:    true
+keystone::service::insecure:                true
+keystone::validate_insecure:                true
+keystone::validate_cacert:                  false
+
+memcached::max_memory: '10%'
 
 # Allow statsd from mgmt to work with himlarcli
 profile::openstack::metric::firewall_extras:
