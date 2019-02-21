@@ -8,7 +8,7 @@ named_interfaces::config:
     - eth1
 
 profile::storage::cephosd::osds:
-  '/dev/vdb': {} # SSD
+#  '/dev/vdb': {} # SSD
   '/dev/vdc': {} # SSD
   '/dev/vdd': {} # HDD
   '/dev/vde': {} # HDD
@@ -16,6 +16,8 @@ profile::storage::cephosd::osds:
   '/dev/vdg': {} # HDD
   '/dev/vdh': {} # HDD
 
+profile::base::common::manage_fake_ssd: true
+
 profile::storage::fake_ssds:
-  'vdb': {}
+#  'vdb': {}
   'vdc': {}
