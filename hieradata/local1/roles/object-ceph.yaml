@@ -1,12 +1,20 @@
 ---
+named_interfaces::config:
+  mgmt:
+    - eth0
+  trp:
+    - eth1
+  ceph:
+    - eth1
+
 profile::storage::cephosd::osds:
-  'vdb': {} # SSD
-  'vdc': {} # SSD
-  'vdd': {} # HDD
-  'vde': {} # HDD
-  'vdf': {} # HDD
-  'vdg': {} # HDD
-  'vdh': {} # HDD
+  '/dev/vdb': {} # SSD
+  '/dev/vdc': {} # SSD
+  '/dev/vdd': {} # HDD
+  '/dev/vde': {} # HDD
+  '/dev/vdf': {} # HDD
+  '/dev/vdg': {} # HDD
+  '/dev/vdh': {} # HDD
 
 profile::storage::fake_ssds:
   'vdb': {}
