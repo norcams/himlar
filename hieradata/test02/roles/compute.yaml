@@ -12,6 +12,8 @@ named_interfaces::config:
     - em1
 
 profile::base::network::network_auto_opts:
+  mgmt:
+    'defroute': 'no'
   trp:
     'ipv6init': 'yes'
 

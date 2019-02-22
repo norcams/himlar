@@ -12,6 +12,8 @@ named_interfaces::config:
     - bond0.912
 
 profile::base::network::network_auto_opts:
+  mgmt:
+    'defroute': 'no'
   trp:
     'ipv6init': 'yes'
     'bonding_opts': 'mode=balance-alb miimon=100'
