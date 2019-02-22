@@ -156,8 +156,9 @@ class profile::base::network(
         if $ifopts[$ifrole] {
           # Calculate ip address pr interface based on mgmt address, get gw and mask
           $ipnetpart = lookup("netcfg_${ifrole}_netpart", String, 'first', '')
-          $netrole = regsubst($ipnetpart, '^(\d+)\.(\d+)\.(\d+)$','\3',) + $addrdiff
-          $newipaddr = regsubst($mgmtaddress, '^(\d+)\.(\d+)\.(\d+)\.(\d+)$',"\\1.\\2.${netrole}.\\4",)
+          $cnet = regsubst($ipnetpart, '^(\d+)\.(\d+)\.(\d+)$','\3',) + $addrdiff
+          $netrole= regsubst($ipnetpart, '^(\d+)\.(\d+)\.(\d+)$','\2',)
+          $newipaddr = regsubst($mgmtaddress, '^(\d+)\.(\d+)\.(\d+)\.(\d+)$',"\\1.${netrole}.${cnet}.\\4",)
           $ifmask = lookup("netcfg_${ifrole}_netmask", String, 'first', '')
           $ifgw = lookup("netcfg_${ifrole}_gateway", String, 'first', '')
 
