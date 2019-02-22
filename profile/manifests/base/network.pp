@@ -145,10 +145,10 @@ class profile::base::network(
       # our third octet might be higher than base, we need to know the difference
       $addrdiff = $ouraddr-$addrbase
       # Find which interfaces to configure and their options
-      $named_interface_hash = lookup('named_interfaces::config', Hash, 'first', {})
+      $named_interfaces_hash = lookup('named_interfaces::config', Hash, 'first', {})
       $ifopts = lookup('profile::base::network::network_auto_opts', Hash, 'deep', {})
       # Configure each interface
-      $named_interface_hash.each |$ifrole, $ifnamed| {
+      $named_interfaces_hash.each |$ifrole, $ifnamed| {
         $ifname = String($ifnamed[0])
 
         # We must avoid duplicate interface files for logical constructs in named_interfaces, i.e trp vs transport, live etc
