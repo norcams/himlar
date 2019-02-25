@@ -1,4 +1,10 @@
 ---
+include:
+  default:
+    - profile::application::rngd
+
+profile::application::rngd::enable: true
+
 profile::base::common::manage_cron:       true
 profile::base::common::manage_lvm:        true
 
