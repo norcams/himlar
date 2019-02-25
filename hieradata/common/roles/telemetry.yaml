@@ -4,7 +4,7 @@ include:
     - profile::openstack::openrc
     - profile::openstack::telemetry
 
-openstack_version:  'ocata' #FIXME
+openstack_version: 'queens' #FIXME
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:

@@ -5,6 +5,8 @@ ntp::servers:
   - 172.16.0.102
 
 profile::base::network::network_auto_opts:
+  mgmt:
+    'defroute': 'no'
   trp:
     'defroute': 'no'
     'ipv6init': 'yes'

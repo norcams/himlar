@@ -158,10 +158,10 @@ profile::network::services::dns_records:
     # Management network (entries that differ from common/common.yaml)
     "10.%{hiera('reverse_mgmt')}":     "%{::location}-login-01.%{hiera('domain_mgmt')}"
     # public IPv4
-    '250.63.37.158':   "api-osl.%{hiera('domain_frontend')}"
-    '251.63.37.158':   "ns1.%{hiera('domain_frontend')}"
-    '252.63.37.158':   "resolver.%{hiera('domain_public')}"
-    '254.63.37.158':   "dashboard-osl.%{hiera('domain_frontend')}"
+    '250.63.37.158.in-addr.arpa':   "api-osl.%{hiera('domain_frontend')}"
+    '251.63.37.158.in-addr.arpa':   "ns1.%{hiera('domain_frontend')}"
+    '252.63.37.158.in-addr.arpa':   "resolver.%{hiera('domain_public')}"
+    '254.63.37.158.in-addr.arpa':   "dashboard-osl.%{hiera('domain_frontend')}"
     # public IPv6
     '1.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.2.8.0.0.7.0.2.0.0.0.1.0.0.2.ip6.arpa':  "ns1.%{hiera('domain_frontend')}"
     '2.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.2.8.0.0.7.0.2.0.0.0.1.0.0.2.ip6.arpa':  "resolver.%{hiera('domain_public')}"

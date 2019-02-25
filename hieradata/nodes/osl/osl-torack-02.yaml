@@ -27,7 +27,7 @@ profile::base::network::cumulus_interfaces:
 
 profile::base::network::cumulus_bridges:
   'bridge':
-    'ports': [ 'host1', 'host2', 'host3', 'host4', 'host5', 'host6', 'host7', 'host8', 'host9', 'host10', 'host11', 'host12', 'peerlink', 'downlink' ]
+    'ports': [ 'host1', 'host2', 'host3', 'host4', 'host5', 'host6', 'host7', 'host8', 'host9', 'host10', 'host11', 'host12', 'host15', 'host16', 'peerlink', 'downlink' ]
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'true'
@@ -112,6 +112,18 @@ profile::base::network::cumulus_bonds:
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+  'host15':
+    'slaves': [ 'swp15', ]
+    'clag_id': '15'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host16':
+    'slaves': [ 'swp16', ]
+    'clag_id': '16'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
 
 frrouting::frrouting::zebra_interfaces:
   'bridge':
@@ -143,6 +155,10 @@ frrouting::frrouting::zebra_interfaces:
   'host11':
     - 'link-detect'
   'host12':
+    - 'link-detect'
+  'host15':
+    - 'link-detect'
+  'host16':
     - 'link-detect'
   'swp48':
     - 'link-detect'
@@ -215,6 +231,8 @@ frrouting::frrouting::bgp_neighbor_groups:
       - '172.18.32.113'
       - '172.18.32.115'
       - '172.18.32.116'
+      - '172.18.32.117'
+      - '172.18.32.118'
     'options6':
       - 'neighbor rr-clients route-reflector-client'
       - 'maximum-paths ibgp 3'
@@ -229,6 +247,8 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'fd32::113'
       - 'fd32::115'
       - 'fd32::116'
+      - 'fd32::117'
+      - 'fd32::118'
 
 frrouting::frrouting::bgp_accesslist:
   '10':
