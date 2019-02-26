@@ -7,6 +7,9 @@ include:
     - profile::development::network::dns
     - profile::network::services
     - profile::network::nat
+    - profile::application::rngd
+
+profile::application::rngd::enable: true
 
 profile::base::common::packages:
   'python-openstackclient': {}

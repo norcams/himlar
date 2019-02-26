@@ -1,10 +1,4 @@
 ---
-include:
-  default:
-    - profile::application::rngd
-
-profile::application::rngd::enable: true
-
 profile::base::common::manage_lvm: true
 
 profile::base::lvm::physical_volume:
