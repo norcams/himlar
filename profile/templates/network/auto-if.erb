@@ -14,7 +14,7 @@ GATEWAY="<%= @ifgw -%>"<% @ifopts.each do |key, hash| -%>
 IPV6ADDR="<%= @newipaddr6 %>/<%= @ifmask6 %>""
 <% end -%>
 <% if @ifgw6 -%>
-IPV6_DEFAULTGW="<%= @ifgw6 %>""
+IPV6_DEFAULTGW="<%= @ifgw6 %>"
 <% end -%>
 <% if @ifvlan -%>
 VLAN="<%= @ifvlan %>
