@@ -21,6 +21,8 @@ class profile::openstack::dashboard(
   $customize_logo       = false,
   $manage_systemd_unit  = false,
   $user_menu_links      = undef,
+  $session_cookie_httponly = false,
+  $access_control_allow_origin = false,
 ) {
 
   if $manage_dashboard {

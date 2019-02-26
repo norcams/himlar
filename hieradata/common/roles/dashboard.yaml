@@ -29,6 +29,8 @@ profile::openstack::dashboard::change_region_selector: true
 profile::openstack::dashboard::change_login_footer:    true
 profile::openstack::dashboard::customize_logo:         true
 profile::openstack::dashboard::image_upload_mode:     'direct'
+profile::openstack::dashboard::session_cookie_httponly: true
+profile::openstack::dashboard::access_control_allow_origin: true
 
 # cronjob to cleanup expired session from db
 profile::base::cron::crontabs:
