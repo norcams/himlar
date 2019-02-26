@@ -447,12 +447,6 @@ profile::network::services::dns_records:
     "1.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-opx-01.%{hiera('domain_mgmt')}"
     "2.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-opx-02.%{hiera('domain_mgmt')}"
     "3.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-opx-03.%{hiera('domain_mgmt')}"
-  CNAME:
-    "%{::location}-object-ceph-01.%{hiera('domain_mgmt')}":  "%{::location}-object-01.%{hiera('domain_mgmt')}"
-    "%{::location}-object-ceph-02.%{hiera('domain_mgmt')}":  "%{::location}-object-02.%{hiera('domain_mgmt')}"
-    "%{::location}-object-ceph-03.%{hiera('domain_mgmt')}":  "%{::location}-object-03.%{hiera('domain_mgmt')}"
-    "%{::location}-object-ceph-04.%{hiera('domain_mgmt')}":  "%{::location}-object-04.%{hiera('domain_mgmt')}"
-    "%{::location}-object-ceph-05.%{hiera('domain_mgmt')}":  "%{::location}-object-05.%{hiera('domain_mgmt')}"
 
 #
 # Network configuration data
