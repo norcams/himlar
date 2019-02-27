@@ -118,6 +118,7 @@ profile::network::services::dns_records:
     "%{::location}-compute-atlas-14.%{hiera('domain_mgmt')}": "%{::location}-compute-14.%{hiera('domain_mgmt')}"
     "%{::location}-compute-atlas-15.%{hiera('domain_mgmt')}": "%{::location}-compute-15.%{hiera('domain_mgmt')}"
     "%{::location}-compute-atlas-16.%{hiera('domain_mgmt')}": "%{::location}-compute-16.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-vgpu-42.%{hiera('domain_mgmt')}":  "%{::location}-compute-42.%{hiera('domain_mgmt')}"
   A:
     # Frontend records (<foo>.uh-iaas.no)
     "access.%{hiera('domain_frontend')}":        '158.39.77.250'
