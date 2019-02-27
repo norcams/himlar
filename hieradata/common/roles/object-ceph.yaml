@@ -19,16 +19,15 @@ ceph::profile::params::public_network:        "%{::netpart_trp1}.0/%{cidr_trp1}"
 ceph::profile::params::osd_journal_size:      '10240'
 ceph::profile::params::client_keys:
   'client.admin':
-    secret: "%{hiera('client_admin::secret')}"
+    secret: "%{hiera('ceph_client_admin_secret')}"
     mode: '0600'
     user: 'ceph'
     group: 'ceph'
     cap_mon: 'allow *'
     cap_osd: 'allow *'
-    cap_mds: 'allow *'
     cap_mgr: 'allow *'
   'client.bootstrap-osd':
-    secret: "%{hiera('client_bootstrap-osd::secret')}"
+    secret: "%{hiera('ceph_client_osd_secret')}"
     keyring_path: '/var/lib/ceph/bootstrap-osd/ceph.keyring'
     cap_mon: 'allow profile bootstrap-osd'
 

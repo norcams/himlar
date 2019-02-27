@@ -10,16 +10,15 @@ ceph::profile::params::osd_pool_default_size:       '3'
 ceph::profile::params::osd_pool_default_min_size:   '1'
 ceph::profile::params::client_keys:
   'client.admin':
-    secret: "%{hiera('client_admin::secret')}"
+    secret: "%{hiera('ceph_client_admin_secret')}"
     mode: '0600'
     user: 'ceph'
     group: 'ceph'
     cap_mon: 'allow *'
     cap_osd: 'allow *'
-    cap_mds: 'allow *'
     cap_mgr: 'allow *'
   'client.bootstrap-osd':
-    secret: "%{hiera('client_bootstrap-osd::secret')}"
+    secret: "%{hiera('ceph_client_osd_secret')}"
     mode: '0600'
     user: 'ceph'
     group: 'ceph'
@@ -29,5 +28,5 @@ ceph::profile::params::client_keys:
     mode: '0600'
     user: 'ceph'
     group: 'ceph'
-    cap_mon: 'allow *'
-    cap_osd: 'allow *'
+    cap_mon: 'allow rw'
+    cap_osd: 'allow rwx'

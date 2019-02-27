@@ -193,7 +193,12 @@ client_bootstrap-mds::secret:                       'AQCztJdSyNb0NBAASA2yPZPuwXe
 client_glance::secret:                              'AQBGJ8dWKhgcNhAA+VU0GlKHcRLJSsJ8WouuSQ=='
 client_volumes::secret:                             'AQA4MPZTOGU0ARAAXH9a0fXxVq0X25n2yPREDw=='
 client_cinder::secret:                              'AQBypF1V2JYiChAA2qYbjM6jbXJBMmpXPkvwBg=='
-ceph_client_rgw_secret:                             'AQCVlWJcDbvrGRAANOeo5TVB29LcH+H9nPdarQ=='
+
+# object-ceph
+ceph_client_admin_secret:                           'AQA/gnZccTcjAhAAZNSlUElvqW4JI4W5Mu/DnQ=='
+ceph_client_osd_secret:                             'AQBwgnZc9w2yGxAAhI/FNgEGQ5u9sXEiNb8LHQ=='
+ceph_client_rgw_secret:                             'AQB7gnZc+0JyHhAAWxAt0LLADXAm++0wujSXiQ=='
+
 
 # service user api password
 keystone_admin_password:                            'admin_pass'

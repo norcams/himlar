@@ -141,25 +141,10 @@ profile::network::services::dns_records:
 ## Secret data which for other environments are stored ooutside of this data tree
 #
 
-# ceph.yaml
-ceph::profile::params::fsid:                        'cc91fb3d-6b18-4640-9743-1b9bb6b97d86'
-ceph::profile::params::mgr_key:                     'AQAOCudaiWQmKxAAjj6i10gfW887T2dYOCNLvw=='
-ceph::profile::params::mon_key:                     'AQBiBuda74XZIhAANsxa31M5wDiLenqEMqjH6g=='
-ceph::profile::params::mds_key:                     'AQAei5dbrrNpDhAA7251s/ZxmXNZvvV0pSOIxA=='
-client_admin::secret:                               'AQCKBudajsWkDxAAbPpCrtTiZrwhjX0VsG7i6Q=='
-client_bootstrap-osd::secret:                       'AQCpBudas7f5CRAAoWjwsLyPafAoLAOVA0IvDQ=='
-#client_bootstrap-mds::secret:                       'AQC9B+daWlaNCRAA1thFoG/FasdX4hy8QyYMLw=='
-#client_glance::secret:                              'AQDHCOdar7nQMRAAZ2l4hxy7PHWKiT2bXAGXEg=='
-#client_cinder::secret:                              'AQDvCOdaJ35QHRAAm1wr52RrldB4TareRfKdww=='
-ceph_client_rgw_secret:                             'AQCVlWJcDbvrGRAANOeo5TVB29LcH+H9nPdarQ=='
-
-# FIXME: puppet 3 legacy params
-client.admin::secret:                               'AQBMGHJTkC8HKhAAJ7NH255wYypgm1oVuV41MA=='
-client.bootstrap-osd::secret:                       'AQARG3JTsDDEHhAAVinHPiqvJkUi5Mww/URupw=='
-client.bootstrap-mds::secret:                       'AQCztJdSyNb0NBAASA2yPZPuwXeIQnDJ9O8gVw=='
-client.glance::secret:                              'AQBGJ8dWKhgcNhAA+VU0GlKHcRLJSsJ8WouuSQ=='
-client.volumes::secret:                             'AQA4MPZTOGU0ARAAXH9a0fXxVq0X25n2yPREDw=='
-client.cinder::secret:                              'AQBypF1V2JYiChAA2qYbjM6jbXJBMmpXPkvwBg=='
+# object-ceph
+ceph_client_admin_secret:                           'AQAIknZci/9lCxAAolMJzwm/uT7zEgMHnWQhYw=='
+ceph_client_osd_secret:                             'AQAAknZcmA/MMRAA1ELkRSjBR7AXLH/ZO++I7Q=='
+ceph_client_rgw_secret:                             'AQDrkXZc71xHJBAAnr3xcAxuCpom1ZOmylKtLA=='
 
 # service user api password
 keystone_admin_password:                            'admin_pass'
