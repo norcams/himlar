@@ -4,6 +4,14 @@ include:
     - profile::openstack::database::sql
     - profile::monitoring::sensu::mysql
     - profile::logging::logrotate
+    - profile::base::systemd
+
+profile::base::systemd::manage_limits: true
+profile::base::systemd::limits:
+  mariadb:
+    limits:
+      Service:
+        'LimitNOFILE': 32768
 
 # These should be set to valid options per location
 db_ssl_key:       '/etc/mysql/server-key.pem'

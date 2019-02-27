@@ -33,7 +33,7 @@ class profile::openstack::compute::hypervisor (
 
   if $manage_firewall {
     profile::firewall::rule{ '223 vnc accept tcp':
-      dport  => '5900-5999',
+      dport  => '5900-6099',
       extras => $firewall_extras,
     }
     profile::firewall::rule{ '224 migration accept tcp':

@@ -27,7 +27,25 @@ profile::base::network::cumulus_interfaces:
 
 profile::base::network::cumulus_bridges:
   'bridge':
-    'ports': [ 'host1', 'host2', 'host3', 'host4', 'host5', 'host6', 'host7', 'host8', 'host9', 'host10', 'host11', 'host12', 'host15', 'host16', 'peerlink', 'downlink' ]
+    'ports':
+      - host1
+      - host2
+      - host3
+      - host4
+      - host5
+      - host6
+      - host7
+      - host8
+      - host9
+      - host10
+      - host11
+      - host12
+      - host13
+      - host14
+      - host15
+      - host16
+      - peerlink
+      - downlink
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'true'
@@ -112,6 +130,18 @@ profile::base::network::cumulus_bonds:
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+  'host13':
+    'slaves': [ 'swp13', ]
+    'clag_id': '13'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host14':
+    'slaves': [ 'swp14', ]
+    'clag_id': '14'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
   'host15':
     'slaves': [ 'swp15', ]
     'clag_id': '15'
@@ -155,6 +185,12 @@ frrouting::frrouting::zebra_interfaces:
   'host11':
     - 'link-detect'
   'host12':
+    - 'link-detect'
+  'host12':
+    - 'link-detect'
+  'host13':
+    - 'link-detect'
+  'host14':
     - 'link-detect'
   'host15':
     - 'link-detect'
@@ -233,6 +269,12 @@ frrouting::frrouting::bgp_neighbor_groups:
       - '172.18.32.116'
       - '172.18.32.117'
       - '172.18.32.118'
+      - '172.18.33.11'
+      - '172.18.33.12'
+      - '172.18.33.13'
+      - '172.18.33.14'
+      - '172.18.33.15'
+      - '172.18.33.16'
     'options6':
       - 'neighbor rr-clients route-reflector-client'
       - 'maximum-paths ibgp 3'
@@ -249,6 +291,12 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'fd32::116'
       - 'fd32::117'
       - 'fd32::118'
+      - 'fd32:1::11'
+      - 'fd32:1::12'
+      - 'fd32:1::13'
+      - 'fd32:1::14'
+      - 'fd32:1::15'
+      - 'fd32:1::16'
 
 frrouting::frrouting::bgp_accesslist:
   '10':

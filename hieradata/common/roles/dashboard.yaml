@@ -5,6 +5,7 @@ include:
     - profile::logging::rsyslog::client
     - profile::webserver::apache::status
     - profile::openstack::cache
+    - profile::base::systemd
 
 profile::base::common::packages:
   'MySQL-python.x86_64': {}
@@ -107,9 +108,11 @@ horizon::keystone_options:
   can_edit_role:                False
 
 # Adjust the ulimit (number of open files) for Apache via systemd
-profile::openstack::dashboard::manage_systemd_unit: true
-profile::openstack::dashboard::httpd_systemd_extras:
-  'Service':
-    'LimitNOFILE': 32768
+profile::base::systemd::manage_limits: true
+profile::base::systemd::limits:
+  httpd:
+    limits:
+      Service:
+        'LimitNOFILE': 32768
 
 profile::openstack::dashboard::user_menu_links: '[]'
