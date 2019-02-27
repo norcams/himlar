@@ -3,12 +3,18 @@ include:
   default:
     - profile::openstack::openrc
     - profile::openstack::object::radosgw
+    - profile::storage::ceph::config
 
 profile::base::common::packages:
   'python-openstackclient': {}
   'bash-completion': {}
   'bash-completion-extras': {}
   'jq': {}
+
+profile::storage::ceph::config::manage_config: true
+profile::storage::ceph::config::config:
+  'client.radosgw.%{::location}-01/rgw_enable_usage_log':
+    value: true
 
 profile::openstack::openrc::password:     "%{hiera('radosgw_api_password')}"
 profile::openstack::openrc::username:     'radosgw'
