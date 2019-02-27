@@ -12,7 +12,9 @@ OPENSTACK_ENABLE_PASSWORD_RETRIEVE = '<%= @enable_pwd_retrieval %>'
 <% if @session_cookie_httponly -%>
 OPENSTACK_SESSION_COOKIE_HTTPONLY = '<%= @session_cookie_httponly %>'
 <% end -%>
-
+<% if @use_ssl -%>
+OPENSTACK_USE_SSL = '<%= @use_ssl %>'
+<% end -%>
 <% if @access_control_allow_origin -%>
 OPENSTACK_ACCESS_CONTROL_ALLOW_ORIGIN = '<%= @access_control_allow_origin %>'
 <% end -%>
