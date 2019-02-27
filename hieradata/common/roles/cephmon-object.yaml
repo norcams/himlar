@@ -8,6 +8,8 @@ ceph::profile::params::osd_pool_default_pg_num:     '32'
 ceph::profile::params::osd_pool_default_pgp_num:    '32'
 ceph::profile::params::osd_pool_default_size:       '3'
 ceph::profile::params::osd_pool_default_min_size:   '1'
+ceph::profile::params::mgr_key:                     "%{hiera('ceph_client_mgr_secret')}"
+ceph::profile::params::mon_key:                     "%{hiera('ceph_client_mon_secret')}"
 ceph::profile::params::client_keys:
   'client.admin':
     secret: "%{hiera('ceph_client_admin_secret')}"

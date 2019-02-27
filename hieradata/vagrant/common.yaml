@@ -184,20 +184,22 @@ profile::network::services::dns_records:
 #
 
 # ceph.yaml
-ceph::profile::params::fsid:                        'cc91fb3d-6b18-4640-9743-1b9bb6b97d86'
-ceph::profile::params::mgr_key:                     'AQAOCudaiWQmKxAAjj6i10gfW887T2dYOCNLvw=='
-ceph::profile::params::mon_key:                     'AQATGHJTUCBqIBAA7M2yafV1xctn1pgr3GcKPg=='
-client_admin::secret:                               'AQBMGHJTkC8HKhAAJ7NH255wYypgm1oVuV41MA=='
-client_bootstrap-osd::secret:                       'AQARG3JTsDDEHhAAVinHPiqvJkUi5Mww/URupw=='
-client_bootstrap-mds::secret:                       'AQCztJdSyNb0NBAASA2yPZPuwXeIQnDJ9O8gVw=='
-client_glance::secret:                              'AQBGJ8dWKhgcNhAA+VU0GlKHcRLJSsJ8WouuSQ=='
-client_volumes::secret:                             'AQA4MPZTOGU0ARAAXH9a0fXxVq0X25n2yPREDw=='
-client_cinder::secret:                              'AQBypF1V2JYiChAA2qYbjM6jbXJBMmpXPkvwBg=='
+# ceph::profile::params::fsid:                        'cc91fb3d-6b18-4640-9743-1b9bb6b97d86'
+# ceph::profile::params::mgr_key:                     'AQAOCudaiWQmKxAAjj6i10gfW887T2dYOCNLvw=='
+# ceph::profile::params::mon_key:                     'AQATGHJTUCBqIBAA7M2yafV1xctn1pgr3GcKPg=='
+# client_admin::secret:                               'AQBMGHJTkC8HKhAAJ7NH255wYypgm1oVuV41MA=='
+# client_bootstrap-osd::secret:                       'AQARG3JTsDDEHhAAVinHPiqvJkUi5Mww/URupw=='
+# client_bootstrap-mds::secret:                       'AQCztJdSyNb0NBAASA2yPZPuwXeIQnDJ9O8gVw=='
+# client_glance::secret:                              'AQBGJ8dWKhgcNhAA+VU0GlKHcRLJSsJ8WouuSQ=='
+# client_volumes::secret:                             'AQA4MPZTOGU0ARAAXH9a0fXxVq0X25n2yPREDw=='
+# client_cinder::secret:                              'AQBypF1V2JYiChAA2qYbjM6jbXJBMmpXPkvwBg=='
 
 # object-ceph
 ceph_client_admin_secret:                           'AQA/gnZccTcjAhAAZNSlUElvqW4JI4W5Mu/DnQ=='
 ceph_client_osd_secret:                             'AQBwgnZc9w2yGxAAhI/FNgEGQ5u9sXEiNb8LHQ=='
 ceph_client_rgw_secret:                             'AQB7gnZc+0JyHhAAWxAt0LLADXAm++0wujSXiQ=='
+ceph_client_mon_secret:                             'AQBflXZcIQ++IRAAOgLDLbPTZ+diLeF6iK0apA=='
+ceph_client_mgr_secret:                             'AQCElXZceElXFRAAuJKLUL+UVxAtkPzaD5h6ug=='
 
 
 # service user api password
