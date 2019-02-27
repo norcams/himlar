@@ -2,17 +2,10 @@
 # Helper class to create loopback disk for testing. Uses swift module
 #
 class profile::openstack::object::loopback(
-  $disks = {},
-  $before = undef,
-  $require = undef
+  $disks = {}
 ) {
 
-  $defaults = {
-    require => $require,
-    before => $before
-  }
-
   # Use loopback for testing in vagrant and disk otherwise
-  create_resources('profile::storage::loopback', $disks, $defaults)
+  create_resources('profile::storage::loopback', $disks)
 
 }
