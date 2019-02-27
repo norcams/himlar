@@ -167,7 +167,7 @@ class profile::base::network(
             # Find network and diff from base
             $ipnetpart6 = lookup("netcfg_${ifrole}_netpart6", String, 'first', '')
             if String($addrdiff) != '0' {
-              $newipaddr6 = "${ipnetpart6}::${addrdiff}:${ipbyte}"
+              $newipaddr6 = "${ipnetpart6}:${addrdiff}::${ipbyte}"
             }
             else {
               $newipaddr6 = "${ipnetpart6}::${ipbyte}"
