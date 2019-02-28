@@ -194,7 +194,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     options:
       - option:
         - 'httplog'
-        - 'httpchk /healthcheck'
+      - errorfile:    '503 /etc/haproxy/error.api.http'
   bk_status:
     options:
       - option:       'httplog'
@@ -291,7 +291,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     listening_service:  'bk_object'
     server_names:       "%{alias('object__backend__names')}"
     ipaddresses:        "%{alias('object__backend__ips')}"
-    ports:              '8080'
+    ports:              '7480'
     options:            'check'
   status:
     listening_service:  'bk_status'
@@ -330,6 +330,10 @@ profile::base::selinux::ports:
     seltype:  'http_port_t'
     protocol: 'tcp'
     port:     5000
+  object-http:
+    seltype:  'http_port_t'
+    protocol: 'tcp'
+    port:     7480
   network-http:
     seltype:  'http_port_t'
     protocol: 'tcp'

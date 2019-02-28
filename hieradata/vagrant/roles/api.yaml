@@ -5,6 +5,9 @@ include:
 
 profile::application::openssl::manage_ca_cert: true
 
+object__backend__names:    ['%{::location}-rgw-01']
+object__backend__ips:      ["%{hiera('netcfg_trp_netpart')}.84"]
+
 # Uncomment this to enable local logfile /var/log/haproxy.log
 # (will need clean install or full reinstall of rsyslog with all config files)
 #profile::highavailability::loadbalancing::haproxy::enable_remote_logging: true
@@ -31,6 +34,20 @@ profile::application::openssl::certs:
   "console.%{hiera('domain_public')}":
     cn:     "console.%{hiera('domain_public')}"
     concat: true
+#
+# Example of override image backend for more nodes
+#
+#profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
+#  image:
+#    listening_service:  'bk_image'
+#    ports:              9292
+#    server_names:
+#      - '%{::location}-image-01'
+#      - '%{::location}-image-02'
+#    ipaddresses:
+#      - "%{hiera('netcfg_trp_netpart')}.36"
+#      - "%{hiera('netcfg_trp_netpart')}.37"
+#    options:            'check'
 
 #
 # Example of override network backend for more nodes

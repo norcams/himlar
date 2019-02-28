@@ -1,0 +1,31 @@
+---
+named_interfaces::config:
+  mgmt:
+    - eth0
+  trp:
+    - eth1
+  ceph:
+    - eth1
+
+profile::storage::cephosd::osds:
+  '/dev/vdb': {} # SSD
+  '/dev/vdc': {} # SSD
+  '/dev/vdd': {} # HDD
+  '/dev/vde': {} # HDD
+  '/dev/vdf': {} # HDD
+  '/dev/vdg': {} # HDD
+  '/dev/vdh': {} # HDD
+
+profile::base::common::manage_fake_ssd: true
+
+profile::storage::fake_ssds:
+  'vdb': {}
+  'vdc': {}
+
+profile::storage::ceph::pool::ec_pools:
+  default.rgw.buckets.data:
+    k_data:     2
+    m_code:     1
+    pg_num:     512
+    custom:
+      min_size: '3' # this should always be k + 1 in production

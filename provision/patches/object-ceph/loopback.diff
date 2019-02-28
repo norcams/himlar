@@ -1,0 +1,21 @@
+diff --git a//usr/lib/python2.7/site-packages/ceph_volume/util/disk.py b/disk.py
+index 2cb6f7b..dc8228d 100644
+--- a//usr/lib/python2.7/site-packages/ceph_volume/util/disk.py
++++ b/disk.py
+@@ -198,7 +198,7 @@ def is_device(dev):
+     # use lsblk first, fall back to using stat
+     TYPE = lsblk(dev).get('TYPE')
+     if TYPE:
+-        return TYPE == 'disk'
++        return TYPE == 'disk' or TYPE == 'loop'
+
+     # fallback to stat
+     return _stat_is_device(os.lstat(dev).st_mode)
+@@ -283,7 +283,7 @@ def _map_dev_paths(_path, include_abspath=False, include_realpath=False):
+     return mapping
+
+
+-def get_block_devs(sys_block_path="/sys/block", skip_loop=True):
++def get_block_devs(sys_block_path="/sys/block", skip_loop=False):
+     """
+     Go through all the items in /sys/block and return them as a list.

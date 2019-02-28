@@ -1,0 +1,73 @@
+---
+include:
+  default:
+    - profile::openstack::openrc
+    - profile::openstack::object::radosgw
+    - profile::storage::ceph::config
+
+profile::base::common::packages:
+  'python-openstackclient': {}
+  'bash-completion': {}
+  'bash-completion-extras': {}
+  'jq': {}
+
+profile::storage::ceph::config::manage_config: true
+profile::storage::ceph::config::config:
+  'client.radosgw.%{::location}-01/rgw_enable_usage_log':
+    value: true
+
+profile::openstack::openrc::password:     "%{hiera('radosgw_api_password')}"
+profile::openstack::openrc::username:     'radosgw'
+profile::openstack::openrc::project_name: "%{hiera('keystone__service__project')}"
+
+profile::openstack::object::radosgw::manage_firewall: true
+
+# Ceph radosgw
+ceph::profile::params::rgw_name:      "radosgw.%{::location}-01"
+ceph::profile::params::frontend_type: 'civetweb'
+ceph::profile::params::rgw_user:      'ceph'
+ceph::profile::params::rgw_frontends: "civetweb port=%{::ipaddress_trp1}:7480"
+
+# Override default from modules/ceph.yaml
+ceph::profile::params::mon_host:                    '%{::netpart_trp1}.89:6789'
+ceph::profile::params::mon_initial_members:         '%{::location}-cephmon-object-01'
+ceph::profile::params::cluster_network:             '%{::netpart_trp1}.0/%{cidr_trp1}'
+ceph::profile::params::public_network:              '%{::netpart_trp1}.0/%{cidr_trp1}'
+ceph::profile::params::osd_pool_default_pg_num:     '32'
+ceph::profile::params::osd_pool_default_pgp_num:    '32'
+ceph::profile::params::osd_pool_default_size:       '3'
+ceph::profile::params::osd_pool_default_min_size:   '1'
+ceph::profile::params::client_keys:
+  'client.radosgw.%{::location}-01':
+    secret: "%{hiera('ceph_object_client_rgw_key')}"
+    mode: '0600'
+    user: 'ceph'
+    group: 'ceph'
+    cap_mon: 'allow rw'
+    cap_osd: 'allow rwx'
+
+profile::openstack::object::radosgw::keystone:
+  "radosgw.%{::location}-01":
+    rgw_keystone_url:                 "%{hiera('endpoint__identity__public')}"
+    rgw_keystone_version:             'v3'
+    rgw_keystone_accepted_roles:      ['object', 'admin']
+    rgw_keystone_token_cache_size:    0
+    rgw_keystone_revocation_interval: 0
+    rgw_s3_auth_use_keystone:         true
+    use_pki:                          false
+    user:                             'ceph'
+    rgw_keystone_admin_domain:        "%{hiera('keystone__default__domain')}"
+    rgw_keystone_admin_project:       "%{hiera('keystone__service__project')}"
+    rgw_keystone_admin_user:          'radosgw'
+    rgw_keystone_admin_password:      "%{hiera('radosgw_api_password')}"
+    rgw_keystone_implicit_tenants:    true
+
+# Enable extra yum repo
+profile::base::yumrepo::repo_hash:
+  ceph-%{hiera('ceph_version')}:
+    ensure: present
+  rdo-release:
+    ensure: present
+  epel: # should be absent when using RDO, but whitelist can also work
+    ensure: present
+    includepkgs: 'htop bash-completion-extras jq python-routes python2-bcrypt lttng-ust liboath libbabeltrace leveldb'

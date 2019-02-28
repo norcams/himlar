@@ -1,13 +1,4 @@
 ---
-profile::openstack::object::proxy::test_file: true
-#profile::openstack::object::proxy::ring_server:
-#  account:
-#    ring_server:  '172.31.8.119'
-#  object:
-#    ring_server:  '172.31.8.119'
-#  container:
-#    ring_server:  '172.31.8.119'
-
 profile::openstack::object::storage::loopback:
   'sda': # fake SSD
     base_dir: '/mnt'
@@ -30,6 +21,15 @@ profile::openstack::object::storage::loopback:
   'sdg': # fake HDD
     base_dir: '/mnt'
     seek:     '500000' # 500 MB
+
+profile::openstack::object::proxy::test_file: true
+#profile::openstack::object::proxy::ring_server:
+#  account:
+#    ring_server:  '172.31.8.119'
+#  object:
+#    ring_server:  '172.31.8.119'
+#  container:
+#    ring_server:  '172.31.8.119'
 
 # Object ring
 profile::openstack::object::storage::ring_object_nodes:

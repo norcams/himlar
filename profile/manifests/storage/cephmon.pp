@@ -17,10 +17,16 @@ class profile::storage::cephmon (
     ceph_config {
       'mon/mgr initial modules':    value => 'dashboard'
     }
+    exec { 'enable dashboard':
+      command     => 'ceph mgr module enable dashboard',
+      path        => '/usr/bin:/usr/sbin:/bin',
+      creates => $flagfile,
+    }
+      ~>
     exec { 'dashboard.crt':
       command => "ceph dashboard create-self-signed-cert",
       path    => '/usr/bin:/usr/sbin:/bin',
-      creates => $flagfile,
+      refreshonly => true,
     }
 
 
