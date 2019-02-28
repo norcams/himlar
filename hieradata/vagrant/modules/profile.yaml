@@ -21,7 +21,12 @@ sensu_ssl_cachain:  '-k'
 # no proxy for vagrant environments
 profile::network::yum_proxy::yum_proxy: ''
 
+# Everything is enabled in vagrant
+#profile::openstack::dashboard::manage_overrides:      false
+
+# Enable radosgw object storage in vagrant
 profile::openstack::identity::swift_enabled:          false
+profile::openstack::identity::radosgw_enabled:        true
 
 # Enable designate in vagrant
 profile::openstack::identity::designate_enabled:  true

@@ -5,6 +5,9 @@ include:
 
 profile::application::openssl::manage_ca_cert: true
 
+object__backend__names:    ['%{::location}-rgw-01']
+object__backend__ips:      ["%{hiera('netcfg_trp_netpart')}.84"]
+
 # Uncomment this to enable local logfile /var/log/haproxy.log
 # (will need clean install or full reinstall of rsyslog with all config files)
 #profile::highavailability::loadbalancing::haproxy::enable_remote_logging: true

@@ -79,6 +79,14 @@ nodesets:
     #- role:       "admin"
     #- role:       "ns"
     #  memory:     3096
+    #- role:       'cephmon-object'
+    #- role:       'rgw'
+    #- role:       'object-ceph'
+    #  hostid:     '01'
+    #- role:       'object-ceph'
+    #  hostid:     '02'
+    #- role:       'object-ceph'
+    #  hostid:     '03'
     # To use leaf see cumulus help below
     #- role:       "leaf"
     #  box:        "norcams/net"
@@ -123,6 +131,15 @@ nodesets:
     - role:       "compute"
       memory:     4096
       cpus:       2
+  object: # will also need running identity to test anything other than ceph
+    - role:       'cephmon-object'
+    - role:       'rgw'
+    - role:       'object-ceph'
+      hostid:     '01'
+    - role:       'object-ceph'
+      hostid:     '02'
+    - role:       'object-ceph'
+      hostid:     '03'
 
 networks:
   mgmt:

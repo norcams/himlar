@@ -16,8 +16,6 @@ settings_dashboard = horizon.get_dashboard("settings")
 
 project_panels = list()
 
-# Object storage
-project_panels.append(project_dashboard.get_panel("containers"))
 # Network->Routers
 project_panels.append(project_dashboard.get_panel("routers"))
 # Network->Networks
@@ -48,3 +46,9 @@ settings_dashboard.unregister(password_panel.__class__)
 # Remove Identity-> Users
 users_panel = identity_dashboard.get_panel("users")
 identity_dashboard.unregister(users_panel.__class__)
+
+# Object storage
+container_panel = project_dashboard.get_panel("containers")
+permissions = list()
+permissions.append('openstack.roles.object')
+container_panel.permissions = tuple(permissions)

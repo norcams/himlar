@@ -12,8 +12,6 @@ profile::openstack::openrc::cacert:             '/etc/pki/tls/certs/cachain.pem'
 
 yum_base_mirror:    'https://download.iaas.uio.no/uh-iaas/test'
 
-profile::openstack::identity::swift_enabled:      true
-
 # Enable insecure ssl checks
 sensu_ssl_cachain:  '-k'
 
@@ -22,3 +20,7 @@ profile::application::access::package_url:      'http://download.iaas.uio.no/uh-
 # Enable designate
 profile::openstack::identity::designate_enabled:      true
 profile::openstack::dashboard::enable_designate:      true
+
+# Enable radosgw object storage
+profile::openstack::identity::swift_enabled:          false
+profile::openstack::identity::radosgw_enabled:        true

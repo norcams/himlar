@@ -11,3 +11,7 @@ identity__backend__names:
 identity__backend__ips:
   - "%{hiera('netcfg_trp_netpart')}.81"
   - "%{hiera('netcfg_trp_netpart')}.82"
+object__backend__names:
+  - '%{::location}-rgw-01'
+object__backend__ips:
+  - "%{hiera('netcfg_trp_netpart')}.84"

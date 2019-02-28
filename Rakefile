@@ -14,6 +14,7 @@ Rake::Task[:lint].clear
 
 PuppetLint.configuration.relative = true
 PuppetLint.configuration.fail_on_warnings = true
+PuppetLint.configuration.fail_on_deprecation_notices = false
 PuppetLint.configuration.send('disable_80chars')
 PuppetLint.configuration.send('disable_140chars')
 PuppetLint.configuration.send('disable_arrow_alignment')
