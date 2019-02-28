@@ -27,7 +27,7 @@ ceph::profile::params::client_keys:
     cap_osd: 'allow *'
     cap_mgr: 'allow *'
   'client.bootstrap-osd':
-    secret: "%{hiera('ceph_object_client_osd_key')}"
+    secret: "%{hiera('ceph_object_client_bootstrap_osd_key')}"
     keyring_path: '/var/lib/ceph/bootstrap-osd/ceph.keyring'
     cap_mon: 'allow profile bootstrap-osd'
 

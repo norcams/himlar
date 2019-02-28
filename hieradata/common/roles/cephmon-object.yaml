@@ -20,7 +20,7 @@ ceph::profile::params::client_keys:
     cap_osd: 'allow *'
     cap_mgr: 'allow *'
   'client.bootstrap-osd':
-    secret: "%{hiera('ceph_object_client_osd_key')}"
+    secret: "%{hiera('ceph_object_client_bootstrap_osd_key')}"
     mode: '0600'
     user: 'ceph'
     group: 'ceph'
@@ -32,3 +32,5 @@ ceph::profile::params::client_keys:
     group: 'ceph'
     cap_mon: 'allow rw'
     cap_osd: 'allow rwx'
+
+profile::storage::cephmon::manage_dashboard:        false
