@@ -1,0 +1,29 @@
+---
+profile::base::lvm::physical_volume:
+  '/dev/sda3':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_ext':
+    physical_volumes:
+      - /dev/sda3
+profile::base::lvm::logical_volume:
+  'lv_instances':
+    volume_group: 'vg_ext'
+    fs_type:      "xfs"
+    mountpath:    "/var/lib/nova/instances"
+
+named_interfaces::config:
+  mgmt:
+    - eth4
+  trp:
+    - team1
+  live:
+    - team1.120
+
+profile::base::network::network_auto_bonding:
+  trp:
+    eth2:
+      'team_port_config': '{ "prio" : 100 }'
+    eth3:
+      'team_port_config': '{ "prio" : 100 }'
