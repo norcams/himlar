@@ -3,6 +3,10 @@ include:
   default:
     - profile::storage::cephmds
 
+# ceph config keys and ids
+ceph::profile::params::fsid:        "%{hiera('ceph_storage_client_fsid')}"
+ceph::profile::params::mds_key:     "%{hiera('ceph_storage_client_mds_key')}"
+
 profile::storage::cephmds::manage_firewall:  true
 
 profile::base::common::packages:
@@ -24,12 +28,12 @@ profile::base::yumrepo::repo_hash:
 
 ceph::profile::params::client_keys:
   'client.admin':
-    secret: "%{hiera('client_admin::secret')}"
+    secret: "%{hiera('ceph_storage_client_admin_key')}"
     mode: '0600'
     user: 'ceph'
     group: 'ceph'
     cap_mds: 'allow *'
   'client.bootstrap-mds':
-    secret: "%{hiera('client_bootstrap-mds::secret')}"
+    secret: "%{hiera('ceph_storage_client_bootstrap_mds_key')}"
     keyring_path: '/var/lib/ceph/bootstrap-mds/ceph.keyring'
     cap_mon: 'allow profile bootstrap-mds'
