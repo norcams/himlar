@@ -39,7 +39,7 @@ ceph::profile::params::osd_pool_default_size:       '3'
 ceph::profile::params::osd_pool_default_min_size:   '1'
 ceph::profile::params::client_keys:
   'client.radosgw.%{::location}-01':
-    secret: "%{hiera('ceph_client_rgw_secret')}"
+    secret: "%{hiera('ceph_object_client_rgw_key')}"
     mode: '0600'
     user: 'ceph'
     group: 'ceph'

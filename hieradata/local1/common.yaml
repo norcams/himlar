@@ -142,11 +142,11 @@ profile::network::services::dns_records:
 #
 
 # object-ceph
-ceph_client_admin_secret:                           'AQAIknZci/9lCxAAolMJzwm/uT7zEgMHnWQhYw=='
-ceph_client_osd_secret:                             'AQAAknZcmA/MMRAA1ELkRSjBR7AXLH/ZO++I7Q=='
-ceph_client_rgw_secret:                             'AQDrkXZc71xHJBAAnr3xcAxuCpom1ZOmylKtLA=='
-ceph_client_mon_secret:                             'AQC+lXZcanv4NhAAGWDjSYE6+L9hUBDz3CyJnQ=='
-ceph_client_mgr_secret:                             'AQDGlXZcDURFGRAAcC83q3uF6jjIqgPoerZ/PQ=='
+ceph_object_client_admin_key:                       'AQAIknZci/9lCxAAolMJzwm/uT7zEgMHnWQhYw=='
+ceph_object_client_osd_key:                         'AQAAknZcmA/MMRAA1ELkRSjBR7AXLH/ZO++I7Q=='
+ceph_object_client_rgw_key:                         'AQDrkXZc71xHJBAAnr3xcAxuCpom1ZOmylKtLA=='
+ceph_object_client_mon_key:                         'AQC+lXZcanv4NhAAGWDjSYE6+L9hUBDz3CyJnQ=='
+ceph_object_client_mgr_key:                         'AQDGlXZcDURFGRAAcC83q3uF6jjIqgPoerZ/PQ=='
 
 # service user api password
 keystone_admin_password:                            'admin_pass'

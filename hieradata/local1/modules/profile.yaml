@@ -21,6 +21,6 @@ profile::application::access::package_url:      'http://download.iaas.uio.no/uh-
 profile::openstack::identity::designate_enabled:      true
 profile::openstack::dashboard::enable_designate:      true
 
-# Enable radosgw object storage in vagrant
+# Enable radosgw object storage
 profile::openstack::identity::swift_enabled:          false
 profile::openstack::identity::radosgw_enabled:        true
