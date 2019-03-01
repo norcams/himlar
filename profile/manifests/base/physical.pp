@@ -116,6 +116,9 @@ class profile::base::physical (
             }
           }
         }
+        default: {
+          notice('BMC for this vendor is not supported')
+        }
       }
     }
   }
