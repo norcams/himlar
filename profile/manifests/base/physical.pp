@@ -42,6 +42,17 @@ class profile::base::physical (
       $http_proxy     = lookup('mgmt__address__proxy', String, 'first', '')
       $http_proxy_url = " --proxy1.0 ${http_proxy}:8888"
     }
+    case $facts['manufacturer'] {
+      'Dell Inc.': {
+        $connection_string = '/redfish/v1/Systems/System.Embedded.1'
+      }
+      'Supermicro': {
+        $connection_string = '/redfish/v1/Systems/1'
+      }
+      default: {
+        $connection_string = '/redfish/v1/Systems/1'
+      }
+    }
     file { 'redfish_status.sh':
       ensure  => file,
       path    => '/usr/local/bin/redfish_check.sh',
