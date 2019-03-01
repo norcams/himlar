@@ -16,7 +16,7 @@ class profile::base::physical (
   $bmc_supermicro_attributes = {
     'Address'       => undef,
     'Gateway'       => lookup('netcfg_oob_gateway', String, 'first', ''),
-    'SubNetmask'    => lookup('netcfg_oob_netmask', String, 'first', ''),
+    'SubnetMask'    => lookup('netcfg_oob_netmask', String, 'first', ''),
     'AddressOrigin' => 'Static',
   },
 ) {
@@ -67,7 +67,7 @@ class profile::base::physical (
     }
   }
 
-  # FIXME: This must be expanded to support bmcs other than Dell iDRAC
+  # FIXME: This should be done more efficient when more vendors enter our scene
   if ($configure_bmc_nic) and ($::runmode == 'default') {
     $addresslist = lookup('profile::network::services::dns_records', Hash, 'deep', '')
     $cname = $addresslist['CNAME'][$::clientcert]
