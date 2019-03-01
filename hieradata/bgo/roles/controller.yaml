@@ -11,6 +11,7 @@ himlar_bootstrap::virt_install:
     vm_memory:       8096
     vm_console:      false
 
+profile::base::physical::configure_bmc_nic:          true
 profile::base::physical::enable_redfish_sensu_check: true
 profile::monitoring::sensu::agent::checks:
   'redfish-check':

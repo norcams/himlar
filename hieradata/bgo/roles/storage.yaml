@@ -23,6 +23,7 @@ profile::base::network::network_auto_opts:
 profile::storage::cephpool::manage_ec_pools:         true
 profile::storage::cephpool::manage_cephpool_params:  true
 
+profile::base::physical::configure_bmc_nic:          true
 profile::base::physical::enable_redfish_sensu_check: true
 profile::monitoring::sensu::agent::checks:
   'redfish-check':
