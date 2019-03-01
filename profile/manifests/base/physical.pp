@@ -73,23 +73,23 @@ class profile::base::physical (
     }
     # Configure only if this nodes network seems to be properly configured to avoid snafus
     if ($mgmtaddress) == ($::ipaddress_mgmt1) {
-      $bmc_network  = regsubst($::ipaddress_trp1, '^(\d+)\.(\d+)\.(\d+)\.(\d+)$','\2',) - 1
-      $bmc_address  = regsubst($::ipaddress_trp1, '^(\d+)\.(\d+)\.(\d+)\.(\d+)$',"\\1.${bmc_network}.\\3.\\4",)
-      $bmc_username = lookup("bmc_username", String, 'first', '')
-      $bmc_password = lookup("bmc_password_${::location}", String, 'first', '')
+      $bmc_network_set  = regsubst($::ipaddress_trp1, '^(\d+)\.(\d+)\.(\d+)\.(\d+)$','\2',) - 1
+      $bmc_address_set  = regsubst($::ipaddress_trp1, '^(\d+)\.(\d+)\.(\d+)\.(\d+)$',"\\1.${bmc_network_set}.\\3.\\4",)
+      $bmc_username_set = lookup("bmc_username", String, 'first', '')
+      $bmc_password_set = lookup("bmc_password_${::location}", String, 'first', '')
       if $enable_redfish_http_proxy {
-        $http_proxy     = lookup('mgmt__address__proxy', String, 'first', '')
-        $http_proxy_url = " --proxy1.0 ${http_proxy}:8888"
+        $http_proxy_set     = lookup('mgmt__address__proxy', String, 'first', '')
+        $http_proxy_url_set = " --proxy1.0 ${http_proxy_set}:8888"
       }
       $bmc_idrac_attributes.each |$attribute, $value| {
         if ($attribute == 'IPv4Static.1.Address') and (!$value) {
-          $attr_value = $bmc_address
+          $attr_value = $bmc_address_set
         }
         else {
           $attr_value = $value
         }
         exec { "Set bmc static configuration - ${attribute}":
-          command     => "/bin/curl -f -s https://${bmc_address}/redfish/v1/Managers/iDRAC.Embedded.1/Attributes -k -u ${bmc_username}:${bmc_password} ${http_proxy_url} --connect-timeout 20 -X PATCH -H \"Content-Type: application/json\" -d \'{\"Attributes\" : {\"${attribute}\":\"${attr_value}\"}}\' && /bin/touch /etc/.bmc_configured-${attribute}",
+          command     => "/bin/curl -f -s https://${bmc_address_set}/redfish/v1/Managers/iDRAC.Embedded.1/Attributes -k -u ${bmc_username_set}:${bmc_password_set} ${http_proxy_url_set} --connect-timeout 20 -X PATCH -H \"Content-Type: application/json\" -d \'{\"Attributes\" : {\"${attribute}\":\"${attr_value}\"}}\' && /bin/touch /etc/.bmc_configured-${attribute}",
           creates     => "/etc/.bmc_configured-${attribute}",
         }
       }
