@@ -13,6 +13,12 @@ class profile::base::physical (
     'IPv4Static.1.DNS1'        => $bmc_dns_server,
     'IPv4.1.DHCPEnable'        => 'Disabled',
   },
+  $bmc_supermicro_attributes = {
+    'Address'       => undef,
+    'Gateway'       => lookup('netcfg_oob_gateway', String, 'first', ''),
+    'SubNetmask'    => lookup('netcfg_oob_netmask', String, 'first', ''),
+    'AddressOrigin' => 'Static',
+  },
 ) {
   include ::lldp
   include ::ipmi
@@ -81,16 +87,34 @@ class profile::base::physical (
         $http_proxy_set     = lookup('mgmt__address__proxy', String, 'first', '')
         $http_proxy_url_set = " --proxy1.0 ${http_proxy_set}:8888"
       }
-      $bmc_idrac_attributes.each |$attribute, $value| {
-        if ($attribute == 'IPv4Static.1.Address') and (!$value) {
-          $attr_value = $bmc_address_set
+      case $facts['manufacturer'] {
+        'Dell Inc.': {
+          $bmc_idrac_attributes.each |$attribute, $value| {
+            if ($attribute == 'IPv4Static.1.Address') and (!$value) {
+              $attr_value = $bmc_address_set
+            }
+            else {
+              $attr_value = $value
+            }
+            exec { "Set bmc static configuration - ${attribute}":
+              command     => "/bin/curl -f -s https://${bmc_address_set}/redfish/v1/Managers/iDRAC.Embedded.1/Attributes -k -u ${bmc_username_set}:${bmc_password_set} ${http_proxy_url_set} --connect-timeout 20 -X PATCH -H \"Content-Type: application/json\" -d \'{\"Attributes\" : {\"${attribute}\":\"${attr_value}\"}}\' && /bin/touch /etc/.bmc_configured-${attribute}",
+              creates     => "/etc/.bmc_configured-${attribute}",
+            }
+          }
         }
-        else {
-          $attr_value = $value
-        }
-        exec { "Set bmc static configuration - ${attribute}":
-          command     => "/bin/curl -f -s https://${bmc_address_set}/redfish/v1/Managers/iDRAC.Embedded.1/Attributes -k -u ${bmc_username_set}:${bmc_password_set} ${http_proxy_url_set} --connect-timeout 20 -X PATCH -H \"Content-Type: application/json\" -d \'{\"Attributes\" : {\"${attribute}\":\"${attr_value}\"}}\' && /bin/touch /etc/.bmc_configured-${attribute}",
-          creates     => "/etc/.bmc_configured-${attribute}",
+        'Supermicro': {
+          $bmc_idrac_attributes.each |$attribute, $value| {
+            if ($attribute == 'IPv4Static.1.Address') and (!$value) {
+              $attr_value = $bmc_address_set
+            }
+            else {
+              $attr_value = $value
+            }
+            exec { "Set bmc static configuration - ${attribute}":
+              command     => "/bin/curl -f -s https://${bmc_address_set}/redfish/v1/Managers/1/EthernetInterfaces/1 -k -u ${bmc_username_set}:${bmc_password_set} ${http_proxy_url_set} --connect-timeout 20 -X PATCH -H \"Content-Type: application/json\" -d \'{\"IPv4Addresses\" : {\"${attribute}\":\"${attr_value}\"}}\' && /bin/touch /etc/.bmc_configured-${attribute}",
+              creates     => "/etc/.bmc_configured-${attribute}",
+            }
+          }
         }
       }
     }
