@@ -46,6 +46,8 @@ profile::base::network::cumulus_bridges:
       - host16
       - host17
       - host18
+      - host19
+      - host20
       - host42
       - peerlink
       - downlink
@@ -169,6 +171,18 @@ profile::base::network::cumulus_bonds:
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+  'host19':
+    'slaves': [ 'swp19', ]
+    'clag_id': '19'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host20':
+    'slaves': [ 'swp20', ]
+    'clag_id': '20'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
   'host42':
     'slaves': [ 'swp42', ]
     'clag_id': '42'
@@ -220,6 +234,10 @@ frrouting::frrouting::zebra_interfaces:
   'host17':
     - 'link-detect'
   'host18':
+    - 'link-detect'
+  'host19':
+    - 'link-detect'
+  'host20':
     - 'link-detect'
   'host42':
     - 'link-detect'
