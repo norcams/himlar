@@ -64,7 +64,13 @@ class profile::base::physical (
   # FIXME: This must be expanded to support bmcs other than Dell iDRAC
   if ($configure_bmc_nic) and ($::runmode == 'default') {
     $addresslist = lookup('profile::network::services::dns_records', Hash, 'deep', '')
-    $mgmtaddress = $addresslist['A'][$::clientcert]
+    $cname = $addresslist['CNAME'][$::clientcert]
+    if empty($cname) {
+      $mgmtaddress = $addresslist['A'][$::clientcert]
+    }
+    else {
+      $mgmtaddress = $addresslist['A'][$cname]
+    }
     # Configure only if this nodes network seems to be properly configured to avoid snafus
     if ($mgmtaddress) == ($::ipaddress_mgmt1) {
       $bmc_network  = regsubst($::ipaddress_trp1, '^(\d+)\.(\d+)\.(\d+)\.(\d+)$','\2',) - 1
