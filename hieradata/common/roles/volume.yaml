@@ -85,21 +85,21 @@ profile::base::yumrepo::repo_hash:
 # Volume nodes need only cinder and glance keys
 ceph::profile::params::client_keys:
   'client.cinder':
-    secret: "%{hiera('client_cinder::secret')}"
+    secret: "%{hiera('ceph_storage_client_cinder_key')}"
     mode: '0600'
     user: 'cinder'
     group: 'cinder'
     cap_mon: 'profile rbd'
     cap_osd: 'profile rbd pool=volumes, profile rbd pool=vms, profile rbd pool=images'
   'client.glance':
-    secret: "%{hiera('client_glance::secret')}"
+    secret: "%{hiera('ceph_storage_client_glance_key')}"
     mode: '0600'
     user: 'cinder'
     group: 'cinder'
     cap_mon: 'profile rbd'
     cap_osd: 'profile rbd pool=images'
   'client.cinder-hdd-ec':
-    secret: "%{hiera('client_cinder::secret')}"
+    secret: "%{hiera('ceph_storage_client_cinder_key')}"
     mode: '0600'
     user: 'cinder'
     group: 'cinder'

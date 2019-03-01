@@ -20,7 +20,7 @@ ceph::profile::params::public_addr:                 "%{ipaddress_trp1}" # Needed
 ##ceph::profile::params::mon_keyring: '/etc/ceph/ceph.mon.keyring'
 ceph::profile::params::client_keys:
   'client.admin':
-    secret: "%{hiera('client_admin::secret')}"
+    secret: "%{hiera('ceph_storage_client_admin_key')}"
     mode: '0600'
     user: 'ceph'
     group: 'ceph'
@@ -29,29 +29,29 @@ ceph::profile::params::client_keys:
     cap_mds: 'allow *'
     cap_mgr: 'allow *'
   'client.bootstrap-osd':
-    secret: "%{hiera('client_bootstrap-osd::secret')}"
+    secret: "%{hiera('ceph_storage_client_bootstrap_osd_key')}"
     keyring_path: '/var/lib/ceph/bootstrap-osd/ceph.keyring'
     cap_mon: 'allow profile bootstrap-osd'
   'client.bootstrap-mds':
-    secret: "%{hiera('client_bootstrap-mds::secret')}"
+    secret: "%{hiera('ceph_storage_client_bootstrap_mds_key')}"
     keyring_path: '/var/lib/ceph/bootstrap-mds/ceph.keyring'
     cap_mon: 'allow profile bootstrap-mds'
   'client.glance':
-    secret: "%{hiera('client_glance::secret')}"
+    secret: "%{hiera('ceph_storage_client_glance_key')}"
     mode: '0600'
     user: 'glance'
     group: 'glance'
     cap_mon: 'profile rbd'
     cap_osd: 'profile rbd pool=images'
   'client.cinder':
-    secret: "%{hiera('client_cinder::secret')}"
+    secret: "%{hiera('ceph_storage_client_cinder_key')}"
     mode: '0600'
     user: 'cinder'
     group: 'cinder'
     cap_mon: 'profile rbd'
     cap_osd: 'profile rbd pool=volumes, profile rbd pool=vms, profile rbd pool=images'
   'client.cinder-hdd-ec':
-    secret: "%{hiera('client_cinder::secret')}"
+    secret: "%{hiera('ceph_storage_client_cinder_key')}"
     mode: '0600'
     user: 'cinder'
     group: 'cinder'

@@ -146,15 +146,15 @@ profile::openstack::image::api::backend: 'rbd'
 #
 
 # ceph.yaml
-ceph::profile::params::fsid:                        'cc91fb3d-6b18-4640-9743-1b9bb6b97d86'
-ceph::profile::params::mgr_key:                     'AQAOCudaiWQmKxAAjj6i10gfW887T2dYOCNLvw=='
-ceph::profile::params::mon_key:                     'AQBiBuda74XZIhAANsxa31M5wDiLenqEMqjH6g=='
-ceph::profile::params::mds_key:                     'AQAei5dbrrNpDhAA7251s/ZxmXNZvvV0pSOIxA=='
-client_admin::secret:                               'AQCKBudajsWkDxAAbPpCrtTiZrwhjX0VsG7i6Q=='
-client_bootstrap-osd::secret:                       'AQCpBudas7f5CRAAoWjwsLyPafAoLAOVA0IvDQ=='
-client_bootstrap-mds::secret:                       'AQC9B+daWlaNCRAA1thFoG/FasdX4hy8QyYMLw=='
-client_glance::secret:                              'AQDHCOdar7nQMRAAZ2l4hxy7PHWKiT2bXAGXEg=='
-client_cinder::secret:                              'AQDvCOdaJ35QHRAAm1wr52RrldB4TareRfKdww=='
+ceph_storage_client_fsid:                           'cc91fb3d-6b18-4640-9743-1b9bb6b97d86'
+ceph_storage_client_mgr_key:                        'AQAOCudaiWQmKxAAjj6i10gfW887T2dYOCNLvw=='
+ceph_storage_client_mon_key:                        'AQBiBuda74XZIhAANsxa31M5wDiLenqEMqjH6g=='
+ceph_storage_client_mds_key:                        'AQAei5dbrrNpDhAA7251s/ZxmXNZvvV0pSOIxA=='
+ceph_storage_client_admin_key:                      'AQCKBudajsWkDxAAbPpCrtTiZrwhjX0VsG7i6Q=='
+ceph_storage_client_bootstrap_osd_key:              'AQCpBudas7f5CRAAoWjwsLyPafAoLAOVA0IvDQ=='
+ceph_storage_client_bootstrap_mds_key:              'AQC9B+daWlaNCRAA1thFoG/FasdX4hy8QyYMLw=='
+ceph_storage_client_glance_key:                     'AQDHCOdar7nQMRAAZ2l4hxy7PHWKiT2bXAGXEg=='
+ceph_storage_client_cinder_key:                     'AQDvCOdaJ35QHRAAm1wr52RrldB4TareRfKdww=='
 libvirt_rbd_secret_uuid:                            '38d88163-3058-436e-a214-085214c6fa78'
 
 # service user api password
