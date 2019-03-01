@@ -48,3 +48,4 @@ profile::base::yumrepo::repo_hash:
 
 # enable Ceph dashboard
 profile::storage::cephmon::manage_dashboard:                    true
+profile::storage::cephmon::dashboard_password:                  "%{hiera('ceph_storage_dashboard_password')}"
