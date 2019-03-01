@@ -103,8 +103,8 @@ class profile::base::physical (
           }
         }
         'Supermicro': {
-          $bmc_idrac_attributes.each |$attribute, $value| {
-            if ($attribute == 'IPv4Static.1.Address') and (!$value) {
+          $bmc_supermicro_attributes.each |$attribute, $value| {
+            if ($attribute == 'Address') and (!$value) {
               $attr_value = $bmc_address_set
             }
             else {
