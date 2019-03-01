@@ -10,10 +10,8 @@ include:
 ceph::profile::params::mon_key:     "%{hiera('ceph_storage_client_mon_key')}"
 ceph::profile::params::mgr_key:     "%{hiera('ceph_storage_client_mgr_key')}"
 
-profile::storage::cephmon::manage_dashboard:                    true
 profile::storage::cephmon_firewall::manage_firewall:            true
 profile::storage::cephmon_firewall::manage_dashboard_firewall:  "%{hiera('profile::storage::cephmon::manage_dashboard')}"
-profile::storage::cephmon::dashboard_password:                  "pass123"
 
 profile::base::common::packages:
   'redhat-lsb-core': {}
@@ -49,3 +47,7 @@ profile::monitoring::sensu::agent::plugins:
 profile::base::yumrepo::repo_hash:
   ceph-%{hiera('ceph_version')}:
     ensure: present
+
+# enable Ceph dashboard
+profile::storage::cephmon::manage_dashboard:                    true
+profile::storage::cephmon::dashboard_password:                  "%{hiera('ceph_storage_dashboard_password')}"

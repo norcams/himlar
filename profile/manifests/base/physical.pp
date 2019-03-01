@@ -13,6 +13,12 @@ class profile::base::physical (
     'IPv4Static.1.DNS1'        => $bmc_dns_server,
     'IPv4.1.DHCPEnable'        => 'Disabled',
   },
+  $bmc_supermicro_attributes = {
+    'Address'       => undef,
+    'Gateway'       => lookup('netcfg_oob_gateway', String, 'first', ''),
+    'SubnetMask'    => lookup('netcfg_oob_netmask', String, 'first', ''),
+    'AddressOrigin' => 'Static',
+  },
 ) {
   include ::lldp
   include ::ipmi
@@ -42,6 +48,17 @@ class profile::base::physical (
       $http_proxy     = lookup('mgmt__address__proxy', String, 'first', '')
       $http_proxy_url = " --proxy1.0 ${http_proxy}:8888"
     }
+    case $facts['manufacturer'] {
+      'Dell Inc.': {
+        $connection_string = '/redfish/v1/Systems/System.Embedded.1'
+      }
+      'Supermicro': {
+        $connection_string = '/redfish/v1/Systems/1'
+      }
+      default: {
+        $connection_string = '/redfish/v1/Systems/1'
+      }
+    }
     file { 'redfish_status.sh':
       ensure  => file,
       path    => '/usr/local/bin/redfish_check.sh',
@@ -50,30 +67,54 @@ class profile::base::physical (
     }
   }
 
-  # FIXME: This must be expanded to support bmcs other than Dell iDRAC
+  # FIXME: This should be done more efficient when more vendors enter our scene
   if ($configure_bmc_nic) and ($::runmode == 'default') {
     $addresslist = lookup('profile::network::services::dns_records', Hash, 'deep', '')
-    $mgmtaddress = $addresslist['A'][$::clientcert]
+    $cname = $addresslist['CNAME'][$::clientcert]
+    if empty($cname) {
+      $mgmtaddress = $addresslist['A'][$::clientcert]
+    }
+    else {
+      $mgmtaddress = $addresslist['A'][$cname]
+    }
     # Configure only if this nodes network seems to be properly configured to avoid snafus
     if ($mgmtaddress) == ($::ipaddress_mgmt1) {
-      $bmc_network  = regsubst($::ipaddress_trp1, '^(\d+)\.(\d+)\.(\d+)\.(\d+)$','\2',) - 1
-      $bmc_address  = regsubst($::ipaddress_trp1, '^(\d+)\.(\d+)\.(\d+)\.(\d+)$',"\\1.${bmc_network}.\\3.\\4",)
-      $bmc_username = lookup("bmc_username", String, 'first', '')
-      $bmc_password = lookup("bmc_password_${::location}", String, 'first', '')
+      $bmc_network_set  = regsubst($::ipaddress_trp1, '^(\d+)\.(\d+)\.(\d+)\.(\d+)$','\2',) - 1
+      $bmc_address_set  = regsubst($::ipaddress_trp1, '^(\d+)\.(\d+)\.(\d+)\.(\d+)$',"\\1.${bmc_network_set}.\\3.\\4",)
+      $bmc_username_set = lookup("bmc_username", String, 'first', '')
+      $bmc_password_set = lookup("bmc_password_${::location}", String, 'first', '')
       if $enable_redfish_http_proxy {
-        $http_proxy     = lookup('mgmt__address__proxy', String, 'first', '')
-        $http_proxy_url = " --proxy1.0 ${http_proxy}:8888"
+        $http_proxy_set     = lookup('mgmt__address__proxy', String, 'first', '')
+        $http_proxy_url_set = " --proxy1.0 ${http_proxy_set}:8888"
       }
-      $bmc_idrac_attributes.each |$attribute, $value| {
-        if ($attribute == 'IPv4Static.1.Address') and (!$value) {
-          $attr_value = $bmc_address
+      case $facts['manufacturer'] {
+        'Dell Inc.': {
+          $bmc_idrac_attributes.each |$attribute, $value| {
+            if ($attribute == 'IPv4Static.1.Address') and (!$value) {
+              $attr_value = $bmc_address_set
+            }
+            else {
+              $attr_value = $value
+            }
+            exec { "Set bmc static configuration - ${attribute}":
+              command     => "/bin/curl -f -s https://${bmc_address_set}/redfish/v1/Managers/iDRAC.Embedded.1/Attributes -k -u ${bmc_username_set}:${bmc_password_set} ${http_proxy_url_set} --connect-timeout 20 -X PATCH -H \"Content-Type: application/json\" -d \'{\"Attributes\" : {\"${attribute}\":\"${attr_value}\"}}\' && /bin/touch /etc/.bmc_configured-${attribute}",
+              creates     => "/etc/.bmc_configured-${attribute}",
+            }
+          }
         }
-        else {
-          $attr_value = $value
-        }
-        exec { "Set bmc static configuration - ${attribute}":
-          command     => "/bin/curl -f -s https://${bmc_address}/redfish/v1/Managers/iDRAC.Embedded.1/Attributes -k -u ${bmc_username}:${bmc_password} ${http_proxy_url} --connect-timeout 20 -X PATCH -H \"Content-Type: application/json\" -d \'{\"Attributes\" : {\"${attribute}\":\"${attr_value}\"}}\' && /bin/touch /etc/.bmc_configured-${attribute}",
-          creates     => "/etc/.bmc_configured-${attribute}",
+        'Supermicro': {
+          $bmc_supermicro_attributes.each |$attribute, $value| {
+            if ($attribute == 'Address') and (!$value) {
+              $attr_value = $bmc_address_set
+            }
+            else {
+              $attr_value = $value
+            }
+            exec { "Set bmc static configuration - ${attribute}":
+              command     => "/bin/curl -f -s https://${bmc_address_set}/redfish/v1/Managers/1/EthernetInterfaces/1 -k -u ${bmc_username_set}:${bmc_password_set} ${http_proxy_url_set} --connect-timeout 20 -X PATCH -H \"Content-Type: application/json\" -d \'{\"IPv4Addresses\" : {\"${attribute}\":\"${attr_value}\"}}\' && /bin/touch /etc/.bmc_configured-${attribute}",
+              creates     => "/etc/.bmc_configured-${attribute}",
+            }
+          }
         }
       }
     }
