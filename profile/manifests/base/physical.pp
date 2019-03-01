@@ -39,6 +39,23 @@ class profile::base::physical (
     }
   }
 
+  # For Intel X710 Converged NICs we must disable the internal lldp service for lldpd to work in os. Run at every boot
+  unless empty($::intel_x710) {
+    $x710_nics = $::intel_x710
+    $x710_nics.each |$pci_number| {
+      file { "lldp-x710-${pci_number}.service":
+        ensure  => file,
+        path    => "/etc/systemd/system/lldp-x710-${pci_number}.service",
+        content => template("${module_name}/base/physical/disable_x710_lldp_service.erb"),
+      } ~>
+      service { "Disable internal lldp in nic - slot ${pci_number}":
+        enable      => true,
+        hasrestart  => false,
+        name        => "lldp-x710-${pci_number}",
+      }
+    }
+  }
+
   if ($enable_redfish_sensu_check) and ($::runmode == 'default') {
     $bmc_network  = regsubst($::ipaddress_trp1, '^(\d+)\.(\d+)\.(\d+)\.(\d+)$','\2',) - 1
     $bmc_address  = regsubst($::ipaddress_trp1, '^(\d+)\.(\d+)\.(\d+)\.(\d+)$',"\\1.${bmc_network}.\\3.\\4",)
