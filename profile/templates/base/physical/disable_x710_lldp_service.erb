@@ -1,0 +1,8 @@
+[Unit]
+Description=Disable internal lldp agent in Intel x710 - Slot <%= @pci_number %>
+
+[Service]
+ExecStart=/bin/bash -c '/bin/echo lldp stop > "/sys/kernel/debug/i40e/0000:<%= @pci_number %>/command"'
+
+[Install]
+WantedBy=multi-user.target
