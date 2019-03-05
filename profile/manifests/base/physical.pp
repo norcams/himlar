@@ -106,7 +106,7 @@ class profile::base::physical (
       }
       case $facts['manufacturer'] {
         'Dell Inc.': {
-          unless $facts['productname'] =~ "(FC|[RTM])[1-9][1-3]\d.*" {
+          unless $facts['productname'] =~ '(FC|[RTM])[1-9][1-3]\d.*' {
             $bmc_idrac_attributes.each |$attribute, $value| {
               if ($attribute == 'IPv4Static.1.Address') and (!$value) {
                 $attr_value = $bmc_address_set
