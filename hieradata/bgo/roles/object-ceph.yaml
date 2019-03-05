@@ -23,14 +23,6 @@ ceph::profile::params::mon_initial_members:   '%{::location}-cephmon-object-01,%
 ceph::profile::params::cluster_network:       "%{::network_ceph1}/%{::cidr_ceph1}"
 ceph::profile::params::public_network:        "%{::network_trp1}/%{::cidr_trp1}"
 
-profile::base::physical::configure_bmc_nic:          true
-profile::base::physical::enable_redfish_sensu_check: true
-profile::monitoring::sensu::agent::checks:
-  'redfish-check':
-    command:      '/usr/local/bin/redfish_check.sh'
-    interval:     1800
-    subscribers:  ['checks']
-
 profile::base::lvm::physical_volume:
   '/dev/sda':
     ensure: present
