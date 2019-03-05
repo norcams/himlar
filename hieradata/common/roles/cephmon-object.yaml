@@ -10,6 +10,7 @@ ceph::profile::params::osd_pool_default_size:       '3'
 ceph::profile::params::osd_pool_default_min_size:   '1'
 ceph::profile::params::mgr_key:                     "%{hiera('ceph_object_client_mgr_key')}"
 ceph::profile::params::mon_key:                     "%{hiera('ceph_object_client_mon_key')}"
+ceph::profile::params::fsid:                        "%{hiera('ceph_object_client_fsid')}"
 ceph::profile::params::client_keys:
   'client.admin':
     secret: "%{hiera('ceph_object_client_admin_key')}"
