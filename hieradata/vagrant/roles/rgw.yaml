@@ -1,0 +1,6 @@
+---
+profile::storage::ceph::config::config:
+  # 'client.radosgw.%{::hostname}/debug_ms':
+  #   value: 1
+  'client.radosgw.%{::hostname}/debug_rgw':
+    value: 20

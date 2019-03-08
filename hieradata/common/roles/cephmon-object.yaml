@@ -26,7 +26,7 @@ ceph::profile::params::client_keys:
     user: 'ceph'
     group: 'ceph'
     cap_mon: 'allow profile bootstrap-osd'
-  'client.radosgw.%{::location}-01':
+  'client.radosgw.%{::location}-rgw-01':
     secret: "%{hiera('ceph_object_client_rgw_key')}"
     mode: '0600'
     user: 'ceph'
