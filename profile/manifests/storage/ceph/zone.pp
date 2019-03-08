@@ -21,7 +21,8 @@ define profile::storage::ceph::zone(
     }
 
     exec { "create_ceph_zone-${zonegroup}-${name}":
-      command => "radosgw-admin zone create --rgw-zonegroup=${zonegroup} --rgw-zone=${name} --endpoints=${endpoints}${master_opt}${default_opt}",
+      command => "radosgw-admin zone create --rgw-zonegroup=${zonegroup} \
+--rgw-zone=${name} --endpoints=${endpoints}${master_opt}${default_opt}",
       path    => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
       unless  => "radosgw-admin zone list | grep ${name}"
     }
