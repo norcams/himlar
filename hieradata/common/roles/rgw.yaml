@@ -70,14 +70,14 @@ ceph::profile::params::osd_pool_default_pgp_num:    '32'
 ceph::profile::params::osd_pool_default_size:       '3'
 ceph::profile::params::osd_pool_default_min_size:   '1'
 ceph::profile::params::client_keys:
-  # 'client.admin':
-  #   secret: "%{hiera('ceph_object_client_admin_key')}"
-  #   mode: '0600'
-  #   user: 'ceph'
-  #   group: 'ceph'
-  #   cap_mon: 'allow *'
-  #   cap_osd: 'allow *'
-  #   cap_mgr: 'allow *'
+  'client.admin':
+    secret: "%{hiera('ceph_object_client_admin_key')}"
+    mode: '0600'
+    user: 'ceph'
+    group: 'ceph'
+    cap_mon: 'allow *'
+    cap_osd: 'allow *'
+    cap_mgr: 'allow *'
   'client.radosgw.%{::hostname}':
     secret: "%{hiera('ceph_object_client_rgw_key')}"
     mode: '0600'
