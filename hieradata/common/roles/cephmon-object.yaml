@@ -1,4 +1,30 @@
 ---
+include:
+  default:
+    - profile::storage::ceph::config
+    - profile::storage::ceph::multisite
+
+# Multisite
+profile::storage::ceph::multisite::manage: true
+profile::storage::ceph::multisite::purge_default: true
+profile::storage::ceph::multisite::realms:
+  uhiaas:
+    default: true
+
+profile::storage::ceph::multisite::zonegroups:
+  '%{::location}':
+    default: true
+    master: true
+    realm: 'uhiaas'
+    endpoints: "%{hiera('endpoint__object__public')}"
+
+profile::storage::ceph::multisite::zones:
+  '%{::location}-master-1':
+    default: true
+    master: true
+    endpoints: "%{hiera('endpoint__object__public')}"
+    zonegroup: '%{::location}'
+
 # Override default from modules/ceph.yaml
 ceph::profile::params::mon_host:                    '%{::netpart_trp1}.89:6789'
 ceph::profile::params::mon_initial_members:         '%{::location}-cephmon-object-01'
