@@ -8,10 +8,15 @@ class profile::storage::cephmon (
   $crt_dir              = '/etc/pki/tls/certs',
   $key_dir              = '/etc/pki/tls/private',
   $cert_name            = $::fqdn,
-  $flagfile             = '/var/lib/ceph/.ceph-dashboard-set-up'
+  $flagfile             = '/var/lib/ceph/.ceph-dashboard-set-up',
+  $create_crushbuckets  = false
 ) {
   include ::ceph::profile::mon
   include ::ceph::profile::mgr
+
+  if $create_crushbuckets {
+    create_resources(profile::storage::ceph_crushbucket, lookup('profile::storage::ceph_crushbucket::buckets', Hash, 'first', {}))
+  }
 
   if $manage_dashboard {
     ceph_config {
