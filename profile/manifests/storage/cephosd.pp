@@ -41,5 +41,6 @@ class profile::storage::cephosd(
       command     => "ceph osd crush move $(hostname -s) ${crush_parent_type}=${crush_parent} && touch /var/lib/ceph/.host_moved_crush_map",
       path        => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
       creates     => "/var/lib/ceph/.host_moved_crush_map",
+    }
   }
 }
