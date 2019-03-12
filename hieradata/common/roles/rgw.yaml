@@ -12,16 +12,15 @@ profile::base::common::packages:
   'jq': {}
 
 profile::storage::ceph::config::manage_config: true
-#profile::storage::ceph::config::service_notify: "ceph-radosgw@radosgw.%{::hostname}"
 profile::storage::ceph::config::config:
   'client.radosgw.%{::hostname}/rgw_enable_usage_log':
     value: true
   'client.radosgw.%{::hostname}/rgw_realm':
     value: 'uhiaas'
   'client.radosgw.%{::hostname}/rgw_zonegroup':
-    value: '%{::location}'
+    value: 'norway'
   'client.radosgw.%{::hostname}/rgw_zone':
-    value: '%{::location}-master-1'
+    value: '%{::location}-1'
   # 'client.radosgw.%{::hostname}/rgw_enable_static_website':
   #   value: true
   # 'client.radosgw.%{::hostname}/rgw_relaxed_region_enforcement':
