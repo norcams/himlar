@@ -88,10 +88,10 @@ profile::storage::cephpool_params::pools:
     replicas_min_size:  2
   'vms':
     replicas_min_size:  2
-    crush_rule:         "ssd"
+    crush_rule:         "ssd-storage"
   'volume_hdd_ec_meta':
     replicas_min_size:  2
-    crush_rule:         "hdd"
+    crush_rule:         "hdd-storage"
     application_enable: 'rbd'
   'volume_hdd_ec_data':
     application_enable: 'rbd'
