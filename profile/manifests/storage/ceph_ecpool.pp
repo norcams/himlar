@@ -8,6 +8,7 @@ define profile::storage::ceph_ecpool (
   $pg_num               = "64",
   $crush_device_class   = "hdd",
   $crush_failure_domain = "host",
+  $crush_root           = "default",
   $plugin               = "jerasure",
   $k_data               = "3",
   $m_code               = "2",
@@ -18,7 +19,7 @@ define profile::storage::ceph_ecpool (
 
   if $manage {
     exec { "create_ceph_ec_profile-${name}":
-      command     => "ceph osd erasure-code-profile set ${name} k=${k_data} m=${m_code} crush-device-class=${crush_device_class} crush-failure-domain=${crush_failure_domain} && touch /var/lib/ceph/.${name}-profile-created",
+      command     => "ceph osd erasure-code-profile set ${name} k=${k_data} m=${m_code} crush-device-class=${crush_device_class} crush-root=${crush_root} crush-failure-domain=${crush_failure_domain} && touch /var/lib/ceph/.${name}-profile-created",
       path        => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
       creates     => "/var/lib/ceph/.${name}-profile-created",
     } ~>
