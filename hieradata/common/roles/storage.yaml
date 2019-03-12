@@ -104,8 +104,8 @@ profile::storage::ceph_crushrules::rules:
     rule_root:        "storage"
 
 # Default values
-class profile::storage::cephosd::crush_parent:      'storage'
-class profile::storage::cephosd::crush_parent_type: 'pod'
+profile::storage::cephosd::crush_parent:      'storage'
+profile::storage::cephosd::crush_parent_type: 'pod'
 
 # SNMP only from mgmt
 profile::base::dell::snmp_firewall_settings:
