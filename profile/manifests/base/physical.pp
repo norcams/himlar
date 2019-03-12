@@ -106,16 +106,18 @@ class profile::base::physical (
       }
       case $facts['manufacturer'] {
         'Dell Inc.': {
-          $bmc_idrac_attributes.each |$attribute, $value| {
-            if ($attribute == 'IPv4Static.1.Address') and (!$value) {
-              $attr_value = $bmc_address_set
-            }
-            else {
-              $attr_value = $value
-            }
-            exec { "Set bmc static configuration - ${attribute}":
-              command     => "/bin/curl -f -s https://${bmc_address_set}/redfish/v1/Managers/iDRAC.Embedded.1/Attributes -k -u ${bmc_username_set}:${bmc_password_set} ${http_proxy_url_set} --connect-timeout 20 -X PATCH -H \"Content-Type: application/json\" -d \'{\"Attributes\" : {\"${attribute}\":\"${attr_value}\"}}\' && /bin/touch /etc/.bmc_configured-${attribute}",
-              creates     => "/etc/.bmc_configured-${attribute}",
+          unless $facts['productname'] =~ '(FC|[RTM])[1-9][1-3]\d.*' {
+            $bmc_idrac_attributes.each |$attribute, $value| {
+              if ($attribute == 'IPv4Static.1.Address') and (!$value) {
+                $attr_value = $bmc_address_set
+              }
+              else {
+                $attr_value = $value
+              }
+              exec { "Set bmc static configuration - ${attribute}":
+                command     => "/bin/curl -f -s https://${bmc_address_set}/redfish/v1/Managers/iDRAC.Embedded.1/Attributes -k -u ${bmc_username_set}:${bmc_password_set} ${http_proxy_url_set} --connect-timeout 20 -X PATCH -H \"Content-Type: application/json\" -d \'{\"Attributes\" : {\"${attribute}\":\"${attr_value}\"}}\' && /bin/touch /etc/.bmc_configured-${attribute}",
+                creates     => "/etc/.bmc_configured-${attribute}",
+              }
             }
           }
         }

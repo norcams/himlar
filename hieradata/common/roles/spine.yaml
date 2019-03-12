@@ -1,0 +1,59 @@
+---
+include:
+  default:
+    - profile::network::leaf
+    - profile::base::common
+  bootstrap:
+    - profile::base::common
+
+profile::base::common::classes:
+  - puppet
+  - openstack_extras::repo::debian::debian
+
+profile::base::common::manage_keyboard:           false
+profile::base::common::include_virtual:           false
+profile::base::common::include_physical:          false
+profile::base::common::manage_yumrepo:            false
+profile::base::firewall::manage_firewall:         false
+profile::base::network::net_ifnames:              false
+profile::monitoring::sensu::agent::enable_agent:  false
+profile::network::leaf::manage_quagga:            false
+profile::network::leaf::manage_acls:              false
+profile::base::network::cumulus_ifs:              true
+network::config_file_per_interface:               true
+profile::logging::logrotate::manage_logrotate:    false
+
+# ntp service managed by profile because of mgmt VRF
+ntp::service_enable: false
+ntp::service_ensure: 'stopped'
+
+accounts::groups:
+  'wheel':
+    ensure: 'present'
+
+openstack_extras::repo::debian::debian::package_require: true
+openstack_extras::repo::debian::debian::manage_uca: false
+openstack_extras::repo::debian::debian::manage_whz: false
+openstack_extras::repo::debian::debian::source_hash:
+  'jessie':
+    'location': 'http://ftp.no.debian.org/debian'
+    'repos':    'main'
+
+profile::base::common::packages:
+  'vim-enhanced': { 'ensure': 'absent', }
+  'bind-utils': { 'ensure': 'absent', }
+  'yum-utils': { 'ensure': 'absent', }
+  'augeas-tools': {}
+
+sudo::configs:
+  snmp:
+    content:
+      - '# SNMP needs access to the bcmcmd to serve up some of the MIBs.'
+      - 'snmp ALL = NOPASSWD: /usr/lib/cumulus/bcmcmd'
+      - 'snmp ALL = NOPASSWD: /usr/cumulus/bin/cl-resource-query'
+      - 'snmp ALL=(root) NOPASSWD: /sbin/ethtool -S *'
+      - 'snmp ALL=(root) NOPASSWD: /sbin/ip'
+
+profile::base::network::cumulus_interfaces:
+  'lo':
+    'addr_method': 'loopback'

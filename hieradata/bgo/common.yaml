@@ -97,6 +97,12 @@ public__ipv6__resolver:        '2001:700:2:83ff::252'
 # DNS (merge of common and this)
 #
 profile::network::services::dns_records:
+  CNAME:
+    "%{::location}-object-ceph-01.%{hiera('domain_mgmt')}":  "%{::location}-object-01.%{hiera('domain_mgmt')}"
+    "%{::location}-object-ceph-02.%{hiera('domain_mgmt')}":  "%{::location}-object-02.%{hiera('domain_mgmt')}"
+    "%{::location}-object-ceph-03.%{hiera('domain_mgmt')}":  "%{::location}-object-03.%{hiera('domain_mgmt')}"
+    "%{::location}-object-ceph-04.%{hiera('domain_mgmt')}":  "%{::location}-object-04.%{hiera('domain_mgmt')}"
+    "%{::location}-object-ceph-05.%{hiera('domain_mgmt')}":  "%{::location}-object-05.%{hiera('domain_mgmt')}"
   A:
     # Public records (<foo>.<location>.uh-iaas.no)
     "console.%{hiera('domain_public')}":         '158.39.77.250'
