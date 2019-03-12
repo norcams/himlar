@@ -70,7 +70,7 @@ profile::openstack::object::radosgw::keystone:
   "radosgw.%{::hostname}":
     rgw_keystone_url:                 "%{hiera('endpoint__identity__public')}"
     rgw_keystone_accepted_roles:      ['object', 'admin']
-    rgw_keystone_token_cache_size:    500
+    rgw_keystone_token_cache_size:    0
     rgw_s3_auth_use_keystone:         true
     rgw_keystone_admin_domain:        "%{hiera('keystone__default__domain')}"
     rgw_keystone_admin_project:       "%{hiera('keystone__service__project')}"
