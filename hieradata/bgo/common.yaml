@@ -114,6 +114,8 @@ profile::network::services::dns_records:
     "placement.api.%{hiera('domain_public')}":   '158.39.77.250'
     "metric.api.%{hiera('domain_public')}":      '158.39.77.250'
     "dns.api.%{hiera('domain_public')}":         '158.39.77.250'
+    "object.api.%{hiera('domain_public')}":      '158.39.77.250'
+
     "resolver.%{hiera('domain_public')}":        '158.39.77.252'
 
     # Management network (entries that differ from common/common.yaml)
