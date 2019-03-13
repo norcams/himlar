@@ -1,0 +1,14 @@
+---
+profile::storage::ceph::config::config:
+  'client.radosgw.%{::hostname}/rgw_enable_usage_log':
+    value: true
+  'client.radosgw.%{::hostname}/rgw_realm':
+    value: 'uhiaas'
+  'client.radosgw.%{::hostname}/rgw_zonegroup':
+    value: 'norway'
+  'client.radosgw.%{::hostname}/rgw_zone':
+    value: '%{::location}-1'
+  # 'client.radosgw.%{::hostname}/debug_ms':
+  #   value: 1
+  'client.radosgw.%{::hostname}/debug_rgw':
+    value: 20

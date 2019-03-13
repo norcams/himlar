@@ -25,7 +25,6 @@ class profile::storage::ceph::pool (
 
   # This is deep merge, when overriding hieradata use ensure: absent to drop ec pool
   $ec_pools = lookup('profile::storage::ceph::pool::ec_pools', Hash, 'deep')
-  info($ec_pools)
   $ec_pools.each |String $name, Hash $data| {
     $real_data = delete($data, 'custom')
     # Create EC pool

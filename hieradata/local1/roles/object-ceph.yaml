@@ -23,7 +23,7 @@ profile::storage::fake_ssds:
   'vdc': {}
 
 profile::storage::ceph::pool::ec_pools:
-  default.rgw.buckets.data:
+  '%{::location}-1.rgw.buckets.data':
     k_data:     2
     m_code:     1
     pg_num:     512
