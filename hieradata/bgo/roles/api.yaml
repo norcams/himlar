@@ -42,3 +42,7 @@ volume__backend__names:
 volume__backend__ips:
   - "%{hiera('netcfg_trp_netpart')}.46"
   - "%{hiera('netcfg_trp_netpart')}.47"
+object__backend__names:
+  - '%{::location}-rgw-01'
+object__backend__ips:
+  - "%{hiera('netcfg_trp_netpart')}.84"
