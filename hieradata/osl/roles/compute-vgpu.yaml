@@ -27,3 +27,5 @@ profile::base::network::network_auto_bonding:
       'team_port_config': '{ "prio" : 100 }'
     eth3:
       'team_port_config': '{ "prio" : 100 }'
+
+nova::compute::libvirt::libvirt_cpu_model: 'EPYC'
