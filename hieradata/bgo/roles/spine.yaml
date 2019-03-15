@@ -40,3 +40,16 @@ profile::network::leaf::cumulus_portconfigs:
     line:  "29=40G" # temporary uplink to torack
   30:
     line:  "30=40G" # temporary uplink to torack
+
+profile::base::network::cumulus_bonds:
+  'peerlink':
+    'slaves': [ 'swp31-32', ]
+
+profile::base::network::cumulus_bridges:
+  'bridge':
+    'ports':
+      - peerlink
+    'alias_name': 'Transport L2 if'
+    'vlan_aware': 'true'
+    'stp': 'true'
+    'vids': [ '100', '120', '4094', ]
