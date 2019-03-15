@@ -53,6 +53,7 @@ profile::base::network::cumulus_bridges:
   'bridge':
     'ports':
       - peerlink
+      - downlink
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'true'
