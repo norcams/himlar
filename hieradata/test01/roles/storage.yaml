@@ -62,6 +62,7 @@ profile::storage::ceph_ecpool::ec_pools:
     allow_ec_overwrites: true
     k_data:              "3"
     m_code:              "2"
+    crush_root:          "storage"
 profile::storage::cephpool::pools:
   'rbd':
     ensure: absent
@@ -84,8 +85,10 @@ profile::storage::cephpool::pools:
 profile::storage::cephpool_params::pools:
   'volumes':
     replicas_min_size:  2
+    crush_rule:         "hdd-storage"
   'images':
     replicas_min_size:  2
+    crush_rule:         "hdd-storage"
   'vms':
     replicas_min_size:  2
     crush_rule:         "ssd-storage"
