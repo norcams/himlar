@@ -4,10 +4,10 @@ profile::openstack::volume::type:
     visibility: "public"
     properties:
       - 'volume_backend_name=rbd-volumes'
-  rbd-hdd-ec:
+  mass-storage-default:
     visibility: "private"
     properties:
-      - 'volume_backend_name=rbd-hdd-ec'
+      - 'volume_backend_name=mass-storage-default'
 
 profile::openstack::volume::backend::rbd:
   rbd-volumes:
@@ -18,15 +18,15 @@ profile::openstack::volume::backend::rbd:
     extra_options:
       rbd-volumes/report_discard_supported:
         value: 'True'
-  rbd-hdd-ec:
+  mass-storage-default:
     rbd_pool: 'volumes_hdd_ec_meta'
     rbd_user: 'cinder-hdd-ec'
     rbd_flatten_volume_from_snapshot: 'True'
     rbd_secret_uuid: "%{hiera('libvirt_rbd_secret_uuid')}"
     extra_options:
-      rbd-hdd-ec/report_discard_supported:
+      mass-storage-default/report_discard_supported:
         value: 'True'
 
 cinder::backends::enabled_backends:
   - rbd-volumes
-  - rbd-hdd-ec
+  - mass-storage-default
