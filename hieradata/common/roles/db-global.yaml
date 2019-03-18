@@ -3,6 +3,14 @@ include:
   default:
     - profile::database::galera
 
+named_interfaces::config:
+  mgmt:
+    - eth0
+  trp:
+    - eth1
+  public:
+    - dummy0
+
 mysql::server::restart:         false
 
 profile::base::common::packages:

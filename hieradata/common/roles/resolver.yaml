@@ -4,6 +4,14 @@ include:
     - profile::dns::ns
     - profile::logging::rsyslog::client
 
+named_interfaces::config:
+  mgmt:
+    - eth0
+  trp:
+    - eth1
+  public:
+    - dummy0
+
 # This is the resolving name server
 profile::dns::ns::authoritative: false
 

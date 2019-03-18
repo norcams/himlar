@@ -7,6 +7,14 @@ include:
     - profile::openstack::cache
     - profile::base::systemd
 
+named_interfaces::config:
+  mgmt:
+    - eth0
+  trp:
+    - eth1
+  public:
+    - dummy0
+
 profile::base::common::packages:
   'MySQL-python.x86_64': {}
   'bash-completion': {}

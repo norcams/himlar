@@ -5,6 +5,14 @@ include:
     - profile::dns::rndc_key
     - profile::logging::rsyslog::client
 
+named_interfaces::config:
+  mgmt:
+    - eth0
+  trp:
+    - eth1
+  public:
+    - dummy0
+
 profile::dns::rndc_key::create_admin_key:         true
 profile::dns::rndc_key::create_mdns_key:          true
 profile::dns::rndc_key::host_is_bind_server:      true
