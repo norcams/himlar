@@ -18,6 +18,10 @@ profile::openstack::resource::host_aggregate:
   central1:
     availability_zone: "%{::location}-default-1"
 #    hosts: "%{::location}-compute-07.%{hiera('domain_mgmt')}, %{::location}-compute-08.%{hiera('domain_mgmt')}"
+  atlas1:
+    availability_zone: "%{::location}-default-1"
+    metadata:
+      type: 'atlas'
   placeholder1:
     availability_zone: "%{::location}-iaas-team-only-1"
     metadata:

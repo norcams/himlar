@@ -2,7 +2,10 @@
 #
 #
 class profile::storage::cephosd(
-  $create_osds = false,
+  $create_osds       = false,
+  $crush_move        = false,
+  $crush_parent      = undef,
+  $crush_parent_type = undef,
 ) {
   include ::ceph::profile::osd
 
@@ -31,5 +34,13 @@ class profile::storage::cephosd(
   if $create_osds {
     $osd_devices = lookup('profile::storage::cephosd::osds', Hash, 'deep', {})
     create_resources('profile::storage::create_lvm_osd', $osd_devices)
+  }
+
+  if $crush_move {
+    exec { "move_osd_host":
+      command     => "ceph osd crush move $(hostname -s) ${crush_parent_type}=${crush_parent} && touch /var/lib/ceph/.host_moved_crush_map",
+      path        => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
+      creates     => "/var/lib/ceph/.host_moved_crush_map",
+    }
   }
 }

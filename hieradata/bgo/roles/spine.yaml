@@ -1,2 +1,60 @@
 ---
 profile::network::leaf::manage_license: true
+profile::network::leaf::manage_portconfig: true
+
+# Dellemc S5132f needs explicit config
+profile::network::leaf::cumulus_portconfigs:
+  1:
+    line:  "1=4x25G"
+  2:
+    line:  "2=4x25G"
+  3:
+    line:  "3=4x25G"
+  4:
+    line:  "4=4x25G"
+  5:
+    line:  "5=4x25G"
+  6:
+    line:  "6=4x25G"
+  7:
+    line:  "7=4x25G"
+  8:
+    line:  "8=4x25G"
+  9:
+    line:  "9=4x25G"
+  10:
+    line:  "10=4x25G"
+  11:
+    line:  "11=4x25G"
+  12:
+    line:  "12=4x25G"
+  13:
+    line:  "13=4x25G"
+  14:
+    line:  "14=4x25G"
+  15:
+    line:  "15=4x10G" # bgo-storage-08 and 09
+  28:
+    line:  "28=4x10G" # new uplink uninett
+  29:
+    line:  "29=40G" # temporary uplink to torack
+  30:
+    line:  "30=40G" # temporary uplink to torack
+
+profile::base::network::cumulus_bonds:
+  'peerlink':
+    'slaves': [ 'swp31-32', ]
+  'downlink':
+    'slaves': [ 'swp29-30', ]
+    'clag_id': '100'
+    'pvid': '100'
+
+profile::base::network::cumulus_bridges:
+  'bridge':
+    'ports':
+      - peerlink
+      - downlink
+    'alias_name': 'Transport L2 if'
+    'vlan_aware': 'true'
+    'stp': 'true'
+    'vids': [ '100', '120', '4094', ]

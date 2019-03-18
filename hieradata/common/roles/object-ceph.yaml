@@ -16,6 +16,7 @@ ceph::profile::params::mon_host:              "%{::netpart_trp1}.89:6789"
 ceph::profile::params::mon_initial_members:   '%{::location}-cephmon-object-01'
 ceph::profile::params::cluster_network:       "%{::netpart_trp1}.0/%{cidr_trp1}"
 ceph::profile::params::public_network:        "%{::netpart_trp1}.0/%{cidr_trp1}"
+ceph::profile::params::fsid:                  "%{hiera('ceph_object_client_fsid')}"
 ceph::profile::params::osd_journal_size:      '10240'
 ceph::profile::params::client_keys:
   'client.admin':
@@ -43,49 +44,49 @@ profile::storage::cephosd_firewall::manage_firewall: true
 profile::storage::cephosd::create_osds:              true
 
 profile::storage::ceph::pool::pools:
-  default.rgw.control:
-    size:       3
-    pg_num:     32
-    pgp_num:    32
-    tag:          'rgw'
-    custom:
-      crush_rule: 'ssd'
-  default.rgw.meta:
-    size:       3
-    pg_num:     32
-    pgp_num:    32
-    tag:          'rgw'
-    custom:
-      crush_rule: 'ssd'
-  default.rgw.log:
-    size:       3
-    pg_num:     32
-    pgp_num:    32
-    tag:          'rgw'
-    custom:
-      crush_rule: 'ssd'
-  default.rgw.buckets.index:
-    size:       3
-    pg_num:     32
-    pgp_num:    32
-    tag:          'rgw'
-    custom:
-      crush_rule: 'ssd'
-  default.rgw.buckets.log:
+  '%{::location}-1.rgw.control':
     size:       3
     pg_num:     32
     pgp_num:    32
     tag:          'rgw'
     custom:
       crush_rule: 'hdd'
-  default.rgw.buckets.meta:
+  '%{::location}-1.rgw.meta':
+    size:       3
+    pg_num:     32
+    pgp_num:    32
+    tag:          'rgw'
+    custom:
+      crush_rule: 'hdd'
+  '%{::location}-1.rgw.log':
+    size:       3
+    pg_num:     32
+    pgp_num:    32
+    tag:          'rgw'
+    custom:
+      crush_rule: 'hdd'
+  '%{::location}-1.rgw.buckets.index':
+    size:       3
+    pg_num:     32
+    pgp_num:    32
+    tag:          'rgw'
+    custom:
+      crush_rule: 'ssd'
+  '%{::location}-1.rgw.buckets.log':
+    size:       3
+    pg_num:     32
+    pgp_num:    32
+    tag:          'rgw'
+    custom:
+      crush_rule: 'hdd'
+  '%{::location}-1.rgw.buckets.meta':
     size:         3
     pg_num:       32
     pgp_num:      32
     tag:          'rgw'
     custom:
-      crush_rule: 'ssd'
-  # default.rgw.buckets.cache: # used for tiering
+      crush_rule: 'hdd'
+  # '%{::location}-1.rgw.buckets.cache': # used for tiering
   #   size:         3
   #   pg_num:       128
   #   pgp_num:      128
@@ -93,7 +94,7 @@ profile::storage::ceph::pool::pools:
   #     crush_rule: 'ssd'
 
 profile::storage::ceph::pool::ec_pools:
-  default.rgw.buckets.data:
+  '%{::location}-1.rgw.buckets.data':
     k_data:     3
     m_code:     2
     pg_num:     512
@@ -103,8 +104,8 @@ profile::storage::ceph::pool::ec_pools:
 
 # profile::storage::ceph::pool::tiers:
 #   rgw-default-cache:
-#     storage_pool:       'default.rgw.buckets.data'
-#     cache_pool:         'default.rgw.buckets.cache'
+#     storage_pool:       '%{::location}-1.rgw.buckets.data'
+#     cache_pool:         '%{::location}-1'.rgw.buckets.cache'
 #     custom: # these will be set on cache_pool
 #       hit_set_type:     'bloom'
 #       hit_set_count:    '12'

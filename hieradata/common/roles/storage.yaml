@@ -43,6 +43,7 @@ accounts::accounts:
 ceph::profile::params::osd_journal_size: '10240'
 
 profile::storage::cephosd::create_osds: true
+profile::storage::cephosd::crush_move:  true
 
 profile::storage::cephpool::manage_ec_pools: false
 
@@ -53,6 +54,7 @@ profile::storage::ceph_ecpool::ec_pools:
     allow_ec_overwrites: true
     k_data:              "3"
     m_code:              "2"
+    crush_root:          "storage"
 profile::storage::cephpool::pools:
   'rbd':
     ensure: absent
@@ -75,14 +77,16 @@ profile::storage::cephpool::pools:
 profile::storage::cephpool_params::pools:
   'volumes':
     replicas_min_size:  3
+    crush_rule:         "hdd-storage"
   'images':
     replicas_min_size:  3
+    crush_rule:         "hdd-storage"
   'vms':
     replicas_min_size:  3
-    crush_rule:         "ssd"
+    crush_rule:         "ssd-storage"
   'volumes_hdd_ec_meta':
     replicas_min_size:  3
-    crush_rule:         "ssd"
+    crush_rule:         "ssd-storage"
     application_enable: 'rbd'
   'volumes_hdd_ec_data':
     application_enable: 'rbd'
@@ -93,10 +97,16 @@ profile::base::yumrepo::repo_hash:
     ensure: present
 
 profile::storage::ceph_crushrules::rules:
-  'hdd':
+  'hdd-storage':
     rule_device_type: "hdd"
-  'ssd':
+    rule_root:        "storage"
+  'ssd-storage':
     rule_device_type: "sdd"
+    rule_root:        "storage"
+
+# Default values
+profile::storage::cephosd::crush_parent:      'storage'
+profile::storage::cephosd::crush_parent_type: 'pod'
 
 # SNMP only from mgmt
 profile::base::dell::snmp_firewall_settings:

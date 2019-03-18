@@ -1,4 +1,32 @@
 ---
+include:
+  default:
+    - profile::storage::ceph::config
+    - profile::storage::ceph::multisite
+
+profile::storage::ceph::config::manage_config: true
+
+# Multisite
+profile::storage::ceph::multisite::manage: true
+profile::storage::ceph::multisite::purge_default: true
+profile::storage::ceph::multisite::realms:
+  uhiaas:
+    default: true
+
+profile::storage::ceph::multisite::zonegroups:
+  'norway':
+    default: true
+    master: true
+    realm: 'uhiaas'
+    endpoints: "%{hiera('endpoint__object__public')}"
+
+profile::storage::ceph::multisite::zones:
+  '%{::location}-1':
+    default: true
+    master: true
+    endpoints: "%{hiera('endpoint__object__public')}"
+    zonegroup: 'norway'
+
 # Override default from modules/ceph.yaml
 ceph::profile::params::mon_host:                    '%{::netpart_trp1}.89:6789'
 ceph::profile::params::mon_initial_members:         '%{::location}-cephmon-object-01'
@@ -26,7 +54,7 @@ ceph::profile::params::client_keys:
     user: 'ceph'
     group: 'ceph'
     cap_mon: 'allow profile bootstrap-osd'
-  'client.radosgw.%{::location}-01':
+  'client.radosgw.%{::location}-rgw-01':
     secret: "%{hiera('ceph_object_client_rgw_key')}"
     mode: '0600'
     user: 'ceph'
@@ -35,3 +63,4 @@ ceph::profile::params::client_keys:
     cap_osd: 'allow rwx'
 
 profile::storage::cephmon::manage_dashboard:        false
+profile::storage::cephmon::create_crushbuckets:     false

@@ -57,11 +57,11 @@ class profile::base::dell (
       }
 
       # Configure snmpd.conf
-      exec { "enable snmp":
-        command => "/etc/init.d/dataeng enablesnmp",
-        unless  => "/bin/grep -q ^smuxpeer /etc/snmp/snmpd.conf",
-        notify  => Service['snmpd'],
-      }
+      #exec { "enable snmp":
+      #  command => "/etc/init.d/dataeng enablesnmp",
+      #  unless  => "/bin/grep -q ^smuxpeer /etc/snmp/snmpd.conf",
+      #  notify  => Service['snmpd'],
+      #}
 
       if $::runmode == 'default' {
         # Open the SNMP port (161/UDP) in the firewall
