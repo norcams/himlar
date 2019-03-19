@@ -31,3 +31,7 @@ profile::openstack::resource::host_aggregate:
         e3dcca3452924794a6aebdd21b5da249,
         bf017d42f06c4eb590276eccb9d571dd,
         3eae4805dcd6450fb98651f5a9dc9ded
+  vgou1:
+      availability_zone: "%{::location}-default-1"
+      metadata:
+        type: 'vgpu'
