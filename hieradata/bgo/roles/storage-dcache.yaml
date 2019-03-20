@@ -1,0 +1,9 @@
+---
+profile::storage::cephosd::create_osds: false
+
+profile::base::network::network_auto_bonding:
+  trp:
+    p4p1:
+      'team_port_config': '{ "prio" : 100 }'
+    p4p2:
+      'team_port_config': '{ "prio" : 100 }'
