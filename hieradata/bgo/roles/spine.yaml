@@ -41,6 +41,12 @@ profile::network::leaf::cumulus_portconfigs:
   30:
     line:  "30=40G" # temporary uplink to torack
 
+profile::base::network::cumulus_interfaces:
+  'swp29':
+    'speed': '40000'
+  'swp30':
+    'speed': '40000'
+
 profile::base::network::cumulus_bonds:
   'peerlink':
     'slaves': [ 'swp31-32', ]
