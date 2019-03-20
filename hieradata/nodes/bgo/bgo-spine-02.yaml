@@ -12,7 +12,7 @@ profile::base::network::cumulus_interfaces:
   'bridge.100':
     'ipv4': [ "%{hiera('netcfg_trp_net_c6')}.2/21", ]
     'ipv6': [ 'fd00::6:2/64', ]
-    'virtual_ip': "%{hiera('netcfg_mgmt_net_c7')}.2/21 fd00::702/64"
+    'virtual_ip': "%{hiera('netcfg_trp_net_c7')}.2/21 fd00::702/64"
     'virtual_mac': '00:00:5e:00:01:02'
   'peerlink.4094':
     'ipv4': [ '172.18.229.2/24', ]
