@@ -54,6 +54,7 @@ profile::base::network::cumulus_bonds:
     'slaves': [ 'swp29-30', ]
     'clag_id': '1000'
     'pvid': '100'
+    'vids': [ '100', '120', ]
   'host1':
     'slaves': [ 'swp1s0', ]
     'clag_id': '1'
