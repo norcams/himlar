@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+set -ux
 
 . <%= @rc_file %>
 
@@ -7,6 +7,7 @@ set -x
 # write a machine-readable report of the last build in JSONL format. There will
 # also be a dated log file in plain text containing the raw output of
 # imagebuilder.
+gen_report="${IMAGEBUILDER_REPORT:-false}"
 plain_log=/var/log/imagebuilder/<%= @name -%>-build-$(date +"%Y%m%d").log
 json_report=/var/log/imagebuilder/<%= @name %>-report.jsonl
 
@@ -39,9 +40,9 @@ imagebuilder_ec=$?
 
 # We set the shell's error handling options here to avoid exiting before a
 # report has been written
-set -euo pipefail
+set -eo pipefail
 
-if [ $IMAGEBUILDER_REPORT = "true" ]; then
+if [ $gen_report == "true" ]; then
   # Write imagebuilder's exit code to imagebuilder report
   jq -Rn '{"result_imagebuilder": input}' <<< $imagebuilder_ec > $json_report
 
@@ -74,7 +75,7 @@ fi
 # Remove old images, always keeping the two most recent
 find /opt/images/public_builds/ -type f -iname <%= @name %>\* | sort -r | tail -n +3 | xargs rm -f
 
-if [ $IMAGEBUILDER_REPORT = "true" ]; then
+if [ $gen_report == "true" ]; then
   # If we make it to here we assume the build has been successful
   jq -n '{"result": "success"}' >> $json_report
 fi
