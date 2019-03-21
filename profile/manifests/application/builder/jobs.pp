@@ -20,13 +20,6 @@ define profile::application::builder::jobs(
 
   $hour = fqdn_rand(23, $name)
 
-  file { '/var/log/imagebuilder':
-    ensure => directory,
-    user   => $user,
-    group  => $group,
-    mode   => '0755'
-  }
-
   file { "/home/${user}/build_scripts/${name}":
     ensure  => $ensure,
     content => template("${module_name}/application/builder/build_script.erb"),
