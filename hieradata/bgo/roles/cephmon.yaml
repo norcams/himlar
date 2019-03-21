@@ -1,0 +1,8 @@
+---
+profile::storage::ceph_crushbucket::buckets:
+  'storage':
+    bucket_type:   'pod'
+    bucket_parent: 'default'
+  'dcache':
+    bucket_type:   'pod'
+    bucket_parent: 'default'
