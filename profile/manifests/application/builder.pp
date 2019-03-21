@@ -68,7 +68,7 @@ class profile::application::builder (
   } ->
   file { '/var/log/imagebuilder':
     ensure => directory,
-    user   => $user,
+    owner  => $user,
     group  => $group,
     mode   => '0755'
   }
