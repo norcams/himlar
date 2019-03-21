@@ -31,7 +31,7 @@ profile::storage::ceph_crushrules::rules:
     rule_device_type: "hdd"
     rule_root:        "dcache"
   'ssd-dcache':
-    rule_device_type: "sdd"
+    rule_device_type: "ssd"
     rule_root:        "dcache"
 
 profile::storage::cephpool::manage_ec_pools:         true
