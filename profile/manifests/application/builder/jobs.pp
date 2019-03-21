@@ -20,6 +20,13 @@ define profile::application::builder::jobs(
 
   $hour = fqdn_rand(23, $name)
 
+  file { '/var/log/imagebuilder':
+    ensure => directory,
+    user   => $user,
+    group  => $group,
+    mode   => '0755'
+  }
+
   file { "/home/${user}/build_scripts/${name}":
     ensure  => $ensure,
     content => template("${module_name}/application/builder/build_script.erb"),
@@ -30,7 +37,8 @@ define profile::application::builder::jobs(
   } ->
   cron { $name:
     ensure  => $ensure,
-    command => "/home/${user}/build_scripts/${name} || logger -p cron.err -t imagebuilder Failed building image ${name}",
+    # Write to imagebuilder report
+    command => "/home/${user}/build_scripts/${name} || jq -n '{\"result\": \"failed\"}' >> /var/log/imagebuilder/${name}-report.jsonl",
     user    => $user,
     weekday => 'Wednesday',
     hour    => $hour,
