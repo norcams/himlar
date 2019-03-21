@@ -29,8 +29,10 @@ profile::base::network::cumulus_interfaces:
     'ipv6': 'fd00:1aa5:2::3/127'
   'swp53':
     'speed': '40000'
+    'fec':   'baser'
   'swp54':
     'speed': '40000'
+    'fec':   'baser'
 #  'swp48':
 #    'ipv4': [ '10.78.1.10/29', ]
 #    'ipv6': 'fdfe::b/124'

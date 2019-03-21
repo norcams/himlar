@@ -44,8 +44,10 @@ profile::network::leaf::cumulus_portconfigs:
 profile::base::network::cumulus_interfaces:
   'swp29':
     'speed': '40000'
+    'fec':   'baser'
   'swp30':
     'speed': '40000'
+    'fec':   'baser'
 
 profile::base::network::cumulus_bonds:
   'peerlink':
