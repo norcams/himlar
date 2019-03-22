@@ -2,7 +2,7 @@
 network::interfaces_hash:
   'eth0':
     'ipaddress': '172.28.32.1/24'
-    'gateway':   "%{hiera('netcfg_mgmt_gateway')}"
+    'gateway':   "%{hiera('netcfg_mgmt_netpart')}.10"
     'vrf':       'mgmt'
   'mgmt':
     'ipaddress': '127.0.0.1/8'
