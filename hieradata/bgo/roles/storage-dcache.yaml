@@ -1,6 +1,68 @@
 ---
 profile::storage::cephosd::create_osds: false
 
+profile::base::physical::enable_redfish_sensu_check: false
+
+profile::base::lvm::physical_volume:
+  '/dev/sdk':
+    ensure: absent
+profile::base::lvm::volume_group:
+  'vg_cache':
+    ensure: absent
+    physical_volumes:
+      - /dev/sdk
+profile::base::lvm::logical_volume:
+  'lv_wala':
+    ensure: absent
+    volume_group: vg_root
+    createfs:     false
+    size:         2G
+  'lv_dba':
+    ensure: absent
+    volume_group: vg_root
+    createfs:     false
+    size:         10G
+  'lv_walb':
+    ensure: absent
+    volume_group: vg_root
+    createfs:     false
+    size:         2G
+  'lv_dbb':
+    ensure: absent
+    volume_group: vg_root
+    createfs:     false
+    size:         10G
+  'lv_walc':
+    ensure: absent
+    volume_group: vg_root
+    createfs:     false
+    size:         2G
+  'lv_dbc':
+    ensure: absent
+    volume_group: vg_root
+    createfs:     false
+    size:         10G
+  'lv_wald':
+    ensure: absent
+    volume_group: vg_root
+    createfs:     false
+    size:         2G
+  'lv_dbd':
+    ensure: absent
+    volume_group: vg_root
+    createfs:     false
+    size:         10G
+  'lv_wale':
+    ensure: absent
+    volume_group: vg_root
+    createfs:     false
+    size:         2G
+  'lv_dbe':
+    ensure: absent
+    volume_group: vg_root
+    createfs:     false
+    size:         10G
+
 profile::base::network::network_auto_bonding:
   trp:
     p4p1:
