@@ -62,13 +62,3 @@ profile::base::lvm::logical_volume:
     volume_group: vg_root
     createfs:     false
     size:         10G
-
-profile::base::network::network_auto_bonding:
-  trp:
-    p4p1:
-      'team_port_config': '{ "prio" : 100 }'
-    p4p2:
-      'team_port_config': '{ "prio" : 100 }'
-
-profile::storage::cephosd::crush_parent:      'dcache'
-profile::storage::cephosd::crush_parent_type: 'pod'
