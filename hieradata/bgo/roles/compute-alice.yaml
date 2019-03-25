@@ -16,3 +16,10 @@ profile::base::lvm::logical_volume:
     mountpath:    "/var/lib/nova/instances"
 
 nova::compute::libvirt::libvirt_cpu_model: 'EPYC'
+
+profile::base::network::network_auto_bonding:
+  trp:
+    p2p1:
+      'team_port_config': '{ "prio" : 100 }'
+    p2p2:
+      'team_port_config': '{ "prio" : 100 }'
