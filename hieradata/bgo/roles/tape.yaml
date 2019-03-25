@@ -1,6 +1,19 @@
 ---
 profile::base::physical::enable_redfish_sensu_check: false
 
+named_interfaces::config:
+  mgmt:
+    - em3
+  trp:
+    - team1
+
+profile::base::network::network_auto_bonding:
+  trp:
+    p4p1:
+      'team_port_config': '{ "prio" : 100 }'
+    p4p2:
+      'team_port_config': '{ "prio" : 100 }'
+
 profile::base::lvm::physical_volume:
   '/dev/sda':
     ensure: present
