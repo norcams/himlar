@@ -22,6 +22,10 @@ profile::openstack::resource::host_aggregate:
     availability_zone: "%{::location}-default-1"
     metadata:
       type: 'windows'
+  alice1:
+    availability_zone: "%{::location}-default-1"
+    metadata:
+      type: 'alice'
   placeholder1:
     availability_zone: "%{::location}-iaas-team-only-1"
     metadata:
