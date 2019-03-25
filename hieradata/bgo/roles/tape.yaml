@@ -29,10 +29,10 @@ profile::base::lvm::volume_group:
       - /dev/sdc
   'vg_logactive':
     physical_volumes:
-      - /dev/sde
+      - /dev/sdd
   'vg_logarchive':
     physical_volumes:
-      - /dev/sdf
+      - /dev/sde
 profile::base::lvm::logical_volume:
   'lv_db01':
     volume_group: 'vg_db01'
