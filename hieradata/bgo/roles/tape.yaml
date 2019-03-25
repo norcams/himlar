@@ -1,2 +1,56 @@
 ---
 profile::base::physical::enable_redfish_sensu_check: false
+
+profile::base::lvm::physical_volume:
+  '/dev/sda':
+    ensure: present
+    force:  true
+  '/dev/sdb':
+    ensure: present
+    force:  true
+  '/dev/sdc':
+    ensure: present
+    force:  true
+  '/dev/sdd':
+    ensure: present
+    force:  true
+  '/dev/sde':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_db01':
+    physical_volumes:
+      - /dev/sda
+  'vg_db02':
+    physical_volumes:
+      - /dev/sdb
+  'vg_db03':
+    physical_volumes:
+      - /dev/sdc
+  'vg_logactive':
+    physical_volumes:
+      - /dev/sde
+  'vg_logarchive':
+    physical_volumes:
+      - /dev/sdf
+profile::base::lvm::logical_volume:
+  'lv_db01':
+    volume_group: 'vg_db01'
+    fs_type:      "xfs"
+    mountpath:    "/db01"
+  'lv_db02':
+    volume_group: 'vg_db02'
+    fs_type:      "xfs"
+    mountpath:    "/db02"
+  'lv_db03':
+    volume_group: 'vg_db03'
+    fs_type:      "xfs"
+    mountpath:    "/db03"
+  'lv_logactvie':
+    volume_group: 'vg_logactive'
+    fs_type:      "xfs"
+    mountpath:    "/log_active"
+  'lv_logarchive':
+    volume_group: 'vg_logarchive'
+    fs_type:      "xfs"
+    mountpath:    "/log_archive"
