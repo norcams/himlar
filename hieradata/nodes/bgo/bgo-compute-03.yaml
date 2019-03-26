@@ -57,7 +57,7 @@ profile::base::lvm::logical_volume:
     mountpath:    "/var/lib/nova/instances"
 
 # This compute host uses local storage for instances
-nova::compute::rbd::ephemeral_storage:            false
-nova::config::nova_config:
-  libvirt/images_type:
-    value: default
+#nova::compute::rbd::ephemeral_storage:            false
+#nova::config::nova_config:
+#  libvirt/images_type:
+#    value: default
