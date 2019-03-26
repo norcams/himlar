@@ -65,6 +65,12 @@ class profile::application::builder (
     ensure => directory,
     owner  => $user,
     group  => $group
+  } ->
+  file { '/var/log/imagebuilder':
+    ensure => directory,
+    owner  => $user,
+    group  => $group,
+    mode   => '0755'
   }
 
   create_resources('profile::application::builder::jobs', lookup('profile::application::builder::images', Hash, 'deep', {}))
