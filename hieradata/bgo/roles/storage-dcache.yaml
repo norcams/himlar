@@ -11,6 +11,23 @@ profile::base::network::network_auto_bonding:
 profile::storage::cephosd::crush_parent:      'dcache'
 profile::storage::cephosd::crush_parent_type: 'pod'
 
+profile::storage::ceph_ecpool::ec_pools:
+  'dcache_hdd_ec_data':
+    pg_num:              "512"
+    manage:              true
+    allow_ec_overwrites: true
+    k_data:              "3"
+    m_code:              "2"
+    crush_root:          "dcache"
+profile::storage::cephpool_params::pools:
+  'dcache_hdd_ec_meta':
+    replicas_num:       4
+    replicas_min_size:  3
+    crush_rule:         "hdd-dcache"
+    application_enable: 'rbd'
+  'dcache_hdd_ec_data':
+    application_enable: 'rbd'
+
 profile::base::lvm::physical_volume:
   '/dev/sdp':
     ensure: present
