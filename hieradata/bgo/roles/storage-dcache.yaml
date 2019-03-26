@@ -19,6 +19,11 @@ profile::storage::ceph_ecpool::ec_pools:
     k_data:              "3"
     m_code:              "2"
     crush_root:          "dcache"
+profile::storage::cephpool::pools:
+  'dcache_hdd_ec_meta':
+    ensure: present
+    pg_num: 256
+    pgp_num: 256
 profile::storage::cephpool_params::pools:
   'dcache_hdd_ec_meta':
     replicas_num:       4
