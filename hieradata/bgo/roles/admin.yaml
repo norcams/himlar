@@ -34,10 +34,10 @@ profile::network::services::dhcp_reservation:
     mac: '00:01:e8:d8:37:24'
     ip:  '172.16.0.4'
   bgo-spine-01:
-    mac: '3c:2c:30:49:27:80'
+    mac: '3c:2c:30:49:2f:00'
     ip:  "%{hiera('netcfg_mgmt_net_c6')}.1"
   bgo-spine-02:
-    mac: '3c:2c:30:49:2f:00'
+    mac: '3c:2c:30:49:27:80'
     ip:  "%{hiera('netcfg_mgmt_net_c6')}.2"
   bgo-torack-01:
     mac: '14:18:77:00:78:00'
