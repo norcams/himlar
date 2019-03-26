@@ -56,7 +56,7 @@ profile::base::network::cumulus_bonds:
     'slaves': [ 'swp29-30', ]
     'clag_id': '1000'
     'pvid': '100'
-    'vids': [ '100', '120', ]
+    'vids': [ '100', '110', '120', ]
   'host1':
     'slaves': [ 'swp1s0', ]
     'clag_id': '1'
@@ -430,4 +430,4 @@ profile::base::network::cumulus_bridges:
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'true'
-    'vids': [ '100', '120', '4094', ]
+    'vids': [ '100', '110', '120', '4094', ]
