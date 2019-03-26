@@ -1,4 +1,8 @@
 ---
+# Nover overrides
+nova::compute::libvirt::libvirt_cpu_model: 'EPYC'
+nova::cpu_allocation_ratio:                '1'
+
 profile::base::physical::enable_redfish_sensu_check: false
 
 profile::base::lvm::physical_volume:
@@ -14,8 +18,6 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_ext'
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
-
-nova::compute::libvirt::libvirt_cpu_model: 'EPYC'
 
 profile::base::network::network_auto_bonding:
   trp:
