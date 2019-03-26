@@ -12,6 +12,8 @@ include:
     - profile::base::lvm
     - profile::storage::cephosd_firewall
 
+ceph::profile::params::fsid: "%{hiera('ceph_storage_client_fsid')}"
+
 profile::base::manage_lvm:                           true
 
 profile::storage::cephosd_firewall::manage_firewall: true
