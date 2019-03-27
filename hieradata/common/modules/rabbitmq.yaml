@@ -1,16 +1,20 @@
 ---
+# Override this default in role
+mq__high__watermark:                  0.4
+
 # Install rabbitmq_management plugin
 rabbitmq::admin_enable:               true
 
 rabbitmq::repos_ensure:               false
 rabbitmq::delete_guest_user:          true
 rabbitmq::file_limit:                 65536
-rabbitmq::node_ip_address:            "0.0.0.0"
+rabbitmq::node_ip_address:            "0.0.0.0" #This should be set to mgmt or trp in role
 rabbitmq::package_provider:           yum
 rabbitmq::package_source:             ''
 rabbitmq::config_variables:
     'log_levels':       "[{connection, info}]"
     'loopback_users':   "[{local}]"
+    'vm_memory_high_watermark': "%{hiera('mq__high__watermark')}"
 
 rabbitmq::config_cluster:             true
 rabbitmq::config_ranch:               false
