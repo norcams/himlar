@@ -44,6 +44,11 @@ profile::network::leaf::cumulus_portconfigs:
     line:  "30=40G" # temporary uplink to torack
 
 profile::base::network::cumulus_interfaces:
+  'swp27':
+    'speed': '40000'
+    'mtu':   '9000'
+    'pvid':  '109'
+    'vids':  [ '109', ]
   'swp29':
     'speed': '40000'
     'fec':   'baser'
@@ -531,11 +536,11 @@ profile::base::network::cumulus_bridges:
       - host53
       - host57
       - host58
+      - swp27
       - peerlink
       - downlink
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'true'
-    'vids': [ '100', '110', '120', '4094', ]
-    'vids': [ '100', '110', '120', ]
+    'vids': [ '100', '109' '110', '120', '4094', ]
     'mtu': '9216'
