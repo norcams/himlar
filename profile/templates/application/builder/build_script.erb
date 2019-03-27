@@ -61,16 +61,12 @@ fi
 filename=/opt/images/public_builds/<%= @name %>-$(date +"%Y%m%d").qcow2
 tmp_file=/opt/images/public_builds/<%= @name %>.tmp
 
-if [ $(which qemu-img) ] && [ -f ${filename} ]; then
-  mv -f ${filename} ${tmp_file}
-  qemu-img convert -O qcow2 -c ${tmp_file} ${filename}
-  rm -f ${tmp_file}
-fi
+mv -f ${filename} ${tmp_file}
+qemu-img convert -O qcow2 -c ${tmp_file} ${filename}
+rm -f ${tmp_file}
 
 # Create latest symlink
-if [ -f ${filename} ]; then
-  ln -srf ${filename} /opt/images/public_builds/<%= @name %>-latest.qcow2
-fi
+ln -srf ${filename} /opt/images/public_builds/<%= @name %>-latest.qcow2
 
 # Remove old images, always keeping the two most recent
 find /opt/images/public_builds/ -type f -iname <%= @name %>\* | sort -r | tail -n +3 | xargs rm -f
