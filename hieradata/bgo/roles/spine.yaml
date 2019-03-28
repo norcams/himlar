@@ -46,9 +46,7 @@ profile::network::leaf::cumulus_portconfigs:
 profile::base::network::cumulus_interfaces:
   'swp27':
     'speed': '40000'
-    'mtu':   '9000'
-    'pvid':  '109'
-    'vids':  [ '109', ]
+    'mtu':   '9216'
   'swp29':
     'speed': '40000'
     'fec':   'baser'
@@ -67,6 +65,11 @@ profile::base::network::cumulus_bonds:
     'clag_id': '1000'
     'pvid': '100'
     'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'lhc':
+    'slaves': [ 'swp27', ]
+    'clag_id': '1109'
+    'vids': [ '109', ]
     'mtu': '9216'
   'host1':
     'slaves': [ 'swp1s0', ]
