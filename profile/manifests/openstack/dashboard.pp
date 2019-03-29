@@ -20,6 +20,9 @@ class profile::openstack::dashboard(
   $keystone_admin_roles = undef,
   $customize_logo       = false,
   $user_menu_links      = undef,
+  $session_cookie_httponly = false,
+  $access_control_allow_origin = false,
+  $use_ssl = false,
 ) {
 
   if $manage_dashboard {

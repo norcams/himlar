@@ -8,3 +8,8 @@ profile::openstack::dashboard::allow_from_network:
   - '129.240.202.12/32' # trond
   - '129.240.6.14/32'   # mikael
   - '129.240.202.64/32' # tannaz
+
+# Horizon test and it should be added to common
+profile::openstack::dashboard::session_cookie_httponly: true
+profile::openstack::dashboard::use_ssl:                 true
+profile::openstack::dashboard::access_control_allow_origin: "console.%{hiera('domain_public')}"
