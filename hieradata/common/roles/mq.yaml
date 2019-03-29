@@ -5,9 +5,9 @@ include:
     - profile::logging::rsyslog::client
 
 # Memory tuning
-mq__high__watermark:      0.5
-rabbitmq::tcp_recbuf:     65536
-rabbitmq::tcp_sndbuf:     65536
+mq__high__watermark:      0.6
+rabbitmq::tcp_recbuf:     32768
+rabbitmq::tcp_sndbuf:     32768
 
 # Make sure we know when memory are low
 sensu__memory__check:     "check-memory-percent.rb -w 45 -c 50"
