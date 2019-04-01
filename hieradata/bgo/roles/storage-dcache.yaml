@@ -51,6 +51,7 @@ profile::storage::cephpool_params::pools:
     application_enable: 'rbd'
   'dcache_hdd_ec_data':
     application_enable: 'rbd'
+    replicas_min_size:  '11'
 
 profile::base::lvm::physical_volume:
   '/dev/sdp':
