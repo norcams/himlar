@@ -28,7 +28,7 @@ profile::storage::cephosd::crush_parent_type: 'pod'
 profile::base::common::manage_lvm: false
 profile::base::lvm::create_lvm:    false
 
-profile::storage::cephpool::manage_ec_pools: false
+profile::storage::cephpool::manage_ec_pools: true
 
 profile::storage::ceph_ecpool::ec_pools:
   'dcache_hdd_ec_data':
