@@ -44,12 +44,12 @@ set -eo pipefail
 
 if [ $gen_report == "true" ]; then
   # Write imagebuilder's exit code to imagebuilder report
-  jq -Rn '{"result_imagebuilder": input}' <<< $imagebuilder_ec > $json_report
+  jq -Rnc '{"result_imagebuilder": input}' <<< $imagebuilder_ec > $json_report
 
   # Convert newlines in imagebuilder's output into to literal \n for a
   # single-line value in the report
   awk '{printf "%s\\n", $0}' $plain_log \
-  | jq -R '{"output_imagebuilder": .}' >> $json_report
+  | jq -Rc '{"output_imagebuilder": .}' >> $json_report
 fi
 
 # Non-zero exit codes from imagebuilder must be handled manually
@@ -73,5 +73,5 @@ find /opt/images/public_builds/ -type f -iname <%= @name %>\* | sort -r | tail -
 
 if [ $gen_report == "true" ]; then
   # If we make it to here we assume the build has been successful
-  jq -n '{"result": "success"}' >> $json_report
+  jq -nc '{"result": "success"}' >> $json_report
 fi
