@@ -32,7 +32,7 @@ profile::storage::cephpool::manage_ec_pools: false
 
 profile::storage::ceph_ecpool::ec_pools:
   'dcache_hdd_ec_data':
-    pg_num:              "512"
+    pg_num:              "2048"
     manage:              true
     allow_ec_overwrites: true
     k_data:              "10"
@@ -41,8 +41,8 @@ profile::storage::ceph_ecpool::ec_pools:
 profile::storage::cephpool::pools:
   'dcache_hdd_ec_meta':
     ensure: present
-    pg_num: 256
-    pgp_num: 256
+    pg_num: 512
+    pgp_num: 512
 profile::storage::cephpool_params::pools:
   'dcache_hdd_ec_meta':
     replicas_num:       4
