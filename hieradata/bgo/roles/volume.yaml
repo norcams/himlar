@@ -8,6 +8,10 @@ profile::openstack::volume::type:
     visibility: "private"
     properties:
       - 'volume_backend_name=mass-storage-default'
+  mass-storage-dcache:
+    visibility: "private"
+    properties:
+      - 'volume_backend_name=mass-storage-dcache'
 
 profile::openstack::volume::backend::rbd:
   rbd-volumes:
@@ -26,7 +30,16 @@ profile::openstack::volume::backend::rbd:
     extra_options:
       mass-storage-default/report_discard_supported:
         value: 'True'
+  mass-storage-dcache:
+    rbd_pool: 'dcache_hdd_ec_meta'
+    rbd_user: 'cinder-dcache-hdd-ec'
+    rbd_flatten_volume_from_snapshot: 'True'
+    rbd_secret_uuid: "%{hiera('libvirt_rbd_secret_uuid')}"
+    extra_options:
+      mass-storage-dcache/report_discard_supported:
+        value: 'True'
 
 cinder::backends::enabled_backends:
   - rbd-volumes
   - mass-storage-default
+  - mass-storage-dcache
