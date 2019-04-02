@@ -100,6 +100,7 @@ nova::scheduler::filter::scheduler_default_filters:
   - "ServerGroupAffinityFilter"
   - "AggregateMultiTenancyIsolation"
   - "AggregateInstanceExtraSpecsFilter"
+  - "NUMATopologyFilter"
 
 # conductor (node: novactrl)
 nova::conductor::enabled: true

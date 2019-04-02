@@ -42,18 +42,3 @@ profile::base::network::network_auto_bonding:
     p2p2:
       'team_port_config': '{ "prio" : 100 }'
       'mtu': '9000'
-
-nova::scheduler::filter::scheduler_default_filters:
-  - "NumInstancesFilter"
-  - "RetryFilter"
-  - "AvailabilityZoneFilter"
-  - "RamFilter"
-  - "DiskFilter"
-  - "ComputeFilter"
-  - "ComputeCapabilitiesFilter"
-  - "ImagePropertiesFilter"
-  - "ServerGroupAntiAffinityFilter"
-  - "ServerGroupAffinityFilter"
-  - "AggregateMultiTenancyIsolation"
-  - "AggregateInstanceExtraSpecsFilter"
-  - "NUMATopologyFilter"
