@@ -25,7 +25,7 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
-    includepkgs: 'leveldb liboath py-bcrypt python2-bcrypt libsmbios smbios-utils-bin'
+    includepkgs: 'lttng-ust userspace-rcu libbabeltrace leveldb liboath py-bcrypt python2-bcrypt libsmbios smbios-utils-bin'
 
 profile::base::physical::enable_redfish_sensu_check: false
 
