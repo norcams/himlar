@@ -24,8 +24,7 @@ ceph::profile::params::client_keys:
 
 profile::storage::maprbd::manage_maprbd: true
 profile::storage::maprbd::rbd_images:
-  dcache_hdd_ec_meta/dcache-tape-pool-in:
-    - 'id=client.tape,keyring=/etc/ceph/ceph.client.tape.keyring'
+  dcache_hdd_ec_meta/dcache-tape-pool-in: 'id=tape,keyring=/etc/ceph/ceph.client.tape.keyring'
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
