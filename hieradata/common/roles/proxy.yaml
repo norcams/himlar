@@ -54,3 +54,13 @@ profile::base::yumrepo::repo_hash:
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
     includepkgs: 'tinyproxy htop bash-completion-extras jq oniguruma'
+
+logrotate::rules:
+  himlarcli:
+    path:           ['/opt/himlarcli/logs/himlar.log']
+    rotate:         4
+    size:           '100M'
+    dateext:        true
+    missingok:      true
+    compress:       true
+
