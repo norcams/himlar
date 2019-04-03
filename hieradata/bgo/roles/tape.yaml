@@ -1,6 +1,7 @@
 ---
 include:
-  default:
+  kickstart:
+    - profile::base::lvm
     - profile::storage::cephclient
 
 #profile::storage::cephclient::create_extraconf: true
