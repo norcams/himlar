@@ -23,9 +23,8 @@ ceph::profile::params::client_keys:
 profile::base::yumrepo::repo_hash:
   ceph-%{hiera('ceph_version')}:
     ensure: present
-  epel: # should be absent when using RDO, but whitelist can also work
-    ensure:   present
-    includepkgs: 'lttng-ust userspace-rcu libbabeltrace leveldb liboath py-bcrypt python2-bcrypt libsmbios smbios-utils-bin'
+  epel:
+    ensure: present
 
 profile::base::physical::enable_redfish_sensu_check: false
 
