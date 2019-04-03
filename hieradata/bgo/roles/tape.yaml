@@ -3,6 +3,7 @@ include:
   kickstart:
     - profile::base::lvm
     - profile::storage::cephclient
+    - profile::storage::maprbd
 
 profile::base::physical::enable_redfish_sensu_check: false
 
@@ -20,6 +21,11 @@ ceph::profile::params::client_keys:
     group: 'root'
     cap_mon: 'profile rbd'
     cap_osd: 'profile rbd pool=dcache_hdd_ec_meta, profile rbd pool=dcache_hdd_ec_data'
+
+profile::storage::maprbd::manage_maprbd: true
+profile::storage::maprbd::rbd_images:
+  dcache_hdd_ec_meta/dcache-tape-pool-in:
+    - 'id=client.tape,keyring=/etc/ceph/ceph.client.tape.keyring'
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
