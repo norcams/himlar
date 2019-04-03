@@ -28,6 +28,17 @@ profile::base::yumrepo::repo_hash:
 
 profile::base::physical::enable_redfish_sensu_check: false
 
+accounts::users:
+  'dcache':
+    ensure: present
+accounts::usergroups:
+  'dcache':
+    - 'dcache'
+accounts::accounts:
+  'dcache':
+    ensure: present
+    home:   '/var/lib/dcache'
+
 named_interfaces::config:
   mgmt:
     - em3
