@@ -11,12 +11,13 @@ class profile::storage::maprbd (
   if $manage_maprbd {
     # Pass a hash with pool/imagename and parameters
     unless empty($rbd_images) {
-      file { "/etc/ceph/rbdmap.service":
+      file { "/etc/ceph/rbdmap":
         ensure  => file,
-        path    => "/etc/ceph/rbdmap.service",
+        path    => "/etc/ceph/rbdmap",
         content => template("${module_name}/storage/maprbd_service.erb"),
       } ~>
       service { "Map rbd images":
+        ensure      => running,
         enable      => true,
         hasrestart  => false,
         name        => "rbdmap",
