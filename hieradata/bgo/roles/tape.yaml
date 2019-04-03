@@ -1,4 +1,23 @@
 ---
+include:
+  default:
+    - profile::storage::cephclient
+
+#profile::storage::cephclient::create_extraconf: true
+#profile::storage::ceph_extraconf::config:
+#  client_dcache_backend:
+#    'config_key'  : "client.tape/rbd_default_data_pool"
+#    'config_value': "dcache_hdd_ec_data"
+
+ceph::profile::params::client_keys:
+  'client.tape':
+    secret: "%{hiera('ceph_storage_client_tape_key')}"
+    mode: '0600'
+    user: 'root'
+    group: 'root'
+    cap_mon: 'profile rbd'
+    cap_osd: 'profile rbd pool=dcache_hdd_ec_meta, profile rbd pool=dcache_hdd_ec_data'
+
 profile::base::physical::enable_redfish_sensu_check: false
 
 named_interfaces::config:
@@ -79,3 +98,5 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_logarchive'
     fs_type:      "xfs"
     mountpath:    "/log_archive"
+
+
