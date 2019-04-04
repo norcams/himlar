@@ -2,13 +2,17 @@
 #
 #
 class profile::storage::maprbd (
-  $manage_maprbd = false,
-  $rbd_images    = {},
+  $manage_maprbd     = false,
+  $create_lvm_config = true,
+  $rbd_images        = {},
 ) {
 
   include ::ceph::profile::client
 
   if $manage_maprbd {
+    if $create_lvm_type {
+      create_resources(profile::base::lvm_config, lookup('profile::base::lvm_config', Hash, 'deep', {}))
+    }
     # Pass a hash with pool/imagename and parameters
     unless empty($rbd_images) {
       file { "/etc/ceph/rbdmap":
