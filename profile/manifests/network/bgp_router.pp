@@ -20,7 +20,7 @@ class profile::network::bgp_router(
     }
     file { '/etc/bird.conf':
       ensure   => file,
-      content  => template("${module_name}/bird/bird-nat.conf.erb"),
+      content  => template("${$bird_template}"),
       notify   => Service['bird']
     }
     service { 'bird':
@@ -35,7 +35,7 @@ class profile::network::bgp_router(
     }
     file { '/etc/bird6.conf':
       ensure   => file,
-      content  => template("${module_name}/bird/bird-resolver.conf6.erb"),
+      content  => template("${$bird6_template}"),
       notify   => Service['bird6']
     }
     service { 'bird6':
