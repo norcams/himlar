@@ -10,7 +10,7 @@ class profile::storage::maprbd (
   include ::ceph::profile::client
 
   if $manage_maprbd {
-    if $create_lvm_type {
+    if $create_lvm_config {
       create_resources(profile::base::lvm_config, lookup('profile::base::lvm_config', Hash, 'deep', {}))
     }
     # Pass a hash with pool/imagename and parameters
