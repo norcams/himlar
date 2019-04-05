@@ -6,6 +6,15 @@ include:
     - profile::storage::maprbd
   bootstrap:
     - profile::base::lvm
+  default:
+    - profile::network::bgp_router
+
+profile::network::bgp_router::enable_bird:          true
+profile::network::bgp_router::enable_bird6:         true
+profile::network::bgp_router::manage_bgp_firewall:  true
+profile::network::bgp_router::manage_bgp_firewall6: true
+profile::network::bgp_router::bird_template:        "${module_name}/bird/bird-nat-conf.erb"
+profile::network::bgp_router::bird6_template:       "${module_name}/bird/bird6.erb"
 
 profile::base::physical::enable_redfish_sensu_check: false
 
