@@ -4,6 +4,8 @@ include:
     - profile::base::lvm
     - profile::storage::cephclient
     - profile::storage::maprbd
+  bootstrap:
+    - profile::base::lvm
 
 profile::base::physical::enable_redfish_sensu_check: false
 
