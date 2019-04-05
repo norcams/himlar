@@ -3,6 +3,7 @@ include:
   default:
     - profile::network::leaf
     - profile::base::common
+    - profile::monitoring::netdata
   bootstrap:
     - profile::base::common
 
@@ -28,6 +29,9 @@ profile::logging::logrotate::manage_logrotate:    false
 ntp::service_enable: false
 ntp::service_ensure: 'stopped'
 
+# Netdata
+profile::monitoring::netdata::manage_firewall: false
+
 frrouting::zebra:                 true
 frrouting::bgpd:                  true
 frrouting::single_config_file:    true
@@ -41,6 +45,8 @@ profile::network::leaf::acls:
       - "INGRESS_CHAIN = INPUT"
       - "INGRESS_INTF = swp+"
     iptables:
+      - "-A $INGRESS_CHAIN -s %{hiera('netcfg_mgmt_netpart')}.0/%{hiera('netcfg_mgmt_netmask')} -p tcp --dport 19999 -j ACCEPT"
+      - "-A $INGRESS_CHAIN -p tcp --dport 19999 -j DROP"
       - "-A $INGRESS_CHAIN -s %{hiera('netcfg_trp_netpart')}.0/%{hiera('netcfg_trp_netmask')} -p tcp --dport 179 -j ACCEPT"
       - "-A $INGRESS_CHAIN -p tcp --dport 179 -j DROP"
       - "-A $INGRESS_CHAIN -s %{hiera('netcfg_mgmt_netpart')}.0/%{hiera('netcfg_mgmt_netmask')} -p tcp --dport 22 -j ACCEPT"
