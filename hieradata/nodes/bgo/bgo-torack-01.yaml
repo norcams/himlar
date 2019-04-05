@@ -276,6 +276,7 @@ frrouting::frrouting::bgp_neighbor_groups:
       - '172.18.1.32'
       - '172.18.1.33'
       - '172.18.1.34'
+      - '172.18.1.49'
     'options6':
       - 'neighbor rr-clients route-reflector-client'
       - 'maximum-paths ibgp 3'
@@ -316,6 +317,7 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'fd00::1:32'
       - 'fd00::1:33'
       - 'fd00::1:34'
+      - 'fd00::1:49'
 #  'other-clients':
 #    'options':
 #    - 'peer-group'
