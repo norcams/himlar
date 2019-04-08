@@ -22,6 +22,11 @@ profile::base::network::manage_dummy:    true
 profile::base::network::netif_proxy_arp: true
 profile::base::network::proxy_arp_ifs:   [ 'dummy0', ]
 
+profile::virtualization::libvirt::manage_firewall: true
+profile::virtualization::libvirt::firewall_extras:
+  'graphics':
+    port: 5900-5999
+
 #profile::storage::cephclient::create_extraconf: true
 #profile::storage::ceph_extraconf::config:
 #  client_dcache_backend:
@@ -78,6 +83,15 @@ profile::base::network::network_auto_bonding:
     p4p2:
       'team_port_config': '{ "prio" : 100 }'
       'mtu': '9000'
+
+lvm::volume_groups:
+  vg_ext:
+    physical_volumes:
+      - /dev/sdf3
+    logical_volumes:
+      lv_ext:
+        fs_type:   xfs
+        mountpath: "/var/lib/libvirt/images"
 
 profile::base::lvm::physical_volume:
   '/dev/sda':
