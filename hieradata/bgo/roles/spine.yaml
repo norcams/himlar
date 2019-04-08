@@ -2,6 +2,12 @@
 profile::network::leaf::manage_license: true
 profile::network::leaf::manage_portconfig: true
 
+named_interfaces::config:
+  mgmt:
+    - eth0
+  trp:
+    - bridge.100
+
 # Dellemc S5132f needs explicit config
 profile::network::leaf::cumulus_portconfigs:
   1:
@@ -674,7 +680,7 @@ frrouting::frrouting::zebra_generic_options:
 frrouting::frrouting::bgp_as: "%{hiera('bgp_as')}"
 
 frrouting::frrouting::bgp_options:
-  - "bgp router-id %{hiera('netcfg_trp_netpart')}.1"
+  - "bgp router-id %{ipaddress_trp1}"
   - 'bgp log-neighbor-changes'
   - 'bgp default local-preference 200'
   - 'maximum-paths ibgp 5'
@@ -786,6 +792,7 @@ frrouting::frrouting::bgp_accesslist:
   '10':
     - 'permit 158.39.74.0 0.0.0.255'
     - 'permit 158.39.77.0 0.0.0.255'
+    - 'permit 109.105.125.0 0.0.0.63'
     - 'permit 10.1.0.0 0.0.15.255'
     - 'permit 172.18.0.0 0.0.7.255'
   '20':
