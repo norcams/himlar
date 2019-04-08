@@ -8,6 +8,7 @@ include:
     - profile::base::lvm
   default:
     - profile::network::bgp_router
+    - profile::virtualization::libvirt
 
 profile::network::bgp_router::enable_bird:          true
 profile::network::bgp_router::enable_bird6:         true
