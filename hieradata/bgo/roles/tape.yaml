@@ -17,6 +17,7 @@ profile::network::bgp_router::bird_template:        'bird-nat.conf.erb'
 profile::network::bgp_router::bird6_template:       'bird6_bgp.conf.erb'
 
 profile::base::physical::enable_redfish_sensu_check: false
+profile::base::network::manage_dummy: true
 
 #profile::storage::cephclient::create_extraconf: true
 #profile::storage::ceph_extraconf::config:
