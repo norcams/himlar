@@ -3,6 +3,8 @@ class profile::base::network(
   $manage_dummy     = false,
   $net_ifnames      = true,
   $no_of_dummies    = 1,
+  $netif_proxy_arp  = false,
+  $proxy_arp_ifs    = {},
   $manage_httpproxy = false,
   $http_proxy       = undef,
   $remove_route     = false,
@@ -67,6 +69,18 @@ class profile::base::network(
       module => "dummy",
       option => "numdummies",
       value =>  $no_of_dummies,
+    }
+  }
+
+  # Set proxy arp for interface
+  if $netif_proxy_arp {
+    $proxy_arp_ifs.each |$ifsetsysctl| {
+      sysctl::value { "net.ipv4.conf.${ifsetsysctl}.proxy_arp":
+        value => 1,
+      }
+      sysctl::value { "net.ipv6.conf.${ifsetsysctl}.proxy_ndp":
+        value => 1,
+      }
     }
   }
 
