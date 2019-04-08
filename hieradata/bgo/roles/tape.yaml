@@ -91,9 +91,9 @@ profile::base::lvm::physical_volume:
   '/dev/sde':
     ensure: present
     force:  true
-  '/dev/rbd/dcache_hdd_ec_meta/dcache-tape-pool-in':
-    ensure: present
-    force:  true
+#  '/dev/rbd/dcache_hdd_ec_meta/dcache-tape-pool-in':
+#    ensure: present
+#    force:  true
 profile::base::lvm::volume_group:
   'vg_db01':
     physical_volumes:
@@ -110,9 +110,9 @@ profile::base::lvm::volume_group:
   'vg_logarchive':
     physical_volumes:
       - /dev/sde
-  'vg_dcache_in':
-    physical_volumes:
-      - /dev/rbd/dcache_hdd_ec_meta/dcache-tape-pool-in
+#  'vg_dcache_in':
+#    physical_volumes:
+#      - /dev/rbd/dcache_hdd_ec_meta/dcache-tape-pool-in
 profile::base::lvm::logical_volume:
   'lv_db01':
     volume_group: 'vg_db01'
@@ -134,7 +134,7 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_logarchive'
     fs_type:      "xfs"
     mountpath:    "/log_archive"
-  'lv_dcache_in':
-    volume_group: 'vg_dcache_in'
-    fs_type:      'xfs'
-    mountpath:    '/dcache_in'
+#  'lv_dcache_in':
+#    volume_group: 'vg_dcache_in'
+#    fs_type:      'xfs'
+#    mountpath:    '/dcache_in'
