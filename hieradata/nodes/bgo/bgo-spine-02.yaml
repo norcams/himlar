@@ -25,3 +25,32 @@ profile::base::network::cumulus_interfaces:
     'clagd_enable': true
     'clagd_peer_ip': '172.18.229.1'
     'clagd_sys_mac': '44:38:39:ff:bb:1d'
+
+frrouting::frrouting::bgp_neighbors:
+  - "172.18.0.1 remote-as %{hiera('bgp_as')}"
+  - '172.18.0.1 soft-reconfiguration inbound'
+  - "172.18.0.2 remote-as %{hiera('bgp_as')}"
+  - '172.18.0.2 soft-reconfiguration inbound'
+  - "172.18.229.1 remote-as %{hiera('bgp_as')}"
+  - '172.18.229.1 soft-reconfiguration inbound'
+frrouting::frrouting::zebra_ip6_routes:
+  - '::/0 fd00::701'
+  - '::/0 fd00:18:229::1 50'
+  - '2001:700:2:8300::/64 Null0'
+  - '2001:700:2:8301::/64 Null0'
+  - '2001:700:2:83ff::12/128 fd00::12'
+  - '2001:700:2:83ff::251/128 fd00::16'
+  - '2001:700:2:83ff::256/128 fd00::34'
+frrouting::frrouting::zebra_ip_routes:
+  - '0.0.0.0/0 172.18.7.1'
+  - '0.0.0.0/0 172.18.229.1 50'
+  - '10.0.0.0/8 Null0'
+  - '158.39.74.0/24 Null0'
+  - '158.39.77.0/24 Null0'
+  - '158.39.77.248/32 172.18.0.26'
+  - '158.39.74.248/32 172.18.0.27'
+  - '158.39.77.249/32 172.18.0.41'
+  - '158.39.77.250/32 172.18.0.86'
+  - '158.39.77.251/32 172.18.0.16'
+  - '158.39.77.253/32 172.18.0.12'
+  - '158.39.77.254/32 172.18.0.51'
