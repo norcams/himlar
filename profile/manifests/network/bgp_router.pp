@@ -6,6 +6,7 @@ class profile::network::bgp_router(
   $bird6_template        = undef,
   $manage_bgp_firewall   = false,
   $manage_bgp_firewall6  = false,
+  $router_id             = $::ipaddress_trp1,
 ) {
 
   sysctl::value { 'net.ipv4.ip_forward':
