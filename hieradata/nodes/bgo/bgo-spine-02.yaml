@@ -30,12 +30,16 @@ frrouting::frrouting::bgp_neighbors:
   - "172.18.0.1 remote-as %{hiera('bgp_as')}"
   - '172.18.0.1 soft-reconfiguration inbound'
   - "fd00::1 remote-as %{hiera('bgp_as')}"
+  - 'fd00::1 soft-reconfiguration inbound'
   - "172.18.0.2 remote-as %{hiera('bgp_as')}"
   - '172.18.0.2 soft-reconfiguration inbound'
   - "fd00::2 remote-as %{hiera('bgp_as')}"
+  - 'fd00::2 soft-reconfiguration inbound'
   - "172.18.229.1 remote-as %{hiera('bgp_as')}"
   - '172.18.229.1 soft-reconfiguration inbound'
   - "fd00:18:229::1 remote-as %{hiera('bgp_as')}"
+  - 'fd00:18:229::1 soft-reconfiguration inbound'
+
 frrouting::frrouting::zebra_ip6_routes:
   - '::/0 fd00::701'
   - '::/0 fd00:18:229::1 50'
