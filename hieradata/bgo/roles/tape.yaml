@@ -21,9 +21,8 @@ profile::network::bgp_router::bird6_template:       'bird6_bgp.conf.erb'
 profile::network::yum_proxy::yum_proxy:             "http://%{hiera('mgmt__address__proxy')}:8888"
 
 profile::base::physical::enable_redfish_sensu_check: false
-profile::base::network::manage_dummy:    true
 profile::base::network::netif_proxy_arp: true
-profile::base::network::proxy_arp_ifs:   [ 'dummy0', ]
+profile::base::network::proxy_arp_ifs:   [ 'tap0', ]
 
 profile::virtualization::libvirt::manage_firewall: true
 profile::virtualization::libvirt::firewall_extras:
