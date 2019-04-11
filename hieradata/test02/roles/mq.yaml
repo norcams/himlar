@@ -1,3 +1,11 @@
 ---
 rabbitmq::cluster_nodes:
   - 'test02-mq-01'
+
+# RDO used for openstackclient
+profile::base::yumrepo::repo_hash:
+  rdo-release:
+    ensure: present
+  epel:
+    ensure: present
+    exclude: 'rabbitmq-server'
