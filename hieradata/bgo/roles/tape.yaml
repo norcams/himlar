@@ -54,6 +54,17 @@ ceph::profile::params::client_keys:
 #profile::storage::maprbd::rbd_images:
 #  dcache_hdd_ec_meta/dcache-tape-pool-in: 'id=tape,keyring=/etc/ceph/ceph.client.tape.keyring'
 
+libvirt::unix_sock_group:         wheel
+libvirt::unix_sock_rw_perms:      0770
+libvirt::listen_tls:              false
+libvirt::listen_tcp:              true
+libvirt::auth_tcp:                none
+libvirt::sysconfig:
+  LIBVIRTD_ARGS:                  '--listen'
+libvirt::qemu_vnc_listen:         '0.0.0.0'
+libvirt::qemu_vnc_sasl:           false
+libvirt::qemu_vnc_tls:            false
+
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   ceph-%{hiera('ceph_version')}:
