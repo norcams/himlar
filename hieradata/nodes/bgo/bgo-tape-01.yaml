@@ -25,7 +25,7 @@ network::interfaces_hash:
     ipv6init:      'yes'
     ipv6addr:      "%{hiera('netcfg_trp_net6_c1')}:49/%{hiera('netcfg_trp_netmask6')}"
     ipv6_defaultgw: "%{hiera('netcfg_trp_gateway6')}"
-    defroute:      'no'
+    defroute:      'yes'
     mtu:           '9000'
     devicetype:    'Team'
     team_config: >-
