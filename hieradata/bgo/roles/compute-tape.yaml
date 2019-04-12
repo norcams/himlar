@@ -1,4 +1,8 @@
 ---
+include:
+  default:
+    - profile::openstack::compute::pci_passthrough
+
 profile::base::physical::enable_redfish_sensu_check: false
 
 netcfg_trp_rr:
@@ -8,6 +12,15 @@ netcfg_trp_rr:
   rr2:
     peer_ipv4: '172.18.6.2'
     peer_ipv6: 'fd00::6:2'
+
+profile::openstack::compute::pci_passthrough::manage_pcipassthrough: true
+
+# QLogic Corp ISP2532-based 8Gb Fibre Channel to PCI Express HBA
+nova::pci::aliases:
+  - 'vendor_id': '1077'
+    'product_id': '2532'
+    'device_type': 'type-PCI'
+    'name': 'isp2532'
 
 profile::base::network::network_auto_opts:
   mgmt:
