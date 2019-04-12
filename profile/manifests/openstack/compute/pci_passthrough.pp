@@ -7,7 +7,7 @@ class profile::openstack::compute::pci_passthrough(
 ) {
 
   if $configure_intel_iommu {
-  	# Set option in grub2
+    # Set option in grub2
     kernel_parameter { 'intel_iommu':
       ensure => present,
       value  => 'on',
@@ -19,6 +19,6 @@ class profile::openstack::compute::pci_passthrough(
   }
 
   if $manage_pci_whitelist {
-  	include ::nova::compute::pci
+    include ::nova::compute::pci
   }
 }
