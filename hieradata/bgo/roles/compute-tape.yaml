@@ -13,6 +13,11 @@ netcfg_trp_rr:
     peer_ipv4: '172.18.6.2'
     peer_ipv6: 'fd00::6:2'
 
+profile::openstack::compute::pci_passthrough::manage_pci_whitelist: true
+nova::compute::pci::passthrough:
+  - 'vendor_id':  '1077'
+    'product_id': '2532'
+
 profile::base::network::network_auto_opts:
   mgmt:
     'defroute': 'no'
