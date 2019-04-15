@@ -15,10 +15,10 @@ class profile::openstack::compute::pci_passthrough(
   }
 
   if $manage_pcipassthrough {
-    include ::nova::pci
+    include ::nova::pci,
   }
 
   if $manage_pci_whitelist {
-    include ::nova::compute::pci
+    include ::nova::compute::pci,
   }
 }
