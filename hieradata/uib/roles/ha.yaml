@@ -105,6 +105,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
   uib_https_domains:
     ensure: present
     mappings:
+      - 'apps-admin.uib.no':                      'uib-https-apps-admin'
       - 'exch.uib.no':                            'uib-https-exch'
       - 'portal.uib.no':                          'uib-https-adm'
   uib_http_domains:
@@ -114,6 +115,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
   public_https_domains:
     ensure: present
     mappings:
+      - 'apps.uib.no':                            'public-https-apps'
       - 'report.uh-iaas.no':                      'public-https-uh-report'
       - 'status.uh-iaas.no':                      'public-https-uh-status'
   public_http_domains:
@@ -135,6 +137,13 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     server_names:       ['report-osl', 'report-bgo']
     ipaddresses:        ['158.37.63.250', '158.39.77.250']
     options:            'verify none inter 1000 check check-ssl'
+  'public-https-apps':
+    listening_service:  'public-https-apps'
+    ports:              443
+    server_names:       ['apps-admin01.uib.no', 'apps-admin02.uib.no']
+    ipaddresses:        ['129.177.14.170', '129.177.14.171']
+    options:
+      - 'check'
   'public-ldap-prod':
     listening_service:  'public-ldap-prod'
     ports:              '389'
@@ -162,6 +171,13 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ipaddresses:        ['129.177.14.13', '129.177.14.182']
     options:
       - 'check'
+  'uib-https-apps-admin':
+    listening_service:  'uib-https-apps-admin'
+    ports:              443
+    server_names:       ['apps-admin01.uib.no', 'apps-admin02.uib.no']
+    ipaddresses:        ['129.177.14.170', '129.177.14.171']
+    options:
+      - 'check'
   'uib-http-adm':
     listening_service:  'uib-http-adm'
     ports:              80
@@ -185,6 +201,12 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
       - 'check'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_backends:
+  public-https-apps:
+    mode:             'tcp'
+    options:
+      - balance:      'roundrobin'
+      # - option:
+      #   - 'httpchk HEAD /jukeboxserver/do/license/token/renew.tok?msid=ping HTTP/1.1\r\nHost:\ apps-admin.uib.no'
   public-http-uh-status:
     mode:             'http'
     options:
@@ -219,6 +241,12 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     mode:             'tcp'
     options:
       - balance:      'source'
+  uib-https-apps-admin:
+    mode:             'tcp'
+    options:
+      - balance:      'roundrobin'
+      # - option:
+      #   - 'httpchk HEAD /jukeboxserver/do/license/token/renew.tok?msid=ping HTTP/1.1\r\nHost:\ apps-admin.uib.no'
   uib-https-adm:
     mode:             'tcp'
     options:
