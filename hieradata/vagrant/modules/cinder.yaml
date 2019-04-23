@@ -4,3 +4,4 @@ cinder::use_syslog:             true
 cinder::log_facility:           'LOG_LOCAL4'
 cinder::wsgi::apache::workers:  1
 cinder::wsgi::apache::threads:  1
+openstack_version:              'rocky'
