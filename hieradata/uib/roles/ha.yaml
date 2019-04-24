@@ -140,8 +140,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   'public-https-apps':
     listening_service:  'public-https-apps'
     ports:              443
-    server_names:       ['apps-admin01.uib.no', 'apps-admin02.uib.no']
-    ipaddresses:        ['129.177.14.170', '129.177.14.171']
+    server_names:       ['appsanywhere01.uib.no', 'appsanywhere02.uib.no']
+    ipaddresses:        ['129.177.30.211', '129.177.30.229']
     options:
       - 'check'
   'public-ldap-prod':
