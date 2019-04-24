@@ -204,7 +204,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
   public-https-apps:
     mode:             'tcp'
     options:
-      - balance:      'roundrobin'
+      - balance:      'source'
       # - option:
       #   - 'httpchk HEAD /jukeboxserver/do/license/token/renew.tok?msid=ping HTTP/1.1\r\nHost:\ apps-admin.uib.no'
   public-http-uh-status:
@@ -244,7 +244,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
   uib-https-apps-admin:
     mode:             'tcp'
     options:
-      - balance:      'roundrobin'
+      - balance:      'source'
       # - option:
       #   - 'httpchk HEAD /jukeboxserver/do/license/token/renew.tok?msid=ping HTTP/1.1\r\nHost:\ apps-admin.uib.no'
   uib-https-adm:
