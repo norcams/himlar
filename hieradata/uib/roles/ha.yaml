@@ -106,6 +106,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
     ensure: present
     mappings:
       - 'apps-admin.uib.no':                      'uib-https-apps-admin'
+      - 'apps-gw.uib.no':                         'uib-https-apps-gw'
       - 'exch.uib.no':                            'uib-https-exch'
       - 'portal.uib.no':                          'uib-https-adm'
   uib_http_domains:
@@ -178,6 +179,13 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ipaddresses:        ['129.177.14.170', '129.177.14.171']
     options:
       - 'check'
+  'uib-https-apps-gw':
+    listening_service:  'uib-https-apps-gw'
+    ports:              443
+    server_names:       ['apps-gw01.uib.no', 'apps-gw02.uib.no']
+    ipaddresses:        ['129.177.14.98', '129.177.14.152']
+    options:
+      - 'check'
   'uib-http-adm':
     listening_service:  'uib-http-adm'
     ports:              80
@@ -242,6 +250,12 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     options:
       - balance:      'source'
   uib-https-apps-admin:
+    mode:             'tcp'
+    options:
+      - balance:      'source'
+      # - option:
+      #   - 'httpchk HEAD /jukeboxserver/do/license/token/renew.tok?msid=ping HTTP/1.1\r\nHost:\ apps-admin.uib.no'
+  uib-https-apps-gw:
     mode:             'tcp'
     options:
       - balance:      'source'
