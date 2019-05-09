@@ -39,6 +39,8 @@ profile::network::leaf::cumulus_portconfigs:
   14:
     line:  "14=4x25G"
   15:
+    line:  "15=2510G"
+  26:
     line:  "15=4x10G" # bgo-storage-08 and 09
   27:
     line:  "27=40G" # temporary l2 link to old dcache
@@ -475,17 +477,17 @@ profile::base::network::cumulus_bonds:
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', ]
     'mtu': '9216'
-  'host57':
-    'slaves': [ 'swp15s0', ]
-    'clag_id': '57'
+  'host101':
+    'slaves': [ 'swp26s0', ]
+    'clag_id': '101'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', ]
     'mtu': '9216'
-  'host58':
-    'slaves': [ 'swp15s1', ]
-    'clag_id': '58'
+  'host102':
+    'slaves': [ 'swp26s1', ]
+    'clag_id': '102'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
