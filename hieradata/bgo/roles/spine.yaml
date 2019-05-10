@@ -558,6 +558,7 @@ profile::base::network::cumulus_bridges:
       - lhc
       - peerlink
       - downlink
+      - swp25
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'true'
@@ -677,6 +678,8 @@ frrouting::frrouting::zebra_interfaces:
   'host57':
     - 'link-detect'
   'host58':
+    - 'link-detect'
+  'swp25':
     - 'link-detect'
 
 frrouting::frrouting::zebra_generic_options:
