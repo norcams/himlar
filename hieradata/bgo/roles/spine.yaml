@@ -54,6 +54,10 @@ profile::network::leaf::cumulus_portconfigs:
     line:  "30=40G" # temporary uplink to torack
 
 profile::base::network::cumulus_interfaces:
+  'swp25':
+    'speed': '40000'
+    'mtu':   '9192'
+    'vids': [ '1', '10', ]
   'swp27':
     'speed': '40000'
     'mtu':   '9216'
@@ -557,7 +561,7 @@ profile::base::network::cumulus_bridges:
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'true'
-    'vids': [ '100', '109', '110', '120', '4094', ]
+    'vids': [ '1', '10', 100', '109', '110', '120', '4094', ]
     'mtu': '9216'
 
 frrouting::frrouting::zebra_interfaces:
@@ -673,8 +677,6 @@ frrouting::frrouting::zebra_interfaces:
   'host57':
     - 'link-detect'
   'host58':
-    - 'link-detect'
-  'swp47':
     - 'link-detect'
 
 frrouting::frrouting::zebra_generic_options:
