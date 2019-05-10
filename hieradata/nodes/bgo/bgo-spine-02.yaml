@@ -25,14 +25,12 @@ profile::base::network::cumulus_interfaces:
     'clagd_enable': true
     'clagd_peer_ip': '172.18.229.1'
     'clagd_sys_mac': '44:38:39:ff:bb:1d'
-  'vlan1':
+  'bridge.1':
     'ipv4': [ '128.39.70.91/31' ]
     'ipv6': [ '2001:700:0:80cd::2/126' ]
-    'vlan-id': 1
-  'vlan10':
+  'bridge.10':
     'ipv4': [ '109.105.124.27/31' ]
     'ipv6': [ '2001:948:40:4::69/127' ]
-    'vlan-id': 10
 
 frrouting::frrouting::bgp_neighbors:
   - "172.18.0.1 remote-as %{hiera('bgp_as')}"
