@@ -17,9 +17,9 @@ profile::base::network::routes:
 
 profile::base::network::cumulus_interfaces:
   'swp48':
-    'mtu':   '1500'
+    'mtu':   '9192'
   'swp52':
-    'mtu':   '9216'
+    'mtu':   '9192'
 
 profile::base::network::cumulus_bridges:
   'bridge':
@@ -28,3 +28,4 @@ profile::base::network::cumulus_bridges:
     'vlan_aware': 'true'
     'stp': 'false'
     'vids': [ '1', '10', ]
+    'mtu': '9192'
