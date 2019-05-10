@@ -18,8 +18,10 @@ profile::base::network::routes:
 profile::base::network::cumulus_interfaces:
   'swp48':
     'mtu':   '9192'
+    'vids': [ '1', '10', ]
   'swp52':
     'mtu':   '9192'
+    'vids': [ '1', '10', ]
 
 profile::base::network::cumulus_bridges:
   'bridge':
