@@ -3,8 +3,6 @@ include:
   default:
     - profile::openstack::compute::pci_passthrough
 
-profile::base::physical::enable_redfish_sensu_check: false
-
 netcfg_trp_rr:
   rr1:
     peer_ipv4: '172.18.6.1'

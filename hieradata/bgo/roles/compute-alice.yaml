@@ -3,8 +3,6 @@
 nova::compute::libvirt::libvirt_cpu_model: 'EPYC'
 nova::cpu_allocation_ratio:                '1'
 
-profile::base::physical::enable_redfish_sensu_check: false
-
 profile::base::lvm::physical_volume:
   '/dev/sda3':
     ensure: present
