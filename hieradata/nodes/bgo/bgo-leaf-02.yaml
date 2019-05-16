@@ -19,9 +19,11 @@ profile::base::network::cumulus_interfaces:
   'swp48':
     'mtu':   '9192'
     'vids': [ '1', '10', ]
+    'pvid':  '4093'
   'swp52':
     'mtu':   '9192'
     'vids': [ '1', '10', ]
+    'pvid':  '4093'
 
 profile::base::network::cumulus_bridges:
   'bridge':
