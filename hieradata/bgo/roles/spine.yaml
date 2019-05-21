@@ -57,7 +57,6 @@ profile::base::network::cumulus_interfaces:
   'swp25':
     'speed': '40000'
     'mtu':   '9192'
-    'vids': [ '1', '10', ]
     'pvid':  '4093'
   'swp27':
     'speed': '40000'
@@ -71,7 +70,7 @@ profile::base::network::cumulus_interfaces:
     'fec':   'baser'
     'mtu':   '9216'
   'uninett':
-    'vrf_table': '1003'
+    'vrf_table': 'auto'
 
 profile::base::network::cumulus_bonds:
   'peerlink':
@@ -564,7 +563,6 @@ profile::base::network::cumulus_bridges:
       - uninett
       - peerlink
       - downlink
-      - swp25
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'true'
