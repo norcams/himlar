@@ -28,9 +28,11 @@ profile::base::network::cumulus_interfaces:
   'bridge.1':
     'ipv4': [ '128.39.70.71/31' ]
     'ipv6': [ '2001:700:0:80cc::2/126' ]
+    'vrf':  'uninett'
   'bridge.10':
     'ipv4': [ '109.105.124.29/31' ]
     'ipv6': [ '2001:948:40:4::6b/127' ]
+    'vrf':  'uninett'
 
 frrouting::frrouting::bgp_neighbors:
   - "172.18.0.1 remote-as %{hiera('bgp_as')}"

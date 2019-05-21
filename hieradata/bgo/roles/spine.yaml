@@ -70,6 +70,8 @@ profile::base::network::cumulus_interfaces:
     'speed': '40000'
     'fec':   'baser'
     'mtu':   '9216'
+  'uninett':
+    'vrf_table': '1003'
 
 profile::base::network::cumulus_bonds:
   'peerlink':
@@ -559,6 +561,7 @@ profile::base::network::cumulus_bridges:
       - host101
       - host102
       - lhc
+      - uninett
       - peerlink
       - downlink
       - swp25
