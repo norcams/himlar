@@ -52,7 +52,7 @@ mod 'dnsmasq', :ref => 'v1.3.1',                    :git => github + 'saz/puppet
 mod 'ipcalc', :ref => '2.2.0',                      :git => github + 'inkblot/puppet-ipcalc'
 mod 'tinyproxy', :ref => 'ef4a8b0bb2',              :git => github + 'earsdown/puppet-tinyproxy'
 #mod 'cumuluslinux-cumulus_interfaces', :ref => '1.2.2', :git => github + 'CumulusNetworks/cumulus-cl-interfaces-puppet'
-mod 'cumuluslinux-cumulus_interfaces', :ref => 'd6b931922e', :git => github + 'norcams/cumulus-cl-interfaces-puppet'
+mod 'cumuluslinux-cumulus_interfaces', :ref => 'd7550ec8e2', :git => github + 'norcams/cumulus-cl-interfaces-puppet'
 
 #
 # profile::application::etcd
