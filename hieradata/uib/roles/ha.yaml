@@ -122,6 +122,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
   public_http_domains:
     ensure: present
     mappings:
+      - 'apps.uib.no':                            'public-http-apps'
       - 'report.uh-iaas.no':                      'public-http-uh-report'
       - 'status.uh-iaas.no':                      'public-http-uh-status'
 
@@ -141,6 +142,13 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   'public-https-apps':
     listening_service:  'public-https-apps'
     ports:              443
+    server_names:       ['appsanywhere01.uib.no', 'appsanywhere02.uib.no']
+    ipaddresses:        ['129.177.30.211', '129.177.30.229']
+    options:
+      - 'check'
+  'public-http-apps':
+    listening_service:  'public-http-apps'
+    ports:              80
     server_names:       ['appsanywhere01.uib.no', 'appsanywhere02.uib.no']
     ipaddresses:        ['129.177.30.211', '129.177.30.229']
     options:
@@ -210,6 +218,12 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
 
 profile::highavailability::loadbalancing::haproxy::haproxy_backends:
   public-https-apps:
+    mode:             'tcp'
+    options:
+      - balance:      'source'
+      # - option:
+      #   - 'httpchk HEAD /jukeboxserver/do/license/token/renew.tok?msid=ping HTTP/1.1\r\nHost:\ apps-admin.uib.no'
+  public-http-apps:
     mode:             'tcp'
     options:
       - balance:      'source'
