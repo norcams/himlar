@@ -1,5 +1,0 @@
-#!/bin/sh
-
-<% @if_1gbit_force.each do |interface| -%>
-opx-ethtool -s e101-0<%= interface %>-0 speed 1000 duplex full autoneg off
-<% end %>

@@ -1,9 +1,5 @@
 ---
-include:
-  default:
-    - profile::network::opx
-
 profile::base::network::cumulus_ifs:    false
-profile::network::opx::opx_cleanup:    true
+profile::base::network::opx_cleanup:    true
 
 ntp::service_enable: true
