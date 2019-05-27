@@ -488,6 +488,14 @@ profile::highavailability::corosync::locations:
     primitive:  'uibip2'
     node_name:  "%{hiera('corosync_cluster_node2')}"
     score:      'INFINITY'
+  'grid_location1':
+    primitive:  'gridip'
+    node_name:  "%{hiera('corosync_cluster_node1')}"
+    score:      '100'
+  'grid_location2':
+    primitive:  'gridip'
+    node_name:  "%{hiera('corosync_cluster_node2')}"
+    score:      '50'
 
 profile::highavailability::corosync::colocations:
   'pubip1_haproxy':
