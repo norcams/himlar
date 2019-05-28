@@ -50,7 +50,7 @@ corosync_cluster_vip1:    "%{hiera('netcfg_public_netpart')}.200"
 corosync_cluster_vip2:    "%{hiera('netcfg_public_netpart')}.201"
 corosync_cluster_vip3:    "%{hiera('netcfg_public_netpart')}.91"
 corosync_cluster_vip4:    "%{hiera('netcfg_public_netpart')}.114"
-#corosync_cluster_vip5:    "%{hiera('netcfg_public_netpart')}.256"
+corosync_cluster_vip5:    "%{hiera('netcfg_public_netpart')}.166"
 
 # Firewall
 profile::firewall::rules::custom_rules:
@@ -72,6 +72,11 @@ profile::firewall::rules::custom_rules:
     dport:        [ '80', '443', '389', '636' ]
     source:       '129.177.0.0/16'
     destination:  "%{hiera('corosync_cluster_vip4')}"
+  '456 haproxy http for internal vip5':
+    proto:        'tcp'
+    dport:        [ '80', '443' ]
+    source:       '129.177.0.0/16'
+    destination:  "%{hiera('corosync_cluster_vip4')}"
   '455 haproxy status':
     proto:        'tcp'
     dport:        ['9000']
@@ -87,7 +92,7 @@ haproxy::global_options:
   nbproc:       '2'
   cpu-map:      ['1 0', '2 2']
   maxconn:      '20000' # per core
-haproxy::defaults_options:
+haproxy::defaults_optioni:
   log:          'global'  #FIXME turn of debug logging in production
   stats:        []
   option:       ['dontlognull', 'httplog', 'http-server-close', 'redispatch']
@@ -128,7 +133,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - 'status.uh-iaas.no':                      'public-http-uh-status'
   uib_grid_domains:
     ensure: present
-    mappings: []
+    mappings:
+      - 's3.grid.uib.no':                         'uib-https-gridproxy'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   'public-https-uh-status':
@@ -219,6 +225,12 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ipaddresses:        ['129.177.5.183']
     options:
       - 'check'
+  'uib-https-gridproxy':
+    listening_service:  'uib-https-gridproxy'
+    ports:              80
+    server_names:       ['uib-grid-01-grid.uib.no', 'uib-grid-02-grid.uib.no', 'uib-grid-03-grid.uib.no', 'uib-grid-04-grid.uib.no']
+    ipaddresses:        ['129.177.3.11', '129.177.3.12', '129.177.3.13', '129.177.3.14']
+    options:
 
 profile::highavailability::loadbalancing::haproxy::haproxy_backends:
   public-https-apps:
@@ -297,6 +309,13 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     mode:             'tcp'
     options:
       - balance:      'leastconn'
+  uib-https-gridproxy:
+    mode:             'tcp'
+    options:
+      - balance:      'leastconn'
+      - option:
+        - 'httpchk OPTIONS / HTTP/1.1'
+
 #  uib-https-uh-dashboard:
 #    mode: 'tcp'
 #    options:
