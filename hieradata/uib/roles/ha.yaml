@@ -76,7 +76,7 @@ profile::firewall::rules::custom_rules:
     proto:        'tcp'
     dport:        [ '80', '443' ]
     source:       '129.177.0.0/16'
-    destination:  "%{hiera('corosync_cluster_vip4')}"
+    destination:  "%{hiera('corosync_cluster_vip5')}"
   '455 haproxy status':
     proto:        'tcp'
     dport:        ['9000']
