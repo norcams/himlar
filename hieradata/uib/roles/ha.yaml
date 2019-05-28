@@ -92,7 +92,7 @@ haproxy::global_options:
   nbproc:       '2'
   cpu-map:      ['1 0', '2 2']
   maxconn:      '20000' # per core
-haproxy::defaults_optioni:
+haproxy::defaults_options:
   log:          'global'  #FIXME turn of debug logging in production
   stats:        []
   option:       ['dontlognull', 'httplog', 'http-server-close', 'redispatch']
