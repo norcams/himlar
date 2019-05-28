@@ -122,8 +122,6 @@ nova::network::neutron::neutron_password:       "%{hiera('neutron_api_password')
 
 # Use rsync, not ssh for migrate transport to support sparse images
 nova::config::nova_config:
-  DEFAULT/metadata_workers:
-    value: '4'
   libvirt/remote_filesystem_transport:
     value: 'rsync'
 #  keystone_authtoken/service_token_roles_required: FIXME enable this when tested
