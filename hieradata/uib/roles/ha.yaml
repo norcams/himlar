@@ -134,7 +134,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
   uib_grid_domains:
     ensure: present
     mappings:
-      - 's3.grid.uib.no':                         'uib-https-gridproxy'
+      - 's3.grid.uib.no':                         'uib-https-grid'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   'public-https-uh-status':
@@ -225,9 +225,9 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ipaddresses:        ['129.177.5.183']
     options:
       - 'check'
-  'uib-https-gridproxy':
-    listening_service:  'uib-https-gridproxy'
-    ports:              80
+  'uib-https-grid':
+    listening_service:  'uib-https-grid'
+    ports:              443
     server_names:       ['uib-grid-01.grid.uib.no', 'uib-grid-02.grid.uib.no', 'uib-grid-03.grid.uib.no', 'uib-grid-04.grid.uib.no']
     ipaddresses:        ['129.177.3.11', '129.177.3.12', '129.177.3.13', '129.177.3.14']
     options:
@@ -309,7 +309,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     mode:             'tcp'
     options:
       - balance:      'leastconn'
-  uib-https-gridproxy:
+  uib-https-grid:
     mode:             'tcp'
     options:
       - balance:      'leastconn'
@@ -409,7 +409,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
     options:
       - option:         'tcplog'
       - use_backend:    'uib-ldaps-test'
-  uib-grid-https:
+  uib-https-grid:
     mode:               'tcp'
     bind:
       "%{hiera('corosync_cluster_vip5')}:443": []
