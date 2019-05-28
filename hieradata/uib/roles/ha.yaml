@@ -228,7 +228,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   'uib-https-gridproxy':
     listening_service:  'uib-https-gridproxy'
     ports:              80
-    server_names:       ['uib-grid-01-grid.uib.no', 'uib-grid-02-grid.uib.no', 'uib-grid-03-grid.uib.no', 'uib-grid-04-grid.uib.no']
+    server_names:       ['uib-grid-01.grid.uib.no', 'uib-grid-02.grid.uib.no', 'uib-grid-03.grid.uib.no', 'uib-grid-04.grid.uib.no']
     ipaddresses:        ['129.177.3.11', '129.177.3.12', '129.177.3.13', '129.177.3.14']
     options:
 
