@@ -230,3 +230,10 @@ profile::storage::ceph_extraconf::config:
   client_dcache_backend:
     'config_key'  : "client.cinder-dcache-hdd-ec/rbd_default_data_pool"
     'config_value': "dcache_hdd_ec_data"
+
+# Use rsync, not ssh for migrate transport to support sparse images
+nova::config::nova_config:
+  DEFAULT/metadata_workers:
+    value: '4'
+  libvirt/remote_filesystem_transport:
+    value: 'rsync'
