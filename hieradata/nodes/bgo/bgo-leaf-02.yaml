@@ -21,11 +21,11 @@ profile::base::network::cumulus_interfaces:
     'vids': [ '1', '10', ]
     'pvid':  '4093'
   'swp50':
-    'mtu':   '9216'
+    'mtu':   '9192'
   'swp51':
-    'mtu':   '9216'
+    'mtu':   '9192'
   'swp52':
-    'mtu':   '9216'
+    'mtu':   '9192'
   'bridge.1':
     'ipv4': [ '128.39.70.91/31' ]
     'ipv6': [ '2001:700:0:80cd::2/126' ]
@@ -60,4 +60,4 @@ profile::base::network::cumulus_bridges:
     'vlan_aware': 'true'
     'stp': 'false'
     'vids': [ '1', '10', '100', '110', '120', '4094', ]
-    'mtu': '9216'
+    'mtu': '9192'
