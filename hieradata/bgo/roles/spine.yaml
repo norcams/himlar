@@ -84,7 +84,7 @@ profile::base::network::cumulus_bonds:
     'pvid': '100'
     'vids': [ '100', '110', '120', ]
     'mtu': '9216'
-  'downlink-l0102':
+  'downlinkl0102':
     'slaves': [ 'swp24-25', ]
     'clag_id': '1001'
     'pvid': '100'
@@ -570,7 +570,7 @@ profile::base::network::cumulus_bridges:
       - lhc
       - peerlink
       - downlink
-      - downlink-l0102
+      - downlinkl0102
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'true'
