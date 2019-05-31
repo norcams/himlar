@@ -19,13 +19,13 @@ profile::base::network::cumulus_interfaces:
   'swp48':
     'mtu':   '9192'
     'vids': [ '1', '10', ]
-    'pvid':  '4093'
+    'pvid': '4093'
   'swp50':
-    'mtu':   '9192'
+    'mtu': '9216'
   'swp51':
-    'mtu':   '9192'
+    'mtu': '9216'
   'swp52':
-    'mtu':   '9192'
+    'mtu': '9216'
   'bridge.1':
     'ipv4': [ '128.39.70.91/31' ]
     'ipv6': [ '2001:700:0:80cd::2/126' ]
@@ -47,11 +47,13 @@ profile::base::network::cumulus_interfaces:
 profile::base::network::cumulus_bonds:
   'peerlink':
     'slaves': [ 'swp50', ]
+    'mtu': '9216'
   'uplink':
     'slaves': [ 'swp51', 'swp52', ]
     'clag_id': '100'
     'pvid': '100'
     'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
 
 profile::base::network::cumulus_bridges:
   'bridge':
@@ -60,4 +62,4 @@ profile::base::network::cumulus_bridges:
     'vlan_aware': 'true'
     'stp': 'false'
     'vids': [ '1', '10', '100', '110', '120', '4094', ]
-    'mtu': '9192'
+    'mtu': '9216'
