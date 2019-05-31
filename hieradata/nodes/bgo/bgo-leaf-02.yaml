@@ -141,5 +141,5 @@ quagga::quagga::bgp_accesslist:
 quagga::quagga::bgp_ip_prefix_list:
   - 'uninett-routes-out seq 5 permit 109.105.127.128/26'
   - 'uninett-routes-out seq 10 deny any'
-  - 'uninett-routes-in seq 5 seq 5 permit any' 
+  - 'uninett-routes-in seq 5 permit any' 
   - 'uninett-routes-in seq 10 deny any'
