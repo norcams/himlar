@@ -20,16 +20,38 @@ profile::base::network::cumulus_interfaces:
     'mtu':   '9192'
     'vids': [ '1', '10', ]
     'pvid':  '4093'
+  'swp50':
+    'mtu':   '9216'
+  'swp51':
+    'mtu':   '9216'
   'swp52':
-    'mtu':   '9192'
-    'vids': [ '1', '10', ]
-    'pvid':  '4093'
+    'mtu':   '9216'
+  'bridge.100':
+    'ipv4': [ '172.18.3.2/21', ]
+    'ipv6': [ 'fd00::3:2/64', ]
+    'virtual_ip': '172.18.7.3/21 fd00::703/64'
+    'virtual_mac': '00:00:5e:00:01:04'
+  'peerlink.4094':
+    'ipv4': [ '172.18.230.2/24', ]
+    'clagd_enable': true
+    'clagd_priority': '4096'
+    'clagd_peer_ip': '172.18.230.1'
+    'clagd_sys_mac': '44:38:39:ff:bb:1f'
+
+profile::base::network::cumulus_bonds:
+  'peerlink':
+    'slaves': [ 'swp50', ]
+  'uplink':
+    'slaves': [ 'swp51', 'swp52', ]
+    'clag_id': '100'
+    'pvid': '100'
+    'vids': [ '100', '110', '120', ]
 
 profile::base::network::cumulus_bridges:
   'bridge':
-    'ports': [ 'swp48', 'swp52' ]
+    'ports': [ 'swp48', 'uplink', 'peerlink', ]
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'false'
-    'vids': [ '1', '10', ]
+    'vids': [ '1', '10', '100', '110', '120', '4094', ]
     'mtu': '9192'
