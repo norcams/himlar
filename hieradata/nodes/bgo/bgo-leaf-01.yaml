@@ -125,10 +125,8 @@ quagga::quagga::bgp_options:
   - 'bgp bestpath as-path multipath-relax'
 
 quagga::quagga::bgp_networks:
-  - '0.0.0.0/0'
   - '109.105.127.128/26'
 quagga::quagga::bgp_networks6:
-  - '::/0'
   - '2001:948:62:3::/64'
 
 quagga::quagga::bgp_accesslist:
