@@ -68,8 +68,6 @@ profile::base::network::cumulus_interfaces:
     'speed': '40000'
     'fec':   'baser'
     'mtu':   '9216'
-  'uninett':
-    'vrf_table': 'auto'
 
 profile::base::network::cumulus_bonds:
   'peerlink':
@@ -559,7 +557,6 @@ profile::base::network::cumulus_bridges:
       - host101
       - host102
       - lhc
-      - uninett
       - peerlink
       - downlink
     'alias_name': 'Transport L2 if'
