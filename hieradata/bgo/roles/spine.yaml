@@ -40,8 +40,10 @@ profile::network::leaf::cumulus_portconfigs:
     line:  "14=4x25G"
   15:
     line:  "15=4x25G"
+  24:
+    line:  "24=40G" # leaf-01-02 - uinett LHC
   25:
-    line:  "25=40G" # LHC
+    line:  "25=40G" # leaf-01-02 - uinett LHC
   26:
     line:  "26=4x10G" # bgo-storage-08 and 09
   27:
@@ -54,9 +56,12 @@ profile::network::leaf::cumulus_portconfigs:
     line:  "30=40G" # temporary uplink to torack
 
 profile::base::network::cumulus_interfaces:
+  'swp24':
+    'speed': '40000'
+    'mtu':   '9216'
   'swp25':
     'speed': '40000'
-    'mtu':   '9192'
+    'mtu':   '9216'
   'swp27':
     'speed': '40000'
     'mtu':   '9216'
@@ -76,6 +81,12 @@ profile::base::network::cumulus_bonds:
   'downlink':
     'slaves': [ 'swp29-30', ]
     'clag_id': '1000'
+    'pvid': '100'
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'downlink-l0102':
+    'slaves': [ 'swp24-25', ]
+    'clag_id': '1001'
     'pvid': '100'
     'vids': [ '100', '110', '120', ]
     'mtu': '9216'
@@ -559,6 +570,7 @@ profile::base::network::cumulus_bridges:
       - lhc
       - peerlink
       - downlink
+      - downlink-l0102
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'true'
