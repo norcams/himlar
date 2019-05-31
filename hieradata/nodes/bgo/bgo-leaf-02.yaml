@@ -100,6 +100,16 @@ quagga::quagga::zebra_generic_options:
 quagga::quagga::bgp_neighbors:
   - '172.18.230.1 remote-as 65503'
   - '172.18.230.1 soft-reconfiguration inbound'
+  - 'fd00:18:230::1 remote-as 65503'
+  - 'fd00:18:230::1 soft-reconfiguration inbound'
+  - '128.39.70.90 remote-as 224'
+  - '128.39.70.90 soft-reconfiguration inbound'
+  - '2001:700:0:80cd::1 remote-as 224'
+  - '2001:700:0:80cd::1 soft-reconfiguration inbound'
+  - '109.105.124.26 remote-as 65504'
+  - '109.105.124.26 soft-reconfiguration inbound'
+  - '2001:948:40:4::68 remote-as 65504'
+  - '2001:948:40:4::68 soft-reconfiguration inbound'
 
 quagga::quagga::bgp_as: '65503'
 
