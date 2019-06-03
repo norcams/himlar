@@ -101,6 +101,8 @@ quagga::quagga::zebra_generic_options:
 quagga::quagga::bgp_neighbors:
   - '172.18.230.1 remote-as 65503'
   - '172.18.230.1 soft-reconfiguration inbound'
+  - '172.18.230.1 prefix-list uninett-routes-in in'
+  - '172.18.230.1 prefix-list uninett-routes-in out'
   - '128.39.70.90 remote-as 224'
   - '128.39.70.90 soft-reconfiguration inbound'
   - '128.39.70.90 prefix-list uninett-routes-in in'
@@ -123,6 +125,8 @@ quagga::quagga::bgp_neighbors6:
   - '2001:948:40:4::68 prefix-list uninett-routes-out out'
   - 'fd00:18:230::1 activate'
   - 'fd00:18:230::1 soft-reconfiguration inbound'
+  - 'fd00:18:230::1 prefix-list uninett-routes-in in'
+  - 'fd00:18:230::1 prefix-list uninett-routes-in out'
 
 quagga::quagga::bgp_as: '65503'
 
