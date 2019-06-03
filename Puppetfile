@@ -40,7 +40,7 @@ mod 'googleauthenticator', :ref => 'norcams-2.0.1', :git => github + 'norcams/pu
 #
 # profile::network::leaf/torack
 #
-mod 'quagga', :ref => '20bd213da0',                 :git => github + 'norcams/puppet-quagga'
+mod 'quagga', :ref => 'ec103e6921',                 :git => github + 'norcams/puppet-quagga'
 mod 'frrouting', :ref => 'f6e827a974',              :git => github + 'norcams/puppet-frrouting'
 
 #
