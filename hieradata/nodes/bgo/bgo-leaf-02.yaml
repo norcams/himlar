@@ -137,6 +137,8 @@ quagga::quagga::bgp_options:
   - 'maximum-paths ibgp 3'
   - 'bgp bestpath as-path multipath-relax'
   - 'redistribute connected'
+quagga::quagga::bgp_options6:
+  - 'redistribute connected'
 
 quagga::quagga::bgp_networks:
   - '109.105.127.128/26'
