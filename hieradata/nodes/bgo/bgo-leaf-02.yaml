@@ -141,3 +141,8 @@ quagga::quagga::bgp_ip_prefix_list:
   - 'uninett-routes-out seq 10 deny any'
   - 'uninett-routes-in seq 5 permit any' 
   - 'uninett-routes-in seq 10 deny any'
+quagga::quagga::bgp_ipv6_prefix_list:
+  - 'uninett-routes-out seq 5 permit 2001:948:62:3::/64'
+  - 'uninett-routes-out seq 10 deny any'
+  - 'uninett-routes-in seq 5 permit any' 
+  - 'uninett-routes-in seq 10 deny any'
