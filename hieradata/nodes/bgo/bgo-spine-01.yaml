@@ -40,8 +40,10 @@ frrouting::frrouting::bgp_neighbors:
   - "fd00:18:229::2 remote-as %{hiera('bgp_as')}"
   - 'fd00:18:229::2 soft-reconfiguration inbound'
   - '172.18.3.1 remote-as 65503'
+  - '172.18.3.1 prefix-list routes-from-leaf1 in'
   - 'fd00::3:1 remote-as 65503'
   - '172.18.3.2 remote-as 65503'
+  - '172.18.3.2 prefix-list routes-from-leaf1 in'
   - 'fd00::3:2 remote-as 65503'
 
 frrouting::frrouting::zebra_ip6_routes:
@@ -124,7 +126,9 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'neighbor fd00:18:229::2 activate'
       - 'neighbor fd00:18:229::2 soft-reconfiguration inbound'
       - 'neighbor fd00::3:1 activate'
+      - 'neighbor fd00::3:1 prefix-list routes-from-leaf1 in'
       - 'neighbor fd00::3:2 activate'
+      - 'neighbor fd00::3:2 prefix-list routes-from-leaf1 in'
     'members6':
 #      - 'fd00::17'
 #      - 'fd00::18'

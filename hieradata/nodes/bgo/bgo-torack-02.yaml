@@ -222,8 +222,10 @@ frrouting::frrouting::bgp_neighbors:
   - "fd00::6:2 remote-as %{hiera('bgp_as')}"
   - 'fd00::6:2 soft-reconfiguration inbound'
   - '172.18.3.1 remote-as 65503'
+  - '172.18.3.1 prefix-list routes-from-leaf1 in'
   - 'fd00::3:1 remote-as 65503'
   - '172.18.3.2 remote-as 65503'
+  - '172.18.3.2 prefix-list routes-from-leaf1 in'
   - 'fd00::3:2 remote-as 65503'
 
 frrouting::frrouting::bgp_as: "%{hiera('bgp_as')}"
@@ -302,7 +304,9 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'neighbor fd00:18:228::1 activate'
       - 'neighbor fd00:18:228::1 soft-reconfiguration inbound'
       - 'neighbor fd00::3:1 activate'
+      - 'neighbor fd00::3:1 prefix-list routes-from-leaf1 in'
       - 'neighbor fd00::3:2 activate'
+      - 'neighbor fd00::3:2 prefix-list routes-from-leaf1 in'
     'members6':
       - 'fd00::17'
       - 'fd00::18'
@@ -365,6 +369,8 @@ frrouting::frrouting::bgp_accesslist:
 frrouting::frrouting::bgp_ip_prefix_list:
   - 'routes-from-leaf1 seq 5 deny any'
   - 'routes-to-leaf1 seq 5 permit 0.0.0.0/0'
+frrouting::frrouting::bgp_ipv6_prefix_list:
+  - 'routes-from-leaf1 seq 5 deny any'
 
 frrouting::frrouting::bgp_route_maps:
   'rr-client-allow permit 10':
