@@ -110,19 +110,19 @@ quagga::quagga::bgp_neighbors:
   - '109.105.124.26 prefix-list uninett-routes-in in'
   - '109.105.124.26 prefix-list uninett-routes-out out'
   - '2001:700:0:80cd::1 remote-as 224'
+  - '2001:948:40:4::68 remote-as 65504'
+  - 'fd00:18:230::1 remote-as 65503'
+quagga::quagga::bgp_neighbors6:
+  - '2001:700:0:80cd::1 activate'
   - '2001:700:0:80cd::1 soft-reconfiguration inbound'
   - '2001:700:0:80cd::1 prefix-list uninett-routes-in in'
   - '2001:700:0:80cd::1 prefix-list uninett-routes-out out'
-  - '2001:948:40:4::68 remote-as 65504'
+  - '2001:948:40:4::68 activate'
   - '2001:948:40:4::68 soft-reconfiguration inbound'
   - '2001:948:40:4::68 prefix-list uninett-routes-in in'
   - '2001:948:40:4::68 prefix-list uninett-routes-out out'
-  - 'fd00:18:230::1 remote-as 65503'
-  - 'fd00:18:230::1 soft-reconfiguration inbound'
-quagga::quagga::bgp_neighbors6:
-  - '2001:700:0:80cd::1 activate'
-  - '2001:948:40:4::68 activate'
   - 'fd00:18:230::1 activate'
+  - 'fd00:18:230::1 soft-reconfiguration inbound'
 
 quagga::quagga::bgp_as: '65503'
 
