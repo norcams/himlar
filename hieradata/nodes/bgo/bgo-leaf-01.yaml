@@ -195,7 +195,7 @@ quagga::quagga::bgp_ip_prefix_list:
   - 'uninett-routes-in seq 10 deny any'
   - 'iaas-routes-in seq 5 permit 109.105.127.128/26'
   - 'iaas-routes-in seq 6 permit 109.105.125.0/26'
-  - 'iaas-routes-in seq 10 dyny any'
+  - 'iaas-routes-in seq 10 deny any'
   - 'iaas-routes-out seq 10 deny any'
 quagga::quagga::bgp_ipv6_prefix_list:
   - 'uninett-routes-out seq 5 permit 2001:948:62:3::/64'
