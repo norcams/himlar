@@ -157,19 +157,19 @@ quagga::quagga::bgp_neighbors6:
   - 'fd00:18:230::2 prefix-list uninett-routes-in out'
   - 'fd00::1 activate'
   - 'fd00::1 soft-reconfiguration inbound'
-  - 'fd00::1 prefix-list iaas-routes-in in'
+  - 'fd00::1 distribute-list 10 in'
   - 'fd00::1 prefix-list iaas-routes-out out'
   - 'fd00::2 activate'
   - 'fd00::2 soft-reconfiguration inbound'
-  - 'fd00::2 prefix-list iaas-routes-in in'
+  - 'fd00::2 distribute-list 10 in'
   - 'fd00::2 prefix-list iaas-routes-out out'
   - 'fd00::6:1 activate'
   - 'fd00::6:1 soft-reconfiguration inbound'
-  - 'fd00::6:1 prefix-list iaas-routes-in in'
+  - 'fd00::6:1 distribute-list 10 in'
   - 'fd00::6:1 prefix-list iaas-routes-out out'
   - 'fd00::6:2 activate'
   - 'fd00::6:2 soft-reconfiguration inbound'
-  - 'fd00::6:2 prefix-list iaas-routes-in in'
+  - 'fd00::6:2 distribute-list 10 in'
   - 'fd00::6:2 prefix-list iaas-routes-out out'
 
 quagga::quagga::bgp_as: '65503'
@@ -197,6 +197,11 @@ quagga::quagga::bgp_accesslist:
     - 'deny 109.105.125.0 0.0.0.63'
     - 'deny 109.105.127.128 0.0.0.63'
     - 'permit any'
+
+quagga::quagga::bgp_accesslist6:
+  '10':
+    - 'permit 2001:948:62:1::/64'
+    - 'permit 2001:948:62:3::/64'
 
 quagga::quagga::bgp_ip_prefix_list:
   - 'uninett-routes-out seq 5 permit 109.105.127.128/26'
