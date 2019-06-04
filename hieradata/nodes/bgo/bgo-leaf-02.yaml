@@ -141,6 +141,7 @@ quagga::quagga::bgp_neighbors:
   - 'fd00::6:1 prefix-list iaas-routes-out out'
   - "fd00::6:2 remote-as %{hiera('bgp_as')}"
   - 'fd00::6:2 prefix-list iaas-routes-in in'
+  - 'fd00::6:2 prefix-list iaas-routes-out out'
 quagga::quagga::bgp_neighbors6:
   - '2001:700:0:80cd::1 activate'
   - '2001:700:0:80cd::1 soft-reconfiguration inbound'
