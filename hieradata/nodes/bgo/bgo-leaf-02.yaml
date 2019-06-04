@@ -113,19 +113,19 @@ quagga::quagga::bgp_neighbors:
   - '109.105.124.26 prefix-list uninett-routes-out out'
   - "172.18.0.1 remote-as %{hiera('bgp_as')}"
   - '172.18.0.1 soft-reconfiguration inbound'
-  - '172.18.0.1 prefix-list iaas-routes-in in'
+  - '172.18.0.1 distribute-list 10 in'
   - '172.18.0.1 prefix-list iaas-routes-out out'
   - "172.18.0.2 remote-as %{hiera('bgp_as')}"
   - '172.18.0.2 soft-reconfiguration inbound'
-  - '172.18.0.2 prefix-list iaas-routes-in in'
+  - '172.18.0.2 distribute-list 10 in'
   - '172.18.0.2 prefix-list iaas-routes-out out'
   - "172.18.6.1 remote-as %{hiera('bgp_as')}"
   - '172.18.6.1 soft-reconfiguration inbound'
-  - '172.18.6.1 prefix-list iaas-routes-in in'
+  - '172.18.6.1 distribute-list 10 in'
   - '172.18.6.1 prefix-list iaas-routes-out out'
   - "172.18.6.2 remote-as %{hiera('bgp_as')}"
   - '172.18.6.2 soft-reconfiguration inbound'
-  - '172.18.6.2 prefix-list iaas-routes-in in'
+  - '172.18.6.2 distribute-list 10 in'
   - '172.18.6.2 prefix-list iaas-routes-out out'
   - '2001:700:0:80cd::1 remote-as 224'
   - '2001:948:40:4::68 remote-as 65504'
@@ -191,8 +191,10 @@ quagga::quagga::bgp_networks6:
 
 quagga::quagga::bgp_accesslist:
   '10':
+    - 'permit 109.105.125.0 0.0.0.63'
     - 'permit 109.105.127.128 0.0.0.63'
   '20':
+    - 'deny 109.105.125.0 0.0.0.63'
     - 'deny 109.105.127.128 0.0.0.63'
     - 'permit any'
 
