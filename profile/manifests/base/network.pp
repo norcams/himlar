@@ -237,7 +237,7 @@ class profile::base::network(
     $transport_if = $named_interface_hash["trp"][0] # FIXME should cater for many interfaces
     $rules_hash = lookup('profile::base::network::rules', Hash, 'deep', {})
     $trp_rules = $rules_hash["${transport_if}"]['iprule']
-    $trp_rules6 = $rules_hash6["${transport_if}"]['iprule6']
+    $trp_rules6 = $rules_hash["${transport_if}"]['iprule6']
     $neutron_subnets = lookup('profile::openstack::resource::subnets', Hash, 'first', {})
     file { "rule-${transport_if}":
       ensure  => present,
