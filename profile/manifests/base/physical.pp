@@ -56,6 +56,7 @@ class profile::base::physical (
       ensure => present,
       value  => 'never'
     }
+  }
 
   if $enable_isolcpus {
     kernel_parameter { 'isolcpus':
