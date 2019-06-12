@@ -206,7 +206,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     listening_service:  'uib-https-apps-gw'
     ports:              443
     server_names:       ['apps-gw01.uib.no', 'apps-gw02.uib.no']
-    ipaddresses:        ['129.177.14.98', '129.177.14.152']
+    ipaddresses:        ['129.177.30.19', '129.177.30.26']
     define_cookies:     true
     options:
       - 'check'
