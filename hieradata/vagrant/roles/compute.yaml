@@ -66,3 +66,5 @@ profile::openstack::telemetry::pipeline::pipeline_publishers: ['gnocchi://']
 profile::monitoring::sensu::agent::checks:
   'nova-ssh-key':
     ensure:       absent
+
+openstack_version:     'rocky'
