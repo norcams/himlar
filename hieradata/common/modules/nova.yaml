@@ -43,7 +43,7 @@ nova::keystone::auth_placement::internal_url:     "%{hiera('endpoint__placement_
 nova::placement::auth_url:                "%{hiera('endpoint__identity__admin')}/v3"
 nova::placement::region_name:             "%{location}"
 nova::placement::password:                "%{hiera('nova_placement_password')}"
-nova::placement::valid_interface:            "internal"
+nova::placement::valid_interface:         "internal"
 nova::placement::project_domain_name:     "%{hiera('keystone__default__domain')}"
 nova::placement::user_domain_name:        "%{hiera('keystone__default__domain')}"
 nova::placement::project_name:            "%{hiera('keystone__service__project')}"
