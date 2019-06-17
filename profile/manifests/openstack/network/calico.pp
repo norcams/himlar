@@ -51,7 +51,7 @@ class profile::openstack::network::calico(
     path    => '/etc/systemd/system/calico-dhcp-agent.service.d/override.conf',
     owner   => root,
     group   => root,
-    content => "[Service]\nUser=neutron",
+    content => "[Service]\nUser=neutron\n",
   }
 
   if $manage_firewall {
