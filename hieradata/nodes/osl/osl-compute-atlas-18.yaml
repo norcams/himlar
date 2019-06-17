@@ -1,7 +1,7 @@
 ---
 named_interfaces::config:
   mgmt:
-  - eth1
+  - eth2
   trp:
   - team1
   live:
@@ -11,5 +11,5 @@ profile::base::network::network_auto_bonding:
   trp:
     eth0:
       'team_port_config': '{ "prio" : 100 }'
-    eth2:
+    eth1:
       'team_port_config': '{ "prio" : 100 }'
