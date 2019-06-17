@@ -50,7 +50,7 @@ profile::base::yumrepo::repo_hash:
   calico31:
     ensure: absent
   calico34:
-    ensure: present
+    ensure: absent
   calico37:
     ensure: present
     exclude: 'dnsmasq'
