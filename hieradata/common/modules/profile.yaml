@@ -173,6 +173,13 @@ profile::base::yumrepo::repo_hash:
     enabled:        1
     gpgcheck:       1
     gpgkey:         "%{hiera('yum_base_mirror')}/calico34/key"
+  calico37:
+    ensure:         absent
+    descr:          'Calico 3.7 Repository'
+    baseurl:        "https://iaas-repo.uio.no/uh-iaas/repo/calico37/"
+    enabled:        1
+    gpgcheck:       1
+    gpgkey:         "https://iaas-repo.uio.no/uh-iaas/repo/calico37/key"
   ceph-%{hiera('ceph_version')}:
     ensure:         absent
     descr:          'Ceph packages'
