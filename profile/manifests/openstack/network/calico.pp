@@ -42,7 +42,7 @@ class profile::openstack::network::calico(
   # Override ownership of the calico-dhcp-agent process as it should not be root
   file { 'calico-dhcp-agent-dir':
     ensure  => directory,
-    path    => '/etc/systemd/system/calico-dhcp-agent.service.d',
+    path    => "/etc/systemd/system/calico-dhcp-agent.service.d",
     owner   => root,
     group   => root,
   }
