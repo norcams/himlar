@@ -69,7 +69,7 @@ class profile::openstack::network::calico(
     owner   => neutron,
     group   => neutron,
     recurse => true,
-    notify  => Service['calico-dhcp-agent']
+    notify  => Service['calico-felix']
   }
 
   if $manage_firewall {
