@@ -21,6 +21,8 @@ class profile::base::common (
   $manage_puppet          = false,
   $manage_cron            = false,
   $manage_fake_ssd        = false,
+  $manage_vm_swappiness   = false,
+  $vm_swappiness          = '10',
   $include_physical       = false,
   $include_virtual        = false,
   $extraswap              = false,
@@ -128,6 +130,11 @@ class profile::base::common (
   if $manage_fake_ssd {
     $disk_devices = lookup('profile::storage::fake_ssds', Hash, 'deep', {})
     create_resources('profile::storage::fake_ssd', $disk_devices)
+  }
+
+  if $manage_vm_swappiness {
+    sysctl::value { "vm.swappiness":
+      value => $vm_swappiness,
   }
 
   if $manage_sysctl {
