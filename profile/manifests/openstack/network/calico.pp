@@ -40,6 +40,7 @@ class profile::openstack::network::calico(
   }
 
   # Override ownership of the calico-dhcp-agent process as it should not be root
+  # If calico-dhcp-agent was spawned as root, we must ensure correct permissions
   file { 'calico-dhcp-agent-dir':
     ensure  => directory,
     path    => "/etc/systemd/system/calico-dhcp-agent.service.d",
@@ -52,6 +53,22 @@ class profile::openstack::network::calico(
     owner   => root,
     group   => root,
     content => "[Service]\nUser=neutron\n",
+    notify  => Service['calico-dhcp-agent']
+  }
+  file { 'neutron-log-perms':
+    ensure  => directory,
+    path    => "/var/log/neutron/",
+    owner   => neutron,
+    group   => neutron,
+    recurse => true,
+    notify  => Service['calico-dhcp-agent']
+  }
+  file { 'neutron-workdir-perms':
+    ensure  => directory,
+    path    => "/var/lib/neutron/dhcp/",
+    owner   => neutron,
+    group   => neutron,
+    recurse => true,
     notify  => Service['calico-dhcp-agent']
   }
 
