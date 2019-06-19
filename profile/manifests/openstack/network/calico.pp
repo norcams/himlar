@@ -52,6 +52,7 @@ class profile::openstack::network::calico(
     owner   => root,
     group   => root,
     content => "[Service]\nUser=neutron\n",
+    notify  => Service['calico-dhcp-agent']
   }
 
   if $manage_firewall {
