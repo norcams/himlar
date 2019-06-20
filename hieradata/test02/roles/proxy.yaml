@@ -20,14 +20,14 @@ profile::base::cron::crontabs:
   stats:
     hour:     '*'
     minute:   [14,29,44,59]
-    command:  '/opt/himlarcli/bin/gen_stats.sh >/dev/null'
+    command:  '/opt/himlarcli/bin/gen_stats.sh >/dev/null 2>&1'
   checks:
     hour:     '*'
     minute:   '*/1'
-    command:  '/opt/himlarcli/bin/check_services.sh >/dev/null'
+    command:  '/opt/himlarcli/bin/check_services.sh >/dev/null 2>&1'
   update_images:
     hour:     '10'
     minute:   '10'
     monthday: '1'
     weekday:  '*'
-    command:  '/opt/himlarcli/bin/image_update.sh >/dev/null'
+    command:  '/opt/himlarcli/bin/image_update.sh >/dev/null 2>&1'
