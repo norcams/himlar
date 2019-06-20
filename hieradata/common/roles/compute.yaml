@@ -70,6 +70,7 @@ profile::openstack::network::plugin: calico
 
 profile::openstack::network::calico::manage_etcd_grpc_proxy: true
 profile::openstack::network::calico::manage_etcd:            true
+profile::openstack::network::calico::manage_dhcp_agent:      true
 
 profile::base::common::packages:
   'networking-calico': {}
