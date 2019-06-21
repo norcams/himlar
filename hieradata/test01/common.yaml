@@ -10,6 +10,8 @@ location_description:   'Test environment physically in Bergen'
 profile::base::dell::manage_repos:      true
 profile::base::dell::manage_openmanage: false
 
+ceph_version: 'nautilus' # FIXME
+
 domain_frontend:        'test.iaas.uib.no'
 domain_public:          'test.iaas.uib.no'
 domain_trp:             'test01.uhdc.no'
