@@ -12,13 +12,13 @@ ceilometer::keystone::auth::region:                   "%{::location}"
 ceilometer::keystone::auth::configure_endpoint:       false
 
 # ceilometer auth (node: telemetry)
-ceilometer::keystone::authtoken::project_name:        "%{hiera('keystone__service__project')}"
-ceilometer::keystone::authtoken::user_domain_name:    "%{hiera('keystone__default__domain')}"
-ceilometer::keystone::authtoken::project_domain_name: "%{hiera('keystone__default__domain')}"
-ceilometer::keystone::authtoken::username:            'ceilometer'
-ceilometer::keystone::authtoken::password:            "%{hiera('ceilometer_api_password')}"
-ceilometer::keystone::authtoken::auth_uri:            "%{hiera('endpoint__identity__public')}"
-ceilometer::keystone::authtoken::auth_url:            "%{hiera('endpoint__identity__admin')}/v3"
+ceilometer::keystone::authtoken::project_name:         "%{hiera('keystone__service__project')}"
+ceilometer::keystone::authtoken::user_domain_name:     "%{hiera('keystone__default__domain')}"
+ceilometer::keystone::authtoken::project_domain_name:  "%{hiera('keystone__default__domain')}"
+ceilometer::keystone::authtoken::username:             'ceilometer'
+ceilometer::keystone::authtoken::password:             "%{hiera('ceilometer_api_password')}"
+ceilometer::keystone::authtoken::www_authenticate_uri: "%{hiera('endpoint__identity__public')}"
+ceilometer::keystone::authtoken::auth_url:             "%{hiera('endpoint__identity__admin')}/v3"
 
 # ceilometer agent (node: telemetry, compute)
 ceilometer::agent::auth::auth_password:                         "%{hiera('ceilometer_api_password')}"
@@ -28,17 +28,13 @@ ceilometer::agent::auth::auth_tenant_name:                      'services'
 
 # ceilometer notification agent (node: telemetry)
 ceilometer::agent::notification::manage_event_pipeline:         true
-ceilometer::agent::notification::event_pipeline_publishers:     ['gnocchi://']
+ceilometer::agent::notification::event_pipeline_publishers:     ['gnocchi://?archive_policy=low&filter_service_activity=false']
 ceilometer::agent::notification::messaging_urls:                "%{hiera('service__transport__url')}"
 
 # turn on namespace for in role
 ceilometer::agent::polling::central_namespace:                  false
 ceilometer::agent::polling::compute_namespace:                  false
 ceilometer::agent::polling::ipmi_namespace:                     false
-
-# gnocchi dispatcher (node: telemetry)
-ceilometer::dispatcher::gnocchi::filter_service_activity:       false
-ceilometer::dispatcher::gnocchi::archive_policy:                'low'
 
 # ceilometer config (node: telemetry)
 ceilometer::db::sync_db:                                        true
