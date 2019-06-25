@@ -48,6 +48,8 @@ profile::monitoring::sensu::agent::plugins:
 profile::base::yumrepo::repo_hash:
   ceph-%{hiera('ceph_version')}:
     ensure: present
+  ceph-%{hiera('ceph_version')}-noarch:
+    ensure: present
 
 # enable Ceph dashboard
 profile::storage::cephmon::manage_dashboard:                    true
