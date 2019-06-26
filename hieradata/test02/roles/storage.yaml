@@ -24,12 +24,12 @@ profile::storage::cephpool::pools:
     ensure: absent
   'volumes':
     ensure: present
-    pg_num: 256
-    pgp_num: 356
-  'images':
-    ensure: present
     pg_num: 128
     pgp_num: 128
+  'images':
+    ensure: present
+    pg_num: 64
+    pgp_num: 64
   'vms':
     ensure: present
     pg_num: 128
