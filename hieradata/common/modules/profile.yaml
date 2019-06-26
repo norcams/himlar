@@ -190,7 +190,7 @@ profile::base::yumrepo::repo_hash:
   ceph-%{hiera('ceph_version')}-noarch:
     ensure:         absent
     descr:          'Ceph noarch packages'
-    baseurl:        "%{hiera('yum_base_mirror')}/ceph-%{hiera('ceph_version')}-noarch/noarch"
+    baseurl:        "%{hiera('yum_base_mirror')}/ceph-%{hiera('ceph_version')}-noarch/"
     enabled:        1
     gpgcheck:       1
     gpgkey:         "%{hiera('yum_base_mirror')}/ceph-%{hiera('ceph_version')}-noarch/release.asc"
