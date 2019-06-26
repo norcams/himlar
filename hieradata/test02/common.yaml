@@ -6,6 +6,10 @@ include:
 location_environment:   'test02'
 location_description:   'Test environment physically in OSL'
 
+# Disable management of Dell repos and software
+profile::base::dell::manage_repos:      true
+profile::base::dell::manage_openmanage: false
+
 domain_frontend:        'test.iaas.uio.no'
 domain_public:          'test.iaas.uio.no'
 domain_trp:             'test02.uhdc.no'
