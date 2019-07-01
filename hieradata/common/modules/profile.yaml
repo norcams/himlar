@@ -258,13 +258,13 @@ profile::base::dell::repo_hash:
   dell-system-update_dependent:
     descr:          "dell-system-update_dependent"
     baseurl:        "%{hiera('yum_base_mirror')}/dell-system-update_dependent"
-    enabled:        1
+    enabled:        0
     gpgcheck:       1
     gpgkey:         "%{hiera('yum_base_mirror')}/dell-system-update_dependent/public.key"
   dell-system-update_independent:
     descr:          "dell-system-update_independent"
     baseurl:        "%{hiera('yum_base_mirror')}/dell-system-update_independent"
-    enabled:        1
+    enabled:        0
     gpgcheck:       1
     gpgkey:         "%{hiera('yum_base_mirror')}/dell-system-update_independent/public.key"
 
