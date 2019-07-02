@@ -9,7 +9,7 @@ class profile::storage::cephosd_firewall(
 ) {
   if $manage_firewall {
     profile::firewall::rule { '101 ceph-osd accept tcp':
-      dport  => ['6800-6860'],
+      dport  => ['6800-7300'],
       extras => $firewall_extras['osd_listen']
     }
   }

@@ -53,6 +53,7 @@ lvm::volume_groups:
   vg_ext:
     physical_volumes:
       - /dev/sdb
+      - /dev/sdc
     logical_volumes:
       lv_ext:
         fs_type:   xfs

@@ -108,6 +108,7 @@ quagga::quagga::bgp_neighbors:
   - '128.39.70.90 prefix-list uninett-routes-in in'
   - '128.39.70.90 prefix-list uninett-routes-out out'
   - '109.105.124.26 remote-as 65504'
+  - '109.105.124.26 weight 40000'
   - '109.105.124.26 soft-reconfiguration inbound'
   - '109.105.124.26 prefix-list uninett-routes-in in'
   - '109.105.124.26 prefix-list uninett-routes-out out'
