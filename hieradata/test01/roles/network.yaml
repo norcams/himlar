@@ -1,7 +1,0 @@
----
-profile::base::yumrepo::repo_hash:
-  calico31:
-    ensure: absent
-  calico34:
-    ensure: present
-    exclude: 'calico-dhcp-agent dnsmasq'

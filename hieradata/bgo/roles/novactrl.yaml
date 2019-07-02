@@ -39,6 +39,10 @@ profile::openstack::resource::host_aggregate:
         db3a36ac1c8e4af9b570433d3678226d,
         bf017d42f06c4eb590276eccb9d571dd,
         3eae4805dcd6450fb98651f5a9dc9ded
+  tape1:
+    availability_zone: "%{::location}-default-1"
+    metadata:
+      type: 'alicetape'
 
 profile::openstack::compute::pci_passthrough::manage_pci_alias: true
 

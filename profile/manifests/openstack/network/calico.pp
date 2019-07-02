@@ -4,6 +4,7 @@ class profile::openstack::network::calico(
   $manage_etcd               = false,
   $manage_etcd_grpc_proxy    = false,
   $manage_firewall           = true,
+  $manage_dhcp_agent         = false,
   $firewall_extras           = {},
 ) {
   include ::calico
@@ -20,7 +21,7 @@ class profile::openstack::network::calico(
 #    package { 'etcd':              # FIXME: sooner or later computes wont have etcd v2 proxy
 #      ensure => installed,
 #    }
-    package { 'python-etcd3gw':
+    package { 'python2-etcd3gw':
       ensure => installed,
     } ~>
     file { "etcd_grpc_proxy":
@@ -36,6 +37,41 @@ class profile::openstack::network::calico(
       enable      => true,
       hasrestart  => true,
       hasstatus   => true,
+    }
+  }
+
+  # Override ownership of the calico-dhcp-agent process as it should not be root
+  # If calico-dhcp-agent was spawned as root, we must ensure correct permissions
+  if $manage_dhcp_agent {
+    file { 'calico-dhcp-agent-dir':
+      ensure  => directory,
+      path    => "/etc/systemd/system/calico-dhcp-agent.service.d",
+      owner   => root,
+      group   => root,
+    }
+    file { 'dhcp-agent-override':
+      ensure  => file,
+      path    => '/etc/systemd/system/calico-dhcp-agent.service.d/override.conf',
+      owner   => root,
+      group   => root,
+      content => "[Service]\nUser=neutron\n",
+      notify  => Service['calico-dhcp-agent']
+    }
+    file { 'neutron-log-perms':
+      ensure  => directory,
+      path    => "/var/log/neutron/",
+      owner   => neutron,
+      group   => neutron,
+      recurse => true,
+      notify  => Service['calico-dhcp-agent']
+    }
+    file { 'neutron-workdir-perms':
+      ensure  => directory,
+      path    => "/var/lib/neutron/dhcp/",
+      owner   => neutron,
+      group   => neutron,
+      recurse => true,
+      notify  => Service['calico-felix']
     }
   }
 
