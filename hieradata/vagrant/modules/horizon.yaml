@@ -1,5 +1,5 @@
 ---
 horizon::log_level:                     'DEBUG'
 horizon::ssl_no_verify:                 true
-horizon::wsgi::apache::wsgi_processes:  1
-horizon::wsgi::apache::wsgi_threads:    1
+horizon::wsgi_processes:  1
+horizon::wsgi_threads:    1
