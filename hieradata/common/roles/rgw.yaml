@@ -33,12 +33,6 @@ profile::openstack::openrc::project_name: "%{hiera('keystone__service__project')
 
 profile::openstack::object::radosgw::manage_firewall: true
 
-# Ceph radosgw
-ceph::profile::params::rgw_name:      "radosgw.%{::hostname}"
-ceph::profile::params::frontend_type: 'civetweb'
-ceph::profile::params::rgw_user:      'ceph'
-ceph::profile::params::rgw_frontends: "civetweb port=%{::ipaddress_trp1}:7480"
-
 # Override default from modules/ceph.yaml
 ceph::profile::params::mon_host:                    '%{::netpart_trp1}.89:6789'
 ceph::profile::params::mon_initial_members:         '%{::location}-cephmon-object-01'
@@ -65,6 +59,14 @@ ceph::profile::params::client_keys:
     cap_mon: 'allow rw'
     cap_osd: 'allow rwx'
 
+profile::openstack::object::radosgw::rgw:
+  "radosgw.%{::hostname}":
+    frontend_type:  'civetweb'
+    rgw_frontends:  "civetweb port=%{::ipaddress_trp1}:7480"
+    rgw_swift_url:  "%{hiera('endpoint__object__public')}"
+    rgw_dns_name:   "%{::fqdn}"
+    user:           'ceph'
+
 profile::openstack::object::radosgw::keystone:
   "radosgw.%{::hostname}":
     rgw_keystone_url:                 "%{hiera('endpoint__identity__public')}"
@@ -76,7 +78,6 @@ profile::openstack::object::radosgw::keystone:
     rgw_keystone_admin_user:          'radosgw'
     rgw_keystone_admin_password:      "%{hiera('radosgw_api_password')}"
     rgw_keystone_implicit_tenants:    true
-    rgw_swift_url:                    "%hiera('endpoint__object__public')"
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
