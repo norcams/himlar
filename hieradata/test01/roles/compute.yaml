@@ -46,13 +46,6 @@ profile::base::network::manage_neutron_blackhole: true
 # remove when telemetry/ceilometer is up in all environments and move to common
 profile::openstack::compute::manage_telemetry: false
 
-profile::base::yumrepo::repo_hash:
-  calico31:
-    ensure: absent
-  calico34:
-    ensure: present
-    exclude: 'calico-dhcp-agent dnsmasq'
-
 # Set tuned profile to "virtual-host"
 profile::base::tuned::manage_tuned:  true
 profile::base::tuned::tuned_profile: 'virtual-host'

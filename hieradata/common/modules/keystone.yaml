@@ -10,6 +10,8 @@ keystone::admin_bind_host:                "%{ipaddress_trp1}"
 keystone::enable_proxy_headers_parsing:   true
 keystone::purge_config:                   true
 keystone::enable_bootstrap:               true
+keystone::admin_port:                     '35357' #default is changed to 5000 in rocky
+keystone::public_port:                    '5000'
 
 # cache
 keystone::cache_enabled:                  true

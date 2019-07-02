@@ -40,7 +40,7 @@ mod 'googleauthenticator', :ref => 'norcams-2.0.1', :git => github + 'norcams/pu
 #
 # profile::network::leaf/torack
 #
-mod 'quagga', :ref => '3686521523',                 :git => github + 'norcams/puppet-quagga'
+mod 'quagga', :ref => '42f883092d',                 :git => github + 'norcams/puppet-quagga'
 mod 'frrouting', :ref => 'f6e827a974',              :git => github + 'norcams/puppet-frrouting'
 
 #
@@ -52,7 +52,7 @@ mod 'dnsmasq', :ref => 'v1.3.1',                    :git => github + 'saz/puppet
 mod 'ipcalc', :ref => '2.2.0',                      :git => github + 'inkblot/puppet-ipcalc'
 mod 'tinyproxy', :ref => 'ef4a8b0bb2',              :git => github + 'earsdown/puppet-tinyproxy'
 #mod 'cumuluslinux-cumulus_interfaces', :ref => '1.2.2', :git => github + 'CumulusNetworks/cumulus-cl-interfaces-puppet'
-mod 'cumuluslinux-cumulus_interfaces', :ref => 'd6b931922e', :git => github + 'norcams/cumulus-cl-interfaces-puppet'
+mod 'cumuluslinux-cumulus_interfaces', :ref => 'd7550ec8e2', :git => github + 'norcams/cumulus-cl-interfaces-puppet'
 
 #
 # profile::application::etcd
@@ -156,12 +156,12 @@ mod 'archive', :ref => 'v2.2.0',                    :git => github + 'voxpupuli/
 # profile::openstack::*
 #
 mod 'glance', :ref => '13.3.1',                     :git => github + 'openstack/puppet-glance'
-mod 'cinder', :ref => '12.4.0',                     :git => github + 'openstack/puppet-cinder'
+mod 'cinder', :ref => '13.3.1',                     :git => github + 'openstack/puppet-cinder'
 mod 'neutron', :ref => '12.4.0',                    :git => github + 'openstack/puppet-neutron'
 mod 'nova', :ref => '12.4.0',                       :git => github + 'openstack/puppet-nova'
 mod 'horizon', :ref => '12.4.0',                    :git => github + 'openstack/puppet-horizon'
 mod 'gnocchi', :ref => '12.4.0',                    :git => github + 'openstack/puppet-gnocchi'
-mod 'keystone', :ref => '12.4.0',                   :git => github + 'openstack/puppet-keystone'
+mod 'keystone', :ref => '13.3.1',                   :git => github + 'openstack/puppet-keystone'
 mod 'swift', :ref => 'norcams/ocata',               :git => github + 'norcams/puppet-swift'
 mod 'ceilometer', :ref => '12.5.0',                 :git => github + 'openstack/puppet-ceilometer'
 mod 'designate', :ref => '12.4.0',                  :git => github + 'openstack/puppet-designate'
@@ -181,7 +181,7 @@ mod 'libvirt', :ref => '5f55fb66db',                :git => github + 'norcams/pu
 #
 # ceph
 #
-mod 'ceph', :ref => 'b51e5cb',                      :git => github + 'openstack/puppet-ceph'
+mod 'ceph', :ref => 'e157497a3e',                   :git => github + 'openstack/puppet-ceph'
 
 #
 # ha

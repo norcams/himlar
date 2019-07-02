@@ -39,7 +39,13 @@ profile::network::leaf::cumulus_portconfigs:
   14:
     line:  "14=4x25G"
   15:
-    line:  "15=4x10G" # bgo-storage-08 and 09
+    line:  "15=4x25G"
+  24:
+    line:  "24=40G" # leaf-01-02 - uinett LHC
+  25:
+    line:  "25=40G" # leaf-01-02 - uinett LHC
+  26:
+    line:  "26=4x10G" # bgo-storage-08 and 09
   27:
     line:  "27=40G" # temporary l2 link to old dcache
   28:
@@ -50,6 +56,12 @@ profile::network::leaf::cumulus_portconfigs:
     line:  "30=40G" # temporary uplink to torack
 
 profile::base::network::cumulus_interfaces:
+  'swp24':
+    'speed': '40000'
+    'mtu':   '9216'
+  'swp25':
+    'speed': '40000'
+    'mtu':   '9216'
   'swp27':
     'speed': '40000'
     'mtu':   '9216'
@@ -69,6 +81,12 @@ profile::base::network::cumulus_bonds:
   'downlink':
     'slaves': [ 'swp29-30', ]
     'clag_id': '1000'
+    'pvid': '100'
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'downlinkl0102':
+    'slaves': [ 'swp24-25', ]
+    'clag_id': '1001'
     'pvid': '100'
     'vids': [ '100', '110', '120', ]
     'mtu': '9216'
@@ -267,6 +285,8 @@ profile::base::network::cumulus_bonds:
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
   'host26':
     'slaves': [ 'swp7s1', ]
     'clag_id': '26'
@@ -475,20 +495,22 @@ profile::base::network::cumulus_bonds:
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', ]
     'mtu': '9216'
-  'host57':
-    'slaves': [ 'swp15s0', ]
-    'clag_id': '57'
+  'host101':
+    'slaves': [ 'swp26s0', ]
+    'clag_id': '101'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', ]
     'mtu': '9216'
-  'host58':
-    'slaves': [ 'swp15s1', ]
-    'clag_id': '58'
+  'host102':
+    'slaves': [ 'swp26s1', ]
+    'clag_id': '102'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
 
 profile::base::network::cumulus_bridges:
   'bridge':
@@ -543,11 +565,12 @@ profile::base::network::cumulus_bridges:
       - host51
       - host52
       - host53
-      - host57
-      - host58
+      - host101
+      - host102
       - lhc
       - peerlink
       - downlink
+      - downlinkl0102
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'true'
@@ -664,11 +687,7 @@ frrouting::frrouting::zebra_interfaces:
     - 'link-detect'
   'host53':
     - 'link-detect'
-  'host57':
-    - 'link-detect'
-  'host58':
-    - 'link-detect'
-  'swp47':
+  'swp25':
     - 'link-detect'
 
 frrouting::frrouting::zebra_generic_options:
@@ -701,18 +720,22 @@ frrouting::frrouting::bgp_accesslist:
     - 'permit 158.39.77.0 0.0.0.255'
     - 'permit 109.105.125.0 0.0.0.63'
     - 'permit 10.1.0.0 0.0.15.255'
+    - 'permit 109.105.127.128 0.0.0.63'
     - 'permit 172.18.0.0 0.0.7.255'
   '20':
     - 'deny 158.39.74.0 0.0.0.255'
     - 'deny 158.39.77.0 0.0.0.255'
     - 'deny 109.105.125.0 0.0.0.63'
     - 'deny 10.1.0.0 0.0.15.255'
+    - 'deny 109.105.127.128 0.0.0.63'
     - 'deny 172.18.0.0 0.0.7.255'
     - 'permit any'
 
 frrouting::frrouting::bgp_ip_prefix_list:
   - 'routes-from-leaf1 seq 5 deny any'
   - 'routes-to-leaf1 seq 5 permit 0.0.0.0/0'
+frrouting::frrouting::bgp_ipv6_prefix_list:
+  - 'routes-from-leaf1 seq 5 deny any'
 
 frrouting::frrouting::bgp_route_maps:
   'rr-client-allow permit 10':
