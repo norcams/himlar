@@ -13,6 +13,11 @@ profile::base::selinux::ports:
     seltype:  'http_port_t'
     protocol: 'tcp'
     port:     389
+  grid-https:
+    seltype:  'http_port_t'
+    protocol: 'tcp'
+    port:     18082
+
 
 #
 # Default interfaces
@@ -50,6 +55,7 @@ corosync_cluster_vip1:    "%{hiera('netcfg_public_netpart')}.200"
 corosync_cluster_vip2:    "%{hiera('netcfg_public_netpart')}.201"
 corosync_cluster_vip3:    "%{hiera('netcfg_public_netpart')}.91"
 corosync_cluster_vip4:    "%{hiera('netcfg_public_netpart')}.114"
+corosync_cluster_vip5:    "%{hiera('netcfg_public_netpart')}.166"
 
 # Firewall
 profile::firewall::rules::custom_rules:
@@ -71,6 +77,11 @@ profile::firewall::rules::custom_rules:
     dport:        [ '80', '443', '389', '636' ]
     source:       '129.177.0.0/16'
     destination:  "%{hiera('corosync_cluster_vip4')}"
+  '456 haproxy http for internal vip5':
+    proto:        'tcp'
+    dport:        [ '80', '443' ]
+    source:       '129.177.0.0/16'
+    destination:  "%{hiera('corosync_cluster_vip5')}"
   '455 haproxy status':
     proto:        'tcp'
     dport:        ['9000']
@@ -105,6 +116,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
   uib_https_domains:
     ensure: present
     mappings:
+      - 'apps-admin.uib.no':                      'uib-https-apps-admin'
+      - 'apps-gw.uib.no':                         'uib-https-apps-gw'
       - 'exch.uib.no':                            'uib-https-exch'
       - 'portal.uib.no':                          'uib-https-adm'
   uib_http_domains:
@@ -114,13 +127,19 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
   public_https_domains:
     ensure: present
     mappings:
+      - 'apps.uib.no':                            'public-https-apps'
       - 'report.uh-iaas.no':                      'public-https-uh-report'
       - 'status.uh-iaas.no':                      'public-https-uh-status'
   public_http_domains:
     ensure: present
     mappings:
+      - 'apps.uib.no':                            'public-http-apps'
       - 'report.uh-iaas.no':                      'public-http-uh-report'
       - 'status.uh-iaas.no':                      'public-http-uh-status'
+  uib_grid_domains:
+    ensure: present
+    mappings:
+      - 's3.grid.uib.no':                         'uib-https-grid'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   'public-https-uh-status':
@@ -135,6 +154,20 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     server_names:       ['report-osl', 'report-bgo']
     ipaddresses:        ['158.37.63.250', '158.39.77.250']
     options:            'verify none inter 1000 check check-ssl'
+  'public-https-apps':
+    listening_service:  'public-https-apps'
+    ports:              443
+    server_names:       ['appsanywhere01.uib.no', 'appsanywhere02.uib.no']
+    ipaddresses:        ['129.177.30.211', '129.177.30.229']
+    options:
+      - 'check'
+  'public-http-apps':
+    listening_service:  'public-http-apps'
+    ports:              80
+    server_names:       ['appsanywhere01.uib.no', 'appsanywhere02.uib.no']
+    ipaddresses:        ['129.177.30.211', '129.177.30.229']
+    options:
+      - 'check'
   'public-ldap-prod':
     listening_service:  'public-ldap-prod'
     ports:              '389'
@@ -162,6 +195,21 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ipaddresses:        ['129.177.14.13', '129.177.14.182']
     options:
       - 'check'
+  'uib-https-apps-admin':
+    listening_service:  'uib-https-apps-admin'
+    ports:              443
+    server_names:       ['apps-admin01.uib.no', 'apps-admin02.uib.no']
+    ipaddresses:        ['129.177.14.170', '129.177.14.171']
+    options:
+      - 'check'
+  'uib-https-apps-gw':
+    listening_service:  'uib-https-apps-gw'
+    ports:              443
+    server_names:       ['apps-gw01.uib.no', 'apps-gw02.uib.no']
+    ipaddresses:        ['129.177.30.19', '129.177.30.26']
+    define_cookies:     true
+    options:
+      - 'check'
   'uib-http-adm':
     listening_service:  'uib-http-adm'
     ports:              80
@@ -183,8 +231,31 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ipaddresses:        ['129.177.5.183']
     options:
       - 'check'
+  'uib-https-grid':
+    listening_service:  'uib-https-grid'
+    ports:              18082
+    server_names:       ['uib-grid-01.grid.uib.no', 'uib-grid-02.grid.uib.no', 'uib-grid-03.grid.uib.no', 'uib-grid-04.grid.uib.no']
+    ipaddresses:        ['129.177.3.11', '129.177.3.12', '129.177.3.13', '129.177.3.14']
+    options:
+      - 'check'
+      - 'check-ssl'
+      - 'verify none'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_backends:
+  public-https-apps:
+    mode:             'tcp'
+    options:
+      - balance:      'source'
+      # - option:
+      #   - 'httpchk HEAD /jukeboxserver/do/license/token/renew.tok?msid=ping HTTP/1.1\r\nHost:\ apps-admin.uib.no'
+  public-http-apps:
+    mode:             'tcp'
+    options:
+      - balance:      'source'
+      - option:
+        - 'forwardfor except 127.0.0.1'
+      # - option:
+      #   - 'httpchk HEAD /jukeboxserver/do/license/token/renew.tok?msid=ping HTTP/1.1\r\nHost:\ apps-admin.uib.no'
   public-http-uh-status:
     mode:             'http'
     options:
@@ -219,6 +290,19 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     mode:             'tcp'
     options:
       - balance:      'source'
+  uib-https-apps-admin:
+    mode:             'tcp'
+    options:
+      - balance:      'source'
+      # - option:
+      #   - 'httpchk HEAD /jukeboxserver/do/license/token/renew.tok?msid=ping HTTP/1.1\r\nHost:\ apps-admin.uib.no'
+  uib-https-apps-gw:
+    mode:             'tcp'
+    options:
+      - balance:      'roundrobin'
+      - cookie:       'ASP.NET_SessionId prefix nocache'
+      # - option:
+      #   - 'httpchk HEAD /jukeboxserver/do/license/token/renew.tok?msid=ping HTTP/1.1\r\nHost:\ apps-admin.uib.no'
   uib-https-adm:
     mode:             'tcp'
     options:
@@ -237,6 +321,13 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     mode:             'tcp'
     options:
       - balance:      'leastconn'
+  uib-https-grid:
+    mode:             'tcp'
+    options:
+      - balance:      'leastconn'
+      - option:
+        - 'httpchk OPTIONS / HTTP/1.1'
+
 #  uib-https-uh-dashboard:
 #    mode: 'tcp'
 #    options:
@@ -330,6 +421,21 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
     options:
       - option:         'tcplog'
       - use_backend:    'uib-ldaps-test'
+  uib-https-grid:
+    mode:               'tcp'
+    bind:
+      "%{hiera('corosync_cluster_vip5')}:443": []
+    options:
+      - maxconn:        '5000' # max grid https connections
+      - timeout:
+        - 'connect 5s'
+        - 'client 50s'
+        - 'server 50s'
+      - option:         'tcplog'
+      - tcp-request:
+        - 'inspect-delay 5s'
+        - 'content accept if { req_ssl_hello_type 1 }'
+      - use_backend:      '%[req_ssl_sni,lower,map(/etc/haproxy/uib_grid_domains.map)]'
 
 # Corosync VIP and HAproxy
 profile::highavailability::corosync::primitives:
@@ -377,6 +483,17 @@ profile::highavailability::corosync::primitives:
       'monitor':          { 'interval': '10s', 'timeout': '20s' }
       'start':            { 'interval': '0s', 'timeout': '20s' }
       'stop':             { 'interval': '0s', 'timeout': '20s' }
+  'gridip':
+    'primitive_class':    'ocf'
+    'primitive_type':     'IPaddr2'
+    'provided_by':        'heartbeat'
+    'parameters':
+      'ip':               "%{hiera('corosync_cluster_vip5')}"
+      'cidr_netmask':     '24'
+    operations:
+      'monitor':          { "interval": "10s", "timeout": "20s" }
+      'start':            { "interval": "0s", "timeout": "20s" }
+      'stop':             { "interval": "0s", "timeout": "20s" }
   'haproxy':
     'primitive_class':    'systemd'
     'primitive_type':     'haproxy'
@@ -402,6 +519,14 @@ profile::highavailability::corosync::locations:
     primitive:  'uibip2'
     node_name:  "%{hiera('corosync_cluster_node2')}"
     score:      'INFINITY'
+  'grid_location1':
+    primitive:  'gridip'
+    node_name:  "%{hiera('corosync_cluster_node1')}"
+    score:      '100'
+  'grid_location2':
+    primitive:  'gridip'
+    node_name:  "%{hiera('corosync_cluster_node2')}"
+    score:      '50'
 
 profile::highavailability::corosync::colocations:
   'pubip1_haproxy':

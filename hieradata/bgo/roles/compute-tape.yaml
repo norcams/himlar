@@ -1,9 +1,7 @@
 ---
 include:
-  default:
+  kickstart:
     - profile::openstack::compute::pci_passthrough
-
-profile::base::physical::enable_redfish_sensu_check: false
 
 netcfg_trp_rr:
   rr1:

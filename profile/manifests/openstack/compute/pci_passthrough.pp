@@ -3,7 +3,7 @@ class profile::openstack::compute::pci_passthrough(
   $manage_pci_alias      = false,
   $manage_pci_whitelist  = false,
   $configure_intel_iommu = false,
-
+  $manage_pcipassthrough = false,
 ) {
 
   if $configure_intel_iommu {

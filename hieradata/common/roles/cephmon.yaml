@@ -19,6 +19,7 @@ profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}
   'jq': {}
+  'ceph-mgr-dashboard': {}
 
 accounts::users:
   'cinder':
@@ -47,6 +48,8 @@ profile::monitoring::sensu::agent::plugins:
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   ceph-%{hiera('ceph_version')}:
+    ensure: present
+  ceph-%{hiera('ceph_version')}-noarch:
     ensure: present
 
 # enable Ceph dashboard

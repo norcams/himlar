@@ -21,8 +21,13 @@ class profile::base::common (
   $manage_puppet          = false,
   $manage_cron            = false,
   $manage_fake_ssd        = false,
+  $manage_vm_swappiness   = false,
+  $vm_swappiness          = '10',
   $include_physical       = false,
   $include_virtual        = false,
+  $extraswap              = false,
+  $extraswap_sizegb       = '10',
+  $extraswap_fileloc      = '/var/lib/nova/instances/swapfile',
   $classes                = [],
 ) {
   # Can be used to include custom classes (mostly for testing)
@@ -103,9 +108,34 @@ class profile::base::common (
     include keyboard
   }
 
+  if $extraswap {
+    exec { 'create_swapfile':
+      command => "dd if=/dev/zero of=${extraswap_fileloc} bs=1M count=$((${extraswap_sizegb}*1024)) && sudo chmod 600 ${extraswap_fileloc}",
+      path    => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
+      unless  => ["test -f ${extraswap_fileloc}"],
+      require => Class['profile::base::lvm'],
+    } ~>
+    exec { 'activate_extraswap':
+      command     => "mkswap ${extraswap_fileloc} && swapon ${extraswap_fileloc}",
+      path        => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
+      refreshonly => true,
+    } ~>
+    exec { 'add_extraswap_to_fstab':
+      command     => "echo \"${extraswap_fileloc} swap swap defaults 0 0\n\" >> /etc/fstab",
+      path        => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
+      refreshonly => true,
+    }
+  }
+
   if $manage_fake_ssd {
     $disk_devices = lookup('profile::storage::fake_ssds', Hash, 'deep', {})
     create_resources('profile::storage::fake_ssd', $disk_devices)
+  }
+
+  if $manage_vm_swappiness {
+    sysctl::value { 'vm.swappiness':
+      value => $vm_swappiness,
+    }
   }
 
   if $manage_sysctl {

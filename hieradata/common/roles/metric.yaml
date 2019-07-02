@@ -5,8 +5,6 @@ include:
     - profile::openstack::openrc
     - profile::logging::rsyslog::client
 
-openstack_version: 'queens' #FIXME
-
 memcached::max_memory: '20%'
 
 profile::base::common::packages:

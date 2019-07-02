@@ -70,6 +70,7 @@ profile::openstack::network::plugin: calico
 
 profile::openstack::network::calico::manage_etcd_grpc_proxy: true
 profile::openstack::network::calico::manage_etcd:            true
+profile::openstack::network::calico::manage_dhcp_agent:      true
 
 profile::base::common::packages:
   'networking-calico': {}
@@ -180,8 +181,10 @@ profile::base::yumrepo::repo_hash:
     ensure: present
 #    exclude: 'openstack-neutron openstack-neutron-common python-neutron'
   calico31:
+    ensure: absent
+  calico37:
     ensure: present
-    exclude: 'calico-dhcp-agent dnsmasq' #FIXME
+    exclude: 'dnsmasq'
   ceph-%{hiera('ceph_version')}:
     ensure: present
   centos-qemu-ev:
@@ -230,3 +233,10 @@ profile::storage::ceph_extraconf::config:
   client_dcache_backend:
     'config_key'  : "client.cinder-dcache-hdd-ec/rbd_default_data_pool"
     'config_value': "dcache_hdd_ec_data"
+
+# Use rsync, not ssh for migrate transport to support sparse images
+nova::config::nova_config:
+  DEFAULT/metadata_workers:
+    value: '4'
+  libvirt/remote_filesystem_transport:
+    value: 'rsync'

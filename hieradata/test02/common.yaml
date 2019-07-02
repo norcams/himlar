@@ -6,6 +6,10 @@ include:
 location_environment:   'test02'
 location_description:   'Test environment physically in OSL'
 
+# Disable management of Dell repos and software
+profile::base::dell::manage_repos:      true
+profile::base::dell::manage_openmanage: false
+
 domain_frontend:        'test.iaas.uio.no'
 domain_public:          'test.iaas.uio.no'
 domain_trp:             'test02.uhdc.no'
@@ -134,7 +138,7 @@ ntp::servers:
   - ntp2.uio.no
 
 ceph::profile::params::mon_initial_members:         'test02-cephmon-01, test02-cephmon-02, test02-cephmon-03'
-ceph::profile::params::mon_host:                    '172.30.32.91:6789, 172.30.32.92:6789, 172.30.32.93:6789'
+ceph::profile::params::mon_host:                    '172.30.32.91, 172.30.32.92, 172.30.32.93'
 ceph::profile::params::cluster_network:             '172.30.32.0/24'
 ceph::profile::params::public_network:              '172.30.32.0/24'
 
