@@ -30,3 +30,5 @@ profile::openstack::volume::backend::rbd:
 cinder::backends::enabled_backends:
   - rbd-volumes
   - mass-storage-default
+
+openstack_version: 'rocky' #FIXME
