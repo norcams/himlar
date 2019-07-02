@@ -20,6 +20,7 @@ corosync_cluster_vip1:    "%{hiera('netcfg_public2_netpart')}.34" # public
 corosync_cluster_vip2:    "%{hiera('netcfg_public2_netpart')}.35" # public
 corosync_cluster_vip3:    "%{hiera('netcfg_public2_netpart')}.243" # uib
 corosync_cluster_vip4:    "%{hiera('netcfg_public2_netpart')}.244" # uib
+corosync_cluster_vip5:    "%{hiera('netcfg_public2_netpart')}.245" # uibgrid
 
 haproxy::global_options:
   log:          '127.0.0.1 local6 info alert'

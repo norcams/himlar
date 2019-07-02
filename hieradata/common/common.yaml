@@ -34,7 +34,7 @@ domain_oob:           "%{::domain}"
 
 openstack_version:    'queens'
 
-ceph_version:         'mimic'
+ceph_version:         'nautilus'
 
 valid_location_tags:
   - bgo
@@ -59,7 +59,8 @@ allow_from_testing_network: # this do not merge!
   - '129.177.10.212/32'  # raymond
   - '158.39.74.6/32'     # raymond mgmt-admin-instance
   - '129.177.10.111/32'  # anders
-  - '129.240.202.64/32'  # tannaz
+  - '129.240.202.64/32'  # mikael
+  - '129.240.202.96/32'  # tannaz
   - '129.177.6.133/32'   # bgo-login
   - '129.240.224.100/32' # osl-login
   - '158.39.77.254/32'  # bgo-dashboard
@@ -85,7 +86,8 @@ allow_from_network:
   - '129.177.10.189/32'  # tor
   - '129.177.10.212/32'  # raymond
   - '129.177.10.111/32'  # anders
-  - '129.240.202.64/32'  # tannaz
+  - '129.240.202.64/32'  # mikael
+  - '129.240.202.96/32'  # tannaz
   - '158.36.0.0/16'      # UiA
   - '128.39.0.0/16'      # UiA
   - '158.37.216.0/21'    # UiA
@@ -387,6 +389,8 @@ profile::network::services::dns_records:
     "%{::location}-mgmt-opx-01.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.1"
     "%{::location}-mgmt-opx-02.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.2"
     "%{::location}-mgmt-opx-03.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.3"
+    "%{::location}-leaf-01.%{hiera('domain_mgmt')}":        "%{hiera('netcfg_mgmt_net_c3')}.1"
+    "%{::location}-leaf-02.%{hiera('domain_mgmt')}":        "%{hiera('netcfg_mgmt_net_c3')}.2"
     "%{::location}-spine-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_mgmt_net_c6')}.1"
     "%{::location}-spine-02.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_mgmt_net_c6')}.2"
     # mgmt nodes
@@ -548,6 +552,8 @@ profile::network::services::dns_records:
     "1.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-opx-01.%{hiera('domain_mgmt')}"
     "2.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-opx-02.%{hiera('domain_mgmt')}"
     "3.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-opx-03.%{hiera('domain_mgmt')}"
+    "1.%{hiera('reverse_mgmt_c3')}":      "%{::location}-leaf-01.%{hiera('domain_mgmt')}"
+    "2.%{hiera('reverse_mgmt_c3')}":      "%{::location}-leaf-02.%{hiera('domain_mgmt')}"
     "1.%{hiera('reverse_mgmt_c6')}":      "%{::location}-spine-01.%{hiera('domain_mgmt')}"
     "2.%{hiera('reverse_mgmt_c6')}":      "%{::location}-spine-02.%{hiera('domain_mgmt')}"
 

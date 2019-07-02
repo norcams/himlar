@@ -173,6 +173,13 @@ profile::base::yumrepo::repo_hash:
     enabled:        1
     gpgcheck:       1
     gpgkey:         "%{hiera('yum_base_mirror')}/calico34/key"
+  calico37:
+    ensure:         absent
+    descr:          'Calico 3.7 Repository'
+    baseurl:        "%{hiera('yum_base_mirror')}/calico37/"
+    enabled:        1
+    gpgcheck:       1
+    gpgkey:         "%{hiera('yum_base_mirror')}/calico37/key"
   ceph-%{hiera('ceph_version')}:
     ensure:         absent
     descr:          'Ceph packages'
@@ -183,7 +190,7 @@ profile::base::yumrepo::repo_hash:
   ceph-%{hiera('ceph_version')}-noarch:
     ensure:         absent
     descr:          'Ceph noarch packages'
-    baseurl:        "%{hiera('yum_base_mirror')}/ceph-%{hiera('ceph_version')}-noarch/noarch"
+    baseurl:        "%{hiera('yum_base_mirror')}/ceph-%{hiera('ceph_version')}-noarch/"
     enabled:        1
     gpgcheck:       1
     gpgkey:         "%{hiera('yum_base_mirror')}/ceph-%{hiera('ceph_version')}-noarch/release.asc"
@@ -251,13 +258,13 @@ profile::base::dell::repo_hash:
   dell-system-update_dependent:
     descr:          "dell-system-update_dependent"
     baseurl:        "%{hiera('yum_base_mirror')}/dell-system-update_dependent"
-    enabled:        1
+    enabled:        0
     gpgcheck:       1
     gpgkey:         "%{hiera('yum_base_mirror')}/dell-system-update_dependent/public.key"
   dell-system-update_independent:
     descr:          "dell-system-update_independent"
     baseurl:        "%{hiera('yum_base_mirror')}/dell-system-update_independent"
-    enabled:        1
+    enabled:        0
     gpgcheck:       1
     gpgkey:         "%{hiera('yum_base_mirror')}/dell-system-update_independent/public.key"
 
