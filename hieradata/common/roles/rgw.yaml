@@ -76,6 +76,7 @@ profile::openstack::object::radosgw::keystone:
     rgw_keystone_admin_user:          'radosgw'
     rgw_keystone_admin_password:      "%{hiera('radosgw_api_password')}"
     rgw_keystone_implicit_tenants:    true
+    rgw_swift_url:                    "%hiera('endpoint__object__public')"
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
