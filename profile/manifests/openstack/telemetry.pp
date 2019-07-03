@@ -16,7 +16,6 @@ class profile::openstack::telemetry (
   include ::ceilometer::agent::notification
 
   # gnocchi
-  include ::ceilometer::dispatcher::gnocchi
   include ::gnocchi::client
 
   # pipeline hack
