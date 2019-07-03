@@ -10,3 +10,5 @@ memcached::max_memory: '10%'
 # Allow statsd from mgmt to work with himlarcli
 profile::openstack::metric::firewall_extras:
   source: '0.0.0.0/0'
+
+openstack_version:    'rocky'

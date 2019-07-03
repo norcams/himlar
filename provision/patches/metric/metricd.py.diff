@@ -1,0 +1,17 @@
+--- /usr/lib/python2.7/site-packages/gnocchi/cli/metricd.py     2019-02-13 09:53:21.000000000 +0100
++++ /tmp/metricd.py     2019-06-07 10:30:10.058326298 +0200
+@@ -242,8 +242,12 @@
+                 LOG.error("Unexpected error processing assigned job",
+                           exc_info=True)
+         LOG.debug("%d metrics processed from %d sacks", m_count, s_count)
+-        # Update statistics
+-        self.coord.update_capabilities(self.GROUP_ID, self.store.statistics)
++        try:
++            # Update statistics
++            self.coord.update_capabilities(self.GROUP_ID,
++                                           self.store.statistics)
++        except tooz.NotImplemented:
++            pass
+         if sacks == self._get_sacks_to_process():
+             # We just did a full scan of all sacks, reset the timer
+             self._last_full_sack_scan.reset()
