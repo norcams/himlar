@@ -17,10 +17,6 @@ profile::openstack::compute::consoleproxy::spice:           false
 profile::openstack::compute::consoleproxy::firewall_extras:
   source: "%{::network_trp1}/%{::netmask_trp1}"
 
-nova::config::nova_config:
-    DEFAULT/ssl_only:
-      value: false
-
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   rdo-release:
