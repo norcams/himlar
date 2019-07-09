@@ -52,6 +52,7 @@ profile::base::network::cumulus_bonds:
     'slaves': [ 'swp51-52', ]
     'clag_id': '100'
     'pvid': '100'
+    'vids': [ '100', '110', '120', ]
   'uplink':
     'slaves': [ 'swp53-54', ]
     'clag_id': '101'
@@ -63,84 +64,98 @@ profile::base::network::cumulus_bonds:
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
   'host2':
     'slaves': [ 'swp2', ]
     'clag_id': '2'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
   'host3':
     'slaves': [ 'swp3', ]
     'clag_id': '3'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
   'host4':
     'slaves': [ 'swp4', ]
     'clag_id': '4'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
   'host5':
     'slaves': [ 'swp5', ]
     'clag_id': '5'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
   'host6':
     'slaves': [ 'swp6', ]
     'clag_id': '6'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
   'host7':
     'slaves': [ 'swp7', ]
     'clag_id': '7'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
   'host8':
     'slaves': [ 'swp8', ]
     'clag_id': '8'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
   'host9':
     'slaves': [ 'swp9', ]
     'clag_id': '9'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
   'host10':
     'slaves': [ 'swp10', ]
     'clag_id': '10'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
   'host11':
     'slaves': [ 'swp11', ]
     'clag_id': '11'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
   'host12':
     'slaves': [ 'swp12', ]
     'clag_id': '12'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
   'host13':
     'slaves': [ 'swp13', ]
     'clag_id': '13'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
   'host14':
     'slaves': [ 'swp14', ]
     'clag_id': '14'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
 
 frrouting::frrouting::zebra_interfaces:
   'bridge':
