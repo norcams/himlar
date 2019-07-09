@@ -25,8 +25,8 @@ profile::base::network::cumulus_interfaces:
     'clagd_peer_ip': '172.18.228.2'
     'clagd_sys_mac': '44:38:39:ff:bb:1c'
   'swp47':
-    'ipv4': [ '10.80.0.114/30', ]
-    'ipv6': 'fd00:1aa5:1::3/127'
+    'ipv4': [ '10.80.0.118/30', ]
+    'ipv6': 'fd00:1aa5:2::3/127'
   'swp53':
     'speed': '40000'
     'fec':   'baser'
@@ -181,7 +181,7 @@ frrouting::frrouting::zebra_interfaces:
     - 'link-detect'
 
 frrouting::frrouting::zebra_ip6_routes:
-  - '::/0 fd00:1aa5:1::2'
+  - '::/0 fd00:1aa5:2::2'
   - '::/0 fd00:18:228::2 50'
   - '2001:700:2:8300::/64 Null0'
   - '2001:700:2:8301::/64 Null0'
@@ -189,7 +189,7 @@ frrouting::frrouting::zebra_ip6_routes:
   - '2001:700:2:83ff::251/128 fd00::16'
   - '2001:700:2:83ff::256/128 fd00::34'
 frrouting::frrouting::zebra_ip_routes:
-  - '0.0.0.0/0 10.80.0.113'
+  - '0.0.0.0/0 10.80.0.117'
   - '0.0.0.0/0 172.18.228.2 50'
   - '10.0.0.0/8 Null0'
   - '158.39.74.0/24 Null0'
