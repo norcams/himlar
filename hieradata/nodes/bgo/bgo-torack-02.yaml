@@ -42,7 +42,7 @@ profile::base::network::cumulus_bridges:
     'ports': [ 'host1', 'host2', 'host3', 'host4', 'host5', 'host6', 'host7', 'host8', 'host9', 'host10', 'host11', 'host12', 'host13', 'host14', 'peerlink', 'downlink', 'uplink' ]
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
-    'stp': 'true'
+    'stp': 'false'
     'vids': [ '100', '110', '120', '4094', ]
 
 profile::base::network::cumulus_bonds:
