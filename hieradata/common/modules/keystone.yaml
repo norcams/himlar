@@ -58,7 +58,7 @@ profile::openstack::identity::openidc::methods:
   - 'password'
   - 'token'
   - 'openid'
-  - 'application_credential'
+#  - 'application_credential'
 profile::openstack::identity::openidc::openidc_response_type:         'code'
 profile::openstack::identity::openidc::openidc_provider_metadata_url: 'https://auth.dataporten.no/.well-known/openid-configuration'
 profile::openstack::identity::openidc::openidc_client_id:             '00000000-0000-0000-0000-000000000000'
@@ -78,6 +78,19 @@ keystone::policy::policies:
   identity:list_domains:
     key:    'identity:list_domains'
     value:  'rule:admin_required or role:admin_view'
+  # enable application_credential for admin only
+  identity:get_application_credential:
+    key:    'identity:get_application_credential'
+    value:  'rule:admin_required'
+  identity:list_application_credentials:
+    key:    'identity:get_application_credential'
+    value:  'rule:admin_required'
+  identity:create_application_credential:
+    key:    'identity:get_application_credential'
+    value:  'rule:admin_required'
+  identity:delete_application_credential:
+    key:    'identity:get_application_credential'
+    value:  'rule:admin_required'
 
 # cron
 keystone::cron::token_flush::maxdelay:    1800 # sek = 30 min
