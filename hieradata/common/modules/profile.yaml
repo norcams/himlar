@@ -194,6 +194,21 @@ profile::base::yumrepo::repo_hash:
     enabled:        1
     gpgcheck:       1
     gpgkey:         "%{hiera('yum_base_mirror')}/ceph-%{hiera('ceph_version')}-noarch/release.asc"
+  logstash6:
+    ensure:         absent
+    descr:          'Logstash 6 Centos Repo'
+    baseurl:        "%{hiera('yum_base_mirror')}/logstash6/"
+    enabled:        1
+    gpgcheck:       1
+    gpgkey:         "%{hiera('yum_base_mirror')}/logstash6/GPG-KEY-elasticsearch"
+  elasticsearch6:
+    ensure:         absent
+    descr:          'Elasticsearch 6 Centos Repo'
+    baseurl:        "%{hiera('yum_base_mirror')}/elasticsearch6/"
+    enabled:        1
+    gpgcheck:       1
+    gpgkey:         "%{hiera('yum_base_mirror')}/elasticsearch6/GPG-KEY-elasticsearch"
+    exclude:        'kibana-oss'
   logstash:
     ensure:         absent
     descr:          'Logstash Centos Repo'
@@ -214,7 +229,14 @@ profile::base::yumrepo::repo_hash:
     baseurl:        "%{hiera('yum_base_mirror')}/curator5/"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/curator/GPG-KEY-elasticsearch"
+    gpgkey:         "%{hiera('yum_base_mirror')}/curator5/GPG-KEY-elasticsearch"
+  kibana6:
+    ensure:         absent
+    descr:          'Kibana 6 Centos Repo'
+    baseurl:        "%{hiera('yum_base_mirror')}/kibana6/"
+    enabled:        1
+    gpgcheck:       1
+    gpgkey:         "%{hiera('yum_base_mirror')}/kibana6/GPG-KEY-elasticsearch"
   foreman:
     ensure:         absent
     descr:          "Foreman %{hiera('foreman_version')} repo"
