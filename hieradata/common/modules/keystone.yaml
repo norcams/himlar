@@ -3,6 +3,7 @@ keystone::db::mysql::allowed_hosts:
   - "%{hiera('netcfg_trp_netpart')}.%"
 
 keystone::database_connection:            "mysql+pymysql://keystone:%{hiera('keystone::db::mysql::password')}@%{hiera('service__address__db_global')}/keystone"
+keystone::database_max_pool_size:         20
 keystone::service_name:                   'httpd'
 keystone::admin_password:                 "%{hiera('keystone_admin_password')}"
 keystone::public_bind_host:               "%{ipaddress_trp1}"
