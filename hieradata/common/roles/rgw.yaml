@@ -5,6 +5,8 @@ include:
     - profile::openstack::object::radosgw
     - profile::storage::ceph::config
 
+ceph_version:         'nautilus' #FIXME
+
 profile::base::common::packages:
   'python-openstackclient': {}
   'bash-completion': {}
@@ -33,14 +35,8 @@ profile::openstack::openrc::project_name: "%{hiera('keystone__service__project')
 
 profile::openstack::object::radosgw::manage_firewall: true
 
-# Ceph radosgw
-ceph::profile::params::rgw_name:      "radosgw.%{::hostname}"
-ceph::profile::params::frontend_type: 'civetweb'
-ceph::profile::params::rgw_user:      'ceph'
-ceph::profile::params::rgw_frontends: "civetweb port=%{::ipaddress_trp1}:7480"
-
 # Override default from modules/ceph.yaml
-ceph::profile::params::mon_host:                    '%{::netpart_trp1}.89:6789'
+ceph::profile::params::mon_host:                    '%{::netpart_trp1}.89'
 ceph::profile::params::mon_initial_members:         '%{::location}-cephmon-object-01'
 ceph::profile::params::cluster_network:             '%{::netpart_trp1}.0/%{cidr_trp1}'
 ceph::profile::params::public_network:              '%{::netpart_trp1}.0/%{cidr_trp1}'
@@ -64,6 +60,14 @@ ceph::profile::params::client_keys:
     group: 'ceph'
     cap_mon: 'allow rw'
     cap_osd: 'allow rwx'
+
+profile::openstack::object::radosgw::rgw:
+  "radosgw.%{::hostname}":
+    frontend_type:  'civetweb'
+    rgw_frontends:  "civetweb port=%{::ipaddress_trp1}:7480"
+    rgw_swift_url:  "%{hiera('endpoint__object__public')}"
+    rgw_dns_name:   "object.api.%{hiera('domain_public')}"
+    user:           'ceph'
 
 profile::openstack::object::radosgw::keystone:
   "radosgw.%{::hostname}":

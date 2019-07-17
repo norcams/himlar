@@ -240,3 +240,5 @@ nova::config::nova_config:
     value: '4'
   libvirt/remote_filesystem_transport:
     value: 'rsync'
+  libvirt/live_migration_permit_auto_converge:
+    value: 'true'

@@ -4,6 +4,8 @@ include:
     - profile::storage::ceph::config
     - profile::storage::ceph::multisite
 
+ceph_version:         'nautilus' #FIXME
+
 profile::storage::ceph::config::manage_config: true
 
 # Multisite
@@ -28,7 +30,7 @@ profile::storage::ceph::multisite::zones:
     zonegroup: 'norway'
 
 # Override default from modules/ceph.yaml
-ceph::profile::params::mon_host:                    '%{::netpart_trp1}.89:6789'
+ceph::profile::params::mon_host:                    '%{::netpart_trp1}.89'
 ceph::profile::params::mon_initial_members:         '%{::location}-cephmon-object-01'
 ceph::profile::params::cluster_network:             '%{::netpart_trp1}.0/%{cidr_trp1}'
 ceph::profile::params::public_network:              '%{::netpart_trp1}.0/%{cidr_trp1}'
