@@ -160,7 +160,7 @@ mod 'cinder', :ref => '12.4.0',                     :git => github + 'openstack/
 mod 'neutron', :ref => '12.4.1',                    :git => github + 'openstack/puppet-neutron'
 mod 'nova', :ref => '12.4.0',                       :git => github + 'openstack/puppet-nova'
 mod 'horizon', :ref => '12.4.0',                    :git => github + 'openstack/puppet-horizon'
-mod 'gnocchi', :ref => '12.4.0',                    :git => github + 'openstack/puppet-gnocchi'
+mod 'gnocchi', :ref => '13.3.1',                    :git => github + 'openstack/puppet-gnocchi'
 mod 'keystone', :ref => '12.4.0',                   :git => github + 'openstack/puppet-keystone'
 mod 'swift', :ref => 'norcams/ocata',               :git => github + 'norcams/puppet-swift'
 mod 'ceilometer', :ref => '12.5.0',                 :git => github + 'openstack/puppet-ceilometer'
@@ -168,7 +168,7 @@ mod 'designate', :ref => '12.4.0',                  :git => github + 'openstack/
 
 mod 'oslo', :ref => '13.3.1',                       :git => github + 'openstack/puppet-oslo'
 mod 'openstacklib', :ref => '13.3.1',               :git => github + 'openstack/puppet-openstacklib'
-mod 'openstack_extras', :ref => '12.4.0',           :git => github + 'openstack/puppet-openstack_extras'
+mod 'openstack_extras', :ref => '13.3.1',           :git => github + 'openstack/puppet-openstack_extras'
 mod 'sysctl', :ref => 'v0.0.11',                    :git => github + 'duritong/puppet-sysctl'
 mod 'memcached', :ref => 'v3.0.2',                  :git => github + 'saz/puppet-memcached'
 mod 'rsync', :ref => '0.4.0',                       :git => github + 'puppetlabs/puppetlabs-rsync'
