@@ -153,7 +153,7 @@ ntp::servers:
   - ntp2.uib.no
 
 ceph::profile::params::mon_initial_members:         'test01-cephmon-01, test01-cephmon-02, test01-cephmon-03'
-ceph::profile::params::mon_host:                    '172.30.0.91:6789, 172.30.0.92:6789, 172.30.0.93:6789'
+ceph::profile::params::mon_host:                    '172.30.0.91, 172.30.0.92, 172.30.0.93'
 ceph::profile::params::cluster_network:             '172.30.0.0/24'
 ceph::profile::params::public_network:              '172.30.0.0/24'
 

@@ -15,6 +15,10 @@ profile::base::physical::hugepages:        '245760'
 nova::compute::libvirt::libvirt_cpu_model: 'EPYC'
 nova::cpu_allocation_ratio:                '1'
 
+# Create and enable more swap
+profile::base::common::extraswap:        true
+profile::base::common::extraswap_sizegb: 10
+
 profile::base::lvm::physical_volume:
   '/dev/sda3':
     ensure: present

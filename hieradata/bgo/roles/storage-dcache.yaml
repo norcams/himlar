@@ -60,126 +60,66 @@ profile::base::lvm::volume_group:
     physical_volumes:
       - /dev/sdp
 profile::base::lvm::logical_volume:
-  'lv_wala':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         3G
   'lv_dba':
     volume_group: 'vg_cache'
     createfs:     false
-    size:         20G
-  'lv_walb':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         3G
+    size:         25G
   'lv_dbb':
     volume_group: 'vg_cache'
     createfs:     false
-    size:         20G
-  'lv_walc':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         3G
+    size:         25G
   'lv_dbc':
     volume_group: 'vg_cache'
     createfs:     false
-    size:         20G
-  'lv_wale':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         3G
+    size:         25G
   'lv_dbd':
     volume_group: 'vg_cache'
     createfs:     false
-    size:         20G
-  'lv_wale':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         3G
+    size:         25G
   'lv_dbe':
     volume_group: 'vg_cache'
     createfs:     false
-    size:         20G
-  'lv_walf':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         3G
+    size:         25G
   'lv_dbf':
     volume_group: 'vg_cache'
     createfs:     false
-    size:         20G
-  'lv_walg':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         3G
+    size:         25G
   'lv_dbg':
     volume_group: 'vg_cache'
     createfs:     false
-    size:         20G
-  'lv_walh':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         3G
+    size:         25G
   'lv_dbh':
     volume_group: 'vg_cache'
     createfs:     false
-    size:         20G
-  'lv_wali':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         3G
+    size:         25G
   'lv_dbi':
     volume_group: 'vg_cache'
     createfs:     false
-    size:         20G
-  'lv_walj':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         3G
+    size:         25G
   'lv_dbj':
     volume_group: 'vg_cache'
     createfs:     false
-    size:         20G
-  'lv_walk':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         3G
+    size:         25G
   'lv_dbk':
     volume_group: 'vg_cache'
     createfs:     false
-    size:         20G
-  'lv_wall':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         3G
+    size:         25G
   'lv_dbl':
     volume_group: 'vg_cache'
     createfs:     false
-    size:         20G
-  'lv_walm':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         3G
+    size:         25G
   'lv_dbm':
     volume_group: 'vg_cache'
     createfs:     false
-    size:         20G
-  'lv_waln':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         3G
+    size:         25G
   'lv_dbn':
     volume_group: 'vg_cache'
     createfs:     false
-    size:         20G
-  'lv_walo':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         3G
+    size:         25G
   'lv_dbo':
     volume_group: 'vg_cache'
     createfs:     false
-    size:         20G
+    size:         25G
 
 profile::storage::cephosd::osds:
   '/dev/sda':
