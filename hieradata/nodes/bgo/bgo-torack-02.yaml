@@ -25,8 +25,8 @@ profile::base::network::cumulus_interfaces:
     'clagd_peer_ip': '172.18.228.1'
     'clagd_sys_mac': '44:38:39:ff:bb:1c'
   'swp47':
-    'ipv4': [ '10.80.0.118/30', ]
-    'ipv6': 'fd00:1aa5:2::3/127'
+    'ipv4': [ '10.80.0.114/30', ]
+    'ipv6': 'fd00:1aa5:1::3/127'
   'swp53':
     'speed': '40000'
     'fec':   'baser'
@@ -42,7 +42,7 @@ profile::base::network::cumulus_bridges:
     'ports': [ 'host1', 'host2', 'host3', 'host4', 'host5', 'host6', 'host7', 'host8', 'host9', 'host10', 'host11', 'host12', 'host13', 'host14', 'peerlink', 'downlink', 'uplink' ]
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
-    'stp': 'true'
+    'stp': 'false'
     'vids': [ '100', '110', '120', '4094', ]
 
 profile::base::network::cumulus_bonds:
@@ -52,6 +52,7 @@ profile::base::network::cumulus_bonds:
     'slaves': [ 'swp51-52', ]
     'clag_id': '100'
     'pvid': '100'
+    'vids': [ '100', '110', '120', ]
   'uplink':
     'slaves': [ 'swp53-54', ]
     'clag_id': '101'
@@ -63,84 +64,98 @@ profile::base::network::cumulus_bonds:
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
   'host2':
     'slaves': [ 'swp2', ]
     'clag_id': '2'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
   'host3':
     'slaves': [ 'swp3', ]
     'clag_id': '3'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
   'host4':
     'slaves': [ 'swp4', ]
     'clag_id': '4'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
   'host5':
     'slaves': [ 'swp5', ]
     'clag_id': '5'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
   'host6':
     'slaves': [ 'swp6', ]
     'clag_id': '6'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
   'host7':
     'slaves': [ 'swp7', ]
     'clag_id': '7'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
   'host8':
     'slaves': [ 'swp8', ]
     'clag_id': '8'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
   'host9':
     'slaves': [ 'swp9', ]
     'clag_id': '9'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
   'host10':
     'slaves': [ 'swp10', ]
     'clag_id': '10'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
   'host11':
     'slaves': [ 'swp11', ]
     'clag_id': '11'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
   'host12':
     'slaves': [ 'swp12', ]
     'clag_id': '12'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
   'host13':
     'slaves': [ 'swp13', ]
     'clag_id': '13'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
   'host14':
     'slaves': [ 'swp14', ]
     'clag_id': '14'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
 
 frrouting::frrouting::zebra_interfaces:
   'bridge':
@@ -181,7 +196,7 @@ frrouting::frrouting::zebra_interfaces:
     - 'link-detect'
 
 frrouting::frrouting::zebra_ip6_routes:
-  - '::/0 fd00:1aa5:2::2'
+  - '::/0 fd00:1aa5:1::2'
   - '::/0 fd00:18:228::1 50'
   - '2001:700:2:8300::/64 Null0'
   - '2001:700:2:8301::/64 Null0'
@@ -189,7 +204,7 @@ frrouting::frrouting::zebra_ip6_routes:
   - '2001:700:2:83ff::251/128 fd00::16'
   - '2001:700:2:83ff::256/128 fd00::34'
 frrouting::frrouting::zebra_ip_routes:
-  - '0.0.0.0/0 10.80.0.117'
+  - '0.0.0.0/0 10.80.0.113'
   - '0.0.0.0/0 172.18.228.1 50'
   - '10.0.0.0/8 Null0'
   - '158.39.74.0/24 Null0'

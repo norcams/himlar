@@ -1,2 +1,7 @@
 ---
 puppet::runmode: 'none'
+
+# This is a hack to remove the 'unable to autoload nsupdate provider' 500 error
+puppet::server_ruby_load_paths:
+  - '/opt/puppetlabs/puppet/lib/ruby/vendor_ruby'
+  - '/opt/puppetlabs/puppet/cache/lib'

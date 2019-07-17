@@ -3,21 +3,42 @@ mysql::client::package_name:    'MariaDB-client'
 
 mysql::server::restart: true
 
-mysql__config__max_connections: 512
-mysql__config__wsrep_debug:     'OFF'
+mysql__config__max_connections:             512
+mysql__config__innodb_buffer_pool_size:     '512M'
+mysql__config__innodb_buffer_pool_instances: 1
+mysql__config__innodb_log_file_size:        '64M'
+mysql__config__query_cache_size:            '64M'
+mysql__config__query_cache_limit:           '16M'
+
+wsrep_debug:          'OFF'
+wsrep_on:             'ON'
+wsrep_cluster_name:   'keystone'
+wsrep_slave_threads:  4
+
+# Default values are no cluster and no tls
+# ONLY TURN ON CLUSTER ON INDIVIDUAL NODES!
+wsrep_provider_options: "base_host=%{::ipaddress_trp1};pc.recovery=1;gcs.fc_factor=0.8"
+wsrep_sst_method:       'rsync'
+wsrep_cluster_address:  'gcomm://'
+wsrep_node_address:     "%{::ipaddress_trp1}"
+
+# These should be set to valid options per location
+db_ssl_key:       '/etc/mysql/server-key.pem'
+db_ssl_cert:      '/etc/mysql/server-cert.pem'
+db_ssl_ca:        '/etc/mysql/cacert.pem'
 
 mysql::server::override_options:
   client:
     ssl-ca:                         "%{hiera('db_ssl_ca')}"
   mysqld:
     max_connections:                "%{hiera('mysql__config__max_connections')}"
-    innodb_buffer_pool_instances:   1
-    table_open_cache:               8192
-    query_cache_size:               '64M'
-    query_cache_limit:              '16M'
+    innodb_buffer_pool_instances:   "%{hiera('mysql__config__innodb_buffer_pool_instances')}"
+    table_open_cache:               16384
+    query_cache_size:               "%{hiera('mysql__config__query_cache_size')}"
+    query_cache_limit:              "%{hiera('mysql__config__query_cache_limit')}"
     join_buffer_size:               '8M'
-    innodb_log_file_size:           '64M'
-    innodb_buffer_pool_size:        '512M'
+    innodb_log_file_size:           "%{hiera('mysql__config__innodb_log_file_size')}"
+    innodb_buffer_pool_size:        "%{hiera('mysql__config__innodb_buffer_pool_size')}"
     log-error:                      '/var/log/mysqld.log'
     pid-file:                       "/var/lib/mysql/%{::hostname}.pid"
     bind-address:                   "%{::ipaddress_trp1}"
@@ -31,16 +52,18 @@ mysql::server::override_options:
     default_storage_engine:         'InnoDB'
     innodb_autoinc_lock_mode:       2
     innodb_flush_log_at_trx_commit: 0
-    wsrep_debug:                    "%{hiera('mysql__config__wsrep_debug')}"
-    wsrep_on:                       'ON'
+    wsrep_slave_threads:            "%{hiera('wsrep_slave_threads')}"
+    wsrep_debug:                    "%{hiera('wsrep_debug')}"
+    wsrep_on:                       "%{hiera('wsrep_on')}"
     wsrep_log_conflicts:            'ON'
     wsrep_provider:                 '/usr/lib64/galera/libgalera_smm.so'
     wsrep_cluster_address:          "%{hiera('wsrep_cluster_address')}"
-    wsrep_cluster_name:             'keystone'
+    wsrep_cluster_name:             "%{hiera('wsrep_cluster_name')}"
     wsrep_node_address:             "%{hiera('wsrep_node_address')}"
     wsrep_node_name:                "%{::hostname}"
     wsrep_sst_method:               "%{hiera('wsrep_sst_method')}"
     wsrep_provider_options:         "%{hiera('wsrep_provider_options')}"
+    wsrep_notify_cmd:               '/bin/true' # we use sensu
   # sst: #used in testing in local
   #   encrypt:                        4
   #   tca:                            "%{hiera('db_ssl_ca')}"
