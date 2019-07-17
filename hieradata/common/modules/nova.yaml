@@ -5,7 +5,7 @@ nova::db::api_database_connection:       "mysql+pymysql://nova_api:%{hiera('nova
 nova::db::placement_database_connection: "mysql+pymysql://nova_placement:%{hiera('nova::db::mysql_placement::password')}@%{hiera('service__address__db_regional')}/nova_placement"
 nova::glance_api_servers:                "%{hiera('endpoint__image__internal')}"
 nova::cinder_catalog_info:               'volumev3:cinderv3:internalURL'
-nova::region_name:                       "%{location}"
+nova::os_region_name:                    "%{location}"
 
 # logging
 nova::use_syslog:           true
