@@ -40,9 +40,13 @@ for panel in project_panels:
 password_panel = settings_dashboard.get_panel("password")
 settings_dashboard.unregister(password_panel.__class__)
 
-# Remove Identity-> Users
+# Remove Identity->Users
 users_panel = identity_dashboard.get_panel("users")
 identity_dashboard.unregister(users_panel.__class__)
+
+# Remove Identity->Application Credentials
+ac_panel = identity_dashboard.get_panel("application_credentials")
+identity_dashboard.unregister(ac_panel.__class__)
 
 # Object storage
 container_panel = project_dashboard.get_panel("containers")
