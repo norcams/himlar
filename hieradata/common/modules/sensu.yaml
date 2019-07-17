@@ -67,8 +67,12 @@ sensu::checks:
     command:      "%{hiera('sensu__memory__check')}"
     interval:     60
     subscribers:  ['checks']
-  'check-process':
+  'check-process-cron':
     command:      'check-process.rb -p cron'
+    interval:     300
+    subscribers:  ['checks']
+  'check-process-rsyslog':
+    command:      'check-process.rb -p rsyslog'
     interval:     300
     subscribers:  ['checks']
 
