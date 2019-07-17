@@ -31,6 +31,7 @@ class profile::application::himlarcli(
   $mq_vhost,
   $database_uri,
   $compute_api_version,
+  $volume_api_version,
   $ldap_server = undef,
   $ldap_base_dn = undef,
   $cacert = undef
