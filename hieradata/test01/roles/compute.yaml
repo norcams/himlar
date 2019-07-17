@@ -50,8 +50,10 @@ profile::base::yumrepo::repo_hash:
   calico31:
     ensure: absent
   calico34:
+    ensure: absent
+  calico37:
     ensure: present
-    exclude: 'calico-dhcp-agent dnsmasq'
+    exclude: 'dnsmasq'
 
 # Set tuned profile to "virtual-host"
 profile::base::tuned::manage_tuned:  true

@@ -26,8 +26,6 @@ project_panels.append(project_dashboard.get_panel("network_topology"))
 project_panels.append(project_dashboard.get_panel("floating_ips"))
 # Compute->API
 project_panels.append(project_dashboard.get_panel("api_access"))
-# Volumes-> Backups
-project_panels.append(project_dashboard.get_panel("backups"))
 # Volumes-> Consistency Groups
 project_panels.append(project_dashboard.get_panel("cgroups"))
 # Volumes-> Consistency Group Snapshots
