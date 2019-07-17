@@ -9,6 +9,8 @@ include:
     - profile::openstack::cache
     - profile::webserver::apache::status
 
+openstack_version: 'rocky' #FIXME
+
 profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}

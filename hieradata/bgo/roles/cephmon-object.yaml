@@ -7,7 +7,7 @@ named_interfaces::config:
     - eth1
 
 ceph::profile::params::osd_pool_default_min_size:   '2'
-ceph::profile::params::mon_host:                    "%{::netpart_trp1}.89:6789,%{::netpart_trp1}.90:6789,%{::netpart_trp1}.94:6789"
+ceph::profile::params::mon_host:                    "%{::netpart_trp1}.89,%{::netpart_trp1}.90,%{::netpart_trp1}.94"
 ceph::profile::params::mon_initial_members:         '%{::location}-cephmon-object-01,%{::location}-cephmon-object-02,%{::location}-cephmon-object-03'
 ceph::profile::params::cluster_network:             '172.20.0.0/21' #"%{::network_ceph1}/%{::cidr_ceph1}"
 ceph::profile::params::public_network:              "%{::network_trp1}/%{::cidr_trp1}"

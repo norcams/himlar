@@ -87,9 +87,11 @@ logrotate::rules:
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
-  logstash:
+  logstash6:
     ensure: present
-  elasticsearch:
+  elasticsearch6:
     ensure: present
   curator5:
+    ensure: present
+  kibana6:
     ensure: present
