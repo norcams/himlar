@@ -132,3 +132,11 @@ profile::messaging::rabbitmq::policy:
     definition:
       'ha-mode':            'all'
       'ha-sync-mode':       'automatic'
+
+# RDO used for openstackclient
+profile::base::yumrepo::repo_hash:
+  rdo-release:
+    ensure: present
+  epel:
+    ensure: present
+    exclude: 'rabbitmq-server'
