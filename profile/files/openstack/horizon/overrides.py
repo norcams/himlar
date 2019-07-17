@@ -6,7 +6,6 @@ import os.path
 NO = lambda *x: False
 
 tables.AssociateIP.allowed = NO
-tables.SimpleDisassociateIP.allowed = NO
 
 project_dashboard = horizon.get_dashboard("project")
 identity_dashboard = horizon.get_dashboard("identity")
@@ -26,10 +25,11 @@ project_panels.append(project_dashboard.get_panel("network_topology"))
 project_panels.append(project_dashboard.get_panel("floating_ips"))
 # Compute->API
 project_panels.append(project_dashboard.get_panel("api_access"))
-# Volumes->Consistency Groups
-project_panels.append(project_dashboard.get_panel("cgroups"))
-# Volumes->Consistency Group Snapshots
-project_panels.append(project_dashboard.get_panel("cg_snapshots"))
+# Volumes-> Consistency Groups
+#project_panels.append(project_dashboard.get_panel("cgroups"))
+# Volumes-> Consistency Group Snapshots
+#project_panels.append(project_dashboard.get_panel("cg_snapshots"))
+>>>>>>> 41f4cd5744cf79b0fee76b4950fff4275271827f
 # DNS->Reverse DNS
 if os.path.isfile("/usr/share/openstack-dashboard/openstack_dashboard/local/enabled/_1722_dns_reversedns_panel.py"):
     project_panels.append(project_dashboard.get_panel("reverse_dns"))

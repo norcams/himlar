@@ -3,6 +3,7 @@ keystone::db::mysql::allowed_hosts:
   - "%{hiera('netcfg_trp_netpart')}.%"
 
 keystone::database_connection:            "mysql+pymysql://keystone:%{hiera('keystone::db::mysql::password')}@%{hiera('service__address__db_global')}/keystone"
+keystone::database_max_pool_size:         20
 keystone::service_name:                   'httpd'
 keystone::admin_password:                 "%{hiera('keystone_admin_password')}"
 keystone::public_bind_host:               "%{ipaddress_trp1}"
@@ -10,6 +11,8 @@ keystone::admin_bind_host:                "%{ipaddress_trp1}"
 keystone::enable_proxy_headers_parsing:   true
 keystone::purge_config:                   true
 keystone::enable_bootstrap:               true
+keystone::admin_port:                     '35357' #default is changed to 5000 in rocky
+keystone::public_port:                    '5000'
 
 # cache
 keystone::cache_enabled:                  true
@@ -76,6 +79,19 @@ keystone::policy::policies:
   identity:list_domains:
     key:    'identity:list_domains'
     value:  'rule:admin_required or role:admin_view'
+  # enable application_credential for admin only
+  identity:get_application_credential:
+    key:    'identity:get_application_credential'
+    value:  'rule:admin_required'
+  identity:list_application_credentials:
+    key:    'identity:list_application_credentials'
+    value:  'rule:admin_required'
+  identity:create_application_credential:
+    key:    'identity:create_application_credential'
+    value:  'rule:admin_required'
+  identity:delete_application_credential:
+    key:    'identity:delete_application_credential'
+    value:  'rule:admin_required'
 
 # cron
 keystone::cron::token_flush::maxdelay:    1800 # sek = 30 min
