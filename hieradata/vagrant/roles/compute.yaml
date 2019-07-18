@@ -56,13 +56,8 @@ profile::base::network::rules:
   'eth2':
     iprule: [ "from %{hiera('netcfg_priv_network')} lookup private", ]
 
-# remove when telemetry/ceilometer is up in all environments and move to common
-profile::openstack::compute::manage_telemetry:                true
-ceilometer::agent::polling::compute_namespace:                true
-profile::openstack::telemetry::polling::manage_polling:       true
-profile::openstack::telemetry::polling::polling_interval:     120
-profile::openstack::telemetry::pipeline::pipeline_publishers: ['gnocchi://']
-
 profile::monitoring::sensu::agent::checks:
   'nova-ssh-key':
     ensure:       absent
+
+openstack_version:     'rocky'

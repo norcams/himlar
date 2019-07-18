@@ -1,10 +1,10 @@
 ---
-puppet::runinterval:  1800
-puppet::runmode:      'cron'
-puppet::puppetmaster: "puppet.%{hiera('domain_mgmt')}"
-puppet::show_diff:    true
-puppet::classfile:    '$statedir/classes.txt'
-puppet::
+puppet::runinterval:       1800
+puppet::runmode:           'cron'
+puppet::puppetmaster:      "puppet.%{hiera('domain_mgmt')}"
+puppet::show_diff:         true
+puppet::classfile:         '$statedir/classes.txt'
+puppet::usecacheonfailure: false
 
 puppet::server_directory_environments: true
 puppet::server_environments:           ['production']
@@ -17,7 +17,7 @@ puppet::additional_settings:
   'trusted_node_data':  'true'
   'disable_warnings':   'deprecations'
   'stringify_facts':    'false'
-  'usecacheonfailure':  'false'
+  #  'usecacheonfailure':  'false'
 
 # puppet4 puppetserver
 puppet::server_jvm_min_heap_size:       '512M'

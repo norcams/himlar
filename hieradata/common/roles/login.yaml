@@ -9,6 +9,16 @@ include:
     - profile::bootstrap::himlar
     - profile::network::nat
 
+# We need to define oob for login, but this should be overridden in location
+# with the correct oob interface where we use oob network
+named_interfaces::config:
+  mgmt:
+    - eth0
+  trp:
+    - eth1
+  oob:
+    - eth0
+
 profile::application::rngd::enable:               true
 profile::base::firewall::manage_firewall:         true
 profile::network::services::manage_nat:           false

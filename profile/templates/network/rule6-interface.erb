@@ -1,6 +1,9 @@
 ###
 ### File managed by Puppet
 ###
+<% if @trp_rules6 -%><% @trp_rules6.each do |rule| -%>
+<%= rule %>
+<% end -%><% end -%>
 <% @neutron_subnets.each do |subnet,value| -%>
 <% if @neutron_subnets[subnet]['ip_version'].eql? "6" -%>
 from <%=  @neutron_subnets[subnet]['cidr'] %> to <%= scope().call_function('hiera',['netcfg_trp_netpart6']) %>::/<%= scope().call_function('hiera',['netcfg_trp_netmask6']) %> blackhole

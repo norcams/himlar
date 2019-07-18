@@ -1,10 +1,15 @@
 #!/bin/bash
-set -euxo pipefail
+set -ux
 
 . <%= @rc_file %>
 
-# FIXME: Debug user
-touch /tmp/$(date +"%Y-%m-%d_%H%M")
+# If the environment variable IMAGEBUILDER_REPORT is true each build script will
+# write a machine-readable report of the last build in JSONL format. There will
+# also be a dated log file in plain text containing the raw output of
+# imagebuilder.
+gen_report="${IMAGEBUILDER_REPORT:-false}"
+plain_log=/var/log/imagebuilder/<%= @name -%>-build-$(date +"%Y%m%d").log
+json_report=/var/log/imagebuilder/<%= @name %>-report.jsonl
 
 # Hack to find packer in /usr/bin/ when run as root
 export PATH=/usr/bin:/usr/local/bin:/bin:/usr/local/sbin:/usr/sbin
@@ -29,22 +34,44 @@ export PATH=/usr/bin:/usr/local/bin:/bin:/usr/local/sbin:/usr/sbin
 -d \
 -x \
 -v \
---debug
+--debug &> $plain_log
+
+imagebuilder_ec=$?
+
+# We set the shell's error handling options here to avoid exiting before a
+# report has been written
+set -eo pipefail
+
+if [ $gen_report == "true" ]; then
+  # Write imagebuilder's exit code to imagebuilder report
+  jq -Rnc '{"result_imagebuilder": input}' <<< $imagebuilder_ec > $json_report
+
+  # Convert newlines in imagebuilder's output into to literal \n for a
+  # single-line value in the report
+  awk '{printf "%s\\n", $0}' $plain_log \
+  | jq -Rc '{"output_imagebuilder": .}' >> $json_report
+fi
+
+# Non-zero exit codes from imagebuilder must be handled manually
+if [ $imagebuilder_ec -ne 0 ]; then
+  exit 1
+fi
 
 # Compress image
 filename=/opt/images/public_builds/<%= @name %>-$(date +"%Y%m%d").qcow2
 tmp_file=/opt/images/public_builds/<%= @name %>.tmp
 
-if [ $(which qemu-img) ] && [ -f ${filename} ]; then
-  mv -f ${filename} ${tmp_file}
-  qemu-img convert -O qcow2 -c ${tmp_file} ${filename}
-  rm -f ${tmp_file}
-fi
+mv -f ${filename} ${tmp_file}
+qemu-img convert -O qcow2 -c ${tmp_file} ${filename}
+rm -f ${tmp_file}
 
 # Create latest symlink
-if [ -f ${filename} ]; then
-  ln -srf ${filename} /opt/images/public_builds/<%= @name %>-latest.qcow2
-fi
+ln -srf ${filename} /opt/images/public_builds/<%= @name %>-latest.qcow2
 
 # Remove old images, always keeping the two most recent
 find /opt/images/public_builds/ -type f -iname <%= @name %>\* | sort -r | tail -n +3 | xargs rm -f
+
+if [ $gen_report == "true" ]; then
+  # If we make it to here we assume the build has been successful
+  jq -nc '{"result": "success"}' >> $json_report
+fi

@@ -18,7 +18,8 @@ profile::base::firewall::manage_firewall:         false
 profile::base::network::net_ifnames:              false
 profile::monitoring::sensu::agent::enable_agent:  false
 profile::network::leaf::manage_quagga:            false
-profile::network::leaf::manage_acls:              false
+profile::network::leaf::manage_frrouting:         true
+profile::network::leaf::manage_acls:              true
 profile::base::network::cumulus_ifs:              true
 network::config_file_per_interface:               true
 profile::logging::logrotate::manage_logrotate:    false
@@ -26,6 +27,30 @@ profile::logging::logrotate::manage_logrotate:    false
 # ntp service managed by profile because of mgmt VRF
 ntp::service_enable: false
 ntp::service_ensure: 'stopped'
+
+frrouting::zebra:                 true
+frrouting::bgpd:                  true
+frrouting::single_config_file:    true
+frrouting::frrouting::hostname:   'cumulus-test'
+frrouting::frrouting::password:   'pass123'
+frrouting::frrouting::bgp_as:     "%{hiera('bgp_as')}"
+
+profile::network::leaf::acls:
+  '02control_plane_custom.rules':
+    rule_vars:
+      - "INGRESS_CHAIN = INPUT"
+      - "INGRESS_INTF = swp+"
+    iptables:
+      - "-A $INGRESS_CHAIN -s %{hiera('netcfg_mgmt_netpart')}.0/%{hiera('netcfg_mgmt_netmask')} -p tcp --dport 19999 -j ACCEPT"
+      - "-A $INGRESS_CHAIN -p tcp --dport 19999 -j DROP"
+      - "-A $INGRESS_CHAIN -s %{hiera('netcfg_trp_netpart')}.0/%{hiera('netcfg_trp_netmask')} -p tcp --dport 179 -j ACCEPT"
+      - "-A $INGRESS_CHAIN -p tcp --dport 179 -j DROP"
+      - "-A $INGRESS_CHAIN -s %{hiera('netcfg_mgmt_netpart')}.0/%{hiera('netcfg_mgmt_netmask')} -p tcp --dport 22 -j ACCEPT"
+      - "-A $INGRESS_CHAIN -s %{hiera('netcfg_trp_netpart')}.0/%{hiera('netcfg_trp_netmask')} -p tcp --dport 22 -j ACCEPT"
+      - "-A $INGRESS_CHAIN -p tcp --dport 22 -j DROP"
+    ip6tables:
+      - "-A $INGRESS_CHAIN --in-interface $INGRESS_INTF -s %{hiera('netcfg_trp_netpart6')}::/%{hiera('netcfg_trp_netmask6')} -p tcp -m multiport --dports 22,179 -j ACCEPT"
+      - "-A $INGRESS_CHAIN --in-interface $INGRESS_INTF -p tcp  -m multiport --dports 22,179 -j DROP"
 
 accounts::groups:
   'wheel':

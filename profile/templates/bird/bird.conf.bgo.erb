@@ -1,0 +1,107 @@
+
+router id <%= @router_id %>;
+
+<% if @debug %>debug protocols all;
+<% end -%>
+# We are only going to export routes from Calico interfaces.
+# Currently, 'tap*' is used by the OpenStack implimentation
+# and 'cali*' is used by the docker implimentation.
+# dummy1 is the interface that bare metal "service" addresses
+# should be bound to if they should be exported.
+# This will need to be updated as we add new interface names.
+#
+# Also filter out default, just in case.
+#
+# We should automate the build of this out of variables when
+# we have time.
+
+filter export_bgp {
+  if ( (ifname ~ "tap*") || (ifname ~ "atap*") || (ifname ~ "cali*") || (ifname ~ "dummy1") ) then {
+    if  net != 0.0.0.0/0 then accept;
+  }
+  reject;
+}
+
+filter import_kernel {
+  if  net != 0.0.0.0/0 then {
+    accept;
+  }
+  reject;
+}
+
+filter import_bgp {
+  if  net != 0.0.0.0/0 then {
+    if net !=<%= scope().call_function('hiera',['netcfg_anycast_dns']) %>/32 then {
+      accept;
+    }
+  }
+  reject;
+}
+
+table private;
+table lhc;
+
+# Configure synchronization between BIRD's routing tables and the
+# kernel.
+protocol kernel {
+  table master;
+  kernel table ipt_main;
+  learn;          # Learn all alien routes from the kernel
+  scan time 2;    # Scan kernel routing table every 2 seconds
+  persist;        # Don't remove routes on bird shutdown
+#  import filter import_kernel;
+  import all;
+  graceful restart;
+  export filter import_bgp;     # Default is export none
+}
+
+protocol pipe {
+  table master;
+  peer table private;
+  import filter import_kernel;
+  export filter import_bgp;
+}
+
+protocol pipe {
+  table master;
+  peer table lhc;
+  import filter import_kernel;
+  export filter import_bgp;
+}
+
+protocol kernel {
+  learn;
+  table private;
+  kernel table ipt_private;
+  scan time 2;
+  device routes;
+  export all;
+  import filter import_kernel;
+}
+
+protocol kernel {
+  learn;
+  table lhc;
+  kernel table ipt_lhc;
+  scan time 2;
+  device routes;
+  export all;
+  import filter import_kernel;
+}
+
+protocol bfd {
+<% scope().call_function('hiera',['netcfg_trp_rr']).each do |name| %><%if name[1]['peer_ipv4'] %>  neighbor <%= name[1]['peer_ipv4'] %>;
+<% end %><% end %>}
+
+# Watch interface up/down events.
+protocol device {
+  scan time 2;    # Scan interfaces every 2 seconds
+}
+
+protocol direct {
+   debug all;
+   interface "-dummy*", "eth*", "em*", "en*", "br-mgmt", "bond*", "team*";
+}
+
+# Include
+include "/etc/bird/bird.conf.d/*.conf";

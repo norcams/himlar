@@ -41,9 +41,9 @@ nova::keystone::auth_placement::internal_url:     "%{hiera('endpoint__placement_
 
 # placement auth url
 nova::placement::auth_url:                "%{hiera('endpoint__identity__admin')}/v3"
-nova::placement::os_region_name:          "%{location}"
+nova::placement::region_name:             "%{location}"
 nova::placement::password:                "%{hiera('nova_placement_password')}"
-nova::placement::os_interface:            "internal"
+nova::placement::valid_interface:         "internal"
 nova::placement::project_domain_name:     "%{hiera('keystone__default__domain')}"
 nova::placement::user_domain_name:        "%{hiera('keystone__default__domain')}"
 nova::placement::project_name:            "%{hiera('keystone__service__project')}"
@@ -70,16 +70,16 @@ nova::wsgi::apache_api::workers:    2
 
 nova::cells::enabled: false
 
-nova::keystone::authtoken::username:            'nova'
-nova::keystone::authtoken::password:            "%{hiera('nova_api_password')}"
-nova::keystone::authtoken::auth_url:            "%{hiera('endpoint__identity__admin')}/v3"
-nova::keystone::authtoken::auth_uri:            "%{hiera('endpoint__identity__internal')}"
-nova::keystone::authtoken::region_name:         "%{::location}"
-nova::keystone::authtoken::auth_version:        'v3'
-nova::keystone::authtoken::project_domain_name: "%{hiera('keystone__default__domain')}"
-nova::keystone::authtoken::user_domain_name:    "%{hiera('keystone__default__domain')}"
-nova::keystone::authtoken::project_name:        "%{hiera('keystone__service__project')}"
-nova::keystone::authtoken::memcached_servers:   '127.0.0.1:11211'
+nova::keystone::authtoken::username:                'nova'
+nova::keystone::authtoken::password:                "%{hiera('nova_api_password')}"
+nova::keystone::authtoken::auth_url:                "%{hiera('endpoint__identity__admin')}/v3"
+nova::keystone::authtoken::www_authenticate_uri:    "%{hiera('endpoint__identity__internal')}"
+nova::keystone::authtoken::region_name:             "%{::location}"
+nova::keystone::authtoken::auth_version:            'v3'
+nova::keystone::authtoken::project_domain_name:     "%{hiera('keystone__default__domain')}"
+nova::keystone::authtoken::user_domain_name:        "%{hiera('keystone__default__domain')}"
+nova::keystone::authtoken::project_name:            "%{hiera('keystone__service__project')}"
+nova::keystone::authtoken::memcached_servers:       '127.0.0.1:11211'
 
 # scheduler (node: novactrl)
 nova::cpu_allocation_ratio:                         '16'
@@ -100,6 +100,8 @@ nova::scheduler::filter::scheduler_default_filters:
   - "ServerGroupAffinityFilter"
   - "AggregateMultiTenancyIsolation"
   - "AggregateInstanceExtraSpecsFilter"
+  - "NUMATopologyFilter"
+  - "PciPassthroughFilter"
 
 # conductor (node: novactrl)
 nova::conductor::enabled: true

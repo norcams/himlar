@@ -4,8 +4,6 @@ include:
     - profile::openstack::openrc
     - profile::openstack::telemetry
 
-openstack_version: 'queens' #FIXME
-
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   rdo-release:
@@ -20,7 +18,7 @@ ceilometer::agent::polling::central_namespace:            true
 profile::openstack::telemetry::manage_firewall:           true
 profile::openstack::telemetry::manage_gnocchi_resources:  true
 profile::openstack::telemetry::manage_meters:             true
-profile::openstack::telemetry::pipeline::pipeline_publishers: ['gnocchi://']
+profile::openstack::telemetry::pipeline::pipeline_publishers: ['gnocchi://?archive_policy=low&filter_service_activity=false']
 
 profile::base::common::packages:
   'python-openstackclient': {}
@@ -37,3 +35,5 @@ profile::openstack::openrc::project_name:               'services'
 
 profile::openstack::telemetry::polling::polling_interval: 3600   #FIXME
 profile::openstack::telemetry::polling::manage_polling:   true
+
+openstack_version:  'rocky'

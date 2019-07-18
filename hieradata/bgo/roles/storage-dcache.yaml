@@ -1,0 +1,199 @@
+---
+profile::base::network::network_auto_opts:
+  trp:
+    'defroute': 'no'
+    'devicetype': 'Team'
+    'mtu': '9000'
+    'team_config': >-
+                   { "runner" : {  "name" : "lacp",  "active": true, "fast_rate" : true,
+                   "tx_hash": ["eth", "ipv4", "ipv6"], "tx_balancer": { "name": "basic" } },
+                   "link_watch" : {  "name" : "ethtool" } }
+  ceph:
+    'defroute': 'no'
+
+profile::base::network::network_auto_bonding:
+  trp:
+    p4p1:
+      'team_port_config': '{ "prio" : 100 }'
+      'mtu': '9000'
+    p4p2:
+      'team_port_config': '{ "prio" : 100 }'
+      'mtu': '9000'
+
+profile::storage::cephosd::crush_parent:      'dcache'
+profile::storage::cephosd::crush_parent_type: 'pod'
+
+profile::base::common::manage_lvm: false
+profile::base::lvm::create_lvm:    false
+
+profile::storage::cephpool::manage_ec_pools: true
+
+profile::storage::ceph_ecpool::ec_pools:
+  'dcache_hdd_ec_data':
+    pg_num:              "2048"
+    manage:              true
+    allow_ec_overwrites: true
+    k_data:              "10"
+    m_code:              "3"
+    crush_root:          "dcache"
+profile::storage::cephpool::pools:
+  'dcache_hdd_ec_meta':
+    ensure: present
+    pg_num: 512
+    pgp_num: 512
+profile::storage::cephpool_params::pools:
+  'dcache_hdd_ec_meta':
+    replicas_num:       4
+    replicas_min_size:  3
+    crush_rule:         "hdd-dcache"
+    application_enable: 'rbd'
+  'dcache_hdd_ec_data':
+    application_enable: 'rbd'
+    replicas_min_size:  '11'
+
+profile::base::lvm::physical_volume:
+  '/dev/sdp':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_cache':
+    physical_volumes:
+      - /dev/sdp
+profile::base::lvm::logical_volume:
+  'lv_dba':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         25G
+  'lv_dbb':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         25G
+  'lv_dbc':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         25G
+  'lv_dbd':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         25G
+  'lv_dbe':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         25G
+  'lv_dbf':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         25G
+  'lv_dbg':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         25G
+  'lv_dbh':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         25G
+  'lv_dbi':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         25G
+  'lv_dbj':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         25G
+  'lv_dbk':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         25G
+  'lv_dbl':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         25G
+  'lv_dbm':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         25G
+  'lv_dbn':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         25G
+  'lv_dbo':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         25G
+
+profile::storage::cephosd::osds:
+  '/dev/sda':
+    db_device:  false
+    wal_device: false
+#    db_device:  'vg_cache/lv_dba'
+#    wal_device: 'vg_cache/lv_wala'
+  '/dev/sdb':
+    db_device:  false
+    wal_device: false
+#    db_device:  'vg_cache/lv_dbb'
+#    wal_device: 'vg_cache/lv_walb'
+  '/dev/sdc':
+    db_device:  false
+    wal_device: false
+#    db_device:  'vg_cache/lv_dbc'
+#    wal_device: 'vg_cache/lv_walc'
+  '/dev/sdd':
+    db_device:  false
+    wal_device: false
+#    db_device:  'vg_cache/lv_dbd'
+#    wal_device: 'vg_cache/lv_wald'
+  '/dev/sde':
+    db_device:  false
+    wal_device: false
+#    db_device:  'vg_cache/lv_dbe'
+#    wal_device: 'vg_cache/lv_wale'
+  '/dev/sdf':
+    db_device:  false
+    wal_device: false
+#    db_device:  'vg_cache/lv_dbf'
+#    wal_device: 'vg_cache/lv_walf'
+  '/dev/sdg':
+    db_device:  false
+    wal_device: false
+#    db_device:  'vg_cache/lv_dbg'
+#    wal_device: 'vg_cache/lv_walg'
+  '/dev/sdh':
+    db_device:  false
+    wal_device: false
+#    db_device:  'vg_cache/lv_dbh'
+#    wal_device: 'vg_cache/lv_walh'
+  '/dev/sdi':
+    db_device:  false
+    wal_device: false
+#    db_device:  'vg_cache/lv_dbi'
+#    wal_device: 'vg_cache/lv_wali'
+  '/dev/sdj':
+    db_device:  false
+    wal_device: false
+#    db_device:  'vg_cache/lv_dbj'
+#    wal_device: 'vg_cache/lv_walj'
+  '/dev/sdk':
+    db_device:  false
+    wal_device: false
+#    db_device:  'vg_cache/lv_dbk'
+#    wal_device: 'vg_cache/lv_walk'
+  '/dev/sdl':
+    db_device:  false
+    wal_device: false
+#    db_device:  'vg_cache/lv_dbl'
+#    wal_device: 'vg_cache/lv_wall'
+  '/dev/sdm':
+    db_device:  false
+    wal_device: false
+#    db_device:  'vg_cache/lv_dbm'
+#    wal_device: 'vg_cache/lv_walm'
+  '/dev/sdn':
+    db_device:  false
+    wal_device: false
+#    db_device:  'vg_cache/lv_dbn'
+#    wal_device: 'vg_cache/lv_waln'
+  '/dev/sdo':
+    db_device:  false
+    wal_device: false
+#    db_device:  'vg_cache/lv_dbo'
+#    wal_device: 'vg_cache/lv_walo'

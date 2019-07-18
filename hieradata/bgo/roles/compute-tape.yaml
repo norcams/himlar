@@ -1,0 +1,69 @@
+---
+include:
+  kickstart:
+    - profile::openstack::compute::pci_passthrough
+
+netcfg_trp_rr:
+  rr1:
+    peer_ipv4: '172.18.6.1'
+    peer_ipv6: 'fd00::6:1'
+  rr2:
+    peer_ipv4: '172.18.6.2'
+    peer_ipv6: 'fd00::6:2'
+
+profile::openstack::compute::pci_passthrough::configure_intel_iommu: true
+profile::openstack::compute::pci_passthrough::manage_pcipassthrough: true
+profile::openstack::compute::pci_passthrough::manage_pci_whitelist:  true
+# QLogic Corp ISP2532-based 8Gb Fibre Channel to PCI Express HBA
+nova::compute::pci::passthrough:
+  - 'vendor_id':  '1077'
+    'product_id': '2532'
+nova::pci::aliases:
+  - 'vendor_id':   '1077'
+    'product_id':  '2532'
+    'device_type': 'type-PCI'
+    'name':        'isp2532'
+
+profile::base::network::network_auto_opts:
+  mgmt:
+    'defroute': 'no'
+  trp:
+    'defroute': 'no'
+    'ipv6init': 'yes'
+    'devicetype': 'Team'
+    'mtu': '9000'
+    'team_config': >-
+                   { "runner" : {  "name" : "lacp",  "active": true, "fast_rate" : true,
+                   "tx_hash": ["eth", "ipv4", "ipv6"], "tx_balancer": { "name": "basic" } },
+                   "link_watch" : {  "name" : "ethtool" } }
+  live:
+    'defroute': 'no'
+
+profile::base::network::network_auto_bonding:
+  trp:
+    p4p1:
+      'team_port_config': '{ "prio" : 100 }'
+      'mtu': '9000'
+    p4p2:
+      'team_port_config': '{ "prio" : 100 }'
+      'mtu': '9000'
+
+profile::base::lvm::physical_volume:
+  '/dev/sdf3':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_ext':
+    physical_volumes:
+      - /dev/sdf3
+profile::base::lvm::logical_volume:
+  'lv_instances':
+    volume_group: 'vg_ext'
+    fs_type:      "xfs"
+    mountpath:    "/var/lib/nova/instances"
+
+# Use local storage for instances
+nova::compute::rbd::ephemeral_storage:            false
+nova::config::nova_config:
+  libvirt/images_type:
+    value: default

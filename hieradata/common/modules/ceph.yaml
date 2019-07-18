@@ -3,11 +3,11 @@
 # Ceph parameters
 #
 ceph::profile::params::manage_repo:                 false
-ceph::profile::params::release:                     'mimic'
+ceph::profile::params::release:                     'nautilus'
 ######## Ceph.conf - Cluster and location spesific data
 ceph::profile::params::authentication_type:         'cephx'
 #ceph::profile::params::mon_initial_members:         'cephmon-1, cephmon-2'
-#ceph::profile::params::mon_host:                    '10.0.0.10:6789, 10.0.0.11:6789'
+#ceph::profile::params::mon_host:                    '10.0.0.10, 10.0.0.11'
 ceph::profile::params::osd_pool_default_pg_num:     '2048'
 ceph::profile::params::osd_pool_default_pgp_num:    '2048'
 ceph::profile::params::osd_pool_default_size:       '3'
@@ -57,6 +57,20 @@ ceph::profile::params::client_keys:
     group: 'cinder'
     cap_mon: 'profile rbd'
     cap_osd: 'profile rbd pool=volumes_hdd_ec_meta, profile rbd pool=volumes_hdd_ec_data'
+  'client.cinder-dcache-hdd-ec':
+    secret: "%{hiera('ceph_storage_client_cinder_key')}"
+    mode: '0600'
+    user: 'cinder'
+    group: 'cinder'
+    cap_mon: 'profile rbd'
+    cap_osd: 'profile rbd pool=dcache_hdd_ec_meta, profile rbd pool=dcache_hdd_ec_data'
+  'client.tape':
+    secret: "%{hiera('ceph_storage_client_tape_key')}"
+    mode: '0600'
+    user: 'root'
+    group: 'root'
+    cap_mon: 'profile rbd'
+    cap_osd: 'profile rbd pool=dcache_hdd_ec_meta, profile rbd pool=dcache_hdd_ec_data'
 #ceph::profile::params::osds:
 #  '/var/osd1':
 #    journal: '/var/osd1-journal'

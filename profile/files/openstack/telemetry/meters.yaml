@@ -90,15 +90,15 @@ metric:
     lookup: ['name', 'unit', 'volume']
 
   # Swift
-  - name: $.payload.measurements.[*].metric.[*].name
-    event_type: 'objectstore.http.request'
-    type: 'delta'
-    unit: $.payload.measurements.[*].metric.[*].unit
-    volume: $.payload.measurements.[*].result
-    resource_id: $.payload.target.id
-    user_id: $.payload.initiator.id
-    project_id: $.payload.initiator.project_id
-    lookup: ['name', 'unit', 'volume']
+  # - name: $.payload.measurements.[*].metric.[*].name
+  #   event_type: 'objectstore.http.request'
+  #   type: 'delta'
+  #   unit: $.payload.measurements.[*].metric.[*].unit
+  #   volume: $.payload.measurements.[*].result
+  #   resource_id: $.payload.target.id
+  #   user_id: $.payload.initiator.id
+  #   project_id: $.payload.initiator.project_id
+  #   lookup: ['name', 'unit', 'volume']
 
   - name: 'memory'
     event_type: 'compute.instance.*'

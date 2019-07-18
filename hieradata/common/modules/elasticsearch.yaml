@@ -5,4 +5,5 @@ elasticsearch::rolling_file_max_backup_index: 10
 elasticsearch::api_protocol:                  'http'
 elasticsearch::api_host:                      '127.0.0.1'
 elasticsearch::api_port:                      9200
-elasticsearch::api_timeout:                   10
+elasticsearch::api_timeout:                   30
+elasticsearch::package_name:                  'elasticsearch-oss'

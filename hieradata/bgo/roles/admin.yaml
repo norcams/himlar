@@ -34,10 +34,10 @@ profile::network::services::dhcp_reservation:
     mac: '00:01:e8:d8:37:24'
     ip:  '172.16.0.4'
   bgo-spine-01:
-    mac: '3c:2c:30:49:27:80'
+    mac: '3c:2c:30:49:2f:00'
     ip:  "%{hiera('netcfg_mgmt_net_c6')}.1"
   bgo-spine-02:
-    mac: '3c:2c:30:49:2f:00'
+    mac: '3c:2c:30:49:27:80'
     ip:  "%{hiera('netcfg_mgmt_net_c6')}.2"
   bgo-torack-01:
     mac: '14:18:77:00:78:00'
@@ -87,6 +87,78 @@ profile::network::services::dhcp_reservation:
   bgo-compute-10-bmc:
     mac: 'f8:ca:b8:8c:ef:c7'
     ip:  '172.17.0.118'
+  bgo-compute-11-bmc:
+    'mac': '4c:d9:8f:1c:09:1c'
+    'ip':  '172.17.1.11'
+  bgo-compute-12-bmc:
+    'mac': '4c:d9:8f:1c:09:52'
+    'ip':  '172.17.1.12'
+  bgo-compute-13-bmc:
+    'mac': '4c:d9:8f:1c:0b:e0'
+    'ip':  '172.17.1.13'
+  bgo-compute-14-bmc:
+    'mac': '4c:d9:8f:1c:0b:80'
+    'ip':  '172.17.1.14'
+  bgo-compute-15-bmc:
+    'mac': '4c:d9:8f:1c:06:5e'
+    'ip':  '172.17.1.15'
+  bgo-compute-16-bmc:
+    'mac': '4c:d9:8f:1c:0f:04'
+    'ip':  '172.17.1.16'
+  bgo-compute-17-bmc:
+    'mac': '4c:d9:8f:1c:0a:78'
+    'ip':  '172.17.1.17'
+  bgo-compute-18-bmc:
+    'mac': '4c:d9:8f:1c:0a:d8'
+    'ip':  '172.17.1.18'
+  bgo-compute-19-bmc:
+    'mac': '4c:d9:8f:1c:0a:54'
+    'ip':  '172.17.1.19'
+  bgo-compute-20-bmc:
+    'mac': '4c:d9:8f:1c:05:86'
+    'ip':  '172.17.1.20'
+  bgo-compute-21-bmc:
+    'mac': '4c:d9:8f:1c:0f:88'
+    'ip':  '172.17.1.21'
+  bgo-compute-22-bmc:
+    'mac': '4c:d9:8f:1c:05:14'
+    'ip':  '172.17.1.22'
+  bgo-compute-23-bmc:
+    'mac': '4c:d9:8f:1c:08:ce'
+    'ip':  '172.17.1.23'
+  bgo-compute-24-bmc:
+    'mac': '4c:d9:8f:1c:06:22'
+    'ip':  '172.17.1.24'
+  bgo-compute-25-bmc:
+    'mac': '4c:d9:8f:1c:0b:e6'
+    'ip':  '172.17.1.25'
+  bgo-compute-26-bmc:
+    'mac': '4c:d9:8f:1c:07:2a'
+    'ip':  '172.17.1.26'
+  bgo-compute-27-bmc:
+    'mac': '4c:d9:8f:1c:0f:7c'
+    'ip':  '172.17.1.27'
+  bgo-compute-28-bmc:
+    'mac': '4c:d9:8f:1c:05:62'
+    'ip':  '172.17.1.28'
+  bgo-compute-29-bmc:
+    'mac': '4c:d9:8f:1c:0c:34'
+    'ip':  '172.17.1.29'
+  bgo-compute-30-bmc:
+    'mac': '4c:d9:8f:1c:0b:aa'
+    'ip':  '172.17.1.30'
+  bgo-compute-31-bmc:
+    'mac': '4c:d9:8f:1c:0e:02'
+    'ip':  '172.17.1.31'
+  bgo-compute-32-bmc:
+    'mac': '4c:d9:8f:1c:0f:e8'
+    'ip':  '172.17.1.32'
+  bgo-compute-33-bmc:
+    'mac': '4c:d9:8f:1c:07:8a'
+    'ip':  '172.17.1.33'
+  bgo-compute-34-bmc:
+    'mac': '4c:d9:8f:1c:04:e4'
+    'ip':  '172.17.1.34'
   bgo-controller-01-bmc:
     mac: 'b8:2a:72:fc:4c:7e'
     ip:  '172.17.0.100'
@@ -135,3 +207,87 @@ profile::network::services::dhcp_reservation:
   bgo-storage-07-bmc:
     mac: '58:8a:5a:e8:ef:e2'
     ip:  '172.17.0.125'
+  bgo-storage-08-bmc:
+    mac: '4c:d9:8f:29:d4:a0'
+    ip:  '172.17.1.50'
+  bgo-storage-09-bmc:
+    mac: '4c:d9:8f:29:d4:d0'
+    ip:  '172.17.1.51'
+  bgo-storage-10-bmc:
+    mac: '4c:d9:8f:1a:59:50'
+    ip:  '172.17.1.52'
+  bgo-storage-11-bmc:
+    mac: '4c:d9:8f:1a:9a:ae'
+    ip:  '172.17.1.53'
+  bgo-storage-12-bmc:
+    mac: '4c:d9:8f:1a:51:be'
+    ip:  '172.17.1.54'
+  bgo-storage-13-bmc:
+    mac: '4c:d9:8f:1a:51:ac'
+    ip:  '172.17.1.55'
+  bgo-storage-14-bmc:
+    mac: '4c:d9:8f:1a:51:ca'
+    ip:  '172.17.1.56'
+  bgo-storage-15-bmc:
+    mac: '4c:d9:8f:1a:5c:62'
+    ip:  '172.17.1.57'
+  bgo-storage-16-bmc:
+    mac: '4c:d9:8f:1a:5b:7e'
+    ip:  '172.17.1.58'
+  bgo-storage-17-bmc:
+    mac: '4c:d9:8f:1a:56:da'
+    ip:  '172.17.1.59'
+  bgo-storage-18-bmc:
+    mac: '4c:d9:8f:1a:56:86'
+    ip:  '172.17.1.60'
+  bgo-storage-19-bmc:
+    mac: '4c:d9:8f:1a:36:d0'
+    ip:  '172.17.1.61'
+  bgo-storage-20-bmc:
+    mac: '4c:d9:8f:18:a5:c6'
+    ip:  '172.17.1.62'
+  bgo-storage-21-bmc:
+    mac: '4c:d9:8f:1a:56:d4'
+    ip:  '172.17.1.63'
+  bgo-storage-22-bmc:
+    mac: '4c:d9:8f:1a:56:b6'
+    ip:  '172.17.1.64'
+  bgo-storage-23-bmc:
+    mac: '4c:d9:8f:1a:58:6c'
+    ip:  '172.17.1.65'
+  bgo-storage-24-bmc:
+    mac: '4c:d9:8f:1a:58:72'
+    ip:  '172.17.1.66'
+  bgo-storage-25-bmc:
+    mac: '4c:d9:8f:1a:07:c0'
+    ip:  '172.17.1.67'
+  bgo-storage-26-bmc:
+    mac: '4c:d9:8f:2b:28:fc'
+    ip:  '172.17.1.68'
+  bgo-storage-27-bmc:
+    mac: '4c:d9:8f:2b:28:e4'
+    ip:  '172.17.1.69'
+  bgo-storage-28-bmc:
+    mac: '4c:d9:8f:2b:29:d4'
+    ip:  '172.17.1.70'
+  bgo-storage-29-bmc:
+    mac: '4c:d9:8f:2b:29:fe'
+    ip:  '172.17.1.71'
+  bgo-storage-30-bmc:
+    mac: '4c:d9:8f:2b:28:ba'
+    ip:  '172.17.1.72'
+  bgo-storage-31-bmc:
+    mac: '4c:d9:8f:1a:07:72'
+    ip:  '172.17.1.73'
+  bgo-storage-32-bmc:
+    mac: '4c:d9:8f:1a:01:5a'
+    ip:  '172.17.1.74'
+  bgo-storage-33-bmc:
+    mac: '4c:d9:8f:1a:07:ba'
+    ip:  '172.17.1.75'
+  bgo-storage-34-bmc:
+    mac: '4c:d9:8f:1a:06:b2'
+    ip:  '172.17.1.76'
+  bgo-tape-01-bmc:
+    mac: '4c:d9:8f:1a:5a:4c'
+    ip:  '172.17.1.49'

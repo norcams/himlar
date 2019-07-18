@@ -38,7 +38,7 @@ designate::keystone::auth::password:     "%{hiera('designate_api_password')}"
 #---------------------------------------------------------------------
 designate::keystone::authtoken::password:             "%{hiera('designate_api_password')}"
 designate::keystone::authtoken::auth_url:             "%{hiera('endpoint__identity__admin')}/v3"
-designate::keystone::authtoken::auth_uri:             "%{hiera('endpoint__identity__public')}"
+designate::keystone::authtoken::www_authenticate_uri: "%{hiera('endpoint__identity__public')}"
 designate::keystone::authtoken::memcached_servers:    '127.0.0.1'
 designate::keystone::authtoken::region_name:          "%{::location}"
 designate::keystone::authtoken::auth_version:         'v3'

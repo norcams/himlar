@@ -1,0 +1,170 @@
+---
+include:
+  kickstart:
+    - profile::base::lvm
+    - profile::storage::cephclient
+    - profile::storage::maprbd
+    - profile::network::yum_proxy
+  bootstrap:
+    - profile::base::lvm
+    - profile::network::yum_proxy
+  default:
+    - profile::network::bgp_router
+    - profile::virtualization::libvirt
+
+profile::network::bgp_router::enable_bird:          true
+profile::network::bgp_router::enable_bird6:         true
+profile::network::bgp_router::manage_bgp_firewall:  true
+profile::network::bgp_router::manage_bgp_firewall6: true
+profile::network::bgp_router::bird_template:        'bird-nat.conf.erb'
+profile::network::bgp_router::bird6_template:       'bird6_bgp.conf.erb'
+profile::network::yum_proxy::yum_proxy:             "http://%{hiera('mgmt__address__proxy')}:8888"
+
+profile::base::physical::enable_redfish_sensu_check: true
+profile::base::network::netif_proxy_arp: true
+
+profile::virtualization::libvirt::manage_firewall: true
+profile::virtualization::libvirt::firewall_extras:
+  'graphics':
+    port: 5900-5999
+
+#profile::storage::cephclient::create_extraconf: true
+#profile::storage::ceph_extraconf::config:
+#  client_dcache_backend:
+#    'config_key'  : "client.tape/rbd_default_data_pool"
+#    'config_value': "dcache_hdd_ec_data"
+
+ceph::profile::params::client_keys:
+  'client.tape':
+    secret: "%{hiera('ceph_storage_client_tape_key')}"
+    mode: '0600'
+    user: 'root'
+    group: 'root'
+    cap_mon: 'profile rbd'
+    cap_osd: 'profile rbd pool=dcache_hdd_ec_meta, profile rbd pool=dcache_hdd_ec_data'
+
+#profile::base::lvm_config:
+#  types:
+#    line:  'types = [ "rbd", 64 ]'
+#    match: '^*# types'
+
+#profile::storage::maprbd::manage_maprbd: true
+#profile::storage::maprbd::rbd_images:
+#  dcache_hdd_ec_meta/dcache-tape-pool-in: 'id=tape,keyring=/etc/ceph/ceph.client.tape.keyring'
+
+libvirt::unix_sock_group:         wheel
+libvirt::unix_sock_rw_perms:      0770
+libvirt::listen_tls:              false
+libvirt::listen_tcp:              true
+libvirt::auth_tcp:                none
+libvirt::sysconfig:
+  LIBVIRTD_ARGS:                  '--listen'
+libvirt::qemu_vnc_listen:         '0.0.0.0'
+libvirt::qemu_vnc_sasl:           false
+libvirt::qemu_vnc_tls:            false
+
+# Enable extra yum repo
+profile::base::yumrepo::repo_hash:
+  ceph-%{hiera('ceph_version')}:
+    ensure: present
+  epel:
+    ensure: present
+
+named_interfaces::config:
+  mgmt:
+    - em3
+  trp:
+    - team1
+
+profile::base::network::network_auto_opts:
+  trp:
+    'defroute': 'no'
+    'devicetype': 'Team'
+    'ipv6init': 'yes'
+    'mtu': '9000'
+    'team_config': >-
+                   { "runner" : {  "name" : "lacp",  "active": true, "fast_rate" : true,
+                   "tx_hash": ["eth", "ipv4", "ipv6"], "tx_balancer": { "name": "basic" } },
+                   "link_watch" : {  "name" : "ethtool" } }
+
+profile::base::network::network_auto_bonding:
+  trp:
+    p4p1:
+      'team_port_config': '{ "prio" : 100 }'
+      'mtu': '9000'
+    p4p2:
+      'team_port_config': '{ "prio" : 100 }'
+      'mtu': '9000'
+
+lvm::volume_groups:
+  vg_ext:
+    physical_volumes:
+      - /dev/sdf3
+    logical_volumes:
+      lv_ext:
+        fs_type:   xfs
+        mountpath: "/var/lib/libvirt/images"
+
+profile::base::lvm::physical_volume:
+  '/dev/sda':
+    ensure: present
+    force:  true
+  '/dev/sdb':
+    ensure: present
+    force:  true
+  '/dev/sdc':
+    ensure: present
+    force:  true
+  '/dev/sdd':
+    ensure: present
+    force:  true
+  '/dev/sde':
+    ensure: present
+    force:  true
+#  '/dev/rbd/dcache_hdd_ec_meta/dcache-tape-pool-in':
+#    ensure: present
+#    force:  true
+profile::base::lvm::volume_group:
+  'vg_db01':
+    physical_volumes:
+      - /dev/sda
+  'vg_db02':
+    physical_volumes:
+      - /dev/sdb
+  'vg_db03':
+    physical_volumes:
+      - /dev/sdc
+  'vg_logactive':
+    physical_volumes:
+      - /dev/sdd
+  'vg_logarchive':
+    physical_volumes:
+      - /dev/sde
+#  'vg_dcache_in':
+#    physical_volumes:
+#      - /dev/rbd/dcache_hdd_ec_meta/dcache-tape-pool-in
+profile::base::lvm::logical_volume:
+  'lv_db01':
+    volume_group: 'vg_db01'
+    fs_type:      "xfs"
+    mountpath:    "/db01"
+  'lv_db02':
+    volume_group: 'vg_db02'
+    fs_type:      "xfs"
+    mountpath:    "/db02"
+  'lv_db03':
+    volume_group: 'vg_db03'
+    fs_type:      "xfs"
+    mountpath:    "/db03"
+  'lv_logactive':
+    volume_group: 'vg_logactive'
+    fs_type:      "xfs"
+    mountpath:    "/log_active"
+  'lv_logarchive':
+    volume_group: 'vg_logarchive'
+    fs_type:      "xfs"
+    mountpath:    "/log_archive"
+#  'lv_dcache_in':
+#    volume_group: 'vg_dcache_in'
+#    fs_type:      'xfs'
+#    mountpath:    '/dcache_in'

@@ -9,7 +9,7 @@ gnocchi::keystone::auth::region:              "%{::location}"
 # keystone auth (node: metric)
 gnocchi::keystone::authtoken::password:             "%{hiera('gnocchi_api_password')}"
 gnocchi::keystone::authtoken::public_url:           "%{hiera('endpoint__metric__public')}"
-gnocchi::keystone::authtoken::auth_uri:             "%{hiera('endpoint__metric__public')}"
+gnocchi::keystone::authtoken::www_authenticate_uri: "%{hiera('endpoint__metric__public')}"
 gnocchi::keystone::authtoken::auth_url:             "%{hiera('endpoint__identity__admin')}/v3"
 gnocchi::keystone::authtoken::admin_url:            "%{hiera('endpoint__metric__admin')}"
 gnocchi::keystone::authtoken::internal_url:         "%{hiera('endpoint__metric__internal')}"

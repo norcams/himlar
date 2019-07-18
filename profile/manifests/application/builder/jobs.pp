@@ -29,12 +29,14 @@ define profile::application::builder::jobs(
     require => File["/home/${user}/build_scripts"]
   } ->
   cron { $name:
-    ensure  => $ensure,
-    command => "/home/${user}/build_scripts/${name} || logger -p cron.err -t imagebuilder Failed building image ${name}",
-    user    => $user,
-    weekday => 'Wednesday',
-    hour    => $hour,
-    minute  => 0
+    ensure      => $ensure,
+    # Write to imagebuilder report
+    command     => "/home/${user}/build_scripts/${name} || jq -nc '{\"result\": \"failed\"}' >> /var/log/imagebuilder/${name}-report.jsonl",
+    user        => $user,
+    weekday     => 'Wednesday',
+    hour        => $hour,
+    minute      => 0,
+    environment => 'IMAGEBUILDER_REPORT=true'
   }
 
 }

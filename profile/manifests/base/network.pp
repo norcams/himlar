@@ -3,6 +3,8 @@ class profile::base::network(
   $manage_dummy     = false,
   $net_ifnames      = true,
   $no_of_dummies    = 1,
+  $netif_proxy_arp  = false,
+  $proxy_arp_ifs    = {},
   $manage_httpproxy = false,
   $http_proxy       = undef,
   $remove_route     = false,
@@ -67,6 +69,18 @@ class profile::base::network(
       module => "dummy",
       option => "numdummies",
       value =>  $no_of_dummies,
+    }
+  }
+
+  # Set proxy arp for interface
+  if $netif_proxy_arp {
+    $proxy_arp_ifs.each |$ifsetsysctl| {
+      sysctl::value { "net.ipv4.conf.${ifsetsysctl}.proxy_arp":
+        value => 1,
+      }
+      sysctl::value { "net.ipv6.conf.${ifsetsysctl}.proxy_ndp":
+        value => 1,
+      }
     }
   }
 
@@ -215,7 +229,7 @@ class profile::base::network(
   # Create extra routes, tables, rules on ifup
   create_resources(network::mroute, lookup('profile::base::network::mroute', Hash, 'deep', {}))
   create_resources(network::routing_table, lookup('profile::base::network::routing_tables', Hash, 'deep', {}))
-  create_resources(network::route, lookup('profile::base::network::routes', Hash, 'deep', {}))
+  create_resources(network::route, lookup('profile::base::network::routes', Hash, 'first', {}))
   unless $manage_neutron_blackhole {
     create_resources(network::rule, lookup('profile::base::network::rules', Hash, 'deep', {}))
   } else {
@@ -223,6 +237,9 @@ class profile::base::network(
     $transport_if = $named_interface_hash["trp"][0] # FIXME should cater for many interfaces
     $rules_hash = lookup('profile::base::network::rules', Hash, 'deep', {})
     $trp_rules = $rules_hash["${transport_if}"]['iprule']
+    if $rules_hash["${transport_if}"]['iprule6'] {
+      $trp_rules6 = $rules_hash["${transport_if}"]['iprule6']
+    }
     $neutron_subnets = lookup('profile::openstack::resource::subnets', Hash, 'first', {})
     file { "rule-${transport_if}":
       ensure  => present,

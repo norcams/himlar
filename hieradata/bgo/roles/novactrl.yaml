@@ -1,4 +1,8 @@
 ---
+include:
+  default:
+    - profile::openstack::compute::pci_passthrough
+
 profile::openstack::resource::host_aggregate:
   group1:
     availability_zone: "%{::location}-legacy-1"
@@ -22,6 +26,10 @@ profile::openstack::resource::host_aggregate:
     availability_zone: "%{::location}-default-1"
     metadata:
       type: 'windows'
+  alice1:
+    availability_zone: "%{::location}-default-1"
+    metadata:
+      type: 'alice'
   placeholder1:
     availability_zone: "%{::location}-iaas-team-only-1"
     metadata:
@@ -31,3 +39,16 @@ profile::openstack::resource::host_aggregate:
         db3a36ac1c8e4af9b570433d3678226d,
         bf017d42f06c4eb590276eccb9d571dd,
         3eae4805dcd6450fb98651f5a9dc9ded
+  tape1:
+    availability_zone: "%{::location}-default-1"
+    metadata:
+      type: 'alicetape'
+
+profile::openstack::compute::pci_passthrough::manage_pci_alias: true
+
+# QLogic Corp ISP2532-based 8Gb Fibre Channel to PCI Express HBA
+nova::pci::aliases:
+  - 'vendor_id':   '1077'
+    'product_id':  '2532'
+    'device_type': 'type-PCI'
+    'name':        'isp2532'

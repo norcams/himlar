@@ -20,6 +20,20 @@ profile::base::network::network_auto_opts:
   ceph:
     'defroute': 'no'
 
+profile::storage::ceph_crushrules::rules:
+  'hdd-storage':
+    rule_device_type: "hdd"
+    rule_root:        "storage"
+  'ssd-storage':
+    rule_device_type: "sdd"
+    rule_root:        "storage"
+  'hdd-dcache':
+    rule_device_type: "hdd"
+    rule_root:        "dcache"
+  'ssd-dcache':
+    rule_device_type: "ssd"
+    rule_root:        "dcache"
+
 profile::storage::cephpool::manage_ec_pools:         true
 profile::storage::cephpool::manage_cephpool_params:  true
 

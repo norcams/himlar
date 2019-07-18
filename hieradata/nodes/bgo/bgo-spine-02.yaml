@@ -12,11 +12,161 @@ profile::base::network::cumulus_interfaces:
   'bridge.100':
     'ipv4': [ "%{hiera('netcfg_trp_net_c6')}.2/21", ]
     'ipv6': [ 'fd00::6:2/64', ]
-    'virtual_ip': "%{hiera('netcfg_mgmt_net_c7')}.2/21 fd00::702/64"
+    'virtual_ip': "%{hiera('netcfg_trp_net_c7')}.2/21 fd00::702/64"
     'virtual_mac': '00:00:5e:00:01:02'
+  'bridge.109':
+    'ipv4': [ "109.105.125.4/26", ]
+    'ipv6': [ '2001:948:62:1::4/64', ]    
+    'virtual_ip':  '109.105.125.2/26 2001:948:62:1::f/64'
+    'virtual_mac': '00:00:5e:00:01:03'
   'peerlink.4094':
     'ipv4': [ '172.18.229.2/24', ]
     'ipv6': [ 'fd00:18:229::2/64', ]
     'clagd_enable': true
     'clagd_peer_ip': '172.18.229.1'
     'clagd_sys_mac': '44:38:39:ff:bb:1d'
+
+frrouting::frrouting::bgp_neighbors:
+  - "172.18.0.1 remote-as %{hiera('bgp_as')}"
+  - '172.18.0.1 soft-reconfiguration inbound'
+  - "fd00::1 remote-as %{hiera('bgp_as')}"
+  - 'fd00::1 soft-reconfiguration inbound'
+  - "172.18.0.2 remote-as %{hiera('bgp_as')}"
+  - '172.18.0.2 soft-reconfiguration inbound'
+  - "fd00::2 remote-as %{hiera('bgp_as')}"
+  - 'fd00::2 soft-reconfiguration inbound'
+  - "172.18.229.1 remote-as %{hiera('bgp_as')}"
+  - '172.18.229.1 soft-reconfiguration inbound'
+  - "fd00:18:229::1 remote-as %{hiera('bgp_as')}"
+  - 'fd00:18:229::1 soft-reconfiguration inbound'
+  - '172.18.3.1 remote-as 65503'
+  - '172.18.3.1 prefix-list routes-from-leaf1 in'
+  - 'fd00::3:1 remote-as 65503'
+  - '172.18.3.2 remote-as 65503'
+  - '172.18.3.2 prefix-list routes-from-leaf1 in'
+  - 'fd00::3:2 remote-as 65503'
+
+frrouting::frrouting::zebra_ip6_routes:
+  - '::/0 fd00::701'
+  - '::/0 fd00:18:229::1 50'
+  - '2001:700:2:8300::/64 Null0'
+  - '2001:700:2:8301::/64 Null0'
+  - '2001:700:2:83ff::12/128 fd00::12'
+  - '2001:700:2:83ff::251/128 fd00::16'
+  - '2001:700:2:83ff::256/128 fd00::34'
+frrouting::frrouting::zebra_ip_routes:
+  - '0.0.0.0/0 172.18.7.1'
+  - '0.0.0.0/0 172.18.229.1 50'
+  - '10.0.0.0/8 Null0'
+  - '158.39.74.0/24 Null0'
+  - '158.39.77.0/24 Null0'
+  - '158.39.77.248/32 172.18.0.26'
+  - '158.39.74.248/32 172.18.0.27'
+  - '158.39.77.249/32 172.18.0.41'
+  - '158.39.77.250/32 172.18.0.86'
+  - '158.39.77.251/32 172.18.0.16'
+  - '158.39.77.253/32 172.18.0.12'
+  - '158.39.77.254/32 172.18.0.51'
+frrouting::frrouting::bgp_neighbor_groups:
+  'rr-clients':
+    'options':
+      - 'peer-group'
+      - "remote-as %{hiera('bgp_as')}"
+      - 'route-reflector-client'
+      - 'soft-reconfiguration inbound'
+      - 'route-map rr-client-allow in'
+      - 'bfd'
+    'members':
+#      - '172.18.0.17'
+#      - '172.18.0.18'
+#      - '172.18.0.26'
+#      - '172.18.0.27'
+#      - '172.18.0.103'
+#      - '172.18.0.104'
+#      - '172.18.0.105'
+#      - '172.18.0.111'
+#      - '172.18.0.112'
+#      - '172.18.0.113'
+#      - '172.18.0.115'
+#      - '172.18.0.116'
+#      - '172.18.0.117'
+#      - '172.18.0.118'
+#      - '172.18.1.11'
+#      - '172.18.1.12'
+#      - '172.18.1.13'
+#      - '172.18.1.14'
+#      - '172.18.1.15'
+#      - '172.18.1.16'
+#      - '172.18.1.17'
+#      - '172.18.1.18'
+#      - '172.18.1.19'
+#      - '172.18.1.20'
+#      - '172.18.1.21'
+#      - '172.18.1.22'
+#      - '172.18.1.23'
+#      - '172.18.1.24'
+#      - '172.18.1.25'
+#      - '172.18.1.26'
+#      - '172.18.1.27'
+#      - '172.18.1.28'
+#      - '172.18.1.29'
+#      - '172.18.1.30'
+#      - '172.18.1.31'
+#      - '172.18.1.32'
+#      - '172.18.1.33'
+#      - '172.18.1.34'
+      - '172.18.1.49'
+    'options6':
+      - 'neighbor rr-clients route-reflector-client'
+      - 'maximum-paths ibgp 5'
+      - 'neighbor fd00::1 activate'
+      - 'neighbor fd00::1 soft-reconfiguration inbound'
+      - 'neighbor fd00::2 activate'
+      - 'neighbor fd00::2 soft-reconfiguration inbound'
+      - 'neighbor fd00:18:229::1 activate'
+      - 'neighbor fd00:18:229::1 soft-reconfiguration inbound'
+      - 'neighbor fd00::3:1 activate'
+      - 'neighbor fd00::3:1 prefix-list routes-from-leaf1 in'
+      - 'neighbor fd00::3:2 activate'
+      - 'neighbor fd00::3:2 prefix-list routes-from-leaf1 in'
+    'members6':
+#      - 'fd00::17'
+#      - 'fd00::18'
+#      - 'fd00::103'
+#      - 'fd00::104'
+#      - 'fd00::105'
+#      - 'fd00::111'
+#      - 'fd00::112'
+#      - 'fd00::113'
+#      - 'fd00::115'
+#      - 'fd00::116'
+#      - 'fd00::117'
+#      - 'fd00::118'
+#      - 'fd00::1:11'
+#      - 'fd00::1:12'
+#      - 'fd00::1:13'
+#      - 'fd00::1:14'
+#      - 'fd00::1:15'
+#      - 'fd00::1:16'
+#      - 'fd00::1:17'
+#      - 'fd00::1:18'
+#      - 'fd00::1:19'
+#      - 'fd00::1:20'
+#      - 'fd00::1:21'
+#      - 'fd00::1:22'
+#      - 'fd00::1:23'
+#      - 'fd00::1:24'
+#      - 'fd00::1:25'
+#      - 'fd00::1:26'
+#      - 'fd00::1:27'
+#      - 'fd00::1:28'
+#      - 'fd00::1:29'
+#      - 'fd00::1:30'
+#      - 'fd00::1:31'
+#      - 'fd00::1:32'
+#      - 'fd00::1:33'
+#      - 'fd00::1:34'
+      - 'fd00::1:49'
+#  'other-clients':
+#    'options':
+#    - 'peer-group'

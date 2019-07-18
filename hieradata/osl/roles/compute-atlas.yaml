@@ -1,4 +1,24 @@
 ---
+include:
+  default:
+    - profile::monitoring::netdata
+
+# Enable hugepages to prevent OOM-killer when using NUMA
+profile::base::physical::enable_hugepages: true
+# Number and size of hugepages, based on 512GB - 32 GB (4GB free pr node)
+profile::base::physical::hugepagesz:       '2M'
+profile::base::physical::hugepages:        '245760'
+
+profile::monitoring::netdata::manage_firewall: true
+
+# Nover overrides
+nova::compute::libvirt::libvirt_cpu_model: 'EPYC'
+nova::cpu_allocation_ratio:                '1'
+
+# Create and enable more swap
+profile::base::common::extraswap:        true
+profile::base::common::extraswap_sizegb: 10
+
 profile::base::lvm::physical_volume:
   '/dev/sda3':
     ensure: present
@@ -12,5 +32,3 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_ext'
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
-
-nova::compute::libvirt::libvirt_cpu_model: 'EPYC'

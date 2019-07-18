@@ -45,6 +45,14 @@ profile::base::network::cumulus_bridges:
       - host18
       - host19
       - host20
+      - host21
+      - host22
+      - host23
+      - host24
+      - host31
+      - host32
+      - host33
+      - host34
       - host42
       - peerlink
       - downlink
@@ -180,6 +188,54 @@ profile::base::network::cumulus_bonds:
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+  'host21':
+    'slaves': [ 'swp21', ]
+    'clag_id': '21'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host22':
+    'slaves': [ 'swp22', ]
+    'clag_id': '22'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host23':
+    'slaves': [ 'swp23', ]
+    'clag_id': '23'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host24':
+    'slaves': [ 'swp24', ]
+    'clag_id': '24'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host31':
+    'slaves': [ 'swp31', ]
+    'clag_id': '31'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host32':
+    'slaves': [ 'swp32', ]
+    'clag_id': '32'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host33':
+    'slaves': [ 'swp33', ]
+    'clag_id': '33'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host34':
+    'slaves': [ 'swp34', ]
+    'clag_id': '34'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
   'host42':
     'slaves': [ 'swp42', ]
     'clag_id': '42'
@@ -234,6 +290,22 @@ frrouting::frrouting::zebra_interfaces:
     - 'link-detect'
   'host20':
     - 'link-detect'
+  'host21':
+    - 'link-detect'
+  'host22':
+    - 'link-detect'
+  'host23':
+    - 'link-detect'
+  'host24':
+    - 'link-detect'
+  'host31':
+    - 'link-detect'
+  'host32':
+    - 'link-detect'
+  'host33':
+    - 'link-detect'
+  'host34':
+    - 'link-detect'
   'host42':
     - 'link-detect'
 
@@ -255,6 +327,7 @@ frrouting::frrouting::zebra_ip_routes:
   - '158.37.63.251/32 172.18.32.16'
   - '158.37.63.253/32 172.18.32.12'
   - '158.37.63.254/32 172.18.32.51'
+  - '158.39.48.0/24 Null0'
   - '158.39.75.0/24 Null0'
 
 frrouting::frrouting::zebra_generic_options:
@@ -313,6 +386,14 @@ frrouting::frrouting::bgp_neighbor_groups:
       - '172.18.33.14'
       - '172.18.33.15'
       - '172.18.33.16'
+      - '172.18.33.17'
+      - '172.18.33.18'
+      - '172.18.33.19'
+      - '172.18.33.20'
+      - '172.18.33.21'
+      - '172.18.33.22'
+      - '172.18.33.23'
+      - '172.18.33.24'
       - '172.18.33.42'
     'options6':
       - 'neighbor rr-clients route-reflector-client'
@@ -336,16 +417,26 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'fd32::1:14'
       - 'fd32::1:15'
       - 'fd32::1:16'
+      - 'fd32::1:17'
+      - 'fd32::1:18'
+      - 'fd32::1:19'
+      - 'fd32::1:20'
+      - 'fd32::1:21'
+      - 'fd32::1:22'
+      - 'fd32::1:23'
+      - 'fd32::1:24'
       - 'fd32::1:42'
 
 frrouting::frrouting::bgp_accesslist:
   '10':
     - 'permit 158.37.63.0 0.0.0.255'
+    - 'permit 158.39.48.0 0.0.0.255'
     - 'permit 158.39.75.0 0.0.0.255'
     - 'permit 10.2.0.0 0.0.15.255'
     - 'permit 172.18.32.0 0.0.0.255'
   '20':
     - 'deny 158.37.63.0 0.0.0.255'
+    - 'deny 158.39.48.0 0.0.0.255'
     - 'deny 158.39.75.0 0.0.0.255'
     - 'deny 10.2.0.0 0.0.15.255'
     - 'deny 172.18.32.0 0.0.0.255'

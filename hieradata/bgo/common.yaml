@@ -52,6 +52,15 @@ netcfg_trp_gateway:       '172.18.7.1'
 netcfg_trp_gateway6:      'fd00::701'
 netcfg_trp_netpart:       '172.18.0'
 netcfg_trp_netpart6:      'fd00'
+netcfg_trp_net6_c0:       'fd00::0'
+netcfg_trp_net6_c1:       'fd00::1'
+netcfg_trp_net6_c2:       'fd00::2'
+netcfg_trp_net6_c3:       'fd00::3'
+netcfg_trp_net6_c4:       'fd00::4'
+netcfg_trp_net6_c5:       'fd00::5'
+netcfg_trp_net6_c6:       'fd00::6'
+netcfg_trp_net6_c7:       'fd00::7'
+
 netcfg_trp_net_c0:        '172.18.0'
 netcfg_trp_net_c1:        '172.18.1'
 netcfg_trp_net_c2:        '172.18.2'
@@ -75,6 +84,10 @@ netcfg_dns_server2:       '172.16.0.17'
 netcfg_dns_search:        "%{hiera('domain_mgmt')} %{hiera('domain_trp')}"
 netcfg_priv_gateway:      '172.18.0.26'
 netcfg_priv_network:      '10.1.0.0/20'
+netcfg_lhc_gateway:       '172.18.7.3'
+netcfg_lhc_gateway6:      'fd00::703'
+netcfg_lhc_network:       '109.105.127.128/26'
+netcfg_lhc_network6:      '2001:948:62:3::/64'
 netcfg_pub_natgw:         '158.39.77.248'
 netcfg_pub_natgw2:        '158.39.74.248'
 netcfg_anycast_dns:       '158.39.77.252'
@@ -98,11 +111,61 @@ public__ipv6__resolver:        '2001:700:2:83ff::252'
 #
 profile::network::services::dns_records:
   CNAME:
-    "%{::location}-object-ceph-01.%{hiera('domain_mgmt')}":  "%{::location}-object-01.%{hiera('domain_mgmt')}"
-    "%{::location}-object-ceph-02.%{hiera('domain_mgmt')}":  "%{::location}-object-02.%{hiera('domain_mgmt')}"
-    "%{::location}-object-ceph-03.%{hiera('domain_mgmt')}":  "%{::location}-object-03.%{hiera('domain_mgmt')}"
-    "%{::location}-object-ceph-04.%{hiera('domain_mgmt')}":  "%{::location}-object-04.%{hiera('domain_mgmt')}"
-    "%{::location}-object-ceph-05.%{hiera('domain_mgmt')}":  "%{::location}-object-05.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-alice-11.%{hiera('domain_mgmt')}":   "%{::location}-compute-11.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-alice-12.%{hiera('domain_mgmt')}":   "%{::location}-compute-12.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-alice-13.%{hiera('domain_mgmt')}":   "%{::location}-compute-13.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-alice-14.%{hiera('domain_mgmt')}":   "%{::location}-compute-14.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-alice-15.%{hiera('domain_mgmt')}":   "%{::location}-compute-15.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-alice-16.%{hiera('domain_mgmt')}":   "%{::location}-compute-16.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-alice-17.%{hiera('domain_mgmt')}":   "%{::location}-compute-17.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-alice-18.%{hiera('domain_mgmt')}":   "%{::location}-compute-18.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-alice-19.%{hiera('domain_mgmt')}":   "%{::location}-compute-19.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-alice-20.%{hiera('domain_mgmt')}":   "%{::location}-compute-20.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-alice-21.%{hiera('domain_mgmt')}":   "%{::location}-compute-21.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-alice-22.%{hiera('domain_mgmt')}":   "%{::location}-compute-22.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-alice-23.%{hiera('domain_mgmt')}":   "%{::location}-compute-23.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-alice-24.%{hiera('domain_mgmt')}":   "%{::location}-compute-24.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-alice-25.%{hiera('domain_mgmt')}":   "%{::location}-compute-25.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-alice-26.%{hiera('domain_mgmt')}":   "%{::location}-compute-26.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-alice-27.%{hiera('domain_mgmt')}":   "%{::location}-compute-27.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-alice-28.%{hiera('domain_mgmt')}":   "%{::location}-compute-28.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-alice-29.%{hiera('domain_mgmt')}":   "%{::location}-compute-29.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-alice-30.%{hiera('domain_mgmt')}":   "%{::location}-compute-30.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-alice-31.%{hiera('domain_mgmt')}":   "%{::location}-compute-31.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-alice-32.%{hiera('domain_mgmt')}":   "%{::location}-compute-32.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-alice-33.%{hiera('domain_mgmt')}":   "%{::location}-compute-33.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-alice-34.%{hiera('domain_mgmt')}":   "%{::location}-compute-34.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-tape-49.%{hiera('domain_mgmt')}":    "%{::location}-compute-49.%{hiera('domain_mgmt')}"
+    "%{::location}-object-ceph-01.%{hiera('domain_mgmt')}":     "%{::location}-object-01.%{hiera('domain_mgmt')}"
+    "%{::location}-object-ceph-02.%{hiera('domain_mgmt')}":     "%{::location}-object-02.%{hiera('domain_mgmt')}"
+    "%{::location}-object-ceph-03.%{hiera('domain_mgmt')}":     "%{::location}-object-03.%{hiera('domain_mgmt')}"
+    "%{::location}-object-ceph-04.%{hiera('domain_mgmt')}":     "%{::location}-object-04.%{hiera('domain_mgmt')}"
+    "%{::location}-object-ceph-05.%{hiera('domain_mgmt')}":     "%{::location}-object-05.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-dcache-10.%{hiera('domain_mgmt')}":  "%{::location}-storage-10.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-dcache-11.%{hiera('domain_mgmt')}":  "%{::location}-storage-11.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-dcache-12.%{hiera('domain_mgmt')}":  "%{::location}-storage-12.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-dcache-13.%{hiera('domain_mgmt')}":  "%{::location}-storage-13.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-dcache-14.%{hiera('domain_mgmt')}":  "%{::location}-storage-14.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-dcache-15.%{hiera('domain_mgmt')}":  "%{::location}-storage-15.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-dcache-16.%{hiera('domain_mgmt')}":  "%{::location}-storage-16.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-dcache-17.%{hiera('domain_mgmt')}":  "%{::location}-storage-17.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-dcache-18.%{hiera('domain_mgmt')}":  "%{::location}-storage-18.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-dcache-19.%{hiera('domain_mgmt')}":  "%{::location}-storage-19.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-dcache-20.%{hiera('domain_mgmt')}":  "%{::location}-storage-20.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-dcache-21.%{hiera('domain_mgmt')}":  "%{::location}-storage-21.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-dcache-22.%{hiera('domain_mgmt')}":  "%{::location}-storage-22.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-dcache-23.%{hiera('domain_mgmt')}":  "%{::location}-storage-23.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-dcache-24.%{hiera('domain_mgmt')}":  "%{::location}-storage-24.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-dcache-25.%{hiera('domain_mgmt')}":  "%{::location}-storage-25.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-dcache-26.%{hiera('domain_mgmt')}":  "%{::location}-storage-26.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-dcache-27.%{hiera('domain_mgmt')}":  "%{::location}-storage-27.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-dcache-28.%{hiera('domain_mgmt')}":  "%{::location}-storage-28.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-dcache-29.%{hiera('domain_mgmt')}":  "%{::location}-storage-29.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-dcache-30.%{hiera('domain_mgmt')}":  "%{::location}-storage-30.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-dcache-31.%{hiera('domain_mgmt')}":  "%{::location}-storage-31.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-dcache-32.%{hiera('domain_mgmt')}":  "%{::location}-storage-32.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-dcache-33.%{hiera('domain_mgmt')}":  "%{::location}-storage-33.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-dcache-34.%{hiera('domain_mgmt')}":  "%{::location}-storage-34.%{hiera('domain_mgmt')}"
   A:
     # Public records (<foo>.<location>.uh-iaas.no)
     "console.%{hiera('domain_public')}":         '158.39.77.250'
@@ -139,19 +202,13 @@ profile::network::services::dns_records:
     '1.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.3.8.0.0.7.0.2.0.0.0.1.0.0.2.ip6.arpa':  "ns2.%{hiera('domain_frontend')}"
     '2.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.3.8.0.0.7.0.2.0.0.0.1.0.0.2.ip6.arpa':  "resolver.%{hiera('domain_public')}"
     '6.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.3.8.0.0.7.0.2.0.0.0.1.0.0.2.ip6.arpa':  "%{::location}-dns-01.%{hiera('domain_public')}"
-  CNAME:
-    "%{::location}-object-ceph-01.%{hiera('domain_mgmt')}":  "%{::location}-object-01.%{hiera('domain_mgmt')}"
-    "%{::location}-object-ceph-02.%{hiera('domain_mgmt')}":  "%{::location}-object-02.%{hiera('domain_mgmt')}"
-    "%{::location}-object-ceph-03.%{hiera('domain_mgmt')}":  "%{::location}-object-03.%{hiera('domain_mgmt')}"
-    "%{::location}-object-ceph-04.%{hiera('domain_mgmt')}":  "%{::location}-object-04.%{hiera('domain_mgmt')}"
-    "%{::location}-object-ceph-05.%{hiera('domain_mgmt')}":  "%{::location}-object-05.%{hiera('domain_mgmt')}"
 
 ntp::servers:
   - ntp.uib.no
   - ntp2.uib.no
 
 ceph::profile::params::mon_initial_members:         'bgo-cephmon-01, bgo-cephmon-02, bgo-cephmon-03'
-ceph::profile::params::mon_host:                    '172.18.0.91:6789, 172.18.0.92:6789, 172.18.0.93:6789'
+ceph::profile::params::mon_host:                    '172.18.0.91, 172.18.0.92, 172.18.0.93'
 ceph::profile::params::cluster_network:             '172.20.0.0/21'
 ceph::profile::params::public_network:              '172.18.0.0/21'
 
@@ -202,7 +259,12 @@ profile::openstack::resource::networks:
     shared: false
     tenant_name: 'imagebuilder'
     provider_network_type: 'local'
-
+  lhc:
+    name: 'lhc-dualStack'
+    admin_state_up: true
+    shared: false
+    tenant_name: 'uib-hpc-cern-alice'
+    provider_network_type: 'local'
 profile::openstack::resource::subnets:
   public1_IPv4:
     name: 'public1_IPv4'
@@ -270,3 +332,25 @@ profile::openstack::resource::subnets:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'IPv6'
     tenant_name: 'openstack'
+  lhc1_ipv6:
+    name: 'lhc1_IPv6'
+    cidr: '2001:948:62:3::/64'
+    ip_version: '6'
+    allocation_pools:
+      - 'start=2001:948:62:3::2000,end=2001:948:62:3::ffff'
+    gateway_ip: '2001:948:62:3::1'
+    dns_nameservers:
+      - "%{hiera('netcfg_anycast_dns6')}"
+    network_name: 'lhc-dualStack'
+    tenant_name: 'uib-hpc-cern-alice'
+  lhc1_IPv4:
+    name: 'lhc1_IPv4'
+    cidr: '109.105.127.128/26'
+    ip_version: '4'
+    allocation_pools:
+      - 'start=109.105.127.130,end=109.105.127.190'
+    gateway_ip: '109.105.127.129'
+    dns_nameservers:
+      - "%{hiera('netcfg_anycast_dns')}"
+    network_name: 'lhc-dualStack'
+    tenant_name: 'uib-hpc-cern-alice'

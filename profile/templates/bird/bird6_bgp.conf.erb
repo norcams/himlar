@@ -1,0 +1,75 @@
+
+router id <%= @router_id %>;
+
+<% if @debug %>debug protocols all;
+<% end -%>
+# We are only going to export routes from Calico interfaces.
+# Currently, 'tap*' is used by the OpenStack implimentation
+# and 'cali*' is used by the docker implimentation.
+# dummy1 is the interface that bare metal "service" addresses
+# should be bound to if they should be exported.
+# This will need to be updated as we add new interface names.
+#
+# Also filter out default, just in case.
+#
+# We should automate the build of this out of variables when
+# we have time.
+
+filter export_bgp {
+  if ( (ifname ~ "tap*") || (ifname ~ "atap*") || (ifname ~ "cali*") || (ifname ~ "dummy1") ) then {
+    if  net != ::/0 then accept;
+  }
+  reject;
+}
+
+filter import_kernel {
+  if  (ifname ~ "tap*") || (net = ::/0) then {
+    accept;
+  }
+  reject;
+}
+
+filter import_bgp {
+  if  net != ::/0 then {
+    if net !=<%= scope().call_function('hiera',['netcfg_anycast_dns6']) %>/128 then {
+      accept;
+    }
+  }
+  reject;
+}
+
+# Configure synchronization between BIRD's routing tables and the
+# kernel.
+protocol kernel {
+  learn;          # Learn all alien routes from the kernel
+  persist;        # Don't remove routes on bird shutdown
+  scan time 2;    # Scan kernel routing table every 2 seconds
+  import filter import_kernel;
+  graceful restart;
+  export filter import_bgp;    # Default is export none
+}
+
+protocol bfd {
+<% scope().call_function('hiera',['netcfg_trp_rr']).each do |name| %><%if name[1]['peer_ipv6'] %>  neighbor <%= name[1]['peer_ipv6'] %>;
+<% end %><% end %>}
+
+# Watch interface up/down events.
+protocol device {
+  scan time 2;    # Scan interfaces every 2 seconds
+}
+
+protocol direct {
+   debug all;
+   interface "-dummy*", "eth*", "em*", "en*", "bond*", "team*";
+}
+
+<% if scope().call_function('hiera',['netcfg_trp_rr']) -%><% scope().call_function('hiera',['netcfg_trp_rr']).each do |name, values| %>protocol bgp '<%= name %>_ipv6' {
+  local as <%= scope().call_function('hiera',['bgp_as']) %>;
+  neighbor <%= values["peer_ipv6"] %> as <%= scope().call_function('hiera',['bgp_as']) %>;
+  multihop;
+  import all;
+  graceful restart;
+  export filter export_bgp;
+  source address <%= @ipaddress6_trp1 %>;  # The local address we use for the TCP connection
+}
+<% end %><% end -%>

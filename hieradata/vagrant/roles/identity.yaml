@@ -3,6 +3,7 @@ include:
   default:
     - profile::development::patch
 
+openstack_version: 'rocky'
 # Turn on for debug
 # include:
 #   default:
@@ -25,3 +26,5 @@ include:
 #     value:  '3'
 #   'DEFAULT/insecure_debug':
 #     value:  'true'
+#
+openstack_version:      'rocky'

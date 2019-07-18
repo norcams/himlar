@@ -4,6 +4,14 @@ include:
     - profile::messaging::rabbitmq
     - profile::logging::rsyslog::client
 
+# Memory tuning
+mq__high__watermark:      0.6
+rabbitmq::tcp_recbuf:     32768
+rabbitmq::tcp_sndbuf:     32768
+
+# Make sure we know when memory are low
+sensu__memory__check:     "check-memory-percent.rb -w 45 -c 50"
+
 profile::messaging::rabbitmq::manage_rsyslog: true
 
 # Sensu
@@ -19,25 +27,25 @@ profile::monitoring::sensu::agent::plugins:
     type:         package
     pkg_version:  '4.1.1'
 
-profile::monitoring::sensu::agent::checks:
-  'metrics-rabbitmq-overview':
-    type:         'metric'
-    command:      "metrics-rabbitmq-overview.rb --scheme mq.%{::hostname} --user local --password %{hiera('local_rabbit_password')}"
-    interval:     60
-    subscribers:  ['metrics']
-    handlers:     ['graphite_tcp']
-  'metrics-rabbitmq-queue':
-    type:         'metric'
-    command:      "metrics-rabbitmq-queue.rb --scheme mq.%{::hostname} --user local --password %{hiera('local_rabbit_password')}"
-    interval:     60
-    subscribers:  ['metrics']
-    handlers:     ['graphite_tcp']
-  'metrics-rabbitmq-exchange':
-    type:         'metric'
-    command:      "metrics-rabbitmq-exchange.rb --scheme mq.%{::hostname} --user local --password %{hiera('local_rabbit_password')}"
-    interval:     60
-    subscribers:  ['metrics']
-    handlers: ['graphite_tcp']
+# profile::monitoring::sensu::agent::checks:
+#   'metrics-rabbitmq-overview':
+#     type:         'metric'
+#     command:      "metrics-rabbitmq-overview.rb --scheme mq.%{::hostname} --user local --password %{hiera('local_rabbit_password')}"
+#     interval:     60
+#     subscribers:  ['metrics']
+#     handlers:     ['graphite_tcp']
+#   'metrics-rabbitmq-queue':
+#     type:         'metric'
+#     command:      "metrics-rabbitmq-queue.rb --scheme mq.%{::hostname} --user local --password %{hiera('local_rabbit_password')}"
+#     interval:     60
+#     subscribers:  ['metrics']
+#     handlers:     ['graphite_tcp']
+#   'metrics-rabbitmq-exchange':
+#     type:         'metric'
+#     command:      "metrics-rabbitmq-exchange.rb --scheme mq.%{::hostname} --user local --password %{hiera('local_rabbit_password')}"
+#     interval:     60
+#     subscribers:  ['metrics']
+#     handlers: ['graphite_tcp']
 
 profile::messaging::rabbitmq::users:
   nova:
@@ -124,3 +132,11 @@ profile::messaging::rabbitmq::policy:
     definition:
       'ha-mode':            'all'
       'ha-sync-mode':       'automatic'
+
+# RDO used for openstackclient
+profile::base::yumrepo::repo_hash:
+  rdo-release:
+    ensure: present
+  epel:
+    ensure: present
+    exclude: 'rabbitmq-server'

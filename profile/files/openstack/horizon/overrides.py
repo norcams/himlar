@@ -6,7 +6,6 @@ import os.path
 NO = lambda *x: False
 
 tables.AssociateIP.allowed = NO
-tables.SimpleDisassociateIP.allowed = NO
 
 project_dashboard = horizon.get_dashboard("project")
 identity_dashboard = horizon.get_dashboard("identity")
@@ -26,12 +25,10 @@ project_panels.append(project_dashboard.get_panel("network_topology"))
 project_panels.append(project_dashboard.get_panel("floating_ips"))
 # Compute->API
 project_panels.append(project_dashboard.get_panel("api_access"))
-# Volumes-> Backups
-project_panels.append(project_dashboard.get_panel("backups"))
 # Volumes-> Consistency Groups
-project_panels.append(project_dashboard.get_panel("cgroups"))
+#project_panels.append(project_dashboard.get_panel("cgroups"))
 # Volumes-> Consistency Group Snapshots
-project_panels.append(project_dashboard.get_panel("cg_snapshots"))
+#project_panels.append(project_dashboard.get_panel("cg_snapshots"))
 # DNS->Reverse DNS
 if os.path.isfile("/usr/share/openstack-dashboard/openstack_dashboard/local/enabled/_1722_dns_reversedns_panel.py"):
     project_panels.append(project_dashboard.get_panel("reverse_dns"))
@@ -43,9 +40,13 @@ for panel in project_panels:
 password_panel = settings_dashboard.get_panel("password")
 settings_dashboard.unregister(password_panel.__class__)
 
-# Remove Identity-> Users
+# Remove Identity->Users
 users_panel = identity_dashboard.get_panel("users")
 identity_dashboard.unregister(users_panel.__class__)
+
+# Remove Identity->Application Credentials
+ac_panel = identity_dashboard.get_panel("application_credentials")
+identity_dashboard.unregister(ac_panel.__class__)
 
 # Object storage
 container_panel = project_dashboard.get_panel("containers")

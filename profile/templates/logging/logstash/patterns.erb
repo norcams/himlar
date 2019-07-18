@@ -5,3 +5,9 @@ APACHE_LOG_LEVEL (?:emerg|alert|crit|error|warn|notice|info|debug)
 APACHE_DATETIME_ERROR %{DAY} %{MONTH} %{MONTHDAY} %{TIME} %{YEAR}
 
 RABBITMQ_DATE %{MONTHDAY}-%{MONTH}-%{YEAR}::%{TIME}
+
+DNSMASQ_TAP_IGNORE %{TIMESTAMP_ISO8601} daemon.warning %{HOSTNAME} dnsmasq-dhcp\[(?:[+-]?(?:[0-9]+))\]: DHCP packet received on %{TAP_INTERFACE} which has no address
+
+BIRD_IGNORE bird: Netlink: File exists
+
+TAP_INTERFACE tap(?<![0-9A-Fa-f])(?:[+-]?(?:0x)?(?:[0-9A-Fa-f]+)){8}-(?<![0-9A-Fa-f])(?:[+-]?(?:0x)?(?:[0-9A-Fa-f]+)){2}

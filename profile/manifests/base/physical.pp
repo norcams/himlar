@@ -1,6 +1,11 @@
 # This class is included from common.pp if is_virtual is false
 #
 class profile::base::physical (
+  $enable_hugepages            = false,
+  $hugepagesz                  = '2M',
+  $hugepages                   = '245760',
+  $enable_isolcpus             = false,
+  $isolcpus                    = [],
   $enable_redfish_sensu_check  = false,
   $enable_redfish_http_proxy   = undef,
   $configure_bmc_nic           = false,
@@ -36,6 +41,27 @@ class profile::base::physical (
     kernel_parameter { 'ixgbe.allow_unsupported_sfp':
       ensure => present,
       value  => '1',
+    }
+  }
+  if $enable_hugepages {
+    kernel_parameter { 'hugepagesz':
+      ensure => present,
+      value  => $hugepagesz
+    }
+    kernel_parameter { 'hugepages':
+      ensure => present,
+      value  => $hugepages
+    }
+    kernel_parameter { 'transparent_hugepage':
+      ensure => present,
+      value  => 'never'
+    }
+  }
+
+  if $enable_isolcpus {
+    kernel_parameter { 'isolcpus':
+      ensure => present,
+      value  => join($isolcpus, ',')
     }
   }
 
