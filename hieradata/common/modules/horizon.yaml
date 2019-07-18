@@ -12,6 +12,8 @@ horizon::horizon_key:                   "/etc/pki/tls/private/%{hiera('public__a
 horizon::secure_cookies:                true
 horizon::images_panel:                  'angular'
 horizon::horizon_upload_mode:           "'direct'"
+horizon::disable_password_reveal:       true
+horizon::enforce_password_check:        true
 
 horizon::help_url:                      'http://docs.uh-iaas.no'
 horizon::openstack_endpoint_type:       'publicURL'
