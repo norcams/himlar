@@ -75,13 +75,6 @@ filter {
         drop{}
     }
     grok {
-      patterns_dir => ["/etc/logstash/patterns"]
-      break_on_match => false
-      match => [ "message", "%{DNSMASQ_TAP_IGNORE}" ]
-      match => [ "message", "%{BIRD_IGNORE}" ]
-      add_tag => "not_error"
-    }
-    grok {
       break_on_match => true
       match => [
         "message", "%{TIMESTAMP_ISO8601:timestamp} %{WORD:syslog_type}.%{WORD:loglevel} %{HOSTNAME:hostname} %{GREEDYDATA:message}"
