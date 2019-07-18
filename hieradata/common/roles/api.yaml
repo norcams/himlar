@@ -4,6 +4,14 @@ include:
     - profile::highavailability::loadbalancing::haproxy
     - profile::logging::rsyslog::client
 
+named_interfaces::config:
+  mgmt:
+    - eth0
+  trp:
+    - eth1
+  public:
+    - dummy0
+
 # FIXME Temp hack to block access to test01, all others will allow all connections
 block_api_connection:   'connection accept'
 

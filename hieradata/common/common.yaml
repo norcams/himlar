@@ -129,14 +129,8 @@ allow_from_network:
 named_interfaces::config:
   mgmt:
     - eth0
-  transport: #FIXME
-    - eth1
   trp:
     - eth1
-  service: #FIXME
-    - eth1
-  public:
-    - dummy0
 
 profile::base::network::network_auto_opts:
   mgmt:

@@ -150,11 +150,7 @@ calico::compute::bird6_template: 'profile/bird/bird6.conf.erb'
 named_interfaces::config:
   mgmt:
     - em3
-  transport: #FIXME
-    - team1
   trp:
-    - team1
-  service: #FIXME
     - team1
   live:
     - team1.120

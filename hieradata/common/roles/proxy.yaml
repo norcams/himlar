@@ -9,6 +9,14 @@ include:
     - profile::network::nat
     - profile::application::rngd
 
+named_interfaces::config:
+  mgmt:
+    - eth0
+  trp:
+    - eth1
+  public:
+    - dummy0
+
 profile::application::rngd::enable: true
 
 profile::base::common::packages:
