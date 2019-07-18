@@ -75,7 +75,7 @@ filter {
         drop{}
     }
     grok {
-      #patterns_dir => ["/etc/logstash/patterns"]
+      patterns_dir => ["/etc/logstash/patterns"]
       break_on_match => false
       match => [ "message", "%{DNSMASQ_TAP_IGNORE}" ]
       match => [ "message", "%{BIRD_IGNORE}" ]
