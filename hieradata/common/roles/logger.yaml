@@ -48,16 +48,16 @@ profile::logging::elasticsearch::templates:
 
 # logstash
 profile::logging::logstash::config_files:
-  input:
-    source: 'puppet:///modules/profile/logging/logstash/conf.d/00-input.conf'
-  norcams: # everything in syslog local6
-    source: 'puppet:///modules/profile/logging/logstash/conf.d/01-norcams.conf'
-  openstack: #everything in syslog local0-local5
-    source: 'puppet:///modules/profile/logging/logstash/conf.d/02-openstack.conf'
-  syslog: # everything else in syslog
-    source: 'puppet:///modules/profile/logging/logstash/conf.d/03-syslog.conf'
-  output:
-    source: 'puppet:///modules/profile/logging/logstash/conf.d/99-output.conf'
+  00-input:
+    source: 'puppet:///modules/profile/logging/logstash/conf.d/input.conf'
+  01-norcams: # everything in syslog local6
+    source: 'puppet:///modules/profile/logging/logstash/conf.d/norcams.conf'
+  02-openstack: #everything in syslog local0-local5
+    source: 'puppet:///modules/profile/logging/logstash/conf.d/openstack.conf'
+  03-syslog: # everything else in syslog
+    source: 'puppet:///modules/profile/logging/logstash/conf.d/syslog.conf'
+  99-output:
+    source: 'puppet:///modules/profile/logging/logstash/conf.d/output.conf'
 
 # disks
 profile::base::lvm::physical_volume:
