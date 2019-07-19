@@ -110,10 +110,9 @@ mod 'himlar_bootstrap', :ref => '1.0.4',            :git => github + 'norcams/pu
 mod 'rsyslog', :ref => 'v5.0.0',                    :git => github + 'saz/puppet-rsyslog'
 mod 'logstash', :ref => '6.1.5',                    :git => github + 'elastic/puppet-logstash'
 mod 'datacat', :ref => '0.6.2',                     :git => github + 'richardc/puppet-datacat'
-mod 'elasticsearch', :ref => '6.3.3',               :git => github + 'elastic/puppet-elasticsearch'
+mod 'elasticsearch', :ref => 'dbd06d6',             :git => github + 'elastic/puppet-elasticsearch'
 mod 'file_concat', :ref => '1.0.1',                 :git => github + 'electrical/puppet-lib-file_concat'
-#mod 'logrotate', :ref => 'v1.4.0',                 :git => github + 'yo61/puppet-logrotate' # deprecated
-mod 'logrotate', :ref => 'v3.2.1',        		    :git => github + 'voxpupuli/puppet-logrotate'
+mod 'logrotate', :ref => 'v3.2.1',                  :git => github + 'voxpupuli/puppet-logrotate'
 
 #
 # profile::monitoring
