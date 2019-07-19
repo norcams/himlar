@@ -1,6 +1,7 @@
 ---
 rsyslog::system_log_rate_limit_interval:  '1'
 rsyslog::system_log_rateLimit_burst:      '500'
+rsyslog::local_host_name:                 '%{::hostname}'
 
 rsyslog::server::address:             "%{ipaddress_mgmt1}"
 rsyslog::server::actionfiletemplate:  'RSYSLOG_FileFormat'
@@ -12,9 +13,9 @@ rsyslog::server::custom_config:       'profile/logging/rsyslog/server.conf.erb'
 rsyslog::server::log_templates:
   - name:     'OpenstackFileFormat'
     template: "%TIMESTAMP:::date-rfc3339% %syslogpriority-text% %HOSTNAME% %syslogtag%%msg:::drop-last-lf%\\n"
-  - name:     'SyslogFileFormat'
-    template: "%TIMESTAMP:::date-rfc3339% %pri-text% %HOSTNAME% %syslogtag%%msg:::drop-last-lf%\\n"
   - name:     'NorcamsFileFormat'
+    template: "%TIMESTAMP:::date-rfc3339% %syslogpriority-text% %HOSTNAME% %syslogtag%%msg:::drop-last-lf%\\n"
+  - name:     'SyslogFileFormat'
     template: "%TIMESTAMP:::date-rfc3339% %pri-text% %HOSTNAME% %syslogtag%%msg:::drop-last-lf%\\n"
   - name:     'HorizonAll'
     template: '/opt/log/horizon.log'
@@ -28,8 +29,6 @@ rsyslog::server::log_templates:
     template: '/opt/log/cinder.log'
   - name:     'NovaAll'
     template: '/opt/log/nova.log'
-  - name:     'SwiftAll'
-    template: '/opt/log/swift.log'
     # All custom logs for local6 uses this
   - name:     'NorcamsAll'
     template: '/opt/log/norcams.log'
