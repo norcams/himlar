@@ -26,6 +26,7 @@ profile::base::common::packages:
   'openstack-selinux': {}
   'python-etcd3gw': {}
   'python-memcached': {}
+  'libibverbs': {}
 
 profile::openstack::openrc::password:     "%{hiera('neutron_api_password')}"
 profile::openstack::openrc::username:     'neutron'
