@@ -5,3 +5,4 @@ ssh::server::options:
   PermitRootLogin: 'no'
   PasswordAuthentication: 'no'
   UseDNS: 'no'
+  HostKey: ['/etc/ssh/ssh_host_ed25519_key', '/etc/ssh/ssh_host_rsa_key']
