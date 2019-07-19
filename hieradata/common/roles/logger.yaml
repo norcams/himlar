@@ -2,20 +2,34 @@
 include:
   default:
     - profile::logging::rsyslog::server
+    - profile::logging::rsyslog::client
     - profile::logging::logstash
     - profile::logging::elasticsearch
     - profile::logging::kibana
     - profile::logging::logrotate
 
+
 named_interfaces::config:
   mgmt:
     - eth0
 
+# packages
+profile::base::common::packages:
+  'java-1.8.0-openjdk':     {}
+  'elasticsearch-curator':  {}
+  'bash-completion':        {}
+  'bash-completion-extras': {}
+  'jq':                     {}
+
+# rsyslog
 rsyslog::perm_dir:    '0755'
 
-profile::logging::logrotate::manage_logrotate:    true
-profile::logging::elasticsearch::manage_curator:  true
+# Hack to manage our own /etc/sysconfig/rsyslog
+rsyslog::rsyslog_default:                 '/tmp/rsyslog'
+profile::logging::rsyslog::server::manage_sysconfig: true
 
+# elasticsearch
+profile::logging::elasticsearch::manage_curator:  true
 profile::logging::elasticsearch::instances:
   'openstack':
     datadir:  '/opt/els/openstack'
@@ -32,13 +46,16 @@ profile::logging::elasticsearch::templates:
             'number_of_replicas': '0'
             'number_of_shards':   '1'
 
-profile::base::common::packages:
-  'java-1.8.0-openjdk':     {}
-  'elasticsearch-curator':  {}
-  'bash-completion': {}
-  'bash-completion-extras': {}
-  'jq': {}
+# logstash
+profile::logging::logstash::config_files:
+  openstack: #everything in syslog local0-local5
+    source: 'puppet:///modules/profile/logging/logstash/conf.d/openstack.conf'
+  norcams: # everything in syslog local6
+    source: 'puppet:///modules/profile/logging/logstash/conf.d/norcams.conf'
+  syslog: # everything else in syslog
+    source: 'puppet:///modules/profile/logging/logstash/conf.d/syslog.conf'
 
+# disks
 profile::base::lvm::physical_volume:
   '/dev/vdb':
     ensure: present
@@ -57,6 +74,9 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_log'
     fs_type:      "xfs"
     mountpath:    "/opt/els"
+
+# logrotate
+profile::logging::logrotate::manage_logrotate:    true
 
 logrotate::rules:
   openstack:

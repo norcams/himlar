@@ -202,6 +202,7 @@ profile::base::yumrepo::repo_hash:
     enabled:        1
     gpgcheck:       1
     gpgkey:         "%{hiera('yum_base_mirror')}/logstash6/GPG-KEY-elasticsearch"
+    exclude:        'kibana-oss elasticsearch-oss'
   elasticsearch6:
     ensure:         absent
     descr:          'Elasticsearch 6 Centos Repo'
@@ -209,7 +210,7 @@ profile::base::yumrepo::repo_hash:
     enabled:        1
     gpgcheck:       1
     gpgkey:         "%{hiera('yum_base_mirror')}/elasticsearch6/GPG-KEY-elasticsearch"
-    exclude:        'kibana-oss'
+    exclude:        'kibana-oss logstash-oss'
   logstash:
     ensure:         absent
     descr:          'Logstash Centos Repo'
@@ -238,6 +239,7 @@ profile::base::yumrepo::repo_hash:
     enabled:        1
     gpgcheck:       1
     gpgkey:         "%{hiera('yum_base_mirror')}/kibana6/GPG-KEY-elasticsearch"
+    exclude:        'elasticsearch-oss logstash-oss'
   foreman:
     ensure:         absent
     descr:          "Foreman %{hiera('foreman_version')} repo"
