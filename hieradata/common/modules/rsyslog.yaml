@@ -29,10 +29,6 @@ rsyslog::client::global_config:
     value:  '0750'
     type:   'legacy'
     priority: 02
-  OmitLocalLogging:
-    value:  'on'
-    type:   'legacy'
-    priority: 02
   ActionFileDefaultTemplate:
     value:  'RSYSLOG_TraditionalFileFormat'
     type:   'legacy'
