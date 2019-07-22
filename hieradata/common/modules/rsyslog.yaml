@@ -182,7 +182,7 @@ rsyslog::server::rulesets:
             asyncWriting:   'on'
       - action:
           name: 'syslog'
-          facility: '*.*;local0.none;local1.none;local2.none;local3.none;local4.none;local5.none;local6.none;'
+          facility: '*.*;local0.none;local1.none;local2.none;local3.none;local4.none;local5.none;local6.none'
           type: omfile
           config:
             template:       'SyslogFileFormat'
