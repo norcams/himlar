@@ -1,39 +1,238 @@
 ---
-rsyslog::system_log_rate_limit_interval:  '1'
-rsyslog::system_log_rateLimit_burst:      '500'
-rsyslog::local_host_name:                 '%{::hostname}'
+rsyslog::manage_package:          true
+rsyslog::purge_config_files:      true
+rsyslog::override_default_config: true
 
-rsyslog::server::address:             "%{ipaddress_mgmt1}"
-rsyslog::server::actionfiletemplate:  'RSYSLOG_FileFormat'
-rsyslog::server::port:                514
-rsyslog::server::server_dir:          '/opt/log/'
-rsyslog::server::enable_udp:          true
-rsyslog::server::enable_tcp:          true
-rsyslog::server::custom_config:       'profile/logging/rsyslog/server.conf.erb'
-rsyslog::server::log_templates:
-  - name:     'OpenstackFileFormat'
-    template: "%TIMESTAMP:::date-rfc3339% %syslogpriority-text% %HOSTNAME% %syslogtag%%msg:::drop-last-lf%\\n"
-  - name:     'NorcamsFileFormat'
-    template: "%TIMESTAMP:::date-rfc3339% %syslogpriority-text% %HOSTNAME% %syslogtag%%msg:::drop-last-lf%\\n"
-  - name:     'SyslogFileFormat'
-    template: "%TIMESTAMP:::date-rfc3339% %pri-text% %HOSTNAME% %syslogtag%%msg:::drop-last-lf%\\n"
-  - name:     'HorizonAll'
-    template: '/opt/log/horizon.log'
-  - name:     'NeutronAll'
-    template: '/opt/log/neutron.log'
-  - name:     'KeystoneAll'
-    template: '/opt/log/keystone.log'
-  - name:     'GlanceAll'
-    template: '/opt/log/glance.log'
-  - name:     'CinderAll'
-    template: '/opt/log/cinder.log'
-  - name:     'NovaAll'
-    template: '/opt/log/nova.log'
-    # All custom logs for local6 uses this
-  - name:     'NorcamsAll'
-    template: '/opt/log/norcams.log'
+#
+# CLIENT
+#
 
-rsyslog::client::server:              "%{hiera('mgmt__address__logger')}"
-rsyslog::client::port:                '514'
-rsyslog::client::protocol:            'tcp'
-rsyslog::client::log_local:           true
+rsyslog::client::modules:
+  imjournal:
+    config:
+      StateFile: 'imjournal.state'
+      WorkAroundJournalBug: 'on'
+  imuxsock: {}
+
+rsyslog::client::global_config:
+  workDirectory:
+    value: '/var/lib/rsyslog'
+  umask:
+    value: '0000'
+    type: legacy
+    priority: 01
+  FileCreateMode:
+    value:  '0600'
+    type:   'legacy'
+    priority: 02
+  DirCreateMode:
+    value:  '0750'
+    type:   'legacy'
+    priority: 02
+  OmitLocalLogging:
+    value:  'on'
+    type:   'legacy'
+    priority: 02
+  ActionFileDefaultTemplate:
+    value:  'RSYSLOG_TraditionalFileFormat'
+    type:   'legacy'
+    priority: 79
+  ActionQueueFileName:
+    value:  'queue' # unique name prefix for spool files
+    priority: 79
+    type: legacy
+  ActionQueueMaxDiskSpace:
+    value:   '1g' # spool space limit
+    type: legacy
+    priority: 79
+  ActionQueueSaveOnShutdown:
+    value:    'on' # save messages to disk on shutdown
+    type: legacy
+    priority: 79
+  ActionQueueType:
+    value:    'LinkedList' # run asynchronously
+    type: legacy
+    priority: 79
+  ActionResumeRetryCount:
+    value:    '-1' # infinety retries if host is down
+    type: legacy
+    priority: 79
+
+rsyslog::client::legacy_config:
+  log_everything_to_remote_server:
+    key:    '*.*'
+    value:  " @%{hiera('mgmt__address__logger')}:514;RSYSLOG_ForwardFormat"
+  do_not_log_private_auth_msg:
+    key:    '*.info;mail.none;authpriv.none;cron.none'
+    value:  '/var/log/messages'
+  auth_priv_log:
+    key:    'authpriv.*'
+    value:  '/var/log/secure'
+  mail_log:
+    key:    'mail.*'
+    value:  '-/var/log/maillog'
+  cron_log:
+    key:    'cron.*'
+    value:  '/var/log/cron'
+  emerg_log:
+    key:    '*.emerg'
+    value:  ':omusrmsg:*'
+  news_log:
+    key:    'uucp,news.crit'
+    value:  '/var/log/spooler'
+  local_log:
+    key:    'local7.*'
+    value:  '/var/log/boot.log'
+
+#
+# SERVER
+#
+
+rsyslog::server::modules:
+  imuxsock: {}
+  imudp:
+    config:
+      threads:      2
+      TimeRequery:  8
+      batchSize:    128
+  builtin:omfile:
+    config:
+      FileCreateMode: '0644'
+      DirCreateMode:  '0755'
+
+rsyslog::server::global_config:
+  workDirectory:
+    value: '/var/lib/rsyslog'
+  umask:
+    value: '0000'
+    type: legacy
+    priority: 01
+  ActionFileDefaultTemplate:
+    value:  'RSYSLOG_FileFormat'
+    type:   'legacy'
+    priority: 79
+
+# Use UDP to receive remote logs
+rsyslog::server::inputs:
+  imudp:
+    type: imudp
+    config:
+      port: '514'
+      address: "%{ipaddress_mgmt1}"
+      ruleset:  'remote_udp'
+
+
+# This is the ruleset that write the logs to disk  under /opt/logs
+rsyslog::server::rulesets:
+  remote_udp:
+    parameters:
+      queue.type:                         'fixedArray'
+      queue.size:                         250000
+      queue.dequeueBatchSize:             4096
+      queue.workerThreads:                2
+      queue.workerThreadMinimumMessages:  60000
+    rules:
+      - action:
+          name: 'nova'
+          facility: 'local0.*'
+          type: omfile
+          config:
+            template: 'OpenstackFileFormat'
+            file: '/opt/log/nova.log'
+      - action:
+          name: 'horizon'
+          facility: 'local1.*'
+          type: omfile
+          config:
+            template: 'OpenstackFileFormat'
+            file: '/opt/log/horizon.log'
+      - action:
+          name: 'keystone'
+          facility: 'local2.*'
+          type: omfile
+          config:
+            template: 'OpenstackFileFormat'
+            file: '/opt/log/keystone.log'
+      - action:
+          name: 'glance'
+          facility: 'local3.*'
+          type: omfile
+          config:
+            template: 'OpenstackFileFormat'
+            file: '/opt/log/glance.log'
+      - action:
+          name: 'cinder'
+          facility: 'local4.*'
+          type: omfile
+          config:
+            template: 'OpenstackFileFormat'
+            file: '/opt/log/cinder.log'
+      - action:
+          name: 'neutron'
+          facility: 'local5.*'
+          type: omfile
+          config:
+            template: 'OpenstackFileFormat'
+            file: '/opt/log/neutron.log'
+      - action:
+          name: 'norcams'
+          facility: 'local6.*'
+          type: omfile
+          config:
+            template: 'NorcamsFileFormat'
+            file: '/opt/log/norcams.log'
+            ioBufferSize:   '64k'
+            flushOnTXEnd:   'off'
+            asyncWriting:   'on'
+      - action:
+          name: 'syslog'
+          facility: '*.*;local0.none;local1.none;local2.none;local3.none;local4.none;local5.none;local6.none;'
+          type: omfile
+          config:
+            template:       'SyslogFileFormat'
+            dynaFile:       'dynaAllMessages'
+            ioBufferSize:   '64k'
+            flushOnTXEnd:   'off'
+            asyncWriting:   'on'
+
+
+rsyslog::server::templates:
+  OpenstackFileFormat:
+    type:   string
+    string: "%TIMESTAMP:::date-rfc3339% %syslogpriority-text% %HOSTNAME% %syslogtag%%msg:::drop-last-lf%\\n"
+  NorcamsFileFormat:
+    type:   string
+    string: "%TIMESTAMP:::date-rfc3339% %syslogpriority-text% %HOSTNAME% %syslogtag%%msg:::drop-last-lf%\\n"
+  SyslogFileFormat:
+    type:   string
+    string: "%TIMESTAMP:::date-rfc3339% %pri-text% %HOSTNAME% %syslogtag%%msg:::drop-last-lf%\\n"
+  dynaAllMessages:
+    type:   string
+    string: "/opt/log/%hostname%/messages"
+
+# Just use local logging for the client logs for the server itself
+rsyslog::server::legacy_config:
+  log_everything_to_remote_server:
+    key:    '*.*'
+    value:  " @%{hiera('mgmt__address__logger')}:514;RSYSLOG_ForwardFormat"
+  do_not_log_private_auth_msg:
+    key:    '*.info;mail.none;authpriv.none;cron.none'
+    value:  '/var/log/messages'
+  auth_priv_log:
+    key:    'authpriv.*'
+    value:  '/var/log/secure'
+  mail_log:
+    key:    'mail.*'
+    value:  '-/var/log/maillog'
+  cron_log:
+    key:    'cron.*'
+    value:  '/var/log/cron'
+  emerg_log:
+    key:    '*.emerg'
+    value:  ':omusrmsg:*'
+  news_log:
+    key:    'uucp,news.crit'
+    value:  '/var/log/spooler'
+  local_log:
+    key:    'local7.*'
+    value:  '/var/log/boot.log'

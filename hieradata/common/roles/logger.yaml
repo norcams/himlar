@@ -2,7 +2,6 @@
 include:
   default:
     - profile::logging::rsyslog::server
-    - profile::logging::rsyslog::client
     - profile::logging::logstash
     - profile::logging::elasticsearch
     - profile::logging::kibana
@@ -20,13 +19,6 @@ profile::base::common::packages:
   'bash-completion':        {}
   'bash-completion-extras': {}
   'jq':                     {}
-
-# rsyslog
-rsyslog::perm_dir:    '0755'
-
-# Hack to manage our own /etc/sysconfig/rsyslog
-rsyslog::rsyslog_default:                 '/tmp/rsyslog'
-profile::logging::rsyslog::server::manage_sysconfig: true
 
 # elasticsearch
 profile::logging::elasticsearch::manage_curator:  true
