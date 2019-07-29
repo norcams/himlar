@@ -5,6 +5,12 @@ profile::application::himlarcli::from_addr:     'no-reply@uib.no'
 
 # test01 is up and coming; on 'test'
 yum_base_mirror:    'https://download.iaas.uio.no/uh-iaas/test'
+profile::base::yumrepo::repo_hash:
+  puppetlabs:
+    descr:          Puppetlabs Yum Repo
+    baseurl:        "https://iaas-repo.uio.no/uh-iaas/test/puppetlabs5/"
+    gpgkey:         "https://iaas-repo.uio.no/uh-iaas/test/puppetlabs5/RPM-GPG-KEY-puppet"
+    gpgcheck:       1
 
 # Enable designate in test01
 profile::openstack::identity::designate_enabled:  true
