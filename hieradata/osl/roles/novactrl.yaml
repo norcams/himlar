@@ -35,3 +35,8 @@ profile::openstack::resource::host_aggregate:
       availability_zone: "%{::location}-default-1"
       metadata:
         type: 'vgpu'
+
+  atlas_ssd1:
+      availability_zone: "%{::location}-default-1"
+      metadata:
+        type: 'atlas_ssd'
