@@ -32,11 +32,10 @@ profile::openstack::resource::host_aggregate:
         bf017d42f06c4eb590276eccb9d571dd,
         3eae4805dcd6450fb98651f5a9dc9ded
   vgpu1:
-      availability_zone: "%{::location}-default-1"
-      metadata:
-        type: 'vgpu'
-
+    availability_zone: "%{::location}-default-1"
+    metadata:
+      type: 'vgpu'
   atlas_ssd1:
-      availability_zone: "%{::location}-default-1"
-      metadata:
-        type: 'atlas_ssd'
+    availability_zone: "%{::location}-default-1"
+    metadata:
+      type: 'atlas_ssd'
