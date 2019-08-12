@@ -9,6 +9,8 @@ profile::dns::rndc_key::host_is_bind_server: false
 
 profile::application::foreman_proxy::serve_oob_dhcp: true
 
+foreman_version: '1.22'
+
 dhcp::includes:
   - '/etc/dhcp/oob_network.conf'
 
