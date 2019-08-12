@@ -157,7 +157,7 @@ sudo::configs:
 
 profile::monitoring::sensu::agent::checks:
   'check-log':
-    command:      cat /var/log/imagebuilder/*-report.jsonl | jq -r 'select(.result) | .result'"
+    command:      cat /var/log/imagebuilder/*-report.jsonl | jq -r 'select(.result) | .result'
     interval:     60
     auto_resolve: false
     subscribers:  ['checks']
