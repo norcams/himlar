@@ -82,18 +82,18 @@ mod 'gitolite', :ref => '1.1',                      :git => github + 'uib/puppet
 # profile::application::foreman
 #
 mod 'voxpupuli/r10k', :ref => 'v6.2.0',             :git => github + 'voxpupuli/puppet-r10k'
-mod 'theforeman/foreman', :ref => '8.1.1',          :git => github + 'theforeman/puppet-foreman.git'
+mod 'theforeman/foreman', :ref => '12.2.0',         :git => github + 'theforeman/puppet-foreman.git'
 # mod 'theforeman/concat_native', '1.5.0'             # forge replace with puppetlabs-concat (further down)
 mod 'theforeman/tftp', :ref => '3.0.2',             :git => github + 'theforeman/puppet-tftp'
-mod 'theforeman/puppet', :ref => '0946aab48e',      :git => github + 'theforeman/puppet-puppet.git'
+mod 'theforeman/puppet', :ref => '11.0.1',          :git => github + 'theforeman/puppet-puppet.git'
 mod 'puppetlabs/hocon', :ref => '1.0.0',            :git => github + 'puppetlabs/puppetlabs-hocon'
 mod 'puppetlabs/puppet_authorization', :ref => '0.4.0', :git => github + 'puppetlabs/puppetlabs-puppet_authorization'
 mod 'theforeman/dns', :ref => '5.0.1',              :git => github + 'theforeman/puppet-dns'
 mod 'theforeman/dhcp', :ref => '3.1.9-norcams',     :git => github + 'norcams/puppet-dhcp.git'
-mod 'theforeman/foreman_proxy', :ref => '9.0.0',    :git => github + 'theforeman/puppet-foreman_proxy.git'
+mod 'theforeman/foreman_proxy', :ref => '11.1.0',   :git => github + 'theforeman/puppet-foreman_proxy.git'
 mod 'theforeman/git', :ref => '3.0.0',              :git => github + 'theforeman/puppet-git'
 mod 'voxpupuli/alternatives', :ref => 'v2.0.0',     :git => github + 'voxpupuli/puppet-alternatives'
-mod 'voxpupuli/extlib', :ref => 'v0.11.3',          :git => github + 'voxpupuli/puppet-extlib.git'
+mod 'voxpupuli/extlib', :ref => 'v2.0.1-82-g53c6e2b', :git => github + 'voxpupuli/puppet-extlib.git'
 mod 'puppetlabs/ruby', :ref => '1.0.0',             :git => github + 'puppetlabs/puppetlabs-ruby'
 mod 'puppetlabs/xinetd', :ref => '3.0.0',           :git => github + 'puppetlabs/puppetlabs-xinetd'
 mod 'eyaml', :ref => 'v0.3.0',                      :git => github + 'ghoneycutt/puppet-module-eyaml'
@@ -192,7 +192,7 @@ mod 'zookeeper', :ref => 'v0.8.1',                  :git => github + 'deric/pupp
 #
 # Common libs
 #
-mod 'stdlib', :ref => '4.24.0',                     :git => github + 'puppetlabs/puppetlabs-stdlib'
+mod 'stdlib', :ref => '4.25.0',                     :git => github + 'puppetlabs/puppetlabs-stdlib'
 mod 'translate', :ref => '1.2.0',                   :git => github + 'puppetlabs/puppetlabs-translate'
 mod 'concat', :ref => '4.1.0',                      :git => github + 'puppetlabs/puppetlabs-concat'
 mod 'hash_file', :ref => '1.0.3',                   :git => github + 'fiddyspence/puppet-hash_file' # ??
