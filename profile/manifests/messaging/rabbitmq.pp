@@ -60,15 +60,4 @@ class profile::messaging::rabbitmq (
     }
   }
 
-# Temp. removed, this does not work with new puppet module
-# (no 'imfile' define, this seems to have to be defined in the
-#  generic modules variable)
-#  if $manage_rsyslog {
-#    rsyslog::imfile { 'rabbitmq':
-#      file_name     => "/var/log/rabbitmq/rabbit@${::hostname}.log",
-#      file_tag      => 'rabbitmq',
-#      file_facility => $rsyslog_facility,
-#    }
-#  }
-
 }
