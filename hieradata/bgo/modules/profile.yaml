@@ -11,11 +11,3 @@ profile::openstack::dashboard::enable_designate:  true
 
 # Enable radosgw object storage
 profile::openstack::identity::radosgw_enabled:        true
-
-profile::base::yumrepo::repo_hash:
-  puppetlabs:
-    descr:          Puppetlabs Yum Repo
-    baseurl:        "https://iaas-repo.uio.no/uh-iaas/prod/puppetlabs5/"
-    gpgkey:         "https://iaas-repo.uio.no/uh-iaas/prod/puppetlabs5/RPM-GPG-KEY-puppet"
-    gpgcheck:       1
-

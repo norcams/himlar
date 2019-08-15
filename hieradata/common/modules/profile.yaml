@@ -120,8 +120,8 @@ profile::base::yumrepo::repo_hash:
     gpgcheck:       1
   puppetlabs:
     descr:          Puppetlabs Yum Repo
-    baseurl:        "%{hiera('yum_base_mirror')}/puppetlabs-PC1/"
-    gpgkey:         "%{hiera('yum_base_mirror')}/puppetlabs-PC1/RPM-GPG-KEY-puppet"
+    baseurl:        "%{hiera('yum_base_mirror')}/puppetlabs5/"
+    gpgkey:         "%{hiera('yum_base_mirror')}/puppetlabs5/RPM-GPG-KEY-puppet"
     gpgcheck:       1
   epel:
     descr:          "Extra Packages for Enterprise Linux %{operatingsystemmajrelease} - $basearch"
