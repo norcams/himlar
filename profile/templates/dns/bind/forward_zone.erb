@@ -6,7 +6,7 @@ $TTL    3600
                              14400         ; Refresh
                               3600         ; Retry
                             604800         ; Expire
-                            43200 )        ; Negative Cache TTL
+                             3600 )        ; Negative Cache TTL
 
         IN      NS      <%= @ns_master %>.
 <% @ns_slaves.each do |slave| -%>
