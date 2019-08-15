@@ -237,6 +237,19 @@ logrotate::rules:
     missingok:      true
     compress:       true
 
+# rsyslog
+rsyslog::client::inputs:
+  imfile_rabbitmq:
+    priority: 51
+    confdir: '/etc/rsyslog.d/'
+    target: '51-rabbitmq-inputs.conf'
+    type: imfile
+    config:
+      file:     "/var/log/rabbitmq/rabbit@%{::hostname}.log"
+      tag:      'rabbitmq'
+      severity: 'info'
+      facility: 'local6'
+
 # Enable extra yum repo for openstack client
 profile::base::yumrepo::repo_hash:
   rdo-release:
