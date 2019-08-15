@@ -13,6 +13,7 @@ rsyslog::client::modules:
       StateFile: 'imjournal.state'
       WorkAroundJournalBug: 'on'
   imuxsock: {}
+  imfile: {}
 
 rsyslog::client::global_config:
   workDirectory:
