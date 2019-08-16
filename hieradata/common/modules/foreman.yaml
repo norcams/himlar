@@ -4,9 +4,9 @@ foreman::foreman_url:                       "https://%{hiera('mgmt__address__for
 foreman::custom_repo:                       true
 foreman::configure_epel_repo:               false
 foreman::configure_scl_repo:                true
-foreman::admin_username:                    'admin'
-foreman::admin_password:                    'changeme'
-foreman::admin_email:                       'admin@localhost.localdomain'
+foreman::initial_admin_username:            'admin'
+foreman::initial_admin_password:            'changeme'
+foreman::initial_admin_email:               'admin@localhost.localdomain'
 foreman::ssl:                               true
 foreman::cli::manage_root_config:           true
 foreman::plugin::discovery::install_images: true
