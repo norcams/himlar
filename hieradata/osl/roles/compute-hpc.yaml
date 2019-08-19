@@ -1,0 +1,28 @@
+---
+include:
+  default:
+    - profile::monitoring::netdata
+
+profile::monitoring::netdata::manage_firewall: true
+
+# Nover overrides
+nova::compute::libvirt::libvirt_cpu_model: 'EPYC'
+nova::cpu_allocation_ratio:                '1'
+
+# Create and enable more swap
+profile::base::common::extraswap:        true
+profile::base::common::extraswap_sizegb: 10
+
+profile::base::lvm::physical_volume:
+  '/dev/sda3':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_ext':
+    physical_volumes:
+      - /dev/sda3
+profile::base::lvm::logical_volume:
+  'lv_instances':
+    volume_group: 'vg_ext'
+    fs_type:      "xfs"
+    mountpath:    "/var/lib/nova/instances"
