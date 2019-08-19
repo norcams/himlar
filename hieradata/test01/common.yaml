@@ -120,7 +120,8 @@ profile::network::services::dns_records:
     # public IPv6
     "7.1.f.3.0.0.0.0.0.0.0.0.0.0.0.0.%{hiera('reverse_public6')}":  "ns.%{hiera('domain_frontend')}"
     "8.1.f.3.0.0.0.0.0.0.0.0.0.0.0.0.%{hiera('reverse_public6')}":  "resolver.%{hiera('domain_public')}"
-
+  CNAME:
+    "%{::location}-compute-dummy-01.%{hiera('domain_mgmt')}":   "%{::location}-compute-01.%{hiera('domain_mgmt')}"
 
 profile::network::services::dns_options:
   CNAME:
