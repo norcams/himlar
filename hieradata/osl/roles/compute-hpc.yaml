@@ -6,7 +6,7 @@ include:
 profile::monitoring::netdata::manage_firewall: true
 
 # Nover overrides
-nova::compute::libvirt::libvirt_cpu_model: 'EPYC'
+nova::compute::libvirt::libvirt_cpu_model: 'EPYC-IBPB'
 nova::cpu_allocation_ratio:                '1'
 
 # Create and enable more swap
