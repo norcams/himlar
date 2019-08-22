@@ -127,10 +127,10 @@ profile::network::services::dns_records:
     "%{::location}-compute-atlas-23.%{hiera('domain_mgmt')}": "%{::location}-compute-23.%{hiera('domain_mgmt')}"
     "%{::location}-compute-atlas-24.%{hiera('domain_mgmt')}": "%{::location}-compute-24.%{hiera('domain_mgmt')}"
     # HPC
-    "%{::location}-compute-hpc-25.%{hiera('domain_mgmt')}": "%{::location}-compute-17.%{hiera('domain_mgmt')}"
-    "%{::location}-compute-hpc-26.%{hiera('domain_mgmt')}": "%{::location}-compute-18.%{hiera('domain_mgmt')}"
-    "%{::location}-compute-hpc-27.%{hiera('domain_mgmt')}": "%{::location}-compute-19.%{hiera('domain_mgmt')}"
-    "%{::location}-compute-hpc-28.%{hiera('domain_mgmt')}": "%{::location}-compute-20.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-hpc-25.%{hiera('domain_mgmt')}": "%{::location}-compute-25.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-hpc-26.%{hiera('domain_mgmt')}": "%{::location}-compute-26.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-hpc-27.%{hiera('domain_mgmt')}": "%{::location}-compute-27.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-hpc-28.%{hiera('domain_mgmt')}": "%{::location}-compute-28.%{hiera('domain_mgmt')}"
     # VGPU
     "%{::location}-compute-vgpu-42.%{hiera('domain_mgmt')}":  "%{::location}-compute-42.%{hiera('domain_mgmt')}"
   A:
