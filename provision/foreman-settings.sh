@@ -104,11 +104,11 @@ common_config()
 
   # Sync our custom provision templates
   /sbin/foreman-rake templates:sync \
-    repo="https://github.com/norcams/community-templates.git" branch="norcams" associate="always"
+    repo="https://github.com/norcams/community-templates.git" branch="master" associate="always" prefix="norcams"
   # Save template ids
   norcams_provision_id=$(/bin/hammer --csv template list --per-page 1000 | grep 'norcams Kickstart default' | cut -d, -f1)
-  norcams_pxelinux_id=$(/bin/hammer --csv template list --per-page 1000 | grep 'norcams PXELinux default' | cut -d, -f1)
-  norcams_ptable_id=$(/bin/hammer --csv partition-table list --per-page 1000 | grep 'norcams ptable default' | cut -d, -f1)
+  norcams_pxelinux_id=$(/bin/hammer --csv template list --per-page 1000 | grep 'norcams Kickstart default PXELinux' | cut -d, -f1)
+  norcams_ptable_id=$(/bin/hammer --csv partition-table list --per-page 1000 | grep 'norcams Kickstart default' | cut -d, -f1)
 
   # Associate partition template with Redhat family of OSes
   /bin/hammer partition-table update --id $norcams_ptable_id --os-family Redhat
