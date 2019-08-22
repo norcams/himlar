@@ -85,9 +85,14 @@ common_config()
   # Provisioning and discovery setup
   #
 
-  # Enable puppetlabs repo for puppet 4 and disable for puppet 3
+  # Disable upstream epel and use norcams mirror
+  /bin/hammer global-parameter set --name enable-epel --value false
+  /bin/hammer global-parameter set --name enable-norcams-epel --value true
+
+  # Enable norcam's mirror of puppet 5 and disable others
   /bin/hammer global-parameter set --name enable-puppetlabs-repo --value false
-  /bin/hammer global-parameter set --name enable-puppetlabs-pc1-repo --value true
+  /bin/hammer global-parameter set --name enable-puppetlabs-pc1-repo --value false
+  /bin/hammer global-parameter set --name enable-norcams-repo --value true
   /bin/hammer global-parameter set --name run-puppet-in-installer --value true
 
   # Enable clokcsync in Kickstart
@@ -104,7 +109,7 @@ common_config()
 
   # Sync our custom provision templates
   /sbin/foreman-rake templates:sync \
-    repo="https://github.com/norcams/community-templates.git" branch="master" associate="always" prefix="norcams"
+    repo="https://github.com/norcams/community-templates.git" branch="master" associate="always" prefix="norcams "
   # Save template ids
   norcams_provision_id=$(/bin/hammer --csv template list --per-page 1000 | grep 'norcams Kickstart default' | cut -d, -f1)
   norcams_pxelinux_id=$(/bin/hammer --csv template list --per-page 1000 | grep 'norcams Kickstart default PXELinux' | cut -d, -f1)
