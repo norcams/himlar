@@ -98,6 +98,7 @@ common_config()
   # Enable norcam's mirror of puppet 5 and disable others
   /bin/hammer global-parameter set --name enable-puppetlabs-repo --value false
   /bin/hammer global-parameter set --name enable-puppetlabs-pc1-repo --value false
+  /bin/hammer global-parameter set --name enable-puppet5 --value true
   /bin/hammer global-parameter set --name enable-norcams-repo --value true
   /bin/hammer global-parameter set --name run-puppet-in-installer --value true
 
