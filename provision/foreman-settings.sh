@@ -64,19 +64,25 @@ common_config()
   # Find smart proxy ID to use for tftp
   foreman_proxy_id=$(/bin/hammer --csv proxy info --name $foreman_fqdn | tail -n1 | cut -d, -f1)
 
+  # Find IDs for the default organization and location
+  foreman_location_id=$(/bin/hammer --csv location list | grep 'Default Location' | cut -d, -f1)
+  foreman_organization_id=$(/bin/hammer --csv organization list | grep 'Default Organization' | cut -d, -f1)
+
   # Create and update subnet
   /bin/hammer subnet create --name mgmt \
     --network       $mgmt_network \
     --mask          $mgmt_netmask || true
   /bin/hammer subnet update --name mgmt \
-    --network       $mgmt_network \
-    --mask          $mgmt_netmask \
-    --ipam          None \
-    --domain-ids    $foreman_domain_id \
-    --tftp-id       $foreman_proxy_id \
-    --dns-primary   '' \
-    --dns-secondary '' \
-    --gateway       ''
+    --network         $mgmt_network \
+    --mask            $mgmt_netmask \
+    --ipam            None \
+    --domain-ids      $foreman_domain_id \
+    --tftp-id         $foreman_proxy_id \
+    --dns-primary     '' \
+    --dns-secondary   '' \
+    --gateway         '' \
+    --organization-id $foreman_organization_id \
+    --location-id     $foreman_location_id
 #    --dns-id        '' \
 #    --dhcp-id       ''
   foreman_subnet_id=$(/bin/hammer --csv subnet info --name mgmt | tail -n1 | cut -d, -f1)
@@ -95,6 +101,9 @@ common_config()
   /bin/hammer global-parameter set --name enable-norcams-repo --value true
   /bin/hammer global-parameter set --name run-puppet-in-installer --value true
 
+  # Run puppet at first boot after install
+  /bin/hammer global-parameter set --name puppet_systemd_firstboot --value true
+
   # Enable clokcsync in Kickstart
   /bin/hammer global-parameter set --name time-zone --value 'Europe/Oslo'
   /bin/hammer global-parameter set --name ntp-server --value 'no.pool.ntp.org'
@@ -102,6 +111,8 @@ common_config()
   # Create ftp.uninett.no medium
   /bin/hammer medium create --name 'CentOS download.iaas.uio.no' \
     --os-family Redhat \
+    --organization-id $foreman_organization_id \
+    --location-id $foreman_location_id \
     --path $repo || true
   # Save CentOS mirror ids
   medium_id_1=$(/bin/hammer --csv medium info --name 'CentOS mirror' | tail -n1 | cut -d, -f1)
@@ -111,12 +122,14 @@ common_config()
   /sbin/foreman-rake templates:sync \
     repo="https://github.com/norcams/community-templates.git" branch="master" associate="always" prefix="norcams "
   # Save template ids
-  norcams_provision_id=$(/bin/hammer --csv template list --per-page 1000 | grep 'norcams Kickstart default' | cut -d, -f1)
+  norcams_provision_id=$(/bin/hammer --csv template list --per-page 1000 | grep ',norcams Kickstart default,' | cut -d, -f1)
   norcams_pxelinux_id=$(/bin/hammer --csv template list --per-page 1000 | grep 'norcams Kickstart default PXELinux' | cut -d, -f1)
   norcams_ptable_id=$(/bin/hammer --csv partition-table list --per-page 1000 | grep 'norcams Kickstart default' | cut -d, -f1)
 
   # Associate partition template with Redhat family of OSes
-  /bin/hammer partition-table update --id $norcams_ptable_id --os-family Redhat
+  /bin/hammer partition-table update --id $norcams_ptable_id \
+      --organization-id $foreman_organization_id \
+      --location-id $foreman_location_id --os-family Redhat
 
   # Create and update OS
   /bin/hammer --csv os list --per-page 1000 | grep 'CentOS 7' || /bin/hammer os create --name CentOS --major 7 --minor 6 || true
@@ -125,16 +138,26 @@ common_config()
       --family Redhat \
       --architecture-ids 1 \
       --medium-ids ${medium_id_2} \
-      --partition-table-ids $norcams_ptable_id
+      --partition-table-ids $norcams_ptable_id \
     # Set default Kickstart and PXELinux templates and associate with os
-    /bin/hammer template update --id $norcams_provision_id --operatingsystem-ids $centos_os
-    /bin/hammer template update --id $norcams_pxelinux_id --operatingsystem-ids $centos_os
-    /bin/hammer os set-default-template --id $centos_os --config-template-id $norcams_provision_id
-    /bin/hammer os set-default-template --id $centos_os --config-template-id $norcams_pxelinux_id
+    /bin/hammer template update --id $norcams_provision_id \
+      --operatingsystem-ids $centos_os \
+      --organization-id $foreman_organization_id \
+      --location-id $foreman_location_id
+    /bin/hammer template update --id $norcams_pxelinux_id \
+      --operatingsystem-ids $centos_os \
+      --organization-id $foreman_organization_id \
+      --location-id $foreman_location_id
+    /bin/hammer os set-default-template --id $centos_os \
+      --config-template-id $norcams_provision_id
+    /bin/hammer os set-default-template --id $centos_os \
+      --config-template-id $norcams_pxelinux_id
   done
 
   # Create Puppet environment
-  /bin/hammer environment create --name production || true
+  /bin/hammer environment create --name production \
+    --organization-id $foreman_organization_id \
+    --location-id $foreman_location_id || true
 
   # Create a base hostgroup
   /bin/hammer hostgroup create --name base || true
@@ -147,15 +170,21 @@ common_config()
     --subnet-id $foreman_subnet_id \
     --puppet-proxy-id $foreman_proxy_id \
     --puppet-ca-proxy-id $foreman_proxy_id \
-    --environment production
+    --environment production \
+    --organization-id $foreman_organization_id \
+    --location-id $foreman_location_id
 
   # Create storage hostgroup to set special paramters
-  /bin/hammer hostgroup create --name storage --parent base || true
+  /bin/hammer hostgroup create --name storage --parent base \
+     --organization-id $foreman_organization_id \
+     --location-id $foreman_location_id || true
   /bin/hammer hostgroup set-parameter --hostgroup storage \
      --name installdevice \
      --value sdl
   # Create compute hostgroup to set special paramters
-  /bin/hammer hostgroup create --name compute --parent base || true
+  /bin/hammer hostgroup create --name compute --parent base \
+     --organization-id $foreman_organization_id \
+     --location-id $foreman_location_id || true
   /bin/hammer hostgroup set-parameter --hostgroup compute \
      --name installdevice \
      --value sda
