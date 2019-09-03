@@ -23,6 +23,7 @@ class profile::openstack::dashboard(
   $session_cookie_httponly = false,
   $access_control_allow_origin = false,
   $use_ssl = false,
+  $cutomize_charts_dashboard_overview = false,
 ) {
 
   if $manage_dashboard {
@@ -135,6 +136,69 @@ class profile::openstack::dashboard(
       replace => true,
       require => Class['horizon'],
       notify  => Service['httpd']
+    }
+  }
+
+  if $cutomize_charts_dashboard_overview {
+    file_line { 'remove_floatingip_chart':
+      ensure            => absent,
+      path              => '/usr/share/openstack-dashboard/openstack_dashboard/usage/views.py',
+      match             => '^.*floatingip.*?\),',
+      match_for_absence => true,
+      multiple          => true,
+      replace           => false,
+      require           => Class['horizon'],
+      notify            => Service['httpd']
+    }
+    file_line { 'remove_floatingip_l2':
+      ensure            => absent,
+      path              => '/usr/share/openstack-dashboard/openstack_dashboard/usage/views.py',
+      match             => '^.*pgettext_lazy.*?\),',
+      match_for_absence => true,
+      multiple          => true,
+      replace           => false,
+      require           => Class['horizon'],
+      notify            => Service['httpd']
+    }
+    file_line { 'remove_floatingip_l3':
+      ensure            => absent,
+      path              => '/usr/share/openstack-dashboard/openstack_dashboard/usage/views.py',
+      match             => '^.\s+None\),',
+      match_for_absence => true,
+      multiple          => true,
+      replace           => false,
+      require           => Class['horizon'],
+      notify            => Service['httpd']
+    }
+    file_line { 'remove_network_chart':
+      ensure            => absent,
+      path              => '/usr/share/openstack-dashboard/openstack_dashboard/usage/views.py',
+      match             => '^.*network.*?\)*None\),',
+      match_for_absence => true,
+      multiple          => true,
+      replace           => false,
+      require           => Class['horizon'],
+      notify            => Service['httpd']
+    }
+    file_line { 'remove_port_chart':
+      ensure            => absent,
+      path              => '/usr/share/openstack-dashboard/openstack_dashboard/usage/views.py',
+      match             => '^.*port.*?\)*None\),',
+      match_for_absence => true,
+      multiple          => true,
+      replace           => false,
+      require           => Class['horizon'],
+      notify            => Service['httpd']
+    }
+    file_line { 'remove_route_chart':
+      ensure            => absent,
+      path              => '/usr/share/openstack-dashboard/openstack_dashboard/usage/views.py',
+      match             => '^.*router.*?\)*None\),',
+      match_for_absence => true,
+      multiple          => true,
+      replace           => false,
+      require           => Class['horizon'],
+      notify            => Service['httpd']
     }
   }
 }

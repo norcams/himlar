@@ -1,5 +1,6 @@
 # Disable Floating IPs
 from openstack_dashboard.dashboards.project.instances import tables
+from openstack_dashboard.dashboards.project.networks import views
 import horizon
 import os.path
 

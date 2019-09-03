@@ -26,21 +26,22 @@ profile::openstack::dashboard::designate_packages:
   'python2-designateclient': {}
   'openstack-designate-ui': {}
 
-profile::base::common::manage_cron:                    true
-profile::base::selinux::manage_selinux:                true
-profile::base::network::manage_dummy:                  true
-profile::openstack::dashboard::manage_dashboard:       true
-profile::webserver::apache::manage_firewall:           false
-profile::openstack::dashboard::manage_firewall:        true
-profile::openstack::dashboard::manage_overrides:       true
-profile::openstack::dashboard::enable_pwd_retrieval:   true
-profile::openstack::dashboard::change_region_selector: true
-profile::openstack::dashboard::change_login_footer:    true
-profile::openstack::dashboard::customize_logo:         true
-profile::openstack::dashboard::image_upload_mode:     'direct'
-profile::openstack::dashboard::session_cookie_httponly: true
-profile::openstack::dashboard::use_ssl:                 true
-profile::openstack::dashboard::access_control_allow_origin: "console.%{hiera('domain_public')}"
+profile::base::common::manage_cron:                                true
+profile::base::selinux::manage_selinux:                            true
+profile::base::network::manage_dummy:                              true
+profile::openstack::dashboard::manage_dashboard:                   true
+profile::webserver::apache::manage_firewall:                       false
+profile::openstack::dashboard::manage_firewall:                    true
+profile::openstack::dashboard::manage_overrides:                   true
+profile::openstack::dashboard::enable_pwd_retrieval:               true
+profile::openstack::dashboard::change_region_selector:             true
+profile::openstack::dashboard::change_login_footer:                true
+profile::openstack::dashboard::customize_logo:                     true
+profile::openstack::dashboard::image_upload_mode:                  'direct'
+profile::openstack::dashboard::session_cookie_httponly:            true
+profile::openstack::dashboard::use_ssl:                            true
+profile::openstack::dashboard::cutomize_charts_dashboard_overview: true
+profile::openstack::dashboard::access_control_allow_origin:        "console.%{hiera('domain_public')}"
 
 # cronjob to cleanup expired session from db
 profile::base::cron::crontabs:
