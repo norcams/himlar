@@ -97,6 +97,8 @@ profile::storage::cephpool_params::pools:
 profile::base::yumrepo::repo_hash:
   ceph-%{hiera('ceph_version')}:
     ensure: present
+  epel:
+    ensure:   present
 
 profile::storage::ceph_crushrules::rules:
   'hdd-storage':
