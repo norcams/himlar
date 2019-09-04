@@ -69,6 +69,14 @@ designate::api::listen:             "0.0.0.0:9001"
 designate::api::api_base_uri:       "%{hiera('endpoint__designate__public')}"
 
 #---------------------------------------------------------------------
+# Quota (manifests/quota.pp)
+#   - runs on the DNS node
+#---------------------------------------------------------------------
+designate::quota::quota_api_export_size:  '2000'
+designate::quota::quota_zone_records:     '1000'
+designate::quota::quota_zone_recordsets:  '1000'
+
+#---------------------------------------------------------------------
 # Database (manifests/db.pp)
 #   - runs on the DNS node
 #---------------------------------------------------------------------
