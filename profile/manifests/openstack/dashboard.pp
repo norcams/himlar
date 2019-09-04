@@ -119,16 +119,14 @@ class profile::openstack::dashboard(
       source  => "puppet:///modules/${module_name}/openstack/horizon/logo-splash.svg",
       replace => true,
       require => Class['horizon'],
-      notify  => Service['httpd']
-    }
+    } ->
     file { 'logo.svg':
       ensure  => present,
       path    => '/usr/share/openstack-dashboard/openstack_dashboard/static/dashboard/img/logo.svg',
       source  => "puppet:///modules/${module_name}/openstack/horizon/logo.svg",
       replace => true,
       require => Class['horizon'],
-      notify  => Service['httpd']
-    }
+    } ->
     file { 'favicon.ico':
       ensure  => present,
       path    => '/usr/share/openstack-dashboard/openstack_dashboard/static/dashboard/img/favicon.ico',
@@ -148,8 +146,7 @@ class profile::openstack::dashboard(
       multiple          => true,
       replace           => false,
       require           => Class['horizon'],
-      notify            => Service['httpd']
-    }
+    } ->
     file_line { 'remove_floatingip_l2':
       ensure            => absent,
       path              => '/usr/share/openstack-dashboard/openstack_dashboard/usage/views.py',
@@ -158,8 +155,7 @@ class profile::openstack::dashboard(
       multiple          => true,
       replace           => false,
       require           => Class['horizon'],
-      notify            => Service['httpd']
-    }
+    } ->
     file_line { 'remove_floatingip_l3':
       ensure            => absent,
       path              => '/usr/share/openstack-dashboard/openstack_dashboard/usage/views.py',
@@ -168,8 +164,7 @@ class profile::openstack::dashboard(
       multiple          => true,
       replace           => false,
       require           => Class['horizon'],
-      notify            => Service['httpd']
-    }
+    } ->
     file_line { 'remove_network_chart':
       ensure            => absent,
       path              => '/usr/share/openstack-dashboard/openstack_dashboard/usage/views.py',
@@ -178,8 +173,7 @@ class profile::openstack::dashboard(
       multiple          => true,
       replace           => false,
       require           => Class['horizon'],
-      notify            => Service['httpd']
-    }
+    } ->
     file_line { 'remove_port_chart':
       ensure            => absent,
       path              => '/usr/share/openstack-dashboard/openstack_dashboard/usage/views.py',
@@ -188,8 +182,7 @@ class profile::openstack::dashboard(
       multiple          => true,
       replace           => false,
       require           => Class['horizon'],
-      notify            => Service['httpd']
-    }
+    } ->
     file_line { 'remove_route_chart':
       ensure            => absent,
       path              => '/usr/share/openstack-dashboard/openstack_dashboard/usage/views.py',
