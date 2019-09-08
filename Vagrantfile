@@ -76,6 +76,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         libvirt.nested = true
         libvirt.cpus   = n['cpus']
         libvirt.memory = n['memory']
+        libvirt.qemu_use_session = false
       end
 
       box.vm.provider :virtualbox do |vbox|
