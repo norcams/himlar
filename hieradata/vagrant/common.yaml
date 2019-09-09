@@ -162,6 +162,7 @@ profile::network::services::dns_records:
     "metric.api.%{hiera('domain_public')}":               "%{hiera('netcfg_public_netpart')}.250"
     "object.api.%{hiera('domain_public')}":               "%{hiera('netcfg_public_netpart')}.250"
     "dns.api.%{hiera('domain_public')}":                  "%{hiera('netcfg_public_netpart')}.250"
+    "workflow.api.%{hiera('domain_public')}":             "%{hiera('netcfg_public_netpart')}.250"
     "report.%{hiera('domain_frontend')}":                 "%{hiera('netcfg_public_netpart')}.250"
     "ns.%{hiera('domain_public')}":                       "%{hiera('netcfg_public_netpart')}.251"
     "resolver.%{hiera('domain_public')}":                 "%{hiera('netcfg_public_netpart')}.252"
@@ -203,6 +204,7 @@ gnocchi_api_password:                               'gnocchi_pass'
 ceilometer_api_password:                            'ceilometer_pass'
 access_api_password:                                'access_pass'
 designate_api_password:                             'designate_pass'
+mistral_api_password:                               'mistral_pass'
 radosgw_api_password:                               'radosgw_pass'
 
 # rabbitmq
@@ -251,6 +253,10 @@ nova_rabbit_password:                              'nova_quest'
 # designate.yaml
 designate::db::mysql::password:                     'designate_pass'
 designate::rabbit_password:                         'guest'
+
+# mistral.yaml
+mistral::db::mysql::password:                       'mistral_pass'
+mistral::rabbit_password:                           'guest'
 
 # imagebuilder
 imagebuilder_password:                              'imagebuilder_pass'

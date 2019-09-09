@@ -26,6 +26,10 @@ profile::openstack::dashboard::designate_packages:
   'python2-designateclient': {}
   'openstack-designate-ui': {}
 
+profile::openstack::dashboard::mistral_packages:
+  'python2-mistralclient': {}
+  'openstack-mistral-ui': {}
+
 profile::base::common::manage_cron:                                true
 profile::base::selinux::manage_selinux:                            true
 profile::base::network::manage_dummy:                              true
