@@ -75,6 +75,8 @@ netcfg_public_netmask:  '255.255.255.0'
 netcfg_public_netpart6: 'fd34'
 netcfg_public_netmask6: '64'
 netcfg_oob_netpart:     '172.28.160'
+netcfg_oob_netmask:     '255.255.255.0'
+netcfg_oob_gateway:     '172.28.160.1'
 
 netcfg_priv_gateway:    '172.30.32.26'
 netcfg_priv_network:    '10.0.244.0/24'
@@ -117,6 +119,7 @@ profile::network::services::dns_records:
     "ns.%{hiera('domain_public')}":                         "%{hiera('netcfg_public_netpart')}.251"
     "resolver.%{hiera('domain_public')}":                   "%{hiera('netcfg_public_netpart')}.252"
     "dashboard.%{hiera('domain_public')}":                  "%{hiera('netcfg_public_netpart')}.254"
+
     # Management network (entries that differ from common/common.yaml)
     "%{::location}-controller-00.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_netpart')}.99"
     "repo.%{hiera('domain_oob')}":                          "%{hiera('netcfg_oob_netpart')}.9"
