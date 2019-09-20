@@ -19,5 +19,7 @@ profile::base::network::network_auto_opts:
 
 profile::base::network::network_auto_bonding:
   trp:
-    p4p1: {}
-    p4p2: {}
+    em3:
+      'team_port_config': '{ "prio" : 100 }'
+    em4:
+      'team_port_config': '{ "prio" : 100 }'
