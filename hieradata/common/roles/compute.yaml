@@ -179,6 +179,9 @@ profile::base::yumrepo::repo_hash:
   calico31:
     ensure: absent
   calico37:
+    ensure: absent
+    exclude: 'dnsmasq'
+  calico39:
     ensure: present
     exclude: 'dnsmasq'
   ceph-%{hiera('ceph_version')}:
