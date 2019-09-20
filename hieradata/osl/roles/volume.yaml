@@ -21,8 +21,5 @@ cinder::backends::enabled_backends:
   - atlas-storage
 
 # Use transport network for this (which has no DNS name)
-# OK, in test02 the NFS-server is only connected to mgmt,
-# # but just to make the point...
-#cinder_nfs_backend_server:  "test02-nfs-01:/opt/volumeshare"
-cinder_nfs_backend_server:  "172.28.32.80:/opt/volumeshare"
-
+#cinder_nfs_backend_server:  "osl-nfs-01:/opt/volumeshare"
+cinder_nfs_backend_server:  "172.18.32.80:/opt/volumeshare"
