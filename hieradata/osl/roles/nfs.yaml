@@ -1,0 +1,45 @@
+---
+include:
+  default:
+    - multipath
+    - profile::base::lvm
+    - profile::base::nfs
+  kickstart:
+    - multipath
+    - profile::base::lvm
+
+profile::base::common::packages:
+  'lsscsi': {}
+
+multipath::blacklist:
+  'devnode': [ '"^(ram|raw|loop|fd|md|dm-|sr|scd|st)[0-9]*"', '"^hd[a-z][[0-9]*]"', '"^cciss\!c[0-9]d[0-9]*"', '"^(sda|sdb|sde|sdh|vda|vdb)"' ]
+
+profile::base::lvm::physical_volume:
+  '/dev/mapper/mpatha':
+    ensure: present
+    force:  true
+  '/dev/mapper/mpathb':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_volume':
+    physical_volumes:
+      - /dev/mapper/mpatha
+      - /dev/mapper/mpathb
+profile::base::lvm::logical_volume:
+  'lv_volume':
+    volume_group: 'vg_volume'
+    fs_type:      "xfs"
+    mountpath:    "/opt/volumeshare"
+
+profile::base::nfs::manage_firewall: true
+profile::base::nfs::create_share:    true
+profile::base::nfs::shares:
+  'volumeshare':
+    'share':   '/opt/volumeshare'
+    'guest':   ''
+    'options': 'rw,sync,no_root_squash'
+
+profile::base::nfs::mount_fwsettings:
+  source: "%{::network_trp1}/%{::netmask_trp1}"
+
