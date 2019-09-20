@@ -189,6 +189,11 @@ mod 'haproxy', :ref => '1.5.0',                     :git => github + 'puppetlabs
 mod 'corosync', :ref => 'v5.1.0',                   :git => github + 'voxpupuli/puppet-corosync'
 mod 'zookeeper', :ref => 'v0.8.1',                  :git => github + 'deric/puppet-zookeeper'
 
+# nfs
+#
+mod 'multipath', :ref => '7c3b65eba5',              :git => github + 'desalvo/puppet-multipath'
+mod 'nfs', :ref => '0.4.3',                         :git => github +'camptocamp/puppet-nfs'
+
 #
 # Common libs
 #

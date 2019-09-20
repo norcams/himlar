@@ -12,13 +12,11 @@ profile::openstack::volume::type:
     properties:
       - 'volume_backend_name=atlas-storage'
 
+# Use transport network for this (which has no DNS name)
 profile::openstack::volume::backend::nfs:
   atlas-storage:
-    nfs_servers: ["172.28.32.80:/opt/volumeshare"]
+    nfs_servers: ["172.18.32.80:/opt/volumeshare"]
 
-# Use transport network for this (which has no DNS name)
-# OK, in test02 the NFS-server is only connected to mgmt,
-# # but just to make the point...
 cinder::backends::enabled_backends:
   - rbd-volumes
   - atlas-storage
