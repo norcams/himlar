@@ -1,0 +1,25 @@
+---
+named_interfaces::config:
+  mgmt:
+    - eth0
+#  trp:
+#    - eth1
+
+network::interfaces_hash:
+  'eth0':
+    onboot:        'yes'
+    ipaddress:     "%{hiera('netcfg_mgmt_netpart')}.80"
+    netmask:       "%{hiera('netcfg_mgmt_netmask')}"
+    gateway:       "%{hiera('netcfg_mgmt_gateway')}"
+    defroute:      'yes'
+    dns1:          "%{hiera('mgmt__address__proxy')}"
+    domain:        "%{hiera('netcfg_dns_search')}"
+    peerdns:       'yes'
+#  'eth1':
+#    onboot:        'yes'
+#    ipaddress:     "%{hiera('netcfg_trp_netpart')}.80"
+#    netmask:       "%{hiera('netcfg_trp_netmask')}"
+#    defroute:      'no'
+#    dns1:          "%{hiera('trp__address__proxy')}"
+#    domain:        "%{hiera('netcfg_dns_search')}"
+
