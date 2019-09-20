@@ -69,6 +69,8 @@ profile::base::yumrepo::repo_hash:
   calico31:
     ensure: absent
   calico37:
+    ensure: absent
+  calico39:
     ensure: present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
