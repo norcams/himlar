@@ -12,7 +12,7 @@ profile::base::common::packages:
   'lsscsi': {}
 
 multipath::blacklist:
-  'devnode': [ '"^(ram|raw|loop|fd|md|dm-|sr|scd|st)[0-9]*"', '"^hd[a-z][[0-9]*]"', '"^cciss\!c[0-9]d[0-9]*"', '"^(sda|sdb|sde|sdh|vda|vdb)"' ]
+  'devnode': [ '"^(ram|raw|loop|fd|md|dm-|sr|scd|st)[0-9]*"', '"^hd[a-z][[0-9]*]"', '"^cciss\!c[0-9]d[0-9]*"', '"^(sda|sdb|vda|vdb)"' ]
 
 profile::base::lvm::physical_volume:
   '/dev/mapper/mpatha':
