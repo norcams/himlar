@@ -15,11 +15,9 @@ multipath::blacklist:
   'devnode': [ '"^(ram|raw|loop|fd|md|dm-|sr|scd|st)[0-9]*"', '"^hd[a-z][[0-9]*]"', '"^cciss\!c[0-9]d[0-9]*"', '"^(sda|sdb|vda|vdb)"' ]
 
 multipath::devices:
-  - 'hitachi':
-    'vendor':               '"HITACHI"'
+  - 'vendor':               '"HITACHI"'
     'product':              '"OPEN-.*"'
     'path_grouping_policy': "multibus"
-    'getuid_callout':       '"/lib/udev/scsi_id --whitelisted --device=/dev/%n"'
     'path_selector':        '"round-robin 0"'
     'path_checker':         'tur'
     'features':             '"0"'
