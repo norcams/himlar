@@ -14,6 +14,22 @@ profile::base::common::packages:
 multipath::blacklist:
   'devnode': [ '"^(ram|raw|loop|fd|md|dm-|sr|scd|st)[0-9]*"', '"^hd[a-z][[0-9]*]"', '"^cciss\!c[0-9]d[0-9]*"', '"^(sda|sdb|vda|vdb)"' ]
 
+multipath::devices:
+  - 'hitachi':
+    'vendor':               '"HITACHI"'
+    'product':              '"OPEN-.*"'
+    'path_grouping_policy': "multibus"
+    'getuid_callout':       '"/lib/udev/scsi_id --whitelisted --device=/dev/%n"'
+    'path_selector':        '"round-robin 0"'
+    'path_checker':         'tur'
+    'features':             '"0"'
+    'hardware_handler':     '"0"'
+    'prio':                 'const'
+    'rr_weight':            'uniform'
+    'no_path_retry':        '6'
+    'rr_min_io':            '1000'
+    'rr_min_io_rq':         '1'
+
 profile::base::lvm::physical_volume:
   '/dev/mapper/mpatha':
     ensure: present
