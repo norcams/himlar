@@ -57,3 +57,6 @@ nova::compute::rbd::ephemeral_storage:            false
 nova::config::nova_config:
   libvirt/images_type:
     value: default
+
+# Turn on firewall logging for firewall debug
+profile::firewall::post::log: true
