@@ -39,6 +39,8 @@ profile::openstack::volume::backend::rbd:
       mass-storage-dcache/report_discard_supported:
         value: 'True'
 
+cinder::api::default_volume_type: 'rbd'
+
 cinder::backends::enabled_backends:
   - rbd-volumes
   - mass-storage-default
