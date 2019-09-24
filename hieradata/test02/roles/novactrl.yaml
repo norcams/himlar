@@ -8,3 +8,7 @@ profile::openstack::resource::host_aggregate:
       type: 'windows'
   placeholder1:
     availability_zone: "%{::location}-iaas-team-only-1"
+  cyborg1:
+    availability_zone: "%{::location}-default-1"
+    metadata:
+      type: 'cyborg'

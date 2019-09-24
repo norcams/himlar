@@ -103,6 +103,7 @@ frrouting::frrouting::bgp_neighbor_groups:
       - '172.30.32.103'
       - '172.30.32.104'
       - '172.30.32.105'
+      - '172.30.32.242'
     'options6':
       - 'neighbor rr-clients route-reflector-client'
       - 'maximum-paths ibgp 3'
@@ -112,6 +113,7 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'fd32::103'
       - 'fd32::104'
       - 'fd32::105'
+      - 'fd32::242'
 #  'other-clients':
 #    'options':
 #    - 'peer-group'

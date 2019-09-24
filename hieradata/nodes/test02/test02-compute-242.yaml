@@ -1,0 +1,29 @@
+---
+named_interfaces::config:
+  mgmt:
+  - eth4
+  trp:
+  - eth0
+  live:
+  - eth0
+
+profile::base::network::manage_neutron_blackhole: false
+
+network::interfaces_hash:
+  'eth0':
+    onboot:         'yes'
+    ipaddress:      "%{hiera('netcfg_trp_netpart')}.242"
+    netmask:        "%{hiera('netcfg_trp_netmask')}"
+    ipv6init:       'yes'
+    ipv6addr:       "%{hiera('netcfg_trp_netpart6')}::242/%{hiera('netcfg_trp_netmask6')}"
+    ipv6_defaultgw: "%{hiera('netcfg_trp_gateway6')}"
+    defroute:       'no'
+  'eth4':
+    onboot:         'yes'
+    ipaddress:      "%{hiera('netcfg_mgmt_netpart')}.242"
+    netmask:        "%{hiera('netcfg_mgmt_netmask')}"
+    mtu:            '1500'
+    dns1:           "%{hiera('mgmt__address__proxy')}"
+    domain:         "%{hiera('netcfg_dns_search')}"
+    peerdns:        'yes'
+    defroute:       'no'
