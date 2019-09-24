@@ -17,6 +17,8 @@ profile::openstack::volume::backend::nfs:
   atlas-storage:
     nfs_servers: ["172.18.32.80:/opt/volumeshare"]
 
+cinder::api::default_volume_type: 'rbd'
+
 cinder::backends::enabled_backends:
   - rbd-volumes
   - atlas-storage
