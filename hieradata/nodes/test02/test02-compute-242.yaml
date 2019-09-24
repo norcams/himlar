@@ -15,6 +15,11 @@ profile::openstack::compute::pci_passthrough::manage_pci_whitelist:  true
 nova::compute::pci::passthrough:
   - 'vendor_id':  '1462'
     'product_id': '3680'
+nova::pci::aliases:
+  - 'vendor_id':   '1462'
+    'product_id':  '3680'
+    'device_type': 'type-PCI'
+    'name':        'RXVega64'
 
 network::interfaces_hash:
   'eth0':
