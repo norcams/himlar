@@ -44,7 +44,7 @@ profile::openstack::resource::host_aggregate:
     metadata:
       type: 'alicetape'
 
-profile::openstack::compute::pci_passthrough::manage_pci_alias: true
+profile::openstack::compute::pci_passthrough::manage_pcipassthrough: true
 
 # QLogic Corp ISP2532-based 8Gb Fibre Channel to PCI Express HBA
 nova::pci::aliases:
