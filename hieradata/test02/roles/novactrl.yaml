@@ -1,4 +1,8 @@
 ---
+include:
+  default:
+    - profile::openstack::compute::pci_passthrough
+
 profile::openstack::resource::host_aggregate:
   central1:
     availability_zone: "%{::location}-default-1"
@@ -12,3 +16,11 @@ profile::openstack::resource::host_aggregate:
     availability_zone: "%{::location}-default-1"
     metadata:
       type: 'cyborg'
+
+profile::openstack::compute::pci_passthrough::manage_pcipassthrough: true
+
+nova::pci::aliases:
+  - 'vendor_id':   '1002'
+    'product_id':  '687f'
+    'device_type': 'type-PCI'
+    'name':        'vega10'

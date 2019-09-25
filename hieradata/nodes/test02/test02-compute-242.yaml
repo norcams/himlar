@@ -1,4 +1,10 @@
 ---
+include:
+  kickstart:
+    - profile::openstack::compute::pci_passthrough
+  default:
+    - profile::openstack::compute::pci_passthrough
+
 named_interfaces::config:
   mgmt:
   - eth4
