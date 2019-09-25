@@ -2,6 +2,8 @@
 include:
   kickstart:
     - profile::openstack::compute::pci_passthrough
+  default:
+    - profile::openstack::compute::pci_passthrough
 
 netcfg_trp_rr:
   rr1:
