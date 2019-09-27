@@ -6,6 +6,8 @@ class profile::base::physical (
   $hugepages                   = '245760',
   $enable_isolcpus             = false,
   $isolcpus                    = [],
+  $blacklist_drv               = false,
+  $blacklist_drv_list          = undef,
   $enable_redfish_sensu_check  = false,
   $enable_redfish_http_proxy   = undef,
   $configure_bmc_nic           = false,
@@ -55,6 +57,15 @@ class profile::base::physical (
     kernel_parameter { 'transparent_hugepage':
       ensure => present,
       value  => 'never'
+    }
+  }
+
+  if $blacklist_drv {
+    include ::kmod
+    $blacklist_drv_list.each | $name, $data | {
+      kmod::blacklist { $name:
+        * => $data,
+      }
     }
   }
 
