@@ -10,3 +10,5 @@ network::interfaces_hash:
     dns1:           "%{hiera('netcfg_dns_server1')}"
     dns2:           "%{hiera('netcfg_dns_server2')}"
     domain:         "%{hiera('netcfg_dns_search')}"
+
+profile::base::dell::manage_repos: true
