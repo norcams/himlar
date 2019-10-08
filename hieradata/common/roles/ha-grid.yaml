@@ -1,3 +1,19 @@
 ---
 profile::highavailability::loadbalancing::haproxy::merge_strategy: 'first'
 profile::firewall::rules::merge_strategy: 'first'
+
+profile::highavailability::loadbalancing::haproxy::haproxy_listens:
+  monitor:
+    mode: 'http'
+    options:
+      option: ['httplog']
+      stats:
+        - 'enable'
+        - 'hide-version'
+        - 'show-node'
+        - 'realm Monitor\ Stats'
+        - 'uri /'
+    bind:
+      "%{hiera('corosync_cluster_vip1')}:9000": []
+      "%{hiera('corosync_cluster_vip2')}:9000": []
+      '%{::ipaddress_public1}:9000':            []
