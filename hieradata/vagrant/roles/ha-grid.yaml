@@ -16,8 +16,8 @@ corosync::unicast_addresses:
   - "%{hiera('netcfg_public_netpart')}.19"
 
 corosync::quorum_members:
-  - "%{hiera('netcfg_public_netpart')}.18"
-  - "%{hiera('netcfg_public_netpart')}.19"
+  - "%{::location}-ha-grid-01.%{hiera('domain_mgmt')}"
+  - "%{::location}-ha-grid-02.%{hiera('domain_mgmt')}"
 
 corosync_cluster_node1:   "%{::location}-ha-grid-01.%{hiera('domain_mgmt')}"
 corosync_cluster_node2:   "%{::location}-ha-grid-02.%{hiera('domain_mgmt')}"

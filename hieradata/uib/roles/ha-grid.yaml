@@ -20,8 +20,8 @@ corosync::unicast_addresses:
   - "129.177.3.112"
 
 corosync::quorum_members:
-  - "129.177.3.111"
-  - "129.177.3.112"
+  - "%{::location}-ha-grid-01.%{hiera('domain_mgmt')}"
+  - "%{::location}-ha-grid-02.%{hiera('domain_mgmt')}"
 
 # Firewall
 profile::firewall::rules::custom_rules:
