@@ -41,7 +41,7 @@ profile::firewall::rules::custom_rules:
     source:       '129.177.10.0/24'
     destination:
       - "%{hiera('corosync_cluster_vip1')}"
-      - "%{hiera('corosync_cluster_vip1')}"
+      - "%{hiera('corosync_cluster_vip2')}"
       - '%{::ipaddress_public1}'
 
 
