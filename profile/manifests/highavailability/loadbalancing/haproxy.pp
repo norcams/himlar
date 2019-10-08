@@ -12,7 +12,8 @@ class profile::highavailability::loadbalancing::haproxy (
   },
   $enable_nonlocal_bind    = false,
   $enable_remote_logging   = false,
-  $access_list = {}
+  $access_list = {},
+  String $merge_strategy = 'deep'
 ) {
 
   if $manage_haproxy {
@@ -27,15 +28,15 @@ class profile::highavailability::loadbalancing::haproxy (
       collect_exported => false
     }
 
-    # We need to merge these from common and location
-    $haproxy_listens         = lookup('profile::highavailability::loadbalancing::haproxy::haproxy_listens', Hash, 'deep', {})
-    $haproxy_frontends       = lookup('profile::highavailability::loadbalancing::haproxy::haproxy_frontends', Hash, 'deep', {})
-    $haproxy_backends        = lookup('profile::highavailability::loadbalancing::haproxy::haproxy_backends', Hash, 'deep', {})
-    $haproxy_balancermembers = lookup('profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers', Hash, 'deep', {})
-    $haproxy_userlists       = lookup('profile::highavailability::loadbalancing::haproxy::haproxy_userlists', Hash, 'deep', {})
-    $haproxy_peers           = lookup('profile::highavailability::loadbalancing::haproxy::haproxy_peers', Hash, 'deep', {})
-    $haproxy_mapfile         = lookup('profile::highavailability::loadbalancing::haproxy::haproxy_mapfile', Hash, 'deep', {})
-    $haproxy_errorpage       = lookup('profile::highavailability::loadbalancing::haproxy::haproxy_errorpage', Hash, 'deep', {})
+    # We with merge_strategy=deep we merge these from common, variation and location
+    $haproxy_listens         = lookup('profile::highavailability::loadbalancing::haproxy::haproxy_listens', Hash, $merge_strategy, {})
+    $haproxy_frontends       = lookup('profile::highavailability::loadbalancing::haproxy::haproxy_frontends', Hash, $merge_strategy, {})
+    $haproxy_backends        = lookup('profile::highavailability::loadbalancing::haproxy::haproxy_backends', Hash, $merge_strategy, {})
+    $haproxy_balancermembers = lookup('profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers', Hash, $merge_strategy, {})
+    $haproxy_userlists       = lookup('profile::highavailability::loadbalancing::haproxy::haproxy_userlists', Hash, $merge_strategy, {})
+    $haproxy_peers           = lookup('profile::highavailability::loadbalancing::haproxy::haproxy_peers', Hash, $merge_strategy, {})
+    $haproxy_mapfile         = lookup('profile::highavailability::loadbalancing::haproxy::haproxy_mapfile', Hash, $merge_strategy, {})
+    $haproxy_errorpage       = lookup('profile::highavailability::loadbalancing::haproxy::haproxy_errorpage', Hash, $merge_strategy, {})
 
     create_resources('haproxy::listen', $haproxy_listens)
     create_resources('haproxy::backend', $haproxy_backends)

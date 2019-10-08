@@ -5,14 +5,14 @@ class profile::monitoring::netdata::haproxy(
 
   file_line { 'netdata-haproxy':
     ensure  => present,
-    path    => '/opt/netdata/netdata-configs/python.d/haproxy.conf',
+    path    => '/opt/netdata/usr/lib/netdata/conf.d/python.d/haproxy.conf',
     line    => 'via_url:',
     match   => '^via_url:',
     require => Class['netdata']
   } ->
   file_line { 'netdata-haproxy-url':
     ensure  => present,
-    path    => '/opt/netdata/netdata-configs/python.d/haproxy.conf',
+    path    => '/opt/netdata/usr/lib/netdata/conf.d/python.d/haproxy.conf',
     line    => " url: '${stats_url}'",
     after   => '^via_url:',
     require => Class['netdata']
