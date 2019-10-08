@@ -39,3 +39,6 @@ network::interfaces_hash:
     vlan:           'yes'
 
 profile::base::dell::manage_repos: true
+
+profile::highavailability::corosync::firewall_extras:
+  source: '129.177.3.112'
