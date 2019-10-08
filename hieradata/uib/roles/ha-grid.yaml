@@ -102,7 +102,7 @@ profile::highavailability::corosync::primitives:
     'provided_by':        'heartbeat'
     'parameters':
       'ip':               "%{hiera('corosync_cluster_vip1')}"
-      'cidr_netmask':     '24'
+      'cidr_netmask':     '25'
     operations:
       'monitor':          { 'interval': '10s', 'timeout': '20s' }
       'start':            { 'interval': '0s', 'timeout': '20s' }
@@ -113,7 +113,7 @@ profile::highavailability::corosync::primitives:
     'provided_by':        'heartbeat'
     'parameters':
       'ip':               "%{hiera('corosync_cluster_vip2')}"
-      'cidr_netmask':     '24'
+      'cidr_netmask':     '25'
     operations:
       'monitor':          { "interval": "10s", "timeout": "20s" }
       'start':            { "interval": "0s", "timeout": "20s" }
