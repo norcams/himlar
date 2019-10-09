@@ -97,6 +97,11 @@ nodesets:
       hostid:     '01'
     - role:       'ha'
       hostid:     '02'
+  grid:
+    - role:       'ha-grid'
+      hostid:     '01'
+    - role:       'ha-grid'
+      hostid:     '02'
   db:
     - role:       'db'
       hostid:     '01'

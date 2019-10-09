@@ -1,4 +1,5 @@
 ---
+# Should not run with regular himlar nodes so no IP conflict problems
 network::interfaces_hash:
   'eth1':
     onboot:    'yes'
