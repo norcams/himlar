@@ -133,6 +133,12 @@ profile::network::services::dns_records:
     "%{::location}-compute-hpc-28.%{hiera('domain_mgmt')}": "%{::location}-compute-28.%{hiera('domain_mgmt')}"
     # VGPU
     "%{::location}-compute-vgpu-42.%{hiera('domain_mgmt')}":  "%{::location}-compute-42.%{hiera('domain_mgmt')}"
+    # Arccache storage tempo
+    "%{::location}-storage-dcache-08.%{hiera('domain_mgmt')}":  "%{::location}-storage-08.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-dcache-09.%{hiera('domain_mgmt')}":  "%{::location}-storage-09.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-dcache-10.%{hiera('domain_mgmt')}":  "%{::location}-storage-10.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-dcache-11.%{hiera('domain_mgmt')}":  "%{::location}-storage-11.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-dcache-12.%{hiera('domain_mgmt')}":  "%{::location}-storage-12.%{hiera('domain_mgmt')}"
   A:
     # Frontend records (<foo>.uh-iaas.no)
     "access.%{hiera('domain_frontend')}":        '158.39.77.250'
