@@ -12,9 +12,9 @@ profile::base::network::network_auto_opts:
 
 profile::base::network::network_auto_bonding:
   trp:
-    p6p1:
+    em1:
       'team_port_config': '{ "prio" : 100 }'
-    p6p2:
+    em2:
       'team_port_config': '{ "prio" : 100 }'
 
 #profile::storage::cephosd::crush_parent:      'dcache'
