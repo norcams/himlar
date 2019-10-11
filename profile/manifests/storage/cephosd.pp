@@ -32,7 +32,7 @@ class profile::storage::cephosd(
 
   # Create lvm osds
   if $create_osds {
-    $osd_devices = lookup('profile::storage::cephosd::osds', Hash, 'deep', {})
+    $osd_devices = lookup('profile::storage::cephosd::osds', Hash, 'first', {})
     create_resources('profile::storage::create_lvm_osd', $osd_devices)
   }
 
