@@ -28,6 +28,20 @@ profile::monitoring::sensu::agent::checks:
     interval:     1800
     subscribers:  ['checks']
 
+profile::storage::ceph_crushrules::rules:
+  'hdd-storage':
+    rule_device_type: "hdd"
+    rule_root:        "storage"
+  'ssd-storage':
+    rule_device_type: "sdd"
+    rule_root:        "storage"
+  'hdd-arccache':
+    rule_device_type: "hdd"
+    rule_root:        "arccache"
+  'ssd-arccache':
+    rule_device_type: "ssd"
+    rule_root:        "arccache"
+
 profile::storage::cephpool_params::pools:
   'volumes':
     replicas_min_size:  3
