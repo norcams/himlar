@@ -31,7 +31,7 @@ profile::base::lvm::physical_volume:
   '/dev/sdn':
     ensure: present
     force:  true
-  '/dev/nvme0n1'
+  '/dev/nvme0n1':
     ensure: present
     force:  true
 profile::base::lvm::volume_group:
