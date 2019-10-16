@@ -11,6 +11,10 @@ profile::openstack::volume::type:
     visibility: "private"
     properties:
       - 'volume_backend_name=atlas-storage'
+  mass-storage-arccache:
+    visibility: "private"
+    properties:
+      - 'volume_backend_name=mass-storage-arccache'
 
 # Use transport network for this (which has no DNS name)
 profile::openstack::volume::backend::nfs:
