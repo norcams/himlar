@@ -23,9 +23,32 @@ profile::storage::cephosd::crush_parent_type: 'pod'
 #profile::base::common::manage_lvm: false
 #profile::base::lvm::create_lvm:    false
 
-profile::storage::cephpool::manage_ec_pools: false
+profile::storage::cephpool::manage_ec_pools: true
 profile::storage::cephosd::create_osds: true
 profile::storage::cephosd::crush_move:  true
+
+profile::storage::ceph_ecpool::ec_pools:
+  'arccache_hdd_ec_data':
+    pg_num:              "512"
+    manage:              true
+    allow_ec_overwrites: true
+    k_data:              "3"
+    m_code:              "2"
+    crush_root:          "arccache"
+profile::storage::cephpool::pools:
+  'arccache_hdd_ec_meta':
+    ensure: present
+    pg_num: 128
+    pgp_num: 128
+profile::storage::cephpool_params::pools:
+  'arccache_hdd_ec_meta':
+    replicas_num:       3
+    replicas_min_size:  2
+    crush_rule:         "hdd-arccache"
+    application_enable: 'rbd'
+  'arccache_hdd_ec_data':
+    application_enable: 'rbd'
+    replicas_min_size:  '4'
 
 profile::base::lvm::physical_volume:
   '/dev/sdn':
