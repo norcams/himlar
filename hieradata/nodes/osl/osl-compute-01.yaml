@@ -51,6 +51,10 @@ profile::base::lvm::volume_group:
       - /dev/sda3
       - /dev/sdb
 
+# Create and enable more swap
+profile::base::common::extraswap:        true
+profile::base::common::extraswap_sizegb: 10
+
 # This compute host uses local storage for instances
 # nova::compute::rbd::ephemeral_storage:            false
 # nova::config::nova_config:
