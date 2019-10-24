@@ -70,8 +70,10 @@ common_config()
 
   # Create and update subnet
   /bin/hammer subnet create --name mgmt \
-    --network       $mgmt_network \
-    --mask          $mgmt_netmask || true
+    --network         $mgmt_network \
+    --organization-id $foreman_organization_id \
+    --location-id     $foreman_location_id \
+    --mask            $mgmt_netmask || true
   /bin/hammer subnet update --name mgmt \
     --network         $mgmt_network \
     --mask            $mgmt_netmask \
