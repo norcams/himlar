@@ -110,7 +110,7 @@ mod 'himlar_bootstrap', :ref => '1.0.8',            :git => github + 'norcams/pu
 mod 'rsyslog', :ref => 'v3.3.0',                    :git => github + 'voxpupuli/puppet-rsyslog'
 mod 'logstash', :ref => '6.1.5',                    :git => github + 'elastic/puppet-logstash'
 mod 'datacat', :ref => '0.6.2',                     :git => github + 'richardc/puppet-datacat'
-mod 'elasticsearch', :ref => 'dbd06d6',             :git => github + 'elastic/puppet-elasticsearch'
+mod 'elasticsearch', :ref => '6.4.0',               :git => github + 'elastic/puppet-elasticsearch'
 mod 'file_concat', :ref => '1.0.1',                 :git => github + 'electrical/puppet-lib-file_concat'
 mod 'logrotate', :ref => 'v3.2.1',                  :git => github + 'voxpupuli/puppet-logrotate'
 
