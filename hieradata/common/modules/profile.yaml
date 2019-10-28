@@ -211,20 +211,6 @@ profile::base::yumrepo::repo_hash:
     gpgcheck:       1
     gpgkey:         "%{hiera('yum_base_mirror')}/elasticsearch6/GPG-KEY-elasticsearch"
     exclude:        'kibana-oss logstash-oss'
-  logstash:
-    ensure:         absent
-    descr:          'Logstash Centos Repo'
-    baseurl:        "%{hiera('yum_base_mirror')}/logstash/"
-    enabled:        1
-    gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/logstash/GPG-KEY-elasticsearch"
-  elasticsearch:
-    ensure:         absent
-    descr:          'Elasticsearch Centos Repo'
-    baseurl:        "%{hiera('yum_base_mirror')}/elasticsearch/"
-    enabled:        1
-    gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/elasticsearch/GPG-KEY-elasticsearch"
   curator5:
     ensure:         absent
     descr:          'Elasticsearch Curator 5.x Centos Repo'
