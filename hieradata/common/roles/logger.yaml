@@ -7,6 +7,16 @@ include:
     - profile::logging::kibana
     - profile::logging::logrotate
 
+# This is needed if we run selinux on logger
+profile::base::selinux::fcontext:
+  rsyslog_log:
+    seltype:  'var_log_t'
+    seluser:  'system_u'
+    pathspec: '/opt/log/(/.*)?'
+    notify:   Exec[selinux::exec_restorecon /opt/log]
+profile::base::selinux::exec_restorecon:
+  rsyslog_log:
+    path:         '/opt/log'
 
 named_interfaces::config:
   mgmt:
