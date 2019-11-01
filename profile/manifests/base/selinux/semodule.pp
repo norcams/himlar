@@ -19,7 +19,7 @@ define profile::base::selinux::semodule(
     $_title   = regsubst(downcase($title), '[\s-]','_','G')
     $avcfile  = "${workdir}/avc_${avc_file}.txt"
     $semodule = pick($semodule_name, "local_fix_${avc_file}")
- 
+
     file { $avcfile:
       ensure  => file,
       content => $avc_msg,
@@ -27,7 +27,7 @@ define profile::base::selinux::semodule(
       require => File[$workdir],
       notify  => Exec["build-policy-module-${semodule}"],
     }
- 
+
     exec { "build-policy-module-${semodule}":
       command     => "audit2allow -i ${avcfile} -M ${semodule}",
       cwd         => $workdir,
@@ -35,7 +35,7 @@ define profile::base::selinux::semodule(
       refreshonly => true,
       notify      => Exec["install-policy-module-${semodule}"],
     }
- 
+
     exec { "install-policy-module-${semodule}":
       command     => "semodule -i ${workdir}/${semodule}.pp",
       path        => '/usr/sbin',
