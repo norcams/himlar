@@ -59,5 +59,3 @@ profile::base::network::rules:
 profile::monitoring::sensu::agent::checks:
   'nova-ssh-key':
     ensure:       absent
-
-openstack_version:     'rocky'
