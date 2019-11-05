@@ -19,9 +19,9 @@ baseurl=$repo/epel
 EOM
   cat > /etc/yum.repos.d/puppetlabs.repo <<- EOM
 [puppetlabs]
-name=Puppet 4 Yum Repo
-baseurl=$repo/puppetlabs-PC1/
-gpgkey=$repo/puppetlabs-PC1/RPM-GPG-KEY-puppet
+name=Puppet 5 Yum Repo
+baseurl=$repo/puppetlabs5/
+gpgkey=$repo/puppetlabs5/RPM-GPG-KEY-puppet
 enabled=1
 gpgcheck=1
 EOM
