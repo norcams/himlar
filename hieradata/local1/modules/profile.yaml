@@ -15,7 +15,7 @@ yum_base_mirror:    'https://download.iaas.uio.no/uh-iaas/test'
 # Enable insecure ssl checks
 sensu_ssl_cachain:  '-k'
 
-profile::application::access::package_url:      'http://download.iaas.uio.no/uh-iaas/rpm/himlar-dp-prep-2.0-2.el7.x86_64.rpm'
+#profile::application::access::package_url:      'http://download.iaas.uio.no/uh-iaas/rpm/himlar-dp-prep-2.0-2.el7.x86_64.rpm'
 
 # Enable designate
 profile::openstack::identity::designate_enabled:      true
