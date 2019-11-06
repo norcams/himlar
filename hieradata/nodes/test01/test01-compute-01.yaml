@@ -13,7 +13,7 @@ network::interfaces_hash:
     bonding_opts:   'mode=balance-alb miimon=100'
     ipaddress:      "%{hiera('netcfg_mgmt_netpart')}.103"
     netmask:        "%{hiera('netcfg_mgmt_netmask')}"
-    mtu:            '1500'
+    mtu:            '9000'
     dns1:           "%{hiera('netcfg_dns_server1')}"
     dns2:           "%{hiera('netcfg_dns_server2')}"
     domain:         "%{hiera('netcfg_dns_search')}"
@@ -30,20 +30,7 @@ network::interfaces_hash:
     defroute:       'no'
 
 # This compute host uses local storage for instances
-nova::compute::rbd::ephemeral_storage:            false
-nova::config::nova_config:
-  libvirt/images_type:
-    value: default
-
-#profile::base::lvm::physical_volume:
-#  '/dev/sda3':
-#    ensure: present
-#    force:  true
-#  '/dev/sdb':
-#    ensure: present
-#    force:  true
-#profile::base::lvm::volume_group:
-#  'vg_ext':
-#    physical_volumes:
-#      - /dev/sda3
-#      - /dev/sdb
+#nova::compute::rbd::ephemeral_storage:            false
+#nova::config::nova_config:
+#  libvirt/images_type:
+#    value: default
