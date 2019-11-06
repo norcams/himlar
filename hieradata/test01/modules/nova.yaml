@@ -10,4 +10,4 @@ nova::compute::libvirt::libvirt_disk_cachemodes:
 
 # set lowest common denominator for live migration compat
 nova::compute::libvirt::libvirt_cpu_mode:  'custom'
-nova::compute::libvirt::libvirt_cpu_model: 'Westmere'
+nova::compute::libvirt::libvirt_cpu_model: 'SandyBridge-IBRS'
