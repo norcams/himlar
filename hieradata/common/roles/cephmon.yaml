@@ -3,8 +3,19 @@ include:
   default:
     - profile::storage::cephmon
     - profile::storage::cephmon_firewall
+    - profile::monitoring::collectd
   bootstrap:
     - profile::storage::cephmon_firewall
+
+# collectd
+profile::monitoring::collectd::enable: true
+collectd::plugin::ceph::daemons:
+  - "ceph-mon.%{::hostname}.asok"
+  - "ceph-mgr.%{::hostname}.asok"
+collectd::plugin::interface::interfaces:
+  - "%{::interface_trp1}"
+  - "%{::interface_mgmt1}"
+
 
 # ceph config keys
 ceph::profile::params::mon_key:     "%{hiera('ceph_storage_client_mon_key')}"
