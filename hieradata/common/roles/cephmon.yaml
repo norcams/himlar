@@ -15,7 +15,13 @@ collectd::plugin::ceph::daemons:
 collectd::plugin::interface::interfaces:
   - "%{::interface_trp1}"
   - "%{::interface_mgmt1}"
-
+profile::monitoring::collectd::plugins:
+  - collectd::plugin::cpu
+  - collectd::plugin::load
+  - collectd::plugin::memory
+  - collectd::plugin::ceph
+  - collectd::plugin::interface
+  - collectd::plugin::write_graphite
 
 # ceph config keys
 ceph::profile::params::mon_key:     "%{hiera('ceph_storage_client_mon_key')}"
