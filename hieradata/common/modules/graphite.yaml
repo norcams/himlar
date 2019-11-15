@@ -15,3 +15,7 @@ graphite::gr_enable_logrotation:              false
 graphite::gr_carbon_log_rotate:               false
 graphite::gr_log_listener_connections:        false
 graphite::gr_relay_log_listener_connections:  false
+
+# Used by collectd
+graphite::gr_enable_udp_listener:             true
+graphite::gr_udp_receiver_port:               2003

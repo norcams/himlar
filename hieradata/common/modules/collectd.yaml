@@ -1,0 +1,15 @@
+---
+collectd::manage_repo:        false
+collectd::manage_package:     true
+collectd::purge_config:       true
+collectd::fqdnlookup:         false
+collectd::collectd_hostname:  '%{::hostname}'
+
+# plugins
+collectd::plugin::write_graphite::carbons:
+  monitor: {}
+collectd::plugin::write_graphite::carbon_defaults:
+  graphitehost:   "%{hiera('mgmt__address__monitor')}"
+  graphiteport:   2003
+  graphiteprefix: 'collectd.'
+  protocol:       'udp'
