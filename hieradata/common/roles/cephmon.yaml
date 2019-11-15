@@ -10,8 +10,8 @@ include:
 # collectd
 profile::monitoring::collectd::enable: true
 collectd::plugin::ceph::daemons:
-  - "ceph-mon.%{::hostname}.asok"
-  - "ceph-mgr.%{::hostname}.asok"
+  - "ceph-mon.%{::hostname}"
+  - "ceph-mgr.%{::hostname}"
 collectd::plugin::interface::interfaces:
   - "%{::interface_trp1}"
   - "%{::interface_mgmt1}"
