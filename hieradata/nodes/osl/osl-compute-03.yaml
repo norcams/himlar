@@ -38,6 +38,10 @@ network::interfaces_hash:
     vlan:          'yes'
     defroute:      'no'
 
+# Create and enable more swap
+profile::base::common::extraswap:        true
+profile::base::common::extraswap_sizegb: 10
+
 # This compute host uses local storage for instances
 # nova::compute::rbd::ephemeral_storage:            false
 # nova::config::nova_config:
