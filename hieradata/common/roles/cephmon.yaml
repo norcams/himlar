@@ -72,6 +72,8 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   ceph-%{hiera('ceph_version')}-noarch:
     ensure: present
+  collectd-5.8:
+    ensure: present
 
 # enable Ceph dashboard
 profile::storage::cephmon::manage_dashboard:                    true

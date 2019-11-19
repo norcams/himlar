@@ -264,6 +264,13 @@ profile::base::yumrepo::repo_hash:
     gpgkey:         "%{hiera('yum_base_mirror')}/grafana/RPM-GPG-KEY-grafana"
     enabled:        1
     gpgcheck:       1
+  collectd-5.8:
+    ensure:         absent
+    descr:          'Collectd repo'
+    baseurl:        "%{hiera('yum_base_mirror')}/collectd-5.8"
+    gpgkey:         "%{hiera('yum_base_mirror')}/collectd-5.8/pubkey.asc"
+    enabled:        1
+    gpgcheck:       1
   collectd:
     ensure:         absent
     descr:          'Collectd repo'
