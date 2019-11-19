@@ -264,20 +264,6 @@ profile::base::yumrepo::repo_hash:
     gpgkey:         "%{hiera('yum_base_mirror')}/grafana/RPM-GPG-KEY-grafana"
     enabled:        1
     gpgcheck:       1
-  collectd-5.8:
-    ensure:         absent
-    descr:          'Collectd repo'
-    baseurl:        "%{hiera('yum_base_mirror')}/collectd-5.8"
-    gpgkey:         "%{hiera('yum_base_mirror')}/collectd-5.8/pubkey.asc"
-    enabled:        1
-    gpgcheck:       1
-  collectd:
-    ensure:         absent
-    descr:          'Collectd repo'
-    baseurl:        "https://pkg.ci.collectd.org/rpm/collectd-5.8/epel-7-x86_64/"
-    gpgkey:         "https://pkg.ci.collectd.org/pubkey.asc"
-    enabled:        1
-    gpgcheck:       1
 
 profile::base::dell::repo_hash:
   dell-system-update_dependent:
