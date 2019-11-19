@@ -1221,27 +1221,27 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_bytes-Cluster_numMon, 'Count')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_bytes-Cluster_numMon, 'Count')"
             },
             {
               "refId": "B",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_bytes-Cluster_numMonQuorum, 'Quorum')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_bytes-Cluster_numMonQuorum, 'Quorum')"
             },
             {
               "refId": "C",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_rate-Mon_numElections, 'Elections')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_rate-Mon_numElections, 'Elections')"
             },
             {
               "refId": "D",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_rate-Mon_electionCall, 'Call')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_rate-Mon_electionCall, 'Call')"
             },
             {
               "refId": "E",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_rate-Mon_electionLose, 'Lose')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_rate-Mon_electionLose, 'Lose')"
             },
             {
               "refId": "F",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_rate-Mon_electionWin, 'Win')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_rate-Mon_electionWin, 'Win')"
             }
           ],
           "title": "Mon Count/Quorum/Elections",
@@ -1278,19 +1278,19 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_bytes-Mon_numSessions, 'Open')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_bytes-Mon_numSessions, 'Open')"
             },
             {
               "refId": "B",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_rate-Mon_sessionAdd, 'Add')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_rate-Mon_sessionAdd, 'Add')"
             },
             {
               "refId": "C",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_rate-Mon_sessionRm, 'RM')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_rate-Mon_sessionRm, 'RM')"
             },
             {
               "refId": "D",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_rate-Mon_sessionTrim, 'Trim')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_rate-Mon_sessionTrim, 'Trim')"
             }
           ],
           "title": "Mon Sessions",
@@ -1327,19 +1327,19 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_bytes-Cluster_numOsd, 'Total OSDs')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_bytes-Cluster_numOsd, 'Total OSDs')"
             },
             {
               "refId": "B",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_bytes-Cluster_numOsdUp, 'OSDs Up')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_bytes-Cluster_numOsdUp, 'OSDs Up')"
             },
             {
               "refId": "C",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_bytes-Cluster_numOsdIn, 'OSDs In')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_bytes-Cluster_numOsdIn, 'OSDs In')"
             },
             {
               "refId": "D",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_bytes-Cluster_osdEpoch, 'Epoch')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_bytes-Cluster_osdEpoch, 'Epoch')"
             }
           ],
           "title": "OSDs",
@@ -1376,19 +1376,19 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_bytes-Cluster_numMdsUp, 'Up')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_bytes-Cluster_numMdsUp, 'Up')"
             },
             {
               "refId": "B",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_bytes-Cluster_numMdsIn, 'In')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_bytes-Cluster_numMdsIn, 'In')"
             },
             {
               "refId": "C",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_bytes-Cluster_numMdsFailed, 'Failed')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_bytes-Cluster_numMdsFailed, 'Failed')"
             },
             {
               "refId": "D",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_bytes-Cluster_mdsEpoch, 'Epoch')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_bytes-Cluster_mdsEpoch, 'Epoch')"
             }
           ],
           "title": "MDS",
@@ -1425,19 +1425,19 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_bytes-Cluster_numObject, 'Total Objects')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_bytes-Cluster_numObject, 'Total Objects')"
             },
             {
               "refId": "B",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_bytes-Cluster_numObjectDegraded, 'Degraded Objects')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_bytes-Cluster_numObjectDegraded, 'Degraded Objects')"
             },
             {
               "refId": "C",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_bytes-Cluster_numObjectMisplaced, 'Misplaced Objects')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_bytes-Cluster_numObjectMisplaced, 'Misplaced Objects')"
             },
             {
               "refId": "D",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_bytes-Cluster_numObjectUnfound, 'Unfound Objects')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_bytes-Cluster_numObjectUnfound, 'Unfound Objects')"
             }
           ],
           "title": "Objects",
@@ -1474,19 +1474,19 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_bytes-Cluster_numPg, 'Total PGs')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_bytes-Cluster_numPg, 'Total PGs')"
             },
             {
               "refId": "B",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_bytes-Cluster_numPgActive, 'PGs Active')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_bytes-Cluster_numPgActive, 'PGs Active')"
             },
             {
               "refId": "C",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_bytes-Cluster_numPgActiveClean, 'PGs Active-Clean')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_bytes-Cluster_numPgActiveClean, 'PGs Active-Clean')"
             },
             {
               "refId": "D",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_bytes-Cluster_numPgPeering, 'PGs Peering')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_bytes-Cluster_numPgPeering, 'PGs Peering')"
             }
           ],
           "title": "Placement Groups",
@@ -1523,7 +1523,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_bytes-Cluster_numPool, 'Pools')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_bytes-Cluster_numPool, 'Pools')"
             }
           ],
           "title": "Pools",
@@ -1570,15 +1570,15 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_bytes-Cluster_osdBytes, 'Total Bytes')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_bytes-Cluster_osdBytes, 'Total Bytes')"
             },
             {
               "refId": "B",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_bytes-Cluster_osdBytesUsed, 'Bytes Used')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_bytes-Cluster_osdBytesUsed, 'Bytes Used')"
             },
             {
               "refId": "C",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_bytes-Cluster_osdBytesAvail, 'Bytes Available')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_bytes-Cluster_osdBytesAvail, 'Bytes Available')"
             }
           ],
           "title": "OSD Bytes",
@@ -1629,7 +1629,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_bytes-Cluster_numBytes, 'Size of all objects')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_bytes-Cluster_numBytes, 'Size of all objects')"
             }
           ],
           "title": "Size of All Objects",
@@ -1687,11 +1687,11 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_bytes-Leveldb_leveldbCompactQueueLen, 'Compact Queue Length')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_bytes-Leveldb_leveldbCompactQueueLen, 'Compact Queue Length')"
             },
             {
               "refId": "B",
-              "target": "aliasByNode(aliasSub($Cloud.$Node.ceph_ceph-mon_*.ceph_rate-Leveldb_*, 'ceph_rate-Leveldb_leveldb', ''), 3)"
+              "target": "aliasByNode(aliasSub($Cloud.$Node.ceph-ceph-mon_*.ceph_rate-Leveldb_*, 'ceph_rate-Leveldb_leveldb', ''), 3)"
             }
           ],
           "title": "LevelDB Queue/Operations",
@@ -1742,7 +1742,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(aliasSub($Cloud.$Node.ceph_ceph-mon_*.ceph_latency-Leveldb_*, 'ceph_latency-Leveldb_leveldb', ''), 3)"
+              "target": "aliasByNode(aliasSub($Cloud.$Node.ceph-ceph-mon_*.ceph_latency-Leveldb_*, 'ceph_latency-Leveldb_leveldb', ''), 3)"
             }
           ],
           "title": "LevelDB Latency",
@@ -1804,11 +1804,11 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_latency-FinisherMonstore_completeLatency, 'Complete Latency')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_latency-FinisherMonstore_completeLatency, 'Complete Latency')"
             },
             {
               "refId": "B",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_bytes-FinisherMonstore_queueLen, 'Queue Length')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_bytes-FinisherMonstore_queueLen, 'Queue Length')"
             }
           ],
           "title": "Finisher Monstore",
@@ -1859,7 +1859,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(aliasSub($Cloud.$Node.ceph_ceph-mon_*.ceph_rate-Paxos_*, 'ceph_rate-Paxos_', ''), 3)"
+              "target": "aliasByNode(aliasSub($Cloud.$Node.ceph-ceph-mon_*.ceph_rate-Paxos_*, 'ceph_rate-Paxos_', ''), 3)"
             }
           ],
           "title": "Paxos Rate",
@@ -1896,7 +1896,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(aliasSub($Cloud.$Node.ceph_ceph-mon_*.ceph_latency-Paxos_*, 'ceph_latency-Paxos_', ''), 3)"
+              "target": "aliasByNode(aliasSub($Cloud.$Node.ceph-ceph-mon_*.ceph_latency-Paxos_*, 'ceph_latency-Paxos_', ''), 3)"
             }
           ],
           "title": "Paxos Latency",
@@ -1957,15 +1957,15 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_bytes-ThrottleMonClientBytes_max, 'Bytes Max')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_bytes-ThrottleMonClientBytes_max, 'Bytes Max')"
             },
             {
               "refId": "B",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_bytes-ThrottleMonClientBytes_val, 'Bytes Current')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_bytes-ThrottleMonClientBytes_val, 'Bytes Current')"
             },
             {
               "refId": "C",
-              "target": "aliasByNode(aliasSub($Cloud.$Node.ceph_ceph-mon_*.ceph_rate-ThrottleMonClientBytes_*, 'ceph_rate-ThrottleMonClientBytes_', ''), 3)"
+              "target": "aliasByNode(aliasSub($Cloud.$Node.ceph-ceph-mon_*.ceph_rate-ThrottleMonClientBytes_*, 'ceph_rate-ThrottleMonClientBytes_', ''), 3)"
             }
           ],
           "title": "Throttle Mon Client",
@@ -2026,15 +2026,15 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_bytes-ThrottleMonDaemonBytes_max, 'Bytes Max')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_bytes-ThrottleMonDaemonBytes_max, 'Bytes Max')"
             },
             {
               "refId": "B",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_bytes-ThrottleMonDaemonBytes_val, 'Bytes Current')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_bytes-ThrottleMonDaemonBytes_val, 'Bytes Current')"
             },
             {
               "refId": "C",
-              "target": "aliasByNode(aliasSub($Cloud.$Node.ceph_ceph-mon_*.ceph_rate-ThrottleMonDaemonBytes_*, 'ceph_rate-ThrottleMonDaemonBytes_', ''), 3)"
+              "target": "aliasByNode(aliasSub($Cloud.$Node.ceph-ceph-mon_*.ceph_rate-ThrottleMonDaemonBytes_*, 'ceph_rate-ThrottleMonDaemonBytes_', ''), 3)"
             }
           ],
           "title": "Throttle Mon Daemon",
@@ -2095,15 +2095,15 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_bytes-ThrottleMsgrDispatchThrottlerMon_max, 'Bytes Max')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_bytes-ThrottleMsgrDispatchThrottlerMon_max, 'Bytes Max')"
             },
             {
               "refId": "B",
-              "target": "alias($Cloud.$Node.ceph_ceph-mon_*.ceph_bytes-ThrottleMsgrDispatchThrottlerMon_val, 'Bytes Current')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_bytes-ThrottleMsgrDispatchThrottlerMon_val, 'Bytes Current')"
             },
             {
               "refId": "C",
-              "target": "aliasByNode(aliasSub($Cloud.$Node.ceph_ceph-mon_*.ceph_rate-ThrottleMsgrDispatchThrottlerMon_*, 'ceph_rate-ThrottleMsgrDispatchThrottlerMon_', ''), 3)"
+              "target": "aliasByNode(aliasSub($Cloud.$Node.ceph-ceph-mon_*.ceph_rate-ThrottleMsgrDispatchThrottlerMon_*, 'ceph_rate-ThrottleMsgrDispatchThrottlerMon_', ''), 3)"
             }
           ],
           "title": "Throttle Msgr Dispatch Throttler Mon",
