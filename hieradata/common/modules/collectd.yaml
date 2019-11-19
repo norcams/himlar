@@ -8,7 +8,6 @@ collectd::collectd_hostname:  '%{::hostname}'
 # plugins
 collectd::plugin::write_graphite::carbons:
   monitor: {}
-collectd::plugin::python::globals: true
 collectd::plugin::write_graphite::carbon_defaults:
   graphitehost:   "%{hiera('mgmt__address__monitor')}"
   graphiteport:   2003

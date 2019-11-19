@@ -124,7 +124,7 @@ mod 'redis', :ref => 'v3.2.0',                      :git => github + 'arioch/pup
 mod 'grafana', :ref => 'v4.5.0',                    :git => github + 'voxpupuli/puppet-grafana'
 mod 'statsd', :ref => '3.1.0',                      :git => github + 'justindowning/puppet-statsd'
 mod 'netdata', :ref => '1f8bcef',                   :git => github + 'norcams/denver-netdata'
-mod 'collectd', :ref => 'v11.0.0',                  :git => github + 'voxpupuli/puppet-collectd'
+mod 'collectd', :ref => 'v10.0.0',                  :git => github + 'voxpupuli/puppet-collectd'
 
 #
 # profile::webserver::apache
