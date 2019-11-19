@@ -12,7 +12,7 @@ profile::monitoring::collectd::enable: true
 collectd::plugin::ceph::daemons:
   - "ceph-mon.%{::hostname}"
   - "ceph-mgr.%{::hostname}"
-collectd::plugin::processes:
+collectd::plugin::processes::processes:
   - "ceph-mon"
   - "ceph-mgr"
 collectd::plugin::interface::interfaces:
