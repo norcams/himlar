@@ -14,15 +14,33 @@ collectd::plugin::ceph::daemons:
   - "ceph-mgr.%{::hostname}"
 collectd::plugin::processes::processes:
   - "ceph-mon"
-  - "ceph-mgr"
+#  - "ceph-mgr"
 collectd::plugin::interface::interfaces:
   - "%{::interface_trp1}"
   - "%{::interface_mgmt1}"
+collectd::plugin::python::logtrace: true
+collectd::plugin::python::interactive: false
+collectd::plugin::python::modules:
+    collectd_ceph_storage:
+      config:
+        - CephCluster: "ceph"
+          CephRadosBench: "False"
+          CephRadosBenchInterval: 60
+          CephMONStats: "True"
+          CephMONStatsInterval: 10
+          CephOSDStats: "True"
+          CephOSDStatsInterval: 10
+          CephPGStats: "True"
+          CephPGStatsInterval: 10
+          CephPoolStats: "True"
+          CephPoolStatsInterval: 10
+
 profile::monitoring::collectd::plugins:
   - collectd::plugin::cpu
   - collectd::plugin::load
   - collectd::plugin::memory
   - collectd::plugin::ceph
+  - collectd::plugin::python
   - collectd::plugin::interface
   - collectd::plugin::processes
   - collectd::plugin::write_graphite
@@ -71,8 +89,6 @@ profile::base::yumrepo::repo_hash:
   ceph-%{hiera('ceph_version')}:
     ensure: present
   ceph-%{hiera('ceph_version')}-noarch:
-    ensure: present
-  collectd-5.8:
     ensure: present
 
 # enable Ceph dashboard
