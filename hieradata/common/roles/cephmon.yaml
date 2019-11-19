@@ -3,8 +3,47 @@ include:
   default:
     - profile::storage::cephmon
     - profile::storage::cephmon_firewall
+    - profile::monitoring::collectd
   bootstrap:
     - profile::storage::cephmon_firewall
+
+# collectd
+profile::monitoring::collectd::enable: true
+collectd::plugin::ceph::daemons:
+  - "ceph-mon.%{::hostname}"
+  - "ceph-mgr.%{::hostname}"
+collectd::plugin::processes::processes:
+  - "ceph-mon"
+#  - "ceph-mgr"
+collectd::plugin::interface::interfaces:
+  - "%{::interface_trp1}"
+  - "%{::interface_mgmt1}"
+collectd::plugin::python::logtrace: true
+collectd::plugin::python::interactive: false
+collectd::plugin::python::modules:
+    collectd_ceph_storage:
+      config:
+        - CephCluster: "ceph"
+          CephRadosBench: "False"
+          CephRadosBenchInterval: 60
+          CephMONStats: "True"
+          CephMONStatsInterval: 10
+          CephOSDStats: "True"
+          CephOSDStatsInterval: 10
+          CephPGStats: "False" # needs fixing
+          CephPGStatsInterval: 10
+          CephPoolStats: "True"
+          CephPoolStatsInterval: 10
+
+profile::monitoring::collectd::plugins:
+  - collectd::plugin::cpu
+  - collectd::plugin::load
+  - collectd::plugin::memory
+  - collectd::plugin::ceph
+  - collectd::plugin::python
+  - collectd::plugin::interface
+  - collectd::plugin::processes
+  - collectd::plugin::write_graphite
 
 # ceph config keys
 ceph::profile::params::mon_key:     "%{hiera('ceph_storage_client_mon_key')}"
