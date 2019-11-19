@@ -1687,14 +1687,14 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_bytes-Leveldb_leveldbCompactQueueLen, 'Compact Queue Length')"
+              "target": "alias($Cloud.$Node.ceph-ceph-mon_*.ceph_bytes-Rocksdb_compactQueueLen, 'Compact Queue Length')"
             },
             {
               "refId": "B",
-              "target": "aliasByNode(aliasSub($Cloud.$Node.ceph-ceph-mon_*.ceph_rate-Leveldb_*, 'ceph_rate-Leveldb_leveldb', ''), 3)"
+              "target": "aliasByNode(aliasSub($Cloud.$Node.ceph-ceph-mon_*.ceph_rate-Rocksdb_*, 'ceph_rate-Rocksdb', ''), 3)"
             }
           ],
-          "title": "LevelDB Queue/Operations",
+          "title": "Rocksdb Queue/Operations",
           "type": "graph",
           "x-axis": true,
           "y-axis": true,
@@ -1742,10 +1742,10 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(aliasSub($Cloud.$Node.ceph-ceph-mon_*.ceph_latency-Leveldb_*, 'ceph_latency-Leveldb_leveldb', ''), 3)"
+              "target": "aliasByNode(aliasSub($Cloud.$Node.ceph-ceph-mon_*.ceph_latency-Rocksdb_*, 'ceph_latency-Rocksdb', ''), 3)"
             }
           ],
-          "title": "LevelDB Latency",
+          "title": "Rocksdb Latency",
           "type": "graph",
           "x-axis": true,
           "y-axis": true,
