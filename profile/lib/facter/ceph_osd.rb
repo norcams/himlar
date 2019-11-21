@@ -1,7 +1,7 @@
 require 'json'
 
 Facter.add('ceph_osds') do
-  confine hostname: /storage|object/
+  confine hostname: /storage|object-ceph/
 
   output = Facter::Core::Execution.execute('ceph osd tree -f json',
                                            timeout: 30)
