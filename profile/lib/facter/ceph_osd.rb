@@ -10,7 +10,7 @@ Facter.add('ceph_osds') do
   parsed_output.each do |node|
     next unless node['name'] == Facter.value(:hostname)
     node['children'].each do |osd|
-      osds << osd
+      osds << "ceph-osd.#{osd}"
     end
   end
   setcode do
