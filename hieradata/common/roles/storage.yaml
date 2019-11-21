@@ -15,7 +15,15 @@ include:
 
 # collectd
 profile::monitoring::collectd::enable: true
-collectd::plugin::ceph::daemons: '%{::ceph_osds}'
+collectd::plugin::ceph::daemons: "%{facts.ceph_osds}"
+
+# This used to make sure collectd::plugin::ceph::daemons is not String but Array
+lookup_options:
+  collectd::plugin::ceph::daemons:
+    convert_to:
+      - Array
+      - true
+
 collectd::plugin::processes::processes:
   - "ceph-osd"
 collectd::plugin::interface::interfaces:
