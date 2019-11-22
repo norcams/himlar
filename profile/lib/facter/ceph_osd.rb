@@ -6,7 +6,7 @@ def parse_output(output)
   parsed_output.each do |node|
     next unless node['name'] == Facter.value(:hostname)
     node['children'].each do |osd|
-      osds << "ceph-osd.#{osd}"
+      osd_array << "ceph-osd.#{osd}"
     end
   end
   osd_array
