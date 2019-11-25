@@ -27,13 +27,13 @@ collectd::plugin::python::modules:
           CephRadosBench: "False"
           CephRadosBenchInterval: 60
           CephMONStats: "True"
-          CephMONStatsInterval: 10
+          CephMONStatsInterval: 30
           CephOSDStats: "True"
-          CephOSDStatsInterval: 10
+          CephOSDStatsInterval: 30
           CephPGStats: "False" # needs fixing
-          CephPGStatsInterval: 10
+          CephPGStatsInterval: 30
           CephPoolStats: "True"
-          CephPoolStatsInterval: 10
+          CephPoolStatsInterval: 30
 
 profile::monitoring::collectd::plugins:
   - collectd::plugin::cpu
@@ -59,6 +59,7 @@ profile::base::common::packages:
   'bash-completion-extras': {}
   'jq': {}
   'ceph-mgr-dashboard': {}
+  'python-collectd-ceph-storage': {}
 
 accounts::users:
   'cinder':
