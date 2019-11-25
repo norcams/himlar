@@ -7,6 +7,8 @@ named_interfaces::config:
   ceph:
     - bond0
 
+profile::base::selinux::manage_selinux: false
+
 profile::base::common::manage_fake_ssd: true
 
 profile::storage::cephpool::manage_ec_pools:        true
