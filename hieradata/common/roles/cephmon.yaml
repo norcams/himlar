@@ -11,7 +11,7 @@ include:
 profile::monitoring::collectd::enable: true
 collectd::plugin::ceph::daemons:
   - "ceph-mon.%{::hostname}"
-  - "ceph-mgr.%{::hostname}"
+#  - "ceph-mgr.%{::hostname}"
 collectd::plugin::processes::processes:
   - "ceph-mon"
 #  - "ceph-mgr"

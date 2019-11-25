@@ -15,3 +15,5 @@ network::interfaces_hash:
     netmask:   "%{hiera('netcfg_trp_netmask')}"
     defroute:  'no'
     mtu:       '1500'
+
+profile::monitoring::collectd::enable: false
