@@ -1,9 +1,10 @@
 ---
-collectd::manage_repo:        false
-collectd::manage_package:     true
-collectd::purge_config:       true
-collectd::fqdnlookup:         false
-collectd::collectd_hostname:  '%{::hostname}'
+collectd::manage_repo:            false
+collectd::manage_package:         true
+collectd::purge_config:           true
+collectd::fqdnlookup:             false
+collectd::plugin_conf_dir_mode:   '0755'
+collectd::collectd_hostname:      '%{::hostname}'
 
 # plugins
 collectd::plugin::write_graphite::carbons:
