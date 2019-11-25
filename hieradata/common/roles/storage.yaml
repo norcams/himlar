@@ -7,6 +7,7 @@ include:
     - profile::storage::cephosd_firewall
     - profile::base::lvm
     - profile::monitoring::collectd
+    - profile::monitoring::collectd::ceph
   kickstart:
     - profile::base::lvm
   bootstrap:
@@ -15,14 +16,7 @@ include:
 
 # collectd
 profile::monitoring::collectd::enable: true
-collectd::plugin::ceph::daemons: "%{facts.ceph_osds}"
-
-# This used to make sure collectd::plugin::ceph::daemons is not String but Array
-lookup_options:
-  collectd::plugin::ceph::daemons:
-    convert_to:
-      - Array
-      - true
+profile::monitoring::collectd::ceph::enable: true
 
 collectd::plugin::processes::processes:
   - "ceph-osd"
@@ -33,7 +27,6 @@ profile::monitoring::collectd::plugins:
   - collectd::plugin::cpu
   - collectd::plugin::load
   - collectd::plugin::memory
-  - collectd::plugin::ceph
   - collectd::plugin::interface
   - collectd::plugin::processes
   - collectd::plugin::write_graphite
