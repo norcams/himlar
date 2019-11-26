@@ -27,13 +27,13 @@ collectd::plugin::python::modules:
           CephRadosBench: "False"
           CephRadosBenchInterval: 60
           CephMONStats: "True"
-          CephMONStatsInterval: 30
+          CephMONStatsInterval: 10
           CephOSDStats: "True"
-          CephOSDStatsInterval: 30
+          CephOSDStatsInterval: 10
           CephPGStats: "True"
-          CephPGStatsInterval: 30
+          CephPGStatsInterval: 10
           CephPoolStats: "True"
-          CephPoolStatsInterval: 30
+          CephPoolStatsInterval: 10
 
 profile::monitoring::collectd::plugins:
   - collectd::plugin::cpu

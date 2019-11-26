@@ -46,17 +46,17 @@
   "links": [],
   "rows": [
     {
-      "collapse": false,
+      "collapse": true,
       "height": "50px",
       "panels": [
         {
-          "content": "**This dashboard is provided by Browbeat and managed via Grafyaml**",
+          "content": "Select collectd as **cloud** and one of the cephmon nodes as **node**",
           "editable": true,
           "error": false,
           "id": 1,
           "mode": "markdown",
           "span": 12,
-          "title": "Browbeat provided Dashboard",
+          "title": "Dashboard help",
           "type": "text"
         }
       ],
@@ -517,7 +517,7 @@
       "repeatIteration": null,
       "repeatRowId": null,
       "showTitle": true,
-      "title": "Ceph Process Metrics",
+      "title": "Ceph Process Metrics (all)",
       "titleSize": "h6"
     },
     {
@@ -734,7 +734,7 @@
               "target": "alias($Cloud.$Node.collectd-ceph-storage-cluster.gauge-stddev_latency, 'stddev')"
             }
           ],
-          "title": "Cluster Latency",
+          "title": "Cluster Latency (disabled, require rados bench)",
           "type": "graph",
           "x-axis": true,
           "y-axis": true,
@@ -1185,7 +1185,7 @@
       "repeatIteration": null,
       "repeatRowId": null,
       "showTitle": true,
-      "title": "Ceph Storage Python Plugins",
+      "title": "Ceph Storage Python Plugins (cephmon)",
       "titleSize": "h6"
     },
     {
@@ -2130,7 +2130,7 @@
       "repeatIteration": null,
       "repeatRowId": null,
       "showTitle": true,
-      "title": "Ceph Mon",
+      "title": "Ceph Mon (cephmon)",
       "titleSize": "h6"
     }
   ],
