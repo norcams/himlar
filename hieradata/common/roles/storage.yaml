@@ -23,27 +23,13 @@ collectd::plugin::processes::processes:
 collectd::plugin::interface::interfaces:
   - "%{::interface_trp1}"
   - "%{::interface_mgmt1}"
-collectd::plugin::python::modules:
-    collectd_ceph_storage:
-      config:
-        - CephCluster: "ceph"
-          CephRadosBench: "False"
-          CephRadosBenchInterval: 60
-          CephMONStats: "True"
-          CephMONStatsInterval: 30
-          CephOSDStats: "True"
-          CephOSDStatsInterval: 30
-          CephPGStats: "True"
-          CephPGStatsInterval: 30
-          CephPoolStats: "True"
-          CephPoolStatsInterval: 30
+
 profile::monitoring::collectd::plugins:
   - collectd::plugin::cpu
   - collectd::plugin::load
   - collectd::plugin::memory
   - collectd::plugin::interface
   - collectd::plugin::processes
-  - collectd::plugin::python
   - collectd::plugin::write_graphite
 
 ceph::profile::params::fsid: "%{hiera('ceph_storage_client_fsid')}"
@@ -57,7 +43,6 @@ profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}
   'jq': {}
-  'python-collectd-ceph-storage': {}
 
 accounts::users:
   'cinder':
