@@ -6,11 +6,31 @@ include:
     - profile::storage::cephfs
     - profile::storage::cephosd_firewall
     - profile::base::lvm
+    - profile::monitoring::collectd
+    - profile::monitoring::collectd::ceph
   kickstart:
     - profile::base::lvm
   bootstrap:
     - profile::base::lvm
     - profile::storage::cephosd_firewall
+
+# collectd
+profile::monitoring::collectd::enable: true
+profile::monitoring::collectd::ceph::enable: true
+
+collectd::plugin::processes::processes:
+  - "ceph-osd"
+collectd::plugin::interface::interfaces:
+  - "%{::interface_trp1}"
+  - "%{::interface_mgmt1}"
+
+profile::monitoring::collectd::plugins:
+  - collectd::plugin::cpu
+  - collectd::plugin::load
+  - collectd::plugin::memory
+  - collectd::plugin::interface
+  - collectd::plugin::processes
+  - collectd::plugin::write_graphite
 
 ceph::profile::params::fsid: "%{hiera('ceph_storage_client_fsid')}"
 
