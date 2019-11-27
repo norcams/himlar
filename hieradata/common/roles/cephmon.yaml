@@ -34,9 +34,10 @@ collectd::plugin::python::modules:
           CephPGStatsInterval: 10
           CephPoolStats: "True"
           CephPoolStatsInterval: 10
-
 profile::monitoring::collectd::plugins:
+  - collectd::plugin::aggregation
   - collectd::plugin::cpu
+  - collectd::plugin::disk
   - collectd::plugin::load
   - collectd::plugin::memory
   - collectd::plugin::ceph
