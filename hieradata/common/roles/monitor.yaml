@@ -9,6 +9,21 @@ include:
     - profile::openstack::openrc
     - profile::messaging::rabbitmq
     - profile::logging::rsyslog::client
+    - profile::monitoring::collectd
+
+# collectd
+profile::monitoring::collectd::enable: true
+collectd::plugin::interface::interfaces:
+  - "%{::interface_trp1}"
+  - "%{::interface_mgmt1}"
+profile::monitoring::collectd::plugins:
+  - collectd::plugin::aggregation
+  - collectd::plugin::cpu
+  - collectd::plugin::disk
+  - collectd::plugin::load
+  - collectd::plugin::memory
+  - collectd::plugin::interface
+  - collectd::plugin::write_graphite
 
 profile::messaging::rabbitmq::manage_rsyslog: true
 
