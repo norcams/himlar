@@ -131,6 +131,9 @@ profile::dns::ns::fw_slave_zones:
   frontend:
     zone: "uh-iaas.no"
     filename: "sz/uh-iaas.no"
+  frontend_new:
+    zone: "nrec.no"
+    filename: "sz/nrec.no"
 
 # Secondary reverse zones, for which this ns is slave
 profile::dns::ns::ptr_slave_zones:
