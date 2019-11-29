@@ -56,6 +56,10 @@ profile::dns::ns::fw_zones:
       'bgo':
         - 'ns1.uh-iaas.no'
         - 'ns2.uh-iaas.no'
+  frontend_new:
+    zone: "%{hiera('profile::dns::ns::frontend_zone_new')}"
+    filename: "pz/%{hiera('profile::dns::ns::frontend_zone_new')}"
+
 
 # Reverse zones, for which the name server is authoritative
 profile::dns::ns::ptr_zones:
