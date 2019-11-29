@@ -117,8 +117,8 @@ profile::dns::ns::ptr_zones:
     filename: "pz/77.39.158.in-addr.arpa"
   ipv6:
     cidr: "2001:700:2:83ff::/64"
-    origin: "f.f.3.8.0.0.7.0.2.0.0.0.1.0.0.2.ip6.arpa"
-    filename: "pz/f.f.3.8.0.0.7.0.2.0.0.0.1.0.0.2.ip6.arpa"
+    origin: "f.f.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa"
+    filename: "pz/f.f.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa"
 
 # Secondary forward zones, for which this ns is slave
 profile::dns::ns::fw_slave_zones:
@@ -215,5 +215,5 @@ profile::dns::ns::ptr_slave_zones:
     filename: "pz/48.39.158.in-addr.arpa"
   osl_ipv6:
     cidr: "2001:700:2:82ff::/64"
-    origin: "f.f.2.8.0.0.7.0.2.0.0.0.1.0.0.2.ip6.arpa"
-    filename: "sz/f.f.2.8.0.0.7.0.2.0.0.0.1.0.0.2.ip6.arpa"
+    origin: "f.f.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa"
+    filename: "sz/f.f.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa"
