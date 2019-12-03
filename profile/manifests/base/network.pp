@@ -7,6 +7,7 @@ class profile::base::network(
   $proxy_arp_ifs    = {},
   $manage_httpproxy = false,
   $http_proxy       = undef,
+  $https_proxy      = undef,
   $remove_route     = false,
   $remove_route_ifs = undef,
   $l3_router        = false,
@@ -315,7 +316,7 @@ class profile::base::network(
     shellvar { "https_proxy":
       ensure  => exported,
       target  => $target,
-      value   => $http_proxy,
+      value   => $https_proxy,
     }
   }
 
