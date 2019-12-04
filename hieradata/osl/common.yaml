@@ -131,8 +131,9 @@ profile::network::services::dns_records:
     "%{::location}-compute-hpc-26.%{hiera('domain_mgmt')}": "%{::location}-compute-26.%{hiera('domain_mgmt')}"
     "%{::location}-compute-hpc-27.%{hiera('domain_mgmt')}": "%{::location}-compute-27.%{hiera('domain_mgmt')}"
     "%{::location}-compute-hpc-28.%{hiera('domain_mgmt')}": "%{::location}-compute-28.%{hiera('domain_mgmt')}"
-    # VGPU
-    "%{::location}-compute-vgpu-42.%{hiera('domain_mgmt')}":  "%{::location}-compute-42.%{hiera('domain_mgmt')}"
+    # GPU
+    "%{::location}-compute-vgpu-42.%{hiera('domain_mgmt')}": "%{::location}-compute-42.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-gpu-17.%{hiera('domain_mgmt')}":  "%{::location}-compute-17.%{hiera('domain_mgmt')}"
     # Arccache storage tempo
     "%{::location}-storage-arccache-08.%{hiera('domain_mgmt')}":  "%{::location}-storage-08.%{hiera('domain_mgmt')}"
     "%{::location}-storage-arccache-09.%{hiera('domain_mgmt')}":  "%{::location}-storage-09.%{hiera('domain_mgmt')}"

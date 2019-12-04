@@ -8,8 +8,3 @@ profile::dns::rndc_key::create_mdns_key:     false
 profile::dns::rndc_key::host_is_bind_server: false
 
 profile::application::foreman_proxy::serve_oob_dhcp: true
-
-profile::network::services::dhcp_reservation:
-  test02-compute-242-bmc:
-    mac: 'ac:1f:6b:62:11:e4'
-    ip:  '172.28.160.242'
