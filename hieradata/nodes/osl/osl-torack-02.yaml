@@ -57,6 +57,7 @@ profile::base::network::cumulus_bridges:
       - host33
       - host34
       - host42
+      - host44
       - peerlink
       - downlink
     'alias_name': 'Transport L2 if'
@@ -242,6 +243,12 @@ profile::base::network::cumulus_bonds:
   'host42':
     'slaves': [ 'swp42', ]
     'clag_id': '42'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host44':
+    'slaves': [ 'swp44', ]
+    'clag_id': '44'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
