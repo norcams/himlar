@@ -26,6 +26,18 @@ profile::storage::cephosd::crush_parent_type: 'pod'
 profile::base::common::manage_lvm: false
 profile::base::lvm::create_lvm:    false
 
+profile::storage::cephclient::create_extraconf: true
+profile::storage::ceph_extraconf::config:
+  osd_memory_target:
+    'config_key'  : "osd/osd_memory_target"
+    'config_value': "5368709120"
+  osd_max_scrubs:
+    'config_key'  : "osd/osd_max_scrubs"
+    'config_value': "2"
+  osd_deep_scrub_interval:
+    'config_key'  : "osd/osd_deep_scrub_interval"
+    'config_value': "2419200.000000"
+
 profile::storage::cephpool::manage_ec_pools: true
 
 profile::storage::ceph_ecpool::ec_pools:
