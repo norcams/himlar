@@ -57,6 +57,7 @@ profile::base::network::cumulus_bridges:
       - host33
       - host34
       - host42
+      - host44
       - peerlink
       - downlink
     'alias_name': 'Transport L2 if'
@@ -245,6 +246,12 @@ profile::base::network::cumulus_bonds:
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+  'host44':
+    'slaves': [ 'swp44', ]
+    'clag_id': '44'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
 
 frrouting::frrouting::zebra_interfaces:
   'bridge':
@@ -312,6 +319,8 @@ frrouting::frrouting::zebra_interfaces:
   'host34':
     - 'link-detect'
   'host42':
+    - 'link-detect'
+  'host44':
     - 'link-detect'
   'swp48':
     - 'link-detect'
