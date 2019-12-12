@@ -23,8 +23,8 @@ profile::base::network::network_auto_bonding:
 profile::storage::cephosd::crush_parent:      'dcache'
 profile::storage::cephosd::crush_parent_type: 'pod'
 
-profile::base::common::manage_lvm: false
-profile::base::lvm::create_lvm:    false
+#profile::base::common::manage_lvm: false
+#profile::base::lvm::create_lvm:    false
 
 # sensu overrides
 sensu__memory__check:     "check-memory-percent.rb -w 85 -c 95"
@@ -66,75 +66,85 @@ profile::storage::cephpool_params::pools:
     application_enable: 'rbd'
     replicas_min_size:  '11'
 
-profile::base::lvm::physical_volume:
-  '/dev/sdp':
-    ensure: present
-    force:  true
 profile::base::lvm::volume_group:
-  'vg_cache':
+  'vg_swap':
     physical_volumes:
-      - /dev/sdp
+      - /dev/sdq3
 profile::base::lvm::logical_volume:
-  'lv_dba':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         25G
-  'lv_dbb':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         25G
-  'lv_dbc':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         25G
-  'lv_dbd':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         25G
-  'lv_dbe':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         25G
-  'lv_dbf':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         25G
-  'lv_dbg':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         25G
-  'lv_dbh':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         25G
-  'lv_dbi':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         25G
-  'lv_dbj':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         25G
-  'lv_dbk':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         25G
-  'lv_dbl':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         25G
-  'lv_dbm':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         25G
-  'lv_dbn':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         25G
-  'lv_dbo':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         25G
+  'lv_swap2':
+    volume_group: 'vg_swap'
+    fs_type:    xfs
+    size:         40G
+
+#profile::base::lvm::physical_volume:
+#  '/dev/sdp':
+#    ensure: present
+#    force:  true
+#profile::base::lvm::volume_group:
+#  'vg_cache':
+#    physical_volumes:
+#      - /dev/sdp
+#profile::base::lvm::logical_volume:
+#  'lv_dba':
+#    volume_group: 'vg_cache'
+#    createfs:     false
+#    size:         25G
+#  'lv_dbb':
+#    volume_group: 'vg_cache'
+#    createfs:     false
+#    size:         25G
+#  'lv_dbc':
+#    volume_group: 'vg_cache'
+#    createfs:     false
+#    size:         25G
+#  'lv_dbd':
+#    volume_group: 'vg_cache'
+#    createfs:     false
+#    size:         25G
+#  'lv_dbe':
+#    volume_group: 'vg_cache'
+#    createfs:     false
+#    size:         25G
+#  'lv_dbf':
+#    volume_group: 'vg_cache'
+#    createfs:     false
+#    size:         25G
+#  'lv_dbg':
+#    volume_group: 'vg_cache'
+#    createfs:     false
+#    size:         25G
+#  'lv_dbh':
+#    volume_group: 'vg_cache'
+#    createfs:     false
+#    size:         25G
+#  'lv_dbi':
+#    volume_group: 'vg_cache'
+#    createfs:     false
+#    size:         25G
+#  'lv_dbj':
+#    volume_group: 'vg_cache'
+#    createfs:     false
+#    size:         25G
+#  'lv_dbk':
+#    volume_group: 'vg_cache'
+#    createfs:     false
+#    size:         25G
+#  'lv_dbl':
+#    volume_group: 'vg_cache'
+#    createfs:     false
+#    size:         25G
+#  'lv_dbm':
+#    volume_group: 'vg_cache'
+#    createfs:     false
+#    size:         25G
+#  'lv_dbn':
+#    volume_group: 'vg_cache'
+#    createfs:     false
+#    size:         25G
+#  'lv_dbo':
+#    volume_group: 'vg_cache'
+#    createfs:     false
+#    size:         25G
 
 profile::storage::cephosd::osds:
   '/dev/sda':
