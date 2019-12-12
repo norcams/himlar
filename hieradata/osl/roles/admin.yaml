@@ -33,6 +33,12 @@ profile::network::services::dhcp_reservation:
   osl-leaf-04:
     mac: '00:01:e8:d8:49:ff'
     ip:  '172.16.32.4'
+  osl-spine-01:
+    mac: '8c:04:ba:c6:72:c0'
+    ip:  "%{hiera('netcfg_mgmt_net_c6')}.1"
+  osl-spine-02:
+    mac: '8c:04:ba:bf:f7:40'
+    ip:  "%{hiera('netcfg_mgmt_net_c6')}.2"
   osl-torack-01:
     mac: 'e4:f0:04:b6:51:32'
     ip:  '172.16.32.6'
