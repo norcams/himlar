@@ -73,7 +73,7 @@ profile::base::lvm::volume_group:
 profile::base::lvm::logical_volume:
   'lv_swap2':
     volume_group: 'vg_swap'
-    fs_type:    xfs
+    fs_type:      xfs
     size:         40G
 
 #profile::base::lvm::physical_volume:
