@@ -29,3 +29,5 @@ profile::base::network::network_auto_bonding:
       'team_port_config': '{ "prio" : 100 }'
 
 nova::compute::libvirt::libvirt_cpu_model: 'EPYC'
+
+yum_base_mirror:    'https://download.iaas.uio.no/uh-iaas/vgpu'
