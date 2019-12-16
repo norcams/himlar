@@ -17,7 +17,7 @@ profile::openstack::database::sql::extra_databases:
     host:           "%{hiera('netcfg_trp_netpart')}.54"
 
 # regional db has a couple of large db's, purge local copy more often
-profile::database::mariadb::backuprotate:  3
+profile::database::mariadb::backuprotate:  2
 
 wsrep_on:                                     'OFF'
 wsrep_cluster_name:                           'regional'
