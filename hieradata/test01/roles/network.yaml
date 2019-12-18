@@ -1,0 +1,15 @@
+---
+# FIXME - temp with calico 3.8
+# Enable extra yum repo
+profile::base::yumrepo::repo_hash:
+  rdo-release:
+    ensure: present
+  calico31:
+    ensure: absent
+  calico37:
+    ensure: absent
+  calico38:
+    ensure: present
+  epel: # should be absent when using RDO, but whitelist can also work
+    ensure:   present
+    includepkgs: 'htop bash-completion-extras'
