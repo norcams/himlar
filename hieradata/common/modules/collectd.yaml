@@ -30,5 +30,5 @@ collectd::plugin::disk::ignoreselected: false
 collectd::plugin::cpu::reportbycpu:     false
 
 collectd::plugin::virt::connection:       'qemu:///system'
-collectd::plugin::virt::hostname_format:  'name hostname'
+collectd::plugin::virt::hostname_format:  'hostname/metadata'
 collectd::plugin::virt::refresh_interval: '300'
