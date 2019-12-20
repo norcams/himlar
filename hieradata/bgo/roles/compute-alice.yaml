@@ -21,6 +21,7 @@ profile::monitoring::collectd::plugins:
   - collectd::plugin::memory
   - collectd::plugin::interface
   - collectd::plugin::write_graphite
+  - collectd::plugin::virt
 
 # Enable hugepages to prevent OOM-killer when using NUMA
 profile::base::physical::enable_hugepages: true
