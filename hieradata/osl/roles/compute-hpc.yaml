@@ -3,6 +3,9 @@ include:
   default:
     - profile::monitoring::netdata
 
+# Turn off nested virtualization
+profile::virtualization::nested::manage: false
+
 # Enable hugepages to prevent OOM-killer when using NUMA
 profile::base::physical::enable_hugepages: true
 # Number and size of hugepages, based on 512GB - 32 GB (4GB free pr node)

@@ -20,6 +20,9 @@ include:
 # Set SELinux mode to enforcing
 profile::base::selinux::manage_selinux: true
 
+# Turn on nested virtualization as default
+profile::virtualization::nested::manage: true
+
 # Fix SELinux file context for Nova's .ssh
 profile::base::selinux::fcontext:
   nova-dot-ssh:

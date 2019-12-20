@@ -4,8 +4,10 @@ include:
   default:
     - profile::monitoring::collectd
 
+# Turn off nested virtualization
+profile::virtualization::nested::manage: false
+
 profile::monitoring::collectd::enable: true
-profile::monitoring::collectd::ceph::enable: true
 
 collectd::plugin::interface::interfaces:
   - "%{::interface_trp1}"
