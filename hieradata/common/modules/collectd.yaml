@@ -30,6 +30,7 @@ collectd::plugin::disk::ignoreselected: false
 collectd::plugin::cpu::reportbycpu:     false
 
 collectd::plugin::virt::connection:       'qemu:///system'
-# use metadata for instance name in version 5.9
+# FIXME use metadata for instance name in version 5.9 of collectd
 collectd::plugin::virt::hostname_format:  'hostname uuid'
 collectd::plugin::virt::refresh_interval: '300'
+collectd::plugin::virt::extra_stats:      'cpu_util disk disk_err '
