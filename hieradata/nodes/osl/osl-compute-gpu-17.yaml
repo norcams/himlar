@@ -37,25 +37,6 @@ nova::pci::aliases:
     'device_type': 'type-PCI'
     'name':        'vega10'
 
-network::interfaces_hash:
-  'team1':
-    onboot:         'yes'
-    ipaddress:      "%{hiera('netcfg_trp_net_c1')}.17"
-    netmask:        "%{hiera('netcfg_trp_netmask')}"
-    ipv6init:       'yes'
-    ipv6addr:       "%{hiera('netcfg_trp_netpart6')}::17/%{hiera('netcfg_trp_netmask6')}"
-    ipv6_defaultgw: "%{hiera('netcfg_trp_gateway6')}"
-    defroute:       'no'
-  'eth0':
-    onboot:         'yes'
-    ipaddress:      "%{hiera('netcfg_mgmt_net_c1')}.17"
-    netmask:        "%{hiera('netcfg_mgmt_netmask')}"
-    mtu:            '1500'
-    dns1:           "%{hiera('mgmt__address__proxy')}"
-    domain:         "%{hiera('netcfg_dns_search')}"
-    peerdns:        'yes'
-    defroute:       'no'
-
 # Add custom routing table for private network to NAT
 profile::base::network::routes:
   'team1':
