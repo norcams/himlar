@@ -1,4 +1,5 @@
 ---
+
 profile::openstack::resource::host_aggregate:
   group1:
     availability_zone: "%{::location}-legacy-1"
@@ -35,6 +36,10 @@ profile::openstack::resource::host_aggregate:
     availability_zone: "%{::location}-default-1"
     metadata:
       type: 'vgpu'
+  gpu1:
+    availability_zone: "%{::location}-default-1"
+    metadata:
+      type: 'gpu'
   atlas_ssd1:
     availability_zone: "%{::location}-default-1"
     metadata:
