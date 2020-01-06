@@ -89,67 +89,67 @@ profile::base::lvm::logical_volume:
   'lv_dba':
     volume_group: 'vg_cache1'
     createfs:     false
-    size:         72G
+    size:         80G
   'lv_dbb':
     volume_group: 'vg_cache1'
     createfs:     false
-    size:         72G
+    size:         80G
   'lv_dbc':
     volume_group: 'vg_cache1'
     createfs:     false
-    size:         72G
+    size:         80G
   'lv_dbd':
     volume_group: 'vg_cache1'
     createfs:     false
-    size:         72G
+    size:         80G
   'lv_dbe':
     volume_group: 'vg_cache1'
     createfs:     false
-    size:         72G
+    size:         80G
   'lv_dbf':
-    volume_group: 'vg_cache1'
+    volume_group: 'vg_cache2'
     createfs:     false
-    size:         72G
+    size:         80G
   'lv_dbg':
     volume_group: 'vg_cache2'
     createfs:     false
-    size:         88G
+    size:         80G
   'lv_dbh':
     volume_group: 'vg_cache2'
     createfs:     false
-    size:         88G
+    size:         80G
   'lv_dbi':
     volume_group: 'vg_cache2'
     createfs:     false
-    size:         88G
+    size:         80G
   'lv_dbj':
     volume_group: 'vg_cache2'
     createfs:     false
-    size:         88G
+    size:         80G
   'lv_dbk':
     volume_group: 'vg_cache2'
     createfs:     false
-    size:         88G
+    size:         80G
   'lv_dbl':
     volume_group: 'vg_cache2'
     createfs:     false
-    size:         88G
+    size:         80G
   'lv_dbm':
     volume_group: 'vg_cache2'
     createfs:     false
-    size:         88G
+    size:         80G
   'lv_dbn':
     volume_group: 'vg_cache2'
     createfs:     false
-    size:         88G
+    size:         80G
   'lv_dbo':
     volume_group: 'vg_cache2'
     createfs:     false
-    size:         88G
+    size:         80G
   'lv_dbp':
     volume_group: 'vg_cache2'
     createfs:     false
-    size:         88G
+    size:         80G
 profile::base::lvm::physical_volume:
   '/dev/sdq':
     ensure: present
