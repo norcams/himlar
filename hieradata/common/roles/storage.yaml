@@ -150,7 +150,7 @@ sudo::configs:
 check_ceph_argument:    ''
 
 profile::monitoring::sensu::agent::checks:
-  'check-ceph':
+  'check-smart':
     command:      "/usr/bin/sudo /opt/sensu/embedded/bin/check-smart.rb"
     interval:     600
     subscribers:  ['checks']
