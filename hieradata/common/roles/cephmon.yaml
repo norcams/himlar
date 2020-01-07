@@ -81,10 +81,6 @@ accounts::accounts:
     ensure: present
 
 # Sensu
-profile::monitoring::sensu::agent::plugins:
-  sensu-plugins-ceph:
-    type:         package
-    pkg_version:  '1.0.1'
 profile::monitoring::sensu::agent::plugin_gems:
   sensu-plugins-himlar:
     ensure:       '0.3.0'
