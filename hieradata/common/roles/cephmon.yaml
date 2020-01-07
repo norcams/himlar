@@ -85,10 +85,11 @@ profile::monitoring::sensu::agent::plugins:
   sensu-plugins-ceph:
     type:         package
     pkg_version:  '1.0.1'
+profile::monitoring::sensu::agent::plugin_gems:
   sensu-plugins-himlar:
-    ensure:   '0.3.0'
-    provider: 'sensu_gem'
-    source:   'http://download.iaas.uio.no/uh-iaas/gem'
+    ensure:       '0.3.0'
+    provider:     'sensu_gem'
+    source:       'http://download.iaas.uio.no/uh-iaas/gem'
 
 sudo::configs:
   sensu_tty:
