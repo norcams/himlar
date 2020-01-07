@@ -223,3 +223,24 @@ profile::storage::cephosd::osds:
     wal_device: false
     db_device:  'vg_cache2/lv_dbp'
 #    wal_device: 'vg_cache/lv_walo'
+
+# Sensu
+sudo::configs:
+  sensu_tty:
+    priority: 20
+    content:  'Defaults:sensu !requiretty'
+  sensu:
+    priority: 25
+    content:  'sensu ALL=(ALL) NOPASSWD: /opt/sensu/embedded/bin/check-smart.rb'
+
+profile::monitoring::sensu::agent::checks:
+  'check-smart':
+    command:      "/usr/bin/sudo /opt/sensu/embedded/bin/check-smart.rb"
+    interval:     600
+    subscribers:  ['checks']
+
+profile::monitoring::sensu::agent::plugin_gems:
+  sensu-plugins-himlar:
+    ensure:   '0.3.0'
+    provider: 'sensu_gem'
+    source:   'http://download.iaas.uio.no/uh-iaas/gem'
