@@ -85,6 +85,26 @@ profile::monitoring::sensu::agent::plugins:
   sensu-plugins-ceph:
     type:         package
     pkg_version:  '1.0.1'
+  sensu-plugins-himlar:
+    ensure:   '0.3.0'
+    provider: 'sensu_gem'
+    source:   'http://download.iaas.uio.no/uh-iaas/gem'
+
+sudo::configs:
+  sensu_tty:
+    priority: 20
+    content:  'Defaults:sensu !requiretty'
+  sensu:
+    priority: 25
+    content:  'sensu ALL=(ALL) NOPASSWD: /opt/sensu/embedded/bin/check-ceph.rb'
+
+check_ceph_argument:    ''
+
+profile::monitoring::sensu::agent::checks:
+  'check-ceph':
+    command:      "/usr/bin/sudo /opt/sensu/embedded/bin/check-ceph.rb %{hiera('check_ceph_argument')}"
+    interval:     60
+    subscribers:  ['checks']
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:

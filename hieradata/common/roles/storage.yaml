@@ -145,14 +145,14 @@ sudo::configs:
     content:  'Defaults:sensu !requiretty'
   sensu:
     priority: 25
-    content:  'sensu ALL=(ALL) NOPASSWD: /opt/sensu/embedded/bin/check-ceph.rb'
+    content:  'sensu ALL=(ALL) NOPASSWD: /opt/sensu/embedded/bin/check-smart.rb'
 
 check_ceph_argument:    ''
 
 profile::monitoring::sensu::agent::checks:
   'check-ceph':
-    command:      "/usr/bin/sudo /opt/sensu/embedded/bin/check-ceph.rb %{hiera('check_ceph_argument')}"
-    interval:     60
+    command:      "/usr/bin/sudo /opt/sensu/embedded/bin/check-smart.rb"
+    interval:     600
     subscribers:  ['checks']
 
 profile::monitoring::sensu::agent::plugin_gems:
