@@ -1,4 +1,6 @@
 ---
+profile::base::common::manage_lvm: true
+
 profile::monitoring::sensu::server::handlers:
   slack:
     type:           'pipe'
