@@ -27,7 +27,7 @@ profile::storage::cephosd::crush_parent_type: 'pod'
 #profile::base::lvm::create_lvm:    false
 
 # sensu overrides
-sensu__memory__check:     "check-memory-percent.rb -w 85 -c 95"
+sensu__memory__check:     "check-memory-percent.rb -w 90 -c 95"
 
 profile::storage::cephclient::create_extraconf: true
 profile::storage::ceph_extraconf::config:
