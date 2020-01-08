@@ -3,6 +3,7 @@
 LN_OPTS="-sfT"
 CODE_PATH=/etc/puppetlabs/code
 ENV_PATH=environments/production
+R10K=/opt/puppetlabs/bin/r10k
 
 etc_puppet_modules="$(ls -d $CODE_PATH/modules/*/ 2>/dev/null)"
 opt_himlar_modules="$(ls -d /opt/himlar/modules/*/ 2>/dev/null)"
@@ -17,8 +18,8 @@ provision_from_puppetfile()
   ln $LN_OPTS /opt/himlar/hiera.yaml $CODE_PATH/$ENV_PATH/hiera.yaml
   if [[ ! "${environment}x" == "vagrantx" ]]; then force="--force"; fi
 
-  cd /opt/himlar && /usr/local/bin/r10k --verbose 4 puppetfile purge
-  cd /opt/himlar && /usr/local/bin/r10k --verbose 4 puppetfile install --moduledir $CODE_PATH/modules --puppetfile /opt/himlar/Puppetfile ${force}
+  cd /opt/himlar && $R10K --verbose 4 puppetfile purge
+  cd /opt/himlar && $R10K --verbose 4 puppetfile install --moduledir $CODE_PATH/modules --puppetfile /opt/himlar/Puppetfile ${force}
   # link in profile module after running r10k
   ln -sf /opt/himlar/profile $CODE_PATH/modules/
 }
