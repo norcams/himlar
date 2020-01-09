@@ -22,7 +22,7 @@ corosync_cluster_vip3:    "%{hiera('netcfg_public2_netpart')}.243" # uib
 corosync_cluster_vip4:    "%{hiera('netcfg_public2_netpart')}.244" # uib
 corosync_cluster_vip5:    "%{hiera('netcfg_public2_netpart')}.245" # uibgrid/terminate
 
-ssl_cert_apps:            "apptest.uib.no.pem"
+ssl_cert_apps:            "appstest.uib.no.pem"
 
 haproxy::global_options:
   log:          '127.0.0.1 local6 info alert'
