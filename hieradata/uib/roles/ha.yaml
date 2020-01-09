@@ -130,7 +130,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
     ensure: present
     mappings:
       - 'apps.uib.no':                            'public-https-apps'
-      - 'apptest.uib.no':                         'public-https-apps-test'
+      - 'appstest.uib.no':                        'public-https-apps-test'
       - 'report.uh-iaas.no':                      'public-https-uh-report'
       - 'status.uh-iaas.no':                      'public-https-uh-status'
   public_http_domains:
