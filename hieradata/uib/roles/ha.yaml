@@ -217,7 +217,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ports:              443
     server_names:       ['apps-gw01.uib.no', 'apps-gw02.uib.no']
     ipaddresses:        ['129.177.30.19', '129.177.30.26']
-    define_cookies:     true
     options:
       - 'check'
   'uib-http-adm':
@@ -262,8 +261,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     mode:             'tcp'
     options:
       - balance:      'source'
-      - option:
-        - 'forwardfor except 127.0.0.1'
+      # - option:
+      #   - 'forwardfor except 127.0.0.1'
       # - option:
       #   - 'httpchk HEAD /jukeboxserver/do/license/token/renew.tok?msid=ping HTTP/1.1\r\nHost:\ apps-admin.uib.no'
   public-https-apps-test:
@@ -316,7 +315,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     mode:             'tcp'
     options:
       - balance:      'roundrobin'
-      - cookie:       'ASP.NET_SessionId prefix nocache'
+      #- cookie:       'ASP.NET_SessionId prefix nocache'
       # - option:
       #   - 'httpchk HEAD /jukeboxserver/do/license/token/renew.tok?msid=ping HTTP/1.1\r\nHost:\ apps-admin.uib.no'
   uib-https-adm:
