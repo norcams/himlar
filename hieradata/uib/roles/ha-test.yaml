@@ -20,10 +20,13 @@ corosync_cluster_vip1:    "%{hiera('netcfg_public2_netpart')}.34" # public
 corosync_cluster_vip2:    "%{hiera('netcfg_public2_netpart')}.35" # public
 corosync_cluster_vip3:    "%{hiera('netcfg_public2_netpart')}.243" # uib
 corosync_cluster_vip4:    "%{hiera('netcfg_public2_netpart')}.244" # uib
-corosync_cluster_vip5:    "%{hiera('netcfg_public2_netpart')}.245" # uibgrid
+corosync_cluster_vip5:    "%{hiera('netcfg_public2_netpart')}.245" # uibgrid/terminate
+
+ssl_cert_apps:            "apptest.uib.no.pem"
 
 haproxy::global_options:
   log:          '127.0.0.1 local6 info alert'
   #nbproc:       '2'
   #cpu-map:      ['1 0', '2 2']
   maxconn:      '2000' # per core
+  crt-base:     '/etc/pki/tls/certs'
