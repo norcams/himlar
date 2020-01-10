@@ -20,25 +20,29 @@ network::interfaces_hash:
     netmask:      '255.255.255.0'
     defroute:     'no'
     onboot:       'yes'
-    dns1:         "%{hiera('service__address__proxy')}"
+    dns1:          "%{hiera('netcfg_dns_server1')}"
+    dns2:          "%{hiera('netcfg_dns_server2')}"
   'p2p2':
     ipaddress:    '172.30.32.10'
     netmask:      '255.255.255.0'
     defroute:     'no'
     onboot:       'yes'
-    dns1:         "%{hiera('service__address__proxy')}"
+    dns1:          "%{hiera('netcfg_dns_server1')}"
+    dns2:          "%{hiera('netcfg_dns_server2')}"
   'p2p3':
     ipaddress:    '172.28.160.10'
     netmask:      '255.255.255.0'
     defroute:     'no'
     onboot:       'yes'
-    dns1:         "%{hiera('service__address__proxy')}"
+    dns1:          "%{hiera('netcfg_dns_server1')}"
+    dns2:          "%{hiera('netcfg_dns_server2')}"
   'p2p4':
     ipaddress:    '172.28.32.10'
     netmask:      '255.255.255.0'
     defroute:     'no'
     onboot:       'yes'
-    dns1:         "%{hiera('service__address__proxy')}"
+    dns1:          "%{hiera('netcfg_dns_server1')}"
+    dns2:          "%{hiera('netcfg_dns_server2')}"
 
 profile::base::network::routes:
   'em1':
