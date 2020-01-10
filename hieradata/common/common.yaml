@@ -135,6 +135,7 @@ named_interfaces::config:
 profile::base::network::network_auto_opts:
   mgmt:
     'dns1':     "%{hiera('netcfg_dns_server1')}"
+    'dns2':     "%{hiera('netcfg_dns_server2')}"
     'domain':   "%{hiera('netcfg_dns_search')}"
     'defroute': 'yes'
   trp:
