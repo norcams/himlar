@@ -120,10 +120,10 @@ class profile::base::common (
       path        => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
       refreshonly => true,
     } ~>
-    exec { 'add_extraswap_to_fstab':
-      command     => "echo \"${extraswap_fileloc} swap swap defaults 0 0\n\" >> /etc/fstab",
-      path        => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
-      refreshonly => true,
+    file_line { 'extraswap':
+      path  => '/etc/fstab',
+      line  => "${extraswap_fileloc} swap swap defaults 0 0",
+      match => "^${extraswap_fileloc}",
     }
   }
 
