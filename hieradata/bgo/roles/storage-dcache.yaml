@@ -40,6 +40,12 @@ profile::storage::ceph_extraconf::config:
   osd_deep_scrub_interval:
     'config_key'  : "osd/osd_deep_scrub_interval"
     'config_value': "2419200.000000"
+  osd_recovery_max_active:
+    'config_key'  : "osd/osd_recovery_max_active"
+    'config_value': "6"
+  osd_max_backfills:
+    'config_key'  : "osd/osd_max_backfills"
+    'config_value': "2"
 
 profile::storage::cephpool::manage_ec_pools: true
 
