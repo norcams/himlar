@@ -9,8 +9,9 @@ class profile::openstack::resource::dataporten(
     $domain = lookup('profile::openstack::resource::dataporten::domain', Hash, 'deep', {})
     create_resources('keystone_domain', $domain)
 
-    $idp = lookup('profile::openstack::resource::dataporten::identity_provider', Hash, 'deep', {})
-    create_resources('keystone_identity_provider', $idp)
+    # NOTE: This stopped working in stein release - Use himlarcli for identity_providers
+    # $idp = lookup('profile::openstack::resource::dataporten::identity_provider', Hash, 'deep', {})
+    # create_resources('keystone_identity_provider', $idp)
   }
 
 
