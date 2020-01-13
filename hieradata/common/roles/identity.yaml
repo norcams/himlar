@@ -19,6 +19,8 @@ profile::base::common::packages:
   'openstack-selinux': {}
   'python2-designateclient': {}
 
+openstack_version: 'stein' #FIXME:stein
+
 memcached::max_memory: '40%'
 
 profile::base::selinux::manage_selinux:                   true
@@ -93,11 +95,13 @@ profile::openstack::resource::dataporten::domain:
     ensure:       present
     description:  'Federated users from Dataporten'
     is_default:   false
-profile::openstack::resource::dataporten::identity_provider:
-  dataporten:
-    enabled:      true
-    remote_ids:   [ 'https://auth.dataporten.no' ]
-    description:  'Federated user from Dataporten'
+# FIXME:stein - move to himlarcli dataporten.py
+
+# profile::openstack::resource::dataporten::identity_provider:
+#   dataporten:
+#     enabled:      true
+#     remote_ids:   [ 'https://auth.dataporten.no' ]
+#     description:  'Federated user from Dataporten'
 
 # Custom users
 profile::openstack::resource::users::users:
