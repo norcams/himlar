@@ -39,6 +39,7 @@ class profile::openstack::identity (
   include ::keystone::endpoint
   include ::keystone::wsgi::apache
   include ::profile::openstack::openrc
+  include ::keystone::logging
 
   # this system is part of a master/slave token cluster?
   if $token_rotation_sync {
@@ -74,6 +75,7 @@ class profile::openstack::identity (
   }
 
   if $manage_openidc {
+    include ::keystone::federation
     include ::profile::openstack::identity::openidc
   }
 

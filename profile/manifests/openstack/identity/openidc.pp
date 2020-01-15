@@ -34,20 +34,7 @@
 #  (Optional) String value.
 #  Defaults to 'id_token'
 #
-# [*admin_port*]
-#  A boolean value to ensure that you want to configure openidc Federation
-#  using Keystone VirtualHost on port 35357.
-#  (Optional) Defaults to false.
-#
-# [*main_port*]
-#  A boolean value to ensure that you want to configure openidc Federation
-#  using Keystone VirtualHost on port 5000.
-#  (Optional) Defaults to true.
-#
-# [*admin_endpoint*]
-#  The base admin endpoint URL for keystone
-#
-# [*public_endpoint*]
+# [*keystone_endpoint*]
 #  The base public endpoint URL for keystone
 #
 # [*template_order*]
