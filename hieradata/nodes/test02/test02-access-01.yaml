@@ -7,6 +7,7 @@ network::interfaces_hash:
     gateway:   "%{hiera('netcfg_mgmt_gateway')}"
     peerdns:   'yes'
     dns1:      "%{hiera('netcfg_dns_server1')}"
+    dns2:      "%{hiera('netcfg_dns_server2')}"
     domain:    'test.iaas.uio.no'
     defroute:  'yes'
   'eth1':

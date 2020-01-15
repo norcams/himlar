@@ -18,6 +18,7 @@ network::interfaces_hash:
 #    peerdns:      'yes'
     peerdns:      'no'
     dns1:         "%{hiera('netcfg_dns_server1')}"
+    dns2:         "%{hiera('netcfg_dns_server2')}"
     domain:       "%{hiera('domain_mgmt')}"
   'br1':
     onboot:       'yes'
