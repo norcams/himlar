@@ -1,0 +1,185 @@
+---
+profile::base::network::network_auto_opts:
+  trp:
+    'defroute': 'no'
+    'devicetype': 'Team'
+#    'mtu': '9000'
+    'team_config': >-
+                   { "runner" : {  "name" : "lacp",  "active": true, "fast_rate" : true,
+                   "tx_hash": ["eth", "ipv4", "ipv6"], "tx_balancer": { "name": "basic" } },
+                   "link_watch" : {  "name" : "ethtool" } }
+  ceph:
+    'defroute': 'no'
+
+profile::base::network::network_auto_bonding:
+  trp:
+    p4p1:
+      'team_port_config': '{ "prio" : 100 }'
+#      'mtu': '9000'
+    p4p2:
+      'team_port_config': '{ "prio" : 100 }'
+#      'mtu': '9000'
+
+# sensu overrides
+#sensu__memory__check:     "check-memory-percent.rb -w 90 -c 95"
+
+profile::storage::cephclient::create_extraconf: true
+profile::storage::ceph_extraconf::config:
+  osd_memory_target:
+    'config_key'  : "osd/osd_memory_target"
+    'config_value': "11811160064"
+  osd_max_scrubs:
+    'config_key'  : "osd/osd_max_scrubs"
+    'config_value': "2"
+  osd_deep_scrub_interval:
+    'config_key'  : "osd/osd_deep_scrub_interval"
+    'config_value': "2419200.000000"
+  osd_recovery_max_active:
+    'config_key'  : "osd/osd_recovery_max_active"
+    'config_value': "6"
+  osd_max_backfills:
+    'config_key'  : "osd/osd_max_backfills"
+    'config_value': "2"
+
+profile::base::common::extraswap:         true
+profile::base::common::extraswap_sizegb:  20
+profile::base::common::extraswap_fileloc: '/var/lib/swap/swapfile'
+
+profile::base::lvm::volume_group:
+  'vg_swap':
+    physical_volumes:
+      - /dev/sds3
+  'vg_cache1':
+    physical_volumes:
+      - /dev/sdq
+  'vg_cache2':
+    physical_volumes:
+      - /dev/sdr
+profile::base::lvm::logical_volume:
+  'lv_swap2':
+    volume_group: 'vg_swap'
+    fs_type:      xfs
+    size:         40G
+    mountpath:    "/var/lib/swap"
+  'lv_dbf':
+    volume_group: 'vg_cache1'
+    createfs:     false
+    size:         146G
+  'lv_dbg':
+    volume_group: 'vg_cache1'
+    createfs:     false
+    size:         146G
+  'lv_dbh':
+    volume_group: 'vg_cache1'
+    createfs:     false
+    size:         146G
+  'lv_dbi':
+    volume_group: 'vg_cache2'
+    createfs:     false
+    size:         146G
+  'lv_dbj':
+    volume_group: 'vg_cache2'
+    createfs:     false
+    size:         146G
+  'lv_dbk':
+    volume_group: 'vg_cache2'
+    createfs:     false
+    size:         146G
+  'lv_dbl':
+    volume_group: 'vg_cache2'
+    createfs:     false
+    size:         146G
+  'lv_dbm':
+    volume_group: 'vg_cache2'
+    createfs:     false
+    size:         146G
+  'lv_dbn':
+    volume_group: 'vg_cache2'
+    createfs:     false
+    size:         146G
+  'lv_dbo':
+    volume_group: 'vg_cache2'
+    createfs:     false
+    size:         146G
+  'lv_dbp':
+    volume_group: 'vg_cache2'
+    createfs:     false
+    size:         146G
+profile::base::lvm::physical_volume:
+  '/dev/sdq':
+    ensure: present
+    force:  true
+  '/dev/sdr':
+    ensure: present
+    force:  true
+
+profile::storage::cephosd::osds:
+  '/dev/sda':
+    db_device:  false
+    wal_device: false
+  '/dev/sdb':
+    db_device:  false
+    wal_device: false
+  '/dev/sdc':
+    db_device:  false
+    wal_device: false
+  '/dev/sdd':
+    db_device:  false
+    wal_device: false
+  '/dev/sde':
+    db_device:  false
+    wal_device: false
+  '/dev/sdf':
+    wal_device: false
+    db_device:  'vg_cache1/lv_dbf'
+  '/dev/sdg':
+    wal_device: false
+    db_device:  'vg_cache1/lv_dbg'
+  '/dev/sdh':
+    wal_device: false
+    db_device:  'vg_cache1/lv_dbh'
+  '/dev/sdi':
+    wal_device: false
+    db_device:  'vg_cache1/lv_dbi'
+  '/dev/sdj':
+    wal_device: false
+    db_device:  'vg_cache1/lv_dbj'
+  '/dev/sdk':
+    wal_device: false
+    db_device:  'vg_cache1/lv_dbk'
+  '/dev/sdl':
+    wal_device: false
+    db_device:  'vg_cache2/lv_dbl'
+  '/dev/sdm':
+    wal_device: false
+    db_device:  'vg_cache2/lv_dbm'
+  '/dev/sdn':
+    wal_device: false
+    db_device:  'vg_cache2/lv_dbn'
+  '/dev/sdo':
+    wal_device: false
+    db_device:  'vg_cache2/lv_dbo'
+  '/dev/sdp':
+    wal_device: false
+    db_device:  'vg_cache2/lv_dbp'
+
+# Sensu
+sudo::configs:
+  sensu_tty:
+    priority: 20
+    content:  'Defaults:sensu !requiretty'
+  sensu:
+    priority: 25
+    content:  'sensu ALL=(ALL) NOPASSWD: /opt/sensu/embedded/bin/check-smart.rb'
+
+profile::monitoring::sensu::agent::checks:
+  'check-smart':
+    command:      "/usr/bin/sudo /opt/sensu/embedded/bin/check-smart.rb"
+    interval:     600
+    subscribers:  ['checks']
+
+profile::monitoring::sensu::agent::plugin_gems:
+  sensu-plugins-himlar:
+    ensure:   '0.3.0'
+    provider: 'sensu_gem'
+    source:   'http://download.iaas.uio.no/uh-iaas/gem'
