@@ -34,10 +34,8 @@ profile::openstack::identity::roles_extra:
   - object
 
 profile::openstack::identity::keystone_config:
-  'federation/trusted_dashboard':
-    value:  "https://%{hiera('public__address__dashboard')}/dashboard/auth/websso/"
-  'federation/remote_id_attribute':
-    value:  'OIDC-iss'
+  'DEFAULT/max_project_tree_depth':
+    value:  2
   'resource/project_name_url_safe':
     value:  'new'
   'resource/domain_name_url_safe':
