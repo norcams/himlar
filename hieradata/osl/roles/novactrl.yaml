@@ -48,3 +48,8 @@ profile::openstack::resource::host_aggregate:
     availability_zone: "%{::location}-default-1"
     metadata:
       type: 'hpc'
+  robin1:
+    availability_zone: "%{::location}-default-1"
+    metadata:
+      type: 'robin'
+
