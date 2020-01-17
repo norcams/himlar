@@ -1,0 +1,67 @@
+---
+include:
+  kickstart:
+    - profile::openstack::compute::pci_passthrough
+  default:
+    - profile::openstack::compute::pci_passthrough
+
+named_interfaces::config:
+  mgmt:
+    - em1
+  trp:
+    - team1
+  live:
+    - team1.120
+
+profile::base::network::network_auto_bonding:
+  trp:
+    em3:
+      'team_port_config': '{ "prio" : 100 }'
+    em4:
+      'team_port_config': '{ "prio" : 100 }'
+
+profile::base::network::manage_neutron_blackhole: false
+profile::openstack::compute::pci_passthrough::manage_pcipassthrough: true
+profile::openstack::compute::pci_passthrough::manage_pci_whitelist:  true
+
+profile::base::physical::blacklist_drv: true
+profile::base::physical::blacklist_drv_list:
+  'radeon': {}
+
+nova::compute::pci::passthrough:
+  - 'vendor_id':  '1002'
+    'product_id': '687f'
+nova::pci::aliases:
+  - 'vendor_id':   '1002'
+    'product_id':  '687f'
+    'device_type': 'type-PCI'
+    'name':        'vega10'
+
+# Add custom routing table for private network to NAT
+profile::base::network::routes:
+  'team1':
+    'ipaddress': [ '0.0.0.0', '0.0.0.0', ]
+    'netmask':   [ '0.0.0.0', '0.0.0.0', ]
+    'gateway':   [ "%{hiera('netcfg_priv_gateway')}", "%{hiera('netcfg_trp_gateway')}" ]
+    'table':     [ 'private', 'main', ]
+profile::base::network::routing_tables:
+  'private':
+    'table_id':  '240'
+profile::base::network::rules:
+  'team1':
+    iprule: [ "from %{hiera('netcfg_priv_network')} lookup private", ]
+profile::base::network::manage_neutron_blackhole: true
+
+profile::base::lvm::physical_volume:
+  '/dev/sda3':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_ext':
+    physical_volumes:
+      - /dev/sda3
+profile::base::lvm::logical_volume:
+  'lv_instances':
+    volume_group: 'vg_ext'
+    fs_type:      "xfs"
+    mountpath:    "/var/lib/nova/instances"
