@@ -133,8 +133,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
         - 'is_request hdr_beg(host) -i request'
         - 'has_subdomain hdr_reg(host) -i .*\..*\..*'
       - redirect:
+        - 'code 301 location https://www.%[hdr(host)] if !has_subdomain'
         - 'scheme https if !{ ssl_fc } !is_request' # redirect all to https (only port 80)
-        - 'http-request redirect prefix https://www.%[hdr(host)] code 301 if !has_subdomain'
       - tcp-request:    "%{hiera('block_api_connection')}" # should only block in test01
       # Uncomment this to restrict access to testing network only
       #- use_backend:    'bk_maintenance unless { src -f /etc/haproxy/testing_network.list }'
@@ -260,11 +260,7 @@ access__backend__ips:      ["%{hiera('netcfg_trp_netpart')}.56"]
 report__backend__names:    ['%{::location}-report-01']
 report__backend__ips:      ["%{hiera('netcfg_trp_netpart')}.22"]
 www__backend__names:       ['norcams.github.io']
-www__backend__ips:
-  - '185.199.109.153'
-  - '185.199.110.153'
-  - '185.199.108.153'
-  - '185.199.111.153'
+www__backend__ips:         ['185.199.109.153', '185.199.110.153', '185.199.108.153', '185.199.111.153']
 
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   identity:
