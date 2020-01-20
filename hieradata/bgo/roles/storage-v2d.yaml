@@ -61,10 +61,6 @@ profile::base::lvm::logical_volume:
     fs_type:      xfs
     size:         40G
     mountpath:    "/var/lib/swap"
-  'lv_dbf':
-    volume_group: 'vg_cache1'
-    createfs:     false
-    size:         146G
   'lv_dbg':
     volume_group: 'vg_cache1'
     createfs:     false
@@ -82,7 +78,7 @@ profile::base::lvm::logical_volume:
     createfs:     false
     size:         146G
   'lv_dbk':
-    volume_group: 'vg_cache2'
+    volume_group: 'vg_cache1'
     createfs:     false
     size:         146G
   'lv_dbl':
@@ -105,6 +101,11 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_cache2'
     createfs:     false
     size:         146G
+  'lv_dbq':
+    volume_group: 'vg_cache2'
+    createfs:     false
+    size:         146G
+
 profile::base::lvm::physical_volume:
   '/dev/sdq':
     ensure: present
@@ -114,9 +115,6 @@ profile::base::lvm::physical_volume:
     force:  true
 
 profile::storage::cephosd::osds:
-  '/dev/sda':
-    db_device:  false
-    wal_device: false
   '/dev/sdb':
     db_device:  false
     wal_device: false
@@ -130,8 +128,8 @@ profile::storage::cephosd::osds:
     db_device:  false
     wal_device: false
   '/dev/sdf':
+    db_device:  false
     wal_device: false
-    db_device:  'vg_cache1/lv_dbf'
   '/dev/sdg':
     wal_device: false
     db_device:  'vg_cache1/lv_dbg'
@@ -162,6 +160,9 @@ profile::storage::cephosd::osds:
   '/dev/sdp':
     wal_device: false
     db_device:  'vg_cache2/lv_dbp'
+  '/dev/sdq':
+    wal_device: false
+    db_device:  'vg_cache2/lv_dbq'
 
 # Sensu
 sudo::configs:
