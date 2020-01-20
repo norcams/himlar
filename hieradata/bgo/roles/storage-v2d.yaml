@@ -107,10 +107,10 @@ profile::base::lvm::logical_volume:
     size:         146G
 
 profile::base::lvm::physical_volume:
-  '/dev/sdq':
+  '/dev/sdr':
     ensure: present
     force:  true
-  '/dev/sdr':
+  '/dev/sds':
     ensure: present
     force:  true
 
