@@ -48,7 +48,7 @@ profile::base::common::extraswap_fileloc: '/var/lib/swap/swapfile'
 profile::base::lvm::volume_group:
   'vg_swap':
     physical_volumes:
-      - /dev/sds3
+      - /dev/sda3
   'vg_cache1':
     physical_volumes:
       - /dev/sdr
