@@ -158,6 +158,7 @@ profile::network::services::dns_records:
     "api-osl.%{hiera('domain_frontend')}":       '158.37.63.250'
     "ns1.%{hiera('domain_frontend')}":           '158.37.63.251'
     "ns2.%{hiera('domain_frontend')}":           '158.39.77.251'
+    "www.%{hiera('domain_frontend')}":           '158.39.77.250'
 
     # Public records (<foo>.<location>.uh-iaas.no)
     "console.%{hiera('domain_public')}":         '158.37.63.250'
@@ -170,7 +171,6 @@ profile::network::services::dns_records:
     "metric.api.%{hiera('domain_public')}":      '158.37.63.250'
     "dns.api.%{hiera('domain_public')}":         '158.37.63.250'
     "resolver.%{hiera('domain_public')}":        '158.37.63.252'
-    "www.%{hiera('domain_frontend')}":           '158.39.77.250'
 
     # Management network (entries that differ from common/common.yaml)
     "%{::location}-login-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_netpart')}.10"
