@@ -128,7 +128,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       - acl:
         - 'is_request hdr_beg(host) -i request'
         - 'has_subdomain hdr_reg(host) -i .*\..*\..*'
-        - 'has_www hdr_beg(host) -i www'
       - redirect:
         - 'code 301 location https://www.%[hdr(host)] if !has_subdomain'
         - 'scheme https if !{ ssl_fc } !is_request' # redirect all to https (only port 80)
