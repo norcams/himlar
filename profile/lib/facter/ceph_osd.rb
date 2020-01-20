@@ -16,9 +16,10 @@ Facter.add('ceph_osds') do
   confine hostname: /storage|object-ceph/
 
   setcode do
-    output = Facter::Core::Execution.execute('ceph osd tree -f json',
-                                             timeout: 30)
-    osds = parse_output(output)
-    osds
+    output = Facter::Core::Execution.execute('which ceph && ceph osd tree -f json 2>/dev/null',
+    unless output.empty?
+      osds = parse_output(output)
+      osds
+    end
   end
 end
