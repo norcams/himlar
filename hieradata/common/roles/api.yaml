@@ -139,7 +139,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       - http-request:
         - 'add-header X-Forwarded-Proto https if { ssl_fc }'
         - 'set-header X-Forwarded-Port %[dst_port]'
-        - 'set-header Host norcams.github.io if has_www'
       #  - 'set-header X-Forwarded-Host %[req.hdr(Host)]'
       - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/public_domains.map)]'
   frontend_internal:
@@ -234,6 +233,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
   bk_www:
     options:
       - option:       'httplog'
+      - http-request:
+        - 'set-header Host eckhart.github.io'
 
 # Servers for backends. This will be merged and can should be overridden i location
 
@@ -263,7 +264,7 @@ access__backend__ips:      ["%{hiera('netcfg_trp_netpart')}.56"]
 report__backend__names:    ['%{::location}-report-01']
 report__backend__ips:      ["%{hiera('netcfg_trp_netpart')}.22"]
 www__backend__names:       ['www01']
-www__backend__ips:         ['norcams.github.io']
+www__backend__ips:         ['eckhart.github.io']
 
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   identity:
