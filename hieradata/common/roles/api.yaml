@@ -233,7 +233,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     options:
       - option:       'httplog'
       - http-request:
-        - 'set-header Host eckhart.github.io'
+        - 'set-header Host norcams.github.io'
 
 # Servers for backends. This will be merged and can should be overridden i location
 
@@ -263,7 +263,7 @@ access__backend__ips:      ["%{hiera('netcfg_trp_netpart')}.56"]
 report__backend__names:    ['%{::location}-report-01']
 report__backend__ips:      ["%{hiera('netcfg_trp_netpart')}.22"]
 www__backend__names:       ['www01']
-www__backend__ips:         ['eckhart.github.io']
+www__backend__ips:         ['norcams.github.io']
 
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   identity:
@@ -348,7 +348,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     listening_service:  'bk_www'
     server_names:       "%{alias('www__backend__names')}"
     ipaddresses:        "%{alias('www__backend__ips')}"
-    ports:              '80'
+    ports:              '443'
+    options:            'verify none check check-ssl ssl'
 
 # SELinux - open ports for HAproxy
 profile::base::selinux::ports:
