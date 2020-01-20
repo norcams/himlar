@@ -348,7 +348,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     listening_service:  'bk_www'
     server_names:       "%{alias('www__backend__names')}"
     ipaddresses:        "%{alias('www__backend__ips')}"
-    ports:              '80'
+    ports:              '443'
 
 # SELinux - open ports for HAproxy
 profile::base::selinux::ports:
