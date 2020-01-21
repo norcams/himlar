@@ -17,6 +17,7 @@ Facter.add('ceph_osds') do
 
   setcode do
     output = Facter::Core::Execution.execute('which ceph && ceph osd tree -f json 2>/dev/null',
+                                             timeout: 30)
     unless output.empty?
       osds = parse_output(output)
       osds
