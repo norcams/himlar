@@ -45,9 +45,6 @@ profile::network::services::dhcp_reservation:
   bgo-torack-02:
     mac: '14:18:77:01:22:00'
     ip:  '172.16.0.7'
-  bgo-mgmt-02:
-    mac: '34:17:eb:32:45:80'
-    ip:  '172.16.0.5'
   bgo-mgmt-opx-01:
     mac: '3c:2c:30:33:fa:80'
     ip:  '172.16.2.1'
@@ -57,6 +54,9 @@ profile::network::services::dhcp_reservation:
   bgo-mgmt-opx-03:
     mac: '3c:2c:30:33:f8:80'
     ip:  '172.16.2.3'
+  bgo-mgmt-opx-04:
+    mac: '34:17:eb:32:45:80'
+    ip:  '172.16.2.4'
   bgo-compute-01-bmc:
     mac: 'b8:2a:72:fc:71:32'
     ip:  '172.17.0.103'
