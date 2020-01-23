@@ -15,17 +15,17 @@ domain="${certname#*.}"
 puppet_bin='/opt/puppetlabs/bin/puppet'
 
 # Clean up old puppet
-apt-get -y purge puppet facter ruby-rgen puppet-common hiera
-rm -rf /var/lib/puppet
-rm -rf /etc/puppet
+apt-get -y purge puppet-agent
+rm -rf /opt/puppetlabs
+rm -rf /opt/puppetlabs
 
 # Upgrade
 apt-get update
 apt-get -y upgrade
 
-# Install puppet repo PC1
-wget -O /tmp/puppetlabs-release-pc1-wheezy.deb http://apt.puppetlabs.com/puppetlabs-release-pc1-wheezy.deb
-dpkg -i /tmp/puppetlabs-release-pc1-wheezy.deb
+# Install puppet5 for jessie (cumulus 3.7.x)
+wget -O puppet5-release-jessie.deb http://apt.puppetlabs.com/puppet5-release-jessie.deb
+dpkg -i puppet5-release-jessie.deb
 apt-get update
 
 apt-get -y install puppet-agent
