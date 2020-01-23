@@ -59,7 +59,7 @@ netcfg_public_netmask:  '255.255.255.0'
 netcfg_public_netpart:  '192.168.12'
 netcfg_public_netpart6: 'fd01'
 netcfg_public_netmask6: '64'
-netcfg_dns_server1:     '172.31.4.11'
+netcfg_dns_server1:     '172.31.4.10'
 #netcfg_dns_server1:     '8.8.8.8'
 netcfg_dns_server2:     '8.8.8.8'
 netcfg_dns_search:      "%{hiera('domain_mgmt')} %{hiera('domain_public')}"
