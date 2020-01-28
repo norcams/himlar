@@ -5,15 +5,24 @@ network::interfaces_hash:
     netmask:       '255.255.255.0'
     defroute:      'no'
     onboot:        'yes'
+  'eth1':
+    ipaddress:      '129.177.6.133'
+    netmask:        '255.255.255.0'
+    defroute:       'yes'
+    onboot:         'yes'
+    dns1:           "%{hiera('netcfg_mgmt_netpart')}.10"
+    dns2:           '129.177.6.54'
+    domain:         "%{hiera('netcfg_dns_search')} mgmt.test01.uhdc.no"
+    peerdns:        'yes'
+    ipv6init:       'yes'
+    ipv6addr:       '2001:700:200:6::133/64'
+    ipv6_defaultgw: '2001:700:200:6::1'
+    mtu:            '9000'
   'eth2':
     ipaddress:     "%{hiera('netcfg_mgmt_netpart')}.10"
     netmask:       "%{hiera('netcfg_mgmt_netmask')}"
     defroute:      'no'
     onboot:        'yes'
-    dns1:          '129.177.6.54'
-    dns2:          "%{hiera('netcfg_dns_server2')}"
-    domain:        "%{hiera('netcfg_dns_search')} mgmt.test01.uhdc.no"
-    peerdns:       'yes'
   'eth2:1':
     ipaddress:     '10.17.0.10'
     netmask:       '255.255.255.0'

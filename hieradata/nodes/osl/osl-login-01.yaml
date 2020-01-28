@@ -1,5 +1,18 @@
 ---
 network::interfaces_hash:
+  'em1':
+    ipaddress:      '129.240.224.100'
+    netmask:        '255.255.255.224'
+    gateway:        '129.240.224.97'
+    defroute:       'yes'
+    onboot:         'yes'
+    dns1:           "%{hiera('netcfg_mgmt_netpart')}.10"
+    dns2:           '129.240.2.3'
+    domain:         "%{hiera('netcfg_dns_search')} mgmt.test02.uhdc.no"
+    peerdns:        'yes'
+    ipv6init:       'yes'
+    ipv6addr:       '2001:700:100:8241::100/64'
+    ipv6_defaultgw: '2001:700:100:8241::1'
   'em3':
     ipaddress:    '172.17.32.10'
     netmask:      '255.255.248.0'
@@ -12,10 +25,6 @@ network::interfaces_hash:
     netmask:      "%{hiera('netcfg_mgmt_netmask')}"
     defroute:     'no'
     onboot:       'yes'
-    peerdns:      'yes'
-    dns1:         '129.240.2.3'
-    dns2:         '129.240.2.40'
-    domain:       "%{hiera('domain_mgmt')} test.iaas.uio.no osl.uhdc.no test02.uhdc.no"
   'p2p1':
     ipaddress:    '10.17.32.10'
     netmask:      '255.255.255.0'
@@ -46,10 +55,6 @@ network::interfaces_hash:
     dns2:          "%{hiera('netcfg_dns_server2')}"
 
 profile::base::network::routes:
-  'em1':
-    'ipaddress': [ '0.0.0.0', ]
-    'netmask':   [ '0.0.0.0', ]
-    'gateway':   [ '129.240.224.97', ]
   'p2p2':
     'ipaddress': [ '10.100.200.0', ]
     'netmask':   [ '255.255.255.0', ]
