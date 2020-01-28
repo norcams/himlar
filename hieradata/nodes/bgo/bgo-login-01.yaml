@@ -8,6 +8,7 @@ network::interfaces_hash:
   'eth1':
     ipaddress:      '129.177.6.133'
     netmask:        '255.255.255.0'
+    gateway:        '129.177.6.1'
     defroute:       'yes'
     onboot:         'yes'
     dns1:           "%{hiera('netcfg_mgmt_netpart')}.10"
