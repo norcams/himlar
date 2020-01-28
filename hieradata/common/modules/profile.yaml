@@ -279,13 +279,17 @@ profile::base::dell::repo_hash:
     baseurl:        "%{hiera('yum_base_mirror')}/dell-system-update_dependent"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/dell-system-update_dependent/public.key"
+    gpgkey:         "%{hiera('yum_base_mirror')}/dell-system-update_dependent/0x1285491434D8786F.asc
+                     %{hiera('yum_base_mirror')}/dell-system-update_dependent/0x756ba70b1019ced6.asc
+                     %{hiera('yum_base_mirror')}/dell-system-update_dependent/0xca77951d23b66a9d.asc"
   dell-system-update_independent:
     descr:          "dell-system-update_independent"
     baseurl:        "%{hiera('yum_base_mirror')}/dell-system-update_independent"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/dell-system-update_independent/public.key"
+    gpgkey:         "%{hiera('yum_base_mirror')}/dell-system-update_dependent/0x1285491434D8786F.asc
+                     %{hiera('yum_base_mirror')}/dell-system-update_dependent/0x756ba70b1019ced6.asc
+                     %{hiera('yum_base_mirror')}/dell-system-update_dependent/0xca77951d23b66a9d.asc"
 
 profile::base::dell::packages:
   'srvadmin-all': {}
