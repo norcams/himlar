@@ -1,7 +1,4 @@
 ---
-# Frontend zone
-profile::dns::ns::frontend_zone: "uh-iaas.no"
-
 # Designate server addresses (used by file templates)
 profile::dns::ns::use_public_ip: true
 profile::dns::ns::mdns_public_addr:
@@ -14,9 +11,9 @@ profile::dns::ns::rndc_sources_ipv6:
   - '2001:700:2:83ff::256/128'
 
 # Name servers in zone file
-profile::dns::ns::ns_master: "ns2.%{hiera('profile::dns::ns::frontend_zone')}"
+profile::dns::ns::ns_master: "%{hiera('profile::dns::ns::ns_master2')}"
 profile::dns::ns::ns_slaves:
-  - "ns1.%{hiera('profile::dns::ns::frontend_zone')}"
+  - "%{hiera('profile::dns::ns::ns_master1')}"
 
 # Master server for master-slave configuration
 profile::dns::ns::ns_master_ip_addresses:
@@ -126,14 +123,17 @@ profile::dns::ns::fw_slave_zones:
     zone: "osl.uhdc.no"
     filename: "sz/osl.uhdc.no"
   osl_public:
+    zone: "osl.nrec.no"
+    filename: "sz/osl.nrec.no"
+  osl_public2:
     zone: "osl.uh-iaas.no"
     filename: "sz/osl.uh-iaas.no"
   frontend:
-    zone: "uh-iaas.no"
-    filename: "sz/uh-iaas.no"
-  frontend_new:
     zone: "nrec.no"
     filename: "sz/nrec.no"
+  frontend2:
+    zone: "uh-iaas.no"
+    filename: "sz/uh-iaas.no"
 
 # Secondary reverse zones, for which this ns is slave
 profile::dns::ns::ptr_slave_zones:
