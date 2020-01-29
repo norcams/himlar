@@ -19,7 +19,7 @@ network::interfaces_hash:
     netmask:        "%{hiera('netcfg_mgmt_netmask')}"
     defroute:       'no'
     onboot:         'yes'
-  'eth5':
+  'eth2':
     ipaddress:      '172.28.159.9'
     netmask:        '255.255.255.0'
     defroute:       'no'
