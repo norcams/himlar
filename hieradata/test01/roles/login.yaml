@@ -1,0 +1,66 @@
+---
+profile::network::services::manage_dhcp:  false
+profile::firewall::pre::manage_ipv6_ssh:  true
+profile::base::login::forward_oobnet:     true
+profile::base::login::oob_net:            "172.28.159.0/24"
+profile::base::login::oob_outiface:       'eth2'
+profile::base::login::oob_dhcrelay:       true
+
+# Himlar bootstrap
+profile::bootstrap::himlar::manage_bootstrap_scripts: true
+himlar_bootstrap::tftp_install:
+  'test01-controller-01':
+    domain:           'mgmt.test.iaas.intern'
+    dhcp_interface:   'eth0'
+    dhcp_range_start: "172.28.0.200"
+    dhcp_range_end:   "172.28.0.250"
+    dhcp_gateway:     "172.28.0.10"
+
+profile::application::git::settings:
+  hostname: "test01"
+
+named_interfaces::config:
+  public:
+    - eth0
+  mgmt:
+    - eth1
+  oob:
+    - eth2
+
+# Db backup
+#profile::base::login::db_servers:
+# test01-db-global-01:
+#   hour:     '*'
+#   minute:   '20'
+#   command:  '/usr/local/sbin/db-dump.sh test01-db-global-01 >/dev/null'
+# test01-db-regional-01:
+#   hour:     '*'
+#   minute:   '30'
+#   command:  '/usr/local/sbin/db-dump.sh test01-db-regional-01 >/dev/null'
+
+ssh::server::options:
+  # No 2FA possible with gitolite
+  # bgo-login-01
+  'Match User git Address 129.177.6.133':
+    AuthenticationMethods: 'publickey'
+  'Match User git Address 2001:700:200:6::133':
+    AuthenticationMethods: 'publickey'
+  # osl-login-01
+  'Match User git Address 129.240.224.100':
+    AuthenticationMethods: 'publickey'
+  'Match User git Address 2001:700:100:8241::100':
+    AuthenticationMethods: 'publickey'
+  # test01-login-01
+  'Match User git Address 129.177.6.190':
+    AuthenticationMethods: 'publickey'
+  'Match User git Address 2001:700:200:6::190':
+    AuthenticationMethods: 'publickey'
+  # internal mgmt network bgo
+  'Match User git Address 172.16.0.0/21':
+    AuthenticationMethods: 'publickey'
+  # internal mgmt network test01
+  'Match User git Address 172.28.0.0/24':
+    AuthenticationMethods: 'publickey'
+  # download/repo-server
+  'Match User git Address 129.240.121.86':
+    AuthenticationMethods: 'publickey'
