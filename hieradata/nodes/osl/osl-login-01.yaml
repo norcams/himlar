@@ -57,5 +57,5 @@ network::interfaces_hash:
 profile::base::network::routes:
   'p2p2':
     'ipaddress': [ '10.100.200.0', ]
-    'netmask':   [ '255.255.255.0', ]
+    'netmask':   [ '24', ]
     'gateway':   [ '172.30.32.1', ]
