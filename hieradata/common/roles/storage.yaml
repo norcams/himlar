@@ -102,13 +102,13 @@ profile::storage::cephpool::pools:
     pgp_num: 256
 profile::storage::cephpool_params::pools:
   'volumes':
-    replicas_min_size:  3
+    replicas_min_size:  2
     crush_rule:         "hdd-storage"
   'images':
-    replicas_min_size:  3
+    replicas_min_size:  2
     crush_rule:         "hdd-storage"
   'vms':
-    replicas_min_size:  3
+    replicas_min_size:  2
     crush_rule:         "ssd-storage"
   'volumes_hdd_ec_meta':
     replicas_min_size:  3
