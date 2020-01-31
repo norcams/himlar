@@ -111,7 +111,7 @@ profile::storage::cephpool_params::pools:
     replicas_min_size:  2
     crush_rule:         "ssd-storage"
   'volumes_hdd_ec_meta':
-    replicas_min_size:  3
+    replicas_min_size:  2
     crush_rule:         "ssd-storage"
     application_enable: 'rbd'
   'volumes_hdd_ec_data':
