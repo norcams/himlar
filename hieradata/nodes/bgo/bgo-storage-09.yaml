@@ -1,4 +1,9 @@
 ---
+profile::storage::cephosd::crush_move:  false
+profile::storage::cephosd::create_osds: false
+profile::base::common::manage_lvm:      false
+profile::base::lvm::create_lvm:         false
+
 profile::base::lvm::physical_volume:
   '/dev/sdp':
     ensure: present
