@@ -140,6 +140,10 @@ profile::dns::ns::ptr_zones:
     cidr: "158.39.48.0/24"
     origin: "48.39.158.in-addr.arpa"
     filename: "pz/48.39.158.in-addr.arpa"
+  public04:
+    cidr: "158.39.200.0/24"
+    origin: "200.39.158.in-addr.arpa"
+    filename: "pz/200.39.158.in-addr.arpa"
   ipv6:
     cidr: "2001:700:2:82ff::/64"
     origin: "f.f.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa"
@@ -228,6 +232,10 @@ profile::dns::ns::ptr_slave_zones:
     cidr: "158.39.77.0/24"
     origin: "77.39.158.in-addr.arpa"
     filename: "sz/77.39.158.in-addr.arpa"
+  bgo_public03:
+    cidr: "158.39.201.0/24"
+    origin: "201.39.158.in-addr.arpa"
+    filename: "sz/201.39.158.in-addr.arpa"
   bgo_ipv6:
     cidr: "2001:700:2:83ff::/64"
     origin: "f.f.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa"
