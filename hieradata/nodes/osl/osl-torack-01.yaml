@@ -19,7 +19,7 @@ profile::base::network::cumulus_interfaces:
     'ipv6': [ 'fd32:18:228::1/64', ]
     'clagd_enable': true
     'clagd_priority': '4096'
-    'clagd_peer_ip': '172.18.228.2'
+    'clagd_peer_ip': 'linklocal'
     'clagd_sys_mac': '44:38:39:ff:bb:1c'
 
 profile::base::network::cumulus_bridges:
