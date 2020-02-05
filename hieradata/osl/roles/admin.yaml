@@ -21,15 +21,15 @@ profile::webserver::apache::vhosts:
     serveraliases:  [ "repo.%{hiera('domain_oob')}", ]
 
 profile::network::services::dhcp_reservation:
-  osl-leaf-01:
-    mac: '00:01:e8:d8:3f:d7'
-    ip:  '172.16.32.1'
-  osl-leaf-02:
-    mac: '00:01:e8:d8:38:28'
-    ip:  '172.16.32.2'
-  osl-leaf-03:
-    mac: '00:01:e8:d8:25:9f'
-    ip:  '172.16.32.3'
+#  osl-leaf-01:
+#    mac: '00:01:e8:d8:3f:d7'
+#    ip:  '172.16.32.1'
+#  osl-leaf-02:
+#    mac: '00:01:e8:d8:38:28'
+#    ip:  '172.16.32.2'
+#  osl-leaf-03:
+#    mac: '00:01:e8:d8:25:9f'
+#    ip:  '172.16.32.3'
   osl-leaf-04:
     mac: '00:01:e8:d8:49:ff'
     ip:  '172.16.32.4'
@@ -41,10 +41,10 @@ profile::network::services::dhcp_reservation:
     ip:  "%{hiera('netcfg_mgmt_net_c6')}.2"
   osl-torack-01:
     mac: 'e4:f0:04:b6:51:32'
-    ip:  '172.16.32.6'
+    ip:  '172.16.32.1'
   osl-torack-02:
     mac: 'e4:f0:04:b6:52:32'
-    ip:  '172.16.32.7'
+    ip:  '172.16.32.2'
   osl-mgmt-opx-01:
     mac: '3c:2c:30:49:89:00'
     ip: '172.16.34.1'
