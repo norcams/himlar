@@ -107,6 +107,8 @@ profile::network::services::dns_records:
     "access.%{hiera('domain_public')}":                     '129.177.31.122' #124
     "console.%{hiera('domain_public')}":                    '129.177.31.122' #125
     "dashboard.%{hiera('domain_public')}":                  '129.177.31.126'
+    # mgmt
+    "%{::location}-login-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_mgmt_netpart')}.10"
   AAAA:
     "ns.%{hiera('domain_frontend')}":     '2001:700:200:917::3f17'
     "resolver.%{hiera('domain_public')}": '2001:700:200:917::3f18'
