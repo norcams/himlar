@@ -168,6 +168,8 @@ profile::network::services::dns_records:
     "%{::location}-storage-dcache-32.%{hiera('domain_mgmt')}":  "%{::location}-storage-32.%{hiera('domain_mgmt')}"
     "%{::location}-storage-dcache-33.%{hiera('domain_mgmt')}":  "%{::location}-storage-33.%{hiera('domain_mgmt')}"
     "%{::location}-storage-dcache-34.%{hiera('domain_mgmt')}":  "%{::location}-storage-34.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2d-06.%{hiera('domain_mgmt')}":     "%{::location}-storage-06.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2d-07.%{hiera('domain_mgmt')}":     "%{::location}-storage-07.%{hiera('domain_mgmt')}"
     "%{::location}-storage-v2d-35.%{hiera('domain_mgmt')}":     "%{::location}-storage-35.%{hiera('domain_mgmt')}"
     "%{::location}-storage-v2d-36.%{hiera('domain_mgmt')}":     "%{::location}-storage-36.%{hiera('domain_mgmt')}"
     "%{::location}-storage-v2d-37.%{hiera('domain_mgmt')}":     "%{::location}-storage-37.%{hiera('domain_mgmt')}"
