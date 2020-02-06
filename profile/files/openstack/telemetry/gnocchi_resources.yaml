@@ -23,14 +23,14 @@ resources:
       - 'identity.role_assignment.created'
       - 'identity.role_assignment.deleted'
 
-  - resource_type: ceph_account
-    metrics:
-      - 'radosgw.objects'
-      - 'radosgw.objects.size'
-      - 'radosgw.objects.containers'
-      - 'radosgw.api.request'
-      - 'radosgw.containers.objects'
-      - 'radosgw.containers.objects.size'
+  # - resource_type: ceph_account
+  #   metrics:
+  #     - 'radosgw.objects'
+  #     - 'radosgw.objects.size'
+  #     - 'radosgw.objects.containers'
+  #     - 'radosgw.api.request'
+  #     - 'radosgw.containers.objects'
+  #     - 'radosgw.containers.objects.size'
 
   - resource_type: instance
     metrics:
@@ -132,20 +132,20 @@ resources:
     event_attributes:
       id: resource_id
 
-  - resource_type: ipmi
-    metrics:
-      - 'hardware.ipmi.node.power'
-      - 'hardware.ipmi.node.temperature'
-      - 'hardware.ipmi.node.inlet_temperature'
-      - 'hardware.ipmi.node.outlet_temperature'
-      - 'hardware.ipmi.node.fan'
-      - 'hardware.ipmi.node.current'
-      - 'hardware.ipmi.node.voltage'
-      - 'hardware.ipmi.node.airflow'
-      - 'hardware.ipmi.node.cups'
-      - 'hardware.ipmi.node.cpu_util'
-      - 'hardware.ipmi.node.mem_util'
-      - 'hardware.ipmi.node.io_util'
+  # - resource_type: ipmi
+  #   metrics:
+  #     - 'hardware.ipmi.node.power'
+  #     - 'hardware.ipmi.node.temperature'
+  #     - 'hardware.ipmi.node.inlet_temperature'
+  #     - 'hardware.ipmi.node.outlet_temperature'
+  #     - 'hardware.ipmi.node.fan'
+  #     - 'hardware.ipmi.node.current'
+  #     - 'hardware.ipmi.node.voltage'
+  #     - 'hardware.ipmi.node.airflow'
+  #     - 'hardware.ipmi.node.cups'
+  #     - 'hardware.ipmi.node.cpu_util'
+  #     - 'hardware.ipmi.node.mem_util'
+  #     - 'hardware.ipmi.node.io_util'
 
   - resource_type: network
     metrics:
@@ -163,16 +163,16 @@ resources:
       - 'stack.resume'
       - 'stack.suspend'
 
-  - resource_type: swift_account
-    metrics:
-      - 'storage.objects.incoming.bytes'
-      - 'storage.objects.outgoing.bytes'
-      - 'storage.api.request'
-      - 'storage.objects.size'
-      - 'storage.objects'
-      - 'storage.objects.containers'
-      - 'storage.containers.objects'
-      - 'storage.containers.objects.size'
+  # - resource_type: swift_account
+  #   metrics:
+  #     - 'storage.objects.incoming.bytes'
+  #     - 'storage.objects.outgoing.bytes'
+  #     - 'storage.api.request'
+  #     - 'storage.objects.size'
+  #     - 'storage.objects'
+  #     - 'storage.objects.containers'
+  #     - 'storage.containers.objects'
+  #     - 'storage.containers.objects.size'
 
   - resource_type: volume
     metrics:
@@ -275,9 +275,9 @@ resources:
     attributes:
       controller: resource_metadata.controller
 
-  - resource_type: switch_table
-    metrics:
-      - 'switch.table.active.entries'
-    attributes:
-      controller: resource_metadata.controller
-      switch: resource_metadata.switch
+  # - resource_type: switch_table
+  #   metrics:
+  #     - 'switch.table.active.entries'
+  #   attributes:
+  #     controller: resource_metadata.controller
+  #     switch: resource_metadata.switch
