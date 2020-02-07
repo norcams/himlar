@@ -32,6 +32,10 @@ domain_trp:           "%{::domain}"
 domain_mgmt:          "%{::domain}"
 domain_oob:           "%{::domain}"
 
+# main public zones
+profile::dns::ns::frontend_zone:    "uh-iaas.no"
+profile::dns::ns::frontend_zone2:   "nrec.no"
+
 openstack_version:    'rocky'
 
 ceph_version:         'nautilus'
@@ -245,6 +249,11 @@ endpoint__object__public:         "https://object.api.%{hiera('domain_public')}:
 #
 # DNS (merge of this and location)
 #
+
+# List of all authoritative servers for zones we are delegated (for which we are responsible)
+profile::dns::ns::ns_master1:     "ns1.uh-iaas.no"
+profile::dns::ns::ns_master2:     "ns2.uh-iaas.no"
+
 profile::network::services::dns_records:
   A:
     # hostname
