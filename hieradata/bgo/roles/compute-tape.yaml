@@ -5,13 +5,14 @@ include:
   default:
     - profile::openstack::compute::pci_passthrough
 
-netcfg_trp_rr:
-  rr1:
-    peer_ipv4: '172.18.6.1'
-    peer_ipv6: 'fd00::6:1'
-  rr2:
-    peer_ipv4: '172.18.6.2'
-    peer_ipv6: 'fd00::6:2'
+# FIXME: This cannot be set in role as it is overridden in loc/modules
+#netcfg_trp_rr:
+#  rr1:
+#    peer_ipv4: '172.18.6.1'
+#    peer_ipv6: 'fd00::6:1'
+#  rr2:
+#    peer_ipv4: '172.18.6.2'
+#    peer_ipv6: 'fd00::6:2'
 
 profile::openstack::compute::pci_passthrough::configure_intel_iommu: true
 profile::openstack::compute::pci_passthrough::manage_pcipassthrough: true
