@@ -39,6 +39,9 @@ profile::base::network::rules:
     iprule: [ "from %{hiera('netcfg_priv_network')} lookup private", ]
 profile::base::network::manage_neutron_blackhole: true
 
+# IPv6 is enabled for bgp, bfd
+profile::openstack::network::calico::manage_firewall6: true
+
 ################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
 calico::compute::bird_template: 'profile/bird/bird.conf.erb'
 

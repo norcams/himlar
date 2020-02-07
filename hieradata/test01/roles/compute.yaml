@@ -43,6 +43,9 @@ profile::base::network::rules:
     iprule: [ "from %{hiera('netcfg_priv_network')} lookup private", ]
 profile::base::network::manage_neutron_blackhole: true
 
+# IPv6 is enabled for bgp, bfd
+profile::openstack::network::calico::manage_firewall6: true
+
 # remove when telemetry/ceilometer is up in all environments and move to common
 profile::openstack::compute::manage_telemetry: true
 
