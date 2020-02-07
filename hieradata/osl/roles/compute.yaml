@@ -18,6 +18,9 @@ profile::base::network::network_auto_opts:
   live:
     'defroute': 'no'
 
+# IPv6 is enabled for bgp, bfd
+profile::openstack::network::calico::manage_firewall6: true
+
 # Add custom routing table for private network to NAT
 profile::base::network::routes:
   'team1':

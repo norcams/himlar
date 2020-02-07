@@ -4,6 +4,7 @@ class profile::openstack::network::calico(
   $manage_etcd               = false,
   $manage_etcd_grpc_proxy    = false,
   $manage_firewall           = true,
+  $manage_firewall6          = false,
   $manage_dhcp_agent         = false,
   $firewall_extras           = {},
 ) {
@@ -99,6 +100,19 @@ class profile::openstack::network::calico(
         action        => undef,
         state         => undef,
       },
+    }
+    if $manage_firewall6 {
+      profile::firewall::rule { '912 bird allow bfd ipv6':
+        proto    => 'udp',
+        port     => ['3784','3785','4784','4785'],
+        provider => 'ip6tables',
+      }
+      profile::firewall::rule { "010 bgp ipv6 - accept tcp to ${name}":
+        proto    => 'tcp',
+        port     => '179',
+        provider => 'ip6tables',
+        iniface  => $::ipaddress6_trp1,
+      }
     }
 
     # Depend on $::service_interfaces and $::transport_interfaces fact
