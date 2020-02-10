@@ -426,6 +426,12 @@ frrouting::frrouting::bgp_neighbor_groups:
     'options6':
       - 'neighbor rr-clients route-reflector-client'
       - 'maximum-paths ibgp 3'
+      - 'neighbor fd32::6:1 activate'
+      - 'neighbor fd32::6:1 soft-reconfiguration inbound'
+      - 'neighbor fd32::6:2 activate'
+      - 'neighbor fd32::6:2 soft-reconfiguration inbound'
+      - 'neighbor fd32:18:228::2 activate'
+      - 'neighbor fd32:18:228::2 soft-reconfiguration inbound'
     'members6':
       - 'fd32::17'
       - 'fd32::18'
