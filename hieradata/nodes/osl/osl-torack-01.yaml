@@ -57,10 +57,11 @@ profile::base::network::cumulus_bridges:
       - host44
       - peerlink
       - downlink
+      - uplink
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'true'
-    'vids': [ '100', '120', ]
+    'vids': [ '100', '110', '120', ]
 
 profile::base::network::cumulus_bonds:
   'peerlink':
@@ -69,6 +70,12 @@ profile::base::network::cumulus_bonds:
     'slaves': [ 'swp27-28', ]
     'clag_id': '100'
     'pvid': '100'
+    'vids': [ '100', '110', ]
+  'uplink':
+    'slaves': [ 'swp29-30', ]
+    'clag_id': '101'
+    'pvid': '100'
+    'vids': [ '100', '110', '120', ]
   'host1':
     'slaves': [ 'swp1', ]
     'clag_id': '1'
