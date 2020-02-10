@@ -66,7 +66,8 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'soft-reconfiguration inbound'
       - 'route-map rr-client-allow in'
 #      - 'bfd'
-#    'members':
+    'members':
+      - ' ! placeholder'
     'options6':
       - 'neighbor rr-clients route-reflector-client'
       - 'maximum-paths ibgp 5'
@@ -76,7 +77,8 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'neighbor fd32::2 soft-reconfiguration inbound'
       - 'neighbor fd32:18:230::1 activate'
       - 'neighbor fd32:18:230::1 soft-reconfiguration inbound'
-#    'members6':
+    'members6':
+      - ' ! placeholder'
 #      - 'fd00::38:49'
 #  'other-clients':
 #    'options':
