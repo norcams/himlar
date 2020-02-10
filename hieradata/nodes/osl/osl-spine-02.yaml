@@ -65,7 +65,7 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'route-reflector-client'
       - 'soft-reconfiguration inbound'
       - 'route-map rr-client-allow in'
-#      - 'bfd'
+      - 'bfd'
     'members':
       - ' ! placeholder'
     'options6':
