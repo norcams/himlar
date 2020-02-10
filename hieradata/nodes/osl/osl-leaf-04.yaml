@@ -30,8 +30,8 @@ profile::base::network::cumulus_bridges:
     'ports': [ 'host1', 'host2', 'host3', 'host4', 'host5', 'host6', 'host7', 'host8','host9','host10','host11','host12', 'host42', 'peerlink', 'uplink' ]
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
-    'stp': 'true'
-    'vids': [ '100', '110', '4094', ]
+    'stp': 'false'
+    'vids': [ '100', '110', ]
 
 profile::base::network::cumulus_bonds:
   'peerlink':
@@ -40,6 +40,7 @@ profile::base::network::cumulus_bonds:
     'slaves': [ 'swp51', 'swp52', ]
     'clag_id': '100'
     'pvid': '100'
+    'vids': [ '100', '110', ]
   'host1':
     'slaves': [ 'swp1', ]
     'clag_id': '1'
