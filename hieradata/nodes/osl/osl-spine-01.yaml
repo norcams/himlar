@@ -7,3 +7,78 @@ network::interfaces_hash:
   'mgmt':
     'ipaddress': '127.0.0.1/8'
     'vrf_table': 'auto'
+
+profile::base::network::cumulus_interfaces:
+  'bridge.100':
+    'ipv4': [ "%{hiera('netcfg_trp_net_c6')}.1/21", ]
+    'ipv6': [ 'fd32::6:1/64', ]
+    'virtual_ip': "%{hiera('netcfg_trp_net_c7')}.2/21 fd32::702/64"
+    'virtual_mac': '00:00:5e:00:01:12'
+  'peerlink.4094':
+    'ipv4': [ '172.18.230.1/24', ]
+    'ipv6': [ 'fd32:18:230::1/64', ]
+    'clagd_enable': true
+    'clagd_peer_ip': 'linklocal'
+    'clagd_sys_mac': '44:38:39:ff:bb:2d'
+
+frrouting::frrouting::bgp_neighbors:
+  - "172.18.32.1 remote-as %{hiera('bgp_as')}"
+  - '172.18.32.1 soft-reconfiguration inbound'
+  - "fd32::1 remote-as %{hiera('bgp_as')}"
+  - 'fd32::1 soft-reconfiguration inbound'
+  - "172.18.32.2 remote-as %{hiera('bgp_as')}"
+  - '172.18.32.2 soft-reconfiguration inbound'
+  - "fd32::2 remote-as %{hiera('bgp_as')}"
+  - 'fd32::2 soft-reconfiguration inbound'
+  - "172.18.230.2 remote-as %{hiera('bgp_as')}"
+  - '172.18.230.2 soft-reconfiguration inbound'
+  - "fd32:18:230::2 remote-as %{hiera('bgp_as')}"
+  - 'fd32:18:230::2 soft-reconfiguration inbound'
+
+frrouting::frrouting::zebra_ip6_routes:
+  - '::/0 fd32::701'
+  - '::/0 fd32:18:230::2 50'
+  - '2001:700:2:8200::/64 Null0'
+  - '2001:700:2:8201::/64 Null0'
+  - '2001:700:2:82ff::12/128 fd32::12'
+  - '2001:700:2:82ff::251/128 fd32::16'
+  - '2001:700:2:82ff::256/128 fd32::34'
+frrouting::frrouting::zebra_ip_routes:
+  - '0.0.0.0/0 172.18.39.1'
+  - '0.0.0.0/0 172.18.230.2 50'
+  - '10.0.0.0/8 Null0'
+  - '158.37.63.0/24 Null0'
+  - '158.37.63.248/32 172.18.32.26'
+  - '158.39.75.248/32 172.18.32.27'
+  - '158.37.63.249/32 172.18.32.41'
+  - '158.37.63.250/32 172.18.32.86'
+  - '158.37.63.251/32 172.18.32.16'
+  - '158.37.63.253/32 172.18.32.12'
+  - '158.37.63.254/32 172.18.32.51'
+  - '158.39.48.0/24 Null0'
+  - '158.39.75.0/24 Null0'
+frrouting::frrouting::bgp_neighbor_groups:
+  'rr-clients':
+    'options':
+      - 'peer-group'
+      - "remote-as %{hiera('bgp_as')}"
+      - 'route-reflector-client'
+      - 'soft-reconfiguration inbound'
+      - 'route-map rr-client-allow in'
+#      - 'bfd'
+#    'members':
+    'options6':
+      - 'neighbor rr-clients route-reflector-client'
+      - 'maximum-paths ibgp 5'
+      - 'neighbor fd32::1 activate'
+      - 'neighbor fd32::1 soft-reconfiguration inbound'
+      - 'neighbor fd32::2 activate'
+      - 'neighbor fd32::2 soft-reconfiguration inbound'
+      - 'neighbor fd32:18:230::2 activate'
+      - 'neighbor fd32:18:230::2 soft-reconfiguration inbound'
+#    'members6':
+#      - 'fd00::38:49'
+#  'other-clients':
+#    'options':
+#    - 'peer-group'
+

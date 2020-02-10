@@ -1,2 +1,561 @@
 ---
 profile::network::leaf::manage_license: true
+profile::network::leaf::manage_portconfig: true
+
+named_interfaces::config:
+  mgmt:
+    - eth0
+  trp:
+    - bridge.100
+
+profile::network::leaf::cumulus_portconfigs:
+  1:
+    line:  "1=4x25G"
+  2:
+    line:  "2=4x25G"
+  3:
+    line:  "3=4x25G"
+  4:
+    line:  "4=4x25G"
+  5:
+    line:  "5=4x25G"
+  6:
+    line:  "6=4x25G"
+  7:
+    line:  "7=4x25G"
+  8:
+    line:  "8=4x25G"
+  9:
+    line:  "9=4x25G"
+  10:
+    line:  "10=4x25G"
+  11:
+    line:  "11=4x25G"
+  12:
+    line:  "12=4x25G"
+  13:
+    line:  "13=4x25G"
+  14:
+    line:  "14=4x25G"
+  15:
+    line:  "15=4x25G"
+  29:
+    line:  "29=40G" # torack-01
+  30:
+    line:  "30=40G" # torack-02
+
+profile::base::network::cumulus_interfaces:
+  'swp29':
+    'speed': '40000'
+    'mtu':   '9216'
+  'swp30':
+    'speed': '40000'
+    'mtu':   '9216'
+
+profile::base::network::cumulus_bonds:
+  'peerlink':
+    'slaves': [ 'swp31-32', ]
+    'mtu':   '9216'
+  'downlink':
+    'slaves': [ 'swp29-30', ]
+    'clag_id': '1000'
+    'pvid': '100'
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host1':
+    'slaves': [ 'swp1s0', ]
+    'clag_id': '1'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host2':
+    'slaves': [ 'swp1s1', ]
+    'clag_id': '2'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host3':
+    'slaves': [ 'swp1s2', ]
+    'clag_id': '3'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host4':
+    'slaves': [ 'swp1s3', ]
+    'clag_id': '4'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host5':
+    'slaves': [ 'swp2s0', ]
+    'clag_id': '5'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host6':
+    'slaves': [ 'swp2s1', ]
+    'clag_id': '6'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host7':
+    'slaves': [ 'swp2s2', ]
+    'clag_id': '7'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host8':
+    'slaves': [ 'swp2s3', ]
+    'clag_id': '8'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host9':
+    'slaves': [ 'swp3s0', ]
+    'clag_id': '9'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host10':
+    'slaves': [ 'swp3s1', ]
+    'clag_id': '10'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host11':
+    'slaves': [ 'swp3s2', ]
+    'clag_id': '11'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host12':
+    'slaves': [ 'swp3s3', ]
+    'clag_id': '12'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host13':
+    'slaves': [ 'swp4s0', ]
+    'clag_id': '13'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host14':
+    'slaves': [ 'swp4s1', ]
+    'clag_id': '14'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host15':
+    'slaves': [ 'swp4s2', ]
+    'clag_id': '15'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host16':
+    'slaves': [ 'swp4s3', ]
+    'clag_id': '16'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host17':
+    'slaves': [ 'swp5s0', ]
+    'clag_id': '17'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host18':
+    'slaves': [ 'swp5s1', ]
+    'clag_id': '18'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host19':
+    'slaves': [ 'swp5s2', ]
+    'clag_id': '19'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host20':
+    'slaves': [ 'swp5s3', ]
+    'clag_id': '20'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host21':
+    'slaves': [ 'swp6s0', ]
+    'clag_id': '21'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host22':
+    'slaves': [ 'swp6s1', ]
+    'clag_id': '22'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host23':
+    'slaves': [ 'swp6s2', ]
+    'clag_id': '23'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host25':
+    'slaves': [ 'swp7s0', ]
+    'clag_id': '25'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host26':
+    'slaves': [ 'swp7s1', ]
+    'clag_id': '26'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host27':
+    'slaves': [ 'swp7s2', ]
+    'clag_id': '27'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host28':
+    'slaves': [ 'swp7s3', ]
+    'clag_id': '28'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host29':
+    'slaves': [ 'swp8s0', ]
+    'clag_id': '29'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host30':
+    'slaves': [ 'swp8s1', ]
+    'clag_id': '30'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host31':
+    'slaves': [ 'swp8s2', ]
+    'clag_id': '31'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host32':
+    'slaves': [ 'swp8s3', ]
+    'clag_id': '32'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host33':
+    'slaves': [ 'swp9s0', ]
+    'clag_id': '33'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host34':
+    'slaves': [ 'swp9s1', ]
+    'clag_id': '34'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host35':
+    'slaves': [ 'swp9s2', ]
+    'clag_id': '35'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host36':
+    'slaves': [ 'swp9s3', ]
+    'clag_id': '36'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host37':
+    'slaves': [ 'swp10s0', ]
+    'clag_id': '37'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host38':
+    'slaves': [ 'swp10s1', ]
+    'clag_id': '38'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host39':
+    'slaves': [ 'swp10s2', ]
+    'clag_id': '39'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host40':
+    'slaves': [ 'swp10s3', ]
+    'clag_id': '40'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+
+profile::base::network::cumulus_bridges:
+  'bridge':
+    'ports':
+      - host1
+      - host2
+      - host3
+      - host4
+      - host5
+      - host6
+      - host7
+      - host8
+      - host9
+      - host10
+      - host11
+      - host12
+      - host13
+      - host14
+      - host15
+      - host16
+      - host17
+      - host18
+      - host19
+      - host20
+      - host21
+      - host22
+      - host23
+      - host25
+      - host26
+      - host27
+      - host28
+      - host29
+      - host30
+      - host31
+      - host32
+      - host33
+      - host34
+      - host35
+      - host36
+      - host37
+      - host38
+      - host39
+      - host40
+      - peerlink
+      - downlink
+    'alias_name': 'Transport L2 if'
+    'vlan_aware': 'true'
+    'stp': 'true'
+    'vids': [ '100', '109', '110', '120', ]
+    'mtu': '9216'
+
+frrouting::frrouting::zebra_interfaces:
+  'bridge':
+    - 'link-detect'
+    - 'description linux-bridge'
+  'bridge.100':
+    - 'link-detect'
+    - 'description linux-bridge-100'
+  'host1':
+    - 'link-detect'
+  'host2':
+    - 'link-detect'
+  'host3':
+    - 'link-detect'
+  'host4':
+    - 'link-detect'
+  'host5':
+    - 'link-detect'
+  'host6':
+    - 'link-detect'
+  'host7':
+    - 'link-detect'
+  'host8':
+    - 'link-detect'
+  'host9':
+    - 'link-detect'
+  'host10':
+    - 'link-detect'
+  'host11':
+    - 'link-detect'
+  'host12':
+    - 'link-detect'
+  'host13':
+    - 'link-detect'
+  'host14':
+    - 'link-detect'
+  'host15':
+    - 'link-detect'
+  'host16':
+    - 'link-detect'
+  'host17':
+    - 'link-detect'
+  'host18':
+    - 'link-detect'
+  'host19':
+    - 'link-detect'
+  'host20':
+    - 'link-detect'
+  'host21':
+    - 'link-detect'
+  'host22':
+    - 'link-detect'
+  'host23':
+    - 'link-detect'
+  'host25':
+    - 'link-detect'
+  'host26':
+    - 'link-detect'
+  'host27':
+    - 'link-detect'
+  'host28':
+    - 'link-detect'
+  'host29':
+    - 'link-detect'
+  'host30':
+    - 'link-detect'
+  'host31':
+    - 'link-detect'
+  'host32':
+    - 'link-detect'
+  'host33':
+    - 'link-detect'
+  'host34':
+    - 'link-detect'
+  'host35':
+    - 'link-detect'
+  'host36':
+    - 'link-detect'
+  'host37':
+    - 'link-detect'
+  'host38':
+    - 'link-detect'
+  'host39':
+    - 'link-detect'
+  'host40':
+    - 'link-detect'
+
+frrouting::frrouting::zebra_generic_options:
+  'ip':
+    'forwarding'
+  'ipv6':
+    'forwarding'
+
+frrouting::frrouting::bgp_as: "%{hiera('bgp_as')}"
+
+frrouting::frrouting::bgp_options:
+  - "bgp router-id %{ipaddress_trp1}"
+  - 'bgp log-neighbor-changes'
+  - 'bgp default local-preference 200'
+  - 'maximum-paths ibgp 5'
+  - 'bgp bestpath as-path multipath-relax'
+
+frrouting::frrouting::bgp_networks:
+  - '0.0.0.0/0'
+  - '172.18.32.0/21'
+frrouting::frrouting::bgp_networks6:
+  - '::/0'
+  - 'fd32::/64'
+
+frrouting::frrouting::bgp_accesslist:
+  '10':
+    - 'permit 158.37.63.0 0.0.0.255'
+    - 'permit 158.39.48.0 0.0.0.255'
+    - 'permit 158.39.75.0 0.0.0.255'
+    - 'permit 10.2.0.0 0.0.15.255'
+    - 'permit 172.18.32.0 0.0.0.255'
+  '20':
+    - 'deny 158.37.63.0 0.0.0.255'
+    - 'deny 158.39.48.0 0.0.0.255'
+    - 'deny 158.39.75.0 0.0.0.255'
+    - 'deny 10.2.0.0 0.0.15.255'
+    - 'deny 172.18.32.0 0.0.0.255'
+    - 'permit any'
+
+frrouting::frrouting::bgp_ip_prefix_list:
+  - 'routes-from-leaf1 seq 5 deny any'
+  - 'routes-to-leaf1 seq 5 permit 0.0.0.0/0'
+frrouting::frrouting::bgp_ipv6_prefix_list:
+  - 'routes-from-leaf1 seq 5 deny any'
+
+frrouting::frrouting::bgp_route_maps:
+  'rr-client-allow permit 10':
+    - 'match ip address 10'
+  'peer-deny deny 10':
+    - 'match ip address 10'

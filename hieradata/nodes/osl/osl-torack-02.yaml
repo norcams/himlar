@@ -355,6 +355,14 @@ frrouting::frrouting::zebra_generic_options:
 frrouting::frrouting::bgp_neighbors:
   - "172.31.228.1 remote-as %{hiera('bgp_as')}"
   - '172.31.228.1 soft-reconfiguration inbound'
+  - "172.18.38.1 remote-as %{hiera('bgp_as')}"
+  - '172.18.38.1 soft-reconfiguration inbound'
+  - "fd32::6:1 remote-as %{hiera('bgp_as')}"
+  - 'fd32::6:1 soft-reconfiguration inbound'
+  - "172.18.38.2 remote-as %{hiera('bgp_as')}"
+  - '172.18.38.2 soft-reconfiguration inbound'
+  - "fd32::6:2 remote-as %{hiera('bgp_as')}"
+  - 'fd32::6:2 soft-reconfiguration inbound'
 
 frrouting::frrouting::bgp_as: "%{hiera('bgp_as')}"
 
