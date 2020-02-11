@@ -114,8 +114,8 @@ profile::dns::ns::frontend_zone2:   "nrec.no"
 
 # Public and internal zones
 profile::dns::ns::internal_zone: "osl.uhdc.no"
-profile::dns::ns::public_zone:   "osl.%{hiera('profile::dns::ns::frontend_zone')"
-profile::dns::ns::public_zone2:  "osl.%{hiera('profile::dns::ns::frontend_zone2')"
+profile::dns::ns::public_zone:   "osl.%{hiera('profile::dns::ns::frontend_zone')}"
+profile::dns::ns::public_zone2:  "osl.%{hiera('profile::dns::ns::frontend_zone2')}"
 
 profile::network::services::dns_records:
   MX:
