@@ -10,8 +10,10 @@ location_description:     'Production environment in Oslo'
 profile::base::dell::manage_repos:      true
 profile::base::dell::manage_openmanage: false
 
-domain_frontend:          'uh-iaas.no'
-domain_public:            'osl.uh-iaas.no'
+domain_frontend:          "%{hiera('profile::dns::ns::frontend_zone)}"
+domain_public:            "osl.%{hiera('profile::dns::ns::frontend_zone)}"
+domain_frontend2:         "%{hiera('profile::dns::ns::frontend_zone2)}"
+domain_public2:           "osl.%{hiera('profile::dns::ns::frontend_zone2)}"
 domain_trp:               'osl.uhdc.no'
 domain_mgmt:              'mgmt.osl.uhdc.no'
 domain_oob:               'oob.osl.uhdc.no'
@@ -105,13 +107,27 @@ public__ipv6__resolver:        '2001:700:2:82ff::252'
 #
 # DNS (merge of common and this)
 #
+
+# main public zones
+profile::dns::ns::frontend_zone:    "uh-iaas.no"
+profile::dns::ns::frontend_zone2:   "nrec.no"
+
+# Public and internal zones
+profile::dns::ns::internal_zone: "osl.uhdc.no"
+profile::dns::ns::public_zone:   "osl.%{hiera('profile::dns::ns::frontend_zone')"
+profile::dns::ns::public_zone2:  "osl.%{hiera('profile::dns::ns::frontend_zone2')"
+
 profile::network::services::dns_records:
   MX:
-    "%{hiera('domain_frontend')}": [ '10 uninett-no.mx1.staysecuregroup.com.', '20 uninett-no.mx2.staysecuregroup.net.' ]
+    "%{hiera('domain_frontend')}":  [ '10 uninett-no.mx1.staysecuregroup.com.', '20 uninett-no.mx2.staysecuregroup.net.' ]
+    "%{hiera('domain_frontend2')}": [ '10 uninett-no.mx1.staysecuregroup.com.', '20 uninett-no.mx2.staysecuregroup.net.' ]
   CNAME:
     "docs.%{hiera('domain_frontend')}":          'uh-iaas.readthedocs.io'
     "status.%{hiera('domain_frontend')}":        'pubproxy.ha.uib.no'
     "report.%{hiera('domain_frontend')}":        'pubproxy.ha.uib.no'
+    "docs.%{hiera('domain_frontend2')}":         'uh-iaas.readthedocs.io'
+    "status.%{hiera('domain_frontend2')}":       'pubproxy.ha.uib.no'
+    "report.%{hiera('domain_frontend2')}":       'pubproxy.ha.uib.no'
     "%{::location}-compute-atlas-11.%{hiera('domain_mgmt')}": "%{::location}-compute-11.%{hiera('domain_mgmt')}"
     "%{::location}-compute-atlas-12.%{hiera('domain_mgmt')}": "%{::location}-compute-12.%{hiera('domain_mgmt')}"
     "%{::location}-compute-atlas-13.%{hiera('domain_mgmt')}": "%{::location}-compute-13.%{hiera('domain_mgmt')}"
@@ -141,49 +157,88 @@ profile::network::services::dns_records:
     "%{::location}-storage-arccache-11.%{hiera('domain_mgmt')}":  "%{::location}-storage-11.%{hiera('domain_mgmt')}"
     "%{::location}-storage-arccache-12.%{hiera('domain_mgmt')}":  "%{::location}-storage-12.%{hiera('domain_mgmt')}"
   A:
+    # Frontend records (<foo>.nrec.no)
+    "access.%{hiera('domain_frontend')}":         '158.39.77.250'
+    "access-osl.%{hiera('domain_frontend')}":     '158.37.63.250'
+    "access-bgo.%{hiera('domain_frontend')}":     '158.39.77.250'
+    # "report.%{hiera('domain_frontend')}":         '158.39.77.250'
+    "report-osl.%{hiera('domain_frontend')}":     '158.37.63.250'
+    "report-bgo.%{hiera('domain_frontend')}":     '158.39.77.250'
+    # "status.%{hiera('domain_frontend')}":         '158.39.77.250'
+    "status-osl.%{hiera('domain_frontend')}":     '158.37.63.250'
+    "status-bgo.%{hiera('domain_frontend')}":     '158.39.77.250'
+    "dashboard.%{hiera('domain_frontend')}":      '158.39.77.254'
+    "dashboard-osl.%{hiera('domain_frontend')}":  '158.37.63.254'
+    "dashboard-bgo.%{hiera('domain_frontend')}":  '158.39.77.254'
+    "request.%{hiera('domain_frontend')}":        '158.39.77.250'
+    "api.%{hiera('domain_frontend')}":            '158.39.77.250'
+    "api-osl.%{hiera('domain_frontend')}":        '158.37.63.250'
+    "ns1.%{hiera('domain_frontend')}":            '158.37.63.251'
+    "ns2.%{hiera('domain_frontend')}":            '158.39.77.251'
+    "www.%{hiera('domain_frontend')}":            '158.39.77.250'
+
+    # Public records (<foo>.<location>.nrec.no)
+    "console.%{hiera('domain_public')}":          '158.37.63.250'
+    "compute.api.%{hiera('domain_public')}":      '158.37.63.250'
+    "identity.api.%{hiera('domain_public')}":     '158.37.63.250'
+    "network.api.%{hiera('domain_public')}":      '158.37.63.250'
+    "image.api.%{hiera('domain_public')}":        '158.37.63.250'
+    "volume.api.%{hiera('domain_public')}":       '158.37.63.250'
+    "placement.api.%{hiera('domain_public')}":    '158.37.63.250'
+    "metric.api.%{hiera('domain_public')}":       '158.37.63.250'
+    "dns.api.%{hiera('domain_public')}":          '158.37.63.250'
+    "resolver.%{hiera('domain_public')}":         '158.37.63.252'
+
     # Frontend records (<foo>.uh-iaas.no)
-    "access.%{hiera('domain_frontend')}":        '158.39.77.250'
-    "access-osl.%{hiera('domain_frontend')}":    '158.37.63.250'
-    "access-bgo.%{hiera('domain_frontend')}":    '158.39.77.250'
-    # "report.%{hiera('domain_frontend')}":        '158.39.77.250'
-    "report-osl.%{hiera('domain_frontend')}":    '158.37.63.250'
-    "report-bgo.%{hiera('domain_frontend')}":    '158.39.77.250'
-    # "status.%{hiera('domain_frontend')}":        '158.39.77.250'
-    "status-osl.%{hiera('domain_frontend')}":    '158.37.63.250'
-    "status-bgo.%{hiera('domain_frontend')}":    '158.39.77.250'
-    "dashboard.%{hiera('domain_frontend')}":     '158.39.77.254'
-    "dashboard-osl.%{hiera('domain_frontend')}": '158.37.63.254'
-    "dashboard-bgo.%{hiera('domain_frontend')}": '158.39.77.254'
-    "request.%{hiera('domain_frontend')}":       '158.39.77.250'
-    "api.%{hiera('domain_frontend')}":           '158.39.77.250'
-    "api-osl.%{hiera('domain_frontend')}":       '158.37.63.250'
-    "ns1.%{hiera('domain_frontend')}":           '158.37.63.251'
-    "ns2.%{hiera('domain_frontend')}":           '158.39.77.251'
-    "www.%{hiera('domain_frontend')}":           '158.39.77.250'
+    "access.%{hiera('domain_frontend2')}":        '158.39.77.250'
+    "access-osl.%{hiera('domain_frontend2')}":    '158.37.63.250'
+    "access-bgo.%{hiera('domain_frontend2')}":    '158.39.77.250'
+    # "report.%{hiera('domain_frontend2')}":        '158.39.77.250'
+    "report-osl.%{hiera('domain_frontend2')}":    '158.37.63.250'
+    "report-bgo.%{hiera('domain_frontend2')}":    '158.39.77.250'
+    # "status.%{hiera('domain_frontend2')}":        '158.39.77.250'
+    "status-osl.%{hiera('domain_frontend2')}":    '158.37.63.250'
+    "status-bgo.%{hiera('domain_frontend2')}":    '158.39.77.250'
+    "dashboard.%{hiera('domain_frontend2')}":     '158.39.77.254'
+    "dashboard-osl.%{hiera('domain_frontend2')}": '158.37.63.254'
+    "dashboard-bgo.%{hiera('domain_frontend2')}": '158.39.77.254'
+    "request.%{hiera('domain_frontend2')}":       '158.39.77.250'
+    "api.%{hiera('domain_frontend2')}":           '158.39.77.250'
+    "api-osl.%{hiera('domain_frontend2')}":       '158.37.63.250'
+    "ns1.%{hiera('domain_frontend2')}":           '158.37.63.251'
+    "ns2.%{hiera('domain_frontend2')}":           '158.39.77.251'
+    "www.%{hiera('domain_frontend2')}":           '158.39.77.250'
 
     # Public records (<foo>.<location>.uh-iaas.no)
-    "console.%{hiera('domain_public')}":         '158.37.63.250'
-    "compute.api.%{hiera('domain_public')}":     '158.37.63.250'
-    "identity.api.%{hiera('domain_public')}":    '158.37.63.250'
-    "network.api.%{hiera('domain_public')}":     '158.37.63.250'
-    "image.api.%{hiera('domain_public')}":       '158.37.63.250'
-    "volume.api.%{hiera('domain_public')}":      '158.37.63.250'
-    "placement.api.%{hiera('domain_public')}":   '158.37.63.250'
-    "metric.api.%{hiera('domain_public')}":      '158.37.63.250'
-    "dns.api.%{hiera('domain_public')}":         '158.37.63.250'
-    "resolver.%{hiera('domain_public')}":        '158.37.63.252'
+    "console.%{hiera('domain_public2')}":         '158.37.63.250'
+    "compute.api.%{hiera('domain_public2')}":     '158.37.63.250'
+    "identity.api.%{hiera('domain_public2')}":    '158.37.63.250'
+    "network.api.%{hiera('domain_public2')}":     '158.37.63.250'
+    "image.api.%{hiera('domain_public2')}":       '158.37.63.250'
+    "volume.api.%{hiera('domain_public2')}":      '158.37.63.250'
+    "placement.api.%{hiera('domain_public2')}":   '158.37.63.250'
+    "metric.api.%{hiera('domain_public2')}":      '158.37.63.250'
+    "dns.api.%{hiera('domain_public2')}":         '158.37.63.250'
+    "resolver.%{hiera('domain_public2')}":        '158.37.63.252'
 
     # Management network (entries that differ from common/common.yaml)
     "%{::location}-login-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_netpart')}.10"
     "repo.%{hiera('domain_oob')}":                    "%{hiera('netcfg_oob_netpart')}.9"
 
   AAAA:
+    # Frontend records (<foo>.nrec.no)
+    "ns1.%{hiera('domain_frontend')}":            '2001:700:2:82ff::251'
+    "ns2.%{hiera('domain_frontend')}":            '2001:700:2:83ff::251'
+    # Public records (<foo>.<location>.nrec.no)
+    "resolver.%{hiera('domain_public')}":              '2001:700:2:82ff::252'
+    "%{::location}-dns-01.%{hiera('domain_public')}":  '2001:700:2:82ff::256'
+
     # Frontend records (<foo>.uh-iaas.no)
-    "ns1.%{hiera('domain_frontend')}":           '2001:700:2:82ff::251'
-    "ns2.%{hiera('domain_frontend')}":           '2001:700:2:83ff::251'
+    "ns1.%{hiera('domain_frontend2')}":           '2001:700:2:82ff::251'
+    "ns2.%{hiera('domain_frontend2')}":           '2001:700:2:83ff::251'
     # Public records (<foo>.<location>.uh-iaas.no)
-    "resolver.%{hiera('domain_public')}":             '2001:700:2:82ff::252'
-    "%{::location}-dns-01.%{hiera('domain_public')}": '2001:700:2:82ff::256'
+    "resolver.%{hiera('domain_public2')}":             '2001:700:2:82ff::252'
+    "%{::location}-dns-01.%{hiera('domain_public2')}": '2001:700:2:82ff::256'
   PTR:
     # Management network (entries that differ from common/common.yaml)
     "10.%{hiera('reverse_mgmt')}":     "%{::location}-login-01.%{hiera('domain_mgmt')}"

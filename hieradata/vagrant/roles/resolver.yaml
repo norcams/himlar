@@ -1,8 +1,4 @@
 ---
-# Public and internal zones
-profile::dns::ns::internal_zone: "vagrant.iaas.intern"
-profile::dns::ns::public_zone:   "vagrant.iaas.intern"
-
 # Forward zones. Only zones that are "internal". Requests for records
 # in these zones will be forwarded to the authoritative DNS server
 profile::dns::ns::fw_zones:

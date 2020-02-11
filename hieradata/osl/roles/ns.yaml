@@ -1,8 +1,4 @@
 ---
-# Frontend zone
-profile::dns::ns::frontend_zone: "uh-iaas.no"
-profile::dns::ns::frontend_zone_new: "nrec.no"
-
 # Designate server addresses (used by file templates)
 profile::dns::ns::use_public_ip: true
 profile::dns::ns::mdns_public_addr:
@@ -15,9 +11,9 @@ profile::dns::ns::rndc_sources_ipv6:
   - '2001:700:2:83ff::256/128'
 
 # Name servers in zone file
-profile::dns::ns::ns_master: "ns1.%{hiera('profile::dns::ns::frontend_zone')}"
+profile::dns::ns::ns_master: "%{hiera('profile::dns::ns::ns_master1')}"
 profile::dns::ns::ns_slaves:
-  - "ns2.%{hiera('profile::dns::ns::frontend_zone')}"
+  - "%{hiera('profile::dns::ns::ns_master2')}"
 
 # Master server for master-slave configuration
 profile::dns::ns::ns_master_ip_addresses:
@@ -37,6 +33,9 @@ profile::dns::ns::fw_zones:
   public:
     zone: "%{hiera('profile::dns::ns::public_zone')}"
     filename: "pz/%{hiera('profile::dns::ns::public_zone')}"
+  public2:
+    zone: "%{hiera('profile::dns::ns::public_zone2')}"
+    filename: "pz/%{hiera('profile::dns::ns::public_zone2')}"
 #    delegations:
 #      'customer':
 #        - 'ns1.uh-iaas.no'
@@ -52,14 +51,27 @@ profile::dns::ns::fw_zones:
       'ns2': '2001:700:2:83ff::251'
     delegations:
       'osl':
-        - 'ns1.uh-iaas.no'
-        - 'ns2.uh-iaas.no'
+        - "%{hiera('profile::dns::ns::ns_master1')}"
+        - "%{hiera('profile::dns::ns::ns_master2')}"
       'bgo':
-        - 'ns1.uh-iaas.no'
-        - 'ns2.uh-iaas.no'
-  frontend_new:
-    zone: "%{hiera('profile::dns::ns::frontend_zone_new')}"
-    filename: "pz/%{hiera('profile::dns::ns::frontend_zone_new')}"
+        - "%{hiera('profile::dns::ns::ns_master1')}"
+        - "%{hiera('profile::dns::ns::ns_master2')}"
+  frontend2:
+    zone: "%{hiera('profile::dns::ns::frontend_zone2')}"
+    filename: "pz/%{hiera('profile::dns::ns::frontend_zone2')}"
+    ns_a_records:
+      'ns1': "%{hiera('public__ip__ns')}"
+      'ns2': '158.39.77.251'
+    ns_aaaa_records:
+      'ns1': "%{hiera('public__ipv6__ns')}"
+      'ns2': '2001:700:2:83ff::251'
+    delegations:
+      'osl':
+        - "%{hiera('profile::dns::ns::ns_master1')}"
+        - "%{hiera('profile::dns::ns::ns_master2')}"
+      'bgo':
+        - "%{hiera('profile::dns::ns::ns_master1')}"
+        - "%{hiera('profile::dns::ns::ns_master2')}"
 
 
 # Reverse zones, for which the name server is authoritative
@@ -155,6 +167,9 @@ profile::dns::ns::fw_slave_zones:
     zone: "bgo.uhdc.no"
     filename: "sz/bgo.uhdc.no"
   bgo_public:
+    zone: "bgo.nrec.no"
+    filename: "sz/bgo.nrec.no"
+  bgo_public2:
     zone: "bgo.uh-iaas.no"
     filename: "sz/bgo.uh-iaas.no"
 

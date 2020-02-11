@@ -147,6 +147,12 @@ profile::network::services::dns_options:
 #
 # DNS (merge of common and this)
 #
+
+# Public and internal zones
+profile::dns::ns::internal_zone: "vagrant.iaas.intern"
+profile::dns::ns::public_zone:   "iaas.intern"
+profile::dns::ns::public_zone2:  "iaas2.intern"
+
 profile::network::services::dns_records:
   A:
     "access.%{hiera('domain_frontend')}":                 "%{hiera('netcfg_public_netpart')}.250"

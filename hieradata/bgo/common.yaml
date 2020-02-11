@@ -10,8 +10,11 @@ location_description:     'Production environment in Bergen'
 profile::base::dell::manage_repos:      true
 profile::base::dell::manage_openmanage: false
 
-domain_frontend:          'uh-iaas.no'
-domain_public:            'bgo.uh-iaas.no'
+
+domain_frontend:          "%{hiera('profile::dns::ns::frontend_zone)}"
+domain_public:            "bgo.%{hiera('profile::dns::ns::frontend_zone)}"
+domain_frontend2:         "%{hiera('profile::dns::ns::frontend_zone2)}"
+domain_public2:           "bgo.%{hiera('profile::dns::ns::frontend_zone2)}"
 domain_trp:               'bgo.uhdc.no'
 domain_mgmt:              'mgmt.bgo.uhdc.no'
 domain_oob:               'oob.bgo.uhdc.no'
@@ -111,6 +114,15 @@ public__ipv6__resolver:        '2001:700:2:83ff::252'
 #
 # DNS (merge of common and this)
 #
+
+# main public zones
+profile::dns::ns::frontend_zone:    "uh-iaas.no"
+profile::dns::ns::frontend_zone2:   "nrec.no"
+
+profile::dns::ns::internal_zone: "bgo.uhdc.no"
+profile::dns::ns::public_zone:   "bgo.%{hiera('profile::dns::ns::frontend_zone')"
+profile::dns::ns::public_zone2:  "bgo.%{hiera('profile::dns::ns::frontend_zone2')"
+
 profile::network::services::dns_records:
   CNAME:
     "%{::location}-compute-alice-11.%{hiera('domain_mgmt')}":   "%{::location}-compute-11.%{hiera('domain_mgmt')}"
@@ -176,28 +188,45 @@ profile::network::services::dns_records:
     "%{::location}-storage-v2d-38.%{hiera('domain_mgmt')}":     "%{::location}-storage-38.%{hiera('domain_mgmt')}"
     "%{::location}-storage-v2d-39.%{hiera('domain_mgmt')}":     "%{::location}-storage-39.%{hiera('domain_mgmt')}"
   A:
-    # Public records (<foo>.<location>.uh-iaas.no)
-    "console.%{hiera('domain_public')}":         '158.39.77.250'
-    "compute.api.%{hiera('domain_public')}":     '158.39.77.250'
-    "identity.api.%{hiera('domain_public')}":    '158.39.77.250'
-    "network.api.%{hiera('domain_public')}":     '158.39.77.250'
-    "image.api.%{hiera('domain_public')}":       '158.39.77.250'
-    "volume.api.%{hiera('domain_public')}":      '158.39.77.250'
-    "placement.api.%{hiera('domain_public')}":   '158.39.77.250'
-    "metric.api.%{hiera('domain_public')}":      '158.39.77.250'
-    "dns.api.%{hiera('domain_public')}":         '158.39.77.250'
-    "object.api.%{hiera('domain_public')}":      '158.39.77.250'
+    # Public records (<foo>.<location>.nrec.no)
+    "console.%{hiera('domain_public')}":          '158.39.77.250'
+    "compute.api.%{hiera('domain_public')}":      '158.39.77.250'
+    "identity.api.%{hiera('domain_public')}":     '158.39.77.250'
+    "network.api.%{hiera('domain_public')}":      '158.39.77.250'
+    "image.api.%{hiera('domain_public')}":        '158.39.77.250'
+    "volume.api.%{hiera('domain_public')}":       '158.39.77.250'
+    "placement.api.%{hiera('domain_public')}":    '158.39.77.250'
+    "metric.api.%{hiera('domain_public')}":       '158.39.77.250'
+    "dns.api.%{hiera('domain_public')}":          '158.39.77.250'
+    "object.api.%{hiera('domain_public')}":       '158.39.77.250'
 
-    "resolver.%{hiera('domain_public')}":        '158.39.77.252'
+    "resolver.%{hiera('domain_public')}":         '158.39.77.252'
+
+    # Public records (<foo>.<location>.uh-iaas.no)
+    "console.%{hiera('domain_public2')}":         '158.39.77.250'
+    "compute.api.%{hiera('domain_public2')}":     '158.39.77.250'
+    "identity.api.%{hiera('domain_public2')}":    '158.39.77.250'
+    "network.api.%{hiera('domain_public2')}":     '158.39.77.250'
+    "image.api.%{hiera('domain_public2')}":       '158.39.77.250'
+    "volume.api.%{hiera('domain_public2')}":      '158.39.77.250'
+    "placement.api.%{hiera('domain_public2')}":   '158.39.77.250'
+    "metric.api.%{hiera('domain_public2')}":      '158.39.77.250'
+    "dns.api.%{hiera('domain_public2')}":         '158.39.77.250'
+    "object.api.%{hiera('domain_public2')}":      '158.39.77.250'
+
+    "resolver.%{hiera('domain_public2')}":        '158.39.77.252'
 
     # Management network (entries that differ from common/common.yaml)
     "%{::location}-mgmt-01.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_netpart')}.5"
     "%{::location}-login-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_netpart')}.10"
     "repo.%{hiera('domain_oob')}":                    "%{hiera('netcfg_oob_netpart')}.9"
   AAAA:
+    # Public records (<foo>.<location>.nrec.no)
+    "resolver.%{hiera('domain_public')}":              '2001:700:2:83ff::252'
+    "%{::location}-dns-01.%{hiera('domain_public')}":  '2001:700:2:83ff::256'
     # Public records (<foo>.<location>.uh-iaas.no)
-    "resolver.%{hiera('domain_public')}":             '2001:700:2:83ff::252'
-    "%{::location}-dns-01.%{hiera('domain_public')}": '2001:700:2:83ff::256'
+    "resolver.%{hiera('domain_public2')}":             '2001:700:2:83ff::252'
+    "%{::location}-dns-01.%{hiera('domain_public2')}": '2001:700:2:83ff::256'
   PTR:
     # Management network (entries that differ from common/common.yaml)
     "5.%{hiera('reverse_mgmt')}":      "%{::location}-mgmt-01.%{hiera('domain_mgmt')}"

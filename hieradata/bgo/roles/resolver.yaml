@@ -1,9 +1,4 @@
 ---
-# Public and internal zones
-profile::dns::ns::internal_zone: "bgo.uhdc.no"
-profile::dns::ns::public_zone:   "bgo.uh-iaas.no"
-profile::dns::ns::frontend_zone: "uh-iaas.no"
-
 # Temporary: Forward everything to UiB resolvers
 #profile::dns::ns::forward_everything: true
 #profile::dns::ns::forwarders:
