@@ -33,6 +33,9 @@ profile::dns::ns::fw_zones:
   public:
     zone: "%{hiera('profile::dns::ns::public_zone')}"
     filename: "pz/%{hiera('profile::dns::ns::public_zone')}"
+  public2:
+    zone: "%{hiera('profile::dns::ns::public_zone2')}"
+    filename: "pz/%{hiera('profile::dns::ns::public_zone2')}"
 #    delegations:
 #      'customer':
 #        - 'ns1.uh-iaas.no'
