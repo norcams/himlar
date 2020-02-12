@@ -1,7 +1,9 @@
 ---
 horizon::allowed_hosts:                 '*'
 horizon::servername:                    "%{hiera('public__address__dashboard')}"
-horizon::server_aliases:                "dashboard-%{::location}.%{hiera('domain_frontend')}"
+horizon::server_aliases:
+  - "dashboard-%{::location}.%{hiera('domain_frontend')}"
+  - "dashboard.%{hiera('domain_frontend2')}"
 horizon::wsgi::apache::priority:        '10'
 horizon::wsgi::apache::bind_address:    "%{ipaddress_public1}"
 horizon::bind_address:                  "%{ipaddress_public1}"
@@ -15,7 +17,7 @@ horizon::horizon_upload_mode:           "'direct'"
 horizon::disable_password_reveal:       true
 horizon::enforce_password_check:        true
 
-horizon::help_url:                      'http://docs.uh-iaas.no'
+horizon::help_url:                      "http://docs.%{hiera('domain_frontend')}"
 horizon::openstack_endpoint_type:       'publicURL'
 horizon::keystone_url:                  "%{hiera('endpoint__identity__public')}/v3"
 horizon::keystone_default_role:         'user'
