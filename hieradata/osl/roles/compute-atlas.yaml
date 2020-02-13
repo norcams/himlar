@@ -3,6 +3,21 @@ include:
   default:
     - profile::monitoring::netdata
 
+named_interfaces::config:
+  mgmt:
+  - eth2
+  trp:
+  - team1
+  live:
+  - team1.120
+
+profile::base::network::network_auto_bonding:
+  trp:
+    eth0:
+      'team_port_config': '{ "prio" : 100 }'
+    eth1:
+      'team_port_config': '{ "prio" : 100 }'
+
 # Turn off nested virtualization
 profile::virtualization::nested::manage: false
 
