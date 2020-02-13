@@ -79,6 +79,7 @@ profile::base::common::packages:
 #  'python-oslo-log': {}
   'openstack-selinux': {}
   'python34': {}
+  'python36-virtualenv': {} # used for ca_setup
 
 ssh::server::options:
   # Need this for 2FA (saz-ssh-module disables by default)
