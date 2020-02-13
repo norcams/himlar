@@ -40,7 +40,7 @@ keystone::wsgi::apache::bind_host:        "%{ipaddress_trp1}"
 keystone::wsgi::apache::admin_bind_host:  "%{ipaddress_trp1}"
 
 # roles
-keystone::roles::admin::email:                  'support@uh-iaas.no'
+keystone::roles::admin::email:                  "support@%{hiera('domain_frontend')}"
 keystone::roles::admin::password:               "%{hiera('keystone_admin_password')}"
 keystone::roles::admin::admin_tenant:           "%{hiera('keystone__admin__project')}"
 keystone::roles::admin::service_tenant:         "%{hiera('keystone__service__project')}"

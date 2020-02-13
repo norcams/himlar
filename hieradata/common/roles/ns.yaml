@@ -31,7 +31,7 @@ profile::dns::ns::public_zone:   "%{hiera('domain_public')}"
 profile::dns::ns::authoritative: true
 
 # Our hostmaster email address (in zone file)
-profile::dns::ns::hostmaster: 'support.uh-iaas.no'
+profile::dns::ns::hostmaster: "support.%{hiera('domain_frontend')}"
 
 # DNS server addresses (used by file templates)
 profile::dns::ns::mdns_transport_addr:
@@ -53,14 +53,14 @@ profile::dns::ns::resolver1_public6_addr:   "%{hiera('public__ipv6__resolver')}"
 # Define an ACL for networks allowed to do complete zone transfer
 profile::dns::ns::allowed_transfer_nets:
   - '172.16.0.0/12;         # rfc1918: 20-bit block (internal)'
-  - '158.37.63.251;         # ns1.uh-iaas.no IPv4 (OSL)'
-  - '158.39.77.251;         # ns2.uh-iaas.no IPv4 (BGO)'
-  - '158.37.63.252;         # resolver.osl.uh-iaas.no IPv4 (OSL)'
-  - '158.39.77.252;         # resolver.bgo.uh-iaas.no IPv4 (BGO)'
-  - '2001:700:2:82ff::251;  # ns1.uh-iaas.no IPv6 (OSL)'
-  - '2001:700:2:83ff::251;  # ns2.uh-iaas.no IPv6 (BGO)'
-  - '2001:700:2:82ff::252;  # resolver.osl.uh-iaas.no IPv6 (OSL)'
-  - '2001:700:2:83ff::252;  # resolver.bgo.uh-iaas.no IPv6 (BGO)'
+  - '158.37.63.251;         # ns1 IPv4 (OSL)'
+  - '158.39.77.251;         # ns2 IPv4 (BGO)'
+  - '158.37.63.252;         # resolver.osl IPv4 (OSL)'
+  - '158.39.77.252;         # resolver.bgo IPv4 (BGO)'
+  - '2001:700:2:82ff::251;  # ns1 IPv6 (OSL)'
+  - '2001:700:2:83ff::251;  # ns2 IPv6 (BGO)'
+  - '2001:700:2:82ff::252;  # resolver.osl IPv6 (OSL)'
+  - '2001:700:2:83ff::252;  # resolver.bgo IPv6 (BGO)'
 
 # DNS server firewall configuration
 profile::dns::ns::manage_firewall: true

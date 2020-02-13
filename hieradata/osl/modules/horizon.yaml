@@ -2,4 +2,4 @@
 # Both regions use the local identity service
 horizon::available_regions:
   - [ "%{hiera('endpoint__identity__public')}/v3", "%{location}"]
-  - [ "https://identity.api.bgo.uh-iaas.no:5000/v3", 'bgo']
+  - [ "https://identity.api.bgo.%{hiera('domain_frontend')}:5000/v3", 'bgo']

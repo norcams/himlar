@@ -4,14 +4,14 @@ profile::openstack::designate::bind_servers:
   'osl-01':
     ns_rndc_addr:    '2001:700:2:82ff::251'
     ns_public_addr:  '2001:700:2:82ff::251'
-    ns_public_name:  'ns1.uh-iaas.no'
+    ns_public_name:  "%{hiera('profile::dns::ns::ns_master1')}"
     mdns_addr:
       - '2001:700:2:82ff::256'
       - '2001:700:2:83ff::256'
   'bgo-01':
     ns_rndc_addr:    '2001:700:2:83ff::251'
     ns_public_addr:  '2001:700:2:83ff::251'
-    ns_public_name:  'ns2.uh-iaas.no'
+    ns_public_name:  "%{hiera('profile::dns::ns::ns_master2')}"
     mdns_addr:
       - '2001:700:2:82ff::256'
       - '2001:700:2:83ff::256'
