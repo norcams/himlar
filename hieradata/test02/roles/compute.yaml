@@ -49,3 +49,22 @@ nova::debug: true
 
 # remove when telemetry/ceilometer is up in all environments and move to common
 profile::openstack::compute::manage_telemetry: true
+
+# FIXME - temp with calico 3.12
+# Enable extra yum repo
+profile::base::yumrepo::repo_hash:
+  rdo-release:
+    ensure: present
+#    exclude: 'openstack-neutron openstack-neutron-common python-neutron'
+  calico37:
+    ensure: absent
+  calico312:
+    ensure: present
+    exclude: 'dnsmasq'
+  ceph-%{hiera('ceph_version')}:
+    ensure: present
+  centos-qemu-ev:
+    ensure: present
+  epel: # should be absent when using RDO, but whitelist can also work
+    ensure:   present
+    includepkgs: 'bird bird6 htop bash-completion-extras lttng-ust userspace-rcu libbabeltrace leveldb liboath py-bcrypt python2-bcrypt libsmbios smbios-utils-bin'
