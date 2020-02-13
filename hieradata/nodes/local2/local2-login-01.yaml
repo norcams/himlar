@@ -10,13 +10,8 @@ network::interfaces_hash:
     ipaddress: '192.168.122.11'
     netmask:   '255.255.255.0'
     gateway:   '192.168.122.1'
-<<<<<<< HEAD
     dns1:      "%{hiera('netcfg_dns_server1')}"
     dns2:      "%{hiera('netcfg_dns_server2')}"
-=======
-    dns1:      "%{hiera('netcfg_dns_server2')}" # server1 is internal
-    dns2:      "%{hiera('netcfg_dns_server1')}"
->>>>>>> 515efe3... Updated dns in local1 and local2
     domain:    "%{hiera('netcfg_dns_search')}"
     defroute:  'yes'
     peerdns:   'yes'
