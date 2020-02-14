@@ -15,6 +15,7 @@ named_interfaces::config:
 
 profile::dns::rndc_key::create_admin_key:         true
 profile::dns::rndc_key::create_mdns_key:          true
+profile::dns::rndc_key::create_cert_key:          true
 profile::dns::rndc_key::host_is_bind_server:      true
 
 # Authoritative name servers must have a public interface
@@ -39,6 +40,7 @@ profile::dns::ns::mdns_transport_addr:
 #  - "%{hiera('service__address__mdns_02')}"
 #  - "%{hiera('service__address__mdns_03')}"
 profile::dns::ns::admin_mgmt_addr:          "%{hiera('netcfg_mgmt_netpart')}.11"
+profile::dns::ns::login_mgmt_addr:          "%{hiera('netcfg_mgmt_netpart')}.10"
 profile::dns::ns::ns_mgmt_addr:             "%{hiera('netcfg_mgmt_netpart')}.16"
 profile::dns::ns::resolver1_mgmt_addr:      "%{hiera('netcfg_mgmt_netpart')}.17"
 profile::dns::ns::resolver2_mgmt_addr:      "%{hiera('netcfg_mgmt_netpart')}.18"
