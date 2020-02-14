@@ -10,6 +10,7 @@ class profile::dns::ns (
   $mdns_transport_addr = {},
   $mdns_public_addr = {},
   $admin_mgmt_addr = {},
+  $login_mgmt_addr = {},
   $ns_mgmt_addr = {},
   $ns_transport_addr = {},
   $ns_public_addr = {},

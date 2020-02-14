@@ -8,6 +8,7 @@
 # Include our RNDC keys
 include "/etc/rndc-mdns.key";
 include "/etc/rndc-admin.key";
+include "/etc/rndc-cert.key";
 <% end -%>
 
 <% if @allowed_nets -%>
@@ -27,6 +28,7 @@ acl allowed_transfer_nets {
 controls  {
     inet 127.0.0.1 port 953 allow { 127.0.0.1; } keys { "rndc-key-admin"; };
     inet <%= @my_mgmt_addr %> port 953 allow { <%= @admin_mgmt_addr %>; } keys { "rndc-key-admin"; };
+    inet <%= @my_mgmt_addr %> port 953 allow { <%= @login_mgmt_addr %>; } keys { "rndc-key-cert"; };
 <% if @use_public_ip -%>
     inet <%= @my_public_addr %> port 953 allow { <% @mdns_public_addr.each do |addr| -%><%= addr %>; <% end -%>} keys { "rndc-key-mdns"; };
 <% else -%>
@@ -72,7 +74,7 @@ options  {
 zone "<%= values["zone"] %>" IN {
     type master;
     file "<%= values["filename"] %>";
-    allow-update { <%= @admin_mgmt_addr %>; };
+    allow-update { <%= @admin_mgmt_addr %>; <%= @login_mgmt_addr %>; };
 <% unless @ns_slave_ip_addresses.empty? -%>
     also-notify { <% @ns_slave_ip_addresses.each do |slave| -%><%= slave %>; <% end -%>};
 <% end -%>
@@ -83,7 +85,7 @@ zone "<%= values["zone"] %>" IN {
 zone "<%= values["origin"] %>" IN {
     type master;
     file "<%= values["filename"] %>";
-    allow-update { <%= @admin_mgmt_addr %>; };
+    allow-update { <%= @admin_mgmt_addr %>; <%= @login_mgmt_addr %>; };
 <% unless @ns_slave_ip_addresses.empty? -%>
     also-notify { <% @ns_slave_ip_addresses.each do |slave| -%><%= slave %>; <% end -%>};
 <% end -%>
