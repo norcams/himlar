@@ -11,6 +11,9 @@ profile::dns::ns::mdns_public_addr:
 profile::dns::ns::rndc_sources_ipv6:
   - '2001:700:200:917::3f34/128'
 
+# login node in test01 has an unstandard address (others use value from common)
+profile::dns::ns::login_mgmt_addr:          "%{hiera('netcfg_mgmt_netpart')}.9"
+
 # Master server for master-slave configuration
 #profile::dns::ns::ns_master_ip_addresses:
 #  - '192.168.0.251'         # ns.test.iaas.uio.no IPv4
