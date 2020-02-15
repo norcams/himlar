@@ -150,12 +150,16 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - 'apps.uib.no':                            'public-https-apps'
       - 'report.uh-iaas.no':                      'public-https-uh-report'
       - 'status.uh-iaas.no':                      'public-https-uh-status'
+      - 'report.nrec.no':                         'public-https-uh-report'
+      - 'status.nrec.no':                         'public-https-uh-status'
   public_http_domains:
     ensure: present
     mappings:
       - 'apps.uib.no':                            'public-http-apps'
       - 'report.uh-iaas.no':                      'public-http-uh-report'
       - 'status.uh-iaas.no':                      'public-http-uh-status'
+      - 'report.nrec.no':                         'public-http-nrec-redirect'
+      - 'status.nrec.no':                         'public-http-nrec-redirect'
       - 'docs.nrec.no':                           'public-http-nrec-redirect'
       - 'www.nrec.no':                            'public-http-nrec-redirect'
       - 'nrec.no':                                'public-http-nrec-redirect'
