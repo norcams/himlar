@@ -21,6 +21,8 @@ profile::base::selinux::ports:
 
 mgmt__address__logger: '129.177.5.51'
 
+ssl_cert_apps:            "apps.uib.no.pem"
+
 #
 # Default interfaces
 #
@@ -136,7 +138,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
     ensure: present
     mappings:
       - 'apps.uib.no':                            'public-https-apps'
-#      - 'appstest.uib.no':                        'public-https-apps-test'
+      - 'appstest.uib.no':                        'public-https-apps-test'
       - 'report.uh-iaas.no':                      'public-https-uh-report'
       - 'status.uh-iaas.no':                      'public-https-uh-status'
   public_http_domains:
@@ -145,10 +147,10 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - 'apps.uib.no':                            'public-http-apps'
       - 'report.uh-iaas.no':                      'public-http-uh-report'
       - 'status.uh-iaas.no':                      'public-http-uh-status'
-  uib_grid_domains:
-    ensure: present
-    mappings:
-      - 's3.grid.uib.no':                         'uib-https-grid'
+  # uib_grid_domains:
+  #   ensure: present
+  #   mappings:
+  #     - 's3.grid.uib.no':                         'uib-https-grid'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   'public-https-uh-status':
