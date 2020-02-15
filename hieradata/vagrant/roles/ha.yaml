@@ -1,38 +1,15 @@
 ---
-#include:
-#  default:
-#    - profile::logging::rsyslog::client
+include:
+  default:
+    - profile::application::openssl
 
-# galera
-#include:
-#  default:
-#    - profile::application::openssl
-#    - profile::database::galera::arbitrator
-#
-#profile::database::galera::arbitrator::manage_arbitrator: true
-#profile::database::galera::arbitrator::manage_firewall:   true
-
-#profile::application::openssl::manage_ca_cert:            true
-#profile::application::openssl::manage_dhparam:            true
-#profile::application::openssl::certs:
-#  "db.%{hiera('domain_trp')}":
-#     cn:             "%{::hostname}.%{hiera('domain_trp')}"
-#     concat_dhparam: true
-#     altnames:
-#       - "%{::hostname}.%{hiera('domain_trp')}"
-#       - "db.%{hiera('domain_trp')}"
-#
-# db_ssl_key:       "/etc/pki/tls/private/db.%{hiera('domain_trp')}.key.pem"
-# db_ssl_cert:      "/etc/pki/tls/certs/db.%{hiera('domain_trp')}.pem" # concat dhparam
-# db_ssl_ca:        '/etc/pki/tls/certs/cachain.pem'
-#
-# wsrep_provider_options: "socket.ssl_key=%{hiera('db_ssl_key')};socket.ssl_cert=%{hiera('db_ssl_cert')};socket.ssl_ca=%{hiera('db_ssl_ca')};socket.ssl_cipher=AES128-SHA"
-# wsrep_cluster_address:  "%{hiera('netcfg_trp_netpart')}.41:4567,%{hiera('netcfg_trp_netpart')}:4567,%{hiera('corosync_cluster_vip1')}:4567"
-#
-# # Enable extra yum repo
-# profile::base::yumrepo::repo_hash:
-#   mariadb:
-#     ensure: present
+profile::application::openssl::manage_ca_cert: true
+profile::application::openssl::certs:
+  "apps.%{hiera('domain_public')}":
+    cn:     "apps.%{hiera('domain_public')}"
+    altnames:
+      - "apps.%{hiera('domain_public')}"
+    concat: true
 
 #netdata
 profile::monitoring::netdata::firewall_extras:
@@ -75,6 +52,7 @@ profile::firewall::rules::custom_rules:
 haproxy::global_options:
   log:          '127.0.0.1 local6 debug alert'
   maxconn:      '10000' # total connections per core
+  crt-base:     '/etc/pki/tls/certs'
 
 haproxy::defaults_options:
   log:          'global'
@@ -132,6 +110,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
     mappings:
       - 'report.uh-iaas.no':                      'public-https-uh-report'
       - 'status.uh-iaas.no':                      'public-https-uh-status'
+      - 'apps.vagrant.iaas.intern':               'public-https-apps-test'
   public_http_domains:
     ensure: present
     mappings:
@@ -163,7 +142,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ports:              443
     server_names:       ['apps-gw01.uib.no', 'apps-gw02.uib.no']
     ipaddresses:        ['129.177.14.98', '129.177.14.152']
-    define_cookies:     true
     options:
       - 'check'
   'uib-https-apps-admin':
@@ -173,6 +151,16 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ipaddresses:        ['129.177.14.170', '129.177.14.171']
     options:
       - 'check'
+  'public-https-apps-test':
+    listening_service:  'public-https-apps-test'
+    ports:              443
+    # server_names:       ['status-osl.uh-iaas.no', 'status-bgo.uh-iaas.no']
+    # ipaddresses:        ['158.37.63.250', '158.39.77.250']
+    server_names:       ['apps-test01.uib.no']
+    ipaddresses:        ['129.177.30.203']
+#    define_cookies:     true
+    options:            'verify none inter 1000 check check-ssl ssl'
+
 #   'public-ldap-prod':
 #     listening_service:  'public-ldap-prod'
 #     ports:              '389'
@@ -223,12 +211,23 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
 #       - 'check'
 #
 profile::highavailability::loadbalancing::haproxy::haproxy_backends:
+  public-https-apps-test:
+    mode:             'http'
+    options:
+      - balance:      'source'
+      # - option:
+      #   - 'httpchk HEAD /api/health HTTP/1.1\r\nHost:\ status.uh-iaas.no'
+      # - option:
+      #   - 'forwardfor except 127.0.0.1'
+#        - 'http-server-close'
+        #- 'httpchk HEAD /jukeboxserver/do/license/token/renew.tok?msid=ping HTTP/1.1\r\nHost:\ apps-admin.uib.no'
+#      - cookie:       'ASP.NET_SessionId prefix nocache'
   public-http-apps:
     mode:             'tcp'
     options:
       - balance:      'source'
-      - option:
-        - 'forwardfor except 127.0.0.1'
+      #- option:
+      #  - 'forwardfor except 127.0.0.1'
       # - option:
       #   - 'httpchk HEAD /jukeboxserver/do/license/token/renew.tok?msid=ping HTTP/1.1\r\nHost:\ apps-admin.uib.no'
   public-http-uh-status:
@@ -308,7 +307,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     mode:             'tcp'
     options:
       - balance:      'roundrobin'
-      - cookie:       'ASP.NET_SessionId prefix nocache'
+      #- cookie:       'ASP.NET_SessionId prefix nocache'
       # - option:
       #   - 'httpchk HEAD /jukeboxserver/do/license/token/renew.tok?msid=ping HTTP/1.1\r\nHost:\ apps-admin.uib.no'
 
@@ -405,22 +404,17 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
     options:
       - option:         'tcplog'
       - use_backend:    'uib-ldaps-test'
-  uib-grid-https:
-    mode:               'tcp'
+  public-https-terminate:
+    mode:               'http'
     bind:
-      "%{hiera('corosync_cluster_vip5')}:443": []
+      "%{hiera('corosync_cluster_vip5')}:443": ['ssl', 'crt', 'apps.vagrant.iaas.intern.pem']
     options:
-      - maxconn:        '5000' # max grid https connections
-      - timeout:
-        - 'connect 5s'
-        - 'client 50s'
-        - 'server 50s'
-      - option:         'tcplog'
-      - tcp-request:
-        - 'inspect-delay 5s'
-        - 'content accept if { req_ssl_hello_type 1 }'
-      - use_backend:      '%[req_ssl_sni,lower,map(/etc/haproxy/uib_grid_domains.map)]'
-
+      - option:         'http-server-close'
+      - option:         'forwardfor'
+      - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/public_https_domains.map)]'
+      - http-request:
+        - 'add-header X-Forwarded-Proto https if { ssl_fc }'
+        - 'set-header X-Forwarded-Port %[dst_port]'
 
 # Corosync uib
 # Corosync VIP and HAproxy
@@ -469,7 +463,7 @@ profile::highavailability::corosync::primitives:
       'monitor':          { "interval": "10s", "timeout": "20s" }
       'start':            { "interval": "0s", "timeout": "20s" }
       'stop':             { "interval": "0s", "timeout": "20s" }
-  'gridip':
+  'terminateip':
     'primitive_class':    'ocf'
     'primitive_type':     'IPaddr2'
     'provided_by':        'heartbeat'
@@ -505,12 +499,12 @@ profile::highavailability::corosync::locations:
     primitive:  'uibip2'
     node_name:  "%{hiera('corosync_cluster_node2')}"
     score:      'INFINITY'
-  'grid_location1':
-    primitive:  'gridip'
+  'terminate_location1':
+    primitive:  'terminateip'
     node_name:  "%{hiera('corosync_cluster_node1')}"
     score:      '100'
-  'grid_location2':
-    primitive:  'gridip'
+  'terminate_location2':
+    primitive:  'terminateip'
     node_name:  "%{hiera('corosync_cluster_node2')}"
     score:      '50'
 
@@ -523,5 +517,5 @@ profile::highavailability::corosync::colocations:
     primitives:   ['clone_haproxy', 'uibip1']
   'uibip2_haproxy':
     primitives:   ['clone_haproxy', 'uibip2']
-  'gridip_haproxy':
-    primitives:   ['clone_haproxy', 'gridip']
+  'terminateip_haproxy':
+    primitives:   ['clone_haproxy', 'terminateip']
