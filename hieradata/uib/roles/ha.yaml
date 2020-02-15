@@ -156,6 +156,9 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - 'apps.uib.no':                            'public-http-apps'
       - 'report.uh-iaas.no':                      'public-http-uh-report'
       - 'status.uh-iaas.no':                      'public-http-uh-status'
+      - 'docs.nrec.no':                           'public-http-nrec-redirect'
+      - 'www.nrec.no':                            'public-http-nrec-redirect'
+      - 'nrec.no':                                'public-http-nrec-redirect'
   public_https_ssl_domains:
     ensure: present
     mappings:
@@ -320,6 +323,11 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
         - 'forwardfor except 127.0.0.1'
       - http-request:
         - 'set-header Host uh-iaas.readthedocs.io'
+  public-http-nrec-redirect:
+    mode:             'http'
+    options:
+      - balance:      'roundrobin'
+      - redirect:     'scheme https if !{ ssl_fc }'
   public-http-uh-status:
     mode:             'http'
     options:
