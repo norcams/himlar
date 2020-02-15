@@ -145,7 +145,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
     ensure: present
     mappings:
       - 'apps.uib.no':                            'public-https-apps'
-      - 'appstest.uib.no':                        'public-https-apps-test'
+#      - 'appstest.uib.no':                        'public-https-apps-test'
       - 'report.uh-iaas.no':                      'public-https-uh-report'
       - 'status.uh-iaas.no':                      'public-https-uh-status'
   public_http_domains:
@@ -154,10 +154,10 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - 'apps.uib.no':                            'public-http-apps'
       - 'report.uh-iaas.no':                      'public-http-uh-report'
       - 'status.uh-iaas.no':                      'public-http-uh-status'
-  # uib_grid_domains:
-  #   ensure: present
-  #   mappings:
-  #     - 's3.grid.uib.no':                         'uib-https-grid'
+  public_https_ssl_domains:
+    ensure: present
+    mappings:
+      - 'apps.uib.no':                            'public-https-apps-ssl'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   'public-https-uh-status':
@@ -177,7 +177,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ports:              443
     server_names:       ['appsanywhere01.uib.no', 'appsanywhere02.uib.no']
     ipaddresses:        ['129.177.30.211', '129.177.30.229']
-    options:            'verify none inter 1000 check check-ssl ssl'
+    options:
+      - 'check'
   'public-http-apps':
     listening_service:  'public-http-apps'
     ports:              80
@@ -185,13 +186,13 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ipaddresses:        ['129.177.30.211', '129.177.30.229']
     options:
       - 'check'
+  'public-https-apps-ssl':
+    listening_service:  'public-https-apps-ssl'
+    ports:              443
+    server_names:       ['appsanywhere01.uib.no', 'appsanywhere02.uib.no']
+    ipaddresses:        ['129.177.30.211', '129.177.30.229']
+    options:            'verify none inter 1000 check check-ssl ssl'
 #    define_cookies:     true
-  # 'public-https-apps-test':
-  #   listening_service:  'public-https-apps-test'
-  #   ports:              443
-  #   server_names:       ['apps-test01.uib.no']
-  #   ipaddresses:        ['129.177.30.203']
-  #   options:            'verify none inter 1000 check check-ssl ssl'
   'public-ldap-prod':
     listening_service:  'public-ldap-prod'
     ports:              '389'
@@ -279,12 +280,12 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
       #   - 'forwardfor except 127.0.0.1'
       # - option:
       #   - 'httpchk HEAD /jukeboxserver/do/license/token/renew.tok?msid=ping HTTP/1.1\r\nHost:\ apps-admin.uib.no'
-  # public-https-apps-test:
-  #   mode:             'http'
-  #   options:
-  #     - balance:      'source'
-  #     - option:
-  #       - 'forwardfor except 127.0.0.1'
+  public-https-apps-ssl:
+    mode:             'http'
+    options:
+      - balance:      'source'
+      - option:
+        - 'forwardfor except 127.0.0.1'
   public-http-uh-status:
     mode:             'http'
     options:
@@ -458,7 +459,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
     options:
       - option:         'http-server-close'
       - option:         'forwardfor'
-      - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/public_https_domains.map)]'
+      - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/public_https_ssl_domains.map)]'
       # - http-request:
       #   - 'add-header X-Forwarded-Proto https if { ssl_fc }'
       #   - 'set-header X-Forwarded-Port %[dst_port]'
