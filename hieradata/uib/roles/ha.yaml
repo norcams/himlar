@@ -21,7 +21,10 @@ profile::base::selinux::ports:
 
 mgmt__address__logger: '129.177.5.51'
 
-ssl_cert_apps:            "apps.uib.no.pem"
+ssl_cert_apps:          'apps.uib.no.pem'
+ssl_cert_nrec_docs:     'docs.nrec.no'
+ssl_cert_nrec_www:      'www.nrec.no'
+ssl_cert_nrec:          'nrec.no'
 
 #
 # Default interfaces
@@ -145,7 +148,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
     ensure: present
     mappings:
       - 'apps.uib.no':                            'public-https-apps'
-#      - 'appstest.uib.no':                        'public-https-apps-test'
       - 'report.uh-iaas.no':                      'public-https-uh-report'
       - 'status.uh-iaas.no':                      'public-https-uh-status'
   public_http_domains:
@@ -158,6 +160,10 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
     ensure: present
     mappings:
       - 'apps.uib.no':                            'public-https-apps-ssl'
+#      - 'appstest.uib.no':                        'public-https-apps-ssl'
+      - 'docs.nrec.no':                           'public-https-nrec-docs'
+      - 'www.nrec.no':                            'public-https-nrec-www'
+      - 'nrec.no':                                'public-https-nrec-www'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   'public-https-uh-status':
@@ -172,6 +178,18 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     server_names:       ['report-osl', 'report-bgo']
     ipaddresses:        ['158.37.63.250', '158.39.77.250']
     options:            'verify none inter 1000 check check-ssl'
+  'public-https-nrec-www':
+    listening_service:  'public-https-apps-www'
+    ports:              443
+    server_names:       ['www01']
+    ipaddresses:        ['norcams.github.io']
+    options:            'verify none inter 1000 check check-ssl ssl'
+  'public-https-nrec-docs':
+    listening_service:  'public-https-apps-docs'
+    ports:              443
+    server_names:       ['docs01']
+    ipaddresses:        ['uh-iaas.readthedocs.io']
+    options:            'verify none inter 1000 check check-ssl ssl'
   'public-https-apps':
     listening_service:  'public-https-apps'
     ports:              443
@@ -286,6 +304,22 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
       - balance:      'source'
       - option:
         - 'forwardfor except 127.0.0.1'
+  public-https-nrec-www:
+    mode:             'http'
+    options:
+      - balance:      'source'
+      - option:
+        - 'forwardfor except 127.0.0.1'
+      - http-request:
+        - 'set-header Host norcams.github.io'
+  public-https-nrec-docs:
+    mode:             'http'
+    options:
+      - balance:      'source'
+      - option:
+        - 'forwardfor except 127.0.0.1'
+      - http-request:
+        - 'set-header Host uh-iaas.readthedocs.io'
   public-http-uh-status:
     mode:             'http'
     options:
@@ -454,8 +488,32 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
   public-https-ssl:
     mode:               'http'
     bind:
-      "%{hiera('corosync_cluster_vip5')}:443": ['ssl', 'crt', "%{hiera('ssl_cert_apps')}"]
-      "%{hiera('corosync_cluster_vip6')}:443": ['ssl', 'crt', "%{hiera('ssl_cert_apps')}"]
+      "%{hiera('corosync_cluster_vip5')}:443":
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_apps')}"
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_nrec')}"
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_nrec_www')}"
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_nrec_docs')}"
+      "%{hiera('corosync_cluster_vip6')}:443":
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_apps')}"
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_nrec')}"
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_nrec_www')}"
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_nrec_docs')}"
     options:
       - option:         'http-server-close'
       - option:         'forwardfor'
