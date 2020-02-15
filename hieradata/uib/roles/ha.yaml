@@ -497,6 +497,15 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
     options:
       - option:         'tcplog'
       - use_backend:    'uib-ldaps-test'
+  public-http-ssl: #for redirect
+    mode:               'http'
+    bind:
+      "%{hiera('corosync_cluster_vip5')}:80": []
+      "%{hiera('corosync_cluster_vip6')}:80": []
+    options:
+      - option:         'httplog'
+      - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/public_http_domains.map)]'
+      - capture:        'request header Host len 32' #for debug
   public-https-ssl:
     mode:               'http'
     bind:
