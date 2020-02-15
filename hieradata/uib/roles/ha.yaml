@@ -177,14 +177,14 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ports:              443
     server_names:       ['appsanywhere01.uib.no', 'appsanywhere02.uib.no']
     ipaddresses:        ['129.177.30.211', '129.177.30.229']
-    options:
-      - 'check'
+    options:            'verify none inter 1000 check check-ssl ssl'
   'public-http-apps':
     listening_service:  'public-http-apps'
     ports:              80
     server_names:       ['appsanywhere01.uib.no', 'appsanywhere02.uib.no']
     ipaddresses:        ['129.177.30.211', '129.177.30.229']
-    options:            'verify none inter 1000 check check-ssl ssl'
+    options:
+      - 'check'
 #    define_cookies:     true
   # 'public-https-apps-test':
   #   listening_service:  'public-https-apps-test'
