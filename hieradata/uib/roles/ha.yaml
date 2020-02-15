@@ -156,6 +156,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
     ensure: present
     mappings:
       - 'apps.uib.no':                            'public-http-apps'
+      - 'docs.uh-iaas.no':                        'public-http-uh-docs'
       - 'report.uh-iaas.no':                      'public-http-nrec-redirect'
       - 'status.uh-iaas.no':                      'public-http-nrec-redirect'
       - 'report.nrec.no':                         'public-http-nrec-redirect'
@@ -332,6 +333,10 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     options:
       - balance:      'roundrobin'
       - redirect:     'scheme https if !{ ssl_fc }'
+  public-http-uh-docs:
+    mode:             'http'
+    options:
+      - redirect:     'code 301 location https://docs.nrec.no'
   public-https-uh-status:
     mode:             'tcp'
     options:
