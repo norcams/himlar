@@ -1,0 +1,39 @@
+---
+include:
+  default:
+    - profile::openstack::mistral
+    - profile::openstack::cache
+    - profile::logging::rsyslog::client
+    - profile::openstack::openrc
+
+# Username and password for the mistral service
+profile::openstack::openrc::password:     "%{hiera('mistral_api_password')}"
+profile::openstack::openrc::username:     'mistral'
+profile::openstack::openrc::project_name: 'services'
+
+# Set SELinux enforcing
+profile::base::selinux::manage_selinux: true
+
+# Add iptables rules
+profile::openstack::mistral::manage_firewall: true
+
+# Some extra packages we want installed
+profile::base::common::packages:
+  'python2-openstackclient': {}
+  'openstack-utils': {}
+  'openstack-selinux': {}
+  'patch': {}
+
+# Don't purge sudo stuff
+sudo::purge: false
+
+# Override repo "rdo-release"
+#openstack_version: 'rocky'
+
+# Enable extra yum repo
+profile::base::yumrepo::repo_hash:
+  rdo-release:
+    ensure: present
+
+# Make sure that memcached doesn't too much memory
+memcached::max_memory: '20%'

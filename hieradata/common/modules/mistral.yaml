@@ -1,0 +1,84 @@
+---
+# Configuration for Mistral (Workflow service)
+#
+# Uses puppet-mistral:
+#   https://github.com/openstack/puppet-mistral
+
+#---------------------------------------------------------------------
+# Logging (manifests/logging.pp)
+#   - runs on the WORKFLOW node
+#---------------------------------------------------------------------
+mistral::logging::use_syslog:  true
+mistral::logging::use_journal: true
+mistral::logging::use_json:    false
+
+#---------------------------------------------------------------------
+# RabbitMQ (manifests/init.pp)
+#   - runs on the WORKFLOW node
+#---------------------------------------------------------------------
+mistral::default_transport_url:       "%{hiera('service__transport__url')}"
+mistral::notification_transport_url:  "%{hiera('service__transport__url')}"
+
+#---------------------------------------------------------------------
+# Authentication (manifests/keystone/auth.pp)
+#   - runs on the IDENTITY node
+#---------------------------------------------------------------------
+mistral::keystone::auth::region:       "%{::location}"
+mistral::keystone::auth::public_url:   "%{hiera('endpoint__mistral__public')}"
+mistral::keystone::auth::admin_url:    "%{hiera('endpoint__mistral__admin')}"
+mistral::keystone::auth::internal_url: "%{hiera('endpoint__mistral__internal')}"
+mistral::keystone::auth::password:     "%{hiera('mistral_api_password')}"
+
+#---------------------------------------------------------------------
+# Authentication tokens (manifests/keystone/authtoken.pp)
+#   - runs on the WORKFLOW node
+#---------------------------------------------------------------------
+mistral::keystone::authtoken::password:             "%{hiera('mistral_api_password')}"
+mistral::keystone::authtoken::auth_url:             "%{hiera('endpoint__identity__admin')}"
+mistral::keystone::authtoken::www_authenticate_uri: "%{hiera('endpoint__identity__public')}"
+mistral::keystone::authtoken::memcached_servers:    '127.0.0.1'
+mistral::keystone::authtoken::region_name:          "%{::location}"
+
+#---------------------------------------------------------------------
+# Database (manifests/db.pp)
+#   - runs on the WORKFLOW node
+#---------------------------------------------------------------------
+mistral::db::database_connection: "mysql+pymysql://mistral:%{hiera('mistral::db::mysql::password')}@%{hiera('service__address__db_regional')}/mistral"
+mistral::db::database_max_retries: "-1"
+
+# puppet-mistral needs this for some mysterious reason
+mistral::database_connection:  "%{hiera('mistral::db::database_connection')}"
+mistral::database_max_retries: "%{hiera('mistral::db::database_max_retries')}"
+
+#---------------------------------------------------------------------
+# Database MySQL (manifests/db/mysql.pp)
+#   - runs on the DB node
+#---------------------------------------------------------------------
+mistral::db::mysql::user:   "mistral"
+mistral::db::mysql::dbname: "mistral"
+mistral::db::mysql::allowed_hosts:
+  - "%{hiera('netcfg_trp_netpart')}.%"
+
+#---------------------------------------------------------------------
+# API (manifests/api.pp)
+#   - runs on the WORKFLOW node
+#---------------------------------------------------------------------
+# use defaults
+
+#---------------------------------------------------------------------
+# Engine (manifests/engine.pp)
+#   - runs on the WORKFLOW node
+#---------------------------------------------------------------------
+# use defaults
+
+#---------------------------------------------------------------------
+# Executor (manifests/executor.pp)
+#   - runs on the WORKFLOW node
+#---------------------------------------------------------------------
+# use defaults
+
+#---------------------------------------------------------------------
+# Event Engine (manifests/event_engine.pp)
+#   - runs on the WORKFLOW node
+#---------------------------------------------------------------------
+# use defaults
