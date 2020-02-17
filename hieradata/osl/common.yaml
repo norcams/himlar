@@ -119,6 +119,7 @@ profile::network::services::dns_records:
     "%{hiera('domain_frontend')}":  [ '10 uninett-no.mx1.staysecuregroup.com.', '20 uninett-no.mx2.staysecuregroup.net.' ]
     "%{hiera('domain_frontend2')}": [ '10 uninett-no.mx1.staysecuregroup.com.', '20 uninett-no.mx2.staysecuregroup.net.' ]
   CNAME:
+    "docs.uh-iaas.no":                           'pubproxy.ha.uib.no'
     "status.%{hiera('domain_frontend')}":        'pubproxy.ha.uib.no'
     "report.%{hiera('domain_frontend')}":        'pubproxy.ha.uib.no'
     "docs.%{hiera('domain_frontend')}":          'sslproxy.ha.uib.no'
@@ -221,10 +222,6 @@ profile::network::services::dns_records:
     # www.nrec.no CNAME
     "%{hiera('domain_frontend')}":                '129.177.6.241' #uib-ha
     "www.%{hiera('domain_frontend2')}":           '158.39.77.250'
-
-    # old docs
-    "docs.uh-iaas.no":                            '158.39.77.250'
-
 
     # Public records (<foo>.<location>.uh-iaas.no)
     "console.%{hiera('domain_public2')}":         '158.37.63.250'
