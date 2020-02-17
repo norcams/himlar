@@ -222,6 +222,10 @@ profile::network::services::dns_records:
     "%{hiera('domain_frontend')}":                '129.177.6.241' #uib-ha
     "www.%{hiera('domain_frontend2')}":           '158.39.77.250'
 
+    # old docs
+    "docs.uh-iaas.no":                            '158.39.77.250'
+
+
     # Public records (<foo>.<location>.uh-iaas.no)
     "console.%{hiera('domain_public2')}":         '158.37.63.250'
     "compute.api.%{hiera('domain_public2')}":     '158.37.63.250'

@@ -77,6 +77,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
     ensure: present
     mappings:
       - "dashboard.%{hiera('domain_frontend2')}":           'bk_dashboard'
+      - "docs.%{hiera('domain_frontend2')}":                'bk_docs'
       - "api.%{hiera('domain_frontend')}:5000":             'bk_identity'
       - "api.%{hiera('domain_frontend2')}:5000":            'bk_identity'
       - "identity.api.%{hiera('domain_public')}:5000":      'bk_identity'
@@ -194,6 +195,10 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     mode:             'http'
     options:
       - redirect:     "code 301 location https://dashboard.%{hiera('domain_frontend')}"
+  bk_docs:
+    mode:             'http'
+    options:
+      - redirect:     "code 301 location https://docs.%{hiera('domain_frontend')}"
   bk_identity:
     options:
       - option:       'httplog'
