@@ -123,6 +123,7 @@ profile::network::services::dns_records:
     "status.%{hiera('domain_frontend')}":        'pubproxy.ha.uib.no'
     "report.%{hiera('domain_frontend')}":        'pubproxy.ha.uib.no'
     "docs.nrec.no":                              'sslproxy.ha.uib.no'
+    "www.nrec.no":                               'sslproxy.ha.uib.no'
     "status.%{hiera('domain_frontend2')}":       'pubproxy.ha.uib.no'
     "report.%{hiera('domain_frontend2')}":       'pubproxy.ha.uib.no'
     "%{::location}-compute-atlas-11.%{hiera('domain_mgmt')}": "%{::location}-compute-11.%{hiera('domain_mgmt')}"
@@ -184,7 +185,6 @@ profile::network::services::dns_records:
     "api-osl.%{hiera('domain_frontend')}":        '158.37.63.250'
     "ns1.%{hiera('domain_frontend')}":            '158.37.63.251'
     "ns2.%{hiera('domain_frontend')}":            '158.39.77.251'
-    "www.%{hiera('domain_frontend')}":            '158.39.77.250'
 
     # Public records (<foo>.<location>.nrec.no)
     "console.%{hiera('domain_public')}":          '158.37.63.250'
@@ -216,7 +216,11 @@ profile::network::services::dns_records:
     "api-osl.%{hiera('domain_frontend2')}":       '158.37.63.250'
     "ns1.%{hiera('domain_frontend2')}":           '158.37.63.251'
     "ns2.%{hiera('domain_frontend2')}":           '158.39.77.251'
-    "www.%{hiera('domain_frontend2')}":           '158.39.77.250'
+
+    # front webpage
+    # www.nrec.no CNAME
+    "www.uh-iaas.no":                             '158.39.77.250'
+    "nrec.no":                                    '129.177.6.241' #uib-ha
 
     # Public records (<foo>.<location>.uh-iaas.no)
     "console.%{hiera('domain_public2')}":         '158.37.63.250'
