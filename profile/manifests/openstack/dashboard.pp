@@ -104,9 +104,9 @@ class profile::openstack::dashboard(
   }
 
   if $change_login_footer {
-    file { '/usr/share/openstack-dashboard/openstack_dashboard/templates/_login_from_footer.html':
+    file { '/usr/share/openstack-dashboard/openstack_dashboard/templates/_login_form_footer.html':
       ensure  => present,
-      source  => "puppet:///modules/${module_name}/openstack/horizon/_login_from_footer.html",
+      source  => "puppet:///modules/${module_name}/openstack/horizon/_login_form_footer.html",
       require => Class['horizon'],
       notify  => Service['httpd']
     }
