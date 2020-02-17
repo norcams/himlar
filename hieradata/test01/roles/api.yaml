@@ -1,9 +1,9 @@
 ---
-star_api_ssl_pem: "api.%{hiera('domain_public')}.pem"
-api_ssl_pem:      "status.%{hiera('domain_public')}.pem"
-status_ssl_pem:   "status.%{hiera('domain_public')}.pem"
-console_ssl_pem:  "status.%{hiera('domain_public')}.pem" #FIXME (cert)
-access_ssl_pem:   "status.%{hiera('domain_public')}.pem" #FIXME (cert)
+# star_api_ssl_pem: "api.%{hiera('domain_public')}.pem"
+# api_ssl_pem:      "status.%{hiera('domain_public')}.pem"
+# status_ssl_pem:   "status.%{hiera('domain_public')}.pem"
+# console_ssl_pem:  "status.%{hiera('domain_public')}.pem" #FIXME (cert)
+# access_ssl_pem:   "status.%{hiera('domain_public')}.pem" #FIXME (cert)
 
 # Filter api access to testing network
 block_api_connection:   'connection reject unless { src -f /etc/haproxy/test01_access.list }'
