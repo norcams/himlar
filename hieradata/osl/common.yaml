@@ -106,8 +106,8 @@ public__ipv6__resolver:        '2001:700:2:82ff::252'
 #
 
 # main public zones
-profile::dns::ns::frontend_zone:    "uh-iaas.no"
-profile::dns::ns::frontend_zone2:   "nrec.no"
+profile::dns::ns::frontend_zone:    "nrec.no"
+profile::dns::ns::frontend_zone2:   "uh-iaas.no"
 
 # Public and internal zones
 profile::dns::ns::internal_zone: "osl.uhdc.no"
@@ -119,13 +119,13 @@ profile::network::services::dns_records:
     "%{hiera('domain_frontend')}":  [ '10 uninett-no.mx1.staysecuregroup.com.', '20 uninett-no.mx2.staysecuregroup.net.' ]
     "%{hiera('domain_frontend2')}": [ '10 uninett-no.mx1.staysecuregroup.com.', '20 uninett-no.mx2.staysecuregroup.net.' ]
   CNAME:
-    "docs.uh-iaas.no":                           'uh-iaas.readthedocs.io'
     "status.%{hiera('domain_frontend')}":        'pubproxy.ha.uib.no'
     "report.%{hiera('domain_frontend')}":        'pubproxy.ha.uib.no'
-    "docs.nrec.no":                              'sslproxy.ha.uib.no'
-    "www.nrec.no":                               'sslproxy.ha.uib.no'
+    "docs.%{hiera('domain_frontend')}":          'sslproxy.ha.uib.no'
+    "www.%{hiera('domain_frontend')}":           'sslproxy.ha.uib.no'
     "status.%{hiera('domain_frontend2')}":       'pubproxy.ha.uib.no'
     "report.%{hiera('domain_frontend2')}":       'pubproxy.ha.uib.no'
+    "docs.%{hiera('domain_frontend2')}":         'uh-iaas.readthedocs.io'
     "%{::location}-compute-atlas-11.%{hiera('domain_mgmt')}": "%{::location}-compute-11.%{hiera('domain_mgmt')}"
     "%{::location}-compute-atlas-12.%{hiera('domain_mgmt')}": "%{::location}-compute-12.%{hiera('domain_mgmt')}"
     "%{::location}-compute-atlas-13.%{hiera('domain_mgmt')}": "%{::location}-compute-13.%{hiera('domain_mgmt')}"
@@ -219,8 +219,8 @@ profile::network::services::dns_records:
 
     # front webpage
     # www.nrec.no CNAME
-    "www.uh-iaas.no":                             '158.39.77.250'
-    "nrec.no":                                    '129.177.6.241' #uib-ha
+    "%{hiera('domain_frontend')}":                '129.177.6.241' #uib-ha
+    "www.%{hiera('domain_frontend2')}":           '158.39.77.250'
 
     # Public records (<foo>.<location>.uh-iaas.no)
     "console.%{hiera('domain_public2')}":         '158.37.63.250'
