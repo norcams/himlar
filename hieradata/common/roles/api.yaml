@@ -113,7 +113,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - "access-%{::location}.%{hiera('domain_frontend2')}": 'bk_access'
       - "report.%{hiera('domain_frontend2')}":              'bk_report'
       - "report-%{::location}.%{hiera('domain_frontend2')}": 'bk_report'
-      - "www.uh-iaas.no":                                   'bk_www'
+      - "www.%{hiera('domain_frontend2')}":                 'bk_www'
   internal_domains:
     ensure: present
     mappings:
@@ -194,6 +194,10 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     mode:             'http'
     options:
       - redirect:     "code 301 location https://dashboard.%{hiera('domain_frontend')}"
+  bk_www:
+    mode:             'http'
+    options:
+      - redirect:     "code 301 location https://www.%{hiera('domain_frontend')}"
   bk_identity:
     options:
       - option:       'httplog'
@@ -255,11 +259,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     options:
       - option:       'httplog'
       - errorfile:    '503 /etc/haproxy/error.maintenance.http'
-  bk_www:
-    options:
-      - option:       'httplog'
-      - http-request:
-        - 'set-header Host norcams.github.io'
 
 # Servers for backends. This will be merged and can should be overridden i location
 
@@ -288,8 +287,6 @@ access__backend__names:    ['%{::location}-access-01']
 access__backend__ips:      ["%{hiera('netcfg_trp_netpart')}.56"]
 report__backend__names:    ['%{::location}-report-01']
 report__backend__ips:      ["%{hiera('netcfg_trp_netpart')}.22"]
-www__backend__names:       ['www01']
-www__backend__ips:         ['norcams.github.io']
 
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   identity:
@@ -370,12 +367,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ipaddresses:        "%{alias('report__backend__ips')}"
     ports:              '80'
     options:            'check'
-  www:
-    listening_service:  'bk_www'
-    server_names:       "%{alias('www__backend__names')}"
-    ipaddresses:        "%{alias('www__backend__ips')}"
-    ports:              '443'
-    options:            'verify none check check-ssl ssl'
 
 # SELinux - open ports for HAproxy
 profile::base::selinux::ports:
