@@ -119,14 +119,13 @@ profile::network::services::dns_records:
     "%{hiera('domain_frontend')}":  [ '10 uninett-no.mx1.staysecuregroup.com.', '20 uninett-no.mx2.staysecuregroup.net.' ]
     "%{hiera('domain_frontend2')}": [ '10 uninett-no.mx1.staysecuregroup.com.', '20 uninett-no.mx2.staysecuregroup.net.' ]
   CNAME:
-    "docs.uh-iaas.no":                           'pubproxy.ha.uib.no'
     "status.%{hiera('domain_frontend')}":        'pubproxy.ha.uib.no'
     "report.%{hiera('domain_frontend')}":        'pubproxy.ha.uib.no'
     "docs.%{hiera('domain_frontend')}":          'sslproxy.ha.uib.no'
     "www.%{hiera('domain_frontend')}":           'sslproxy.ha.uib.no'
     "status.%{hiera('domain_frontend2')}":       'pubproxy.ha.uib.no'
     "report.%{hiera('domain_frontend2')}":       'pubproxy.ha.uib.no'
-    "docs.%{hiera('domain_frontend2')}":         'uh-iaas.readthedocs.io'
+    "docs.%{hiera('domain_frontend2')}":         'pubproxy.ha.uib.no'
     "%{::location}-compute-atlas-11.%{hiera('domain_mgmt')}": "%{::location}-compute-11.%{hiera('domain_mgmt')}"
     "%{::location}-compute-atlas-12.%{hiera('domain_mgmt')}": "%{::location}-compute-12.%{hiera('domain_mgmt')}"
     "%{::location}-compute-atlas-13.%{hiera('domain_mgmt')}": "%{::location}-compute-13.%{hiera('domain_mgmt')}"
