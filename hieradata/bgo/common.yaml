@@ -116,8 +116,8 @@ public__ipv6__resolver:        '2001:700:2:83ff::252'
 #
 
 # main public zones
-profile::dns::ns::frontend_zone:    "nrec.no"
-profile::dns::ns::frontend_zone2:   "uh-iaas.no"
+profile::dns::ns::frontend_zone:    "uh-iaas.no"
+profile::dns::ns::frontend_zone2:   "nrec.no"
 
 profile::dns::ns::internal_zone: "bgo.uhdc.no"
 profile::dns::ns::public_zone:   "bgo.%{hiera('profile::dns::ns::frontend_zone')}"
