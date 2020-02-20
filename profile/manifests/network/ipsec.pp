@@ -44,7 +44,6 @@ class profile::network::ipsec(
 #        iniface => $::ipaddress_trp1,
       }
     if $manage_ipforwarding {
-    }
       # Enable IP forwarding
       sysctl::value { "net.ipv4.ip_forward":
         value => 1,
