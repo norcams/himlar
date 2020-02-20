@@ -3,6 +3,7 @@ class profile::network::nat(
   $enable_masquerade = false,
   $enable_bird = false,
   $manage_bird_firewall = false,
+  $bird_template = 'bird-nat.conf.erb',
   $enable_snat = false,
   $enable_snat6 = false,
   $iniface = undef,
@@ -26,7 +27,7 @@ class profile::network::nat(
         }
         file { '/etc/bird.conf':
           ensure   => file,
-          content  => template("${module_name}/bird/bird-nat.conf.erb"),
+          content  => template("${module_name}/bird/${bird_template}"),
           notify   => Service['bird']
         }
         service { 'bird':
