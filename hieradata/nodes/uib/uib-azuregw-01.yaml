@@ -12,9 +12,9 @@ network::interfaces_hash:
     domain:         "%{hiera('netcfg_dns_search')}"
   'eth1':
     onboot:         'yes'
-    ipaddress:      '129.177.5.151'
+    ipaddress:      '129.177.13.151'
     netmask:        '255.255.255.0'
-    gateway:        '129.177.5.1'
+    gateway:        '129.177.13.1'
     ipv6init:       'no'
     ipv6_autoconf:  'no'
     defroute:       'yes'
