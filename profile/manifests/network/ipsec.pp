@@ -1,11 +1,12 @@
 #
 class profile::network::ipsec(
-  $enable          = false,
-  $config_dir      = '/etc/ipsec.d/',
-  $manage_firewall = false,
+  $enable              = false,
+  $config_dir          = '/etc/ipsec.d/',
+  $manage_firewall     = false,
+  $manage_ipforwarding = true,
 ) {
 
-  if enable_ipsec {
+  if $enable {
     package { 'libreswan':
       ensure   => installed
     }
@@ -42,13 +43,15 @@ class profile::network::ipsec(
         provider => 'ip6tables',
 #        iniface => $::ipaddress_trp1,
       }
+    if $manage_ipforwarding {
     }
-    # Enable IP forwarding
-    sysctl::value { "net.ipv4.ip_forward":
-      value => 1,
-    }
-    sysctl::value { "net.ipv6.conf.all.forwarding":
-      value => 1,
+      # Enable IP forwarding
+      sysctl::value { "net.ipv4.ip_forward":
+        value => 1,
+      }
+      sysctl::value { "net.ipv6.conf.all.forwarding":
+        value => 1,
+      }
     }
     # Disable ICMP redirects
     sysctl::value { "net.ipv4.conf.all.send_redirects":

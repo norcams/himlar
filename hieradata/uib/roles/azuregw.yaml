@@ -10,17 +10,18 @@ named_interfaces::config:
   public:
     - eth1
 
-profile::network::ipsec::enable:             true
-profile::network::ipsec::manage_firewall:    true
+profile::network::ipsec::enable:              true
+profile::network::ipsec::manage_firewall:     true
+profile::network::ipsec::manage_ipforwarding: false
 
-profile::base::network::net_ifnames:         true
-profile::base::common::manage_keyboard:      true
-profile::base::common::manage_yumrepo:       true
-profile::base::common::manage_packages:      true
+profile::base::network::net_ifnames:          true
+profile::base::common::manage_keyboard:       true
+profile::base::common::manage_yumrepo:        true
+profile::base::common::manage_packages:       true
 
-profile::network::nat::enable_bird:          true
-profile::network::nat::manage_bird_firewall: true
+profile::network::nat::enable_bird:           true
+profile::network::nat::manage_bird_firewall:  true
 
-profile::network::nat::enable_snat:          true
-profile::network::nat::outiface:             "%{::interface_public1}"
-#profile::network::nat::source:               "!%{::ipaddress_public1}"
+profile::network::nat::enable_snat:           true
+profile::network::nat::outiface:              "%{::interface_public1}"
+#profile::network::nat::source:                "!%{::ipaddress_public1}"
