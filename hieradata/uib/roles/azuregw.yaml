@@ -2,6 +2,7 @@
 include:
   default:
     - profile::network::nat
+    - profile::network::ipsec
 
 named_interfaces::config:
   mgmt:
