@@ -43,6 +43,7 @@ class profile::network::ipsec(
         provider => 'ip6tables',
 #        iniface => $::ipaddress_trp1,
       }
+    }
     if $manage_ipforwarding {
       # Enable IP forwarding
       sysctl::value { "net.ipv4.ip_forward":
@@ -68,5 +69,4 @@ class profile::network::ipsec(
     # Create the connections
     create_resources(profile::network::ipsec::tunnel, lookup('profile::network::ipsec::tunnels', Hash, 'deep', {}))
   }
-
 }
