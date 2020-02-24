@@ -1,0 +1,8 @@
+---
+# FIXME - temp with calico 3.12 upgrade
+profile::base::yumrepo::repo_hash:
+  calico37:
+    ensure: absent
+  calico312:
+    ensure: present
+    exclude: 'dnsmasq'

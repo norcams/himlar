@@ -54,6 +54,14 @@ profile::base::lvm::logical_volume:
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
 
+# FIXME - temp with calico 3.12 upgrade
+profile::base::yumrepo::repo_hash:
+  calico37:
+    ensure: absent
+  calico312:
+    ensure: present
+    exclude: 'dnsmasq'
+
 profile::base::physical::configure_bmc_nic:          true
 profile::base::physical::enable_redfish_sensu_check: true
 profile::base::physical::enable_redfish_http_proxy:  true
