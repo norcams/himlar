@@ -50,3 +50,9 @@ profile::base::network::network_auto_bonding:
       'team_port_config': '{ "prio" : 100 }'
     em4:
       'team_port_config': '{ "prio" : 100 }'
+
+# This compute host uses local storage for instances
+nova::compute::rbd::ephemeral_storage:  false
+nova::config::nova_config:
+  libvirt/images_type:
+    value: default
