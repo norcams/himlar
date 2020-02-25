@@ -18,6 +18,7 @@ class profile::openstack::metric (
   include ::gnocchi::storage
   include ::gnocchi::storage::file
   include ::gnocchi::statsd
+  include ::gnocchi::cors
 
   if $manage_wsgi {
     include ::gnocchi::wsgi::apache
