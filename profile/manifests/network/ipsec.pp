@@ -3,6 +3,7 @@ class profile::network::ipsec(
   $enable              = false,
   $config_dir          = '/etc/ipsec.d/',
   $manage_firewall     = false,
+  $ipsec_iniface       = $::ipaddress_public1
   $manage_ipforwarding = true,
 ) {
 
@@ -27,11 +28,11 @@ class profile::network::ipsec(
       }
       profile::firewall::rule { "915 ipsec allow protocol ESP":
         proto    => 'esp',
-#        iniface => $::ipaddress_trp1,
+        iniface  => "${$ipsec_iniface},
       }
       profile::firewall::rule { "916 ipsec allow protocol AH":
         proto    => 'esp',
-#        iniface => $::ipaddress_trp1,
+        iniface  => "${$ipsec_iniface},
       }
       profile::firewall::rule { "915 ipsec allow protocol ESP IPv6":
         proto    => 'ah',
