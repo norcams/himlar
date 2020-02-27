@@ -3,7 +3,7 @@ class profile::network::ipsec(
   $enable              = false,
   $config_dir          = '/etc/ipsec.d/',
   $manage_firewall     = false,
-  $ipsec_iniface       = $::ipaddress_public1
+  $ipsec_iniface       = $::ipaddress_public1,
   $manage_ipforwarding = true,
 ) {
 
