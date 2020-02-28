@@ -5,6 +5,8 @@ class profile::network::nat(
   $manage_bird_firewall = false,
   $bird_export_networks = undef,
   $bird_template = 'bird-nat.conf.erb',
+  $bird_local_as = undef,
+  $bird_remote_as = undef,
   $enable_snat = false,
   $enable_snat6 = false,
   $iniface = undef,
