@@ -3,6 +3,7 @@ class profile::network::nat(
   $enable_masquerade = false,
   $enable_bird = false,
   $manage_bird_firewall = false,
+  $bird_export_networks = undef,
   $bird_template = 'bird-nat.conf.erb',
   $enable_snat = false,
   $enable_snat6 = false,
