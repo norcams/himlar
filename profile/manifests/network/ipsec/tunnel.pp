@@ -24,6 +24,7 @@ define profile::network::ipsec::tunnel (
   $pfs              = undef,
   $salifetime       = undef,
   $type             = undef,
+  $psk              = undef,
 ) {
 
   # Preshared key kan be given as $psk in original hash, og given as secret with
