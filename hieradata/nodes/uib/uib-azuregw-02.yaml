@@ -18,3 +18,27 @@ network::interfaces_hash:
     ipv6init:       'no'
     ipv6_autoconf:  'no'
     defroute:       'yes'
+
+profile::network::ipsec::tunnels:
+  'uib-azuregw-02':
+    right:         '51.144.158.111'
+    left:          "%{ipaddress_public1}"
+    auto:          'start'
+    phase2alg:     'aes128-sha1'
+    authby:        'secret'
+    dpdaction:     'restart'
+    dpddelay:      '30'
+    dpdtimeout:    '120'
+    ike:           'aes256-sha1;modp1024'
+    ikev2:         'yes'
+    ikelifetime:   '10800s'
+    leftsubnet:    '0.0.0.0/0'
+    leftvti:       ''
+    rightsubnet:   '0.0.0.0/0'
+    mark:          '5/0xffffffff'
+    vti_interface: 'vti1'
+    vti_routing:   'no'
+    pfs:           'yes'
+    salifetime:    '3600s'
+    type:          'tunnel'
+    # psk: "" # Taken from secrets
