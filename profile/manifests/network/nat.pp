@@ -8,6 +8,7 @@ class profile::network::nat(
   $azure_bird_local_as = undef,
   $azure_bird_remote_as = undef,
   $azure_bird_remote_neigh = undef,
+  $azure_bird_remote_network = undef,
   $enable_snat = false,
   $enable_snat6 = false,
   $iniface = undef,
