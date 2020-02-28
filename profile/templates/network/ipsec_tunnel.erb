@@ -2,8 +2,25 @@
 # This file is managed by puppet!
 #
 conn <%= @name %>
-    left=<%= @left %>
-    right=<%= @right %>
-    authby=<%= @authby %>
+    right=<%= @right %> # This is remote
+    rightid=<%= @right %>
+    left=<%= @left %> # This is us
+    leftid=<%= @left %>
     auto=<%= @auto %>
-<% if @phase2alg -%>    phase2alg=<%= @phase2alg %><% end %>
+<% if @authby -%>    authby=<%= @authby %><% end %>
+<% if @dpdaction -%>    dpdaction=<%= @dpdaction %><% end %>
+<% if @dpddelay -%>    dpddelay=<%= @dpddelay %><% end %>
+<% if @dpdtimeout -%>    dpdtimeout=<%= @dpdtimeout %><% end %>
+<% if @ike -%>    ike=<%= @ike %><% end %>
+<% if @ikelifetime -%>    ikelifetime=<%= @ikelifetime %><% end %>
+<% if @ikev2 -%>    ikev2=<%= @ikev2 %><% end %>
+<% if @leftsubnet -%>    leftsubnet=<%= @leftsubnet %><% end %>
+<% if @leftvti -%>    leftvti=<%= @leftvti %><% end %>
+<% if @rightsubnet -%>    rightsubnet=<%= @rightsubnet %><% end %>
+<% if @mark -%>    mark=<%= @mark %> # Needs to be unique across all tunnels<% end %>
+<% if @vti_interface -%>    vti-interface=<%= @vti_interface %><% end %>
+<% if @vti_routing -%>    vti-routing=<%= @vti_routing %><% end %>
+<% if @pfs -%>    pfs=<%= @pfs %><% end %>
+<% if @phase2alg -%>     phase2alg=<%= @phase2alg %><% end %>
+<% if @salifetime -%>     salifetime=<%= @salifetime %><% end %>
+<% if @type -%>    type=<%= @type %><% end %>

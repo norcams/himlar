@@ -8,7 +8,22 @@ define profile::network::ipsec::tunnel (
   $auto             = "add", # Use "start" for production tunnels
   $config_dir       = '/etc/ipsec.d',
   $phase2alg        = undef,
-  $psk              = undef,
+  $authby           = undef,
+  $dpdaction        = undef,
+  $dpddelay         = undef,
+  $dpdtimeout       = undef,
+  $ike              = undef,
+  $ikev2            = undef,
+  $ikelifetime      = undef,
+  $leftsubnet       = undef,
+  $leftvti          = undef,
+  $rightsubnet      = undef,
+  $mark             = undef,
+  $vti_interface    = undef,
+  $vti_routing      = undef,
+  $pfs              = undef,
+  $salifetime       = undef,
+  $type             = undef,
 ) {
 
   # Preshared key kan be given as $psk in original hash, og given as secret with
