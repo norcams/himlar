@@ -8,7 +8,6 @@ define profile::network::ipsec::tunnel (
   $auto             = "add", # Use "start" for production tunnels
   $config_dir       = '/etc/ipsec.d',
   $phase2alg        = undef,
-  $authby           = undef,
   $dpdaction        = undef,
   $dpddelay         = undef,
   $dpdtimeout       = undef,
