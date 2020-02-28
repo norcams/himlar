@@ -51,10 +51,8 @@ profile::base::lvm::logical_volume:
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
 
-# Testing local storage for atlas-29
-profile::base::network::network_auto_bonding:
-  trp:
-    em3:
-      'team_port_config': '{ "prio" : 100 }'
-    em4:
-      'team_port_config': '{ "prio" : 100 }'
+# This compute host uses local storage for instances
+nova::compute::rbd::ephemeral_storage:  false
+nova::config::nova_config:
+  libvirt/images_type:
+    value: default
