@@ -69,14 +69,14 @@ profile::storage::cephpool::pools:
     ensure: present
     pg_num: 512
     pgp_num: 512
-  'test_dcache_hdd_ec_meta8':
-    ensure: present
-    pg_num: 512
-    pgp_num: 512
-  'test_dcache_replicated':
-    ensure: present
-    pg_num: 512
-    pgp_num: 512
+#  'test_dcache_hdd_ec_meta8':
+#    ensure: present
+#    pg_num: 512
+#    pgp_num: 512
+#  'test_dcache_replicated':
+#    ensure: present
+#    pg_num: 512
+#    pgp_num: 512
 profile::storage::cephpool_params::pools:
   'dcache_hdd_ec_meta':
     replicas_num:       4
