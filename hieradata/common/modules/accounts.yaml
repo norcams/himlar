@@ -33,6 +33,9 @@ accounts::ssh_keys:
   'tannazn':
     type:    'ssh-rsa'
     public:  'AAAAB3NzaC1yc2EAAAADAQABAAABAQDfzu58bck7wVUR++oVR/KUnqo29EMtkH0RQyN9nXou2O2jOjCyozKSugdM1/TGKiLNO3ZHSmx56NA01kTVky6YJCk2Bz6BsL4zMJnupsFztTUIRntijVFGnjfrHFPhuERcKPTDheiorSqzlUYTKvxDA8kgkJy+QDAfqnhTt/HBpk82jAV2aWoJYszc4AfEpfu/EUhPPRoOQrk5dTkSaJJjUCaHAhWioKk7TiPlmn/zeDpeqAxDn7DmD82Vh8InRpAm1s2lI+Z6K76X6ltbH/6OC+boi5FrIIjqymyvcMhOSjiAnswCahSAtKW14D3fGuq+EZW8N/CDS95l9sYPF3Xv'
+  'sjurher':
+    type:    'ssh-rsa'
+    public:  'AAAAB3NzaC1yc2EAAAABIwAAAQEAuZMUpykDgxpTP3z8Ge2gC5UBStWtI6juvWICb+/vSUrvXDcvlztX0uThobj40obBTE0sKxQkDgVx2IyHUFGMWXYqWs3EStkOUQAMaW5Gva/FmMfsIyspvlO/TYpeglzFPHwDBc6IeVGSIhKZySQnj4F6kvwEBnZfhXf+gX9iW5+MOl+4R9ZWttc0x3xfKv5Jhyl7Wfx3YHlOKWXJtuJf3ZZZHY31pzwjbREGuOscLw9ATlOJu6bk94aVAafFRUnuIIV3ec195gddcjIS9ea84Q/ExElpBWO8W3aO68ejZ6TG4qm+ieKWpbQaHxk+bFp+zkjomAZisFvwmgaIQJnj9Q=='
 
 accounts::users:
 #  'hege':
@@ -64,6 +67,9 @@ accounts::users:
     groups:  [ 'users', 'wheel' ]
   'tannazn':
     comment: 'tannazn@norcams'
+    groups: [ 'users', 'wheel' ]
+  'sjurher':
+    comment: 'sjurher@norcams'
     groups: [ 'users', 'wheel' ]
 
 accounts::accounts:
