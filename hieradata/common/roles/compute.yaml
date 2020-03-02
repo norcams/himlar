@@ -149,6 +149,8 @@ etcd::mode: 'proxy'
 
 calico::compute::bird_template:  'profile/bird/bird.conf.erb'
 calico::compute::bird6_template: 'profile/bird/bird6.conf.erb'
++# FIXME workaround that should be fixed upstream in calico-felix
++calico::compute::felix_vxlan_port: '31439'
 
 named_interfaces::config:
   mgmt:
