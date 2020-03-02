@@ -57,13 +57,13 @@ profile::storage::ceph_ecpool::ec_pools:
     k_data:              "10"
     m_code:              "3"
     crush_root:          "dcache"
-  'test_dcache_hdd_ec_data8':
-    pg_num:              "1024"
-    manage:              true
-    allow_ec_overwrites: true
-    k_data:              "8"
-    m_code:              "2"
-    crush_root:          "dcache"
+#  'test_dcache_hdd_ec_data8':
+#    pg_num:              "1024"
+#    manage:              true
+#    allow_ec_overwrites: true
+#    k_data:              "8"
+#    m_code:              "2"
+#    crush_root:          "dcache"
 profile::storage::cephpool::pools:
   'dcache_hdd_ec_meta':
     ensure: present
@@ -86,14 +86,14 @@ profile::storage::cephpool_params::pools:
   'dcache_hdd_ec_data':
     application_enable: 'rbd'
     replicas_min_size:  '11'
-  'test_dcache_hdd_ec_meta8':
-    replicas_num:       3
-    replicas_min_size:  2
-    crush_rule:         "hdd-dcache"
-    application_enable: 'rbd'
-  'test_dcache_hdd_ec_data8':
-    application_enable: 'rbd'
-    replicas_min_size:  '9'
+#  'test_dcache_hdd_ec_meta8':
+#    replicas_num:       3
+#    replicas_min_size:  2
+#    crush_rule:         "hdd-dcache"
+#    application_enable: 'rbd'
+#  'test_dcache_hdd_ec_data8':
+#    application_enable: 'rbd'
+#    replicas_min_size:  '9'
 
 profile::base::common::extraswap:         true
 profile::base::common::extraswap_sizegb:  20
