@@ -129,7 +129,7 @@ mod 'collectd', :ref => 'v10.0.0',                  :git => github + 'voxpupuli/
 #
 # profile::webserver::apache
 #
-mod 'puppetlabs/apache', :ref => '3.0.0',           :git => github + 'puppetlabs/puppetlabs-apache'
+mod 'puppetlabs/apache', :ref => '3.1.1',           :git => github + 'puppetlabs/puppetlabs-apache'
 
 #
 # profile::database::postgresql
@@ -203,7 +203,7 @@ mod 'translate', :ref => '1.2.0',                   :git => github + 'puppetlabs
 mod 'concat', :ref => '4.1.0',                      :git => github + 'puppetlabs/puppetlabs-concat'
 mod 'hash_file', :ref => '1.0.3',                   :git => github + 'fiddyspence/puppet-hash_file' # ??
 mod 'inifile', :ref => '2.0.0',                     :git => github + 'puppetlabs/puppetlabs-inifile'
-mod 'augeasproviders_apache', :ref => '2.0.2',      :git => github + 'hercules-team/augeasproviders_apache'
+mod 'augeasproviders_apache', :ref => '3.1.1',      :git => github + 'hercules-team/augeasproviders_apache'
 mod 'augeasproviders_core', :ref => '2.1.4',        :git => github + 'hercules-team/augeasproviders_core'
 mod 'augeasproviders_base', :ref => '2.0.1',        :git => github + 'hercules-team/augeasproviders_base'
 mod 'augeasproviders_grub', :ref => '3.0.0',        :git => github + 'hercules-team/augeasproviders_grub'
