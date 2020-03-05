@@ -127,6 +127,7 @@ common_config()
   # Save template ids
   norcams_provision_id=$(/bin/hammer --csv template list --per-page 1000 | grep ',norcams Kickstart default,' | cut -d, -f1)
   norcams_pxelinux_id=$(/bin/hammer --csv template list --per-page 1000 | grep 'norcams Kickstart default PXELinux' | cut -d, -f1)
+  norcams_pxegrub2_id=$(/bin/hammer --csv template list --per-page 1000 | grep 'norcams Kickstart default pxegrub2' | cut -d, -f1)
   norcams_ptable_id=$(/bin/hammer --csv partition-table list --per-page 1000 | grep 'norcams Kickstart default' | cut -d, -f1)
 
   # Associate partition template with Redhat family of OSes
@@ -155,6 +156,8 @@ common_config()
       --config-template-id $norcams_provision_id
     /bin/hammer os set-default-template --id $centos_os \
       --config-template-id $norcams_pxelinux_id
+    /bin/hammer os set-default-template --id $centos_os \
+      --config-template-id $norcams_pxegrub2_id
   done
 
   # Create Puppet environment
