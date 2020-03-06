@@ -152,6 +152,10 @@ common_config()
       --operatingsystem-ids $centos_os \
       --organization-id $foreman_organization_id \
       --location-id $foreman_location_id
+    /bin/hammer template update --id $norcams_pxegrub2_id \
+      --operatingsystem-ids $centos_os \
+      --organization-id $foreman_organization_id \
+      --location-id $foreman_location_id
     /bin/hammer os set-default-template --id $centos_os \
       --config-template-id $norcams_provision_id
     /bin/hammer os set-default-template --id $centos_os \
