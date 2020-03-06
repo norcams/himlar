@@ -129,9 +129,13 @@ common_config()
   norcams_pxelinux_id=$(/bin/hammer --csv template list --per-page 1000 | grep 'norcams Kickstart default PXELinux' | cut -d, -f1)
   norcams_pxegrub2_id=$(/bin/hammer --csv template list --per-page 1000 | grep 'norcams Kickstart default PXEGrub2' | cut -d, -f1)
   norcams_ptable_id=$(/bin/hammer --csv partition-table list --per-page 1000 | grep 'norcams Kickstart default' | cut -d, -f1)
-
-  # Associate partition template with Redhat family of OSes
+  norcams_ptable_uefi_id=$(/bin/hammer --csv template list --per-page 1000 | grep ',norcams Kickstart default uefi,' | cut -d, -f1)
+  
+  # Associate partition templates with Redhat family of OSes
   /bin/hammer partition-table update --id $norcams_ptable_id \
+      --organization-id $foreman_organization_id \
+      --location-id $foreman_location_id --os-family Redhat
+  /bin/hammer partition-table update --id $norcams_ptable_uefi_id \
       --organization-id $foreman_organization_id \
       --location-id $foreman_location_id --os-family Redhat
 
