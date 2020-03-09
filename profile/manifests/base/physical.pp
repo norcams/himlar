@@ -20,7 +20,7 @@ class profile::base::physical (
     'IPv4Static.1.DNS1'        => $bmc_dns_server,
     'IPv4.1.DHCPEnable'        => 'Disabled',
   },
-  $bmc_supermicro_attributes = {
+  $bmc_generic_attributes = {
     'Address'       => undef,
     'Gateway'       => lookup('netcfg_oob_gateway', String, 'first', ''),
     'SubnetMask'    => lookup('netcfg_oob_netmask', String, 'first', ''),
