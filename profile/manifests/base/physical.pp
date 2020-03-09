@@ -109,6 +109,9 @@ class profile::base::physical (
       'Supermicro': {
         $connection_string = '/redfish/v1/Systems/1'
       }
+      'Huawei': {
+        $connection_string = '/redfish/v1/Systems/1'
+      }
       default: {
         $connection_string = '/redfish/v1/Systems/1'
       }
@@ -159,7 +162,21 @@ class profile::base::physical (
           }
         }
         'Supermicro': {
-          $bmc_supermicro_attributes.each |$attribute, $value| {
+          $bmc_generic_attributes.each |$attribute, $value| {
+            if ($attribute == 'Address') and (!$value) {
+              $attr_value = $bmc_address_set
+            }
+            else {
+              $attr_value = $value
+            }
+            exec { "Set bmc static configuration - ${attribute}":
+              command     => "/bin/curl -f -s https://${bmc_address_set}/redfish/v1/Managers/1/EthernetInterfaces/1 -k -u ${bmc_username_set}:${bmc_password_set} ${http_proxy_url_set} --connect-timeout 20 -X PATCH -H \"Content-Type: application/json\" -d \'{\"IPv4Addresses\" : {\"${attribute}\":\"${attr_value}\"}}\' && /bin/touch /etc/.bmc_configured-${attribute}",
+              creates     => "/etc/.bmc_configured-${attribute}",
+            }
+          }
+        }
+        'Huawei': {
+          $bmc_generic_attributes.each |$attribute, $value| {
             if ($attribute == 'Address') and (!$value) {
               $attr_value = $bmc_address_set
             }
