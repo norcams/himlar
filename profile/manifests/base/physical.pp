@@ -176,18 +176,7 @@ class profile::base::physical (
           }
         }
         'Huawei': {
-          $bmc_generic_attributes.each |$attribute, $value| {
-            if ($attribute == 'Address') and (!$value) {
-              $attr_value = $bmc_address_set
-            }
-            else {
-              $attr_value = $value
-            }
-            exec { "Set bmc static configuration - ${attribute}":
-              command     => "/bin/curl -f -s https://${bmc_address_set}/redfish/v1/Managers/1/EthernetInterfaces/1 -k -u ${bmc_username_set}:${bmc_password_set} ${http_proxy_url_set} --connect-timeout 20 -X PATCH -H \"Content-Type: application/json\" -d \'{\"IPv4Addresses\" : {\"${attribute}\":\"${attr_value}\"}}\' && /bin/touch /etc/.bmc_configured-${attribute}",
-              creates     => "/etc/.bmc_configured-${attribute}",
-            }
-          }
+          notice('We can not configure network for Huawei ibmc')
         }
         default: {
           notice('BMC for this vendor is not supported')
