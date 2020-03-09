@@ -188,14 +188,14 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     server_names:       ['report-osl', 'report-bgo']
     ipaddresses:        ['158.37.63.250', '158.39.77.250']
     options:            'verify none inter 1000 check check-ssl'
-  'public-https-nrec-www':
-    listening_service:  'public-https-nrec-www'
+  'ssl-https-nrec-www':
+    listening_service:  'ssl-https-nrec-www'
     ports:              443
     server_names:       ['www01']
     ipaddresses:        ['norcams.github.io']
     options:            'verify none inter 1000 check check-ssl ssl'
-  'public-https-nrec-docs':
-    listening_service:  'public-https-nrec-docs'
+  'ssl-https-nrec-docs':
+    listening_service:  'ssl-https-nrec-docs'
     ports:              443
     server_names:       ['docs01']
     ipaddresses:        ['uh-iaas.readthedocs.io']
