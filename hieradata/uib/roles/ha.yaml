@@ -147,7 +147,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
   public_https_domains:
     ensure: present
     mappings:
-      - 'apps.uib.no':                            'public-https-apps'
       - 'report.uh-iaas.no':                      'public-https-uh-report'
       - 'status.uh-iaas.no':                      'public-https-uh-status'
       - 'report.nrec.no':                         'public-https-uh-report'
@@ -155,23 +154,26 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
   public_http_domains:
     ensure: present
     mappings:
-      - 'apps.uib.no':                            'public-http-apps'
       - 'docs.uh-iaas.no':                        'public-http-uh-docs'
       - 'report.uh-iaas.no':                      'public-http-nrec-redirect'
       - 'status.uh-iaas.no':                      'public-http-nrec-redirect'
       - 'report.nrec.no':                         'public-http-nrec-redirect'
       - 'status.nrec.no':                         'public-http-nrec-redirect'
+  ssl_https_domains:
+    ensure: present
+    mappings:
+      - 'apps.uib.no':                            'ssl-https-apps'
+#      - 'appstest.uib.no':                        'public-https-apps-ssl'
+      - 'docs.nrec.no':                           'ssl-https-nrec-docs'
+      - 'www.nrec.no':                            'ssl-https-nrec-www'
+      - 'nrec.no':                                'ssl-https-nrec-www'
+  ssl_http_domains:
+    ensure: present
+    mappings:
+      - 'apps.uib.no':                            'ssl-http-apps'
       - 'docs.nrec.no':                           'public-http-nrec-redirect'
       - 'www.nrec.no':                            'public-http-nrec-redirect'
       - 'nrec.no':                                'public-http-nrec-redirect'
-  public_https_ssl_domains:
-    ensure: present
-    mappings:
-      - 'apps.uib.no':                            'public-https-apps-ssl'
-#      - 'appstest.uib.no':                        'public-https-apps-ssl'
-      - 'docs.nrec.no':                           'public-https-nrec-docs'
-      - 'www.nrec.no':                            'public-https-nrec-www'
-      - 'nrec.no':                                'public-https-nrec-www'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   'public-https-uh-status':
@@ -198,22 +200,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     server_names:       ['docs01']
     ipaddresses:        ['uh-iaas.readthedocs.io']
     options:            'verify none inter 1000 check check-ssl ssl'
-  'public-https-apps':
-    listening_service:  'public-https-apps'
-    ports:              443
-    server_names:       ['appsanywhere01.uib.no', 'appsanywhere02.uib.no']
-    ipaddresses:        ['129.177.30.211', '129.177.30.229']
-    options:
-      - 'check'
-  'public-http-apps':
-    listening_service:  'public-http-apps'
-    ports:              80
-    server_names:       ['appsanywhere01.uib.no', 'appsanywhere02.uib.no']
-    ipaddresses:        ['129.177.30.211', '129.177.30.229']
-    options:
-      - 'check'
-  'public-https-apps-ssl':
-    listening_service:  'public-https-apps-ssl'
+  'ssl-https-apps':
+    listening_service:  'ssl-https-apps'
     ports:              443
     server_names:       ['appsanywhere01.uib.no', 'appsanywhere02.uib.no']
     ipaddresses:        ['129.177.30.211', '129.177.30.229']
@@ -292,27 +280,18 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
       - 'verify none'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_backends:
-  public-https-apps:
-    mode:             'tcp'
-    options:
-      - balance:      'source'
-      # - option:
-      #   - 'httpchk HEAD /jukeboxserver/do/license/token/renew.tok?msid=ping HTTP/1.1\r\nHost:\ apps-admin.uib.no'
-  public-http-apps:
-    mode:             'tcp'
-    options:
-      - balance:      'source'
-      # - option:
-      #   - 'forwardfor except 127.0.0.1'
-      # - option:
-      #   - 'httpchk HEAD /jukeboxserver/do/license/token/renew.tok?msid=ping HTTP/1.1\r\nHost:\ apps-admin.uib.no'
-  public-https-apps-ssl:
+  ssl-https-apps:
     mode:             'http'
     options:
       - balance:      'source'
       - option:
         - 'forwardfor except 127.0.0.1'
-  public-https-nrec-www:
+  ssl-http-apps:
+    mode:             'http'
+    options:
+      - balance:      'roundrobin'
+      - redirect:     'scheme https if !{ ssl_fc }'
+  ssl-https-nrec-www:
     mode:             'http'
     options:
       - balance:      'source'
@@ -320,7 +299,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
         - 'forwardfor except 127.0.0.1'
       - http-request:
         - 'set-header Host norcams.github.io'
-  public-https-nrec-docs:
+  ssl-https-nrec-docs:
     mode:             'http'
     options:
       - balance:      'source'
@@ -492,16 +471,16 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
     options:
       - option:         'tcplog'
       - use_backend:    'uib-ldaps-test'
-  public-http-ssl: #for redirect
+  ssl-http: #for redirect
     mode:               'http'
     bind:
       "%{hiera('corosync_cluster_vip5')}:80": []
       "%{hiera('corosync_cluster_vip6')}:80": []
     options:
       - option:         'httplog'
-      - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/public_http_domains.map)]'
+      - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/ssl_http_domains.map)]'
       - capture:        'request header Host len 32' #for debug
-  public-https-ssl:
+  ssl-https:
     mode:               'http'
     bind:
       "%{hiera('corosync_cluster_vip5')}:443":
@@ -533,7 +512,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
     options:
       - option:         'http-server-close'
       - option:         'forwardfor'
-      - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/public_https_ssl_domains.map)]'
+      - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/ssl_https_domains.map)]'
       # - http-request:
       #   - 'add-header X-Forwarded-Proto https if { ssl_fc }'
       #   - 'set-header X-Forwarded-Port %[dst_port]'
