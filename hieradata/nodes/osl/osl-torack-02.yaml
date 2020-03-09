@@ -448,7 +448,7 @@ frrouting::frrouting::bgp_neighbor_groups:
       - '172.18.33.47'
       - '172.18.33.48'
       - '172.18.33.49'
-      - '172.18.33.50'
+      - '172.18.33.82'
     'options6':
       - 'neighbor rr-clients route-reflector-client'
       - 'maximum-paths ibgp 3'
@@ -509,7 +509,7 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'fd32::1:47'
       - 'fd32::1:48'
       - 'fd32::1:49'
-      - 'fd32::1:50'
+      - 'fd32::1:82'
 
 frrouting::frrouting::bgp_accesslist:
   '10':
