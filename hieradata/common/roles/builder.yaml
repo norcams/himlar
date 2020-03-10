@@ -126,6 +126,16 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         3
     'username':         'debian'
+  'uio_rhel7':
+    'image_name':       'IMAGEBUILDER UIO RHEL 7'
+    'url':              'http://download.iaas.uio.no/uh-iaas/nonfree/'
+    'latest':           'rhel-server-7.7-x86_64-kvm.qcow2'
+    'checksum_file':    'rhel-server-7.7-x86_64-kvm.sha256sum'
+    'checksum':         'sha256'
+    'min_ram':          1024
+    'min_disk':         8
+    'username':         'cloud-user'
+
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
