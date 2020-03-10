@@ -23,6 +23,7 @@
   }],
   "provisioners": [{
     "scripts": [
+      "/opt/imagebuilder/scripts/uio-rhel.sh",
 <% if @ipv6 -%>
       "/opt/imagebuilder/scripts/enable_ipv6.sh",
 <% end -%>
@@ -30,7 +31,8 @@
       "/opt/imagebuilder/scripts/upgrade.sh",
       "/opt/imagebuilder/scripts/autopatch.sh",
       "/opt/imagebuilder/scripts/report.sh",
-      "/opt/imagebuilder/scripts/cleanup.sh"
+      "/opt/imagebuilder/scripts/cleanup.sh",
+      "/opt/imagebuilder/scripts/uio-cleanup.sh"
     ],
     "type": "shell"
   }]
