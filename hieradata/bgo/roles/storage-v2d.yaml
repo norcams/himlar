@@ -21,7 +21,7 @@ profile::base::network::network_auto_bonding:
 #      'mtu': '9000'
 
 # sensu overrides
-#sensu__memory__check:     "check-memory-percent.rb -w 90 -c 95"
+sensu__memory__check:     "check-memory-percent.rb -w 90 -c 95"
 
 profile::storage::cephclient::create_extraconf: true
 profile::storage::ceph_extraconf::config:
