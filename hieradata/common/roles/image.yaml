@@ -47,3 +47,7 @@ profile::base::selinux::boolean:
   'glance_api_can_network':
     ensure: 'on'
     persistent: true
+
+profile::base::selinux::semodules:
+  'postfix_glance':
+    avc_file:   "postfix_glance.avc"
