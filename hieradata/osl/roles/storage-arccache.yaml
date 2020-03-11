@@ -164,6 +164,9 @@ profile::storage::cephosd::osds:
   '/dev/sdm':
     db_device:  'vg_cache/lv_dbm'
     wal_device: false
+  '/dev/sdn':
+    db_device:  false
+    wal_device: false
   '/dev/sdo':
     db_device:  'vg_cache/lv_dbo'
     wal_device: false
