@@ -44,7 +44,7 @@ profile::storage::cephpool_params::pools:
   'arccache_hdd_ec_meta':
     replicas_num:       3
     replicas_min_size:  2
-    crush_rule:         "hdd-arccache"
+    crush_rule:         "ssd-arccache"
     application_enable: 'rbd'
   'arccache_hdd_ec_data':
     application_enable: 'rbd'
