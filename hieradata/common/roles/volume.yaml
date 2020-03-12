@@ -131,3 +131,8 @@ profile::storage::ceph_extraconf::config:
   client_arccache_backend:
     'config_key'  : "client.cinder-arccache-hdd-ec/rbd_default_data_pool"
     'config_value': "arccache_hdd_ec_data"
+
+profile::base::selinux::semodules:
+  'attach_cinder':
+    avc_file:   "attach_cinder.avc"
+

@@ -1,0 +1,1 @@
+type=AVC msg=audit(1584013565.920:24939): avc:  denied  { append getattr open lock } for  pid=2210267 comm="httpd" name="cinder" dev="dm-0" ino=25466714 scontext=system_u:system_r:httpd_t:s0 tcontext=system_u:object_r:cinder_var_lib_t:s0 tclass=file permissive=0
