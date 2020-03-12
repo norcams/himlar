@@ -149,7 +149,6 @@ profile::network::services::dns_records:
     "%{::location}-compute-alice-32.%{hiera('domain_mgmt')}":   "%{::location}-compute-32.%{hiera('domain_mgmt')}"
     "%{::location}-compute-alice-33.%{hiera('domain_mgmt')}":   "%{::location}-compute-33.%{hiera('domain_mgmt')}"
     "%{::location}-compute-alice-34.%{hiera('domain_mgmt')}":   "%{::location}-compute-34.%{hiera('domain_mgmt')}"
-    "%{::location}-compute-tape-49.%{hiera('domain_mgmt')}":    "%{::location}-compute-49.%{hiera('domain_mgmt')}"
     "%{::location}-object-ceph-01.%{hiera('domain_mgmt')}":     "%{::location}-object-01.%{hiera('domain_mgmt')}"
     "%{::location}-object-ceph-02.%{hiera('domain_mgmt')}":     "%{::location}-object-02.%{hiera('domain_mgmt')}"
     "%{::location}-object-ceph-03.%{hiera('domain_mgmt')}":     "%{::location}-object-03.%{hiera('domain_mgmt')}"
