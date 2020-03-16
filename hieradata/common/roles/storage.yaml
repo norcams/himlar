@@ -75,10 +75,10 @@ profile::storage::cephpool::manage_ec_pools: false
 
 profile::storage::ceph_ecpool::ec_pools:
   'volumes_hdd_ec_data':
-    pg_num:              "512"
+    pg_num:              "256"
     manage:              true
     allow_ec_overwrites: true
-    k_data:              "3"
+    k_data:              "4"
     m_code:              "2"
     crush_root:          "storage"
 profile::storage::cephpool::pools:
