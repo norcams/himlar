@@ -54,6 +54,7 @@ horizon::cache_server_ip:               '127.0.0.1'
 horizon::cache_server_port:             '11211'
 horizon::cache_backend:                 'django.core.cache.backends.memcached.MemcachedCache'
 horizon::django_session_engine:         'django.contrib.sessions.backends.cached_db'
+horizon::session_timeout:               10800 # 3 hours, default 30 min
 
 # logging
 horizon::log_handler:     'syslog'
