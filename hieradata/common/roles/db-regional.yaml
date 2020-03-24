@@ -21,3 +21,7 @@ profile::database::mariadb::backuprotate:  2
 
 wsrep_on:                                     'OFF'
 wsrep_cluster_name:                           'regional'
+
+profile::base::common::packages:
+# For mysql/mariadb backup
+   'bzip2':                  {}
