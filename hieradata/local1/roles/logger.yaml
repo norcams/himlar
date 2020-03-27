@@ -1,4 +1,6 @@
 ---
+profile::logging::rsyslog::server::manage_log_dir: true
+
 profile::base::common::manage_lvm: true
 
 profile::base::lvm::logical_volume:
