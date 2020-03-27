@@ -2,6 +2,7 @@
 class profile::logging::rsyslog::server(
   $manage_firewall = true,
   $manage_sysconfig = false,
+  $manage_log_dir = false,
   $domains = lookup('domain_mgmt', String, 'first'),
   $firewall_extras = {},
 ) {
@@ -27,6 +28,14 @@ class profile::logging::rsyslog::server(
       destination => $::ipaddress_mgmt1,
       proto       => 'tcp',
       extras      => $firewall_extras,
+    }
+  }
+
+  if $manage_log_dir {
+    file { '/opt/log':
+      ensure  => directory,
+      owner   => 'root',
+      seltype => 'var_log_t'
     }
   }
 
