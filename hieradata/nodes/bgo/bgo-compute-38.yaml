@@ -1,0 +1,37 @@
+---
+named_interfaces::config:
+  mgmt:
+  - em3
+  trp:
+  - team1
+  live:
+  - team1.120
+
+profile::base::network::network_auto_bonding:
+  trp:
+    p2p1:
+      'team_port_config': '{ "prio" : 100 }'
+      'mtu': '9000'
+    p2p2:
+      'team_port_config': '{ "prio" : 100 }'
+      'mtu': '9000'
+
+profile::base::lvm::physical_volume:
+  '/dev/sda4':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_ext':
+    physical_volumes:
+      - /dev/sda4
+profile::base::lvm::logical_volume:
+  'lv_instances':
+    volume_group: 'vg_ext'
+    fs_type:      "xfs"
+    mountpath:    "/var/lib/nova/instances"
+
+# This compute host uses local storage for instances
+nova::compute::rbd::ephemeral_storage:  false
+nova::config::nova_config:
+  libvirt/images_type:
+    value: default
