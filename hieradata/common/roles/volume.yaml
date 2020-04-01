@@ -119,6 +119,13 @@ ceph::profile::params::client_keys:
     group: 'cinder'
     cap_mon: 'profile rbd'
     cap_osd: 'profile rbd pool=arccache_hdd_ec_meta, profile rbd pool=arcache_hdd_ec_data'
+  'client.cinder-arccache-hdd-ec41':
+    secret: "%{hiera('ceph_storage_client_cinder_key')}"
+    mode: '0600'
+    user: 'cinder'
+    group: 'cinder'
+    cap_mon: 'profile rbd'
+    cap_osd: 'profile rbd pool=arccache_hdd_ec_meta41, profile rbd pool=arccache_hdd_ec_data41'
 
 profile::storage::cephclient::create_extraconf: true
 profile::storage::ceph_extraconf::config:
@@ -131,8 +138,10 @@ profile::storage::ceph_extraconf::config:
   client_arccache_backend:
     'config_key'  : "client.cinder-arccache-hdd-ec/rbd_default_data_pool"
     'config_value': "arccache_hdd_ec_data"
+  client_arccache_backend41:
+    'config_key'  : "client.cinder-arccache-hdd-ec41/rbd_default_data_pool"
+    'config_value': "arccache_hdd_ec_data41"
 
 profile::base::selinux::semodules:
   'attach_cinder':
     avc_file:   "attach_cinder.avc"
-
