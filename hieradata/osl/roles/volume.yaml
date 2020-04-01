@@ -48,7 +48,7 @@ profile::openstack::volume::backend::rbd:
     rbd_flatten_volume_from_snapshot: 'True'
     rbd_secret_uuid: "%{hiera('libvirt_rbd_secret_uuid')}"
     extra_options:
-      mass-storage-arccache/report_discard_supported:
+      mass-storage-arccache41/report_discard_supported:
         value: 'True'
 
 cinder::api::default_volume_type: 'rbd'
