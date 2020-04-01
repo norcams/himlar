@@ -47,6 +47,10 @@ profile::storage::cephpool::pools:
     ensure: present
     pg_num: 128
     pgp_num: 128
+  'arccache_hdd_ec_meta41':
+    ensure: present
+    pg_num: 128
+    pgp_num: 128
 profile::storage::cephpool_params::pools:
   'arccache_hdd_ec_meta':
     replicas_num:       3
