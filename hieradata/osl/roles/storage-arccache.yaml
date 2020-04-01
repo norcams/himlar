@@ -35,6 +35,13 @@ profile::storage::ceph_ecpool::ec_pools:
     k_data:              "3"
     m_code:              "2"
     crush_root:          "arccache"
+  'arccache_hdd_ec_data41':
+    pg_num:              "512"
+    manage:              true
+    allow_ec_overwrites: true
+    k_data:              "4"
+    m_code:              "1"
+    crush_root:          "arccache"
 profile::storage::cephpool::pools:
   'arccache_hdd_ec_meta':
     ensure: present
@@ -49,6 +56,11 @@ profile::storage::cephpool_params::pools:
   'arccache_hdd_ec_data':
     application_enable: 'rbd'
     replicas_min_size:  '4'
+  'arccache_hdd_ec_meta41':
+    application_enable: 'rbd'
+    replicas_min_size:  3
+    replicas_min_size:  2
+    crush_rule:         "hdd-arccache"
 
 profile::base::lvm::physical_volume:
   '/dev/sdn':

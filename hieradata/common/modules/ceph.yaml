@@ -71,13 +71,14 @@ ceph::profile::params::client_keys:
     group: 'cinder'
     cap_mon: 'profile rbd'
     cap_osd: 'profile rbd pool=arccache_hdd_ec_meta, profile rbd pool=arccache_hdd_ec_data'
-  'client.tape':
-    secret: "%{hiera('ceph_storage_client_tape_key')}"
+  'client.cinder-arccache-hdd-ec41':
+    secret: "%{hiera('ceph_storage_client_cinder_key')}"
     mode: '0600'
-    user: 'root'
-    group: 'root'
+    user: 'cinder'
+    group: 'cinder'
     cap_mon: 'profile rbd'
-    cap_osd: 'profile rbd pool=dcache_hdd_ec_meta, profile rbd pool=dcache_hdd_ec_data'
+    cap_osd: 'profile rbd pool=arccache_hdd_ec_meta41, profile rbd pool=arccache_hdd_ec_data41'
+
 #ceph::profile::params::osds:
 #  '/var/osd1':
 #    journal: '/var/osd1-journal'
