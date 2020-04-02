@@ -96,6 +96,7 @@ accounts::accounts:
     ensure: present
   'raymond':
     ensure: present
+    authorized_keys: [ 'raymond_uib', 'raymond_home']
   'torldre':
     ensure: present
   'trondham':
