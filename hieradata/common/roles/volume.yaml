@@ -135,6 +135,9 @@ profile::storage::ceph_extraconf::config:
   client_dcache_backend:
     'config_key'  : "client.cinder-dcache-hdd-ec/rbd_default_data_pool"
     'config_value': "dcache_hdd_ec_data"
+  client_dcache_backend8:
+    'config_key'  : "client.cinder-dcache-hdd-ec8/rbd_default_data_pool"
+    'config_value': "dcache_hdd_ec_data8"
   client_arccache_backend:
     'config_key'  : "client.cinder-arccache-hdd-ec/rbd_default_data_pool"
     'config_value': "arccache_hdd_ec_data"
