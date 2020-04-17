@@ -1,0 +1,112 @@
+#/bin/bash
+#
+#
+# Long term backup
+#
+# This script locates the oldest backups from GAP days ago, and store those
+# in the long term backup archive.
+# It additionally purges all archive files older than RETENTION days.
+#
+# All database servers in specified environment are processed.
+# Apply this script as often as archived dumps are required (for instance once a month
+# or once a week).
+#
+
+
+RETENTION=<%= @retention %>         # how many days before purging the archive file
+DUMPDIR=<%= @secretsdir %>/dumps    # the location of the db backup files
+ARCHIVESUBDIR=<%= @archivesubdir %> # name of subdirectory where long term archives should be stored
+GAP=<%= @gap %>                     # days before today from which to get dumps to archive
+DB_SERVER=""
+
+# the environment to process, default deducted from login host but may be overriden by the '-e' argument
+hostname=$(hostname)
+ENVIRONMENT=${hostname%%-*}
+
+# return codes
+E_NORMAL=0
+E_INVALIDENV=1
+E_INVALIDOPT=2
+
+# get date to get files to store
+ARCHIVE_DATE=$(date --date="${GAP} days ago" +%Y%m%d)
+
+
+#
+# help text
+#
+help ()
+{
+    cat << EOF
+
+$0 : long term backup
+
+This script process all db servers belonging to the environment
+$ENVIRONMENT (or the env in the '-e' option), and saves the oldest
+files from one week ago from all backed up databases into long term
+storage. At the end all long term backups older than $RETENTION days
+are purged.
+
+Options:
+
+    -e <environment> : environemnt to process (default = $ENVIRONMENT)
+    -h               : this help text
+
+EOF
+}
+
+
+#
+# main routine starts here
+#
+
+#
+# argument parsing
+#
+while getopts ":he:" arg; do
+    case $arg in
+        h) help
+           exit $E_NORMAL
+           ;;
+        e) ENVIRONMENT=$OPTARG
+           ;;
+        :) case $OPTARG in
+               e) echo 'Must enter an environment name when -e is used!'
+                  echo 'Exiting'
+                  exit $E_INVALIDENV
+                  ;;
+           esac
+           ;;
+        ?) echo "Invalid option: $OPTARG"
+           help
+           exit $E_INVALIDOPT
+           ;;
+    esac
+done
+
+
+#
+# search all relevant db backup dumps and process each of those
+#
+for dbserverdir in ${DUMPDIR}/${ENVIRONMENT}-db-*-[0-9][0-9]; do
+    if [[ -d $dbserverdir ]]; then                              # sanity check
+
+        # create any missing archive/long term storage
+        if [[ ! -e $dbserverdir/$ARCHIVESUBDIR ]]; then
+            mkdir $dbserverdir/$ARCHIVESUBDIR
+        fi
+
+        # find all variants of backup files (i.e: all datases) and archive the oldest from GAP days ago
+        for dumpfile in $(find ${dbserverdir} -maxdepth 1 -type f -iname "*${ARCHIVE_DATE}*" | sed "s#/.*/\(.*\)_${ARCHIVE_DATE}.*#\1#" | sort | uniq); do
+            # find the first (oldest) dump from this database GAP days ago
+            archivefile=$(ls -tr1  ${dbserverdir}/${dumpfile}_${ARCHIVE_DATE}* | head -1)
+            # copy file for archival (and preserve timestamp)
+            # do not bother to check if already exists in target: scipt is not supposed to run more than once in a day and no harm is done anyway
+            cp -p ${archivefile} ${dbserverdir}/${ARCHIVESUBDIR}
+        done
+
+        # purge old archives
+        find $dbserverdir/$ARCHIVESUBDIR -ignore_readdir_race -maxdepth 1 -name "*.sql*" -type f -mtime +$RETENTION -print0 | xargs -0 -r rm -f
+    fi
+done
+
