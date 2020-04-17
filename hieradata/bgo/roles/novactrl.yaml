@@ -51,6 +51,10 @@ profile::openstack::resource::host_aggregate:
     availability_zone: "%{::location}-default-1"
     metadata:
       type: 'alicetape'
+  hpc1:
+    availability_zone: "%{::location}-default-1"
+    metadata:
+      type: 'hpc'
 
 profile::openstack::compute::pci_passthrough::manage_pcipassthrough: true
 
