@@ -72,20 +72,11 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         8
     'username':         'centos'
-  'fedora_28':
-    'image_name':       'IMAGEBUILDER Fedora 28'
-    'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/28/Cloud/x86_64/images/'
-    'latest':           'Fedora-Cloud-Base-28-1.1.x86_64.qcow2'
-    'checksum_file':    'Fedora-Cloud-28-1.1-x86_64-CHECKSUM'
-    'checksum':         'sha256'
-    'min_ram':          768
-    'min_disk':         3
-    'username':         'fedora'
-  'fedora_30':
-    'image_name':       'IMAGEBUILDER Fedora 30'
-    'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/30/Cloud/x86_64/images/'
-    'latest':           'Fedora-Cloud-Base-30-1.2.x86_64.qcow2'
-    'checksum_file':    'Fedora-Cloud-30-1.2-x86_64-CHECKSUM'
+  'fedora_31':
+    'image_name':       'IMAGEBUILDER Fedora 31'
+    'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/31/Cloud/x86_64/images/'
+    'latest':           'Fedora-Cloud-Base-31-1.9.x86_64.qcow2'
+    'checksum_file':    'Fedora-Cloud-31-1.9-x86_64-CHECKSUM'
     'checksum':         'sha256'
     'min_ram':          768
     'min_disk':         3
@@ -121,6 +112,15 @@ profile::application::builder::images:
     'image_name':       'IMAGEBUILDER Debian 9'
     'url':              'http://cdimage.debian.org/cdimage/openstack/current-9/'
     'latest':           'debian-9-openstack-amd64.qcow2'
+    'checksum_file':    'SHA256SUMS'
+    'checksum':         'sha256'
+    'min_ram':          768
+    'min_disk':         3
+    'username':         'debian'
+  'debian10':
+    'image_name':       'IMAGEBUILDER Debian 10'
+    'url':              'http://cdimage.debian.org/cdimage/openstack/current-10/'
+    'latest':           'debian-10-openstack-amd64.qcow2'
     'checksum_file':    'SHA256SUMS'
     'checksum':         'sha256'
     'min_ram':          768
