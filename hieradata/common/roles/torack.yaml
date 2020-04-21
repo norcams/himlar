@@ -36,7 +36,14 @@ profile::monitoring::sensu::agent::plugins:
     type:         package
     pkg_version:  '4.1.1'
 
-sensu::checks: {}
+sensu::checks:
+  'metrics-netif':
+    type:         'metric'
+    command:      'metrics-netif.rb --scheme network.%{::hostname}'
+    interval:     60
+    subscribers:  ['metrics']
+    handlers:     ['graphite_tcp']
+
 sensu::install_repo:            true
 sensu::manage_repo:             true
 
@@ -84,6 +91,7 @@ profile::base::common::packages:
   'bind-utils': { 'ensure': 'absent', }
   'yum-utils': { 'ensure': 'absent', }
   'augeas-tools': {}
+  'sysstat': {} # needed for sensu network plugin
 
 sudo::configs:
   snmp:
