@@ -29,8 +29,9 @@ ntp::service_enable: false
 ntp::service_ensure: 'stopped'
 
 # sensu
-profile::monitoring::sensu::agent::enable_agent:  true
-profile::monitoring::sensu::agent::plugins:       {}
+profile::monitoring::sensu::agent::enable_agent:    true
+profile::monitoring::sensu::agent::merge_strategy: 'first'
+profile::monitoring::sensu::agent::plugins:         {}
 sensu::checks: {}
 sensu::install_repo:            true
 sensu::manage_repo:             true
