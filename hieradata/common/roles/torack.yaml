@@ -17,7 +17,6 @@ profile::base::common::include_physical:          false
 profile::base::common::manage_yumrepo:            false
 profile::base::firewall::manage_firewall:         false
 profile::base::network::net_ifnames:              false
-profile::monitoring::sensu::agent::enable_agent:  false
 profile::network::leaf::manage_quagga:            false
 profile::network::leaf::manage_frrouting:         true
 profile::network::leaf::manage_acls:              true
@@ -28,6 +27,13 @@ profile::logging::logrotate::manage_logrotate:    false
 # ntp service managed by profile because of mgmt VRF
 ntp::service_enable: false
 ntp::service_ensure: 'stopped'
+
+# sensu
+profile::monitoring::sensu::agent::enable_agent:  true
+profile::monitoring::sensu::agent::plugins:       {}
+sensu::checks: {}
+sensu::install_repo:            true
+sensu::manage_repo:             true
 
 # Netdata
 profile::monitoring::netdata::manage_firewall: false
