@@ -3,7 +3,7 @@ include:
   default:
     - profile::network::leaf
     - profile::base::common
-    - profile::monitoring::netdata
+#    - profile::monitoring::netdata
   bootstrap:
     - profile::base::common
 
@@ -49,7 +49,7 @@ sensu::install_repo:            true
 sensu::manage_repo:             true
 
 # Netdata
-profile::monitoring::netdata::manage_firewall: false
+#profile::monitoring::netdata::manage_firewall: false
 
 frrouting::zebra:                 true
 frrouting::bgpd:                  true
