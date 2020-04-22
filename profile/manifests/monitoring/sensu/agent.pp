@@ -19,7 +19,13 @@ class profile::monitoring::sensu::agent (
     if $run_in_vrf {
       include ::profile::base::systemd
 
-      file { 'sensu-systemd-override':
+      file { 'collectd-systemd-dir':
+        ensure => directory,
+        path   => '/etc/systemd/system/sensu-client.service.d/',
+        owner  => root,
+        group  => root,
+      }
+      -> file { 'sensu-systemd-override':
         ensure => file,
         path   => '/etc/systemd/system/sensu-client.service.d/override.conf',
         owner  => root,
