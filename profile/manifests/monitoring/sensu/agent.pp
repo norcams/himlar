@@ -16,6 +16,7 @@ class profile::monitoring::sensu::agent (
     create_resources('::sensu::check', $checks)
     create_resources('package', $gems)
 
+    # this is used for cumulus linux (debian)
     if $run_in_vrf {
 
       file { 'collectd-systemd-dir':
