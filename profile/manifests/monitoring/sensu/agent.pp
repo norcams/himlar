@@ -17,6 +17,8 @@ class profile::monitoring::sensu::agent (
     create_resources('package', $gems)
 
     if $run_in_vrf {
+      include ::profile::base::systemd
+
       file { 'sensu-systemd-override':
         ensure => file,
         path   => '/etc/systemd/system/sensu-client.service.d/override.conf',
