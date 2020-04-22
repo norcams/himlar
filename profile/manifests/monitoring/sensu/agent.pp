@@ -19,7 +19,7 @@ class profile::monitoring::sensu::agent (
     # this is used for cumulus linux (debian)
     if $run_in_vrf {
 
-      file { 'collectd-systemd-dir':
+      file { 'sensu-systemd-dir':
         ensure => directory,
         path   => '/etc/systemd/system/sensu-client.service.d/',
         owner  => root,
