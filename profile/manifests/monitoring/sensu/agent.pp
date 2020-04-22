@@ -17,7 +17,6 @@ class profile::monitoring::sensu::agent (
     create_resources('package', $gems)
 
     if $run_in_vrf {
-      include ::profile::base::systemd
 
       file { 'collectd-systemd-dir':
         ensure => directory,
@@ -31,7 +30,12 @@ class profile::monitoring::sensu::agent (
         owner  => root,
         group  => root,
         source => "puppet:///modules/${module_name}/monitoring/sensu/systemd/override.conf",
-        notify => [Exec['systemctl_daemon_reload'], Service['sensu-client']]
+        notify => [Exec['debian_systemctl_daemon_reload'], Service['sensu-client']]
+      }
+
+      exec { 'debian_systemctl_daemon_reload':
+        command     => '/bin/systemctl daemon-reload',
+        refreshonly => true,
       }
     }
 
