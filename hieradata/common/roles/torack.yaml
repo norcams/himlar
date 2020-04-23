@@ -27,6 +27,7 @@ profile::logging::logrotate::manage_logrotate:    false
 # ntp service managed by profile because of mgmt VRF
 ntp::service_enable: false
 ntp::service_ensure: 'stopped'
+ntp::interfaces: [ 'eth0' ]
 
 # sensu
 profile::monitoring::sensu::agent::enable_agent:    true
