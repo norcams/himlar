@@ -91,7 +91,7 @@ ceph::profile::params::client_keys:
     user: 'cinder'
     group: 'cinder'
     cap_mon: 'profile rbd'
-    cap_osd: 'profile rbd pool=arccache_hdd_replicated, profile rbd pool=arccache_hdd_replicated'
+    cap_osd: 'profile rbd pool=arccache_hdd_replicated'
 
 #ceph::profile::params::osds:
 #  '/var/osd1':
