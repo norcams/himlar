@@ -56,7 +56,7 @@ profile::openstack::volume::backend::rbd:
         value: 'True'
   arccache-replicated-hdd:
     rbd_pool: 'arccache_hdd_replicated'
-    rbd_user: 'cinder'
+    rbd_user: 'cinder-arccache-hdd-replicated'
     rbd_flatten_volume_from_snapshot: 'True'
     rbd_secret_uuid: "%{hiera('libvirt_rbd_secret_uuid')}"
     extra_options:
