@@ -85,7 +85,7 @@ ceph::profile::params::client_keys:
     group: 'cinder'
     cap_mon: 'profile rbd'
     cap_osd: 'profile rbd pool=arccache_hdd_ec_meta41, profile rbd pool=arccache_hdd_ec_data41'
-  'client.cinder-arccache_hdd_replicated:
+  'client.cinder-arccache_hdd_replicated':
     secret: "%{hiera('ceph_storage_client_cinder_key')}"
     mode: '0600'
     user: 'cinder'
