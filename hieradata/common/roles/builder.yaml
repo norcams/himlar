@@ -72,6 +72,15 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         8
     'username':         'centos'
+  'centos8':
+    'image_name':       'IMAGEBUILDER CentOS 8'
+    'url':              'http://cloud.centos.org/centos/8/x86_64/images/'
+    'latest':           'CentOS-8-GenericCloud-8.1.1911-20200113.3.x86_64.qcow2'
+    'checksum_file':    'CHECKSUM'
+    'checksum':         'sha256'
+    'min_ram':          768
+    'min_disk':         8
+    'username':         'centos'
   'fedora_31':
     'image_name':       'IMAGEBUILDER Fedora 31'
     'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/31/Cloud/x86_64/images/'
@@ -94,15 +103,6 @@ profile::application::builder::images:
     'image_name':       'IMAGEBUILDER Ubuntu 18.04 LTS'
     'url':              'https://cloud-images.ubuntu.com/bionic/current/'
     'latest':           'bionic-server-cloudimg-amd64.img'
-    'checksum_file':    'SHA256SUMS'
-    'checksum':         'sha256'
-    'min_ram':          768
-    'min_disk':         3
-    'username':         'ubuntu'
-  'ubuntu_1910':
-    'image_name':       'IMAGEBUILDER Ubuntu 19.10'
-    'url':              'https://cloud-images.ubuntu.com/eoan/current/'
-    'latest':           'eoan-server-cloudimg-amd64.img'
     'checksum_file':    'SHA256SUMS'
     'checksum':         'sha256'
     'min_ram':          768
