@@ -33,9 +33,9 @@ profile::monitoring::collectd::plugins:
 
 # Enable hugepages to prevent OOM-killer when using NUMA
 profile::base::physical::enable_hugepages: true
-# Number and size of hugepages, based on 1024GB - 32 GB (8GB free pr node)
+# Number and size of hugepages, based on 1024GB - 40 GB (10GB free pr node)
 profile::base::physical::hugepagesz:       '2M'
-profile::base::physical::hugepages:        '507904'
+profile::base::physical::hugepages:        '503808'
 
 # Nover overrides
 nova::compute::libvirt::libvirt_cpu_model: 'EPYC'
