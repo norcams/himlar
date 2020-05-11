@@ -9,7 +9,7 @@ class profile::base::login (
   $oob_outiface             = undef,
   $oob_dhcrelay             = false,
   $ensure                   = 'present',
-  $agelimit                 = '14',
+  $agelimit                 = '10',
   $db_servers               = {},
   $repodir                  = '/opt/repo',
   $secretsdir               = "${repodir}/secrets",
