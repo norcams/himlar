@@ -96,3 +96,4 @@ nova::config::nova_config:
     value: '4'
 
 sensu__memory__check:     "check-memory.rb -w 2048 -c 1024"
+sensu__disk__crtical:     '91'
