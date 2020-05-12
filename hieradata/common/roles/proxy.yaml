@@ -61,7 +61,7 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
-    includepkgs: 'tinyproxy htop bash-completion-extras jq oniguruma'
+    includepkgs: 'tinyproxy htop bash-completion-extras'
 
 logrotate::rules:
   himlarcli:
