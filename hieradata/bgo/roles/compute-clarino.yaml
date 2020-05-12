@@ -44,6 +44,7 @@ nova::cpu_allocation_ratio:                '1'
 # Create and enable more swap
 profile::base::common::extraswap:        true
 profile::base::common::extraswap_sizegb: 30
+profile::base::common::extraswap_fileloc: '/var/lib/swap/swapfile'
 
 profile::base::lvm::physical_volume:
   '/dev/sda4':
@@ -56,11 +57,19 @@ profile::base::lvm::volume_group:
   'vg_instances':
     physical_volumes:
       - /dev/nvme0n1
+  'vg_swap':
+    physical_volumes:
+      - /dev/sda4
 profile::base::lvm::logical_volume:
   'lv_instances':
     volume_group: 'vg_instances'
-    fs_type:      "xfs"
+    fs_type:    "xfs"
     mountpath:    "/var/lib/nova/instances"
+  'lv_swap2':
+    volume_group: 'vg_swap'
+    fs_type:    xfs
+    size:         100G
+    mountpath:    "/var/lib/swap"
 
 profile::base::network::network_auto_opts:
   mgmt:
