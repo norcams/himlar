@@ -1,2 +1,11 @@
 ---
 profile::storage::cephosd::crush_move:  false
+
+profile::base::network::network_auto_bonding:
+  trp:
+    p2p1:
+      'team_port_config': '{ "prio" : 100 }'
+      'mtu': '9000'
+    p2p2:
+      'team_port_config': '{ "prio" : 100 }'
+      'mtu': '9000'
