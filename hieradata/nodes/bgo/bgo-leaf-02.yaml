@@ -91,7 +91,7 @@ profile::base::network::cumulus_bonds:
 
 profile::base::network::cumulus_bridges:
   'bridge':
-    'ports': [ 'swp48', 'uplink', 'peerlink', ]
+    'ports': [ 'swp48', 'uplink', 'peerlink', 'host1', 'host2', 'host3', 'host4', 'host5', ]
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'false'
