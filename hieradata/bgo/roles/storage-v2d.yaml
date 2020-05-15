@@ -44,6 +44,7 @@ profile::storage::ceph_extraconf::config:
 profile::base::common::extraswap:         true
 profile::base::common::extraswap_sizegb:  20
 profile::base::common::extraswap_fileloc: '/var/lib/swap/swapfile'
+profile::base::physical::load_ahci_first: true
 
 profile::base::lvm::volume_group:
   'vg_swap':
