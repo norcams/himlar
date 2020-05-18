@@ -24,6 +24,16 @@ profile::base::network::network_auto_bonding:
       'team_port_config': '{ "prio" : 100 }'
       'mtu': '9000'
 
+profile::base::lvm::volume_group:
+  'vg_swap':
+    physical_volumes:
+      - /dev/sda4
+  'vg_cache1':
+    physical_volumes:
+      - /dev/sdr
+  'vg_cache2':
+    physical_volumes:
+      - /dev/sds
 profile::base::lvm::logical_volume:
   'lv_swap2':
     volume_group: 'vg_swap'
