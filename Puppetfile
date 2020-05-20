@@ -82,7 +82,7 @@ mod 'gitolite', :ref => '1.1',                      :git => github + 'uib/puppet
 # profile::application::foreman
 #
 mod 'voxpupuli/r10k', :ref => 'v6.2.0',             :git => github + 'voxpupuli/puppet-r10k'
-mod 'theforeman/foreman', :ref => '12.2.0',         :git => github + 'theforeman/puppet-foreman.git'
+mod 'theforeman/foreman', :ref => '15.0.0',         :git => github + 'theforeman/puppet-foreman.git'
 # mod 'theforeman/concat_native', '1.5.0'             # forge replace with puppetlabs-concat (further down)
 mod 'theforeman/tftp', :ref => '3.0.2',             :git => github + 'theforeman/puppet-tftp'
 mod 'theforeman/puppet', :ref => '11.0.1',          :git => github + 'theforeman/puppet-puppet.git'
