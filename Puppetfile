@@ -82,7 +82,7 @@ mod 'gitolite', :ref => '1.1',                      :git => github + 'uib/puppet
 # profile::application::foreman
 #
 mod 'voxpupuli/r10k', :ref => 'v6.2.0',             :git => github + 'voxpupuli/puppet-r10k'
-mod 'theforeman/foreman', :ref => '12.2.0',         :git => github + 'theforeman/puppet-foreman.git'
+mod 'theforeman/foreman', :ref => '15.0.0',         :git => github + 'theforeman/puppet-foreman.git'
 # mod 'theforeman/concat_native', '1.5.0'             # forge replace with puppetlabs-concat (further down)
 mod 'theforeman/tftp', :ref => '3.0.2',             :git => github + 'theforeman/puppet-tftp'
 mod 'theforeman/puppet', :ref => '11.0.1',          :git => github + 'theforeman/puppet-puppet.git'
@@ -120,7 +120,7 @@ mod 'logrotate', :ref => 'v3.2.1',                  :git => github + 'voxpupuli/
 mod 'sensu', :ref => 'v2.51.0',                     :git => github + 'sensu/sensu-puppet'
 mod 'uchiwa', :ref => 'v1.0.1',                     :git => github + 'yelp/puppet-uchiwa'
 mod 'graphite', :ref => 'v7.2.0',                   :git => github + 'echocat/puppet-graphite' # fixed upstream
-mod 'redis', :ref => 'v3.2.0',                      :git => github + 'arioch/puppet-redis'
+mod 'redis', :ref => 'v6.0.0',                      :git => github + 'voxpupuli/puppet-redis'
 mod 'grafana', :ref => 'v4.5.0',                    :git => github + 'voxpupuli/puppet-grafana'
 mod 'statsd', :ref => '3.1.0',                      :git => github + 'justindowning/puppet-statsd'
 mod 'netdata', :ref => '1f8bcef',                   :git => github + 'norcams/denver-netdata'
@@ -129,7 +129,7 @@ mod 'collectd', :ref => 'v10.0.0',                  :git => github + 'voxpupuli/
 #
 # profile::webserver::apache
 #
-mod 'puppetlabs/apache', :ref => '2.0.0',           :git => github + 'puppetlabs/puppetlabs-apache'
+mod 'puppetlabs/apache', :ref => '3.5.0',           :git => github + 'puppetlabs/puppetlabs-apache'
 
 #
 # profile::database::postgresql
@@ -142,7 +142,7 @@ mod 'postgresql', :ref => '5.2.0',                  :git => github + 'puppetlabs
 # mod 'mariadbrepo', ref => '0.2.1',                :git => github + 'Mylezeem/puppet-mariadbrepo'
 # mod 'staging', :ref => '1.0.4',                   :git => github + 'nanliu/puppet-staging' why this fork?
 mod 'staging', :ref => 'v3.0.0',                    :git => github + 'voxpupuli/puppet-staging'
-mod 'mysql', :ref => '5.1.0',                       :git => github + 'puppetlabs/puppetlabs-mysql'
+mod 'mysql', :ref => '6.2.0',                       :git => github + 'puppetlabs/puppetlabs-mysql'
 mod 'galera_arbitrator', :ref => '1.0.4',           :git => github + 'jadestorm/puppet-galera_arbitrator'
 
 #
@@ -203,7 +203,7 @@ mod 'translate', :ref => '1.2.0',                   :git => github + 'puppetlabs
 mod 'concat', :ref => '4.1.0',                      :git => github + 'puppetlabs/puppetlabs-concat'
 mod 'hash_file', :ref => '1.0.3',                   :git => github + 'fiddyspence/puppet-hash_file' # ??
 mod 'inifile', :ref => '2.0.0',                     :git => github + 'puppetlabs/puppetlabs-inifile'
-mod 'augeasproviders_apache', :ref => '2.0.2',      :git => github + 'hercules-team/augeasproviders_apache'
+mod 'augeasproviders_apache', :ref => '3.1.1',      :git => github + 'hercules-team/augeasproviders_apache'
 mod 'augeasproviders_core', :ref => '2.1.4',        :git => github + 'hercules-team/augeasproviders_core'
 mod 'augeasproviders_base', :ref => '2.0.1',        :git => github + 'hercules-team/augeasproviders_base'
 mod 'augeasproviders_grub', :ref => '3.0.0',        :git => github + 'hercules-team/augeasproviders_grub'

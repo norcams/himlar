@@ -8,6 +8,17 @@ class profile::base::physical (
   $isolcpus                    = [],
   $blacklist_drv               = false,
   $blacklist_drv_list          = undef,
+  $enable_network_tweaks       = false,
+  $load_ahci_first             = false,
+  $load_ahci_first_scsidrv     = 'mpt3sas',
+  $net_tweak_rmem_max          = '134217728',
+  $net_tweak_wmem_max          = '134217728',
+  $net_tweak_tcp_rmem          = '4096 87380 67108864',
+  $net_tweak_tcp_wmem          = '4096 87380 67108864',
+  $net_tweak_congest_ctrl      = 'htcp',
+  $net_tweak_mtu_probing       = '1',
+  $net_tweak_default_qdisc     = 'fq',
+  $net_tweak_somaxconn         = '2048',
   $enable_redfish_sensu_check  = false,
   $enable_redfish_http_proxy   = undef,
   $configure_bmc_nic           = false,
@@ -45,6 +56,15 @@ class profile::base::physical (
       value  => '1',
     }
   }
+
+  # to ensure that the Dell BOSS boot drive is always sda we can load the driver before any scsi driver
+  if $load_ahci_first {
+    file { "/etc/modprobe.d/${load_ahci_first_scsidrv}.conf":
+      ensure  => present,
+      content => "install ${load_ahci_first_scsidrv} /sbin/modprobe ahci; /sbin/modprobe --ignore-install ${load_ahci_first_scsidrv}\n",
+    }
+  }
+
   if $enable_hugepages {
     kernel_parameter { 'hugepagesz':
       ensure => present,
@@ -66,6 +86,33 @@ class profile::base::physical (
       kmod::blacklist { $name:
         * => $data,
       }
+    }
+  }
+
+  if $enable_network_tweaks {
+    sysctl::value { "net.core.rmem_max":
+      value => $net_tweak_rmem_max
+    }
+    sysctl::value { "net.core.wmem_max":
+      value => $net_tweak_wmem_max,
+    }
+    sysctl::value { "net.ipv4.tcp_rmem":
+      value => $net_tweak_tcp_rmem,
+    }
+    sysctl::value { "net.ipv4.tcp_wmem":
+      value => $net_tweak_tcp_wmem,
+    }
+    sysctl::value { "net.ipv4.tcp_congestion_control":
+      value => $net_tweak_congest_ctrl,
+    }
+    sysctl::value { "net.ipv4.tcp_mtu_probing":
+      value => $net_tweak_mtu_probing,
+    }
+    sysctl::value { "net.core.default_qdisc":
+      value => $net_tweak_default_qdisc,
+    }
+    sysctl::value { "net.core.somaxconn":
+      value => $net_tweak_somaxconn,
     }
   }
 

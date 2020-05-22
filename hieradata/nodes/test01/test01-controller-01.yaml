@@ -42,9 +42,6 @@ network::interfaces_hash:
     bridge_stp:   'off'
   'br2':
     onboot:       'yes'
-    vlan:         'yes'
     type:         'Bridge'
-    ipaddress:    "172.28.159.100"
-    netmask:      "255.255.255.0"
     defroute:     'no'
     bridge_stp:   'off'

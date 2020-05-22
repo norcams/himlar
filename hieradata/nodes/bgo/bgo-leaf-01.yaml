@@ -44,6 +44,41 @@ profile::base::network::cumulus_interfaces:
     'clagd_sys_mac': '44:38:39:ff:bb:1f'
 
 profile::base::network::cumulus_bonds:
+  'host1':
+    'slaves': [ 'swp1', ]
+    'clag_id': '1'
+    'pvid': '100'
+    'mtu': '9216'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host2':
+    'slaves': [ 'swp2', ]
+    'clag_id': '2'
+    'pvid': '100'
+    'mtu': '9216'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host3':
+    'slaves': [ 'swp3', ]
+    'clag_id': '3'
+    'pvid': '100'
+    'mtu': '9216'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host4':
+    'slaves': [ 'swp4', ]
+    'clag_id': '4'
+    'pvid': '100'
+    'mtu': '9216'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host5':
+    'slaves': [ 'swp5', ]
+    'clag_id': '5'
+    'pvid': '100'
+    'mtu': '9216'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
   'peerlink':
     'slaves': [ 'swp50', ]
     'mtu': '9216'
@@ -56,7 +91,7 @@ profile::base::network::cumulus_bonds:
 
 profile::base::network::cumulus_bridges:
   'bridge':
-    'ports': [ 'swp48', 'uplink', 'peerlink', ]
+    'ports': [ 'swp48', 'uplink', 'peerlink', 'host1', 'host2', 'host3', 'host4', 'host5', ]
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'false'

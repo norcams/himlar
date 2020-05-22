@@ -23,6 +23,8 @@ profile::base::network::network_auto_bonding:
 # sensu overrides
 sensu__memory__check:     "check-memory-percent.rb -w 90 -c 95"
 
+profile::storage::cephpool::manage_ec_pools: true # FIXME
+
 profile::storage::cephclient::create_extraconf: true
 profile::storage::ceph_extraconf::config:
   osd_memory_target:
@@ -44,6 +46,7 @@ profile::storage::ceph_extraconf::config:
 profile::base::common::extraswap:         true
 profile::base::common::extraswap_sizegb:  20
 profile::base::common::extraswap_fileloc: '/var/lib/swap/swapfile'
+profile::base::physical::load_ahci_first: true
 
 profile::base::lvm::volume_group:
   'vg_swap':
@@ -181,6 +184,6 @@ profile::monitoring::sensu::agent::checks:
 
 profile::monitoring::sensu::agent::plugin_gems:
   sensu-plugins-himlar:
-    ensure:   '0.3.0'
+    ensure:   '0.4.0'
     provider: 'sensu_gem'
     source:   'http://download.iaas.uio.no/uh-iaas/gem'

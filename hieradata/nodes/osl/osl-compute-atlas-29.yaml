@@ -1,11 +1,7 @@
 ---
-include:
-  default:
-    - profile::monitoring::netdata
-
 named_interfaces::config:
   mgmt:
-  - eth2
+  - enp33s0f0
   trp:
   - team1
   live:
@@ -13,38 +9,21 @@ named_interfaces::config:
 
 profile::base::network::network_auto_bonding:
   trp:
-    eth0:
+    enp34s0f0:
       'team_port_config': '{ "prio" : 100 }'
-    eth1:
+      'mtu': '9000'
+    enp34s0f1d1:
       'team_port_config': '{ "prio" : 100 }'
-
-# Turn off nested virtualization
-profile::virtualization::nested::manage: false
-
-# Enable hugepages to prevent OOM-killer when using NUMA
-profile::base::physical::enable_hugepages: true
-# Number and size of hugepages, based on 512GB - 32 GB (4GB free pr node)
-profile::base::physical::hugepagesz:       '2M'
-profile::base::physical::hugepages:        '245760'
-
-profile::monitoring::netdata::manage_firewall: true
-
-# Nover overrides
-nova::compute::libvirt::libvirt_cpu_model: 'EPYC'
-nova::cpu_allocation_ratio:                '1'
-
-# Create and enable more swap
-profile::base::common::extraswap:        true
-profile::base::common::extraswap_sizegb: 10
+      'mtu': '9000'
 
 profile::base::lvm::physical_volume:
-  '/dev/sda3':
+  '/dev/sda4':
     ensure: present
     force:  true
 profile::base::lvm::volume_group:
   'vg_ext':
     physical_volumes:
-      - /dev/sda3
+      - /dev/sda4
 profile::base::lvm::logical_volume:
   'lv_instances':
     volume_group: 'vg_ext'
@@ -56,3 +35,5 @@ nova::compute::rbd::ephemeral_storage:  false
 nova::config::nova_config:
   libvirt/images_type:
     value: default
+  DEFAULT/metadata_workers:
+    value: '4'

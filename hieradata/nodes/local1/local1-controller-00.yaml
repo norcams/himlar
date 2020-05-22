@@ -35,8 +35,8 @@ network::interfaces_hash:
     onboot:       'yes'
     type:         'Bridge'
     peerdns:      'yes'
-    dns1:         "%{hiera('netcfg_dns_server2')}" # server1 is internal
-    dns2:         "%{hiera('netcfg_dns_server1')}"
+    dns1:         "%{hiera('netcfg_dns_server1')}"
+    dns2:         "%{hiera('netcfg_dns_server2')}"
     domain:       "%{hiera('netcfg_dns_search')}"
   'br1':
     ipaddress:    "172.31.5.99"
@@ -144,6 +144,7 @@ accounts::accounts:
     ensure: present
   'raymond':
     ensure: present
+    authorized_keys: [ 'raymond_uib', 'raymond_home']
   'torldre':
     ensure: present
   'trondham':

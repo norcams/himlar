@@ -1,3 +1,6 @@
 ---
 rabbitmq::cluster_nodes:
   - 'osl-mq-01'
+
+rabbitmq::tcp_recbuf:     16384
+rabbitmq::tcp_sndbuf:     16384

@@ -1,7 +1,7 @@
 ---
 named_interfaces::config:
   mgmt:
-  - enp49s0f0
+  - em3
   trp:
   - team1
   live:
@@ -9,12 +9,27 @@ named_interfaces::config:
 
 profile::base::network::network_auto_bonding:
   trp:
-    enp50s0f0:
+    p2p1:
       'team_port_config': '{ "prio" : 100 }'
-#      'mtu': '9000'
-    enp50s0f1d1:
+      'mtu': '9000'
+    p2p2:
       'team_port_config': '{ "prio" : 100 }'
-#      'mtu': '9000'
+      'mtu': '9000'
+
+profile::base::network::network_auto_opts:
+  mgmt:
+    'defroute': 'no'
+  trp:
+    'defroute': 'no'
+    'ipv6init': 'yes'
+    'devicetype': 'Team'
+    'mtu': '9000'
+    'team_config': >-
+                   { "runner" : {  "name" : "lacp",  "active": true, "fast_rate" : true,
+                   "tx_hash": ["eth", "ipv4", "ipv6"], "tx_balancer": { "name": "basic" } },
+                   "link_watch" : {  "name" : "ethtool" } }
+  live:
+    'defroute': 'no'
 
 profile::base::lvm::physical_volume:
   '/dev/sda4':
@@ -29,9 +44,3 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_ext'
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
-
-# This compute host uses local storage for instances
-#nova::compute::rbd::ephemeral_storage:  false
-#nova::config::nova_config:
-#  libvirt/images_type:
-#    value: default

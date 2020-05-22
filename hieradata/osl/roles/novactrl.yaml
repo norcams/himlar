@@ -22,7 +22,11 @@ profile::openstack::resource::host_aggregate:
   atlas1:
     availability_zone: "%{::location}-default-1"
     metadata:
-      type: 'atlas'
+      type: 'atlas_m1a'
+  atlas2:
+    availability_zone: "%{::location}-default-1"
+    metadata:
+      type: 'atlas_c1a'
   placeholder1:
     availability_zone: "%{::location}-iaas-team-only-1"
     metadata:
@@ -40,10 +44,6 @@ profile::openstack::resource::host_aggregate:
     availability_zone: "%{::location}-default-1"
     metadata:
       type: 'gpu'
-  atlas_ssd1:
-    availability_zone: "%{::location}-default-1"
-    metadata:
-      type: 'atlas_ssd'
   hpc1:
     availability_zone: "%{::location}-default-1"
     metadata:
