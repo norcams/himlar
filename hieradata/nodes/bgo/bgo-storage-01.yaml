@@ -36,3 +36,6 @@ network::interfaces_hash:
     netmask:      "%{hiera('netcfg_ceph_netmask')}"
     vlan:         'yes'
     defroute:     'no'
+
+profile::storage::cephosd::crush_move:  false # FIXME
+profile::storage::cephosd::create_osds: false # FIXME
