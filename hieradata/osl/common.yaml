@@ -269,7 +269,7 @@ profile::network::services::dns_records:
     '2.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "resolver.%{hiera('domain_public')}"
     '6.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "%{::location}-dns-01.%{hiera('domain_public')}"
     # Customer's PTR records
-    "122.%{hiera('reverse_public_c1')}":                                         'oncotools.elixir.no'
+    "101.%{hiera('reverse_public_c0')}":                                         'oncotools.elixir.no'
     #'c.6.0.2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  'oncotools.elixir.no'
 
 ntp::servers:
