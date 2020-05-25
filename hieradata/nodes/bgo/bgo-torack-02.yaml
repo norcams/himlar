@@ -39,7 +39,29 @@ profile::base::network::cumulus_interfaces:
 
 profile::base::network::cumulus_bridges:
   'bridge':
-    'ports': [ 'host1', 'host2', 'host3', 'host4', 'host5', 'host6', 'host7', 'host8', 'host9', 'host10', 'host11', 'host12', 'host13', 'host14', 'peerlink', 'downlink', 'uplink' ]
+    'ports':
+      - host1
+      - host2
+      - host3
+      - host4
+      - host5
+      - host6
+      - host7
+      - host8
+      - host9
+      - host10
+      - host11
+      - host12
+      - host13
+      - host14
+      - host15
+      - host16
+      - host17
+      - host18
+      - host19
+      - peerlink
+      - downlink
+      - uplink
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'false'
@@ -156,6 +178,36 @@ profile::base::network::cumulus_bonds:
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', ]
+  'host15':
+    'slaves': [ 'swp15', ]
+    'clag_id': '15'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host16':
+    'slaves': [ 'swp16', ]
+    'clag_id': '16'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host17':
+    'slaves': [ 'swp17', ]
+    'clag_id': '17'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host18':
+    'slaves': [ 'swp18', ]
+    'clag_id': '18'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host19':
+    'slaves': [ 'swp19', ]
+    'clag_id': '19'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
 
 frrouting::frrouting::zebra_interfaces:
   'bridge':
@@ -191,6 +243,16 @@ frrouting::frrouting::zebra_interfaces:
   'host13':
     - 'link-detect'
   'host14':
+    - 'link-detect'
+  'host15':
+    - 'link-detect'
+  'host16':
+    - 'link-detect'
+  'host17':
+    - 'link-detect'
+  'host18':
+    - 'link-detect'
+  'host19':
     - 'link-detect'
   'swp47':
     - 'link-detect'
