@@ -31,7 +31,7 @@ profile::base::network::cumulus_bridges:
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'false'
-    'vids': [ '100', '110', '130', '4094', ]
+    'vids': [ '100', '110', '120', 130', ]
 
 profile::base::network::cumulus_bonds:
   'peerlink':
