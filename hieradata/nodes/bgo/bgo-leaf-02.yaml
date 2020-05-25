@@ -79,6 +79,104 @@ profile::base::network::cumulus_bonds:
     'mtu': '9216'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+  'host6':
+    'slaves': [ 'swp6', ]
+    'clag_id': '6'
+    'pvid': '100'
+    'mtu': '9216'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host7':
+    'slaves': [ 'swp7', ]
+    'clag_id': '7'
+    'pvid': '100'
+    'mtu': '9216'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host8':
+    'slaves': [ 'swp8', ]
+    'clag_id': '8'
+    'pvid': '100'
+    'mtu': '9216'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host9':
+    'slaves': [ 'swp9', ]
+    'clag_id': '9'
+    'pvid': '100'
+    'mtu': '9216'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host10':
+    'slaves': [ 'swp10', ]
+    'clag_id': '10'
+    'pvid': '100'
+    'mtu': '9216'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host11':
+    'slaves': [ 'swp11', ]
+    'clag_id': '11'
+    'pvid': '100'
+    'mtu': '9216'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host12':
+    'slaves': [ 'swp12', ]
+    'clag_id': '12'
+    'pvid': '100'
+    'mtu': '9216'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host13':
+    'slaves': [ 'swp13', ]
+    'clag_id': '13'
+    'pvid': '100'
+    'mtu': '9216'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host14':
+    'slaves': [ 'swp14', ]
+    'clag_id': '14'
+    'pvid': '100'
+    'mtu': '9216'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host15':
+    'slaves': [ 'swp15', ]
+    'clag_id': '15'
+    'pvid': '100'
+    'mtu': '9216'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host16':
+    'slaves': [ 'swp16', ]
+    'clag_id': '16'
+    'pvid': '100'
+    'mtu': '9216'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host17':
+    'slaves': [ 'swp17', ]
+    'clag_id': '17'
+    'pvid': '100'
+    'mtu': '9216'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host18':
+    'slaves': [ 'swp18', ]
+    'clag_id': '18'
+    'pvid': '100'
+    'mtu': '9216'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host19':
+    'slaves': [ 'swp19', ]
+    'clag_id': '19'
+    'pvid': '100'
+    'mtu': '9216'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
   'peerlink':
     'slaves': [ 'swp50', ]
     'mtu': '9216'
@@ -91,11 +189,33 @@ profile::base::network::cumulus_bonds:
 
 profile::base::network::cumulus_bridges:
   'bridge':
-    'ports': [ 'swp48', 'uplink', 'peerlink', 'host1', 'host2', 'host3', 'host4', 'host5', ]
+    'ports':
+      - host1
+      - host2
+      - host3
+      - host4
+      - host5
+      - host6
+      - host7
+      - host8
+      - host9
+      - host10
+      - host11
+      - host12
+      - host13
+      - host14
+      - host15
+      - host16
+      - host17
+      - host18
+      - host19
+      - swp48
+      - peerlink
+      - uplink
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'false'
-    'vids': [ '1', '10', '100', '110', '120', ]
+    'vids': [ '1', '10', '100', '110', '120', '130', ]
     'mtu': '9216'
 
 quagga::quagga::zebra_interfaces:
