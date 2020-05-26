@@ -3,6 +3,7 @@ include:
   default:
     - profile::network::leaf
     - profile::base::common
+    - profile::base::cl_limits
 #    - profile::monitoring::netdata
   bootstrap:
     - profile::base::common
@@ -23,6 +24,8 @@ profile::network::leaf::manage_acls:              true
 profile::base::network::cumulus_ifs:              true
 network::config_file_per_interface:               true
 profile::logging::logrotate::manage_logrotate:    false
+profile::base::cl_limits::manage_cl_limits:       true
+profile::base::cl_limits::as_value:               1153434
 
 # ntp service managed by profile because of mgmt VRF
 ntp::service_enable: false
