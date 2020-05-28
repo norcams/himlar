@@ -63,6 +63,7 @@ profile::application::builder::images:
     'min_ram':          1024
     'min_disk':         8
     'username':         'centos'
+    'sensu_check':      true
   'centos7':
     'image_name':       'IMAGEBUILDER CentOS 7'
     'url':              'http://cloud.centos.org/centos/7/images/'
@@ -72,6 +73,7 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         8
     'username':         'centos'
+    'sensu_check':      true
   'centos8':
     'image_name':       'IMAGEBUILDER CentOS 8'
     'url':              'http://cloud.centos.org/centos/8/x86_64/images/'
@@ -81,6 +83,7 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         8
     'username':         'centos'
+    'sensu_check':      true
   'fedora_31':
     'image_name':       'IMAGEBUILDER Fedora 31'
     'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/31/Cloud/x86_64/images/'
@@ -90,6 +93,7 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         3
     'username':         'fedora'
+    'sensu_check':      true
   'fedora_32':
     'image_name':       'IMAGEBUILDER Fedora 32'
     'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/32/Cloud/x86_64/images/'
@@ -99,6 +103,7 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         3
     'username':         'fedora'
+    'sensu_check':      true
   'ubuntu_1604':
     'image_name':       'IMAGEBUILDER Ubuntu 16.04 LTS'
     'url':              'https://cloud-images.ubuntu.com/xenial/current/'
@@ -108,6 +113,7 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         3
     'username':         'ubuntu'
+    'sensu_check':      true
   'ubuntu_1804':
     'image_name':       'IMAGEBUILDER Ubuntu 18.04 LTS'
     'url':              'https://cloud-images.ubuntu.com/bionic/current/'
@@ -117,6 +123,7 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         3
     'username':         'ubuntu'
+    'sensu_check':      true
   'ubuntu_2004':
     'image_name':       'IMAGEBUILDER Ubuntu 20.04'
     'url':              'https://cloud-images.ubuntu.com/focal/current/'
@@ -126,6 +133,7 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         3
     'username':         'ubuntu'
+    'sensu_check':      true
   'debian9':
     'image_name':       'IMAGEBUILDER Debian 9'
     'url':              'http://cdimage.debian.org/cdimage/openstack/current-9/'
@@ -135,6 +143,7 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         3
     'username':         'debian'
+    'sensu_check':      true
   'debian10':
     'image_name':       'IMAGEBUILDER Debian 10'
     'url':              'http://cdimage.debian.org/cdimage/openstack/current-10/'
@@ -144,6 +153,7 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         3
     'username':         'debian'
+    'sensu_check':      true
   'uio_rhel7':
     'image_name':       'IMAGEBUILDER UIO RHEL 7'
     'url':              'http://download.iaas.uio.no/uh-iaas/nonfree/'
@@ -153,7 +163,7 @@ profile::application::builder::images:
     'min_ram':          1024
     'min_disk':         8
     'username':         'cloud-user'
-
+    'sensu_check':      true
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:

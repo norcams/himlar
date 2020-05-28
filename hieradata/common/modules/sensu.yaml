@@ -75,6 +75,10 @@ sensu::checks:
     command:      'check-process.rb -p rsyslog'
     interval:     300
     subscribers:  ['checks']
+  'check-imagebuild-cron':
+    command:      'check-imagebuild.rb -p cron'
+    interval:     120
+    subscribers:  ['checks']
 
 # Server
 sensu::api_user:          'sensu'
