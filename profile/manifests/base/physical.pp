@@ -8,9 +8,10 @@ class profile::base::physical (
   $isolcpus                    = [],
   $blacklist_drv               = false,
   $blacklist_drv_list          = undef,
-  $enable_network_tweaks       = false,
+  $disable_intel_cstates       = false,
   $load_ahci_first             = false,
   $load_ahci_first_scsidrv     = 'mpt3sas',
+  $enable_network_tweaks       = false,
   $net_tweak_rmem_max          = '134217728',
   $net_tweak_wmem_max          = '134217728',
   $net_tweak_tcp_rmem          = '4096 87380 67108864',
@@ -54,6 +55,19 @@ class profile::base::physical (
     kernel_parameter { 'ixgbe.allow_unsupported_sfp':
       ensure => present,
       value  => '1',
+    }
+  }
+
+  # for intel based ceph osd servers disabling cpu c states provides significantly improved performance
+  if $disable_intel_cstates {
+    # Set options in grub2
+    kernel_parameter { 'processor.max_cstate':
+      ensure => present,
+      value  => '1',
+    }
+    kernel_parameter { 'intel_idle.max_cstate':
+      ensure => present,
+      value  => '0',
     }
   }
 
