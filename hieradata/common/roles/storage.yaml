@@ -117,12 +117,14 @@ profile::storage::cephpool_params::pools:
   'volumes_hdd_ec_data':
     application_enable: 'rbd'
 
-# Enable extra yum repo
+# Enable extra yum repo and override epel exclude list
+profile::base::yumrepo::merge_strategy: 'first'
 profile::base::yumrepo::repo_hash:
   ceph-%{hiera('ceph_version')}:
     ensure: present
   epel:
     ensure:   present
+    exclude:  'zeromq python2-uritemplate python2-google-api-client'
 
 profile::storage::ceph_crushrules::rules:
   'hdd-storage':
