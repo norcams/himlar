@@ -118,7 +118,6 @@ profile::storage::cephpool_params::pools:
     application_enable: 'rbd'
 
 # Enable extra yum repo and override epel exclude list
-profile::base::yumrepo::merge_strategy: 'first'
 profile::base::yumrepo::repo_hash:
   ceph-%{hiera('ceph_version')}:
     ensure: present
