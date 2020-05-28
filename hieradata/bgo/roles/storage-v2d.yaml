@@ -43,6 +43,9 @@ profile::storage::ceph_extraconf::config:
     'config_key'  : "osd/osd_max_backfills"
     'config_value': "2"
 
+# Disable intel c states for performance
+profile::base::physical::disable_intel_cstates: true
+
 profile::base::common::extraswap:         true
 profile::base::common::extraswap_sizegb:  20
 profile::base::common::extraswap_fileloc: '/var/lib/swap/swapfile'
