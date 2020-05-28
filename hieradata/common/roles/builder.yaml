@@ -199,3 +199,8 @@ profile::monitoring::sensu::agent::checks:
     interval:     60
     auto_resolve: false
     subscribers:  ['checks']
+
+profile::monitoring::sensu::agent::checks:
+  'check-imagebuild':
+    interval:     600
+    subscribers:  ['checks']
