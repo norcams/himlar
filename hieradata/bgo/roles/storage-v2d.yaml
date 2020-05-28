@@ -3,7 +3,7 @@ profile::base::network::network_auto_opts:
   trp:
     'defroute': 'no'
     'devicetype': 'Team'
-#    'mtu': '9000'
+    'mtu': '9000'
     'team_config': >-
                    { "runner" : {  "name" : "lacp",  "active": true, "fast_rate" : true,
                    "tx_hash": ["eth", "ipv4", "ipv6"], "tx_balancer": { "name": "basic" } },
@@ -15,10 +15,10 @@ profile::base::network::network_auto_bonding:
   trp:
     p2p1:
       'team_port_config': '{ "prio" : 100 }'
-#      'mtu': '9000'
+      'mtu': '9000'
     p2p2:
       'team_port_config': '{ "prio" : 100 }'
-#      'mtu': '9000'
+      'mtu': '9000'
 
 # sensu overrides
 sensu__memory__check:     "check-memory-percent.rb -w 90 -c 95"
@@ -51,7 +51,7 @@ profile::base::physical::load_ahci_first: true
 profile::base::lvm::volume_group:
   'vg_swap':
     physical_volumes:
-      - /dev/sda3
+      - /dev/sda4
   'vg_cache1':
     physical_volumes:
       - /dev/sdr
