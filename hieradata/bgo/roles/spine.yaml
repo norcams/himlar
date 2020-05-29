@@ -70,6 +70,9 @@ profile::base::network::cumulus_interfaces:
   'swp25':
     'speed': '40000'
     'mtu':   '9216'
+  'swp26':
+    'speed': '40000'
+    'mtu':   '9216'
   'swp27':
     'speed': '40000'
     'mtu':   '9216'
@@ -98,10 +101,11 @@ profile::base::network::cumulus_bonds:
     'pvid': '100'
     'vids': [ '100', '110', '120', ]
     'mtu': '9216'
-  'lhc':
-    'slaves': [ 'swp27', ]
-    'clag_id': '1109'
-    'vids': [ '109', ]
+  'downlinkl0304':
+    'slaves': [ 'swp26-27', ]
+    'clag_id': '1002'
+    'pvid': '100'
+    'vids': [ '100', '110', '120', ]
     'mtu': '9216'
   'host1':
     'slaves': [ 'swp1s0', ]
@@ -737,7 +741,6 @@ profile::base::network::cumulus_bridges:
       - host74
       - host75
       - host76
-      - lhc
       - peerlink
       - downlink
       - downlinkl0102
