@@ -98,6 +98,7 @@ mod 'puppetlabs/ruby', :ref => '1.0.0',             :git => github + 'puppetlabs
 mod 'puppetlabs/xinetd', :ref => '3.0.0',           :git => github + 'puppetlabs/puppetlabs-xinetd'
 mod 'eyaml', :ref => 'v0.3.0',                      :git => github + 'ghoneycutt/puppet-module-eyaml'
 mod 'bind', :ref => 'keyfile_resource_record',      :git => github + 'norcams/puppet-bind'
+mod 'systemd', :ref => '2.9.0',                     :git => github + 'camptocamp/puppet-systemd'
 
 #
 # bootstrap
