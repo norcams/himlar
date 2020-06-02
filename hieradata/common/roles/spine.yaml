@@ -91,6 +91,7 @@ profile::base::common::packages:
   'bind-utils': { 'ensure': 'absent', }
   'yum-utils': { 'ensure': 'absent', }
   'augeas-tools': {}
+  'sysstat': {} # needed for sensu network plugin
 
 sudo::configs:
   snmp:
