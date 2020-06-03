@@ -10,14 +10,14 @@ class profile::monitoring::sensu::agent (
 ) {
 
   if $enable_agent {
-    include ::sensu
+    include ::sensuclassic
 
     $gems = lookup('profile::monitoring::sensu::agent::plugin_gems', Hash, $merge_strategy, {})
     $plugins = lookup('profile::monitoring::sensu::agent::plugins', Hash, $merge_strategy, {})
     $checks  = lookup('profile::monitoring::sensu::agent::checks', Hash, $merge_strategy, {})
 
-    create_resources('::sensu::plugin', $plugins)
-    create_resources('::sensu::check', $checks)
+    create_resources('::sensuclassic::plugin', $plugins)
+    create_resources('::sensuclassic::check', $checks)
     create_resources('package', $gems)
 
     if $expanded_checks {
@@ -32,7 +32,7 @@ class profile::monitoring::sensu::agent (
         } else {
           $resource_name = "${prefix}-check"
         }
-        create_resources('::sensu::check', { $resource_name => $real_check })
+        create_resources('::sensuclassic::check', { $resource_name => $real_check })
       }
     }
 
