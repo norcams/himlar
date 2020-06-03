@@ -95,7 +95,7 @@ profile::monitoring::sensu::agent::plugins:
 profile::monitoring::sensu::agent::plugin_gems:
   sensu-plugins-himlar:
     ensure:   '0.4.0'
-    provider: 'sensu_gem'
+    provider: 'sensuclassic_gem'
     source:   'http://download.iaas.uio.no/uh-iaas/gem'
 
 # sensu

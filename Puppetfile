@@ -118,7 +118,7 @@ mod 'logrotate', :ref => 'v3.2.1',                  :git => github + 'voxpupuli/
 #
 # profile::monitoring
 #
-mod 'sensuclassic', :ref => 'v2.63.0',              :git => github + 'sensu/puppet-module-sensuclassic'
+mod 'sensuclassic', :ref => 'v3.5.0',               :git => github + 'sensu/puppet-module-sensuclassic'
 #mod 'sensu', :ref => 'v2.51.0',                     :git => github + 'sensu/sensu-puppet'
 mod 'uchiwa', :ref => 'v1.0.1',                     :git => github + 'yelp/puppet-uchiwa'
 mod 'graphite', :ref => 'v7.2.0',                   :git => github + 'echocat/puppet-graphite' # fixed upstream
@@ -167,6 +167,7 @@ mod 'keystone', :ref => '13.3.1',                   :git => github + 'openstack/
 mod 'swift', :ref => 'norcams/ocata',               :git => github + 'norcams/puppet-swift'
 mod 'ceilometer', :ref => '13.3.1',                 :git => github + 'openstack/puppet-ceilometer'
 mod 'designate', :ref => '13.3.1',                  :git => github + 'openstack/puppet-designate'
+mod 'cloudkitty', :ref => '3.4.0',                  :git => github + 'openstack/puppet-cloudkitty'
 
 mod 'oslo', :ref => '13.3.1',                       :git => github + 'openstack/puppet-oslo'
 mod 'openstacklib', :ref => '13.3.1',               :git => github + 'openstack/puppet-openstacklib'
@@ -195,7 +196,7 @@ mod 'zookeeper', :ref => 'v0.8.1',                  :git => github + 'deric/pupp
 # nfs
 #
 mod 'multipath', :ref => '7c3b65eba5',              :git => github + 'desalvo/puppet-multipath'
-mod 'nfs', :ref => '0.4.3',                         :git => github +'camptocamp/puppet-nfs'
+mod 'nfs', :ref => '0.4.3',                         :git => github + 'camptocamp/puppet-nfs'
 
 #
 # Common libs
