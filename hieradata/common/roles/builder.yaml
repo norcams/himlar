@@ -154,6 +154,24 @@ profile::application::builder::images:
     'min_disk':         8
     'username':         'cloud-user'
 
+# metadata imagebuild check
+profile::monitoring::sensu::agent::expanded_checks:
+  - 'centos6'
+  - 'centos7'
+  - 'centos8'
+  - 'fedora_31'
+  - 'fedora_32'
+  - 'ubuntu_1604'
+  - 'ubuntu_1804'
+  - 'ubuntu_2004'
+  - 'debian9'
+  - 'debian10'
+  - 'uio_rhel7'
+
+profile::monitoring::sensu::agent::expanded_defaults:
+    command: "check-imagebuild.rb -d "
+    interval:     600
+    subscribers:  ['checks']
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
