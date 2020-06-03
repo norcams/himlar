@@ -11,6 +11,8 @@ class profile::base::physical (
   $disable_intel_cstates       = false,
   $load_ahci_first             = false,
   $load_ahci_first_scsidrv     = 'mpt3sas',
+  $load_ahci_last              = false,
+  $load_ahci_last_scsidrv      = 'mpt3sas',
   $enable_network_tweaks       = false,
   $net_tweak_rmem_max          = '134217728',
   $net_tweak_wmem_max          = '134217728',
@@ -76,6 +78,14 @@ class profile::base::physical (
     file { "/etc/modprobe.d/${load_ahci_first_scsidrv}.conf":
       ensure  => present,
       content => "install ${load_ahci_first_scsidrv} /sbin/modprobe ahci; /sbin/modprobe --ignore-install ${load_ahci_first_scsidrv}\n",
+    }
+  }
+
+  # to ensure that the Dell BOSS boot drive is always the last sd device we can load the driver after any scsi driver
+  if $load_ahci_last {
+    file { "/etc/modprobe.d/ahci.conf":
+      ensure  => present,
+      content => "install ahci /sbin/modprobe ${load_ahci_last_scsidrv}; /sbin/modprobe --ignore-install ahci\n",
     }
   }
 
