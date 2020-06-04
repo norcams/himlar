@@ -184,6 +184,7 @@ profile::network::services::dns_records:
     # public IPv6
     "1.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.%{hiera('reverse_public6')}":  "ns.%{hiera('domain_public')}"
     "2.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.%{hiera('reverse_public6')}":  "resolver.%{hiera('domain_public')}"
+  CNAME: {} # needed for autoconfig of network
 
 #
 ## Secret data which for other environments are stored ooutside of this data tree
