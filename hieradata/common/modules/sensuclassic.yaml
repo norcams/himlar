@@ -9,7 +9,7 @@ sensuclassic::manage_repo:             false
 sensuclassic::sensu_plugin_provider:   sensuclassic_gem
 sensuclassic::use_embedded_ruby:       true
 sensuclassic::rabbitmq_host:           "%{hiera('mgmt__address__monitor')}"
-sensuclassic::rabbitmq_password:       "%{hiera('sensu::rabbit_password')}"
+sensuclassic::rabbitmq_password:       "%{hiera('sensu_rabbit_password')}"
 sensuclassic::rabbitmq_user:           'sensu'
 sensuclassic::rabbitmq_vhost:          'sensu'
 sensuclassic::rabbitmq_port:           '5672'

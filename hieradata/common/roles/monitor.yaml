@@ -40,7 +40,7 @@ profile::base::common::packages:
 
 profile::messaging::rabbitmq::users:
   sensu:
-    password: "%{hiera('sensu::rabbit_password')}"
+    password: "%{hiera('sensu_rabbit_password')}"
   local:
     password: "%{hiera('local_rabbit_password')}"
     tags:     'monitoring'
