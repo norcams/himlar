@@ -40,7 +40,7 @@ profile::base::common::packages:
 
 profile::messaging::rabbitmq::users:
   sensu:
-    password: "%{hiera('sensu::rabbit_password')}"
+    password: "%{hiera('sensu_rabbit_password')}"
   local:
     password: "%{hiera('local_rabbit_password')}"
     tags:     'monitoring'
@@ -85,9 +85,9 @@ grafana::provisioning_dashboards:
         puppetsource: 'puppet:///modules/profile/monitoring/grafana/dashboard'
 
 # Sensu server
-sensu::server:              true
-sensu::api:                 true
-sensu::redis_host:          127.0.0.1
+sensuclassic::server:              true
+sensuclassic::api:                 true
+sensuclassic::redis_host:          127.0.0.1
 
 profile::openstack::openrc::password:         "%{hiera('monitor_metric_password')}"
 profile::openstack::openrc::username:         'monitor'

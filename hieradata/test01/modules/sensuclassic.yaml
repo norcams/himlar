@@ -1,6 +1,6 @@
 ---
 # Override warning and critical level and check interval
-sensu::checks:
+sensuclassic::checks:
   'metrics-vmstat':
     type:         'metric'
     command:      'metrics-vmstat.rb --scheme vmstats.%{::hostname}'

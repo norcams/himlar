@@ -44,7 +44,7 @@ profile::application::himlarservice::package_url: 'http://download.iaas.uio.no/u
 profile::monitoring::sensu::agent::plugin_gems:
   sensu-plugins-openstack:
     ensure:   '0.2.0'
-    provider: 'sensu_gem'
+    provider: 'sensuclassic_gem'
     source:   'http://download.iaas.uio.no/uh-iaas/gem'
 # nova compute metrics
 profile::monitoring::sensu::agent::checks:

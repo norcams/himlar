@@ -35,7 +35,7 @@ profile::monitoring::sensu::agent::plugins:
     type:         package
     pkg_version:  '4.1.1'
 
-sensu::checks:
+sensuclassic::checks:
   'metrics-netif':
     type:         'metric'
     command:      'metrics-netif.rb --scheme network.%{::hostname}'
@@ -43,8 +43,8 @@ sensu::checks:
     subscribers:  ['metrics']
     handlers:     ['graphite_tcp']
 
-sensu::install_repo:            true
-sensu::manage_repo:             true
+sensuclassic::install_repo:            true
+sensuclassic::manage_repo:             true
 
 # ntp service managed by profile because of mgmt VRF
 ntp::service_enable: false

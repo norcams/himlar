@@ -1,34 +1,34 @@
 ---
-sensu::client:                  true
-sensu::server:                  false
-sensu::api:                     false
-sensu::purge:                   true
-sensu::version:                 present
-sensu::install_repo:            false
-sensu::manage_repo:             false
-sensu::sensu_plugin_provider:   sensu_gem
-sensu::use_embedded_ruby:       true
-sensu::rabbitmq_host:           "%{hiera('mgmt__address__monitor')}"
-sensu::rabbitmq_password:       "%{hiera('sensu::rabbit_password')}"
-sensu::rabbitmq_user:           'sensu'
-sensu::rabbitmq_vhost:          'sensu'
-sensu::rabbitmq_port:           '5672'
+sensuclassic::client:                  true
+sensuclassic::server:                  false
+sensuclassic::api:                     false
+sensuclassic::purge:                   true
+sensuclassic::version:                 present
+sensuclassic::install_repo:            false
+sensuclassic::manage_repo:             false
+sensuclassic::sensu_plugin_provider:   sensuclassic_gem
+sensuclassic::use_embedded_ruby:       true
+sensuclassic::rabbitmq_host:           "%{hiera('mgmt__address__monitor')}"
+sensuclassic::rabbitmq_password:       "%{hiera('sensu_rabbit_password')}"
+sensuclassic::rabbitmq_user:           'sensu'
+sensuclassic::rabbitmq_vhost:          'sensu'
+sensuclassic::rabbitmq_port:           '5672'
 
 # client
-sensu::client_address:          "%{ipaddress_mgmt1}"
-sensu::client_name:             "%{hostname}"
-sensu::client_keepalive:
+sensuclassic::client_address:          "%{ipaddress_mgmt1}"
+sensuclassic::client_name:             "%{hostname}"
+sensuclassic::client_keepalive:
   handler:    'default'
   thresholds:
     warning:  40
     critical: 60
-sensu::client_custom:
+sensuclassic::client_custom:
   graphite_load:    "http://%{hiera('mgmt__address__monitor')}/render?from=-24h&target=aliasByNode(load.%{::hostname}.load_avg.*,3)&height=250&width=600&lineMode=connected&uchiwa_force_image=.jpg"
   graphite_cpu:     "http://%{hiera('mgmt__address__monitor')}/render?from=-24h&target=aliasByNode(vmstats.%{::hostname}.cpu.*,3)&height=250&width=600&lineMode=connected&uchiwa_force_image=.jpg"
   graphite_io:      "http://%{hiera('mgmt__address__monitor')}/render?from=-24h&target=aliasByNode(vmstats.%{::hostname}.io.*,3)&height=250&width=600&lineMode=connected&uchiwa_force_image=.jpg"
   graphite_memory:  "http://%{hiera('mgmt__address__monitor')}/render?from=-24h&target=aliasByMetric(memory.%{::hostname}.total)&target=aliasByMetric(memory.%{::hostname}.free)&target=aliasByMetric(memory.%{::hostname}.used)&height=250&width=600&lineMode=connected&uchiwa_force_image=.jpg"
 #  graphite_memory2:  "http://%{hiera('mgmt__address__monitor')}/render?from=-2h&target=aliasByNode(vmstats.%{::hostname}.memory.*,3)&height=250&width=600&lineMode=connected&uchiwa_force_image=.jpg"
-sensu::subscriptions:
+sensuclassic::subscriptions:
   - 'metrics'
   - 'checks'
 
@@ -37,7 +37,7 @@ sensu__disk__warning:     70
 sensu__disk__crtical:     90
 sensu__load__check:       "check-load.rb -w 2.75,2.5,2.0 -c 3.5,3.25,3.0"
 
-sensu::checks:
+sensuclassic::checks:
   'metrics-vmstat':
     type:         'metric'
     command:      'metrics-vmstat.rb --scheme vmstats.%{::hostname}'
@@ -78,8 +78,8 @@ sensu::checks:
     subscribers:  ['checks']
 
 # Server
-sensu::api_user:          'sensu'
-sensu::api_password:      "%{hiera('sensu_api_password')}"
-sensu::api_host:          "%{ipaddress_mgmt1}"
-sensu::api_bind:          "%{ipaddress_mgmt1}"
-sensu::api_port:          4567
+sensuclassic::api_user:          'sensu'
+sensuclassic::api_password:      "%{hiera('sensu_api_password')}"
+sensuclassic::api_host:          "%{ipaddress_mgmt1}"
+sensuclassic::api_bind:          "%{ipaddress_mgmt1}"
+sensuclassic::api_port:          4567

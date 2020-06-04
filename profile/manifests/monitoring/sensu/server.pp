@@ -11,7 +11,7 @@ class profile::monitoring::sensu::server (
 ) {
 
   if $manage_dashboard {
-    Class['sensu'] -> Class['uchiwa']
+    Class['sensuclassic'] -> Class['uchiwa']
     include ::uchiwa
     #include ::profile::webserver::apache
     #create_resources('apache::vhost', $vhost_configuration)
@@ -52,9 +52,9 @@ class profile::monitoring::sensu::server (
 
   $handlers  = lookup('profile::monitoring::sensu::server::handlers', Hash, 'deep', {})
   $filters  = lookup('profile::monitoring::sensu::server::filters', Hash, 'deep', {})
-  create_resources('sensu::handler', $handlers)
-  create_resources('sensu::filter', $filters)
+  create_resources('sensuclassic::handler', $handlers)
+  create_resources('sensuclassic::filter', $filters)
 
-  create_resources('sensu::write_json', $custom_json)
+  create_resources('sensuclassic::write_json', $custom_json)
 
 }
