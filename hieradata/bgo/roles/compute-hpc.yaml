@@ -90,6 +90,6 @@ nova::config::nova_config:
   libvirt/images_type:
     value: default
   DEFAULT/metadata_workers:
-    value: '4'
+    value: '2'
 
 sensu__memory__check:     "check-memory.rb -w 2048 -c 1024"
