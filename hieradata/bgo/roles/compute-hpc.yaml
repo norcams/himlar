@@ -92,4 +92,4 @@ nova::config::nova_config:
   DEFAULT/metadata_workers:
     value: '2'
 
-sensu__memory__check:     "check-memory.rb -w 2048 -c 1024"
+sensu__memory__check:     "check-memory.rb -w 1536 -c 1024"
