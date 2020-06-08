@@ -73,6 +73,10 @@ accounts::users:
   'norcams':
     shell: '/bin/false'
 
+# Sensu (login has larger disks)
+sensu__disk__warning:     85
+sensu__disk__crtical:     95
+
 #openstack_extras::repo::redhat::redhat::manage_rdo: true
 profile::base::common::packages:
   'python-openstackclient': {}
