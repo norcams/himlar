@@ -51,7 +51,7 @@ profile::base::lvm::logical_volume:
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
 
-sensu__memory__check:     "check-memory.rb -w 2048 -c 1024"
+sensu__memory__check:     "check-memory.rb -w 1536 -c 1024"
 
 # This compute host uses local storage for instances
 nova::compute::rbd::ephemeral_storage:  false
