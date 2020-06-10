@@ -164,6 +164,18 @@ class profile::base::physical (
     }
   }
 
+  package { 'lldpd':
+    ensure => present,
+    name   => $::lldp::params::package,
+  }
+
+  service { 'lldpd':
+    ensure    => running,
+    enable    => true,
+    require   => Package['lldpd'],
+    hasstatus => $::lldp::params::has_status,
+  }
+
   if ($enable_redfish_sensu_check) and ($::runmode == 'default') {
     $bmc_network  = regsubst($::ipaddress_trp1, '^(\d+)\.(\d+)\.(\d+)\.(\d+)$','\2',) - 1
     $bmc_address  = regsubst($::ipaddress_trp1, '^(\d+)\.(\d+)\.(\d+)\.(\d+)$',"\\1.${bmc_network}.\\3.\\4",)
