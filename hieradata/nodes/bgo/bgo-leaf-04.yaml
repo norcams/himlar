@@ -18,8 +18,12 @@ profile::base::network::routes:
 profile::base::network::cumulus_interfaces:
   'bridge.100':
     'ipv4': [ '172.18.0.4/21', ]
+    'ipv6': [ 'fd00::4/64', ]
+    'virtual_ip': '172.18.7.4/21 fd00::704/64'
+    'virtual_mac': '00:00:5e:00:01:06'
   'peerlink.4094':
     'ipv4': [ '172.18.228.4/24', ]
+    'ipv6': [ 'fd00:18:231::2/64', ]
     'clagd_enable': true
     'clagd_priority': '8192'
     'clagd_peer_ip': '172.18.228.3'
