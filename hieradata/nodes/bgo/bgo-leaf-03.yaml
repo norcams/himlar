@@ -28,6 +28,14 @@ profile::base::network::cumulus_interfaces:
     'clagd_priority': '4096'
     'clagd_peer_ip': '172.18.228.4'
     'clagd_sys_mac': '44:38:39:ff:bb:1e'
+  'swp49':
+    'mtu': '9216'
+  'swp50':
+    'mtu': '9216'
+  'swp51':
+    'mtu': '9216'
+  'swp52':
+    'mtu': '9216'
 
 profile::base::network::cumulus_bridges:
   'bridge':
