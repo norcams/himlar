@@ -94,7 +94,7 @@ class profile::base::login (
       content => template("${module_name}/base/db-longterm-bck.sh.erb"),
     }
 
-     file { 'db-dump-dir':
+    file { 'db-dump-dir':
       ensure => 'directory',
       path   => '/opt/repo/secrets/dumps',
       mode   => '2775',
