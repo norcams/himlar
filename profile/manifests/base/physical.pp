@@ -24,6 +24,8 @@ class profile::base::physical (
   $net_tweak_somaxconn         = '2048',
   $enable_redfish_sensu_check  = false,
   $enable_redfish_http_proxy   = undef,
+  $package                     = 'lldpd',
+  $service                     = 'lldpd',
   $configure_bmc_nic           = false,
   $bmc_dns_server              = '192.168.0.10',
   $bmc_idrac_attributes = {
@@ -41,7 +43,6 @@ class profile::base::physical (
     'AddressOrigin' => 'Static',
   },
 ) {
-  include ::lldp
   include ::ipmi
 
   # Configure 82599ES SFP+ interface module options
@@ -164,16 +165,13 @@ class profile::base::physical (
     }
   }
 
-  package { 'lldpd':
-    ensure => present,
-    name   => $::lldp::params::package,
+  package { $package:
+    ensure => installed,
   }
 
-  service { 'lldpd':
+  service { $service:
     ensure    => running,
     enable    => true,
-    require   => Package['lldpd'],
-    hasstatus => $::lldp::params::has_status,
   }
 
   if ($enable_redfish_sensu_check) and ($::runmode == 'default') {
