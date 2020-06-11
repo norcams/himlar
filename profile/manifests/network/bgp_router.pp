@@ -46,7 +46,7 @@ class profile::network::bgp_router(
     }
   }
   if $manage_bgp_firewall {
-    profile::firewall::rule { '912 bgp allow bfd':
+    profile::firewall::rule { '011 bgp allow bfd':
       proto  => 'udp',
       port   => ['3784','3785','4784','4785'],
     }
@@ -57,7 +57,7 @@ class profile::network::bgp_router(
     }
   }
   if $manage_bgp_firewall6 {
-    profile::firewall::rule { '912 bgp allow bfd ipv6':
+    profile::firewall::rule { '011 bgp allow bfd ipv6':
       proto    => 'udp',
       port     => ['3784','3785','4784','4785'],
       provider => 'ip6tables',
