@@ -23,10 +23,10 @@ profile::webserver::apache::vhosts:
 profile::network::services::dhcp_reservation:
   bgo-leaf-01:
     mac: '00:01:e8:d8:38:aa'
-    ip:  '172.16.0.1'
+    ip:  '172.16.3.1'
   bgo-leaf-02:
     mac: '00:01:e8:d8:36:e3'
-    ip:  '172.16.0.2'
+    ip:  '172.16.3.2'
   bgo-leaf-03:
     mac: '00:01:e8:d8:36:61'
     ip:  '172.16.0.3'
@@ -41,10 +41,10 @@ profile::network::services::dhcp_reservation:
     ip:  "%{hiera('netcfg_mgmt_net_c6')}.2"
   bgo-torack-01:
     mac: '68:4f:64:b2:3c:11'
-    ip:  '172.16.0.6'
+    ip:  '172.16.0.1'
   bgo-torack-02:
     mac: '14:18:77:01:22:00'
-    ip:  '172.16.0.7'
+    ip:  '172.16.0.2'
   bgo-mgmt-opx-01:
     mac: '3c:2c:30:33:fa:80'
     ip:  '172.16.2.1'
