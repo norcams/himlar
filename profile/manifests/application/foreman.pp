@@ -120,13 +120,7 @@ class profile::application::foreman(
 
     # Temporary fix to mitigate memory leak in Foreman 2.0 (remove when upgrading ->  2.1)
 
-    file { 'foreman-systemd-dir':
-      ensure => directory,
-      path   => '/etc/systemd/system/foreman.service.d/',
-      owner  => root,
-      group  => root,
-    }
-    -> file { 'foreman-systemd-override':
+    file { 'foreman-systemd-override':
       ensure  => file,
       path    => '/etc/systemd/system/foreman.service.d/override.conf',
       owner   => root,
