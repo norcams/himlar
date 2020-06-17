@@ -18,12 +18,24 @@ profile::base::network::routes:
 profile::base::network::cumulus_interfaces:
   'bridge.100':
     'ipv4': [ '172.18.0.4/21', ]
+    'ipv6': [ 'fd00::4/64', ]
+    'virtual_ip': '172.18.7.4/21 fd00::704/64'
+    'virtual_mac': '00:00:5e:00:01:06'
   'peerlink.4094':
     'ipv4': [ '172.18.228.4/24', ]
+    'ipv6': [ 'fd00:18:231::2/64', ]
     'clagd_enable': true
     'clagd_priority': '8192'
     'clagd_peer_ip': '172.18.228.3'
     'clagd_sys_mac': '44:38:39:ff:bb:1e'
+  'swp49':
+    'mtu': '9216'
+  'swp50':
+    'mtu': '9216'
+  'swp51':
+    'mtu': '9216'
+  'swp52':
+    'mtu': '9216'
 
 profile::base::network::cumulus_bridges:
   'bridge':
@@ -66,7 +78,7 @@ profile::base::network::cumulus_bonds:
     'clag_id': '100'
     'pvid': '100'
     'mtu': '9216'
-    'vids': [ '100', '110', '130', ]
+    'vids': [ '100', '110', '120', '130', ]
   'host1':
     'slaves': [ 'swp1', ]
     'clag_id': '1'
@@ -194,7 +206,7 @@ profile::base::network::cumulus_bonds:
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
   'host46':
-    'slaves': [ 'swp464', ]
+    'slaves': [ 'swp46', ]
     'clag_id': '46'
     'pvid': '100'
     'mtu': '9216'

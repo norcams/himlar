@@ -42,7 +42,7 @@ class profile::network::nat(
         }
       }
       if $manage_bird_firewall {
-        profile::firewall::rule { '912 bird allow bfd':
+        profile::firewall::rule { '011 bird allow bfd':
           proto  => 'udp',
           port   => ['3784','3785','4784','4785'],
         }

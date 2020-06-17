@@ -84,7 +84,7 @@ class profile::openstack::network::calico(
         sport => ['67','68'],
       }
     }
-    profile::firewall::rule { '912 bird allow bfd':
+    profile::firewall::rule { '011 bird allow bfd':
       proto  => 'udp',
       dport  => ['3784','3785','4784','4785'],
     }
@@ -102,7 +102,7 @@ class profile::openstack::network::calico(
       },
     }
     if $manage_firewall6 {
-      profile::firewall::rule { '912 bird allow bfd ipv6':
+      profile::firewall::rule { '011 bird allow bfd ipv6':
         proto    => 'udp',
         port     => ['3784','3785','4784','4785'],
         provider => 'ip6tables',

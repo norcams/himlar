@@ -23,6 +23,8 @@ profile::base::common::packages:
   'python-virtualenv':  {}
 
 apache::default_mods:   false
+apache::mod::wsgi::mod_path: /opt/report-app/lib/python3.6/site-packages/mod_wsgi-4.7.1-py3.6-linux-x86_64.egg/mod_wsgi/server/mod_wsgi-py36.cpython-36m-x86_64-linux-gnu.so
+apache::mod::wsgi::package_name: mod_wsgi
 profile::webserver::apache::mods_enable:
   - wsgi
   - dir
@@ -48,7 +50,7 @@ profile::webserver::apache::vhosts:
     wsgi_daemon_process:     'report-app'
     wsgi_daemon_process_options:
       threads:      '4'
-      python-path:  "/opt/report-app:/opt/report-app/lib/python2.7/site-packages"
+      python-path:  "/opt/report-app:/opt/report-app/lib/python3.6/site-packages"
     wsgi_script_aliases:
       '/':   "/opt/report-app/flask.wsgi"
     aliases:
