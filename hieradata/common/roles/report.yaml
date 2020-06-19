@@ -20,7 +20,7 @@ profile::base::common::packages:
   'gcc': {}
   'bash-completion': {}
   'bash-completion-extras': {}
-  'python-virtualenv':  {}
+  'python3-libs': {}
 
 apache::default_mods:   false
 apache::mod::wsgi::mod_path: /opt/report-app/lib/python3.6/site-packages/mod_wsgi-4.7.1-py3.6-linux-x86_64.egg/mod_wsgi/server/mod_wsgi-py36.cpython-36m-x86_64-linux-gnu.so
