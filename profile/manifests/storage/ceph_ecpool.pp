@@ -10,7 +10,7 @@ define profile::storage::ceph_ecpool (
   $crush_failure_domain = "host",
   $crush_root           = "default",
   $plugin               = "jerasure",
-  $technique            = "reed_sol_van"
+  $technique            = "reed_sol_van",
   $k_data               = "3",
   $m_code               = "2",
   $allow_ec_overwrites  = false,
