@@ -23,8 +23,6 @@ profile::base::network::network_auto_bonding:
 # sensu overrides
 sensu__memory__check:     "check-memory-percent.rb -w 90 -c 95"
 
-profile::storage::cephpool::manage_ec_pools: true # FIXME
-
 profile::storage::cephclient::create_extraconf: true
 profile::storage::ceph_extraconf::config:
   osd_memory_target:
@@ -42,6 +40,15 @@ profile::storage::ceph_extraconf::config:
   osd_max_backfills:
     'config_key'  : "osd/osd_max_backfills"
     'config_value': "2"
+
+profile::storage::ceph_ecpool::ec_pools:
+  'volumes_hdd_ec_data':
+    pg_num:              "1024"
+    manage:              true
+    allow_ec_overwrites: true
+    k_data:              "4"
+    m_code:              "2"
+    crush_root:          "storage"
 
 # Disable intel c states for performance
 profile::base::physical::disable_intel_cstates: true
