@@ -8,6 +8,7 @@ define profile::storage::ceph::pool::ec(
   $crush_root           = 'default',
   $crush_failure_domain = 'host',
   $plugin               = 'jerasure',
+  $technique            = 'reed_sol_van',
   $k_data               = 3,
   $m_code               = 2,
   $tag                  = undef,
@@ -19,7 +20,7 @@ define profile::storage::ceph::pool::ec(
     # Create EC profile
     exec { "create_ceph_ec_profile-${name}":
       command => "ceph osd erasure-code-profile set ${name} crush-root=${crush_root} k=${k_data} \
-m=${m_code} crush-device-class=${crush_device_class} crush-failure-domain=${crush_failure_domain}",
+m=${m_code} plugin=${plugin} technique=${technique} crush-device-class=${crush_device_class} crush-failure-domain=${crush_failure_domain}",
       path    => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
       unless  => "ceph osd erasure-code-profile get ${name}"
     }
