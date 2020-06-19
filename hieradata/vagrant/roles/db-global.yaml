@@ -15,7 +15,14 @@ profile::database::mariadb::grants:
     user:       'netdata@localhost'
 
 #
-# Galera and SSL setup for galera
+# Galera setup
+#
+# wsrep_cluster_address:  "gcomm://%{hiera('netcfg_trp_netpart')}.41:4567,%{hiera('netcfg_trp_netpart')}.42:4567,%{hiera('netcfg_trp_netpart')}.16:4567"
+# wsrep_sst_method:       'mariabackup'
+# wsrep_provider_options: "base_host=%{::ipaddress_trp1};pc.recovery=1;"
+# wsrep_node_address:     "%{::ipaddress_trp1}"
+
+# OLD Galera SSL setup
 #
 # include:
 #   default:
