@@ -190,7 +190,7 @@ mod 'ceph', :ref => 'e157497a3e',                   :git => github + 'openstack/
 # ha
 #
 mod 'haproxy', :ref => '1.5.0',                     :git => github + 'puppetlabs/puppetlabs-haproxy'
-mod 'corosync', :ref => 'v5.1.0',                   :git => github + 'voxpupuli/puppet-corosync'
+mod 'corosync', :ref => 'v6.0.1',                   :git => github + 'voxpupuli/puppet-corosync'
 mod 'zookeeper', :ref => 'v0.8.1',                  :git => github + 'deric/puppet-zookeeper'
 
 # nfs
