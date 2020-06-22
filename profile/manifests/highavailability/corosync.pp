@@ -10,6 +10,7 @@ class profile::highavailability::corosync(
   $locations       = {},
   $colocations     = {},
   $clones          = {},
+  $rsc_defaults    = {},
   $firewall_extras = {}
 ) {
 
@@ -21,12 +22,13 @@ class profile::highavailability::corosync(
     create_resources('cs_location', $locations)
     create_resources('cs_colocation', $colocations)
     create_resources('cs_clone', $clones)
+    create_resources('cs_rsc_defaults', $rsc_defaults)
   }
 
   if $manage_firewall {
     profile::firewall::rule { '460 corosync udp':
       proto       => 'udp',
-      dport       => '5405',
+      dport       => '5404-5406',
       destination => $::ipaddress_public1,
       extras      => $firewall_extras
     }
