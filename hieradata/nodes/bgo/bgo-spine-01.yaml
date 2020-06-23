@@ -76,7 +76,7 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'route-reflector-client'
       - 'soft-reconfiguration inbound'
       - 'route-map rr-client-allow in'
-#      - 'bfd'
+      - 'bfd'
     'members':
 #      - '172.18.0.17'
 #      - '172.18.0.18'
@@ -116,7 +116,7 @@ frrouting::frrouting::bgp_neighbor_groups:
 #      - '172.18.1.32'
 #      - '172.18.1.33'
 #      - '172.18.1.34'
-      - '172.18.1.49'
+      - '172.18.1.35'
     'options6':
       - 'neighbor rr-clients route-reflector-client'
       - 'maximum-paths ibgp 5'
@@ -167,7 +167,7 @@ frrouting::frrouting::bgp_neighbor_groups:
 #      - 'fd00::1:32'
 #      - 'fd00::1:33'
 #      - 'fd00::1:34'
-      - 'fd00::1:49'
+      - 'fd00::1:35'
 #  'other-clients':
 #    'options':
 #    - 'peer-group'
