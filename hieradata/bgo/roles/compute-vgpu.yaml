@@ -1,22 +1,4 @@
 ---
-profile::base::lvm::physical_volume:
-  '/dev/sda3':
-    ensure: present
-    force:  true
-  '/dev/sdb':
-    ensure: present
-    force:  true
-profile::base::lvm::volume_group:
-  'vg_ext':
-    physical_volumes:
-      - /dev/sda3
-      - /dev/sdb
-profile::base::lvm::logical_volume:
-  'lv_instances':
-    volume_group: 'vg_ext'
-    fs_type:      "xfs"
-    mountpath:    "/var/lib/nova/instances"
-
 named_interfaces::config:
   mgmt:
     - em3
@@ -36,10 +18,16 @@ profile::base::network::network_auto_bonding:
 
 #nova::compute::libvirt::libvirt_cpu_model: 'EPYC'
 #nova::compute::vgpu::enabled_vgpu_types:   'nvidia-233'
-yum_base_mirror:    'https://download.iaas.uio.no/uh-iaas/vgpu'
+#yum_base_mirror:    'https://download.iaas.uio.no/uh-iaas/vgpu'
 
 # remove when telemetry/ceilometer is up in all environments and move to common
 profile::openstack::compute::manage_telemetry: true
+
+profile::base::physical::blacklist_drv: true
+profile::base::physical::blacklist_drv_list:
+  'nouveau': {}
+
+nova::compute::libvirt::libvirt_cpu_model: 'Skylake-Server-IBRS'
 
 nova::compute::libvirt::libvirt_hw_machine_type: 'x86_64=q35'
 # These compute host uses local storage for instances
