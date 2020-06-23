@@ -15,7 +15,6 @@ class profile::base::common (
   $manage_timezones       = false,
   $manage_keyboard        = false,
   $manage_packages        = false,
-  $manage_yum_groups      = false,
   $manage_gems            = false,
   $manage_yumrepo         = false,
   $manage_sysctl          = false,
@@ -158,11 +157,6 @@ class profile::base::common (
   if $manage_packages {
     $packages = lookup('profile::base::common::packages', Hash, 'deep', {})
     create_resources('profile::base::package', $packages)
-  }
-
-  if $manage_yum_groups {
-    $yumgroups = lookup('profile::base::common::yum_groups', Hash, 'deep', {})
-    create_resources('profile::base::yum_group', $yumgroups)
   }
 
   if $manage_gems {
