@@ -3,10 +3,14 @@ profile::base::lvm::physical_volume:
   '/dev/sda3':
     ensure: present
     force:  true
+  '/dev/sdb':
+    ensure: present
+    force:  true
 profile::base::lvm::volume_group:
   'vg_ext':
     physical_volumes:
       - /dev/sda3
+      - /dev/sdb
 profile::base::lvm::logical_volume:
   'lv_instances':
     volume_group: 'vg_ext'
@@ -15,7 +19,7 @@ profile::base::lvm::logical_volume:
 
 named_interfaces::config:
   mgmt:
-    - eth4
+    - em3
   trp:
     - team1
   live:
@@ -23,10 +27,10 @@ named_interfaces::config:
 
 profile::base::network::network_auto_bonding:
   trp:
-    eth2:
+    p3p1:
       'team_port_config': '{ "prio" : 100 }'
       'mtu': '9000'
-    eth3:
+    p3p2:
       'team_port_config': '{ "prio" : 100 }'
       'mtu': '9000'
 
