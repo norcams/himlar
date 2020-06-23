@@ -1,12 +1,13 @@
-# Wrapper for yum group resource
+# Install yum group
 define profile::base::yum_group (
   $ensure = 'present',
 ) {
 
   unless $ensure == 'absent' {
-    yum::group { $name:
-      ensure   => 'present',
-      timeout  => 600,
+    exec { "install-${name}":
+      command => "yum groupinstall -y ${name}",
+      path    => '/usr/bin:/usr/sbin:/bin',
+      refreshonly => true,
     }
   }
 }
