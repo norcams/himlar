@@ -31,13 +31,19 @@ profile::base::network::network_auto_opts:
   live:
     'defroute': 'no'
 
-netcfg_trp_rr: # FIXME
+calico::compute::peers: # FIXME
   rr1:
     peer_ipv4: '172.18.6.1'
     peer_ipv6: 'fd00::6:1'
   rr2:
     peer_ipv4: '172.18.6.2'
     peer_ipv6: 'fd00::6:2'
+
+profile::base::common::packages:
+  'wget': {}
+  'kernel-devel': {}
+  'kernel-headers': {}
+  'unzip': {}
 
 #nova::compute::libvirt::libvirt_cpu_model: 'EPYC'
 #nova::compute::vgpu::enabled_vgpu_types:   'nvidia-233'
