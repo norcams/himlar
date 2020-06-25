@@ -227,7 +227,7 @@ profile::monitoring::sensu::agent::checks:
     handlers:     ['graphite_tcp']
   'metrics-disk':
     type:         'metric'
-    command:      'metrics-disk.rb.rb --scheme disk.%{::hostname} -I sd[a-z]$'
+    command:      'metrics-disk.rb --scheme disk.%{::hostname} -I sd[a-z]$'
     interval:     60
     subscribers:  ['metrics']
     handlers:     ['graphite_tcp']

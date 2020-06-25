@@ -47,6 +47,7 @@ profile::base::common::packages:
   'bash-completion-extras': {}
   'jq': {}
   'smartmontools': {}
+  'sysstat': {} # needed for sensu network plugin
 
 accounts::users:
   'cinder':
