@@ -280,6 +280,12 @@ profile::monitoring::sensu::agent::checks:
     interval:     60
     subscribers:  ['metrics']
     handlers:     ['graphite_tcp']
+  'metrics-disk':
+    type:         'metric'
+    command:      'metrics-disk.rb.rb --scheme disk.%{::hostname} -I sd[a-z]$'
+    interval:     60
+    subscribers:  ['metrics']
+    handlers:     ['graphite_tcp']
 
 profile::monitoring::sensu::agent::plugin_gems:
   sensu-plugins-himlar:
@@ -289,12 +295,3 @@ profile::monitoring::sensu::agent::plugin_gems:
   sensu-plugins-network-checks:
     type:         package
     pkg_version:  '4.1.1'
-  sensu-plugins-disk-checks:
-    type:         package
-    pkg_version:  '5.1.3'
-  'metrics-disk':
-    type:         'metric'
-    command:      'metrics-disk.rb.rb --scheme disk.%{::hostname} -I sd[a-z]$'
-    interval:     60
-    subscribers:  ['metrics']
-    handlers:     ['graphite_tcp']
