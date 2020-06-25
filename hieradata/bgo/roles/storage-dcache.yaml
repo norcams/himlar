@@ -272,11 +272,29 @@ sudo::configs:
 profile::monitoring::sensu::agent::checks:
   'check-smart':
     command:      "/usr/bin/sudo /opt/sensu/embedded/bin/check-smart.rb"
-    interval:     600
+    interval:     3600
     subscribers:  ['checks']
+  'metrics-netif':
+    type:         'metric'
+    command:      'metrics-netif.rb --scheme network.%{::hostname}'
+    interval:     60
+    subscribers:  ['metrics']
+    handlers:     ['graphite_tcp']
 
 profile::monitoring::sensu::agent::plugin_gems:
   sensu-plugins-himlar:
     ensure:   '0.4.0'
     provider: 'sensuclassic_gem'
     source:   'http://download.iaas.uio.no/uh-iaas/gem'
+  sensu-plugins-network-checks:
+    type:         package
+    pkg_version:  '4.1.1'
+  sensu-plugins-disk-checks:
+    type:         package
+    pkg_version:  '5.1.3'
+  'metrics-disk':
+    type:         'metric'
+    command:      'metrics-disk.rb.rb --scheme disk.%{::hostname} -I sd[a-z]$'
+    interval:     60
+    subscribers:  ['metrics']
+    handlers:     ['graphite_tcp']
