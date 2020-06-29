@@ -89,9 +89,17 @@ profile::storage::ceph::pool::pools:
     pgp_num: 512
     tag:    'rbd'
     custom:
-      crush_rule: 'ssd-storage'
-      nodelete:   'true'
-      min_size:   '2'
+      crush_rule:          'ssd-storage'
+      nodelete:            'true'
+      min_size:            '2'
+  'dcache_hdd_ec_data':
+    custom:
+      deep_scrub_interval: '19353600' # every 32 weeks - overrides osd setting
+      scrub_max_interval:  '1209600'  # normal scrub at least every 2 weeks - overrides osd setting
+  'dcache_hdd_ec_data8':
+    custom:
+      deep_scrub_interval: '19353600' # every 32 weeks - overrides osd setting
+      scrub_max_interval:  '1209600'  # normal scrub at least every 2 weeks - overrides osd setting
 profile::storage::ceph::pool::ec_pools:
   'placeholder':
     manage: false
