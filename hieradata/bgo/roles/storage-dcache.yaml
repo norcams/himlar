@@ -40,7 +40,7 @@ profile::storage::ceph_extraconf::config:
     'config_value': "5368709120"
   osd_max_scrubs:
     'config_key'  : "osd/osd_max_scrubs"
-    'config_value': "2"
+    'config_value': "1"
   osd_deep_scrub_interval:
     'config_key'  : "osd/osd_deep_scrub_interval"
     'config_value': "2419200.000000"
@@ -68,6 +68,8 @@ profile::storage::ceph_ecpool::ec_pools:
     k_data:              "8"
     m_code:              "2"
     crush_root:          "dcache"
+    plugin:              "isa"
+    technique:           "reed_sol_van"
 profile::storage::cephpool::pools:
   'dcache_hdd_ec_meta':
     ensure: present
