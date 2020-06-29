@@ -13,6 +13,7 @@ profile::storage::cephfs::create_cephfs: true
 
 profile::storage::cephpool::manage_ec_pools:        true
 profile::storage::cephpool::manage_cephpool_params: true
+profile::storage::cephpool::manage_repl_pools:      true
 
 profile::storage::cephfs::filesystems:
   'manila_hdd':
@@ -30,6 +31,13 @@ profile::storage::cephosd::osds:
   '/dev/vdf': {}
 #  '/dev/vdg': {}
 #  '/dev/vdh': {}
+
+profile::storage::ceph::pool::pools:
+  'placeholder1':
+    ensure: absent
+profile::storage::ceph::pool::ec_pools:
+  'placeholder2':
+    manage: false
 
 profile::storage::ceph_ecpool::ec_pools:
   'manila_data':

@@ -19,31 +19,38 @@ profile::storage::cephosd::osds:
   '/dev/sdf': {}
   '/dev/sdg': {}
 
-profile::storage::cephpool::pools:
+profile::storage::ceph::pool::pools:
   'rbd':
     ensure: absent
   'volumes':
-    ensure: present
-    pg_num: 64
+    size:    3
+    pg_num:  64
     pgp_num: 64
+    tag:     'rbd'
+    custom:
+      nodelete:   'true'
+      min_size:   '2'
   'images':
-    ensure: present
-    pg_num: 64
+    size:    3
+    pg_num:  64
     pgp_num: 64
+    tag:    'rbd'
+    custom:
+      nodelete:   'true'
+      min_size:   '2'
   'vms':
-    ensure: present
-    pg_num: 128
+    size:    3
+    pg_num:  128
     pgp_num: 128
+    tag:     'rbd'
+    custom:
+      nodelete:   'true'
+      min_size:   '2'
   'volumes_hdd_ec_meta':
     ensure: absent
-profile::storage::cephpool_params::pools:
-  'volumes':
-    replicas_min_size: 3
-  'images':
-    replicas_min_size: 3
-  'vms':
-    replicas_min_size: 3
-    crush_rule:        "ssd"
+profile::storage::ceph::pool::ec_pools:
+  'placeholder':
+    manage: false
 
 check_ceph_argument:    "-i 'too many PGs per OSD.*'"
 

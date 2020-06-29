@@ -3,6 +3,7 @@ include:
   default:
     - profile::storage::cephosd
     - profile::storage::cephpool
+    - profile::storage::ceph::pool
     - profile::storage::cephfs
     - profile::storage::cephclient
     - profile::storage::cephosd_firewall
