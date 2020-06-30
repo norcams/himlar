@@ -24,7 +24,7 @@ collectd::plugin::aggregation::aggregators:
     calculateaverage: true
 
 collectd::plugin::disk::manage_package: false
-collectd::plugin::disk::disks:          ["/^[hsv]d[a-z]/"]
+collectd::plugin::disk::disks:          ["/^[hsv]d[a-z]$/"]
 collectd::plugin::disk::ignoreselected: false
 
 collectd::plugin::cpu::reportbycpu:     false
