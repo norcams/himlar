@@ -82,7 +82,7 @@ class profile::storage::cephmon (
   }
 
   # activate the ceph balancer module
-  if $ceph_balancer {
+  if $ceph_balancer_active {
     exec { "enable-balancer":
       command  => "ceph balancer on",
       provider => shell,
