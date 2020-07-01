@@ -112,6 +112,7 @@ profile::storage::ceph::pool::pools:
     custom:
       deep_scrub_interval: '19353600' # every 32 weeks - overrides osd setting
       scrub_max_interval:  '1209600'  # normal scrub at least every 2 weeks - overrides osd setting
+      fast_read:           '1'        # read all k+m for read, trade bandwith for lower latency
 profile::storage::ceph::pool::ec_pools:
   'placeholder':
     manage: false
