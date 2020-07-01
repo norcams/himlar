@@ -3,13 +3,14 @@
 #
 class profile::storage::cephmon (
   $dashboard_password,
-  $dashboard_user       = 'admin',
-  $manage_dashboard     = false,
-  $crt_dir              = '/etc/pki/tls/certs',
-  $key_dir              = '/etc/pki/tls/private',
-  $cert_name            = $::fqdn,
-  $flagfile             = '/var/lib/ceph/.ceph-dashboard-set-up',
-  $create_crushbuckets  = false
+  $dashboard_user             = 'admin',
+  $manage_dashboard           = false,
+  $crt_dir                    = '/etc/pki/tls/certs',
+  $key_dir                    = '/etc/pki/tls/private',
+  $cert_name                  = $::fqdn,
+  $flagfile                   = '/var/lib/ceph/.ceph-dashboard-set-up',
+  $create_crushbuckets        = false,
+  $target_max_misplaced_ratio = undef, # WARNING: If set, it will be dynamically configured in the cluster. Increments 0.01, default 0.05
 ) {
   include ::ceph::profile::mon
   include ::ceph::profile::mgr
@@ -57,6 +58,15 @@ class profile::storage::cephmon (
       command     => "ceph dashboard set-login-credentials ${dashboard_user} ${dashboard_password} && touch ${flagfile}",
       path        => '/usr/bin:/usr/sbin:/bin',
       refreshonly => true,
+    }
+  }
+
+  # Optionally set target for the ceph mgr autobalancer module
+  if $target_max_misplaced_ratio {
+    exec { "set-max-misplaced-ratio-${name}":
+      command  => "ceph config set mgr target_max_misplaced_ratio ${target_max_misplaced_ratio}",
+      provider => shell,
+      unless   => "test $(ceph config get mgr.${::hostname} target_max_misplaced_ratio | head -c4) == ${target_max_misplaced_ratio}",
     }
   }
 }
