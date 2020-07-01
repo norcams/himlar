@@ -106,13 +106,13 @@ profile::storage::ceph::pool::pools:
       min_size:   '2'
   'dcache_hdd_ec_data':
     custom:
-      deep_scrub_interval: '19353600' # every 32 weeks - overrides osd setting
-      scrub_max_interval:  '1209600'  # normal scrub at least every 2 weeks - overrides osd setting
+      deep_scrub_interval: '1.93536e+07' # every 32 weeks - overrides osd setting
+      scrub_max_interval:  '1.2096e+06'  # normal scrub at least every 2 weeks - overrides osd setting
   'dcache_hdd_ec_data8':
     custom:
-      deep_scrub_interval: '19353600' # every 32 weeks - overrides osd setting
-      scrub_max_interval:  '1209600'  # normal scrub at least every 2 weeks - overrides osd setting
-      fast_read:           '1'        # read all k+m for read, trade bandwith for lower latency
+      deep_scrub_interval: '1.93536e+07' # every 32 weeks - overrides osd setting
+      scrub_max_interval:  '1.2096e+06'  # normal scrub at least every 2 weeks - overrides osd setting
+      fast_read:           '1'           # read all k+m for read, trade bandwith for lower latency
 profile::storage::ceph::pool::ec_pools:
   'placeholder':
     manage: false
