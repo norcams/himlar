@@ -32,7 +32,7 @@ profile::storage::ceph::multisite::zones:
 # Enable ceph balancer plugin
 profile::storage::cephmon::target_max_misplaced_ratio: '0.02'
 profile::storage::cephmon::ceph_balancer_mode:         'upmap'
-profile::storage::cephmon::ceph_balancer:               true
+profile::storage::cephmon::ceph_balancer_active:       true
 
 # Override default from modules/ceph.yaml
 ceph::profile::params::mon_host:                    '%{::netpart_trp1}.89'

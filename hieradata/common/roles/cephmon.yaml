@@ -10,7 +10,7 @@ include:
 # Enable ceph balancer plugin
 profile::storage::cephmon::target_max_misplaced_ratio: '0.05'
 profile::storage::cephmon::ceph_balancer_mode:         'upmap'
-profile::storage::cephmon::ceph_balancer:               true
+profile::storage::cephmon::ceph_balancer_active:       true
 
 # collectd
 profile::monitoring::collectd::enable: true
