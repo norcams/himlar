@@ -50,6 +50,18 @@ profile::storage::ceph_extraconf::config:
   osd_max_backfills:
     'config_key'  : "osd/osd_max_backfills"
     'config_value': "2"
+  osd_scrub_priority:
+    'config_key'  : "osd/osd_scrub_priority"
+    'config_value': "1"
+  osd_scrub_sleep:
+    'config_key'  : "osd/osd_scrub_sleep"
+    'config_value': "0.5"
+  osd_scrub_chunk_min:
+    'config_key'  : "osd/osd_scrub_chunk_min"
+    'config_value': "1"
+  osd_scrub_chunk_max:
+    'config_key'  : "osd/osd_scrub_chunk_max"
+    'config_value': "5"
 
 profile::storage::cephpool::manage_ec_pools: true
 
