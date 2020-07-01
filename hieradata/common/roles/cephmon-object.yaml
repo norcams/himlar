@@ -29,6 +29,11 @@ profile::storage::ceph::multisite::zones:
     endpoints: "%{hiera('endpoint__object__public')}"
     zonegroup: 'norway'
 
+# Enable ceph balancer plugin
+profile::storage::cephmon::target_max_misplaced_ratio: '0.02'
+profile::storage::cephmon::ceph_balancer_mode:         'upmap'
+profile::storage::cephmon::ceph_balancer:               true
+
 # Override default from modules/ceph.yaml
 ceph::profile::params::mon_host:                    '%{::netpart_trp1}.89'
 ceph::profile::params::mon_initial_members:         '%{::location}-cephmon-object-01'

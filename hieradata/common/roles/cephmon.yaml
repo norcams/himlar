@@ -7,6 +7,11 @@ include:
   bootstrap:
     - profile::storage::cephmon_firewall
 
+# Enable ceph balancer plugin
+profile::storage::cephmon::target_max_misplaced_ratio: '0.05'
+profile::storage::cephmon::ceph_balancer_mode:         'upmap'
+profile::storage::cephmon::ceph_balancer:               true
+
 # collectd
 profile::monitoring::collectd::enable: true
 collectd::plugin::ceph::daemons:
