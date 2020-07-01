@@ -87,5 +87,6 @@ class profile::storage::cephmon (
       command  => "ceph balancer on",
       provider => shell,
       unless   => "test $(ceph balancer status | grep active | awk '{print \$NF}' | tr -dc '[:alnum:]\n\r') == true",
+    }
   }
 }
