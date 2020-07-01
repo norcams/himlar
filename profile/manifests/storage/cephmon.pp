@@ -10,6 +10,8 @@ class profile::storage::cephmon (
   $cert_name                  = $::fqdn,
   $flagfile                   = '/var/lib/ceph/.ceph-dashboard-set-up',
   $create_crushbuckets        = false,
+  $ceph_balancer_active       = undef,
+  $ceph_balancer_mode         = undef,
   $target_max_misplaced_ratio = undef, # WARNING: If set, it will be dynamically configured in the cluster. Increments 0.01, default 0.05
 ) {
   include ::ceph::profile::mon
@@ -68,5 +70,22 @@ class profile::storage::cephmon (
       provider => shell,
       unless   => "test $(ceph config get mgr.${::hostname} target_max_misplaced_ratio | head -c4) == ${target_max_misplaced_ratio}",
     }
+  }
+
+  # Set balancer mode
+  if $ceph_balancer_mode {
+    exec { "set-balancer-mode-${name}":
+      command  => "ceph balancer mode ${ceph_balancer_mode}",
+      provider => shell,
+      unless   => "test $(ceph balancer status | grep mode | awk '{print \$NF}' | tr -dc '[:alnum:]\n\r') == ${ceph_balancer_mode}",
+    }
+  }
+
+  # activate the ceph balancer module
+  if $ceph_balancer {
+    exec { "enable-balancer":
+      command  => "ceph balancer on",
+      provider => shell,
+      unless   => "test $(ceph balancer status | grep active | awk '{print \$NF}' | tr -dc '[:alnum:]\n\r') == true",
   }
 }
