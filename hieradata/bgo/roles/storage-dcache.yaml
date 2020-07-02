@@ -46,10 +46,10 @@ profile::storage::ceph_extraconf::config:
     'config_value': "2419200.000000"
   osd_recovery_max_active:
     'config_key'  : "osd/osd_recovery_max_active"
-    'config_value': "6"
+    'config_value': "3" # default value
   osd_max_backfills:
     'config_key'  : "osd/osd_max_backfills"
-    'config_value': "2"
+    'config_value': "1" # default value
   osd_scrub_priority:
     'config_key'  : "osd/osd_scrub_priority"
     'config_value': "1"
