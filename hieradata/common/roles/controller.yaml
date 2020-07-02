@@ -64,6 +64,11 @@ libvirt::qemu_vnc_listen:         '0.0.0.0'
 libvirt::qemu_vnc_sasl:           false
 libvirt::qemu_vnc_tls:            false
 
+profile::base::yumrepo::repo_hash:
+  epel:
+    ensure:   present
+    exclude:  'zeromq python2-uritemplate python2-google-api-client'
+
 lvm::volume_groups:
   vg_ext:
     physical_volumes:
