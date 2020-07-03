@@ -15,14 +15,6 @@ profile::openstack::volume::type:
     visibility: "private"
     properties:
       - 'volume_backend_name=mass-storage-arccache'
-  mass-storage-arccache41:
-    visibility: "private"
-    properties:
-      - 'volume_backend_name=mass-storage-arccache41'
-  arccache-replicated-hdd:
-    visibility: "private"
-    properties:
-      - 'volume_backend_name=arccache-replicated-hdd'
 
 # Use transport network for this (which has no DNS name)
 profile::openstack::volume::backend::nfs:
@@ -46,22 +38,6 @@ profile::openstack::volume::backend::rbd:
     extra_options:
       mass-storage-arccache/report_discard_supported:
         value: 'True'
-  mass-storage-arccache41:
-    rbd_pool: 'arccache_hdd_ec_meta41'
-    rbd_user: 'cinder-arccache-hdd-ec41'
-    rbd_flatten_volume_from_snapshot: 'True'
-    rbd_secret_uuid: "%{hiera('libvirt_rbd_secret_uuid')}"
-    extra_options:
-      mass-storage-arccache41/report_discard_supported:
-        value: 'True'
-  arccache-replicated-hdd:
-    rbd_pool: 'arccache_hdd_replicated'
-    rbd_user: 'cinder-arccache-hdd-replicated'
-    rbd_flatten_volume_from_snapshot: 'True'
-    rbd_secret_uuid: "%{hiera('libvirt_rbd_secret_uuid')}"
-    extra_options:
-      arccache-replicated-hdd/report_discard_supported:
-        value: 'True'
 
 cinder::api::default_volume_type: 'rbd'
 
@@ -69,5 +45,3 @@ cinder::backends::enabled_backends:
   - rbd-volumes
   - atlas-storage
   - mass-storage-arccache
-  - mass-storage-arccache41
-  - arccache-replicated-hdd
