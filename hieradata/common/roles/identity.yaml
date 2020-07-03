@@ -3,6 +3,7 @@ include:
   default:
     - profile::openstack::identity
     - profile::openstack::resource::imagebuilder
+    - profile::openstack::resource::image_sharing
     - profile::openstack::resource::dataporten
     - profile::openstack::resource::users
     - profile::logging::rsyslog::client
@@ -160,3 +161,7 @@ profile::base::selinux::boolean:
   'httpd_use_openstack':
     ensure: 'on'
     persistent: true
+
+# Project to create for global image sharing
+profile::openstack::resource::image_sharing::project: 'nrec-images'
+profile::openstack::resource::image_sharing::domain:  'dataporten'
