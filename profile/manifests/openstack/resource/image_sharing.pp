@@ -10,6 +10,7 @@ class profile::openstack::resource::image_sharing(
     keystone_tenant { $project:
       ensure      => $ensure,
       enabled     => true,
+      domain      => $domain,
       description => "Project for sharing images",
     }
   }
