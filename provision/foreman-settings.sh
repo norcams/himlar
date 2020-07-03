@@ -140,7 +140,7 @@ common_config()
       --location-id $foreman_location_id --os-family Redhat
 
   # Create and update OS
-  /bin/hammer --csv os list --per-page 1000 | grep 'CentOS 7' || /bin/hammer os create --name CentOS --major 7 --minor 7 || true
+  /bin/hammer --csv os list --per-page 1000 | grep 'CentOS 7' || /bin/hammer os create --name CentOS --major 7 --minor 8 || true
   for centos_os in $(/bin/hammer --csv os list --per-page 1000 | grep 'CentOS 7.7' | cut -d, -f1); do
     /bin/hammer os update --id $centos_os --name CentOS --major 7\
       --family Redhat \
