@@ -7,7 +7,7 @@ class profile::openstack::resource::image_sharing(
 ) {
 
   if $manage {
-    keystone_tenant { $project::$domain:
+    keystone_tenant { $project
       ensure      => $ensure,
       enabled     => true,
       description => "Project for sharing images",
