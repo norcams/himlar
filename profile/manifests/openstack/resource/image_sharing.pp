@@ -2,7 +2,7 @@
 class profile::openstack::resource::image_sharing(
   $manage  = false,
   $ensure  = present,
-  $project = 'nrec-images'
+  $project = 'nrec-images',
   $domain  = 'dataporten'
 ) {
 
