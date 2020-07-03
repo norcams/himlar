@@ -55,19 +55,7 @@ profile::storage::ceph::pool::ec_pools:
 check_ceph_argument:    "-i 'too many PGs per OSD.*'"
 
 # Sensu
-sudo::configs:
-  sensu_tty:
-    priority: 20
-    content:  'Defaults:sensu !requiretty'
-  sensu:
-    priority: 25
-    content:  'sensu ALL=(ALL) NOPASSWD: /opt/sensu/embedded/bin/check-smart.rb'
-
 profile::monitoring::sensu::agent::checks:
-  'check-smart':
-    command:      "/usr/bin/sudo /opt/sensu/embedded/bin/check-smart.rb"
-    interval:     3600
-    subscribers:  ['checks']
   'metrics-netif':
     type:         'metric'
     command:      'metrics-netif.rb --scheme network.%{::hostname}'
