@@ -62,15 +62,3 @@ profile::database::mariadb::grants:
     privileges: ['SELECT', 'INSERT', 'DELETE', 'CREATE']
     user:       "keystone@%{hiera('netcfg_trp_netpart')}.%"
     table:      'token_keys.*'
-
-# sensu
-profile::monitoring::sensu::agent::plugins:
-  sensu-plugins-percona:
-    type:         package
-    pkg_version:  '1.1.0'
-
-profile::monitoring::sensu::agent::checks:
-  'check-wsrep-ready':
-    command:      "check-wsrep-ready.rb -u sensu -h localhost -p %{hiera('sensu_mysql_password')}"
-    interval:     60
-    subscribers:  ['checks']
