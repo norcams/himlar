@@ -266,6 +266,12 @@ profile::base::yumrepo::repo_hash:
     baseurl:        "%{hiera('yum_base_mirror')}/mariadb"
     gpgkey:         "%{hiera('yum_base_mirror')}/mariadb/RPM-GPG-KEY-MariaDB"
     gpgcheck:       '1'
+  "mariadb-%{hiera('mariadb_version')}":
+    ensure:         absent
+    descr:          "MariaDB %{hiera('mariadb_version')} repo"
+    baseurl:        "%{hiera('yum_base_mirror')}/mariadb-%{hiera('mariadb_version')}"
+    gpgkey:         "%{hiera('yum_base_mirror')}/mariadb-%{hiera('mariadb_version')}/RPM-GPG-KEY-MariaDB"
+    gpgcheck:       '1'
   grafana:
     ensure:         absent
     descr:          'Grafana repo'
