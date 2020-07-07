@@ -5,7 +5,7 @@ profile::openstack::volume::type:
     properties:
       - 'volume_backend_name=rbd-volumes'
   mass-storage-default:
-    visibility: "private"
+    visibility: "public"
     properties:
       - 'volume_backend_name=mass-storage-default'
 
@@ -27,7 +27,7 @@ profile::openstack::volume::backend::rbd:
       mass-storage-default/report_discard_supported:
         value: 'True'
 
-cinder::api::default_volume_type: 'rbd'
+cinder::api::default_volume_type: 'mass-storage-default'
 
 cinder::backends::enabled_backends:
   - rbd-volumes
