@@ -19,11 +19,11 @@ class profile::rhsm::subscription (
         server_prefix           => '/rhsm',
         rhsm_baseurl            => "https://${server}/pulp/repos",
         rhsm_repo_ca_cert       => '%(ca_cert_dir)s/katello-server-ca.pem',
-        auto_enable_yum_plugins => 0,
+        auto_enable_yum_plugins => false,
         proxy_hostname          => $rhsm_proxy_hostname,
         proxy_port              => $rhsm_proxy_port,
       },
-      service_name    =>'rhsmcertd',
+      service_name    => 'rhsmcertd',
       force           => false,
     }
   }

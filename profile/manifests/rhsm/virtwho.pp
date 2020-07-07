@@ -3,6 +3,7 @@ class profile::rhsm::virtwho (
   $rhsm_username       = undef,
   $rhsm_password       = undef,
   $rhsm_proxy_hostname = '172.28.32.12',
+  #$rhsm_proxy_hostname = lookup('mgmt__address__proxy', String, 'first', ''),
   $rhsm_proxy_port     = '8888'
 ) {
 
