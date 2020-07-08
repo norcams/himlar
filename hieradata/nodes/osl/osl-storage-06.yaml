@@ -37,6 +37,10 @@ network::interfaces_hash:
     vlan:         'yes'
     defroute:     'no'
 
+# Ensure that the BOSS device is the last device
+profile::base::physical::load_ahci_last: true
+profile::base::physical::load_ahci_last_scsidrv: 'mpt3sas'
+
 profile::base::lvm::physical_volume:
   '/dev/sdp':
     ensure: present
