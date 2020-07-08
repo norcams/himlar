@@ -40,5 +40,10 @@ network::interfaces_hash:
     vlan:         'yes'
     defroute:     'no'
 
+profile::storage::ceph_extraconf::config:
+  osd_memory_target:
+    'config_key'  : "osd/osd_memory_target"
+    'config_value': "10737418240"
+
 profile::storage::cephosd::crush_move:  false # FIXME
 profile::storage::cephosd::create_osds: false # FIXME
