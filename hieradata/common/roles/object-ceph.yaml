@@ -149,8 +149,3 @@ profile::monitoring::sensu::agent::plugin_gems:
     ensure:   '0.4.0'
     provider: 'sensuclassic_gem'
     source:   'http://download.iaas.uio.no/uh-iaas/gem'
-
-# Enable extra yum repo
-profile::base::yumrepo::repo_hash:
-  ceph-%{hiera('ceph_version')}:
-    ensure: present
