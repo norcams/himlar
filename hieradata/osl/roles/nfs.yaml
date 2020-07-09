@@ -11,6 +11,9 @@ include:
 profile::base::common::packages:
   'lsscsi': {}
 
+# We use lagre iscsi disk for nfs
+sensu__disk__warning:     80
+
 multipath::blacklist:
   'devnode': [ '"^(ram|raw|loop|fd|md|dm-|sr|scd|st)[0-9]*"', '"^hd[a-z][[0-9]*]"', '"^cciss\!c[0-9]d[0-9]*"', '"^(sda|sdb|vda|vdb)"' ]
 
@@ -60,4 +63,3 @@ profile::base::nfs::shares:
 
 profile::base::nfs::mount_fwsettings:
   source: "%{::network_trp1}/%{::netmask_trp1}"
-
