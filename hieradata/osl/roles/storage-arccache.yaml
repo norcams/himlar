@@ -74,9 +74,10 @@ profile::storage::ceph::pool::pools:
     pgp_num: 128
     tag:     'rbd'
     custom:
-      crush_rule: 'hdd-arccache'
-      nodelete:   'true'
-      min_size:   '2'
+      crush_rule:          'hdd-arccache'
+      nodelete:            'true'
+      min_size:            '2'
+      deep_scrub_interval: '1.2096e+06'  # deep scrub at least every 2 weeks - overrides osd setting
   'arccache_hdd_ec_data':
     custom:
       deep_scrub_interval: '1.93536e+07' # every 32 weeks - overrides osd setting
