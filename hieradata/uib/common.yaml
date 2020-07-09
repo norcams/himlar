@@ -2,8 +2,6 @@
 location_environment:     'prod'
 location_description:     'Production external services UiB'
 
-# Disable management of Dell repos and software
-profile::base::dell::manage_repos:      false
 profile::base::dell::manage_openmanage: false
 
 domain_frontend:          'ha.uib.no'
