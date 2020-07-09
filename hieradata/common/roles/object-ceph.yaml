@@ -120,6 +120,14 @@ profile::storage::ceph::pool::crush_rules:
   'ssd':
     rule_device_type: "ssd"
 
+# Enable extra yum repo and override epel exclude list
+profile::base::yumrepo::repo_hash:
+  ceph-%{hiera('ceph_version')}:
+    ensure: present
+  epel:
+    ensure:   present
+    exclude:  'zeromq python2-uritemplate python2-google-api-client'
+
 sudo::configs:
   sensu_tty:
     priority: 20
