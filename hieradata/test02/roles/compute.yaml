@@ -49,3 +49,8 @@ nova::debug: true
 
 # remove when telemetry/ceilometer is up in all environments and move to common
 profile::openstack::compute::manage_telemetry: true
+
+# RHSM
+profile::rhsm::subscription::manage:              true
+profile::rhsm::subscription::rhsm_proxy_hostname: %{hiera('mgmt__address__proxy')}
+profile::rhsm::subscription::rhsm_proxy_port:     '8888'

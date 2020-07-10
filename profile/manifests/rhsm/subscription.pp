@@ -3,8 +3,8 @@ class profile::rhsm::subscription (
   $server              = undef,
   $organization        = undef,
   $activationkey       = undef,
-  $rhsm_proxy_hostname = '172.28.32.12',
-  $rhsm_proxy_port     = '8888'
+  $rhsm_proxy_hostname = undef,
+  $rhsm_proxy_port     = undef,
 ) {
 
   if $manage {
