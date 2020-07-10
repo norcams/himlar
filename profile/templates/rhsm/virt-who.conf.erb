@@ -1,0 +1,18 @@
+#===================================================================#
+# /etc/virt-who.d/nrec.conf                                         #
+#                                                                   #
+# Configuration file for the virt-who service                       #
+#                                                                   #
+# This file is managed by Puppet. Any changes will be lost!         #
+#===================================================================#
+
+[local]
+type=libvirt
+owner=<%= @organization %>
+hypervisor_id=hostname
+rhsm_hostname=<%= @server %>
+rhsm_username=<%= @virtwho_username %>
+rhsm_password=<%= @virtwho_password %>
+rhsm_prefix=/rhsm
+rhsm_proxy_hostname=<%= @proxy_hostname %>
+rhsm_proxy_port=<%= @proxy_port %>

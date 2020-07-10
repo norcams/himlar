@@ -199,6 +199,14 @@ mod 'multipath', :ref => '7c3b65eba5',              :git => github + 'desalvo/pu
 mod 'nfs', :ref => '0.4.3',                         :git => github + 'camptocamp/puppet-nfs'
 
 #
+# Red Hat Subscription Management (RHSM)
+#
+mod 'transition', :ref => '0.1.3',                  :git => github + 'puppetlabs/puppetlabs-transition'
+mod 'boolean', :ref => 'v2.0.2',                    :git => github + 'voxpupuli/puppet-boolean'
+mod 'facter_cacheable', :ref => '1.1.1',            :git => github + 'waveclaw/puppet-facter_cacheable'
+mod 'subscription_manager', :ref => '5.5.0',        :git => github + 'waveclaw/puppet-subscription_manager'
+
+#
 # Common libs
 #
 mod 'stdlib', :ref => '4.25.0',                     :git => github + 'puppetlabs/puppetlabs-stdlib'

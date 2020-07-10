@@ -1,0 +1,12 @@
+---
+subscription_manager::config_hash:
+  server_hostname:              "%{hiera('uio_satellite_server')}"
+  server_insecure:              false
+  server_prefix:                '/rhsm'
+  rhsm_baseurl:                 "https://%{hiera('uio_satellite_server')}/pulp/repos"
+  rhsm_repo_ca_cert:            '%(ca_cert_dir)s/katello-server-ca.pem'
+  rhsm_manage_repos:            false
+  rhsm_full_refresh_on_yum:     false
+  rhsm_auto_enable_yum_plugins: false
+  server_proxy_hostname:        "%{hiera('mgmt__address__proxy')}"
+  server_proxy_port:            8888
