@@ -14,7 +14,7 @@ class profile::rhsm::subscription (
       activationkey   => $activationkey,
       autosubscribe   => false,
       service_name    => 'rhsmcertd',
-      force           => false,
+      force           => true,
     }
 
   }
