@@ -9,3 +9,4 @@ subscription_manager::config_hash:
   rhsm_full_refresh_on_yum: false
   server_proxy_hostname:    "%{hiera('mgmt__address__proxy')}"
   server_proxy_port:        8888
+  rhsm_auto_enable_yum_plugins: false
