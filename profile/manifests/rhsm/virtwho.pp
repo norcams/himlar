@@ -4,12 +4,12 @@ class profile::rhsm::virtwho (
 
   if $manage {
 
-    $owner               = lookup('uio_satellite_organization', String, 'first', '')
-    $rhsm_hostname       = lookup('uio_satellite_server', String, 'first', '')
-    $rhsm_username       = lookup('uio_satellite_virtwho_username', String, 'first', '')
-    $rhsm_password       = lookup('uio_satellite_virtwho_password', String, 'first', '')
-    $rhsm_proxy_hostname = lookup('::subscription_manager::config_hash::server_proxy_hostname', String, 'first', '')
-    $rhsm_proxy_port     = lookup('::subscription_manager::config_hash::server_proxy_port', String, 'first', '')
+    $server           = lookup('uio_satellite_server', String, 'first', '')
+    $organization     = lookup('uio_satellite_organization', String, 'first', '')
+    $virtwho_username = lookup('uio_satellite_virtwho_username', String, 'first', '')
+    $virtwho_password = lookup('uio_satellite_virtwho_password', String, 'first', '')
+    $proxy_hostname   = lookup('::subscription_manager::config_hash::server_proxy_hostname', String, 'first', '')
+    $proxy_port       = lookup('::subscription_manager::config_hash::server_proxy_port', String, 'first', '')
 
     package { 'virt-who':
       ensure => installed,

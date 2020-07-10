@@ -8,11 +8,11 @@
 
 [local]
 type=libvirt
-owner=<%= @owner %>
+owner=<%= @organization %>
 hypervisor_id=hostname
-rhsm_hostname=<%= rhsm_hostname %>
-rhsm_username=<%= rhsm_username %>
-rhsm_password=<%= rhsm_password %>
+rhsm_hostname=<%= server %>
+rhsm_username=<%= virtwho_username %>
+rhsm_password=<%= virtwho_password %>
 rhsm_prefix=/rhsm
-rhsm_proxy_hostname=<%= rhsm_proxy_hostname %>
-rhsm_proxy_port=<%= rhsm_proxy_port %>
+rhsm_proxy_hostname=<%= proxy_hostname %>
+rhsm_proxy_port=<%= proxy_port %>
