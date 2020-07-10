@@ -8,6 +8,6 @@ subscription_manager::force:           false
 subscription_manager::config_hash:
   server_prefix:         '/rhsm'
   rhsm_baseurl:          "https://%{hiera('uio_satellite_server')}/pulp/repos"
-  rhsm_repo_ca_cert:     '\%(ca_cert_dir)s/katello-server-ca.pem'
+  rhsm_repo_ca_cert:     '%(ca_cert_dir)s/katello-server-ca.pem'
   server_proxy_hostname: "%{hiera('mgmt__address__proxy')}"
   server_proxy_port:     '8888'
