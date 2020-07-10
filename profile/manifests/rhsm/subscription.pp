@@ -8,8 +8,6 @@ class profile::rhsm::subscription (
 ) {
 
   if $manage {
-    include ::subscription_manager
-
     class { 'subscription_manager':
       server_hostname => $server,
       org             => $organization,
