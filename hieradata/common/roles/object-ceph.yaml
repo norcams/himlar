@@ -5,13 +5,33 @@ include:
     - profile::storage::cephosd_firewall
     - profile::base::lvm
     - profile::storage::ceph::pool
+    - profile::monitoring::collectd
+    - profile::monitoring::collectd::ceph
   kickstart:
     - profile::base::lvm
   bootstrap:
     - profile::base::lvm
     - profile::storage::cephosd_firewall
 
-ceph_version:         'nautilus' #FIXME
+# collectd
+profile::monitoring::collectd::enable: true
+profile::monitoring::collectd::ceph::enable: true
+
+collectd::plugin::processes::processes:
+  - "ceph-osd"
+collectd::plugin::interface::interfaces:
+  - "%{::interface_trp1}"
+  - "%{::interface_mgmt1}"
+
+profile::monitoring::collectd::plugins:
+  - collectd::plugin::aggregation
+  - collectd::plugin::cpu
+  - collectd::plugin::disk
+  - collectd::plugin::load
+  - collectd::plugin::memory
+  - collectd::plugin::interface
+  - collectd::plugin::processes
+  - collectd::plugin::write_graphite
 
 # Override default from modules/ceph.yaml
 ceph::profile::params::mon_host:              "%{::netpart_trp1}.89"
@@ -120,29 +140,10 @@ profile::storage::ceph::pool::crush_rules:
   'ssd':
     rule_device_type: "ssd"
 
-sudo::configs:
-  sensu_tty:
-    priority: 20
-    content:  'Defaults:sensu !requiretty'
-  sensu:
-    priority: 25
-    content:  'sensu ALL=(ALL) NOPASSWD: /opt/sensu/embedded/bin/check-ceph.rb'
-
-check_ceph_argument:    ''
-
-profile::monitoring::sensu::agent::checks:
-  'check-ceph':
-    command:      "/usr/bin/sudo /opt/sensu/embedded/bin/check-ceph.rb %{hiera('check_ceph_argument')}"
-    interval:     60
-    subscribers:  ['checks']
-
-profile::monitoring::sensu::agent::plugin_gems:
-  sensu-plugins-himlar:
-    ensure:   '0.4.0'
-    provider: 'sensuclassic_gem'
-    source:   'http://download.iaas.uio.no/uh-iaas/gem'
-
-# Enable extra yum repo
+# Enable extra yum repo and override epel exclude list
 profile::base::yumrepo::repo_hash:
   ceph-%{hiera('ceph_version')}:
     ensure: present
+  epel:
+    ensure:   present
+    exclude:  'zeromq python2-uritemplate python2-google-api-client'

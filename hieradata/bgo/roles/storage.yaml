@@ -45,6 +45,13 @@ profile::monitoring::sensu::agent::checks:
     interval:     1800
     subscribers:  ['checks']
 
+profile::storage::ceph::pool::pools:
+  'rbd':
+    ensure: absent
+profile::storage::ceph::pool::ec_pools:
+  'placeholder':
+    manage: false
+
 profile::base::lvm::physical_volume:
   '/dev/sdk':
     ensure: present
@@ -54,63 +61,43 @@ profile::base::lvm::volume_group:
     physical_volumes:
       - /dev/sdk
 profile::base::lvm::logical_volume:
-  'lv_wala':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         2G
   'lv_dba':
     volume_group: 'vg_cache'
     createfs:     false
-    size:         10G
-  'lv_walb':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         2G
+    size:         35G
   'lv_dbb':
     volume_group: 'vg_cache'
     createfs:     false
-    size:         10G
-  'lv_walc':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         2G
+    size:         35G
   'lv_dbc':
     volume_group: 'vg_cache'
     createfs:     false
-    size:         10G
-  'lv_wald':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         2G
+    size:         35G
   'lv_dbd':
     volume_group: 'vg_cache'
     createfs:     false
-    size:         10G
-  'lv_wale':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         2G
+    size:         35G
   'lv_dbe':
     volume_group: 'vg_cache'
     createfs:     false
-    size:         10G
+    size:         35G
 
 profile::storage::cephosd::osds:
   '/dev/sda':
     db_device:  'vg_cache/lv_dba'
-    wal_device: 'vg_cache/lv_wala'
+    wal_device: false
   '/dev/sdb':
     db_device:  'vg_cache/lv_dbb'
-    wal_device: 'vg_cache/lv_walb'
+    wal_device: false
   '/dev/sdc':
     db_device:  'vg_cache/lv_dbc'
-    wal_device: 'vg_cache/lv_walc'
+    wal_device: false
   '/dev/sdd':
     db_device:  'vg_cache/lv_dbd'
-    wal_device: 'vg_cache/lv_wald'
+    wal_device: false
   '/dev/sde':
     db_device:  'vg_cache/lv_dbe'
-    wal_device: 'vg_cache/lv_wale'
+    wal_device: false
   '/dev/sdf': {}
   '/dev/sdg': {}
   '/dev/sdh': {}

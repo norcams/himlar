@@ -1,4 +1,7 @@
 ---
+# We use lagre iscsi disk for nfs
+sensu__disk__warning:     80
+
 profile::base::common::packages:
   'nfs-utils': {}
 
