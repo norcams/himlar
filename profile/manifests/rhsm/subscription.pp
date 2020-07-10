@@ -20,6 +20,6 @@ class profile::rhsm::subscription (
     exec { "disable_auto_enable_yum_plugins":
       command => '/usr/sbin/subscription-manager config --rhsm.auto_enable_yum_plugins=0',
       unless  => "/usr/bin/grep -q '^auto_enable_yum_plugins = 0' /etc/rhsm/rhsm.conf"
+    }
   }
-
 }
