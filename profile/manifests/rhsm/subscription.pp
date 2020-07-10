@@ -9,7 +9,7 @@ class profile::rhsm::subscription (
     $organization  = lookup('uio_satellite_organization', String, 'first', '')
     $activationkey = lookup('uio_satellite_activationkey', String, 'first', '')
 
-    rhsm_config {}
+    rhsm_config
 
     rhsm_register { "$server":
       org             => "$organization",
