@@ -1,5 +1,5 @@
 class profile::rhsm::virtwho (
-  $manage              = false,
+  $manage = false
 ) {
 
   if $manage {
