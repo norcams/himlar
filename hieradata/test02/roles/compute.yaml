@@ -57,3 +57,4 @@ profile::openstack::compute::manage_telemetry: true
 profile::rhsm::subscription::manage:              true
 profile::rhsm::subscription::rhsm_proxy_hostname: "%{hiera('mgmt__address__proxy')}"
 profile::rhsm::subscription::rhsm_proxy_port:     '8888'
+profile::rhsm::virtwho::manage:                   true
