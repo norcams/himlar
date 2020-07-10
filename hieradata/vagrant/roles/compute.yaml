@@ -59,3 +59,7 @@ profile::base::network::rules:
 profile::monitoring::sensu::agent::checks:
   'nova-ssh-key':
     ensure:       absent
+
+# Red Hat Subscription Management (RHSM)
+profile::rhsm::subscription::manage: false
+profile::rhsm::virtwho::manage:      false

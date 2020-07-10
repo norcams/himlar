@@ -24,3 +24,7 @@ profile::base::network::routing_tables:
 profile::base::network::rules:
   'eth0.100':
     iprule: [ "from %{hiera('netcfg_priv_network')} lookup private", ]
+
+# Red Hat Subscription Management (RHSM)
+profile::rhsm::subscription::manage: false
+profile::rhsm::virtwho::manage:      false

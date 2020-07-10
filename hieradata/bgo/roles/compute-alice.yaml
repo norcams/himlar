@@ -93,3 +93,7 @@ nova::config::nova_config:
     value: '4'
 
 sensu__memory__check:     "check-memory.rb -w 2048 -c 1024"
+
+# Red Hat Subscription Management (RHSM)
+profile::rhsm::subscription::manage: false
+profile::rhsm::virtwho::manage:      false
