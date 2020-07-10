@@ -58,3 +58,6 @@ profile::rhsm::subscription::manage:              true
 profile::rhsm::subscription::rhsm_proxy_hostname: "%{hiera('mgmt__address__proxy')}"
 profile::rhsm::subscription::rhsm_proxy_port:     '8888'
 profile::rhsm::virtwho::manage:                   true
+profile::rhsm::virtwho::rhsm_proxy_hostname:      "%{hiera('mgmt__address__proxy')}"
+profile::rhsm::virtwho::rhsm_proxy_port:          '8888'
+
