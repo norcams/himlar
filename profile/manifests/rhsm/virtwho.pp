@@ -8,8 +8,8 @@ class profile::rhsm::virtwho (
     $organization     = lookup('uio_satellite_organization', String, 'first', '')
     $virtwho_username = lookup('uio_satellite_virtwho_username', String, 'first', '')
     $virtwho_password = lookup('uio_satellite_virtwho_password', String, 'first', '')
-    $proxy_hostname   = lookup('subscription_manager::config_hash::server_proxy_hostname', String, 'first', '')
-    $proxy_port       = lookup('subscription_manager::config_hash::server_proxy_port', String, 'first', '')
+    $proxy_hostname   = lookup('mgmt__address__proxy', String, 'first', '')
+    $proxy_port       = '8888'
 
     package { 'virt-who':
       ensure => installed,
