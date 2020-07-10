@@ -1,7 +1,7 @@
 ---
 subscription_manager::server_hostname: "%{hiera('uio_satellite_server')}"
-subscription_manager::activationkey:   "%{hiera('uio_satellite_activationkey)}"
-subscription_manager::organization:    "%{hiera('uio_satellite_organization)}"
+subscription_manager::activationkey:   "%{hiera('uio_satellite_activationkey')}"
+subscription_manager::organization:    "%{hiera('uio_satellite_organization')}"
 subscription_manager::autosubscribe:   false
 subscription_manager::service_name:    'rhsmcertd'
 subscription_manager::force:           false
