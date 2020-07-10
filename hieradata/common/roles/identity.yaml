@@ -163,4 +163,4 @@ profile::base::selinux::boolean:
     persistent: true
 
 # Create project for global image sharing
-#profile::openstack::resource::image_sharing::manage: true
+profile::openstack::resource::image_sharing::manage: true

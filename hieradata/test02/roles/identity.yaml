@@ -1,6 +1,3 @@
 ---
 # The node have less total memory than production
 memcached::max_memory: '30%'
-
-# Create project for global image sharing
-profile::openstack::resource::image_sharing::manage: true

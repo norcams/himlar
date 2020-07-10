@@ -31,6 +31,6 @@ include:
 #     value:  'true'
 #
 
-# Create project for global image sharing
-#profile::openstack::resource::image_sharing::manage: true
+# Project for global image sharing
+profile::openstack::resource::image_sharing::manage: false
 #profile::openstack::resource::image_sharing::project: 'default'
