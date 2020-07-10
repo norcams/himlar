@@ -1,8 +1,5 @@
 ---
 include:
-  default:
-    - profile::rhsm::subscription
-    - profile::rhsm::virtwho
   kickstart:
     - profile::monitoring::sensu::agent
 
@@ -52,7 +49,3 @@ nova::debug: true
 
 # remove when telemetry/ceilometer is up in all environments and move to common
 profile::openstack::compute::manage_telemetry: true
-
-# RHSM
-profile::rhsm::subscription::manage:              true
-profile::rhsm::virtwho::manage:                   true

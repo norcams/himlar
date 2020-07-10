@@ -8,6 +8,8 @@ include:
     - profile::logging::rsyslog::client
     - profile::openstack::openrc
     - profile::application::rngd
+    - profile::rhsm::subscription
+    - profile::rhsm::virtwho
   kickstart:
     - profile::base::lvm
     - profile::virtualization::nested
@@ -274,3 +276,7 @@ nova::config::nova_config:
     value: 'rsync'
   libvirt/live_migration_permit_auto_converge:
     value: 'true'
+
+# Red Hat Subscription Management (RHSM)
+profile::rhsm::subscription::manage: true
+profile::rhsm::virtwho::manage:      true

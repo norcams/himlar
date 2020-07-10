@@ -4,8 +4,6 @@ include:
     - profile::openstack::compute::pci_passthrough
   default:
     - profile::openstack::compute::pci_passthrough
-    - profile::rhsm::subscription
-    - profile::rhsm::virtwho
 
 named_interfaces::config:
   mgmt:
@@ -67,7 +65,3 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_ext'
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
-
-# RHSM
-profile::rhsm::subscription::manage:              true
-profile::rhsm::virtwho::manage:                   true
