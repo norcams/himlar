@@ -8,6 +8,7 @@ class profile::openstack::image::api(
 
   include ::glance::api
   include ::glance::config
+  include ::glance::api::logging
 
   if $backend and $backend in ['cinder', 'file', 'rbd', 'swift', 'vsphere'] {
     include "::glance::backend::${backend}"
