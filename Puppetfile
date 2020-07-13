@@ -166,7 +166,7 @@ mod 'gnocchi', :ref => '13.3.1',                    :git => github + 'openstack/
 mod 'keystone', :ref => '13.3.1',                   :git => github + 'openstack/puppet-keystone'
 mod 'swift', :ref => 'norcams/ocata',               :git => github + 'norcams/puppet-swift'
 mod 'ceilometer', :ref => '13.3.1',                 :git => github + 'openstack/puppet-ceilometer'
-mod 'designate', :ref => '13.3.1',                  :git => github + 'openstack/puppet-designate'
+mod 'designate', :ref => '14.4.0',                  :git => github + 'openstack/puppet-designate'
 mod 'cloudkitty', :ref => '3.4.0',                  :git => github + 'openstack/puppet-cloudkitty'
 
 mod 'oslo', :ref => '13.3.1',                       :git => github + 'openstack/puppet-oslo'
