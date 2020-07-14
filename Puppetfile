@@ -103,7 +103,7 @@ mod 'systemd', :ref => '2.9.0',                     :git => github + 'camptocamp
 #
 # bootstrap
 #
-mod 'himlar_bootstrap', :ref => '1.0.8',            :git => github + 'norcams/puppet-himlar_bootstrap'
+mod 'himlar_bootstrap', :ref => '1.0.9',            :git => github + 'norcams/puppet-himlar_bootstrap'
 
 #
 # profile::logging
