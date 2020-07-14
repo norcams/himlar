@@ -118,7 +118,7 @@ common_config()
     --location-id $foreman_location_id \
     --path $repo || true
   # Save CentOS mirror ids
-  medium_id_1=$(/bin/hammer --csv medium info --name 'CentOS mirror' | tail -n1 | cut -d, -f1)
+  medium_id_1=$(/bin/hammer --csv medium info --name 'CentOS 7 mirror' | tail -n1 | cut -d, -f1)
   medium_id_2=$(/bin/hammer --csv medium info --name 'CentOS download.iaas.uio.no' | tail -n1 | cut -d, -f1)
 
   # Sync our custom provision templates
@@ -128,8 +128,8 @@ common_config()
   norcams_provision_id=$(/bin/hammer --csv template list --per-page 1000 | grep ',norcams Kickstart default,' | cut -d, -f1)
   norcams_pxelinux_id=$(/bin/hammer --csv template list --per-page 1000 | grep 'norcams Kickstart default PXELinux' | cut -d, -f1)
   norcams_pxegrub2_id=$(/bin/hammer --csv template list --per-page 1000 | grep 'norcams Kickstart default PXEGrub2' | cut -d, -f1)
-  norcams_ptable_id=$(/bin/hammer --csv partition-table list --per-page 1000 | grep 'norcams Kickstart default' | cut -d, -f1)
-  norcams_ptable_uefi_id=$(/bin/hammer --csv template list --per-page 1000 | grep ',norcams Kickstart default uefi,' | cut -d, -f1)
+  norcams_ptable_id=$(/bin/hammer --csv partition-table list --per-page 1000 | grep 'norcams Kickstart default,' | cut -d, -f1)
+  norcams_ptable_uefi_id=$(/bin/hammer --csv partition-table --per-page 1000 | grep 'norcams Kickstart default uefi,' | cut -d, -f1)
   
   # Associate partition templates with Redhat family of OSes
   /bin/hammer partition-table update --id $norcams_ptable_id \
@@ -141,7 +141,7 @@ common_config()
 
   # Create and update OS
   /bin/hammer --csv os list --per-page 1000 | grep 'CentOS 7' || /bin/hammer os create --name CentOS --major 7 --minor 8 || true
-  for centos_os in $(/bin/hammer --csv os list --per-page 1000 | grep 'CentOS 7.7' | cut -d, -f1); do
+  for centos_os in $(/bin/hammer --csv os list --per-page 1000 | grep 'CentOS 7.8' | cut -d, -f1); do
     /bin/hammer os update --id $centos_os --name CentOS --major 7\
       --family Redhat \
       --architecture-ids 1 \
@@ -161,11 +161,11 @@ common_config()
       --organization-id $foreman_organization_id \
       --location-id $foreman_location_id
     /bin/hammer os set-default-template --id $centos_os \
-      --config-template-id $norcams_provision_id
+      --provisioning-template-id $norcams_provision_id
     /bin/hammer os set-default-template --id $centos_os \
-      --config-template-id $norcams_pxelinux_id
+      --provisioning-template-id $norcams_pxelinux_id
     /bin/hammer os set-default-template --id $centos_os \
-      --config-template-id $norcams_pxegrub2_id
+      --provisioning-template-id $norcams_pxegrub2_id
   done
 
   # Create Puppet environment
@@ -226,7 +226,7 @@ common_config()
 
     Setting["safemode_render"] = false
     include Foreman::Renderer
-    ProvisioningTemplate.build_pxe_default(self)
+    ProvisioningTemplate.build_pxe_default()
     Setting["safemode_render"] = true
 
   ' | /sbin/foreman-rake console
