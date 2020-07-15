@@ -32,3 +32,4 @@ sensu__disk__warning:     80
 # Create and enable more swap
 profile::base::common::extraswap:        true
 profile::base::common::extraswap_sizegb: 10
+profile::base::common::extraswap_fileloc: '/var/lib/libvirt/images'
