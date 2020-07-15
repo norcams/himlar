@@ -172,3 +172,5 @@ ssh::server::options:
   "Match User root Address %{hiera('netcfg_mgmt_netpart')}.0/24":
     PermitRootLogin: 'yes'
     PasswordAuthentication: 'yes'
+
+profile::base::common::extraswap_sizegb: 2
