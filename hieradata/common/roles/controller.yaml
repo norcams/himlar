@@ -30,7 +30,7 @@ profile::base::common::packages:
 profile::virtualization::libvirt::manage_firewall: true
 profile::virtualization::libvirt::firewall_extras:
   'graphics':
-    port: 5900-5999
+    dport: 5900-5999
 
 profile::network::services::ntp_server: true
 
