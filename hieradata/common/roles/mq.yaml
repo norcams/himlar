@@ -150,6 +150,3 @@ rsyslog::client::inputs:
 profile::base::yumrepo::repo_hash:
   rdo-release:
     ensure: present
-  epel:
-    ensure: present
-    exclude: 'rabbitmq-server jq oniguruma'

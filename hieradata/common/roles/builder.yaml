@@ -168,9 +168,6 @@ profile::application::builder::images:
 profile::base::yumrepo::repo_hash:
   rdo-release:
     ensure: present
-  epel:
-    ensure: present
-    exclude: 'rabbitmq-server jq oniguruma'
 
 # Turn on agant and add common sensu plugins
 profile::monitoring::sensu::agent::enable_agent: true
