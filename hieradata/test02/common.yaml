@@ -126,8 +126,6 @@ profile::network::services::dns_records:
     "%{::location}-object-ceph-01.%{hiera('domain_mgmt')}":  "%{::location}-object-01.%{hiera('domain_mgmt')}"
     "%{::location}-object-ceph-02.%{hiera('domain_mgmt')}":  "%{::location}-object-02.%{hiera('domain_mgmt')}"
     "%{::location}-object-ceph-03.%{hiera('domain_mgmt')}":  "%{::location}-object-03.%{hiera('domain_mgmt')}"
-    "%{::location}-object-ceph-04.%{hiera('domain_mgmt')}":  "%{::location}-object-04.%{hiera('domain_mgmt')}"
-    "%{::location}-object-ceph-05.%{hiera('domain_mgmt')}":  "%{::location}-object-05.%{hiera('domain_mgmt')}"
   AAAA:
     "ns.%{hiera('domain_public')}":                       "%{hiera('netcfg_public_netpart6')}::251"
     "resolver.%{hiera('domain_public')}":                 "%{hiera('netcfg_public_netpart6')}::252"
