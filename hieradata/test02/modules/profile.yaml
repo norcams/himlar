@@ -10,3 +10,4 @@ yum_base_mirror:    'https://download.iaas.uio.no/uh-iaas/test'
 # Enable designate in test02
 profile::openstack::identity::designate_enabled:  true
 profile::openstack::dashboard::enable_designate:  true
+profile::openstack::identity::radosgw_enabled:    true
