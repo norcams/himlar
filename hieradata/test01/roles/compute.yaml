@@ -52,3 +52,4 @@ profile::openstack::compute::manage_telemetry: true
 # Set tuned profile to "virtual-host"
 profile::base::tuned::manage_tuned:  true
 profile::base::tuned::tuned_profile: 'virtual-host'
+nova::compute::libvirt::libvirt_hw_machine_type: 'x86_64=q35'
