@@ -195,7 +195,7 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
-    includepkgs: 'collectd collectd-virt bird bird6 htop bash-completion-extras lttng-ust userspace-rcu libbabeltrace leveldb liboath py-bcrypt python2-bcrypt libsmbios smbios-utils-bin'
+    includepkgs: 'collectd collectd-virt bird bird6 htop bash-completion-extras lttng-ust userspace-rcu libbabeltrace leveldb liboath py-bcrypt python2-bcrypt libsmbios smbios-utils-bin lldpd'
 
 # Compute nodes need only admin and cinder keys
 ceph::profile::params::client_keys:

@@ -24,6 +24,8 @@ class profile::base::physical (
   $net_tweak_somaxconn         = '2048',
   $enable_redfish_sensu_check  = false,
   $enable_redfish_http_proxy   = undef,
+  $package                     = 'lldpd',
+  $service                     = 'lldpd',
   $configure_bmc_nic           = false,
   $bmc_dns_server              = '192.168.0.10',
   $bmc_idrac_attributes = {
@@ -41,7 +43,6 @@ class profile::base::physical (
     'AddressOrigin' => 'Static',
   },
 ) {
-  include ::lldp
   include ::ipmi
 
   # Configure 82599ES SFP+ interface module options
@@ -162,6 +163,15 @@ class profile::base::physical (
         name        => "lldp-x710-${pci_number}",
       }
     }
+  }
+
+  package { $package:
+    ensure => installed,
+  }
+
+  service { $service:
+    ensure    => running,
+    enable    => true,
   }
 
   if ($enable_redfish_sensu_check) and ($::runmode == 'default') {
