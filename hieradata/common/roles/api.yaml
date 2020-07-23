@@ -146,6 +146,15 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
     options:
       - capture:        'request header Host len 64' #for debug
       - acl:
+        - 'keystone_admin_endpoint path -i -m beg /v3/projects'
+        - 'keystone_admin_endpoint path -i -m beg /v3/groups'
+        - 'keystone_admin_endpoint path -i -m beg /v3/domains'
+        - 'keystone_admin_endpoint path -i -m beg /v3/regions'
+        - 'keystone_admin_endpoint path -i -m beg /v3/roles'
+        - 'keystone_admin_endpoint path -i -m beg /v3/endpoints'
+        - 'keystone_admin_endpoint path -i -m beg /v3/services'
+        - 'keystone_admin_endpoint path -i -m beg /v3/system'
+        - 'valid_method method GET HEAD OPTION'
         - 'is_request hdr_beg(host) -i request'
         - 'has_subdomain hdr_reg(host) -i .*\..*\..*'
       - redirect:
@@ -158,6 +167,9 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       - http-request:
         - 'add-header X-Forwarded-Proto https if { ssl_fc }'
         - 'set-header X-Forwarded-Port %[dst_port]'
+        # This will give 403 for all keystone admin endpoints on port 5000
+        # using http methods not whitelisted (e.g. post, patch, delete)
+        - 'deny if keystone_admin_endpoint { dst_port 5000 } !valid_method'
       #  - 'set-header X-Forwarded-Host %[req.hdr(Host)]'
       - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/public_domains.map)]'
   frontend_internal:
