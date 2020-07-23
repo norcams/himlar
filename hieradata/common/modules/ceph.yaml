@@ -13,8 +13,10 @@ ceph::profile::params::osd_pool_default_pgp_num:    '2048'
 ceph::profile::params::osd_pool_default_size:       '3'
 ceph::profile::params::osd_pool_default_min_size:   '1'
 ceph::profile::params::public_addr:                 "%{ipaddress_trp1}" # Needed for mds
-#ceph::profile::params::cluster_network:             '10.0.0.0/24'
-#ceph::profile::params::public_network:              '10.0.0.0/24'
+ceph::profile::params::mon_initial_members:         '%{::location}-cephmon-01, %{::location}-cephmon-02, %{::location}-cephmon-03'
+ceph::profile::params::mon_host:                    '%{::netpart_trp1}.91, %{::netpart_trp1}.92, %{::netpart_trp1}.93'
+ceph::profile::params::cluster_network:             "%{::network_ceph1}/%{::cidr_ceph1}"
+ceph::profile::params::public_network:              '%{::netpart_trp1}.0/%{cidr_trp1}'
 ######## Keys - Cluster and location spesific data
 ## as an alternative to specifying the mon key you can provide an exising keyring
 ##ceph::profile::params::mon_keyring: '/etc/ceph/ceph.mon.keyring'

@@ -1,0 +1,4 @@
+---
+# We do not have ceph network in test02, cluster and public use trp1
+ceph::profile::params::cluster_network:             "%{::network_trp1}/%{::cidr_trp1}"
+ceph::profile::params::public_network:              "%{::network_trp1}/%{::cidr_trp1}"
