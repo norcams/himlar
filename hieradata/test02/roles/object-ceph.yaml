@@ -1,0 +1,32 @@
+---
+named_interfaces::config:
+  mgmt:
+    - eth0
+  trp:
+    - eth1
+  ceph:
+    - eth1
+
+profile::storage::cephosd::osds:
+  '/dev/vdb': {} # HDD
+  '/dev/vdc': {} # HDD
+  '/dev/vdd': {} # HDD
+  '/dev/vde': {} # HDD
+  '/dev/vdf': {} # HDD
+
+# Override pool settings
+profile::storage::ceph::pool::ec_pools:
+  '%{::location}-1.rgw.buckets.data':
+    k_data:     2
+    m_code:     1
+    pg_num:     512
+    custom:
+      min_size: '3' # this should always be k + 1 in production
+profile::storage::ceph::pool::pools:
+  '%{::location}-1.rgw.buckets.index':
+    size:       3
+    pg_num:     32
+    pgp_num:    32
+    tag:          'rgw'
+    custom:
+      crush_rule: 'hdd'
