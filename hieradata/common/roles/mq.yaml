@@ -152,3 +152,4 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   epel:
     ensure: present
+    includepkgs: 'rabbitmq-server jq oniguruma'
