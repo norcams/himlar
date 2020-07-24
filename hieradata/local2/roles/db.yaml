@@ -1,9 +1,4 @@
 ---
-# Enable extra yum repo #FIXME
-profile::base::yumrepo::repo_hash:
-  mariadb:
-    ensure: present
-
 # sensu
 profile::monitoring::sensu::agent::plugins:
   sensu-plugins-percona:
@@ -15,3 +10,10 @@ profile::monitoring::sensu::agent::checks:
     command:      "check-wsrep-ready.rb -u sensu -h localhost -p %{hiera('sensu_mysql_password')}"
     interval:     60
     subscribers:  ['checks']
+
+# Enable extra yum repo
+profile::base::yumrepo::repo_hash:
+  mariadb:
+    ensure:     absent
+  "mariadb-%{hiera('mariadb_version')}":
+    ensure:     present
