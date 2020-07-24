@@ -143,7 +143,7 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   epel:
     ensure: present
-    exclude: 'rabbitmq-server jq oniguruma'
+    includepkgs: 'rabbitmq-server jq oniguruma'
 
 # Turn on agant and add common sensu plugins
 profile::monitoring::sensu::agent::enable_agent: true
