@@ -116,7 +116,6 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   epel:
     ensure:   present
-    exclude:  'zeromq python2-uritemplate python2-google-api-client'
 
 # enable Ceph dashboard
 profile::storage::cephmon::manage_dashboard:                    true
