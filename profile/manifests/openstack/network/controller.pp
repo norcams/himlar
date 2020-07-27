@@ -18,7 +18,7 @@ class profile::openstack::network::controller(
   create_resources('neutron_config', $neutron_config)
 
   if $manage_neutron_policies {
-     include ::neutron::policy
+    include ::neutron::policy
   }
 
   if $neutron_nova_insecure {
