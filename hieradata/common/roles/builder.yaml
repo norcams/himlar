@@ -143,8 +143,7 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   epel:
     ensure: present
-    includepkgs: 'bash-completion-extras htop inotify-tools python-dogpile-core python-linecache2 python-repoze-lru python-unicodecsv python-warlock python2-asn1crypto
-                  python2-funcsigs python2-iso8601 python2-jmespath python2-mimeparse python2-msgpack python2-pbr python2-pysocks python2-rfc3986 python2-wcwidth python34 python34-libs'
+    includepkgs: 'bash-completion-extras htop inotify-tools python-dogpile-core python-linecache2 python-repoze-lru python-unicodecsv python-warlock python2-asn1crypto python2-funcsigs python2-iso8601 python2-jmespath python2-mimeparse python2-msgpack python2-pbr python2-pysocks python2-rfc3986 python2-wcwidth python34 python34-libs'
 
 # Turn on agant and add common sensu plugins
 profile::monitoring::sensu::agent::enable_agent: true

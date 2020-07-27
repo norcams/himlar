@@ -146,5 +146,3 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   epel:
     ensure:   present
-    includepkgs:  'bash-completion-extras collectd collectd-ceph htop jq leveldb libbabeltrace liboath librdkafka lttng-ust oniguruma python-pecan python-simplegeneric
-                  python-singledispatch python2-bcrypt python2-six userspace-rcu'

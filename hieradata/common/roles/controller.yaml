@@ -67,7 +67,6 @@ libvirt::qemu_vnc_tls:            false
 profile::base::yumrepo::repo_hash:
   epel:
     ensure:   present
-    includepkgs:  'bash-completion-extras cdpr htop inotify-tools jq oniguruma rubygem-deep_merge rubygem-puppet-lint'
 
 lvm::volume_groups:
   vg_ext:
