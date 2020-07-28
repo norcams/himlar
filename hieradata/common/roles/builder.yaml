@@ -137,6 +137,13 @@ profile::application::builder::images:
     'username':         'cloud-user'
 
 
+# Sensu
+profile::monitoring::sensu::agent::plugin_gems:
+  sensu-plugins-himlar:
+    ensure:       '0.5.0'
+    provider:     'sensuclassic_gem'
+    source:       'http://download.iaas.uio.no/uh-iaas/gem'
+
 # metadata imagebuild check
 profile::monitoring::sensu::agent::expanded_checks:
   - 'centos6'
@@ -155,13 +162,6 @@ profile::monitoring::sensu::agent::expanded_defaults:
     command: "check-imagebuild.rb -d "
     interval:     600
     subscribers:  ['checks']
-
-# Sensu
-profile::monitoring::sensu::agent::plugin_gems:
-  sensu-plugins-himlar:
-    ensure:       '0.5.0'
-    provider:     'sensuclassic_gem'
-    source:       'http://download.iaas.uio.no/uh-iaas/gem'
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
