@@ -22,6 +22,7 @@ profile::storage::ceph::pool::ec_pools:
     pg_num:     512
     custom:
       min_size: '3' # this should always be k + 1 in production
+
 profile::storage::ceph::pool::pools:
   '%{::location}-1.rgw.buckets.index':
     size:       3
@@ -30,3 +31,7 @@ profile::storage::ceph::pool::pools:
     tag:          'rgw'
     custom:
       crush_rule: 'hdd'
+
+profile::storage::ceph::pool::crush_rules:
+  'hdd':
+    rule_device_type: "hdd"
