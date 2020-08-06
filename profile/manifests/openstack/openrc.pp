@@ -6,6 +6,7 @@ class profile::openstack::openrc(
   $region_name,
   $auth_url,
   $project_domain_name = 'Default',
+  $interface = 'admin',
   $user_domain_name = 'Default',
   $cacert = undef,
   $filename = '/root/openrc'
