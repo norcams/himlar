@@ -5,7 +5,8 @@ class profile::openstack::resource::imagebuilder(
   $ensure  = present,
   $user    = 'imagebuilder',
   $project = 'imagebuilder',
-  $domain  = 'default'
+  $domain  = 'Default',
+  $role    = 'imagebuilder'
 ) {
 
   if $manage {
@@ -13,15 +14,16 @@ class profile::openstack::resource::imagebuilder(
       ensure   => $ensure,
       enabled  => true,
       password => $password
-    } ->
-    keystone_tenant { $project:
+    }
+    -> keystone_tenant { $project:
       ensure      => $ensure,
       enabled     => true,
       description => "project for ${user}",
-    } ->
-    keystone_user_role { "${user}@${project}":
+      domain      => $domain
+    }
+    -> keystone_user_role { "${user}@${project}":
       ensure => $ensure,
-      roles  => 'user',
+      roles  => ['user', $role ],
     }
   }
 

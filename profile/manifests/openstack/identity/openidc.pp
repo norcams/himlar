@@ -34,20 +34,7 @@
 #  (Optional) String value.
 #  Defaults to 'id_token'
 #
-# [*admin_port*]
-#  A boolean value to ensure that you want to configure openidc Federation
-#  using Keystone VirtualHost on port 35357.
-#  (Optional) Defaults to false.
-#
-# [*main_port*]
-#  A boolean value to ensure that you want to configure openidc Federation
-#  using Keystone VirtualHost on port 5000.
-#  (Optional) Defaults to true.
-#
-# [*admin_endpoint*]
-#  The base admin endpoint URL for keystone
-#
-# [*public_endpoint*]
+# [*keystone_endpoint*]
 #  The base public endpoint URL for keystone
 #
 # [*template_order*]
@@ -76,10 +63,7 @@ class profile::openstack::identity::openidc (
   $openidc_client_secret,
   $openidc_crypto_passphrase   = 'openstack',
   $openidc_response_type       = 'id_token',
-  $admin_port                  = false,
-  $main_port                   = true,
-  $admin_endpoint              = 'http://localhost:35357/',
-  $public_endpoint             = 'http://localhost:5000/',
+  $keystone_endpoint           = 'http://localhost:5000/',
   $template_order              = 331,
   $package_ensure              = present,
   $openidc_package_name        = 'mod_auth_openidc'
@@ -100,13 +84,6 @@ class profile::openstack::identity::openidc (
     fail('Methods should contain openid as one of the auth methods.')
   }
 
-  validate_bool($admin_port)
-  validate_bool($main_port)
-
-  if( !$admin_port and !$main_port){
-    fail('No VirtualHost port to configure, please choose at least one.')
-  }
-
   keystone_config {
     'auth/methods': value  => join(any2array($methods),',');
     'auth/openidc': ensure => absent;
@@ -117,16 +94,10 @@ class profile::openstack::identity::openidc (
     tag    => 'keystone-support-package',
   })
 
-  if $admin_port {
-    profile::openstack::identity::openidc_httpd_configuration{ 'admin':
-      keystone_endpoint => $admin_endpoint,
-    }
-  }
-
-  if $main_port {
-    profile::openstack::identity::openidc_httpd_configuration{ 'main':
-      keystone_endpoint => $public_endpoint,
-    }
+  concat::fragment { 'configure_openidc_keystone':
+    target  => "${keystone::wsgi::apache::priority}-keystone_wsgi.conf",
+    content => template("${module_name}/openstack/keystone/openidc.conf.erb"),
+    order   => $template_order,
   }
 
 }
