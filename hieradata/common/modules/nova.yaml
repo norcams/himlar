@@ -9,7 +9,7 @@ nova::os_region_name:                    "%{location}"
 
 # logging
 nova::log_facility:         'LOG_LOCAL0'
-nova::use_syslog:           true
+nova::logging::use_syslog:  true
 
 # rabbit mq (for rabbit_password see secrets)
 nova::default_transport_url:
