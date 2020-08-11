@@ -1,7 +1,0 @@
----
-# Enable extra yum repo
-profile::base::yumrepo::repo_hash:
-  mariadb:
-    ensure:     absent
-  "mariadb-%{hiera('mariadb_version')}":
-    ensure:     present
