@@ -8,8 +8,8 @@ nova::cinder_catalog_info:               'volumev3:cinderv3:internalURL'
 nova::os_region_name:                    "%{location}"
 
 # logging
-nova::log_facility:         'LOG_LOCAL0'
-nova::logging::use_syslog:  true
+nova::logging:log_facility:               'LOG_LOCAL0'
+nova::logging::use_syslog:                true
 
 # rabbit mq (for rabbit_password see secrets)
 nova::default_transport_url:
