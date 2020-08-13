@@ -44,7 +44,9 @@ profile::openstack::volume::backend::rbd:
     rbd_flatten_volume_from_snapshot: 'True'
     rbd_secret_uuid: "%{hiera('libvirt_rbd_secret_uuid')}"
     extra_options:
-      rbd-volumes/report_discard_supported:
+      rbd-volumes/enable_deferred_deletion:
+        value: 'True'
+      rbd-volumes/rbd_exclusive_cinder_pool:
         value: 'True'
 
 cinder::backends::enabled_backends:
@@ -162,3 +164,5 @@ profile::storage::ceph_extraconf::config:
 profile::base::selinux::semodules:
   'attach_cinder':
     avc_file:   "attach_cinder.avc"
+
+openstack_version: 'stein' #FIXME
