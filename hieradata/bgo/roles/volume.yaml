@@ -28,6 +28,8 @@ profile::openstack::volume::backend::rbd:
         value: 'True'
       rbd-volumes/rbd_exclusive_cinder_pool:
         value: 'True'
+      rbd-volumes/report_discard_supported:
+        value: 'True'
   mass-storage-default:
     rbd_pool: 'volumes_hdd_ec_meta'
     rbd_user: 'cinder-hdd-ec'
@@ -38,6 +40,8 @@ profile::openstack::volume::backend::rbd:
         value: 'True'
       mass-storage-default/rbd_exclusive_cinder_pool:
         value: 'True'
+      mass-storage-default/report_discard_supported:
+        value: 'True'
   mass-storage-dcache:
     rbd_pool: 'dcache_hdd_ec_meta'
     rbd_user: 'cinder-dcache-hdd-ec'
@@ -47,6 +51,8 @@ profile::openstack::volume::backend::rbd:
       mass-storage-dcache/enable_deferred_deletion:
         value: 'True'
       mass-storage-dcache/rbd_exclusive_cinder_pool:
+        value: 'True'
+      mass-storage-dcache/report_discard_supported:
         value: 'True'
 #  mass-storage-dcache8:
 #    rbd_pool: 'dcache_hdd_ec_meta8'

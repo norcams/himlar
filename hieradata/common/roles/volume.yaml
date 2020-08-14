@@ -46,6 +46,10 @@ profile::openstack::volume::backend::rbd:
     extra_options:
       rbd-volumes/report_discard_supported:
         value: 'True'
+      rbd-volumes/enable_deferred_deletion:
+        value: 'True'
+      rbd-volumes/rbd_exclusive_cinder_pool:
+        value: 'True'
 
 cinder::backends::enabled_backends:
   - rbd-volumes

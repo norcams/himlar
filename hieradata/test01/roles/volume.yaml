@@ -20,6 +20,8 @@ profile::openstack::volume::backend::rbd:
         value: 'True'
       rbd-volumes/rbd_exclusive_cinder_pool:
         value: 'True'
+      rbd-volumes/report_discard_supported:
+        value: 'True'
   mass-storage-default:
     rbd_pool: 'volumes_hdd_ec_meta'
     rbd_user: 'cinder-hdd-ec'
@@ -29,6 +31,8 @@ profile::openstack::volume::backend::rbd:
       mass-storage-default/enable_deferred_deletion:
         value: 'True'
       mass-storage-default/rbd_exclusive_cinder_pool:
+        value: 'True'
+      mass-storage-default/report_discard_supported:
         value: 'True'
 
 cinder::api::default_volume_type: 'mass-storage-default'
