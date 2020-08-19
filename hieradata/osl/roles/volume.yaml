@@ -35,8 +35,6 @@ profile::openstack::volume::backend::rbd:
         value: 'True'
       rbd-volumes/rbd_exclusive_cinder_pool:
         value: 'True'
-      rbd-volumes/report_discard_supported:
-        value: 'True'
   mass-storage-arccache:
     rbd_pool: 'arccache_hdd_ec_meta'
     rbd_user: 'cinder-arccache-hdd-ec'
@@ -46,8 +44,6 @@ profile::openstack::volume::backend::rbd:
       mass-storage-arccache/enable_deferred_deletion:
         value: 'True'
       mass-storage-arccache/rbd_exclusive_cinder_pool:
-        value: 'True'
-      mass-storage-arccache/report_discard_supported:
         value: 'True'
 
 cinder::api::default_volume_type: 'rbd'

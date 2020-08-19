@@ -27,8 +27,6 @@ profile::openstack::volume::backend::rbd:
         value: 'True'
       rbd-volumes/rbd_exclusive_cinder_pool:
         value: 'True'
-      rbd-volumes/report_discard_supported:
-        value: 'True'
 
 # Use transport network for this (which has no DNS name)
 # OK, in test02 the NFS-server is only connected to mgmt,
@@ -36,4 +34,3 @@ profile::openstack::volume::backend::rbd:
 cinder::backends::enabled_backends:
   - rbd-volumes
   - atlas-storage
-
