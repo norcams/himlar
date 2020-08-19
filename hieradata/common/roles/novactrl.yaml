@@ -29,6 +29,8 @@ profile::base::common::packages:
   'jq': {}
   'openstack-selinux': {}
   'python-memcached': {}
+  'libibverbs': {} # not needed but avoid console complaints
+  'rdma': {} # not needed but avoid console complaints
 
 # Sensu
 profile::webserver::apache::status::manage_status: true
