@@ -6,6 +6,7 @@ include:
     - profile::logging::logrotate
     - profile::base::systemd
 
+# used for repo version
 mariadb_version: '10.2'
 
 profile::base::systemd::manage_limits: true
@@ -71,7 +72,9 @@ logrotate::rules:
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   mariadb:
-    ensure: present
+    ensure:     absent
+  "mariadb-%{hiera('mariadb_version')}":
+    ensure:     present
 
 # for backup
 

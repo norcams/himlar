@@ -23,7 +23,6 @@ mod 'kmod', :ref => '2.3.1',                        :git => github + 'camptocamp
 mod 'named_interfaces', :ref => '12482fc5c3',       :git => github + 'norcams/puppet-named_interfaces'
 mod 'network', :ref => '0bfc7cc2bc',                :git => github + 'norcams/puppet-network'
 mod 'ipmi', :ref => 'v2.3.0',                       :git => github + 'jhoblitt/puppet-ipmi'
-mod 'lldp', :ref => '1208d86c05',                   :git => github + 'mfournier/puppet-lldp'
 # mod 'apt', :ref => '2.2.2',                         :git => github + 'puppetlabs/puppetlabs-apt'
 mod 'selinux', :ref => 'v1.3.0',                    :git => github + 'voxpupuli/puppet-selinux'
 
@@ -90,7 +89,7 @@ mod 'puppetlabs/hocon', :ref => '1.0.0',            :git => github + 'puppetlabs
 mod 'puppetlabs/puppet_authorization', :ref => '0.4.0', :git => github + 'puppetlabs/puppetlabs-puppet_authorization'
 mod 'theforeman/dns', :ref => '8.0.0',              :git => github + 'theforeman/puppet-dns'
 mod 'theforeman/dhcp', :ref => '3.1.9-norcams',     :git => github + 'norcams/puppet-dhcp.git'
-mod 'theforeman/foreman_proxy', :ref => '14.0.0',   :git => github + 'theforeman/puppet-foreman_proxy.git'
+mod 'theforeman/foreman_proxy', :ref => '14.0.2',   :git => github + 'theforeman/puppet-foreman_proxy.git'
 mod 'theforeman/git', :ref => '3.0.0',              :git => github + 'theforeman/puppet-git'
 mod 'voxpupuli/alternatives', :ref => 'v2.0.0',     :git => github + 'voxpupuli/puppet-alternatives'
 mod 'voxpupuli/extlib', :ref => 'v2.0.1-82-g53c6e2b', :git => github + 'voxpupuli/puppet-extlib.git'
@@ -103,7 +102,7 @@ mod 'systemd', :ref => '2.9.0',                     :git => github + 'camptocamp
 #
 # bootstrap
 #
-mod 'himlar_bootstrap', :ref => '1.0.8',            :git => github + 'norcams/puppet-himlar_bootstrap'
+mod 'himlar_bootstrap', :ref => '1.0.9',            :git => github + 'norcams/puppet-himlar_bootstrap'
 
 #
 # profile::logging
@@ -157,21 +156,21 @@ mod 'archive', :ref => 'v2.2.0',                    :git => github + 'voxpupuli/
 #
 # profile::openstack::*
 #
-mod 'glance', :ref => '13.3.1',                     :git => github + 'openstack/puppet-glance'
+mod 'glance', :ref => '14.4.0',                     :git => github + 'openstack/puppet-glance'
 mod 'cinder', :ref => '13.3.1',                     :git => github + 'openstack/puppet-cinder'
-mod 'neutron', :ref => '13.3.1',                    :git => github + 'openstack/puppet-neutron'
+mod 'neutron', :ref => '14.4.0',                    :git => github + 'openstack/puppet-neutron'
 mod 'nova', :ref => '14.4.0',                       :git => github + 'openstack/puppet-nova'
-mod 'horizon', :ref => '13.3.1',                    :git => github + 'openstack/puppet-horizon'
+mod 'horizon', :ref => '14.4.0',                    :git => github + 'openstack/puppet-horizon'
 mod 'gnocchi', :ref => '13.3.1',                    :git => github + 'openstack/puppet-gnocchi'
-mod 'keystone', :ref => '13.3.1',                   :git => github + 'openstack/puppet-keystone'
+mod 'keystone', :ref => '14.4.0',                   :git => github + 'openstack/puppet-keystone'
 mod 'swift', :ref => 'norcams/ocata',               :git => github + 'norcams/puppet-swift'
 mod 'ceilometer', :ref => '13.3.1',                 :git => github + 'openstack/puppet-ceilometer'
-mod 'designate', :ref => '13.3.1',                  :git => github + 'openstack/puppet-designate'
+mod 'designate', :ref => '14.4.0',                  :git => github + 'openstack/puppet-designate'
 mod 'cloudkitty', :ref => '3.4.0',                  :git => github + 'openstack/puppet-cloudkitty'
 
-mod 'oslo', :ref => '13.3.1',                       :git => github + 'openstack/puppet-oslo'
-mod 'openstacklib', :ref => '13.3.1',               :git => github + 'openstack/puppet-openstacklib'
-mod 'openstack_extras', :ref => '13.3.1',           :git => github + 'openstack/puppet-openstack_extras'
+mod 'oslo', :ref => '14.4.0',                       :git => github + 'openstack/puppet-oslo'
+mod 'openstacklib', :ref => '14.4.0',               :git => github + 'openstack/puppet-openstacklib'
+mod 'openstack_extras', :ref => '14.4.0',           :git => github + 'openstack/puppet-openstack_extras'
 mod 'sysctl', :ref => 'v0.0.11',                    :git => github + 'duritong/puppet-sysctl'
 mod 'memcached', :ref => 'v3.0.2',                  :git => github + 'saz/puppet-memcached'
 mod 'rsync', :ref => '0.4.0',                       :git => github + 'puppetlabs/puppetlabs-rsync'

@@ -44,11 +44,11 @@ class profile::network::nat(
       if $manage_bird_firewall {
         profile::firewall::rule { '011 bird allow bfd':
           proto  => 'udp',
-          port   => ['3784','3785','4784','4785'],
+          dport   => ['3784','3785','4784','4785'],
         }
         profile::firewall::rule { "010 bird bgp - accept tcp to ${name}":
           proto   => 'tcp',
-          port    => '179',
+          dport    => '179',
           iniface => $::ipaddress_trp1,
         }
       }

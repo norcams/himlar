@@ -17,7 +17,7 @@ class profile::logging::elasticsearch(
 
   if $manage_firewall {
     profile::firewall::rule { '400 elasticsearch accept tcp':
-      port        => $ports,
+      dport        => $ports,
       destination => $::ipaddress_mgmt1,
       source      => "${::network_mgmt1}/${::netmask_mgmt1}",
       extras      => $firewall_extras,

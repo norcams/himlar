@@ -9,7 +9,8 @@ class profile::network::dns_extra_zone(
   ::dns::zone { $zone:
     soa     => $::fqdn,
     reverse => false,
-    soaip   => $::ipaddress_mgmt1
+    soaip   => $::ipaddress_mgmt1,
+    update_policy => {'rndc-key' => {'matchtype' => 'zonesub', 'rr' => 'ANY'}}
   }
 
 }

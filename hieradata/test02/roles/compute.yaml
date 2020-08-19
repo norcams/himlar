@@ -49,3 +49,4 @@ nova::debug: true
 
 # remove when telemetry/ceilometer is up in all environments and move to common
 profile::openstack::compute::manage_telemetry: true
+nova::compute::libvirt::libvirt_hw_machine_type: 'x86_64=q35'

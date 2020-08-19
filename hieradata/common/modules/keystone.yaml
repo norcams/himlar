@@ -16,7 +16,6 @@ keystone::public_port:                    '5000'
 
 # cache
 keystone::cache_enabled:                  true
-keystone::memcache_servers:               '127.0.0.1:11211'
 keystone::cache_backend:                  'oslo_cache.memcache_pool'
 keystone::cache_memcache_servers:         '127.0.0.1:11211'
 
@@ -37,9 +36,9 @@ keystone::enable_credential_setup:        true
 # httpd
 keystone::wsgi::apache::ssl:              false
 keystone::wsgi::apache::bind_host:        "%{ipaddress_trp1}"
-keystone::wsgi::apache::admin_bind_host:  "%{ipaddress_trp1}"
+keystone::wsgi::apache::api_port:         ['5000', '35357']
 
-# roles
+# roles #FIXME Will be DEPRECATED. After train use keystone::bootstrap
 keystone::roles::admin::email:                  "support@%{hiera('domain_frontend')}"
 keystone::roles::admin::password:               "%{hiera('keystone_admin_password')}"
 keystone::roles::admin::admin_tenant:           "%{hiera('keystone__admin__project')}"
@@ -54,6 +53,9 @@ keystone::endpoint::admin_url:            "%{hiera('endpoint__identity__admin')}
 keystone::endpoint::version:              "v3"
 
 # Federation
+keystone::federation::trusted_dashboards:  ["https://%{hiera('public__address__dashboard')}/dashboard/auth/websso/"]
+keystone::federation::remote_id_attribute: 'OIDC-iss'
+
 profile::openstack::identity::openidc::idp_name:  'dataporten'
 profile::openstack::identity::openidc::methods:
   - 'password'
@@ -65,8 +67,7 @@ profile::openstack::identity::openidc::openidc_provider_metadata_url: 'https://a
 profile::openstack::identity::openidc::openidc_client_id:             '00000000-0000-0000-0000-000000000000'
 profile::openstack::identity::openidc::openidc_client_secret:         '00000000-0000-0000-0000-000000000000'
 profile::openstack::identity::openidc::module_plugin:                 'keystone.auth.plugins.mapped.Mapped'
-profile::openstack::identity::openidc::public_endpoint:               "%{hiera('endpoint__identity__public')}"
-profile::openstack::identity::openidc::admin_endpoint:                "%{hiera('endpoint__identity__admin')}"
+profile::openstack::identity::openidc::keystone_endpoint:             "%{hiera('endpoint__identity__public')}"
 
 # override default policy
 keystone::policy::policies:
@@ -97,5 +98,5 @@ keystone::policy::policies:
 keystone::cron::token_flush::maxdelay:    1800 # sek = 30 min
 
 # logging
-keystone::use_syslog:    true
-keystone::log_facility:  'LOG_LOCAL2'
+keystone::logging::log_facility:  'LOG_LOCAL2'
+keystone::logging::use_syslog:    true

@@ -12,10 +12,10 @@ profile::openstack::volume::type:
     visibility: "private"
     properties:
       - 'volume_backend_name=mass-storage-dcache'
-  mass-storage-dcache8:
-    visibility: "private"
-    properties:
-      - 'volume_backend_name=mass-storage-dcache8'
+#  mass-storage-dcache8:
+#    visibility: "private"
+#    properties:
+#      - 'volume_backend_name=mass-storage-dcache8'
 
 profile::openstack::volume::backend::rbd:
   rbd-volumes:
@@ -24,6 +24,10 @@ profile::openstack::volume::backend::rbd:
     rbd_flatten_volume_from_snapshot: 'True'
     rbd_secret_uuid: "%{hiera('libvirt_rbd_secret_uuid')}"
     extra_options:
+      rbd-volumes/enable_deferred_deletion:
+        value: 'True'
+      rbd-volumes/rbd_exclusive_cinder_pool:
+        value: 'True'
       rbd-volumes/report_discard_supported:
         value: 'True'
   mass-storage-default:
@@ -32,6 +36,10 @@ profile::openstack::volume::backend::rbd:
     rbd_flatten_volume_from_snapshot: 'True'
     rbd_secret_uuid: "%{hiera('libvirt_rbd_secret_uuid')}"
     extra_options:
+      mass-storage-default/enable_deferred_deletion:
+        value: 'True'
+      mass-storage-default/rbd_exclusive_cinder_pool:
+        value: 'True'
       mass-storage-default/report_discard_supported:
         value: 'True'
   mass-storage-dcache:
@@ -40,16 +48,20 @@ profile::openstack::volume::backend::rbd:
     rbd_flatten_volume_from_snapshot: 'True'
     rbd_secret_uuid: "%{hiera('libvirt_rbd_secret_uuid')}"
     extra_options:
+      mass-storage-dcache/enable_deferred_deletion:
+        value: 'True'
+      mass-storage-dcache/rbd_exclusive_cinder_pool:
+        value: 'True'
       mass-storage-dcache/report_discard_supported:
         value: 'True'
-  mass-storage-dcache8:
-    rbd_pool: 'dcache_hdd_ec_meta8'
-    rbd_user: 'cinder-dcache-hdd-ec8'
-    rbd_flatten_volume_from_snapshot: 'True'
-    rbd_secret_uuid: "%{hiera('libvirt_rbd_secret_uuid')}"
-    extra_options:
-      mass-storage-dcache8/report_discard_supported:
-        value: 'True'
+#  mass-storage-dcache8:
+#    rbd_pool: 'dcache_hdd_ec_meta8'
+#    rbd_user: 'cinder-dcache-hdd-ec8'
+#    rbd_flatten_volume_from_snapshot: 'True'
+#    rbd_secret_uuid: "%{hiera('libvirt_rbd_secret_uuid')}"
+#    extra_options:
+#      mass-storage-dcache8/report_discard_supported:
+#        value: 'True'
 
 cinder::api::default_volume_type: 'mass-storage-default'
 
@@ -57,4 +69,4 @@ cinder::backends::enabled_backends:
   - rbd-volumes
   - mass-storage-default
   - mass-storage-dcache
-  - mass-storage-dcache8
+#  - mass-storage-dcache8

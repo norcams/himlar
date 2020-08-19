@@ -136,7 +136,7 @@ class profile::base::login (
     }
     if $manage_firewall {
       profile::firewall::rule { '196 dhcprelay accept udp':
-        port   => 67,
+        dport   => 67,
         proto  => 'udp',
       }
     }

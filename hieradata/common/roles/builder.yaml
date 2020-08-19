@@ -54,15 +54,6 @@ profile::application::builder::template_dir:  '/etc/imagebuilder'
 profile::application::builder::download_dir:  '/opt/images/public_builds'
 profile::application::builder::rc_file:       '/home/imagebuilder/openrc'
 profile::application::builder::images:
-  'centos6':
-    'image_name':       'IMAGEBUILDER CentOS 6'
-    'url':              'http://cloud.centos.org/centos/6/images/'
-    'latest':           'CentOS-6-x86_64-GenericCloud.qcow2'
-    'checksum_file':    'sha256sum.txt'
-    'checksum':         'sha256'
-    'min_ram':          1024
-    'min_disk':         8
-    'username':         'centos'
   'centos7':
     'image_name':       'IMAGEBUILDER CentOS 7'
     'url':              'http://cloud.centos.org/centos/7/images/'
@@ -75,21 +66,12 @@ profile::application::builder::images:
   'centos8':
     'image_name':       'IMAGEBUILDER CentOS 8'
     'url':              'http://cloud.centos.org/centos/8/x86_64/images/'
-    'latest':           'CentOS-8-GenericCloud-8.1.1911-20200113.3.x86_64.qcow2'
+    'latest':           'CentOS-8-GenericCloud-8.2.2004-20200611.2.x86_64.qcow2'
     'checksum_file':    'CHECKSUM'
     'checksum':         'sha256'
     'min_ram':          768
     'min_disk':         8
     'username':         'centos'
-  'fedora_31':
-    'image_name':       'IMAGEBUILDER Fedora 31'
-    'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/31/Cloud/x86_64/images/'
-    'latest':           'Fedora-Cloud-Base-31-1.9.x86_64.qcow2'
-    'checksum_file':    'Fedora-Cloud-31-1.9-x86_64-CHECKSUM'
-    'checksum':         'sha256'
-    'min_ram':          768
-    'min_disk':         3
-    'username':         'fedora'
   'fedora_32':
     'image_name':       'IMAGEBUILDER Fedora 32'
     'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/32/Cloud/x86_64/images/'
@@ -99,15 +81,6 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         3
     'username':         'fedora'
-  'ubuntu_1604':
-    'image_name':       'IMAGEBUILDER Ubuntu 16.04 LTS'
-    'url':              'https://cloud-images.ubuntu.com/xenial/current/'
-    'latest':           'xenial-server-cloudimg-amd64-disk1.img'
-    'checksum_file':    'SHA256SUMS'
-    'checksum':         'sha256'
-    'min_ram':          768
-    'min_disk':         3
-    'username':         'ubuntu'
   'ubuntu_1804':
     'image_name':       'IMAGEBUILDER Ubuntu 18.04 LTS'
     'url':              'https://cloud-images.ubuntu.com/bionic/current/'
@@ -164,13 +137,36 @@ profile::application::builder::images:
     'username':         'cloud-user'
 
 
+# Sensu
+profile::monitoring::sensu::agent::plugin_gems:
+  sensu-plugins-himlar:
+    ensure:       '0.6.0'
+    provider:     'sensuclassic_gem'
+    source:       'http://download.iaas.uio.no/uh-iaas/gem'
+
+# metadata imagebuild check
+profile::monitoring::sensu::agent::expanded_checks:
+  - 'centos7'
+  - 'centos8'
+  - 'fedora_32'
+  - 'ubuntu_1804'
+  - 'ubuntu_2004'
+  - 'debian9'
+  - 'debian10'
+  - 'uio_rhel7'
+
+profile::monitoring::sensu::agent::expanded_defaults:
+    command: "check-imagebuild.rb -d "
+    interval:     600
+    subscribers:  ['checks']
+
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   rdo-release:
     ensure: present
   epel:
     ensure: present
-    exclude: 'rabbitmq-server jq oniguruma'
+    includepkgs: 'bash-completion-extras htop inotify-tools python-dogpile-core python-linecache2 python-repoze-lru python-unicodecsv python-warlock python2-asn1crypto python2-funcsigs python2-iso8601 python2-jmespath python2-mimeparse python2-msgpack python2-pbr python2-pysocks python2-rfc3986 python2-wcwidth python34 python34-libs'
 
 # Turn on agant and add common sensu plugins
 profile::monitoring::sensu::agent::enable_agent: true

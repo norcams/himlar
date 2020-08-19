@@ -1,4 +1,8 @@
 ---
+include:
+  default:
+    - profile::application::openssl::catrust
+
 profile::application::builder::insecure:  true
 profile::application::builder::network:   'public'
 profile::base::common::manage_lvm:        true

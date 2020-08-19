@@ -30,7 +30,7 @@ profile::base::common::packages:
 profile::virtualization::libvirt::manage_firewall: true
 profile::virtualization::libvirt::firewall_extras:
   'graphics':
-    port: 5900-5999
+    dport: 5900-5999
 
 profile::network::services::ntp_server: true
 
@@ -67,7 +67,6 @@ libvirt::qemu_vnc_tls:            false
 profile::base::yumrepo::repo_hash:
   epel:
     ensure:   present
-    exclude:  'zeromq python2-uritemplate python2-google-api-client'
 
 lvm::volume_groups:
   vg_ext:

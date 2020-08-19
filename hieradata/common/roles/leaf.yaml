@@ -10,6 +10,9 @@ profile::base::common::classes:
   - puppet
   - openstack_extras::repo::debian::debian
 
+# We do not have systemd on leaf (runs debian 7)
+puppet::unavailable_runmodes:                     ['systemd.timer']
+
 profile::base::common::manage_keyboard:           false
 profile::base::common::include_virtual:           false
 profile::base::common::include_physical:          false

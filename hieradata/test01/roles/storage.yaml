@@ -123,10 +123,10 @@ sudo::configs:
     content:  'sensu ALL=(ALL) NOPASSWD: /opt/sensu/embedded/bin/check-smart.rb'
 
 profile::monitoring::sensu::agent::checks:
-  'check-smart':
-    command:      "/usr/bin/sudo /opt/sensu/embedded/bin/check-smart.rb"
-    interval:     3600
-    subscribers:  ['checks']
+  # 'check-smart':
+  #   command:      "/usr/bin/sudo /opt/sensu/embedded/bin/check-smart.rb"
+  #   interval:     3600
+  #   subscribers:  ['checks']
   'metrics-netif':
     type:         'metric'
     command:      'metrics-netif.rb --scheme network.%{::hostname}'

@@ -112,6 +112,7 @@ profile::network::services::dns_records:
     "compute.api.%{hiera('domain_public')}":                "%{hiera('netcfg_public_netpart')}.250"
     "status.%{hiera('domain_public')}":                     "%{hiera('netcfg_public_netpart')}.250"
     "metric.api.%{hiera('domain_public')}":                 "%{hiera('netcfg_public_netpart')}.250"
+    "object.api.%{hiera('domain_public')}":                 "%{hiera('netcfg_public_netpart')}.250"
     "placement.api.%{hiera('domain_public')}":              "%{hiera('netcfg_public_netpart')}.250"
     "dns.api.%{hiera('domain_public')}":                    "%{hiera('netcfg_public_netpart')}.250"
     "access.%{hiera('domain_public')}":                     "%{hiera('netcfg_public_netpart')}.250"
@@ -136,15 +137,15 @@ profile::network::services::dns_records:
     # public IPv6
     "1.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.%{hiera('reverse_public6')}":  "ns.%{hiera('domain_public')}"
     "2.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.%{hiera('reverse_public6')}":  "resolver.%{hiera('domain_public')}"
+  CNAME:
+    "proxy.%{hiera('domain_mgmt')}":                         "%{::location}-proxy-01.%{hiera('domain_mgmt')}"
+    "%{::location}-object-ceph-01.%{hiera('domain_mgmt')}":  "%{::location}-object-01.%{hiera('domain_mgmt')}"
+    "%{::location}-object-ceph-02.%{hiera('domain_mgmt')}":  "%{::location}-object-02.%{hiera('domain_mgmt')}"
+    "%{::location}-object-ceph-03.%{hiera('domain_mgmt')}":  "%{::location}-object-03.%{hiera('domain_mgmt')}"
 
 ntp::servers:
   - ntp1.uio.no
   - ntp2.uio.no
-
-ceph::profile::params::mon_initial_members:         'test02-cephmon-01, test02-cephmon-02, test02-cephmon-03'
-ceph::profile::params::mon_host:                    '172.30.32.91, 172.30.32.92, 172.30.32.93'
-ceph::profile::params::cluster_network:             '172.30.32.0/24'
-ceph::profile::params::public_network:              '172.30.32.0/24'
 
 profile::openstack::volume::manage_rbd: true
 profile::openstack::compute::hypervisor::manage_libvirt_rbd: true

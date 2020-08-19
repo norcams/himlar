@@ -1,9 +1,4 @@
 ---
-# Enable extra yum repo #FIXME
-profile::base::yumrepo::repo_hash:
-  mariadb:
-    ensure: present
-
 # sensu
 profile::monitoring::sensu::agent::plugins:
   sensu-plugins-percona:

@@ -11,7 +11,7 @@ class profile::logging::kibana(
 
   if $manage_firewall {
     profile::firewall::rule { '401 kibana accept tcp':
-      port        => $ports,
+      dport        => $ports,
       destination => $::ipaddress_mgmt1,
       source      => "${::network_mgmt1}/${::netmask_mgmt1}",
       extras      => $firewall_extras,
