@@ -39,8 +39,8 @@ neutron::notification_transport_url:    "%{hiera('service__transport__url')}"
 neutron::default_transport_url:         "rabbit://neutron:%{hiera('neutron_rabbit_password')}@%{hiera('service__address__rabbitmq_01')}:5672/neutron"
 
 # logging
-neutron::use_syslog:    true
-neutron::log_facility:  LOG_LOCAL5
+neutron::logging:log_facility:  'LOG_LOCAL5'
+neutron::logging:use_syslog:    true
 
 # keystone auth (node: identity)
 neutron::keystone::auth::public_url:    "%{hiera('endpoint__network__public')}"
