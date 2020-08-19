@@ -8,6 +8,8 @@ include:
     - profile::openstack::cache
     - profile::logging::rsyslog::client
 
+openstack_version: stein #FIXME
+
 etcd::proxy: "off"
 etcd::initial_cluster_state: 'new'
 etcd::initial_cluster_token: 'etcd-cluster'
@@ -17,6 +19,8 @@ profile::application::etcd::install_bootstrap_script: true
 calico::controller: true
 
 profile::openstack::network::manage_quotas: true
+
+profile::openstack::network::controller::manage_neutron_policies: true
 
 profile::base::common::packages:
   'bash-completion': {}
@@ -31,14 +35,6 @@ profile::base::common::packages:
 profile::openstack::openrc::password:     "%{hiera('neutron_api_password')}"
 profile::openstack::openrc::username:     'neutron'
 profile::openstack::openrc::project_name: 'services'
-
-profile::openstack::network::policies:
-  create_network:
-    key:   'create_network'
-    value: 'rule:admin_only'
-  create_router:
-    key:   'create_router'
-    value: 'rule:admin_only'
 
 # Sensu (needs gcc-c++)
 profile::monitoring::sensu::agent::plugins:
@@ -72,4 +68,4 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
-    includepkgs: 'htop bash-completion-extras'
+    includepkgs: 'htop bash-completion-extras python2-bcrypt'

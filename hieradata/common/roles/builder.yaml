@@ -146,12 +146,9 @@ profile::monitoring::sensu::agent::plugin_gems:
 
 # metadata imagebuild check
 profile::monitoring::sensu::agent::expanded_checks:
-  - 'centos6'
   - 'centos7'
   - 'centos8'
-  - 'fedora_31'
   - 'fedora_32'
-  - 'ubuntu_1604'
   - 'ubuntu_1804'
   - 'ubuntu_2004'
   - 'debian9'

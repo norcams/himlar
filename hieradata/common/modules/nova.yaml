@@ -8,8 +8,8 @@ nova::cinder_catalog_info:               'volumev3:cinderv3:internalURL'
 nova::os_region_name:                    "%{location}"
 
 # logging
-nova::use_syslog:           true
-nova::log_facility:         'LOG_LOCAL0'
+nova::logging:log_facility:               'LOG_LOCAL0'
+nova::logging::use_syslog:                true
 
 # rabbit mq (for rabbit_password see secrets)
 nova::default_transport_url:
@@ -115,7 +115,7 @@ nova::availability_zone::default_schedule_zone:               "%{::location}-def
 nova::availability_zone::internal_service_availability_zone:  'internal'
 
 # neutron network (node: compute and novactrl)
-nova::network::neutron::neutron_url:            "%{hiera('endpoint__network__internal')}"
+nova::network::neutron::neutron_url:            "%{hiera('endpoint__network__internal')}" # will be removed in a future release
 nova::network::neutron::neutron_auth_url:       "%{hiera('endpoint__identity__admin')}/v3"
 nova::network::neutron::neutron_region_name:    "%{::location}"
 nova::network::neutron::neutron_password:       "%{hiera('neutron_api_password')}"
@@ -188,3 +188,6 @@ nova::policy::policies:
   nova_disable_shelve:
     key:   'os_compute_api:servers:shelve'
     value: 'role:admin'
+  nova_create_zero_disk_flavor:
+    key:   'os_compute_api:servers:create:zero_disk_flavor'
+    value: 'role:imagebuilder'

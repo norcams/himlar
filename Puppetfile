@@ -156,16 +156,16 @@ mod 'archive', :ref => 'v2.2.0',                    :git => github + 'voxpupuli/
 #
 # profile::openstack::*
 #
-mod 'glance', :ref => '13.3.1',                     :git => github + 'openstack/puppet-glance'
+mod 'glance', :ref => '14.4.0',                     :git => github + 'openstack/puppet-glance'
 mod 'cinder', :ref => '14.4.0',                     :git => github + 'openstack/puppet-cinder'
-mod 'neutron', :ref => '13.3.1',                    :git => github + 'openstack/puppet-neutron'
-mod 'nova', :ref => '13.3.1',                       :git => github + 'openstack/puppet-nova'
-mod 'horizon', :ref => '13.3.1',                    :git => github + 'openstack/puppet-horizon'
+mod 'neutron', :ref => '14.4.0',                    :git => github + 'openstack/puppet-neutron'
+mod 'nova', :ref => '14.4.0',                       :git => github + 'openstack/puppet-nova'
+mod 'horizon', :ref => '14.4.0',                    :git => github + 'openstack/puppet-horizon'
 mod 'gnocchi', :ref => '13.3.1',                    :git => github + 'openstack/puppet-gnocchi'
 mod 'keystone', :ref => '14.4.0',                   :git => github + 'openstack/puppet-keystone'
 mod 'swift', :ref => 'norcams/ocata',               :git => github + 'norcams/puppet-swift'
 mod 'ceilometer', :ref => '13.3.1',                 :git => github + 'openstack/puppet-ceilometer'
-mod 'designate', :ref => '13.3.1',                  :git => github + 'openstack/puppet-designate'
+mod 'designate', :ref => '14.4.0',                  :git => github + 'openstack/puppet-designate'
 mod 'cloudkitty', :ref => '3.4.0',                  :git => github + 'openstack/puppet-cloudkitty'
 
 mod 'oslo', :ref => '14.4.0',                       :git => github + 'openstack/puppet-oslo'
