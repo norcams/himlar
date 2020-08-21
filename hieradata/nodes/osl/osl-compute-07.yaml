@@ -61,3 +61,7 @@ profile::base::lvm::logical_volume:
 
 # Turn on firewall logging for firewall debug
 #profile::firewall::post::log: true
+
+# make sure disks are configured correctly as the devices we want
+profile::base::physical::load_ahci_last:    true
+profile::base::physical::scsidrv:           'mpt2sas'
