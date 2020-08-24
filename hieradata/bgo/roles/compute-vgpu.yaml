@@ -31,14 +31,6 @@ profile::base::network::network_auto_opts:
   live:
     'defroute': 'no'
 
-calico::compute::peers: # FIXME
-  rr1:
-    peer_ipv4: '172.18.6.1'
-    peer_ipv6: 'fd00::6:1'
-  rr2:
-    peer_ipv4: '172.18.6.2'
-    peer_ipv6: 'fd00::6:2'
-
 profile::base::common::packages:
   'wget': {}
   'kernel-devel': {}
