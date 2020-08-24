@@ -60,6 +60,14 @@ profile::base::lvm::logical_volume:
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
 
+calico::compute::peers: # FIXME
+  rr1:
+    peer_ipv4: '172.18.6.1'
+    peer_ipv6: 'fd00::6:1'
+  rr2:
+    peer_ipv4: '172.18.6.2'
+    peer_ipv6: 'fd00::6:2'
+
 # This compute host uses local storage for instances
 # nova::compute::rbd::ephemeral_storage:            false
 # nova::config::nova_config:
