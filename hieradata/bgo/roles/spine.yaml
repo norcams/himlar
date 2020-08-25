@@ -112,6 +112,8 @@ profile::base::network::cumulus_bonds:
     'clag_id': '1003'
     'pvid': '924'
     'vids': [ '924', '927', ]
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
     'mtu': '9216'
   'host1':
     'slaves': [ 'swp1s0', ]
