@@ -110,8 +110,8 @@ profile::base::network::cumulus_bonds:
   'uib_dc':
     'slaves': [ 'swp28s1', ]
     'clag_id': '1003'
-    'pvid': '927'
-    'vids': [ '927', ]
+    'pvid': '924'
+    'vids': [ '924', '927', ]
     'mtu': '9216'
   'host1':
     'slaves': [ 'swp1s0', ]
@@ -755,7 +755,7 @@ profile::base::network::cumulus_bridges:
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'true'
-    'vids': [ '100', '109', '110', '120', '927', ]
+    'vids': [ '100', '109', '110', '120', '924', '927', ]
     'mtu': '9216'
 
 frrouting::frrouting::zebra_interfaces:
