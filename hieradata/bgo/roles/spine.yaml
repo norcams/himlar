@@ -112,8 +112,7 @@ profile::base::network::cumulus_bonds:
     'clag_id': '1003'
     'pvid': '924'
     'vids': [ '924', '927', ]
-    'mstpctl_portadminedge': true
-    'mstpctl_bpduguard': true
+    'mstpctl-portbpdufilter': true
     'mtu': '9216'
   'host1':
     'slaves': [ 'swp1s0', ]
@@ -770,6 +769,9 @@ frrouting::frrouting::zebra_interfaces:
   'bridge.109':
     - 'link-detect'
     - 'description linux-bridge-109'
+  'bridge.927':
+    - 'link-detect'
+    - 'description linux-bridge-927'
   'host1':
     - 'link-detect'
   'host2':
@@ -932,6 +934,7 @@ frrouting::frrouting::bgp_networks:
   - '0.0.0.0/0'
   - '172.18.0.0/21'
   - '109.105.125.0/26'
+  - '192.168.243.0/24'
 frrouting::frrouting::bgp_networks6:
   - '::/0'
   - 'fd00::/64'
