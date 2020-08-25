@@ -107,6 +107,12 @@ profile::base::network::cumulus_bonds:
     'pvid': '100'
     'vids': [ '100', '110', '120', ]
     'mtu': '9216'
+  'uib_dc':
+    'slaves': [ 'swp28s1', ]
+    'clag_id': '1003'
+    'pvid': '927'
+    'vids': [ '927', ]
+    'mtu': '9216'
   'host1':
     'slaves': [ 'swp1s0', ]
     'clag_id': '1'
