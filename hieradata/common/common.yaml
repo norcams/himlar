@@ -413,6 +413,7 @@ profile::network::services::dns_records:
     "%{::location}-storage-39.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.81"
     "%{::location}-compute-50.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.82"
     "%{::location}-compute-51.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.83"
+    "%{::location}-compute-52.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.84"
     "%{::location}-mgmt-opx-01.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.1"
     "%{::location}-mgmt-opx-02.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.2"
     "%{::location}-mgmt-opx-03.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.3"
