@@ -514,6 +514,14 @@ profile::base::network::cumulus_bonds:
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', ]
     'mtu': '9216'
+  'host54':
+    'slaves': [ 'swp14s1', ]
+    'clag_id': '54'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
   'host57':
     'slaves': [ 'swp15s0', ]
     'clag_id': '57'
