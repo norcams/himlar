@@ -34,7 +34,7 @@ domain_oob:           "%{::domain}"
 domain_public2:       "%{hiera('domain_public')}"
 domain_frontend2:     "%{hiera('domain_frontend')}"
 
-openstack_version:    'rocky'
+openstack_version:    'stein'
 
 ceph_version:         'nautilus'
 

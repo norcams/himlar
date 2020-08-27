@@ -19,8 +19,6 @@ profile::base::common::packages:
   'openstack-selinux': {}
   'python2-designateclient': {}
 
-openstack_version: 'stein' #FIXME:stein
-
 memcached::max_memory: '40%'
 
 profile::base::selinux::manage_selinux:                   true
