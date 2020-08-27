@@ -36,6 +36,9 @@ profile::base::common::packages:
   'kernel-devel': {}
   'kernel-headers': {}
   'unzip': {}
+  'NVIDIA-vGPU-rhel': {
+    source: 'http://repo.mgmt.bgo.uhdc.no/NVIDIA-vGPU-rhel-7.8-440.107.x86_64.rpm'
+  }
 
 #nova::compute::libvirt::libvirt_cpu_model: 'EPYC'
 #nova::compute::vgpu::enabled_vgpu_types:   'nvidia-233'
