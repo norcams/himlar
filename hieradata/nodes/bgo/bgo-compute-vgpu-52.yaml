@@ -3,9 +3,6 @@ profile::base::lvm::physical_volume:
   '/dev/sda4':
     ensure: present
     force:  true
-  '/dev/sdb':
-    ensure: present
-    force:  true
 profile::base::lvm::volume_group:
   'vg_ext':
     physical_volumes:
