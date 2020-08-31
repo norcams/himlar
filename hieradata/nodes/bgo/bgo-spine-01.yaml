@@ -30,6 +30,9 @@ profile::base::network::cumulus_interfaces:
     'clagd_enable': true
     'clagd_peer_ip': '172.18.229.2'
     'clagd_sys_mac': '44:38:39:ff:bb:1d'
+  'swp28s0':
+    'ipv4': '158.36.4.69/31'
+    'ipv6': '2001:700:0:80fb::1/127'
 
 frrouting::frrouting::bgp_neighbors:
   - "172.18.0.1 remote-as %{hiera('bgp_as')}"
