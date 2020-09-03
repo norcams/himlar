@@ -976,8 +976,12 @@ frrouting::frrouting::bgp_accesslist:
 frrouting::frrouting::bgp_ip_prefix_list:
   - 'routes-from-leaf1 seq 5 deny any'
   - 'routes-to-leaf1 seq 5 permit 0.0.0.0/0'
+  - 'uninett-routes-in seq 10 deny any'
+  - 'uninett-routes-out seq 10 deny any'
 frrouting::frrouting::bgp_ipv6_prefix_list:
   - 'routes-from-leaf1 seq 5 deny any'
+  - 'uninett-routes-in seq 10 deny any'
+  - 'uninett-routes-out seq 10 deny any'
 
 frrouting::frrouting::bgp_route_maps:
   'rr-client-allow permit 10':
