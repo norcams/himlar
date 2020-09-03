@@ -42,8 +42,6 @@ frrouting::frrouting::bgp_neighbors:
   - '158.36.4.68 prefix-list uninett-routes-out out'
   - '2001:700:0:80fb:: remote-as 224'
   - '2001:700:0:80fb:: bfd 5 500 500'
-  - '2001:700:0:80fb:: prefix-list uninett-routes-in in'
-  - '2001:700:0:80fb:: prefix-list uninett-routes-in out'
   - "172.18.0.1 remote-as %{hiera('bgp_as')}"
   - '172.18.0.1 soft-reconfiguration inbound'
   - "fd00::1 remote-as %{hiera('bgp_as')}"
@@ -62,6 +60,11 @@ frrouting::frrouting::bgp_neighbors:
   - '172.18.3.2 remote-as 65503'
   - '172.18.3.2 prefix-list routes-from-leaf1 in'
   - 'fd00::3:2 remote-as 65503'
+frrouting::frrouting::bgp_neighbors6:
+  - '2001:700:0:80fb:: activate'
+  - '2001:700:0:80fb:: soft-reconfiguration inbound'
+  - '2001:700:0:80fb:: prefix-list uninett-routes-in in'
+  - '2001:700:0:80fb:: prefix-list uninett-routes-out out'
 
 frrouting::frrouting::zebra_ip6_routes:
   - '::/0 fd00::701'
