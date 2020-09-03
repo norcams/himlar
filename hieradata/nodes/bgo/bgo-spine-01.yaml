@@ -43,7 +43,7 @@ frrouting::frrouting::bgp_neighbors:
   - '2001:700:0:80fb:: remote-as 224'
   - '2001:700:0:80fb:: bfd 5 500 500'
   - '2001:700:0:80fb:: prefix-list uninett-routes-in in'
-  - '2001:700:0:80fb:: prefix-list uninett-routes-in out
+  - '2001:700:0:80fb:: prefix-list uninett-routes-in out'
   - "172.18.0.1 remote-as %{hiera('bgp_as')}"
   - '172.18.0.1 soft-reconfiguration inbound'
   - "fd00::1 remote-as %{hiera('bgp_as')}"
