@@ -948,11 +948,16 @@ frrouting::frrouting::bgp_networks:
   - '172.18.0.0/21'
   - '109.105.125.0/26'
   - '192.168.243.0/24'
+  - '158.39.74.0/24'
+  - '158.39.77.0/24'
+  - '158.39.201.0/24'
+
 frrouting::frrouting::bgp_networks6:
   - '::/0'
   - 'fd00::/64'
   - '2001:948:62:1::/64'
   - 'fd00:192:168:243::/64'
+  - '2001:700:2:8300::/56'
 
 frrouting::frrouting::bgp_accesslist:
   '10':
@@ -977,6 +982,7 @@ frrouting::frrouting::bgp_ip_prefix_list:
   - 'routes-from-leaf1 seq 5 deny any'
   - 'routes-to-leaf1 seq 5 permit 0.0.0.0/0'
   - 'uninett-routes-in seq 10 deny any'
+  - 'uninett-routes-out seq 5 permit 158.39.201.0/24'
   - 'uninett-routes-out seq 10 deny any'
 frrouting::frrouting::bgp_ipv6_prefix_list:
   - 'routes-from-leaf1 seq 5 deny any'
