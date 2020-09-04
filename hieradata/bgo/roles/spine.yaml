@@ -982,12 +982,15 @@ frrouting::frrouting::bgp_ip_prefix_list:
   - 'routes-from-leaf1 seq 5 deny any'
   - 'routes-to-leaf1 seq 5 permit 0.0.0.0/0'
   - 'uninett-routes-in seq 10 deny any'
+  - 'uninett-routes-out seq 5 permit 158.39.74.0/24'
+  - 'uninett-routes-out seq 5 permit 158.39.77.0/24'
   - 'uninett-routes-out seq 5 permit 158.39.201.0/24'
   - 'uninett-routes-out seq 10 deny any'
 frrouting::frrouting::bgp_ipv6_prefix_list:
   - 'routes-from-leaf1 seq 5 deny any'
-  - 'uninett-routes-in seq 10 deny any'
-  - 'uninett-routes-out seq 10 deny any'
+  - 'uninett-routes6-in seq 10 deny any'
+  - 'uninett-routes6-out seq 5 permit 2001:700:2:8300::/56'
+  - 'uninett-routes6-out seq 10 deny any'
 
 frrouting::frrouting::bgp_route_maps:
   'rr-client-allow permit 10':
