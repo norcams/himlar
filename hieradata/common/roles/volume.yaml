@@ -164,3 +164,6 @@ profile::storage::ceph_extraconf::config:
 profile::base::selinux::semodules:
   'attach_cinder':
     avc_file:   "attach_cinder.avc"
+  'httpd_cinder':
+    avc_file:   "httpd_cinder.avc"
+

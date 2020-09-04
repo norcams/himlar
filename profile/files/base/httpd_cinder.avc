@@ -1,0 +1,1 @@
+type=AVC msg=audit(1598528042.228:4354): avc:  denied  { ioctl getattr open read } for  pid=2690902 comm="grep" path="/usr/sbin/iscsiadm" dev="dm-0" ino=1699 ioctlcmd=5401 scontext=system_u:system_r:httpd_t:s0 tcontext=system_u:object_r:iscsid_exec_t:s0 tclass=file permissive=0
