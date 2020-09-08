@@ -33,6 +33,7 @@ profile::base::network::cumulus_interfaces:
   'swp28s0':
     'ipv4': '158.36.4.67/31'
     'ipv6': '2001:700:0:80fa::1/127'
+    'mtu': '9178'
 
 frrouting::frrouting::bgp_neighbors:
   - '158.36.4.66 remote-as 224'
