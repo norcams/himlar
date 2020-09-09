@@ -14,7 +14,7 @@ profile::base::systemd::limits:
   mariadb:
     limits:
       Service:
-        'LimitNOFILE': 65536
+        'LimitNOFILE': 262689
 
 profile::base::common::packages:
   'MySQL-python':           {}
