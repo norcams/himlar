@@ -964,6 +964,7 @@ frrouting::frrouting::bgp_accesslist:
     - 'permit 10.1.0.0 0.0.15.255'
     - 'permit 109.105.127.128 0.0.0.63'
     - 'permit 172.18.0.0 0.0.7.255'
+    - 'deny any'
   '20':
     - 'deny 158.39.74.0 0.0.0.255'
     - 'deny 158.39.77.0 0.0.0.255'
