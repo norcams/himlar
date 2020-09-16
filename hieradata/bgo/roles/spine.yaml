@@ -1004,7 +1004,7 @@ frrouting::frrouting::bgp_route_maps:
     - 'match ip address 10'
   'peer-deny deny 10':
     - 'match ip address 10'
-  'route-map rr-client-allow6 permit 10':
+  'rr-client-allow6 permit 10':
     - 'match ipv6 address 10'
-  'route-map rr-client-allow6 deny 20':
+  'rr-client-allow6 deny 20':
     - 'match ipv6 address 20'
