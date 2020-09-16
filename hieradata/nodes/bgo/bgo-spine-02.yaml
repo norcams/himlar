@@ -154,8 +154,8 @@ frrouting::frrouting::bgp_neighbor_groups:
       - '172.18.1.84'
     'options6':
       - 'neighbor rr-clients route-reflector-client'
-      - 'rr-clients route-map rr-client-allow6 in'
-      - 'rr-clients route-map rr-client-allow6 out'
+      - 'neighbor rr-clients route-map rr-client-allow6 in'
+      - 'neighbor rr-clients route-map rr-client-allow6 out'
       - 'maximum-paths ibgp 5'
       - 'neighbor fd00::1 activate'
       - 'neighbor fd00::1 soft-reconfiguration inbound'
