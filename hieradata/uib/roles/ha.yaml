@@ -206,8 +206,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   'ssl-https-apps':
     listening_service:  'ssl-https-apps'
     ports:              443
-    server_names:       ['appsanywhere01.uib.no', 'appsanywhere02.uib.no']
-    ipaddresses:        ['129.177.30.211', '129.177.30.229']
+    server_names:       ['appsanywhere03.uib.no', 'appsanywhere04.uib.no']
+    ipaddresses:        ['129.177.150.201', '129.177.150.202']
     options:            'verify none inter 1000 check check-ssl ssl'
 #    define_cookies:     true
   'public-ldap-prod':
