@@ -1,7 +1,7 @@
 ---
 corosync::cluster_name:               '%{::location}-ha'
 corosync::bind_address:               '%{::ipaddress_public1}'
-corosync::syslog_priority:            'warning'
+corosync::syslog_priority:            'info'
 corosync::enable_secauth:             false
 corosync::set_votequorum:             true
 corosync::manage_pacemaker_service:   true
