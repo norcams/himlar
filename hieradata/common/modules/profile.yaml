@@ -134,7 +134,7 @@ profile::base::yumrepo::repo_hash:
     gpgcheck:       0
   uh-iaas-nonfree:
     descr:          'UH-IaaS repo non-free'
-    baseurl:        "%{hiera('yum_base_mirror')}/uh-iaas//nonfree/yum-nonfree"
+    baseurl:        'https://download.iaas.uio.no/uh-iaas/nonfree/yum-nonfree'
     gpgcheck:       0
   sensu:
     descr:          'Sensu repo'
