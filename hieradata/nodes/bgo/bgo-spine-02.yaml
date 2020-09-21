@@ -52,7 +52,9 @@ frrouting::frrouting::bgp_neighbors:
   - "fd00::2 remote-as %{hiera('bgp_as')}"
   - 'fd00::2 soft-reconfiguration inbound'
   - "172.18.229.1 remote-as %{hiera('bgp_as')}"
+  - '172.18.229.1 default-originate'
   - '172.18.229.1 soft-reconfiguration inbound'
+  - '172.18.229.1 route-map failover-default-route in'
   - "fd00:18:229::1 remote-as %{hiera('bgp_as')}"
   - 'fd00:18:229::1 soft-reconfiguration inbound'
   - '172.18.3.1 remote-as 65503'
@@ -162,6 +164,8 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'neighbor fd00::2 activate'
       - 'neighbor fd00::2 soft-reconfiguration inbound'
       - 'neighbor fd00:18:229::1 activate'
+      - 'neighbor fd00:18:229::1 route-map failover-default-route6 in'
+      - 'neighbor fd00:18:229::1 default-originate'
       - 'neighbor fd00:18:229::1 soft-reconfiguration inbound'
       - 'neighbor fd00::3:1 activate'
       - 'neighbor fd00::3:1 prefix-list routes-from-leaf1 in'
