@@ -162,6 +162,7 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'neighbor fd00::2 activate'
       - 'neighbor fd00::2 soft-reconfiguration inbound'
       - 'neighbor fd00:18:229::2 activate'
+      - 'neighbor fd00:18:229::2 route-map failover-default-route6 in'
       - 'neighbor fd00:18:229::2 soft-reconfiguration inbound'
       - 'neighbor fd00::3:1 activate'
       - 'neighbor fd00::3:1 prefix-list routes-from-leaf1 in'

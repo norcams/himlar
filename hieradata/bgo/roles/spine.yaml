@@ -998,6 +998,7 @@ frrouting::frrouting::bgp_ipv6_prefix_list:
   - 'uninett-routes6-in seq 10 deny any'
   - 'uninett-routes6-out seq 5 permit 2001:700:2:8300::/56'
   - 'uninett-routes6-out seq 10 deny any'
+  - 'default-route6 seq 5 permit ::/0'
 
 frrouting::frrouting::bgp_route_maps:
   'rr-client-allow permit 10':
@@ -1008,3 +1009,10 @@ frrouting::frrouting::bgp_route_maps:
     - 'match ipv6 address 10'
   'rr-client-allow6 deny 20':
     - 'match ipv6 address 20'
+  'failover-default-route6 permit 10':
+    - 'description default route from spine neighbor is last resort'
+    - 'match ipv6 address prefix-list default-route6'
+    - 'set local-preference 0'
+    - 'set weight 0'
+  'failover-default-route6 permit 15':
+    - 'description apply defaults for any other route'
