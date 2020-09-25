@@ -1,0 +1,26 @@
+---
+network::interfaces_hash:
+  'eth0':
+    onboot:         'yes'
+    ipaddress:      '172.31.0.25'
+    netmask:        '255.255.248.0'
+    gateway:        "%{hiera('netcfg_mgmt_gateway')}"
+    defroute:       'no'
+    peerdns:        'yes'
+    dns1:           "%{hiera('netcfg_dns_server1')}"
+    dns2:           "%{hiera('netcfg_dns_server2')}"
+    domain:         "%{hiera('netcfg_dns_search')}"
+  'eth1':
+    onboot:         'yes'
+    ipaddress:      '129.177.13.154'
+    netmask:        '255.255.255.0'
+    gateway:        '129.177.13.1'
+    ipv6init:       'no'
+    ipv6_autoconf:  'no'
+    defroute:       'yes'
+
+#profile::network::ipsec::tunnels:
+#  'uib-azuregw-01':
+#    left:  '172.33.0.16'
+#    right: "%{ipaddress_public1}"
+#    # psk: "" # Taken from secrets
