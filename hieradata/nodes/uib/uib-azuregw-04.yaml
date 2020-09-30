@@ -24,3 +24,32 @@ network::interfaces_hash:
 #    left:  '172.33.0.16'
 #    right: "%{ipaddress_public1}"
 #    # psk: "" # Taken from secrets
+
+profile::network::ipsec::tunnels:
+  'uib-azuregw-04':
+    right:         '51.120.82.180'
+    left:          "%{ipaddress_public1}"
+    auto:          'start'
+    phase2alg:     'aes128-sha1'
+    authby:        'secret'
+    dpdaction:     'restart'
+    dpddelay:      '30'
+    dpdtimeout:    '120'
+    ike:           'aes256-sha1;modp1024'
+    ikev2:         'yes'
+    ikelifetime:   '10800s'
+    leftsubnet:    '0.0.0.0/0'
+    leftvti:       '169.254.0.2'
+    rightsubnet:   '10.177.0.0/16'
+    mark:          '5/0xffffffff'
+    vti_interface: 'vti1'
+    vti_routing:   'yes'
+    pfs:           'yes'
+    salifetime:    '3600s'
+    type:          'tunnel'
+    # psk: "" # Taken from secrets
+
+profile::network::nat::azure_bird_local_as:       65523
+profile::network::nat::azure_bird_remote_as:      65531
+profile::network::nat::azure_bird_remote_neigh:   '10.177.1.5'
+profile::network::nat::azure_bird_remote_network: '10.177.0.0/16'
