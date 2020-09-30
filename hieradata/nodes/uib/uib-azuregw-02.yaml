@@ -33,12 +33,17 @@ profile::network::ipsec::tunnels:
     ikev2:         'yes'
     ikelifetime:   '10800s'
     leftsubnet:    '0.0.0.0/0'
-    leftvti:       ''
-    rightsubnet:   '0.0.0.0/0'
+    leftvti:       '169.254.0.2'
+    rightsubnet:   '10.12.0.0/16'
     mark:          '5/0xffffffff'
     vti_interface: 'vti1'
-    vti_routing:   'no'
+    vti_routing:   'yes'
     pfs:           'yes'
     salifetime:    '3600s'
     type:          'tunnel'
     # psk: "" # Taken from secrets
+
+profile::network::nat::azure_bird_local_as:       65532
+profile::network::nat::azure_bird_remote_as:      65530
+profile::network::nat::azure_bird_remote_neigh:   '10.12.1.5'
+profile::network::nat::azure_bird_remote_network: '10.12.0.0/16'
