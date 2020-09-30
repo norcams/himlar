@@ -21,6 +21,11 @@ profile::base::common::manage_packages:       true
 
 profile::network::nat::enable_bird:           true
 profile::network::nat::manage_bird_firewall:  true
+profile::network::nat::bird_template:         'bird-azure.conf.erb'
+profile::network::nat::iniface:               "%{::interface_mgmt1}"
+profile::network::nat::bird_export_networks:
+  - '129.177.14.0/24'
+  - '129.177.5.0/24'
 
 profile::network::nat::enable_snat:           true
 profile::network::nat::outiface:              "%{::interface_public1}"
