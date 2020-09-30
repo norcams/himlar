@@ -49,7 +49,7 @@ profile::network::ipsec::tunnels:
     type:          'tunnel'
     # psk: "" # Taken from secrets
 
-profile::network::nat::azure_bird_local_as:       65534
+profile::network::nat::azure_bird_local_as:       65522
 profile::network::nat::azure_bird_remote_as:      65531
 profile::network::nat::azure_bird_remote_neigh:   '10.177.1.4'
 profile::network::nat::azure_bird_remote_network: '10.177.0.0/16'
