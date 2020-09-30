@@ -20,7 +20,7 @@ network::interfaces_hash:
     defroute:       'yes'
 
 profile::network::ipsec::tunnels:
-  'uib-azuregw-04':
+  'uib-azuregw-01':
     right:         ''
     left:          "%{ipaddress_public1}"
     auto:          'start'
