@@ -1,0 +1,65 @@
+router id <%= @ipaddress_mgmt1 %>;
+
+filter export_bgp {
+  if  net != 0.0.0.0/0 then {
+    accept;
+  }
+  reject;
+}
+
+filter import_bgp {
+  if net = <%= @azure_bird_remote_network %> then {
+    accept;
+  }
+  reject;
+}
+
+<% if @bird_export_networks -%>
+filter import_kernel {
+  if net = <% if @bird_export_networks -%><% (1..@bird_export_networks.length).each do |i| %> <%= @bird_export_networks[i-1] %> ||<% end%> <%= @network_mgmt1 %>/<%= @cidr_mgmt1 %> || <%= @network_public1 %>/<%= @cidr_public1 %> <% end -%>then {
+    reject;
+  }
+  accept;
+}
+
+protocol static announce {
+  <% (1..@bird_export_networks.length).each do |i| %>route <%= @bird_export_networks[i-1] %> unreachable;
+  <% end %>
+}
+<% end -%>
+
+protocol bgp 'azure' {
+  description "Connection to Azure BGP peer";
+  local as <%= @azure_bird_local_as %>;
+  neighbor <%= @azure_bird_remote_neigh %> as <%= @azure_bird_remote_as %>;
+  multihop;
+  import all;
+  graceful restart;
+  export filter export_bgp;
+  source address <%= @ipaddress_mgmt1 %>;
+}
+
+# Configure synchronization between BIRD's routing tables and the
+# kernel.
+protocol kernel {
+  learn;          # Learn all alien routes from the kernel
+#  device routes;  # protect kernel device routes from being overwritten or removed by IGP routes
+#  persist;        # Don't remove routes on bird shutdown
+  scan time 2;    # Scan kernel routing table every 2 seconds
+#  import filter import_kernel;
+  import all;
+  merge paths on; # For ECMP
+  graceful restart;
+#  export filter export_bgp;
+  export filter import_kernel;
+}
+
+# Watch interface up/down events.
+protocol device {
+  scan time 2;    # Scan interfaces every 2 seconds
+}
+
+protocol direct {
+   debug all;
+   interface "*";
+}
