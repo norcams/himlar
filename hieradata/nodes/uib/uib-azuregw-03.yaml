@@ -19,12 +19,6 @@ network::interfaces_hash:
     ipv6_autoconf:  'no'
     defroute:       'yes'
 
-#profile::network::ipsec::tunnels:
-#  'uib-azuregw-01':
-#    left:  '172.33.0.16'
-#    right: "%{ipaddress_public1}"
-#    # psk: "" # Taken from secrets
-
 profile::network::ipsec::tunnels:
   'uib-azuregw-03':
     right:         '51.120.82.177'
