@@ -43,14 +43,14 @@ frrouting::frrouting::bgp_neighbors:
   - '158.36.4.68 prefix-list uninett-routes-out out'
   - '2001:700:0:80fb:: remote-as 224'
   - '2001:700:0:80fb:: bfd 5 500 500'
-  - "172.18.0.1 remote-as %{hiera('bgp_as')}"
-  - '172.18.0.1 soft-reconfiguration inbound'
-  - "fd00::1 remote-as %{hiera('bgp_as')}"
-  - 'fd00::1 soft-reconfiguration inbound'
-  - "172.18.0.2 remote-as %{hiera('bgp_as')}"
-  - '172.18.0.2 soft-reconfiguration inbound'
-  - "fd00::2 remote-as %{hiera('bgp_as')}"
-  - 'fd00::2 soft-reconfiguration inbound'
+#  - "172.18.0.1 remote-as %{hiera('bgp_as')}"
+#  - '172.18.0.1 soft-reconfiguration inbound'
+#  - "fd00::1 remote-as %{hiera('bgp_as')}"
+#  - 'fd00::1 soft-reconfiguration inbound'
+#  - "172.18.0.2 remote-as %{hiera('bgp_as')}"
+#  - '172.18.0.2 soft-reconfiguration inbound'
+#  - "fd00::2 remote-as %{hiera('bgp_as')}"
+#  - 'fd00::2 soft-reconfiguration inbound'
   - "172.18.229.2 remote-as %{hiera('bgp_as')}"
   - '172.18.229.2 default-originate'
   - '172.18.229.2 soft-reconfiguration inbound'
@@ -159,10 +159,10 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'neighbor rr-clients route-map rr-client-allow6 in'
       - 'neighbor rr-clients route-map rr-client-allow6 out'
       - 'maximum-paths ibgp 5'
-      - 'neighbor fd00::1 activate'
-      - 'neighbor fd00::1 soft-reconfiguration inbound'
-      - 'neighbor fd00::2 activate'
-      - 'neighbor fd00::2 soft-reconfiguration inbound'
+#      - 'neighbor fd00::1 activate'
+#      - 'neighbor fd00::1 soft-reconfiguration inbound'
+#      - 'neighbor fd00::2 activate'
+#      - 'neighbor fd00::2 soft-reconfiguration inbound'
       - 'neighbor fd00:18:229::2 activate'
       - 'neighbor fd00:18:229::2 route-map failover-default-route6 in'
       - 'neighbor fd00:18:229::2 default-originate'

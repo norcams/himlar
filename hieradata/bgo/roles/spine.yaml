@@ -59,9 +59,9 @@ profile::network::leaf::cumulus_portconfigs:
   28:
     line:  "28=4x10G" # new uplink uninett
   29:
-    line:  "29=40G" # temporary uplink to torack
+    line:  "29=40G" # old uplinks to torack not in use
   30:
-    line:  "30=40G" # temporary uplink to torack
+    line:  "30=40G" # old uplinks to torack not in use
 
 profile::base::network::cumulus_interfaces:
   'swp24':
@@ -89,12 +89,12 @@ profile::base::network::cumulus_bonds:
   'peerlink':
     'slaves': [ 'swp31-32', ]
     'mtu':   '9216'
-  'downlink':
-    'slaves': [ 'swp29-30', ]
-    'clag_id': '1000'
-    'pvid': '100'
-    'vids': [ '100', '110', '120', ]
-    'mtu': '9216'
+#  'downlink':
+#    'slaves': [ 'swp29-30', ]
+#    'clag_id': '1000'
+#    'pvid': '100'
+#    'vids': [ '100', '110', '120', ]
+#    'mtu': '9216'
   'downlinkl0102':
     'slaves': [ 'swp24-25', ]
     'clag_id': '1001'
