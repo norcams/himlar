@@ -402,7 +402,7 @@ profile::openstack::resource::subnets:
     cidr: '2001:948:62:3::/64'
     ip_version: '6'
     allocation_pools:
-      - 'start=2001:948:62:3::2000,end=2001:948:62:3::ffff'
+      - 'start=2001:948:62:3::2000,end=2001:948:62:3::2fff'
     gateway_ip: '2001:948:62:3::1'
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns6')}"
@@ -413,7 +413,7 @@ profile::openstack::resource::subnets:
     cidr: '109.105.127.128/26'
     ip_version: '4'
     allocation_pools:
-      - 'start=109.105.127.130,end=109.105.127.190'
+      - 'start=109.105.127.130,end=109.105.127.188'
     gateway_ip: '109.105.127.129'
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
