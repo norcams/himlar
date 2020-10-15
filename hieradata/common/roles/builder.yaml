@@ -45,6 +45,7 @@ profile::openstack::openrc::filename:         '/home/imagebuilder/openrc'
 profile::openstack::openrc::username:         'imagebuilder'
 profile::openstack::openrc::project_name:     'imagebuilder'
 profile::openstack::openrc::password:         "%{hiera('imagebuilder_password')}"
+profile::openstack::openrc::interface:        'public'
 
 
 profile::application::builder::package_url:   'https://download.iaas.uio.no/uh-iaas/yumrepo/imagebuilder-1.0-6.el7.x86_64.rpm'
