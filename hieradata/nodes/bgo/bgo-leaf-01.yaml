@@ -260,10 +260,11 @@ quagga::quagga::bgp_neighbors:
   - '172.18.230.2 remote-as 65503'
   - '172.18.230.2 default-originate'
   - '172.18.230.2 soft-reconfiguration inbound'
-  - '172.18.230.2 prefix-list uninett-routes-in in'
+  - '172.18.230.2 route-map failover-routes in'
   - '172.18.230.2 prefix-list uninett-routes-in out'
   - '128.39.70.70 remote-as 224'
   - '128.39.70.70 bfd 5 500 500'
+  - '128.39.70.70 weight 30000'
   - '128.39.70.70 soft-reconfiguration inbound'
   - '128.39.70.70 prefix-list uninett-routes-in in'
   - '128.39.70.70 prefix-list uninett-routes-out out'
@@ -316,8 +317,9 @@ quagga::quagga::bgp_neighbors6:
   - '2001:948:40:4::6a prefix-list uninett-routes-in in'
   - '2001:948:40:4::6a prefix-list uninett-routes-out out'
   - 'fd00:18:230::2 activate'
+  - 'fd00:18:230::2 default-originate'
   - 'fd00:18:230::2 soft-reconfiguration inbound'
-  - 'fd00:18:230::2 prefix-list uninett-routes-in in'
+  - 'fd00:18:230::2 route-map failover-routes6 in'
   - 'fd00:18:230::2 prefix-list uninett-routes-in out'
 
 quagga::quagga::bgp_as: '65503'
@@ -369,3 +371,15 @@ quagga::quagga::bgp_ipv6_prefix_list:
   - 'iaas-routes-in seq 6 permit 2001:948:62:1::/64'
   - 'iaas-routes-in seq 10 deny any'
   - 'iaas-routes-out seq 10 deny any'
+
+quagga::quagga::bgp_route_maps:
+  'failover-routes permit 10':
+    - 'description routes from leaf neighbor is last resort'
+    - 'match ip address prefix-list uninett-routes-in'
+    - 'set local-preference 0'
+    - 'set weight 0'
+  'failover-routes6 permit 10':
+    - 'description routes from leaf neighbor is last resort'
+    - 'match ipv6 address prefix-list uninett-routes-in'
+    - 'set local-preference 0'
+    - 'set weight 0'
