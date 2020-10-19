@@ -991,6 +991,7 @@ frrouting::frrouting::bgp_ip_prefix_list:
   - 'uninett-routes-out seq 7 permit 158.39.201.0/24'
   - 'uninett-routes-out seq 10 deny any'
   - 'uib-routes-in seq 5 permit 129.177.0.0/16'
+  - 'uib-routes-in seq 10 deny any'
   - 'default-route seq 5 permit 0.0.0.0/0'
 frrouting::frrouting::bgp_ipv6_prefix_list:
   - 'routes-from-leaf1 seq 5 deny any'
@@ -999,6 +1000,7 @@ frrouting::frrouting::bgp_ipv6_prefix_list:
   - 'uninett-routes6-out seq 5 permit 2001:700:2:8300::/56'
   - 'uninett-routes6-out seq 10 deny any'
   - 'uib-routes-in6 seq 5 permit 2001:700:200::/48'
+  - 'uib-routes-in6 seq 10 deny any'
   - 'default-route6 seq 5 permit ::/0'
 
 frrouting::frrouting::bgp_route_maps:
