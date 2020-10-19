@@ -37,8 +37,7 @@ profile::base::network::cumulus_interfaces:
   'swp30':
     'ipv4':  '129.177.54.26/30'
     'ipv6':  '2001:700:200:1027::/127'
-    'speed': '40000'
-    'mtu':   '9178'
+    'link_autoneg': 'on'
 
 frrouting::frrouting::bgp_neighbors:
   - '158.36.4.68 remote-as 224'
