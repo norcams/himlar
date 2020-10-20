@@ -5,6 +5,11 @@ network::interfaces_hash:
     netmask:       '255.255.255.0'
     defroute:      'no'
     onboot:        'yes'
+  'eth0:1':
+    ipaddress:     '10.17.0.10' # test01 mgmt
+    netmask:       '255.255.255.0'
+    defroute:      'no'
+    onboot:        'yes'
   'eth1':
     ipaddress:      '129.177.6.133'
     netmask:        '255.255.255.0'
