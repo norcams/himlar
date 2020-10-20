@@ -442,7 +442,7 @@ profile::openstack::resource::subnets:
     cidr: '10.109.0.0/22'
     ip_version: '4'
     allocation_pools:
-      - 'start=start=10.109.0.10,end=10.109.3.254'
+      - 'start=10.109.0.10,end=10.109.3.254'
     gateway_ip: '10.109.0.1'
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
