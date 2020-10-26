@@ -216,17 +216,9 @@ profile::monitoring::sensu::agent::checks:
     handlers:     ['graphite_tcp']
 
 # logrotate
+profile::logging::logrotate::manage_monitor_logrotate: true
 profile::logging::logrotate::manage_logrotate: true
 logrotate::rules:
-  monitor_logrotate:
-    path:           '/opt/graphite/storage/log/carbon-cache/carbon-cache-a/*.log'
-    rotate:         1
-    postrotate:     '/bin/kill -HUP `cat /opt/graphite/storage/carbon-cache-a.pid 2> /dev/null` 2> /dev/null || true'
-    rotate_every:   daily
-    dateext:        true
-    sharedscripts:  true
-    missingok:      true
-    compress:       true
   sensu_dashboard:
     path:           '/var/log/uchiwa.log'
     rotate:         3
