@@ -34,9 +34,16 @@ class profile::logging::elasticsearch(
       content => template("${module_name}/logging/elasticsearch/curator.yml"),
     }
     # action file
-    file { '/root/delete_indices.yml':
+    file { '/var/lib/delete_indices.yml':
       ensure  => file,
       content => template("${module_name}/logging/elasticsearch/delete_indices.yml"),
+    } ->
+      cron { 'purge elasticsearch':
+      command     => 'curator /var/lib/delete_indices.yml',
+      user        => 'root',
+      weekday     => 'Thursday',
+      hour        => 2,
+      minute      => 0,
     }
   }
 }
