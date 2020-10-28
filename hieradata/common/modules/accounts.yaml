@@ -39,6 +39,9 @@ accounts::ssh_keys:
   'sjurher':
     type:    'ssh-rsa'
     public:  'AAAAB3NzaC1yc2EAAAABIwAAAQEAuZMUpykDgxpTP3z8Ge2gC5UBStWtI6juvWICb+/vSUrvXDcvlztX0uThobj40obBTE0sKxQkDgVx2IyHUFGMWXYqWs3EStkOUQAMaW5Gva/FmMfsIyspvlO/TYpeglzFPHwDBc6IeVGSIhKZySQnj4F6kvwEBnZfhXf+gX9iW5+MOl+4R9ZWttc0x3xfKv5Jhyl7Wfx3YHlOKWXJtuJf3ZZZHY31pzwjbREGuOscLw9ATlOJu6bk94aVAafFRUnuIIV3ec195gddcjIS9ea84Q/ExElpBWO8W3aO68ejZ6TG4qm+ieKWpbQaHxk+bFp+zkjomAZisFvwmgaIQJnj9Q=='
+  'erikberg':
+    type:    'ecdsa-sha2-nistp384'
+    public:  'AAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzODQAAABhBIBDkDbOgeJHXOM9PZo2Nok5MB5AoRPndSLDIbE22mb743KFJpY4WRvDLoSUc0zTXu5yLv8lQ+8301KaBatCFaHCbEG7z4AWIv4VQEao5bu/qK6xnXwEAUmwGHddZky74A=='
 
 accounts::users:
 #  'hege':
@@ -73,6 +76,9 @@ accounts::users:
     groups: [ 'users', 'wheel' ]
   'sjurher':
     comment: 'sjurher@norcams'
+    groups: [ 'users', 'wheel' ]
+  'erikberg':
+    comment: 'erikberg@norcams'
     groups: [ 'users', 'wheel' ]
 
 accounts::accounts:
