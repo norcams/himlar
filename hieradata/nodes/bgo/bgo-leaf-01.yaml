@@ -241,6 +241,7 @@ quagga::quagga::zebra_ip6_routes:
   - '2001:700:2:83ff::251/128 fd00::16'
   - '2001:700:2:83ff::256/128 fd00::34'
   - '2001:948:62:3::/64 fd00::702'
+  - '2001:948:62:4::/64 fd00::702'
 quagga::quagga::zebra_ip_routes:
   - '109.105.127.128/26 Null0'
   - '158.39.77.248/32 172.18.0.26'
@@ -339,6 +340,7 @@ quagga::quagga::bgp_networks:
   - '109.105.127.128/26'
 quagga::quagga::bgp_networks6:
   - '2001:948:62:3::/64'
+  - '2001:948:62:4::/64'
 
 quagga::quagga::bgp_accesslist:
   '10':
@@ -353,6 +355,7 @@ quagga::quagga::bgp_accesslist6:
   '10':
     - 'permit 2001:948:62:1::/64'
     - 'permit 2001:948:62:3::/64'
+    - 'permit 2001:948:62:3::/64'
 
 quagga::quagga::bgp_ip_prefix_list:
   - 'uninett-routes-out seq 5 permit 109.105.127.128/26'
@@ -365,11 +368,13 @@ quagga::quagga::bgp_ip_prefix_list:
   - 'iaas-routes-out seq 10 deny any'
 quagga::quagga::bgp_ipv6_prefix_list:
   - 'uninett-routes-out seq 5 permit 2001:948:62:3::/64'
+  - 'uninett-routes-out seq 6 permit 2001:948:62:4::/64'
   - 'uninett-routes-out seq 10 deny any'
   - 'uninett-routes-in seq 5 permit any' 
   - 'uninett-routes-in seq 10 deny any'
   - 'iaas-routes-in seq 5 permit 2001:948:62:3::/64'
-  - 'iaas-routes-in seq 6 permit 2001:948:62:1::/64'
+  - 'iaas-routes-in seq 6 permit 2001:948:62:4::/64'
+  - 'iaas-routes-in seq 7 permit 2001:948:62:1::/64'
   - 'iaas-routes-in seq 10 deny any'
   - 'iaas-routes-out seq 10 deny any'
 
