@@ -102,11 +102,11 @@ nova::config::nova_config:
   libvirt/images_type:
     value: default
   DEFAULT/metadata_workers:
-    value: '4'
+    value: '1'
 
 # Red Hat Subscription Management (RHSM)
 profile::rhsm::subscription::manage: false
 profile::rhsm::virtwho::manage:      false
 
 sensu__memory__check:     "check-memory.rb -w 2048 -c 1024"
-sensu__disk__warning:     '91'
+sensu__disk__ignore:      '-I /var/lib/nova/instances'

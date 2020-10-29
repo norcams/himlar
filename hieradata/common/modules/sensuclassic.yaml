@@ -35,6 +35,7 @@ sensuclassic::subscriptions:
 sensu__memory__check:     "check-memory-percent.rb -w 80 -c 90"
 sensu__disk__warning:     70
 sensu__disk__crtical:     90
+sensu__disk__ignore:      ''
 sensu__load__check:       "check-load.rb -w 2.75,2.5,2.0 -c 3.5,3.25,3.0"
 
 sensuclassic::checks:
@@ -57,7 +58,7 @@ sensuclassic::checks:
     subscribers:  ['metrics']
     handlers:     ['graphite_tcp']
   'check-disk-usage':
-    command:      "check-disk-usage.rb -p '/ceph/' -w %{hiera('sensu__disk__warning')} -c %{hiera('sensu__disk__crtical')}"
+    command:      "check-disk-usage.rb -p '/ceph/' -w %{hiera('sensu__disk__warning')} -c %{hiera('sensu__disk__crtical')} %{hiera('sensu__disk__ignore')}"
     interval:     60
     subscribers:  ['checks']
   'check-load':
