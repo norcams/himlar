@@ -62,3 +62,5 @@ profile::monitoring::sensu::agent::checks:
     command:      '/usr/local/bin/redfish_check.sh'
     interval:     1800
     subscribers:  ['checks']
+
+nova::compute::libvirt::libvirt_hw_machine_type: 'x86_64=q35'
