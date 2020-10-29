@@ -6,6 +6,10 @@ class profile::logging::elasticsearch(
   $manage_firewall = true,
   $ports = [9200],
   $firewall_extras = {},
+  $user  = 'root',
+  $weekday = 'Thursday',
+  $hour = 2,
+  $minute = 0,
   $manage_curator = false
 ) {
 
@@ -40,10 +44,10 @@ class profile::logging::elasticsearch(
     } ->
       cron { 'purge elasticsearch':
       command     => 'curator /var/lib/delete_indices.yml',
-      user        => 'root',
-      weekday     => 'Thursday',
-      hour        => 2,
-      minute      => 0,
+      user        => $user,
+      weekday     => $weekday,
+      hour        => $hour,
+      minute      => $minute,
     }
   }
 }
