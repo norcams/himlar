@@ -419,11 +419,11 @@ profile::openstack::resource::subnets:
     tenant_id: '2eb4ee7df70f4d56999c5945fafb1781'
   lhc2_ipv6:
     name: 'lhc2_IPv6'
-    cidr: '2001:948:62:3::/64'
+    cidr: '2001:948:62:4::/64'
     ip_version: '6'
     allocation_pools:
-      - 'start=2001:948:62:3::3000,end=2001:948:62:3::3fff'
-    gateway_ip: '2001:948:62:3::1'
+      - 'start=2001:948:62:4::3000,end=2001:948:62:3::3fff'
+    gateway_ip: '2001:948:62:4::1'
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns6')}"
     network_name: 'lhc-IPv6'
