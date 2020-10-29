@@ -65,6 +65,8 @@ profile::base::lvm::logical_volume:
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
 
+nova::compute::libvirt::libvirt_hw_machine_type: 'x86_64=q35'
+
 # Use local storage for instances
 nova::compute::rbd::ephemeral_storage:            false
 nova::config::nova_config:
