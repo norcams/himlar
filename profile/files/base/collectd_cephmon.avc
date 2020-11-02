@@ -1,0 +1,3 @@
+type=AVC msg=audit(1587727572.015:24773): avc:   denied  { execute execute_no_trans } for  pid=*** comm="ceph" name="bash" dev="dm-0" ino=25166525 scontext=system_u:system_r:collectd_t:s0 tcontext=system_u:object_r:shell_exec_t:s0 tclass=file permissive=0
+type=AVC msg=audit(1603188181.669:70781): avc:  denied  { execute execute_no_trans } for  pid=1720651 comm="reader#3" name="ceph" dev="dm-0" ino=25235548 scontext=system_u:system_r:collectd_t:s0 tcontext=system_u:object_r:bin_t:s0 tclass=file permissive=0
+type=AVC msg=audit(1603217664.418:143541): avc:  denied  { read } for  pid=2012772 comm="ceph" name="tmp" dev="dm-0" ino=69 scontext=system_u:system_r:collectd_t:s0 tcontext=system_u:object_r:tmp_t:s0 tclass=dir permissive=0
