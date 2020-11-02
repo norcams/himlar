@@ -47,8 +47,8 @@ cinder::keystone::auth::internal_url_v3:        "%{hiera('endpoint__volume__inte
 cinder::default_transport_url:         "rabbit://cinder:%{hiera('cinder_rabbit_password')}@%{hiera('service__address__rabbitmq_01')}:5672/cinder"
 
 # logging
-cinder::logging:log_facility:          'LOG_LOCAL4'
-cinder::logging:use_syslog:             true
+cinder::logging::log_facility:          'LOG_LOCAL4'
+cinder::logging::use_syslog:             true
 
 # telemetry
 cinder::ceilometer::notification_driver:          'messagingv2'
