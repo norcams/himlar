@@ -56,6 +56,7 @@ network::interfaces_hash:
     bridge_stp:    'off'
     method:        'manual'
     bridge_ports:
+      - "e101-006-0.%{hiera('netcfg_oob_vlan')}"
       - e101-025-0
       - e101-026-0
       - e101-027-0
