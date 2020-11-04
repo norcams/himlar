@@ -168,6 +168,12 @@ profile::monitoring::sensu::agent::checks:
     interval:     60
     subscribers:  ['metrics']
     handlers:     ['graphite_tcp']
+  'placement-api-metric':
+    type:         'metric'
+    command:      "metrics-curl.rb --scheme web.api.placement -u %{hiera('endpoint__placement__public')}"
+    interval:     60
+    subscribers:  ['metrics']
+    handlers:     ['graphite_tcp']
   'image-api-metric':
     type:         'metric'
     command:      "metrics-curl.rb --scheme web.api.image -u %{hiera('endpoint__image__public')}"
