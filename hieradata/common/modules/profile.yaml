@@ -107,13 +107,13 @@ profile::base::yumrepo::repo_hash:
     baseurl:        "%{hiera('yum_base_mirror')}/centos-base/"
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7'
     gpgcheck:       1
-    exclude:        'dnsmasq'
+    exclude:        'dnsmasq postgres*'
   CentOS-Updates:
     descr:          'CentOS-$releasever - Updates'
     baseurl:        "%{hiera('yum_base_mirror')}/centos-updates/"
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7'
     gpgcheck:       1
-    exclude:        'dnsmasq'
+    exclude:        'dnsmasq postgres*'
   CentOS-Extras:
     descr:          'CentOS-$releasever - Extras'
     baseurl:        "%{hiera('yum_base_mirror')}/centos-extras/"
@@ -282,6 +282,18 @@ profile::base::yumrepo::repo_hash:
     gpgkey:         "%{hiera('yum_base_mirror')}/grafana/RPM-GPG-KEY-grafana"
     enabled:        1
     gpgcheck:       1
+  postgres-common:
+    ensure:         absent
+    descr:          'PostgreSQL common RPMs for RHEL/CentOS 7 - x86_64'
+    baseurl:        "%{hiera('yum_base_mirror')}/postgres-common"
+    gpgcheck:       0
+    enabled:        1
+  postgres-10:
+    ensure:         absent
+    descr:          'PostgreSQL 10 for RHEL/CentOS 7 - x86_64'
+    baseurl:        "%{hiera('yum_base_mirror')}/postgres-10"
+    gpgcheck:       0
+    enabled:        1
 
 profile::base::dell::repo_hash:
   dell-system-update_dependent:
