@@ -56,8 +56,8 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   passenger:
     ensure: present
-  # foreman-rails:
-  #   ensure: present
+  postgres-10:
+    ensure: present
 
 # Enable gem installation
 profile::base::common::manage_gems: true
