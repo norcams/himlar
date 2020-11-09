@@ -1,0 +1,242 @@
+---
+profile::network::leaf::manage_license: true
+profile::network::leaf::manage_portconfig: true
+
+named_interfaces::config:
+  mgmt:
+    - eth0
+  trp:
+    - bridge.100
+
+profile::base::network::cumulus_interfaces:
+  'swp48':
+    'speed': '40000'
+    'mtu':   '9216'
+
+profile::base::network::cumulus_bonds:
+  'peerlink':
+    'slaves': [ 'swp49-50', ]
+  'host1':
+    'slaves': [ 'swp1', ]
+    'clag_id': '1'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+  'host2':
+    'slaves': [ 'swp2', ]
+    'clag_id': '2'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+  'host3':
+    'slaves': [ 'swp3', ]
+    'clag_id': '3'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+  'host4':
+    'slaves': [ 'swp4', ]
+    'clag_id': '4'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+  'host5':
+    'slaves': [ 'swp5', ]
+    'clag_id': '5'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+  'host6':
+    'slaves': [ 'swp6', ]
+    'clag_id': '6'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+  'host7':
+    'slaves': [ 'swp7', ]
+    'clag_id': '7'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+  'host8':
+    'slaves': [ 'swp8', ]
+    'clag_id': '8'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+  'host9':
+    'slaves': [ 'swp9', ]
+    'clag_id': '9'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+  'host10':
+    'slaves': [ 'swp10', ]
+    'clag_id': '10'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+  'host11':
+    'slaves': [ 'swp11', ]
+    'clag_id': '11'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+  'host12':
+    'slaves': [ 'swp12', ]
+    'clag_id': '12'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+
+frrouting::frrouting::zebra_interfaces:
+  'bridge':
+    - 'link-detect'
+    - 'description linux-bridge'
+  'bridge.100':
+    - 'link-detect'
+    - 'description linux-bridge-100'
+  'host1':
+    - 'link-detect'
+  'host2':
+    - 'link-detect'
+  'host3':
+    - 'link-detect'
+  'host4':
+    - 'link-detect'
+  'host5':
+    - 'link-detect'
+  'host6':
+    - 'link-detect'
+  'host7':
+    - 'link-detect'
+  'host8':
+    - 'link-detect'
+  'host9':
+    - 'link-detect'
+  'host10':
+    - 'link-detect'
+  'host11':
+    - 'link-detect'
+  'host12':
+    - 'link-detect'
+  'host13':
+    - 'link-detect'
+  'swp48':
+    - 'link-detect'
+
+profile::base::network::cumulus_bridges:
+  'bridge':
+    'ports':
+      - host1
+      - host2
+      - host3
+      - host4
+      - host5
+      - host6
+      - host7
+      - host8
+      - host9
+      - host10
+      - host11
+      - host12
+      - host13
+    'alias_name': 'Transport L2 if'
+    'vlan_aware': 'true'
+    'stp': 'true'
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+
+frrouting::frrouting::zebra_interfaces:
+  'bridge':
+    - 'link-detect'
+    - 'description linux-bridge'
+  'bridge.100':
+    - 'link-detect'
+    - 'description linux-bridge-100'
+  'host1':
+    - 'link-detect'
+  'host2':
+    - 'link-detect'
+  'host3':
+    - 'link-detect'
+  'host4':
+    - 'link-detect'
+  'host5':
+    - 'link-detect'
+  'host6':
+    - 'link-detect'
+  'host7':
+    - 'link-detect'
+  'host8':
+    - 'link-detect'
+  'host9':
+    - 'link-detect'
+  'host10':
+    - 'link-detect'
+  'host11':
+    - 'link-detect'
+  'host12':
+    - 'link-detect'
+  'host13':
+    - 'link-detect'
+  'swp48':
+    - 'link-detect'
+
+frrouting::frrouting::zebra_generic_options:
+  'ip':
+    'forwarding'
+  'ipv6':
+    'forwarding'
+
+frrouting::frrouting::bgp_as: "%{hiera('bgp_as')}"
+
+frrouting::frrouting::bgp_options:
+  - "bgp router-id %{ipaddress_trp1}"
+  - 'bgp log-neighbor-changes'
+  - 'bgp default local-preference 200'
+  - 'maximum-paths ibgp 5'
+  - 'bgp bestpath as-path multipath-relax'
+
+frrouting::frrouting::bgp_networks:
+  - '0.0.0.0/0'
+  - '172.30.0.0/24'
+frrouting::frrouting::bgp_networks6:
+  - '::/0'
+  - 'fd00::/64'
+
+frrouting::frrouting::bgp_accesslist:
+  '10':
+    - 'permit 129.177.31.0 0.0.0.255'
+    - 'permit 10.0.250.0 0.0.0.255'
+    - 'permit 172.30.0.0 0.0.0.255'
+  '20':
+    - 'deny 129.177.31.0 0.0.0.255'
+    - 'deny 10.0.250.0 0.0.0.255'
+    - 'deny 172.30.0.0 0.0.0.255'
+    - 'permit any'
+
+frrouting::frrouting::bgp_ip_prefix_list:
+  - 'routes-from-leaf1 seq 5 deny any'
+  - 'routes-to-leaf1 seq 5 permit 0.0.0.0/0'
+
+frrouting::frrouting::bgp_route_maps:
+  'rr-client-allow permit 10':
+    - 'match ip address 10'
+  'peer-deny deny 10':
+    - 'match ip address 10'
+
+profile::network::leaf::manage_license: false
+frrouting::manage_package: false
