@@ -26,6 +26,14 @@ profile::openstack::resource::host_aggregate:
     availability_zone: "%{::location}-default-1"
     metadata:
       type: 'windows'
+  shpc_cpu1:
+    availability_zone: "%{::location}-default-1"
+    metadata:
+      type: 'shpc_cpu'
+  shpc_ram1:
+    availability_zone: "%{::location}-default-1"
+    metadata:
+      type: 'shpc_ram'
   alice1:
     availability_zone: "%{::location}-default-1"
     metadata:

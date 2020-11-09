@@ -53,6 +53,8 @@ profile::base::lvm::logical_volume:
 
 sensu__memory__check:     "check-memory.rb -w 1536 -c 1024"
 
+nova::compute::libvirt::libvirt_hw_machine_type: 'x86_64=q35'
+
 # This compute host uses local storage for instances
 nova::compute::rbd::ephemeral_storage:  false
 nova::config::nova_config:

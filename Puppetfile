@@ -80,7 +80,7 @@ mod 'gitolite', :ref => '1.1',                      :git => github + 'uib/puppet
 # profile::application::foreman
 #
 mod 'voxpupuli/r10k', :ref => 'v6.2.0',             :git => github + 'voxpupuli/puppet-r10k'
-mod 'theforeman/foreman', :ref => '15.0.0',         :git => github + 'theforeman/puppet-foreman.git'
+mod 'theforeman/foreman', :ref => '15.1.1',         :git => github + 'theforeman/puppet-foreman.git'
 # mod 'theforeman/concat_native', '1.5.0'             # forge replace with puppetlabs-concat (further down)
 mod 'theforeman/tftp', :ref => '6.0.0',             :git => github + 'theforeman/puppet-tftp'
 mod 'theforeman/puppet', :ref => '14.0.0',          :git => github + 'theforeman/puppet-puppet.git'
@@ -88,7 +88,7 @@ mod 'puppetlabs/hocon', :ref => '1.0.0',            :git => github + 'puppetlabs
 mod 'puppetlabs/puppet_authorization', :ref => '0.4.0', :git => github + 'puppetlabs/puppetlabs-puppet_authorization'
 mod 'theforeman/dns', :ref => '8.0.0',              :git => github + 'theforeman/puppet-dns'
 mod 'theforeman/dhcp', :ref => '3.1.9-norcams',     :git => github + 'norcams/puppet-dhcp.git'
-mod 'theforeman/foreman_proxy', :ref => '14.0.2',   :git => github + 'theforeman/puppet-foreman_proxy.git'
+mod 'theforeman/foreman_proxy', :ref => '15.1.0',   :git => github + 'theforeman/puppet-foreman_proxy.git'
 mod 'theforeman/git', :ref => '3.0.0',              :git => github + 'theforeman/puppet-git'
 mod 'voxpupuli/alternatives', :ref => 'v2.0.0',     :git => github + 'voxpupuli/puppet-alternatives'
 mod 'voxpupuli/extlib', :ref => 'v2.0.1-82-g53c6e2b', :git => github + 'voxpupuli/puppet-extlib.git'
@@ -134,7 +134,7 @@ mod 'puppetlabs/apache', :ref => '3.5.0',           :git => github + 'puppetlabs
 #
 # profile::database::postgresql
 #
-mod 'postgresql', :ref => '5.2.0',                  :git => github + 'puppetlabs/puppetlabs-postgresql'
+mod 'postgresql', :ref => 'v6.8.0',                 :git => github + 'puppetlabs/puppetlabs-postgresql'
 
 #
 # profile::database::mariadb

@@ -128,3 +128,8 @@ profile::storage::ceph_crushbucket::buckets:
   'storage':
     bucket_type:   'pod'
     bucket_parent: 'default'
+
+profile::base::selinux::manage_selinux: true
+profile::base::selinux::semodules:
+  'collectd_cephmon':
+    avc_file:   "collectd_cephmon.avc"

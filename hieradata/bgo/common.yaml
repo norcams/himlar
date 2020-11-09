@@ -91,6 +91,7 @@ netcfg_lhc_gateway:       '172.18.7.3'
 netcfg_lhc_gateway6:      'fd00::703'
 netcfg_lhc_network:       '109.105.127.128/26'
 netcfg_lhc_network6:      '2001:948:62:3::/64'
+netcfg_lhc2_network6:     '2001:948:62:4::/64'
 netcfg_lhcpriv_network:   '10.109.0.0/20'
 netcfg_lhcpriv_gateway:   '172.18.0.28'
 netcfg_pub_natgw:         '158.39.77.248'
@@ -155,11 +156,11 @@ profile::network::services::dns_records:
     "%{::location}-compute-vgpu-35.%{hiera('domain_mgmt')}":    "%{::location}-compute-35.%{hiera('domain_mgmt')}"
     "%{::location}-compute-clarino-36.%{hiera('domain_mgmt')}": "%{::location}-compute-36.%{hiera('domain_mgmt')}"
     "%{::location}-compute-clarino-37.%{hiera('domain_mgmt')}": "%{::location}-compute-37.%{hiera('domain_mgmt')}"
-    "%{::location}-compute-hpc-41.%{hiera('domain_mgmt')}":     "%{::location}-compute-41.%{hiera('domain_mgmt')}"
-    "%{::location}-compute-hpc-42.%{hiera('domain_mgmt')}":     "%{::location}-compute-42.%{hiera('domain_mgmt')}"
-    "%{::location}-compute-hpc-43.%{hiera('domain_mgmt')}":     "%{::location}-compute-43.%{hiera('domain_mgmt')}"
-    "%{::location}-compute-hpc-44.%{hiera('domain_mgmt')}":     "%{::location}-compute-44.%{hiera('domain_mgmt')}"
-    "%{::location}-compute-hpc-45.%{hiera('domain_mgmt')}":     "%{::location}-compute-45.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-epyc-41.%{hiera('domain_mgmt')}":    "%{::location}-compute-41.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-epyc-42.%{hiera('domain_mgmt')}":    "%{::location}-compute-42.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-epyc-43.%{hiera('domain_mgmt')}":    "%{::location}-compute-43.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-epyc-44.%{hiera('domain_mgmt')}":    "%{::location}-compute-44.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-epyc-45.%{hiera('domain_mgmt')}":    "%{::location}-compute-45.%{hiera('domain_mgmt')}"
     "%{::location}-compute-hpc-46.%{hiera('domain_mgmt')}":     "%{::location}-compute-46.%{hiera('domain_mgmt')}"
     "%{::location}-compute-hpc-47.%{hiera('domain_mgmt')}":     "%{::location}-compute-47.%{hiera('domain_mgmt')}"
     "%{::location}-compute-hpc-48.%{hiera('domain_mgmt')}":     "%{::location}-compute-48.%{hiera('domain_mgmt')}"

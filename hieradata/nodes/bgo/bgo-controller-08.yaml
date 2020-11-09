@@ -13,6 +13,11 @@ network::interfaces_hash:
   'em3':
     onboot:        'yes'
     bridge:        'br0'
+  'em3.909':
+    onboot:        'yes'
+    bridge:        'br3'
+    vlan:          'yes'
+    defroute:      'no'
   'team1':
     onboot:        'yes'
     bridge:        'br1'
@@ -41,6 +46,11 @@ network::interfaces_hash:
     defroute:     'no'
     bridge_stp:   'off'
     mtu:           '9000'
+  'br3':
+    onboot:       'yes'
+    type:         'Bridge'
+    defroute:     'no'
+    bridge_stp:   'off'
 
 lvm::volume_groups:
   vg_ext:
