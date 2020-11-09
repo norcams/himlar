@@ -212,7 +212,7 @@ frrouting::frrouting::bgp_options:
 
 frrouting::frrouting::bgp_networks:
   - '0.0.0.0/0'
-  - '172.30.0.0/24'
+  - '172.30.0.0/21'
 frrouting::frrouting::bgp_networks6:
   - '::/0'
   - 'fd00::/64'
@@ -221,11 +221,11 @@ frrouting::frrouting::bgp_accesslist:
   '10':
     - 'permit 129.177.31.0 0.0.0.255'
     - 'permit 10.0.250.0 0.0.0.255'
-    - 'permit 172.30.0.0 0.0.0.255'
+    - 'permit 172.30.0.0 0.0.7.255'
   '20':
     - 'deny 129.177.31.0 0.0.0.255'
     - 'deny 10.0.250.0 0.0.0.255'
-    - 'deny 172.30.0.0 0.0.0.255'
+    - 'deny 172.30.0.0 0.0.7.255'
     - 'permit any'
 
 frrouting::frrouting::bgp_ip_prefix_list:
