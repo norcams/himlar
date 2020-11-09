@@ -6,3 +6,11 @@ include:
 profile::dns::rndc_key::create_admin_key:    true
 profile::dns::rndc_key::create_mdns_key:     false
 profile::dns::rndc_key::host_is_bind_server: false
+
+profile::network::services::dhcp_reservation:
+  bgo-spine-01:
+    mac: '68:4f:64:b2:3c:11'
+    ip:  '172.28.6.1'
+  bgo-spine-02:
+    mac: '14:18:77:01:22:00'
+    ip:  '172.28.6.2'
