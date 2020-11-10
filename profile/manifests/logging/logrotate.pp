@@ -2,6 +2,7 @@
 class profile::logging::logrotate(
   $manage_logrotate 		= false,
   $manage_monitor_logrotate = false,
+  $path     = '',
   $age      = '12w',
   $recurse  = true,
   $matches  = '.*log.*',
@@ -13,10 +14,10 @@ class profile::logging::logrotate(
 
   if $manage_monitor_logrotate {
     tidy { 'carbon-cache':
-      path  =>  '/opt/graphite/storage/log/carbon-cache/carbon-cache-a/',
-      age => $age,
-      recurse => $recurse,
-      matches => $matches,
+      path      => $path,
+      age       => $age,
+      recurse   => $recurse,
+      matches   => $matches,
     }
   }
 }

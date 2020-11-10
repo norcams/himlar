@@ -216,8 +216,9 @@ profile::monitoring::sensu::agent::checks:
     handlers:     ['graphite_tcp']
 
 # logrotate
-profile::logging::logrotate::manage_monitor_logrotate: true
 profile::logging::logrotate::manage_logrotate: true
+profile::logging::logrotate::manage_monitor_logrotate: true
+profile::logging::logrotate::manage_monitor_logrotate::path: '/opt/graphite/storage/log/carbon-cache/carbon-cache-a/*.log'
 logrotate::rules:
   sensu_dashboard:
     path:           '/var/log/uchiwa.log'
