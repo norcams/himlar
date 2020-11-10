@@ -133,3 +133,7 @@ profile::base::selinux::manage_selinux: true
 profile::base::selinux::semodules:
   'collectd_cephmon':
     avc_file:   "collectd_cephmon.avc"
+profile::base::selinux::boolean:
+  'collectd_tcp_network_connect':
+    ensure: 'on'
+    persistent: true
