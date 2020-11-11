@@ -155,7 +155,7 @@ mod 'archive', :ref => 'v2.2.0',                    :git => github + 'voxpupuli/
 #
 # profile::openstack::*
 #
-mod 'glance', :ref => '14.4.0',                     :git => github + 'openstack/puppet-glance'
+mod 'glance', :ref => '15.4.0',                     :git => github + 'openstack/puppet-glance'
 mod 'cinder', :ref => '14.4.0',                     :git => github + 'openstack/puppet-cinder'
 mod 'neutron', :ref => '14.4.0',                    :git => github + 'openstack/puppet-neutron'
 mod 'nova', :ref => '14.4.0',                       :git => github + 'openstack/puppet-nova'
@@ -167,9 +167,9 @@ mod 'ceilometer', :ref => '14.4.0',                 :git => github + 'openstack/
 mod 'designate', :ref => '14.4.0',                  :git => github + 'openstack/puppet-designate'
 mod 'cloudkitty', :ref => '3.4.0',                  :git => github + 'openstack/puppet-cloudkitty'
 
-mod 'oslo', :ref => '14.4.0',                       :git => github + 'openstack/puppet-oslo'
-mod 'openstacklib', :ref => '14.4.0',               :git => github + 'openstack/puppet-openstacklib'
-mod 'openstack_extras', :ref => '14.4.0',           :git => github + 'openstack/puppet-openstack_extras'
+mod 'oslo', :ref => '15.4.0',                       :git => github + 'openstack/puppet-oslo'
+mod 'openstacklib', :ref => '15.4.0',               :git => github + 'openstack/puppet-openstacklib'
+mod 'openstack_extras', :ref => '15.4.0',           :git => github + 'openstack/puppet-openstack_extras'
 mod 'sysctl', :ref => 'v0.0.11',                    :git => github + 'duritong/puppet-sysctl'
 mod 'memcached', :ref => 'v3.0.2',                  :git => github + 'saz/puppet-memcached'
 mod 'rsync', :ref => '0.4.0',                       :git => github + 'puppetlabs/puppetlabs-rsync'
