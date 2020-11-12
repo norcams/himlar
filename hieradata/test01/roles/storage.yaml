@@ -2,10 +2,12 @@
 named_interfaces::config:
   mgmt:
     - em3
+  transport:
+    - team1
   trp:
-    - bond0
+    - team1
   ceph:
-    - bond0
+    - team1.110
 
 profile::base::network::network_auto_opts:
   trp:
