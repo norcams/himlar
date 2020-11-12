@@ -137,3 +137,6 @@ profile::base::selinux::boolean:
   'collectd_tcp_network_connect':
     ensure: 'on'
     persistent: true
+  'daemons_enable_cluster_mode':
+    ensure: 'on'
+    persistent: true
