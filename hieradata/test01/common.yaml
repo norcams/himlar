@@ -78,8 +78,11 @@ netcfg_anycast_dns:     '129.177.31.118'
 netcfg_anycast_dns6:    '2001:700:200:917::3f18'
 netcfg_trp_rr:
   rr1:
-    peer_ipv4: '172.30.0.1'
-    peer_ipv6: 'fd00::1'
+    peer_ipv4: '172.30.6.1'
+    peer_ipv6: 'fd00::6:1'
+  rr1:
+    peer_ipv4: '172.30.6.2'
+    peer_ipv6: 'fd00::6:2'
 
 public__ip__proxy:              '129.177.31.123'
 public__ip__ns:                 '129.177.31.117'
