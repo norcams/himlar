@@ -65,7 +65,9 @@ netcfg_trp_net_c6:      '172.30.6'
 netcfg_trp_net_c7:      '172.30.7'
 netcfg_trp_netmask:     '255.255.248.0'
 netcfg_trp_netmask6:    '64'
-netcfg_live_netpart:    '172.30.0'
+netcfg_ceph_netpart:    '172.31.0'
+netcfg_ceph_netmask:    '255.255.248.0'
+netcfg_live_netpart:    '172.32.0'
 netcfg_live_netmask:    '255.255.248.0'
 #netcfg_dns_server2:     '129.177.12.31'
 netcfg_dns_server1:     '172.28.0.10'
@@ -113,7 +115,6 @@ profile::network::services::dns_records:
     # mgmt
     "%{::location}-login-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_mgmt_netpart')}.10"
     "git.%{hiera('domain_mgmt')}":                          "%{hiera('netcfg_mgmt_net_c0')}.9"
-
   AAAA:
     "ns.%{hiera('domain_frontend')}":     '2001:700:200:917::3f17'
     "resolver.%{hiera('domain_public')}": '2001:700:200:917::3f18'
@@ -126,7 +127,8 @@ profile::network::services::dns_records:
     # public IPv6
     "7.1.f.3.0.0.0.0.0.0.0.0.0.0.0.0.%{hiera('reverse_public6')}":  "ns.%{hiera('domain_frontend')}"
     "8.1.f.3.0.0.0.0.0.0.0.0.0.0.0.0.%{hiera('reverse_public6')}":  "resolver.%{hiera('domain_public')}"
-
+  CNAME:
+    "%{::location}-leaf-placeholder-01.%{hiera('domain_mgmt')}":    "%{::location}-leaf-01.%{hiera('domain_mgmt')}"
 
 profile::network::services::dns_options:
   CNAME:
