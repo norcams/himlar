@@ -5,11 +5,11 @@ include:
 
 named_interfaces::config:
   mgmt:
-    - bond0
+    - p1p1
   trp:
-    - bond0.912
+    - team1
   live:
-    - bond0.912
+    - team1.120
 
 profile::base::network::network_auto_opts:
   mgmt:
