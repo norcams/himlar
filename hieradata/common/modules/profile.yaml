@@ -132,15 +132,17 @@ profile::base::yumrepo::repo_hash:
     descr:          'UH-IaaS repo'
     baseurl:        "%{hiera('yum_base_mirror')}/uh-iaas/"
     gpgcheck:       0
-  uh-iaas-nonfree:
-    descr:          'UH-IaaS repo non-free'
-    baseurl:        'https://download.iaas.uio.no/uh-iaas/nonfree/yum-nonfree'
-    gpgcheck:       0
   sensu:
     descr:          'Sensu repo'
     baseurl:        "%{hiera('yum_base_mirror')}/sensu/"
     gpgcheck:       0
 # Optional repos: enable them with ensure: present in common/role
+  uh-iaas-nonfree:
+    ensure:         absent
+    descr:          'UH-IaaS repo non-free'
+    baseurl:        'https://download.iaas.uio.no/uh-iaas/nonfree/yum-nonfree'
+    enabled:        1
+    gpgcheck:       0
   centos-qemu-ev:
     ensure:         absent
     descr:          "CentOS-QEMU-EV repository. See http://wiki.centos.org/SpecialInterestGroup/Virtualization"
