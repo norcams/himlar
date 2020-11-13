@@ -36,7 +36,9 @@ profile::base::physical::disable_intel_cstates: true
 #profile::base::common::extraswap:         true
 #profile::base::common::extraswap_sizegb:  20
 #profile::base::common::extraswap_fileloc: '/var/lib/swap/swapfile'
-profile::base::physical::load_ahci_first: true
+# Ensure that the BOSS device is the last device
+profile::base::physical::load_ahci_last: true
+profile::base::physical::load_ahci_last_scsidrv: 'mpt2sas'
 
 profile::base::selinux::manage_selinux: false
 
@@ -64,9 +66,6 @@ profile::storage::cephpool::manage_cephpool_params: false
 #    volume_group: 'vg_journala'
 #    fs_type:      xfs
 #    mountpath:    "/journal/journala01"
-
-profile::storage::fake_ssds:
-  'sdb': {}
 
 profile::storage::cephosd::osds:
   '/dev/sdb': {}
