@@ -130,7 +130,7 @@ common_config()
   norcams_pxegrub2_id=$(/bin/hammer --csv template list --per-page 1000 | grep 'norcams Kickstart default PXEGrub2' | cut -d, -f1)
   norcams_ptable_id=$(/bin/hammer --csv partition-table list --per-page 1000 | grep 'norcams Kickstart default,' | cut -d, -f1)
   norcams_ptable_uefi_id=$(/bin/hammer --csv partition-table list --per-page 1000 | grep 'norcams Kickstart default uefi,' | cut -d, -f1)
-  
+
   # Associate partition templates with Redhat family of OSes
   /bin/hammer partition-table update --id $norcams_ptable_id \
       --organization-id $foreman_organization_id \
@@ -140,8 +140,8 @@ common_config()
       --location-id $foreman_location_id --os-family Redhat
 
   # Create and update OS
-  /bin/hammer --csv os list --per-page 1000 | grep 'CentOS 7' || /bin/hammer os create --name CentOS --major 7 --minor 8 || true
-  for centos_os in $(/bin/hammer --csv os list --per-page 1000 | grep 'CentOS 7.8' | cut -d, -f1); do
+  /bin/hammer --csv os list --per-page 1000 | grep 'CentOS 7' || /bin/hammer os create --name CentOS --major 7 --minor 9 || true
+  for centos_os in $(/bin/hammer --csv os list --per-page 1000 | grep 'CentOS 7.9' | cut -d, -f1); do
     /bin/hammer os update --id $centos_os --name CentOS --major 7\
       --family Redhat \
       --architecture-ids 1 \
