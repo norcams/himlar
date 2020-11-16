@@ -286,7 +286,7 @@ profile::network::services::dns_records:
     "%{::location}-db-regional-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_net_c0')}.42"
     "%{::location}-volume-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_net_c0')}.46"
     "%{::location}-volume-02.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_net_c0')}.47"
-    "%{::location}-volume-03.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_net_c0')}.47"
+    "%{::location}-volume-03.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_net_c0')}.48"
     "%{::location}-access-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_net_c0')}.56"
     "%{::location}-dashboard-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_mgmt_net_c0')}.51"
     "%{::location}-dashboard-mgmt-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_net_c0')}.54"
