@@ -54,6 +54,14 @@ class profile::application::foreman(
     }
   }
 
+  # config
+  $config = lookup('profile::web::foreman::config', Hash, 'deep', {})
+  create_resources('foreman_config_entry', $config, { require => Class['foreman::install']})
+
+  # plugins
+  $plugins = lookup('profile::web::foreman::plugins', Hash, 'deep', {})
+  create_resources('foreman::plugin', $plugins)
+
   # Push puppet facts to foreman
   $push_facts_ensure = $push_facts? {
     true    => 'present',
