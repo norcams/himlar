@@ -140,7 +140,7 @@ common_config()
       --location-id $foreman_location_id --os-family Redhat
 
   # Create and update OS
-  /bin/hammer --csv os list --per-page 1000 | grep 'CentOS 7' || /bin/hammer os create --name CentOS --major 7 --minor 9 || true
+  /bin/hammer --csv os list --per-page 1000 | grep 'CentOS 7.9' || /bin/hammer os create --name CentOS --major 7 --minor 9.2009 || true
   for centos_os in $(/bin/hammer --csv os list --per-page 1000 | grep 'CentOS 7.9' | cut -d, -f1); do
     /bin/hammer os update --id $centos_os --name CentOS --major 7\
       --family Redhat \
@@ -218,7 +218,7 @@ common_config()
     Setting["entries_per_page"]             = 100
     Setting["foreman_url"]                  = "https://'$foreman_fqdn'"
     Setting["unattended_url"]               = "http://'$foreman_fqdn'"
-    Setting["trusted_puppetmaster_hosts"]   = [ "'$foreman_fqdn'" ]
+    Setting["trusted_hosts"]                = [ "'$foreman_fqdn'" ]
     Setting["discovery_fact_column"]        = "ipmi_ipaddress"
     Setting["update_ip_from_built_request"] = true
     Setting["use_shortname_for_vms"]        = true
