@@ -83,7 +83,6 @@ profile::base::network::network_auto_bonding:
       'team_port_config': '{ "prio" : 100 }'
       'mtu': '9000'
 
-nova::compute::libvirt::libvirt_hw_machine_type: 'x86_64=q35'
 # These compute host uses local storage for instances
 nova::compute::rbd::ephemeral_storage: false
 nova::config::nova_config:
