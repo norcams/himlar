@@ -98,4 +98,3 @@ sensu__memory__check:     "check-memory.rb -w 2048 -c 1024"
 profile::rhsm::subscription::manage: false
 profile::rhsm::virtwho::manage:      false
 
-nova::compute::libvirt::libvirt_hw_machine_type: 'x86_64=q35'
