@@ -39,8 +39,9 @@ profile::base::physical::disable_intel_cstates: true
 # Ensure that the BOSS device is the last device
 profile::base::physical::load_ahci_last: true
 profile::base::physical::load_ahci_last_scsidrv: 'mpt2sas'
-#profile::base::physical::load_ahci_first: true
-#profile::base::physical::load_ahci_first_scsidrv: 'mpt2sas'
+profile::base::physical::scsi_load_order: true
+profile::base::physical::scsi_load_order_first:  'mpt2sas'
+profile::base::physical::scsi_load_order_second: 'megaraid'
 
 profile::base::selinux::manage_selinux: false
 
