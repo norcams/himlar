@@ -35,8 +35,8 @@ profile::base::common::packages:
 
 # apache httpd
 # this should be fine for 4 GB RAM
-apache::mod::prefork::serverlimit:        768
-apache::mod::prefork::maxrequestworkers:  768
+apache::mod::prefork::serverlimit:        1024
+apache::mod::prefork::maxrequestworkers:  1024
 
 # Sensu
 profile::webserver::apache::status::manage_status: true
