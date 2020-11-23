@@ -41,7 +41,7 @@ profile::base::physical::load_ahci_last: true
 profile::base::physical::load_ahci_last_scsidrv: 'mpt2sas'
 profile::base::physical::scsi_load_order: true
 profile::base::physical::scsi_load_order_first:  'mpt2sas'
-profile::base::physical::scsi_load_order_second: 'megaraid'
+profile::base::physical::scsi_load_order_second: 'megaraid_sas'
 
 profile::base::selinux::manage_selinux: false
 
