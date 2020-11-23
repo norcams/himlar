@@ -52,8 +52,10 @@ nova::placement::project_name:            "%{hiera('keystone__service__project')
 nova::wsgi::apache_placement::ssl:        false
 nova::wsgi::apache_placement::api_port:   8778
 nova::wsgi::apache_placement::bind_host:  "%{ipaddress_trp1}"
-nova::wsgi::apache_placement::threads:    2
+nova::wsgi::apache_placement::threads:    1
 nova::wsgi::apache_placement::workers:    4
+nova::wsgi::apache_placement::custom_wsgi_process_options:
+  maximum-requests: 1000
 
 # api (node: novactrl)
 nova::api::enabled_apis:                [ 'osapi_compute', ]
@@ -64,9 +66,10 @@ nova::api::service_name:                'httpd'
 # nova wsgi
 nova::wsgi::apache_api::ssl:        false
 nova::wsgi::apache_api::bind_host:  "%{ipaddress_trp1}"
-nova::wsgi::apache_api::threads:    2
+nova::wsgi::apache_api::threads:    1
 nova::wsgi::apache_api::workers:    4
-
+nova::wsgi::apache_api::custom_wsgi_process_options:
+  maximum-requests: 1000
 
 nova::cells::enabled: false
 
