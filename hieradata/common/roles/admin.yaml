@@ -11,6 +11,7 @@ foreman_version: '2.1'
 
 sensu__disk__warning:     80
 sensu__disk__crtical:     90
+sensu__memory__check:     "check-memory-percent.rb -w 85 -c 95"
 
 profile::base::common::packages:
   'bash-completion': {}
