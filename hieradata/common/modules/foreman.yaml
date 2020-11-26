@@ -12,3 +12,39 @@ foreman::cli::manage_root_config:           true
 foreman::plugin::discovery::install_images: true
 foreman::db_host:                           '127.0.0.1'
 foreman::config::passenger::serveraliases:  [ "foreman.%{hiera('domain_mgmt')}" ]
+
+profile::application::foreman::config:
+  create_new_host_when_facts_are_uploaded:
+    value:  'false'
+  default_location:
+    value:  'Default Location'
+  default_organization:
+    value:  'Default Organization'
+  discovery_fact_column:
+    value:  'ipmi_ipaddress'
+  entries_per_page:
+    value:  100
+  foreman_url:
+    value:  "https://foreman.%{hiera('domain_public')}"
+  idle_timeout:
+    value:  180
+  root_pass:
+    value:  '$1$16W5j9.P$wrGl0KophqmJwfADuUOIM/'
+  template_sync_branch:
+    value:  'master'
+  template_sync_prefix:
+    value:  'norcams-'
+  template_sync_repo:
+    value:  'https://github.com/norcams/foreman-templates.git'
+  trusted_hosts:
+    value:  "[\"foreman.%{hiera('domain_public')}\"]"
+  unattended_url:
+    value:  "http://foreman.%{hiera('domain_public')}"
+  update_ip_from_built_request:
+    value:  'true'
+  use_shortname_for_vms:
+    value:  'true'
+
+profile::application::foreman::plugins:
+  hammer_cli_foreman_templates:
+    package: 'tfm-rubygem-hammer_cli_foreman_templates'

@@ -54,6 +54,8 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   foreman-plugins:
     ensure: present
+  centos-sclo-rh:
+    ensure: present
   passenger:
     ensure: present
   postgres-10:
