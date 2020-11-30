@@ -2,10 +2,10 @@
 class profile::monitoring::graphite (
   $manage_graphite          = false,
   $manage_monitor_logrotate = false,
-  $path     = '',
-  $age      = '12w',
-  $recurse  = true,
-  $matches  = '.*log.*',
+  $carbon_log_path  	    = '',
+  $age      		    = '12w',
+  $recurse  		    = true,
+  $matches  		    = '.*log.*',
 ) {
 
   if $manage_graphite {
@@ -22,7 +22,7 @@ class profile::monitoring::graphite (
 
   if $carbon_log_path {
     tidy { 'carbon-cache':
-      path      => $path,
+      path      => $carbon_log_path,
       age       => $age,
       recurse   => $recurse,
       matches   => $matches,
