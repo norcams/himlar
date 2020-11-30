@@ -1,0 +1,11 @@
+--- /tmp/tables.py      2018-02-22 13:20:54.083878759 +0100
++++ /usr/share/openstack-dashboard/openstack_dashboard/dashboards/project/instances/tables.py  2018-02-22 13:14:01.480736250 +0100
+@@ -1029,7 +1029,7 @@
+             "flavor_id": instance.full_flavor.id
+         }
+         return template.loader.render_to_string(template_name, context)
+-    return _("Not available")
++    return _("Outdated")
+ 
+ def get_keyname(instance):
+     if hasattr(instance, "key_name"):

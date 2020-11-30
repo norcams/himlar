@@ -1,0 +1,13 @@
+diff --git a/openstack_auth/backend.py b/openstack_auth/backend.py
+index c8acd21..8690c37 100644
+--- a/usr/lib/python2.7/site-packages/openstack_auth/backend.py
++++ b/usr/lib/python2.7/site-packages/openstack_auth/backend.py
+@@ -150,7 +150,7 @@ class KeystoneBackend(object):
+         elif not scoped_auth_ref and not domain_auth_ref:
+             msg = _('You are not authorized for any projects.')
+             if utils.get_keystone_version() >= 3:
+-                msg = _('You are not authorized for any projects or domains.')
++                msg = _('You are not authorized for any projects or domains. Please visit https://access.uh-iaas.no first')
+             raise exceptions.KeystoneAuthException(msg)
+
+         # Check expiry for our new scoped token.
