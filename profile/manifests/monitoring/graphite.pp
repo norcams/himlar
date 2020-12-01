@@ -1,11 +1,11 @@
 #
 class profile::monitoring::graphite (
-  $manage_graphite          = false,
+  $manage_graphite = false,
   $manage_monitor_logrotate = false,
-  $carbon_log_path          = '',
-  $age      		    = '12w',
-  $recurse  		    = true,
-  $matches  		    = '.*log.*',
+  $carbon_log_path = '',
+  $age = '12w',
+  $recurse = true,
+  $matches = '.*log.*',
 ) {
 
   if $manage_graphite {
@@ -13,19 +13,19 @@ class profile::monitoring::graphite (
 
     # Used by collectd
     profile::firewall::rule { '415 graphite accept udp':
-      dport       => [2003],
+      dport => [2003],
       destination => $::ipaddress_mgmt1,
-      proto       => 'udp',
-      source      => "${::network_mgmt1}/${::netmask_mgmt1}"
+      proto => 'udp',
+      source => "${::network_mgmt1}/${::netmask_mgmt1}"
     }
   }
 
   if $carbon_log_path {
     tidy { 'carbon-cache':
-      path	=> $carbon_log_path,
-      age	=> $age,
-      recurse   => $recurse,
-      matches   => $matches,
+      path => $carbon_log_path,
+      age => $age,
+      recurse => $recurse,
+      matches => $matches,
     }
   }
 }
