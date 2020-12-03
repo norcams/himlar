@@ -15,13 +15,13 @@ network__backend__ips:
   - "%{hiera('netcfg_trp_netpart')}.72"
   - "%{hiera('netcfg_trp_netpart')}.73"
 compute__backend__names:
-#  - '%{::location}-novactrl-01'
+  - '%{::location}-novactrl-01'
   - '%{::location}-novactrl-02'
-#  - '%{::location}-novactrl-03'
+  - '%{::location}-novactrl-03'
 compute__backend__ips:
-#  - "%{hiera('netcfg_trp_netpart')}.66"
+  - "%{hiera('netcfg_trp_netpart')}.66"
   - "%{hiera('netcfg_trp_netpart')}.67"
-#  - "%{hiera('netcfg_trp_netpart')}.68"
+  - "%{hiera('netcfg_trp_netpart')}.68"
 identity__backend__names:
   - "%{::location}-identity-01"
   - "%{::location}-identity-02"
