@@ -147,7 +147,9 @@ profile::base::yumrepo::repo_hash:
     ensure:   present
     exclude:  'mariadb*'
   mariadb:
-    ensure:   present
+    ensure:   absent
+  "mariadb-%{hiera('mariadb_version')}":
+    ensure:     present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
     includepkgs: 'htop bash-completion-extras'
