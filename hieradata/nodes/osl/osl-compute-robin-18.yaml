@@ -1,7 +1,7 @@
 ---
-include:
-  default:
-    - profile::monitoring::netdata
+# include:
+#   default:
+#     - profile::monitoring::netdata
 
 # Turn off nested virtualization
 profile::virtualization::nested::manage: false
@@ -58,4 +58,4 @@ nova::config::nova_config:
   libvirt/images_type:
     value: default
   DEFAULT/metadata_workers:
-    value: '4'
+    value: '1'
