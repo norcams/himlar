@@ -221,6 +221,13 @@ ceph::profile::params::client_keys:
     group: 'cinder'
     cap_mon: 'profile rbd'
     cap_osd: 'profile rbd pool=volumes_hdd_ec_meta, profile rbd pool=volumes_hdd_ec_data'
+  'client.cinder-ssd-ec':
+    secret: "%{hiera('ceph_storage_client_cinder_key')}"
+    mode: '0600'
+    user: 'cinder'
+    group: 'cinder'
+    cap_mon: 'profile rbd'
+    cap_osd: 'profile rbd pool=volumes_ssd_ec_meta, profile rbd pool=volumes_ssd_ec_data'
   'client.cinder-dcache-hdd-ec':
     secret: "%{hiera('ceph_storage_client_cinder_key')}"
     mode: '0600'
