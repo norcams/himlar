@@ -248,6 +248,8 @@ profile::storage::ceph_ecpool::ec_pools:
 profile::storage::cephpool_params::pools:
   'volumes_hdd_ec_data':
     application_enable: 'rbd'
+  'volumes_ssd_ec_data':
+    application_enable: 'rbd'
 
 # Sensu
 sudo::configs:
