@@ -53,7 +53,7 @@ profile::base::network::routing_tables:
   'private':
     'table_id':  '240'
 profile::base::network::rules:
-  'bond0.912':
+  'team1':
     iprule: [ "from %{hiera('netcfg_priv_network')} lookup private", ]
 profile::base::network::manage_neutron_blackhole: true
 
