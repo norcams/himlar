@@ -262,6 +262,9 @@ profile::storage::ceph_extraconf::config:
   client_ecc_backend:
     'config_key'  : "client.cinder-hdd-ec/rbd_default_data_pool"
     'config_value': "volumes_hdd_ec_data"
+  client_ssd_ecc_backend:
+    'config_key'  : "client.cinder-ssd-ec/rbd_default_data_pool"
+    'config_value': "volumes_ssd_ec_data"
   client_dcache_backend:
     'config_key'  : "client.cinder-dcache-hdd-ec/rbd_default_data_pool"
     'config_value': "dcache_hdd_ec_data"
