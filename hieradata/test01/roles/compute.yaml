@@ -44,7 +44,7 @@ ntp::servers:
 
 # Add custom routing table for private network to NAT
 profile::base::network::routes:
-  'bond0.912':
+  'team1':
     'ipaddress': [ '0.0.0.0', '0.0.0.0', ]
     'netmask':   [ '0.0.0.0', '0.0.0.0', ]
     'gateway':   [ "%{hiera('netcfg_priv_gateway')}", "%{hiera('netcfg_trp_gateway')}" ]
