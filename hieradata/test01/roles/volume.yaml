@@ -8,6 +8,10 @@ profile::openstack::volume::type:
     visibility: "public"
     properties:
       - 'volume_backend_name=mass-storage-default'
+  mass-storage-ssd:
+    visibility: "public"
+    properties:
+      - 'volume_backend_name=mass-storage-ssd'
 
 profile::openstack::volume::backend::rbd:
   rbd-volumes:
@@ -30,9 +34,20 @@ profile::openstack::volume::backend::rbd:
         value: 'True'
       mass-storage-default/rbd_exclusive_cinder_pool:
         value: 'True'
+  mass-storage-ssd:
+    rbd_pool: 'volumes_ssd_ec_meta'
+    rbd_user: 'cinder-ssd-ec'
+    rbd_flatten_volume_from_snapshot: 'True'
+    rbd_secret_uuid: "%{hiera('libvirt_rbd_secret_uuid')}"
+    extra_options:
+      mass-storage-ssd/enable_deferred_deletion:
+        value: 'True'
+      mass-storage-ssd/rbd_exclusive_cinder_pool:
+        value: 'True'
 
 cinder::api::default_volume_type: 'mass-storage-default'
 
 cinder::backends::enabled_backends:
   - rbd-volumes
   - mass-storage-default
+  - mass-storage-ssd
