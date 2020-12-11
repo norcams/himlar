@@ -146,7 +146,7 @@ common_config()
       --family Redhat \
       --architecture-ids 1 \
       --medium-ids ${medium_id_2} \
-      --partition-table-ids $norcams_ptable_id \
+      --partition-table-ids $norcams_ptable_id,$norcams_ptable_uefi_id
     # Set default Kickstart and PXELinux templates and associate with os
     /bin/hammer template update --id $norcams_provision_id \
       --operatingsystem-ids $centos_os \
