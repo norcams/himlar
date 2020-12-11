@@ -365,6 +365,13 @@ frrouting::frrouting::zebra_generic_options:
     'forwarding'
 
 frrouting::frrouting::bgp_neighbors:
+  - '128.39.254.218 remote-as 224'
+  - '128.39.254.218 bfd 5 500 500'
+  - '128.39.254.218 soft-reconfiguration inbound'
+  - '128.39.254.218 prefix-list uninett-routes-in in'
+  - '128.39.254.218 prefix-list uninett-routes-out out'
+  - '2001:700:0:807a:: remote-as 224'
+  - '2001:700:0:807a:: bfd 5 500 500'
   - "172.31.228.1 remote-as %{hiera('bgp_as')}"
   - '172.31.228.1 soft-reconfiguration inbound'
   - "172.18.38.1 remote-as %{hiera('bgp_as')}"
@@ -375,6 +382,11 @@ frrouting::frrouting::bgp_neighbors:
   - '172.18.38.2 soft-reconfiguration inbound'
   - "fd32::6:2 remote-as %{hiera('bgp_as')}"
   - 'fd32::6:2 soft-reconfiguration inbound'
+frrouting::frrouting::bgp_neighbors6:
+  - '2001:700:0:807a:: activate'
+  - '2001:700:0:807a:: soft-reconfiguration inbound'
+  - '2001:700:0:807a:: prefix-list uninett-routes6-in in'
+  - '2001:700:0:807a:: prefix-list uninett-routes6-out out'
 
 frrouting::frrouting::bgp_as: "%{hiera('bgp_as')}"
 
