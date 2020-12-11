@@ -359,6 +359,13 @@ frrouting::frrouting::zebra_generic_options:
     'forwarding'
 
 frrouting::frrouting::bgp_neighbors:
+  - '128.39.254.216 remote-as 224'
+  - '128.39.254.216 bfd 5 500 500'
+  - '128.39.254.216 soft-reconfiguration inbound'
+  - '128.39.254.216 prefix-list uninett-routes-in in'
+  - '128.39.254.216 prefix-list uninett-routes-out out'
+  - '2001:700:0:8105:: remote-as 224'
+  - '2001:700:0:8105:: bfd 5 500 500'
   - "172.31.228.2 remote-as %{hiera('bgp_as')}"
   - '172.31.228.2 soft-reconfiguration inbound'
   - "172.18.38.1 remote-as %{hiera('bgp_as')}"
@@ -369,6 +376,11 @@ frrouting::frrouting::bgp_neighbors:
   - '172.18.38.2 soft-reconfiguration inbound'
   - "fd32::6:2 remote-as %{hiera('bgp_as')}"
   - 'fd32::6:2 soft-reconfiguration inbound'
+frrouting::frrouting::bgp_neighbors6:
+  - '2001:700:0:8105:: activate'
+  - '2001:700:0:8105:: soft-reconfiguration inbound'
+  - '2001:700:0:8105:: prefix-list uninett-routes6-in in'
+  - '2001:700:0:8105:: prefix-list uninett-routes6-out out'
 
 frrouting::frrouting::bgp_as: "%{hiera('bgp_as')}"
 
@@ -550,6 +562,7 @@ frrouting::frrouting::bgp_ip_prefix_list:
 #  - 'default-route seq 5 permit 0.0.0.0/0'
 frrouting::frrouting::bgp_ipv6_prefix_list:
   - 'uninett-routes6-in seq 5 deny any' # FIXME
+  - 'uninett-routes6-out seq 10 deny any' # FIXME
 #  - 'uninett-routes6-in seq 5 permit any'
 #  - 'uninett-routes6-in seq 10 deny any'
 #  - 'uninett-routes6-out seq 5 permit 2001:700:2:8200::/56'
