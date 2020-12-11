@@ -21,6 +21,9 @@ profile::base::network::cumulus_interfaces:
     'clagd_priority': '8192'
     'clagd_peer_ip': 'linklocal'
     'clagd_sys_mac': '44:38:39:ff:bb:1c'
+  'swp53':
+    'ipv4': '128.39.254.219/31'
+    'ipv6': '2001:700:0:807a::1/127'
   'swp54':
     'ipv4': '129.240.25.110/30'
     'ipv6': '2001:700:100:aa3::22/126'
