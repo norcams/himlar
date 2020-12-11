@@ -118,35 +118,37 @@ common_config()
     --location-id $foreman_location_id \
     --path $repo || true
   # Save CentOS mirror ids
-  medium_id_1=$(/bin/hammer --csv medium info --name 'CentOS 7 mirror' | tail -n1 | cut -d, -f1)
+  #medium_id_1=$(/bin/hammer --csv medium info --name 'CentOS 7 mirror' | tail -n1 | cut -d, -f1)
   medium_id_2=$(/bin/hammer --csv medium info --name 'CentOS download.iaas.uio.no' | tail -n1 | cut -d, -f1)
 
   # Sync our custom provision templates
-  /sbin/foreman-rake templates:sync \
-    repo="https://github.com/norcams/community-templates.git" branch="master" associate="always" prefix="norcams "
+#  /sbin/foreman-rake templates:sync \
+#    repo="https://github.com/norcams/community-templates.git" branch="master" associate="always" prefix="norcams "
+  # Denne må kjøres _etter_ at puppet har satt globale settings!
+  hammer import-templates --location "Default Location" --organization "Default Organization"
   # Save template ids
-  norcams_provision_id=$(/bin/hammer --csv template list --per-page 1000 | grep ',norcams Kickstart default,' | cut -d, -f1)
-  norcams_pxelinux_id=$(/bin/hammer --csv template list --per-page 1000 | grep 'norcams Kickstart default PXELinux' | cut -d, -f1)
-  norcams_pxegrub2_id=$(/bin/hammer --csv template list --per-page 1000 | grep 'norcams Kickstart default PXEGrub2' | cut -d, -f1)
-  norcams_ptable_id=$(/bin/hammer --csv partition-table list --per-page 1000 | grep 'norcams Kickstart default,' | cut -d, -f1)
-  norcams_ptable_uefi_id=$(/bin/hammer --csv partition-table list --per-page 1000 | grep 'norcams Kickstart default uefi,' | cut -d, -f1)
+  norcams_provision_id=$(/bin/hammer --csv template list --per-page 1000 | grep ',norcams-Kickstart default,' | cut -d, -f1)
+  norcams_pxelinux_id=$(/bin/hammer --csv template list --per-page 1000 | grep 'norcams-Kickstart default PXELinux' | cut -d, -f1)
+  norcams_pxegrub2_id=$(/bin/hammer --csv template list --per-page 1000 | grep 'norcams-Kickstart default PXEGrub2' | cut -d, -f1)
+  norcams_ptable_id=$(/bin/hammer --csv partition-table list --per-page 1000 | grep 'norcams-Kickstart default,' | cut -d, -f1)
+  norcams_ptable_uefi_id=$(/bin/hammer --csv partition-table list --per-page 1000 | grep 'norcams-Kickstart default uefi,' | cut -d, -f1)
   
   # Associate partition templates with Redhat family of OSes
-  /bin/hammer partition-table update --id $norcams_ptable_id \
-      --organization-id $foreman_organization_id \
-      --location-id $foreman_location_id --os-family Redhat
-  /bin/hammer partition-table update --id $norcams_ptable_uefi_id \
-      --organization-id $foreman_organization_id \
-      --location-id $foreman_location_id --os-family Redhat
+#  /bin/hammer partition-table update --id $norcams_ptable_id \
+#      --organization-id $foreman_organization_id \
+#      --location-id $foreman_location_id --os-family Redhat
+#  /bin/hammer partition-table update --id $norcams_ptable_uefi_id \
+#      --organization-id $foreman_organization_id \
+#      --location-id $foreman_location_id --os-family Redhat
 
   # Create and update OS
-  /bin/hammer --csv os list --per-page 1000 | grep 'CentOS 7' || /bin/hammer os create --name CentOS --major 7 --minor 8 || true
-  for centos_os in $(/bin/hammer --csv os list --per-page 1000 | grep 'CentOS 7.8' | cut -d, -f1); do
+  /bin/hammer --csv os list --per-page 1000 | grep 'CentOS 7' || /bin/hammer os create --name CentOS --major 7 --minor 9 || true
+  for centos_os in $(/bin/hammer --csv os list --per-page 1000 | grep 'CentOS 7.9' | cut -d, -f1); do
     /bin/hammer os update --id $centos_os --name CentOS --major 7\
       --family Redhat \
       --architecture-ids 1 \
       --medium-ids ${medium_id_2} \
-      --partition-table-ids $norcams_ptable_id \
+      --partition-table-ids $norcams_ptable_id,$norcams_ptable_uefi_id 
     # Set default Kickstart and PXELinux templates and associate with os
     /bin/hammer template update --id $norcams_provision_id \
       --operatingsystem-ids $centos_os \
@@ -211,25 +213,25 @@ common_config()
   # - this is required for the discovery image to get the foreman_url setting
   # passed through to the kernel from the template
   #
-  rootpw='Himlarchangeme'
-  rootpw_md5=$(openssl passwd -1 $rootpw)
-  echo '
-    Setting["root_pass"]                    = "'$rootpw_md5'"
-    Setting["entries_per_page"]             = 100
-    Setting["foreman_url"]                  = "https://'$foreman_fqdn'"
-    Setting["unattended_url"]               = "http://'$foreman_fqdn'"
-    Setting["trusted_puppetmaster_hosts"]   = [ "'$foreman_fqdn'" ]
-    Setting["discovery_fact_column"]        = "ipmi_ipaddress"
-    Setting["update_ip_from_built_request"] = true
-    Setting["use_shortname_for_vms"]        = true
-    Setting["idle_timeout"]                 = 180
-
-    Setting["safemode_render"] = false
-    include Foreman::Renderer
-    ProvisioningTemplate.build_pxe_default()
-    Setting["safemode_render"] = true
-
-  ' | /sbin/foreman-rake console
+#  rootpw='Himlarchangeme'
+#  rootpw_md5=$(openssl passwd -1 $rootpw)
+#  echo '
+#    Setting["root_pass"]                    = "'$rootpw_md5'"
+#    Setting["entries_per_page"]             = 100
+#    Setting["foreman_url"]                  = "https://'$foreman_fqdn'"
+#    Setting["unattended_url"]               = "http://'$foreman_fqdn'"
+#    Setting["trusted_puppetmaster_hosts"]   = [ "'$foreman_fqdn'" ]
+#    Setting["discovery_fact_column"]        = "ipmi_ipaddress"
+#    Setting["update_ip_from_built_request"] = true
+#    Setting["use_shortname_for_vms"]        = true
+#    Setting["idle_timeout"]                 = 180
+#
+#    Setting["safemode_render"] = false
+#    include Foreman::Renderer
+#    ProvisioningTemplate.build_pxe_default()
+#    Setting["safemode_render"] = true
+#
+#  ' | /sbin/foreman-rake console
 }
 
 #
