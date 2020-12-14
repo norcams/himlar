@@ -9,3 +9,4 @@ named_interfaces::config:
 
 profile::network::nat::enable_bird:              false
 profile::network::nat::manage_bird_firewall:     false
+profile::network::nat::outiface:                 "%{::interface_public1}"
