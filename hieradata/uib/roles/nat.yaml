@@ -1,4 +1,8 @@
 ---
+include:
+  default:
+    - profile::firewall::rules
+
 named_interfaces::config:
   mgmt:
     - eth0
@@ -10,3 +14,12 @@ named_interfaces::config:
 profile::network::nat::enable_bird:              false
 profile::network::nat::manage_bird_firewall:     false
 profile::network::nat::outiface:                 "%{::interface_public1}"
+
+profile::firewall::rules::manage_custom_rules: true
+# Accept ssh also from uib inband mgmt
+profile::firewall::rules::custom_rules:
+  '004 accept ssh nrec uib':
+    proto:        'tcp'
+    dport:        '22'
+    extras:
+      iniface:    "eth2"
