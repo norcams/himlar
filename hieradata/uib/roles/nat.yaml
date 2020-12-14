@@ -23,3 +23,16 @@ profile::firewall::rules::custom_rules:
     dport:        '22'
     extras:
       iniface:    "eth2"
+  '005 allow all nat traffic to uob':
+    proto:        'all'
+    chain:        'FORWARD'
+    destination:  '129.177.0.0/16'
+    source:       "%{::network_trp1}/%{cidr_trp1}"
+    extras:
+      outiface:   "%{::interface_public1}"
+  '090 deny all other nat to world':
+    proto:        'udp'
+    chain:        'FORWARD'
+    source:       "%{::network_trp1}/%{cidr_trp1}"
+    action:       'drop'
+    destination:  '0.0.0.0/0'
