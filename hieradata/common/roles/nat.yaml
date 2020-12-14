@@ -1,22 +1,22 @@
 ---
-named_interfaces::config:
-  mgmt:
-     - vtnet0
-  trp:
-     - vtnet1
-  public:
-     - tap0
-
 include:
   default:
     - profile::network::nat
 
-bsd::network::v4forwarding: true
+named_interfaces::config:
+  mgmt:
+    - eth0
+  trp:
+    - eth1
+  public:
+    - dummy0
 
-profile::base::network::net_ifnames:             false
-profile::base::common::manage_keyboard:          false
-profile::base::common::manage_yumrepo:           false
-profile::base::common::manage_packages:          false
-profile::monitoring::sensu::agent::enable_agent: false
+profile::base::network::manage_dummy:            true
 
 profile::network::nat::enable_bird:              true
+profile::network::nat::manage_bird_firewall:     true
+profile::network::nat::enable_snat:              true
+profile::network::nat::outiface:                 "%{::interface_trp1}"
+profile::network::nat::source:                   "!%{::ipaddress_trp1}"
+
+profile::monitoring::sensu::agent::enable_agent: true
