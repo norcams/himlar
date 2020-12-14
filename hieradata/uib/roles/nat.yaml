@@ -31,7 +31,7 @@ profile::firewall::rules::custom_rules:
     extras:
       outiface:   "%{::interface_public1}"
   '090 deny all other nat to world':
-    proto:        'udp'
+    proto:        'all'
     chain:        'FORWARD'
     source:       "%{::network_trp1}/%{cidr_trp1}"
     action:       'drop'
