@@ -6,3 +6,6 @@ named_interfaces::config:
     - eth0
   public:
     - eth1
+
+profile::network::nat::enable_bird:              false
+profile::network::nat::manage_bird_firewall:     false
