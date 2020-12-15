@@ -41,7 +41,7 @@ profile::application::foreman::config:
   trusted_hosts:
     value:  "[\"foreman.%{hiera('domain_public')}\"]"
   unattended_url:
-    value:  "http://foreman.%{hiera('domain_public')}"
+    value:  "http://foreman.%{hiera('domain_mgmt')}"
   update_ip_from_built_request:
     value:  'true'
   use_shortname_for_vms:
