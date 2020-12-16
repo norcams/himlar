@@ -5,23 +5,37 @@ include:
 
 named_interfaces::config:
   mgmt:
-    - bond0
+    - p1p1
   trp:
-    - bond0.912
+    - team1
   live:
-    - bond0.912
+    - team1.120
 
 profile::base::network::network_auto_opts:
   mgmt:
     'defroute': 'no'
   trp:
+    'defroute': 'no'
     'ipv6init': 'yes'
-    'bonding_opts': 'mode=balance-alb miimon=100'
+    'devicetype': 'Team'
+    'team_config': >-
+                   { "runner" : {  "name" : "lacp",  "active": true, "fast_rate" : true,
+                   "tx_hash": ["eth", "ipv4", "ipv6"], "tx_balancer": { "name": "basic" } },
+                   "link_watch" : {  "name" : "ethtool" } }
+  live:
+    'defroute': 'no'
 
 profile::base::network::network_auto_bonding:
   trp:
-    em1: {}
-    em2: {}
+    em1:
+      'team_port_config': '{ "prio" : 100 }'
+      'mtu': '9000'
+    em2:
+      'team_port_config': '{ "prio" : 100 }'
+      'mtu': '9000'
+
+# IPv6 is enabled for bgp, bfd
+profile::openstack::network::calico::manage_firewall6: true
 
 ntp::servers:
   - 172.28.0.100
@@ -30,7 +44,7 @@ ntp::servers:
 
 # Add custom routing table for private network to NAT
 profile::base::network::routes:
-  'bond0.912':
+  'team1':
     'ipaddress': [ '0.0.0.0', '0.0.0.0', ]
     'netmask':   [ '0.0.0.0', '0.0.0.0', ]
     'gateway':   [ "%{hiera('netcfg_priv_gateway')}", "%{hiera('netcfg_trp_gateway')}" ]
@@ -39,12 +53,9 @@ profile::base::network::routing_tables:
   'private':
     'table_id':  '240'
 profile::base::network::rules:
-  'bond0.912':
+  'team1':
     iprule: [ "from %{hiera('netcfg_priv_network')} lookup private", ]
 profile::base::network::manage_neutron_blackhole: true
-
-# IPv6 is enabled for bgp, bfd
-profile::openstack::network::calico::manage_firewall6: true
 
 # remove when telemetry/ceilometer is up in all environments and move to common
 profile::openstack::compute::manage_telemetry: true
@@ -53,3 +64,17 @@ profile::openstack::compute::manage_telemetry: true
 profile::base::tuned::manage_tuned:  true
 profile::base::tuned::tuned_profile: 'virtual-host'
 nova::compute::libvirt::libvirt_hw_machine_type: 'x86_64=q35'
+
+profile::base::lvm::physical_volume:
+  '/dev/sda3':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_ext':
+    physical_volumes:
+      - /dev/sda3
+profile::base::lvm::logical_volume:
+  'lv_instances':
+    volume_group: 'vg_ext'
+    fs_type:      "xfs"
+    mountpath:    "/var/lib/nova/instances"

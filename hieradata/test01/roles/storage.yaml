@@ -2,60 +2,179 @@
 named_interfaces::config:
   mgmt:
     - em3
+  transport:
+    - team1
   trp:
-    - bond0
+    - team1
   ceph:
-    - bond0
+    - team1.110
+
+profile::base::network::network_auto_opts:
+  trp:
+    'defroute': 'no'
+    'devicetype': 'Team'
+    'mtu': '9000'
+    'team_config': >-
+                   { "runner" : {  "name" : "lacp",  "active": true, "fast_rate" : true,
+                   "tx_hash": ["eth", "ipv4", "ipv6"], "tx_balancer": { "name": "basic" } },
+                   "link_watch" : {  "name" : "ethtool" } }
+  ceph:
+    'defroute': 'no'
+
+profile::base::network::network_auto_bonding:
+  trp:
+    p3p1:
+      'team_port_config': '{ "prio" : 100 }'
+      'mtu': '9000'
+    p3p2:
+      'team_port_config': '{ "prio" : 100 }'
+      'mtu': '9000'
+
+# Disable intel c states for performance
+profile::base::physical::disable_intel_cstates: true
+
+profile::base::common::extraswap:         true
+profile::base::common::extraswap_sizegb:  40
+profile::base::common::extraswap_fileloc: '/var/lib/swap/swapfile'
+profile::base::physical::load_ahci_first: true
+
+# Ensure that the BOSS device is the last device
+profile::base::physical::load_ahci_last: true
+profile::base::physical::load_ahci_last_scsidrv: 'megaraid_sas'
+profile::base::physical::scsi_load_order: true
+profile::base::physical::scsi_load_order_first:  'megaraid_sas'
+profile::base::physical::scsi_load_order_second: 'mpt2sas'
+
 
 profile::base::selinux::manage_selinux: false
 
-profile::base::common::manage_fake_ssd: true
+#profile::base::common::manage_fake_ssd: true
 
+# FIXME
+profile::base::common::manage_lvm:                  true
+profile::base::lvm::create_lvm:                     true
+profile::storage::cephosd::create_osds:             true
+profile::storage::cephosd::crush_move:              true
 profile::storage::cephpool::manage_ec_pools:        true
 profile::storage::cephpool::manage_cephpool_params: true
 
-#profile::base::lvm::physical_volume:
-#  '/dev/sda3':
-#    ensure: present
-#    force:  true
-#profile::base::lvm::volume_group:
-#  'vg_journala':
-#    physical_volumes:
-#      - /dev/sda3
-#profile::base::lvm::logical_volume:
-#  lv_journala01:
-#    size:         11G
-#    volume_group: 'vg_journala'
-#    fs_type:      xfs
-#    mountpath:    "/journal/journala01"
+profile::storage::cephclient::create_extraconf: true
+profile::storage::ceph_extraconf::config:
+  osd_memory_target:
+    'config_key'  : "osd/osd_memory_target"
+    'config_value': "3973054464"
 
-profile::storage::fake_ssds:
-  'sdb': {}
+profile::base::lvm::volume_group:
+  'vg_swap':
+    physical_volumes:
+      - /dev/sdr3
+  'vg_cache1':
+    physical_volumes:
+      - /dev/sda
+  'vg_cache2':
+    physical_volumes:
+      - /dev/sdb
+profile::base::lvm::logical_volume:
+  'lv_swap2':
+    volume_group: 'vg_swap'
+    fs_type:      xfs
+    size:         60G
+    mountpath:    "/var/lib/swap"
+  'lv_dbf':
+    volume_group: 'vg_cache1'
+    createfs:     false
+    size:         31G
+  'lv_dbg':
+    volume_group: 'vg_cache1'
+    createfs:     false
+    size:         31G
+  'lv_dbh':
+    volume_group: 'vg_cache1'
+    createfs:     false
+    size:         31G
+  'lv_dbi':
+    volume_group: 'vg_cache1'
+    createfs:     false
+    size:         31G
+  'lv_dbj':
+    volume_group: 'vg_cache1'
+    createfs:     false
+    size:         31G
+  'lv_dbk':
+    volume_group: 'vg_cache1'
+    createfs:     false
+    size:         31G
+  'lv_dbl':
+    volume_group: 'vg_cache1'
+    createfs:     false
+    size:         31G
+  'lv_dbm':
+    volume_group: 'vg_cache2'
+    createfs:     false
+    size:         31G
+  'lv_dbn':
+    volume_group: 'vg_cache2'
+    createfs:     false
+    size:         31G
+  'lv_dbo':
+    volume_group: 'vg_cache2'
+    createfs:     false
+    size:         31G
+  'lv_dbp':
+    volume_group: 'vg_cache2'
+    createfs:     false
+    size:         31G
+  'lv_dbq':
+    volume_group: 'vg_cache2'
+    createfs:     false
+    size:         31G
 
 profile::storage::cephosd::osds:
-  '/dev/sdb': {}
-  '/dev/sdc': {}
-#    db_device: '/dev/sdm'
-#    wal_device: '/dev/sdm'
-  '/dev/sdd': {}
-  '/dev/sde': {}
-  '/dev/sdf': {}
-  '/dev/sdg': {}
-  '/dev/sdh': {}
-  '/dev/sdi': {}
-  '/dev/sdj': {}
-  '/dev/sdk': {}
-  '/dev/sdl': {}
-#  '/dev/sdm':
-#    journal: '/journal/journala11/journal'
-#  '/dev/sdn':
-#    journal: '/journal/journala12/journal'
-#  '/dev/sdo':
-#    journal: '/journal/journala13/journal'
-#  '/dev/sdp':
-#    journal: '/journal/journala14/journal'
-#  '/dev/sdq':
-#    journal: '/journal/journala15/journal'
+  '/dev/sdc':
+    db_device:  false
+    wal_device: false
+  '/dev/sdd':
+    db_device:  false
+    wal_device: false
+  '/dev/sde':
+    db_device:  false
+    wal_device: false
+  '/dev/sdf':
+    wal_device: false
+    db_device:  'vg_cache1/lv_dbf'
+  '/dev/sdg':
+    wal_device: false
+    db_device:  'vg_cache1/lv_dbg'
+  '/dev/sdh':
+    wal_device: false
+    db_device:  'vg_cache1/lv_dbh'
+  '/dev/sdi':
+    wal_device: false
+    db_device:  'vg_cache1/lv_dbi'
+  '/dev/sdj':
+    wal_device: false
+    db_device:  'vg_cache1/lv_dbj'
+  '/dev/sdk':
+    wal_device: false
+    db_device:  'vg_cache1/lv_dbk'
+  '/dev/sdl':
+    wal_device: false
+    db_device:  'vg_cache1/lv_dbl'
+  '/dev/sdm':
+    wal_device: false
+    db_device:  'vg_cache2/lv_dbm'
+  '/dev/sdn':
+    wal_device: false
+    db_device:  'vg_cache2/lv_dbn'
+  '/dev/sdo':
+    wal_device: false
+    db_device:  'vg_cache2/lv_dbo'
+  '/dev/sdp':
+    wal_device: false
+    db_device:  'vg_cache2/lv_dbp'
+  '/dev/sdq':
+    wal_device: false
+    db_device:  'vg_cache2/lv_dbq'
 
 profile::storage::ceph::pool::pools:
   'rbd':
@@ -96,6 +215,15 @@ profile::storage::ceph::pool::pools:
       crush_rule: 'ssd-storage'
       nodelete:   'true'
       min_size:   '2'
+  'volumes_ssd_ec_meta':
+    size:    3
+    pg_num:  128
+    pgp_num: 128
+    tag:     'rbd'
+    custom:
+      crush_rule: 'ssd-storage'
+      nodelete:   'true'
+      min_size:   '2'
 profile::storage::ceph::pool::ec_pools:
   'placeholder':
     manage: false
@@ -108,9 +236,19 @@ profile::storage::ceph_ecpool::ec_pools:
     k_data:              "4"
     m_code:              "1"
     crush_root:          "storage"
+  'volumes_ssd_ec_data':
+    pg_num:              "256"
+    manage:              true
+    allow_ec_overwrites: true
+    k_data:              "4"
+    m_code:              "1"
+    crush_root:          "storage"
+    crush_device_class:  "ssd"
 
 profile::storage::cephpool_params::pools:
   'volumes_hdd_ec_data':
+    application_enable: 'rbd'
+  'volumes_ssd_ec_data':
     application_enable: 'rbd'
 
 # Sensu

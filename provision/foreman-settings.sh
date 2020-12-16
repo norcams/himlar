@@ -128,6 +128,7 @@ common_config()
   # Denne må kjøres _etter_ at puppet har satt globale settings!
   hammer import-templates --location "Default Location" --organization "Default Organization"
   # Save template ids
+
   norcams_provision_id=$(/bin/hammer --csv template list --per-page 1000 | grep ',norcams-Kickstart default,' | cut -d, -f1)
   norcams_pxelinux_id=$(/bin/hammer --csv template list --per-page 1000 | grep 'norcams-Kickstart default PXELinux' | cut -d, -f1)
   norcams_pxegrub2_id=$(/bin/hammer --csv template list --per-page 1000 | grep 'norcams-Kickstart default PXEGrub2' | cut -d, -f1)
@@ -143,13 +144,15 @@ common_config()
 #      --location-id $foreman_location_id --os-family Redhat
 
   # Create and update OS
-  /bin/hammer --csv os list --per-page 1000 | grep 'CentOS 7' || /bin/hammer os create --name CentOS --major 7 --minor 9 || true
+  /bin/hammer --csv os list --per-page 1000 | grep 'CentOS 7.9' || /bin/hammer os create --name CentOS --major 7 --minor 9.2009 || true
+
   for centos_os in $(/bin/hammer --csv os list --per-page 1000 | grep 'CentOS 7.9' | cut -d, -f1); do
     /bin/hammer os update --id $centos_os --name CentOS --major 7\
       --family Redhat \
       --architecture-ids 1 \
       --medium-ids ${medium_id_2} \
-      --partition-table-ids $norcams_ptable_id,$norcams_ptable_uefi_id 
+      --partition-table-ids $norcams_ptable_id,$norcams_ptable_uefi_id
+
     # Set default Kickstart and PXELinux templates and associate with os
     /bin/hammer template update --id $norcams_provision_id \
       --operatingsystem-ids $centos_os \

@@ -41,7 +41,7 @@ reverse_public_c0:        '63.37.158.in-addr.arpa'
 reverse_public_c1:        '75.39.158.in-addr.arpa'
 reverse_public_c2:        '48.39.158.in-addr.arpa'
 
-bgp_as:                   '65502'
+bgp_as:                   '65500'
 
 netcfg_mgmt_gateway:      '172.16.32.12'
 netcfg_mgmt_netpart:      '172.16.32'
@@ -270,6 +270,7 @@ profile::network::services::dns_records:
     '6.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "%{::location}-dns-01.%{hiera('domain_public')}"
     # Customer's PTR records
     "101.%{hiera('reverse_public_c0')}":                                         'oncotools.elixir.no'
+    "164.%{hiera('reverse_public_c2')}":                                         'smtp.nlpl.eu'
     #'c.6.0.2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  'oncotools.elixir.no'
 
 ntp::servers:

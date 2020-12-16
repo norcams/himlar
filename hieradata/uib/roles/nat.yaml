@@ -1,0 +1,38 @@
+---
+include:
+  default:
+    - profile::firewall::rules
+
+named_interfaces::config:
+  mgmt:
+    - eth0
+  trp:
+    - eth0
+  public:
+    - eth1
+
+profile::network::nat::enable_bird:              false
+profile::network::nat::manage_bird_firewall:     false
+profile::network::nat::outiface:                 "%{::interface_public1}"
+
+profile::firewall::rules::manage_custom_rules: true
+# Accept ssh also from uib inband mgmt
+profile::firewall::rules::custom_rules:
+  '004 accept ssh nrec uib':
+    proto:        'tcp'
+    dport:        '22'
+    extras:
+      iniface:    "eth2"
+  '005 allow all nat traffic to uob':
+    proto:        'all'
+    chain:        'FORWARD'
+    destination:  '129.177.0.0/16'
+    source:       "%{::network_trp1}/%{cidr_trp1}"
+    extras:
+      outiface:   "%{::interface_public1}"
+  '090 deny all other nat to world':
+    proto:        'all'
+    chain:        'FORWARD'
+    source:       "%{::network_trp1}/%{cidr_trp1}"
+    action:       'drop'
+    destination:  '0.0.0.0/0'

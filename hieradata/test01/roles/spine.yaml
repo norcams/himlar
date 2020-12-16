@@ -15,6 +15,7 @@ profile::base::network::cumulus_interfaces:
 profile::base::network::cumulus_bonds:
   'peerlink':
     'slaves': [ 'swp49-50', ]
+    'mtu':   '9216'
   'host1':
     'slaves': [ 'swp1', ]
     'clag_id': '1'
@@ -22,6 +23,7 @@ profile::base::network::cumulus_bonds:
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
   'host2':
     'slaves': [ 'swp2', ]
     'clag_id': '2'
@@ -29,6 +31,7 @@ profile::base::network::cumulus_bonds:
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
   'host3':
     'slaves': [ 'swp3', ]
     'clag_id': '3'
@@ -36,6 +39,7 @@ profile::base::network::cumulus_bonds:
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
   'host4':
     'slaves': [ 'swp4', ]
     'clag_id': '4'
@@ -43,6 +47,7 @@ profile::base::network::cumulus_bonds:
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
   'host5':
     'slaves': [ 'swp5', ]
     'clag_id': '5'
@@ -50,6 +55,7 @@ profile::base::network::cumulus_bonds:
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
   'host6':
     'slaves': [ 'swp6', ]
     'clag_id': '6'
@@ -57,6 +63,7 @@ profile::base::network::cumulus_bonds:
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
   'host7':
     'slaves': [ 'swp7', ]
     'clag_id': '7'
@@ -64,6 +71,7 @@ profile::base::network::cumulus_bonds:
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
   'host8':
     'slaves': [ 'swp8', ]
     'clag_id': '8'
@@ -71,6 +79,7 @@ profile::base::network::cumulus_bonds:
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
   'host9':
     'slaves': [ 'swp9', ]
     'clag_id': '9'
@@ -78,6 +87,7 @@ profile::base::network::cumulus_bonds:
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
   'host10':
     'slaves': [ 'swp10', ]
     'clag_id': '10'
@@ -85,6 +95,7 @@ profile::base::network::cumulus_bonds:
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
   'host11':
     'slaves': [ 'swp11', ]
     'clag_id': '11'
@@ -92,6 +103,7 @@ profile::base::network::cumulus_bonds:
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
   'host12':
     'slaves': [ 'swp12', ]
     'clag_id': '12'
@@ -99,6 +111,7 @@ profile::base::network::cumulus_bonds:
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
   'host13':
     'slaves': [ 'swp13', ]
     'clag_id': '13'
@@ -106,6 +119,7 @@ profile::base::network::cumulus_bonds:
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
 
 frrouting::frrouting::zebra_interfaces:
   'bridge':
@@ -159,6 +173,7 @@ profile::base::network::cumulus_bridges:
       - host11
       - host12
       - host13
+      - peerlink
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'true'

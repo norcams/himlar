@@ -8,13 +8,13 @@ sudo: false
 before_install: rm Gemfile.lock || true
 
 rvm:
-  - 2.4.2
+  - 2.4.10
 
 script: bundle exec rake test
 
 env:
   matrix:
-  - PUPPET_VERSION="~> 4.10.8" STRICT_VARIABLES=yes
+  - PUPPET_VERSION="~> 5.5.22" STRICT_VARIABLES=yes
 
 matrix:
   # allow_failures:

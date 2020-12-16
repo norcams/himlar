@@ -64,7 +64,6 @@ profile::base::physical::blacklist_drv_list:
 
 nova::compute::libvirt::libvirt_cpu_model: 'Skylake-Server-IBRS'
 
-nova::compute::libvirt::libvirt_hw_machine_type: 'x86_64=q35'
 # These compute host uses local storage for instances
 nova::compute::rbd::ephemeral_storage: false
 nova::config::nova_config:

@@ -20,12 +20,54 @@ profile::dns::ns::public_zone:   "test.iaas.uib.no"
 # Reverse zones. Only zones that are "internal". Requests for records
 # in these zones will be forwarded to the authoritative DNS server
 profile::dns::ns::ptr_zones:
-  mgmt:
+  mgmt01:
     cidr: "172.28.0.0/24"
-    origin: "0.28.172.in-addr.arpa"
-  transport:
+    origin: "0.16.172.in-addr.arpa"
+  mgmt02:
+    cidr: "172.28.1.0/24"
+    origin: "1.16.172.in-addr.arpa"
+  mgmt03:
+    cidr: "172.28.2.0/24"
+    origin: "2.16.172.in-addr.arpa"
+  mgmt04:
+    cidr: "172.28.3.0/24"
+    origin: "3.16.172.in-addr.arpa"
+  mgmt05:
+    cidr: "172.28.4.0/24"
+    origin: "4.16.172.in-addr.arpa"
+  mgmt06:
+    cidr: "172.28.5.0/24"
+    origin: "5.16.172.in-addr.arpa"
+  mgmt07:
+    cidr: "172.28.6.0/24"
+    origin: "6.16.172.in-addr.arpa"
+  mgmt08:
+    cidr: "172.28.7.0/24"
+    origin: "7.16.172.in-addr.arpa"
+  transport01:
     cidr: "172.30.0.0/24"
-    origin: "0.30.172.in-addr.arpa"
+    origin: "0.18.172.in-addr.arpa"
+  transport02:
+    cidr: "172.30.1.0/24"
+    origin: "1.18.172.in-addr.arpa"
+  transport03:
+    cidr: "172.30.2.0/24"
+    origin: "2.18.172.in-addr.arpa"
+  transport04:
+    cidr: "172.30.3.0/24"
+    origin: "3.18.172.in-addr.arpa"
+  transport05:
+    cidr: "172.30.4.0/24"
+    origin: "4.18.172.in-addr.arpa"
+  transport06:
+    cidr: "172.30.5.0/24"
+    origin: "5.18.172.in-addr.arpa"
+  transport07:
+    cidr: "172.30.6.0/24"
+    origin: "6.18.172.in-addr.arpa"
+  transport08:
+    cidr: "172.30.7.0/24"
+    origin: "7.18.172.in-addr.arpa"
   public:
     cidr: "129.177.31.64/27"
     origin: "31.177.129.in-addr.arpa"
@@ -34,7 +76,7 @@ profile::dns::ns::ptr_zones:
     origin: "6.1.9.0.0.0.2.0.0.0.7.0.1.0.0.2.ip6.arpa"
 
 profile::dns::ns::allowed_nets:
-  - '172.16.0.0/12;         # internal rfc1918'
+  - '172.28.0.0/12;         # internal rfc1918'
   - '10.0.0.0/8;            # rfc1918 for ipv6 only instances'
   - '129.177.31.64/27;      # test01 IPv4'
   - '129.177.31.96/27;      # test01 IPv4'

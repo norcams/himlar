@@ -13,6 +13,9 @@ class profile::base::physical (
   $load_ahci_first_scsidrv     = 'mpt3sas',
   $load_ahci_last              = false,
   $load_ahci_last_scsidrv      = 'mpt3sas',
+  $scsi_load_order             = false,
+  $scsi_load_order_first       = undef,
+  $scsi_load_order_second      = undef,
   $enable_network_tweaks       = false,
   $net_tweak_rmem_max          = '134217728',
   $net_tweak_wmem_max          = '134217728',
@@ -87,6 +90,14 @@ class profile::base::physical (
     file { "/etc/modprobe.d/ahci.conf":
       ensure  => present,
       content => "install ahci /sbin/modprobe ${load_ahci_last_scsidrv}; /sbin/modprobe --ignore-install ahci\n",
+    }
+  }
+
+  # for systems with multiple scsi controllers we need to define order
+  if $scsi_load_order {
+    file { "/etc/modprobe.d/${scsi_load_order_second}.conf":
+      ensure  => present,
+      content => "install ${scsi_load_order_second} /sbin/modprobe ${scsi_load_order_first}; /sbin/modprobe --ignore-install ${scsi_load_order_second}\n",
     }
   }
 

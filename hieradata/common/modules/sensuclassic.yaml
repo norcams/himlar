@@ -20,8 +20,8 @@ sensuclassic::client_name:             "%{hostname}"
 sensuclassic::client_keepalive:
   handler:    'default'
   thresholds:
-    warning:  40
-    critical: 60
+    warning:  50
+    critical: 70
 sensuclassic::client_custom:
   graphite_load:    "http://%{hiera('mgmt__address__monitor')}/render?from=-24h&target=aliasByNode(load.%{::hostname}.load_avg.*,3)&height=250&width=600&lineMode=connected&uchiwa_force_image=.jpg"
   graphite_cpu:     "http://%{hiera('mgmt__address__monitor')}/render?from=-24h&target=aliasByNode(vmstats.%{::hostname}.cpu.*,3)&height=250&width=600&lineMode=connected&uchiwa_force_image=.jpg"
