@@ -183,7 +183,7 @@ common_config()
     --domain-id $foreman_domain_id \
     --operatingsystem-id $centos_os \
     --medium-id $medium_id_2 \
-    --partition-table-id $norcams-ptable_id \
+    --partition-table-id $norcams_ptable_id \
     --subnet-id $foreman_subnet_id \
     --puppet-proxy-id $foreman_proxy_id \
     --puppet-ca-proxy-id $foreman_proxy_id \
