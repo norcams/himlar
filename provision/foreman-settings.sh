@@ -18,6 +18,7 @@ mgmt_network=$(facter network_${mgmt_interface})
 mgmt_netmask=$(facter netmask_${mgmt_interface})
 #repo=$(sed -n 's/^baseurl=//p' CentOS-Base.repo | head -1 | rev | cut -d/ -f3- | rev)
 repo=$(sed -n 's/^baseurl=//p' /etc/yum.repos.d/CentOS-Base.repo | head -1)
+if [ ${foreman_fqdn%%[0-9][0-9]-*} == 'test' ]; then env="test"; else env="prod"; fi
 
 #
 # Location specific configs
@@ -182,7 +183,7 @@ common_config()
     --domain-id $foreman_domain_id \
     --operatingsystem-id $centos_os \
     --medium-id $medium_id_2 \
-    --partition-table-id $norcams_ptable_id \
+    --partition-table-id $norcams-ptable_id \
     --subnet-id $foreman_subnet_id \
     --puppet-proxy-id $foreman_proxy_id \
     --puppet-ca-proxy-id $foreman_proxy_id \
@@ -190,6 +191,9 @@ common_config()
     --pxe-loader 'PXELinux BIOS' \
     --organization-id $foreman_organization_id \
     --location-id $foreman_location_id
+  /bin/hammer hostgroup set-parameter --hostgroup base \
+     --name environment \
+     --value $env
 
   # Create storage hostgroup to set special paramters
   /bin/hammer hostgroup create --name storage --parent base \
