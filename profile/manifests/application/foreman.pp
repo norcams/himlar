@@ -54,6 +54,14 @@ class profile::application::foreman(
     }
   }
 
+  # config
+  $config = lookup('profile::application::foreman::config', Hash, 'deep', {})
+  create_resources('foreman_config_entry', $config, { require => Class['foreman::install']})
+
+  # plugins
+  $plugins = lookup('profile::application::foreman::plugins', Hash, 'deep', {})
+  create_resources('foreman::plugin', $plugins)
+
   # Push puppet facts to foreman
   $push_facts_ensure = $push_facts? {
     true    => 'present',
@@ -117,15 +125,4 @@ class profile::application::foreman(
       extras => $firewall_extras['proxy']
     }
   }
-
-    # Temporary fix to mitigate memory leak in Foreman 2.0 (remove when upgrading ->  2.1)
-
-    file { 'foreman-systemd-override':
-      ensure  => file,
-      path    => '/etc/systemd/system/foreman.service.d/override.conf',
-      owner   => root,
-      group   => root,
-      content => "[Service]\nEnvironment=MALLOC_ARENA_MAX=2\n",
-      notify  => [Exec['systemctl_daemon_reload'], Service['foreman']]
-    }
 }
