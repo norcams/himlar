@@ -24,7 +24,7 @@ mod 'named_interfaces', :ref => '12482fc5c3',       :git => github + 'norcams/pu
 mod 'network', :ref => '0bfc7cc2bc',                :git => github + 'norcams/puppet-network'
 mod 'ipmi', :ref => 'v2.3.0',                       :git => github + 'jhoblitt/puppet-ipmi'
 # mod 'apt', :ref => '2.2.2',                         :git => github + 'puppetlabs/puppetlabs-apt'
-mod 'selinux', :ref => 'v1.3.0',                    :git => github + 'voxpupuli/puppet-selinux'
+mod 'selinux', :ref => 'v3.2.0',                    :git => github + 'voxpupuli/puppet-selinux'
 
 #
 # FreeBSD spesific
