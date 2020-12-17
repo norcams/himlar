@@ -24,7 +24,7 @@ profile::openstack::network::calico::manage_firewall6: true
 # Add custom routing table for private network to NAT, lhc to other gw
 profile::base::network::routes:
   'team1':
-    'ipaddress': [ '0.0.0.0', '192.168.243', '0.0.0.0', '0.0.0.0', '0.0.0.0', '::', ]
+    'ipaddress': [ '0.0.0.0', '192.168.243.0', '0.0.0.0', '0.0.0.0', '0.0.0.0', '::', ]
     'netmask':   [ '0.0.0.0', '255.255.255.0', '0.0.0.0', '0.0.0.0', '0',]
     'gateway':   [ "%{hiera('netcfg_priv_gateway')}", "%{hiera('netcfg_trp_gateway')}", "%{hiera('netcfg_trp_gateway')}", "%{hiera('netcfg_lhc_gateway')}", "%{hiera('netcfg_lhcpriv_gateway')}", "%{hiera('netcfg_lhc_gateway6')}", ]
     'table':     [ 'private', 'lhc', 'main', 'lhc', 'lhc-private', 'lhc', ]
