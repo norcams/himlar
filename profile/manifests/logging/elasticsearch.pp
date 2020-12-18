@@ -6,11 +6,12 @@ class profile::logging::elasticsearch(
   $manage_firewall = true,
   $ports = [9200],
   $firewall_extras = {},
-  $user  = 'root',
-  $weekday = 'Thursday',
-  $hour = 2,
-  $minute = 0,
-  $manage_curator = false
+#  $user  = 'root',
+#  $weekday = 'Thursday',
+#  $hour = 2,
+#  $minute = 0,
+  $manage_curator = false,
+  $manage_cron    = true
 ) {
 
   include ::elasticsearch
@@ -41,13 +42,14 @@ class profile::logging::elasticsearch(
     file { '/var/lib/delete_indices.yml':
       ensure  => file,
       content => template("${module_name}/logging/elasticsearch/delete_indices.yml"),
-    } ->
-      cron { 'purge elasticsearch':
-      command     => 'curator /var/lib/delete_indices.yml',
-      user        => $user,
-      weekday     => $weekday,
-      hour        => $hour,
-      minute      => $minute,
     }
+   # ->
+   #   cron { 'purge elasticsearch':
+   #   command     => 'curator /var/lib/delete_indices.yml',
+   #   user        => $user,
+   #   weekday     => $weekday,
+   #   hour        => $hour,
+   #   minute      => $minute,
+   # }
   }
 }
