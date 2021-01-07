@@ -16,16 +16,6 @@ network::interfaces_hash:
     netmask:        '255.255.255.0'
     gateway:        '129.177.5.1'
     defroute:       'yes'
-  'eth2':
-    onboot:         'yes'
-    ipaddress:      '192.168.21.20'
-    netmask:        '255.255.255.0'
-    defroute:       'no'
-  'eth3':
-    onboot:         'yes'
-    ipaddress:      '192.168.23.20'
-    netmask:        '255.255.255.0'
-    defroute:       'no'
 
 profile::highavailability::corosync::firewall_extras:
   source: "%{hiera('netcfg_public2_netpart')}.190"
