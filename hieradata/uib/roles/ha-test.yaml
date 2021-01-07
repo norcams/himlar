@@ -5,6 +5,7 @@ named_interfaces::config:
   public:
     - eth1
 
+corosync::cluster_name:   '%{::location}-ha-test'
 corosync::unicast_addresses:
   - "%{hiera('netcfg_public2_netpart')}.190"
   - "%{hiera('netcfg_public2_netpart')}.191"
