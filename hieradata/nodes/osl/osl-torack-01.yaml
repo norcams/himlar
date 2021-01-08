@@ -22,7 +22,7 @@ profile::base::network::cumulus_interfaces:
     'clagd_peer_ip': 'linklocal'
     'clagd_sys_mac': '44:38:39:ff:bb:1c'
   'swp53':
-    'ipv4': '128.39.254.217/31'
+    'ipv4': '158.36.4.99/31'
     'ipv6': '2001:700:0:8105::1/127'
 
 profile::base::network::cumulus_bridges:
@@ -359,11 +359,11 @@ frrouting::frrouting::zebra_generic_options:
     'forwarding'
 
 frrouting::frrouting::bgp_neighbors:
-  - '128.39.254.216 remote-as 224'
-  - '128.39.254.216 bfd 5 500 500'
-  - '128.39.254.216 soft-reconfiguration inbound'
-  - '128.39.254.216 prefix-list uninett-routes-in in'
-  - '128.39.254.216 prefix-list uninett-routes-out out'
+  - '158.36.4.98 remote-as 224'
+  - '158.36.4.98 bfd 5 500 500'
+  - '158.36.4.98 soft-reconfiguration inbound'
+  - '158.36.4.98 prefix-list uninett-routes-in in'
+  - '158.36.4.98 prefix-list uninett-routes-out out'
   - '2001:700:0:8105:: remote-as 224'
   - '2001:700:0:8105:: bfd 5 500 500'
   - "172.31.228.2 remote-as %{hiera('bgp_as')}"
