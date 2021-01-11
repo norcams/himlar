@@ -361,7 +361,7 @@ frrouting::frrouting::zebra_generic_options:
 
 frrouting::frrouting::bgp_neighbors:
   - '158.36.4.98 remote-as 224'
-  - '158.36.4.98 bfd 5 500 500'
+#  - '158.36.4.98 bfd 5 500 500'
   - '158.36.4.98 soft-reconfiguration inbound'
   - '158.36.4.98 prefix-list uninett-routes-in in'
   - '158.36.4.98 prefix-list uninett-routes-out out'
