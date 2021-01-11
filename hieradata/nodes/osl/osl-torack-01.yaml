@@ -393,11 +393,12 @@ frrouting::frrouting::bgp_options:
   - 'bgp bestpath as-path multipath-relax'
 
 frrouting::frrouting::bgp_networks:
-  - '0.0.0.0/0'
-  - '172.18.32.0/21'
-frrouting::frrouting::bgp_networks6:
-  - '::/0'
-  - 'fd32::/64'
+#  -'158.37.63.0/24'
+#  -'158.39.48.0/24'
+#  -'158.39.75.0/24'
+  -'158.39.200.0/24'
+#frrouting::frrouting::bgp_networks6:
+#  - '2001:700:2:8200::/56'
 
 frrouting::frrouting::bgp_neighbor_groups:
   'rr-clients':
