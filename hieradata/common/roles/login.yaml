@@ -117,6 +117,9 @@ profile::application::git::settings:
 profile::base::yumrepo::repo_hash:
   rdo-release:
     ensure: present
+  # epel is by mistake set default enabled, we do not dare change that without checking all packages everywhere
+  epel:
+    ensure: absent
 
 profile::base::login::manage_db_backup: true
 profile::base::login::dump_owner:      'norcams'
