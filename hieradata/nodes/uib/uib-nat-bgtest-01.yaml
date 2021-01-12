@@ -1,0 +1,19 @@
+---
+network::interfaces_hash:
+  'eth0':
+    onboot:         'yes'
+    ipaddress:      '192.168.23.1'
+    netmask:        '255.255.255.0'
+    defroute:       'no'
+  'eth1':
+    onboot:         'yes'
+    ipaddress:      '129.177.13.166'
+    netmask:        '255.255.255.0'
+    gateway:        '129.177.13.1'
+    dns1:           "%{hiera('netcfg_dns_server1')}"
+    dns2:           "%{hiera('netcfg_dns_server2')}"
+    defroute:       'yes'
+
+ssh::server::options:
+  PermitRootLogin: 'no'
+  PasswordAuthentication: 'yes'

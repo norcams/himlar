@@ -118,7 +118,7 @@ common_config()
     --location-id $foreman_location_id \
     --path $repo || true
   # Save CentOS mirror ids
-  medium_id_1=$(/bin/hammer --csv medium info --name 'CentOS 7 mirror' | tail -n1 | cut -d, -f1)
+  #medium_id_1=$(/bin/hammer --csv medium info --name 'CentOS 7 mirror' | tail -n1 | cut -d, -f1)
   medium_id_2=$(/bin/hammer --csv medium info --name 'CentOS download.iaas.uio.no' | tail -n1 | cut -d, -f1)
 
   # Sync our custom provision templates
@@ -146,7 +146,7 @@ common_config()
       --family Redhat \
       --architecture-ids 1 \
       --medium-ids ${medium_id_2} \
-      --partition-table-ids $norcams_ptable_id \
+      --partition-table-ids $norcams_ptable_id,$norcams_ptable_uefi_id
     # Set default Kickstart and PXELinux templates and associate with os
     /bin/hammer template update --id $norcams_provision_id \
       --operatingsystem-ids $centos_os \

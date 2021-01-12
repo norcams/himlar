@@ -10,3 +10,21 @@ memcached::max_memory: '10%'
 # Allow statsd from mgmt to work with himlarcli
 profile::openstack::metric::firewall_extras:
   source: '0.0.0.0/0'
+
+# disks
+profile::base::common::manage_lvm: true
+
+profile::base::lvm::physical_volume:
+  '/dev/vdb':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_metric':
+    physical_volumes:
+      - /dev/vdb
+profile::base::lvm::logical_volume:
+  'lv_gnocchi':
+    volume_group: 'vg_metric'
+    fs_type:      "xfs"
+    mountpath:    "/var/lib/gnocchi"
+    size:         '1.5G'

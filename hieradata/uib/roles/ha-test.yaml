@@ -5,6 +5,7 @@ named_interfaces::config:
   public:
     - eth1
 
+corosync::cluster_name:   '%{::location}-ha-test'
 corosync::unicast_addresses:
   - "%{hiera('netcfg_public2_netpart')}.190"
   - "%{hiera('netcfg_public2_netpart')}.191"
@@ -24,7 +25,7 @@ corosync_cluster_vip5:    "%{hiera('netcfg_public2_netpart')}.245" # ssltestprox
 corosync_cluster_vip6:    "%{hiera('netcfg_public2_netpart')}.198" # ssltestproxy.ha
 
 # dummy cert, change with correct to test valid certs!
-ssl_cert_apps:          'appstest.uib.no.pem'
+ssl_cert_apps:          'apps.uib.no.pem'
 ssl_cert_nrec_docs:     'appstest.uib.no.pem'
 ssl_cert_nrec_www:      'appstest.uib.no.pem'
 ssl_cert_nrec:          'appstest.uib.no.pem'

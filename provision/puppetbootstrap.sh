@@ -59,7 +59,7 @@ bootstrap_puppet()
     # Remove default version 3 hiera.yaml
     rm -f /etc/puppetlabs/puppet/hiera.yaml
 
-    /opt/puppetlabs/puppet/bin/gem install -N r10k
+    /opt/puppetlabs/puppet/bin/gem install -N r10k -v 3.4.0
     /opt/puppetlabs/puppet/bin/gem install -N puppet_forge
     ln -s /opt/puppetlabs/puppet/bin/wrapper.sh /opt/puppetlabs/bin/r10k
 

@@ -6,6 +6,9 @@ class profile::openstack::metric (
   $manage_wsgi       = false,
   $metric_ports      = ['8041'],
   $firewall_extras   = {},
+  $gnocchi_path      = '/var/lib/gnocchi',
+  $gnocchi_owner     = 'gnocchi',
+  $gnocchi_group     = 'gnocchi',
 )  {
 
   include ::gnocchi
@@ -38,5 +41,12 @@ class profile::openstack::metric (
       proto  => 'udp',
       extras => $firewall_extras,
     }
+  }
+
+  # Ensure top directory/mountpoint is owned by gnocchi
+  file  { 'gnocchi_dir':
+    path  => $gnocchi_path,
+    owner => $gnocchi_owner,
+    group => $gnocchi_group,
   }
 }

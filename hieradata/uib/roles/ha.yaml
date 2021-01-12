@@ -166,7 +166,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
     ensure: present
     mappings:
       - 'apps.uib.no':                            'ssl-https-apps'
-#      - 'appstest.uib.no':                        'public-https-apps-ssl'
+      - 'appsanywhere.uib.no':                    'ssl-https-apps'
       - 'docs.nrec.no':                           'ssl-https-nrec-docs'
       - 'www.nrec.no':                            'ssl-https-nrec-www'
       - 'nrec.no':                                'ssl-https-nrec-www'
@@ -174,6 +174,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
     ensure: present
     mappings:
       - 'apps.uib.no':                            'ssl-http-apps'
+      - 'appsanywhere.uib.no':                    'ssl-http-apps'
       - 'docs.nrec.no':                           'public-http-nrec-redirect'
       - 'www.nrec.no':                            'public-http-nrec-redirect'
       - 'nrec.no':                                'public-http-nrec-redirect'

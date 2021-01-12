@@ -79,12 +79,10 @@ sensu__disk__crtical:     95
 
 #openstack_extras::repo::redhat::redhat::manage_rdo: true
 profile::base::common::packages:
-  'python-openstackclient': {}
   'bash-completion': {}
   'bash-completion-extras': {}
   'jq': {}
 #  'python-oslo-log': {}
-  'openstack-selinux': {}
   'python34': {}
   'python36-virtualenv': {} # used for ca_setup
 
@@ -115,7 +113,7 @@ profile::application::git::settings:
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
-  rdo-release:
+  epel:
     ensure: present
 
 profile::base::login::manage_db_backup: true

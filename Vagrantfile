@@ -77,6 +77,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         libvirt.cpus   = n['cpus']
         libvirt.memory = n['memory']
         libvirt.qemu_use_session = false
+        if instance_name.eql?("metric")
+          libvirt.storage :file, :size => '2G', :detect_zeroes => 'on'
+        end
       end
 
       box.vm.provider :virtualbox do |vbox|

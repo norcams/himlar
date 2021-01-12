@@ -36,6 +36,7 @@ profile::base::lvm::logical_volume:
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
 
+sensu__memory__check:     "check-memory.rb -w 2048 -c 1024"
+
 # remove when telemetry/ceilometer is up in all environments and move to common
 profile::openstack::compute::manage_telemetry: true
-
