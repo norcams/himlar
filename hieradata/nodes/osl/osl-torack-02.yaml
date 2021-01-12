@@ -374,8 +374,8 @@ frrouting::frrouting::bgp_neighbors:
   - '172.18.228.1 default-originate'
   - '172.18.228.1 soft-reconfiguration inbound'
   - '172.18.228.1 route-map failover-default-route in'
-  - "fd32:18:228::2 remote-as %{hiera('bgp_as')}"
-  - 'fd32:18:228::2 soft-reconfiguration inbound'
+  - "fd32:18:228::1 remote-as %{hiera('bgp_as')}"
+  - 'fd32:18:228::1 soft-reconfiguration inbound'
   - "172.18.38.1 remote-as %{hiera('bgp_as')}"
   - '172.18.38.1 soft-reconfiguration inbound'
   - "fd32::6:1 remote-as %{hiera('bgp_as')}"
