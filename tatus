@@ -1,0 +1,71 @@
+[1mdiff --git a/hieradata/common/roles/monitor.yaml b/hieradata/common/roles/monitor.yaml[m
+[1mindex c0c55e3..c7678e6 100644[m
+[1m--- a/hieradata/common/roles/monitor.yaml[m
+[1m+++ b/hieradata/common/roles/monitor.yaml[m
+[36m@@ -4,6 +4,7 @@[m [minclude:[m
+     - profile::database::redis[m
+     - profile::monitoring::sensu::server[m
+     - profile::monitoring::grafana[m
+[32m+[m[32m    - profile::monitoring::graphite[m
+     - profile::monitoring::statsd[m
+     - profile::logging::logrotate[m
+     - profile::openstack::openrc[m
+[36m@@ -93,7 +94,7 @@[m [mprofile::openstack::openrc::password:         "%{hiera('monitor_metric_password'[m
+ profile::openstack::openrc::username:         'monitor'[m
+ profile::openstack::openrc::project_name:     'services'[m
+ [m
+[31m-profile::monitoring::sensu::server::manage_graphite:  true[m
+[32m+[m[32mprofile::monitoring::graphite::manage_graphite:  true[m
+ profile::monitoring::sensu::server::manage_firewall:  true[m
+ profile::monitoring::sensu::server::firewall_extras:[m
+   source: "%{::network_mgmt1}/%{::netmask_mgmt1}"[m
+[36m@@ -223,16 +224,8 @@[m [mprofile::monitoring::sensu::agent::checks:[m
+ [m
+ # logrotate[m
+ profile::logging::logrotate::manage_logrotate: true[m
+[32m+[m[32mprofile::monitoring::graphite::carbon_log_path: '/opt/graphite/storage/log/carbon-cache/carbon-cache-a/*.log'[m
+ logrotate::rules:[m
+[31m-  monitor_logrotate:[m
+[31m-    path:           '/opt/graphite/storage/log/carbon-cache/carbon-cache-a/*.log'[m
+[31m-    rotate:         1[m
+[31m-    postrotate:     '/bin/kill -HUP `cat /opt/graphite/storage/carbon-cache-a.pid 2> /dev/null` 2> /dev/null || true'[m
+[31m-    rotate_every:   daily[m
+[31m-    dateext:        true[m
+[31m-    sharedscripts:  true[m
+[31m-    missingok:      true[m
+[31m-    compress:       true[m
+   sensu_dashboard:[m
+     path:           '/var/log/uchiwa.log'[m
+     rotate:         3[m
+[1mdiff --git a/profile/manifests/monitoring/sensu/server.pp b/profile/manifests/monitoring/sensu/server.pp[m
+[1mindex eac8eb2..bf0a5d5 100644[m
+[1m--- a/profile/manifests/monitoring/sensu/server.pp[m
+[1m+++ b/profile/manifests/monitoring/sensu/server.pp[m
+[36m@@ -4,7 +4,6 @@[m [mclass profile::monitoring::sensu::server ([m
+   $manage_dashboard          = false,[m
+   $manage_rabbitmq           = false,[m
+   $manage_redis              = false,[m
+[31m-  $manage_graphite           = false,[m
+   $manage_firewall           = false,[m
+   $custom_json               = {},[m
+   $firewall_extras           = {}[m
+[36m@@ -29,19 +28,6 @@[m [mclass profile::monitoring::sensu::server ([m
+     Service['rabbitmq-server'] -> Class['sensu::package'][m
+   }[m
+ [m
+[31m-  if $manage_graphite {[m
+[31m-    include ::graphite[m
+[31m-[m
+[31m-    # Used by collectd[m
+[31m-    profile::firewall::rule { '415 graphite accept udp':[m
+[31m-      dport       => [2003],[m
+[31m-      destination => $::ipaddress_mgmt1,[m
+[31m-      proto       => 'udp',[m
+[31m-      source      => "${::network_mgmt1}/${::netmask_mgmt1}"[m
+[31m-    }[m
+[31m-[m
+[31m-  }[m
+[31m-[m
+   if $manage_firewall {[m
+     profile::firewall::rule { '411 uchiwa accept tcp':[m
+       dport       => [80, 3000, 4567],[m
