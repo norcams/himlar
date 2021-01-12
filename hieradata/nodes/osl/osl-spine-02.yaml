@@ -36,8 +36,8 @@ frrouting::frrouting::bgp_neighbors:
   - 'fd32:18:230::1 soft-reconfiguration inbound'
 
 frrouting::frrouting::zebra_ip6_routes:
-  - '::/0 fd32::701'
-  - '::/0 fd32:18:230::1 50'
+#  - '::/0 fd32::701'
+#  - '::/0 fd32:18:230::1 50'
   - '2001:700:2:8200::/64 Null0'
   - '2001:700:2:8201::/64 Null0'
   - '2001:700:2:82ff::12/128 fd32::12'
