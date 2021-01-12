@@ -4,7 +4,6 @@ class profile::monitoring::sensu::server (
   $manage_dashboard          = false,
   $manage_rabbitmq           = false,
   $manage_redis              = false,
-  $manage_graphite           = false,
   $manage_firewall           = false,
   $custom_json               = {},
   $firewall_extras           = {}
@@ -27,19 +26,6 @@ class profile::monitoring::sensu::server (
   if $manage_rabbitmq {
     include ::profile::messaging::rabbitmq
     Service['rabbitmq-server'] -> Class['sensu::package']
-  }
-
-  if $manage_graphite {
-    include ::graphite
-
-    # Used by collectd
-    profile::firewall::rule { '415 graphite accept udp':
-      dport       => [2003],
-      destination => $::ipaddress_mgmt1,
-      proto       => 'udp',
-      source      => "${::network_mgmt1}/${::netmask_mgmt1}"
-    }
-
   }
 
   if $manage_firewall {
