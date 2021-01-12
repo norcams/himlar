@@ -6,7 +6,8 @@ class profile::logging::elasticsearch(
   $manage_firewall = true,
   $ports = [9200],
   $firewall_extras = {},
-  $manage_curator = false
+  $manage_curator = false,
+  $manage_cron = true
 ) {
 
   include ::elasticsearch
