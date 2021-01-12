@@ -371,10 +371,10 @@ frrouting::frrouting::bgp_neighbors:
   - '158.36.4.90 prefix-list uninett-routes-out out'
   - '2001:700:0:807a:: remote-as 224'
   - '2001:700:0:807a:: bfd 5 500 500'
-  - "172.31.228.1 remote-as %{hiera('bgp_as')}"
-  - '172.31.229.1 default-originate'
-  - '172.31.229.1 soft-reconfiguration inbound'
-  - '172.31.229.1 route-map failover-default-route in'
+  - "172.18.228.1 remote-as %{hiera('bgp_as')}"
+  - '172.18.228.1 default-originate'
+  - '172.18.228.1 soft-reconfiguration inbound'
+  - '172.18.228.1 route-map failover-default-route in'
   - "172.18.38.1 remote-as %{hiera('bgp_as')}"
   - '172.18.38.1 soft-reconfiguration inbound'
   - "fd32::6:1 remote-as %{hiera('bgp_as')}"
