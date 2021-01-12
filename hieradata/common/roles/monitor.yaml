@@ -93,7 +93,7 @@ profile::openstack::openrc::password:         "%{hiera('monitor_metric_password'
 profile::openstack::openrc::username:         'monitor'
 profile::openstack::openrc::project_name:     'services'
 
-profile::monitoring::sensu::server::manage_graphite:  true
+profile::monitoring::graphite::manage_graphite:  true
 profile::monitoring::sensu::server::manage_firewall:  true
 profile::monitoring::sensu::server::firewall_extras:
   source: "%{::network_mgmt1}/%{::netmask_mgmt1}"
@@ -223,16 +223,9 @@ profile::monitoring::sensu::agent::checks:
 
 # logrotate
 profile::logging::logrotate::manage_logrotate: true
+profile::monitoring::graphite::manage_monitor_logrotate: true
+profile::monitoring::graphite::manage_monitor_logrotate::path: '/opt/graphite/storage/log/carbon-cache/carbon-cache-a/*.log'
 logrotate::rules:
-  monitor_logrotate:
-    path:           '/opt/graphite/storage/log/carbon-cache/carbon-cache-a/*.log'
-    rotate:         1
-    postrotate:     '/bin/kill -HUP `cat /opt/graphite/storage/carbon-cache-a.pid 2> /dev/null` 2> /dev/null || true'
-    rotate_every:   daily
-    dateext:        true
-    sharedscripts:  true
-    missingok:      true
-    compress:       true
   sensu_dashboard:
     path:           '/var/log/uchiwa.log'
     rotate:         3
