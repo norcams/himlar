@@ -527,10 +527,8 @@ frrouting::frrouting::bgp_options:
   - 'bgp bestpath as-path multipath-relax'
 
 frrouting::frrouting::bgp_networks:
-  - '0.0.0.0/0'
   - '172.18.32.0/21'
 frrouting::frrouting::bgp_networks6:
-  - '::/0'
   - 'fd32::/64'
 
 frrouting::frrouting::bgp_accesslist:
