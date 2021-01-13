@@ -120,3 +120,13 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   kibana6:
     ensure: present
+
+#cronjob to purge elasticsearch
+profile::base::common::manage_cron:  true
+profile::base::cron::crontabs:
+  purge_elasticsearch:
+    ensure:   present
+    command:  'curator /var/lib/delete_indices.yml'
+    weekday:  3
+    hour:     6
+    minute:   30

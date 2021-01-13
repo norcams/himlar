@@ -34,7 +34,7 @@ class profile::logging::elasticsearch(
       content => template("${module_name}/logging/elasticsearch/curator.yml"),
     }
     # action file
-    file { '/root/delete_indices.yml':
+    file { '/var/lib/delete_indices.yml':
       ensure  => file,
       content => template("${module_name}/logging/elasticsearch/delete_indices.yml"),
     }
