@@ -122,6 +122,7 @@ profile::base::yumrepo::repo_hash:
     ensure: present
 
 #cronjob to purge elasticsearch
+profile::base::common::manage_cron:  true
 profile::base::cron::crontabs:
   purge_elasticsearch:
     ensure:   present
