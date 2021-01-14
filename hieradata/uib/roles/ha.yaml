@@ -209,7 +209,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ports:              443
     server_names:       ['appsanywhere05.uib.no', 'appsanywhere06.uib.no']
     ipaddresses:        ['129.177.150.205', '129.177.150.206']
-    options:            'verify none inter 1000 check check-ssl ssl'
+    options:            'verify none inter 120 check check-ssl ssl'
 #    define_cookies:     true
   'public-ldap-prod':
     listening_service:  'public-ldap-prod'
@@ -287,9 +287,17 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
   ssl-https-apps:
     mode:             'http'
     options:
-      - balance:      'source'
+      - balance:      'leastconn'
       - option:
         - 'forwardfor except 127.0.0.1'
+        - 'httpchk GET /healthcheck'
+      - http-check: 'expect status 200'
+      # Session stick table and based on source IP
+      - stick-table: 'type ip size 1m expire 1h'
+      - stick: 'on src'
+      - timeout:
+        - 'server 1m'
+        - 'queue 1m'
   ssl-http-apps:
     mode:             'http'
     options:
@@ -517,6 +525,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       - option:         'http-server-close'
       - option:         'forwardfor'
       - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/ssl_https_domains.map)]'
+      # Prevents X-Forwarded-For spoofing
+      - http-request:   'del-header ^X-Forwarded-For:.*'
       # - http-request:
       #   - 'add-header X-Forwarded-Proto https if { ssl_fc }'
       #   - 'set-header X-Forwarded-Port %[dst_port]'
