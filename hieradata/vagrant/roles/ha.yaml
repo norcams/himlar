@@ -11,6 +11,11 @@ profile::application::openssl::certs:
       - "apps.%{hiera('domain_public')}"
     concat: true
 
+ssl_cert_apps:          "apps.%{hiera('domain_public')}.pem"
+ssl_cert_nrec_docs:     "apps.%{hiera('domain_public')}.pem"
+ssl_cert_nrec_www:      "apps.%{hiera('domain_public')}.pem"
+ssl_cert_nrec:          "apps.%{hiera('domain_public')}.pem"
+
 #netdata
 profile::monitoring::netdata::firewall_extras:
   source:       '0.0.0.0/0'
@@ -32,6 +37,7 @@ corosync_cluster_vip2:    "%{hiera('netcfg_public_netpart')}.7"
 corosync_cluster_vip3:    "%{hiera('netcfg_public_netpart')}.8"
 corosync_cluster_vip4:    "%{hiera('netcfg_public_netpart')}.9"
 corosync_cluster_vip5:    "%{hiera('netcfg_public_netpart')}.10"
+corosync_cluster_vip6:    "%{hiera('netcfg_public_netpart')}.11"
 
 # Firewall rules full access to everything!
 profile::firewall::rules::custom_rules:
@@ -116,6 +122,16 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
     mappings:
       - 'report.uh-iaas.no':                      'public-https-uh-report'
       - 'status.uh-iaas.no':                      'public-https-uh-status'
+  ssl_https_domains:
+    ensure: present
+    mappings:
+      - 'apps.uib.no':                            'ssl-https-apps'
+      - 'appsanywhere.uib.no':                    'ssl-https-apps'
+  ssl_http_domains:
+    ensure: present
+    mappings:
+      - 'apps.uib.no':                            'ssl-http-apps'
+      - 'appsanywhere.uib.no':                    'ssl-http-apps'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   'public-https-uh-status':
@@ -137,6 +153,12 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ipaddresses:        ['129.177.30.211', '129.177.30.229']
     options:
       - 'check'
+  'ssl-https-apps':
+    listening_service:  'ssl-https-apps'
+    ports:              443
+    server_names:       ['appsanywhere05.uib.no', 'appsanywhere06.uib.no']
+    ipaddresses:        ['129.177.150.205', '129.177.150.206']
+    options:            'verify none inter 1000 check check-ssl ssl'
   'uib-https-apps-gw':
     listening_service:  'uib-https-apps-gw'
     ports:              443
@@ -211,6 +233,17 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
 #       - 'check'
 #
 profile::highavailability::loadbalancing::haproxy::haproxy_backends:
+  ssl-https-apps:
+    mode:             'http'
+    options:
+      - balance:      'source'
+      - option:
+        - 'forwardfor except 127.0.0.1'
+  ssl-http-apps:
+    mode:             'http'
+    options:
+      - balance:      'roundrobin'
+      - redirect:     'scheme https if !{ ssl_fc }'
   public-https-apps-test:
     mode:             'http'
     options:
@@ -415,6 +448,48 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       - http-request:
         - 'add-header X-Forwarded-Proto https if { ssl_fc }'
         - 'set-header X-Forwarded-Port %[dst_port]'
+  ssl-http: #for redirect
+    mode:               'http'
+    bind:
+      "%{hiera('corosync_cluster_vip5')}:80": []
+      "%{hiera('corosync_cluster_vip6')}:80": []
+    options:
+      - option:         'httplog'
+      - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/ssl_http_domains.map)]'
+      - capture:        'request header Host len 32' #for debug
+  ssl-https:
+    mode:               'http'
+    bind:
+      "%{hiera('corosync_cluster_vip5')}:443":
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_apps')}"
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_nrec')}"
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_nrec_www')}"
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_nrec_docs')}"
+      "%{hiera('corosync_cluster_vip6')}:443":
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_apps')}"
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_nrec')}"
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_nrec_www')}"
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_nrec_docs')}"
+    options:
+      - option:         'http-server-close'
+      - option:         'forwardfor'
+      - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/ssl_https_domains.map)]'
 
 # Corosync uib
 # Corosync VIP and HAproxy
@@ -463,12 +538,23 @@ profile::highavailability::corosync::primitives:
       'monitor':          { "interval": "10s", "timeout": "20s" }
       'start':            { "interval": "0s", "timeout": "20s" }
       'stop':             { "interval": "0s", "timeout": "20s" }
-  'terminateip':
+  'sslip1':
     'primitive_class':    'ocf'
     'primitive_type':     'IPaddr2'
     'provided_by':        'heartbeat'
     'parameters':
       'ip':               "%{hiera('corosync_cluster_vip5')}"
+      'cidr_netmask':     '24'
+    operations:
+      'monitor':          { "interval": "10s", "timeout": "20s" }
+      'start':            { "interval": "0s", "timeout": "20s" }
+      'stop':             { "interval": "0s", "timeout": "20s" }
+  'sslip2':
+    'primitive_class':    'ocf'
+    'primitive_type':     'IPaddr2'
+    'provided_by':        'heartbeat'
+    'parameters':
+      'ip':               "%{hiera('corosync_cluster_vip6')}"
       'cidr_netmask':     '24'
     operations:
       'monitor':          { "interval": "10s", "timeout": "20s" }
@@ -499,14 +585,15 @@ profile::highavailability::corosync::locations:
     primitive:  'uibip2'
     node_name:  "%{hiera('corosync_cluster_node2')}"
     score:      'INFINITY'
-  'terminate_location1':
-    primitive:  'terminateip'
+  'sslip_location1':
+    primitive:  'sslip1'
     node_name:  "%{hiera('corosync_cluster_node1')}"
-    score:      '100'
-  'terminate_location2':
-    primitive:  'terminateip'
+    score:      'INFINITY'
+  'sslip_location2':
+    primitive:  'sslip2'
     node_name:  "%{hiera('corosync_cluster_node2')}"
-    score:      '50'
+    score:      'INFINITY'
+
 
 profile::highavailability::corosync::colocations:
   'pubip1_haproxy':
@@ -517,5 +604,7 @@ profile::highavailability::corosync::colocations:
     primitives:   ['clone_haproxy', 'uibip1']
   'uibip2_haproxy':
     primitives:   ['clone_haproxy', 'uibip2']
-  'terminateip_haproxy':
-    primitives:   ['clone_haproxy', 'terminateip']
+  'sslip1_haproxy':
+    primitives:   ['clone_haproxy', 'sslip1']
+  'sslip2_haproxy':
+    primitives:   ['clone_haproxy', 'sslip2']
