@@ -1,16 +1,16 @@
 ---
 network::interfaces_hash:
+  'em1':
+    onboot:        'yes'
+    devicetype:    'TeamPort'
+    team_master:   'team1'
+    team_port_config: '{ "prio" : 100 }'
+  'em2':
+    onboot:        'yes'
+    devicetype:    'TeamPort'
+    team_master:   'team1'
+    team_port_config: '{ "prio" : 100 }'
   'p1p1':
-    onboot:        'yes'
-    devicetype:    'TeamPort'
-    team_master:   'team1'
-    team_port_config: '{ "prio" : 100 }'
-  'p1p2':
-    onboot:        'yes'
-    devicetype:    'TeamPort'
-    team_master:   'team1'
-    team_port_config: '{ "prio" : 100 }'
-  'em3':
     onboot:        'yes'
     bridge:        'br0'
   'team1':
