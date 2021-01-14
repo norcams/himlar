@@ -98,14 +98,16 @@ profile::firewall::rules::custom_rules:
     dport:        [ '80', '443' ]
     source:       '0.0.0.0/0'
     destination:  "%{hiera('corosync_cluster_vip6')}"
-  '455 haproxy status':
+  '455 haproxy status public':
     proto:        'tcp'
     dport:        ['9000']
     source:       '129.177.10.0/24'
-    destination:
-      - "%{hiera('corosync_cluster_vip4')}"
-      - "%{hiera('corosync_cluster_vip3')}"
-      - '%{::ipaddress_public1}'
+    destination:  '%{::ipaddress_public1}'
+  '456 haproxy status mgmt':
+    proto:        'tcp'
+    dport:        ['9000']
+    source:       '172.31.0.10/32' #bgo-login
+    destination:  '%{::ipaddress_mgmt1}'
 
 # HAproxy
 haproxy::global_options:
