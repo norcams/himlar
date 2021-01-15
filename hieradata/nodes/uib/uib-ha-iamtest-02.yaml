@@ -2,7 +2,7 @@
 network::interfaces_hash:
   'eth0':
     onboot:         'yes'
-    ipaddress:      '172.31.0.26'
+    ipaddress:      '172.31.0.27'
     netmask:        '255.255.248.0'
     gateway:        "%{hiera('netcfg_mgmt_gateway')}"
     peerdns:        'yes'
