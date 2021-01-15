@@ -5,7 +5,7 @@ network::interfaces_hash:
     ipaddress:      '172.31.0.20'
     netmask:        '255.255.248.0'
     gateway:        "%{hiera('netcfg_mgmt_gateway')}"
-    defroute:       'yes'
+    defroute:       'no'
     peerdns:        'yes'
     dns1:           "%{hiera('netcfg_dns_server1')}"
     dns2:           "%{hiera('netcfg_dns_server2')}"
@@ -36,6 +36,15 @@ network::interfaces_hash:
     ipv6init:       'no'
     ipv6_autoconf:  'no'
     defroute:       'yes'
+    vlan:           'yes'
+  'team1.13':
+    onboot:         'yes'
+    ipaddress:      '129.177.13.168'
+    netmask:        '255.255.255.0'
+    gateway:        '129.177.13.1'
+    ipv6init:       'no'
+    ipv6_autoconf:  'no'
+    defroute:       'no'
     vlan:           'yes'
 
 profile::base::dell::manage_repos: true
