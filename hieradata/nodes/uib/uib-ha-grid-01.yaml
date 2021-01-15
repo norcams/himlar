@@ -41,11 +41,23 @@ network::interfaces_hash:
     onboot:         'yes'
     ipaddress:      '129.177.13.168'
     netmask:        '255.255.255.0'
-    gateway:        '129.177.13.1'
     ipv6init:       'no'
     ipv6_autoconf:  'no'
     defroute:       'no'
     vlan:           'yes'
+
+profile::base::network::routes:
+  'bond0.15':
+    'ipaddress': [ '0.0.0.0', ]
+    'netmask':   [ '0.0.0.0', ]
+    'gateway':   [ '129.177.13.1', ]
+    'table':     [ '13nett', ]
+profile::base::network::routing_tables:
+  '13nett':
+    'table_id':  '13'
+profile::base::network::rules:
+  'team1.13':
+    iprule: [ 'from 129.177.13.0/24 lookup 13nett', ]
 
 profile::base::dell::manage_repos: true
 
