@@ -154,6 +154,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
   public_https_domains:
     ensure: present
     mappings:
+      - 'apps.uib.no':                            'public-https-apps'
+      - 'appsanywhere.uib.no':                    'public-https-apps'
       - 'report.uh-iaas.no':                      'public-https-uh-report'
       - 'status.uh-iaas.no':                      'public-https-uh-status'
       - 'report.nrec.no':                         'public-https-uh-report'
@@ -161,6 +163,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
   public_http_domains:
     ensure: present
     mappings:
+      - 'apps.uib.no':                            'ssl-https-apps'
+      - 'appsanywhere.uib.no':                    'ssl-https-apps'
       - 'docs.uh-iaas.no':                        'public-http-uh-docs'
       - 'report.uh-iaas.no':                      'public-http-nrec-redirect'
       - 'status.uh-iaas.no':                      'public-http-nrec-redirect'
@@ -215,6 +219,12 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ipaddresses:        ['129.177.150.205', '129.177.150.206']
     options:            'verify none inter 120 check check-ssl ssl'
 #    define_cookies:     true
+  'public-https-apps':
+    listening_service:  'public-https-apps'
+    ports:              443
+    server_names:       ['appsanywhere05.uib.no', 'appsanywhere06.uib.no']
+    ipaddresses:        ['129.177.150.205', '129.177.150.206']
+    options:            'check'
   'public-ldap-prod':
     listening_service:  'public-ldap-prod'
     ports:              '389'
@@ -288,6 +298,20 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
       - 'verify none'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_backends:
+  public-https-apps:
+    mode:             'tcp'
+    options:
+      - balance:      'source'
+      - option:
+        - 'forwardfor except 127.0.0.1'
+        - 'httpchk GET /healthcheck'
+      - http-check: 'expect status 200'
+      # Session stick table and based on source IP
+      - stick-table: 'type ip size 1m expire 1h'
+      - stick: 'on src'
+      - timeout:
+        - 'server 1m'
+        - 'queue 1m'
   ssl-https-apps:
     mode:             'http'
     options:
