@@ -17,8 +17,9 @@ ssl_cert_nrec_www:      "apps.%{hiera('domain_public')}.pem"
 ssl_cert_nrec:          "apps.%{hiera('domain_public')}.pem"
 
 #netdata
-profile::monitoring::netdata::firewall_extras:
-  source:       '0.0.0.0/0'
+profile::monitoring::netdata::firewall_source:
+  - '0.0.0.0/0'
+  - '129.177.0.10/24'
 
 # corosync
 corosync::unicast_addresses:
@@ -49,10 +50,16 @@ profile::firewall::rules::custom_rules:
     proto:        'tcp'
     dport:        [ '636', '389' ]
     source:       '0.0.0.0/0'
-  '455 haproxy status':
+  '455 haproxy status public':
     proto:        'tcp'
     dport:        ['9000']
     source:       '0.0.0.0/0'
+    destination: '%{::ipaddress_public1}'
+  '456 haproxy status mgmt':
+    proto:        'tcp'
+    dport:        ['9000']
+    source:       '0.0.0.0/0'
+    destination:  '%{::ipaddress_mgmt1}'
 
 # HAproxy
 haproxy::global_options:
@@ -158,7 +165,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ports:              443
     server_names:       ['appsanywhere05.uib.no', 'appsanywhere06.uib.no']
     ipaddresses:        ['129.177.150.205', '129.177.150.206']
-    options:            'verify none inter 1000 check check-ssl ssl'
+    options:            'verify none inter 120 check check-ssl ssl'
   'uib-https-apps-gw':
     listening_service:  'uib-https-apps-gw'
     ports:              443
@@ -236,9 +243,18 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
   ssl-https-apps:
     mode:             'http'
     options:
-      - balance:      'source'
+      - balance:      'leastconn'
       - option:
         - 'forwardfor except 127.0.0.1'
+        - 'httpchk GET /healthcheck'
+      - http-check: 'expect status 200'
+      # Session stick table and based on source IP
+      - stick-table: 'type ip size 1m expire 1h'
+      - stick: 'on src'
+      - timeout:
+        - 'server 1m'
+        - 'queue 1m'
+
   ssl-http-apps:
     mode:             'http'
     options:
@@ -490,7 +506,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       - option:         'http-server-close'
       - option:         'forwardfor'
       - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/ssl_https_domains.map)]'
-
+      #Prevents X-Forwarded-For spoofing
+      - http-request:   'del-header ^X-Forwarded-For:.*'
 # Corosync uib
 # Corosync VIP and HAproxy
 profile::highavailability::corosync::primitives:
