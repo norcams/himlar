@@ -101,7 +101,9 @@ profile::firewall::rules::custom_rules:
   '455 haproxy status public':
     proto:        'tcp'
     dport:        ['9000']
-    source:       '129.177.10.0/24'
+    source:
+      - '129.177.10.0/24'
+      - '129.177.6.133/32' # bgo-login
     destination:  '%{::ipaddress_public1}'
   '456 haproxy status mgmt':
     proto:        'tcp'
