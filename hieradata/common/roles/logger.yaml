@@ -127,6 +127,6 @@ profile::base::cron::crontabs:
   purge_elasticsearch:
     ensure:   present
     command:  'curator /var/lib/delete_indices.yml'
-    weekday:  3
-    hour:     6
-    minute:   30
+    weekday:  '*'
+    hour:     '6'
+    minute:   '30'
