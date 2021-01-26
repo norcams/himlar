@@ -106,6 +106,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
     bind:
       "%{hiera('corosync_cluster_vip1')}:80": []
       "%{hiera('corosync_cluster_vip2')}:80": []
+      "%{hiera('corosync_cluster_vip3')}:80": []
     options:
       - option:         'httplog'
       - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/ssl_http_domains.map)]'
@@ -133,6 +134,16 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
         - 'ssl'
         - 'crt'
         - "%{hiera('ssl_cert_uib')}"
+      "%{hiera('corosync_cluster_vip3')}:443":
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_core')}"
+        # - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_connect')}"
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_uib')}"
     options:
       - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/ssl_https_domains.map)]'
       # Prevents X-Forwarded-For spoofing
@@ -140,7 +151,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
   uib-ldap:
     mode:               'tcp'
     bind:
-      "%{hiera('corosync_cluster_vip3')}:636": []
+      "%{hiera('corosync_cluster_vip4')}:636": []
     options:
       - option:         'tcplog'
       - use_backend:    'uib-ldap'

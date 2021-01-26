@@ -26,7 +26,8 @@ corosync_cluster_node2:   "%{::location}-ha-iamtest-02.%{hiera('domain_mgmt')}"
 
 corosync_cluster_vip1:    "%{hiera('netcfg_public3_netpart')}.174"  # iamtestproxy.ha
 corosync_cluster_vip2:    "%{hiera('netcfg_public3_netpart')}.175"  # iamtestproxy.ha
-corosync_cluster_vip3:    "%{hiera('netcfg_core_netpart')}.200"      # uibldap
+corosync_cluster_vip3:    "%{hiera('netcfg_core_netpart')}.200"      # core internal
+corosync_cluster_vip4:    "%{hiera('netcfg_core_netpart')}.201"      # uibldap
 
 ssl_cert_core:          'iam-test.uninett.no.pem'
 ssl_cert_connect:       'connect.iam-test.uninett.no.pem'
@@ -34,20 +35,20 @@ ssl_cert_uib:           'tilgang.test.uib.no.pem'
 
 # Firewall
 profile::firewall::rules::custom_rules:
-  '451 haproxy http for internal vip1':
-    proto:        'tcp'
-    dport:        [ '80', '443' ]
-    source:
-      - '129.177.0.0/16' #uib
-      - '34.99.46.95/32' #pwc
-    destination:  "%{hiera('corosync_cluster_vip1')}"
-  '452 haproxy http for internal vip2':
-    proto:        'tcp'
-    dport:        [ '80', '443' ]
-    source:
-      - '129.177.0.0/16' #uib
-      - '34.99.46.95/32' #pwc
-    destination:  "%{hiera('corosync_cluster_vip2')}"
+  # '451 haproxy http for internal vip1':
+  #   proto:        'tcp'
+  #   dport:        [ '80', '443' ]
+  #   source:
+  #     - '129.177.0.0/16' #uib
+  #     - '34.99.46.95/32' #pwc
+  #   destination:  "%{hiera('corosync_cluster_vip1')}"
+  # '452 haproxy http for internal vip2':
+  #   proto:        'tcp'
+  #   dport:        [ '80', '443' ]
+  #   source:
+  #     - '129.177.0.0/16' #uib
+  #     - '34.99.46.95/32' #pwc
+  #   destination:  "%{hiera('corosync_cluster_vip2')}"
   '455 haproxy status public':
     proto:        'tcp'
     dport:        ['9000']
@@ -153,6 +154,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
     bind:
       "%{hiera('corosync_cluster_vip1')}:80": []
       "%{hiera('corosync_cluster_vip2')}:80": []
+      "%{hiera('corosync_cluster_vip3')}:80": []
     options:
       - option:         'httplog'
       - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/ssl_http_domains.map)]'
@@ -180,6 +182,16 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
         - 'ssl'
         - 'crt'
         - "%{hiera('ssl_cert_uib')}"
+      "%{hiera('corosync_cluster_vip3')}:443":
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_core')}"
+        # - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_connect')}"
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_uib')}"
     options:
       - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/ssl_https_domains.map)]'
       # Prevents X-Forwarded-For spoofing
@@ -187,7 +199,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
   uib-ldap:
     mode:               'tcp'
     bind:
-      "%{hiera('corosync_cluster_vip3')}:636": []
+      "%{hiera('corosync_cluster_vip4')}:636": []
     options:
       - option:         'tcplog'
       - use_backend:    'uib-ldap'
