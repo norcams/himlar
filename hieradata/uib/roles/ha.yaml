@@ -69,6 +69,7 @@ corosync_cluster_vip5:    "%{hiera('netcfg_public_netpart')}.166" # sslproxy.ha.
 corosync_cluster_vip6:    "%{hiera('netcfg_public_netpart')}.241" # sslproxy.ha.uib.no
 
 # Firewall
+profile::firewall::rules::merge_strategy: first
 profile::firewall::rules::custom_rules:
   '451 haproxy http for public vip1':
     proto:        'tcp'
