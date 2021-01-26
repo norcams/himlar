@@ -19,7 +19,6 @@ ssl_cert_nrec:          "apps.%{hiera('domain_public')}.pem"
 #netdata
 profile::monitoring::netdata::firewall_source:
   - '0.0.0.0/0'
-  - '129.177.0.10/24'
 
 # corosync
 corosync::unicast_addresses:
@@ -107,6 +106,9 @@ profile::highavailability::loadbalancing::haproxy::access_list:
       - 129.177.33.0/24 # vpn-ansatt
       - 129.177.48.0/24 # vpn-student
       - 129.177.49.0/24 # vpn-student
+      - 129.177.94.64/26 # vpn
+      - 129.177.144.0/23 # new vpn
+      - 129.177.13.203/32 # login
 
 profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
   uib_https_domains:
