@@ -228,6 +228,28 @@ profile::highavailability::corosync::primitives:
       'monitor':          { "interval": "10s", "timeout": "20s" }
       'start':            { "interval": "0s", "timeout": "20s" }
       'stop':             { "interval": "0s", "timeout": "20s" }
+  'iamcore':
+    'primitive_class':    'ocf'
+    'primitive_type':     'IPaddr2'
+    'provided_by':        'heartbeat'
+    'parameters':
+      'ip':               "%{hiera('corosync_cluster_vip3')}"
+      'cidr_netmask':     '25'
+    operations:
+      'monitor':          { "interval": "10s", "timeout": "20s" }
+      'start':            { "interval": "0s", "timeout": "20s" }
+      'stop':             { "interval": "0s", "timeout": "20s" }
+  'uibldap':
+    'primitive_class':    'ocf'
+    'primitive_type':     'IPaddr2'
+    'provided_by':        'heartbeat'
+    'parameters':
+      'ip':               "%{hiera('corosync_cluster_vip4')}"
+      'cidr_netmask':     '25'
+    operations:
+      'monitor':          { "interval": "10s", "timeout": "20s" }
+      'start':            { "interval": "0s", "timeout": "20s" }
+      'stop':             { "interval": "0s", "timeout": "20s" }
   'haproxy':
     'primitive_class':    'systemd'
     'primitive_type':     'haproxy'
@@ -245,9 +267,21 @@ profile::highavailability::corosync::locations:
     primitive:  'iamip2'
     node_name:  "%{hiera('corosync_cluster_node2')}"
     score:      'INFINITY'
+  'iamcore_location':
+    primitive:  'iamcore'
+    node_name:  "%{hiera('corosync_cluster_node1')}"
+    score:      'INFINITY'
+  'uibldap_location':
+    primitive:  'uibldap'
+    node_name:  "%{hiera('corosync_cluster_node1')}"
+    score:      'INFINITY'
 
 profile::highavailability::corosync::colocations:
   'iamip1_haproxy':
     primitives:   ['clone_haproxy', 'iamip1']
   'iamip2_haproxy':
     primitives:   ['clone_haproxy', 'iamip2']
+  'iamcore_haproxy':
+    primitives:   ['clone_haproxy', 'iamcore']
+  'uibldap_haproxy':
+    primitives:   ['clone_haproxy', 'uibldap']
