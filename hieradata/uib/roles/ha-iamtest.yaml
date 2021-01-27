@@ -7,6 +7,10 @@ named_interfaces::config:
     - eth0
   public:
     - eth1
+  core:
+    - eth2
+  uib:
+    - eth3
 
 # nettwork
 netcfg_core_netpart:  '192.168.21'
@@ -65,14 +69,13 @@ profile::firewall::rules::custom_rules:
     proto:        'tcp'
     dport:        ['9000']
     source:
-      - '129.177.10.0/24'
       - '129.177.6.133/32' # bgo-login
     destination:  '%{::ipaddress_public1}'
-  '456 haproxy status mgmt':
+  '456 haproxy status core':
     proto:        'tcp'
     dport:        ['9000']
-    source:       '172.31.0.10/32' #bgo-login
-    destination:  '%{::ipaddress_mgmt1}'
+    source:       '192.168.21.0/24' #core
+    destination:  '%{::ipaddress_core1}'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   'ssl-https-connect':
@@ -215,6 +218,21 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
     options:
       - option:         'tcplog'
       - use_backend:    'uib-ldap'
+
+profile::highavailability::loadbalancing::haproxy::haproxy_listens:
+  monitor:
+    mode: 'http'
+    options:
+      option: ['httplog']
+      stats:
+        - 'enable'
+        - 'hide-version'
+        - 'show-node'
+        - 'realm Monitor\ Stats'
+        - 'uri /'
+    bind:
+      '%{::ipaddress_core1}:9000':              []
+      '%{::ipaddress_public1}:9000':            []
 
 # Corosync VIP and HAproxy
 profile::highavailability::corosync::primitives:
