@@ -26,3 +26,6 @@ network::interfaces_hash:
     ipaddress:      '192.168.23.20'
     netmask:        '255.255.255.0'
     defroute:       'no'
+
+profile::highavailability::corosync::firewall_extras:
+  source: '129.177.13.172'

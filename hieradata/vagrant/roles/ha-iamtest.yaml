@@ -7,6 +7,46 @@ profile::application::openssl::certs:
       - "core.%{hiera('domain_public')}"
     concat: true
 
+profile::firewall::rules::custom_rules:
+  # '451 haproxy http for public vip1':
+  #   proto:        'tcp'
+  #   dport:        [ '80', '443' ]
+  #   source:
+  #     - '129.177.0.0/16' #uib
+  #     - '34.99.46.95/32' #pwc
+  #   destination:  "%{hiera('corosync_cluster_vip1')}"
+  # '452 haproxy http for public vip2':
+  #   proto:        'tcp'
+  #   dport:        [ '80', '443' ]
+  #   source:
+  #     - '129.177.0.0/16' #uib
+  #     - '34.99.46.95/32' #pwc
+  #   destination:  "%{hiera('corosync_cluster_vip2')}"
+  '453 haproxy http for internal vip3':
+    proto:        'tcp'
+    dport:        [ '80', '443' ]
+    source:
+      - '0.0.0.0/0' #core
+    destination:  "%{hiera('corosync_cluster_vip4')}"
+  '454 haproxy http for uib ldap vip4':
+    proto:        'tcp'
+    dport:        [ '636' ]
+    source:
+      - '0.0.0.0/0' #core
+    destination:  "%{hiera('corosync_cluster_vip4')}"
+  '455 haproxy status public':
+    proto:        'tcp'
+    dport:        ['9000']
+    source:
+      - '129.177.10.0/24'
+      - '0.0.0.0/0'
+    destination:  '%{::ipaddress_public1}'
+  '456 haproxy status mgmt':
+    proto:        'tcp'
+    dport:        ['9000']
+    source:       '0.0.0.0/0'
+    destination:  '%{::ipaddress_mgmt1}'
+
 corosync_cluster_node1:   "%{::location}-ha-iamtest-01.%{hiera('domain_mgmt')}"
 corosync_cluster_node2:   "%{::location}-ha-iamtest-02.%{hiera('domain_mgmt')}"
 
