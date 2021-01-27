@@ -170,6 +170,19 @@ profile::network::services::dns_records:
     "%{::location}-storage-arccache-10.%{hiera('domain_mgmt')}":  "%{::location}-storage-10.%{hiera('domain_mgmt')}"
     "%{::location}-storage-arccache-11.%{hiera('domain_mgmt')}":  "%{::location}-storage-11.%{hiera('domain_mgmt')}"
     "%{::location}-storage-arccache-12.%{hiera('domain_mgmt')}":  "%{::location}-storage-12.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2h-13.%{hiera('domain_mgmt')}":  "%{::location}-storage-13.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2h-14.%{hiera('domain_mgmt')}":  "%{::location}-storage-14.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2h-15.%{hiera('domain_mgmt')}":  "%{::location}-storage-15.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2h-16.%{hiera('domain_mgmt')}":  "%{::location}-storage-16.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2h-17.%{hiera('domain_mgmt')}":  "%{::location}-storage-17.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2h-18.%{hiera('domain_mgmt')}":  "%{::location}-storage-18.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2h-19.%{hiera('domain_mgmt')}":  "%{::location}-storage-19.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2h-20.%{hiera('domain_mgmt')}":  "%{::location}-storage-20.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2h-21.%{hiera('domain_mgmt')}":  "%{::location}-storage-21.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2h-22.%{hiera('domain_mgmt')}":  "%{::location}-storage-22.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2h-23.%{hiera('domain_mgmt')}":  "%{::location}-storage-23.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2h-24.%{hiera('domain_mgmt')}":  "%{::location}-storage-24.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2h-25.%{hiera('domain_mgmt')}":  "%{::location}-storage-25.%{hiera('domain_mgmt')}"
   A:
     # Frontend records (<foo>.nrec.no)
     "access.%{hiera('domain_frontend')}":         '158.39.77.250'
