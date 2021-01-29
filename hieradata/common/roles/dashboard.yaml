@@ -47,6 +47,7 @@ profile::openstack::dashboard::csrf_cookie_secure:                 true
 profile::openstack::dashboard::session_cookie_secure:              true
 profile::openstack::dashboard::disable_password_reveal:            true
 profile::openstack::dashboard::enforce_password_check:             true
+profile::openstack::dashboard::secure_proxy_header:                '("HTTP_X_FORWARDED_PROTOCOL", "https")'
 
 # cronjob to cleanup expired session from db
 profile::base::cron::crontabs:

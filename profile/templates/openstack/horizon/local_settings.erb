@@ -33,6 +33,9 @@ DISABLE_PASSWORD_REVEAL = '<%= @disable_password_reveal -%>'
 <% if @enforce_password_check -%>
 ENFORCE_PASSWORD_CHECK = '<%= @enforce_password_check -%>'
 <% end -%>
+<% if @secure_proxy_header -%>
+SECURE_PROXY_SSL_HEADER = '<%= @secure_proxy_header -%>'
+<% end -%>
 <% if @database -%>
 DATABASES = {
     'default': {

@@ -24,11 +24,12 @@ class profile::openstack::dashboard(
   $access_control_allow_origin = false,
   $use_ssl = false,
   $cutomize_charts_dashboard_overview = false,
-  $disallow_iframe_embed  = false,
-  $csrf_cookie_secure     = false,
-  $session_cookie_secure  = false,
+  $disallow_iframe_embed   = false,
+  $csrf_cookie_secure      = false,
+  $session_cookie_secure   = false,
   $disable_password_reveal = false,
   $enforce_password_check  = false,
+  $secure_proxy_header     = false,
 ) {
 
   if $manage_dashboard {
