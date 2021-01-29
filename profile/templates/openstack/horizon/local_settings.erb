@@ -18,6 +18,21 @@ OPENSTACK_USE_SSL = '<%= @use_ssl %>'
 <% if @access_control_allow_origin -%>
 OPENSTACK_ACCESS_CONTROL_ALLOW_ORIGIN = '<%= @access_control_allow_origin %>'
 <% end -%>
+<% if @disallow_iframe_embed -%>
+DISALLOW_IFRAME_EMBED = '<%= @disallow_iframe_embed -%>'
+<% end -%>
+<% if @csrf_cookie_secure -%>
+CSRF_COOKIE_SECURE = '<%= @csrf_cookie_secure -%>'
+<% end -%>
+<% if @session_cookie_secure -%>
+SESSION_COOKIE_SECURE = '<%= @session_cookie_secure -%>'
+<% end -%>
+<% if @disable_password_reveal -%>
+DISABLE_PASSWORD_REVEAL = '<%= @disable_password_reveal -%>'
+<% end -%>
+<% if @enforce_password_check -%>
+ENFORCE_PASSWORD_CHECK = '<%= @enforce_password_check -%>'
+<% end -%>
 <% if @database -%>
 DATABASES = {
     'default': {
