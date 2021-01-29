@@ -39,20 +39,26 @@ ssl_cert_uib:           'tilgang.test.uib.no.pem'
 
 # Firewall
 profile::firewall::rules::custom_rules:
-  # '451 haproxy http for public vip1':
-  #   proto:        'tcp'
-  #   dport:        [ '80', '443' ]
-  #   source:
-  #     - '129.177.0.0/16' #uib
-  #     - '34.99.46.95/32' #pwc
-  #   destination:  "%{hiera('corosync_cluster_vip1')}"
-  # '452 haproxy http for public vip2':
-  #   proto:        'tcp'
-  #   dport:        [ '80', '443' ]
-  #   source:
-  #     - '129.177.0.0/16' #uib
-  #     - '34.99.46.95/32' #pwc
-  #   destination:  "%{hiera('corosync_cluster_vip2')}"
+  '451 haproxy http for public vip1':
+    proto:        'tcp'
+    dport:        [ '80', '443' ]
+    source:
+      - '129.177.9.42/32'
+      - '129.177.9.222/32'
+      - '129.177.6.133/32' # bgo-login
+      #- '129.177.0.0/16' #uib
+      #- '34.99.46.95/32' #pwc
+    destination:  "%{hiera('corosync_cluster_vip1')}"
+  '452 haproxy http for public vip2':
+    proto:        'tcp'
+    dport:        [ '80', '443' ]
+    source:
+      - '129.177.9.42/32'
+      - '129.177.9.222/32'
+      - '129.177.6.133/32' # bgo-login
+      #- '129.177.0.0/16' #uib
+      #- '34.99.46.95/32' #pwc
+    destination:  "%{hiera('corosync_cluster_vip2')}"
   '453 haproxy http for internal vip3':
     proto:        'tcp'
     dport:        [ '80', '443' ]
