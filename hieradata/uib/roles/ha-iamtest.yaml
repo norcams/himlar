@@ -46,6 +46,8 @@ profile::firewall::rules::custom_rules:
       - '129.177.9.42/32'
       - '129.177.9.222/32'
       - '129.177.6.133/32' # bgo-login
+      - '158.38.62.0/23' # uninett
+      - '158.38.178.0/25' #uninett
       #- '129.177.0.0/16' #uib
       #- '34.99.46.95/32' #pwc
     destination:  "%{hiera('corosync_cluster_vip1')}"
@@ -56,6 +58,8 @@ profile::firewall::rules::custom_rules:
       - '129.177.9.42/32'
       - '129.177.9.222/32'
       - '129.177.6.133/32' # bgo-login
+      - '158.38.62.0/23' # uninett
+      - '158.38.178.0/25' #uninett
       #- '129.177.0.0/16' #uib
       #- '34.99.46.95/32' #pwc
     destination:  "%{hiera('corosync_cluster_vip2')}"
