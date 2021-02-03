@@ -65,8 +65,8 @@ profile::storage::ceph::pool::pools:
       min_size:   '2'
   'vms':
     size:    3
-    pg_num:  256
-    pgp_num: 256
+    pg_num:  512
+    pgp_num: 512
     tag:     'rbd'
     custom:
       crush_rule: 'ssd-storage'
