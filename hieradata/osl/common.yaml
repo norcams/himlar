@@ -202,6 +202,8 @@ profile::network::services::dns_records:
     "api-osl.%{hiera('domain_frontend')}":        '158.37.63.250'
     "ns1.%{hiera('domain_frontend')}":            '158.37.63.251'
     "ns2.%{hiera('domain_frontend')}":            '158.39.77.251'
+    "osl-gw1.nrec.no":                            '158.36.4.99'
+    "osl-gw2.nrec.no":                            '158.36.4.91'
 
     # Public records (<foo>.<location>.nrec.no)
     "console.%{hiera('domain_public')}":          '158.37.63.250'
@@ -259,6 +261,8 @@ profile::network::services::dns_records:
     # Frontend records (<foo>.nrec.no)
     "ns1.%{hiera('domain_frontend')}":            '2001:700:2:82ff::251'
     "ns2.%{hiera('domain_frontend')}":            '2001:700:2:83ff::251'
+    "osl-gw1.nrec.no":                            '2001:700:0:8105::1'
+    "osl-gw2.nrec.no":                            '2001:700:0:807a::1'
     # Public records (<foo>.<location>.nrec.no)
     "resolver.%{hiera('domain_public')}":              '2001:700:2:82ff::252'
     "%{::location}-dns-01.%{hiera('domain_public')}":  '2001:700:2:82ff::256'
