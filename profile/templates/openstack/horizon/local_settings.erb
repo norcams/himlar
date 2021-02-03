@@ -27,6 +27,9 @@ CSRF_COOKIE_SECURE = '<%= @csrf_cookie_secure -%>'
 <% if @session_cookie_secure -%>
 SESSION_COOKIE_SECURE = '<%= @session_cookie_secure -%>'
 <% end -%>
+<% if @password_autocomplete -%>
+PASSWORD_AUTOCOMPLETE = '<%= @password_autocomplete -%>'
+<% end -%>
 <% if @disable_password_reveal -%>
 DISABLE_PASSWORD_REVEAL = '<%= @disable_password_reveal -%>'
 <% end -%>

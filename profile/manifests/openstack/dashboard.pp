@@ -30,6 +30,7 @@ class profile::openstack::dashboard(
   $disable_password_reveal = false,
   $enforce_password_check  = false,
   $secure_proxy_header     = false,
+  $password_autocomplete   = undef,
 ) {
 
   if $manage_dashboard {
