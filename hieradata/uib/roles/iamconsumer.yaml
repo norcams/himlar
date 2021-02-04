@@ -1,4 +1,11 @@
 ---
+#
+# Default interfaces
+#
+named_interfaces::config:
+  mgmt:
+    - eth0
+
 accounts::ssh_keys:
   'iaas':
     type:    'ssh-ed25519'
