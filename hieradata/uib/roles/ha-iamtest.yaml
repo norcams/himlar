@@ -119,6 +119,21 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
 #
 # COPY OF PROD IAM SETUP
 #
+haproxy::defaults_options:
+  log:          'global'
+  stats:        []
+  option:       ['dontlognull', 'httplog', 'http-server-close', 'redispatch']
+  maxconn:      '2000' # per frontend
+  timeout:
+    - 'connect 10s'
+    - 'http-keep-alive 10s'
+    - 'check 10s'
+    - 'http-request 10s'
+    - 'client 30s'
+    - 'server 60s'
+    - 'queue 30s'
+    - 'tunnel 3m'
+
 profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
   ssl_https_domains:
     ensure: present
@@ -141,11 +156,9 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
       - option:
         - 'forwardfor except 127.0.0.1'
       - http-check: 'expect status 200'
-  ssl-http-connect:
-    mode:             'http'
-    options:
-      - balance:      'roundrobin'
-      - redirect:     'scheme https if !{ ssl_fc }'
+      # Session stick table and based on source IP
+      - stick-table: 'type ip size 1m expire 1h'
+      - stick: 'on src'
   ssl-https-core:
     mode:             'http'
     options:
@@ -153,11 +166,9 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
       - option:
         - 'forwardfor except 127.0.0.1'
       - http-check: 'expect status 200'
-  ssl-http-core:
-    mode:             'http'
-    options:
-      - balance:      'roundrobin'
-      - redirect:     'scheme https if !{ ssl_fc }'
+      # Session stick table and based on source IP
+      - stick-table: 'type ip size 1m expire 1h'
+      - stick: 'on src'
   ssl-https-uib:
     mode:             'http'
     options:
@@ -165,6 +176,19 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
       - option:
         - 'forwardfor except 127.0.0.1'
       - http-check: 'expect status 200'
+      # Session stick table and based on source IP
+      - stick-table: 'type ip size 1m expire 1h'
+      - stick: 'on src'
+  ssl-http-connect:
+    mode:             'http'
+    options:
+      - balance:      'roundrobin'
+      - redirect:     'scheme https if !{ ssl_fc }'
+  ssl-http-core:
+    mode:             'http'
+    options:
+      - balance:      'roundrobin'
+      - redirect:     'scheme https if !{ ssl_fc }'
   ssl-http-uib:
     mode:             'http'
     options:
