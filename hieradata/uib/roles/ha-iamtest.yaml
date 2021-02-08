@@ -43,27 +43,21 @@ profile::firewall::rules::custom_rules:
     proto:        'tcp'
     dport:        [ '80', '443' ]
     source:
-      - '129.177.9.42/32'
-      - '129.177.9.222/32'
-      - '129.177.9.99/32'
-      - '129.177.6.133/32' # bgo-login
       - '158.38.62.0/23' # uninett
       - '158.38.178.0/25' #uninett
-      #- '129.177.0.0/16' #uib
-      #- '34.99.46.95/32' #pwc
+      - '129.177.0.0/16' # uib
+      - '34.99.47.41/32'
+      - '85.164.196.247/32'
     destination:  "%{hiera('corosync_cluster_vip1')}"
   '452 haproxy http for public vip2':
     proto:        'tcp'
     dport:        [ '80', '443' ]
     source:
-      - '129.177.9.42/32'
-      - '129.177.9.222/32'
-      - '129.177.9.99/32'
-      - '129.177.6.133/32' # bgo-login
       - '158.38.62.0/23' # uninett
       - '158.38.178.0/25' #uninett
-      #- '129.177.0.0/16' #uib
-      #- '34.99.46.95/32' #pwc
+      - '129.177.0.0/16' # uib
+      - '34.99.47.41/32'
+      - '85.164.196.247/32'
     destination:  "%{hiera('corosync_cluster_vip2')}"
   '453 haproxy http for internal vip3':
     proto:        'tcp'
