@@ -290,7 +290,8 @@ profile::network::services::dns_records:
     "10.%{hiera('reverse_public_c2')}":                                          'p5.oncotools.elixir.no'
     "164.%{hiera('reverse_public_c2')}":                                         'smtp.nlpl.eu'
     "38.%{hiera('reverse_public_c2')}":                                          'atlas-db-squid1.grid.uiocloud.no'
-    '0.f.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  'atlas-db-squid1.grid.uiocloud.no'
+    # Dette nettet er IKKE delegert til oss! (mikaeld 9/2 2021)
+    #'0.f.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  'atlas-db-squid1.grid.uiocloud.no'
     #'c.6.0.2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  'oncotools.elixir.no'
 
 ntp::servers:
