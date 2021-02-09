@@ -54,6 +54,14 @@ class profile::application::foreman(
     }
   }
 
+  # config
+  $config = lookup('profile::application::foreman::config', Hash, 'deep', {})
+  create_resources('foreman_config_entry', $config, { require => Class['foreman::install']})
+
+  # plugins
+  $plugins = lookup('profile::application::foreman::plugins', Hash, 'deep', {})
+  create_resources('foreman::plugin', $plugins)
+
   # Push puppet facts to foreman
   $push_facts_ensure = $push_facts? {
     true    => 'present',
@@ -117,11 +125,4 @@ class profile::application::foreman(
       extras => $firewall_extras['proxy']
     }
   }
-
-    # Remove this after we upgrade to 2.1
-    file { 'foreman-systemd-override':
-      ensure => absent,
-      path   => '/etc/systemd/system/foreman.service.d/override.conf'
-    }
-
 }
