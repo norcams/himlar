@@ -246,6 +246,14 @@ profile::base::network::cumulus_bonds:
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', ]
     'mtu': '9216'
+  'host24':
+    'slaves': [ 'swp6s3', ]
+    'clag_id': '24'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
   'host25':
     'slaves': [ 'swp7s0', ]
     'clag_id': '25'
@@ -374,6 +382,54 @@ profile::base::network::cumulus_bonds:
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', ]
     'mtu': '9216'
+  'host41':
+    'slaves': [ 'swp11s0', ]
+    'clag_id': '41'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host42':
+    'slaves': [ 'swp11s1', ]
+    'clag_id': '42'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host43':
+    'slaves': [ 'swp11s2', ]
+    'clag_id': '43'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host44':
+    'slaves': [ 'swp11s3', ]
+    'clag_id': '44'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host45':
+    'slaves': [ 'swp12s0', ]
+    'clag_id': '45'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host46':
+    'slaves': [ 'swp12s1', ]
+    'clag_id': '46'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
 
 profile::base::network::cumulus_bridges:
   'bridge':
@@ -401,6 +457,7 @@ profile::base::network::cumulus_bridges:
       - host21
       - host22
       - host23
+      - host24
       - host25
       - host26
       - host27
@@ -417,6 +474,12 @@ profile::base::network::cumulus_bridges:
       - host38
       - host39
       - host40
+      - host41
+      - host42
+      - host43
+      - host44
+      - host45
+      - host46
       - peerlink
       - downlink
     'alias_name': 'Transport L2 if'
@@ -478,6 +541,8 @@ frrouting::frrouting::zebra_interfaces:
     - 'link-detect'
   'host23':
     - 'link-detect'
+  'host24':
+    - 'link-detect'
   'host25':
     - 'link-detect'
   'host26':
@@ -509,6 +574,18 @@ frrouting::frrouting::zebra_interfaces:
   'host39':
     - 'link-detect'
   'host40':
+    - 'link-detect'
+  'host41':
+    - 'link-detect'
+  'host42':
+    - 'link-detect'
+  'host43':
+    - 'link-detect'
+  'host44':
+    - 'link-detect'
+  'host45':
+    - 'link-detect'
+  'host46':
     - 'link-detect'
 
 frrouting::frrouting::zebra_generic_options:
