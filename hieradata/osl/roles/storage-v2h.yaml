@@ -35,10 +35,7 @@ profile::base::physical::load_ahci_last:         true
 profile::base::physical::load_ahci_last_scsidrv: 'megaraid_sas'
 
 # placeholder data - FIXME
-profile::base::common::manage_lvm:           false
-rofile::base::lvm::create_lvm:               false
 profile::storage::cephpool::manage_ec_pools: false
-profile::storage::cephosd::create_osds:      false
 profile::storage::cephosd::crush_move:       false
 
 profile::base::lvm::volume_group:
@@ -82,7 +79,61 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_nvme1'
     createfs:     false
     size:         32G
+  'lv_nvmeosd':
+    volume_group: 'vg_nvme1'
+    createfs:     false
+    size:         1200G
 profile::base::lvm::physical_volume:
   '/dev/nvme0n1':
     ensure: present
     force:  true
+
+profile::storage::cephosd::osds:
+  '/dev/sda':
+    wal_device: false
+    db_device:  false
+  '/dev/sdb':
+    wal_device: false
+    db_device:  false
+  '/dev/sdc':
+    wal_device: false
+    db_device:  false
+  '/dev/sdd':
+    wal_device: false
+    db_device:  false
+  '/dev/sde':
+    wal_device: false
+    db_device:  false
+  '/dev/sdf':
+    wal_device: false
+    db_device:  false
+  '/dev/sdg':
+    wal_device: false
+    db_device:  false
+  '/dev/sdh':
+    wal_device: false
+    db_device:  'vg_nvme1/lv_dbh'
+  '/dev/sdi':
+    wal_device: false
+    db_device:  'vg_nvme1/lv_dbi'
+  '/dev/sdj':
+    wal_device: false
+    db_device:  'vg_nvme1/lv_dbj'
+  '/dev/sdk':
+    wal_device: false
+    db_device:  'vg_nvme1/lv_dbk'
+  '/dev/sdl':
+    wal_device: false
+    db_device:  'vg_nvme1/lv_dbl'
+  '/dev/sdm':
+    wal_device: false
+    db_device:  'vg_nvme1/lv_dbm'
+  '/dev/sdn':
+    wal_device: false
+    db_device:  'vg_nvme1/lv_dbn'
+  '/dev/sdo':
+    wal_device: false
+    db_device:  false
+  '/dev/sdp':
+    wal_device: false
+    db_device:  false
