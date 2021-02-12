@@ -34,6 +34,9 @@ profile::storage::ceph_crushrules::rules:
     rule_device_type: "ssd"
     rule_root:        "dcache"
 
+# Disable intel c states for performance
+profile::base::physical::disable_intel_cstates: true
+
 profile::storage::cephpool::manage_ec_pools:         true
 profile::storage::cephpool::manage_cephpool_params:  true
 

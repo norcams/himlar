@@ -98,9 +98,6 @@ profile::storage::cephpool_params::pools:
     application_enable: 'rbd'
     replicas_min_size:  '5'
 
-# Disable intel c states for performance
-profile::base::physical::disable_intel_cstates: true
-
 profile::base::common::extraswap:         true
 profile::base::common::extraswap_sizegb:  20
 profile::base::common::extraswap_fileloc: '/var/lib/swap/swapfile'
