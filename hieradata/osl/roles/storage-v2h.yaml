@@ -34,9 +34,23 @@ profile::base::network::network_auto_bonding:
 profile::base::physical::load_ahci_last:         true
 profile::base::physical::load_ahci_last_scsidrv: 'megaraid_sas'
 
+# sensu overrides
+sensu__memory__check:     "check-memory-percent.rb -w 93 -c 95"
+
 # placeholder data - FIXME
 profile::storage::cephpool::manage_ec_pools: false
 profile::storage::cephosd::crush_move:       false
+
+profile::storage::cephclient::create_extraconf: true
+profile::storage::ceph_extraconf::config:
+  osd_memory_target:
+    'config_key'  : "osd/osd_memory_target"
+    'config_value': "10737418240"
+
+profile::base::common::extraswap:         true
+profile::base::common::extraswap_sizegb:  28
+profile::base::common::extraswap_fileloc: '/var/lib/swap/swapfile'
+profile::base::physical::load_ahci_first: true
 
 profile::base::lvm::volume_group:
   'vg_swap':
