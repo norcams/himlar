@@ -140,3 +140,4 @@ profile::storage::cephosd::osds:
   '/dev/vg_nvme1/lv_nvmeosd':
     wal_device: false
     db_device:  false
+    dev_class:  'nvme'
