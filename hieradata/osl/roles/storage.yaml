@@ -18,6 +18,9 @@ profile::base::network::network_auto_opts:
   ceph:
     'defroute': 'no'
 
+# Disable intel c states for performance
+profile::base::physical::disable_intel_cstates: true
+
 profile::storage::cephpool::manage_cephpool_params:  false
 
 profile::base::physical::configure_bmc_nic:          true
