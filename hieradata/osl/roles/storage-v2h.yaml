@@ -40,3 +40,49 @@ rofile::base::lvm::create_lvm:               false
 profile::storage::cephpool::manage_ec_pools: false
 profile::storage::cephosd::create_osds:      false
 profile::storage::cephosd::crush_move:       false
+
+profile::base::lvm::volume_group:
+  'vg_swap':
+    physical_volumes:
+      - /dev/sdq4
+  'vg_nvme1':
+    physical_volumes:
+      - /dev/nvme0n1
+profile::base::lvm::logical_volume:
+  'lv_swap2':
+    volume_group: 'vg_swap'
+    fs_type:      xfs
+    size:         30G
+    mountpath:    "/var/lib/swap"
+  'lv_dbh':
+    volume_group: 'vg_nvme1'
+    createfs:     false
+    size:         32G
+  'lv_dbi':
+    volume_group: 'vg_nvme1'
+    createfs:     false
+    size:         32G
+  'lv_dbj':
+    volume_group: 'vg_nvme1'
+    createfs:     false
+    size:         32G
+  'lv_dbk':
+    volume_group: 'vg_nvme1'
+    createfs:     false
+    size:         32G
+  'lv_dbl':
+    volume_group: 'vg_nvme1'
+    createfs:     false
+    size:         32G
+  'lv_dbm':
+    volume_group: 'vg_nvme1'
+    createfs:     false
+    size:         32G
+  'lv_dbn':
+    volume_group: 'vg_nvme1'
+    createfs:     false
+    size:         32G
+profile::base::lvm::physical_volume:
+  '/dev/nvme0n1':
+    ensure: present
+    force:  true
