@@ -87,8 +87,8 @@ profile::storage::ceph::pool::pools:
       min_size:   '2'
   'volumes_hdd_ec_meta':
     size:    3
-    pg_num:  8
-    pgp_num: 8
+    pg_num:  32
+    pgp_num: 32
     tag:     'rbd'
     custom:
       crush_rule: 'nvme-storage'
@@ -96,8 +96,8 @@ profile::storage::ceph::pool::pools:
       min_size:   '2'
   'volumes_ssd_ec_meta':
     size:    3
-    pg_num:  8
-    pgp_num: 8
+    pg_num:  32
+    pgp_num: 32
     tag:     'rbd'
     custom:
       crush_rule: 'nvme-storage'
