@@ -62,7 +62,7 @@ profile::base::lvm::logical_volume:
   'lv_swap2':
     volume_group: 'vg_swap'
     fs_type:      xfs
-    size:         30G
+    size:         35G
     mountpath:    "/var/lib/swap"
   'lv_dbh':
     volume_group: 'vg_nvme1'
