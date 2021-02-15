@@ -30,6 +30,9 @@ profile::base::network::network_auto_bonding:
       'team_port_config': '{ "prio" : 100 }'
       'mtu': '9000'
 
+profile::storage::cephosd::crush_parent:      'huawei'
+profile::storage::cephosd::crush_parent_type: 'pod'
+
 # Ensure that the m.2 boot device is the last device
 profile::base::physical::load_ahci_last:         true
 profile::base::physical::load_ahci_last_scsidrv: 'megaraid_sas'
