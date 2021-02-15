@@ -35,6 +35,8 @@ profile::base::physical::load_ahci_last:         true
 profile::base::physical::load_ahci_last_scsidrv: 'megaraid_sas'
 
 # sensu overrides
+sensu__disk__warning:     85
+sensu__disk__crtical:     90
 sensu__memory__check:     "check-memory-percent.rb -w 93 -c 95"
 
 # placeholder data - FIXME
