@@ -40,6 +40,7 @@ filter import_bgp {
 
 table private;
 table lhc;
+table lhc_private;
 
 # Configure synchronization between BIRD's routing tables and the
 # kernel.
@@ -69,6 +70,13 @@ protocol pipe {
   export filter import_bgp;
 }
 
+protocol pipe {
+  table master;
+  peer table lhc_private;
+  import filter import_kernel;
+  export filter import_bgp;
+}
+
 protocol kernel {
   learn;
   table private;
@@ -83,6 +91,16 @@ protocol kernel {
   learn;
   table lhc;
   kernel table ipt_lhc;
+  scan time 2;
+  device routes;
+  export all;
+  import filter import_kernel;
+}
+
+protocol kernel {
+  learn;
+  table lhc_private;
+  kernel table ipt_lhc_private;
   scan time 2;
   device routes;
   export all;
