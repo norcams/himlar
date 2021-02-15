@@ -109,7 +109,7 @@ profile::storage::ceph::pool::ec_pools:
 
 profile::storage::ceph_ecpool::ec_pools:
   'volumes_hdd_ec_data':
-    pg_num:              "2048"
+    pg_num:              "1024"
     manage:              true
     allow_ec_overwrites: true
     k_data:              "8"
@@ -119,7 +119,7 @@ profile::storage::ceph_ecpool::ec_pools:
     plugin:              "jerasure"
     technique:           "reed_sol_van"
   'volumes_ssd_ec_data':
-    pg_num:              "2048"
+    pg_num:              "1024"
     manage:              true
     allow_ec_overwrites: true
     k_data:              "8"
