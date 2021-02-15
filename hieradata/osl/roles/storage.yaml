@@ -38,55 +38,15 @@ profile::storage::ceph_crushrules::rules:
   'ssd-storage':
     rule_device_type: "sdd"
     rule_root:        "storage"
+  'nvme-storage':
+    rule_device_type: "nvme"
+    rule_root:        "storage"
   'hdd-arccache':
     rule_device_type: "hdd"
     rule_root:        "arccache"
   'ssd-arccache':
     rule_device_type: "ssd"
     rule_root:        "arccache"
-
-profile::storage::ceph::pool::pools:
-  'rbd':
-    ensure: absent
-  'volumes':
-    size:    3
-    pg_num:  2048
-    pgp_num: 2048
-    tag:     'rbd'
-    custom:
-      crush_rule: 'hdd-storage'
-      nodelete:   'true'
-      min_size:   '2'
-  'images':
-    size:    3
-    pg_num:  512
-    pgp_num: 512
-    tag:    'rbd'
-    custom:
-      crush_rule: 'hdd-storage'
-      nodelete:   'true'
-      min_size:   '2'
-  'vms':
-    size:    3
-    pg_num:  512
-    pgp_num: 512
-    tag:     'rbd'
-    custom:
-      crush_rule: 'ssd-storage'
-      nodelete:   'true'
-      min_size:   '2'
-  'volumes_hdd_ec_meta':
-    size:    3
-    pg_num:  256
-    pgp_num: 256
-    tag:     'rbd'
-    custom:
-      crush_rule: 'ssd-storage'
-      nodelete:   'true'
-      min_size:   '2'
-profile::storage::ceph::pool::ec_pools:
-  'placeholder':
-    manage: false
 
 profile::base::lvm::physical_volume:
   '/dev/sdi':

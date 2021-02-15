@@ -30,7 +30,7 @@ profile::base::network::network_auto_bonding:
       'team_port_config': '{ "prio" : 100 }'
       'mtu': '9000'
 
-profile::storage::cephosd::crush_parent:      'huawei'
+profile::storage::cephosd::crush_parent:      'storage'
 profile::storage::cephosd::crush_parent_type: 'pod'
 
 # Ensure that the m.2 boot device is the last device
@@ -42,9 +42,8 @@ sensu__disk__warning:     85
 sensu__disk__crtical:     90
 sensu__memory__check:     "check-memory-percent.rb -w 93 -c 95"
 
-# placeholder data - FIXME
-profile::storage::cephpool::manage_ec_pools: false
-profile::storage::cephosd::crush_move:       false
+profile::storage::cephpool::manage_ec_pools: true
+profile::storage::cephosd::crush_move:       true
 
 profile::storage::cephclient::create_extraconf: true
 profile::storage::ceph_extraconf::config:
@@ -55,6 +54,88 @@ profile::storage::ceph_extraconf::config:
 profile::base::common::extraswap:         true
 profile::base::common::extraswap_sizegb:  28
 profile::base::common::extraswap_fileloc: '/var/lib/swap/swapfile'
+
+profile::storage::ceph::pool::pools:
+  'rbd':
+    ensure: absent
+  'volumes':
+    size:    3
+    pg_num:  2048
+    pgp_num: 2048
+    tag:     'rbd'
+    custom:
+      crush_rule: 'hdd-storage'
+      nodelete:   'true'
+      min_size:   '2'
+  'images':
+    size:    3
+    pg_num:  512
+    pgp_num: 512
+    tag:    'rbd'
+    custom:
+      crush_rule: 'hdd-storage'
+      nodelete:   'true'
+      min_size:   '2'
+  'vms':
+    size:    3
+    pg_num:  512
+    pgp_num: 512
+    tag:     'rbd'
+    custom:
+      crush_rule: 'ssd-storage'
+      nodelete:   'true'
+      min_size:   '2'
+  'volumes_hdd_ec_meta':
+    size:    3
+    pg_num:  8
+    pgp_num: 8
+    tag:     'rbd'
+    custom:
+      crush_rule: 'nvme-storage'
+      nodelete:   'true'
+      min_size:   '2'
+  'volumes_ssd_ec_meta':
+    size:    3
+    pg_num:  8
+    pgp_num: 8
+    tag:     'rbd'
+    custom:
+      crush_rule: 'nvme-storage'
+      nodelete:   'true'
+      min_size:   '2'
+profile::storage::ceph::pool::ec_pools:
+  'placeholder':
+    manage: false
+
+profile::storage::ceph_ecpool::ec_pools:
+  'volumes_hdd_ec_data':
+    pg_num:              "2048"
+    manage:              true
+    allow_ec_overwrites: true
+    k_data:              "8"
+    m_code:              "3"
+    crush_device_class:  "hdd"
+    crush_root:          "storage"
+    plugin:              "jerasure"
+    technique:           "reed_sol_van"
+  'volumes_ssd_ec_data':
+    pg_num:              "2048"
+    manage:              true
+    allow_ec_overwrites: true
+    k_data:              "8"
+    m_code:              "2"
+    crush_device_class:  "ssd"
+    crush_root:          "storage"
+    plugin:              "jerasure"
+    technique:           "reed_sol_van"
+
+profile::storage::cephpool_params::pools:
+  'volumes_hdd_ec_data':
+    application_enable: 'rbd'
+    replicas_min_size:  '9'
+  'volumes_ssd_ec_data':
+    application_enable: 'rbd'
+    replicas_min_size:  '9'
 
 profile::base::lvm::volume_group:
   'vg_swap':
