@@ -20,26 +20,16 @@ profile::base::cron::crontabs:
     hour:     '*/5'
     minute:   '0'
     command:  '/opt/himlarcli/bin/sync_owners.sh >/dev/null 2>&1'
-  check_expired_demo_instances_60d:
-    hour:     '5'
-    minute:   '0'
-    weekday:  '*'
-    command:  '/opt/himlarcli/demo.py expired -d 60 -t notify/demo-notify-expired-instances-30dleft.txt --region osl'
-  check_expired_demo_instances_75d:
-    hour:     '6'
-    minute:   '0'
-    weekday:  '*'
-    command:  '/opt/himlarcli/demo.py expired -d 75 -t notify/demo-notify-expired-instances-15dleft.txt --region osl'
-  check_expired_demo_instances_89d:
+  check_expired_demo_instances:
     hour:     '7'
     minute:   '0'
     weekday:  '*'
-    command:  '/opt/himlarcli/demo.py expired -d 89 -t notify/demo-notify-expired-instances-1dleft.txt --region osl'
-  delete_expired_demo_instances_90d:
-    hour:     '18'
+    command:  '/opt/himlarcli/bin/check_expired_demo_instances.sh --region osl >/dev/null 2>&1'
+  delete_expired_demo_instances:
+    hour:     '14'
     minute:   '0'
     weekday:  '*'
-    command: '/opt/himlarcli/demo.py delete_expired_instance -d 90 --region osl'
+    command: '/opt/himlarcli/bin/delete_expired_demo_instances.sh >/dev/null 2>&1'
 
 profile::base::lvm::physical_volume:
   '/dev/vdb':

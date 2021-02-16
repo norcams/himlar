@@ -14,3 +14,15 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_opt'
     fs_type:      "xfs"
     mountpath:    "/opt/himlarcli"
+
+profile::base::cron::crontabs:
+  check_expired_demo_instances:
+    hour:     '7'
+    minute:   '0'
+    weekday:  '*'
+    command:  '/opt/himlarcli/bin/check_expired_demo_instances.sh --region osl >/dev/null 2>&1'
+  delete_expired_demo_instances:
+    hour:     '14'
+    minute:   '0'
+    weekday:  '*'
+    command: '/opt/himlarcli/bin/delete_expired_demo_instances.sh >/dev/null 2>&1'
