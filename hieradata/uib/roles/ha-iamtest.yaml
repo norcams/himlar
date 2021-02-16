@@ -242,8 +242,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       # Prevents X-Forwarded-For spoofing
       - http-request:
         - 'del-header ^X-Forwarded-For:.*'
-        - 'del-header ^X-SSL-Client-Verify:*'
-        - 'del-header ^X-SSL-Client-DN:*'
+        - 'del-header ^X-SSL-Client-Verify:.*'
+        - 'del-header ^X-SSL-Client-DN:.*'
   uib-ldap:
     mode:               'tcp'
     bind:
