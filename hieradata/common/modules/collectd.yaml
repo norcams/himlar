@@ -1,4 +1,5 @@
 ---
+collectd::minimum_version:        '5.8'
 collectd::manage_repo:            false
 collectd::manage_package:         true
 collectd::purge_config:           true
@@ -34,3 +35,17 @@ collectd::plugin::virt::connection:       'qemu:///system'
 collectd::plugin::virt::hostname_format:  'hostname uuid'
 collectd::plugin::virt::refresh_interval: '300'
 collectd::plugin::virt::extra_stats:      'cpu_util disk disk_err'
+
+collectd::plugin::processes::interval:            300
+collectd::plugin::processes::collect_memory_maps: false
+collectd::plugin::processes::process_matches:
+  - name: 'nova'
+    regex: 'nova'
+  - name: 'qemu'
+    regex: 'qemu-kvm'
+  - name: 'etcd'
+    regex: 'etcd'
+collectd::plugin::processes::processes:
+  - collectd
+  - sensu-client
+  - libvirtd

@@ -1,7 +1,8 @@
 ---
+# collectd
 include:
   default:
-    - profile::monitoring::netdata
+    - profile::monitoring::collectd
 
 named_interfaces::config:
   mgmt:
@@ -27,7 +28,6 @@ profile::base::physical::enable_hugepages: true
 profile::base::physical::hugepagesz:       '2M'
 profile::base::physical::hugepages:        '245760'
 
-profile::monitoring::netdata::manage_firewall: true
 
 # Nover overrides
 nova::compute::libvirt::libvirt_cpu_model: 'EPYC'
@@ -60,3 +60,16 @@ nova::config::nova_config:
     value: default
   DEFAULT/metadata_workers:
     value: '2'
+
+# collectd
+profile::monitoring::collectd::enable: true
+profile::monitoring::collectd::plugins:
+  - collectd::plugin::aggregation
+  - collectd::plugin::cpu
+  - collectd::plugin::disk
+  - collectd::plugin::load
+  - collectd::plugin::memory
+  - collectd::plugin::interface
+  - collectd::plugin::write_graphite
+  - collectd::plugin::virt
+  - collectd::plugin::processes

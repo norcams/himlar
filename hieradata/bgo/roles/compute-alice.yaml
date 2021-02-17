@@ -22,6 +22,7 @@ profile::monitoring::collectd::plugins:
   - collectd::plugin::interface
   - collectd::plugin::write_graphite
   - collectd::plugin::virt
+  - collectd::plugin::processes
 
 # Enable hugepages to prevent OOM-killer when using NUMA
 profile::base::physical::enable_hugepages: true
@@ -97,4 +98,3 @@ sensu__memory__check:     "check-memory.rb -w 2048 -c 1024"
 # Red Hat Subscription Management (RHSM)
 profile::rhsm::subscription::manage: false
 profile::rhsm::virtwho::manage:      false
-
