@@ -26,6 +26,7 @@ profile::network::nat::iniface:               "%{::interface_mgmt1}"
 profile::network::nat::bird_export_networks:
   - '129.177.14.0/24'
   - '129.177.5.0/24'
+  - '129.177.6.193/32'
   - '129.177.30.224/32'
   - '129.177.30.56/32'
 
