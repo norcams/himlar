@@ -62,6 +62,7 @@ nova::api::enabled_apis:                [ 'osapi_compute', ]
 nova::api::enabled:                     true
 #nova::api::api_bind_address:            "%{ipaddress_trp1}"
 nova::api::service_name:                'httpd'
+nova::api::allow_resize_to_same_host:   true
 
 # nova wsgi
 nova::wsgi::apache_api::ssl:        false
