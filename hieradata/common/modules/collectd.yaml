@@ -36,7 +36,7 @@ collectd::plugin::virt::hostname_format:  'hostname uuid'
 collectd::plugin::virt::refresh_interval: '300'
 collectd::plugin::virt::extra_stats:      'cpu_util disk disk_err'
 
-collectd::plugin::processes::interval:            300
+collectd::plugin::processes::interval:            120
 collectd::plugin::processes::collect_memory_maps: false
 collectd::plugin::processes::process_matches:
   - name: 'nova'
@@ -49,3 +49,4 @@ collectd::plugin::processes::processes:
   - collectd
   - sensu-client
   - libvirtd
+  - nova-compute
