@@ -21,6 +21,12 @@ profile::base::network::cumulus_interfaces:
     'clagd_priority': '4096'
     'clagd_peer_ip': 'linklocal'
     'clagd_sys_mac': '44:38:39:ff:bb:1c'
+  'swp50':
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
   'swp53':
     'ipv4': '158.36.4.99/31'
     'ipv6': '2001:700:0:8105::1/127'
@@ -59,6 +65,7 @@ profile::base::network::cumulus_bridges:
       - host34
       - host42
       - host44
+      - swp50
       - peerlink
       - downlink
       - uplink
@@ -327,6 +334,8 @@ frrouting::frrouting::zebra_interfaces:
   'host42':
     - 'link-detect'
   'host44':
+    - 'link-detect'
+  'swp50':
     - 'link-detect'
   'swp53':
     - 'link-detect'
