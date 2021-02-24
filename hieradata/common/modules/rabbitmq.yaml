@@ -4,7 +4,6 @@ mq__high__watermark:                  0.4
 
 # Install rabbitmq_management plugin
 rabbitmq::admin_enable:               true
-
 rabbitmq::repos_ensure:               false
 rabbitmq::delete_guest_user:          true
 rabbitmq::file_limit:                 65536
@@ -12,10 +11,10 @@ rabbitmq::node_ip_address:            "0.0.0.0" #This should be set to mgmt or t
 rabbitmq::package_provider:           yum
 rabbitmq::package_source:             ''
 rabbitmq::config_variables:
-    'log_levels':       "[{connection, info}]"
-    'loopback_users':   "[{local}]"
+    'log_levels':               "[{connection, info}]"
+    'loopback_users':           "[{local}]"
     'vm_memory_high_watermark': "%{hiera('mq__high__watermark')}"
-
+rabbitmq::loopback_users:             []
 rabbitmq::config_cluster:             true
 rabbitmq::config_ranch:               false
 rabbitmq::cluster_node_type:          'disc'
