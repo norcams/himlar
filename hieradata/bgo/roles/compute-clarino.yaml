@@ -31,6 +31,9 @@ profile::monitoring::collectd::plugins:
   - collectd::plugin::write_graphite
   - collectd::plugin::virt
 
+profile::base::common::packages:
+  'numactl': {}
+
 # Enable hugepages to prevent OOM-killer when using NUMA
 profile::base::physical::enable_hugepages: true
 # Number and size of hugepages, based on 1024GB - 40 GB (10GB free pr node)

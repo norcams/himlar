@@ -3,6 +3,9 @@
 #   default:
 #     - profile::monitoring::netdata
 
+profile::base::common::packages:
+  'numactl': {}
+
 # Turn off nested virtualization
 profile::virtualization::nested::manage: false
 
