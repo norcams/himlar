@@ -70,3 +70,5 @@ nova::compute::rbd::ephemeral_storage:            false
 nova::config::nova_config:
   libvirt/images_type:
     value: default
+  libvirt/remote_filesystem_transport:
+    value: 'rsync'

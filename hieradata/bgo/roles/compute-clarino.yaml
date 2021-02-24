@@ -105,6 +105,8 @@ nova::config::nova_config:
     value: default
   DEFAULT/metadata_workers:
     value: '1'
+  libvirt/remote_filesystem_transport:
+    value: 'rsync'
 
 # Red Hat Subscription Management (RHSM)
 profile::rhsm::subscription::manage: false

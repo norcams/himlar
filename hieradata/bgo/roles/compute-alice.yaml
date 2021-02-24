@@ -95,6 +95,8 @@ nova::config::nova_config:
     value: default
   DEFAULT/metadata_workers:
     value: '2'
+  libvirt/remote_filesystem_transport:
+    value: 'rsync'
 
 sensu__memory__check:     "check-memory.rb -w 2048 -c 1024"
 

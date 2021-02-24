@@ -71,3 +71,5 @@ nova::config::nova_config:
     value: default
   DEFAULT/metadata_workers:
     value: '4'
+  libvirt/remote_filesystem_transport:
+    value: 'rsync'
