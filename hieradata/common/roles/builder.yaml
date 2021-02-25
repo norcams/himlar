@@ -64,6 +64,16 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         8
     'username':         'centos'
+  'centos7_nv_vgpu':
+    'image_name':       'IMAGEBUILDER CentOS 7 (NVIDIA VGPU)'
+    'url':              'http://cloud.centos.org/centos/7/images/'
+    'latest':           'CentOS-7-x86_64-GenericCloud.qcow2'
+    'checksum_file':    'sha256sum.txt'
+    'checksum':         'sha256'
+    'min_ram':          768
+    'min_disk':         8
+    'username':         'centos'
+    'environment':      'IMAGEBUILDER_REPORT=true IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu'
   'centos8':
     'image_name':       'IMAGEBUILDER CentOS 8'
     'url':              'http://cloud.centos.org/centos/8/x86_64/images/'
@@ -73,6 +83,24 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         8
     'username':         'centos'
+  'debian9':
+    'image_name':       'IMAGEBUILDER Debian 9'
+    'url':              'http://cdimage.debian.org/cdimage/openstack/current-9/'
+    'latest':           'debian-9-openstack-amd64.qcow2'
+    'checksum_file':    'SHA256SUMS'
+    'checksum':         'sha256'
+    'min_ram':          768
+    'min_disk':         3
+    'username':         'debian'
+  'debian10':
+    'image_name':       'IMAGEBUILDER Debian 10'
+    'url':              'http://cdimage.debian.org/cdimage/openstack/current-10/'
+    'latest':           'debian-10-openstack-amd64.qcow2'
+    'checksum_file':    'SHA256SUMS'
+    'checksum':         'sha256'
+    'min_ram':          768
+    'min_disk':         3
+    'username':         'debian'
   'fedora_32':
     'image_name':       'IMAGEBUILDER Fedora 32'
     'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/32/Cloud/x86_64/images/'
@@ -100,24 +128,17 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         3
     'username':         'ubuntu'
-  'debian9':
-    'image_name':       'IMAGEBUILDER Debian 9'
-    'url':              'http://cdimage.debian.org/cdimage/openstack/current-9/'
-    'latest':           'debian-9-openstack-amd64.qcow2'
+  'ubuntu_2004_nv_vgpu':
+    'image_name':       'IMAGEBUILDER Ubuntu 20.04 (NVIDIA VGPU)'
+    'url':              'https://cloud-images.ubuntu.com/focal/current/'
+    'latest':           'focal-server-cloudimg-amd64.img'
     'checksum_file':    'SHA256SUMS'
     'checksum':         'sha256'
     'min_ram':          768
-    'min_disk':         3
-    'username':         'debian'
-  'debian10':
-    'image_name':       'IMAGEBUILDER Debian 10'
-    'url':              'http://cdimage.debian.org/cdimage/openstack/current-10/'
-    'latest':           'debian-10-openstack-amd64.qcow2'
-    'checksum_file':    'SHA256SUMS'
-    'checksum':         'sha256'
-    'min_ram':          768
-    'min_disk':         3
-    'username':         'debian'
+    'min_disk':         8
+    'username':         'ubuntu'
+    'flavor':           'm1.small'
+    'environment':      'IMAGEBUILDER_REPORT=true IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu'
   'uio_rhel7':
     'image_name':       'IMAGEBUILDER UIO RHEL 7'
     'url':              'http://download.iaas.uio.no/uh-iaas/nonfree/'
@@ -137,6 +158,11 @@ profile::application::builder::images:
     'min_disk':         8
     'username':         'cloud-user'
 
+profile::application::builder::templates:
+  'default':
+    custom_scripts:     []
+  'nv_vgpu':
+    custom_scripts:     ['/opt/imagebuilder/scripts/nvidia-grid-driver.sh']
 
 # Sensu
 profile::monitoring::sensu::agent::plugin_gems:
