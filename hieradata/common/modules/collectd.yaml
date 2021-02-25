@@ -48,6 +48,6 @@ collectd::plugin::processes::process_matches:
 collectd::plugin::processes::processes:
   - collectd
   - sensu-client
-  - libvirtd
   - nova-compute
-  - rsyslogd
+  - privsep-helper
+  - nova-api-metadata
