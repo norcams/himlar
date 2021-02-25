@@ -1,7 +1,7 @@
 ---
 include:
   default:
-    - profile::monitoring::netdata
+    - profile::monitoring::collectd
 
 # Turn off nested virtualization
 profile::virtualization::nested::manage: false
@@ -14,8 +14,6 @@ profile::base::physical::enable_hugepages: true
 # Number and size of hugepages, based on 512GB - 32 GB (4GB free pr node)
 profile::base::physical::hugepagesz:       '2M'
 profile::base::physical::hugepages:        '245760'
-
-profile::monitoring::netdata::manage_firewall: true
 
 # Nover overrides
 nova::compute::libvirt::libvirt_cpu_model: 'EPYC-IBPB'
@@ -43,3 +41,17 @@ sensu__memory__check:     "check-memory.rb -w 2048 -c 1024"
 
 # remove when telemetry/ceilometer is up in all environments and move to common
 profile::openstack::compute::manage_telemetry: true
+
+# collectd
+profile::monitoring::collectd::enable: true
+profile::monitoring::collectd::plugins:
+  - collectd::plugin::aggregation
+  - collectd::plugin::cpu
+  - collectd::plugin::disk
+  - collectd::plugin::load
+  - collectd::plugin::memory
+  - collectd::plugin::interface
+  - collectd::plugin::write_graphite
+  - collectd::plugin::virt
+  - collectd::plugin::processes
+  - collectd::plugin::numa

@@ -23,6 +23,7 @@ profile::monitoring::collectd::plugins:
   - collectd::plugin::write_graphite
   - collectd::plugin::virt
   - collectd::plugin::processes
+  - collectd::plugin::numa
 
 profile::base::common::packages:
   'numactl': {}
