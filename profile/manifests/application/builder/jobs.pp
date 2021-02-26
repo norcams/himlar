@@ -15,7 +15,8 @@ define profile::application::builder::jobs(
     $group         = $profile::application::builder::group,
     $template_dir  = $profile::application::builder::template_dir,
     $download_dir  = $profile::application::builder::download_dir,
-    $rc_file       = $profile::application::builder::rc_file
+    $rc_file       = $profile::application::builder::rc_file,
+    $environment   = 'IMAGEBUILDER_REPORT=true'
 ) {
 
   $hour = fqdn_rand(23, $name)
@@ -36,7 +37,7 @@ define profile::application::builder::jobs(
     weekday     => 'Wednesday',
     hour        => $hour,
     minute      => 0,
-    environment => 'IMAGEBUILDER_REPORT=true'
+    environment => $environment
   }
 
 }
