@@ -171,6 +171,8 @@ profile::network::services::dns_records:
     "%{::location}-compute-hpc-50.%{hiera('domain_mgmt')}":     "%{::location}-compute-50.%{hiera('domain_mgmt')}"
     "%{::location}-compute-hpc-51.%{hiera('domain_mgmt')}":     "%{::location}-compute-51.%{hiera('domain_mgmt')}"
     "%{::location}-compute-vgpu-52.%{hiera('domain_mgmt')}":    "%{::location}-compute-52.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-vgpu-53.%{hiera('domain_mgmt')}":    "%{::location}-compute-53.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-gpu1-54.%{hiera('domain_mgmt')}":    "%{::location}-compute-54.%{hiera('domain_mgmt')}"
     "%{::location}-object-ceph-01.%{hiera('domain_mgmt')}":     "%{::location}-object-01.%{hiera('domain_mgmt')}"
     "%{::location}-object-ceph-02.%{hiera('domain_mgmt')}":     "%{::location}-object-02.%{hiera('domain_mgmt')}"
     "%{::location}-object-ceph-03.%{hiera('domain_mgmt')}":     "%{::location}-object-03.%{hiera('domain_mgmt')}"
