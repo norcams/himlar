@@ -292,6 +292,7 @@ profile::network::services::dns_records:
     # Dette nettet er IKKE delegert til oss! (mikaeld 9/2 2021)
     #'0.f.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  'atlas-db-squid1.grid.uiocloud.no'
     #'c.6.0.2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  'oncotools.elixir.no'
+    "43.%{hiera('reverse_public_c0')}":                                           'oncotools.elixir.no'
 
 ntp::servers:
   - ntp1.uio.no
