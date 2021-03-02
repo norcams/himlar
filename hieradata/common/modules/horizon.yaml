@@ -32,6 +32,7 @@ horizon::instance_options:
   create_volume: false
   disable_volume: true
   disable_volume_snapshot: true
+  hide_create_volume: true
 
 horizon::neutron_options:
   'enable_lb': false
