@@ -301,3 +301,136 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     options:
       - balance:      'roundrobin'
       - tcp-request:  'content reject if { src -f /etc/haproxy/uib_vpn_net.list }'
+
+
+#
+# Temp: fix apps-admin cert
+#
+profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
+  public-http:
+    mode:               'http'
+    bind:
+      "%{hiera('corosync_cluster_vip1')}:80": []
+      "%{hiera('corosync_cluster_vip2')}:80": []
+    options:
+      - option:         'httplog'
+      - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/public_http_domains.map)]'
+      - capture:        'request header Host len 32' #for debug
+  public-https:
+    mode:               'tcp'
+    bind:
+      "%{hiera('corosync_cluster_vip1')}:443": []
+      "%{hiera('corosync_cluster_vip2')}:443": []
+    options:
+      - option:         'tcplog'
+      - tcp-request:
+        - 'inspect-delay 5s'
+        - 'content accept if { req_ssl_hello_type 1 }'
+      - use_backend:      '%[req_ssl_sni,lower,map(/etc/haproxy/public_https_domains.map)]'
+  public-ldap:
+    mode:               'tcp'
+    bind:
+      "%{hiera('corosync_cluster_vip1')}:389": []
+      "%{hiera('corosync_cluster_vip2')}:389": []
+    options:
+      - option:         'tcplog'
+      - use_backend:    'public-ldap-prod'
+  public-ldaps:
+    mode:               'tcp'
+    bind:
+      "%{hiera('corosync_cluster_vip1')}:636": []
+      "%{hiera('corosync_cluster_vip2')}:636": []
+    options:
+      - option:         'tcplog'
+      - use_backend:    'public-ldaps-prod'
+  uib-http:
+    mode:               'http'
+    bind:
+      "%{hiera('corosync_cluster_vip3')}:80": []
+      "%{hiera('corosync_cluster_vip4')}:80": []
+    options:
+      - maxconn:        '16000' # max internal http connections
+      - option:         'httplog'
+      - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/uib_http_domains.map)]'
+      - capture:        'request header Host len 32' #for debug
+  uib-https:
+    mode:               'tcp'
+    bind:
+      "%{hiera('corosync_cluster_vip3')}:443": []
+      "%{hiera('corosync_cluster_vip4')}:443": []
+    options:
+      - maxconn:        '16000' # max internal https connections
+      - option:         'tcplog'
+      - tcp-request:
+        - 'inspect-delay 5s'
+        - 'content accept if { req_ssl_hello_type 1 }'
+      - use_backend:      '%[req_ssl_sni,lower,map(/etc/haproxy/uib_https_domains.map)]'
+  uib-ldap:
+    mode:               'tcp'
+    bind:
+      "%{hiera('corosync_cluster_vip3')}:389": []
+      "%{hiera('corosync_cluster_vip4')}:389": []
+    options:
+      - option:         'tcplog'
+      - use_backend:    'uib-ldap-test'
+  uib-ldaps:
+    mode:               'tcp'
+    bind:
+      "%{hiera('corosync_cluster_vip3')}:636": []
+      "%{hiera('corosync_cluster_vip4')}:636": []
+    options:
+      - option:         'tcplog'
+      - use_backend:    'uib-ldaps-test'
+  ssl-http: #for redirect
+    mode:               'http'
+    bind:
+      "%{hiera('corosync_cluster_vip5')}:80": []
+      "%{hiera('corosync_cluster_vip6')}:80": []
+    options:
+      - option:         'httplog'
+      - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/ssl_http_domains.map)]'
+      - capture:        'request header Host len 32' #for debug
+  ssl-https:
+    mode:               'http'
+    bind:
+      "%{hiera('corosync_cluster_vip5')}:443":
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_apps')}"
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_apps_admin')}"
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_nrec')}"
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_nrec_www')}"
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_nrec_docs')}"
+      "%{hiera('corosync_cluster_vip6')}:443":
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_apps')}"
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_apps_admin')}"
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_nrec')}"
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_nrec_www')}"
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_nrec_docs')}"
+    options:
+      - option:         'http-server-close'
+      - option:         'forwardfor'
+      - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/ssl_https_domains.map)]'
+      # Prevents X-Forwarded-For spoofing
+      - http-request:   'del-header ^X-Forwarded-For:.*'
+      # - http-request:
+      #   - 'add-header X-Forwarded-Proto https if { ssl_fc }'
+      #   - 'set-header X-Forwarded-Port %[dst_port]'
