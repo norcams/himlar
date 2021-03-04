@@ -1,21 +1,11 @@
 ---
-profile::base::lvm::physical_volume:
-  '/dev/sda3':
-    ensure: present
-    force:  true
-profile::base::lvm::volume_group:
-  'vg_ext':
-    physical_volumes:
-      - /dev/sda3
-profile::base::lvm::logical_volume:
-  'lv_instances':
-    volume_group: 'vg_ext'
-    fs_type:      "xfs"
-    mountpath:    "/var/lib/nova/instances"
+include:
+  default:
+    - nova::compute::vgpu
 
 named_interfaces::config:
   mgmt:
-    - eth4
+    - em3
   trp:
     - team1
   live:
@@ -23,15 +13,61 @@ named_interfaces::config:
 
 profile::base::network::network_auto_bonding:
   trp:
-    eth2:
+    p3p1:
       'team_port_config': '{ "prio" : 100 }'
-    eth3:
+      'mtu': '9000'
+    p3p2:
       'team_port_config': '{ "prio" : 100 }'
+      'mtu': '9000'
 
-nova::compute::libvirt::libvirt_cpu_model: 'EPYC'
-nova::compute::vgpu::enabled_vgpu_types:   'nvidia-233'
-yum_base_mirror:    'https://download.iaas.uio.no/uh-iaas/vgpu'
+profile::base::network::network_auto_opts:
+  mgmt:
+    'defroute': 'no'
+  trp:
+    'defroute': 'no'
+    'ipv6init': 'yes'
+    'devicetype': 'Team'
+    'mtu': '9000'
+    'team_config': >-
+                   { "runner" : {  "name" : "lacp",  "active": true, "fast_rate" : true,
+                   "tx_hash": ["eth", "ipv4", "ipv6"], "tx_balancer": { "name": "basic" } },
+                   "link_watch" : {  "name" : "ethtool" } }
+  live:
+    'defroute': 'no'
+
+# Enable extra yum repo vGPU drivers
+profile::base::yumrepo::repo_hash:
+  uh-iaas-nonfree:
+    ensure: present
+
+profile::base::common::packages:
+  'wget': {}
+  'kernel-devel': {}
+  'kernel-headers': {}
+  'unzip': {}
+  'NVIDIA-vGPU-rhel': {
+#    source: 'http://repo.mgmt.bgo.uhdc.no/NVIDIA-vGPU-rhel-7.8-450.55.x86_64.rpm'
+  }
+
+# Example: 'nvidia-35' or ['nvidia-35', 'nvidia-36']
+# valid profiles for vcomputeserver are 299, 300, 301
+nova::compute::vgpu::enabled_vgpu_types: 'nvidia-299'
 
 # remove when telemetry/ceilometer is up in all environments and move to common
 profile::openstack::compute::manage_telemetry: true
 
+profile::base::physical::blacklist_drv: true
+profile::base::physical::blacklist_drv_list:
+  'nouveau': {}
+
+nova::compute::libvirt::libvirt_cpu_model: 'Skylake-Server-IBRS'
+
+# These compute host uses local storage for instances
+nova::compute::rbd::ephemeral_storage: false
+nova::config::nova_config:
+  libvirt/images_type:
+    value: default
+  DEFAULT/metadata_workers:
+    value: '4'
+  libvirt/remote_filesystem_transport:
+    value: 'rsync'
