@@ -16,10 +16,10 @@ define profile::application::builder::jobs(
     $template_dir  = $profile::application::builder::template_dir,
     $download_dir  = $profile::application::builder::download_dir,
     $rc_file       = $profile::application::builder::rc_file,
-    $environment   = 'IMAGEBUILDER_REPORT=true'
+    $environment   = 'IMAGEBUILDER_REPORT=true',
+    $hour          = fqdn_rand(23, $name),
+    $minute        = 0
 ) {
-
-  $hour = fqdn_rand(23, $name)
 
   file { "/home/${user}/build_scripts/${name}":
     ensure  => $ensure,
@@ -36,7 +36,7 @@ define profile::application::builder::jobs(
     user        => $user,
     weekday     => 'Wednesday',
     hour        => $hour,
-    minute      => 0,
+    minute      => $minute,
     environment => $environment
   }
 

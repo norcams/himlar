@@ -64,6 +64,8 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         8
     'username':         'centos'
+    'hour':             2
+    'minute':           30
   'centos7_nv_vgpu':
     'image_name':       'IMAGEBUILDER CentOS 7 (NVIDIA VGPU)'
     'url':              'http://cloud.centos.org/centos/7/images/'
@@ -74,6 +76,7 @@ profile::application::builder::images:
     'min_disk':         8
     'username':         'centos'
     'environment':      'IMAGEBUILDER_REPORT=true IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu'
+    'hour':             3
   'centos8':
     'image_name':       'IMAGEBUILDER CentOS 8'
     'url':              'http://cloud.centos.org/centos/8/x86_64/images/'
@@ -83,6 +86,7 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         8
     'username':         'centos'
+    'hour':             4
   'debian9':
     'image_name':       'IMAGEBUILDER Debian 9'
     'url':              'http://cdimage.debian.org/cdimage/openstack/current-9/'
@@ -92,6 +96,7 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         3
     'username':         'debian'
+    'hour':             5
   'debian10':
     'image_name':       'IMAGEBUILDER Debian 10'
     'url':              'http://cdimage.debian.org/cdimage/openstack/current-10/'
@@ -101,6 +106,7 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         3
     'username':         'debian'
+    'hour':             6
   'fedora_32':
     'image_name':       'IMAGEBUILDER Fedora 32'
     'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/32/Cloud/x86_64/images/'
@@ -110,6 +116,7 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         3
     'username':         'fedora'
+    'hour':             7
   'ubuntu_1804':
     'image_name':       'IMAGEBUILDER Ubuntu 18.04 LTS'
     'url':              'https://cloud-images.ubuntu.com/bionic/current/'
@@ -119,6 +126,7 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         3
     'username':         'ubuntu'
+    'hour':             8
   'ubuntu_2004':
     'image_name':       'IMAGEBUILDER Ubuntu 20.04'
     'url':              'https://cloud-images.ubuntu.com/focal/current/'
@@ -128,6 +136,7 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         3
     'username':         'ubuntu'
+    'hour':             9
   'ubuntu_2004_nv_vgpu':
     'image_name':       'IMAGEBUILDER Ubuntu 20.04 (NVIDIA VGPU)'
     'url':              'https://cloud-images.ubuntu.com/focal/current/'
@@ -139,6 +148,7 @@ profile::application::builder::images:
     'username':         'ubuntu'
     'flavor':           'm1.small'
     'environment':      'IMAGEBUILDER_REPORT=true IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu'
+    'hour':             10
   'uio_rhel7':
     'image_name':       'IMAGEBUILDER UIO RHEL 7'
     'url':              'http://download.iaas.uio.no/uh-iaas/nonfree/'
@@ -148,6 +158,7 @@ profile::application::builder::images:
     'min_ram':          1024
     'min_disk':         8
     'username':         'cloud-user'
+    'hour':             11
   'uio_rhel8':
     'image_name':       'IMAGEBUILDER UIO RHEL 8'
     'url':              'http://download.iaas.uio.no/uh-iaas/nonfree/'
@@ -157,6 +168,7 @@ profile::application::builder::images:
     'min_ram':          1024
     'min_disk':         8
     'username':         'cloud-user'
+    'hour':             12
 
 profile::application::builder::templates:
   'default':
@@ -174,10 +186,12 @@ profile::monitoring::sensu::agent::plugin_gems:
 # metadata imagebuild check
 profile::monitoring::sensu::agent::expanded_checks:
   - 'centos7'
+  - 'centos7_nv_vgpu'
   - 'centos8'
   - 'fedora_32'
   - 'ubuntu_1804'
   - 'ubuntu_2004'
+  - 'ubuntu_2004_nv_vgpu'
   - 'debian9'
   - 'debian10'
   - 'uio_rhel7'
