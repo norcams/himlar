@@ -31,6 +31,7 @@ profile::monitoring::collectd::plugins:
   - collectd::plugin::write_graphite
   - collectd::plugin::virt
   - collectd::plugin::processes
+  - collectd::plugin::numa
 
 # Nover overrides
 nova::compute::libvirt::libvirt_cpu_model:       'EPYC'

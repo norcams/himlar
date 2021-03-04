@@ -44,12 +44,7 @@ class profile::application::builder (
   file { '/etc/imagebuilder/config':
     ensure  => file,
     mode    => '0644',
-    content => "[main]\ntemplate_dir = ${template_dir}\ndownload_dir = ${download_dir}\n"
-  } ->
-  file { "${template_dir}/template":
-    ensure  => file,
-    mode    => '0644',
-    content => template("${module_name}/application/builder/template.erb"),
+    content => "[main]\ntemplate_dir = ${template_dir}/default\ndownload_dir = ${download_dir}\n"
   }
 
   group { $group:
@@ -74,4 +69,5 @@ class profile::application::builder (
   }
 
   create_resources('profile::application::builder::jobs', lookup('profile::application::builder::images', Hash, 'deep', {}))
+  create_resources('profile::application::builder::template', lookup('profile::application::builder::templates', Hash, 'deep', {}))
 }

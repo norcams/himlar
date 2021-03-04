@@ -29,6 +29,7 @@ horizon::vhost_extra_params:
 
 # Default for launch instance wizard
 horizon::instance_options:
+  hide_create_volume: true
   create_volume: false
   disable_volume: true
   disable_volume_snapshot: true

@@ -160,8 +160,10 @@ profile::network::services::dns_records:
     "%{::location}-compute-hpc-27.%{hiera('domain_mgmt')}": "%{::location}-compute-27.%{hiera('domain_mgmt')}"
     "%{::location}-compute-hpc-28.%{hiera('domain_mgmt')}": "%{::location}-compute-28.%{hiera('domain_mgmt')}"
     # GPU
+    "%{::location}-compute-vgpu-17.%{hiera('domain_mgmt')}":  "%{::location}-compute-17.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-vgpu-19.%{hiera('domain_mgmt')}":  "%{::location}-compute-19.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-vgpu-20.%{hiera('domain_mgmt')}":  "%{::location}-compute-20.%{hiera('domain_mgmt')}"
     "%{::location}-compute-vgpu-42.%{hiera('domain_mgmt')}": "%{::location}-compute-42.%{hiera('domain_mgmt')}"
-    "%{::location}-compute-gpu-17.%{hiera('domain_mgmt')}":  "%{::location}-compute-17.%{hiera('domain_mgmt')}"
     # Dedicated
     "%{::location}-compute-robin-18.%{hiera('domain_mgmt')}": "%{::location}-compute-18.%{hiera('domain_mgmt')}"
     # Arccache storage tempo
@@ -286,8 +288,7 @@ profile::network::services::dns_records:
     '2.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "resolver.%{hiera('domain_public')}"
     '6.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "%{::location}-dns-01.%{hiera('domain_public')}"
     # Customer's PTR records
-    "101.%{hiera('reverse_public_c0')}":                                         'oncotools.elixir.no'
-    "10.%{hiera('reverse_public_c2')}":                                          'p5.oncotools.elixir.no'
+    "43.%{hiera('reverse_public_c0')}":                                          'oncotools.elixir.no'
     "164.%{hiera('reverse_public_c2')}":                                         'smtp.nlpl.eu'
     "38.%{hiera('reverse_public_c2')}":                                          'atlas-db-squid1.grid.uiocloud.no'
     # Dette nettet er IKKE delegert til oss! (mikaeld 9/2 2021)

@@ -30,6 +30,7 @@ profile::monitoring::collectd::plugins:
   - collectd::plugin::interface
   - collectd::plugin::write_graphite
   - collectd::plugin::virt
+  - collectd::plugin::numa
 
 profile::base::common::packages:
   'numactl': {}
