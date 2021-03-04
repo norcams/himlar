@@ -25,7 +25,8 @@ corosync_cluster_vip5:    "%{hiera('netcfg_public2_netpart')}.245" # ssltestprox
 corosync_cluster_vip6:    "%{hiera('netcfg_public2_netpart')}.198" # ssltestproxy.ha
 
 # dummy cert, change with correct to test valid certs!
-ssl_cert_apps:          'apps.uib.no.pem'
+ssl_cert_apps:          'appstest.uib.no.pem'
+ssl_cert_apps_admin:    'appstest-admin.uib.no.pem'
 ssl_cert_nrec_docs:     'appstest.uib.no.pem'
 ssl_cert_nrec_www:      'appstest.uib.no.pem'
 ssl_cert_nrec:          'appstest.uib.no.pem'
@@ -59,8 +60,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
   public_https_domains:
     ensure: present
     mappings:
-      - 'apps-gw.uib.no':                         'public-https-apps-gw'
-      - 'appstest-gw.uib.no':                     'public-https-apps-gw'
       - 'report.uh-iaas.no':                      'public-https-uh-report'
       - 'status.uh-iaas.no':                      'public-https-uh-status'
       - 'report.nrec.no':                         'public-https-uh-report'
@@ -68,8 +67,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
   public_http_domains:
     ensure: present
     mappings:
-      - 'apps-gw.uib.no':                         'ssl-http-apps'
-      - 'appstest-gw.uib.no':                     'ssl-http-apps'
       - 'docs.uh-iaas.no':                        'public-http-uh-docs'
       - 'report.uh-iaas.no':                      'public-http-nrec-redirect'
       - 'status.uh-iaas.no':                      'public-http-nrec-redirect'
@@ -126,8 +123,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   'ssl-https-apps':
     listening_service:  'ssl-https-apps'
     ports:              443
-    server_names:       ['apps-test06.uib.no']
-    ipaddresses:        ['129.177.150.204']
+    server_names:       ['apps-test05.uib.no', 'apps-test06.uib.no']
+    ipaddresses:        ['129.177.150.203', '129.177.150.204']
     options:            'verify none inter 120s check check-ssl ssl'
   'ssl-https-apps-admin':
     listening_service:  'ssl-https-apps-admin'
@@ -135,12 +132,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     server_names:       ['apps-test02.uib.no']
     ipaddresses:        ['129.177.30.16']
     options:             'verify none inter 120s check check-ssl ssl'
-  'public-https-apps-gw':
-    listening_service:  'public-https-apps-gw'
-    ports:              443
-    server_names:       ['apps-test03.uib.no']
-    ipaddresses:        ['129.177.30.87']
-    options:            'check inter 120s verify none'
 # Exchange
   'uib-https-exch':
     listening_service:  'uib-https-exch'
