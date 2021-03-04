@@ -32,7 +32,7 @@ define profile::storage::create_lvm_osd (
   if $dev_class {
     exec { "set_dev_class-${name}":
       command => "/bin/ceph osd crush rm-device-class $(/sbin/ceph-volume lvm list ${name} | grep ===== | tr --delete =) && /bin/ceph osd crush set-device-class ${dev_class} $(/sbin/ceph-volume lvm list ${name} | grep ===== | tr --delete =)",
-      unless  => "/bin/ceph osd crush get-device-class $(/sbin/ceph-volume lvm list ${name} | grep ===== | tr --delete =) | grep \"\b${dev_class}\b\""
+      unless  => "/bin/ceph osd crush get-device-class $(/sbin/ceph-volume lvm list ${name} | grep ===== | tr --delete =) | /bin/egrep -x ${dev_class}"
     }
   }
 }
