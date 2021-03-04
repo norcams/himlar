@@ -6,3 +6,9 @@ profile::storage::ceph_crushbucket::buckets:
   'dcache':
     bucket_type:   'pod'
     bucket_parent: 'default'
+
+profile::storage::cephmon::create_extraconf: true
+profile::storage::ceph_extraconf::config:
+  osd_deep_scrub_interval:
+    'config_key'  : "mgr/osd_deep_scrub_interval"
+    'config_value': "2419200.000000"
