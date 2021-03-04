@@ -12,6 +12,7 @@ class profile::storage::cephmon (
   $create_crushbuckets        = false,
   $ceph_balancer_active       = undef,
   $ceph_balancer_mode         = undef,
+  $create_extraconf           = false,
   $target_max_misplaced_ratio = undef, # WARNING: If set, it will be dynamically configured in the cluster. Increments 0.01, default 0.05
 ) {
   include ::ceph::profile::mon
@@ -61,6 +62,11 @@ class profile::storage::cephmon (
       path        => '/usr/bin:/usr/sbin:/bin',
       refreshonly => true,
     }
+  }
+
+  # Optinally set extra config parameters in ceph.conf
+  if $create_extraconf {
+    create_resources(profile::storage::ceph_extraconf, lookup('profile::storage::ceph_extraconf::config', Hash, 'deep'))
   }
 
   # Optionally set target for the ceph mgr autobalancer module
