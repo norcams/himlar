@@ -212,6 +212,10 @@ profile::network::services::dns_records:
     "%{::location}-storage-v2d-37.%{hiera('domain_mgmt')}":     "%{::location}-storage-37.%{hiera('domain_mgmt')}"
     "%{::location}-storage-v2d-38.%{hiera('domain_mgmt')}":     "%{::location}-storage-38.%{hiera('domain_mgmt')}"
     "%{::location}-storage-v2d-39.%{hiera('domain_mgmt')}":     "%{::location}-storage-39.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2d-40.%{hiera('domain_mgmt')}":     "%{::location}-storage-40.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2d-41.%{hiera('domain_mgmt')}":     "%{::location}-storage-41.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2d-42.%{hiera('domain_mgmt')}":     "%{::location}-storage-42.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2d-43.%{hiera('domain_mgmt')}":     "%{::location}-storage-43.%{hiera('domain_mgmt')}"
   A:
     # Public records (<foo>.<location>.nrec.no)
     "console.%{hiera('domain_public')}":          '158.39.77.250'
