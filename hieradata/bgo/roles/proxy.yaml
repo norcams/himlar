@@ -21,10 +21,10 @@ profile::base::cron::crontabs:
     minute:   '30'
     command:  '/opt/himlarcli/bin/sync_owners.sh >/dev/null 2>&1'
   check_expired_demo_instances:
-    hour:     '7'
+    hour:     '8'
     minute:   '0'
     weekday:  '*'
-    command:  '/opt/himlarcli/bin/check_expired_demo_instances.sh $region >/dev/null 2>&1'
+    command:  '/opt/himlarcli/bin/check_expired_demo_instances.sh $region >> /opt/himlarcli/logs/dryrun-logs/dryrun-logs.log 2>&1'
 #  delete_expired_demo_instances:
 #    hour:     '14'
 #    minute:   '0'
