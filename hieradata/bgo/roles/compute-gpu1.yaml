@@ -31,6 +31,8 @@ profile::base::network::network_auto_opts:
   live:
     'defroute': 'no'
 
+profile::openstack::compute::pci_passthrough::configure_intel_iommu: true
+
 profile::base::lvm::physical_volume:
   '/dev/sda4':
     ensure: present
