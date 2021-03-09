@@ -65,6 +65,7 @@ profile::openstack::resource::host_aggregate:
         3eae4805dcd6450fb98651f5a9dc9ded
   placeholder_vgpu1:
     availability_zone: "%{::location}-iaas-team-only-1"
+    metadata:
       type: 'vgpu'
       filter_tenant_id: >-
         e3dcca3452924794a6aebdd21b5da249,
