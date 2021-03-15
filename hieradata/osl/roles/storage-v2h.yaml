@@ -100,7 +100,7 @@ profile::storage::ceph::pool::pools:
     pgp_num: 32
     tag:     'rbd'
     custom:
-      crush_rule: 'nvme-storage'
+      crush_rule: 'ssd-storage'
       nodelete:   'true'
       min_size:   '2'
 profile::storage::ceph::pool::ec_pools:
