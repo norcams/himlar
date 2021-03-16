@@ -87,6 +87,17 @@ profile::application::builder::images:
     'min_disk':         8
     'username':         'centos'
     'hour':             4
+  'centos8_nv_vgpu':
+    'image_name':       'IMAGEBUILDER CentOS 8 (NVIDIA VGPU)'
+    'url':              'http://cloud.centos.org/centos/8/x86_64/images/'
+    'latest':           'CentOS-8-GenericCloud-8.2.2004-20200611.2.x86_64.qcow2'
+    'checksum_file':    'CHECKSUM'
+    'checksum':         'sha256'
+    'min_ram':          768
+    'min_disk':         8
+    'username':         'centos'
+    'environment':      'IMAGEBUILDER_REPORT=true IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu'
+    'hour':             13
   'debian9':
     'image_name':       'IMAGEBUILDER Debian 9'
     'url':              'http://cdimage.debian.org/cdimage/openstack/current-9/'
@@ -188,6 +199,7 @@ profile::monitoring::sensu::agent::expanded_checks:
   - 'centos7'
   - 'centos7_nv_vgpu'
   - 'centos8'
+  - 'centos8_nv_vgpu'
   - 'fedora_32'
   - 'ubuntu_1804'
   - 'ubuntu_2004'
