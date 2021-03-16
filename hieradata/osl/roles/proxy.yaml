@@ -25,11 +25,11 @@ profile::base::cron::crontabs:
     minute:   '0'
     weekday:  '*'
     command:  '/opt/himlarcli/bin/check_expired_demo_instances.sh osl >> /opt/himlarcli/logs/dryrun-logs/dryrun-logs.log 2>&1'
-#  delete_expired_demo_instances:
-#    hour:     '14'
-#    minute:   '0'
-#    weekday:  '*'
-#    command: '/opt/himlarcli/bin/delete_expired_demo_instances.sh >/dev/null 2>&1'
+  delete_expired_demo_instances:
+    hour:     '21'
+    minute:   '0'
+    weekday:  '*'
+    command: '/opt/himlarcli/bin/delete_expired_demo_instances.sh osl >> /opt/himlarcli/logs/deleted_instances/dryrun-logs.log 2>&1'
 
 profile::base::lvm::physical_volume:
   '/dev/vdb':
