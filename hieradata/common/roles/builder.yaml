@@ -75,7 +75,7 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         8
     'username':         'centos'
-    'environment':      'IMAGEBUILDER_REPORT=true IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu'
+    'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
     'hour':             3
   'centos8':
     'image_name':       'IMAGEBUILDER CentOS 8'
@@ -96,7 +96,7 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         8
     'username':         'centos'
-    'environment':      'IMAGEBUILDER_REPORT=true IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu'
+    'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
     'hour':             13
   'debian9':
     'image_name':       'IMAGEBUILDER Debian 9'
@@ -158,7 +158,7 @@ profile::application::builder::images:
     'min_disk':         8
     'username':         'ubuntu'
     'flavor':           'm1.small'
-    'environment':      'IMAGEBUILDER_REPORT=true IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu'
+    'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
     'hour':             10
   'uio_rhel7':
     'image_name':       'IMAGEBUILDER UIO RHEL 7'
