@@ -73,20 +73,26 @@ profile::firewall::rules::custom_rules:
     dport:        [ '80', '443' ]
     source:
       - '129.177.0.0/16'
-      - '158.39.201.0/24'
-      - '158.39.77.0/24'
-      - '158.39.77.0/24'
-      - '158.39.74.0/24'
+      - '158.39.201.0/24' # nrec osl
+      - '158.39.77.0/24' # nrec bgo
+      - '158.39.74.0/24' # nrec bgo
+      - '158.39.75.0/24' # nrec osl
+      - '158.37.63.0/24' # nrec osl
+      - '158.39.48.0/24' # nrec osl
+      - '158.39.200.0/24' # nrec osl
     destination:  "%{hiera('corosync_cluster_vip5')}"
   '456 haproxy http for public vip6':
     proto:        'tcp'
     dport:        [ '80', '443' ]
     source:
       - '129.177.0.0/16'
-      - '158.39.201.0/24'
-      - '158.39.77.0/24'
-      - '158.39.77.0/24'
-      - '158.39.74.0/24'
+      - '158.39.201.0/24' # nrec osl
+      - '158.39.77.0/24' # nrec bgo
+      - '158.39.74.0/24' # nrec bgo
+      - '158.39.75.0/24' # nrec osl
+      - '158.37.63.0/24' # nrec osl
+      - '158.39.48.0/24' # nrec osl
+      - '158.39.200.0/24' # nrec osl
     destination:  "%{hiera('corosync_cluster_vip6')}"
   '455 haproxy status public':
     proto:        'tcp'
