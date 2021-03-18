@@ -96,7 +96,7 @@ mod 'puppetlabs/ruby', :ref => '1.0.0',             :git => github + 'puppetlabs
 mod 'puppetlabs/xinetd', :ref => '3.0.0',           :git => github + 'puppetlabs/puppetlabs-xinetd'
 mod 'eyaml', :ref => 'v0.3.0',                      :git => github + 'ghoneycutt/puppet-module-eyaml'
 mod 'bind', :ref => 'keyfile_resource_record',      :git => github + 'norcams/puppet-bind'
-mod 'systemd', :ref => '2.9.0',                     :git => github + 'camptocamp/puppet-systemd'
+mod 'systemd', :ref => '2.11.0',                    :git => github + 'camptocamp/puppet-systemd'
 
 #
 # bootstrap
@@ -149,7 +149,7 @@ mod 'galera_arbitrator', :ref => '1.0.4',           :git => github + 'jadestorm/
 # profile::messaging::rabbitmq
 #
 mod 'erlang', :ref => '23fb75b8b1',                 :git => github + 'garethr/garethr-erlang'
-mod 'rabbitmq', :ref => 'v8.0.0',                   :git => github + 'voxpupuli/puppetlabs-rabbitmq'
+mod 'rabbitmq', :ref => 'v10.3.0',                  :git => github + 'voxpupuli/puppet-rabbitmq'
 mod 'archive', :ref => 'v2.2.0',                    :git => github + 'voxpupuli/puppet-archive'
 
 #
