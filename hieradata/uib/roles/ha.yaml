@@ -147,6 +147,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
     mappings:
       - 'exch.uib.no':                            'uib-https-exch'
       - 'portal.uib.no':                          'uib-https-adm'
+      - 'appstest-admin.uib.no':                  'uib-https-apps-admin'
   uib_http_domains:
     ensure: present
     mappings:
@@ -174,7 +175,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - 'apps.uib.no':                            'ssl-https-apps'
       - 'apps-admin.uib.no':                      'ssl-https-apps-admin'
       - 'appstest.uib.no':                        'ssl-https-apps'
-      - 'appstest-admin.uib.no':                  'ssl-https-apps-admin'
+      #- 'appstest-admin.uib.no':                  'ssl-https-apps-admin'
       - 'docs.nrec.no':                           'ssl-https-nrec-docs'
       - 'www.nrec.no':                            'ssl-https-nrec-www'
       - 'nrec.no':                                'ssl-https-nrec-www'
