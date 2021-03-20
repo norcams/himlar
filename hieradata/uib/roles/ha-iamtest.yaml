@@ -23,9 +23,14 @@ profile::firewall::pre::ssh_settings:
     - "%{hiera('netcfg_core_netpart')}.9" # t1-iam-login
     - "%{hiera('netcfg_core_netpart')}.10" # t2-iam-login
 accounts::ssh_keys:
-  'iaas':
+  'iaas_iam':
     type:    'ssh-ed25519'
     public:  'AAAAC3NzaC1lZDI1NTE5AAAAIMNVlfrsg1juBjCJe9DhDjsrV00NIbbuzdTiA/YmLiRG'
+
+accounts::accounts:
+  'iaas':
+    ensure: present
+    authorized_keys: [ 'iaas', 'iaas_iam']
 
 corosync::cluster_name:   '%{::location}-ha-test'
 corosync::unicast_addresses:
