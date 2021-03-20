@@ -16,6 +16,17 @@ named_interfaces::config:
 netcfg_core_netpart:  '192.168.21'
 netcfg_uib_netpart:   '192.168.23'
 
+# ssh access
+profile::firewall::pre::ssh_settings:
+  source:
+    - "%{::network_mgmt1}/%{::netmask_mgmt1}"
+    - "%{hiera('netcfg_core_netpart')}.9" # t1-iam-login
+    - "%{hiera('netcfg_core_netpart')}.10" # t2-iam-login
+accounts::ssh_keys:
+  'iaas':
+    type:    'ssh-ed25519'
+    public:  'AAAAC3NzaC1lZDI1NTE5AAAAIMNVlfrsg1juBjCJe9DhDjsrV00NIbbuzdTiA/YmLiRG'
+
 corosync::cluster_name:   '%{::location}-ha-test'
 corosync::unicast_addresses:
   - "%{hiera('netcfg_public3_netpart')}.172"
