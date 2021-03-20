@@ -147,7 +147,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
     mappings:
       - 'exch.uib.no':                            'uib-https-exch'
       - 'portal.uib.no':                          'uib-https-adm'
-      - 'appstest-admin.uib.no':                  'uib-https-apps-admin'
   uib_http_domains:
     ensure: present
     mappings:
@@ -163,7 +162,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
   public_http_domains:
     ensure: present
     mappings:
-      - 'apps.uib.no':                            'ssl-https-apps'
+#      - 'apps.uib.no':                            'ssl-https-apps'
       - 'docs.uh-iaas.no':                        'public-http-uh-docs'
       - 'report.uh-iaas.no':                      'public-http-nrec-redirect'
       - 'status.uh-iaas.no':                      'public-http-nrec-redirect'
@@ -175,7 +174,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - 'apps.uib.no':                            'ssl-https-apps'
       - 'apps-admin.uib.no':                      'ssl-https-apps-admin'
       - 'appstest.uib.no':                        'ssl-https-apps'
-      #- 'appstest-admin.uib.no':                  'ssl-https-apps-admin'
+      - 'appstest-admin.uib.no':                  'ssl-https-apps-admin'
       - 'docs.nrec.no':                           'ssl-https-nrec-docs'
       - 'www.nrec.no':                            'ssl-https-nrec-www'
       - 'nrec.no':                                'ssl-https-nrec-www'
@@ -221,14 +220,14 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     server_names:       ['appsanywhere04.uib.no', 'appsanywhere05.uib.no', 'appsanywhere06.uib.no']
     ipaddresses:        ['129.177.150.202', '129.177.150.205', '129.177.150.206']
     options:            'verify none inter 120 check check-ssl ssl'
-  'public-https-apps':
-    listening_service:  'public-https-apps'
-    ports:              443
-    server_names:       ['appsanywhere04.uib.no', 'appsanywhere05.uib.no', 'appsanywhere06.uib.no']
-    ipaddresses:        ['129.177.150.202', '129.177.150.205', '129.177.150.206']
-    options:            'check'
-  'uib-https-apps-admin':
-    listening_service:  'uib-https-apps-admin'
+  # 'public-https-apps':
+  #   listening_service:  'public-https-apps'
+  #   ports:              443
+  #   server_names:       ['appsanywhere04.uib.no', 'appsanywhere05.uib.no', 'appsanywhere06.uib.no']
+  #   ipaddresses:        ['129.177.150.202', '129.177.150.205', '129.177.150.206']
+  #   options:            'check'
+  'ssl-https-apps-admin':
+    listening_service:  'ssl-https-apps-admin'
     ports:              443
     server_names:       ['apps-admin01.uib.no', 'apps-admin02.uib.no']
     ipaddresses:        ['129.177.14.170', '129.177.14.171']
@@ -287,10 +286,14 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
       - 'check'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_backends:
-  public-https-apps:
-    mode:             'tcp'
+  # Apps
+  ssl-https-apps-admin:
+    mode:             'http'
     options:
-      - balance:      'source'
+      - balance:      'leastconn'
+      - option:
+        - 'forwardfor except 127.0.0.1'
+        - 'httpchk GET /jukeboxserver/do/license/token/renew.tok?msid=ping'
       - http-check: 'expect status 200'
       # Session stick table and based on source IP
       - stick-table: 'type ip size 1m expire 1h'
@@ -317,6 +320,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     options:
       - balance:      'roundrobin'
       - redirect:     'scheme https if !{ ssl_fc }'
+  # NREC
   ssl-https-nrec-www:
     mode:             'http'
     options:
@@ -354,6 +358,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
       - balance:      'source'
       - option:
         - 'httpchk HEAD /health HTTP/1.1\r\nHost:\ report.uh-iaas.no'
+  # LDAP
   public-ldap-prod:
     mode:             'tcp'
     options:
@@ -362,23 +367,20 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     mode:             'tcp'
     options:
       - balance:      'leastconn'
+  uib-ldap-test:
+    mode:             'tcp'
+    options:
+      - balance:      'leastconn'
+  uib-ldaps-test:
+    mode:             'tcp'
+    options:
+      - balance:      'leastconn'
+  # Exchange
   uib-https-exch:
     mode:             'tcp'
     options:
       - balance:      'source'
-  uib-https-apps-admin:
-    mode:             'tcp'
-    options:
-      - balance:      'source'
-      # - option:
-      #   - 'httpchk HEAD /jukeboxserver/do/license/token/renew.tok?msid=ping HTTP/1.1\r\nHost:\ apps-admin.uib.no'
-  uib-https-apps-gw:
-    mode:             'tcp'
-    options:
-      - balance:      'roundrobin'
-      #- cookie:       'ASP.NET_SessionId prefix nocache'
-      # - option:
-      #   - 'httpchk HEAD /jukeboxserver/do/license/token/renew.tok?msid=ping HTTP/1.1\r\nHost:\ apps-admin.uib.no'
+  # Portal
   uib-https-adm:
     mode:             'tcp'
     options:
@@ -389,14 +391,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     options:
       - balance:      'roundrobin'
       - tcp-request:  'content reject if { src -f /etc/haproxy/uib_vpn_net.list }'
-  uib-ldap-test:
-    mode:             'tcp'
-    options:
-      - balance:      'leastconn'
-  uib-ldaps-test:
-    mode:             'tcp'
-    options:
-      - balance:      'leastconn'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
   public-http:

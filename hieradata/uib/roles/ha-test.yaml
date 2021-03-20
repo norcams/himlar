@@ -5,9 +5,11 @@ named_interfaces::config:
   public:
     - eth1
 
+#
 # This should merge in a way where the result is:
 # 1) from ha.yaml unless defined here
 # 2) use ha-test.yaml if defined here (no deep merge)
+#
 profile::highavailability::loadbalancing::haproxy::merge_strategy: 'hash'
 
 corosync::cluster_name:   '%{::location}-ha-test'
@@ -116,45 +118,9 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     server_names:       ['apps-test05.uib.no', 'apps-test06.uib.no']
     ipaddresses:        ['129.177.150.203', '129.177.150.204']
     options:            'verify none inter 120s check check-ssl ssl'
-  'uib-https-apps-admin':
-    listening_service:  'uib-https-apps-admin'
+  'ssl-https-apps-admin':
+    listening_service:  'ssl-https-apps-admin'
     ports:              443
     server_names:       ['apps-test02.uib.no']
     ipaddresses:        ['129.177.30.16']
     options:             'verify none inter 120s check check-ssl ssl'
-
-profile::highavailability::loadbalancing::haproxy::haproxy_backends:
-  # Apps
-  ssl-https-apps-admin:
-    mode:             'http'
-    options:
-      - balance:      'leastconn'
-      - option:
-        - 'forwardfor except 127.0.0.1'
-        - 'httpchk GET /jukeboxserver/do/license/token/renew.tok?msid=ping'
-      - http-check: 'expect status 200'
-      # Session stick table and based on source IP
-      - stick-table: 'type ip size 1m expire 1h'
-      - stick: 'on src'
-      - timeout:
-        - 'server 1m'
-        - 'queue 1m'
-  ssl-https-apps:
-    mode:             'http'
-    options:
-      - balance:      'leastconn'
-      - option:
-        - 'forwardfor except 127.0.0.1'
-        - 'httpchk GET /healthcheck'
-      - http-check: 'expect status 200'
-      # Session stick table and based on source IP
-      - stick-table: 'type ip size 1m expire 1h'
-      - stick: 'on src'
-      - timeout:
-        - 'server 1m'
-        - 'queue 1m'
-  ssl-http-apps:
-    mode:             'http'
-    options:
-      - balance:      'roundrobin'
-      - redirect:     'scheme https if !{ ssl_fc }'
