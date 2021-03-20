@@ -162,7 +162,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
   public_http_domains:
     ensure: present
     mappings:
-#      - 'apps.uib.no':                            'ssl-https-apps'
       - 'docs.uh-iaas.no':                        'public-http-uh-docs'
       - 'report.uh-iaas.no':                      'public-http-nrec-redirect'
       - 'status.uh-iaas.no':                      'public-http-nrec-redirect'
@@ -181,8 +180,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
   ssl_http_domains:
     ensure: present
     mappings:
-      - 'apps.uib.no':                            'ssl-http-apps'
-      - 'appstest.uib.no':                        'ssl-http-apps'
+      - 'apps.uib.no':                            'ssl-http-apps-redirect'
+      - 'appstest.uib.no':                        'ssl-http-apps-redirect'
       - 'docs.nrec.no':                           'public-http-nrec-redirect'
       - 'www.nrec.no':                            'public-http-nrec-redirect'
       - 'nrec.no':                                'public-http-nrec-redirect'
@@ -315,7 +314,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
       - timeout:
         - 'server 1m'
         - 'queue 1m'
-  ssl-http-apps:
+  ssl-http-apps-redirect:
     mode:             'http'
     options:
       - balance:      'roundrobin'
