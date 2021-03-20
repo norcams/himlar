@@ -20,9 +20,7 @@ network::interfaces_hash:
     onboot:         'yes'
     ipaddress:      '192.168.21.19'
     netmask:        '255.255.255.0'
-    dns1:           "%{hiera('netcfg_dns_server1')}"
-    dns2:           "%{hiera('netcfg_dns_server2')}"
-    defroute:       'yes'
+    defroute:       'no'
   'eth3':
     onboot:         'yes'
     ipaddress:      '192.168.23.19'
