@@ -230,8 +230,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ports:              443
     server_names:       ['apps-admin01.uib.no', 'apps-admin02.uib.no']
     ipaddresses:        ['129.177.14.170', '129.177.14.171']
-    options:
-      - 'check'
+    options:            'verify none inter 120s check check-ssl ssl'
 # Exchange
   'uib-https-exch':
     listening_service:  'uib-https-exch'
