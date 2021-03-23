@@ -3,16 +3,12 @@ keystone::db::mysql::allowed_hosts:
   - "%{hiera('netcfg_trp_netpart')}.%"
 
 keystone::database_connection:            "mysql+pymysql://keystone:%{hiera('keystone::db::mysql::password')}@%{hiera('service__address__db_global')}/keystone"
-keystone::database_max_pool_size:         20
 keystone::service_name:                   'httpd'
 keystone::admin_password:                 "%{hiera('keystone_admin_password')}"
-keystone::public_bind_host:               "%{ipaddress_trp1}"
-keystone::admin_bind_host:                "%{ipaddress_trp1}"
 keystone::enable_proxy_headers_parsing:   true
 keystone::purge_config:                   true
 keystone::enable_bootstrap:               true
-keystone::admin_port:                     '35357' #default is changed to 5000 in rocky
-keystone::public_port:                    '5000'
+keystone::public_endpoint:                "%{hiera('endpoint__identity__public')}"
 
 # cache
 keystone::cache_enabled:                  true
@@ -37,8 +33,10 @@ keystone::enable_credential_setup:        true
 keystone::wsgi::apache::ssl:              false
 keystone::wsgi::apache::bind_host:        "%{ipaddress_trp1}"
 keystone::wsgi::apache::api_port:         ['5000', '35357']
+keystone::wsgi::apache::workers:          4
+keystone::wsgi::apache::threads:          1
 
-# roles #FIXME Will be DEPRECATED. After train use keystone::bootstrap
+# admin role #FIXME Will be DEPRECATED. After train use keystone::bootstrap
 keystone::roles::admin::email:                  "support@%{hiera('domain_frontend')}"
 keystone::roles::admin::password:               "%{hiera('keystone_admin_password')}"
 keystone::roles::admin::admin_tenant:           "%{hiera('keystone__admin__project')}"
@@ -54,20 +52,21 @@ keystone::endpoint::version:              "v3"
 
 # Federation
 keystone::federation::trusted_dashboards:  ["https://%{hiera('public__address__dashboard')}/dashboard/auth/websso/"]
-keystone::federation::remote_id_attribute: 'OIDC-iss'
-
-profile::openstack::identity::openidc::idp_name:  'dataporten'
-profile::openstack::identity::openidc::methods:
+keystone::federation::openidc::idp_name:   'dataporten'
+keystone::federation::openidc::methods:
   - 'password'
   - 'token'
   - 'openid'
 #  - 'application_credential'
-profile::openstack::identity::openidc::openidc_response_type:         'code'
-profile::openstack::identity::openidc::openidc_provider_metadata_url: 'https://auth.dataporten.no/.well-known/openid-configuration'
-profile::openstack::identity::openidc::openidc_client_id:             '00000000-0000-0000-0000-000000000000'
-profile::openstack::identity::openidc::openidc_client_secret:         '00000000-0000-0000-0000-000000000000'
-profile::openstack::identity::openidc::module_plugin:                 'keystone.auth.plugins.mapped.Mapped'
-profile::openstack::identity::openidc::keystone_endpoint:             "%{hiera('endpoint__identity__public')}"
+
+keystone::federation::openidc::openidc_response_type:         'code'
+keystone::federation::openidc::openidc_provider_metadata_url: 'https://auth.dataporten.no/.well-known/openid-configuration'
+keystone::federation::openidc::openidc_client_id:             '00000000-0000-0000-0000-000000000000'
+keystone::federation::openidc::openidc_client_secret:         '00000000-0000-0000-0000-000000000000'
+keystone::federation::openidc::module_plugin:                 'keystone.auth.plugins.mapped.Mapped'
+keystone::federation::openidc::keystone_url:                  "%{hiera('endpoint__identity__public')}"
+keystone::federation::openidc::remote_id_attribute:           'OIDC-iss'
+keystone::federation::openidc::memcached_servers:             '127.0.0.1:11211'
 
 # override default policy
 keystone::policy::policies:

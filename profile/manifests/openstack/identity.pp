@@ -16,7 +16,6 @@ class profile::openstack::identity (
   $firewall_extras_a        = {},
   $manage_ssl_cert          = false,
   $manage_openidc           = false,
-  $disable_admin_token_auth = false,
   $token_rotation_sync      = false,
   $manage_token_rotate      = false,
   $token_db                 = 'token_keys',
@@ -70,13 +69,9 @@ class profile::openstack::identity (
     include ::keystone::policy
   }
 
-  if $disable_admin_token_auth {
-    include ::keystone::disable_admin_token_auth
-  }
-
   if $manage_openidc {
     include ::keystone::federation
-    include ::profile::openstack::identity::openidc
+    include ::keystone::federation::openidc
   }
 
   create_resources('keystone_config', $keystone_config)
