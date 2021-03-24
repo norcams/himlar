@@ -8,10 +8,12 @@ include:
     - profile::storage::cephclient
     - profile::storage::cephosd_firewall
     - profile::base::lvm
+    - profile::base::disk
     - profile::monitoring::collectd
     - profile::monitoring::collectd::ceph
   kickstart:
     - profile::base::lvm
+    - profile::base::disk
   bootstrap:
     - profile::base::lvm
     - profile::storage::cephosd_firewall
@@ -49,7 +51,6 @@ profile::base::common::packages:
   'jq': {}
   'smartmontools': {}
   'sysstat': {} # needed for sensu network plugin
-  'hdparm': {}
 
 accounts::users:
   'cinder':
