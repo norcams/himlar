@@ -206,18 +206,23 @@ profile::storage::cephosd::osds:
   '/dev/sdb':
     db_device:  false
     wal_device: false
+    disable_writecache: true
   '/dev/sdc':
     db_device:  false
     wal_device: false
+    disable_writecache: true
   '/dev/sdd':
     db_device:  false
     wal_device: false
+    disable_writecache: true
   '/dev/sde':
     db_device:  false
     wal_device: false
+    disable_writecache: true
   '/dev/sdf':
     db_device:  false
     wal_device: false
+    disable_writecache: true
   '/dev/sdg':
     wal_device: false
     db_device:  'vg_cache1/lv_dbg'
