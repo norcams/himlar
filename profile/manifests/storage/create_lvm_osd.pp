@@ -41,7 +41,7 @@ define profile::storage::create_lvm_osd (
       "${name}" => { hdparams => '-W0', order => '68', }
     }
     create_resources(profile::base::hdparm, $set_hdparm, {})
-    exec { 'disable_writecache_now':
+    exec { "disable_writecache_now-${name}":
       command     => 'hdparm',
       path        => '/sbin:/usr/bin:/usr/sbin:/bin:/usr/local/bin',
       onlyif      => "hdparm -W ${name} | grep on",
