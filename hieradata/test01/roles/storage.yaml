@@ -64,6 +64,11 @@ profile::storage::ceph_extraconf::config:
     'config_key'  : "osd/osd_memory_target"
     'config_value': "3973054464"
 
+# Disable write cache on osd cache disk
+profile::base::disk::manage_hdparm: true
+profile::base::disk::disk_hdparams:
+  '/dev/sda': { hdparams: '-W0', }
+
 profile::base::lvm::volume_group:
   'vg_swap':
     physical_volumes:

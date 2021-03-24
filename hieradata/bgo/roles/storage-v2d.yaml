@@ -125,6 +125,12 @@ profile::base::common::extraswap_sizegb:  20
 profile::base::common::extraswap_fileloc: '/var/lib/swap/swapfile'
 profile::base::physical::load_ahci_first: true
 
+# Disable write cache on osd cache disks
+profile::base::disk::manage_hdparm: true
+profile::base::disk::disk_hdparams:
+  '/dev/sdr': { hdparams: '-W0', }
+  '/dev/sds': { hdparams: '-W0', }
+
 profile::base::lvm::volume_group:
   'vg_swap':
     physical_volumes:
