@@ -110,7 +110,7 @@ profile::storage::ceph_ecpool::ec_pools:
     crush_device_class:  "ssd"
     crush_root:          "storage"
     plugin:              "jerasure"
-    technique:           "reed_sol_van"
+    technique:           "blaum_roth"
 
 profile::storage::cephpool_params::pools:
   'volumes_hdd_ec_data':
