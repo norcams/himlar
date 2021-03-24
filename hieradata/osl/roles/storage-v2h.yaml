@@ -191,24 +191,31 @@ profile::storage::cephosd::osds:
   '/dev/sda':
     wal_device: false
     db_device:  false
+    disable_writecache: true
   '/dev/sdb':
     wal_device: false
     db_device:  false
+    disable_writecache: true
   '/dev/sdc':
     wal_device: false
     db_device:  false
+    disable_writecache: true
   '/dev/sdd':
     wal_device: false
     db_device:  false
+    disable_writecache: true
   '/dev/sde':
     wal_device: false
     db_device:  false
+    disable_writecache: true
   '/dev/sdf':
     wal_device: false
     db_device:  false
+    disable_writecache: true
   '/dev/sdg':
     wal_device: false
     db_device:  false
+    disable_writecache: true
   '/dev/sdh':
     wal_device: false
     db_device:  'vg_nvme1/lv_dbh'

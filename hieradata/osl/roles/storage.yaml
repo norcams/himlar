@@ -121,8 +121,11 @@ profile::storage::cephosd::osds:
   '/dev/sde':
     db_device:  'vg_cache/lv_dbe'
     wal_device: 'vg_cache/lv_wale'
-  '/dev/sdf': {}
-  '/dev/sdg': {}
-  '/dev/sdh': {}
+  '/dev/sdf':
+    disable_writecache: true
+  '/dev/sdg':
+    disable_writecache: true
+  '/dev/sdh':
+    disable_writecache: true
 #  '/dev/sdi': {}
 #  '/dev/sdj': {}
