@@ -101,6 +101,8 @@ profile::storage::ceph_ecpool::ec_pools:
     k_data:              "4"
     m_code:              "2"
     crush_root:          "storage"
+    plugin:              "jerasure"
+    technique:           "blaum_roth"
   'volumes_ssd_ec_data':
     pg_num:              "1024"
     manage:              true
@@ -110,7 +112,7 @@ profile::storage::ceph_ecpool::ec_pools:
     crush_device_class:  "ssd"
     crush_root:          "storage"
     plugin:              "jerasure"
-    technique:           "blaum_roth"
+    technique:           "reed_sol_van"
 
 profile::storage::cephpool_params::pools:
   'volumes_hdd_ec_data':
