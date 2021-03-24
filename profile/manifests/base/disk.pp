@@ -5,10 +5,12 @@ class profile::base::disk (
   $manage_hdparm = false,
   $disk_hdparams = {},
 ){
+
+  package { 'hdparm':
+    ensure => installed,
+  }
+
   if $manage_hdparm {
-    package { 'hdparm':
-      ensure => installed,
-    }
     create_resources(profile::base::hdparm, $disk_hdparams, {})
   }
 }
