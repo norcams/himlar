@@ -236,6 +236,10 @@ profile::monitoring::sensu::agent::enable_agent: true
 #     handlers:     'slack'
 #     subscribers:  ['checks']
 
+# sensu
+sensu__disk__warning:     85
+sensu__disk__crtical:     95
+
 sudo::configs:
   sensu_tty:
     priority:   15
