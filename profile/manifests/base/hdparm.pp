@@ -17,6 +17,6 @@ define profile::base::hdparm (
   file { "hdparm_${name}":
     ensure    => file,
     path      => "/etc/udev/rules.d/${order}-hdparm-${devicename}.rules",
-    content   => "ACTION==\"add\", SUBSYSTEM==\"block\", KERNEL==\"${devicename}\", RUN+=\"${hdparmpath} $hdparams ${name}\"\n",
+    content   => "ACTION==\"add\", SUBSYSTEM==\"block\", KERNEL==\"${devicename}\", RUN+=\"${hdparmpath} ${hdparams} ${name}\"\n",
   }
 }
