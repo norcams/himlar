@@ -1,4 +1,14 @@
 ---
+named_interfaces::config:
+  mgmt:
+    - bond0.940
+  public:
+    - bond0
+  core:
+    - bond0.940
+  uib:
+    - bond0.942
+
 # network
 netcfg_core_netpart:  '192.168.20'
 netcfg_uib_netpart:   '192.168.22'
