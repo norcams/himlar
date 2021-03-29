@@ -2,7 +2,7 @@
 #
 #
 class profile::storage::cephmon (
-  $dashboard_password,
+  $dashboard_password         = undef,
   $dashboard_user             = 'admin',
   $manage_dashboard           = false,
   $crt_dir                    = '/etc/pki/tls/certs',
