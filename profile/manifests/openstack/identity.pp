@@ -18,6 +18,7 @@ class profile::openstack::identity (
   $manage_openidc           = false,
   $token_rotation_sync      = false,
   $manage_token_rotate      = false,
+  $manage_bootstrap         = false,
   $token_db                 = 'token_keys',
   $keystone_config          = {},
   $cron_master              = {},
@@ -65,6 +66,9 @@ class profile::openstack::identity (
 
   }
 
+  if $manage_bootstrap {
+    include ::profile::openstack::identity::bootstrap
+  }
   if $manage_policy {
     include ::keystone::policy
   }
