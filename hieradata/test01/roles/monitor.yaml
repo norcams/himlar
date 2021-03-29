@@ -1,3 +1,11 @@
 ---
 rabbitmq::node_ip_address:        "%{::ipaddress_mgmt1}" #FIXME move to common
 rabbitmq::management_ip_address:  "%{::ipaddress_mgmt1}" #FIXME move to common
+
+# Temporary for grafana upgrade
+profile::base::yumrepo::repo_hash:
+  grafana:
+    ensure: absent
+  grafana-oss:
+    ensure: present
+grafana::version: '7.4.5'
