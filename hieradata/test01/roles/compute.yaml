@@ -2,6 +2,7 @@
 include:
   default:
     - profile::base::tuned
+    - profile::monitoring::collectd
 
 named_interfaces::config:
   mgmt:
@@ -78,3 +79,19 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_ext'
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
+
+# collectd
+profile::monitoring::collectd::enable: true
+profile::monitoring::collectd::plugins:
+  - collectd::plugin::aggregation
+  - collectd::plugin::cpu
+  - collectd::plugin::disk
+  - collectd::plugin::load
+  - collectd::plugin::memory
+  - collectd::plugin::interface
+  - collectd::plugin::write_graphite
+  - collectd::plugin::virt
+  - collectd::plugin::processes
+
+collectd::plugin::virt::hostname_format:        'hostname'
+collectd::plugin::virt::plugin_instance_format: 'uuid'

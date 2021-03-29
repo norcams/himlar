@@ -284,6 +284,13 @@ profile::base::yumrepo::repo_hash:
     gpgkey:         "%{hiera('yum_base_mirror')}/grafana/RPM-GPG-KEY-grafana"
     enabled:        1
     gpgcheck:       1
+  grafana-oss:
+    ensure:         absent
+    descr:          'Grafana OSS repo'
+    baseurl:        "%{hiera('yum_base_mirror')}/grafana-oss"
+    gpgkey:         "%{hiera('yum_base_mirror')}/grafana/RPM-GPG-KEY-grafana-oss"
+    enabled:        1
+    gpgcheck:       1
   postgres-10:
     ensure:         absent
     descr:          'PostgreSQL 10 for RHEL/CentOS 7 - x86_64'
