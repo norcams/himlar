@@ -1,5 +1,7 @@
 ---
 include:
+  bootstrap:
+    - profile::openstack::openrc
   default:
     - profile::openstack::identity
     - profile::openstack::resource::imagebuilder

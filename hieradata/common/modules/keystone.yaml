@@ -9,6 +9,19 @@ keystone::enable_proxy_headers_parsing:   true
 keystone::purge_config:                   true
 keystone::enable_bootstrap:               true
 keystone::public_endpoint:                "%{hiera('endpoint__identity__public')}"
+keystone::admin_endpoint:                 "%{hiera('endpoint__identity__admin')}"
+
+# bootstrap (preview from ussuri used in vagrant)
+profile::openstack::identity::bootstrap::password:              "%{hiera('keystone_admin_password')}"
+profile::openstack::identity::bootstrap::email:                 "support@%{hiera('domain_frontend')}"
+profile::openstack::identity::bootstrap::project_name:          "%{hiera('keystone__admin__project')}"
+profile::openstack::identity::bootstrap::service_project_name:  "%{hiera('keystone__service__project')}"
+profile::openstack::identity::bootstrap::service_name:          'keystone'
+profile::openstack::identity::bootstrap::admin_url:             "%{hiera('endpoint__identity__admin')}"
+profile::openstack::identity::bootstrap::public_url:            "%{hiera('endpoint__identity__public')}"
+profile::openstack::identity::bootstrap::internal_url:          "%{hiera('endpoint__identity__internal')}"
+profile::openstack::identity::bootstrap::region:                "%{location}"
+profile::openstack::identity::bootstrap::interface:             'internal'
 
 # cache
 keystone::cache_enabled:                  true
