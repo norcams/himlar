@@ -2,6 +2,9 @@
 include:
   kickstart:
     - profile::monitoring::sensu::agent
+  default:
+    - profile::monitoring::collectd
+
 
 named_interfaces::config:
   mgmt:
@@ -49,4 +52,21 @@ nova::debug: true
 
 # remove when telemetry/ceilometer is up in all environments and move to common
 profile::openstack::compute::manage_telemetry: true
+
 nova::compute::libvirt::libvirt_hw_machine_type: 'x86_64=q35'
+
+# collectd
+profile::monitoring::collectd::enable: true
+profile::monitoring::collectd::plugins:
+  - collectd::plugin::aggregation
+  - collectd::plugin::cpu
+  - collectd::plugin::disk
+  - collectd::plugin::load
+  - collectd::plugin::memory
+  - collectd::plugin::interface
+  - collectd::plugin::write_graphite
+  - collectd::plugin::virt
+  - collectd::plugin::processes
+
+collectd::plugin::virt::hostname_format:        'hostname'
+collectd::plugin::virt::plugin_instance_format: 'uuid'
