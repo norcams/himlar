@@ -64,7 +64,6 @@ profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}
   'jq': {}
-  'ceph-mgr-dashboard': {}
   'python-collectd-ceph-storage': {}
 
 accounts::users:
@@ -117,9 +116,9 @@ profile::base::yumrepo::repo_hash:
   epel:
     ensure:   present
 
-# enable Ceph dashboard
-profile::storage::cephmon::manage_dashboard:                    true
-profile::storage::cephmon::dashboard_password:                  "%{hiera('ceph_storage_dashboard_password')}"
+## enable Ceph dashboard
+#profile::storage::cephmon::manage_dashboard:                    true
+#profile::storage::cephmon::dashboard_password:                  "%{hiera('ceph_storage_dashboard_password')}"
 
 # Create crush buckets
 profile::storage::cephmon::create_crushbuckets: true
