@@ -80,6 +80,8 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   ceph-%{hiera('ceph_version')}:
     ensure: present
+  ceph-%{hiera('ceph_version')}-noarch:
+    ensure: present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
     includepkgs: 'htop bash-completion-extras lttng-ust userspace-rcu libbabeltrace leveldb liboath py-bcrypt python2-bcrypt'
