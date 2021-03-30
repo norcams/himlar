@@ -191,6 +191,8 @@ profile::base::yumrepo::repo_hash:
     exclude: 'dnsmasq'
   ceph-%{hiera('ceph_version')}:
     ensure: present
+  ceph-%{hiera('ceph_version')}-noarch:
+    ensure: present
   centos-qemu-ev:
     ensure: present
   epel: # should be absent when using RDO, but whitelist can also work
