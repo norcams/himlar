@@ -30,3 +30,10 @@ profile::base::lvm::logical_volume:
     fs_type:      "xfs"
     mountpath:    "/opt/graphite"
 
+# Temporary for grafana upgrade
+profile::base::yumrepo::repo_hash:
+  grafana:
+    ensure: absent
+  grafana-oss:
+    ensure: present
+grafana::version: '7.4.5'
