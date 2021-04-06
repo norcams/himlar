@@ -58,3 +58,4 @@ profile::monitoring::collectd::plugins:
 
 collectd::plugin::virt::hostname_format:        'hostname'
 collectd::plugin::virt::plugin_instance_format: 'uuid'
+collectd::plugin::virt::extra_stats:            'cpu_util disk disk_err domain_state vcpupin'
