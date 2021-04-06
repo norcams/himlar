@@ -135,6 +135,9 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
 #
 # COPY OF PROD IAM SETUP
 #
+
+profile::highavailability::loadbalancing::haproxy::access_list: {}
+
 haproxy::defaults_options:
   log:          'global'
   stats:        []
@@ -161,7 +164,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
     ensure: present
     mappings:
       - 'connect.iam-test.uninett.no':                  'ssl-http-connect'
-      - 'iam.test-uninett.no':                          'ssl-http-core'
+      - 'iam-test.uninett.no':                          'ssl-http-core'
       - 'tilgang.test.uib.no':                          'ssl-http-uib'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_backends:
