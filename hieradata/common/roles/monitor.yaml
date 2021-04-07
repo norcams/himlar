@@ -95,6 +95,7 @@ profile::openstack::openrc::username:         'monitor'
 profile::openstack::openrc::project_name:     'services'
 
 profile::monitoring::graphite::manage_graphite:  true
+profile::monitoring::graphite::age:              '2w'
 profile::monitoring::sensu::server::manage_firewall:  true
 profile::monitoring::sensu::server::firewall_extras:
   source: "%{::network_mgmt1}/%{::netmask_mgmt1}"
