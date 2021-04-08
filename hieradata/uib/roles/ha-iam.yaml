@@ -19,12 +19,17 @@ profile::firewall::pre::ssh_settings:
     - "%{::network_mgmt1}/%{::netmask_mgmt1}"
     - "%{hiera('netcfg_core_netpart')}.9" # t1-iam-login
     - "%{hiera('netcfg_core_netpart')}.10" # t2-iam-login
+
 accounts::ssh_keys:
-  'iaas_iam':
+  'iam':
     type:    'ssh-ed25519'
-    public:  'AAAAC3NzaC1lZDI1NTE5AAAAIMNVlfrsg1juBjCJe9DhDjsrV00NIbbuzdTiA/YmLiRG'
+    public:  'AAAAC3NzaC1lZDI1NTE5AAAAIJYP2tD0gY0ikjB3NBJkPPj3MUSp9GpwuRfnDGSEKYcN'
+
+accounts::users:
+  'iam':
+    comment: 'iam_uib_ita'
+    groups:  [ 'users', 'wheel' ]
 
 accounts::accounts:
-  'iaas':
+  'iam':
     ensure: present
-    authorized_keys: [ 'iaas', 'iaas_iam']
