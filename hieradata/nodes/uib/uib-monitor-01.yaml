@@ -2,15 +2,15 @@
 network::interfaces_hash:
   'eth0':
     onboot:         'yes'
-    ipaddress:      '192.168.20.17'
+    ipaddress:      '192.168.21.17'
     netmask:        '255.255.255.0'
     defroute:       'yes'
-    gateway:        '129.177.20.1'
+    gateway:        '129.177.21.1'
     dns1:           "%{hiera('netcfg_dns_server1')}"
     dns2:           "%{hiera('netcfg_dns_server2')}"
   'eth1':
     onboot:         'yes'
-    ipaddress:      '192.168.22.17'
+    ipaddress:      '192.168.23.17'
     netmask:        '255.255.255.0'
     defroute:       'no'
 
