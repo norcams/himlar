@@ -1,0 +1,29 @@
+---
+network::interfaces_hash:
+  'eth0':
+    onboot:         'yes'
+    ipaddress:      '192.168.20.17'
+    netmask:        '255.255.255.0'
+    defroute:       'no'
+  'eth1':
+    onboot:         'yes'
+    ipaddress:      '192.168.22.17'
+    netmask:        '255.255.255.0'
+    gateway:        '129.177.22.1'
+    dns1:           "%{hiera('netcfg_dns_server1')}"
+    dns2:           "%{hiera('netcfg_dns_server2')}"
+    defroute:       'yes'
+
+profile::base::lvm::physical_volume:
+  '/dev/sda3':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_graphite':
+    physical_volumes:
+      - /dev/sda3
+profile::base::lvm::logical_volume:
+  'lv_graphite':
+    volume_group: 'vg_graphite'
+    fs_type:      "xfs"
+    mountpath:    "/opt/graphite"
