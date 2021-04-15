@@ -263,6 +263,9 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
         - 'ssl'
         - 'crt'
         - "%{hiera('ssl_cert_uib')}"
+        - 'ca-file'
+        - "%{hiera('ssl_ca_cert')}"
+        - 'verify optional'
       "%{hiera('corosync_cluster_vip2')}:443":
         - 'ssl'
         - 'crt'
