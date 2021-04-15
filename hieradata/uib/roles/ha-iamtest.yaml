@@ -300,6 +300,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
         - 'del-header ^X-Forwarded-For:.*'
         - 'del-header ^X-SSL-Client-Verify:.*'
         - 'del-header ^X-SSL-Client-DN:.*'
+        - 'set-header X-SSL-Client-Verify %[ssl_c_verify]'
+        - 'set-header X-SSL-Client-DN %{+Q}[ssl_c_s_dn]'
       - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/ssl_https_domains.map)]'
   uib-ldap:
     mode:               'tcp'
