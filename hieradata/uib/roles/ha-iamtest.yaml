@@ -58,6 +58,8 @@ ssl_cert_connect:       'connect.iam-test.uninett.no.pem'
 ssl_cert_uib:           'tilgang.test.uib.no.pem'
 ssl_ca_cert:            'clientca.pem'
 
+connect_fqdn:           'connect.iam-test.uninett.no'
+
 # Firewall
 profile::firewall::rules::custom_rules:
   '451 haproxy http for public vip1':
