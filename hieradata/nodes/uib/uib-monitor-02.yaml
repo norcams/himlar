@@ -4,15 +4,15 @@ network::interfaces_hash:
     onboot:         'yes'
     ipaddress:      '192.168.20.18'
     netmask:        '255.255.255.0'
-    defroute:       'no'
+    defroute:       'yes'
+    gateway:        '129.177.20.2'
+    dns1:           "%{hiera('netcfg_dns_server1')}"
+    dns2:           "%{hiera('netcfg_dns_server2')}"
   'eth1':
     onboot:         'yes'
     ipaddress:      '192.168.22.18'
     netmask:        '255.255.255.0'
-    gateway:        '129.177.22.1'
-    dns1:           "%{hiera('netcfg_dns_server1')}"
-    dns2:           "%{hiera('netcfg_dns_server2')}"
-    defroute:       'yes'
+    defroute:       'no'
 
 profile::base::lvm::physical_volume:
   '/dev/sda3':
