@@ -1,0 +1,28 @@
+---
+# Shared config
+sensu::manage_repo:     false
+sensu::password:        "%{hiera('sensu_api_password')}"
+sensu::agent_password:  "%{hiera('sensu_agent_password')}"
+sensu::api_host:        '%{::fqdn}'
+sensu::api_port:        8082
+sensu::username:        'admin'
+
+# Sensu agent
+sensu::agent::package_name:   'sensu-agent'
+sensu::agent::namespace:      '%{::location}'
+sensu::agent::config_hash:
+  socket-host:        '127.0.0.1'
+  socket-port:        3030
+
+# Sensu backend
+sensu::backend::package_name: 'sensu-backend'
+sensu::backend::config_hash:
+  api-listen-address: "%{::ipaddress_mgmt1}:8082"
+  agent-host:         "%{::ipaddress_mgmt1}"
+  agent-port:         8081
+  dashboard-host:     "%{::ipaddress_mgmt1}"
+  dashboard-port:     3000
+  debug:              true #FIXME
+
+# Sensu cli
+sensu::cli::package_name:     'sensu-cli'

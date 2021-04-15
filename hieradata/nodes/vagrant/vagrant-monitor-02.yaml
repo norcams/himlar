@@ -1,0 +1,42 @@
+---
+network::interfaces_hash:
+  'eth1':
+    onboot:    'yes'
+    mtu:       '1500'
+    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.19"
+    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
+
+# disable sensuclassic
+profile::monitoring::sensu::agent::enable_agent:      false
+profile::monitoring::sensu::server::manage_dashboard: false
+profile::monitoring::sensu::server::manage_rabbitmq:  false
+profile::monitoring::sensu::server::manage_redis:     false
+profile::monitoring::sensu::server::manage_graphite:  false
+profile::monitoring::sensu::server::manage_firewall:  false
+profile::monitoring::sensu::server::manage_resources: false
+profile::messaging::rabbitmq::manage:                 false
+profile::base::yumrepo::repo_hash:
+  sensu:
+    ensure: absent
+  rdo-release:
+    ensure: absent
+  # sensu-stable:
+  #   ensure: present
+  sensu-community:
+    ensure: present
+
+profile::base::common::packages:
+  'jq': { ensure: absent }
+  'python-openstackclient': { ensure: absent }
+  'openstack-selinux':      { ensure: absent }
+
+# enable sensu go
+include:
+  default:
+    - profile::monitoring::sensu::backend
+
+profile::monitoring::sensu::backend::manage_firewall: true
+profile::monitoring::sensu::backend::manage:          true
+
+profile::monitoring::sensu::backend::namespaces:
+  '%{::location}':  { ensure: present }

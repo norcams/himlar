@@ -263,8 +263,9 @@ designate::rabbit_password:                         'guest'
 imagebuilder_password:                              'imagebuilder_pass'
 
 # sensu.yaml
+sensu_agent_password:                               'sensu_agent_pass'
 sensu_rabbit_password:                              'sensu_guest'
-sensu_api_password:                                 'sensu'
+sensu_api_password:                                 'sensu_pass'
 graphite_secret_key:                                'graphite_pass'
 sensu_mysql_password:                               'sensu_pass'
 grafana_admin_password:                             'changeme'

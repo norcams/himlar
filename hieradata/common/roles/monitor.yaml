@@ -1,7 +1,6 @@
 ---
 include:
   default:
-    - profile::database::redis
     - profile::monitoring::sensu::server
     - profile::monitoring::graphite
     - profile::monitoring::grafana
@@ -86,6 +85,7 @@ grafana::provisioning_dashboards:
         puppetsource: 'puppet:///modules/profile/monitoring/grafana/dashboard'
 
 # Sensu server
+profile::monitoring::sensu::server::manage_resources: true
 sensuclassic::server:              true
 sensuclassic::api:                 true
 sensuclassic::redis_host:          127.0.0.1
@@ -97,6 +97,7 @@ profile::openstack::openrc::project_name:     'services'
 profile::monitoring::graphite::manage_graphite:  true
 profile::monitoring::graphite::age:              '2w'
 profile::monitoring::sensu::server::manage_firewall:  true
+profile::monitoring::sensu::server::manage_redis:     true
 profile::monitoring::sensu::server::firewall_extras:
   source: "%{::network_mgmt1}/%{::netmask_mgmt1}"
 profile::monitoring::sensu::server::manage_dashboard: true

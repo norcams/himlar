@@ -136,6 +136,13 @@ profile::base::yumrepo::repo_hash:
     descr:          'Sensu repo'
     baseurl:        "%{hiera('yum_base_mirror')}/sensu/"
     gpgcheck:       0
+  sensu-community:
+    ensure:         absent
+    descr:          'Sensu community repo'
+    baseurl:        "%{hiera('yum_base_mirror')}/sensu-community/"
+    gpgcheck:       0
+    gpgkey:         'https://packagecloud.io/sensu/community/gpgkey' #FIXME
+    #repo_gpgcheck:  1
 # Optional repos: enable them with ensure: present in common/role
   uh-iaas-nonfree:
     ensure:         absent
