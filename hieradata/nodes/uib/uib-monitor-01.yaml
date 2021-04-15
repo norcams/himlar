@@ -5,7 +5,7 @@ network::interfaces_hash:
     ipaddress:      '192.168.21.17'
     netmask:        '255.255.255.0'
     defroute:       'yes'
-    gateway:        '129.177.21.1'
+    gateway:        '192.168.21.1'
     dns1:           "%{hiera('netcfg_dns_server1')}"
     dns2:           "%{hiera('netcfg_dns_server2')}"
   'eth1':
