@@ -1,0 +1,18 @@
+---
+named_interfaces::config:
+  mgmt:
+    - eth0 #core
+
+accounts::ssh_keys:
+  'iam':
+    type:    'ssh-ed25519'
+    public:  'AAAAC3NzaC1lZDI1NTE5AAAAIMNVlfrsg1juBjCJe9DhDjsrV00NIbbuzdTiA/YmLiRG'
+
+accounts::users:
+  'iam':
+    comment: 'iam_uib_ita'
+    groups:  [ 'users', 'wheel' ]
+
+accounts::accounts:
+  'iam':
+    ensure: present
