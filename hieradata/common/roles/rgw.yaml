@@ -85,6 +85,8 @@ profile::openstack::object::radosgw::keystone:
 profile::base::yumrepo::repo_hash:
   ceph-%{hiera('ceph_version')}:
     ensure: present
+  ceph-%{hiera('ceph_version')}-noarch:
+    ensure: present
   rdo-release:
     ensure: present
   epel: # should be absent when using RDO, but whitelist can also work
