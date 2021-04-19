@@ -15,6 +15,7 @@ profile::monitoring::sensu::server::manage_graphite:  false
 profile::monitoring::sensu::server::manage_firewall:  false
 profile::monitoring::sensu::server::manage_resources: false
 profile::messaging::rabbitmq::manage:                 false
+profile::database::redis::manage:                     false
 profile::base::yumrepo::repo_hash:
   sensu:
     ensure: absent
