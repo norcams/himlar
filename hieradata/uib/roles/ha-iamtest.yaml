@@ -303,7 +303,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
         - "%{hiera('ssl_cert_uib')}"
     options:
       - acl:
-        - account_claim path,url_dec -i -m beg /api/rest/restpoints/UiB/claim/
+        - account_claim path -i -m beg /api/rest/restpoints/UiB/claim/
         - host_connect hdr(host) -i %{hiera('connect_fqdn')}
       - http-request:
         # Require client verification for account claims
