@@ -68,8 +68,7 @@ profile::openstack::volume::backend::rbd:
 #    rbd_flatten_volume_from_snapshot: 'True'
 #    rbd_secret_uuid: "%{hiera('libvirt_rbd_secret_uuid')}"
 
-#cinder::api::default_volume_type: 'mass-storage-default'
-cinder::api::default_volume_type: 'rbd' #FIXME
+cinder::api::default_volume_type: 'mass-storage-default'
 
 cinder::backends::enabled_backends:
   - rbd-volumes
