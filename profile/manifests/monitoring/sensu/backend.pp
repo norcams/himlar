@@ -7,6 +7,9 @@ class profile::monitoring::sensu::backend(
   Boolean $manage_firewall    = false,
   Array $firewall_ports       = [8081, 3000, 8082],
   String $merge_strategy      = 'deep',
+  String $dashboard_secure    = 'false',
+  Integer $dashboard_port      = 3000,
+  String $dashboard_api_url    = "https://${::ipaddress_mgmt1}:8082"
 ) {
 
   if $manage {
@@ -22,7 +25,21 @@ class profile::monitoring::sensu::backend(
     profile::firewall::rule { '411 sensu accept tcp':
       dport       => $firewall_ports,
       destination => $::ipaddress_mgmt1,
-#      extras      => $firewall_extras,
     }
   }
+
+  if $manage_dashboard {
+    package { ['yarn', 'sensu-web']:
+      ensure => installed,
+    }
+    file { '/etc/sysconfig/sensu_web':
+      ensure  => file,
+      content => template("${module_name}/monitoring/sensu/sensu_web.erb"),
+    }
+    service { 'sensu-web':
+      ensure => running,
+      enable => true
+    }
+  }
+
 }

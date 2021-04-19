@@ -20,9 +20,7 @@ sensu::backend::config_hash:
   api-listen-address: "%{::ipaddress_mgmt1}:8082"
   agent-host:         "%{::ipaddress_mgmt1}"
   agent-port:         8081
-  dashboard-host:     "%{::ipaddress_mgmt1}"
-  dashboard-port:     3000
-  debug:              true #FIXME
+#  debug:              true
 
 # Sensu cli
 sensu::cli::package_name:     'sensu-cli'

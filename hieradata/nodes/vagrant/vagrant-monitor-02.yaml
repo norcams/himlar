@@ -24,6 +24,28 @@ profile::base::yumrepo::repo_hash:
   #   ensure: present
   sensu-community:
     ensure: present
+  yarn: #temp repo
+    descr:      Yarn Repository
+    baseurl:    https://dl.yarnpkg.com/rpm/
+    enabled:    1
+    gpgcheck:   1
+    gpgkey:     https://dl.yarnpkg.com/rpm/pubkey.gpg
+  nodesource: # temp repo
+    descr:          Node.js Packages for Enterprise Linux 7 - $basearch
+    baseurl:        https://rpm.nodesource.com/pub_14.x/el/7/$basearch
+    enabled:        1
+    gpgcheck:       1
+    gpgkey:         https://rpm.nodesource.com/pub/el/NODESOURCE-GPG-SIGNING-KEY-EL
+  uh-iaas:
+    baseurl:    http://download.iaas.uio.no/uh-iaas/yumrepo/
+  epel: # should be absent when using RDO, but whitelist can also work
+    ensure:   present
+    includepkgs: 'collectd* htop bash-completion-extras statsd python2-pip nagios-plugins-openmanage nagios-common perl-Config-Tiny perl-Crypt-DES perl-Digest* libuv perl-Net-SNMP npm python-sqlite3dbm python-tzlocal python-cairocffi'
+
+profile::base::common::manage_sysctl: true
+profile::base::common::sysctl_values:
+  'fs.inotify.max_user_watches':
+    value: 524288
 
 profile::base::common::packages:
   'jq': { ensure: absent }
@@ -35,8 +57,9 @@ include:
   default:
     - profile::monitoring::sensu::backend
 
-profile::monitoring::sensu::backend::manage_firewall: true
-profile::monitoring::sensu::backend::manage:          true
+profile::monitoring::sensu::backend::manage_dashboard:  true
+profile::monitoring::sensu::backend::manage_firewall:   true
+profile::monitoring::sensu::backend::manage:            true
 
 profile::monitoring::sensu::backend::namespaces:
   '%{::location}':  { ensure: present }
