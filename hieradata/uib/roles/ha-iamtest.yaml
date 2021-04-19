@@ -73,6 +73,8 @@ profile::firewall::rules::custom_rules:
       - '158.37.63.0/24' # nrec osl
       - '158.39.48.0/24' # nrec osl
       - '158.39.200.0/24' # nrec osl
+      - '51.158.170.191/32' # accout claim
+      - '151.115.33.68/32' # accout claim
       - '34.99.47.0/24'
       - '85.164.196.247/32'
       - '34.99.46.95/32'
@@ -91,6 +93,8 @@ profile::firewall::rules::custom_rules:
       - '158.37.63.0/24' # nrec osl
       - '158.39.48.0/24' # nrec osl
       - '158.39.200.0/24' # nrec osl
+      - '51.158.170.191/32' # accout claim
+      - '151.115.33.68/32' # accout claim
       - '34.99.47.0/24'
       - '85.164.196.247/32'
       - '34.99.46.95/32'
@@ -299,7 +303,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
         - "%{hiera('ssl_cert_uib')}"
     options:
       - acl:
-        - account_claim path -i -m beg /api/rest/restpoints/UiB/claim/
+        - account_claim path,url_dec -i -m beg /api/rest/restpoints/UiB/claim/
         - host_connect hdr(host) -i %{hiera('connect_fqdn')}
       - http-request:
         # Require client verification for account claims
@@ -309,7 +313,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
         - 'del-header ^X-SSL-Client-Verify:.*'
         - 'del-header ^X-SSL-Client-DN:.*'
         - 'set-header X-SSL-Client-Verify %[ssl_c_verify]'
-        - 'set-header X-SSL-Client-DN %{+Q}[ssl_c_s_dn]'
+        - 'set-header X-SSL-Client-DN %%{}{+Q}[ssl_c_s_dn]'
+        - 'set-header X-SSL-Client-Cert-Used %[ssl_c_used]'
       - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/ssl_https_domains.map)]'
   uib-ldap:
     mode:               'tcp'
