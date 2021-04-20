@@ -6,6 +6,8 @@ include:
 location_environment:     'prod'
 location_description:     'Production environment in Oslo'
 
+ceph_version: 'octopus' # FIXME
+
 # Disable management of Dell repos and software
 profile::base::dell::manage_repos:      true
 profile::base::dell::manage_openmanage: false
