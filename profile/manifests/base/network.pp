@@ -26,7 +26,7 @@ class profile::base::network(
   
   include ::network
   
-  if manage_network {
+  if $manage_network {
   
     if $manage_hostname {
       $domain_mgmt = lookup('domain_mgmt', String, 'first', $::domain)
