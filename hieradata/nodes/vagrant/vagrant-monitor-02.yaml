@@ -29,7 +29,7 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   yarn: #temp repo
     ensure: present
-  nodesource: # this repo will break statsd, use sensu statsd instead
+  nodesource-14: # this repo will break statsd, use sensu statsd instead
     ensure: present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present

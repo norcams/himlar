@@ -301,8 +301,8 @@ profile::base::yumrepo::repo_hash:
   nodesource-14:
     ensure:         absent
     descr:          'Node.js 14 LTS Packages for Enterprise Linux 7 - $basearch'
-    baseurl:        "%{hiera('yum_base_mirror')}/nodesoure-14"
-    gpgkey:         "%{hiera('yum_base_mirror')}/nodesource/NODESOURCE-GPG-SIGNING-KEY-EL"
+    baseurl:        "%{hiera('yum_base_mirror')}/nodesource-14"
+    gpgkey:         "%{hiera('yum_base_mirror')}/nodesource-14/NODESOURCE-GPG-SIGNING-KEY-EL"
     enabled:        1
     gpgcheck:       1
   yarn:
