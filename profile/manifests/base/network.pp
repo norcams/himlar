@@ -20,14 +20,14 @@ class profile::base::network(
   $manage_hostname  = false,
   $opx_cleanup      = false,
 ) {
-  
+
   # Set up extra logical fact names for network facts
   include ::named_interfaces
-  
+
   include ::network
-  
+
   if $manage_network {
-  
+
     if $manage_hostname {
       $domain_mgmt = lookup('domain_mgmt', String, 'first', $::domain)
       $hostname = "${::verified_host}.${domain_mgmt}"
@@ -54,7 +54,7 @@ class profile::base::network(
         }
       }
     }
-  
+
     # - Set ifnames=0 and use old ifnames, e.g 'eth0'
     # - Use biosdevname on physical servers, e.g 'em1'
     if $net_ifnames {
@@ -63,7 +63,7 @@ class profile::base::network(
         value  => "0",
       }
     }
-  
+
     # Persistently install dummy module
     if $manage_dummy {
       include ::kmod
@@ -75,7 +75,7 @@ class profile::base::network(
         value =>  $no_of_dummies,
       }
     }
-  
+
     # Set proxy arp for interface
     if $netif_proxy_arp {
       $proxy_arp_ifs.each |$ifsetsysctl| {
@@ -87,7 +87,7 @@ class profile::base::network(
         }
       }
     }
-  
+
     # Delete link routes on ifup
     if $remove_route {
       file { '/sbin/ifup-local':
@@ -97,7 +97,7 @@ class profile::base::network(
         content => template("${module_name}/network/ifup-local.erb"),
       }
     }
-  
+
     # In order to route to tap interfaces, ip forwarding must be enabled
     if $l3_router {
       sysctl::value { "net.ipv4.ip_forward":
@@ -107,13 +107,13 @@ class profile::base::network(
         value => 1,
       }
     }
-  
+
     if $node_multinic {
       sysctl::value { "net.ipv4.conf.all.rp_filter":
         value => 2,
       }
     }
-  
+
     # Nodes with service network will get requests from IPs on an another subnet,
     # but default route is not through the service interface. We must create
     # a custom iproute2 table for the service interface. Our custom named_interfaces
@@ -128,7 +128,7 @@ class profile::base::network(
       $service_ifaddr = $node_interface_hash["$service_if"][ipaddress]
       $service_ifmask = $node_interface_hash["$service_if"][netmask]
       $transport_network = lookup('network_transport', String, 'first', '')
-  
+
       # Create a custom route table for service interface
       network::routing_table { 'service-net':
         table_id => '100',
@@ -145,7 +145,7 @@ class profile::base::network(
         iprule => [ "from ${service_ifaddr}/${service_ifmask} lookup service-net", ],
       }
     }
-  
+
     #
     # If the interfaces_hash is empty, create interface files based on certname on RedHat based platforms
     #
@@ -158,7 +158,7 @@ class profile::base::network(
       else {
         $mgmtaddress = $addresslist['A'][$cname]
       }
-  
+
       # Create interface files only if an A record is defined in hiera
       # to avoid destroying existing network interfaces config
       unless empty($mgmtaddress) {
@@ -174,7 +174,7 @@ class profile::base::network(
         # Configure each interface
         $named_interfaces_hash.each |$ifrole, $ifnamed| {
           $ifname = String($ifnamed[0])
-  
+
           # We must avoid duplicate interface files for logical constructs in named_interfaces, i.e trp vs transport, live etc
           # Make interface files only for interfaces defined with network_auto_opts
           if $ifopts[$ifrole] {
@@ -185,7 +185,7 @@ class profile::base::network(
             $newipaddr = regsubst($mgmtaddress, '^(\d+)\.(\d+)\.(\d+)\.(\d+)$',"\\1.${netrole}.${cnet}.\\4",)
             $ifmask = lookup("netcfg_${ifrole}_netmask", String, 'first', '')
             $ifgw = lookup("netcfg_${ifrole}_gateway", String, 'first', '')
-  
+
             # check for IPv6 configuration in options for this interface
             if $ifopts[$ifrole]['ipv6init'] == 'yes' {
               # Find network and diff from base
@@ -199,7 +199,7 @@ class profile::base::network(
               $ifmask6 = lookup("netcfg_${ifrole}_netmask6", String, 'first', '')
               $ifgw6 = lookup("netcfg_${ifrole}_gateway6", String, 'first', '')
             }
-  
+
             # Check for teaming or bonding
             if (($ifname[0,4] == 'team') or ($ifname[0,4] == 'bond')) and !('.' in $ifname) {
               # Determine type and create slave interfaces
@@ -213,12 +213,12 @@ class profile::base::network(
                 }
               }
             }
-  
+
             # check for VLAN interface
             if '.' in $ifname {
               $ifvlan = "yes"
             }
-  
+
             # Write interface file
             file { "ifcfg-${ifname})":
               ensure  => file,
@@ -229,7 +229,7 @@ class profile::base::network(
         }
       }
     }
-  
+
     # Create extra routes, tables, rules on ifup
     create_resources(network::mroute, lookup('profile::base::network::mroute', Hash, 'deep', {}))
     create_resources(network::routing_table, lookup('profile::base::network::routing_tables', Hash, 'deep', {}))
@@ -303,14 +303,14 @@ class profile::base::network(
         unless  => '/opt/rule-checks/rule6-check.sh',
       }
     }
-  
+
     if $manage_httpproxy {
       $ensure_value = $http_proxy ? {
         undef   => absent,
         default => present,
       }
       $target = $http_proxy_profile
-  
+
       shellvar { "http_proxy":
         ensure  => exported,
         target  => $target,
@@ -322,7 +322,7 @@ class profile::base::network(
         value   => $https_proxy,
       }
     }
-  
+
     # What were they thinking...
     if $opx_cleanup {
       file { 'remove-eth0':
@@ -336,7 +336,7 @@ class profile::base::network(
         content => "# interfaces(5) file used by ifup(8) and ifdown(8)\r\n# Include files from /etc/network/interfaces.d:\r\n\r\nsource /etc/network/interfaces.d/*.cfg\r\n"
       }
     }
-  
+
     if $cumulus_ifs {
       # For cumulus interfaces to work, we need a non default interfaces config file
       file { '/etc/network/interfaces':
@@ -345,11 +345,11 @@ class profile::base::network(
         mode    => '0754',
         content => template("${module_name}/network/cl-interfaces.erb"),
       }
-  
+
       create_resources(cumulus_interface, lookup('profile::base::network::cumulus_interfaces', Hash, 'deep', {}))
       create_resources(cumulus_bridge, lookup('profile::base::network::cumulus_bridges', Hash, 'deep', {}))
       create_resources(cumulus_bond, lookup('profile::base::network::cumulus_bonds', Hash, 'deep', {}))
-  
+
       # Check for Cumulus Management VRF, enable if disabled
       case $::operatingsystemmajrelease {
         '2': {
