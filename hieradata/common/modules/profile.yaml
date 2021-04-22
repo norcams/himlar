@@ -136,6 +136,13 @@ profile::base::yumrepo::repo_hash:
     descr:          'Sensu repo'
     baseurl:        "%{hiera('yum_base_mirror')}/sensu/"
     gpgcheck:       0
+  sensu-community:
+    ensure:         absent
+    descr:          'Sensu community repo'
+    baseurl:        "%{hiera('yum_base_mirror')}/sensu-community/"
+    gpgcheck:       0
+    gpgkey:         'https://packagecloud.io/sensu/community/gpgkey' #FIXME
+    #repo_gpgcheck:  1
 # Optional repos: enable them with ensure: present in common/role
   uh-iaas-nonfree:
     ensure:         absent
@@ -289,6 +296,20 @@ profile::base::yumrepo::repo_hash:
     descr:          'Grafana OSS repo'
     baseurl:        "%{hiera('yum_base_mirror')}/grafana-oss"
     gpgkey:         "%{hiera('yum_base_mirror')}/grafana/RPM-GPG-KEY-grafana-oss"
+    enabled:        1
+    gpgcheck:       1
+  nodesource-14:
+    ensure:         absent
+    descr:          'Node.js 14 LTS Packages for Enterprise Linux 7 - $basearch'
+    baseurl:        "%{hiera('yum_base_mirror')}/nodesoure-14"
+    gpgkey:         "%{hiera('yum_base_mirror')}/nodesource/NODESOURCE-GPG-SIGNING-KEY-EL"
+    enabled:        1
+    gpgcheck:       1
+  yarn:
+    ensure:         absent
+    descr:          'Yarn Repository'
+    baseurl:        "%{hiera('yum_base_mirror')}/yarn"
+    gpgkey:         "%{hiera('yum_base_mirror')}/yarn/pubkey.gpg"
     enabled:        1
     gpgcheck:       1
   postgres-10:

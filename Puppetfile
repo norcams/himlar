@@ -117,7 +117,7 @@ mod 'logrotate', :ref => 'v3.2.1',                  :git => github + 'voxpupuli/
 # profile::monitoring
 #
 mod 'sensuclassic', :ref => 'v3.5.0',               :git => github + 'sensu/puppet-module-sensuclassic'
-#mod 'sensu', :ref => 'v2.51.0',                     :git => github + 'sensu/sensu-puppet'
+mod 'sensu', :ref => 'v5.8.0',                      :git => github + 'sensu/sensu-puppet'
 mod 'uchiwa', :ref => 'v1.0.1',                     :git => github + 'yelp/puppet-uchiwa'
 mod 'graphite', :ref => 'v7.2.0',                   :git => github + 'echocat/puppet-graphite' # fixed upstream
 mod 'redis', :ref => 'v6.0.0',                      :git => github + 'voxpupuli/puppet-redis'
