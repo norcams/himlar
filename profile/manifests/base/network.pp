@@ -68,7 +68,7 @@ class profile::base::network(
     if $manage_dummy {
       include ::kmod
       kmod::load { "dummy": }
-  
+
       kmod::option { "Number of dummy interfaces":
         module => "dummy",
         option => "numdummies",
