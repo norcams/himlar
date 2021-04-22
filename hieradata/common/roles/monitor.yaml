@@ -62,6 +62,7 @@ named_interfaces::config:
     - eth0
 
 # Grafana and statsd
+profile::monitoring::statsd::manage:           true
 profile::monitoring::grafana::enable:          true
 profile::monitoring::grafana::manage_firewall: true
 profile::monitoring::grafana::firewall_extras:

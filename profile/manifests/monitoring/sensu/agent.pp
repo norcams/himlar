@@ -1,12 +1,14 @@
 #
 class profile::monitoring::sensu::agent (
-  $enable_agent = false,
+  Boolean $enable_agent = false,
+  Boolean $enable_go_agent = false,
   Boolean $run_in_vrf = false,
   String $merge_strategy = 'deep',
   Array $expanded_checks = [],
   Hash $expanded_defaults = {},
   Boolean $expanded_transform_url = false,
   Boolean $expanded_transform_md5 = false,
+  Boolean $purge_check = false
 ) {
 
   if $enable_agent {
@@ -58,6 +60,22 @@ class profile::monitoring::sensu::agent (
         command     => '/bin/systemctl daemon-reload',
         refreshonly => true,
       }
+    }
+
+  } elsif $enable_go_agent {
+
+    include ::sensu::agent
+    include ::sensu::plugins
+    include ::sensu::cli
+
+    $checks  = lookup('profile::monitoring::sensu::agent::checks', Hash, $merge_strategy, {})
+    $bonsai_assets = lookup('profile::monitoring::sensu::agent::bonsai_assets', Hash, $merge_strategy, {})
+
+    create_resources('sensu_check', $checks)
+    create_resources('sensu_bonsai_asset', $bonsai_assets)
+
+    sensu_resources { 'sensu_check':
+      purge => $purge_check,
     }
 
   }

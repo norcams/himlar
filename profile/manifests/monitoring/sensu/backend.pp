@@ -8,8 +8,8 @@ class profile::monitoring::sensu::backend(
   Array $firewall_ports       = [8081, 3000, 8082],
   String $merge_strategy      = 'deep',
   String $dashboard_secure    = 'false',
-  Integer $dashboard_port      = 3000,
-  String $dashboard_api_url    = "https://${::ipaddress_mgmt1}:8082"
+  Integer $dashboard_port     = 3000,
+  String $dashboard_api_url   = "https://${::ipaddress_mgmt1}:8082",
 ) {
 
   if $manage {
@@ -17,8 +17,14 @@ class profile::monitoring::sensu::backend(
     include ::sensu::cli
     include ::sensu::agent
 
-    $namespaces = lookup('profile::monitoring::sensu::backend::namespaces', Hash, 'deep', {})
+    $namespaces = lookup('profile::monitoring::sensu::backend::namespaces', Hash,  $merge_strategy, {})
+    $handlers = lookup('profile::monitoring::sensu::backend::handlers', Hash, $merge_strategy, {})
+    $filters  = lookup('profile::monitoring::sensu::backend::filters', Hash, $merge_strategy, {})
+
     create_resources('sensu_namespace', $namespaces)
+    create_resources('sensu_handler', $handlers)
+    create_resources('sensu_filter', $filters)
+
   }
 
   if $manage_firewall {

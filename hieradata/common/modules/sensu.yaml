@@ -1,18 +1,30 @@
 ---
+sensu_namespace: 'default' #'%{::location}'
+
 # Shared config
 sensu::manage_repo:     false
 sensu::password:        "%{hiera('sensu_api_password')}"
 sensu::agent_password:  "%{hiera('sensu_agent_password')}"
-sensu::api_host:        '%{::fqdn}'
+sensu::api_host:        "%{hiera('mgmt__address__monitor')}"
 sensu::api_port:        8082
 sensu::username:        'admin'
+sensu::agent_entity_config_password: "%{hiera('sensu_agent_password')}"
 
 # Sensu agent
 sensu::agent::package_name:   'sensu-agent'
-sensu::agent::namespace:      '%{::location}'
+sensu::agent::entity_name:    '%{hostname}'
+sensu::agent::backends:       ["%{hiera('mgmt__address__monitor')}:8081"]
+sensu::agent::namespace:      "%{hiera('sensu_namespace')}"
+sensu::agent::subscriptions:  [ 'base', 'metrics' ]
 sensu::agent::config_hash:
-  socket-host:        '127.0.0.1'
-  socket-port:        3030
+  socket-host:                '127.0.0.1'
+  socket-port:                3030
+  keepalive-interval:         60
+  keepalive-warning-timeout:  120
+  keepalive-critical-timeout: 300
+  debug:                      true
+sensu::agent::service_env_vars:
+  PATH: '/usr/local/bin:/bin:/usr/bin:/opt/puppetlabs/bin:/opt/sensu-plugins-ruby/embedded/bin'
 
 # Sensu backend
 sensu::backend::package_name: 'sensu-backend'
@@ -20,7 +32,28 @@ sensu::backend::config_hash:
   api-listen-address: "%{::ipaddress_mgmt1}:8082"
   agent-host:         "%{::ipaddress_mgmt1}"
   agent-port:         8081
-#  debug:              true
+  log-level:          debug
 
 # Sensu cli
 sensu::cli::package_name:     'sensu-cli'
+
+# Sensu plugins
+sensu::plugins::plugins:
+  cpu-checks:
+    version:    '4.1.0'
+  disk-checks:
+    version:    '5.1.4'
+  load-checks:
+    version:    '5.1.0'
+  memory-checks:
+    version:    '4.1.1'
+  network-checks:
+    version:    '5.0.0'
+  process-checks:
+    version:    '4.2.1'
+  vmstats:
+    version:    '2.0.0'
+sensu::plugins::extensions:
+  graphite: {}
+
+sensu::resources::bonsai_assets: {}
