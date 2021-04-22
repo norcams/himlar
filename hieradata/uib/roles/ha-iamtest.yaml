@@ -5,12 +5,12 @@
 named_interfaces::config:
   mgmt:
     - eth0
-  public:
-    - eth1
   core:
-    - eth2
+    - eth0
   uib:
-    - eth3
+    - eth1
+  public:
+    - eth2
 
 # nettwork
 netcfg_core_netpart:  '192.168.21'
