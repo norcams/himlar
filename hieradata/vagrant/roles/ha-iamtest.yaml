@@ -1,6 +1,21 @@
 ---
+profile::monitoring::sensu::agent::enable_go_agent:     true
+profile::monitoring::sensu::agent::enable_agent:        false
+
+profile::base::yumrepo::repo_hash:
+  sensu:
+    ensure: absent
+  sensu-community:
+    ensure: present
+  uh-iaas:
+    baseurl:    http://download.iaas.uio.no/uh-iaas/yumrepo/
+
 profile::application::openssl::manage_ca_cert: true
 profile::application::openssl::certs:
+  "%{::fqdn}":
+    cn:     "%{::fqdn}"
+    altnames:
+      - "%{::fqdn}"
   "core.%{hiera('domain_public')}":
     cn:     "core.%{hiera('domain_public')}"
     altnames:
