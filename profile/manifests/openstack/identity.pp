@@ -31,6 +31,7 @@ class profile::openstack::identity (
   $db_host                  = '',
   $gpg_receiver             = '',
   $manage_policy            = false,
+  $placement_enabled        = false,
 ) {
 
   include ::keystone
@@ -40,6 +41,7 @@ class profile::openstack::identity (
   include ::keystone::wsgi::apache
   include ::profile::openstack::openrc
   include ::keystone::logging
+  include ::placement::keystone::authtoken
 
   # this system is part of a master/slave token cluster?
   if $token_rotation_sync {
@@ -92,7 +94,10 @@ class profile::openstack::identity (
 
   if $nova_enabled {
     include ::nova::keystone::auth
-    include ::nova::keystone::auth_placement
+  }
+
+  if $placement_enabled {
+    include ::placement::keystone::auth
   }
 
   if $neutron_enabled {
