@@ -1,15 +1,16 @@
 class profile::openstack::database::sql (
-  $keystone_enabled = false,
-  $glance_enabled   = false,
-  $nova_enabled     = false,
-  $neutron_enabled  = false,
-  $heat_enabled     = false,
-  $trove_enabled    = false,
-  $cinder_enabled   = false,
+  $keystone_enabled  = false,
+  $glance_enabled    = false,
+  $nova_enabled      = false,
+  $neutron_enabled   = false,
+  $heat_enabled      = false,
+  $trove_enabled     = false,
+  $cinder_enabled    = false,
   $designate_enabled = false,
-  $gnocchi_enabled  = false,
-  $database         = 'mariadb',
-  $extra_databases  = {},
+  $gnocchi_enabled   = false,
+  $placement_enabled = false,
+  $database          = 'mariadb',
+  $extra_databases   = {},
 ) {
 
   if $database in ['mariadb', 'postgresql'] {
@@ -37,7 +38,10 @@ class profile::openstack::database::sql (
   if $nova_enabled {
     include ::nova::db::mysql
     include ::nova::db::mysql_api
-    include ::nova::db::mysql_placement
+  }
+
+  if $placement_enabled {
+    include ::placement::db::mysql
   }
 
   if $cinder_enabled {
