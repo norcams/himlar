@@ -1,4 +1,6 @@
 ---
+ceph_version: 'nautilus' # FIXME
+
 profile::openstack::volume::type:
   rbd:
     visibility: "public"
