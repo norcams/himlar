@@ -295,7 +295,7 @@ profile::base::yumrepo::repo_hash:
     ensure:         absent
     descr:          'Grafana OSS repo'
     baseurl:        "%{hiera('yum_base_mirror')}/grafana-oss"
-    gpgkey:         "%{hiera('yum_base_mirror')}/grafana/RPM-GPG-KEY-grafana-oss"
+    gpgkey:         "%{hiera('yum_base_mirror')}/grafana-oss/gpg.key"
     enabled:        1
     gpgcheck:       1
   nodesource-14:
