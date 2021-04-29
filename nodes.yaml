@@ -146,6 +146,20 @@ nodesets:
       hostid:     '02'
     - role:       'object-ceph'
       hostid:     '03'
+  iam:
+    - role:       'iam-consumer'
+    - role:       'iam-monitor'
+      hostid:     '01'
+    - role:       'iam-monitor'
+      hostid:     '02'
+    - role:       'iam-nat'
+      hostid:     '01'
+    - role:       'iam-nat'
+      hostid:     '02'
+    - role:       'iam-ha'
+      hostid:     '01'
+    - role:       'iam-ha'
+      hostid:     '02'
 
 networks:
   mgmt:
