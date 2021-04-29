@@ -35,8 +35,8 @@ sensu::backend::config_hash:
   etcd-initial-cluster:             "%{hiera('sensu_etcd_cluster')}"
   etcd-initial-advertise-peer-urls: "http://%{::ipaddress_mgmt1}:2380"
   etcd-initial-cluster-state:       'new'
-  etcd-initial-cluster-token:       '%{location}-sensu-etcd-cluster'
-  etcd-name:                        "%{hiera('sensu_etcd_name')}"
+  etcd-initial-cluster-token:       '%{::location}-sensu-etcd-cluster'
+  etcd-name:                        "%{::hostname}"
 
 # Use self as backend for iam-monitor
 sensu::agent::backends:   ["%{::fqdn}:8081"]
