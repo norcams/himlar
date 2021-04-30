@@ -70,9 +70,12 @@ class profile::monitoring::sensu::agent (
 
     $checks  = lookup('profile::monitoring::sensu::agent::checks', Hash, $merge_strategy, {})
     $bonsai_assets = lookup('profile::monitoring::sensu::agent::bonsai_assets', Hash, $merge_strategy, {})
+    # merge strategy can only be first until we remove sensu classic
+    $plugins = lookup('profile::monitoring::sensu::agent::plugins', Hash, 'first', {})
 
     create_resources('sensu_check', $checks)
     create_resources('sensu_bonsai_asset', $bonsai_assets)
+    create_resources('sensu_plugin', $plugins)
 
     sensu_resources { 'sensu_check':
       purge => $purge_check,
