@@ -17,6 +17,7 @@ class profile::monitoring::sensu::backend(
     include ::sensu::cli
     include ::sensu::agent
 
+    $checks  = lookup('profile::monitoring::sensu::backend::checks', Hash, $merge_strategy, {})
     $namespaces = lookup('profile::monitoring::sensu::backend::namespaces', Hash,  $merge_strategy, {})
     $handlers = lookup('profile::monitoring::sensu::backend::handlers', Hash, $merge_strategy, {})
     $filters  = lookup('profile::monitoring::sensu::backend::filters', Hash, $merge_strategy, {})
@@ -24,7 +25,7 @@ class profile::monitoring::sensu::backend(
     create_resources('sensu_namespace', $namespaces)
     create_resources('sensu_handler', $handlers)
     create_resources('sensu_filter', $filters)
-
+    create_resources('sensu_check', $checks)
   }
 
   if $manage_firewall {
