@@ -10,6 +10,7 @@ class profile::monitoring::sensu::backend(
   String $dashboard_secure    = 'false',
   Integer $dashboard_port     = 3000,
   String $dashboard_api_url   = "https://${::ipaddress_mgmt1}:8082",
+  Boolean $purge_check = false
 ) {
 
   if $manage {
@@ -26,6 +27,10 @@ class profile::monitoring::sensu::backend(
     create_resources('sensu_handler', $handlers)
     create_resources('sensu_filter', $filters)
     create_resources('sensu_check', $checks)
+
+    sensu_resources { 'sensu_check':
+      purge => $purge_check,
+    }
   }
 
   if $manage_firewall {

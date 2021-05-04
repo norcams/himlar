@@ -8,7 +8,6 @@ class profile::monitoring::sensu::agent (
   Hash $expanded_defaults = {},
   Boolean $expanded_transform_url = false,
   Boolean $expanded_transform_md5 = false,
-  Boolean $purge_check = false
 ) {
 
   if $enable_agent {
@@ -78,10 +77,6 @@ class profile::monitoring::sensu::agent (
 
     create_resources('sensu_bonsai_asset', $bonsai_assets)
     create_resources('sensu_plugin', $plugins)
-
-    sensu_resources { 'sensu_check':
-      purge => $purge_check,
-    }
 
   }
 }
