@@ -7,6 +7,7 @@ placement::logging::log_facility: 'LOG_LOCAL0'
 placement::logging::use_syslog:   true
 
 # mysql database (node: db)
+placement::db::mysql::password: "%{hiera('nova_placement_password')}"
 placement::db::mysql::allowed_hosts:
   - "%{hiera('netcfg_trp_netpart')}.%"
 
