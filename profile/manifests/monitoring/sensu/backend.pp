@@ -2,15 +2,19 @@
 # This will setup the sensu backend services
 #
 class profile::monitoring::sensu::backend(
-  Boolean $manage             = false,
-  Boolean $manage_dashboard   = false,
-  Boolean $manage_firewall    = false,
-  Array $firewall_ports       = [8081, 3000, 8082],
-  String $merge_strategy      = 'deep',
-  String $dashboard_secure    = 'false',
-  Integer $dashboard_port     = 3000,
-  String $dashboard_api_url   = "https://${::ipaddress_mgmt1}:8082",
-  Boolean $purge_check = false
+  Boolean $manage               = false,
+  Boolean $manage_dashboard     = false,
+  Boolean $manage_firewall      = false,
+  Array $firewall_ports         = [8081, 3000, 8082],
+  Array $firewall_source        = ["${::network_mgmt1}/${::cidr_mgmt1}"],
+  Boolean $manage_etcd_firewall = false,
+  Array $firewall_etcd_ports    = [2379,2380],
+  Array $firewall_etcd_source   = ["${::network_mgmt1}/${::cidr_mgmt1}"],
+  String $merge_strategy        = 'deep',
+  String $dashboard_secure      = 'false',
+  Integer $dashboard_port       = 3000,
+  String $dashboard_api_url     = "https://${::ipaddress_mgmt1}:8082",
+  Boolean $purge_check          = false
 ) {
 
   if $manage {
@@ -35,8 +39,14 @@ class profile::monitoring::sensu::backend(
 
   if $manage_firewall {
     profile::firewall::rule { '411 sensu accept tcp':
-      dport       => $firewall_ports,
-      destination => $::ipaddress_mgmt1,
+      dport  => $firewall_ports,
+      source => $firewall_source,
+    }
+  }
+  if $manage_etcd_firewall {
+    profile::firewall::rule { '413 sensu etcd accept tcp':
+      dport  => $firewall_etcd_ports,
+      source => $firewall_etcd_source,
     }
   }
 
