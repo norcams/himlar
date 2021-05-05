@@ -19,8 +19,6 @@ class profile::openstack::novactrl(
       extras => $firewall_extras
     }
 
-  }
-
   include ::nova
   include ::nova::api
   include ::nova::config
