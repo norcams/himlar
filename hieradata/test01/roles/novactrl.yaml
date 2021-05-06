@@ -15,7 +15,6 @@ profile::openstack::resource::host_aggregate:
 #    hosts: "%{::location}-compute-02.%{hiera('domain_mgmt')}"
     metadata:
       filter_tenant_id: >-
-        9cc54d8f6eb34ba591f1679884089ee8,
-        bf314ffcc9c34fd5ba36364105967b08,
-        5d81e653cd4c428fbb1e1cbb7c104048,
+        9edeba0543ac4824a0aa95f947528c02,
+        2ce04b3aaf3e45378f4f00072ceb5f20,
         8664497aa1224161bb1ed3bd88a65858
