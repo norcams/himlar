@@ -44,6 +44,8 @@ profile::openstack::volume::backend::rbd:
         value: 'True'
       mass-storage-default/rbd_exclusive_cinder_pool:
         value: 'True'
+      mass-storage-default/max_over_subscription_ratio:
+        value: 'auto'
   mass-storage-dcache:
     rbd_pool: 'dcache_hdd_ec_meta'
     rbd_user: 'cinder-dcache-hdd-ec'
@@ -54,6 +56,8 @@ profile::openstack::volume::backend::rbd:
         value: 'True'
       mass-storage-dcache/rbd_exclusive_cinder_pool:
         value: 'True'
+      mass-storage-dcache/max_over_subscription_ratio:
+        value: 'auto'
   mass-storage-ssd:
     rbd_pool: 'volumes_ssd_ec_meta'
     rbd_user: 'cinder-ssd-ec'
@@ -64,6 +68,8 @@ profile::openstack::volume::backend::rbd:
         value: 'True'
       mass-storage-ssd/rbd_exclusive_cinder_pool:
         value: 'True'
+      mass-storage-ssd/max_over_subscription_ratio:
+        value: 'auto'
 #  mass-storage-dcache8:
 #    rbd_pool: 'dcache_hdd_ec_meta8'
 #    rbd_user: 'cinder-dcache-hdd-ec8'
