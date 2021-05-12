@@ -1,29 +1,22 @@
 ---
-network::interfaces_hash:
-  'eth0':
-    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.91"
-    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
-    gateway:   "%{hiera('netcfg_mgmt_gateway')}"
-    mtu:       '1500'
-    peerdns:   'yes'
-    dns1:      "%{hiera('netcfg_dns_server1')}"
-    dns2:      "%{hiera('netcfg_dns_server2')}"
-    domain:    "%{hiera('netcfg_dns_search')}"
-    defroute:  'yes'
-  'eth1':
-    ipaddress: "%{hiera('netcfg_trp_netpart')}.91"
-    netmask:   "%{hiera('netcfg_trp_netmask')}"
-    defroute:  'no'
+profile::base::network::network_auto_bonding:
+  trp:
+    em1:
+      'team_port_config': '{ "prio" : 100 }'
+      'mtu': '9000'
+    em2:
+      'team_port_config': '{ "prio" : 100 }'
+      'mtu': '9000'
 
 profile::base::common::manage_lvm: true
 profile::base::lvm::physical_volume:
-  '/dev/vdb':
+  '/dev/sda3':
     ensure: present
     force:  true
 profile::base::lvm::volume_group:
   'vg_ceph':
     physical_volumes:
-      - /dev/vdb
+      - /dev/sda3
 profile::base::lvm::logical_volume:
   'lv_ceph':
     volume_group: 'vg_ceph'
