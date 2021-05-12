@@ -41,7 +41,7 @@ class profile::openstack::identity (
   include ::keystone::wsgi::apache
   include ::profile::openstack::openrc
   include ::keystone::logging
-  include ::placement::keystone::authtoken
+  #include ::placement::keystone::authtoken
 
   # this system is part of a master/slave token cluster?
   if $token_rotation_sync {
