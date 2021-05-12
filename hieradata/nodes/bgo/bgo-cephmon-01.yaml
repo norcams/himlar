@@ -1,4 +1,10 @@
 ---
+named_interfaces::config:
+  mgmt:
+    - em3
+  trp:
+    - team1
+
 profile::base::network::network_auto_bonding:
   trp:
     em1:
