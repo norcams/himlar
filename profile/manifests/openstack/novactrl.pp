@@ -26,6 +26,8 @@ class profile::openstack::novactrl(
   include ::nova::wsgi::apache_api
   include ::nova::logging
   include ::placement
+  include ::placement::db
+  include ::placement::config
   include ::placement::wsgi::apache
   include ::placement::logging
 
