@@ -32,6 +32,7 @@ profile::base::common::packages:
   'python-memcached': {}
   'libibverbs': {} # not needed but avoid console complaints
   'rdma': {} # not needed but avoid console complaints
+  'MariaDB-client': {}
 
 # apache httpd
 # this should be fine for 4 GB RAM
@@ -53,10 +54,16 @@ profile::monitoring::sensu::agent::checks:
     subscribers:  ['metrics']
     handlers:     ['graphite_tcp']
 
+# used for repo version
+mariadb_version: '10.2'
+
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   rdo-release:
     ensure: present
+    exclude:  'mariadb*'
+  "mariadb-%{hiera('mariadb_version')}":
+    ensure:     present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
     includepkgs: 'htop bash-completion-extras python2-bcrypt'

@@ -1,6 +1,6 @@
 ---
 # Shared config (nodes: novactrl, compute)
-placement::db::placement_connection: "mysql+pymysql://placement:%{hiera('placement::db::mysql::password')}@%{hiera('service__address__db_regional')}/placement"
+placement::db::database_connection: "mysql+pymysql://placement:%{hiera('placement::db::mysql::password')}@%{hiera('service__address__db_regional')}/placement"
 
 # logging
 placement::logging::log_facility: 'LOG_LOCAL0'
@@ -19,13 +19,13 @@ placement::keystone::auth::admin_url:        "%{hiera('endpoint__placement__admi
 placement::keystone::auth::internal_url:     "%{hiera('endpoint__placement__internal')}"
 
 # placement auth url
-placement::auth_url:                "%{hiera('endpoint__identity__admin')}/v3"
-placement::region_name:             "%{location}"
-placement::password:                "%{hiera('nova_placement_password')}"
-placement::valid_interface:         "internal"
-placement::project_domain_name:     "%{hiera('keystone__default__domain')}"
-placement::user_domain_name:        "%{hiera('keystone__default__domain')}"
-placement::project_name:            "%{hiera('keystone__service__project')}"
+placement::keyston::authtoken::auth_url:             "%{hiera('endpoint__identity__admin')}/v3"
+placement::keyston::authtoken::region_name:          "%{location}"
+placement::keyston::authtoken::password:             "%{hiera('nova_placement_password')}"
+placement::keyston::authtoken::valid_interface:      "internal"
+placement::keyston::authtoken::project_domain_name:  "%{hiera('keystone__default__domain')}"
+placement::keyston::authtoken::user_domain_name:     "%{hiera('keystone__default__domain')}"
+placement::keyston::authtoken::project_name:         "%{hiera('keystone__service__project')}"
 
 # placement wsgi
 placement::wsgi::apache::ssl:        false
