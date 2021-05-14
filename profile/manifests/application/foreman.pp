@@ -44,6 +44,7 @@ class profile::application::foreman(
       before => Class['r10k']
     }
   }
+
   if $manage_eyaml {
     include ::eyaml
   }
@@ -56,7 +57,7 @@ class profile::application::foreman(
 
   # config
   $config = lookup('profile::application::foreman::config', Hash, 'deep', {})
-  create_resources('foreman_config_entry', $config, { require => Class['foreman::install']})
+  create_resources('foreman_config_entry', $config, { require => Class['foreman']})
 
   # plugins
   $plugins = lookup('profile::application::foreman::plugins', Hash, 'deep', {})
