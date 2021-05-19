@@ -1,7 +1,8 @@
 # Use /etc/hosts for a simple local DNS in development/vagrant
 class profile::development::network::dns(
   $manage_hosts = false,
-  $use_dnsmasq = false
+  $use_dnsmasq = false,
+  $remove_local_hostname = false,
 ) {
 
   if $manage_hosts {
@@ -12,6 +13,14 @@ class profile::development::network::dns(
     # Update /etc/hosts
     profile::development::network::dns_record { $list:
       use_dnsmasq => $use_dnsmasq
+    }
+  }
+
+  if $remove_local_hostname {
+    # this will fix problems in vagrant for services running on fqdn in mgmt
+    host { $::fqdn:
+      ensure => absent,
+      ip     => '127.0.1.1'
     }
   }
 
