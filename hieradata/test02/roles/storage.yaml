@@ -24,24 +24,18 @@ profile::storage::ceph::pool::pools:
     ensure: absent
   'volumes':
     size:    3
-    pg_num:  64
-    pgp_num: 64
     tag:     'rbd'
     custom:
       nodelete:   'true'
       min_size:   '2'
   'images':
     size:    3
-    pg_num:  64
-    pgp_num: 64
     tag:    'rbd'
     custom:
       nodelete:   'true'
       min_size:   '2'
   'vms':
     size:    3
-    pg_num:  128
-    pgp_num: 128
     tag:     'rbd'
     custom:
       nodelete:   'true'
