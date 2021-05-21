@@ -9,6 +9,12 @@ class profile::openstack::novactrl(
   $firewall_extras      = {}
 ) {
 
+  if $manage_firewall {
+    profile::firewall::rule { '220 nova-placement-api accept tcp':
+      dport  => 8778,
+      extras => $firewall_extras
+    }
+
     profile::firewall::rule { '220 nova-api accept tcp':
       dport  => 8774,
       extras => $firewall_extras
@@ -18,6 +24,7 @@ class profile::openstack::novactrl(
       dport  => 8773,
       extras => $firewall_extras
     }
+  }
 
   include ::nova
   include ::nova::api
@@ -27,9 +34,9 @@ class profile::openstack::novactrl(
   include ::nova::logging
   include ::placement
   include ::placement::db
-  include ::placement::config
   include ::placement::wsgi::apache
   include ::placement::logging
+  include ::placement::keystone::authtoken
 
   # This will make sure httpd service will be restarted on config changes
   Nova_config <| |> ~> Class['apache::service']
