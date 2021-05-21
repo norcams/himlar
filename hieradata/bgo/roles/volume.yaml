@@ -56,8 +56,6 @@ profile::openstack::volume::backend::rbd:
         value: 'True'
       mass-storage-dcache/rbd_exclusive_cinder_pool:
         value: 'True'
-      mass-storage-dcache/max_over_subscription_ratio:
-        value: 'auto'
   mass-storage-ssd:
     rbd_pool: 'volumes_ssd_ec_meta'
     rbd_user: 'cinder-ssd-ec'
