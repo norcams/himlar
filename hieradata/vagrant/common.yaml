@@ -251,11 +251,12 @@ neutron::agents::metadata::shared_secret:           'a_secret'
 # nova.yaml
 nova::db::mysql::password:                          'nova_pass'
 nova::db::mysql_api::password:                      'nova_api_pass'
+nova::db::mysql_placement::password:                'nova_placement_pass'
 nova::api::neutron_metadata_proxy_shared_secret:    'a_secret'
-nova_rabbit_password:                              'nova_quest'
+nova_rabbit_password:                               'nova_quest'
 
 # placement
-placement::db::mysql::password:                     'nova_placement_pass'
+placement::db::mysql::password:                     'placement_pass'
 
 # designate.yaml
 designate::db::mysql::password:                     'designate_pass'
