@@ -13,9 +13,9 @@ placement::db::mysql::allowed_hosts:
 # keystone placement auth (node: identity)
 placement::keystone::auth::region:           "%{location}"
 placement::keystone::auth::password:         "%{hiera('placement_api_password')}"
-placement::keystone::auth::public_url:       "%{hiera('endpoint__placement__public')}"
-placement::keystone::auth::admin_url:        "%{hiera('endpoint__placement__admin')}"
-placement::keystone::auth::internal_url:     "%{hiera('endpoint__placement__internal')}"
+placement::keystone::auth::public_url:       "%{hiera('endpoint__placement__public')}/placement/"
+placement::keystone::auth::admin_url:        "%{hiera('endpoint__placement__admin')}/placement/"
+placement::keystone::auth::internal_url:     "%{hiera('endpoint__placement__internal')}/placement/"
 
 # placement auth url
 placement::keystone::authtoken::username:                'placement'
