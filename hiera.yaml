@@ -16,6 +16,12 @@ hierarchy:
       - "nodes/%{::location}/%{::verified_host}.yaml"
 #      - "nodes/%{verified_host}"
 
+  - name: "Platform"
+    paths:
+      #- "%{::location}/arch/%{::arch}.yaml"
+      - "%{::location}/platform/%{::os_platform}%{os_version}.yaml"
+      - "%{::location}/platform/%{::os_platform}.yaml"
+
   - name: "Location roles"
     paths:
       - "%{::location}/roles/%{::role}-%{::variant}.yaml"
@@ -26,6 +32,12 @@ hierarchy:
 
   - name: "Location common"
     path: "%{::location}/common.yaml"
+
+  - name: "Common platform"
+    paths:
+      #- "%{::location}/arch/%{::arch}.yaml"
+      - "common/platform/%{::os_platform}%{os_version}.yaml"
+      - "common/platform/%{::os_platform}.yaml"
 
   - name: "Common roles"
     paths:
