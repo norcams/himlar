@@ -300,6 +300,9 @@ profile::network::services::dns_records:
 ntp::servers:
   - ntp1.uio.no
   - ntp2.uio.no
+chrony::servers:
+  - ntp1.uio.no
+  - ntp2.uio.no
 
 ceph::profile::params::mon_initial_members:         'osl-cephmon-01, osl-cephmon-02, osl-cephmon-03'
 ceph::profile::params::mon_host:                    '172.18.32.91, 172.18.32.92, 172.18.32.93'

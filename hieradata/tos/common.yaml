@@ -180,6 +180,9 @@ profile::network::services::dns_records:
 ntp::servers:
   - ntp.uit.no
   - ntp2.uit.no
+chrony::servers:
+  - ntp.uit.no
+  - ntp2.uit.no
 
 ceph::profile::params::mon_initial_members:         'tos-cephmon-01, tos-cephmon-02, tos-cephmon-03'
 ceph::profile::params::mon_host:                    '10.246.16.91, 10.246.16.92, 10.246.16.93'

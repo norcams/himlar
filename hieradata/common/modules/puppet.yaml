@@ -19,7 +19,7 @@ puppet::server_additional_settings:
   'trusted_node_data':  'true'
 
 # puppet4 puppetserver
-puppet::server_jvm_min_heap_size:       '512M'
-puppet::server_jvm_max_heap_size:       '512M'
-
-puppet::server_max_active_instances:    2
+puppet::server_jvm_min_heap_size:         '1G'
+puppet::server_jvm_max_heap_size:         '1G'
+puppet::server_max_active_instances:      1
+puppet::server_max_requests_per_instance: 500

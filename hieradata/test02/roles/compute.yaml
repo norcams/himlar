@@ -25,6 +25,10 @@ ntp::servers:
   - 172.28.32.100
   - 172.28.32.101
   - 172.28.32.102
+chrony::servers:
+  - "%{hiera('netcfg_mgmt_netpart')}.100"
+  - "%{hiera('netcfg_mgmt_netpart')}.101"
+  - "%{hiera('netcfg_mgmt_netpart')}.102"
 
 profile::monitoring::sensu::agent::enable_agent:  true
 

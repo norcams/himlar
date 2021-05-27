@@ -148,6 +148,9 @@ profile::network::services::dns_records:
 ntp::servers:
   - ntp1.uio.no
   - ntp2.uio.no
+chrony::servers:
+  - ntp1.uio.no
+  - ntp2.uio.no
 
 profile::openstack::volume::manage_rbd: true
 profile::openstack::compute::hypervisor::manage_libvirt_rbd: true
