@@ -9,8 +9,11 @@ class profile::application::builder (
   $flavor = 'm1.small',
   $network = 'imagebuilder',
   $insecure = false,
-  $ipv6 = false
+  $ipv6 = false,
+  $custom_scriptdir = "/home/${user}/custom_scripts",
+  $resolver_address = hiera('netcfg_anycast_dns', '1.1.1.1')
 ) {
+
 
   if $az {
     $real_az = $az
@@ -61,11 +64,24 @@ class profile::application::builder (
     owner  => $user,
     group  => $group
   } ->
+  file { "$custom_scriptdir":
+    ensure => directory,
+    owner  => $user,
+    group  => $group
+  } ->
   file { '/var/log/imagebuilder':
     ensure => directory,
     owner  => $user,
     group  => $group,
     mode   => '0755'
+  } ->
+  # Temp. until cloud-init can handle systemd-resolved (Fedora 33 and onwards)
+  file { "${custom_scriptdir}/resolver.sh":
+    ensure => present,
+    owner  => $user,
+    group  => $group,
+    mode   => '0755',
+    content=> template("${module_name}/application/builder/resolver.sh.erb")
   }
 
   create_resources('profile::application::builder::jobs', lookup('profile::application::builder::images', Hash, 'deep', {}))

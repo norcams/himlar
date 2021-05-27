@@ -1,0 +1,73 @@
+#!/bin/bash
+#
+# A temporary fix for resolver setup on Fedora > 33
+#
+# Updated F33 and newer have a systemd-resolved package
+# with no backup DNS server configured. At the same time F33
+# and newer have nsswitch set up to prioritize "resolve", and
+# query "dns" (through '/etc/resolv.conf') only if resolved
+# is not replying at all! 'cloud-init' can at this point in
+# time (May 19th 2021) not handle resolvectl, but only edits
+# 'resolv.conf' directly (which by default is just a link to
+# resolved's stub configuration file).
+#
+# The end result is that resolved have no resolvers configured
+# and will thus always fail. As it do respond the resolvers
+# in 'resolv.conf' are never consulted.
+#
+
+# The resolver address is entered through puppet (from hieradata)
+
+# Platform detection (borrowed from Omnitruck install script)
+# Debian-family and RedHat-family are currently supported
+# FIXME move platform detection to seperate file, use env var
+os=`uname -s | tr '[A-Z]' '[a-z]'`
+
+if test -f "/etc/lsb-release" && grep -q DISTRIB_ID /etc/lsb-release && ! grep -q wrlinux /etc/lsb-release; then
+  platform=`grep DISTRIB_ID /etc/lsb-release | cut -d "=" -f 2 | tr '[A-Z]' '[a-z]'`
+  platform_version=`grep DISTRIB_RELEASE /etc/lsb-release | cut -d "=" -f 2`
+
+elif test -f "/etc/debian_version"; then
+  platform="debian"
+  platform_version=`cat /etc/debian_version`
+
+elif test -f "/etc/redhat-release"; then
+  platform=`sed 's/^\(.\+\) release.*/\1/' /etc/redhat-release | tr '[A-Z]' '[a-z]'`
+  platform_version=`sed 's/^.\+ release \([.0-9]\+\).*/\1/' /etc/redhat-release`
+
+  # If /etc/redhat-release exists, we act like RHEL by default
+  if test "$platform" != "fedora"; then
+    platform="el"
+  fi
+
+fi
+
+if test "x$platform" = "x"; then
+  echo "Unable to determine platform version!"
+  exit 0
+fi
+
+major_version=`echo $platform_version | cut -d. -f1`
+
+case $platform in
+  "fedora")
+    case $major_version in
+      "32"|"33"|"34")
+        resolver=<%= @resolver_address %>
+        resolved_conf="/etc/systemd/resolved.conf"
+
+        # configure resolved
+        sudo ex $resolved_conf <<EOF
+/^DNS=/d
+/^\[Resolve]
+a
+DNS=$resolver
+.
+w
+q
+EOF
+
+        sudo systemctl restart systemd-resolved
+        ;;
+    esac
+esac
