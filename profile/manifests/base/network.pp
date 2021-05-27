@@ -200,6 +200,9 @@ class profile::base::network(
               $ifgw6 = lookup("netcfg_${ifrole}_gateway6", String, 'first', '')
             }
 
+            # Type in ifcg-file can always be "Ehternet" on the el7 platform
+            $ifdevtype = 'Ethernet'
+
             # Check for teaming or bonding
             if (($ifname[0,4] == 'team') or ($ifname[0,4] == 'bond')) and !('.' in $ifname) {
               # Determine type and create slave interfaces

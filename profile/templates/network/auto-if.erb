@@ -1,7 +1,7 @@
 DEVICE="<%= @ifname %>"
 BOOTPROTO="none"
 ONBOOT="yes"
-TYPE="Ethernet"
+TYPE="<%= @ifdevtype %>"
 USERCTL="no"
 IPADDR="<%= @newipaddr %>"
 NETMASK="<%= @ifmask %>"
