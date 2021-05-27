@@ -21,6 +21,27 @@ if size($dash_a) == 4 {
   $variant = ''
 }
 
+# Determine OS and major OS version
+case $::osfamily {
+  'RedHat': {
+    $os_platform = 'el'
+    $os_version  = $::operatingsystemmajrelease
+    }
+  'Debian': {
+    if $variant == 'opx' {
+      $os_platform = $variant
+      $os_version  = '3'
+    } else {
+      $os_platform = downcase(regsubst($::operatingsystem, 'Linux', ''))
+      $os_version  = regsubst($::operatingsystemmajrelease, '\.', '')
+    }
+  }
+  default: {
+    $os_platform = 'unknown'
+    $os_version  = '1'
+  }
+}
+
 if fact('network_mgmt1') {
   $netpart_mgmt1 = regsubst($network_mgmt1,'^(\d+)\.(\d+)\.(\d+)\.(\d+)$','\1.\2.\3')
   info("netpart_mgmt1: ${netpart_mgmt1}")
