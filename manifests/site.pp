@@ -25,15 +25,15 @@ if size($dash_a) == 4 {
 case $::osfamily {
   'RedHat': {
     $os_platform = 'el'
-    $os_version  = "${::operatingsystemmajrelease}"
+    $os_version  = $::operatingsystemmajrelease
     }
   'Debian': {
     if $variant == 'opx' {
-      $os_platform = "${::variant}"
+      $os_platform = $variant
       $os_version  = '3'
     } else {
-      $os_platform = downcase(regsubst("${::operatingsystem}", 'Linux', ''))
-      $os_version  = regsubst("${::operatingsystemmajrelease}", '\.', '')
+      $os_platform = downcase(regsubst($::operatingsystem, 'Linux', ''))
+      $os_version  = regsubst($::operatingsystemmajrelease, '\.', '')
     }
   }
   default: {
