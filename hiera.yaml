@@ -18,7 +18,6 @@ hierarchy:
 
   - name: "Platform"
     paths:
-      #- "%{::location}/arch/%{::arch}.yaml"
       - "%{::location}/platform/%{::os_platform}%{os_version}.yaml"
       - "%{::location}/platform/%{::os_platform}.yaml"
 
@@ -35,7 +34,6 @@ hierarchy:
 
   - name: "Common platform"
     paths:
-      #- "%{::location}/arch/%{::arch}.yaml"
       - "common/platform/%{::os_platform}%{os_version}.yaml"
       - "common/platform/%{::os_platform}.yaml"
 
