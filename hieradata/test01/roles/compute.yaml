@@ -44,6 +44,10 @@ ntp::servers:
   - 172.28.0.100
   - 172.28.0.101
   - 172.28.0.102
+chrony::servers:
+  - "%{hiera('netcfg_mgmt_netpart')}.100"
+  - "%{hiera('netcfg_mgmt_netpart')}.101"
+  - "%{hiera('netcfg_mgmt_netpart')}.102"
 
 # Add custom routing table for private network to NAT
 profile::base::network::routes:

@@ -9,6 +9,9 @@ netcfg_dns_search:        "uib.no iaas.uib.no"
 ntp::servers:
   - ntp.uib.no
   - ntp2.uib.no
+chrony::servers:
+  - ntp.uib.no
+  - ntp2.uib.no
 
 named_interfaces::config:
   mgmt:
