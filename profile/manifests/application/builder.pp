@@ -64,7 +64,7 @@ class profile::application::builder (
     owner  => $user,
     group  => $group
   } ->
-  file { "$custom_scriptdir":
+  file { ${custom_scriptdir}:
     ensure => directory,
     owner  => $user,
     group  => $group
