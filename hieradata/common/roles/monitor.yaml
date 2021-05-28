@@ -265,6 +265,8 @@ profile::base::yumrepo::repo_hash:
   rdo-release:
     ensure: present
   grafana:
+    ensure: absent
+  grafana-oss:
     ensure: present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
