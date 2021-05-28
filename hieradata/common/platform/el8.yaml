@@ -1,3 +1,14 @@
 ---
-profile::base::common::manage_ntp:    false
-profile::base::common::manage_chrony: true
+include:
+  default:
+    - profile::network::interface
+  kickstart:
+    - profile::network::interface
+  bootstrap:
+    - profile::network::interface
+
+profile::base::common::manage_network: false # the profile::base::network class is deprecated
+profile::base::common::manage_ntp:     false # ntpd has been replaced by chrony in el8
+profile::base::common::manage_chrony:  true
+
+profile::network::interface::manage_interface: true
