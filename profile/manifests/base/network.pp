@@ -17,7 +17,6 @@ class profile::base::network(
   $cumulus_ifs      = false,
   $http_proxy_profile = '/etc/profile.d/proxy.sh',
   $manage_neutron_blackhole = false,
-  $manage_hostname  = false,
   $opx_cleanup      = false,
 ) {
 
@@ -27,33 +26,6 @@ class profile::base::network(
   include ::network
 
   if $manage_network {
-
-    if $manage_hostname {
-      $domain_mgmt = lookup('domain_mgmt', String, 'first', $::domain)
-      $hostname = "${::verified_host}.${domain_mgmt}"
-      if fact('os.distro.codename') == 'wheezy' {
-        file { '/etc/hostname':
-          ensure  => 'file',
-          mode    => '0644',
-          content => "${hostname}\n",
-          notify  => Exec['set wheezy hostname']
-        }
-        exec { 'set wheezy hostname':
-          command     => "/bin/hostname ${hostname}",
-          refreshonly => true
-        }
-      } elsif (fact('os.distro.codename') == 'jessie') or (fact('os.distro.codename') == 'stretch') {
-        exec { 'set debian hostname':
-          command => "/usr/bin/hostnamectl set-hostname ${hostname}",
-          unless  => "/usr/bin/hostnamectl status | grep 'Static hostname: ${hostname}'",
-        }
-      } elsif $::osfamily == 'RedHat' {
-        exec { 'himlar_sethostname':
-          command => "/usr/bin/hostnamectl set-hostname ${hostname}",
-          unless  => "/usr/bin/hostnamectl status | grep 'Static hostname: ${hostname}'",
-        }
-      }
-    }
 
     # - Set ifnames=0 and use old ifnames, e.g 'eth0'
     # - Use biosdevname on physical servers, e.g 'em1'
