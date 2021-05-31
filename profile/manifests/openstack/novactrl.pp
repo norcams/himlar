@@ -32,6 +32,8 @@ class profile::openstack::novactrl(
   include ::nova::network::neutron
   include ::nova::wsgi::apache_api
   include ::nova::logging
+  include ::nova::placement
+
   include ::placement
   include ::placement::db
   include ::placement::wsgi::apache
