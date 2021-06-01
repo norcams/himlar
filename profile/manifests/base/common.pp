@@ -8,6 +8,7 @@ class profile::base::common (
   $manage_smtp            = undef,
   $manage_ssh             = false,
   $manage_ntp             = false,
+  $manage_chrony          = false,
   $manage_sudo            = false,
   $manage_authconfig      = false,
   $manage_network         = false,
@@ -72,6 +73,15 @@ class profile::base::common (
 
   if $manage_cron {
     include ::profile::base::cron
+  }
+
+  if $manage_chrony {
+    include ::chrony
+
+    service { 'ntpd':
+      ensure => stopped,
+      enable => false
+    }
   }
 
   if $manage_ntp {
