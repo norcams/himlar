@@ -6,7 +6,6 @@ class profile::openstack::compute(
 ) {
   include ::nova
   include ::nova::config
-  include ::placement
   include ::nova::network::neutron
   include ::nova::logging
 
