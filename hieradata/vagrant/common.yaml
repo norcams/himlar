@@ -205,7 +205,7 @@ cinder_api_password:                                'cinder_pass'
 glance_api_password:                                'glance_pass'
 neutron_api_password:                               'neutron_pass'
 nova_api_password:                                  'nova_pass'
-nova_placement_password:                            'nova_pass'
+placement_api_password:                             'placement_pass'
 gnocchi_api_password:                               'gnocchi_pass'
 ceilometer_api_password:                            'ceilometer_pass'
 access_api_password:                                'access_pass'
@@ -251,9 +251,12 @@ neutron::agents::metadata::shared_secret:           'a_secret'
 # nova.yaml
 nova::db::mysql::password:                          'nova_pass'
 nova::db::mysql_api::password:                      'nova_api_pass'
-nova::db::mysql_placement::password:                'nova_placement_pass'
 nova::api::neutron_metadata_proxy_shared_secret:    'a_secret'
-nova_rabbit_password:                              'nova_quest'
+nova_rabbit_password:                               'nova_quest'
+
+# placement
+placement::db::mysql::password:                     'placement_pass'
+nova::db::mysql_placement::password:                'nova_placement_pass'
 
 # designate.yaml
 designate::db::mysql::password:                     'designate_pass'
