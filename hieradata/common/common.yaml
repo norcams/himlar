@@ -2,16 +2,18 @@
 include:
   default:
     - profile::base::common
+    - profile::base::hostname
     - profile::base::firewall
     - profile::base::selinux
     - profile::logging::logrotate
   kickstart:
     - profile::base::common
+    - profile::base::hostname
   bootstrap:
     - profile::base::common
+    - profile::base::hostname
     - profile::base::firewall
-
-
+ 
 #
 # Location metadata
 #

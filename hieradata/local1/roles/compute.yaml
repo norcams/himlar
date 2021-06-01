@@ -12,6 +12,9 @@ calico::compute::bird_template: 'profile/bird/bird.conf.erb'
 ntp::servers:
   - "%{hiera('netcfg_mgmt_netpart')}.100"
   - "%{hiera('netcfg_mgmt_netpart')}.101"
+chrony::servers:
+  - "%{hiera('netcfg_mgmt_netpart')}.100"
+  - "%{hiera('netcfg_mgmt_netpart')}.101"
 
 named_interfaces::config:
   mgmt:

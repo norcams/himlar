@@ -58,7 +58,6 @@ profile::storage::ceph_extraconf::config:
 
 profile::storage::ceph_ecpool::ec_pools:
   'arccache_hdd_ec_data':
-    pg_num:              "512"
     manage:              true
     allow_ec_overwrites: true
     k_data:              "3"
@@ -70,8 +69,6 @@ profile::storage::ceph::pool::pools:
     ensure: absent
   'arccache_hdd_ec_meta':
     size:    3
-    pg_num:  128
-    pgp_num: 128
     tag:     'rbd'
     custom:
       crush_rule:          'hdd-arccache'

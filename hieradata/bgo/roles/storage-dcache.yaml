@@ -70,7 +70,6 @@ profile::storage::cephpool::manage_ec_pools: true
 
 profile::storage::ceph_ecpool::ec_pools:
   'dcache_hdd_ec_data':
-    pg_num:              "2048"
     manage:              true
     allow_ec_overwrites: true
     k_data:              "10"
@@ -91,8 +90,6 @@ profile::storage::ceph::pool::pools:
     ensure: absent
   'dcache_hdd_ec_meta':
     size:    3
-    pg_num:  512
-    pgp_num: 512
     tag:     'rbd'
     custom:
       crush_rule: 'ssd-storage'
@@ -100,8 +97,6 @@ profile::storage::ceph::pool::pools:
       min_size:   '2'
   'dcache_hdd_ec_meta8':
     size:    3
-    pg_num:  512
-    pgp_num: 512
     tag:    'rbd'
     custom:
       crush_rule: 'ssd-storage'
