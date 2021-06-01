@@ -62,7 +62,6 @@ profile::storage::cephmon_firewall::manage_dashboard_firewall:  "%{hiera('profil
 profile::base::common::packages:
   'redhat-lsb-core': {}
   'bash-completion': {}
-  'bash-completion-extras': {}
   'jq': {}
   'python-collectd-ceph-storage': {}
 
