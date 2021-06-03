@@ -46,7 +46,6 @@ class profile::base::physical (
     'AddressOrigin' => 'Static',
   },
 ) {
-  include ::ipmi
 
   # Configure 82599ES SFP+ interface module options
   if $::lspci_has['intel82599sfp'] and 'ixgbe' in $::kernel_modules {
