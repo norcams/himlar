@@ -105,6 +105,9 @@ accounts::accounts:
     ensure: present
   'tannazn':
     ensure: present
+  'lennart':
+    ensure: present
+    authorized_keys: [ 'lennart_uib', 'lennart_home']
 
 googleauthenticator::pam::modules:
   sshd:
