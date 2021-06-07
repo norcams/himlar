@@ -128,6 +128,17 @@ profile::application::builder::images:
     'min_disk':         3
     'username':         'fedora'
     'hour':             7
+  'fedora_34':
+    'image_name':       'IMAGEBUILDER Fedora 34'
+    'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/34/Cloud/x86_64/images/'
+    'latest':           'Fedora-Cloud-Base-34-1.2.x86_64.qcow2'
+    'checksum_file':    'Fedora-Cloud-34-1.2-x86_64-CHECKSUM'
+    'checksum':         'sha256'
+    'min_ram':          768
+    'min_disk':         3
+    'username':         'fedora'
+    'hour':             7
+    'minute':           30
   'ubuntu_1804':
     'image_name':       'IMAGEBUILDER Ubuntu 18.04 LTS'
     'url':              'https://cloud-images.ubuntu.com/bionic/current/'
@@ -148,6 +159,17 @@ profile::application::builder::images:
     'min_disk':         3
     'username':         'ubuntu'
     'hour':             9
+  'ubuntu_2104':
+    'image_name':       'IMAGEBUILDER Ubuntu 21.04'
+    'url':              'https://cloud-images.ubuntu.com/hirsute/current/'
+    'latest':           'hirsute-server-cloudimg-amd64.img'
+    'checksum_file':    'SHA256SUMS'
+    'checksum':         'sha256'
+    'min_ram':          768
+    'min_disk':         3
+    'username':         'ubuntu'
+    'hour':             9
+    'minute':           30
   'ubuntu_2004_nv_vgpu':
     'image_name':       'IMAGEBUILDER Ubuntu 20.04 (NVIDIA VGPU)'
     'url':              'https://cloud-images.ubuntu.com/focal/current/'
@@ -183,7 +205,7 @@ profile::application::builder::images:
 
 profile::application::builder::templates:
   'default':
-    custom_scripts:     []
+    custom_scripts:     ["%{profile::application::builder::custom_scriptdir}/resolver.sh"]
   'nv_vgpu':
     custom_scripts:     ['/opt/imagebuilder/scripts/nvidia-grid-driver.sh']
 

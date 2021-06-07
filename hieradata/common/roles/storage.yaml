@@ -47,7 +47,6 @@ profile::storage::cephosd_firewall::manage_firewall: true
 profile::base::common::packages:
   'redhat-lsb-core': {}
   'bash-completion': {}
-  'bash-completion-extras': {}
   'jq': {}
   'smartmontools': {}
   'sysstat': {} # needed for sensu network plugin

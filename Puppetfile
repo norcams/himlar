@@ -23,7 +23,6 @@ mod 'apt', :ref => '6.2.1',                         :git => github + 'puppetlabs
 mod 'kmod', :ref => '2.3.1',                        :git => github + 'camptocamp/puppet-kmod'
 mod 'named_interfaces', :ref => '86e275b339',       :git => github + 'norcams/puppet-named_interfaces'
 mod 'network', :ref => '0bfc7cc2bc',                :git => github + 'norcams/puppet-network'
-mod 'ipmi', :ref => 'v2.3.0',                       :git => github + 'jhoblitt/puppet-ipmi'
 # mod 'apt', :ref => '2.2.2',                         :git => github + 'puppetlabs/puppetlabs-apt'
 mod 'selinux', :ref => 'v1.3.0',                    :git => github + 'voxpupuli/puppet-selinux'
 
@@ -167,6 +166,7 @@ mod 'swift', :ref => 'norcams/ocata',               :git => github + 'norcams/pu
 mod 'ceilometer', :ref => '14.4.0',                 :git => github + 'openstack/puppet-ceilometer'
 mod 'designate', :ref => '14.4.0',                  :git => github + 'openstack/puppet-designate'
 mod 'cloudkitty', :ref => '3.4.0',                  :git => github + 'openstack/puppet-cloudkitty'
+mod 'placement', :ref => '1.2.0',                   :git => github + 'openstack/puppet-placement'
 
 mod 'oslo', :ref => '14.4.0',                       :git => github + 'openstack/puppet-oslo'
 mod 'openstacklib', :ref => '14.4.0',               :git => github + 'openstack/puppet-openstacklib'
