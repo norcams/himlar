@@ -169,7 +169,7 @@ mod 'cloudkitty', :ref => '3.4.0',                  :git => github + 'openstack/
 mod 'placement', :ref => '1.2.0',                   :git => github + 'openstack/puppet-placement'
 
 mod 'oslo', :ref => '15.4.0',                       :git => github + 'openstack/puppet-oslo'
-mod 'openstacklib', :ref => '15.4.0',               :git => github + 'openstack/puppet-openstacklib'
+mod 'openstacklib', :ref => 'stable/train',         :git => github + 'openstack/puppet-openstacklib'
 mod 'openstack_extras', :ref => '15.4.0',           :git => github + 'openstack/puppet-openstack_extras'
 mod 'sysctl', :ref => 'v0.0.11',                    :git => github + 'duritong/puppet-sysctl'
 mod 'memcached', :ref => 'v3.0.2',                  :git => github + 'saz/puppet-memcached'
