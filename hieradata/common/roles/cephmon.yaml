@@ -3,6 +3,7 @@ include:
   default:
     - profile::storage::cephmon
     - profile::storage::cephmon_firewall
+    - profile::logging::rsyslog::client
     - profile::monitoring::collectd
   bootstrap:
     - profile::storage::cephmon_firewall

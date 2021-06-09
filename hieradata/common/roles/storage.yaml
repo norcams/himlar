@@ -9,6 +9,7 @@ include:
     - profile::storage::cephosd_firewall
     - profile::base::lvm
     - profile::base::disk
+    - profile::logging::rsyslog::client
     - profile::monitoring::collectd
     - profile::monitoring::collectd::ceph
   kickstart:
