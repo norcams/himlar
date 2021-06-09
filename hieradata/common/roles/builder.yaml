@@ -118,16 +118,6 @@ profile::application::builder::images:
     'min_disk':         3
     'username':         'debian'
     'hour':             6
-  'fedora_32':
-    'image_name':       'IMAGEBUILDER Fedora 32'
-    'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/32/Cloud/x86_64/images/'
-    'latest':           'Fedora-Cloud-Base-32-1.6.x86_64.qcow2'
-    'checksum_file':    'Fedora-Cloud-32-1.6-x86_64-CHECKSUM'
-    'checksum':         'sha256'
-    'min_ram':          768
-    'min_disk':         3
-    'username':         'fedora'
-    'hour':             7
   'fedora_34':
     'image_name':       'IMAGEBUILDER Fedora 34'
     'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/34/Cloud/x86_64/images/'
@@ -222,9 +212,10 @@ profile::monitoring::sensu::agent::expanded_checks:
   - 'centos7_nv_vgpu'
   - 'centos8'
   - 'centos8_nv_vgpu'
-  - 'fedora_32'
+  - 'fedora_34'
   - 'ubuntu_1804'
   - 'ubuntu_2004'
+  - 'ubuntu_2104'
   - 'ubuntu_2004_nv_vgpu'
   - 'debian9'
   - 'debian10'
