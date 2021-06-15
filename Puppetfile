@@ -156,7 +156,7 @@ mod 'archive', :ref => 'v2.2.0',                    :git => github + 'voxpupuli/
 # profile::openstack::*
 #
 mod 'glance', :ref => '14.4.0',                     :git => github + 'openstack/puppet-glance'
-mod 'cinder', :ref => '15.4.0',                     :git => github + 'openstack/puppet-cinder'
+mod 'cinder', :ref => 'ad4f1d88bb',                 :git => github + 'norcams/puppet-cinder'
 mod 'neutron', :ref => '14.4.0',                    :git => github + 'openstack/puppet-neutron'
 mod 'nova', :ref => '14.4.0',                       :git => github + 'openstack/puppet-nova'
 mod 'horizon', :ref => '14.4.0',                    :git => github + 'openstack/puppet-horizon'
