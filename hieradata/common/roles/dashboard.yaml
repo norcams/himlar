@@ -131,3 +131,5 @@ profile::openstack::dashboard::user_menu_links: '[]'
 
 apache::mod::ssl::ssl_cipher:   "HIGH:!aNULL:!MD5:!3DES"
 apache::mod::ssl::ssl_protocol: [ 'all', '-SSLv2', '-SSLv3', '-TLSv1', '-TLSv1.1' ]
+
+openstack_version: 'train'
