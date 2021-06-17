@@ -11,4 +11,5 @@ profile::base::common::manage_network: false # the profile::base::network class 
 profile::base::common::manage_ntp:     false # ntpd has been replaced by chrony in el8
 profile::base::common::manage_chrony:  true
 
-profile::network::interface::manage_interface: true
+profile::network::interface::manage_interface:        true
+profile::network::interface::suppress_legacy_warning: true
