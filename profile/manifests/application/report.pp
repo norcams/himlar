@@ -5,7 +5,11 @@ class profile::application::report(
   $package_url        = false,
   $config_dir         = '/etc/himlar',
   $install_dir        = '/opt/report-app',
-  $db_sync            = false
+  $db_sync            = false,
+  $app_version        = 'v1',
+  $app_downloaddir    = '/opt/report-utils',
+  $report_linkname    = 'report',
+  $report_utils       = {}
 ) {
 
   if $package_url {
@@ -42,4 +46,63 @@ class profile::application::report(
     }
   }
 
+  # create client scripts and links to these
+  # (substitutes old report-utils functionality)
+  if ! empty($report_utils) {
+    file { "${app_downloaddir}":
+      ensure => directory
+    }
+    # for each distribution ...
+    $report_utils.each | Tuple $dist_info | {
+      $distribution = $dist_info[0]
+      $dist_hash    = $dist_info[1]
+      # make sure distribution dir exists
+      file { "${app_downloaddir}/${distribution}":
+        ensure => directory
+      }
+      # if data for main dist script is entered then make sure script exists
+      if ! empty($dist_hash) {
+        if ( has_key($dist_hash, 'scripts') and ! empty($dist_hash['scripts']) ) {
+          $scripts = $dist_hash['scripts']
+          # iterate through every script for this distribution
+          $scripts.each | String $script_name, Array $fragments | {
+            # main script (location)
+            concat { "${app_downloaddir}/${distribution}/${script_name}":
+              ensure => present,
+              owner  => 'root',
+              group  => 'root',
+              mode   => '644'
+            }
+            # ensure script contains configured fragments
+            if ! empty($fragments)  {
+              $fragments.each | Integer $order, String $fragment | {
+                concat::fragment { "${distribution}-${script_name}-${fragment}":
+                  target => "${app_downloaddir}/${distribution}/${script_name}",
+                  source => "puppet:///modules/${module_name}/applications/report/${fragment}",
+                  order  => $order
+                }
+              }
+            }
+          }
+        }
+        # validate that data for any versions of distribution is entered
+        if ( has_key($dist_hash, 'versions') and ! empty($dist_hash['versions']) ) {
+          $releases = $dist_hash['versions']
+          # for each version ensure appropriate directory and script link exists
+          $releases.each | $release, $script_name | {
+            file { "${app_downloaddir}/${distribution}/${release}":
+              ensure => directory
+            } ->
+            file { "${app_downloaddir}/${distribution}/${release}/${app_version}":
+              ensure => directory
+            } ->
+            file { "${app_downloaddir}/${distribution}/${release}/${app_version}/${report_linkname}":
+              ensure => link,
+              target => "${app_downloaddir}/${distribution}/${script_name}"
+            }
+          }
+        }
+      }
+    }
+  }
 }
