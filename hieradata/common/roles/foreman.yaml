@@ -2,7 +2,6 @@
 include:
   default:
     - profile::application::foreman
-    - profile::database::postgresql
     - profile::network::services
     - profile::webserver::apache
 #    - foreman::cli

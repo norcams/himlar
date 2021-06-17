@@ -3,7 +3,6 @@ include:
   default:
     - profile::application::foreman
     - profile::application::foreman_proxy
-    - profile::database::postgresql
     - profile::network::services
     - profile::webserver::apache
 
