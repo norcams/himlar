@@ -1,0 +1,83 @@
+##########################################
+##
+## Report patching and security
+##
+## The NREC Team
+##
+##########################################
+
+function Get-Uptime {
+   $os = Get-WmiObject win32_operatingsystem
+   $uptime = (Get-Date) - ($os.ConvertToDateTime($os.lastbootuptime))
+   $Display = $Uptime.Days
+   Write-Output $Display
+}
+
+function Get-IpAddress {
+   $ip = Get-NetIPAddress -AddressState Preferred -AddressFamily IPv4 -InterfaceAlias Ethernet
+   Write-Output $ip.IPAddress
+}
+
+function Get-HostName {
+   $hostname = get-content env:computername
+   Write-Output $hostname.ToLower()
+}
+
+function Get-PendingUpdate {
+  If (Test-Connection -ComputerName $env:COMPUTERNAME -Count 1 -Quiet) {
+    Try {
+      # Create Session COM object
+      Write-Verbose "Creating COM object for WSUS Session"
+      $updatesession = [activator]::CreateInstance([type]::GetTypeFromProgID("Microsoft.Update.Session",$env:COMPUTERNAME))
+    }
+    Catch {
+      Write-Warning "$($Error[0])"
+      Write-Output -1
+      Break
+    }
+
+    # Configure Session COM Object
+    Write-Verbose "Creating COM object for WSUS update Search"
+    $updatesearcher = $updatesession.CreateUpdateSearcher()
+
+    # Configure Searcher object to look for Updates awaiting installation
+    Write-Verbose "Searching for WSUS updates on client"
+    $searchresult = $updatesearcher.Search("IsInstalled=0")
+
+    $count = $searchresult.Updates.Count
+
+    Write-Output $count
+
+  }
+}
+
+function Get-MD5Sum($path)
+{
+  $fullPath = Resolve-Path $path
+  $checksum = (Get-FileHash $fullPath -Algorithm MD5)
+  $checksum.Hash.ToLower()
+}
+
+Function Get-OwnPath {
+  $MyInvocation.PSCommandPath
+}
+
+$uptime = Get-Uptime
+$ip = Get-IpAddress
+$hostname = Get-HostName
+$updates = Get-PendingUpdate
+$md5sum = Get-MD5Sum(Get-OwnPath)
+$osversion = [System.Environment]::OSVersion.Version.ToString()
+
+$JSON = @{
+"ip" = "$ip"
+"name" = "$hostname"
+"uptime" = $uptime
+"updates" = $updates
+"md5sum" = "$md5sum"
+"kernel" = "$osversion"
+}|ConvertTo-Json
+
+$response = Invoke-WebRequest -Uri "https://report.nrec.no/api/v1/instance" -ContentType "application/json" -Method POST -Body $JSON
+
+#Write-Output $response
