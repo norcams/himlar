@@ -4,13 +4,23 @@
 # or create interface files from interfaces_hash by the network module
 #
 class profile::network::interface(
-  $manage_interface = false,
+  $manage_interface        = false,
+  $suppress_legacy_warning = false, # el8 only
 ) {
 
   # Set up extra logical fact names for network facts
   include ::named_interfaces
 
   include ::network
+
+  # Remove annoying deprecation message for el8 legacy network scripts
+  if $suppress_legacy_warning {
+    shellvar { 'DEPRECATION_WARNING_ISSUED':
+      ensure  => exported,
+      target  => '/etc/profile.d/suppress_legacy_warning.sh',
+      value   => true
+    }
+  }
 
   #
   # If the interfaces_hash is empty, create interface files based on certname on RedHat based platforms
