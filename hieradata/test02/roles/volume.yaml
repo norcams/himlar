@@ -6,11 +6,11 @@ profile::base::common::packages:
 
 profile::openstack::volume::type:
   rbd:
-    visibility: "public"
+    is_public: true
     properties:
       - 'volume_backend_name=rbd-volumes'
   nfs:
-    visibility: "private"
+    is_public: false
     properties:
       - 'volume_backend_name=atlas-storage'
 
@@ -29,6 +29,8 @@ profile::openstack::volume::backend::rbd:
         value: 'True'
       rbd-volumes/rbd_exclusive_cinder_pool:
         value: 'True'
+
+cinder::api::default_volume_type: 'rbd'
 
 # Use transport network for this (which has no DNS name)
 # OK, in test02 the NFS-server is only connected to mgmt,

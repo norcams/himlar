@@ -26,7 +26,7 @@ profile::openstack::openrc::project_name: 'services'
 
 profile::openstack::volume::type:
   rbd:
-    visibility: "public"
+    is_public: true
     properties:
       - 'volume_backend_name=rbd-volumes'
 #  rbd-ssd:
@@ -179,3 +179,4 @@ profile::base::selinux::semodules:
   'httpd_cinder':
     avc_file:   "httpd_cinder.avc"
 
+openstack_version: 'train'
