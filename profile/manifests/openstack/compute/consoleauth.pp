@@ -1,5 +1,5 @@
 #
 class profile::openstack::compute::consoleauth {
   include ::nova
-  include ::nova::consoleauth
+  include ::nova::consoleauth #deprecated
 }

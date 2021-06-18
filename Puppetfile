@@ -158,7 +158,7 @@ mod 'archive', :ref => 'v2.2.0',                    :git => github + 'voxpupuli/
 mod 'glance', :ref => '14.4.0',                     :git => github + 'openstack/puppet-glance'
 mod 'cinder', :ref => 'ad4f1d88bb',                 :git => github + 'norcams/puppet-cinder'
 mod 'neutron', :ref => '14.4.0',                    :git => github + 'openstack/puppet-neutron'
-mod 'nova', :ref => '14.4.0',                       :git => github + 'openstack/puppet-nova'
+mod 'nova', :ref => '15.4.0',                       :git => github + 'openstack/puppet-nova'
 mod 'horizon', :ref => '14.4.0',                    :git => github + 'openstack/puppet-horizon'
 mod 'gnocchi', :ref => '14.4.0',                    :git => github + 'openstack/puppet-gnocchi'
 mod 'keystone', :ref => '15.4.0',                   :git => github + 'openstack/puppet-keystone'
@@ -169,7 +169,7 @@ mod 'cloudkitty', :ref => '3.4.0',                  :git => github + 'openstack/
 mod 'placement', :ref => '1.2.0',                   :git => github + 'openstack/puppet-placement'
 
 mod 'oslo', :ref => '15.4.0',                       :git => github + 'openstack/puppet-oslo'
-mod 'openstacklib', :ref => '15.4.0',               :git => github + 'openstack/puppet-openstacklib'
+mod 'openstacklib', :ref => 'stable/train',         :git => github + 'openstack/puppet-openstacklib'
 mod 'openstack_extras', :ref => '15.4.0',           :git => github + 'openstack/puppet-openstack_extras'
 mod 'sysctl', :ref => 'v0.0.11',                    :git => github + 'duritong/puppet-sysctl'
 mod 'memcached', :ref => 'v3.0.2',                  :git => github + 'saz/puppet-memcached'
@@ -208,11 +208,11 @@ mod 'subscription_manager', :ref => '5.5.0',        :git => github + 'waveclaw/p
 #
 # Common libs
 #
-mod 'stdlib', :ref => '4.25.0',                     :git => github + 'puppetlabs/puppetlabs-stdlib'
+mod 'stdlib', :ref => '5.2.0',                     :git => github + 'puppetlabs/puppetlabs-stdlib'
 mod 'translate', :ref => '1.2.0',                   :git => github + 'puppetlabs/puppetlabs-translate'
 mod 'concat', :ref => '4.1.0',                      :git => github + 'puppetlabs/puppetlabs-concat'
 mod 'hash_file', :ref => '1.0.3',                   :git => github + 'fiddyspence/puppet-hash_file' # ??
-mod 'inifile', :ref => '2.0.0',                     :git => github + 'puppetlabs/puppetlabs-inifile'
+mod 'inifile', :ref => '2.5.0',                     :git => github + 'puppetlabs/puppetlabs-inifile'
 mod 'augeasproviders_apache', :ref => '3.1.1',      :git => github + 'hercules-team/augeasproviders_apache'
 mod 'augeasproviders_core', :ref => '2.1.4',        :git => github + 'hercules-team/augeasproviders_core'
 mod 'augeasproviders_base', :ref => '2.0.1',        :git => github + 'hercules-team/augeasproviders_base'
