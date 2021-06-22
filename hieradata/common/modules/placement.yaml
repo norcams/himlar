@@ -32,12 +32,6 @@ placement::keystone::authtoken::interface:               "internal"
 placement::keystone::authtoken::service_token_roles:     'admin'
 placement::keystone::authtoken::service_token_roles_required: true
 
-
-# fixme this should be removed for train
-placement::config::auth_url:                             "%{hiera('endpoint__identity__admin')}/v3"
-placement::config::region_name:                          "%{location}"
-placement::config::password:                             "%{hiera('placement_api_password')}"
-
 # placement wsgi
 placement::wsgi::apache::ssl:        false
 placement::wsgi::apache::api_port:   8778
