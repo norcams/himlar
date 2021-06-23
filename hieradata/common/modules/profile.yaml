@@ -105,42 +105,42 @@ yum_base_mirror:    'https://download.iaas.uio.no/uh-iaas/prod'
 profile::base::yumrepo::repo_hash:
   CentOS-Base:
     descr:          'CentOS-$releasever - Base'
-    baseurl:        "%{hiera('yum_base_mirror')}/centos-base/"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/centos-base/"
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7'
     gpgcheck:       1
     exclude:        'dnsmasq postgres*'
   CentOS-Updates:
     descr:          'CentOS-$releasever - Updates'
-    baseurl:        "%{hiera('yum_base_mirror')}/centos-updates/"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/centos-updates/"
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7'
     gpgcheck:       1
     exclude:        'dnsmasq postgres*'
   CentOS-Extras:
     descr:          'CentOS-$releasever - Extras'
-    baseurl:        "%{hiera('yum_base_mirror')}/centos-extras/"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/centos-extras/"
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7'
     gpgcheck:       1
   puppetlabs:
     descr:          Puppetlabs Yum Repo
-    baseurl:        "%{hiera('yum_base_mirror')}/puppetlabs5/"
-    gpgkey:         "%{hiera('yum_base_mirror')}/puppetlabs5/RPM-GPG-KEY-puppet"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/puppetlabs5/"
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/puppetlabs5/RPM-GPG-KEY-puppet"
     gpgcheck:       1
   epel:
     descr:          "Extra Packages for Enterprise Linux %{operatingsystemmajrelease} - $basearch"
-    baseurl:        "%{hiera('yum_base_mirror')}/epel"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/epel"
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7'
   uh-iaas:
     descr:          'UH-IaaS repo'
-    baseurl:        "%{hiera('yum_base_mirror')}/uh-iaas/"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/uh-iaas/"
     gpgcheck:       0
   sensu:
     descr:          'Sensu repo'
-    baseurl:        "%{hiera('yum_base_mirror')}/sensu/"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/sensu/"
     gpgcheck:       0
   sensu-community:
     ensure:         absent
     descr:          'Sensu community repo'
-    baseurl:        "%{hiera('yum_base_mirror')}/sensu-community/"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/sensu-community/"
     gpgcheck:       0
     gpgkey:         'https://packagecloud.io/sensu/community/gpgkey' #FIXME
     #repo_gpgcheck:  1
@@ -154,14 +154,14 @@ profile::base::yumrepo::repo_hash:
   centos-qemu-ev:
     ensure:         absent
     descr:          "CentOS-QEMU-EV repository. See http://wiki.centos.org/SpecialInterestGroup/Virtualization"
-    baseurl:        "%{hiera('yum_base_mirror')}/centos-qemu-ev"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/centos-qemu-ev"
     enabled:        1
     gpgcheck:       1
     gpgkey:         'https://www.centos.org/keys/RPM-GPG-KEY-CentOS-SIG-Virtualization'
   rdo-release:
     ensure:         absent
     descr:          "OpenStack %{hiera('openstack_version')} repository"
-    baseurl:        "%{hiera('yum_base_mirror')}/rdo-%{hiera('openstack_version')}/"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/rdo-%{hiera('openstack_version')}/"
     enabled:        1
     gpgcheck:       1
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Cloud'
@@ -170,153 +170,153 @@ profile::base::yumrepo::repo_hash:
   calico:
     ensure:         absent
     descr:          'Calico Repository'
-    baseurl:        "%{hiera('yum_base_mirror')}/calico/"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico/"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/calico/key"
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico/key"
   calico31:
     ensure:         absent
     descr:          'Calico31 Repository'
-    baseurl:        "%{hiera('yum_base_mirror')}/calico31/"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico31/"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/calico31/key"
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico31/key"
   calico34:
     ensure:         absent
     descr:          'Calico 3.4 Repository'
-    baseurl:        "%{hiera('yum_base_mirror')}/calico34/"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico34/"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/calico34/key"
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico34/key"
   calico37:
     ensure:         absent
     descr:          'Calico 3.7 Repository'
-    baseurl:        "%{hiera('yum_base_mirror')}/calico37/"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico37/"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/calico37/key"
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico37/key"
   calico38:
     ensure:         absent
     descr:          'Calico 3.8 Repository'
-    baseurl:        "%{hiera('yum_base_mirror')}/calico38/"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico38/"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/calico38/key"
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico38/key"
   calico312:
     ensure:         absent
     descr:          'Calico 3.12 Repository'
-    baseurl:        "%{hiera('yum_base_mirror')}/calico312/"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico312/"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/calico312/key"
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico312/key"
   ceph-%{hiera('ceph_version')}:
     ensure:         absent
     descr:          'Ceph packages'
-    baseurl:        "%{hiera('yum_base_mirror')}/ceph-%{hiera('ceph_version')}/"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/ceph-%{hiera('ceph_version')}/"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/ceph-%{hiera('ceph_version')}/release.asc"
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/ceph-%{hiera('ceph_version')}/release.asc"
   ceph-%{hiera('ceph_version')}-noarch:
     ensure:         absent
     descr:          'Ceph noarch packages'
-    baseurl:        "%{hiera('yum_base_mirror')}/ceph-%{hiera('ceph_version')}-noarch/"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/ceph-%{hiera('ceph_version')}-noarch/"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/ceph-%{hiera('ceph_version')}-noarch/release.asc"
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/ceph-%{hiera('ceph_version')}-noarch/release.asc"
   logstash6:
     ensure:         absent
     descr:          'Logstash 6 Centos Repo'
-    baseurl:        "%{hiera('yum_base_mirror')}/logstash6/"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/logstash6/"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/logstash6/GPG-KEY-elasticsearch"
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/logstash6/GPG-KEY-elasticsearch"
     exclude:        'kibana-oss elasticsearch-oss'
   elasticsearch6:
     ensure:         absent
     descr:          'Elasticsearch 6 Centos Repo'
-    baseurl:        "%{hiera('yum_base_mirror')}/elasticsearch6/"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/elasticsearch6/"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/elasticsearch6/GPG-KEY-elasticsearch"
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/elasticsearch6/GPG-KEY-elasticsearch"
     exclude:        'kibana-oss logstash-oss'
   curator5:
     ensure:         absent
     descr:          'Elasticsearch Curator 5.x Centos Repo'
-    baseurl:        "%{hiera('yum_base_mirror')}/curator5/"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/curator5/"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/curator5/GPG-KEY-elasticsearch"
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/curator5/GPG-KEY-elasticsearch"
   kibana6:
     ensure:         absent
     descr:          'Kibana 6 Centos Repo'
-    baseurl:        "%{hiera('yum_base_mirror')}/kibana6/"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/kibana6/"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/kibana6/GPG-KEY-elasticsearch"
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/kibana6/GPG-KEY-elasticsearch"
     exclude:        'elasticsearch-oss logstash-oss'
   foreman:
     ensure:         absent
     descr:          "Foreman %{hiera('foreman_version')} repo"
-    baseurl:        "%{hiera('yum_base_mirror')}/foreman-%{hiera('foreman_version')}"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/foreman-%{hiera('foreman_version')}"
     enabled:        1
     gpgcheck:       0
-    gpgkey:         "%{hiera('yum_base_mirror')}/foreman-%{hiera('foreman_version')}/RPM-GPG-KEY-foreman"
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/foreman-%{hiera('foreman_version')}/RPM-GPG-KEY-foreman"
   foreman-plugins:
     ensure:         absent
     descr:          "Foreman %{hiera('foreman_version')} Plugins repo"
-    baseurl:        "%{hiera('yum_base_mirror')}/foreman-plugins-%{hiera('foreman_version')}"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/foreman-plugins-%{hiera('foreman_version')}"
     enabled:        1
     gpgcheck:       0
   passenger:
     ensure:         absent
     descr:          "Passenger repo"
-    baseurl:        "%{hiera('yum_base_mirror')}/passenger"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/passenger"
     enabled:        1
     gpgcheck:       0
   mariadb:
     ensure:         absent
     descr:          'MariaDB 10.1 repo'
-    baseurl:        "%{hiera('yum_base_mirror')}/mariadb"
-    gpgkey:         "%{hiera('yum_base_mirror')}/mariadb/RPM-GPG-KEY-MariaDB"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/mariadb"
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/mariadb/RPM-GPG-KEY-MariaDB"
     gpgcheck:       '1'
   "mariadb-%{hiera('mariadb_version')}":
     ensure:         absent
     descr:          "MariaDB %{hiera('mariadb_version')} repo"
-    baseurl:        "%{hiera('yum_base_mirror')}/mariadb-%{hiera('mariadb_version')}"
-    gpgkey:         "%{hiera('yum_base_mirror')}/mariadb-%{hiera('mariadb_version')}/RPM-GPG-KEY-MariaDB"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/mariadb-%{hiera('mariadb_version')}"
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/mariadb-%{hiera('mariadb_version')}/RPM-GPG-KEY-MariaDB"
     gpgcheck:       '1'
   grafana:
     ensure:         absent
     descr:          'Grafana repo'
-    baseurl:        "%{hiera('yum_base_mirror')}/grafana"
-    gpgkey:         "%{hiera('yum_base_mirror')}/grafana/RPM-GPG-KEY-grafana"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/grafana"
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/grafana/RPM-GPG-KEY-grafana"
     enabled:        1
     gpgcheck:       1
   grafana-oss:
     ensure:         absent
     descr:          'Grafana OSS repo'
-    baseurl:        "%{hiera('yum_base_mirror')}/grafana-oss"
-    gpgkey:         "%{hiera('yum_base_mirror')}/grafana-oss/gpg.key"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/grafana-oss"
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/grafana-oss/gpg.key"
     enabled:        1
     gpgcheck:       1
   nodesource-14:
     ensure:         absent
     descr:          'Node.js 14 LTS Packages for Enterprise Linux 7 - $basearch'
-    baseurl:        "%{hiera('yum_base_mirror')}/nodesource-14"
-    gpgkey:         "%{hiera('yum_base_mirror')}/nodesource-14/NODESOURCE-GPG-SIGNING-KEY-EL"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/nodesource-14"
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/nodesource-14/NODESOURCE-GPG-SIGNING-KEY-EL"
     enabled:        1
     gpgcheck:       1
   yarn:
     ensure:         absent
     descr:          'Yarn Repository'
-    baseurl:        "%{hiera('yum_base_mirror')}/yarn"
-    gpgkey:         "%{hiera('yum_base_mirror')}/yarn/pubkey.gpg"
+    baseurl:        "%{hiera('yum_base_mirror')}/generic/yarn"
+    gpgkey:         "%{hiera('yum_base_mirror')}/generic/yarn/pubkey.gpg"
     enabled:        1
     gpgcheck:       1
   postgres-10:
     ensure:         absent
     descr:          'PostgreSQL 10 for RHEL/CentOS 7 - x86_64'
-    baseurl:        "%{hiera('yum_base_mirror')}/postgres-10"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/postgres-10"
     gpgcheck:       0
     enabled:        1
   centos-sclo-rh:
@@ -330,20 +330,20 @@ profile::base::yumrepo::repo_hash:
 profile::base::dell::repo_hash:
   dell-system-update_dependent:
     descr:          "dell-system-update_dependent"
-    baseurl:        "%{hiera('yum_base_mirror')}/dell-system-update_dependent"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/dell-system-update_dependent"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/dell-system-update_dependent/0x1285491434D8786F.asc
-                     %{hiera('yum_base_mirror')}/dell-system-update_dependent/0x756ba70b1019ced6.asc
-                     %{hiera('yum_base_mirror')}/dell-system-update_dependent/0xca77951d23b66a9d.asc"
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/dell-system-update_dependent/0x1285491434D8786F.asc
+                     %{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/dell-system-update_dependent/0x756ba70b1019ced6.asc
+                     %{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/dell-system-update_dependent/0xca77951d23b66a9d.asc"
   dell-system-update_independent:
     descr:          "dell-system-update_independent"
-    baseurl:        "%{hiera('yum_base_mirror')}/dell-system-update_independent"
+    baseurl:        "%{hiera('yum_base_mirror')}/generic/dell-system-update_independent"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/dell-system-update_dependent/0x1285491434D8786F.asc
-                     %{hiera('yum_base_mirror')}/dell-system-update_dependent/0x756ba70b1019ced6.asc
-                     %{hiera('yum_base_mirror')}/dell-system-update_dependent/0xca77951d23b66a9d.asc"
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/dell-system-update_dependent/0x1285491434D8786F.asc
+                     %{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/dell-system-update_dependent/0x756ba70b1019ced6.asc
+                     %{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/dell-system-update_dependent/0xca77951d23b66a9d.asc"
 
 profile::base::dell::packages:
   'srvadmin-all': {}

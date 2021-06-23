@@ -40,6 +40,8 @@ openstack_version:    'stein'
 
 ceph_version:         'nautilus'
 
+repo_dist:            "%{::os_platform}%{::os_version}"
+
 valid_location_tags:
   - bgo
   - osl
