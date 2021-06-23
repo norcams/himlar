@@ -28,9 +28,9 @@ placement::keystone::authtoken::project_domain_name:     "%{hiera('keystone__def
 placement::keystone::authtoken::user_domain_name:        "%{hiera('keystone__default__domain')}"
 placement::keystone::authtoken::project_name:            "%{hiera('keystone__service__project')}"
 placement::keystone::authtoken::www_authenticate_uri:    "%{hiera('endpoint__identity__internal')}"
-placement::keystone::authtoken::interface:               "internal"
-placement::keystone::authtoken::service_token_roles:     'admin'
-placement::keystone::authtoken::service_token_roles_required: true
+#placement::keystone::authtoken::interface:               "internal"
+#placement::keystone::authtoken::service_token_roles:     'admin'
+#placement::keystone::authtoken::service_token_roles_required: true
 
 # placement wsgi
 placement::wsgi::apache::ssl:        false
