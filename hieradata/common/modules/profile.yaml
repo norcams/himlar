@@ -134,9 +134,7 @@ profile::base::yumrepo::repo_hash:
     baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/uh-iaas/"
     gpgcheck:       0
   sensu:
-    descr:          'Sensu repo'
-    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/sensu/"
-    gpgcheck:       0
+    ensure:         absent
   sensu-community:
     ensure:         absent
     descr:          'Sensu community repo'
