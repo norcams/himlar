@@ -108,6 +108,8 @@ accounts::accounts:
   'lennart':
     ensure: present
     authorized_keys: [ 'lennart_uib', 'lennart_home']
+  'erikberg':
+    ensure: present
 
 googleauthenticator::pam::modules:
   sshd:
