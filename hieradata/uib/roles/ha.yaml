@@ -218,7 +218,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ports:              443
     server_names:       ['appsanywhere01.uib.no', 'appsanywhere02.uib.no', 'appsanywhere03.uib.no']
     ipaddresses:        ['129.177.150.207', '129.177.150.208', '129.177.150.201']
-    options:            'verify none inter 120s check check-ssl ssl'
+    options:            'verify none inter 30s check check-ssl ssl'
   # 'public-https-apps':
   #   listening_service:  'public-https-apps'
   #   ports:              443
