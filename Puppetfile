@@ -24,7 +24,7 @@ mod 'kmod', :ref => '2.3.1',                        :git => github + 'camptocamp
 mod 'named_interfaces', :ref => '86e275b339',       :git => github + 'norcams/puppet-named_interfaces'
 mod 'network', :ref => '0bfc7cc2bc',                :git => github + 'norcams/puppet-network'
 # mod 'apt', :ref => '2.2.2',                         :git => github + 'puppetlabs/puppetlabs-apt'
-mod 'selinux', :ref => 'v1.3.0',                    :git => github + 'voxpupuli/puppet-selinux'
+mod 'selinux', :ref => 'v3.4.0',                    :git => github + 'voxpupuli/puppet-selinux'
 
 #
 # FreeBSD spesific
