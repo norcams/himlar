@@ -7,6 +7,17 @@ include:
   bootstrap:
     - profile::network::interface
 
+profile::base::yumrepo::repo_hash:
+  CentOS-Updates:
+    ensure: absent
+  uh-iaas:
+    ensure: absent
+  puppetlabs:
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/puppetlabs6/"
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/puppetlabs6/RPM-GPG-KEY-puppet"
+  uh-iaas:
+    baseurl:        "%{hiera('yum_base_mirror')}/el7/uh-iaas/" #FIXME
+
 profile::base::common::manage_network: false # the profile::base::network class is deprecated
 profile::base::common::manage_ntp:     false # ntpd has been replaced by chrony in el8
 profile::base::common::manage_chrony:  true
