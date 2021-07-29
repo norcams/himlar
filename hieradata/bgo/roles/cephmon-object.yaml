@@ -13,3 +13,7 @@ ceph::profile::params::cluster_network:             '172.20.0.0/21' #"%{::networ
 ceph::profile::params::public_network:              "%{::network_trp1}/%{::cidr_trp1}"
 
 ceph_version: 'octopus' # FIXME
+
+profile::base::common::packages:
+  'python-collectd-ceph-storage': # FIXME
+    source: 'https://download.iaas.uio.no/nrec/rpm/python-collectd-ceph-storage-0.0.3-1.el8.x86_64.rpm'
