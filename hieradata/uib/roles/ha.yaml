@@ -288,14 +288,14 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
   ssl-https-apps-admin:
     mode:             'http'
     options:
-      - balance:      'leastconn'
+      - balance:      'source'
       - option:
         - 'forwardfor except 127.0.0.1'
         - 'httpchk GET /jukeboxserver/do/license/token/renew.tok?msid=ping'
       - http-check: 'expect status 200'
-      # Session stick table and based on source IP
-      - stick-table: 'type ip size 1m expire 1h'
-      - stick: 'on src'
+      # Session stick table and based on source IP (do not work with nbproc >1)
+#      - stick-table: 'type ip size 1m expire 1h'
+#      - stick: 'on src'
       - timeout:
         - 'server 1m'
         - 'queue 1m'
