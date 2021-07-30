@@ -5,7 +5,7 @@ class profile::application::himlarservice(
 
   if $package_url {
     package { 'himlarservice':
-      ensure   => 'installed',
+      ensure   => 'latest',
       provider => 'rpm',
       source   => $package_url,
       notify   => Service['himlarservice-access.service']
@@ -27,7 +27,8 @@ class profile::application::himlarservice(
   }
 
   service { 'himlarservice-access.service':
-    ensure => running
+    ensure => running,
+    enable => true
   }
 
 }
