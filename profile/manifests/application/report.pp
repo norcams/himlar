@@ -49,7 +49,7 @@ class profile::application::report(
   # create client scripts and links to these
   # (substitutes old report-utils functionality)
   if ! empty($report_utils) {
-    file { "${app_downloaddir}":
+    file { $app_downloaddir:
       ensure => directory
     }
     # for each distribution ...
@@ -71,7 +71,7 @@ class profile::application::report(
               ensure => present,
               owner  => 'root',
               group  => 'root',
-              mode   => '644'
+              mode   => '0644'
             }
             # ensure script contains configured fragments
             if ! empty($fragments)  {
