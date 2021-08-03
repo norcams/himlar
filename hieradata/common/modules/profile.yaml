@@ -101,7 +101,7 @@ profile::openstack::openrc::username:     'admin'
 profile::openstack::openrc::project_name: 'openstack'
 
 # All yum repos go here
-yum_base_mirror:    'https://download.iaas.uio.no/uh-iaas/prod'
+yum_base_mirror:    'https://download.iaas.uio.no/nrec/prod'
 profile::base::yumrepo::repo_hash:
   CentOS-Base:
     descr:          'CentOS-$releasever - Base'
@@ -135,9 +135,9 @@ profile::base::yumrepo::repo_hash:
     descr:          "Extra Packages for Enterprise Linux %{operatingsystemmajrelease} - $basearch"
     baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/epel"
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7'
-  uh-iaas:
-    descr:          'UH-IaaS repo'
-    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/uh-iaas/"
+  nrec-internal:
+    descr:          'NREC internal packages repository'
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/nrec-internal/"
     gpgcheck:       0
   sensu:
     ensure:         absent
@@ -151,8 +151,8 @@ profile::base::yumrepo::repo_hash:
 # Optional repos: enable them with ensure: present in common/role
   uh-iaas-nonfree:
     ensure:         absent
-    descr:          'UH-IaaS repo non-free'
-    baseurl:        'https://download.iaas.uio.no/uh-iaas/nonfree/yum-nonfree'
+    descr:          'NREC non-free packages repository'
+    baseurl:        'https://download.iaas.uio.no/nrec/nonfree/yum-nonfree'
     enabled:        1
     gpgcheck:       0
   centos-qemu-ev:
