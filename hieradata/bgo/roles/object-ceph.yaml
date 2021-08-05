@@ -24,9 +24,10 @@ ceph::profile::params::mon_initial_members:         '%{::location}-cephmon-objec
 ceph::profile::params::cluster_network:             "%{::network_ceph1}/%{::cidr_ceph1}"
 ceph::profile::params::public_network:              "%{::network_trp1}/%{::cidr_trp1}"
 
-# Ensure that the BOSS device is the last device
-profile::base::physical::load_ahci_last: true
-profile::base::physical::load_ahci_last_scsidrv: 'mpt3sas'
+profile::base::common::extraswap:         true
+profile::base::common::extraswap_sizegb:  20
+profile::base::common::extraswap_fileloc: '/var/lib/swap/swapfile'
+profile::base::physical::load_ahci_first: true
 
 profile::base::physical::enable_redfish_sensu_check: true
 profile::monitoring::sensu::agent::checks:
@@ -38,71 +39,59 @@ profile::monitoring::sensu::agent::checks:
 ceph_version: 'octopus' # FIXME
 
 profile::base::lvm::physical_volume:
-  '/dev/sda':
+  '/dev/sdb':
     ensure: present
     force:  true
 
 profile::base::lvm::volume_group:
+  'vg_swap':
+    physical_volumes:
+      - /dev/sda4
   'vg_cache':
     physical_volumes:
-      - /dev/sda
+      - /dev/sdb
 
 profile::base::lvm::logical_volume:
-  'lv_walc':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         2G
-  'lv_dbc':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         10G
-  'lv_wald':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         2G
+  'lv_swap2':
+    volume_group: 'vg_swap'
+    fs_type:      xfs
+    size:         40G
+    mountpath:    "/var/lib/swap"
   'lv_dbd':
     volume_group: 'vg_cache'
     createfs:     false
-    size:         10G
-  'lv_wale':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         2G
+    size:         32G
   'lv_dbe':
     volume_group: 'vg_cache'
     createfs:     false
-    size:         10G
-  'lv_walf':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         2G
+    size:         32G
   'lv_dbf':
     volume_group: 'vg_cache'
     createfs:     false
-    size:         10G
-  'lv_walg':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         2G
+    size:         32G
   'lv_dbg':
     volume_group: 'vg_cache'
     createfs:     false
-    size:         10G
+    size:         32G
+  'lv_dbh':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         32G
 
 profile::storage::cephosd::osds:
-  '/dev/sdb': {} # SSD
-  '/dev/sdc': # HDD
-    db_device:  'vg_cache/lv_dbc'
-    wal_device: 'vg_cache/lv_walc'
+  '/dev/sdc': {} # SSD
   '/dev/sdd': # HDD
     db_device:  'vg_cache/lv_dbd'
-    wal_device: 'vg_cache/lv_wald'
+    wal_device: false
   '/dev/sde': # HDD
     db_device:  'vg_cache/lv_dbe'
-    wal_device: 'vg_cache/lv_wale'
+    wal_device: false
   '/dev/sdf': # HDD
     db_device:  'vg_cache/lv_dbf'
-    wal_device: 'vg_cache/lv_walf'
+    wal_device: false
   '/dev/sdg': # HDD
     db_device:  'vg_cache/lv_dbg'
-    wal_device: 'vg_cache/lv_walg'
+    wal_device: false
+  '/dev/sdh': # HDD
+    db_device:  'vg_cache/lv_dbh'
+    wal_device: false
