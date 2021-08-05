@@ -128,5 +128,7 @@ profile::storage::ceph::pool::crush_rules:
 profile::base::yumrepo::repo_hash:
   ceph-%{hiera('ceph_version')}:
     ensure: present
+  ceph-%{hiera('ceph_version')}-noarch:
+    ensure: present
   epel:
-    ensure:   present
+    ensure: present
