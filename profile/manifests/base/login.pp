@@ -17,7 +17,7 @@ class profile::base::login (
   $dump_group               = '',
   $repo_incoming_dir        = '/var/lib/repo-incoming',
   $repo_server              = 'iaas-repo.uio.no',
-  $yumrepo_path             = '/var/www/html/nrec/nrec-internal/el7',
+  $yumrepo_path             = '/var/www/html/nrec/nrec-internal/el7/',
   $gpg_receiver             = 'UH-IaaS Token Distributor',
   $manage_firewall          = false,
   $manage_dnsmasq           = false,
