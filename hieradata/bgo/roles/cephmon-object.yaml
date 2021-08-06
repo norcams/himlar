@@ -6,6 +6,7 @@ named_interfaces::config:
   trp:
     - eth1
 
+profile::storage::cephmon::create_crushbuckets: true
 profile::storage::ceph_crushbucket::buckets:
   'object':
     bucket_type:   'pod'

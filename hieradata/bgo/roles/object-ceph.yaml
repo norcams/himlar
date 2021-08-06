@@ -24,6 +24,67 @@ ceph::profile::params::mon_initial_members:         '%{::location}-cephmon-objec
 ceph::profile::params::cluster_network:             "%{::network_ceph1}/%{::cidr_ceph1}"
 ceph::profile::params::public_network:              "%{::network_trp1}/%{::cidr_trp1}"
 
+profile::storage::cephosd::crush_parent:      'object'
+profile::storage::cephosd::crush_parent_type: 'pod'
+profile::storage::cephosd::crush_move:        true
+
+profile::storage::cephpool::manage_cephpool_params:  true
+profile::storage::ceph_crushrules::rules:
+  'hdd-object':
+    rule_device_type: "hdd"
+    rule_root:        "object"
+  'ssd-object':
+    rule_device_type: "ssd"
+    rule_root:        "object"
+
+profile::storage::ceph::pool::pools:
+  '%{::location}-1.rgw.control':
+    size:       3
+    tag:          'rgw'
+    custom:
+      crush_rule: 'hdd-object'
+      nodelete:   'true'
+      min_size:   '2'
+  '%{::location}-1.rgw.meta':
+    size:       3
+    tag:          'rgw'
+    custom:
+      crush_rule: 'hdd-object'
+      nodelete:   'true'
+      min_size:   '2'
+  '%{::location}-1.rgw.log':
+    size:       3
+    tag:          'rgw'
+    custom:
+      crush_rule: 'hdd-object'
+      nodelete:   'true'
+      min_size:   '2'
+  '%{::location}-1.rgw.buckets.index':
+    size:       3
+    tag:          'rgw'
+    custom:
+      crush_rule: 'ssd-object'
+      nodelete:   'true'
+      min_size:   '2'
+  '%{::location}-1.rgw.buckets.log':
+    size:       3
+    tag:          'rgw'
+    custom:
+      crush_rule: 'hdd-object'
+      nodelete:   'true'
+      min_size:   '2'
+  '%{::location}-1.rgw.buckets.meta':
+    size:         3
+    tag:          'rgw'
+    custom:
+      crush_rule: 'hdd-object'
+      nodelete:   'true'
+      min_size:   '2'
+
+profile::storage::cephpool_params::pools:
+  'bgo-1.rgw.buckets.data':
+    replicas_min_size:  '4'
+
 profile::base::common::extraswap:         true
 profile::base::common::extraswap_sizegb:  20
 profile::base::common::extraswap_fileloc: '/var/lib/swap/swapfile'
