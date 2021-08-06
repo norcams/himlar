@@ -6,6 +6,11 @@ named_interfaces::config:
   trp:
     - eth1
 
+profile::storage::ceph_crushbucket::buckets:
+  'object':
+    bucket_type:   'pod'
+    bucket_parent: 'default'
+
 ceph::profile::params::osd_pool_default_min_size:   '2'
 ceph::profile::params::mon_host:                    "%{::netpart_trp1}.89,%{::netpart_trp1}.90,%{::netpart_trp1}.94"
 ceph::profile::params::mon_initial_members:         '%{::location}-cephmon-object-01,%{::location}-cephmon-object-02,%{::location}-cephmon-object-03'
