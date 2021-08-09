@@ -126,8 +126,9 @@ nova::compute::rbd::ephemeral_storage:           false
 nova::compute::rbd::manage_ceph_client:          false
 
 # enable libvirt tunneled migration
-nova::migration::libvirt::live_migration_tunnelled:    true
-nova::migration::libvirt::live_migration_inbound_addr: "%{::ipaddress_live1}"
+nova::migration::libvirt::live_migration_tunnelled:            true
+nova::migration::libvirt::live_migration_inbound_addr:         "%{::ipaddress_live1}"
+nova::migration::libvirt::live_migration_permit_auto_converge: true
 
 # set image properties hw_scsi_model=virtio-scsi and hw_disk_bus=scsi to enable
 nova::compute::libvirt::libvirt_hw_disk_discard: 'unmap'
