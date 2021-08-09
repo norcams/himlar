@@ -48,7 +48,7 @@ profile::openstack::openrc::password:         "%{hiera('imagebuilder_password')}
 profile::openstack::openrc::interface:        'public'
 
 
-profile::application::builder::package_url:   'https://download.iaas.uio.no/uh-iaas/yumrepo/imagebuilder-1.0-14.el7.x86_64.rpm'
+profile::application::builder::package_url:   "https://download.iaas.uio.no/nrec/nrec-internal/%{hiera('repo_dist')}/imagebuilder-1.0-14.el7.x86_64.rpm"
 profile::application::builder::ipv6:          true
 profile::application::builder::flavor:        'img.zerodisk'
 profile::application::builder::template_dir:  '/etc/imagebuilder'
@@ -80,7 +80,7 @@ profile::application::builder::images:
   'centos8':
     'image_name':       'IMAGEBUILDER CentOS 8'
     'url':              'http://cloud.centos.org/centos/8/x86_64/images/'
-    'latest':           'CentOS-8-GenericCloud-8.2.2004-20200611.2.x86_64.qcow2'
+    'latest':           'CentOS-8-GenericCloud-8.4.2105-20210603.0.x86_64.qcow2'
     'checksum_file':    'CHECKSUM'
     'checksum':         'sha256'
     'min_ram':          768
@@ -90,7 +90,7 @@ profile::application::builder::images:
   'centos8_nv_vgpu':
     'image_name':       'IMAGEBUILDER CentOS 8 (NVIDIA VGPU)'
     'url':              'http://cloud.centos.org/centos/8/x86_64/images/'
-    'latest':           'CentOS-8-GenericCloud-8.2.2004-20200611.2.x86_64.qcow2'
+    'latest':           'CentOS-8-GenericCloud-8.4.2105-20210603.0.x86_64.qcow2'
     'checksum_file':    'CHECKSUM'
     'checksum':         'sha256'
     'min_ram':          768
@@ -185,8 +185,8 @@ profile::application::builder::images:
   'uio_rhel8':
     'image_name':       'IMAGEBUILDER UIO RHEL 8'
     'url':              'http://download.iaas.uio.no/uh-iaas/nonfree/'
-    'latest':           'rhel-8.3-x86_64-kvm.qcow2'
-    'checksum_file':    'rhel-8.3-x86_64-kvm.sha256sum'
+    'latest':           'rhel-8.4-x86_64-kvm.qcow2'
+    'checksum_file':    'rhel-8.4-x86_64-kvm.sha256sum'
     'checksum':         'sha256'
     'min_ram':          1024
     'min_disk':         8

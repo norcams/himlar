@@ -23,6 +23,7 @@ PuppetLint.configuration.send('disable_documentation')
 PuppetLint.configuration.send('disable_class_parameter_defaults')
 PuppetLint.configuration.send('disable_double_quoted_strings')
 PuppetLint.configuration.send('disable_arrow_on_right_operand_line')
+PuppetLint.configuration.send('disable_inherits_across_namespaces')
 PuppetLint.configuration.log_format = "%{path}:%{line}:%{check}:%{KIND}:%{message}"
 PuppetLint.configuration.ignore_paths = exclude_paths
 

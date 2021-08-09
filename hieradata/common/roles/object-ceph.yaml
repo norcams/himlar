@@ -3,6 +3,7 @@ include:
   default:
     - profile::storage::cephosd
     - profile::storage::cephosd_firewall
+    - profile::storage::cephpool
     - profile::base::lvm
     - profile::storage::ceph::pool
     - profile::monitoring::collectd
@@ -59,7 +60,6 @@ profile::base::manage_lvm:                           true
 profile::base::common::packages:
   'redhat-lsb-core': {}
   'bash-completion': {}
-  'bash-completion-extras': {}
   'jq': {}
 
 profile::storage::cephosd_firewall::manage_firewall: true
@@ -129,5 +129,7 @@ profile::storage::ceph::pool::crush_rules:
 profile::base::yumrepo::repo_hash:
   ceph-%{hiera('ceph_version')}:
     ensure: present
+  ceph-%{hiera('ceph_version')}-noarch:
+    ensure: present
   epel:
-    ensure:   present
+    ensure: present

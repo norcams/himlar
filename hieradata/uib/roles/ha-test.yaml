@@ -115,8 +115,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   'ssl-https-apps':
     listening_service:  'ssl-https-apps'
     ports:              443
-    server_names:       ['apps-test05.uib.no', 'apps-test06.uib.no']
-    ipaddresses:        ['129.177.150.203', '129.177.150.204']
+    server_names:       ['apps-test03.uib.no', 'apps-test04.uib.no']
+    ipaddresses:        ['129.177.150.209', '129.177.150.210']
     options:            'verify none inter 120s check check-ssl ssl'
   'ssl-https-apps-admin':
     listening_service:  'ssl-https-apps-admin'

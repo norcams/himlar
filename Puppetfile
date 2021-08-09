@@ -24,7 +24,7 @@ mod 'kmod', :ref => '2.3.1',                        :git => github + 'camptocamp
 mod 'named_interfaces', :ref => '86e275b339',       :git => github + 'norcams/puppet-named_interfaces'
 mod 'network', :ref => '0bfc7cc2bc',                :git => github + 'norcams/puppet-network'
 # mod 'apt', :ref => '2.2.2',                         :git => github + 'puppetlabs/puppetlabs-apt'
-mod 'selinux', :ref => 'v1.3.0',                    :git => github + 'voxpupuli/puppet-selinux'
+mod 'selinux', :ref => 'v3.4.0',                    :git => github + 'voxpupuli/puppet-selinux'
 
 #
 # FreeBSD spesific
@@ -208,7 +208,7 @@ mod 'subscription_manager', :ref => '5.5.0',        :git => github + 'waveclaw/p
 #
 # Common libs
 #
-mod 'stdlib', :ref => '5.2.0',                     :git => github + 'puppetlabs/puppetlabs-stdlib'
+mod 'stdlib', :ref => '5.2.0',                      :git => github + 'puppetlabs/puppetlabs-stdlib'
 mod 'translate', :ref => '1.2.0',                   :git => github + 'puppetlabs/puppetlabs-translate'
 mod 'concat', :ref => '4.1.0',                      :git => github + 'puppetlabs/puppetlabs-concat'
 mod 'hash_file', :ref => '1.0.3',                   :git => github + 'fiddyspence/puppet-hash_file' # ??
