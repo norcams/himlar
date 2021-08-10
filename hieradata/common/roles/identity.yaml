@@ -12,8 +12,6 @@ include:
     - profile::openstack::cache
     - profile::webserver::apache::status
 
-openstack_version: 'train'
-
 profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}

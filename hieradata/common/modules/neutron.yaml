@@ -14,6 +14,8 @@ neutron::keystone::authtoken::project_domain_name: "%{hiera('keystone__default__
 neutron::keystone::authtoken::user_domain_name:    "%{hiera('keystone__default__domain')}"
 neutron::keystone::authtoken::memcached_servers:   '127.0.0.1:11211'
 neutron::keystone::authtoken::project_name:        "%{hiera('keystone__service__project')}"
+neutron::keystone::authtoken::service_token_roles:  'admin'
+neutron::keystone::authtoken::service_token_roles_required: true
 
 neutron::server::notifications::notify_nova_on_port_status_changes: true
 neutron::server::notifications::notify_nova_on_port_data_changes:   true
