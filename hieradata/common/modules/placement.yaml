@@ -28,11 +28,9 @@ placement::keystone::authtoken::project_domain_name:     "%{hiera('keystone__def
 placement::keystone::authtoken::user_domain_name:        "%{hiera('keystone__default__domain')}"
 placement::keystone::authtoken::project_name:            "%{hiera('keystone__service__project')}"
 placement::keystone::authtoken::www_authenticate_uri:    "%{hiera('endpoint__identity__internal')}"
-
-# fixme this should be removed for train
-placement::config::auth_url:                             "%{hiera('endpoint__identity__admin')}/v3"
-placement::config::region_name:                          "%{location}"
-placement::config::password:                             "%{hiera('placement_api_password')}"
+placement::keystone::authtoken::interface:               "internal"
+placement::keystone::authtoken::service_token_roles:     'admin'
+placement::keystone::authtoken::service_token_roles_required: true
 
 # placement wsgi
 placement::wsgi::apache::ssl:        false

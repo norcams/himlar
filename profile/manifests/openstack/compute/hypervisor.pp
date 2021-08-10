@@ -9,7 +9,6 @@ class profile::openstack::compute::hypervisor (
   include ::profile::openstack::compute
   include ::profile::openstack::network
   include ::nova::compute
-  include ::nova::compute::neutron
   include ::nova::compute::spice
 
   if $hypervisor_type in ['libvirt', 'vmware', 'xenserver'] {
