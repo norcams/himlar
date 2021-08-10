@@ -3,19 +3,19 @@ ceph_version: 'nautilus' # FIXME
 
 profile::openstack::volume::type:
   rbd:
-    visibility: "public"
+    is_public: true
     properties:
       - 'volume_backend_name=rbd-volumes'
   mass-storage-default:
-    visibility: "public"
+    is_public: true
     properties:
       - 'volume_backend_name=mass-storage-default'
   mass-storage-dcache:
-    visibility: "private"
+    is_public: false
     properties:
       - 'volume_backend_name=mass-storage-dcache'
   mass-storage-ssd:
-    visibility: "public"
+    is_public: false
     properties:
       - 'volume_backend_name=mass-storage-ssd'
 #  mass-storage-dcache8:

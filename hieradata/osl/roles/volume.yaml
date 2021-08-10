@@ -9,23 +9,23 @@ profile::base::common::packages:
 
 profile::openstack::volume::type:
   rbd:
-    visibility: "public"
+    is_public: true
     properties:
       - 'volume_backend_name=rbd-volumes'
   nfs:
-    visibility: "private"
+    is_public: false
     properties:
       - 'volume_backend_name=atlas-storage'
   mass-storage-arccache:
-    visibility: "private"
+    is_public: false
     properties:
       - 'volume_backend_name=mass-storage-arccache'
   mass-storage-default:
-    visibility: "private"
+    is_public: true
     properties:
       - 'volume_backend_name=mass-storage-default'
   mass-storage-ssd:
-    visibility: "private"
+    is_public: false
     properties:
       - 'volume_backend_name=mass-storage-ssd'
 
