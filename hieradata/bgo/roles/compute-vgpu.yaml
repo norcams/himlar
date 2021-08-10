@@ -50,8 +50,8 @@ profile::base::common::packages:
   }
 
 # Example: 'nvidia-35' or ['nvidia-35', 'nvidia-36']
-# valid profiles for vcomputeserver are 299, 300, 301
-nova::compute::vgpu::enabled_vgpu_types: 'nvidia-299'
+# valid profiles for vcomputeserver are 299, 300, 301 for 4, 2, 1 partitions respecitivly
+nova::compute::vgpu::enabled_vgpu_types: 'nvidia-300'
 
 #yum_base_mirror:    'https://download.iaas.uio.no/uh-iaas/vgpu'
 

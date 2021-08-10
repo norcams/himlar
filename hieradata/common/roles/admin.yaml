@@ -7,7 +7,7 @@ include:
     - profile::network::services
     - profile::webserver::apache
 
-foreman_version: '2.2'
+foreman_version: '2.3'
 
 sensu__disk__warning:     80
 sensu__disk__crtical:     90
@@ -56,8 +56,6 @@ profile::base::yumrepo::repo_hash:
   foreman-plugins:
     ensure: present
   centos-sclo-rh:
-    ensure: present
-  passenger:
     ensure: present
   postgres-10:
     ensure: present

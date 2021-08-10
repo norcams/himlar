@@ -16,9 +16,9 @@ class profile::openstack::identity (
   $firewall_extras_a        = {},
   $manage_ssl_cert          = false,
   $manage_openidc           = false,
-  $disable_admin_token_auth = false,
   $token_rotation_sync      = false,
   $manage_token_rotate      = false,
+  $manage_bootstrap         = false,
   $token_db                 = 'token_keys',
   $keystone_config          = {},
   $cron_master              = {},
@@ -31,6 +31,7 @@ class profile::openstack::identity (
   $db_host                  = '',
   $gpg_receiver             = '',
   $manage_policy            = false,
+  $placement_enabled        = false,
 ) {
 
   include ::keystone
@@ -66,17 +67,16 @@ class profile::openstack::identity (
 
   }
 
+  if $manage_bootstrap {
+    include ::profile::openstack::identity::bootstrap
+  }
   if $manage_policy {
     include ::keystone::policy
   }
 
-  if $disable_admin_token_auth {
-    include ::keystone::disable_admin_token_auth
-  }
-
   if $manage_openidc {
     include ::keystone::federation
-    include ::profile::openstack::identity::openidc
+    include ::keystone::federation::openidc
   }
 
   create_resources('keystone_config', $keystone_config)
@@ -92,7 +92,10 @@ class profile::openstack::identity (
 
   if $nova_enabled {
     include ::nova::keystone::auth
-    include ::nova::keystone::auth_placement
+  }
+
+  if $placement_enabled {
+    include ::placement::keystone::auth
   }
 
   if $neutron_enabled {

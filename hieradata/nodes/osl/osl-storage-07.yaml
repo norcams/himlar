@@ -41,6 +41,11 @@ network::interfaces_hash:
 profile::base::physical::load_ahci_last: true
 profile::base::physical::load_ahci_last_scsidrv: 'mpt3sas'
 
+# Disable write cache on osd cache disks
+profile::base::disk::manage_hdparm: true
+profile::base::disk::disk_hdparams:
+  '/dev/sdp': { hdparams: '-W0', }
+
 profile::base::lvm::physical_volume:
   '/dev/sdp':
     ensure: present

@@ -17,8 +17,9 @@ mgmt_interface=eth0
 mgmt_network=$(facter network_${mgmt_interface})
 mgmt_netmask=$(facter netmask_${mgmt_interface})
 #repo=$(sed -n 's/^baseurl=//p' CentOS-Base.repo | head -1 | rev | cut -d/ -f3- | rev)
-repo=$(sed -n 's/^baseurl=//p' /etc/yum.repos.d/CentOS-Base.repo | head -1)
+#repo=$(sed -n 's/^baseurl=//p' /etc/yum.repos.d/CentOS-Base.repo | head -1)
 if [ ${foreman_fqdn%%[0-9][0-9]-*} == 'test' ]; then env="test"; else env="prod"; fi
+repo=https://download.iaas.uio.no/nrec/$env/el\$major/centos-base
 
 #
 # Location specific configs

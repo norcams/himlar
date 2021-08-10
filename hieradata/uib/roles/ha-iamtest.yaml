@@ -5,16 +5,36 @@
 named_interfaces::config:
   mgmt:
     - eth0
-  public:
-    - eth1
   core:
-    - eth2
+    - eth0
   uib:
-    - eth3
+    - eth1
+  public:
+    - eth2
 
 # nettwork
 netcfg_core_netpart:  '192.168.21'
 netcfg_uib_netpart:   '192.168.23'
+
+# ssh access
+profile::firewall::pre::ssh_settings:
+  source:
+    - "%{::network_mgmt1}/%{::netmask_mgmt1}"
+    - "%{hiera('netcfg_core_netpart')}.9" # t1-iam-login
+    - "%{hiera('netcfg_core_netpart')}.10" # t2-iam-login
+accounts::ssh_keys:
+  'iam':
+    type:    'ssh-ed25519'
+    public:  'AAAAC3NzaC1lZDI1NTE5AAAAIMNVlfrsg1juBjCJe9DhDjsrV00NIbbuzdTiA/YmLiRG'
+
+accounts::users:
+  'iam':
+    comment: 'iam_uib_ita'
+    groups:  [ 'users', 'wheel' ]
+
+accounts::accounts:
+  'iam':
+    ensure: present
 
 corosync::cluster_name:   '%{::location}-ha-test'
 corosync::unicast_addresses:
@@ -36,6 +56,9 @@ corosync_cluster_vip4:    "%{hiera('netcfg_core_netpart')}.201"      # uibldap
 ssl_cert_core:          'iam-test.uninett.no.pem'
 ssl_cert_connect:       'connect.iam-test.uninett.no.pem'
 ssl_cert_uib:           'tilgang.test.uib.no.pem'
+ssl_ca_cert:            'clientca.pem'
+
+connect_fqdn:           'connect.iam-test.uninett.no'
 
 # Firewall
 profile::firewall::rules::custom_rules:
@@ -46,11 +69,18 @@ profile::firewall::rules::custom_rules:
       - '158.38.62.0/23' # uninett
       - '158.38.178.0/25' #uninett
       - '129.177.0.0/16' # uib
+      - '158.39.75.0/24' # nrec osl
+      - '158.37.63.0/24' # nrec osl
+      - '158.39.48.0/24' # nrec osl
+      - '158.39.200.0/24' # nrec osl
+      - '51.158.170.191/32' # accout claim
+      - '151.115.33.68/32' # accout claim
       - '34.99.47.0/24'
       - '85.164.196.247/32'
       - '34.99.46.95/32'
       - '85.164.196.124/32'
       - '84.212.171.197/32'
+      - '85.166.206.227/32'
     destination:  "%{hiera('corosync_cluster_vip1')}"
   '452 haproxy http for public vip2':
     proto:        'tcp'
@@ -59,11 +89,18 @@ profile::firewall::rules::custom_rules:
       - '158.38.62.0/23' # uninett
       - '158.38.178.0/25' #uninett
       - '129.177.0.0/16' # uib
+      - '158.39.75.0/24' # nrec osl
+      - '158.37.63.0/24' # nrec osl
+      - '158.39.48.0/24' # nrec osl
+      - '158.39.200.0/24' # nrec osl
+      - '51.158.170.191/32' # accout claim
+      - '151.115.33.68/32' # accout claim
       - '34.99.47.0/24'
       - '85.164.196.247/32'
       - '34.99.46.95/32'
       - '85.164.196.124/32'
       - '84.212.171.197/32'
+      - '85.166.206.227/32'
     destination:  "%{hiera('corosync_cluster_vip2')}"
   '453 haproxy http for internal vip3':
     proto:        'tcp'
@@ -119,6 +156,20 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
 #
 # COPY OF PROD IAM SETUP
 #
+
+profile::highavailability::loadbalancing::haproxy::access_list: {}
+
+haproxy::global_options:
+  log:          '127.0.0.1 local6 info alert'
+  maxconn:      '20000' # per core
+  crt-base:     '/etc/pki/tls/certs'
+  ca-base:      '/etc/pki/tls/certs'
+  tune.ssl.default-dh-param:  2048
+  ssl-default-bind-options:   'no-sslv3 no-tls-tickets no-tlsv10 no-tlsv11'
+  ssl-default-bind-ciphers:   'ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:RSA+AESGCM:RSA+AES:!aNULL:!MD5:!DSS'
+  ssl-default-server-options: 'no-sslv3 no-tls-tickets no-tlsv10 no-tlsv11'
+  ssl-default-server-ciphers: 'ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:RSA+AESGCM:RSA+AES:!aNULL:!MD5:!DSS'
+
 haproxy::defaults_options:
   log:          'global'
   stats:        []
@@ -138,14 +189,14 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
   ssl_https_domains:
     ensure: present
     mappings:
-      - 'connect.iam-test.uninett.no':                  'ssl-https-connect'
+      - "%{hiera('connect_fqdn')}":                     'ssl-https-connect'
       - 'iam-test.uninett.no':                          'ssl-https-core'
       - 'tilgang.test.uib.no':                          'ssl-https-uib'
   ssl_http_domains:
     ensure: present
     mappings:
-      - 'connect.iam-test.uninett.no':                  'ssl-http-connect'
-      - 'iam.test-uninett.no':                          'ssl-http-core'
+      - "%{hiera('connect_fqdn')}":                     'ssl-http-connect'
+      - 'iam-test.uninett.no':                          'ssl-http-core'
       - 'tilgang.test.uib.no':                          'ssl-http-uib'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_backends:
@@ -156,9 +207,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
       - option:
         - 'forwardfor except 127.0.0.1'
       - http-check: 'expect status 200'
-      # Session stick table and based on source IP
-      - stick-table: 'type ip size 1m expire 1h'
-      - stick: 'on src'
   ssl-https-core:
     mode:             'http'
     options:
@@ -167,8 +215,10 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
         - 'forwardfor except 127.0.0.1'
       - http-check: 'expect status 200'
       # Session stick table and based on source IP
-      - stick-table: 'type ip size 1m expire 1h'
-      - stick: 'on src'
+      - stick-table: 'type ip size 1m expire 5m'
+      - stick:
+        - 'on src'
+        - 'match src'
   ssl-https-uib:
     mode:             'http'
     options:
@@ -177,8 +227,10 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
         - 'forwardfor except 127.0.0.1'
       - http-check: 'expect status 200'
       # Session stick table and based on source IP
-      - stick-table: 'type ip size 1m expire 1h'
-      - stick: 'on src'
+      - stick-table: 'type ip size 1m expire 5m'
+      - stick:
+        - 'on src'
+        - 'match src'
   ssl-http-connect:
     mode:             'http'
     options:
@@ -223,33 +275,47 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
         - 'ssl'
         - 'crt'
         - "%{hiera('ssl_cert_uib')}"
+        - 'ca-file'
+        - "%{hiera('ssl_ca_cert')}"
+        - 'verify optional'
       "%{hiera('corosync_cluster_vip2')}:443":
         - 'ssl'
         - 'crt'
         - "%{hiera('ssl_cert_core')}"
-        # - 'ssl'
+        - 'ssl'
         - 'crt'
         - "%{hiera('ssl_cert_connect')}"
         - 'ssl'
         - 'crt'
         - "%{hiera('ssl_cert_uib')}"
+        - 'ca-file'
+        - "%{hiera('ssl_ca_cert')}"
+        - 'verify optional'
       "%{hiera('corosync_cluster_vip3')}:443":
         - 'ssl'
         - 'crt'
         - "%{hiera('ssl_cert_core')}"
-        # - 'ssl'
+        - 'ssl'
         - 'crt'
         - "%{hiera('ssl_cert_connect')}"
         - 'ssl'
         - 'crt'
         - "%{hiera('ssl_cert_uib')}"
     options:
-      - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/ssl_https_domains.map)]'
-      # Prevents X-Forwarded-For spoofing
+      - acl:
+        - account_claim path -i -m beg /api/rest/restpoints/UiB/claim/
+        - host_connect hdr(host) -i %{hiera('connect_fqdn')}
       - http-request:
+        # Require client verification for account claims
+        - 'deny if host_connect account_claim !{ ssl_c_used 1 } || host_connect account_claim !{ ssl_c_verify 0 }'
+        # Prevents header spoofing
         - 'del-header ^X-Forwarded-For:.*'
         - 'del-header ^X-SSL-Client-Verify:.*'
         - 'del-header ^X-SSL-Client-DN:.*'
+        - 'set-header X-SSL-Client-Verify %[ssl_c_verify]'
+        - 'set-header X-SSL-Client-DN %%{}{+Q}[ssl_c_s_dn]'
+        - 'set-header X-SSL-Client-Cert-Used %[ssl_c_used]'
+      - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/ssl_https_domains.map)]'
   uib-ldap:
     mode:               'tcp'
     bind:

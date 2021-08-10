@@ -20,6 +20,8 @@ profile::application::foreman::config:
     value:  'Default Location'
   default_organization:
     value:  'Default Organization'
+  destroy_vm_on_host_delete:
+    value:  'true'
   discovery_fact_column:
     value:  'ipmi_ipaddress'
   entries_per_page:

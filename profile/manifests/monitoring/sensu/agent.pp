@@ -1,6 +1,7 @@
 #
 class profile::monitoring::sensu::agent (
-  $enable_agent = false,
+  Boolean $enable_agent = false,
+  Boolean $enable_go_agent = false,
   Boolean $run_in_vrf = false,
   String $merge_strategy = 'deep',
   Array $expanded_checks = [],
@@ -59,6 +60,23 @@ class profile::monitoring::sensu::agent (
         refreshonly => true,
       }
     }
+
+  } elsif $enable_go_agent {
+
+    include ::sensu
+    include ::sensu::agent
+    include ::sensu::plugins
+    include ::sensu::cli
+
+    # We cannot add sensu check to client agent because puppet will need to
+    # pre validate the namespace before the agent is installed!
+
+    $bonsai_assets = lookup('profile::monitoring::sensu::agent::bonsai_assets', Hash, $merge_strategy, {})
+    # merge strategy can only be first until we remove sensu classic
+    $plugins = lookup('profile::monitoring::sensu::agent::plugins', Hash, 'first', {})
+
+    create_resources('sensu_bonsai_asset', $bonsai_assets)
+    create_resources('sensu_plugin', $plugins)
 
   }
 }

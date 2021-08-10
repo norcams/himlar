@@ -1,2 +1,6 @@
 ---
 profile::application::report::db_sync: true
+
+profile::base::common::packages:
+  'python36-virtualenv': {}
+  'httpd-devel': {}

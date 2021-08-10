@@ -48,9 +48,20 @@ class profile::firewall::pre(
   }
 
   if $manage_ssh {
-    profile::firewall::rule{ '003 accept ssh':
-      dport  => '22',
-      extras => $ssh_settings,
+    # allow use of array for source in ssh_settings
+    if has_key($ssh_settings, 'source') and is_array($ssh_settings['source']){
+      $source = $ssh_settings['source']
+      $real_ssh_settings = delete($ssh_settings, 'source')
+      profile::firewall::rule{ '003 accept ssh':
+        dport  => '22',
+        source => $source,
+        extras => $real_ssh_settings,
+      }
+    } else {
+      profile::firewall::rule{ '003 accept ssh':
+        dport  => '22',
+        extras => $ssh_settings,
+      }
     }
   }
 

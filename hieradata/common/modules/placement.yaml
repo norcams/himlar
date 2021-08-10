@@ -1,0 +1,44 @@
+---
+# Shared config (nodes: novactrl, compute)
+placement::db::database_connection: "mysql+pymysql://placement:%{hiera('placement::db::mysql::password')}@%{hiera('service__address__db_regional')}/placement"
+
+# logging
+placement::logging::log_facility: 'LOG_LOCAL0'
+placement::logging::use_syslog:   true
+
+# mysql database (node: db)
+placement::db::mysql::allowed_hosts:
+  - "%{hiera('netcfg_trp_netpart')}.%"
+
+# keystone placement auth (node: identity)
+placement::keystone::auth::region:           "%{location}"
+placement::keystone::auth::password:         "%{hiera('placement_api_password')}"
+placement::keystone::auth::public_url:       "%{hiera('endpoint__placement__public')}/placement/"
+placement::keystone::auth::admin_url:        "%{hiera('endpoint__placement__admin')}/placement/"
+placement::keystone::auth::internal_url:     "%{hiera('endpoint__placement__internal')}/placement/"
+
+# placement auth url
+placement::keystone::authtoken::username:                'placement'
+placement::keystone::authtoken::auth_url:                "%{hiera('endpoint__identity__admin')}/v3"
+placement::keystone::authtoken::region_name:             "%{location}"
+placement::keystone::authtoken::password:                "%{hiera('placement_api_password')}"
+placement::keystone::authtoken::valid_interface:         "internal"
+placement::keystone::authtoken::auth_version:            'v3'
+placement::keystone::authtoken::project_domain_name:     "%{hiera('keystone__default__domain')}"
+placement::keystone::authtoken::user_domain_name:        "%{hiera('keystone__default__domain')}"
+placement::keystone::authtoken::project_name:            "%{hiera('keystone__service__project')}"
+placement::keystone::authtoken::www_authenticate_uri:    "%{hiera('endpoint__identity__internal')}"
+
+# fixme this should be removed for train
+placement::config::auth_url:                             "%{hiera('endpoint__identity__admin')}/v3"
+placement::config::region_name:                          "%{location}"
+placement::config::password:                             "%{hiera('placement_api_password')}"
+
+# placement wsgi
+placement::wsgi::apache::ssl:        false
+placement::wsgi::apache::api_port:   8778
+placement::wsgi::apache::bind_host:  "%{ipaddress_trp1}"
+placement::wsgi::apache::threads:    1
+placement::wsgi::apache::workers:    4
+placement::wsgi::apache::custom_wsgi_process_options:
+  maximum-requests: 1000

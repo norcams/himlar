@@ -1,2 +1,6 @@
 ---
 profile::base::selinux::manage_selinux:         false
+
+profile::base::common::packages:
+  'python-collectd-ceph-storage': # FIXME
+    source: 'https://download.iaas.uio.no/nrec/rpm/python-collectd-ceph-storage-0.0.3-1.el8.x86_64.rpm'

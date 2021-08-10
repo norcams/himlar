@@ -21,7 +21,7 @@ profile::base::network::network_auto_bonding:
       'mtu': '9000'
 
 # sensu overrides
-sensu__memory__check:     "check-memory-percent.rb -w 93 -c 95"
+sensu__memory__check:     "check-memory.rb -w 2048 -c 1024"
 
 profile::storage::cephclient::create_extraconf: true
 profile::storage::ceph_extraconf::config:
@@ -46,8 +46,6 @@ profile::storage::ceph::pool::pools:
     ensure: absent
   'volumes':
     size:    3
-    pg_num:  1024
-    pgp_num: 1024
     tag:     'rbd'
     custom:
       crush_rule: 'hdd-storage'
@@ -55,8 +53,6 @@ profile::storage::ceph::pool::pools:
       min_size:   '2'
   'images':
     size:    3
-    pg_num:  512
-    pgp_num: 512
     tag:    'rbd'
     custom:
       crush_rule: 'hdd-storage'
@@ -64,8 +60,6 @@ profile::storage::ceph::pool::pools:
       min_size:   '2'
   'vms':
     size:    3
-    pg_num:  256
-    pgp_num: 256
     tag:     'rbd'
     custom:
       crush_rule: 'ssd-storage'
@@ -73,8 +67,6 @@ profile::storage::ceph::pool::pools:
       min_size:   '2'
   'volumes_hdd_ec_meta':
     size:    3
-    pg_num:  256
-    pgp_num: 256
     tag:     'rbd'
     custom:
       crush_rule: 'ssd-storage'
@@ -82,8 +74,6 @@ profile::storage::ceph::pool::pools:
       min_size:   '2'
   'volumes_ssd_ec_meta':
     size:    3
-    pg_num:  128
-    pgp_num: 128
     tag:     'rbd'
     custom:
       crush_rule: 'ssd-storage'
@@ -95,14 +85,14 @@ profile::storage::ceph::pool::ec_pools:
 
 profile::storage::ceph_ecpool::ec_pools:
   'volumes_hdd_ec_data':
-    pg_num:              "1024"
     manage:              true
     allow_ec_overwrites: true
     k_data:              "4"
     m_code:              "2"
     crush_root:          "storage"
+    plugin:              "jerasure"
+    technique:           "blaum_roth"
   'volumes_ssd_ec_data':
-    pg_num:              "1024"
     manage:              true
     allow_ec_overwrites: true
     k_data:              "8"
@@ -124,6 +114,12 @@ profile::base::common::extraswap:         true
 profile::base::common::extraswap_sizegb:  20
 profile::base::common::extraswap_fileloc: '/var/lib/swap/swapfile'
 profile::base::physical::load_ahci_first: true
+
+# Disable write cache on osd cache disks
+profile::base::disk::manage_hdparm: true
+profile::base::disk::disk_hdparams:
+  '/dev/sdr': { hdparams: '-W0', }
+  '/dev/sds': { hdparams: '-W0', }
 
 profile::base::lvm::volume_group:
   'vg_swap':
@@ -198,18 +194,23 @@ profile::storage::cephosd::osds:
   '/dev/sdb':
     db_device:  false
     wal_device: false
+    disable_writecache: true
   '/dev/sdc':
     db_device:  false
     wal_device: false
+    disable_writecache: true
   '/dev/sdd':
     db_device:  false
     wal_device: false
+    disable_writecache: true
   '/dev/sde':
     db_device:  false
     wal_device: false
+    disable_writecache: true
   '/dev/sdf':
     db_device:  false
     wal_device: false
+    disable_writecache: true
   '/dev/sdg':
     wal_device: false
     db_device:  'vg_cache1/lv_dbg'

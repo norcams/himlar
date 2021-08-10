@@ -1,4 +1,6 @@
 ---
+ceph_version: 'nautilus' # FIXME
+
 # We use lagre iscsi disk for nfs
 sensu__disk__warning:     82
 
@@ -7,23 +9,23 @@ profile::base::common::packages:
 
 profile::openstack::volume::type:
   rbd:
-    visibility: "public"
+    is_public: true
     properties:
       - 'volume_backend_name=rbd-volumes'
   nfs:
-    visibility: "private"
+    is_public: false
     properties:
       - 'volume_backend_name=atlas-storage'
   mass-storage-arccache:
-    visibility: "private"
+    is_public: false
     properties:
       - 'volume_backend_name=mass-storage-arccache'
   mass-storage-default:
-    visibility: "private"
+    is_public: true
     properties:
       - 'volume_backend_name=mass-storage-default'
   mass-storage-ssd:
-    visibility: "private"
+    is_public: false
     properties:
       - 'volume_backend_name=mass-storage-ssd'
 
@@ -53,6 +55,8 @@ profile::openstack::volume::backend::rbd:
         value: 'True'
       mass-storage-arccache/rbd_exclusive_cinder_pool:
         value: 'True'
+      mass-storage-arccache/max_over_subscription_ratio:
+        value: 'auto'
   mass-storage-default:
     rbd_pool: 'volumes_hdd_ec_meta'
     rbd_user: 'cinder-hdd-ec'
@@ -63,6 +67,8 @@ profile::openstack::volume::backend::rbd:
         value: 'True'
       mass-storage-default/rbd_exclusive_cinder_pool:
         value: 'True'
+      mass-storage-default/max_over_subscription_ratio:
+        value: 'auto'
   mass-storage-ssd:
     rbd_pool: 'volumes_ssd_ec_meta'
     rbd_user: 'cinder-ssd-ec'
@@ -74,7 +80,7 @@ profile::openstack::volume::backend::rbd:
       mass-storage-ssd/rbd_exclusive_cinder_pool:
         value: 'True'
 
-cinder::api::default_volume_type: 'rbd'
+cinder::api::default_volume_type: 'mass-storage-default'
 
 cinder::backends::enabled_backends:
   - rbd-volumes

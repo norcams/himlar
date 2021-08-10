@@ -16,7 +16,7 @@ define profile::application::builder::jobs(
     $template_dir  = $profile::application::builder::template_dir,
     $download_dir  = $profile::application::builder::download_dir,
     $rc_file       = $profile::application::builder::rc_file,
-    $environment   = 'IMAGEBUILDER_REPORT=true',
+    $environment   = [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/default' ],
     $hour          = fqdn_rand(23, $name),
     $minute        = 0
 ) {

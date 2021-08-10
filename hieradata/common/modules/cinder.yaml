@@ -26,6 +26,8 @@ cinder::keystone::authtoken::memcached_servers:   '127.0.0.1:11211'
 cinder::keystone::authtoken::project_domain_name: "%{hiera('keystone__default__domain')}"
 cinder::keystone::authtoken::user_domain_name:    "%{hiera('keystone__default__domain')}"
 cinder::keystone::authtoken::project_name:        "%{hiera('keystone__service__project')}"
+cinder::keystone::authtoken::service_token_roles: 'admin'
+cinder::keystone::authtoken::service_token_roles_required: true
 
 cinder::volume::iscsi::target_ip_address:       "%{hiera('service__address__cinder_ip')}"
 
