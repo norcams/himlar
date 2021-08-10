@@ -5,6 +5,7 @@ class profile::monitoring::graphite (
   $carbon_log_path = '/opt/graphite/storage/log/carbon-cache/carbon-cache-a/',
   $age = '12w',
   $recurse = true,
+  $manage_firewall = false,
 ) {
 
   if $manage_graphite {
@@ -16,6 +17,15 @@ class profile::monitoring::graphite (
       destination => $::ipaddress_mgmt1,
       proto => 'udp',
       source => "${::network_mgmt1}/${::netmask_mgmt1}"
+    }
+
+    if $manage_firewall {
+      profile::firewall::rule { '414 graphite accept web tcp':
+        dport       => [80],
+        destination => $::ipaddress_mgmt1,
+        proto       => 'tcp',
+        source      => "${::network_mgmt1}/${::netmask_mgmt1}"
+      }
     }
   }
 

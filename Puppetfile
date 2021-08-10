@@ -10,6 +10,7 @@ github = 'https://github.com/'
 mod 'sudo', :ref => 'v4.2.0',                       :git => github + 'saz/puppet-sudo'
 mod 'ssh', :ref => 'v3.0.1',                        :git => github + 'saz/puppet-ssh'
 mod 'ntp', :ref => '7.0.0',                         :git => github + 'puppetlabs/puppetlabs-ntp'
+mod 'chrony', :ref => 'v1.0.0',                     :git => github + 'voxpupuli/puppet-chrony'
 mod 'accounts', :ref => '06955a9455',               :git => github + 'norcams/puppet-accounts'
 mod 'timezone', :ref => 'v3.5.0',                   :git => github + 'saz/puppet-timezone.git'
 mod 'debconf', :ref => 'v2.0.0',                    :git => github + 'smoeding/puppet-debconf'
@@ -20,11 +21,10 @@ mod 'lvm', :ref => '1.0.0',                         :git => github + 'puppetlabs
 mod 'firewall', :ref => '1.8.2',                    :git => github + 'puppetlabs/puppetlabs-firewall'
 mod 'apt', :ref => '6.2.1',                         :git => github + 'puppetlabs/puppetlabs-apt'
 mod 'kmod', :ref => '2.3.1',                        :git => github + 'camptocamp/puppet-kmod'
-mod 'named_interfaces', :ref => '12482fc5c3',       :git => github + 'norcams/puppet-named_interfaces'
+mod 'named_interfaces', :ref => '86e275b339',       :git => github + 'norcams/puppet-named_interfaces'
 mod 'network', :ref => '0bfc7cc2bc',                :git => github + 'norcams/puppet-network'
-mod 'ipmi', :ref => 'v2.3.0',                       :git => github + 'jhoblitt/puppet-ipmi'
 # mod 'apt', :ref => '2.2.2',                         :git => github + 'puppetlabs/puppetlabs-apt'
-mod 'selinux', :ref => 'v1.3.0',                    :git => github + 'voxpupuli/puppet-selinux'
+mod 'selinux', :ref => 'v3.4.0',                    :git => github + 'voxpupuli/puppet-selinux'
 
 #
 # FreeBSD spesific
@@ -117,11 +117,11 @@ mod 'logrotate', :ref => 'v3.2.1',                  :git => github + 'voxpupuli/
 # profile::monitoring
 #
 mod 'sensuclassic', :ref => 'v3.5.0',               :git => github + 'sensu/puppet-module-sensuclassic'
-#mod 'sensu', :ref => 'v2.51.0',                     :git => github + 'sensu/sensu-puppet'
+mod 'sensu', :ref => 'v5.8.0',                      :git => github + 'sensu/sensu-puppet'
 mod 'uchiwa', :ref => 'v1.0.1',                     :git => github + 'yelp/puppet-uchiwa'
 mod 'graphite', :ref => 'v7.2.0',                   :git => github + 'echocat/puppet-graphite' # fixed upstream
 mod 'redis', :ref => 'v6.0.0',                      :git => github + 'voxpupuli/puppet-redis'
-mod 'grafana', :ref => 'v4.5.0',                    :git => github + 'voxpupuli/puppet-grafana'
+mod 'grafana', :ref => 'v8.0.0',                    :git => github + 'voxpupuli/puppet-grafana'
 mod 'statsd', :ref => '3.1.0',                      :git => github + 'justindowning/puppet-statsd'
 mod 'netdata', :ref => '1f8bcef',                   :git => github + 'norcams/denver-netdata'
 mod 'collectd', :ref => 'v12.2.0',                  :git => github + 'voxpupuli/puppet-collectd'
@@ -155,17 +155,18 @@ mod 'archive', :ref => 'v2.2.0',                    :git => github + 'voxpupuli/
 #
 # profile::openstack::*
 #
-mod 'glance', :ref => '14.4.0',                     :git => github + 'openstack/puppet-glance'
-mod 'cinder', :ref => '14.4.0',                     :git => github + 'openstack/puppet-cinder'
+mod 'glance', :ref => '15.4.0',                     :git => github + 'openstack/puppet-glance'
+mod 'cinder', :ref => '263c6b11fc',                 :git => github + 'openstack/puppet-cinder'
 mod 'neutron', :ref => '15.4.0',                    :git => github + 'openstack/puppet-neutron'
 mod 'nova', :ref => '14.4.0',                       :git => github + 'openstack/puppet-nova'
-mod 'horizon', :ref => '14.4.0',                    :git => github + 'openstack/puppet-horizon'
+mod 'horizon', :ref => '15.4.0',                    :git => github + 'openstack/puppet-horizon'
 mod 'gnocchi', :ref => '14.4.0',                    :git => github + 'openstack/puppet-gnocchi'
 mod 'keystone', :ref => '15.5.0',                   :git => github + 'openstack/puppet-keystone'
 mod 'swift', :ref => 'norcams/ocata',               :git => github + 'norcams/puppet-swift'
 mod 'ceilometer', :ref => '14.4.0',                 :git => github + 'openstack/puppet-ceilometer'
-mod 'designate', :ref => '14.4.0',                  :git => github + 'openstack/puppet-designate'
+mod 'designate', :ref => '15.5.0',                  :git => github + 'openstack/puppet-designate'
 mod 'cloudkitty', :ref => '3.4.0',                  :git => github + 'openstack/puppet-cloudkitty'
+mod 'placement', :ref => '1.2.0',                   :git => github + 'openstack/puppet-placement'
 
 mod 'oslo', :ref => '15.5.0',                       :git => github + 'openstack/puppet-oslo'
 mod 'openstacklib', :ref => '15.5.0',               :git => github + 'openstack/puppet-openstacklib'
@@ -182,7 +183,7 @@ mod 'libvirt', :ref => '5f55fb66db',                :git => github + 'norcams/pu
 #
 # ceph
 #
-mod 'ceph', :ref => 'e157497a3e',                   :git => github + 'openstack/puppet-ceph'
+mod 'ceph', :ref => 'ed72ec68de',                   :git => github + 'openstack/puppet-ceph'
 
 #
 # ha

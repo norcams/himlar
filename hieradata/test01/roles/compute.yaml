@@ -2,6 +2,9 @@
 include:
   default:
     - profile::base::tuned
+    - profile::monitoring::collectd
+
+ceph_version: 'nautilus' # FIXME
 
 named_interfaces::config:
   mgmt:
@@ -41,6 +44,10 @@ ntp::servers:
   - 172.28.0.100
   - 172.28.0.101
   - 172.28.0.102
+chrony::servers:
+  - "%{hiera('netcfg_mgmt_netpart')}.100"
+  - "%{hiera('netcfg_mgmt_netpart')}.101"
+  - "%{hiera('netcfg_mgmt_netpart')}.102"
 
 # Add custom routing table for private network to NAT
 profile::base::network::routes:
@@ -78,3 +85,19 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_ext'
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
+
+# collectd
+profile::monitoring::collectd::enable: true
+profile::monitoring::collectd::plugins:
+  - collectd::plugin::aggregation
+  - collectd::plugin::cpu
+  - collectd::plugin::disk
+  - collectd::plugin::load
+  - collectd::plugin::memory
+  - collectd::plugin::interface
+  - collectd::plugin::write_graphite
+  - collectd::plugin::virt
+  - collectd::plugin::processes
+
+collectd::plugin::virt::hostname_format:        'hostname'
+collectd::plugin::virt::plugin_instance_format: 'uuid'

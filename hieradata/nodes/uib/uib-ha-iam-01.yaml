@@ -1,0 +1,38 @@
+---
+# p1-iam-ha
+network::interfaces_hash:
+  'p1p1':
+    onboot:         'yes'
+    master:         'bond0'
+    slave:          'yes'
+  'p1p2':
+    onboot:         'yes'
+    master:         'bond0'
+    slave:          'yes'
+  'bond0':
+    onboot:         'yes'
+    bonding_opts:   'mode=balance-alb miimon=100'
+    ipaddress:      '129.177.13.176'
+    netmask:        '255.255.255.0'
+    gateway:        '129.177.13.1'
+    peerdns:        'yes'
+    dns1:           "%{hiera('netcfg_dns_server1')}"
+    dns2:           "%{hiera('netcfg_dns_server2')}"
+    domain:         "%{hiera('netcfg_dns_search')}"
+    ipv6init:       'no'
+#    ipv6addr:       '2001:700:200:13::176/64'
+#    ipv6_defaultgw: '2001:700:200:13::1'
+#    ipv6_autoconf:  'no'
+    defroute:       'yes'
+  'bond0.940':
+    onboot:         'yes'
+    ipaddress:      '192.168.20.19'
+    netmask:        '255.255.255.0'
+    defroute:       'no'
+    vlan:           'yes'
+  'bond0.942':
+    onboot:         'yes'
+    ipaddress:      '192.168.22.19'
+    netmask:        '255.255.255.0'
+    defroute:       'no'
+    vlan:           'yes'

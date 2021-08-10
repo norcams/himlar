@@ -216,9 +216,9 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   'ssl-https-apps':
     listening_service:  'ssl-https-apps'
     ports:              443
-    server_names:       ['appsanywhere04.uib.no', 'appsanywhere05.uib.no', 'appsanywhere06.uib.no']
-    ipaddresses:        ['129.177.150.202', '129.177.150.205', '129.177.150.206']
-    options:            'verify none inter 120 check check-ssl ssl'
+    server_names:       ['appsanywhere01.uib.no', 'appsanywhere02.uib.no', 'appsanywhere03.uib.no']
+    ipaddresses:        ['129.177.150.207', '129.177.150.208', '129.177.150.201']
+    options:            'verify none inter 30s check check-ssl ssl'
   # 'public-https-apps':
   #   listening_service:  'public-https-apps'
   #   ports:              443
@@ -302,14 +302,14 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
   ssl-https-apps:
     mode:             'http'
     options:
-      - balance:      'leastconn'
+      - balance:      'source'
       - option:
         - 'forwardfor except 127.0.0.1'
         - 'httpchk GET /healthcheck'
       - http-check: 'expect status 200'
-      # Session stick table and based on source IP
-      - stick-table: 'type ip size 1m expire 1h'
-      - stick: 'on src'
+      # Session stick table and based on source IP (do not work with nbproc >1)
+#      - stick-table: 'type ip size 1m expire 1h'
+#      - stick: 'on src'
       - timeout:
         - 'server 1m'
         - 'queue 1m'

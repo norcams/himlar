@@ -1,7 +1,10 @@
 #
 class profile::database::redis (
+  $manage = true
 ) {
 
-  include ::redis
+  if $manage {
+    include ::redis
+  }
 
 }

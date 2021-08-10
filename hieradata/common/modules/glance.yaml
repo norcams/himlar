@@ -18,16 +18,18 @@ glance::api::enable_v2_api:                true
 glance::api::logging::log_facility:        'LOG_LOCAL3'
 glance::api::logging::use_syslog:          true
 
-glance::api::authtoken::www_authenticate_uri: "%{hiera('endpoint__identity__internal')}"
-glance::api::authtoken::auth_uri:             "%{hiera('endpoint__identity__internal')}"
-glance::api::authtoken::auth_url:             "%{hiera('endpoint__identity__admin')}/v3"
-glance::api::authtoken::username:             'glance'
-glance::api::authtoken::password:             "%{hiera('glance_api_password')}"
-glance::api::authtoken::region_name:          "%{location}"
-glance::api::authtoken::memcached_servers:    '127.0.0.1:11211'
-glance::api::authtoken::project_domain_name:  "%{hiera('keystone__default__domain')}"
-glance::api::authtoken::user_domain_name:     "%{hiera('keystone__default__domain')}"
-glance::api::authtoken::project_name:         "%{hiera('keystone__service__project')}"
+# atuhtoken (node: image)
+glance::api::authtoken::www_authenticate_uri:         "%{hiera('endpoint__identity__internal')}"
+glance::api::authtoken::auth_url:                     "%{hiera('endpoint__identity__admin')}/v3"
+glance::api::authtoken::username:                     'glance'
+glance::api::authtoken::password:                     "%{hiera('glance_api_password')}"
+glance::api::authtoken::region_name:                  "%{location}"
+glance::api::authtoken::memcached_servers:            '127.0.0.1:11211'
+glance::api::authtoken::project_domain_name:          "%{hiera('keystone__default__domain')}"
+glance::api::authtoken::user_domain_name:             "%{hiera('keystone__default__domain')}"
+glance::api::authtoken::project_name:                 "%{hiera('keystone__service__project')}"
+glance::api::authtoken::service_token_roles:          'admin'
+glance::api::authtoken::service_token_roles_required: true
 
 glance::config::api_config:
   cors/allowed_origin:

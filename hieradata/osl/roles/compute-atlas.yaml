@@ -79,3 +79,6 @@ profile::monitoring::collectd::plugins:
   - collectd::plugin::virt
   - collectd::plugin::processes
   - collectd::plugin::numa
+
+collectd::plugin::virt::hostname_format:        'hostname'
+collectd::plugin::virt::plugin_instance_format: 'uuid'

@@ -16,8 +16,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 2,
-  "iteration": 1536230461532,
+  "iteration": 1622191778608,
   "links": [
     {
       "icon": "doc",
@@ -64,23 +63,49 @@
   "panels": [
     {
       "cacheTimeout": null,
-      "colorBackground": true,
-      "colorValue": false,
-      "colors": [
-        "rgba(245, 54, 54, 0.9)",
-        "rgba(237, 129, 40, 0.89)",
-        "rgba(55, 96, 54, 0.97)"
-      ],
       "datasource": null,
-      "editable": true,
-      "error": false,
-      "format": "none",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {},
+          "mappings": [
+            {
+              "id": 0,
+              "op": "=",
+              "text": "DOWN",
+              "type": 1,
+              "value": "0"
+            },
+            {
+              "id": 1,
+              "op": "=",
+              "text": "UP",
+              "type": 1,
+              "value": "1"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "rgba(245, 54, 54, 0.9)",
+                "value": null
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 1
+              },
+              {
+                "color": "rgba(55, 96, 54, 0.97)",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
       },
       "gridPos": {
         "h": 2,
@@ -88,44 +113,27 @@
         "x": 0,
         "y": 0
       },
-      "height": "1px",
       "hideTimeOverride": true,
       "id": 4,
       "interval": null,
-      "isNew": true,
       "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
       "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "70%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
       },
-      "tableColumn": "",
+      "pluginVersion": "7.4.5",
       "targets": [
         {
           "hide": false,
@@ -133,44 +141,55 @@
           "target": "stats.gauges.uh-iaas.$location.checks.api"
         }
       ],
-      "thresholds": "1,1",
       "timeFrom": "5m",
       "title": "api.$domain",
-      "type": "singlestat",
-      "valueFontSize": "100%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "DOWN",
-          "value": "0"
-        },
-        {
-          "op": "=",
-          "text": "UP",
-          "value": "1"
-        }
-      ],
-      "valueName": "current"
+      "type": "stat"
     },
     {
       "cacheTimeout": null,
-      "colorBackground": true,
-      "colorValue": false,
-      "colors": [
-        "rgba(245, 54, 54, 0.9)",
-        "rgba(237, 129, 40, 0.89)",
-        "rgba(55, 96, 54, 0.97)"
-      ],
       "datasource": null,
-      "editable": true,
-      "error": false,
-      "format": "none",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {},
+          "mappings": [
+            {
+              "id": 0,
+              "op": "=",
+              "text": "DOWN",
+              "type": 1,
+              "value": "0"
+            },
+            {
+              "id": 1,
+              "op": "=",
+              "text": "UP",
+              "type": 1,
+              "value": "1"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "rgba(245, 54, 54, 0.9)",
+                "value": null
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 1
+              },
+              {
+                "color": "rgba(55, 96, 54, 0.97)",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
       },
       "gridPos": {
         "h": 2,
@@ -178,44 +197,27 @@
         "x": 6,
         "y": 0
       },
-      "height": "25px",
       "hideTimeOverride": true,
       "id": 9,
       "interval": null,
-      "isNew": true,
       "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
       "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "70%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
       },
-      "tableColumn": "",
+      "pluginVersion": "7.4.5",
       "targets": [
         {
           "hide": false,
@@ -223,44 +225,55 @@
           "target": "stats.gauges.uh-iaas.$location.checks.access"
         }
       ],
-      "thresholds": "1,1",
       "timeFrom": "5m",
       "title": "access.$domain",
-      "type": "singlestat",
-      "valueFontSize": "100%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "DOWN",
-          "value": "0"
-        },
-        {
-          "op": "=",
-          "text": "UP",
-          "value": "1"
-        }
-      ],
-      "valueName": "current"
+      "type": "stat"
     },
     {
       "cacheTimeout": null,
-      "colorBackground": true,
-      "colorValue": false,
-      "colors": [
-        "rgba(245, 54, 54, 0.9)",
-        "rgba(237, 129, 40, 0.89)",
-        "rgba(55, 96, 54, 0.97)"
-      ],
       "datasource": null,
-      "editable": true,
-      "error": false,
-      "format": "none",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {},
+          "mappings": [
+            {
+              "id": 0,
+              "op": "=",
+              "text": "DOWN",
+              "type": 1,
+              "value": "0"
+            },
+            {
+              "id": 1,
+              "op": "=",
+              "text": "UP",
+              "type": 1,
+              "value": "1"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "rgba(245, 54, 54, 0.9)",
+                "value": null
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 1
+              },
+              {
+                "color": "rgba(55, 96, 54, 0.97)",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
       },
       "gridPos": {
         "h": 2,
@@ -268,44 +281,27 @@
         "x": 12,
         "y": 0
       },
-      "height": "25px",
       "hideTimeOverride": true,
       "id": 10,
       "interval": null,
-      "isNew": true,
       "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
       "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "70%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
       },
-      "tableColumn": "",
+      "pluginVersion": "7.4.5",
       "targets": [
         {
           "hide": false,
@@ -313,44 +309,55 @@
           "target": "stats.gauges.uh-iaas.$location.checks.dashboard"
         }
       ],
-      "thresholds": "1,1",
       "timeFrom": "5m",
       "title": "dashboard.$domain",
-      "type": "singlestat",
-      "valueFontSize": "100%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "DOWN",
-          "value": "0"
-        },
-        {
-          "op": "=",
-          "text": "UP",
-          "value": "1"
-        }
-      ],
-      "valueName": "current"
+      "type": "stat"
     },
     {
       "cacheTimeout": null,
-      "colorBackground": true,
-      "colorValue": false,
-      "colors": [
-        "rgba(245, 54, 54, 0.9)",
-        "rgba(237, 129, 40, 0.89)",
-        "rgba(55, 96, 54, 0.97)"
-      ],
       "datasource": null,
-      "editable": true,
-      "error": false,
-      "format": "none",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {},
+          "mappings": [
+            {
+              "id": 0,
+              "op": "=",
+              "text": "DOWN",
+              "type": 1,
+              "value": "0"
+            },
+            {
+              "id": 1,
+              "op": "=",
+              "text": "UP",
+              "type": 1,
+              "value": "1"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "rgba(245, 54, 54, 0.9)",
+                "value": null
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 1
+              },
+              {
+                "color": "rgba(55, 96, 54, 0.97)",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
       },
       "gridPos": {
         "h": 2,
@@ -358,44 +365,27 @@
         "x": 18,
         "y": 0
       },
-      "height": "25px",
       "hideTimeOverride": true,
       "id": 11,
       "interval": null,
-      "isNew": true,
       "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
       "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "70%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
       },
-      "tableColumn": "",
+      "pluginVersion": "7.4.5",
       "targets": [
         {
           "hide": false,
@@ -403,87 +393,175 @@
           "target": "stats.gauges.uh-iaas.$location.checks.docs"
         }
       ],
-      "thresholds": "1,1",
       "timeFrom": "5m",
       "title": "docs.$domain",
-      "transparent": false,
-      "type": "singlestat",
-      "valueFontSize": "100%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "DOWN",
-          "value": "0"
-        },
-        {
-          "op": "=",
-          "text": "UP",
-          "value": "1"
-        }
-      ],
-      "valueName": "current"
+      "type": "stat"
     },
     {
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "gridPos": {
-        "h": 7,
-        "w": 12,
+        "h": 8,
+        "w": 24,
         "x": 0,
         "y": 2
       },
-      "header_js": "{}",
-      "id": 6,
-      "links": [],
-      "method": "GET",
-      "mode": "template",
-      "params_js": "{limit: 5,\n message_type: 'important',\n limit_days: 90}",
-      "responseType": "text",
-      "showTime": false,
-      "showTimeFormat": "YYYY-DD-MM HH:ss",
-      "showTimePrefix": null,
-      "showTimeValue": "request",
-      "skipSameURL": false,
+      "id": 21,
+      "options": {
+        "feedUrl": "https://report.nrec.no/api/v1/status/rss?limit=10&limit_days=365"
+      },
+      "pluginVersion": "7.4.5",
       "targets": [
-        {}
+        {
+          "refId": "A",
+          "target": ""
+        }
       ],
-      "template": "<div ng-repeat=\"status in response | orderBy: '-timestamp'\"><b>[{{ status.timestamp | date :'yyyy-MM-dd HH:mm' :'+0000' }}]</b> {{ status.message }}</div>",
-      "templateResponse": true,
-      "title": "Important",
-      "transparent": true,
-      "type": "ryantxu-ajax-panel",
-      "url": "https://report.nrec.no/api/v1/status",
-      "withCredentials": false
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "News and Issues",
+      "type": "news"
     },
     {
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "custom": {},
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 1000
+              },
+              {
+                "color": "red",
+                "value": 2000
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
       "gridPos": {
-        "h": 7,
+        "h": 5,
+        "w": 12,
+        "x": 0,
+        "y": 10
+      },
+      "hideTimeOverride": false,
+      "id": 2,
+      "links": [],
+      "options": {
+        "displayMode": "lcd",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "text": {}
+      },
+      "pluginVersion": "7.4.5",
+      "targets": [
+        {
+          "refId": "A",
+          "target": "aliasSub(stats.gauges.uh-iaas.*.instances, 'stats\\.gauges\\.uh-iaas\\.([^\\.]+?)\\.instances', '\\1')"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Instances",
+      "type": "bargauge"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-BlYlRd"
+          },
+          "custom": {},
+          "mappings": [
+            {
+              "from": "",
+              "id": 1,
+              "text": "",
+              "to": "",
+              "type": 1
+            }
+          ],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 1000
+              },
+              {
+                "color": "red",
+                "value": 2000
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
         "w": 12,
         "x": 12,
-        "y": 2
+        "y": 10
       },
-      "header_js": "{}",
-      "id": 12,
+      "id": 3,
       "links": [],
-      "method": "GET",
-      "mode": "template",
-      "params_js": "{limit: 5,\n message_type: 'info',\n limit_days: 90}",
-      "responseType": "text",
-      "showTime": false,
-      "showTimeFormat": "YYYY-mm-DD HH:ss",
-      "showTimePrefix": null,
-      "showTimeValue": "request",
-      "skipSameURL": false,
+      "options": {
+        "displayMode": "lcd",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "text": {}
+      },
+      "pluginVersion": "7.4.5",
       "targets": [
-        {}
+        {
+          "refId": "A",
+          "target": "aliasByNode(stats.gauges.uh-iaas.$location.{projects,users}, 4)",
+          "textEditor": false
+        }
       ],
-      "template": "<div ng-repeat=\"status in response | orderBy: '-timestamp'\"><b> [{{ status.timestamp | date :'yyyy-MM-dd HH:mm' :'+0000' }}]</b> {{ status.message }}</div>",
-      "templateResponse": true,
-      "title": "News",
-      "transparent": true,
-      "type": "ryantxu-ajax-panel",
-      "url": "https://report.nrec.no/api/v1/status",
-      "withCredentials": false
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Projects and Users",
+      "type": "bargauge"
     },
     {
       "aliasColors": {},
@@ -494,36 +572,48 @@
       "decimals": 0,
       "editable": true,
       "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
+      "fillGradient": 0,
       "grid": {},
       "gridPos": {
-        "h": 10,
+        "h": 5,
         "w": 12,
         "x": 0,
-        "y": 9
+        "y": 15
       },
       "height": "400px",
+      "hiddenSeries": false,
       "hideTimeOverride": false,
-      "id": 2,
+      "id": 17,
       "isNew": true,
       "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
+        "alignAsTable": false,
+        "avg": false,
+        "current": false,
         "hideEmpty": false,
         "hideZero": false,
-        "max": true,
-        "min": true,
+        "max": false,
+        "min": false,
         "rightSide": false,
         "show": true,
         "total": false,
-        "values": true
+        "values": false
       },
       "lines": true,
       "linewidth": 1,
       "links": [],
       "nullPointMode": "connected",
+      "options": {
+        "alertThreshold": false
+      },
       "percentage": false,
+      "pluginVersion": "7.4.5",
       "pointradius": 4,
       "points": false,
       "renderer": "flot",
@@ -534,11 +624,12 @@
       "targets": [
         {
           "refId": "A",
-          "target": "aliasSub(stats.gauges.uh-iaas.*.instances, 'stats\\.gauges\\.uh-iaas\\.([^\\.]+?)\\.instances', '\\1')"
+          "target": "aliasSub(stats.gauges.uh-iaas.???.instances, 'stats\\.gauges\\.uh-iaas\\.([^\\.]+?)\\.instances', '\\1')"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
+      "timeRegions": [],
       "timeShift": null,
       "title": "Instances",
       "tooltip": {
@@ -547,7 +638,6 @@
         "sort": 0,
         "value_type": "cumulative"
       },
-      "transparent": true,
       "type": "graph",
       "xaxis": {
         "buckets": null,
@@ -558,7 +648,9 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "$$hashKey": "object:84",
+          "decimals": 0,
+          "format": "string",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -566,6 +658,7 @@
           "show": true
         },
         {
+          "$$hashKey": "object:85",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -580,73 +673,74 @@
       }
     },
     {
-      "aliasColors": {
-        "projects": "#6ED0E0",
-        "users": "#BA43A9"
-      },
+      "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
-      "decimals": 0,
-      "editable": true,
-      "error": false,
-      "fill": 1,
-      "grid": {},
-      "gridPos": {
-        "h": 10,
-        "w": 12,
-        "x": 12,
-        "y": 9
+      "fieldConfig": {
+        "defaults": {
+          "color": {},
+          "custom": {},
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          }
+        },
+        "overrides": []
       },
-      "height": "400px",
-      "id": 3,
-      "isNew": true,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 12,
+        "y": 15
+      },
+      "hiddenSeries": false,
+      "id": 18,
       "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "max": true,
-        "min": true,
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
         "show": true,
         "total": false,
-        "values": true
+        "values": false
       },
       "lines": true,
       "linewidth": 1,
       "links": [],
-      "nullPointMode": "connected",
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
-      "pointradius": 5,
+      "pluginVersion": "7.4.5",
+      "pointradius": 2,
       "points": false,
       "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "users",
-          "yaxis": 1
-        }
-      ],
+      "seriesOverrides": [],
       "spaceLength": 10,
       "stack": false,
       "steppedLine": true,
       "targets": [
         {
           "refId": "A",
-          "target": "aliasByNode(stats.gauges.uh-iaas.$location.{projects,users}, 4)",
+          "target": "aliasByNode(stats.gauges.uh-iaas.$location.projects, 4)",
           "textEditor": false
         }
       ],
       "thresholds": [],
       "timeFrom": null,
+      "timeRegions": [],
       "timeShift": null,
-      "title": "Projects and Users",
+      "title": "Projects",
       "tooltip": {
-        "msResolution": false,
         "shared": true,
         "sort": 0,
-        "value_type": "cumulative"
+        "value_type": "individual"
       },
-      "transparent": true,
       "type": "graph",
       "xaxis": {
         "buckets": null,
@@ -657,7 +751,9 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "$$hashKey": "object:115",
+          "decimals": 0,
+          "format": "string",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -665,6 +761,110 @@
           "show": true
         },
         {
+          "$$hashKey": "object:116",
+          "format": "Misc",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {},
+          "custom": {},
+          "thresholds": {
+            "mode": "absolute",
+            "steps": []
+          }
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 18,
+        "y": 15
+      },
+      "hiddenSeries": false,
+      "id": 19,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.4.5",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": true,
+      "targets": [
+        {
+          "refId": "A",
+          "target": "aliasByNode(stats.gauges.uh-iaas.$location.users, 4)",
+          "textEditor": false
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Users",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:203",
+          "decimals": 0,
+          "format": "string",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:204",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -680,50 +880,36 @@
     }
   ],
   "refresh": "5m",
-  "schemaVersion": 16,
+  "schemaVersion": 27,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": [
       {
-        "current": {
-          "value": "<%= scope().call_function('lookup',['domain_frontend']) %>",
-          "text": "<%= scope().call_function('lookup',['domain_frontend']) %>"
-        },
         "datasource": null,
+        "description": null,
+        "error": null,
         "hide": 2,
         "includeAll": false,
         "label": "",
         "multi": false,
         "name": "domain",
-        "options": [
-          {
-            "value": "<%= scope().call_function('lookup',['domain_frontend']) %>",
-            "text": "<%= scope().call_function('lookup',['domain_frontend']) %>"
-          }
-        ],
         "query": "<%= scope().call_function('lookup',['domain_frontend']) %>",
         "refresh": 0,
+        "skipUrlSync": false,
         "type": "constant"
       },
       {
-        "current": {
-          "value": "<%= @location %>",
-          "text": "<%= @location %>"
-        },
+        "description": null,
+        "error": null,
         "hide": 2,
         "includeAll": false,
         "label": "",
         "multi": false,
         "name": "location",
-        "options": [
-          {
-            "value": "<%= @location %>",
-            "text": "<%= @location %>"
-          }
-        ],
         "query": "<%= @location %>",
         "refresh": 0,
+        "skipUrlSync": false,
         "type": "constant"
       }
     ]
@@ -759,5 +945,5 @@
   "timezone": "browser",
   "title": "Status",
   "uid": "000000001",
-  "version": 160
+  "version": 18
 }

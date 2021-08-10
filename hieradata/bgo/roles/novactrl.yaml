@@ -71,10 +71,26 @@ profile::openstack::resource::host_aggregate:
         e3dcca3452924794a6aebdd21b5da249,
         bf017d42f06c4eb590276eccb9d571dd,
         582a164fc3bb4a19beb749d96a310f90
+  placeholder_vgpu161:
+    availability_zone: "%{::location}-iaas-team-only-1"
+    metadata:
+      type: 'vgpu16'
+      filter_tenant_id: >-
+        e3dcca3452924794a6aebdd21b5da249,
+        bf017d42f06c4eb590276eccb9d571dd,
+        582a164fc3bb4a19beb749d96a310f90
+  gpu1:
+    availability_zone: "%{::location}-default-1"
+    metadata:
+      type: 'gpu'
   vgpu1:
     availability_zone: "%{::location}-default-1"
     metadata:
       type: 'vgpu'
+  vgpu161:
+    availability_zone: "%{::location}-default-1"
+    metadata:
+      type: 'vgpu16'
 
 profile::openstack::compute::pci_passthrough::manage_pcipassthrough: true
 
@@ -84,3 +100,8 @@ nova::pci::aliases:
     'product_id':  '2532'
     'device_type': 'type-PCI'
     'name':        'isp2532'
+  # AMD Instinct MI100
+  - 'vendor_id':   '1002'
+    'product_id':  '738c'
+    'device_type': 'type-PCI'
+    'name':        'amd_mi100'

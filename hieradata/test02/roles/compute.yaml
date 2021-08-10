@@ -2,6 +2,10 @@
 include:
   kickstart:
     - profile::monitoring::sensu::agent
+  default:
+    - profile::monitoring::collectd
+
+ceph_version: 'nautilus' # FIXME
 
 named_interfaces::config:
   mgmt:
@@ -21,6 +25,10 @@ ntp::servers:
   - 172.28.32.100
   - 172.28.32.101
   - 172.28.32.102
+chrony::servers:
+  - "%{hiera('netcfg_mgmt_netpart')}.100"
+  - "%{hiera('netcfg_mgmt_netpart')}.101"
+  - "%{hiera('netcfg_mgmt_netpart')}.102"
 
 profile::monitoring::sensu::agent::enable_agent:  true
 
@@ -49,4 +57,21 @@ nova::debug: true
 
 # remove when telemetry/ceilometer is up in all environments and move to common
 profile::openstack::compute::manage_telemetry: true
+
 nova::compute::libvirt::libvirt_hw_machine_type: 'x86_64=q35'
+
+# collectd
+profile::monitoring::collectd::enable: true
+profile::monitoring::collectd::plugins:
+  - collectd::plugin::aggregation
+  - collectd::plugin::cpu
+  - collectd::plugin::disk
+  - collectd::plugin::load
+  - collectd::plugin::memory
+  - collectd::plugin::interface
+  - collectd::plugin::write_graphite
+  - collectd::plugin::virt
+  - collectd::plugin::processes
+
+collectd::plugin::virt::hostname_format:        'hostname'
+collectd::plugin::virt::plugin_instance_format: 'uuid'

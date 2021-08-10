@@ -31,7 +31,7 @@ profile::base::physical::load_ahci_last: true
 profile::base::physical::load_ahci_last_scsidrv: 'mpt3sas'
 
 # sensu overrides
-sensu__memory__check:     "check-memory-percent.rb -w 92 -c 95"
+sensu__memory__check:     "check-memory.rb -w 2048 -c 1024"
 
 profile::storage::cephclient::create_extraconf: true
 profile::storage::ceph_extraconf::config:
@@ -70,7 +70,6 @@ profile::storage::cephpool::manage_ec_pools: true
 
 profile::storage::ceph_ecpool::ec_pools:
   'dcache_hdd_ec_data':
-    pg_num:              "2048"
     manage:              true
     allow_ec_overwrites: true
     k_data:              "10"
@@ -91,8 +90,6 @@ profile::storage::ceph::pool::pools:
     ensure: absent
   'dcache_hdd_ec_meta':
     size:    3
-    pg_num:  512
-    pgp_num: 512
     tag:     'rbd'
     custom:
       crush_rule: 'ssd-storage'
@@ -100,8 +97,6 @@ profile::storage::ceph::pool::pools:
       min_size:   '2'
   'dcache_hdd_ec_meta8':
     size:    3
-    pg_num:  512
-    pgp_num: 512
     tag:    'rbd'
     custom:
       crush_rule: 'ssd-storage'
@@ -134,6 +129,12 @@ profile::storage::cephpool_params::pools:
 profile::base::common::extraswap:         true
 profile::base::common::extraswap_sizegb:  20
 profile::base::common::extraswap_fileloc: '/var/lib/swap/swapfile'
+
+# Disable write cache on osd cache disks
+profile::base::disk::manage_hdparm: true
+profile::base::disk::disk_hdparams:
+  '/dev/sdq': { hdparams: '-W0', }
+  '/dev/sdr': { hdparams: '-W0', }
 
 profile::base::lvm::volume_group:
   'vg_swap':

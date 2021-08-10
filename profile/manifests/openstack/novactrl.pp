@@ -24,17 +24,21 @@ class profile::openstack::novactrl(
       dport  => 8773,
       extras => $firewall_extras
     }
-
   }
 
   include ::nova
   include ::nova::api
   include ::nova::config
-  include ::nova::placement
   include ::nova::network::neutron
   include ::nova::wsgi::apache_api
-  include ::nova::wsgi::apache_placement
   include ::nova::logging
+  include ::nova::placement
+
+  include ::placement
+  include ::placement::db
+  include ::placement::wsgi::apache
+  include ::placement::logging
+  include ::placement::keystone::authtoken
 
   # This will make sure httpd service will be restarted on config changes
   Nova_config <| |> ~> Class['apache::service']

@@ -6,6 +6,8 @@ include:
 location_environment:     'prod'
 location_description:     'Production environment in Oslo'
 
+ceph_version: 'octopus' # FIXME
+
 # Disable management of Dell repos and software
 profile::base::dell::manage_repos:      true
 profile::base::dell::manage_openmanage: false
@@ -296,6 +298,9 @@ profile::network::services::dns_records:
     #'c.6.0.2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  'oncotools.elixir.no'
 
 ntp::servers:
+  - ntp1.uio.no
+  - ntp2.uio.no
+chrony::servers:
   - ntp1.uio.no
   - ntp2.uio.no
 

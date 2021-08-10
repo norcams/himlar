@@ -5,6 +5,7 @@ class profile::monitoring::sensu::server (
   $manage_rabbitmq           = false,
   $manage_redis              = false,
   $manage_firewall           = false,
+  $manage_resources          = false,
   $custom_json               = {},
   $firewall_extras           = {}
 ) {
@@ -36,11 +37,13 @@ class profile::monitoring::sensu::server (
     }
   }
 
-  $handlers  = lookup('profile::monitoring::sensu::server::handlers', Hash, 'deep', {})
-  $filters  = lookup('profile::monitoring::sensu::server::filters', Hash, 'deep', {})
-  create_resources('sensuclassic::handler', $handlers)
-  create_resources('sensuclassic::filter', $filters)
+  if $manage_resources {
+    $handlers  = lookup('profile::monitoring::sensu::server::handlers', Hash, 'deep', {})
+    $filters  = lookup('profile::monitoring::sensu::server::filters', Hash, 'deep', {})
+    create_resources('sensuclassic::handler', $handlers)
+    create_resources('sensuclassic::filter', $filters)
 
-  create_resources('sensuclassic::write_json', $custom_json)
+    create_resources('sensuclassic::write_json', $custom_json)
+  }
 
 }

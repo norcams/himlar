@@ -1,0 +1,27 @@
+---
+include:
+  default:
+    - profile::network::interface
+  kickstart:
+    - profile::network::interface
+  bootstrap:
+    - profile::network::interface
+
+profile::base::yumrepo::repo_hash:
+  CentOS-Updates:
+    ensure: absent
+  epel:
+    gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8'
+  puppetlabs:
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/puppetlabs6/"
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/puppetlabs6/RPM-GPG-KEY-puppet"
+
+profile::base::common::manage_network: false # the profile::base::network class is deprecated
+profile::base::common::manage_ntp:     false # ntpd has been replaced by chrony in el8
+profile::base::common::manage_chrony:  true
+
+profile::network::interface::manage_interface:        true
+profile::network::interface::suppress_legacy_warning: true
+
+collectd::minimum_version:              '5.9'
+collectd::plugin::disk::manage_package: true

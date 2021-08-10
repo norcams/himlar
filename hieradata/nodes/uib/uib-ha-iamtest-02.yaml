@@ -2,30 +2,24 @@
 network::interfaces_hash:
   'eth0':
     onboot:         'yes'
-    ipaddress:      '172.31.0.27'
-    netmask:        '255.255.248.0'
-    gateway:        "%{hiera('netcfg_mgmt_gateway')}"
-    peerdns:        'yes'
-    dns1:           "%{hiera('netcfg_dns_server1')}"
-    dns2:           "%{hiera('netcfg_dns_server2')}"
-    domain:         "%{hiera('netcfg_dns_search')}"
-    defroute:       'no'
-  'eth1':
-    onboot:         'yes'
-    ipaddress:      '129.177.13.173'
-    netmask:        '255.255.255.0'
-    gateway:        '129.177.13.1'
-    defroute:       'yes'
-  'eth2':
-    onboot:         'yes'
     ipaddress:      '192.168.21.20'
     netmask:        '255.255.255.0'
     defroute:       'no'
-  'eth3':
+  'eth1':
     onboot:         'yes'
     ipaddress:      '192.168.23.20'
     netmask:        '255.255.255.0'
     defroute:       'no'
+  'eth2':
+    onboot:         'yes'
+    ipaddress:      '129.177.13.173'
+    netmask:        '255.255.255.0'
+    gateway:        '129.177.13.1'
+    peerdns:        'yes'
+    dns1:           "%{hiera('netcfg_dns_server1')}"
+    dns2:           "%{hiera('netcfg_dns_server2')}"
+    domain:         "%{hiera('netcfg_dns_search')}"
+    defroute:       'yes'
 
 profile::highavailability::corosync::firewall_extras:
   source: '129.177.13.172'

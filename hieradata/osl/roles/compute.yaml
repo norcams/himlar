@@ -1,8 +1,14 @@
 ---
+ceph_version: 'nautilus' # FIXME
+
 ntp::servers:
   - 172.16.32.100
   - 172.16.32.101
   - 172.16.32.102
+chrony::servers:
+  - "%{hiera('netcfg_mgmt_netpart')}.100"
+  - "%{hiera('netcfg_mgmt_netpart')}.101"
+  - "%{hiera('netcfg_mgmt_netpart')}.102"
 
 profile::base::network::network_auto_opts:
   mgmt:

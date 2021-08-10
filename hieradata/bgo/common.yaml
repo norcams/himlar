@@ -6,6 +6,8 @@ include:
 location_environment:     'prod'
 location_description:     'Production environment in Bergen'
 
+ceph_version: 'octopus' # FIXME
+
 # Disable management of Dell repos and software
 profile::base::dell::manage_repos:      true
 profile::base::dell::manage_openmanage: false
@@ -37,6 +39,10 @@ reverse_trp_c4:           '4.18.172.in-addr.arpa'
 reverse_trp_c5:           '5.18.172.in-addr.arpa'
 reverse_trp_c6:           '6.18.172.in-addr.arpa'
 reverse_trp_c7:           '7.18.172.in-addr.arpa'
+
+reverse_public_c0:        '77.39.158.in-addr.arpa'
+reverse_public_c1:        '74.39.158.in-addr.arpa'
+reverse_public_c2:        '201.39.158.in-addr.arpa'
 
 bgp_as:                   '65501'
 
@@ -265,12 +271,17 @@ profile::network::services::dns_records:
     '251.77.39.158.in-addr.arpa':   "ns2.%{hiera('domain_frontend')}"
     '252.77.39.158.in-addr.arpa':   "resolver.%{hiera('domain_public')}"
     '254.77.39.158.in-addr.arpa':   "dashboard.%{hiera('domain_frontend')}"
+    # Customer's PTR records
+    "135.%{hiera('reverse_public_c1')}":                                         'elixir.no'
     # public IPv6
     '1.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "ns2.%{hiera('domain_frontend')}"
     '2.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "resolver.%{hiera('domain_public')}"
     '6.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "%{::location}-dns-01.%{hiera('domain_public')}"
 
 ntp::servers:
+  - ntp.uib.no
+  - ntp2.uib.no
+chrony::servers:
   - ntp.uib.no
   - ntp2.uib.no
 

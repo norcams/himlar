@@ -62,6 +62,7 @@ named_interfaces::config:
     - eth0
 
 # Grafana and statsd
+profile::monitoring::statsd::manage:           true
 profile::monitoring::grafana::enable:          true
 profile::monitoring::grafana::manage_firewall: true
 profile::monitoring::grafana::firewall_extras:
@@ -86,6 +87,7 @@ grafana::provisioning_dashboards:
         puppetsource: 'puppet:///modules/profile/monitoring/grafana/dashboard'
 
 # Sensu server
+profile::monitoring::sensu::server::manage_resources: true
 sensuclassic::server:              true
 sensuclassic::api:                 true
 sensuclassic::redis_host:          127.0.0.1
@@ -95,7 +97,9 @@ profile::openstack::openrc::username:         'monitor'
 profile::openstack::openrc::project_name:     'services'
 
 profile::monitoring::graphite::manage_graphite:  true
+profile::monitoring::graphite::age:              '2w'
 profile::monitoring::sensu::server::manage_firewall:  true
+profile::monitoring::sensu::server::manage_redis:     true
 profile::monitoring::sensu::server::firewall_extras:
   source: "%{::network_mgmt1}/%{::netmask_mgmt1}"
 profile::monitoring::sensu::server::manage_dashboard: true
@@ -261,9 +265,11 @@ profile::base::yumrepo::repo_hash:
   rdo-release:
     ensure: present
   grafana:
+    ensure: absent
+  grafana-oss:
     ensure: present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
-    includepkgs: 'collectd* htop bash-completion-extras statsd python2-pip nagios-plugins-openmanage nagios-common perl-Config-Tiny perl-Crypt-DES perl-Digest* libuv nodejs* perl-Net-SNMP npm python-sqlite3dbm python-cairocffi'
+    includepkgs: 'collectd* htop bash-completion-extras statsd python2-pip nagios-plugins-openmanage nagios-common perl-Config-Tiny perl-Crypt-DES perl-Digest* libuv nodejs* perl-Net-SNMP npm python-sqlite3dbm python-tzlocal python-cairocffi'
   postgres-10: # we need postgresql libs
     ensure: present

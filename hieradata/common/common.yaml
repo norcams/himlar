@@ -2,15 +2,17 @@
 include:
   default:
     - profile::base::common
+    - profile::base::hostname
     - profile::base::firewall
     - profile::base::selinux
     - profile::logging::logrotate
   kickstart:
     - profile::base::common
+    - profile::base::hostname
   bootstrap:
     - profile::base::common
+    - profile::base::hostname
     - profile::base::firewall
-
 
 #
 # Location metadata
@@ -37,6 +39,8 @@ domain_frontend2:     "%{hiera('domain_frontend')}"
 openstack_version:    'stein'
 
 ceph_version:         'nautilus'
+
+repo_dist:            "%{::os_platform}%{::os_version}"
 
 valid_location_tags:
   - bgo
@@ -70,6 +74,7 @@ allow_from_testing_network: # this do not merge!
   - '158.39.77.253/32'  # bgo-proxy-01
   - '158.37.63.253/32'  # osl-proxy-01
   - '192.168.122.1/32'  # test02
+  - '62.16.139.80/32'   # raymond at home
 
 #
 # Use this for firewall rules to allow only from some networks
@@ -430,7 +435,7 @@ profile::network::services::dns_records:
     "%{::location}-storage-40.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.93"
     "%{::location}-storage-41.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.94"
     "%{::location}-storage-42.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.95"
-    "%{::location}-storage-43.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.96"        
+    "%{::location}-storage-43.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.96"
     "%{::location}-mgmt-opx-01.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.1"
     "%{::location}-mgmt-opx-02.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.2"
     "%{::location}-mgmt-opx-03.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.3"

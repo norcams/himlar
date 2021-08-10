@@ -40,18 +40,6 @@ network::interfaces_hash:
     gateway:        '129.177.15.1'
     defroute:       'no'
     vlan:           'yes'
-  'bond0.940':
-    onboot:         'yes'
-    ipaddress:      '192.168.20.19'
-    netmask:        '255.255.255.0'
-    defroute:       'no'
-    vlan:           'yes'
-  'bond0.942':
-    onboot:         'yes'
-    ipaddress:      '192.168.22.19'
-    netmask:        '255.255.255.0'
-    defroute:       'no'
-    vlan:           'yes'
 
 profile::base::network::routes:
   'bond0.15':

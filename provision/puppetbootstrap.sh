@@ -1,20 +1,25 @@
 #!/bin/sh
 
+# useful for debugging
+#set -e
+
 el_repos()
 {
   if [ "$#" -ne 1 ]; then
-    repo='https://download.iaas.uio.no/uh-iaas/test'
+    repo="https://download.iaas.uio.no/nrec/test/${repo_dist}"
   else
-    repo="https://download.iaas.uio.no/uh-iaas/${1}"
+    repo="https://download.iaas.uio.no/uh-iaas/${1}/${repo_dist}"
   fi
+
+  wget -O /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-Official https://www.centos.org/keys/RPM-GPG-KEY-CentOS-Official
 
   cat > /etc/yum.repos.d/epel.repo <<- EOM
 [epel]
-name=Extra Packages for Enterprise Linux 7 - \$basearch
+name=Extra Packages for Enterprise Linux ${repo_dist:2} - \$basearch
 failovermethod=priority
 enabled=1
 gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-${repo_dist:2}
 baseurl=$repo/epel
 EOM
   cat > /etc/yum.repos.d/puppetlabs.repo <<- EOM
@@ -30,19 +35,19 @@ EOM
 name=CentOS-\$releasever - Base
 baseurl=$repo/centos-base/
 gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-Official
 
 [updates]
 name=CentOS-\$releasever - Updates
 baseurl=$repo/centos-updates/
 gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-Official
 
 [extras]
 name=CentOS-\$releasever - Extras
 baseurl=$repo/centos-extras/
 gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-Official
 EOM
 }
 
@@ -50,8 +55,12 @@ bootstrap_puppet()
 {
   # packages
   if command -v yum >/dev/null 2>&1; then
+    echo "bootstrap puppet ..."
     # RHEL, CentOS, Fedora
-    yum install -y epel-release # to get gpgkey for epel
+    repo_dist=$(uname -r | sed 's/.*\(el[0-9]\).*x86.*/\1/')
+    # FIXME
+    yum install -y http://download.iaas.uio.no/uh-iaas/repo/${repo_dist}/centos-extras/Packages/epel-release-7-11.noarch.rpm
+    # yum install -y epel-release # to get gpgkey for epel
     el_repos test
     yum clean all
     yum -y update

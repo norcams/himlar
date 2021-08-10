@@ -2,10 +2,11 @@
 # Use new lvm mechanism to create ceph osds
 #
 define profile::storage::create_lvm_osd (
-  $manage      = true,
-  $db_device   = undef,
-  $wal_device  = undef,
-  $dev_class   = undef, # force device class for osd
+  $manage             = true,
+  $db_device          = undef,
+  $wal_device         = undef,
+  $dev_class          = undef, # force device class for osd
+  $disable_writecache = undef,
 ) {
 
   if $db_device {
@@ -33,6 +34,17 @@ define profile::storage::create_lvm_osd (
     exec { "set_dev_class-${name}":
       command => "/bin/ceph osd crush rm-device-class $(/sbin/ceph-volume lvm list ${name} | grep ===== | tr --delete =) && /bin/ceph osd crush set-device-class ${dev_class} $(/sbin/ceph-volume lvm list ${name} | grep ===== | tr --delete =)",
       unless  => "/bin/ceph osd crush get-device-class $(/sbin/ceph-volume lvm list ${name} | grep ===== | tr --delete =) | /bin/egrep -x ${dev_class}"
+    }
+  }
+  if $disable_writecache {
+    $set_hdparm = {
+      "${name}" => { hdparams => '-W0', order => '68', }
+    }
+    create_resources(profile::base::hdparm, $set_hdparm, {})
+    exec { "disable_writecache_now-${name}":
+      command     => "hdparm -W0 ${name}",
+      path        => '/sbin:/usr/bin:/usr/sbin:/bin:/usr/local/bin',
+      onlyif      => "hdparm -W ${name} | grep on",
     }
   }
 }

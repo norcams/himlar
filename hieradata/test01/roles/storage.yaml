@@ -36,15 +36,13 @@ profile::base::physical::disable_intel_cstates: true
 profile::base::common::extraswap:         true
 profile::base::common::extraswap_sizegb:  40
 profile::base::common::extraswap_fileloc: '/var/lib/swap/swapfile'
-profile::base::physical::load_ahci_first: true
 
 # Ensure that the BOSS device is the last device
 profile::base::physical::load_ahci_last: true
 profile::base::physical::load_ahci_last_scsidrv: 'megaraid_sas'
 profile::base::physical::scsi_load_order: true
 profile::base::physical::scsi_load_order_first:  'megaraid_sas'
-profile::base::physical::scsi_load_order_second: 'mpt2sas'
-
+profile::base::physical::scsi_load_order_second: 'mpt3sas'
 
 profile::base::selinux::manage_selinux: false
 
@@ -63,6 +61,11 @@ profile::storage::ceph_extraconf::config:
   osd_memory_target:
     'config_key'  : "osd/osd_memory_target"
     'config_value': "3973054464"
+
+# Disable write cache on osd cache disk
+profile::base::disk::manage_hdparm: true
+profile::base::disk::disk_hdparams:
+  '/dev/sda': { hdparams: '-W0', }
 
 profile::base::lvm::volume_group:
   'vg_swap':
@@ -181,8 +184,6 @@ profile::storage::ceph::pool::pools:
     ensure: absent
   'volumes':
     size:    3
-    pg_num:  2048
-    pgp_num: 2048
     tag:     'rbd'
     custom:
       crush_rule: 'hdd-storage'
@@ -190,8 +191,6 @@ profile::storage::ceph::pool::pools:
       min_size:   '2'
   'images':
     size:    3
-    pg_num:  512
-    pgp_num: 512
     tag:    'rbd'
     custom:
       crush_rule: 'hdd-storage'
@@ -199,8 +198,6 @@ profile::storage::ceph::pool::pools:
       min_size:   '2'
   'vms':
     size:    3
-    pg_num:  256
-    pgp_num: 256
     tag:     'rbd'
     custom:
       crush_rule: 'ssd-storage'
@@ -208,8 +205,6 @@ profile::storage::ceph::pool::pools:
       min_size:   '2'
   'volumes_hdd_ec_meta':
     size:    3
-    pg_num:  128
-    pgp_num: 128
     tag:     'rbd'
     custom:
       crush_rule: 'ssd-storage'
@@ -217,8 +212,6 @@ profile::storage::ceph::pool::pools:
       min_size:   '2'
   'volumes_ssd_ec_meta':
     size:    3
-    pg_num:  128
-    pgp_num: 128
     tag:     'rbd'
     custom:
       crush_rule: 'ssd-storage'
@@ -230,14 +223,12 @@ profile::storage::ceph::pool::ec_pools:
 
 profile::storage::ceph_ecpool::ec_pools:
   'volumes_hdd_ec_data':
-    pg_num:              "256"
     manage:              true
     allow_ec_overwrites: true
     k_data:              "4"
     m_code:              "1"
     crush_root:          "storage"
   'volumes_ssd_ec_data':
-    pg_num:              "256"
     manage:              true
     allow_ec_overwrites: true
     k_data:              "4"
