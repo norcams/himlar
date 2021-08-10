@@ -159,7 +159,7 @@ mod 'glance', :ref => '15.4.0',                     :git => github + 'openstack/
 mod 'cinder', :ref => '263c6b11fc',                 :git => github + 'openstack/puppet-cinder'
 mod 'neutron', :ref => '14.4.0',                    :git => github + 'openstack/puppet-neutron'
 mod 'nova', :ref => '14.4.0',                       :git => github + 'openstack/puppet-nova'
-mod 'horizon', :ref => '14.4.0',                    :git => github + 'openstack/puppet-horizon'
+mod 'horizon', :ref => '15.4.0',                    :git => github + 'openstack/puppet-horizon'
 mod 'gnocchi', :ref => '14.4.0',                    :git => github + 'openstack/puppet-gnocchi'
 mod 'keystone', :ref => '15.5.0',                   :git => github + 'openstack/puppet-keystone'
 mod 'swift', :ref => 'norcams/ocata',               :git => github + 'norcams/puppet-swift'
