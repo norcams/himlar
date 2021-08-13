@@ -3,6 +3,7 @@ class profile::openstack::network::calico(
   $manage_bird               = true,
   $manage_etcd               = false,
   $manage_etcd_grpc_proxy    = false,
+  $packagename_etcdgw        = python3-etcd3gw,
   $manage_firewall           = true,
   $manage_firewall6          = false,
   $manage_dhcp_agent         = false,
@@ -22,7 +23,7 @@ class profile::openstack::network::calico(
 #    package { 'etcd':              # FIXME: sooner or later computes wont have etcd v2 proxy
 #      ensure => installed,
 #    }
-    package { 'python2-etcd3gw':
+    package { $packagename_etcdgw:
       ensure => installed,
     } ~>
     file { "etcd_grpc_proxy":

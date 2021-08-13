@@ -6,3 +6,5 @@ profile::base::yumrepo::repo_hash:
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7'
   CentOS-Extras:
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7'
+
+profile::openstack::network::calico::packagename_etcdgw: python2-etcd3gw
