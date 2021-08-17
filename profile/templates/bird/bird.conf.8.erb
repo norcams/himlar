@@ -118,6 +118,8 @@ protocol device {
 }
 
 protocol direct {
+   ipv4;
+   ipv6;
    debug all;
    interface "-dummy*", "eth*", "em*", "en*", "br-mgmt", "bond*", "team*";
 }
