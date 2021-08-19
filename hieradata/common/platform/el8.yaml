@@ -27,3 +27,6 @@ profile::network::interface::suppress_legacy_warning: true
 
 collectd::minimum_version:              '5.9'
 collectd::plugin::disk::manage_package: true
+
+calico::compute::peer_template:  'profile/bird/bird-rr-ipv4.erb' # FIXME This should move to common when el7 is gone
+calico::compute::peer6_template: 'profile/bird/bird-rr-ipv6.erb' # FIXME

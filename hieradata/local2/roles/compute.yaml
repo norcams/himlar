@@ -7,8 +7,6 @@ include:
 
 profile::monitoring::sensu::agent::enable_agent:  true
 
-calico::compute::bird_template: 'profile/bird/bird.conf.erb'
-
 named_interfaces::config:
   mgmt:
     - eth0

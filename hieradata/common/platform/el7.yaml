@@ -1,5 +1,7 @@
 ---
 profile::base::yumrepo::repo_hash:
+  calico%{hiera('calico_version')}:
+    exclude: 'dnsmasq'
   CentOS-AppStream:
     ensure: absent
   CentOS-Base:
@@ -8,3 +10,9 @@ profile::base::yumrepo::repo_hash:
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7'
 
 profile::openstack::network::calico::packagename_etcdgw: python2-etcd3gw
+
+bird::enable_v6: true
+bird::service_v4_enable: true
+bird::service_v4_ensure: running
+bird::service_v6_enable: true
+bird::service_v6_ensure: running

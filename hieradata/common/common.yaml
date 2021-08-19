@@ -40,6 +40,8 @@ openstack_version:    'train'
 
 ceph_version:         'nautilus'
 
+calico_version:       '312'
+
 repo_dist:            "%{::os_platform}%{::os_version}"
 
 valid_location_tags:
