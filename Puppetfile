@@ -47,8 +47,8 @@ mod 'frrouting', :ref => 'd07940e660',              :git => github + 'norcams/pu
 #
 # profile::network::
 #
-mod 'bird', :ref => '1.1.0',                        :git => github + 'sbadia/puppet-bird'
-mod 'calico', :ref => 'c5d299bb50',                 :git => github + 'norcams/puppet-calico'
+mod 'bird', :ref => 'v4.1.0',                       :git => github + 'voxpupuli/puppet-bird'
+mod 'calico', :ref => '9a6fe94f2a',                 :git => github + 'norcams/puppet-calico'
 mod 'dnsmasq', :ref => 'v1.3.1',                    :git => github + 'saz/puppet-dnsmasq'
 mod 'ipcalc', :ref => '2.2.0',                      :git => github + 'inkblot/puppet-ipcalc'
 mod 'tinyproxy', :ref => 'ef4a8b0bb2',              :git => github + 'earsdown/puppet-tinyproxy'
@@ -108,12 +108,12 @@ mod 'himlar_bootstrap', :ref => '1.1',              :git => github + 'norcams/pu
 #
 # profile::logging
 #
-mod 'rsyslog', :ref => 'v3.3.0',                    :git => github + 'voxpupuli/puppet-rsyslog'
+mod 'rsyslog', :ref => 'v4.0.0',                    :git => github + 'voxpupuli/puppet-rsyslog'
 mod 'logstash', :ref => '6.1.5',                    :git => github + 'elastic/puppet-logstash'
 mod 'datacat', :ref => '0.6.2',                     :git => github + 'richardc/puppet-datacat'
 mod 'elasticsearch', :ref => '6.4.0',               :git => github + 'elastic/puppet-elasticsearch'
 mod 'file_concat', :ref => '1.0.1',                 :git => github + 'electrical/puppet-lib-file_concat'
-mod 'logrotate', :ref => 'v3.2.1',                  :git => github + 'voxpupuli/puppet-logrotate'
+mod 'logrotate', :ref => 'v5.0.0',                  :git => github + 'voxpupuli/puppet-logrotate'
 
 #
 # profile::monitoring
@@ -144,7 +144,7 @@ mod 'postgresql', :ref => 'v6.8.0',                 :git => github + 'puppetlabs
 # mod 'mariadbrepo', ref => '0.2.1',                :git => github + 'Mylezeem/puppet-mariadbrepo'
 # mod 'staging', :ref => '1.0.4',                   :git => github + 'nanliu/puppet-staging' why this fork?
 mod 'staging', :ref => 'v3.0.0',                    :git => github + 'voxpupuli/puppet-staging'
-mod 'mysql', :ref => '6.2.0',                       :git => github + 'puppetlabs/puppetlabs-mysql'
+mod 'mysql', :ref => 'v9.1.0',                      :git => github + 'puppetlabs/puppetlabs-mysql'
 mod 'galera_arbitrator', :ref => '1.0.4',           :git => github + 'jadestorm/puppet-galera_arbitrator'
 
 #
@@ -210,8 +210,8 @@ mod 'subscription_manager', :ref => '5.5.0',        :git => github + 'waveclaw/p
 #
 # Common libs
 #
-mod 'stdlib', :ref => '5.2.0',                      :git => github + 'puppetlabs/puppetlabs-stdlib'
-mod 'translate', :ref => '1.2.0',                   :git => github + 'puppetlabs/puppetlabs-translate'
+mod 'stdlib', :ref => 'v6.6.0',                     :git => github + 'puppetlabs/puppetlabs-stdlib'
+mod 'translate', :ref => 'v2.2.0',                  :git => github + 'puppetlabs/puppetlabs-translate'
 mod 'concat', :ref => '4.1.0',                      :git => github + 'puppetlabs/puppetlabs-concat'
 mod 'hash_file', :ref => '1.0.3',                   :git => github + 'fiddyspence/puppet-hash_file' # ??
 mod 'inifile', :ref => '2.5.0',                     :git => github + 'puppetlabs/puppetlabs-inifile'
