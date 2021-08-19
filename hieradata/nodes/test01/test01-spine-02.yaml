@@ -41,7 +41,7 @@ frrouting::frrouting::bgp_neighbor_groups:
       - '172.30.0.111'
     'options6':
       - 'neighbor rr-clients route-reflector-client'
-      - 'soft-reconfiguration inbound'
+      - 'neighbor rr-clients soft-reconfiguration inbound'
       - 'maximum-paths ibgp 3'
     'members6':
       - 'fd00::17'
