@@ -23,7 +23,8 @@ class profile::network::interface(
       target  => '/etc/profile.d/suppress_legacy_warning.sh',
       value   => true
     }
-  }  
+  }
+
   # Create extra routes, tables, rules on ifup
   if $create_custom_routes {
     create_resources(network::mroute, lookup('profile::base::network::mroute', Hash, 'deep', {}))
