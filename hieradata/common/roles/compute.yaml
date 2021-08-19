@@ -34,6 +34,9 @@ profile::base::selinux::exec_restorecon:
   nova-dot-ssh:
     path:    '/var/lib/nova/.ssh'
     recurse: true
+profile::base::selinux::semodules:
+  'virtlogd-nova':
+    avc_file:   "virtlogd-nova.avc"
 
 # Manage default availability zone
 profile::openstack::compute::manage_az:            true
