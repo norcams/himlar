@@ -4,10 +4,11 @@
 # or create interface files from interfaces_hash by the network module
 #
 class profile::network::interface(
-  $manage_interface        = false,
-  $suppress_legacy_warning = false, # el8 only
-  $create_custom_routes    = false,
-  $create_ip_rules         = false,
+  $manage_interface         = false,
+  $suppress_legacy_warning  = false, # el8 only
+  $create_custom_routes     = false,
+  $create_ip_rules          = false,
+  $manage_neutron_blackhole = false,
 ) {
 
   # Set up extra logical fact names for network facts
