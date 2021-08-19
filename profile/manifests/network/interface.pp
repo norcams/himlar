@@ -6,6 +6,8 @@
 class profile::network::interface(
   $manage_interface        = false,
   $suppress_legacy_warning = false, # el8 only
+  $create_custom_routes    = false,
+  $create_ip_rules         = false,
 ) {
 
   # Set up extra logical fact names for network facts
@@ -19,6 +21,83 @@ class profile::network::interface(
       ensure  => exported,
       target  => '/etc/profile.d/suppress_legacy_warning.sh',
       value   => true
+    }
+  }  
+  # Create extra routes, tables, rules on ifup
+  if $create_custom_routes {
+    create_resources(network::mroute, lookup('profile::base::network::mroute', Hash, 'deep', {}))
+    create_resources(network::routing_table, lookup('profile::base::network::routing_tables', Hash, 'deep', {}))
+    create_resources(network::route, lookup('profile::base::network::routes', Hash, 'first', {}))
+  }
+  if $create_ip_rules {
+    unless $manage_neutron_blackhole {
+      create_resources(network::rule, lookup('profile::base::network::rules', Hash, 'deep', {}))
+    } else {
+      $named_interface_hash = lookup('named_interfaces::config', Hash, 'first', {})
+      $transport_if = $named_interface_hash["trp"][0] # FIXME should cater for many interfaces
+      $rules_hash = lookup('profile::base::network::rules', Hash, 'deep', {})
+      $trp_rules = $rules_hash["${transport_if}"]['iprule']
+      if $rules_hash["${transport_if}"]['iprule6'] {
+        $trp_rules6 = $rules_hash["${transport_if}"]['iprule6']
+      }
+      $neutron_subnets = lookup('profile::openstack::resource::subnets', Hash, 'first', {})
+      file { "rule-${transport_if}":
+        ensure  => present,
+        owner   => root,
+        group   => root,
+        mode    => '0644',
+        path    => "/etc/sysconfig/network-scripts/rule-${transport_if}",
+        content => template("${module_name}/network/rule4-interface.erb"),
+      }
+      file { "rule6-${transport_if}":
+        ensure  => present,
+        owner   => root,
+        group   => root,
+        mode    => '0644',
+        path    => "/etc/sysconfig/network-scripts/rule6-${transport_if}",
+        content => template("${module_name}/network/rule6-interface.erb"),
+      }
+      file { '/opt/rule-checks/':
+        ensure  => directory,
+      } ~>
+      file { "rule4-rulecheck.sh":
+        ensure  => present,
+        owner   => root,
+        group   => root,
+        mode    => '0755',
+        path    => "/opt/rule-checks/rule4-check.sh",
+        content => template("${module_name}/network/rule4-rulecheck.erb"),
+      } ~>
+      file { "rule6-rulecheck.sh":
+        ensure  => present,
+        owner   => root,
+        group   => root,
+        mode    => '0755',
+        path    => "/opt/rule-checks/rule6-check.sh",
+        content => template("${module_name}/network/rule6-rulecheck.erb"),
+      } ~>
+      file { "rule4-enforce.sh":
+        ensure  => present,
+        owner   => root,
+        group   => root,
+        mode    => '0755',
+        path    => "/opt/rule-checks/rule4-enforce.sh",
+        content => template("${module_name}/network/rule4-enforce.erb"),
+      } ~>
+      file { "rule6-enforce.sh":
+        ensure  => present,
+        owner   => root,
+        group   => root,
+        mode    => '0755',
+        path    => "/opt/rule-checks/rule6-enforce.sh",
+        content => template("${module_name}/network/rule6-enforce.erb"),
+      } ~>
+      exec { '/opt/rule-checks/rule4-enforce.sh':
+        unless  => '/opt/rule-checks/rule4-check.sh',
+      } ->
+      exec { '/opt/rule-checks/rule6-enforce.sh':
+        unless  => '/opt/rule-checks/rule6-check.sh',
+      }
     }
   }
 
