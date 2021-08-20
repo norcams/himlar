@@ -70,3 +70,8 @@ profile::base::yumrepo::repo_hash:
     includepkgs: 'htop bash-completion-extras python2-bcrypt'
 
 memcached::max_memory: '20%'
+
+profile::base::selinux::boolean:
+  'nis_enabled':
+    ensure: 'on'
+    persistent: true

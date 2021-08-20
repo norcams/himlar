@@ -178,3 +178,8 @@ profile::base::selinux::semodules:
     avc_file:   "attach_cinder.avc"
   'httpd_cinder':
     avc_file:   "httpd_cinder.avc"
+
+profile::base::selinux::boolean:
+  'nis_enabled':
+    ensure: 'on'
+    persistent: true
