@@ -19,9 +19,11 @@ profile::base::yumrepo::repo_hash:
     ensure: absent
 
 profile::base::common::packages:
-  'bash-completion-extras': { ensure: absent, } # FIXME clean up when el7 is gone
-  'python-etcd3gw': { ensure: absent, }         # FIXME clean up when el7 is gone
-  'python-memcached': { ensure: absent, }       # FIXME clean up when el7 is gone
+  'bash-completion-extras': { ensure: absent, }     # FIXME clean up when el7 is gone
+  'python-etcd3gw': { ensure: absent, }             # FIXME clean up when el7 is gone
+  'python-memcached': { ensure: absent, }           # FIXME clean up when el7 is gone
+  'python2-oslo-policy': { ensure: absent, }        # FIXME clean up when el7 is gone
+  'python2-keystonemiddleware': { ensure: absent, } # FIXME clean up when el7 is gone
 
 profile::base::common::manage_network: false # the profile::base::network class is deprecated
 profile::base::common::manage_ntp:     false # ntpd has been replaced by chrony in el8
