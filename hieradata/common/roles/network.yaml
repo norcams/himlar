@@ -27,6 +27,7 @@ profile::base::common::packages:
   'gcc-c++': {}
   'openstack-selinux': {}
   'python-etcd3gw': {}
+  'python3-etcd3gw': {}
   'python-memcached': {}
   'libibverbs': {}
 
@@ -64,6 +65,8 @@ profile::base::yumrepo::repo_hash:
     ensure: absent
   calico%{hiera('calico_version')}:
     ensure: present
+  CentOS-PowerTools:
+    ensure: present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
-    includepkgs: 'htop bash-completion-extras python2-bcrypt'
+    includepkgs: 'htop bash-completion-extras python2-bcrypt' # FIXME remove non el8 packages when el7 is gone
