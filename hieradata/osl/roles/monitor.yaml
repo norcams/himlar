@@ -8,7 +8,7 @@ profile::base::cron::crontabs:
     hour:     '7'
     minute:   '0'
     weekday:  '*'
-    command:  "find /opt/graphite/storage/whisper/collectd -maxdepth 2 -name 'virt-*' -type d -mtime +30 -exec rm -rf '{}' \;"
+    command:  "find /opt/graphite/storage/whisper/collectd -maxdepth 2 -name 'virt-*' -type d -mtime +30 -exec rm -rf '{}' \\;"
 
 profile::monitoring::sensu::server::handlers:
   slack:
