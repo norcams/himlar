@@ -131,7 +131,7 @@ mod 'collectd', :ref => 'v12.2.0',                  :git => github + 'voxpupuli/
 #
 # profile::webserver::apache
 #
-mod 'puppetlabs/apache', :ref => '3.5.0',           :git => github + 'puppetlabs/puppetlabs-apache'
+mod 'puppetlabs/apache', :ref => 'v6.4.0',          :git => github + 'puppetlabs/puppetlabs-apache'
 
 #
 # profile::database::postgresql
