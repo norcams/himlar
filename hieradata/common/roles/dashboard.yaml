@@ -24,6 +24,7 @@ profile::base::common::packages:
 
 profile::openstack::dashboard::designate_packages:
   'python2-designateclient': {}
+  'python3-designateclient': {}
   'openstack-designate-ui': {}
 
 profile::base::common::manage_cron:                                true
