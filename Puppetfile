@@ -22,7 +22,7 @@ mod 'mount_core', :ref => '1.0.4',                  :git => github + 'puppetlabs
 mod 'firewall', :ref => '1.8.2',                    :git => github + 'puppetlabs/puppetlabs-firewall'
 mod 'apt', :ref => '6.2.1',                         :git => github + 'puppetlabs/puppetlabs-apt'
 mod 'yumrepo_core', :ref => '1.0.7',                :git => github + 'puppetlabs/puppetlabs-yumrepo_core'
-mod 'kmod', :ref => '2.3.1',                        :git => github + 'camptocamp/puppet-kmod'
+mod 'kmod', :ref => 'v3.0.0',                       :git => github + 'voxpupuli/puppet-kmod'
 mod 'named_interfaces', :ref => '86e275b339',       :git => github + 'norcams/puppet-named_interfaces'
 mod 'network', :ref => '0bfc7cc2bc',                :git => github + 'norcams/puppet-network'
 # mod 'apt', :ref => '2.2.2',                         :git => github + 'puppetlabs/puppetlabs-apt'
@@ -98,7 +98,7 @@ mod 'puppetlabs/ruby', :ref => '1.0.0',             :git => github + 'puppetlabs
 mod 'puppetlabs/xinetd', :ref => '3.0.0',           :git => github + 'puppetlabs/puppetlabs-xinetd'
 mod 'eyaml', :ref => 'v0.3.0',                      :git => github + 'ghoneycutt/puppet-module-eyaml'
 mod 'bind', :ref => 'keyfile_resource_record',      :git => github + 'norcams/puppet-bind'
-mod 'systemd', :ref => '2.11.0',                    :git => github + 'camptocamp/puppet-systemd'
+mod 'systemd', :ref => 'v3.2.0',                    :git => github + 'voxpupuli/puppet-systemd'
 
 #
 # bootstrap
