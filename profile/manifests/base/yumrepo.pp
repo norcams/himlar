@@ -24,6 +24,7 @@ $repo_hash = lookup('profile::base::yumrepo::repo_hash', Hash, $merge_strategy, 
         mode    => '0644',
         owner   => 'root',
         group   => 'root',
+        replace => false,
       }
       create_resources('yumrepo', $repo_hash)
     }
