@@ -17,6 +17,14 @@ $repo_hash = lookup('profile::base::yumrepo::repo_hash', Hash, $merge_strategy, 
     }
     # From puppet 6 we use the new yumrepo_core from puppetlabs
     '8': {
+      # Fetch gpg key for rdo repo, this is done by the openstack_extras module for el7
+      file { 'RPM-GPG-KEY-CentOS-SIG-Cloud':
+        path    => '/etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Cloud',
+        source  => 'https://raw.githubusercontent.com/openstack/puppet-openstack_extras/master/files/RPM-GPG-KEY-CentOS-SIG-Cloud',
+        mode    => '0644',
+        owner   => 'root',
+        group   => 'root',
+      }
       create_resources('yumrepo', $repo_hash)
     }
     default: {
