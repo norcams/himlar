@@ -20,6 +20,7 @@ mod 'resolv_conf', :ref => 'v3.3.0',                :git => github + 'saz/puppet
 mod 'lvm', :ref => '1.0.0',                         :git => github + 'puppetlabs/puppetlabs-lvm'
 mod 'firewall', :ref => '1.8.2',                    :git => github + 'puppetlabs/puppetlabs-firewall'
 mod 'apt', :ref => '6.2.1',                         :git => github + 'puppetlabs/puppetlabs-apt'
+mod 'yumrepo_core', :ref => '1.0.7',                :git => github + 'puppetlabs/puppetlabs-yumrepo_core'
 mod 'kmod', :ref => '2.3.1',                        :git => github + 'camptocamp/puppet-kmod'
 mod 'named_interfaces', :ref => '86e275b339',       :git => github + 'norcams/puppet-named_interfaces'
 mod 'network', :ref => '0bfc7cc2bc',                :git => github + 'norcams/puppet-network'
