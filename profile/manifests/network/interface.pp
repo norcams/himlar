@@ -9,6 +9,8 @@ class profile::network::interface(
   $create_custom_routes     = false,
   $create_ip_rules          = false,
   $manage_neutron_blackhole = false,
+  $manage_dummy             = false,
+  $no_of_dummies            = 1,
 ) {
 
   # Set up extra logical fact names for network facts
@@ -22,6 +24,25 @@ class profile::network::interface(
       ensure  => exported,
       target  => '/etc/profile.d/suppress_legacy_warning.sh',
       value   => true
+    }
+  }
+
+  # Persistently install dummy module
+  if $manage_dummy {
+    include ::kmod
+    kmod::load { "dummy": }
+
+    kmod::option { "Number of dummy interfaces":
+      module => "dummy",
+      option => "numdummies",
+      value =>  $no_of_dummies,
+    }
+    # Remove override in el8 installs
+    file_line { 'remove_dummy_override':
+      path    => '/lib/modprobe.d/systemd.conf',
+      line    => '#options dummy numdummies=0',
+      match   => 'options dummy numdummies=0',
+      replace => true,
     }
   }
 
