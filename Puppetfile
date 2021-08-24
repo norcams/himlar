@@ -150,7 +150,7 @@ mod 'galera_arbitrator', :ref => '1.0.4',           :git => github + 'jadestorm/
 # profile::messaging::rabbitmq
 #
 mod 'erlang', :ref => '23fb75b8b1',                 :git => github + 'garethr/garethr-erlang'
-mod 'rabbitmq', :ref => 'v10.3.0',                  :git => github + 'voxpupuli/puppet-rabbitmq'
+mod 'rabbitmq', :ref => 'v11.1.0',                  :git => github + 'voxpupuli/puppet-rabbitmq'
 mod 'archive', :ref => 'v2.2.0',                    :git => github + 'voxpupuli/puppet-archive'
 
 #
