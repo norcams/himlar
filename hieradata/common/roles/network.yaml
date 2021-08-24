@@ -22,13 +22,13 @@ profile::openstack::network::controller::manage_neutron_policies: true
 
 profile::base::common::packages:
   'bash-completion': {}
-  'bash-completion-extras': {}
+  'bash-completion-extras': {} # FIXME: remove when el7 is gone
   'jq': {}
   'gcc-c++': {}
   'openstack-selinux': {}
-  'python-etcd3gw': {}
+  'python-etcd3gw': {}         # FIXME: remove when el7 is gone
   'python3-etcd3gw': {}
-  'python-memcached': {}
+  'python-memcached': {}       # FIXME: remove when el7 is gone
   'libibverbs': {}
 
 profile::openstack::openrc::password:     "%{hiera('neutron_api_password')}"
