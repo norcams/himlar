@@ -91,9 +91,19 @@ class profile::openstack::dashboard(
   }
 
   if $change_region_selector {
+    case $::operatingsystemmajrelease {
+      '7': {
+        $python_version = '2.7'
+      }
+      '8': {
+        $python_version = '3.6'
+      }
+      default: {
+      }
+    }
     file_line { 'clear_file_content':
       ensure            => absent,
-      path              => '/usr/lib/python2.7/site-packages/horizon/templates/horizon/common/_region_selector.html',
+      path              => "/usr/lib/python${python_version}/site-packages/horizon/templates/horizon/common/_region_selector.html",
       match             => '^.',
       match_for_absence => true,
       multiple          => true,
