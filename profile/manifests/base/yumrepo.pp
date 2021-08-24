@@ -17,7 +17,7 @@ $repo_hash = lookup('profile::base::yumrepo::repo_hash', Hash, $merge_strategy, 
     }
     # From puppet 6 we use the new yumrepo_core from puppetlabs
     '8': {
-      create_resources('yumrepo_core::yumrepo', $repo_hash)
+      create_resources('yumrepo', $repo_hash)
     }
     default: {
     }
