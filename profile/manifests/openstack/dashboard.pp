@@ -91,7 +91,7 @@ class profile::openstack::dashboard(
 
     # FIXME: Temporary workaround for el8 designate-ui rpm setting wrong permissions
     if $::osfamily == 'RedHat' and $::operatingsystemmajrelease == '8' {
-      $designate_ui_path = '/usr/share/openstack-dashboard/openstack_dashboard/local/enabled/'  
+      $designate_ui_path = '/usr/share/openstack-dashboard/openstack_dashboard/local/enabled/'
       file { '_1710_project_dns_panel_group.py':
         path   => "${designate_ui_path}_1710_project_dns_panel_group.py",
         mode   => '0644',
