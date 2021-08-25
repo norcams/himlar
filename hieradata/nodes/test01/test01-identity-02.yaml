@@ -19,5 +19,6 @@ network::interfaces_hash:
     defroute:  'no'
     mtu:       '1500'
 
+profile::base::common::packages:
   CentOS-AppStream:
     module_hotfixes: '1' # FIXME: mod_auth_openidc module should be enabled instead when puppetmaster is upgraded from v5
