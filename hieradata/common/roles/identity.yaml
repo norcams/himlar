@@ -162,8 +162,6 @@ profile::base::yumrepo::repo_hash:
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
     includepkgs: 'htop bash-completion-extras'
-  CentOS-AppStream:
-    module_hotfixes: '1' # FIXME: mod_auth_openidc module should be enabled instead when puppetmaster is upgraded from v5
 
 profile::base::selinux::boolean:
   'httpd_can_network_connect':
