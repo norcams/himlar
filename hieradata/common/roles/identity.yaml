@@ -20,6 +20,9 @@ profile::base::common::packages:
   'MariaDB-client': {}
   'openstack-selinux': {}
   'python2-designateclient': {}
+#  'mod_auth_openidc': # FIXME: possible mech for enabling specific module
+#    provider: dnf
+#    enable_only: 'mod_auth_openidc'
 
 memcached::max_memory: '40%'
 
@@ -150,6 +153,8 @@ profile::base::yumrepo::repo_hash:
   rdo-release:
     ensure:   present
     exclude:  'mariadb*'
+  CentOS-PowerTools:
+    ensure: present
   mariadb:
     ensure:   absent
   "mariadb-%{hiera('mariadb_version')}":
@@ -157,6 +162,8 @@ profile::base::yumrepo::repo_hash:
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
     includepkgs: 'htop bash-completion-extras'
+  CentOS-AppStream:
+    module_hotfixes: '1' # FIXME: mod_auth_openidc module should be enabled instead when puppetmaster is upgraded from v5
 
 profile::base::selinux::boolean:
   'httpd_can_network_connect':
