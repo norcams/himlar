@@ -5,6 +5,7 @@ mq__high__watermark:                  0.4
 # Install rabbitmq_management plugin
 rabbitmq::admin_enable:               true
 rabbitmq::repos_ensure:               false
+rabbitmq::manage_python:              false
 rabbitmq::delete_guest_user:          true
 rabbitmq::file_limit:                 65536
 rabbitmq::node_ip_address:            "0.0.0.0" #This should be set to mgmt or trp in role
