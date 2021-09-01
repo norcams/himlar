@@ -19,7 +19,7 @@ profile::base::common::packages:
   'gcc-c++': {}
   'make': {}
   'bash-completion': {}
-  'bash-completion-extras': {}
+  'bash-completion-extras': {} # FIXME: Remove when el7 is gone
   'jq': {}
 
 profile::monitoring::sensu::agent::plugins:
@@ -149,3 +149,7 @@ profile::base::yumrepo::repo_hash:
   epel:
     ensure: present
     includepkgs: 'bash-completion-extras htop'
+  rabbitmq-server-cloudsmith:
+    ensure: present
+  rabbitmq-erlang-cloudsmith:
+    ensure: present

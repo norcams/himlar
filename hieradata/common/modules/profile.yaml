@@ -240,6 +240,20 @@ profile::base::yumrepo::repo_hash:
     enabled:        1
     gpgcheck:       1
     gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/ceph-%{hiera('ceph_version')}-noarch/release.asc"
+  rabbitmq-erlang-cloudsmith:
+    ensure:         absent
+    descr:          "RabbitMQ erlang latest"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/rabbitmq_erlang"
+    enabled:        1
+    gpgcheck:       1
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/rabbitmq_erlang/gpg.E495BB49CC4BBE5B.key"
+  rabbitmq-server-cloudsmith:
+    ensure:         absent
+    descr:          "RabbitMQ Server latest"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/rabbitmq_server-noarch"
+    enabled:        1
+    gpgcheck:       1
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/rabbitmq_server-noarch/gpg.9F4587F226208342.key"
   logstash6:
     ensure:         absent
     descr:          'Logstash 6 Centos Repo'
