@@ -36,6 +36,8 @@ profile::base::common::manage_chrony:  true
 profile::network::interface::manage_interface:        true
 profile::network::interface::suppress_legacy_warning: true
 
+profile::dns::ns::enable_bird6:         false # FIXME: clean up when el7 is gone
+
 collectd::minimum_version:              '5.9'
 collectd::plugin::disk::manage_package: true
 
