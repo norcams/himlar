@@ -15,8 +15,9 @@ named_interfaces::config:
 # This is the resolving name server
 profile::dns::ns::authoritative: false
 
-profile::base::network::manage_dummy: true
-profile::base::common::manage_cron: true
+profile::network::interface::manage_dummy: true
+profile::base::network::manage_dummy: true # FIXME; remove when el7 is gone
+profile::base::common::manage_cron:   true # FIXME; remove when el7 is gone
 
 # DNS server addresses (used by file templates)
 profile::dns::ns::admin_mgmt_addr:          "%{hiera('netcfg_mgmt_netpart')}.11"
