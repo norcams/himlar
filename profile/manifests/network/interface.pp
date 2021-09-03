@@ -33,9 +33,10 @@ class profile::network::interface(
     kmod::load { "dummy": }
 
     kmod::option { "Number of dummy interfaces":
-      module => "dummy",
-      option => "numdummies",
-      value =>  $no_of_dummies,
+      module  => "dummy",
+      option  => "numdummies",
+      value   => $no_of_dummies,
+      notify  => Exec['rebuild initramfs']
     }
     # Remove override in el8 installs
     file_line { 'remove_dummy_override':
@@ -43,6 +44,11 @@ class profile::network::interface(
       line    => '#options dummy numdummies=0',
       match   => 'options dummy numdummies=0',
       replace => true,
+      notify  => Exec['rebuild initramfs']
+    }
+    exec { 'rebuild initramfs':
+      command     => 'dracut -f --kver $(rpm -qa kernel | sort -V -r | head -n 1 | sed \'s|kernel-||\')',
+      refreshonly => true
     }
   }
 
