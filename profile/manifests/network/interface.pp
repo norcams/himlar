@@ -48,6 +48,7 @@ class profile::network::interface(
     }
     exec { 'rebuild initramfs':
       command     => 'dracut -f --kver $(rpm -qa kernel | sort -V -r | head -n 1 | sed \'s|kernel-||\')',
+      path        => '/sbin:/usr/bin:/usr/sbin',
       refreshonly => true
     }
   }
