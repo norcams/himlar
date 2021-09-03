@@ -4,7 +4,7 @@ class profile::network::nat(
   $enable_bird = false,
   $manage_bird_firewall = false,
   $bird_export_networks = undef,
-  $bird_template = 'bird-nat.conf.erb',
+  $bird_template = "bird-nat.conf.${::operatingsystemmajrelease}.erb",
   $azure_bird_local_as = undef,
   $azure_bird_remote_as = undef,
   $azure_bird_remote_neigh = undef,
