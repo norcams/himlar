@@ -93,6 +93,7 @@ profile::base::common::packages:
   'bash-completion': {}
   'jq': {}
   'openstack-selinux': {}
+  'centos-release-virt-common': {}
 
 # Sensu (needs gcc-c++)
 profile::monitoring::sensu::agent::plugins:
@@ -204,6 +205,8 @@ profile::base::yumrepo::repo_hash:
   centos-qemu-ev: # FIXME remove when el7 is gone
     ensure: present
   CentOS-PowerTools:
+    ensure: present
+  CentOS-Advanced-Virtualization:
     ensure: present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present

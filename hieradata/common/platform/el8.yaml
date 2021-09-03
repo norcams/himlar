@@ -17,7 +17,9 @@ profile::base::yumrepo::repo_hash:
     gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/puppetlabs6/RPM-GPG-KEY-puppet"
   centos-qemu-ev:   # unavailable for el8
     ensure: absent
-  mariadb-10.3:
+  CentOS-Advanced-Virtualization: # FIXME
+    module_hotfixes: '1'
+  mariadb-10.3: # FIXME
     module_hotfixes: '1'
 
 profile::base::common::packages:

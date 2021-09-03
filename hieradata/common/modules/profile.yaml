@@ -132,6 +132,12 @@ profile::base::yumrepo::repo_hash:
     baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/centos-extras/"
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial'
     gpgcheck:       1
+  CentOS-Advanced-Virtualization:
+    descr:          'CentOS-$releasever - Advanced Virtualization'
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/centos-advanced-virtualization/"
+    gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Virtualization'
+    gpgcheck:       1
+    ensure:         absent
   puppetlabs:
     descr:          Puppetlabs Yum Repo
     baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/puppetlabs5/"
