@@ -3,7 +3,7 @@ class profile::dns::ns (
   $allowed_transfer_nets = undef,
   $check_named_health = false,
   $enable_bird = false,
-  $bird_template = "${module_name}/bird/bird-resolver.conf.${::operatingsystemmajrelease}.erb",
+  $bird_template = "${module_name}/bird/bird-resolver.conf.${::operatingsystemmajrelease}",
   $enable_bird6 = false,
   $my_mgmt_addr = $::ipaddress_mgmt1,
   $my_transport_addr = $::ipaddress_trp1,
@@ -177,7 +177,7 @@ class profile::dns::ns (
     }
     file { '/etc/bird.conf':
       ensure   => file,
-      content  => template(${bird_template}),
+      content  => template("${bird_template}.erb"),
       notify   => Service['bird']
     }
     service { 'bird':
