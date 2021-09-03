@@ -10,14 +10,17 @@ include:
     - profile::application::rngd
     - profile::rhsm::subscription
     - profile::rhsm::virtwho
+    - profile::base::httpproxy
   kickstart:
     - profile::base::lvm
     - profile::virtualization::nested
     - profile::network::yum_proxy
     - profile::monitoring::sensu::agent
+    - profile::base::httpproxy
   bootstrap:
     - profile::base::lvm
     - profile::network::yum_proxy
+    - profile::base::httpproxy
 
 # Set SELinux mode to enforcing
 profile::base::selinux::manage_selinux: true
@@ -45,7 +48,7 @@ profile::openstack::compute::manage_az:            true
 profile::network::interface::create_custom_routes: true
 profile::network::interface::create_ip_rules: true
 
-profile::base::network::manage_httpproxy: true
+profile::base::httpproxy::manage_httpproxy: true
 profile::network::yum_proxy::yum_proxy:   "http://%{hiera('mgmt__address__proxy')}:8888"
 
 profile::openstack::compute::manage_check_dhcp_lease_file: true

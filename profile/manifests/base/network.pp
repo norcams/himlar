@@ -6,16 +6,12 @@ class profile::base::network(
   $no_of_dummies    = 1,
   $netif_proxy_arp  = false,
   $proxy_arp_ifs    = {},
-  $manage_httpproxy = false,
-  $http_proxy       = undef,
-  $https_proxy      = undef,
   $remove_route     = false,
   $remove_route_ifs = undef,
   $l3_router        = false,
   $node_multinic    = false,
   $has_servicenet   = false,
   $cumulus_ifs      = false,
-  $http_proxy_profile = '/etc/profile.d/proxy.sh',
   $manage_neutron_blackhole = false,
   $opx_cleanup      = false,
 ) {
@@ -276,25 +272,6 @@ class profile::base::network(
       } ->
       exec { '/opt/rule-checks/rule6-enforce.sh':
         unless  => '/opt/rule-checks/rule6-check.sh',
-      }
-    }
-
-    if $manage_httpproxy {
-      $ensure_value = $http_proxy ? {
-        undef   => absent,
-        default => present,
-      }
-      $target = $http_proxy_profile
-
-      shellvar { "http_proxy":
-        ensure  => exported,
-        target  => $target,
-        value   => $http_proxy,
-      }
-      shellvar { "https_proxy":
-        ensure  => exported,
-        target  => $target,
-        value   => $https_proxy,
       }
     }
 

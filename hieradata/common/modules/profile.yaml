@@ -19,9 +19,9 @@ profile::base::common::include_virtual:        true
 profile::base::common::include_physical:       true
 profile::base::firewall::manage_firewall:      true
 profile::base::hostname::manage_hostname:      true
-profile::base::network::http_proxy:            "http://%{hiera('mgmt__address__proxy')}:8888"
-profile::base::network::https_proxy:           "https://%{hiera('mgmt__address__proxy')}:8888"
-profile::base::network::http_proxy_profile:    '/root/proxy.sh'
+profile::base::httpproxy::http_proxy:          "http://%{hiera('mgmt__address__proxy')}:8888"
+profile::base::httpproxy::https_proxy:         "https://%{hiera('mgmt__address__proxy')}:8888"
+profile::base::httpproxy::http_proxy_profile:  '/root/proxy.sh'
 profile::base::dell::manage_repos:             true
 profile::base::dell::manage_openmanage:        true
 
