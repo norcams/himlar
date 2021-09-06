@@ -47,7 +47,7 @@ mod 'frrouting', :ref => 'd07940e660',              :git => github + 'norcams/pu
 # profile::network::
 #
 mod 'bird', :ref => 'v4.1.0',                       :git => github + 'voxpupuli/puppet-bird'
-mod 'calico', :ref => '9a6fe94f2a',                 :git => github + 'norcams/puppet-calico'
+mod 'calico', :ref => '7795a38dd4',                 :git => github + 'norcams/puppet-calico'
 mod 'dnsmasq', :ref => 'v1.3.1',                    :git => github + 'saz/puppet-dnsmasq'
 mod 'ipcalc', :ref => '2.2.0',                      :git => github + 'inkblot/puppet-ipcalc'
 mod 'tinyproxy', :ref => 'ef4a8b0bb2',              :git => github + 'earsdown/puppet-tinyproxy'
