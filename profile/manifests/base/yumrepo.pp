@@ -2,7 +2,8 @@
 # or the new yumrepo_core depending on el version
 # This class is part of profile::base::common
 class profile::base::yumrepo(
-  $merge_strategy = 'deep'
+  $merge_strategy  = 'deep',
+  $purge_unmanaged = false
 ) {
 
 $repo_hash = lookup('profile::base::yumrepo::repo_hash', Hash, $merge_strategy, {})
@@ -18,6 +19,11 @@ $repo_hash = lookup('profile::base::yumrepo::repo_hash', Hash, $merge_strategy, 
     # From puppet 6 we use the new yumrepo_core from puppetlabs
     '8': {
       create_resources('yumrepo', $repo_hash)
+      if $purge_unmanaged {
+        resources { 'yumrepo':
+        purge => true
+        }
+      }
     }
     default: {
     }

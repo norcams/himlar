@@ -102,6 +102,7 @@ profile::openstack::openrc::project_name: 'openstack'
 
 # All yum repos go here
 yum_base_mirror:    'https://download.iaas.uio.no/nrec/prod'
+profile::base::yumrepo::purge_unmanaged: true  # purging of repos has moved to profile code with el8
 profile::base::yumrepo::repo_hash:
   CentOS-Base:
     descr:          'CentOS-$releasever - Base'
