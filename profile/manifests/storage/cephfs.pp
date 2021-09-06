@@ -9,6 +9,6 @@ class profile::storage::cephfs(
 
   if $create_cephfs {
     $filesystems = lookup('profile::storage::cephfs::filesystems', Hash, 'deep', {})
-    create_resources('ceph::fs', $filesystems)
+    create_resources('profile::storage::ceph::cephfs::fs', $filesystems)
   }
 }
