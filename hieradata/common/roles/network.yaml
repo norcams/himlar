@@ -22,12 +22,13 @@ profile::openstack::network::controller::manage_neutron_policies: true
 
 profile::base::common::packages:
   'bash-completion': {}
-  'bash-completion-extras': {}
+  'bash-completion-extras': {} # FIXME: remove when el7 is gone
   'jq': {}
   'gcc-c++': {}
   'openstack-selinux': {}
-  'python-etcd3gw': {}
-  'python-memcached': {}
+  'python-etcd3gw': {}         # FIXME: remove when el7 is gone
+  'python3-etcd3gw': {}
+  'python-memcached': {}       # FIXME: remove when el7 is gone
   'libibverbs': {}
 
 profile::openstack::openrc::password:     "%{hiera('neutron_api_password')}"
@@ -64,6 +65,8 @@ profile::base::yumrepo::repo_hash:
     ensure: absent
   calico%{hiera('calico_version')}:
     ensure: present
+  CentOS-PowerTools:
+    ensure: present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
-    includepkgs: 'htop bash-completion-extras python2-bcrypt'
+    includepkgs: 'htop bash-completion-extras python2-bcrypt' # FIXME remove non el8 packages when el7 is gone

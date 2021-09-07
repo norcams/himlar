@@ -11,7 +11,8 @@ named_interfaces::config:
   public:
     - dummy0
 
-profile::base::network::manage_dummy:            true
+profile::base::network::manage_dummy:            true # FIXME: Remove when el7 is gone
+profile::network::interface::manage_dummy:       true
 
 profile::network::nat::enable_bird:              true
 profile::network::nat::manage_bird_firewall:     true

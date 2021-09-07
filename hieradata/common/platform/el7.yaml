@@ -8,6 +8,24 @@ profile::base::yumrepo::repo_hash:
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7'
   CentOS-Extras:
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7'
+  CentOS-PowerTools:          # unavailable for el7
+    ensure: absent
+  CentOS-Advanced-Virtualization: # unavailable for el7
+    ensure: absent
+  rabbitmq-server-cloudsmith: # unavailable for el7
+    ensure: absent
+  rabbitmq-erlang-cloudsmith: # unavailable for el7
+    ensure: absent
+  rdo-release:
+    gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Cloud'
+
+profile::base::common::packages:
+  'python3-etcd3gw': { ensure: absent, }
+  'python3-openstackclient': { ensure: absent, }
+  'python3-designateclient': { ensure: absent, }
+  'python3-mysql': { ensure: absent, }
+  'centos-release-messaging': { ensure: absent, }
+  'centos-release-virt-common': { ensure: absent, }
 
 profile::openstack::network::calico::packagename_etcdgw: python2-etcd3gw
 

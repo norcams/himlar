@@ -19,9 +19,9 @@ profile::base::common::include_virtual:        true
 profile::base::common::include_physical:       true
 profile::base::firewall::manage_firewall:      true
 profile::base::hostname::manage_hostname:      true
-profile::base::network::http_proxy:            "http://%{hiera('mgmt__address__proxy')}:8888"
-profile::base::network::https_proxy:           "https://%{hiera('mgmt__address__proxy')}:8888"
-profile::base::network::http_proxy_profile:    '/root/proxy.sh'
+profile::base::httpproxy::http_proxy:          "http://%{hiera('mgmt__address__proxy')}:8888"
+profile::base::httpproxy::https_proxy:         "https://%{hiera('mgmt__address__proxy')}:8888"
+profile::base::httpproxy::http_proxy_profile:  '/root/proxy.sh'
 profile::base::dell::manage_repos:             true
 profile::base::dell::manage_openmanage:        true
 
@@ -102,6 +102,7 @@ profile::openstack::openrc::project_name: 'openstack'
 
 # All yum repos go here
 yum_base_mirror:    'https://download.iaas.uio.no/nrec/prod'
+profile::base::yumrepo::purge_unmanaged: true  # purging of repos has moved to profile code with el8
 profile::base::yumrepo::repo_hash:
   CentOS-Base:
     descr:          'CentOS-$releasever - Base'
@@ -132,6 +133,12 @@ profile::base::yumrepo::repo_hash:
     baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/centos-extras/"
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial'
     gpgcheck:       1
+  CentOS-Advanced-Virtualization:
+    descr:          'CentOS-$releasever - Advanced Virtualization'
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/centos-advanced-virtualization/"
+    gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Virtualization'
+    gpgcheck:       1
+    ensure:         absent
   puppetlabs:
     descr:          Puppetlabs Yum Repo
     baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/puppetlabs5/"
@@ -174,7 +181,7 @@ profile::base::yumrepo::repo_hash:
     baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/rdo-%{hiera('openstack_version')}/"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Cloud'
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/rdo-%{hiera('openstack_version')}/RPM-GPG-KEY-CentOS-SIG-Cloud"
     exclude:        'python2-bcrypt'
     #exclude:        'mariadb*' FIXME: this should be added after adding mariadb repo to all roles connecting to db
   calico:
@@ -240,6 +247,20 @@ profile::base::yumrepo::repo_hash:
     enabled:        1
     gpgcheck:       1
     gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/ceph-%{hiera('ceph_version')}-noarch/release.asc"
+  rabbitmq-erlang-cloudsmith:
+    ensure:         absent
+    descr:          "RabbitMQ erlang latest"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/rabbitmq_erlang"
+    enabled:        1
+    gpgcheck:       1
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/rabbitmq_erlang/gpg.E495BB49CC4BBE5B.key"
+  rabbitmq-server-cloudsmith:
+    ensure:         absent
+    descr:          "RabbitMQ Server latest"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/rabbitmq_server-noarch"
+    enabled:        1
+    gpgcheck:       1
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/rabbitmq_server-noarch/gpg.9F4587F226208342.key"
   logstash6:
     ensure:         absent
     descr:          'Logstash 6 Centos Repo'

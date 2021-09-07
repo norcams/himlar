@@ -65,6 +65,8 @@ profile::base::yumrepo::repo_hash:
     exclude:  'mariadb*'
   "mariadb-%{hiera('mariadb_version')}":
     ensure:     present
+  CentOS-PowerTools:
+    ensure: present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
     includepkgs: 'htop bash-completion-extras python2-bcrypt'

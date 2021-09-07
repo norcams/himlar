@@ -2,20 +2,20 @@
 ceph_version: 'nautilus' # FIXME
 
 # We use lagre iscsi disk for nfs
-sensu__disk__warning:     82
+#sensu__disk__warning:     82
 
-profile::base::common::packages:
-  'nfs-utils': {}
+#profile::base::common::packages:
+#  'nfs-utils': {}
 
 profile::openstack::volume::type:
   rbd:
     is_public: true
     properties:
       - 'volume_backend_name=rbd-volumes'
-  nfs:
-    is_public: false
-    properties:
-      - 'volume_backend_name=atlas-storage'
+#  nfs:
+#    is_public: false
+#    properties:
+#      - 'volume_backend_name=atlas-storage'
   mass-storage-arccache:
     is_public: false
     properties:
@@ -30,9 +30,9 @@ profile::openstack::volume::type:
       - 'volume_backend_name=mass-storage-ssd'
 
 # Use transport network for this (which has no DNS name)
-profile::openstack::volume::backend::nfs:
-  atlas-storage:
-    nfs_servers: ["172.18.32.80:/opt/volumeshare"]
+#profile::openstack::volume::backend::nfs:
+#  atlas-storage:
+#    nfs_servers: ["172.18.32.80:/opt/volumeshare"]
 
 profile::openstack::volume::backend::rbd:
   rbd-volumes:
