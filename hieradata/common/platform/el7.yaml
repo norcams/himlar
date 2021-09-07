@@ -16,6 +16,8 @@ profile::base::yumrepo::repo_hash:
     ensure: absent
   rabbitmq-erlang-cloudsmith: # unavailable for el7
     ensure: absent
+  rdo-release:
+    gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Cloud'
 
 profile::base::common::packages:
   'python3-etcd3gw': { ensure: absent, }
