@@ -63,6 +63,15 @@ profile::network::services::dhcp_reservation:
   bgo-mgmt-opx-06:
     mac: '8c:04:ba:b2:a1:40'
     ip:  '172.16.2.6'
+  bgo-cephmon-01-bmc:
+    mac: 'b8:2a:72:fc:4c:7e'
+    ip:  '172.17.0.91'
+  bgo-cephmon-02-bmc:
+    mac: 'b8:2a:72:fc:46:d4'
+    ip:  '172.17.0.92'
+  bgo-cephmon-03-bmc:
+    mac: 'b8:2a:72:fc:42:92'
+    ip:  '172.17.0.93'
   bgo-compute-01-bmc:
     mac: 'b8:2a:72:fc:71:32'
     ip:  '172.17.0.103'
@@ -243,15 +252,6 @@ profile::network::services::dhcp_reservation:
   bgo-compute-60-bmc:
     'mac': '2c:ea:7f:fb:4b:76'
     'ip':  '172.17.1.92'
-  bgo-controller-01-bmc:
-    mac: 'b8:2a:72:fc:4c:7e'
-    ip:  '172.17.0.100'
-  bgo-controller-02-bmc:
-    mac: 'b8:2a:72:fc:46:d4'
-    ip:  '172.17.0.101'
-  bgo-controller-03-bmc:
-    mac: 'b8:2a:72:fc:42:92'
-    ip:  '172.17.0.102'
   bgo-controller-04-bmc:
     mac: 'b0:83:fe:e9:01:a5'
     ip:  '172.17.0.114'
