@@ -29,13 +29,13 @@ profile::base::network::network_auto_bonding:
 
 profile::base::common::manage_lvm: true
 profile::base::lvm::physical_volume:
-  '/dev/sda3':
+  '/dev/sda4':
     ensure: present
     force:  true
 profile::base::lvm::volume_group:
   'vg_ceph':
     physical_volumes:
-      - /dev/sda3
+      - /dev/sda4
 profile::base::lvm::logical_volume:
   'lv_ceph':
     volume_group: 'vg_ceph'
