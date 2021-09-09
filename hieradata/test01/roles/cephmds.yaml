@@ -24,3 +24,4 @@ profile::storage::cephfs::fs_params:
       'repl_ssd': 'cephfs_internal_data_default'
     'settings':
       'max_file_size': '10995119925677' # 10TB - default is 1TB
+      'max_mds':       '2'
