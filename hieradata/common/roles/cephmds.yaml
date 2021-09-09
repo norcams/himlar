@@ -2,6 +2,7 @@
 include:
   default:
     - profile::storage::cephmds
+    - profile::storage::cephfs
 
 # ceph config keys and ids
 ceph::profile::params::fsid:        "%{hiera('ceph_storage_client_fsid')}"
@@ -12,8 +13,8 @@ profile::storage::cephmds::manage_firewall:  true
 profile::base::common::packages:
   'redhat-lsb-core': {}
   'bash-completion': {}
-  'bash-completion-extras': {}
   'jq': {}
+  'attr': {}
 
 # Sensu
 profile::monitoring::sensu::agent::plugin_gems:
