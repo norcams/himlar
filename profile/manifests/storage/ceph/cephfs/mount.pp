@@ -9,23 +9,23 @@ define profile::storage::ceph::cephfs::mount(
 ) {
 
   exec { "create_mountdir_${name}":
-    command => "mkdir -p ${local_mountdir}",
+    command => "mkdir -p ${name}",
     path    => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
-    unless  => "test -d ${local_mountdir}",
+    unless  => "test -d ${name}",
   } ~>
   file { "local_mountdir_${name}":
-    path    => "${name}",
     ensure  => directory,
-    owner   => "${local_mountdir_owner}",
+    path    => $name,
+    owner   => $local_mountdir_owner,
     recurse => true,
   }
 
   $mount_opts = "name=${user},${mount_options}"
 
-  mount { "${name}":
-    ensure  => "${ensure}",
-    fstype  => "${fstype}",
-    device  => "${device}",
-    options => "${mount_opts}",
+  mount { $name:
+    ensure  => $ensure,
+    fstype  => $fstype,
+    device  => $device,
+    options => $mount_opts,
   }
 }
