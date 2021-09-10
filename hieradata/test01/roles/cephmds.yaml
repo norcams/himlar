@@ -12,7 +12,7 @@ profile::storage::cephfs::mount:
   '/cephfs/rootfs':
     'user':   'admin'
     'ensure': mounted
-    'device': ':'
+    'device': ':/'
 
 profile::storage::cephfs::fs_params:
   'cephfs_internal':
