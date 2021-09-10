@@ -80,7 +80,7 @@ protocol kernel {
   ipv6 {
     table master6;
     import filter import_kernel6;
-    export filter import_bgp;
+    export filter import_bgp6;
   };
   graceful restart;
   persist;                    # Don't remove routes on bird shutdown
