@@ -35,6 +35,20 @@ profile::firewall::rules::custom_rules:
     dport:        [ '80', '443' ]
     source:       '129.177.0.0/16'
     destination:  "%{hiera('corosync_cluster_vip2')}"
+  '453 haproxy http for internal vip3':
+    proto:        'tcp'
+    dport:        [ '80', '443' ]
+    destination:  "%{hiera('corosync_cluster_vip3')}"
+    source:
+      - '51.174.15.28/32' # mcb
+      - '129.177.6.133/32' # bgo-login
+  '454 haproxy http for internal vip4':
+    proto:        'tcp'
+    dport:        [ '80', '443' ]
+    destination:  "%{hiera('corosync_cluster_vip4')}"
+    source:
+      - '51.174.15.28/32' # mcb
+      - '129.177.6.133/32' # bgo-login
   '455 haproxy status public':
     proto:        'tcp'
     dport:        ['9000']
