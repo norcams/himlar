@@ -165,7 +165,7 @@ profile::base::yumrepo::repo_hash:
   uh-iaas-nonfree:
     ensure:         absent
     descr:          'NREC non-free packages repository'
-    baseurl:        'https://download.iaas.uio.no/nrec/nonfree/yum-nonfree'
+    baseurl:        "https://download.iaas.uio.no/nrec/nonfree/yum-nonfree/%{hiera('repo_dist')}"
     enabled:        1
     gpgcheck:       0
   centos-qemu-ev:
