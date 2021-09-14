@@ -42,6 +42,11 @@ profile::firewall::rules::custom_rules:
     source:
       - '51.174.15.28/32' # mcb
       - '129.177.6.133/32' # bgo-login
+      - '161.4.51.61/32' # k2
+      - '161.4.51.62/32' # k2
+      - '161.4.51.63/32' # k2
+      - '161.4.51.56/32' # k2
+      - '161.4.51.57/32' # k2
   '454 haproxy http for internal vip4':
     proto:        'tcp'
     dport:        [ '80', '443' ]
@@ -49,6 +54,11 @@ profile::firewall::rules::custom_rules:
     source:
       - '51.174.15.28/32' # mcb
       - '129.177.6.133/32' # bgo-login
+      - '161.4.51.61/32' # k2
+      - '161.4.51.62/32' # k2
+      - '161.4.51.63/32' # k2
+      - '161.4.51.56/32' # k2
+      - '161.4.51.57/32' # k2
   '455 haproxy status public':
     proto:        'tcp'
     dport:        ['9000']
