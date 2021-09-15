@@ -19,3 +19,8 @@ network::interfaces_hash:
 
 profile::highavailability::corosync::firewall_extras:
   source: "%{hiera('netcfg_public2_netpart')}.191"
+
+accounts::accounts:
+  'iaas':
+    ensure: present
+    authorized_keys: [ 'iaas', 'raymond_uib']
