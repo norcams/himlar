@@ -17,6 +17,7 @@ define profile::application::builder::jobs(
     $download_dir  = $profile::application::builder::download_dir,
     $rc_file       = $profile::application::builder::rc_file,
     $environment   = [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/default' ],
+    $weekday       = fqdn_rand(6, $name),
     $hour          = fqdn_rand(23, $name),
     $minute        = 0
 ) {
@@ -34,7 +35,7 @@ define profile::application::builder::jobs(
     # Write to imagebuilder report
     command     => "/home/${user}/build_scripts/${name} || jq -nc '{\"result\": \"failed\"}' >> /var/log/imagebuilder/${name}-report.jsonl",
     user        => $user,
-    weekday     => 'Wednesday',
+    weekday     => $weekday,
     hour        => $hour,
     minute      => $minute,
     environment => $environment
