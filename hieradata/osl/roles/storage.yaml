@@ -41,12 +41,6 @@ profile::storage::ceph_crushrules::rules:
   'nvme-storage':
     rule_device_type: "nvme"
     rule_root:        "storage"
-  'hdd-arccache':
-    rule_device_type: "hdd"
-    rule_root:        "arccache"
-  'ssd-arccache':
-    rule_device_type: "ssd"
-    rule_root:        "arccache"
 
 profile::storage::ceph::pool::pools:
   'rbd':

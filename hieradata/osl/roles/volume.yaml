@@ -16,10 +16,6 @@ profile::openstack::volume::type:
 #    is_public: false
 #    properties:
 #      - 'volume_backend_name=atlas-storage'
-  mass-storage-arccache:
-    is_public: false
-    properties:
-      - 'volume_backend_name=mass-storage-arccache'
   mass-storage-default:
     is_public: true
     properties:
@@ -45,18 +41,6 @@ profile::openstack::volume::backend::rbd:
         value: 'True'
       rbd-volumes/rbd_exclusive_cinder_pool:
         value: 'True'
-  mass-storage-arccache:
-    rbd_pool: 'arccache_hdd_ec_meta'
-    rbd_user: 'cinder-arccache-hdd-ec'
-    rbd_flatten_volume_from_snapshot: 'True'
-    rbd_secret_uuid: "%{hiera('libvirt_rbd_secret_uuid')}"
-    extra_options:
-      mass-storage-arccache/enable_deferred_deletion:
-        value: 'True'
-      mass-storage-arccache/rbd_exclusive_cinder_pool:
-        value: 'True'
-      mass-storage-arccache/max_over_subscription_ratio:
-        value: 'auto'
   mass-storage-default:
     rbd_pool: 'volumes_hdd_ec_meta'
     rbd_user: 'cinder-hdd-ec'
@@ -85,6 +69,5 @@ cinder::api::default_volume_type: 'mass-storage-default'
 cinder::backends::enabled_backends:
   - rbd-volumes
   - atlas-storage
-  - mass-storage-arccache
   - mass-storage-default
   - mass-storage-ssd

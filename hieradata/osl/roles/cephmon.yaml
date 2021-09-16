@@ -3,9 +3,6 @@ profile::storage::ceph_crushbucket::buckets:
   'storage':
     bucket_type:   'pod'
     bucket_parent: 'default'
-  'arccache':
-    bucket_type:   'pod'
-    bucket_parent: 'default'
   'huawei': # FIXME
     bucket_type:   'pod'
     bucket_parent: 'default'
