@@ -90,6 +90,7 @@ profile::storage::ceph::pool::pools:
     ensure: absent
   'dcache_hdd_ec_meta':
     size:    3
+    pg_num:  16
     tag:     'rbd'
     custom:
       crush_rule: 'ssd-storage'
@@ -97,6 +98,7 @@ profile::storage::ceph::pool::pools:
       min_size:   '2'
   'dcache_hdd_ec_meta8':
     size:    3
+    pg_num:  16
     tag:    'rbd'
     custom:
       crush_rule: 'ssd-storage'
