@@ -68,6 +68,5 @@ cinder::api::default_volume_type: 'mass-storage-default'
 
 cinder::backends::enabled_backends:
   - rbd-volumes
-  - atlas-storage
   - mass-storage-default
   - mass-storage-ssd
