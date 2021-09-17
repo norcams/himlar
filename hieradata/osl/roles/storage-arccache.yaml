@@ -23,71 +23,66 @@ profile::storage::cephosd::crush_parent_type: 'pod'
 #profile::base::common::manage_lvm: false
 #profile::base::lvm::create_lvm:    false
 
-profile::storage::cephpool::manage_ec_pools: true
-profile::storage::cephosd::create_osds: true
-profile::storage::cephosd::crush_move:  true
+profile::storage::cephpool::manage_ec_pools: false
+profile::storage::cephosd::create_osds: false
+profile::storage::cephosd::crush_move:  false
 
-profile::storage::ceph_extraconf::config:
-  osd_memory_target:
-    'config_key'  : "osd/osd_memory_target"
-    'config_value': "6442450944"
-  osd_max_scrubs:
-    'config_key'  : "osd/osd_max_scrubs"
-    'config_value': "1"
-  osd_deep_scrub_interval:
-    'config_key'  : "osd/osd_deep_scrub_interval"
-    'config_value': "2419200.000000"
-  osd_recovery_max_active:
-    'config_key'  : "osd/osd_recovery_max_active"
-    'config_value': "3"
-  osd_max_backfills:
-    'config_key'  : "osd/osd_max_backfills"
-    'config_value': "1"
-  osd_scrub_priority:
-    'config_key'  : "osd/osd_scrub_priority"
-    'config_value': "1"
-  osd_scrub_sleep:
-    'config_key'  : "osd/osd_scrub_sleep"
-    'config_value': "0.5"
-  osd_scrub_chunk_min:
-    'config_key'  : "osd/osd_scrub_chunk_min"
-    'config_value': "1"
-  osd_scrub_chunk_max:
-    'config_key'  : "osd/osd_scrub_chunk_max"
-    'config_value': "5"
-
-profile::storage::ceph_ecpool::ec_pools:
-  'arccache_hdd_ec_data':
-    manage:              true
-    allow_ec_overwrites: true
-    k_data:              "3"
-    m_code:              "2"
-    crush_root:          "arccache"
-
-profile::storage::ceph::pool::pools:
-  'rbd':
-    ensure: absent
-  'arccache_hdd_ec_meta':
-    size:    3
-    tag:     'rbd'
-    custom:
-      crush_rule:          'hdd-arccache'
-      nodelete:            'true'
-      min_size:            '2'
-      deep_scrub_interval: '1.2096e+06'  # deep scrub at least every 2 weeks - overrides osd setting
-  'arccache_hdd_ec_data':
-    custom:
-      deep_scrub_interval: '1.93536e+07' # every 32 weeks - overrides osd setting
-      scrub_max_interval:  '1.2096e+06'  # normal scrub at least every 2 weeks - overrides osd setting
+#profile::storage::ceph_extraconf::config:
+#  osd_memory_target:
+#    'config_key'  : "osd/osd_memory_target"
+#    'config_value': "6442450944"
+#  osd_max_scrubs:
+#    'config_key'  : "osd/osd_max_scrubs"
+#    'config_value': "1"
+#  osd_deep_scrub_interval:
+#    'config_key'  : "osd/osd_deep_scrub_interval"
+#    'config_value': "2419200.000000"
+#  osd_recovery_max_active:
+#    'config_key'  : "osd/osd_recovery_max_active"
+#    'config_value': "3"
+#  osd_max_backfills:
+#    'config_key'  : "osd/osd_max_backfills"
+#    'config_value': "1"
+#  osd_scrub_priority:
+#    'config_key'  : "osd/osd_scrub_priority"
+#    'config_value': "1"
+#  osd_scrub_sleep:
+#    'config_key'  : "osd/osd_scrub_sleep"
+#    'config_value': "0.5"
+#  osd_scrub_chunk_min:
+#    'config_key'  : "osd/osd_scrub_chunk_min"
+#    'config_value': "1"
+#  osd_scrub_chunk_max:
+#    'config_key'  : "osd/osd_scrub_chunk_max"
+#    'config_value': "5"
+#
+#profile::storage::ceph_ecpool::ec_pools:
+#  'arccache_hdd_ec_data':
+#    manage:              true
+#    allow_ec_overwrites: true
+#    k_data:              "3"
+#    m_code:              "2"
+#    crush_root:          "arccache"
+#
+#profile::storage::ceph::pool::pools:
+#  'rbd':
+#    ensure: absent
+#  'arccache_hdd_ec_meta':
+#    size:    3
+#    tag:     'rbd'
+#    custom:
+#      crush_rule:          'hdd-arccache'
+#      nodelete:            'true'
+#      min_size:            '2'
+#      deep_scrub_interval: '1.2096e+06'  # deep scrub at least every 2 weeks - overrides osd setting
+#  'arccache_hdd_ec_data':
+#    custom:
+#      deep_scrub_interval: '1.93536e+07' # every 32 weeks - overrides osd setting
+#      scrub_max_interval:  '1.2096e+06'  # normal scrub at least every 2 weeks - overrides osd setting
 
 profile::storage::ceph::pool::ec_pools:
   'placeholder':
     manage: false
-
-profile::storage::cephpool_params::pools:
-  'arccache_hdd_ec_data':
-    application_enable: 'rbd'
-    replicas_min_size:  '4'
 
 profile::base::lvm::physical_volume:
   '/dev/sdn':
