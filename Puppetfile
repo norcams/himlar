@@ -56,7 +56,7 @@ mod 'cumuluslinux-cumulus_interfaces', :ref => '9a4964d0ac', :git => github + 'n
 #
 # profile::application::etcd
 #
-mod 'etcd', :ref => '1.12.1',                       :git => github + 'cristifalcas/puppet-etcd'
+mod 'etcd', :ref => '1.12.3',                       :git => github + 'puppet-etcd/puppet-etcd'
 
 #
 # profile::application::openssl
