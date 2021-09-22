@@ -80,6 +80,45 @@ protocol kernel {
 }
 
 protocol kernel {
+  ipv4 {
+    table private4;
+    export all;
+    import filter import_kernel;
+  };
+  kernel table ipt_private;
+  graceful restart;
+  persist;                    # Don't remove routes on bird shutdown
+  learn;
+  scan time 2;
+}
+
+protocol kernel {
+  ipv4 {
+    table lhc4;
+    export all;
+    import filter import_kernel;
+  };
+  kernel table ipt_lhc;
+  graceful restart;
+  persist;                    # Don't remove routes on bird shutdown
+  learn;
+  scan time 2;
+}
+
+protocol kernel {
+  ipv4 {
+    table lhc_private4;
+    export all;
+    import filter import_kernel;
+  };
+  kernel table ipt_lhc_private;
+  graceful restart;
+  persist;                    # Don't remove routes on bird shutdown
+  learn;
+  scan time 2;
+}
+
+protocol kernel {
   ipv6 {
     table master6;
     import filter import_kernel6;
@@ -89,6 +128,17 @@ protocol kernel {
   persist;                    # Don't remove routes on bird shutdown
   scan time 2;                # Scan kernel routing table every 2 seconds
   learn;                      # Learn all alien routes from the kernel
+}
+
+protocol kernel {
+  ipv6 {
+    table lhc6;
+    import filter import_kernel6;
+    export all;
+  };
+  learn;
+  kernel table ipt_lhc;
+  scan time 2;
 }
 
 protocol pipe {               # learn routes from main and insert to private
@@ -115,8 +165,8 @@ protocol pipe {
 protocol pipe {
   table master6;
   peer table lhc6;
-  import filter import_kernel;
-  export filter import_bgp;
+  import filter import_kernel6;
+  export filter import_bgp6;
 }
 
 protocol bfd {
