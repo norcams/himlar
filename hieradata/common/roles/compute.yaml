@@ -12,13 +12,11 @@ include:
     - profile::rhsm::virtwho
     - profile::base::httpproxy
   kickstart:
-    - profile::base::lvm
     - profile::virtualization::nested
     - profile::network::yum_proxy
     - profile::monitoring::sensu::agent
     - profile::base::httpproxy
   bootstrap:
-    - profile::base::lvm
     - profile::network::yum_proxy
     - profile::base::httpproxy
 
