@@ -58,5 +58,5 @@ profile::monitoring::sensu::agent::checks:
     interval:     1800
     subscribers:  ['checks']
 
-calico::compute::bird_template:  'profile/bird/bird.conf.bgo.erb'
+calico::compute::bird_template:  'profile/bird/bird.conf.bgo.%{operatingsystemmajrelease}.erb'
 calico::compute::bird6_template: 'profile/bird/bird6.conf.bgo.erb'
