@@ -21,3 +21,5 @@ named_interfaces::config:
     - eth3
   live:
     - eth3.120
+
+nova::compute::libvirt::libvirt_cpu_model: 'Opteron_G1'
