@@ -1,5 +1,15 @@
 ---
-profile::base::common::manage_lvm:        false
-profile::base::common::manage_network:    false
-profile::virtualization::nested::manage:  false
-profile::base::hostname::manage_hostname: false
+profile::base::common::manage_lvm:                   false
+profile::base::common::manage_network:               false
+profile::virtualization::nested::manage:             false
+profile::base::hostname::manage_hostname:            false
+profile::base::physical::configure_bmc_nic:          false
+profile::base::physical::enable_redfish_sensu_check: false
+
+named_interfaces::config:
+  mgmt:
+    - eth2
+  trp:
+    - eth3
+  live:
+    - eth3.120
