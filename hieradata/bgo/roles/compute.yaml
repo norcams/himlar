@@ -46,8 +46,8 @@ profile::base::network::rules:
   'team1':
     'iprule':  [ "from %{hiera('netcfg_priv_network')} lookup private", "from %{hiera('netcfg_lhc_network')} lookup lhc", "from %{hiera('netcfg_lhcpriv_network')} lookup lhc-private",  ]
     'iprule6': [ "from %{hiera('netcfg_lhc_network6')} lookup lhc", "from %{hiera('netcfg_lhc2_network6')} lookup lhc", ]
-profile::base::network::manage_neutron_blackhole: true # FIXME - remove when el7 is gone
-profile::network::manage_neutron_blackhole: true
+profile::base::network::manage_neutron_blackhole:      true # FIXME - remove when el7 is gone
+profile::network::interface::manage_neutron_blackhole: true
 
 profile::base::physical::configure_bmc_nic:          true
 profile::base::physical::enable_redfish_sensu_check: true
