@@ -1,4 +1,12 @@
 ---
+include:
+  default:
+    - named_interfaces
+  bootstrap:
+    - named_interfaces
+  kickstart:
+    - named_interfaces
+
 profile::base::common::manage_lvm:                   false
 profile::base::common::manage_network:               false
 profile::virtualization::nested::manage:             false
