@@ -474,6 +474,7 @@ frrouting::frrouting::bgp_neighbor_groups:
       - '172.18.33.48'
       - '172.18.33.49'
       - '172.18.33.82'
+      - '172.18.33.83'
     'options6':
       - 'neighbor rr-clients route-reflector-client'
       - 'neighbor rr-clients route-map rr-client-allow6 in'
@@ -539,6 +540,7 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'fd32::1:48'
       - 'fd32::1:49'
       - 'fd32::1:82'
+      - 'fd32::1:83'
 
 frrouting::frrouting::bgp_accesslist:
   '10':
