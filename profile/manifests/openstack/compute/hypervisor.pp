@@ -3,6 +3,7 @@ class profile::openstack::compute::hypervisor (
   $manage_libvirt_rbd = false,
   $manage_telemetry = true,
   $manage_firewall = true,
+  $enable_dhcp_agent_check = false,
   $fix_snapshot_loc = false, # FIXME - Should probably be removed for newton release
   $firewall_extras = {},
 ) {
@@ -44,6 +45,15 @@ class profile::openstack::compute::hypervisor (
       dport  => '16509',
       extras => $firewall_extras,
       source => "${::network_live1}/${::netmask_live1}",
+    }
+  }
+
+  if $enable_dhcp_agent_check {
+    file { 'calico_dhcp_agent_check.sh':
+      ensure  => file,
+      path    => '/usr/local/bin/calico_dhcp_agent_check.sh',
+      content => template("${module_name}/monitoring/sensu/calico_dhcp_agent_check.sh.erb"),
+      mode    => '0755',
     }
   }
 

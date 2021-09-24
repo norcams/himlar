@@ -148,7 +148,10 @@ sudo::configs:
   sensu:
     priority:   25
     content:    'sensu ALL = (root) NOPASSWD: /opt/sensu/embedded/bin/check-file-missing.rb -f /var/lib/nova/.ssh/id_rsa'
-
+  sensu_dhcp:
+    priority:   30
+    content:
+      - [ 'sensu ALL = (root) NOPASSWD: /bin/virsh list', 'sensu ALL = (root) NOPASSWD: /bin/systemctl restart calico-dhcp-agent' ]
 
 profile::openstack::compute::hypervisor::fix_snapshot_loc: true # FIXME - Should probably be removed for newton release
 

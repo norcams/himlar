@@ -73,3 +73,10 @@ profile::monitoring::collectd::plugins:
 
 collectd::plugin::virt::hostname_format:        'hostname'
 collectd::plugin::virt::plugin_instance_format: 'uuid'
+
+profile::openstack::compute::hypervisor::enable_dhcp_agent_check: true
+profile::monitoring::sensu::agent::checks:
+  'dhcp-agent-check':
+    command:      '/usr/local/bin/calico_dhcp_agent_check.sh'
+    interval:     600
+    subscribers:  ['checks']

@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# if the compute host has running instances and dnsmasq is not running, restart calico-dhcp-agent
+# until it manages to spawn dnsmasq - fail after five retries
+
+if [ -f "/usr/lib/systemd/system/calico-dhcp-agent.service" ] && [ -f "/bin/virsh" ]; then
+  if [[ $(/bin/sudo /bin/virsh list | grep instance) ]]; then
+    if [[ $(pgrep dnsmasq) ]]; then
+      # running instances and dnsmasq
+      exit 0
+    else
+      # running instances but no dnsmasq - try restarting dhcp agent up to five times
+      for i in {1..5}; do
+        /bin/sudo systemctl restart calico-dhcp-agent
+        $(which sleep) 10 # wait for a bit, then check if dnsmasq is running
+        if [[ $(pgrep dnsmasq) ]]; then
+          # dnsmasq is up again
+          exit 0
+        fi
+        $(which sleep) 5 # wait for a bit
+      done
+      # dhcp-agent is not recovering after five retries
+      echo "dnsmasq is not running - manual intervention is most likely required"
+      exit 2
+    fi
+  fi
+else # report ok if dhcp agent and libvirt is not installed
+  exit 0
+fi
