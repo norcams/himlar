@@ -13,6 +13,11 @@ profile::virtualization::nested::manage:             false
 profile::base::hostname::manage_hostname:            false
 profile::base::physical::configure_bmc_nic:          false
 profile::base::physical::enable_redfish_sensu_check: false
+profile::monitoring::sensu::agent::checks:
+  'redfish-check':
+    command:      'exit 0'
+    interval:     1800
+    subscribers:  ['checks']
 
 named_interfaces::config:
   mgmt:
@@ -23,3 +28,4 @@ named_interfaces::config:
     - eth3.120
 
 nova::compute::libvirt::libvirt_cpu_model: 'Opteron_G1'
+
