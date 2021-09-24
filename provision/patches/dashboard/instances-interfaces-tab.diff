@@ -1,0 +1,9 @@
+--- /tmp/tabs.py        2021-09-24 14:52:46.407556186 +0200
++++ /usr/share/openstack-dashboard/openstack_dashboard/dashboards/project/instances/tabs.py     2021-09-24 14:59:39.766066679 +0200
+@@ -136,5 +136,5 @@
+
+ class InstanceDetailTabs(tabs.DetailTabsGroup):
+      slug = "instance_details"
+      -    tabs = (OverviewTab, InterfacesTab, LogTab, ConsoleTab, AuditTab)
+      +    tabs = (OverviewTab, LogTab, ConsoleTab, AuditTab)
+           sticky = True
