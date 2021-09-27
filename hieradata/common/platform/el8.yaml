@@ -32,6 +32,7 @@ profile::base::common::packages:
   'python2-openstackclient': { ensure: absent, }    # FIXME cleun up when el7 is gone
   'openstack-utils': { ensure: absent, }            # FIXME clean up when el7 is gone
   'MySQL-python.x86_64': { ensure: absent, }        # FIXME clean up when el7 is gone, replaced by python3-mysql
+  'OVMF': { ensure: absent, }                       # FIXME clean up when el7 is gone
 
 profile::base::common::manage_network: false # the profile::base::network class is deprecated
 profile::base::common::manage_ntp:     false # ntpd has been replaced by chrony in el8
