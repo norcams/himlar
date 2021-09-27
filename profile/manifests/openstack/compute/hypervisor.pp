@@ -37,7 +37,7 @@ class profile::openstack::compute::hypervisor (
       extras => $firewall_extras,
     }
     profile::firewall::rule{ '224 migration accept tcp':
-      dport  => '49152-49215',
+      dport  => '49152-49261',
       extras => $firewall_extras,
       source => "${::network_live1}/${::netmask_live1}",
     }
