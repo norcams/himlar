@@ -260,6 +260,9 @@ profile::monitoring::sensu::agent::expanded_checks:
   - 'centos7_nv_vgpu'
   - 'centos8'
   - 'centos8_nv_vgpu'
+  - 'centosstream8'
+  - 'almalinux8'
+  - 'rockylinux8'
   - 'fedora_34'
   - 'ubuntu_1804'
   - 'ubuntu_2004'
@@ -267,6 +270,7 @@ profile::monitoring::sensu::agent::expanded_checks:
   - 'ubuntu_2004_nv_vgpu'
   - 'debian9'
   - 'debian10'
+  - 'debian11'
   - 'uio_rhel7'
 
 profile::monitoring::sensu::agent::expanded_defaults:
