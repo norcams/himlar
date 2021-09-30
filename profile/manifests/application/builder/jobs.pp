@@ -7,6 +7,7 @@ define profile::application::builder::jobs(
     $min_ram,
     $min_disk,
     $username,
+    $efi           = false,
     $ensure        = present,
     $flavor        = $profile::application::builder::flavor,
     $network       = $profile::application::builder::network,

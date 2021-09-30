@@ -22,6 +22,7 @@ export PATH=/usr/bin:/usr/local/bin:/bin:/usr/local/sbin:/usr/sbin
 -n '<%= @image_name %>' \
 -r <%= @min_ram %> \
 -d <%= @min_disk %> \
+<% if @efi -%>-e \ <% end %>
 -f qcow2 \
 | /usr/bin/xargs -I % \
 /opt/imagebuilder/bin/imagebuilder build \
