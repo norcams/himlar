@@ -64,11 +64,13 @@ profile::application::report::report_utils:
     versions:
       9:  'report9'
       10: 'report9'
+      11: 'report9'
   'windows':
     scripts:
       report2016: ['windows/full_script' ]
     versions:
       Microsoft_Windows_Server_2016_Standard: 'report2016'
+      Microsoft_Windows_Server_2019_Standard: 'report2016'
 
 profile::webserver::apache::vhosts:
   report-app:
