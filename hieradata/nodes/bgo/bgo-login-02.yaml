@@ -36,3 +36,23 @@ profile::base::network::routes:
     'source':    [ '2001:700:2:83ff::8', ]
     'table':     [ 'main', ]
     'family':    [ 'inet6', ]
+
+named_interfaces::config:
+  mgmt:
+    - eth0
+  trp:
+    - eth1
+  oob:
+    - eth2
+  public:
+    - dummy0
+
+profile::network::interface::manage_dummy:         true
+profile::network::interface::create_custom_routes: true
+
+profile::network::nat::enable_masquerade:          false
+profile::network::nat::enable_snat:                true
+profile::network::nat::source:                     "%{::network_mgmt1}/%{::netmask_mgmt1}"
+profile::network::nat::outiface:                   'eth1'
+
+profile::base::login::oob_outiface:                "%{::interface_oob1}"
