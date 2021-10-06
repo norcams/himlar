@@ -55,4 +55,17 @@ profile::network::nat::enable_snat:                true
 profile::network::nat::source:                     "%{::network_mgmt1}/%{::netmask_mgmt1}"
 profile::network::nat::outiface:                   'eth1'
 
-profile::base::login::oob_outiface:                "%{::interface_oob1}"
+#profile::base::login::oob_outiface:                "%{::interface_oob1}"
+
+# on this node we must actually use dnsmasq from Appstream as Calico repo not available
+profile::base::yumrepo::repo_hash:
+  CentOS-AppStream:
+    exclude:        'postgres*'
+
+# alt under er midlertidig inntil ordinær 2FA-innlogging settes opp bedre
+accounts::accounts:
+  'iaas':
+    ensure: present
+
+ssh::server::options:
+  AuthenticationMethods: 'publickey'

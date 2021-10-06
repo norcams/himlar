@@ -86,8 +86,8 @@ profile::base::common::packages:
   'bash-completion-extras': {}
   'jq': {}
 #  'python-oslo-log': {}
-  'python34': {}
-  'python36-virtualenv': {} # used for ca_setup
+  'python3': {}
+  'python3-virtualenv': {} # used for ca_setup
 
 ssh::server::options:
   # Need this for 2FA (saz-ssh-module disables by default)
