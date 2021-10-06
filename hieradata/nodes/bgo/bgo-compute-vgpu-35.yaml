@@ -15,3 +15,5 @@ profile::base::lvm::logical_volume:
 
 # only one vgpu partition pr physical card
 nova::compute::vgpu::enabled_vgpu_types: 'nvidia-301'
+
+nova::compute::libvirt::libvirt_cpu_model: 'Cascadelake-Server-noTSX'
