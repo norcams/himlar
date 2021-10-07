@@ -66,17 +66,6 @@ profile::application::builder::images:
     'username':         'centos'
     'hour':             2
     'minute':           30
-  'centos7_nv_vgpu':
-    'image_name':       'IMAGEBUILDER CentOS 7 (NVIDIA VGPU)'
-    'url':              'http://cloud.centos.org/centos/7/images/'
-    'latest':           'CentOS-7-x86_64-GenericCloud.qcow2'
-    'checksum_file':    'sha256sum.txt'
-    'checksum':         'sha256'
-    'min_ram':          768
-    'min_disk':         8
-    'username':         'centos'
-    'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
-    'hour':             3
   'centos8':
     'image_name':       'IMAGEBUILDER CentOS 8'
     'url':              'http://cloud.centos.org/centos/8/x86_64/images/'
