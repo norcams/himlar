@@ -66,16 +66,6 @@ profile::application::builder::images:
     'username':         'centos'
     'hour':             2
     'minute':           30
-  'centos8':
-    'image_name':       'IMAGEBUILDER CentOS 8'
-    'url':              'http://cloud.centos.org/centos/8/x86_64/images/'
-    'latest':           'CentOS-8-GenericCloud-8.4.2105-20210603.0.x86_64.qcow2'
-    'checksum_file':    'CHECKSUM'
-    'checksum':         'sha256'
-    'min_ram':          768
-    'min_disk':         8
-    'username':         'centos'
-    'hour':             4
   'centos8_nv_vgpu':
     'image_name':       'IMAGEBUILDER CentOS 8 (NVIDIA VGPU)'
     'url':              'http://cloud.centos.org/centos/8/x86_64/images/'
@@ -110,6 +100,20 @@ profile::application::builder::images:
     'efi':              true
     'username':         'almalinux'
     'hour':             13
+    'minute':           30
+  'almalinux8_nv_vgpu':
+    'image_name':       'IMAGEBUILDER AlmaLinux 8 (NVIDIA GPU)'
+    'url':              'https://download.iaas.uio.no/nrec/rpm/images/'
+    'latest':           'almalinux-8-GenericCloud-8.4.x86_64.qcow2'
+    'checksum_file':    'CHECKSUM'
+    'checksum':         'sha256'
+    'min_ram':          768
+    'min_disk':         8
+    'flavor':           'm1.small'
+    'efi':              true
+    'username':         'almalinux'
+    'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
+    'hour':             14
     'minute':           30
   'rockylinux8':
     'image_name':       'IMAGEBUILDER RockyLinux 8'
