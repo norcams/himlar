@@ -12,6 +12,8 @@ profile::base::yumrepo::repo_hash:
     ensure: absent
   CentOS-Advanced-Virtualization: # unavailable for el7
     ensure: absent
+  elrepo:
+    ensure: absent
   rabbitmq-server-cloudsmith: # unavailable for el7
     ensure: absent
   rabbitmq-erlang-cloudsmith: # unavailable for el7

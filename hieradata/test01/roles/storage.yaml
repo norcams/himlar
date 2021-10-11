@@ -46,6 +46,13 @@ profile::base::physical::scsi_load_order_second: 'mpt3sas'
 
 profile::base::selinux::manage_selinux: false
 
+profile::base::common::packages:
+  'kmod-mpt3sas': {}
+
+profile::base::yumrepo::repo_hash:
+  elrepo:
+    ensure: present
+
 #profile::base::common::manage_fake_ssd: true
 
 # FIXME
