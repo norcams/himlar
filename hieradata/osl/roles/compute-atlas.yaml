@@ -67,7 +67,7 @@ nova::config::nova_config:
     value: 'rsync'
 
 # collectd
-profile::monitoring::collectd::enable: true
+profile::monitoring::collectd::enable: false
 profile::monitoring::collectd::plugins:
   - collectd::plugin::aggregation
   - collectd::plugin::cpu

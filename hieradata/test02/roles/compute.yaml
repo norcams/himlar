@@ -59,7 +59,7 @@ profile::openstack::compute::manage_telemetry: true
 nova::compute::libvirt::libvirt_hw_machine_type: 'x86_64=q35'
 
 # collectd
-profile::monitoring::collectd::enable: true
+profile::monitoring::collectd::enable: false
 profile::monitoring::collectd::plugins:
   - collectd::plugin::aggregation
   - collectd::plugin::cpu

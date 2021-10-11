@@ -7,7 +7,7 @@ include:
 # Turn off nested virtualization
 profile::virtualization::nested::manage: false
 
-profile::monitoring::collectd::enable: true
+profile::monitoring::collectd::enable: false
 
 collectd::plugin::interface::interfaces:
   - "%{::interface_trp1}"

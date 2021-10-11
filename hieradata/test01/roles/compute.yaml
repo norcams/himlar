@@ -88,7 +88,7 @@ profile::base::lvm::logical_volume:
     mountpath:    "/var/lib/nova/instances"
 
 # collectd
-profile::monitoring::collectd::enable: true
+profile::monitoring::collectd::enable: false
 profile::monitoring::collectd::plugins:
   - collectd::plugin::aggregation
   - collectd::plugin::cpu

@@ -43,7 +43,7 @@ sensu__memory__check:     "check-memory.rb -w 2048 -c 1024"
 profile::openstack::compute::manage_telemetry: true
 
 # collectd
-profile::monitoring::collectd::enable: true
+profile::monitoring::collectd::enable: false
 profile::monitoring::collectd::plugins:
   - collectd::plugin::aggregation
   - collectd::plugin::cpu
