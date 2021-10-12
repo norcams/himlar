@@ -22,6 +22,7 @@ class profile::database::mariadb (
 
   $backupuser         = '',
   $backuppassword     = '',
+  $backupmethod       = 'mysqldump',
   $backuptopdir       = '/var/db/dumps',
   $backupscript       = '',
   $backupdirmode      = '0744',
