@@ -30,6 +30,7 @@ profile::base::common::packages:
   'centos-release-virt-common': { ensure: absent, }
 
 profile::openstack::network::calico::packagename_etcdgw: python2-etcd3gw
+profile::base::login::dhcrelay_packagename:              dhcp
 
 bird::enable_v6: true
 bird::service_v4_enable: true
