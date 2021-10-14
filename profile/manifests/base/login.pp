@@ -8,6 +8,7 @@ class profile::base::login (
   $oob_net                  = '10.0.0.0/24',
   $oob_outiface             = undef,
   $oob_dhcrelay             = false,
+  $dhcrelay_packagename     = 'dhcp-relay',
   $ensure                   = 'present',
   $agelimit                 = '10',
   $db_servers               = {},
@@ -117,7 +118,7 @@ class profile::base::login (
     $dhcp_network = lookup("netcfg_mgmt_netpart", String, 'first', '')
     package { 'dhcrelay-package':
       ensure => installed,
-      name   => 'dhcp',
+      name   => $dhcrelay_packagename,
     } ~>
     file { 'dhcrelay-startopts':
       ensure  => file,
