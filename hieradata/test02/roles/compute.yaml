@@ -30,6 +30,10 @@ chrony::servers:
   - "%{hiera('netcfg_mgmt_netpart')}.101"
   - "%{hiera('netcfg_mgmt_netpart')}.102"
 
+profile::base::yumrepo::repo_hash:
+  elrepo:
+    ensure: present
+
 profile::monitoring::sensu::agent::enable_agent:  true
 
 # Add custom routing table for private network to NAT

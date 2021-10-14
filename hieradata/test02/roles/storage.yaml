@@ -19,6 +19,10 @@ profile::storage::cephosd::osds:
   '/dev/sdf': {}
   '/dev/sdg': {}
 
+profile::base::yumrepo::repo_hash:
+  elrepo:
+    ensure: present
+
 profile::storage::ceph::pool::pools:
   'rbd':
     ensure: absent
