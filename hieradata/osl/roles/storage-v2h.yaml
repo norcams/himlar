@@ -1,7 +1,7 @@
 ---
 named_interfaces::config:
   mgmt:
-    - eno3
+    - em3
   transport:
     - team1
   trp:
@@ -23,10 +23,10 @@ profile::base::network::network_auto_opts:
 
 profile::base::network::network_auto_bonding:
   trp:
-    ens6f0:
+    p6p1:
       'team_port_config': '{ "prio" : 100 }'
       'mtu': '9000'
-    ens6f1:
+    p6p2:
       'team_port_config': '{ "prio" : 100 }'
       'mtu': '9000'
 
