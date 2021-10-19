@@ -8,7 +8,7 @@ github = 'https://github.com/'
 # profile::base::common
 #
 mod 'sudo', :ref => 'v4.2.0',                       :git => github + 'saz/puppet-sudo'
-mod 'ssh', :ref => 'v3.0.1',                        :git => github + 'saz/puppet-ssh'
+mod 'ssh', :ref => 'v6.2.0',                        :git => github + 'saz/puppet-ssh'
 mod 'ntp', :ref => '7.0.0',                         :git => github + 'puppetlabs/puppetlabs-ntp'
 mod 'chrony', :ref => 'v1.0.0',                     :git => github + 'voxpupuli/puppet-chrony'
 mod 'accounts', :ref => '06955a9455',               :git => github + 'norcams/puppet-accounts'
