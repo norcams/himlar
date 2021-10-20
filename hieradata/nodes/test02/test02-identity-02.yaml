@@ -21,3 +21,7 @@ network::interfaces_hash:
     netmask:   "%{hiera('netcfg_trp_netmask')}"
     gateway:   "%{hiera('netcfg_trp_gateway')}"
     defroute:  'no'
+
+profile::base::yumrepo::repo_hash:
+  CentOS-AppStream:
+    module_hotfixes: '1' # FIXME: mod_auth_openidc module should be enabled instead when puppetmaster is upgraded from v5
