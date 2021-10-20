@@ -21,6 +21,8 @@ profile::base::yumrepo::repo_hash:
     module_hotfixes: '1'
   mariadb-10.3: # FIXME
     module_hotfixes: '1'
+  CentOS-AppStream:
+    module_hotfixes: '1' # FIXME only needed for identity
 
 profile::base::common::packages:
   'bash-completion-extras': { ensure: absent, }     # FIXME clean up when el7 is gone
