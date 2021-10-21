@@ -107,6 +107,19 @@ ssh::server::options:
   Ciphers: 'chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes128-ctr'
   MACs: 'hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com'
 
+profile::base::common::users_ssh_options:
+  'git':
+    'options':
+      'Host bgo':
+        'User':     'git'
+        'Hostname': 'git.iaas.uib.no'
+      'Host bgo2':
+        'User':     'git'
+        'Hostname': 'bgo-login-02.iaas.uib.no'
+      'Host osl':
+        'User':     'git'
+        'Hostname': 'git.iaas.uio.no'
+
 googleauthenticator::pam::mode::modes:
   wheel-only:
     condition: 'user ingroup wheel'

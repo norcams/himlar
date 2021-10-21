@@ -70,6 +70,11 @@ ssh::server::options:
     AuthenticationMethods: 'publickey'
   'Match User git Address 2001:700:200:6::133':
     AuthenticationMethods: 'publickey'
+  # bgo-login-02
+  'Match User git Address 158.39.74.246':
+    AuthenticationMethods: 'publickey'
+  'Match User git Address 2001:700:2:83ff::8':
+    AuthenticationMethods: 'publickey'
   # osl-login-01
   'Match User git Address 129.240.224.100':
     AuthenticationMethods: 'publickey'

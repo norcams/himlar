@@ -30,6 +30,7 @@ class profile::base::common (
   $extraswap_sizegb       = '10',
   $extraswap_fileloc      = '/var/lib/nova/instances/swapfile',
   $classes                = [],
+  $users_ssh_options      = {},
 ) {
   # Can be used to include custom classes (mostly for testing)
   include $classes
@@ -69,6 +70,8 @@ class profile::base::common (
   if $manage_ssh {
     include ::ssh::client
     include ::ssh::server
+
+    create_resources('ssh::client::config::user', $users_ssh_options)
   }
 
   if $manage_cron {
