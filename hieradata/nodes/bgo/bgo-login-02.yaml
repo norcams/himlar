@@ -55,17 +55,21 @@ profile::network::nat::enable_snat:                true
 profile::network::nat::source:                     "%{::network_mgmt1}/%{::netmask_mgmt1}"
 profile::network::nat::outiface:                   'eth1'
 
-#profile::base::login::oob_outiface:                "%{::interface_oob1}"
+# puppet will not run until eth2 is created through virt-manager or something similar (connected to br3)
+profile::base::login::oob_outiface:                "%{::interface_oob1}"
 
 # on this node we must actually use dnsmasq from Appstream as Calico repo not available
 profile::base::yumrepo::repo_hash:
   CentOS-AppStream:
     exclude:        'postgres*'
 
-# alt under er midlertidig inntil ordinær 2FA-innlogging settes opp bedre
+# uncomment/activate this when installing, leave for some time so user(s) may log in and set up 2FA
+# when enough accounts are set up comment it out
+ssh::server::options:
+  AuthenticationMethods: 'publickey'
+
+# alt under er midlertidig mens maskinen konfigureres
 accounts::accounts:
   'iaas':
     ensure: present
 
-ssh::server::options:
-  AuthenticationMethods: 'publickey'
