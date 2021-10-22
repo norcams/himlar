@@ -47,6 +47,9 @@ named_interfaces::config:
   public:
     - dummy0
 
+rofile::application::git::settings:
+  hostname: "bgo2"
+
 profile::network::interface::manage_dummy:         true
 profile::network::interface::create_custom_routes: true
 
