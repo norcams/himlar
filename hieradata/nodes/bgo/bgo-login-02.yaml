@@ -1,7 +1,7 @@
 ---
 network::interfaces_hash:
   'eth0':
-    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.8"
+    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.8"      # bgo mgmt
     netmask:   "%{hiera('netcfg_mgmt_netmask')}"
     mtu:       '1500'
     peerdns:   'yes'
@@ -10,7 +10,7 @@ network::interfaces_hash:
     domain:    "%{hiera('netcfg_dns_search')}"
     defroute:  'no'
   'eth1':
-    ipaddress: "%{hiera('netcfg_trp_netpart')}.8"
+    ipaddress: "%{hiera('netcfg_trp_netpart')}.8"       # bgo trp
     netmask:   "%{hiera('netcfg_trp_netmask')}"
     gateway:   "%{hiera('netcfg_trp_gateway')}"
     srcaddr:   '158.39.74.246'
@@ -18,16 +18,32 @@ network::interfaces_hash:
     ipv6addr:  "%{hiera('netcfg_trp_netpart6')}::8/%{hiera('netcfg_trp_netmask6')}"
     defroute:  'yes'
   'eth2':
-    ipaddress: "%{hiera('netcfg_oob_netpart')}.8"
+    ipaddress: "%{hiera('netcfg_oob_netpart')}.8"       # bgo oob
     netmask:   "%{hiera('netcfg_oob_netmask')}"
     mtu:       '1500'
     defroute:  'no'
+  'eth3':
+    ipaddress:     '172.28.0.8'                         # test01 mgmt
+    netmask:       '255.255.248.0'
+    defroute:      'no'
+    onboot:        'yes'
+  'eth3:1':
+    ipaddress:     '10.17.0.10'                         # mgmt mgmt
+    netmask:       '255.255.255.0'
+    defroute:      'no'
+    onboot:        'yes'
+  'eth4':
+    ipaddress:     '172.28.159.10'                      # test01 oob
+    netmask:       '255.255.255.0'
+    defroute:      'no'
+    onboot:        'yes'
   'dummy0':
-    ipaddress: '158.39.74.246'
+    ipaddress: '158.39.74.246'                          # public
     netmask:   '255.255.255.255'
     ipv6init:  'yes'
     ipv6addr:  '2001:700:2:83ff::8/128'
     defroute:  'no'
+
 profile::base::network::routes:
   'eth1':
     'ipaddress': [ '::', ]
