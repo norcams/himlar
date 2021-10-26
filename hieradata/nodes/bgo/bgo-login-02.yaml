@@ -82,6 +82,24 @@ profile::base::yumrepo::repo_hash:
   CentOS-AppStream:
     exclude:        'postgres*'
 
+# extra disk for local repository (synced with other login nodes)
+profile::base::common::manage_lvm: true
+
+profile::base::lvm::physical_volume:
+  '/dev/vdb':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_repo':
+    physical_volumes:
+      - /dev/vdb
+profile::base::lvm::logical_volume:
+  'lv_repo':
+    volume_group: 'vg_repo'
+    fs_type:      "xfs"
+    mountpath:    "/opt/repo"
+    size:         '30G'
+
 # uncomment/activate this when installing, leave for some time so user(s) may log in and set up 2FA
 # when enough accounts are set up comment it out
 ssh::server::options:
