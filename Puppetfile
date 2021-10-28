@@ -97,7 +97,7 @@ mod 'voxpupuli/extlib', :ref => 'v2.0.1-82-g53c6e2b', :git => github + 'voxpupul
 mod 'puppetlabs/ruby', :ref => '1.0.0',             :git => github + 'puppetlabs/puppetlabs-ruby'
 mod 'puppetlabs/xinetd', :ref => '3.0.0',           :git => github + 'puppetlabs/puppetlabs-xinetd'
 mod 'eyaml', :ref => 'v0.3.0',                      :git => github + 'ghoneycutt/puppet-module-eyaml'
-mod 'bind', :ref => 'keyfile_resource_record',      :git => github + 'norcams/puppet-bind'
+mod 'bind', :ref => '7.4.0',                        :git => github + 'inkblot/puppet-bind'
 mod 'systemd', :ref => 'v3.2.0',                    :git => github + 'voxpupuli/puppet-systemd'
 
 #
