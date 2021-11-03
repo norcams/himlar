@@ -3,5 +3,5 @@ prometheus::install_method: 'none'
 prometheus::version:        '>2.0.0'
 prometheus::configname:     'prometheus.yml'
 
-prometheus::daemon::init_style: 'none'
+prometheus::server::init_style: 'none'
 prometheus::bin_dir:            '/usr/bin'
