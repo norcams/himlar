@@ -2,3 +2,7 @@
 include:
   default:
     - profile::monitoring::sflow::server
+
+profile::base::yumrepo::repo_hash:
+  nrec-internal:
+    ensure: present
