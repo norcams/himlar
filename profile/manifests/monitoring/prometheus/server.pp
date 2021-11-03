@@ -8,9 +8,9 @@ class profile::monitoring::prometheus::server(
   include ::prometheus::server
 
   if $package_name {
-    package { prometheus:
+    package { 'prometheus':
       ensure => latest,
-      name   => "${package_name}",
+      name   => $package_name,
     }
   }
 
