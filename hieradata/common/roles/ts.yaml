@@ -1,4 +1,15 @@
 ---
+include:
+  default:
+    - profile::monitoring::prometheus
+
+profile::monitoring::prometheus::server: true
+
+profile::monitoring::prometheus::server::manage_firewall: true
+profile::monitoring::prometheus::server::package_name: 'prometheus2'
+
 profile::base::yumrepo::repo_hash:
+  epel:
+    ensure: present
   prometheus:
     ensure: present
