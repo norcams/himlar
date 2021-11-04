@@ -14,10 +14,18 @@ class profile::monitoring::sflow::server (
   }
 
   if $manage_firewall {
+    # sFlow collector port
     profile::firewall::rule { '314 sflow accept udp':
       proto   => udp,
       dport   => 6343,
-      iniface => $::ipaddress_trp1,
+      iniface => $::interface_trp1,
+      extras  => $firewall_extras,
+    }
+    # sFlow collector port
+    profile::firewall::rule { '315 sflow-rt http interface accept tcp':
+      proto   => tcp,
+      dport   => 8008,
+      iniface => $::interface_mgmt1,
       extras  => $firewall_extras,
     }
   }
