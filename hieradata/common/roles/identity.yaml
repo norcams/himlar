@@ -65,7 +65,7 @@ profile::openstack::identity::cron_master:
   'credential_rotate':
     hour:     '3'
     minute:   '25'
-    command:  'keystone-manage credential_rotate'
+    command:  'keystone-manage credential_rotate; keystone-manage credential_migrate --keystone-user keystone --keystone-group keystone'
     user:     'keystone'
 
 profile::openstack::identity::cron_slave:
