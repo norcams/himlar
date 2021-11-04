@@ -2,6 +2,7 @@
 class profile::monitoring::sflow::client (
   $manage_service        = false,
   $hsflowd_template      = 'hsflowd_spine.conf.erb',
+  $sflow_collector       = undef,
 ) {
 
   file { 'hsflowd.conf':
