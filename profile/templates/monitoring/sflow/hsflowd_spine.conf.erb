@@ -1,0 +1,21 @@
+sflow {
+# ====== Sampling/Polling/Collectors ======
+  # EITHER: automatic (DNS SRV+TXT from _sflow._udp):
+  #   DNS-SD { }
+  # OR: manual:
+  #   Counter Polling:
+        polling = 20
+  #   default sampling N:
+  #     sampling = 400
+  #   sampling N on interfaces with ifSpeed:
+        sampling.100M = 100
+        sampling.1G = 1000
+        sampling.10G = 10000
+        sampling.40G = 40000
+  #   sampling N for apache, nginx:
+  #     sampling.http = 50
+  #     sampling N for application (requires json):
+  #     sampling.app.myapp = 100
+  #   collectors:
+  collector { ip=<%= @sflow_collector %> udpport=6343 }
+}
