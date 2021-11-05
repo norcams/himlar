@@ -190,10 +190,10 @@ profile::application::builder::images:
     'min_disk':         3
     'username':         'ubuntu'
     'hour':             9
-  'ubuntu_2104':
-    'image_name':       'IMAGEBUILDER Ubuntu 21.04'
-    'url':              'https://cloud-images.ubuntu.com/hirsute/current/'
-    'latest':           'hirsute-server-cloudimg-amd64.img'
+  'ubuntu_2110':
+    'image_name':       'IMAGEBUILDER Ubuntu 21.10'
+    'url':              'https://cloud-images.ubuntu.com/impish/current/'
+    'latest':           'impish-server-cloudimg-amd64.img'
     'checksum_file':    'SHA256SUMS'
     'checksum':         'sha256'
     'min_ram':          768
@@ -258,7 +258,7 @@ profile::monitoring::sensu::agent::expanded_checks:
   - 'fedora_34'
   - 'ubuntu_1804'
   - 'ubuntu_2004'
-  - 'ubuntu_2104'
+  - 'ubuntu_2110'
   - 'ubuntu_2004_nv_vgpu'
   - 'debian9'
   - 'debian10'
