@@ -47,7 +47,7 @@ class profile::database::galera(
   }
 
   if $wsrep_sst_secure_rsync {
-    validate_hash($wsrep_sst_secure_rsync)
+    validate_legacy(Hash, 'validate_hash', $wsrep_sst_secure_rsync)
     file { '/usr/bin/wsrep_sst_secure_rsync':
       ensure  => file,
       mode    => '0755',
@@ -58,5 +58,4 @@ class profile::database::galera(
   if $manage_firewall {
     create_resources('profile::firewall::rule', $firewall_rules)
   }
-
 }
