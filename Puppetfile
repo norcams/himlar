@@ -11,7 +11,7 @@ mod 'sudo', :ref => 'v4.2.0',                       :git => github + 'saz/puppet
 mod 'ssh', :ref => 'v6.2.0',                        :git => github + 'saz/puppet-ssh'
 mod 'ntp', :ref => '7.0.0',                         :git => github + 'puppetlabs/puppetlabs-ntp'
 mod 'chrony', :ref => 'v1.0.0',                     :git => github + 'voxpupuli/puppet-chrony'
-mod 'accounts', :ref => '06955a9455',               :git => github + 'norcams/puppet-accounts'
+mod 'accounts', :ref => '0fa8ec2e37',               :git => github + 'norcams/puppet-accounts'
 mod 'timezone', :ref => 'v3.5.0',                   :git => github + 'saz/puppet-timezone.git'
 mod 'debconf', :ref => 'v2.0.0',                    :git => github + 'smoeding/puppet-debconf'
 mod 'keyboard', :ref => '0.1.0',                    :git => github + 'norcams/puppet-keyboard'
