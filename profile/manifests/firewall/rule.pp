@@ -55,17 +55,17 @@ define profile::firewall::rule (
 
   }
   $rule = merge($basic, $extras)
-  validate_hash($rule)
+  validate_legacy(Hash, 'validate_hash', $rule)
 
   # We can only expand source or destination, not both!
-  if is_array($source) {
+  if $source =~ Array {
     # HACK: embed the name with the source ip to allow muliple use of source
     $extended_source = prefix($source, "${name}#")
     profile::firewall::expand_rule { $extended_source:
       rule => $rule,
       type => 'source',
     }
-  } elsif is_array($destination) {
+  } elsif $destination =~ Array {
     # HACK: embed the name with the destination ip to allow muliple use of destination
     $extended_destination = prefix($destination, "${name}#")
     profile::firewall::expand_rule { $extended_destination:
