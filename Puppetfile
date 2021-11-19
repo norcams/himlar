@@ -215,7 +215,7 @@ mod 'stdlib', :ref => 'v6.6.0',                     :git => github + 'puppetlabs
 mod 'translate', :ref => 'v2.2.0',                  :git => github + 'puppetlabs/puppetlabs-translate'
 mod 'concat', :ref => '4.1.0',                      :git => github + 'puppetlabs/puppetlabs-concat'
 mod 'hash_file', :ref => '1.0.3',                   :git => github + 'fiddyspence/puppet-hash_file' # ??
-mod 'inifile', :ref => '2.5.0',                     :git => github + 'puppetlabs/puppetlabs-inifile'
+mod 'inifile', :ref => 'v5.2.0',                    :git => github + 'puppetlabs/puppetlabs-inifile'
 mod 'augeasproviders_apache', :ref => '3.1.1',      :git => github + 'hercules-team/augeasproviders_apache'
 mod 'augeasproviders_core', :ref => '2.1.4',        :git => github + 'hercules-team/augeasproviders_core'
 mod 'augeasproviders_base', :ref => '2.0.1',        :git => github + 'hercules-team/augeasproviders_base'
