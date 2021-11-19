@@ -16,10 +16,14 @@
     $cumulus_acls_dir = '/etc/cumulus/acl/policy.d/',
   ) {
     # Validate arrays
-    validate_array($rule_vars)
-    validate_array($iptables)
-    validate_array($ip6tables)
-    validate_array($ebtables)
+#    validate_array($rule_vars)
+#    validate_array($iptables)
+#    validate_array($ip6tables)
+#    validate_array($ebtables)
+    validate_legacy(Array, 'validate_array', $rule_vars)
+    validate_legacy(Array, 'validate_array', $iptables)
+    validate_legacy(Array, 'validate_array', $ip6tables)
+    validate_legacy(Array, 'validate_array', $ebtables)
 
     file { $name:
       ensure   => present,
