@@ -16,7 +16,7 @@ named_interfaces::config:
     - dummy0
 
 profile::base::common::packages:
-  'MySQL-python.x86_64': {}     # FIXME: remove when el7 is gone
+  'MySQL-python': {}            # FIXME: remove when el7 is gone
   'python3-mysql': {}
   'bash-completion': {}
   'bash-completion-extras': {}  # FIXME: remove when el7 is gone
