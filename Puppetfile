@@ -7,24 +7,24 @@ github = 'https://github.com/'
 #
 # profile::base::common
 #
-mod 'sudo', :ref => 'v4.2.0',                       :git => github + 'saz/puppet-sudo'
+mod 'sudo', :ref => 'v5.0.0',                       :git => github + 'saz/puppet-sudo'
 mod 'ssh', :ref => 'v6.2.0',                        :git => github + 'saz/puppet-ssh'
 mod 'ntp', :ref => '7.0.0',                         :git => github + 'puppetlabs/puppetlabs-ntp'
 mod 'chrony', :ref => 'v1.0.0',                     :git => github + 'voxpupuli/puppet-chrony'
 mod 'accounts', :ref => '0fa8ec2e37',               :git => github + 'norcams/puppet-accounts'
-mod 'timezone', :ref => 'v3.5.0',                   :git => github + 'saz/puppet-timezone.git'
+mod 'timezone', :ref => 'v6.1.0',                   :git => github + 'saz/puppet-timezone.git'
 mod 'debconf', :ref => 'v2.0.0',                    :git => github + 'smoeding/puppet-debconf'
 mod 'keyboard', :ref => '0.1.0',                    :git => github + 'norcams/puppet-keyboard'
 mod 'hostname', :ref => '0.0.2',                    :git => github + 'peopleware/puppet-hostname'
 mod 'resolv_conf', :ref => 'v3.3.0',                :git => github + 'saz/puppet-resolv_conf'
-mod 'lvm', :ref => '1.0.0',                         :git => github + 'puppetlabs/puppetlabs-lvm'
+mod 'lvm', :ref => 'v1.4.0',                        :git => github + 'puppetlabs/puppetlabs-lvm'
 mod 'mount_core', :ref => '1.0.4',                  :git => github + 'puppetlabs/puppetlabs-mount_core'
 mod 'firewall', :ref => '1.8.2',                    :git => github + 'puppetlabs/puppetlabs-firewall'
 mod 'apt', :ref => '6.2.1',                         :git => github + 'puppetlabs/puppetlabs-apt'
 mod 'yumrepo_core', :ref => '1.0.7',                :git => github + 'puppetlabs/puppetlabs-yumrepo_core'
 mod 'kmod', :ref => 'v3.0.0',                       :git => github + 'voxpupuli/puppet-kmod'
 mod 'named_interfaces', :ref => 'e5124925ba',       :git => github + 'norcams/puppet-named_interfaces'
-mod 'network', :ref => 'd98af16381',                :git => github + 'norcams/puppet-network'
+mod 'network', :ref => 'c1c468ed15',                :git => github + 'norcams/puppet-network'
 # mod 'apt', :ref => '2.2.2',                         :git => github + 'puppetlabs/puppetlabs-apt'
 mod 'selinux', :ref => 'v3.4.0',                    :git => github + 'voxpupuli/puppet-selinux'
 
@@ -113,7 +113,7 @@ mod 'logstash', :ref => '6.1.5',                    :git => github + 'elastic/pu
 mod 'datacat', :ref => '0.6.2',                     :git => github + 'richardc/puppet-datacat'
 mod 'elasticsearch', :ref => '6.4.0',               :git => github + 'elastic/puppet-elasticsearch'
 mod 'file_concat', :ref => '1.0.1',                 :git => github + 'electrical/puppet-lib-file_concat'
-mod 'logrotate', :ref => 'v5.0.0',                  :git => github + 'voxpupuli/puppet-logrotate'
+mod 'logrotate', :ref => 'v6.0.0',                  :git => github + 'voxpupuli/puppet-logrotate'
 
 #
 # profile::monitoring
