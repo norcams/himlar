@@ -13,8 +13,8 @@ class profile::virtualization::libvirt(
 ) {
   include ::libvirt
 
-  validate_hash($networks)
-  validate_hash($pools)
+  validate_legacy(Hash, 'validate_hash', $networks)
+  validate_legacy(Hash, 'validate_hash', $pools)
 
   create_resources('::libvirt::network', $networks)
   create_resources(libvirt_pool, $pools)

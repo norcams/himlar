@@ -64,11 +64,11 @@ class profile::highavailability::loadbalancing::haproxy (
       default => $allow_from_network
     }
 
-    validate_hash($firewall_extras)
-    validate_array($firewall_ports['public'])
-    validate_array($firewall_ports['internal'])
-    validate_array($firewall_ports['mgmt'])
-    validate_array($firewall_ports['limited'])
+    validate_legacy(Hash, 'validate_hash', $firewall_extras)
+    validate_legacy(Array, 'validate_array', $firewall_ports['public'])
+    validate_legacy(Array, 'validate_array', $firewall_ports['internal'])
+    validate_legacy(Array, 'validate_array', $firewall_ports['mgmt'])
+    validate_legacy(Array, 'validate_array', $firewall_ports['limited'])
 
     profile::firewall::rule { '450 haproxy public accept tcp':
       proto       => 'tcp',

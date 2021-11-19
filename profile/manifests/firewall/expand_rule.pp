@@ -15,8 +15,7 @@ define profile::firewall::expand_rule(
   }
 
   $real_rule = merge($rule, $with_source)
-  validate_hash($real_rule)
+  validate_legacy(Hash, 'validate_hash', $real_rule)
 
   create_resources('firewall', { "${rule_name} from ${ip}" => $real_rule })
-
 }

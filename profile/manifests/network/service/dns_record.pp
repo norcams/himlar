@@ -4,8 +4,8 @@ define profile::network::service::dns_record(
   $options,
   $records,
 ) {
-  validate_hash($options)
-  validate_hash($records)
+  validate_legacy(Hash, 'validate_hash', $options)
+  validate_legacy(Hash, 'validate_hash', $records)
 
   # this is the key in record hash
   $record_name = regsubst($name,'_.*$','')
