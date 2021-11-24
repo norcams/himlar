@@ -37,109 +37,84 @@ network::interfaces_hash:
     vlan:         'yes'
     defroute:     'no'
 
-# Ensure that the BOSS device is the last device
-profile::base::physical::load_ahci_last: true
-profile::base::physical::load_ahci_last_scsidrv: 'mpt3sas'
+# Ensure that the BOSS device is the first device
+profile::base::physical::load_ahci_first: true
+profile::base::physical::load_ahci_first_scsidrv: 'mpt3sas'
 
 # Disable write cache on osd cache disks
 profile::base::disk::manage_hdparm: true
 profile::base::disk::disk_hdparams:
-  '/dev/sdp': { hdparams: '-W0', }
+  '/dev/sdq': { hdparams: '-W0', }
+
+profile::storage::cephclient::create_extraconf: true
+profile::storage::ceph_extraconf::config:
+  osd_memory_target:
+    'config_key'  : "osd/osd_memory_target"
+    'config_value': "5905580032" # 5.5 GB
+
+profile::base::common::extraswap:         true
+profile::base::common::extraswap_sizegb:  28
+profile::base::common::extraswap_fileloc: '/var/lib/swap/swapfile'
 
 profile::base::lvm::physical_volume:
-  '/dev/sdp':
+  '/dev/sdq':
     ensure: present
     force:  true
 profile::base::lvm::volume_group:
+  'vg_swap':
+    physical_volumes:
+      - /dev/sda3
   'vg_cache':
     physical_volumes:
-      - /dev/sdp
+      - /dev/sdq
 profile::base::lvm::logical_volume:
-  'lv_walf':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         2G
-  'lv_dbf':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         15G
-  'lv_walg':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         2G
+  'lv_swap2':
+    volume_group: 'vg_swap'
+    fs_type:      xfs
+    size:         35G
+    mountpath:    "/var/lib/swap"
   'lv_dbg':
     volume_group: 'vg_cache'
     createfs:     false
-    size:         15G
-  'lv_walh':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         2G
+    size:         35G
   'lv_dbh':
     volume_group: 'vg_cache'
     createfs:     false
-    size:         15G
-  'lv_wali':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         2G
+    size:         35G
   'lv_dbi':
     volume_group: 'vg_cache'
     createfs:     false
-    size:         15G
-  'lv_walj':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         2G
+    size:         35G
   'lv_dbj':
     volume_group: 'vg_cache'
     createfs:     false
-    size:         15G
-  'lv_walk':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         2G
+    size:         35G
   'lv_dbk':
     volume_group: 'vg_cache'
     createfs:     false
-    size:         15G
-  'lv_wall':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         2G
+    size:         35G
   'lv_dbl':
     volume_group: 'vg_cache'
     createfs:     false
-    size:         15G
-  'lv_walm':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         2G
+    size:         35G
   'lv_dbm':
     volume_group: 'vg_cache'
     createfs:     false
-    size:         15G
-  'lv_waln':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         2G
+    size:         35G
   'lv_dbn':
     volume_group: 'vg_cache'
     createfs:     false
-    size:         15G
-  'lv_walo':
-    volume_group: 'vg_cache'
-    createfs:     false
-    size:         2G
+    size:         35G
   'lv_dbo':
     volume_group: 'vg_cache'
     createfs:     false
-    size:         15G
+    size:         35G
+  'lv_dbp':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         35G
 
 profile::storage::cephosd::osds:
-  '/dev/sda':
-    db_device:  false
-    wal_device: false
   '/dev/sdb':
     db_device:  false
     wal_device: false
@@ -153,32 +128,35 @@ profile::storage::cephosd::osds:
     db_device:  false
     wal_device: false
   '/dev/sdf':
-    db_device:  'vg_cache/lv_dbf'
-    wal_device: 'vg_cache/lv_walf'
+    db_device:  false
+    wal_device: false
   '/dev/sdg':
     db_device:  'vg_cache/lv_dbg'
-    wal_device: 'vg_cache/lv_walg'
+    wal_device: false
   '/dev/sdh':
     db_device:  'vg_cache/lv_dbh'
-    wal_device: 'vg_cache/lv_walh'
+    wal_device: false
   '/dev/sdi':
     db_device:  'vg_cache/lv_dbi'
-    wal_device: 'vg_cache/lv_wali'
+    wal_device: false
   '/dev/sdj':
     db_device:  'vg_cache/lv_dbj'
-    wal_device: 'vg_cache/lv_walj'
+    wal_device: false
   '/dev/sdk':
     db_device:  'vg_cache/lv_dbk'
-    wal_device: 'vg_cache/lv_walk'
+    wal_device: false
   '/dev/sdl':
     db_device:  'vg_cache/lv_dbl'
-    wal_device: 'vg_cache/lv_wall'
+    wal_device: false
   '/dev/sdm':
     db_device:  'vg_cache/lv_dbm'
-    wal_device: 'vg_cache/lv_walm'
+    wal_device: false
   '/dev/sdn':
     db_device:  'vg_cache/lv_dbn'
-    wal_device: 'vg_cache/lv_waln'
+    wal_device: false
   '/dev/sdo':
     db_device:  'vg_cache/lv_dbo'
-    wal_device: 'vg_cache/lv_walo'
+    wal_device: false
+  '/dev/sdp':
+    db_device:  'vg_cache/lv_dbp'
+    wal_device: false
