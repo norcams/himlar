@@ -6,8 +6,10 @@ class profile::network::leaf(
   $manage_quagga      = false,
   $manage_frrouting   = false,
   $manage_acls        = false,
+  $manage_switchd     = false,
   $manage_portconfig  = false,
   $cumulus_portconfig = {},
+  $switchd_config     = {},
 ) {
 
   if $manage_acls {
