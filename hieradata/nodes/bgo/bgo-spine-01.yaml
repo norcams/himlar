@@ -34,6 +34,8 @@ profile::base::network::cumulus_interfaces:
     'ipv4':  '158.36.4.69/31'
     'ipv6':  '2001:700:0:80fb::1/127'
     'mtu':   '9178'
+  'swp28s2':
+    'mtu':   '9178'
   'swp30':
     'ipv4':  '129.177.54.26/30'
     'ipv6':  '2001:700:200:1027::/127'
@@ -43,6 +45,11 @@ profile::base::network::cumulus_interfaces:
 profile::network::leaf::switchd_conf:
   'acl.non_atomic_update_mode':
     line: 'acl.non_atomic_update_mode = TRUE'
+
+profile::network::leaf::acls:
+  '03span_custom.rules':
+    iptables:
+      - '-A FORWARD --in-interface swp28s0 -j SPAN --dport swp28s2'
 
 frrouting::frrouting::bgp_neighbors:
   - '158.36.4.68 remote-as 224'
