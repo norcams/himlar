@@ -36,7 +36,8 @@
     }
 
     exec { "update-acls-${name}":
-      command     => "${execpath}/cl-acltool -i -P ${cumulus_acls_dir}",
+      #command     => "${execpath}/cl-acltool -i -P ${cumulus_acls_dir}",
+      command     => "${execpath}/cl-acltool -i",
       refreshonly => true,
     }
   }
