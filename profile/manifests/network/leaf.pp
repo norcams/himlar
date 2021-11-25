@@ -34,6 +34,6 @@ class profile::network::leaf(
     create_resources(profile::network::leaf::cumulus_portconfig, lookup('profile::network::leaf::cumulus_portconfigs', Hash, 'deep', {}))
   }
   if $manage_switchdconf {
-    create_resources(profile::network::leaf::switchd_config, lookup('profile::network::leaf::switchdconf', Hash, 'deep', {}))
+    create_resources(profile::network::leaf::switchd_config, lookup('profile::network::leaf::switchd_conf', Hash, 'deep', {}))
   }
 }

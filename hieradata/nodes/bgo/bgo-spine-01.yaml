@@ -40,6 +40,10 @@ profile::base::network::cumulus_interfaces:
     'mtu':   '9178'
     'link_autoneg': 'on'
 
+profile::network::leaf::switchd_conf:
+  'acl.non_atomic_update_mode':
+    line: 'acl.non_atomic_update_mode = TRUE'
+
 frrouting::frrouting::bgp_neighbors:
   - '158.36.4.68 remote-as 224'
   - '158.36.4.68 bfd 5 500 500'

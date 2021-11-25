@@ -7,11 +7,11 @@
     $replace          = true,
   ) {
 
-  file_line {"ports_${name}":
+  file_line {"switcdconf_${name}":
     ensure    => $ensure,
     line      => $line,
     path      => $path,
-    match     => "^${name}=.*$",
+    match     => "^${name} = .*$",
     replace   => $replace,
   }
 }
