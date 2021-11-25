@@ -6,7 +6,7 @@ class profile::network::leaf(
   $manage_quagga      = false,
   $manage_frrouting   = false,
   $manage_acls        = false,
-  $manage_switchd     = false,
+  $manage_switchdconf = false,
   $manage_portconfig  = false,
   $cumulus_portconfig = {},
   $switchd_config     = {},
@@ -32,5 +32,8 @@ class profile::network::leaf(
   }
   if $manage_portconfig {
     create_resources(profile::network::leaf::cumulus_portconfig, lookup('profile::network::leaf::cumulus_portconfigs', Hash, 'deep', {}))
+  }
+  if $manage_switchdconf {
+    create_resources(profile::network::leaf::switchd_config, lookup('profile::network::leaf::switchdconf', Hash, 'deep', {}))
   }
 }
