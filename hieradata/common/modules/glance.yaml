@@ -13,6 +13,7 @@ glance::api::show_multiple_locations:      true
 glance::api::enable_proxy_headers_parsing: true
 glance::api::enable_v1_api:                false
 glance::api::enable_v2_api:                true
+glance::api::image_member_quota:           -1
 
 # logging
 glance::api::logging::log_facility:        'LOG_LOCAL3'
