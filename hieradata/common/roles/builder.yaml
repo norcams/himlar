@@ -115,17 +115,17 @@ profile::application::builder::images:
     'username':         'centos'
     'hour':             4
     'minute':           30
-#  'centosstream9':
-#    'image_name':       'IMAGEBUILDER CentOS Stream 9'
-#    'url':              'https://cloud.centos.org/centos/9-stream/x86_64/images/'
-#    'latest':           'CentOS-Stream-GenericCloud-9-20211108.0.x86_64.qcow2'
-#    'checksum_file':    'CentOS-Stream-GenericCloud-9-20211108.0.x86_64.qcow2.SHA256SUM'
-#    'checksum':         'sha256'
-#    'min_ram':          768
-#    'min_disk':         8
-#    'username':         'centos'
-#    'hour':             6
-#    'minute':           30
+  'centosstream9':
+    'image_name':       'IMAGEBUILDER CentOS Stream 9'
+    'url':              'https://cloud.centos.org/centos/9-stream/x86_64/images/'
+    'latest':           'CentOS-Stream-GenericCloud-9-20211108.0.x86_64.qcow2'
+    'checksum_file':    'CentOS-Stream-GenericCloud-9-20211108.0.x86_64.qcow2.SHA256SUM'
+    'checksum':         'sha256'
+    'min_ram':          768
+    'min_disk':         8
+    'username':         'cloud-user'
+    'hour':             6
+    'minute':           30
   'debian9':
     'image_name':       'IMAGEBUILDER Debian 9'
     'url':              'http://cdimage.debian.org/cdimage/openstack/current-9/'
@@ -265,6 +265,7 @@ profile::monitoring::sensu::agent::expanded_checks:
   - 'centos7'
   - 'centos8_nv_vgpu'
   - 'centosstream8'
+  - 'centosstream9'
   - 'debian9'
   - 'debian10'
   - 'debian11'
@@ -276,7 +277,6 @@ profile::monitoring::sensu::agent::expanded_checks:
   - 'ubuntu_2110'
   - 'uio_rhel7'
   - 'uio_rhel8'
-#  - 'centosstream9'
 
 profile::monitoring::sensu::agent::expanded_defaults:
     command: "check-imagebuild.rb -d "
