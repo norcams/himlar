@@ -4,7 +4,7 @@
 #  nodeset configurations
 #
 defaults:
-  box:       "norcams/base"
+  box:       "norcams/el8"
   autostart: true
   primary:   false
   location:  "vagrant"
@@ -34,9 +34,12 @@ defaults:
 nodesets:
   default:
     - role:       "db-global"
+      box:        "norcams/base"
     - role:       "db-regional"
-    - role:       "mq"
+      box:        "norcams/base"
     - role:       "api"
+      box:        "norcams/base"
+    - role:       "mq"
     - role:       "identity"
     - role:       "novactrl"
     - role:       "image"
@@ -77,6 +80,7 @@ nodesets:
     #- role:       "nat"
     #  box:        "norcams/freebsd"
     - role:       "admin"
+      box:        "norcams/base"
       memory:     2048
     #- role:       "ns"
     #  memory:     3096
@@ -96,31 +100,42 @@ nodesets:
   ha:
     - role:       'ha'
       hostid:     '01'
+      box:        "norcams/base"
     - role:       'ha'
       hostid:     '02'
+      box:        "norcams/base"
   grid:
     - role:       'ha-grid'
       hostid:     '01'
+      box:        "norcams/base"
     - role:       'ha-grid'
       hostid:     '02'
+      box:        "norcams/base"
   db:
     - role:       'db-global'
       hostid:     '01'
+      box:        "norcams/base"
     - role:       'db-global'
       hostid:     '02'
+      box:        "norcams/base"
     # galera arbitrator
     - role:       'ha'
       hostid:     '01'
+      box:        "norcams/base"
     - role:       'ha'
       hostid:     '02'
+      box:        "norcams/base"
   ceph:
     - role:       "cephmon"
     - role:       "storage"
   dns:
     - role:       "db-global"
+      box:        "norcams/base"
     - role:       "db-regional"
+      box:        "norcams/base"
     - role:       "mq"
     - role:       "api"
+      box:        "norcams/base"
     - role:       "ns"
     - role:       "resolver"
       hostid:     "01"
@@ -146,20 +161,6 @@ nodesets:
       hostid:     '02'
     - role:       'object-ceph'
       hostid:     '03'
-  iam:
-    - role:       'iam-consumer'
-    - role:       'iam-monitor'
-      hostid:     '01'
-    - role:       'iam-monitor'
-      hostid:     '02'
-    - role:       'iam-nat'
-      hostid:     '01'
-    - role:       'iam-nat'
-      hostid:     '02'
-    - role:       'iam-ha'
-      hostid:     '01'
-    - role:       'iam-ha'
-      hostid:     '02'
 
 networks:
   mgmt:
