@@ -232,7 +232,7 @@ common_config()
 #    Setting["discovery_fact_column"]        = "ipmi_ipaddress"
 #    Setting["update_ip_from_built_request"] = true
 #    Setting["use_shortname_for_vms"]        = true
-#    Setting["idle_timeout"]                 = 180
+#    Setting"connection_recycle_time"]       = 180
 #
 #    Setting["safemode_render"] = false
 #    include Foreman::Renderer

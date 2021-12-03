@@ -104,30 +104,30 @@ class profile::openstack::identity::bootstrap (
   } else {
     $password_real = $password
   }
-  if defined('$::keystone::endpoint::public_url') and $::keystone::endpoint::public_url != undef {
-    $public_url_real = $::keystone::endpoint::public_url
+  if defined('$::keystone::bootstrap::public_url') and $::keystone::bootstrap::public_url != undef {
+    $public_url_real = $::keystone::bootstrap::public_url
     $using_deprecated_public_url = true
     warning('Using deprecated keystone::endpoint::public_url, please update to using keystone::bootstrap')
   } else {
     $public_url_real = $public_url
     $using_deprecated_public_url = false
   }
-  if defined('$::keystone::endpoint::internal_url') and $::keystone::endpoint::internal_url != undef {
-    $internal_url_final = $::keystone::endpoint::internal_url
+  if defined('$::keystone::bootstrap::internal_url') and $::keystone::bootstrap::internal_url != undef {
+    $internal_url_final = $::keystone::bootstrap::internal_url
     $using_deprecated_internal_url = true
     warning('Using deprecated keystone::endpoint::internal_url, please update to using keystone::bootstrap')
   } else {
     $internal_url_final = $internal_url
     $using_deprecated_internal_url = false
   }
-  if defined('$::keystone::endpoint::admin_url') and $::keystone::endpoint::admin_url != undef {
-    $admin_url_real = $::keystone::endpoint::admin_url
+  if defined('$::keystone::bootstrap::admin_url') and $::keystone::bootstrap::admin_url != undef {
+    $admin_url_real = $::keystone::bootstrap::admin_url
     warning('Using deprecated keystone::endpoint::admin_url, please update to using keystone::bootstrap')
   } else {
     $admin_url_real = $admin_url
   }
-  if defined('$::keystone::endpoint::region') and $::keystone::endpoint::region != undef {
-    $region_real = $::keystone::endpoint::region
+  if defined('$::keystone::bootstrap::region') and $::keystone::bootstrap::region != undef {
+    $region_real = $::keystone::bootstrap::region
     warning('Using deprecated keystone::endpoint::region, please update to using keystone::bootstrap')
   } else {
     $region_real = $region
@@ -158,7 +158,7 @@ class profile::openstack::identity::bootstrap (
     warning("Using keystone::roles::admin::admin_roles with value ${role_name_real} note that the\
       keystone::bootstrap when used will only set a single role, by default the 'admin' role.")
     warning('Will use the first value in admin_roles for bootstrap and all (if multiple) for all other resources!')
-    if is_array($role_name_real) {
+    if $role_name_real =~ Array {
       $bootstrap_role_name = $role_name_real[0]
     } else {
       $bootstrap_role_name = $role_name_real

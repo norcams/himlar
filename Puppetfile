@@ -145,7 +145,7 @@ mod 'postgresql', :ref => 'v6.8.0',                 :git => github + 'puppetlabs
 # mod 'mariadbrepo', ref => '0.2.1',                :git => github + 'Mylezeem/puppet-mariadbrepo'
 # mod 'staging', :ref => '1.0.4',                   :git => github + 'nanliu/puppet-staging' why this fork?
 mod 'staging', :ref => 'v3.0.0',                    :git => github + 'voxpupuli/puppet-staging'
-mod 'mysql', :ref => 'v9.1.0',                      :git => github + 'puppetlabs/puppetlabs-mysql'
+mod 'mysql', :ref => 'v10.3.0',                     :git => github + 'puppetlabs/puppetlabs-mysql'
 mod 'galera_arbitrator', :ref => '1.0.4',           :git => github + 'jadestorm/puppet-galera_arbitrator'
 
 #
@@ -158,15 +158,15 @@ mod 'archive', :ref => 'v2.2.0',                    :git => github + 'voxpupuli/
 #
 # profile::openstack::*
 #
-mod 'glance', :ref => '15.4.0',                     :git => github + 'openstack/puppet-glance'
+mod 'glance', :ref => '15.5.0',                     :git => github + 'openstack/puppet-glance'
 mod 'cinder', :ref => '263c6b11fc',                 :git => github + 'openstack/puppet-cinder'
 mod 'neutron', :ref => '15.4.0',                    :git => github + 'openstack/puppet-neutron'
 mod 'nova',    :ref => '875686b16d',                :git => github + 'norcams/puppet-nova'
 mod 'horizon', :ref => '15.4.0',                    :git => github + 'openstack/puppet-horizon'
-mod 'gnocchi', :ref => '14.4.0',                    :git => github + 'openstack/puppet-gnocchi'
+mod 'gnocchi', :ref => '15.5.0',                    :git => github + 'openstack/puppet-gnocchi'
 mod 'keystone', :ref => '15.5.0',                   :git => github + 'openstack/puppet-keystone'
 #mod 'swift', :ref => 'norcams/ocata',               :git => github + 'norcams/puppet-swift'
-mod 'ceilometer', :ref => '14.4.0',                 :git => github + 'openstack/puppet-ceilometer'
+mod 'ceilometer', :ref => '15.5.0',                 :git => github + 'openstack/puppet-ceilometer'
 mod 'designate', :ref => '15.5.0',                  :git => github + 'openstack/puppet-designate'
 mod 'cloudkitty', :ref => '3.4.0',                  :git => github + 'openstack/puppet-cloudkitty'
 mod 'placement', :ref => '2.5.0',                   :git => github + 'openstack/puppet-placement'
@@ -175,7 +175,7 @@ mod 'oslo', :ref => '15.5.0',                       :git => github + 'openstack/
 mod 'openstacklib', :ref => '15.5.0',               :git => github + 'openstack/puppet-openstacklib'
 mod 'openstack_extras', :ref => '15.4.1',           :git => github + 'openstack/puppet-openstack_extras'
 mod 'sysctl', :ref => 'v0.0.11',                    :git => github + 'duritong/puppet-sysctl'
-mod 'memcached', :ref => 'v3.0.2',                  :git => github + 'saz/puppet-memcached'
+mod 'memcached', :ref => 'v7.0.0',                  :git => github + 'saz/puppet-memcached'
 mod 'rsync', :ref => '0.4.0',                       :git => github + 'puppetlabs/puppetlabs-rsync'
 
 #
@@ -211,7 +211,7 @@ mod 'subscription_manager', :ref => '5.5.0',        :git => github + 'waveclaw/p
 #
 # Common libs
 #
-mod 'stdlib', :ref => 'v7.0.0',                     :git => github + 'puppetlabs/puppetlabs-stdlib'
+mod 'stdlib', :ref => 'v8.0.0',                     :git => github + 'puppetlabs/puppetlabs-stdlib'
 mod 'translate', :ref => 'v2.2.0',                  :git => github + 'puppetlabs/puppetlabs-translate'
 mod 'concat', :ref => '4.1.0',                      :git => github + 'puppetlabs/puppetlabs-concat'
 mod 'hash_file', :ref => '1.0.3',                   :git => github + 'fiddyspence/puppet-hash_file' # ??

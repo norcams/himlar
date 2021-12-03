@@ -28,7 +28,7 @@ profile::application::foreman::config:
     value:  100
   foreman_url:
     value:  "https://foreman.%{hiera('domain_public')}"
-  idle_timeout:
+  connection_recycle_time:
     value:  180
   root_pass:
     value:  '$1$16W5j9.P$wrGl0KophqmJwfADuUOIM/'
