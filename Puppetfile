@@ -211,7 +211,7 @@ mod 'subscription_manager', :ref => '5.5.0',        :git => github + 'waveclaw/p
 #
 # Common libs
 #
-mod 'stdlib', :ref => 'v6.6.0',                     :git => github + 'puppetlabs/puppetlabs-stdlib'
+mod 'stdlib', :ref => 'v7.0.0',                     :git => github + 'puppetlabs/puppetlabs-stdlib'
 mod 'translate', :ref => 'v2.2.0',                  :git => github + 'puppetlabs/puppetlabs-translate'
 mod 'concat', :ref => '4.1.0',                      :git => github + 'puppetlabs/puppetlabs-concat'
 mod 'hash_file', :ref => '1.0.3',                   :git => github + 'fiddyspence/puppet-hash_file' # ??
