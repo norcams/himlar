@@ -13,6 +13,10 @@ profile::base::selinux::ports:
     seltype:  'http_port_t'
     protocol: 'tcp'
     port:     389
+  smb:
+    seltype:  'http_port_t'
+    protocol: 'tcp'
+    port:     445
   grid-https:
     seltype:  'http_port_t'
     protocol: 'tcp'
