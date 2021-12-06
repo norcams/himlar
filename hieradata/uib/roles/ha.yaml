@@ -473,8 +473,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
     options:
       - maxconn:        '16000' # max internal http connections
       - option:         'httplog'
-      - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/uib_http_domains.map)]'
       - capture:        'request header Host len 32' #for debug
+      - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/uib_http_domains.map)]'
   uib-https:
     mode:               'tcp'
     bind:
@@ -518,8 +518,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       "%{hiera('corosync_cluster_vip6')}:80": []
     options:
       - option:         'httplog'
-      - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/ssl_http_domains.map)]'
       - capture:        'request header Host len 32' #for debug
+      - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/ssl_http_domains.map)]'
   ssl-https:
     mode:               'http'
     bind:
@@ -564,9 +564,9 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
     options:
       - option:         'http-server-close'
       - option:         'forwardfor'
+      - http-request:   'del-header ^X-Forwarded-For:.*'
       - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/ssl_https_domains.map)]'
       # Prevents X-Forwarded-For spoofing
-      - http-request:   'del-header ^X-Forwarded-For:.*'
       # - http-request:
       #   - 'add-header X-Forwarded-Proto https if { ssl_fc }'
       #   - 'set-header X-Forwarded-Port %[dst_port]'
