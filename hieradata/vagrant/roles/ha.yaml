@@ -15,6 +15,8 @@ ssl_cert_apps:          "apps.%{hiera('domain_public')}.pem"
 ssl_cert_nrec_docs:     "apps.%{hiera('domain_public')}.pem"
 ssl_cert_nrec_www:      "apps.%{hiera('domain_public')}.pem"
 ssl_cert_nrec:          "apps.%{hiera('domain_public')}.pem"
+ssl_cert_apps_admin:    "apps.%{hiera('domain_public')}.pem"
+ssl_cert_myprint:       "apps.%{hiera('domain_public')}.pem"
 
 #netdata
 profile::monitoring::netdata::firewall_source:
@@ -95,31 +97,18 @@ profile::base::selinux::ports:
     protocol: 'tcp'
     port:     389
 
-# Access lists
-profile::highavailability::loadbalancing::haproxy::access_list:
-  uib_vpn_net:
-    ips:
-      - 129.177.138.114/32 # uib-guest
-      - 129.177.44.0/24 # vpn-gw
-      - 129.177.46.0/24 # vpn-gw
-      - 129.177.32.0/24 # vpn-ansatt
-      - 129.177.33.0/24 # vpn-ansatt
-      - 129.177.48.0/24 # vpn-student
-      - 129.177.49.0/24 # vpn-student
-      - 129.177.94.64/26 # vpn
-      - 129.177.144.0/23 # new vpn
-      - 129.177.13.203/32 # login
-
 profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
   uib_https_domains:
     ensure: present
     mappings:
       - 'exch.uib.no':                            'uib-https-exch'
       - 'portal.uib.no':                          'uib-https-adm'
+      - 'myprint.uib.no':                         'uib-https-myprint'
   uib_http_domains:
     ensure: present
     mappings:
       - 'portal.uib.no':                          'uib-http-adm'
+      - 'myprint.uib.no':                         'uib-http-myprint'
   public_https_domains:
     ensure: present
     mappings:
@@ -146,6 +135,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
 # Copy from uib
 #
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
+# NREC
   'public-https-uh-status':
     listening_service:  'public-https-uh-status'
     ports:              443
@@ -170,19 +160,48 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     server_names:       ['docs01']
     ipaddresses:        ['uh-iaas.readthedocs.io']
     options:            'verify none inter 1000 check check-ssl ssl'
+# Apps
   'ssl-https-apps':
     listening_service:  'ssl-https-apps'
     ports:              443
-    server_names:       ['appsanywhere05.uib.no', 'appsanywhere06.uib.no']
-    ipaddresses:        ['129.177.150.205', '129.177.150.206']
-    options:            'verify none inter 120 check check-ssl ssl'
-#    define_cookies:     true
-  'public-https-apps':
-    listening_service:  'public-https-apps'
+    server_names:       ['appsanywhere01.uib.no', 'appsanywhere02.uib.no', 'appsanywhere03.uib.no']
+    ipaddresses:        ['129.177.150.207', '129.177.150.208', '129.177.150.201']
+    options:            'verify none inter 30s check check-ssl ssl'
+  # 'public-https-apps':
+  #   listening_service:  'public-https-apps'
+  #   ports:              443
+  #   server_names:       ['appsanywhere04.uib.no', 'appsanywhere05.uib.no', 'appsanywhere06.uib.no']
+  #   ipaddresses:        ['129.177.150.202', '129.177.150.205', '129.177.150.206']
+  #   options:            'check'
+  'ssl-https-apps-admin':
+    listening_service:  'ssl-https-apps-admin'
     ports:              443
-    server_names:       ['appsanywhere05.uib.no', 'appsanywhere06.uib.no']
-    ipaddresses:        ['129.177.150.205', '129.177.150.206']
+    server_names:       ['apps-admin01.uib.no', 'apps-admin02.uib.no']
+    ipaddresses:        ['129.177.14.170', '129.177.14.171']
+    options:            'verify none inter 120s check check-ssl ssl'
+# Exchange
+  'uib-https-exch':
+    listening_service:  'uib-https-exch'
+    ports:              443
+    server_names:       ['exchange01.uib.no', 'exchange02.uib.no']
+    ipaddresses:        ['129.177.14.178','129.177.14.179']
     options:            'check'
+# Portal
+  'uib-https-adm':
+    listening_service:  'uib-https-adm'
+    ports:              443
+    server_names:       ['rd-web01.uib.no', 'rd-web02.uib.no']
+    ipaddresses:        ['129.177.14.13', '129.177.14.182']
+    options:
+      - 'check'
+  'uib-http-adm':
+    listening_service:  'uib-http-adm'
+    ports:              80
+    server_names:       ['rd-web01.uib.no', 'rd-web02.uib.no']
+    ipaddresses:        ['129.177.14.13', '129.177.14.182']
+    options:
+      - 'check'
+# LDAP
   'public-ldap-prod':
     listening_service:  'public-ldap-prod'
     ports:              '389'
@@ -195,40 +214,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ports:              '636'
     server_names:       ['p1ldap01.uib.no', 'p2ldap01.uib.no', 'p1ldap02.uib.no', 'p2ldap02.uib.no']
     ipaddresses:        ['129.177.5.229', '129.177.5.230', '129.177.5.234', '129.177.5.236']
-    options:
-      - 'check'
-  'uib-https-exch':
-    listening_service:  'uib-https-exch'
-    ports:              443
-    server_names:       ['exchange01.uib.no', 'exchange02.uib.no']
-    ipaddresses:        ['129.177.14.178','129.177.14.179']
-    options:            'check'
-  'uib-https-adm':
-    listening_service:  'uib-https-adm'
-    ports:              443
-    server_names:       ['rd-web01.uib.no', 'rd-web02.uib.no']
-    ipaddresses:        ['129.177.14.13', '129.177.14.182']
-    options:
-      - 'check'
-  'uib-https-apps-admin':
-    listening_service:  'uib-https-apps-admin'
-    ports:              443
-    server_names:       ['apps-admin01.uib.no', 'apps-admin02.uib.no']
-    ipaddresses:        ['129.177.14.170', '129.177.14.171']
-    options:
-      - 'check'
-  'uib-https-apps-gw':
-    listening_service:  'uib-https-apps-gw'
-    ports:              443
-    server_names:       ['apps-gw01.uib.no', 'apps-gw02.uib.no']
-    ipaddresses:        ['129.177.30.19', '129.177.30.26']
-    options:
-      - 'check'
-  'uib-http-adm':
-    listening_service:  'uib-http-adm'
-    ports:              80
-    server_names:       ['rd-web01.uib.no', 'rd-web02.uib.no']
-    ipaddresses:        ['129.177.14.13', '129.177.14.182']
     options:
       - 'check'
   'uib-ldap-test':
@@ -245,21 +230,31 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ipaddresses:        ['129.177.5.183']
     options:
       - 'check'
-  'uib-https-grid':
-    listening_service:  'uib-https-grid'
-    ports:              18082
-    server_names:       ['uib-grid-01.grid.uib.no', 'uib-grid-02.grid.uib.no', 'uib-grid-03.grid.uib.no', 'uib-grid-04.grid.uib.no']
-    ipaddresses:        ['129.177.3.11', '129.177.3.12', '129.177.3.13', '129.177.3.14']
+  # myprint
+  'ssl-https-myprint':
+    listening_service:  'ssl-https-myprint'
+    ports:              443
+    server_names:       ['p1-myprint01.uib.no', 'p2-myprint01.uib.no']
+    ipaddresses:        ['129.177.30.26', '129.177.30.27']
+    options:            'verify none inter 30s check check-ssl ssl'
+  # SMB
+  'uib-smb':
+    listening_service:  'uib-smb'
+    ports:              445
+    server_names:       ['p1-print01.uib.no','p2-print01.uib.no']
+    ipaddresses:        ['129.177.14.126', '129.177.14.128']
     options:
       - 'check'
-      - 'check-ssl'
-      - 'verify none'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_backends:
-  public-https-apps:
-    mode:             'tcp'
+  # Apps
+  ssl-https-apps-admin:
+    mode:             'http'
     options:
-      - balance:      'source'
+      - balance:      'leastconn'
+      - option:
+        - 'forwardfor except 127.0.0.1'
+        - 'httpchk GET /jukeboxserver/do/license/token/renew.tok?msid=ping'
       - http-check: 'expect status 200'
       # Session stick table and based on source IP
       - stick-table: 'type ip size 1m expire 1h'
@@ -270,22 +265,23 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
   ssl-https-apps:
     mode:             'http'
     options:
-      - balance:      'leastconn'
+      - balance:      'source'
       - option:
         - 'forwardfor except 127.0.0.1'
         - 'httpchk GET /healthcheck'
       - http-check: 'expect status 200'
-      # Session stick table and based on source IP
-      - stick-table: 'type ip size 1m expire 1h'
-      - stick: 'on src'
+      # Session stick table and based on source IP (do not work with nbproc >1)
+#      - stick-table: 'type ip size 1m expire 1h'
+#      - stick: 'on src'
       - timeout:
         - 'server 1m'
         - 'queue 1m'
-  ssl-http-apps:
+  ssl-http-apps-redirect:
     mode:             'http'
     options:
       - balance:      'roundrobin'
       - redirect:     'scheme https if !{ ssl_fc }'
+  # NREC
   ssl-https-nrec-www:
     mode:             'http'
     options:
@@ -323,6 +319,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
       - balance:      'source'
       - option:
         - 'httpchk HEAD /health HTTP/1.1\r\nHost:\ report.uh-iaas.no'
+  # LDAP
   public-ldap-prod:
     mode:             'tcp'
     options:
@@ -331,33 +328,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     mode:             'tcp'
     options:
       - balance:      'leastconn'
-  uib-https-exch:
-    mode:             'tcp'
-    options:
-      - balance:      'source'
-  uib-https-apps-admin:
-    mode:             'tcp'
-    options:
-      - balance:      'source'
-      # - option:
-      #   - 'httpchk HEAD /jukeboxserver/do/license/token/renew.tok?msid=ping HTTP/1.1\r\nHost:\ apps-admin.uib.no'
-  uib-https-apps-gw:
-    mode:             'tcp'
-    options:
-      - balance:      'roundrobin'
-      #- cookie:       'ASP.NET_SessionId prefix nocache'
-      # - option:
-      #   - 'httpchk HEAD /jukeboxserver/do/license/token/renew.tok?msid=ping HTTP/1.1\r\nHost:\ apps-admin.uib.no'
-  uib-https-adm:
-    mode:             'tcp'
-    options:
-      - balance:      'roundrobin'
-      - tcp-request:  'content reject if { src -f /etc/haproxy/uib_vpn_net.list }'
-  uib-http-adm:
-    mode:             'tcp'
-    options:
-      - balance:      'roundrobin'
-      - tcp-request:  'content reject if { src -f /etc/haproxy/uib_vpn_net.list }'
   uib-ldap-test:
     mode:             'tcp'
     options:
@@ -366,12 +336,38 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     mode:             'tcp'
     options:
       - balance:      'leastconn'
-  uib-https-grid:
+  # myprint
+  ssl-https-myprint:
+    mode:             'http'
+    options:
+      - balance:      'source'
+      - option:
+        - 'forwardfor except 127.0.0.1'
+      - http-check: 'expect status 200'
+  # SMB
+  uib-smb:
     mode:             'tcp'
     options:
       - balance:      'leastconn'
-      - option:
-        - 'httpchk OPTIONS / HTTP/1.1'
+      # Session stick table and based on source IP
+      - stick-table: 'type ip size 1m expire 1h'
+      - stick: 'on src'
+  # Exchange
+  uib-https-exch:
+    mode:             'tcp'
+    options:
+      - balance:      'source'
+  # Portal
+  uib-https-adm:
+    mode:             'tcp'
+    options:
+      - balance:      'roundrobin'
+      #- tcp-request:  'content reject if { src -f /etc/haproxy/uib_vpn_net.list }'
+  uib-http-adm:
+    mode:             'tcp'
+    options:
+      - balance:      'roundrobin'
+      #- tcp-request:  'content reject if { src -f /etc/haproxy/uib_vpn_net.list }'
 
 #  uib-https-uh-dashboard:
 #    mode: 'tcp'
@@ -391,6 +387,9 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
 #        - 'on payload_lv(43,1) if clienthello'
 #        - 'store-response payload_lv(43,1) if serverhello'
 
+#
+# Copy from uib
+#
 profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
   public-http:
     mode:               'http'
@@ -466,6 +465,14 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
     options:
       - option:         'tcplog'
       - use_backend:    'uib-ldaps-test'
+  uib-smb:
+    mode:               'tcp'
+    bind:
+      "%{hiera('corosync_cluster_vip3')}:445": []
+      "%{hiera('corosync_cluster_vip4')}:445": []
+    options:
+      - option:         'tcplog'
+      - use_backend:    'uib-smb'
   ssl-http: #for redirect
     mode:               'http'
     bind:
@@ -484,6 +491,9 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
         - "%{hiera('ssl_cert_apps')}"
         - 'ssl'
         - 'crt'
+        - "%{hiera('ssl_cert_apps_admin')}"
+        - 'ssl'
+        - 'crt'
         - "%{hiera('ssl_cert_nrec')}"
         - 'ssl'
         - 'crt'
@@ -491,12 +501,18 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
         - 'ssl'
         - 'crt'
         - "%{hiera('ssl_cert_nrec_docs')}"
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_myprint')}"
       "%{hiera('corosync_cluster_vip6')}:443":
         - 'ssl'
         - 'crt'
         - "%{hiera('ssl_cert_apps')}"
         - 'ssl'
         - 'crt'
+        - "%{hiera('ssl_cert_apps_admin')}"
+        - 'ssl'
+        - 'crt'
         - "%{hiera('ssl_cert_nrec')}"
         - 'ssl'
         - 'crt'
@@ -504,6 +520,9 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
         - 'ssl'
         - 'crt'
         - "%{hiera('ssl_cert_nrec_docs')}"
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_myprint')}"
     options:
       - option:         'http-server-close'
       - option:         'forwardfor'
@@ -513,21 +532,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       # - http-request:
       #   - 'add-header X-Forwarded-Proto https if { ssl_fc }'
       #   - 'set-header X-Forwarded-Port %[dst_port]'
-  # uib-https-grid:
-  #   mode:               'tcp'
-  #   bind:
-  #     "%{hiera('corosync_cluster_vip5')}:443": []
-  #   options:
-  #     - maxconn:        '5000' # max grid https connections
-  #     - timeout:
-  #       - 'connect 5s'
-  #       - 'client 50s'
-  #       - 'server 50s'
-  #     - option:         'tcplog'
-  #     - tcp-request:
-  #       - 'inspect-delay 5s'
-  #       - 'content accept if { req_ssl_hello_type 1 }'
-  #     - use_backend:    'uib-https-grid'
+
 
 # Corosync VIP and HAproxy
 profile::highavailability::corosync::primitives:

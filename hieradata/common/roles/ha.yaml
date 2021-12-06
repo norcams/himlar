@@ -11,7 +11,7 @@ include:
 profile::monitoring::netdata::manage_firewall: true
 profile::monitoring::netdata::firewall_dest:   '%{::ipaddress_public1}'
 profile::monitoring::netdata::firewall_source:
-  - '129.177.10.0/24'
+  - '129.177.0.0/24'
   - '129.177.6.133/32'
 
 # SElinux are enforcing on this role!!
