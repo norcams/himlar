@@ -87,12 +87,12 @@ profile::firewall::rules::custom_rules:
     destination:  "%{hiera('corosync_cluster_vip2')}"
   '453 haproxy http for internal vip3':
     proto:        'tcp'
-    dport:        [ '80', '443', '389', '636' ]
+    dport:        [ '80', '443', '389', '636', '445' ]
     source:       '129.177.0.0/16'
     destination:  "%{hiera('corosync_cluster_vip3')}"
   '454 haproxy http for internal vip4':
     proto:        'tcp'
-    dport:        [ '80', '443', '389', '636' ]
+    dport:        [ '80', '443', '389', '636', '445' ]
     source:       '129.177.0.0/16'
     destination:  "%{hiera('corosync_cluster_vip4')}"
   '456 haproxy http for public vip5':
