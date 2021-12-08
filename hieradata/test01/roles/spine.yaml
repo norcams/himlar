@@ -8,6 +8,15 @@ named_interfaces::config:
   trp:
     - bridge.100
 
+profile::network::leaf::acls:
+  '02control_plane_custom.rules':
+    iptables:
+      - "-A $FORWARD_CHAIN -p tcp -s 129.177.0.0/16 --dport 23 -j ACCEPT"
+      - "-A $FORWARD_CHAIN -p tcp --dport 23 -j DROP"
+    ip6tables:
+      - "-A $FORWARD_CHAIN -p tcp -s 2001:700:200::/48 --dport 23 -j ACCEPT"
+      - "-A $FORWARD_CHAIN -p tcp --dport 23 -j DROP"
+
 profile::base::network::cumulus_interfaces:
   'swp48':
     'mtu':   '9216'
