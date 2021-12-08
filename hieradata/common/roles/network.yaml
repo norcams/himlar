@@ -21,6 +21,8 @@ profile::openstack::network::manage_quotas: true
 profile::openstack::network::controller::manage_neutron_policies: true
 
 profile::base::common::packages:
+  # we need newer version of six to avoid breaking requests and openstack cli
+  'python3-six.noarch': { ensure: latest }
   'bash-completion': {}
   'bash-completion-extras': {} # FIXME: remove when el7 is gone
   'jq': {}
