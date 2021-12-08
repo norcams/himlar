@@ -17,6 +17,10 @@ profile::base::selinux::ports:
     seltype:  'http_port_t'
     protocol: 'tcp'
     port:     445
+  rpc:
+    seltype:  'http_port_t'
+    protocol: 'tcp'
+    port:     135
   grid-https:
     seltype:  'http_port_t'
     protocol: 'tcp'
@@ -87,12 +91,12 @@ profile::firewall::rules::custom_rules:
     destination:  "%{hiera('corosync_cluster_vip2')}"
   '453 haproxy http for internal vip3':
     proto:        'tcp'
-    dport:        [ '80', '443', '389', '636', '445' ]
+    dport:        [ '80', '443', '389', '636', '445', '135' ]
     source:       '129.177.0.0/16'
     destination:  "%{hiera('corosync_cluster_vip3')}"
   '454 haproxy http for internal vip4':
     proto:        'tcp'
-    dport:        [ '80', '443', '389', '636', '445' ]
+    dport:        [ '80', '443', '389', '636', '445', '135' ]
     source:       '129.177.0.0/16'
     destination:  "%{hiera('corosync_cluster_vip4')}"
   '456 haproxy http for public vip5':
@@ -299,7 +303,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   # SMB
   'uib-smb':
     listening_service:  'uib-smb'
-    ports:              445
+    ports:              [135, 445]
     server_names:       ['p1-print01.uib.no','p2-print01.uib.no']
     ipaddresses:        ['129.177.14.126', '129.177.14.128']
     options:
@@ -508,6 +512,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
     bind:
       "%{hiera('corosync_cluster_vip3')}:445": []
       "%{hiera('corosync_cluster_vip4')}:445": []
+      "%{hiera('corosync_cluster_vip3')}:135": []
+      "%{hiera('corosync_cluster_vip4')}:135": []
     options:
       - option:         'tcplog'
       - use_backend:    'uib-smb'

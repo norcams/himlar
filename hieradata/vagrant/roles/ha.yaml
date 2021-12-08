@@ -3,6 +3,8 @@ include:
   default:
     - profile::application::openssl
 
+profile::base::selinux::manage_selinux:        false
+
 profile::application::openssl::manage_ca_cert: true
 profile::application::openssl::certs:
   "apps.%{hiera('domain_public')}":
@@ -67,6 +69,7 @@ haproxy::global_options:
   log:          '127.0.0.1 local6 debug alert'
   maxconn:      '10000' # total connections per core
   crt-base:     '/etc/pki/tls/certs'
+  tune.ssl.default-dh-param:  2048
 
 haproxy::defaults_options:
   log:          'global'
@@ -240,7 +243,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   # SMB
   'uib-smb':
     listening_service:  'uib-smb'
-    ports:              445
+    ports:              [135, 445]
     server_names:       ['p1-print01.uib.no','p2-print01.uib.no']
     ipaddresses:        ['129.177.14.126', '129.177.14.128']
     options:
@@ -470,6 +473,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
     bind:
       "%{hiera('corosync_cluster_vip3')}:445": []
       "%{hiera('corosync_cluster_vip4')}:445": []
+      "%{hiera('corosync_cluster_vip3')}:135": []
+      "%{hiera('corosync_cluster_vip4')}:135": []
     options:
       - option:         'tcplog'
       - use_backend:    'uib-smb'
