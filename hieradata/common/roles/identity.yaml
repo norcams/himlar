@@ -13,6 +13,8 @@ include:
     - profile::webserver::apache::status
 
 profile::base::common::packages:
+  # we need newer version of six to avoid breaking requests and openstack cli
+  'python3-six.noarch': { ensure: latest }
   'bash-completion': {}
   'bash-completion-extras': {}
   'jq': {}
@@ -20,9 +22,9 @@ profile::base::common::packages:
   'MariaDB-client': {}
   'openstack-selinux': {}
   'python2-designateclient': {}
-#  'mod_auth_openidc': # FIXME: possible mech for enabling specific module
-#    provider: dnf
-#    enable_only: 'mod_auth_openidc'
+  # 'mod_auth_openidc': # FIXME use this when we can set package absent in keystone module
+  #   ensure: '2.3'
+  #   provider: 'dnfmodule'
 
 memcached::max_memory: '40%'
 
@@ -162,6 +164,10 @@ profile::base::yumrepo::repo_hash:
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
     includepkgs: 'htop bash-completion-extras'
+# FIXME: we need to enable mod_auth_openidc only or disable package installation
+# in keystone module and use package hash above to install with dnfmodule
+  CentOS-AppStream:
+    module_hotfixes: '1' # FIXME
 
 profile::base::selinux::boolean:
   'httpd_can_network_connect':

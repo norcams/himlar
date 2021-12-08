@@ -8,7 +8,7 @@ define profile::base::package (
 
   unless $ensure == 'absent' {
     package { $name:
-      ensure   => 'present',
+      ensure   => $ensure,
       provider => $provider,
       source   => $source
     }
