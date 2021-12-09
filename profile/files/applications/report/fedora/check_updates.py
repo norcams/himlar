@@ -1,5 +1,6 @@
 dnf_failure = False
 base = dnf.Base()
+base.conf.substitutions.update_from_etc("/")
 
 try:
     base.read_all_repos()
