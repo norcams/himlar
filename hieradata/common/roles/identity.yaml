@@ -153,7 +153,9 @@ profile::base::yumrepo::repo_hash:
   rdo-release:
     ensure:   present
     exclude:  'mariadb*'
-  CentOS-PowerTools:
+  CentOS-PowerTools: # FIXME: remove when CentOS 8 is gone
+    ensure: present
+  AlmaLinux-PowerTools:
     ensure: present
   mariadb:
     ensure:   absent
