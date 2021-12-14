@@ -104,6 +104,29 @@ profile::openstack::openrc::project_name: 'openstack'
 yum_base_mirror:    'https://download.iaas.uio.no/nrec/prod'
 profile::base::yumrepo::purge_unmanaged: true  # purging of repos has moved to profile code with el8
 profile::base::yumrepo::repo_hash:
+  AlmaLinux-Base:
+    descr:          'AlmaLinux-$releasever - Base'
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/almalinux-base/"
+    gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-AlmaLinux'
+    gpgcheck:       1
+    exclude:        'dnsmasq postgres*'
+  AlmaLinux-AppStream:
+    descr:          'AlmaLinux-$releasever - Updates'
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/almalinux-AppStream/"
+    gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-AlmaLinux'
+    gpgcheck:       1
+    exclude:        'dnsmasq postgres*'
+  AlmaLinux-PowerTools:
+    descr:          'AlmaLinux-$releasever - PowerTools'
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/almalinux-PowerTools/"
+    gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-AlmaLinux'
+    gpgcheck:       1
+    ensure:         absent
+  AlmaLinux-Extras:
+    descr:          'AlmaLinux-$releasever - Extras'
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/almalinux-extras/"
+    gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-AlmaLinux'
+    gpgcheck:       1
   CentOS-Base:
     descr:          'CentOS-$releasever - Base'
     baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/centos-base/"
