@@ -30,10 +30,6 @@ profile::base::yumrepo::repo_hash:
   mariadb-10.3: # FIXME
     module_hotfixes: '1'
 
-
-
-
-
 profile::base::common::packages:
   'bash-completion-extras': { ensure: absent, }     # FIXME clean up when el7 is gone
   'python-etcd3gw': { ensure: absent, }             # FIXME clean up when el7 is gone

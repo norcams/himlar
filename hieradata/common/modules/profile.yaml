@@ -118,7 +118,7 @@ profile::base::yumrepo::repo_hash:
     exclude:        'dnsmasq postgres*'
   AlmaLinux-PowerTools:
     descr:          'AlmaLinux-$releasever - PowerTools'
-    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/almalinux-PowerTools/"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/almalinux-powertools/"
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-AlmaLinux'
     gpgcheck:       1
     ensure:         absent
