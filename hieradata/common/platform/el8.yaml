@@ -8,19 +8,31 @@ include:
     - profile::network::interface
 
 profile::base::yumrepo::repo_hash:
+  CentOS-Base:
+    ensure:         absent #FIXME: Remove when CentOS 8 is gone
   CentOS-Updates:
-    ensure: absent
+    ensure:         absent #FIXME: Remove when CentOS 8 is gone
+  CentOS-AppStream:
+    ensure:         absent #FIXME: Remove when CentOS 8 is gone
+  CentOS-PowerTools:
+    ensure:         absent #FIXME: Remove when CentOS 8 is gone
+  CentOS-Extras:
+    ensure:         absent #FIXME: Remove when CentOS 8 is gone
   epel:
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8'
   puppetlabs:
     baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/puppetlabs6/"
     gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/puppetlabs6/RPM-GPG-KEY-puppet"
   centos-qemu-ev:   # unavailable for el8
-    ensure: absent
+    ensure:         absent
   CentOS-Advanced-Virtualization: # FIXME
     module_hotfixes: '1'
   mariadb-10.3: # FIXME
     module_hotfixes: '1'
+
+
+
+
 
 profile::base::common::packages:
   'bash-completion-extras': { ensure: absent, }     # FIXME clean up when el7 is gone

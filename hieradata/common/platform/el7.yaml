@@ -2,6 +2,14 @@
 profile::base::yumrepo::repo_hash:
   calico%{hiera('calico_version')}:
     exclude: 'dnsmasq'
+  AlmaLinux-Base:
+    ensure:         absent
+  AlmaLinux-AppStream:
+    ensure:         absent
+  AlmaLinux-PowerTools:
+    ensure:         absent
+  AlmaLinux-Extras:
+    ensure:         absent
   CentOS-AppStream:
     ensure: absent
   CentOS-Base:
