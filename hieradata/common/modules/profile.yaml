@@ -111,7 +111,7 @@ profile::base::yumrepo::repo_hash:
     gpgcheck:       1
     exclude:        'dnsmasq postgres*'
   AlmaLinux-AppStream:
-    descr:          'AlmaLinux-$releasever - Updates'
+    descr:          'AlmaLinux-$releasever - AppStream'
     baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/almalinux-AppStream/"
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-AlmaLinux'
     gpgcheck:       1
