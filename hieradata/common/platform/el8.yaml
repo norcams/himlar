@@ -13,6 +13,8 @@ profile::base::yumrepo::repo_hash:
   CentOS-Updates:
     ensure:         absent #FIXME: Remove when CentOS 8 is gone
   CentOS-AppStream:
+    ensure:         present #FIXME: Remove when CentOS 8 is gone
+  AlmaLinux-AppStream:
     ensure:         absent #FIXME: Remove when CentOS 8 is gone
   CentOS-PowerTools:
     ensure:         absent #FIXME: Remove when CentOS 8 is gone
