@@ -143,7 +143,7 @@ profile::base::yumrepo::repo_hash:
     descr:          'CentOS-$releasever - Updates'
     baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/centos-AppStream/"
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial'
-    gpgcheck:       1
+    gpgcheck:       0
     exclude:        'dnsmasq postgres*'
   CentOS-PowerTools:
     descr:          'CentOS-$releasever - PowerTools'
