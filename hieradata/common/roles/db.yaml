@@ -7,7 +7,7 @@ include:
     - profile::base::systemd
 
 # used for repo version
-mariadb_version: '10.2'
+mariadb_version: '10.3'
 
 profile::base::systemd::manage_limits: true
 profile::base::systemd::limits:
