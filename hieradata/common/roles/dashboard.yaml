@@ -16,6 +16,8 @@ named_interfaces::config:
     - dummy0
 
 profile::base::common::packages:
+  # we need newer version of six to avoid breaking requests and openstack cli
+  'python3-six.noarch': { ensure: latest }
   'MySQL-python': {}            # FIXME: remove when el7 is gone
   'python3-mysql': {}
   'bash-completion': {}

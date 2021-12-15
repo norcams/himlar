@@ -26,6 +26,8 @@ profile::openstack::novactrl::firewall_extras:
   source: "%{::network_trp1}/%{::netmask_trp1}"
 
 profile::base::common::packages:
+  # we need newer version of six to avoid breaking requests and openstack cli
+  'python3-six.noarch': { ensure: latest }
   'bash-completion': {}
   'bash-completion-extras': {}
   'jq': {}
