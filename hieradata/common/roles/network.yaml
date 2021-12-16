@@ -32,7 +32,7 @@ profile::base::common::packages:
   'python3-etcd3gw': {}
   'python-memcached': {}       # FIXME: remove when el7 is gone
   'libibverbs': {}
-  'make' {} # for sensu gem
+  'make': {} # for sensu gem
 
 profile::openstack::openrc::password:     "%{hiera('neutron_api_password')}"
 profile::openstack::openrc::username:     'neutron'
