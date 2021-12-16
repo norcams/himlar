@@ -75,7 +75,7 @@ class profile::base::common (
     create_resources('ssh::client::config::user', $users_ssh_options)
   }
 
-  if $disable_firewalld {
+  if $::operatingsystem == 'AlmaLinux' and $disable_firewalld {
     service { 'firewalld':
       ensure => stopped,
       enable => false
