@@ -168,6 +168,8 @@ profile::base::yumrepo::repo_hash:
     includepkgs: 'htop bash-completion-extras'
 # FIXME: we need to enable mod_auth_openidc only or disable package installation
 # in keystone module and use package hash above to install with dnfmodule
+  AlmaLinux-AppStream:
+    module_hotfixes: '1' # FIXME
   CentOS-AppStream:
     module_hotfixes: '1' # FIXME
 
