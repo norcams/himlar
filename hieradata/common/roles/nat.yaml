@@ -2,6 +2,7 @@
 include:
   default:
     - profile::network::nat
+    - profile::logging::rsyslog::client
 
 named_interfaces::config:
   mgmt:
