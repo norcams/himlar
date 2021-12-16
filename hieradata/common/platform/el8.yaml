@@ -8,8 +8,6 @@ include:
     - profile::network::interface
 
 profile::base::yumrepo::repo_hash:
-  AlmaLinux-AppStream: # FIXME
-    module_hotfixes: '1'
   CentOS-Base:
     ensure:         absent #FIXME: Remove when CentOS 8 is gone
   CentOS-Updates:
