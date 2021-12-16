@@ -17,6 +17,7 @@ profile::base::common::manage_yumrepo:         true
 profile::base::common::manage_puppet:          true
 profile::base::common::include_virtual:        true
 profile::base::common::include_physical:       true
+profile::base::common::disable_firewalld:      true
 profile::base::firewall::manage_firewall:      true
 profile::base::hostname::manage_hostname:      true
 profile::base::httpproxy::http_proxy:          "http://%{hiera('mgmt__address__proxy')}:8888"
