@@ -23,6 +23,7 @@ class profile::base::common (
   $manage_cron            = false,
   $manage_fake_ssd        = false,
   $manage_vm_swappiness   = false,
+  $disable_firewalld      = false,
   $vm_swappiness          = '10',
   $include_physical       = false,
   $include_virtual        = false,
@@ -72,6 +73,13 @@ class profile::base::common (
     include ::ssh::server
 
     create_resources('ssh::client::config::user', $users_ssh_options)
+  }
+
+  if $disable_firewalld {
+    service { 'firewalld':
+      ensure => stopped,
+      enable => false
+    }
   }
 
   if $manage_cron {
