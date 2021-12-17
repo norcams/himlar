@@ -4,6 +4,7 @@ include:
     - profile::network::leaf
     - profile::base::common
     - profile::base::cl_limits
+    - profile::monitoring::collectd
 #    - profile::monitoring::netdata
   bootstrap:
     - profile::base::common
@@ -52,6 +53,12 @@ sensuclassic::checks:
 
 sensuclassic::install_repo:            true
 sensuclassic::manage_repo:             true
+
+profile::monitoring::collectd::enable: false
+profile::monitoring::collectd::merge_strategy: 'first'
+profile::monitoring::collectd::plugins:
+   - collectd::plugin::interface
+   - collectd::plugin::write_graphite
 
 # Netdata
 #profile::monitoring::netdata::manage_firewall: false
