@@ -54,11 +54,17 @@ sensuclassic::checks:
 sensuclassic::install_repo:            true
 sensuclassic::manage_repo:             true
 
+collectd::minimum_version: '5.4'
 profile::monitoring::collectd::enable: false
 profile::monitoring::collectd::merge_strategy: 'first'
 profile::monitoring::collectd::plugins:
    - collectd::plugin::interface
    - collectd::plugin::write_graphite
+collectd::plugin::write_graphite::carbon_defaults:
+  graphitehost:   "%{hiera('netcfg_mgmt_netpart')}.14" # collectd is unable to resolve dns
+  graphiteport:   2003
+  graphiteprefix: 'collectd.'
+  protocol:       'udp'
 
 # Netdata
 #profile::monitoring::netdata::manage_firewall: false
