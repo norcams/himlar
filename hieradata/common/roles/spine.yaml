@@ -4,6 +4,7 @@ include:
     - profile::network::leaf
     - profile::base::common
     - profile::base::cl_limits
+    - profile::monitoring::collectd
   bootstrap:
     - profile::base::common
 
@@ -46,6 +47,12 @@ sensuclassic::checks:
 
 sensuclassic::install_repo:            true
 sensuclassic::manage_repo:             true
+
+profile::monitoring::collectd::enable: false
+profile::monitoring::collectd::merge_strategy: 'first'
+profile::monitoring::collectd::plugins:
+   - collectd::plugin::interface
+   - collectd::plugin::write_graphite
 
 # ntp service managed by profile because of mgmt VRF
 ntp::service_enable: false

@@ -8,6 +8,8 @@ named_interfaces::config:
   trp:
     - bridge.100
 
+profile::monitoring::collectd::enable: true
+
 profile::network::leaf::cumulus_portconfigs:
   1:
     line:  "1=4x25G"

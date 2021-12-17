@@ -8,6 +8,8 @@ named_interfaces::config:
   trp:
     - bridge.100
 
+profile::monitoring::collectd::enable: true
+
 profile::network::leaf::acls:
   '02control_plane_custom.rules':
     iptables:
