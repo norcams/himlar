@@ -79,7 +79,7 @@ profile::base::login::oob_outiface:                "%{::interface_oob1}"
 
 # on this node we must actually use dnsmasq from Appstream as Calico repo not available
 profile::base::yumrepo::repo_hash:
-  CentOS-AppStream:
+  AlmaLinux-AppStream:
     exclude:        'postgres*'
 
 # extra disk for local repository (synced with other login nodes)
