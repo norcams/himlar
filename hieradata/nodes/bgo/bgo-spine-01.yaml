@@ -42,14 +42,14 @@ profile::base::network::cumulus_interfaces:
     'mtu':   '9178'
     'link_autoneg': 'on'
 
-profile::network::leaf::switchd_conf:
-  'acl.non_atomic_update_mode':
-    line: 'acl.non_atomic_update_mode = TRUE'
-
-profile::network::leaf::acls:
-  '03span_custom.rules':
-    iptables:
-      - '-A FORWARD --in-interface swp28s0 -j SPAN --dport swp28s2'
+#profile::network::leaf::switchd_conf:
+#  'acl.non_atomic_update_mode':
+#    line: 'acl.non_atomic_update_mode = TRUE'
+#
+#profile::network::leaf::acls:
+#  '03span_custom.rules':
+#    iptables:
+#      - '-A FORWARD --in-interface swp28s0 -j SPAN --dport swp28s2'
 
 frrouting::frrouting::bgp_neighbors:
   - '158.36.4.68 remote-as 224'
