@@ -18,6 +18,13 @@ class profile::monitoring::graphite (
       proto => 'udp',
       source => "${::network_mgmt1}/${::netmask_mgmt1}"
     }
+    # Older collectd versions need tcp
+    profile::firewall::rule { '416 graphite accept tcp':
+      dport => [2003],
+      destination => $::ipaddress_mgmt1,
+      proto => 'tcp',
+      source => "${::network_mgmt1}/${::netmask_mgmt1}"
+    }
 
     if $manage_firewall {
       profile::firewall::rule { '414 graphite accept web tcp':
