@@ -2,6 +2,9 @@
 class profile::monitoring::collectd(
   $enable                    = false,
   $manage_firewall           = false,
+  $manage_service            = false, # use when service name is not collectd
+  $service_name              = undef,
+  $service_ensure            = running,
   $firewall_extras           = {},
   $merge_strategy            = 'deep'
 ) {
@@ -31,4 +34,10 @@ class profile::monitoring::collectd(
 
   }
 
+  if $manage_service {
+    service { $service_name:
+      ensure => $service_ensure,
+      enable => true
+    }
+  }
 }
