@@ -60,11 +60,11 @@ profile::monitoring::collectd::merge_strategy: 'first'
 profile::monitoring::collectd::plugins:
    - collectd::plugin::interface
    - collectd::plugin::write_graphite
-collectd::plugin::write_graphite::carbon_defaults:
-  graphitehost:   "%{hiera('netcfg_mgmt_netpart')}.14" # collectd is unable to resolve dns
-  graphiteport:   2003
-  graphiteprefix: 'collectd.'
-  protocol:       'udp'
+# The upstream collectd module does not allow setting the service name
+collectd::service_ensure: stopped                                                                       
+collectd::service_enable: false
+profile::monitoring::collectd::manage_service: true
+profile::monitoring::collectd::service_name:   'collectd@mgmt'
 
 # Netdata
 #profile::monitoring::netdata::manage_firewall: false
