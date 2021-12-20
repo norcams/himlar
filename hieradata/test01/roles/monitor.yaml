@@ -1,3 +1,7 @@
 ---
 rabbitmq::node_ip_address:        "%{::ipaddress_mgmt1}" #FIXME move to common
 rabbitmq::management_ip_address:  "%{::ipaddress_mgmt1}" #FIXME move to common
+
+profile::monitoring::grafana::dashboards:
+  'NREC uplinks':
+    template: "uplinks.%{::location}"

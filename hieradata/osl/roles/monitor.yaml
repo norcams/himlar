@@ -25,6 +25,10 @@ profile::monitoring::sensu::server::handlers:
       - 'critical'
       - 'unknown'
 
+profile::monitoring::grafana::dashboards:
+  'NREC uplinks':
+    template: "uplinks.%{::location}"
+
 profile::base::lvm::physical_volume:
   '/dev/vdb':
     ensure: present
