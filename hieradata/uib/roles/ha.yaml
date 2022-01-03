@@ -512,8 +512,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
     bind:
       "%{hiera('corosync_cluster_vip3')}:445": []
       "%{hiera('corosync_cluster_vip4')}:445": []
-      "%{hiera('corosync_cluster_vip3')}:135": []
-      "%{hiera('corosync_cluster_vip4')}:135": []
+      # "%{hiera('corosync_cluster_vip3')}:135": []
+      # "%{hiera('corosync_cluster_vip4')}:135": []
     options:
       - option:         'tcplog'
       - use_backend:    'uib-smb'
