@@ -84,7 +84,7 @@ profile::logging::logrotate::manage_logrotate:    true
 logrotate::rules:
   openstack-neutron:
     path:           '/var/log/neutron/*.log'
-    size:           '10M'
+    size:           '100M'
     rotate:         14
     missingok:      true
     rotate_every:   'hourly'
