@@ -296,12 +296,12 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     options:
       - 'check'
   # lydia
-  'ssl-https-lydia':
-    listening_service:  'ssl-https-lydia'
-    ports:              443
-    server_names:       ['sardis.uib.no']
-    ipaddresses:        ['lydia.uib.no']
-    options:            'verify none inter 1000 check check-ssl ssl'
+  # 'ssl-https-lydia':
+  #   listening_service:  'ssl-https-lydia'
+  #   ports:              443
+  #   server_names:       ['sardis.uib.no']
+  #   ipaddresses:        ['lydia.uib.no']
+  #   options:            'verify none inter 1000 check check-ssl ssl'
   # myprint
   'ssl-https-myprint':
     listening_service:  'ssl-https-myprint'
@@ -313,8 +313,10 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   'uib-smb':
     listening_service:  'uib-smb'
     ports:              [135, 445]
-    server_names:       ['p1-print01.uib.no','p2-print01.uib.no']
-    ipaddresses:        ['129.177.14.126', '129.177.14.128']
+#    server_names:       ['p1-print01.uib.no','p2-print01.uib.no']
+    server_names:       ['p1-print01.uib.no']
+#    ipaddresses:        ['129.177.14.126', '129.177.14.128']
+    ipaddresses:        ['129.177.14.126']
     options:
       - 'check'
 
@@ -409,13 +411,13 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     options:
       - balance:      'leastconn'
   # lydia
-  ssl-https-lydia:
-    mode:             'http'
-    options:
-      - balance:      'roundrobin'
-      - http-request:
-        - 'set-header Host lydia.uib.no'
-        - 'set-path /behovsmelding/'
+  # ssl-https-lydia:
+  #   mode:             'http'
+  #   options:
+  #     - balance:      'roundrobin'
+  #     - http-request:
+  #       - 'set-header Host lydia.uib.no'
+  #       - 'set-path /behovsmelding/'
   # myprint
   ssl-https-myprint:
     mode:             'http'
@@ -529,8 +531,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
     bind:
       "%{hiera('corosync_cluster_vip3')}:445": []
       "%{hiera('corosync_cluster_vip4')}:445": []
-      # "%{hiera('corosync_cluster_vip3')}:135": []
-      # "%{hiera('corosync_cluster_vip4')}:135": []
+      "%{hiera('corosync_cluster_vip3')}:135": []
+      "%{hiera('corosync_cluster_vip4')}:135": []
     options:
       - option:         'tcplog'
       - use_backend:    'uib-smb'
