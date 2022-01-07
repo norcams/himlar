@@ -75,3 +75,19 @@ profile::base::yumrepo::repo_hash:
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
     includepkgs: 'htop bash-completion-extras python2-bcrypt' # FIXME remove non el8 packages when el7 is gone
+
+# logrotate
+# 2022-01-07 (mikaeld): some issue on network nodes, especially in OSL, have the effect that one of the nodes
+# in the cluster is logging a LOT! Until this is fixed we set up a more agressive log rotation
+profile::logging::logrotate::manage_logrotate:    true
+
+logrotate::rules:
+  openstack-neutron:
+    path:           '/var/log/neutron/*.log'
+    size:           '10M'
+    rotate:         14
+    missingok:      true
+    rotate_every:   'hourly'
+    compress:       true
+    dateext:        true
+
