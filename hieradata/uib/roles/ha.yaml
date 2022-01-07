@@ -197,7 +197,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - 'www.nrec.no':                            'public-http-nrec-redirect'
       - 'nrec.no':                                'public-http-nrec-redirect'
       - 'myprint.uib.no':                         'ssl-http-myprint'
-      - 'testlydia.uib.no':                       'ssl-https-lydia'
+      - 'testlydia.uib.no':                       'public-http-nrec-redirect'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
 # NREC
@@ -295,6 +295,13 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ipaddresses:        ['129.177.5.183']
     options:
       - 'check'
+  # lydia
+  'ssl-https-lydia':
+    listening_service:  'ssl-https-lydia'
+    ports:              443
+    server_names:       ['sardis.uib.no']
+    ipaddresses:        ['lydia.uib.no']
+    options:            'verify none inter 1000 check check-ssl ssl'
   # myprint
   'ssl-https-myprint':
     listening_service:  'ssl-https-myprint'
@@ -405,9 +412,10 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
   ssl-https-lydia:
     mode:             'http'
     options:
+      - balance:      'roundrobin'
       - http-request:
         - 'set-header Host lydia.uib.no'
-        - 'redirect location https://lydia.uib.no/behovsmelding/'
+        - 'set-path /behovsmelding/'
   # myprint
   ssl-https-myprint:
     mode:             'http'
