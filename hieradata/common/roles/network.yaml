@@ -90,4 +90,5 @@ logrotate::rules:
     rotate_every:   'hourly'
     compress:       true
     dateext:        true
+    dateformat:     '-%Y%m%d%H'
 
