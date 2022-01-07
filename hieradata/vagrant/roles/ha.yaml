@@ -3,8 +3,6 @@ include:
   default:
     - profile::application::openssl
 
-profile::base::selinux::manage_selinux:        false
-
 profile::application::openssl::manage_ca_cert: true
 profile::application::openssl::certs:
   "apps.%{hiera('domain_public')}":
@@ -19,6 +17,36 @@ ssl_cert_nrec_www:      "apps.%{hiera('domain_public')}.pem"
 ssl_cert_nrec:          "apps.%{hiera('domain_public')}.pem"
 ssl_cert_apps_admin:    "apps.%{hiera('domain_public')}.pem"
 ssl_cert_myprint:       "apps.%{hiera('domain_public')}.pem"
+
+# Selinux
+profile::base::selinux::manage_selinux:         true
+
+# Allow ports in selinux
+profile::base::selinux::ports:
+  sfb-https:
+    seltype:  'http_port_t'
+    protocol: 'tcp'
+    port:     4443
+  ldaps:
+    seltype:  'http_port_t'
+    protocol: 'tcp'
+    port:     636
+  ldap:
+    seltype:  'http_port_t'
+    protocol: 'tcp'
+    port:     389
+  smb:
+    seltype:  'http_port_t'
+    protocol: 'tcp'
+    port:     445
+  rpc:
+    seltype:  'http_port_t'
+    protocol: 'tcp'
+    port:     135
+  grid-https:
+    seltype:  'http_port_t'
+    protocol: 'tcp'
+    port:     18082
 
 #netdata
 profile::monitoring::netdata::firewall_source:
@@ -85,21 +113,6 @@ haproxy::defaults_options:
     - 'server 30s'
     - 'queue 30s'
 
-# Allow ports in selinux|
-profile::base::selinux::ports:
-  sfb-https:
-    seltype:  'http_port_t'
-    protocol: 'tcp'
-    port:     4443
-  ldaps:
-    seltype:  'http_port_t'
-    protocol: 'tcp'
-    port:     636
-  ldap:
-    seltype:  'http_port_t'
-    protocol: 'tcp'
-    port:     389
-
 profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
   uib_https_domains:
     ensure: present
@@ -118,11 +131,13 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - 'report.uh-iaas.no':                      'public-https-uh-report'
       - 'status.uh-iaas.no':                      'public-https-uh-status'
       - 'apps.vagrant.iaas.intern':               'public-https-apps-test'
+      - 'testlydia.uib.no':                       'public-https-lydia'
   public_http_domains:
     ensure: present
     mappings:
       - 'report.uh-iaas.no':                      'public-https-uh-report'
       - 'status.uh-iaas.no':                      'public-https-uh-status'
+      - 'testlydia.uib.no':                       'public-https-lydia'
   ssl_https_domains:
     ensure: present
     mappings:
@@ -339,6 +354,14 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     mode:             'tcp'
     options:
       - balance:      'leastconn'
+  # lydia
+  public-https-lydia:
+    mode:             'http'
+    options:
+      - balance:      'source'
+      - http-request:
+        - 'set-header Host lydia.uib.no'
+        - 'redirect location https://lydia.uib.no/behovsmelding/'
   # myprint
   ssl-https-myprint:
     mode:             'http'
