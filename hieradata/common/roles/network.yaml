@@ -79,6 +79,14 @@ profile::base::yumrepo::repo_hash:
 # logrotate
 # 2022-01-07 (mikaeld): some issue on network nodes, especially in OSL, have the effect that one of the nodes
 # in the cluster is logging a LOT! Until this is fixed we set up a more agressive log rotation
+#
+# One of the downsides is that we do not have control of how far back we have logs:
+# On nodes with extensive logging: as low as 14 hours (hourly rotation due to more than 100 MB/hour)
+# On nodes with a more normal log ratio: as far bask as several weeks (might be more than one full day until reached the 100 MB limit)
+# 
+# We may rotate every hour regardless (drop the 100 MB requirement) and raise the 'rotate' parameter, but then most nodes will have 
+# a large number of very small rotated log files and be more cumbersome to wade through.
+#
 profile::logging::logrotate::manage_logrotate:    true
 
 logrotate::rules:
