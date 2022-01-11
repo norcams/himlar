@@ -100,3 +100,10 @@ logrotate::rules:
     dateext:        true
     dateformat:     '-%Y%m%d%H'
 
+# Adjust the soft limit for open files for neutron-server via systemd
+profile::base::systemd::manage_limits: true
+profile::base::systemd::limits:
+  neutron-server:
+    limits:
+      Service:
+        'LimitNOFILESoft': 8192
