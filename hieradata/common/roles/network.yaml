@@ -107,4 +107,5 @@ profile::base::systemd::limits:
   neutron-server:
     limits:
       Service:
-        'LimitNOFILESoft': 8192
+        'LimitNOFILE': 32768
+        'LimitNOFILESoft': 32768
