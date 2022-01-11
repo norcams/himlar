@@ -7,6 +7,7 @@ include:
     - profile::openstack::openrc
     - profile::openstack::cache
     - profile::logging::rsyslog::client
+    - profile::base::systemd
 
 etcd::proxy: "off"
 etcd::initial_cluster_state: 'new'
