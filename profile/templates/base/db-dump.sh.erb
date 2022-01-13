@@ -113,7 +113,7 @@ DB_SERVER=$1                                                                    
 
 $DEBUG /usr/bin/ssh -qtt -oStrictHostKeyChecking=no $DB_SERVER -l $SSH_USER sudo $DB_DUMP_SCRIPT               # execute dump script on db node
 if [ $? -eq 0 ]; then
-    $DEBUG /usr/bin/rsync -a ${SSH_USER}@${DB_SERVER}:${DUMP_DIR}/ ${BACKUP_DIR}    # retrive dump files
+    $DEBUG /usr/bin/rsync -a ${SSH_USER}@${DB_SERVER}:${DUMP_DIR}/* ${BACKUP_DIR}    # retrive dump files
     if [ $? -eq 0 ]; then
         $DEBUG touch $FLAG
     else
