@@ -1,4 +1,12 @@
 ---
+include:
+  default:
+    - profile::network::hosts
+
+profile::network::hosts::records:
+  'identity.bgo.uhdc.no':
+    'ip':      '172.18.32.86'
+    'comment': 'Redirect traffic to identity BGO (internal) to identity OSL'
 
 profile::openstack::resource::host_aggregate:
   group1:
