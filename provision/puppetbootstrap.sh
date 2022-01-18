@@ -10,7 +10,6 @@ el_repos()
   cat > /etc/yum.repos.d/epel.repo <<- EOM
 [epel]
 name=Extra Packages for Enterprise Linux \$releasever - \$basearch
-failovermethod=priority
 enabled=1
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-${repo_dist:2}
@@ -18,30 +17,11 @@ baseurl=$repo/epel
 EOM
   cat > /etc/yum.repos.d/puppetlabs.repo <<- EOM
 [puppetlabs]
-name=Puppet 5 Yum Repo
-baseurl=$repo/puppetlabs5/
-gpgkey=$repo/puppetlabs5/RPM-GPG-KEY-puppet
+name=Puppet 6 Yum Repo
+baseurl=$repo/puppetlabs6/
+gpgkey=$repo/puppetlabs6/RPM-GPG-KEY-puppet-20250406
 enabled=1
 gpgcheck=1
-EOM
-  cat > /etc/yum.repos.d/CentOS-Base.repo <<- EOM
-[base]
-name=CentOS-\$releasever - Base
-baseurl=$repo/centos-base/
-gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
-
-[updates]
-name=CentOS-\$releasever - Updates
-baseurl=$repo/centos-updates/
-gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
-
-[extras]
-name=CentOS-\$releasever - Extras
-baseurl=$repo/centos-extras/
-gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 EOM
 }
 
@@ -106,7 +86,7 @@ bootstrap_puppet()
 
     /opt/puppetlabs/puppet/bin/gem install -N r10k -v 3.4.0
     /opt/puppetlabs/puppet/bin/gem install -N puppet_forge
-    ln -s /opt/puppetlabs/puppet/bin/wrapper.sh /opt/puppetlabs/bin/r10k
+    ln -sf /opt/puppetlabs/puppet/bin/wrapper.sh /opt/puppetlabs/bin/r10k
 
   fi
 
