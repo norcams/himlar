@@ -4,6 +4,8 @@ nova::compute::rbd::ephemeral_storage:            true
 nova::compute::rbd::libvirt_images_rbd_pool:      'vms'
 #nova::compute::rbd::libvirt_images_rbd_ceph_conf: '/etc/ceph/ceph.conf'
 
+nova::compute::live_migration_wait_for_vif_plug:  false
+
 # Optimize cache mode for ceph
 nova::compute::libvirt::libvirt_disk_cachemodes:
   - '"network=writeback"'
