@@ -125,6 +125,10 @@ nova::compute::rbd::rbd_keyring:                 'client.cinder'
 nova::compute::rbd::ephemeral_storage:           false
 nova::compute::rbd::manage_ceph_client:          false
 
+# Fix for live migration
+# https://github.com/openstack/nova/commit/1a42eb9ec13b04c96f6eb380a53d1e656f087f36
+nova::compute::live_migration_wait_for_vif_plug: false
+
 # enable libvirt tunneled migration
 nova::migration::libvirt::live_migration_tunnelled:            true
 nova::migration::libvirt::live_migration_inbound_addr:         "%{::ipaddress_live1}"
