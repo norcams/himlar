@@ -122,8 +122,8 @@ profile::dns::ns::public_zone2:  "osl.%{hiera('profile::dns::ns::frontend_zone2'
 
 profile::network::services::dns_records:
   MX:
-    "%{hiera('domain_frontend')}":  [ '10 uninett-no.mx1.staysecuregroup.com.', '20 uninett-no.mx2.staysecuregroup.net.' ]
-    "%{hiera('domain_frontend2')}": [ '10 uninett-no.mx1.staysecuregroup.com.', '20 uninett-no.mx2.staysecuregroup.net.' ]
+    "%{hiera('domain_frontend')}":  [ '10 smtp.uio.no.' ]
+    "%{hiera('domain_frontend2')}": [ '10 smtp.uio.no.' ]
   CNAME:
     "status.%{hiera('domain_frontend')}":        'pubproxy.ha.uib.no'
     "report.%{hiera('domain_frontend')}":        'pubproxy.ha.uib.no'
