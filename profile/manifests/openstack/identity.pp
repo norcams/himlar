@@ -77,6 +77,16 @@ class profile::openstack::identity (
   if $manage_openidc {
     include ::keystone::federation
     include ::keystone::federation::openidc
+
+    # FIXME: this should be in hieradata when we can disable install
+    # of mod_auth_openidc in keystone module
+    exec { 'enable dnf module mod_auth_openidc':
+      command => 'dnf module enable mod_auth_openidc/2.3 -y',
+      path    => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
+      unless  => 'dnf module list --enabled | grep mod_auth_openidc',
+      before  => [Package['mod_auth_openidc'], Service['httpd']]
+    }
+
   }
 
   create_resources('keystone_config', $keystone_config)
