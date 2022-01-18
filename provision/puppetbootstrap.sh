@@ -37,7 +37,6 @@ el8_repos()
   cat > /etc/yum.repos.d/epel.repo <<- EOM
 [epel]
 name=Extra Packages for Enterprise Linux \$releasever - \$basearch
-failovermethod=priority
 enabled=1
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-${repo_dist:2}
