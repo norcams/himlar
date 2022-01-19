@@ -146,6 +146,7 @@ profile::base::yumrepo::repo_hash:
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial'
     gpgcheck:       0
     exclude:        'dnsmasq postgres*'
+    ensure:         absent
   CentOS-PowerTools:
     descr:          'CentOS-$releasever - PowerTools'
     baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/centos-PowerTools/"
