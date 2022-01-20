@@ -20,7 +20,3 @@ network::interfaces_hash:
     mtu:       '1500'
 
 profile::openstack::identity::manage_token_rotate:        true
-
-profile::base::yumrepo::repo_hash:
-  CentOS-AppStream:
-    module_hotfixes: '1' # FIXME: mod_auth_openidc module should be enabled instead when puppetmaster is upgraded from v5
