@@ -213,26 +213,26 @@ class profile::openstack::identity::bootstrap (
   # The initial bootstrap that creates all resources required but
   # only subscribes to notifies from the keystone::dbsync::end anchor
   # which means this is not guaranteed to execute on each run.
-  exec { 'keystone bootstrap':
-    command     => 'keystone-manage bootstrap',
-    environment => [
-      "OS_BOOTSTRAP_USERNAME=${username_real}",
-      "OS_BOOTSTRAP_PASSWORD=${password_real}",
-      "OS_BOOTSTRAP_PROJECT_NAME=${project_name_real}",
-      "OS_BOOTSTRAP_ROLE_NAME=${bootstrap_role_name}",
-      "OS_BOOTSTRAP_SERVICE_NAME=${service_name}",
-      "OS_BOOTSTRAP_ADMIN_URL=${admin_url_real}",
-      "OS_BOOTSTRAP_PUBLIC_URL=${public_url_real}",
-      "OS_BOOTSTRAP_INTERNAL_URL=${internal_url_real}",
-      "OS_BOOTSTRAP_REGION_ID=${region_real}",
-    ],
-    user        => $keystone_user,
-    path        => '/usr/bin',
-    refreshonly => true,
-    subscribe   => Anchor['keystone::dbsync::end'],
-    notify      => Anchor['keystone::service::begin'],
-    tag         => 'keystone-bootstrap',
-  }
+  #exec { 'keystone bootstrap':
+  #  command     => 'keystone-manage bootstrap',
+  #  environment => [
+  #    "OS_BOOTSTRAP_USERNAME=${username_real}",
+  #    "OS_BOOTSTRAP_PASSWORD=${password_real}",
+  #    "OS_BOOTSTRAP_PROJECT_NAME=${project_name_real}",
+  #    "OS_BOOTSTRAP_ROLE_NAME=${bootstrap_role_name}",
+  #    "OS_BOOTSTRAP_SERVICE_NAME=${service_name}",
+  #    "OS_BOOTSTRAP_ADMIN_URL=${admin_url_real}",
+  #    "OS_BOOTSTRAP_PUBLIC_URL=${public_url_real}",
+  #    "OS_BOOTSTRAP_INTERNAL_URL=${internal_url_real}",
+  #    "OS_BOOTSTRAP_REGION_ID=${region_real}",
+  #  ],
+  #  user        => $keystone_user,
+  #  path        => '/usr/bin',
+  #  refreshonly => true,
+  #  subscribe   => Anchor['keystone::dbsync::end'],
+  #  notify      => Anchor['keystone::service::begin'],
+  #  tag         => 'keystone-bootstrap',
+  #}
 
   # Since the bootstrap is not guaranteed to execute on each run we
   # use the below resources to make sure the current resources are
@@ -278,15 +278,15 @@ class profile::openstack::identity::bootstrap (
   # The below creates and populates the /etc/keystone/puppet.conf file that contains
   # the credentials that can be loaded by providers. Ensure it has the proper owner,
   # group and mode so that it cannot be read by anything other than root.
-  file { '/etc/keystone/puppet.conf':
-    ensure  => 'present',
-    replace => false,
-    content => '',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0600',
-    require => Anchor['keystone::install::end'],
-  }
+  #file { '/etc/keystone/puppet.conf':
+  #  ensure  => 'present',
+  #  replace => false,
+  #  content => '',
+  #  owner   => 'root',
+  #  group   => 'root',
+  #  mode    => '0600',
+  #  require => Anchor['keystone::install::end'],
+  #}
 
   if $interface == 'admin' {
     $auth_url_real = $admin_url_real
