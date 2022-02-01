@@ -11,11 +11,23 @@ profile::network::leaf::acls:
       - "-A $FORWARD_CHAIN -p udp --dport 23 -j DROP"
       - "-A $FORWARD_CHAIN -p tcp --dport 111 -j DROP"
       - "-A $FORWARD_CHAIN -p udp --dport 111 -j DROP"
+      - "-A $FORWARD_CHAIN -p tcp --dport 139 -j DROP"
+      - "-A $FORWARD_CHAIN -p udp --dport 139 -j DROP"
+      - "-A $FORWARD_CHAIN -p tcp --dport 445 -j DROP"
+      - "-A $FORWARD_CHAIN -p udp --dport 445 -j DROP"
+      - "-A $FORWARD_CHAIN -p tcp --dport 2049 -j DROP"
+      - "-A $FORWARD_CHAIN -p udp --dport 2049 -j DROP"
     ip6tables:
       - "-A $FORWARD_CHAIN -p tcp --dport 23 -j DROP"
       - "-A $FORWARD_CHAIN -p udp --dport 23 -j DROP"
       - "-A $FORWARD_CHAIN -p tcp --dport 111 -j DROP"
       - "-A $FORWARD_CHAIN -p udp --dport 111 -j DROP"
+      - "-A $FORWARD_CHAIN -p tcp --dport 139 -j DROP"
+      - "-A $FORWARD_CHAIN -p udp --dport 139 -j DROP"
+      - "-A $FORWARD_CHAIN -p tcp --dport 445 -j DROP"
+      - "-A $FORWARD_CHAIN -p udp --dport 445 -j DROP"
+      - "-A $FORWARD_CHAIN -p tcp --dport 2049 -j DROP"
+      - "-A $FORWARD_CHAIN -p udp --dport 2049 -j DROP"
 
 # Dellemc S4148 needs explicit config
 profile::network::leaf::cumulus_portconfigs:
