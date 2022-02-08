@@ -61,4 +61,4 @@ profile::base::common::extraswap_sizegb: 10
 
 # make disks are configured correctly as the devices we want
 profile::base::physical::load_ahci_last:    true
-profile::base::physical::scsidrv:           'mpt2sas'
+profile::base::physical::scsidrv:           'megaraid_sas'
