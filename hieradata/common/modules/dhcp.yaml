@@ -1,0 +1,20 @@
+dhcp::options:
+  # Create an option namespace called ONIE for VIVSO (option 125)
+  - "space onie code width 1 length width 1"
+  # Define the code names and data types within the ONIE namespace
+  - "onie.installer_url code 1 = text"
+  - "onie.updater_url code 2 = text"
+  - "onie.machine code 3 = text"
+  - "onie.arch code 4 = text"
+  - "onie.machine_rev code 5 = text"
+  # Package the ONIE namespace into option 125
+  - "space vivso code width 4 length width 1"
+  - "vivso.onie code 42623 = encapsulate onie"
+  - "vivso.iana code 0 = string"
+  - "op125 code 125 = encapsulate vivso"
+  # Zero-touch provisioning of 14g iDRAC
+  - "idrac-provision-url code 43 = text"
+  # cumulus option
+  - "cumulus-provision-url code 239 = text"
+  # opx option
+  - "ztd-provision-url code 240 = text"
