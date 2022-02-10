@@ -25,6 +25,7 @@ class profile::application::foreman(
     'proxy'  => {},
   },
   $push_facts      = false,
+  Hash $dhcp_classes = {},
 ) {
 
   include ::puppet
@@ -63,61 +64,7 @@ class profile::application::foreman(
   $plugins = lookup('profile::application::foreman::plugins', Hash, 'deep', {})
   create_resources('foreman::plugin', $plugins)
 
-  dhcp::dhcp_class { 'onie_dell_s3048':
-    parameters => [
-      'match if (substring(option vendor-class-identifier, 0, 29) = "onie_vendor:x86_64-dell_s3000")',
-      "option default-url = \"http://repo.mgmt.${location}.uhdc.no/opx/PKGS_OPX-installer-x86_64.bin\"",
-    ]
-  }
-
-  dhcp::dhcp_class { 'onie_dell_s4048':
-    parameters => [
-      'match if (substring(option vendor-class-identifier, 0, 29) = "onie_vendor:x86_64-dell_s4000")',
-      "option default-url = \"http://repo.mgmt.${location}.uhdc.no/cumuluslinux/onie-installer-amd64\"",
-    ]
-  }
-
-  dhcp::dhcp_class { 'onie_dell_s4148':
-    parameters => [
-      'match if (substring(option vendor-class-identifier, 0, 32) = "onie_vendor:x86_64-dellemc_s4100")',
-      "option default-url = \"http://repo.mgmt.${location}.uhdc.no/cumuluslinux/onie-installer-amd64\"",
-    ]
-  }
-
-  dhcp::dhcp_class { 'onie_dell_s5232f':
-    parameters => [
-      'match if (substring(option vendor-class-identifier, 0, 33) = "onie_vendor:x86_64-dellemc_s5232f")',
-      "option default-url = \"http://repo.mgmt.${location}.uhdc.no/cumuluslinux/onie-installer-amd64\"",
-    ]
-  }
-
-  dhcp::dhcp_class { 'onie_dell_s4810':
-    parameters => [
-      'match if (substring(option vendor-class-identifier, 0, 18) = "onie_vendor:powerpc")',
-      "option default-url = \"http://repo.mgmt.${location}.iaas.intern/cumuluslinux/onie-installer-powerpc\"",
-    ]
-  }
-
-  dhcp::dhcp_class { 'cumulus_s4810':
-    parameters => [
-      'match if (substring(option host-name,0,7) = "cumulus")',
-      "option cumulus-provision-url \"http://repo.mgmt.${location}.iaas.intern/cumuluslinux/provision.sh\"",
-    ]
-  }
-
-  dhcp::dhcp_class { 'opx_provision_vagrant':
-    parameters => [
-      'match if (substring(option host-name,0,3) = "opx")',
-      "option ztd-provision-url \"http://repo.mgmt.${location}.iaas.intern/cumuluslinux/provision.sh\"",
-    ]
-  }
-
-  dhcp::dhcp_class { 'opx_provision':
-    parameters => [
-      'match if (substring(option host-name,0,3) = "OPX")',
-      "option ztd-provision-url \"http://repo.mgmt.${location}.iaas.intern/cumuluslinux/provision.sh\"",
-    ]
-  }
+  create_resources('dhcp::dhcp_class', $dhcp_classes)
 
   # Push puppet facts to foreman
   $push_facts_ensure = $push_facts? {

@@ -24,6 +24,41 @@ profile::application::foreman::manage_firewall: true
 profile::application::foreman::manage_repo_dir: true
 profile::application::foreman::manage_r10k:     false
 profile::application::foreman::push_facts:      true
+# TODO: Move this up the hiera, it doesn't belong here.
+profile::application::foreman::dhcp_classes:
+  onie_dell_s3048:
+    parameters:
+      - 'match if (substring(option vendor-class-identifier, 0, 29) = "onie_vendor:x86_64-dell_s3000")'
+      - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/opx/PKGS_OPX-installer-x86_64.bin\""
+  onie_dell_s4048:
+    parameters:
+      - 'match if (substring(option vendor-class-identifier, 0, 29) = "onie_vendor:x86_64-dell_s4000")'
+      - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/cumuluslinux/onie-installer-amd64\""
+  onie_dell_s4148:
+    parameters:
+      - 'match if (substring(option vendor-class-identifier, 0, 32) = "onie_vendor:x86_64-dellemc_s4100")'
+      - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/cumuluslinux/onie-installer-amd64\""
+  onie_dell_s4810:
+    parameters:
+      - 'match if (substring(option vendor-class-identifier, 0, 18) = "onie_vendor:powerpc")'
+      - "option default-url = \"http://repo.mgmt.%{location}.iaas.intern/cumuluslinux/onie-installer-powerpc\""
+  onie_dell_s5232f:
+    parameters:
+      - 'match if (substring(option vendor-class-identifier, 0, 33) = "onie_vendor:x86_64-dellemc_s5232f")'
+      - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/cumuluslinux/onie-installer-amd64\""
+  cumulus_s4810:
+    parameters:
+      - 'match if (substring(option host-name,0,7) = "cumulus")'
+      - "option cumulus-provision-url \"http://repo.mgmt.%{location}.iaas.intern/cumuluslinux/provision.sh\""
+  opx_provision_vagrant:
+    parameters:
+      - 'match if (substring(option host-name,0,3) = "opx")'
+      - "option ztd-provision-url \"http://repo.mgmt.%{location}.iaas.intern/cumuluslinux/provision.sh\""
+  opx_provision:
+    parameters:
+      - 'match if (substring(option host-name,0,3) = "OPX")'
+      - "option ztd-provision-url \"http://repo.mgmt.%{location}.iaas.intern/cumuluslinux/provision.sh\""
+
 profile::network::services::manage_dns_records: true
 profile::network::services::manage_dhcp_rsvs:   true
 
