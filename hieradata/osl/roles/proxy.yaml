@@ -24,7 +24,7 @@ profile::base::cron::crontabs:
     hour:     '7'
     minute:   '0'
     weekday:  '*'
-    command:  '/opt/himlarcli/bin/check_expired_demo_instances.sh bgo >> /opt/himlarcli/logs/demo-logs/dryrun-logs/dryrun-logs.log 2>&1'
+    command:  '/opt/himlarcli/bin/check_expired_demo_instances.sh osl >> /opt/himlarcli/logs/demo-logs/dryrun-logs/dryrun-logs.log 2>&1'
   delete_expired_demo_instances:
     hour:     '6'
     minute:   '0'
