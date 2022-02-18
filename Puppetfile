@@ -162,7 +162,7 @@ mod 'archive', :ref => 'v2.2.0',                    :git => github + 'voxpupuli/
 mod 'glance', :ref => '15.4.0',                     :git => github + 'openstack/puppet-glance'
 mod 'cinder', :ref => '263c6b11fc',                 :git => github + 'openstack/puppet-cinder'
 mod 'neutron', :ref => '15.4.0',                    :git => github + 'openstack/puppet-neutron'
-mod 'nova',    :ref => '875686b16d',                :git => github + 'norcams/puppet-nova'
+mod 'nova',    :ref => '16.6.0',                    :git => github + 'openstack/puppet-nova'
 mod 'horizon', :ref => '15.4.0',                    :git => github + 'openstack/puppet-horizon'
 mod 'gnocchi', :ref => '14.4.0',                    :git => github + 'openstack/puppet-gnocchi'
 mod 'keystone', :ref => '16.4.0',                   :git => github + 'openstack/puppet-keystone'
