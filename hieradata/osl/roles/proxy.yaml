@@ -34,7 +34,7 @@ profile::base::cron::crontabs:
     minute:   '0'
     hour:     '5'
     monthday: '1-3'
-    command:  '/opt/himlarcli/bin/montly_reminder.sh >/dev/null 2>&1'
+    command:  '/opt/himlarcli/bin/monthly-reminder.sh >/dev/null 2>&1'
 
 profile::base::lvm::physical_volume:
   '/dev/vdb':
