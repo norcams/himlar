@@ -130,7 +130,7 @@ class profile::network::services(
             line     => "listen-address  ${::ipaddress_mgmt1}:8888",
             path     => "/etc/privoxy/config",
             match    => "^listen-address*",
-            replace  => $replace,
+            replace  => true,
             notify   => Service['privoxy'],
           }
         }
