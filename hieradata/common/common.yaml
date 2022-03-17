@@ -73,10 +73,13 @@ allow_from_testing_network: # this do not merge!
   - '129.240.224.100/32' # osl-login
   - '129.177.6.190/32'   # test01-login
   - '158.39.77.254/32'  # bgo-dashboard
-  - '158.39.77.253/32'  # bgo-proxy-01
-  - '158.37.63.253/32'  # osl-proxy-01
-  - '192.168.122.1/32'  # test02
-  - '62.16.139.80/32'   # raymond at home
+  - '158.39.77.254/32'   # bgo-dashboard
+  - '158.39.77.253/32'   # bgo-proxy-01
+  - '158.39.74.247/32'   # bgo-proxy-02
+  - '158.37.63.253/32'   # osl-proxy-01
+  - '158.39.75.247/32'   # osl-proxy-02
+  - '192.168.122.1/32'   # test02
+  - '62.16.139.80/32'    # raymond at home
 
 #
 # Use this for firewall rules to allow only from some networks
@@ -274,6 +277,7 @@ profile::network::services::dns_records:
     "%{::location}-login-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_mgmt_net_c0')}.10"
     "%{::location}-admin-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_mgmt_net_c0')}.11"
     "%{::location}-proxy-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_mgmt_net_c0')}.12"
+    "%{::location}-proxy-02.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_mgmt_net_c0')}.247"
     "%{::location}-logger-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_net_c0')}.13"
     "%{::location}-monitor-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c0')}.14"
     "%{::location}-builder-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c0')}.15"
@@ -489,6 +493,7 @@ profile::network::services::dns_records:
     "10.%{hiera('reverse_mgmt_c0')}":     "%{::location}-login-01.%{hiera('domain_mgmt')}"
     "11.%{hiera('reverse_mgmt_c0')}":     "%{::location}-admin-01.%{hiera('domain_mgmt')}"
     "12.%{hiera('reverse_mgmt_c0')}":     "%{::location}-proxy-01.%{hiera('domain_mgmt')}"
+    "247.%{hiera('reverse_mgmt_c0')}":     "%{::location}-proxy-02.%{hiera('domain_mgmt')}"
     "13.%{hiera('reverse_mgmt_c0')}":     "%{::location}-logger-01.%{hiera('domain_mgmt')}"
     "14.%{hiera('reverse_mgmt_c0')}":     "%{::location}-monitor-01.%{hiera('domain_mgmt')}"
     "15.%{hiera('reverse_mgmt_c0')}":     "%{::location}-builder-01.%{hiera('domain_mgmt')}"
