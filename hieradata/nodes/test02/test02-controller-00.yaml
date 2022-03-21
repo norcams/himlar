@@ -19,8 +19,8 @@ network::interfaces_hash:
     netmask:      '255.255.255.0'
     gateway:      '129.240.121.1'
     ipv6init:     'yes'
-    ipv6addr:     '2001:700:100:121::146/64'
-    ipv6_defaultgw: '2001:700:100:121::1'
+    ipv6addr:     '2001:700:100:8041::146/64'
+    ipv6_defaultgw: '2001:700:100:8041::1'
     defroute:     'yes'
     dns1:         "%{hiera('netcfg_dns_server1')}"
     dns2:         "%{hiera('netcfg_dns_server2')}"
