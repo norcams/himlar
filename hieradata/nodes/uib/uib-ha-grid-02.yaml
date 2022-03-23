@@ -23,7 +23,7 @@ network::interfaces_hash:
   'team1':
     onboot:        'yes'
     devicetype:    'Team'
-    mtu:           '1500'
+    mtu:           '9000'
     team_config: >-
                    { "runner" : {  "name" : "lacp",  "active": true, "fast_rate" : true,
                    "tx_hash": ["eth", "ipv4", "ipv6"], "tx_balancer": { "name": "basic" } },

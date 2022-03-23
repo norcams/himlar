@@ -17,7 +17,7 @@ profile::base::common::manage_yumrepo:         true
 profile::base::common::manage_puppet:          true
 profile::base::common::include_virtual:        true
 profile::base::common::include_physical:       true
-profile::base::common::disable_firewalld:      true
+profile::base::common::disable_firewalld:      false
 profile::base::firewall::manage_firewall:      true
 profile::base::hostname::manage_hostname:      true
 profile::base::httpproxy::http_proxy:          "http://%{hiera('mgmt__address__proxy')}:8888"
@@ -209,41 +209,6 @@ profile::base::yumrepo::repo_hash:
     gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/rdo-%{hiera('openstack_version')}/RPM-GPG-KEY-CentOS-SIG-Cloud"
     exclude:        'python2-bcrypt'
     #exclude:        'mariadb*' FIXME: this should be added after adding mariadb repo to all roles connecting to db
-  calico:
-    ensure:         absent
-    descr:          'Calico Repository'
-    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico/"
-    enabled:        1
-    gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico/key"
-  calico31:
-    ensure:         absent
-    descr:          'Calico31 Repository'
-    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico31/"
-    enabled:        1
-    gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico31/key"
-  calico34:
-    ensure:         absent
-    descr:          'Calico 3.4 Repository'
-    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico34/"
-    enabled:        1
-    gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico34/key"
-  calico37:
-    ensure:         absent
-    descr:          'Calico 3.7 Repository'
-    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico37/"
-    enabled:        1
-    gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico37/key"
-  calico38:
-    ensure:         absent
-    descr:          'Calico 3.8 Repository'
-    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico38/"
-    enabled:        1
-    gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico38/key"
   calico312:
     ensure:         absent
     descr:          'Calico 3.12 Repository'
@@ -251,13 +216,6 @@ profile::base::yumrepo::repo_hash:
     enabled:        1
     gpgcheck:       1
     gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico312/key"
-  calico319:
-    ensure:         absent
-    descr:          'Calico 3.19 Repository'
-    baseurl:        "%{hiera('yum_base_mirror')}/generic/calico319"
-    enabled:        1
-    gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/generic/calico319/key"
   calico320:
     ensure:         absent
     descr:          'Calico 3.20 Repository'
@@ -317,33 +275,33 @@ profile::base::yumrepo::repo_hash:
   logstash6:
     ensure:         absent
     descr:          'Logstash 6 Centos Repo'
-    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/logstash6/"
+    baseurl:        "%{hiera('yum_base_mirror')}/generic/logstash6/"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/logstash6/GPG-KEY-elasticsearch"
+    gpgkey:         "%{hiera('yum_base_mirror')}/generic/logstash6/GPG-KEY-elasticsearch"
     exclude:        'kibana-oss elasticsearch-oss'
   elasticsearch6:
     ensure:         absent
     descr:          'Elasticsearch 6 Centos Repo'
-    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/elasticsearch6/"
+    baseurl:        "%{hiera('yum_base_mirror')}/generic/elasticsearch6/"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/elasticsearch6/GPG-KEY-elasticsearch"
+    gpgkey:         "%{hiera('yum_base_mirror')}/generic/elasticsearch6/GPG-KEY-elasticsearch"
     exclude:        'kibana-oss logstash-oss'
   curator5:
     ensure:         absent
     descr:          'Elasticsearch Curator 5.x Centos Repo'
-    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/curator5/"
+    baseurl:        "%{hiera('yum_base_mirror')}/generic/curator5/"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/curator5/GPG-KEY-elasticsearch"
+    gpgkey:         "%{hiera('yum_base_mirror')}/generic/curator5/GPG-KEY-elasticsearch"
   kibana6:
     ensure:         absent
     descr:          'Kibana 6 Centos Repo'
-    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/kibana6/"
+    baseurl:        "%{hiera('yum_base_mirror')}/generic/kibana6/"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/kibana6/GPG-KEY-elasticsearch"
+    gpgkey:         "%{hiera('yum_base_mirror')}/generic/kibana6/GPG-KEY-elasticsearch"
     exclude:        'elasticsearch-oss logstash-oss'
   foreman:
     ensure:         absent
@@ -386,8 +344,8 @@ profile::base::yumrepo::repo_hash:
   grafana-oss:
     ensure:         absent
     descr:          'Grafana OSS repo'
-    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/grafana-oss"
-    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/grafana-oss/gpg.key"
+    baseurl:        "%{hiera('yum_base_mirror')}/generic/grafana-oss"
+    gpgkey:         "%{hiera('yum_base_mirror')}/generic/grafana-oss/gpg.key"
     enabled:        1
     gpgcheck:       1
   nodesource-14:
