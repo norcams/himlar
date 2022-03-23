@@ -29,6 +29,7 @@ class profile::base::physical (
   $enable_redfish_http_proxy   = undef,
   $package                     = 'lldpd',
   $service                     = 'lldpd',
+  $efi_workaround              = false,
   $configure_bmc_nic           = false,
   $bmc_dns_server              = '192.168.0.10',
   $bmc_idrac_attributes = {
@@ -89,6 +90,15 @@ class profile::base::physical (
     file { "/etc/modprobe.d/ahci.conf":
       ensure  => present,
       content => "install ahci /sbin/modprobe ${load_ahci_last_scsidrv}; /sbin/modprobe --ignore-install ahci\n",
+    }
+  }
+
+  # older versions of the Foreman cannot chainload alma - so we just emulate centos
+  if $efi_workaround and ($::operatingsystem == 'AlmaLinux') {
+    exec { 'efi_workaround':
+      command => 'cp -r /boot/efi/EFI/almalinux /boot/efi/EFI/centos',
+      path    => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
+      unless  => 'test -d /boot/efi/EFI/centos',
     }
   }
 

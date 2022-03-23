@@ -3,6 +3,7 @@ include:
   default:
     - profile::storage::cephmds
     - profile::storage::cephfs
+    - profile::logging::rsyslog::client
 
 # ceph config keys and ids
 ceph::profile::params::fsid:        "%{hiera('ceph_storage_client_fsid')}"

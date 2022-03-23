@@ -1,4 +1,7 @@
 ---
+# The uplink interface
+profile::base::network::uplink_interface: 'swp28s0'
+
 network::interfaces_hash:
   'eth0':
     'ipaddress': "%{hiera('netcfg_mgmt_net_c6')}.2/21"
@@ -88,6 +91,7 @@ frrouting::frrouting::zebra_ip6_routes:
   - '2001:700:2:83ff::12/128 fd00::12'
   - '2001:700:2:83ff::251/128 fd00::16'
   - '2001:700:2:83ff::256/128 fd00::34'
+  - '2001:700:2:83ff::97/128 fd00::97'
 frrouting::frrouting::zebra_ip_routes:
   - '10.0.0.0/8 Null0'
   - '192.168.243.0/24 Null0'
@@ -97,6 +101,7 @@ frrouting::frrouting::zebra_ip_routes:
   - '158.39.77.248/32 172.18.0.26'
   - '158.39.74.246/32 172.18.0.8'
   - '158.39.74.248/32 172.18.0.27'
+  - '158.39.74.247/32 172.18.0.97'
   - '158.39.77.249/32 172.18.0.41'
   - '158.39.77.250/32 172.18.0.86'
   - '158.39.77.251/32 172.18.0.16'
