@@ -209,41 +209,6 @@ profile::base::yumrepo::repo_hash:
     gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/rdo-%{hiera('openstack_version')}/RPM-GPG-KEY-CentOS-SIG-Cloud"
     exclude:        'python2-bcrypt'
     #exclude:        'mariadb*' FIXME: this should be added after adding mariadb repo to all roles connecting to db
-  calico:
-    ensure:         absent
-    descr:          'Calico Repository'
-    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico/"
-    enabled:        1
-    gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico/key"
-  calico31:
-    ensure:         absent
-    descr:          'Calico31 Repository'
-    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico31/"
-    enabled:        1
-    gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico31/key"
-  calico34:
-    ensure:         absent
-    descr:          'Calico 3.4 Repository'
-    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico34/"
-    enabled:        1
-    gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico34/key"
-  calico37:
-    ensure:         absent
-    descr:          'Calico 3.7 Repository'
-    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico37/"
-    enabled:        1
-    gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico37/key"
-  calico38:
-    ensure:         absent
-    descr:          'Calico 3.8 Repository'
-    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico38/"
-    enabled:        1
-    gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico38/key"
   calico312:
     ensure:         absent
     descr:          'Calico 3.12 Repository'
