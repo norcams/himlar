@@ -20,7 +20,7 @@ profile::base::yumrepo::repo_hash:
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8'
   puppetlabs:
     baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/puppetlabs6/"
-    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/puppetlabs6/RPM-GPG-KEY-puppet"
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/puppetlabs6/RPM-GPG-KEY-puppet-20250406"
   centos-qemu-ev:   # unavailable for el8
     ensure:         absent
   CentOS-Advanced-Virtualization: # FIXME
@@ -36,6 +36,8 @@ profile::base::common::packages:
   'python2-keystonemiddleware': { ensure: absent, } # FIXME clean up when el7 is gone
   'python2-designateclient': { ensure: absent, }    # FIXME clean up when el7 is gone
   'python2-openstackclient': { ensure: absent, }    # FIXME cleun up when el7 is gone
+  'python2-gnocchiclient': { ensure: absent, }      # FIXME cleun up when el7 is gone
+  'python2-osc-placement': { ensure: absent, }      # FIXME cleun up when el7 is gone
   'openstack-utils': { ensure: absent, }            # FIXME clean up when el7 is gone
   'MySQL-python': { ensure: absent, }               # FIXME clean up when el7 is gone, replaced by python3-mysql
   'OVMF': { ensure: absent, }                       # FIXME clean up when el7 is gone
@@ -43,6 +45,8 @@ profile::base::common::packages:
 profile::base::common::manage_network: false # the profile::base::network class is deprecated
 profile::base::common::manage_ntp:     false # ntpd has been replaced by chrony in el8
 profile::base::common::manage_chrony:  true
+
+profile::base::physical::efi_workaround: true # FIXME: remove when The Foreman chainloaders acknowledge the existance of Alma Linux
 
 profile::network::interface::manage_interface:        true
 profile::network::interface::suppress_legacy_warning: true
