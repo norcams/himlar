@@ -41,6 +41,9 @@ profile::storage::ceph_extraconf::config:
     'config_key'  : "osd/osd_max_backfills"
     'config_value': "1"
 
+profile::storage::cephpool::manage_ec_pools:         true
+profile::storage::cephpool::manage_cephpool_params:  true
+
 profile::storage::ceph::pool::pools:
   'rbd':
     ensure: absent

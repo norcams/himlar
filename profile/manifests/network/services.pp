@@ -111,8 +111,33 @@ class profile::network::services(
 
     # Enable a http proxy server
     if $http_proxy {
-      include ::tinyproxy
-
+      case $::operatingsystemmajrelease {
+        '7': {
+          include ::tinyproxy
+        }
+        # el8 does not provide package for tinyproxy, substituted with privoxy
+        '8': {
+          package { 'privoxy':
+            ensure   => installed
+          }
+          service { 'privoxy':
+            ensure   => running,
+            enable   => true,
+            require  => Package['privoxy']
+          }
+          file_line {"listen_address":
+            ensure   => present,
+            line     => "listen-address  ${::ipaddress_mgmt1}:8888",
+            path     => "/etc/privoxy/config",
+            match    => "^listen-address*",
+            replace  => true,
+            notify   => Service['privoxy'],
+          }
+        }
+        default: {
+          warning("Undefined platform for configuring http proxy!")
+        }
+      }
       if $manage_firewall {
         profile::firewall::rule { '110 http-proxy accept tcp':
           port   => 8888,
@@ -122,7 +147,6 @@ class profile::network::services(
         }
       }
     }
-
   } else {
     warning("hiera returns no data for 'networks', so we're noop!")
   }

@@ -33,6 +33,8 @@ profile::base::common::packages:
   'python3-etcd3gw': { ensure: absent, }
   'python3-openstackclient': { ensure: absent, }
   'python3-designateclient': { ensure: absent, }
+  'python3-gnocchiclient': { ensure: absent, }
+  'python3-osc-placement': { ensure: absent, }
   'python3-mysql': { ensure: absent, }
   'centos-release-messaging': { ensure: absent, }
   'centos-release-virt-common': { ensure: absent, }
