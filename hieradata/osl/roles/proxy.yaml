@@ -24,12 +24,17 @@ profile::base::cron::crontabs:
     hour:     '7'
     minute:   '0'
     weekday:  '*'
-    command:  '/opt/himlarcli/bin/check_expired_demo_instances.sh bgo >> /opt/himlarcli/logs/demo-logs/dryrun-logs/dryrun-logs.log 2>&1'
+    command:  '/opt/himlarcli/bin/check_expired_demo_instances.sh osl >> /opt/himlarcli/logs/demo-logs/dryrun-logs/dryrun-logs.log 2>&1'
   delete_expired_demo_instances:
     hour:     '6'
     minute:   '0'
     weekday:  '*'
     command: '/opt/himlarcli/bin/delete_expired_demo_instances.sh osl >/dev/null 2>&1'
+  monthly_reminder:
+    minute:   '0'
+    hour:     '5'
+    monthday: '1-3'
+    command:  '/opt/himlarcli/bin/monthly-reminder.sh >/dev/null 2>&1'
 
 profile::base::lvm::physical_volume:
   '/dev/vdb':

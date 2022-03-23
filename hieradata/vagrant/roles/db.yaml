@@ -4,7 +4,6 @@ include:
     - profile::monitoring::netdata
 
 profile::monitoring::netdata::manage_firewall:  true
-profile::database::mariadb::backuptopdir:       '/tmp/'
 
 # Netdata access
 profile::database::mariadb::users:

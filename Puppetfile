@@ -19,7 +19,7 @@ mod 'hostname', :ref => '0.0.2',                    :git => github + 'peopleware
 mod 'resolv_conf', :ref => 'v3.3.0',                :git => github + 'saz/puppet-resolv_conf'
 mod 'lvm', :ref => 'v1.4.0',                        :git => github + 'puppetlabs/puppetlabs-lvm'
 mod 'mount_core', :ref => '1.0.4',                  :git => github + 'puppetlabs/puppetlabs-mount_core'
-mod 'firewall', :ref => '1.8.2',                    :git => github + 'puppetlabs/puppetlabs-firewall'
+mod 'firewall', :ref => 'v3.4.0',                   :git => github + 'puppetlabs/puppetlabs-firewall'
 mod 'apt', :ref => '6.2.1',                         :git => github + 'puppetlabs/puppetlabs-apt'
 mod 'yumrepo_core', :ref => '1.0.7',                :git => github + 'puppetlabs/puppetlabs-yumrepo_core'
 mod 'kmod', :ref => 'v3.0.0',                       :git => github + 'voxpupuli/puppet-kmod'
@@ -51,6 +51,7 @@ mod 'bird', :ref => 'v4.1.0',                       :git => github + 'voxpupuli/
 mod 'calico', :ref => '7a59530de6',                 :git => github + 'norcams/puppet-calico'
 mod 'dnsmasq', :ref => 'b04a474295',                :git => github + 'saz/puppet-dnsmasq'
 mod 'ipcalc', :ref => '2.2.0',                      :git => github + 'inkblot/puppet-ipcalc'
+# FIXME: remove tinyproxy when all proxies have el8
 mod 'tinyproxy', :ref => 'ef4a8b0bb2',              :git => github + 'earsdown/puppet-tinyproxy'
 mod 'cumuluslinux-cumulus_interfaces', :ref => '9a4964d0ac', :git => github + 'norcams/cumulus-cl-interfaces-puppet'
 
