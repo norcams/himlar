@@ -37,6 +37,23 @@ controls  {
 };
 <% end -%>
 
+logging {
+        channel syslog {
+                syslog local6;
+                severity info;
+                print-category yes;
+                print-severity yes;
+        };
+        channel queries {
+                file "/var/named/data/querylog" versions 10 size 200m;
+                print-category yes;
+                print-severity yes;
+                print-time yes;
+        };
+
+        category queries { queries; syslog; };
+};
+
 # General options for named
 options  {
 <% if @authoritative -%>
