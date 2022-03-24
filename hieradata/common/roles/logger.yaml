@@ -112,7 +112,7 @@ logrotate::rules:
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
-  elk:
+  elk6:
     ensure: present
   curator5:
     ensure: present
