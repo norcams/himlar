@@ -112,13 +112,9 @@ logrotate::rules:
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
-  logstash6:
-    ensure: present
-  elasticsearch6:
+  elk:
     ensure: present
   curator5:
-    ensure: present
-  kibana6:
     ensure: present
 
 #cronjob to purge elasticsearch
