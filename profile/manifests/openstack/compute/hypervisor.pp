@@ -4,6 +4,11 @@ class profile::openstack::compute::hypervisor (
   $manage_telemetry = true,
   $manage_firewall = true,
   $enable_dhcp_agent_check = false,
+  $sysctl_fixes = false,
+  $net_ipv4_route_max_size = '2147483647',
+  $net_ipv6_route_max_size = '2147483647',
+  $net_ipv4_route_gc_thresh = '-1',
+  $net_ipv6_route_gc_thresh = '-1',
   $fix_snapshot_loc = false, # FIXME - Should probably be removed for newton release
   $firewall_extras = {},
 ) {
@@ -45,6 +50,22 @@ class profile::openstack::compute::hypervisor (
       dport  => '16509',
       extras => $firewall_extras,
       source => "${::network_live1}/${::netmask_live1}",
+    }
+  }
+
+  # Defaults in el8 are too small for ipv6
+  if $sysctl_fixes {
+    sysctl::value { "net.ipv4.route.max_size":
+      value => $net_ipv4_route_max_size,
+    }
+    sysctl::value { "net.ipv6.route.max_size":
+      value => $net_ipv6_route_max_size,
+    }
+    sysctl::value { "net.ipv4.route.gc_thresh":
+      value => $net_ipv4_route_gc_thresh,
+    }
+    sysctl::value { "net.ipv6.route.gc_thresh":
+      value => $net_ipv6_route_gc_thresh,
     }
   }
 

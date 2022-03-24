@@ -13,6 +13,11 @@ network::interfaces_hash:
   'em3':
     onboot:        'yes'
     bridge:        'br0'
+  'em3.3378':
+    onboot:        'yes'
+    bridge:        'br3'
+    vlan:          'yes'
+    defroute:      'no'
   'team1':
     onboot:        'yes'
     bridge:        'br1'
@@ -37,5 +42,10 @@ network::interfaces_hash:
     type:         'Bridge'
     ipaddress:    "%{hiera('netcfg_trp_netpart')}.102"
     netmask:      "%{hiera('netcfg_trp_netmask')}"
+    defroute:     'no'
+    bridge_stp:   'off'
+  'br3':
+    onboot:       'yes'
+    type:         'Bridge'
     defroute:     'no'
     bridge_stp:   'off'

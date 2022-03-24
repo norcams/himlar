@@ -1,0 +1,38 @@
+---
+network::interfaces_hash:
+  'eth0':
+    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.97"
+    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
+    mtu:       '1500'
+    peerdns:   'yes'
+    dns1:      "%{hiera('netcfg_dns_server1')}"
+    dns2:      "%{hiera('netcfg_dns_server2')}"
+    domain:    "%{hiera('netcfg_dns_search')}"
+    defroute:  'no'
+  'eth1':
+    ipaddress: "%{hiera('netcfg_trp_netpart')}.97"
+    netmask:   "%{hiera('netcfg_trp_netmask')}"
+    gateway:   "%{hiera('netcfg_trp_gateway')}"
+    srcaddr:   '158.39.75.247'
+    ipv6init:  'yes'
+    ipv6addr:  "%{hiera('netcfg_trp_netpart6')}::97/%{hiera('netcfg_trp_netmask6')}"
+    defroute:  'yes'
+  'dummy0':
+    ipaddress: '158.39.75.247'
+    netmask:   '255.255.255.255'
+    ipv6init:  'yes'
+    ipv6addr:  '2001:700:2:82ff::97/128'
+    defroute:  'no'
+profile::base::network::routes:
+  'eth0':
+    'ipaddress': [ '172.17.32.0', ]
+    'netmask':   [ '255.255.248.0', ]
+    'gateway':   [ '172.16.32.10', ]
+    'table':     [ 'main', ]
+  'eth1':
+    'ipaddress': [ '::', ]
+    'netmask':   [ '0', ]
+    'gateway':   [ "%{hiera('netcfg_trp_gateway6')}", ]
+    'source':    [ '2001:700:2:82ff::97', ]
+    'table':     [ 'main', ]
+    'family':    [ 'inet6', ]

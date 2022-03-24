@@ -30,6 +30,11 @@ profile::base::cron::crontabs:
     minute:   '0'
     weekday:  '*'
     command: '/opt/himlarcli/bin/delete_expired_demo_instances.sh osl >/dev/null 2>&1'
+  monthly_reminder:
+    minute:   '0'
+    hour:     '5'
+    monthday: '1-3'
+    command:  '/opt/himlarcli/bin/monthly-reminder.sh >/dev/null 2>&1'
 
 profile::base::lvm::physical_volume:
   '/dev/vdb':
