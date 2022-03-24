@@ -91,9 +91,6 @@ nova::scheduler::filter::scheduler_default_filters:
 # conductor (node: novactrl)
 nova::conductor::enabled: true
 
-# consoleauth (node: novactrl)
-nova::consoleauth::enabled: true #deprecated
-
 # availability zone in nova.conf (node: compute and novactrl)
 nova::availability_zone::default_availability_zone:           "%{::location}-iaas-team-only-1"
 nova::availability_zone::default_schedule_zone:               "%{::location}-default-1"
