@@ -272,11 +272,7 @@ profile::base::yumrepo::repo_hash:
     enabled:        1
     gpgcheck:       1
     gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/rabbitmq_server-noarch/gpg.9F4587F226208342.key"
-<<<<<<< HEAD
   elk6:
-=======
-  elk:
->>>>>>> Consolidate ELK repositories
     ensure:         absent
     descr:          'ELK 6 Centos Repo'
     baseurl:        "%{hiera('yum_base_mirror')}/generic/elasticsearch6/"
