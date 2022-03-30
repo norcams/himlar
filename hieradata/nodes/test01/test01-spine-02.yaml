@@ -1,4 +1,7 @@
 ---
+# dummy variable, spine-02 doesn't really have an uplink interface
+profile::base::network::uplink_interface: 'swp48'
+
 network::interfaces_hash:
   'eth0':
     'ipaddress': "%{hiera('netcfg_mgmt_net_c6')}.2/21"

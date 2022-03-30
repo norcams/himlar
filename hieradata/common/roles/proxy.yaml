@@ -20,12 +20,15 @@ named_interfaces::config:
 profile::application::rngd::enable: true
 
 profile::base::common::packages:
-  'python-openstackclient': {}
+  'python2-openstackclient': {} # FIXME remove when all proxies are el8
+  'python3-openstackclient': {}
   'bash-completion': {}
-  'bash-completion-extras': {}
+  'bash-completion-extras': {}  # FIXME remove when all proxies are el8
   'jq': {}
-  'python2-gnocchiclient': {}
-  'python2-osc-placement': {}
+  'python2-gnocchiclient': {}   # FIXME remove when all proxies are el8
+  'python3-gnocchiclient': {}
+  'python2-osc-placement': {}   # FIXME remove when all proxies are el
+  'python3-osc-placement': {}
   'openstack-selinux': {}
 
 profile::network::services::firewall_extras:
@@ -35,7 +38,8 @@ profile::network::services::dns_proxy:            true
 profile::network::services::http_proxy:           true
 profile::development::network::dns::manage_hosts: true
 profile::development::network::dns::use_dnsmasq:  true
-profile::base::network::manage_dummy:             true
+profile::base::network::manage_dummy:             true # FIXME remove when all proxies are migrated to el8
+profile::network::interface::manage_dummy:        true
 profile::network::nat::enable_snat:               true
 profile::network::nat::source:                    "%{::network_mgmt1}/%{::netmask_mgmt1}"
 profile::network::nat::outiface:                  'eth1'
@@ -62,7 +66,10 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
-    includepkgs: 'tinyproxy htop bash-completion-extras'
+    includepkgs: 'tinyproxy htop bash-completion-extras privoxy' # FIXME: Remove tinyproxy when el7 is gone
+  calico%{hiera('calico_version')}:
+    ensure: present
+    includepkgs: 'dnsmasq'
 
 logrotate::rules:
   himlarcli:
