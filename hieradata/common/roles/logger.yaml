@@ -7,12 +7,14 @@ include:
     - profile::logging::kibana
     - profile::logging::logrotate
 
+profile::base::selinux::manage_selinux:   true
+
 # This is needed if we run selinux on logger
 profile::base::selinux::fcontext:
   rsyslog_log:
     seltype:  'var_log_t'
     seluser:  'system_u'
-    pathspec: '/opt/log/(/.*)?'
+    pathspec: '/opt/log(/.*)?'
     notify:   Exec[selinux::exec_restorecon /opt/log]
 profile::base::selinux::exec_restorecon:
   rsyslog_log:
@@ -112,13 +114,9 @@ logrotate::rules:
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
-  logstash6:
-    ensure: present
-  elasticsearch6:
+  elk6:
     ensure: present
   curator5:
-    ensure: present
-  kibana6:
     ensure: present
 
 #cronjob to purge elasticsearch
