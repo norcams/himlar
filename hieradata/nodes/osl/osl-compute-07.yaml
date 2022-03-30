@@ -66,4 +66,4 @@ profile::base::lvm::logical_volume:
 
 # make sure disks are configured correctly as the devices we want
 profile::base::physical::load_ahci_last:    true
-profile::base::physical::scsidrv:           'mpt2sas'
+profile::base::physical::scsidrv:           'megaraid_sas'
