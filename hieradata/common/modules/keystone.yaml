@@ -49,25 +49,11 @@ keystone::wsgi::apache::api_port:         ['5000', '35357']
 keystone::wsgi::apache::workers:          4
 keystone::wsgi::apache::threads:          1
 
-# admin role #FIXME Will be DEPRECATED. After train use keystone::bootstrap
-#keystone::roles::admin::email:                  "support@%{hiera('domain_frontend')}"
-#keystone::roles::admin::password:               "%{hiera('keystone_admin_password')}"
-#keystone::roles::admin::admin_tenant:           "%{hiera('keystone__admin__project')}"
-#keystone::roles::admin::service_tenant:         "%{hiera('keystone__service__project')}"
-#keystone::roles::admin::service_project_domain: "%{hiera('keystone__default__domain')}"
-
 keystone::bootstrap::email:                  "support@%{hiera('domain_frontend')}"
 keystone::bootstrap::password:               "%{hiera('keystone_admin_password')}"
 keystone::bootstrap::admin_tenant:           "%{hiera('keystone__admin__project')}"
 keystone::bootstrap::service_tenant:         "%{hiera('keystone__service__project')}"
 keystone::bootstrap::service_project_domain: "%{hiera('keystone__default__domain')}"
-
-# endpoints
-#keystone::endpoint::region:               "%{location}"
-#keystone::endpoint::public_url:           "%{hiera('endpoint__identity__public')}"
-#keystone::endpoint::internal_url:         "%{hiera('endpoint__identity__internal')}"
-#keystone::endpoint::admin_url:            "%{hiera('endpoint__identity__admin')}"
-#keystone::endpoint::version:              "v3"
 
 keystone::bootstrap::region:               "%{location}"
 keystone::bootstrap::public_url:           "%{hiera('endpoint__identity__public')}"
