@@ -100,13 +100,13 @@ profile::base::lvm::logical_volume:
     mountpath:    "/opt/repo"
     size:         '50G'
 
-# uncomment/activate this when installing, leave for some time so user(s) may log in and set up 2FA
-# when enough accounts are set up comment it out
-ssh::server::options:
-  AuthenticationMethods: 'publickey'
-
-# alt under er midlertidig mens maskinen konfigureres
+# enable iaas account, but only make it available in the normal fashion
+# from bgo-login-01
 accounts::accounts:
   'iaas':
     ensure: present
 
+ssh::server::options:
+  # No 2FA if coming from bgo-login-01
+  'Match User iaas Address 172.16.0.10':
+    AuthenticationMethods: 'publickey'

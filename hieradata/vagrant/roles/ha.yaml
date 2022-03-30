@@ -370,6 +370,9 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
       - option:
         - 'forwardfor except 127.0.0.1'
       - http-check: 'expect status 200'
+      # Session stick table and based on source IP
+      - stick-table: 'type ip size 1m expire 1h'
+      - stick: 'on src'
   # SMB
   uib-smb:
     mode:             'tcp'
