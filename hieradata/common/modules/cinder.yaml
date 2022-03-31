@@ -53,6 +53,6 @@ cinder::logging::log_facility:          'LOG_LOCAL4'
 cinder::logging::use_syslog:             true
 
 # telemetry
-cinder::ceilometer::notification_driver:          'messagingv2'
-cinder::ceilometer::notification_transport_url:   "%{hiera('service__transport__url')}"
-cinder::ceilometer::notification_topics:          'notifications'
+cinder::notification_driver:          'messagingv2'
+cinder::notification_transport_url:   "%{hiera('service__transport__url')}"
+cinder::notification_topics:          'notifications'
