@@ -58,9 +58,6 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   postgres-10:
     ensure: present
-  puppetlabs: # FIXME: move to common when we get rid of puppet 5
-    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/puppetlabs6/"
-    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/puppetlabs6/RPM-GPG-KEY-puppet-20250406"
 
 # Enable gem installation
 profile::base::common::manage_gems: true
