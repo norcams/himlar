@@ -24,9 +24,9 @@ profile::openstack::identity::bootstrap::region:                "%{location}"
 profile::openstack::identity::bootstrap::interface:             'internal'
 
 # cache
-keystone::cache_enabled:                  true
-keystone::cache_backend:                  'oslo_cache.memcache_pool'
-keystone::cache_memcache_servers:         '127.0.0.1:11211'
+keystone::cache::enabled:                  true
+keystone::cache::backend:                  'oslo_cache.memcache_pool'
+keystone::cache::memcache_servers:         '127.0.0.1:11211'
 
 # notification
 keystone::notification_driver:            'messagingv2'
@@ -49,19 +49,18 @@ keystone::wsgi::apache::api_port:         ['5000', '35357']
 keystone::wsgi::apache::workers:          4
 keystone::wsgi::apache::threads:          1
 
-# admin role #FIXME Will be DEPRECATED. After train use keystone::bootstrap
-keystone::roles::admin::email:                  "support@%{hiera('domain_frontend')}"
-keystone::roles::admin::password:               "%{hiera('keystone_admin_password')}"
-keystone::roles::admin::admin_tenant:           "%{hiera('keystone__admin__project')}"
-keystone::roles::admin::service_tenant:         "%{hiera('keystone__service__project')}"
-keystone::roles::admin::service_project_domain: "%{hiera('keystone__default__domain')}"
+keystone::bootstrap::email:                  "support@%{hiera('domain_frontend')}"
+keystone::bootstrap::password:               "%{hiera('keystone_admin_password')}"
+keystone::bootstrap::admin_tenant:           "%{hiera('keystone__admin__project')}"
+keystone::bootstrap::service_tenant:         "%{hiera('keystone__service__project')}"
+keystone::bootstrap::service_project_domain: "%{hiera('keystone__default__domain')}"
 
-# endpoints
-keystone::endpoint::region:               "%{location}"
-keystone::endpoint::public_url:           "%{hiera('endpoint__identity__public')}"
-keystone::endpoint::internal_url:         "%{hiera('endpoint__identity__internal')}"
-keystone::endpoint::admin_url:            "%{hiera('endpoint__identity__admin')}"
-keystone::endpoint::version:              "v3"
+keystone::bootstrap::region:               "%{location}"
+keystone::bootstrap::public_url:           "%{hiera('endpoint__identity__public')}"
+keystone::bootstrap::internal_url:         "%{hiera('endpoint__identity__internal')}"
+keystone::bootstrap::admin_url:            "%{hiera('endpoint__identity__admin')}"
+keystone::bootstrap::version:              "v3"
+
 
 # Federation
 keystone::federation::trusted_dashboards:  ["https://%{hiera('public__address__dashboard')}/dashboard/auth/websso/"]
