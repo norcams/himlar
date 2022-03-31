@@ -166,8 +166,8 @@ profile::base::yumrepo::repo_hash:
     ensure:         absent
   puppetlabs:
     descr:          Puppetlabs Yum Repo
-    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/puppetlabs5/"
-    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/puppetlabs5/RPM-GPG-KEY-puppet"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/puppetlabs6/"
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/puppetlabs6/RPM-GPG-KEY-puppet-20250406"
     gpgcheck:       1
   epel:
     descr:          "Extra Packages for Enterprise Linux %{operatingsystemmajrelease} - $basearch"
