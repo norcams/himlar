@@ -36,8 +36,6 @@ domain_oob:           "%{::domain}"
 domain_public2:       "%{hiera('domain_public')}"
 domain_frontend2:     "%{hiera('domain_frontend')}"
 
-openstack_version:    'train'
-
 ceph_version:         'nautilus'
 
 calico_version:       '312'
@@ -865,3 +863,5 @@ networks:
         ensure: present
         iniface: eth1
         outiface: eth0
+
+openstack_version: 'ussuri'
