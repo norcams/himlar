@@ -11,17 +11,19 @@ keystone::enable_bootstrap:               true
 keystone::public_endpoint:                "%{hiera('endpoint__identity__public')}"
 keystone::admin_endpoint:                 "%{hiera('endpoint__identity__admin')}"
 
-# bootstrap (preview from ussuri used in vagrant)
-profile::openstack::identity::bootstrap::password:              "%{hiera('keystone_admin_password')}"
-profile::openstack::identity::bootstrap::email:                 "support@%{hiera('domain_frontend')}"
-profile::openstack::identity::bootstrap::project_name:          "%{hiera('keystone__admin__project')}"
-profile::openstack::identity::bootstrap::service_project_name:  "%{hiera('keystone__service__project')}"
-profile::openstack::identity::bootstrap::service_name:          'keystone'
-profile::openstack::identity::bootstrap::admin_url:             "%{hiera('endpoint__identity__admin')}"
-profile::openstack::identity::bootstrap::public_url:            "%{hiera('endpoint__identity__public')}"
-profile::openstack::identity::bootstrap::internal_url:          "%{hiera('endpoint__identity__internal')}"
-profile::openstack::identity::bootstrap::region:                "%{location}"
-profile::openstack::identity::bootstrap::interface:             'internal'
+# bootstrap keystone
+keystone::bootstrap::username:              'admin'
+keystone::bootstrap::password:              "%{hiera('keystone_admin_password')}"
+keystone::bootstrap::email:                 "support@%{hiera('domain_frontend')}"
+keystone::bootstrap::project_name:          "%{hiera('keystone__admin__project')}"
+keystone::bootstrap::service_project_name:  "%{hiera('keystone__service__project')}"
+keystone::bootstrap::service_name:          'keystone'
+keystone::bootstrap::role_name:             'admin'
+keystone::bootstrap::admin_url:              "%{hiera('endpoint__identity__admin')}"
+keystone::bootstrap::public_url:            "%{hiera('endpoint__identity__public')}"
+keystone::bootstrap::internal_url:          "%{hiera('endpoint__identity__internal')}"
+keystone::bootstrap::region:                "%{location}"
+keystone::bootstrap::interface:             'internal'
 
 # cache
 keystone::cache::enabled:                  true
@@ -48,19 +50,6 @@ keystone::wsgi::apache::bind_host:        "%{ipaddress_trp1}"
 keystone::wsgi::apache::api_port:         ['5000', '35357']
 keystone::wsgi::apache::workers:          4
 keystone::wsgi::apache::threads:          1
-
-keystone::bootstrap::email:                  "support@%{hiera('domain_frontend')}"
-keystone::bootstrap::password:               "%{hiera('keystone_admin_password')}"
-keystone::bootstrap::admin_tenant:           "%{hiera('keystone__admin__project')}"
-keystone::bootstrap::service_tenant:         "%{hiera('keystone__service__project')}"
-keystone::bootstrap::service_project_domain: "%{hiera('keystone__default__domain')}"
-
-keystone::bootstrap::region:               "%{location}"
-keystone::bootstrap::public_url:           "%{hiera('endpoint__identity__public')}"
-keystone::bootstrap::internal_url:         "%{hiera('endpoint__identity__internal')}"
-keystone::bootstrap::admin_url:            "%{hiera('endpoint__identity__admin')}"
-keystone::bootstrap::version:              "v3"
-
 
 # Federation
 keystone::federation::trusted_dashboards:  ["https://%{hiera('public__address__dashboard')}/dashboard/auth/websso/"]
