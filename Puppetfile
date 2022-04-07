@@ -160,16 +160,17 @@ mod 'archive', :ref => 'v2.2.0',                    :git => github + 'voxpupuli/
 #
 # profile::openstack::*
 #
-mod 'glance', :ref => '15.4.0',                     :git => github + 'openstack/puppet-glance'
+mod 'glance', :ref => '16.5.0',                     :git => github + 'openstack/puppet-glance'
 mod 'cinder', :ref => '263c6b11fc',                 :git => github + 'openstack/puppet-cinder'
-mod 'neutron', :ref => '15.4.0',                    :git => github + 'openstack/puppet-neutron'
+
+mod 'neutron', :ref => '16.5.0',                    :git => github + 'openstack/puppet-neutron'
 mod 'nova',    :ref => '16.6.0',                    :git => github + 'openstack/puppet-nova'
-mod 'horizon', :ref => '15.4.0',                    :git => github + 'openstack/puppet-horizon'
+mod 'horizon', :ref => '16.4.0',                    :git => github + 'openstack/puppet-horizon'
 mod 'gnocchi', :ref => '14.4.0',                    :git => github + 'openstack/puppet-gnocchi'
 mod 'keystone', :ref => '16.4.0',                   :git => github + 'openstack/puppet-keystone'
 #mod 'swift', :ref => 'norcams/ocata',               :git => github + 'norcams/puppet-swift'
 mod 'ceilometer', :ref => '14.4.0',                 :git => github + 'openstack/puppet-ceilometer'
-mod 'designate', :ref => '15.5.0',                  :git => github + 'openstack/puppet-designate'
+mod 'designate', :ref => '16.4.0',                  :git => github + 'openstack/puppet-designate'
 mod 'cloudkitty', :ref => '3.4.0',                  :git => github + 'openstack/puppet-cloudkitty'
 mod 'placement', :ref => '2.5.0',                   :git => github + 'openstack/puppet-placement'
 
