@@ -80,6 +80,10 @@ allow_from_testing_network: # this do not merge!
   - '158.39.75.247/32'   # osl-proxy-02
   - '192.168.122.1/32'   # test02
   - '62.16.139.80/32'    # raymond at home
+  - '158.39.77.248'      # natgw bgo
+  - '158.39.74.248'      # natgw2 bgo
+  - '158.37.63.248'      # pub_natgw osl
+  - '158.39.75.248'      # pub_natgw2 osl
 
 #
 # Use this for firewall rules to allow only from some networks
