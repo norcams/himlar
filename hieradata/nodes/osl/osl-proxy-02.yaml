@@ -36,3 +36,15 @@ profile::base::network::routes:
     'source':    [ '2001:700:2:82ff::97', ]
     'table':     [ 'main', ]
     'family':    [ 'inet6', ]
+
+profile::base::cron::crontabs: #FIXME
+  stats:
+    ensure: absent
+  checks:
+    ensure: absent
+  update_images:
+    ensure: absent
+  sync_owners:
+    ensure: absent
+  check_expired_demo_instances:
+    ensure: absent
