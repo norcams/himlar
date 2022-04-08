@@ -20,6 +20,8 @@ profile::base::yumrepo::repo_hash:
     ensure: absent
   CentOS-Advanced-Virtualization: # unavailable for el7
     ensure: absent
+  CentOs-nfv-Openvswitch: # unavailable for el7
+    ensure: absent
   elrepo:
     ensure: absent
   rabbitmq-server-cloudsmith: # unavailable for el7
@@ -38,6 +40,7 @@ profile::base::common::packages:
   'python3-mysql': { ensure: absent, }
   'centos-release-messaging': { ensure: absent, }
   'centos-release-virt-common': { ensure: absent, }
+  'centos-release-nfv-common': { ensure: absent, }
 
 profile::openstack::network::calico::packagename_etcdgw: python2-etcd3gw
 profile::base::login::dhcrelay_packagename:              dhcp

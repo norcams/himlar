@@ -164,6 +164,12 @@ profile::base::yumrepo::repo_hash:
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Virtualization'
     gpgcheck:       1
     ensure:         absent
+  CentOs-nfv-Openvswitch:
+    descr:          "CentOS-$releasever - SIG Network Functions Virtualization"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/centos-release-nfv-openvswitch"
+    gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-NFV'
+    gpgcheck:       1
+    ensure:         absent
   puppetlabs:
     descr:          Puppetlabs Yum Repo
     baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/puppetlabs6/"
