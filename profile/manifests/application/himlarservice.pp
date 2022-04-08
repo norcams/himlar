@@ -1,5 +1,6 @@
 #
 class profile::application::himlarservice(
+  $enable = false,
   $package_url = undef
 ) {
 

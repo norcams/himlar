@@ -36,3 +36,5 @@ profile::base::network::routes:
     'source':    [ '2001:700:2:83ff::97', ]
     'table':     [ 'main', ]
     'family':    [ 'inet6', ]
+
+profile::application::himlarservice::enable:      false #FIXME do not work on el8
