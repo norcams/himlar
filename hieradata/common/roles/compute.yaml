@@ -42,6 +42,9 @@ profile::base::selinux::semodules:
 # Manage default availability zone
 profile::openstack::compute::manage_az:            true
 
+# Manage default custom nova config
+profile::openstack::compute::manage_nova_config:   true
+
 # New interface class needs enabling
 profile::network::interface::create_custom_routes: true
 profile::network::interface::create_ip_rules: true

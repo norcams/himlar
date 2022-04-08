@@ -6,6 +6,7 @@ nova::glance_api_endpoint:               "%{hiera('endpoint__image__internal')}"
 nova::cinder_catalog_info:               'volumev3:cinderv3:internalURL'
 nova::os_region_name:                    "%{location}"
 
+
 # logging
 nova::logging::log_facility:              'LOG_LOCAL0'
 nova::logging::use_syslog:                true
@@ -97,10 +98,23 @@ nova::availability_zone::default_schedule_zone:               "%{::location}-def
 nova::availability_zone::internal_service_availability_zone:  'internal'
 
 # neutron network (node: compute and novactrl)
-nova::network::neutron::neutron_url:            "%{hiera('endpoint__network__internal')}" # will be removed in a future release
-nova::network::neutron::neutron_auth_url:       "%{hiera('endpoint__identity__admin')}/v3"
-nova::network::neutron::neutron_region_name:    "%{::location}"
-nova::network::neutron::neutron_password:       "%{hiera('neutron_api_password')}"
+nova::network::neutron::auth_url:             "%{hiera('endpoint__identity__admin')}/v3"
+nova::network::neutron::region_name:          "%{::location}"
+nova::network::neutron::password:             "%{hiera('neutron_api_password')}"
+nova::network::neutron::valid_interfaces:     'internal'
+nova::network::neutron::username:             'neutron'
+nova::network::neutron::project_name:         "%{hiera('keystone__service__project')}"
+nova::network::neutron::project_domain_name:  "%{hiera('keystone__default__domain')}"
+nova::network::neutron::user_domain_name:     "%{hiera('keystone__default__domain')}"
+
+# cinder (node: compute and novactrl)
+nova::cinder::auth_url:             "%{hiera('endpoint__identity__admin')}/v3"
+nova::cinder::region_name:          "%{::location}"
+nova::cinder::password:             "%{hiera('cinder_api_password')}"
+nova::cinder::username:             'cinder'
+nova::cinder::project_name:         "%{hiera('keystone__service__project')}"
+nova::cinder::project_domain_name:  "%{hiera('keystone__default__domain')}"
+nova::cinder::user_domain_name:     "%{hiera('keystone__default__domain')}"
 
 # Use rsync, not ssh for migrate transport to support sparse images
 nova::config::nova_config:
@@ -108,6 +122,16 @@ nova::config::nova_config:
     value: 'rsync'
 #  keystone_authtoken/service_token_roles_required: FIXME enable this when tested
 #    value: true
+
+# shared default nova config (node: compute)
+profile::openstack::compute::default_nova_config:
+  glance/region_name:
+    value: "%{::location}"
+
+# shared default nova config (node: novactrl)
+profile::openstack::novactrl::default_nova_config:
+  glance/region_name:
+    value: "%{::location}"
 
 # compute (node: compute)
 nova::compute::enabled:                          true

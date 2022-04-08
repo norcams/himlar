@@ -2,11 +2,13 @@
 class profile::openstack::compute(
   $manage_az                    = false,
   $manage_telemetry             = false,
+  $manage_nova_config           = false,
   $manage_check_dhcp_lease_file = false
 ) {
   include ::nova
   include ::nova::config
   include ::nova::network::neutron
+  include ::nova::cinder
   include ::nova::logging
   include ::nova::placement
 
@@ -17,6 +19,11 @@ class profile::openstack::compute(
 
   if $manage_az {
     include ::nova::availability_zone
+  }
+
+  if $manage_nova_config {
+    $default_nova_config = lookup('profile::openstack::compute::default_nova_config', Hash, 'deep', {})
+    create_resources('nova_config', $default_nova_config)
   }
 
   if $manage_check_dhcp_lease_file {
