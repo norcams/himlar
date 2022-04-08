@@ -49,3 +49,9 @@ object__backend__names:
   - '%{::location}-rgw-01'
 object__backend__ips:
   - "%{hiera('netcfg_trp_netpart')}.84"
+
+profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
+  internal_domains:
+    ensure: present
+    mappings:
+      - "image.osl.uhdc.no:9292":            'bk_image'
