@@ -19,6 +19,8 @@ named_interfaces::config:
   mgmt:
     - eth0
 
+openstack_version: 'train'
+
 profile::base::lvm::physical_volume:
   '/dev/vdb':
     ensure: present
