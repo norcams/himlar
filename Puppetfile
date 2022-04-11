@@ -109,7 +109,7 @@ mod 'himlar_bootstrap', :ref => '1.1',              :git => github + 'norcams/pu
 #
 # profile::logging
 #
-mod 'rsyslog', :ref => 'v4.0.0',                    :git => github + 'voxpupuli/puppet-rsyslog'
+mod 'rsyslog', :ref => 'v5.2.0',                    :git => github + 'voxpupuli/puppet-rsyslog'
 mod 'logstash', :ref => '6.1.5',                    :git => github + 'elastic/puppet-logstash'
 mod 'datacat', :ref => '0.6.2',                     :git => github + 'richardc/puppet-datacat'
 mod 'elasticsearch', :ref => '6.4.0',               :git => github + 'elastic/puppet-elasticsearch'

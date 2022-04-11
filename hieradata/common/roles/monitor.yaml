@@ -248,7 +248,7 @@ logrotate::rules:
     compress:       true
 
 # rsyslog
-rsyslog::client::inputs:
+profile::logging::rsyslog::client::inputs:
   imfile_rabbitmq:
     priority: 51
     confdir: '/etc/rsyslog.d/'
