@@ -249,7 +249,7 @@ profile::base::yumrepo::repo_hash:
     baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/elrepo/"
     enabled:        1
     gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/RPM-GPG-KEY-elrepo.org"
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/elrepo/RPM-GPG-KEY-elrepo.org"
   hashicorp:
     ensure:         absent
     descr:          "Hashicorp packages"
