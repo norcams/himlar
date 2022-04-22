@@ -1,0 +1,163 @@
+---
+named_interfaces::config:
+  mgmt:
+    - em3
+  trp:
+    - team1
+  ceph:
+    - team1.130
+
+profile::base::network::network_auto_opts:
+  trp:
+    'defroute': 'no'
+    'devicetype': 'Team'
+    'team_config': >-
+                   { "runner" : {  "name" : "lacp",  "active": true, "fast_rate" : true,
+                   "tx_hash": ["eth", "ipv4", "ipv6"], "tx_balancer": { "name": "basic" } },
+                   "link_watch" : {  "name" : "ethtool" } }
+  ceph:
+    'defroute': 'no'
+
+ceph::profile::params::osd_pool_default_min_size:   '2'
+ceph::profile::params::mon_host:                    "%{::netpart_trp1}.89,%{::netpart_trp1}.90,%{::netpart_trp1}.94"
+ceph::profile::params::mon_initial_members:         '%{::location}-cephmon-object-01,%{::location}-cephmon-object-02,%{::location}-cephmon-object-03'
+ceph::profile::params::cluster_network:             "%{::network_ceph1}/%{::cidr_ceph1}"
+ceph::profile::params::public_network:              "%{::network_trp1}/%{::cidr_trp1}"
+
+profile::storage::cephosd::crush_parent:           'object'
+profile::storage::cephosd::crush_parent_type:      'pod'
+profile::base::common::manage_lvm:                  false
+profile::base::lvm::create_lvm:                     false
+profile::storage::cephosd::create_osds:             false
+profile::storage::cephosd::crush_move:              false
+profile::storage::cephpool::manage_ec_pools:        false
+profile::storage::cephpool::manage_cephpool_params: false
+
+profile::storage::ceph_crushrules::rules:
+  'hdd-object':
+    rule_device_type: "hdd"
+    rule_root:        "object"
+  'ssd-object':
+    rule_device_type: "ssd"
+    rule_root:        "object"
+
+profile::storage::ceph::pool::pools:
+  '%{::location}-1.rgw.control':
+    size:       3
+    tag:          'rgw'
+    custom:
+      crush_rule: 'hdd-object'
+      nodelete:   'true'
+      min_size:   '2'
+  '%{::location}-1.rgw.meta':
+    size:       3
+    tag:          'rgw'
+    custom:
+      crush_rule: 'hdd-object'
+      nodelete:   'true'
+      min_size:   '2'
+  '%{::location}-1.rgw.log':
+    size:       3
+    tag:          'rgw'
+    custom:
+      crush_rule: 'hdd-object'
+      nodelete:   'true'
+      min_size:   '2'
+  '%{::location}-1.rgw.buckets.index':
+    size:       3
+    tag:          'rgw'
+    custom:
+      crush_rule: 'ssd-object'
+      nodelete:   'true'
+      min_size:   '2'
+  '%{::location}-1.rgw.buckets.log':
+    size:       3
+    tag:          'rgw'
+    custom:
+      crush_rule: 'hdd-object'
+      nodelete:   'true'
+      min_size:   '2'
+  '%{::location}-1.rgw.buckets.meta':
+    size:         3
+    tag:          'rgw'
+    custom:
+      crush_rule: 'hdd-object'
+      nodelete:   'true'
+      min_size:   '2'
+
+profile::storage::cephpool_params::pools:
+  'bgo-1.rgw.buckets.data':
+    replicas_min_size:  '4'
+
+profile::base::common::extraswap: false
+#profile::base::common::extraswap:         true
+profile::base::common::extraswap_sizegb:  20
+profile::base::common::extraswap_fileloc: '/var/lib/swap/swapfile'
+profile::base::physical::load_ahci_first: true
+
+profile::base::physical::enable_redfish_sensu_check: true
+profile::monitoring::sensu::agent::checks:
+  'redfish-check':
+    command:      '/usr/local/bin/redfish_check.sh'
+    interval:     1800
+    subscribers:  ['checks']
+
+ceph_version: 'octopus' # FIXME
+
+profile::base::lvm::physical_volume:
+  '/dev/sdb':
+    ensure: present
+    force:  true
+
+profile::base::lvm::volume_group:
+  'vg_swap':
+    physical_volumes:
+      - /dev/sda4
+  'vg_cache':
+    physical_volumes:
+      - /dev/sdb
+
+profile::base::lvm::logical_volume:
+  'lv_swap2':
+    volume_group: 'vg_swap'
+    fs_type:      xfs
+    size:         40G
+    mountpath:    "/var/lib/swap"
+  'lv_dbd':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         32G
+  'lv_dbe':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         32G
+  'lv_dbf':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         32G
+  'lv_dbg':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         32G
+  'lv_dbh':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         32G
+
+profile::storage::cephosd::osds:
+  '/dev/sdc': {} # SSD
+  '/dev/sdd': # HDD
+    db_device:  'vg_cache/lv_dbd'
+    wal_device: false
+  '/dev/sde': # HDD
+    db_device:  'vg_cache/lv_dbe'
+    wal_device: false
+  '/dev/sdf': # HDD
+    db_device:  'vg_cache/lv_dbf'
+    wal_device: false
+  '/dev/sdg': # HDD
+    db_device:  'vg_cache/lv_dbg'
+    wal_device: false
+  '/dev/sdh': # HDD
+    db_device:  'vg_cache/lv_dbh'
+    wal_device: false
