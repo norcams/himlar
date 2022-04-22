@@ -162,19 +162,20 @@ profile::network::services::dns_records:
     "%{::location}-compute-hpc-27.%{hiera('domain_mgmt')}": "%{::location}-compute-27.%{hiera('domain_mgmt')}"
     "%{::location}-compute-hpc-28.%{hiera('domain_mgmt')}": "%{::location}-compute-28.%{hiera('domain_mgmt')}"
     # GPU
-    "%{::location}-compute-vgpu-17.%{hiera('domain_mgmt')}":  "%{::location}-compute-17.%{hiera('domain_mgmt')}"
-    "%{::location}-compute-vgpu-19.%{hiera('domain_mgmt')}":  "%{::location}-compute-19.%{hiera('domain_mgmt')}"
-    "%{::location}-compute-vgpu-20.%{hiera('domain_mgmt')}":  "%{::location}-compute-20.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-vgpu-17.%{hiera('domain_mgmt')}": "%{::location}-compute-17.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-vgpu-19.%{hiera('domain_mgmt')}": "%{::location}-compute-19.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-vgpu-20.%{hiera('domain_mgmt')}": "%{::location}-compute-20.%{hiera('domain_mgmt')}"
     "%{::location}-compute-vgpu-42.%{hiera('domain_mgmt')}": "%{::location}-compute-42.%{hiera('domain_mgmt')}"
+    # object store with ceph
+    "%{::location}-object-ceph-01.%{hiera('domain_mgmt')}":  "%{::location}-object-01.%{hiera('domain_mgmt')}"
+    "%{::location}-object-ceph-02.%{hiera('domain_mgmt')}":  "%{::location}-object-02.%{hiera('domain_mgmt')}"
+    "%{::location}-object-ceph-03.%{hiera('domain_mgmt')}":  "%{::location}-object-03.%{hiera('domain_mgmt')}"
+    "%{::location}-object-ceph-04.%{hiera('domain_mgmt')}":  "%{::location}-object-04.%{hiera('domain_mgmt')}"
+    "%{::location}-object-ceph-05.%{hiera('domain_mgmt')}":  "%{::location}-object-05.%{hiera('domain_mgmt')}"
     # Dedicated
     "%{::location}-compute-robin-18.%{hiera('domain_mgmt')}": "%{::location}-compute-18.%{hiera('domain_mgmt')}"
     "%{::location}-compute-numascale-51.%{hiera('domain_mgmt')}": "%{::location}-compute-51.%{hiera('domain_mgmt')}"
-    # Arccache storage tempo
-    "%{::location}-storage-arccache-08.%{hiera('domain_mgmt')}":  "%{::location}-storage-08.%{hiera('domain_mgmt')}"
-    "%{::location}-storage-arccache-09.%{hiera('domain_mgmt')}":  "%{::location}-storage-09.%{hiera('domain_mgmt')}"
-    "%{::location}-storage-arccache-10.%{hiera('domain_mgmt')}":  "%{::location}-storage-10.%{hiera('domain_mgmt')}"
-    "%{::location}-storage-arccache-11.%{hiera('domain_mgmt')}":  "%{::location}-storage-11.%{hiera('domain_mgmt')}"
-    "%{::location}-storage-arccache-12.%{hiera('domain_mgmt')}":  "%{::location}-storage-12.%{hiera('domain_mgmt')}"
+    # Huawei ceph nodes
     "%{::location}-storage-v2h-13.%{hiera('domain_mgmt')}":  "%{::location}-storage-13.%{hiera('domain_mgmt')}"
     "%{::location}-storage-v2h-14.%{hiera('domain_mgmt')}":  "%{::location}-storage-14.%{hiera('domain_mgmt')}"
     "%{::location}-storage-v2h-15.%{hiera('domain_mgmt')}":  "%{::location}-storage-15.%{hiera('domain_mgmt')}"
