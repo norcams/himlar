@@ -26,13 +26,12 @@ ceph::profile::params::public_network:              "%{::network_trp1}/%{::cidr_
 
 profile::storage::cephosd::crush_parent:           'object'
 profile::storage::cephosd::crush_parent_type:      'pod'
-profile::base::common::manage_lvm:                  false
-profile::base::lvm::create_lvm:                     false
-profile::storage::cephosd::create_osds:             false
-profile::storage::cephosd::crush_move:              false
-profile::storage::cephpool::manage_ec_pools:        false
-profile::storage::cephpool::manage_cephpool_params: false
+profile::base::common::manage_lvm:                  true
+profile::base::lvm::create_lvm:                     true
+profile::storage::cephosd::create_osds:             true
+profile::storage::cephosd::crush_move:              true
 
+profile::storage::cephpool::manage_cephpool_params: true
 profile::storage::ceph_crushrules::rules:
   'hdd-object':
     rule_device_type: "hdd"
@@ -86,11 +85,10 @@ profile::storage::ceph::pool::pools:
       min_size:   '2'
 
 profile::storage::cephpool_params::pools:
-  'bgo-1.rgw.buckets.data':
+  'osl-1.rgw.buckets.data':
     replicas_min_size:  '4'
 
-profile::base::common::extraswap: false
-#profile::base::common::extraswap:         true
+profile::base::common::extraswap:         true
 profile::base::common::extraswap_sizegb:  20
 profile::base::common::extraswap_fileloc: '/var/lib/swap/swapfile'
 profile::base::physical::load_ahci_first: true
@@ -105,59 +103,162 @@ profile::monitoring::sensu::agent::checks:
 ceph_version: 'octopus' # FIXME
 
 profile::base::lvm::physical_volume:
-  '/dev/sdb':
+  '/dev/sda3':
+    ensure: present
+    force:  true
+  '/dev/sdn':
+    ensure: present
+    force:  true
+  '/dev/nvme0n1':
     ensure: present
     force:  true
 
 profile::base::lvm::volume_group:
-  'vg_swap':
+  'vg_ext':
     physical_volumes:
-      - /dev/sda4
+      - /dev/sda3
   'vg_cache':
     physical_volumes:
-      - /dev/sdb
+      - /dev/sdn
+  'vg_nvme':
+    physical_volumes:
+      - /dev/nvme0n1
 
 profile::base::lvm::logical_volume:
   'lv_swap2':
-    volume_group: 'vg_swap'
+    volume_group: 'vg_ext'
     fs_type:      xfs
-    size:         40G
+    size:         30G
     mountpath:    "/var/lib/swap"
+  'osd_nvme1':
+    volume_group: 'vg_nvme'
+    size:         362G
+    mountpath_require: false
+    mounted:      false
+    createfs:     false
+  'osd_nvme2':
+    volume_group: 'vg_nvme'
+    size:         362G
+    mountpath_require: false
+    mounted:      false
+    createfs:     false
+  'osd_nvme3':
+    volume_group: 'vg_nvme'
+    size:         362G
+    mountpath_require: false
+    mounted:      false
+    createfs:     false
+  'lv_dbb':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         31G
+  'lv_dbc':
+    volume_group: 'vg_cache'
+    createfs:     false
+    size:         31G
   'lv_dbd':
     volume_group: 'vg_cache'
     createfs:     false
-    size:         32G
+    size:         31G
   'lv_dbe':
-    volume_group: 'vg_cache'
+    volume_group: 'vg_nvme'
     createfs:     false
-    size:         32G
+    size:         31G
   'lv_dbf':
-    volume_group: 'vg_cache'
+    volume_group: 'vg_nvme'
     createfs:     false
-    size:         32G
+    size:         31G
   'lv_dbg':
-    volume_group: 'vg_cache'
+    volume_group: 'vg_nvme'
     createfs:     false
-    size:         32G
+    size:         31G
   'lv_dbh':
-    volume_group: 'vg_cache'
+    volume_group: 'vg_nvme'
     createfs:     false
-    size:         32G
+    size:         31G
+  'lv_dbi':
+    volume_group: 'vg_nvme'
+    createfs:     false
+    size:         31G
+  'lv_dbj':
+    volume_group: 'vg_nvme'
+    createfs:     false
+    size:         31G
+  'lv_dbk':
+    volume_group: 'vg_nvme'
+    createfs:     false
+    size:         31G
+  'lv_dbl':
+    volume_group: 'vg_nvme'
+    createfs:     false
+    size:         31G
+  'lv_dbm':
+    volume_group: 'vg_nvme'
+    createfs:     false
+    size:         31G
+  'lv_dbo':
+    volume_group: 'vg_nvme'
+    createfs:     false
+    size:         31G
+  'lv_dbp':
+    volume_group: 'vg_nvme'
+    createfs:     false
+    size:         31G
+  'lv_dbq':
+    volume_group: 'vg_nvme'
+    createfs:     false
+    size:         31G
+  'lv_dbr':
+    volume_group: 'vg_nvme'
+    createfs:     false
+    size:         31G
 
 profile::storage::cephosd::osds:
-  '/dev/sdc': {} # SSD
+  '/dev/sdb': # HDD
+    db_device:  'vg_cache/lv_dbb'
+    wal_device: false
+  '/dev/sdc': # HDD
+    db_device:  'vg_cache/lv_dbc'
+    wal_device: false
   '/dev/sdd': # HDD
     db_device:  'vg_cache/lv_dbd'
     wal_device: false
   '/dev/sde': # HDD
-    db_device:  'vg_cache/lv_dbe'
+    db_device:  'vg_nvme/lv_dbe'
     wal_device: false
   '/dev/sdf': # HDD
-    db_device:  'vg_cache/lv_dbf'
+    db_device:  'vg_nvme/lv_dbf'
     wal_device: false
   '/dev/sdg': # HDD
-    db_device:  'vg_cache/lv_dbg'
+    db_device:  'vg_nvme/lv_dbg'
     wal_device: false
   '/dev/sdh': # HDD
-    db_device:  'vg_cache/lv_dbh'
+    db_device:  'vg_nvme/lv_dbh'
+    wal_device: false
+  '/dev/sdi': # HDD
+    db_device:  'vg_nvme/lv_dbi'
+    wal_device: false
+  '/dev/sdj': # HDD
+    db_device:  'vg_nvme/lv_dbj'
+    wal_device: false
+  '/dev/sdk': # HDD
+    db_device:  'vg_nvme/lv_dbk'
+    wal_device: false
+  '/dev/sdl': # HDD
+    db_device:  'vg_nvme/lv_dbl'
+    wal_device: false
+  '/dev/sdm': # HDD
+    db_device:  'vg_nvme/lv_dbm'
+    wal_device: false
+  '/dev/sdo': # HDD
+    db_device:  'vg_nvme/lv_dbo'
+    wal_device: false
+  '/dev/sdp': # HDD
+    db_device:  'vg_nvme/lv_dbp'
+    wal_device: false
+  '/dev/sdq': # HDD
+    db_device:  'vg_nvme/lv_dbq'
+    wal_device: false
+  '/dev/sdr': # HDD
+    db_device:  'vg_nvme/lv_dbr'
     wal_device: false
