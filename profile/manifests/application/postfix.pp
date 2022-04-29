@@ -1,6 +1,7 @@
 #
 class profile::application::postfix (
   $relayhost        = undef,
+  $myhostname       = $::fqdn,
   $manage_postfix   = false,
   $manage_firewall  = true,
   $mynetworks       = "${::network_mgmt1}/${::cidr_mgmt1}",
@@ -32,6 +33,13 @@ class profile::application::postfix (
       path   => '/etc/postfix/main.cf',
       line   => "mynetworks = ${mynetworks}",
       match  => '^mynetworks\ \=',
+      notify => Service[$service_name]
+    }
+    file_line { 'main.cf_myhostname':
+      ensure => present,
+      path   => '/etc/postfix/main.cf',
+      line   => "myhostname = ${myhostname}",
+      match  => '^myhostname\ \=',
       notify => Service[$service_name]
     }
     file_line { 'main.cf_inet_interfaces':
