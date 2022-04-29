@@ -6,6 +6,9 @@ profile::base::login::oob_net:            "172.28.159.0/24"
 profile::base::login::oob_outiface:       'eth2'
 profile::base::login::oob_dhcrelay:       true
 
+profile::application::postfix::manage_postfix: true
+profile::application::postfix::relayhost:      'smtp.uib.no'
+
 # Himlar bootstrap
 profile::bootstrap::himlar::manage_bootstrap_scripts: true
 himlar_bootstrap::tftp_install:

@@ -8,6 +8,7 @@ include:
     - profile::application::rngd
     - profile::bootstrap::himlar
     - profile::network::nat
+    - profile::application::postfix
 
 # We need to define oob for login, but this should be overridden in location
 # with the correct oob interface where we use oob network
