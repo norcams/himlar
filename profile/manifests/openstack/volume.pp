@@ -14,7 +14,7 @@ class profile::openstack::volume(
   }
 
   if $manage_telemetry {
-    include ::cinder::ceilometer
+     include ::cinder #::ceilometer #FIXME
   }
 
   if $notify_service {
