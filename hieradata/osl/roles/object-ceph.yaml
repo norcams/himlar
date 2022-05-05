@@ -262,3 +262,6 @@ profile::storage::cephosd::osds:
   '/dev/sdr': # HDD
     db_device:  'vg_nvme/lv_dbr'
     wal_device: false
+  '/dev/vg_nvme/osd_nvme1': {} # NVMe partition
+  '/dev/vg_nvme/osd_nvme2': {} # NVMe partition
+  '/dev/vg_nvme/osd_nvme3': {} # NVMe partition
