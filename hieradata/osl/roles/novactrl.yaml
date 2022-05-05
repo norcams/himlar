@@ -68,4 +68,7 @@ profile::openstack::resource::host_aggregate:
     availability_zone: "%{::location}-default-1"
     metadata:
       type: 'robin'
-
+  numascale1:
+    availability_zone: "%{::location}-default-1"
+    metadata:
+      type: 'numascale'
