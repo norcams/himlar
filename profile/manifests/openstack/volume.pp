@@ -1,7 +1,7 @@
 #
 class profile::openstack::volume(
   $manage_rbd    = false,
-  $manage_telemetry = false,
+#  $manage_telemetry = false,
   $notify_service = false
 ) {
   include ::cinder
@@ -13,9 +13,9 @@ class profile::openstack::volume(
     include profile::storage::cephclient
   }
 
-  if $manage_telemetry {
-     include ::cinder #::ceilometer #FIXME
-  }
+#  if $manage_telemetry {
+#     include ::cinder::ceilometer #this class is removed
+#  }
 
   if $notify_service {
     # This will make sure httpd service will be restarted on config changes
