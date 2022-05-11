@@ -95,7 +95,7 @@ keystone::policy::policies:
     value:  'rule:admin_required'
 
 # cron
-keystone::cron::token_flush::maxdelay:    1800 # sek = 30 min
+keystone::cron::trust_flush::maxdelay:    1800 # sek = 30 min
 
 # logging
 keystone::logging::log_facility:  'LOG_LOCAL2'
