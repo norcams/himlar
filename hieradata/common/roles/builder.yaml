@@ -160,7 +160,7 @@ profile::application::builder::images:
     'min_disk':         3
     'username':         'fedora'
     'hour':             7
-    'hour':             20
+    'minute':           20
   'fedora_36':
     'image_name':       'IMAGEBUILDER Fedora 36'
     'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/36/Cloud/x86_64/images/'
@@ -170,8 +170,8 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         3
     'username':         'fedora'
-    'hour':             7
-    'hour':             20
+    'hour':             6
+    'minute':           10
   'rockylinux8':
     'image_name':       'IMAGEBUILDER RockyLinux 8'
     'url':              'https://dl.rockylinux.org/pub/rocky/8/images/'
