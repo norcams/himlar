@@ -39,6 +39,9 @@ profile::network::services::dhcp_reservation:
   bgo-spine-02:
     mac: '3c:2c:30:49:27:80'
     ip:  "%{hiera('netcfg_mgmt_net_c6')}.2"
+  bgo-leaf-06:
+    mac: 'f8:8e:a1:f5:41:a0'
+    ip:  "%{hiera('netcfg_mgmt_net_c5')}.2"
   bgo-torack-01:
     mac: '68:4f:64:b2:3c:11'
     ip:  '172.16.0.1'
@@ -258,6 +261,9 @@ profile::network::services::dhcp_reservation:
   bgo-compute-60-bmc:
     'mac': '2c:ea:7f:fb:4b:76'
     'ip':  '172.17.1.92'
+  bgo-compute-61-bmc:
+    'mac': 'ec:2a:72:01:84:ce'
+    'ip':  '172.17.1.122'
   bgo-controller-04-bmc:
     mac: 'b0:83:fe:e9:01:a5'
     ip:  '172.17.0.114'
