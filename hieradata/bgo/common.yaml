@@ -135,8 +135,8 @@ profile::dns::ns::public_zone2:  "bgo.%{hiera('profile::dns::ns::frontend_zone2'
 
 profile::network::services::dns_records:
   CNAME:
-    "%{::location}-leaf-v2-05.%{hiera('domain_mgmt')}":         "%{::location}-leaf-05.%{hiera('domain_mgmt')}":
-    "%{::location}-leaf-v2-06.%{hiera('domain_mgmt')}":         "%{::location}-leaf-06.%{hiera('domain_mgmt')}":
+    "%{::location}-leaf-v2-05.%{hiera('domain_mgmt')}":         "%{::location}-leaf-05.%{hiera('domain_mgmt')}"
+    "%{::location}-leaf-v2-06.%{hiera('domain_mgmt')}":         "%{::location}-leaf-06.%{hiera('domain_mgmt')}"
     "%{::location}-compute-alice-11.%{hiera('domain_mgmt')}":   "%{::location}-compute-11.%{hiera('domain_mgmt')}"
     "%{::location}-compute-alice-12.%{hiera('domain_mgmt')}":   "%{::location}-compute-12.%{hiera('domain_mgmt')}"
     "%{::location}-compute-alice-13.%{hiera('domain_mgmt')}":   "%{::location}-compute-13.%{hiera('domain_mgmt')}"
