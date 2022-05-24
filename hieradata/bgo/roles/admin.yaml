@@ -33,15 +33,15 @@ profile::network::services::dhcp_reservation:
   bgo-leaf-04:
     mac: '00:01:e8:d8:37:24'
     ip:  '172.16.0.4'
+  bgo-leaf-05:
+    mac: 'f8:8e:a1:f5:41:a0'
+    ip:  "%{hiera('netcfg_mgmt_net_c0')}.5"
   bgo-spine-01:
     mac: '3c:2c:30:49:2f:00'
     ip:  "%{hiera('netcfg_mgmt_net_c6')}.1"
   bgo-spine-02:
     mac: '3c:2c:30:49:27:80'
     ip:  "%{hiera('netcfg_mgmt_net_c6')}.2"
-  bgo-leaf-06:
-    mac: 'f8:8e:a1:f5:41:a0'
-    ip:  "%{hiera('netcfg_mgmt_net_c5')}.2"
   bgo-torack-01:
     mac: '68:4f:64:b2:3c:11'
     ip:  '172.16.0.1'
