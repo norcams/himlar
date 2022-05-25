@@ -302,12 +302,6 @@ class profile::base::network(
       create_resources(cumulus_bridge, lookup('profile::base::network::cumulus_bridges', Hash, 'deep', {}))
       create_resources(cumulus_bond, lookup('profile::base::network::cumulus_bonds', Hash, 'deep', {}))
 
-
-case $facts['operatingsystem']['operatingsystemmajrelease'] {
-    'RedHat', 'CentOS':  {
-         include role::redhat
-    }
-
       # Check for Cumulus Management VRF, enable if disabled
       case $::operatingsystemmajrelease {
         '2': {
@@ -326,8 +320,8 @@ case $facts['operatingsystem']['operatingsystemmajrelease'] {
         }
         '4': {
           service { 'ntp@mgmt':
-            ensure => running,
-            enable => true,
+            ensure => stopped,
+            enable => false,
           }
         }
         default: {
