@@ -90,7 +90,7 @@ mod 'theforeman/puppet', :ref => '14.0.0',          :git => github + 'theforeman
 mod 'puppetlabs/hocon', :ref => '1.0.0',            :git => github + 'puppetlabs/puppetlabs-hocon'
 mod 'puppetlabs/puppet_authorization', :ref => '0.4.0', :git => github + 'puppetlabs/puppetlabs-puppet_authorization'
 mod 'theforeman/dns', :ref => '8.0.0',              :git => github + 'theforeman/puppet-dns'
-mod 'theforeman/dhcp', :ref => '3.1.9-norcams',     :git => github + 'norcams/puppet-dhcp.git'
+mod 'theforeman/dhcp', :ref => '3.1.10-norcams',    :git => github + 'norcams/puppet-dhcp.git'
 mod 'theforeman/foreman_proxy', :ref => '15.1.0',   :git => github + 'theforeman/puppet-foreman_proxy.git'
 mod 'theforeman/git', :ref => '3.0.0',              :git => github + 'theforeman/puppet-git'
 mod 'voxpupuli/alternatives', :ref => 'v2.0.0',     :git => github + 'voxpupuli/puppet-alternatives'
