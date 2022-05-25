@@ -36,6 +36,9 @@ profile::network::services::dhcp_reservation:
   bgo-leaf-05:
     mac: 'f8:8e:a1:f5:41:a0'
     ip:  "%{hiera('netcfg_mgmt_net_c0')}.5"
+  bgo-leaf-06:
+    mac: 'f8:8e:a1:f5:21:a0'
+    ip:  "%{hiera('netcfg_mgmt_net_c0')}.6"
   bgo-spine-01:
     mac: '3c:2c:30:49:2f:00'
     ip:  "%{hiera('netcfg_mgmt_net_c6')}.1"
