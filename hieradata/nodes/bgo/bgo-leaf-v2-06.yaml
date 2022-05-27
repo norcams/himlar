@@ -17,3 +17,9 @@ profile::base::network::cumulus_interfaces:
     'ipv6': [ 'fd00::6/64', ]
     'virtual_ip': "%{hiera('netcfg_trp_net_c0')}.5/21 fd00::705/64"
     'virtual_mac': '00:00:5e:00:02:05'
+  'peerlink.4094':
+    'ipv4': [ '172.18.227.6/24', ]
+    'ipv6': [ 'fd00:18:227::6/64', ]
+    'clagd_enable': true
+    'clagd_peer_ip': '172.18.227.5'
+    'clagd_sys_mac': '44:38:39:ff:bb:5d'
