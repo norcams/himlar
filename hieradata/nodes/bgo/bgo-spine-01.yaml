@@ -39,11 +39,11 @@ profile::base::network::cumulus_interfaces:
     'mtu':   '9178'
   'swp28s2':
     'mtu':   '9178'
-  'swp30':
-    'ipv4':  '129.177.54.26/30'
-    'ipv6':  '2001:700:200:1027::/127'
-    'mtu':   '9178'
-    'link_autoneg': 'on'
+#  'swp30':
+#    'ipv4':  '129.177.54.26/30'
+#    'ipv6':  '2001:700:200:1027::/127'
+#    'mtu':   '9178'
+#    'link_autoneg': 'on'
 
 #profile::network::leaf::switchd_conf:
 #  'acl.non_atomic_update_mode':
