@@ -141,6 +141,12 @@ profile::base::network::cumulus_bonds:
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', ]
     'mtu': '9216'
+  'uplink':
+    'slaves': [ 'swp29', 'swp30', ]
+    'clag_id': '1004'
+    'pvid': '100'
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
 
 # Edgecore as7726 needs explicit config
 profile::network::leaf::cumulus_portconfigs:

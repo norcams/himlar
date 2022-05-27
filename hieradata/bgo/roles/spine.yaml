@@ -158,6 +158,12 @@ profile::base::network::cumulus_bonds:
     'vids': [ '924', '927', ]
     'mstpctl_portbpdufilter': true
     'mtu': '9216'
+  'downlinkl0506':
+    'slaves': [ 'swp29-30', ]
+    'clag_id': '1004'
+    'pvid': '100'
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
   'host1':
     'slaves': [ 'swp1s0', ]
     'clag_id': '1'
