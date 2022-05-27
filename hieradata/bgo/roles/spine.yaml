@@ -89,13 +89,13 @@ profile::network::leaf::cumulus_portconfigs:
   19:
     line:  "19=4x25G"
   20:
-    line:  "19=4x25G"
+    line:  "20=4x25G"
   21:
-    line:  "19=4x25G"
+    line:  "21=4x25G"
   22:
-    line:  "19=4x25G"
+    line:  "22=4x25G"
   23:
-    line:  "19=4x25G"
+    line:  "23=4x25G"
   24:
     line:  "24=40G" # leaf-01-02 - uinett LHC
   25:
@@ -107,9 +107,9 @@ profile::network::leaf::cumulus_portconfigs:
   28:
     line:  "28=4x10G" # new uplink uninett
   29:
-    line:  "29=100G" # old uplinks to torack not in use
+    line:  "29=100G" # leaf-05-06
   30:
-    line:  "30=100G" # old uplinks to torack not in use
+    line:  "30=100G" # leaf-05-06
 
 profile::base::network::cumulus_interfaces:
   'swp24':
