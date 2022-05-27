@@ -124,10 +124,10 @@ profile::base::network::cumulus_interfaces:
   'swp27':
     'speed': '40000'
     'mtu':   '9216'
-  'swp29':
-    'speed': '40000'
-    'fec':   'baser'
-    'mtu':   '9216'
+#  'swp29':
+#    'speed': '40000'
+#    'fec':   'baser'
+#    'mtu':   '9216'
 
 profile::base::network::cumulus_bonds:
   'peerlink':
@@ -742,6 +742,118 @@ profile::base::network::cumulus_bonds:
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', ]
     'mtu': '9216'
+  'host77':
+    'slaves': [ 'swp20s0', ]
+    'clag_id': '77'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host78':
+    'slaves': [ 'swp20s1', ]
+    'clag_id': '78'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host79':
+    'slaves': [ 'swp20s2', ]
+    'clag_id': '79'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host80':
+    'slaves': [ 'swp20s3', ]
+    'clag_id': '80'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host81':
+    'slaves': [ 'swp21s0', ]
+    'clag_id': '81'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host82':
+    'slaves': [ 'swp21s1', ]
+    'clag_id': '82'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host83':
+    'slaves': [ 'swp21s2', ]
+    'clag_id': '83'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host84':
+    'slaves': [ 'swp21s3', ]
+    'clag_id': '84'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host85':
+    'slaves': [ 'swp22s0', ]
+    'clag_id': '85'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host86':
+    'slaves': [ 'swp22s1', ]
+    'clag_id': '86'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host87':
+    'slaves': [ 'swp22s2', ]
+    'clag_id': '87'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host88':
+    'slaves': [ 'swp22s3', ]
+    'clag_id': '88'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host89':
+    'slaves': [ 'swp23s0', ]
+    'clag_id': '89'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host90':
+    'slaves': [ 'swp23s1', ]
+    'clag_id': '90'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
 
 profile::base::network::cumulus_bridges:
   'bridge':
@@ -819,6 +931,20 @@ profile::base::network::cumulus_bridges:
       - host74
       - host75
       - host76
+      - host77
+      - host78
+      - host79
+      - host80
+      - host81
+      - host82
+      - host83
+      - host84
+      - host85
+      - host86
+      - host87
+      - host88
+      - host89
+      - host90
       - peerlink
       - downlinkl0102
       - downlinkl0304
