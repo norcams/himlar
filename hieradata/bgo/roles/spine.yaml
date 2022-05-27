@@ -954,6 +954,7 @@ profile::base::network::cumulus_bridges:
       - peerlink
       - downlinkl0102
       - downlinkl0304
+      - downlinkl0506
       - uib_dc
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
@@ -1119,6 +1120,8 @@ frrouting::frrouting::zebra_interfaces:
   'swp25':
     - 'link-detect'
   'swp28s0':
+    - 'link-detect'
+  'swp29':
     - 'link-detect'
   'swp30':
     - 'link-detect'
