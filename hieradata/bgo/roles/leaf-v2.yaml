@@ -160,4 +160,8 @@ profile::base::network::cumulus_bridges:
     'ports':
       - host73
       - peerlink
-
+    'alias_name': 'Transport L2 if'
+    'vlan_aware': 'true'
+    'stp': 'true'
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
