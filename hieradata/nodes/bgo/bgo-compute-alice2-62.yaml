@@ -1,0 +1,21 @@
+---
+profile::base::lvm::physical_volume:
+  '/dev/sdb4':
+    ensure: present
+    force:  true
+  '/dev/sda':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_ext':
+    physical_volumes:
+      - /dev/sda
+profile::base::lvm::logical_volume:
+  'lv_instances':
+    volume_group: 'vg_ext'
+    fs_type:      "xfs"
+    mountpath:    "/var/lib/nova/instances"
+
+# Ensure that the BOSS device is the last device
+profile::base::physical::load_ahci_last: true
+profile::base::physical::load_ahci_last_scsidrv: 'megaraid_sas'
