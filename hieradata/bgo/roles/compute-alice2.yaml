@@ -52,12 +52,12 @@ profile::base::lvm::physical_volume:
     ensure: present
     force:  true
 profile::base::lvm::volume_group:
-  'vg_instances':
+  'vg_ext':
     physical_volumes:
       - /dev/nvme0n1
 profile::base::lvm::logical_volume:
   'lv_instances':
-    volume_group: 'vg_instances'
+    volume_group: 'vg_ext'
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
 
