@@ -94,7 +94,7 @@ class profile::base::physical (
   }
 
   # older versions of the Foreman cannot chainload alma - so we just emulate centos
-  if $efi_workaround and ($::operatingsystem == 'AlmaLinux') {
+  if $efi_workaround and ($::operatingsystem == 'AlmaLinux') and ($enable_hugepages != true ) {
     exec { 'efi_workaround':
       command => 'cp -r /boot/efi/EFI/almalinux /boot/efi/EFI/centos',
       path    => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
@@ -122,6 +122,13 @@ class profile::base::physical (
     kernel_parameter { 'transparent_hugepage':
       ensure => present,
       value  => 'never'
+    }
+    if $efi_workaround and ($::operatingsystem == 'AlmaLinux') {
+      exec { 'efi_workaround_refresh':
+        command     => 'rsync -Hav /boot/efi/EFI/almalinux/* /boot/efi/EFI/centos',
+        path        => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
+        unless  => 'test -d /boot/efi/EFI/centos',
+      }
     }
   }
 
