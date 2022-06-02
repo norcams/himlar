@@ -125,9 +125,9 @@ class profile::base::physical (
     }
     if $efi_workaround and ($::operatingsystem == 'AlmaLinux') {
       exec { 'efi_workaround_refresh':
-        command     => 'rsync -Hav /boot/efi/EFI/almalinux/* /boot/efi/EFI/centos',
+        command     => 'cp -r /boot/efi/EFI/almalinux /boot/efi/EFI/centos',
         path        => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
-        unless  => 'test -d /boot/efi/EFI/centos',
+        unless      => 'test -d /boot/efi/EFI/centos',
       }
     }
   }
