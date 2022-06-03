@@ -137,6 +137,8 @@ profile::storage::cephpool_params::pools:
   'volumes_ssd_ec_data':
     application_enable: 'rbd'
     replicas_min_size:  '9'
+  'cephfs_internal_data_ec':
+    replicas_min_size:  '9'
 
 profile::base::common::extraswap:         true
 profile::base::common::extraswap_sizegb:  20
