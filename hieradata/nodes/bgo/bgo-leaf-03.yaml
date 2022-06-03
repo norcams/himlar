@@ -72,7 +72,7 @@ profile::base::network::cumulus_bridges:
 
 profile::base::network::cumulus_bonds:
   'peerlink':
-    'slaves': [ 'swp49', 'swp50', ]
+    'slaves': [ 'swp50', ]
     'mtu': '9216'
   'uplink':
     'slaves': [ 'swp51', 'swp52', ]
