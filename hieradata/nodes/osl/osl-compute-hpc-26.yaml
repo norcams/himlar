@@ -1,7 +1,7 @@
 ---
 named_interfaces::config:
   mgmt:
-  - enp49s0f0
+  - p2049p1
   trp:
   - team1
   live:
@@ -9,10 +9,10 @@ named_interfaces::config:
 
 profile::base::network::network_auto_bonding:
   trp:
-    enp50s0f0:
+    eth0:
       'team_port_config': '{ "prio" : 100 }'
 #      'mtu': '9000'
-    enp50s0f1d1:
+    eth1:
       'team_port_config': '{ "prio" : 100 }'
 #      'mtu': '9000'
 
