@@ -133,6 +133,94 @@ profile::base::network::cumulus_bonds:
   'peerlink':
     'slaves': [ 'swp31-32', ]
     'mtu':   '9216'
+  'host49':
+    'slaves': [ 'swp13s0', ]
+    'clag_id': '49'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host50':
+    'slaves': [ 'swp13s1', ]
+    'clag_id': '50'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host51':
+    'slaves': [ 'swp13s2', ]
+    'clag_id': '51'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host52':
+    'slaves': [ 'swp13s3', ]
+    'clag_id': '52'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host53':
+    'slaves': [ 'swp14s0', ]
+    'clag_id': '53'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host54':
+    'slaves': [ 'swp14s1', ]
+    'clag_id': '54'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host55':
+    'slaves': [ 'swp14s2', ]
+    'clag_id': '55'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host56':
+    'slaves': [ 'swp14s3', ]
+    'clag_id': '56'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host57':
+    'slaves': [ 'swp15s0', ]
+    'clag_id': '57'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host58':
+    'slaves': [ 'swp15s1', ]
+    'clag_id': '58'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host59':
+    'slaves': [ 'swp15s2', ]
+    'clag_id': '59'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
   'host73':
     'slaves': [ 'swp19s0', ]
     'clag_id': '73'
@@ -302,6 +390,12 @@ profile::base::network::cumulus_bonds:
 
 # Edgecore as7726 needs explicit config
 profile::network::leaf::cumulus_portconfigs:
+  13:
+    line:  "13=4x25G"
+  14:
+    line:  "14=4x25G"
+  15:
+    line:  "15=4x25G"
   19:
     line:  "19=4x25G"
   20:
@@ -324,6 +418,17 @@ profile::network::leaf::cumulus_portconfigs:
 profile::base::network::cumulus_bridges:
   'bridge':
     'ports':
+      - host49
+      - host50
+      - host51
+      - host52
+      - host53
+      - host54
+      - host55
+      - host56
+      - host57
+      - host58
+      - host59
       - host73
       - host74
       - host75
@@ -359,6 +464,24 @@ frrouting::frrouting::zebra_interfaces:
   'bridge.100':
     - 'link-detect'
     - 'description linux-bridge-100'
+  'host49':
+    - 'link-detect'
+  'host50':
+    - 'link-detect'
+  'host51':
+    - 'link-detect'
+  'host52':
+    - 'link-detect'
+  'host53':
+    - 'link-detect'
+  'host54':
+    - 'link-detect'
+  'host57':
+    - 'link-detect'
+  'host58':
+    - 'link-detect'
+  'host59':
+    - 'link-detect'
   'host73':
     - 'link-detect'
   'host74':
