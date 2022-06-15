@@ -162,10 +162,6 @@ profile::base::lvm::logical_volume:
     fs_type:      xfs
     size:         40G
     mountpath:    "/var/lib/swap"
-  'lv_dba':
-    volume_group: 'vg_cache1'
-    createfs:     false
-    size:         80G
   'lv_dbb':
     volume_group: 'vg_cache1'
     createfs:     false
@@ -183,7 +179,7 @@ profile::base::lvm::logical_volume:
     createfs:     false
     size:         80G
   'lv_dbf':
-    volume_group: 'vg_cache2'
+    volume_group: 'vg_cache1'
     createfs:     false
     size:         80G
   'lv_dbg':
@@ -223,6 +219,10 @@ profile::base::lvm::logical_volume:
     createfs:     false
     size:         80G
   'lv_dbp':
+    volume_group: 'vg_cache2'
+    createfs:     false
+    size:         80G
+  'lv_dbq':
     volume_group: 'vg_cache2'
     createfs:     false
     size:         80G
