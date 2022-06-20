@@ -515,6 +515,10 @@ profile::base::network::cumulus_bridges:
       - host44
       - host45
       - host46
+      - host49
+      - host50
+      - host51
+      - host52
       - peerlink
       - downlink
     'alias_name': 'Transport L2 if'
@@ -621,6 +625,14 @@ frrouting::frrouting::zebra_interfaces:
   'host45':
     - 'link-detect'
   'host46':
+    - 'link-detect'
+  'host49':
+    - 'link-detect'
+  'host50':
+    - 'link-detect'
+  'host51':
+    - 'link-detect'
+  'host52':
     - 'link-detect'
 
 frrouting::frrouting::zebra_generic_options:
