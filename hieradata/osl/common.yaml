@@ -161,6 +161,12 @@ profile::network::services::dns_records:
     "%{::location}-compute-hpc-26.%{hiera('domain_mgmt')}": "%{::location}-compute-26.%{hiera('domain_mgmt')}"
     "%{::location}-compute-hpc-27.%{hiera('domain_mgmt')}": "%{::location}-compute-27.%{hiera('domain_mgmt')}"
     "%{::location}-compute-hpc-28.%{hiera('domain_mgmt')}": "%{::location}-compute-28.%{hiera('domain_mgmt')}"
+    # SHPC
+    "%{::location}-compute-shpc-52.%{hiera('domain_mgmt')}": "%{::location}-compute-52.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-shpc-53.%{hiera('domain_mgmt')}": "%{::location}-compute-53.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-shpc-54.%{hiera('domain_mgmt')}": "%{::location}-compute-54.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-shpc-55.%{hiera('domain_mgmt')}": "%{::location}-compute-55.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-shpc-56.%{hiera('domain_mgmt')}": "%{::location}-compute-56.%{hiera('domain_mgmt')}"
     # GPU
     "%{::location}-compute-vgpu-17.%{hiera('domain_mgmt')}": "%{::location}-compute-17.%{hiera('domain_mgmt')}"
     "%{::location}-compute-vgpu-19.%{hiera('domain_mgmt')}": "%{::location}-compute-19.%{hiera('domain_mgmt')}"
