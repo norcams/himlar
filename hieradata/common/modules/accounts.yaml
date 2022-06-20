@@ -39,6 +39,9 @@ accounts::ssh_keys:
   'lennart_home':
     type:    'ssh-rsa'
     public:  'AAAAB3NzaC1yc2EAAAADAQABAAABAQCqvQyzfAGDH/sd9qNXELuvrgnnRASr4t8hSoqLBYt3Zatn4iieCHZvJ2gElejl2h2hgsAS5QZvBiTKRlFsGPW9lc3IaMU0Obb23y4AYf0PGE9XfZT6pruUwYqGMLhjuI/yG+bQmhvkvI/cwaCmeUS0gXOi1CnfnH20KWS6qZyWbBD+oEVqrvY5PFLkM1dqi6zuuFUv/q8gcfgeT1gANkKNv4VVrZT40I2Mx2ZWSmAangfTmAcd4G2++WN2MLAlzBvQvMK47XS2r1BAaQMaTM7Gk9JzhDRgSsFgs+wPPaUaR5RpxGvIWMUNXw+O5gIGZDX45j4n6drmn70hmJgZzeyT'
+  'terjef'
+    type:    'ed25519'
+    public:  'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPCU5/efR3287krIsMN3YK9Ct1JwLI9HD0MWr0JbWojM terje@uibdelljobb'
 
 accounts::users:
 #  'hege':
@@ -71,6 +74,9 @@ accounts::users:
   'lennart':
     comment: 'lennart@norcams'
     groups: [ 'users', 'wheel' ]
+  'terjef'
+    comment: 'terjef@norcams'
+    groups: [ 'users', 'wheel']
     
 accounts::accounts:
   'iaas':
