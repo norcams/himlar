@@ -1,6 +1,10 @@
 ---
 profile::base::common::extraswap_fileloc: '/var/lib/swap/swapfile'
 
+# Ensure that the BOSS device is the first device
+profile::base::physical::load_ahci_first: true
+profile::base::physical::load_ahci_first_scsidrv: 'megaraid_sas'
+
 profile::base::lvm::physical_volume:
   '/dev/sda4':
     ensure: present
