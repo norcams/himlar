@@ -1,0 +1,331 @@
+---
+named_interfaces::config:
+  mgmt:
+    - p4p4
+  transport:
+    - team1
+  trp:
+    - team1
+  ceph:
+    - team1.110
+
+profile::base::network::network_auto_opts:
+  trp:
+    'defroute': 'no'
+    'devicetype': 'Team'
+    'mtu': '9000'
+    'team_config': >-
+                   { "runner" : {  "name" : "lacp",  "active": true, "fast_rate" : true,
+                   "tx_hash": ["eth", "ipv4", "ipv6"], "tx_balancer": { "name": "basic" } },
+                   "link_watch" : {  "name" : "ethtool" } }
+  ceph:
+    'defroute': 'no'
+
+profile::base::network::network_auto_bonding:
+  trp:
+    em1:
+      'team_port_config': '{ "prio" : 100 }'
+      'mtu': '9000'
+    em2:
+      'team_port_config': '{ "prio" : 100 }'
+      'mtu': '9000'
+
+# TEMP while upgrading
+profile::base::common::manage_lvm:                  true
+profile::base::lvm::create_lvm:                     true
+profile::storage::cephosd::create_osds:             false
+profile::storage::cephosd::crush_move:              false
+profile::storage::cephpool::manage_ec_pools:        false
+profile::storage::cephpool::manage_cephpool_params: false
+
+profile::storage::cephosd::crush_parent:      'dcache'
+profile::storage::cephosd::crush_parent_type: 'pod'
+
+#profile::base::common::manage_lvm: false
+#profile::base::lvm::create_lvm:    false
+
+# Ensure that the BOSS device is the first device
+profile::base::physical::load_ahci_first: true
+profile::base::physical::load_ahci_first_scsidrv: 'mpt3sas'
+
+# sensu overrides
+sensu__memory__check:     "check-memory.rb -w 2048 -c 1024"
+
+profile::storage::cephclient::create_extraconf: true
+profile::storage::ceph_extraconf::config:
+  osd_memory_target:
+    'config_key'  : "osd/osd_memory_target"
+    'config_value': "5368709120"
+  osd_max_scrubs:
+    'config_key'  : "osd/osd_max_scrubs"
+    'config_value': "2"
+  osd_deep_scrub_interval:
+    'config_key'  : "osd/osd_deep_scrub_interval"
+    'config_value': "2419200.000000"
+  osd scrub max interval:
+    'config_key'  : "osd/osd_scrub_max_interval"
+    'config_value': "2419200.000000"
+  osd_recovery_max_active:
+    'config_key'  : "osd/osd_recovery_max_active"
+    'config_value': "3" # default value
+  osd_max_backfills:
+    'config_key'  : "osd/osd_max_backfills"
+    'config_value': "1" # default value
+  osd_scrub_priority:
+    'config_key'  : "osd/osd_scrub_priority"
+    'config_value': "1"
+  osd_scrub_sleep:
+    'config_key'  : "osd/osd_scrub_sleep"
+    'config_value': "0.5"
+  osd_scrub_chunk_min:
+    'config_key'  : "osd/osd_scrub_chunk_min"
+    'config_value': "1"
+  osd_scrub_chunk_max:
+    'config_key'  : "osd/osd_scrub_chunk_max"
+    'config_value': "5"
+
+#profile::storage::ceph_ecpool::ec_pools:
+#  'dcache_hdd_ec_data':
+#    manage:              true
+#    allow_ec_overwrites: true
+#    k_data:              "10"
+#    m_code:              "3"
+#    crush_root:          "dcache"
+#  'dcache_hdd_ec_data8':
+#    pg_num:              "2048"
+#    manage:              true
+#    allow_ec_overwrites: true
+#    k_data:              "8"
+#    m_code:              "2"
+#    crush_root:          "dcache"
+#    plugin:              "isa"
+#    technique:           "reed_sol_van"
+
+profile::storage::ceph::pool::pools:
+  'rbd':
+    ensure: absent
+#  'dcache_hdd_ec_meta':
+#    size:    3
+#    pg_num:  16
+#    tag:     'rbd'
+#    custom:
+#      crush_rule: 'ssd-storage'
+#      nodelete:   'true'
+#      min_size:   '2'
+#  'dcache_hdd_ec_meta8':
+#    size:    3
+#    pg_num:  16
+#    tag:    'rbd'
+#    custom:
+#      crush_rule: 'ssd-storage'
+#      nodelete:   'true'
+#      min_size:   '2'
+#  'dcache_hdd_ec_data':
+#    custom:
+#      deep_scrub_interval: '1.93536e+07' # every 32 weeks - overrides osd setting
+#      scrub_max_interval:  '2.4192e+06'  # normal scrub at least every 4 weeks - overrides osd setting
+#      scrub_min_interval:  '604800'      # minimum one week between each scrub
+#      fast_read:           '1'           # read all k+m for read, trade bandwith for lower latency
+#  'dcache_hdd_ec_data8':
+#    custom:
+#      deep_scrub_interval: '1.93536e+07' # every 32 weeks - overrides osd setting
+#      scrub_max_interval:  '2.4192e+06'  # normal scrub at least every 4 weeks - overrides osd setting
+#      scrub_min_interval:  '604800'      # minimum one week between each scrub
+#      fast_read:           '1'           # read all k+m for read, trade bandwith for lower latency
+profile::storage::ceph::pool::ec_pools:
+  'placeholder':
+    manage: false
+
+#profile::storage::cephpool_params::pools:
+#  'dcache_hdd_ec_data':
+#    application_enable: 'rbd'
+#    replicas_min_size:  '11'
+#  'dcache_hdd_ec_data8':
+#    application_enable: 'rbd'
+#    replicas_min_size:  '9'
+
+profile::base::common::extraswap:         true
+profile::base::common::extraswap_sizegb:  20
+profile::base::common::extraswap_fileloc: '/var/lib/swap/swapfile'
+
+# Disable write cache on osd cache disks
+profile::base::disk::manage_hdparm: true
+profile::base::disk::disk_hdparams:
+  '/dev/sdq': { hdparams: '-W0', }
+  '/dev/sdr': { hdparams: '-W0', }
+
+profile::base::lvm::volume_group:
+  'vg_swap':
+    physical_volumes:
+      - /dev/sda4
+  'vg_cache1':
+    physical_volumes:
+      - /dev/sdn
+  'vg_cache2':
+    physical_volumes:
+      - /dev/sdo
+profile::base::lvm::logical_volume:
+  'lv_swap2':
+    volume_group: 'vg_swap'
+    fs_type:      xfs
+    size:         40G
+    mountpath:    "/var/lib/swap"
+  'lv_dbb':
+    volume_group: 'vg_cache1'
+    createfs:     false
+    size:         50G
+  'lv_dbc':
+    volume_group: 'vg_cache1'
+    createfs:     false
+    size:         50G
+  'lv_dbd':
+    volume_group: 'vg_cache1'
+    createfs:     false
+    size:         50G
+  'lv_dbe':
+    volume_group: 'vg_cache1'
+    createfs:     false
+    size:         50G
+  'lv_dbf':
+    volume_group: 'vg_cache1'
+    createfs:     false
+    size:         50G
+  'lv_dbg':
+    volume_group: 'vg_cache1'
+    createfs:     false
+    size:         50G
+  'lv_dbh':
+    volume_group: 'vg_cache1'
+    createfs:     false
+    size:         50G
+  'lv_dbi':
+    volume_group: 'vg_cache1'
+    createfs:     false
+    size:         50G
+  'lv_dbj':
+    volume_group: 'vg_cache2'
+    createfs:     false
+    size:         50G
+  'lv_dbk':
+    volume_group: 'vg_cache2'
+    createfs:     false
+    size:         50G
+  'lv_dbl':
+    volume_group: 'vg_cache2'
+    createfs:     false
+    size:         50G
+  'lv_dbm':
+    volume_group: 'vg_cache2'
+    createfs:     false
+    size:         50G
+  'lv_dbp':
+    volume_group: 'vg_cache2'
+    createfs:     false
+    size:         50G
+  'lv_dbq':
+    volume_group: 'vg_cache2'
+    createfs:     false
+    size:         50G
+  'lv_dbr':
+    volume_group: 'vg_cache2'
+    createfs:     false
+    size:         50G
+  'lv_dbs':
+    volume_group: 'vg_cache2'
+    createfs:     false
+    size:         50G
+profile::base::lvm::physical_volume:
+  '/dev/sdn':
+    ensure: present
+    force:  true
+  '/dev/sdo':
+    ensure: present
+    force:  true
+
+profile::storage::cephosd::osds:
+  '/dev/sdb':
+    wal_device: false
+    db_device:  'vg_cache1/lv_dbb'
+  '/dev/sdc':
+    wal_device: false
+    db_device:  'vg_cache1/lv_dbc'
+  '/dev/sdd':
+    wal_device: false
+    db_device:  'vg_cache1/lv_dbd'
+  '/dev/sde':
+    wal_device: false
+    db_device:  'vg_cache1/lv_dbe'
+  '/dev/sdf':
+    wal_device: false
+    db_device:  'vg_cache1/lv_dbf'
+  '/dev/sdg':
+    wal_device: false
+    db_device:  'vg_cache1/lv_dbg'
+  '/dev/sdh':
+    wal_device: false
+    db_device:  'vg_cache1/lv_dbh'
+  '/dev/sdi':
+    wal_device: false
+    db_device:  'vg_cache1/lv_dbi'
+  '/dev/sdj':
+    wal_device: false
+    db_device:  'vg_cache2/lv_dbj'
+  '/dev/sdk':
+    wal_device: false
+    db_device:  'vg_cache2/lv_dbk'
+  '/dev/sdl':
+    wal_device: false
+    db_device:  'vg_cache2/lv_dbl'
+  '/dev/sdm':
+    wal_device: false
+    db_device:  'vg_cache2/lv_dbm'
+  '/dev/sdp':
+    wal_device: false
+    db_device:  'vg_cache2/lv_dbp'
+  '/dev/sdq':
+    wal_device: false
+    db_device:  'vg_cache2/lv_dbq'
+  '/dev/sdr':
+    wal_device: false
+    db_device:  'vg_cache2/lv_dbr'
+  '/dev/sds':
+    wal_device: false
+    db_device:  'vg_cache2/lv_dbs'
+
+# Sensu
+sudo::configs:
+  sensu_tty:
+    priority: 20
+    content:  'Defaults:sensu !requiretty'
+  sensu:
+    priority: 25
+    content:  'sensu ALL=(ALL) NOPASSWD: /opt/sensu/embedded/bin/check-smart.rb'
+
+profile::monitoring::sensu::agent::checks:
+  'check-smart':
+    command:      "/usr/bin/sudo /opt/sensu/embedded/bin/check-smart.rb"
+    interval:     3600
+    subscribers:  ['checks']
+  'metrics-netif':
+    type:         'metric'
+    command:      'metrics-netif.rb --scheme network.%{::hostname}'
+    interval:     60
+    subscribers:  ['metrics']
+    handlers:     ['graphite_tcp']
+  'metrics-disk':
+    type:         'metric'
+    command:      'metrics-disk.rb --scheme disk.%{::hostname} -I sd[a-z]$'
+    interval:     60
+    subscribers:  ['metrics']
+    handlers:     ['graphite_tcp']
+
+profile::monitoring::sensu::agent::plugin_gems:
+  sensu-plugins-himlar:
+    ensure:   '0.4.0'
+    provider: 'sensuclassic_gem'
+    source:   'http://download.iaas.uio.no/uh-iaas/gem'
+
+profile::monitoring::sensu::agent::plugins:
+  sensu-plugins-network-checks:
+    type:         package
+    pkg_version:  '4.1.1'
