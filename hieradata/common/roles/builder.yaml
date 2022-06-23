@@ -215,10 +215,10 @@ profile::application::builder::images:
     'flavor':           'm1.small'
     'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
     'hour':             10
-  'ubuntu_2110':
-    'image_name':       'IMAGEBUILDER Ubuntu 21.10'
-    'url':              'https://cloud-images.ubuntu.com/impish/current/'
-    'latest':           'impish-server-cloudimg-amd64.img'
+  'ubuntu_2204':
+    'image_name':       'IMAGEBUILDER Ubuntu 22.04'
+    'url':              'https://cloud-images.ubuntu.com/jammy/current/'
+    'latest':           'jammy-server-cloudimg-amd64.img'
     'checksum_file':    'SHA256SUMS'
     'checksum':         'sha256'
     'min_ram':          768
@@ -275,7 +275,7 @@ profile::monitoring::sensu::agent::expanded_checks:
   - 'ubuntu_1804'
   - 'ubuntu_2004'
   - 'ubuntu_2004_nv_vgpu'
-  - 'ubuntu_2110'
+  - 'ubuntu_2204'
   - 'uio_rhel7'
   - 'uio_rhel8'
 
