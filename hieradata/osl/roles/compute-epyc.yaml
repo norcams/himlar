@@ -5,6 +5,9 @@ profile::base::common::extraswap_fileloc: '/var/lib/swap/swapfile'
 profile::base::physical::load_ahci_first: true
 profile::base::physical::load_ahci_first_scsidrv: 'megaraid_sas'
 
+# Do not use ceph cluster for instance disk
+nova::compute::rbd::ephemeral_storage: false
+
 profile::base::lvm::physical_volume:
   '/dev/sda4':
     ensure: present
