@@ -8,6 +8,13 @@ profile::base::physical::load_ahci_first_scsidrv: 'megaraid_sas'
 # Do not use ceph cluster for instance disk
 nova::compute::rbd::ephemeral_storage: false
 
+# Nova overrides
+nova::compute::libvirt::libvirt_cpu_model:       'EPYC'
+nova::cpu_allocation_ratio:                      '8'
+nova::disk_allocation_ratio:                     '2'
+nova::ram_allocation_ratio:                      '1.4'
+nova::scheduler::filter::max_instances_per_host: '20'
+
 profile::base::lvm::physical_volume:
   '/dev/sda4':
     ensure: present
