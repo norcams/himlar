@@ -1,4 +1,14 @@
 ---
+named_interfaces::config:
+  mgmt:
+    - p4p4
+  transport:
+    - team1
+  trp:
+    - team1
+  ceph:
+    - team1.110
+
 profile::base::network::network_auto_opts:
   trp:
     'defroute': 'no'
@@ -13,12 +23,20 @@ profile::base::network::network_auto_opts:
 
 profile::base::network::network_auto_bonding:
   trp:
-    p4p1:
+    em1:
       'team_port_config': '{ "prio" : 100 }'
       'mtu': '9000'
-    p4p2:
+    em2:
       'team_port_config': '{ "prio" : 100 }'
       'mtu': '9000'
+
+# TEMP while upgrading
+profile::base::common::manage_lvm:                  true
+profile::base::lvm::create_lvm:                     true
+profile::storage::cephosd::create_osds:             false
+profile::storage::cephosd::crush_move:              false
+profile::storage::cephpool::manage_ec_pools:        false
+profile::storage::cephpool::manage_cephpool_params: false
 
 profile::storage::cephosd::crush_parent:      'dcache'
 profile::storage::cephosd::crush_parent_type: 'pod'
@@ -66,15 +84,13 @@ profile::storage::ceph_extraconf::config:
     'config_key'  : "osd/osd_scrub_chunk_max"
     'config_value': "5"
 
-profile::storage::cephpool::manage_ec_pools: true
-
-profile::storage::ceph_ecpool::ec_pools:
-  'dcache_hdd_ec_data':
-    manage:              true
-    allow_ec_overwrites: true
-    k_data:              "10"
-    m_code:              "3"
-    crush_root:          "dcache"
+#profile::storage::ceph_ecpool::ec_pools:
+#  'dcache_hdd_ec_data':
+#    manage:              true
+#    allow_ec_overwrites: true
+#    k_data:              "10"
+#    m_code:              "3"
+#    crush_root:          "dcache"
 #  'dcache_hdd_ec_data8':
 #    pg_num:              "2048"
 #    manage:              true
@@ -88,28 +104,28 @@ profile::storage::ceph_ecpool::ec_pools:
 profile::storage::ceph::pool::pools:
   'rbd':
     ensure: absent
-  'dcache_hdd_ec_meta':
-    size:    3
-    pg_num:  16
-    tag:     'rbd'
-    custom:
-      crush_rule: 'ssd-storage'
-      nodelete:   'true'
-      min_size:   '2'
-  'dcache_hdd_ec_meta8':
-    size:    3
-    pg_num:  16
-    tag:    'rbd'
-    custom:
-      crush_rule: 'ssd-storage'
-      nodelete:   'true'
-      min_size:   '2'
-  'dcache_hdd_ec_data':
-    custom:
-      deep_scrub_interval: '1.93536e+07' # every 32 weeks - overrides osd setting
-      scrub_max_interval:  '2.4192e+06'  # normal scrub at least every 4 weeks - overrides osd setting
-      scrub_min_interval:  '604800'      # minimum one week between each scrub
-      fast_read:           '1'           # read all k+m for read, trade bandwith for lower latency
+#  'dcache_hdd_ec_meta':
+#    size:    3
+#    pg_num:  16
+#    tag:     'rbd'
+#    custom:
+#      crush_rule: 'ssd-storage'
+#      nodelete:   'true'
+#      min_size:   '2'
+#  'dcache_hdd_ec_meta8':
+#    size:    3
+#    pg_num:  16
+#    tag:    'rbd'
+#    custom:
+#      crush_rule: 'ssd-storage'
+#      nodelete:   'true'
+#      min_size:   '2'
+#  'dcache_hdd_ec_data':
+#    custom:
+#      deep_scrub_interval: '1.93536e+07' # every 32 weeks - overrides osd setting
+#      scrub_max_interval:  '2.4192e+06'  # normal scrub at least every 4 weeks - overrides osd setting
+#      scrub_min_interval:  '604800'      # minimum one week between each scrub
+#      fast_read:           '1'           # read all k+m for read, trade bandwith for lower latency
 #  'dcache_hdd_ec_data8':
 #    custom:
 #      deep_scrub_interval: '1.93536e+07' # every 32 weeks - overrides osd setting
@@ -120,13 +136,13 @@ profile::storage::ceph::pool::ec_pools:
   'placeholder':
     manage: false
 
-profile::storage::cephpool_params::pools:
-  'dcache_hdd_ec_data':
-    application_enable: 'rbd'
-    replicas_min_size:  '11'
-  'dcache_hdd_ec_data8':
-    application_enable: 'rbd'
-    replicas_min_size:  '9'
+#profile::storage::cephpool_params::pools:
+#  'dcache_hdd_ec_data':
+#    application_enable: 'rbd'
+#    replicas_min_size:  '11'
+#  'dcache_hdd_ec_data8':
+#    application_enable: 'rbd'
+#    replicas_min_size:  '9'
 
 profile::base::common::extraswap:         true
 profile::base::common::extraswap_sizegb:  20
@@ -144,10 +160,10 @@ profile::base::lvm::volume_group:
       - /dev/sda4
   'vg_cache1':
     physical_volumes:
-      - /dev/sdr
+      - /dev/sdn
   'vg_cache2':
     physical_volumes:
-      - /dev/sds
+      - /dev/sdo
 profile::base::lvm::logical_volume:
   'lv_swap2':
     volume_group: 'vg_swap'
@@ -157,72 +173,72 @@ profile::base::lvm::logical_volume:
   'lv_dbb':
     volume_group: 'vg_cache1'
     createfs:     false
-    size:         80G
+    size:         50G
   'lv_dbc':
     volume_group: 'vg_cache1'
     createfs:     false
-    size:         80G
+    size:         50G
   'lv_dbd':
     volume_group: 'vg_cache1'
     createfs:     false
-    size:         80G
+    size:         50G
   'lv_dbe':
     volume_group: 'vg_cache1'
     createfs:     false
-    size:         80G
+    size:         50G
   'lv_dbf':
     volume_group: 'vg_cache1'
     createfs:     false
-    size:         80G
+    size:         50G
   'lv_dbg':
-    volume_group: 'vg_cache2'
+    volume_group: 'vg_cache1'
     createfs:     false
-    size:         80G
+    size:         50G
   'lv_dbh':
-    volume_group: 'vg_cache2'
+    volume_group: 'vg_cache1'
     createfs:     false
-    size:         80G
+    size:         50G
   'lv_dbi':
-    volume_group: 'vg_cache2'
+    volume_group: 'vg_cache1'
     createfs:     false
-    size:         80G
+    size:         50G
   'lv_dbj':
     volume_group: 'vg_cache2'
     createfs:     false
-    size:         80G
+    size:         50G
   'lv_dbk':
     volume_group: 'vg_cache2'
     createfs:     false
-    size:         80G
+    size:         50G
   'lv_dbl':
     volume_group: 'vg_cache2'
     createfs:     false
-    size:         80G
+    size:         50G
   'lv_dbm':
     volume_group: 'vg_cache2'
     createfs:     false
-    size:         80G
-  'lv_dbn':
-    volume_group: 'vg_cache2'
-    createfs:     false
-    size:         80G
-  'lv_dbo':
-    volume_group: 'vg_cache2'
-    createfs:     false
-    size:         80G
+    size:         50G
   'lv_dbp':
     volume_group: 'vg_cache2'
     createfs:     false
-    size:         80G
+    size:         50G
   'lv_dbq':
     volume_group: 'vg_cache2'
     createfs:     false
-    size:         80G
+    size:         50G
+  'lv_dbr':
+    volume_group: 'vg_cache2'
+    createfs:     false
+    size:         50G
+  'lv_dbs':
+    volume_group: 'vg_cache2'
+    createfs:     false
+    size:         50G
 profile::base::lvm::physical_volume:
-  '/dev/sdq':
+  '/dev/sdn':
     ensure: present
     force:  true
-  '/dev/sdr':
+  '/dev/sdo':
     ensure: present
     force:  true
 
@@ -241,16 +257,16 @@ profile::storage::cephosd::osds:
     db_device:  'vg_cache1/lv_dbe'
   '/dev/sdf':
     wal_device: false
-    db_device:  'vg_cache2/lv_dbf'
+    db_device:  'vg_cache1/lv_dbf'
   '/dev/sdg':
     wal_device: false
-    db_device:  'vg_cache2/lv_dbg'
+    db_device:  'vg_cache1/lv_dbg'
   '/dev/sdh':
     wal_device: false
-    db_device:  'vg_cache2/lv_dbh'
+    db_device:  'vg_cache1/lv_dbh'
   '/dev/sdi':
     wal_device: false
-    db_device:  'vg_cache2/lv_dbi'
+    db_device:  'vg_cache1/lv_dbi'
   '/dev/sdj':
     wal_device: false
     db_device:  'vg_cache2/lv_dbj'
@@ -263,18 +279,18 @@ profile::storage::cephosd::osds:
   '/dev/sdm':
     wal_device: false
     db_device:  'vg_cache2/lv_dbm'
-  '/dev/sdn':
-    wal_device: false
-    db_device:  'vg_cache2/lv_dbn'
-  '/dev/sdo':
-    wal_device: false
-    db_device:  'vg_cache2/lv_dbo'
   '/dev/sdp':
     wal_device: false
     db_device:  'vg_cache2/lv_dbp'
   '/dev/sdq':
     wal_device: false
     db_device:  'vg_cache2/lv_dbq'
+  '/dev/sdr':
+    wal_device: false
+    db_device:  'vg_cache2/lv_dbr'
+  '/dev/sds':
+    wal_device: false
+    db_device:  'vg_cache2/lv_dbs'
 
 # Sensu
 sudo::configs:

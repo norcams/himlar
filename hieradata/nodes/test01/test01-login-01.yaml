@@ -6,7 +6,7 @@ network::interfaces_hash:
     gateway:        '129.177.6.1'
     defroute:       'yes'
     onboot:         'yes'
-    dns1:           "%{hiera('netcfg_mgmt_netpart')}.9"
+    dns1:           "%{hiera('netcfg_mgmt_netpart')}.10"
     dns2:           '129.177.6.54'
     domain:         "%{hiera('netcfg_dns_search')}"
     peerdns:        'yes'

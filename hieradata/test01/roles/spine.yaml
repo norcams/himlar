@@ -20,11 +20,9 @@ profile::network::leaf::acls:
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p udp -s 129.177.0.0/16 --dport 445 -j ACCEPT"
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -s 129.177.0.0/16 --dport 2049 -j ACCEPT"
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p udp -s 129.177.0.0/16 --dport 2049 -j ACCEPT"
-      # Allow DNS requests to ns1 and ns2
-      - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -d 158.37.63.251 --dport 53 -j ACCEPT"
-      - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p udp -d 158.37.63.251 --dport 53 -j ACCEPT"
-      - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -d 158.39.77.251 --dport 53 -j ACCEPT"
-      - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p udp -d 158.39.77.251 --dport 53 -j ACCEPT"
+      # Allow DNS requests to ns-test01.iaas.uib.no
+      - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -d 129.177.31.117 --dport 53 -j ACCEPT"
+      - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p udp -d 129.177.31.117 --dport 53 -j ACCEPT"
       # Block specific ports from everywhere (telnet, portmapper, SMB, NFS)
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp --dport 23 -j DROP"
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p udp --dport 23 -j DROP"
@@ -107,11 +105,9 @@ profile::network::leaf::acls:
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p udp -s 2001:700:200::/48 --dport 445 -j ACCEPT"
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -s 2001:700:200::/48 --dport 2049 -j ACCEPT"
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p udp -s 2001:700:200::/48 --dport 2049 -j ACCEPT"
-      # Allow DNS requests to ns1 and ns2
-      - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -d 2001:700:2:82ff::251 --dport 53 -j ACCEPT"
-      - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p udp -d 2001:700:2:82ff::251 --dport 53 -j ACCEPT"
-      - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -d 2001:700:2:83ff::251 --dport 53 -j ACCEPT"
-      - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p udp -d 2001:700:2:83ff::251 --dport 53 -j ACCEPT"
+      # Allow DNS requests to ns-test01.iaas.uib.no
+      - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -d 2001:700:200:916::3f17 --dport 53 -j ACCEPT"
+      - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p udp -d 2001:700:200:916::3f17 --dport 53 -j ACCEPT"
       # Block specific ports (telnet, portmapper, SMB, NFS)
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp --dport 23 -j DROP"
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p udp --dport 23 -j DROP"
