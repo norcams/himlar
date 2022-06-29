@@ -67,6 +67,11 @@ mv -f ${filename} ${tmp_file}
 qemu-img convert -O qcow2 -c ${tmp_file} ${filename}
 rm -f ${tmp_file}
 
+# Find MD5 checksum and create latest link
+md5filename=${filename%%\.qcow2}.md5
+md5sum ${filename} > ${md5filename}
+ln -srf ${md5filename} /opt/images/public_builds/<%= @name %>-latest.md5
+
 # Create latest symlink
 ln -srf ${filename} /opt/images/public_builds/<%= @name %>-latest.qcow2
 

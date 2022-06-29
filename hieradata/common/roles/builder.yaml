@@ -150,17 +150,6 @@ profile::application::builder::images:
     'username':         'debian'
     'hour':             16
     'minute':           30
-  'fedora_35':
-    'image_name':       'IMAGEBUILDER Fedora 35'
-    'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/35/Cloud/x86_64/images/'
-    'latest':           'Fedora-Cloud-Base-35-1.2.x86_64.qcow2'
-    'checksum_file':    'Fedora-Cloud-35-1.2-x86_64-CHECKSUM'
-    'checksum':         'sha256'
-    'min_ram':          768
-    'min_disk':         3
-    'username':         'fedora'
-    'hour':             7
-    'minute':           20
   'fedora_36':
     'image_name':       'IMAGEBUILDER Fedora 36'
     'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/36/Cloud/x86_64/images/'
@@ -270,7 +259,7 @@ profile::monitoring::sensu::agent::expanded_checks:
   - 'debian9'
   - 'debian10'
   - 'debian11'
-  - 'fedora_35'
+  - 'fedora_36'
   - 'rockylinux8'
   - 'ubuntu_1804'
   - 'ubuntu_2004'
