@@ -59,9 +59,6 @@ profile::monitoring::sensu::agent::checks:
     subscribers:  ['metrics']
     handlers:     ['graphite_tcp']
 
-# used for repo version
-mariadb_version: '10.2'
-
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   rdo-release:

@@ -147,9 +147,6 @@ profile::monitoring::sensu::agent::checks:
     subscribers:  ['metrics']
     handlers:     ['graphite_tcp']
 
-# used for repo version
-mariadb_version: '10.2'
-
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   rdo-release:
@@ -159,8 +156,6 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   AlmaLinux-PowerTools:
     ensure: present
-  mariadb:
-    ensure:   absent
   "mariadb-%{hiera('mariadb_version')}":
     ensure:     present
   epel: # should be absent when using RDO, but whitelist can also work
