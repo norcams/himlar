@@ -117,16 +117,6 @@ profile::application::builder::images:
     'username':         'centos'
     'hour':             6
     'minute':           30
-  'debian9':
-    'image_name':       'IMAGEBUILDER Debian 9'
-    'url':              'http://cdimage.debian.org/cdimage/openstack/current-9/'
-    'latest':           'debian-9-openstack-amd64.qcow2'
-    'checksum_file':    'SHA256SUMS'
-    'checksum':         'sha256'
-    'min_ram':          768
-    'min_disk':         3
-    'username':         'debian'
-    'hour':             5
   'debian10':
     'image_name':       'IMAGEBUILDER Debian 10'
     'url':              'http://cdimage.debian.org/cdimage/openstack/current-10/'
@@ -256,7 +246,6 @@ profile::monitoring::sensu::agent::expanded_checks:
   - 'centos7'
   - 'centosstream8'
   - 'centosstream9'
-  - 'debian9'
   - 'debian10'
   - 'debian11'
   - 'fedora_36'
