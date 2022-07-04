@@ -90,7 +90,6 @@ nova::scheduler::filter::scheduler_default_filters:
   - "AggregateInstanceExtraSpecsFilter"
   - "NUMATopologyFilter"
   - "PciPassthroughFilter"
-  - "DiskFilter"
 
 # conductor (node: novactrl)
 nova::conductor::enabled: true
