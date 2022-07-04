@@ -11,9 +11,23 @@ nova::compute::rbd::ephemeral_storage: false
 # Nova overrides
 nova::compute::libvirt::libvirt_cpu_model:       'EPYC'
 nova::cpu_allocation_ratio:                      '8'
-nova::disk_allocation_ratio:                     '2'
+nova::disk_allocation_ratio:                     '1'
 nova::ram_allocation_ratio:                      '1.4'
-nova::scheduler::filter::max_instances_per_host: '20'
+nova::scheduler::filter::max_instances_per_host: '32'
+
+nova::scheduler::filter::scheduler_default_filters:
+  - "NumInstancesFilter"
+  - "AvailabilityZoneFilter"
+  - "ComputeFilter"
+  - "ComputeCapabilitiesFilter"
+  - "ImagePropertiesFilter"
+  - "ServerGroupAntiAffinityFilter"
+  - "ServerGroupAffinityFilter"
+  - "AggregateMultiTenancyIsolation"
+  - "AggregateInstanceExtraSpecsFilter"
+  - "NUMATopologyFilter"
+  - "PciPassthroughFilter"
+  - "DiskFilter"
 
 profile::base::lvm::physical_volume:
   '/dev/sda4':
