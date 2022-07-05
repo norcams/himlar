@@ -98,6 +98,7 @@ profile::network::leaf::acls:
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p udp --dport 8080 -j DROP"
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp --dport 8443 -j DROP"
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p udp --dport 8443 -j DROP"
+      - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp --dport 9200 -j DROP"
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp --dport 27017 -j DROP"
     ip6tables:
       # Allow SMB and NFS from UiB network (only BGO)
@@ -152,6 +153,7 @@ profile::network::leaf::acls:
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p udp --dport 8080 -j DROP"
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp --dport 8443 -j DROP"
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p udp --dport 8443 -j DROP"
+      - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp --dport 9200 -j DROP"
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp --dport 27017 -j DROP"
 
 profile::monitoring::collectd::enable: true
