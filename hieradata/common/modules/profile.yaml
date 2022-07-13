@@ -70,7 +70,7 @@ profile::application::himlarcli::password:               "%{hiera('keystone_admi
 profile::application::himlarcli::region_name:            "%{::location}"
 profile::application::himlarcli::tenant_name:            'openstack'
 profile::application::himlarcli::default_domain:         'default'
-profile::application::himlarcli::compute_api_version:    '2.60'
+profile::application::himlarcli::compute_api_version:    "%{hiera('openstack_compute_api_version')}"
 profile::application::himlarcli::volume_api_version:     '3.50'
 profile::application::himlarcli::domain:                 "%{::domain}"
 profile::application::himlarcli::foreman_url:            "https://%{::location}-admin-01.%{::domain}"
@@ -95,11 +95,13 @@ profile::application::himlarcli::sensu_url:              "http://%{hiera('mgmt__
 profile::application::himlarcli::sensu_username:         'sensu'
 profile::application::himlarcli::sensu_password:         "%{hiera('sensu_api_password')}"
 
-profile::openstack::openrc::auth_url:     "%{hiera('public__address__api')}"
-profile::openstack::openrc::password:     "%{hiera('keystone_admin_password')}"
-profile::openstack::openrc::region_name:  "%{::location}"
-profile::openstack::openrc::username:     'admin'
-profile::openstack::openrc::project_name: 'openstack'
+profile::openstack::openrc::auth_url:                    "%{hiera('public__address__api')}"
+profile::openstack::openrc::password:                    "%{hiera('keystone_admin_password')}"
+profile::openstack::openrc::region_name:                 "%{::location}"
+profile::openstack::openrc::username:                    'admin'
+profile::openstack::openrc::project_name:                'openstack'
+profile::openstack::openrc::compute_api_version:         "%{hiera('openstack_compute_api_version')}"
+
 
 # All yum repos go here
 yum_base_mirror:    'https://download.iaas.uio.no/nrec/prod'
