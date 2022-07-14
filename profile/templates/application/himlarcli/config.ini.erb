@@ -26,6 +26,10 @@ vhost=<%= @mq_vhost %>
 [db]
 database_uri=<%= @database_uri %>
 
+[db-nova]
+host=<%= @db_host_nova %>
+password=<%= @db_password_nova %>
+
 [statsd]
 server=<%= @statsd_server %>
 port = 8125
