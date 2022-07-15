@@ -408,3 +408,18 @@ frrouting::frrouting::bgp_route_maps:
     - 'match ip address 10'
   'peer-deny deny 10':
     - 'match ip address 10'
+
+# disable broken sensu-checks
+sensuclassic::checks:
+  'metrics-vmstat':
+    ensure: absent
+  'metrics-load':
+    ensure: absent
+  'metrics-memory':
+    ensure: absent
+  'check-disk-usage':
+    ensure: absent
+  'check-load':
+    ensure: absent
+  'check-memory-percent':
+    ensure: absent
