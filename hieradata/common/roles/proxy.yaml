@@ -35,17 +35,18 @@ profile::base::common::packages:
 profile::network::services::firewall_extras:
   source: '%{network_mgmt1}/%{netmask_mgmt1}'
 
-profile::network::services::dns_proxy:            true
-profile::network::services::http_proxy:           true
-profile::development::network::dns::manage_hosts: true
-profile::development::network::dns::use_dnsmasq:  true
-profile::base::network::manage_dummy:             true # FIXME remove when all proxies are migrated to el8
-profile::network::interface::manage_dummy:        true
-profile::network::nat::enable_snat:               true
-profile::network::nat::source:                    "%{::network_mgmt1}/%{::netmask_mgmt1}"
-profile::network::nat::outiface:                  'eth1'
-profile::application::himlarservice::package_url: 'http://download.iaas.uio.no/uh-iaas/rpm/himlarservice-1.1-3.el7.x86_64.rpm'
-profile::application::himlarservice::enable:      true
+profile::network::interface::create_custom_routes: true # New interface class needs enabling
+profile::network::services::dns_proxy:             true
+profile::network::services::http_proxy:            true
+profile::development::network::dns::manage_hosts:  true
+profile::development::network::dns::use_dnsmasq:   true
+profile::base::network::manage_dummy:              true # FIXME remove when all proxies are migrated to el8
+profile::network::interface::manage_dummy:         true
+profile::network::nat::enable_snat:                true
+profile::network::nat::source:                     "%{::network_mgmt1}/%{::netmask_mgmt1}"
+profile::network::nat::outiface:                   'eth1'
+profile::application::himlarservice::package_url:  'http://download.iaas.uio.no/uh-iaas/rpm/himlarservice-1.1-3.el7.x86_64.rpm'
+profile::application::himlarservice::enable:       true
 
 # sensu python2 plugin (depricated)
 # profile::monitoring::sensu::agent::plugin_gems:
