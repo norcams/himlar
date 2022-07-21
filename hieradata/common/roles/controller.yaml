@@ -4,6 +4,7 @@ include:
     - profile::virtualization::libvirt
     - profile::bootstrap::himlar
     - profile::network::services
+    - profile::storage::cephclient
 
 named_interfaces::config:
   mgmt:
@@ -69,7 +70,11 @@ sensu__disk__crtical:     90
 
 profile::base::yumrepo::repo_hash:
   epel:
-    ensure:   present
+    ensure: present
+  ceph-%{hiera('ceph_version')}:
+    ensure: present
+  ceph-%{hiera('ceph_version')}-noarch:
+    ensure: present
 
 lvm::volume_groups:
   vg_ext:
@@ -79,6 +84,16 @@ lvm::volume_groups:
       lv_ext:
         fs_type:   xfs
         mountpath: "/var/lib/libvirt/images"
+
+ceph::profile::params::client_keys:
+  'client.admin':
+    secret: "%{hiera('ceph_storage_client_admin_key')}"
+    mode: '0600'
+    user: 'ceph'
+    group: 'ceph'
+    cap_mon: 'allow *'
+    cap_osd: 'allow *'
+    cap_mds: 'allow *'
 
 consul::config_hash:
   'server': true
