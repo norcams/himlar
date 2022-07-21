@@ -27,6 +27,7 @@ profile::base::yumrepo::repo_hash:
     module_hotfixes: '1'
 
 profile::base::common::packages:
+  'bash-completion': {}
   'bash-completion-extras': { ensure: absent, }     # FIXME clean up when el7 is gone
   'python-etcd3gw': { ensure: absent, }             # FIXME clean up when el7 is gone
   'python-memcached': { ensure: absent, }           # FIXME clean up when el7 is gone
