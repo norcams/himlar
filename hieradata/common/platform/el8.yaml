@@ -46,6 +46,7 @@ profile::base::common::manage_ntp:     false # ntpd has been replaced by chrony 
 profile::base::common::manage_chrony:  true
 
 profile::base::physical::efi_workaround: true # FIXME: remove when The Foreman chainloaders acknowledge the existance of Alma Linux
+profile::openstack::compute::pci_passthrough::efi_workaround: true # FIXME: remove when The Foreman chainloaders acknowledge the existance of Alma Linux
 
 profile::network::interface::manage_interface:        true
 profile::network::interface::suppress_legacy_warning: true
