@@ -23,7 +23,7 @@ class profile::openstack::compute::nvidia_vgpu_createmdev(
     }
 
     service { 'create-nvidia-mdev.service':
-      ensure => running,
+      ensure => stopped,
       enable => true
     }
   }
