@@ -1,0 +1,21 @@
+---
+include:
+  bootstrap:
+    - profile::application::openssl
+    - profile::application::openssl::catrust
+
+profile::monitoring::influxdb::run_setup:                 true
+profile::monitoring::influxdb::write_token_file:          true
+
+#profile::development::network::dns::remove_local_hostname: true
+profile::application::openssl::catrust::update_puppet_ca: true
+profile::application::openssl::manage_ca_cert:            true
+profile::application::openssl::certs:
+  "%{::fqdn}":
+    cn:     "%{::fqdn}"
+    altnames:
+      - "%{::fqdn}"
+      - "%{hiera('mgmt__address__influx')}"
+
+profile::base::common::packages:
+  'influxdb2-cli':                { ensure: present }

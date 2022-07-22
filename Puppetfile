@@ -128,7 +128,8 @@ mod 'grafana', :ref => 'v8.0.0',                    :git => github + 'voxpupuli/
 mod 'statsd', :ref => '3.1.0',                      :git => github + 'justindowning/puppet-statsd'
 mod 'netdata', :ref => '1f8bcef',                   :git => github + 'norcams/denver-netdata'
 mod 'collectd', :ref => 'v12.2.0',                  :git => github + 'voxpupuli/puppet-collectd'
-mod 'prometheus', :ref => 'v12.2.0',                :git => github + 'voxpupuli/puppet-prometheus'
+mod 'influxdb', :ref => 'norcams',                  :git => github + 'norcams/influxdb'
+#mod 'prometheus', :ref => 'v12.2.0',                :git => github + 'voxpupuli/puppet-prometheus'
 
 #
 # profile::webserver::apache
