@@ -75,6 +75,8 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   ceph-%{hiera('ceph_version')}-noarch:
     ensure: present
+  AlmaLinux-AppStream:
+    exclude: 'postgres*'
 
 lvm::volume_groups:
   vg_ext:
