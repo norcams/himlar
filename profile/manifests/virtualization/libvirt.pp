@@ -19,6 +19,12 @@ class profile::virtualization::libvirt(
   create_resources('::libvirt::network', $networks)
   create_resources(libvirt_pool, $pools)
 
+  if $::osfamily == 'RedHat' and $::operatingsystemmajrelease == '8' {
+    service { 'libvirtd-tcp.socket':
+      ensure => running,
+    }
+  }
+
   if $manage_firewall {
     profile::firewall::rule { '180 libvirt-tcp accept tcp':
       dport  => 16509,

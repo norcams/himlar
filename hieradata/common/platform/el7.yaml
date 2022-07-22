@@ -51,4 +51,7 @@ bird::service_v4_ensure: running
 bird::service_v6_enable: true
 bird::service_v6_ensure: running
 
+libvirt::sysconfig:
+  LIBVIRTD_ARGS: '--listen'
+
 openstack_version: "train" # Last available rdo version for el7

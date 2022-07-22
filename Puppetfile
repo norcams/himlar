@@ -183,7 +183,7 @@ mod 'rsync', :ref => '0.4.0',                       :git => github + 'puppetlabs
 #
 # libvirt
 #
-mod 'libvirt', :ref => '5f55fb66db',                :git => github + 'norcams/puppet-libvirt'
+mod 'libvirt', :ref => 'd80d803834',                :git => github + 'norcams/puppet-libvirt'
 
 #
 # ceph
