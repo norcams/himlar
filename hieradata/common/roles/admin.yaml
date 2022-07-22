@@ -16,6 +16,9 @@ profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}
   'python2-ruamel-yaml': {}
+  'toml-rb':
+    ensure: present
+    provider: 'puppetserver_gem'
 
 apache::mod::passenger::manage_repo: false
 

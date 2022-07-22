@@ -88,6 +88,7 @@ mod 'theforeman/foreman', :ref => '15.1.1',         :git => github + 'theforeman
 mod 'theforeman/tftp', :ref => '6.0.0',             :git => github + 'theforeman/puppet-tftp'
 mod 'theforeman/puppet', :ref => '14.0.0',          :git => github + 'theforeman/puppet-puppet.git'
 mod 'puppetlabs/hocon', :ref => '1.0.0',            :git => github + 'puppetlabs/puppetlabs-hocon'
+mod 'puppetlabs-puppetserver_gem', '1.1.1'          # need to install puppetserver gems
 mod 'puppetlabs/puppet_authorization', :ref => '0.4.0', :git => github + 'puppetlabs/puppetlabs-puppet_authorization'
 mod 'theforeman/dns', :ref => '8.0.0',              :git => github + 'theforeman/puppet-dns'
 mod 'theforeman/dhcp', :ref => '3.1.10-norcams',    :git => github + 'norcams/puppet-dhcp.git'
