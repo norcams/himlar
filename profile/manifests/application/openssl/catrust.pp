@@ -2,6 +2,7 @@
 class profile::application::openssl::catrust(
   $ca_cert,
   $add_cert = true,
+  $update_puppet_ca = false,
 ) {
 
   if $add_cert {
@@ -24,6 +25,14 @@ class profile::application::openssl::catrust(
     exec { 'update-ca-trust':
       command     => '/bin/update-ca-trust',
       refreshonly => true
+    }
+
+    if $update_puppet_ca {
+      exec { 'copy-ca-bundle-to-puppet-ca':
+        command => 'cp /etc/pki/tls/certs/ca-bundle.crt /etc/puppetlabs/puppet/ssl/certs/ca.pem',
+        path    => '/bin:/usr/bin',
+        creates => '/etc/puppetlabs/puppet/ssl/certs/ca.pem'
+      }
     }
   }
 }
