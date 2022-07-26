@@ -31,6 +31,11 @@ profile::base::common::packages:
   'python3-osc-placement': {}
   'openstack-selinux': {}
   'rsyslog': { ensure: present } # nice to have
+  'git': {}
+  'gcc': {}
+  'openldap-devel': {}
+  'openssl-devel': {}
+  'libffi-devel': {}
 
 profile::network::services::firewall_extras:
   source: '%{network_mgmt1}/%{netmask_mgmt1}'
