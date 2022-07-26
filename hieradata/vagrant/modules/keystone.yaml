@@ -3,5 +3,4 @@
 # keystone::debug:                                true
 # keystone::wsgi::apache::vhost_custom_fragment:  'DumpIOInput On'
 
-# Use profile::openstack::identity::bootstrap
-keystone::enable_bootstrap:               false
+keystone::enable_bootstrap: true
