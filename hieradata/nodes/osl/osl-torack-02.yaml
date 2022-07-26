@@ -418,8 +418,6 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'route-map rr-client-allow out'
       - 'bfd'
     'members':
-      - '172.18.32.17'
-      - '172.18.32.18'
       - '172.18.32.26'
       - '172.18.32.27'
       - '172.18.32.44'
@@ -492,8 +490,6 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'neighbor fd32:18:228::1 default-originate'
       - 'neighbor fd32:18:228::1 soft-reconfiguration inbound'
     'members6':
-      - 'fd32::17'
-      - 'fd32::18'
       - 'fd32::44'
       - 'fd32::45'
       - 'fd32::103'

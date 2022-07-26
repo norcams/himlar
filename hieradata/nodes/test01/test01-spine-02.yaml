@@ -35,8 +35,6 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'route-map rr-client-allow in'
       - 'bfd'
     'members':
-      - '172.30.0.17'
-      - '172.30.0.18'
       - '172.30.0.26'
       - '172.30.0.44'
       - '172.30.0.45'
@@ -49,8 +47,6 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'neighbor rr-clients soft-reconfiguration inbound'
       - 'maximum-paths ibgp 3'
     'members6':
-      - 'fd00::17'
-      - 'fd00::18'
       - 'fd00::44'
       - 'fd00::45'
       - 'fd00::103'
