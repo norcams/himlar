@@ -70,6 +70,9 @@ bootstrap_puppet()
     dnf install -y puppet-agent git vim
 
     /opt/puppetlabs/puppet/bin/gem install -N r10k
+    # this is need one puppetmaster for some modules
+    # in vagrant we will need this on all nodes
+    /opt/puppetlabs/puppet/bin/gem install -N toml-rb
     # /opt/puppetlabs/puppet/bin/gem install -N puppet_forge
     ln -sf /opt/puppetlabs/puppet/bin/wrapper.sh /opt/puppetlabs/bin/r10k
 
