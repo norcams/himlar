@@ -9,10 +9,10 @@ profile::database::mariadb::grants:
     privileges: ['SELECT', 'INSERT', 'DELETE', 'CREATE']
     user:       "keystone@%{hiera('netcfg_trp_netpart')}.%"
     table:      'token_keys.*'
-  'netdata@localhost/*.*':
-    privileges: ['USAGE']
-    table:      '*.*'
-    user:       'netdata@localhost'
+  # 'netdata@localhost/*.*':
+  #   privileges: ['USAGE']
+  #   table:      '*.*'
+  #   user:       'netdata@localhost'
 
 #
 # Galera setup
