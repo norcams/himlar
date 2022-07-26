@@ -184,7 +184,8 @@ public__address__dashboard:       "dashboard.%{hiera('domain_frontend')}"
 public__address__access:          "access.%{hiera('domain_frontend')}"
 public__address__console:         "console.%{hiera('domain_public')}"
 public__address__report:          "report.%{hiera('domain_frontend')}"
-public__address__dashboardmgmt:   "dashboard.%{hiera('domain_mgmt')}"
+public__address__status:          "status.%{hiera('domain_frontend')}"
+public__address__docs:            "docs.nrec.no"
 
 # DNS servers
 public__name__ns:                 "ns.%{hiera('domain_public')}"
@@ -232,6 +233,7 @@ mgmt__address__repo:              "repo.%{hiera('domain_mgmt')}"
 mgmt__address__ns:                "%{hiera('netcfg_mgmt_net_c0')}.16"
 mgmt__address__resolver_01:       "%{hiera('netcfg_mgmt_net_c0')}.17"
 mgmt__address__resolver_02:       "%{hiera('netcfg_mgmt_net_c0')}.18"
+public__address__dashboardmgmt:   "dashboard.%{hiera('domain_mgmt')}" #FIXME
 
 #
 # Endpoints (including protocole)
