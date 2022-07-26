@@ -6,8 +6,7 @@ class profile::base::yumrepo(
   $purge_unmanaged = false
 ) {
 
-$repo_hash = lookup('profile::base::yumrepo::repo_hash', Hash, $merge_strategy, {})
-
+  $repo_hash = lookup('profile::base::yumrepo::repo_hash', Hash, $merge_strategy, {})
   case $::operatingsystemmajrelease {
     '7': {
       # Openstack_extras uses yumrepo resource from core puppet for repo_hash syntax:
@@ -21,7 +20,7 @@ $repo_hash = lookup('profile::base::yumrepo::repo_hash', Hash, $merge_strategy, 
       create_resources('yumrepo', $repo_hash)
       if $purge_unmanaged {
         resources { 'yumrepo':
-        purge => true
+          purge => true
         }
       }
     }
