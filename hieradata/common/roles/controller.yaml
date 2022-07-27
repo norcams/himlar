@@ -5,6 +5,7 @@ include:
     - profile::bootstrap::himlar
     - profile::network::services
     - profile::storage::cephclient
+    - profile::logging::rsyslog::client
 
 named_interfaces::config:
   mgmt:
