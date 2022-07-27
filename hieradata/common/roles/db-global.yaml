@@ -66,7 +66,15 @@ profile::database::mariadb::grants:
 
 profile::base::selinux::manage_selinux:                             true
 profile::base::selinux::ports:
-  mysql-galera:
+  mysql-galera-socat:
     seltype:  'mysqld_port_t'
     protocol: 'tcp'
     port:      4444
+  mysql-galera1:
+    seltype:  'mysqld_port_t'
+    protocol: 'tcp'
+    port:      4567
+  mysql-galera2:
+    seltype:  'mysqld_port_t'
+    protocol: 'tcp'
+    port:      4568
