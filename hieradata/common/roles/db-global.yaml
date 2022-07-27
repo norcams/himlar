@@ -63,3 +63,10 @@ profile::database::mariadb::grants:
     privileges: ['SELECT', 'INSERT', 'DELETE', 'CREATE']
     user:       "keystone@%{hiera('netcfg_trp_netpart')}.%"
     table:      'token_keys.*'
+
+profile::base::selinux::manage_selinux:                             true
+profile::base::selinux::ports:
+  mysql-galera:
+    seltype:  'mysqld_port_t'
+    protocol: 'tcp'
+    port:      4444
