@@ -1,7 +1,4 @@
 ---
-# FIXME move to common
-ceph_version: 'octopus' # FIXME
-
 profile::base::lvm::physical_volume:
   '/dev/sda5':
     ensure: present
