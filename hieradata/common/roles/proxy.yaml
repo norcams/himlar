@@ -9,6 +9,14 @@ include:
     - profile::network::nat
     - profile::application::rngd
 
+profile::base::cron::crontabs:
+  stats:
+    hour:     '4'
+    minute:   '25'
+    monthday: '*'
+    weekday:  '*'
+    command:  '/opt/himlarcli/bin/rotate_logs.sh >/dev/null 2>&1'
+
 named_interfaces::config:
   mgmt:
     - eth0
