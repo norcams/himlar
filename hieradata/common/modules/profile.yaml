@@ -404,8 +404,11 @@ profile::base::dell::packages:
   'libxml2.i686': {}
 
 # Turn on agant and add common sensu plugins
-sensu_ssl_cachain: ''
-profile::monitoring::sensu::agent::enable_agent: true
+profile::monitoring::sensu::agent::namespace:       "%{hiera('sensu_namespace')}"
+sensu_ssl_cachain:                                  ''
+
+# old sensu client
+profile::monitoring::sensu::agent::enable_agent:    true
 profile::monitoring::sensu::agent::plugins:
   sensu-plugins-disk-checks:
     type:         package

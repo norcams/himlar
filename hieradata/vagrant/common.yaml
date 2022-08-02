@@ -84,6 +84,7 @@ public__ipv6__ns:       "%{hiera('netcfg_public_netpart6')}::251"
 public__ip__resolver:   "%{hiera('netcfg_public_netpart')}.252"
 public__ipv6__resolver: "%{hiera('netcfg_public_netpart6')}::252"
 
+
 #
 # Default interfaces
 #
@@ -180,6 +181,10 @@ profile::network::services::dns_records:
     "ns.%{hiera('domain_public')}":                       "%{hiera('netcfg_public_netpart')}.251"
     "resolver.%{hiera('domain_public')}":                 "%{hiera('netcfg_public_netpart')}.252"
     "dashboard.%{hiera('domain_frontend')}":              "%{hiera('netcfg_public_netpart')}.254"
+    "%{::location}-sensugo-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_mgmt_net_c0')}.21"
+    "%{::location}-sensugo-02.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_mgmt_net_c0')}.22"
+    "%{::location}-sensugo-03.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_mgmt_net_c0')}.23"
+
   AAAA:
     "ns.%{hiera('domain_public')}":                       "%{hiera('netcfg_public_netpart6')}::251"
     "resolver.%{hiera('domain_public')}":                 "%{hiera('netcfg_public_netpart6')}::252"
@@ -282,6 +287,9 @@ sensu_mysql_password:                               'sensu_pass'
 grafana_admin_password:                             'changeme'
 local_rabbit_password:                              'local'
 
+# node: ts
+influxdb_admin_password:                            'influx_pass'
+influxdb_admin_token:                               'HaNpptM_3oRozR_MseRe-GmL1OIszJ5J-5I1flfOq86We198t7hJ-kzKphZtpa7aLE1bU37Jg-DuQJ_Vq7Eypg=='
 # telemetry/metrics
 gnocchi::db::mysql::password:                       'gnocchi_pass'
 ceilometer::db::mysql::password:                    'ceilometer_pass'
