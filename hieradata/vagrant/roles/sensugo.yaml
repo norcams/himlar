@@ -1,0 +1,20 @@
+---
+include:
+  bootstrap:
+    - profile::application::openssl
+
+profile::development::network::dns::remove_local_hostname: true
+profile::application::openssl::manage_ca_cert:  true
+profile::application::openssl::certs:
+  "%{::fqdn}":
+    cn:     "%{::fqdn}"
+    altnames:
+      - "%{::fqdn}"
+      - "%{hiera('mgmt__address__monitor')}"
+
+# To setup a sensu cluster in vagrant
+#
+# 1) Start all nodes with state 'new'
+# 2) Provision all nodes with state 'existing'
+#
+sensu_etcd_cluster_state:     'new'
