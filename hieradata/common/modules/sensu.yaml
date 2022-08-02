@@ -1,5 +1,7 @@
 ---
-sensu_namespace: 'default' #'%{::location}'
+# default sensu vars
+sensu_namespace:        'default' #'%{::location}'
+sensu_backend_role:     'sensugo' #FIXME
 
 # Shared config
 sensu::manage_repo:     false
@@ -23,6 +25,13 @@ sensu::agent::config_hash:
   keepalive-warning-timeout:  120
   keepalive-critical-timeout: 300
   debug:                      true
+  # statsd
+  statsd-disable:             false
+  statsd-metrics-host:        '127.0.0.1'
+  statsd-metrics-port:        8125
+  statsd-event-handlers:
+    - metric
+
 sensu::agent::service_env_vars:
   PATH: '/usr/local/bin:/bin:/usr/bin:/opt/puppetlabs/bin:/opt/sensu-plugins-ruby/embedded/bin'
 
@@ -60,3 +69,11 @@ sensu::plugins::extensions:
   graphite: {}
 
 sensu::resources::bonsai_assets: {}
+
+sensu::resources::filters:
+  hourly:
+    ensure: present
+    namespace: "%{hiera('sensu_namespace')}"
+    action: allow
+    expressions:
+      - 'event.check.occurrences == 1 || event.check.occurrences % (3600 / event.check.interval) == 0'
