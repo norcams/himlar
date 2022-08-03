@@ -5,6 +5,7 @@ rabbitmq::cluster_nodes:
   - 'dev-mq-01'
   - 'dev-mq-02'
 
-# Sensu
+# FIXME:sensu-go
 profile::base::common::packages:
-  'make': {}
+  'gcc-c++': { ensure: absent }
+  'make': { ensure: absent }

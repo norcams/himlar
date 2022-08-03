@@ -11,13 +11,15 @@ sensu::api_host:        "%{hiera('mgmt__address__monitor')}"
 sensu::api_port:        8082
 sensu::username:        'admin'
 sensu::agent_entity_config_password: "%{hiera('sensu_agent_password')}"
+sensu::validate_namespaces: false
 
 # Sensu agent
-sensu::agent::package_name:   'sensu-agent'
-sensu::agent::entity_name:    '%{hostname}'
-sensu::agent::backends:       ["%{hiera('mgmt__address__monitor')}:8081"]
-sensu::agent::namespace:      "%{hiera('sensu_namespace')}"
-sensu::agent::subscriptions:  [ 'base', 'metrics' ]
+sensu::agent::agent_managed_entity:   true
+sensu::agent::package_name:           'sensu-agent'
+sensu::agent::entity_name:            '%{hostname}'
+sensu::agent::backends:               ["%{hiera('mgmt__address__monitor')}:8081"]
+sensu::agent::namespace:              "%{hiera('sensu_namespace')}"
+sensu::agent::subscriptions:          [ 'base', 'metrics' ]
 sensu::agent::config_hash:
   socket-host:                '127.0.0.1'
   socket-port:                3030
@@ -69,11 +71,3 @@ sensu::plugins::extensions:
   graphite: {}
 
 sensu::resources::bonsai_assets: {}
-
-sensu::resources::filters:
-  hourly:
-    ensure: present
-    namespace: "%{hiera('sensu_namespace')}"
-    action: allow
-    expressions:
-      - 'event.check.occurrences == 1 || event.check.occurrences % (3600 / event.check.interval) == 0'

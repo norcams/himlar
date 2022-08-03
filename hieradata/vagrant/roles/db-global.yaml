@@ -14,6 +14,12 @@ profile::database::mariadb::grants:
   #   table:      '*.*'
   #   user:       'netdata@localhost'
 
+# FIXME:sensu-go
+profile::base::common::packages:
+  'gcc-c++': { ensure: absent }
+  'gcc': { ensure: absent }
+  'make': { ensure: absent }
+
 #
 # Galera setup
 #

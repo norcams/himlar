@@ -181,6 +181,7 @@ profile::network::services::dns_records:
     "ns.%{hiera('domain_public')}":                       "%{hiera('netcfg_public_netpart')}.251"
     "resolver.%{hiera('domain_public')}":                 "%{hiera('netcfg_public_netpart')}.252"
     "dashboard.%{hiera('domain_frontend')}":              "%{hiera('netcfg_public_netpart')}.254"
+    # mgmt
     "%{::location}-sensugo-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_mgmt_net_c0')}.21"
     "%{::location}-sensugo-02.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_mgmt_net_c0')}.22"
     "%{::location}-sensugo-03.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_mgmt_net_c0')}.23"

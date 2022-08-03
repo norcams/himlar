@@ -77,6 +77,7 @@ profile::monitoring::sensu::agent::enable_go_agent:     true
 profile::monitoring::sensu::agent::enable_agent:        false
 #profile::monitoring::sensu::agent::purge_check:         true # can be used for temp cleanup
 profile::monitoring::sensu::agent::merge_strategy:      'first'
+sensu::agent::agent_managed_entity:                     false
 sensu::agent::subscriptions:
   - 'base'
   - 'nodes'
@@ -125,9 +126,17 @@ profile::monitoring::sensu::backend::handlers:
     runtime_assets:
       - sensu/sensu-influxdb-handler
 
+sensu::resources::filters:
+  hourly:
+    ensure: present
+    namespace: "%{hiera('sensu_namespace')}"
+    action: allow
+    expressions:
+      - 'event.check.occurrences == 1 || event.check.occurrences % (3600 / event.check.interval) == 0'
+
 profile::monitoring::sensu::agent::checks:
   disk-checks:
-    command:                'check-disk-usage -w 85 -c 95 -E /var/lib/nova/instances'
+    command:                'check-disk-usage -w 85 -c 95 -E /var/lib/nova/instances,/var/lib/libvirt/images,/cephfs'
     interval:               60
     subscriptions:          ['base']
     handlers:               ['default']

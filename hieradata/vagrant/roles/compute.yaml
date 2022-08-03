@@ -78,3 +78,8 @@ profile::monitoring::collectd::plugins:
   - collectd::plugin::virt
   - collectd::plugin::numa
   - collectd::plugin::processes
+
+# FIXME:sensu-go
+profile::base::common::packages:
+  'gcc-c++': { ensure: absent }
+  'make': { ensure: absent }

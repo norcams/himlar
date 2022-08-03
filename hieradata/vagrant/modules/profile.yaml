@@ -33,3 +33,25 @@ profile::openstack::dashboard::enable_designate:  true
 
 # sensu
 sensu__memory__check:     "check-memory-percent.rb -w 90 -c 95"
+
+# FIXME:sensu-go
+
+# vagrant ssl used in masterless puppet setup
+include:
+  default:
+    - profile::application::openssl
+
+profile::application::openssl::manage_ca_cert:          true
+
+profile::monitoring::sensu::agent::enable_go_agent:     false #true
+profile::monitoring::sensu::agent::enable_agent:        false
+# only checks defined in location will be added to sensu-go
+profile::monitoring::sensu::agent::merge_strategy:      'first'
+profile::monitoring::sensu::agent::checks:              {}
+profile::monitoring::sensu::agent::plugins:             {}
+profile::monitoring::sensu::agent::namespaces:
+  "%{hiera('sensu_namespace')}": {}
+
+profile::base::yumrepo::repo_hash:
+  sensu-community:
+    ensure: present

@@ -78,12 +78,12 @@ class profile::monitoring::sensu::agent (
     # merge strategy can only be first until we remove sensu classic
     $plugins = lookup('profile::monitoring::sensu::agent::plugins', Hash, 'first', {})
 
-    create_resources('sensu_namespace', $namespaces)
     create_resources('sensu_bonsai_asset', $bonsai_assets, $defaults)
-    create_resources('sensu_plugin', $plugins, $defaults)
+    create_resources('sensu_plugin', $plugins, {})
     create_resources('sensu_check', $checks, $defaults)
+    create_resources('sensu_namespace', $namespaces)
 
-    # purge checks
+    # purge checks will purge everything not defined on this role
     sensu_resources { 'sensu_check':
       purge => $purge_check,
     }
