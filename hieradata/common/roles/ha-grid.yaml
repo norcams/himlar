@@ -5,7 +5,7 @@ include:
 
 # Logging
 profile::highavailability::loadbalancing::haproxy::enable_remote_logging: false
-rsyslog::client::modules:
+profile::logging::rsyslog::client::modules:
   imjournal:
     config:
       StateFile: 'imjournal.state'
@@ -18,7 +18,7 @@ rsyslog::client::modules:
       TimeRequery:  8
       batchSize:    128
 
-rsyslog::client::inputs:
+profile::logging::rsyslog::client::inputs:
   imudp:
     type: imudp
     config:
@@ -26,7 +26,7 @@ rsyslog::client::inputs:
       address: '127.0.0.1'
       ruleset:  'remote_udp'
 
-rsyslog::client::legacy_config:
+profile::logging::rsyslog::client::legacy_config:
   # log_everything_to_remote_server:
   #   key:    '*.*'
   #   value:  " @129.177.5.51:514;RSYSLOG_ForwardFormat"

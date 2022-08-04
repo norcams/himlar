@@ -7,7 +7,7 @@ rsyslog::override_default_config: true
 # CLIENT
 #
 
-rsyslog::client::modules:
+profile::logging::rsyslog::client::modules:
   imjournal:
     config:
       StateFile: 'imjournal.state'
@@ -15,7 +15,7 @@ rsyslog::client::modules:
   imuxsock: {}
   imfile: {}
 
-rsyslog::client::global_config:
+profile::logging::rsyslog::client::global_config:
   workDirectory:
     value: '/var/lib/rsyslog'
   umask:
@@ -55,7 +55,7 @@ rsyslog::client::global_config:
     type: legacy
     priority: 79
 
-rsyslog::client::legacy_config:
+profile::logging::rsyslog::client::legacy_config:
   log_everything_to_remote_server:
     key:    '*.*'
     value:  " @%{hiera('mgmt__address__logger')}:514;RSYSLOG_ForwardFormat"
@@ -85,7 +85,7 @@ rsyslog::client::legacy_config:
 # SERVER
 #
 
-rsyslog::server::modules:
+profile::logging::rsyslog::server::modules:
   imuxsock: {}
   imudp:
     config:
@@ -97,7 +97,7 @@ rsyslog::server::modules:
       FileCreateMode: '0644'
       DirCreateMode:  '0755'
 
-rsyslog::server::global_config:
+profile::logging::rsyslog::server::global_config:
   workDirectory:
     value: '/var/lib/rsyslog'
   umask:
@@ -110,7 +110,7 @@ rsyslog::server::global_config:
     priority: 79
 
 # Use UDP to receive remote logs
-rsyslog::server::inputs:
+profile::logging::rsyslog::server::inputs:
   imudp:
     type: imudp
     config:
@@ -120,7 +120,7 @@ rsyslog::server::inputs:
 
 
 # This is the ruleset that write the logs to disk  under /opt/logs
-rsyslog::server::rulesets:
+profile::logging::rsyslog::server::rulesets:
   remote_udp:
     parameters:
       queue.type:                         'fixedArray'
@@ -193,7 +193,7 @@ rsyslog::server::rulesets:
             asyncWriting:   'on'
 
 
-rsyslog::server::templates:
+profile::logging::rsyslog::server::templates:
   OpenstackFileFormat:
     type:   string
     string: "%TIMESTAMP:::date-rfc3339% %syslogpriority-text% %HOSTNAME% %syslogtag%%msg:::drop-last-lf%\\n"
@@ -208,7 +208,7 @@ rsyslog::server::templates:
     string: "/opt/log/%hostname%/messages"
 
 # Just use local logging for the client logs for the server itself
-rsyslog::server::legacy_config:
+profile::logging::rsyslog::server::legacy_config:
   log_everything_to_remote_server:
     key:    '*.*'
     value:  " @%{hiera('mgmt__address__logger')}:514;RSYSLOG_ForwardFormat"
