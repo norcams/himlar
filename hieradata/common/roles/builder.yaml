@@ -225,6 +225,16 @@ profile::application::builder::images:
     'min_disk':         8
     'username':         'cloud-user'
     'hour':             12
+  'uio_rhel9':
+    'image_name':       'IMAGEBUILDER UIO RHEL 9'
+    'url':              'http://download.iaas.uio.no/uh-iaas/nonfree/'
+    'latest':           'rhel-baseos-9.0-x86_64-kvm.qcow2'
+    'checksum_file':    'rhel-baseos-9.0-x86_64-kvm.sha256sum'
+    'checksum':         'sha256'
+    'min_ram':          1024
+    'min_disk':         8
+    'username':         'cloud-user'
+    'hour':             13
 
 profile::application::builder::templates:
   'default':
@@ -256,6 +266,7 @@ profile::monitoring::sensu::agent::expanded_checks:
   - 'ubuntu_2204'
   - 'uio_rhel7'
   - 'uio_rhel8'
+  - 'uio_rhel9'
 
 profile::monitoring::sensu::agent::expanded_defaults:
     command: "check-imagebuild.rb -d "
