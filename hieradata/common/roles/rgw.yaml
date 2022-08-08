@@ -5,8 +5,6 @@ include:
     - profile::openstack::object::radosgw
     - profile::storage::ceph::config
 
-ceph_version:         'nautilus' #FIXME
-
 profile::base::common::packages:
   'python3-openstackclient': {}
   'bash-completion': {}

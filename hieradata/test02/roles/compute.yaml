@@ -5,8 +5,6 @@ include:
   default:
     - profile::monitoring::collectd
 
-ceph_version: 'nautilus' # FIXME
-
 named_interfaces::config:
   mgmt:
     - em3

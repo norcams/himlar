@@ -4,8 +4,6 @@ include:
     - profile::base::tuned
     - profile::monitoring::collectd
 
-ceph_version: 'nautilus' # FIXME
-
 named_interfaces::config:
   mgmt:
     - p1p1
