@@ -70,6 +70,19 @@ profile::application::builder::images:
     'username':         'almalinux'
     'hour':             13
     'minute':           30
+  'almalinux9':
+    'image_name':       'IMAGEBUILDER AlmaLinux 9'
+    'url':              'https://repo.almalinux.org/almalinux/9/cloud/x86_64/images/'
+    'latest':           'AlmaLinux-9-GenericCloud-latest.x86_64.qcow2'
+    'checksum_file':    'CHECKSUM'
+    'checksum':         'sha256'
+    'min_ram':          1024
+    'min_disk':         8
+    'flavor':           'm1.small'
+    'efi':              true
+    'username':         'almalinux'
+    'hour':             3
+    'minute':           30
   'almalinux8_nv_vgpu':
     'image_name':       'IMAGEBUILDER AlmaLinux 8 (NVIDIA GPU)'
     'url':              'https://download.iaas.uio.no/nrec/rpm/images/'
