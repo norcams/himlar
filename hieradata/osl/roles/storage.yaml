@@ -103,11 +103,3 @@ profile::storage::cephosd::osds:
     disable_writecache: true
 #  '/dev/sdi': {}
 #  '/dev/sdj': {}
-
-# temp
-profile::base::common::manage_lvm:                  false
-profile::base::lvm::create_lvm:                     false
-profile::storage::cephosd::create_osds:             false
-profile::storage::cephosd::crush_move:              false
-profile::storage::cephpool::manage_ec_pools:        false
-profile::storage::cephpool::manage_cephpool_params: false
