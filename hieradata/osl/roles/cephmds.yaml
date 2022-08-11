@@ -25,3 +25,5 @@ profile::storage::cephfs::fs_params:
     'settings':
       'max_file_size': '10995119925677' # 10TB - default is 1TB
       'max_mds':       '2'
+
+ceph_version: 'quincy' # FIXME
