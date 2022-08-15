@@ -1,0 +1,14 @@
+---
+profile::storage::cephmon::create_crushbuckets: true
+profile::storage::ceph_crushbucket::buckets:
+  'dcache':
+    bucket_type:   'pod'
+    bucket_parent: 'default'
+
+ceph::profile::params::osd_pool_default_min_size:   '2'
+ceph::profile::params::mon_host:                    "%{::netpart_trp1}.89,%{::netpart_trp1}.90,%{::netpart_trp1}.94"
+ceph::profile::params::mon_initial_members:         '%{::location}-cephmon-c2-01,%{::location}-cephmon-c1-02,%{::location}-cephmon-c2-03'
+ceph::profile::params::cluster_network:             '%{::network_ceph1}/%{::cidr_ceph1}'
+ceph::profile::params::public_network:              "%{::network_trp1}/%{::cidr_trp1}"
+
+ceph_version: 'quincy' # FIXME
