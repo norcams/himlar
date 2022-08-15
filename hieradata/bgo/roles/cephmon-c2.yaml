@@ -7,7 +7,7 @@ profile::storage::ceph_crushbucket::buckets:
 
 ceph::profile::params::osd_pool_default_min_size:   '2'
 ceph::profile::params::mon_host:                    "%{::netpart_trp1}.130,%{::netpart_trp1}.131,%{::netpart_trp1}.132"
-ceph::profile::params::mon_initial_members:         '%{::location}-cephmon-c2-01,%{::location}-cephmon-c1-02,%{::location}-cephmon-c2-03'
+ceph::profile::params::mon_initial_members:         '%{::location}-cephmon-c2-01,%{::location}-cephmon-c2-02,%{::location}-cephmon-c2-03'
 ceph::profile::params::cluster_network:             '%{::network_ceph1}/%{::cidr_ceph1}'
 ceph::profile::params::public_network:              "%{::network_trp1}/%{::cidr_trp1}"
 
