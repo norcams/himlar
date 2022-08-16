@@ -7,8 +7,6 @@ profile::storage::ceph_crushbucket::buckets:
     bucket_type:   'pod'
     bucket_parent: 'default'
 
-ceph_version: 'quincy' # FIXME
-
 # Extra disk is needed for large cluster
 profile::base::common::manage_lvm: true
 profile::base::lvm::physical_volume:
