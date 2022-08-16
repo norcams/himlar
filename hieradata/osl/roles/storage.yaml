@@ -31,8 +31,6 @@ profile::monitoring::sensu::agent::checks:
     interval:     1800
     subscribers:  ['checks']
 
-ceph_version: 'quincy' # FIXME
-
 profile::storage::ceph_crushrules::rules:
   'hdd-storage':
     rule_device_type: "hdd"
