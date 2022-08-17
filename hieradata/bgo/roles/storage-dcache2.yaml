@@ -32,13 +32,12 @@ profile::base::network::network_auto_bonding:
 
 ceph_version: 'quincy' # FIXME
 
-# TEMP while upgrading
 profile::base::common::manage_lvm:                  true
 profile::base::lvm::create_lvm:                     true
-profile::storage::cephosd::create_osds:             false
-profile::storage::cephosd::crush_move:              false
-profile::storage::cephpool::manage_ec_pools:        false
-profile::storage::cephpool::manage_cephpool_params: false
+profile::storage::cephosd::create_osds:             true
+profile::storage::cephosd::crush_move:              true
+profile::storage::cephpool::manage_ec_pools:        true
+profile::storage::cephpool::manage_cephpool_params: true
 
 ceph::profile::params::osd_pool_default_min_size:   '2'
 ceph::profile::params::mon_host:                    "%{::netpart_trp1}.130,%{::netpart_trp1}.131,%{::netpart_trp1}.132"
@@ -92,6 +91,14 @@ profile::storage::ceph_extraconf::config:
     'config_key'  : "osd/osd_scrub_chunk_max"
     'config_value': "5"
 
+profile::storage::ceph_crushrules::rules:
+  'hdd-dcache':
+    rule_device_type: "hdd"
+    rule_root:        "dcache"
+  'ssd-dcache':
+    rule_device_type: "ssd"
+    rule_root:        "dcache"
+
 profile::storage::ceph_ecpool::ec_pools:
   'dcache_hdd_ec_data8':
     pg_num:              "4096"
@@ -108,10 +115,10 @@ profile::storage::ceph::pool::pools:
     ensure: absent
   'dcache_hdd_ec_meta8':
     size:    5
-    pg_num:  16
+    pg_num:  128
     tag:    'rbd'
     custom:
-      crush_rule: 'ssd-storage'
+      crush_rule: 'ssd-dcache'
       nodelete:   'true'
       min_size:   '3'
   'dcache_hdd_ec_data8':
@@ -251,39 +258,39 @@ profile::storage::cephosd::osds:
   '/dev/sdf':
     wal_device: false
     db_device:  'vg_ssd1/lv_dbf'
-#  '/dev/sdg':
-#    wal_device: false
-#    db_device:  'vg_ssd1/lv_dbg'
-#  '/dev/sdh':
-#    wal_device: false
-#    db_device:  'vg_ssd1/lv_dbh'
-#  '/dev/sdi':
-#    wal_device: false
-#    db_device:  'vg_ssd1/lv_dbi'
-#  '/dev/sdj':
-#    wal_device: false
-#    db_device:  'vg_ssd2/lv_dbj'
-#  '/dev/sdk':
-#    wal_device: false
-#    db_device:  'vg_ssd2/lv_dbk'
-#  '/dev/sdl':
-#    wal_device: false
-#    db_device:  'vg_ssd2/lv_dbl'
-#  '/dev/sdm':
-#    wal_device: false
-#    db_device:  'vg_ssd2/lv_dbm'
-#  '/dev/sdp':
-#    wal_device: false
-#    db_device:  'vg_ssd2/lv_dbp'
-#  '/dev/sdq':
-#    wal_device: false
-#    db_device:  'vg_ssd2/lv_dbq'
-#  '/dev/sdr':
-#    wal_device: false
-#    db_device:  'vg_ssd2/lv_dbr'
-#  '/dev/sds':
-#    wal_device: false
-#    db_device:  'vg_ssd2/lv_dbs'
+  '/dev/sdg':
+    wal_device: false
+    db_device:  'vg_ssd1/lv_dbg'
+  '/dev/sdh':
+    wal_device: false
+    db_device:  'vg_ssd1/lv_dbh'
+  '/dev/sdi':
+    wal_device: false
+    db_device:  'vg_ssd1/lv_dbi'
+  '/dev/sdj':
+    wal_device: false
+    db_device:  'vg_ssd2/lv_dbj'
+  '/dev/sdk':
+    wal_device: false
+    db_device:  'vg_ssd2/lv_dbk'
+  '/dev/sdl':
+    wal_device: false
+    db_device:  'vg_ssd2/lv_dbl'
+  '/dev/sdm':
+    wal_device: false
+    db_device:  'vg_ssd2/lv_dbm'
+  '/dev/sdp':
+    wal_device: false
+    db_device:  'vg_ssd2/lv_dbp'
+  '/dev/sdq':
+    wal_device: false
+    db_device:  'vg_ssd2/lv_dbq'
+  '/dev/sdr':
+    wal_device: false
+    db_device:  'vg_ssd2/lv_dbr'
+  '/dev/sds':
+    wal_device: false
+    db_device:  'vg_ssd2/lv_dbs'
   '/dev/vg_ssd1/lv_ssd_osd1':
     wal_device: false
     db_device:  false
