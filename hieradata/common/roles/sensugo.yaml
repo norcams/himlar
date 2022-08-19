@@ -5,6 +5,11 @@ include:
     - profile::monitoring::sensu::backend
     - profile::logging::rsyslog::client
 
+# sensugo only uses mgmt
+named_interfaces::config:
+  mgmt:
+    - eth0
+
 # sysctl
 profile::base::common::manage_sysctl: true
 profile::base::common::sysctl_values:
