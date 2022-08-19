@@ -8,6 +8,9 @@ named_interfaces::config:
   trp:
     - bridge.100
 
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::enable_go_agent:     false
+
 profile::monitoring::collectd::enable: true
 
 profile::network::leaf::acls:
