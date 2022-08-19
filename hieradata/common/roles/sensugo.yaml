@@ -46,8 +46,8 @@ profile::monitoring::sensu::backend::manage_etcd_firewall:    true
 profile::monitoring::sensu::backend::manage:                  true
 profile::monitoring::sensu::backend::enable_bash_completion:  true
 
-profile::monitoring::sensu::backend::namespaces:
-  '%{::location}':  { ensure: present }
+# profile::monitoring::sensu::backend::namespaces:
+#   '%{::location}':  { ensure: present }
 
 profile::monitoring::sensu::backend::bonsai_assets:
   sensu/sensu-slack-handler:

@@ -7,7 +7,7 @@ sensu_backend_role:     'sensugo' #FIXME
 sensu::manage_repo:     false
 sensu::password:        "%{hiera('sensu_api_password')}"
 sensu::agent_password:  "%{hiera('sensu_agent_password')}"
-sensu::api_host:        "%{hiera('mgmt__address__monitor')}"
+sensu::api_host:        "%{::location}-%{hiera('sensu_backend_role')}-01.%{hiera('domain_mgmt')}"
 sensu::api_port:        8082
 sensu::username:        'admin'
 sensu::agent_entity_config_password: "%{hiera('sensu_agent_password')}"
@@ -17,7 +17,6 @@ sensu::validate_namespaces: false
 sensu::agent::agent_managed_entity:   true
 sensu::agent::package_name:           'sensu-agent'
 sensu::agent::entity_name:            '%{hostname}'
-sensu::agent::backends:               ["%{hiera('mgmt__address__monitor')}:8081"]
 sensu::agent::namespace:              "%{hiera('sensu_namespace')}"
 sensu::agent::subscriptions:          [ 'base', 'metrics' ]
 sensu::agent::config_hash:
@@ -33,6 +32,11 @@ sensu::agent::config_hash:
   statsd-metrics-port:        8125
   statsd-event-handlers:
     - metric
+
+sensu::agent::backends:
+  - "%{::location}-%{hiera('sensu_backend_role')}-01.%{hiera('domain_mgmt')}:8081"
+  - "%{::location}-%{hiera('sensu_backend_role')}-02.%{hiera('domain_mgmt')}:8081"
+  - "%{::location}-%{hiera('sensu_backend_role')}-03.%{hiera('domain_mgmt')}:8081"
 
 sensu::agent::service_env_vars:
   PATH: '/usr/local/bin:/bin:/usr/bin:/opt/puppetlabs/bin:/opt/sensu-plugins-ruby/embedded/bin'

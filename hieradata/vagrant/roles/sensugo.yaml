@@ -12,9 +12,9 @@ profile::application::openssl::certs:
       - "%{::fqdn}"
       - "%{hiera('mgmt__address__monitor')}"
 
-# To setup a sensu cluster in vagrant
-#
-# 1) Start all nodes with state 'new'
-# 2) Provision all nodes with state 'existing'
-#
 sensu_etcd_cluster_state:     'new'
+
+# Default one node cluster in vagrant. Remove this to run 3 node cluster
+# Provision will fail on first node, run first once on each and rerun the first node after
+sensu_etcd_cluster: "\
+  %{::location}-%{hiera('sensu_backend_role')}-01=http://%{hiera('netcfg_mgmt_netpart')}.21:2380"

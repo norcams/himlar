@@ -2,10 +2,12 @@
 include:
   bootstrap:
     - profile::development::network::dns
+    - profile::application::openssl
   default:
     - profile::development::network::dns
     - profile::monitoring::sensu::agent
     - profile::application::openssl::catrust
+    - profile::application::openssl
 
 # Location setting
 location_environment: vagrant
@@ -335,3 +337,19 @@ profile::openstack::resource::subnets:
       - '129.177.12.31'
     network_name: 'public'
     tenant_name: 'openstack'
+
+
+# FIXME:sensu-go
+profile::application::openssl::manage_ca_cert:          true
+profile::monitoring::sensu::agent::enable_go_agent:     false #true
+profile::monitoring::sensu::agent::enable_agent:        false
+# only checks defined in location will be added to sensu-go
+profile::monitoring::sensu::agent::merge_strategy:      'first'
+profile::monitoring::sensu::agent::checks:              {}
+profile::monitoring::sensu::agent::plugins:             {}
+profile::monitoring::sensu::agent::namespaces:
+  "%{hiera('sensu_namespace')}": {}
+
+profile::base::yumrepo::repo_hash:
+  sensu-community:
+    ensure: present
