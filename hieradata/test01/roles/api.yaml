@@ -74,3 +74,24 @@ volume__backend__names:
 volume__backend__ips:
   - "%{hiera('netcfg_trp_netpart')}.46"
   - "%{hiera('netcfg_trp_netpart')}.47"
+
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::merge_strategy:  'first'
+profile::monitoring::sensu::agent::plugins: {}
+
+sensu::plugins::plugins:
+  sensu-plugins-haproxy:
+    version: 2.0.2
+
+sensu::agent::subscriptions:
+  - 'base'
+  - 'nodes'
+  - 'metrics'
+
+profile::monitoring::sensu::agent::checks:
+  happroxy-checks:
+    command:                'check-haproxy.rb -S 127.0.0.1 -P 9000 -w 100 -c 50 -B 80 -b 75 -A'
+    interval:               60
+    subscriptions:          ['entity:%{::hostname}']
+    handlers:               ['default']
+    provider:               'sensu_api'

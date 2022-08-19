@@ -4,3 +4,8 @@ rabbitmq::cluster_nodes:
 
 rabbitmq::node_ip_address:        "%{::ipaddress_trp1}" #FIXME move to common
 rabbitmq::management_ip_address:  "%{::ipaddress_mgmt1}" #FIXME move to common
+
+# FIXME:sensu-go
+profile::base::common::packages:
+  'gcc-c++': { ensure: absent }
+  'make': { ensure: absent }

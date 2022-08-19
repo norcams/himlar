@@ -1,0 +1,5 @@
+---
+# FIXME:sensu-go
+profile::base::common::packages:
+  'gcc-c++': { ensure: absent }
+  'make': { ensure: absent }
