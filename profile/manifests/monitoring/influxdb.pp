@@ -17,7 +17,8 @@ class profile::monitoring::influxdb(
   Boolean $manage_firewall  = true,
   Array $firewall_ports     = [8086],
   Array $firewall_source    = ["${::network_mgmt1}/${::cidr_mgmt1}"],
-  String $merge_strategy    = 'deep'
+  String $merge_strategy    = 'deep',
+  String $setup_extra_options = '--skip-verify'
 ) {
 
   if $enable_influxdb {
@@ -46,7 +47,8 @@ class profile::monitoring::influxdb(
            --password ${password} \
            --username ${user} \
            --org ${org} \
-           --bucket 'metric'
+           --bucket 'metric' \
+           ${setup_extra_options}
           |-EOT
         ,
         creates => '/root/.influxdbv2/configs',
