@@ -82,7 +82,6 @@ profile::monitoring::sensu::agent::enable_go_agent:     true
 profile::monitoring::sensu::agent::enable_agent:        false
 #profile::monitoring::sensu::agent::purge_check:         true # can be used for temp cleanup
 profile::monitoring::sensu::agent::merge_strategy:      'first'
-profile::monitoring::sensu::agent::namespaces:          {}
 sensu::agent::agent_managed_entity:                     false
 sensu::agent::subscriptions:
   - 'base'
