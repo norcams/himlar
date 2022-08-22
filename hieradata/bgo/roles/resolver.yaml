@@ -73,12 +73,16 @@ profile::dns::ns::ptr_zones:
   public03:
     cidr: "158.39.201.0/24"
     origin: "201.39.158.in-addr.arpa"
+  public05:
+    cidr: "158.37.64.0/23"
+    origin: "64.37.158.in-addr.arpa"
   ipv6:
     cidr: "2001:700:2:83ff::/64"
     origin: "f.f.3.8.0.0.7.0.2.0.0.0.1.0.0.2.ip6.arpa"
 
 profile::dns::ns::allowed_nets:
   - '172.16.0.0/12;         # internal rfc1918'
+  - '158.37.64.0/23;        # bgo IPv4'
   - '158.39.77.0/24;        # bgo IPv4'
   - '158.39.74.0/24;        # bgo IPv4'
   - '158.39.201.0/24;       # bgo IPv4'
