@@ -12,3 +12,6 @@ profile::openstack::resource::host_aggregate:
     availability_zone: "%{::location}-default-1"
     metadata:
       type: 'windows'
+
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::checks:              {}

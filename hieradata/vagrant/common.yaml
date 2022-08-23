@@ -341,7 +341,6 @@ profile::monitoring::sensu::agent::enable_go_agent:     true
 profile::monitoring::sensu::agent::enable_agent:        false
 # only checks defined in location will be added to sensu-go
 profile::monitoring::sensu::agent::merge_strategy:      'first'
-profile::monitoring::sensu::agent::checks:              {}
 profile::monitoring::sensu::agent::plugins:             {}
 profile::monitoring::sensu::agent::namespaces:
   "%{hiera('sensu_namespace')}": {}

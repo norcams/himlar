@@ -18,3 +18,6 @@ sensu_etcd_cluster_state:     'new'
 # Provision will fail on first node, run first once on each and rerun the first node after
 sensu_etcd_cluster: "\
   %{::location}-%{hiera('sensu_backend_role')}-01=http://%{hiera('netcfg_mgmt_netpart')}.21:2380"
+
+
+profile::monitoring::sensu::agent::namespaces: {}
