@@ -1,2 +1,5 @@
 ---
 profile::base::common::manage_lvm: true
+
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::checks:              {}
