@@ -107,6 +107,7 @@ profile::base::physical::enable_redfish_sensu_check:              true
 profile::base::physical::enable_redfish_http_proxy:               true
 
 # FIXME:sensu-go
+profile::monitoring::sensu::agent::checks: {}
 profile::base::common::packages:
   'gcc-c++': { ensure: absent }
   'make': { ensure: absent }
