@@ -121,3 +121,6 @@ profile::base::common::packages:
 #     command:      '/usr/local/bin/calico_dhcp_agent_check.sh'
 #     interval:     600
 #     subscribers:  ['checks']
+sensu::agent::service_env_vars:
+  PATH: '/usr/local/bin:/bin:/usr/bin:/opt/puppetlabs/bin:/opt/sensu-plugins-ruby/embedded/bin'
+  HTTPS_PROXY: "%{hiera('mgmt__address__proxy')}:8888"
