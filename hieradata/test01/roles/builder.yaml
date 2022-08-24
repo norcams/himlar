@@ -8,13 +8,12 @@ profile::monitoring::sensu::agent::plugins:
     source:       'http://download.iaas.uio.no/uh-iaas/gem'
 
 profile::monitoring::sensu::agent::checks:
-  http-check-multiplex:
+  imagebuild-check-multiplex:
     command:  sensu-check-multiplexer --command check-imagebuild.rb --annotation-prefix "check-imagebuild/args"
     stdin: true
     interval:               600
     subscriptions:          ['entity:%{::hostname}']
-    handlers:               ['default']
-    round_robin:            true
+    handlers:               ['notify']
     runtime_assets:
     - sensu/sensu-check-multiplexer
     - sensu-plugins/sensu-plugins-http
