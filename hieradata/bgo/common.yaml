@@ -466,7 +466,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'uib-dualStack'
-    tenant_id: 'e3dcca3452924794a6aebdd21b5da249'
+    tenant_name: 'openstack'
   uib1_ipv6:
     name: 'uib1_IPv6'
     cidr: '2001:700:2:8302::/64'
@@ -477,7 +477,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns6')}"
     network_name: 'uib-dualStack'
-    tenant_id: 'e3dcca3452924794a6aebdd21b5da249'
+    tenant_name: 'openstack'
   public1_ipv6:
     name: 'public1_IPv6'
     cidr: '2001:700:2:8301::/64'
