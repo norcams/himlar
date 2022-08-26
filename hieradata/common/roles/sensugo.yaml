@@ -109,7 +109,7 @@ profile::monitoring::sensu::backend::handlers:
       - default
   status:
     type: pipe
-    command: sensu-influxdb-handler -c -b sensu -o NREC
+    command: sensu-influxdb-handler -c -b sensu -o NREC -i
     timeout: 10
     env_vars:
       - "INFLUXDB_ADDR=https://%{hiera('mgmt__address__influx')}:8086"
@@ -120,7 +120,7 @@ profile::monitoring::sensu::backend::handlers:
       - sensu/sensu-influxdb-handler
   metric:
     type: pipe
-    command: sensu-influxdb-handler -c -b metric -o NREC
+    command: sensu-influxdb-handler -c -b metric -o NREC -i
     timeout: 10
     env_vars:
       - "INFLUXDB_ADDR=https://%{hiera('mgmt__address__influx')}:8086"
