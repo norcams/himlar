@@ -15,7 +15,6 @@ profile::monitoring::influxdb::enable_influxdb:     true
 profile::monitoring::influxdb::token:               "%{hiera('influxdb_admin_token')}"
 profile::monitoring::influxdb::password:            "%{hiera('influxdb_admin_password')}"
 profile::monitoring::influxdb::user:                "admin"
-profile::monitoring::influxdb::org:                 "NREC"
 
 # extra buckets
 profile::monitoring::influxdb::buckets:

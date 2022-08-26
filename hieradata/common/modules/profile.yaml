@@ -403,6 +403,9 @@ profile::base::dell::packages:
   'libstdc++.i686': {}
   'libxml2.i686': {}
 
+# influxdb/telegraf
+profile::monitoring::influxdb::org:                 "NREC"
+
 # Turn on agant and add common sensu plugins
 profile::monitoring::sensu::agent::namespace:       "%{hiera('sensu_namespace')}"
 sensu_ssl_cachain:                                  ''
