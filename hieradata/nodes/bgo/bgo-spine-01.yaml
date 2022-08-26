@@ -90,6 +90,12 @@ frrouting::frrouting::bgp_neighbors:
   - '172.18.3.2 remote-as 65503'
   - '172.18.3.2 prefix-list routes-from-leaf1 in'
   - 'fd00::3:2 remote-as 65503'
+  - '172.18.0.3 remote-as 65504'
+  - '172.18.0.3 prefix-list uib-routes-in in'
+  - '172.18.0.3 prefix-list uib-routes-out out'
+  - '172.18.0.4 remote-as 65504'
+  - '172.18.0.4 prefix-list uib-routes-in in'
+  - '172.18.0.4 prefix-list uib-routes-out out'
 frrouting::frrouting::bgp_neighbors6:
   - '2001:700:0:80fb:: activate'
   - '2001:700:0:80fb:: soft-reconfiguration inbound'
@@ -100,6 +106,12 @@ frrouting::frrouting::bgp_neighbors6:
   - '2001:700:200:1027::1 weight 10000'
   - '2001:700:200:1027::1 prefix-list uib-routes-in6 in'
   - '2001:700:200:1027::1 prefix-list uninett-routes6-out out'
+  - '172.18.0.3 activate'
+  - '172.18.0.3 prefix-list uib-routes-in6 in'
+  - '172.18.0.3 prefix-list uib-routes-out6 out'
+  - '172.18.0.4 activate'
+  - '172.18.0.4 prefix-list uib-routes-in6 in'
+  - '172.18.0.4 prefix-list uib-routes-out6 out'
 
 frrouting::frrouting::zebra_ip6_routes:
   - '2001:700:2:8300::/56 Null0'
