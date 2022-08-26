@@ -20,6 +20,7 @@ profile::monitoring::influxdb::org:                 "NREC"
 # extra buckets
 profile::monitoring::influxdb::buckets:
   "sensu": {}
+  "ceph": {}
 
 # telegraf example
 # profile::monitoring::telegraf::enable_telegraf:     true
