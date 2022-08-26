@@ -13,7 +13,7 @@ profile::monitoring::sensu::agent::checks:
     stdin: true
     interval:               600
     subscriptions:          ['entity:%{::hostname}']
-    handlers:               ['notify']
+    handlers:               ['default']
     runtime_assets:
     - sensu/sensu-check-multiplexer
     - sensu-plugins/sensu-plugins-http
