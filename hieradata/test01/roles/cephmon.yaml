@@ -24,6 +24,14 @@ profile::monitoring::telegraf::inputs:
   prometheus:
     options:
       - urls: ["http://%{::ipaddress_mgmt1}:9283/metrics"]
+        metric_version: 2
+  # ceph:
+  #   options:
+  #     - interval: '1m'
+  #       socket_dir: "/var/run/ceph"
+  #       ceph_binary: "/usr/bin/ceph"
+  #       socket_suffix: "asok"
+  #       mon_prefix: "ceph-mon"
 
 profile::base::yumrepo::repo_hash:
   influxdb:
