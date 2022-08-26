@@ -20,7 +20,10 @@ profile::monitoring::telegraf::outputs:
         bucket: 'ceph'
         insecure_skip_verify: true
 
-profile::monitoring::telegraf::inputs: {}
+profile::monitoring::telegraf::inputs:
+  prometheus:
+    options:
+      - urls: ["http://%{::fqdn}:9283/metrics"]
 
 profile::base::yumrepo::repo_hash:
   influxdb:
