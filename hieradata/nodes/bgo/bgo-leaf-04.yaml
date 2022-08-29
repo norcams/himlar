@@ -249,6 +249,12 @@ quagga::quagga::bgp_neighbors:
 #  - '172.18.230.1 soft-reconfiguration inbound'
 #  - '172.18.230.1 route-map failover-routes in'
 #  - '172.18.230.1 prefix-list uib-routes-in out'
+  - '172.18.228.3 remote-as 65504'
+  - '172.18.228.3 soft-reconfiguration inbound'
+  - '172.18.228.3 route-map failover-routes in'
+  - '172.18.228.3 prefix-list uib-routes-in in'
+  - '172.18.228.3 prefix-list uib-routes-out out'
+  - 'fd00:18:231::1 remote-as 65504'
   - "172.18.6.1 remote-as %{hiera('bgp_as')}"
   - '172.18.6.1 soft-reconfiguration inbound'
   - '172.18.6.1 prefix-list iaas-routes-in in'
@@ -298,6 +304,11 @@ quagga::quagga::bgp_neighbors6:
   - '2001:700:200:1022:: soft-reconfiguration inbound'
   - '2001:700:200:1022:: prefix-list uib-routes-in6 in'
   - '2001:700:200:1022:: prefix-list uib-routes-out6 out'
+  - 'fd00:18:231::1 activate'
+  - 'fd00:18:231::1 soft-reconfiguration inbound'
+  - 'fd00:18:231::1 route-map failover-routes6 in'
+  - 'fd00:18:231::1 prefix-list uib-routes-in6 in'
+  - 'fd00:18:231::1 prefix-list uib-routes-out6 out'
 
 quagga::quagga::bgp_as: '65504'
 
@@ -358,6 +369,6 @@ quagga::quagga::bgp_route_maps:
     - 'set weight 0'
   'failover-routes6 permit 10':
     - 'description routes from leaf neighbor is last resort'
-    - 'match ipv6 address prefix-list uib-routes-in'
+    - 'match ipv6 address prefix-list uib-routes-in6'
     - 'set local-preference 0'
     - 'set weight 0'
