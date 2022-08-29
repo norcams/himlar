@@ -197,6 +197,9 @@ nova::policy::policies:
   nova_disable_reboot:
     key:   'os_compute_api:servers:reboot'
     value: 'role:admin'
+  nova_disable_suspend:
+    key:   'os_compute_api:os-suspend-server:suspend'
+    value: 'role:admin'
   nova_disable_shelve:
     key:   'os_compute_api:servers:shelve'
     value: 'role:admin'
