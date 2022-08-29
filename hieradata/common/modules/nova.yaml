@@ -201,7 +201,7 @@ nova::policy::policies:
     key:   'os_compute_api:os-suspend-server:suspend'
     value: 'role:admin'
   nova_disable_shelve:
-    key:   'os_compute_api:servers:shelve'
+    key:   'os_compute_api:os-shelve:shelve'
     value: 'role:admin'
   nova_create_zero_disk_flavor:
     key:   'os_compute_api:servers:create:zero_disk_flavor'
