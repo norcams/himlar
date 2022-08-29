@@ -101,6 +101,10 @@ profile::openstack::dashboard::policies:
     file_path:  '/etc/openstack-dashboard/nova_policy.json'
     key:        'os_compute_api:servers:reboot'
     value:      'role:admin'
+  nova_compute_resize:
+    file_path:  '/etc/openstack-dashboard/nova_policy.json'
+    key:        'os_compute_api:servers:resize'
+    value:      'role:admin'
   nova_disable_shelve:
     file_path:  '/etc/openstack-dashboard/nova_policy.json'
     key:        'os_compute_api:servers:shelve'
