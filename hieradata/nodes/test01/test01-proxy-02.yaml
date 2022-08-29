@@ -49,3 +49,12 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_opt'
     fs_type:      "xfs"
     mountpath:    "/opt/himlarcli"
+
+profile::base::common::manage_cron:       true
+profile::base::cron::crontabs:
+  logrotate:
+    hour:     '4'
+    minute:   '25'
+    monthday: '*'
+    weekday:  '*'
+    command:  '/opt/himlarcli/bin/logrotate.sh >/dev/null 2>&1'

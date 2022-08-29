@@ -36,3 +36,12 @@ profile::base::network::routes:
     'source':    [ '2001:700:2:83ff::12', ]
     'table':     [ 'main', ]
     'family':    [ 'inet6', ]
+
+profile::base::common::manage_cron:       true
+profile::base::cron::crontabs:
+  logrotate:
+    hour:     '4'
+    minute:   '25'
+    monthday: '*'
+    weekday:  '*'
+    command:  '/opt/himlarcli/bin/logrotate.sh >/dev/null 2>&1'
