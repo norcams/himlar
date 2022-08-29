@@ -88,6 +88,12 @@ frrouting::frrouting::bgp_neighbors6:
   - '2001:700:0:80fa:: soft-reconfiguration inbound'
   - '2001:700:0:80fa:: prefix-list uninett-routes6-in in'
   - '2001:700:0:80fa:: prefix-list uninett-routes6-out out'
+  - '172.18.0.3 activate'
+  - '172.18.0.3 prefix-list uib-routes-in6 in'
+  - '172.18.0.3 prefix-list uib-routes-out6 out'
+  - '172.18.0.4 activate'
+  - '172.18.0.4 prefix-list uib-routes-in6 in'
+  - '172.18.0.4 prefix-list uib-routes-out6 out'
 
 frrouting::frrouting::zebra_ip6_routes:
   - '2001:700:2:8300::/56 Null0'
