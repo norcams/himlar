@@ -256,6 +256,8 @@ quagga::quagga::bgp_neighbors:
   - '172.18.228.3 prefix-list uib-routes-in in'
   - '172.18.228.3 prefix-list uib-routes-in out' # redist uplink to pair member
   - 'fd00:18:231::1 remote-as 65504'
+  - 'fd00:18:231::2 prefix-list deny-any in'
+  - 'fd00:18:231::2 prefix-list deny-any out'
   - "172.18.6.1 remote-as %{hiera('bgp_as')}"
   - '172.18.6.1 soft-reconfiguration inbound'
   - '172.18.6.1 prefix-list iaas-routes-in in'
