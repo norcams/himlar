@@ -329,7 +329,7 @@ quagga::quagga::bgp_options:
 #  - 'redistribute connected'
 
 quagga::quagga::bgp_networks:
-  - '158.37.65.0/24'
+  - '158.37.64.0/24'
 quagga::quagga::bgp_networks6:
   - '2001:700:2:8302::/64'
 
@@ -350,7 +350,7 @@ quagga::quagga::bgp_networks6:
 
 quagga::quagga::bgp_ip_prefix_list:
   - 'deny-all seq 5 deny any'
-  - 'uib-routes-out seq 5 permit 158.37.65.0/24'
+  - 'uib-routes-out seq 5 permit 158.37.64.0/24'
   - 'uib-routes-out seq 10 deny any'
   - 'uib-routes-in seq 5 permit 129.177.0.0/17'
   - 'uib-routes-in seq 6 permit 129.177.128.0/17'
