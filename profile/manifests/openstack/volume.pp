@@ -5,6 +5,7 @@ class profile::openstack::volume(
   $notify_service = false
 ) {
   include ::cinder
+  include ::cinder::nova
   include ::cinder::client
   include ::cinder::config
   include ::cinder::logging

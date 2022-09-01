@@ -45,6 +45,9 @@ cinder::keystone::auth::public_url_v3:          "%{hiera('endpoint__volume__publ
 cinder::keystone::auth::admin_url_v3:           "%{hiera('endpoint__volume__admin')}/v3/%(tenant_id)s"
 cinder::keystone::auth::internal_url_v3:        "%{hiera('endpoint__volume__internal')}/v3/%(tenant_id)s"
 
+# nova client
+cinder::nova::region_name: "%{::location}"
+
 # rabbit mq
 cinder::default_transport_url:         "rabbit://cinder:%{hiera('cinder_rabbit_password')}@%{hiera('service__address__rabbitmq_01')}:5672/cinder"
 
