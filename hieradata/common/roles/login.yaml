@@ -145,6 +145,5 @@ profile::base::yumrepo::repo_hash:
   epel:
     ensure: present
 
-profile::base::login::manage_db_backup: true
 profile::base::login::dump_owner:      'norcams'
 profile::base::login::dump_group:      'wheel'
