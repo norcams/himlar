@@ -65,3 +65,12 @@ neutron::config::server_config:
 
 # quota (node: network)
 neutron::quota::quota_port:   '-1'
+
+# policies
+neutron::policy::policies:
+  create_network:
+    key:    'create_network'
+    value:  'role:admin_only'
+  create_address_scope:
+    key:    'create_address_scope'
+    value:  'role:admin_only'
