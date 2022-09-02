@@ -70,7 +70,7 @@ neutron::quota::quota_port:   '-1'
 neutron::policy::policies:
   create_network:
     key:    'create_network'
-    value:  'role:admin'
+    value:  'role:admin_only'
   create_address_scope:
     key:    'create_address_scope'
-    value:  'role:admin'
+    value:  'role:admin_only'
