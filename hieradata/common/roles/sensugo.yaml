@@ -242,3 +242,19 @@ profile::base::yumrepo::repo_hash:
     ensure:   present
   # influxdb: # need for telegraf
   #   ensure: present
+
+
+# logrotate
+logrotate::rules:
+  sensu-backend:
+    path:
+    - '/var/log/sensu/sensu-backend.log'
+    - '/var/log/sensu/backend-stats.log'
+    rotate_every:   daily
+    rotate:         7
+    maxsize:        100M
+    compress:       true
+    copytruncate:   true
+    missingok:      true
+    postrotate:     '/bin/systemctl restart rsyslog'
+    dateext:        true
