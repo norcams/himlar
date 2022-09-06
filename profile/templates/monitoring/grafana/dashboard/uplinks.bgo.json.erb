@@ -3,29 +3,42 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
         "type": "dashboard"
       }
     ]
   },
   "description": "Traffic in and out of NREC",
   "editable": true,
+  "fiscalYearStartMonth": 0,
   "gnetId": 24,
   "graphTooltip": 1,
-  "id": 9,
-  "iteration": 1639790734910,
+  "iteration": 1662462641221,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "graphite",
+      "datasource": {
+        "type": "graphite",
+        "uid": "000000001"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -60,7 +73,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.7",
+      "pluginVersion": "9.0.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -70,6 +83,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "graphite",
+            "uid": "000000001"
+          },
           "hide": false,
           "refCount": 0,
           "refId": "A",
@@ -77,6 +94,10 @@
           "textEditor": true
         },
         {
+          "datasource": {
+            "type": "graphite",
+            "uid": "000000001"
+          },
           "refCount": 0,
           "refId": "B",
           "target": "alias(scale($prefix.bgo-spine-01.interface-swp28s0.if_octets.tx, 8), 'egress from NREC')",
@@ -84,9 +105,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Uplink Gigabits/sec bgo-spine-01 - hoytek-gw2",
       "tooltip": {
         "shared": true,
@@ -96,9 +115,7 @@
       "transformations": [],
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
@@ -106,7 +123,6 @@
         {
           "$$hashKey": "object:1259",
           "format": "bps",
-          "label": null,
           "logBase": 1,
           "max": "10737418240",
           "min": "0",
@@ -115,16 +131,12 @@
         {
           "$$hashKey": "object:1260",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -132,7 +144,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "graphite",
+      "datasource": {
+        "type": "graphite",
+        "uid": "000000001"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -167,7 +182,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.7",
+      "pluginVersion": "9.0.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -177,6 +192,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "graphite",
+            "uid": "000000001"
+          },
           "hide": false,
           "refCount": 0,
           "refId": "A",
@@ -184,6 +203,10 @@
           "textEditor": true
         },
         {
+          "datasource": {
+            "type": "graphite",
+            "uid": "000000001"
+          },
           "refCount": 0,
           "refId": "B",
           "target": "alias(scale($prefix.bgo-spine-02.interface-swp28s0.if_octets.tx, 8), 'egress from NREC')",
@@ -191,9 +214,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Uplink Gigabits/sec bgo-spine-02 - bergen-gw3",
       "tooltip": {
         "shared": true,
@@ -203,9 +224,7 @@
       "transformations": [],
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
@@ -213,7 +232,6 @@
         {
           "$$hashKey": "object:1259",
           "format": "bps",
-          "label": null,
           "logBase": 1,
           "max": "10737418240",
           "min": "0",
@@ -222,20 +240,19 @@
         {
           "$$hashKey": "object:1260",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
-      "datasource": "graphite",
+      "datasource": {
+        "type": "graphite",
+        "uid": "000000001"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -275,6 +292,7 @@
       "id": 13,
       "links": [],
       "options": {
+        "orientation": "auto",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -286,9 +304,13 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "7.5.7",
+      "pluginVersion": "9.0.2",
       "targets": [
         {
+          "datasource": {
+            "type": "graphite",
+            "uid": "000000001"
+          },
           "hide": false,
           "refCount": 0,
           "refId": "A",
@@ -296,21 +318,26 @@
           "textEditor": false
         },
         {
+          "datasource": {
+            "type": "graphite",
+            "uid": "000000001"
+          },
           "refCount": 0,
           "refId": "B",
           "target": "alias(scale($prefix.bgo-spine-01.interface-swp28s0.if_octets.tx, 8), 'egress from NREC')",
           "textEditor": false
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Current uplink traffic bgo-spine-01 ",
       "transformations": [],
       "transparent": true,
       "type": "gauge"
     },
     {
-      "datasource": "graphite",
+      "datasource": {
+        "type": "graphite",
+        "uid": "000000001"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -350,6 +377,7 @@
       "id": 15,
       "links": [],
       "options": {
+        "orientation": "auto",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -361,9 +389,13 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "7.5.7",
+      "pluginVersion": "9.0.2",
       "targets": [
         {
+          "datasource": {
+            "type": "graphite",
+            "uid": "000000001"
+          },
           "hide": false,
           "refCount": 0,
           "refId": "A",
@@ -371,14 +403,16 @@
           "textEditor": false
         },
         {
+          "datasource": {
+            "type": "graphite",
+            "uid": "000000001"
+          },
           "refCount": 0,
           "refId": "B",
           "target": "alias(scale($prefix.bgo-spine-02.interface-swp28s0.if_octets.tx, 8), 'egress from NREC')",
           "textEditor": true
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Current uplink traffic bgo-spine-02",
       "transformations": [],
       "transparent": true,
@@ -389,7 +423,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "graphite",
+      "datasource": {
+        "type": "graphite",
+        "uid": "000000001"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -424,7 +461,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.7",
+      "pluginVersion": "9.0.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -445,6 +482,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "graphite",
+            "uid": "000000001"
+          },
           "hide": false,
           "refCount": 0,
           "refId": "A",
@@ -452,6 +493,10 @@
           "textEditor": true
         },
         {
+          "datasource": {
+            "type": "graphite",
+            "uid": "000000001"
+          },
           "refCount": 0,
           "refId": "B",
           "target": "alias(scale($prefix.bgo-leaf-01.interface-swp48.if_octets.tx, 8), 'egress from NREC')",
@@ -459,9 +504,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Uplink Gigabits/sec LHCORN bgo-leaf-01 - hoytek-gw2",
       "tooltip": {
         "shared": true,
@@ -471,9 +514,7 @@
       "transformations": [],
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
@@ -481,7 +522,6 @@
         {
           "$$hashKey": "object:1259",
           "format": "bps",
-          "label": null,
           "logBase": 1,
           "max": "10737418240",
           "min": "0",
@@ -490,16 +530,12 @@
         {
           "$$hashKey": "object:1260",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -507,7 +543,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "graphite",
+      "datasource": {
+        "type": "graphite",
+        "uid": "000000001"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -542,7 +581,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.7",
+      "pluginVersion": "9.0.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -563,6 +602,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "graphite",
+            "uid": "000000001"
+          },
           "hide": false,
           "refCount": 0,
           "refId": "A",
@@ -570,6 +613,10 @@
           "textEditor": true
         },
         {
+          "datasource": {
+            "type": "graphite",
+            "uid": "000000001"
+          },
           "refCount": 0,
           "refId": "B",
           "target": "alias(scale($prefix.bgo-leaf-02.interface-swp48.if_octets.tx, 8), 'egress from NREC')",
@@ -577,9 +624,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Uplink Gigabits/sec LHCORN bgo-leaf-02 - bergen-gw3",
       "tooltip": {
         "shared": true,
@@ -589,9 +634,7 @@
       "transformations": [],
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
@@ -599,7 +642,6 @@
         {
           "$$hashKey": "object:1259",
           "format": "bps",
-          "label": null,
           "logBase": 1,
           "max": "10737418240",
           "min": "0",
@@ -608,20 +650,19 @@
         {
           "$$hashKey": "object:1260",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
-      "datasource": "graphite",
+      "datasource": {
+        "type": "graphite",
+        "uid": "000000001"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -661,6 +702,7 @@
       "id": 18,
       "links": [],
       "options": {
+        "orientation": "auto",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -672,9 +714,13 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "7.5.7",
+      "pluginVersion": "9.0.2",
       "targets": [
         {
+          "datasource": {
+            "type": "graphite",
+            "uid": "000000001"
+          },
           "hide": false,
           "refCount": 0,
           "refId": "A",
@@ -682,21 +728,26 @@
           "textEditor": true
         },
         {
+          "datasource": {
+            "type": "graphite",
+            "uid": "000000001"
+          },
           "refCount": 0,
           "refId": "B",
           "target": "alias(scale($prefix.bgo-leaf-01.interface-swp48.if_octets.tx, 8), 'egress from NREC')",
           "textEditor": true
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Current uplink traffic LHCORN bgo-leaf-01",
       "transformations": [],
       "transparent": true,
       "type": "gauge"
     },
     {
-      "datasource": "graphite",
+      "datasource": {
+        "type": "graphite",
+        "uid": "000000001"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -736,6 +787,7 @@
       "id": 19,
       "links": [],
       "options": {
+        "orientation": "auto",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -747,9 +799,13 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "7.5.7",
+      "pluginVersion": "9.0.2",
       "targets": [
         {
+          "datasource": {
+            "type": "graphite",
+            "uid": "000000001"
+          },
           "hide": false,
           "refCount": 0,
           "refId": "A",
@@ -757,22 +813,460 @@
           "textEditor": true
         },
         {
+          "datasource": {
+            "type": "graphite",
+            "uid": "000000001"
+          },
           "refCount": 0,
           "refId": "B",
           "target": "alias(scale($prefix.bgo-leaf-02.interface-swp48.if_octets.tx, 8), 'egress from NREC')",
           "textEditor": true
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Current uplink traffic LHCORN bgo-leaf-02",
+      "transformations": [],
+      "transparent": true,
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "graphite",
+        "uid": "000000001"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 80,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "max": 42949672960,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "bps"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ingress to NREC"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "light-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "egress from NREC"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 28
+      },
+      "id": 20,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.0.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "graphite",
+            "uid": "000000001"
+          },
+          "hide": false,
+          "refCount": 0,
+          "refId": "A",
+          "target": "alias(scale($prefix.bgo-leaf-03.interface-swp49.if_octets.rx, 8), 'ingress to NREC')",
+          "textEditor": true
+        },
+        {
+          "datasource": {
+            "type": "graphite",
+            "uid": "000000001"
+          },
+          "refCount": 0,
+          "refId": "B",
+          "target": "alias(scale($prefix.bgo-leaf-03.interface-swp49.if_octets.tx, 8), 'egress from NREC')",
+          "textEditor": true
+        }
+      ],
+      "title": "Uplink Gigabits/sec UiB bgo-leaf-03 - 351-CE.uib.no",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "graphite",
+        "uid": "000000001"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 80,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "max": 42949672960,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "bps"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ingress to NREC"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "light-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "egress from NREC"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 28
+      },
+      "id": 24,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.0.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "graphite",
+            "uid": "000000001"
+          },
+          "hide": false,
+          "refCount": 0,
+          "refId": "A",
+          "target": "alias(scale($prefix.bgo-leaf-04.interface-swp49.if_octets.rx, 8), 'ingress to NREC')",
+          "textEditor": true
+        },
+        {
+          "datasource": {
+            "type": "graphite",
+            "uid": "000000001"
+          },
+          "refCount": 0,
+          "refId": "B",
+          "target": "alias(scale($prefix.bgo-leaf-04.interface-swp49.if_octets.tx, 8), 'egress from NREC')",
+          "textEditor": true
+        }
+      ],
+      "title": "Uplink Gigabits/sec UiB bgo-leaf-04 - 209-CE.uib.no",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "graphite",
+        "uid": "000000001"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 42949672960,
+          "min": 0,
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "#C0D8FF",
+                "value": null
+              },
+              {
+                "color": "light-orange",
+                "value": 70
+              },
+              {
+                "color": "light-red",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "bps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 36
+      },
+      "id": 21,
+      "links": [],
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "text": {}
+      },
+      "pluginVersion": "9.0.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "graphite",
+            "uid": "000000001"
+          },
+          "hide": false,
+          "refCount": 0,
+          "refId": "A",
+          "target": "alias(scale($prefix.bgo-leaf-03.interface-swp49.if_octets.rx, 8), 'ingress to NREC')",
+          "textEditor": true
+        },
+        {
+          "datasource": {
+            "type": "graphite",
+            "uid": "000000001"
+          },
+          "refCount": 0,
+          "refId": "B",
+          "target": "alias(scale($prefix.bgo-leaf-03.interface-swp49.if_octets.tx, 8), 'egress from NREC')",
+          "textEditor": true
+        }
+      ],
+      "title": "Current uplink traffic UiB bgo-leaf-03",
+      "transformations": [],
+      "transparent": true,
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "graphite",
+        "uid": "000000001"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 42949672960,
+          "min": 0,
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "super-light-blue",
+                "value": null
+              },
+              {
+                "color": "light-orange",
+                "value": 70
+              },
+              {
+                "color": "light-red",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "bps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 36
+      },
+      "id": 23,
+      "links": [],
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "text": {}
+      },
+      "pluginVersion": "9.0.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "graphite",
+            "uid": "000000001"
+          },
+          "hide": false,
+          "refCount": 0,
+          "refId": "A",
+          "target": "alias(scale($prefix.bgo-leaf-04.interface-swp49.if_octets.rx, 8), 'ingress to NREC')",
+          "textEditor": true
+        },
+        {
+          "datasource": {
+            "type": "graphite",
+            "uid": "000000001"
+          },
+          "refCount": 0,
+          "refId": "B",
+          "target": "alias(scale($prefix.bgo-leaf-04.interface-swp49.if_octets.tx, 8), 'egress from NREC')",
+          "textEditor": true
+        }
+      ],
+      "title": "Current uplink traffic UiB bgo-leaf-04",
       "transformations": [],
       "transparent": true,
       "type": "gauge"
     }
   ],
   "refresh": "5s",
-  "schemaVersion": 27,
+  "schemaVersion": 36,
   "style": "dark",
   "tags": [
     "collectd",
@@ -782,12 +1276,8 @@
     "list": [
       {
         "allFormat": "glob",
-        "datasource": null,
-        "description": null,
-        "error": null,
         "hide": 2,
         "includeAll": false,
-        "label": null,
         "multi": false,
         "multiFormat": "glob",
         "name": "prefix",
@@ -799,19 +1289,18 @@
       },
       {
         "allFormat": "glob",
-        "allValue": null,
         "current": {
           "selected": false,
           "text": "bgo-monitor-01",
           "value": "bgo-monitor-01"
         },
-        "datasource": "graphite",
+        "datasource": {
+          "type": "graphite",
+          "uid": "000000001"
+        },
         "definition": "",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
-        "label": null,
         "multi": false,
         "multiFormat": "glob",
         "name": "server",
@@ -823,7 +1312,6 @@
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -863,5 +1351,6 @@
   "timezone": "",
   "title": "NREC uplinks",
   "uid": "MwKmUTnVL",
-  "version": 4
+  "version": 1,
+  "weekStart": ""
 }
