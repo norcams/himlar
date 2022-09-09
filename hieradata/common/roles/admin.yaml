@@ -2,7 +2,6 @@
 include:
   default:
     - profile::application::foreman
-    - profile::application::foreman_proxy
     - profile::network::services
     - profile::webserver::apache
 

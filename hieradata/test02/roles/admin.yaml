@@ -7,7 +7,5 @@ profile::dns::rndc_key::create_admin_key:    true
 profile::dns::rndc_key::create_mdns_key:     false
 profile::dns::rndc_key::host_is_bind_server: false
 
-profile::application::foreman_proxy::serve_oob_dhcp: true
-
 # until all env upgraded to 2.3
 foreman_version: '2.3'
