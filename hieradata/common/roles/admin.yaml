@@ -45,6 +45,10 @@ profile::application::foreman::dhcp_classes:
     parameters:
       - 'match if (substring(option vendor-class-identifier, 0, 18) = "onie_vendor:powerpc")'
       - "option default-url = \"http://repo.mgmt.%{location}.iaas.intern/cumuluslinux/onie-installer-powerpc\""
+  onie_edgecore_as4610:
+    parameters:
+      - 'match if (substring(option vendor-class-identifier, 0, 18) = "onie_vendor:arm")'
+      - "option default-url = \"http://repo.mgmt.%{location}.iaas.intern/cumuluslinux/onie-installer-arm\""
   onie_dell_s5232f:
     parameters:
       - 'match if (substring(option vendor-class-identifier, 0, 33) = "onie_vendor:x86_64-dellemc_s5232f")'
