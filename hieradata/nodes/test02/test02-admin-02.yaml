@@ -12,7 +12,6 @@ network::interfaces_hash:
     peerdns:      'yes'
 
 profile::network::services::manage_dns_records: false
-profile::network::services::manage_dhcp_rsvs:   false
 
 profile::dns::rndc_key::create_admin_key:    false
 

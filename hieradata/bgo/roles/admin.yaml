@@ -20,7 +20,7 @@ profile::webserver::apache::vhosts:
     docroot_owner:  'iaas'
     serveraliases:  [ "repo.%{hiera('domain_oob')}", ]
 
-profile::network::services::dhcp_reservation:
+dhcp::hosts:
   bgo-leaf-01:
     mac: '00:01:e8:d8:38:aa'
     ip:  '172.16.3.1'

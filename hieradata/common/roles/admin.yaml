@@ -67,7 +67,6 @@ profile::application::foreman::dhcp_classes:
       - "option ztd-provision-url \"http://repo.mgmt.%{location}.uhdc.no/cumuluslinux/provision.sh\""
 
 profile::network::services::manage_dns_records: true
-profile::network::services::manage_dhcp_rsvs:   true
 
 # We need SCL repos
 openstack_extras::repo::redhat::redhat::purge_unmanaged:  false
