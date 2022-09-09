@@ -87,9 +87,6 @@ profile::webserver::apache::vhosts:
     docroot:        '/opt/repo/public'
     docroot_owner:  'iaas'
 
-dhcp::onie_inst_def_url:     "http://repo.%{domain}/cumuluslinux/onie-installer-powerpc"
-dhcp::cumulus_provision_url: "http://repo.%{domain}/cumuluslinux/provision.sh"
-
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   foreman:

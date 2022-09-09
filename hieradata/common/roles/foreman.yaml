@@ -33,6 +33,3 @@ profile::webserver::apache::vhosts:
     port:           80
     docroot:        '/opt/repo/public'
     docroot_owner:  'iaas'
-
-dhcp::onie_inst_def_url:     "http://repo.%{domain}/cumuluslinux/onie-installer-powerpc"
-dhcp::cumulus_provision_url: "http://repo.%{domain}/cumuluslinux/provision.sh"
