@@ -1,0 +1,70 @@
+---
+include:
+  default:
+    - profile::monitoring::influxdb
+    - profile::monitoring::telegraf
+
+# tsdb only uses mgmt
+named_interfaces::config:
+  mgmt:
+    - eth0
+
+profile::monitoring::influxdb::run_setup:           true
+profile::monitoring::influxdb::write_token_file:    true
+profile::monitoring::influxdb::enable_influxdb:     true
+profile::monitoring::influxdb::token:               "%{hiera('influxdb_admin_token')}"
+profile::monitoring::influxdb::password:            "%{hiera('influxdb_admin_password')}"
+profile::monitoring::influxdb::user:                "admin"
+
+# extra buckets
+profile::monitoring::influxdb::buckets:
+  "sensu": {}
+  "ceph": {}
+
+# telegraf example
+# profile::monitoring::telegraf::enable_telegraf:     true
+# profile::monitoring::telegraf::outputs:
+#   influxdb_v2:
+#     options:
+#       - urls: ["https://%{hiera('mgmt__address__influx')}:8086"]
+#         tls_ca: '/etc/puppetlabs/puppet/ssl/certs/ca.pem'
+#         token: "%{hiera('influxdb_admin_token')}"
+#         organization: "%{hiera('profile::monitoring::influxdb::org')}"
+#         bucket: 'network_data'
+#       - urls: ["https://%{hiera('mgmt__address__influx')}:8086"]
+#         tls_ca: '/etc/puppetlabs/puppet/ssl/certs/ca.pem'
+#         token: "%{hiera('influxdb_admin_token')}"
+#         organization: "%{hiera('profile::monitoring::influxdb::org')}"
+#         bucket: 'metric'
+#
+# profile::monitoring::telegraf::inputs:
+#   socket_listener:
+#     options:
+#     - service_address: "udp://:8094"
+#       data_format: "influx"
+#   prometheus:
+#     options:
+#     - urls: ["https://%{hiera('mgmt__address__influx')}:8086/metrics"]
+
+# sensu-go
+# profile::monitoring::sensu::agent::enable_go_agent: true
+# profile::monitoring::sensu::agent::plugins: {}
+# profile::monitoring::sensu::agent::namespaces:
+#   '%{::location}':  { ensure: present }
+# sensu::plugins::plugins: {}
+# sensu::agent::subscriptions:
+#   - 'base'
+#   - 'nodes'
+#   - 'metrics'
+
+# old sensu client
+profile::monitoring::sensu::agent::enable_agent:    false
+
+profile::base::common::packages:
+  'influxdb2-cli':                { ensure: present }
+
+profile::base::yumrepo::repo_hash:
+  influxdb:
+    ensure: present
+  sensu-community:
+    ensure: present

@@ -9,10 +9,16 @@ profile::database::mariadb::grants:
     privileges: ['SELECT', 'INSERT', 'DELETE', 'CREATE']
     user:       "keystone@%{hiera('netcfg_trp_netpart')}.%"
     table:      'token_keys.*'
-  'netdata@localhost/*.*':
-    privileges: ['USAGE']
-    table:      '*.*'
-    user:       'netdata@localhost'
+  # 'netdata@localhost/*.*':
+  #   privileges: ['USAGE']
+  #   table:      '*.*'
+  #   user:       'netdata@localhost'
+
+# FIXME:sensu-go
+profile::base::common::packages:
+  'gcc-c++': { ensure: absent }
+  'gcc': { ensure: absent }
+  'make': { ensure: absent }
 
 #
 # Galera setup

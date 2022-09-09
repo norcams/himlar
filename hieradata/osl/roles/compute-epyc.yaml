@@ -1,0 +1,43 @@
+---
+profile::base::common::extraswap_fileloc: '/var/lib/swap/swapfile'
+
+# Ensure that the BOSS device is the first device
+profile::base::physical::load_ahci_first: true
+profile::base::physical::load_ahci_first_scsidrv: 'megaraid_sas'
+
+# Do not use ceph cluster for instance disk
+nova::compute::rbd::ephemeral_storage: false
+
+# Nova overrides
+nova::compute::libvirt::libvirt_cpu_model:       'EPYC'
+nova::cpu_allocation_ratio:                      '8'
+nova::disk_allocation_ratio:                     '1'
+nova::ram_allocation_ratio:                      '1.4'
+nova::scheduler::filter::max_instances_per_host: '32'
+
+
+
+profile::base::lvm::physical_volume:
+  '/dev/sda4':
+    ensure: present
+    force:  true
+  '/dev/sdb':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_instances':
+    physical_volumes:
+      - /dev/sdb
+  'vg_ext':
+    physical_volumes:
+      - /dev/sda4
+profile::base::lvm::logical_volume:
+  'lv_instances':
+    volume_group: 'vg_instances'
+    fs_type:      "xfs"
+    mountpath:    "/var/lib/nova/instances"
+  'lv_swap2':
+    volume_group: 'vg_ext'
+    fs_type:      xfs
+    size:         40G
+    mountpath:    "/var/lib/swap"

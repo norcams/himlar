@@ -292,7 +292,7 @@ image__backend__ips:       ["%{hiera('netcfg_trp_netpart')}.36"]
 object__backend__names:    []
 object__backend__ips:      []
 status__backend__names:    ['%{::location}-status-01']
-status__backend__ips:      ["%{hiera('netcfg_trp_netpart')}.21"]
+status__backend__ips:      ["%{hiera('netcfg_trp_netpart')}.50"]
 dns__backend__names:       ['%{::location}-dns-01']
 dns__backend__ips:         ["%{hiera('netcfg_trp_netpart')}.34"]
 console__backend__names:   ['%{::location}-console-01']
@@ -300,7 +300,7 @@ console__backend__ips:     ["%{hiera('netcfg_trp_netpart')}.61"]
 access__backend__names:    ['%{::location}-access-01']
 access__backend__ips:      ["%{hiera('netcfg_trp_netpart')}.56"]
 report__backend__names:    ['%{::location}-report-01']
-report__backend__ips:      ["%{hiera('netcfg_trp_netpart')}.22"]
+report__backend__ips:      ["%{hiera('netcfg_trp_netpart')}.40"]
 
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   identity:

@@ -18,10 +18,11 @@ class profile::development::network::dns(
 
   if $remove_local_hostname {
     # this will fix problems in vagrant for services running on fqdn in mgmt
-    host { $::fqdn:
-      ensure => absent,
-      ip     => '127.0.1.1'
+    file_line { 'remove-localhost-hostrecord':
+      ensure            => absent,
+      path              => '/etc/hosts',
+      match             => "^127.0.1.1 ${::fqdn}",
+      match_for_absence => true,
     }
   }
-
 }

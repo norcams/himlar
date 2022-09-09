@@ -1,6 +1,9 @@
 ---
 puppet::runinterval:  3600
 
+puppet::server_jvm_min_heap_size:       '2G'
+puppet::server_jvm_max_heap_size:       '3G'
+puppet::server_max_active_instances:    2
 
 # This is a hack to remove the 'unable to autoload nsupdate provider' 500 error
 puppet::server_ruby_load_paths:

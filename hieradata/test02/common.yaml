@@ -3,8 +3,6 @@ include:
   default:
     - profile::monitoring::sensu::agent
 
-ceph_version: 'octopus' # FIXME
-
 location_environment:   'test02'
 location_description:   'Test environment physically in OSL'
 

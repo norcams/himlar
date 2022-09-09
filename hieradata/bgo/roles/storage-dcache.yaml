@@ -26,9 +26,9 @@ profile::storage::cephosd::crush_parent_type: 'pod'
 #profile::base::common::manage_lvm: false
 #profile::base::lvm::create_lvm:    false
 
-# Ensure that the BOSS device is the last device
-profile::base::physical::load_ahci_last: true
-profile::base::physical::load_ahci_last_scsidrv: 'mpt3sas'
+# Ensure that the BOSS device is the first device
+profile::base::physical::load_ahci_first: true
+profile::base::physical::load_ahci_first_scsidrv: 'mpt3sas'
 
 # sensu overrides
 sensu__memory__check:     "check-memory.rb -w 2048 -c 1024"
@@ -97,13 +97,13 @@ profile::storage::ceph::pool::pools:
       nodelete:   'true'
       min_size:   '2'
   'dcache_hdd_ec_meta8':
-    size:    3
+    size:    5
     pg_num:  16
     tag:    'rbd'
     custom:
-      crush_rule: 'ssd-storage'
+      crush_rule: 'ssd-dcache'
       nodelete:   'true'
-      min_size:   '2'
+      min_size:   '3'
   'dcache_hdd_ec_data':
     custom:
       deep_scrub_interval: '1.93536e+07' # every 32 weeks - overrides osd setting
@@ -141,23 +141,19 @@ profile::base::disk::disk_hdparams:
 profile::base::lvm::volume_group:
   'vg_swap':
     physical_volumes:
-      - /dev/sds3
+      - /dev/sda4
   'vg_cache1':
     physical_volumes:
-      - /dev/sdq
+      - /dev/sdr
   'vg_cache2':
     physical_volumes:
-      - /dev/sdr
+      - /dev/sds
 profile::base::lvm::logical_volume:
   'lv_swap2':
     volume_group: 'vg_swap'
     fs_type:      xfs
     size:         40G
     mountpath:    "/var/lib/swap"
-  'lv_dba':
-    volume_group: 'vg_cache1'
-    createfs:     false
-    size:         80G
   'lv_dbb':
     volume_group: 'vg_cache1'
     createfs:     false
@@ -175,7 +171,7 @@ profile::base::lvm::logical_volume:
     createfs:     false
     size:         80G
   'lv_dbf':
-    volume_group: 'vg_cache2'
+    volume_group: 'vg_cache1'
     createfs:     false
     size:         80G
   'lv_dbg':
@@ -218,6 +214,10 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_cache2'
     createfs:     false
     size:         80G
+  'lv_dbq':
+    volume_group: 'vg_cache2'
+    createfs:     false
+    size:         80G
 profile::base::lvm::physical_volume:
   '/dev/sdq':
     ensure: present
@@ -227,70 +227,54 @@ profile::base::lvm::physical_volume:
     force:  true
 
 profile::storage::cephosd::osds:
-  '/dev/sda':
-    wal_device: false
-    db_device:  'vg_cache1/lv_dba'
-#    wal_device: 'vg_cache/lv_wala'
   '/dev/sdb':
     wal_device: false
     db_device:  'vg_cache1/lv_dbb'
-#    wal_device: 'vg_cache/lv_walb'
   '/dev/sdc':
     wal_device: false
     db_device:  'vg_cache1/lv_dbc'
-#    wal_device: 'vg_cache/lv_walc'
   '/dev/sdd':
     wal_device: false
     db_device:  'vg_cache1/lv_dbd'
-#    wal_device: 'vg_cache/lv_wald'
   '/dev/sde':
     wal_device: false
     db_device:  'vg_cache1/lv_dbe'
-#    wal_device: 'vg_cache/lv_wale'
   '/dev/sdf':
     wal_device: false
     db_device:  'vg_cache2/lv_dbf'
-#    wal_device: 'vg_cache/lv_walf'
   '/dev/sdg':
     wal_device: false
     db_device:  'vg_cache2/lv_dbg'
-#    wal_device: 'vg_cache/lv_walg'
   '/dev/sdh':
     wal_device: false
     db_device:  'vg_cache2/lv_dbh'
-#    wal_device: 'vg_cache/lv_walh'
   '/dev/sdi':
     wal_device: false
     db_device:  'vg_cache2/lv_dbi'
-#    wal_device: 'vg_cache/lv_wali'
   '/dev/sdj':
     wal_device: false
     db_device:  'vg_cache2/lv_dbj'
-#    wal_device: 'vg_cache/lv_walj'
   '/dev/sdk':
     wal_device: false
     db_device:  'vg_cache2/lv_dbk'
-#    wal_device: 'vg_cache/lv_walk'
   '/dev/sdl':
     wal_device: false
     db_device:  'vg_cache2/lv_dbl'
-#    wal_device: 'vg_cache/lv_wall'
   '/dev/sdm':
     wal_device: false
     db_device:  'vg_cache2/lv_dbm'
-#    wal_device: 'vg_cache/lv_walm'
   '/dev/sdn':
     wal_device: false
     db_device:  'vg_cache2/lv_dbn'
-#    wal_device: 'vg_cache/lv_waln'
   '/dev/sdo':
     wal_device: false
     db_device:  'vg_cache2/lv_dbo'
-#    wal_device: 'vg_cache/lv_walo'
   '/dev/sdp':
     wal_device: false
     db_device:  'vg_cache2/lv_dbp'
-#    wal_device: 'vg_cache/lv_walo'
+  '/dev/sdq':
+    wal_device: false
+    db_device:  'vg_cache2/lv_dbq'
 
 # Sensu
 sudo::configs:

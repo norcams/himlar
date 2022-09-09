@@ -9,3 +9,6 @@ profile::openstack::volume::type:
 cinder::config::cinder_config:
   lvm/volume_group:
     value: 'cinder-volumes'
+
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::checks:              {}

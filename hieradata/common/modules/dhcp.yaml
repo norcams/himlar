@@ -1,3 +1,7 @@
+---
 dhcp::options:
   - "cumulus-provision-url code 239 = text"
   - "ztd-provision-url code 240 = text"
+
+dhcp::default_lease_time:    '3600'
+dhcp::max_lease_time:        '7200'

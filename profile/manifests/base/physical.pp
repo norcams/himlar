@@ -82,6 +82,12 @@ class profile::base::physical (
     file { "/etc/modprobe.d/${load_ahci_first_scsidrv}.conf":
       ensure  => present,
       content => "install ${load_ahci_first_scsidrv} /sbin/modprobe ahci; /sbin/modprobe --ignore-install ${load_ahci_first_scsidrv}\n",
+      notify  => Exec['rebuild initramfs_first']
+    }
+    exec { 'rebuild initramfs_first':
+      command     => 'dracut -f --kver $(rpm -qa kernel | sort -V -r | head -n 1 | sed \'s|kernel-||\')',
+      path        => '/sbin:/usr/bin:/usr/sbin',
+      refreshonly => true
     }
   }
 
@@ -90,11 +96,17 @@ class profile::base::physical (
     file { "/etc/modprobe.d/ahci.conf":
       ensure  => present,
       content => "install ahci /sbin/modprobe ${load_ahci_last_scsidrv}; /sbin/modprobe --ignore-install ahci\n",
+      notify  => Exec['rebuild initramfs_last']
+    }
+    exec { 'rebuild initramfs_last':
+      command     => 'dracut -f --kver $(rpm -qa kernel | sort -V -r | head -n 1 | sed \'s|kernel-||\')',
+      path        => '/sbin:/usr/bin:/usr/sbin',
+      refreshonly => true
     }
   }
 
   # older versions of the Foreman cannot chainload alma - so we just emulate centos
-  if $efi_workaround and ($::operatingsystem == 'AlmaLinux') {
+  if $efi_workaround and ($::operatingsystem == 'AlmaLinux') and ($enable_hugepages != true ) {
     exec { 'efi_workaround':
       command => 'cp -r /boot/efi/EFI/almalinux /boot/efi/EFI/centos',
       path    => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
@@ -122,6 +134,13 @@ class profile::base::physical (
     kernel_parameter { 'transparent_hugepage':
       ensure => present,
       value  => 'never'
+    }
+    if $efi_workaround and ($::operatingsystem == 'AlmaLinux') {
+      exec { 'efi_workaround_refresh':
+        command     => 'cp -r /boot/efi/EFI/almalinux /boot/efi/EFI/centos',
+        path        => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',
+        unless      => 'test -d /boot/efi/EFI/centos',
+      }
     }
   }
 

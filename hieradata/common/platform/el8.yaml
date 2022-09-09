@@ -18,9 +18,7 @@ profile::base::yumrepo::repo_hash:
     ensure:         absent #FIXME: Remove when CentOS 8 is gone
   epel:
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8'
-  puppetlabs:
-    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/puppetlabs6/"
-    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/puppetlabs6/RPM-GPG-KEY-puppet-20250406"
+
   centos-qemu-ev:   # unavailable for el8
     ensure:         absent
   CentOS-Advanced-Virtualization: # FIXME
@@ -29,6 +27,7 @@ profile::base::yumrepo::repo_hash:
     module_hotfixes: '1'
 
 profile::base::common::packages:
+  'bash-completion': {}
   'bash-completion-extras': { ensure: absent, }     # FIXME clean up when el7 is gone
   'python-etcd3gw': { ensure: absent, }             # FIXME clean up when el7 is gone
   'python-memcached': { ensure: absent, }           # FIXME clean up when el7 is gone
@@ -36,6 +35,8 @@ profile::base::common::packages:
   'python2-keystonemiddleware': { ensure: absent, } # FIXME clean up when el7 is gone
   'python2-designateclient': { ensure: absent, }    # FIXME clean up when el7 is gone
   'python2-openstackclient': { ensure: absent, }    # FIXME cleun up when el7 is gone
+  'python2-gnocchiclient': { ensure: absent, }      # FIXME cleun up when el7 is gone
+  'python2-osc-placement': { ensure: absent, }      # FIXME cleun up when el7 is gone
   'openstack-utils': { ensure: absent, }            # FIXME clean up when el7 is gone
   'MySQL-python': { ensure: absent, }               # FIXME clean up when el7 is gone, replaced by python3-mysql
   'OVMF': { ensure: absent, }                       # FIXME clean up when el7 is gone
@@ -45,6 +46,7 @@ profile::base::common::manage_ntp:     false # ntpd has been replaced by chrony 
 profile::base::common::manage_chrony:  true
 
 profile::base::physical::efi_workaround: true # FIXME: remove when The Foreman chainloaders acknowledge the existance of Alma Linux
+profile::openstack::compute::pci_passthrough::efi_workaround: true # FIXME: remove when The Foreman chainloaders acknowledge the existance of Alma Linux
 
 profile::network::interface::manage_interface:        true
 profile::network::interface::suppress_legacy_warning: true
@@ -60,5 +62,5 @@ calico::enable_ipv6:  false                                      # The bird daem
 
 nova::migration::libvirt::libvirt_version: '7'                   # puppet-nova fails to detect libvirt version on alma and then misconfigures
 
-calico_version:       '320'                                      # FIXME This should move to common when el7 network and computes are gone
+calico_version:       '322'                                      # FIXME This should move to common when el7 network and computes are gone
 mariadb_version:      '10.3'                                     # FIXME This should be removed when all database nodes are on el8 (use only in common/roles/db)

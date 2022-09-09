@@ -77,3 +77,30 @@ profile::base::selinux::boolean:
   'named_write_master_zones':
     ensure: 'on'
     persistent: true
+
+# local config due to query log suppression (local6)
+profile::logging::rsyslog::client::legacy_config:
+  log_everything_to_remote_server:
+    key:    '*.*'
+    value:  " @%{hiera('mgmt__address__logger')}:514;RSYSLOG_ForwardFormat"
+  do_not_log_private_auth_msg:
+    key:    '*.info;mail.none;authpriv.none;cron.none;local6.none'
+    value:  '/var/log/messages'
+  auth_priv_log:
+    key:    'authpriv.*'
+    value:  '/var/log/secure'
+  mail_log:
+    key:    'mail.*'
+    value:  '-/var/log/maillog'
+  cron_log:
+    key:    'cron.*'
+    value:  '/var/log/cron'
+  emerg_log:
+    key:    '*.emerg'
+    value:  ':omusrmsg:*'
+  news_log:
+    key:    'uucp,news.crit'
+    value:  '/var/log/spooler'
+  local_log:
+    key:    'local7.*'
+    value:  '/var/log/boot.log'

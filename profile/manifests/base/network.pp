@@ -318,6 +318,12 @@ class profile::base::network(
             enable => true,
           }
         }
+        '4': {
+          service { 'ntp@mgmt':
+            ensure => stopped,
+            enable => false,
+          }
+        }
         default: {
         }
       }

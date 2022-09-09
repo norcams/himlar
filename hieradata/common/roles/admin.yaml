@@ -16,6 +16,9 @@ profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}
   'python2-ruamel-yaml': {}
+  'toml-rb':
+    ensure: present
+    provider: 'puppetserver_gem'
 
 apache::mod::passenger::manage_repo: false
 
@@ -82,6 +85,8 @@ profile::webserver::apache::vhosts:
 
 dhcp::onie_inst_def_url:     "http://repo.%{domain}/cumuluslinux/onie-installer-powerpc"
 dhcp::cumulus_provision_url: "http://repo.%{domain}/cumuluslinux/provision.sh"
+dhcp::default_lease_time: '3600'
+dhcp::max_lease_time:     '7200'
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
@@ -105,3 +110,5 @@ named_interfaces::config:
     - eth0
   oob:
     - eth1
+
+openstack_version: 'train'

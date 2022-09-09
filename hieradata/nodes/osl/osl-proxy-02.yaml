@@ -1,0 +1,83 @@
+---
+network::interfaces_hash:
+  'eth0':
+    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.97"
+    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
+    mtu:       '1500'
+    peerdns:   'yes'
+    dns1:      "%{hiera('netcfg_dns_server1')}"
+    dns2:      "%{hiera('netcfg_dns_server2')}"
+    domain:    "%{hiera('netcfg_dns_search')}"
+    defroute:  'no'
+  'eth1':
+    ipaddress: "%{hiera('netcfg_trp_netpart')}.97"
+    netmask:   "%{hiera('netcfg_trp_netmask')}"
+    gateway:   "%{hiera('netcfg_trp_gateway')}"
+    srcaddr:   '158.39.75.247'
+    ipv6init:  'yes'
+    ipv6addr:  "%{hiera('netcfg_trp_netpart6')}::97/%{hiera('netcfg_trp_netmask6')}"
+    defroute:  'yes'
+  'dummy0':
+    ipaddress: '158.39.75.247'
+    netmask:   '255.255.255.255'
+    ipv6init:  'yes'
+    ipv6addr:  '2001:700:2:82ff::97/128'
+    defroute:  'no'
+profile::base::network::routes:
+  'eth0':
+    'ipaddress': [ '172.17.32.0', ]
+    'netmask':   [ '255.255.248.0', ]
+    'gateway':   [ '172.16.32.10', ]
+    'table':     [ 'main', ]
+  'eth1':
+    'ipaddress': [ '::', ]
+    'netmask':   [ '0', ]
+    'gateway':   [ "%{hiera('netcfg_trp_gateway6')}", ]
+    'source':    [ '2001:700:2:82ff::97', ]
+    'table':     [ 'main', ]
+    'family':    [ 'inet6', ]
+
+profile::application::himlarservice::enable:      false #FIXME do not work on el8
+
+profile::base::common::manage_cron: true
+profile::base::cron::crontabs:
+  monthly_reminder:
+    minute:   '0'
+    hour:     '5'
+    monthday: '1-3'
+    command:  '/opt/himlarcli/bin/monthly-reminder.sh >/dev/null 2>&1'
+  stats:
+    hour:     '*'
+    minute:   [14,29,44,59]
+    command:  '/opt/himlarcli/bin/gen_stats.sh >/dev/null 2>&1'
+  checks:
+    hour:     '*'
+    minute:   '*/5'
+    command:  '/opt/himlarcli/bin/check_services.sh >/dev/null 2>&1'
+  update_images:
+    hour:     '7'
+    minute:   '15'
+    monthday: '1'
+    weekday:  '*'
+    command:  '/opt/himlarcli/bin/image_update.sh >/dev/null 2>&1'
+  sync_owners:
+    hour:     '*/5'
+    minute:   '0'
+    command:  '/opt/himlarcli/bin/sync_owners.sh >/dev/null 2>&1'
+  logrotate:
+    hour:     '4'
+    minute:   '25'
+    monthday: '*'
+    weekday:  '*'
+    command:  '/opt/himlarcli/bin/logrotate.sh >/dev/null 2>&1'
+# These jobs disablet until delete job can ensure user really is notified (we have had such issues)
+#  check_expired_demo_instances:
+#    hour:     '7'
+#    minute:   '0'
+#    weekday:  '*'
+#    command:  '/opt/himlarcli/bin/check_expired_demo_instances.sh osl >> /opt/himlarcli/logs/demo-logs/dryrun-logs/dryrun-logs.log 2>&1'
+#  delete_expired_demo_instances:
+#    hour:     '6'
+#    minute:   '0'
+#    weekday:  '*'
+#    command: '/opt/himlarcli/bin/delete_expired_demo_instances.sh osl >/dev/null 2>&1'

@@ -1,4 +1,6 @@
 ---
+profile::application::postfix::manage_postfix: true
+
 accounts::accounts:
   'vagrant':
     ensure: present
@@ -38,7 +40,7 @@ profile::base::login::db_servers:
     command:  '/usr/local/sbin/db-longterm-bck.sh -e vagrant >/dev/null'
 
 named_interfaces::config:
-  mgmt:                                                                                                                                                                                                                                                                         
+  mgmt:
     - eth1
   public:
     - eth0

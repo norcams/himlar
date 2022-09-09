@@ -54,6 +54,9 @@ profile::network::services::dhcp_reservation:
   osl-mgmt-opx-03:
     mac: '0c:29:ef:d8:75:20'
     ip: '172.16.34.3'
+  osl-mgmt-opx-04:
+    mac: '1c:72:1d:cf:d0:bf'
+    ip: '172.16.34.4'
   osl-compute-01-bmc:
     mac: 'b8:2a:72:fc:77:28'
     ip:  '172.17.32.103'
@@ -132,21 +135,6 @@ profile::network::services::dhcp_reservation:
   osl-storage-07-bmc:
     mac: 'd0:94:66:8f:37:b7'
     ip:  '172.17.32.125'
-  osl-storage-08-bmc:
-    mac: '18:66:da:bd:57:6d'
-    ip:  '172.17.33.50'
-  osl-storage-09-bmc:
-    mac: '18:66:da:bc:ea:14'
-    ip:  '172.17.33.51'
-  osl-storage-10-bmc:
-    mac: '18:66:da:bd:5b:aa'
-    ip:  '172.17.33.52'
-  osl-storage-11-bmc:
-    mac: '18:66:da:bd:62:4c'
-    ip:  '172.17.33.53'
-  osl-storage-12-bmc:
-    mac: '18:66:da:bd:65:03'
-    ip:  '172.17.33.54'
   osl-compute-11-bmc:
     mac: '4c:d9:8f:17:eb:66'
     ip:  '172.17.33.11'
@@ -264,9 +252,36 @@ profile::network::services::dhcp_reservation:
   osl-compute-50-bmc:
     mac: '1c:20:db:ec:60:8e'
     ip:  '172.17.33.82'
+  osl-compute-52-bmc:
+    mac: 'ec:2a:72:0a:b1:6a'
+    ip:  '172.17.33.84'
+  osl-compute-53-bmc:
+    mac: 'ec:2a:72:18:76:ec'
+    ip:  '172.17.33.85'
+  osl-compute-54-bmc:
+    mac: 'ec:2a:72:0a:b3:da'
+    ip:  '172.17.33.86'
+  osl-compute-55-bmc:
+    mac: 'ec:2a:72:0a:af:b4'
+    ip:  '172.17.33.87'
   osl-nfs-01-bmc:
     mac: 'b8:ac:6f:90:d7:7d'
     ip:  '172.17.33.80'
+  osl-object-01-bmc:
+    mac: '18:66:da:bd:57:6d'
+    ip:  '172.17.32.119'
+  osl-object-02-bmc:
+    mac: '18:66:da:bc:ea:14'
+    ip:  '172.17.32.120'
+  osl-object-03-bmc:
+    mac: '18:66:da:bd:5b:aa'
+    ip:  '172.17.32.121'
+  osl-object-04-bmc:
+    mac: '18:66:da:bd:62:4c'
+    ip:  '172.17.32.122'
+  osl-object-05-bmc:
+    mac: '18:66:da:bd:65:03'
+    ip:  '172.17.32.123'
   osl-storage-13-bmc:
     mac: '48:dc:2d:10:92:89'
     ip:  '172.17.33.55'

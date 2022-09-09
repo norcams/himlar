@@ -2,9 +2,10 @@
 # Shared config (nodes: novactrl, compute)
 nova::db::database_connection:           "mysql+pymysql://nova:%{hiera('nova::db::mysql::password')}@%{hiera('service__address__db_regional')}/nova"
 nova::db::api_database_connection:       "mysql+pymysql://nova_api:%{hiera('nova::db::mysql_api::password')}@%{hiera('service__address__db_regional')}/nova_api"
-nova::glance_api_servers:                "%{hiera('endpoint__image__internal')}"
+nova::glance_api_endpoint:               "%{hiera('endpoint__image__internal')}"
 nova::cinder_catalog_info:               'volumev3:cinderv3:internalURL'
 nova::os_region_name:                    "%{location}"
+
 
 # logging
 nova::logging::log_facility:              'LOG_LOCAL0'
@@ -70,11 +71,13 @@ nova::keystone::authtoken::service_token_roles:   'admin'
 nova::keystone::authtoken::service_token_roles_required: true
 
 # scheduler (node: novactrl)
-nova::cpu_allocation_ratio:                         '16'
-nova::disk_allocation_ratio:                        '10'
-nova::ram_allocation_ratio:                         '1.5'
-nova::scheduler::enabled:                           true
-nova::scheduler::filter::max_instances_per_host:    '120'
+nova::cpu_allocation_ratio:                               '16'
+nova::disk_allocation_ratio:                              '10'
+nova::ram_allocation_ratio:                               '1.5'
+nova::scheduler::enabled:                                 true
+nova::scheduler::filter::scheduler_host_subset_size:      '3'
+#nova::scheduler::filter::shuffle_best_same_weighed_hosts: true  # Added in stable/victoria
+nova::scheduler::filter::max_instances_per_host:          '120'
 nova::scheduler::filter::scheduler_default_filters:
   - "NumInstancesFilter"
   - "AvailabilityZoneFilter"
@@ -91,19 +94,29 @@ nova::scheduler::filter::scheduler_default_filters:
 # conductor (node: novactrl)
 nova::conductor::enabled: true
 
-# consoleauth (node: novactrl)
-nova::consoleauth::enabled: true #deprecated
-
 # availability zone in nova.conf (node: compute and novactrl)
 nova::availability_zone::default_availability_zone:           "%{::location}-iaas-team-only-1"
 nova::availability_zone::default_schedule_zone:               "%{::location}-default-1"
 nova::availability_zone::internal_service_availability_zone:  'internal'
 
 # neutron network (node: compute and novactrl)
-nova::network::neutron::neutron_url:            "%{hiera('endpoint__network__internal')}" # will be removed in a future release
-nova::network::neutron::neutron_auth_url:       "%{hiera('endpoint__identity__admin')}/v3"
-nova::network::neutron::neutron_region_name:    "%{::location}"
-nova::network::neutron::neutron_password:       "%{hiera('neutron_api_password')}"
+nova::network::neutron::auth_url:             "%{hiera('endpoint__identity__admin')}/v3"
+nova::network::neutron::region_name:          "%{::location}"
+nova::network::neutron::password:             "%{hiera('neutron_api_password')}"
+nova::network::neutron::valid_interfaces:     'internal'
+nova::network::neutron::username:             'neutron'
+nova::network::neutron::project_name:         "%{hiera('keystone__service__project')}"
+nova::network::neutron::project_domain_name:  "%{hiera('keystone__default__domain')}"
+nova::network::neutron::user_domain_name:     "%{hiera('keystone__default__domain')}"
+
+# cinder (node: compute and novactrl)
+nova::cinder::auth_url:             "%{hiera('endpoint__identity__admin')}/v3"
+nova::cinder::region_name:          "%{::location}"
+nova::cinder::password:             "%{hiera('cinder_api_password')}"
+nova::cinder::username:             'cinder'
+nova::cinder::project_name:         "%{hiera('keystone__service__project')}"
+nova::cinder::project_domain_name:  "%{hiera('keystone__default__domain')}"
+nova::cinder::user_domain_name:     "%{hiera('keystone__default__domain')}"
 
 # Use rsync, not ssh for migrate transport to support sparse images
 nova::config::nova_config:
@@ -112,9 +125,20 @@ nova::config::nova_config:
 #  keystone_authtoken/service_token_roles_required: FIXME enable this when tested
 #    value: true
 
+# shared default nova config (node: compute)
+profile::openstack::compute::default_nova_config:
+  glance/region_name:
+    value: "%{::location}"
+
+# shared default nova config (node: novactrl)
+profile::openstack::novactrl::default_nova_config:
+  glance/region_name:
+    value: "%{::location}"
+  filter_scheduler/shuffle_best_same_weighed_hosts:
+    value: true
+
 # compute (node: compute)
 nova::compute::enabled:                          true
-nova::compute::allow_resize_to_same_host:        true
 nova::compute::resume_guests_state_on_host_boot: true
 nova::compute::resize_confirm_window:            '1'
 nova::compute::reserved_host_memory:             '4096'
@@ -124,6 +148,8 @@ nova::compute::rbd::libvirt_images_rbd_pool:     'volumes'
 nova::compute::rbd::rbd_keyring:                 'client.cinder'
 nova::compute::rbd::ephemeral_storage:           false
 nova::compute::rbd::manage_ceph_client:          false
+#FIXME mixed version environments for compute services - should be removed for newer versions
+nova::upgrade_level_compute:                     'train'
 
 # enable libvirt tunneled migration
 #nova::migration::libvirt::live_migration_tunnelled:            true
@@ -171,11 +197,11 @@ nova::policy::policies:
   nova_disable_reboot:
     key:   'os_compute_api:servers:reboot'
     value: 'role:admin'
-  nova_compute_resize:
-    key:   'os_compute_api:servers:resize'
+  nova_disable_suspend:
+    key:   'os_compute_api:os-suspend-server:suspend'
     value: 'role:admin'
   nova_disable_shelve:
-    key:   'os_compute_api:servers:shelve'
+    key:   'os_compute_api:os-shelve:shelve'
     value: 'role:admin'
   nova_create_zero_disk_flavor:
     key:   'os_compute_api:servers:create:zero_disk_flavor'

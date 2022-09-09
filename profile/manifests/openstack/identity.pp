@@ -18,7 +18,6 @@ class profile::openstack::identity (
   $manage_openidc           = false,
   $token_rotation_sync      = false,
   $manage_token_rotate      = false,
-  $manage_bootstrap         = false,
   $token_db                 = 'token_keys',
   $keystone_config          = {},
   $cron_master              = {},
@@ -36,8 +35,7 @@ class profile::openstack::identity (
 
   include ::keystone
   include ::keystone::config
-  include ::keystone::roles::admin
-  include ::keystone::endpoint
+  include ::keystone::bootstrap
   include ::keystone::wsgi::apache
   include ::profile::openstack::openrc
   include ::keystone::logging
@@ -67,9 +65,6 @@ class profile::openstack::identity (
 
   }
 
-  if $manage_bootstrap {
-    include ::profile::openstack::identity::bootstrap
-  }
   if $manage_policy {
     include ::keystone::policy
   }

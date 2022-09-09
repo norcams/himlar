@@ -1,0 +1,12 @@
+[Unit]
+Description=Create mdevs for NVIDIA Ampere cards
+
+[Service]
+Type=oneshot
+User=root
+ExecStart=/bin/sleep 10
+ExecStart=/usr/lib/nvidia/sriov-manage -e ALL
+RemainAfterExit=no
+
+[Install]
+WantedBy=multi-user.target

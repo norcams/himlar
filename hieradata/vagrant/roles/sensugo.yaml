@@ -1,0 +1,23 @@
+---
+include:
+  bootstrap:
+    - profile::application::openssl
+
+profile::development::network::dns::remove_local_hostname: true
+profile::application::openssl::manage_ca_cert:  true
+profile::application::openssl::certs:
+  "%{::fqdn}":
+    cn:     "%{::fqdn}"
+    altnames:
+      - "%{::fqdn}"
+      - "%{hiera('mgmt__address__monitor')}"
+
+sensu_etcd_cluster_state:     'new'
+
+# Default one node cluster in vagrant. Remove this to run 3 node cluster
+# Provision will fail on first node, run first once on each and rerun the first node after
+sensu_etcd_cluster: "\
+  %{::location}-%{hiera('sensu_backend_role')}-01=http://%{hiera('netcfg_mgmt_netpart')}.21:2380"
+
+
+profile::monitoring::sensu::agent::namespaces: {}

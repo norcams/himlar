@@ -2,7 +2,7 @@
 include:
   default:
     - profile::openstack::compute::consoleproxy
-    - profile::openstack::compute::consoleauth #decrecated
+    - profile::openstack::compute::consoleauth
     - profile::logging::rsyslog::client
 
 profile::base::common::packages:
@@ -10,6 +10,7 @@ profile::base::common::packages:
   'bash-completion-extras': {}
   'jq': {}
   'openstack-selinux': {}
+  'centos-release-nfv-common': {}
 
 profile::base::network::manage_dummy:                       true
 profile::openstack::compute::consoleproxy::manage_firewall: true
@@ -24,3 +25,5 @@ profile::base::yumrepo::repo_hash:
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
     includepkgs: 'htop bash-completion-extras python2-bcrypt'
+  CentOs-nfv-Openvswitch:
+    ensure:  present

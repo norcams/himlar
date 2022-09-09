@@ -1,0 +1,528 @@
+---
+include:
+  default:
+    - profile::network::leaf
+    - profile::base::common
+    - profile::base::cl_limits
+    - profile::monitoring::collectd
+  bootstrap:
+    - profile::base::common
+
+profile::base::common::classes:
+  - puppet
+  - openstack_extras::repo::debian::debian
+
+profile::base::common::manage_ntp:     false
+profile::base::common::manage_chrony:  true
+chrony::service_name: 'chrony@mgmt'
+
+profile::base::common::manage_keyboard:           false
+profile::base::common::include_virtual:           false
+profile::base::common::include_physical:          false
+profile::base::common::manage_yumrepo:            false
+profile::base::common::disable_firewalld:         false
+profile::base::firewall::manage_firewall:         false
+profile::base::network::net_ifnames:              false
+profile::network::leaf::manage_quagga:            false
+profile::network::leaf::manage_frrouting:         true
+profile::network::leaf::manage_acls:              true
+profile::network::leaf::manage_portconfig:        true
+profile::base::network::cumulus_ifs:              true
+network::config_file_per_interface:               true
+profile::logging::logrotate::manage_logrotate:    false
+profile::base::cl_limits::manage_cl_limits:       true
+profile::base::cl_limits::as_value:               2097152
+
+# sensu
+#profile::monitoring::sensu::agent::enable_agent:    true
+#profile::monitoring::sensu::agent::merge_strategy: 'first'
+#profile::monitoring::sensu::agent::run_in_vrf:      true
+#profile::monitoring::sensu::agent::plugins:
+#  sensu-plugins-network-checks:
+#    type:         package
+#    pkg_version:  '4.1.1'
+#
+#sensuclassic::checks:
+#  'metrics-netif':
+#    type:         'metric'
+#    command:      'metrics-netif.rb --scheme network.%{::hostname}'
+#    interval:     60
+#    subscribers:  ['metrics']
+#    handlers:     ['graphite_tcp']
+#
+#sensuclassic::install_repo:            true
+#sensuclassic::manage_repo:             true
+
+profile::monitoring::collectd::enable: false
+profile::monitoring::collectd::merge_strategy: 'first'
+profile::monitoring::collectd::plugins:
+   - collectd::plugin::interface
+   - collectd::plugin::write_graphite
+# The upstream collectd module does not allow setting the service name
+collectd::service_ensure: stopped                                                                       
+collectd::service_enable: false
+profile::monitoring::collectd::manage_service: true
+profile::monitoring::collectd::service_name:   'collectd@mgmt'
+
+# ntp service managed by profile because of mgmt VRF
+ntp::service_enable: false
+ntp::service_ensure: 'stopped'
+ntp::interfaces: [ 'eth0' ]
+
+frrouting::zebra:                 true
+frrouting::bgpd:                  true
+frrouting::single_config_file:    true
+frrouting::frrouting::hostname:   'cumulus-test'
+frrouting::frrouting::password:   'pass123'
+frrouting::frrouting::bgp_as:     "%{hiera('bgp_as')}"
+
+profile::network::leaf::acls:
+  '02control_plane_custom.rules':
+    rule_vars:
+      - "INGRESS_CHAIN = INPUT"
+      - "INGRESS_INTF = swp+"
+      - "FORWARD_CHAIN = FORWARD"
+    iptables:
+      - "-A $INGRESS_CHAIN -s %{hiera('netcfg_mgmt_netpart')}.0/%{hiera('netcfg_mgmt_netmask')} -p tcp --dport 19999 -j ACCEPT"
+      - "-A $INGRESS_CHAIN -p tcp --dport 19999 -j DROP"
+      - "-A $INGRESS_CHAIN -s %{hiera('netcfg_trp_netpart')}.0/%{hiera('netcfg_trp_netmask')} -p tcp --dport 179 -j ACCEPT"
+      - "-A $INGRESS_CHAIN -p tcp --dport 179 -j DROP"
+      - "-A $INGRESS_CHAIN -s %{hiera('netcfg_mgmt_netpart')}.0/%{hiera('netcfg_mgmt_netmask')} -p tcp --dport 22 -j ACCEPT"
+      - "-A $INGRESS_CHAIN -s %{hiera('netcfg_trp_netpart')}.0/%{hiera('netcfg_trp_netmask')} -p tcp --dport 22 -j ACCEPT"
+      - "-A $INGRESS_CHAIN -p tcp --dport 22 -j DROP"
+    ip6tables:
+      - "-A $INGRESS_CHAIN --in-interface $INGRESS_INTF -s %{hiera('netcfg_trp_netpart6')}::/%{hiera('netcfg_trp_netmask6')} -p tcp -m multiport --dports 22,179 -j ACCEPT"
+      - "-A $INGRESS_CHAIN --in-interface $INGRESS_INTF -p tcp  -m multiport --dports 22,179 -j DROP"
+
+accounts::groups:
+  'wheel':
+    ensure: 'present'
+
+openstack_extras::repo::debian::debian::package_require: true
+openstack_extras::repo::debian::debian::manage_uca: false
+openstack_extras::repo::debian::debian::manage_whz: false
+openstack_extras::repo::debian::debian::manage_deb: false
+openstack_extras::repo::debian::debian::source_hash:
+  'buster':
+    'location': 'http://ftp.no.debian.org/debian'
+    'repos':    'main'
+
+profile::base::common::packages:
+  'vim-enhanced': { 'ensure': 'absent', }
+  'bind-utils': { 'ensure': 'absent', }
+  'yum-utils': { 'ensure': 'absent', }
+  'libaugeas-ruby1.9.1': { 'ensure': 'absent', }
+  'cl-mgmtvrf': { 'ensure': 'absent', }
+  'sysstat': {} # needed for sensu network plugin
+  'augeas-tools': {}
+
+sudo::configs:
+  snmp:
+    content:
+      - '# SNMP needs access to the bcmcmd to serve up some of the MIBs.'
+      - 'snmp ALL = NOPASSWD: /usr/lib/cumulus/bcmcmd'
+      - 'snmp ALL = NOPASSWD: /usr/cumulus/bin/cl-resource-query'
+      - 'snmp ALL=(root) NOPASSWD: /sbin/ethtool -S *'
+      - 'snmp ALL=(root) NOPASSWD: /sbin/ip'
+
+profile::base::network::cumulus_interfaces:
+  'lo':
+    'addr_method': 'loopback'
+
+profile::base::network::cumulus_bonds:
+  'peerlink':
+    'slaves': [ 'swp31-32', ]
+    'mtu':   '9216'
+  'host49':
+    'slaves': [ 'swp13s0', ]
+    'clag_id': '49'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host50':
+    'slaves': [ 'swp13s1', ]
+    'clag_id': '50'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host51':
+    'slaves': [ 'swp13s2', ]
+    'clag_id': '51'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host52':
+    'slaves': [ 'swp13s3', ]
+    'clag_id': '52'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host53':
+    'slaves': [ 'swp14s0', ]
+    'clag_id': '53'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host54':
+    'slaves': [ 'swp14s1', ]
+    'clag_id': '54'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host55':
+    'slaves': [ 'swp14s2', ]
+    'clag_id': '55'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host56':
+    'slaves': [ 'swp14s3', ]
+    'clag_id': '56'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host57':
+    'slaves': [ 'swp15s0', ]
+    'clag_id': '57'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host58':
+    'slaves': [ 'swp15s1', ]
+    'clag_id': '58'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host59':
+    'slaves': [ 'swp15s2', ]
+    'clag_id': '59'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host73':
+    'slaves': [ 'swp19s0', ]
+    'clag_id': '73'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host74':
+    'slaves': [ 'swp19s1', ]
+    'clag_id': '74'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host75':
+    'slaves': [ 'swp19s2', ]
+    'clag_id': '75'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host76':
+    'slaves': [ 'swp19s3', ]
+    'clag_id': '76'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host77':
+    'slaves': [ 'swp20s0', ]
+    'clag_id': '77'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host78':
+    'slaves': [ 'swp20s1', ]
+    'clag_id': '78'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host79':
+    'slaves': [ 'swp20s2', ]
+    'clag_id': '79'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host80':
+    'slaves': [ 'swp20s3', ]
+    'clag_id': '80'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host81':
+    'slaves': [ 'swp21s0', ]
+    'clag_id': '81'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host82':
+    'slaves': [ 'swp21s1', ]
+    'clag_id': '82'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host83':
+    'slaves': [ 'swp21s2', ]
+    'clag_id': '83'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host84':
+    'slaves': [ 'swp21s3', ]
+    'clag_id': '84'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host85':
+    'slaves': [ 'swp22s0', ]
+    'clag_id': '85'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host86':
+    'slaves': [ 'swp22s1', ]
+    'clag_id': '86'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host87':
+    'slaves': [ 'swp22s2', ]
+    'clag_id': '87'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host88':
+    'slaves': [ 'swp22s3', ]
+    'clag_id': '88'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host89':
+    'slaves': [ 'swp23s0', ]
+    'clag_id': '89'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host90':
+    'slaves': [ 'swp23s1', ]
+    'clag_id': '90'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host91':
+    'slaves': [ 'swp23s2', ]
+    'clag_id': '91'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host92':
+    'slaves': [ 'swp23s3', ]
+    'clag_id': '92'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'uplink':
+    'slaves': [ 'swp29', 'swp30', ]
+    'clag_id': '1004'
+    'pvid': '100'
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+
+# Edgecore as7726 needs explicit config
+profile::network::leaf::cumulus_portconfigs:
+  13:
+    line:  "13=4x25G"
+  14:
+    line:  "14=4x25G"
+  15:
+    line:  "15=4x25G"
+  19:
+    line:  "19=4x25G"
+  20:
+    line:  "20=4x25G"
+  21:
+    line:  "21=4x25G"
+  22:
+    line:  "22=4x25G"
+  23:
+    line:  "23=4x25G"
+  29:
+    line:  "29=100G" # spine 01-02
+  30:
+    line:  "30=100G" # spine 01-02
+  31:
+    line:  "31=100G" # peerlink
+  32:
+    line:  "32=100G" # peerlink
+
+profile::base::network::cumulus_bridges:
+  'bridge':
+    'ports':
+      - host49
+      - host50
+      - host51
+      - host52
+      - host53
+      - host54
+      - host55
+      - host56
+      - host57
+      - host58
+      - host59
+      - host73
+      - host74
+      - host75
+      - host76
+      - host77
+      - host78
+      - host79
+      - host80
+      - host81
+      - host82
+      - host83
+      - host84
+      - host85
+      - host86
+      - host87
+      - host88
+      - host89
+      - host90
+      - host91
+      - host92
+      - peerlink
+      - uplink
+    'alias_name': 'Transport L2 if'
+    'vlan_aware': 'true'
+    'stp': 'true'
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+
+frrouting::frrouting::zebra_interfaces:
+  'bridge':
+    - 'link-detect'
+    - 'description linux-bridge'
+  'bridge.100':
+    - 'link-detect'
+    - 'description linux-bridge-100'
+  'host49':
+    - 'link-detect'
+  'host50':
+    - 'link-detect'
+  'host51':
+    - 'link-detect'
+  'host52':
+    - 'link-detect'
+  'host53':
+    - 'link-detect'
+  'host54':
+    - 'link-detect'
+  'host57':
+    - 'link-detect'
+  'host58':
+    - 'link-detect'
+  'host59':
+    - 'link-detect'
+  'host73':
+    - 'link-detect'
+  'host74':
+    - 'link-detect'
+  'host75':
+    - 'link-detect'
+  'host76':
+    - 'link-detect'
+  'host77':
+    - 'link-detect'
+  'host78':
+    - 'link-detect'
+  'host79':
+    - 'link-detect'
+  'host80':
+    - 'link-detect'
+  'host81':
+    - 'link-detect'
+  'host82':
+    - 'link-detect'
+  'host83':
+    - 'link-detect'
+  'host84':
+    - 'link-detect'
+  'host85':
+    - 'link-detect'
+  'host86':
+    - 'link-detect'
+  'host87':
+    - 'link-detect'
+  'host88':
+    - 'link-detect'
+  'host89':
+    - 'link-detect'
+  'host90':
+    - 'link-detect'
+  'host91':
+    - 'link-detect'
+  'host92':
+    - 'link-detect'
+  'swp29':
+    - 'link-detect'
+  'swp30':
+    - 'link-detect'

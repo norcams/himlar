@@ -46,3 +46,7 @@ network::interfaces_hash:
     defroute:      'no'
     onboot:        'yes'
 #    manage_hwaddr: '00:50:56:ae:ed:9f'
+
+# Enable backup explicitly on 01 only
+profile::base::login::manage_db_backup: true
+

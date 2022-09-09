@@ -105,9 +105,13 @@ profile::openstack::dashboard::policies:
     file_path:  '/etc/openstack-dashboard/nova_policy.json'
     key:        'os_compute_api:servers:resize'
     value:      'role:admin'
+  nova_disable_suspend:
+    file_path:  '/etc/openstack-dashboard/nova_policy.json'
+    key:        'os_compute_api:os-suspend-server:suspend'
+    value:      'role:admin'
   nova_disable_shelve:
     file_path:  '/etc/openstack-dashboard/nova_policy.json'
-    key:        'os_compute_api:servers:shelve'
+    key:        'os_compute_api:os-shelve:shelve'
     value:      'role:admin'
 #  upload_image:
 #    key:        'volume_extension:volume_actions:upload_image'

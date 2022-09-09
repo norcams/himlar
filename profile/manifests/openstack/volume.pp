@@ -5,9 +5,9 @@ class profile::openstack::volume(
   $notify_service = false
 ) {
   include ::cinder
+  include ::cinder::nova
   include ::cinder::client
   include ::cinder::config
-  include ::cinder::ceilometer
   include ::cinder::logging
 
   if $manage_rbd {

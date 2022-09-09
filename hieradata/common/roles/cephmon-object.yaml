@@ -4,8 +4,6 @@ include:
     - profile::storage::ceph::config
     - profile::storage::ceph::multisite
 
-ceph_version:         'nautilus' #FIXME
-
 profile::storage::ceph::config::manage_config: true
 
 # Multisite

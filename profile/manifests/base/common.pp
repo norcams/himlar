@@ -93,6 +93,21 @@ class profile::base::common (
       ensure => stopped,
       enable => false
     }
+    # Chrony on Cumulus Linux must run in the mgmt VRF
+    case $::operatingsystem {
+      'CumulusLinux': {
+        file { '/etc/systemd/system/chrony@.service':
+          ensure => 'present',
+          source => '/lib/systemd/system/chrony.service',
+        }
+        service { 'chrony':
+          ensure => stopped,
+          enable => false
+        }
+      }
+      default: {
+      }
+    }
   }
 
   if $manage_ntp {

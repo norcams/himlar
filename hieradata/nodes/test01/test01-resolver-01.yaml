@@ -3,7 +3,7 @@ network::interfaces_hash:
   'eth0':
     onboot:    'yes'
     mtu:       '1500'
-    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.17"
+    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.44"
     netmask:   "%{hiera('netcfg_mgmt_netmask')}"
     peerdns:   'yes'
     dns1:      "%{hiera('netcfg_dns_server1')}"
@@ -13,11 +13,11 @@ network::interfaces_hash:
   'eth1':
     onboot:    'yes'
     mtu:       '1500'
-    ipaddress: "%{hiera('netcfg_trp_netpart')}.17"
+    ipaddress: "%{hiera('netcfg_trp_netpart')}.44"
     netmask:   "%{hiera('netcfg_trp_netmask')}"
     gateway:   "%{hiera('netcfg_trp_netpart')}.26"
     ipv6init:  'yes'
-    ipv6addr:  "%{hiera('netcfg_trp_netpart6')}::17/%{hiera('netcfg_trp_netmask6')}"
+    ipv6addr:  "%{hiera('netcfg_trp_netpart6')}::44/%{hiera('netcfg_trp_netmask6')}"
     defroute:  'yes'
   'dummy0':
     ipaddress: '129.177.31.118'

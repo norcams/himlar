@@ -5,6 +5,7 @@ class profile::openstack::openrc(
   $project_name,
   $region_name,
   $auth_url,
+  $compute_api_version,
   $project_domain_name = 'Default',
   $interface = 'admin',
   $user_domain_name = 'Default',

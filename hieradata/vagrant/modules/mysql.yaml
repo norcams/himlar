@@ -1,8 +1,27 @@
 ---
 # make sure we do not run out of memory in vagrant
-mysql__config__max_connections:             32
-mysql__config__innodb_buffer_pool_size:     '128M'
+mysql__config__max_connections:             64
+mysql__config__innodb_buffer_pool_size:     '32M'
 mysql__config__innodb_buffer_pool_instances: 1
-mysql__config__innodb_log_file_size:        '16M'
-mysql__config__query_cache_size:            '64M'
+mysql__config__innodb_log_file_size:        '4M'
+mysql__config__query_cache_size:            '0'
 mysql__config__query_cache_limit:           '8M'
+
+mysql::server::override_options:
+  mysqld:
+    max_connections:                "%{hiera('mysql__config__max_connections')}"
+    innodb_buffer_pool_instances:   "%{hiera('mysql__config__innodb_buffer_pool_instances')}"
+    table_open_cache:               16384
+    table_definition_cache:         -1
+    query_cache_size:               "%{hiera('mysql__config__query_cache_size')}"
+    query_cache_limit:              "%{hiera('mysql__config__query_cache_limit')}"
+    join_buffer_size:               '2M'
+    innodb_log_file_size:           "%{hiera('mysql__config__innodb_log_file_size')}"
+    innodb_buffer_pool_size:        "%{hiera('mysql__config__innodb_buffer_pool_size')}"
+    log-error:                      '/var/log/mysqld.log'
+    pid-file:                       "/var/lib/mysql/%{::hostname}.pid"
+    bind-address:                   "%{::ipaddress_trp1}"
+    ssl:                            'true'
+    ssl-ca:                         "%{hiera('db_ssl_ca')}"
+    ssl-key:                        "%{hiera('db_ssl_key')}"
+    ssl-cert:                       "%{hiera('db_ssl_cert')}"

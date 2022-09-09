@@ -1,0 +1,260 @@
+---
+include:
+  default:
+    - profile::monitoring::grafana
+    - profile::monitoring::sensu::backend
+    - profile::logging::rsyslog::client
+
+# sensugo only uses mgmt
+named_interfaces::config:
+  mgmt:
+    - eth0
+
+# sysctl
+profile::base::common::manage_sysctl: true
+profile::base::common::sysctl_values:
+  'fs.inotify.max_user_watches':
+    value: 524288
+
+# sensu cluster setup
+# Chagne to 'new to bootsrap new cluster:
+sensu_etcd_cluster_state:     'existing' #'new'
+sensu_etcd_cluster_log_level: 'warn'
+sensu_etcd_cluster_node_name: '%{::hostname}'
+sensu_etcd_cluster: "\
+  %{::location}-%{hiera('sensu_backend_role')}-01=http://%{hiera('netcfg_mgmt_netpart')}.21:2380,\
+  %{::location}-%{hiera('sensu_backend_role')}-02=http://%{hiera('netcfg_mgmt_netpart')}.22:2380,\
+  %{::location}-%{hiera('sensu_backend_role')}-03=http://%{hiera('netcfg_mgmt_netpart')}.23:2380"
+
+sensu::backend::config_hash:
+  api-listen-address:               '%{::ipaddress_mgmt1}:8082'
+  agent-host:                       '%{::ipaddress_mgmt1}'
+  agent-port:                       8081
+  log-level:                        "%{hiera('sensu_etcd_cluster_log_level')}"
+  etcd-advertise-client-urls:       "http://%{::ipaddress_mgmt1}:2379"
+  etcd-listen-client-urls:          "http://%{::ipaddress_mgmt1}:2379"
+  etcd-listen-peer-urls:            "http://%{::ipaddress_mgmt1}:2380"
+  etcd-initial-cluster:             "%{hiera('sensu_etcd_cluster')}"
+  etcd-initial-advertise-peer-urls: "http://%{::ipaddress_mgmt1}:2380"
+  etcd-initial-cluster-state:       "%{hiera('sensu_etcd_cluster_state')}"
+  etcd-initial-cluster-token:       "%{hiera('location_environment')}-sensu-etcd-cluster"
+  etcd-name:                        "%{hiera('sensu_etcd_cluster_node_name')}"
+
+# Use self as backend for monitor
+sensu::agent::backends:   ["%{::fqdn}:8081"]
+sensu::api_host:          "%{::fqdn}"
+
+# sensu go backend
+profile::monitoring::sensu::backend::manage_dashboard:        true
+profile::monitoring::sensu::backend::manage_firewall:         true
+profile::monitoring::sensu::backend::manage_etcd_firewall:    true
+profile::monitoring::sensu::backend::manage:                  true
+profile::monitoring::sensu::backend::enable_bash_completion:  true
+
+# profile::monitoring::sensu::backend::namespaces:
+#   '%{::location}':  { ensure: present }
+
+profile::monitoring::sensu::backend::bonsai_assets:
+  sensu/sensu-slack-handler:
+    version: 1.6.0
+  sensu/sensu-influxdb-handler:
+    version: 4.0.0
+  sensu/check-cpu-usage:
+    version: 0.2.2
+  sensu/check-memory-usage:
+    version: 0.2.2
+  sensu/check-disk-usage:
+    version: 0.7.0
+  sensu/http-checks:
+    version: 0.7.0
+  sensu-plugins/sensu-plugins-http:
+    version: 6.0.0
+  sensu-plugins/sensu-plugins-haproxy:
+    version: 2.0.2
+  sensu/sensu-check-multiplexer:
+    version: 0.1.0
+# useful assets
+  # sensu/monitoring-plugins:
+  #   version: 2.7.0
+
+# sensu agent
+profile::monitoring::sensu::agent::enable_go_agent:     true
+profile::monitoring::sensu::agent::enable_agent:        false
+#profile::monitoring::sensu::agent::purge_check:         true # can be used for temp cleanup
+profile::monitoring::sensu::agent::merge_strategy:      'first'
+sensu::agent::agent_managed_entity:                     false
+sensu::agent::subscriptions:
+  - 'base'
+  - 'nodes'
+  - 'monitor'
+  - 'metrics'
+# other subsciptions:
+  # - 'storage'
+  # - 'compute'
+
+sensu::plugins::plugins:
+  sensu-plugins-opsgenie:
+    version: 5.1.0
+
+profile::monitoring::sensu::agent::plugins: {}
+profile::monitoring::sensu::backend::handlers:
+  default:
+    type:           'set'
+    handlers:
+      - slack
+      - status
+  keepalive:
+    type: 'set'
+    handlers:
+      - default
+  status:
+    type: pipe
+    command: sensu-influxdb-handler -c -b sensu -o NREC -i
+    timeout: 10
+    env_vars:
+      - "INFLUXDB_ADDR=https://%{hiera('mgmt__address__influx')}:8086"
+      - "INFLUXDB_TOKEN=%{hiera('influxdb_admin_token')}"
+    filters:
+      - not_silenced
+    runtime_assets:
+      - sensu/sensu-influxdb-handler
+  metric:
+    type: pipe
+    command: sensu-influxdb-handler -c -b metric -o NREC -i
+    timeout: 10
+    env_vars:
+      - "INFLUXDB_ADDR=https://%{hiera('mgmt__address__influx')}:8086"
+      - "INFLUXDB_TOKEN=%{hiera('influxdb_admin_token')}"
+    filters:
+      - has_metrics
+      - not_silenced
+    runtime_assets:
+      - sensu/sensu-influxdb-handler
+
+sensu::resources::filters:
+  hourly:
+    ensure: present
+    namespace: "%{hiera('sensu_namespace')}"
+    action: allow
+    expressions:
+      - 'event.check.occurrences == 1 || event.check.occurrences % (3600 / event.check.interval) == 0'
+
+profile::monitoring::sensu::agent::checks:
+  disk-checks:
+    command:                'check-disk-usage -w 85 -c 95 -E /var/lib/nova/instances,/var/lib/libvirt/images,/cephfs'
+    interval:               60
+    subscriptions:          ['base']
+    handlers:               ['default']
+    runtime_assets:         [sensu/check-disk-usage]
+  cpu-checks:
+    command:                'check-cpu-usage -s 5 -w 85 -c 95'
+    interval:               60
+    subscriptions:          ['base']
+    handlers:               ['default']
+    runtime_assets:         [sensu/check-cpu-usage]
+  memory-checks:
+    command:                'check-memory-usage -w 85 -c 95'
+    interval:               60
+    subscriptions:          ['nodes']
+    handlers:               ['default']
+    runtime_assets:         [sensu/check-memory-usage]
+  http-perf-identity:
+    command:                "http-perf --url %{hiera('endpoint__identity__public')}/v3/"
+    interval:               600
+    subscriptions:          ['monitor']
+    handlers:               ['metric']
+    runtime_assets:         [sensu/http-check]
+    round_robin:            true
+  http-perf-dashboard:
+    command:                "http-perf --url https://%{hiera('public__address__dashboard')}/dashboard/"
+    interval:               600
+    subscriptions:          ['monitor']
+    handlers:               ['metric']
+    runtime_assets:         [sensu/http-check]
+    round_robin:            true
+  # http-check-network:
+  #   command:                "http-check -r --url %{hiera('endpoint__network__public')}"
+  #   interval:               600
+  #   subscriptions:          ['monitor']
+  #   handlers:               ['default']
+  #   runtime_assets:         [sensu/http-check]
+  # cert-check-console:
+  #   command:                "check-https-cert.rb -c 10 -w 20 -u https://%{hiera('public__address__console')}:6080 %{hiera('sensu_ssl_cachain')}"
+  #   interval:               3600
+  #   subscriptions:          ['monitor']
+  #   handlers:               ['default']
+  #   runtime_assets:         [sensu-plugins/sensu-plugins-http]
+  http-check-multiplex:
+    command: sensu-check-multiplexer --command http-check --annotation-prefix "http-check/args" -a "-r"
+    stdin: true
+    interval:               600
+    subscriptions:          ['monitor']
+    handlers:               ['default']
+    round_robin:            true
+    runtime_assets:
+    - sensu/sensu-check-multiplexer
+    - sensu/http-check
+    annotations:
+      http-check/args/identity_up: "--url %{hiera('endpoint__identity__public')}/v3/"
+      http-check/args/compute_up: "--url %{hiera('endpoint__compute__public')}"
+      http-check/args/placement_up: "--url %{hiera('endpoint__placement__public')}/placement/"
+      http-check/args/image_up: "--url %{hiera('endpoint__image__public')} -s versions"
+      http-check/args/volume_up: "--url %{hiera('endpoint__volume__public')} -s v3.0"
+      http-check/args/network_up: "--url %{hiera('endpoint__network__public')}"
+      http-check/args/designate_up: "--url %{hiera('endpoint__designate__public')}"
+      http-check/args/dashboard_up: "--url https://%{hiera('public__address__dashboard')}"
+      http-check/args/console_up: "--url https://%{hiera('public__address__console')}:6080"
+      http-check/args/report_up: "--url https://%{hiera('public__address__report')}"
+      http-check/args/status_up: "--url https://%{hiera('public__address__status')}"
+      http-check/args/docs_up: "--url https://%{hiera('public__address__docs')}"
+  cert-check-multiplex:
+    command: sensu-check-multiplexer --command check-https-cert.rb --annotation-prefix "check-https-cert/args" -a "-c 10 -w 20 %{hiera('sensu_ssl_cachain')}"
+    stdin: true
+    interval:               3600
+    subscriptions:          ['monitor']
+    handlers:               ['default']
+    round_robin:            true
+    runtime_assets:
+    - sensu/sensu-check-multiplexer
+    - sensu-plugins/sensu-plugins-http
+    annotations:
+      check-https-cert/args/console_cert: "-u https://%{hiera('public__address__console')}:6080"
+      check-https-cert/args/access_cert: "-u https://%{hiera('public__address__access')}"
+      check-https-cert/args/dashboard_cert: "-u https://%{hiera('public__address__dashboard')}"
+      check-https-cert/args/api_cert: "-u %{hiera('public__address__api')}"
+      check-https-cert/args/identity_cert: "-u %{hiera('endpoint__identity__public')}"
+      check-https-cert/args/report_cert: "-u https://%{hiera('public__address__report')}"
+
+# we need nodejs for web gui
+profile::base::common::packages:
+  'nodejs':
+    ensure: '14'
+    provider: 'dnfmodule'
+
+profile::base::yumrepo::repo_hash:
+  AlmaLinux-PowerTools:
+    ensure: present
+  sensu-community:
+    ensure: present
+  yarn: #temp repo
+    ensure: present
+  epel:
+    ensure:   present
+  # influxdb: # need for telegraf
+  #   ensure: present
+
+
+# logrotate
+logrotate::rules:
+  sensu-backend:
+    path:
+    - '/var/log/sensu/sensu-backend.log'
+    - '/var/log/sensu/backend-stats.log'
+    rotate_every:   daily
+    rotate:         7
+    maxsize:        100M
+    compress:       true
+    copytruncate:   true
+    missingok:      true
+    postrotate:     '/bin/systemctl restart rsyslog'
+    dateext:        true

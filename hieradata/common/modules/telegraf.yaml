@@ -1,0 +1,29 @@
+---
+telegraf::manage_repo: false
+telegraf::interval: '60s'
+telegraf::flush_interval: '30s'
+telegraf::metric_batch_size: 100
+telegraf::metric_buffer_limit: 1000
+telegraf::debug: true
+telegraf::logfile: '/var/log/telegraf/telegraf.log'
+
+telegraf::outputs: {}
+telegraf::inputs: {}
+# Example inputs and outputs
+#
+# telegraf::outputs:
+#   influxdb_v2:
+#     - urls: ["https://%{hiera('mgmt__address__influx')}:8086"]
+#       tls_ca: '/etc/puppetlabs/puppet/ssl/certs/ca.pem'
+#       token: "%{hiera('influxdb_admin_token')}"
+#       organization: "%{hiera('profile::monitoring::influxdb::org')}"
+#       bucket: 'network_data'
+#       #insecure_skip_verify: false
+#
+# telegraf::inputs:
+#   socket_listener:
+#     service_address: "udp://:8094"
+#     data_format: "influx"
+#   prometheus:
+#     urls: ["https://%{hiera('mgmt__address__influx')}:8086/metrics"]
+#   net: {}

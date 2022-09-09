@@ -4,6 +4,8 @@ include:
     - profile::virtualization::libvirt
     - profile::bootstrap::himlar
     - profile::network::services
+    - profile::storage::cephclient
+    - profile::logging::rsyslog::client
 
 named_interfaces::config:
   mgmt:
@@ -33,6 +35,7 @@ profile::virtualization::libvirt::firewall_extras:
     dport: 5900-5999
 
 profile::network::services::ntp_server: true
+chrony::queryhosts: [ "%{hiera('netcfg_mgmt_netpart')}.0/%{::cidr_mgmt1}", ] # allow clients to query ntp service
 
 profile::virtualization::libvirt::networks:
   directnet:
@@ -53,13 +56,13 @@ profile::virtualization::libvirt::pools:
     type:                dir
     target:              /var/lib/libvirt/images
 
-libvirt::unix_sock_group:         wheel
-libvirt::unix_sock_rw_perms:      0770
-libvirt::listen_tls:              false
-libvirt::listen_tcp:              true
+libvirt::unix_sock_group:         wheel # FIXME remove when el7 is gone
+libvirt::unix_sock_rw_perms:      0770  # FIXME remove when el7 is gone
+libvirt::listen_tls:              false # FIXME remove when el7 is gone
+libvirt::listen_tcp:              true  # FIXME remove when el7 is gone
 libvirt::auth_tcp:                none
 libvirt::sysconfig:
-  LIBVIRTD_ARGS:                  '--listen'
+  LIBVIRTD_ARGS:                  ''
 libvirt::qemu_vnc_listen:         '0.0.0.0'
 libvirt::qemu_vnc_sasl:           false
 libvirt::qemu_vnc_tls:            false
@@ -69,7 +72,13 @@ sensu__disk__crtical:     90
 
 profile::base::yumrepo::repo_hash:
   epel:
-    ensure:   present
+    ensure: present
+  ceph-%{hiera('ceph_version')}:
+    ensure: present
+  ceph-%{hiera('ceph_version')}-noarch:
+    ensure: present
+  AlmaLinux-AppStream:
+    exclude: 'postgres*'
 
 lvm::volume_groups:
   vg_ext:
@@ -79,6 +88,16 @@ lvm::volume_groups:
       lv_ext:
         fs_type:   xfs
         mountpath: "/var/lib/libvirt/images"
+
+ceph::profile::params::client_keys:
+  'client.admin':
+    secret: "%{hiera('ceph_storage_client_admin_key')}"
+    mode: '0600'
+    user: 'ceph'
+    group: 'ceph'
+    cap_mon: 'allow *'
+    cap_osd: 'allow *'
+    cap_mds: 'allow *'
 
 consul::config_hash:
   'server': true

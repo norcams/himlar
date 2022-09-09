@@ -432,6 +432,39 @@ profile::base::network::cumulus_bonds:
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', ]
     'mtu': '9216'
+# unused: host47, host48
+  'host49':
+    'slaves': [ 'swp13s0', ]
+    'clag_id': '49'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host50':
+    'slaves': [ 'swp13s1', ]
+    'clag_id': '50'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host51':
+    'slaves': [ 'swp13s2', ]
+    'clag_id': '51'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host52':
+    'slaves': [ 'swp13s3', ]
+    'clag_id': '52'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
 
 profile::base::network::cumulus_bridges:
   'bridge':
@@ -482,6 +515,10 @@ profile::base::network::cumulus_bridges:
       - host44
       - host45
       - host46
+      - host49
+      - host50
+      - host51
+      - host52
       - peerlink
       - downlink
     'alias_name': 'Transport L2 if'
@@ -588,6 +625,14 @@ frrouting::frrouting::zebra_interfaces:
   'host45':
     - 'link-detect'
   'host46':
+    - 'link-detect'
+  'host49':
+    - 'link-detect'
+  'host50':
+    - 'link-detect'
+  'host51':
+    - 'link-detect'
+  'host52':
     - 'link-detect'
 
 frrouting::frrouting::zebra_generic_options:

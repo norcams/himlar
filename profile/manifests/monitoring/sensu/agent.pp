@@ -8,6 +8,8 @@ class profile::monitoring::sensu::agent (
   Hash $expanded_defaults = {},
   Boolean $expanded_transform_url = false,
   Boolean $expanded_transform_md5 = false,
+  Boolean $purge_check = false,
+  String $namespace = 'default',
 ) {
 
   if $enable_agent {
@@ -68,15 +70,23 @@ class profile::monitoring::sensu::agent (
     include ::sensu::plugins
     include ::sensu::cli
 
-    # We cannot add sensu check to client agent because puppet will need to
-    # pre validate the namespace before the agent is installed!
-
+    $defaults = { ensure => present, namespace => $namespace }
+    $namespaces = lookup('profile::monitoring::sensu::agent::namespaces', Hash,  'first', {})
     $bonsai_assets = lookup('profile::monitoring::sensu::agent::bonsai_assets', Hash, $merge_strategy, {})
+    $checks  = lookup('profile::monitoring::sensu::agent::checks', Hash, $merge_strategy, {})
+
     # merge strategy can only be first until we remove sensu classic
     $plugins = lookup('profile::monitoring::sensu::agent::plugins', Hash, 'first', {})
 
-    create_resources('sensu_bonsai_asset', $bonsai_assets)
-    create_resources('sensu_plugin', $plugins)
+    create_resources('sensu_bonsai_asset', $bonsai_assets, $defaults)
+    create_resources('sensu_plugin', $plugins, {})
+    create_resources('sensu_check', $checks, $defaults)
+    create_resources('sensu_namespace', $namespaces)
+
+    # purge checks will purge everything not defined on this role
+    sensu_resources { 'sensu_check':
+      purge => $purge_check,
+    }
 
   }
 }

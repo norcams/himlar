@@ -52,6 +52,20 @@ filter import_kernel6 {
   reject;
 }
 
+filter import_uib {
+  if net =<%= scope().call_function('hiera',['netcfg_uib_network']) %> then {
+    accept;
+  }
+  reject;
+}
+
+filter import_uib6 {
+  if net =<%= scope().call_function('hiera',['netcfg_uib_network6']) %> then {
+    accept;
+  }
+  reject;
+}
+
 filter import_bgp6 {
   if  net != ::/0 then {
     if net !=<%= scope().call_function('hiera',['netcfg_anycast_dns6']) %>/128 then {
@@ -65,6 +79,8 @@ ipv4 table private4;
 ipv4 table lhc4;
 ipv6 table lhc6;
 ipv4 table lhc_private4;
+ipv4 table uib4;
+ipv6 table uib6;
 
 protocol kernel {
   ipv4 {                      # Connect protocol to IPv4 table by channel
@@ -119,6 +135,19 @@ protocol kernel {
 }
 
 protocol kernel {
+  ipv4 {
+    table uib4;
+    export all;
+    import filter import_kernel;
+  };
+  kernel table ipt_uib;
+  graceful restart;
+  persist;                    # Don't remove routes on bird shutdown
+  learn;
+  scan time 2;
+}
+
+protocol kernel {
   ipv6 {
     table master6;
     import filter import_kernel6;
@@ -136,8 +165,23 @@ protocol kernel {
     import filter import_kernel6;
     export all;
   };
+  graceful restart;
+  persist;                    # Don't remove routes on bird shutdown
   learn;
   kernel table ipt_lhc;
+  scan time 2;
+}
+
+protocol kernel {
+  ipv6 {
+    table uib6;
+    import filter import_kernel6;
+    export all;
+  };
+  graceful restart;
+  persist;                    # Don't remove routes on bird shutdown
+  learn;
+  kernel table ipt_uib;
   scan time 2;
 }
 
@@ -163,10 +207,24 @@ protocol pipe {
 }
 
 protocol pipe {
+  table master4;
+  peer table uib4;
+  import filter import_kernel;
+  export filter import_uib;
+}
+
+protocol pipe {
   table master6;
   peer table lhc6;
   import filter import_kernel6;
   export filter import_bgp6;
+}
+
+protocol pipe {
+  table master6;
+  peer table uib6;
+  import filter import_kernel6;
+  export filter import_uib6;
 }
 
 protocol bfd {

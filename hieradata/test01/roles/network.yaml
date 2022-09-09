@@ -1,0 +1,6 @@
+---
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::checks:              {}
+profile::base::common::packages:
+  'gcc-c++': { ensure: absent }
+  'make': { ensure: absent }

@@ -1,95 +1,10 @@
 ---
-# collectd
-include:
-  default:
-    - profile::monitoring::collectd
+# Do not use ceph cluster for instance disk
+nova::compute::rbd::ephemeral_storage: false
 
-named_interfaces::config:
-  mgmt:
-    - em1
-  trp:
-    - team1
-  live:
-    - team1.120
-
-# Turn off nested virtualization
-profile::virtualization::nested::manage: false
-
-profile::monitoring::collectd::enable: false
-
-collectd::plugin::interface::interfaces:
-  - "%{::interface_trp1}"
-  - "%{::interface_mgmt1}"
-
-profile::monitoring::collectd::plugins:
-  - collectd::plugin::aggregation
-  - collectd::plugin::cpu
-  - collectd::plugin::disk
-  - collectd::plugin::load
-  - collectd::plugin::memory
-  - collectd::plugin::interface
-  - collectd::plugin::write_graphite
-  - collectd::plugin::virt
-  - collectd::plugin::processes
-  - collectd::plugin::numa
-collectd::plugin::virt::hostname_format:        'hostname'
-collectd::plugin::virt::plugin_instance_format: 'uuid'
-
-# Nover overrides
+# Nova overrides
 nova::compute::libvirt::libvirt_cpu_model:       'EPYC'
 nova::cpu_allocation_ratio:                      '8'
 nova::disk_allocation_ratio:                     '2'
 nova::ram_allocation_ratio:                      '1.4'
 nova::scheduler::filter::max_instances_per_host: '20'
-
-# Create and enable more swap
-profile::base::common::extraswap:        true
-profile::base::common::extraswap_sizegb: 30
-
-profile::base::lvm::physical_volume:
-  '/dev/sda4':
-    ensure: present
-    force:  true
-profile::base::lvm::volume_group:
-  'vg_ext':
-    physical_volumes:
-      - /dev/sda4
-profile::base::lvm::logical_volume:
-  'lv_instances':
-    volume_group: 'vg_ext'
-    fs_type:      "xfs"
-    mountpath:    "/var/lib/nova/instances"
-
-profile::base::network::network_auto_opts:
-  mgmt:
-    'defroute': 'no'
-  trp:
-    'defroute': 'no'
-    'ipv6init': 'yes'
-    'devicetype': 'Team'
-    'mtu': '9000'
-    'team_config': >-
-                   { "runner" : {  "name" : "lacp",  "active": true, "fast_rate" : true,
-                   "tx_hash": ["eth", "ipv4", "ipv6"], "tx_balancer": { "name": "basic" } },
-                   "link_watch" : {  "name" : "ethtool" } }
-  live:
-    'defroute': 'no'
-
-profile::base::network::network_auto_bonding:
-  trp:
-    em3:
-      'team_port_config': '{ "prio" : 100 }'
-      'mtu': '9000'
-    em4:
-      'team_port_config': '{ "prio" : 100 }'
-      'mtu': '9000'
-
-# These compute host uses local storage for instances
-nova::compute::rbd::ephemeral_storage: false
-nova::config::nova_config:
-  libvirt/images_type:
-    value: default
-  DEFAULT/metadata_workers:
-    value: '2'
-  libvirt/remote_filesystem_transport:
-    value: 'rsync'

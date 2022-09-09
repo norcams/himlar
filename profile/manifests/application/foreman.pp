@@ -73,7 +73,7 @@ class profile::application::foreman(
   }
   cron { 'push-puppet-facts-to-foreman':
     ensure  => $push_facts_ensure,
-    command => '/etc/puppetlabs/puppet/node.rb --push-facts',
+    command => '/etc/puppetlabs/puppet/node.rb --push-facts > /dev/null 2>&1',
     minute  => '30',
     hour    => '0',
   }

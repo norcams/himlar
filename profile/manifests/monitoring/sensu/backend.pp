@@ -2,19 +2,19 @@
 # This will setup the sensu backend services
 #
 class profile::monitoring::sensu::backend(
-  Boolean $manage               = false,
-  Boolean $manage_dashboard     = false,
-  Boolean $manage_firewall      = false,
-  Array $firewall_ports         = [8081, 3000, 8082],
-  Array $firewall_source        = ["${::network_mgmt1}/${::cidr_mgmt1}"],
-  Boolean $manage_etcd_firewall = false,
-  Array $firewall_etcd_ports    = [2379,2380],
-  Array $firewall_etcd_source   = ["${::network_mgmt1}/${::cidr_mgmt1}"],
-  String $merge_strategy        = 'deep',
-  String $dashboard_secure      = 'false',
-  Integer $dashboard_port       = 3000,
-  String $dashboard_api_url     = "https://${::ipaddress_mgmt1}:8082",
-  Boolean $purge_check          = false
+  Boolean $manage                 = false,
+  Boolean $manage_dashboard       = false,
+  Boolean $manage_firewall        = false,
+  Array $firewall_ports           = [8081, 3000, 8082],
+  Array $firewall_source          = ["${::network_mgmt1}/${::cidr_mgmt1}"],
+  Boolean $manage_etcd_firewall   = false,
+  Array $firewall_etcd_ports      = [2379,2380],
+  Array $firewall_etcd_source     = ["${::network_mgmt1}/${::cidr_mgmt1}"],
+  String $merge_strategy          = 'deep',
+  String $dashboard_secure        = 'false',
+  Integer $dashboard_port         = 3000,
+  String $dashboard_api_url       = "https://${::ipaddress_mgmt1}:8082",
+  Boolean $enable_bash_completion = false
 ) {
 
   if $manage {
@@ -22,19 +22,25 @@ class profile::monitoring::sensu::backend(
     include ::sensu::cli
     include ::sensu::agent
 
-    $checks  = lookup('profile::monitoring::sensu::backend::checks', Hash, $merge_strategy, {})
+    $namespace = lookup('sensu_namespace', String, 'first', 'default')
+    $defaults = { ensure => present, namespace => $namespace }
+
     $namespaces = lookup('profile::monitoring::sensu::backend::namespaces', Hash,  $merge_strategy, {})
+    $bonsai_assets = lookup('profile::monitoring::sensu::backend::bonsai_assets', Hash, $merge_strategy, {})
     $handlers = lookup('profile::monitoring::sensu::backend::handlers', Hash, $merge_strategy, {})
     $filters  = lookup('profile::monitoring::sensu::backend::filters', Hash, $merge_strategy, {})
+    $checks  = lookup('profile::monitoring::sensu::backend::checks', Hash, $merge_strategy, {})
 
     create_resources('sensu_namespace', $namespaces)
-    create_resources('sensu_handler', $handlers)
-    create_resources('sensu_filter', $filters)
-    create_resources('sensu_check', $checks)
+    create_resources('sensu_bonsai_asset', $bonsai_assets, $defaults)
+    create_resources('sensu_handler', $handlers, $defaults)
+    create_resources('sensu_filter', $filters, $defaults)
+    create_resources('sensu_check', $checks, $defaults)
 
-    sensu_resources { 'sensu_check':
-      purge => $purge_check,
-    }
+    # purge checks
+    # sensu_resources { 'sensu_check':
+    #   purge => $purge_check,
+    # }
   }
 
   if $manage_firewall {
@@ -50,6 +56,13 @@ class profile::monitoring::sensu::backend(
     }
   }
 
+  if $enable_bash_completion {
+    exec { 'sensu-bash-completion':
+      command => '/sbin/sensuctl completion bash > /etc/bash_completion.d/sensuctl',
+      creates => '/etc/bash_completion.d/sensuctl'
+  }
+
+  }
   if $manage_dashboard {
     package { ['yarn', 'sensu-web']:
       ensure => installed,

@@ -8,6 +8,7 @@ include:
     - profile::application::rngd
     - profile::bootstrap::himlar
     - profile::network::nat
+    - profile::application::postfix
 
 # We need to define oob for login, but this should be overridden in location
 # with the correct oob interface where we use oob network
@@ -60,6 +61,8 @@ accounts::accounts:
   'lennart':
     ensure: present
     authorized_keys: [ 'lennart_uib', 'lennart_home']
+  'terjef':
+    ensure: present
   # system user for db backup
   'norcams':
     ensure: present
@@ -125,6 +128,7 @@ googleauthenticator::pam::mode::modes:
   wheel-only:
     condition: 'user ingroup wheel'
     nullok: false
+    service: 'sshd'
 
 googleauthenticator::pam::modules:
   sshd:
@@ -141,6 +145,5 @@ profile::base::yumrepo::repo_hash:
   epel:
     ensure: present
 
-profile::base::login::manage_db_backup: true
 profile::base::login::dump_owner:      'norcams'
 profile::base::login::dump_group:      'wheel'

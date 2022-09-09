@@ -6,6 +6,7 @@ class profile::openstack::novactrl(
   $manage_cells         = false,
   $manage_az            = false,
   $manage_firewall      = false,
+  $manage_nova_config   = false,
   $firewall_extras      = {}
 ) {
 
@@ -30,6 +31,7 @@ class profile::openstack::novactrl(
   include ::nova::api
   include ::nova::config
   include ::nova::network::neutron
+  include ::nova::cinder
   include ::nova::wsgi::apache_api
   include ::nova::logging
   include ::nova::placement
@@ -39,6 +41,11 @@ class profile::openstack::novactrl(
   include ::placement::wsgi::apache
   include ::placement::logging
   include ::placement::keystone::authtoken
+
+  if $manage_nova_config {
+    $default_nova_config = lookup('profile::openstack::novactrl::default_nova_config', Hash, 'deep', {})
+    create_resources('nova_config', $default_nova_config)
+  }
 
   # This will make sure httpd service will be restarted on config changes
   Nova_config <| |> ~> Class['apache::service']

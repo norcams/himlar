@@ -65,7 +65,7 @@ profile::base::common::packages:
 
 # Example: 'nvidia-35' or ['nvidia-35', 'nvidia-36']
 # NVIDIA P40 partitioned into 4x vGPUs
-nova::compute::vgpu::enabled_vgpu_types: 'nvidia-284'
+nova::compute::vgpu::vgpu_types_device_addresses_mapping: { 'nvidia-284', }
 
 # remove when telemetry/ceilometer is up in all environments and move to common
 profile::openstack::compute::manage_telemetry: true

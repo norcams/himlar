@@ -93,6 +93,20 @@ profile::storage::ceph::pool::pools:
       crush_rule: 'ssd-storage'
       nodelete:   'true'
       min_size:   '2'
+  'cephfs_internal_meta':
+    size:    3
+    pg_num:  16
+    custom:
+      crush_rule: 'ssd-storage'
+      nodelete:   'true'
+      min_size:   '2'
+  'cephfs_internal_data_default':
+    size:    3
+    pg_num:  16
+    custom:
+      crush_rule: 'ssd-storage'
+      nodelete:   'true'
+      min_size:   '2'
 profile::storage::ceph::pool::ec_pools:
   'placeholder':
     manage: false
@@ -116,6 +130,12 @@ profile::storage::ceph_ecpool::ec_pools:
     crush_root:          "storage"
     plugin:              "jerasure"
     technique:           "reed_sol_van"
+  'cephfs_internal_data_ec':
+    manage:              true
+    allow_ec_overwrites: true
+    k_data:              "8"
+    m_code:              "2"
+    crush_root:          "storage"
 
 profile::storage::cephpool_params::pools:
   'volumes_hdd_ec_data':
@@ -123,6 +143,8 @@ profile::storage::cephpool_params::pools:
     replicas_min_size:  '9'
   'volumes_ssd_ec_data':
     application_enable: 'rbd'
+    replicas_min_size:  '9'
+  'cephfs_internal_data_ec':
     replicas_min_size:  '9'
 
 profile::base::lvm::volume_group:

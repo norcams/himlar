@@ -19,7 +19,7 @@ class profile::base::hostname(
       command     => "/bin/hostname ${hostname}",
       refreshonly => true
     }
-  } elsif (fact('os.distro.codename') == 'jessie') or (fact('os.distro.codename') == 'stretch') {
+  } elsif (fact('os.distro.codename') == 'jessie') or (fact('os.distro.codename') == 'stretch') or (fact('os.distro.codename') == 'buster') {
     exec { 'set debian hostname':
       command => "/usr/bin/hostnamectl set-hostname ${hostname}",
       unless  => "/usr/bin/hostnamectl status | grep 'Static hostname: ${hostname}'",

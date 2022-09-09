@@ -1,0 +1,18 @@
+---
+profile::storage::cephmon::create_crushbuckets: true
+profile::storage::ceph_crushbucket::buckets:
+  'object':
+    bucket_type:   'pod'
+    bucket_parent: 'default'
+
+ceph::profile::params::osd_pool_default_min_size:   '2'
+ceph::profile::params::mon_host:                    "%{::netpart_trp1}.89,%{::netpart_trp1}.90,%{::netpart_trp1}.94"
+ceph::profile::params::mon_initial_members:         '%{::location}-cephmon-object-01,%{::location}-cephmon-object-02,%{::location}-cephmon-object-03'
+ceph::profile::params::cluster_network:             '172.20.32.0/21' #"%{::network_ceph1}/%{::cidr_ceph1}"
+ceph::profile::params::public_network:              "%{::network_trp1}/%{::cidr_trp1}"
+
+profile::base::common::packages:
+  'python-collectd-ceph-storage': # FIXME
+    source: 'https://download.iaas.uio.no/nrec/rpm/python-collectd-ceph-storage-0.0.3-1.el8.x86_64.rpm'
+
+profile::base::common::manage_lvm: false

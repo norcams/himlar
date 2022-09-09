@@ -1,0 +1,11 @@
+---
+network::interfaces_hash:
+  'eth1':
+    onboot:    'yes'
+    mtu:       '1500'
+    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.21"
+    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
+
+# sensu_etcd_cluster_state: 'new'
+# sensu_etcd_cluster: >-
+#   %{::location}-%{hiera('sensu_backend_role')}-01=http://%{hiera('netcfg_mgmt_netpart')}.21:2380

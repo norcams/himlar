@@ -35,6 +35,10 @@ profile::openstack::resource::host_aggregate:
     availability_zone: "%{::location}-default-1"
     metadata:
       type: 'atlas_c1a'
+  shpc_cpu1:
+    availability_zone: "%{::location}-default-1"
+    metadata:
+      type: 'shpc_cpu'
   placeholder1:
     availability_zone: "%{::location}-iaas-team-only-1"
     metadata:
@@ -68,4 +72,7 @@ profile::openstack::resource::host_aggregate:
     availability_zone: "%{::location}-default-1"
     metadata:
       type: 'robin'
-
+  numascale1:
+    availability_zone: "%{::location}-default-1"
+    metadata:
+      type: 'numascale'

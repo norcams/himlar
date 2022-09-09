@@ -1,0 +1,27 @@
+---
+profile::storage::cephfs::create_cephfs: true
+profile::storage::cephfs::set_fsparams:  true
+profile::storage::cephfs::mount_cephfs:  true
+
+profile::storage::cephfs::filesystems:
+  'cephfs_internal':
+    metadata_pool:     "cephfs_internal_meta"
+    primary_data_pool: "cephfs_internal_data_default"
+
+profile::storage::cephfs::mount:
+  '/cephfs/rootfs':
+    'user':   'admin'
+    'ensure': mounted
+    'device': ':/'
+
+profile::storage::cephfs::fs_params:
+  'cephfs_internal':
+    'local_mountpath':     "/cephfs/rootfs"
+    'datapools':
+      'cephfs_internal_data_ec': {}
+    'poolmappings':
+      'ecdata':   'cephfs_internal_data_ec'
+      'repl_ssd': 'cephfs_internal_data_default'
+    'settings':
+      'max_file_size': '10995119925677' # 10TB - default is 1TB
+      'max_mds':       '2'

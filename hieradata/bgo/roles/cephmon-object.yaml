@@ -1,11 +1,4 @@
 ---
-# FIXME: this should be the same as default in common/common.yaml
-named_interfaces::config:
-  mgmt:
-    - eth0
-  trp:
-    - eth1
-
 profile::storage::cephmon::create_crushbuckets: true
 profile::storage::ceph_crushbucket::buckets:
   'object':
@@ -17,8 +10,6 @@ ceph::profile::params::mon_host:                    "%{::netpart_trp1}.89,%{::ne
 ceph::profile::params::mon_initial_members:         '%{::location}-cephmon-object-01,%{::location}-cephmon-object-02,%{::location}-cephmon-object-03'
 ceph::profile::params::cluster_network:             '172.20.0.0/21' #"%{::network_ceph1}/%{::cidr_ceph1}"
 ceph::profile::params::public_network:              "%{::network_trp1}/%{::cidr_trp1}"
-
-ceph_version: 'octopus' # FIXME
 
 profile::base::common::packages:
   'python-collectd-ceph-storage': # FIXME

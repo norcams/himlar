@@ -16,6 +16,7 @@ profile::openstack::novactrl::enable_conductor:     true
 profile::openstack::novactrl::enable_scheduler:     true
 profile::openstack::novactrl::manage_az:            true
 profile::openstack::novactrl::manage_cells:         true
+profile::openstack::novactrl::manage_nova_config:   true
 
 profile::openstack::openrc::interface:    'internal'
 profile::openstack::openrc::password:     "%{hiera('nova_api_password')}"
@@ -36,6 +37,7 @@ profile::base::common::packages:
   'libibverbs': {} # not needed but avoid console complaints
   'rdma': {} # not needed but avoid console complaints
   'MariaDB-client': {}
+  'centos-release-nfv-common': {}
 
 # apache httpd
 # this should be fine for 4 GB RAM
@@ -57,9 +59,6 @@ profile::monitoring::sensu::agent::checks:
     subscribers:  ['metrics']
     handlers:     ['graphite_tcp']
 
-# used for repo version
-mariadb_version: '10.2'
-
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   rdo-release:
@@ -72,7 +71,9 @@ profile::base::yumrepo::repo_hash:
   AlmaLinux-PowerTools:
     ensure: present
   epel: # should be absent when using RDO, but whitelist can also work
-    ensure:   present
+    ensure: present
     includepkgs: 'htop bash-completion-extras python2-bcrypt'
+  CentOs-nfv-Openvswitch:
+    ensure: present
 
 memcached::max_memory: '20%'

@@ -2,7 +2,7 @@ actions:
   1:
     action: delete_indices
     description: >-
-      Delete all indices older than 14 days.
+      Delete all indices older than 10 days.
     options:
       ignore_empty_list: True
       timeout_override:
@@ -14,5 +14,5 @@ actions:
       direction: older
       timestring: '%Y.%m.%d'
       unit: days
-      unit_count: 14
+      unit_count: 10
       exclude:

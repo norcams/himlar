@@ -1,6 +1,4 @@
 ---
-ceph_version: 'nautilus' # FIXME
-
 profile::openstack::volume::type:
   rbd:
     is_public: true
@@ -18,10 +16,10 @@ profile::openstack::volume::type:
     is_public: false
     properties:
       - 'volume_backend_name=mass-storage-ssd'
-#  mass-storage-dcache8:
-#    visibility: "private"
-#    properties:
-#      - 'volume_backend_name=mass-storage-dcache8'
+  mass-storage-dcache8:
+    is_public: false
+    properties:
+      - 'volume_backend_name=mass-storage-dcache8'
 
 profile::openstack::volume::backend::rbd:
   rbd-volumes:
@@ -44,8 +42,10 @@ profile::openstack::volume::backend::rbd:
         value: 'True'
       mass-storage-default/rbd_exclusive_cinder_pool:
         value: 'True'
+      mass-storage-default/report_dynamic_total_capacity:
+        value: 'False'
       mass-storage-default/max_over_subscription_ratio:
-        value: 'auto'
+        value: '2000.0'
   mass-storage-dcache:
     rbd_pool: 'dcache_hdd_ec_meta'
     rbd_user: 'cinder-dcache-hdd-ec'
@@ -56,6 +56,10 @@ profile::openstack::volume::backend::rbd:
         value: 'True'
       mass-storage-dcache/rbd_exclusive_cinder_pool:
         value: 'True'
+      mass-storage-dcache/report_dynamic_total_capacity:
+        value: 'False'
+      mass-storage-dcache/max_over_subscription_ratio:
+        value: '2500.0'
   mass-storage-ssd:
     rbd_pool: 'volumes_ssd_ec_meta'
     rbd_user: 'cinder-ssd-ec'
@@ -66,11 +70,24 @@ profile::openstack::volume::backend::rbd:
         value: 'True'
       mass-storage-ssd/rbd_exclusive_cinder_pool:
         value: 'True'
-#  mass-storage-dcache8:
-#    rbd_pool: 'dcache_hdd_ec_meta8'
-#    rbd_user: 'cinder-dcache-hdd-ec8'
-#    rbd_flatten_volume_from_snapshot: 'True'
-#    rbd_secret_uuid: "%{hiera('libvirt_rbd_secret_uuid')}"
+      mass-storage-ssd/report_dynamic_total_capacity:
+        value: 'False'
+      mass-storage-ssd/max_over_subscription_ratio:
+        value: '1000.0'
+  mass-storage-dcache8:
+    rbd_pool: 'dcache_hdd_ec_meta8'
+    rbd_user: 'cinder-dcache-hdd-ec8'
+    rbd_flatten_volume_from_snapshot: 'True'
+    rbd_secret_uuid: "%{hiera('libvirt_rbd_secret_uuid')}"
+    extra_options:
+      mass-storage-dcache8/enable_deferred_deletion:
+        value: 'True'
+      mass-storage-dcache8/rbd_exclusive_cinder_pool:
+        value: 'True'
+      mass-storage-dcache8/report_dynamic_total_capacity:
+        value: 'False'
+      mass-storage-dcache8/max_over_subscription_ratio:
+        value: '5600.0'
 
 cinder::api::default_volume_type: 'mass-storage-default'
 
@@ -79,4 +96,4 @@ cinder::backends::enabled_backends:
   - mass-storage-default
   - mass-storage-dcache
   - mass-storage-ssd
-#  - mass-storage-dcache8
+  - mass-storage-dcache8

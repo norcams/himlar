@@ -1,4 +1,7 @@
 ---
+# The uplink interface
+profile::base::network::uplink_interface: 'swp53'
+
 network::interfaces_hash:
   'eth0':
     'ipaddress': '172.16.32.2/21'
@@ -337,6 +340,7 @@ frrouting::frrouting::zebra_ip6_routes:
   - '2001:700:2:82ff::12/128 fd32::12'
   - '2001:700:2:82ff::251/128 fd32::16'
   - '2001:700:2:82ff::256/128 fd32::34'
+  - '2001:700:2:82ff::97/128 fd32::97'
 frrouting::frrouting::zebra_ip_routes:
   - '10.0.0.0/8 Null0'
   - '158.37.63.0/24 Null0'
@@ -350,6 +354,7 @@ frrouting::frrouting::zebra_ip_routes:
   - '158.37.63.251/32 172.18.32.16'
   - '158.37.63.253/32 172.18.32.12'
   - '158.37.63.254/32 172.18.32.51'
+  - '158.39.75.247/32 172.18.32.97'
 
 frrouting::frrouting::zebra_generic_options:
   'ip':
@@ -413,10 +418,10 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'route-map rr-client-allow out'
       - 'bfd'
     'members':
-      - '172.18.32.17'
-      - '172.18.32.18'
       - '172.18.32.26'
       - '172.18.32.27'
+      - '172.18.32.44'
+      - '172.18.32.45'
       - '172.18.32.103'
       - '172.18.32.104'
       - '172.18.32.105'
@@ -467,6 +472,10 @@ frrouting::frrouting::bgp_neighbor_groups:
       - '172.18.33.49'
       - '172.18.33.82'
       - '172.18.33.83'
+      - '172.18.33.84'
+      - '172.18.33.85'
+      - '172.18.33.86'
+      - '172.18.33.87'
     'options6':
       - 'neighbor rr-clients route-reflector-client'
       - 'neighbor rr-clients route-map rr-client-allow6 in'
@@ -481,8 +490,8 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'neighbor fd32:18:228::1 default-originate'
       - 'neighbor fd32:18:228::1 soft-reconfiguration inbound'
     'members6':
-      - 'fd32::17'
-      - 'fd32::18'
+      - 'fd32::44'
+      - 'fd32::45'
       - 'fd32::103'
       - 'fd32::104'
       - 'fd32::105'
@@ -533,6 +542,10 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'fd32::1:49'
       - 'fd32::1:82'
       - 'fd32::1:83'
+      - 'fd32::1:84'
+      - 'fd32::1:85'
+      - 'fd32::1:86'
+      - 'fd32::1:87'
 
 frrouting::frrouting::bgp_accesslist:
   '10':

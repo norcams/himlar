@@ -35,4 +35,5 @@ include:
 profile::openstack::resource::image_sharing::manage: false
 #profile::openstack::resource::image_sharing::domain: 'default'
 
-profile::openstack::identity::manage_bootstrap: true
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::checks:              {}

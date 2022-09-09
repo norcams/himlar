@@ -3,7 +3,8 @@ neutron::bind_host:   "%{ipaddress_trp1}"
 neutron::core_plugin: 'calico'
 
 neutron::server::sync_db: true
-neutron::server::database_connection: "mysql+pymysql://neutron:%{hiera('neutron::db::mysql::password')}@%{hiera('service__address__db_regional')}/neutron"
+#neutron::server::database_connection: "mysql+pymysql://neutron:%{hiera('neutron::db::mysql::password')}@%{hiera('service__address__db_regional')}/neutron"
+neutron::db::database_connection: "mysql+pymysql://neutron:%{hiera('neutron::db::mysql::password')}@%{hiera('service__address__db_regional')}/neutron"
 
 neutron::keystone::authtoken::www_authenticate_uri: "%{hiera('endpoint__identity__internal')}"
 neutron::keystone::authtoken::auth_url:            "%{hiera('endpoint__identity__admin')}/v3"
@@ -64,3 +65,12 @@ neutron::config::server_config:
 
 # quota (node: network)
 neutron::quota::quota_port:   '-1'
+
+# policies
+neutron::policy::policies:
+  create_network:
+    key:    'create_network'
+    value:  'role:admin_only'
+  create_address_scope:
+    key:    'create_address_scope'
+    value:  'role:admin_only'

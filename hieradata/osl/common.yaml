@@ -6,8 +6,6 @@ include:
 location_environment:     'prod'
 location_description:     'Production environment in Oslo'
 
-ceph_version: 'octopus' # FIXME
-
 # Disable management of Dell repos and software
 profile::base::dell::manage_repos:      true
 profile::base::dell::manage_openmanage: false
@@ -79,7 +77,7 @@ netcfg_live_netpart:      '172.22.32'
 netcfg_live_netmask:      '255.255.248.0'
 #netcfg_dns_server1:       '129.240.2.3'
 netcfg_dns_server1:       '172.16.32.10'
-netcfg_dns_server2:       '172.16.32.17'
+netcfg_dns_server2:       '172.16.32.44'
 netcfg_dns_search:        "%{hiera('domain_mgmt')} %{hiera('domain_trp')}"
 netcfg_priv_gateway:      '172.18.32.26'
 netcfg_priv_network:      '10.2.0.0/20'
@@ -161,20 +159,27 @@ profile::network::services::dns_records:
     "%{::location}-compute-hpc-26.%{hiera('domain_mgmt')}": "%{::location}-compute-26.%{hiera('domain_mgmt')}"
     "%{::location}-compute-hpc-27.%{hiera('domain_mgmt')}": "%{::location}-compute-27.%{hiera('domain_mgmt')}"
     "%{::location}-compute-hpc-28.%{hiera('domain_mgmt')}": "%{::location}-compute-28.%{hiera('domain_mgmt')}"
+    # SHPC
+    "%{::location}-compute-epyc-52.%{hiera('domain_mgmt')}": "%{::location}-compute-52.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-epyc-53.%{hiera('domain_mgmt')}": "%{::location}-compute-53.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-epyc-54.%{hiera('domain_mgmt')}": "%{::location}-compute-54.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-epyc-55.%{hiera('domain_mgmt')}": "%{::location}-compute-55.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-epyc-56.%{hiera('domain_mgmt')}": "%{::location}-compute-56.%{hiera('domain_mgmt')}"
     # GPU
-    "%{::location}-compute-vgpu-17.%{hiera('domain_mgmt')}":  "%{::location}-compute-17.%{hiera('domain_mgmt')}"
-    "%{::location}-compute-vgpu-19.%{hiera('domain_mgmt')}":  "%{::location}-compute-19.%{hiera('domain_mgmt')}"
-    "%{::location}-compute-vgpu-20.%{hiera('domain_mgmt')}":  "%{::location}-compute-20.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-vgpu-17.%{hiera('domain_mgmt')}": "%{::location}-compute-17.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-vgpu-19.%{hiera('domain_mgmt')}": "%{::location}-compute-19.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-vgpu-20.%{hiera('domain_mgmt')}": "%{::location}-compute-20.%{hiera('domain_mgmt')}"
     "%{::location}-compute-vgpu-42.%{hiera('domain_mgmt')}": "%{::location}-compute-42.%{hiera('domain_mgmt')}"
+    # object store with ceph
+    "%{::location}-object-ceph-01.%{hiera('domain_mgmt')}":  "%{::location}-object-01.%{hiera('domain_mgmt')}"
+    "%{::location}-object-ceph-02.%{hiera('domain_mgmt')}":  "%{::location}-object-02.%{hiera('domain_mgmt')}"
+    "%{::location}-object-ceph-03.%{hiera('domain_mgmt')}":  "%{::location}-object-03.%{hiera('domain_mgmt')}"
+    "%{::location}-object-ceph-04.%{hiera('domain_mgmt')}":  "%{::location}-object-04.%{hiera('domain_mgmt')}"
+    "%{::location}-object-ceph-05.%{hiera('domain_mgmt')}":  "%{::location}-object-05.%{hiera('domain_mgmt')}"
     # Dedicated
     "%{::location}-compute-robin-18.%{hiera('domain_mgmt')}": "%{::location}-compute-18.%{hiera('domain_mgmt')}"
     "%{::location}-compute-numascale-51.%{hiera('domain_mgmt')}": "%{::location}-compute-51.%{hiera('domain_mgmt')}"
-    # Arccache storage tempo
-    "%{::location}-storage-arccache-08.%{hiera('domain_mgmt')}":  "%{::location}-storage-08.%{hiera('domain_mgmt')}"
-    "%{::location}-storage-arccache-09.%{hiera('domain_mgmt')}":  "%{::location}-storage-09.%{hiera('domain_mgmt')}"
-    "%{::location}-storage-arccache-10.%{hiera('domain_mgmt')}":  "%{::location}-storage-10.%{hiera('domain_mgmt')}"
-    "%{::location}-storage-arccache-11.%{hiera('domain_mgmt')}":  "%{::location}-storage-11.%{hiera('domain_mgmt')}"
-    "%{::location}-storage-arccache-12.%{hiera('domain_mgmt')}":  "%{::location}-storage-12.%{hiera('domain_mgmt')}"
+    # Huawei ceph nodes
     "%{::location}-storage-v2h-13.%{hiera('domain_mgmt')}":  "%{::location}-storage-13.%{hiera('domain_mgmt')}"
     "%{::location}-storage-v2h-14.%{hiera('domain_mgmt')}":  "%{::location}-storage-14.%{hiera('domain_mgmt')}"
     "%{::location}-storage-v2h-15.%{hiera('domain_mgmt')}":  "%{::location}-storage-15.%{hiera('domain_mgmt')}"

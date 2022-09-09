@@ -2,10 +2,12 @@
 include:
   bootstrap:
     - profile::development::network::dns
+    - profile::application::openssl
   default:
     - profile::development::network::dns
     - profile::monitoring::sensu::agent
     - profile::application::openssl::catrust
+    - profile::application::openssl
 
 # Location setting
 location_environment: vagrant
@@ -83,6 +85,7 @@ public__ip__ns:         "%{hiera('netcfg_public_netpart')}.251"
 public__ipv6__ns:       "%{hiera('netcfg_public_netpart6')}::251"
 public__ip__resolver:   "%{hiera('netcfg_public_netpart')}.252"
 public__ipv6__resolver: "%{hiera('netcfg_public_netpart6')}::252"
+
 
 #
 # Default interfaces
@@ -180,6 +183,7 @@ profile::network::services::dns_records:
     "ns.%{hiera('domain_public')}":                       "%{hiera('netcfg_public_netpart')}.251"
     "resolver.%{hiera('domain_public')}":                 "%{hiera('netcfg_public_netpart')}.252"
     "dashboard.%{hiera('domain_frontend')}":              "%{hiera('netcfg_public_netpart')}.254"
+
   AAAA:
     "ns.%{hiera('domain_public')}":                       "%{hiera('netcfg_public_netpart6')}::251"
     "resolver.%{hiera('domain_public')}":                 "%{hiera('netcfg_public_netpart6')}::252"
@@ -243,7 +247,7 @@ horizon_db_password:                                'horizon_pass'
 
 # keystone.yaml
 keystone::db::mysql::password:                      'key_pass'
-keystone::admin_token:                              'admintoken'
+#keystone::admin_token:                              'admintoken'
 
 # master.yaml
 rbd_volumes_rbd_secret_uuid:                        'AQBypF1V2JYiChAA2qYbjM6jbXJBMmpXPkvwBg=='
@@ -282,6 +286,9 @@ sensu_mysql_password:                               'sensu_pass'
 grafana_admin_password:                             'changeme'
 local_rabbit_password:                              'local'
 
+# node: ts
+influxdb_admin_password:                            'influx_pass'
+influxdb_admin_token:                               'HaNpptM_3oRozR_MseRe-GmL1OIszJ5J-5I1flfOq86We198t7hJ-kzKphZtpa7aLE1bU37Jg-DuQJ_Vq7Eypg=='
 # telemetry/metrics
 gnocchi::db::mysql::password:                       'gnocchi_pass'
 ceilometer::db::mysql::password:                    'ceilometer_pass'
@@ -326,3 +333,18 @@ profile::openstack::resource::subnets:
       - '129.177.12.31'
     network_name: 'public'
     tenant_name: 'openstack'
+
+
+# FIXME:sensu-go
+profile::application::openssl::manage_ca_cert:          true
+profile::monitoring::sensu::agent::enable_go_agent:     false
+profile::monitoring::sensu::agent::enable_agent:        false
+# only checks defined in location will be added to sensu-go
+profile::monitoring::sensu::agent::merge_strategy:      'first'
+profile::monitoring::sensu::agent::plugins:             {}
+profile::monitoring::sensu::agent::namespaces:
+  "%{hiera('sensu_namespace')}": {}
+
+profile::base::yumrepo::repo_hash:
+  sensu-community:
+    ensure: present

@@ -34,8 +34,10 @@ profile::openstack::volume::backend::rbd:
         value: 'True'
       mass-storage-default/rbd_exclusive_cinder_pool:
         value: 'True'
+      mass-storage-default/report_dynamic_total_capacity:
+        value: 'False'
       mass-storage-default/max_over_subscription_ratio:
-        value: 'auto'
+        value: '2000.0'
   mass-storage-ssd:
     rbd_pool: 'volumes_ssd_ec_meta'
     rbd_user: 'cinder-ssd-ec'
@@ -46,8 +48,10 @@ profile::openstack::volume::backend::rbd:
         value: 'True'
       mass-storage-ssd/rbd_exclusive_cinder_pool:
         value: 'True'
+      mass-storage-ssd/report_dynamic_total_capacity:
+        value: 'False'
       mass-storage-ssd/max_over_subscription_ratio:
-        value: 'auto'
+        value: '100.0'
 
 cinder::api::default_volume_type: 'mass-storage-default'
 
@@ -55,3 +59,6 @@ cinder::backends::enabled_backends:
   - rbd-volumes
   - mass-storage-default
   - mass-storage-ssd
+
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::checks:              {}

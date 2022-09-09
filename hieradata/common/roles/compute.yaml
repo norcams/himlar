@@ -42,6 +42,9 @@ profile::base::selinux::semodules:
 # Manage default availability zone
 profile::openstack::compute::manage_az:            true
 
+# Manage default custom nova config
+profile::openstack::compute::manage_nova_config:   true
+
 # New interface class needs enabling
 profile::network::interface::create_custom_routes: true
 profile::network::interface::create_ip_rules: true
@@ -92,6 +95,7 @@ profile::base::common::packages:
   'jq': {}
   'openstack-selinux': {}
   'centos-release-virt-common': {}
+  'centos-release-nfv-common': {}
   'make': {}
   'OVMF': {} # FIXME: remove when el7 is gone
 
@@ -156,6 +160,7 @@ sudo::configs:
       - [ 'sensu ALL = (root) NOPASSWD: /bin/virsh list', 'sensu ALL = (root) NOPASSWD: /bin/systemctl restart calico-dhcp-agent' ]
 
 #profile::openstack::compute::hypervisor::fix_snapshot_loc: true # FIXME - Should probably be removed for newton release
+profile::openstack::compute::hypervisor::sysctl_fixes: true
 
 profile::openstack::telemetry::polling::polling_interval:  3600 # FIXME
 
@@ -216,9 +221,11 @@ profile::base::yumrepo::repo_hash:
   CentOS-AppStream: # needed for rhn network
     ensure:  present
     includepkgs: 'virt-who'
+  CentOs-nfv-Openvswitch:
+    ensure:  present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
-    includepkgs: 'htop bash-completion-extras bird bird6 collectd collectd-virt lttng-ust userspace-rcu libbabeltrace leveldb liboath py-bcrypt python2-bcrypt python36-prettytable python36-requests python36-pyOpenSSL python36-bcrypt python36-six python36-PyYAML python36-dateutil python36-cryptography python36-urllib3 python36-chardet python36-cffi python36-idna python36-pysocks python36-pycparser python36-ply python36-asn1crypto python3-httplib2 fmt python3-cherrypy python3-zc-lockfile python3-portend python3-cheroot python3-trustme python3-tempora python3-jaraco-functools python3-jaraco'
+    includepkgs: 'htop bash-completion-extras bird bird6 collectd collectd-virt lttng-ust userspace-rcu libbabeltrace leveldb liboath py-bcrypt python2-bcrypt python36-prettytable python36-requests python36-pyOpenSSL python36-bcrypt python36-six python36-PyYAML python36-dateutil python36-cryptography python36-urllib3 python36-chardet python36-cffi python36-idna python36-pysocks python36-pycparser python36-ply python36-asn1crypto python3-httplib2 fmt python3-cherrypy python3-zc-lockfile python3-portend python3-cheroot python3-trustme python3-tempora python3-jaraco-functools python3-jaraco parallel thrift'
 
 # Compute nodes need only admin and cinder keys
 ceph::profile::params::client_keys:

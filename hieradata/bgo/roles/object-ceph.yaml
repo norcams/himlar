@@ -97,8 +97,6 @@ profile::monitoring::sensu::agent::checks:
     interval:     1800
     subscribers:  ['checks']
 
-ceph_version: 'octopus' # FIXME
-
 profile::base::lvm::physical_volume:
   '/dev/sdb':
     ensure: present
