@@ -63,9 +63,19 @@ profile::base::common::packages:
 #    source: 'http://repo.mgmt.bgo.uhdc.no/NVIDIA-vGPU-rhel-7.8-450.55.x86_64.rpm'
   }
 
+# NVIDIA P40 partitioned into 2x vGPUs
+#
+# From "mdevctl types":
+#
+#  nvidia-286
+#    Available instances: 2
+#    Device API: vfio-pci
+#    Name: GRID P40-12C
+#    Description: num_heads=1, frl_config=60, framebuffer=12288M, max_resolution=4096x2160, max_instance=2
+#
 # Example: 'nvidia-35' or ['nvidia-35', 'nvidia-36']
-# NVIDIA P40 partitioned into 4x vGPUs
-nova::compute::vgpu::vgpu_types_device_addresses_mapping: { 'nvidia-284', }
+#
+nova::compute::vgpu::vgpu_types_device_addresses_mapping: { 'nvidia-286', }
 
 # remove when telemetry/ceilometer is up in all environments and move to common
 profile::openstack::compute::manage_telemetry: true
