@@ -7,7 +7,8 @@ include:
     - profile::application::builder
 
 profile::base::common::packages:
-  'python-openstackclient': {}
+  'python3-openstackclient': {}
+  'python3-glanceclient': {}
   'packer': {}
   'python3': {}
   'qemu-img': {}
@@ -18,8 +19,6 @@ profile::base::common::packages:
 named_interfaces::config:
   mgmt:
     - eth0
-
-openstack_version: 'train'
 
 profile::base::lvm::physical_volume:
   '/dev/vdb':
@@ -50,7 +49,7 @@ profile::openstack::openrc::password:         "%{hiera('imagebuilder_password')}
 profile::openstack::openrc::interface:        'public'
 
 
-profile::application::builder::package_url:   "https://download.iaas.uio.no/nrec/nrec-internal/%{hiera('repo_dist')}/imagebuilder-1.0-14.el7.x86_64.rpm"
+profile::application::builder::package_url:   "https://download.iaas.uio.no/nrec/nrec-internal/%{hiera('repo_dist')}/imagebuilder-1.26-1.el7.x86_64.rpm"
 profile::application::builder::ipv6:          true
 profile::application::builder::flavor:        'img.zerodisk'
 profile::application::builder::template_dir:  '/etc/imagebuilder'
