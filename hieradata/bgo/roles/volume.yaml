@@ -66,13 +66,13 @@ profile::openstack::volume::backend::rbd:
     rbd_flatten_volume_from_snapshot: 'True'
     rbd_secret_uuid: "%{hiera('libvirt_rbd_secret_uuid')}"
     extra_options:
-      mass-storage-dcache/enable_deferred_deletion:
+      mass-storage-dcache-temp/enable_deferred_deletion:
         value: 'True'
-      mass-storage-dcache/rbd_exclusive_cinder_pool:
+      mass-storage-dcache-temp/rbd_exclusive_cinder_pool:
         value: 'True'
-      mass-storage-dcache/report_dynamic_total_capacity:
+      mass-storage-dcache-temp/report_dynamic_total_capacity:
         value: 'False'
-      mass-storage-dcache/max_over_subscription_ratio:
+      mass-storage-dcache-temp/max_over_subscription_ratio:
         value: '2500.0'
   mass-storage-ssd:
     rbd_pool: 'volumes_ssd_ec_meta'
