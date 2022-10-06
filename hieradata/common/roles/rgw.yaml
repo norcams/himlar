@@ -5,6 +5,8 @@ include:
     - profile::openstack::object::radosgw
     - profile::storage::ceph::config
 
+ceph_version:         'pacific' #FIXME: need to change to beast frontend (require ceph module 4.0.0)
+
 profile::base::common::packages:
   'python3-openstackclient': {}
   'bash-completion': {}
