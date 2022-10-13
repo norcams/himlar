@@ -32,39 +32,39 @@ profile::application::foreman::dhcp_classes:
   onie_dell_s3048:
     parameters:
       - 'match if (substring(option vendor-class-identifier, 0, 29) = "onie_vendor:x86_64-dell_s3000")'
-      - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/opx/PKGS_OPX-installer-x86_64.bin\""
+      - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/images/opx/PKGS_OPX-installer-x86_64.bin\""
   onie_dell_s4048:
     parameters:
       - 'match if (substring(option vendor-class-identifier, 0, 29) = "onie_vendor:x86_64-dell_s4000")'
-      - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/cumuluslinux/onie-installer-amd64\""
+      - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/images/cumuluslinux/onie-installer-amd64\""
   onie_dell_s4148:
     parameters:
       - 'match if (substring(option vendor-class-identifier, 0, 32) = "onie_vendor:x86_64-dellemc_s4100")'
-      - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/cumuluslinux/onie-installer-amd64\""
+      - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/images/cumuluslinux/onie-installer-amd64\""
   onie_dell_s4810:
     parameters:
       - 'match if (substring(option vendor-class-identifier, 0, 19) = "onie_vendor:powerpc")'
-      - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/cumuluslinux/onie-installer-powerpc\""
+      - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/images/cumuluslinux/onie-installer-powerpc\""
   onie_edgecore_as4610:
     parameters:
       - 'match if (substring(option vendor-class-identifier, 0, 19) = "onie_vendor:arm-bcm")'
-      - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/cumuluslinux/onie-installer-arm\""
+      - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/images/cumuluslinux/onie-installer-arm\""
   onie_dell_s5232f:
     parameters:
       - 'match if (substring(option vendor-class-identifier, 0, 33) = "onie_vendor:x86_64-dellemc_s5232f")'
-      - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/cumuluslinux/onie-installer-amd64\""
+      - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/images/cumuluslinux/onie-installer-amd64\""
   cumulus_s4810:
     parameters:
       - 'match if (substring(option host-name,0,7) = "cumulus")'
-      - "option cumulus-provision-url \"http://repo.mgmt.%{location}.uhdc.no/cumuluslinux/provision.sh\""
+      - "option cumulus-provision-url \"http://repo.mgmt.%{location}.uhdc.no/provision/switch.sh\""
   opx_provision_vagrant:
     parameters:
       - 'match if (substring(option host-name,0,3) = "opx")'
-      - "option ztd-provision-url \"http://repo.mgmt.%{location}.uhdc.no/cumuluslinux/provision.sh\""
+      - "option ztd-provision-url \"http://repo.mgmt.%{location}.uhdc.no/provision/switch.sh\""
   opx_provision:
     parameters:
       - 'match if (substring(option host-name,0,3) = "OPX")'
-      - "option ztd-provision-url \"http://repo.mgmt.%{location}.uhdc.no/cumuluslinux/provision.sh\""
+      - "option ztd-provision-url \"http://repo.mgmt.%{location}.uhdc.no/provision/switch.sh\""
 
 profile::network::services::manage_dns_records: true
 profile::network::services::manage_dhcp_rsvs:   true
@@ -86,9 +86,6 @@ profile::webserver::apache::vhosts:
     port:           80
     docroot:        '/opt/repo/public'
     docroot_owner:  'iaas'
-
-dhcp::onie_inst_def_url:     "http://repo.%{domain}/cumuluslinux/onie-installer-powerpc"
-dhcp::cumulus_provision_url: "http://repo.%{domain}/cumuluslinux/provision.sh"
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
