@@ -324,6 +324,11 @@ profile::openstack::resource::networks:
     admin_state_up: true
     shared: false
     tenant_name: 'imagebuilder'
+  private:
+    name: 'private'
+    admin_state_up: true
+    shared: false
+    tenant_name: 'openstack'
     provider_network_type: 'local'
 
 profile::openstack::resource::subnets:
@@ -351,6 +356,17 @@ profile::openstack::resource::subnets:
       - '8.8.8.8'
     network_name: 'imagebuilder'
     tenant_name: 'imagebuilder'
+  private:
+    name: 'private'
+    cidr: "%{hiera('netcfg_public_netpart')}.0/24"
+    ip_version: '4'
+    allocation_pools:
+      - "start=%{hiera('netcfg_public_netpart')}.180,end=%{hiera('netcfg_public_netpart')}.199"
+    gateway_ip: "%{hiera('netcfg_public_netpart')}.1"
+    dns_nameservers:
+      - "%{hiera('netcfg_anycast_dns')}"
+    network_name: 'private'
+    tenant_name: 'openstack'
 
 # FIXME:sensu-go
 profile::application::openssl::manage_ca_cert:          true
