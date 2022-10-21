@@ -97,13 +97,13 @@ profile::storage::ceph::pool::pools:
   'rbd':
     ensure: absent
   'dcache_hdd_ec_meta8':
-    size:    5
-    pg_num:  16
+    size:    3
+    pg_num:  64
     tag:    'rbd'
     custom:
-      crush_rule: 'ssd-dcache'
+      crush_rule: 'ssd-storage'
       nodelete:   'true'
-      min_size:   '3'
+      min_size:   '2'
   'dcache_hdd_ec_data8':
     custom:
       deep_scrub_interval: '1.93536e+07' # every 32 weeks - overrides osd setting
