@@ -98,7 +98,7 @@ profile::storage::ceph::pool::pools:
     ensure: absent
   'dcache_hdd_ec_meta8':
     size:    5
-    pg_num:  128
+    pg_num:  16
     tag:    'rbd'
     custom:
       crush_rule: 'ssd-dcache'
