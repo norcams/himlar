@@ -96,26 +96,12 @@ profile::storage::ceph::pool::pools:
       crush_rule: 'ssd-storage'
       nodelete:   'true'
       min_size:   '2'
-  'dcache_hdd_ec_meta8':
-    size:    5
-    pg_num:  16
-    tag:    'rbd'
-    custom:
-      crush_rule: 'ssd-dcache'
-      nodelete:   'true'
-      min_size:   '3'
   'dcache_hdd_ec_data':
     custom:
       deep_scrub_interval: '1.93536e+07' # every 32 weeks - overrides osd setting
       scrub_max_interval:  '2.4192e+06'  # normal scrub at least every 4 weeks - overrides osd setting
       scrub_min_interval:  '604800'      # minimum one week between each scrub
       fast_read:           '1'           # read all k+m for read, trade bandwith for lower latency
-#  'dcache_hdd_ec_data8':
-#    custom:
-#      deep_scrub_interval: '1.93536e+07' # every 32 weeks - overrides osd setting
-#      scrub_max_interval:  '2.4192e+06'  # normal scrub at least every 4 weeks - overrides osd setting
-#      scrub_min_interval:  '604800'      # minimum one week between each scrub
-#      fast_read:           '1'           # read all k+m for read, trade bandwith for lower latency
 profile::storage::ceph::pool::ec_pools:
   'placeholder':
     manage: false
