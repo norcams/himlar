@@ -110,9 +110,6 @@ profile::storage::cephpool_params::pools:
   'dcache_hdd_ec_data':
     application_enable: 'rbd'
     replicas_min_size:  '11'
-  'dcache_hdd_ec_data8':
-    application_enable: 'rbd'
-    replicas_min_size:  '9'
 
 profile::base::common::extraswap:         true
 profile::base::common::extraswap_sizegb:  20
