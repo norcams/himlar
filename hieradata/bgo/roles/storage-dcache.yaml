@@ -75,15 +75,6 @@ profile::storage::ceph_ecpool::ec_pools:
     k_data:              "10"
     m_code:              "3"
     crush_root:          "dcache"
-#  'dcache_hdd_ec_data8':
-#    pg_num:              "2048"
-#    manage:              true
-#    allow_ec_overwrites: true
-#    k_data:              "8"
-#    m_code:              "2"
-#    crush_root:          "dcache"
-#    plugin:              "isa"
-#    technique:           "reed_sol_van"
 
 profile::storage::ceph::pool::pools:
   'rbd':
