@@ -36,8 +36,8 @@ profile::base::common::manage_lvm:                  true
 profile::base::lvm::create_lvm:                     true
 profile::storage::cephosd::create_osds:             false
 profile::storage::cephosd::crush_move:              false
-profile::storage::cephpool::manage_ec_pools:        false
-profile::storage::cephpool::manage_cephpool_params: false
+profile::storage::cephpool::manage_ec_pools:        true
+profile::storage::cephpool::manage_cephpool_params: true
 
 profile::storage::cephosd::crush_parent:      'dcache'
 profile::storage::cephosd::crush_parent_type: 'pod'
