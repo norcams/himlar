@@ -41,6 +41,8 @@ profile::network::leaf::cumulus_portconfigs:
     line:  "14=4x25G"
   15:
     line:  "15=4x25G"
+  28:
+    line:  "28=100G" # uplink sikt
   29:
     line:  "29=40G" # torack-01
   30:
@@ -633,6 +635,12 @@ frrouting::frrouting::zebra_interfaces:
   'host51':
     - 'link-detect'
   'host52':
+    - 'link-detect'
+  'swp28':
+    - 'link-detect'
+  'swp29':
+    - 'link-detect'
+  'swp30':
     - 'link-detect'
 
 frrouting::frrouting::zebra_generic_options:
