@@ -24,13 +24,13 @@ profile::base::network::cumulus_interfaces:
     'clagd_priority': '4096'
     'clagd_peer_ip': 'linklocal'
     'clagd_sys_mac': '44:38:39:ff:bb:1c'
-  'swp50':
+  'swp50': # numascale
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', ]
     'speed': '1000'
-  'swp53':
+  'swp53': # sikt link
     'ipv4': '158.36.4.99/31'
     'ipv6': '2001:700:0:8105::1/127'
     'mtu':  '9178'
@@ -370,6 +370,7 @@ frrouting::frrouting::zebra_generic_options:
     'forwarding'
 
 frrouting::frrouting::bgp_neighbors:
+  # sikt link
   - '158.36.4.98 remote-as 224'
   - '158.36.4.98 bfd 5 500 500'
   - '158.36.4.98 soft-reconfiguration inbound'
@@ -377,21 +378,25 @@ frrouting::frrouting::bgp_neighbors:
   - '158.36.4.98 prefix-list uninett-routes-out out'
   - '2001:700:0:8105:: remote-as 224'
   - '2001:700:0:8105:: bfd 5 500 500'
+  # torack-02
   - "172.18.228.2 remote-as %{hiera('bgp_as')}"
   - '172.18.228.2 default-originate'
   - '172.18.228.2 soft-reconfiguration inbound'
   - '172.18.228.2 route-map failover-default-route in'
   - "fd32:18:228::2 remote-as %{hiera('bgp_as')}"
   - 'fd32:18:228::2 soft-reconfiguration inbound'
+  # spine-01
   - "172.18.38.1 remote-as %{hiera('bgp_as')}"
   - '172.18.38.1 soft-reconfiguration inbound'
   - "fd32::6:1 remote-as %{hiera('bgp_as')}"
   - 'fd32::6:1 soft-reconfiguration inbound'
+  # spine-02
   - "172.18.38.2 remote-as %{hiera('bgp_as')}"
   - '172.18.38.2 soft-reconfiguration inbound'
   - "fd32::6:2 remote-as %{hiera('bgp_as')}"
   - 'fd32::6:2 soft-reconfiguration inbound'
 frrouting::frrouting::bgp_neighbors6:
+  # sikt link IPv6 extra
   - '2001:700:0:8105:: activate'
   - '2001:700:0:8105:: soft-reconfiguration inbound'
   - '2001:700:0:8105:: prefix-list uninett-routes6-in in'
