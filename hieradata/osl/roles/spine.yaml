@@ -1,6 +1,7 @@
 ---
 profile::network::leaf::manage_license: true
 profile::network::leaf::manage_portconfig: true
+profile::network::leaf::manage_switchdconf: true
 
 named_interfaces::config:
   mgmt:
@@ -643,6 +644,27 @@ frrouting::frrouting::zebra_interfaces:
   'swp30':
     - 'link-detect'
 
+frrouting::frrouting::zebra_ip6_routes:
+  - '2001:700:2:8200::/56 Null0'
+  - '2001:700:2:82ff::12/128 fd32::12'
+  - '2001:700:2:82ff::251/128 fd32::16'
+  - '2001:700:2:82ff::256/128 fd32::34'
+  - '2001:700:2:82ff::97/128 fd32::97'
+frrouting::frrouting::zebra_ip_routes:
+  - '10.0.0.0/8 Null0'
+  - '158.37.63.0/24 Null0'
+  - '158.39.48.0/24 Null0'
+  - '158.39.75.0/24 Null0'
+  - '158.39.200.0/24 Null0'
+  - '158.37.63.248/32 172.18.32.26'
+  - '158.39.75.248/32 172.18.32.27'
+  - '158.37.63.249/32 172.18.32.41'
+  - '158.37.63.250/32 172.18.32.86'
+  - '158.37.63.251/32 172.18.32.16'
+  - '158.37.63.253/32 172.18.32.12'
+  - '158.37.63.254/32 172.18.32.51'
+  - '158.39.75.247/32 172.18.32.97'
+
 frrouting::frrouting::zebra_generic_options:
   'ip':
     'forwarding'
@@ -658,10 +680,19 @@ frrouting::frrouting::bgp_options:
   - 'maximum-paths ibgp 5'
   - 'bgp bestpath as-path multipath-relax'
 
+# Old config FIXME: delete later
+# frrouting::frrouting::bgp_networks:
+#   - '172.18.32.0/21'
+# frrouting::frrouting::bgp_networks6:
+#   - 'fd32::/64'
+
 frrouting::frrouting::bgp_networks:
-  - '172.18.32.0/21'
+  - '158.37.63.0/24'
+  - '158.39.48.0/24'
+  - '158.39.75.0/24'
+  - '158.39.200.0/24'
 frrouting::frrouting::bgp_networks6:
-  - 'fd32::/64'
+  - '2001:700:2:8200::/56'
 
 frrouting::frrouting::bgp_accesslist:
   '10':
@@ -671,6 +702,7 @@ frrouting::frrouting::bgp_accesslist:
     - 'permit 158.39.200.0 0.0.0.255'
     - 'permit 10.2.0.0 0.0.15.255'
     - 'permit 172.18.32.0 0.0.0.255'
+    - 'deny any'
   '20':
     - 'deny 158.37.63.0 0.0.0.255'
     - 'deny 158.39.48.0 0.0.0.255'
@@ -680,14 +712,50 @@ frrouting::frrouting::bgp_accesslist:
     - 'deny 172.18.32.0 0.0.0.255'
     - 'permit any'
 
+frrouting::frrouting::bgp_accesslist6:
+  '10':
+    - 'permit 2001:700:2:8200::/56'
+  '20':
+    - 'deny any'
+
 frrouting::frrouting::bgp_ip_prefix_list:
   - 'routes-from-leaf1 seq 5 deny any'
   - 'routes-to-leaf1 seq 5 permit 0.0.0.0/0'
-frrouting::frrouting::bgp_ipv6_prefix_list:
-  - 'routes-from-leaf1 seq 5 deny any'
+  - 'uninett-routes-in seq 5 permit any'
+  - 'uninett-routes-in seq 10 deny any'
+  - 'uninett-routes-out seq 5 permit 158.37.63.0/24'
+  - 'uninett-routes-out seq 6 permit 158.39.48.0/24'
+  - 'uninett-routes-out seq 7 permit 158.39.75.0/24'
+  - 'uninett-routes-out seq 8 permit 158.39.200.0/24'
+  - 'uninett-routes-out seq 10 deny any'
+  - 'default-route seq 5 permit 0.0.0.0/0'
 
+frrouting::frrouting::bgp_ipv6_prefix_list:
+  - 'uninett-routes6-in seq 5 permit any'
+  - 'uninett-routes6-in seq 10 deny any'
+  - 'uninett-routes6-out seq 5 permit 2001:700:2:8200::/56'
+  - 'uninett-routes6-out seq 10 deny any'
+  - 'default-route6 seq 5 permit ::/0'
 frrouting::frrouting::bgp_route_maps:
   'rr-client-allow permit 10':
     - 'match ip address 10'
   'peer-deny deny 10':
     - 'match ip address 10'
+  'rr-client-allow6 permit 10':
+    - 'match ipv6 address 10'
+  'rr-client-allow6 deny 20':
+    - 'match ipv6 address 20'
+  'failover-default-route permit 10':
+    - 'description default route from torack neighbor is last resort'
+    - 'match ip address prefix-list default-route'
+    - 'set local-preference 0'
+    - 'set weight 0'
+  'failover-default-route permit 15':
+    - 'description apply defaults for any other route'
+  'failover-default-route6 permit 10':
+    - 'description default route from torack neighbor is last resort'
+    - 'match ipv6 address prefix-list default-route6'
+    - 'set local-preference 0'
+    - 'set weight 0'
+  'failover-default-route6 permit 15':
+    - 'description apply defaults for any other route'
