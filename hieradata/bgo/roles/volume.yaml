@@ -16,7 +16,7 @@ profile::openstack::volume::type:
     is_public: false
     properties:
       - 'volume_backend_name=mass-storage-ssd'
-  mass-storage-dcache:
+  mass-storage-dcache-temp-slow:
     is_public: false
     properties:
       - 'volume_backend_name=mass-storage-dcache8'
