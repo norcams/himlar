@@ -122,6 +122,9 @@ profile::network::services::dns_records:
   MX:
     "%{hiera('domain_frontend')}":  [ '10 smtp.uio.no.' ]
     "%{hiera('domain_frontend2')}": [ '10 smtp.uio.no.' ]
+  TXT:
+    "%{hiera('domain_frontend')}":  [ 'v=spf1 mx include:spf.uio.no -all' ]
+    "%{hiera('domain_frontend2')}": [ 'v=spf1 mx include:spf.uio.no -all' ]
   CNAME:
     "status.%{hiera('domain_frontend')}":        'pubproxy.ha.uib.no'
     "report.%{hiera('domain_frontend')}":        'pubproxy.ha.uib.no'
@@ -345,6 +348,11 @@ profile::network::services::dns_options:
       keyfile: "/etc/rndc-admin.key"
       server: "%{hiera('netcfg_mgmt_netpart')}.16"
   PTR:
+    default:
+      ttl: 3600
+      keyfile: "/etc/rndc-admin.key"
+      server: "%{hiera('netcfg_mgmt_netpart')}.16"
+  TXT:
     default:
       ttl: 3600
       keyfile: "/etc/rndc-admin.key"
