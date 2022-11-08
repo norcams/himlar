@@ -134,6 +134,20 @@ zone "<%= values["origin"] %>" IN {
 <% end -%>
 <% end -%>
 <% else %>
+<%# EVERYTHING BELOW IS FOR NON-AUTORITATIVE SERVERS (AKA resolvers, MAINLY)
+-%>
+<% unless @fw_slave_zones.empty? %>
+<% @fw_slave_zones.each do |network, values| -%>
+# Forward zone for <%= network %>, <%= values["zone"] %> (slave)
+zone "<%= values["zone"] %>" IN {
+    type slave;
+    file "<%= values["filename"] %>";
+<% unless @ns_master_ip_addresses.empty? -%>
+    masters { <% @ns_master_ip_addresses.each do |master| -%><%= master %>; <% end -%>};
+<% end -%>
+};
+<% end -%>
+<% end -%>
 <% unless @forward_zones.empty? %>
 <% @forward_zones.each do |network, values| -%>
 # Forward zone for <%= network %>, <%= values["zone"] %> (forward)
