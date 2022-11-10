@@ -4,8 +4,8 @@ include:
     - profile::highavailability::corosync
     - profile::highavailability::loadbalancing::haproxy
     - profile::firewall::rules
-    - profile::monitoring::netdata
-    - profile::monitoring::netdata::haproxy
+    # - profile::monitoring::netdata
+    # - profile::monitoring::netdata::haproxy
 
 # Netdata
 profile::monitoring::netdata::manage_firewall: true
