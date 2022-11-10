@@ -228,8 +228,10 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   'ssl-https-apps':
     listening_service:  'ssl-https-apps'
     ports:              443
-    server_names:       ['appsanywhere01.uib.no', 'appsanywhere02.uib.no', 'appsanywhere03.uib.no']
-    ipaddresses:        ['129.177.150.207', '129.177.150.208', '129.177.150.201']
+    # server_names:       ['appsanywhere01.uib.no', 'appsanywhere02.uib.no', 'appsanywhere03.uib.no']
+    # ipaddresses:        ['129.177.150.207', '129.177.150.208', '129.177.150.201']
+    server_names:       ['appsanywhere04.uib.no', 'appsanywhere05.uib.no', 'appsanywhere06.uib.no']
+    ipaddresses:        ['129.177.150.202', '129.177.150.205', '129.177.150.206']
     options:            'verify none inter 30s check check-ssl ssl'
   # 'public-https-apps':
   #   listening_service:  'public-https-apps'
@@ -298,8 +300,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   'ssl-https-myprint':
     listening_service:  'ssl-https-myprint'
     ports:              443
-    server_names:       ['p1-myprint01.uib.no', 'p2-myprint01.uib.no']
-    ipaddresses:        ['129.177.30.26', '129.177.30.27']
+    server_names:       ['p1-myprint02.uib.no', 'p2-myprint02.uib.no']
+    ipaddresses:        ['129.177.30.107', '129.177.30.29']
     options:            'verify none inter 30s check check-ssl ssl'
   # SMB
   'uib-smb':
