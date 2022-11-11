@@ -52,6 +52,33 @@ profile::dns::ns::ns_public6_addr:          "%{hiera('public__ipv6__ns')}"
 profile::dns::ns::resolver1_public_addr:    "%{hiera('public__ip__resolver')}"
 profile::dns::ns::resolver1_public6_addr:   "%{hiera('public__ipv6__resolver')}"
 
+# Forward zones, for which the name server is authoritative
+profile::dns::ns::fw_zones:
+  internal:
+    zone: "%{hiera('profile::dns::ns::internal_zone')}"
+    filename: "pz/%{hiera('profile::dns::ns::internal_zone')}"
+    ns_slave_ip_addresses:
+      - "%{hiera('netcfg_mgmt_net_c0')}.44"
+      - "%{hiera('netcfg_mgmt_net_c0')}.45"
+  public:
+    zone:     "%{hiera('profile::dns::ns::public_zone')}"
+    filename: "pz/%{hiera('profile::dns::ns::public_zone')}"
+    ns_a_records:
+      'ns': "%{hiera('public__ip__ns')}"
+    ns_aaaa_records:
+      'ns': "%{hiera('public__ipv6__ns')}"
+    ns_slave_ip_addresses:
+      - "%{hiera('netcfg_mgmt_net_c0')}.44"
+      - "%{hiera('netcfg_mgmt_net_c0')}.45"
+  public2:
+    zone: "%{hiera('profile::dns::ns::public_zone2')}"
+    filename: "pz/%{hiera('profile::dns::ns::public_zone2')}"
+#    delegations:
+#      'customer':
+#        - 'ns1.uh-iaas.no'
+#        - 'ns2.uh-iaas.no'
+
+
 # Define an ACL for networks allowed to do complete zone transfer
 profile::dns::ns::allowed_transfer_nets:
   - '172.16.0.0/12;         # rfc1918: 20-bit block (internal)'

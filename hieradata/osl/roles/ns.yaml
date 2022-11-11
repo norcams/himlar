@@ -27,19 +27,6 @@ profile::dns::ns::ns_slave_ip_addresses:
 
 # Forward zones, for which the name server is authoritative
 profile::dns::ns::fw_zones:
-  internal:
-    zone: "%{hiera('profile::dns::ns::internal_zone')}"
-    filename: "pz/%{hiera('profile::dns::ns::internal_zone')}"
-  public:
-    zone: "%{hiera('profile::dns::ns::public_zone')}"
-    filename: "pz/%{hiera('profile::dns::ns::public_zone')}"
-  public2:
-    zone: "%{hiera('profile::dns::ns::public_zone2')}"
-    filename: "pz/%{hiera('profile::dns::ns::public_zone2')}"
-#    delegations:
-#      'customer':
-#        - 'ns1.uh-iaas.no'
-#        - 'ns2.uh-iaas.no'
   frontend:
     zone: "%{hiera('profile::dns::ns::frontend_zone')}"
     filename: "pz/%{hiera('profile::dns::ns::frontend_zone')}"

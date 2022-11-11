@@ -127,10 +127,6 @@ public__ipv6__resolver:        '2001:700:2:83ff::252'
 # DNS (merge of common and this)
 #
 
-# main public zones
-profile::dns::ns::frontend_zone:    "nrec.no"
-profile::dns::ns::frontend_zone2:   "uh-iaas.no"
-
 profile::dns::ns::internal_zone: "bgo.uhdc.no"
 profile::dns::ns::public_zone:   "bgo.%{hiera('profile::dns::ns::frontend_zone')}"
 profile::dns::ns::public_zone2:  "bgo.%{hiera('profile::dns::ns::frontend_zone2')}"
