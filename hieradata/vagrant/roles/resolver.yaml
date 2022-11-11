@@ -1,10 +1,4 @@
 ---
-# Forward zones. Only zones that are "internal". Requests for records
-# in these zones will be forwarded to the authoritative DNS server
-profile::dns::ns::fw_zones:
-  internal:
-    zone: "%{hiera('profile::dns::ns::public_zone')}"
-
 profile::dns::ns::enable_bird:           false
 profile::dns::ns::manage_bird_firewall:  false
 profile::dns::ns::enable_bird6:          false
