@@ -32,6 +32,18 @@ profile::dns::ns::ns_public6_addr:          "%{hiera('public__ipv6__ns')}"
 profile::dns::ns::resolver1_public_addr:    "%{hiera('public__ip__resolver')}"
 profile::dns::ns::resolver1_public6_addr:   "%{hiera('public__ipv6__resolver')}"
 
+# DNS zones where resolvers act as slaves everywhere
+profile::dns::ns::fw_slave_zones:
+  internal:
+    zone: "%{hiera('profile::dns::ns::internal_zone')}"
+    filename: "sz/%{hiera('profile::dns::ns::internal_zone')}"
+  public:
+    zone: "%{hiera('profile::dns::ns::public_zone')}"
+    filename: "sz/%{hiera('profile::dns::ns::public_zone')}"
+  frontend:
+    zone: "%{hiera('profile::dns::ns::frontend_zone')}"
+    filename: "sz/%{hiera('profile::dns::ns::frontend_zone')}"
+
 # DNS server firewall configuration
 profile::dns::ns::manage_firewall: true
 profile::dns::ns::firewall_extras:

@@ -25,22 +25,6 @@ profile::dns::ns::ns_slave_ip_addresses:
   - '158.37.63.251'        # ns1 IPv4 (OSL)
   - '2001:700:2:82ff::251' # ns1 IPv6 (OSL)
 
-# Forward zones, for which the name server is authoritative
-profile::dns::ns::fw_zones:
-  internal:
-    zone: "%{hiera('profile::dns::ns::internal_zone')}"
-    filename: "pz/%{hiera('profile::dns::ns::internal_zone')}"
-  public:
-    zone: "%{hiera('profile::dns::ns::public_zone')}"
-    filename: "pz/%{hiera('profile::dns::ns::public_zone')}"
-  public2:
-    zone: "%{hiera('profile::dns::ns::public_zone2')}"
-    filename: "pz/%{hiera('profile::dns::ns::public_zone2')}"
-#    delegations:
-#      'customer':
-#        - 'ns1.uh-iaas.no'
-#        - 'ns2.uh-iaas.no'
-
 # Reverse zones, for which the name server is authoritative
 profile::dns::ns::ptr_zones:
   mgmt01:
