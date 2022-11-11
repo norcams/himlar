@@ -3,6 +3,8 @@ define profile::dns::forward_zone (
   $filename,
   $ns_a_records = {},
   $ns_aaaa_records = {},
+  $ns_master_ip_addresses = {},
+  $ns_slave_ip_addresses = {},
   $delegations = {} )
 {
   # Hostmaster email address

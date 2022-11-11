@@ -92,8 +92,12 @@ zone "<%= values["zone"] %>" IN {
     type master;
     file "<%= values["filename"] %>";
     allow-update { <%= @admin_mgmt_addr %>; <%= @login_mgmt_addr %>; };
+<% if values["ns_slave_ip_addresses"] -%>
+    also-notify { <% values["ns_slave_ip_addresses"].each do |slave| -%><%= slave %>; <% end -%>};
+<% else -%>
 <% unless @ns_slave_ip_addresses.empty? -%>
     also-notify { <% @ns_slave_ip_addresses.each do |slave| -%><%= slave %>; <% end -%>};
+<% end -%>
 <% end -%>
 };
 <% end -%>
@@ -134,6 +138,24 @@ zone "<%= values["origin"] %>" IN {
 <% end -%>
 <% end -%>
 <% else %>
+<%# EVERYTHING BELOW IS FOR NON-AUTORITATIVE SERVERS (AKA resolvers, MAINLY)
+-%>
+<% unless @fw_slave_zones.empty? %>
+<% @fw_slave_zones.each do |network, values| -%>
+# Forward zone for <%= network %>, <%= values["zone"] %> (slave)
+zone "<%= values["zone"] %>" IN {
+    type slave;
+    file "<%= values["filename"] %>";
+<% if values["ns_master_ip_addresses"] -%>
+    masters { <% values["ns_master_ip_addresses"].each do |master| -%><%= master %>; <% end -%>};
+<% else -%>
+<% unless @ns_master_ip_addresses.empty? -%>
+    masters { <% @ns_master_ip_addresses.each do |master| -%><%= master %>; <% end -%>};
+<% end -%>
+<% end -%>
+};
+<% end -%>
+<% end -%>
 <% unless @forward_zones.empty? %>
 <% @forward_zones.each do |network, values| -%>
 # Forward zone for <%= network %>, <%= values["zone"] %> (forward)
