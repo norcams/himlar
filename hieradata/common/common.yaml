@@ -276,8 +276,8 @@ profile::dns::ns::frontend_zone:    "nrec.no"
 profile::dns::ns::frontend_zone2:   "uh-iaas.no"
 
 # List of all authoritative servers for zones we are delegated (for which we are responsible)
-profile::dns::ns::ns_master1:     "ns1.uh-iaas.no"
-profile::dns::ns::ns_master2:     "ns2.uh-iaas.no"
+profile::dns::ns::ns_master1:     "ns1.nrec.no"
+profile::dns::ns::ns_master2:     "ns2.nrec.no"
 
 profile::network::services::dns_records:
   A:
