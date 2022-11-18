@@ -82,20 +82,20 @@ profile::application::builder::images:
     'username':         'almalinux'
     'hour':             3
     'minute':           30
-  'almalinux8_nv_vgpu':
-    'image_name':       'IMAGEBUILDER AlmaLinux 8 (NVIDIA GPU)'
-    'url':              'https://repo.almalinux.org/almalinux/8/cloud/x86_64/images/'
-    'latest':           'AlmaLinux-8-GenericCloud-UEFI-latest.x86_64.qcow2'
-    'checksum_file':    'CHECKSUM'
-    'checksum':         'sha256'
-    'min_ram':          768
-    'min_disk':         8
-    'flavor':           'm1.small'
-    'efi':              true
-    'username':         'almalinux'
-    'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
-    'hour':             14
-    'minute':           30
+#  'almalinux8_nv_vgpu':
+#    'image_name':       'IMAGEBUILDER AlmaLinux 8 (NVIDIA GPU)'
+#    'url':              'https://repo.almalinux.org/almalinux/8/cloud/x86_64/images/'
+#    'latest':           'AlmaLinux-8-GenericCloud-UEFI-latest.x86_64.qcow2'
+#    'checksum_file':    'CHECKSUM'
+#    'checksum':         'sha256'
+#    'min_ram':          768
+#    'min_disk':         8
+#    'flavor':           'm1.small'
+#    'efi':              true
+#    'username':         'almalinux'
+#    'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
+#    'hour':             14
+#    'minute':           30
   'centos7':
     'image_name':       'IMAGEBUILDER CentOS 7'
     'url':              'http://cloud.centos.org/centos/7/images/'
@@ -275,7 +275,7 @@ profile::monitoring::sensu::agent::plugin_gems:
 # metadata imagebuild check
 profile::monitoring::sensu::agent::expanded_checks:
   - 'almalinux8'
-  - 'almalinux8_nv_vgpu'
+#  - 'almalinux8_nv_vgpu'
   - 'almalinux9'
   - 'centos7'
   - 'centosstream8'
