@@ -1,4 +1,7 @@
 ---
+# The uplink interface
+profile::base::network::uplink_interface: 'swp28'
+
 network::interfaces_hash:
   'eth0':
     'ipaddress': "%{hiera('netcfg_mgmt_net_c6')}.2/21"
@@ -20,6 +23,11 @@ profile::base::network::cumulus_interfaces:
     'clagd_enable': true
     'clagd_peer_ip': 'linklocal'
     'clagd_sys_mac': '44:38:39:ff:bb:2d'
+  'swp28':
+    'ipv4':  '128.39.47.57/31'
+    'ipv6':  '2001:700:0:8134::1/127'
+    'mtu':   '9178'
+    'speed': '100000'
 
 frrouting::frrouting::bgp_neighbors:
   - "172.18.32.1 remote-as %{hiera('bgp_as')}"
