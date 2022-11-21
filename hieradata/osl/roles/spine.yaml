@@ -699,6 +699,7 @@ frrouting::frrouting::bgp_ip_prefix_list:
   - 'default-route seq 5 permit 0.0.0.0/0'
 
 frrouting::frrouting::bgp_ipv6_prefix_list:
+  - 'routes-from-leaf1 seq 5 deny any'
   - 'uninett-routes6-in seq 5 permit any'
   - 'uninett-routes6-in seq 10 deny any'
   - 'uninett-routes6-out seq 5 permit 2001:700:2:8200::/56'
