@@ -474,7 +474,6 @@ frrouting::frrouting::bgp_neighbor_groups:
       - '172.18.33.38'
       - '172.18.33.39'
       - '172.18.33.40'
-      - '172.18.33.42'
       - '172.18.33.43'
       - '172.18.33.44'
       - '172.18.33.45'
@@ -493,10 +492,13 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'neighbor rr-clients route-map rr-client-allow6 in'
       - 'neighbor rr-clients route-map rr-client-allow6 out'
       - 'maximum-paths ibgp 3'
+      # spine-01
       - 'neighbor fd32::6:1 activate'
       - 'neighbor fd32::6:1 soft-reconfiguration inbound'
+      # spine-02
       - 'neighbor fd32::6:2 activate'
       - 'neighbor fd32::6:2 soft-reconfiguration inbound'
+      # torack-02
       - 'neighbor fd32:18:228::2 activate'
       - 'neighbor fd32:18:228::2 route-map failover-default-route6 in'
       - 'neighbor fd32:18:228::2 default-originate'
@@ -544,7 +546,6 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'fd32::1:38'
       - 'fd32::1:39'
       - 'fd32::1:40'
-      - 'fd32::1:42'
       - 'fd32::1:43'
       - 'fd32::1:44'
       - 'fd32::1:45'
