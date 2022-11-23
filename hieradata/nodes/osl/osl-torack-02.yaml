@@ -362,13 +362,13 @@ frrouting::frrouting::zebra_generic_options:
 
 frrouting::frrouting::bgp_neighbors:
   # sikt link
-  - '158.36.4.90 remote-as 224'
-  - '158.36.4.90 bfd 5 500 500'
-  - '158.36.4.90 soft-reconfiguration inbound'
-  - '158.36.4.90 prefix-list uninett-routes-in in'
-  - '158.36.4.90 prefix-list uninett-routes-out out'
-  - '2001:700:0:807a:: remote-as 224'
-  - '2001:700:0:807a:: bfd 5 500 500'
+  # - '158.36.4.90 remote-as 224'
+  # - '158.36.4.90 bfd 5 500 500'
+  # - '158.36.4.90 soft-reconfiguration inbound'
+  # - '158.36.4.90 prefix-list uninett-routes-in in'
+  # - '158.36.4.90 prefix-list uninett-routes-out out'
+  # - '2001:700:0:807a:: remote-as 224'
+  # - '2001:700:0:807a:: bfd 5 500 500'
   # torack-01
   - "172.18.228.1 remote-as %{hiera('bgp_as')}"
   - '172.18.228.1 default-originate'
@@ -386,12 +386,12 @@ frrouting::frrouting::bgp_neighbors:
   - '172.18.38.2 soft-reconfiguration inbound'
   - "fd32::6:2 remote-as %{hiera('bgp_as')}"
   - 'fd32::6:2 soft-reconfiguration inbound'
-frrouting::frrouting::bgp_neighbors6:
-  # sikt link IPv6 extra
-  - '2001:700:0:807a:: activate'
-  - '2001:700:0:807a:: soft-reconfiguration inbound'
-  - '2001:700:0:807a:: prefix-list uninett-routes6-in in'
-  - '2001:700:0:807a:: prefix-list uninett-routes6-out out'
+# frrouting::frrouting::bgp_neighbors6:
+#   # sikt link IPv6 extra
+#   - '2001:700:0:807a:: activate'
+#   - '2001:700:0:807a:: soft-reconfiguration inbound'
+#   - '2001:700:0:807a:: prefix-list uninett-routes6-in in'
+#   - '2001:700:0:807a:: prefix-list uninett-routes6-out out'
 
 frrouting::frrouting::bgp_as: "%{hiera('bgp_as')}"
 
@@ -578,21 +578,21 @@ frrouting::frrouting::bgp_accesslist6:
 frrouting::frrouting::bgp_ip_prefix_list:
   - 'routes-from-leaf1 seq 5 deny any'
   - 'routes-to-leaf1 seq 5 permit 0.0.0.0/0'
-  - 'uninett-routes-in seq 5 permit any'
-  - 'uninett-routes-in seq 10 deny any'
-  - 'uninett-routes-out seq 5 permit 158.37.63.0/24'
-  - 'uninett-routes-out seq 6 permit 158.39.48.0/24'
-  - 'uninett-routes-out seq 7 permit 158.39.75.0/24'
-  - 'uninett-routes-out seq 8 permit 158.39.200.0/24'
-  - 'uninett-routes-out seq 10 deny any'
+  # - 'uninett-routes-in seq 5 permit any'
+  # - 'uninett-routes-in seq 10 deny any'
+  # - 'uninett-routes-out seq 5 permit 158.37.63.0/24'
+  # - 'uninett-routes-out seq 6 permit 158.39.48.0/24'
+  # - 'uninett-routes-out seq 7 permit 158.39.75.0/24'
+  # - 'uninett-routes-out seq 8 permit 158.39.200.0/24'
+  # - 'uninett-routes-out seq 10 deny any'
 #  - 'uio-routes-in seq 5 permit 129.240.0.0/16'
 #  - 'uio-routes-in seq 10 deny any'
   - 'default-route seq 5 permit 0.0.0.0/0'
 frrouting::frrouting::bgp_ipv6_prefix_list:
-  - 'uninett-routes6-in seq 5 permit any'
-  - 'uninett-routes6-in seq 10 deny any'
-  - 'uninett-routes6-out seq 5 permit 2001:700:2:8200::/56'
-  - 'uninett-routes6-out seq 10 deny any'
+  # - 'uninett-routes6-in seq 5 permit any'
+  # - 'uninett-routes6-in seq 10 deny any'
+  # - 'uninett-routes6-out seq 5 permit 2001:700:2:8200::/56'
+  # - 'uninett-routes6-out seq 10 deny any'
 #  - 'uio-routes-in6 seq 5 permit 2001:700:200::/48'
 #  - 'uio-routes-in6 seq 10 deny any'
   - 'default-route6 seq 5 permit ::/0'
