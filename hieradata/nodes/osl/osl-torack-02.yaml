@@ -371,9 +371,9 @@ frrouting::frrouting::bgp_neighbors:
   # - '2001:700:0:807a:: bfd 5 500 500'
   # torack-01
   - "172.18.228.1 remote-as %{hiera('bgp_as')}"
-  - '172.18.228.1 default-originate'
+#  - '172.18.228.1 default-originate'
   - '172.18.228.1 soft-reconfiguration inbound'
-  - '172.18.228.1 route-map failover-default-route in'
+#  - '172.18.228.1 route-map failover-default-route in'
   - "fd32:18:228::1 remote-as %{hiera('bgp_as')}"
   - 'fd32:18:228::1 soft-reconfiguration inbound'
   # spine-01
