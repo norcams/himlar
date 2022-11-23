@@ -56,7 +56,7 @@ frrouting::frrouting::bgp_neighbors:
   - "fd32:18:230::1 remote-as %{hiera('bgp_as')}"
   - 'fd32:18:230::1 default-originate'
   - 'fd32:18:230::1 soft-reconfiguration inbound'
-  - 'fd32:18:230::2 route-map failover-default-route6 in'
+  - 'fd32:18:230::1 route-map failover-default-route6 in'
 frrouting::frrouting::bgp_neighbors6:
   # sikt link IPv6 extra
   - '2001:700:0:8129:: activate'
