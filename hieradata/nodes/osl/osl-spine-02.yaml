@@ -57,10 +57,10 @@ frrouting::frrouting::bgp_neighbors:
   - 'fd32:18:230::1 soft-reconfiguration inbound'
 frrouting::frrouting::bgp_neighbors6:
   # sikt link IPv6 extra
-  - '2001:700:0:8129:: activate'
-  - '2001:700:0:8129:: soft-reconfiguration inbound'
-  - '2001:700:0:8129:: prefix-list uninett-routes6-in in'
-  - '2001:700:0:8129:: prefix-list uninett-routes6-out out'
+  - '2001:700:0:8134:: activate'
+  - '2001:700:0:8134:: soft-reconfiguration inbound'
+  - '2001:700:0:8134:: prefix-list uninett-routes6-in in'
+  - '2001:700:0:8134:: prefix-list uninett-routes6-out out'
 
 frrouting::frrouting::zebra_ip6_routes:
 #  - '::/0 fd32::701'
