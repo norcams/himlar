@@ -32,6 +32,15 @@ profile::dns::ns::ns_public6_addr:          "%{hiera('public__ipv6__ns')}"
 profile::dns::ns::resolver1_public_addr:    "%{hiera('public__ip__resolver')}"
 profile::dns::ns::resolver1_public6_addr:   "%{hiera('public__ipv6__resolver')}"
 
+# Forward zones. Only zones that are "internal". Requests for records
+# in these zones will be forwarded to the authoritative DNS server
+profile::dns::ns::fw_zones:
+  frontend:
+    zone: "%{hiera('profile::dns::ns::frontend_zone')}"
+  uhdc:
+    zone: 'uhdc.no'
+
+
 # DNS zones where resolvers act as slaves everywhere
 profile::dns::ns::fw_slave_zones:
   internal:
@@ -42,16 +51,6 @@ profile::dns::ns::fw_slave_zones:
   public:
     zone: "%{hiera('profile::dns::ns::public_zone')}"
     filename: "sz/%{hiera('profile::dns::ns::public_zone')}"
-    ns_master_ip_addresses:
-      - "%{hiera('public__ip__ns')}"
-  frontend:
-    zone: "%{hiera('profile::dns::ns::frontend_zone')}"
-    filename: "sz/%{hiera('profile::dns::ns::frontend_zone')}"
-    ns_master_ip_addresses:
-      - "%{hiera('public__ip__ns')}"
-  uhdc:
-    zone: "uhdc.no"
-    filename: "sz/uhdc.no"
     ns_master_ip_addresses:
       - "%{hiera('public__ip__ns')}"
 
