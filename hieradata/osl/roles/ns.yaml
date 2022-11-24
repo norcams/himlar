@@ -76,10 +76,10 @@ profile::dns::ns::fw_zones:
         - "%{hiera('profile::dns::ns::ns_master1')}"
         - "%{hiera('profile::dns::ns::ns_master2')}"
       'test01':
-        - 'ns-test01.iaas.uib.no.'
+        - 'ns-test01.iaas.uib.no'
       'test02':
-        - 'ns1.uio.no.'
-        - 'ns2.uio.no.'
+        - 'ns1.uio.no'
+        - 'ns2.uio.no'
 
 
 # Reverse zones, for which the name server is authoritative
