@@ -37,8 +37,11 @@ profile::dns::ns::resolver1_public6_addr:   "%{hiera('public__ipv6__resolver')}"
 profile::dns::ns::fw_zones:
   frontend:
     zone: "%{hiera('profile::dns::ns::frontend_zone')}"
-  uhdc:
-    zone: 'uhdc.no'
+# Disable forwarding of uhdc.no to non recursing name servers,
+# as parts of udc.no is externally delegated and  will thus
+# render SERVFAIL replies
+#  uhdc:
+#    zone: 'uhdc.no'
 
 
 # DNS zones where resolvers act as slaves everywhere
