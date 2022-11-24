@@ -49,6 +49,11 @@ profile::dns::ns::fw_slave_zones:
     filename: "sz/%{hiera('profile::dns::ns::frontend_zone')}"
     ns_master_ip_addresses:
       - "%{hiera('public__ip__ns')}"
+  uhdc:
+    zone: "uhdc.no"
+    filename: "sz/uhdc.no"
+    ns_master_ip_addresses:
+      - "%{hiera('public__ip__ns')}"
 
 # DNS server firewall configuration
 profile::dns::ns::manage_firewall: true
