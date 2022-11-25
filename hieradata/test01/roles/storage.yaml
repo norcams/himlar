@@ -293,13 +293,13 @@ profile::monitoring::sensu::agent::checks: {}
   #   subscribers:  ['metrics']
   #   handlers:     ['graphite_tcp']
 
-profile::monitoring::sensu::agent::plugin_gems:
-  sensu-plugins-himlar:
-    ensure:   '0.4.0'
-    provider: 'sensuclassic_gem'
-    source:   'http://download.iaas.uio.no/uh-iaas/gem'
+profile::monitoring::sensu::agent::plugin_gems: {}
+  # sensu-plugins-himlar:
+  #   ensure:   '0.4.0'
+  #   provider: 'sensuclassic_gem'
+  #   source:   'http://download.iaas.uio.no/uh-iaas/gem'
 
-profile::monitoring::sensu::agent::plugins:
-  sensu-plugins-network-checks:
-    type:         package
-    pkg_version:  '4.1.1'
+profile::monitoring::sensu::agent::plugins: {}
+  # sensu-plugins-network-checks:
+  #   type:         package
+  #   pkg_version:  '4.1.1'
