@@ -86,3 +86,18 @@ profile::base::cron::crontabs:
     minute:   '0'
     weekday:  '*'
     command:  '/opt/himlarcli/bin/enddate-notify-before.sh >/dev/null 2>&1'
+  enddate_enter_quarantine:
+    hour:     '6'
+    minute:   '5'
+    weekday:  '*'
+    command:  '/opt/himlarcli/bin/enddate-enter-quarantine.sh >/dev/null 2>&1'
+  enddate_notify_quarantine:
+    hour:     '6'
+    minute:   '10'
+    weekday:  '*'
+    command:  '/opt/himlarcli/bin/enddate-notify-quarantine.sh >/dev/null 2>&1'
+#  enddate_delete:
+#    hour:     '6'
+#    minute:   '15'
+#    weekday:  '*'
+#    command:  '/opt/himlarcli/bin/enddate-delete.sh >/dev/null 2>&1'
