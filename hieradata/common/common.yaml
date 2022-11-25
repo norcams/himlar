@@ -225,7 +225,7 @@ service__transport__url:          "rabbit://ceilometer:%{hiera('ceilometer_rabbi
 #
 # Management (proxy and logger must be IP)
 #
-mgmt__address__proxy:             "%{hiera('netcfg_mgmt_net_c0')}.12"
+mgmt__address__proxy:             "%{hiera('netcfg_mgmt_net_c0')}.97"
 mgmt__address__logger:            "%{hiera('netcfg_mgmt_net_c0')}.13"
 mgmt__address__monitor:           "monitor.%{hiera('domain_mgmt')}"
 mgmt__address__influx:            "%{::location}-tsdb-01.%{hiera('domain_mgmt')}"
