@@ -18,8 +18,10 @@ export PATH=/usr/bin:/usr/local/bin:/bin:/usr/local/sbin:/usr/sbin
 /opt/imagebuilder/bin/imagebuilder bootstrap \
 -a <%= @az %> \
 -u <%= @url -%><%= @latest %> \
+<%unless @checksum_file.empty? -%>
 -c <%= @url -%><%= @checksum_file %> \
 -t <%= @checksum %> \
+<% end -%>
 -n '<%= @image_name %>' \
 -r <%= @min_ram %> \
 -d <%= @min_disk %> \
