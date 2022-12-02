@@ -54,7 +54,13 @@
       },
       "lines": true,
       "linewidth": 2,
-      "links": [],
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "Sikt stats",
+          "url": "https://stats.uninett.no/stat-q/r-all?q=all&name=ifi2-uio-nrec2"
+        }
+      ],
       "nullPointMode": "null",
       "options": {
         "alertThreshold": true
@@ -161,7 +167,13 @@
       },
       "lines": true,
       "linewidth": 2,
-      "links": [],
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "Sikt stats",
+          "url": "https://stats.uninett.no/stat-q/r-all?q=all&name=ifi2-uio-nrec3"
+        }
+      ],
       "nullPointMode": "null",
       "options": {
         "alertThreshold": true
@@ -292,13 +304,13 @@
           "hide": false,
           "refCount": 0,
           "refId": "A",
-          "target": "alias(scale($prefix.osl-spine-01.interface-swp53.if_octets.rx, 8), 'ingress to NREC')",
+          "target": "alias(scale($prefix.osl-spine-01.interface-swp28.if_octets.rx, 8), 'ingress to NREC')",
           "textEditor": true
         },
         {
           "refCount": 0,
           "refId": "B",
-          "target": "alias(scale($prefix.osl-spine-01.interface-swp53.if_octets.tx, 8), 'egress from NREC')",
+          "target": "alias(scale($prefix.osl-spine-01.interface-swp28.if_octets.tx, 8), 'egress from NREC')",
           "textEditor": true
         }
       ],
