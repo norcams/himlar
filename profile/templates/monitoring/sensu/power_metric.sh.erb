@@ -5,7 +5,7 @@ auth="<%= @bmc_username %>:<%= @bmc_password %>"
 proxy="<%= @http_proxy %>"
 statsd="<%= @statsd_server %> <%= @statsd_port %>"
 hostname=$(hostname -s)
-prefix="nrec.power.${hostname}"
+prefix="nrec.power.<%= @role %>.${hostname}"
 
 watt=$(curl -s $url -k -u $auth --proxy1.0 $proxy --connect-timeout 20 | jq .PowerConsumedWatts)
 
