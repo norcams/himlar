@@ -243,7 +243,7 @@ class profile::base::physical (
       mode    => '0755',
     }
 
-    if $facts['manufacturer'] == 'Dell Inc.':
+    if $facts['manufacturer'] == 'Dell Inc.' {
       include profile::monitoring::physical::power
     }
   }
