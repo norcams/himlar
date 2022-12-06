@@ -1,5 +1,8 @@
 #/bin/bash
 
+# sleep 0-60 seconds
+sleep $((RANDOM % 60))
+
 url="https://<%= @bmc_address %>/redfish/v1/Chassis/System.Embedded.1/Power/PowerControl"
 auth="<%= @bmc_username %>:<%= @bmc_password %>"
 proxy="<%= @http_proxy %>"
