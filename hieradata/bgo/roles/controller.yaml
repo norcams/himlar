@@ -19,3 +19,12 @@ profile::monitoring::sensu::agent::checks:
     command:      '/usr/local/bin/redfish_check.sh'
     interval:     1800
     subscribers:  ['checks']
+
+# Cron tabs for power metric
+profile::base::common::manage_cron: true
+profile::base::cron::crontabs:
+  power_metric:
+    hour:     '*'
+    minute:   '*/5'
+    weekday:  '*'
+    command:  "/usr/local/bin/power_metric.sh >/dev/null"
