@@ -11,3 +11,5 @@ profile::openstack::dashboard::enable_designate:  true
 
 # Enable radosgw object storage
 profile::openstack::identity::radosgw_enabled:        true
+
+profile::monitoring::physical::power::enable:         true
