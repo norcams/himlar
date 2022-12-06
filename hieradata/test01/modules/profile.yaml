@@ -10,4 +10,5 @@ yum_base_mirror:    'https://download.iaas.uio.no/uh-iaas/test'
 profile::openstack::identity::designate_enabled:  true
 profile::openstack::dashboard::enable_designate:  true
 
-profile::monitoring::physical::power::http_proxy:        "127.0.0.1:8888"
+profile::monitoring::physical::power::statsd_server:     '127.0.0.1'
+profile::monitoring::physical::power::enable:            true
