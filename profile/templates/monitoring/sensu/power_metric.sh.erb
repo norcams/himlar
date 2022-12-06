@@ -1,0 +1,12 @@
+#/bin/bash
+
+url="https://<%= @bmc_address %>/redfish/v1/Chassis/System.Embedded.1/Power/PowerControl"
+auth="<%= @bmc_username %>:<%= @bmc_password %>"
+proxy="<%= @http_proxy %>"
+statsd="<%= @statsd_server %> <%= @statsd_port %>"
+hostname=$(hostname -s)
+prefix="nrec.power.${hostname}"
+
+watt=$(curl -s $url -k -u $auth --proxy1.0 $proxy --connect-timeout 20 | jq .PowerConsumedWatts)
+
+echo "${prefix}:${watt}|g" | nc -w 1 -u $statsd

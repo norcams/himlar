@@ -242,6 +242,10 @@ class profile::base::physical (
       content => template("${module_name}/monitoring/sensu/redfish_check.sh.erb"),
       mode    => '0755',
     }
+
+    if $facts['manufacturer'] == 'Dell Inc.':
+      include profile::monitoring::physical::power
+    }
   }
 
   # FIXME: This should be done more efficient when more vendors enter our scene
