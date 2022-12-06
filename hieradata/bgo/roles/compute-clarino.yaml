@@ -1,9 +1,4 @@
 ---
-# collectd
-include:
-  default:
-    - profile::monitoring::collectd
-
 named_interfaces::config:
   mgmt:
     - em1
@@ -12,25 +7,10 @@ named_interfaces::config:
   live:
     - team1.120
 
-# Turn off nested virtualization
-profile::virtualization::nested::manage: false
-
 profile::monitoring::collectd::enable: false
 
-collectd::plugin::interface::interfaces:
-  - "%{::interface_trp1}"
-  - "%{::interface_mgmt1}"
-
-profile::monitoring::collectd::plugins:
-  - collectd::plugin::aggregation
-  - collectd::plugin::cpu
-  - collectd::plugin::disk
-  - collectd::plugin::load
-  - collectd::plugin::memory
-  - collectd::plugin::interface
-  - collectd::plugin::write_graphite
-  - collectd::plugin::virt
-  - collectd::plugin::numa
+# Turn off nested virtualization
+profile::virtualization::nested::manage: false
 
 profile::base::common::packages:
   'numactl': {}

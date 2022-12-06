@@ -1,9 +1,4 @@
 ---
-# collectd
-include:
-  default:
-    - profile::monitoring::collectd
-
 named_interfaces::config:
   mgmt:
     - em1
@@ -12,26 +7,10 @@ named_interfaces::config:
   live:
     - team1.120
 
+profile::monitoring::collectd::enable: false
+
 # Turn off nested virtualization
 profile::virtualization::nested::manage: false
-
-profile::monitoring::collectd::enable: true
-
-collectd::plugin::interface::interfaces:
-  - "%{::interface_trp1}"
-  - "%{::interface_mgmt1}"
-
-profile::monitoring::collectd::plugins:
-  - collectd::plugin::aggregation
-  - collectd::plugin::cpu
-  - collectd::plugin::disk
-  - collectd::plugin::load
-  - collectd::plugin::memory
-  - collectd::plugin::interface
-  - collectd::plugin::write_graphite
-  - collectd::plugin::virt
-collectd::plugin::virt::hostname_format:        'hostname'
-collectd::plugin::virt::plugin_instance_format: 'uuid'
 
 # Enable hugepages to prevent OOM-killer when using NUMA
 profile::base::physical::enable_hugepages: true
