@@ -2,6 +2,7 @@
 include:
   default:
     - nova::compute::vgpu
+    - profile::application::create_mdev
 
 named_interfaces::config:
   mgmt:
@@ -76,6 +77,10 @@ profile::base::common::packages:
 # Example: 'nvidia-35' or ['nvidia-35', 'nvidia-36']
 #
 nova::compute::vgpu::vgpu_types_device_addresses_mapping: { 'nvidia-286', }
+
+# Configuration values for the "create-mdev" service
+profile::application::create_mdev::nvidia_gpu_type:       'nvidia-286'
+profile::application::create_mdev::max_instances_per_gpu: 2
 
 # remove when telemetry/ceilometer is up in all environments and move to common
 profile::openstack::compute::manage_telemetry: true
