@@ -16,4 +16,9 @@ profile::base::lvm::logical_volume:
 # only one vgpu partition pr physical card
 nova::compute::vgpu::vgpu_types_device_addresses_mapping: { 'nvidia-301', }
 
+# Configuration values for the "create-mdev" service
+profile::application::create_mdev::enable:                true
+profile::application::create_mdev::nvidia_gpu_type:       'nvidia-301'
+profile::application::create_mdev::max_instances_per_gpu: 1
+
 nova::compute::libvirt::libvirt_cpu_model: 'Cascadelake-Server-noTSX'
