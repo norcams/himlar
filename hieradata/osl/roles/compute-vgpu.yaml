@@ -79,6 +79,7 @@ profile::base::common::packages:
 nova::compute::vgpu::vgpu_types_device_addresses_mapping: { 'nvidia-286', }
 
 # Configuration values for the "create-mdev" service
+profile::application::create_mdev::enable:                true
 profile::application::create_mdev::nvidia_gpu_type:       'nvidia-286'
 profile::application::create_mdev::max_instances_per_gpu: 2
 
