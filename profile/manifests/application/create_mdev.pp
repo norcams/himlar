@@ -9,13 +9,12 @@
 # Date:   2022-12-09
 #
 class profile::application::create_mdev(
-  $enable = false
+  $enable = false,
+  $nvidia_gpu_type,
+  $max_instances_per_gpu
 ) {
   if $enable {
 
-    $nvidia_gpu_type       = $::profile::application::create_mdev::nvidia_gpu_type
-    $max_instances_per_gpu = $::profile::application::create_mdev::max_instances_per_gpu
-    
     package { 'nrec-vgpu-mdev':
       ensure => installed,
     }
