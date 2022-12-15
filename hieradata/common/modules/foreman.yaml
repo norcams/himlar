@@ -28,6 +28,8 @@ profile::application::foreman::config:
     value:  100
   foreman_url:
     value:  "https://foreman.%{hiera('domain_public')}"
+  global_PXEGrub2:
+    value:  "norcams-PXEGrub2 global default"
   root_pass:
     value:  '$1$16W5j9.P$wrGl0KophqmJwfADuUOIM/'
   template_sync_branch:
