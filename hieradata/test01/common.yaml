@@ -95,6 +95,13 @@ public__ipv6__resolver:         '2001:700:200:917::3f18'
 #
 # DNS (merge of common and this)
 #
+
+# Public and internal zones
+profile::dns::ns::public_zone:   "test.iaas.uib.no"
+# Not relevant for test01, but must be _something_ due to merge from common
+profile::dns::ns::public_zone2:  "bgo.test.iaas.uib.no"
+profile::dns::ns::internal_zone: "test01.uhdc.no"
+
 profile::network::services::dns_records:
   A:
     # public

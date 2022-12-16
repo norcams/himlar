@@ -1,16 +1,6 @@
 ---
-#profile::dns::ns::ns_slaves:
-#  - "ns.test.iaas.uib.no"
 
-# Master server for master-slave configuration
-#profile::dns::ns::ns_master_ip_addresses:
-#  - '129.177.31.117'         # ns.test.iaas.uib.no IPv4
-#  - '2001:700:200:916::3f17' # ns.test.iaas.uib.no IPv6
-
-# Slave servers for master-slave configuration
-#profile::dns::ns::ns_slave_ip_addresses:
-#  - '129.177.31.117'         # ns.test.iaas.uib.no IPv4
-#  - '2001:700:200:916::3f17' # ns.test.iaas.uib.no IPv6
+profile::network::interface::manage_dummy: true                # FIXME: Activate in common when all env is converted to el8
 
 # Forward zones, for which the name server is authoritative
 profile::dns::ns::fw_zones:

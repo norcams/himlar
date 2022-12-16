@@ -1,6 +1,5 @@
 ---
-#profile::dns::ns::ns_slaves:
-#  - "ns.test.iaas.uio.no"
+profile::network::interface::manage_dummy: true                # FIXME: move to common when all env is converted to el8
 
 # Designate server addresses (used by file templates)
 profile::dns::ns::use_public_ip: true
@@ -13,16 +12,6 @@ profile::dns::ns::rndc_sources_ipv6:
 
 # login node in test01 has an unstandard address (others use value from common)
 profile::dns::ns::login_mgmt_addr:          "%{hiera('netcfg_mgmt_netpart')}.9"
-
-# Master server for master-slave configuration
-#profile::dns::ns::ns_master_ip_addresses:
-#  - '192.168.0.251'         # ns.test.iaas.uio.no IPv4
-#  - 'fc00:700:100:200::251' # ns.test.iaas.uio.no IPv6
-
-# Slave servers for master-slave configuration
-#profile::dns::ns::ns_slave_ip_addresses:
-#  - '192.168.0.251'         # ns.test.iaas.uio.no IPv4
-#  - 'fc00:700:100:200::251' # ns.test.iaas.uio.no IPv6
 
 # Forward zones, for which the name server is authoritative
 profile::dns::ns::fw_zones:

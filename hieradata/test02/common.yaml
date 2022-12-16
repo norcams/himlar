@@ -101,6 +101,13 @@ public__ipv6__resolver:     "%{hiera('netcfg_public_netpart6')}::251"
 #
 # DNS (merge of common and this)
 #
+
+# Public and internal zones
+profile::dns::ns::public_zone:   "test.iaas.uio.no"
+# Not relevant for test02, but must be _something_ due to merging with common
+profile::dns::ns::public_zone2:  "test02.test.iaas.uio.no"
+profile::dns::ns::internal_zone: "test02.uhdc.no"
+
 profile::network::services::dns_records:
   A:
     # public

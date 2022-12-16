@@ -1,22 +1,10 @@
 ---
-# Public and internal zones
-profile::dns::ns::internal_zone: "test02.uhdc.no"
-profile::dns::ns::public_zone:   "test.iaas.uio.no"
-
 # Temporary: Forward everything to UiO resolvers
 profile::dns::ns::forward_everything: true
 profile::dns::ns::forwarders:
   - "129.240.2.40"
   - "129.240.2.27"
   - "129.240.2.3"
-
-# Forward zones. Only zones that are "internal". Requests for records
-# in these zones will be forwarded to the authoritative DNS server
-#profile::dns::ns::fw_zones:
-#  internal:
-#    zone: "%{hiera('profile::dns::ns::internal_zone')}"
-#  public:
-#    zone: "%{hiera('profile::dns::ns::public_zone')}"
 
 # Reverse zones. Only zones that are "internal". Requests for records
 # in these zones will be forwarded to the authoritative DNS server
