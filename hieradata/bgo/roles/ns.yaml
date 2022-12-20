@@ -1,4 +1,7 @@
 ---
+profile::network::interface::manage_dummy: true                # FIXME: move to common when all env is converted to el8
+profile::network::interface::create_custom_routes: true        # FIXME: move to common when all env is converted to el8
+
 # Designate server addresses (used by file templates)
 profile::dns::ns::use_public_ip: true
 profile::dns::ns::mdns_public_addr:
