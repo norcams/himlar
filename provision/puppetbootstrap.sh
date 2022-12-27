@@ -63,12 +63,13 @@ bootstrap_puppet()
   # setup dnf/yum
   if command -v dnf >/dev/null 2>&1; then
     echo "bootstrap puppet for el8..."
+    dnf clean all
     dnf install -y epel-release # to get gpgkey for epel
     el8_repos
-    dnf clean all
     dnf -y upgrade
-    dnf install -y puppet-agent git vim
+    dnf install -y puppet-agent git-core vim
 
+    /opt/puppetlabs/puppet/bin/gem install -N puppet_forge -v 3.2.0
     /opt/puppetlabs/puppet/bin/gem install -N r10k
     # this is need one puppetmaster for some modules
     # in vagrant we will need this on all nodes
@@ -82,12 +83,12 @@ bootstrap_puppet()
     el_repos test
     yum clean all
     yum -y update
-    yum install -y puppet-agent rubygems git vim inotify-tools
+    yum install -y puppet-agent git vim
     # Remove default version 3 hiera.yaml
     rm -f /etc/puppetlabs/puppet/hiera.yaml
 
-    /opt/puppetlabs/puppet/bin/gem install -N r10k -v 3.4.0
-    /opt/puppetlabs/puppet/bin/gem install -N puppet_forge
+    /opt/puppetlabs/puppet/bin/gem install -N puppet_forge -v 3.2.0
+    /opt/puppetlabs/puppet/bin/gem install -N r10k
     ln -sf /opt/puppetlabs/puppet/bin/wrapper.sh /opt/puppetlabs/bin/r10k
 
   fi
