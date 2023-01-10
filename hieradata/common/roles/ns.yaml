@@ -19,12 +19,8 @@ profile::dns::rndc_key::create_cert_key:          true
 profile::dns::rndc_key::host_is_bind_server:      true
 
 # Authoritative name servers must have a public interface
-# FIXME: When all envs switched to EL8 :
-#        - Remove first line
-#        - Activcate second and third
-profile::base::network::manage_dummy: true
-#profile::network::interface::manage_dummy: true
-#profile::network::interface::create_custom_routes: true
+profile::network::interface::manage_dummy: true
+profile::network::interface::create_custom_routes: true
 
 # Name servers in zone file
 profile::dns::ns::ns_master: "%{hiera('public__name__ns')}"

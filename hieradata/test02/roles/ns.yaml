@@ -1,7 +1,5 @@
 ---
 
-profile::network::interface::manage_dummy: true                # FIXME: Activate in common when all env is converted to el8
-
 # Forward zones, for which the name server is authoritative
 profile::dns::ns::fw_zones:
   internal:
