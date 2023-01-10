@@ -1,7 +1,7 @@
 ---
 named_interfaces::config:
   mgmt:
-  - em3
+  - em1
   trp:
   - team1
   live:
@@ -9,14 +9,14 @@ named_interfaces::config:
 
 profile::base::network::network_auto_bonding:
   trp:
-    p2p1:
+    em3:
       'team_port_config': '{ "prio" : 100 }'
       'mtu': '9000'
-      'ethtool_opts': '-K p2p1 gro off'
-    p2p2:
+      'ethtool_opts': '-K em3 gro off'
+    em4:
       'team_port_config': '{ "prio" : 100 }'
       'mtu': '9000'
-      'ethtool_opts': '-K p2p2 gro off'
+      'ethtool_opts': '-K em4 gro off'
 
 profile::base::network::network_auto_opts:
   mgmt:
