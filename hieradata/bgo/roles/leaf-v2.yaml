@@ -398,6 +398,8 @@ profile::base::network::cumulus_bonds:
 
 # Edgecore as7726 needs explicit config
 profile::network::leaf::cumulus_portconfigs:
+  5:
+    line:  "5=4x25G"
   13:
     line:  "13=4x25G"
   14:
@@ -426,6 +428,7 @@ profile::network::leaf::cumulus_portconfigs:
 profile::base::network::cumulus_bridges:
   'bridge':
     'ports':
+      - host17
       - host49
       - host50
       - host51
@@ -472,6 +475,8 @@ frrouting::frrouting::zebra_interfaces:
   'bridge.100':
     - 'link-detect'
     - 'description linux-bridge-100'
+  'host17':
+    - 'link-detect'
   'host49':
     - 'link-detect'
   'host50':
