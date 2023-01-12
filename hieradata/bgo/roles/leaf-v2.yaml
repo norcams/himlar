@@ -133,6 +133,14 @@ profile::base::network::cumulus_bonds:
   'peerlink':
     'slaves': [ 'swp31-32', ]
     'mtu':   '9216'
+  'host48':
+    'slaves': [ 'swp5s0', ]
+    'clag_id': '48'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216
   'host49':
     'slaves': [ 'swp13s0', ]
     'clag_id': '49'
