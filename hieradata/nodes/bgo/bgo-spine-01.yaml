@@ -234,6 +234,7 @@ frrouting::frrouting::bgp_neighbor_groups:
       - '172.18.1.139'
       - '172.18.1.140'
       - '172.18.1.141'
+      - '172.18.1.142'
     'options6':
       - 'neighbor rr-clients route-reflector-client'
       - 'neighbor rr-clients route-map rr-client-allow6 in'
@@ -334,6 +335,7 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'fd00::1:139'
       - 'fd00::1:140'
       - 'fd00::1:141'
+      - 'fd00::1:142'
 #  'other-clients':
 #    'options':
 #    - 'peer-group'
