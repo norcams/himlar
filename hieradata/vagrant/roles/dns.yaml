@@ -1,0 +1,20 @@
+---
+profile::openstack::designate::bind_servers:
+  'vagrant-01':
+    ns_rndc_addr:    '172.31.8.16'
+    ns_public_addr:  '172.31.8.16'
+    ns_public_name: '172.31.8.16'
+    mdns_addr:
+      - '172.31.8.34'
+  'vagrant-02':
+    ns_rndc_addr:    '172.31.8.17'
+    ns_public_addr:  '172.31.8.17'
+    ns_public_name:  '172.31.8.17'
+    mdns_addr:
+      - '172.31.8.34'
+
+# Firewall configuration
+profile::openstack::designate::ns_sources_ipv4:
+  - "%{hiera('public__ip__ns')}"
+  - '172.31.8.17'
+
