@@ -116,6 +116,7 @@ profile::network::services::dns_records:
     "placement.api.%{hiera('domain_public')}":              '129.177.31.122'
     "dns.api.%{hiera('domain_public')}":                    '129.177.31.122'
     "status.%{hiera('domain_public')}":                     '129.177.31.122'
+    "report.%{hiera('domain_public')}":                     '129.177.31.122'
     "access.%{hiera('domain_public')}":                     '129.177.31.122' #124
     "console.%{hiera('domain_public')}":                    '129.177.31.122' #125
     "dashboard.%{hiera('domain_public')}":                  '129.177.31.126'
