@@ -17,6 +17,7 @@ profile::webserver::apache::manage_firewall:  true
 profile::webserver::apache::firewall_ports:   80
 
 profile::base::common::packages:
+  'gcc': { ensure: absent } # FIXME:sensu-go
   'bash-completion': {}
   'bash-completion-extras': {}
   'python3-libs': {}
