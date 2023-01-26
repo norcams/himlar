@@ -91,8 +91,24 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   'uib-https-grid':
     listening_service:  'uib-https-grid'
     ports:              18082
-    server_names:       ['uib-grid-01.grid.uib.no', 'uib-grid-02.grid.uib.no', 'uib-grid-03.grid.uib.no', 'uib-grid-04.grid.uib.no', 'uib-grid-05.grid.uib.no', 'uib-grid-06.grid.uib.no', 'uib-grid-07.grid.uib.no']
-    ipaddresses:        ['129.177.3.11', '129.177.3.12', '129.177.3.13', '129.177.3.14', '129.177.3.15', '129.177.3.16', '129.177.3.17']
+    server_names:
+      - 'uib-grid-01.grid.uib.no'
+      - 'uib-grid-02.grid.uib.no'
+      - 'uib-grid-03.grid.uib.no'
+      - 'uib-grid-04.grid.uib.no'
+      - 'uib-grid-05.grid.uib.no'
+      - 'uib-grid-06.grid.uib.no'
+      - 'uib-grid-07.grid.uib.no'
+      - 'uib-grid-08.grid.uib.no'
+    ipaddresses:
+      - '129.177.3.11'
+      - '129.177.3.12'
+      - '129.177.3.13'
+      - '129.177.3.14'
+      - '129.177.3.15'
+      - '129.177.3.16'
+      - '129.177.3.17'
+      - '129.177.3.18'
     options:
       - 'check'
       - 'check-ssl'
