@@ -1,0 +1,129 @@
+---
+network::interfaces_hash:
+  'eth0':
+    'ipaddress': "%{hiera('netcfg_mgmt_net_c2')}.5/21"
+    'gateway':   "%{hiera('netcfg_mgmt_gateway')}"
+    'dns1':      "%{hiera('netcfg_dns_server1')}"
+    'vrf':       'mgmt'
+  'mgmt':
+    'ipaddress': '127.0.0.1/8'
+    'vrf_table': 'auto'
+
+profile::base::network::cumulus_bridges:
+  'bridge':
+    'ports': [ 'swp1', 'swp2', 'swp3', 'swp4', 'swp5', 'swp6','swp7','swp8','swp9','swp10','swp11','swp12','swp13','swp14','swp15','swp16','swp17','swp18','swp19','swp20','swp21','swp22','swp23','swp24','swp25','swp26','swp27','swp28','swp29','swp30','swp31','swp32','swp33','swp34','swp35','swp36','swp37','swp38','swp39','swp40','swp41','swp42','swp43','swp44','swp45', 'swp46','swp47','swp48', ]
+    'alias_name': 'mgmt_ports'
+    'vlan_aware': 'true'
+    'stp': 'true'
+    'vids': [ '3378', '3379', ]
+
+profile::base::network::cumulus_interfaces:
+  'swp1':
+    'pvid': '3379'
+  'swp2':
+    'pvid': '3379'
+  'swp3':
+    'pvid': '3379'
+  'swp4':
+    'pvid': '3379'
+  'swp5':
+    'pvid': '3379'
+  'swp6':
+    'pvid': '3379'
+  'swp7':
+    'pvid': '3379'
+  'swp8':
+    'pvid': '3379'
+  'swp9':
+    'pvid': '3379'
+  'swp10':
+    'pvid': '3379'
+  'swp11':
+    'pvid': '3379'
+  'swp12':
+    'pvid': '3379'
+  'swp13':
+    'pvid': '3379'
+  'swp14':
+    'pvid': '3379'
+  'swp15':
+    'pvid': '3379'
+  'swp16':
+    'pvid': '3379'
+  'swp17':
+    'pvid': '3379'
+  'swp18':
+    'pvid': '3379'
+  'swp19':
+    'pvid': '3379'
+  'swp20':
+    'pvid': '3379'
+  'swp21':
+    'pvid': '3379'
+  'swp22':
+    'pvid': '3379'
+  'swp23':
+    'pvid': '3379'
+  'swp24':
+    'pvid': '3379'
+  'swp25':
+    'pvid': '3378'
+  'swp26':
+    'pvid': '3378'
+  'swp27':
+    'pvid': '3378'
+  'swp28':
+    'pvid': '3378'
+  'swp29':
+    'pvid': '3378'
+  'swp30':
+    'pvid': '3378'
+  'swp31':
+    'pvid': '3378'
+  'swp32':
+    'pvid': '3378'
+  'swp33':
+    'pvid': '3378'
+  'swp34':
+    'pvid': '3378'
+  'swp35':
+    'pvid': '3378'
+  'swp36':
+    'pvid': '3378'
+  'swp37':
+    'pvid': '3378'
+  'swp38':
+    'pvid': '3378'
+  'swp39':
+    'pvid': '3378'
+  'swp40':
+    'pvid': '3378'
+  'swp41':
+    'pvid': '3378'
+  'swp42':
+    'pvid': '3378'
+  'swp43':
+    'pvid': '3378'
+  'swp44':
+    'pvid': '3378'
+  'swp45':
+    'pvid': '3378'
+  'swp46':
+    'pvid': '3378'
+  'swp47':
+    'pvid': '3378'
+  'swp48':
+    'pvid': '3378'
+  'swp49':
+    'alias_name': 'mgmt-06'
+    'vids': [ '3378', '3379', ]
+  'swp50':
+    'alias_name': 'mgmt-07'
+    'vids': [ '3378', '3379', ]
+  'swp51':
+    'alias_name': 'mgmt-08'
+    'vids': [ '3378', '3379', ]
+  'swp52':
+    'alias_name': 'uplink'
+    'vids': [ '3378', '3379', ]
+

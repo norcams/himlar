@@ -119,8 +119,8 @@ profile::application::builder::images:
   'centosstream9':
     'image_name':       'IMAGEBUILDER CentOS Stream 9'
     'url':              'https://cloud.centos.org/centos/9-stream/x86_64/images/'
-    'latest':           'CentOS-Stream-GenericCloud-9-20221110.0.x86_64.qcow2'
-    'checksum_file':    'CentOS-Stream-GenericCloud-9-20221110.0.x86_64.qcow2.SHA256SUM'
+    'latest':           'CentOS-Stream-GenericCloud-9-20230123.0.x86_64.qcow2'
+    'checksum_file':    'CentOS-Stream-GenericCloud-9-20230123.0.x86_64.qcow2.SHA256SUM'
     'checksum':         'sha256'
     'min_ram':          768
     'min_disk':         8
@@ -155,6 +155,17 @@ profile::application::builder::images:
     'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/36/Cloud/x86_64/images/'
     'latest':           'Fedora-Cloud-Base-36-1.5.x86_64.qcow2'
     'checksum_file':    'Fedora-Cloud-36-1.5-x86_64-CHECKSUM'
+    'checksum':         'sha256'
+    'min_ram':          1024
+    'min_disk':         3
+    'username':         'fedora'
+    'hour':             6
+    'minute':           10
+  'fedora_37':
+    'image_name':       'IMAGEBUILDER Fedora 37'
+    'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/37/Cloud/x86_64/images/'
+    'latest':           'Fedora-Cloud-Base-37-1.7.x86_64.qcow2'
+    'checksum_file':    'Fedora-Cloud-37-1.7-x86_64-CHECKSUM'
     'checksum':         'sha256'
     'min_ram':          1024
     'min_disk':         3
