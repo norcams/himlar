@@ -1,2 +1,10 @@
 ---
-ceph_version: 'nautilus' # FIXME - remove when this node is upgraded to el8
+# This compute host uses local storage for instances
+nova::compute::rbd::ephemeral_storage:            false
+nova::config::nova_config:
+  libvirt/images_type:
+    value: default
+  DEFAULT/metadata_workers:
+    value: '2'
+  libvirt/remote_filesystem_transport:
+    value: 'rsync'
