@@ -4,23 +4,7 @@ include:
     - profile::openstack::compute::pci_passthrough
 
 profile::openstack::resource::host_aggregate:
-  group1:
-    availability_zone: "%{::location}-legacy-1"
-#    hosts: "%{::location}-compute-01.%{hiera('domain_mgmt')}, %{::location}-compute-04.%{hiera('domain_mgmt')}"
-    metadata:
-      type: 'standard'
-  group2:
-    availability_zone: "%{::location}-legacy-1"
-#    hosts: "%{::location}-compute-02.%{hiera('domain_mgmt')}"
-    metadata:
-      type: 'standard'
-  group3:
-    availability_zone: "%{::location}-legacy-1"
-    metadata:
-      type: 'standard'
-#    hosts: "%{::location}-compute-03.%{hiera('domain_mgmt')}, %{::location}-compute-06.%{hiera('domain_mgmt')}"
   central1:
-#    hosts: "%{::location}-compute-07.%{hiera('domain_mgmt')}, %{::location}-compute-08.%{hiera('domain_mgmt')}"
     availability_zone: "%{::location}-default-1"
   windows1:
     availability_zone: "%{::location}-default-1"
@@ -62,6 +46,15 @@ profile::openstack::resource::host_aggregate:
     availability_zone: "%{::location}-iaas-team-only-1"
     metadata:
       type: 'standard'
+      filter_tenant_id: >-
+        e3dcca3452924794a6aebdd21b5da249,
+        db3a36ac1c8e4af9b570433d3678226d,
+        bf017d42f06c4eb590276eccb9d571dd,
+        3eae4805dcd6450fb98651f5a9dc9ded
+  placeholder_shpc1:
+    availability_zone: "%{::location}-iaas-team-only-1"
+    metadata:
+      type: 'shpc_cpu'
       filter_tenant_id: >-
         e3dcca3452924794a6aebdd21b5da249,
         db3a36ac1c8e4af9b570433d3678226d,
