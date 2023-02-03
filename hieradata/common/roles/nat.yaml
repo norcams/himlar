@@ -32,7 +32,7 @@ collectd::plugin::interface::interfaces:
 profile::monitoring::collectd::plugins:
   - collectd::plugin::aggregation
   - collectd::plugin::cpu
-  - collectd::plugin::load
+#  - collectd::plugin::load
   - collectd::plugin::memory
   - collectd::plugin::interface
   - collectd::plugin::write_graphite
