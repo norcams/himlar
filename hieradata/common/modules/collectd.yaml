@@ -33,8 +33,8 @@ collectd::plugin::cpu::reportbycpu:     false
 collectd::plugin::virt::connection:       'qemu:///system'
 # FIXME use metadata for instance name in version 5.9 of collectd
 collectd::plugin::virt::hostname_format:  'hostname uuid'
-collectd::plugin::virt::refresh_interval: '180'
-collectd::plugin::virt::extra_stats:      'cpu_util fs_info disk_err'
+collectd::plugin::virt::refresh_interval: '300'
+collectd::plugin::virt::extra_stats:      'cpu_util disk disk_err'
 
 collectd::plugin::processes::interval:            120
 collectd::plugin::processes::collect_memory_maps: false
