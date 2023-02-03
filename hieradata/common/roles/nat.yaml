@@ -3,6 +3,7 @@ include:
   default:
     - profile::network::nat
     - profile::logging::rsyslog::client
+    - profile::monitoring::collectd
 
 named_interfaces::config:
   mgmt:
@@ -22,3 +23,17 @@ profile::network::nat::outiface:                 "%{::interface_trp1}"
 profile::network::nat::source:                   "!%{::ipaddress_trp1}"
 
 profile::monitoring::sensu::agent::enable_agent: true
+
+# collectd
+collectd::plugin::interface::interfaces:
+  - "%{::interface_trp1}"
+  - "%{::interface_mgmt1}"
+
+profile::monitoring::collectd::plugins:
+  - collectd::plugin::aggregation
+  - collectd::plugin::cpu
+  - collectd::plugin::load
+  - collectd::plugin::memory
+  - collectd::plugin::interface
+  - collectd::plugin::write_graphite
+
