@@ -21,6 +21,7 @@ profile::base::network::cumulus_bridges:
 
 profile::base::network::cumulus_interfaces:
   'swp1':
+    'mtu':  1500
     'pvid': '3379'
   'swp2':
     'pvid': '3379'
@@ -117,15 +118,16 @@ profile::base::network::cumulus_interfaces:
   'swp48':
     'pvid': '3378'
   'swp49':
-    'alias_name': 'mgmt-06'
+    'speed': 1000
     'vids': [ '3378', '3379', ]
   'swp50':
-    'alias_name': 'mgmt-07'
+    'speed': 1000
     'vids': [ '3378', '3379', ]
   'swp51':
-    'alias_name': 'mgmt-08'
+    speed: 1000
     'vids': [ '3378', '3379', ]
   'swp52':
-    speed: 1000
+    'speed': 1000
+    'mtu':  1500
     'alias_name': 'uplink'
-#    'vids': [ '3378', '3379', ]
+    'vids': [ '3378', '3379', ]
