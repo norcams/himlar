@@ -267,6 +267,8 @@ profile::network::services::dns_records:
     "repo.%{hiera('domain_oob')}":                    "%{hiera('netcfg_oob_netpart')}.9"
     # FIXME: override common/common.yaml
     "%{::location}-mgmt-05.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.5"
+    "%{::location}-mgmt-06.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.6"
+    "%{::location}-mgmt-07.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.7"
   AAAA:
     # Frontend records (<foo>.nrec.no)
     "ns1.%{hiera('domain_frontend')}":            '2001:700:2:82ff::251'
