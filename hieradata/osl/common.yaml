@@ -288,6 +288,8 @@ profile::network::services::dns_records:
   PTR:
     # FIXME: override common/common.yaml
     "5.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-05.%{hiera('domain_mgmt')}"
+    "6.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-06.%{hiera('domain_mgmt')}"
+    "7.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-07.%{hiera('domain_mgmt')}"
     # Management network (entries that differ from common/common.yaml)
     "10.%{hiera('reverse_mgmt')}":     "%{::location}-login-01.%{hiera('domain_mgmt')}"
     # public IPv4
