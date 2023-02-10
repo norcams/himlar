@@ -116,18 +116,17 @@ profile::base::network::cumulus_interfaces:
   'swp47':
     'pvid': '3378'
   'swp48':
-    'pvid': '3378'
-  'swp49':
-    'speed': 1000
-    'vids': [ '3378', '3379', ]
-  'swp50':
-    'speed': 1000
-    'vids': [ '3378', '3379', ]
-  'swp51':
-    speed: 1000
-    'vids': [ '3378', '3379', ]
-  'swp52':
-    'speed': 1000
-    'mtu':  1500
+    'vids':     [ '3378', '3379', ]
     'alias_name': 'uplink'
-    'vids': [ '3378', '3379', ]
+  'swp49':
+    'speed':    1000
+    'vids':     [ '3378', '3379', ]
+  'swp50':
+    'speed':    1000
+    'vids':     [ '3378', '3379', ]
+  'swp51':
+    speed:      1000
+    'vids':     [ '3378', '3379', ]
+  'swp52':
+    'speed':    1000
+    'vids':     [ '3378', '3379', ]
