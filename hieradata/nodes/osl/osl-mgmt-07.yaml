@@ -24,6 +24,7 @@ profile::base::network::cumulus_interfaces:
     'mtu':  1500
     'pvid': '3379'
   'swp2':
+    'mtu':  1500
     'pvid': '3379'
   'swp3':
     'pvid': '3379'
@@ -116,6 +117,7 @@ profile::base::network::cumulus_interfaces:
   'swp47':
     'pvid': '3378'
   'swp48':
+    'mtu':  1500
     'vids':     [ '3378', '3379', ]
     'alias_name': 'uplink'
   'swp49':
