@@ -5,6 +5,8 @@ profile::base::login::forward_oobnet:     true
 profile::base::login::oob_net:            "172.17.0.0/21"
 profile::base::login::oob_outiface:       'eth3'
 profile::base::login::oob_dhcrelay:       true
+netcfg_dns_server1:                       '172.16.0.10'
+netcfg_dns_server2:                       '172.16.0.44'
 
 # Himlar bootstrap
 profile::bootstrap::himlar::manage_bootstrap_scripts: true

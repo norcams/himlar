@@ -8,6 +8,8 @@ profile::firewall::pre::manage_ipv6_ssh:  true
 profile::base::login::forward_oobnet:     true
 profile::base::login::oob_net:            "172.17.32.0/21"
 profile::base::login::oob_outiface:       'em3'
+netcfg_dns_server1:                       '172.16.32.10'
+netcfg_dns_server2:                       '172.16.32.44'
 
 openstack_extras::repo::redhat::redhat::purge_unmanaged: false
 

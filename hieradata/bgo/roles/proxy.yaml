@@ -14,3 +14,6 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_opt'
     fs_type:      "xfs"
     mountpath:    "/opt/himlarcli"
+
+netcfg_dns_server1:                       '172.16.0.10'
+netcfg_dns_server2:                       '172.16.0.44'
