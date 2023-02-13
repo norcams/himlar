@@ -96,6 +96,20 @@ profile::application::builder::images:
     'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
     'hour':             14
     'minute':           30
+  'almalinux9_nv_vgpu':
+    'image_name':       'IMAGEBUILDER AlmaLinux 9 (NVIDIA GPU)'
+    'url':              'https://repo.almalinux.org/almalinux/9/cloud/x86_64/images/'
+    'latest':           'AlmaLinux-9-GenericCloud-latest.x86_64.qcow2'
+    'checksum_file':    'CHECKSUM'
+    'checksum':         'sha256'
+    'min_ram':          1024
+    'min_disk':         8
+    'flavor':           'm1.small'
+    'efi':              true
+    'username':         'almalinux'
+    'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
+    'hour':             15
+    'minute':           30
   'centos7':
     'image_name':       'IMAGEBUILDER CentOS 7'
     'url':              'http://cloud.centos.org/centos/7/images/'
@@ -235,6 +249,19 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         3
     'username':         'ubuntu'
+    'hour':             9
+    'minute':           30
+  'ubuntu_2204_nv_vgpu':
+    'image_name':       'IMAGEBUILDER Ubuntu 22.04 (NVIDIA GPU)'
+    'url':              'https://cloud-images.ubuntu.com/jammy/current/'
+    'latest':           'jammy-server-cloudimg-amd64.img'
+    'checksum_file':    'SHA256SUMS'
+    'checksum':         'sha256'
+    'min_ram':          768
+    'min_disk':         8
+    'username':         'ubuntu'
+    'flavor':           'm1.small'
+    'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
     'hour':             9
     'minute':           30
   'uio_rhel7':
