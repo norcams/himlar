@@ -11,3 +11,7 @@ nova::compute::libvirt::libvirt_disk_cachemodes:
 # set lowest common denominator for live migration compat
 nova::compute::libvirt::libvirt_cpu_mode:  'custom'
 nova::compute::libvirt::libvirt_cpu_model: 'IvyBridge-IBRS'
+
+# TEST: console over TRP [trondham, 2023-02-15]
+nova::compute::vncserver_proxyclient_address: "%{ipaddress_trp1}"
+nova::compute::libvirt::vncserver_listen: "%{ipaddress_trp1}"
