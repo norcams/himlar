@@ -7,6 +7,12 @@ network::interfaces_hash:
     'post_up': [ '/etc/network/if-up.d/z90-route-eth0', ]
     'post_down': [ '/etc/network/if-down.d/z90-route-eth0', ]
 
+# Puppet agent fix for puppet 4
+puppet::agent_additional_settings:
+  'disable_warnings':       'deprecations'
+  'stringify_facts':        'false'
+  'certificate_revocation': 'false'
+
 # Add default route for management VRF
 profile::base::network::routes:
   'eth0':
