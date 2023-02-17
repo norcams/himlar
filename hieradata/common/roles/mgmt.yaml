@@ -45,6 +45,10 @@ profile::base::common::packages:
   'bind-utils': { 'ensure': 'absent', }
   'yum-utils': { 'ensure': 'absent', }
   'augeas-tools': {}
+  'vim': { ensure: present }
+  'mlocate': { ensure: present }
+  'locales-all': { ensure: present }
+  'net-tools': { ensure: present }
 
 sudo::configs:
   snmp:
