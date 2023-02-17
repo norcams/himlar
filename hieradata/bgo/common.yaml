@@ -297,7 +297,7 @@ profile::network::services::dns_records:
     "resolver.%{hiera('domain_public2')}":        '158.39.77.252'
 
     # Management network (entries that differ from common/common.yaml)
-    "%{::location}-mgmt-01.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_netpart')}.5"
+    "%{::location}-mgmt-08.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_net_c2')}.8"
     "%{::location}-login-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_netpart')}.10"
     "repo.%{hiera('domain_oob')}":                    "%{hiera('netcfg_oob_netpart')}.9"
   AAAA:
