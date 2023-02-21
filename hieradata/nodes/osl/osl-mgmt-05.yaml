@@ -9,6 +9,12 @@ network::interfaces_hash:
     'ipaddress': '127.0.0.1/8'
     'vrf_table': 'auto'
 
+# Puppet agent fix for puppet version < 6
+puppet::agent_additional_settings:
+  'disable_warnings':       'deprecations'
+  'stringify_facts':        'false'
+  'certificate_revocation': 'false'
+
 profile::base::network::cumulus_bridges:
   'bridge':
     'ports': [ 'swp1', 'swp2', 'swp3', 'swp4', 'swp5', 'swp6','swp7','swp8','swp9','swp10','swp11','swp12','swp13','swp14','swp15','swp16','swp17','swp18','swp19','swp20','swp21','swp22','swp23','swp24','swp25','swp26','swp27','swp28','swp29','swp30','swp31','swp32','swp33','swp34','swp35','swp36','swp37','swp38','swp39','swp40','swp41','swp42','swp43','swp44','swp45', 'swp46','swp47','swp48', ]
@@ -20,110 +26,162 @@ profile::base::network::cumulus_bridges:
 profile::base::network::cumulus_interfaces:
   'swp1':
     'pvid': '3379'
+    'mtu':  1500
   'swp2':
     'pvid': '3379'
+    'mtu':  1500
   'swp3':
     'pvid': '3379'
+    'mtu':  1500
   'swp4':
     'pvid': '3379'
+    'mtu':  1500
   'swp5':
     'pvid': '3379'
+    'mtu':  1500
   'swp6':
     'pvid': '3379'
+    'mtu':  1500
   'swp7':
     'pvid': '3379'
+    'mtu':  1500
   'swp8':
     'pvid': '3379'
+    'mtu':  1500
   'swp9':
     'pvid': '3379'
+    'mtu':  1500
   'swp10':
     'pvid': '3379'
+    'mtu':  1500
   'swp11':
     'pvid': '3379'
+    'mtu':  1500
   'swp12':
     'pvid': '3379'
+    'mtu':  1500
   'swp13':
     'pvid': '3379'
+    'mtu':  1500
   'swp14':
     'pvid': '3379'
+    'mtu':  1500
   'swp15':
     'pvid': '3379'
+    'mtu':  1500
   'swp16':
     'pvid': '3379'
+    'mtu':  1500
   'swp17':
     'pvid': '3379'
+    'mtu':  1500
   'swp18':
     'pvid': '3379'
+    'mtu':  1500
   'swp19':
     'pvid': '3379'
+    'mtu':  1500
   'swp20':
     'pvid': '3379'
+    'mtu':  1500
   'swp21':
     'pvid': '3379'
+    'mtu':  1500
   'swp22':
     'pvid': '3379'
+    'mtu':  1500
   'swp23':
     'pvid': '3379'
+    'mtu':  1500
   'swp24':
     'pvid': '3379'
+    'mtu':  1500
   'swp25':
     'pvid': '3378'
+    'mtu':  1500
   'swp26':
     'pvid': '3378'
+    'mtu':  1500
   'swp27':
     'pvid': '3378'
+    'mtu':  1500
   'swp28':
     'pvid': '3378'
+    'mtu':  1500
   'swp29':
     'pvid': '3378'
+    'mtu':  1500
   'swp30':
     'pvid': '3378'
+    'mtu':  1500
   'swp31':
     'pvid': '3378'
+    'mtu':  1500
   'swp32':
     'pvid': '3378'
+    'mtu':  1500
   'swp33':
     'pvid': '3378'
+    'mtu':  1500
   'swp34':
     'pvid': '3378'
+    'mtu':  1500
   'swp35':
     'pvid': '3378'
+    'mtu':  1500
   'swp36':
     'pvid': '3378'
+    'mtu':  1500
   'swp37':
     'pvid': '3378'
+    'mtu':  1500
   'swp38':
     'pvid': '3378'
+    'mtu':  1500
   'swp39':
     'pvid': '3378'
+    'mtu':  1500
   'swp40':
     'pvid': '3378'
+    'mtu':  1500
   'swp41':
     'pvid': '3378'
+    'mtu':  1500
   'swp42':
     'pvid': '3378'
+    'mtu':  1500
   'swp43':
     'pvid': '3378'
+    'mtu':  1500
   'swp44':
     'pvid': '3378'
+    'mtu':  1500
   'swp45':
     'pvid': '3378'
+    'mtu':  1500
   'swp46':
     'pvid': '3378'
+    'mtu':  1500
   'swp47':
     'pvid': '3378'
+    'mtu':  1500
   'swp48':
-    'pvid': '3378'
+    'mtu':    1500
+    'vids':   [ '3378', '3379', ]
   'swp49':
-    'alias_name': 'mgmt-06'
-    'vids': [ '3378', '3379', ]
+    'speed':  1000
+    'mtu':    1500
+    'vids':   [ '3378', '3379', ]
   'swp50':
-    'alias_name': 'mgmt-07'
-    'vids': [ '3378', '3379', ]
+    'speed':  1000
+    'mtu':    1500
+    'vids':   [ '3378', '3379', ]
   'swp51':
-    'alias_name': 'mgmt-08'
-    'vids': [ '3378', '3379', ]
+    'speed':  1000
+    'mtu':    1500
+    'vids':   [ '3378', '3379', ]
   'swp52':
-    'alias_name': 'uplink'
-    'vids': [ '3378', '3379', ]
+    'speed':  1000
+    'mtu':    1500
+    'vids':   [ '3378', '3379', ]
 
