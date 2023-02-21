@@ -95,6 +95,12 @@ network::interfaces_hash:
     onboot:  'yes'
     method:  'manual'
     post_up: [ "%{hiera('opx_lib_paths')} opx-ethtool -s e101-051-0 speed 1000 duplex full autoneg off" ]
+  "e101-051-0.%{hiera('netcfg_ib_vlan')}":
+    onboot:  'yes'
+    method:  'manual'
+  "e101-051-0.%{hiera('netcfg_oob_vlan')}":
+    onboot:  'yes'
+    method:  'manual'
   'e101-052-0':
     onboot:  'yes'
     method:  'manual'
