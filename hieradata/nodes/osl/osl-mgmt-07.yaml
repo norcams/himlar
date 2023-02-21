@@ -9,6 +9,12 @@ network::interfaces_hash:
     'ipaddress': '127.0.0.1/8'
     'vrf_table': 'auto'
 
+# Puppet agent fix for puppet 4
+puppet::agent_additional_settings:
+  'disable_warnings':       'deprecations'
+  'stringify_facts':        'false'
+  'certificate_revocation': 'false'
+
 profile::network::leaf::manage_license: true
 
 profile::base::network::cumulus_bridges:
