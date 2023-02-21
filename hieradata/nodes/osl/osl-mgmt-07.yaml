@@ -115,7 +115,8 @@ profile::base::network::cumulus_interfaces:
   'swp46':
     'pvid': '3378'
   'swp47':
-    'pvid': '3378'
+    'mtu':  1500
+    'vids':     [ '3378', '3379', ]
   'swp48':
     'mtu':  1500
     'vids':     [ '3378', '3379', ]
@@ -127,7 +128,7 @@ profile::base::network::cumulus_interfaces:
     'speed':    1000
     'vids':     [ '3378', '3379', ]
   'swp51':
-    speed:      1000
+    'speed':    1000
     'vids':     [ '3378', '3379', ]
   'swp52':
     'speed':    1000
