@@ -57,6 +57,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       box.vm.hostname = "%s-%s-%s.%s" % [ n['location'],n['role'],n['hostid'],n['domain'] ]
       box.vm.box = n['box']
       box.vm.box_url = n['box_url']
+      box.vm.box_version = n['box_version']
       n['networks'].each do |net|
         ip = settings['networks'][net]['net'] + ".#{i+11}"
         auto_config = settings['networks'][net]['auto_config']
