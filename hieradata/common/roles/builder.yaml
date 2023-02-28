@@ -164,17 +164,6 @@ profile::application::builder::images:
     'username':         'debian'
     'hour':             16
     'minute':           30
-  'fedora_36':
-    'image_name':       'IMAGEBUILDER Fedora 36'
-    'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/36/Cloud/x86_64/images/'
-    'latest':           'Fedora-Cloud-Base-36-1.5.x86_64.qcow2'
-    'checksum_file':    'Fedora-Cloud-36-1.5-x86_64-CHECKSUM'
-    'checksum':         'sha256'
-    'min_ram':          1024
-    'min_disk':         3
-    'username':         'fedora'
-    'hour':             6
-    'minute':           10
   'fedora_37':
     'image_name':       'IMAGEBUILDER Fedora 37'
     'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/37/Cloud/x86_64/images/'
@@ -208,16 +197,6 @@ profile::application::builder::images:
     'efi':              true
     'username':         'rocky'
     'hour':             18
-  'ubuntu_1804':
-    'image_name':       'IMAGEBUILDER Ubuntu 18.04 LTS'
-    'url':              'https://cloud-images.ubuntu.com/bionic/current/'
-    'latest':           'bionic-server-cloudimg-amd64.img'
-    'checksum_file':    'SHA256SUMS'
-    'checksum':         'sha256'
-    'min_ram':          768
-    'min_disk':         3
-    'username':         'ubuntu'
-    'hour':             8
   'ubuntu_2004':
     'image_name':       'IMAGEBUILDER Ubuntu 20.04'
     'url':              'https://cloud-images.ubuntu.com/focal/current/'
