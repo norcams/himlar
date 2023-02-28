@@ -1,0 +1,32 @@
+---
+profile::application::openssl::catrust::add_cert: false
+profile::application::openssl::manage_ca_cert:    false
+
+#profile::base::network::manage_network: false
+#profile::base::common::manage_network: false
+
+# mgmt has only eth0
+named_interfaces::config:
+  mgmt:
+    - eth0
+
+profile::base::network::cumulus_bridges:
+  'bridge':
+    'ports': [ 'swp1', 'swp2', ]
+    'alias_name': 'mgmt_ports'
+    'vlan_aware': 'true'
+    'stp': 'true'
+    'vids': [ '110', '111', ]
+
+profile::base::network::cumulus_interfaces:
+  'swp1':
+    'pvid': '110'
+    'mtu':  1500
+  'swp2':
+    'pvid': '111'
+    'mtu':  1500
+
+openstack_extras::repo::debian::debian::source_hash:
+  'buster':
+    'location': 'http://ftp.no.debian.org/debian'
+    'repos':    'main'

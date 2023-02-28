@@ -102,14 +102,6 @@ named_interfaces::config:
   public:
     - eth3
 
-network::interfaces_hash:
-  'eth1':
-    restart_all_nic: false
-  'eth2':
-    restart_all_nic: false
-  'eth3':
-    restart_all_nic: false
-
 allow_from_network:
   - "%{hiera('netcfg_public_netpart')}.0/24"
 
