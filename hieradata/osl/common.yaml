@@ -287,6 +287,7 @@ profile::network::services::dns_records:
     "%{::location}-dns-01.%{hiera('domain_public2')}": '2001:700:2:82ff::256'
   PTR:
     # FIXME: override common/common.yaml
+    "4.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-04.%{hiera('domain_mgmt')}"
     "5.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-05.%{hiera('domain_mgmt')}"
     "6.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-06.%{hiera('domain_mgmt')}"
     "7.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-07.%{hiera('domain_mgmt')}"
