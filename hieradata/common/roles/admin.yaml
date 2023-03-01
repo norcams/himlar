@@ -32,7 +32,7 @@ profile::application::foreman::dhcp_classes:
   onie_dell_s3048:
     parameters:
       - 'match if (substring(option vendor-class-identifier, 0, 29) = "onie_vendor:x86_64-dell_s3000")'
-      - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/images/opx/PKGS_OPX-installer-x86_64.bin\""
+      - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/images/cumuluslinux/onie-installer-amd64\""
   onie_dell_s4048:
     parameters:
       - 'match if (substring(option vendor-class-identifier, 0, 29) = "onie_vendor:x86_64-dell_s4000")'
