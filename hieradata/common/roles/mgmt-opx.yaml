@@ -2,7 +2,7 @@
 profile::base::network::cumulus_ifs:    false
 profile::network::leaf::manage_license: false
 profile::base::network::opx_cleanup:    true
-
+profile::base::common::manage_chrony:   false
 ntp::service_enable: true
 
 opx_lib_paths: 'LD_LIBRARY_PATH=/usr/lib/opx:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib:/lib PYTHONPATH=/usr/lib/opx:/usr/lib/x86_64-linux-gnu/opx'

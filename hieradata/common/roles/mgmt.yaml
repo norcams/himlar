@@ -24,6 +24,10 @@ profile::base::network::cumulus_ifs:              true
 network::config_file_per_interface:               true
 profile::logging::logrotate::manage_logrotate:    false
 
+profile::base::common::manage_ntp:     false
+profile::base::common::manage_chrony:  true
+chrony::service_name: 'chrony@mgmt'
+
 # ntp service managed by profile because of mgmt VRF
 ntp::service_enable: false
 ntp::service_ensure: 'stopped'
