@@ -6,8 +6,8 @@ network::interfaces_hash:
     gateway:        '129.240.224.97'
     defroute:       'yes'
     onboot:         'yes'
-    dns1:           "%{hiera('netcfg_mgmt_netpart')}.10"
-    dns2:           '129.240.2.3'
+    dns1:           '129.240.2.3'
+    dns2:           "%{hiera('netcfg_dns_mgmt_server2')}"
     domain:         "%{hiera('netcfg_dns_search')} mgmt.test02.uhdc.no"
     peerdns:        'yes'
     ipv6init:       'yes'
@@ -18,8 +18,6 @@ network::interfaces_hash:
     netmask:      '255.255.248.0'
     defroute:     'no'
     onboot:       'yes'
-    dns1:         "%{hiera('netcfg_dns_server1')}"
-    dns2:         "%{hiera('netcfg_dns_server2')}"
   'em4':
     ipaddress:    "%{hiera('netcfg_mgmt_netpart')}.10"
     netmask:      "%{hiera('netcfg_mgmt_netmask')}"
@@ -30,29 +28,21 @@ network::interfaces_hash:
     netmask:      '255.255.255.0'
     defroute:     'no'
     onboot:       'yes'
-    dns1:          "%{hiera('netcfg_dns_server1')}"
-    dns2:          "%{hiera('netcfg_dns_server2')}"
   'p2p2':
     ipaddress:    '172.30.32.10'
     netmask:      '255.255.255.0'
     defroute:     'no'
     onboot:       'yes'
-    dns1:          "%{hiera('netcfg_dns_server1')}"
-    dns2:          "%{hiera('netcfg_dns_server2')}"
   'p2p3':
     ipaddress:    '172.28.160.10'
     netmask:      '255.255.255.0'
     defroute:     'no'
     onboot:       'yes'
-    dns1:          "%{hiera('netcfg_dns_server1')}"
-    dns2:          "%{hiera('netcfg_dns_server2')}"
   'p2p4':
     ipaddress:    '172.28.32.10'
     netmask:      '255.255.255.0'
     defroute:     'no'
     onboot:       'yes'
-    dns1:          "%{hiera('netcfg_dns_server1')}"
-    dns2:          "%{hiera('netcfg_dns_server2')}"
 
 profile::base::network::routes:
   'p2p2':
