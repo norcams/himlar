@@ -53,7 +53,7 @@ mod 'dnsmasq', :ref => 'b04a474295',                :git => github + 'saz/puppet
 mod 'ipcalc', :ref => '2.2.0',                      :git => github + 'inkblot/puppet-ipcalc'
 # FIXME: remove tinyproxy when all proxies have el8
 mod 'tinyproxy', :ref => 'ef4a8b0bb2',              :git => github + 'earsdown/puppet-tinyproxy'
-mod 'cumuluslinux-cumulus_interfaces', :ref => '9a4964d0ac', :git => github + 'norcams/cumulus-cl-interfaces-puppet'
+mod 'cumuluslinux-cumulus_interfaces', :ref => 'norcams', :git => github + 'norcams/cumulus-cl-interfaces-puppet'
 
 #
 # profile::application::etcd
