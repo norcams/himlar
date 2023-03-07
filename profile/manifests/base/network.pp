@@ -12,6 +12,7 @@ class profile::base::network(
   $node_multinic    = false,
   $has_servicenet   = false,
   $cumulus_ifs      = false,
+  $cumulus_merge_strategy = 'deep',
   $manage_neutron_blackhole = false,
   $opx_cleanup      = false,
 ) {
@@ -298,9 +299,10 @@ class profile::base::network(
         content => template("${module_name}/network/cl-interfaces.erb"),
       }
 
-      create_resources(cumulus_interface, lookup('profile::base::network::cumulus_interfaces', Hash, 'deep', {}))
-      create_resources(cumulus_bridge, lookup('profile::base::network::cumulus_bridges', Hash, 'deep', {}))
-      create_resources(cumulus_bond, lookup('profile::base::network::cumulus_bonds', Hash, 'deep', {}))
+      # We use the same merge strategy for all cumulus config. If you change strategy check all of them!
+      create_resources(cumulus_interface, lookup('profile::base::network::cumulus_interfaces', Hash, $cumulus_merge_strategy, {}))
+      create_resources(cumulus_bridge, lookup('profile::base::network::cumulus_bridges', Hash, $cumulus_merge_strategy, {}))
+      create_resources(cumulus_bond, lookup('profile::base::network::cumulus_bonds', Hash, $cumulus_merge_strategy, {}))
 
       # Check for Cumulus Management VRF, enable if disabled
       case $::operatingsystemmajrelease {
