@@ -1,7 +1,7 @@
 ---
 network::interfaces_hash:
   'eth0':
-    'ipaddress': '172.16.32.2/21'
+    'ipaddress': "%{hiera('netcfg_mgmt_net_c3')}.2/21"
     'post_up': [ '/etc/network/if-up.d/z90-route-eth0', ]
     'post_down': [ '/etc/network/if-down.d/z90-route-eth0', ]
 
@@ -263,3 +263,10 @@ quagga::quagga::bgp_route_maps:
     - 'match ip address 10'
   'peer-deny deny 10':
     - 'match ip address 10'
+
+# Puppet agent fix for puppet 4
+puppet::agent_additional_settings:
+  'disable_warnings':       'deprecations'
+  'stringify_facts':        'false'
+  'certificate_revocation': 'false'
+
