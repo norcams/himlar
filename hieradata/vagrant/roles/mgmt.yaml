@@ -2,13 +2,13 @@
 profile::application::openssl::catrust::add_cert: false
 profile::application::openssl::manage_ca_cert:    false
 
-#profile::base::network::manage_network: false
-#profile::base::common::manage_network: false
-
 # mgmt has only eth0
 named_interfaces::config:
   mgmt:
     - eth0
+
+# override all common config
+profile::base::network::cumulus_merge_strategy: 'first'
 
 profile::base::network::cumulus_bridges:
   'bridge':
@@ -25,6 +25,12 @@ profile::base::network::cumulus_interfaces:
   'swp2':
     'pvid': '111'
     'mtu':  1500
+    'mstpctl_portbpdufilter': true
+    'bridge_allow_untagged': false
+  'swp3':
+    'vids': [ '110', '111', ]
+    'mtu':  1500
+    'bridge_allow_untagged': false
 
 openstack_extras::repo::debian::debian::source_hash:
   'buster':
