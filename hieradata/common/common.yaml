@@ -279,6 +279,14 @@ profile::dns::ns::frontend_zone2:   "uh-iaas.no"
 profile::dns::ns::ns_master1:     "ns1.nrec.no"
 profile::dns::ns::ns_master2:     "ns2.nrec.no"
 
+# List of resolvers to use. Selection on clients will vary dependant on networks available and so on
+netcfg_dns_mgmt_server1:    "%{hiera('netcfg_mgmt_net_c0')}.10"
+netcfg_dns_mgmt_server2:    "%{hiera('netcfg_mgmt_net_c0')}.44"
+netcfg_dns_trp_server1:     "%{hiera('netcfg_trp_net_c0')}.44"
+# Soon-to-be obsolete variables
+netcfg_dns_server1:         "{hiera('netcfg_dns_mgmt_server1')}"
+netcfg_dns_server2:         "{hiera('netcfg_dns_mgmt_server2')}"
+
 profile::network::services::dns_records:
   A:
     # hostname

@@ -16,8 +16,8 @@ network::interfaces_hash:
     gateway:        '129.177.6.1'
     defroute:       'yes'
     onboot:         'yes'
-    dns1:           "%{hiera('netcfg_mgmt_netpart')}.10"
-    dns2:           '129.177.6.54'
+    dns1:           '129.177.6.54'
+    dns2:           "%{hiera('netcfg_dns_mgmt_server2')}"
     domain:         "%{hiera('netcfg_dns_search')} mgmt.test01.uhdc.no"
     peerdns:        'yes'
     ipv6init:       'yes'
