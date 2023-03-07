@@ -63,6 +63,162 @@ sudo::configs:
       - 'snmp ALL=(root) NOPASSWD: /sbin/ethtool -S *'
       - 'snmp ALL=(root) NOPASSWD: /sbin/ip'
 
+profile::network::leaf::manage_license: true
+
+profile::base::network::cumulus_bridges:
+  'bridge':
+    'ports': [ 'swp1', 'swp2', 'swp3', 'swp4', 'swp5', 'swp6','swp7','swp8','swp9','swp10','swp11','swp12','swp13','swp14','swp15','swp16','swp17','swp18','swp19','swp20','swp21','swp22','swp23','swp24','swp25','swp26','swp27','swp28','swp29','swp30','swp31','swp32','swp33','swp34','swp35','swp36','swp37','swp38','swp39','swp40','swp41','swp42','swp43','swp44','swp45', 'swp46','swp47','swp48', ]
+    'alias_name': 'mgmt_ports'
+    'vlan_aware': 'true'
+    'stp': 'true'
+    'vids': [ "%{hiera('netcfg_oob_vlan')}", "%{hiera('netcfg_ib_vlan')}", ]
+
 profile::base::network::cumulus_interfaces:
   'lo':
     'addr_method': 'loopback'
+  'swp1':
+    'pvid': "%{hiera('netcfg_ib_vlan')}"
+    'mtu':  1500
+  'swp2':
+    'pvid': "%{hiera('netcfg_ib_vlan')}"
+    'mtu':  1500
+  'swp3':
+    'pvid': "%{hiera('netcfg_ib_vlan')}"
+    'mtu':  1500
+  'swp4':
+    'pvid': "%{hiera('netcfg_ib_vlan')}"
+    'mtu':  1500
+  'swp5':
+    'pvid': "%{hiera('netcfg_ib_vlan')}"
+    'mtu':  1500
+  'swp6':
+    'pvid': "%{hiera('netcfg_ib_vlan')}"
+    'mtu':  1500
+  'swp7':
+    'pvid': "%{hiera('netcfg_ib_vlan')}"
+    'mtu':  1500
+  'swp8':
+    'pvid': "%{hiera('netcfg_ib_vlan')}"
+    'mtu':  1500
+  'swp9':
+    'pvid': "%{hiera('netcfg_ib_vlan')}"
+    'mtu':  1500
+  'swp10':
+    'pvid': "%{hiera('netcfg_ib_vlan')}"
+    'mtu':  1500
+  'swp11':
+    'pvid': "%{hiera('netcfg_ib_vlan')}"
+    'mtu':  1500
+  'swp12':
+    'pvid': "%{hiera('netcfg_ib_vlan')}"
+    'mtu':  1500
+  'swp13':
+    'pvid': "%{hiera('netcfg_ib_vlan')}"
+    'mtu':  1500
+  'swp14':
+    'pvid': "%{hiera('netcfg_ib_vlan')}"
+    'mtu':  1500
+  'swp15':
+    'pvid': "%{hiera('netcfg_ib_vlan')}"
+    'mtu':  1500
+  'swp16':
+    'pvid': "%{hiera('netcfg_ib_vlan')}"
+    'mtu':  1500
+  'swp17':
+    'pvid': "%{hiera('netcfg_ib_vlan')}"
+    'mtu':  1500
+  'swp18':
+    'pvid': "%{hiera('netcfg_ib_vlan')}"
+    'mtu':  1500
+  'swp19':
+    'pvid': "%{hiera('netcfg_ib_vlan')}"
+    'mtu':  1500
+  'swp20':
+    'pvid': "%{hiera('netcfg_ib_vlan')}"
+    'mtu':  1500
+  'swp21':
+    'pvid': "%{hiera('netcfg_ib_vlan')}"
+    'mtu':  1500
+  'swp22':
+    'pvid': "%{hiera('netcfg_ib_vlan')}"
+    'mtu':  1500
+  'swp23':
+    'pvid': "%{hiera('netcfg_ib_vlan')}"
+    'mtu':  1500
+  'swp24':
+    'pvid': "%{hiera('netcfg_oob_vlan')}"
+    'mtu':  1500
+  'swp25':
+    'pvid': "%{hiera('netcfg_oob_vlan')}"
+    'mtu':  1500
+  'swp26':
+    'pvid': "%{hiera('netcfg_oob_vlan')}"
+    'mtu':  1500
+  'swp27':
+    'pvid': "%{hiera('netcfg_oob_vlan')}"
+    'mtu':  1500
+  'swp28':
+    'pvid': "%{hiera('netcfg_oob_vlan')}"
+    'mtu':  1500
+  'swp29':
+    'pvid': "%{hiera('netcfg_oob_vlan')}"
+    'mtu':  1500
+  'swp30':
+    'pvid': "%{hiera('netcfg_oob_vlan')}"
+    'mtu':  1500
+  'swp31':
+    'pvid': "%{hiera('netcfg_oob_vlan')}"
+    'mtu':  1500
+  'swp32':
+    'pvid': "%{hiera('netcfg_oob_vlan')}"
+    'mtu':  1500
+  'swp33':
+    'pvid': "%{hiera('netcfg_oob_vlan')}"
+    'mtu':  1500
+  'swp34':
+    'pvid': "%{hiera('netcfg_oob_vlan')}"
+    'mtu':  1500
+  'swp35':
+    'pvid': "%{hiera('netcfg_oob_vlan')}"
+    'mtu':  1500
+  'swp36':
+    'pvid': "%{hiera('netcfg_oob_vlan')}"
+    'mtu':  1500
+  'swp37':
+    'pvid': "%{hiera('netcfg_oob_vlan')}"
+    'mtu':  1500
+  'swp38':
+    'pvid': "%{hiera('netcfg_oob_vlan')}"
+    'mtu':  1500
+  'swp39':
+    'pvid': "%{hiera('netcfg_oob_vlan')}"
+    'mtu':  1500
+  'swp40':
+    'pvid': "%{hiera('netcfg_oob_vlan')}"
+    'mtu':  1500
+  'swp41':
+    'pvid': "%{hiera('netcfg_oob_vlan')}"
+    'mtu':  1500
+  'swp42':
+    'pvid': "%{hiera('netcfg_oob_vlan')}"
+    'mtu':  1500
+  'swp43':
+    'pvid': "%{hiera('netcfg_oob_vlan')}"
+    'mtu':  1500
+  'swp44':
+    'pvid': "%{hiera('netcfg_oob_vlan')}"
+    'mtu':  1500
+  'swp45':
+    'pvid': "%{hiera('netcfg_oob_vlan')}"
+    'mtu':  1500
+  'swp46':
+    'pvid': "%{hiera('netcfg_oob_vlan')}"
+    'mtu':  1500
+  'swp47': # downlink trunk
+    'mtu':    1500
+    'bridge_allow_untagged': false
+    'vids':   [ "%{hiera('netcfg_oob_vlan')}", "%{hiera('netcfg_ib_vlan')}", ]
+  'swp48': # uplink trunk
+    'mtu':    1500
+    'bridge_allow_untagged': false
+    'vids':   [ "%{hiera('netcfg_oob_vlan')}", "%{hiera('netcfg_ib_vlan')}", ]
