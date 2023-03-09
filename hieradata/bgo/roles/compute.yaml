@@ -35,6 +35,8 @@ chrony::servers:
 
 profile::base::network::network_auto_opts:
   mgmt:
+    'dns1':     "%{hiera('netcfg_dns_trp_server1')}"
+    'dns2':     "%{hiera('netcfg_dns_mgmt_server1')}"
     'defroute': 'no'
   trp:
     'defroute': 'no'
