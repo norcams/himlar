@@ -437,8 +437,6 @@ consul::config_hash:
 
 # Disable reboot through Horizon (for other than root) until DHCP is fixed upstream (calico)
 # Disable shelve functionality since it is broken (instances are not unshelved successfully)
-# Disable rebuild until we find why rebuild is possible only between
-#    some variants of imgages (libvirt error: cannot delete nvram)
 profile::openstack::dashboard::policies:
   horizon_disable_reboot:
     file_path:  '/etc/openstack-dashboard/nova_policy.json'
@@ -451,10 +449,6 @@ profile::openstack::dashboard::policies:
   horizon_disable_shelve_extention:
     file_path:  '/etc/openstack-dashboard/nova_policy.json'
     key:        'compute_extension:shelve'
-    value:      'role:admin'
-  horizon_disable_rebuild:
-    file_path:  '/etc/openstack-dashboard/nova_policy.json'
-    key:        'compute:rebuild'
     value:      'role:admin'
 
 # logrotate

@@ -193,8 +193,6 @@ nova::notification_topics:                        'notifications' # not used bef
 nova::notification_format:                        'unversioned'
 
 # Disable reboot through api until DHCP is fixed upstream (calico)
-# Disable rebuild until we find why rebuild is possible only between
-#    some variants of imgages (libvirt error: cannot delete nvram)
 nova::policy::policies:
   nova_disable_reboot:
     key:   'os_compute_api:servers:reboot'
@@ -208,6 +206,3 @@ nova::policy::policies:
   nova_create_zero_disk_flavor:
     key:   'os_compute_api:servers:create:zero_disk_flavor'
     value: 'role:imagebuilder'
-  nova_disable_rebuild:
-    key:   'os_compute_api:servers:rebuild'
-    value: 'role:admin'

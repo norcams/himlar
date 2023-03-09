@@ -105,10 +105,6 @@ profile::openstack::dashboard::policies:
     file_path:  '/etc/openstack-dashboard/nova_policy.json'
     key:        'os_compute_api:servers:resize'
     value:      'role:admin'
-  nova_disable_rebuild:
-    file_path:  '/etc/openstack-dashboard/nova_policy.json'
-    key:        'os_compute_api:servers:rebuild'
-    value:      'role:admin'
   nova_disable_suspend:
     file_path:  '/etc/openstack-dashboard/nova_policy.json'
     key:        'os_compute_api:os-suspend-server:suspend'
