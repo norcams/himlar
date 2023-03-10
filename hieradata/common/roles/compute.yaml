@@ -180,6 +180,12 @@ named_interfaces::config:
   live:
     - team1.120
 
+# compute hosts should have resolving alternatives in case mgmt is down etc
+profile::base::network::network_auto_opts:
+  mgmt:
+    'dns1':     "%{hiera('netcfg_dns_trp_server1')}"
+    'dns2':     "%{hiera('netcfg_dns_mgmt_server1')}"
+
 sudo::purge: false
 
 profile::base::lvm::physical_volume:
@@ -308,3 +314,4 @@ nova::config::nova_config:
 # Red Hat Subscription Management (RHSM)
 profile::rhsm::subscription::manage: true
 profile::rhsm::virtwho::manage:      true
+
