@@ -24,9 +24,9 @@ wsrep_node_address:     "%{::ipaddress_trp1}"
 
 # These should be set to valid options per location
 db_ssl_enable:    'true'
-db_ssl_key:       '/etc/mysql/server-key.pem'
-db_ssl_cert:      '/etc/mysql/server-cert.pem'
-db_ssl_ca:        '/etc/mysql/cacert.pem'
+db_ssl_key:       "/etc/pki/tls/private/%{::hostname}.%{::location}.uhdc.no.key.pem"
+db_ssl_cert:      "/etc/pki/tls/certs/%{::hostname}.%{::location}.uhdc.no.cert.pem"
+db_ssl_ca:        '/etc/pki/tls/certs/cachain.pem'
 
 mysql::server::override_options:
   client:
