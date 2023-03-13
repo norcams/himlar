@@ -23,6 +23,7 @@ wsrep_cluster_address:  'gcomm://'
 wsrep_node_address:     "%{::ipaddress_trp1}"
 
 # These should be set to valid options per location
+db_ssl_enable:    'true'
 db_ssl_key:       '/etc/mysql/server-key.pem'
 db_ssl_cert:      '/etc/mysql/server-cert.pem'
 db_ssl_ca:        '/etc/mysql/cacert.pem'
@@ -42,7 +43,7 @@ mysql::server::override_options:
     log-error:                      '/var/log/mysqld.log'
     pid-file:                       "/var/lib/mysql/%{::hostname}.pid"
     bind-address:                   "%{::ipaddress_trp1}"
-    ssl:                            'true'
+    ssl:                            "%{hiera('db_ssl_enable')}"
     ssl-ca:                         "%{hiera('db_ssl_ca')}"
     ssl-key:                        "%{hiera('db_ssl_key')}"
     ssl-cert:                       "%{hiera('db_ssl_cert')}"
