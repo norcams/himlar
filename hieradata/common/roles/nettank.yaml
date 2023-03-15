@@ -1,0 +1,44 @@
+---
+#include:
+#  default:
+
+profile::base::selinux::manage_selinux:   false
+
+named_interfaces::config:
+  mgmt:
+    - eth0
+
+# packages
+#profile::base::common::packages:
+#  'docker-ce':     {}
+#  'docker-compose':  {}
+
+
+
+# disks
+profile::base::lvm::physical_volume:
+  '/dev/vdb':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_docker':
+    physical_volumes:
+      - /dev/vdb
+profile::base::lvm::logical_volume:
+  'lv_docker':
+    volume_group: 'vg_docker'
+    fs_type:      "xfs"
+    mountpath:    "/var/lib/docker"
+    size:         '20G'
+
+
+
+# Enable extra yum repo
+#yum::repos:
+ # pgdg96:
+ #   descr:       ""
+ #   baseurl:    "
+ #   enabled:    1
+ #   gpgcheck:   1
+ #   gpgkey:     ''
+
