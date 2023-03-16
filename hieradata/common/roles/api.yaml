@@ -323,7 +323,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     server_names:       "%{alias('identity__backend__names')}"
     ipaddresses:        "%{alias('identity__backend__ips')}"
     ports:              '5000'
-    options:            'check maxconn 100'
+    options:            'check'
   network:
     listening_service:  'bk_network'
     server_names:       "%{alias('network__backend__names')}"
