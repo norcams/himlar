@@ -220,19 +220,19 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
       - errorfile:    '503 /etc/haproxy/error.api.http'
   bk_network:
     options:
-      - fullconn:     200
+      - fullconn:     1000
       - option:       'httplog'
       - errorfile:    '503 /etc/haproxy/error.api.http'
       - balance:      'roundrobin'
   bk_compute:
     options:
-      - fullconn:     200
+      - fullconn:     500
       - option:       'httplog'
       - errorfile:    '503 /etc/haproxy/error.api.http'
       #- balance:      'roundrobin'
   bk_placement:
     options:
-      - fullconn:     200
+      - fullconn:     500
       - option:       'httplog'
       - errorfile:    '503 /etc/haproxy/error.api.http'
       #- balance:      'roundrobin'
