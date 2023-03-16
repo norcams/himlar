@@ -2,6 +2,7 @@
 #include:
 #  default:
 
+profile::base::common::manage_lvm: true
 profile::base::selinux::manage_selinux:   false
 
 named_interfaces::config:
