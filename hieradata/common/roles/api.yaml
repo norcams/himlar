@@ -211,64 +211,79 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
   bk_www:
     mode:             'http'
     options:
+      - fullconn:     200
       - redirect:     "code 301 location https://www.%{hiera('domain_frontend')}"
   bk_identity:
     options:
+      - fullconn:     1000
       - option:       'httplog'
       - errorfile:    '503 /etc/haproxy/error.api.http'
   bk_network:
     options:
+      - fullconn:     200
       - option:       'httplog'
       - errorfile:    '503 /etc/haproxy/error.api.http'
       - balance:      'roundrobin'
   bk_compute:
     options:
+      - fullconn:     200
       - option:       'httplog'
       - errorfile:    '503 /etc/haproxy/error.api.http'
       #- balance:      'roundrobin'
   bk_placement:
     options:
+      - fullconn:     200
       - option:       'httplog'
       - errorfile:    '503 /etc/haproxy/error.api.http'
       #- balance:      'roundrobin'
   bk_volume:
     options:
+      - fullconn:     200
       - option:       'httplog'
       - errorfile:    '503 /etc/haproxy/error.api.http'
   bk_image:
     options:
+      - fullconn:     200
       - option:       'httplog'
       - errorfile:    '503 /etc/haproxy/error.api.http'
   bk_metric:
     options:
+      - fullconn:     500
       - option:       'httplog'
       - errorfile:    '503 /etc/haproxy/error.api.http'
   bk_dns:
     options:
+      - fullconn:     100
       - option:       'httplog'
       - errorfile:    '503 /etc/haproxy/error.api.http'
       - balance:      'roundrobin'
   bk_object:
     options:
+      - fullconn:     500
       - option:
         - 'httplog'
       - errorfile:    '503 /etc/haproxy/error.api.http'
   bk_status:
     options:
+      - fullconn:     200
       - option:       'httplog'
   bk_console:
     options:
+      - fullconn:     200
       - option:       'httplog'
       - errorfile:    '503 /etc/haproxy/error.api.http'
   bk_access:
     options:
+      - fullconn:     200
       - option:       'httplog'
   bk_report:
     options:
+      - fullconn:     200
       - option:       'httplog'
   bk_request:
     options:
-      redirect:         'location https://skjema.uio.no/iaas-project'
+      - fullconn:     200
+      - redirect:         'location https://skjema.uio.no/iaas-project'
   bk_maintenance:
     options:
       - option:       'httplog'
@@ -308,7 +323,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     server_names:       "%{alias('identity__backend__names')}"
     ipaddresses:        "%{alias('identity__backend__ips')}"
     ports:              '5000'
-    options:            'check'
+    options:            'check maxconn 100'
   network:
     listening_service:  'bk_network'
     server_names:       "%{alias('network__backend__names')}"
