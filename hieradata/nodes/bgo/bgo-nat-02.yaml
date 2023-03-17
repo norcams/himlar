@@ -5,8 +5,8 @@ network::interfaces_hash:
     netmask:   "%{hiera('netcfg_mgmt_netmask')}"
     mtu:       '1500'
     peerdns:   'yes'
-    dns1:      "%{hiera('netcfg_dns_server2')}"
-    dns2:      "%{hiera('netcfg_dns_server1')}"
+    dns1:      "%{hiera('netcfg_dns_mgmt_server2')}"
+    dns2:      "%{hiera('netcfg_dns_mgmt_server1')}"
     domain:    "%{hiera('netcfg_dns_search')}"
     defroute:  'no'
   'eth1':
