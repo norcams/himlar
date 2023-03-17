@@ -22,8 +22,8 @@ network::interfaces_hash:
     ipv6addr:     '2001:700:100:8041::146/64'
     ipv6_defaultgw: '2001:700:100:8041::1'
     defroute:     'yes'
-    dns1:         "%{hiera('netcfg_dns_server1')}"
-    dns2:         "%{hiera('netcfg_dns_server2')}"
+    dns1:         "%{hiera('netcfg_dns_mgmt_server1)}"
+    dns2:         "%{hiera('netcfg_dns_mgmt_server2)}"
     domain:       'test.iaas.uio.no'
   'br0':
     ipaddress:    "%{hiera('netcfg_mgmt_netpart')}.99"
@@ -34,8 +34,8 @@ network::interfaces_hash:
     type:         'Bridge'
 #    peerdns:      'yes'
     peerdns:      'no'
-    dns1:         "%{hiera('netcfg_dns_server1')}"
-    dns2:         "%{hiera('netcfg_dns_server2')}"
+    dns1:         "%{hiera('netcfg_dns_mgmt_server1)}"
+    dns2:         "%{hiera('netcfg_dns_mgmt_server2)}"
     domain:       "%{hiera('domain_mgmt')}"
   'br1':
     onboot:       'yes'

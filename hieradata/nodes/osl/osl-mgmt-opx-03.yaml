@@ -5,7 +5,7 @@ network::interfaces_hash:
     ipaddress:     "%{hiera('netcfg_mgmt_net_c2')}.3"
     netmask:       "%{hiera('netcfg_mgmt_netmask')}"
     gateway:       "%{hiera('netcfg_mgmt_gateway')}"
-    dns1:          "%{hiera('netcfg_dns_server1')}"
+    dns1:          "%{hiera('netcfg_dns_mgmt_server1)}"
   'br3378':
     onboot:        'yes'
     type:          'Bridge'

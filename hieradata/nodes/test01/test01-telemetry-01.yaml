@@ -6,8 +6,8 @@ network::interfaces_hash:
     gateway:   "%{hiera('netcfg_mgmt_gateway')}"
     mtu:       '1500'
     peerdns:   'yes'
-    dns1:      "%{hiera('netcfg_dns_server1')}"
-    dns2:      "%{hiera('netcfg_dns_server2')}"
+    dns1:      "%{hiera('netcfg_dns_mgmt_server1)}"
+    dns2:      "%{hiera('netcfg_dns_mgmt_server2)}"
     defroute:  'yes'
   'eth1':
     ipaddress: "%{hiera('netcfg_trp_netpart')}.76"

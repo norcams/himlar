@@ -10,8 +10,8 @@ network::interfaces_hash:
     ipaddress: "%{hiera('netcfg_mgmt_netpart')}.81"
     netmask:   "%{hiera('netcfg_mgmt_netmask')}"
     mtu:       '1500'
-    dns1:      "%{hiera('netcfg_dns_server1')}"
-    dns2:      "%{hiera('netcfg_dns_server2')}"
+    dns1:      "%{hiera('netcfg_dns_mgmt_server1)}"
+    dns2:      "%{hiera('netcfg_dns_mgmt_server2)}"
     defroute:  'no'
   'eth1':
     ipaddress: "%{hiera('netcfg_trp_netpart')}.81"
