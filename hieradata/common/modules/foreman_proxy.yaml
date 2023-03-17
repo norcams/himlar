@@ -11,7 +11,7 @@ foreman_proxy::dhcp:                 true
 foreman_proxy::dhcp_interface:       "%{::interface_mgmt1}"
 foreman_proxy::dhcp_managed:         true
 foreman_proxy::dhcp_range:           "%{hiera('netcfg_mgmt_netpart')}.200 %{hiera('netcfg_mgmt_netpart')}.250"
-foreman_proxy::dhcp_nameservers:     "%{hiera('netcfg_dns_server1')}, %{hiera('netcfg_dns_server2')}"
+foreman_proxy::dhcp_nameservers:     "%{hiera('netcfg_dns_mgmt_server1)}, %{hiera('netcfg_dns_mgmt_server2)}"
 foreman_proxy::dhcp_gateway:         "%{hiera('netcfg_mgmt_netpart')}.10"
 foreman_proxy::dns:                  false
 foreman_proxy::dns_forwarders:       ['8.8.8.8']

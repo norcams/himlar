@@ -9,5 +9,5 @@ foreman_proxy::keyfile:          '/etc/rndc.key'
 
 foreman_proxy::dhcp_range:       "%{hiera('netcfg_mgmt_netpart')}.200 %{hiera('netcfg_mgmt_netpart')}.250"
 foreman_proxy::dhcp_gateway:     "%{hiera('netcfg_mgmt_netpart')}.10"
-foreman_proxy::dhcp_nameservers: "%{hiera('netcfg_dns_server1')}"
+foreman_proxy::dhcp_nameservers: "%{hiera('netcfg_dns_mgmt_server1)}"
 foreman_proxy::dhcp_interface:   'eth0'

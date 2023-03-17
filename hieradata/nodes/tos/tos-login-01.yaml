@@ -7,7 +7,7 @@ network::interfaces_hash:
     defroute:      'yes'
     onboot:        'yes'
     dns1:          '129.242.9.253'
-#    dns2:          "%{hiera('netcfg_dns_server2')}"
+#    dns2:          "%{hiera('netcfg_dns_mgmt_server2')}"
 #    domain:        "%{hiera('netcfg_dns_search')} mgmt.tos.uhdc.no"
 #    peerdns:       'yes'
   'eno33559296':
