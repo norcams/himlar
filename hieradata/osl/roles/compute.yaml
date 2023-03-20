@@ -68,7 +68,6 @@ profile::monitoring::sensu::agent::checks:
     command:      '/usr/local/bin/redfish_check.sh'
     interval:     1800
     subscribers:  ['checks']
-profile::monitoring::sensu::agent::checks:
   'dhcp-agent-check':
     command:      '/usr/local/bin/calico_dhcp_agent_check.sh'
     interval:     600
