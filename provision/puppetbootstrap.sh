@@ -67,7 +67,7 @@ bootstrap_puppet()
     dnf install -y epel-release # to get gpgkey for epel
     el8_repos
     dnf -y upgrade
-    dnf install -y puppet-agent git-core vim
+    dnf install -y puppet-agent git-core vim network-scripts
 
     /opt/puppetlabs/puppet/bin/gem install -N puppet_forge -v 3.2.0
     /opt/puppetlabs/puppet/bin/gem install -N r10k
