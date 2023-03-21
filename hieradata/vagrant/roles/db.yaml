@@ -1,20 +1,15 @@
 ---
-#include:
-#  default:
-#    - profile::monitoring::netdata
+include:
+  bootstrap:
+    - profile::application::openssl
 
-#profile::monitoring::netdata::manage_firewall:  true
-
-# Netdata access
-#profile::database::mariadb::users:
-#  'netdata@localhost':
-#    ensure: present
-
-#profile::database::mariadb::grants:
-#  'netdata@localhost/*.*':
-#    privileges: ['USAGE']
-#    table:      '*.*'
-#    user:       'netdata@localhost'
+profile::application::openssl::manage_ca_cert:  true
+profile::application::openssl::certs:
+  "%{::hostname}.%{hiera('domain_trp')}":
+    cn:     "%{::hostname}.%{hiera('domain_trp')}"
+    altnames:
+      - "%{::hostname}.%{hiera('domain_trp')}"
+      - "%{::fqdn}"
 
 # FIXME:sensu-go
 profile::monitoring::sensu::agent::checks:              {}
