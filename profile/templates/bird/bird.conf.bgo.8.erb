@@ -137,8 +137,8 @@ protocol kernel {
 protocol kernel {
   ipv4 {
     table uib4;
-    export all;
-    import filter import_kernel;
+    export none;
+    import none;
   };
   kernel table ipt_uib;
   graceful restart;
