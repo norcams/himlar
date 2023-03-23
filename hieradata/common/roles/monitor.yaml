@@ -141,7 +141,7 @@ profile::monitoring::sensu::agent::plugins:
     pkg_version:  '3.0.1'
   sensu-plugins-slack:
     type:         package
-    pkg_version:  '3.1.1'
+    pkg_version:  '4.1.0'
   sensu-plugins-rabbitmq:
     type:         package
     pkg_version:  '4.1.1'
@@ -270,7 +270,7 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
-    includepkgs: 'collectd* htop bash-completion-extras statsd python2-pip nagios-plugins-openmanage nagios-common perl-Config-Tiny perl-Crypt-DES perl-Digest* libuv nodejs* perl-Net-SNMP npm python-sqlite3dbm python-tzlocal python-cairocffi openssl* brotli* python2-backports-functools_lru_cache'
+    includepkgs: 'collectd* htop bash-completion-extras statsd python2-pip nagios-plugins-openmanage nagios-common perl-Config-Tiny perl-Crypt-DES perl-Digest* libuv nodejs* perl-Net-SNMP npm python-sqlite3dbm python-tzlocal python-cairocffi openssl* brotli* libbrotli* python2-backports-functools_lru_cache'
   postgres-10: # we need postgresql libs
     ensure: present
 
