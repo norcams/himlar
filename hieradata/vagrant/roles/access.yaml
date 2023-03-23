@@ -5,10 +5,10 @@ include:
 
 profile::application::openssl::manage_ca_cert:  true
 profile::application::openssl::certs:
-  "access.%{hiera('domain_public')}":
-    cn:     "access.%{hiera('domain_public')}"
+  "access.%{hiera('domain_frontend')}":
+    cn:     "access.%{hiera('domain_frontend')}"
     altnames:
-      - "access.%{hiera('domain_public')}"
+      - "access.%{hiera('domain_frontend')}"
 
 # Very verbose logging in vagrant
 apache::log_level:                              trace4

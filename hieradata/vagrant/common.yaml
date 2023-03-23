@@ -14,7 +14,7 @@ location_environment: vagrant
 location_description: Local full development environment using vagrant
 
 domain_frontend:        'iaas.intern'
-domain_public:          'iaas.intern'
+domain_public:          'vagrant.iaas.intern'
 domain_trp:             'trp.vagrant.iaas.intern'
 domain_mgmt:            'mgmt.vagrant.iaas.intern'
 domain_oob:             'oob.vagrant.iaas.intern'
@@ -164,35 +164,34 @@ profile::dns::ns::public_zone2:  "iaas2.intern"
 profile::network::services::dns_records:
   A:
     "access.%{hiera('domain_frontend')}":                 "%{hiera('netcfg_public_netpart')}.250"
+    "api.%{hiera('domain_frontend')}":                    "%{hiera('netcfg_public_netpart')}.250"
+    "status.%{hiera('domain_frontend')}":                 "%{hiera('netcfg_public_netpart')}.250"
+    "report.%{hiera('domain_frontend')}":                 "%{hiera('netcfg_public_netpart')}.250"
+    "ns.%{hiera('domain_frontend')}":                     "%{hiera('netcfg_public_netpart')}.251"
+    "resolver.%{hiera('domain_frontend')}":               "%{hiera('netcfg_public_netpart')}.252"
+    "dashboard.%{hiera('domain_frontend')}":              "%{hiera('netcfg_public_netpart')}.254"
     "console.%{hiera('domain_public')}":                  "%{hiera('netcfg_public_netpart')}.250"
-    "api.%{hiera('domain_public')}":                      "%{hiera('netcfg_public_netpart')}.250"
     "identity.api.%{hiera('domain_public')}":             "%{hiera('netcfg_public_netpart')}.250"
     "image.api.%{hiera('domain_public')}":                "%{hiera('netcfg_public_netpart')}.250"
     "network.api.%{hiera('domain_public')}":              "%{hiera('netcfg_public_netpart')}.250"
     "compute.api.%{hiera('domain_public')}":              "%{hiera('netcfg_public_netpart')}.250"
     "placement.api.%{hiera('domain_public')}":            "%{hiera('netcfg_public_netpart')}.250"
     "volume.api.%{hiera('domain_public')}":               "%{hiera('netcfg_public_netpart')}.250"
-    "status.%{hiera('domain_frontend')}":                 "%{hiera('netcfg_public_netpart')}.250"
     "metric.api.%{hiera('domain_public')}":               "%{hiera('netcfg_public_netpart')}.250"
     "object.api.%{hiera('domain_public')}":               "%{hiera('netcfg_public_netpart')}.250"
     "dns.api.%{hiera('domain_public')}":                  "%{hiera('netcfg_public_netpart')}.250"
-    "report.%{hiera('domain_frontend')}":                 "%{hiera('netcfg_public_netpart')}.250"
-    "ns.%{hiera('domain_public')}":                       "%{hiera('netcfg_public_netpart')}.251"
-    "resolver.%{hiera('domain_public')}":                 "%{hiera('netcfg_public_netpart')}.252"
-    "dashboard.%{hiera('domain_frontend')}":              "%{hiera('netcfg_public_netpart')}.254"
-
   AAAA:
-    "ns.%{hiera('domain_public')}":                       "%{hiera('netcfg_public_netpart6')}::251"
-    "resolver.%{hiera('domain_public')}":                 "%{hiera('netcfg_public_netpart6')}::252"
+    "ns.%{hiera('domain_frontend')}":                     "%{hiera('netcfg_public_netpart6')}::251"
+    "resolver.%{hiera('domain_frontend')}":               "%{hiera('netcfg_public_netpart6')}::252"
   PTR:
     # public IPv4
-    "250.%{hiera('reverse_public')}":   "api.%{hiera('domain_public')}"
-    "251.%{hiera('reverse_public')}":   "ns.%{hiera('domain_public')}"
-    "252.%{hiera('reverse_public')}":   "resolver.%{hiera('domain_public')}"
+    "250.%{hiera('reverse_public')}":   "api.%{hiera('domain_frontend')}"
+    "251.%{hiera('reverse_public')}":   "ns.%{hiera('domain_frontend')}"
+    "252.%{hiera('reverse_public')}":   "resolver.%{hiera('domain_frontend')}"
     "254.%{hiera('reverse_public')}":   "dashboard.%{hiera('domain_frontend')}"
     # public IPv6
-    "1.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.%{hiera('reverse_public6')}":  "ns.%{hiera('domain_public')}"
-    "2.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.%{hiera('reverse_public6')}":  "resolver.%{hiera('domain_public')}"
+    "1.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.%{hiera('reverse_public6')}":  "ns.%{hiera('domain_frontend')}"
+    "2.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.%{hiera('reverse_public6')}":  "resolver.%{hiera('domain_frontend')}"
   CNAME: {} # needed for autoconfig of network
 
 #

@@ -6,10 +6,10 @@ include:
 
 profile::application::openssl::manage_ca_cert:  true
 profile::application::openssl::certs:
-  "dashboard.%{hiera('domain_public')}":
-    cn:     "dashboard.%{hiera('domain_public')}"
+  "dashboard.%{hiera('domain_frontend')}":
+    cn:     "dashboard.%{hiera('domain_frontend')}"
     altnames:
-      - "dashboard.%{hiera('domain_public')}"
+      - "dashboard.%{hiera('domain_frontend')}"
 
 apache::log_level:                              warn
 

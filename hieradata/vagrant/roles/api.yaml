@@ -13,31 +13,23 @@ object__backend__ips:      ["%{hiera('netcfg_trp_netpart')}.84"]
 #profile::highavailability::loadbalancing::haproxy::enable_remote_logging: true
 #profile::logging::rsyslog::client::manage_rsyslog:                        false
 
+frontend_star_ssl_pem:    "star.%{hiera('domain_frontend')}.pem"
+frontend_star_ssl_pem2:   "star.%{hiera('domain_frontend2')}.pem"
+
 profile::application::openssl::certs:
+  "star.%{hiera('domain_frontend')}":
+    cn:     "*.%{hiera('domain_frontend')}"
+    altnames:
+      - "status.%{hiera('domain_frontend')}"
+      - "access.%{hiera('domain_frontend')}"
+      - "report.%{hiera('domain_frontend')}"
+      - "api.%{hiera('domain_frontend')}"
+    concat: true
   "star.api.%{hiera('domain_public')}":
     cn:     "*.api.%{hiera('domain_public')}"
     altnames:
       - "*.api.%{hiera('domain_public')}"
     concat: true
-  # "status.%{hiera('domain_public')}":
-  #   cn:     "*.%{hiera('domain_public')}"
-  #   altnames:
-  #     - "status.%{hiera('domain_public')}"
-  #     - "access.%{hiera('domain_public')}"
-  #     - "report.%{hiera('domain_public')}"
-  "star.%{hiera('domain_public')}":
-    cn:     "*.%{hiera('domain_public')}"
-    altnames:
-      - "status.%{hiera('domain_public')}"
-      - "access.%{hiera('domain_public')}"
-      - "report.%{hiera('domain_public')}"
-      - "api.%{hiera('domain_public')}"
-    concat: true
-  # "api.%{hiera('domain_public')}":
-  #   cn:     "api.%{hiera('domain_public')}"
-  #   altnames:
-  #     - "api.%{hiera('domain_public')}"
-  #   concat: true
   "console.%{hiera('domain_public')}":
     cn:     "console.%{hiera('domain_public')}"
     concat: true
