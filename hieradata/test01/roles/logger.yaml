@@ -1,2 +1,12 @@
 ---
+# FIXME: BELOW moves to common when all logger nodes on EL8
+include:
+  default:
+    - profile::logging::elk
+
+profile::logging::elk::manage_elk:            false     # Initially skip ELK installation and setup
+profile::logging::elk::manage_elasticksearch: true      # Moot until above is true
+profile::logging::elk::manage_logstash:       true      # Moot until above is true
+profile::logging::elk::manage_kibana:         true      # Moot until above is true
+# FIXME: ABOVE moves to common when all logger nodes on EL8
 profile::base::common::manage_lvm: true
