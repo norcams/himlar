@@ -7,3 +7,11 @@ calico::compute::peer_defaults:
   local_as: "%{hiera('bgp_as')}"
   local_ipv4: "%{ipaddress_trp1}"
   local_ipv6: "%{ipaddress6_trp1}"
+
+calico::compute::peers:
+  rr1:
+    peer_ipv4:  '172.18.32.1'
+    peer_ipv6:  'fd32::1'
+  rr2:
+    peer_ipv4:  '172.18.32.2'
+    peer_ipv6:  'fd32::2'
