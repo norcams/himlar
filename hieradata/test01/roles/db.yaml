@@ -1,3 +1,20 @@
 ---
 # FIXME:sensu-go
-profile::monitoring::sensu::agent::checks:              {}
+
+# Plugins not avaiable as assets for el8
+sensu::plugins::plugins:
+  sensu-plugins-mysql:
+    version: 3.2.0
+
+sensu::agent::subscriptions:
+  - 'base'
+  - 'nodes'
+  - 'metrics'
+
+profile::monitoring::sensu::agent::checks:
+  check-mysql-alive:
+    command:                "check-mysql-alive.rb -h localhost -s /var/lib/mysql/mysql.sock"
+    interval:               60
+    subscriptions:          ['entity:%{::hostname}']
+    handlers:               ['default']
+    provider:               'sensu_api'
