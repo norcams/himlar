@@ -33,47 +33,6 @@ profile::webserver::apache::mods_enable:
 profile::application::report::package_url:  "https://download.iaas.uio.no/nrec/nrec-internal/%{hiera('repo_dist')}/report-app-2.0.0-1.el8.x86_64.rpm"
 profile::application::report::database_uri: "mysql+pymysql://report:%{hiera('report_db_password')}@%{hiera('service__address__db_global')}/report"
 profile::application::report::debug:        true
-profile::application::report::report_utils:
-  'el':
-    scripts:
-      report6: ['el/shebang', 'common/imports.py', 'el/imports.py', 'common/common_functions.py', 'el/check_updates.py', 'common/payload.py', 'el/updates_payload.py', 'common/request.py' ]
-      report8: ['el/shebang_8', 'common/imports.py', 'fedora/imports.py', 'common/common_functions.py', 'fedora/check_updates.py', 'common/payload.py', 'fedora/updates_payload.py', 'common/request.py' ]
-    versions:
-      7: 'report6'
-      8: 'report8'
-      9: 'report8'
-  'fedora':
-    scripts:
-      report30: ['fedora/shebang', 'common/imports.py', 'fedora/imports.py', 'common/common_functions.py', 'fedora/check_updates.py', 'common/payload.py', 'fedora/updates_payload.py', 'common/request.py' ]
-    versions:
-      30: 'report30'
-      31: 'report30'
-      32: 'report30'
-      34: 'report30'
-      35: 'report30'
-      36: 'report30'
-  'ubuntu':
-    scripts:
-      report17: ['ubuntu/shebang', 'common/imports.py', 'ubuntu/imports.py', 'common/common_functions.py', 'ubuntu/check_updates_functions.py', 'common/payload.py', 'ubuntu/updates_payload.py', 'common/request.py' ]
-    versions:
-      17: 'report17'
-      18: 'report17'
-      19: 'report17'
-      20: 'report17'
-      21: 'report17'
-  'debian':
-    scripts:
-      report9: ['debian/shebang', 'common/imports.py', 'debian/imports.py', 'common/common_functions.py', 'debian/check_updates_functions.py', 'common/payload.py', 'debian/updates_payload.py', 'common/request.py' ]
-    versions:
-      9:  'report9'
-      10: 'report9'
-      11: 'report9'
-  'windows':
-    scripts:
-      report2016: ['windows/full_script' ]
-    versions:
-      Microsoft_Windows_Server_2016_Standard: 'report2016'
-      Microsoft_Windows_Server_2019_Standard: 'report2016'
 
 profile::webserver::apache::vhosts:
   report-app:
