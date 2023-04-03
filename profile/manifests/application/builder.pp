@@ -11,7 +11,7 @@ class profile::application::builder (
   $insecure = false,
   $ipv6 = false,
   $custom_scriptdir = "/home/${user}/custom_scripts",
-  $resolver_address = hiera('netcfg_anycast_dns', '1.1.1.1')
+  $resolver_address = hiera('netcfg_anycast_dns', '1.1.1.1'),
 ) {
 
 
@@ -86,4 +86,15 @@ class profile::application::builder (
 
   create_resources('profile::application::builder::jobs', lookup('profile::application::builder::images', Hash, 'deep', {}))
   create_resources('profile::application::builder::template', lookup('profile::application::builder::templates', Hash, 'deep', {}))
+
+  # report custom script
+  $report = lookup('public__address__report', String, 'first')
+  file { "${custom_scriptdir}/report.sh":
+    ensure  => present,
+    owner   => $user,
+    group   => $group,
+    mode    => '0755',
+    content => template("${module_name}/application/builder/report.sh.erb")
+  }
+
 }

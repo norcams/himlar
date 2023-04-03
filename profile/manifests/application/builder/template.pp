@@ -1,9 +1,10 @@
 define profile::application::builder::template(
-    $ensure         = present,
-    $template_dir   = $profile::application::builder::template_dir,
-    $insecure       = $profile::application::builder::insecure,
-    $ipv6           = $profile::application::builder::ipv6,
-    $custom_scripts = [],
+    $ensure           = present,
+    $template_dir     = $profile::application::builder::template_dir,
+    $insecure         = $profile::application::builder::insecure,
+    $ipv6             = $profile::application::builder::ipv6,
+    $custom_scriptdir = $profile::application::builder::custom_scriptdir,
+    $custom_scripts   = [],
 ) {
 
   file { "${template_dir}/${name}":
