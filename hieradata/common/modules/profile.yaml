@@ -362,7 +362,7 @@ profile::base::yumrepo::repo_hash:
     ensure:         absent
     descr:          'InfluxDB Repository'
     baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/influxdb"
-    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/influxdb/influxdb.key"
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/influxdb/influxdata-archive_compat.key"
     enabled:        1
     gpgcheck:       1
   postgres-10:
