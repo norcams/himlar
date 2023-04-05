@@ -2,7 +2,20 @@
 profile::base::selinux::manage_selinux:         false
 
 # FIXME:sensu-go
-profile::monitoring::sensu::agent::checks:              {}
+sensu::agent::subscriptions:
+  - 'base'
+  - 'nodes'
+  - 'metrics'
+
+profile::monitoring::sensu::agent::checks:
+  ceph-check:
+    command:                "ceph-health.sh"
+    interval:               60
+    subscriptions:          ['entity:%{::hostname}']
+    handlers:               ['default']
+    round_robin:            true
+    runtime_assets:
+    - thorko/sensu-check-ceph
 
 # FIXME:ceph-metric
 include:
