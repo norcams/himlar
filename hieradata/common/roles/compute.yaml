@@ -38,6 +38,8 @@ profile::base::selinux::exec_restorecon:
 profile::base::selinux::semodules:
   virtlogd-nova:
     avc_file:   'virtlogd_nova.avc'
+  collectd-compute:
+    avc_file:   'collectd_compute.avc'
 
 # Manage default availability zone
 profile::openstack::compute::manage_az:            true
