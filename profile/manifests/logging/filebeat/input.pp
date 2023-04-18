@@ -19,7 +19,7 @@ define profile::logging::filebeat::input(
 
   file { "${name}":
     ensure  => present,
-    path    => "/etc/filebeat/${input_dir}/10-${name}",
+    path    => "/etc/filebeat/${input_dir}/10-${name}.yml",
     owner   => 'root',
     group   => 'root',
     mode    => '644',
