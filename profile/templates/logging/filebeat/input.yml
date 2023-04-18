@@ -1,0 +1,14 @@
+-
+ paths:
+    - <%= @log %>
+
+ fields:
+    logowner: <%= @logowner %>
+    application: <%= @application %>
+    input_type: log
+    log_type: <%= @log_type %>
+    data_processor: <%= @data_processor %>
+    tags: <%= @tags %>
+
+ fields_under_root: true
+
