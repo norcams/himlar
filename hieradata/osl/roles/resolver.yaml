@@ -1,4 +1,8 @@
 ---
+include:
+  default:
+    - profile::logging::filebeat
+
 # Temporary: Forward everything to UiO resolvers
 #profile::dns::ns::forward_everything: true
 #profile::dns::ns::forwarders:
