@@ -175,6 +175,17 @@ profile::application::builder::images:
     'username':         'fedora'
     'hour':             6
     'minute':           10
+  'fedora_38':
+    'image_name':       'IMAGEBUILDER Fedora 38'
+    'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/38/Cloud/x86_64/images/'
+    'latest':           'Fedora-Cloud-Base-38-1.6.x86_64.qcow2'
+    'checksum_file':    'Fedora-Cloud-38-1.6-x86_64-CHECKSUM'
+    'checksum':         'sha256'
+    'min_ram':          1024
+    'min_disk':         3
+    'username':         'fedora'
+    'hour':             6
+    'minute':           20
   'rockylinux8':
     'image_name':       'IMAGEBUILDER RockyLinux 8'
     'url':              'https://dl.rockylinux.org/pub/rocky/8/images/x86_64/'
