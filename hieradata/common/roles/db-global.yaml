@@ -50,6 +50,11 @@ profile::database::mariadb::dbs:
     host:     "%{hiera('netcfg_trp_netpart')}.%"
     password: "%{hiera('report_db_password')}"
     grant:    ['ALL']
+  clistate: # used to store himlarcli state
+    user:     'clistate'
+    host:     "%{hiera('netcfg_trp_netpart')}.%"
+    password: "%{hiera('clistate_db_password')}"
+    grant:    ['ALL']
 
 # database for token rotation distribution
 profile::database::mariadb::databases:

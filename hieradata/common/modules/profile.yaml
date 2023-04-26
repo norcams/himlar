@@ -77,7 +77,8 @@ profile::application::himlarcli::foreman_url:            "https://%{::location}-
 profile::application::himlarcli::foreman_user:           'admin'
 profile::application::himlarcli::foreman_password:       "%{hiera('foreman::admin_password')}"
 profile::application::himlarcli::statsd_server:          "%{hiera('mgmt__address__monitor')}"
-profile::application::himlarcli::database_uri:           "mysql+pymysql://report:%{hiera('report_db_password')}@%{hiera('service__address__db_global')}/report"
+profile::application::himlarcli::report_db_uri:          "mysql+pymysql://report:%{hiera('report_db_password')}@%{hiera('service__address__db_global')}/report"
+profile::application::himlarcli::clistate_db_uri:        "mysql+pymysql://clistate:%{hiera('clistate_db_password')}@%{hiera('service__address__db_global')}/clistate"
 profile::application::himlarcli::db_host_nova:           "%{hiera('service__address__db_regional')}"
 profile::application::himlarcli::db_password_nova:       "%{hiera('nova::db::mysql_api::password')}"
 profile::application::himlarcli::mq_host:                "%{hiera('service__address__rabbitmq_01')}"
