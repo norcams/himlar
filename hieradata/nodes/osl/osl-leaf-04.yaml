@@ -41,7 +41,8 @@ profile::base::network::cumulus_bridges:
 
 profile::base::network::cumulus_bonds:
   'peerlink':
-    'slaves': [ 'swp49', 'swp50', ]
+    #'slaves': [ 'swp49', 'swp50', ]
+    'slaves': [ 'swp48', ]
   'uplink':
     'slaves': [ 'swp51', 'swp52', ]
     'clag_id': '100'
