@@ -66,6 +66,13 @@ profile::base::network::cumulus_bridges:
       - host32
       - host33
       - host34
+      - host35
+      - host36
+      - host37
+      - host38
+      - host39
+      - host40
+      - host41
       - host42
       - host44
       - swp50
@@ -259,6 +266,48 @@ profile::base::network::cumulus_bonds:
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
+  'host35':
+    'slaves': [ 'swp35', ]
+    'clag_id': '35'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host36':
+    'slaves': [ 'swp36', ]
+    'clag_id': '36'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host37':
+    'slaves': [ 'swp37', ]
+    'clag_id': '37'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host38':
+    'slaves': [ 'swp38', ]
+    'clag_id': '38'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host39':
+    'slaves': [ 'swp39', ]
+    'clag_id': '39'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host40':
+    'slaves': [ 'swp40', ]
+    'clag_id': '40'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host41':
+    'slaves': [ 'swp41', ]
+    'clag_id': '41'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
   'host42':
     'slaves': [ 'swp42', ]
     'clag_id': '42'
@@ -334,6 +383,20 @@ frrouting::frrouting::zebra_interfaces:
   'host33':
     - 'link-detect'
   'host34':
+    - 'link-detect'
+  'host35':
+    - 'link-detect'
+  'host36':
+    - 'link-detect'
+  'host37':
+    - 'link-detect'
+  'host38':
+    - 'link-detect'
+  'host39':
+    - 'link-detect'
+  'host40':
+    - 'link-detect'
+  'host41':
     - 'link-detect'
   'host42':
     - 'link-detect'
