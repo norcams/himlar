@@ -125,3 +125,12 @@ profile::base::common::packages:
 sensu::agent::service_env_vars:
   PATH: '/usr/local/bin:/bin:/usr/bin:/opt/puppetlabs/bin:/opt/sensu-plugins-ruby/embedded/bin'
   HTTPS_PROXY: "%{hiera('mgmt__address__proxy')}:8888"
+
+nova::config::nova_config:
+  DEFAULT/metadata_workers:
+    value: '4'
+  libvirt/remote_filesystem_transport:
+    value: 'rsync'
+  libvirt/cpu_models:
+    value: 'Cascadelake-Server-noTSX'
+
