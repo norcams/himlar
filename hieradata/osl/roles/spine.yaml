@@ -577,7 +577,22 @@ profile::base::network::cumulus_bonds:
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', ]
     'mtu': '9216'
-# unused: host47, host48
+  'host47':
+    'slaves': [ 'swp12s2', ]
+    'clag_id': '47'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
+  'host48':
+    'slaves': [ 'swp12s3', ]
+    'clag_id': '48'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', ]
+    'mtu': '9216'
   'host49':
     'slaves': [ 'swp13s0', ]
     'clag_id': '49'
@@ -692,6 +707,8 @@ profile::base::network::cumulus_bridges:
       - host44
       - host45
       - host46
+      - host47
+      - host48
       - host49
       - host50
       - host51
@@ -806,6 +823,10 @@ frrouting::frrouting::zebra_interfaces:
   'host45':
     - 'link-detect'
   'host46':
+    - 'link-detect'
+  'host47':
+    - 'link-detect'
+  'host48':
     - 'link-detect'
   'host49':
     - 'link-detect'
