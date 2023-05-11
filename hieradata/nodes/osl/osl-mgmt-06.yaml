@@ -13,7 +13,7 @@ network::interfaces_hash:
 puppet::agent_additional_settings:
   'disable_warnings':       'deprecations'
   'stringify_facts':        'false'
-  'certificate_revocation': 'false'
+  'certificate_revocation': 'leaf'
   
 profile::base::network::cumulus_bridges:
   'bridge':
