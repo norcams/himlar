@@ -266,6 +266,7 @@ profile::network::services::dns_records:
     "%{::location}-login-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_netpart')}.10"
     "repo.%{hiera('domain_oob')}":                    "%{hiera('netcfg_oob_netpart')}.9"
     # FIXME: override common/common.yaml
+    "%{::location}-mgmt-03.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.3"
     "%{::location}-mgmt-05.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.5"
     "%{::location}-mgmt-06.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.6"
     "%{::location}-mgmt-07.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.7"
