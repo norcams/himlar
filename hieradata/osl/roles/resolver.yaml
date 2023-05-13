@@ -110,7 +110,7 @@ profile::dns::ns::allowed_nets:
 # Use UiO provided RPZ policy
 #profile::dns::ns::enable_rpz: true
 
-profile::dns::ns::slave_zones:
+profile::dns::ns::fw_slave_zones:
   rpz:
     zone: 'rpz.nrec.no'
     filename: 'sz/rpz.nrec.no'
