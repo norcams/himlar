@@ -27,7 +27,8 @@ class profile::dns::ns (
   $ns_master_ip_addresses = {},
   $ns_slave_ip_addresses = {},
   $hostmaster = {},
-  $ns_master = {}
+  $ns_master = {},
+  $enable_rpz = false,
   )
 {
 

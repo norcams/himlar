@@ -67,6 +67,9 @@ options  {
     recursion yes;
     allow-recursion { 127.0.0.1; ::1; allowed_nets; };
     allow-new-zones no;
+<% if @enable_rpz -%>
+    response-policy { zone "rpz.nrec.no"; } ;
+<% end -%>
 <% end -%>
     directory "/var/named";
     dump-file "/var/named/data/named_dump.db";

@@ -100,3 +100,14 @@ profile::dns::ns::allowed_nets:
   - '2001:700:2:8200::/56;  # osl IPv6'
   - '2001:948:62:3::/64;    # lhc IPv6'
   - '2001:948:62:4::/64;    # bgo lhc1 IPv6'
+
+# Use UiO provided RPZ policy
+#profile::dns::ns::enable_rpz: true
+
+profile::dns::ns::slave_zones:
+  rpz:
+    zone: 'rpz.nrec.no'
+    filename: 'sz/rpz.nrec.no'
+    ns_master_ip_addresses:
+      - 129.240.2.83
+

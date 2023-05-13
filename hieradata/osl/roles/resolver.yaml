@@ -106,3 +106,14 @@ profile::dns::ns::allowed_nets:
   - '10.0.0.0/8;            # rfc1918 for ipv6 only instances'
   - '2001:700:2:8300::/56;  # bgo IPv6'
   - '2001:700:2:8200::/56;  # osl IPv6'
+
+# Use UiO provided RPZ policy
+#profile::dns::ns::enable_rpz: true
+
+profile::dns::ns::slave_zones:
+  rpz:
+    zone: 'rpz.nrec.no'
+    filename: 'sz/rpz.nrec.no'
+    ns_master_ip_addresses:
+      - 129.240.2.83
+

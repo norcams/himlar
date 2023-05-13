@@ -87,9 +87,9 @@ nodesets:
     #  memory:     1024
     #- role:       "nat"
     #  box:        "norcams/freebsd"
-    - role:       "admin"
-      box:        "norcams/base"
-      memory:     2048
+    #- role:       "admin"
+    #  box:        "norcams/base"
+    #  memory:     2048
     #- role:       "ns"
     #  memory:     3096
     #- role:       'cephmon-object'
@@ -105,6 +105,7 @@ nodesets:
     #  box:        "norcams/net"
     #- role:       "mgmt"
     #  box:        "norcams/net"
+    - role:       'resolver'
   ha:
     - role:       'ha'
       hostid:     '01'
