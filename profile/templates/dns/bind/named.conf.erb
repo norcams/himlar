@@ -68,7 +68,7 @@ options  {
     allow-recursion { 127.0.0.1; ::1; allowed_nets; };
     allow-new-zones no;
 <% if @enable_rpz -%>
-    response-policy { zone "rpz.nrec.no"; } ;
+    response-policy { zone "rpz.uio.no"; } ;
 <% end -%>
 <% end -%>
     directory "/var/named";
