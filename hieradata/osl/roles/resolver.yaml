@@ -108,7 +108,7 @@ profile::dns::ns::allowed_nets:
   - '2001:700:2:8200::/56;  # osl IPv6'
 
 # Use UiO provided RPZ policy
-#profile::dns::ns::enable_rpz: true
+profile::dns::ns::enable_rpz: true
 
 profile::dns::ns::fw_slave_zones:
   rpz:
