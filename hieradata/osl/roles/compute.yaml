@@ -1,12 +1,12 @@
 ---
 ntp::servers:
-  - 172.16.32.100
-  - 172.16.32.101
-  - 172.16.32.102
+  - "%{hiera('netcfg_mgmt_netpart')}.126"
+  - "%{hiera('netcfg_mgmt_netpart')}.127"
+  - "%{hiera('netcfg_mgmt_netpart')}.128"
 chrony::servers:
-  - "%{hiera('netcfg_mgmt_netpart')}.100"
-  - "%{hiera('netcfg_mgmt_netpart')}.101"
-  - "%{hiera('netcfg_mgmt_netpart')}.102"
+  - "%{hiera('netcfg_mgmt_netpart')}.126"
+  - "%{hiera('netcfg_mgmt_netpart')}.127"
+  - "%{hiera('netcfg_mgmt_netpart')}.128"
 
 profile::base::network::network_auto_opts:
   mgmt:
