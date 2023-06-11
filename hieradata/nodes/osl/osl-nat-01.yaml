@@ -6,7 +6,7 @@ network::interfaces_hash:
     mtu:       '1500'
     peerdns:   'yes'
     dns1:      "%{hiera('netcfg_dns_mgmt_server1')}"
-    dns2:      "%{hiera('netcfg_dns_mgmt_server2')}"
+    dns2:      "%{hiera('netcfg_dns_mgmt_server3')}"
     domain:    "%{hiera('netcfg_dns_search')}"
     defroute:  'no'
   'eth1':

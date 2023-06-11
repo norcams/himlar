@@ -72,6 +72,7 @@ netcfg_live_netmask:    '255.255.248.0'
 #netcfg_dns_mgmt_server2:     '129.177.12.31'
 netcfg_dns_mgmt_server1:     '172.28.0.10'
 netcfg_dns_mgmt_server2:     '172.28.0.44'
+netcfg_dns_mgmt_server3:     '172.28.0.45'
 netcfg_dns_search:      "%{hiera('domain_mgmt')} %{hiera('domain_trp')}"
 netcfg_priv_gateway:    '172.30.0.26'
 netcfg_priv_network:    '10.0.250.0/24'
