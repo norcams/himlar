@@ -1,4 +1,11 @@
 ---
+
+network::interfaces_hash:
+  em3:
+    ethtool_opts:  '-K ${DEVICE} gro off'
+  em4:
+    ethtool_opts:  '-K ${DEVICE} gro off'
+
 profile::base::network::network_auto_bonding:
   trp:
     em3:
