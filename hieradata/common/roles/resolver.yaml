@@ -52,12 +52,12 @@ profile::dns::ns::fw_slave_zones:
     zone: "%{hiera('profile::dns::ns::internal_zone')}"
     filename: "sz/%{hiera('profile::dns::ns::internal_zone')}"
     ns_master_ip_addresses:
-      - "%{hiera('public__ip__ns')}"
+      - "%{hiera('profile::dns::ns::ns_mgmt_addr')}"
   public:
     zone: "%{hiera('profile::dns::ns::public_zone')}"
     filename: "sz/%{hiera('profile::dns::ns::public_zone')}"
     ns_master_ip_addresses:
-      - "%{hiera('public__ip__ns')}"
+      - "%{hiera('profile::dns::ns::ns_mgmt_addr')}"
 
 # DNS server firewall configuration
 profile::dns::ns::manage_firewall: true
