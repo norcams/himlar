@@ -268,6 +268,7 @@ profile::network::services::dns_records:
     # FIXME: override common/common.yaml
     "%{::location}-mgmt-01.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.1"
     "%{::location}-mgmt-03.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.3"
+    "%{::location}-mgmt-04.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.4"    
     "%{::location}-mgmt-05.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.5"
     "%{::location}-mgmt-06.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.6"
     "%{::location}-mgmt-07.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.7"
