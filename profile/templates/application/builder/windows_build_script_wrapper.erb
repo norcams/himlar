@@ -1,0 +1,53 @@
+#!/bin/bash
+logfile="/var/log/imagebuilder/winsrv-<%= @version %>-build-$(date +"%Y%m%d").log"
+/home/imagebuilder/build_scripts/<%= @name %> > $logfile
+result=$?
+
+if test $result -eq 0
+then
+	echo "Windows build executed successfully." >> $logfile
+else
+	echo "Windows build failed with status $result" >> $logfile
+        exit $result
+fi
+
+# Copy the image from the build host
+date=$(date +"%Y%m%d")
+/usr/bin/rsync -Hav --sparse -e 'ssh -o "StrictHostKeyChecking no" -i /home/imagebuilder/.ssh/windowsbuilder_rsa'  windowsbuilder@<%= @buildhost %>:/var/lib/libvirt/images/windows_builder/packer-windows/builds/packer-windows-<%= @version %>-x86_64-qemu/windows-<%= @version %>-amd64 /opt/images/public_builds/winsrv_<%= @version %>-${date}.qcow2
+result=$?
+if test $result -eq 0
+then
+    	echo "Image copied from source host." >> $logfile
+else
+    	echo "Failed to copy the image from source host with status $result" >> $logfile
+        exit $result
+fi
+
+# Convert the image to RAW and then delete the source image
+/usr/bin/qemu-img convert -O raw /opt/images/public_builds/winsrv_<%= @version %>-${date}.qcow2 /opt/images/public_builds/winsrv_<%= @version %>-${date}.raw
+if test $result -eq 0
+then
+    	echo "Windows image successfully converted to RAW." >> $logfile
+        rm -rf /opt/images/public_builds/winsrv_<%= @version %>-${date}.qcow2
+else
+    	echo "Image conversion failed with status $result" >> $logfile
+        exit $result
+fi
+
+/usr/bin/md5sum /opt/images/public_builds/winsrv_<%= @version %>-${date}.raw >> /opt/images/public_builds/winsrv_<%= @version %>-${date}.md5
+if test $result -eq 0
+then
+    	echo "Calculated checksum for image." >> $logfile
+else
+    	echo "Failed to calculate checksum with status $result" >> $logfile
+        exit $result
+fi
+
+ln -srf /opt/images/public_builds/winsrv_<%= @version %>-${date}.raw /opt/images/public_builds/winsrv_<%= @version %>-latest.raw
+ln -srf /opt/images/public_builds/winsrv_<%= @version %>-${date}.md5 /opt/images/public_builds/winsrv_<%= @version %>-latest.md5
+
+# Remove old images, always keeping the two most recent
+find /opt/images/public_builds/ -type f -iname winsrv_<%= @version %>-20\*.raw | sort -r | tail -n +3 | xargs rm -f
+
+echo "Finished."  >> $logfile
+echo '{"result":"success"}' > /var/log/imagebuilder/winsrv-<%= @version %>-report.jsonl

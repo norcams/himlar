@@ -1,0 +1,32 @@
+#!/bin/bash
+ssh -tt -o "StrictHostKeyChecking no" -i ~/.ssh/windowsbuilder_rsa windowsbuilder@<%= @buildhost %> << 'ENDSSH'
+#!/bin/bash
+cd /var/lib/libvirt/images/windows_builder/packer-windows
+
+# Check for already running process
+if ! ps axu | grep windows-<%= @version %> | grep -v grep; then
+    echo "We are not already building"
+else
+    echo "We are already building"
+    exit 1
+fi
+
+# If exist, remove build files
+if test -d ./builds/packer-windows-<%= @version %>-x86_64-qemu; then
+    echo "Build file exists - removing..."
+    rm -rf ./builds/packer-windows-<%= @version %>-x86_64-qemu
+fi
+
+# Build the Windows image
+PACKER_CACHE_DIR="./packer_cache" PACKER_LOG=1 /usr/bin/packer build --only=qemu.vm -var-file=os_pkrvars/windows/windows-<%= @version %>-x86_64.pkrvars.hcl ./packer_templates/
+result=$?
+if test $result -eq 0
+then
+    	echo "Windows image built successfully."
+else
+    	echo "Windows build failed with status $result"
+        exit $result
+fi
+
+exit
+ENDSSH
