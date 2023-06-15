@@ -1,4 +1,8 @@
 ---
+include:
+  default:
+    - profile::application::windowsimage
+
 network::interfaces_hash:
   'em1':
     onboot:        'yes'
@@ -51,3 +55,9 @@ network::interfaces_hash:
     type:         'Bridge'
     defroute:     'no'
     bridge_stp:   'off'
+
+profile::application::windowsimage::enable: true
+profile::application::windowsimage::manage_firewall: true
+profile::base::yumrepo::repo_hash:
+  hashicorp:
+    ensure: present
