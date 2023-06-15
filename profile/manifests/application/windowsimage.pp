@@ -73,8 +73,6 @@ class profile::application::windowsimage(
     }
   }
 
-# Install packer from repo
-
 # Serve the building process over vnc
 if $manage_firewall and $enable {
     profile::firewall::rule { '253 accept qemu vnc':
@@ -83,4 +81,3 @@ if $manage_firewall and $enable {
     }
   }
 }
-
