@@ -7,7 +7,7 @@ profile::dns::rndc_key::create_admin_key:    true
 profile::dns::rndc_key::create_mdns_key:     false
 profile::dns::rndc_key::host_is_bind_server: false
 
-profile::network::services::dhcp_reservation:
+dhcp::hosts:
   bgo-spine-01:
     mac: '68:4f:64:b2:3c:11'
     ip:  '172.28.6.1'

@@ -125,7 +125,7 @@ profile::network::services::dns_records:
     # mgmt
     "%{::location}-login-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_netpart')}.10"
 
-profile::network::services::dhcp_reservation:
+dhcp::hosts:
   local3-leaf-01:
     mac: '00:0c:29:ff:be:2f'
     ip:  '172.31.4.1'
