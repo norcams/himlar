@@ -11,3 +11,14 @@ network::interfaces_hash:
     domain:    "%{hiera('netcfg_dns_search')}"
     defroute:  'yes'
 
+profile::application::builder::fetch_windows_images: true
+
+profile::base::lvm::physical_volume:
+  '/dev/sda':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_images':
+    physical_volumes:
+      - /dev/sda
+

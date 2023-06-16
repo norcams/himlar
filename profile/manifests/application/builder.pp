@@ -12,6 +12,7 @@ class profile::application::builder (
   $ipv6 = false,
   $custom_scriptdir = "/home/${user}/custom_scripts",
   $resolver_address = hiera('netcfg_anycast_dns', '1.1.1.1'),
+  $fetch_windows_images = false,
 ) {
 
 
@@ -77,15 +78,19 @@ class profile::application::builder (
   } ->
   # Temp. until cloud-init can handle systemd-resolved (Fedora 33 and onwards)
   file { "${custom_scriptdir}/resolver.sh":
-    ensure => present,
-    owner  => $user,
-    group  => $group,
-    mode   => '0755',
-    content=> template("${module_name}/application/builder/resolver.sh.erb")
+    ensure  => present,
+    owner   => $user,
+    group   => $group,
+    mode    => '0755',
+    content => template("${module_name}/application/builder/resolver.sh.erb")
   }
 
   create_resources('profile::application::builder::jobs', lookup('profile::application::builder::images', Hash, 'deep', {}))
   create_resources('profile::application::builder::template', lookup('profile::application::builder::templates', Hash, 'deep', {}))
+
+  if $fetch_windows_images {
+    create_resources('profile::application::builder::windows_jobs', lookup('profile::application::builder::windows_images', Hash, 'deep', {}))
+  }
 
   # report custom script
   $report = lookup('public__address__report', String, 'first')
