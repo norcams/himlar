@@ -1,4 +1,8 @@
 ---
+include:
+  default:
+    - profile::application::windowsimage
+
 network::interfaces_hash:
   'p1p1':
     onboot:        'yes'
@@ -60,3 +64,9 @@ lvm::volume_groups:
       lv_ext:
         fs_type:   xfs
         mountpath: "/var/lib/libvirt/images"
+
+profile::application::windowsimage::enable: true
+profile::application::windowsimage::manage_firewall: true
+profile::base::yumrepo::repo_hash:
+  hashicorp:
+    ensure: present

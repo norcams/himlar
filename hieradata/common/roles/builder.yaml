@@ -286,22 +286,6 @@ profile::application::builder::images:
     'username':         'cloud-user'
     'hour':             13
 
-profile::application::builder::windows_images:
-  'winsrv_2019':
-    'version':          '2019'
-    'buildhost':        "test01-controller-02.mgmt.test01.uhdc.no"
-    'weekday':          3
-    'monthday':         '8-14'
-    'hour':             3
-    'minute':           0
-  'winsrv_2022':
-    'version':          '2022'
-    'buildhost':        "test01-controller-02.mgmt.test01.uhdc.no"
-    'weekday':          3
-    'monthday':         '8-14'
-    'hour':             6
-    'minute':           0
-
 profile::application::builder::templates:
   'default':
     custom_scripts:     ["%{profile::application::builder::custom_scriptdir}/resolver.sh"]
@@ -336,8 +320,8 @@ profile::monitoring::sensu::agent::expanded_checks:
   - 'uio_rhel7'
   - 'uio_rhel8'
   - 'uio_rhel9'
-  - ''
-  - ''
+  - 'winsrv_2019'
+  - 'winsrv_2022'
 
 profile::monitoring::sensu::agent::expanded_defaults:
     command: "check-imagebuild.rb -d "
