@@ -31,7 +31,7 @@ define profile::application::builder::windows_jobs (
   cron { $name:
     ensure      => $ensure,
     # Write to imagebuilder report
-    command     => "/home/${user}/build_scripts/${name}_wrapper || jq -nc '{\"result\": \"failed\"}' >> /var/log/imagebuilder/${name}-report.jsonl",
+    command     => "/home/${user}/build_scripts/${name}_wrapper || jq -nc '{\"result\": \"failed\"}' > /var/log/imagebuilder/${name}-report.jsonl",
     user        => $user,
     weekday     => $weekday,
     monthday    => $monthday,

@@ -50,4 +50,5 @@ ln -srf /opt/images/public_builds/winsrv_<%= @version %>-${date}.md5 /opt/images
 find /opt/images/public_builds/ -type f -iname winsrv_<%= @version %>-20\*.raw | sort -r | tail -n +3 | xargs rm -f
 
 echo "Finished."  >> $logfile
-echo '{"result":"success"}' > /var/log/imagebuilder/winsrv-<%= @version %>-report.jsonl
+echo '{"result":"success"}' > /var/log/imagebuilder/winsrv_<%= @version %>-report.jsonl
+exit 0
