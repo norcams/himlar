@@ -18,6 +18,7 @@ if test -d ./builds/packer-windows-<%= @version %>-x86_64-qemu; then
 fi
 
 # Build the Windows image
+PACKER_CACHE_DIR="./packer_cache" PACKER_LOG=1 /usr/bin/packer init -upgrade
 PACKER_CACHE_DIR="./packer_cache" PACKER_LOG=1 /usr/bin/packer build --only=qemu.vm -var-file=os_pkrvars/windows/windows-<%= @version %>-x86_64.pkrvars.hcl ./packer_templates/
 result=$?
 if test $result -eq 0
