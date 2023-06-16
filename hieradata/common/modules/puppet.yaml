@@ -12,7 +12,6 @@ puppet::agent_additional_settings:
   'stringify_facts':    'false'
 
 puppet::server_directory_environments: true
-puppet::server_environments:           ['production']
 puppet::server_external_nodes:         ''
 puppet::server_foreman_facts:          true
 puppet::server_additional_settings:
