@@ -362,6 +362,9 @@ sudo::configs:
   sensu:
     priority:   20
     content:    'sensu ALL = (root) NOPASSWD: /opt/sensu/embedded/bin/check-log.rb'
+  sensu_winkey:
+    priority:   25
+    content:    'sensu ALL = (root) NOPASSWD: /opt/sensu/embedded/bin/check-file-missing.rb -f /home/imagebuilder/.ssh/windowsbuilder_rsa'
 
 profile::monitoring::sensu::agent::checks:
   'check-log':

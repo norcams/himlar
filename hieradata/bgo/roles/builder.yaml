@@ -1,2 +1,8 @@
 ---
 profile::base::common::manage_lvm: true
+
+profile::monitoring::sensu::agent::checks:
+  'windowsbuilder_key':
+    command:      "sudo /opt/sensu/embedded/bin/check-file-missing.rb -f /home/imagebuilder/.ssh/windowsbuilder_rsa"
+    interval:     60
+    subscribers:  ['checks']
