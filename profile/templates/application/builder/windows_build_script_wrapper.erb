@@ -11,6 +11,9 @@ else
         exit $result
 fi
 
+# Remove old images, retain the most recent
+find /opt/images/public_builds/ -type f -iname winsrv_<%= @version %>-20\*.raw | sort -r | tail -n +2 | xargs rm -f
+
 # Copy the image from the build host
 date=$(date +"%Y%m%d")
 /usr/bin/rsync -Hav --sparse -e 'ssh -o "StrictHostKeyChecking no" -i /home/imagebuilder/.ssh/windowsbuilder_rsa'  windowsbuilder@<%= @buildhost %>:/var/lib/libvirt/images/windows_builder/packer-windows/builds/packer-windows-<%= @version %>-x86_64-qemu/windows-<%= @version %>-amd64 /opt/images/public_builds/winsrv_<%= @version %>-${date}.qcow2
@@ -45,9 +48,6 @@ fi
 
 ln -srf /opt/images/public_builds/winsrv_<%= @version %>-${date}.raw /opt/images/public_builds/winsrv_<%= @version %>-latest.raw
 ln -srf /opt/images/public_builds/winsrv_<%= @version %>-${date}.md5 /opt/images/public_builds/winsrv_<%= @version %>-latest.md5
-
-# Remove old images, always keeping the two most recent
-find /opt/images/public_builds/ -type f -iname winsrv_<%= @version %>-20\*.raw | sort -r | tail -n +3 | xargs rm -f
 
 echo "Finished."  >> $logfile
 echo '{"result":"success"}' > /var/log/imagebuilder/winsrv_<%= @version %>-report.jsonl
