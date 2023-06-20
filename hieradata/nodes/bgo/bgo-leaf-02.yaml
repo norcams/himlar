@@ -336,8 +336,10 @@ quagga::quagga::bgp_neighbors:
   - '172.18.6.2 prefix-list iaas-routes-out out'
   - '2001:700:0:80cd::1 remote-as 224'
   - '2001:700:0:80cd::1 bfd 5 500 500'
+  - '2001:700:0:80cd::1 weight 30000'
   - '2001:948:40:4::68 remote-as 65504'
   - '2001:948:40:4::68 bfd 5 500 500'
+  - '2001:948:40:4::68 weight 40000'
   - 'fd00:18:230::1 remote-as 65503'
   - "fd00::1 remote-as %{hiera('bgp_as')}"
   - 'fd00::1 prefix-list iaas-routes-in in'
