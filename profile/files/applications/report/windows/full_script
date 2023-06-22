@@ -14,7 +14,9 @@ function Get-Uptime {
 }
 
 function Get-IpAddress {
-   $ip = Get-NetIPAddress -AddressState Preferred -AddressFamily IPv4 -InterfaceAlias Ethernet
+   $netAdapter = (Get-NetAdapter)
+   write-host $netAdapter
+   $ip = Get-NetIPAddress -AddressState Preferred -AddressFamily IPv4 -InterfaceAlias $netAdapter.Name
    Write-Output $ip.IPAddress
 }
 
@@ -78,6 +80,6 @@ $JSON = @{
 "kernel" = "$osversion"
 }|ConvertTo-Json
 
-$response = Invoke-WebRequest -Uri "https://report.nrec.no/api/v1/instance" -ContentType "application/json" -Method POST -Body $JSON
+$response = Invoke-WebRequest -Uri "https://report.nrec.no/api/v1/instance" -ContentType "application/json" -Method POST -Body $JSON -UseBasicParsing
 
 #Write-Output $response
