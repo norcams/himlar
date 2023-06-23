@@ -13,6 +13,7 @@ fi
 
 # Remove old images, retain the most recent
 find /opt/images/public_builds/ -type f -iname winsrv_<%= @version %>-20\*.raw | sort -r | tail -n +2 | xargs rm -f
+find /opt/images/public_builds/ -type f -iname winsrv_<%= @version %>-20\*.md5 | sort -r | tail -n +2 | xargs rm -f
 
 # Copy the image from the build host
 date=$(date +"%Y%m%d")
