@@ -79,6 +79,7 @@ ln -srf ${filename} /opt/images/public_builds/<%= @name %>-latest.qcow2
 
 # Remove old images, always keeping the two most recent
 find /opt/images/public_builds/ -type f -iname <%= @name %>-20\*.qcow2 | sort -r | tail -n +3 | xargs rm -f
+find /opt/images/public_builds/ -type f -iname <%= @name %>-20\*.md5 | sort -r | tail -n +3 | xargs rm -f
 
 if [ $gen_report == "true" ]; then
   # If we make it to here we assume the build has been successful
