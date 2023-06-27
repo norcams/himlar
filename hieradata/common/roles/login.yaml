@@ -119,6 +119,9 @@ profile::base::common::users_ssh_options:
       'Host osl':
         'User':     'git'
         'Hostname': 'git.iaas.uio.no'
+      'Host osl':
+        'User':     'git'
+        'Hostname': 'osl-login-02.iaas.uio.no'
 
 googleauthenticator::pam::mode::modes:
   wheel-only:
