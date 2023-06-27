@@ -39,7 +39,7 @@ named_interfaces::config:
 
 ssh::server::options:                                                                                                                                                                                                                                                                                                         
   # No 2FA if coming from osl-login-01                                                                                                                                                                                                                                                                                        
-  'Match User iaas Address 172.16.8.10':                                                                                                                                                                                                                                                                                      
+  'Match User iaas Address 172.16.32.10':
     AuthenticationMethods: 'publickey'
 
 # enable iaas account, but only make it available in the normal fashion                                                                                                                                                                                                                                                       
