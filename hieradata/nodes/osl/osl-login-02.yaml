@@ -1,98 +1,29 @@
 ---
 network::interfaces_hash:
-  'em4':
-    ipaddress:      '10.10.10.10'
-    netmask:        '255.255.255.224'
-    gateway:        '10.10.10.97'
-    defroute:       'no'
-    onboot:         'yes'
-    dns1:           '129.240.2.3'
-    dns2:           "%{hiera('netcfg_dns_mgmt_server2')}"
-    domain:         "%{hiera('netcfg_dns_search')} mgmt.osl.uhdc.no"
-    peerdns:        'yes'
-    ipv6init:       'no'
-    ipv6addr:       '2001:700:100:8241::100/64'
-    ipv6_defaultgw: '2001:700:100:8241::1'
-  'em3':
-    ipaddress:    "%{hiera('netcfg_oob_netpart')}.8"
-    netmask:      '255.255.248.0'
-    defroute:     'no'
-    onboot:       'yes'
   'em1':
     ipaddress:    "%{hiera('netcfg_mgmt_netpart')}.8"
     netmask:      "%{hiera('netcfg_mgmt_netmask')}"
-    gateway:      "%{hiera('netcfg_mgmt_netpart')}.97"
-    defroute:     'yes'
+    defroute:     'no'
+    onboot:       'yes'
+  'em2':
+    ipaddress:    "%{hiera('netcfg_oob_netpart')}.8"
+    netmask:      "%{hiera('netcfg_oob_netmask')}"
+    defroute:     'no'
     onboot:       'yes'
   'p3p1':
-    ipaddress:    '10.17.32.8'
-    netmask:      '255.255.255.0'
-    defroute:     'no'
-    onboot:       'yes'
-  'p3p2':
-    ipaddress:    '172.30.32.8'
-    netmask:      '255.255.255.0'
-    defroute:     'no'
-    onboot:       'yes'
-  'p3p3':
-    ipaddress:    '172.28.160.8'
-    netmask:      '255.255.255.0'
-    defroute:     'no'
-    onboot:       'yes'
-  'p3p4':
-    ipaddress:    '172.28.32.8'
-    netmask:      '255.255.255.0'
-    defroute:     'no'
-    onboot:       'yes'
-
-profile::base::network::routes:
-  'p2p2':
-    'ipaddress': [ '10.100.200.0', ]
-    'netmask':   [ '24', ]
-    'gateway':   [ '172.30.32.1', ]
-
-# Space for database backups
-profile::base::common::manage_lvm: true
-
-lvm::volume_groups:
-  vg_repo:
-    physical_volumes:
-      - /dev/sdb
-    logical_volumes:
-      lv_repo:
-        fs_type:   xfs
-        mountpath: "/opt/repo"
+    ipaddress:      '129.240.224.101'
+    netmask:        '255.255.255.224'
+    gateway:        '129.240.224.97'
+    defroute:       'yes'
+    onboot:         'yes'
+    dns1:           '129.240.2.3'
+    dns2:           "%{hiera('netcfg_dns_mgmt_server2')}"
+    domain:         "%{hiera('netcfg_dns_search')} mgmt.test02.uhdc.no"
+    peerdns:        'yes'
+    ipv6init:       'yes'
+    ipv6addr:       '2001:700:100:8241::101/64'
+    ipv6_defaultgw: '2001:700:100:8241::1'
 
 # Enable backup explicitly on 01 only
 profile::base::login::manage_db_backup: false
-
-named_interfaces::config:
-  mgmt:
-    - em4
-    - p3p1
-  public:
-    - em1
-  oob:
-    - em3
-    - p3p2
-
-
-# enable iaas account, but only make it available in the normal fashion
-# from osl-login-01
-accounts::accounts:
-  'iaas':
-    ensure: present
-
-ssh::server::options:
-  # No 2FA if coming from osl-login-01
-  'Match User iaas Address 172.16.32.10':
-    AuthenticationMethods: 'publickey'
-
-# on this node we must actually use dnsmasq from Appstream as Calico repo not available
-profile::base::yumrepo::repo_hash:
-  AlmaLinux-AppStream:
-    exclude:        'postgres*'
-
-profile::application::git::settings:
-  hostname: "osl2"
 
