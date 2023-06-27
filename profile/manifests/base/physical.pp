@@ -49,7 +49,7 @@ class profile::base::physical (
 ) {
 
   # Configure 82599ES SFP+ interface module options
-  if ($::lspci_has['intel82599sfp'] or $::lspci_has['x520sfp']) and 'ixgbe' in $::kernel_modules {
+  if ($::lspci_has['intel82599sfp'] or $::lspci_has['intelx520sfp']) and 'ixgbe' in $::kernel_modules {
     # Set SFP option in /etc/modprobe.d/ixgbe.conf
     include ::kmod
     kmod::option { 'allow any SFPs':

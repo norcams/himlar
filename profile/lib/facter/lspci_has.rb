@@ -12,7 +12,7 @@ Facter.add(:lspci_has, :type => :aggregate) do
     { "intel82599sfp" => count > 0 }
   end
 
-  chunk(:) do
+  chunk(:intelx520sfp) do
     count = lspci_match(/Intel.*10G 2P X520.*/)
     { "x520sfp" => count > 0 }
   end
