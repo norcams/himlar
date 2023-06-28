@@ -59,6 +59,8 @@ accounts::accounts:
     authorized_keys: [ 'lennart_uib', 'lennart_home']
   'terjef':
     ensure: present
+  'torldre':
+    ensure: present
   # system user for db backup
   'norcams':
     ensure: present
