@@ -198,6 +198,18 @@ profile::application::builder::images:
     'username':         'rocky'
     'hour':             18
     'minute':           30
+  'rockylinux8_uib_puppet':
+    'image_name':       'IMAGEBUILDER RockyLinux 8 (UIB)'
+    'url':              'https://dl.rockylinux.org/pub/rocky/8/images/x86_64/'
+    'latest':           'Rocky-8-GenericCloud.latest.x86_64.qcow2'
+    'checksum_file':    'Rocky-8-GenericCloud.latest.x86_64.qcow2.CHECKSUM'
+    'checksum':         'sha256'
+    'min_ram':          768
+    'min_disk':         8
+    'username':         'rocky'
+    'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/uib_puppet' ]
+    'hour':             17
+    'minute':           30
   'rockylinux9':
     'image_name':       'IMAGEBUILDER RockyLinux 9'
     'url':              'https://dl.rockylinux.org/pub/rocky/9/images/x86_64/'
@@ -291,6 +303,8 @@ profile::application::builder::templates:
     custom_scripts:     ["%{profile::application::builder::custom_scriptdir}/resolver.sh"]
   'nv_vgpu':
     custom_scripts:     ['/opt/imagebuilder/scripts/nvidia-grid-driver.sh']
+  'uib_puppet':
+    custom_scripts:     ['/opt/imagebuilder/scripts/uib-puppet.sh']
 
 # Sensu
 profile::monitoring::sensu::agent::plugin_gems:
@@ -312,6 +326,7 @@ profile::monitoring::sensu::agent::expanded_checks:
   - 'debian11'
   - 'fedora_37'
   - 'rockylinux8'
+  - 'rockylinux8_uib_puppet'
   - 'rockylinux9'
   - 'ubuntu_2004'
   - 'ubuntu_2004_nv_vgpu'
