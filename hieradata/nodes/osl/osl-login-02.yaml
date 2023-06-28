@@ -25,7 +25,7 @@ network::interfaces_hash:
     ipv6_defaultgw: '2001:700:100:8241::1'
 
 # Enable backup explicitly on 01 only
-profile::base::login::manage_db_backup: false
+profile::base::login::manage_db_backup: true
 
 named_interfaces::config:
   mgmt:
