@@ -28,25 +28,25 @@ network::interfaces_hash:
 profile::base::login::manage_db_backup: false
 
 named_interfaces::config:
-  mgmt:                                                                                                                                                                                                                                                                                                                       
-    - em1                                                                                                                                                                                                                                                                                                                     
-    - em2                                                                                                                                                                                                                                                                                                                     
-  public:                                                                                                                                                                                                                                                                                                                     
-    - p3p1                                                                                                                                                                                                                                                                                                                    
-  oob:                                                                                                                                                                                                                                                                                                                        
-    - em3                                                                                                                                                                                                                                                                                                                     
+  mgmt:
+    - em1
+    - em2
+  public:
+    - p3p1
+  oob:
+    - em3
     - em4
 
-ssh::server::options:                                                                                                                                                                                                                                                                                                         
-  # No 2FA if coming from osl-login-01                                                                                                                                                                                                                                                                                        
+ssh::server::options:
+  # No 2FA if coming from osl-login-01
   'Match User iaas Address 172.16.32.10':
     AuthenticationMethods: 'publickey'
 
-# enable iaas account, but only make it available in the normal fashion                                                                                                                                                                                                                                                       
-# from osl-login-01                                                                                                                                                                                                                                                                                                           
-accounts::accounts:                                                                                                                                                                                                                                                                                                           
-  'iaas':                                                                                                                                                                                                                                                                                                                     
-    ensure: present                                                                                                                                                                                                                                                                                                           
+# enable iaas account, but only make it available in the normal fashion
+# from osl-login-01
+accounts::accounts:
+  'iaas':
+    ensure: present
 
-profile::application::git::settings:                                                                                                                                                                                                                                                                                          
+profile::application::git::settings:
   hostname: "osl2"
