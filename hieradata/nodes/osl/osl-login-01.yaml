@@ -1,54 +1,54 @@
 ---
 network::interfaces_hash:
-  'em1':
-    ipaddress:      '129.240.224.100'
-    netmask:        '255.255.255.224'
-    gateway:        '129.240.224.97'
-    defroute:       'yes'
-    onboot:         'yes'
-    dns1:           '129.240.2.3'
-    dns2:           "%{hiera('netcfg_dns_mgmt_server2')}"
-    domain:         "%{hiera('netcfg_dns_search')} mgmt.test02.uhdc.no"
-    peerdns:        'yes'
-    ipv6init:       'yes'
-    ipv6addr:       '2001:700:100:8241::100/64'
-    ipv6_defaultgw: '2001:700:100:8241::1'
-  'em3':
-    ipaddress:    '172.17.32.10'
-    netmask:      '255.255.248.0'
-    defroute:     'no'
-    onboot:       'yes'
+#  'em1':
+#    ipaddress:      '129.240.224.100'
+#    netmask:        '255.255.255.224'
+#    gateway:        '129.240.224.97'
+#    defroute:       'yes'
+#    onboot:         'yes'
+#    dns1:           '129.240.2.3'
+#    dns2:           "%{hiera('netcfg_dns_mgmt_server2')}"
+#    domain:         "%{hiera('netcfg_dns_search')} mgmt.test02.uhdc.no"
+#    peerdns:        'yes'
+#    ipv6init:       'yes'
+#    ipv6addr:       '2001:700:100:8241::100/64'
+#    ipv6_defaultgw: '2001:700:100:8241::1'
+#  'em3':
+#    ipaddress:    '172.17.32.10'
+#    netmask:      '255.255.248.0'
+#    defroute:     'no'
+#    onboot:       'yes'
   'em4':
-    ipaddress:    "%{hiera('netcfg_mgmt_netpart')}.10"
+    ipaddress:    "%{hiera('netcfg_mgmt_netpart')}.199"
     netmask:      "%{hiera('netcfg_mgmt_netmask')}"
     defroute:     'no'
     onboot:       'yes'
-  'p2p1':
-    ipaddress:    '10.17.32.10'
-    netmask:      '255.255.255.0'
-    defroute:     'no'
-    onboot:       'yes'
-  'p2p2':
-    ipaddress:    '172.30.32.10'
-    netmask:      '255.255.255.0'
-    defroute:     'no'
-    onboot:       'yes'
-  'p2p3':
-    ipaddress:    '172.28.160.10'
-    netmask:      '255.255.255.0'
-    defroute:     'no'
-    onboot:       'yes'
-  'p2p4':
-    ipaddress:    '172.28.32.10'
-    netmask:      '255.255.255.0'
-    defroute:     'no'
-    onboot:       'yes'
+#  'p2p1':
+#    ipaddress:    '10.17.32.10'
+#    netmask:      '255.255.255.0'
+#    defroute:     'no'
+#    onboot:       'yes'
+#  'p2p2':
+#    ipaddress:    '172.30.32.10'
+#    netmask:      '255.255.255.0'
+#    defroute:     'no'
+#    onboot:       'yes'
+#  'p2p3':
+#    ipaddress:    '172.28.160.10'
+#    netmask:      '255.255.255.0'
+#    defroute:     'no'
+#    onboot:       'yes'
+#  'p2p4':
+#    ipaddress:    '172.28.32.10'
+#    netmask:      '255.255.255.0'
+#    defroute:     'no'
+#    onboot:       'yes'
 
-profile::base::network::routes:
-  'p2p2':
-    'ipaddress': [ '10.100.200.0', ]
-    'netmask':   [ '24', ]
-    'gateway':   [ '172.30.32.1', ]
+#profile::base::network::routes:
+#  'p2p2':
+#    'ipaddress': [ '10.100.200.0', ]
+#    'netmask':   [ '24', ]
+#    'gateway':   [ '172.30.32.1', ]
 
 # Enable backup explicitly on 01 only
 profile::base::login::manage_db_backup: false

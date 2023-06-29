@@ -1,12 +1,12 @@
 ---
 network::interfaces_hash:
   'em1':
-    ipaddress:    "%{hiera('netcfg_mgmt_netpart')}.8"
+    ipaddress:    "%{hiera('netcfg_mgmt_netpart')}.10"
     netmask:      "%{hiera('netcfg_mgmt_netmask')}"
     defroute:     'no'
     onboot:       'yes'
   'em2':
-    ipaddress:    "%{hiera('netcfg_oob_netpart')}.8"
+    ipaddress:    "%{hiera('netcfg_oob_netpart')}.10"
     netmask:      "%{hiera('netcfg_oob_netmask')}"
     defroute:     'no'
     onboot:       'yes'
@@ -39,7 +39,7 @@ named_interfaces::config:
 
 ssh::server::options:
   # No 2FA if coming from osl-login-01
-  'Match User iaas Address 172.16.32.10':
+  'Match User iaas Address 172.16.32.199':
     AuthenticationMethods: 'publickey'
 
 # enable iaas account, but only make it available in the normal fashion
