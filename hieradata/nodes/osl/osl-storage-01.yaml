@@ -36,3 +36,9 @@ network::interfaces_hash:
     netmask:      '255.255.248.0'
     vlan:         'yes'
     defroute:     'no'
+
+# temporary (trondham)
+profile::storage::cephosd::create_osds:             false
+profile::storage::cephosd::crush_move:              false
+profile::storage::cephpool::manage_ec_pools:        false
+profile::storage::cephpool::manage_cephpool_params: false
