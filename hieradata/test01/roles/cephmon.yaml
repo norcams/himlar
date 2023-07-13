@@ -9,7 +9,7 @@ sensu::agent::subscriptions:
 
 profile::monitoring::sensu::agent::checks:
   ceph-check:
-    command:                "ceph-health.sh"
+    command:                "ceph-health.sh -n client.sensu"
     interval:               60
     subscriptions:          ['entity:%{::hostname}']
     handlers:               ['default']

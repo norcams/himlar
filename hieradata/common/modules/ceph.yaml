@@ -85,6 +85,12 @@ ceph::profile::params::client_keys:
     group: 'cinder'
     cap_mon: 'profile rbd'
     cap_osd: 'profile rbd pool=dcache_hdd_ec82_meta, profile rbd pool=dcache_hdd_ec82_data'
+  'client.sensu':
+    secret: "%{hiera('ceph_storage_client_sensu_key')}"
+    mode: '0600'
+    user: 'sensu'
+    group: 'sensu'
+    cap_mon: 'allow r'
 
 #ceph::profile::params::osds:
 #  '/var/osd1':
