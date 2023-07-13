@@ -87,8 +87,8 @@ ceph::profile::params::client_keys:
     cap_osd: 'profile rbd pool=dcache_hdd_ec82_meta, profile rbd pool=dcache_hdd_ec82_data'
   'client.sensu':
     secret: "%{hiera('ceph_storage_client_sensu_key')}"
-    mode: '0600'
-    user: 'sensu'
+    mode: '0640'
+    user: 'root'
     group: 'sensu'
     cap_mon: 'allow r'
 
