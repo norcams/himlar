@@ -27,7 +27,7 @@ profile::base::network::routes:
   'eth0':
     'ipaddress': [ '172.17.32.0', ]
     'netmask':   [ '255.255.248.0', ]
-    'gateway':   [ '172.16.32.10', ]
+    'gateway':   [ '172.16.32.8', ] # temp fix to use osl-login-02
     'table':     [ 'main', ]
   'eth1':
     'ipaddress': [ '::', ]

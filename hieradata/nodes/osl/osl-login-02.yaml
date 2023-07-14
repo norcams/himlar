@@ -30,11 +30,11 @@ profile::base::login::manage_db_backup: true
 named_interfaces::config:
   mgmt:
     - em1
-    - em2
+    - em3 # temp fix
   public:
     - p3p1
   oob:
-    - em3
+    - em2 # temp fix
     - em4
 
 ssh::server::options:
