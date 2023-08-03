@@ -7,7 +7,6 @@ profile::openstack::dashboard::allow_from_network:
   - '129.240.130.12/32' # trond
   - '129.240.130.124/32'# mikael
   - '129.240.202.64/32' # mikael
-  - '129.240.202.96/32' # tannaz
 
 # FIXME:sensu-go
 profile::monitoring::sensu::agent::checks:              {}
