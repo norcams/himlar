@@ -1,4 +1,8 @@
 ---
+include:
+  default:
+    - profile::application::windowsimage
+
 network::interfaces_hash:
   'em1':
     onboot:        'yes'
