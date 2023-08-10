@@ -35,9 +35,7 @@ defaults:
 nodesets:
   default:
     - role:       "db-global"
-      box:        "norcams/base"
     - role:       "db-regional"
-      box:        "norcams/base"
     - role:       "api"
       box:        "norcams/base"
     - role:       "mq"
@@ -50,7 +48,6 @@ nodesets:
     - role:       "compute"
       memory:     4096
       cpus:       2
-      box:        "norcams/base"
   # The following nodes are optional
     #- role:       "access"
     #- role:       "identity"
