@@ -263,7 +263,7 @@ profile::network::services::dns_records:
     "resolver.%{hiera('domain_public2')}":        '158.37.63.252'
 
     # Management network (entries that differ from common/common.yaml)
-    "%{::location}-login-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_netpart')}.199"
+    "%{::location}-login-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_netpart')}.10"
     "repo.%{hiera('domain_oob')}":                    "%{hiera('netcfg_oob_netpart')}.9"
     # FIXME: override common/common.yaml
     "%{::location}-mgmt-01.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.1"
@@ -301,7 +301,7 @@ profile::network::services::dns_records:
     "6.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-06.%{hiera('domain_mgmt')}"
     "7.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-07.%{hiera('domain_mgmt')}"
     # Management network (entries that differ from common/common.yaml)
-    "10.%{hiera('reverse_mgmt')}":     "%{::location}-login-02.%{hiera('domain_mgmt')}"
+    "10.%{hiera('reverse_mgmt')}":     "%{::location}-login-01.%{hiera('domain_mgmt')}"
     # public IPv4
     '250.63.37.158.in-addr.arpa':   "api-osl.%{hiera('domain_frontend')}"
     '251.63.37.158.in-addr.arpa':   "ns1.%{hiera('domain_frontend')}"
