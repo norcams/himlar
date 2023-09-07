@@ -102,15 +102,6 @@ logrotate::rules:
     missingok:      true
     rotate_every:   daily
     compress:       true
-  syslog:
-    path:           ['/var/log/cron', '/var/log/maillog', '/var/log/messages', '/var/log/secure', '/var/log/spooler']
-    rotate:         10
-    rotate_every:   daily
-    postrotate:     '/bin/kill -HUP `cat /var/run/syslogd.pid 2> /dev/null` 2> /dev/null || true'
-    dateext:        true
-    sharedscripts:  true
-    missingok:      true
-    compress:       true
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:

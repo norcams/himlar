@@ -55,3 +55,14 @@ libvirt::sysconfig:
   LIBVIRTD_ARGS: '--listen'
 
 openstack_version: "train" # Last available rdo version for el7
+
+profile::logging::logrotate::rules:
+  syslog:
+    path:           ['/var/log/cron', '/var/log/maillog', '/var/log/messages', '/var/log/secure', '/var/log/spooler']
+    rotate:         10
+    rotate_every:   daily
+    postrotate:     '/bin/kill -HUP `cat /var/run/syslogd.pid 2> /dev/null` 2> /dev/null || true'
+    dateext:        true
+    sharedscripts:  true
+    missingok:      true
+    compress:       true
