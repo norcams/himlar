@@ -101,3 +101,8 @@ profile::base::cron::crontabs:
     minute:   '15'
     weekday:  '*'
     command:  '/opt/himlarcli/bin/enddate-delete.sh >/dev/null 2>&1'
+  security_group_rules:
+    hour:     '3'
+    minute:   '0'
+    weekday:  '*'
+    command:  '/opt/himlarcli/bin/check_security_group_rules.sh >/dev/null 2>&1'
