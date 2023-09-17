@@ -65,14 +65,3 @@ profile::base::cron::crontabs:
     monthday: '*'
     weekday:  '*'
     command:  '/opt/himlarcli/bin/logrotate.sh >/dev/null 2>&1'
-# These jobs disablet until delete job can ensure user really is notified (we have had such issues)
-#  check_expired_demo_instances:
-#    hour:     '7'
-#    minute:   '0'
-#    weekday:  '*'
-#    command:  '/opt/himlarcli/bin/check_expired_demo_instances.sh bgo >> /opt/himlarcli/logs/demo-logs/dryrun-logs/dryrun-logs.log 2>&1'
-#  delete_expired_demo_instances:
-#    hour:     '6'
-#    minute:   '0'
-#    weekday:  '*'
-#    command: '/opt/himlarcli/bin/delete_expired_demo_instances.sh bgo >/dev/null 2>&1'
