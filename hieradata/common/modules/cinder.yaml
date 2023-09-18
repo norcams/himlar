@@ -59,3 +59,9 @@ cinder::logging::use_syslog:             true
 cinder::notification_driver:          'messagingv2'
 cinder::notification_transport_url:   "%{hiera('service__transport__url')}"
 cinder::notification_topics:          'notifications'
+
+# Policy changes
+cinder::policy::policies:
+  create_volume_backup:
+    key:    'backup:create'
+    value:  'role:admin_only'
