@@ -273,8 +273,8 @@ profile::network::services::dns_records:
     "%{::location}-mgmt-06.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.6"
     "%{::location}-mgmt-07.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.7"
     # FIXME: override common/common.yaml until old login-01 is decomissioned and 02 renamed
-    "%{::location}-login-02.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_mgmt_net_c0')}.10"
-    "%{::location}-login-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_mgmt_net_c0')}.199"
+    "%{::location}-login-02.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c0')}.10"
+    "%{::location}-login-01old.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_net_c0')}.199"
   AAAA:
     # Frontend records (<foo>.nrec.no)
     "ns1.%{hiera('domain_frontend')}":            '2001:700:2:82ff::251'
@@ -294,7 +294,7 @@ profile::network::services::dns_records:
   PTR:
     # FIXME: temp. entry until old login-01 is decomissioned and 02 renamed
     "10.%{hiera('reverse_mgmt_c0')}":     "%{::location}-login-02.%{hiera('domain_mgmt')}"
-    "199.%{hiera('reverse_mgmt_c0')}":    "%{::location}-login-01.%{hiera('domain_mgmt')}"
+    "199.%{hiera('reverse_mgmt_c0')}":    "%{::location}-login-01old.%{hiera('domain_mgmt')}"
     # FIXME: override common/common.yaml
     "4.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-04.%{hiera('domain_mgmt')}"
     "5.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-05.%{hiera('domain_mgmt')}"
