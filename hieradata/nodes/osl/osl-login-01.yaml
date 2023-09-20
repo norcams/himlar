@@ -1,0 +1,53 @@
+---
+network::interfaces_hash:
+  'em1':
+    ipaddress:    "%{hiera('netcfg_mgmt_netpart')}.10"
+    netmask:      "%{hiera('netcfg_mgmt_netmask')}"
+    defroute:     'no'
+    onboot:       'yes'
+  'em2':
+    ipaddress:    "%{hiera('netcfg_oob_netpart')}.10"
+    netmask:      "%{hiera('netcfg_oob_netmask')}"
+    defroute:     'no'
+    onboot:       'yes'
+  'p3p1':
+    ipaddress:      '129.240.224.100'
+    netmask:        '255.255.255.224'
+    gateway:        '129.240.224.97'
+    defroute:       'yes'
+    onboot:         'yes'
+    dns1:           '129.240.2.3'
+    dns2:           "%{hiera('netcfg_dns_mgmt_server2')}"
+    domain:         "%{hiera('netcfg_dns_search')} mgmt.test02.uhdc.no"
+    peerdns:        'yes'
+    ipv6init:       'yes'
+    ipv6addr:       '2001:700:100:8241::100/64'
+    ipv6_defaultgw: '2001:700:100:8241::1'
+
+# Enable backup explicitly on 01 only
+profile::base::login::manage_db_backup: true
+
+named_interfaces::config:
+  mgmt:
+    - em1
+    - em3 # temp fix
+  public:
+    - p3p1
+  oob:
+    - em2 # temp fix
+    - em4
+
+# enable iaas account, but only make it available in the normal fashion
+# from osl-login-02
+ssh::server::options:
+  # No 2FA if coming from osl-login-02
+  'Match User iaas Address 172.16.32.8':
+    AuthenticationMethods: 'publickey'
+
+accounts::accounts:
+  'iaas':
+    ensure: present
+
+# git name
+profile::application::git::settings:
+  hostname: "osl"

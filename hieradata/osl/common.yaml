@@ -272,8 +272,6 @@ profile::network::services::dns_records:
     "%{::location}-mgmt-05.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.5"
     "%{::location}-mgmt-06.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.6"
     "%{::location}-mgmt-07.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.7"
-    # FIXME: override common/common.yaml until old login-01 is decomissioned and 02 renamed
-    "%{::location}-login-02.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c0')}.10"
     "%{::location}-login-01old.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_net_c0')}.199"
   AAAA:
     # Frontend records (<foo>.nrec.no)
@@ -292,8 +290,6 @@ profile::network::services::dns_records:
     "resolver.%{hiera('domain_public2')}":             '2001:700:2:82ff::252'
     "%{::location}-dns-01.%{hiera('domain_public2')}": '2001:700:2:82ff::256'
   PTR:
-    # FIXME: temp. entry until old login-01 is decomissioned and 02 renamed
-    "10.%{hiera('reverse_mgmt_c0')}":     "%{::location}-login-02.%{hiera('domain_mgmt')}"
     "199.%{hiera('reverse_mgmt_c0')}":    "%{::location}-login-01old.%{hiera('domain_mgmt')}"
     # FIXME: override common/common.yaml
     "4.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-04.%{hiera('domain_mgmt')}"
@@ -308,6 +304,7 @@ profile::network::services::dns_records:
     '252.63.37.158.in-addr.arpa':   "resolver.%{hiera('domain_public')}"
     '254.63.37.158.in-addr.arpa':   "dashboard-osl.%{hiera('domain_frontend')}"
     # public IPv6
+    '8.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "osl-login-02.iaas.uio.no"
     '1.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "ns1.%{hiera('domain_frontend')}"
     '2.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "resolver.%{hiera('domain_public')}"
     '6.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "%{::location}-dns-01.%{hiera('domain_public')}"

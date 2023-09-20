@@ -1,52 +1,101 @@
 ---
 network::interfaces_hash:
-  'em1':
-    ipaddress:    "%{hiera('netcfg_mgmt_netpart')}.8"
-    netmask:      "%{hiera('netcfg_mgmt_netmask')}"
-    defroute:     'no'
-    onboot:       'yes'
-  'em2':
-    ipaddress:    "%{hiera('netcfg_oob_netpart')}.8"
-    netmask:      "%{hiera('netcfg_oob_netmask')}"
-    defroute:     'no'
-    onboot:       'yes'
-  'p3p1':
-    ipaddress:      '129.240.224.101'
-    netmask:        '255.255.255.224'
-    gateway:        '129.240.224.97'
-    defroute:       'yes'
-    onboot:         'yes'
-    dns1:           '129.240.2.3'
-    dns2:           "%{hiera('netcfg_dns_mgmt_server2')}"
-    domain:         "%{hiera('netcfg_dns_search')} mgmt.test02.uhdc.no"
-    peerdns:        'yes'
-    ipv6init:       'yes'
-    ipv6addr:       '2001:700:100:8241::101/64'
-    ipv6_defaultgw: '2001:700:100:8241::1'
+  'eth0':
+    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.8"      # osl mgmt
+    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
+    mtu:       '1500'
+    peerdns:   'yes'
+    dns1:      "%{hiera('netcfg_dns_mgmt_server1')}"
+    dns2:      "%{hiera('netcfg_dns_mgmt_server2')}"
+    domain:    "%{hiera('netcfg_dns_search')}"
+    defroute:  'no'
+  'eth1':
+    ipaddress: "%{hiera('netcfg_trp_netpart')}.8"       # osl trp
+    netmask:   "%{hiera('netcfg_trp_netmask')}"
+    gateway:   "%{hiera('netcfg_trp_gateway')}"
+    srcaddr:   '158.39.75.246'
+    ipv6init:  'yes'
+    ipv6addr:  "%{hiera('netcfg_trp_netpart6')}::8/%{hiera('netcfg_trp_netmask6')}"
+    defroute:  'yes'
+  'eth2':
+    ipaddress: "%{hiera('netcfg_oob_netpart')}.8"       # osl oob
+    netmask:   "%{hiera('netcfg_oob_netmask')}"
+    mtu:       '1500'
+    defroute:  'no'
+  'dummy0':
+    ipaddress: '158.39.75.246'
+    netmask:   '255.255.255.255'
+    ipv6init:  'yes'
+    ipv6addr:  '2001:700:2:82ff::8/128'
+    defroute:  'no'
 
-# Enable backup explicitly on 01 only
-profile::base::login::manage_db_backup: true
+profile::base::network::routes:
+  'eth1':
+    'ipaddress': [ '::', ]
+    'netmask':   [ '0', ]
+    'gateway':   [ "%{hiera('netcfg_trp_gateway6')}", ]
+    'source':    [ '2001:700:2:82ff::8', ]
+    'table':     [ 'main', ]
+    'family':    [ 'inet6', ]
 
 named_interfaces::config:
   mgmt:
-    - em1
-    - em3 # temp fix
-  public:
-    - p3p1
+    - eth0
+  trp:
+    - eth1
   oob:
-    - em2 # temp fix
-    - em4
+    - eth2
+  public:
+    - dummy0
 
+
+# enable iaas account, but only make it available in the normal fashion
+# from osl-login-01
 ssh::server::options:
   # No 2FA if coming from osl-login-01
   'Match User iaas Address 172.16.32.10':
     AuthenticationMethods: 'publickey'
 
-# enable iaas account, but only make it available in the normal fashion
-# from osl-login-01
 accounts::accounts:
   'iaas':
     ensure: present
 
+# git name
 profile::application::git::settings:
   hostname: "osl2"
+
+
+profile::network::interface::manage_dummy:         true
+profile::network::interface::create_custom_routes: true
+
+profile::network::nat::enable_masquerade:          false
+profile::network::nat::enable_snat:                true
+profile::network::nat::source:                     "%{::network_mgmt1}/%{::netmask_mgmt1}"
+profile::network::nat::outiface:                   'eth1'
+
+# puppet will not run until eth2 is created through virt-manager or something similar (connected to br3)
+profile::base::login::oob_outiface:                "%{::interface_oob1}"
+
+# on this node we must actually use dnsmasq from Appstream as Calico repo not available
+profile::base::yumrepo::repo_hash:
+  AlmaLinux-AppStream:
+    exclude:        'postgres*'
+
+# extra disk for local repository (synced with other login nodes)
+profile::base::common::manage_lvm: true
+
+profile::base::lvm::physical_volume:
+  '/dev/vdb':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_repo':
+    physical_volumes:
+      - /dev/vdb
+profile::base::lvm::logical_volume:
+  'lv_repo':
+    volume_group: 'vg_repo'
+    fs_type:      "xfs"
+    mountpath:    "/opt/repo"
+    size:         '50G'
+
