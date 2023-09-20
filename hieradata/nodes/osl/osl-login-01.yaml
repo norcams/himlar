@@ -23,6 +23,12 @@ network::interfaces_hash:
     ipv6init:       'yes'
     ipv6addr:       '2001:700:100:8241::100/64'
     ipv6_defaultgw: '2001:700:100:8241::1'
+  'p3p2':
+    ipaddress:    '172.30.32.10'
+    netmask:      '255.255.255.0'
+    defroute:     'no'
+    onboot:       'yes'
+
 
 # Enable backup explicitly on 01 only
 profile::base::login::manage_db_backup: true
