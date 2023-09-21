@@ -22,7 +22,7 @@ network::interfaces_hash:
     netmask:   "%{hiera('netcfg_oob_netmask')}"
     mtu:       '1500'
     defroute:  'no'
-   'eth3':
+  'eth3':
     ipaddress: "172.28.32.8"                            # test02 mgmt
     netmask:   "%{hiera('netcfg_oob_netmask')}"
     mtu:       '1500'
