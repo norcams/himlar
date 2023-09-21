@@ -22,6 +22,11 @@ network::interfaces_hash:
     netmask:   "%{hiera('netcfg_oob_netmask')}"
     mtu:       '1500'
     defroute:  'no'
+   'eth3':
+    ipaddress: "172.28.32.8"                            # test02 mgmt
+    netmask:   "%{hiera('netcfg_oob_netmask')}"
+    mtu:       '1500'
+    defroute:  'no'
   'dummy0':
     ipaddress: '158.39.75.246'
     netmask:   '255.255.255.255'
@@ -41,6 +46,7 @@ profile::base::network::routes:
 named_interfaces::config:
   mgmt:
     - eth0
+    - eth3      # to satisfy the 340 firewall rule
   trp:
     - eth1
   oob:
