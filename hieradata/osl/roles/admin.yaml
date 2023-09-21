@@ -34,6 +34,9 @@ profile::webserver::apache::vhosts:
     serveraliases:  [ "repo.%{hiera('domain_oob')}", ]
 
 dhcp::hosts:
+# osl-login-01 oob link: 10
+# osl-login-02 oob link:  8
+#
 #  osl-leaf-01:
 #    mac: '00:01:e8:d8:3f:d7'
 #    ip:  '172.16.32.1'
@@ -133,12 +136,12 @@ dhcp::hosts:
   osl-controller-08-bmc:
     mac: 'f4:02:70:c0:3f:30'
     ip:  '172.17.32.129'
-  osl-login-01-bmc:
+  osl-login-01old-bmc:
     mac: '18:03:73:ed:d3:91'
-    ip:  '172.17.32.10'
-  osl-login-02-bmc:
+    ip:  '172.17.32.199'
+  osl-login-01-bmc:
     mac: '18:66:da:71:b1:da'
-    ip:  '172.17.32.8'
+    ip:  '172.17.32.1'
   osl-storage-01-bmc:
     mac: '5c:f9:dd:ff:15:94'
     ip:  '172.17.32.106'
