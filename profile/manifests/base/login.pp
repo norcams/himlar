@@ -44,7 +44,7 @@ class profile::base::login (
   package { 'uio-google-authenticator':
     ensure   => 'installed',
     provider => 'rpm',
-    source   => 'http://rpm.uio.no/uio-free/rhel/7Server/x86_64/uio-google-authenticator-0.3-1.20160314git750d40d.el7.x86_64.rpm'
+    source   => 'http://rpm.uio.no/uio-free/rhel/7Server/x86_64/Packages/u/uio-google-authenticator-0.3-1.20160314git750d40d.el7.x86_64.rpm'
   }
 
   pam { 'remove_password':
