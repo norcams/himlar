@@ -122,10 +122,10 @@ profile::base::common::users_ssh_options:
         'Hostname': 'bgo-login-02.iaas.uib.no'
       'Host osl':
         'User':     'git'
-        'Hostname': 'osl-login-01.iaas.uio.no'
+        'Hostname': 'git.iaas.uio.no'
       'Host osl2':
         'User':     'git'
-        'Hostname': 'git.iaas.uio.no'
+        'Hostname': 'osl-login-02.iaas.uio.no'
 
 googleauthenticator::pam::mode::modes:
   wheel-only:
