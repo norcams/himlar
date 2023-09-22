@@ -93,6 +93,7 @@ profile::base::common::packages:
   'python3': {}
   'python3-virtualenv': {} # used for ca_setup
   'rsync': {}              # used for repository sync between login nodes
+  'ansible': {}
 
 ssh::server::options:
   # Need this for 2FA (saz-ssh-module disables by default)
