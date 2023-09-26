@@ -122,15 +122,13 @@ profile::network::services::dns_records:
     "%{hiera('domain_frontend')}":  [ 'v=spf1 mx include:spf.uio.no ip4:158.39.75.247 ip4:158.37.63.253 ip6:2001:700:2:82ff::97 ip6:2001:700:2:82ff::12 -all' ]
     "%{hiera('domain_frontend2')}": [ 'v=spf1 mx include:spf.uio.no ip4:158.39.75.247 ip4:158.37.63.253 ip6:2001:700:2:82ff::97 ip6:2001:700:2:82ff::12 -all' ]
   CNAME:
-    "status.%{hiera('domain_frontend')}":                     'pubproxy.ha.uib.no'
-    "report.%{hiera('domain_frontend')}":                     'pubproxy.ha.uib.no'
-    "docs.%{hiera('domain_frontend')}":                       'sslproxy.ha.uib.no'
-    "www.%{hiera('domain_frontend')}":                        'sslproxy.ha.uib.no'
-    "status.%{hiera('domain_frontend2')}":                    'pubproxy.ha.uib.no'
-    "report.%{hiera('domain_frontend2')}":                    'pubproxy.ha.uib.no'
-    "docs.%{hiera('domain_frontend2')}":                      'pubproxy.ha.uib.no'
-    "key2309._domainkey.%{hiera('domain_frontend')}":         'key2309.dkim.uio.no'
-    "key2309._domainkey.%{hiera('domain_frontend2')}":        'key2309.dkim.uio.no'
+    "status.%{hiera('domain_frontend')}":        'pubproxy.ha.uib.no'
+    "report.%{hiera('domain_frontend')}":        'pubproxy.ha.uib.no'
+    "docs.%{hiera('domain_frontend')}":          'sslproxy.ha.uib.no'
+    "www.%{hiera('domain_frontend')}":           'sslproxy.ha.uib.no'
+    "status.%{hiera('domain_frontend2')}":       'pubproxy.ha.uib.no'
+    "report.%{hiera('domain_frontend2')}":       'pubproxy.ha.uib.no'
+    "docs.%{hiera('domain_frontend2')}":         'pubproxy.ha.uib.no'
     "%{::location}-compute-atlas-11.%{hiera('domain_mgmt')}": "%{::location}-compute-11.%{hiera('domain_mgmt')}"
     "%{::location}-compute-atlas-12.%{hiera('domain_mgmt')}": "%{::location}-compute-12.%{hiera('domain_mgmt')}"
     "%{::location}-compute-atlas-13.%{hiera('domain_mgmt')}": "%{::location}-compute-13.%{hiera('domain_mgmt')}"
