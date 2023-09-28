@@ -266,7 +266,9 @@ profile::network::services::dns_records:
     "%{::location}-login-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_netpart')}.10"
     "repo.%{hiera('domain_oob')}":                    "%{hiera('netcfg_oob_netpart')}.9"
     # FIXME: override common/common.yaml
+    "%{::location}-mgmt-00.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.100"
     "%{::location}-mgmt-01.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.1"
+    "%{::location}-mgmt-02.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.2"
     "%{::location}-mgmt-03.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.3"
     "%{::location}-mgmt-04.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.4"
     "%{::location}-mgmt-05.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.5"
@@ -292,10 +294,14 @@ profile::network::services::dns_records:
   PTR:
     "199.%{hiera('reverse_mgmt_c0')}":    "%{::location}-login-01old.%{hiera('domain_mgmt')}"
     # FIXME: override common/common.yaml
+    "1.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-01.%{hiera('domain_mgmt')}"
+    "2.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-02.%{hiera('domain_mgmt')}"
+    "3.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-03.%{hiera('domain_mgmt')}"
     "4.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-04.%{hiera('domain_mgmt')}"
     "5.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-05.%{hiera('domain_mgmt')}"
     "6.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-06.%{hiera('domain_mgmt')}"
     "7.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-07.%{hiera('domain_mgmt')}"
+    "100.%{hiera('reverse_mgmt_c2')}":    "%{::location}-mgmt-00.%{hiera('domain_mgmt')}"
     # Management network (entries that differ from common/common.yaml)
     "10.%{hiera('reverse_mgmt')}":     "%{::location}-login-01.%{hiera('domain_mgmt')}"
     # public IPv4
