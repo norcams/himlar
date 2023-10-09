@@ -390,6 +390,12 @@ profile::openstack::resource::networks:
     shared: false
     tenant_name: 'imagebuilder'
     provider_network_type: 'local'
+  educloud1:
+    name: 'educloud1'
+    admin_state_up: true
+    shared: false
+    tenant_name: 'openstack'
+    provider_network_type: 'local'
 
 profile::openstack::resource::subnets:
   public1_IPv4:
@@ -479,4 +485,26 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'IPv6'
+    tenant_name: 'openstack'
+  educloud1_IPv4:
+    name: 'educloud1_IPv4'
+    cidr: '10.4.0.0/22'
+    ip_version: '4'
+    allocation_pools:
+      - 'start=10.4.0.10,end=10.4.3.254'
+    gateway_ip: '10.4.0.1'
+    dns_nameservers:
+      - "%{hiera('netcfg_anycast_dns')}"
+    network_name: 'educloud1'
+    tenant_name: 'openstack'
+  educloud1_IPv6:
+    name: 'educloud1_IPv6'
+    cidr: '2001:700:2:8204::/64'
+    ip_version: '6'
+    allocation_pools:
+      - 'start=2001:700:2:8204::1000,end=2001:700:2:8204::4fff'
+    gateway_ip: '2001:700:2:8204::1'
+    dns_nameservers:
+      - "%{hiera('netcfg_anycast_dns6')}"
+    network_name: 'educloud1'
     tenant_name: 'openstack'
