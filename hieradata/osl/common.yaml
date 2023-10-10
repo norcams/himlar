@@ -81,6 +81,7 @@ netcfg_dns_server2:       '172.16.32.44'
 netcfg_dns_search:        "%{hiera('domain_mgmt')} %{hiera('domain_trp')}"
 netcfg_priv_gateway:      '172.18.32.26'
 netcfg_priv_network:      '10.2.0.0/20'
+netcfg_educloud1_network: '10.4.0.0/20'
 netcfg_pub_natgw:         '158.37.63.248'
 netcfg_pub_natgw2:        '158.39.75.248'
 netcfg_anycast_dns:       '158.37.63.252'
@@ -488,10 +489,10 @@ profile::openstack::resource::subnets:
     tenant_name: 'openstack'
   educloud1_IPv4:
     name: 'educloud1_IPv4'
-    cidr: '10.4.0.0/22'
+    cidr: '10.4.0.0/20'
     ip_version: '4'
     allocation_pools:
-      - 'start=10.4.0.10,end=10.4.3.254'
+      - 'start=10.4.0.10,end=10.4.15.254'
     gateway_ip: '10.4.0.1'
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
