@@ -37,6 +37,7 @@ ssl_cert_apps_admin:    'appstest-admin.uib.no.pem'
 ssl_cert_nrec_docs:     'appstest.uib.no.pem'
 ssl_cert_nrec_www:      'appstest.uib.no.pem'
 ssl_cert_nrec:          'appstest.uib.no.pem'
+ssl_cert_storage:       'storage-api.testapp.uib.no.pem'
 
 haproxy::global_options:
   log:          '127.0.0.1 local6 info alert'
@@ -144,3 +145,10 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     server_names:       ['apps-test02.uib.no']
     ipaddresses:        ['129.177.30.16']
     options:            'verify none inter 120s check check-ssl ssl'
+  # Storage API
+  'ssl-https-storage':
+    listening_service:  'ssl-https-storage'
+    ports:              '80'
+    server_names:       ['storage-api']
+    ipaddresses:        ['158.37.63.120']
+    options:            'verify none inter 30s check'

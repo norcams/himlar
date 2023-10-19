@@ -10,6 +10,11 @@ profile::application::openssl::certs:
     altnames:
       - "apps.%{hiera('domain_public')}"
     concat: true
+  "storage-api.%{hiera('domain_public')}":
+    cn: "storage-api.%{hiera('domain_public')}"
+    altnames:
+      - "storage-api.%{hiera('domain_public')}"
+    concat: true
 
 ssl_cert_apps:          "apps.%{hiera('domain_public')}.pem"
 ssl_cert_nrec_docs:     "apps.%{hiera('domain_public')}.pem"
@@ -17,6 +22,7 @@ ssl_cert_nrec_www:      "apps.%{hiera('domain_public')}.pem"
 ssl_cert_nrec:          "apps.%{hiera('domain_public')}.pem"
 ssl_cert_apps_admin:    "apps.%{hiera('domain_public')}.pem"
 ssl_cert_myprint:       "apps.%{hiera('domain_public')}.pem"
+ssl_cert_storage:       "storage-api.%{hiera('domain_public')}.pem"
 
 # Selinux
 profile::base::selinux::manage_selinux:         true
@@ -47,6 +53,14 @@ profile::base::selinux::ports:
     seltype:  'http_port_t'
     protocol: 'tcp'
     port:     18082
+
+
+# Only allow these for ssl-https-storage
+profile::highavailability::loadbalancing::haproxy::access_list:
+  storage-api:
+    ips:
+      - 129.177.0.0/16 # uib
+      - 192.168.0.0/24 # vagrant
 
 #netdata
 profile::monitoring::netdata::firewall_source:
@@ -143,6 +157,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
     mappings:
       - 'apps.uib.no':                            'ssl-https-apps'
       - 'appsanywhere.uib.no':                    'ssl-https-apps'
+      - 'storage-api.vagrant.iaas.intern':        'ssl-https-storage'
   ssl_http_domains:
     ensure: present
     mappings:
@@ -263,6 +278,13 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ipaddresses:        ['129.177.14.126', '129.177.14.128']
     options:
       - 'check'
+  # Storage API
+  'ssl-https-storage':
+    listening_service:  'ssl-https-storage'
+    ports:              '80'
+    server_names:       ['storage-api-dev']
+    ipaddresses:        ['158.39.201.231']
+    options:            'verify none inter 30s check'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_backends:
   # Apps
@@ -397,7 +419,10 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     options:
       - balance:      'roundrobin'
       #- tcp-request:  'content reject if { src -f /etc/haproxy/uib_vpn_net.list }'
-
+  ssl-https-storage:
+    mode:             'http'
+    options:
+      - http-request: 'deny if !{ src -f /etc/haproxy/storage-api.list }'
 #  uib-https-uh-dashboard:
 #    mode: 'tcp'
 #    options:
@@ -535,6 +560,9 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
         - 'ssl'
         - 'crt'
         - "%{hiera('ssl_cert_myprint')}"
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_storage')}"
       "%{hiera('corosync_cluster_vip6')}:443":
         - 'ssl'
         - 'crt'
@@ -554,6 +582,9 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
         - 'ssl'
         - 'crt'
         - "%{hiera('ssl_cert_myprint')}"
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_storage')}"
     options:
       - option:         'http-server-close'
       - option:         'forwardfor'

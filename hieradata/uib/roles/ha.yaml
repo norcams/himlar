@@ -35,6 +35,7 @@ ssl_cert_nrec_docs:     'docs.nrec.no.pem'
 ssl_cert_nrec_www:      'www.nrec.no.pem'
 ssl_cert_nrec:          'nrec.no.pem'
 ssl_cert_myprint:       'myprint.uib.no.pem'
+ssl_cert_storage:       'storage-api.app.uib.no'
 
 #
 # Default interfaces
@@ -44,6 +45,16 @@ named_interfaces::config:
     - em1
   public:
     - bond0.6
+
+# Only allow these for ssl-https-storage
+profile::highavailability::loadbalancing::haproxy::access_list:
+  storage-api:
+    ips:
+      - 129.177.0.128/25 # jumphosts
+      - '158.39.75.0/24' # nrec osl
+      - '158.37.63.0/24' # nrec osl
+      - '158.39.48.0/24' # nrec osl
+      - '158.39.200.0/24' # nrec osl
 
 # Deny these from uib access list
 # profile::highavailability::loadbalancing::haproxy::access_list:
@@ -187,6 +198,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - 'www.nrec.no':                            'ssl-https-nrec-www'
       - 'nrec.no':                                'ssl-https-nrec-www'
       - 'myprint.uib.no':                         'ssl-https-myprint'
+      - 'storage-api.app.uib.no':                 'ssl-https-storage'
   ssl_http_domains:
     ensure: present
     mappings:
@@ -315,6 +327,13 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ipaddresses:        ['129.177.14.126']
     options:
       - 'check'
+  # Storage API
+  'ssl-https-storage':
+    listening_service:  'ssl-https-storage'
+    ports:              '80'
+    server_names:       ['storage-api']
+    ipaddresses:        ['129.177.30.25']
+    options:            'verify none inter 30s check'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_backends:
   # shared
@@ -450,6 +469,11 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     options:
       - balance:      'roundrobin'
       #- tcp-request:  'content reject if { src -f /etc/haproxy/uib_vpn_net.list }'
+  # Storage-API
+  ssl-https-storage:
+    mode:             'http'
+    options:
+      - http-request: 'deny if !{ src -f /etc/haproxy/storage-api.list }'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
   public-http:
@@ -567,6 +591,9 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
         - 'ssl'
         - 'crt'
         - "%{hiera('ssl_cert_myprint')}"
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_storage')}"
       "%{hiera('corosync_cluster_vip6')}:443":
         - 'ssl'
         - 'crt'
@@ -586,6 +613,9 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
         - 'ssl'
         - 'crt'
         - "%{hiera('ssl_cert_myprint')}"
+        - 'ssl'
+        - 'crt'
+        - "%{hiera('ssl_cert_storage')}"
     options:
       - option:         'http-server-close'
       - option:         'forwardfor'
