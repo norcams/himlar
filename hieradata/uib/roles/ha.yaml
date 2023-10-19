@@ -199,6 +199,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - 'nrec.no':                                'ssl-https-nrec-www'
       - 'myprint.uib.no':                         'ssl-https-myprint'
       - 'storage-api.app.uib.no':                 'ssl-https-storage'
+      - 'storage-api.testapp.uib.no':             'ssl-https-storage'
   ssl_http_domains:
     ensure: present
     mappings:
