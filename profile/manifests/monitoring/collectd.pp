@@ -28,7 +28,7 @@ class profile::monitoring::collectd(
       path    => '/etc/systemd/system/collectd.service.d/override.conf',
       owner   => root,
       group   => root,
-      content => "[Service]\nCapabilityBoundingSet=CAP_DAC_OVERRIDE\n",
+      content => "[Service]\nCapabilityBoundingSet=CAP_DAC_OVERRIDE CAP_SYS_ADMIN CAP_NET_ADMIN\n",
       notify  => [Exec['systemctl_daemon_reload'], Service['collectd']]
     }
 
