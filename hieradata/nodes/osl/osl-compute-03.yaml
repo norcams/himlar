@@ -39,6 +39,15 @@ network::interfaces_hash:
     vlan:          'yes'
     defroute:      'no'
 
+profile::base::lvm::physical_volume:
+  '/dev/sda3':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_ext':
+    physical_volumes:
+      - /dev/sda3
+
 # Create and enable more swap
 profile::base::common::extraswap:        true
 profile::base::common::extraswap_sizegb: 10
