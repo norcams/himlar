@@ -11,6 +11,13 @@ filter export_bgp {
   reject;
 }
 
+filter import_peer {
+  if dest = RTD_UNREACHABLE then {
+    reject;
+  }
+  accept;
+}
+
 # Configure synchronization between BIRD's routing tables and the
 # kernel.
 protocol kernel {
@@ -44,7 +51,7 @@ protocol direct {
   local as <%= scope().call_function('hiera',['bgp_as']) %>;
   neighbor <%= values["peer_ipv4"] %> as <%= scope().call_function('hiera',['bgp_as']) %>;
   ipv4 {
-    import all;
+    import filter import_peer;
     export filter export_bgp;
   };
   multihop;
