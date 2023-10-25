@@ -11,12 +11,13 @@ protocol bgp '<%= @name %>' {
   neighbor <%= @peer_ip %> as <%= @peer_as %>;
   multihop;
   ipv6 {
-  <% if @local_pref %>  import filter setpref;<% else %>  import all;<% end %>
+  <% if @local_pref %>  import filter setpref;<% else %>  import filter import_peer;<% end %>
   <% if @local_pref -%>
     default bgp_local_pref <%= @local_pref %>;
   <% end -%>
   export filter export_bgp;
     next hop self;    # Disable next hop processing and always advertise our local address as nexthop
+    add paths rx;     # Import ECMP routes
   };
   graceful restart;
   source address <%= @local_ip %>;  # The local address we use for the TCP connection

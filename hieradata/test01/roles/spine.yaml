@@ -11,7 +11,19 @@ named_interfaces::config:
 # FIXME:sensu-go
 profile::monitoring::sensu::agent::enable_go_agent:     false
 
+profile::monitoring::sensu::agent::enable_agent: false
+sensuclassic::install_repo: false
+sensuclassic::manage_repo: false
+
+openstack_extras::repo::debian::debian::source_hash:
+  'buster':
+    'location': 'http://ftp.no.debian.org/debian'
+    'repos':    'main'
+
 profile::monitoring::collectd::enable: true
+profile::base::common::manage_ntp:     false
+profile::base::common::manage_chrony:  true
+chrony::service_name: 'chrony@mgmt'
 
 profile::network::leaf::acls:
   '02control_plane_custom.rules':
@@ -274,42 +286,6 @@ profile::base::network::cumulus_bonds:
     'vids': [ '100', '110', '120', ]
     'mtu': '9216'
 
-frrouting::frrouting::zebra_interfaces:
-  'bridge':
-    - 'link-detect'
-    - 'description linux-bridge'
-  'bridge.100':
-    - 'link-detect'
-    - 'description linux-bridge-100'
-  'host1':
-    - 'link-detect'
-  'host2':
-    - 'link-detect'
-  'host3':
-    - 'link-detect'
-  'host4':
-    - 'link-detect'
-  'host5':
-    - 'link-detect'
-  'host6':
-    - 'link-detect'
-  'host7':
-    - 'link-detect'
-  'host8':
-    - 'link-detect'
-  'host9':
-    - 'link-detect'
-  'host10':
-    - 'link-detect'
-  'host11':
-    - 'link-detect'
-  'host12':
-    - 'link-detect'
-  'host13':
-    - 'link-detect'
-  'swp48':
-    - 'link-detect'
-
 profile::base::network::cumulus_bridges:
   'bridge':
     'ports':
@@ -335,39 +311,9 @@ profile::base::network::cumulus_bridges:
 
 frrouting::frrouting::zebra_interfaces:
   'bridge':
-    - 'link-detect'
     - 'description linux-bridge'
   'bridge.100':
-    - 'link-detect'
     - 'description linux-bridge-100'
-  'host1':
-    - 'link-detect'
-  'host2':
-    - 'link-detect'
-  'host3':
-    - 'link-detect'
-  'host4':
-    - 'link-detect'
-  'host5':
-    - 'link-detect'
-  'host6':
-    - 'link-detect'
-  'host7':
-    - 'link-detect'
-  'host8':
-    - 'link-detect'
-  'host9':
-    - 'link-detect'
-  'host10':
-    - 'link-detect'
-  'host11':
-    - 'link-detect'
-  'host12':
-    - 'link-detect'
-  'host13':
-    - 'link-detect'
-  'swp48':
-    - 'link-detect'
 
 frrouting::frrouting::zebra_generic_options:
   'ip':
@@ -383,33 +329,90 @@ frrouting::frrouting::bgp_options:
   - 'bgp default local-preference 200'
   - 'maximum-paths ibgp 5'
   - 'bgp bestpath as-path multipath-relax'
+  - 'aggregate-address 10.0.240.0/24 summary-only'
   - 'aggregate-address 10.0.250.0/24 summary-only'
   - 'aggregate-address 129.177.31.64/27 summary-only'
-  - 'aggregate-address 129.177.31.96/27 summary-only'
+#  - 'aggregate-address 129.177.31.96/27 summary-only' # Cannot aggregate network if anycasting addresses from that network
 frrouting::frrouting::bgp_options6:
   - 'aggregate-address 2001:700:200:915::/64 summary-only'
-  - 'aggregate-address 2001:700:200:916::/64 summary-only'
+#  - 'aggregate-address 2001:700:200:916::/64 summary-only'
 
 frrouting::frrouting::bgp_networks:
   - '0.0.0.0/0'
+  - "%{hiera('bgp_loopback_addr')}/32"
   - '172.30.0.0/21'
-  - 'aggregate-address 10.0.250.0/24 summary-only'
-  - 'aggregate-address 129.177.31.64/27 summary-only'
-  - 'aggregate-address 129.177.31.96/27 summary-only'
+  - '129.177.31.96/27'
 frrouting::frrouting::bgp_networks6:
   - '::/0'
   - 'fd00::/64'
+  - '2001:700:200:916::/64'
+
+frrouting::frrouting::bgp_neighbor_groups:
+  'rr-clients':
+    'options':
+      - 'peer-group'
+      - "remote-as %{hiera('bgp_as')}"
+      - 'addpath-tx-all-paths'
+      - 'route-reflector-client'
+      - 'soft-reconfiguration inbound'
+      - 'route-map rr-client-allow in'
+      - 'bfd'
+    'members':
+      - '172.30.0.26'
+      - '172.30.0.44'
+      - '172.30.0.45'
+      - '172.30.0.103'
+      - '172.30.0.104'
+      - '172.30.0.105'
+      - '172.30.0.111'
+    'options6':
+      - 'neighbor rr-clients route-reflector-client'
+      - 'neighbor rr-clients soft-reconfiguration inbound'
+      - 'neighbor rr-clients addpath-tx-all-paths'
+      - 'maximum-paths ibgp 5'
+    'members6':
+      - 'fd00::44'
+      - 'fd00::45'
+      - 'fd00::103'
+      - 'fd00::104'
+      - 'fd00::105'
+      - 'fd00::111'
+  'elastic_test':
+    'options':
+      - 'peer-group'
+      - "remote-as 4200000000" # 8 bytes private AS, set in secrets
+      - "password b1ecd7f662e6ff6ce03ab33626f92cfe" # MD5 bgp password, set in secrets
+      - 'soft-reconfiguration inbound'
+      - 'ebgp-multihop'
+      - 'bfd'
+    'options6':
+      - 'neighbor elastic_test activate'
+      - 'neighbor elastic_test soft-reconfiguration inbound'
+    'bgp_listen_range':
+      - "%{hiera('netcfg_elastic_cidr')}"
+    'ip_access_list':
+      - "192.168.100.100/32"
+      - "129.177.31.100/31 le 32" # minimum 31 and maximum 32 prefix length
+    'ip_access_list6':
+      - "2001:700:200:916::4000/127 le 128"
+      - "fc00::/64 le 128"
+#  'other-clients':
+#    'options':
+#    - 'peer-group'
 
 frrouting::frrouting::bgp_accesslist:
   '10':
-    - 'permit 129.177.31.0 0.0.0.255'
-    - 'permit 10.0.250.0 0.0.0.255'
-    - 'permit 172.30.0.0 0.0.7.255'
+    - 'seq 5 permit 129.177.31.0/24'
+    - "seq 10 permit %{hiera('netcfg_elastic_cidr')}"
+    - 'seq 15 permit 10.0.250.0/24'
+    - 'seq 20 permit 172.30.0.0/21'
+    - 'seq 250 deny 0.0.0.0/0'
   '20':
-    - 'deny 129.177.31.0 0.0.0.255'
-    - 'deny 10.0.250.0 0.0.0.255'
-    - 'deny 172.30.0.0 0.0.7.255'
-    - 'permit any'
+    - 'seq 5 deny 129.177.31.0/24'
+    - "seq 10 deny %{hiera('netcfg_elastic_cidr')}"
+    - 'seq 15 deny 10.0.250.0/24'
+    - 'seq 20 deny 172.30.0.0/21'
+    - 'seq 250 permit 0.0.0.0/0'
 
 frrouting::frrouting::bgp_ip_prefix_list:
   - 'routes-from-leaf1 seq 5 deny any'

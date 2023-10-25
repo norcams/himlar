@@ -38,6 +38,13 @@ filter import_bgp {
   reject;
 }
 
+filter import_peer {
+  if dest = RTD_UNREACHABLE then {
+    reject;
+  }
+  accept;
+}
+
 filter export_bgp6 {
   if ( (ifname ~ "tap*") || (ifname ~ "atap*") || (ifname ~ "cali*") || (ifname ~ "dummy1") ) then {
     if  net != ::/0 then accept;

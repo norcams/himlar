@@ -2,16 +2,20 @@
 # dummy variable, spine-02 doesn't really have an uplink interface
 profile::base::network::uplink_interface: 'swp48'
 
-network::interfaces_hash:
-  'eth0':
-    'ipaddress': "%{hiera('netcfg_mgmt_net_c6')}.2/21"
-    'gateway':   "%{hiera('netcfg_mgmt_gateway')}"
-    'vrf':       'mgmt'
-  'mgmt':
-    'ipaddress': '127.0.0.1/8'
-    'vrf_table': 'auto'
+bgp_loopback_addr: '10.255.255.2' # IP for elastic IP instances to peer to
+bgp_loopback_addr6: 'fcff::6:2'   # Needed for BGP-MP to work 
 
 profile::base::network::cumulus_interfaces:
+  'eth0':
+    'ipv4': "%{hiera('netcfg_mgmt_net_c6')}.2/21"
+    'gateway': "%{hiera('netcfg_mgmt_gateway')}"
+    'vrf': 'mgmt'
+  'mgmt':
+    'ipv4': '127.0.0.1/8'
+    'vrf_table': 'auto'
+  'lo':
+    'ipv4': [ "%{hiera('bgp_loopback_addr')}/32", ]
+    'ipv6': [ "%{hiera('bgp_loopback_addr6')}/128", ]
   'bridge.100':
     'ipv4': [ "%{hiera('netcfg_trp_net_c6')}.2/21", ]
     'ipv6': [ 'fd00::6:2/64', ]
@@ -23,39 +27,8 @@ profile::base::network::cumulus_interfaces:
     'clagd_enable': true
     'clagd_priority': '4096'
     'clagd_peer_ip': 'linklocal'
+    'clagd_backup_ip': "%{hiera('netcfg_trp_net_c6')}.1/21"
     'clagd_sys_mac': '44:38:39:ff:bb:2c'
-
-frrouting::frrouting::bgp_neighbor_groups:
-  'rr-clients':
-    'options':
-      - 'peer-group'
-      - "remote-as %{hiera('bgp_as')}"
-      - 'route-reflector-client'
-      - 'soft-reconfiguration inbound'
-      - 'route-map rr-client-allow in'
-      - 'bfd'
-    'members':
-      - '172.30.0.26'
-      - '172.30.0.44'
-      - '172.30.0.45'
-      - '172.30.0.103'
-      - '172.30.0.104'
-      - '172.30.0.105'
-      - '172.30.0.111'
-    'options6':
-      - 'neighbor rr-clients route-reflector-client'
-      - 'neighbor rr-clients soft-reconfiguration inbound'
-      - 'maximum-paths ibgp 3'
-    'members6':
-      - 'fd00::44'
-      - 'fd00::45'
-      - 'fd00::103'
-      - 'fd00::104'
-      - 'fd00::105'
-      - 'fd00::111'
-#  'other-clients':
-#    'options':
-#    - 'peer-group'
 
 frrouting::frrouting::zebra_ip6_routes:
   - '::/0 fd00:18:233::1'

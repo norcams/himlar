@@ -25,18 +25,28 @@ filter export_anycast6 {
 }
 
 filter import_bgp {
-  if  net != 0.0.0.0/0 then {
-    if net !=<%= scope().call_function('hiera',['netcfg_anycast_dns']) %>/32 then {
-      accept;
-    }
+  if dest = RTD_UNREACHABLE then {
+    reject;
   }
-  reject;
+  else {
+    if  net != 0.0.0.0/0 then {
+      if net !=<%= scope().call_function('hiera',['netcfg_anycast_dns']) %>/32 then {
+        accept;
+      }
+    }
+    reject;
+  }
 }
 
 filter import_bgp6 {
-  if  net != ::/0 then {
-    if net !=<%= scope().call_function('hiera',['netcfg_anycast_dns6']) %>/128 then {
-      accept;
+  if dest = RTD_UNREACHABLE then {
+    reject;
+  }
+  else {
+    if  net != ::/0 then {
+      if net !=<%= scope().call_function('hiera',['netcfg_anycast_dns6']) %>/128 then {
+        accept;
+      }
     }
   }
   reject;
