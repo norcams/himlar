@@ -94,6 +94,7 @@ frrouting::frrouting::zebra_ip_routes:
   - '158.39.75.247/32 172.18.32.97' # proxy-02
 
 frrouting::frrouting::bgp_networks:
+  - "%{hiera('bgp_loopback_addr')}/32"
   - '158.37.63.0/24'
   - '158.39.48.0/24'
   - '158.39.75.0/24'

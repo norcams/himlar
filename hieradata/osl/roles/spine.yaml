@@ -782,11 +782,6 @@ frrouting::frrouting::bgp_options:
   - 'maximum-paths ibgp 5'
   - 'bgp bestpath as-path multipath-relax'
 
-frrouting::frrouting::bgp_networks:
-  - '172.18.32.0/21'
-frrouting::frrouting::bgp_networks6:
-  - 'fd32::/64'
-
 frrouting::frrouting::bgp_accesslist:
   '10':
     - 'seq 5 permit 158.37.63.0 0.0.0.255'

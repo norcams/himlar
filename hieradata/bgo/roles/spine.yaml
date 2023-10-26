@@ -1074,167 +1074,13 @@ profile::base::network::cumulus_bridges:
 
 frrouting::frrouting::zebra_interfaces:
   'bridge':
-    - 'link-detect'
     - 'description linux-bridge'
   'bridge.100':
-    - 'link-detect'
     - 'description linux-bridge-100'
   'bridge.109':
-    - 'link-detect'
     - 'description linux-bridge-109'
   'bridge.927':
-    - 'link-detect'
     - 'description linux-bridge-927'
-  'host1':
-    - 'link-detect'
-  'host2':
-    - 'link-detect'
-  'host3':
-    - 'link-detect'
-  'host4':
-    - 'link-detect'
-  'host5':
-    - 'link-detect'
-  'host6':
-    - 'link-detect'
-  'host7':
-    - 'link-detect'
-  'host8':
-    - 'link-detect'
-  'host9':
-    - 'link-detect'
-  'host10':
-    - 'link-detect'
-  'host11':
-    - 'link-detect'
-  'host12':
-    - 'link-detect'
-  'host13':
-    - 'link-detect'
-  'host14':
-    - 'link-detect'
-  'host15':
-    - 'link-detect'
-  'host16':
-    - 'link-detect'
-  'host17':
-    - 'link-detect'
-  'host18':
-    - 'link-detect'
-  'host19':
-    - 'link-detect'
-  'host20':
-    - 'link-detect'
-  'host21':
-    - 'link-detect'
-  'host22':
-    - 'link-detect'
-  'host23':
-    - 'link-detect'
-  'host25':
-    - 'link-detect'
-  'host26':
-    - 'link-detect'
-  'host27':
-    - 'link-detect'
-  'host28':
-    - 'link-detect'
-  'host29':
-    - 'link-detect'
-  'host30':
-    - 'link-detect'
-  'host31':
-    - 'link-detect'
-  'host32':
-    - 'link-detect'
-  'host33':
-    - 'link-detect'
-  'host34':
-    - 'link-detect'
-  'host35':
-    - 'link-detect'
-  'host36':
-    - 'link-detect'
-  'host37':
-    - 'link-detect'
-  'host38':
-    - 'link-detect'
-  'host39':
-    - 'link-detect'
-  'host40':
-    - 'link-detect'
-  'host41':
-    - 'link-detect'
-  'host42':
-    - 'link-detect'
-  'host43':
-    - 'link-detect'
-  'host44':
-    - 'link-detect'
-  'host45':
-    - 'link-detect'
-  'host46':
-    - 'link-detect'
-  'host49':
-    - 'link-detect'
-  'host50':
-    - 'link-detect'
-  'host51':
-    - 'link-detect'
-  'host52':
-    - 'link-detect'
-  'host53':
-    - 'link-detect'
-  'host54':
-    - 'link-detect'
-  'host57':
-    - 'link-detect'
-  'host58':
-    - 'link-detect'
-  'host59':
-    - 'link-detect'
-  'host60':
-    - 'link-detect'
-  'host61':
-    - 'link-detect'
-  'host62':
-    - 'link-detect'
-  'host63':
-    - 'link-detect'
-  'host64':
-    - 'link-detect'
-  'host65':
-    - 'link-detect'
-  'host66':
-    - 'link-detect'
-  'host67':
-    - 'link-detect'
-  'host68':
-    - 'link-detect'
-  'host69':
-    - 'link-detect'
-  'host70':
-    - 'link-detect'
-  'host71':
-    - 'link-detect'
-  'host72':
-    - 'link-detect'
-  'host73':
-    - 'link-detect'
-  'host74':
-    - 'link-detect'
-  'host75':
-    - 'link-detect'
-  'host76':
-    - 'link-detect'
-  'swp25':
-    - 'link-detect'
-  'swp28s0':
-    - 'link-detect'
-  'swp29':
-    - 'link-detect'
-  'swp30':
-    - 'link-detect'
 
 frrouting::frrouting::zebra_generic_options:
   'ip':
@@ -1268,29 +1114,29 @@ frrouting::frrouting::bgp_networks6:
 
 frrouting::frrouting::bgp_accesslist:
   '10':
-    - 'permit 158.37.64.0 0.0.1.255'
-    - 'permit 158.39.74.0 0.0.0.255'
-    - 'permit 158.39.77.0 0.0.0.255'
-    - 'permit 158.39.201.0 0.0.0.255'
-    - 'permit 109.105.125.0 0.0.0.63'
-    - 'permit 10.1.0.0 0.0.15.255'
-    - 'permit 10.3.0.0 0.0.15.255'
-    - 'permit 10.109.0.0 0.0.15.255'
-    - 'permit 109.105.127.128 0.0.0.63'
-    - 'permit 172.18.0.0 0.0.7.255'
-    - 'deny any'
+    - 'seq 5 permit 158.37.64.0 0.0.1.255'
+    - 'seq 10 permit 158.39.74.0 0.0.0.255'
+    - 'seq 15 permit 158.39.77.0 0.0.0.255'
+    - 'seq 20 permit 158.39.201.0 0.0.0.255'
+    - 'seq 25 permit 109.105.125.0 0.0.0.63'
+    - 'seq 30 permit 10.1.0.0 0.0.15.255'
+    - 'seq 35 permit 10.3.0.0 0.0.15.255'
+    - 'seq 40 permit 10.109.0.0 0.0.15.255'
+    - 'seq 45 permit 109.105.127.128 0.0.0.63'
+    - 'seq 50 permit 172.18.0.0 0.0.7.255'
+    - 'seq 250 deny 0.0.0.0/0'
   '20':
-    - 'deny 158.37.64.0 0.0.1.255'
-    - 'deny 158.39.74.0 0.0.0.255'
-    - 'deny 158.39.77.0 0.0.0.255'
-    - 'deny 158.39.201.0 0.0.0.255'
-    - 'deny 109.105.125.0 0.0.0.63'
-    - 'deny 10.1.0.0 0.0.15.255'
-    - 'deny 10.3.0.0 0.0.15.255'
-    - 'deny 10.109.0.0 0.0.15.255'
-    - 'deny 109.105.127.128 0.0.0.63'
-    - 'deny 172.18.0.0 0.0.7.255'
-    - 'permit any'
+    - 'seq 5 deny 158.37.64.0 0.0.1.255'
+    - 'seq 10 deny 158.39.74.0 0.0.0.255'
+    - 'seq 15 deny 158.39.77.0 0.0.0.255'
+    - 'seq 20 deny 158.39.201.0 0.0.0.255'
+    - 'seq 25 deny 109.105.125.0 0.0.0.63'
+    - 'seq 30 deny 10.1.0.0 0.0.15.255'
+    - 'seq 35 deny 10.3.0.0 0.0.15.255'
+    - 'seq 40 deny 10.109.0.0 0.0.15.255'
+    - 'seq 45 deny 109.105.127.128 0.0.0.63'
+    - 'seq 50 deny 172.18.0.0 0.0.7.255'
+    - 'seq 250 permit 0.0.0.0/0'
 
 frrouting::frrouting::bgp_accesslist6:
   '10':

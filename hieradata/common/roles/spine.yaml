@@ -28,27 +28,18 @@ profile::logging::logrotate::manage_logrotate:    false
 profile::base::cl_limits::manage_cl_limits:       true
 profile::base::cl_limits::as_value:               2097152
 
-# sensu
-profile::monitoring::sensu::agent::enable_agent:    true
-profile::monitoring::sensu::agent::merge_strategy: 'first'
-profile::monitoring::sensu::agent::run_in_vrf:      true
-profile::monitoring::sensu::agent::plugins:
-  sensu-plugins-network-checks:
-    type:         package
-    pkg_version:  '4.1.1'
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::enable_go_agent:     false
 
-sensuclassic::checks:
-  'metrics-netif':
-    type:         'metric'
-    command:      'metrics-netif.rb --scheme network.%{::hostname}'
-    interval:     60
-    subscribers:  ['metrics']
-    handlers:     ['graphite_tcp']
+profile::monitoring::sensu::agent::enable_agent: false
+sensuclassic::install_repo: false
+sensuclassic::manage_repo: false
 
-sensuclassic::install_repo:            true
-sensuclassic::manage_repo:             true
+profile::base::common::manage_ntp:     false
+profile::base::common::manage_chrony:  true
+chrony::service_name: 'chrony@mgmt'
 
-profile::monitoring::collectd::enable: false
+profile::monitoring::collectd::enable: true
 profile::monitoring::collectd::merge_strategy: 'first'
 profile::monitoring::collectd::plugins:
    - collectd::plugin::interface
@@ -98,7 +89,7 @@ openstack_extras::repo::debian::debian::package_require: true
 openstack_extras::repo::debian::debian::manage_uca: false
 openstack_extras::repo::debian::debian::manage_whz: false
 openstack_extras::repo::debian::debian::source_hash:
-  'jessie':
+  'buster':
     'location': 'http://ftp.no.debian.org/debian'
     'repos':    'main'
 
