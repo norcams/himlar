@@ -5,13 +5,11 @@ network::interfaces_hash:
     devicetype:    'TeamPort'
     team_master:   'team1'
     team_port_config: '{ "prio" : 100 }'
-    ethtool_opts:  '-K ${DEVICE} gro off'
   'em2':
     onboot:        'yes'
     devicetype:    'TeamPort'
     team_master:   'team1'
     team_port_config: '{ "prio" : 100 }'
-    ethtool_opts:  '-K ${DEVICE} gro off'
   'em3':
     onboot:        'yes'
     ipaddress:     "%{hiera('netcfg_mgmt_netpart')}.115"
