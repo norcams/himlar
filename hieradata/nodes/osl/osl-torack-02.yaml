@@ -12,6 +12,13 @@ network::interfaces_hash:
     'vrf_table': 'auto'
 
 profile::base::network::cumulus_interfaces:
+  'eth0':
+    'ipv4': "%{hiera('netcfg_mgmt_net_c0')}.2/21"
+    'gateway': "%{hiera('netcfg_mgmt_gateway')}"
+    'vrf': 'mgmt'
+  'mgmt':
+    'ipv4': '127.0.0.1/8'
+    'vrf_table': 'auto'
   'bridge.100':
     'ipv4': [ '172.18.32.2/21', ]
     'ipv6': [ 'fd32::2/64', ]
@@ -23,6 +30,7 @@ profile::base::network::cumulus_interfaces:
     'clagd_enable': true
     'clagd_priority': '8192'
     'clagd_peer_ip': 'linklocal'
+    'clagd_backup_ip': "%{hiera('netcfg_trp_net_c0')}.1"
     'clagd_sys_mac': '44:38:39:ff:bb:1c'
   'swp53': # sikt link
     'ipv4': '158.36.4.91/31'
@@ -314,87 +322,9 @@ profile::base::network::cumulus_bonds:
 
 frrouting::frrouting::zebra_interfaces:
   'bridge':
-    - 'link-detect'
     - 'description linux-bridge'
   'bridge.100':
-    - 'link-detect'
     - 'description linux-bridge-100'
-  'host1':
-    - 'link-detect'
-  'host2':
-    - 'link-detect'
-  'host3':
-    - 'link-detect'
-  'host4':
-    - 'link-detect'
-  'host5':
-    - 'link-detect'
-  'host6':
-    - 'link-detect'
-  'host7':
-    - 'link-detect'
-  'host8':
-    - 'link-detect'
-  'host9':
-    - 'link-detect'
-  'host10':
-    - 'link-detect'
-  'host11':
-    - 'link-detect'
-  'host12':
-    - 'link-detect'
-  'host13':
-    - 'link-detect'
-  'host14':
-    - 'link-detect'
-  'host15':
-    - 'link-detect'
-  'host16':
-    - 'link-detect'
-  'host17':
-    - 'link-detect'
-  'host18':
-    - 'link-detect'
-  'host19':
-    - 'link-detect'
-  'host20':
-    - 'link-detect'
-  'host21':
-    - 'link-detect'
-  'host22':
-    - 'link-detect'
-  'host23':
-    - 'link-detect'
-  'host24':
-    - 'link-detect'
-  'host31':
-    - 'link-detect'
-  'host32':
-    - 'link-detect'
-  'host33':
-    - 'link-detect'
-  'host34':
-    - 'link-detect'
-  'host35':
-    - 'link-detect'
-  'host36':
-    - 'link-detect'
-  'host37':
-    - 'link-detect'
-  'host38':
-    - 'link-detect'
-  'host39':
-    - 'link-detect'
-  'host40':
-    - 'link-detect'
-  'host41':
-    - 'link-detect'
-  'host42':
-    - 'link-detect'
-  'host44':
-    - 'link-detect'
-  'swp53':
-    - 'link-detect'
 
 frrouting::frrouting::zebra_ip6_routes:
   - '2001:700:2:8200::/56 Null0'
@@ -630,53 +560,6 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'fd32::1:122'
       - 'fd32::1:123'
       - 'fd32::1:124'
-
-frrouting::frrouting::bgp_accesslist:
-  '10':
-    - 'permit 158.37.63.0 0.0.0.255'
-    - 'permit 158.39.48.0 0.0.0.255'
-    - 'permit 158.39.75.0 0.0.0.255'
-    - 'permit 158.39.200.0 0.0.0.255'
-    - 'permit 10.4.0.0 0.0.15.255'
-    - 'permit 10.2.0.0 0.0.15.255'
-    - 'permit 172.18.32.0 0.0.0.255'
-  '20':
-    - 'deny 158.37.63.0 0.0.0.255'
-    - 'deny 158.39.48.0 0.0.0.255'
-    - 'deny 158.39.75.0 0.0.0.255'
-    - 'deny 158.39.200.0 0.0.0.255'
-    - 'deny 10.2.0.0 0.0.15.255'
-    - 'deny 10.4.0.0 0.0.15.255'
-    - 'deny 172.18.32.0 0.0.0.255'
-    - 'permit any'
-
-frrouting::frrouting::bgp_accesslist6:
-  '10':
-    - 'permit 2001:700:2:8200::/56'
-  '20':
-    - 'deny any'
-
-frrouting::frrouting::bgp_ip_prefix_list:
-  - 'routes-from-leaf1 seq 5 deny any'
-  - 'routes-to-leaf1 seq 5 permit 0.0.0.0/0'
-  # - 'uninett-routes-in seq 5 permit any'
-  # - 'uninett-routes-in seq 10 deny any'
-  # - 'uninett-routes-out seq 5 permit 158.37.63.0/24'
-  # - 'uninett-routes-out seq 6 permit 158.39.48.0/24'
-  # - 'uninett-routes-out seq 7 permit 158.39.75.0/24'
-  # - 'uninett-routes-out seq 8 permit 158.39.200.0/24'
-  # - 'uninett-routes-out seq 10 deny any'
-#  - 'uio-routes-in seq 5 permit 129.240.0.0/16'
-#  - 'uio-routes-in seq 10 deny any'
-  - 'default-route seq 5 permit 0.0.0.0/0'
-frrouting::frrouting::bgp_ipv6_prefix_list:
-  # - 'uninett-routes6-in seq 5 permit any'
-  # - 'uninett-routes6-in seq 10 deny any'
-  # - 'uninett-routes6-out seq 5 permit 2001:700:2:8200::/56'
-  # - 'uninett-routes6-out seq 10 deny any'
-#  - 'uio-routes-in6 seq 5 permit 2001:700:200::/48'
-#  - 'uio-routes-in6 seq 10 deny any'
-  - 'default-route6 seq 5 permit ::/0'
 
 frrouting::frrouting::bgp_route_maps:
   'rr-client-allow permit 10':
