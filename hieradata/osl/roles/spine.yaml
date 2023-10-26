@@ -8,6 +8,13 @@ named_interfaces::config:
   trp:
     - bridge.100
 
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::enable_go_agent:     false
+
+profile::monitoring::sensu::agent::enable_agent: false
+sensuclassic::install_repo: false
+sensuclassic::manage_repo: false
+
 profile::network::leaf::acls:
   '02control_plane_custom.rules':
     iptables:

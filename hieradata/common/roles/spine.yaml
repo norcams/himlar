@@ -28,13 +28,6 @@ profile::logging::logrotate::manage_logrotate:    false
 profile::base::cl_limits::manage_cl_limits:       true
 profile::base::cl_limits::as_value:               2097152
 
-# FIXME:sensu-go
-profile::monitoring::sensu::agent::enable_go_agent:     false
-
-profile::monitoring::sensu::agent::enable_agent: false
-sensuclassic::install_repo: false
-sensuclassic::manage_repo: false
-
 profile::base::common::manage_ntp:     false
 profile::base::common::manage_chrony:  true
 chrony::service_name: 'chrony@mgmt'
