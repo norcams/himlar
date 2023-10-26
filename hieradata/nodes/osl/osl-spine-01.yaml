@@ -102,6 +102,19 @@ frrouting::frrouting::bgp_networks:
 frrouting::frrouting::bgp_networks6:
   - '2001:700:2:8200::/56'
 
+frrouting::frrouting::bgp_options6:
+  # torack-01
+  - 'neighbor fd32::1 activate'
+  - 'neighbor fd32::1 soft-reconfiguration inbound'
+  # torack-02
+  - 'neighbor fd32::2 activate'
+  - 'neighbor fd32::2 soft-reconfiguration inbound'
+  # spine-02
+  - 'neighbor fd32:18:230::2 activate'
+  - 'neighbor fd32:18:230::2 route-map failover-default-route6 in'
+  - 'neighbor fd32:18:230::2 default-originate'
+  - 'neighbor fd32:18:230::2 soft-reconfiguration inbound'
+
 frrouting::frrouting::bgp_neighbor_groups:
   'rr-clients':
     'options':
@@ -175,17 +188,6 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'neighbor rr-clients route-map rr-client-allow6 in'
       - 'neighbor rr-clients route-map rr-client-allow6 out'
       - 'maximum-paths ibgp 5'
-      # torack-01
-      - 'neighbor fd32::1 activate'
-      - 'neighbor fd32::1 soft-reconfiguration inbound'
-      # torack-02
-      - 'neighbor fd32::2 activate'
-      - 'neighbor fd32::2 soft-reconfiguration inbound'
-      # spine-02
-      - 'neighbor fd32:18:230::2 activate'
-      - 'neighbor fd32:18:230::2 route-map failover-default-route6 in'
-      - 'neighbor fd32:18:230::2 default-originate'
-      - 'neighbor fd32:18:230::2 soft-reconfiguration inbound'
     'members6':
       - 'fd32::44'  # resolver-01
       - 'fd32::45'  # resolver-02
