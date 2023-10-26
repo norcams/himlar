@@ -636,6 +636,13 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'fd32::1:123'
       - 'fd32::1:124'
 
+frrouting::frrouting::bgp_options:
+  - "bgp router-id %{ipaddress_trp1}"
+  - 'bgp log-neighbor-changes'
+  - 'bgp default local-preference 200'
+  - 'maximum-paths ibgp 5'
+  - 'bgp bestpath as-path multipath-relax'
+
 frrouting::frrouting::bgp_accesslist:
   '10':
     - 'seq 5 permit 158.37.63.0 0.0.0.255'
