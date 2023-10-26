@@ -27,7 +27,7 @@ profile::base::network::cumulus_interfaces:
     'clagd_enable': true
     'clagd_priority': '4096'
     'clagd_peer_ip': 'linklocal'
-    'clagd_backup_ip': "%{hiera('netcfg_trp_net_c6')}.1/21"
+    'clagd_backup_ip': "%{hiera('netcfg_trp_net_c6')}.1"
     'clagd_sys_mac': '44:38:39:ff:bb:2c'
 
 frrouting::frrouting::zebra_ip6_routes:

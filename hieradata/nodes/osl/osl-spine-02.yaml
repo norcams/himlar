@@ -26,7 +26,7 @@ profile::base::network::cumulus_interfaces:
     'ipv6': [ 'fd32:18:230::2/64', ]
     'clagd_enable': true
     'clagd_peer_ip': 'linklocal'
-    'clagd_backup_ip': "%{hiera('netcfg_trp_net_c6')}.1/21"
+    'clagd_backup_ip': "%{hiera('netcfg_trp_net_c6')}.1"
     'clagd_sys_mac': '44:38:39:ff:bb:2d'
   'swp28':
     'ipv4':  '128.39.47.57/31'
