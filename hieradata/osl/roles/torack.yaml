@@ -165,6 +165,331 @@ profile::network::leaf::cumulus_portconfigs:
   30:
     line:  "30=40G"
 
+profile::base::network::cumulus_bridges:
+  'bridge':
+    'ports':
+      - host1
+      - host2
+      - host3
+      - host4
+      - host5
+      - host6
+      - host7
+      - host8
+      - host9
+      - host10
+      - host11
+      - host12
+      - host13
+      - host14
+      - host15
+      - host16
+      - host17
+      - host18
+      - host19
+      - host20
+      - host21
+      - host22
+      - host23
+      - host24
+      - host31
+      - host32
+      - host33
+      - host34
+      - host35
+      - host36
+      - host37
+      - host38
+      - host39
+      - host40
+      - host41
+      - host42
+      - host44
+      - swp50
+      - peerlink
+      - downlink
+      - uplink
+    'alias_name': 'Transport L2 if'
+    'vlan_aware': 'true'
+    'stp': 'true'
+    'vids': [ '100', '110', '120', ]
+
+profile::base::network::cumulus_bonds:
+  'peerlink':
+    'slaves': [ 'swp25-26', ]
+    'mtu':   '9216'
+  'downlink':
+    'slaves': [ 'swp27-28', ]
+    'clag_id': '100'
+    'pvid': '100'
+    'vids': [ '100', '110', ]
+    'mtu':   '9216'
+  'uplink':
+    'slaves': [ 'swp29-30', ]
+    'clag_id': '101'
+    'pvid': '100'
+    'vids': [ '100', '110', '120', ]
+    'mtu':   '9216'
+  'host1':
+    'slaves': [ 'swp1', ]
+    'clag_id': '1'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host2':
+    'slaves': [ 'swp2', ]
+    'clag_id': '2'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host3':
+    'slaves': [ 'swp3', ]
+    'clag_id': '3'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host4':
+    'slaves': [ 'swp4', ]
+    'clag_id': '4'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host5':
+    'slaves': [ 'swp5', ]
+    'clag_id': '5'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host6':
+    'slaves': [ 'swp6', ]
+    'clag_id': '6'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host7':
+    'slaves': [ 'swp7', ]
+    'clag_id': '7'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host8':
+    'slaves': [ 'swp8', ]
+    'clag_id': '8'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host9':
+    'slaves': [ 'swp9', ]
+    'clag_id': '9'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host10':
+    'slaves': [ 'swp10', ]
+    'clag_id': '10'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host11':
+    'slaves': [ 'swp11', ]
+    'clag_id': '11'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host12':
+    'slaves': [ 'swp12', ]
+    'clag_id': '12'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host13':
+    'slaves': [ 'swp13', ]
+    'clag_id': '13'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host14':
+    'slaves': [ 'swp14', ]
+    'clag_id': '14'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host15':
+    'slaves': [ 'swp15', ]
+    'clag_id': '15'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host16':
+    'slaves': [ 'swp16', ]
+    'clag_id': '16'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host17':
+    'slaves': [ 'swp17', ]
+    'clag_id': '17'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host18':
+    'slaves': [ 'swp18', ]
+    'clag_id': '18'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host19':
+    'slaves': [ 'swp19', ]
+    'clag_id': '19'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host20':
+    'slaves': [ 'swp20', ]
+    'clag_id': '20'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host21':
+    'slaves': [ 'swp21', ]
+    'clag_id': '21'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host22':
+    'slaves': [ 'swp22', ]
+    'clag_id': '22'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host23':
+    'slaves': [ 'swp23', ]
+    'clag_id': '23'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host24':
+    'slaves': [ 'swp24', ]
+    'clag_id': '24'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host31':
+    'slaves': [ 'swp31', ]
+    'clag_id': '31'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host32':
+    'slaves': [ 'swp32', ]
+    'clag_id': '32'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host33':
+    'slaves': [ 'swp33', ]
+    'clag_id': '33'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host34':
+    'slaves': [ 'swp34', ]
+    'clag_id': '34'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host35':
+    'slaves': [ 'swp35', ]
+    'clag_id': '35'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host36':
+    'slaves': [ 'swp36', ]
+    'clag_id': '36'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host37':
+    'slaves': [ 'swp37', ]
+    'clag_id': '37'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host38':
+    'slaves': [ 'swp38', ]
+    'clag_id': '38'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host39':
+    'slaves': [ 'swp39', ]
+    'clag_id': '39'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host40':
+    'slaves': [ 'swp40', ]
+    'clag_id': '40'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host41':
+    'slaves': [ 'swp41', ]
+    'clag_id': '41'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host42':
+    'slaves': [ 'swp42', ]
+    'clag_id': '42'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+  'host44':
+    'slaves': [ 'swp44', ]
+    'clag_id': '44'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'mtu':   '9216'
+
 frrouting::frrouting::bgp_neighbor_groups:
   'rr-clients':
     'options':
@@ -246,15 +571,6 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'neighbor rr-clients route-map rr-client-allow6 in'
       - 'neighbor rr-clients route-map rr-client-allow6 out'
       - 'maximum-paths ibgp 3'
-      # spine-01
-      - 'neighbor fd32::6:1 activate'
-      - 'neighbor fd32::6:1 soft-reconfiguration inbound'
-      # spine-02
-      - 'neighbor fd32::6:2 activate'
-      - 'neighbor fd32::6:2 soft-reconfiguration inbound'
-      # torack-02
-      - 'neighbor fd32:18:228::2 activate'
-      - 'neighbor fd32:18:228::2 soft-reconfiguration inbound'
     'members6':
       - 'fd32::44'
       - 'fd32::45'
