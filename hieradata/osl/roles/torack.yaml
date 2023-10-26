@@ -11,6 +11,12 @@ profile::monitoring::sensu::agent::enable_agent: false
 sensuclassic::install_repo: false
 sensuclassic::manage_repo: false
 
+named_interfaces::config:
+  mgmt:
+    - eth0
+  trp:
+    - bridge.100
+
 profile::network::leaf::acls:
   '02control_plane_custom.rules':
     iptables:
