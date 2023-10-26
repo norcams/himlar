@@ -23,16 +23,16 @@ profile::base::network::cumulus_interfaces:
     'clagd_peer_ip': 'linklocal'
     'clagd_backup_ip': "%{hiera('netcfg_trp_net_c0')}.2"
     'clagd_sys_mac': '44:38:39:ff:bb:1c'
-  'swp50': # numascale
-    'pvid': '100'
-    'mstpctl_portadminedge': true
-    'mstpctl_bpduguard': true
-    'vids': [ '100', '110', '120', ]
-    'speed': '1000'
-  'swp53': # sikt link
-    'ipv4': '158.36.4.99/31'
-    'ipv6': '2001:700:0:8105::1/127'
-    'mtu':  '9178'
+#  'swp50': # numascale
+#    'pvid': '100'
+#    'mstpctl_portadminedge': true
+#    'mstpctl_bpduguard': true
+#    'vids': [ '100', '110', '120', ]
+#    'speed': '1000'
+#  'swp53': # sikt link
+#    'ipv4': '158.36.4.99/31'
+#    'ipv6': '2001:700:0:8105::1/127'
+#    'mtu':  '9178'
 
 profile::base::network::cumulus_bridges:
   'bridge':
