@@ -91,11 +91,11 @@ netcfg_oob_vlan:          '3378'
 netcfg_elastic_cidr:      '10.6.0.0/20'
 netcfg_trp_rr:
   rr1:
-    peer_ipv4: '172.18.32.1'
-    peer_ipv6: 'fd32::1'
+    peer_ipv4: '172.18.38.1'
+    peer_ipv6: 'fd32::6:1'
   rr2:
-    peer_ipv4: '172.18.32.2'
-    peer_ipv6: 'fd32::2'
+    peer_ipv4: '172.18.38.2'
+    peer_ipv6: 'fd32::6:2'
 
 #
 # Public addresses (bgo host frontend)
