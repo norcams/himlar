@@ -16,8 +16,10 @@ profile::base::network::network_auto_bonding:
   trp:
     eth0:
       'team_port_config': '{ "prio" : 100 }'
+      'mtu': '9000'
     eth1:
       'team_port_config': '{ "prio" : 100 }'
+      'mtu': '9000'
 
 # Turn off nested virtualization
 profile::virtualization::nested::manage: false
