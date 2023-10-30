@@ -58,7 +58,7 @@ sensuclassic::checks:
     subscribers:  ['metrics']
     handlers:     ['graphite_tcp']
   'check-disk-usage':
-    command:      "check-disk-usage.rb -p '/ceph/' -w %{hiera('sensu__disk__warning')} -c %{hiera('sensu__disk__crtical')} %{hiera('sensu__disk__ignore')}"
+    command:      "check-disk-usage.rb -p '/ceph/' -w %{hiera('sensu__disk__warning')} -c %{hiera('sensu__disk__crtical')} -x debugfs,tracefs %{hiera('sensu__disk__ignore')}"
     interval:     60
     subscribers:  ['checks']
   'check-load':
