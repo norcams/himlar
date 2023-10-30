@@ -85,6 +85,10 @@ openstack_extras::repo::debian::debian::source_hash:
   'buster':
     'location': 'http://ftp.no.debian.org/debian'
     'repos':    'main'
+  'nrec':
+    'location': 'https://download.iaas.uio.no/nrec/'
+    'repos':    'main'
+    'release':  'buster'
 
 profile::base::common::packages:
   'vim-enhanced': { 'ensure': 'absent', }
