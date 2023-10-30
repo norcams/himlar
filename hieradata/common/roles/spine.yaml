@@ -89,6 +89,7 @@ openstack_extras::repo::debian::debian::source_hash:
     'location': 'https://download.iaas.uio.no/nrec/aptrepo/'
     'repos':    'main'
     'release':  'buster'
+    'allow_unsigned': true
 
 profile::base::common::packages:
   'vim-enhanced': { 'ensure': 'absent', }
