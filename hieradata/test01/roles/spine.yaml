@@ -12,8 +12,6 @@ named_interfaces::config:
 profile::monitoring::sensu::agent::enable_go_agent:     false
 
 profile::monitoring::sensu::agent::enable_agent: false
-sensuclassic::install_repo: false
-sensuclassic::manage_repo: false
 
 openstack_extras::repo::debian::debian::source_hash:
   'buster':

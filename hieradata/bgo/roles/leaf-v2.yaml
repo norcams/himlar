@@ -50,8 +50,6 @@ profile::base::cl_limits::as_value:               2097152
 #    subscribers:  ['metrics']
 #    handlers:     ['graphite_tcp']
 #
-#sensuclassic::install_repo:            true
-#sensuclassic::manage_repo:             true
 
 profile::monitoring::collectd::enable: false
 profile::monitoring::collectd::merge_strategy: 'first'
