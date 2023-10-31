@@ -43,6 +43,9 @@ collectd::service_enable: false
 profile::monitoring::collectd::manage_service: true
 profile::monitoring::collectd::service_name:   'collectd@mgmt'
 
+profile::monitoring::sensu::agent::enable_agent: true
+profile::monitoring::sensu::agent::run_in_vrf:   true
+
 # ntp service managed by profile because of mgmt VRF
 ntp::service_enable: false
 ntp::service_ensure: 'stopped'
