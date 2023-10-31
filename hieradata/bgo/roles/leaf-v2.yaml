@@ -34,22 +34,22 @@ profile::base::cl_limits::manage_cl_limits:       true
 profile::base::cl_limits::as_value:               2097152
 
 # sensu
-#profile::monitoring::sensu::agent::enable_agent:    true
-#profile::monitoring::sensu::agent::merge_strategy: 'first'
-#profile::monitoring::sensu::agent::run_in_vrf:      true
-#profile::monitoring::sensu::agent::plugins:
-#  sensu-plugins-network-checks:
-#    type:         package
-#    pkg_version:  '4.1.1'
-#
-#sensuclassic::checks:
-#  'metrics-netif':
-#    type:         'metric'
-#    command:      'metrics-netif.rb --scheme network.%{::hostname}'
-#    interval:     60
-#    subscribers:  ['metrics']
-#    handlers:     ['graphite_tcp']
-#
+profile::monitoring::sensu::agent::enable_agent:    true
+profile::monitoring::sensu::agent::merge_strategy: 'first'
+profile::monitoring::sensu::agent::run_in_vrf:      true
+profile::monitoring::sensu::agent::plugins:
+  sensu-plugins-network-checks:
+    type:         package
+    pkg_version:  '4.1.1'
+
+sensuclassic::checks:
+  'metrics-netif':
+    type:         'metric'
+    command:      'metrics-netif.rb --scheme network.%{::hostname}'
+    interval:     60
+    subscribers:  ['metrics']
+    handlers:     ['graphite_tcp']
+
 
 profile::monitoring::collectd::enable: false
 profile::monitoring::collectd::merge_strategy: 'first'
