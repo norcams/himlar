@@ -99,9 +99,14 @@ openstack_extras::repo::debian::debian::package_require: true
 openstack_extras::repo::debian::debian::manage_uca: false
 openstack_extras::repo::debian::debian::manage_whz: false
 openstack_extras::repo::debian::debian::source_hash:
-  'jessie':
+  'buster':
     'location': 'http://ftp.no.debian.org/debian'
     'repos':    'main'
+  'nrec':
+    'location': 'https://download.iaas.uio.no/nrec/aptrepo/'
+    'repos':    'main'
+    'release':  'buster'
+    'allow_unsigned': true
 
 profile::base::common::packages:
   'vim-enhanced': { 'ensure': 'absent', }

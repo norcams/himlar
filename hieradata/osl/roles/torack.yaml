@@ -7,8 +7,6 @@ profile::monitoring::collectd::enable:     true
 # FIXME:sensu-go
 profile::monitoring::sensu::agent::enable_go_agent:     false
 
-profile::monitoring::sensu::agent::enable_agent: false
-
 named_interfaces::config:
   mgmt:
     - eth0
