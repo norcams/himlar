@@ -43,14 +43,10 @@ profile::base::lvm::physical_volume:
   '/dev/sda3':
     ensure: present
     force:  true
-  '/dev/sdb':
-    ensure: present
-    force:  true
 profile::base::lvm::volume_group:
   'vg_ext':
     physical_volumes:
       - /dev/sda3
-      - /dev/sdb
 profile::base::lvm::logical_volume:
   'lv_instances':
     volume_group: 'vg_ext'
