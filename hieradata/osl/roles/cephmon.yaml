@@ -19,7 +19,7 @@ profile::base::network::network_auto_opts:
   trp:
     'defroute': 'no'
     'ipv6init': 'no'
-    'mtu':      '1500'
+    'mtu': '9000'
     'devicetype': 'Team'
     'team_config': >-
                    { "runner" : {  "name" : "lacp",  "active": true, "fast_rate" : true,
@@ -30,10 +30,10 @@ profile::base::network::network_auto_bonding:
   trp:
     em1:
       'team_port_config': '{ "prio" : 100 }'
-      'mtu': '1500'
+      'mtu': '9000'
     em2:
       'team_port_config': '{ "prio" : 100 }'
-      'mtu': '1500'
+      'mtu': '9000'
 
 profile::base::common::manage_lvm: true
 profile::base::lvm::physical_volume:
