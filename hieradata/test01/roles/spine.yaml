@@ -9,14 +9,9 @@ named_interfaces::config:
     - bridge.100
 
 # FIXME:sensu-go
-profile::monitoring::sensu::agent::enable_go_agent:     false
+profile::monitoring::sensu::agent::enable_go_agent:     true
 
 profile::monitoring::sensu::agent::enable_agent: false
-
-openstack_extras::repo::debian::debian::source_hash:
-  'buster':
-    'location': 'http://ftp.no.debian.org/debian'
-    'repos':    'main'
 
 profile::monitoring::collectd::enable: true
 profile::base::common::manage_ntp:     false
