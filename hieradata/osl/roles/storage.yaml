@@ -19,6 +19,15 @@ profile::base::network::network_auto_opts:
   ceph:
     'defroute': 'no'
 
+profile::base::network::network_auto_bonding:
+  trp:
+    em1:
+      'team_port_config': '{ "prio" : 100 }'
+      'mtu': '9000'
+    em2:
+      'team_port_config': '{ "prio" : 100 }'
+      'mtu': '9000'
+
 # Disable intel c states for performance
 profile::base::physical::disable_intel_cstates: true
 
