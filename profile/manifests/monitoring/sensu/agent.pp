@@ -88,5 +88,29 @@ class profile::monitoring::sensu::agent (
       purge => $purge_check,
     }
 
+    # this is used for cumulus linux (debian)
+    if $run_in_vrf {
+
+      file { 'sensu-systemd-dir':
+        ensure => directory,
+        path   => '/etc/systemd/system/sensu-agent.service.d/',
+        owner  => root,
+        group  => root,
+      }
+      -> file { 'sensu-systemd-override':
+        ensure => file,
+        path   => '/etc/systemd/system/sensu-agent.service.d/override.conf',
+        owner  => root,
+        group  => root,
+        source => "puppet:///modules/${module_name}/monitoring/sensugo/systemd/override.conf",
+        notify => [Exec['debian_systemctl_daemon_reload'], Service['sensu-agent']]
+      }
+
+      exec { 'debian_systemctl_daemon_reload':
+        command     => '/bin/systemctl daemon-reload',
+        refreshonly => true,
+      }
+    }
+
   }
 }
