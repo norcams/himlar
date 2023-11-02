@@ -91,18 +91,12 @@ class profile::monitoring::sensu::agent (
     # this is used for cumulus linux (debian)
     if $run_in_vrf {
 
-      file { 'sensu-systemd-dir':
-        ensure => directory,
-        path   => '/etc/systemd/system/sensu-agent.service.d/',
-        owner  => root,
-        group  => root,
-      }
-      -> file { 'sensu-systemd-override':
+      file { 'sensu-systemd-override':
         ensure => file,
-        path   => '/etc/systemd/system/sensu-agent.service.d/override.conf',
+        path   => '/etc/systemd/system/sensu-agent.service.d/sensu-agent-start.conf',
         owner  => root,
         group  => root,
-        source => "puppet:///modules/${module_name}/monitoring/sensugo/systemd/override.conf",
+        source => "puppet:///modules/${module_name}/monitoring/sensugo/systemd/sensu-agent-start.conf",
         notify => [Exec['debian_systemctl_daemon_reload'], Service['sensu-agent']]
       }
 
