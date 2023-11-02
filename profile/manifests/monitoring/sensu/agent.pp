@@ -89,6 +89,7 @@ class profile::monitoring::sensu::agent (
     }
 
     # this is used for cumulus linux (debian)
+    # the override file must be loaded last so we rename it zzoverride.conf
     if $run_in_vrf {
 
       file { 'sensu-systemd-override':
