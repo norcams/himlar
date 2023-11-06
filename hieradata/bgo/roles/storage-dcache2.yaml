@@ -9,27 +9,6 @@ named_interfaces::config:
   ceph:
     - team1.110
 
-profile::base::network::network_auto_opts:
-  trp:
-    'defroute': 'no'
-    'devicetype': 'Team'
-    'mtu': '9000'
-    'team_config': >-
-                   { "runner" : {  "name" : "lacp",  "active": true, "fast_rate" : true,
-                   "tx_hash": ["eth", "ipv4", "ipv6"], "tx_balancer": { "name": "basic" } },
-                   "link_watch" : {  "name" : "ethtool" } }
-  ceph:
-    'defroute': 'no'
-
-profile::base::network::network_auto_bonding:
-  trp:
-    em1:
-      'team_port_config': '{ "prio" : 100 }'
-      'mtu': '9000'
-    em2:
-      'team_port_config': '{ "prio" : 100 }'
-      'mtu': '9000'
-
 ceph_version: 'quincy' # FIXME
 
 profile::base::common::manage_lvm:                  true
