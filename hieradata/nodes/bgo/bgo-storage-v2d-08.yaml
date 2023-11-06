@@ -1,13 +1,4 @@
 ---
-profile::base::network::network_auto_bonding:
-  trp:
-    em1:
-      'team_port_config': '{ "prio" : 100 }'
-      'mtu': '9000'
-    em2:
-      'team_port_config': '{ "prio" : 100 }'
-      'mtu': '9000'
-
 profile::base::lvm::logical_volume:
   'lv_swap2':
     volume_group: 'vg_swap'
