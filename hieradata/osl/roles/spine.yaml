@@ -793,7 +793,8 @@ frrouting::frrouting::bgp_accesslist:
     - 'seq 20 permit 158.39.200.0 0.0.0.255'
     - 'seq 25 permit 10.2.0.0 0.0.15.255'
     - 'seq 30 permit 10.4.0.0 0.0.15.255'
-    - 'seq 35 permit 172.18.32.0 0.0.0.255'
+    - 'seq 35 permit 10.6.0.0/20'
+    - 'seq 40 permit 172.18.32.0 0.0.0.255'
     - 'seq 250 deny 0.0.0.0/0'
   '20':
     - 'seq 5 deny 158.37.63.0 0.0.0.255'
@@ -802,7 +803,8 @@ frrouting::frrouting::bgp_accesslist:
     - 'seq 20 deny 158.39.200.0 0.0.0.255'
     - 'seq 25 deny 10.2.0.0 0.0.15.255'
     - 'seq 30 deny 10.4.0.0 0.0.15.255'
-    - 'seq 35 deny 172.18.32.0 0.0.0.255'
+    - 'seq 35 deny 10.6.0.0/20'
+    - 'seq 40 deny 172.18.32.0 0.0.0.255'
     - 'seq 250 permit 0.0.0.0/0'
 
 frrouting::frrouting::bgp_accesslist6:
