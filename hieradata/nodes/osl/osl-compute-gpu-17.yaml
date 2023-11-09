@@ -17,8 +17,10 @@ profile::base::network::network_auto_bonding:
   trp:
     eth2:
       'team_port_config': '{ "prio" : 100 }'
+      'mtu': '9000'
     eth3:
       'team_port_config': '{ "prio" : 100 }'
+      'mtu': '9000'
 
 profile::base::network::manage_neutron_blackhole: false
 profile::openstack::compute::pci_passthrough::manage_pcipassthrough: true
