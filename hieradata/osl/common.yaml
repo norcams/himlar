@@ -404,6 +404,7 @@ profile::openstack::resource::networks:
     shared: false
     tenant_name: 'openstack'
     provider_network_type: 'local'
+#    mtu: '9000' # FIXME: param available in puppet-neutron for Zed. Meanwhile, set once with CLI after creation
 
 profile::openstack::resource::subnets:
   public1_IPv4:

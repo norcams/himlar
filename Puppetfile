@@ -49,7 +49,7 @@ mod 'frrouting', :ref => '70450dd6de',              :git => github + 'norcams/pu
 # profile::network::
 #
 mod 'bird', :ref => 'v4.1.0',                       :git => github + 'voxpupuli/puppet-bird'
-mod 'calico', :ref => '7a59530de6',                 :git => github + 'norcams/puppet-calico'
+mod 'calico', :ref => 'v1.0.13',                    :git => github + 'norcams/puppet-calico'
 mod 'dnsmasq', :ref => 'b04a474295',                :git => github + 'saz/puppet-dnsmasq'
 mod 'ipcalc', :ref => '2.2.0',                      :git => github + 'inkblot/puppet-ipcalc'
 # FIXME: remove tinyproxy when all proxies have el8

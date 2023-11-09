@@ -72,3 +72,5 @@ profile::monitoring::sensu::agent::checks:
     command:      '/usr/local/bin/calico_dhcp_agent_check.sh'
     interval:     600
     subscribers:  ['checks']
+
+calico::compute::felix_mtuIfacePattern: '^team*'

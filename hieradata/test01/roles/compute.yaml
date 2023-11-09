@@ -127,6 +127,8 @@ sensu::agent::service_env_vars:
   PATH: '/usr/local/bin:/bin:/usr/bin:/opt/puppetlabs/bin:/opt/sensu-plugins-ruby/embedded/bin'
   HTTPS_PROXY: "%{hiera('mgmt__address__proxy')}:8888"
 
+calico::compute::felix_mtuIfacePattern: '^team*'
+
 nova::config::nova_config:
   DEFAULT/metadata_workers:
     value: '4'
