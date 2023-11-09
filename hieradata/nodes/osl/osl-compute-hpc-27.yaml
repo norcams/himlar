@@ -11,10 +11,10 @@ profile::base::network::network_auto_bonding:
   trp:
     eth0:
       'team_port_config': '{ "prio" : 100 }'
-#      'mtu': '9000'
+      'mtu': '9000'
     eth1:
       'team_port_config': '{ "prio" : 100 }'
-#      'mtu': '9000'
+      'mtu': '9000'
 
 profile::base::lvm::physical_volume:
   '/dev/sda4':
