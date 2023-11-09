@@ -1,4 +1,10 @@
 ---
+named_interfaces::config:
+  mgmt:
+    - eth0
+  trp:
+    - eth1
+
 profile::storage::cephmon::create_crushbuckets: true
 profile::storage::ceph_crushbucket::buckets:
   'object':
