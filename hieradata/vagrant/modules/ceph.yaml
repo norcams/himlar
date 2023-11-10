@@ -1,0 +1,44 @@
+---
+ceph::profile::params::client_keys:
+  'client.admin':
+    secret: "%{hiera('ceph_storage_client_admin_key')}"
+    mode: '0600'
+    user: 'ceph'
+    group: 'ceph'
+    cap_mon: 'allow *'
+    cap_osd: 'allow *'
+    cap_mds: 'allow *'
+    cap_mgr: 'allow *'
+    inject: false # inject will fail in vagrant
+  'client.bootstrap-osd':
+    secret: "%{hiera('ceph_storage_client_bootstrap_osd_key')}"
+    keyring_path: '/var/lib/ceph/bootstrap-osd/ceph.keyring'
+    cap_mon: 'allow profile bootstrap-osd'
+    inject: false # inject will fail in vagrant
+  'client.bootstrap-mds':
+    secret: "%{hiera('ceph_storage_client_bootstrap_mds_key')}"
+    keyring_path: '/var/lib/ceph/bootstrap-mds/ceph.keyring'
+    cap_mon: 'allow profile bootstrap-mds'
+    inject: false # inject will fail in vagrant
+  'client.glance':
+    secret: "%{hiera('ceph_storage_client_glance_key')}"
+    mode: '0600'
+    user: 'glance'
+    group: 'glance'
+    cap_mon: 'profile rbd'
+    cap_osd: 'profile rbd pool=images'
+    inject: false # inject will fail in vagrant
+  'client.cinder':
+    secret: "%{hiera('ceph_storage_client_cinder_key')}"
+    mode: '0600'
+    user: 'cinder'
+    group: 'cinder'
+    cap_mon: 'profile rbd'
+    cap_osd: 'profile rbd pool=volumes, profile rbd pool=vms, profile rbd pool=images'
+    inject: false # inject will fail in vagrant
+  'monitor.sensu':
+    secret: "%{hiera('ceph_storage_client_sensu_key')}"
+    mode: '0600'
+    user: 'sensu'
+    group: 'sensu'
+    cap_mon: 'allow r'

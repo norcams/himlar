@@ -1,0 +1,22 @@
+---
+# Disable stuff that will fail in vagrant
+profile::storage::cephmon::target_max_misplaced_ratio:  false
+profile::storage::cephmon::ceph_balancer_mode:          false
+profile::storage::cephmon::ceph_balancer_active:        false
+profile::storage::cephmon::create_crushbuckets:         false
+
+# FIXME:sensu-go
+sensu::agent::subscriptions:
+  - 'base'
+  - 'nodes'
+  - 'metrics'
+
+profile::monitoring::sensu::agent::checks:
+  ceph-check:
+    command:                "ceph-health.sh"
+    interval:               60
+    subscriptions:          ['entity:%{::hostname}']
+    handlers:               ['default']
+    round_robin:            true
+    runtime_assets:
+    - thorko/sensu-check-ceph
