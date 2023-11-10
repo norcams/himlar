@@ -206,6 +206,16 @@ ceph_object_client_rgw_key:                        'AQB7gnZc+0JyHhAAWxAt0LLADXAm
 ceph_object_client_mon_key:                        'AQBflXZcIQ++IRAAOgLDLbPTZ+diLeF6iK0apA=='
 ceph_object_client_mgr_key:                        'AQAOCudaiWQmKxAAjj6i10gfW887T2dYOCNLvw=='
 
+# ceph
+ceph_storage_client_fsid:                          'd3626aea-cde2-4506-a23e-66090632e55e'
+ceph_storage_client_admin_key:                     'AQA/gnZccTcjAhAAZNSlUElvqW4JI4W5Mu/DnQ=='
+ceph_storage_client_mon_key:                       'AQBflXZcIQ++IRAAOgLDLbPTZ+diLeF6iK0apA=='
+ceph_storage_client_mgr_key:                       'AQAOCudaiWQmKxAAjj6i10gfW887T2dYOCNLvw=='
+ceph_storage_client_mds_key:                       'AQAei5dbrrNpDhAA7251s/ZxmXNZvvV0pSOIxA=='
+ceph_storage_client_glance_key:                    'AQBwgnZc9w2yGxAAhI/FNgEGQ5u9sXEiNb8LHQ=='
+ceph_storage_client_cinder_key:                    'AQBwgnZc9w2yGxAAhI/FNgEGQ5u9sXEiNb8LHQ=='
+ceph_storage_client_bootstrap_osd_key:             'AQBwgnZc9w2yGxAAhI/FNgEGQ5u9sXEiNb8LHQ=='
+ceph_storage_client_bootstrap_mds_key:             'AQBwgnZc9w2yGxAAhI/FNgEGQ5u9sXEiNb8LHQ=='
 
 # service user api password
 keystone_admin_password:                            'admin_pass'
@@ -369,7 +379,7 @@ profile::openstack::resource::subnets:
 
 # FIXME:sensu-go
 profile::application::openssl::manage_ca_cert:          true
-profile::monitoring::sensu::agent::enable_go_agent:     false
+profile::monitoring::sensu::agent::enable_go_agent:     true # enable this to test in vagrant
 profile::monitoring::sensu::agent::enable_agent:        false
 # only checks defined in location will be added to sensu-go
 profile::monitoring::sensu::agent::merge_strategy:      'first'

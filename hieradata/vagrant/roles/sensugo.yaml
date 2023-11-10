@@ -21,3 +21,7 @@ sensu_etcd_cluster: "\
 
 
 profile::monitoring::sensu::agent::namespaces: {}
+profile::monitoring::sensu::backend::handlers:
+  slack:
+    type:         'pipe'
+    command:      'cat'

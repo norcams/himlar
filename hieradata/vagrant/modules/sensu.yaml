@@ -4,7 +4,7 @@ sensu::backend::ssl_key_source:  'file:///etc/pki/tls/private/%{::fqdn}.key.pem'
 sensu::ssl_ca_source:            'file:///etc/pki/tls/certs/cachain.pem'
 
 # Sensu assets
-sensu::plugins::plugins: {}
+sensu::plugins::plugins: {} # FIXME:sensu-go
 sensu::plugins::extensions: {}
 
 sensu::agent::backends:
