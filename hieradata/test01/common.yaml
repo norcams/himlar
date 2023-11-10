@@ -116,11 +116,11 @@ profile::network::services::dns_records:
     "compute.api.%{hiera('domain_public')}":                '129.177.31.122'
     "placement.api.%{hiera('domain_public')}":              '129.177.31.122'
     "dns.api.%{hiera('domain_public')}":                    '129.177.31.122'
-    "status.%{hiera('domain_public')}":                     '129.177.31.122'
-    "report.%{hiera('domain_public')}":                     '129.177.31.122'
-    "access.%{hiera('domain_public')}":                     '129.177.31.122' #124
+    "status.%{hiera('domain_frontend')}":                   '129.177.31.122'
+    "report.%{hiera('domain_frontend')}":                   '129.177.31.122'
+    "access.%{hiera('domain_frontend')}":                   '129.177.31.122' #124
     "console.%{hiera('domain_public')}":                    '129.177.31.122' #125
-    "dashboard.%{hiera('domain_public')}":                  '129.177.31.126'
+    "dashboard.%{hiera('domain_frontend')}":                '129.177.31.126'
     # mgmt
     "%{::location}-login-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_mgmt_netpart')}.10"
     "git.%{hiera('domain_mgmt')}":                          "%{hiera('netcfg_mgmt_net_c0')}.9"
