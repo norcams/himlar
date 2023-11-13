@@ -25,21 +25,11 @@ ceph::profile::params::mon_initial_members:         '%{::location}-cephmon-objec
 ceph::profile::params::cluster_network:             "%{::network_ceph1}/%{::cidr_ceph1}"
 ceph::profile::params::public_network:              "%{::network_trp1}/%{::cidr_trp1}"
 
-profile::storage::cephosd::crush_parent:           'object'
-profile::storage::cephosd::crush_parent_type:      'pod'
-profile::base::common::manage_lvm:                  true
-profile::base::lvm::create_lvm:                     true
+profile::storage::cephosd::crush_parent:      'object'
+profile::storage::cephosd::crush_parent_type: 'pod'
+profile::storage::cephosd::crush_move:        true
 
-# FIXME: don't create osds:
-#profile::storage::cephosd::create_osds:             true
-#profile::storage::cephosd::crush_move:              true
-profile::storage::cephosd::create_osds:             false
-profile::storage::cephosd::crush_move:              false
-profile::storage::cephpool::manage_ec_pools:        false
-profile::storage::cephpool::manage_cephpool_params: false
-#profile::storage::cephpool::manage_cephpool_params: true
-#endoffixme
-
+profile::storage::cephpool::manage_cephpool_params:  true
 profile::storage::ceph_crushrules::rules:
   'hdd-object':
     rule_device_type: "hdd"
