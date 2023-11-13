@@ -1,7 +1,4 @@
 ---
-# The uplink interface
-profile::base::network::uplink_interface: 'swp53'
-
 profile::base::network::cumulus_interfaces:
   'eth0':
     'ipv4': "%{hiera('netcfg_mgmt_net_c0')}.2/21"
