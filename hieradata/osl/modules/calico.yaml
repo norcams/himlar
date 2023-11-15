@@ -10,8 +10,8 @@ calico::compute::peer_defaults:
 
 calico::compute::peers:
   rr1:
-    peer_ipv4:  '172.18.32.1'
-    peer_ipv6:  'fd32::1'
+    peer_ipv4: '172.18.38.1'
+    peer_ipv6: 'fd32::6:1'
   rr2:
-    peer_ipv4:  '172.18.32.2'
-    peer_ipv6:  'fd32::2'
+    peer_ipv4: '172.18.38.2'
+    peer_ipv6: 'fd32::6:2'
