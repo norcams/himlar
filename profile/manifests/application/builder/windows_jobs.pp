@@ -30,8 +30,8 @@ define profile::application::builder::windows_jobs (
   } ->
   cron { $name:
     ensure      => $ensure,
-    # Write to imagebuilder report
-    command     => "/home/${user}/build_scripts/${name}_wrapper || jq -nc '{\"result\": \"failed\"}' > /var/log/imagebuilder/${name}-report.jsonl",
+    # Do not run unless it is Wednesday, and Write to imagebuilder report
+    command     => "test $(date +\%u) -eq 3 && /home/${user}/build_scripts/${name}_wrapper || jq -nc '{\"result\": \"failed\"}' > /var/log/imagebuilder/${name}-report.jsonl",
     user        => $user,
     weekday     => $weekday,
     monthday    => $monthday,
