@@ -17,11 +17,3 @@ profile::base::common::extraswap_sizegb: 10
 #nova::config::nova_config:
 #  libvirt/images_type:
 #    value: default
-
-netcfg_trp_rr: #FIXME: RR testing spine
-  rr1:
-    peer_ipv4: '172.18.38.1'
-    peer_ipv6: 'fd32::6:1'
-  rr2:
-    peer_ipv4: '172.18.38.2'
-    peer_ipv6: 'fd32::6:2'
