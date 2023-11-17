@@ -8,6 +8,7 @@ include:
     - profile::storage::ceph::pool
     - profile::monitoring::collectd
     - profile::monitoring::collectd::ceph
+    - profile::logging::rsyslog::client
   kickstart:
     - profile::base::lvm
   bootstrap:
