@@ -4,8 +4,7 @@ include:
     - profile::openstack::openrc
     - profile::openstack::object::radosgw
     - profile::storage::ceph::config
-
-ceph_version:         'pacific' #FIXME: need to change to beast frontend (require ceph module 4.0.0)
+    - profile::logging::rsyslog::client
 
 profile::base::common::packages:
   'python3-openstackclient': {}
@@ -17,7 +16,7 @@ profile::storage::ceph::config::config:
   'client.radosgw.%{::hostname}/rgw_enable_usage_log':
     value: true
   'client.radosgw.%{::hostname}/rgw_realm':
-    value: 'uhiaas'
+    value: 'nrec'
   'client.radosgw.%{::hostname}/rgw_zonegroup':
     value: 'norway'
   'client.radosgw.%{::hostname}/rgw_zone':
@@ -60,8 +59,8 @@ ceph::profile::params::client_keys:
 
 profile::openstack::object::radosgw::rgw:
   "radosgw.%{::hostname}":
-    frontend_type:  'civetweb'
-    rgw_frontends:  "civetweb port=%{::ipaddress_trp1}:7480"
+    frontend_type:  'beast'
+    rgw_frontends:  "beast endpoint=%{::ipaddress_trp1}:7480"
     rgw_swift_url:  "%{hiera('endpoint__object__public')}"
     rgw_dns_name:   "object.api.%{hiera('domain_public')}"
     user:           'ceph'
@@ -70,7 +69,7 @@ profile::openstack::object::radosgw::keystone:
   "radosgw.%{::hostname}":
     rgw_keystone_url:                 "%{hiera('endpoint__identity__public')}"
     rgw_keystone_accepted_roles:      ['object', 'admin']
-    rgw_keystone_token_cache_size:    0
+    rgw_keystone_token_cache_size:    500 # Default in puppet module
     rgw_s3_auth_use_keystone:         true
     rgw_keystone_admin_domain:        "%{hiera('keystone__default__domain')}"
     rgw_keystone_admin_project:       "%{hiera('keystone__service__project')}"

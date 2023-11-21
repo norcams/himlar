@@ -46,9 +46,9 @@ volume__backend__ips:
   - "%{hiera('netcfg_trp_netpart')}.46"
   - "%{hiera('netcfg_trp_netpart')}.47"
 object__backend__names:
-  - '%{::location}-rgw-01'
+  - '%{::location}-rgw-02'
 object__backend__ips:
-  - "%{hiera('netcfg_trp_netpart')}.84"
+  - "%{hiera('netcfg_trp_netpart')}.85"
 
 profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
   internal_domains:
