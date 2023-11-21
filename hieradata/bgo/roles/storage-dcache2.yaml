@@ -33,21 +33,12 @@ profile::storage::ceph_extraconf::config:
   osd_memory_target:
     'config_key'  : "osd/osd_memory_target"
     'config_value': "10200547328" # 9.5GB pr OSD
-  osd_max_scrubs:
-    'config_key'  : "osd/osd_max_scrubs"
-    'config_value': "2"
   osd_deep_scrub_interval:
     'config_key'  : "osd/osd_deep_scrub_interval"
     'config_value': "2419200.000000"
   osd scrub max interval:
     'config_key'  : "osd/osd_scrub_max_interval"
     'config_value': "2419200.000000"
-  osd_recovery_max_active:
-    'config_key'  : "osd/osd_recovery_max_active"
-    'config_value': "3" # default value
-  osd_max_backfills:
-    'config_key'  : "osd/osd_max_backfills"
-    'config_value': "1" # default value
   osd_scrub_priority:
     'config_key'  : "osd/osd_scrub_priority"
     'config_value': "1"
@@ -60,6 +51,10 @@ profile::storage::ceph_extraconf::config:
   osd_scrub_chunk_max:
     'config_key'  : "osd/osd_scrub_chunk_max"
     'config_value': "5"
+
+ceph::profile::params::osd_max_scrubs: '2'
+ceph::profile::params::osd_recovery_max_active: '3'
+ceph::profile::params::osd_max_backfills: '1'
 
 profile::storage::ceph_ecpool::ec_pools:
   'dcache_hdd_ec_data8':
