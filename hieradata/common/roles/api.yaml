@@ -264,6 +264,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
       - option:
         - 'httplog'
       - errorfile:    '503 /etc/haproxy/error.api.http'
+      - balance:      'roundrobin'
   bk_status:
     options:
       - fullconn:     200
