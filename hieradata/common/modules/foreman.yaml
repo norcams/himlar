@@ -22,14 +22,10 @@ profile::application::foreman::config:
     value:  'Default Organization'
   destroy_vm_on_host_delete:
     value:  'true'
-  discovery_fact_column:
-    value:  'ipmi_ipaddress'
   entries_per_page:
     value:  100
   foreman_url:
     value:  "https://foreman.%{hiera('domain_public')}"
-  global_PXEGrub2:
-    value:  "norcams-PXEGrub2 global default"
   root_pass:
     value:  '$1$16W5j9.P$wrGl0KophqmJwfADuUOIM/'
   template_sync_branch:
@@ -51,4 +47,4 @@ profile::application::foreman::config:
 
 profile::application::foreman::plugins:
   hammer_cli_foreman_templates:
-    package: 'tfm-rubygem-hammer_cli_foreman_templates'
+    package: 'rubygem-hammer_cli_foreman_templates'
