@@ -84,16 +84,17 @@ mod 'gitolite', :ref => '1.1',                      :git => github + 'uib/puppet
 # profile::application::foreman
 #
 mod 'voxpupuli/r10k', :ref => 'v6.2.0',             :git => github + 'voxpupuli/puppet-r10k'
-mod 'theforeman/foreman', :ref => '15.1.1',         :git => github + 'theforeman/puppet-foreman.git'
+mod 'theforeman/foreman', :ref => '23.2.0',         :git => github + 'theforeman/puppet-foreman.git'
 # mod 'theforeman/concat_native', '1.5.0'             # forge replace with puppetlabs-concat (further down)
-mod 'theforeman/tftp', :ref => '6.0.0',             :git => github + 'theforeman/puppet-tftp'
-mod 'theforeman/puppet', :ref => '14.0.0',          :git => github + 'theforeman/puppet-puppet.git'
+mod 'theforeman/tftp', :ref => '8.0.0',             :git => github + 'theforeman/puppet-tftp'
+mod 'theforeman/puppet', :ref => '18.0.0',          :git => github + 'theforeman/puppet-puppet.git'
+mod 'theforeman/puppetserver_foreman', :ref => '2.4.0', :git => github + 'theforeman/puppet-puppetserver_foreman'
 mod 'puppetlabs/hocon', :ref => '1.0.0',            :git => github + 'puppetlabs/puppetlabs-hocon'
 mod 'puppetlabs-puppetserver_gem', '1.1.1'          # need to install puppetserver gems
 mod 'puppetlabs/puppet_authorization', :ref => '0.4.0', :git => github + 'puppetlabs/puppetlabs-puppet_authorization'
-mod 'theforeman/dns', :ref => '8.0.0',              :git => github + 'theforeman/puppet-dns'
-mod 'theforeman/dhcp', :ref => '6.1.0',             :git => github + 'theforeman/puppet-dhcp.git'
-mod 'theforeman/foreman_proxy', :ref => '15.1.0',   :git => github + 'theforeman/puppet-foreman_proxy.git'
+mod 'theforeman/dns', :ref => '10.0.0',             :git => github + 'theforeman/puppet-dns'
+mod 'theforeman/dhcp', :ref => '9.0.0',             :git => github + 'theforeman/puppet-dhcp.git'
+mod 'theforeman/foreman_proxy', :ref => '25.1.0',   :git => github + 'theforeman/puppet-foreman_proxy.git'
 mod 'theforeman/git', :ref => '3.0.0',              :git => github + 'theforeman/puppet-git'
 mod 'voxpupuli/alternatives', :ref => 'v2.0.0',     :git => github + 'voxpupuli/puppet-alternatives'
 mod 'voxpupuli/extlib', :ref => 'v2.0.1-82-g53c6e2b', :git => github + 'voxpupuli/puppet-extlib.git'
@@ -125,7 +126,7 @@ mod 'sensuclassic', :ref => 'v3.5.0',               :git => github + 'sensu/pupp
 mod 'sensu', :ref => 'v5.8.0',                      :git => github + 'sensu/sensu-puppet'
 mod 'uchiwa', :ref => 'v1.0.1',                     :git => github + 'yelp/puppet-uchiwa'
 mod 'graphite', :ref => 'v7.2.0',                   :git => github + 'echocat/puppet-graphite' # fixed upstream
-mod 'redis', :ref => 'v8.0.0',                      :git => github + 'voxpupuli/puppet-redis'
+mod 'redis', :ref => 'v8.5.0',                      :git => github + 'voxpupuli/puppet-redis'
 mod 'grafana', :ref => 'v8.0.0',                    :git => github + 'voxpupuli/puppet-grafana'
 mod 'statsd', :ref => '3.1.0',                      :git => github + 'justindowning/puppet-statsd'
 mod 'netdata', :ref => '1f8bcef',                   :git => github + 'norcams/denver-netdata'
@@ -137,12 +138,12 @@ mod 'influxdb', :ref => 'norcams',                  :git => github + 'norcams/in
 #
 # profile::webserver::apache
 #
-mod 'puppetlabs/apache', :ref => 'v6.4.0',          :git => github + 'puppetlabs/puppetlabs-apache'
+mod 'puppetlabs/apache', :ref => 'v8.3.0',          :git => github + 'puppetlabs/puppetlabs-apache'
 
 #
 # profile::database::postgresql
 #
-mod 'postgresql', :ref => 'v6.8.0',                 :git => github + 'puppetlabs/puppetlabs-postgresql'
+mod 'postgresql', :ref => 'v7.4.0',                 :git => github + 'puppetlabs/puppetlabs-postgresql'
 
 #
 # profile::database::mariadb

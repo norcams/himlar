@@ -3,14 +3,16 @@
 define profile::base::package (
   $ensure = 'present',
   $provider = undef,
-  $source = undef
+  $source = undef,
+  $enable_only = undef,
 ) {
 
   unless $ensure == 'absent' {
     package { $name:
-      ensure   => $ensure,
-      provider => $provider,
-      source   => $source
+      ensure      => $ensure,
+      provider    => $provider,
+      source      => $source,
+      enable_only => $enable_only
     }
   }
 
