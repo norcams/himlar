@@ -71,6 +71,13 @@ ceph::profile::params::client_keys:
     group: 'ceph'
     cap_mon: 'allow rw'
     cap_osd: 'allow rwx'
+  'client.radosgw.%{::location}-rgw-03':
+    secret: "%{hiera('ceph_object_client_rgw_key')}"
+    mode: '0600'
+    user: 'ceph'
+    group: 'ceph'
+    cap_mon: 'allow rw'
+    cap_osd: 'allow rwx'
 
 profile::storage::cephmon::manage_dashboard:        false
 profile::storage::cephmon::create_crushbuckets:     false

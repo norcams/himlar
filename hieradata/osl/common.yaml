@@ -226,6 +226,8 @@ profile::network::services::dns_records:
     "placement.api.%{hiera('domain_public')}":    '158.37.63.250'
     "metric.api.%{hiera('domain_public')}":       '158.37.63.250'
     "dns.api.%{hiera('domain_public')}":          '158.37.63.250'
+    "object.api.%{hiera('domain_public')}":       '158.37.63.250'
+
     "resolver.%{hiera('domain_public')}":         '158.37.63.252'
 
     # Frontend records (<foo>.uh-iaas.no)
@@ -262,6 +264,8 @@ profile::network::services::dns_records:
     "placement.api.%{hiera('domain_public2')}":   '158.37.63.250'
     "metric.api.%{hiera('domain_public2')}":      '158.37.63.250'
     "dns.api.%{hiera('domain_public2')}":         '158.37.63.250'
+    "object.api.%{hiera('domain_public2')}":      '158.37.63.250'
+
     "resolver.%{hiera('domain_public2')}":        '158.37.63.252'
 
     # Management network (entries that differ from common/common.yaml)
