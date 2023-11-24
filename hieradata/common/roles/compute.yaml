@@ -109,6 +109,15 @@ profile::monitoring::sensu::agent::plugins:
   sensu-plugins-filesystem-checks:
     type:         package
     pkg_version:  '1.0.0'
+  domain_name:
+    type:         package
+    pkg_version:  '0.5.20190701'
+  aws-eventstream:
+    type:         package
+    pkg_version:  '1.2.0'
+  aws-sigv4:
+    type:         package
+    pkg_version:  '1.6.1'
 
 profile::monitoring::sensu::agent::plugin_gems:
   sensu-plugins-himlar:
