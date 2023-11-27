@@ -4,6 +4,3 @@ neutron::db::mysql::allowed_hosts:
 
 # neutron cli do not support ca_cert variable. Run without TSL in vagrant.
 neutron::keystone::auth::public_url: "%{hiera('endpoint__network__internal')}"
-
-neutron::global_physnet_mtu:     '1500'
-neutron::plugins::ml2::path_mtu: '1500'

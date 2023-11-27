@@ -4,6 +4,3 @@ neutron::keystone::auth::public_url:    "%{hiera('endpoint__network__internal')}
 
 neutron::server::api_workers:           1
 neutron::server::rpc_workers:           1
-
-neutron::global_physnet_mtu:     '1500'
-neutron::plugins::ml2::path_mtu: '1500'
