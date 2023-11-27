@@ -12,11 +12,9 @@ profile::base::network::network_auto_bonding:
     p2p1:
       'team_port_config': '{ "prio" : 100 }'
       'mtu': '9000'
-      'ethtool_opts': '-K p2p1 gro off'
     p2p2:
       'team_port_config': '{ "prio" : 100 }'
       'mtu': '9000'
-      'ethtool_opts': '-K p2p2 gro off'
 
 profile::base::lvm::physical_volume:
   '/dev/sda4':
