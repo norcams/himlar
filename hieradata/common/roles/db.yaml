@@ -6,7 +6,7 @@ include:
     - profile::logging::logrotate
     - profile::base::systemd
 
-mariadb_version: '10.3'
+mariadb_version: '10.4'
 
 profile::base::systemd::manage_limits: true
 profile::base::systemd::limits:
