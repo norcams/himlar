@@ -6,6 +6,8 @@ include:
     - profile::logging::logrotate
     - profile::base::systemd
 
+mariadb_version: '10.3'
+
 profile::base::systemd::manage_limits: true
 profile::base::systemd::limits:
   mariadb:
@@ -61,6 +63,7 @@ logrotate::rules:
 profile::base::yumrepo::repo_hash:
   "mariadb-%{hiera('mariadb_version')}":
     ensure:     present
+    module_hotfixes: '1'
 
 # for backup
 
