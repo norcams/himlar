@@ -1,0 +1,41 @@
+#!/bin/bash
+
+_term() {
+  echo "Caught SIGTERM signal!"
+    /sbin/ip route del <%= scope().call_function('hiera',['public__ip__api']) %>/32 dev dummy0 > /dev/null
+    /sbin/ip -6 route del <%= scope().call_function('hiera',['public__ipv6__api']) %> dev dummy0 > /dev/null
+    /sbin/ip -6 route del <%= scope().call_function('hiera',['public__ipv6__api']) %> dev dummy0 > /dev/null
+  /bin/sleep 3
+  exit 0
+#  kill -TERM "$child" 2>/dev/null
+}
+
+trap _term SIGTERM
+
+# Check health for local haproxy daemon
+
+while true
+do
+  if /usr/bin/systemctl is-active --quiet haproxy;
+then
+  if ! /sbin/ip route | grep <%= scope().call_function('hiera',['public__ip__api']) %> > /dev/null ; then
+    /sbin/ip route add <%= scope().call_function('hiera',['public__ip__api']) %>/32 dev dummy0 > /dev/null
+  fi
+  if ! /sbin/ip -6 route | grep <%= scope().call_function('hiera',['public__ipv6__api']) %> | grep -v kernel > /dev/null ; then
+    /sbin/ip -6 route add <%= scope().call_function('hiera',['public__ipv6__api']) %>/128 dev dummy0 > /dev/null
+  fi
+else
+  if /sbin/ip route | grep <%= scope().call_function('hiera',['public__ip__api']) %> > /dev/null ; then
+    /sbin/ip route del <%= scope().call_function('hiera',['public__ip__api']) %>/32 dev dummy0 > /dev/null
+  fi
+  if /sbin/ip -6 route | grep <%= scope().call_function('hiera',['public__ipv6__api']) %> | grep -v kernel > /dev/null ; then
+    /sbin/ip -6 route del <%= scope().call_function('hiera',['public__ipv6__api']) %> dev dummy0 > /dev/null
+  fi
+  if /sbin/ip -6 route | grep <%= scope().call_function('hiera',['public__ipv6__api']) %> | grep -v kernel > /dev/null ; then
+    /sbin/ip -6 route del <%= scope().call_function('hiera',['public__ipv6__api']) %> dev dummy0 > /dev/null
+  fi
+fi
+sleep 2
+done
+
+wait $!

@@ -1,4 +1,6 @@
 ---
+profile::highavailability::loadbalancing::haproxy::anycast_enable: false
+
 network::interfaces_hash:
   'eth0':
     ipaddress: "%{hiera('netcfg_mgmt_netpart')}.86"
