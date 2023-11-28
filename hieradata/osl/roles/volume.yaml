@@ -62,7 +62,7 @@ profile::openstack::volume::backend::rbd:
       mass-storage-ssd/rbd_exclusive_cinder_pool:
         value: 'True'
 
-cinder::api::default_volume_type: 'mass-storage-default'
+cinder::api::default_volume_type: 'rbd'
 
 cinder::backends::enabled_backends:
   - rbd-volumes
