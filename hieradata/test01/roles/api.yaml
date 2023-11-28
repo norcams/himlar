@@ -8,6 +8,7 @@
 # Filter api access to testing network
 block_api_connection:   'connection reject unless { src -f /etc/haproxy/test01_access.list }'
 
+profile::highavailability::loadbalancing::haproxy::anycast_enable: true
 profile::highavailability::loadbalancing::haproxy::access_list:
   testing_network:
     ips:
