@@ -63,6 +63,9 @@ neutron::config::server_config:
 #  keystone_authtoken/service_token_roles_required:
 #    value: 'true'
 
+neutron::global_physnet_mtu:     '9000'
+neutron::plugins::ml2::path_mtu: '9000'
+
 # quota (node: network)
 neutron::quota::quota_port:   '-1'
 
