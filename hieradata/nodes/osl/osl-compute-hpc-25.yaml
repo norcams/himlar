@@ -12,9 +12,11 @@ profile::base::network::network_auto_bonding:
     eth0:
       'team_port_config': '{ "prio" : 100 }'
       'mtu': '9000'
+      'ethtool_opts': '-K eth0 gro off'
     eth1:
       'team_port_config': '{ "prio" : 100 }'
       'mtu': '9000'
+      'ethtool_opts': '-K eth1 gro off'
 
 profile::base::lvm::physical_volume:
   '/dev/sda4':
