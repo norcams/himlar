@@ -6,8 +6,6 @@ include:
     - profile::logging::logrotate
     - profile::base::systemd
 
-mariadb_version: '10.4'
-
 profile::base::systemd::manage_limits: true
 profile::base::systemd::limits:
   mariadb:
@@ -59,15 +57,12 @@ logrotate::rules:
     compress:       true
 
 
-# Enable extra yum repo
+# Enable MariaDB yum repository
 profile::base::yumrepo::repo_hash:
   "mariadb-%{hiera('mariadb_version')}":
     ensure:     present
-    module_hotfixes: '1'
 
-# for backup
-
-# ... script creation
+# For backup script creation
 profile::database::mariadb::backupuser:       'root'
 profile::database::mariadb::backuppassword:   "%{hiera('mysql::server::root_password')}"
 profile::database::mariadb::postscript:       "date >  %{hiera('profile::database::mariadb::backuptopdir')}/$(hostname)-backupflag"

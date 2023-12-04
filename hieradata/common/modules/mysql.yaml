@@ -1,4 +1,6 @@
 ---
+
+mariadb_version: '10.4'
 mysql::client::package_name:    'MariaDB-client'
 
 mysql::server::restart: true
