@@ -1,13 +1,12 @@
 ---
 
-mariadb_version: '10.5'
+mariadb_version: '10.6'
 mysql::client::package_name:    'MariaDB-client'
 
 mysql::server::restart: true
 
 mysql__config__max_connections:             512
 mysql__config__innodb_buffer_pool_size:     '512M'
-mysql__config__innodb_buffer_pool_instances: 1
 mysql__config__innodb_log_file_size:        '64M'
 mysql__config__query_cache_size:            '64M'
 mysql__config__query_cache_limit:           '16M'
@@ -35,7 +34,6 @@ mysql::server::override_options:
     ssl-ca:                         "%{hiera('db_ssl_ca')}"
   mysqld:
     max_connections:                "%{hiera('mysql__config__max_connections')}"
-    innodb_buffer_pool_instances:   "%{hiera('mysql__config__innodb_buffer_pool_instances')}"
     table_open_cache:               16384
     query_cache_size:               "%{hiera('mysql__config__query_cache_size')}"
     query_cache_limit:              "%{hiera('mysql__config__query_cache_limit')}"
