@@ -131,12 +131,12 @@ profile::network::services::dns_records:
     "status.%{hiera('domain_frontend2')}":       'pubproxy.ha.uib.no'
     "report.%{hiera('domain_frontend2')}":       'pubproxy.ha.uib.no'
     "docs.%{hiera('domain_frontend2')}":         'pubproxy.ha.uib.no'
-    "%{::location}-compute-atlas-11.%{hiera('domain_mgmt')}": "%{::location}-compute-11.%{hiera('domain_mgmt')}"
-    "%{::location}-compute-atlas-12.%{hiera('domain_mgmt')}": "%{::location}-compute-12.%{hiera('domain_mgmt')}"
-    "%{::location}-compute-atlas-13.%{hiera('domain_mgmt')}": "%{::location}-compute-13.%{hiera('domain_mgmt')}"
-    "%{::location}-compute-atlas-14.%{hiera('domain_mgmt')}": "%{::location}-compute-14.%{hiera('domain_mgmt')}"
-    "%{::location}-compute-atlas-15.%{hiera('domain_mgmt')}": "%{::location}-compute-15.%{hiera('domain_mgmt')}"
-    "%{::location}-compute-atlas-16.%{hiera('domain_mgmt')}": "%{::location}-compute-16.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-epyc-11.%{hiera('domain_mgmt')}": "%{::location}-compute-11.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-epyc-12.%{hiera('domain_mgmt')}": "%{::location}-compute-12.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-epyc-13.%{hiera('domain_mgmt')}": "%{::location}-compute-13.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-epyc-14.%{hiera('domain_mgmt')}": "%{::location}-compute-14.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-epyc-15.%{hiera('domain_mgmt')}": "%{::location}-compute-15.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-epyc-16.%{hiera('domain_mgmt')}": "%{::location}-compute-16.%{hiera('domain_mgmt')}"
     #"%{::location}-compute-atlas-19.%{hiera('domain_mgmt')}": "%{::location}-compute-19.%{hiera('domain_mgmt')}"
     #"%{::location}-compute-atlas-20.%{hiera('domain_mgmt')}": "%{::location}-compute-20.%{hiera('domain_mgmt')}"
     "%{::location}-compute-atlas-21.%{hiera('domain_mgmt')}": "%{::location}-compute-21.%{hiera('domain_mgmt')}"
