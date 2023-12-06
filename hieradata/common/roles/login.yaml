@@ -147,10 +147,13 @@ profile::application::git::settings:
   mirroring:    'enable'
   site_info:    'Please see http://iaas.readthedocs.org for more info'
 
-# Enable extra yum repo
 profile::base::yumrepo::repo_hash:
+  # Enable extra yum repo
   epel:
     ensure: present
+  # on login node we must actually use dnsmasq from Appstream as Calico repo not available
+  AlmaLinux-AppStream:
+    exclude:        'postgres*'
 
 profile::base::login::dump_owner:      'norcams'
 profile::base::login::dump_group:      'wheel'
