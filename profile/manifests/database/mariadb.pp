@@ -35,6 +35,7 @@ class profile::database::mariadb (
   $ignore_events            = true,
   $delete_before_dump       = false,
   $backupdatabases          = [],
+  $excludedatabases         = [],
   $file_per_database        = false,
   $include_triggers         = false,
   $include_routines         = false,
