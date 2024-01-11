@@ -456,6 +456,9 @@ profile::base::network::cumulus_bridges:
   'bridge':
     'ports':
       - host17
+      - host18
+      - host19
+      - host20
       - host49
       - host50
       - host51
@@ -503,6 +506,12 @@ frrouting::frrouting::zebra_interfaces:
     - 'link-detect'
     - 'description linux-bridge-100'
   'host17':
+    - 'link-detect'
+  'host18':
+    - 'link-detect'
+  'host19':
+    - 'link-detect'
+  'host20':
     - 'link-detect'
   'host49':
     - 'link-detect'
