@@ -8,8 +8,8 @@ network::interfaces_hash:
     bridge:     'br1'
     vlan:       'yes'
   'br0':
-    dns1:       "%{hiera('netcfg_dns_server1')}"
-    dns2:       "%{hiera('netcfg_dns_server2')}"
+    dns1:       "%{hiera('netcfg_dns_mgmt_server1')}"
+    dns2:       "%{hiera('netcfg_dns_mgmt_server2')}"
     domain:     "%{domain}"
     defroute:   'yes'
     peerdns:    'yes'
