@@ -13,9 +13,5 @@ network::interfaces_hash:
   'eth1':
     onboot:    'true'
     defroute:  'no'
-  'eth1.10':
-    onboot:    'true'
     ipaddress: "%{hiera('netcfg_mgmt_netpart')}.10"
     netmask:   "%{hiera('netcfg_mgmt_netmask')}"
-    defroute:  'no'
-    vlan:      yes
