@@ -10,8 +10,9 @@ network::interfaces_hash:
     domain:    "%{hiera('netcfg_dns_search')}"
     defroute:  'yes'
     peerdns:   'yes'
-  'eth1':
+  'eth1.10':
     onboot:    'true'
     ipaddress: "%{hiera('netcfg_mgmt_netpart')}.10"
     netmask:   "%{hiera('netcfg_mgmt_netmask')}"
     defroute:  'no'
+    vlan:      yes
