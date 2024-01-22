@@ -923,6 +923,23 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'fd32::1:122'
       - 'fd32::1:123'
       - 'fd32::1:124'
+  'elastic_rail_o1t':
+    'options':
+      - 'peer-group'
+      - "remote-as %{hiera('elasticip_rail_o1t_asn')}"
+      - "password %{hiera('elasticip_rail_o1t_md5')}"
+      - 'soft-reconfiguration inbound'
+      - 'ebgp-multihop'
+      - 'bfd'
+    'options6':
+      - 'neighbor elastic_rail_o1t activate'
+      - 'neighbor elastic_rail_o1t soft-reconfiguration inbound'
+    'bgp_listen_range':
+      - "%{hiera('netcfg_elastic_cidr')}"
+    'ip_access_list':
+      - "158.39.200.255/32"
+    'ip_access_list6':
+      - "2001:700:2:82f0::1345/128"
 
 frrouting::frrouting::bgp_options:
   - "bgp router-id %{ipaddress_trp1}"
