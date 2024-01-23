@@ -957,6 +957,7 @@ frrouting::frrouting::bgp_accesslist:
     - 'seq 25 permit 10.2.0.0 0.0.15.255'
     - 'seq 30 permit 10.4.0.0 0.0.15.255'
     - 'seq 35 permit 10.6.0.0/20'
+    - "seq 36 permit %{hiera('bgp_loopback_addr')}/32"
     - 'seq 40 permit 172.18.32.0 0.0.0.255'
     - 'seq 250 deny 0.0.0.0/0'
   '20':
