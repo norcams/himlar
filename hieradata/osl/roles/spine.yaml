@@ -940,7 +940,7 @@ frrouting::frrouting::bgp_neighbor_groups:
     'bgp_listen_range':
       - "%{hiera('netcfg_elastic_cidr')}"
     'ip_access_list':
-      - "158.39.200.255/32"
+      - "158.39.75.254/32"
     'ip_access_list6':
       - "2001:700:2:82f0::1345/128"
 
