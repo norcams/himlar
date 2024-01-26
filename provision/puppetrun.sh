@@ -52,7 +52,9 @@ done
 set_certname
 
 # Do bootstrap run if needed
-bootstraprun
+if [[ ! $FACTER_is_installer == "true" ]]; then
+    bootstraprun
+fi
 
 # Run Puppet
 puppetrun
