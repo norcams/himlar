@@ -36,7 +36,16 @@ profile::virtualization::libvirt::firewall_extras:
     dport: 5900-5999
 
 profile::network::services::ntp_server: true
-chrony::queryhosts: [ "%{hiera('netcfg_mgmt_netpart')}.0/%{::cidr_mgmt1}", ] # allow clients to query ntp service
+chrony::queryhosts: # allow clients to query ntp service and we cannot use network facts
+  - "%{hiera('netcfg_mgmt_net_c0')}"
+  - "%{hiera('netcfg_mgmt_net_c1')}"
+  - "%{hiera('netcfg_mgmt_net_c2')}"
+  - "%{hiera('netcfg_mgmt_net_c3')}"
+  - "%{hiera('netcfg_mgmt_net_c4')}"
+  - "%{hiera('netcfg_mgmt_net_c5')}"
+  - "%{hiera('netcfg_mgmt_net_c6')}"
+  - "%{hiera('netcfg_mgmt_net_c7')}"
+
 
 profile::virtualization::libvirt::networks:
   directnet:
