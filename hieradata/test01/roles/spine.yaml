@@ -18,6 +18,11 @@ profile::base::common::manage_ntp:     false
 profile::base::common::manage_chrony:  true
 chrony::service_name: 'chrony@mgmt'
 
+profile::network::leaf::switchd_conf:
+  'resilient_hash_enable':
+    line: 'resilient_hash_enable = TRUE'
+    path: '/etc/cumulus/datapath/traffic.conf'
+
 profile::network::leaf::acls:
   '02control_plane_custom.rules':
     iptables:

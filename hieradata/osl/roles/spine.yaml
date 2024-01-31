@@ -11,6 +11,11 @@ named_interfaces::config:
 # FIXME:sensu-go
 profile::monitoring::sensu::agent::enable_go_agent:     false
 
+profile::network::leaf::switchd_conf:
+  'resilient_hash_enable':
+    line: 'resilient_hash_enable = TRUE'
+    path: '/etc/cumulus/datapath/traffic.conf'
+
 profile::network::leaf::acls:
   '02control_plane_custom.rules':
     iptables:
