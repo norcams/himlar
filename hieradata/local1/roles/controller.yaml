@@ -27,8 +27,6 @@ himlar_bootstrap::virt_install:
     vm_console:      false
     use_dhcp:        false
 
-sensu__disk__warning:     80
-
 # Create and enable more swap
 profile::base::common::extraswap:        true
 profile::base::common::extraswap_sizegb: 10

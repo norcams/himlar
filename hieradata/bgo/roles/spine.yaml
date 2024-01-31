@@ -1121,6 +1121,7 @@ frrouting::frrouting::bgp_neighbor_groups:
     'options':
       - 'peer-group'
       - "remote-as %{hiera('bgp_as')}"
+      - 'addpath-tx-all-paths'
       - 'route-reflector-client'
       - 'soft-reconfiguration inbound'
       - 'route-map rr-client-allow in'
@@ -1215,6 +1216,8 @@ frrouting::frrouting::bgp_neighbor_groups:
       - '172.18.1.142'
     'options6':
       - 'neighbor rr-clients route-reflector-client'
+      - 'neighbor rr-clients soft-reconfiguration inbound'
+      - 'neighbor rr-clients addpath-tx-all-paths'
       - 'neighbor rr-clients route-map rr-client-allow6 in'
       - 'neighbor rr-clients route-map rr-client-allow6 out'
       - 'maximum-paths ibgp 5'
@@ -1316,6 +1319,7 @@ frrouting::frrouting::bgp_accesslist:
     - 'seq 30 permit 10.1.0.0 0.0.15.255'
     - 'seq 35 permit 10.3.0.0 0.0.15.255'
     - 'seq 40 permit 10.5.0.0/20'
+    - "seq 41 permit %{hiera('bgp_loopback_addr')}/32"
     - 'seq 45 permit 10.109.0.0 0.0.15.255'
     - 'seq 50 permit 109.105.127.128 0.0.0.63'
     - 'seq 55 permit 172.18.0.0 0.0.7.255'

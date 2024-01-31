@@ -10,4 +10,4 @@ network::interfaces_hash:
     description: 'Public Interface'
     addresses:   [ "%{hiera('netcfg_pub_natgw')}/32", ]
 
-resolv_conf::nameservers: [ "%{hiera('netcfg_dns_server1')}", "%{hiera('netcfg_dns_server2')}", ]
+resolv_conf::nameservers: [ "%{hiera('netcfg_dns_mgmt_server1')}", "%{hiera('netcfg_dns_mgmt_server2')}", ]

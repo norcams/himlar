@@ -3,7 +3,7 @@ network::interfaces_hash:
   'eth0':
     'ipaddress': "%{hiera('netcfg_mgmt_net_c2')}.6/21"
     'gateway':   "%{hiera('netcfg_mgmt_gateway')}"
-    'dns1':      "%{hiera('netcfg_dns_server1')}"
+    'dns1':      "%{hiera('netcfg_dns_mgmt_server1')}"
     'vrf':       'mgmt'
   'mgmt':
     'ipaddress': '127.0.0.1/8'

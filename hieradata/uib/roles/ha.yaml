@@ -243,10 +243,10 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ports:              443
     # server_names:       ['appsanywhere01.uib.no', 'appsanywhere02.uib.no', 'appsanywhere03.uib.no']
     # ipaddresses:        ['129.177.150.207', '129.177.150.208', '129.177.150.201']
-    # server_names:       ['appsanywhere04.uib.no', 'appsanywhere05.uib.no', 'appsanywhere06.uib.no']
-    # ipaddresses:        ['129.177.150.202', '129.177.150.205', '129.177.150.206']
-    server_names:       ['appsanywhere07.uib.no', 'appsanywhere08.uib.no', 'appsanywhere09.uib.no']
-    ipaddresses:        ['129.177.150.217', '129.177.150.218', '129.177.150.219']
+    server_names:       ['appsanywhere04.uib.no', 'appsanywhere05.uib.no', 'appsanywhere06.uib.no']
+    ipaddresses:        ['129.177.150.202', '129.177.150.205', '129.177.150.206']
+    # server_names:       ['appsanywhere07.uib.no', 'appsanywhere08.uib.no', 'appsanywhere09.uib.no']
+    # ipaddresses:        ['129.177.150.217', '129.177.150.218', '129.177.150.219']
     options:            'verify none inter 30s check check-ssl ssl'
   # 'public-https-apps':
   #   listening_service:  'public-https-apps'
