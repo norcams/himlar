@@ -64,7 +64,7 @@ WIN_IMAGES=()  # windows images
 for script in $(ls /home/imagebuilder/build_scripts/); do
     if [[ $script =~ _nv_vgpu$ ]]; then
         GPU_IMAGES+=($script)
-    elif [[ $script =~ ^winsrv_ ]]; then
+    elif [[ $script =~ ^winsrv_.*_wrapper ]]; then
 	WIN_IMAGES+=($script)
     else
         STD_IMAGES+=($script)
@@ -205,6 +205,8 @@ done
 export PLACEHOLDER=true
 export IMAGEBUILDER_REPORT=true
 export IB_TEMPLATE_DIR=/etc/imagebuilder/default
+# Do NOT build these if cron failed.
 for img in "${build_win_images[@]}"; do
-    build_image $img
+#    build_image $img
+    echo "Do NOT build $img! Poke Tor if cron job failed"
 done
