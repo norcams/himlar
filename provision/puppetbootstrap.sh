@@ -68,6 +68,10 @@ bootstrap_puppet()
     dnf -y upgrade
     dnf install -y puppet-agent git-core vim network-scripts gcc make
 
+    #r10k bug: https://github.com/puppetlabs/r10k/issues/1370
+    /opt/puppetlabs/puppet/bin/gem install -N faraday-net_http -v 3.0.2
+    /opt/puppetlabs/puppet/bin/gem install -N faraday -v 2.8.1
+
     /opt/puppetlabs/puppet/bin/gem install -N r10k
     # this is need one puppetmaster for some modules
     # in vagrant we will need this on all nodes
