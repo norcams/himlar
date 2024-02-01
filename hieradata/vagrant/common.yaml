@@ -379,7 +379,7 @@ profile::openstack::resource::subnets:
 
 # FIXME:sensu-go
 profile::application::openssl::manage_ca_cert:          true
-profile::monitoring::sensu::agent::enable_go_agent:     true # enable this to test in vagrant
+profile::monitoring::sensu::agent::enable_go_agent:     false # enable this to test in vagrant
 profile::monitoring::sensu::agent::enable_agent:        false
 # only checks defined in location will be added to sensu-go
 profile::monitoring::sensu::agent::merge_strategy:      'first'
