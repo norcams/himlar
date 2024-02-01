@@ -8,7 +8,7 @@ github = 'https://github.com/'
 # profile::base::common
 #
 mod 'sudo', :ref => 'v5.0.0',                       :git => github + 'saz/puppet-sudo'
-mod 'ssh', :ref => 'v6.2.0',                        :git => github + 'saz/puppet-ssh'
+mod 'ssh', :ref => 'v10.2.0',                       :git => github + 'saz/puppet-ssh'
 mod 'ntp', :ref => '7.0.0',                         :git => github + 'puppetlabs/puppetlabs-ntp'
 mod 'chrony', :ref => 'v1.0.0',                     :git => github + 'voxpupuli/puppet-chrony'
 mod 'accounts', :ref => '0fa8ec2e37',               :git => github + 'norcams/puppet-accounts'
@@ -97,7 +97,7 @@ mod 'theforeman/dhcp', :ref => '9.0.0',             :git => github + 'theforeman
 mod 'theforeman/foreman_proxy', :ref => '25.1.0',   :git => github + 'theforeman/puppet-foreman_proxy.git'
 mod 'theforeman/git', :ref => '3.0.0',              :git => github + 'theforeman/puppet-git'
 mod 'voxpupuli/alternatives', :ref => 'v2.0.0',     :git => github + 'voxpupuli/puppet-alternatives'
-mod 'voxpupuli/extlib', :ref => 'v2.0.1-82-g53c6e2b', :git => github + 'voxpupuli/puppet-extlib.git'
+mod 'voxpupuli/extlib', :ref => 'v6.2.0',           :git => github + 'voxpupuli/puppet-extlib.git'
 mod 'puppetlabs/ruby', :ref => '1.0.0',             :git => github + 'puppetlabs/puppetlabs-ruby'
 mod 'puppetlabs/xinetd', :ref => '3.0.0',           :git => github + 'puppetlabs/puppetlabs-xinetd'
 #mod 'eyaml', :ref => 'v0.3.0',                      :git => github + 'ghoneycutt/puppet-module-eyaml'
@@ -143,7 +143,7 @@ mod 'puppetlabs/apache', :ref => 'v8.3.0',          :git => github + 'puppetlabs
 #
 # profile::database::postgresql
 #
-mod 'postgresql', :ref => 'v7.4.0',                 :git => github + 'puppetlabs/puppetlabs-postgresql'
+mod 'postgresql', :ref => 'v9.2.0',                 :git => github + 'puppetlabs/puppetlabs-postgresql'
 
 #
 # profile::database::mariadb
@@ -218,7 +218,7 @@ mod 'subscription_manager', :ref => '5.5.0',        :git => github + 'waveclaw/p
 #
 # Common libs
 #
-mod 'stdlib', :ref => 'v7.0.0',                     :git => github + 'puppetlabs/puppetlabs-stdlib'
+mod 'stdlib', :ref => 'v8.6.0',                     :git => github + 'puppetlabs/puppetlabs-stdlib'
 mod 'translate', :ref => 'v2.2.0',                  :git => github + 'puppetlabs/puppetlabs-translate'
 mod 'concat', :ref => '4.1.0',                      :git => github + 'puppetlabs/puppetlabs-concat'
 mod 'hash_file', :ref => '1.0.3',                   :git => github + 'fiddyspence/puppet-hash_file' # ??
