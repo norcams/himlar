@@ -19,10 +19,10 @@ profile::base::common::packages:
     ensure: '2.7'
     provider: 'dnfmodule'
     enable_only: true
-  'foreman':
-    ensure: "%{::os_platform}%{os_version}"
-    provider: 'dnfmodule'
-    enable_only: true
+  #  'foreman':
+    #  ensure: "%{::os_platform}%{os_version}"
+    #provider: 'dnfmodule'
+    #enable_only: true
   'toml-rb':
     ensure: present
     provider: 'puppetserver_gem'
