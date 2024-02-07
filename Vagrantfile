@@ -67,6 +67,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
       # Pass environment variables to the provisioning scripts
       ENV['HIMLAR_CERTNAME'] = "%s-%s-%s.%s" % [ n['location'],n['role'],n['hostid'],n['domain'] ]
+      ENV['HIMLAR_PUPPET_ENV'] = n['puppet_env']
       env_data = ENV.select { |k, _| /^HIMLAR_|^FACTER_/i.match(k) }
       args = env_data.map { |k, v| "#{k}=#{v}" }
       box.vm.provision :shell, :path => 'provision/puppetbootstrap.sh', args: args
