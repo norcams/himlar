@@ -1,7 +1,7 @@
 ---
-himlar_bootstrap::puppetrepo:  '-b master https://github.com/norcams/himlar'
-himlar_bootstrap::mirror:      'https://download.iaas.uio.no/uh-iaas/test/centos-base'
-himlar_bootstrap::nameserver:  '129.177.6.54'
+himlar_bootstrap::puppetrepo:  '-b foreman_upgrade https://github.com/norcams/himlar' #FIXME
+himlar_bootstrap::mirror:      'https://download.iaas.uio.no/nrec/test/el8/almalinux-base'
+himlar_bootstrap::nameserver:  '172.28.0.10' # test01-login-01
 
 ################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
 # root pw is changeme
