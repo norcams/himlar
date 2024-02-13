@@ -64,23 +64,23 @@ profile::base::common::packages:
 #    source: 'http://repo.mgmt.bgo.uhdc.no/NVIDIA-vGPU-rhel-7.8-450.55.x86_64.rpm'
   }
 
-# NVIDIA P40 partitioned into 2x vGPUs
+# NVIDIA P40 partitioned into 2x vGPUs, with CUDA support (Q type)
 #
 # From "mdevctl types":
 #
-#  nvidia-60
-#    Available instances: 2
+#  nvidia-52
+#    Available instances: 1
 #    Device API: vfio-pci
-#    Name: GRID P40-12A
-#    Description: num_heads=1, frl_config=60, framebuffer=12288M, max_resolution=1280x1024, max_instance=2
+#    Name: GRID P40-12Q
+#    Description: num_heads=4, frl_config=60, framebuffer=12288M, max_resolution=7680x4320, max_instance=2
 #
 # Example: 'nvidia-35' or ['nvidia-35', 'nvidia-36']
 #
-nova::compute::vgpu::vgpu_types_device_addresses_mapping: { 'nvidia-60', }
+nova::compute::vgpu::vgpu_types_device_addresses_mapping: { 'nvidia-52', }
 
 # Configuration values for the "create-mdev" service
 profile::application::create_mdev::enable:                true
-profile::application::create_mdev::nvidia_gpu_type:       'nvidia-60'
+profile::application::create_mdev::nvidia_gpu_type:       'nvidia-52'
 profile::application::create_mdev::max_instances_per_gpu: 2
 
 # remove when telemetry/ceilometer is up in all environments and move to common

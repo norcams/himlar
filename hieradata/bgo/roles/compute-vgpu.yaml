@@ -50,23 +50,23 @@ profile::base::common::packages:
 #    source: 'http://repo.mgmt.bgo.uhdc.no/NVIDIA-vGPU-rhel-7.8-450.55.x86_64.rpm'
   }
 
-# NVIDIA V100 16GB partitioned into 2x vGPUs
+# NVIDIA V100 16GB partitioned into 2x vGPUs, with CUDA support
 #
 # From "mdevctl types":
 #
-#  nvidia-113
-#    Available instances: 2
+#  nvidia-108
+#    Available instances: 0
 #    Device API: vfio-pci
-#    Name: GRID V100-8A
-#    Description: num_heads=1, frl_config=60, framebuffer=8192M, max_resolution=1280x1024, max_instance=2
+#    Name: GRID V100-8Q
+#    Description: num_heads=4, frl_config=60, framebuffer=8192M, max_resolution=7680x4320, max_instance=2
 #
 # Example: 'nvidia-35' or ['nvidia-35', 'nvidia-36']
 #
-nova::compute::vgpu::vgpu_types_device_addresses_mapping: { 'nvidia-113', }
+nova::compute::vgpu::vgpu_types_device_addresses_mapping: { 'nvidia-108', }
 
 # Configuration values for the "create-mdev" service
 profile::application::create_mdev::enable:                true
-profile::application::create_mdev::nvidia_gpu_type:       'nvidia-113'
+profile::application::create_mdev::nvidia_gpu_type:       'nvidia-108'
 profile::application::create_mdev::max_instances_per_gpu: 2
 
 #yum_base_mirror:    'https://download.iaas.uio.no/uh-iaas/vgpu'
