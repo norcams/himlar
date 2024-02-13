@@ -13,6 +13,8 @@ named_interfaces::config:
   trp:
      - br1
 
+profile::application::windowsimage::repo_revision: 'v1.0.2'
+
 calico::compute::manage_dhcp_agent: false
 calico::compute::manage_metadata_service: false
 calico::compute::felix_enable: false
