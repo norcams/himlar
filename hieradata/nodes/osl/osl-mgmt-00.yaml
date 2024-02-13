@@ -1,0 +1,67 @@
+---
+network::interfaces_hash:
+  'eth0':
+    'ipaddress': "%{hiera('netcfg_mgmt_net_c2')}.100/21"
+    'gateway':   "%{hiera('netcfg_mgmt_gateway')}"
+    'dns1':      "%{hiera('netcfg_dns_server1')}"
+    'vrf':       'mgmt'
+  'mgmt':
+    'ipaddress': '127.0.0.1/8'
+    'vrf_table': 'auto'
+
+# Puppet agent fix for puppet 5
+puppet::agent_additional_settings:
+  'disable_warnings':       'deprecations'
+  'stringify_facts':        'false'
+  'certificate_revocation': 'leaf'
+
+profile::base::network::cumulus_interfaces:
+  'swp41':
+    'alias_name': 'trunk_out_41'
+    'vids': [ '3378', '3379', ]
+    'bridge_allow_untagged': false
+  'swp42':
+    'alias_name': 'trunk_out_42'
+    'vids': [ '3378', '3379', ]
+    'bridge_allow_untagged': false
+  'swp43':
+    'alias_name': 'trunk_out_43'
+    'vids': [ '3378', '3379', ]
+    'bridge_allow_untagged': false
+  'swp44':
+    'alias_name': 'trunk_out_44'
+    'vids': [ '3378', '3379', ]
+    'bridge_allow_untagged': false
+  'swp45':
+    'alias_name': 'trunk_out_45'
+    'vids': [ '3378', '3379', ]
+    'bridge_allow_untagged': false
+  'swp46':
+    'alias_name': 'trunk_out_46'
+    'vids': [ '3378', '3379', ]
+    'bridge_allow_untagged': false
+  'swp47':
+    'alias_name': 'trunk_out_47'
+    'vids': [ '3378', '3379', ]
+    'bridge_allow_untagged': false
+  'swp48':
+    'alias_name': 'trunk_out_48'
+    'vids': [ '3378', '3379', ]
+    'bridge_allow_untagged': false
+  'swp49':
+    'alias_name': '01'
+    'vids': [ '3378', '3379', ]
+    'bridge_allow_untagged': false
+  'swp50':
+    'alias_name': '02'
+    'vids': [ '3378', '3379', ]
+    'bridge_allow_untagged': false
+  'swp51':
+    'alias_name': '03'
+    'vids': [ '3378', '3379', ]
+    'bridge_allow_untagged': false
+  'swp52':
+    'alias_name': '04'
+    'vids': [ '3378', '3379', ]
+    'bridge_allow_untagged': false
+
