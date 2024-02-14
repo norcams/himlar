@@ -7,7 +7,7 @@ bgp_loopback_addr6: 'fcef::6:2'   # Needed for BGP-MP to work
 
 profile::base::network::cumulus_interfaces:
   'eth0':
-    'ipv4': "%{hiera('netcfg_mgmt_net_c6')}.1/21"
+    'ipv4': "%{hiera('netcfg_mgmt_net_c6')}.2/21"
     'gateway': "%{hiera('netcfg_mgmt_gateway')}"
     'vrf': 'mgmt'
   'mgmt':
