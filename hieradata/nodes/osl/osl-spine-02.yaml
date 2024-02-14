@@ -43,16 +43,6 @@ frrouting::frrouting::bgp_neighbors:
   - '128.39.47.56 prefix-list uninett-routes-out out'
   - '2001:700:0:8134:: remote-as 224'
   - '2001:700:0:8134:: bfd 5 500 500'
-  # torack-01
-  - "172.18.32.1 remote-as %{hiera('bgp_as')}"
-  - '172.18.32.1 soft-reconfiguration inbound'
-  - "fd32::1 remote-as %{hiera('bgp_as')}"
-  - 'fd32::1 soft-reconfiguration inbound'
-  # torack-02
-  - "172.18.32.2 remote-as %{hiera('bgp_as')}"
-  - '172.18.32.2 soft-reconfiguration inbound'
-  - "fd32::2 remote-as %{hiera('bgp_as')}"
-  - 'fd32::2 soft-reconfiguration inbound'
   # spine-01
   - "172.18.230.1 remote-as %{hiera('bgp_as')}"
   - '172.18.230.1 default-originate'
@@ -103,12 +93,6 @@ frrouting::frrouting::bgp_networks6:
   - '2001:700:2:8200::/56'
 
 frrouting::frrouting::bgp_options6:
-  # torack-01
-  - 'neighbor fd32::1 activate'
-  - 'neighbor fd32::1 soft-reconfiguration inbound'
-  # torack-02
-  - 'neighbor fd32::2 activate'
-  - 'neighbor fd32::2 soft-reconfiguration inbound'
   # spine-01
   - 'neighbor fd32:18:230::1 activate'
   - 'neighbor fd32:18:230::1 route-map failover-default-route6 in'
