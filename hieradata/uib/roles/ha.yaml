@@ -216,8 +216,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   'public-https-uh-status':
     listening_service:  'public-https-uh-status'
     ports:              '443'
-    server_names:       ['status-osl', 'status-bgo']
-    ipaddresses:        ['158.37.63.250', '158.39.77.250']
+    server_names:       ['status-osl']
+    ipaddresses:        ['158.37.63.250']
     options:            'verify none inter 1000 check check-ssl'
   'public-https-uh-report':
     listening_service:  'public-https-uh-report'
