@@ -55,7 +55,8 @@ class profile::openstack::dashboard(
 
   $policy_defaults = {
     notify  => Service['httpd'],
-    require => Class['horizon']
+    require => Class['horizon'],
+    file_mode =>  '0644'
   }
   $policies = lookup('profile::openstack::dashboard::policies', Hash, 'deep', {})
   create_resources('openstacklib::policy::base', $policies, $policy_defaults)
