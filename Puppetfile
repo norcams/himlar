@@ -106,7 +106,7 @@ mod 'systemd', :ref => 'v3.2.0',                    :git => github + 'voxpupuli/
 #
 # bootstrap
 #
-mod 'himlar_bootstrap', :ref => '2.1',              :git => github + 'norcams/puppet-himlar_bootstrap'
+mod 'himlar_bootstrap', :ref => '2.0.2',            :git => github + 'norcams/puppet-himlar_bootstrap'
 
 #
 # profile::logging
