@@ -13,6 +13,10 @@ profile::base::selinux::ports:
     seltype:  'http_port_t'
     protocol: 'tcp'
     port:     389
+  smtp:
+    seltype:  'http_port_t'
+    protocol: 'tcp'
+    port:     25
   smb:
     seltype:  'http_port_t'
     protocol: 'tcp'
@@ -94,11 +98,11 @@ profile::firewall::rules::merge_strategy: first
 profile::firewall::rules::custom_rules:
   '451 haproxy http for public vip1':
     proto:        'tcp'
-    dport:        [ '80', '443', '389', '636' ]
+    dport:        [ '25', '80', '443', '389', '636' ]
     destination:  "%{hiera('corosync_cluster_vip1')}"
   '452 haproxy http for public vip2':
     proto:        'tcp'
-    dport:        [ '80', '443', '389', '636' ]
+    dport:        [ '25', '80', '443', '389', '636' ]
     destination:  "%{hiera('corosync_cluster_vip2')}"
   '453 haproxy http for internal vip3':
     proto:        'tcp'
@@ -267,6 +271,14 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     server_names:       ['exchange01.uib.no', 'exchange02.uib.no']
     ipaddresses:        ['129.177.14.178','129.177.14.179']
     options:            'check'
+# SMTP
+  'public-smtp':
+    listening_service:  'public-smtp'
+    ports:              '25'
+    server_names:       ['exchange01.uib.no', 'exchange02.uib.no']
+    ipaddresses:        ['129.177.14.178', '129.177.14.179']
+    options:
+      - 'check'
 # Portal
   'uib-https-adm':
     listening_service:  'uib-https-adm'
@@ -427,6 +439,11 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     mode:             'tcp'
     options:
       - balance:      'leastconn'
+  # SMTP
+  public-smtp:
+    mode:             'tcp'
+    options:
+      - balance:      'leastconn'
   # lydia
   # ssl-https-lydia:
   #   mode:             'http'
@@ -513,6 +530,14 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
     options:
       - option:         'tcplog'
       - use_backend:    'public-ldaps-prod'
+  public-smtp:
+    mode:               'tcp'
+    bind:
+      "%{hiera('corosync_cluster_vip1')}:25": []
+      "%{hiera('corosync_cluster_vip2')}:25": []
+    options:
+      - option:         'tcplog'
+      - use_backend:    'public-smtp'
   uib-http:
     mode:               'http'
     bind:
