@@ -11,9 +11,9 @@ himlar_bootstrap::virt_install:
     domain:          '%{domain}'
     libvirt_pool:    'dirpool'
     libvirt_network: 'directnet'
-    install_ip:      "%{hiera('netcfg_netpart_mgmt')}.11"
-    install_netmask: "%{hiera('netcfg_netmask_mgmt')}"
-    install_gateway: "%{hiera('netcfg_gateway_mgmt')}"
+    install_ip:      "%{hiera('netcfg_mgmt_netpart')}.11"
+    install_netmask: "%{hiera('netcfg_mgmt_netmask')}"
+    install_gateway: "%{hiera('netcfg_mgmt_gateway')}"
     vm_vcpus:        1
     vm_memory:       1024
     vm_console:      false
