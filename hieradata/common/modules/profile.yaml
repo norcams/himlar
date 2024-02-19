@@ -26,6 +26,9 @@ profile::base::httpproxy::http_proxy_profile:  '/root/proxy.sh'
 profile::base::dell::manage_repos:             true
 profile::base::dell::manage_openmanage:        true
 
+# Default puppet environment. Override in common/roles where needed
+puppet_environment: 'production'
+
 profile::base::common::packages:
   'tcpdump': {}
   'tree': {}
