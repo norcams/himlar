@@ -44,10 +44,10 @@ frrouting::frrouting::bgp_neighbors:
   - '2001:700:0:8134:: remote-as 224'
   - '2001:700:0:8134:: bfd 5 500 500'
   # spine-01
-  - "172.18.230.1 remote-as %{hiera('bgp_as')}"
-  - '172.18.230.1 default-originate'
-  - '172.18.230.1 soft-reconfiguration inbound'
-  - '172.18.230.1 route-map failover-default-route in'
+  - "172.18.38.1 remote-as %{hiera('bgp_as')}"
+  - '172.18.38.1 default-originate'
+  - '172.18.38.1 soft-reconfiguration inbound'
+  - '172.18.38.1 route-map failover-default-route in'
   - "fd32:18:230::1 remote-as %{hiera('bgp_as')}"
   - 'fd32:18:230::1 soft-reconfiguration inbound'
 frrouting::frrouting::bgp_neighbors6:
