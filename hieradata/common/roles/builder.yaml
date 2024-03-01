@@ -112,26 +112,6 @@ profile::application::builder::images:
     'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
     'hour':             15
     'minute':           30
-  'centos7':
-    'image_name':       'IMAGEBUILDER CentOS 7'
-    'url':              'http://cloud.centos.org/centos/7/images/'
-    'latest':           'CentOS-7-x86_64-GenericCloud.qcow2'
-    'min_ram':          768
-    'min_disk':         8
-    'username':         'centos'
-    'hour':             2
-    'minute':           30
-  'centosstream8':
-    'image_name':       'IMAGEBUILDER CentOS Stream 8'
-    'url':              'https://cloud.centos.org/centos/8-stream/x86_64/images/'
-    'latest':           'CentOS-Stream-GenericCloud-8-20230308.3.x86_64.qcow2'
-    'checksum_file':    'CentOS-Stream-GenericCloud-8-20230308.3.x86_64.qcow2.SHA256SUM'
-    'checksum':         'sha256'
-    'min_ram':          768
-    'min_disk':         8
-    'username':         'centos'
-    'hour':             4
-    'minute':           30
   'centosstream9':
     'image_name':       'IMAGEBUILDER CentOS Stream 9'
     'url':              'https://cloud.centos.org/centos/9-stream/x86_64/images/'
@@ -143,16 +123,6 @@ profile::application::builder::images:
     'username':         'cloud-user'
     'hour':             6
     'minute':           30
-  'debian10':
-    'image_name':       'IMAGEBUILDER Debian 10'
-    'url':              'http://cdimage.debian.org/cdimage/openstack/current-10/'
-    'latest':           'debian-10-openstack-amd64.qcow2'
-    'checksum_file':    'SHA256SUMS'
-    'checksum':         'sha256'
-    'min_ram':          768
-    'min_disk':         3
-    'username':         'debian'
-    'hour':             6
   'debian11':
     'image_name':       'IMAGEBUILDER Debian 11'
     'url':              'https://cdimage.debian.org/cdimage/cloud/bullseye/latest/'
@@ -179,17 +149,6 @@ profile::application::builder::images:
     'username':         'debian'
     'hour':             16
     'minute':           45
-  'fedora_38':
-    'image_name':       'IMAGEBUILDER Fedora 38'
-    'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/38/Cloud/x86_64/images/'
-    'latest':           'Fedora-Cloud-Base-38-1.6.x86_64.qcow2'
-    'checksum_file':    'Fedora-Cloud-38-1.6-x86_64-CHECKSUM'
-    'checksum':         'sha256'
-    'min_ram':          1024
-    'min_disk':         3
-    'username':         'fedora'
-    'hour':             6
-    'minute':           20
   'fedora_39':
     'image_name':       'IMAGEBUILDER Fedora 39'
     'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/39/Cloud/x86_64/images/'
@@ -281,16 +240,6 @@ profile::application::builder::images:
     'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
     'hour':             9
     'minute':           30
-  'uio_rhel7':
-    'image_name':       'IMAGEBUILDER UIO RHEL 7'
-    'url':              'http://download.iaas.uio.no/uh-iaas/nonfree/'
-    'latest':           'rhel-server-7.9-x86_64-kvm.qcow2'
-    'checksum_file':    'rhel-server-7.9-x86_64-kvm.sha256sum'
-    'checksum':         'sha256'
-    'min_ram':          1024
-    'min_disk':         8
-    'username':         'cloud-user'
-    'hour':             11
   'uio_rhel8':
     'image_name':       'IMAGEBUILDER UIO RHEL 8'
     'url':              'http://download.iaas.uio.no/uh-iaas/nonfree/'
@@ -333,12 +282,9 @@ profile::monitoring::sensu::agent::expanded_checks:
   - 'almalinux8_nv_vgpu'
   - 'almalinux9'
   - 'almalinux9_nv_vgpu'
-  - 'centos7'
-  - 'centosstream8'
   - 'centosstream9'
-  - 'debian10'
   - 'debian11'
-  - 'fedora_38'
+  - 'debian12'
   - 'fedora_39'
   - 'rockylinux8'
   - 'rockylinux8_uib_puppet'
@@ -347,7 +293,6 @@ profile::monitoring::sensu::agent::expanded_checks:
   - 'ubuntu_2004_nv_vgpu'
   - 'ubuntu_2204'
   - 'ubuntu_2204_nv_vgpu'
-  - 'uio_rhel7'
   - 'uio_rhel8'
   - 'uio_rhel9'
   - 'winsrv_2019'
