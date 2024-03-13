@@ -11,8 +11,3 @@ network::interfaces_hash:
     domain:    "%{hiera('netcfg_dns_search')}"
     defroute:  'yes'
 
-profile::base::lvm::volume_group:
-  'vg_log':
-    physical_volumes:
-      - /dev/vdb
-      - /dev/vdc
