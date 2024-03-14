@@ -6,7 +6,6 @@ puppet::show_diff:         true
 puppet::classfile:         '$statedir/classes.txt'
 puppet::usecacheonfailure: false
 puppet::client_certname:   "%{::verified_certname}"
-puppet::environment:       "%{hiera('puppet_environment')}"
 
 puppet::agent_additional_settings:
   'disable_warnings':   'deprecations'
