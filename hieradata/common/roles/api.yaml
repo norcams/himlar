@@ -133,18 +133,18 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
 profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
   frontend_public:
     bind:
-      "%{::ipaddress_public1}:5000":  ['ssl', 'crt', "%{hiera('star_api_ssl_pem')}", 'crt', "%{hiera('star_api_ssl_pem2')}", 'crt', "%{hiera('frontend_star_ssl_pem')}", 'crt', "%{hiera('frontend_star_ssl_pem2')}"]
-      "%{::ipaddress_public1}:8041":  ['ssl', 'crt', "%{hiera('star_api_ssl_pem')}", 'crt', "%{hiera('star_api_ssl_pem2')}"]
-      "%{::ipaddress_public1}:8080":  ['ssl', 'crt', "%{hiera('star_api_ssl_pem')}", 'crt', "%{hiera('star_api_ssl_pem2')}"]
-      "%{::ipaddress_public1}:8778":  ['ssl', 'crt', "%{hiera('star_api_ssl_pem')}", 'crt', "%{hiera('star_api_ssl_pem2')}"]
-      "%{::ipaddress_public1}:8774":  ['ssl', 'crt', "%{hiera('star_api_ssl_pem')}", 'crt', "%{hiera('star_api_ssl_pem2')}"]
-      "%{::ipaddress_public1}:8776":  ['ssl', 'crt', "%{hiera('star_api_ssl_pem')}", 'crt', "%{hiera('star_api_ssl_pem2')}"]
-      "%{::ipaddress_public1}:9292":  ['ssl', 'crt', "%{hiera('star_api_ssl_pem')}", 'crt', "%{hiera('star_api_ssl_pem2')}"]
-      "%{::ipaddress_public1}:9696":  ['ssl', 'crt', "%{hiera('star_api_ssl_pem')}", 'crt', "%{hiera('star_api_ssl_pem2')}"]
-      "%{::ipaddress_public1}:9001":  ['ssl', 'crt', "%{hiera('star_api_ssl_pem')}", 'crt', "%{hiera('star_api_ssl_pem2')}"]
-      "%{::ipaddress_public1}:443":   ['ssl', 'crt', "%{hiera('frontend_star_ssl_pem')}", 'crt', "%{hiera('frontend_star_ssl_pem2')}"]
+      "%{::ipaddress_public1}:5000":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}", "crt %{hiera('frontend_star_ssl_pem')}", "crt %{hiera('frontend_star_ssl_pem2')}"]
+      "%{::ipaddress_public1}:8041":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "%{::ipaddress_public1}:8080":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "%{::ipaddress_public1}:8778":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "%{::ipaddress_public1}:8774":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "%{::ipaddress_public1}:8776":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "%{::ipaddress_public1}:9292":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "%{::ipaddress_public1}:9696":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "%{::ipaddress_public1}:9001":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "%{::ipaddress_public1}:443":   ['ssl', "crt %{hiera('frontend_star_ssl_pem')}", "crt %{hiera('frontend_star_ssl_pem2')}"]
       "%{::ipaddress_public1}:80":    []
-      "%{::ipaddress_public1}:6080":  ['ssl', 'crt', "%{hiera('console_ssl_pem')}", 'crt', "%{hiera('console_ssl_pem2')}"]
+      "%{::ipaddress_public1}:6080":  ['ssl', "crt %{hiera('console_ssl_pem')}", "crt %{hiera('console_ssl_pem2')}"]
     options:
       - capture:        'request header Host len 64' #for debug
       - acl:
