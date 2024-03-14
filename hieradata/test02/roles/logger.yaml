@@ -1,20 +1,3 @@
 ---
-# FIXME: BELOW Remove when logger node in test02 on EL8
-include:
-  default:
-    - profile::logging::logstash
-    - profile::logging::elasticsearch
-    - profile::logging::kibana
-# FIXME: ABOVE Remove when logger node in test02 on EL8
-# FIXME: BELOW Activate when on EL8 and move to common when ALL logger nodes on EL8
-#include:
-#  default:
-#    - profile::logging::elk
-#
-#profile::logging::elk::manage_elk:            true
-#profile::logging::elk::manage_elasticksearch: true
-#profile::logging::elk::manage_logstash:       true
-#profile::logging::elk::manage_kibana:         true
-# FIXME: ABOVE moves to common when all logger nodes on EL8
 
 profile::base::common::manage_lvm: true

@@ -3,10 +3,7 @@ include:
   default:
     - profile::logging::rsyslog::server
     - profile::logging::logrotate
-# Activate when all logger nodes on EL8
-#    - profile::logging::elk
-#
-#profile::logging::elk::manage_elk:        true
+    - profile::logging::elk
 
 profile::base::selinux::manage_selinux:   true
 
