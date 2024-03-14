@@ -25,3 +25,8 @@ mod 'memcached', :ref => 'v3.0.2',                  :git => github + 'saz/puppet
 mod 'rsync', :ref => '0.4.0',                       :git => github + 'puppetlabs/puppetlabs-rsync'
 mod 'mysql', :ref => 'norcams/v10.3.0',             :git => github + 'norcams/puppetlabs-mysql'
 mod 'galera_arbitrator', :ref => '1.0.4',           :git => github + 'jadestorm/puppet-galera_arbitrator'
+
+#
+# override common modules
+#
+mod 'puppetlabs/apache', :ref => 'v6.4.0',          :git => github + 'puppetlabs/puppetlabs-apache'
