@@ -37,6 +37,7 @@ puppetrun()
   /opt/puppetlabs/puppet/bin/puppet apply --verbose --show_diff \
     --certname $certname \
     --write-catalog-summary \
+    --environment ${PUPPET_ENV} \
     --hiera_config $CODE_PATH/$ENV_PATH/hiera.yaml \
     --basemodulepath /opt/himlar/modules:$CODE_PATH/$ENV_PATH/modules:$CODE_PATH/modules \
     ${p_args[*]} \
