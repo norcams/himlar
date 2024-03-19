@@ -10,6 +10,12 @@ profile::network::services::manage_nat:       false
 profile::network::nat::enable_masquerade:     true
 profile::network::nat::source:                "%{::network_mgmt1}/%{::netmask_mgmt1}"
 
+# Fix to avoid running ansible and other virtual with full paths when using sudo
+sudo::configs:
+  python_env:
+    priority: 20
+    content: 'Defaults    env_keep += "VIRTUAL_ENV VIRTUAL_ENV_PROMPT"'
+
 # Himlar bootstrap
 profile::bootstrap::himlar::manage_bootstrap_scripts: true
 himlar_bootstrap::tftp_install:
