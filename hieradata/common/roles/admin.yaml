@@ -15,6 +15,7 @@ profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}
   'python3-requests': {}
+  'python3-pyyaml': {} # needed for ansible-foreman
   'ruby':
     ensure: '2.7'
     provider: 'dnfmodule'
@@ -116,4 +117,3 @@ named_interfaces::config:
     - eth0
   oob:
     - eth1
-
