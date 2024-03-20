@@ -1104,22 +1104,6 @@ frrouting::frrouting::bgp_options:
   - 'maximum-paths ibgp 5'
   - 'bgp bestpath as-path multipath-relax'
 
-frrouting::frrouting::bgp_networks:
-  - '109.105.125.0/26'
-  - '192.168.243.0/24'
-  - '158.37.64.0/23'
-  - '158.39.74.0/24'
-  - '158.39.77.0/24'
-  - '158.39.201.0/24'
-
-frrouting::frrouting::bgp_networks6:
-  - '2001:948:62:1::/64'
-  - '2001:948:62:3::/64'
-  - '2001:948:62:4::/64'
-  - 'fd00:192:168:243::/64'
-  - '2001:700:2:8300::/56'
-
-
 frrouting::frrouting::bgp_neighbor_groups:
   'rr-clients':
     'options':

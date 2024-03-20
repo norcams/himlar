@@ -126,6 +126,22 @@ frrouting::frrouting::zebra_ip_routes:
   - '158.39.77.253/32 172.18.0.12'
   - '158.39.77.254/32 172.18.0.51'
 
+frrouting::frrouting::bgp_networks:
+  - '109.105.125.0/26'
+  - '192.168.243.0/24'
+  - '158.37.64.0/23'
+  - '158.39.74.0/24'
+  - '158.39.77.0/24'
+  - '158.39.201.0/24'
+  - "%{hiera('bgp_loopback_addr')}/32"
+
+frrouting::frrouting::bgp_networks6:
+  - '2001:948:62:1::/64'
+  - '2001:948:62:3::/64'
+  - '2001:948:62:4::/64'
+  - 'fd00:192:168:243::/64'
+  - '2001:700:2:8300::/56'
+
 frrouting::frrouting::bgp_options6:
   - 'neighbor fd00:18:229::2 activate'
   - 'neighbor fd00:18:229::2 route-map failover-default-route6 in'
