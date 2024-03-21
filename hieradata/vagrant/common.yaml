@@ -393,3 +393,14 @@ profile::monitoring::sensu::agent::namespaces:
 profile::base::yumrepo::repo_hash:
   sensu-community:
     ensure: present
+
+# OSProfiler config
+profile::logging::osprofiler::osprofiler_config:
+  profiler/enabled:
+    value: true
+  profiler/trace_sqlalchemy:
+    value: true
+  profiler/hmac_keys:
+    value: 'tracethis'
+  profiler/connection_string:
+    value: "redis://%{hiera('mgmt__address__proxy')}:6379"
