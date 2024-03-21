@@ -3,7 +3,8 @@ class profile::openstack::image(
   $notify_enabled   = false,
   $manage_rbd       = false,
   $manage_policy    = false,
-  $manage_notify    = false
+  $manage_notify    = false,
+  $manage_osprofiler = false,
 ) {
 
   include ::profile::openstack::image::api
@@ -24,4 +25,10 @@ class profile::openstack::image(
     include ::glance::notify::rabbitmq
   }
 
+  if $manage_osprofiler {
+    include ::glance::deps
+    $osprofiler_config = lookup('profile::logging::osprofiler::osprofiler_config', Hash, 'first', {})
+    create_resources('glance_api_config', $osprofiler_config)
+    create_resources('glance_registry_config', $osprofiler_config)
+  }
 }
