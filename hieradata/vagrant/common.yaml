@@ -86,6 +86,8 @@ public__ipv6__ns:       "%{hiera('netcfg_public_netpart6')}::251"
 public__ip__resolver:   "%{hiera('netcfg_public_netpart')}.252"
 public__ipv6__resolver: "%{hiera('netcfg_public_netpart6')}::252"
 
+# For using proxy-01 instead of proxy-02
+mgmt__address__proxy:             "%{hiera('netcfg_mgmt_net_c0')}.12"
 
 #
 # Default interfaces
