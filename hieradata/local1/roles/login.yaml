@@ -3,6 +3,7 @@ include:
   default:
     - profile::bootstrap::himlar
     - profile::network::nat
+    - profile::application::himlarcli
 
 # Manage NAT with iptables
 profile::base::firewall::manage_firewall:     true
