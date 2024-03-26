@@ -14,3 +14,5 @@ profile::firewall::rules::custom_rules:
     proto:        'tcp'
     dport:        ['6379']
     action:       'accept'
+profile::base::common::packages:
+  'graphviz': {} # OSProfiler dependency
