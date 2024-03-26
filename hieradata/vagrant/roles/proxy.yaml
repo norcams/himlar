@@ -1,3 +1,18 @@
 ---
+include:
+  default:
+    - profile::database::redis
+    - profile::firewall::rules
 # We do not want to NAT in vagrant
 profile::network::nat::enable_snat: false
+profile::database::redis::manage: true
+redis::bind:                      "%{::ipaddress_mgmt1}"
+redis::protected_mode:            false
+profile::firewall::rules::manage_custom_rules: true
+profile::firewall::rules::custom_rules:
+  '500 accept incoming tcp to redis':
+    proto:        'tcp'
+    dport:        ['6379']
+    action:       'accept'
+profile::base::common::packages:
+  'graphviz': {} # OSProfiler dependency

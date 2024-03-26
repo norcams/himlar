@@ -37,3 +37,8 @@ profile::openstack::resource::image_sharing::manage: false
 
 # FIXME:sensu-go
 profile::monitoring::sensu::agent::checks:              {}
+
+profile::base::common::packages:
+  'python3-redis': {} # OSProfiler dependency
+
+profile::openstack::identity::manage_osprofiler: true
