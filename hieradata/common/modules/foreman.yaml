@@ -18,6 +18,10 @@ foreman::config::apache::serveraliases:
   - "foreman.%{hiera('domain_mgmt')}"
 
 profile::application::foreman::config:
+  ignore_facts_for_domain:
+    value:  'true'
+  update_hostgroup_from_facts:
+    value:  'false'
   create_new_host_when_facts_are_uploaded:
     value:  'false'
   default_location:
@@ -30,21 +34,9 @@ profile::application::foreman::config:
     value:  100
   root_pass:
     value:  '$1$16W5j9.P$wrGl0KophqmJwfADuUOIM/'
-  # template_sync_branch:
-  #   value:  'master'
-  # template_sync_dirname:
-  #   value:  '/norcams/'
-  # template_sync_prefix:
-  #   value:  'norcams-'
-  # template_sync_repo:
-  #   value:  'https://github.com/norcams/foreman-templates.git'
   trusted_hosts:
     value:  "[\"foreman.%{hiera('domain_mgmt')}\"]"
   update_ip_from_built_request:
     value:  'true'
   use_shortname_for_vms:
     value:  'true'
-
-# profile::application::foreman::plugins:
-#   hammer_cli_foreman_templates:
-#     package: 'rubygem-hammer_cli_foreman_templates'
