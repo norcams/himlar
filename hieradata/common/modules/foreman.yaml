@@ -1,9 +1,11 @@
 ---
 foreman::foreman_url:                       "https://%{hiera('mgmt__address__foreman')}"
+foreman::unattended_url:                    "http://foreman.%{hiera('domain_mgmt')}"
 # Disable repo management
 foreman::custom_repo:                       true
 foreman::configure_epel_repo:               false
-foreman::configure_scl_repo:                true
+foreman::configure_scl_repo:                false
+
 foreman::initial_admin_username:            'admin'
 foreman::initial_admin_password:            'changeme'
 foreman::initial_admin_email:               'admin@localhost.localdomain'
@@ -11,7 +13,9 @@ foreman::ssl:                               true
 foreman::cli::manage_root_config:           true
 foreman::plugin::discovery::install_images: true
 foreman::db_host:                           '127.0.0.1'
-foreman::config::passenger::serveraliases:  [ "foreman.%{hiera('domain_mgmt')}" ]
+foreman::config::apache::servername:        "%{hiera('mgmt__address__foreman')}"
+foreman::config::apache::serveraliases:
+  - "foreman.%{hiera('domain_mgmt')}"
 
 profile::application::foreman::config:
   create_new_host_when_facts_are_uploaded:
@@ -24,27 +28,23 @@ profile::application::foreman::config:
     value:  'true'
   entries_per_page:
     value:  100
-  foreman_url:
-    value:  "https://foreman.%{hiera('domain_public')}"
   root_pass:
     value:  '$1$16W5j9.P$wrGl0KophqmJwfADuUOIM/'
-  template_sync_branch:
-    value:  'master'
-  template_sync_dirname:
-    value:  '/norcams/'
-  template_sync_prefix:
-    value:  'norcams-'
-  template_sync_repo:
-    value:  'https://github.com/norcams/foreman-templates.git'
+  # template_sync_branch:
+  #   value:  'master'
+  # template_sync_dirname:
+  #   value:  '/norcams/'
+  # template_sync_prefix:
+  #   value:  'norcams-'
+  # template_sync_repo:
+  #   value:  'https://github.com/norcams/foreman-templates.git'
   trusted_hosts:
-    value:  "[\"foreman.%{hiera('domain_public')}\"]"
-  unattended_url:
-    value:  "http://foreman.%{hiera('domain_mgmt')}"
+    value:  "[\"foreman.%{hiera('domain_mgmt')}\"]"
   update_ip_from_built_request:
     value:  'true'
   use_shortname_for_vms:
     value:  'true'
 
-profile::application::foreman::plugins:
-  hammer_cli_foreman_templates:
-    package: 'rubygem-hammer_cli_foreman_templates'
+# profile::application::foreman::plugins:
+#   hammer_cli_foreman_templates:
+#     package: 'rubygem-hammer_cli_foreman_templates'
