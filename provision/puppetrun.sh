@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#CODE_PATH=/etc/puppetlabs/code
+#PUPPET_ENV="${HIMLAR_PUPPET_ENV:-production}"
+#ENV_PATH=environments/$PUPPET_ENV
+
 set_certname()
 {
   # Set default certname
@@ -25,12 +29,19 @@ bootstraprun()
 
 puppetrun()
 {
+  CODE_PATH=/etc/puppetlabs/code
+  PUPPET_ENV="${HIMLAR_PUPPET_ENV:-production}"
+  ENV_PATH=environments/$PUPPET_ENV
+
+  echo "puppet run for environment ${PUPPET_ENV}"
   /opt/puppetlabs/puppet/bin/puppet apply --verbose --show_diff \
     --certname $certname \
     --write-catalog-summary \
-    --basemodulepath /opt/himlar/modules:/etc/puppetlabs/code/modules \
+    --environment ${PUPPET_ENV} \
+    --hiera_config $CODE_PATH/$ENV_PATH/hiera.yaml \
+    --basemodulepath /opt/himlar/modules:$CODE_PATH/$ENV_PATH/modules:$CODE_PATH/modules \
     ${p_args[*]} \
-    /etc/puppetlabs/code/environments/production/manifests/site.pp
+    $CODE_PATH/$ENV_PATH/manifests/site.pp
 }
 
 # Source command line options as env vars

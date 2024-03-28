@@ -18,9 +18,10 @@ foreman_proxy::dns_forwarders:       ['8.8.8.8']
 foreman_proxy::dns_managed:          false
 foreman_proxy::dns_provider:         'nsupdate'
 foreman_proxy::keyfile:              "/etc/rndc-%{::location}.key"
-foreman_proxy::puppetrun:            true
+foreman_proxy::puppet:               true
 foreman_proxy::puppetca:             true
 foreman_proxy::use_autosignfile:     true
 foreman_proxy::bmc:                  true
 foreman_proxy::bmc_default_provider: 'ipmitool'
 foreman_proxy::puppetca_modular:     true
+foreman_proxy::httpboot:             true

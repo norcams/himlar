@@ -69,7 +69,7 @@ $runmode_classes = lookup("include.${::runmode}", Array, 'deep', [])
 $runmode_classes.include
 
 # Output the node classification data
-info("certname=${verified_certname} location=${location} role=${role} hostid=${hostid} runmode=${::runmode}")
+info("certname=${verified_certname} env=${environment} location=${location} role=${role} hostid=${hostid} runmode=${::runmode}")
 info(join($runmode_classes,' '))
 
 # Empty default node

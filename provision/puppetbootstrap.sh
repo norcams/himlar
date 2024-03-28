@@ -46,9 +46,9 @@ EOM
   # Add our puppetlabs mirror
 cat > /etc/yum.repos.d/puppetlabs.repo <<- EOM
 [puppetlabs]
-name=Puppet 6 Yum Repo
-baseurl=$repo/puppetlabs6/
-gpgkey=$repo/puppetlabs6/RPM-GPG-KEY-puppet-20250406
+name=Puppet 7 Yum Repo
+baseurl=$repo/puppetlabs7/
+gpgkey=$repo/puppetlabs7/RPM-GPG-KEY-puppet-20250406
 enabled=1
 gpgcheck=1
 EOM
@@ -68,13 +68,17 @@ bootstrap_puppet()
     dnf -y upgrade
     dnf install -y puppet-agent git-core vim network-scripts gcc make
 
-    /opt/puppetlabs/puppet/bin/gem install -N puppet_forge -v 3.2.0
-    /opt/puppetlabs/puppet/bin/gem install -N r10k -v 3.16.0
+    #r10k bug: https://github.com/puppetlabs/r10k/issues/1370
+    /opt/puppetlabs/puppet/bin/gem install -N faraday-net_http -v 3.0.2
+    /opt/puppetlabs/puppet/bin/gem install -N faraday -v 2.8.1
+
+    /opt/puppetlabs/puppet/bin/gem install -N r10k
     # this is need one puppetmaster for some modules
     # in vagrant we will need this on all nodes
     /opt/puppetlabs/puppet/bin/gem install -N toml-rb
-    # /opt/puppetlabs/puppet/bin/gem install -N puppet_forge
-    ln -sf /opt/puppetlabs/puppet/bin/wrapper.sh /opt/puppetlabs/bin/r10k
+
+    # The r10k path must be the same as in puppetmodules.sh
+    ln -sf /opt/puppetlabs/puppet/bin/r10k /opt/puppetlabs/bin/r10k
 
   elif command -v yum >/dev/null 2>&1; then
     echo "bootstrap puppet for el7..."
