@@ -42,7 +42,7 @@ profile::webserver::apache::vhosts:
      - "%{hiera('public__address__report')}"
      - "report-%{::location}.%{hiera('domain_frontend')}"
      - "report-%{::location}.%{hiera('domain_frontend2')}"
-    port:               '80'
+    port:               80
     manage_docroot:     false
     docroot:            '/var/www/html'
     wsgi_application_group:  '%%{}{GLOBAL}'
