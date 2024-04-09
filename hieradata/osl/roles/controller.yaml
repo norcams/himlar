@@ -1,7 +1,7 @@
 ---
 himlar_bootstrap::virt_install:
   '%{location}-admin-01':
-    domain:          "%{hiera('mgmt.test01.uhdc.no')}"
+    domain:          "%{hiera('domain_mgmt')}"
     libvirt_pool:    'dirpool'
     libvirt_network: 'directnet'
     install_ip:      "%{hiera('netcfg_mgmt_net_c0')}.11"
