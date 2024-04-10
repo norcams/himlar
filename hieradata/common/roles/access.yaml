@@ -39,7 +39,7 @@ profile::webserver::apache::vhosts:
     serveraliases:
      - "%{hiera('public__address__access')}"
      - "access-%{::location}.%{hiera('domain_frontend')}"
-    port:               '80'
+    port:               80
     manage_docroot:     false
     docroot:            '/var/www/html'
     wsgi_application_group:  '%%{}{GLOBAL}'

@@ -71,3 +71,6 @@ profile::application::windowsimage::manage_firewall: true
 profile::base::yumrepo::repo_hash:
   hashicorp:
     ensure: present
+
+# Himlar bootstrap
+profile::bootstrap::himlar::manage_bootstrap_scripts: true

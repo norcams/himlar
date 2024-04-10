@@ -9,6 +9,7 @@ defaults:
   autostart:   true
   primary:     false
   location:    "vagrant"
+  puppet_env:  "production"
   domain:      "mgmt.vagrant.iaas.intern"
   cpus:        1
   memory:      1024
@@ -35,19 +36,28 @@ defaults:
 nodesets:
   default:
     - role:       "db-global"
+      puppet_env: "ussuri"
     - role:       "db-regional"
+      puppet_env: "ussuri"
     - role:       "api"
       box:        "norcams/base"
     - role:       "mq"
     - role:       "identity"
+      puppet_env: "ussuri"
     - role:       "novactrl"
+      puppet_env: "ussuri"
     - role:       "image"
+      puppet_env: "ussuri"
     - role:       "network"
+      puppet_env: "ussuri"
     - role:       "volume"
+      puppet_env: "ussuri"
     - role:       "dashboard"
+      puppet_env: "ussuri"
     - role:       "compute"
       memory:     4096
       cpus:       2
+      puppet_env: "ussuri"
   # The following nodes are optional
     #- role:       "access"
     #- role:       "identity"
@@ -84,7 +94,8 @@ nodesets:
     #  memory:     1024
     #- role:       "nat"
     #  box:        "norcams/freebsd"
-    #- role:       "admin"
+    - role:       "admin"
+      puppet_env: "admin"
     #  box:        "norcams/base"
     #  memory:     2048
     #- role:       "ns"
