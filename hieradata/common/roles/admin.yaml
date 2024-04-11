@@ -14,8 +14,8 @@ sensu__memory__check:     "check-memory-percent.rb -w 85 -c 95"
 profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}
-  'python3-requests': {}
-  'python3-pyyaml': {} # needed for ansible-foreman
+  'python3.11-requests': {} # needed for ansible-forman
+  'python3.11-pyyaml': {} # needed for ansible-foreman
   'ruby':
     ensure: '2.7'
     provider: 'dnfmodule'
