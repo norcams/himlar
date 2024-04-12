@@ -19,22 +19,3 @@ network::interfaces_hash:
     ipaddress: '158.39.77.254'
     netmask:   '255.255.255.255'
     defroute:  'no'
-
-# collectd
-include:
-  default:
-    - profile::monitoring::collectd
-
-profile::monitoring::collectd::enable: true
-
-profile::monitoring::collectd::plugins:
-  - collectd::plugin::aggregation
-  - collectd::plugin::cpu
-  - collectd::plugin::disk
-  - collectd::plugin::load
-  - collectd::plugin::memory
-  - collectd::plugin::interface
-  - collectd::plugin::write_graphite
-  - collectd::plugin::processes
-  - collectd::plugin::ethstat
-  - collectd::plugin::uptime
