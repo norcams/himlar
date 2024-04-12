@@ -22,6 +22,9 @@ profile::network::leaf::acls:
       # Allow DNS requests to ns1.nrec.no
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -d 158.37.63.251 --dport 53 -j ACCEPT"
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p udp -d 158.37.63.251 --dport 53 -j ACCEPT"
+      # TEMPORARY: Allow DNS requests to 158.39.75.101 (RT#6178001)
+      - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -d 158.39.75.101 --dport 53 -j ACCEPT"
+      - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p udp -d 158.39.75.101 --dport 53 -j ACCEPT"
       # TEMPORARY: Allow SMTP requests to 158.39.48.164
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -d 158.39.48.164 --dport 25 -j ACCEPT"
       # Allow SMTP requests to 158.39.75.101 (RT#5169770) Updated to 158.39.75.12 per request (#5547528)
@@ -110,6 +113,9 @@ profile::network::leaf::acls:
       # Allow DNS requests to ns1.nrec.no
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -d 2001:700:2:82ff::251 --dport 53 -j ACCEPT"
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p udp -d 2001:700:2:82ff::251 --dport 53 -j ACCEPT"
+      # TEMPORARY: Allow DNS requests to 2001:700:2:8200::2056 (RT#6178001)
+      - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -d 2001:700:2:8200::2056 --dport 53 -j ACCEPT"
+      - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p udp -d 2001:700:2:8200::2056 --dport 53 -j ACCEPT"
       # Allow SMTP requests to 2001:700:2:8200::2201 (RT#5169770) Updated to 2001:700:2:8200::2060 per request (#5547528)
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -d 2001:700:2:8200::2060 --dport 25 -j ACCEPT"
       # Allow squid to 2001:700:2:8200::25f0 (CERN ATLAS - atlas-db-squid1.grid.uiocloud.no)
