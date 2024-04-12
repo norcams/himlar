@@ -1,4 +1,6 @@
 ---
-puppet::server_jvm_min_heap_size:       '6G'
-puppet::server_jvm_max_heap_size:       '6G'
-puppet::server_max_active_instances:    2
+puppet::server_jvm_min_heap_size:         '6G'
+puppet::server_jvm_max_heap_size:         '6G'
+puppet::server_max_active_instances:      2
+puppet::server_max_queued_requests:       24
+puppet::server_max_requests_per_instance: 5000
