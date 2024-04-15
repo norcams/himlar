@@ -3,7 +3,7 @@
 profile::base::network::uplink_interface: 'swp28'
 
 bgp_loopback_addr: '10.255.254.2' # IP for elastic IP instances to peer to
-bgp_loopback_addr6: 'fcef::6:2'   # Needed for BGP-MP to work 
+bgp_loopback_addr6: 'fcef::6:2'   # Needed for BGP-MP to work
 
 profile::base::network::cumulus_interfaces:
   'eth0':
@@ -74,6 +74,7 @@ frrouting::frrouting::zebra_ip_routes:
   - '158.39.48.0/24 Null0'
   - '158.39.75.0/24 Null0'
   - '158.39.200.0/24 Null0'
+  - '158.39.75.246/32 172.18.32.8'  # login-02
   - '158.37.63.248/32 172.18.32.26' # nat-01
   - '158.39.75.248/32 172.18.32.27' # nat-02
   - '158.37.63.249/32 172.18.32.41' # db-global-01
