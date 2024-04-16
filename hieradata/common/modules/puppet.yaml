@@ -10,7 +10,9 @@ puppet::agent_additional_settings:
   'disable_warnings':   'deprecations'
   'stringify_facts':    'false'
 
-puppet::server_directory_environments: true
+puppet::server_common_modules_path:
+#  - "/etc/puppetlabs/code/environments/%{::environment}/modules"
+  - "/etc/puppetlabs/code/modules"
 puppet::server_external_nodes:         ''
 puppet::server_foreman_facts:          true
 puppet::server_additional_settings:
