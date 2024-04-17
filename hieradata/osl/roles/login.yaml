@@ -112,17 +112,3 @@ ssh::server::options:
   'Match User git Address 129.240.121.86':
     AuthenticationMethods: 'publickey'
 
-profile::firewall::rules::manage_custom_rules: true
-# Firewall rules allowing incoming DNS requests from test02 mgmt
-profile::firewall::rules::custom_rules:
-  '340 management dns accept tcp (test02)':
-    proto:        'tcp'
-    dport:        '53'
-    extras:
-      iniface:    "%{::interface_mgmt2}"
-  '341 management dns accept tcp (test02)':
-    proto:        'udp'
-    dport:        '53'
-    extras:
-      iniface:    "%{::interface_mgmt2}"
-
