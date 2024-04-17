@@ -24,3 +24,16 @@ network::interfaces_hash:
     netmask:        '255.255.255.0'
     defroute:       'no'
     onboot:         'yes'
+
+
+
+# enable iaas account, but only make it available in the normal fashion
+# from test01-login-01
+accounts::accounts:
+  'iaas':
+    ensure: present
+
+ssh::server::options:
+  # No 2FA if coming from test01-login-01
+  'Match User iaas Address 172.28.0.10':
+    AuthenticationMethods: 'publickey'
