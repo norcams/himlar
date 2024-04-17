@@ -14,10 +14,10 @@ profile::bootstrap::himlar::manage_bootstrap_scripts: true
 himlar_bootstrap::tftp_install:
   'test01-controller-01':
     domain:           'mgmt.test.iaas.intern'
-    dhcp_interface:   'eth0'
-    dhcp_range_start: "172.28.0.200"
-    dhcp_range_end:   "172.28.0.250"
-    dhcp_gateway:     "172.28.0.10"
+    dhcp_interface:   '%{::interface_mgmt1}'
+    dhcp_range_start: "%{hiera('netcfg_mgmt_net_c0')}.200"
+    dhcp_range_end:   "%{hiera('netcfg_mgmt_net_c0')}.250"
+    dhcp_gateway:     "%{hiera('netcfg_mgmt_net_c0')}.10" #login
 
 profile::application::git::settings:
   hostname: "test01"
