@@ -1,5 +1,7 @@
 ---
 include:
+  kickstart:
+    - profile::application::git
   default:
     - profile::base::login
     - profile::network::services
