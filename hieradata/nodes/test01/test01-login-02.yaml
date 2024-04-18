@@ -20,7 +20,7 @@ network::interfaces_hash:
     defroute:       'no'
     onboot:         'yes'
   'eth2':
-    ipaddress:      '172.28.159.8'
+    ipaddress:      '172.28.159.8' #FIXME
     netmask:        '255.255.255.0'
     defroute:       'no'
     onboot:         'yes'
@@ -28,12 +28,12 @@ network::interfaces_hash:
 
 
 # enable iaas account, but only make it available in the normal fashion
-# from test01-login-01
+# from bgo-login-01
 accounts::accounts:
   'iaas':
     ensure: present
 
 ssh::server::options:
-  # No 2FA if coming from test01-login-01
-  'Match User iaas Address 172.28.0.10':
+  # No 2FA if coming from bgo-login-01
+  'Match User iaas Address 172.28.0.9':
     AuthenticationMethods: 'publickey'
