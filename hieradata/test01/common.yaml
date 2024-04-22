@@ -126,10 +126,14 @@ profile::network::services::dns_records:
     "%{::location}-login-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_mgmt_netpart')}.10"
     "git.%{hiera('domain_mgmt')}":                          "%{hiera('netcfg_mgmt_net_c0')}.9"
     "monitor.%{hiera('domain_mgmt')}":                      "%{hiera('netcfg_mgmt_net_c0')}.21"
+    # Temp. for old login-01
+    "%{::location}-login-01old.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c0')}.199"
   AAAA:
     "ns.%{hiera('domain_frontend')}":     '2001:700:200:917::3f17'
     "resolver.%{hiera('domain_public')}": '2001:700:200:917::3f18'
   PTR:
+    # Temp. for old login-01
+    "199.%{hiera('reverse_mgmt_c0')}":    "%{::location}-login-01old.%{hiera('domain_mgmt')}"
     # public IPv4
     "117.%{hiera('reverse_public')}":  "ns.%{hiera('domain_frontend')}"
     "118.%{hiera('reverse_public')}":  "resolver.%{hiera('domain_public')}"
