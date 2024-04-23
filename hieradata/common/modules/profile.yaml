@@ -228,20 +228,6 @@ profile::base::yumrepo::repo_hash:
     gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/rdo-%{hiera('openstack_version')}/RPM-GPG-KEY-CentOS-SIG-Cloud"
     exclude:        'python2-bcrypt'
     #exclude:        'mariadb*' FIXME: this should be added after adding mariadb repo to all roles connecting to db
-  calico312:
-    ensure:         absent
-    descr:          'Calico 3.12 Repository'
-    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico312/"
-    enabled:        1
-    gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico312/key"
-  calico320:
-    ensure:         absent
-    descr:          'Calico 3.20 Repository'
-    baseurl:        "%{hiera('yum_base_mirror')}/generic/calico320"
-    enabled:        1
-    gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/generic/calico320/key"
   calico322:
     ensure:         absent
     descr:          'Calico 3.22 Repository'
