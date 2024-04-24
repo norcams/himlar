@@ -235,6 +235,13 @@ profile::base::yumrepo::repo_hash:
     enabled:        1
     gpgcheck:       1
     gpgkey:         "%{hiera('yum_base_mirror')}/generic/calico322/key"
+  calico326:
+    ensure:         absent
+    descr:          'Calico 3.26 Repository'
+    baseurl:        "%{hiera('yum_base_mirror')}/generic/calico326"
+    enabled:        1
+    gpgcheck:       1
+    gpgkey:         "%{hiera('yum_base_mirror')}/generic/calico326/key"
   calico327:
     ensure:         absent
     descr:          'Calico 3.27 Repository'
