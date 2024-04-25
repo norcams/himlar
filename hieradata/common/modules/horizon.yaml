@@ -11,6 +11,7 @@ horizon::listen_ssl:                    true
 horizon::horizon_ca:                    "/etc/pki/tls/certs/cachain.pem"
 horizon::horizon_cert:                  "/etc/pki/tls/certs/%{hiera('public__address__dashboard')}.cert.pem"
 horizon::horizon_key:                   "/etc/pki/tls/private/%{hiera('public__address__dashboard')}.key.pem"
+horizon::access_log_format:             undef
 horizon::secure_cookies:                true
 horizon::images_panel:                  'angular'
 horizon::horizon_upload_mode:           "'direct'"
@@ -60,7 +61,7 @@ horizon::django_session_engine:         'django.contrib.sessions.backends.cached
 horizon::session_timeout:               10800 # 3 hours, default 30 min
 
 # logging
-horizon::log_handler:     'syslog'
+horizon::log_handlers:     ['syslog']
 horizon::wsgi::apache::extra_params:
   error_log_syslog: 'syslog:local1'
   error_log_file:   false
