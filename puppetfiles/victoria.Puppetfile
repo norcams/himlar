@@ -33,7 +33,7 @@ mod 'galera_arbitrator', :ref => '2.0.2',                 :git => github + 'jade
 ##
 ## override common modules
 ##
-#mod 'puppetlabs/apache', :ref => 'v12.1.0',              :git => github + 'puppetlabs/puppetlabs-apache'
+mod 'puppetlabs/apache', :ref => 'v7.0.0',                :git => github + 'puppetlabs/puppetlabs-apache'
 #mod 'stdlib', :ref => '5.2.0',                           :git => github + 'puppetlabs/puppetlabs-stdlib'
 #mod 'inifile', :ref => '2.5.0',                          :git => github + 'puppetlabs/puppetlabs-inifile'
 #mod 'translate', :ref => '1.2.0',                        :git => github + 'puppetlabs/puppetlabs-translate'
@@ -44,7 +44,7 @@ mod 'galera_arbitrator', :ref => '2.0.2',                 :git => github + 'jade
 #mod 'archive', :ref => 'v4.6.0',                         :git => github + 'voxpupuli/puppet-archive'
 #mod 'apt', :ref => 'v7.7.1',                             :git => github + 'puppetlabs/puppetlabs-apt'
 #
-## 
+##
 ## extra required modules
 ##
 #mod 'xinetd', :ref => '1.5.0',                           :git => github + 'puppetlabs/puppetlabs-xinetd'
