@@ -160,6 +160,17 @@ profile::application::builder::images:
     'efi':              true
     'username':         'fedora'
     'hour':             14
+  'fedora_40':
+    'image_name':       'IMAGEBUILDER Fedora 40'
+    'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/40/Cloud/x86_64/images/'
+    'latest':           'Fedora-Cloud-Base-Generic.x86_64-40-1.14.qcow2'
+    'checksum_file':    'Fedora-Cloud-40-1.14-x86_64-CHECKSUM'
+    'checksum':         'sha256'
+    'min_ram':          1024
+    'min_disk':         3
+    'efi':              true
+    'username':         'fedora'
+    'hour':             14
   'rockylinux8':
     'image_name':       'IMAGEBUILDER RockyLinux 8'
     'url':              'https://dl.rockylinux.org/pub/rocky/8/images/x86_64/'
@@ -227,6 +238,17 @@ profile::application::builder::images:
     'username':         'ubuntu'
     'hour':             9
     'minute':           30
+  'ubuntu_2404':
+    'image_name':       'IMAGEBUILDER Ubuntu 24.04'
+    'url':              'https://cloud-images.ubuntu.com/noble/current/'
+    'latest':           'noble-server-cloudimg-amd64.img'
+    'checksum_file':    'SHA256SUMS'
+    'checksum':         'sha256'
+    'min_ram':          768
+    'min_disk':         3
+    'username':         'ubuntu'
+    'hour':             9
+    'minute':           40
   'ubuntu_2204_nv_vgpu':
     'image_name':       'IMAGEBUILDER Ubuntu 22.04 (NVIDIA GPU)'
     'url':              'https://cloud-images.ubuntu.com/jammy/current/'
@@ -240,6 +262,19 @@ profile::application::builder::images:
     'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
     'hour':             9
     'minute':           30
+  'ubuntu_2404_nv_vgpu':
+    'image_name':       'IMAGEBUILDER Ubuntu 24.04 (NVIDIA GPU)'
+    'url':              'https://cloud-images.ubuntu.com/noble/current/'
+    'latest':           'noble-server-cloudimg-amd64.img'
+    'checksum_file':    'SHA256SUMS'
+    'checksum':         'sha256'
+    'min_ram':          768
+    'min_disk':         8
+    'username':         'ubuntu'
+    'flavor':           'm1.small'
+    'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
+    'hour':             9
+    'minute':           50
   'uio_rhel8':
     'image_name':       'IMAGEBUILDER UIO RHEL 8'
     'url':              'http://download.iaas.uio.no/uh-iaas/nonfree/'
@@ -286,6 +321,7 @@ profile::monitoring::sensu::agent::expanded_checks:
   - 'debian11'
   - 'debian12'
   - 'fedora_39'
+  - 'fedora_40'
   - 'rockylinux8'
   - 'rockylinux8_uib_puppet'
   - 'rockylinux9'
@@ -293,6 +329,8 @@ profile::monitoring::sensu::agent::expanded_checks:
   - 'ubuntu_2004_nv_vgpu'
   - 'ubuntu_2204'
   - 'ubuntu_2204_nv_vgpu'
+  - 'ubuntu_2404'
+  - 'ubuntu_2404_nv_vgpu'
   - 'uio_rhel8'
   - 'uio_rhel9'
   - 'winsrv_2019'
