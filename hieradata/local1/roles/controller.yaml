@@ -4,9 +4,7 @@ named_interfaces::config:
     - br0
   trp:
     - br1
-  transport:
-    - br1
-  service:
+  ceph:
     - br1
 
 libvirt::qemu_vnc_listen:         '%{::ipaddress_mgmt1}'
