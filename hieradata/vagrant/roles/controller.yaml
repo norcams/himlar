@@ -17,3 +17,16 @@ himlar_bootstrap::virt_install:
     vm_vcpus:        1
     vm_memory:       1024
     vm_console:      false
+
+profile::network::services::ntp_server: false
+
+# Uncomment if you add bridges to node file
+named_interfaces::config:
+  vagrant:
+    - eth0
+  mgmt:
+    - br0
+  trp:
+    - br1
+  ceph:
+    - br1
