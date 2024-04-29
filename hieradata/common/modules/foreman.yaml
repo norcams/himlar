@@ -17,6 +17,11 @@ foreman::config::apache::servername:        "%{hiera('mgmt__address__foreman')}"
 foreman::config::apache::serveraliases:
   - "foreman.%{hiera('domain_mgmt')}"
 
+# tuning
+foreman::foreman_service_puma_workers:     2
+foreman::foreman_service_puma_threads_max: 16
+foreman::foreman_service_puma_threads_min: 16
+
 profile::application::foreman::config:
   ignore_facts_for_domain:
     value:  'true'
