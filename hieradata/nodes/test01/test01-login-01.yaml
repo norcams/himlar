@@ -25,6 +25,9 @@ network::interfaces_hash:
     defroute:       'no'
     onboot:         'yes'
 
+# extra disk for local repository (synced with other login nodes)
+profile::base::common::manage_lvm: true
+
 profile::base::lvm::physical_volume:
   '/dev/sdb':
     ensure: present
