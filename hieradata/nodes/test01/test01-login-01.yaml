@@ -24,3 +24,18 @@ network::interfaces_hash:
     netmask:        '255.255.255.0'
     defroute:       'no'
     onboot:         'yes'
+
+profile::base::lvm::physical_volume:
+  '/dev/sdb':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_repo':
+    physical_volumes:
+      - /dev/sdb
+profile::base::lvm::logical_volume:
+  'lv_repo':
+    volume_group: 'vg_repo'
+    fs_type:      "xfs"
+    mountpath:    "/opt/repo"
+    size:         '70G'
