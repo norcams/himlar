@@ -31,15 +31,15 @@ named_interfaces::config:
     - eth2
 
 # Db backup
-#profile::base::login::db_servers:
-# test01-db-global-01:
-#   hour:     '*'
-#   minute:   '20'
-#   command:  '/usr/local/sbin/db-dump.sh test01-db-global-01 >/dev/null'
-# test01-db-regional-01:
-#   hour:     '*'
-#   minute:   '30'
-#   command:  '/usr/local/sbin/db-dump.sh test01-db-regional-01 >/dev/null'
+profile::base::login::db_servers:
+ test01-db-global-01:
+   hour:     '*'
+   minute:   '20'
+   command:  '/usr/local/sbin/db-dump.sh test01-db-global-01 >/dev/null'
+ test01-db-regional-01:
+   hour:     '*'
+   minute:   '30'
+   command:  '/usr/local/sbin/db-dump.sh test01-db-regional-01 >/dev/null'
 
 ssh::server::options:
   # No 2FA possible with gitolite
