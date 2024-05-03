@@ -41,3 +41,6 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_repo'
     fs_type:      "xfs"
     mountpath:    "/opt/repo"
+
+# Enable db backup on 01
+profile::base::login::manage_db_backup: true
