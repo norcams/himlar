@@ -40,6 +40,11 @@ profile::base::login::db_servers:
    hour:     '*'
    minute:   '30'
    command:  '/usr/local/sbin/db-dump.sh test01-db-regional-01 >/dev/null'
+ test01-db-archival:
+    hour:     '0'
+    minute:   '45'
+    weekday:  'Monday'
+    command:  '/usr/local/sbin/db-longterm-bck.sh -e bgo >/dev/null'
 
 ssh::server::options:
   # No 2FA possible with gitolite
