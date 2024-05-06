@@ -7,9 +7,8 @@ cinder::backends::enabled_backends:
 profile::openstack::volume::type:
   lvm:
     is_public: true
-    properties:
-      - 'volume_backend_name=lvm'
-
+  __DEFAULT__:
+    ensure: absent
 
 cinder::config::cinder_config:
   lvm/volume_group:
