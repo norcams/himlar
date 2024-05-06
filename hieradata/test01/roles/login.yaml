@@ -44,7 +44,7 @@ profile::base::login::db_servers:
     hour:     '0'
     minute:   '45'
     weekday:  'Monday'
-    command:  '/usr/local/sbin/db-longterm-bck.sh -e bgo >/dev/null'
+    command:  '/usr/local/sbin/db-longterm-bck.sh -e test01 >/dev/null'
 
 ssh::server::options:
   # No 2FA possible with gitolite
