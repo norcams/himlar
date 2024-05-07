@@ -281,6 +281,12 @@ profile::network::services::dns_records:
     "%{::location}-mgmt-06.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.6"
     "%{::location}-mgmt-07.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.7"
     "%{::location}-login-01old.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_net_c0')}.199"
+
+    # TEMPORARY 2024-05-06: Test hosts
+    "%{::location}-test-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.200"
+    "%{::location}-test-02.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.201"
+    "%{::location}-test-03.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.202"
+
   AAAA:
     # Frontend records (<foo>.nrec.no)
     "ns1.%{hiera('domain_frontend')}":            '2001:700:2:82ff::251'
