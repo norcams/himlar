@@ -35,6 +35,7 @@ class profile::openstack::identity (
 
   include ::keystone
   include ::keystone::config
+  include ::keystone::cache
   include ::keystone::bootstrap
   include ::keystone::wsgi::apache
   include ::profile::openstack::openrc
