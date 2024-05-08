@@ -94,9 +94,6 @@ keystone::policy::policies:
     key:    'identity:delete_application_credential'
     value:  'rule:admin_required'
 
-# cron
-keystone::cron::token_flush::maxdelay:    1800 # sek = 30 min
-
 # logging
 keystone::logging::log_facility:  'LOG_LOCAL2'
 keystone::logging::use_syslog:    true
