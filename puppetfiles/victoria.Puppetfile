@@ -27,7 +27,7 @@ mod 'oslo', :ref => 'victoria-eol',                       :git => github + 'open
 mod 'openstacklib', :ref => 'victoria-eol',               :git => github + 'openstack/puppet-openstacklib'
 mod 'memcached', :ref => 'v3.4.0',                        :git => github + 'saz/puppet-memcached'
 mod 'rsync', :ref => '1.2.0',                             :git => github + 'puppetlabs/puppetlabs-rsync'
-mod 'mysql', :ref => 'v10.10.0',                          :git => github + 'puppetlabs/puppetlabs-mysql'
+mod 'mysql', :ref => 'v12.0.3',                           :git => github + 'puppetlabs/puppetlabs-mysql'
 mod 'galera_arbitrator', :ref => '2.0.2',                 :git => github + 'jadestorm/puppet-galera_arbitrator'
 
 ##
