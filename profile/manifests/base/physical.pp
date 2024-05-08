@@ -27,8 +27,9 @@ class profile::base::physical (
   $net_tweak_somaxconn         = '2048',
   $enable_redfish_sensu_check  = false,
   $enable_redfish_http_proxy   = undef,
-  $package                     = 'lldpd',
-  $service                     = 'lldpd',
+  $lldpd_package               = 'lldpd',
+  $lldpd_service               = 'lldpd',
+  $lldpd_exclude_pattern       = '*,!tap*,!team*,!bond*',
   $efi_workaround              = false,
   $configure_bmc_nic           = false,
   $bmc_dns_server              = '192.168.0.10',
@@ -204,11 +205,19 @@ class profile::base::physical (
     }
   }
 
-  package { $package:
+  package { $lldpd_package:
     ensure => installed,
+  } ~>
+
+  # Configure interface exclusion for lldpd
+  file { 'lldpd_interface.conf':
+    ensure  => file,
+    path    => "/etc/lldpd.d/interface.conf",
+    content => template("${module_name}/base/physical/lldpd_interface_conf.erb"),
+    notify => Service[$lldpd_service],
   }
 
-  service { $service:
+  service { $lldpd_service:
     ensure    => running,
     enable    => true,
   }
