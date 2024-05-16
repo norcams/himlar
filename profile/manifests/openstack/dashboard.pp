@@ -15,6 +15,7 @@ class profile::openstack::dashboard(
   $custom_uploaddir     = '/image-upload',
   $enable_pwd_retrieval = false,
   $enable_designate     = false,
+  $disable_admin_dashboard = false,
   $change_region_selector = false,
   $change_login_footer  = false,
   $keystone_admin_roles = undef,
@@ -130,6 +131,17 @@ class profile::openstack::dashboard(
         mode   => '0644',
         notify => Service['httpd'],
       }
+    }
+  }
+
+  # Disable the admin dashboard if "disable_admin" is set to true
+  if $disable_admin_dashboard {
+    file { '/usr/share/openstack-dashboard/openstack_dashboard/local/enabled/_40_disable-admin-dashboard.py':
+      ensure  => present,
+      mode    => '0644',
+      source  => "puppet:///modules/${module_name}/openstack/horizon/_40_disable-admin-dashboard.py",
+      require => Class['horizon'],
+      notify  => Service['httpd']
     }
   }
 
