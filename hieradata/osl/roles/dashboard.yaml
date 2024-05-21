@@ -10,3 +10,6 @@ profile::openstack::dashboard::allow_from_network:
   - '129.177.6.96/32'    # uib-ha-01
   - '129.177.6.97/32'    # uib-ha-01
   - '129.177.10.111/32'  # anders
+
+# Disable admin dashboard
+profile::openstack::dashboard::disable_admin_dashboard: true
