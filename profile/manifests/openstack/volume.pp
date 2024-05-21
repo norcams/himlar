@@ -1,7 +1,6 @@
 #
 class profile::openstack::volume(
   $manage_rbd    = false,
-  $manage_telemetry = false,
   $notify_service = false
 ) {
   include ::cinder
@@ -12,10 +11,6 @@ class profile::openstack::volume(
 
   if $manage_rbd {
     include profile::storage::cephclient
-  }
-
-  if $manage_telemetry {
-    include ::cinder::ceilometer
   }
 
   if $notify_service {
