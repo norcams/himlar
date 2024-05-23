@@ -160,8 +160,8 @@ profile::dns::ns::ns_master_ip_addresses:
 
 # Public and internal zones
 profile::dns::ns::internal_zone: "vagrant.iaas.intern"
-profile::dns::ns::public_zone:   "iaas.intern"
-profile::dns::ns::public_zone2:  "iaas2.intern"
+profile::dns::ns::public_zone:   "iaas.public"
+profile::dns::ns::public_zone2:  "iaas2.public"
 
 profile::network::services::dns_records:
   A:
