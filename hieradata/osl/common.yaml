@@ -286,6 +286,7 @@ profile::network::services::dns_records:
     "%{::location}-test-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.200"
     "%{::location}-test-02.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.201"
     "%{::location}-test-03.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.202"
+    "%{::location}-test-04.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.203"
 
   AAAA:
     # Frontend records (<foo>.nrec.no)
