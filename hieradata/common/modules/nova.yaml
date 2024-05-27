@@ -1,4 +1,7 @@
 ---
+# Temporary 2024-04-22 [ivarth]
+openstack_version: 'victoria'
+
 # Shared config (nodes: novactrl, compute)
 nova::db::database_connection:           "mysql+pymysql://nova:%{hiera('nova::db::mysql::password')}@%{hiera('service__address__db_regional')}/nova"
 nova::db::api_database_connection:       "mysql+pymysql://nova_api:%{hiera('nova::db::mysql_api::password')}@%{hiera('service__address__db_regional')}/nova_api"
@@ -29,16 +32,6 @@ nova::keystone::auth::password:         "%{hiera('nova_api_password')}"
 nova::keystone::auth::public_url:       "%{hiera('endpoint__compute__public')}/v2.1/"
 nova::keystone::auth::admin_url:        "%{hiera('endpoint__compute__admin')}/v2.1/"
 nova::keystone::auth::internal_url:     "%{hiera('endpoint__compute__internal')}/v2.1/"
-
-# placement
-nova::placement::username:                "nova"
-nova::placement::auth_url:                "%{hiera('endpoint__identity__admin')}/v3"
-nova::placement::region_name:             "%{location}"
-nova::placement::password:                "%{hiera('nova_api_password')}"
-nova::placement::valid_interface:         "internal"
-nova::placement::project_domain_name:     "%{hiera('keystone__default__domain')}"
-nova::placement::user_domain_name:        "%{hiera('keystone__default__domain')}"
-nova::placement::project_name:            "%{hiera('keystone__service__project')}"
 
 # api (node: novactrl)
 nova::api::enabled_apis:                [ 'osapi_compute', ]
