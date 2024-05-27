@@ -8,4 +8,4 @@ profile::openstack::image::api::stores_rbd:
     'rbd_store_user':        'glance'
     'rbd_store_pool':        'images'
     'rbd_thin_provisioning': true
-    'store_description':     'Redundant store for images in the NREC infrastructure'
+    'store_description':     'Replicated ceph rbd store'
