@@ -19,6 +19,8 @@ profile::network::leaf::switchd_conf:
 profile::network::leaf::acls:
   '02control_plane_custom.rules':
     iptables:
+      # Allow access to the S3 service from everywhere
+      - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -d %{hiera('netcfg_pub_object')} --dport 8080 -j ACCEPT"
       # Allow SMB and NFS from UiB network (only BGO)
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -s 129.177.0.0/16 --dport 139 -j ACCEPT"
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p udp -s 129.177.0.0/16 --dport 139 -j ACCEPT"
