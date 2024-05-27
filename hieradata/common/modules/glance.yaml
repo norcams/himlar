@@ -11,6 +11,7 @@ glance::api::workers:                      10
 glance::api::show_image_direct_url:        true
 glance::api::enable_proxy_headers_parsing: true
 glance::api::image_member_quota:           -1
+glance::api::multi_store:                  true
 
 # logging
 glance::api::logging::log_facility:        'LOG_LOCAL3'
@@ -46,13 +47,6 @@ glance::keystone::auth::public_url:        "%{hiera('endpoint__image__public')}"
 glance::keystone::auth::admin_url:         "%{hiera('endpoint__image__admin')}"
 glance::keystone::auth::internal_url:      "%{hiera('endpoint__image__internal')}"
 glance::keystone::auth::region:            "%{::location}"
-
-# backend (node: image)
-glance::backend::multistore::rbd::rbd_store_user:        'glance'
-glance::backend::multistore::rbd::rbd_store_pool:        'images'
-glance::backend::multistore::rbd::rbd_thin_provisioning: true
-glance::backend::multistore::rbd::manage_packages:       false
-glance::backend::multistore::rbd::store_description:     'Redundant store for images in the NREC infrastructure'
 
 # policy (node: image)
 glance::policy::policies:
