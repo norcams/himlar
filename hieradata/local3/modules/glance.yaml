@@ -2,5 +2,4 @@
 glance::db::mysql::allowed_hosts:
   - "%{netpart_trp1}.%"
 
-glance::api::stores:
- - rbd
+glance::api::default_store: 'rbd'
