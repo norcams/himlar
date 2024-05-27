@@ -25,6 +25,8 @@ foreman::foreman_service_puma_threads_min: 16
 profile::application::foreman::config:
   ignore_facts_for_domain:
     value:  'true'
+  update_environment_from_facts:
+    value:  'true'
   update_hostgroup_from_facts:
     value:  'false'
   create_new_host_when_facts_are_uploaded:
