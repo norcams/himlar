@@ -28,5 +28,5 @@ profile::base::network::network_auto_bonding:
     eth3:
       'team_port_config': '{ "prio" : 100 }'
 
-nova::compute::libvirt::libvirt_cpu_model: 'EPYC'
+nova::compute::libvirt::cpu_models: 'EPYC'
 nova::compute::vgpu::vgpu_types_device_addresses_mapping:   'nvidia-233'
