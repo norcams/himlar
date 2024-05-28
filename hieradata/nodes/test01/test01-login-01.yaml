@@ -44,3 +44,14 @@ profile::base::lvm::logical_volume:
 
 # Enable db backup on 01
 profile::base::login::manage_db_backup: true
+
+# enable iaas account, but only make it available in the normal fashion
+# from bgo-login-01
+ssh::server::options:
+  # No 2FA if coming from bgo-login-01
+  'Match User iaas Address 172.28.0.9':
+    AuthenticationMethods: 'publickey'
+
+accounts::accounts:
+  'iaas':
+    ensure: present
