@@ -90,7 +90,7 @@ profile::base::physical::blacklist_drv: true
 profile::base::physical::blacklist_drv_list:
   'nouveau': {}
 
-nova::compute::libvirt::libvirt_cpu_model: 'Cascadelake-Server-noTSX'
+nova::compute::libvirt::cpu_models: 'Cascadelake-Server-noTSX'
 
 # These compute host uses local storage for instances
 nova::compute::rbd::ephemeral_storage: false
