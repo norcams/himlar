@@ -72,20 +72,6 @@ profile::base::tuned::manage_tuned:  true
 profile::base::tuned::tuned_profile: 'virtual-host'
 nova::compute::libvirt::libvirt_hw_machine_type: 'x86_64=q35'
 
-profile::base::lvm::physical_volume:
-  '/dev/sda5':
-    ensure: present
-    force:  true
-profile::base::lvm::volume_group:
-  'vg_ext':
-    physical_volumes:
-      - /dev/sda5
-profile::base::lvm::logical_volume:
-  'lv_instances':
-    volume_group: 'vg_ext'
-    fs_type:      "xfs"
-    mountpath:    "/var/lib/nova/instances"
-
 # collectd
 profile::monitoring::collectd::enable: false
 profile::monitoring::collectd::plugins:
