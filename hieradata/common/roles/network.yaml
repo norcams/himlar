@@ -9,6 +9,8 @@ include:
     - profile::logging::rsyslog::client
     - profile::base::systemd
 
+openstack_version: 'victoria' # FIXME
+
 etcd::proxy: "off"
 etcd::initial_cluster_state: 'new'
 etcd::initial_cluster_token: 'etcd-cluster'

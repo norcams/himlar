@@ -18,14 +18,14 @@ neutron::keystone::authtoken::project_name:        "%{hiera('keystone__service__
 neutron::keystone::authtoken::service_token_roles:  'admin'
 neutron::keystone::authtoken::service_token_roles_required: true
 
-neutron::server::notifications::notify_nova_on_port_status_changes: true
-neutron::server::notifications::notify_nova_on_port_data_changes:   true
-neutron::server::notifications::auth_url:          "%{hiera('endpoint__identity__admin')}"
-neutron::server::notifications::auth_type:         'password'
-neutron::server::notifications::username:          'nova'
-neutron::server::notifications::password:          "%{hiera('nova_api_password')}"
-neutron::server::notifications::region_name:       "%{::location}"
-neutron::server::notifications::endpoint_type:     'internal'
+neutron::server::notifications::nova::notify_nova_on_port_status_changes: true
+neutron::server::notifications::nova::notify_nova_on_port_data_changes:   true
+neutron::server::notifications::nova::auth_url:          "%{hiera('endpoint__identity__admin')}"
+neutron::server::notifications::nova::auth_type:         'password'
+neutron::server::notifications::nova::username:          'nova'
+neutron::server::notifications::nova::password:          "%{hiera('nova_api_password')}"
+neutron::server::notifications::nova::region_name:       "%{::location}"
+neutron::server::notifications::nova::endpoint_type:     'internal'
 # when https://bugs.launchpad.net/neutron/+bug/1912359 has been resolved we can try
 # using apache and mod_wsgi instead of neutron-server
 #neutron::server::service_name:                     false

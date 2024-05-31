@@ -10,7 +10,7 @@ class profile::openstack::network::controller(
   include profile::openstack::network
 
   include ::neutron::server
-  include ::neutron::server::notifications
+  include ::neutron::server::notifications::nova
 #  include ::neutron::wsgi::apache
   include ::neutron::config
   include ::neutron::logging
