@@ -2,5 +2,13 @@
 glance::db::mysql::allowed_hosts:
   - "%{netpart_trp1}.%"
 
-glance::api::stores:
- - rbd
+glance::api::enabled_backends:
+  - 'images:rbd'
+glance::api::default_backend: 'images'
+
+profile::openstack::image::api::stores_rbd:
+  'images':
+    'rbd_store_user':        'glance'
+    'rbd_store_pool':        'images'
+    'rbd_thin_provisioning': true
+    'store_description':     'Replicated ceph rbd store'
