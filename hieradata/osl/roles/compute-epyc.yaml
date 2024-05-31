@@ -18,7 +18,7 @@ profile::base::physical::load_ahci_first_scsidrv: 'megaraid_sas'
 nova::compute::rbd::ephemeral_storage: false
 
 # Nova overrides
-nova::compute::libvirt::libvirt_cpu_model:       'EPYC'
+nova::compute::libvirt::cpu_models:       'EPYC'
 nova::cpu_allocation_ratio:                      '8'
 nova::disk_allocation_ratio:                     '1'
 nova::ram_allocation_ratio:                      '1.4'
