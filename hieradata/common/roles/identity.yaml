@@ -12,6 +12,8 @@ include:
     - profile::openstack::cache
     - profile::webserver::apache::status
 
+openstack_version: 'victoria' #FIXME:victoria
+
 profile::base::common::packages:
   # we need newer version of six to avoid breaking requests and openstack cli
   'python3-six.noarch': { ensure: latest }
