@@ -7,5 +7,5 @@ nova::nova_public_key:
 nova::compute::rbd::ephemeral_storage:            true
 nova::compute::rbd::libvirt_images_rbd_pool:      'vms'
 
-nova::compute::libvirt::libvirt_cpu_mode:         'custom'
-nova::compute::libvirt::libvirt_cpu_model:        'Nehalem'
+nova::compute::libvirt::cpu_mode:         'custom'
+nova::compute::libvirt::cpu_models:        'Nehalem'
