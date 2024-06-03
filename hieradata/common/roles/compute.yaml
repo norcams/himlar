@@ -326,3 +326,5 @@ nova::config::nova_config:
 profile::rhsm::subscription::manage: true
 profile::rhsm::virtwho::manage:      true
 
+# Remove when enabling in nova module (when compute nodes are upgraded)
+openstack_version: 'victoria'
