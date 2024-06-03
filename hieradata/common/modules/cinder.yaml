@@ -9,7 +9,7 @@ cinder::db::mysql::allowed_hosts:
 cinder::database_connection:      "mysql+pymysql://cinder:%{hiera('cinder::db::mysql::password')}@%{hiera('service__address__db_regional')}/cinder"
 
 # cinder api (node: volume)
-cinder::api::os_region_name:              "%{::location}"
+cinder::nova::region_name:                "%{::location}"
 cinder::api::service_name:                'httpd'
 
 # httpd
