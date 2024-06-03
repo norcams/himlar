@@ -66,10 +66,6 @@ profile::highavailability::loadbalancing::haproxy::access_list:
       - 129.177.0.0/16 # uib
       - 192.168.0.0/24 # vagrant
 
-#netdata
-profile::monitoring::netdata::firewall_source:
-  - '0.0.0.0/0'
-
 # corosync
 corosync::unicast_addresses:
   - "%{hiera('netcfg_public_netpart')}.16"
