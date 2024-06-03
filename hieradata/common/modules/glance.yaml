@@ -9,6 +9,7 @@ glance::backend::multistore::cinder::cinder_os_region_name:  "%{location}"
 glance::api::bind_host:                    "%{::ipaddress_trp1}"
 glance::api::workers:                      10
 glance::api::show_image_direct_url:        true
+glance::api::show_multiple_locations:      true # FIXME: needed for snapshotting. Evaluate when upgrading to new OpenStack version
 glance::api::enable_proxy_headers_parsing: true
 glance::api::image_member_quota:           -1
 glance::api::multi_store:                  true
