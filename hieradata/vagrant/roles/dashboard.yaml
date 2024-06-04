@@ -17,3 +17,8 @@ profile::openstack::dashboard::site_branding: 'dev-iaas'
 
 # FIXME:sensu-go
 profile::monitoring::sensu::agent::checks:              {}
+
+openstack_version: 'victoria'
+
+profile::openstack::dashboard::manage_dashboard:                   true
+profile::openstack::dashboard::manage_overrides:                   true
