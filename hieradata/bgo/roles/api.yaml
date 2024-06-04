@@ -52,7 +52,7 @@ object__backend__names:
 object__backend__ips:
   - "%{hiera('netcfg_trp_netpart')}.84"
   - "%{hiera('netcfg_trp_netpart')}.85"
-  - "%{hiera('netcfg_trp_netpart')}.87"
+#  - "%{hiera('netcfg_trp_netpart')}.87" # rgw to anycast disable
 
 profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
   internal_domains:

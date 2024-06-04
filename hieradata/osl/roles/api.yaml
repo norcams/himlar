@@ -52,7 +52,7 @@ object__backend__names:
 object__backend__ips:
   - "%{hiera('netcfg_trp_netpart')}.84"
   - "%{hiera('netcfg_trp_netpart')}.85"
-  - "%{hiera('netcfg_trp_netpart')}.87"
+#  - "%{hiera('netcfg_trp_netpart')}.87"  # rgw to anycast disable
 
 # Temp. workaround for issue where network nodes in OSL want to contact
 # identity in BGO and is redirected thorugh an /etc/hosts entry
