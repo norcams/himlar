@@ -68,10 +68,10 @@ profile::network::interface::manage_neutron_blackhole: true
 profile::openstack::compute::manage_telemetry: true
 
 # Set tuned profile to "virtual-host"
-profile::base::tuned::manage_tuned:  true
-profile::base::tuned::tuned_profile: 'virtual-host'
-nova::compute::libvirt::hw_machine_type: 'x86_64=q35'
-nova::compute::libvirt::cpu_models:      'Haswell-noTSX-IBRS'
+profile::base::tuned::manage_tuned:        true
+profile::base::tuned::tuned_profile:      'virtual-host'
+nova::compute::libvirt::hw_machine_type:  'x86_64=q35'
+nova::compute::libvirt::cpu_models:      ['Haswell-noTSX-IBRS']
 
 profile::base::lvm::physical_volume:
   '/dev/sda5':

@@ -9,8 +9,8 @@ nova::compute::libvirt::disk_cachemodes:
   - '"network=writeback"'
 
 # set lowest common denominator for live migration compat
-nova::compute::libvirt::cpu_mode:  'custom'
-nova::compute::libvirt::cpu_models: 'Haswell-noTSX'
+nova::compute::libvirt::cpu_mode:    'custom'
+nova::compute::libvirt::cpu_models: ['Haswell-noTSX']
 
 # Disable audits
 nova::compute::instance_usage_audit:        false

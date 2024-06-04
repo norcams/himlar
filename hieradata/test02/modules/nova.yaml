@@ -8,4 +8,4 @@ nova::compute::rbd::ephemeral_storage:            true
 nova::compute::rbd::libvirt_images_rbd_pool:      'vms'
 
 nova::compute::libvirt::cpu_mode:         'custom'
-nova::compute::libvirt::cpu_models:        'Nehalem'
+nova::compute::libvirt::cpu_models:      ['Nehalem']
