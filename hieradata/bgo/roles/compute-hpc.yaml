@@ -19,7 +19,7 @@ profile::base::physical::hugepagesz:       '2M'
 profile::base::physical::hugepages:        '507904'
 
 # Nover overrides
-nova::compute::libvirt::cpu_models: 'EPYC'
+nova::compute::libvirt::cpu_models:       ['EPYC']
 nova::cpu_allocation_ratio:                '1'
 
 # Create and enable more swap
