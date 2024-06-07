@@ -8,7 +8,7 @@ include:
     - profile::dns::rndc_key
 
 # Temporary 2024-04-22 [trondham]
-#openstack_version:    'victoria'
+openstack_version:    'victoria'
 
 profile::network::interface::manage_dummy:         true
 profile::network::interface::create_custom_routes: true
