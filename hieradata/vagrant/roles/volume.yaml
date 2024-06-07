@@ -23,3 +23,8 @@ cinder::config::cinder_config:
 
 # FIXME:sensu-go
 profile::monitoring::sensu::agent::checks:              {}
+
+profile::base::common::packages:
+  'python3-redis': {} # OSProfiler dependency
+
+profile::openstack::volume::manage_osprofiler: true

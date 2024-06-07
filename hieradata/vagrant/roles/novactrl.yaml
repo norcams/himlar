@@ -15,3 +15,8 @@ profile::openstack::resource::host_aggregate:
 
 # FIXME:sensu-go
 profile::monitoring::sensu::agent::checks:              {}
+
+profile::base::common::packages:
+  'python3-redis': {} # OSProfiler dependency
+
+profile::openstack::novactrl::manage_osprofiler: true
