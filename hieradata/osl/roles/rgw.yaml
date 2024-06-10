@@ -1,5 +1,18 @@
 ---
+named_interfaces::config:
+  mgmt:
+    - eth0
+  trp:
+    - eth1
+  public:
+    - dummy0
+
 ceph::profile::params::mon_host:              "%{::netpart_trp1}.89,%{::netpart_trp1}.90,%{::netpart_trp1}.94"
 ceph::profile::params::mon_initial_members:   '%{::location}-cephmon-object-01,%{::location}-cephmon-object-02,%{::location}-cephmon-object-03'
 ceph::profile::params::cluster_network:       "%{::network_ceph1}/%{::cidr_ceph1}"
 ceph::profile::params::public_network:        "%{::network_trp1}/%{cidr_trp1}"
+
+profile::highavailability::loadbalancing::haproxy::anycast_enable:      true
+profile::highavailability::loadbalancing::haproxy::manage_haproxy:      true
+profile::highavailability::loadbalancing::haproxy::manage_firewall:     true
+profile::highavailability::loadbalancing::haproxy::manage_firewall6:    true

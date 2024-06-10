@@ -2,9 +2,12 @@
 class profile::highavailability::loadbalancing::haproxy (
   $manage_haproxy          = false,
   $anycast_enable          = false,
+  $anycast_service_ip      = undef,
+  $anycast_service_ip6     = undef,
   $bird_package_name       = 'bird',
   $bird_template           = "${module_name}/bird/bird-api.conf.${::operatingsystemmajrelease}",
   $manage_firewall         = false,
+  $manage_firewall6        = false,
   $allow_from_network      = undef,
   $firewall_extras         = {},
   $firewall_ports          = {
@@ -94,19 +97,23 @@ class profile::highavailability::loadbalancing::haproxy (
       dport       => $firewall_ports['public'],
       extras      => $firewall_extras,
     }
-    profile::firewall::rule { '451 haproxy internal accept tcp':
-      proto       => 'tcp',
-      destination => $::ipaddress_trp1,
-      source      => "${::network_trp1}/${::netmask_trp1}",
-      dport       => $firewall_ports['internal'],
-      extras      => $firewall_extras,
+    unless empty($firewall_ports['internal']) {
+      profile::firewall::rule { '451 haproxy internal accept tcp':
+        proto       => 'tcp',
+        destination => $::ipaddress_trp1,
+        source      => "${::network_trp1}/${::netmask_trp1}",
+        dport       => $firewall_ports['internal'],
+        extras      => $firewall_extras,
+      }
     }
     # Only monitor page on port 9000
-    profile::firewall::rule { '452 haproxy mgmt accept tcp':
-      proto       => 'tcp',
-      destination => $::ipaddress_mgmt1,
-      source      => "${::network_mgmt1}/${::netmask_mgmt1}",
-      dport       => $firewall_ports['mgmt']
+    unless empty($firewall_ports['mgmt']) {
+      profile::firewall::rule { '452 haproxy mgmt accept tcp':
+        proto       => 'tcp',
+        destination => $::ipaddress_mgmt1,
+        source      => "${::network_mgmt1}/${::netmask_mgmt1}",
+        dport       => $firewall_ports['mgmt']
+      }
     }
     # Limited access for 80 and 443
     unless empty($firewall_ports['limited']) {
@@ -115,6 +122,42 @@ class profile::highavailability::loadbalancing::haproxy (
         destination => $::ipaddress_public1,
         source      => $source,
         dport       => $firewall_ports['limited']
+      }
+    }
+  }
+
+  if $manage_firewall6 {
+    $hiera_allow_from_network6 = lookup('allow_from_network6', Array, 'unique', [])
+    $source6 = $allow_from_network6? {
+      undef   => $hiera_allow_from_network6,
+      ''      => $hiera_allow_from_network6,
+      default => $allow_from_network6
+    }
+
+    profile::firewall::rule { '450 haproxy public accept tcp6':
+      proto       => 'tcp',
+      destination => $::ipaddress6_public1,
+      dport       => $firewall_ports['public'],
+      extras      => $firewall_extras,
+      provider    => 'ip6tables'
+    }
+    unless empty($firewall_ports['internal']) {
+      profile::firewall::rule { '451 haproxy internal accept tcp6':
+        proto       => 'tcp',
+        destination => $::ipaddress6_trp1,
+        source      => "${::network6_trp1}/${::cidr6_trp1}",
+        dport       => $firewall_ports['internal'],
+        extras      => $firewall_extras,
+        provider    => 'ip6tables'
+      }
+    }
+    unless empty($firewall_ports['limited']) {
+      profile::firewall::rule { '453 haproxy limited accept tcp6':
+        proto       => 'tcp',
+        destination => $::ipaddress6_public1,
+        source      => $source6,
+        dport       => $firewall_ports['limited'],
+        provider    => 'ip6tables'
       }
     }
   }

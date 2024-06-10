@@ -1,0 +1,32 @@
+---
+network::interfaces_hash:
+  'eth0':
+    ipaddress:      "%{hiera('netcfg_mgmt_netpart')}.85"
+    netmask:        "%{hiera('netcfg_mgmt_netmask')}"
+    peerdns:        'yes'
+    dns1:           "%{hiera('netcfg_dns_server1')}"
+    dns2:           "%{hiera('netcfg_dns_server2')}"
+    domain:         "%{hiera('netcfg_dns_search')}"
+    defroute:       'no'
+  'eth1':
+    ipaddress:      "%{hiera('netcfg_trp_netpart')}.85"
+    netmask:        "%{hiera('netcfg_trp_netmask')}"
+    gateway:        "%{hiera('netcfg_trp_gateway')}"
+    srcaddr:        "%{hiera('public__ip__object')}"
+    ipv6init:       'yes'
+    ipv6addr:       "%{hiera('netcfg_trp_netpart6')}::85/%{hiera('netcfg_trp_netmask6')}"
+    ipv6_defaultgw: "%{hiera('netcfg_trp_gateway6')}"
+    defroute:       'yes'
+  'dummy0':
+    ipaddress:      "%{hiera('public__ip__object')}"
+    netmask:        '255.255.255.255'
+    ipv6init:       'yes'
+    ipv6addr:       "%{hiera('public__ipv6__object')}/128"
+    defroute:       'no'
+
+object__backend__backups:
+  - '%{::location}-rgw-03'
+  - '%{::location}-rgw-01'
+object__backend__backupips:
+  - "%{hiera('netcfg_trp_netpart')}.87"
+  - "%{hiera('netcfg_trp_netpart')}.84"

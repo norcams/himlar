@@ -1,0 +1,76 @@
+
+router id <%= @ipaddress_trp1 %>;
+
+filter export_bgp4 {
+  if net = <%= scope().call_function('hiera',['public__ip__object']) %>/32 then accept;
+    else {
+        reject;
+    }
+}
+
+filter export_bgp6 {
+  if net = <%= scope().call_function('hiera',['public__ipv6__object']) %>/128 then accept;
+    else {
+        reject;
+    }
+}
+
+filter export_kernel {
+  if dest = RTD_UNREACHABLE then {
+    reject;
+  } else {
+    accept;
+  }
+}
+
+# Configure synchronization between BIRD's routing tables and the
+# kernel.
+protocol kernel {
+  ipv4 {               # Connect protocol to IPv4 table by channel
+    import all;
+    export filter export_kernel;
+  };
+  scan time 2;         # Scan kernel routing table every 2 seconds
+  learn;               # Learn all alien routes from the kernel
+  graceful restart;
+}
+
+protocol kernel {
+  ipv6 {
+    import all;
+    export filter export_kernel;
+  };
+  scan time 2;         # Scan kernel routing table every 2 seconds
+  learn;               # Learn all alien routes from the kernel
+  graceful restart;
+}
+
+protocol bfd {
+<% scope().call_function('hiera',['netcfg_trp_rr']).each do |name| %><%if name[1]['peer_ipv4'] %>  neighbor <%= name[1]['peer_ipv4'] %>;
+<% end %><% end -%>
+}
+
+# Watch interface up/down events.
+protocol device {
+  scan time 2;    # Scan interfaces every 2 seconds
+}
+
+protocol direct {
+        disabled;
+}
+
+<% if scope().call_function('hiera',['netcfg_trp_rr']) -%><% scope().call_function('hiera',['netcfg_trp_rr']).each do |name, values| %>protocol bgp '<%= name %>_ipv4' {
+  local as <%= scope().call_function('hiera',['bgp_as']) %>;
+  neighbor <%= values["peer_ipv4"] %> as <%= scope().call_function('hiera',['bgp_as']) %>;
+  ipv4 {
+    import none;
+    export filter export_bgp4;
+  };
+  ipv6 {
+    import none;
+    export filter export_bgp6;    
+  };
+  graceful restart;
+  source address <%= @ipaddress_trp1 %>;  # The local address we use for the TCP connection
+}
+<% end %><% end -%>

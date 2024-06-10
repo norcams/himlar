@@ -938,6 +938,23 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'fd32::1:122'
       - 'fd32::1:123'
       - 'fd32::1:124'
+  'object_rgw':
+    'options':
+      - 'peer-group'
+      - "remote-as %{hiera('bgp_as')}"
+      - 'addpath-tx-all-paths'
+      - 'bfd'
+    'options6':
+      - 'neighbor object_rgw activate'
+      - 'neighbor object_rgw addpath-tx-all-paths'
+    'ip_access_list':
+      - "%{hiera('public__ip__object')}/32"
+    'ip_access_list6':
+      - "%{hiera('public__ipv6__object')}/128"
+    'members':
+      - '172.18.32.84'  # rgw-01
+      - '172.18.32.85'  # rgw-02
+      - '172.18.32.87'  # rgw-03
   'elastic_rail_o1p':
     'options':
       - 'peer-group'
