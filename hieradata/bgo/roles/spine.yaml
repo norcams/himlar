@@ -1315,9 +1315,9 @@ frrouting::frrouting::bgp_neighbor_groups:
     'ip_access_list6':
       - "%{hiera('public__ipv6__object')}/128"
     'members':
-      - '172.18.00.84'  # rgw-01
-      - '172.18.00.85'  # rgw-02
-      - '172.18.00.87'  # rgw-03
+      - '172.18.0.84'  # rgw-01
+      - '172.18.0.85'  # rgw-02
+      - '172.18.0.87'  # rgw-03
   'elastic_rail_b1p':
     'options':
       - 'peer-group'
