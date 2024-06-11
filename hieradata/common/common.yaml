@@ -63,25 +63,17 @@ profile::base::firewall::purge_firewall: true
 
 allow_from_testing_network: # this do not merge!
   - '129.240.130.12/32'  # trond
-  - '129.240.130.14/32'  # mikael
-  - '129.177.10.189/32'  # tor
-  - '129.177.10.212/32'  # raymond
-  - '129.177.10.64/32'   # raymond
+  - '129.177.25.132/32'  # raymond
   - '158.39.74.6/32'     # raymond mgmt-admin-instance
-  - '129.177.10.111/32'  # anders
-  - '129.240.202.64/32'  # mikael
-  - '129.240.202.96/32'  # tannaz
-  - '129.177.6.133/32'   # bgo-login
-  - '129.240.224.100/32' # osl-login
+  - '129.177.6.133/32'   # bgo-login-01
+  - '129.240.224.100/32' # osl-login-01
   - '129.177.6.190/32'   # test01-login
-  - '158.39.77.254/32'  # bgo-dashboard
   - '158.39.77.254/32'   # bgo-dashboard
   - '158.39.77.253/32'   # bgo-proxy-01
   - '158.39.74.247/32'   # bgo-proxy-02
   - '158.37.63.253/32'   # osl-proxy-01
   - '158.39.75.247/32'   # osl-proxy-02
   - '192.168.122.1/32'   # test02
-  - '62.16.139.80/32'    # raymond at home
   - '158.39.77.248'      # natgw bgo
   - '158.39.74.248'      # natgw2 bgo
   - '158.37.63.248'      # pub_natgw osl
