@@ -89,7 +89,7 @@ bootstrap_puppet()
     yum install -y puppet-agent git vim gcc
     # Remove default version 3 hiera.yaml
     rm -f /etc/puppetlabs/puppet/hiera.yaml
-
+    /opt/puppetlabs/puppet/bin/gem install -N cri -v 2.15.11
     /opt/puppetlabs/puppet/bin/gem install -N puppet_forge -v 3.2.0
     /opt/puppetlabs/puppet/bin/gem install -N r10k -v 3.16.0
     ln -sf /opt/puppetlabs/puppet/bin/wrapper.sh /opt/puppetlabs/bin/r10k
