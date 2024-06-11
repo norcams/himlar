@@ -7,9 +7,6 @@ include:
     - profile::openstack::openrc
     - profile::dns::rndc_key
 
-# Temporary 2024-04-22 [trondham]
-#openstack_version:    'victoria'
-
 profile::network::interface::manage_dummy:         true
 profile::network::interface::create_custom_routes: true
 profile::base::network::manage_dummy:        true # FIXME; remove when el7 is gone

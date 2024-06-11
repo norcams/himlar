@@ -29,6 +29,3 @@ profile::base::yumrepo::repo_hash:
     ensure:  present
   AlmaLinux-PowerTools:
     ensure: present
-
-# Remove when enabling in nova module (when compute nodes are upgraded)
-openstack_version: 'victoria'

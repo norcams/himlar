@@ -204,6 +204,3 @@ nova::policy::policies:
   nova_create_zero_disk_flavor:
     key:   'os_compute_api:servers:create:zero_disk_flavor'
     value: 'role:imagebuilder'
-
-# Enable when also compute nodes are upgraded
-#openstack_version:  'victoria'
