@@ -32,4 +32,4 @@ profile::application::create_mdev::enable:                true
 profile::application::create_mdev::nvidia_gpu_type:       'nvidia-109'
 profile::application::create_mdev::max_instances_per_gpu: 1
 
-nova::compute::libvirt::libvirt_cpu_model: 'Cascadelake-Server-noTSX'
+nova::compute::libvirt::cpu_models: ['Cascadelake-Server-noTSX']

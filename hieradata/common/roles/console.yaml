@@ -27,3 +27,8 @@ profile::base::yumrepo::repo_hash:
     includepkgs: 'htop bash-completion-extras python2-bcrypt'
   CentOs-nfv-Openvswitch:
     ensure:  present
+  AlmaLinux-PowerTools:
+    ensure: present
+
+# Remove when enabling in nova module (when compute nodes are upgraded)
+openstack_version: 'victoria'
