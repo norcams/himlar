@@ -88,7 +88,7 @@ profile::base::selinux::ports:
 profile::storage::ceph::config::manage_config: true
 profile::storage::ceph::config::config:
   'client.radosgw.%{::hostname}/rgw_enable_usage_log':
-    value: true
+    value: false
   'client.radosgw.%{::hostname}/rgw_realm':
     value: 'nrec'
   'client.radosgw.%{::hostname}/rgw_zonegroup':
