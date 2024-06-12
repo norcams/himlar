@@ -1,5 +1,4 @@
 ---
-
 named_interfaces::config:
   mgmt:
     - eth0
@@ -17,3 +16,21 @@ profile::highavailability::loadbalancing::haproxy::anycast_enable:      true
 profile::highavailability::loadbalancing::haproxy::manage_haproxy:      true
 profile::highavailability::loadbalancing::haproxy::manage_firewall:     true
 profile::highavailability::loadbalancing::haproxy::manage_firewall6:    true
+
+profile::network::interface::create_ip_rules:      true
+profile::network::interface::create_custom_routes: true
+
+profile::base::network::routes:
+  "%{::interface_trp1}":
+    'ipaddress': [ '0.0.0.0', '::' ]
+    'netmask':   [ '0.0.0.0', '0' ]
+    'gateway':   [ "%{hiera('netcfg_trp_gateway')}", "%{hiera('netcfg_trp_gateway6')}" ]
+    'table':     [ 'anycast', 'anycast' ]
+    'family':    [ 'inet4', 'inet6' ]
+profile::base::network::routing_tables:
+  'anycast':
+    'table_id':  '239'
+profile::base::network::rules:
+  "%{::interface_trp1}":
+    'iprule':  [ "from %{hiera('public__ip__object')} lookup anycast" ]
+    'iprule6': [ "from %{hiera('public__ipv6__object')} lookup anycast" ]
