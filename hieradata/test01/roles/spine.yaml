@@ -359,9 +359,6 @@ frrouting::frrouting::bgp_neighbor_groups:
       - '172.30.0.26'
       - '172.30.0.44'
       - '172.30.0.45'
-      - '172.30.0.59'
-      - '172.30.0.60'
-      - '172.30.0.86'
       - '172.30.0.103'
       - '172.30.0.104'
       - '172.30.0.105'
@@ -374,13 +371,27 @@ frrouting::frrouting::bgp_neighbor_groups:
     'members6':
       - 'fd00::44'
       - 'fd00::45'
-      - 'fd00::59'
-      - 'fd00::60'
-      - 'fd00::86'
       - 'fd00::103'
       - 'fd00::104'
       - 'fd00::105'
       - 'fd00::111'
+  'api_peers':
+    'options':
+      - 'peer-group'
+      - "remote-as %{hiera('bgp_as')}"
+      - 'addpath-tx-all-paths'
+      - 'bfd'
+    'options6':
+      - 'neighbor api_peers activate'
+      - 'neighbor api_peers addpath-tx-all-paths'
+    'ip_access_list':
+      - "%{hiera('public__ip__api')}/32"
+    'ip_access_list6':
+      - "%{hiera('public__ipv6__api')}/128"
+    'members':
+      - '172.30.0.59'  # api-01
+      - '172.30.0.60'  # api-02
+      - '172.30.0.86'  # api-03
   'elastic_test':
     'options':
       - 'peer-group'
