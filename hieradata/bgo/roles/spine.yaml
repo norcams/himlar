@@ -21,6 +21,7 @@ profile::network::leaf::acls:
     iptables:
       # Allow access to the S3 service from everywhere
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -d %{hiera('netcfg_pub_object')} --dport 8080 -j ACCEPT"
+      - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -d %{hiera('public__ip__object')} --dport 8080 -j ACCEPT"
       # Allow SMB and NFS from UiB network (only BGO)
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -s 129.177.0.0/16 --dport 139 -j ACCEPT"
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p udp -s 129.177.0.0/16 --dport 139 -j ACCEPT"
@@ -110,6 +111,8 @@ profile::network::leaf::acls:
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp --dport 9200 -j DROP"
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp --dport 27017 -j DROP"
     ip6tables:
+      # Allow access to the S3 service from everywhere
+      - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -d %{hiera('public__ipv6__object')} --dport 8080 -j ACCEPT"
       # Allow SMB and NFS from UiB network (only BGO)
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -s 2001:700:200::/48 --dport 139 -j ACCEPT"
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p udp -s 2001:700:200::/48 --dport 139 -j ACCEPT"
