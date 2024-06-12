@@ -93,6 +93,10 @@ profile::monitoring::sensu::agent::checks:
 
 # We should change this to the same as the API services
 profile::openstack::dashboard::policies:
+  glance_communitize_image:
+    file_path:  '/etc/openstack-dashboard/glance_policy.json'
+    key:        'communitize_image'
+    value:      'role:superuser or role:admin'
   glance_publicize_image:
     file_path:  '/etc/openstack-dashboard/glance_policy.json'
     key:        'publicize_image'
