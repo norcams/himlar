@@ -32,5 +32,5 @@ profile::base::network::routing_tables:
     'table_id':  '239'
 profile::base::network::rules:
   "%{::interface_trp1}":
-    'iprule':  [ "from %{hiera('public__ip__object')} lookup anycast" ]
-    'iprule6': [ "from %{hiera('public__ipv6__object')} lookup anycast" ]
+    'iprule':  [ "from %{hiera('public__ip__object')} lookup anycast", "from %{hiera('public__ipv6__object')} lookup anycast" ]
+    'family':  [ 'inet4', 'inet6', ]
