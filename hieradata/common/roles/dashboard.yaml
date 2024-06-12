@@ -132,6 +132,10 @@ profile::base::selinux::boolean:
     ensure: 'on'
     persistent: true
 
+# Local modifications to instance launch defaults
+profile::openstack::dashboard::launch_instance_defaults:
+  enable_scheduler_hints: 'False'
+
 # Disable admin functionality (use mgmt dashboard for this)
 horizon::keystone_options:
   can_edit_user:                False

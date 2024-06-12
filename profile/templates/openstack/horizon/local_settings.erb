@@ -40,6 +40,22 @@ ENFORCE_PASSWORD_CHECK = '<%= @enforce_password_check -%>'
 SECURE_PROXY_SSL_HEADER = <%= @secure_proxy_header -%>
 <% end -%>
 
+<% if @launch_instance_defaults -%>
+LAUNCH_INSTANCE_DEFAULTS = {
+    'config_drive': <% if @launch_instance_defaults['config_drive'] %><%=@launch_instance_defaults['config_drive']%><% else %>False<% end %>,
+    'create_volume': <% if @launch_instance_defaults['create_volume'] %><%=@launch_instance_defaults['create_volume']%><% else %>False<% end %>,
+    'disable_image': <% if @launch_instance_defaults['disable_image'] %><%=@launch_instance_defaults['disable_image']%><% else %>False<% end %>,
+    'disable_instance_snapshot': <% if @launch_instance_defaults['disable_instance_snapshot'] %><%=@launch_instance_defaults['disable_instance_snapshot']%><% else %>False<% end %>,
+    'disable_volume': <% if @launch_instance_defaults['disable_volume'] %><%=@launch_instance_defaults['disable_volume']%><% else %>True<% end %>,
+    'disable_volume_snapshot': <% if @launch_instance_defaults['disable_volume_snapshot'] %><%=@launch_instance_defaults['disable_volume_snapshot']%><% else %>True<% end %>,
+    'enable_scheduler_hints': <% if @launch_instance_defaults['enable_scheduler_hints'] %><%=@launch_instance_defaults['enable_scheduler_hints']%><% else %>True<% end %>,
+    'hide_create_volume': <% if @launch_instance_defaults['hide_create_volume'] %><%=@launch_instance_defaults['hide_create_volume']%><% else %>True<% end %>,
+    # available in zed: enable_metadata (default: True)
+    # available in zed: enable_net_ports (default: True)
+    # available in wallaby: default_availability_zone (default: 'Any')
+}
+<% end -%>
+
 <% if @database -%>
 DATABASES = {
     'default': {
