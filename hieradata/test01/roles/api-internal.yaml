@@ -1,0 +1,53 @@
+---
+profile::base::network::rules:
+  "%{::interface_trp1}":
+    'iprule':  [ "from %{hiera('internal__ip__api')} lookup anycast", "from %{hiera('internal__ipv6__api')} lookup anycast" ]
+    'family':  [ 'inet4', 'inet6', ]
+
+profile::highavailability::loadbalancing::haproxy::anycast_service_ip:  "%{hiera('internal__ip__api')}"
+profile::highavailability::loadbalancing::haproxy::anycast_service_ip6: "%{hiera('internal__ipv6__api')}"
+
+profile::highavailability::loadbalancing::haproxy::merge_strategy: 'first'
+
+# Domain mapping to backend
+profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
+  internal_domains:
+    ensure: present
+    mappings:
+      - "identity.%{hiera('domain_trp')}:5000":         'bk_identity'
+      - "identity.%{hiera('domain_trp')}:35357":        'bk_identity'
+      - "network.%{hiera('domain_trp')}:9696":          'bk_network'
+      - "metric.%{hiera('domain_trp')}:8041":           'bk_metric'
+      - "compute.%{hiera('domain_trp')}:8774":          'bk_compute'
+      - "placement.%{hiera('domain_trp')}:8778":        'bk_placement'
+      - "volume.%{hiera('domain_trp')}:8776":           'bk_volume'
+      - "image.%{hiera('domain_trp')}:9292":            'bk_image'
+      - "dns.%{hiera('domain_trp')}:9001":              'bk_dns'
+      - "object.%{hiera('domain_trp')}:8080":           'bk_object'
+
+profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
+  frontend_internal:
+    bind:
+      "%{hiera('internal__ip__api')}:35357": [] # keystone-admin
+      "%{hiera('internal__ip__api')}:5000":  [] # keystone
+      "%{hiera('internal__ip__api')}:8041":  [] # metric
+      "%{hiera('internal__ip__api')}:8774":  [] # compute
+      "%{hiera('internal__ip__api')}:8776":  [] # volume
+      "%{hiera('internal__ip__api')}:9292":  [] # image
+      "%{hiera('internal__ip__api')}:9696":  [] # neutron
+      "%{hiera('internal__ip__api')}:8080":  [] # object
+      "%{hiera('internal__ip__api')}:9001":  [] # designate
+      "%{hiera('internal__ip__api')}:8778":  [] # placement
+    options:
+      - capture:        'request header Host len 64' #for debug
+      - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/internal_domains.map)]'
+  frontend_monitor:
+    options:
+      stats:
+         - 'enable'
+         - 'hide-version'
+         - 'realm Sensu\ Monitor\ Stats'
+         - 'uri /'
+    bind:
+      '%{::ipaddress_mgmt1}:9000':            []
+      '127.0.0.1:9000':                       []
