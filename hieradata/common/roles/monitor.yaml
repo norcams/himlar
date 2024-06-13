@@ -254,7 +254,7 @@ profile::logging::rsyslog::client::inputs:
 # Enable extra yum repo for openstack client
 profile::base::yumrepo::repo_hash:
   rdo-release:
-    ensure: present
+    ensure: absent # no repo for el7
   grafana:
     ensure: absent
   grafana-oss:

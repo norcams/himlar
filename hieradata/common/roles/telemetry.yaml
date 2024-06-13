@@ -7,7 +7,7 @@ include:
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   rdo-release:
-    ensure: present
+    ensure: absent # no repo for el7
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
     includepkgs: 'htop bash-completion-extras python2-bcrypt'

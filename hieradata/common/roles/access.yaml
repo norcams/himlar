@@ -58,7 +58,7 @@ profile::webserver::apache::vhosts:
 # RDO used for openstackclient
 profile::base::yumrepo::repo_hash:
   rdo-release:
-    ensure: present
+    ensure: absent # no repo for el7
 
 # Selinux for access
 profile::base::selinux::boolean:
