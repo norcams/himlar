@@ -154,9 +154,9 @@ nodesets:
     - role:       "storage"
   dns:
     - role:       "db-global"
-      puppet_env: "victoria"
+      puppet_env: "wallaby"
     - role:       "db-regional"
-      puppet_env: "victoria"
+      puppet_env: "wallaby"
     - role:       "api"
       box:        "norcams/base"
     - role:       "mq"
@@ -177,15 +177,15 @@ nodesets:
       cpus:       2
       puppet_env: "victoria"
     - role:       "ns"
-      puppet_env: "victoria"
+      puppet_env: "wallaby"
     - role:       "resolver"
       hostid:     "01"
-      puppet_env: "victoria"
+      puppet_env: "wallaby"
     - role:       "resolver"
       hostid:     "02"
-      puppet_env: "victoria"
+      puppet_env: "wallaby"
     - role:       "dns"
-      puppet_env: "victoria"
+      puppet_env: "wallaby"
   object: # will also need running identity to test anything other than ceph
     - role:       'cephmon-object'
     - role:       'rgw'
