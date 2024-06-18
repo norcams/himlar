@@ -67,7 +67,9 @@ profile::base::network::cumulus_bridges:
       - host40
       - host41
       - host42
+      - host43
       - host44
+      - host45
       - swp50
       - peerlink
       - downlink
@@ -381,9 +383,25 @@ profile::base::network::cumulus_bonds:
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', '130', ]
     'mtu':   '9216'
+  'host43':
+    'slaves': [ 'swp43', ]
+    'clag_id': '43'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu':   '9216'
   'host44':
     'slaves': [ 'swp44', ]
     'clag_id': '44'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu':   '9216'
+  'host45':
+    'slaves': [ 'swp45', ]
+    'clag_id': '45'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
