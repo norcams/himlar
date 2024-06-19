@@ -285,7 +285,7 @@ profile::network::services::dns_records:
     "placement.api.%{hiera('domain_public')}":    '158.39.77.250'
     "metric.api.%{hiera('domain_public')}":       '158.39.77.250'
     "dns.api.%{hiera('domain_public')}":          '158.39.77.250'
-    "object.api.%{hiera('domain_public')}":       '158.39.77.250'
+    "object.api.%{hiera('domain_public')}":       "%{hiera('public__ip__object')}"
 
     "resolver.%{hiera('domain_public')}":         '158.39.77.252'
 
@@ -299,7 +299,7 @@ profile::network::services::dns_records:
     "placement.api.%{hiera('domain_public2')}":   '158.39.77.250'
     "metric.api.%{hiera('domain_public2')}":      '158.39.77.250'
     "dns.api.%{hiera('domain_public2')}":         '158.39.77.250'
-    "object.api.%{hiera('domain_public2')}":      '158.39.77.250'
+    "object.api.%{hiera('domain_public2')}":      "%{hiera('public__ip__object')}"
 
     "resolver.%{hiera('domain_public2')}":        '158.39.77.252'
 
@@ -311,9 +311,11 @@ profile::network::services::dns_records:
     # Public records (<foo>.<location>.nrec.no)
     "resolver.%{hiera('domain_public')}":              '2001:700:2:83ff::252'
     "%{::location}-dns-01.%{hiera('domain_public')}":  '2001:700:2:83ff::256'
+    "object.api.%{hiera('domain_public')}":            "%{hiera('public__ipv6__object')}
     # Public records (<foo>.<location>.uh-iaas.no)
     "resolver.%{hiera('domain_public2')}":             '2001:700:2:83ff::252'
     "%{::location}-dns-01.%{hiera('domain_public2')}": '2001:700:2:83ff::256'
+    "object.api.%{hiera('domain_public2')}":           "%{hiera('public__ipv6__object')}
   PTR:
     # Management network (entries that differ from common/common.yaml)
     "8.%{hiera('reverse_mgmt_c2')}":   "%{::location}-mgmt-08.%{hiera('domain_mgmt')}"
