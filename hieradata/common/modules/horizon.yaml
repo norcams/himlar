@@ -8,9 +8,9 @@ horizon::wsgi::apache::priority:        '10'
 horizon::wsgi::apache::bind_address:    "%{ipaddress_public1}"
 horizon::bind_address:                  "%{ipaddress_public1}"
 horizon::listen_ssl:                    true
-horizon::horizon_ca:                    "/etc/pki/tls/certs/cachain.pem"
-horizon::horizon_cert:                  "/etc/pki/tls/certs/%{hiera('public__address__dashboard')}.cert.pem"
-horizon::horizon_key:                   "/etc/pki/tls/private/%{hiera('public__address__dashboard')}.key.pem"
+horizon::ssl_ca:                        "/etc/pki/tls/certs/cachain.pem"
+horizon::ssl_cert:                      "/etc/pki/tls/certs/%{hiera('public__address__dashboard')}.cert.pem"
+horizon::ssl_key:                       "/etc/pki/tls/private/%{hiera('public__address__dashboard')}.key.pem"
 horizon::access_log_format:             undef
 horizon::secure_cookies:                true
 horizon::images_panel:                  'angular'
