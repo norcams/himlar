@@ -41,8 +41,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       ':::8080 v4v6': ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"] # FIXME remove when nobody uses 8080
     mode: 'http'
     options:
-      - http-request:
-        - "set-header host object.api.%{hiera('domain_public')}"
       - default_backend: 'bk_object'
 
 profile::highavailability::loadbalancing::haproxy::haproxy_backends:
