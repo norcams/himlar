@@ -33,13 +33,19 @@ neutron::server::notifications::nova::endpoint_type:     'internal'
 #neutron::server::rpc_package_name:                 'openstack-neutron-rpc-server'
 neutron::agents::dhcp::enabled:                     false
 
-#neutron::wsgi::apache::ssl:       false
-#neutron::wsgi::apache::bind_host: "%{ipaddress_trp1}"
-#neutron::wsgi::apache::threads:   2
-#neutron::wsgi::apache::workers:   2
+neutron::wsgi::apache::ssl:       false
+neutron::wsgi::apache::bind_host: "%{ipaddress_trp1}"
+neutron::wsgi::apache::threads:   2
+neutron::wsgi::apache::workers:   2
 
 neutron::db::mysql::allowed_hosts:
   - "%{hiera('netcfg_trp_netpart')}.%"
+
+# memcache for neutron
+neutron::cache::enabled:                'true'
+neutron::cache::memcache_servers:       '127.0.0.1:11211'
+neutron::cache::manage_backend_package: false
+neutron::cache::tls_enabled:            false
 
 # rabbit mq
 neutron::notification_transport_url:    "%{hiera('service__transport__url')}"
