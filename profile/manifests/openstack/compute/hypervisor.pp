@@ -78,7 +78,6 @@ class profile::openstack::compute::hypervisor (
     }
   }
 
-  # FIXME - Should probably be removed for newton release
   if $fix_snapshot_loc {
     file { '/var/lib/nova/instances/save':
       ensure => 'directory',
