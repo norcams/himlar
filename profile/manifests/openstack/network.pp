@@ -6,6 +6,8 @@ class profile::openstack::network(
   $firewall_extras = {},
 ){
   include ::neutron
+  include ::neutron::wsgi::apache
+  include ::neutron::cache
 
 # Use value ml2 for plugin and calico driver for calico v1.3 and older
 # then set neutron::core_plugin to neutron.plugins.ml2.plugin.Ml2Plugin
