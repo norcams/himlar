@@ -6,7 +6,7 @@ cinder::db::mysql::allowed_hosts:
   - "%{hiera('netcfg_trp_netpart')}.%"
 
 # db (node: volume)
-cinder::database_connection:      "mysql+pymysql://cinder:%{hiera('cinder::db::mysql::password')}@%{hiera('service__address__db_regional')}/cinder"
+cinder::db::database_connection:      "mysql+pymysql://cinder:%{hiera('cinder::db::mysql::password')}@%{hiera('service__address__db_regional')}/cinder"
 
 # cinder api (node: volume)
 cinder::nova::region_name:                "%{::location}"
