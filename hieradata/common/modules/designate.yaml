@@ -97,7 +97,11 @@ designate::db::mysql::allowed_hosts:
 # Bind9 backend (manifests/backend/bind9.pp)
 #   - runs on the DNS node
 #---------------------------------------------------------------------
-designate::backend::bind9::rndc_host: "%{hiera('service__address__ns')}"
+designate::backend::bind9::configure_bind: false
+designate::backend::bind9::nameservers:
+  - "%{hiera('service__address__ns')}"
+designate::backend::bind9::bind9_hosts:
+  - "%{hiera('service__address__ns')}"
 
 #---------------------------------------------------------------------
 # mDNS (manifests/mdns.pp)
