@@ -101,13 +101,6 @@ logrotate::rules:
     rotate_every:   daily
     compress:       true
 
-# Enable extra yum repo
-profile::base::yumrepo::repo_hash:
-  elk6:
-    ensure: present
-  curator5:
-    ensure: present
-
 #cronjob to purge elasticsearch
 profile::base::common::manage_cron:  true
 profile::base::cron::crontabs:
