@@ -4,3 +4,6 @@ glance::api::log_facility:        'LOG_LOCAL3'
 glance::api::verbose:             true
 glance::api::enabled_backends::multi_store:
  - rbd
+glance::config::api_config:
+  cors/allowed_origin:
+    value:   "https://dashboard.%{hiera('domain_public')}"
