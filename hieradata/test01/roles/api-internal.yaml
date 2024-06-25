@@ -3,6 +3,7 @@ profile::base::network::rules:
   "%{hiera('named_interfaces::config.trp.0')}":
     'iprule':  [ "from %{hiera('internal__ip__api')} lookup anycast", "from %{hiera('internal__ipv6__api')} lookup anycast" ]
     'family':  [ 'inet4', 'inet6', ]
+profile::network::interface::rule_merge_strategy: 'first'
 
 profile::highavailability::loadbalancing::haproxy::anycast_service_ip:  "%{hiera('internal__ip__api')}"
 profile::highavailability::loadbalancing::haproxy::anycast_service_ip6: "%{hiera('internal__ipv6__api')}"
