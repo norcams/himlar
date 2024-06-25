@@ -83,6 +83,7 @@ protocol kernel {
     export filter import_bgp; # Export to protocol. default is export none
     import all;
   };
+  merge paths yes;
   kernel table ipt_main;
   graceful restart;
   persist;                    # Don't remove routes on bird shutdown
@@ -96,6 +97,7 @@ protocol kernel {
     import filter import_kernel6;
     export filter import_bgp6;
   };
+  merge paths yes;
   graceful restart;
   persist;                    # Don't remove routes on bird shutdown
   scan time 2;                # Scan kernel routing table every 2 seconds
@@ -115,6 +117,7 @@ protocol kernel {
     export all;
     import filter import_kernel;
   };
+  merge paths yes;
   kernel table ipt_private;
   learn;
   scan time 2;
