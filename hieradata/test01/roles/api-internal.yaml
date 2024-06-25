@@ -1,6 +1,6 @@
 ---
 profile::base::network::rules:
-  "%{::interface_trp1}":
+  "%{hiera('named_interfaces::config.trp.0')}":
     'iprule':  [ "from %{hiera('internal__ip__api')} lookup anycast", "from %{hiera('internal__ipv6__api')} lookup anycast" ]
     'family':  [ 'inet4', 'inet6', ]
 
