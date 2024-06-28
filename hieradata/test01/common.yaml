@@ -133,6 +133,16 @@ profile::network::services::dns_records:
     "monitor.%{hiera('domain_mgmt')}":                      "%{hiera('netcfg_mgmt_net_c0')}.21"
     # Temp. for old login-01
     "%{::location}-login-01old.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c0')}.199"
+    # trp api services
+    "dns.%{hiera('domain_trp')}":                           "%{hiera('internal__ip__api')}"
+    "image.%{hiera('domain_trp')}":                         "%{hiera('internal__ip__api')}"
+    "volume.%{hiera('domain_trp')}":                        "%{hiera('internal__ip__api')}"
+    "compute.%{hiera('domain_trp')}":                       "%{hiera('internal__ip__api')}"
+    "placement.%{hiera('domain_trp')}":                     "%{hiera('internal__ip__api')}"
+    "network.%{hiera('domain_trp')}":                       "%{hiera('internal__ip__api')}"
+    "identity.%{hiera('domain_trp')}":                      "%{hiera('internal__ip__api')}"
+    "object.%{hiera('domain_trp')}":                        "%{hiera('internal__ip__api')}"
+    "metric.%{hiera('domain_trp')}":                        "%{hiera('internal__ip__api')}"
   AAAA:
     "ns.%{hiera('domain_frontend')}":     '2001:700:200:917::3f17'
     "resolver.%{hiera('domain_public')}": '2001:700:200:917::3f18'
