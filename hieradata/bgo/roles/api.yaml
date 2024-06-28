@@ -6,25 +6,25 @@
 frontend_star_ssl_pem:    "star.%{hiera('domain_frontend')}.pem"
 frontend_star_ssl_pem2:   "star.%{hiera('domain_frontend2')}.pem"
 
-profile::network::interface::create_ip_rules:      true
-profile::network::interface::create_custom_routes: true
+#profile::network::interface::create_ip_rules:      true
+#profile::network::interface::create_custom_routes: true
 
-profile::base::network::routes:
-  "%{hiera('named_interfaces::config.trp.0')}":
-    'ipaddress': [ '0.0.0.0', '::' ]
-    'netmask':   [ '0.0.0.0', '0' ]
-    'gateway':   [ "%{hiera('netcfg_trp_gateway')}", "%{hiera('netcfg_trp_gateway6')}" ]
-    'table':     [ 'anycast', 'anycast' ]
-    'family':    [ 'inet4', 'inet6' ]
-profile::base::network::routing_tables:
-  'anycast':
-    'table_id':  '239'
-profile::base::network::rules:
-  "%{hiera('named_interfaces::config.trp.0')}":
-    'iprule':  [ "from %{hiera('public__ip__api')} lookup anycast", "from %{hiera('public__ipv6__api')} lookup anycast" ]
-    'family':  [ 'inet4', 'inet6', ]
-
-profile::highavailability::loadbalancing::haproxy::anycast_enable: true
+#profile::base::network::routes:
+#  "%{hiera('named_interfaces::config.trp.0')}":
+#    'ipaddress': [ '0.0.0.0', '::' ]
+#    'netmask':   [ '0.0.0.0', '0' ]
+#    'gateway':   [ "%{hiera('netcfg_trp_gateway')}", "%{hiera('netcfg_trp_gateway6')}" ]
+#    'table':     [ 'anycast', 'anycast' ]
+#    'family':    [ 'inet4', 'inet6' ]
+#profile::base::network::routing_tables:
+#  'anycast':
+#    'table_id':  '239'
+#profile::base::network::rules:
+#  "%{hiera('named_interfaces::config.trp.0')}":
+#    'iprule':  [ "from %{hiera('public__ip__api')} lookup anycast", "from %{hiera('public__ipv6__api')} lookup anycast" ]
+#    'family':  [ 'inet4', 'inet6', ]
+#
+#profile::highavailability::loadbalancing::haproxy::anycast_enable: true
 
 network__backend__names:
   - '%{::location}-network-01'
