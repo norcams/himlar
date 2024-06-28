@@ -76,7 +76,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ports:              443
     server_names:       ['docs01']
     ipaddresses:        ['uh-iaas.readthedocs.io']
-    options:            'verify none inter 1000 check check-ssl ssl'
+    options:            'verify none inter 1000 check ssl'
 # Apps
   'ssl-https-apps':
     listening_service:  'ssl-https-apps'
