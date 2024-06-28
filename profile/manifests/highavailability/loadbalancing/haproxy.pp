@@ -5,7 +5,7 @@ class profile::highavailability::loadbalancing::haproxy (
   $anycast_service_ip      = undef,
   $anycast_service_ip6     = undef,
   $bird_package_name       = 'bird',
-  $bird_template           = "${module_name}/bird/bird-api.conf.${::operatingsystemmajrelease}",
+  $bird_template           = "${module_name}/bird/bird-anycast-vm.conf.${::operatingsystemmajrelease}",
   $manage_firewall         = false,
   $manage_firewall6        = false,
   $allow_from_network      = undef,

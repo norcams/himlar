@@ -18,7 +18,6 @@ profile::base::selinux::manage_selinux: true
 profile::network::interface::manage_dummy: true
 
 profile::highavailability::loadbalancing::haproxy::anycast_enable:      false
-profile::highavailability::loadbalancing::haproxy::bird_template:       'profile/bird/bird-rgw.conf.8'
 profile::highavailability::loadbalancing::haproxy::anycast_service_ip:  "%{hiera('public__ip__object')}"
 profile::highavailability::loadbalancing::haproxy::anycast_service_ip6: "%{hiera('public__ipv6__object')}"
 profile::highavailability::loadbalancing::haproxy::manage_haproxy:      false

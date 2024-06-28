@@ -89,6 +89,8 @@ netcfg_trp_rr:
     peer_ipv4: '172.30.6.2'
     peer_ipv6: 'fd00::6:2'
 
+internal__ip__api:              '10.255.10.122'
+internal__ipv6__api:            'fd00:ffff:ffff::122'
 public__ip__api:                '129.177.31.122'
 public__ipv6__api:              '2001:700:200:917::3f22'
 public__ip__proxy:              '129.177.31.123'
@@ -131,9 +133,31 @@ profile::network::services::dns_records:
     "monitor.%{hiera('domain_mgmt')}":                      "%{hiera('netcfg_mgmt_net_c0')}.21"
     # Temp. for old login-01
     "%{::location}-login-01old.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c0')}.199"
+    # trp api services
+    "dns.%{hiera('domain_trp')}":                           "%{hiera('internal__ip__api')}"
+    "image.%{hiera('domain_trp')}":                         "%{hiera('internal__ip__api')}"
+    "volume.%{hiera('domain_trp')}":                        "%{hiera('internal__ip__api')}"
+    "compute.%{hiera('domain_trp')}":                       "%{hiera('internal__ip__api')}"
+    "placement.%{hiera('domain_trp')}":                     "%{hiera('internal__ip__api')}"
+    "network.%{hiera('domain_trp')}":                       "%{hiera('internal__ip__api')}"
+    "identity.%{hiera('domain_trp')}":                      "%{hiera('internal__ip__api')}"
+    "object.%{hiera('domain_trp')}":                        "%{hiera('internal__ip__api')}"
+    "metric.%{hiera('domain_trp')}":                        "%{hiera('internal__ip__api')}"
   AAAA:
-    "ns.%{hiera('domain_frontend')}":     '2001:700:200:917::3f17'
-    "resolver.%{hiera('domain_public')}": '2001:700:200:917::3f18'
+    "ns.%{hiera('domain_frontend')}":          '2001:700:200:917::3f17'
+    "resolver.%{hiera('domain_public')}":      '2001:700:200:917::3f18'
+    "api.%{hiera('domain_public')}":           "%{hiera('public__ipv6__api')}"
+    "identity.api.%{hiera('domain_public')}":  "%{hiera('public__ipv6__api')}"
+    "network.api.%{hiera('domain_public')}":   "%{hiera('public__ipv6__api')}"
+    "image.api.%{hiera('domain_public')}":     "%{hiera('public__ipv6__api')}"
+    "volume.api.%{hiera('domain_public')}":    "%{hiera('public__ipv6__api')}"
+    "compute.api.%{hiera('domain_public')}":   "%{hiera('public__ipv6__api')}"
+    "placement.api.%{hiera('domain_public')}": "%{hiera('public__ipv6__api')}"
+    "dns.api.%{hiera('domain_public')}":       "%{hiera('public__ipv6__api')}"
+    "status.%{hiera('domain_frontend')}":      "%{hiera('public__ipv6__api')}"
+    "report.%{hiera('domain_frontend')}":      "%{hiera('public__ipv6__api')}"
+    "access.%{hiera('domain_frontend')}":      "%{hiera('public__ipv6__api')}"
+    "console.%{hiera('domain_public')}":       "%{hiera('public__ipv6__api')}"
   PTR:
     # Temp. for old login-01
     "199.%{hiera('reverse_mgmt_c0')}":    "%{::location}-login-01old.%{hiera('domain_mgmt')}"
