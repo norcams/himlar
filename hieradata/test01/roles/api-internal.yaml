@@ -10,6 +10,12 @@ profile::highavailability::loadbalancing::haproxy::anycast_service_ip6: "%{hiera
 
 profile::highavailability::loadbalancing::haproxy::merge_strategy: 'first'
 
+profile::highavailability::loadbalancing::haproxy::firewall_ports:
+  public:    ['5000', '8041', '8774', '8776', '9292', '9696', '35357', '8080', '8778', '9001']
+  internal:  []
+  mgmt:      []
+  limited:   []
+
 # Domain mapping to backend
 profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
   internal_domains:
