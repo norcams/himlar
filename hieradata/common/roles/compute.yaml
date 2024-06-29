@@ -326,3 +326,5 @@ nova::config::nova_config:
 # Red Hat Subscription Management (RHSM)
 profile::rhsm::subscription::manage: true
 profile::rhsm::virtwho::manage:      true
+
+openstack_version: 'wallaby'  # FIXME Remove when whole rig upgraded / Move to 'nova' module when compute is upgraded

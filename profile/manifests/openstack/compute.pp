@@ -6,6 +6,7 @@ class profile::openstack::compute(
   $manage_check_dhcp_lease_file = false
 ) {
   include ::nova
+  include ::nova::db
   include ::nova::config
   include ::nova::network::neutron
   include ::nova::cinder
