@@ -37,6 +37,8 @@ profile::base::common::packages:
   'libibverbs': {} # not needed but avoid console complaints
   'rdma': {} # not needed but avoid console complaints
   'MariaDB-client': {}
+  'nrec-selinux': {}
+  'python3-openstackclient': {}
 
 # apache httpd
 # this should be fine for 4 GB RAM
@@ -74,3 +76,5 @@ profile::base::yumrepo::repo_hash:
     ensure: present
 
 memcached::max_memory: '20%'
+
+openstack_version: 'wallaby'  # FIXME Remove when whole rig upgraded / Move to 'nova' module when compute is upgraded
