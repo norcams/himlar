@@ -1,9 +1,4 @@
 ---
-# enable consul
-#include:
-#  default:
-#    - profile::application::consul
-
 profile::base::common::manage_lvm: false
 
 himlar_bootstrap::virt_install:
@@ -15,12 +10,11 @@ himlar_bootstrap::virt_install:
     install_netmask: "%{hiera('netcfg_mgmt_netmask')}"
     install_gateway: "%{hiera('netcfg_mgmt_gateway')}"
     vm_vcpus:        1
-    vm_memory:       1024
+    vm_memory:       1536
     vm_console:      false
 
 profile::network::services::ntp_server: false
 
-# Uncomment if you add bridges to node file
 named_interfaces::config:
   vagrant:
     - eth0
@@ -30,3 +24,39 @@ named_interfaces::config:
     - br1
   ceph:
     - br1
+
+profile::storage::cephclient::enable: false #FIXME: we need el9 repo
+
+# This is needed for el9
+profile::virtualization::libvirt::moduler_daemons: true
+
+# This change is needed for new libvirt module
+profile::virtualization::libvirt::networks:
+  default:
+    ensure:              absent
+  directnet:
+    ensure:              present
+  trpnet:
+    ensure:              present
+
+libvirt::purge_network:     'purge'
+libvirt::qemu_conf:
+  vnc_listen: "%{::ipaddress_mgmt1}"
+  vnc_tls:    '0'
+  vnc_sasl:   '0'
+libvirt::service::modular_services:
+  virtqemud.service:
+    ensure: 'running'
+    enable: true
+  virtproxyd-tcp.socket:
+    ensure: 'running'
+    enable: true
+  virtstoraged.socket:
+    ensure: 'running'
+    enable: true
+  virtnetworkd.service:
+    ensure: 'running'
+    enable: true
+
+profile::base::common::packages:
+  virt-install:   { ensure: present }
