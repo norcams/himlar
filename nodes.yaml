@@ -177,15 +177,15 @@ nodesets:
       cpus:       2
       puppet_env: "victoria"
     - role:       "ns"
-      puppet_env: "wallaby"
+      puppet_env: "victoria"
     - role:       "resolver"
       hostid:     "01"
-      puppet_env: "wallaby"
+      puppet_env: "victoria"
     - role:       "resolver"
       hostid:     "02"
-      puppet_env: "wallaby"
+      puppet_env: "victoria"
     - role:       "dns"
-      puppet_env: "wallaby"
+      puppet_env: "victoria"
   object: # will also need running identity to test anything other than ceph
     - role:       'cephmon-object'
     - role:       'rgw'
