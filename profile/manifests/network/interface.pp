@@ -8,6 +8,7 @@ class profile::network::interface(
   $suppress_legacy_warning  = false, # el8 only
   $create_custom_routes     = false,
   $create_ip_rules          = false,
+  $rule_merge_strategy      = 'deep',
   $manage_neutron_blackhole = false,
   $manage_dummy             = false,
   $no_of_dummies            = 1,
@@ -61,7 +62,7 @@ class profile::network::interface(
   }
   if $create_ip_rules {
     unless $manage_neutron_blackhole {
-      create_resources(network::rule, lookup('profile::base::network::rules', Hash, 'deep', {}))
+      create_resources(network::rule, lookup('profile::base::network::rules', Hash, $rule_merge_strategy, {}))
     } else {
       $named_interface_hash = lookup('named_interfaces::config', Hash, 'first', {})
       $transport_if = $named_interface_hash["trp"][0] # FIXME should cater for many interfaces
