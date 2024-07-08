@@ -62,12 +62,17 @@ bootstrap_puppet()
 
   # setup dnf/yum
   if command -v dnf >/dev/null 2>&1; then
-    echo "bootstrap puppet for el8..."
+    echo "bootstrap puppet for ${repo_dist}..."
+    # remove all repos except the one we have added while building the box
+    find /etc/yum.repos.d/ ! -name 'almalinux.repo' -type f | xargs rm
     dnf install --refresh -y epel-release # to get gpgkey for epel
     el8_repos
     dnf -y upgrade
-    dnf install -y puppet-agent git-core vim network-scripts gcc make
+    dnf install -y puppet-agent git-core vim gcc make
 
+    if [[ $repo_dist == "el8" ]]; then
+      dnf install -y network-scripts
+    fi
     #r10k bug: https://github.com/puppetlabs/r10k/issues/1370
     /opt/puppetlabs/puppet/bin/gem install -N faraday-net_http -v 3.0.2
     /opt/puppetlabs/puppet/bin/gem install -N faraday -v 2.8.1

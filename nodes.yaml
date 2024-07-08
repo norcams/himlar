@@ -76,7 +76,11 @@ nodesets:
     #- role:       "builder"
     #- role:       "proxy"
     #- role:       "login"
-    #- role:       "controller"
+    - role:       "controller"
+      memory:     4096
+      cpus:       2
+      puppet_env: "controller"
+      box:        "norcams/el9"
     #- role:       "metric"
     #- role:       "telemetry"
     #- role:       "dashboard-mgmt"
