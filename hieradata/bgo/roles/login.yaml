@@ -7,7 +7,7 @@ profile::base::login::oob_dhcrelay:       true
 
 # Himlar bootstrap
 profile::bootstrap::himlar::manage_bootstrap_scripts: true
-himlar_bootstrap::tftp_install:
+profile::bootstrap::himlar::tftp:
   'bgo-controller-01':
     domain:           'mgmt.iaas.intern'
     dhcp_interface:   'eth2'

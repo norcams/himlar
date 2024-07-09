@@ -10,7 +10,7 @@ profile::application::postfix::relayhost:      'smtp.uib.no'
 
 # Himlar bootstrap
 profile::bootstrap::himlar::manage_bootstrap_scripts: true
-himlar_bootstrap::tftp_install:
+profile::bootstrap::himlar::tftp:
   'test01-controller-01':
     domain:           'mgmt.test.iaas.intern'
     dhcp_interface:   '%{::interface_mgmt1}'

@@ -21,7 +21,7 @@ profile::base::yumrepo::repo_hash:
 
 # Himlar bootstrap
 profile::bootstrap::himlar::manage_bootstrap_scripts: true
-himlar_bootstrap::tftp_install:
+profile::bootstrap::himlar::tftp:
   osl-controller-01:
     domain:           'iaas.uio.no'
     dhcp_interface:   'em1'
