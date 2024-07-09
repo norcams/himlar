@@ -22,14 +22,14 @@ profile::bootstrap::himlar::tftp:
     node_ip:          "%{hiera('netcfg_mgmt_netpart')}.100"
     node_netmask:     "%{hiera('netcfg_mgmt_netmask')}"
     node_gateway:     "%{hiera('netcfg_mgmt_netpart')}.10"
-    use_dhcp:         false
+    #use_dhcp:         false
 
 bootstrap_infra::puppetrepo:  'https://github.com/raykrist/himlar'
 bootstrap_infra::mirror:      'https://vault.almalinux.org/9.3/BaseOS/x86_64/os' #FIXME
 bootstrap_infra::epelrepo:    'https://download.iaas.uio.no/nrec/test/el9/epel'
 bootstrap_infra::kickstart_defaults:
   custom_template:    "bootstrap_infra/kickstart/el9.erb"
-  provision_template: ''
+#  provision_template: ''
 
 ssh::server::options:
   AuthenticationMethods: 'publickey'
