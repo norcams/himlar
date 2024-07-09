@@ -27,7 +27,7 @@ profile::bootstrap::himlar::tftp:
 
 bootstrap_infra::puppetrepo:  'https://github.com/raykrist/himlar'
 bootstrap_infra::mirror:      'https://vault.almalinux.org/9.3/BaseOS/x86_64/os' #FIXME
-bootstrap_infra::yumrepo:     'https://download.iaas.uio.no/nrec/test/el9'
+bootstrap_infra::epelrepo:    'https://download.iaas.uio.no/nrec/test/el9/epel'
 bootstrap_infra::kickstart_defaults:
   custom_template:    "bootstrap_infra/kickstart/el9.erb"
   provision_template: ''
