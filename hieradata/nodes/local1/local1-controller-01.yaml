@@ -26,5 +26,8 @@ network::interfaces_hash:
 
 network::reload: true
 
+network::default_interfaces_hash:
+  force_update: true #FIXME needed for boostrap for now
+
 # Use controller-01 for himlar bootstrap
 profile::bootstrap::himlar::manage_bootstrap_scripts: true
