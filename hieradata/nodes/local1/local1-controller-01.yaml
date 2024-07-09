@@ -13,9 +13,9 @@ network::interfaces_hash:
     connection_type:  'bridge'
     ipv4:
       address1:       "%{hiera('netcfg_mgmt_netpart')}.100/24"
+      gateway:        "%{hiera('netcfg_mgmt_gateway')}"
       dns:            "%{hiera('netcfg_dns_mgmt_server1')};%{hiera('netcfg_dns_mgmt_server2')};"
       dns-search:     "%{hiera('domain_mgmt')};%{hiera('domain_trp')}"
-      never-default:  'true'
       method:         'manual'
   br1: # trp
     connection_type:  'bridge'
