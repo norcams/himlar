@@ -1,17 +1,17 @@
 ---
 profile::base::common::manage_lvm: false
 
-himlar_bootstrap::virt_install:
+# bootstrap admin-01
+profile::bootstrap::himlar::libvirt:
   '%{location}-admin-01':
-    domain:          '%{domain}'
-    libvirt_pool:    'dirpool'
-    libvirt_network: 'directnet'
-    install_ip:      "%{hiera('netcfg_mgmt_netpart')}.11"
-    install_netmask: "%{hiera('netcfg_mgmt_netmask')}"
-    install_gateway: "%{hiera('netcfg_mgmt_gateway')}"
-    vm_vcpus:        1
-    vm_memory:       1536
-    vm_console:      false
+    puppet_env:       'admin'
+    libvirt_pool:     'dirpool'
+    libvirt_network:  'directnet'
+    node_ip:          "%{hiera('netcfg_mgmt_netpart')}.11"
+    node_netmask:     "%{hiera('netcfg_mgmt_netmask')}"
+    node_gateway:     "%{hiera('netcfg_mgmt_gateway')}"
+    vm_vcpus:         1
+    vm_memory:        1536
 
 profile::network::services::ntp_server: false
 
