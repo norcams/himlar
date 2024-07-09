@@ -29,3 +29,12 @@ himlar_bootstrap::virt_install:
 profile::base::common::extraswap:        true
 profile::base::common::extraswap_sizegb: 10
 profile::base::common::extraswap_fileloc: '/var/lib/libvirt/images/swapfile'
+
+# This change is needed for new libvirt module
+profile::virtualization::libvirt::networks:
+  default:
+    ensure:              absent
+  directnet:
+    ensure:              present
+  trpnet:
+    ensure:              present
