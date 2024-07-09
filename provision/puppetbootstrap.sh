@@ -25,7 +25,7 @@ gpgcheck=1
 EOM
 }
 
-el8_repos()
+dnf_repos()
 {
 
   repo="https://download.iaas.uio.no/nrec/${repo_env}/${repo_dist}"
@@ -63,10 +63,15 @@ bootstrap_puppet()
   # setup dnf/yum
   if command -v dnf >/dev/null 2>&1; then
     echo "bootstrap puppet for ${repo_dist}..."
-    # remove all repos except the one we have added while building the box
-    find /etc/yum.repos.d/ ! -name 'almalinux.repo' -type f | xargs rm
+
+    if [[ $HIMLAR_CERTNAME == *"vagrant"* ]]; then
+      # remove all repos except the one we have added while building the box
+      find /etc/yum.repos.d/ ! -name 'almalinux.repo' -type f | xargs rm
+      repo_env='test'
+    fi
+
     dnf install --refresh -y epel-release # to get gpgkey for epel
-    el8_repos
+    dnf_repos
     dnf -y upgrade
     dnf install -y puppet-agent git-core vim gcc make
 
@@ -123,16 +128,26 @@ bootstrap_puppet()
   touch /opt/himlar/bootstrap && echo "Created bootstrap marker: /opt/himlar/bootstrap"
 }
 
+# Source command line options as env vars
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    HIMLAR_*=*|FACTER_*=*)
+      export $1
+      shift
+      ;;
+    *)
+      # unknown
+      shift
+      ;;
+  esac
+done
+
 REPORT_DIR=/opt/puppetlabs/puppet/cache/state
 
-# test repos are used if we do not provide repo env or is running in vagrant
-# in vagrant this script is called with multiple args
-#if $(hostname) == *"vagrant"* ; then
-#  repo_env='test'
-#elif $# -e 1 ; then
-#  repo_env=$1
-#else
-repo_env='test'
-#fi
+if [[ $HIMLAR_CERTNAME == *"vagrant"* ]]; then
+  repo_env='test'
+else
+  repo_env='prod'
+fi
 
 test -f $REPORT_DIR/last_run_report.yaml || bootstrap_puppet
