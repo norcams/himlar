@@ -94,7 +94,8 @@ mod 'gitolite', :ref => '1.1',                      :git => github + 'uib/puppet
 #
 # bootstrap
 #
-mod 'himlar_bootstrap', :ref => '2.0.2',            :git => github + 'norcams/puppet-himlar_bootstrap'
+#mod 'himlar_bootstrap', :ref => '2.0.2',            :git => github + 'norcams/puppet-himlar_bootstrap'
+mod 'bootstrap_infra', :ref => 'master',            :git => github + 'norcams/puppet-bootstrap_infra'
 
 #
 # profile::logging
