@@ -15,8 +15,7 @@ profile::network::nat::source:                "%{::network_mgmt1}/%{::netmask_mg
 profile::bootstrap::himlar::manage_bootstrap_scripts: true
 profile::bootstrap::himlar::tftp:
   '%{location}-controller-01':
-    domain:           "%{hiera('domain_mgmt')}"
-    dhcp_interface:   'eth1'
+    puppet_env:       'controller'
     dhcp_range_start: "%{hiera('netcfg_mgmt_netpart')}.200"
     dhcp_range_end:   "%{hiera('netcfg_mgmt_netpart')}.250"
     dhcp_gateway:     "%{hiera('netcfg_mgmt_netpart')}.10" # use login as gateway
