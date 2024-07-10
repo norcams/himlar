@@ -4,6 +4,7 @@ class profile::network::services(
   $manage_nat         = false,
   $manage_mgmt_nat    = false,
   $manage_dns_records = false,
+  $dns_merge_strategy = 'deep',
   $dns_proxy          = false,
   $http_proxy         = false,
   $ntp_server         = false,
@@ -75,8 +76,8 @@ class profile::network::services(
 
     unless fact('disable_nsupdate') {
       if $manage_dns_records {
-        $dns_options = lookup('profile::network::services::dns_options', Hash, 'deep', {})
-        $dns_records = lookup('profile::network::services::dns_records', Hash, 'deep', {})
+        $dns_options = lookup('profile::network::services::dns_options', Hash, $dns_merge_strategy, {})
+        $dns_records = lookup('profile::network::services::dns_records', Hash, $dns_merge_strategy, {})
         $record_types = keys($dns_records)
 
         profile::network::service::dns_record_type { $record_types:
