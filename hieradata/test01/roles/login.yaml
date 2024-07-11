@@ -1,5 +1,4 @@
 ---
-profile::network::services::manage_dhcp:  false
 profile::firewall::pre::manage_ipv6_ssh:  true
 profile::base::login::forward_oobnet:     true
 profile::base::login::oob_net:            "172.28.159.0/24"
