@@ -9,7 +9,6 @@ profile::base::firewall::manage_firewall:     true
 profile::network::services::manage_nat:       false
 profile::network::nat::enable_masquerade:     true
 profile::network::nat::source:                "%{::network_mgmt1}/%{::netmask_mgmt1}"
-profile::network::services::manage_dhcp:      false
 
 # Himlar bootstrap
 profile::bootstrap::himlar::manage_bootstrap_scripts: true
