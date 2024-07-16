@@ -4,6 +4,7 @@
 class profile::virtualization::libvirt(
   Boolean $manage_firewall = false,
   Boolean $moduler_daemons = false,
+  String $merge_strategy = 'deep',
   String $libvirt_tcp_listen = "${::ipaddress_mgmt1}:16509",
   $firewall_extras = {
     'tcp'      => {},
@@ -37,8 +38,8 @@ class profile::virtualization::libvirt(
     }
   }
 
-  $networks = lookup('profile::virtualization::libvirt::networks', Hash, 'deep', {})
-  $pools = lookup('profile::virtualization::libvirt::pools', Hash, 'deep', {})
+  $networks = lookup('profile::virtualization::libvirt::networks', Hash, $merge_strategy, {})
+  $pools = lookup('profile::virtualization::libvirt::pools', Hash, $merge_strategy, {})
 
   create_resources('::libvirt::network', $networks)
   create_resources(libvirt_pool, $pools)
