@@ -66,6 +66,9 @@ netcfg_trp_net_c7:      '172.30.7'
 netcfg_trp_netmask:     '255.255.248.0'
 netcfg_trp_netmask6:    '64'
 netcfg_trp_cidr4:       '21'
+netcfg_oob_gateway:     '172.28.159.10'
+netcfg_oob_netpart:     '172.28.159'
+netcfg_oob_netmask:     '255.255.255.0'
 netcfg_ceph_netpart:    '172.29.0'
 netcfg_ceph_netmask:    '255.255.248.0'
 netcfg_live_netpart:    '172.31.0'
@@ -131,6 +134,8 @@ profile::network::services::dns_records:
     "%{::location}-login-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_mgmt_netpart')}.10"
     "git.%{hiera('domain_mgmt')}":                          "%{hiera('netcfg_mgmt_net_c0')}.9"
     "monitor.%{hiera('domain_mgmt')}":                      "%{hiera('netcfg_mgmt_net_c0')}.21"
+    # oob nodes
+    "repo.%{hiera('domain_oob')}":                          "%{hiera('netcfg_oob_netpart')}.11"
     # Temp. for old login-01
     "%{::location}-login-01old.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c0')}.199"
     # trp api services

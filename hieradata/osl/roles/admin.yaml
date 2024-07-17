@@ -31,7 +31,7 @@ profile::webserver::apache::vhosts:
     port:           80
     docroot:        '/opt/repo/public'
     docroot_owner:  'iaas'
-    serveraliases:  [ "repo.%{hiera('domain_oob')}", ]
+    serveraliases:  [ "%{hiera('oob__address__repo')}", ]
 
 dhcp::hosts:
 # osl-login-01 oob link: 10

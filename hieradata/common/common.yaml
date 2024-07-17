@@ -227,6 +227,7 @@ mgmt__address__ns:                "%{hiera('netcfg_mgmt_net_c0')}.16"
 mgmt__address__resolver_01:       "%{hiera('netcfg_mgmt_net_c0')}.17"
 mgmt__address__resolver_02:       "%{hiera('netcfg_mgmt_net_c0')}.18"
 public__address__dashboardmgmt:   "dashboard.%{hiera('domain_mgmt')}" #FIXME
+oob__address__repo:               "repo.%{hiera('domain_oob')}"
 
 #
 # Endpoints (including protocole)
@@ -541,6 +542,8 @@ profile::network::services::dns_records:
     "influx.%{hiera('domain_mgmt')}":                       "%{hiera('netcfg_mgmt_net_c0')}.20"
     "git.%{hiera('domain_mgmt')}":                          "%{hiera('netcfg_mgmt_net_c0')}.10"
     "dashboard.%{hiera('domain_mgmt')}":                    "%{hiera('netcfg_mgmt_net_c0')}.54"
+    # oob nodes
+    "repo.%{hiera('domain_oob')}":                          "%{hiera('netcfg_oob_netpart')}.9"
     # trp nodes
     "status.%{hiera('domain_trp')}":                        "%{hiera('netcfg_trp_net_c0')}.50"
     "mq01.%{hiera('domain_trp')}":                          "%{hiera('netcfg_trp_net_c0')}.31"
