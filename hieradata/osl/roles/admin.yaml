@@ -25,14 +25,6 @@ dhcp::pools:
     nameservers:
       - "%{hiera('netcfg_oob_netpart')}.10"
 
-profile::webserver::apache::vhosts:
-  'repo-oobip':
-    servername:     "%{::ipaddress_oob1}"
-    port:           80
-    docroot:        '/opt/repo/public'
-    docroot_owner:  'iaas'
-    serveraliases:  [ "%{hiera('oob__address__repo')}", ]
-
 dhcp::hosts:
 # osl-login-01 oob link: 10
 # osl-login-02 oob link:  8

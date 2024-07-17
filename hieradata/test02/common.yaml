@@ -131,6 +131,8 @@ profile::network::services::dns_records:
     "dashboard.%{hiera('domain_public')}":                  "%{hiera('netcfg_public_netpart')}.254"
     # Management network (entries that differ from common/common.yaml)
     "%{::location}-controller-00.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_netpart')}.99"
+    # oob nodes
+    "repo.%{hiera('domain_oob')}":                          "%{hiera('netcfg_oob_netpart')}.9"
   AAAA:
     "ns.%{hiera('domain_public')}":                       "%{hiera('netcfg_public_netpart6')}::251"
     "resolver.%{hiera('domain_public')}":                 "%{hiera('netcfg_public_netpart6')}::252"

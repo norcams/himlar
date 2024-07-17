@@ -291,7 +291,8 @@ profile::network::services::dns_records:
     "%{::location}-test-02.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.201"
     "%{::location}-test-03.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.202"
     "%{::location}-test-04.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.203"
-
+    # oob nodes
+    "repo.%{hiera('domain_oob')}":                       "%{hiera('netcfg_oob_netpart')}.9"
   AAAA:
     # Frontend records (<foo>.nrec.no)
     "ns1.%{hiera('domain_frontend')}":            '2001:700:2:82ff::251'
