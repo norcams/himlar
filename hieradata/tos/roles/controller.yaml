@@ -2,7 +2,7 @@
 # Turn off bird on controller until we use cumulus
 profile::openstack::network::calico::manage_bird: false
 
-himlar_bootstrap::virt_install:
+profile::bootstrap::himlar::libvirt:
   '%{location}-admin-01':
     domain:          "%{hiera('domain_mgmt')}"
     libvirt_pool:    'dirpool'

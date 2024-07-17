@@ -12,7 +12,7 @@ profile::network::nat::source:                "%{::network_mgmt1}/%{::netmask_mg
 
 # Himlar bootstrap
 profile::bootstrap::himlar::manage_bootstrap_scripts: true
-himlar_bootstrap::tftp_install:
+profile::bootstrap::himlar::tftp:
   'tos-controller-01':
     domain:           'mgmt.tos.uhdc.no'
     dhcp_interface:   'eno33559296'

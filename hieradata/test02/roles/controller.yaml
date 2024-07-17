@@ -1,5 +1,5 @@
 ---
-himlar_bootstrap::virt_install:
+profile::bootstrap::himlar::libvirt:
   '%{location}-admin-01':
     domain:          '%{domain}'
     libvirt_pool:    'dirpool'
