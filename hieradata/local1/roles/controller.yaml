@@ -38,3 +38,6 @@ profile::virtualization::libvirt::networks:
     ensure:              present
   trpnet:
     ensure:              present
+
+profile::base::common::packages:
+  'virt-install': {} # FIXME: neeed for el9
