@@ -40,6 +40,8 @@ gnocchi::wsgi::apache::threads:               1
 gnocchi::wsgi::apache::ssl:                   false
 
 # statsd
+gnocchi::statsd::manage_service:              false #FIXME
+gnocchi::statsd::enabled:                     false #FIXME
 gnocchi::statsd::resource_id:                 577a85b8-1f77-47e7-ac6f-742b475657b9
 gnocchi::statsd::flush_delay:                 60
 gnocchi::statsd::archive_policy_name:         'medium'
