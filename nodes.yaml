@@ -13,6 +13,7 @@ defaults:
   domain:      "mgmt.vagrant.iaas.intern"
   cpus:        1
   memory:      1024
+  disk:        ""
   networks:
     - "mgmt"
     - "trp"
@@ -82,6 +83,7 @@ nodesets:
       puppet_env: "controller"
       box:        "norcams/el9"
     #- role:       "metric"
+    #  disk:       "2GB"
     #- role:       "telemetry"
     #- role:       "dashboard-mgmt"
     #- role:       "report"
