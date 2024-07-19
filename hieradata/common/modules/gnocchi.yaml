@@ -39,6 +39,11 @@ gnocchi::wsgi::apache::workers:               4
 gnocchi::wsgi::apache::threads:               1
 gnocchi::wsgi::apache::ssl:                   false
 
+# metricd
+gnocchi::metricd::metric_processing_delay:    120
+gnocchi::metricd::metric_reporting_delay:     180
+gnocchi::metricd::metric_cleanup_delay:       300
+
 # statsd
 gnocchi::statsd::manage_service:              false #FIXME
 gnocchi::statsd::enabled:                     false #FIXME
