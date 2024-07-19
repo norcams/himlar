@@ -35,7 +35,8 @@ gnocchi::api::enable_proxy_headers_parsing:   true
 gnocchi::wsgi::apache::servername:            "%{::location}-metric-01.%{hiera('domain_trp')}"
 gnocchi::wsgi::apache::bind_host:             "%{::ipaddress_trp1}"
 gnocchi::wsgi::apache::port:                  8041
-gnocchi::wsgi::apache::workers:               2
+gnocchi::wsgi::apache::workers:               4
+gnocchi::wsgi::apache::threads:               1
 gnocchi::wsgi::apache::ssl:                   false
 
 # statsd
