@@ -1,15 +1,6 @@
 ---
+# Note: We need to add the bridge before the controller interface
 network::interfaces_hash:
-  eth0:
-    ipv4:
-      method:         'auto'
-    ipv6:
-      method:         'auto'
-  eth1:
-    controller:       'br0'
-  eth2:
-    controller:       'br1'
-  eth3: {}
   br0: # mgmt
     connection_type:  'bridge'
     ipv4:
@@ -24,6 +15,17 @@ network::interfaces_hash:
       address:        "%{hiera('netcfg_trp_netpart')}.100/24"
       never-default:  'true'
       method:         'manual'
+  eth0:
+    ipv4:
+      method:         'auto'
+    ipv6:
+      method:         'auto'
+  eth1:
+    controller:       'br0'
+  eth2:
+    controller:       'br1'
+  eth3: {}
+
 
 network::reload: true
 
