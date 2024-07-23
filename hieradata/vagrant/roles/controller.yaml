@@ -39,6 +39,7 @@ profile::virtualization::libvirt::networks:
   trpnet:
     ensure:              present
 
+# FIMXE: This is needed for new libvirt module while running controller puppet env
 libvirt::purge_network:     'purge'
 libvirt::qemu_conf:
   vnc_listen: "%{::ipaddress_mgmt1}"
@@ -57,6 +58,5 @@ libvirt::service::modular_services:
   virtnetworkd.service:
     ensure: 'running'
     enable: true
-
-profile::base::common::packages:
-  virt-install:   { ensure: present }
+  virtproxyd.service:
+    enable: true

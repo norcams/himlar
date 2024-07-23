@@ -39,5 +39,24 @@ profile::virtualization::libvirt::networks:
   trpnet:
     ensure:              present
 
-profile::base::common::packages:
-  'virt-install': {} # FIXME: neeed for el9
+# FIMXE: This is needed for new libvirt module while running controller puppet env
+libvirt::purge_network:     'purge'
+libvirt::qemu_conf:
+  vnc_listen: "%{::ipaddress_mgmt1}"
+  vnc_tls:    '0'
+  vnc_sasl:   '0'
+libvirt::service::modular_services:
+  virtqemud.service:
+    ensure: 'running'
+    enable: true
+  virtproxyd-tcp.socket:
+    ensure: 'running'
+    enable: true
+  virtstoraged.socket:
+    ensure: 'running'
+    enable: true
+  virtnetworkd.service:
+    ensure: 'running'
+    enable: true
+  virtproxyd.service:
+    enable: true
