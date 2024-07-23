@@ -77,11 +77,11 @@ nodesets:
     #- role:       "builder"
     #- role:       "proxy"
     #- role:       "login"
-    - role:       "controller"
-      memory:     4096
-      cpus:       2
-      puppet_env: "controller"
-      box:        "norcams/el9"
+    #- role:       "controller"
+    #  memory:     4096
+    #  cpus:       2
+    #  puppet_env: "controller"
+    #  box:        "norcams/el9"
     #- role:       "metric"
     #  puppet_env: "victoria"
     #  disk:       "2GB"
@@ -103,8 +103,8 @@ nodesets:
     #  memory:     1024
     #- role:       "nat"
     #  box:        "norcams/freebsd"
-    - role:       "admin"
-      puppet_env: "admin"
+    #- role:       "admin"
+    #  puppet_env: "admin"
     #  box:        "norcams/base"
     #  memory:     2048
     #- role:       "ns"
