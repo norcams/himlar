@@ -2,7 +2,9 @@ router id <%= @ipaddress_mgmt1 %>;
 
 filter export_bgp {
   if  net != 0.0.0.0/0 then {
-    accept;
+    if net != 129.177.13.1/32 then {
+      accept;
+    }
   }
   reject;
 }
