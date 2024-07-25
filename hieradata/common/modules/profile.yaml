@@ -130,6 +130,12 @@ profile::base::yumrepo::repo_hash:
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-AlmaLinux'
     gpgcheck:       1
     ensure:         absent
+  AlmaLinux-HighAvailability:
+    descr:          'AlmaLinux-$releasever - HighAvailability'
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/almalinux-highavailability/"
+    gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-AlmaLinux'
+    gpgcheck:       1
+    ensure:         absent
   AlmaLinux-Extras:
     descr:          'AlmaLinux-$releasever - Extras'
     baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/almalinux-extras/"
