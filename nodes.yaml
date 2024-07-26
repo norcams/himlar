@@ -41,7 +41,6 @@ nodesets:
     - role:       "db-regional"
       puppet_env: "victoria"
     - role:       "api"
-      box:        "norcams/base"
     - role:       "mq"
     - role:       "identity"
       puppet_env: "victoria"
