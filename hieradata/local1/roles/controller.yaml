@@ -12,6 +12,9 @@ libvirt::qemu_vnc_listen:         '%{::ipaddress_mgmt1}'
 # Turn off bird on controller until we use cumulus
 profile::openstack::network::calico::manage_bird: false
 
+# We do not use cephfs
+profile::storage::cephclient::enable: false
+
 # bootstrap admin-01
 profile::bootstrap::himlar::libvirt:
   '%{location}-admin-01':
