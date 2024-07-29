@@ -199,6 +199,14 @@ profile::network::services::dns_records:
     "%{::location}-storage-v2h-23.%{hiera('domain_mgmt')}":  "%{::location}-storage-23.%{hiera('domain_mgmt')}"
     "%{::location}-storage-v2h-24.%{hiera('domain_mgmt')}":  "%{::location}-storage-24.%{hiera('domain_mgmt')}"
     "%{::location}-storage-v2h-25.%{hiera('domain_mgmt')}":  "%{::location}-storage-25.%{hiera('domain_mgmt')}"
+    # Dell PowerEdge R730 ceph nodes
+    "%{::location}-storage-v2d-26.%{hiera('domain_mgmt')}":  "%{::location}-storage-26.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2d-27.%{hiera('domain_mgmt')}":  "%{::location}-storage-27.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2d-28.%{hiera('domain_mgmt')}":  "%{::location}-storage-28.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2d-29.%{hiera('domain_mgmt')}":  "%{::location}-storage-29.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2d-30.%{hiera('domain_mgmt')}":  "%{::location}-storage-30.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2d-31.%{hiera('domain_mgmt')}":  "%{::location}-storage-31.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2d-32.%{hiera('domain_mgmt')}":  "%{::location}-storage-32.%{hiera('domain_mgmt')}"
   A:
     # Frontend records (<foo>.nrec.no)
     "access.%{hiera('domain_frontend')}":         '158.39.77.250'
