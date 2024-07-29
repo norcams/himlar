@@ -15,3 +15,5 @@ profile::base::network::network_auto_bonding:
     em2:
       'team_port_config': '{ "prio" : 100 }'
       'mtu': '9000'
+
+profile::storage::cephosd::create_osds:             false
