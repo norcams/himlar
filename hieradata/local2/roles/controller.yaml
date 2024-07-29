@@ -23,7 +23,6 @@ profile::bootstrap::himlar::libvirt:
     install_ip:      "%{hiera('netcfg_mgmt_netpart')}.11"
     install_netmask: "%{hiera('netcfg_mgmt_netmask')}"
     install_gateway: "%{hiera('netcfg_mgmt_gateway')}"
-    nameserver:      "%{hiera('netcfg_mgmt_netpart')}.10" # use login
     vm_vcpus:        2
     vm_memory:       4096
     vm_console:      false
