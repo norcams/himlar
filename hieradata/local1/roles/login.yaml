@@ -22,7 +22,7 @@ profile::bootstrap::himlar::tftp:
     node_ip:          "%{hiera('netcfg_mgmt_netpart')}.100"
     node_netmask:     "%{hiera('netcfg_mgmt_netmask')}"
     node_gateway:     "%{hiera('netcfg_mgmt_netpart')}.10"
-    allow_ssh:         true
+    allow_ssh:        true
 
 bootstrap_infra::puppetrepo:  'https://github.com/raykrist/himlar'
 bootstrap_infra::mirror:      'https://vault.almalinux.org/9.3/BaseOS/x86_64/os' #FIXME
