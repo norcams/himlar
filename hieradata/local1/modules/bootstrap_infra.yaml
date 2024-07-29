@@ -2,3 +2,4 @@
 bootstrap_infra::puppetrepo:  '-b master https://github.com/norcams/himlar'
 bootstrap_infra::mirror:      'https://download.iaas.uio.no/nrec/test/el8/almalinux-base'
 bootstrap_infra::yumrepo:     'https://download.iaas.uio.no/nrec/test/el8'
+bootstrap_infra::nameserver:  "%{hiera('netcfg_mgmt_netpart')}.10" # use login
