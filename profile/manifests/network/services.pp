@@ -1,6 +1,5 @@
 #
 class profile::network::services(
-  $manage_nat         = false,
   $manage_dns_records = false,
   $dns_merge_strategy = 'deep',
   $dns_proxy          = false,
