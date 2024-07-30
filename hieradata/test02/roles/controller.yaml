@@ -13,22 +13,3 @@ profile::bootstrap::himlar::libvirt:
 profile::base::yumrepo::repo_hash:
   elrepo:
     ensure: present
-
-################ TEMP DATA - SHOULD BE FIXED IN COMMON #########################
-include:
-  default:
-    - profile::network::services
-
-profile::network::services::ntp_server: true
-
-profile::virtualization::libvirt::networks:
-  directnet:
-    ensure:              enabled
-    autostart:           true
-    forward_mode:        bridge
-    bridge:              br0
-  trpnet:
-    ensure:              enabled
-    autostart:           true
-    forward_mode:        bridge
-    bridge:              br1
