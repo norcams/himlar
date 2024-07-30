@@ -24,8 +24,8 @@ profile::bootstrap::himlar::tftp:
     node_gateway:     "%{hiera('netcfg_mgmt_netpart')}.10"
     allow_ssh:        true
 
-bootstrap_infra::puppetrepo:  'https://github.com/raykrist/himlar'
-bootstrap_infra::mirror:      'https://vault.almalinux.org/9.3/BaseOS/x86_64/os' #FIXME
+# We need to override some vars to enable el9 controller
+bootstrap_infra::mirror:      'https://download.iaas.uio.no/nrec/repo/el9/almalinux-base'
 bootstrap_infra::epelrepo:    'https://download.iaas.uio.no/nrec/test/el9/epel'
 bootstrap_infra::kickstart_defaults:
   custom_template:    "bootstrap_infra/kickstart/el9.erb"
