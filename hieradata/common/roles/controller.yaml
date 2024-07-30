@@ -34,6 +34,9 @@ profile::base::common::packages:
   'jq': {}
   'rsync': {}
 
+profile::network::services::firewall_extras:
+  source: '%{network_mgmt1}/%{netmask_mgmt1}'
+
 profile::virtualization::libvirt::manage_firewall: true
 profile::virtualization::libvirt::firewall_extras:
   'graphics':
