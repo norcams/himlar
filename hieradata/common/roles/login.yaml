@@ -4,7 +4,6 @@ include:
     - profile::application::git
   default:
     - profile::base::login
-    - profile::network::services
     - profile::development::network::dns
     - profile::application::git
     - profile::application::rngd
@@ -25,7 +24,6 @@ named_interfaces::config:
 
 profile::application::rngd::enable:               true
 profile::base::firewall::manage_firewall:         true
-profile::network::services::manage_nat:           false
 profile::network::nat::enable_masquerade:         true
 profile::network::nat::source:                   "0.0.0.0/0"
 profile::network::nat::outiface:                 "%{::interface_public1}"
