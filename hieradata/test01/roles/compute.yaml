@@ -65,7 +65,8 @@ profile::base::network::manage_neutron_blackhole:      true # FIXME - remove whe
 profile::network::interface::manage_neutron_blackhole: true
 
 # remove when telemetry/ceilometer is up in all environments and move to common
-profile::openstack::compute::manage_telemetry: true
+# Disabled 2004-08-06 because polling/telemtry is broken at the moment
+# profile::openstack::compute::manage_telemetry: true
 
 # Set tuned profile to "virtual-host"
 profile::base::tuned::manage_tuned:        true
