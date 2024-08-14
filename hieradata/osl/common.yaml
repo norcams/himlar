@@ -207,6 +207,7 @@ profile::network::services::dns_records:
     "%{::location}-storage-v2d-30.%{hiera('domain_mgmt')}":  "%{::location}-storage-30.%{hiera('domain_mgmt')}"
     "%{::location}-storage-v2d-31.%{hiera('domain_mgmt')}":  "%{::location}-storage-31.%{hiera('domain_mgmt')}"
     "%{::location}-storage-v2d-32.%{hiera('domain_mgmt')}":  "%{::location}-storage-32.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2d-33.%{hiera('domain_mgmt')}":  "%{::location}-storage-33.%{hiera('domain_mgmt')}"
   A:
     # Frontend records (<foo>.nrec.no)
     "access.%{hiera('domain_frontend')}":         '158.39.77.250'
