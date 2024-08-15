@@ -143,6 +143,7 @@ mod 'staging', :ref => 'v3.0.0',                    :git => github + 'voxpupuli/
 #mod 'mysql', :ref => 'norcams/v10.3.0',             :git => github + 'norcams/puppetlabs-mysql'
 #mod 'galera_arbitrator', :ref => '1.0.4',           :git => github + 'jadestorm/puppet-galera_arbitrator'
 
+
 #
 # profile::messaging::rabbitmq
 #
