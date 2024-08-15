@@ -17,5 +17,3 @@ profile::monitoring::sensu::agent::checks:
     command:      '/usr/local/bin/redfish_check.sh'
     interval:     1800
     subscribers:  ['checks']
-
-ceph_version:         'octopus'
