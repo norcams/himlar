@@ -61,8 +61,6 @@ calico::enable_ipv6:  false                                      # The bird daem
 
 nova::migration::libvirt::libvirt_version: '7'                   # puppet-nova fails to detect libvirt version on alma and then misconfigures
 
-calico_version:       '322'                                      # FIXME This should move to common when el7 network and computes are gone
-
 # logrotate
 profile::logging::logrotate::rules:
   syslog: # temp cleanup old rules

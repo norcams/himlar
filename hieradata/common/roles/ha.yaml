@@ -4,15 +4,6 @@ include:
     - profile::highavailability::corosync
     - profile::highavailability::loadbalancing::haproxy
     - profile::firewall::rules
-    # - profile::monitoring::netdata
-    # - profile::monitoring::netdata::haproxy
-
-# Netdata
-profile::monitoring::netdata::manage_firewall: true
-profile::monitoring::netdata::firewall_dest:   '%{::ipaddress_public1}'
-profile::monitoring::netdata::firewall_source:
-  - '129.177.0.128/25'
-  - '129.177.6.133/32'
 
 # SElinux are enforcing on this role!!
 profile::base::selinux::manage_selinux: true

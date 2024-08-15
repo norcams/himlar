@@ -6,6 +6,7 @@ class profile::application::windowsimage(
   $build_root      = '/var/lib/libvirt/images/windows_builder',
   $virtio_src      = 'https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso',
   $vmbios_src      = 'https://iaas-repo.uio.no/nrec/nrec-resources/files/win_image/',
+  $repo_revision   = 'main',
   $manage_firewall = false,
   $firewall_extras = {},
   $firewall_ports  = ['5998-5999']
@@ -50,6 +51,7 @@ class profile::application::windowsimage(
       ensure   => present,
       provider => git,
       source   => 'https://github.com/norcams/packer-windows.git',
+      revision => $repo_revision,
       owner    => $user,
       group    => $group
     }

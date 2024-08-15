@@ -13,6 +13,10 @@ profile::base::selinux::ports:
     seltype:  'http_port_t'
     protocol: 'tcp'
     port:     389
+  smtp:
+    seltype:  'http_port_t'
+    protocol: 'tcp'
+    port:     25
   smb:
     seltype:  'http_port_t'
     protocol: 'tcp'
@@ -94,11 +98,11 @@ profile::firewall::rules::merge_strategy: first
 profile::firewall::rules::custom_rules:
   '451 haproxy http for public vip1':
     proto:        'tcp'
-    dport:        [ '80', '443', '389', '636' ]
+    dport:        [ '25', '80', '443', '389', '636' ]
     destination:  "%{hiera('corosync_cluster_vip1')}"
   '452 haproxy http for public vip2':
     proto:        'tcp'
-    dport:        [ '80', '443', '389', '636' ]
+    dport:        [ '25', '80', '443', '389', '636' ]
     destination:  "%{hiera('corosync_cluster_vip2')}"
   '453 haproxy http for internal vip3':
     proto:        'tcp'
@@ -215,69 +219,77 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
 # NREC
   'public-https-uh-status':
     listening_service:  'public-https-uh-status'
-    ports:              443
-    server_names:       ['status-osl', 'status-bgo']
-    ipaddresses:        ['158.37.63.250', '158.39.77.250']
+    ports:              '443'
+    server_names:       ['status-osl']
+    ipaddresses:        ['158.37.63.250']
     options:            'verify none inter 1000 check check-ssl'
   'public-https-uh-report':
     listening_service:  'public-https-uh-report'
-    ports:              443
+    ports:              '443'
     server_names:       ['report-osl', 'report-bgo']
     ipaddresses:        ['158.37.63.250', '158.39.77.250']
     options:            'verify none inter 1000 check check-ssl'
   'ssl-https-nrec-www':
     listening_service:  'ssl-https-nrec-www'
-    ports:              443
+    ports:              '443'
     server_names:       ['www01']
     ipaddresses:        ['norcams.github.io']
     options:            'verify none inter 1000 check check-ssl ssl'
   'ssl-https-nrec-docs':
     listening_service:  'ssl-https-nrec-docs'
-    ports:              443
+    ports:             '443'
     server_names:       ['docs01']
     ipaddresses:        ['uh-iaas.readthedocs.io']
     options:            'verify none inter 1000 check check-ssl ssl'
 # Apps
   'ssl-https-apps':
     listening_service:  'ssl-https-apps'
-    ports:              443
+    ports:              '443'
     # server_names:       ['appsanywhere01.uib.no', 'appsanywhere02.uib.no', 'appsanywhere03.uib.no']
     # ipaddresses:        ['129.177.150.207', '129.177.150.208', '129.177.150.201']
-    # server_names:       ['appsanywhere04.uib.no', 'appsanywhere05.uib.no', 'appsanywhere06.uib.no']
-    # ipaddresses:        ['129.177.150.202', '129.177.150.205', '129.177.150.206']
-    server_names:       ['appsanywhere07.uib.no', 'appsanywhere08.uib.no', 'appsanywhere09.uib.no']
-    ipaddresses:        ['129.177.150.217', '129.177.150.218', '129.177.150.219']
+    server_names:       ['appsanywhere04.uib.no', 'appsanywhere05.uib.no', 'appsanywhere06.uib.no']
+    ipaddresses:        ['129.177.150.202', '129.177.150.205', '129.177.150.206']
+    # server_names:       ['appsanywhere07.uib.no', 'appsanywhere08.uib.no', 'appsanywhere09.uib.no']
+    # ipaddresses:        ['129.177.150.217', '129.177.150.218', '129.177.150.219']
     options:            'verify none inter 30s check check-ssl ssl'
   # 'public-https-apps':
   #   listening_service:  'public-https-apps'
-  #   ports:              443
+  #   ports:              '443'
   #   server_names:       ['appsanywhere04.uib.no', 'appsanywhere05.uib.no', 'appsanywhere06.uib.no']
   #   ipaddresses:        ['129.177.150.202', '129.177.150.205', '129.177.150.206']
   #   options:            'check'
   'ssl-https-apps-admin':
     listening_service:  'ssl-https-apps-admin'
-    ports:              443
+    ports:              '443'
     server_names:       ['apps-admin01.uib.no', 'apps-admin02.uib.no']
     ipaddresses:        ['129.177.14.170', '129.177.14.171']
     options:            'verify none inter 120s check check-ssl ssl'
 # Exchange
   'uib-https-exch':
     listening_service:  'uib-https-exch'
-    ports:              443
+    ports:              '443'
     server_names:       ['exchange01.uib.no', 'exchange02.uib.no']
     ipaddresses:        ['129.177.14.178','129.177.14.179']
     options:            'check'
+# SMTP
+  'public-smtp':
+    listening_service:  'public-smtp'
+    ports:              '25'
+    server_names:       ['exchange01.uib.no', 'exchange02.uib.no']
+    ipaddresses:        ['129.177.14.178', '129.177.14.179']
+    options:
+      - 'check'
 # Portal
   'uib-https-adm':
     listening_service:  'uib-https-adm'
-    ports:              443
+    ports:              '443'
     server_names:       ['rd-web01.uib.no', 'rd-web02.uib.no']
     ipaddresses:        ['129.177.14.13', '129.177.14.182']
     options:
       - 'check'
   'uib-http-adm':
     listening_service:  'uib-http-adm'
-    ports:              80
+    ports:              '80'
     server_names:       ['rd-web01.uib.no', 'rd-web02.uib.no']
     ipaddresses:        ['129.177.14.13', '129.177.14.182']
     options:
@@ -314,14 +326,14 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   # myprint
   'ssl-https-myprint':
     listening_service:  'ssl-https-myprint'
-    ports:              443
+    ports:              '443'
     server_names:       ['p1-myprint01.uib.no', 'p2-myprint01.uib.no']
     ipaddresses:        ['129.177.30.26', '129.177.30.27']
     options:            'verify none inter 30s check check-ssl ssl'
   # SMB
   'uib-smb':
     listening_service:  'uib-smb'
-    ports:              [135, 445]
+    ports:              ['135', '445']
 #    server_names:       ['p1-print01.uib.no','p2-print01.uib.no']
     server_names:       ['p1-print01.uib.no']
 #    ipaddresses:        ['129.177.14.126', '129.177.14.128']
@@ -427,6 +439,11 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
     mode:             'tcp'
     options:
       - balance:      'leastconn'
+  # SMTP
+  public-smtp:
+    mode:             'tcp'
+    options:
+      - balance:      'leastconn'
   # lydia
   # ssl-https-lydia:
   #   mode:             'http'
@@ -513,6 +530,14 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
     options:
       - option:         'tcplog'
       - use_backend:    'public-ldaps-prod'
+  public-smtp:
+    mode:               'tcp'
+    bind:
+      "%{hiera('corosync_cluster_vip1')}:25": []
+      "%{hiera('corosync_cluster_vip2')}:25": []
+    options:
+      - option:         'tcplog'
+      - use_backend:    'public-smtp'
   uib-http:
     mode:               'http'
     bind:

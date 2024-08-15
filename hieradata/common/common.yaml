@@ -36,12 +36,12 @@ domain_oob:           "%{::domain}"
 domain_public2:       "%{hiera('domain_public')}"
 domain_frontend2:     "%{hiera('domain_frontend')}"
 
-openstack_version:    'ussuri'
+openstack_version:    'victoria'
 openstack_compute_api_version: '2.79'
 
 ceph_version:         'quincy'
 
-calico_version:       '312'
+calico_version:       '326'
 
 repo_dist:            "%{::os_platform}%{::os_version}"
 
@@ -63,25 +63,17 @@ profile::base::firewall::purge_firewall: true
 
 allow_from_testing_network: # this do not merge!
   - '129.240.130.12/32'  # trond
-  - '129.240.130.14/32'  # mikael
-  - '129.177.10.189/32'  # tor
-  - '129.177.10.212/32'  # raymond
-  - '129.177.10.64/32'   # raymond
+  - '129.177.25.132/32'  # raymond
   - '158.39.74.6/32'     # raymond mgmt-admin-instance
-  - '129.177.10.111/32'  # anders
-  - '129.240.202.64/32'  # mikael
-  - '129.240.202.96/32'  # tannaz
-  - '129.177.6.133/32'   # bgo-login
-  - '129.240.224.100/32' # osl-login
+  - '129.177.6.133/32'   # bgo-login-01
+  - '129.240.224.100/32' # osl-login-01
   - '129.177.6.190/32'   # test01-login
-  - '158.39.77.254/32'  # bgo-dashboard
   - '158.39.77.254/32'   # bgo-dashboard
   - '158.39.77.253/32'   # bgo-proxy-01
   - '158.39.74.247/32'   # bgo-proxy-02
   - '158.37.63.253/32'   # osl-proxy-01
   - '158.39.75.247/32'   # osl-proxy-02
   - '192.168.122.1/32'   # test02
-  - '62.16.139.80/32'    # raymond at home
   - '158.39.77.248'      # natgw bgo
   - '158.39.74.248'      # natgw2 bgo
   - '158.37.63.248'      # pub_natgw osl
@@ -156,8 +148,8 @@ named_interfaces::config:
 
 profile::base::network::network_auto_opts:
   mgmt:
-    'dns1':     "%{hiera('netcfg_dns_server1')}"
-    'dns2':     "%{hiera('netcfg_dns_server2')}"
+    'dns1':     "%{hiera('netcfg_dns_mgmt_server1')}"
+    'dns2':     "%{hiera('netcfg_dns_mgmt_server2')}"
     'domain':   "%{hiera('netcfg_dns_search')}"
     'defroute': 'yes'
   trp:
@@ -235,6 +227,7 @@ mgmt__address__ns:                "%{hiera('netcfg_mgmt_net_c0')}.16"
 mgmt__address__resolver_01:       "%{hiera('netcfg_mgmt_net_c0')}.17"
 mgmt__address__resolver_02:       "%{hiera('netcfg_mgmt_net_c0')}.18"
 public__address__dashboardmgmt:   "dashboard.%{hiera('domain_mgmt')}" #FIXME
+oob__address__repo:               "repo.%{hiera('domain_oob')}"
 
 #
 # Endpoints (including protocole)
@@ -283,9 +276,6 @@ profile::dns::ns::ns_master2:     "ns2.nrec.no"
 netcfg_dns_mgmt_server1:    "%{hiera('netcfg_mgmt_net_c0')}.10"
 netcfg_dns_mgmt_server2:    "%{hiera('netcfg_mgmt_net_c0')}.44"
 netcfg_dns_trp_server1:     "%{hiera('netcfg_trp_net_c0')}.44"
-# Soon-to-be obsolete variables
-netcfg_dns_server1:         "{hiera('netcfg_dns_mgmt_server1')}"
-netcfg_dns_server2:         "{hiera('netcfg_dns_mgmt_server2')}"
 
 profile::network::services::dns_records:
   A:
@@ -308,11 +298,14 @@ profile::network::services::dns_records:
     "%{::location}-sensugo-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c0')}.21"
     "%{::location}-sensugo-02.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c0')}.22"
     "%{::location}-sensugo-03.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c0')}.23"
+    "%{::location}-api-internal-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_net_c0')}.24"
+    "%{::location}-api-internal-02.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_net_c0')}.25"
     "%{::location}-status-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_net_c0')}.50"
     "%{::location}-report-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_net_c0')}.40"
     "%{::location}-nat-01.%{hiera('domain_mgmt')}":         "%{hiera('netcfg_mgmt_net_c0')}.26"
     "%{::location}-nat-02.%{hiera('domain_mgmt')}":         "%{hiera('netcfg_mgmt_net_c0')}.27"
     "%{::location}-nat-03.%{hiera('domain_mgmt')}":         "%{hiera('netcfg_mgmt_net_c0')}.28"
+    "%{::location}-api-internal-03.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_net_c0')}.29"
     "%{::location}-mq-01.%{hiera('domain_mgmt')}":          "%{hiera('netcfg_mgmt_net_c0')}.31"
     "%{::location}-dns-01.%{hiera('domain_mgmt')}":         "%{hiera('netcfg_mgmt_net_c0')}.34"
     "%{::location}-dns-02.%{hiera('domain_mgmt')}":         "%{hiera('netcfg_mgmt_net_c0')}.35"
@@ -327,10 +320,12 @@ profile::network::services::dns_records:
     "%{::location}-volume-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_net_c0')}.46"
     "%{::location}-volume-02.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_net_c0')}.47"
     "%{::location}-volume-03.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_net_c0')}.48"
-    "%{::location}-access-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_net_c0')}.56"
     "%{::location}-dashboard-01.%{hiera('domain_mgmt')}":   "%{hiera('netcfg_mgmt_net_c0')}.51"
     "%{::location}-dashboard-mgmt-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_net_c0')}.54"
     "%{::location}-sflow-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_mgmt_net_c0')}.55"
+    "%{::location}-access-01.%{hiera('domain_mgmt')}":      "%{hiera('netcfg_mgmt_net_c0')}.56"
+    "%{::location}-api-02.%{hiera('domain_mgmt')}":         "%{hiera('netcfg_mgmt_net_c0')}.59"
+    "%{::location}-api-03.%{hiera('domain_mgmt')}":         "%{hiera('netcfg_mgmt_net_c0')}.60"
     "%{::location}-console-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c0')}.61"
     "%{::location}-novactrl-01.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c0')}.66"
     "%{::location}-novactrl-02.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c0')}.67"
@@ -521,6 +516,9 @@ profile::network::services::dns_records:
     "%{::location}-compute-79.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.140"
     "%{::location}-compute-80.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.141"
     "%{::location}-compute-81.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.142"
+    "%{::location}-compute-82.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.143"
+    "%{::location}-compute-83.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.144"
+    "%{::location}-compute-84.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.145"
     "%{::location}-mgmt-opx-01.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.1"
     "%{::location}-mgmt-opx-02.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.2"
     "%{::location}-mgmt-opx-03.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.3"
@@ -598,6 +596,8 @@ profile::network::services::dns_records:
     "54.%{hiera('reverse_mgmt_c0')}":     "%{::location}-dashboard-mgmt-01.%{hiera('domain_mgmt')}"
     "55.%{hiera('reverse_mgmt_c0')}":     "%{::location}-sflow-01.%{hiera('domain_mgmt')}"
     "56.%{hiera('reverse_mgmt_c0')}":     "%{::location}-access-01.%{hiera('domain_mgmt')}"
+    "59.%{hiera('reverse_mgmt_c0')}":     "%{::location}-api-02.%{hiera('domain_mgmt')}"
+    "60.%{hiera('reverse_mgmt_c0')}":     "%{::location}-api-03.%{hiera('domain_mgmt')}"
     "61.%{hiera('reverse_mgmt_c0')}":     "%{::location}-console-01.%{hiera('domain_mgmt')}"
     "66.%{hiera('reverse_mgmt_c0')}":     "%{::location}-novactrl-01.%{hiera('domain_mgmt')}"
     "67.%{hiera('reverse_mgmt_c0')}":     "%{::location}-novactrl-02.%{hiera('domain_mgmt')}"
@@ -775,6 +775,9 @@ profile::network::services::dns_records:
     "140.%{hiera('reverse_mgmt_c1')}":    "%{::location}-compute-79.%{hiera('domain_mgmt')}"
     "141.%{hiera('reverse_mgmt_c1')}":    "%{::location}-compute-80.%{hiera('domain_mgmt')}"
     "142.%{hiera('reverse_mgmt_c1')}":    "%{::location}-compute-81.%{hiera('domain_mgmt')}"
+    "143.%{hiera('reverse_mgmt_c1')}":    "%{::location}-compute-82.%{hiera('domain_mgmt')}"
+    "144.%{hiera('reverse_mgmt_c1')}":    "%{::location}-compute-83.%{hiera('domain_mgmt')}"
+    "145.%{hiera('reverse_mgmt_c1')}":    "%{::location}-compute-84.%{hiera('domain_mgmt')}"
     "1.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-opx-01.%{hiera('domain_mgmt')}"
     "2.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-opx-02.%{hiera('domain_mgmt')}"
     "3.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-opx-03.%{hiera('domain_mgmt')}"
@@ -788,223 +791,3 @@ profile::network::services::dns_records:
     "2.%{hiera('reverse_mgmt_c3')}":      "%{::location}-leaf-02.%{hiera('domain_mgmt')}"
     "1.%{hiera('reverse_mgmt_c6')}":      "%{::location}-spine-01.%{hiera('domain_mgmt')}"
     "2.%{hiera('reverse_mgmt_c6')}":      "%{::location}-spine-02.%{hiera('domain_mgmt')}"
-
-#
-# Network configuration data
-#
-networks:
-  bgo:
-    domain:
-      mgmt: mgmt.iaas.intern
-      oob: oob.iaas.intern
-    subnet:
-      mgmt: 172.16.0.1/21
-      oob: 172.17.0.1/21
-    dhcp:
-      mgmt:
-        ensure: absent
-      oob:
-        ensure: present
-        interface: eth2
-        start_offset: 100
-        end_offset: 199
-        lease: 43200
-    nat:
-      mgmt:
-        ensure: present
-      oob:
-        ensure: present
-  osl:
-    domain:
-      mgmt: iaas.uio.no
-      oob: iaas.uio.no
-    subnet:
-      mgmt: 172.16.32.0/21
-      oob: 172.17.32.0/21
-    dhcp:
-      mgmt:
-        ensure: absent
-      oob:
-        ensure: absent
-    nat:
-      mgmt:
-        ensure: absent
-      oob:
-        ensure: absent
-  tos:
-    domain:
-      mgmt: mgmt.tos.uhdc.no
-      oob: oob.tos.uhdc.no
-    subnet:
-      mgmt: 172.16.64.0/21
-      oob: 172.17.64.0/21
-    dhcp:
-      mgmt:
-        ensure: absent
-      oob:
-        ensure: absent
-    nat:
-      mgmt:
-        ensure: absent
-      oob:
-        ensure: absent
-  trd:
-    domain:
-      mgmt: iaas.ntnu.no
-      oob: oob.iaas.ntnu.no
-    subnet:
-      mgmt: 10.171.91.1/24
-      oob: 10.171.86.1/24
-    dhcp:
-      mgmt:
-        ensure: absent
-      oob:
-        ensure: present
-        interface: eth2
-        start_offset: 100
-        end_offset: 199
-        lease: 43200
-    nat:
-      mgmt:
-        ensure: present
-      oob:
-        ensure: present
-  test01:
-    domain:
-      mgmt: mgmt.test.iaas.intern
-    subnet:
-      mgmt: 172.28.0.0/24
-    dhcp:
-      mgmt:
-        ensure: absent
-    nat:
-      mgmt:
-        ensure: present
-      oob:
-        ensure: present
-  test02:
-    domain:
-      mgmt: iaas.uio.no
-    subnet:
-      mgmt: 172.28.32.0/24
-    dhcp:
-      mgmt:
-        ensure: absent
-    nat:
-      mgmt:
-        ensure: present
-      oob:
-        ensure: present
-  vagrant:
-    domain:
-      mgmt: mgmt.vagrant.iaas.intern
-    subnet:
-      mgmt: 10.0.3.1/24
-      oob: 10.0.4.1/24
-    dhcp:
-      mgmt:
-        ensure: absent
-      oob:
-        ensure: present
-        interface: eth1
-        start_offset: 100
-        end_offset: 199
-        lease: 43200
-    nat:
-      mgmt:
-        ensure: present
-      oob:
-        ensure: present
-  dev:
-    domain:
-      mgmt: mgmt.dev.iaas.intern
-    subnet:
-      mgmt: 172.31.0.0/24
-    dhcp:
-      mgmt:
-        ensure: absent
-    nat:
-      mgmt:
-        ensure: absent
-  dev01:
-    domain:
-      mgmt: mgmt.dev.iaas.intern
-    subnet:
-      mgmt: 172.31.1.0/24
-    dhcp:
-      mgmt:
-        ensure: absent
-      oob:
-        ensure: absent
-    nat:
-      mgmt:
-        ensure: absent
-      oob:
-        ensure: absent
-  dev02:
-    domain:
-      mgmt: dev.iaas.ntnu.no
-      oob: oob.iaas.ntnu.no
-    subnet:
-      mgmt: 10.171.92.1/24
-      oob: 10.171.93.1/24
-    dhcp:
-      mgmt:
-        ensure: absent
-      oob:
-        ensure: present
-        interface: eth2
-        start_offset: 100
-        end_offset: 199
-        lease: 43200
-  local1:
-    domain:
-      mgmt: mgmt.local1.iaas.intern
-    subnet:
-      mgmt: 172.31.4.0/24
-    dhcp:
-      mgmt:
-        ensure: present
-        inferface: eth0
-        start_offset: 150
-        end_offset: 199
-        lease: 43200
-    nat:
-      mgmt:
-        ensure: present
-        iniface: eth0
-        outiface: eth1
-  local2:
-    domain:
-      mgmt: mgmt.local2.iaas.intern
-    subnet:
-      mgmt: 172.31.5.0/24
-    dhcp:
-      mgmt:
-        ensure: present
-        inferface: eth0
-        start_offset: 150
-        end_offset: 199
-        lease: 43200
-    nat:
-      mgmt:
-        ensure: present
-        iniface: eth0
-        outiface: eth1
-  local3:
-    domain:
-      mgmt: mgmt.local3.intern
-    subnet:
-      mgmt: 172.31.4.0/24
-    dhcp:
-      mgmt:
-        ensure: present
-        inferface: eth0
-        start_offset: 150
-        end_offset: 199
-        lease: 43200
-    nat:
-      mgmt:
-        ensure: present
-        iniface: eth1
-        outiface: eth0

@@ -4,7 +4,7 @@ profile::application::himlarcli::smtp:          '172.28.0.10' # test01-login-01
 profile::application::himlarcli::from_addr:     'no-reply@uib.no'
 
 # test01 is up and coming; on 'test'
-yum_base_mirror:    'https://download.iaas.uio.no/uh-iaas/test'
+yum_base_mirror:    'https://download.iaas.uio.no/nrec/test'
 
 # Enable designate in test01
 profile::openstack::identity::designate_enabled:  true

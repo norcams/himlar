@@ -12,7 +12,7 @@ profile::application::himlarcli::from_addr:   ''
 profile::openstack::openrc::cacert:           '/opt/himlar/provision/ca/intermediate/certs/ca-chain.cert.pem'
 
 # Use newest test repositories
-yum_base_mirror:    'https://download.iaas.uio.no/uh-iaas/test'
+yum_base_mirror:    'https://download.iaas.uio.no/nrec/test'
 
 # Enable insecure ssl checks
 sensu_ssl_cachain:  '-k'

@@ -2,16 +2,16 @@
 network::interfaces_hash:
   'eth0':
     onboot:    'true'
-    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.10"
-    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
-    defroute:  'no'
-  'eth1':
-    onboot:    'true'
-    ipaddress: '192.168.122.10'
+    ipaddress: '192.168.3.50'
     netmask:   '255.255.255.0'
-    gateway:   '192.168.122.1'
-    dns1:      "%{hiera('netcfg_dns_server1')}"
-    dns2:      "%{hiera('netcfg_dns_server2')}"
+    gateway:   '192.168.3.1'
+    dns1:      "%{hiera('netcfg_dns_mgmt_server1')}"
+    dns2:      "%{hiera('netcfg_dns_mgmt_server2')}"
     domain:    "%{hiera('netcfg_dns_search')}"
     defroute:  'yes'
     peerdns:   'yes'
+  'eth1':
+    onboot:    'true'
+    defroute:  'no'
+    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.10"
+    netmask:   "%{hiera('netcfg_mgmt_netmask')}"

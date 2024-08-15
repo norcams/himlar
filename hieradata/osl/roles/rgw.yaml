@@ -1,5 +1,36 @@
 ---
+named_interfaces::config:
+  mgmt:
+    - eth0
+  trp:
+    - eth1
+  public:
+    - dummy0
+
 ceph::profile::params::mon_host:              "%{::netpart_trp1}.89,%{::netpart_trp1}.90,%{::netpart_trp1}.94"
 ceph::profile::params::mon_initial_members:   '%{::location}-cephmon-object-01,%{::location}-cephmon-object-02,%{::location}-cephmon-object-03'
 ceph::profile::params::cluster_network:       "%{::network_ceph1}/%{::cidr_ceph1}"
 ceph::profile::params::public_network:        "%{::network_trp1}/%{cidr_trp1}"
+
+profile::highavailability::loadbalancing::haproxy::anycast_enable:      true
+profile::highavailability::loadbalancing::haproxy::manage_haproxy:      true
+profile::highavailability::loadbalancing::haproxy::manage_firewall:     true
+profile::highavailability::loadbalancing::haproxy::manage_firewall6:    true
+
+profile::network::interface::create_ip_rules:      true
+profile::network::interface::create_custom_routes: true
+
+profile::base::network::routes:
+  "%{::interface_trp1}":
+    'ipaddress': [ '0.0.0.0', '::' ]
+    'netmask':   [ '0.0.0.0', '0' ]
+    'gateway':   [ "%{hiera('netcfg_trp_gateway')}", "%{hiera('netcfg_trp_gateway6')}" ]
+    'table':     [ 'anycast', 'anycast' ]
+    'family':    [ 'inet4', 'inet6' ]
+profile::base::network::routing_tables:
+  'anycast':
+    'table_id':  '239'
+profile::base::network::rules:
+  "%{::interface_trp1}":
+    'iprule':  [ "from %{hiera('public__ip__object')} lookup anycast", "from %{hiera('public__ipv6__object')} lookup anycast" ]
+    'family':  [ 'inet4', 'inet6', ]

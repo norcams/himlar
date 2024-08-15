@@ -9,9 +9,11 @@ defaults:
   autostart:   true
   primary:     false
   location:    "vagrant"
+  puppet_env:  "production"
   domain:      "mgmt.vagrant.iaas.intern"
   cpus:        1
   memory:      1024
+  disk:        ""
   networks:
     - "mgmt"
     - "trp"
@@ -35,24 +37,34 @@ defaults:
 nodesets:
   default:
     - role:       "db-global"
+      puppet_env: "victoria"
     - role:       "db-regional"
+      puppet_env: "victoria"
     - role:       "api"
-      box:        "norcams/base"
     - role:       "mq"
     - role:       "identity"
+      puppet_env: "victoria"
     - role:       "novactrl"
+      puppet_env: "victoria"
     - role:       "image"
+      puppet_env: "victoria"
     - role:       "network"
+      puppet_env: "victoria"
     - role:       "volume"
+      puppet_env: "victoria"
     - role:       "dashboard"
+      puppet_env: "victoria"
     - role:       "compute"
       memory:     4096
       cpus:       2
+      puppet_env: "victoria"
   # The following nodes are optional
     #- role:       "access"
     #- role:       "identity"
-    #  hostid:      "02"
+    #  hostid:     "02"
+    #  puppet_env: "victoria"
     #- role:       "console"
+    #  puppet_env: "victoria"
     #- role:       "sensugo"
     #  hostid:     "01"
     #- role:       "sensugo"
@@ -65,8 +77,15 @@ nodesets:
     #- role:       "proxy"
     #- role:       "login"
     #- role:       "controller"
+    #  memory:     4096
+    #  cpus:       2
+    #  puppet_env: "controller"
+    #  box:        "norcams/el9"
     #- role:       "metric"
+    #  puppet_env: "victoria"
+    #  disk:       "2GB"
     #- role:       "telemetry"
+    #  puppet_env: "victoria"
     #- role:       "dashboard-mgmt"
     #- role:       "report"
     #- role:       "coordinator"
@@ -85,6 +104,7 @@ nodesets:
     #- role:       "nat"
     #  box:        "norcams/freebsd"
     #- role:       "admin"
+    #  puppet_env: "admin"
     #  box:        "norcams/base"
     #  memory:     2048
     #- role:       "ns"
@@ -106,10 +126,8 @@ nodesets:
   ha:
     - role:       'ha'
       hostid:     '01'
-      box:        "norcams/base"
     - role:       'ha'
       hostid:     '02'
-      box:        "norcams/base"
   grid:
     - role:       'ha-grid'
       hostid:     '01'
@@ -136,28 +154,38 @@ nodesets:
     - role:       "storage"
   dns:
     - role:       "db-global"
-      box:        "norcams/base"
+      puppet_env: "victoria"
     - role:       "db-regional"
-      box:        "norcams/base"
-    - role:       "mq"
+      puppet_env: "victoria"
     - role:       "api"
       box:        "norcams/base"
-    - role:       "ns"
-    - role:       "resolver"
-      hostid:     "01"
-    - role:       "resolver"
-      hostid:     "02"
-    - role:       "dashboard"
-    - role:       "admin"
-    - role:       "dns"
+    - role:       "mq"
     - role:       "identity"
+      puppet_env: "victoria"
     - role:       "novactrl"
+      puppet_env: "victoria"
     - role:       "image"
-    - role:       "volume"
+      puppet_env: "victoria"
     - role:       "network"
+      puppet_env: "victoria"
+    - role:       "volume"
+      puppet_env: "victoria"
+    - role:       "dashboard"
+      puppet_env: "victoria"
     - role:       "compute"
       memory:     4096
       cpus:       2
+      puppet_env: "victoria"
+    - role:       "ns"
+      puppet_env: "victoria"
+    - role:       "resolver"
+      hostid:     "01"
+      puppet_env: "victoria"
+    - role:       "resolver"
+      hostid:     "02"
+      puppet_env: "victoria"
+    - role:       "dns"
+      puppet_env: "victoria"
   object: # will also need running identity to test anything other than ceph
     - role:       'cephmon-object'
     - role:       'rgw'
@@ -201,4 +229,3 @@ networks:
     net: "192.168.0"
     auto_config: false
     forwarding: "route"
-

@@ -77,11 +77,6 @@ profile::network::nat::outiface:                   'eth1'
 # puppet will not run until eth2 is created through virt-manager or something similar (connected to br3)
 profile::base::login::oob_outiface:                "%{::interface_oob1}"
 
-# on this node we must actually use dnsmasq from Appstream as Calico repo not available
-profile::base::yumrepo::repo_hash:
-  AlmaLinux-AppStream:
-    exclude:        'postgres*'
-
 # extra disk for local repository (synced with other login nodes)
 profile::base::common::manage_lvm: true
 

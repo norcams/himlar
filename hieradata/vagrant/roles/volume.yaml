@@ -1,14 +1,30 @@
 ---
+cinder::api::default_volume_type: 'lvm'
+
 cinder::backends::enabled_backends:
   - lvm
 
 profile::openstack::volume::type:
   lvm:
     is_public: true
+    properties: []
+  __DEFAULT__:
+    ensure: absent
 
 cinder::config::cinder_config:
   lvm/volume_group:
     value: 'cinder-volumes'
+  lvm/target_protocol:
+    value: 'iscsi'
+  lvm/target_helper:
+    value: 'lioadm'
+  lvm/target_ip_address:
+    value: "%{hiera('netcfg_trp_netpart')}.46"
 
 # FIXME:sensu-go
 profile::monitoring::sensu::agent::checks:              {}
+
+profile::base::common::packages:
+  'python3-redis': {} # OSProfiler dependency
+
+profile::openstack::volume::manage_osprofiler: true

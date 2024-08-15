@@ -13,6 +13,10 @@ named_interfaces::config:
   trp:
      - br1
 
+profile::storage::cephclient::enable: true
+
+profile::application::windowsimage::repo_revision: 'v1.0.2'
+
 calico::compute::manage_dhcp_agent: false
 calico::compute::manage_metadata_service: false
 calico::compute::felix_enable: false
@@ -30,13 +34,16 @@ profile::base::common::packages:
   'jq': {}
   'rsync': {}
 
+profile::network::services::firewall_extras:
+  source: '%{network_mgmt1}/%{netmask_mgmt1}'
+
 profile::virtualization::libvirt::manage_firewall: true
 profile::virtualization::libvirt::firewall_extras:
   'graphics':
     dport: 5900-5999
 
 profile::network::services::ntp_server: true
-chrony::queryhosts: [ "%{hiera('netcfg_mgmt_netpart')}.0/%{::cidr_mgmt1}", ] # allow clients to query ntp service
+chrony::queryhosts: [ "%{hiera('netcfg_mgmt_netpart')}.0/%{hiera('netcfg_trp_cidr4')}", ] # allow clients to query ntp service
 
 profile::virtualization::libvirt::networks:
   directnet:

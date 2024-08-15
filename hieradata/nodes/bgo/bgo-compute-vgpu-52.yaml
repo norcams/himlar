@@ -13,4 +13,4 @@ profile::base::lvm::logical_volume:
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
 
-nova::compute::libvirt::libvirt_cpu_model: 'Cascadelake-Server-noTSX'
+nova::compute::libvirt::cpu_models: ['Cascadelake-Server-noTSX']

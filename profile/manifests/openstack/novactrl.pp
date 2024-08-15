@@ -7,7 +7,8 @@ class profile::openstack::novactrl(
   $manage_az            = false,
   $manage_firewall      = false,
   $manage_nova_config   = false,
-  $firewall_extras      = {}
+  $firewall_extras      = {},
+  $manage_osprofiler = false,
 ) {
 
   if $manage_firewall {
@@ -68,4 +69,9 @@ class profile::openstack::novactrl(
     include ::nova::availability_zone
   }
 
+  if $manage_osprofiler {
+    include ::nova::deps
+    $osprofiler_config = lookup('profile::logging::osprofiler::osprofiler_config', Hash, 'first', {})
+    create_resources('nova_config', $osprofiler_config)
+  }
 }

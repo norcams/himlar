@@ -1,8 +1,9 @@
 ---
 include:
+  kickstart:
+    - profile::application::git
   default:
     - profile::base::login
-    - profile::network::services
     - profile::development::network::dns
     - profile::application::git
     - profile::application::rngd
@@ -23,7 +24,6 @@ named_interfaces::config:
 
 profile::application::rngd::enable:               true
 profile::base::firewall::manage_firewall:         true
-profile::network::services::manage_nat:           false
 profile::network::nat::enable_masquerade:         true
 profile::network::nat::source:                   "0.0.0.0/0"
 profile::network::nat::outiface:                 "%{::interface_public1}"
@@ -110,7 +110,7 @@ ssh::server::options:
   #   https://infosec.mozilla.org/guidelines/openssh
   # Modern and with NIST curves removed
   # Revision: 2021-06-22
-  HostkeyAlgorithms: 'ssh-ed25519,ssh-rsa'
+  HostKeyAlgorithms: 'ssh-ed25519,ssh-rsa'
   KexAlgorithms: 'curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256'
   Ciphers: 'chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes128-ctr'
   MACs: 'hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com'
@@ -147,10 +147,13 @@ profile::application::git::settings:
   mirroring:    'enable'
   site_info:    'Please see http://iaas.readthedocs.org for more info'
 
-# Enable extra yum repo
 profile::base::yumrepo::repo_hash:
+  # Enable extra yum repo
   epel:
     ensure: present
+  # on login node we must actually use dnsmasq from Appstream as Calico repo not available
+  AlmaLinux-AppStream:
+    exclude:        'postgres*'
 
 profile::base::login::dump_owner:      'norcams'
 profile::base::login::dump_group:      'wheel'

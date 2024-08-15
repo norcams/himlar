@@ -3,6 +3,8 @@ include:
   default:
     - profile::monitoring::netdata
 
+mariadb_version:  '10.6'  #FIXME after upgrade in prod
+
 profile::monitoring::netdata::manage_firewall:  true
 
 # Netdata access

@@ -8,9 +8,8 @@ include:
 memcached::max_memory: '20%'
 
 profile::base::common::packages:
-  'python-openstackclient': {}
   'openstack-selinux': {}
-  'python-memcached': {} # gnocchi::manage_memcache_package are broken
+  'python3-memcached': {} # gnocchi::manage_memcache_package are broken
 
 profile::openstack::metric::manage_firewall:  true
 profile::openstack::metric::manage_wsgi:      true
@@ -30,6 +29,5 @@ profile::base::yumrepo::repo_hash:
     ensure:   present
     includepkgs: 'htop bash-completion-extras'
   postgres-10:
-    ensure: present
+    ensure: absent
 
-openstack_version: 'stein'

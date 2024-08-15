@@ -22,6 +22,7 @@ profile::base::network::net_ifnames:              false
 profile::network::leaf::manage_quagga:            false
 profile::network::leaf::manage_frrouting:         true
 profile::network::leaf::manage_acls:              true
+profile::network::leaf::manage_switchdconf:       true
 profile::base::network::cumulus_ifs:              true
 network::config_file_per_interface:               true
 profile::logging::logrotate::manage_logrotate:    false

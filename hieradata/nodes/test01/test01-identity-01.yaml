@@ -5,19 +5,4 @@ include:
   bootstrap:
     - profile::openstack::openrc
 
-network::interfaces_hash:
-  'eth0':
-    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.81"
-    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
-    mtu:       '1500'
-    dns1:      "%{hiera('netcfg_dns_server1')}"
-    dns2:      "%{hiera('netcfg_dns_server2')}"
-    defroute:  'no'
-  'eth1':
-    ipaddress: "%{hiera('netcfg_trp_netpart')}.81"
-    netmask:   "%{hiera('netcfg_trp_netmask')}"
-    gateway:   "%{hiera('netcfg_priv_gateway')}"
-    defroute:  'yes'
-    mtu:       '1500'
-
 profile::openstack::identity::manage_token_rotate:        true

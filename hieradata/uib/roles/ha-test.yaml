@@ -61,27 +61,37 @@ profile::firewall::rules::custom_rules:
     proto:        'tcp'
     dport:        [ '80', '443']
     destination:  "%{hiera('corosync_cluster_vip2')}"
-  '451 haproxy ldap for public vip1':
+  '453 haproxy ldap for public vip1':
     proto:        'tcp'
     dport:        ['389', '636' ]
     source:       '129.177.0.0/16'
     destination:  "%{hiera('corosync_cluster_vip1')}"
-  '452 haproxy ldap for public vip2':
+  '454 haproxy ldap for public vip2':
     proto:        'tcp'
     dport:        ['389', '636' ]
     source:       '129.177.0.0/16'
     destination:  "%{hiera('corosync_cluster_vip2')}"
-  '453 haproxy http for internal vip3':
+  '455 haproxy smtp for public vip1':
+    proto:        'tcp'
+    dport:        ['25']
+    source:       '129.177.0.0/16'
+    destination:  "%{hiera('corosync_cluster_vip1')}"
+  '456 haproxy smtp for public vip2':
+    proto:        'tcp'
+    dport:        ['25']
+    source:       '129.177.0.0/16'
+    destination:  "%{hiera('corosync_cluster_vip2')}"
+  '460 haproxy http for internal vip3':
     proto:        'tcp'
     dport:        [ '80', '443', '389', '636', '445', '135' ]
     source:       '129.177.0.0/16'
     destination:  "%{hiera('corosync_cluster_vip3')}"
-  '454 haproxy http for internal vip4':
+  '461 haproxy http for internal vip4':
     proto:        'tcp'
     dport:        [ '80', '443', '389', '636', '445', '135' ]
     source:       '129.177.0.0/16'
     destination:  "%{hiera('corosync_cluster_vip4')}"
-  '456 haproxy http for public vip5':
+  '470 haproxy http for public vip5':
     proto:        'tcp'
     dport:        [ '80', '443' ]
     source:
@@ -95,7 +105,7 @@ profile::firewall::rules::custom_rules:
       - '158.39.48.0/24' # nrec osl
       - '158.39.200.0/24' # nrec osl
     destination:  "%{hiera('corosync_cluster_vip5')}"
-  '456 haproxy http for public vip6':
+  '471 haproxy http for public vip6':
     proto:        'tcp'
     dport:        [ '80', '443' ]
     source:
@@ -109,14 +119,14 @@ profile::firewall::rules::custom_rules:
       - '158.39.48.0/24' # nrec osl
       - '158.39.200.0/24' # nrec osl
     destination:  "%{hiera('corosync_cluster_vip6')}"
-  '455 haproxy status public':
+  '500 haproxy status public':
     proto:        'tcp'
     dport:        ['9000']
     source:
       - '129.177.0.128/25'
       - '129.177.6.133/32' # bgo-login
     destination:  '%{::ipaddress_public1}'
-  '456 haproxy status mgmt':
+  '501 haproxy status mgmt':
     proto:        'tcp'
     dport:        ['9000']
     source:       '172.31.0.10/32' #bgo-login
@@ -127,21 +137,21 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
 # Apps
   'ssl-https-apps':
     listening_service:  'ssl-https-apps'
-    ports:              443
+    ports:              '443'
     server_names:
-      - 'apps-test03.uib.no'
-      - 'apps-test04.uib.no'
-#      - 'apps-test05.uib.no'
-#      - 'apps-test06.uib.no'
+#      - 'apps-test03.uib.no'
+#      - 'apps-test04.uib.no'
+      - 'apps-test05.uib.no'
+      - 'apps-test06.uib.no'
     ipaddresses:
-      - '129.177.150.209'
-      - '129.177.150.210'
-#      - '129.177.150.203'
-#      - '129.177.150.204'
+#      - '129.177.150.209' # apps-test03.uib.no
+#      - '129.177.150.210' # apps-test04.uib.no
+      - '129.177.150.203' # apps-test05.uib.no
+      - '129.177.150.204' # apps-test06.uib.no
     options:            'verify none inter 120s check check-ssl ssl'
   'ssl-https-apps-admin':
     listening_service:  'ssl-https-apps-admin'
-    ports:              443
+    ports:              '443'
     server_names:       ['apps-test02.uib.no']
     ipaddresses:        ['129.177.30.16']
     options:            'verify none inter 120s check check-ssl ssl'

@@ -54,6 +54,8 @@ profile::application::report::report_utils:
       36: 'report30'
       37: 'report30'
       38: 'report30'
+      39: 'report30'
+      40: 'report30'
   'ubuntu':
     scripts:
       report17: ['ubuntu/shebang', 'common/imports.py', 'ubuntu/imports.py', 'common/common_functions.py', 'ubuntu/check_updates_functions.py', 'common/payload.py', 'ubuntu/updates_payload.py', 'common/request.py' ]
@@ -64,6 +66,7 @@ profile::application::report::report_utils:
       20: 'report17'
       21: 'report17'
       22: 'report17'
+      24: 'report17'
   'debian':
     scripts:
       report9: ['debian/shebang', 'common/imports.py', 'debian/imports.py', 'common/common_functions.py', 'debian/check_updates_functions.py', 'common/payload.py', 'debian/updates_payload.py', 'common/request.py' ]
@@ -71,6 +74,7 @@ profile::application::report::report_utils:
       9:  'report9'
       10: 'report9'
       11: 'report9'
+      12: 'report9'
   'windows':
     scripts:
       report2016: ['windows/full_script' ]
@@ -87,7 +91,7 @@ profile::webserver::apache::vhosts:
      - "%{hiera('public__address__report')}"
      - "report-%{::location}.%{hiera('domain_frontend')}"
      - "report-%{::location}.%{hiera('domain_frontend2')}"
-    port:               '80'
+    port:               80
     manage_docroot:     false
     docroot:            '/var/www/html'
     wsgi_application_group:  '%%{}{GLOBAL}'

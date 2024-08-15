@@ -33,5 +33,3 @@ horizon::keystone_options:
 
 profile::openstack::dashboard::allow_from_network:
   - "%{hiera('netcfg_mgmt_netpart')}.0/%{hiera('netcfg_mgmt_netmask')}"  # only allow from mgmt network (including sshuttle through login)
-
-openstack_version: 'train'

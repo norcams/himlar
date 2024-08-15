@@ -40,6 +40,7 @@ reverse_trp_c7:           '39.18.172.in-addr.arpa'
 reverse_public_c0:        '63.37.158.in-addr.arpa'
 reverse_public_c1:        '75.39.158.in-addr.arpa'
 reverse_public_c2:        '48.39.158.in-addr.arpa'
+reverse_public_c3:        '200.39.158.in-addr.arpa'
 
 bgp_as:                   '65500'
 
@@ -68,6 +69,7 @@ netcfg_trp_net_c6:        '172.18.38'
 netcfg_trp_net_c7:        '172.18.39'
 netcfg_trp_netmask:       '255.255.248.0'
 netcfg_trp_netmask6:      '64'
+netcfg_trp_cidr4:         '21'
 netcfg_oob_gateway:       '172.17.32.10'
 netcfg_oob_netpart:       '172.17.32'
 netcfg_oob_netmask:       '255.255.248.0'
@@ -75,9 +77,10 @@ netcfg_ceph_netpart:      '172.20.32'
 netcfg_ceph_netmask:      '255.255.248.0'
 netcfg_live_netpart:      '172.22.32'
 netcfg_live_netmask:      '255.255.248.0'
-#netcfg_dns_server1:       '129.240.2.3'
-netcfg_dns_server1:       '172.16.32.10'
-netcfg_dns_server2:       '172.16.32.44'
+#netcfg_dns_mgmt_server1:       '129.240.2.3'
+netcfg_dns_mgmt_server1:       '172.16.32.10'
+netcfg_dns_mgmt_server2:       '172.16.32.44'
+netcfg_dns_mgmt_server3:       '172.16.32.45'
 netcfg_dns_search:        "%{hiera('domain_mgmt')} %{hiera('domain_trp')}"
 netcfg_priv_gateway:      '172.18.32.26'
 netcfg_priv_network:      '10.2.0.0/20'
@@ -89,6 +92,7 @@ netcfg_anycast_dns6:      '2001:700:2:82ff::252'
 netcfg_ib_vlan:           '3379'
 netcfg_oob_vlan:          '3378'
 netcfg_elastic_cidr:      '10.6.0.0/20'
+netcfg_pub_object:        '158.37.63.250'
 netcfg_trp_rr:
   rr1:
     peer_ipv4: '172.18.38.1'
@@ -101,6 +105,8 @@ netcfg_trp_rr:
 # Public addresses (bgo host frontend)
 #
 
+public__ip__object:            '158.39.75.249'
+public__ipv6__object:          '2001:700:2:82ff::1200'
 public__ip__proxy:             '158.37.63.253'
 public__ip__ns:                '158.37.63.251'
 public__ipv6__ns:              '2001:700:2:82ff::251'
@@ -131,12 +137,12 @@ profile::network::services::dns_records:
     "status.%{hiera('domain_frontend2')}":       'pubproxy.ha.uib.no'
     "report.%{hiera('domain_frontend2')}":       'pubproxy.ha.uib.no'
     "docs.%{hiera('domain_frontend2')}":         'pubproxy.ha.uib.no'
-    "%{::location}-compute-atlas-11.%{hiera('domain_mgmt')}": "%{::location}-compute-11.%{hiera('domain_mgmt')}"
-    "%{::location}-compute-atlas-12.%{hiera('domain_mgmt')}": "%{::location}-compute-12.%{hiera('domain_mgmt')}"
-    "%{::location}-compute-atlas-13.%{hiera('domain_mgmt')}": "%{::location}-compute-13.%{hiera('domain_mgmt')}"
-    "%{::location}-compute-atlas-14.%{hiera('domain_mgmt')}": "%{::location}-compute-14.%{hiera('domain_mgmt')}"
-    "%{::location}-compute-atlas-15.%{hiera('domain_mgmt')}": "%{::location}-compute-15.%{hiera('domain_mgmt')}"
-    "%{::location}-compute-atlas-16.%{hiera('domain_mgmt')}": "%{::location}-compute-16.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-epyc-11.%{hiera('domain_mgmt')}": "%{::location}-compute-11.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-epyc-12.%{hiera('domain_mgmt')}": "%{::location}-compute-12.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-epyc-13.%{hiera('domain_mgmt')}": "%{::location}-compute-13.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-epyc-14.%{hiera('domain_mgmt')}": "%{::location}-compute-14.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-epyc-15.%{hiera('domain_mgmt')}": "%{::location}-compute-15.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-epyc-16.%{hiera('domain_mgmt')}": "%{::location}-compute-16.%{hiera('domain_mgmt')}"
     #"%{::location}-compute-atlas-19.%{hiera('domain_mgmt')}": "%{::location}-compute-19.%{hiera('domain_mgmt')}"
     #"%{::location}-compute-atlas-20.%{hiera('domain_mgmt')}": "%{::location}-compute-20.%{hiera('domain_mgmt')}"
     "%{::location}-compute-atlas-21.%{hiera('domain_mgmt')}": "%{::location}-compute-21.%{hiera('domain_mgmt')}"
@@ -179,7 +185,6 @@ profile::network::services::dns_records:
     "%{::location}-object-ceph-05.%{hiera('domain_mgmt')}":  "%{::location}-object-05.%{hiera('domain_mgmt')}"
     # Dedicated
     "%{::location}-compute-robin-18.%{hiera('domain_mgmt')}": "%{::location}-compute-18.%{hiera('domain_mgmt')}"
-    "%{::location}-compute-numascale-51.%{hiera('domain_mgmt')}": "%{::location}-compute-51.%{hiera('domain_mgmt')}"
     # Huawei ceph nodes
     "%{::location}-storage-v2h-13.%{hiera('domain_mgmt')}":  "%{::location}-storage-13.%{hiera('domain_mgmt')}"
     "%{::location}-storage-v2h-14.%{hiera('domain_mgmt')}":  "%{::location}-storage-14.%{hiera('domain_mgmt')}"
@@ -194,6 +199,15 @@ profile::network::services::dns_records:
     "%{::location}-storage-v2h-23.%{hiera('domain_mgmt')}":  "%{::location}-storage-23.%{hiera('domain_mgmt')}"
     "%{::location}-storage-v2h-24.%{hiera('domain_mgmt')}":  "%{::location}-storage-24.%{hiera('domain_mgmt')}"
     "%{::location}-storage-v2h-25.%{hiera('domain_mgmt')}":  "%{::location}-storage-25.%{hiera('domain_mgmt')}"
+    # Dell PowerEdge R730 ceph nodes
+    "%{::location}-storage-v2d-26.%{hiera('domain_mgmt')}":  "%{::location}-storage-26.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2d-27.%{hiera('domain_mgmt')}":  "%{::location}-storage-27.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2d-28.%{hiera('domain_mgmt')}":  "%{::location}-storage-28.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2d-29.%{hiera('domain_mgmt')}":  "%{::location}-storage-29.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2d-30.%{hiera('domain_mgmt')}":  "%{::location}-storage-30.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2d-31.%{hiera('domain_mgmt')}":  "%{::location}-storage-31.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2d-32.%{hiera('domain_mgmt')}":  "%{::location}-storage-32.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2d-33.%{hiera('domain_mgmt')}":  "%{::location}-storage-33.%{hiera('domain_mgmt')}"
   A:
     # Frontend records (<foo>.nrec.no)
     "access.%{hiera('domain_frontend')}":         '158.39.77.250'
@@ -226,7 +240,7 @@ profile::network::services::dns_records:
     "placement.api.%{hiera('domain_public')}":    '158.37.63.250'
     "metric.api.%{hiera('domain_public')}":       '158.37.63.250'
     "dns.api.%{hiera('domain_public')}":          '158.37.63.250'
-    "object.api.%{hiera('domain_public')}":       '158.37.63.250'
+    "object.api.%{hiera('domain_public')}":       "%{hiera('public__ip__object')}"
 
     "resolver.%{hiera('domain_public')}":         '158.37.63.252'
 
@@ -264,13 +278,12 @@ profile::network::services::dns_records:
     "placement.api.%{hiera('domain_public2')}":   '158.37.63.250'
     "metric.api.%{hiera('domain_public2')}":      '158.37.63.250'
     "dns.api.%{hiera('domain_public2')}":         '158.37.63.250'
-    "object.api.%{hiera('domain_public2')}":      '158.37.63.250'
+    "object.api.%{hiera('domain_public2')}":      "%{hiera('public__ip__object')}"
 
     "resolver.%{hiera('domain_public2')}":        '158.37.63.252'
 
     # Management network (entries that differ from common/common.yaml)
     "%{::location}-login-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_netpart')}.10"
-    "repo.%{hiera('domain_oob')}":                    "%{hiera('netcfg_oob_netpart')}.9"
     # FIXME: override common/common.yaml
     "%{::location}-mgmt-00.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.100"
     "%{::location}-mgmt-01.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.1"
@@ -281,6 +294,9 @@ profile::network::services::dns_records:
     "%{::location}-mgmt-06.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.6"
     "%{::location}-mgmt-07.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.7"
     "%{::location}-login-01old.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_net_c0')}.199"
+
+    # oob nodes
+    "repo.%{hiera('domain_oob')}":                       "%{hiera('netcfg_oob_netpart')}.9"
   AAAA:
     # Frontend records (<foo>.nrec.no)
     "ns1.%{hiera('domain_frontend')}":            '2001:700:2:82ff::251'
@@ -290,13 +306,14 @@ profile::network::services::dns_records:
     # Public records (<foo>.<location>.nrec.no)
     "resolver.%{hiera('domain_public')}":              '2001:700:2:82ff::252'
     "%{::location}-dns-01.%{hiera('domain_public')}":  '2001:700:2:82ff::256'
-
+    "object.api.%{hiera('domain_public')}":            "%{hiera('public__ipv6__object')}"
     # Frontend records (<foo>.uh-iaas.no)
     "ns1.%{hiera('domain_frontend2')}":           '2001:700:2:82ff::251'
     "ns2.%{hiera('domain_frontend2')}":           '2001:700:2:83ff::251'
     # Public records (<foo>.<location>.uh-iaas.no)
     "resolver.%{hiera('domain_public2')}":             '2001:700:2:82ff::252'
     "%{::location}-dns-01.%{hiera('domain_public2')}": '2001:700:2:82ff::256'
+    "object.api.%{hiera('domain_public2')}":           "%{hiera('public__ipv6__object')}"
   PTR:
     "199.%{hiera('reverse_mgmt_c0')}":    "%{::location}-login-01old.%{hiera('domain_mgmt')}"
     # FIXME: override common/common.yaml
@@ -323,6 +340,10 @@ profile::network::services::dns_records:
     # Customer's PTR records
     "164.%{hiera('reverse_public_c2')}":                                         'smtp.nlpl.eu'
     "38.%{hiera('reverse_public_c2')}":                                          'atlas-db-squid1.grid.uiocloud.no'
+    "43.%{hiera('reverse_public_c3')}":                                          'portalpo1.uit.no'
+    "139.%{hiera('reverse_public_c3')}":                                         'portalpo2.uit.no'
+    "110.%{hiera('reverse_public_c2')}":                                         'portalto1.uit.no'
+    "204.%{hiera('reverse_public_c3')}":                                         'portalto2.uit.no'
     # Dette nettet er IKKE delegert til oss! (mikaeld 9/2 2021)
     #'0.f.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  'atlas-db-squid1.grid.uiocloud.no'
     #'c.6.0.2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  'oncotools.elixir.no'
@@ -408,6 +429,7 @@ profile::openstack::resource::networks:
     shared: false
     tenant_name: 'openstack'
     provider_network_type: 'local'
+#    mtu: '9000' # FIXME: param available in puppet-neutron for Zed. Meanwhile, set once with CLI after creation
 
 profile::openstack::resource::subnets:
   public1_IPv4:

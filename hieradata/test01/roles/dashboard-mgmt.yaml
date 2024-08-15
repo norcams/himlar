@@ -2,3 +2,5 @@
 profile::openstack::dashboard::allow_from_network:
   - '0.0.0.0/0'     # Allow dashboard from everywhere
 
+# Disable admin dashboard
+profile::openstack::dashboard::disable_admin_dashboard: false

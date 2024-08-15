@@ -1,8 +1,4 @@
 ---
-include:
-  default:
-    - profile::monitoring::sensu::agent
-
 location_environment: 'local1'
 location_description: 'Local development environment'
 
@@ -34,6 +30,7 @@ netcfg_trp_gateway:     '172.31.12.1'
 netcfg_trp_gateway6:    'fd00::1'
 netcfg_trp_netpart6:    'fd00'
 netcfg_trp_netmask6:    '64'
+netcfg_trp_cidr4:       '24'
 netcfg_trp_net_c0:      '172.31.12'
 netcfg_trp_net_c1:      '172.31.13'
 netcfg_trp_net_c2:      '172.31.14'
@@ -46,7 +43,7 @@ netcfg_live_netpart:    '172.31.12'
 netcfg_live_netmask:    '255.255.255.0'
 netcfg_mgmt_netpart:    '172.31.4'
 netcfg_mgmt_netmask:    '255.255.255.0'
-netcfg_mgmt_gateway:    '172.31.4.12'
+netcfg_mgmt_gateway:    '172.31.4.10'
 netcfg_mgmt_net_c0:     '172.31.4'
 netcfg_mgmt_net_c1:     '172.31.5'
 netcfg_mgmt_net_c2:     '172.31.6'
@@ -59,9 +56,9 @@ netcfg_public_netmask:  '255.255.255.0'
 netcfg_public_netpart:  '192.168.12'
 netcfg_public_netpart6: 'fd01'
 netcfg_public_netmask6: '64'
-netcfg_dns_server1:     '172.31.4.10'
-#netcfg_dns_server1:     '8.8.8.8'
-netcfg_dns_server2:     '8.8.8.8'
+netcfg_dns_mgmt_server1:     '172.31.4.10'
+#netcfg_dns_mgmt_server1:     '8.8.8.8'
+netcfg_dns_mgmt_server2:     '8.8.8.8'
 netcfg_dns_search:      "%{hiera('domain_mgmt')} %{hiera('domain_public')}"
 netcfg_priv_gateway:    '172.31.12.26'
 netcfg_priv_network:    '10.0.240.0/24'

@@ -1,0 +1,9 @@
+---
+profile::base::network::network_auto_bonding:
+  trp:
+    em3:
+      'team_port_config': '{ "prio" : 100 }'
+      'mtu': '9000'
+    em4:
+      'team_port_config': '{ "prio" : 100 }'
+      'mtu': '9000'

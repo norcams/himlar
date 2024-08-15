@@ -23,6 +23,10 @@ profile::openstack::resource::host_aggregate:
     availability_zone: "%{::location}-default-1"
     metadata:
       type: 'shpc_cpu'
+  shpc_ram1:
+    availability_zone: "%{::location}-default-1"
+    metadata:
+      type: 'shpc_ram'
   placeholder1:
     availability_zone: "%{::location}-iaas-team-only-1"
     metadata:
@@ -53,10 +57,6 @@ profile::openstack::resource::host_aggregate:
     availability_zone: "%{::location}-default-1"
     metadata:
       type: 'vgpu'
-  gpu1:
-    availability_zone: "%{::location}-default-1"
-    metadata:
-      type: 'gpu'
   hpc1:
     availability_zone: "%{::location}-default-1"
     metadata:
@@ -65,7 +65,3 @@ profile::openstack::resource::host_aggregate:
     availability_zone: "%{::location}-default-1"
     metadata:
       type: 'robin'
-  numascale1:
-    availability_zone: "%{::location}-default-1"
-    metadata:
-      type: 'numascale'

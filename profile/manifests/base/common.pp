@@ -144,7 +144,7 @@ class profile::base::common (
     include keyboard
   }
 
-  if $extraswap {
+  if ($extraswap) and ($::runmode != 'kickstart') {
     exec { 'create_swapfile':
       command => "dd if=/dev/zero of=${extraswap_fileloc} bs=1M count=$((${extraswap_sizegb}*1024)) && sudo chmod 600 ${extraswap_fileloc}",
       path    => '/usr/bin:/usr/sbin:/bin:/usr/local/bin',

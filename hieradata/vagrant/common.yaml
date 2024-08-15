@@ -51,9 +51,13 @@ netcfg_mgmt_net_c4:     '172.31.4'
 netcfg_mgmt_net_c5:     '172.31.5'
 netcfg_mgmt_net_c6:     '172.31.6'
 netcfg_mgmt_net_c7:     '172.31.7'
+netcfg_oob_netpart:     '172.31.16'
+netcfg_oob_netmask:     '255.255.255.0'
+netcfg_oob_gateway:     '172.31.16.1'
 netcfg_trp_gateway:     '172.31.8.1'
 netcfg_trp_netpart:     '172.31.8'
 netcfg_trp_netmask:     '255.255.255.0'
+netcfg_trp_cidr4:       '24'
 netcfg_trp_net_c0:      '172.31.8'
 netcfg_trp_net_c1:      '172.31.9'
 netcfg_trp_net_c2:      '172.31.10'
@@ -67,8 +71,8 @@ netcfg_live_netmask:    '255.255.255.0'
 netcfg_public_netpart:  '192.168.0'
 netcfg_public_netmask:  '255.255.255.0'
 netcfg_public_netpart6: 'fc00:700:100:200'
-netcfg_dns_server1:     '172.31.0.1'
-netcfg_dns_server2:     '8.8.8.8'
+netcfg_dns_mgmt_server1:     '172.31.0.1'
+netcfg_dns_mgmt_server2:     '8.8.8.8'
 netcfg_dns_search:      "%{hiera('domain_mgmt')} %{hiera('domain_trp')}"
 netcfg_priv_gateway:    '172.31.8.26'
 netcfg_priv_network:    '10.0.252.0/24'
@@ -86,6 +90,8 @@ public__ipv6__ns:       "%{hiera('netcfg_public_netpart6')}::251"
 public__ip__resolver:   "%{hiera('netcfg_public_netpart')}.252"
 public__ipv6__resolver: "%{hiera('netcfg_public_netpart6')}::252"
 
+# For using proxy-01 instead of proxy-02
+mgmt__address__proxy:             "%{hiera('netcfg_mgmt_net_c0')}.12"
 
 #
 # Default interfaces
@@ -158,8 +164,8 @@ profile::dns::ns::ns_master_ip_addresses:
 
 # Public and internal zones
 profile::dns::ns::internal_zone: "vagrant.iaas.intern"
-profile::dns::ns::public_zone:   "iaas.intern"
-profile::dns::ns::public_zone2:  "iaas2.intern"
+profile::dns::ns::public_zone:   "iaas.public"
+profile::dns::ns::public_zone2:  "iaas2.public"
 
 profile::network::services::dns_records:
   A:
@@ -379,7 +385,7 @@ profile::openstack::resource::subnets:
 
 # FIXME:sensu-go
 profile::application::openssl::manage_ca_cert:          true
-profile::monitoring::sensu::agent::enable_go_agent:     true # enable this to test in vagrant
+profile::monitoring::sensu::agent::enable_go_agent:     false # enable this to test in vagrant
 profile::monitoring::sensu::agent::enable_agent:        false
 # only checks defined in location will be added to sensu-go
 profile::monitoring::sensu::agent::merge_strategy:      'first'
@@ -390,3 +396,14 @@ profile::monitoring::sensu::agent::namespaces:
 profile::base::yumrepo::repo_hash:
   sensu-community:
     ensure: present
+
+# OSProfiler config
+profile::logging::osprofiler::osprofiler_config:
+  profiler/enabled:
+    value: true
+  profiler/trace_sqlalchemy:
+    value: true
+  profiler/hmac_keys:
+    value: 'tracethis'
+  profiler/connection_string:
+    value: "redis://%{hiera('mgmt__address__proxy')}:6379"

@@ -3,11 +3,11 @@
 profile::base::network::uplink_interface: 'swp28'
 
 bgp_loopback_addr: '10.255.254.2' # IP for elastic IP instances to peer to
-bgp_loopback_addr6: 'fcef::6:2'   # Needed for BGP-MP to work 
+bgp_loopback_addr6: 'fcef::6:2'   # Needed for BGP-MP to work
 
 profile::base::network::cumulus_interfaces:
   'eth0':
-    'ipv4': "%{hiera('netcfg_mgmt_net_c6')}.1/21"
+    'ipv4': "%{hiera('netcfg_mgmt_net_c6')}.2/21"
     'gateway': "%{hiera('netcfg_mgmt_gateway')}"
     'vrf': 'mgmt'
   'mgmt':
@@ -43,21 +43,11 @@ frrouting::frrouting::bgp_neighbors:
   - '128.39.47.56 prefix-list uninett-routes-out out'
   - '2001:700:0:8134:: remote-as 224'
   - '2001:700:0:8134:: bfd 5 500 500'
-  # torack-01
-  - "172.18.32.1 remote-as %{hiera('bgp_as')}"
-  - '172.18.32.1 soft-reconfiguration inbound'
-  - "fd32::1 remote-as %{hiera('bgp_as')}"
-  - 'fd32::1 soft-reconfiguration inbound'
-  # torack-02
-  - "172.18.32.2 remote-as %{hiera('bgp_as')}"
-  - '172.18.32.2 soft-reconfiguration inbound'
-  - "fd32::2 remote-as %{hiera('bgp_as')}"
-  - 'fd32::2 soft-reconfiguration inbound'
   # spine-01
-  - "172.18.230.1 remote-as %{hiera('bgp_as')}"
-  - '172.18.230.1 default-originate'
-  - '172.18.230.1 soft-reconfiguration inbound'
-  - '172.18.230.1 route-map failover-default-route in'
+  - "172.18.38.1 remote-as %{hiera('bgp_as')}"
+  - '172.18.38.1 default-originate'
+  - '172.18.38.1 soft-reconfiguration inbound'
+  - '172.18.38.1 route-map failover-default-route in'
   - "fd32:18:230::1 remote-as %{hiera('bgp_as')}"
   - 'fd32:18:230::1 soft-reconfiguration inbound'
 frrouting::frrouting::bgp_neighbors6:
@@ -70,8 +60,8 @@ frrouting::frrouting::bgp_neighbors6:
 frrouting::frrouting::zebra_ip6_routes:
 #  - '::/0 fd32::701'
 #  - '::/0 fd32:18:230::1 50'
-  - '2001:700:2:8200::/64 Null0'
-  - '2001:700:2:8201::/64 Null0'
+  - '2001:700:2:8200::/56 Null0'
+  - '2001:700:2:82ff::8/128 fd32::8'
   - '2001:700:2:82ff::12/128 fd32::12'
   - '2001:700:2:82ff::251/128 fd32::16'
   - '2001:700:2:82ff::256/128 fd32::34'
@@ -84,6 +74,7 @@ frrouting::frrouting::zebra_ip_routes:
   - '158.39.48.0/24 Null0'
   - '158.39.75.0/24 Null0'
   - '158.39.200.0/24 Null0'
+  - '158.39.75.246/32 172.18.32.8'  # login-02
   - '158.37.63.248/32 172.18.32.26' # nat-01
   - '158.39.75.248/32 172.18.32.27' # nat-02
   - '158.37.63.249/32 172.18.32.41' # db-global-01
@@ -103,12 +94,6 @@ frrouting::frrouting::bgp_networks6:
   - '2001:700:2:8200::/56'
 
 frrouting::frrouting::bgp_options6:
-  # torack-01
-  - 'neighbor fd32::1 activate'
-  - 'neighbor fd32::1 soft-reconfiguration inbound'
-  # torack-02
-  - 'neighbor fd32::2 activate'
-  - 'neighbor fd32::2 soft-reconfiguration inbound'
   # spine-01
   - 'neighbor fd32:18:230::1 activate'
   - 'neighbor fd32:18:230::1 route-map failover-default-route6 in'

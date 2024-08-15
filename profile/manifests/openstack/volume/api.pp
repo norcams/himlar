@@ -26,6 +26,7 @@ class profile::openstack::volume::api(
   } else  {
     create_resources(cinder::backend::rbd, lookup('profile::openstack::volume::backend::rbd', Hash, 'first', {}))
     create_resources(cinder::backend::nfs, lookup('profile::openstack::volume::backend::nfs', Hash, 'first', {}))
-    create_resources(cinder_type, lookup('profile::openstack::volume::type', Hash, 'first', ), { require => Class['cinder::wsgi::apache'] })
   }
+
+  create_resources(cinder_type, lookup('profile::openstack::volume::type', Hash, 'first', ), { require => Class['cinder::wsgi::apache'] })
 }

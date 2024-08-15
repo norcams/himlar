@@ -15,6 +15,7 @@ class profile::openstack::dashboard(
   $custom_uploaddir     = '/image-upload',
   $enable_pwd_retrieval = false,
   $enable_designate     = false,
+  $disable_admin_dashboard = false,
   $change_region_selector = false,
   $change_login_footer  = false,
   $keystone_admin_roles = undef,
@@ -31,6 +32,7 @@ class profile::openstack::dashboard(
   $enforce_password_check  = false,
   $secure_proxy_header     = false,
   $password_autocomplete   = undef,
+  $launch_instance_defaults = {},
 ) {
 
   if $manage_dashboard {
@@ -55,7 +57,8 @@ class profile::openstack::dashboard(
 
   $policy_defaults = {
     notify  => Service['httpd'],
-    require => Class['horizon']
+    require => Class['horizon'],
+    file_mode =>  '0644'
   }
   $policies = lookup('profile::openstack::dashboard::policies', Hash, 'deep', {})
   create_resources('openstacklib::policy::base', $policies, $policy_defaults)
@@ -129,6 +132,17 @@ class profile::openstack::dashboard(
         mode   => '0644',
         notify => Service['httpd'],
       }
+    }
+  }
+
+  # Disable the admin dashboard if "disable_admin" is set to true
+  if $disable_admin_dashboard {
+    file { '/usr/share/openstack-dashboard/openstack_dashboard/local/enabled/_40_disable-admin-dashboard.py':
+      ensure  => present,
+      mode    => '0644',
+      source  => "puppet:///modules/${module_name}/openstack/horizon/_40_disable-admin-dashboard.py",
+      require => Class['horizon'],
+      notify  => Service['httpd']
     }
   }
 

@@ -65,26 +65,14 @@ profile::base::network::manage_neutron_blackhole:      true # FIXME - remove whe
 profile::network::interface::manage_neutron_blackhole: true
 
 # remove when telemetry/ceilometer is up in all environments and move to common
-profile::openstack::compute::manage_telemetry: true
+# Disabled 2004-08-06 because polling/telemtry is broken at the moment
+# profile::openstack::compute::manage_telemetry: true
 
 # Set tuned profile to "virtual-host"
-profile::base::tuned::manage_tuned:  true
-profile::base::tuned::tuned_profile: 'virtual-host'
-nova::compute::libvirt::libvirt_hw_machine_type: 'x86_64=q35'
-
-profile::base::lvm::physical_volume:
-  '/dev/sda5':
-    ensure: present
-    force:  true
-profile::base::lvm::volume_group:
-  'vg_ext':
-    physical_volumes:
-      - /dev/sda5
-profile::base::lvm::logical_volume:
-  'lv_instances':
-    volume_group: 'vg_ext'
-    fs_type:      "xfs"
-    mountpath:    "/var/lib/nova/instances"
+profile::base::tuned::manage_tuned:        true
+profile::base::tuned::tuned_profile:      'virtual-host'
+nova::compute::libvirt::hw_machine_type:  'x86_64=q35'
+nova::compute::libvirt::cpu_models:      ['Haswell-noTSX-IBRS']
 
 # collectd
 profile::monitoring::collectd::enable: false
@@ -127,10 +115,10 @@ sensu::agent::service_env_vars:
   PATH: '/usr/local/bin:/bin:/usr/bin:/opt/puppetlabs/bin:/opt/sensu-plugins-ruby/embedded/bin'
   HTTPS_PROXY: "%{hiera('mgmt__address__proxy')}:8888"
 
+calico::compute::felix_mtuIfacePattern: '^team*'
+
 nova::config::nova_config:
   DEFAULT/metadata_workers:
     value: '4'
   libvirt/remote_filesystem_transport:
     value: 'rsync'
-  libvirt/cpu_models:
-    value: 'Haswell-noTSX-IBRS'
