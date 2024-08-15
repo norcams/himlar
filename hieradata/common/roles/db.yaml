@@ -57,16 +57,14 @@ logrotate::rules:
     compress:       true
 
 
-# Enable extra yum repo
+# Enable MariaDB yum repository
 profile::base::yumrepo::repo_hash:
   "mariadb-%{hiera('mariadb_version')}":
     ensure:     present
 
-# for backup
-
-# ... script creation
-profile::database::mariadb::backupuser:                 'root'
-profile::database::mariadb::backuppassword_unsensitive: "%{hiera('mysql::server::root_password')}"
-profile::database::mariadb::postscript:                 "date >  %{hiera('profile::database::mariadb::backuptopdir')}/$(hostname)-backupflag"
-profile::database::mariadb::file_per_database:           true
-profile::database::mariadb::maxallowedpacket:            4096
+# For backup script creation
+profile::database::mariadb::backupuser:       'root'
+profile::database::mariadb::backuppassword:   "%{hiera('mysql::server::root_password')}"
+profile::database::mariadb::postscript:       "date >  %{hiera('profile::database::mariadb::backuptopdir')}/$(hostname)-backupflag"
+profile::database::mariadb::file_per_database: true
+profile::database::mariadb::maxallowedpacket:  4096

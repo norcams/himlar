@@ -1,4 +1,6 @@
 ---
+
+mariadb_version: '10.4'
 mysql::client::package_name:    'MariaDB-client'
 
 mysql::server::restart: true
@@ -10,7 +12,7 @@ mysql__config__innodb_log_file_size:        '64M'
 mysql__config__query_cache_size:            '64M'
 mysql__config__query_cache_limit:           '16M'
 
-wsrep_debug:          'OFF'
+wsrep_debug:          'NONE'
 wsrep_on:             'ON'
 wsrep_cluster_name:   'keystone'
 wsrep_slave_threads:  4
