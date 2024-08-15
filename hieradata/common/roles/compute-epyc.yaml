@@ -36,7 +36,7 @@ collectd::plugin::virt::hostname_format:        'hostname'
 collectd::plugin::virt::plugin_instance_format: 'uuid'
 
 # Nover overrides
-nova::compute::libvirt::libvirt_cpu_model:       'EPYC'
+nova::compute::libvirt::cpu_models:             ['EPYC']
 nova::cpu_allocation_ratio:                      '8'
 nova::disk_allocation_ratio:                     '2'
 nova::ram_allocation_ratio:                      '1.4'

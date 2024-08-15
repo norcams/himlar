@@ -3,7 +3,6 @@ include:
   default:
     - profile::firewall::rules
 
-profile::network::services::manage_dhcp:  false
 profile::firewall::pre::manage_ipv6_ssh:  true
 profile::base::login::forward_oobnet:     true
 profile::base::login::oob_net:            "172.17.32.0/21"
@@ -22,7 +21,7 @@ profile::base::yumrepo::repo_hash:
 
 # Himlar bootstrap
 profile::bootstrap::himlar::manage_bootstrap_scripts: true
-himlar_bootstrap::tftp_install:
+profile::bootstrap::himlar::tftp:
   osl-controller-01:
     domain:           'iaas.uio.no'
     dhcp_interface:   'em1'
@@ -111,18 +110,3 @@ ssh::server::options:
   # download/repo-server
   'Match User git Address 129.240.121.86':
     AuthenticationMethods: 'publickey'
-
-profile::firewall::rules::manage_custom_rules: true
-# Firewall rules allowing incoming DNS requests from test02 mgmt
-profile::firewall::rules::custom_rules:
-  '340 management dns accept tcp (test02)':
-    proto:        'tcp'
-    dport:        '53'
-    extras:
-      iniface:    "%{::interface_mgmt2}"
-  '341 management dns accept tcp (test02)':
-    proto:        'udp'
-    dport:        '53'
-    extras:
-      iniface:    "%{::interface_mgmt2}"
-

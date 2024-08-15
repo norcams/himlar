@@ -8,7 +8,7 @@ then
 	echo "Windows build executed successfully." >> $logfile
 else
 	echo "Windows build failed with status $result" >> $logfile
-        exit $result
+        jq -nc '{"result": "failed"}' > /var/log/imagebuilder/winsrv_<%= @version %>-report.jsonl && exit $result
 fi
 
 # Remove old images, retain the most recent
@@ -24,7 +24,7 @@ then
     	echo "Image copied from source host." >> $logfile
 else
     	echo "Failed to copy the image from source host with status $result" >> $logfile
-        exit $result
+        jq -nc '{"result": "failed"}' > /var/log/imagebuilder/winsrv_<%= @version %>-report.jsonl && exit $result
 fi
 
 # Convert the image to RAW and then delete the source image
@@ -35,7 +35,7 @@ then
         rm -rf /opt/images/public_builds/winsrv_<%= @version %>-${date}.qcow2
 else
     	echo "Image conversion failed with status $result" >> $logfile
-        exit $result
+        jq -nc '{"result": "failed"}' > /var/log/imagebuilder/winsrv_<%= @version %>-report.jsonl && exit $result
 fi
 
 /usr/bin/md5sum /opt/images/public_builds/winsrv_<%= @version %>-${date}.raw >> /opt/images/public_builds/winsrv_<%= @version %>-${date}.md5
@@ -44,7 +44,7 @@ then
     	echo "Calculated checksum for image." >> $logfile
 else
     	echo "Failed to calculate checksum with status $result" >> $logfile
-        exit $result
+        jq -nc '{"result": "failed"}' > /var/log/imagebuilder/winsrv_<%= @version %>-report.jsonl && exit $result
 fi
 
 ln -srf /opt/images/public_builds/winsrv_<%= @version %>-${date}.raw /opt/images/public_builds/winsrv_<%= @version %>-latest.raw

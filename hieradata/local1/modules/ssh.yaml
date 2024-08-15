@@ -1,6 +1,6 @@
 ---
 # Allow root login with password in local1
 ssh::server::options:
+  PermitRootLogin: 'yes'
   'Match User root':
-    PermitRootLogin: 'yes'
     PasswordAuthentication: 'yes'

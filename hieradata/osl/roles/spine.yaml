@@ -11,12 +11,23 @@ named_interfaces::config:
 # FIXME:sensu-go
 profile::monitoring::sensu::agent::enable_go_agent:     false
 
+profile::network::leaf::switchd_conf:
+  'resilient_hash_enable':
+    line: 'resilient_hash_enable = TRUE'
+    path: '/etc/cumulus/datapath/traffic.conf'
+
 profile::network::leaf::acls:
   '02control_plane_custom.rules':
     iptables:
+      # Allow access to the S3 service from everywhere
+      - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -d %{hiera('netcfg_pub_object')} --dport 8080 -j ACCEPT"
+      - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -d %{hiera('public__ip__object')} --dport 8080 -j ACCEPT"
       # Allow DNS requests to ns1.nrec.no
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -d 158.37.63.251 --dport 53 -j ACCEPT"
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p udp -d 158.37.63.251 --dport 53 -j ACCEPT"
+      # TEMPORARY: Allow DNS requests to 158.39.75.101 (RT#6178001)
+      - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -d 158.39.75.101 --dport 53 -j ACCEPT"
+      - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p udp -d 158.39.75.101 --dport 53 -j ACCEPT"
       # TEMPORARY: Allow SMTP requests to 158.39.48.164
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -d 158.39.48.164 --dport 25 -j ACCEPT"
       # Allow SMTP requests to 158.39.75.101 (RT#5169770) Updated to 158.39.75.12 per request (#5547528)
@@ -102,9 +113,14 @@ profile::network::leaf::acls:
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp --dport 9200 -j DROP"
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp --dport 27017 -j DROP"
     ip6tables:
+      # Allow access to the S3 service from everywhere
+      - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -d %{hiera('public__ipv6__object')} --dport 8080 -j ACCEPT"
       # Allow DNS requests to ns1.nrec.no
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -d 2001:700:2:82ff::251 --dport 53 -j ACCEPT"
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p udp -d 2001:700:2:82ff::251 --dport 53 -j ACCEPT"
+      # TEMPORARY: Allow DNS requests to 2001:700:2:8200::2056 (RT#6178001)
+      - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -d 2001:700:2:8200::2056 --dport 53 -j ACCEPT"
+      - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p udp -d 2001:700:2:8200::2056 --dport 53 -j ACCEPT"
       # Allow SMTP requests to 2001:700:2:8200::2201 (RT#5169770) Updated to 2001:700:2:8200::2060 per request (#5547528)
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -d 2001:700:2:8200::2060 --dport 25 -j ACCEPT"
       # Allow squid to 2001:700:2:8200::25f0 (CERN ATLAS - atlas-db-squid1.grid.uiocloud.no)
@@ -783,6 +799,7 @@ frrouting::frrouting::bgp_neighbor_groups:
     'options':
       - 'peer-group'
       - "remote-as %{hiera('bgp_as')}"
+      - 'addpath-tx-all-paths'
       - 'route-reflector-client'
       - 'soft-reconfiguration inbound'
       - 'route-map rr-client-allow in'
@@ -803,12 +820,12 @@ frrouting::frrouting::bgp_neighbor_groups:
       - '172.18.32.116'
       - '172.18.32.117'
       - '172.18.32.118' # compute-10
-      - '172.18.33.11'  # atlas-11
+      - '172.18.33.11'  # epyc-11
       - '172.18.33.12'
       - '172.18.33.13'
       - '172.18.33.14'
       - '172.18.33.15'
-      - '172.18.33.16'  # atlas-16
+      - '172.18.33.16'  # epyc-16
       - '172.18.33.17'  # vgpu-17
       - '172.18.33.18'  # robin-18
       - '172.18.33.19'  # vgpu-19
@@ -841,7 +858,6 @@ frrouting::frrouting::bgp_neighbor_groups:
       - '172.18.33.48'
       - '172.18.33.49'  # compute-49
       - '172.18.33.82'  # compute-50
-      - '172.18.33.83'  # numascale-51
       - '172.18.33.84'  # epyc-52
       - '172.18.33.85'  # epyc-53
       - '172.18.33.86'  # epyc-54
@@ -854,8 +870,13 @@ frrouting::frrouting::bgp_neighbor_groups:
       - '172.18.33.122'
       - '172.18.33.123'
       - '172.18.33.124'
+      - '172.18.33.125' # compute-64
+      - '172.18.33.126' # compute-65
+      - '172.18.33.127' # compute-66
     'options6':
       - 'neighbor rr-clients route-reflector-client'
+      - 'neighbor rr-clients soft-reconfiguration inbound'
+      - 'neighbor rr-clients addpath-tx-all-paths'
       - 'neighbor rr-clients route-map rr-client-allow6 in'
       - 'neighbor rr-clients route-map rr-client-allow6 out'
       - 'maximum-paths ibgp 5'
@@ -923,6 +944,60 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'fd32::1:122'
       - 'fd32::1:123'
       - 'fd32::1:124'
+      - 'fd32::1:125' # compute-64
+      - 'fd32::1:126' # compute-65
+      - 'fd32::1:127' # compute-66
+  'object_rgw':
+    'options':
+      - 'peer-group'
+      - "remote-as %{hiera('bgp_as')}"
+      - 'addpath-tx-all-paths'
+      - 'bfd'
+    'options6':
+      - 'neighbor object_rgw activate'
+      - 'neighbor object_rgw addpath-tx-all-paths'
+    'ip_access_list':
+      - "%{hiera('public__ip__object')}/32"
+    'ip_access_list6':
+      - "%{hiera('public__ipv6__object')}/128"
+    'members':
+      - '172.18.32.84'  # rgw-01
+      - '172.18.32.85'  # rgw-02
+      - '172.18.32.87'  # rgw-03
+  'elastic_rail_o1p':
+    'options':
+      - 'peer-group'
+      - "remote-as %{hiera('elasticip_rail_o1p_asn')}"
+      - "password %{hiera('elasticip_rail_o1p_md5')}"
+      - 'soft-reconfiguration inbound'
+      - 'ebgp-multihop'
+      - 'bfd'
+    'options6':
+      - 'neighbor elastic_rail_o1p activate'
+      - 'neighbor elastic_rail_o1p soft-reconfiguration inbound'
+    'bgp_listen_range':
+      - "%{hiera('netcfg_elastic_cidr')}"
+    'ip_access_list':
+      - "158.39.75.253/32"
+    'ip_access_list6':
+      - "2001:700:2:82f0::1344/128"
+  'elastic_rail_o1t':
+    'options':
+      - 'peer-group'
+      - "remote-as %{hiera('elasticip_rail_o1t_asn')}"
+      - "password %{hiera('elasticip_rail_o1t_md5')}"
+      - 'soft-reconfiguration inbound'
+      - 'ebgp-multihop'
+      - 'bfd'
+    'options6':
+      - 'neighbor elastic_rail_o1t activate'
+      - 'neighbor elastic_rail_o1t soft-reconfiguration inbound'
+    'bgp_listen_range':
+      - "%{hiera('netcfg_elastic_cidr')}"
+    'ip_access_list':
+      - "158.39.75.254/32"
+    'ip_access_list6':
+      - "2001:700:2:82f0::1345/128"
 
 frrouting::frrouting::bgp_options:
   - "bgp router-id %{ipaddress_trp1}"
@@ -940,6 +1015,7 @@ frrouting::frrouting::bgp_accesslist:
     - 'seq 25 permit 10.2.0.0 0.0.15.255'
     - 'seq 30 permit 10.4.0.0 0.0.15.255'
     - 'seq 35 permit 10.6.0.0/20'
+    - "seq 36 permit %{hiera('bgp_loopback_addr')}/32"
     - 'seq 40 permit 172.18.32.0 0.0.0.255'
     - 'seq 250 deny 0.0.0.0/0'
   '20':

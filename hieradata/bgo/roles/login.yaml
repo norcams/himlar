@@ -1,5 +1,4 @@
 ---
-profile::network::services::manage_dhcp:  false
 profile::firewall::pre::manage_ipv6_ssh:  true
 profile::base::login::forward_oobnet:     true
 profile::base::login::oob_net:            "172.17.0.0/21"
@@ -8,7 +7,7 @@ profile::base::login::oob_dhcrelay:       true
 
 # Himlar bootstrap
 profile::bootstrap::himlar::manage_bootstrap_scripts: true
-himlar_bootstrap::tftp_install:
+profile::bootstrap::himlar::tftp:
   'bgo-controller-01':
     domain:           'mgmt.iaas.intern'
     dhcp_interface:   'eth2'
@@ -44,24 +43,11 @@ profile::base::login::db_servers:
     hour:     '*'
     minute:   '30'
     command:  '/usr/local/sbin/db-dump.sh bgo-db-regional-01 >/dev/null'
-  test01-db-global-01:
-    hour:     '*'
-    minute:   '20'
-    command:  '/usr/local/sbin/db-dump.sh test01-db-global-01 >/dev/null'
-  test01-db-regional-01:
-    hour:     '*'
-    minute:   '30'
-    command:  '/usr/local/sbin/db-dump.sh test01-db-regional-01 >/dev/null'
   bgo-db-archival:
     hour:     '0'
     minute:   '45'
     weekday:  'Monday'
     command:  '/usr/local/sbin/db-longterm-bck.sh -e bgo >/dev/null'
-  test01-db-archival:
-    hour:     '0'
-    minute:   '55'
-    weekday:  'Monday'
-    command:  '/usr/local/sbin/db-longterm-bck.sh -e test01 >/dev/null'
 
 ssh::server::options:
   # No 2FA possible with gitolite
@@ -81,9 +67,9 @@ ssh::server::options:
   'Match User git Address 2001:700:100:8241::100':
     AuthenticationMethods: 'publickey'
   # osl-login-02
-  'Match User git Address 129.240.224.101':
+  'Match User git Address 158.39.75.246':
     AuthenticationMethods: 'publickey'
-  'Match User git Address 2001:700:100:8241::101':
+  'Match User git Address 2001:700:2:82ff::8':
     AuthenticationMethods: 'publickey'
   # internal mgmt network bgo
   'Match User git Address 172.16.0.0/21':

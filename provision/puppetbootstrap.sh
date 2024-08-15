@@ -25,7 +25,7 @@ gpgcheck=1
 EOM
 }
 
-el8_repos()
+dnf_repos()
 {
 
   repo="https://download.iaas.uio.no/nrec/${repo_env}/${repo_dist}"
@@ -46,9 +46,9 @@ EOM
   # Add our puppetlabs mirror
 cat > /etc/yum.repos.d/puppetlabs.repo <<- EOM
 [puppetlabs]
-name=Puppet 6 Yum Repo
-baseurl=$repo/puppetlabs6/
-gpgkey=$repo/puppetlabs6/RPM-GPG-KEY-puppet-20250406
+name=Puppet 7 Yum Repo
+baseurl=$repo/puppetlabs7/
+gpgkey=$repo/puppetlabs7/RPM-GPG-KEY-puppet-20250406
 enabled=1
 gpgcheck=1
 EOM
@@ -62,19 +62,33 @@ bootstrap_puppet()
 
   # setup dnf/yum
   if command -v dnf >/dev/null 2>&1; then
-    echo "bootstrap puppet for el8..."
-    dnf install --refresh -y epel-release # to get gpgkey for epel
-    el8_repos
-    dnf -y upgrade
-    dnf install -y puppet-agent git-core vim network-scripts gcc
+    echo "bootstrap puppet for ${repo_dist}..."
 
-    /opt/puppetlabs/puppet/bin/gem install -N puppet_forge -v 3.2.0
-    /opt/puppetlabs/puppet/bin/gem install -N r10k -v 3.16.0
+    if [[ $HIMLAR_CERTNAME == *"vagrant"* ]]; then
+      # remove all repos except the one we have added while building the box
+      find /etc/yum.repos.d/ ! -name 'almalinux.repo' -type f | xargs rm
+      repo_env='test'
+    fi
+
+    dnf install --refresh -y epel-release # to get gpgkey for epel
+    dnf_repos
+    dnf -y upgrade
+    dnf install -y puppet-agent git-core vim gcc make
+
+    if [[ $repo_dist == "el8" ]]; then
+      dnf install -y network-scripts
+    fi
+    #r10k bug: https://github.com/puppetlabs/r10k/issues/1370
+    /opt/puppetlabs/puppet/bin/gem install -N faraday-net_http -v 3.0.2
+    /opt/puppetlabs/puppet/bin/gem install -N faraday -v 2.8.1
+
+    /opt/puppetlabs/puppet/bin/gem install -N r10k
     # this is need one puppetmaster for some modules
     # in vagrant we will need this on all nodes
     /opt/puppetlabs/puppet/bin/gem install -N toml-rb
-    # /opt/puppetlabs/puppet/bin/gem install -N puppet_forge
-    ln -sf /opt/puppetlabs/puppet/bin/wrapper.sh /opt/puppetlabs/bin/r10k
+
+    # The r10k path must be the same as in puppetmodules.sh
+    ln -sf /opt/puppetlabs/puppet/bin/r10k /opt/puppetlabs/bin/r10k
 
   elif command -v yum >/dev/null 2>&1; then
     echo "bootstrap puppet for el7..."
@@ -85,7 +99,7 @@ bootstrap_puppet()
     yum install -y puppet-agent git vim gcc
     # Remove default version 3 hiera.yaml
     rm -f /etc/puppetlabs/puppet/hiera.yaml
-
+    /opt/puppetlabs/puppet/bin/gem install -N cri -v 2.15.11
     /opt/puppetlabs/puppet/bin/gem install -N puppet_forge -v 3.2.0
     /opt/puppetlabs/puppet/bin/gem install -N r10k -v 3.16.0
     ln -sf /opt/puppetlabs/puppet/bin/wrapper.sh /opt/puppetlabs/bin/r10k
@@ -114,16 +128,26 @@ bootstrap_puppet()
   touch /opt/himlar/bootstrap && echo "Created bootstrap marker: /opt/himlar/bootstrap"
 }
 
+# Source command line options as env vars
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    HIMLAR_*=*|FACTER_*=*)
+      export $1
+      shift
+      ;;
+    *)
+      # unknown
+      shift
+      ;;
+  esac
+done
+
 REPORT_DIR=/opt/puppetlabs/puppet/cache/state
 
-# test repos are used if we do not provide repo env or is running in vagrant
-# in vagrant this script is called with multiple args
-#if $(hostname) == *"vagrant"* ; then
-#  repo_env='test'
-#elif $# -e 1 ; then
-#  repo_env=$1
-#else
-repo_env='test'
-#fi
+if [[ $HIMLAR_CERTNAME == *"vagrant"* ]]; then
+  repo_env='test'
+else
+  repo_env='prod'
+fi
 
 test -f $REPORT_DIR/last_run_report.yaml || bootstrap_puppet

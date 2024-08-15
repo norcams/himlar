@@ -39,8 +39,8 @@ network::interfaces_hash:
     onboot:       'yes'
     type:         'Bridge'
     peerdns:      'yes'
-    dns1:         "%{hiera('netcfg_dns_server1')}"
-    dns2:         "%{hiera('netcfg_dns_server2')}"
+    dns1:         "%{hiera('netcfg_dns_mgmt_server1')}"
+    dns2:         "%{hiera('netcfg_dns_mgmt_server2')}"
     domain:       "%{hiera('netcfg_dns_search')}"
   'br1':
     onboot:       'yes'
@@ -71,3 +71,6 @@ profile::application::windowsimage::manage_firewall: true
 profile::base::yumrepo::repo_hash:
   hashicorp:
     ensure: present
+
+# Himlar bootstrap
+profile::bootstrap::himlar::manage_bootstrap_scripts: true

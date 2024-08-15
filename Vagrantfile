@@ -65,8 +65,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         box.vm.network :private_network, ip: ip, libvirt__dhcp_enabled: auto_config, auto_config: auto_config, libvirt__forward_mode: forwarding
       end
 
+      # extra disk
+      unless n['disk'].empty?
+        box.vm.disk :disk, name: "ext", size: n['disk']
+      end
+
       # Pass environment variables to the provisioning scripts
       ENV['HIMLAR_CERTNAME'] = "%s-%s-%s.%s" % [ n['location'],n['role'],n['hostid'],n['domain'] ]
+      ENV['HIMLAR_PUPPET_ENV'] = n['puppet_env']
       env_data = ENV.select { |k, _| /^HIMLAR_|^FACTER_/i.match(k) }
       args = env_data.map { |k, v| "#{k}=#{v}" }
       box.vm.provision :shell, :path => 'provision/puppetbootstrap.sh', args: args
@@ -78,9 +84,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         libvirt.cpus   = n['cpus']
         libvirt.memory = n['memory']
         libvirt.qemu_use_session = false
-        if instance_name.eql?("metric")
-          libvirt.storage :file, :size => '2G', :detect_zeroes => 'on'
-        end
       end
 
       box.vm.provider :virtualbox do |vbox|

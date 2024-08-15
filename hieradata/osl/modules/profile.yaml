@@ -8,3 +8,6 @@ profile::application::himlarcli::slack_channel: '#iaas'
 # Enable designate in osl
 profile::openstack::identity::designate_enabled:  true
 profile::openstack::dashboard::enable_designate:  true
+
+# Enable radosgw object storage
+profile::openstack::identity::radosgw_enabled:    true

@@ -90,7 +90,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
 profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
   'uib-https-grid':
     listening_service:  'uib-https-grid'
-    ports:              18082
+    ports:              '18082'
     server_names:
       - 'uib-grid-01.grid.uib.no'
       - 'uib-grid-02.grid.uib.no'

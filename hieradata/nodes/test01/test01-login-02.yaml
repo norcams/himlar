@@ -1,0 +1,39 @@
+---
+network::interfaces_hash:
+  'eth0':
+    ipaddress:      '129.177.6.192'
+    netmask:        '255.255.255.0'
+    gateway:        '129.177.6.1'
+    defroute:       'yes'
+    onboot:         'yes'
+    dns1:           '129.177.6.54'
+    dns1:           "%{hiera('netcfg_dns_mgmt_server2')}"
+    domain:         "%{hiera('netcfg_dns_search')}"
+    peerdns:        'yes'
+    ipv6init:       'yes'
+    ipv6addr:       '2001:700:200:6::192/64'
+    ipv6_defaultgw: '2001:700:200:6::1'
+    mtu:            '9000'
+  'eth1':
+    ipaddress:      "%{hiera('netcfg_mgmt_netpart')}.8" #FIXME
+    netmask:        "%{hiera('netcfg_mgmt_netmask')}"
+    defroute:       'no'
+    onboot:         'yes'
+  'eth2':
+    ipaddress:      '172.28.159.8' #FIXME
+    netmask:        '255.255.255.0'
+    defroute:       'no'
+    onboot:         'yes'
+
+
+
+# enable iaas account, but only make it available in the normal fashion
+# from bgo-login-01
+accounts::accounts:
+  'iaas':
+    ensure: present
+
+ssh::server::options:
+  # No 2FA if coming from bgo-login-01
+  'Match User iaas Address 172.28.0.9':
+    AuthenticationMethods: 'publickey'

@@ -1,0 +1,23 @@
+---
+profile::base::network::network_auto_bonding:
+  trp:
+    em3:
+      'team_port_config': '{ "prio" : 100 }'
+      'mtu': '9000'
+    em4:
+      'team_port_config': '{ "prio" : 100 }'
+      'mtu': '9000'
+
+profile::base::lvm::physical_volume:
+  '/dev/sdb':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_instances':
+    physical_volumes:
+      - /dev/sdb
+profile::base::lvm::logical_volume:
+  'lv_instances':
+    volume_group: 'vg_instances'
+    fs_type:      "xfs"
+    mountpath:    "/var/lib/nova/instances"

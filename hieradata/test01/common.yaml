@@ -65,13 +65,18 @@ netcfg_trp_net_c6:      '172.30.6'
 netcfg_trp_net_c7:      '172.30.7'
 netcfg_trp_netmask:     '255.255.248.0'
 netcfg_trp_netmask6:    '64'
+netcfg_trp_cidr4:       '21'
+netcfg_oob_gateway:     '172.28.159.10'
+netcfg_oob_netpart:     '172.28.159'
+netcfg_oob_netmask:     '255.255.255.0'
 netcfg_ceph_netpart:    '172.29.0'
 netcfg_ceph_netmask:    '255.255.248.0'
 netcfg_live_netpart:    '172.31.0'
 netcfg_live_netmask:    '255.255.248.0'
-#netcfg_dns_server2:     '129.177.12.31'
-netcfg_dns_server1:     '172.28.0.10'
-netcfg_dns_server2:     '172.28.0.44'
+#netcfg_dns_mgmt_server2:     '129.177.12.31'
+netcfg_dns_mgmt_server1:     '172.28.0.10'
+netcfg_dns_mgmt_server2:     '172.28.0.44'
+netcfg_dns_mgmt_server3:     '172.28.0.45'
 netcfg_dns_search:      "%{hiera('domain_mgmt')} %{hiera('domain_trp')}"
 netcfg_priv_gateway:    '172.30.0.26'
 netcfg_priv_network:    '10.0.250.0/24'
@@ -87,6 +92,10 @@ netcfg_trp_rr:
     peer_ipv4: '172.30.6.2'
     peer_ipv6: 'fd00::6:2'
 
+internal__ip__api:              '10.255.10.122'
+internal__ipv6__api:            'fd00:ffff:ffff::122'
+public__ip__api:                '129.177.31.122'
+public__ipv6__api:              '2001:700:200:917::3f22'
 public__ip__proxy:              '129.177.31.123'
 public__ip__ns:                 '129.177.31.117'
 public__ipv6__ns:               '2001:700:200:917::3f17'
@@ -125,10 +134,38 @@ profile::network::services::dns_records:
     "%{::location}-login-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_mgmt_netpart')}.10"
     "git.%{hiera('domain_mgmt')}":                          "%{hiera('netcfg_mgmt_net_c0')}.9"
     "monitor.%{hiera('domain_mgmt')}":                      "%{hiera('netcfg_mgmt_net_c0')}.21"
+    # oob nodes
+    "repo.%{hiera('domain_oob')}":                          "%{hiera('netcfg_oob_netpart')}.11"
+    # Temp. for old login-01
+    "%{::location}-login-01old.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c0')}.199"
+    # trp api services
+    "dns.%{hiera('domain_trp')}":                           "%{hiera('internal__ip__api')}"
+    "image.%{hiera('domain_trp')}":                         "%{hiera('internal__ip__api')}"
+    "volume.%{hiera('domain_trp')}":                        "%{hiera('internal__ip__api')}"
+    "compute.%{hiera('domain_trp')}":                       "%{hiera('internal__ip__api')}"
+    "placement.%{hiera('domain_trp')}":                     "%{hiera('internal__ip__api')}"
+    "network.%{hiera('domain_trp')}":                       "%{hiera('internal__ip__api')}"
+    "identity.%{hiera('domain_trp')}":                      "%{hiera('internal__ip__api')}"
+    "object.%{hiera('domain_trp')}":                        "%{hiera('internal__ip__api')}"
+    "metric.%{hiera('domain_trp')}":                        "%{hiera('internal__ip__api')}"
   AAAA:
-    "ns.%{hiera('domain_frontend')}":     '2001:700:200:917::3f17'
-    "resolver.%{hiera('domain_public')}": '2001:700:200:917::3f18'
+    "ns.%{hiera('domain_frontend')}":          '2001:700:200:917::3f17'
+    "resolver.%{hiera('domain_public')}":      '2001:700:200:917::3f18'
+    "api.%{hiera('domain_public')}":           "%{hiera('public__ipv6__api')}"
+    "identity.api.%{hiera('domain_public')}":  "%{hiera('public__ipv6__api')}"
+    "network.api.%{hiera('domain_public')}":   "%{hiera('public__ipv6__api')}"
+    "image.api.%{hiera('domain_public')}":     "%{hiera('public__ipv6__api')}"
+    "volume.api.%{hiera('domain_public')}":    "%{hiera('public__ipv6__api')}"
+    "compute.api.%{hiera('domain_public')}":   "%{hiera('public__ipv6__api')}"
+    "placement.api.%{hiera('domain_public')}": "%{hiera('public__ipv6__api')}"
+    "dns.api.%{hiera('domain_public')}":       "%{hiera('public__ipv6__api')}"
+    "status.%{hiera('domain_frontend')}":      "%{hiera('public__ipv6__api')}"
+    "report.%{hiera('domain_frontend')}":      "%{hiera('public__ipv6__api')}"
+    "access.%{hiera('domain_frontend')}":      "%{hiera('public__ipv6__api')}"
+    "console.%{hiera('domain_public')}":       "%{hiera('public__ipv6__api')}"
   PTR:
+    # Temp. for old login-01
+    "199.%{hiera('reverse_mgmt_c0')}":    "%{::location}-login-01old.%{hiera('domain_mgmt')}"
     # public IPv4
     "117.%{hiera('reverse_public')}":  "ns.%{hiera('domain_frontend')}"
     "118.%{hiera('reverse_public')}":  "resolver.%{hiera('domain_public')}"
@@ -204,6 +241,7 @@ profile::openstack::resource::networks:
     shared: false
     tenant_name: 'openstack'
     provider_network_type: 'local'
+#    mtu: '9000' # FIXME: param available in puppet-neutron for Zed. Meanwhile, set once with CLI after creation
 
 profile::openstack::resource::subnets:
   public1_IPv4:

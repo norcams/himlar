@@ -1,15 +1,36 @@
 ---
+# Note: We need to add the bridge before the controller interface
 network::interfaces_hash:
-  'eth1':
-    onboot:    'yes'
-    mtu:       '1500'
-    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.100"
-    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
-  'eth2':
-    onboot:    'yes'
-    mtu:       '1500'
-    ipaddress: "%{hiera('netcfg_trp_netpart')}.100"
-    netmask:   "%{hiera('netcfg_trp_netmask')}"
+  br0: # mgmt
+    connection_type:  'bridge'
+    ipv4:
+      address1:       "%{hiera('netcfg_mgmt_netpart')}.100/24"
+      dns:            "%{hiera('netcfg_dns_mgmt_server1')};%{hiera('netcfg_dns_mgmt_server2')};"
+      dns-search:     "%{hiera('domain_mgmt')};%{hiera('domain_trp')}"
+      never-default:  'true'
+      method:         'manual'
+  br1: # trp
+    connection_type:  'bridge'
+    ipv4:
+      address:        "%{hiera('netcfg_trp_netpart')}.100/24"
+      never-default:  'true'
+      method:         'manual'
+  eth0:
+    ipv4:
+      method:         'auto'
+    ipv6:
+      method:         'auto'
+  eth1:
+    controller:       'br0'
+  eth2:
+    controller:       'br1'
+  eth3: {}
+
+
+network::reload: true
+
+network::default_interfaces_hash:
+  force_update: false
 
 # Add this to make vagrant-controller-01 the jump point for boostrap
 profile::bootstrap::himlar::manage_bootstrap_scripts: true

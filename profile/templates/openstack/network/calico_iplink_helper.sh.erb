@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+# Execute after calico-dhcp-agent has started as a non-root user
+# as the dummy interface is used as a test for the ip link monitor.
+# Also, clean up leftover ip link instances
+#
+for i in $(/usr/bin/pgrep -u neutron ip)
+do
+  kill -TERM $i
+done
+  /bin/sleep 1
+  /sbin/ip link add calico-dhcp-dmy type dummy
+  /bin/sleep 2
+  /sbin/ip link del calico-dhcp-dmy type dummy
+exit 0

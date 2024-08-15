@@ -13,12 +13,23 @@ profile::base::lvm::logical_volume:
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
 
-# only one vgpu partition pr physical card
-nova::compute::vgpu::vgpu_types_device_addresses_mapping: { 'nvidia-301', }
+# NVIDIA V100 16GB partitioned into 1x vGPUs, with CUDA support
+#
+# From "mdevctl types":
+#
+#  nvidia-109
+#    Available instances: 0
+#    Device API: vfio-pci
+#    Name: GRID V100-16Q
+#    Description: num_heads=4, frl_config=60, framebuffer=16384M, max_resolution=7680x4320, max_instance=1
+#
+# Example: 'nvidia-35' or ['nvidia-35', 'nvidia-36']
+#
+nova::compute::vgpu::vgpu_types_device_addresses_mapping: { 'nvidia-109', }
 
 # Configuration values for the "create-mdev" service
 profile::application::create_mdev::enable:                true
-profile::application::create_mdev::nvidia_gpu_type:       'nvidia-301'
+profile::application::create_mdev::nvidia_gpu_type:       'nvidia-109'
 profile::application::create_mdev::max_instances_per_gpu: 1
 
-nova::compute::libvirt::libvirt_cpu_model: 'Cascadelake-Server-noTSX'
+nova::compute::libvirt::cpu_models: ['Cascadelake-Server-noTSX']

@@ -25,14 +25,6 @@ dhcp::pools:
     nameservers:
       - "%{hiera('netcfg_oob_netpart')}.10"
 
-profile::webserver::apache::vhosts:
-  'repo-oobip':
-    servername:     "%{::ipaddress_oob1}"
-    port:           80
-    docroot:        '/opt/repo/public'
-    docroot_owner:  'iaas'
-    serveraliases:  [ "repo.%{hiera('domain_oob')}", ]
-
 dhcp::hosts:
   bgo-leaf-01:
     mac: '00:01:e8:d8:38:aa'
@@ -332,7 +324,7 @@ dhcp::hosts:
     'mac': 'ec:2a:72:15:36:68'
     'ip':  '172.17.1.138'
   bgo-compute-78-bmc:
-    'mac': 'ec:2a:72:15:40:dc'
+    'mac': 'b0:7b:25:e5:b4:ee'
     'ip':  '172.17.1.139'
   bgo-compute-79-bmc:
     'mac': 'ec:2a:72:1e:84:42'
@@ -343,6 +335,15 @@ dhcp::hosts:
   bgo-compute-81-bmc:
     'mac': 'd0:8e:79:c3:d0:cc'
     'ip':  '172.17.1.142'
+  bgo-compute-82-bmc:
+    'mac': 'c4:cb:e1:b1:1c:92'
+    'ip':  '172.17.1.143'
+  bgo-compute-83-bmc:
+    'mac': 'c4:cb:e1:b1:2a:cc'
+    'ip':  '172.17.1.144'
+  bgo-compute-84-bmc:
+    'mac': 'c4:cb:e1:b1:1b:b4'
+    'ip':  '172.17.1.145'
   bgo-controller-04-bmc:
     mac: 'b0:83:fe:e9:01:a5'
     ip:  '172.17.0.114'
@@ -373,15 +374,6 @@ dhcp::hosts:
   bgo-object-05-bmc:
     mac: '50:9a:4c:a9:90:b4'
     ip:  '172.17.0.123'
-  bgo-storage-01-bmc:
-    mac: '18:fb:7b:99:3b:a6'
-    ip:  '172.17.0.106'
-  bgo-storage-02-bmc:
-    mac: '18:fb:7b:99:4f:50'
-    ip:  '172.17.0.107'
-  bgo-storage-03-bmc:
-    mac: '18:fb:7b:99:4f:be'
-    ip:  '172.17.0.108'
   bgo-storage-04-bmc:
     mac: '18:fb:7b:99:4f:da'
     ip:  '172.17.0.109'

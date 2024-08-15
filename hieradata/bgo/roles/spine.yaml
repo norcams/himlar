@@ -1,7 +1,6 @@
 ---
 profile::network::leaf::manage_license: true
 profile::network::leaf::manage_portconfig: true
-profile::network::leaf::manage_switchdconf: true
 
 named_interfaces::config:
   mgmt:
@@ -12,9 +11,17 @@ named_interfaces::config:
 # FIXME:sensu-go
 profile::monitoring::sensu::agent::enable_go_agent:     false
 
+profile::network::leaf::switchd_conf:
+  'resilient_hash_enable':
+    line: 'resilient_hash_enable = TRUE'
+    path: '/etc/cumulus/datapath/traffic.conf'
+
 profile::network::leaf::acls:
   '02control_plane_custom.rules':
     iptables:
+      # Allow access to the S3 service from everywhere
+      - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -d %{hiera('netcfg_pub_object')} --dport 8080 -j ACCEPT"
+      - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -d %{hiera('public__ip__object')} --dport 8080 -j ACCEPT"
       # Allow SMB and NFS from UiB network (only BGO)
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -s 129.177.0.0/16 --dport 139 -j ACCEPT"
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p udp -s 129.177.0.0/16 --dport 139 -j ACCEPT"
@@ -104,6 +111,8 @@ profile::network::leaf::acls:
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp --dport 9200 -j DROP"
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp --dport 27017 -j DROP"
     ip6tables:
+      # Allow access to the S3 service from everywhere
+      - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -d %{hiera('public__ipv6__object')} --dport 8080 -j ACCEPT"
       # Allow SMB and NFS from UiB network (only BGO)
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -s 2001:700:200::/48 --dport 139 -j ACCEPT"
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p udp -s 2001:700:200::/48 --dport 139 -j ACCEPT"
@@ -1100,27 +1109,12 @@ frrouting::frrouting::bgp_options:
   - 'maximum-paths ibgp 5'
   - 'bgp bestpath as-path multipath-relax'
 
-frrouting::frrouting::bgp_networks:
-  - '109.105.125.0/26'
-  - '192.168.243.0/24'
-  - '158.37.64.0/23'
-  - '158.39.74.0/24'
-  - '158.39.77.0/24'
-  - '158.39.201.0/24'
-
-frrouting::frrouting::bgp_networks6:
-  - '2001:948:62:1::/64'
-  - '2001:948:62:3::/64'
-  - '2001:948:62:4::/64'
-  - 'fd00:192:168:243::/64'
-  - '2001:700:2:8300::/56'
-
-
 frrouting::frrouting::bgp_neighbor_groups:
   'rr-clients':
     'options':
       - 'peer-group'
       - "remote-as %{hiera('bgp_as')}"
+      - 'addpath-tx-all-paths'
       - 'route-reflector-client'
       - 'soft-reconfiguration inbound'
       - 'route-map rr-client-allow in'
@@ -1213,8 +1207,13 @@ frrouting::frrouting::bgp_neighbor_groups:
       - '172.18.1.140'
       - '172.18.1.141'
       - '172.18.1.142'
+      - '172.18.1.143'
+      - '172.18.1.144'
+      - '172.18.1.145'
     'options6':
       - 'neighbor rr-clients route-reflector-client'
+      - 'neighbor rr-clients soft-reconfiguration inbound'
+      - 'neighbor rr-clients addpath-tx-all-paths'
       - 'neighbor rr-clients route-map rr-client-allow6 in'
       - 'neighbor rr-clients route-map rr-client-allow6 out'
       - 'maximum-paths ibgp 5'
@@ -1302,9 +1301,43 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'fd00::1:140'
       - 'fd00::1:141'
       - 'fd00::1:142'
-#  'other-clients':
-#    'options':
-#    - 'peer-group'
+      - 'fd00::1:143'
+      - 'fd00::1:144'
+      - 'fd00::1:145'
+  'object_rgw':
+    'options':
+      - 'peer-group'
+      - "remote-as %{hiera('bgp_as')}"
+      - 'addpath-tx-all-paths'
+      - 'bfd'
+    'options6':
+      - 'neighbor object_rgw activate'
+      - 'neighbor object_rgw addpath-tx-all-paths'
+    'ip_access_list':
+      - "%{hiera('public__ip__object')}/32"
+    'ip_access_list6':
+      - "%{hiera('public__ipv6__object')}/128"
+    'members':
+      - '172.18.0.84'  # rgw-01
+      - '172.18.0.85'  # rgw-02
+      - '172.18.0.87'  # rgw-03
+  'elastic_rail_b1p':
+    'options':
+      - 'peer-group'
+      - "remote-as %{hiera('elasticip_rail_b1p_asn')}"
+      - "password %{hiera('elasticip_rail_b1p_md5')}"
+      - 'soft-reconfiguration inbound'
+      - 'ebgp-multihop'
+      - 'bfd'
+    'options6':
+      - 'neighbor elastic_rail_b1p activate'
+      - 'neighbor elastic_rail_b1p soft-reconfiguration inbound'
+    'bgp_listen_range':
+      - "%{hiera('netcfg_elastic_cidr')}"
+    'ip_access_list':
+      - "158.39.74.253/32"
+    'ip_access_list6':
+      - "2001:700:2:83f0::1344/128"
 
 frrouting::frrouting::bgp_accesslist:
   '10':
@@ -1316,6 +1349,7 @@ frrouting::frrouting::bgp_accesslist:
     - 'seq 30 permit 10.1.0.0 0.0.15.255'
     - 'seq 35 permit 10.3.0.0 0.0.15.255'
     - 'seq 40 permit 10.5.0.0/20'
+    - "seq 41 permit %{hiera('bgp_loopback_addr')}/32"
     - 'seq 45 permit 10.109.0.0 0.0.15.255'
     - 'seq 50 permit 109.105.127.128 0.0.0.63'
     - 'seq 55 permit 172.18.0.0 0.0.7.255'

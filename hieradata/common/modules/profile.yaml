@@ -123,10 +123,16 @@ profile::base::yumrepo::repo_hash:
     baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/almalinux-AppStream/"
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-AlmaLinux'
     gpgcheck:       1
-    exclude:        'dnsmasq postgres*'
+    exclude:        'dnsmasq'
   AlmaLinux-PowerTools:
     descr:          'AlmaLinux-$releasever - PowerTools'
     baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/almalinux-powertools/"
+    gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-AlmaLinux'
+    gpgcheck:       1
+    ensure:         absent
+  AlmaLinux-HighAvailability:
+    descr:          'AlmaLinux-$releasever - HighAvailability'
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/almalinux-highavailability/"
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-AlmaLinux'
     gpgcheck:       1
     ensure:         absent
@@ -182,6 +188,12 @@ profile::base::yumrepo::repo_hash:
     baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/puppetlabs6/"
     gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/puppetlabs6/RPM-GPG-KEY-puppet-20250406"
     gpgcheck:       1
+  puppetlabs7:
+    descr:          Puppet 7 Yum Repo
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/puppetlabs7/"
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/puppetlabs7/RPM-GPG-KEY-puppet-20250406"
+    gpgcheck:       1
+    ensure:         absent
   epel:
     descr:          "Extra Packages for Enterprise Linux %{operatingsystemmajrelease} - $basearch"
     baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/epel"
@@ -222,20 +234,6 @@ profile::base::yumrepo::repo_hash:
     gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/rdo-%{hiera('openstack_version')}/RPM-GPG-KEY-CentOS-SIG-Cloud"
     exclude:        'python2-bcrypt'
     #exclude:        'mariadb*' FIXME: this should be added after adding mariadb repo to all roles connecting to db
-  calico312:
-    ensure:         absent
-    descr:          'Calico 3.12 Repository'
-    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico312/"
-    enabled:        1
-    gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/calico312/key"
-  calico320:
-    ensure:         absent
-    descr:          'Calico 3.20 Repository'
-    baseurl:        "%{hiera('yum_base_mirror')}/generic/calico320"
-    enabled:        1
-    gpgcheck:       1
-    gpgkey:         "%{hiera('yum_base_mirror')}/generic/calico320/key"
   calico322:
     ensure:         absent
     descr:          'Calico 3.22 Repository'
@@ -243,6 +241,20 @@ profile::base::yumrepo::repo_hash:
     enabled:        1
     gpgcheck:       1
     gpgkey:         "%{hiera('yum_base_mirror')}/generic/calico322/key"
+  calico326:
+    ensure:         absent
+    descr:          'Calico 3.26 Repository'
+    baseurl:        "%{hiera('yum_base_mirror')}/generic/calico326"
+    enabled:        1
+    gpgcheck:       1
+    gpgkey:         "%{hiera('yum_base_mirror')}/generic/calico326/key"
+  calico327:
+    ensure:         absent
+    descr:          'Calico 3.27 Repository'
+    baseurl:        "%{hiera('yum_base_mirror')}/generic/calico327"
+    enabled:        1
+    gpgcheck:       1
+    gpgkey:         "%{hiera('yum_base_mirror')}/generic/calico327/key"
   ceph-%{hiera('ceph_version')}:
     ensure:         absent
     descr:          'Ceph packages'

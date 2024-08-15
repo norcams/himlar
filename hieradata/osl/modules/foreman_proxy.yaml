@@ -1,6 +1,6 @@
 ---
 foreman_proxy::dhcp_range:                 '172.16.32.200 172.16.32.250'
 foreman_proxy::dhcp_gateway:               '172.16.32.10'
-foreman_proxy::dhcp_nameservers:           "%{hiera('netcfg_dns_server1')}, %{hiera('netcfg_dns_server2')}"
+foreman_proxy::dhcp_nameservers:           "%{hiera('netcfg_dns_mgmt_server1')}, %{hiera('netcfg_dns_mgmt_server2')}"
 foreman_proxy::dhcp_additional_interfaces: [ "%{::interface_oob1}", ]
 foreman_proxy::dns_server:                 '129.240.2.6'

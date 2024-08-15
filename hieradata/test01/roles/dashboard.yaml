@@ -10,3 +10,6 @@ profile::openstack::dashboard::allow_from_network:
 
 # FIXME:sensu-go
 profile::monitoring::sensu::agent::checks:              {}
+
+# Disable admin dashboard
+profile::openstack::dashboard::disable_admin_dashboard: true

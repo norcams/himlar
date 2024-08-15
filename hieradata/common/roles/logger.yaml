@@ -2,10 +2,8 @@
 include:
   default:
     - profile::logging::rsyslog::server
-    - profile::logging::logstash
-    - profile::logging::elasticsearch
-    - profile::logging::kibana
     - profile::logging::logrotate
+    - profile::logging::elk
 
 profile::base::selinux::manage_selinux:   true
 
@@ -102,13 +100,6 @@ logrotate::rules:
     missingok:      true
     rotate_every:   daily
     compress:       true
-
-# Enable extra yum repo
-profile::base::yumrepo::repo_hash:
-  elk6:
-    ensure: present
-  curator5:
-    ensure: present
 
 #cronjob to purge elasticsearch
 profile::base::common::manage_cron:  true

@@ -1,29 +1,33 @@
 ---
 network::interfaces_hash:
-  'eth0':
-    onboot:     'yes'
-    bridge:     'br0'
-  'eth0.100':
-    onboot:     'yes'
-    bridge:     'br1'
-    vlan:       'yes'
-  'br0':
-    dns1:       "%{hiera('netcfg_dns_server1')}"
-    dns2:       "%{hiera('netcfg_dns_server2')}"
-    domain:     "%{domain}"
-    defroute:   'yes'
-    peerdns:    'yes'
-    onboot:     'yes'
-    ipaddress:  "%{hiera('netcfg_mgmt_netpart')}.100"
-    netmask:    "%{hiera('netcfg_mgmt_netmask')}"
-    gateway:    "%{hiera('netcfg_mgmt_gateway')}"
-    type:       'Bridge'
-  'br1':
-    defroute:   'no'
-    onboot:     'yes'
-    ipaddress:  "%{hiera('netcfg_trp_netpart')}.100"
-    netmask:    "%{hiera('netcfg_trp_netmask')}"
-    type:       'Bridge'
+  eth0:
+    controller:       'br0'
+  eth0.100:
+    connection_type:  'vlan'
+    controller:       'br1'
+    vlan:
+      parent:         'eth0'
+      id:             100
+      flags:          1
+  br0: # mgmt
+    connection_type:  'bridge'
+    ipv4:
+      address1:       "%{hiera('netcfg_mgmt_netpart')}.100/24"
+      gateway:        "%{hiera('netcfg_mgmt_gateway')}"
+      dns:            "%{hiera('netcfg_dns_mgmt_server1')};%{hiera('netcfg_dns_mgmt_server2')};"
+      dns-search:     "%{hiera('domain_mgmt')};%{hiera('domain_trp')}"
+      method:         'manual'
+  br1: # trp
+    connection_type:  'bridge'
+    ipv4:
+      address:        "%{hiera('netcfg_trp_netpart')}.100/24"
+      never-default:  'true'
+      method:         'manual'
+
+network::reload: true
+
+network::default_interfaces_hash:
+  force_update: false
 
 # Use controller-01 for himlar bootstrap
 profile::bootstrap::himlar::manage_bootstrap_scripts: true

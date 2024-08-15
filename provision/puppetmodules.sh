@@ -2,35 +2,48 @@
 
 LN_OPTS="-sfT"
 CODE_PATH=/etc/puppetlabs/code
-ENV_PATH=environments/production
 R10K=/opt/puppetlabs/bin/r10k
 
-etc_puppet_modules="$(ls -d $CODE_PATH/modules/*/ 2>/dev/null)"
-opt_himlar_modules="$(ls -d /opt/himlar/modules/*/ 2>/dev/null)"
-host=$(hostname)
-environment=${host%%-*}     # assumes standard name convention with environment as first part (in front of a '-')
+#etc_puppet_modules="$(ls -d $CODE_PATH/modules/*/ 2>/dev/null)"
+#opt_himlar_modules="$(ls -d /opt/himlar/modules/*/ 2>/dev/null)"
+#host=$(hostname)
+#environment=${host%%-*}     # assumes standard name convention with environment as first part (in front of a '-')
 
-provision_from_puppetfile()
+provision_environment()
 {
-  ln $LN_OPTS /opt/himlar/manifests/site.pp $CODE_PATH/$ENV_PATH/manifests/site.pp
-  rm -rf $CODE_PATH/$ENV_PATH/hieradata
-  ln $LN_OPTS /opt/himlar/hieradata $CODE_PATH/$ENV_PATH/hieradata
-  ln $LN_OPTS /opt/himlar/hiera.yaml $CODE_PATH/$ENV_PATH/hiera.yaml
-  if [[ ! "${environment}x" == "vagrantx" ]]; then force="--force"; fi
+  PUPPET_ENV="${HIMLAR_PUPPET_ENV:-production}"
+  ENV_PATH=environments/$PUPPET_ENV
+  if [ ! -f $CODE_PATH/$ENV_PATH/manifests/site.pp ]; then
+    mkdir -p $CODE_PATH/$ENV_PATH/manifests
+    mkdir -p $CODE_PATH/$ENV_PATH/modules
+    ln $LN_OPTS /opt/himlar/manifests/site.pp $CODE_PATH/$ENV_PATH/manifests/site.pp
+    rm -rf $CODE_PATH/$ENV_PATH/hieradata
+    ln $LN_OPTS /opt/himlar/hieradata $CODE_PATH/$ENV_PATH/hieradata
+    ln $LN_OPTS /opt/himlar/hiera.yaml $CODE_PATH/$ENV_PATH/hiera.yaml
+  fi
+}
 
-  cd /opt/himlar && $R10K --verbose 4 puppetfile purge
-  cd /opt/himlar && $R10K --verbose 4 puppetfile install --moduledir $CODE_PATH/modules --puppetfile /opt/himlar/Puppetfile ${force}
+provision_common_modules()
+{
+  # deploy all shared modules to $CODE_PATH/modules
+  cd /opt/himlar && $R10K --verbose 4 puppetfile purge --moduledir $CODE_PATH/modules \
+      --puppetfile /opt/himlar/Puppetfile
+  cd /opt/himlar && $R10K --verbose 4 puppetfile install --moduledir $CODE_PATH/modules \
+      --puppetfile /opt/himlar/Puppetfile --force
+
   # link in profile module after running r10k
   ln -sf /opt/himlar/profile $CODE_PATH/modules/
 }
 
-override_modules()
+provision_env_modules()
 {
-  # remove modules that exists in /opt/himlar/modules
-  for m in $opt_himlar_modules; do
-    echo "WARNING: Module $m overrides Puppetfile"
-    rm -rf $CODE_PATH/$(echo ${m#/opt/himlar/}) 2>/dev/null
-  done
+  # depoly puppet environment only modules if env has Puppetfile
+  if [ -f /opt/himlar/puppetfiles/$PUPPET_ENV.Puppetfile ]; then
+    cd /opt/himlar && $R10K --verbose 4 puppetfile purge --moduledir $CODE_PATH/$ENV_PATH/modules \
+        --puppetfile /opt/himlar/puppetfiles/$PUPPET_ENV.Puppetfile
+    cd /opt/himlar && $R10K --verbose 4 puppetfile install --moduledir $CODE_PATH/$ENV_PATH/modules \
+        --puppetfile /opt/himlar/puppetfiles/$PUPPET_ENV.Puppetfile --force
+  fi
 }
 
 # Source command line options as env vars
@@ -47,17 +60,16 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-# Default value is to NOT provision from Puppetfile
-# We provison Puppetfile if /etc/puppet/modules is empty, if HIMLAR_PUPPETFILE
-# is set to 'deploy' or if puppetmodules.sh is given the 'deploy' parameter
-puppetfile=false
-[[ -z "$etc_puppet_modules" ]]      && puppetfile=true
-[[ $HIMLAR_PUPPETFILE = "deploy" ]] && puppetfile=true
-[[ "$puppetfile" = "true" ]] && provision_from_puppetfile
+provision_environment
 
-# only consider module overriding from himlar if in environment 'vagrant' (only for development)
-if [[ "${environment}x" == "vagrantx" ]]; then
-  # If /opt/himlar/modules contains a module deployed via rsync, use that instead
-  # of the one in /etc/puppet/modules
-  [[ -z "$opt_himlar_modules" ]] || override_modules
-fi
+# Do a full deploy of common modules if first time or when redeploy
+[[ $HIMLAR_DEPLOYMENT == "redeploy" ]] && commondeploy=true
+[[ -z "$(ls -A $CODE_PATH/modules)" ]] && commondeploy=true
+[[ "${commondeploy}" == "true" ]] && provision_common_modules
+
+[[ $HIMLAR_DEPLOYMENT == "redeploy" ]] && envdeploy=true
+[[ -z "$(ls -A $CODE_PATH/$ENV_PATH/modules)" ]] && envdeploy=true
+[[ "$envdeploy" == "true" ]] && provision_env_modules
+
+# Make sure we exit 0 at the end
+exit 0

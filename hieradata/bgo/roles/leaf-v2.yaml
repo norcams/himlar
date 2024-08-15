@@ -144,6 +144,30 @@ profile::base::network::cumulus_bonds:
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', '130', ]
     'mtu': '9216'
+  'host18':
+    'slaves': [ 'swp5s1', ]
+    'clag_id': '18'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host19':
+    'slaves': [ 'swp5s2', ]
+    'clag_id': '19'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host20':
+    'slaves': [ 'swp5s3', ]
+    'clag_id': '20'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
   'host49':
     'slaves': [ 'swp13s0', ]
     'clag_id': '49'
@@ -432,6 +456,9 @@ profile::base::network::cumulus_bridges:
   'bridge':
     'ports':
       - host17
+      - host18
+      - host19
+      - host20
       - host49
       - host50
       - host51
@@ -479,6 +506,12 @@ frrouting::frrouting::zebra_interfaces:
     - 'link-detect'
     - 'description linux-bridge-100'
   'host17':
+    - 'link-detect'
+  'host18':
+    - 'link-detect'
+  'host19':
+    - 'link-detect'
+  'host20':
     - 'link-detect'
   'host49':
     - 'link-detect'

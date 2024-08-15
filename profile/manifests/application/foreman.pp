@@ -37,6 +37,7 @@ class profile::application::foreman(
   include ::foreman::plugin::hooks
   include ::foreman::plugin::discovery
   include ::foreman::plugin::templates
+  include ::foreman::plugin::puppet
 
   if $manage_r10k {
     include ::r10k

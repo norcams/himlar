@@ -3,18 +3,16 @@ include:
   default:
     - profile::base::tuned
 
-himlar_bootstrap::virt_install:
+profile::bootstrap::himlar::libvirt:
   '%{location}-admin-01':
-    domain:          'mgmt.test01.uhdc.no'
-    libvirt_pool:    'dirpool'
-    libvirt_network: 'directnet'
-    install_ip:      '172.28.0.11'
-    install_netmask: '255.255.255.0'
-    install_gateway: '172.28.0.10'
-    vm_vcpus:        2
-    vm_memory:       8096
-    vm_console:      false
-    use_dhcp:        false
+    domain:           'mgmt.test01.uhdc.no'
+    libvirt_pool:     'dirpool'
+    libvirt_network:  'directnet'
+    node_ip:          '172.28.0.11'
+    node_netmask:     '255.255.255.0'
+    node_gateway:     '172.28.0.10'
+    vm_vcpus:         2
+    vm_memory:        8096
 
 profile::virtualization::libvirt::networks:
   directnet:

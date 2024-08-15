@@ -2,7 +2,9 @@ router id <%= @ipaddress_mgmt1 %>;
 
 filter export_bgp {
   if  net != 0.0.0.0/0 then {
-    accept;
+    if net != 129.177.13.1/32 then {
+      accept;
+    }
   }
   reject;
 }
@@ -16,13 +18,14 @@ filter import_bgp {
 
 <% if @bird_export_networks -%>
 filter import_kernel {
-  if net = <% if @bird_export_networks -%><% (1..@bird_export_networks.length).each do |i| %> <%= @bird_export_networks[i-1] %> ||<% end%> <%= @network_mgmt1 %>/<%= @cidr_mgmt1 %> || <%= @network_public1 %>/<%= @cidr_public1 %> <% end -%>then {
+  if (<% if @bird_export_networks -%><% (1..@bird_export_networks.length).each do |i| %> ( net = <%= @bird_export_networks[i-1] %> ) ||<% end%> ( net = <%= @network_mgmt1 %>/<%= @cidr_mgmt1 %> ) || ( net = <%= @network_public1 %>/<%= @cidr_public1 %> ) ) <% end -%>then {
     reject;
   }
   accept;
 }
 
 protocol static announce {
+  ipv4;
   <% (1..@bird_export_networks.length).each do |i| %>route <%= @bird_export_networks[i-1] %> unreachable;
   <% end %>
 }
@@ -33,25 +36,29 @@ protocol bgp 'azure' {
   local as <%= @azure_bird_local_as %>;
   neighbor <%= @azure_bird_remote_neigh %> as <%= @azure_bird_remote_as %>;
   multihop;
-  import all;
+  ipv4 {
+    import all;
+    export filter export_bgp;
+  };
   graceful restart;
-  export filter export_bgp;
   source address <%= @ipaddress_mgmt1 %>;
 }
 
 # Configure synchronization between BIRD's routing tables and the
 # kernel.
 protocol kernel {
-  learn;          # Learn all alien routes from the kernel
+  ipv4 {
 #  device routes;  # protect kernel device routes from being overwritten or removed by IGP routes
 #  persist;        # Don't remove routes on bird shutdown
-  scan time 2;    # Scan kernel routing table every 2 seconds
 #  import filter import_kernel;
-  import all;
+    import all;
+    export filter import_kernel;
+   };
+  scan time 2;    # Scan kernel routing table every 2 seconds
+  learn;          # Learn all alien routes from the kernel
   merge paths on; # For ECMP
   graceful restart;
 #  export filter export_bgp;
-  export filter import_kernel;
 }
 
 # Watch interface up/down events.
@@ -60,6 +67,7 @@ protocol device {
 }
 
 protocol direct {
+   ipv4;
    debug all;
    interface "*";
 }

@@ -5,7 +5,7 @@ include:
     - profile::network::services
     - profile::webserver::apache
 
-foreman_version: '2.3'
+foreman_version: '3.8'
 
 sensu__disk__warning:     80
 sensu__disk__crtical:     90
@@ -14,7 +14,16 @@ sensu__memory__check:     "check-memory-percent.rb -w 85 -c 95"
 profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}
-  'python2-ruamel-yaml': {}
+  'python3.11-requests': {} # needed for ansible-forman
+  'python3.11-pyyaml': {} # needed for ansible-foreman
+  'ruby':
+    ensure: '2.7'
+    provider: 'dnfmodule'
+    enable_only: true
+  #  'foreman':
+    #  ensure: "%{::os_platform}%{os_version}"
+    #provider: 'dnfmodule'
+    #enable_only: true
   'toml-rb':
     ensure: present
     provider: 'puppetserver_gem'
@@ -26,6 +35,7 @@ profile::application::foreman::manage_firewall: true
 profile::application::foreman::manage_repo_dir: true
 profile::application::foreman::manage_r10k:     false
 profile::application::foreman::push_facts:      true
+
 # TODO: Move this up the hiera, it doesn't belong here.
 profile::application::foreman::dhcp_classes:
   onie_dell_s3048:
@@ -84,6 +94,11 @@ profile::webserver::apache::vhosts:
     port:           80
     docroot:        '/opt/repo/public'
     docroot_owner:  'iaas'
+  'repo-oobip':
+    servername:     "%{hiera('oob__address__repo')}"
+    port:           80
+    docroot:        '/opt/repo/public'
+    docroot_owner:  'iaas'
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
@@ -91,9 +106,9 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   foreman-plugins:
     ensure: present
-  centos-sclo-rh:
-    ensure: present
-  postgres-10:
+  puppetlabs:
+    ensure: absent
+  puppetlabs7:
     ensure: present
 
 # Enable gem installation
@@ -107,5 +122,3 @@ named_interfaces::config:
     - eth0
   oob:
     - eth1
-
-openstack_version: 'train'

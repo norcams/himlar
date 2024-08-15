@@ -18,7 +18,7 @@ profile::base::physical::hugepages:        '245760'
 profile::monitoring::netdata::manage_firewall: true
 
 # Nover overrides
-nova::compute::libvirt::libvirt_cpu_model:       'EPYC-IBPB'
+nova::compute::libvirt::cpu_models:             ['EPYC-IBPB']
 nova::cpu_allocation_ratio:                      '1'
 nova::scheduler::filter::max_instances_per_host: '32'
 

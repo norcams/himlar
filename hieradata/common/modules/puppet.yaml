@@ -1,17 +1,18 @@
 ---
-puppet::runinterval:       1800
-puppet::runmode:           'cron'
-puppet::puppetmaster:      "puppet.%{hiera('domain_mgmt')}"
-puppet::show_diff:         true
-puppet::classfile:         '$statedir/classes.txt'
-puppet::usecacheonfailure: false
-puppet::client_certname:   "%{::verified_certname}"
-
+puppet::runinterval:            1800
+puppet::runmode:                'cron'
+puppet::show_diff:              true
+puppet::usecacheonfailure:      false
+puppet::client_certname:        "%{::verified_certname}"
+puppet::classfile:              '$statedir/classes.txt'
+puppet::agent_server_hostname:  "puppet.%{hiera('domain_mgmt')}"
 puppet::agent_additional_settings:
   'disable_warnings':   'deprecations'
   'stringify_facts':    'false'
 
-puppet::server_directory_environments: true
+puppet::server_common_modules_path:
+#  - "/etc/puppetlabs/code/environments/%{::environment}/modules"
+  - "/etc/puppetlabs/code/modules"
 puppet::server_external_nodes:         ''
 puppet::server_foreman_facts:          true
 puppet::server_additional_settings:

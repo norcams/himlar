@@ -5,12 +5,12 @@ nova::compute::rbd::libvirt_images_rbd_pool:      'vms'
 #nova::compute::rbd::libvirt_images_rbd_ceph_conf: '/etc/ceph/ceph.conf'
 
 # Optimize cache mode for ceph
-nova::compute::libvirt::libvirt_disk_cachemodes:
+nova::compute::libvirt::disk_cachemodes:
   - '"network=writeback"'
 
 # set lowest common denominator for live migration compat
-nova::compute::libvirt::libvirt_cpu_mode:  'custom'
-nova::compute::libvirt::libvirt_cpu_model: 'IvyBridge-IBRS'
+nova::compute::libvirt::cpu_mode:    'custom'
+nova::compute::libvirt::cpu_models: ['IvyBridge-IBRS']
 
 # TEST: console over TRP [trondham, 2023-02-15]
 nova::compute::vncserver_proxyclient_address: "%{ipaddress_trp1}"

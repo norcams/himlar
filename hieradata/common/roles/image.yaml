@@ -19,9 +19,16 @@ profile::base::selinux::manage_selinux:       true
 profile::openstack::image::manage_policy:     true
 profile::openstack::image::manage_notify:     true
 
+profile::openstack::image::api::create_glance_stores: true
+
 profile::openstack::openrc::password:     "%{hiera('glance_api_password')}"
 profile::openstack::openrc::username:     'glance'
 profile::openstack::openrc::project_name: 'services'
+
+# Default file store when other backends are not defined for location
+glance::api::enabled_backends:
+  - 'files:file'
+glance::api::default_backend: 'files'
 
 memcached::max_memory: '20%'
 
@@ -60,4 +67,3 @@ profile::base::selinux::boolean:
 profile::base::selinux::semodules:
   'postfix_glance':
     avc_file:   "postfix_glance.avc"
-

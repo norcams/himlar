@@ -100,6 +100,7 @@ profile::base::common::packages:
   'centos-release-nfv-common': {}
   'make': {}
   'OVMF': {} # FIXME: remove when el7 is gone
+  'nrec-selinux': {}
 
 # Sensu (needs gcc-c++)
 profile::monitoring::sensu::agent::plugins:
@@ -109,6 +110,15 @@ profile::monitoring::sensu::agent::plugins:
   sensu-plugins-filesystem-checks:
     type:         package
     pkg_version:  '1.0.0'
+  domain_name:
+    type:         package
+    pkg_version:  '0.5.20190701'
+  aws-eventstream:
+    type:         package
+    pkg_version:  '1.2.0'
+  aws-sigv4:
+    type:         package
+    pkg_version:  '1.6.1'
 
 profile::monitoring::sensu::agent::plugin_gems:
   sensu-plugins-himlar:
@@ -161,7 +171,7 @@ sudo::configs:
     content:
       - [ 'sensu ALL = (root) NOPASSWD: /bin/virsh list', 'sensu ALL = (root) NOPASSWD: /bin/systemctl restart calico-dhcp-agent' ]
 
-#profile::openstack::compute::hypervisor::fix_snapshot_loc: true # FIXME - Should probably be removed for newton release
+profile::openstack::compute::hypervisor::fix_snapshot_loc: true
 profile::openstack::compute::hypervisor::sysctl_fixes: true
 
 profile::openstack::telemetry::polling::polling_interval:  3600 # FIXME
@@ -316,4 +326,3 @@ nova::config::nova_config:
 # Red Hat Subscription Management (RHSM)
 profile::rhsm::subscription::manage: true
 profile::rhsm::virtwho::manage:      true
-

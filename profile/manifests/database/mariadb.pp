@@ -19,7 +19,6 @@ class profile::database::mariadb (
   $manage_firewall = true,
   $firewall_extras = {},
   $packages        = [],
-
   $backupuser               = '',
   $backuppassword           = '',
   $backupmethod             = 'mysqldump',

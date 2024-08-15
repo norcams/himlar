@@ -15,6 +15,13 @@ router id <%= @router_id %>;
 # We should automate the build of this out of variables when
 # we have time.
 
+# Configure logging. For debug purposes, either specify more elements in a separate file like
+# log "/var/log/bird.log" { debug, trace, info, remote, warning, error, auth, fatal, bug };
+# Please note that the file you are logging to needs to be created and owned by bird.
+# Or, log everything to syslog;
+# log syslog all;
+log syslog { info,fatal };
+
 filter export_bgp {
   if ( (ifname ~ "tap*") || (ifname ~ "atap*") || (ifname ~ "cali*") || (ifname ~ "dummy1") ) then {
     if  net != 0.0.0.0/0 then accept;
@@ -76,6 +83,7 @@ protocol kernel {
     export filter import_bgp; # Export to protocol. default is export none
     import all;
   };
+  merge paths yes;
   kernel table ipt_main;
   graceful restart;
   persist;                    # Don't remove routes on bird shutdown
@@ -89,6 +97,7 @@ protocol kernel {
     import filter import_kernel6;
     export filter import_bgp6;
   };
+  merge paths yes;
   graceful restart;
   persist;                    # Don't remove routes on bird shutdown
   scan time 2;                # Scan kernel routing table every 2 seconds
@@ -108,6 +117,7 @@ protocol kernel {
     export all;
     import filter import_kernel;
   };
+  merge paths yes;
   kernel table ipt_private;
   learn;
   scan time 2;

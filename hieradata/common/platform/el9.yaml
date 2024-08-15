@@ -1,0 +1,48 @@
+---
+include:
+  default:
+    - profile::network::interface
+  kickstart:
+    - profile::network::interface
+  bootstrap:
+    - profile::network::interface
+
+profile::base::yumrepo::repo_hash:
+  CentOS-Base:
+    ensure:         absent #FIXME: Remove when CentOS 8 is gone
+  CentOS-Updates:
+    ensure:         absent #FIXME: Remove when CentOS 8 is gone
+  CentOS-PowerTools:
+    ensure:         absent #FIXME: Remove when CentOS 8 is gone
+  CentOS-Extras:
+    ensure:         absent #FIXME: Remove when CentOS 8 is gone
+  epel:
+    gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-9'
+  centos-qemu-ev:   # unavailable for el8
+    ensure:         absent
+  CentOS-Advanced-Virtualization: # FIXME
+    ensure:         absent
+  mariadb-10.3: # FIXME
+    module_hotfixes: '1'
+
+profile::base::common::packages:
+  'bash-completion': {}
+  'bash-completion-extras': { ensure: absent }     # FIXME clean up when el7 is gone
+
+profile::base::common::manage_network: false # the profile::base::network class is deprecated
+profile::base::common::manage_ntp:     false # ntpd has been replaced by chrony in el8
+profile::base::common::manage_chrony:  true
+
+# logrotate
+profile::logging::logrotate::rules:
+  syslog: # temp cleanup old rules
+    ensure:         absent
+  rsyslog:
+    path:           ['/var/log/cron', '/var/log/maillog', '/var/log/messages', '/var/log/secure', '/var/log/spooler']
+    rotate:         10
+    rotate_every:   daily
+    postrotate:     '/usr/bin/systemctl -s HUP kill rsyslog.service >/dev/null 2>&1 || true'
+    dateext:        true
+    sharedscripts:  true
+    missingok:      true
+    compress:       true

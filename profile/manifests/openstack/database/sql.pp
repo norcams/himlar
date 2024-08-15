@@ -11,6 +11,8 @@ class profile::openstack::database::sql (
   $placement_enabled = false,
   $database          = 'mariadb',
   $extra_databases   = {},
+  $charset           = 'utf8mb3',
+  $collate           = 'utf8mb3_general_ci',
 ) {
 
   if $database in ['mariadb', 'postgresql'] {
@@ -23,49 +25,82 @@ class profile::openstack::database::sql (
   if $extra_databases {
     $extra_databases.each |String $name, Hash $database| {
       $database_real = merge(delete($database, 'password'), { 'password_hash' => mysql_password($database['password']) })
-      create_resources('openstacklib::db::mysql', { $name => $database_real })
+      create_resources('openstacklib::db::mysql', $name => $database_real, { 'charset' => $charset, 'collate' => $collate })
     }
   }
 
   if $keystone_enabled {
-    include ::keystone::db::mysql
+    class { '::keystone::db::mysql':
+             charset => $charset,
+             collate => $collate
+    }
   }
 
   if $glance_enabled {
-    include ::glance::db::mysql
+    class { '::glance::db::mysql':
+             charset => $charset,
+             collate => $collate
+    }
   }
 
   if $nova_enabled {
-    include ::nova::db::mysql
-    include ::nova::db::mysql_api
+    class { '::nova::db::mysql':
+             charset => $charset,
+             collate => $collate
+    }
+    class { '::nova::db::mysql_api':
+             charset => $charset,
+             collate => $collate
+    }
   }
 
   if $placement_enabled {
-    include ::placement::db::mysql
+    class { '::placement::db::mysql':
+             charset => $charset,
+             collate => $collate
+    }
   }
 
   if $cinder_enabled {
-    include ::cinder::db::mysql
+    class { '::cinder::db::mysql':
+             charset => $charset,
+             collate => $collate
+    }
   }
 
   if $neutron_enabled {
-    include ::neutron::db::mysql
+    class { '::neutron::db::mysql':
+             charset => $charset,
+             collate => $collate
+    }
   }
 
   if $heat_enabled {
-    include ::heat::db::mysql
+    class { '::heat::db::mysql':
+             charset => $charset,
+             collate => $collate
+    }
   }
 
   if $trove_enabled {
-    include ::trove::db::mysql
+    class { '::trove::db::mysql':
+             charset => $charset,
+             collate => $collate
+    }
   }
 
   if $designate_enabled {
-    include ::designate::db::mysql
+    class { '::designate::db::mysql':
+             charset => $charset,
+             collate => $collate
+    }
   }
 
   if $gnocchi_enabled {
-    include ::gnocchi::db::mysql
+     class { '::gnocchi::db::mysql':
+              charset => $charset,
+              collate => $collate
+     }
   }
 
 }

@@ -9,6 +9,8 @@ include:
     - profile::logging::rsyslog::client
     - profile::base::systemd
 
+openstack_version: 'wallaby'
+
 etcd::proxy: "off"
 etcd::initial_cluster_state: 'new'
 etcd::initial_cluster_token: 'etcd-cluster'
@@ -16,6 +18,7 @@ etcd::initial_cluster_token: 'etcd-cluster'
 profile::application::etcd::install_bootstrap_script: true
 
 calico::controller: true
+calico_version:     '327' # FIXME: move to common when versions on compute have been reconciled
 
 profile::openstack::network::manage_quotas: true
 

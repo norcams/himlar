@@ -23,6 +23,7 @@ profile::application::rngd::enable: true
 profile::base::common::packages:
   'python2-openstackclient': {} # FIXME remove when all proxies are el8
   'python3-openstackclient': {}
+  'python3-designateclient': {}
   'bash-completion': {}
   'bash-completion-extras': {}  # FIXME remove when all proxies are el8
   'jq': {}

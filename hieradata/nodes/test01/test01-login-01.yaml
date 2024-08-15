@@ -24,3 +24,34 @@ network::interfaces_hash:
     netmask:        '255.255.255.0'
     defroute:       'no'
     onboot:         'yes'
+
+# extra disk for local repository (synced with other login nodes)
+profile::base::common::manage_lvm: true
+
+profile::base::lvm::physical_volume:
+  '/dev/sdb':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_repo':
+    physical_volumes:
+      - /dev/sdb
+profile::base::lvm::logical_volume:
+  'lv_repo':
+    volume_group: 'vg_repo'
+    fs_type:      "xfs"
+    mountpath:    "/opt/repo"
+
+# Enable db backup on 01
+profile::base::login::manage_db_backup: true
+
+# enable iaas account, but only make it available in the normal fashion
+# from bgo-login-01
+ssh::server::options:
+  # No 2FA if coming from bgo-login-01
+  'Match User iaas Address 172.28.0.9':
+    AuthenticationMethods: 'publickey'
+
+accounts::accounts:
+  'iaas':
+    ensure: present

@@ -4,52 +4,27 @@ profile::dns::ns::internal_zone: "vagrant.iaas.intern"
 
 # Forward zones, for which the name server is authoritative
 profile::dns::ns::fw_zones:
-  frontend:
-    zone: "%{hiera('profile::dns::ns::frontend_zone')}"
-    filename: "pz/%{hiera('profile::dns::ns::frontend_zone')}"
-    ns_a_records:
-      'ns1': "%{hiera('public__ip__ns')}"
-      'ns2': '158.39.77.251'
-    ns_aaaa_records:
-      'ns1': "%{hiera('public__ipv6__ns')}"
-      'ns2': '2001:700:2:83ff::251'
-    delegations:
-      'osl':
-        - "%{hiera('profile::dns::ns::ns_master1')}"
-        - "%{hiera('profile::dns::ns::ns_master2')}"
-      'bgo':
-        - "%{hiera('profile::dns::ns::ns_master1')}"
-        - "%{hiera('profile::dns::ns::ns_master2')}"
-  frontend2:
-    zone: "%{hiera('profile::dns::ns::frontend_zone2')}"
-    filename: "pz/%{hiera('profile::dns::ns::frontend_zone2')}"
+  public:
+    zone: "%{hiera('profile::dns::ns::public_zone')}"
+    filename: "pz/%{hiera('profile::dns::ns::public_zone')}"
     ns_a_records:
       'ns': "%{hiera('public__ip__ns')}"
     ns_aaaa_records:
       'ns': "%{hiera('public__ipv6__ns')}"
-    delegations:
-      'osl':
-        - "%{hiera('profile::dns::ns::ns_master1')}"
-        - "%{hiera('profile::dns::ns::ns_master2')}"
-      'bgo':
-        - "%{hiera('profile::dns::ns::ns_master1')}"
-        - "%{hiera('profile::dns::ns::ns_master2')}"
-  uhdc:
-    zone: "uhdc.no"
-    filename: "pz/uhdc.no"
+  public2:
+    zone: "%{hiera('profile::dns::ns::public_zone2')}"
+    filename: "pz/%{hiera('profile::dns::ns::public_zone2')}"
     ns_a_records:
-      'ns1': "%{hiera('public__ip__ns')}"
-      'ns2': '158.39.77.251'
+      'ns': "%{hiera('public__ip__ns')}"
     ns_aaaa_records:
-      'ns1': "%{hiera('public__ipv6__ns')}"
-      'ns2': '2001:700:2:83ff::251'
-    delegations:
-      'osl':
-        - "%{hiera('profile::dns::ns::ns_master1')}"
-        - "%{hiera('profile::dns::ns::ns_master2')}"
-      'bgo':
-        - "%{hiera('profile::dns::ns::ns_master1')}"
-        - "%{hiera('profile::dns::ns::ns_master2')}"
+      'ns': "%{hiera('public__ipv6__ns')}"
+  internal:
+    zone: "%{hiera('profile::dns::ns::internal_zone')}"
+    filename: "pz/%{hiera('profile::dns::ns::internal_zone')}"
+    ns_a_records:
+      'ns': "%{hiera('public__ip__ns')}"
+    ns_aaaa_records:
+      'ns': "%{hiera('public__ipv6__ns')}"
 
 profile::dns::ns::allowed_transfer_nets:
   - '192.168.0.0/24;'

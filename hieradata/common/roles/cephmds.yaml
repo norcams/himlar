@@ -30,8 +30,12 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   ceph-%{hiera('ceph_version')}-noarch:
     ensure: present
+  "%{operatingsystem}-AppStream":
+    exclude: 'postgres'
   epel:
     ensure: present
+
+
 
 ceph::profile::params::client_keys:
   'client.admin':
