@@ -5,3 +5,5 @@ network::interfaces_hash:
     mtu:       '1500'
     ipaddress: "%{hiera('netcfg_mgmt_netpart')}.10"
     netmask:   "%{hiera('netcfg_mgmt_netmask')}"
+
+profile::base::login::manage_db_backup: true
