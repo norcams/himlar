@@ -28,6 +28,8 @@ class profile::database::mariadb (
   $backupdirowner              = 'root',
   $backupdirgroup              = 'root',
   $backupcompress              = true,
+  $compression_command         = 'bzcat -zc',
+  $compression_extension       = '.bz2',
   $backuprotate                = 5,
   $backup_success_file_path    = '/var/db/dumps/db_dumped.flag',
   $maxallowedpacket            = 1024,
