@@ -549,7 +549,7 @@ profile::openstack::resource::subnets:
     tenant_name: 'openstack'
   elastic1_IPv4:
     name: 'elastic1_IPv4'
-    cidr: "%{hiera('netcfg_elastic_cidr')}"
+    cidr: '10.6.0.0/20'
     ip_version: '4'
     allocation_pools:
       - 'start=10.6.0.10,end=10.6.15.240'
@@ -569,18 +569,18 @@ profile::openstack::resource::subnets:
       - "%{hiera('netcfg_anycast_dns6')}"
     network_name: 'elasticIP'
     tenant_name: 'openstack'
-  elastic_rail_uib_it_rail_test_osl1_IP4:
+  elastic_rail_uib_it_test_osl1_IP4:
     name: 'elastic_rail_test_osl1_IP4'
     cidr: '10.6.16.0/27'
     ip_version: '4'
     allocation_pools:
-      - 'start=10.6.16.2,end=10.6.16.31'
+      - 'start=10.6.16.2,end=10.6.16.30'
     gateway_ip: '10.6.16.1'
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
-    network_name: 'elastic_rail_uib_it_rail_test_osl1'
+    network_name: 'elastic_rail_test_osl1'
     tenant_id: '6601a5772edf401783c99eace58ac759'
-  elastic_rail_uib_it_rail_test_osl1_IP6:
+  elastic_rail_uib_it_test_osl1_IP6:
     name: 'elastic_rail_test_osl1_IP6'
     cidr: '2001:700:2:8202::/122'
     ip_version: '6'
@@ -589,5 +589,5 @@ profile::openstack::resource::subnets:
     gateway_ip: '2001:700:2:8202::1'
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns6')}"
-    network_name: ''
+    network_name: 'elastic_rail_test_osl1'
     tenant_id: '6601a5772edf401783c99eace58ac759'
