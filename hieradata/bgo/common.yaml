@@ -112,7 +112,7 @@ netcfg_anycast_dns:       '158.39.77.252'
 netcfg_anycast_dns6:      '2001:700:2:83ff::252'
 netcfg_ib_vlan:           '908'
 netcfg_oob_vlan:          '909'
-netcfg_elastic_cidr:      '10.5.0.0/20'
+netcfg_elastic_cidr:      '10.5.0.0/19'
 netcfg_pub_object:        '158.39.77.250'
 netcfg_trp_rr:
   rr1:
@@ -423,6 +423,12 @@ profile::openstack::resource::networks:
     tenant_name: 'openstack'
     provider_network_type: 'local'
 #    mtu: '9000' # FIXME: param available in puppet-neutron for Zed. Meanwhile, set once with CLI after creation
+  elastic_rail_uib_it_rail_test_bgo1:
+    name: 'elastic_rail_test_bgo1'
+    admin_state_up: true
+    shared: false
+    tenant_id: 'fcae5642af664f16b277d54140e80295'
+    provider_network_type: 'local'
 
 profile::openstack::resource::subnets:
   public1_IPv4:
@@ -623,3 +629,25 @@ profile::openstack::resource::subnets:
       - "%{hiera('netcfg_anycast_dns6')}"
     network_name: 'elasticIP'
     tenant_name: 'openstack'
+  elastic_rail_uib_it_rail_test_bgo1_IP4:
+    name: 'elastic_rail_test_bgo1_IP4'
+    cidr: '10.5.16.0/27'
+    ip_version: '4'
+    allocation_pools:
+      - 'start=10.5.16.2,end=10.5.16.31'
+    gateway_ip: '10.5.16.1'
+    dns_nameservers:
+      - "%{hiera('netcfg_anycast_dns')}"
+    network_name: 'elastic_rail_uib_it_rail_test_bgo1'
+    tenant_id: 'fcae5642af664f16b277d54140e80295'
+  elastic_rail_uib_it_rail_test_bgo1_IP6:
+    name: 'elastic_rail_test_bgo1_IP6'
+    cidr: '10.5.16.0/27'
+    ip_version: '6'
+    allocation_pools:
+      - 'start=2001:700:2:8302::2,end=2001:700:2:8302::3e'
+    gateway_ip: '2001:700:2:8302::1'
+    dns_nameservers:
+      - "%{hiera('netcfg_anycast_dns6')}"
+    network_name: ''
+    tenant_id: 'fcae5642af664f16b277d54140e80295'

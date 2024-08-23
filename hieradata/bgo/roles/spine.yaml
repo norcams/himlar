@@ -1333,11 +1333,28 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'neighbor elastic_rail_b1p activate'
       - 'neighbor elastic_rail_b1p soft-reconfiguration inbound'
     'bgp_listen_range':
-      - "%{hiera('netcfg_elastic_cidr')}"
+      - '10.5.0.0/20'
     'ip_access_list':
       - "158.39.74.253/32"
     'ip_access_list6':
       - "2001:700:2:83f0::1344/128"
+  'elastic_rail_b1t':
+    'options':
+      - 'peer-group'
+      - "remote-as %{hiera('elasticip_rail_b1t_asn')}"
+      - "password %{hiera('elasticip_rail_b1t_md5')}"
+      - 'soft-reconfiguration inbound'
+      - 'ebgp-multihop'
+      - 'bfd'
+    'options6':
+      - 'neighbor elastic_rail_b1t activate'
+      - 'neighbor elastic_rail_b1t soft-reconfiguration inbound'
+    'bgp_listen_range':
+      - '10.5.16.0/27'
+    'ip_access_list':
+      - "158.39.74.254/32"
+    'ip_access_list6':
+      - "2001:700:2:83f0::1345/128"
 
 frrouting::frrouting::bgp_accesslist:
   '10':
@@ -1348,7 +1365,7 @@ frrouting::frrouting::bgp_accesslist:
     - 'seq 25 permit 109.105.125.0 0.0.0.63'
     - 'seq 30 permit 10.1.0.0 0.0.15.255'
     - 'seq 35 permit 10.3.0.0 0.0.15.255'
-    - 'seq 40 permit 10.5.0.0/20'
+    - 'seq 40 permit 10.5.0.0/19'
     - "seq 41 permit %{hiera('bgp_loopback_addr')}/32"
     - 'seq 45 permit 10.109.0.0 0.0.15.255'
     - 'seq 50 permit 109.105.127.128 0.0.0.63'
@@ -1362,7 +1379,7 @@ frrouting::frrouting::bgp_accesslist:
     - 'seq 25 deny 109.105.125.0 0.0.0.63'
     - 'seq 30 deny 10.1.0.0 0.0.15.255'
     - 'seq 35 deny 10.3.0.0 0.0.15.255'
-    - 'seq 40 deny 10.5.0.0/20'
+    - 'seq 40 deny 10.5.0.0/19'
     - 'seq 45 deny 10.109.0.0 0.0.15.255'
     - 'seq 50 deny 109.105.127.128 0.0.0.63'
     - 'seq 55 deny 172.18.0.0 0.0.7.255'
