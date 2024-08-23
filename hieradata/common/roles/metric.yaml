@@ -4,12 +4,12 @@ include:
     - profile::openstack::metric
     - profile::openstack::openrc
     - profile::logging::rsyslog::client
+    - profile::openstack::database::sql
+    - profile::monitoring::sensu::mysql
+    - profile::logging::logrotate
+
 
 memcached::max_memory: '20%'
-
-profile::base::common::packages:
-  'openstack-selinux': {}
-  'python3-memcached': {} # gnocchi::manage_memcache_package are broken
 
 profile::openstack::metric::manage_firewall:  true
 profile::openstack::metric::manage_wsgi:      true
@@ -22,12 +22,102 @@ profile::openstack::openrc::project_name:     'services'
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
+  AlmaLinux-AppStream:
+    exclude: dnsmasq python3.1* python39* python38*
   rdo-release:
     ensure: present
     exclude:  'mariadb*'
   epel: # should be absent when using RDO, but whitelist can also work
-    ensure:   present
-    includepkgs: 'htop bash-completion-extras'
+    ensure: present
+    includepkgs: 'htop mysqltuner'
   postgres-10:
     ensure: absent
+  "mariadb-%{hiera('mariadb_version')}":
+    ensure: present
+
+profile::openstack::database::sql::gnocchi_enabled:   true
+profile::base::systemd::manage_limits: true
+profile::base::systemd::limits:
+  mariadb:
+    limits:
+      Service:
+        'LimitNOFILE': 262689
+
+mysql::server::override_options:
+  mysqld:
+    max_connections:                "%{hiera('mysql__config__max_connections')}"
+    table_open_cache:               16384
+    query_cache_size:               "%{hiera('mysql__config__query_cache_size')}"
+    query_cache_limit:              "%{hiera('mysql__config__query_cache_limit')}"
+    join_buffer_size:               '8M'
+    innodb_log_file_size:           "%{hiera('mysql__config__innodb_log_file_size')}"
+    innodb_buffer_pool_size:        "%{hiera('mysql__config__innodb_buffer_pool_size')}"
+    log-error:                      '/var/log/mysqld.log'
+    pid-file:                       "/var/lib/mysql/%{::hostname}.pid"
+    bind-address:                   "127.0.0.1"
+    ssl:                            "false"
+    ssl-ca:                         "/etc/puppetlabs/puppet/ssl/certs/ca.pem"
+    ssl-key:                        "/etc/puppetlabs/puppet/ssl/private_keys/%{::verified_certname}.pem"
+    ssl-cert:                       "/etc/puppetlabs/puppet/ssl/certs/%{::verified_certname}.pem"
+    wsrep_sst_auth:                 "root:%{hiera('mysql::server::root_password')}"
+
+profile::base::common::packages:
+  'openstack-selinux':      {}
+  'python3-memcached':      {} # gnocchi::manage_memcache_package are broken
+  'MySQL-python':           {}
+  'bash-completion':        {}
+  'bash-completion-extras': {}
+  'mysqltuner':             {}
+
+# Sensu
+profile::monitoring::sensu::mysql::password:  "%{hiera('sensu_mysql_password')}"
+profile::monitoring::sensu::mysql::manage_packages: true
+
+profile::monitoring::sensu::agent::plugins:
+  sensu-plugins-mysql:
+    type:         package
+    pkg_version:  '2.3.0'
+
+profile::monitoring::sensu::agent::checks:
+  'metrics-mysql-graphite':
+    type:         'metric'
+    command:      'metrics-mysql-graphite.rb --scheme mysql.%{::hostname} -h localhost -S /var/lib/mysql/mysql.sock --ini /etc/sensu/conf.d/mysql.ini'
+    interval:     60
+    subscribers:  ['metrics']
+    handlers:     ['graphite_tcp']
+  'check-metric-mysql-alive':
+    command:      'check-mysql-alive.rb -h localhost -s /var/lib/mysql/mysql.sock --ini /etc/sensu/conf.d/mysql.ini'
+    interval:     60
+    subscribers:  ['checks']
+
+# Logrotate
+profile::logging::logrotate::manage_logrotate:   true
+logrotate::rules:
+  mysql:
+    path:           '/var/log/mysqld.log'
+    rotate:         14
+    postrotate: >-
+      if test -x /usr/bin/mysqladmin && /usr/bin/mysqladmin ping &>/dev/null; then
+            /usr/bin/mysqladmin --local flush-error-log flush-engine-log flush-general-log flush-slow-log
+          fi
+    sharedscripts:  true
+    copytruncate:   true
+    missingok:      true
+    rotate_every:   daily
+    compress:       true
+
+profile::base::lvm::physical_volume:
+  '/dev/vdb':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_metric':
+    physical_volumes:
+      - /dev/vdb
+profile::base::lvm::logical_volume:
+  'lv_gnocchi':
+    volume_group: 'vg_metric'
+    fs_type:      "xfs"
+    mountpath:    "/var/lib/gnocchi"
+    size:         '100G'
 
