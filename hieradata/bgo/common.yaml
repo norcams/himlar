@@ -427,7 +427,7 @@ profile::openstack::resource::networks:
     name: 'elastic_rail_test_bgo1'
     admin_state_up: true
     shared: false
-    tenant_id: 'fcae5642af664f16b277d54140e80295'
+    tenant_id: 'c1a76edd5a0a459388613b7a80c5f63d'
     provider_network_type: 'local'
 
 profile::openstack::resource::subnets:
@@ -639,7 +639,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'elastic_rail_test_bgo1'
-    tenant_id: 'fcae5642af664f16b277d54140e80295'
+    tenant_id: 'c1a76edd5a0a459388613b7a80c5f63d'
   elastic_rail_uib_it_test_bgo1_IP6:
     name: 'elastic_rail_test_bgo1_IP6'
     cidr: '2001:700:2:8302::/122'
@@ -650,4 +650,4 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns6')}"
     network_name: 'elastic_rail_test_bgo1'
-    tenant_id: 'fcae5642af664f16b277d54140e80295'
+    tenant_id: 'c1a76edd5a0a459388613b7a80c5f63d'
