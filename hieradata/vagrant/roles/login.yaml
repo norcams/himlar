@@ -30,21 +30,6 @@ profile::bootstrap::himlar::tftp:
     use_dhcp:         false
     puppet_env:       'controller'
 
-profile::base::login::db_servers:
-  vagrant-db-global-01:
-    hour:     '*'
-    minute:   '20'
-    command:  '/usr/local/sbin/db-dump.sh vagrant-db-global-01 >/dev/null'
-  vagrant-db-regional-01:
-    hour:     '*'
-    minute:   '30'
-    command:  '/usr/local/sbin/db-dump.sh vagrant-db-regional-01 >/dev/null'
-  vagrant-db-archival:
-    hour:     '0'
-    minute:   '45'
-    weekday:  'Monday'
-    command:  '/usr/local/sbin/db-longterm-bck.sh -e vagrant >/dev/null'
-
 named_interfaces::config:
   mgmt:
     - eth1

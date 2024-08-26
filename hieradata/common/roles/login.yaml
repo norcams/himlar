@@ -157,3 +157,20 @@ profile::base::yumrepo::repo_hash:
 
 profile::base::login::dump_owner:      'norcams'
 profile::base::login::dump_group:      'wheel'
+
+# DB backup cron jobs
+profile::base::login::db_servers:
+  "%{::location}-db-global-01":
+    hour:     '*'
+    minute:   '20'
+    command:  "/usr/local/sbin/db-dump.sh %{::location}-db-global-01 >/dev/null"
+  "%{::location}-db-regional-01":
+    hour:     '*'
+    minute:   '30'
+    command:  "/usr/local/sbin/db-dump.sh %{::location}-db-regional-01 >/dev/null"
+  "%{::location}-db-archival":
+    hour:     '0'
+    minute:   '45'
+    weekday:  'Monday'
+    command:  "/usr/local/sbin/db-longterm-bck.sh -e %{::location} >/dev/null"
+

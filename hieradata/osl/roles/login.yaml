@@ -50,35 +50,6 @@ named_interfaces::config:
     - em3
     - p2p3
 
-# Db backup
-profile::base::login::db_servers:
-  osl-db-global-01:
-    hour:     '*'
-    minute:   '20'
-    command:  '/usr/local/sbin/db-dump.sh osl-db-global-01 >/dev/null'
-  osl-db-regional-01:
-    hour:     '*'
-    minute:   '30'
-    command:  '/usr/local/sbin/db-dump.sh osl-db-regional-01 >/dev/null'
-  test02-db-global-01:
-    hour:     '*'
-    minute:   '20'
-    command:  '/usr/local/sbin/db-dump.sh test02-db-global-01 >/dev/null'
-  test02-db-regional-01:
-    hour:     '*'
-    minute:   '30'
-    command:  '/usr/local/sbin/db-dump.sh test02-db-regional-01 >/dev/null'
-  osl-db-archival:
-    hour:     '0'
-    minute:   '45'
-    weekday:  'Monday'
-    command:  '/usr/local/sbin/db-longterm-bck.sh -e osl >/dev/null'
-  test02-db-archival:
-    hour:     '0'
-    minute:   '55'
-    weekday:  'Monday'
-    command:  '/usr/local/sbin/db-longterm-bck.sh -e test02 >/dev/null'
-
 ssh::server::options:
   # No 2FA possible with gitolite
   # bgo-login-01
