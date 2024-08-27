@@ -7,7 +7,7 @@
 # in the long term backup archive.
 # It additionally purges all archive files older than RETENTION days.
 #
-# All database servers in specified environment are processed.
+# All database servers (i.e. dumps) in specified environment are processed.
 # Apply this script as often as archived dumps are required (for instance once a month
 # or once a week).
 #
@@ -41,11 +41,10 @@ help ()
 
 $0 : long term backup
 
-This script process all db servers belonging to the environment
+This script process all db server dumps existing in the environment
 $ENVIRONMENT (or the env in the '-e' option), and saves the oldest
-files from one week ago from all backed up databases into long term
-storage. At the end all long term backups older than $RETENTION days
-are purged.
+dump files/databases from GAP days ago into long term storage. At
+the end all long term backups older than $RETENTION days are purged.
 
 Options:
 
@@ -88,8 +87,11 @@ done
 #
 # search all relevant db backup dumps and process each of those
 #
-for dbserverdir in ${DUMPDIR}/${ENVIRONMENT}-db-*-[0-9][0-9]; do
-    if [[ -d $dbserverdir ]]; then                              # sanity check
+# assume all directories in DUMPDIR is a directory containing
+# database backup files from a DB server
+#
+for dbserverdir in ${DUMPDIR}/${ENVIRONMENT}-*-[0-9][0-9]/; do
+    if [[ -d $dbserverdir ]]; then                              # "paranoid" sanity check, should in reality be redundant
 
         # create any missing archive/long term storage
         if [[ ! -e $dbserverdir/$ARCHIVESUBDIR ]]; then

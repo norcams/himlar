@@ -173,4 +173,8 @@ profile::base::login::db_servers:
     minute:   '45'
     weekday:  'Monday'
     command:  "/usr/local/sbin/db-longterm-bck.sh -e %{::location} >/dev/null"
+  "%{::location}-metric-01":
+    hour:     '*'
+    minute:   '30'
+    command:  "/usr/local/sbin/db-dump.sh %{::location}-metric-01 >/dev/null"
 
