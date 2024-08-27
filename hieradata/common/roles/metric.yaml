@@ -68,6 +68,7 @@ profile::base::common::packages:
   'bash-completion':        {}
   'bash-completion-extras': {}
   'mysqltuner':             {}
+  'bzip2':                  {} # For mysql/mariadb backup
 
 # Sensu
 profile::monitoring::sensu::mysql::password:  "%{hiera('sensu_mysql_password')}"
