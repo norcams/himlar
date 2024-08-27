@@ -168,13 +168,13 @@ profile::base::login::db_servers:
     hour:     '*'
     minute:   '30'
     command:  "/usr/local/sbin/db-dump.sh %{::location}-db-regional-01 >/dev/null"
-  "%{::location}-db-archival":
-    hour:     '0'
-    minute:   '45'
-    weekday:  'Monday'
-    command:  "/usr/local/sbin/db-longterm-bck.sh -e %{::location} >/dev/null"
   "%{::location}-metric-01":
     hour:     '*'
-    minute:   '30'
+    minute:   '40'
     command:  "/usr/local/sbin/db-dump.sh %{::location}-metric-01 >/dev/null"
+  "%{::location}-db-archival":
+    hour:     '0'
+    minute:   '00'
+    weekday:  'Monday'
+    command:  "/usr/local/sbin/db-longterm-bck.sh -e %{::location} >/dev/null"
 
