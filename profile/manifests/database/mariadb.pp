@@ -32,7 +32,7 @@ class profile::database::mariadb (
   $compression_extension       = '.bz2',
   $backuprotate                = 5,
   $backup_success_file_path    = '/var/db/dumps/db_dumped.flag',
-  $maxallowedpacket            = 1024,
+  $maxallowedpacket            = '4M',
   $ignore_events               = true,
   $delete_before_dump          = false,
   $backupdatabases             = [],
