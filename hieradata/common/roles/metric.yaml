@@ -106,6 +106,9 @@ logrotate::rules:
     rotate_every:   daily
     compress:       true
 
+# LVM setup for gnocchi data
+profile::base::common::manage_lvm: true
+
 profile::base::lvm::physical_volume:
   '/dev/vdb':
     ensure: present
@@ -119,5 +122,5 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_metric'
     fs_type:      "xfs"
     mountpath:    "/var/lib/gnocchi"
-    size:         '100G'
+    size:         '99.9G'
 

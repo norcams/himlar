@@ -1,5 +1,13 @@
 ---
 
+# Smaller disk for gnocchi data in test
+profile::base::lvm::logical_volume:
+  'lv_gnocchi':
+    volume_group: 'vg_metric'
+    fs_type:      "xfs"
+    mountpath:    "/var/lib/gnocchi"
+    size:         '19.9G'
+
 #profile::monitoring::sensu::agent::checks:
 #  'metrics-mysql-graphite':
 #    type:         'metric'
