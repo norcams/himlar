@@ -118,6 +118,7 @@ profile::highavailability::loadbalancing::haproxy::access_list:
       - '129.177.0.137/32'         # p1dclogin
       - '129.177.0.138/32'         # p2dclogin
       - '129.177.25.132/32'        # raymond-dev
+      - '2001:700:200:334::132/128' # raymond-dev
       - '158.39.74.6/32'           # raymond (bgo-mgmt-instance)
       - '129.240.130.12/32'        # trond
       - '129.240.130.124/32'       # mikael
