@@ -61,6 +61,12 @@ mysql::server::override_options:
     ssl-cert:                       "/etc/puppetlabs/puppet/ssl/certs/%{::verified_certname}.pem"
     wsrep_sst_auth:                 "root:%{hiera('mysql::server::root_password')}"
 
+For backup script creation
+profile::database::mariadb::backupuser:                   'root'
+profile::database::mariadb::backuppassword_unsensitive:   "%{hiera('mysql::server::root_password')}"
+profile::database::mariadb::postscript:                   "date >  %{hiera('profile::database::mariadb::backuptopdir')}/$(hostname)-backupflag"
+profile::database::mariadb::file_per_database:            true
+
 profile::base::common::packages:
   'openstack-selinux':      {}
   'python3-memcached':      {} # gnocchi::manage_memcache_package are broken
