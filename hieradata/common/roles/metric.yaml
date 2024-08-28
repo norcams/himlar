@@ -61,7 +61,7 @@ mysql::server::override_options:
     ssl-cert:                       "/etc/puppetlabs/puppet/ssl/certs/%{::verified_certname}.pem"
     wsrep_sst_auth:                 "root:%{hiera('mysql::server::root_password')}"
 
-For backup script creation
+# For backup script creation
 profile::database::mariadb::backupuser:                   'root'
 profile::database::mariadb::backuppassword_unsensitive:   "%{hiera('mysql::server::root_password')}"
 profile::database::mariadb::postscript:                   "date >  %{hiera('profile::database::mariadb::backuptopdir')}/$(hostname)-backupflag"
