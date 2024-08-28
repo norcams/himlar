@@ -5,7 +5,7 @@ profile::base::common::manage_lvm: true
 profile::monitoring::sensu::agent::plugins:
   sensu-plugins-himlar:
     ensure: present
-    source:       'http://download.iaas.uio.no/uh-iaas/gem'
+    source:       'http://download.iaas.uio.no/nrec/gem'
 
 profile::monitoring::sensu::agent::checks:
   imagebuild-check-multiplex:
