@@ -228,16 +228,14 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   centos-qemu-ev: # FIXME remove when el7 is gone
     ensure: present
-  CentOS-PowerTools: # FIXME: remove when CentOS 8 is gone
-    ensure: present
   AlmaLinux-PowerTools:
     ensure: present
   CentOS-Advanced-Virtualization:
-    ensure: present
+    ensure: absent
   CentOS-AppStream: # needed for rhn network
     ensure:  present
     includepkgs: 'virt-who'
-  CentOs-nfv-Openvswitch:
+  CentOs-nfv-Openvswitch: # needed for rdo network dependencies
     ensure:  present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
