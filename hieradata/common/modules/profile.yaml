@@ -180,7 +180,7 @@ profile::base::yumrepo::repo_hash:
   CentOs-nfv-Openvswitch:
     descr:          "CentOS-$releasever - SIG Network Functions Virtualization"
     baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/centos-release-nfv-openvswitch"
-    gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-NFV'
+    gpgkey:         'https://iaas-repo.uio.no/nrec/nrec-resources/files/gpg/RPM-GPG-KEY-CentOS-SIG-NFV'
     gpgcheck:       1
     ensure:         absent
   puppetlabs:
