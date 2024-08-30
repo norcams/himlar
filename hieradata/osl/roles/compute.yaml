@@ -84,3 +84,5 @@ profile::monitoring::sensu::agent::checks:
     subscribers:  ['checks']
 
 calico::compute::felix_mtuIfacePattern: '^team*'
+
+profile::storage::cephclient::enable: true

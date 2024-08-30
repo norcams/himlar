@@ -13,6 +13,4 @@ profile::base::lvm::logical_volume:
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
 
-profile::storage::cephclient::enable: true
-
 nova::compute::libvirt::cpu_models: ['Cascadelake-Server-noTSX']
