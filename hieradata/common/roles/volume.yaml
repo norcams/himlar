@@ -9,6 +9,7 @@ include:
     - profile::openstack::cache
     - profile::logging::rsyslog::client
     - profile::webserver::apache::status
+    - profile::storage::cephclient
 
 profile::base::common::packages:
   # we need newer version of six to avoid breaking requests and openstack cli
