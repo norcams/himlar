@@ -28,3 +28,5 @@ profile::base::common::packages:
   'python3-redis': {} # OSProfiler dependency
 
 profile::openstack::volume::manage_osprofiler: true
+
+profile::storage::cephclient::enable: false

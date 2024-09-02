@@ -167,3 +167,5 @@ profile::base::selinux::semodules:
     avc_file:   "attach_cinder.avc"
   'httpd_cinder':
     avc_file:   "httpd_cinder.avc"
+
+profile::storage::cephclient::enable: true

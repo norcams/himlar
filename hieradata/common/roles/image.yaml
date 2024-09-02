@@ -67,3 +67,5 @@ profile::base::selinux::boolean:
 profile::base::selinux::semodules:
   'postfix_glance':
     avc_file:   "postfix_glance.avc"
+
+profile::storage::cephclient::enable: true

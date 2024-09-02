@@ -2,3 +2,5 @@ profile::base::common::packages:
   'python3-redis': {} # OSProfiler dependency
 
 profile::openstack::image::manage_osprofiler: true
+
+profile::storage::cephclient::enable: false
