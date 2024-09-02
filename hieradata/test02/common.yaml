@@ -160,7 +160,6 @@ chrony::servers:
   - ntp1.uio.no
   - ntp2.uio.no
 
-profile::openstack::volume::manage_rbd: true
 profile::openstack::compute::hypervisor::manage_libvirt_rbd: true
 
 # If backend != file, you must explicitly define stores in %location/modules/glance.yaml

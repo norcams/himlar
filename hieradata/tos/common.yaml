@@ -189,7 +189,6 @@ ceph::profile::params::mon_host:                    '10.246.16.91, 10.246.16.92,
 ceph::profile::params::cluster_network:             '172.20.64.0/21'
 ceph::profile::params::public_network:              '10.246.16.0/21'
 
-profile::openstack::volume::manage_rbd: true
 profile::openstack::compute::hypervisor::manage_libvirt_rbd: true
 
 # If backend != file, you must explicitly define stores in %location/modules/glance.yaml
