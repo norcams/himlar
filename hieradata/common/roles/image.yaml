@@ -5,6 +5,7 @@ include:
     - profile::openstack::openrc
     - profile::logging::rsyslog::client
     - profile::openstack::cache
+    - profile::storage::cephclient
 
 profile::base::common::packages:
   # we need newer version of six to avoid breaking requests and openstack cli
