@@ -212,10 +212,10 @@ profile::base::yumrepo::repo_hash:
     gpgkey:         'https://packagecloud.io/sensu/community/gpgkey' #FIXME
     #repo_gpgcheck:  1
 # Optional repos: enable them with ensure: present in common/role
-  uh-iaas-nonfree:
+  nrec-nonfree:
     ensure:         absent
     descr:          'NREC non-free packages repository'
-    baseurl:        "https://download.iaas.uio.no/nrec/nonfree/yum-nonfree/%{hiera('repo_dist')}"
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/nrec-nonfree"
     enabled:        1
     gpgcheck:       0
   centos-qemu-ev:

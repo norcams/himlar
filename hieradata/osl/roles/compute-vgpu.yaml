@@ -52,7 +52,7 @@ profile::base::lvm::logical_volume:
 
 # Enable extra yum repo vGPU drivers
 profile::base::yumrepo::repo_hash:
-  uh-iaas-nonfree:
+  nrec-nonfree:
     ensure: present
 
 profile::base::common::packages:
