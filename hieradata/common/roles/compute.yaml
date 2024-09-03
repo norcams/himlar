@@ -11,6 +11,7 @@ include:
     - profile::rhsm::subscription
     - profile::rhsm::virtwho
     - profile::base::httpproxy
+    - profile::storage::cephclient
   kickstart:
     - profile::virtualization::nested
     - profile::network::yum_proxy
