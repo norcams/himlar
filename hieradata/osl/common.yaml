@@ -498,6 +498,17 @@ profile::openstack::resource::subnets:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'dualStack'
     tenant_name: 'openstack'
+  public6_IPv4:
+    name: 'public6_IPv4'
+    cidr: '158.37.66.0/24'
+    ip_version: '4'
+    allocation_pools:
+      - 'start=158.37.66.2,end=158.37.66.244'
+    gateway_ip: '158.37.66.1'
+    dns_nameservers:
+      - "%{hiera('netcfg_anycast_dns')}"
+    network_name: 'dualStack'
+    tenant_name: 'openstack'
   public1_ipv6:
     name: 'public1_IPv6'
     cidr: '2001:700:2:8201::/64'
