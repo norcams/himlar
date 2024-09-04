@@ -71,8 +71,8 @@ frrouting::frrouting::zebra_ip_routes:
 #  - '0.0.0.0/0 172.18.230.1 50'
   - '10.0.0.0/8 Null0'
   - '158.37.63.0/24 Null0'
-  - '158.39.48.0/24 Null0'
   - '158.37.66.0/24 Null0'
+  - '158.39.48.0/24 Null0'
   - '158.39.75.0/24 Null0'
   - '158.39.200.0/24 Null0'
   - '158.39.75.246/32 172.18.32.8'  # login-02
@@ -88,8 +88,8 @@ frrouting::frrouting::zebra_ip_routes:
 frrouting::frrouting::bgp_networks:
   - "%{hiera('bgp_loopback_addr')}/32"
   - '158.37.63.0/24'
-  - '158.39.48.0/24'
   - '158.37.66.0/24'
+  - '158.39.48.0/24'
   - '158.39.75.0/24'
   - '158.39.200.0/24'
 frrouting::frrouting::bgp_networks6:
