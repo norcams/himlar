@@ -45,3 +45,6 @@ profile::webserver::apache::vhosts:
       - path:             "%{hiera('dpapp::installdir')}"
         require:          'all granted'
         custom_fragment:  'WSGIProcessGroup dpapp'
+
+profile::base::common::packages:
+  'python3.11': {}
