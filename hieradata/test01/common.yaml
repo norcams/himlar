@@ -148,7 +148,7 @@ profile::network::services::dns_records:
     "identity.%{hiera('domain_trp')}":                      "%{hiera('internal__ip__api')}"
     "object.%{hiera('domain_trp')}":                        "%{hiera('internal__ip__api')}"
     "metric.%{hiera('domain_trp')}":                        "%{hiera('internal__ip__api')}"
-  AAAA:
+#  AAAA:
   PTR:
     # Temp. for old login-01
     "199.%{hiera('reverse_mgmt_c0')}":    "%{::location}-login-01old.%{hiera('domain_mgmt')}"
