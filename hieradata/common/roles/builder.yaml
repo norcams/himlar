@@ -51,7 +51,7 @@ profile::openstack::openrc::password:         "%{hiera('imagebuilder_password')}
 profile::openstack::openrc::interface:        'public'
 
 
-profile::application::builder::package_url:   "https://download.iaas.uio.no/nrec/nrec-internal/%{hiera('repo_dist')}/imagebuilder-1.26-1.el7.x86_64.rpm"
+profile::application::builder::package_url:   "https://download.iaas.uio.no/nrec/nrec-internal/%{hiera('repo_dist')}/imagebuilder-1.39-1.el8.x86_64.rpm"
 profile::application::builder::ipv6:          true
 profile::application::builder::flavor:        'img.zerodisk'
 profile::application::builder::template_dir:  '/etc/imagebuilder'
