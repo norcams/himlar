@@ -115,14 +115,6 @@ profile::firewall::pre::ssh_settings:
   source: "0.0.0.0/0"
 
 
-#
-#  - Add vagrant user to wheel and users group
-#
-accounts::users:
-  'vagrant':
-    comment: 'vagrant system user'
-    groups:  [ 'users', 'wheel' ]
-
 sudo::configs:
   requiretty:
     priority: 5
