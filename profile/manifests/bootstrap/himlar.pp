@@ -4,8 +4,14 @@ class profile::bootstrap::himlar(
 ) {
 
   if $manage_bootstrap_scripts {
-    include himlar_bootstrap
-    include himlar_bootstrap::instances
+    include ::bootstrap_infra
+
+    $tftp = lookup('profile::bootstrap::himlar::tftp', Hash, 'deep', {})
+    $libvirt = lookup('profile::bootstrap::himlar::libvirt', Hash, 'deep', {})
+
+    create_resources('::bootstrap_infra::install::tftp', $tftp)
+    create_resources('::bootstrap_infra::install::libvirt', $libvirt)
+
   }
 
 }

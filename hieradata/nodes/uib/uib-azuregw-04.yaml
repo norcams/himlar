@@ -30,7 +30,7 @@ profile::network::ipsec::tunnels:
     dpddelay:      '30'
     dpdtimeout:    '120'
     ike:           'aes256-sha1;modp1024'
-    ikev2:         'yes'
+    ikev2:         'insist'
     ikelifetime:   '10800s'
     leftsubnet:    '0.0.0.0/0'
     leftvti:       '169.254.0.2'

@@ -25,14 +25,6 @@ dhcp::pools:
     nameservers:
       - "%{hiera('netcfg_oob_netpart')}.10"
 
-profile::webserver::apache::vhosts:
-  'repo-oobip':
-    servername:     "%{::ipaddress_oob1}"
-    port:           80
-    docroot:        '/opt/repo/public'
-    docroot_owner:  'iaas'
-    serveraliases:  [ "repo.%{hiera('domain_oob')}", ]
-
 dhcp::hosts:
 # osl-login-01 oob link: 10
 # osl-login-02 oob link:  8
@@ -382,6 +374,27 @@ dhcp::hosts:
   osl-compute-66-bmc:
     mac: '58:8a:5a:e7:bf:76'
     ip:  '172.17.33.127'
-  osl-test-04-bmc:
+  osl-storage-26-bmc:
     mac: '18:fb:7b:ab:5b:fb'
-    ip:  '172.17.33.203'
+    ip:  '172.17.33.68'
+  osl-storage-27-bmc:
+    mac: '18:66:da:8c:1b:a2'
+    ip:  '172.17.33.69'
+  osl-storage-28-bmc:
+    mac: '18:66:da:6a:94:e5'
+    ip:  '172.17.33.70'
+  osl-storage-29-bmc:
+    mac: '18:66:da:6a:97:f4'
+    ip:  '172.17.33.71'
+  osl-storage-30-bmc:
+    mac: '18:66:da:6a:69:4c'
+    ip:  '172.17.33.72'
+  osl-storage-31-bmc:
+    mac: '18:66:da:6a:95:09'
+    ip:  '172.17.33.73'
+  osl-storage-32-bmc:
+    mac: '18:fb:7b:aa:4f:d9'
+    ip:  '172.17.33.74'
+  osl-storage-33-bmc:
+    mac: '18:fb:7b:9f:e0:ab'
+    ip:  '172.17.33.75'

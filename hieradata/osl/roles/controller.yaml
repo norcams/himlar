@@ -1,16 +1,14 @@
 ---
-himlar_bootstrap::virt_install:
+profile::bootstrap::himlar::libvirt:
   '%{location}-admin-01':
-    domain:          "%{hiera('domain_mgmt')}"
-    libvirt_pool:    'dirpool'
-    libvirt_network: 'directnet'
-    install_ip:      "%{hiera('netcfg_mgmt_net_c0')}.11"
-    install_netmask: "%{hiera('netcfg_mgmt_netmask')}"
-    install_gateway: "%{hiera('netcfg_mgmt_net_c0')}.10" #login
-    vm_vcpus:        4
-    vm_memory:       16192
-    vm_console:      false
-    use_dhcp:        false
+    domain:           "%{hiera('domain_mgmt')}"
+    libvirt_pool:     'dirpool'
+    libvirt_network:  'directnet'
+    node_ip:          "%{hiera('netcfg_mgmt_net_c0')}.11"
+    node_netmask:     "%{hiera('netcfg_mgmt_netmask')}"
+    node_gateway:     "%{hiera('netcfg_mgmt_net_c0')}.10" #login
+    vm_vcpus:         4
+    vm_memory:        16192
 
 profile::base::physical::configure_bmc_nic:          true
 profile::base::physical::enable_redfish_sensu_check: true
@@ -19,5 +17,3 @@ profile::monitoring::sensu::agent::checks:
     command:      '/usr/local/bin/redfish_check.sh'
     interval:     1800
     subscribers:  ['checks']
-
-ceph_version:         'octopus'

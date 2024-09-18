@@ -18,6 +18,7 @@ block_api_connection:   'connection accept'
 profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}
+  'netcat': {}
 
 # Sensu
 profile::monitoring::sensu::agent::plugins:

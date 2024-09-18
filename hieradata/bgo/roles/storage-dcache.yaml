@@ -198,7 +198,7 @@ profile::storage::cephosd::osds:
     db_device:  'vg_cache1/lv_dbe'
   '/dev/sdf':
     wal_device: false
-    db_device:  'vg_cache2/lv_dbf'
+    db_device:  'vg_cache1/lv_dbf'
   '/dev/sdg':
     wal_device: false
     db_device:  'vg_cache2/lv_dbg'
@@ -264,7 +264,7 @@ profile::monitoring::sensu::agent::plugin_gems:
   sensu-plugins-himlar:
     ensure:   '0.4.0'
     provider: 'sensuclassic_gem'
-    source:   'http://download.iaas.uio.no/uh-iaas/gem'
+    source:   'http://download.iaas.uio.no/nrec/gem'
 
 profile::monitoring::sensu::agent::plugins:
   sensu-plugins-network-checks:

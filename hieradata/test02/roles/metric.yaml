@@ -1,0 +1,9 @@
+---
+
+# Smaller disk for gnocchi datas in test
+profile::base::lvm::logical_volume:
+  'lv_gnocchi':
+    volume_group: 'vg_metric'
+    fs_type:      "xfs"
+    mountpath:    "/var/lib/gnocchi"
+    size:         '19.9G'

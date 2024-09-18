@@ -8,24 +8,120 @@
 # Filter api access to testing network
 block_api_connection:   'connection reject unless { src -f /etc/haproxy/test01_access.list }'
 
+profile::network::interface::create_ip_rules:      true
+profile::network::interface::create_custom_routes: true
+
+profile::base::network::routes:
+  "%{hiera('named_interfaces::config.trp.0')}":
+    'ipaddress': [ '0.0.0.0', '::' ]
+    'netmask':   [ '0.0.0.0', '0' ]
+    'gateway':   [ "%{hiera('netcfg_trp_gateway')}", "%{hiera('netcfg_trp_gateway6')}" ]
+    'table':     [ 'anycast', 'anycast' ]
+    'family':    [ 'inet4', 'inet6' ]
+profile::base::network::routing_tables:
+  'anycast':
+    'table_id':  '239'
+profile::base::network::rules:
+  "%{hiera('named_interfaces::config.trp.0')}":
+    'iprule':  [ "from %{hiera('public__ip__api')} lookup anycast", "from %{hiera('public__ipv6__api')} lookup anycast" ]
+    'family':  [ 'inet4', 'inet6', ]
+
+# HAproxy backends: public, internal and haproxy monitor
+profile::highavailability::loadbalancing::haproxy::merge_strategy: 'first'
+profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
+  frontend_public:
+    bind:
+      # IPv4
+      "ipv4@%{::ipaddress_public1}:5000":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}", "crt %{hiera('frontend_star_ssl_pem')}", "crt %{hiera('frontend_star_ssl_pem2')}"]
+      "ipv4@%{::ipaddress_public1}:8041":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "ipv4@%{::ipaddress_public1}:8080":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "ipv4@%{::ipaddress_public1}:8778":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "ipv4@%{::ipaddress_public1}:8774":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "ipv4@%{::ipaddress_public1}:8776":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "ipv4@%{::ipaddress_public1}:9292":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "ipv4@%{::ipaddress_public1}:9696":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "ipv4@%{::ipaddress_public1}:9001":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "ipv4@%{::ipaddress_public1}:443":   ['ssl', "crt %{hiera('frontend_star_ssl_pem')}", "crt %{hiera('frontend_star_ssl_pem2')}"]
+      "ipv4@%{::ipaddress_public1}:80":    []
+      "ipv4@%{::ipaddress_public1}:6080":  ['ssl', "crt %{hiera('console_ssl_pem')}", "crt %{hiera('console_ssl_pem2')}"]
+      # IPv6
+      "ipv6@%{::ipaddress6_public1}:5000": ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}", "crt %{hiera('frontend_star_ssl_pem')}", "crt %{hiera('frontend_star_ssl_pem2')}"]
+      "ipv6@%{::ipaddress6_public1}:8041": ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "ipv6@%{::ipaddress6_public1}:8080": ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "ipv6@%{::ipaddress6_public1}:8778": ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "ipv6@%{::ipaddress6_public1}:8774": ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "ipv6@%{::ipaddress6_public1}:8776": ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "ipv6@%{::ipaddress6_public1}:9292": ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "ipv6@%{::ipaddress6_public1}:9696": ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "ipv6@%{::ipaddress6_public1}:9001": ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "ipv6@%{::ipaddress6_public1}:443":  ['ssl', "crt %{hiera('frontend_star_ssl_pem')}", "crt %{hiera('frontend_star_ssl_pem2')}"]
+      "ipv6@%{::ipaddress6_public1}:80":   []
+      "ipv6@%{::ipaddress6_public1}:6080": ['ssl', "crt %{hiera('console_ssl_pem')}", "crt %{hiera('console_ssl_pem2')}"]
+    options:
+      - capture:        'request header Host len 64' #for debug
+      - acl:
+        - 'keystone_admin_endpoint path -i -m beg /v3/projects'
+        - 'keystone_admin_endpoint path -i -m beg /v3/groups'
+        - 'keystone_admin_endpoint path -i -m beg /v3/domains'
+        - 'keystone_admin_endpoint path -i -m beg /v3/regions'
+        - 'keystone_admin_endpoint path -i -m beg /v3/roles'
+        - 'keystone_admin_endpoint path -i -m beg /v3/endpoints'
+        - 'keystone_admin_endpoint path -i -m beg /v3/services'
+        - 'keystone_admin_endpoint path -i -m beg /v3/system'
+        - 'valid_method method GET HEAD OPTION'
+        - 'is_request hdr_beg(host) -i request'
+        - 'has_subdomain hdr_reg(host) -i .*\..*\..*'
+      - redirect:
+        - 'code 301 location https://www.%[hdr(host)] if !has_subdomain'
+        - 'scheme https if !{ ssl_fc } !is_request' # redirect all to https (only port 80)
+      - tcp-request:    "%{hiera('block_api_connection')}" # should only block in test01
+      # Uncomment this to restrict access to testing network only
+      #- use_backend:    'bk_maintenance unless { src -f /etc/haproxy/testing_network.list }'
+      #
+      - http-request:
+        - 'add-header X-Forwarded-Proto https if { ssl_fc }'
+        - 'set-header X-Forwarded-Port %[dst_port]'
+        # Returns 403 for all keystone admin endpoints on port 5000
+        # using http methods not whitelisted (e.g. POST, PATCH, DELETE)
+      #  - 'deny if { dst_port 5000 } !valid_method keystone_admin_endpoint'
+      #  - 'set-header X-Forwarded-Host %[req.hdr(Host)]'
+      - errorfile:      '403 /etc/haproxy/error.forbidden.http'
+      - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/public_domains.map)]'
+  frontend_monitor:
+    options:
+      stats:
+         - 'enable'
+         - 'hide-version'
+         - 'realm Sensu\ Monitor\ Stats'
+         - 'uri /'
+    bind:
+      '%{::ipaddress_mgmt1}:9000':            []
+      '127.0.0.1:9000':                       []
+
 profile::highavailability::loadbalancing::haproxy::anycast_enable: true
+profile::highavailability::loadbalancing::haproxy::manage_firewall6: true
 profile::highavailability::loadbalancing::haproxy::access_list:
   testing_network:
     ips:
       - "%{alias('allow_from_testing_network')}"
   test01_access:
     ips:
-      - '129.177.6.133/32'  # bgo-login
-      - '129.177.6.190/32'  # test01-login
-      - '129.177.31.64/27'  # test01
-      - '129.177.31.96/27'  # test01
-      - '129.177.0.137/32'  # p1dclogin
-      - '129.177.0.138/32'  # p2dclogin
-      - '129.177.25.132/32' # raymond-dev
-      - '158.39.74.6/32'    # raymond (bgo-mgmt-instance)
-      - '129.240.130.12/32' # trond
-      - '129.240.130.124/32'# mikael
-      - '129.240.202.64/32' # mikael
+      - '129.177.6.133/32'         # bgo-login
+      - '2001:700:200:6::133/128'  # bgo-login
+      - '129.177.6.190/32'         # test01-login
+      - '2001:700:200:6::190/128'  # test01-login
+      - '129.177.31.64/27'         # test01
+      - '129.177.31.96/27'         # test01
+      - '2001:700:200:915::/64'    # test01
+      - '2001:700:200:916::/64'    # test01
+      - '129.177.0.137/32'         # p1dclogin
+      - '129.177.0.138/32'         # p2dclogin
+      - '129.177.25.132/32'        # raymond-dev
+      - '2001:700:200:334::132/128' # raymond-dev
+      - '158.39.74.6/32'           # raymond (bgo-mgmt-instance)
+      - '129.240.130.12/32'        # trond
+      - '129.240.130.124/32'       # mikael
+      - '129.240.202.64/32'        # mikael
 
 # this will only work for status/access (port 80/443)
 profile::highavailability::loadbalancing::haproxy::allow_from_network:
@@ -34,7 +130,7 @@ profile::highavailability::loadbalancing::haproxy::allow_from_network:
   - '129.177.31.96/27'  # test01
   - '129.177.25.132/32' # raymond
   - '129.240.130.12/32' # trond
-  - '129.240.130.124/32'# mikael
+  - '129.240.130.124/32' # mikael
   - '129.240.202.64/32' # mikael
 
 network__backend__names:

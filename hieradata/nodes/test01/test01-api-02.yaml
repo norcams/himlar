@@ -3,19 +3,19 @@ network::interfaces_hash:
   'eth0':
     ipaddress:      "%{hiera('netcfg_mgmt_netpart')}.59"
     netmask:        "%{hiera('netcfg_mgmt_netmask')}"
+    gateway:        "%{hiera('netcfg_mgmt_gateway')}"
     peerdns:        'yes'
-    dns1:           "%{hiera('netcfg_dns_server1')}"
-    dns2:           "%{hiera('netcfg_dns_server2')}"
+    dns1:           "%{hiera('netcfg_dns_mgmt_server1')}"
+    dns2:           "%{hiera('netcfg_dns_trp_server1')}"
     domain:         "%{hiera('netcfg_dns_search')}"
-    defroute:       'no'
+    defroute:       'yes'
   'eth1':
     ipaddress:      "%{hiera('netcfg_trp_netpart')}.59"
     netmask:        "%{hiera('netcfg_trp_netmask')}"
-    gateway:        "%{hiera('netcfg_trp_netpart')}.26"
+    srcaddr:        "%{hiera('public__ip__object')}"
     ipv6init:       'yes'
     ipv6addr:       "%{hiera('netcfg_trp_netpart6')}::59/%{hiera('netcfg_trp_netmask6')}"
-    ipv6_defaultgw: "%{hiera('netcfg_trp_gateway6')}"
-    defroute:       'yes'
+    defroute:       'no'
   'dummy0':
     ipaddress:      "%{hiera('public__ip__api')}"
     netmask:        '255.255.255.255'

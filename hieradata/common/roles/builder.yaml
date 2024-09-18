@@ -51,7 +51,7 @@ profile::openstack::openrc::password:         "%{hiera('imagebuilder_password')}
 profile::openstack::openrc::interface:        'public'
 
 
-profile::application::builder::package_url:   "https://download.iaas.uio.no/nrec/nrec-internal/%{hiera('repo_dist')}/imagebuilder-1.26-1.el7.x86_64.rpm"
+profile::application::builder::package_url:   "https://download.iaas.uio.no/nrec/nrec-internal/%{hiera('repo_dist')}/imagebuilder-1.39-1.el8.x86_64.rpm"
 profile::application::builder::ipv6:          true
 profile::application::builder::flavor:        'img.zerodisk'
 profile::application::builder::template_dir:  '/etc/imagebuilder'
@@ -277,9 +277,9 @@ profile::application::builder::images:
     'minute':           50
   'uio_rhel8':
     'image_name':       'IMAGEBUILDER UIO RHEL 8'
-    'url':              'http://download.iaas.uio.no/uh-iaas/nonfree/'
-    'latest':           'rhel-8.9-x86_64-kvm.qcow2'
-    'checksum_file':    'rhel-8.9-x86_64-kvm.sha256sum'
+    'url':              'http://download.iaas.uio.no/nrec/nonfree/'
+    'latest':           'rhel-8.10-x86_64-kvm.qcow2'
+    'checksum_file':    'rhel-8.10-x86_64-kvm.sha256sum'
     'checksum':         'sha256'
     'min_ram':          1024
     'min_disk':         8
@@ -287,7 +287,7 @@ profile::application::builder::images:
     'hour':             12
   'uio_rhel9':
     'image_name':       'IMAGEBUILDER UIO RHEL 9'
-    'url':              'http://download.iaas.uio.no/uh-iaas/nonfree/'
+    'url':              'http://download.iaas.uio.no/nrec/nonfree/'
     'latest':           'rhel-9.4-x86_64-kvm.qcow2'
     'checksum_file':    'rhel-9.4-x86_64-kvm.sha256sum'
     'checksum':         'sha256'
@@ -309,7 +309,7 @@ profile::monitoring::sensu::agent::plugin_gems:
   sensu-plugins-himlar:
     ensure:       '0.6.0'
     provider:     'sensuclassic_gem'
-    source:       'http://download.iaas.uio.no/uh-iaas/gem'
+    source:       'http://download.iaas.uio.no/nrec/gem'
 
 # metadata imagebuild check
 profile::monitoring::sensu::agent::expanded_checks:

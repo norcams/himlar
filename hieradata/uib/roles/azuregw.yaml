@@ -27,9 +27,11 @@ profile::network::nat::bird_export_networks:
   - '129.177.14.0/24'
   - '129.177.5.0/24'
   - '129.177.6.193/32'
-  - '129.177.30.244/32'
-  - '129.177.30.56/32'
   - '129.177.30.16/32'
+  - '129.177.30.56/32'
+  - '129.177.30.244/32'
+  - '129.177.30.247/32'
+  - '129.177.30.252/32'
 
 profile::network::nat::enable_snat:           true
 profile::network::nat::outiface:              "%{::interface_public1}"

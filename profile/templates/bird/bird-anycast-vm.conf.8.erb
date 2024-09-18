@@ -2,14 +2,14 @@
 router id <%= @ipaddress_trp1 %>;
 
 filter export_bgp4 {
-  if net = <%= scope().call_function('hiera',['public__ip__object']) %>/32 then accept;
+  if net = <%= @anycast_service_ip %>/32 then accept;
     else {
         reject;
     }
 }
 
 filter export_bgp6 {
-  if net = <%= scope().call_function('hiera',['public__ipv6__object']) %>/128 then accept;
+  if net = <%= @anycast_service_ip6 %>/128 then accept;
     else {
         reject;
     }

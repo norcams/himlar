@@ -51,6 +51,9 @@ netcfg_mgmt_net_c4:     '172.31.4'
 netcfg_mgmt_net_c5:     '172.31.5'
 netcfg_mgmt_net_c6:     '172.31.6'
 netcfg_mgmt_net_c7:     '172.31.7'
+netcfg_oob_netpart:     '172.31.16'
+netcfg_oob_netmask:     '255.255.255.0'
+netcfg_oob_gateway:     '172.31.16.1'
 netcfg_trp_gateway:     '172.31.8.1'
 netcfg_trp_netpart:     '172.31.8'
 netcfg_trp_netmask:     '255.255.255.0'
@@ -111,14 +114,6 @@ allow_from_network:
 profile::firewall::pre::ssh_settings:
   source: "0.0.0.0/0"
 
-
-#
-#  - Add vagrant user to wheel and users group
-#
-accounts::users:
-  'vagrant':
-    comment: 'vagrant system user'
-    groups:  [ 'users', 'wheel' ]
 
 sudo::configs:
   requiretty:
@@ -393,3 +388,14 @@ profile::monitoring::sensu::agent::namespaces:
 profile::base::yumrepo::repo_hash:
   sensu-community:
     ensure: present
+
+# OSProfiler config
+profile::logging::osprofiler::osprofiler_config:
+  profiler/enabled:
+    value: true
+  profiler/trace_sqlalchemy:
+    value: true
+  profiler/hmac_keys:
+    value: 'tracethis'
+  profiler/connection_string:
+    value: "redis://%{hiera('mgmt__address__proxy')}:6379"

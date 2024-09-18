@@ -32,3 +32,22 @@ profile::openstack::compute::nvidia_vgpu_createmdev::enable: true
 profile::base::selinux::semodules:
   sriov_manage:
     avc_file:   'sriov_manage.avc'
+
+# NVIDIA V100 16GB partitioned into 1x vGPUs, with CUDA support
+#
+# From "mdevctl types":
+#
+#  nvidia-109
+#    Available instances: 0
+#    Device API: vfio-pci
+#    Name: GRID V100-16Q
+#    Description: num_heads=4, frl_config=60, framebuffer=16384M, max_resolution=7680x4320, max_instance=1
+#
+# Example: 'nvidia-35' or ['nvidia-35', 'nvidia-36']
+#
+nova::compute::vgpu::vgpu_types_device_addresses_mapping: { 'nvidia-471', }
+
+# Configuration values for the "create-mdev" service
+profile::application::create_mdev::enable:                true
+profile::application::create_mdev::nvidia_gpu_type:       'nvidia-471'
+profile::application::create_mdev::max_instances_per_gpu: 4

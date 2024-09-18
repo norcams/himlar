@@ -8,7 +8,6 @@ include:
     - profile::openstack::cache
     - profile::logging::rsyslog::client
     - profile::base::systemd
-
 etcd::proxy: "off"
 etcd::initial_cluster_state: 'new'
 etcd::initial_cluster_token: 'etcd-cluster'
@@ -35,7 +34,6 @@ profile::base::common::packages:
   'python-memcached': {}       # FIXME: remove when el7 is gone
   'libibverbs': {}
   'make': {} # for sensu gem
-  'centos-release-nfv-common': {}
 
 profile::openstack::openrc::password:     "%{hiera('neutron_api_password')}"
 profile::openstack::openrc::username:     'neutron'

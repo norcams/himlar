@@ -25,7 +25,7 @@ mod 'yumrepo_core', :ref => '1.0.7',                :git => github + 'puppetlabs
 mod 'vcsrepo', :ref => 'v5.5.0',                    :git => github + 'puppetlabs/puppetlabs-vcsrepo'
 mod 'kmod', :ref => 'v3.0.0',                       :git => github + 'voxpupuli/puppet-kmod'
 mod 'named_interfaces', :ref => 'v1.0.1',           :git => github + 'norcams/puppet-named_interfaces'
-mod 'network', :ref => '4cd33d17f6',                :git => github + 'norcams/puppet-network'
+mod 'network', :ref => '49b04ad60e',                :git => github + 'norcams/puppet-network'
 # mod 'apt', :ref => '2.2.2',                         :git => github + 'puppetlabs/puppetlabs-apt'
 mod 'selinux', :ref => 'v3.4.0',                    :git => github + 'voxpupuli/puppet-selinux'
 mod 'puppet', :ref => '18.0.0',                     :git => github + 'theforeman/puppet-puppet.git'
@@ -94,7 +94,8 @@ mod 'gitolite', :ref => '1.1',                      :git => github + 'uib/puppet
 #
 # bootstrap
 #
-mod 'himlar_bootstrap', :ref => '2.0.2',            :git => github + 'norcams/puppet-himlar_bootstrap'
+#mod 'himlar_bootstrap', :ref => '2.0.2',            :git => github + 'norcams/puppet-himlar_bootstrap'
+mod 'bootstrap_infra', :ref => 'master',            :git => github + 'norcams/puppet-bootstrap_infra'
 
 #
 # profile::logging
@@ -141,6 +142,7 @@ mod 'staging', :ref => 'v3.0.0',                    :git => github + 'voxpupuli/
 # FIXME use version of mysql module
 #mod 'mysql', :ref => 'norcams/v10.3.0',             :git => github + 'norcams/puppetlabs-mysql'
 #mod 'galera_arbitrator', :ref => '1.0.4',           :git => github + 'jadestorm/puppet-galera_arbitrator'
+
 
 #
 # profile::messaging::rabbitmq

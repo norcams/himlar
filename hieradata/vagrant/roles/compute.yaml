@@ -33,6 +33,9 @@ profile::base::lvm::volume_group:
     physical_volumes:
       - /dev/vda3
 
+# test telemetry polling (require metric and telemetry nodes in vagrant)
+#profile::openstack::compute::manage_telemetry: true
+
 # enable consul
 #include:
 #  default:
@@ -83,3 +86,8 @@ profile::monitoring::collectd::plugins:
 profile::base::common::packages:
   'gcc-c++': { ensure: absent }
   'make': { ensure: absent }
+  'python3-redis': {} # OSProfiler dependency
+
+profile::openstack::compute::manage_osprofiler: true
+
+profile::storage::cephclient::enable: false

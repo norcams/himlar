@@ -4,24 +4,42 @@ keystone::resource::authtoken::insecure:    true
 
 memcached::max_memory: '10%'
 
+profile::application::openssl::manage_ca_cert:  true
+profile::application::openssl::certs:
+  "%{::hostname}.%{hiera('domain_trp')}":
+    cn:     "%{::hostname}.%{hiera('domain_trp')}"
+    altnames:
+      - "%{::hostname}.%{hiera('domain_trp')}"
+      - "%{::fqdn}"
+
 # Allow statsd from mgmt to work with himlarcli
 profile::openstack::metric::firewall_extras:
   source: '0.0.0.0/0'
 
 # disks
+lvm::manage_pkg: true
 profile::base::common::manage_lvm: true
 
-profile::base::lvm::physical_volume:
-  '/dev/vdb':
-    ensure: present
-    force:  true
-profile::base::lvm::volume_group:
-  'vg_metric':
-    physical_volumes:
-      - /dev/vdb
 profile::base::lvm::logical_volume:
   'lv_gnocchi':
     volume_group: 'vg_metric'
     fs_type:      "xfs"
     mountpath:    "/var/lib/gnocchi"
     size:         '1.5G'
+
+mysql::server::override_options:
+  mysqld:
+    max_connections:                "%{hiera('mysql__config__max_connections')}"
+    table_open_cache:               16384
+    query_cache_size:               "%{hiera('mysql__config__query_cache_size')}"
+    query_cache_limit:              "%{hiera('mysql__config__query_cache_limit')}"
+    join_buffer_size:               '2M'
+    innodb_log_file_size:           "%{hiera('mysql__config__innodb_log_file_size')}"
+    innodb_buffer_pool_size:        "%{hiera('mysql__config__innodb_buffer_pool_size')}"
+    log-error:                      '/var/log/mysqld.log'
+    pid-file:                       "/var/lib/mysql/%{::hostname}.pid"
+    bind-address:                   "127.0.0.1"
+    ssl:                            'true'
+    ssl-ca:                         "%{hiera('db_ssl_ca')}"
+    ssl-key:                        "%{hiera('db_ssl_key')}"
+    ssl-cert:                       "%{hiera('db_ssl_cert')}"

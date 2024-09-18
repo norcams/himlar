@@ -25,14 +25,6 @@ dhcp::pools:
     nameservers:
       - "%{hiera('netcfg_oob_netpart')}.10"
 
-profile::webserver::apache::vhosts:
-  'repo-oobip':
-    servername:     "%{::ipaddress_oob1}"
-    port:           80
-    docroot:        '/opt/repo/public'
-    docroot_owner:  'iaas'
-    serveraliases:  [ "repo.%{hiera('domain_oob')}", ]
-
 dhcp::hosts:
   bgo-leaf-01:
     mac: '00:01:e8:d8:38:aa'

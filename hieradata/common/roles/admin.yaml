@@ -94,6 +94,11 @@ profile::webserver::apache::vhosts:
     port:           80
     docroot:        '/opt/repo/public'
     docroot_owner:  'iaas'
+  'repo-oobip':
+    servername:     "%{hiera('oob__address__repo')}"
+    port:           80
+    docroot:        '/opt/repo/public'
+    docroot_owner:  'iaas'
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:

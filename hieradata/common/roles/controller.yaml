@@ -13,6 +13,8 @@ named_interfaces::config:
   trp:
      - br1
 
+profile::storage::cephclient::enable: true
+
 profile::application::windowsimage::repo_revision: 'v1.0.2'
 
 calico::compute::manage_dhcp_agent: false
@@ -31,6 +33,9 @@ profile::base::common::packages:
   'bash-completion-extras': {}
   'jq': {}
   'rsync': {}
+
+profile::network::services::firewall_extras:
+  source: '%{network_mgmt1}/%{netmask_mgmt1}'
 
 profile::virtualization::libvirt::manage_firewall: true
 profile::virtualization::libvirt::firewall_extras:

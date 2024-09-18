@@ -4,7 +4,6 @@ include:
     - profile::application::git
   default:
     - profile::base::login
-    - profile::network::services
     - profile::development::network::dns
     - profile::application::git
     - profile::application::rngd
@@ -25,7 +24,6 @@ named_interfaces::config:
 
 profile::application::rngd::enable:               true
 profile::base::firewall::manage_firewall:         true
-profile::network::services::manage_nat:           false
 profile::network::nat::enable_masquerade:         true
 profile::network::nat::source:                   "0.0.0.0/0"
 profile::network::nat::outiface:                 "%{::interface_public1}"
@@ -159,3 +157,24 @@ profile::base::yumrepo::repo_hash:
 
 profile::base::login::dump_owner:      'norcams'
 profile::base::login::dump_group:      'wheel'
+
+# DB backup cron jobs
+profile::base::login::db_servers:
+  "%{::location}-db-global-01":
+    hour:     '*'
+    minute:   '20'
+    command:  "/usr/local/sbin/db-dump.sh %{::location}-db-global-01 >/dev/null"
+  "%{::location}-db-regional-01":
+    hour:     '*'
+    minute:   '30'
+    command:  "/usr/local/sbin/db-dump.sh %{::location}-db-regional-01 >/dev/null"
+  "%{::location}-metric-01":
+    hour:     '*'
+    minute:   '40'
+    command:  "/usr/local/sbin/db-dump.sh %{::location}-metric-01 >/dev/null"
+  "%{::location}-db-archival":
+    hour:     '0'
+    minute:   '00'
+    weekday:  'Monday'
+    command:  "/usr/local/sbin/db-longterm-bck.sh -e %{::location} >/dev/null"
+

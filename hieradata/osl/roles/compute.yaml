@@ -47,7 +47,7 @@ profile::base::network::routing_tables:
     'table_id':  '240'
 profile::base::network::rules:
   'team1':
-    iprule: [ "from %{hiera('netcfg_priv_network')} lookup private", "from %{hiera('netcfg_educloud1_network')} lookup private", "from %{hiera('netcfg_elastic_cidr')} lookup private", ]
+    iprule: [ "from %{hiera('netcfg_priv_network')} lookup private", "from %{hiera('netcfg_educloud1_network')} lookup private", "from %{hiera('netcfg_uio_priv1_network')} lookup private", "from %{hiera('netcfg_elastic_cidr')} lookup private", ]
 profile::base::network::manage_neutron_blackhole:      true # FIXME - remove when el7 is gone
 profile::network::interface::manage_neutron_blackhole: true
 
