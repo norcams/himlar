@@ -14,3 +14,14 @@ profile::base::lvm::logical_volume:
     mountpath:    "/var/lib/nova/instances"
 
 nova::compute::libvirt::cpu_models: ['Cascadelake-Server-noTSX']
+
+#kmod::list_of_blacklists:
+#  'nouveau': {}
+kmod::list_of_installs:
+  'nouveau':
+    command: '/bin/false'
+kmod::list_of_options:
+  'nouveau modeset':
+    module: 'nouveau'
+    option: 'modeset'
+    value: '0'
