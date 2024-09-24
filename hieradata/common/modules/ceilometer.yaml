@@ -21,10 +21,11 @@ ceilometer::keystone::authtoken::www_authenticate_uri: "%{hiera('endpoint__ident
 ceilometer::keystone::authtoken::auth_url:             "%{hiera('endpoint__identity__admin')}/v3"
 
 # ceilometer agent (node: telemetry, compute)
-ceilometer::agent::auth::auth_password:                         "%{hiera('ceilometer_api_password')}"
-ceilometer::agent::auth::auth_url:                              "%{hiera('endpoint__identity__internal')}"
-ceilometer::agent::auth::auth_region:                           "%{::location}"
-ceilometer::agent::auth::auth_tenant_name:                      'services'
+ceilometer::agent::service_credentials::password:               "%{hiera('ceilometer_api_password')}"
+ceilometer::agent::service_credentials::auth_url:               "%{hiera('endpoint__identity__internal')}"
+ceilometer::agent::service_credentials::region_name:            "%{::location}"
+ceilometer::agent::service_credentials::project_name:           'services'
+ceilometer::agent::service_credentials::interface:              'internal'
 
 # ceilometer notification agent (node: telemetry)
 ceilometer::agent::notification::manage_event_pipeline:         true
@@ -40,10 +41,6 @@ ceilometer::agent::polling::ipmi_namespace:                     false
 ceilometer::db::sync_db:                                        true
 ceilometer::db::sync::extra_params:                             '--skip-metering-database'
 ceilometer::db::database_connection:                            "mysql://ceilometer:%{hiera('ceilometer::db::mysql::password')}@%{hiera('service__address__db_regional')}/ceilometer"
-# Use internal endpoints for ceilometer
-ceilometer::config::ceilometer_config:
-  'service_credentials/interface':
-    value:  'internal'
 
 # rabbit mq (for rabbit_password see secrets)
 ceilometer_rabbit_access:           "ceilometer:%{hiera('ceilometer_rabbit_password')}"

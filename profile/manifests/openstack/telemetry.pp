@@ -13,7 +13,7 @@ class profile::openstack::telemetry (
   #include ::ceilometer::expirer
 
   # notification
-  include ::ceilometer::agent::auth
+  include ::ceilometer::agent::service_credentials
   include ::ceilometer::agent::notification
 
   # gnocchi

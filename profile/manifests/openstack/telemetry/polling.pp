@@ -6,7 +6,7 @@ class profile::openstack::telemetry::polling (
 
   include ::ceilometer
   include ::ceilometer::config
-  include ::ceilometer::agent::auth
+  include ::ceilometer::agent::service_credentials
   include ::ceilometer::agent::polling
 
   if $manage_polling {
