@@ -12,10 +12,11 @@ ceilometer::keystone::auth::region:                   "%{::location}"
 ceilometer::keystone::auth::configure_endpoint:       false
 
 # ceilometer agent (node: telemetry, compute)
-ceilometer::agent::auth::auth_password:                         "%{hiera('ceilometer_api_password')}"
-ceilometer::agent::auth::auth_url:                              "%{hiera('endpoint__identity__internal')}"
-ceilometer::agent::auth::auth_region:                           "%{::location}"
-ceilometer::agent::auth::auth_tenant_name:                      'services'
+ceilometer::agent::service_credentials::password:               "%{hiera('ceilometer_api_password')}"
+ceilometer::agent::service_credentials::auth_url:               "%{hiera('endpoint__identity__internal')}"
+ceilometer::agent::service_credentials::region_name:            "%{::location}"
+ceilometer::agent::service_credentials::project_name:           'services'
+ceilometer::agent::service_credentials::interface:              'internal'
 
 # ceilometer notification agent (node: telemetry)
 ceilometer::agent::notification::manage_event_pipeline:         true
@@ -43,7 +44,7 @@ ceilometer::agent::polling::polling_meters:
 - 'volume.size'
 - 'volume.snapshot.size'
 - 'volume.backup.size'
-- 'hardware.cpu.util'                                                                                                               
+- 'hardware.cpu.util'
 - 'hardware.cpu.user'
 - 'hardware.cpu.nice'
 - 'hardware.cpu.system'

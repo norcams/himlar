@@ -11,7 +11,7 @@ class profile::openstack::telemetry (
   include ::ceilometer::logging
 
   # notification
-  include ::ceilometer::agent::auth
+  include ::ceilometer::agent::service_credentials
   include ::ceilometer::agent::notification
 
   # polling
