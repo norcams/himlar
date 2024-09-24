@@ -10,3 +10,17 @@ network::interfaces_hash:
     dns2:      "%{hiera('netcfg_dns_mgmt_server2')}"
     domain:    "%{hiera('netcfg_dns_search')}"
     defroute:  'no'
+
+# enable iaas account, but only make it available in the normal fashion
+# from bgo-login-01
+accounts::accounts:
+  'iaas':
+    ensure: present
+
+ssh::server::options:
+  # No 2FA if coming from bgo-login-01
+  'Match User iaas Address 172.16.0.10':
+    AuthenticationMethods: 'publickey'
+  # No 2FA if coming from bgo-login-02
+  'Match User iaas Address 172.16.0.8':
+    AuthenticationMethods: 'publickey'
