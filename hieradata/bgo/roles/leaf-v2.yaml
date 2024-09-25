@@ -416,6 +416,38 @@ profile::base::network::cumulus_bonds:
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', '130', ]
     'mtu': '9216'
+  'host109':
+    'slaves': [ 'swp28s0', ]
+    'clag_id': '109'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host110':
+    'slaves': [ 'swp28s1', ]
+    'clag_id': '110'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host111':
+    'slaves': [ 'swp28s2', ]
+    'clag_id': '111'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host112':
+    'slaves': [ 'swp28s3', ]
+    'clag_id': '112'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
   'uplink':
     'slaves': [ 'swp29', 'swp30', ]
     'clag_id': '1004'
@@ -443,6 +475,8 @@ profile::network::leaf::cumulus_portconfigs:
     line:  "22=4x25G"
   23:
     line:  "23=4x25G"
+  28:
+    line:  "28=4x25G"  
   29:
     line:  "29=100G" # spine 01-02
   30:
@@ -490,6 +524,10 @@ profile::base::network::cumulus_bridges:
       - host90
       - host91
       - host92
+      - host109
+      - host110
+      - host111
+      - host112
       - peerlink
       - uplink
     'alias_name': 'Transport L2 if'
@@ -570,6 +608,14 @@ frrouting::frrouting::zebra_interfaces:
   'host91':
     - 'link-detect'
   'host92':
+    - 'link-detect'
+  'host109':
+    - 'link-detect'
+  'host110':
+    - 'link-detect'
+  'host111':
+    - 'link-detect'
+  'host112':
     - 'link-detect'
   'swp29':
     - 'link-detect'
