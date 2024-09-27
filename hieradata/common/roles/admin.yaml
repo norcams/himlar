@@ -98,6 +98,8 @@ dhcp::pools:
       # iDRAC will search for file in order <servicetag>-config.json, <model>-config.json, config.json
       # examples: 4U1BGM7-config.json, R740xd-config.json, config.json
       # Refer to the zero-touch, bare metal server provisioning document from Dell for options.
+      # The config is checked into internal git on login:/opt/repo/public, then use 'sync-admin.sh'
+      # (located in that location) to push the files over to the local admin node
       - vendor-class-identifier "iDRAC"
       - idrac-provision-url "-i %{::ipaddress_oob1} -s http -t 500 -n %{::location}/"
     parameters:
