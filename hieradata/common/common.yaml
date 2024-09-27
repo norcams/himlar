@@ -162,6 +162,45 @@ profile::base::network::network_auto_bonding:
     em2:
       'team_port_config': '{ "prio" : 100 }'
 
+profile::application::foreman::dhcp_classes:
+  onie_dell_s3048:
+    parameters:
+      - 'match if (substring(option vendor-class-identifier, 0, 29) = "onie_vendor:x86_64-dell_s3000")'
+      - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/images/cumuluslinux/onie-installer-amd64\""
+  onie_dell_s4048:
+    parameters:
+      - 'match if (substring(option vendor-class-identifier, 0, 29) = "onie_vendor:x86_64-dell_s4000")'
+      - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/images/cumuluslinux/onie-installer-amd64\""
+  onie_dell_s4148:
+    parameters:
+      - 'match if (substring(option vendor-class-identifier, 0, 32) = "onie_vendor:x86_64-dellemc_s4100")'
+      - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/images/cumuluslinux/onie-installer-amd64\""
+  onie_dell_s4810:
+    parameters:
+      - 'match if (substring(option vendor-class-identifier, 0, 19) = "onie_vendor:powerpc")'
+      - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/images/cumuluslinux/onie-installer-powerpc\""
+  onie_edgecore_as4610:
+    parameters:
+      - 'match if (substring(option vendor-class-identifier, 0, 35) = "onie_vendor:arm-accton_as4610_54-r0")'
+      - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/images/cumuluslinux/onie-installer-arm\""
+  onie_dell_s5232f:
+    parameters:
+      - 'match if (substring(option vendor-class-identifier, 0, 33) = "onie_vendor:x86_64-dellemc_s5232f")'
+      - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/images/cumuluslinux/onie-installer-amd64\""
+  cumulus_s4810:
+    parameters:
+      - 'match if (substring(option host-name,0,7) = "cumulus")'
+      - "option cumulus-provision-url \"http://repo.mgmt.%{location}.uhdc.no/provision/switch.sh\""
+  opx_provision_vagrant:
+    parameters:
+      - 'match if (substring(option host-name,0,3) = "opx")'
+      - "option ztd-provision-url \"http://repo.mgmt.%{location}.uhdc.no/provision/switch.sh\""
+  opx_provision:
+    parameters:
+      - 'match if (substring(option host-name,0,3) = "OPX")'
+      - "option ztd-provision-url \"http://repo.mgmt.%{location}.uhdc.no/provision/switch.sh\""
+
+
 #
 # project and domain used for internal use
 #
