@@ -558,6 +558,11 @@ profile::network::services::dns_records:
     "%{::location}-compute-82.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.143"
     "%{::location}-compute-83.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.144"
     "%{::location}-compute-84.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.145"
+    # TODO compute-85-87
+    "%{::location}-compute-88.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.149"
+    "%{::location}-compute-89.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.150"
+    "%{::location}-compute-90.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.151"
+    "%{::location}-compute-91.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.152"
     "%{::location}-mgmt-opx-01.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.1"
     "%{::location}-mgmt-opx-02.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.2"
     "%{::location}-mgmt-opx-03.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.3"
@@ -817,6 +822,11 @@ profile::network::services::dns_records:
     "143.%{hiera('reverse_mgmt_c1')}":    "%{::location}-compute-82.%{hiera('domain_mgmt')}"
     "144.%{hiera('reverse_mgmt_c1')}":    "%{::location}-compute-83.%{hiera('domain_mgmt')}"
     "145.%{hiera('reverse_mgmt_c1')}":    "%{::location}-compute-84.%{hiera('domain_mgmt')}"
+    # TODO compute-85..87
+    "149.%{hiera('reverse_mgmt_c1')}":    "%{::location}-compute-88.%{hiera('domain_mgmt')}"
+    "150.%{hiera('reverse_mgmt_c1')}":    "%{::location}-compute-89.%{hiera('domain_mgmt')}"
+    "151.%{hiera('reverse_mgmt_c1')}":    "%{::location}-compute-90.%{hiera('domain_mgmt')}"
+    "152.%{hiera('reverse_mgmt_c1')}":    "%{::location}-compute-91.%{hiera('domain_mgmt')}"
     "1.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-opx-01.%{hiera('domain_mgmt')}"
     "2.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-opx-02.%{hiera('domain_mgmt')}"
     "3.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-opx-03.%{hiera('domain_mgmt')}"
