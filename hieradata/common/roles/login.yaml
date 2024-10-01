@@ -31,7 +31,7 @@ profile::development::network::dns::manage_hosts: true
 profile::development::network::dns::use_dnsmasq:  true
 
 profile::firewall::pre::ssh_settings:
-  source: "0.0.0.0/0"
+  source:  "%{alias('allow_from_admins_network')}"
 
 profile::base::login::manage_repo_incoming_dir:   true
 profile::base::login::gpg_receiver:              "%{hiera('gpg_receiver')}"
