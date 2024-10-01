@@ -14,6 +14,10 @@ ssh::server::options:
   'Match User vagrant':
      AuthenticationMethods: 'publickey'
 
+# Default for vagrant nodes is '0.0.0.0/0'
+profile::firewall::pre::ssh_settings:
+  source:  "%{alias('allow_from_admins_network')}"
+
 # bootstrap el9 controller
 profile::bootstrap::himlar::manage_bootstrap_scripts: true
 bootstrap_infra::kickstart_defaults:
