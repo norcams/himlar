@@ -31,7 +31,7 @@ profile::base::lvm::logical_volume:
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
 
-nova::compute::libvirt::cpu_models: ['Cascadelake-Server-noTSX']
+nova::compute::libvirt::cpu_models: ['Broadwell-noTSX-IBRS']
 
 #kmod::list_of_blacklists:
 #  'nouveau': {}
