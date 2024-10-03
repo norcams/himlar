@@ -61,7 +61,19 @@ kmod::list_of_options:
 # NVIDIA newer generation cards need SR-IOV
 profile::openstack::compute::pci_passthrough::configure_intel_iommu: true
 
+# NVIDIA L40S partitioned into 1x vGPUs, with CUDA support
+#
+# From "mdevctl types":
+#
+#  nvidia-1165
+#    Available instances: 1
+#    Device API: vfio-pci
+#    Name: NVIDIA L40S-24A
+#    Description: num_heads=1, frl_config=60, framebuffer=24576M, max_resolution=1280x1024, max_instance=2
+#
+nova::compute::vgpu::vgpu_types_device_addresses_mapping: { 'nvidia-1165', }
+
 # Configuration values for the "create-mdev" service
 profile::application::create_mdev::enable:                true
-profile::application::create_mdev::nvidia_gpu_type:       'nvidia-471'
-profile::application::create_mdev::max_instances_per_gpu: 4
+profile::application::create_mdev::nvidia_gpu_type:       'nvidia-1165'
+profile::application::create_mdev::max_instances_per_gpu: 2
