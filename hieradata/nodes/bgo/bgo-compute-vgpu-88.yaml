@@ -1,4 +1,18 @@
 ---
+# NVIDIA Ampere cards need SR-IOV and creation of mdevs
+include:
+  kickstart:
+    - profile::openstack::compute::pci_passthrough
+    - profile::openstack::compute::nvidia_vgpu_createmdev
+  default:
+    - profile::openstack::compute::pci_passthrough
+    - profile::openstack::compute::nvidia_vgpu_createmdev
+
+# NVIDIA Ampere cards need to create mediated devices at every boot
+profile::openstack::compute::nvidia_vgpu_createmdev::enable: true
+profile::base::selinux::semodules:
+  sriov_manage:
+    avc_file:   'sriov_manage.avc'
 
 named_interfaces::config:
   mgmt:
@@ -46,3 +60,8 @@ kmod::list_of_options:
     
 # NVIDIA newer generation cards need SR-IOV
 profile::openstack::compute::pci_passthrough::configure_intel_iommu: true
+
+# Configuration values for the "create-mdev" service
+profile::application::create_mdev::enable:                true
+profile::application::create_mdev::nvidia_gpu_type:       'nvidia-471'
+profile::application::create_mdev::max_instances_per_gpu: 4
