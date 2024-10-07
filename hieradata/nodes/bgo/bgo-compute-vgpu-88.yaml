@@ -65,15 +65,15 @@ profile::openstack::compute::pci_passthrough::configure_intel_iommu: true
 #
 # From "mdevctl types":
 #
-#  nvidia-1165
+#  nvidia-1155
 #    Available instances: 1
 #    Device API: vfio-pci
-#    Name: NVIDIA L40S-24A
-#    Description: num_heads=1, frl_config=60, framebuffer=24576M, max_resolution=1280x1024, max_instance=2
+#    Name: NVIDIA L40S-24Q
+#    Description: num_heads=4, frl_config=60, framebuffer=24576M, max_resolution=7680x4320, max_instance=2
 #
-nova::compute::vgpu::vgpu_types_device_addresses_mapping: { 'nvidia-1165', }
+nova::compute::vgpu::vgpu_types_device_addresses_mapping: { 'nvidia-1155', }
 
 # Configuration values for the "create-mdev" service
 profile::application::create_mdev::enable:                true
-profile::application::create_mdev::nvidia_gpu_type:       'nvidia-1165'
+profile::application::create_mdev::nvidia_gpu_type:       'nvidia-1155'
 profile::application::create_mdev::max_instances_per_gpu: 2
