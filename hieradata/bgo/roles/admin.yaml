@@ -1,29 +1,4 @@
 ---
-include:
-  default:
-    - profile::dns::rndc_key
-
-profile::dns::rndc_key::create_admin_key:    true
-profile::dns::rndc_key::create_mdns_key:     false
-profile::dns::rndc_key::host_is_bind_server: false
-
-dhcp::pools:
-  "out-of-band network definition":
-    network: "%{hiera('netcfg_oob_netpart')}.0"
-    mask: "%{hiera('netcfg_oob_netmask')}"
-    gateway: "%{hiera('netcfg_oob_gateway')}"
-    options:
-      # iDRAC will search for file in order <servicetag>-config.json, <model>-config.json, config.json
-      # examples: 4U1BGM7-config.json, R740xd-config.json, config.json
-      # Refer to the zero-touch, bare metal server provisioning document from Dell for options.
-      - vendor-class-identifier "iDRAC"
-      - idrac-provision-url "-i %{::ipaddress_oob1} -s http -t 500 -n %{::location}/"
-    parameters:
-      - set vendor-string = option vendor-class-identifier
-      - default-lease-time 43200
-      - max-lease-time 86400
-    nameservers:
-      - "%{hiera('netcfg_oob_netpart')}.10"
 
 dhcp::hosts:
   bgo-leaf-01:

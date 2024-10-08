@@ -13,7 +13,7 @@ class profile::base::dell (
   $manage_repos      = false,
   $manage_openmanage = false,
 ){
-  if fact('dmi.product.name') =~ '^PowerEdge (FC|[RTM])[1-9][1-5]\d.*' {
+  if fact('dmi.product.name') =~ '^PowerEdge (FC|[RTM])[1-9][1-6]\d.*' {
 
     if $manage_repos {
 
