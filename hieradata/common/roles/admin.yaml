@@ -101,7 +101,7 @@ dhcp::pools:
       # The config is checked into internal git on login:/opt/repo/public, then use 'sync-admin.sh'
       # (located in that location) to push the files over to the local admin node
       - vendor-class-identifier "iDRAC"
-      - idrac-provision-url "-i repo.oob.%{::location}.uhdc.no -s http -t 500 -n %{::location}/"
+      - idrac-provision-url "-i %{hiera('oob__address__repo')} -s http -t 500 -n %{::location}/"
     parameters:
       - set vendor-string = option vendor-class-identifier
       - default-lease-time 43200
