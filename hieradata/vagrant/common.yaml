@@ -108,9 +108,6 @@ named_interfaces::config:
   public:
     - eth3
 
-allow_from_admins_network:
-  - 192.168.121.1/32            # Vagrant router (own development station)
-
 allow_from_network:
   - "%{hiera('netcfg_public_netpart')}.0/24"
 
