@@ -8,6 +8,9 @@ include:
     - profile::openstack::cache
     - profile::logging::rsyslog::client
     - profile::base::systemd
+
+openstack_version: 'wallaby' # FIXME
+
 etcd::proxy: "off"
 etcd::initial_cluster_state: 'new'
 etcd::initial_cluster_token: 'etcd-cluster'
@@ -86,8 +89,8 @@ profile::base::yumrepo::repo_hash:
 # One of the downsides is that we do not have control of how far back we have logs:
 # On nodes with extensive logging: as low as 14 hours (hourly rotation due to more than 100 MB/hour)
 # On nodes with a more normal log ratio: as far bask as several weeks (might be more than one full day until reached the 100 MB limit)
-# 
-# We may rotate every hour regardless (drop the 100 MB requirement) and raise the 'rotate' parameter, but then most nodes will have 
+#
+# We may rotate every hour regardless (drop the 100 MB requirement) and raise the 'rotate' parameter, but then most nodes will have
 # a large number of very small rotated log files and be more cumbersome to wade through.
 #
 profile::logging::logrotate::manage_logrotate:    true
