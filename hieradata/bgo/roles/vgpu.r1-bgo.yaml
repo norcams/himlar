@@ -1,0 +1,14 @@
+---
+# special vgpu r1 flavor for bgo region (used mainly by naic)
+public: false
+properties:
+  hw_rng:allowed: 'True'
+  hw_rng:rate_bytes: 1000000
+  hw_rng:rate_period: 60
+  aggregate_instance_extra_specs:type: 's== vgpul40s'
+  resources:VGPU: '1'
+vgpu.r1:
+  'vgpu.r1.4xlarge':
+    vcpus: 16
+    ram: 131072
+    disk: 40
