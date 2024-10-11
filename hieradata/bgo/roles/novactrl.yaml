@@ -80,6 +80,8 @@ profile::openstack::resource::host_aggregate:
     availability_zone: "%{::location}-default-1"
     metadata:
       type: 'vgpul40s'
+      filter_tenant_id: >-
+        e3dcca3452924794a6aebdd21b5da249
       
 profile::openstack::compute::pci_passthrough::manage_pcipassthrough: true
 
