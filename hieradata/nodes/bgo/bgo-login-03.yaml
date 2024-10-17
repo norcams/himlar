@@ -39,3 +39,9 @@ ssh::server::options:
   'Match User iaas Address 172.16.0.8':
     AuthenticationMethods: 'publickey'
 
+
+allow_from_admins_network:            # FIXME: Remove this when all login nodes use this (this is the default in common)
+  - '129.177.0.0/16'                                # UiB fastnett
+  - '129.240.0.0/16'                                # UiO fastnett
+  - '172.16.0.0/21'                                 # test01 mgmt
+
