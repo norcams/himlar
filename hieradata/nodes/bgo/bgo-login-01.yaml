@@ -2,12 +2,12 @@
 # tmp login node
 network::interfaces_hash:
   'eth0':
-    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.9"      # bgo mgmt
+    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.10"      # bgo mgmt
     netmask:   "%{hiera('netcfg_mgmt_netmask')}"
     defroute:  'no'
     onboot:        'yes'
   'eth1':
-    ipaddress:     '172.17.0.9'                         # bgo oob
+    ipaddress:     '172.17.0.10'                         # bgo oob
     netmask:       '255.255.248.0'
     defroute:      'no'
     onboot:        'yes'
@@ -24,23 +24,36 @@ network::interfaces_hash:
     ipv6init:       'yes'
     ipv6addr:       '2001:700:200:8::10/64'
     ipv6_defaultgw: '2001:700:200:8::1'
+  'eth3':
+    ipaddress:     '172.31.0.10'                         # uib mgmt
+    netmask:       '255.255.248.0'
+    defroute:      'no'
+    onboot:        'yes'
+  'eth4':
+    ipaddress:     '172.28.0.9'                          # test01 mgmt
+    netmask:       '255.255.248.0'
+    defroute:      'no'
+    onboot:        'yes'
+
+# Enable backup explicitly on 01 only
+profile::base::login::manage_db_backup: true
 
 # enable iaas account, but only make it available in the normal fashion
-# from bgo-login-01
+# from bgo-login-01old and 02
 accounts::accounts:
   'iaas':
     ensure: present
 
 ssh::server::options:
-  # No 2FA if coming from bgo-login-01
-  'Match User iaas Address 172.16.0.10':
+  # No 2FA if coming from bgo-login-01    # FIXME: Remove for this host when 01old is decomissioned
+  'Match User iaas Address 172.16.0.199':
     AuthenticationMethods: 'publickey'
   # No 2FA if coming from bgo-login-02
   'Match User iaas Address 172.16.0.8':
     AuthenticationMethods: 'publickey'
 
 
-allow_from_admins_network:            # FIXME: Remove this when all login nodes use this (this is the default in common)
+allow_from_admins_network:                # FIXME: Remove this when all login nodes use this (this is the default in common)
   - '129.177.0.0/16'                                # UiB fastnett
   - '129.240.0.0/16'                                # UiO fastnett
   - '172.16.0.0/21'                                 # test01 mgmt
