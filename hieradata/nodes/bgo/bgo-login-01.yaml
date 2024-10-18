@@ -1,5 +1,12 @@
 ---
-# tmp login node
+named_interfaces::config:
+  mgmt:
+    - eth0
+  oob:
+    - eth1
+  public:
+    - eth2
+
 network::interfaces_hash:
   'eth0':
     ipaddress: "%{hiera('netcfg_mgmt_netpart')}.10"      # bgo mgmt
