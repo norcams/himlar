@@ -309,6 +309,7 @@ profile::network::services::dns_records:
 
     # Management network (entries that differ from common/common.yaml)
     "%{::location}-login-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_netpart')}.10"
+    "%{::location}-login-01old.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_net_c0')}.199"
     # oob nodes
     "repo.%{hiera('domain_oob')}":                          "%{hiera('netcfg_oob_netpart')}.9"
   AAAA:
