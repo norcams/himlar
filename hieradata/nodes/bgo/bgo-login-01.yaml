@@ -55,7 +55,7 @@ profile::base::lvm::physical_volume:
 profile::base::lvm::volume_group:
   'vg_repo':
     physical_volumes:
-      - /dev/vdb
+      - /dev/sdb
 profile::base::lvm::logical_volume:
   'lv_repo':
     volume_group: 'vg_repo'
