@@ -49,7 +49,7 @@ profile::base::login::manage_db_backup: true
 profile::base::common::manage_lvm: true
 
 profile::base::lvm::physical_volume:
-  '/dev/vdb':
+  '/dev/sdb':
     ensure: present
     force:  true
 profile::base::lvm::volume_group:
