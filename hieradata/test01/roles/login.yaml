@@ -32,9 +32,9 @@ named_interfaces::config:
 ssh::server::options:
   # No 2FA possible with gitolite
   # bgo-login-01
-  'Match User git Address 129.177.6.133':
+  'Match User git Address 129.177.8.10':
     AuthenticationMethods: 'publickey'
-  'Match User git Address 2001:700:200:6::133':
+  'Match User git Address 2001:700:200:8::10':
     AuthenticationMethods: 'publickey'
   # osl-login-01
   'Match User git Address 129.240.224.100':

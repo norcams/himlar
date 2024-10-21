@@ -106,8 +106,8 @@ profile::highavailability::loadbalancing::haproxy::access_list:
       - "%{alias('allow_from_testing_network')}"
   test01_access:
     ips:
-      - '129.177.6.133/32'         # bgo-login
-      - '2001:700:200:6::133/128'  # bgo-login
+      - '129.177.8.10/32'          # bgo-login
+      - '2001:700:200:8::10/128'   # bgo-login
       - '129.177.6.190/32'         # test01-login
       - '2001:700:200:6::190/128'  # test01-login
       - '129.177.31.64/27'         # test01
@@ -125,7 +125,7 @@ profile::highavailability::loadbalancing::haproxy::access_list:
 
 # this will only work for status/access (port 80/443)
 profile::highavailability::loadbalancing::haproxy::allow_from_network:
-  - '129.177.6.133/32'  # bgo-login
+  - '129.177.8.10/32'   # bgo-login
   - '129.177.31.64/27'  # test01
   - '129.177.31.96/27'  # test01
   - '129.177.25.132/32' # raymond
