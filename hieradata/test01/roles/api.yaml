@@ -108,8 +108,8 @@ profile::highavailability::loadbalancing::haproxy::access_list:
     ips:
       - '129.177.8.10/32'          # bgo-login
       - '2001:700:200:8::10/128'   # bgo-login
-      - '129.177.6.190/32'         # test01-login
-      - '2001:700:200:6::190/128'  # test01-login
+      - '129.177.8.9/32'           # test01-login
+      - '2001:700:200:8::9/128'    # test01-login
       - '129.177.31.64/27'         # test01
       - '129.177.31.96/27'         # test01
       - '2001:700:200:915::/64'    # test01
@@ -121,7 +121,6 @@ profile::highavailability::loadbalancing::haproxy::access_list:
       - '158.39.74.6/32'           # raymond (bgo-mgmt-instance)
       - '129.240.130.12/32'        # trond
       - '129.240.130.124/32'       # mikael
-      - '129.240.202.64/32'        # mikael
 
 # this will only work for status/access (port 80/443)
 profile::highavailability::loadbalancing::haproxy::allow_from_network:
@@ -131,7 +130,6 @@ profile::highavailability::loadbalancing::haproxy::allow_from_network:
   - '129.177.25.132/32' # raymond
   - '129.240.130.12/32' # trond
   - '129.240.130.124/32' # mikael
-  - '129.240.202.64/32' # mikael
 
 network__backend__names:
   - '%{::location}-network-01'
