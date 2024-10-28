@@ -25,7 +25,7 @@ mod 'yumrepo_core', :ref => '1.0.7',                :git => github + 'puppetlabs
 mod 'vcsrepo', :ref => 'v5.5.0',                    :git => github + 'puppetlabs/puppetlabs-vcsrepo'
 mod 'kmod', :ref => 'v3.0.0',                       :git => github + 'voxpupuli/puppet-kmod'
 mod 'named_interfaces', :ref => 'v1.0.1',           :git => github + 'norcams/puppet-named_interfaces'
-mod 'network', :ref => '49b04ad60e',                :git => github + 'norcams/puppet-network'
+mod 'network', :ref => '956881b',                   :git => github + 'norcams/puppet-network'
 # mod 'apt', :ref => '2.2.2',                         :git => github + 'puppetlabs/puppetlabs-apt'
 mod 'selinux', :ref => 'v3.4.0',                    :git => github + 'voxpupuli/puppet-selinux'
 mod 'puppet', :ref => '18.0.0',                     :git => github + 'theforeman/puppet-puppet.git'
