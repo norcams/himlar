@@ -346,7 +346,7 @@ profile::network::services::dns_records:
     "139.%{hiera('reverse_public_c3')}":                                         'portalpo2.uit.no'
     "110.%{hiera('reverse_public_c2')}":                                         'portalto1.uit.no'
     "204.%{hiera('reverse_public_c3')}":                                         'portalto2.uit.no'
-    "233.%{hiera('reverse_public_c0')}":                                         'mail.meshr.org'
+    "233.%{hiera('reverse_public_c4')}":                                         'mail.meshr.org'
     # Dette nettet er IKKE delegert til oss! (mikaeld 9/2 2021)
     #'0.f.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  'atlas-db-squid1.grid.uiocloud.no'
     #'c.6.0.2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  'oncotools.elixir.no'
