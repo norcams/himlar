@@ -1,0 +1,16 @@
+---
+profile::logging::elk::manage_elk: true
+profile::logging::elk::manage_elasticksearch: true
+profile::logging::elk::manage_logstash:       true
+profile::logging::elk::manage_kibana:         true
+
+profile::base::common::manage_lvm: true
+lvm::manage_pkg: true
+
+profile::base::lvm::logical_volume:
+  'lv_log':
+    volume_group: 'vg_log'
+    fs_type:      "xfs"
+    mountpath:    "/opt/log"
+    size:         '2G'
+
