@@ -2,6 +2,7 @@
 
 profile::base::common::manage_lvm: true
 # disks
+# FIXME Move to common when all environments have removed the els lv
 profile::base::lvm::logical_volume:
   'lv_log':
     volume_group: 'vg_log'
