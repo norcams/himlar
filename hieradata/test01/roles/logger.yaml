@@ -1,3 +1,18 @@
 ---
 
 profile::base::common::manage_lvm: true
+# disks
+profile::base::lvm::physical_volume:
+  '/dev/vdb':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_log':
+    physical_volumes:
+      - /dev/vdb
+profile::base::lvm::logical_volume:
+  'lv_log':
+    volume_group: 'vg_log'
+    fs_type:      "xfs"
+    mountpath:    "/opt/log"
+    size:         '20G'
