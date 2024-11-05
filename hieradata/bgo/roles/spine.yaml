@@ -1377,6 +1377,7 @@ frrouting::frrouting::bgp_accesslist:
     - 'seq 35 permit 10.3.0.0 0.0.15.255'
     - 'seq 40 permit 10.5.0.0/19'
     - "seq 41 permit %{hiera('bgp_loopback_addr')}/32"
+    - "seq 42 permit %{hiera('netcfg_priv_anycast_cidr')}"
     - 'seq 45 permit 10.109.0.0 0.0.15.255'
     - 'seq 50 permit 109.105.127.128 0.0.0.63'
     - 'seq 55 permit 172.18.0.0 0.0.7.255'
