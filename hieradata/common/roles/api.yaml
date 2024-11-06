@@ -472,3 +472,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_errorpage:
     message:  'Forbidden'
     content:  '{"error":{"code":403,"message":"Requested action require internal network access.","title":"Forbidden"}}'
     format:   'json'
+
+profile::base::selinux::boolean:
+  'cluster_use_execmem':
+    ensure: 'on'
+    persistent: true```
