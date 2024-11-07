@@ -93,7 +93,7 @@ frrouting::frrouting::bgp_networks:
   - '158.39.75.0/24'
   - '158.39.200.0/24'
   - "%{hiera('bgp_loopback_addr')}/32"
-  - "%{hiera('netcfg_priv_anycast_cidr')}"
+  - "%{hiera('netcfg_priv_anycast_net')}/%{hiera('netcfg_priv_anycast_cidr4')}"
 frrouting::frrouting::bgp_networks6:
   - '2001:700:2:8200::/56'
 
