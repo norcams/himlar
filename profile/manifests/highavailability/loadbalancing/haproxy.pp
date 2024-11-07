@@ -217,6 +217,9 @@ class profile::highavailability::loadbalancing::haproxy (
     sysctl::value { 'net.ipv4.ip_nonlocal_bind':
       value => 1,
     }
+    sysctl::value { 'net.ipv6.ip_nonlocal_bind':
+      value => 1,
+    }
   }
 
   # This will not work with rsyslog module!!
