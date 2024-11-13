@@ -6,6 +6,7 @@ include:
     - profile::openstack::compute::nvidia_vgpu_createmdev
   default:
     - nova::compute::vgpu
+    - profile::application::create_mdev
     - profile::openstack::compute::pci_passthrough
     - profile::openstack::compute::nvidia_vgpu_createmdev
 
