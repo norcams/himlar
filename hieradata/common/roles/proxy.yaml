@@ -38,6 +38,7 @@ profile::base::common::packages:
   'openldap-devel': {}
   'openssl-devel': {}
   'libffi-devel': {}
+  'python3.11': {} # needed by himlarservice
 
 profile::network::services::firewall_extras:
   source: '%{network_mgmt1}/%{netmask_mgmt1}'
