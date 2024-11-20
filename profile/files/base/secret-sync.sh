@@ -73,7 +73,6 @@ fi
 
 host=$(hostname)
 location=${host:0:3}                                                                     # based on the convention: hostname start with three letter location code
-myself=$(readlink -f $0)
 
 # make sure we always stop our control master
 function finish  {
@@ -144,7 +143,7 @@ if [ $location = "osl" ]; then
 #            ssh -S $controlfile ${SLAVE} "$(declare -f cleanup); cleanup ${AGELIMIT} ${DBDUMPDIR}"
 
             # sync files from us
-            for dirfile in $FILES $myself; do
+            for dirfile in $FILES; do
                 if [[ ! ${IGNORELIST[${SLAVE%%\.*}]} =~ $dirfile ]]; then
                     if [ -d $dirfile ]; then dirfile="${dirfile}/"; fi
 #                    echo "KJØRER: rsync ${RSYNC_OPTS} -e "ssh -S $controlfile" $dirfile ${SLAVE}:$dirfile"
