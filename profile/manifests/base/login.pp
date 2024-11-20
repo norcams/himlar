@@ -4,6 +4,8 @@
 class profile::base::login (
   $manage_db_backup         = false,
   $manage_repo_incoming_dir = false,
+  $manage_db_sync_cron      = false,
+  $region_db_sync           = {},
   $forward_oobnet           = false,
   $oob_net                  = '10.0.0.0/24',
   $oob_outiface             = undef,
@@ -103,6 +105,11 @@ class profile::base::login (
       group  => $dump_group,
     }
 
+    # cron job for sync of database dumps to other regions
+    if $manage_db_sync_cron  {
+      create_resources('cron', $region_db_sync)
+    }
+
   }
 
   file { '/usr/local/sbin/get-oob-ip':
@@ -111,6 +118,24 @@ class profile::base::login (
     owner  => root,
     group  => root,
     source => "puppet:///modules/${module_name}/base/get-oob-ip"
+  }
+
+  # copy generic repo region syncronization script
+  file { '/usr/local/sbin/secret-sync.sh':
+    ensure => present,
+    mode   => '0755',
+    owner  => root,
+    group  => root,
+    source => "puppet:///modules/${module_name}/base/secret-sync.sh"
+  }
+
+  # copy database dump region syncronization script
+  file { '/usr/local/sbin/db-sync.sh':
+    ensure => present,
+    mode   => '0755',
+    owner  => root,
+    group  => root,
+    source => "puppet:///modules/${module_name}/base/db-sync.sh"
   }
 
   # Send bmc dhcp requests to admin node

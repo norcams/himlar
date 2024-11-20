@@ -62,3 +62,13 @@ accounts::accounts:
 # git name
 profile::application::git::settings:
   hostname: "osl"
+
+# Sync og database dumps (both ways, but initiated from here)
+profile::base::login::manage_db_sync_cron: true
+
+profile::base::login::region_db_sync:
+  "Database dump sync":
+    hour:    '3'
+    minute:  '00'
+    user:    'norcams'
+    command: '/usr/local/sbin/db-sync.sh bgo-login-01'

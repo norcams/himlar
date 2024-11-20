@@ -45,6 +45,9 @@ accounts::ssh_keys:
   'ivarth':
     type:    'ed25519'
     public:  'AAAAC3NzaC1lZDI1NTE5AAAAIEw1EfnNNHH2p+nTEEL18e0MigXwbO/d8UyZBp9jfsTQ'
+  'norcams':
+    type:    'ed25519'
+    public:  'AAAAC3NzaC1lZDI1NTE5AAAAIMW4BIpDkX/Ju8Gypn3GDHcTYk3JeIgHHS/5yldEVz8e'
 
 accounts::users:
 #  'hege':
@@ -52,37 +55,39 @@ accounts::users:
 #    groups:  [ 'users', 'wheel' ]
   'iaas':
     comment: 'iaas_norcams'
-    groups:  [ 'users', 'wheel' ]
+    groups:  [ 'users', 'wheel', 'norcams' ]
   'mikaeld':
     comment: 'mikaeld@norcams'
-    groups:  [ 'users', 'wheel' ]
+    groups:  [ 'users', 'wheel', 'norcams' ]
   'raymond':
     comment: 'raymond@norcams'
-    groups:  [ 'users', 'wheel' ]
+    groups:  [ 'users', 'wheel', 'norcams' ]
   'trondham':
     comment: 'trondham@norcams'
-    groups:  [ 'users', 'wheel' ]
+    groups:  [ 'users', 'wheel', 'norcams' ]
   'sjurher':
     comment: 'sjurher@norcams'
     groups: [ 'users', 'wheel' ]
   'erikberg':
     comment: 'erikberg@norcams'
-    groups: [ 'users', 'wheel' ]
+    groups: [ 'users', 'wheel', 'norcams' ]
   'lennart':
     comment: 'lennart@norcams'
-    groups: [ 'users', 'wheel' ]
+    groups: [ 'users', 'wheel', 'norcams' ]
   'terjef':
     comment: 'terjef@norcams'
-    groups: [ 'users', 'wheel']
+    groups: [ 'users', 'wheel', 'norcams' ]
   'torldre':
     comment: 'torldre@norcams'
-    groups: [ 'users', 'wheel']
+    groups: [ 'users', 'wheel', 'norcams' ]
   'erlenboh':
     comment: 'erlenboh@norcams'
     groups: [ 'users', 'wheel']
   'ivarth':
     comment: 'ivarth@norcams'
-    groups: [ 'users', 'wheel']
+    groups: [ 'users', 'wheel', 'norcams' ]
+  'norcams':
+    comment: 'Generic system user'
 
 accounts::accounts:
   'iaas':

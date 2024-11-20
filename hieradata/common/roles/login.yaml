@@ -75,13 +75,6 @@ accounts::accounts:
   'vagrant':
     ensure: absent
 
-
-
-# special user for common files which should be synced between locations (can not be owned by root)
-accounts::users:
-  'norcams':
-    shell: '/bin/false'
-
 # Sensu (login has larger disks)
 sensu__disk__warning:     85
 sensu__disk__crtical:     95
@@ -156,7 +149,7 @@ profile::base::yumrepo::repo_hash:
     exclude:        'postgres*'
 
 profile::base::login::dump_owner:      'norcams'
-profile::base::login::dump_group:      'wheel'
+profile::base::login::dump_group:      'norcams'
 
 # DB backup cron jobs
 profile::base::login::db_servers:

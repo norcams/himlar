@@ -36,27 +36,27 @@ named_interfaces::config:
 ssh::server::options:
   # No 2FA possible with gitolite
   # bgo-login-01
-  'Match User git Address 129.177.8.10':
+  'Match User git,norcams Address 129.177.8.10':
     AuthenticationMethods: 'publickey'
-  'Match User git Address 2001:700:200:8::10':
+  'Match User git,norcams Address 2001:700:200:8::10':
     AuthenticationMethods: 'publickey'
   # bgo-login-02
-  'Match User git Address 158.39.74.246':
+  'Match User git,norcams Address 158.39.74.246':
     AuthenticationMethods: 'publickey'
-  'Match User git Address 2001:700:2:83ff::8':
+  'Match User git,norcams Address 2001:700:2:83ff::8':
     AuthenticationMethods: 'publickey'
   # osl-login-01
-  'Match User git Address 129.240.224.100':
+  'Match User git,norcams Address 129.240.224.100':
     AuthenticationMethods: 'publickey'
-  'Match User git Address 2001:700:100:8241::100':
+  'Match User git,norcams Address 2001:700:100:8241::100':
     AuthenticationMethods: 'publickey'
   # osl-login-02
-  'Match User git Address 158.39.75.246':
+  'Match User git,norcams Address 158.39.75.246':
     AuthenticationMethods: 'publickey'
-  'Match User git Address 2001:700:2:82ff::8':
+  'Match User git,norcams Address 2001:700:2:82ff::8':
     AuthenticationMethods: 'publickey'
   # internal mgmt network bgo
-  'Match User git Address 172.16.0.0/21':
+  'Match User git,norcams Address 172.16.0.0/21':
     AuthenticationMethods: 'publickey'
   # internal mgmt network test01
   'Match User git Address 172.28.0.0/24':
