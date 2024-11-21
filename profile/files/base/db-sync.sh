@@ -97,8 +97,8 @@ cleanup()
         # to avoid complexity if not necessary
         for dumpdir in ${dbdumpdirs}/[a-z]*-db-*/ ${dbdumpdirs}/[a-z]*-metric-*/ ; do
             if [[ -d "${dumpdir}" && ! -L "${dumpdir}" ]]; then                          # only consider (real!) directories
-#                find "${dumpdir}/" -ignore_readdir_race -maxdepth 1 -name "*.sql*" -type f -mtime +$expiration_days -print0 | xargs -0 -r rm -f
-                find "${dumpdir}/" -ignore_readdir_race -maxdepth 1 -name "*.sql*" -type f -mtime +$expiration_days -print0 | xargs -0 -r echo
+                find "${dumpdir}/" -ignore_readdir_race -maxdepth 1 -name "*.sql*" -type f -mtime +$expiration_days -print0 | xargs -0 -r rm -f
+#                find "${dumpdir}/" -ignore_readdir_race -maxdepth 1 -name "*.sql*" -type f -mtime +$expiration_days -print0 | xargs -0 -r echo
             fi
         done
     else
@@ -121,16 +121,20 @@ cleanup ${AGELIMIT} ${DBDUMPDIR}
 ssh -S $controlfile ${SLAVE} "$(declare -f cleanup); cleanup ${AGELIMIT} ${DBDUMPDIR}"
 
 # sync files
-for dirfile in ${DBDUMPDIR} ; do
+for dirfile in ${DBDUMPDIR}/* ; do
+    # Only if not in ignorelist ...
     if [[ ! ${IGNORELIST[${SLAVE%%\.*}]} =~ $dirfile ]]; then
-        if [ -d $dirfile ]; then dirfile="${dirfile}/"; fi
-#                    echo "KJØRER: rsync ${RSYNC_OPTS} -e "ssh -S $controlfile" $dirfile ${SLAVE}:$dirfile"
-        # ... from us
-        rsync ${RSYNC_OPTS} -e "ssh -S $controlfile" $dirfile ${SLAVE}:$dirfile
-        # ... and then get files on slave if 'del' option not set
-        if [ -z $update ]; then
-#                        echo "KJØRER: rsync ${RSYNC_OPTS} -e "ssh -S $controlfile" ${SLAVE}:$dirfile $dirfile"
-            rsync ${RSYNC_OPTS} -e "ssh -S $controlfile" ${SLAVE}:$dirfile $dirfile
+        # ... and then only if a subdirectory (ignore backup flags etc)
+        if [ -d $dirfile ]; then
+            dirfile="${dirfile}/"
+               # ... from us
+#               echo "KJØRER: rsync ${RSYNC_OPTS} -e "ssh -S $controlfile" $dirfile ${SLAVE}:$dirfile"
+            rsync ${RSYNC_OPTS} -e "ssh -S $controlfile" $dirfile ${SLAVE}:$dirfile
+               # ... and then get files on slave if 'del' option not set
+               if [ -z $update ]; then
+#                   echo "KJØRER: rsync ${RSYNC_OPTS} -e "ssh -S $controlfile" ${SLAVE}:$dirfile $dirfile"
+                   rsync ${RSYNC_OPTS} -e "ssh -S $controlfile" ${SLAVE}:$dirfile $dirfile
+               fi
         fi
     fi
 done
