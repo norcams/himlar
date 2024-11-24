@@ -85,7 +85,6 @@ nova::scheduler::filter::scheduler_default_filters:
   - "ComputeCapabilitiesFilter"
   - "ImagePropertiesFilter"
   - "ServerGroupAntiAffinityFilter"
-  - "ServerGroupAffinityFilter"
   - "AggregateMultiTenancyIsolation"
   - "AggregateInstanceExtraSpecsFilter"
   - "NUMATopologyFilter"
