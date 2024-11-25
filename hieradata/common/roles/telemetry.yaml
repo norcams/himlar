@@ -24,3 +24,4 @@ profile::openstack::openrc::password:                   "%{hiera('ceilometer_api
 profile::openstack::openrc::username:                   'ceilometer'
 profile::openstack::openrc::project_name:               'services'
 
+openstack_version: 'wallaby'
