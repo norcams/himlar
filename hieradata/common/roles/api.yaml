@@ -91,7 +91,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - "placement.api.%{hiera('domain_public')}:8778":     'bk_placement'
       - "volume.api.%{hiera('domain_public')}:8776":        'bk_volume'
       - "image.api.%{hiera('domain_public')}:9292":         'bk_image'
-      - "object.api.%{hiera('domain_public')}:8080":        'bk_object'
       - "dns.api.%{hiera('domain_public')}:9001":           'bk_dns'
       - "status.%{hiera('domain_frontend')}":               'bk_status'
       - "status-%{::location}.%{hiera('domain_frontend')}": 'bk_status'
@@ -108,7 +107,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - "placement.api.%{hiera('domain_public2')}:8778":    'bk_placement'
       - "volume.api.%{hiera('domain_public2')}:8776":       'bk_volume'
       - "image.api.%{hiera('domain_public2')}:9292":        'bk_image'
-      - "object.api.%{hiera('domain_public2')}:8080":       'bk_object'
       - "dns.api.%{hiera('domain_public2')}:9001":          'bk_dns'
       - "status.%{hiera('domain_frontend2')}":              'bk_status'
       - "status-%{::location}.%{hiera('domain_frontend2')}": 'bk_status'
@@ -131,7 +129,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - "volume.%{hiera('domain_trp')}:8776":           'bk_volume'
       - "image.%{hiera('domain_trp')}:9292":            'bk_image'
       - "dns.%{hiera('domain_trp')}:9001":              'bk_dns'
-      - "object.%{hiera('domain_trp')}:8080":           'bk_object'
 
 # HAproxy backends: public, internal and haproxy monitor
 profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
@@ -188,7 +185,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       "%{::ipaddress_trp1}:8776":  [] # volume
       "%{::ipaddress_trp1}:9292":  [] # image
       "%{::ipaddress_trp1}:9696":  [] # neutron
-      "%{::ipaddress_trp1}:8080":  [] # object
       "%{::ipaddress_trp1}:9001":  [] # designate
       "%{::ipaddress_trp1}:8778":  [] # placement
     options:
@@ -262,13 +258,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
       - option:       'httplog'
       - errorfile:    '503 /etc/haproxy/error.api.http'
       - balance:      'roundrobin'
-  bk_object:
-    options:
-      - fullconn:     500
-      - option:
-        - 'httplog'
-      - errorfile:    '503 /etc/haproxy/error.api.http'
-      - balance:      'roundrobin'
   bk_status:
     options:
       - fullconn:     200
@@ -310,8 +299,6 @@ volume__backend__names:    ["%{::location}-volume-01"]
 volume__backend__ips:      ["%{hiera('netcfg_trp_netpart')}.46"]
 image__backend__names:     ['%{::location}-image-01']
 image__backend__ips:       ["%{hiera('netcfg_trp_netpart')}.36"]
-object__backend__names:    []
-object__backend__ips:      []
 status__backend__names:    ['%{::location}-status-01']
 status__backend__ips:      ["%{hiera('netcfg_trp_netpart')}.50"]
 dns__backend__names:       ['%{::location}-dns-01']
@@ -366,12 +353,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_balancermembers:
     ipaddresses:        "%{alias('image__backend__ips')}"
     ports:              '9292'
     options:            'check'
-  object:
-    listening_service:  'bk_object'
-    server_names:       "%{alias('object__backend__names')}"
-    ipaddresses:        "%{alias('object__backend__ips')}"
-    ports:              '7480'
-    options:            'check'
   status:
     listening_service:  'bk_status'
     server_names:       "%{alias('status__backend__names')}"
@@ -409,10 +390,6 @@ profile::base::selinux::ports:
     seltype:  'http_port_t'
     protocol: 'tcp'
     port:     5000
-  object-http:
-    seltype:  'http_port_t'
-    protocol: 'tcp'
-    port:     7480
   network-http:
     seltype:  'http_port_t'
     protocol: 'tcp'
