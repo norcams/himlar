@@ -19,9 +19,6 @@ profile::network::leaf::switchd_conf:
 profile::network::leaf::acls:
   '02control_plane_custom.rules':
     iptables:
-      # Allow access to the S3 service from everywhere
-      - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -d %{hiera('netcfg_pub_object')} --dport 8080 -j ACCEPT"
-      - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -d %{hiera('public__ip__object')} --dport 8080 -j ACCEPT"
       # Allow DNS requests to ns1.nrec.no
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -d 158.37.63.251 --dport 53 -j ACCEPT"
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p udp -d 158.37.63.251 --dport 53 -j ACCEPT"
@@ -113,8 +110,6 @@ profile::network::leaf::acls:
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp --dport 9200 -j DROP"
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp --dport 27017 -j DROP"
     ip6tables:
-      # Allow access to the S3 service from everywhere
-      - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -d %{hiera('public__ipv6__object')} --dport 8080 -j ACCEPT"
       # Allow DNS requests to ns1.nrec.no
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp -d 2001:700:2:82ff::251 --dport 53 -j ACCEPT"
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p udp -d 2001:700:2:82ff::251 --dport 53 -j ACCEPT"
