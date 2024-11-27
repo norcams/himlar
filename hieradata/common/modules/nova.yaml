@@ -190,6 +190,11 @@ nova::notification_topics:                        'notifications' # not used bef
 # Could be changed to both in the future
 nova::notification_format:                        'unversioned'
 
+# When True, if sending a user token to a REST API, also send a
+# service token.
+# Ref. https://specs.openstack.org/openstack/nova-specs/specs/ocata/implemented/use-service-tokens.html
+nova::keystone::service_user::send_service_user_token: true
+
 # Disable reboot through api until DHCP is fixed upstream (calico)
 nova::policy::policies:
   nova_disable_reboot:
