@@ -190,8 +190,8 @@ nova::notification_topics:                        'notifications' # not used bef
 # Could be changed to both in the future
 nova::notification_format:                        'unversioned'
 
-# When True, if sending a user token to a REST API, also send a
-# service token.
+# Configure Nova to also send a service token when sending a user
+# token to a REST API
 # Ref. https://specs.openstack.org/openstack/nova-specs/specs/ocata/implemented/use-service-tokens.html
 nova::keystone::service_user::username:                'nova'
 nova::keystone::service_user::password:                "%{hiera('nova_api_password')}"
