@@ -12,6 +12,7 @@ class profile::openstack::compute(
   include ::nova::cinder
   include ::nova::logging
   include ::nova::placement
+  include ::nova::keystone::service_user
 
   if $manage_telemetry {
     include ::profile::openstack::telemetry::polling

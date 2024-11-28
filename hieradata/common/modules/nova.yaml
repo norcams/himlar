@@ -193,6 +193,14 @@ nova::notification_format:                        'unversioned'
 # When True, if sending a user token to a REST API, also send a
 # service token.
 # Ref. https://specs.openstack.org/openstack/nova-specs/specs/ocata/implemented/use-service-tokens.html
+nova::keystone::service_user::username:                'nova'
+nova::keystone::service_user::password:                "%{hiera('nova_api_password')}"
+nova::keystone::service_user::auth_url:                "%{hiera('endpoint__identity__admin')}/v3"
+nova::keystone::service_user::region_name:             "%{::location}"
+nova::keystone::service_user::auth_version:            'v3'
+nova::keystone::service_user::project_name:            "%{hiera('keystone__service__project')}"
+nova::keystone::service_user::project_domain_name:     "%{hiera('keystone__default__domain')}"
+nova::keystone::service_user::user_domain_name:        "%{hiera('keystone__default__domain')}"
 nova::keystone::service_user::send_service_user_token: true
 
 # Disable reboot through api until DHCP is fixed upstream (calico)
