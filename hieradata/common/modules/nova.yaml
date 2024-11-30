@@ -149,11 +149,20 @@ nova::compute::rbd::manage_ceph_client:          false
 #FIXME mixed version environments for compute services - should be removed for newer versions
 nova::upgrade_level_compute:                     'train'
 
-# enable libvirt tunneled migration
-#nova::migration::libvirt::live_migration_tunnelled:            true
+# Live Migration settings
 nova::migration::libvirt::live_migration_inbound_addr:         "%{::ipaddress_live1}"
-nova::migration::libvirt::live_migration_permit_auto_converge: true
+nova::migration::libvirt::live_migration_completion_timeout:   '300'
+nova::migration::libvirt::live_migration_timeout_action:       'force_complete'
 nova::migration::libvirt::live_migration_permit_post_copy:     true
+
+# From 2023.1 onwards these can be configured properly
+nova::config::nova_config:
+  libvirt/live_migration_downtime:
+    value: '1000'
+  libvirt/live_migration_downtime_steps:
+    value: '20'
+  libvirt/live_migration_downtime_delay:
+    value: '10'
 
 # set image properties hw_scsi_model=virtio-scsi and hw_disk_bus=scsi to enable
 nova::compute::libvirt::hw_disk_discard: 'unmap'
