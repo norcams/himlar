@@ -12,11 +12,11 @@ class profile::openstack::volume::api(
 
   if $manage_firewall {
         profile::firewall::rule{ '8776 cinder-api accept tcp':
-          port   => 8776,
+          dport   => 8776,
           extras => $firewall_extras,
     }
         profile::firewall::rule{ '3260 cinder accept iSCSI':
-          port   => 3260,
+          dport   => 3260,
           extras => $firewall_extras,
     }
   }
