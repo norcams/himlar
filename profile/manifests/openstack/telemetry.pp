@@ -8,22 +8,20 @@ class profile::openstack::telemetry (
 
   include ::ceilometer
   include ::ceilometer::config
-  include ::ceilometer::keystone::authtoken
   include ::ceilometer::logging
-  #include ::ceilometer::expirer
 
   # notification
   include ::ceilometer::agent::service_credentials
   include ::ceilometer::agent::notification
 
+  # polling
+  include ::ceilometer::agent::polling
+
   # gnocchi
   include ::gnocchi::client
 
-  # pipeline hack
+  # pipeline
   include ::profile::openstack::telemetry::pipeline
-
-  # polling
-  include ::profile::openstack::telemetry::polling
 
   if $manage_gnocchi_resources {
     include ::ceilometer::db::sync

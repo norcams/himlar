@@ -40,6 +40,8 @@ reverse_trp_c7:           '39.18.172.in-addr.arpa'
 reverse_public_c0:        '63.37.158.in-addr.arpa'
 reverse_public_c1:        '75.39.158.in-addr.arpa'
 reverse_public_c2:        '48.39.158.in-addr.arpa'
+reverse_public_c3:        '200.39.158.in-addr.arpa'
+reverse_public_c4:        '66.37.158.in-addr.arpa'
 
 bgp_as:                   '65500'
 
@@ -84,13 +86,16 @@ netcfg_dns_search:        "%{hiera('domain_mgmt')} %{hiera('domain_trp')}"
 netcfg_priv_gateway:      '172.18.32.26'
 netcfg_priv_network:      '10.2.0.0/20'
 netcfg_educloud1_network: '10.4.0.0/20'
+netcfg_uio_priv1_network: '10.6.0.0/20'
 netcfg_pub_natgw:         '158.37.63.248'
 netcfg_pub_natgw2:        '158.39.75.248'
 netcfg_anycast_dns:       '158.37.63.252'
 netcfg_anycast_dns6:      '2001:700:2:82ff::252'
 netcfg_ib_vlan:           '3379'
 netcfg_oob_vlan:          '3378'
-netcfg_elastic_cidr:      '10.6.0.0/20'
+netcfg_elastic_cidr:      '10.6.0.0/19'
+netcfg_priv_anycast_net:   '10.254.252.224'
+netcfg_priv_anycast_cidr4: '27'
 netcfg_pub_object:        '158.37.63.250'
 netcfg_trp_rr:
   rr1:
@@ -198,6 +203,15 @@ profile::network::services::dns_records:
     "%{::location}-storage-v2h-23.%{hiera('domain_mgmt')}":  "%{::location}-storage-23.%{hiera('domain_mgmt')}"
     "%{::location}-storage-v2h-24.%{hiera('domain_mgmt')}":  "%{::location}-storage-24.%{hiera('domain_mgmt')}"
     "%{::location}-storage-v2h-25.%{hiera('domain_mgmt')}":  "%{::location}-storage-25.%{hiera('domain_mgmt')}"
+    # Dell PowerEdge R730 ceph nodes
+    "%{::location}-storage-v2d-26.%{hiera('domain_mgmt')}":  "%{::location}-storage-26.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2d-27.%{hiera('domain_mgmt')}":  "%{::location}-storage-27.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2d-28.%{hiera('domain_mgmt')}":  "%{::location}-storage-28.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2d-29.%{hiera('domain_mgmt')}":  "%{::location}-storage-29.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2d-30.%{hiera('domain_mgmt')}":  "%{::location}-storage-30.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2d-31.%{hiera('domain_mgmt')}":  "%{::location}-storage-31.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2d-32.%{hiera('domain_mgmt')}":  "%{::location}-storage-32.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-v2d-33.%{hiera('domain_mgmt')}":  "%{::location}-storage-33.%{hiera('domain_mgmt')}"
   A:
     # Frontend records (<foo>.nrec.no)
     "access.%{hiera('domain_frontend')}":         '158.39.77.250'
@@ -274,7 +288,6 @@ profile::network::services::dns_records:
 
     # Management network (entries that differ from common/common.yaml)
     "%{::location}-login-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_netpart')}.10"
-    "repo.%{hiera('domain_oob')}":                    "%{hiera('netcfg_oob_netpart')}.9"
     # FIXME: override common/common.yaml
     "%{::location}-mgmt-00.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.100"
     "%{::location}-mgmt-01.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.1"
@@ -286,12 +299,8 @@ profile::network::services::dns_records:
     "%{::location}-mgmt-07.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.7"
     "%{::location}-login-01old.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_net_c0')}.199"
 
-    # TEMPORARY 2024-05-06: Test hosts
-    "%{::location}-test-01.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.200"
-    "%{::location}-test-02.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.201"
-    "%{::location}-test-03.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.202"
-    "%{::location}-test-04.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.203"
-
+    # oob nodes
+    "repo.%{hiera('domain_oob')}":                       "%{hiera('netcfg_oob_netpart')}.9"
   AAAA:
     # Frontend records (<foo>.nrec.no)
     "ns1.%{hiera('domain_frontend')}":            '2001:700:2:82ff::251'
@@ -335,6 +344,11 @@ profile::network::services::dns_records:
     # Customer's PTR records
     "164.%{hiera('reverse_public_c2')}":                                         'smtp.nlpl.eu'
     "38.%{hiera('reverse_public_c2')}":                                          'atlas-db-squid1.grid.uiocloud.no'
+    "43.%{hiera('reverse_public_c3')}":                                          'portalpo1.uit.no'
+    "139.%{hiera('reverse_public_c3')}":                                         'portalpo2.uit.no'
+    "110.%{hiera('reverse_public_c2')}":                                         'portalto1.uit.no'
+    "204.%{hiera('reverse_public_c3')}":                                         'portalto2.uit.no'
+    "233.%{hiera('reverse_public_c4')}":                                         'mail.meshr.org'
     # Dette nettet er IKKE delegert til oss! (mikaeld 9/2 2021)
     #'0.f.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  'atlas-db-squid1.grid.uiocloud.no'
     #'c.6.0.2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  'oncotools.elixir.no'
@@ -351,7 +365,6 @@ ceph::profile::params::mon_host:                    '172.18.32.91, 172.18.32.92,
 ceph::profile::params::cluster_network:             '172.20.32.0/21'
 ceph::profile::params::public_network:              '172.18.32.0/21'
 
-profile::openstack::volume::manage_rbd: true
 profile::openstack::compute::hypervisor::manage_libvirt_rbd: true
 
 # If backend != file, you must explicitly define stores in %location/modules/glance.yaml
@@ -414,6 +427,12 @@ profile::openstack::resource::networks:
     shared: false
     tenant_name: 'openstack'
     provider_network_type: 'local'
+  uio_IPv6:
+    name: 'uio_IPv6'
+    admin_state_up: true
+    shared: false
+    tenant_name: 'openstack'
+    provider_network_type: 'local'
   elasticIP:
     name: 'elasticIP'
     admin_state_up: true
@@ -421,7 +440,12 @@ profile::openstack::resource::networks:
     tenant_name: 'openstack'
     provider_network_type: 'local'
 #    mtu: '9000' # FIXME: param available in puppet-neutron for Zed. Meanwhile, set once with CLI after creation
-
+  elastic_rail_uib_it_rail_test_osl1:
+    name: 'elastic_rail_test_osl1'
+    admin_state_up: true
+    shared: false
+    tenant_id: '6601a5772edf401783c99eace58ac759'
+    provider_network_type: 'local'
 profile::openstack::resource::subnets:
   public1_IPv4:
     name: 'public1_IPv4'
@@ -474,6 +498,17 @@ profile::openstack::resource::subnets:
     allocation_pools:
       - 'start=158.39.200.2,end=158.39.200.254'
     gateway_ip: '158.39.200.1'
+    dns_nameservers:
+      - "%{hiera('netcfg_anycast_dns')}"
+    network_name: 'dualStack'
+    tenant_name: 'openstack'
+  public6_IPv4:
+    name: 'public6_IPv4'
+    cidr: '158.37.66.0/24'
+    ip_version: '4'
+    allocation_pools:
+      - 'start=158.37.66.2,end=158.37.66.244'
+    gateway_ip: '158.37.66.1'
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'dualStack'
@@ -533,9 +568,31 @@ profile::openstack::resource::subnets:
       - "%{hiera('netcfg_anycast_dns6')}"
     network_name: 'educloud1'
     tenant_name: 'openstack'
+  uio_private1_IPv4:
+    name: 'uio_private1_IPv4'
+    cidr: '10.6.0.0/20'
+    ip_version: '4'
+    allocation_pools:
+      - 'start=10.6.0.10,end=10.6.15.254'
+    gateway_ip: '10.6.0.1'
+    dns_nameservers:
+      - "%{hiera('netcfg_anycast_dns')}"
+    network_name: 'uio_IPv6'
+    tenant_name: 'openstack'
+  uio1_IPv6:
+    name: 'uio1_IPv6'
+    cidr: '2001:700:2:8205::/64'
+    ip_version: '6'
+    allocation_pools:
+      - 'start=2001:700:2:8205::1000,end=2001:700:2:8205::4fff'
+    gateway_ip: '2001:700:2:8205::1'
+    dns_nameservers:
+      - "%{hiera('netcfg_anycast_dns6')}"
+    network_name: 'uio_IPv6'
+    tenant_name: 'openstack'
   elastic1_IPv4:
     name: 'elastic1_IPv4'
-    cidr: "%{hiera('netcfg_elastic_cidr')}"
+    cidr: '10.6.0.0/20'
     ip_version: '4'
     allocation_pools:
       - 'start=10.6.0.10,end=10.6.15.240'
@@ -555,3 +612,25 @@ profile::openstack::resource::subnets:
       - "%{hiera('netcfg_anycast_dns6')}"
     network_name: 'elasticIP'
     tenant_name: 'openstack'
+  elastic_rail_uib_it_test_osl1_IP4:
+    name: 'elastic_rail_test_osl1_IP4'
+    cidr: '10.6.16.0/27'
+    ip_version: '4'
+    allocation_pools:
+      - 'start=10.6.16.2,end=10.6.16.30'
+    gateway_ip: '10.6.16.1'
+    dns_nameservers:
+      - "%{hiera('netcfg_anycast_dns')}"
+    network_name: 'elastic_rail_test_osl1'
+    tenant_id: '6601a5772edf401783c99eace58ac759'
+  elastic_rail_uib_it_test_osl1_IP6:
+    name: 'elastic_rail_test_osl1_IP6'
+    cidr: '2001:700:2:8202::/122'
+    ip_version: '6'
+    allocation_pools:
+      - 'start=2001:700:2:8202::2,end=2001:700:2:8202::3e'
+    gateway_ip: '2001:700:2:8202::1'
+    dns_nameservers:
+      - "%{hiera('netcfg_anycast_dns6')}"
+    network_name: 'elastic_rail_test_osl1'
+    tenant_id: '6601a5772edf401783c99eace58ac759'

@@ -976,9 +976,10 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'neighbor elastic_rail_o1p activate'
       - 'neighbor elastic_rail_o1p soft-reconfiguration inbound'
     'bgp_listen_range':
-      - "%{hiera('netcfg_elastic_cidr')}"
+      - '10.6.0.0/20'
     'ip_access_list':
       - "158.39.75.253/32"
+      - "10.254.252.253/32"
     'ip_access_list6':
       - "2001:700:2:82f0::1344/128"
   'elastic_rail_o1t':
@@ -993,9 +994,10 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'neighbor elastic_rail_o1t activate'
       - 'neighbor elastic_rail_o1t soft-reconfiguration inbound'
     'bgp_listen_range':
-      - "%{hiera('netcfg_elastic_cidr')}"
+      - '10.6.16.0/27'
     'ip_access_list':
       - "158.39.75.254/32"
+      - "10.254.252.254/32"
     'ip_access_list6':
       - "2001:700:2:82f0::1345/128"
 
@@ -1009,23 +1011,26 @@ frrouting::frrouting::bgp_options:
 frrouting::frrouting::bgp_accesslist:
   '10':
     - 'seq 5 permit 158.37.63.0 0.0.0.255'
+    - 'seq 7 permit 158.37.66.0 0.0.0.255'
     - 'seq 10 permit 158.39.48.0 0.0.0.255'
     - 'seq 15 permit 158.39.75.0 0.0.0.255'
     - 'seq 20 permit 158.39.200.0 0.0.0.255'
     - 'seq 25 permit 10.2.0.0 0.0.15.255'
     - 'seq 30 permit 10.4.0.0 0.0.15.255'
-    - 'seq 35 permit 10.6.0.0/20'
+    - 'seq 35 permit 10.6.0.0/19'
     - "seq 36 permit %{hiera('bgp_loopback_addr')}/32"
+    - "seq 37 permit %{hiera('netcfg_priv_anycast_net')}/%{hiera('netcfg_priv_anycast_cidr4')}"
     - 'seq 40 permit 172.18.32.0 0.0.0.255'
     - 'seq 250 deny 0.0.0.0/0'
   '20':
     - 'seq 5 deny 158.37.63.0 0.0.0.255'
+    - 'seq 7 deny 158.37.66.0 0.0.0.255'
     - 'seq 10 deny 158.39.48.0 0.0.0.255'
     - 'seq 15 deny 158.39.75.0 0.0.0.255'
     - 'seq 20 deny 158.39.200.0 0.0.0.255'
     - 'seq 25 deny 10.2.0.0 0.0.15.255'
     - 'seq 30 deny 10.4.0.0 0.0.15.255'
-    - 'seq 35 deny 10.6.0.0/20'
+    - 'seq 35 deny 10.6.0.0/19'
     - 'seq 40 deny 172.18.32.0 0.0.0.255'
     - 'seq 250 permit 0.0.0.0/0'
 
@@ -1041,9 +1046,10 @@ frrouting::frrouting::bgp_ip_prefix_list:
   - 'uninett-routes-in seq 5 permit any'
   - 'uninett-routes-in seq 10 deny any'
   - 'uninett-routes-out seq 5 permit 158.37.63.0/24'
-  - 'uninett-routes-out seq 6 permit 158.39.48.0/24'
-  - 'uninett-routes-out seq 7 permit 158.39.75.0/24'
-  - 'uninett-routes-out seq 8 permit 158.39.200.0/24'
+  - 'uninett-routes-out seq 6 permit 158.37.66.0/24'
+  - 'uninett-routes-out seq 7 permit 158.39.48.0/24'
+  - 'uninett-routes-out seq 8 permit 158.39.75.0/24'
+  - 'uninett-routes-out seq 9 permit 158.39.200.0/24'
   - 'uninett-routes-out seq 10 deny any'
   - 'default-route seq 5 permit 0.0.0.0/0'
 

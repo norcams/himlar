@@ -3,7 +3,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -14,9 +17,9 @@
   },
   "description": "We continuously monitor the status of NREC. If there are any interruptions in service, a note will be posted here.",
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "iteration": 1622191778608,
+  "id": 1,
   "links": [
     {
       "icon": "doc",
@@ -62,28 +65,26 @@
   ],
   "panels": [
     {
-      "cacheTimeout": null,
-      "datasource": null,
+      "datasource": {
+        "type": "graphite",
+        "uid": "P6575522ED8660310"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
-          "custom": {},
           "mappings": [
             {
-              "id": 0,
-              "op": "=",
-              "text": "DOWN",
-              "type": 1,
-              "value": "0"
-            },
-            {
-              "id": 1,
-              "op": "=",
-              "text": "UP",
-              "type": 1,
-              "value": "1"
+              "options": {
+                "0": {
+                  "text": "DOWN"
+                },
+                "1": {
+                  "text": "UP"
+                }
+              },
+              "type": "value"
             }
           ],
           "thresholds": {
@@ -115,14 +116,13 @@
       },
       "hideTimeOverride": true,
       "id": 4,
-      "interval": null,
-      "links": [],
       "maxDataPoints": 100,
       "options": {
-        "colorMode": "background",
+        "colorMode": "background_solid",
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -130,12 +130,18 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "auto"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "7.4.5",
+      "pluginVersion": "11.2.1",
       "targets": [
         {
+          "datasource": {
+            "type": "graphite",
+            "uid": "P6575522ED8660310"
+          },
           "hide": false,
           "refId": "A",
           "target": "stats.gauges.uh-iaas.$location.checks.api"
@@ -146,28 +152,26 @@
       "type": "stat"
     },
     {
-      "cacheTimeout": null,
-      "datasource": null,
+      "datasource": {
+        "type": "graphite",
+        "uid": "P6575522ED8660310"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
-          "custom": {},
           "mappings": [
             {
-              "id": 0,
-              "op": "=",
-              "text": "DOWN",
-              "type": 1,
-              "value": "0"
-            },
-            {
-              "id": 1,
-              "op": "=",
-              "text": "UP",
-              "type": 1,
-              "value": "1"
+              "options": {
+                "0": {
+                  "text": "DOWN"
+                },
+                "1": {
+                  "text": "UP"
+                }
+              },
+              "type": "value"
             }
           ],
           "thresholds": {
@@ -198,15 +202,14 @@
         "y": 0
       },
       "hideTimeOverride": true,
-      "id": 9,
-      "interval": null,
-      "links": [],
+      "id": 11,
       "maxDataPoints": 100,
       "options": {
-        "colorMode": "background",
+        "colorMode": "background_solid",
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -214,44 +217,48 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "auto"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "7.4.5",
+      "pluginVersion": "11.2.1",
       "targets": [
         {
+          "datasource": {
+            "type": "graphite",
+            "uid": "P6575522ED8660310"
+          },
           "hide": false,
           "refId": "A",
-          "target": "stats.gauges.uh-iaas.$location.checks.access"
+          "target": "stats.gauges.uh-iaas.$location.checks.docs"
         }
       ],
       "timeFrom": "5m",
-      "title": "access.$domain",
+      "title": "docs.$domain",
       "type": "stat"
     },
     {
-      "cacheTimeout": null,
-      "datasource": null,
+      "datasource": {
+        "type": "graphite",
+        "uid": "P6575522ED8660310"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
-          "custom": {},
           "mappings": [
             {
-              "id": 0,
-              "op": "=",
-              "text": "DOWN",
-              "type": 1,
-              "value": "0"
-            },
-            {
-              "id": 1,
-              "op": "=",
-              "text": "UP",
-              "type": 1,
-              "value": "1"
+              "options": {
+                "0": {
+                  "text": "DOWN"
+                },
+                "1": {
+                  "text": "UP"
+                }
+              },
+              "type": "value"
             }
           ],
           "thresholds": {
@@ -283,14 +290,13 @@
       },
       "hideTimeOverride": true,
       "id": 10,
-      "interval": null,
-      "links": [],
       "maxDataPoints": 100,
       "options": {
-        "colorMode": "background",
+        "colorMode": "background_solid",
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -298,12 +304,18 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "auto"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "7.4.5",
+      "pluginVersion": "11.2.1",
       "targets": [
         {
+          "datasource": {
+            "type": "graphite",
+            "uid": "P6575522ED8660310"
+          },
           "hide": false,
           "refId": "A",
           "target": "stats.gauges.uh-iaas.$location.checks.dashboard"
@@ -314,28 +326,26 @@
       "type": "stat"
     },
     {
-      "cacheTimeout": null,
-      "datasource": null,
+      "datasource": {
+        "type": "graphite",
+        "uid": "P6575522ED8660310"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
-          "custom": {},
           "mappings": [
             {
-              "id": 0,
-              "op": "=",
-              "text": "DOWN",
-              "type": 1,
-              "value": "0"
-            },
-            {
-              "id": 1,
-              "op": "=",
-              "text": "UP",
-              "type": 1,
-              "value": "1"
+              "options": {
+                "0": {
+                  "text": "DOWN"
+                },
+                "1": {
+                  "text": "UP"
+                }
+              },
+              "type": "value"
             }
           ],
           "thresholds": {
@@ -366,15 +376,14 @@
         "y": 0
       },
       "hideTimeOverride": true,
-      "id": 11,
-      "interval": null,
-      "links": [],
+      "id": 9,
       "maxDataPoints": 100,
       "options": {
-        "colorMode": "background",
+        "colorMode": "background_solid",
         "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -382,61 +391,71 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "auto"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "7.4.5",
+      "pluginVersion": "11.2.1",
       "targets": [
         {
+          "datasource": {
+            "type": "graphite",
+            "uid": "P6575522ED8660310"
+          },
           "hide": false,
           "refId": "A",
-          "target": "stats.gauges.uh-iaas.$location.checks.docs"
+          "target": "stats.gauges.uh-iaas.$location.checks.access"
         }
       ],
       "timeFrom": "5m",
-      "title": "docs.$domain",
+      "title": "access.$domain",
       "type": "stat"
     },
     {
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
+      "datasource": {
+        "type": "graphite",
+        "uid": "P6575522ED8660310"
       },
       "gridPos": {
-        "h": 8,
+        "h": 9,
         "w": 24,
         "x": 0,
         "y": 2
       },
       "id": 21,
       "options": {
-        "feedUrl": "https://report.nrec.no/api/v1/status/rss?limit=10&limit_days=365"
+        "feedUrl": "https://report.nrec.no/api/v1/status/rss?limit=10&limit_days=365",
+        "showImage": true
       },
       "pluginVersion": "7.4.5",
       "targets": [
         {
+          "datasource": {
+            "type": "graphite",
+            "uid": "P6575522ED8660310"
+          },
           "refId": "A",
           "target": ""
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "News and Issues",
       "type": "news"
     },
     {
-      "datasource": null,
+      "datasource": {
+        "default": true,
+        "type": "graphite",
+        "uid": "P6575522ED8660310"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "continuous-GrYlRd"
           },
-          "custom": {},
+          "decimals": 0,
+          "fieldMinMax": false,
           "mappings": [],
-          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -446,11 +465,11 @@
               },
               {
                 "color": "#EAB839",
-                "value": 1000
+                "value": 2000
               },
               {
                 "color": "red",
-                "value": 2000
+                "value": 5000
               }
             ]
           }
@@ -458,17 +477,19 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 10,
         "w": 12,
         "x": 0,
-        "y": 10
+        "y": 11
       },
       "hideTimeOverride": false,
       "id": 2,
-      "links": [],
       "options": {
-        "displayMode": "lcd",
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
         "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -476,39 +497,37 @@
           "fields": "",
           "values": false
         },
-        "showUnfilled": true,
-        "text": {}
+        "showPercentChange": true,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "7.4.5",
+      "pluginVersion": "11.2.1",
       "targets": [
         {
+          "datasource": {
+            "type": "graphite",
+            "uid": "P6575522ED8660310"
+          },
+          "refCount": 0,
           "refId": "A",
-          "target": "aliasSub(stats.gauges.uh-iaas.*.instances, 'stats\\.gauges\\.uh-iaas\\.([^\\.]+?)\\.instances', '\\1')"
+          "target": "aliasSub(stats.gauges.uh-iaas.???.instances, 'stats\\.gauges\\.uh-iaas\\.([^\\.]+?)\\.instances', '\\1')"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Instances",
-      "type": "bargauge"
+      "type": "stat"
     },
     {
-      "datasource": null,
+      "datasource": {
+        "type": "graphite",
+        "uid": "P6575522ED8660310"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "continuous-BlYlRd"
+            "mode": "continuous-BlPu"
           },
-          "custom": {},
-          "mappings": [
-            {
-              "from": "",
-              "id": 1,
-              "text": "",
-              "to": "",
-              "type": 1
-            }
-          ],
-          "min": 0,
+          "fieldMinMax": true,
+          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -518,11 +537,11 @@
               },
               {
                 "color": "#EAB839",
-                "value": 1000
+                "value": 2000
               },
               {
                 "color": "red",
-                "value": 2000
+                "value": 5000
               }
             ]
           }
@@ -530,16 +549,18 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
+        "h": 10,
         "w": 12,
         "x": 12,
-        "y": 10
+        "y": 11
       },
       "id": 3,
-      "links": [],
       "options": {
-        "displayMode": "lcd",
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
         "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -547,348 +568,461 @@
           "fields": "",
           "values": false
         },
-        "showUnfilled": true,
-        "text": {}
+        "showPercentChange": true,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "7.4.5",
+      "pluginVersion": "11.2.1",
       "targets": [
         {
+          "datasource": {
+            "type": "graphite",
+            "uid": "P6575522ED8660310"
+          },
           "refId": "A",
           "target": "aliasByNode(stats.gauges.uh-iaas.$location.{projects,users}, 4)",
           "textEditor": false
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Projects and Users",
-      "type": "bargauge"
+      "type": "stat"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "decimals": 0,
-      "editable": true,
-      "error": false,
+      "datasource": {
+        "default": true,
+        "type": "graphite",
+        "uid": "P6575522ED8660310"
+      },
+      "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "grid": {},
-      "gridPos": {
-        "h": 5,
-        "w": 12,
-        "x": 0,
-        "y": 15
-      },
-      "height": "400px",
-      "hiddenSeries": false,
-      "hideTimeOverride": false,
-      "id": 17,
-      "isNew": true,
-      "legend": {
-        "alignAsTable": false,
-        "avg": false,
-        "current": false,
-        "hideEmpty": false,
-        "hideZero": false,
-        "max": false,
-        "min": false,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "connected",
-      "options": {
-        "alertThreshold": false
-      },
-      "percentage": false,
-      "pluginVersion": "7.4.5",
-      "pointradius": 4,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": true,
-      "targets": [
-        {
-          "refId": "A",
-          "target": "aliasSub(stats.gauges.uh-iaas.???.instances, 'stats\\.gauges\\.uh-iaas\\.([^\\.]+?)\\.instances', '\\1')"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Instances",
-      "tooltip": {
-        "msResolution": false,
-        "shared": true,
-        "sort": 0,
-        "value_type": "cumulative"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:84",
+          "color": {
+            "mode": "continuous-GrYlRd",
+            "seriesBy": "last"
+          },
+          "custom": {
+            "axisBorderShow": true,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 50,
+            "gradientMode": "scheme",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "stepBefore",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "dashed"
+            }
+          },
           "decimals": 0,
-          "format": "string",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:85",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "color": {},
-          "custom": {},
+          "displayName": "vGPUs in use",
+          "fieldMinMax": false,
+          "mappings": [],
+          "max": 7,
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
-            "steps": []
-          }
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "dark-red",
+                "value": 6
+              }
+            ]
+          },
+          "unit": "string"
         },
         "overrides": []
       },
-      "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
-        "h": 5,
+        "h": 10,
+        "w": 6,
+        "x": 0,
+        "y": 21
+      },
+      "id": 18,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "7.4.5",
+      "targets": [
+        {
+          "datasource": {
+            "type": "graphite",
+            "uid": "P6575522ED8660310"
+          },
+          "refCount": 0,
+          "refId": "A",
+          "target": "aliasByNode(stats.gauges.uh-iaas.compute.bgo-vgpu1.running_vms, 4)",
+          "textEditor": false
+        }
+      ],
+      "title": "vGPU BGO",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "graphite",
+        "uid": "P6575522ED8660310"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd",
+            "seriesBy": "last"
+          },
+          "custom": {
+            "axisBorderShow": true,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 50,
+            "gradientMode": "scheme",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "stepBefore",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "dashed"
+            }
+          },
+          "decimals": 0,
+          "displayName": "vGPUs in use",
+          "fieldMinMax": false,
+          "mappings": [],
+          "max": 19,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "dark-red",
+                "value": 18
+              }
+            ]
+          },
+          "unit": "string"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 6,
+        "x": 6,
+        "y": 21
+      },
+      "id": 24,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "7.4.5",
+      "targets": [
+        {
+          "datasource": {
+            "type": "graphite",
+            "uid": "P6575522ED8660310"
+          },
+          "refCount": 0,
+          "refId": "A",
+          "target": "aliasByNode(stats.gauges.uh-iaas.compute.osl-vgpu1.running_vms, 4)",
+          "textEditor": false
+        }
+      ],
+      "title": "vGPU OSL",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "graphite",
+        "uid": "P6575522ED8660310"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "stepAfter",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "mbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
         "w": 6,
         "x": 12,
-        "y": 15
+        "y": 21
       },
-      "hiddenSeries": false,
-      "id": 18,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
+      "hideTimeOverride": false,
+      "id": 23,
       "options": {
-        "alertThreshold": true
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
       },
-      "percentage": false,
       "pluginVersion": "7.4.5",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": true,
       "targets": [
         {
+          "datasource": {
+            "type": "graphite",
+            "uid": "P6575522ED8660310"
+          },
+          "refCount": 0,
           "refId": "A",
-          "target": "aliasByNode(stats.gauges.uh-iaas.$location.projects, 4)",
-          "textEditor": false
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Projects",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:115",
-          "decimals": 0,
-          "format": "string",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
+          "target": "alias(stats.gauges.uh-iaas.compute.bgo-central1.memory_mb_used, 'Memory Used')"
         },
         {
-          "$$hashKey": "object:116",
-          "format": "Misc",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
+          "datasource": {
+            "type": "graphite",
+            "uid": "P6575522ED8660310"
+          },
+          "hide": false,
+          "refCount": 0,
+          "refId": "B",
+          "target": "alias(stats.gauges.uh-iaas.compute.bgo-central1.memory_mb, 'Max Memory')"
         }
       ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
+      "title": "Memory Used BGO",
+      "type": "timeseries"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
+      "datasource": {
+        "default": true,
+        "type": "graphite",
+        "uid": "P6575522ED8660310"
+      },
       "fieldConfig": {
         "defaults": {
-          "color": {},
-          "custom": {},
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "stepAfter",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "fieldMinMax": false,
+          "mappings": [],
           "thresholds": {
             "mode": "absolute",
-            "steps": []
-          }
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "mbytes"
         },
         "overrides": []
       },
-      "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
-        "h": 5,
+        "h": 10,
         "w": 6,
         "x": 18,
-        "y": 15
+        "y": 21
       },
-      "hiddenSeries": false,
-      "id": 19,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
+      "hideTimeOverride": false,
+      "id": 25,
       "options": {
-        "alertThreshold": true
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
       },
-      "percentage": false,
       "pluginVersion": "7.4.5",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": true,
       "targets": [
         {
+          "datasource": {
+            "type": "graphite",
+            "uid": "P6575522ED8660310"
+          },
+          "refCount": 0,
           "refId": "A",
-          "target": "aliasByNode(stats.gauges.uh-iaas.$location.users, 4)",
-          "textEditor": false
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Users",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:203",
-          "decimals": 0,
-          "format": "string",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
+          "target": "alias(stats.gauges.uh-iaas.compute.osl-central1.memory_mb_used, 'Memory Used')"
         },
         {
-          "$$hashKey": "object:204",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
+          "datasource": {
+            "type": "graphite",
+            "uid": "P6575522ED8660310"
+          },
+          "hide": false,
+          "refCount": 0,
+          "refId": "B",
+          "target": "alias(stats.gauges.uh-iaas.compute.osl-central1.memory_mb, 'Max Memory')"
         }
       ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
+      "title": "Memory Used OSL",
+      "type": "timeseries"
     }
   ],
   "refresh": "5m",
-  "schemaVersion": 27,
-  "style": "dark",
+  "schemaVersion": 39,
   "tags": [],
   "templating": {
     "list": [
       {
-        "datasource": null,
-        "description": null,
-        "error": null,
         "hide": 2,
         "includeAll": false,
         "label": "",
@@ -900,8 +1034,6 @@
         "type": "constant"
       },
       {
-        "description": null,
-        "error": null,
         "hide": 2,
         "includeAll": false,
         "label": "",
@@ -915,7 +1047,7 @@
     ]
   },
   "time": {
-    "from": "now-7d",
+    "from": "now-24h",
     "to": "now-1m"
   },
   "timepicker": {
@@ -945,5 +1077,6 @@
   "timezone": "browser",
   "title": "Status",
   "uid": "000000001",
-  "version": 18
+  "version": 19,
+  "weekStart": ""
 }

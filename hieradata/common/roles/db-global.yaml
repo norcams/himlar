@@ -50,16 +50,22 @@ profile::database::mariadb::dbs:
     host:     "%{hiera('netcfg_trp_netpart')}.%"
     password: "%{hiera('report_db_password')}"
     grant:    ['ALL']
+    charset:  'utf8mb3'                   # FIXME: remove when puppet-mysql is at => 16.0.0
+    collate:  'utf8mb3_general_ci'        # FIXME: remove when puppet-mysql is at => 16.0.0
   clistate: # used to store himlarcli state
     user:     'clistate'
     host:     "%{hiera('netcfg_trp_netpart')}.%"
     password: "%{hiera('clistate_db_password')}"
     grant:    ['ALL']
+    charset:  'utf8mb3'                   # FIXME: remove when puppet-mysql is at => 16.0.0
+    collate:  'utf8mb3_general_ci'        # FIXME: remove when puppet-mysql is at => 16.0.0
 
 # database for token rotation distribution
 profile::database::mariadb::databases:
   'token_keys':
     ensure:   'present'
+    charset:  'utf8mb3'                   # FIXME: remove when puppet-mysql is at => 16.0.0
+    collate:  'utf8mb3_general_ci'        # FIXME: remove when puppet-mysql is at => 16.0.0
 
 profile::database::mariadb::grants:
   "keystone@%{hiera('netcfg_trp_netpart')}.%/token_keys.*":

@@ -4,6 +4,7 @@ class profile::openstack::network(
   $manage_firewall = true,
   $manage_quotas   = false,
   $firewall_extras = {},
+  $manage_osprofiler = false,
 ){
   include ::neutron
 
@@ -50,4 +51,9 @@ class profile::openstack::network(
     include neutron::quota
   }
 
+  if $manage_osprofiler {
+    include ::neutron::deps
+    $osprofiler_config = lookup('profile::logging::osprofiler::osprofiler_config', Hash, 'first', {})
+    create_resources('neutron_config', $osprofiler_config)
+  }
 }

@@ -11,16 +11,25 @@ profile::network::services::manage_nat:       false
 profile::network::nat::enable_masquerade:     true
 profile::network::nat::source:                "%{::network_mgmt1}/%{::netmask_mgmt1}"
 
-# Himlar bootstrap
+# bootstrap el9 controller
 profile::bootstrap::himlar::manage_bootstrap_scripts: true
-himlar_bootstrap::tftp_install:
+profile::bootstrap::himlar::tftp:
   '%{location}-controller-01':
-    domain:           "%{hiera('domain_mgmt')}"
-    dhcp_interface:   'eth1'
+    puppet_env:       'controller'
     dhcp_range_start: "%{hiera('netcfg_mgmt_netpart')}.200"
     dhcp_range_end:   "%{hiera('netcfg_mgmt_netpart')}.250"
     dhcp_gateway:     "%{hiera('netcfg_mgmt_netpart')}.10" # use login as gateway
-    macaddress:       '00:23:24:5e:34:f1'
+    node_ip:          "%{hiera('netcfg_mgmt_netpart')}.100"
+    node_netmask:     "%{hiera('netcfg_mgmt_netmask')}"
+    node_gateway:     "%{hiera('netcfg_mgmt_netpart')}.10"
+    allow_ssh:        true
+
+# We need to override some vars to enable el9 controller
+bootstrap_infra::mirror:      'https://download.iaas.uio.no/nrec/repo/el9/almalinux-base'
+bootstrap_infra::epelrepo:    'https://download.iaas.uio.no/nrec/test/el9/epel'
+bootstrap_infra::kickstart_defaults:
+  custom_template:    "bootstrap_infra/kickstart/el9.erb"
+#  provision_template: ''
 
 ssh::server::options:
   AuthenticationMethods: 'publickey'

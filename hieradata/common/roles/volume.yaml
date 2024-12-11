@@ -9,6 +9,7 @@ include:
     - profile::openstack::cache
     - profile::logging::rsyslog::client
     - profile::webserver::apache::status
+    - profile::storage::cephclient
 
 profile::base::common::packages:
   # we need newer version of six to avoid breaking requests and openstack cli
@@ -167,3 +168,5 @@ profile::base::selinux::semodules:
     avc_file:   "attach_cinder.avc"
   'httpd_cinder':
     avc_file:   "httpd_cinder.avc"
+
+profile::storage::cephclient::enable: true

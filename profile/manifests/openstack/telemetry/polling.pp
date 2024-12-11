@@ -9,15 +9,4 @@ class profile::openstack::telemetry::polling (
   include ::ceilometer::agent::service_credentials
   include ::ceilometer::agent::polling
 
-  if $manage_polling {
-    file { '/etc/ceilometer/polling.yaml':
-      ensure  => present,
-      mode    => '0640',
-      owner   => 'root',
-      group   => 'ceilometer',
-      content => template("${module_name}/openstack/telemetry/polling.yaml.erb"),
-      notify  => Service['ceilometer-polling']
-    }
-  }
-
 }

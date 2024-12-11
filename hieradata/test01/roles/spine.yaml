@@ -408,7 +408,7 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'neighbor elastic_test activate'
       - 'neighbor elastic_test soft-reconfiguration inbound'
     'bgp_listen_range':
-      - "%{hiera('netcfg_elastic_cidr')}"
+      - '10.0.240.0/23'
     'ip_access_list':
       - "192.168.100.100/32"
       - "129.177.31.100/31 le 32" # minimum 31 and maximum 32 prefix length

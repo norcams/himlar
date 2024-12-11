@@ -1,5 +1,4 @@
 ---
-profile::network::services::manage_dhcp:  false
 profile::firewall::pre::manage_ipv6_ssh:  true
 profile::base::login::forward_oobnet:     true
 profile::base::login::oob_net:            "172.17.0.0/21"
@@ -8,7 +7,7 @@ profile::base::login::oob_dhcrelay:       true
 
 # Himlar bootstrap
 profile::bootstrap::himlar::manage_bootstrap_scripts: true
-himlar_bootstrap::tftp_install:
+profile::bootstrap::himlar::tftp:
   'bgo-controller-01':
     domain:           'mgmt.iaas.intern'
     dhcp_interface:   'eth2'
@@ -34,46 +33,30 @@ named_interfaces::config:
   oob:
     - eth3
 
-# Db backup
-profile::base::login::db_servers:
-  bgo-db-global-01:
-    hour:     '*'
-    minute:   '20'
-    command:  '/usr/local/sbin/db-dump.sh bgo-db-global-01 >/dev/null'
-  bgo-db-regional-01:
-    hour:     '*'
-    minute:   '30'
-    command:  '/usr/local/sbin/db-dump.sh bgo-db-regional-01 >/dev/null'
-  bgo-db-archival:
-    hour:     '0'
-    minute:   '45'
-    weekday:  'Monday'
-    command:  '/usr/local/sbin/db-longterm-bck.sh -e bgo >/dev/null'
-
 ssh::server::options:
   # No 2FA possible with gitolite
   # bgo-login-01
-  'Match User git Address 129.177.6.133':
+  'Match User git,norcams Address 129.177.8.10':
     AuthenticationMethods: 'publickey'
-  'Match User git Address 2001:700:200:6::133':
+  'Match User git,norcams Address 2001:700:200:8::10':
     AuthenticationMethods: 'publickey'
   # bgo-login-02
-  'Match User git Address 158.39.74.246':
+  'Match User git,norcams Address 158.39.74.246':
     AuthenticationMethods: 'publickey'
-  'Match User git Address 2001:700:2:83ff::8':
+  'Match User git,norcams Address 2001:700:2:83ff::8':
     AuthenticationMethods: 'publickey'
   # osl-login-01
-  'Match User git Address 129.240.224.100':
+  'Match User git,norcams Address 129.240.224.100':
     AuthenticationMethods: 'publickey'
-  'Match User git Address 2001:700:100:8241::100':
+  'Match User git,norcams Address 2001:700:100:8241::100':
     AuthenticationMethods: 'publickey'
   # osl-login-02
-  'Match User git Address 158.39.75.246':
+  'Match User git,norcams Address 158.39.75.246':
     AuthenticationMethods: 'publickey'
-  'Match User git Address 2001:700:2:82ff::8':
+  'Match User git,norcams Address 2001:700:2:82ff::8':
     AuthenticationMethods: 'publickey'
   # internal mgmt network bgo
-  'Match User git Address 172.16.0.0/21':
+  'Match User git,norcams Address 172.16.0.0/21':
     AuthenticationMethods: 'publickey'
   # internal mgmt network test01
   'Match User git Address 172.28.0.0/24':

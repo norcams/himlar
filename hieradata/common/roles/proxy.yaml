@@ -38,6 +38,7 @@ profile::base::common::packages:
   'openldap-devel': {}
   'openssl-devel': {}
   'libffi-devel': {}
+  'python3.11': {} # needed by himlarservice
 
 profile::network::services::firewall_extras:
   source: '%{network_mgmt1}/%{netmask_mgmt1}'
@@ -52,7 +53,7 @@ profile::network::interface::manage_dummy:         true
 profile::network::nat::enable_snat:                true
 profile::network::nat::source:                     "%{::network_mgmt1}/%{::netmask_mgmt1}"
 profile::network::nat::outiface:                   'eth1'
-profile::application::himlarservice::package_url:  'http://download.iaas.uio.no/uh-iaas/rpm/himlarservice-1.1-3.el7.x86_64.rpm'
+profile::application::himlarservice::package_url:  'https://download.iaas.uio.no/nrec/rpm/himlarservice-2.0-1.el8.x86_64.rpm'
 profile::application::himlarservice::enable:       true
 
 # sensu python2 plugin (depricated)

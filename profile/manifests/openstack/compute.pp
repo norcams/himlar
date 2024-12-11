@@ -3,7 +3,8 @@ class profile::openstack::compute(
   $manage_az                    = false,
   $manage_telemetry             = false,
   $manage_nova_config           = false,
-  $manage_check_dhcp_lease_file = false
+  $manage_check_dhcp_lease_file = false,
+  $manage_osprofiler = false,
 ) {
   include ::nova
   include ::nova::db
@@ -12,6 +13,7 @@ class profile::openstack::compute(
   include ::nova::cinder
   include ::nova::logging
   include ::nova::placement
+  include ::nova::keystone::service_user
 
   if $manage_telemetry {
     include ::profile::openstack::telemetry::polling
@@ -34,5 +36,11 @@ class profile::openstack::compute(
       owner  => 'root',
       source => "puppet:///modules/${module_name}/openstack/compute/check-dhcp-lease-file.sh",
     }
+  }
+
+  if $manage_osprofiler {
+    include ::nova::deps
+    $osprofiler_config = lookup('profile::logging::osprofiler::osprofiler_config', Hash, 'first', {})
+    create_resources('nova_config', $osprofiler_config)
   }
 }

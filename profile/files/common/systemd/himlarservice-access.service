@@ -6,9 +6,12 @@ After=network.target
 Type=simple
 User=root
 WorkingDirectory=/opt/himlarservice
-ExecStart=/opt/himlarservice/bin/python access.py start -f
+ExecStart=/opt/himlarservice/bin/python access_service.py start -f
 Restart=always
 PIDFile=/var/run/access-service.pid
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=access-service
 
 [Install]
 WantedBy=multi-user.target

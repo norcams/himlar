@@ -5,6 +5,7 @@ include:
     - profile::openstack::openrc
     - profile::logging::rsyslog::client
     - profile::openstack::cache
+    - profile::storage::cephclient
 
 profile::base::common::packages:
   # we need newer version of six to avoid breaking requests and openstack cli
@@ -67,3 +68,5 @@ profile::base::selinux::boolean:
 profile::base::selinux::semodules:
   'postfix_glance':
     avc_file:   "postfix_glance.avc"
+
+profile::storage::cephclient::enable: true

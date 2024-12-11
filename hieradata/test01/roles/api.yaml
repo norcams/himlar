@@ -31,18 +31,32 @@ profile::highavailability::loadbalancing::haproxy::merge_strategy: 'first'
 profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
   frontend_public:
     bind:
-      ":::5000 v4v6":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}", "crt %{hiera('frontend_star_ssl_pem')}", "crt %{hiera('frontend_star_ssl_pem2')}"]
-      ":::8041 v4v6":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
-      ":::8080 v4v6":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
-      ":::8778 v4v6":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
-      ":::8774 v4v6":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
-      ":::8776 v4v6":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
-      ":::9292 v4v6":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
-      ":::9696 v4v6":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
-      ":::9001 v4v6":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
-      ":::443 v4v6":   ['ssl', "crt %{hiera('frontend_star_ssl_pem')}", "crt %{hiera('frontend_star_ssl_pem2')}"]
-      ":::80 v4v6":    []
-      ":::6080 v4v6":  ['ssl', "crt %{hiera('console_ssl_pem')}", "crt %{hiera('console_ssl_pem2')}"]
+      # IPv4
+      "ipv4@%{::ipaddress_public1}:5000":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}", "crt %{hiera('frontend_star_ssl_pem')}", "crt %{hiera('frontend_star_ssl_pem2')}"]
+      "ipv4@%{::ipaddress_public1}:8041":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "ipv4@%{::ipaddress_public1}:8080":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "ipv4@%{::ipaddress_public1}:8778":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "ipv4@%{::ipaddress_public1}:8774":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "ipv4@%{::ipaddress_public1}:8776":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "ipv4@%{::ipaddress_public1}:9292":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "ipv4@%{::ipaddress_public1}:9696":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "ipv4@%{::ipaddress_public1}:9001":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "ipv4@%{::ipaddress_public1}:443":   ['ssl', "crt %{hiera('frontend_star_ssl_pem')}", "crt %{hiera('frontend_star_ssl_pem2')}"]
+      "ipv4@%{::ipaddress_public1}:80":    []
+      "ipv4@%{::ipaddress_public1}:6080":  ['ssl', "crt %{hiera('console_ssl_pem')}", "crt %{hiera('console_ssl_pem2')}"]
+      # IPv6
+      "ipv6@%{::ipaddress6_public1}:5000": ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}", "crt %{hiera('frontend_star_ssl_pem')}", "crt %{hiera('frontend_star_ssl_pem2')}"]
+      "ipv6@%{::ipaddress6_public1}:8041": ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "ipv6@%{::ipaddress6_public1}:8080": ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "ipv6@%{::ipaddress6_public1}:8778": ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "ipv6@%{::ipaddress6_public1}:8774": ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "ipv6@%{::ipaddress6_public1}:8776": ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "ipv6@%{::ipaddress6_public1}:9292": ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "ipv6@%{::ipaddress6_public1}:9696": ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "ipv6@%{::ipaddress6_public1}:9001": ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
+      "ipv6@%{::ipaddress6_public1}:443":  ['ssl', "crt %{hiera('frontend_star_ssl_pem')}", "crt %{hiera('frontend_star_ssl_pem2')}"]
+      "ipv6@%{::ipaddress6_public1}:80":   []
+      "ipv6@%{::ipaddress6_public1}:6080": ['ssl', "crt %{hiera('console_ssl_pem')}", "crt %{hiera('console_ssl_pem2')}"]
     options:
       - capture:        'request header Host len 64' #for debug
       - acl:
@@ -69,7 +83,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
         - 'set-header X-Forwarded-Port %[dst_port]'
         # Returns 403 for all keystone admin endpoints on port 5000
         # using http methods not whitelisted (e.g. POST, PATCH, DELETE)
-        - 'deny if { dst_port 5000 } !valid_method keystone_admin_endpoint'
+      #  - 'deny if { dst_port 5000 } !valid_method keystone_admin_endpoint'
       #  - 'set-header X-Forwarded-Host %[req.hdr(Host)]'
       - errorfile:      '403 /etc/haproxy/error.forbidden.http'
       - use_backend:    '%[req.hdr(host),lower,map(/etc/haproxy/public_domains.map)]'
@@ -92,32 +106,30 @@ profile::highavailability::loadbalancing::haproxy::access_list:
       - "%{alias('allow_from_testing_network')}"
   test01_access:
     ips:
-      - '129.177.6.133/32'         # bgo-login
-      - '2001:700:200:6::133/128'  # bgo-login
-      - '129.177.6.190/32'         # test01-login
-      - '2001:700:200:6::190/128'  # test01-login
+      - '129.177.8.10/32'          # bgo-login
+      - '2001:700:200:8::10/128'   # bgo-login
+      - '129.177.8.9/32'           # test01-login
+      - '2001:700:200:8::9/128'    # test01-login
       - '129.177.31.64/27'         # test01
       - '129.177.31.96/27'         # test01
       - '2001:700:200:915::/64'    # test01
       - '2001:700:200:916::/64'    # test01
-      - '2001:0700:0200:1100::/64' # id division
       - '129.177.0.137/32'         # p1dclogin
       - '129.177.0.138/32'         # p2dclogin
       - '129.177.25.132/32'        # raymond-dev
+      - '2001:700:200:334::132/128' # raymond-dev
       - '158.39.74.6/32'           # raymond (bgo-mgmt-instance)
       - '129.240.130.12/32'        # trond
       - '129.240.130.124/32'       # mikael
-      - '129.240.202.64/32'        # mikael
 
 # this will only work for status/access (port 80/443)
 profile::highavailability::loadbalancing::haproxy::allow_from_network:
-  - '129.177.6.133/32'  # bgo-login
+  - '129.177.8.10/32'   # bgo-login
   - '129.177.31.64/27'  # test01
   - '129.177.31.96/27'  # test01
   - '129.177.25.132/32' # raymond
   - '129.240.130.12/32' # trond
-  - '129.240.130.124/32'# mikael
-  - '129.240.202.64/32' # mikael
+  - '129.240.130.124/32' # mikael
 
 network__backend__names:
   - '%{::location}-network-01'

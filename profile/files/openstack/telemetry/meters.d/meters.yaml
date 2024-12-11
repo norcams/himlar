@@ -113,12 +113,14 @@ metric:
   - name: 'volume.size'
     event_type:
       - 'volume.exists'
+      - 'volume.retype'
       - 'volume.create.*'
       - 'volume.delete.*'
       - 'volume.resize.*'
       - 'volume.attach.*'
       - 'volume.detach.*'
       - 'volume.update.*'
+      - 'volume.manage.*'
     type: 'gauge'
     unit: 'GB'
     volume: $.payload.size
@@ -128,7 +130,7 @@ metric:
     metadata:
       display_name: $.payload.display_name
       volume_type: $.payload.volume_type
-      image_id: $.payload.glance_metadata[?key=image_id][0].value
+      image_id: $.payload.glance_metadata[?key=image_id].value
       instance_id: $.payload.volume_attachment[0].server_id
 
   - name: 'snapshot.size'
@@ -136,6 +138,7 @@ metric:
       - 'snapshot.exists'
       - 'snapshot.create.*'
       - 'snapshot.delete.*'
+      - 'snapshot.manage.*'
     type: 'gauge'
     unit: 'GB'
     volume: $.payload.volume_size

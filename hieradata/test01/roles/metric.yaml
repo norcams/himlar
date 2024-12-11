@@ -1,0 +1,42 @@
+---
+
+# Smaller disk for gnocchi data in test
+profile::base::lvm::logical_volume:
+  'lv_gnocchi':
+    volume_group: 'vg_metric'
+    fs_type:      "xfs"
+    mountpath:    "/var/lib/gnocchi"
+    size:         '19.9G'
+
+#profile::monitoring::sensu::agent::checks:
+#  'metrics-mysql-graphite':
+#    type:         'metric'
+#    command:      'metrics-mysql-graphite.rb --scheme mysql.%{::hostname} -h localhost -S /var/lib/mysql/mysql.sock --ini /etc/sensu/conf.d/mysql.ini'
+#    interval:     60
+#    subscribers:  ['metrics']
+#    handlers:     ['graphite_tcp']
+#  'check-mysql-alive':
+#    command:      'check-mysql-alive.rb -h localhost -s /var/lib/mysql/mysql.sock --ini /etc/sensu/conf.d/mysql.ini'
+#    interval:     60
+#    subscribers:  ['checks']
+
+# FIXME:sensu-go
+
+# Plugins not avaiable as assets for el8
+sensu::plugins::plugins:
+  sensu-plugins-mysql:
+    version: 3.2.0
+
+sensu::agent::subscriptions:
+  - 'base'
+  - 'nodes'
+  - 'metrics'
+
+profile::monitoring::sensu::agent::checks:
+  check-metric-mysql-alive:
+    command:                "check-mysql-alive.rb -h localhost -s /var/lib/mysql/mysql.sock"
+    interval:               60
+    subscriptions:          ['entity:%{::hostname}']
+    handlers:               ['default']
+    provider:               'sensu_api'
+

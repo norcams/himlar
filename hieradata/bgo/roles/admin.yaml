@@ -1,37 +1,4 @@
 ---
-include:
-  default:
-    - profile::dns::rndc_key
-
-profile::dns::rndc_key::create_admin_key:    true
-profile::dns::rndc_key::create_mdns_key:     false
-profile::dns::rndc_key::host_is_bind_server: false
-
-dhcp::pools:
-  "out-of-band network definition":
-    network: "%{hiera('netcfg_oob_netpart')}.0"
-    mask: "%{hiera('netcfg_oob_netmask')}"
-    gateway: "%{hiera('netcfg_oob_gateway')}"
-    options:
-      # iDRAC will search for file in order <servicetag>-config.json, <model>-config.json, config.json
-      # examples: 4U1BGM7-config.json, R740xd-config.json, config.json
-      # Refer to the zero-touch, bare metal server provisioning document from Dell for options.
-      - vendor-class-identifier "iDRAC"
-      - idrac-provision-url "-i %{::ipaddress_oob1} -s http -t 500 -n %{::location}/"
-    parameters:
-      - set vendor-string = option vendor-class-identifier
-      - default-lease-time 43200
-      - max-lease-time 86400
-    nameservers:
-      - "%{hiera('netcfg_oob_netpart')}.10"
-
-profile::webserver::apache::vhosts:
-  'repo-oobip':
-    servername:     "%{::ipaddress_oob1}"
-    port:           80
-    docroot:        '/opt/repo/public'
-    docroot_owner:  'iaas'
-    serveraliases:  [ "repo.%{hiera('domain_oob')}", ]
 
 dhcp::hosts:
   bgo-leaf-01:
@@ -85,7 +52,7 @@ dhcp::hosts:
   bgo-mgmt-opx-07:
     mac: '0c:29:ef:d8:32:20'
     ip:  '172.16.2.7'
-  bgo-mgmt-08:
+  bgo-mgmt-opx-08:
     mac: '74:86:e2:ab:a4:a5'
     ip: '172.16.2.8'
   bgo-mgmt-opx-09:
@@ -352,6 +319,19 @@ dhcp::hosts:
   bgo-compute-84-bmc:
     'mac': 'c4:cb:e1:b1:1b:b4'
     'ip':  '172.17.1.145'
+    # TODO compute-85-87
+  bgo-compute-88-bmc:
+    'mac': 'c4:cb:e1:c2:ed:4a'
+    'ip':  '172.17.1.149'
+  bgo-compute-89-bmc:
+    'mac': 'c4:cb:e1:c2:ed:74'
+    'ip':  '172.17.1.150'
+  bgo-compute-90-bmc:
+    'mac': 'c4:cb:e1:c2:ea:aa'
+    'ip':  '172.17.1.151'
+  bgo-compute-91-bmc:
+    'mac': 'c4:cb:e1:c2:ee:22'
+    'ip':  '172.17.1.152'
   bgo-controller-04-bmc:
     mac: 'b0:83:fe:e9:01:a5'
     ip:  '172.17.0.114'

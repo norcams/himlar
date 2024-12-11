@@ -3,11 +3,13 @@ class profile::development::network::dns(
   $manage_hosts = false,
   $use_dnsmasq = false,
   $remove_local_hostname = false,
+  $dns_merge_strategy = 'deep'
 ) {
 
   if $manage_hosts {
+    $real_merge_strategy = pick($profile::network::services::dns_merge_strategy, $dns_merge_strategy)
     # Fetch dns records
-    $dns = lookup('profile::network::services::dns_records', Hash, 'deep', {})
+    $dns = lookup('profile::network::services::dns_records', Hash, $real_merge_strategy, {})
     # Create temp variable
     $list = join_keys_to_values($dns['A'], '|')
     # Update /etc/hosts

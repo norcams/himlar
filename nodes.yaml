@@ -13,6 +13,7 @@ defaults:
   domain:      "mgmt.vagrant.iaas.intern"
   cpus:        1
   memory:      1024
+  disk:        ""
   networks:
     - "mgmt"
     - "trp"
@@ -40,7 +41,6 @@ nodesets:
     - role:       "db-regional"
       puppet_env: "victoria"
     - role:       "api"
-      box:        "norcams/base"
     - role:       "mq"
     - role:       "identity"
       puppet_env: "victoria"
@@ -77,8 +77,15 @@ nodesets:
     #- role:       "proxy"
     #- role:       "login"
     #- role:       "controller"
+    #  memory:     4096
+    #  cpus:       2
+    #  puppet_env: "controller"
+    #  box:        "norcams/el9"
     #- role:       "metric"
+    #  puppet_env: "victoria"
+    #  disk:       "2GB"
     #- role:       "telemetry"
+    #  puppet_env: "victoria"
     #- role:       "dashboard-mgmt"
     #- role:       "report"
     #- role:       "coordinator"
@@ -96,8 +103,8 @@ nodesets:
     #  memory:     1024
     #- role:       "nat"
     #  box:        "norcams/freebsd"
-    - role:       "admin"
-      puppet_env: "admin"
+    #- role:       "admin"
+    #  puppet_env: "admin"
     #  box:        "norcams/base"
     #  memory:     2048
     #- role:       "ns"
@@ -119,10 +126,8 @@ nodesets:
   ha:
     - role:       'ha'
       hostid:     '01'
-      box:        "norcams/base"
     - role:       'ha'
       hostid:     '02'
-      box:        "norcams/base"
   grid:
     - role:       'ha-grid'
       hostid:     '01'
