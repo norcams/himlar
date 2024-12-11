@@ -1,37 +1,4 @@
 ---
-include:
-  default:
-    - profile::dns::rndc_key
-
-profile::dns::rndc_key::create_admin_key:    true
-profile::dns::rndc_key::create_mdns_key:     false
-profile::dns::rndc_key::host_is_bind_server: false
-
-dhcp::pools:
-  "out-of-band network definition":
-    network: "%{hiera('netcfg_oob_netpart')}.0"
-    mask: "%{hiera('netcfg_oob_netmask')}"
-    gateway: "%{hiera('netcfg_oob_gateway')}"
-    options:
-      # iDRAC will search for file in order <servicetag>-config.json, <model>-config.json, config.json
-      # examples: 4U1BGM7-config.json, R740xd-config.json, config.json
-      # Refer to the zero-touch, bare metal server provisioning document from Dell for options.
-      - vendor-class-identifier "iDRAC"
-      - idrac-provision-url "-i %{::ipaddress_oob1} -s http -t 500 -n %{::location}/"
-    parameters:
-      - set vendor-string = option vendor-class-identifier
-      - default-lease-time 43200
-      - max-lease-time 86400
-    nameservers:
-      - "%{hiera('netcfg_oob_netpart')}.10"
-
-profile::webserver::apache::vhosts:
-  'repo-oobip':
-    servername:     "%{::ipaddress_oob1}"
-    port:           80
-    docroot:        '/opt/repo/public'
-    docroot_owner:  'iaas'
-    serveraliases:  [ "repo.%{hiera('domain_oob')}", ]
 
 dhcp::hosts:
 # osl-login-01 oob link: 10
@@ -382,12 +349,9 @@ dhcp::hosts:
   osl-compute-66-bmc:
     mac: '58:8a:5a:e7:bf:76'
     ip:  '172.17.33.127'
-  osl-test-04-bmc:
+  osl-storage-26-bmc:
     mac: '18:fb:7b:ab:5b:fb'
-    ip:  '172.17.33.203'
-#  osl-storage-26-bmc:
-#    mac: '18:fb:7b:ab:5b:fb'
-#    ip:  '172.17.33.68'
+    ip:  '172.17.33.68'
   osl-storage-27-bmc:
     mac: '18:66:da:8c:1b:a2'
     ip:  '172.17.33.69'
@@ -406,3 +370,6 @@ dhcp::hosts:
   osl-storage-32-bmc:
     mac: '18:fb:7b:aa:4f:d9'
     ip:  '172.17.33.74'
+  osl-storage-33-bmc:
+    mac: '18:fb:7b:9f:e0:ab'
+    ip:  '172.17.33.75'

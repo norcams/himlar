@@ -9,7 +9,6 @@ class profile::firewall::rules (
 ) {
 
   if $manage_custom_rules {
-    info('custom rules')
     $rules = lookup('profile::firewall::rules::custom_rules', Hash, $merge_strategy, {})
     create_resources('profile::firewall::rule', $rules)
   }

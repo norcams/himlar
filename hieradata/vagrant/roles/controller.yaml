@@ -1,26 +1,20 @@
 ---
-# enable consul
-#include:
-#  default:
-#    - profile::application::consul
-
 profile::base::common::manage_lvm: false
 
-himlar_bootstrap::virt_install:
+# bootstrap admin-01
+profile::bootstrap::himlar::libvirt:
   '%{location}-admin-01':
-    domain:          '%{domain}'
-    libvirt_pool:    'dirpool'
-    libvirt_network: 'directnet'
-    install_ip:      "%{hiera('netcfg_mgmt_netpart')}.11"
-    install_netmask: "%{hiera('netcfg_mgmt_netmask')}"
-    install_gateway: "%{hiera('netcfg_mgmt_gateway')}"
-    vm_vcpus:        1
-    vm_memory:       1024
-    vm_console:      false
+    puppet_env:       'admin'
+    libvirt_pool:     'dirpool'
+    libvirt_network:  'directnet'
+    node_ip:          "%{hiera('netcfg_mgmt_netpart')}.11"
+    node_netmask:     "%{hiera('netcfg_mgmt_netmask')}"
+    node_gateway:     "%{hiera('netcfg_mgmt_gateway')}"
+    vm_vcpus:         1
+    vm_memory:        1536
 
 profile::network::services::ntp_server: false
 
-# Uncomment if you add bridges to node file
 named_interfaces::config:
   vagrant:
     - eth0
@@ -30,3 +24,39 @@ named_interfaces::config:
     - br1
   ceph:
     - br1
+
+profile::storage::cephclient::enable: false #FIXME: we need el9 repo
+
+# This is needed for el9
+profile::virtualization::libvirt::moduler_daemons: true
+
+# This change is needed for new libvirt module
+profile::virtualization::libvirt::networks:
+  default:
+    ensure:              absent
+  directnet:
+    ensure:              present
+  trpnet:
+    ensure:              present
+
+# FIMXE: This is needed for new libvirt module while running controller puppet env
+libvirt::purge_network:     'purge'
+libvirt::qemu_conf:
+  vnc_listen: "%{::ipaddress_mgmt1}"
+  vnc_tls:    '0'
+  vnc_sasl:   '0'
+libvirt::service::modular_services:
+  virtqemud.service:
+    ensure: 'running'
+    enable: true
+  virtproxyd-tcp.socket:
+    ensure: 'running'
+    enable: true
+  virtstoraged.socket:
+    ensure: 'running'
+    enable: true
+  virtnetworkd.service:
+    ensure: 'running'
+    enable: true
+  virtproxyd.service:
+    enable: true

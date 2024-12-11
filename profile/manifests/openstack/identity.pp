@@ -31,6 +31,7 @@ class profile::openstack::identity (
   $gpg_receiver             = '',
   $manage_policy            = false,
   $placement_enabled        = false,
+  $manage_osprofiler = false,
 ) {
 
   include ::keystone
@@ -147,5 +148,11 @@ class profile::openstack::identity (
       dport  => 35357,
       extras => $firewall_extras_a
     }
+  }
+
+  if $manage_osprofiler {
+    include ::keystone::deps
+    $osprofiler_config = lookup('profile::logging::osprofiler::osprofiler_config', Hash, 'first', {})
+    create_resources('keystone_config', $osprofiler_config)
   }
 }

@@ -18,12 +18,11 @@ profile::base::yumrepo::repo_hash:
     ensure:         absent #FIXME: Remove when CentOS 8 is gone
   epel:
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8'
-
   centos-qemu-ev:   # unavailable for el8
     ensure:         absent
   CentOS-Advanced-Virtualization: # FIXME
     module_hotfixes: '1'
-  mariadb-10.3: # FIXME
+  "mariadb-%{hiera('mariadb_version')}":  # FIXME: Move when all nodes depending on MariaDB is on EL8
     module_hotfixes: '1'
 
 profile::base::common::packages:
@@ -61,8 +60,6 @@ calico::compute::peer6_template: 'profile/bird/bird-rr-ipv6.erb' # FIXME
 calico::enable_ipv6:  false                                      # The bird daemon handles both ipv4 and ipv6
 
 nova::migration::libvirt::libvirt_version: '7'                   # puppet-nova fails to detect libvirt version on alma and then misconfigures
-
-mariadb_version:      '10.3'                                     # FIXME This should be removed when all database nodes are on el8 (use only in common/roles/db)
 
 # logrotate
 profile::logging::logrotate::rules:

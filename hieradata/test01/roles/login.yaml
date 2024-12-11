@@ -1,5 +1,4 @@
 ---
-profile::network::services::manage_dhcp:  false
 profile::firewall::pre::manage_ipv6_ssh:  true
 profile::base::login::forward_oobnet:     true
 profile::base::login::oob_net:            "172.28.159.0/24"
@@ -11,7 +10,7 @@ profile::application::postfix::relayhost:      'smtp.uib.no'
 
 # Himlar bootstrap
 profile::bootstrap::himlar::manage_bootstrap_scripts: true
-himlar_bootstrap::tftp_install:
+profile::bootstrap::himlar::tftp:
   'test01-controller-01':
     domain:           'mgmt.test.iaas.intern'
     dhcp_interface:   '%{::interface_mgmt1}'
@@ -30,28 +29,12 @@ named_interfaces::config:
   oob:
     - eth2
 
-# Db backup
-profile::base::login::db_servers:
- test01-db-global-01:
-   hour:     '*'
-   minute:   '20'
-   command:  '/usr/local/sbin/db-dump.sh test01-db-global-01 >/dev/null'
- test01-db-regional-01:
-   hour:     '*'
-   minute:   '30'
-   command:  '/usr/local/sbin/db-dump.sh test01-db-regional-01 >/dev/null'
- test01-db-archival:
-    hour:     '0'
-    minute:   '45'
-    weekday:  'Monday'
-    command:  '/usr/local/sbin/db-longterm-bck.sh -e test01 >/dev/null'
-
 ssh::server::options:
   # No 2FA possible with gitolite
   # bgo-login-01
-  'Match User git Address 129.177.6.133':
+  'Match User git Address 129.177.8.10':
     AuthenticationMethods: 'publickey'
-  'Match User git Address 2001:700:200:6::133':
+  'Match User git Address 2001:700:200:8::10':
     AuthenticationMethods: 'publickey'
   # osl-login-01
   'Match User git Address 129.240.224.100':

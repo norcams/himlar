@@ -14,30 +14,21 @@ ssh::server::options:
   'Match User vagrant':
      AuthenticationMethods: 'publickey'
 
-# Himlar bootstrap
+# bootstrap el9 controller
 profile::bootstrap::himlar::manage_bootstrap_scripts: true
-himlar_bootstrap::tftp_install:
+bootstrap_infra::kickstart_defaults:
+  custom_template:    "bootstrap_infra/kickstart/el9.erb"
+  #provision_template: '' # no provision template
+profile::bootstrap::himlar::tftp:
   '%{location}-controller-01':
-    domain:           '%{domain}'
-    dhcp_interface:   'eth1'
     dhcp_range_start: "%{hiera('netcfg_mgmt_netpart')}.200"
     dhcp_range_end:   "%{hiera('netcfg_mgmt_netpart')}.250"
     dhcp_gateway:     "%{hiera('netcfg_mgmt_netpart')}.1"
-
-profile::base::login::db_servers:
-  vagrant-db-global-01:
-    hour:     '*'
-    minute:   '20'
-    command:  '/usr/local/sbin/db-dump.sh vagrant-db-global-01 >/dev/null'
-  vagrant-db-regional-01:
-    hour:     '*'
-    minute:   '30'
-    command:  '/usr/local/sbin/db-dump.sh vagrant-db-regional-01 >/dev/null'
-  vagrant-db-archival:
-    hour:     '0'
-    minute:   '45'
-    weekday:  'Monday'
-    command:  '/usr/local/sbin/db-longterm-bck.sh -e vagrant >/dev/null'
+    node_ip:          "%{hiera('netcfg_mgmt_netpart')}.100"
+    node_netmask:     "%{hiera('netcfg_mgmt_netmask')}"
+    node_gateway:     "%{hiera('netcfg_mgmt_netpart')}.10"
+    use_dhcp:         false
+    puppet_env:       'controller'
 
 named_interfaces::config:
   mgmt:

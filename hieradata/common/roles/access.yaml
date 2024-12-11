@@ -16,7 +16,7 @@ profile::openstack::openrc::project_name:       'services'
 profile::base::network::manage_dummy:           true
 profile::webserver::apache::manage_firewall:    false
 profile::application::access::manage_firewall:  true
-profile::application::access::package_url:      'https://download.iaas.uio.no/uh-iaas/rpm/himlar-dp-prep-2.0-7.el7.x86_64.rpm'
+profile::application::access::package_url:      'https://download.iaas.uio.no/nrec/rpm/himlar-dp-prep-3.0-2.el8.x86_64.rpm' #FIXME
 dpapp::installdir:        '/opt/dpapp'
 
 profile::application::access::firewall_extras:
@@ -27,10 +27,12 @@ profile::webserver::apache::mods_enable:
   - wsgi
   - dir
 
+apache::mod::wsgi::wsgi_python_home: "%{hiera('dpapp::installdir')}"
+apache::mod::wsgi::package_name: 'python3.11-mod_wsgi'
+apache::mod::wsgi::mod_path: "/usr/lib64/python3.11/site-packages/mod_wsgi/server/mod_wsgi-py311.cpython-311-x86_64-linux-gnu.so"
+
 profile::base::common::packages:
-  'bash-completion': {}
-  'bash-completion-extras': {}
-  'python2-openstackclient': {}
+  'python3.11': {}
 
 profile::webserver::apache::vhosts:
   dpapp:
@@ -47,18 +49,13 @@ profile::webserver::apache::vhosts:
     wsgi_daemon_process:     'dpapp'
     wsgi_daemon_process_options:
       threads:      '4'
-      python-path:  "%{hiera('dpapp::installdir')}/lib/python2.7/site-packages"
+      python-path:  "%{hiera('dpapp::installdir')}/lib/python3.11/site-packages"
     wsgi_script_aliases:
       '/':   "%{hiera('dpapp::installdir')}/pyramid.wsgi"
     directories:
       - path:             "%{hiera('dpapp::installdir')}"
         require:          'all granted'
         custom_fragment:  'WSGIProcessGroup dpapp'
-
-# RDO used for openstackclient
-profile::base::yumrepo::repo_hash:
-  rdo-release:
-    ensure: absent # no repo for el7
 
 # Selinux for access
 profile::base::selinux::boolean:
@@ -71,5 +68,3 @@ profile::base::selinux::boolean:
   'httpd_execmem':
     ensure: 'on'
     persistent: true
-
-openstack_version: 'train'

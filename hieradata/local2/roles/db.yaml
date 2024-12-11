@@ -5,6 +5,8 @@ profile::monitoring::sensu::agent::plugins:
     type:         package
     pkg_version:  '1.1.0'
 
+mariadb_version:  '10.6' #FIXME after upgrade in prod
+
 profile::monitoring::sensu::agent::checks:
   'check-wsrep-ready':
     command:      "check-wsrep-ready.rb -u sensu -h localhost -p %{hiera('sensu_mysql_password')}"

@@ -4,7 +4,6 @@ include:
     - profile::application::git
   default:
     - profile::base::login
-    - profile::network::services
     - profile::development::network::dns
     - profile::application::git
     - profile::application::rngd
@@ -25,7 +24,6 @@ named_interfaces::config:
 
 profile::application::rngd::enable:               true
 profile::base::firewall::manage_firewall:         true
-profile::network::services::manage_nat:           false
 profile::network::nat::enable_masquerade:         true
 profile::network::nat::source:                   "0.0.0.0/0"
 profile::network::nat::outiface:                 "%{::interface_public1}"
@@ -33,7 +31,7 @@ profile::development::network::dns::manage_hosts: true
 profile::development::network::dns::use_dnsmasq:  true
 
 profile::firewall::pre::ssh_settings:
-  source: "0.0.0.0/0"
+  source:  "%{alias('allow_from_admins_network')}"
 
 profile::base::login::manage_repo_incoming_dir:   true
 profile::base::login::gpg_receiver:              "%{hiera('gpg_receiver')}"
@@ -76,13 +74,6 @@ accounts::accounts:
     ensure: absent
   'vagrant':
     ensure: absent
-
-
-
-# special user for common files which should be synced between locations (can not be owned by root)
-accounts::users:
-  'norcams':
-    shell: '/bin/false'
 
 # Sensu (login has larger disks)
 sensu__disk__warning:     85
@@ -158,4 +149,25 @@ profile::base::yumrepo::repo_hash:
     exclude:        'postgres*'
 
 profile::base::login::dump_owner:      'norcams'
-profile::base::login::dump_group:      'wheel'
+profile::base::login::dump_group:      'norcams'
+
+# DB backup cron jobs
+profile::base::login::db_servers:
+  "%{::location}-db-global-01":
+    hour:     '*'
+    minute:   '20'
+    command:  "/usr/local/sbin/db-dump.sh %{::location}-db-global-01 >/dev/null"
+  "%{::location}-db-regional-01":
+    hour:     '*'
+    minute:   '30'
+    command:  "/usr/local/sbin/db-dump.sh %{::location}-db-regional-01 >/dev/null"
+  "%{::location}-metric-01":
+    hour:     '*'
+    minute:   '40'
+    command:  "/usr/local/sbin/db-dump.sh %{::location}-metric-01 >/dev/null"
+  "%{::location}-db-archival":
+    hour:     '0'
+    minute:   '00'
+    weekday:  'Monday'
+    command:  "/usr/local/sbin/db-longterm-bck.sh -e %{::location} >/dev/null"
+

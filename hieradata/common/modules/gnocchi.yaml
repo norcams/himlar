@@ -20,7 +20,7 @@ gnocchi::keystone::authtoken::memcached_servers:  '127.0.0.1:11211'
 gnocchi::keystone::authtoken::token_cache_time:   300
 
 # db (node: metric)
-gnocchi::database_connection: "mysql://gnocchi:%{hiera('gnocchi::db::mysql::password')}@%{hiera('service__address__db_regional')}/gnocchi"
+gnocchi::db::database_connection: "mysql://gnocchi:%{hiera('gnocchi::db::mysql::password')}@localhost/gnocchi"
 gnocchi::db::mysql::dbname:   'gnocchi'
 gnocchi::db::mysql::user:     'gnocchi'
 gnocchi::db::mysql::allowed_hosts:
@@ -32,13 +32,21 @@ gnocchi::api::manage_service:                 false
 gnocchi::api::sync_db:                        true
 gnocchi::api::enable_proxy_headers_parsing:   true
 
-gnocchi::wsgi::apache::server_name:           "%{::location}-metric-01.%{hiera('domain_trp')}"
+gnocchi::wsgi::apache::servername:            "%{::location}-metric-01.%{hiera('domain_trp')}"
 gnocchi::wsgi::apache::bind_host:             "%{::ipaddress_trp1}"
 gnocchi::wsgi::apache::port:                  8041
-gnocchi::wsgi::apache::workers:               2
+gnocchi::wsgi::apache::workers:               4
+gnocchi::wsgi::apache::threads:               1
 gnocchi::wsgi::apache::ssl:                   false
 
+# metricd
+gnocchi::metricd::metric_processing_delay:    120
+gnocchi::metricd::metric_reporting_delay:     180
+gnocchi::metricd::metric_cleanup_delay:       300
+
 # statsd
+gnocchi::statsd::manage_service:              false #FIXME
+gnocchi::statsd::enabled:                     false #FIXME
 gnocchi::statsd::resource_id:                 577a85b8-1f77-47e7-ac6f-742b475657b9
 gnocchi::statsd::flush_delay:                 60
 gnocchi::statsd::archive_policy_name:         'medium'
@@ -51,4 +59,4 @@ gnocchi::statsd::project_id:                  'service'
 gnocchi::cors::allowed_origin:      "http://%{hiera('mgmt__address__monitor')}:8080"
 
 # Use redis here for multinode setup
-gnocchi::storage::coordination_url: 'file:///var/lib/gnocchi'
+gnocchi::coordination_url: 'file:///var/lib/gnocchi'

@@ -13,6 +13,7 @@ class profile::openstack::metric (
 
   include ::gnocchi
   include ::gnocchi::config
+  include ::gnocchi::db
   include ::gnocchi::api
 
   # wrappe disse i "manage_"-variabler

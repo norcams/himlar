@@ -64,7 +64,7 @@ profile::base::network::rules:
 profile::base::network::manage_neutron_blackhole:      true # FIXME - remove when el7 is gone
 profile::network::interface::manage_neutron_blackhole: true
 
-# remove when telemetry/ceilometer is up in all environments and move to common
+# FIXME: remove when telemetry/ceilometer is up in all environments and move to common
 profile::openstack::compute::manage_telemetry: true
 
 # Set tuned profile to "virtual-host"

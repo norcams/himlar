@@ -7,10 +7,10 @@ include:
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   rdo-release:
-    ensure: absent # no repo for el7
+    ensure:   present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
-    includepkgs: 'htop bash-completion-extras python2-bcrypt'
+    includepkgs: 'htop bash-completion-extras'
 
 # telemetry runs the central polling
 ceilometer::agent::polling::central_namespace:            true
@@ -19,15 +19,6 @@ profile::openstack::telemetry::manage_firewall:           true
 profile::openstack::telemetry::manage_gnocchi_resources:  true
 profile::openstack::telemetry::manage_meters:             true
 profile::openstack::telemetry::pipeline::pipeline_publishers: ['gnocchi://?archive_policy=low&filter_service_activity=false']
-
-profile::base::common::packages:
-  'python-openstackclient': {}
-  'python2-oslo-db':        {}
-  'python-tooz':            {}
-  'python2-pecan':          {}
-  'python2-wsme':           {}
-  'python2-swiftclient':    {}
-  'openstack-selinux':      {}
 
 profile::openstack::openrc::password:                   "%{hiera('ceilometer_api_password')}"
 profile::openstack::openrc::username:                   'ceilometer'

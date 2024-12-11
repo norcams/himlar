@@ -1,0 +1,8 @@
+---
+network::interfaces_hash:
+  'eth2':
+    ipaddress:     "%{hiera('netcfg_mgmt_netpart')}.199"
+    netmask:       "%{hiera('netcfg_mgmt_netmask')}"
+    defroute:      'no'
+    onboot:        'yes'
+

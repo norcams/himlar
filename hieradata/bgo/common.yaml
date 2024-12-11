@@ -112,7 +112,9 @@ netcfg_anycast_dns:       '158.39.77.252'
 netcfg_anycast_dns6:      '2001:700:2:83ff::252'
 netcfg_ib_vlan:           '908'
 netcfg_oob_vlan:          '909'
-netcfg_elastic_cidr:      '10.5.0.0/20'
+netcfg_elastic_cidr:      '10.5.0.0/19'
+netcfg_priv_anycast_net:   '10.254.253.224'
+netcfg_priv_anycast_cidr4: '27'
 netcfg_pub_object:        '158.39.77.250'
 netcfg_trp_rr:
   rr1:
@@ -205,7 +207,11 @@ profile::network::services::dns_records:
     "%{::location}-compute-epyc-57.%{hiera('domain_mgmt')}":    "%{::location}-compute-57.%{hiera('domain_mgmt')}"
     "%{::location}-compute-vgpu-52.%{hiera('domain_mgmt')}":    "%{::location}-compute-52.%{hiera('domain_mgmt')}"
     "%{::location}-compute-vgpu-53.%{hiera('domain_mgmt')}":    "%{::location}-compute-53.%{hiera('domain_mgmt')}"
-    "%{::location}-compute-gpu1-54.%{hiera('domain_mgmt')}":    "%{::location}-compute-54.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-vgpu-54.%{hiera('domain_mgmt')}":    "%{::location}-compute-54.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-l40s-88.%{hiera('domain_mgmt')}":    "%{::location}-compute-88.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-l40s-89.%{hiera('domain_mgmt')}":    "%{::location}-compute-89.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-l40s-90.%{hiera('domain_mgmt')}":    "%{::location}-compute-90.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-l40s-91.%{hiera('domain_mgmt')}":    "%{::location}-compute-91.%{hiera('domain_mgmt')}"
     "%{::location}-object-ceph-01.%{hiera('domain_mgmt')}":     "%{::location}-object-01.%{hiera('domain_mgmt')}"
     "%{::location}-object-ceph-02.%{hiera('domain_mgmt')}":     "%{::location}-object-02.%{hiera('domain_mgmt')}"
     "%{::location}-object-ceph-03.%{hiera('domain_mgmt')}":     "%{::location}-object-03.%{hiera('domain_mgmt')}"
@@ -304,9 +310,10 @@ profile::network::services::dns_records:
     "resolver.%{hiera('domain_public2')}":        '158.39.77.252'
 
     # Management network (entries that differ from common/common.yaml)
-    "%{::location}-mgmt-08.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_net_c2')}.8"
     "%{::location}-login-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_netpart')}.10"
-    "repo.%{hiera('domain_oob')}":                    "%{hiera('netcfg_oob_netpart')}.9"
+    "%{::location}-login-01old.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_net_c0')}.199"
+    # oob nodes
+    "repo.%{hiera('domain_oob')}":                          "%{hiera('netcfg_oob_netpart')}.9"
   AAAA:
     # Public records (<foo>.<location>.nrec.no)
     "resolver.%{hiera('domain_public')}":              '2001:700:2:83ff::252'
@@ -344,7 +351,6 @@ ceph::profile::params::mon_host:                    '172.18.0.91, 172.18.0.92, 1
 ceph::profile::params::cluster_network:             '172.20.0.0/21'
 ceph::profile::params::public_network:              '172.18.0.0/21'
 
-profile::openstack::volume::manage_rbd: true
 profile::openstack::compute::hypervisor::manage_libvirt_rbd: true
 
 # If backend != file, you must explicitly define stores in %location/modules/glance.yaml
@@ -422,6 +428,12 @@ profile::openstack::resource::networks:
     tenant_name: 'openstack'
     provider_network_type: 'local'
 #    mtu: '9000' # FIXME: param available in puppet-neutron for Zed. Meanwhile, set once with CLI after creation
+  elastic_rail_uib_it_rail_test_bgo1:
+    name: 'elastic_rail_test_bgo1'
+    admin_state_up: true
+    shared: false
+    tenant_id: 'c1a76edd5a0a459388613b7a80c5f63d'
+    provider_network_type: 'local'
 
 profile::openstack::resource::subnets:
   public1_IPv4:
@@ -602,7 +614,7 @@ profile::openstack::resource::subnets:
     tenant_name: 'openstack'
   elastic1_IPv4:
     name: 'elastic1_IPv4'
-    cidr: "%{hiera('netcfg_elastic_cidr')}"
+    cidr: '10.5.0.0/20'
     ip_version: '4'
     allocation_pools:
       - 'start=10.5.0.10,end=10.5.15.240'
@@ -622,3 +634,25 @@ profile::openstack::resource::subnets:
       - "%{hiera('netcfg_anycast_dns6')}"
     network_name: 'elasticIP'
     tenant_name: 'openstack'
+  elastic_rail_uib_it_test_bgo1_IP4:
+    name: 'elastic_rail_test_bgo1_IP4'
+    cidr: '10.5.16.0/27'
+    ip_version: '4'
+    allocation_pools:
+      - 'start=10.5.16.2,end=10.5.16.30'
+    gateway_ip: '10.5.16.1'
+    dns_nameservers:
+      - "%{hiera('netcfg_anycast_dns')}"
+    network_name: 'elastic_rail_test_bgo1'
+    tenant_id: 'c1a76edd5a0a459388613b7a80c5f63d'
+  elastic_rail_uib_it_test_bgo1_IP6:
+    name: 'elastic_rail_test_bgo1_IP6'
+    cidr: '2001:700:2:8302::/122'
+    ip_version: '6'
+    allocation_pools:
+      - 'start=2001:700:2:8302::2,end=2001:700:2:8302::3e'
+    gateway_ip: '2001:700:2:8302::1'
+    dns_nameservers:
+      - "%{hiera('netcfg_anycast_dns6')}"
+    network_name: 'elastic_rail_test_bgo1'
+    tenant_id: 'c1a76edd5a0a459388613b7a80c5f63d'

@@ -58,6 +58,8 @@ profile::monitoring::grafana::dashboards:
 
 # Enable extra yum repo for openstack client
 profile::base::yumrepo::repo_hash:
+  "%{operatingsystem}-AppStream":
+    exclude: 'grafana'
   grafana:
     ensure: absent
   grafana-oss:

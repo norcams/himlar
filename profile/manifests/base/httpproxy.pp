@@ -23,7 +23,7 @@ class profile::base::httpproxy(
     shellvar { "https_proxy":
       ensure  => exported,
       target  => $target,
-      value   => $https_proxy,
+      value   => $http_proxy,
     }
   }
 }

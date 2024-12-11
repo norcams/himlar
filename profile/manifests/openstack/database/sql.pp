@@ -11,8 +11,8 @@ class profile::openstack::database::sql (
   $placement_enabled = false,
   $database          = 'mariadb',
   $extra_databases   = {},
-  $charset           = 'utf8mb3',
-  $collate           = 'utf8mb3_general_ci',
+  $charset           = 'utf8mb3',               # FIXME: May be removed when puppet-mysql is at >= 16.0.0
+  $collate           = 'utf8mb3_general_ci',    # FIXME: May be removed when puppet-mysql is at >= 16.0.0
 ) {
 
   if $database in ['mariadb', 'postgresql'] {
@@ -31,75 +31,75 @@ class profile::openstack::database::sql (
 
   if $keystone_enabled {
     class { '::keystone::db::mysql':
-             charset => $charset,
-             collate => $collate
+             charset => $charset,               # FIXME: May be removed when puppet-mysql is at >= 16.0.0
+             collate => $collate                # FIXME: remove when puppet-mysql is at => 16.0.0
     }
   }
 
   if $glance_enabled {
     class { '::glance::db::mysql':
-             charset => $charset,
-             collate => $collate
+             charset => $charset,                # FIXME: remove when puppet-mysql is at => 16.0.0
+             collate => $collate                 # FIXME: remove when puppet-mysql is at => 16.0.0
     }
   }
 
   if $nova_enabled {
     class { '::nova::db::mysql':
-             charset => $charset,
-             collate => $collate
+             charset => $charset,                # FIXME: remove when puppet-mysql is at => 16.0.0
+             collate => $collate                 # FIXME: remove when puppet-mysql is at => 16.0.0
     }
     class { '::nova::db::mysql_api':
-             charset => $charset,
-             collate => $collate
+             charset => $charset,                # FIXME: remove when puppet-mysql is at => 16.0.0
+             collate => $collate                 # FIXME: remove when puppet-mysql is at => 16.0.0
     }
   }
 
   if $placement_enabled {
     class { '::placement::db::mysql':
-             charset => $charset,
-             collate => $collate
+             charset => $charset,                # FIXME: remove when puppet-mysql is at => 16.0.0
+             collate => $collate                 # FIXME: remove when puppet-mysql is at => 16.0.0
     }
   }
 
   if $cinder_enabled {
     class { '::cinder::db::mysql':
-             charset => $charset,
-             collate => $collate
+             charset => $charset,                # FIXME: remove when puppet-mysql is at => 16.0.0
+             collate => $collate                 # FIXME: remove when puppet-mysql is at => 16.0.0
     }
   }
 
   if $neutron_enabled {
     class { '::neutron::db::mysql':
-             charset => $charset,
-             collate => $collate
+             charset => $charset,                # FIXME: remove when puppet-mysql is at => 16.0.0
+             collate => $collate                 # FIXME: remove when puppet-mysql is at => 16.0.0
     }
   }
 
   if $heat_enabled {
     class { '::heat::db::mysql':
-             charset => $charset,
-             collate => $collate
+             charset => $charset,                # FIXME: remove when puppet-mysql is at => 16.0.0
+             collate => $collate                 # FIXME: remove when puppet-mysql is at => 16.0.0
     }
   }
 
   if $trove_enabled {
     class { '::trove::db::mysql':
-             charset => $charset,
-             collate => $collate
+             charset => $charset,                # FIXME: remove when puppet-mysql is at => 16.0.0
+             collate => $collate                 # FIXME: remove when puppet-mysql is at => 16.0.0
     }
   }
 
   if $designate_enabled {
     class { '::designate::db::mysql':
-             charset => $charset,
-             collate => $collate
+             charset => $charset,                # FIXME: remove when puppet-mysql is at => 16.0.0
+             collate => $collate                 # FIXME: remove when puppet-mysql is at => 16.0.0
     }
   }
 
   if $gnocchi_enabled {
      class { '::gnocchi::db::mysql':
-              charset => $charset,
-              collate => $collate
+              charset => $charset,                # FIXME: remove when puppet-mysql is at => 16.0.0
+              collate => $collate                 # FIXME: remove when puppet-mysql is at => 16.0.0
      }
   }
 

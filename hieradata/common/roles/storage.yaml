@@ -39,6 +39,8 @@ profile::monitoring::collectd::plugins:
   - collectd::plugin::processes
   - collectd::plugin::write_graphite
 
+profile::storage::cephclient::enable: true
+
 ceph::profile::params::fsid: "%{hiera('ceph_storage_client_fsid')}"
 
 profile::base::manage_lvm:                           true
@@ -119,6 +121,8 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   ceph-%{hiera('ceph_version')}-noarch:
     ensure: present
+  "%{operatingsystem}-AppStream":
+    exclude: 'postgres*'
   epel:
     ensure: present
 

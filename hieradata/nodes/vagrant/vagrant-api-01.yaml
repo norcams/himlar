@@ -16,3 +16,5 @@ network::interfaces_hash:
     ipaddress: "%{hiera('netcfg_public_netpart')}.250"
     netmask:   "%{hiera('netcfg_public_netmask')}"
     defroute:  'no'
+    ipv6init:  'yes'
+    ipv6addr:  'fd00::1/128'
