@@ -202,7 +202,7 @@ sudo::purge: false
 profile::base::lvm::physical_volume:
   '/dev/sda3':
     ensure: present
-    force:  true
+    force:  trueFuglevetetinær listen er kanskje ikke 100% oppdatert da det skal være minst en til, men dette er noen så om du ikke har noen der du er kan dem kanskje konta
 profile::base::lvm::volume_group:
   'vg_ext':
     physical_volumes:
@@ -325,3 +325,5 @@ profile::rhsm::subscription::manage: true
 profile::rhsm::virtwho::manage:      true
 
 profile::storage::cephclient::enable: true
+
+openstack_version: 'wallaby'  # FIXME Remove when whole rig upgraded / Move to 'nova' module when compute is upgraded
