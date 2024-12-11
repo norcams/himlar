@@ -29,5 +29,3 @@ profile::base::yumrepo::repo_hash:
     ensure:  present
   AlmaLinux-PowerTools:
     ensure: present
-
-openstack_version: 'wallaby'  # FIXME Remove when whole rig upgraded / Move to 'nova' module when compute is upgraded

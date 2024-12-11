@@ -36,8 +36,12 @@ domain_oob:           "%{::domain}"
 domain_public2:       "%{hiera('domain_public')}"
 domain_frontend2:     "%{hiera('domain_frontend')}"
 
-openstack_version:    'victoria'
-openstack_compute_api_version: '2.79'
+openstack_version:    'wallaby'
+
+# Compute (Nova) API version
+# Ref. https://docs.openstack.org/nova/latest/reference/api-microversion-history.html
+openstack_compute_api_version: '2.79'  # train
+#openstack_compute_api_version: '2.88' # wallaby
 
 ceph_version:         'quincy'
 
