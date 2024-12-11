@@ -111,6 +111,7 @@ named_interfaces::config:
 allow_from_network:
   - "%{hiera('netcfg_public_netpart')}.0/24"
 
+# In vagrant do not restrict to mgmt network
 profile::firewall::pre::ssh_settings:
   source: "0.0.0.0/0"
 

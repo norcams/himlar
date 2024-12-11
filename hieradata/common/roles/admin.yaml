@@ -4,6 +4,11 @@ include:
     - profile::application::foreman
     - profile::network::services
     - profile::webserver::apache
+    - profile::dns::rndc_key
+
+profile::dns::rndc_key::create_admin_key:    true
+profile::dns::rndc_key::create_mdns_key:     false
+profile::dns::rndc_key::host_is_bind_server: false
 
 foreman_version: '3.8'
 
@@ -35,45 +40,6 @@ profile::application::foreman::manage_firewall: true
 profile::application::foreman::manage_repo_dir: true
 profile::application::foreman::manage_r10k:     false
 profile::application::foreman::push_facts:      true
-
-# TODO: Move this up the hiera, it doesn't belong here.
-profile::application::foreman::dhcp_classes:
-  onie_dell_s3048:
-    parameters:
-      - 'match if (substring(option vendor-class-identifier, 0, 29) = "onie_vendor:x86_64-dell_s3000")'
-      - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/images/cumuluslinux/onie-installer-amd64\""
-  onie_dell_s4048:
-    parameters:
-      - 'match if (substring(option vendor-class-identifier, 0, 29) = "onie_vendor:x86_64-dell_s4000")'
-      - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/images/cumuluslinux/onie-installer-amd64\""
-  onie_dell_s4148:
-    parameters:
-      - 'match if (substring(option vendor-class-identifier, 0, 32) = "onie_vendor:x86_64-dellemc_s4100")'
-      - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/images/cumuluslinux/onie-installer-amd64\""
-  onie_dell_s4810:
-    parameters:
-      - 'match if (substring(option vendor-class-identifier, 0, 19) = "onie_vendor:powerpc")'
-      - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/images/cumuluslinux/onie-installer-powerpc\""
-  onie_edgecore_as4610:
-    parameters:
-      - 'match if (substring(option vendor-class-identifier, 0, 35) = "onie_vendor:arm-accton_as4610_54-r0")'
-      - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/images/cumuluslinux/onie-installer-arm\""
-  onie_dell_s5232f:
-    parameters:
-      - 'match if (substring(option vendor-class-identifier, 0, 33) = "onie_vendor:x86_64-dellemc_s5232f")'
-      - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/images/cumuluslinux/onie-installer-amd64\""
-  cumulus_s4810:
-    parameters:
-      - 'match if (substring(option host-name,0,7) = "cumulus")'
-      - "option cumulus-provision-url \"http://repo.mgmt.%{location}.uhdc.no/provision/switch.sh\""
-  opx_provision_vagrant:
-    parameters:
-      - 'match if (substring(option host-name,0,3) = "opx")'
-      - "option ztd-provision-url \"http://repo.mgmt.%{location}.uhdc.no/provision/switch.sh\""
-  opx_provision:
-    parameters:
-      - 'match if (substring(option host-name,0,3) = "OPX")'
-      - "option ztd-provision-url \"http://repo.mgmt.%{location}.uhdc.no/provision/switch.sh\""
 
 profile::network::services::manage_dns_records: true
 
@@ -122,3 +88,23 @@ named_interfaces::config:
     - eth0
   oob:
     - eth1
+
+dhcp::pools:
+  "out-of-band network definition":
+    network: "%{hiera('netcfg_oob_netpart')}.0"
+    mask: "%{hiera('netcfg_oob_netmask')}"
+    gateway: "%{hiera('netcfg_oob_gateway')}"
+    options:
+      # iDRAC will search for file in order <servicetag>-config.json, <model>-config.json, config.json
+      # examples: 4U1BGM7-config.json, R740xd-config.json, config.json
+      # Refer to the zero-touch, bare metal server provisioning document from Dell for options.
+      # The config is checked into internal git on login:/opt/repo/public, then use 'sync-admin.sh'
+      # (located in that location) to push the files over to the local admin node
+      - vendor-class-identifier "iDRAC"
+      - idrac-provision-url "-i %{hiera('oob__address__repo')} -s http -t 500 -n %{::location}/"
+    parameters:
+      - set vendor-string = option vendor-class-identifier
+      - default-lease-time 43200
+      - max-lease-time 86400
+    nameservers:
+      - "%{hiera('netcfg_oob_netpart')}.10"

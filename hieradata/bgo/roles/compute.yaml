@@ -63,12 +63,57 @@ profile::openstack::network::calico::manage_firewall6: true
 
 # Add custom routing table for private network to NAT, lhc to other gw
 profile::base::network::routes:
-  'team1':
-    'ipaddress': [ '0.0.0.0', '192.168.243.0', '0.0.0.0', '0.0.0.0', '0.0.0.0', '::', '129.177.0.0', '2001:700:200::', ]
-    'netmask':   [ '0.0.0.0', '255.255.255.0', '0.0.0.0', '0.0.0.0', '0.0.0.0', '0', '255.255.0.0', '48', ]
-    'gateway':   [ "%{hiera('netcfg_priv_gateway')}", "%{hiera('netcfg_trp_gateway')}", "%{hiera('netcfg_trp_gateway')}", "%{hiera('netcfg_lhc_gateway')}", "%{hiera('netcfg_lhcpriv_gateway')}", "%{hiera('netcfg_lhc_gateway6')}", "%{hiera('netcfg_uib_gateway')}", "%{hiera('netcfg_uib_gateway6')}",  ]
-    'table':     [ 'private', 'lhc', 'main', 'lhc', 'lhc-private', 'lhc', 'uib', 'uib', ]
-    'family':    [ 'inet4', 'inet4', 'inet4', 'inet4', 'inet4', 'inet6', 'inet4', 'inet6', ]
+  team1:
+    ipaddress:
+      - '0.0.0.0'
+      - "%{hiera('netcfg_priv_anycast_net')}"
+      - '192.168.243.0'
+      - '0.0.0.0'
+      - '0.0.0.0'
+      - '0.0.0.0'
+      - '::'
+      - '129.177.0.0'
+      - '2001:700:200::'
+    netmask:
+      - '0.0.0.0'
+      - "%{hiera('netcfg_priv_anycast_cidr4')}"
+      - '255.255.255.0'
+      - '0.0.0.0'
+      - '0.0.0.0'
+      - '0.0.0.0'
+      - '0'
+      - '255.255.0.0'
+      - '48'
+    gateway:
+      - "%{hiera('netcfg_priv_gateway')}"
+      - "%{hiera('netcfg_trp_gateway')}"
+      - "%{hiera('netcfg_trp_gateway')}"
+      - "%{hiera('netcfg_trp_gateway')}"
+      - "%{hiera('netcfg_lhc_gateway')}"
+      - "%{hiera('netcfg_lhcpriv_gateway')}"
+      - "%{hiera('netcfg_lhc_gateway6')}"
+      - "%{hiera('netcfg_uib_gateway')}"
+      - "%{hiera('netcfg_uib_gateway6')}" 
+    table:
+      - 'private'
+      - 'private'
+      - 'lhc'
+      - 'main'
+      - 'lhc'
+      - 'lhc-private'
+      - 'lhc'
+      - 'uib'
+      - 'uib'
+    family:
+      - 'inet4'
+      - 'inet4'
+      - 'inet4'
+      - 'inet4'
+      - 'inet4'
+      - 'inet4'
+      - 'inet6'
+      - 'inet4'
+      - 'inet6'
 profile::base::network::routing_tables:
   'private':
     'table_id':  '240'

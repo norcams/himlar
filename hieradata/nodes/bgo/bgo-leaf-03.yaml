@@ -65,6 +65,9 @@ profile::base::network::cumulus_bridges:
       - host15
       - host16
       - host17
+      - host18
+      - host19
+      - host20
       - host44
       - host45
       - host46
@@ -203,6 +206,27 @@ profile::base::network::cumulus_bonds:
   'host17':
     'slaves': [ 'swp17', ]
     'clag_id': '17'
+    'pvid': '100'
+    'mtu': '9216'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host18':
+    'slaves': [ 'swp18', ]
+    'clag_id': '18'
+    'pvid': '100'
+    'mtu': '9216'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host19':
+    'slaves': [ 'swp19', ]
+    'clag_id': '19'
+    'pvid': '100'
+    'mtu': '9216'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+  'host20':
+    'slaves': [ 'swp20', ]
+    'clag_id': '20'
     'pvid': '100'
     'mtu': '9216'
     'mstpctl_portadminedge': true

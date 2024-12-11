@@ -37,8 +37,6 @@ profile::base::network::routes:
     'table':     [ 'main', ]
     'family':    [ 'inet6', ]
 
-profile::application::himlarservice::enable:      false #FIXME do not work on el8
-
 profile::base::common::manage_cron: true
 profile::base::cron::crontabs:
   stats:

@@ -31,7 +31,7 @@ profile::development::network::dns::manage_hosts: true
 profile::development::network::dns::use_dnsmasq:  true
 
 profile::firewall::pre::ssh_settings:
-  source: "0.0.0.0/0"
+  source:  "%{alias('allow_from_admins_network')}"
 
 profile::base::login::manage_repo_incoming_dir:   true
 profile::base::login::gpg_receiver:              "%{hiera('gpg_receiver')}"
@@ -74,13 +74,6 @@ accounts::accounts:
     ensure: absent
   'vagrant':
     ensure: absent
-
-
-
-# special user for common files which should be synced between locations (can not be owned by root)
-accounts::users:
-  'norcams':
-    shell: '/bin/false'
 
 # Sensu (login has larger disks)
 sensu__disk__warning:     85
@@ -156,7 +149,7 @@ profile::base::yumrepo::repo_hash:
     exclude:        'postgres*'
 
 profile::base::login::dump_owner:      'norcams'
-profile::base::login::dump_group:      'wheel'
+profile::base::login::dump_group:      'norcams'
 
 # DB backup cron jobs
 profile::base::login::db_servers:

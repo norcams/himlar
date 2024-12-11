@@ -113,6 +113,8 @@ netcfg_anycast_dns6:      '2001:700:2:83ff::252'
 netcfg_ib_vlan:           '908'
 netcfg_oob_vlan:          '909'
 netcfg_elastic_cidr:      '10.5.0.0/19'
+netcfg_priv_anycast_net:   '10.254.253.224'
+netcfg_priv_anycast_cidr4: '27'
 netcfg_pub_object:        '158.39.77.250'
 netcfg_trp_rr:
   rr1:
@@ -206,6 +208,10 @@ profile::network::services::dns_records:
     "%{::location}-compute-vgpu-52.%{hiera('domain_mgmt')}":    "%{::location}-compute-52.%{hiera('domain_mgmt')}"
     "%{::location}-compute-vgpu-53.%{hiera('domain_mgmt')}":    "%{::location}-compute-53.%{hiera('domain_mgmt')}"
     "%{::location}-compute-vgpu-54.%{hiera('domain_mgmt')}":    "%{::location}-compute-54.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-l40s-88.%{hiera('domain_mgmt')}":    "%{::location}-compute-88.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-l40s-89.%{hiera('domain_mgmt')}":    "%{::location}-compute-89.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-l40s-90.%{hiera('domain_mgmt')}":    "%{::location}-compute-90.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-l40s-91.%{hiera('domain_mgmt')}":    "%{::location}-compute-91.%{hiera('domain_mgmt')}"
     "%{::location}-object-ceph-01.%{hiera('domain_mgmt')}":     "%{::location}-object-01.%{hiera('domain_mgmt')}"
     "%{::location}-object-ceph-02.%{hiera('domain_mgmt')}":     "%{::location}-object-02.%{hiera('domain_mgmt')}"
     "%{::location}-object-ceph-03.%{hiera('domain_mgmt')}":     "%{::location}-object-03.%{hiera('domain_mgmt')}"
@@ -304,8 +310,8 @@ profile::network::services::dns_records:
     "resolver.%{hiera('domain_public2')}":        '158.39.77.252'
 
     # Management network (entries that differ from common/common.yaml)
-    "%{::location}-mgmt-08.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_net_c2')}.8"
     "%{::location}-login-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_netpart')}.10"
+    "%{::location}-login-01old.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_net_c0')}.199"
     # oob nodes
     "repo.%{hiera('domain_oob')}":                          "%{hiera('netcfg_oob_netpart')}.9"
   AAAA:
