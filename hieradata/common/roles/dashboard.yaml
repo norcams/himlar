@@ -30,8 +30,6 @@ profile::base::common::packages:
 profile::openstack::dashboard::designate_packages:
   'openstack-designate-ui': {}
 
-openstack_version: 'wallaby'
-
 profile::base::network::manage_dummy:                              true # FIXME; remove when el7 is gone
 
 profile::base::common::manage_cron:                                true

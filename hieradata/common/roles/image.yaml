@@ -7,8 +7,6 @@ include:
     - profile::openstack::cache
     - profile::storage::cephclient
 
-openstack_version: 'wallaby' # FIXME
-
 profile::base::common::packages:
   # we need newer version of six to avoid breaking requests and openstack cli
   'python3-six.noarch': { ensure: latest }
