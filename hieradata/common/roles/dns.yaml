@@ -7,7 +7,7 @@ include:
     - profile::openstack::openrc
     - profile::dns::rndc_key
 
-#openstack_version:    'wallaby'
+openstack_version:    'wallaby'
 
 profile::network::interface::manage_dummy:         true
 profile::network::interface::create_custom_routes: true
