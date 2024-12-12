@@ -58,6 +58,7 @@ designate::central::min_ttl:                    '300'
 # API (manifests/api.pp)
 #   - runs on the DNS node
 #---------------------------------------------------------------------
+designate::api::service_name:      'httpd'
 designate::api::auth_strategy:     'keystone'
 designate::api::enable_api_v1:     false
 designate::api::enable_api_v2:     true
