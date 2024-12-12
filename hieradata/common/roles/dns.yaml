@@ -11,9 +11,7 @@ openstack_version: 'xena'
 
 # WSGI config
 # https://github.com/openstack/puppet-designate/blob/unmaintained/xena/manifests/wsgi/apache.pp
-designate::wsgi::apache::bind_host: "%{ipaddress_trp1}"
-designate::wsgi::apache::workers:   2
-designate::wsgi::apache::ssl:       false
+designate::wsgi::apache::workers:   4
 
 profile::network::interface::manage_dummy:         true
 profile::network::interface::create_custom_routes: true
