@@ -72,3 +72,32 @@ profile::base::login::region_db_sync:
     minute:  '00'
     user:    'norcams'
     command: '(/usr/local/sbin/db-sync.sh bgo-login-01.iaas.uib.no >/dev/null) 2>&1 | grep -v Exit'
+
+profile::base::common::manage_lvm: true
+
+profile::base::lvm::physical_volume:
+  '/dev/sda5':
+    ensure: present
+    force:  true
+  '/dev/sdb':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_repo':
+    physical_volumes:
+      - /dev/sdb
+  'vg_misc':
+    physical_volumes:
+      - /dev/sda5
+profile::base::lvm::logical_volume:
+  'lv_repo':
+    volume_group: 'vg_repo'
+    fs_type:      "xfs"
+    mountpath:    "/opt/repo"
+    size:         '372G'
+  'lv_home':
+    volume_group: 'vg_misc'
+    fs_type:      "xfs"
+    mountpath:    "/home-new"
+    size:         '30G'
+
