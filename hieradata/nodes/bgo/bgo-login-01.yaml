@@ -71,7 +71,7 @@ profile::base::lvm::logical_volume:
   'lv_home':
     volume_group: 'vg_misc'
     fs_type:      "xfs"
-    mountpath:    "/home-new"
+    mountpath:    "/home"
     size:         '30G'
 
 # enable iaas account, but only make it available in the normal fashion
