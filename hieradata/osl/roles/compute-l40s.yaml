@@ -57,19 +57,19 @@ profile::base::selinux::semodules:
 
 
 profile::base::lvm::physical_volume:
-  '/dev/sda4':
+  '/dev/nvme0n1p4':
     ensure: present
     force:  true
-  '/dev/sdb':
+  '/dev/sda':
     ensure: present
     force:  true
 profile::base::lvm::volume_group:
   'vg_instances':
     physical_volumes:
-      - /dev/sdb
+      - /dev/sda
   'vg_ext':
     physical_volumes:
-      - /dev/sda4
+      - /dev/nvme0n1p4
 profile::base::lvm::logical_volume:
   'lv_instances':
     volume_group: 'vg_instances'
