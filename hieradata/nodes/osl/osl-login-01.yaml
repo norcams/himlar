@@ -35,6 +35,8 @@ profile::base::network::routes:
     'netmask':   [ '24', ]
     'gateway':   [ '172.30.32.1', ]
 
+profile::bootstrap::himlar::manage_bootstrap_scripts: true
+
 # Enable backup explicitly on 01 only
 profile::base::login::manage_db_backup: true
 

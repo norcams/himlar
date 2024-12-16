@@ -42,6 +42,8 @@ network::interfaces_hash:
     defroute:      'no'
     onboot:        'yes'
 
+profile::bootstrap::himlar::manage_bootstrap_scripts: true
+
 # Enable backup explicitly on 01 only
 profile::base::login::manage_db_backup: true
 
