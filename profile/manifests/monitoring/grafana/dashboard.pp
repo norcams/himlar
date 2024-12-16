@@ -2,9 +2,6 @@
 define profile::monitoring::grafana::dashboard(
   $template = $name
 ) {
-  file { "/var/lib/grafana/dashboards/":
-    ensure => directory,
-  }
 
   file { "/var/lib/grafana/dashboards/${name}.json":
     ensure  => file,
