@@ -203,6 +203,8 @@ profile::network::leaf::cumulus_portconfigs:
     line:  "14=4x25G"
   15:
     line:  "15=4x25G"
+  16:
+    line:  "16=4x25G"
   28:
     line:  "28=100G" # uplink sikt
   29:
@@ -708,6 +710,38 @@ profile::base::network::cumulus_bonds:
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', '130', ]
     'mtu': '9216'
+  'host61':
+    'slaves': [ 'swp16s0', ]
+    'clag_id': '61'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host62':
+    'slaves': [ 'swp16s1', ]
+    'clag_id': '62'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host63':
+    'slaves': [ 'swp16s2', ]
+    'clag_id': '63'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host64':
+    'slaves': [ 'swp16s3', ]
+    'clag_id': '64'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
 
 profile::base::network::cumulus_bridges:
   'bridge':
@@ -772,6 +806,10 @@ profile::base::network::cumulus_bridges:
       - host58
       - host59
       - host60
+      - host61
+      - host62
+      - host63
+      - host64
       - peerlink
       - downlink
     'alias_name': 'Transport L2 if'
@@ -870,6 +908,8 @@ frrouting::frrouting::bgp_neighbor_groups:
       - '172.18.33.125' # compute-64
       - '172.18.33.126' # compute-65
       - '172.18.33.127' # compute-66
+      - '172.18.33.128' # compute-l40s-67
+      - '172.18.33.129' # compute-l40s-68
     'options6':
       - 'neighbor rr-clients route-reflector-client'
       - 'neighbor rr-clients soft-reconfiguration inbound'
@@ -944,6 +984,8 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'fd32::1:125' # compute-64
       - 'fd32::1:126' # compute-65
       - 'fd32::1:127' # compute-66
+      - 'fd32::1:128' # compute-l40s-67
+      - 'fd32::1:129' # compute-l40s-68
   'object_rgw':
     'options':
       - 'peer-group'
