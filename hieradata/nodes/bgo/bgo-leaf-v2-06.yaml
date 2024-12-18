@@ -24,3 +24,25 @@ profile::base::network::cumulus_interfaces:
     'clagd_peer_ip': 'linklocal'
     'clagd_backup_ip': "%{hiera('netcfg_trp_net_c0')}.5"
     'clagd_sys_mac': '44:38:39:ff:bb:5d'
+
+frrouting::frrouting::bgp_neighbors:
+  - "172.18.6.1 remote-as %{hiera('bgp_as')}"
+  - '172.18.6.1 soft-reconfiguration inbound'
+  - '172.18.6.1 prefix-list spine-routes-in in'
+  - '172.18.6.1 prefix-list spine-routes-out out'
+  - "fd00::6:1 remote-as %{hiera('bgp_as')}"
+  - 'fd00::6:1 soft-reconfiguration inbound'
+  - "172.18.6.2 remote-as %{hiera('bgp_as')}"
+  - '172.18.6.2 soft-reconfiguration inbound'
+  - '172.18.6.2 prefix-list spine-routes-in in'
+  - '172.18.6.2 prefix-list spine-routes-out out'
+  - "fd00::6:2 remote-as %{hiera('bgp_as')}"
+  - 'fd00::6:2 soft-reconfiguration inbound'
+
+frrouting::frrouting::bgp_neighbors6:
+  - '172.18.6.1 activate'
+  - '172.18.6.1 prefix-list spine-routes6-in in'
+  - '172.18.6.1 prefix-list spine-routes6-out out'
+  - '172.18.6.2 activate'
+  - '172.18.6.2 prefix-list spine-routes6-in in'
+  - '172.18.6.2 prefix-list spine-routes6-out out'
