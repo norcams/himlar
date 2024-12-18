@@ -456,6 +456,7 @@ profile::base::network::cumulus_bonds:
     'mstpctl_bpduguard': true
     'vids': [ '300', ]
     'mtu': '9216'
+    'vrf': 'netapp'
   'netapp27':
     'slaves': [ 'swp28', ]
     'clag_id': '1028'
@@ -464,14 +465,13 @@ profile::base::network::cumulus_bonds:
     'mstpctl_bpduguard': true
     'vids': [ '300', ]
     'mtu': '9216'
+    'vrf': 'netapp'
   'uplink':
     'slaves': [ 'swp29', 'swp30', ]
     'clag_id': '1004'
     'pvid': '100'
     'vids': [ '100', '110', '120', '130', ]
     'mtu': '9216'
-  'netapp':
-    'vrf-table': 'auto'
 
 # Edgecore as7726 needs explicit config
 profile::network::leaf::cumulus_portconfigs:
