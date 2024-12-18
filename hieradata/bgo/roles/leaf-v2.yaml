@@ -657,23 +657,23 @@ frrouting::frrouting::bgp_options:
 
 frrouting::frrouting::bgp_accesslist:
   '10':
-    - 'seq 10 permit 192.168.240.0/24'
+    - 'seq 10 permit 192.168.224.0/24'
     - 'seq 250 deny 0.0.0.0/0'
   '20':
     - 'seq any'
 
 frrouting::frrouting::bgp_accesslist6:
   '10':
-    - 'seq 10 permit fd00:192:168:240::/64'
+    - 'seq 10 permit fd00:192:168:224::/64'
     - 'seq 250 deny ::/0'
   '20':
     - 'deny any'
 
 frrouting::frrouting::bgp_ip_prefix_list:
   - 'spine-routes-in seq 5 deny any'
-  - 'spine-routes-out seq 10 permit 192.168.240.0/24'
+  - 'spine-routes-out seq 10 permit 192.168.224.0/24'
   - 'spine-routes-out seq 250 deny any'
 frrouting::frrouting::bgp_ipv6_prefix_list:
   - 'spine-routes6-in seq 5 deny any'
-  - 'spine-routes6-out seq 10 permit fd00:192:168:240::/64'
+  - 'spine-routes6-out seq 10 permit fd00:192:168:224::/64'
   - 'spine-routes6-out seq 250 deny any'
