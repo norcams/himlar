@@ -20,13 +20,12 @@ named_interfaces::config:
 
 profile::base::network::network_auto_bonding:
   trp:
-    em3:
+    p8p1:
       'team_port_config': '{ "prio" : 100 }'
       'mtu': '9000'
-    em4:
+    p8p2:
       'team_port_config': '{ "prio" : 100 }'
       'mtu': '9000'
-
 
 profile::base::network::network_auto_opts:
   mgmt:
