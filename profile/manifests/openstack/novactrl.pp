@@ -36,6 +36,7 @@ class profile::openstack::novactrl(
   include ::nova::wsgi::apache_api
   include ::nova::logging
   include ::nova::placement
+  include ::nova::keystone::service_user
 
   include ::placement
   include ::placement::db
