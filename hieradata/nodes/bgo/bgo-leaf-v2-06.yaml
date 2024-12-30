@@ -22,7 +22,7 @@ profile::base::network::cumulus_interfaces:
   'bridge.300':
     'vrf': 'netapp'
     'ipv4': [ '192.168.224.3', ]
-    'ipv6': [ 'fd00::192:268:224::3/64', ]
+    'ipv6': [ 'fd00:192:268:224::3/64', ]
     'virtual_ip': '192.168.224.1/24 fd00::192:268:224::1/64'
     'virtual_mac': '00:00:5e:00:02:06'
   'peerlink.4094':
