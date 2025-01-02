@@ -24,6 +24,5 @@ class profile::openstack::image(
     include ::glance::deps
     $osprofiler_config = lookup('profile::logging::osprofiler::osprofiler_config', Hash, 'first', {})
     create_resources('glance_api_config', $osprofiler_config)
-    create_resources('glance_registry_config', $osprofiler_config)
   }
 }

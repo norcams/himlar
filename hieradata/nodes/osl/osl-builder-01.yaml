@@ -14,19 +14,19 @@ network::interfaces_hash:
 profile::application::builder::fetch_windows_images: true
 
 profile::application::builder::windows_images:
-  'winsrv_2019':
-    'version':          '2019'
-    'buildhost':        "osl-controller-08.mgmt.osl.uhdc.no"
-    'weekday':          '*'
-    'monthday':         '8-14'
-    'hour':             3
-    'minute':           0
   'winsrv_2022':
     'version':          '2022'
     'buildhost':        "osl-controller-08.mgmt.osl.uhdc.no"
     'weekday':          '*'
     'monthday':         '8-14'
     'hour':             6
+    'minute':           0
+  'winsrv_2025':
+    'version':          '2025'
+    'buildhost':        "osl-controller-08.mgmt.osl.uhdc.no"
+    'weekday':          '*'
+    'monthday':         '8-14'
+    'hour':             3
     'minute':           0
 
 profile::base::lvm::physical_volume:

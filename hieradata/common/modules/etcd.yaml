@@ -15,6 +15,7 @@ etcd::etcd_name: "%{hostname}"
 #etcd::max_snapshots:      5
 #etcd::max_wals:           5
 #etcd::cors:               []
+etcd::auto_compaction_retention: 10
 
 # Cluster settings
 etcd::initial_cluster:

@@ -42,6 +42,18 @@ profile::openstack::openrc::project_name: 'services'
 
 # Sensu (needs gcc-c++)
 profile::monitoring::sensu::agent::plugins:
+  mime-types:
+    type:         package
+    pkg_version:  '3.4.1'
+  domain_name:
+    type:         package
+    pkg_version:  '0.5.20190701'
+  aws-eventstream:
+    type:         package
+    pkg_version:  '1.2.0'
+  aws-sigv4:
+    type:         package
+    pkg_version:  '1.4.0'
   sensu-plugins-http:
     type:         package
     pkg_version:  '2.8.4'

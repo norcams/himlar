@@ -448,6 +448,24 @@ profile::base::network::cumulus_bonds:
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', '130', ]
     'mtu': '9216'
+  'netapp27':
+    'slaves': [ 'swp27', ]
+    'clag_id': '1027'
+    'pvid': '300'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '300', ]
+    'mtu': '9216'
+    'vrf': 'netapp'
+  'netapp28':
+    'slaves': [ 'swp28', ]
+    'clag_id': '1028'
+    'pvid': '300'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '300', ]
+    'mtu': '9216'
+    'vrf': 'netapp'
   'uplink':
     'slaves': [ 'swp29', 'swp30', ]
     'clag_id': '1004'
@@ -494,7 +512,7 @@ profile::network::leaf::cumulus_portconfigs:
   27:
     line:  "27=100G" # link netapp
   28:
-    line:  "28=100G" # uplink cern
+    line:  "28=100G" # link netapp el otro
   29:
     line:  "29=100G" # spine 01-02
   30:
@@ -639,3 +657,41 @@ frrouting::frrouting::zebra_interfaces:
     - 'link-detect'
   'swp30':
     - 'link-detect'
+
+frrouting::frrouting::zebra_generic_options:
+  'ip':
+    'forwarding'
+  'ipv6':
+    'forwarding'
+
+frrouting::frrouting::bgp_as: "%{hiera('bgp_as')}"
+
+frrouting::frrouting::bgp_options:
+  - "bgp router-id %{ipaddress_trp1}"
+  - 'bgp log-neighbor-changes'
+  - 'bgp default local-preference 200'
+  - 'maximum-paths ibgp 5'
+  - 'bgp bestpath as-path multipath-relax'
+
+frrouting::frrouting::bgp_accesslist:
+  '10':
+    - 'seq 10 permit 192.168.224.0/24'
+    - 'seq 250 deny 0.0.0.0/0'
+  '20':
+    - 'seq any'
+
+frrouting::frrouting::bgp_accesslist6:
+  '10':
+    - 'seq 10 permit fd00:192:168:224::/64'
+    - 'seq 250 deny ::/0'
+  '20':
+    - 'deny any'
+
+frrouting::frrouting::bgp_ip_prefix_list:
+  - 'spine-routes-in seq 5 deny any'
+  - 'spine-routes-out seq 10 permit 192.168.224.0/24'
+  - 'spine-routes-out seq 250 deny any'
+frrouting::frrouting::bgp_ipv6_prefix_list:
+  - 'spine-routes6-in seq 5 deny any'
+  - 'spine-routes6-out seq 10 permit fd00:192:168:224::/64'
+  - 'spine-routes6-out seq 250 deny any'

@@ -42,6 +42,8 @@ network::interfaces_hash:
     defroute:      'no'
     onboot:        'yes'
 
+profile::bootstrap::himlar::manage_bootstrap_scripts: true
+
 # Enable backup explicitly on 01 only
 profile::base::login::manage_db_backup: true
 
@@ -52,16 +54,27 @@ profile::base::lvm::physical_volume:
   '/dev/sdb':
     ensure: present
     force:  true
+  '/dev/sdc':
+    ensure: present
+    force:  true
 profile::base::lvm::volume_group:
   'vg_repo':
     physical_volumes:
       - /dev/sdb
+  'vg_misc':
+    physical_volumes:
+      - /dev/sdc
 profile::base::lvm::logical_volume:
   'lv_repo':
     volume_group: 'vg_repo'
     fs_type:      "xfs"
     mountpath:    "/opt/repo"
     size:         '50G'
+  'lv_home':
+    volume_group: 'vg_misc'
+    fs_type:      "xfs"
+    mountpath:    "/home"
+    size:         '30G'
 
 # enable iaas account, but only make it available in the normal fashion
 # from bgo-login-01old and 02
