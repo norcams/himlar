@@ -456,7 +456,6 @@ profile::base::network::cumulus_bonds:
     'mstpctl_bpduguard': true
     'vids': [ '300', ]
     'mtu': '9216'
-    'vrf': 'netapp'
   'netapp28':
     'slaves': [ 'swp28', ]
     'clag_id': '1028'
@@ -465,7 +464,6 @@ profile::base::network::cumulus_bonds:
     'mstpctl_bpduguard': true
     'vids': [ '300', ]
     'mtu': '9216'
-    'vrf': 'netapp'
   'uplink':
     'slaves': [ 'swp29', 'swp30', ]
     'clag_id': '1004'
@@ -564,12 +562,14 @@ profile::base::network::cumulus_bridges:
       - host98
       - host99
       - host100
+      - netapp27
+      - netapp28
       - peerlink
       - uplink
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'true'
-    'vids': [ '100', '110', '120', '130', ]
+    'vids': [ '100', '110', '120', '130', '300', ]
     'mtu': '9216'
 
 frrouting::frrouting::zebra_interfaces:
