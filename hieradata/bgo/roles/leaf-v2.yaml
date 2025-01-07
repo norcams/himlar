@@ -8,6 +8,12 @@ include:
   bootstrap:
     - profile::base::common
 
+named_interfaces::config:
+  mgmt:
+    - eth0
+  trp:
+    - bridge.100
+
 profile::base::common::classes:
   - puppet
   - openstack_extras::repo::debian::debian
@@ -673,6 +679,9 @@ frrouting::frrouting::bgp_options:
   - 'maximum-paths ibgp 5'
   - 'bgp bestpath as-path multipath-relax'
 
+frrouting::frrouting::bgp_options4:
+  - 'import vrf netapp'
+
 frrouting::frrouting::bgp_accesslist:
   '10':
     - 'seq 10 permit 192.168.224.0/24'
@@ -695,3 +704,8 @@ frrouting::frrouting::bgp_ipv6_prefix_list:
   - 'spine-routes6-in seq 5 deny any'
   - 'spine-routes6-out seq 10 permit fd00:192:168:224::/64'
   - 'spine-routes6-out seq 250 deny any'
+
+frrouting::frrouting::bgp_vrf_options:
+  'netapp':
+    'address_family4_unicast':
+      - 'redistribute connected'
