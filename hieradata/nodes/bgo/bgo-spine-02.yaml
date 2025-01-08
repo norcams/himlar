@@ -82,12 +82,16 @@ frrouting::frrouting::bgp_neighbors:
   - '172.18.0.5 prefix-list leaf-v2-routes-out out'
   - "fd00::5 remote-as %{hiera('bgp_as')}"
   - 'fd00::5 soft-reconfiguration inbound'
+  - 'fd00::5 prefix-list leaf-v2-routes-in in'
+  - 'fd00::5 prefix-list leaf-v2-routes-out out'
   - "172.18.0.6 remote-as %{hiera('bgp_as')}"
   - '172.18.0.6 soft-reconfiguration inbound'
   - '172.18.0.6 prefix-list leaf-v2-routes-in in'
   - '172.18.0.6 prefix-list leaf-v2-routes-out out'
   - "fd00::6 remote-as %{hiera('bgp_as')}"
   - 'fd00::6 soft-reconfiguration inbound'
+  - 'fd00::6 prefix-list leaf-v2-routes-in in'
+  - 'fd00::6 prefix-list leaf-v2-routes-out out'
   - '172.18.3.1 remote-as 65503'
   - '172.18.3.1 prefix-list routes-from-leaf1 in'
   - 'fd00::3:1 remote-as 65503'
