@@ -697,12 +697,12 @@ frrouting::frrouting::bgp_accesslist6:
     - 'deny any'
 
 frrouting::frrouting::bgp_ip_prefix_list:
-  - 'spine-routes-in seq 10 accept 158.37.64.0/24'
+  - 'spine-routes-in seq 10 permit 158.37.64.0/24'
   - 'spine-routes-in seq 20 deny any'
   - 'spine-routes-out seq 10 permit 192.168.224.0/24'
   - 'spine-routes-out seq 250 deny any'
 frrouting::frrouting::bgp_ipv6_prefix_list:
-  - 'spine-routes6-in seq 10 accept 2001:700:2:8302::/64'
+  - 'spine-routes6-in seq 10 permit 2001:700:2:8302::/64'
   - 'spine-routes6-in seq 20 deny any'
   - 'spine-routes6-out seq 10 permit fd00:192:168:224::/64'
   - 'spine-routes6-out seq 250 deny any'
