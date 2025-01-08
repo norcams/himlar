@@ -686,18 +686,17 @@ frrouting::frrouting::bgp_accesslist:
   '10':
     - 'seq 10 permit 192.168.224.0/24'
     - 'seq 250 deny 0.0.0.0/0'
-  '20':
-    - 'seq any'
+  '30':
+    - 'seq 10 permit 158.37.64.0/24'
+    - 'seq 250 deny 0.0.0.0/0'
 
 frrouting::frrouting::bgp_accesslist6:
   '10':
     - 'seq 10 permit fd00:192:168:224::/64'
     - 'seq 250 deny ::/0'
-  '20':
-    - 'deny any'
 
 frrouting::frrouting::bgp_ip_prefix_list:
-  - 'spine-routes-in seq 10 permit 158.37.64.0/24'
+  - 'spine-routes-in seq 10 permit 158.37.64.0/24 le 32'
   - 'spine-routes-in seq 20 deny any'
   - 'spine-routes-out seq 10 permit 192.168.224.0/24'
   - 'spine-routes-out seq 250 deny any'
@@ -711,3 +710,9 @@ frrouting::frrouting::bgp_vrf_options:
   'netapp':
     'address_family4_unicast':
       - 'redistribute connected'
+      - 'import vrf route-map netapp-allow'
+      - 'import vrf default'
+
+frrouting::frrouting::bgp_route_maps:
+  'netapp-allow permit 10':
+    - 'match ip address 30'
