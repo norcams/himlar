@@ -13,6 +13,7 @@ profile::base::common::packages:
   'centos-release-nfv-common': {}
 
 # Use rsync, not ssh for migrate transport to support sparse images
+# FIXME: really needed on console?
 nova::config::nova_config:
   libvirt/remote_filesystem_transport:
     value: 'rsync'
