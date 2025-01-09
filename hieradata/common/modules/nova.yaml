@@ -146,6 +146,7 @@ nova::upgrade_level_compute:                     'victoria'
 nova::migration::libvirt::live_migration_inbound_addr:         "%{::ipaddress_live1}"
 nova::migration::libvirt::live_migration_completion_timeout:   '300'
 nova::migration::libvirt::live_migration_timeout_action:       'force_complete'
+nova::migration::libvirt::live_migration_permit_auto_converge: false
 nova::migration::libvirt::live_migration_permit_post_copy:     true
 
 # set image properties hw_scsi_model=virtio-scsi and hw_disk_bus=scsi to enable
