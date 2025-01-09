@@ -47,8 +47,6 @@ profile::openstack::identity::keystone_config:
     value:  'new'
   'cors/allowed_origin': # allow gnocchi access on monitor
     value:  "http://%{hiera('mgmt__address__monitor')}:8080"
-  'DEFAULT/notification_opt_out':
-    value:  'identity.authenticate.success'
   'security_compliance/lockout_duration':
     value:  '900'
   'security_compliance/lockout_failure_attempts':

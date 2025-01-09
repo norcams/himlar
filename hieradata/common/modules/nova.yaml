@@ -147,7 +147,7 @@ nova::compute::rbd::rbd_keyring:                 'client.cinder'
 nova::compute::rbd::ephemeral_storage:           false
 nova::compute::rbd::manage_ceph_client:          false
 #FIXME mixed version environments for compute services - should be removed for newer versions
-nova::upgrade_level_compute:                     'train'
+nova::upgrade_level_compute:                     'victoria'
 
 # Live Migration settings
 nova::migration::libvirt::live_migration_inbound_addr:         "%{::ipaddress_live1}"
@@ -198,6 +198,19 @@ nova::notification_topics:                        'notifications' # not used bef
 # FIXME: https://bugs.launchpad.net/ceilometer/+bug/1665449
 # Could be changed to both in the future
 nova::notification_format:                        'unversioned'
+
+# Configure Nova to also send a service token when sending a user
+# token to a REST API
+# Ref. https://specs.openstack.org/openstack/nova-specs/specs/ocata/implemented/use-service-tokens.html
+nova::keystone::service_user::username:                'nova'
+nova::keystone::service_user::password:                "%{hiera('nova_api_password')}"
+nova::keystone::service_user::auth_url:                "%{hiera('endpoint__identity__admin')}/v3"
+nova::keystone::service_user::region_name:             "%{::location}"
+nova::keystone::service_user::auth_version:            'v3'
+nova::keystone::service_user::project_name:            "%{hiera('keystone__service__project')}"
+nova::keystone::service_user::project_domain_name:     "%{hiera('keystone__default__domain')}"
+nova::keystone::service_user::user_domain_name:        "%{hiera('keystone__default__domain')}"
+nova::keystone::service_user::send_service_user_token: true
 
 # Disable reboot through api until DHCP is fixed upstream (calico)
 nova::policy::policies:

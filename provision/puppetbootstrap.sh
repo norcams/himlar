@@ -82,7 +82,7 @@ bootstrap_puppet()
     /opt/puppetlabs/puppet/bin/gem install -N faraday-net_http -v 3.0.2
     /opt/puppetlabs/puppet/bin/gem install -N faraday -v 2.8.1
 
-    /opt/puppetlabs/puppet/bin/gem install -N r10k
+    /opt/puppetlabs/puppet/bin/gem install -N r10k -v 4.1.0
     # this is need one puppetmaster for some modules
     # in vagrant we will need this on all nodes
     /opt/puppetlabs/puppet/bin/gem install -N toml-rb

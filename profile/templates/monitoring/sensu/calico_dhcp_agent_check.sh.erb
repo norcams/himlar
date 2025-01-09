@@ -12,12 +12,13 @@ if [ -f "/usr/lib/systemd/system/calico-dhcp-agent.service" ] && [ -f "/bin/virs
       # running instances but no dnsmasq - try restarting dhcp agent up to five times
       for i in {1..5}; do
         /bin/sudo systemctl restart calico-dhcp-agent
+        /usr/local/bin/calico_iplink_helper.sh
         $(which sleep) 10 # wait for a bit, then check if dnsmasq is running
         if [[ $(pgrep dnsmasq) ]]; then
           # dnsmasq is up again
           exit 0
         fi
-        $(which sleep) 5 # wait for a bit
+        $(which sleep) 60 # wait for a bit
       done
       # dhcp-agent is not recovering after five retries
       echo "dnsmasq is not running - manual intervention is most likely required"

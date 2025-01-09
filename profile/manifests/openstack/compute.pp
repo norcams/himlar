@@ -7,11 +7,13 @@ class profile::openstack::compute(
   $manage_osprofiler = false,
 ) {
   include ::nova
+  include ::nova::db
   include ::nova::config
   include ::nova::network::neutron
   include ::nova::cinder
   include ::nova::logging
   include ::nova::placement
+  include ::nova::keystone::service_user
 
   if $manage_telemetry {
     include ::profile::openstack::telemetry::polling

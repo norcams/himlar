@@ -49,15 +49,15 @@ dhcp::hosts:
   osl-mgmt-06:
     mac: '68:21:5f:6a:d7:80'
     ip: '172.16.34.6'
-  osl-compute-01-bmc:
-    mac: 'b8:2a:72:fc:77:28'
-    ip:  '172.17.32.103'
-  osl-compute-02-bmc:
-    mac: 'b8:2a:72:fc:64:08'
-    ip:  '172.17.32.104'
-  osl-compute-03-bmc:
-    mac: 'b8:2a:72:fc:6f:cc'
-    ip:  '172.17.32.105'
+#  osl-compute-01-bmc:
+#    mac: 'b8:2a:72:fc:77:28'
+#    ip:  '172.17.32.103'
+#  osl-compute-02-bmc:
+#    mac: 'b8:2a:72:fc:64:08'
+#    ip:  '172.17.32.104'
+#  osl-compute-03-bmc:
+#    mac: 'b8:2a:72:fc:6f:cc'
+#    ip:  '172.17.32.105'
   osl-compute-04-bmc:
     mac: '84:7b:eb:d7:04:4a'
     ip:  '172.17.32.111'
@@ -349,6 +349,12 @@ dhcp::hosts:
   osl-compute-66-bmc:
     mac: '58:8a:5a:e7:bf:76'
     ip:  '172.17.33.127'
+  osl-compute-67-bmc:
+    mac: 'c4:cb:e1:dd:e1:74'
+    ip:  '172.17.33.128'
+  osl-compute-68-bmc:
+    mac: 'c4:cb:e1:dd:e1:0e'
+    ip:  '172.17.33.129'
   osl-storage-26-bmc:
     mac: '18:fb:7b:ab:5b:fb'
     ip:  '172.17.33.68'

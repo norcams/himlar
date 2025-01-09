@@ -1380,6 +1380,7 @@ frrouting::frrouting::bgp_accesslist:
     - "seq 42 permit %{hiera('netcfg_priv_anycast_net')}/%{hiera('netcfg_priv_anycast_cidr4')}"
     - 'seq 45 permit 10.109.0.0 0.0.15.255'
     - 'seq 50 permit 109.105.127.128 0.0.0.63'
+    - 'seq 52 permit 192.168.224.0/24'
     - 'seq 55 permit 172.18.0.0 0.0.7.255'
     - 'seq 250 deny 0.0.0.0/0'
   '20':
@@ -1393,11 +1394,13 @@ frrouting::frrouting::bgp_accesslist:
     - 'seq 40 deny 10.5.0.0/19'
     - 'seq 45 deny 10.109.0.0 0.0.15.255'
     - 'seq 50 deny 109.105.127.128 0.0.0.63'
+    - 'seq 52 deny 192.168.224.0/24'
     - 'seq 55 deny 172.18.0.0 0.0.7.255'
     - 'seq 250 permit 0.0.0.0/0'
 
 frrouting::frrouting::bgp_accesslist6:
   '10':
+    - 'permit fd00:192:168:224::/64'
     - 'permit fd00:192:168:243::/64'
     - 'permit 2001:700:2:8300::/56'
     - 'permit 2001:948:62:3::/64'
@@ -1418,6 +1421,10 @@ frrouting::frrouting::bgp_ip_prefix_list:
   - 'uib-routes-in seq 10 deny any'
   - 'uib-routes-out seq 5 permit 158.37.64.0/23'
   - 'uib-routes-out seq 10 deny any'
+  - 'leaf-v2-routes-in seq 10 permit 192.168.224.0/24'
+  - 'leaf-v2-routes-in seq 20 deny any'
+  - 'leaf-v2-routes-out seq 10 permit 158.37.64.0/24 le 32'
+  - 'leaf-v2-routes-out seq 20 deny any'
   - 'default-route seq 5 permit 0.0.0.0/0'
 frrouting::frrouting::bgp_ipv6_prefix_list:
   - 'routes-from-leaf1 seq 5 deny any'
@@ -1428,6 +1435,10 @@ frrouting::frrouting::bgp_ipv6_prefix_list:
   - 'uib-routes-in6 seq 10 deny any'
   - 'uib-routes-out6 seq 5 permit 2001:700:2:8300::/56'
   - 'uib-routes-out6 seq 10 deny any'
+  - 'leaf-v2-routes6-in seq 10 permit fd00:192:168:224::/64'
+  - 'leaf-v2-routes6-in seq 20 deny any'
+  - 'leaf-v2-routes6-out seq 10 permit 2001:700:2:8302::/64'
+  - 'leaf-v2-routes6-out seq 20 deny any'
   - 'default-route6 seq 5 permit ::/0'
 
 frrouting::frrouting::bgp_route_maps:

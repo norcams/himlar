@@ -20,7 +20,6 @@ profile::base::yumrepo::repo_hash:
     ensure: absent
 
 # Himlar bootstrap
-profile::bootstrap::himlar::manage_bootstrap_scripts: true
 profile::bootstrap::himlar::tftp:
   osl-controller-01:
     domain:           'iaas.uio.no'

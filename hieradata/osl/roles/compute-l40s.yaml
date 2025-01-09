@@ -6,6 +6,7 @@ include:
     - profile::openstack::compute::nvidia_vgpu_createmdev
   default:
     - nova::compute::vgpu
+    - profile::application::create_mdev
     - profile::openstack::compute::pci_passthrough
     - profile::openstack::compute::nvidia_vgpu_createmdev
 
@@ -19,13 +20,12 @@ named_interfaces::config:
 
 profile::base::network::network_auto_bonding:
   trp:
-    em3:
+    p8p1:
       'team_port_config': '{ "prio" : 100 }'
       'mtu': '9000'
-    em4:
+    p8p2:
       'team_port_config': '{ "prio" : 100 }'
       'mtu': '9000'
-
 
 profile::base::network::network_auto_opts:
   mgmt:
@@ -56,16 +56,22 @@ profile::base::selinux::semodules:
 
 
 profile::base::lvm::physical_volume:
-  '/dev/sda4':
+  '/dev/nvme0n1p4':
+    ensure: present
+    force:  true
+  '/dev/sda':
     ensure: present
     force:  true
 profile::base::lvm::volume_group:
+  'vg_instances':
+    physical_volumes:
+      - /dev/sda
   'vg_ext':
     physical_volumes:
-      - /dev/sda4
+      - /dev/nvme0n1p4
 profile::base::lvm::logical_volume:
   'lv_instances':
-    volume_group: 'vg_ext'
+    volume_group: 'vg_instances'
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
 
