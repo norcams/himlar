@@ -66,12 +66,22 @@ profile::base::network::network_auto_bonding:
 
 # These compute host uses local storage for instances
 nova::compute::rbd::ephemeral_storage: false
+
+# Configuration items not explicitly supported by the Puppet module
 nova::config::nova_config:
   libvirt/images_type:
     value: default
   DEFAULT/metadata_workers:
     value: '2'
+  # Use rsync, not ssh for migrate transport to support sparse images
   libvirt/remote_filesystem_transport:
     value: 'rsync'
+  # From 2023.1 onwards these can be configured properly
+  libvirt/live_migration_downtime:
+    value: '1000'
+  libvirt/live_migration_downtime_steps:
+    value: '20'
+  libvirt/live_migration_downtime_delay:
+    value: '10'
 
 sensu__memory__check:     "check-memory.rb -w 1536 -c 1024"
