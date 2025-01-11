@@ -8,6 +8,12 @@ include:
   bootstrap:
     - profile::base::common
 
+named_interfaces::config:
+  mgmt:
+    - eth0
+  trp:
+    - bridge.100
+
 profile::base::common::classes:
   - puppet
   - openstack_extras::repo::debian::debian
@@ -456,7 +462,6 @@ profile::base::network::cumulus_bonds:
     'mstpctl_bpduguard': true
     'vids': [ '300', ]
     'mtu': '9216'
-    'vrf': 'netapp'
   'netapp28':
     'slaves': [ 'swp28', ]
     'clag_id': '1028'
@@ -465,7 +470,6 @@ profile::base::network::cumulus_bonds:
     'mstpctl_bpduguard': true
     'vids': [ '300', ]
     'mtu': '9216'
-    'vrf': 'netapp'
   'uplink':
     'slaves': [ 'swp29', 'swp30', ]
     'clag_id': '1004'
@@ -564,12 +568,14 @@ profile::base::network::cumulus_bridges:
       - host98
       - host99
       - host100
+      - netapp27
+      - netapp28
       - peerlink
       - uplink
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'true'
-    'vids': [ '100', '110', '120', '130', ]
+    'vids': [ '100', '110', '120', '130', '300', ]
     'mtu': '9216'
 
 frrouting::frrouting::zebra_interfaces:
@@ -673,25 +679,40 @@ frrouting::frrouting::bgp_options:
   - 'maximum-paths ibgp 5'
   - 'bgp bestpath as-path multipath-relax'
 
+frrouting::frrouting::bgp_options4:
+  - 'import vrf netapp'
+
 frrouting::frrouting::bgp_accesslist:
   '10':
     - 'seq 10 permit 192.168.224.0/24'
     - 'seq 250 deny 0.0.0.0/0'
-  '20':
-    - 'seq any'
+  '30':
+    - 'seq 10 permit 158.37.64.0/24'
+    - 'seq 250 deny 0.0.0.0/0'
 
 frrouting::frrouting::bgp_accesslist6:
   '10':
     - 'seq 10 permit fd00:192:168:224::/64'
     - 'seq 250 deny ::/0'
-  '20':
-    - 'deny any'
 
 frrouting::frrouting::bgp_ip_prefix_list:
-  - 'spine-routes-in seq 5 deny any'
+  - 'spine-routes-in seq 10 permit 158.37.64.0/24 le 32'
+  - 'spine-routes-in seq 20 deny any'
   - 'spine-routes-out seq 10 permit 192.168.224.0/24'
   - 'spine-routes-out seq 250 deny any'
 frrouting::frrouting::bgp_ipv6_prefix_list:
-  - 'spine-routes6-in seq 5 deny any'
+  - 'spine-routes6-in seq 10 permit 2001:700:2:8302::/64'
+  - 'spine-routes6-in seq 20 deny any'
   - 'spine-routes6-out seq 10 permit fd00:192:168:224::/64'
   - 'spine-routes6-out seq 250 deny any'
+
+frrouting::frrouting::bgp_vrf_options:
+  'netapp':
+    'address_family4_unicast':
+      - 'redistribute connected'
+      - 'import vrf route-map netapp-allow'
+      - 'import vrf default'
+
+frrouting::frrouting::bgp_route_maps:
+  'netapp-allow permit 10':
+    - 'match ip address 30'
