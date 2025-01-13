@@ -110,16 +110,17 @@ bootstrap_puppet()
 
     # Assume Debian/CumulusLinux
     debian_release=$(lsb_release -c | awk '{ print $2 }')
-    wget -O /tmp/puppet6-release-${debian_release}.deb http://apt.puppetlabs.com/puppet6-release-${debian_release}.deb
-    dpkg -i /tmp/puppet6-release-${debian_release}.deb
+    wget -O /tmp/puppet7-release-${debian_release}.deb http://apt.puppetlabs.com/puppet7-release-${debian_release}.deb
+    dpkg -i /tmp/puppet7-release-${debian_release}.deb
     apt-get update
     apt-get -y install git puppet-agent
 
     # Remove default version 3 hiera.yaml
     rm -f /etc/puppetlabs/puppet/hiera.yaml
 
-    /opt/puppetlabs/puppet/bin/gem install -N puppet_forge -v 3.2.0
-    /opt/puppetlabs/puppet/bin/gem install -N r10k
+    /opt/puppetlabs/puppet/bin/gem install -N faraday-net_http -v 3.0.2
+    /opt/puppetlabs/puppet/bin/gem install -N faraday -v 2.8.1
+    /opt/puppetlabs/puppet/bin/gem install -N r10k -v 4.1.0
     ln -sf /opt/puppetlabs/puppet/bin/wrapper.sh /opt/puppetlabs/bin/r10k
 
   fi
