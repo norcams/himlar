@@ -156,8 +156,3 @@ profile::base::cron::crontabs:
     minute:   '*/5'
     weekday:  '*'
     command:  "/usr/local/bin/power_metric.sh >/dev/null"
-
-# Configuration items not explicitly supported by the Puppet module
-nova::config::nova_config:
-  DEFAULT/metadata_workers:
-    value: '4'
