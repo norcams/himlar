@@ -145,9 +145,9 @@ nova::upgrade_level_compute:                     'victoria'
 # Live Migration settings
 nova::migration::libvirt::live_migration_inbound_addr:         "%{::ipaddress_live1}"
 nova::migration::libvirt::live_migration_completion_timeout:   '300'
-nova::migration::libvirt::live_migration_timeout_action:       'force_complete'
-nova::migration::libvirt::live_migration_permit_auto_converge: false
-nova::migration::libvirt::live_migration_permit_post_copy:     true
+nova::migration::libvirt::live_migration_timeout_action:       'abort'
+nova::migration::libvirt::live_migration_permit_auto_converge: true
+nova::migration::libvirt::live_migration_permit_post_copy:     false
 
 # set image properties hw_scsi_model=virtio-scsi and hw_disk_bus=scsi to enable
 nova::compute::libvirt::hw_disk_discard: 'unmap'
