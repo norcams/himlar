@@ -12,12 +12,6 @@ profile::base::common::packages:
   'openstack-selinux': {}
   'centos-release-nfv-common': {}
 
-# Use rsync, not ssh for migrate transport to support sparse images
-# FIXME: really needed on console?
-nova::config::nova_config:
-  libvirt/remote_filesystem_transport:
-    value: 'rsync'
-
 profile::base::network::manage_dummy:                       true
 profile::openstack::compute::consoleproxy::manage_firewall: true
 profile::openstack::compute::consoleproxy::spice:           false

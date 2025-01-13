@@ -40,12 +40,6 @@ profile::base::common::packages:
   'nrec-selinux': {}
   'python3-openstackclient': {}
 
-# Use rsync, not ssh for migrate transport to support sparse images
-# FIXME: really needed on novactrl?
-nova::config::nova_config:
-  libvirt/remote_filesystem_transport:
-    value: 'rsync'
-
 # apache httpd
 # this should be fine for 4 GB RAM
 apache::mod::prefork::serverlimit:        1024

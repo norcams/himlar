@@ -103,3 +103,8 @@ profile::monitoring::sensu::agent::checks:
     subscribers:  ['checks']
 
 calico::compute::felix_mtuIfacePattern: '^team*'
+
+# Configuration items not explicitly supported by the Puppet module
+nova::config::nova_config:
+  DEFAULT/metadata_workers:
+    value: '4'
