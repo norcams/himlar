@@ -3,7 +3,7 @@ profile::openstack::designate::bind_servers:
   'vagrant-01':
     ns_rndc_addr:    '172.31.8.16'
     ns_public_addr:  '172.31.8.16'
-    ns_public_name: '172.31.8.16'
+    ns_public_name:  "ns1.%{hiera('domain_frontend')}"
     mdns_addr:
       - '172.31.8.34'
 
