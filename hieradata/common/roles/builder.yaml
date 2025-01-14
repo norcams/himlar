@@ -123,6 +123,19 @@ profile::application::builder::images:
     'username':         'cloud-user'
     'hour':             6
     'minute':           30
+  'centosstream10':
+    'image_name':       'IMAGEBUILDER CentOS Stream 10'
+    'url':              'https://cloud.centos.org/centos/10-stream/x86_64/images/'
+    'latest':           'CentOS-Stream-GenericCloud-10-latest.x86_64.qcow2'
+    'checksum_file':    'CentOS-Stream-GenericCloud-10-latest.x86_64.qcow2.SHA256SUM'
+    'checksum':         'sha256'
+    'min_ram':          768
+    'min_disk':         8
+    'flavor':           'm1.small'
+    'efi':              true
+    'username':         'cloud-user'
+    'hour':             6
+    'minute':           45
   'debian11':
     'image_name':       'IMAGEBUILDER Debian 11'
     'url':              'https://cdimage.debian.org/cdimage/cloud/bullseye/latest/'
@@ -319,6 +332,7 @@ profile::monitoring::sensu::agent::expanded_checks:
   - 'almalinux9'
   - 'almalinux9_nv_vgpu'
   - 'centosstream9'
+  - 'centosstream10'
   - 'debian11'
   - 'debian12'
   - 'fedora_40'

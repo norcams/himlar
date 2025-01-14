@@ -133,10 +133,10 @@ nova::compute::libvirt::cpu_models: ['Broadwell-noTSX-IBRS']
 
 # These compute host uses local storage for instances
 nova::compute::rbd::ephemeral_storage: false
+
+# Configuration items not explicitly supported by the Puppet module
 nova::config::nova_config:
   libvirt/images_type:
     value: default
   DEFAULT/metadata_workers:
     value: '4'
-  libvirt/remote_filesystem_transport:
-    value: 'rsync'
