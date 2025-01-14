@@ -81,13 +81,13 @@ profile::base::network::network_auto_bonding:
 
 # These compute host uses local storage for instances
 nova::compute::rbd::ephemeral_storage: false
+
+# Configuration items not explicitly supported by the Puppet module
 nova::config::nova_config:
   libvirt/images_type:
     value: default
   DEFAULT/metadata_workers:
     value: '1'
-  libvirt/remote_filesystem_transport:
-    value: 'rsync'
 
 # Red Hat Subscription Management (RHSM)
 profile::rhsm::subscription::manage: false

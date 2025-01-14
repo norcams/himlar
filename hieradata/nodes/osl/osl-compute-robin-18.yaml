@@ -57,6 +57,8 @@ profile::base::network::network_auto_bonding:
 
 # This compute host uses local storage for instances
 nova::compute::rbd::ephemeral_storage:  false
+
+# Configuration items not explicitly supported by the Puppet module
 nova::config::nova_config:
   libvirt/images_type:
     value: default

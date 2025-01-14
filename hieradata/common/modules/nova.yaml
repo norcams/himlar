@@ -118,17 +118,20 @@ nova::cinder::project_name:         "%{hiera('keystone__service__project')}"
 nova::cinder::project_domain_name:  "%{hiera('keystone__default__domain')}"
 nova::cinder::user_domain_name:     "%{hiera('keystone__default__domain')}"
 
-# Use rsync, not ssh for migrate transport to support sparse images
-nova::config::nova_config:
-  libvirt/remote_filesystem_transport:
-    value: 'rsync'
-#  keystone_authtoken/service_token_roles_required: FIXME enable this when tested
-#    value: true
-
 # shared default nova config (node: compute)
 profile::openstack::compute::default_nova_config:
   glance/region_name:
     value: "%{::location}"
+  # Use rsync, not ssh for migrate transport to support sparse images
+  libvirt/remote_filesystem_transport:
+    value: 'rsync'
+  # From 2023.1 onwards these can be configured properly
+  libvirt/live_migration_downtime:
+    value: '1000'
+  libvirt/live_migration_downtime_steps:
+    value: '20'
+  libvirt/live_migration_downtime_delay:
+    value: '10'
 
 # shared default nova config (node: novactrl)
 profile::openstack::novactrl::default_nova_config:
@@ -149,11 +152,12 @@ nova::compute::rbd::manage_ceph_client:          false
 #FIXME mixed version environments for compute services - should be removed for newer versions
 nova::upgrade_level_compute:                     'victoria'
 
-# enable libvirt tunneled migration
-#nova::migration::libvirt::live_migration_tunnelled:            true
+# Live Migration settings
 nova::migration::libvirt::live_migration_inbound_addr:         "%{::ipaddress_live1}"
+nova::migration::libvirt::live_migration_completion_timeout:   '300'
+nova::migration::libvirt::live_migration_timeout_action:       'abort'
 nova::migration::libvirt::live_migration_permit_auto_converge: true
-nova::migration::libvirt::live_migration_permit_post_copy:     true
+nova::migration::libvirt::live_migration_permit_post_copy:     false
 
 # set image properties hw_scsi_model=virtio-scsi and hw_disk_bus=scsi to enable
 nova::compute::libvirt::hw_disk_discard: 'unmap'

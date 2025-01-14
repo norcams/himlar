@@ -66,12 +66,12 @@ profile::base::network::network_auto_bonding:
 
 # These compute host uses local storage for instances
 nova::compute::rbd::ephemeral_storage: false
+
+# Configuration items not explicitly supported by the Puppet module
 nova::config::nova_config:
   libvirt/images_type:
     value: default
   DEFAULT/metadata_workers:
     value: '2'
-  libvirt/remote_filesystem_transport:
-    value: 'rsync'
 
 sensu__memory__check:     "check-memory.rb -w 1536 -c 1024"

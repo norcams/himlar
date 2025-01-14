@@ -13,6 +13,7 @@ profile::base::common::packages:
   'bash-completion-extras': {}
   'jq': {}
 
+# Configuration items not explicitly supported by the Puppet module
 nova::config::nova_config:
   libvirt/images_type:
     value: lvm
@@ -22,4 +23,3 @@ nova::config::nova_config:
     value: false
   libvirt/volume_clear:
     value: none
-
