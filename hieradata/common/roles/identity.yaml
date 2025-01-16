@@ -23,7 +23,10 @@ profile::base::common::packages:
   'sharutils': {}
   'MariaDB-client': {}
   'openstack-selinux': {}
-  'python2-designateclient': {}
+  'python3-designateclient': {}
+  'python3-sqlalchemy':
+    source: 'https://download.iaas.uio.no/nrec/test/el8/rdo-xena/Packages/p/python3-sqlalchemy-1.4.18-1.1.el8.x86_64.rpm'
+
   # 'mod_auth_openidc': # FIXME use this when we can set package absent in keystone module
   #   ensure: '2.3'
   #   provider: 'dnfmodule'
