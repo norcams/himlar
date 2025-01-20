@@ -18,6 +18,7 @@ neutron::wsgi::apache::api_workers: 4
 neutron::wsgi::apache::rpc_workers: 4
 neutron::wsgi::apache::ssl:         false
 neutron::server::service_name:     'httpd'
+neutron::server::api_service_name: 'httpd'
 
 etcd::proxy: "off"
 etcd::initial_cluster_state: 'new'
