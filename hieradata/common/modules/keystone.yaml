@@ -34,7 +34,11 @@ keystone::cache::memcache_servers:         '127.0.0.1:11211'
 keystone::notification_driver:            'messagingv2'
 keystone::notification_format:            'cadf'
 keystone::default_transport_url:          "%{hiera('service__transport__url')}"
-keystone::notification_opt_out':          'identity.authenticate.success'
+keystone::notification_opt_out:
+  - 'identity.authenticate.success'
+  - 'identity.authenticate.pending'
+
+# token
 keystone::token_provider:                 'fernet'
 keystone::fernet_max_active_keys:         '3'
 keystone::cron::fernet_rotate::minute:    '15'
