@@ -14,7 +14,8 @@ openstack_version: 'xena'
 # WSGI config
 # https://github.com/openstack/puppet-designate/blob/unmaintained/xena/manifests/wsgi/apache.pp
 profile::openstack::network::manage_wsgi: true
-neutron::wsgi::apache::workers:   4
+neutron::wsgi::apache::workers: 4
+neutron::wsgi::apache::ssl:     false
 
 etcd::proxy: "off"
 etcd::initial_cluster_state: 'new'
