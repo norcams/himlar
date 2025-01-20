@@ -19,6 +19,7 @@ profile::openstack::network::manage_wsgi: true
 neutron::wsgi::apache::ssl:         false
 neutron::server::service_name:     'httpd'
 #neutron::server::api_service_name: 'httpd'
+neutron::purge_config: true
 
 etcd::proxy: "off"
 etcd::initial_cluster_state: 'new'
