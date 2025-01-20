@@ -9,6 +9,12 @@ include:
     - profile::logging::rsyslog::client
     - profile::base::systemd
 
+openstack_version: 'xena'
+
+# WSGI config
+# https://github.com/openstack/puppet-designate/blob/unmaintained/xena/manifests/wsgi/apache.pp
+neutron::wsgi::apache::workers:   4
+
 etcd::proxy: "off"
 etcd::initial_cluster_state: 'new'
 etcd::initial_cluster_token: 'etcd-cluster'
@@ -26,13 +32,11 @@ profile::base::common::packages:
   # we need newer version of six to avoid breaking requests and openstack cli
   'python3-six.noarch': { ensure: latest }
   'bash-completion': {}
-  'bash-completion-extras': {} # FIXME: remove when el7 is gone
   'jq': {}
   'gcc-c++': {}
   'openstack-selinux': {}
-  'python-etcd3gw': {}         # FIXME: remove when el7 is gone
   'python3-etcd3gw': {}
-  'python-memcached': {}       # FIXME: remove when el7 is gone
+  'python3-memcached': {}
   'libibverbs': {}
   'make': {} # for sensu gem
 
