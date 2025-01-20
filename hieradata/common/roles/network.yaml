@@ -89,15 +89,13 @@ profile::base::yumrepo::repo_hash:
     ensure: absent
   calico%{hiera('calico_version')}:
     ensure: present
-  CentOS-PowerTools: # FIXME: remove when CentOS 8 is gone
-    ensure: present
   CentOs-nfv-Openvswitch:
     ensure: present
   AlmaLinux-PowerTools:
     ensure: present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
-    includepkgs: 'htop bash-completion-extras python2-bcrypt' # FIXME remove non el8 packages when el7 is gone
+    includepkgs: 'htop'
 
 # logrotate
 # 2022-01-07 (mikaeld): some issue on network nodes, especially in OSL, have the effect that one of the nodes
