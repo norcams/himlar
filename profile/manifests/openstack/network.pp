@@ -9,11 +9,6 @@ class profile::openstack::network(
 ){
   include ::neutron
 
-  # Only for the network hosts
-  if $manage_wsgi {
-    include ::neutron::wsgi::apache
-  }
-
 # Use value ml2 for plugin and calico driver for calico v1.3 and older
 # then set neutron::core_plugin to neutron.plugins.ml2.plugin.Ml2Plugin
 # Use value calico for plugin for calico v1.4 and newer. l2_driver flag will be ignored
