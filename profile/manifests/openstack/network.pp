@@ -5,7 +5,6 @@ class profile::openstack::network(
   $manage_quotas   = false,
   $firewall_extras = {},
   $manage_osprofiler = false,
-  $manage_wsgi = false,
 ){
   include ::neutron
 
