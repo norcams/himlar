@@ -8,7 +8,7 @@ calico::reflector::client_defaults:
   peer_as: 65535
   local_as: 65535
 
-calico::controller::neutron_service: 'httpd'
+calico::controller::neutron_service: 'neutron-server'
 
 # Reflector clients (set per location)
 #calico::reflector::clients:
