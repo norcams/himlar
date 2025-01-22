@@ -187,6 +187,8 @@ nodesets:
       puppet_env: "wallaby"
     - role:       "dns"
       puppet_env: "wallaby"
+    - role:       "telemetry"
+      puppet_env: "xena"
   object: # will also need running identity to test anything other than ceph
     - role:       'cephmon-object'
     - role:       'rgw'
