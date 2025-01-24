@@ -40,6 +40,7 @@ class profile::openstack::novactrl(
 
   include ::placement
   include ::placement::db
+  include ::placement::api
   include ::placement::wsgi::apache
   include ::placement::logging
   include ::placement::keystone::authtoken

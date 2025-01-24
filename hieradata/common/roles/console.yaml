@@ -10,7 +10,6 @@ profile::base::common::packages:
   'bash-completion-extras': {}
   'jq': {}
   'openstack-selinux': {}
-  'centos-release-nfv-common': {}
 
 profile::base::network::manage_dummy:                       true
 profile::openstack::compute::consoleproxy::manage_firewall: true
@@ -29,3 +28,5 @@ profile::base::yumrepo::repo_hash:
     ensure:  present
   AlmaLinux-PowerTools:
     ensure: present
+
+openstack_version: xena
