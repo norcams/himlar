@@ -160,7 +160,6 @@ nodesets:
     - role:       "db-regional"
       puppet_env: "wallaby"
     - role:       "api"
-      box:        "norcams/base"
     - role:       "mq"
     - role:       "identity"
       puppet_env: "wallaby"
@@ -188,6 +187,11 @@ nodesets:
       puppet_env: "xena"
     - role:       "dns"
       puppet_env: "xena"
+    - role:       "metric"
+      puppet_env: "wallaby"
+      disk:       "2GB"
+    - role:       "telemetry"
+      puppet_env: "wallaby"
   object: # will also need running identity to test anything other than ceph
     - role:       'cephmon-object'
     - role:       'rgw'
