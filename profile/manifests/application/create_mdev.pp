@@ -11,7 +11,7 @@
 class profile::application::create_mdev(
   $enable = false,
   $nvidia_gpu_type,
-  $max_instances_per_gpu
+  $trait
 ) {
   if $enable {
 
@@ -31,10 +31,10 @@ class profile::application::create_mdev(
       line  => "NVIDIA_GPU_TYPE='$nvidia_gpu_type'",
       match => "^NVIDIA_GPU_TYPE=.*$",
     }->
-    file_line { 'Set value for max number of instances per GPU':
+    file_line { 'Set value for trait':
       path  => '/etc/sysconfig/create-mdev',  
-      line  => "MAX_INSTANCES_PER_GPU=$max_instances_per_gpu",
-      match => "^MAX_INSTANCES_PER_GPU=.*$",
+      line  => "TRAIT=$trait",
+      match => "^TRAIT=.*$",
     }
   }
 }
