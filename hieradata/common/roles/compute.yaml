@@ -283,13 +283,6 @@ ceph::profile::params::client_keys:
     group: 'cinder'
     cap_mon: 'profile rbd'
     cap_osd: 'profile rbd pool=dcache_hdd_ec_meta, profile rbd pool=dcache_hdd_ec_data'
-  'client.cinder-dcache-hdd-ec8':
-    secret: "%{hiera('ceph_storage_client_cinder_key')}"
-    mode: '0600'
-    user: 'cinder'
-    group: 'cinder'
-    cap_mon: 'profile rbd'
-    cap_osd: 'profile rbd pool=dcache_hdd_ec_meta8, profile rbd pool=dcache_hdd_ec_data8'
   'client.cinder-dcache-hdd-ec82':
     secret: "%{hiera('ceph_storage_client_cinder_key')}"
     mode: '0600'
@@ -309,9 +302,6 @@ profile::storage::ceph_extraconf::config:
   client_dcache_backend:
     'config_key'  : "client.cinder-dcache-hdd-ec/rbd_default_data_pool"
     'config_value': "dcache_hdd_ec_data"
-  client_dcache_backend8:
-    'config_key'  : "client.cinder-dcache-hdd-ec8/rbd_default_data_pool"
-    'config_value': "dcache_hdd_ec_data8"
   client_dcache_backend_82:
     'config_key'  : "client.cinder-dcache-hdd-ec82/rbd_default_data_pool"
     'config_value': "dcache_hdd_ec82_data"
