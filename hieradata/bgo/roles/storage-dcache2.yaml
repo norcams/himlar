@@ -57,15 +57,6 @@ ceph::profile::params::osd_recovery_max_active: '3'
 ceph::profile::params::osd_max_backfills: '1'
 
 profile::storage::ceph_ecpool::ec_pools:
-  'dcache_hdd_ec_data8':
-    pg_num:              "8192"
-    manage:              true
-    allow_ec_overwrites: true
-    k_data:              "8"
-    m_code:              "2"
-    crush_root:          "dcache"
-    plugin:              "jerasure"
-    technique:           "liber8tion"
   'dcache_hdd_ec82_data':
     pg_num:              "8192"
     manage:              true
@@ -79,20 +70,6 @@ profile::storage::ceph_ecpool::ec_pools:
 profile::storage::ceph::pool::pools:
   'rbd':
     ensure: absent
-  'dcache_hdd_ec_meta8':
-    size:    3
-    pg_num:  64
-    tag:    'rbd'
-    custom:
-      crush_rule: 'ssd-storage'
-      nodelete:   'true'
-      min_size:   '2'
-  'dcache_hdd_ec_data8':
-    custom:
-      deep_scrub_interval: '1.93536e+07' # every 32 weeks - overrides osd setting
-      scrub_max_interval:  '2.4192e+06'  # normal scrub at least every 4 weeks - overrides osd setting
-      scrub_min_interval:  '604800'      # minimum one week between each scrub
-      fast_read:           '1'           # read all k+m for read, trade bandwith for lower latency
   'dcache_hdd_ec82_meta':
     size:    3
     pg_num:  64
@@ -112,9 +89,6 @@ profile::storage::ceph::pool::ec_pools:
     manage: false
 
 profile::storage::cephpool_params::pools:
-  'dcache_hdd_ec_data8':
-    application_enable: 'rbd'
-    replicas_min_size:  '9'
   'dcache_hdd_ec82_data':
     application_enable: 'rbd'
     replicas_min_size:  '9'
