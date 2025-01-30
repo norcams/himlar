@@ -24,6 +24,7 @@ profile::base::common::packages:
   'MariaDB-client': {}
   'openstack-selinux': {}
   'python3-designateclient': {}
+  'openstack-keystone: {}
   # 'mod_auth_openidc': # FIXME use this when we can set package absent in keystone module
   #   ensure: '2.3'
   #   provider: 'dnfmodule'
