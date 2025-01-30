@@ -195,6 +195,10 @@ profile::monitoring::sensu::agent::checks:
     command:      "check-https-cert.rb -c 10 -w 20 -u %{hiera('public__address__api')} %{hiera('sensu_ssl_cachain')}"
     interval:     60
     subscribers:  ['checks']
+  'cert-check-object-api':
+    command:      "check-https-cert.rb -c 10 -w 20 -u %{hiera('public__address__object')} %{hiera('sensu_ssl_cachain')}"
+    interval:     60
+    subscribers:  ['checks']
   'cert-check-dashboard':
     command:      "check-https-cert.rb -c 10 -w 20 -u https://%{hiera('public__address__dashboard')} %{hiera('sensu_ssl_cachain')}"
     interval:     60

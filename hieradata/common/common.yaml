@@ -218,6 +218,7 @@ public__address__api:             "https://api.%{hiera('domain_frontend')}:5000/
 public__address__dashboard:       "dashboard.%{hiera('domain_frontend')}"
 public__address__access:          "access.%{hiera('domain_frontend')}"
 public__address__console:         "console.%{hiera('domain_public')}"
+public__address__object:          "object.api.%{hiera('domain_public')}"
 public__address__report:          "report.%{hiera('domain_frontend')}"
 public__address__status:          "status.%{hiera('domain_frontend')}"
 public__address__docs:            "docs.nrec.no"
