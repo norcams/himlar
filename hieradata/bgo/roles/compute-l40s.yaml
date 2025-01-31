@@ -55,6 +55,12 @@ profile::base::selinux::semodules:
   sriov_manage:
     avc_file:   'sriov_manage.avc'
 
+## Custom Sensu checks
+profile::monitoring::sensu::agent::checks:
+  'num-gpus-check':
+    command:      "/usr/local/bin/check_number_of_gpus.sh"
+    interval:     60
+    subscribers:  ['checks']
 
 profile::base::lvm::physical_volume:
   '/dev/sda4':
