@@ -7,9 +7,9 @@
 profile::base::common::extraswap:         true
 profile::base::common::extraswap_sizegb:  10
 
-# Nover overrides
+# Nova overrides
 #
-# vgpu requirements: 32 GB, 4 vCPU, 20 GB per vGPU installed
+# vgpu requirements: 120 GB, 16 vCPU, 200 GB per vGPU installed
 #
 nova::cpu_allocation_ratio:               4
 nova::disk_allocation_ratio:              2
