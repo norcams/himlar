@@ -99,13 +99,16 @@ profile::base::common::packages:
 #
 nova::compute::vgpu::vgpu_types_device_addresses_mapping: { 'nvidia-1155', }
 
+# Max 8 instances per host
+nova::scheduler::filter::max_instances_per_host: '8'
+
 # NVIDIA newer generation cards need SR-IOV
 profile::openstack::compute::pci_passthrough::configure_intel_iommu: true
 
 # Configuration values for the "create-mdev" service
-profile::application::create_mdev::enable:                true
-profile::application::create_mdev::nvidia_gpu_type:       'nvidia-1155'
-profile::application::create_mdev::max_instances_per_gpu: 2
+profile::application::create_mdev::enable:          true
+profile::application::create_mdev::nvidia_gpu_type: 'nvidia-1155'
+profile::application::create_mdev::trait:           'CUSTOM_NREC_VGPU_L40S_24G'
 
 #yum_base_mirror:    'https://download.iaas.uio.no/uh-iaas/vgpu'
 

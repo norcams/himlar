@@ -14,3 +14,6 @@ profile::base::common::extraswap_sizegb:  10
 nova::cpu_allocation_ratio:               4
 nova::disk_allocation_ratio:              2
 nova::ram_allocation_ratio:               1.2
+
+# Set trait to empty string by default
+profile::application::create_mdev::trait: ''
