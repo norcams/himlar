@@ -58,6 +58,7 @@ designate::central::min_ttl:                    '300'
 # API (manifests/api.pp)
 #   - runs on the DNS node
 #---------------------------------------------------------------------
+designate::api::service_name:      'httpd'
 designate::api::auth_strategy:     'keystone'
 designate::api::enable_api_v1:     false
 designate::api::enable_api_v2:     true
@@ -131,6 +132,7 @@ designate::backend::bind9::bind9_hosts:
 # Extra config (manifests/config.pp)
 #   - runs on the DNS node
 #---------------------------------------------------------------------
+# FIXME: designate/init.pp includes this from zed onwards
 designate::config::designate_config:
   DEFAULT/supported_record_type:
-    value: 'A,AAAA,CNAME,MX,SRV,TXT,SPF,NS,SSHFP,SOA'
+    value: 'A,AAAA,CNAME,MX,SRV,TXT,SPF,NS,SSHFP,SOA,CERT'
