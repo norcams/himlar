@@ -45,6 +45,19 @@ cinder::keystone::auth::public_url_v3:          "%{hiera('endpoint__volume__publ
 cinder::keystone::auth::admin_url_v3:           "%{hiera('endpoint__volume__admin')}/v3/%(tenant_id)s"
 cinder::keystone::auth::internal_url_v3:        "%{hiera('endpoint__volume__internal')}/v3/%(tenant_id)s"
 
+# Configure Cinder to also send a service token when sending a user
+# token to a REST API
+# Ref. https://docs.openstack.org/cinder/latest/configuration/block-storage/service-token.html
+cinder::keystone::service_user::username:                'cinder'
+cinder::keystone::service_user::password:                "%{hiera('cinder_api_password')}"
+cinder::keystone::service_user::auth_url:                "%{hiera('endpoint__identity__admin')}/v3"
+cinder::keystone::service_user::region_name:             "%{::location}"
+cinder::keystone::service_user::auth_version:            'v3'
+cinder::keystone::service_user::project_name:            "%{hiera('keystone__service__project')}"
+cinder::keystone::service_user::project_domain_name:     "%{hiera('keystone__default__domain')}"
+cinder::keystone::service_user::user_domain_name:        "%{hiera('keystone__default__domain')}"
+cinder::keystone::service_user::send_service_user_token: true
+
 # nova client
 cinder::nova::region_name: "%{::location}"
 
