@@ -150,7 +150,7 @@ nova::compute::rbd::rbd_keyring:                 'client.cinder'
 nova::compute::rbd::ephemeral_storage:           false
 nova::compute::rbd::manage_ceph_client:          false
 #FIXME mixed version environments for compute services - should be removed for newer versions
-nova::upgrade_level_compute:                     'victoria'
+nova::upgrade_level_compute:                     'wallaby'
 
 # Live Migration settings
 nova::migration::libvirt::live_migration_inbound_addr:         "%{::ipaddress_live1}"
