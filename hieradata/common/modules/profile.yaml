@@ -449,17 +449,5 @@ consul::config_hash:
   'enable_syslog': true
   'bind_addr':     "%{ipaddress_mgmt1}"
 
-# Disable reboot through Horizon (for other than root) until DHCP is fixed upstream (calico)
-# Disable shelve functionality since it is broken (instances are not unshelved successfully)
-profile::openstack::dashboard::policies:
-  horizon_disable_reboot:
-    file_path:  '/etc/openstack-dashboard/nova_policy.yaml'
-    key:        'os_compute_api:servers:reboot'
-    value:      'rule:system_admin'
-  horizon_disable_shelve:
-    file_path:  '/etc/openstack-dashboard/nova_policy.yaml'
-    key:        'os_compute_api:os-shelve:shelve'
-    value:      'rule:system_admin'
-
 # logrotate
 profile::logging::logrotate::manage_logrotate:      true
