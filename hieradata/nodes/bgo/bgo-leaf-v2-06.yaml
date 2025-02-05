@@ -38,6 +38,10 @@ profile::base::network::cumulus_interfaces:
     'ipv6': [ 'fd00:192:268:224::3/64', ]
     'virtual_ip': '192.168.224.1/24 fd00:192:268:224::1/64'
     'virtual_mac': '00:00:5e:00:02:06'
+  'bridge.4093':
+    'vrf': 'lhcopn'
+    'ipv4': [ '172.18.228.6/30', ]
+    'ipv6': [ 'fd00:18:228::6/124', ]
   'peerlink.4094':
     'ipv4': [ '172.18.227.6/24', ]
     'ipv6': [ 'fd00:18:227::6/64', ]
@@ -57,6 +61,8 @@ frrouting::frrouting::bgp_vrf_options:
     'common_cfg':
       - 'bgp router-id 109.105.124.39'
       - 'bgp default local-preference 200'
+      - 'neighbor fd00:18:228::5 remote-as 65503'
+      - 'neighbor fd00:18:228::5 bfd 5 500 500'
       - 'neighbor 109.105.124.38 remote-as 65504'
       - 'neighbor 109.105.124.38 bfd 5 500 500'
       - 'neighbor 128.39.70.116 remote-as 224'
@@ -66,6 +72,12 @@ frrouting::frrouting::bgp_vrf_options:
       - 'neighbor 2001:948:40:4::86 remote-as 65504'
       - 'neighbor 2001:948:40:4::86 bfd 5 500 500'
     'address_family4_unicast':
+      - 'redistribute connected'
+      - 'neighbor fd00:18:228::5 activate'
+      - 'neighbor fd00:18:228::5 soft-reconfiguration inbound'
+      - 'neighbor fd00:18:228::5 prefix-list lhc-routes-in in'
+      - 'neighbor fd00:18:228::5 prefix-list lhc-routes-in out'
+      - 'neighbor fd00:18:228::5 route-map failover-lhc-routes in'
       - 'neighbor 109.105.124.38 soft-reconfiguration inbound'
       - 'neighbor 109.105.124.38 prefix-list lhc-routes-in in'
       - 'neighbor 109.105.124.38 prefix-list lhc-routes-out out'
@@ -75,6 +87,12 @@ frrouting::frrouting::bgp_vrf_options:
       - 'neighbor 128.39.70.116 prefix-list lhc-routes-out out'
       - 'neighbor 128.39.70.116 route-map secondary-lhc-uplink in'
     'address_family6_unicast':
+      - 'redistribute connected'
+      - 'neighbor fd00:18:228::5 activate'
+      - 'neighbor fd00:18:228::5 soft-reconfiguration inbound'
+      - 'neighbor fd00:18:228::5 prefix-list lhc-routes6-in in'
+      - 'neighbor fd00:18:228::5 prefix-list lhc-routes6-in out'
+      - 'neighbor fd00:18:228::5 route-map failover-lhc-routes6 in'
       - 'neighbor 2001:700:0:8138::0 activate'
       - 'neighbor 2001:700:0:8138::0 soft-reconfiguration inbound'
       - 'neighbor 2001:700:0:8138::0 prefix-list lhc-routes6-in in'

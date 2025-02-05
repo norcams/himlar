@@ -575,7 +575,7 @@ profile::base::network::cumulus_bridges:
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'true'
-    'vids': [ '100', '110', '120', '130', '300', ]
+    'vids': [ '100', '110', '120', '130', '300', '4093', ]
     'mtu': '9216'
 
 frrouting::frrouting::zebra_interfaces:
@@ -734,7 +734,7 @@ frrouting::frrouting::bgp_route_maps:
     - 'set weight 0'
   'failover-lhc-routes6 permit 10':
     - 'description routes from leaf-v2 neighbor is last resort'
-    - 'match ipv6 address prefix-list lhc-routes-in'
+    - 'match ipv6 address prefix-list lhc-routes6-in'
     - 'set local-preference 0'
     - 'set weight 0'
   'primary-lhc-uplink permit 10':
@@ -743,7 +743,7 @@ frrouting::frrouting::bgp_route_maps:
     - 'set local-preference 400'
   'primary-lhc-uplink6 permit 10':
     - 'description best uplink'
-    - 'match ipv6 address prefix-list lhc-routes-in'
+    - 'match ipv6 address prefix-list lhc-routes6-in'
     - 'set local-preference 400'
   'secondary-lhc-uplink permit 10':
     - 'description best uplink'
@@ -751,5 +751,5 @@ frrouting::frrouting::bgp_route_maps:
     - 'set local-preference 200'
   'secondary-lhc-uplink6 permit 10':
     - 'description best uplink'
-    - 'match ipv6 address prefix-list lhc-routes-in'
+    - 'match ipv6 address prefix-list lhc-routes6-in'
     - 'set local-preference 200'
