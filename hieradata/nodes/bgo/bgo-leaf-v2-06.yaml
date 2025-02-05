@@ -19,6 +19,19 @@ profile::base::network::cumulus_interfaces:
     'virtual_mac': '00:00:5e:00:02:05'
   'netapp':
     'vrf_table': 'auto'
+  'lhcopn':
+    'vrf_table': 'auto'
+  'swp26':
+    'vrf': 'lhcopn'
+    'mtu': '9178'
+  'swp26.1':
+    'vrf': 'lhcopn'
+    'ipv4': [ '128.39.70.117/31', ]
+    'ipv6': [ '2001:700:0:8138::1/127', ]
+  'swp26.10':
+    'vrf': 'lhcopn'
+    'ipv4': [ '109.105.124.39/31', ]
+    'ipv6': [ '2001:948:40:4::87/127', ]
   'bridge.300':
     'vrf': 'netapp'
     'ipv4': [ '192.168.224.3/24', ]
@@ -32,6 +45,46 @@ profile::base::network::cumulus_interfaces:
     'clagd_peer_ip': 'linklocal'
     'clagd_backup_ip': "%{hiera('netcfg_trp_net_c0')}.5"
     'clagd_sys_mac': '44:38:39:ff:bb:5d'
+
+frrouting::frrouting::bgp_vrf_options:
+  'netapp':
+    'address_family4_unicast':
+      - 'redistribute connected'
+      - 'import vrf route-map netapp-allow'
+      - 'import vrf default'
+  'lhcopn':
+    'bgp_as': '65503'
+    'common_cfg':
+      - 'bgp router-id 109.105.124.39'
+      - 'bgp default local-preference 200'
+      - 'neighbor 109.105.124.38 remote-as 65504'
+      - 'neighbor 109.105.124.38 bfd 5 500 500'
+      - 'neighbor 128.39.70.116 remote-as 224'
+      - 'neighbor 128.39.70.116 bfd 5 500 500'
+      - 'neighbor 2001:700:0:8138::0 remote-as 224'
+      - 'neighbor 2001:700:0:8138::0 bfd 5 500 500'
+      - 'neighbor 2001:948:40:4::86 remote-as 65504'
+      - 'neighbor 2001:948:40:4::86 bfd 5 500 500'
+    'address_family4_unicast':
+      - 'neighbor 109.105.124.38 soft-reconfiguration inbound'
+      - 'neighbor 109.105.124.38 prefix-list lhc-routes-in in'
+      - 'neighbor 109.105.124.38 prefix-list lhc-routes-out out'
+      - 'neighbor 109.105.124.38 route-map primary-lhc-uplink in'
+      - 'neighbor 128.39.70.116 soft-reconfiguration inbound'
+      - 'neighbor 128.39.70.116 prefix-list lhc-routes-in in'
+      - 'neighbor 128.39.70.116 prefix-list lhc-routes-out out'
+      - 'neighbor 128.39.70.116 route-map secondary-lhc-uplink in'
+    'address_family6_unicast':
+      - 'neighbor 2001:700:0:8138::0 activate'
+      - 'neighbor 2001:700:0:8138::0 soft-reconfiguration inbound'
+      - 'neighbor 2001:700:0:8138::0 prefix-list lhc-routes6-in in'
+      - 'neighbor 2001:700:0:8138::0 prefix-list lhc-routes6-out out'
+      - 'neighbor 2001:700:0:8138::0 route-map secondary-lhc-uplink6 in'
+      - 'neighbor 2001:948:40:4::86 activate'
+      - 'neighbor 2001:948:40:4::86 soft-reconfiguration inbound'
+      - 'neighbor 2001:948:40:4::86 prefix-list lhc-routes6-in in'
+      - 'neighbor 2001:948:40:4::86 prefix-list lhc-routes6-out out'
+      - 'neighbor 2001:948:40:4::86 route-map primary-lhc-uplink6 in'
 
 frrouting::frrouting::bgp_neighbors:
   - "172.18.6.1 remote-as %{hiera('bgp_as')}"
@@ -50,7 +103,6 @@ frrouting::frrouting::bgp_neighbors:
   - 'fd00::6:2 soft-reconfiguration inbound'
   - 'fd00::6:2 prefix-list spine-routes-in in'
   - 'fd00::6:2 prefix-list spine-routes-out out'
-
 frrouting::frrouting::bgp_neighbors6:
   - '172.18.6.1 activate'
   - '172.18.6.1 prefix-list spine-routes6-in in'
