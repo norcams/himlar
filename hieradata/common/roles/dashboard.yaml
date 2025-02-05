@@ -92,35 +92,57 @@ profile::monitoring::sensu::agent::checks:
     handlers:     ['graphite_tcp']
 
 # We should change this to the same as the API services
+# Disable reboot through Horizon (for other than root) until DHCP is fixed upstream (calico)
+# Disable shelve functionality since it is broken (instances are not unshelved successfully)
 profile::openstack::dashboard::policies:
-  glance_communitize_image:
-    file_path:  '/etc/openstack-dashboard/glance_policy.json'
-    key:        'communitize_image'
-    value:      'role:superuser or role:admin'
-  glance_publicize_image:
-    file_path:  '/etc/openstack-dashboard/glance_policy.json'
-    key:        'publicize_image'
-    value:      'role:superuser or role:admin'
-  nova_disable_reboot:
-    file_path:  '/etc/openstack-dashboard/nova_policy.json'
+  nova_compute_reboot:
+    file_path:  '/etc/openstack-dashboard/nova_policy.yaml'
     key:        'os_compute_api:servers:reboot'
-    value:      'role:admin'
-  nova_compute_resize:
-    file_path:  '/etc/openstack-dashboard/nova_policy.json'
-    key:        'os_compute_api:servers:resize'
-    value:      'role:admin'
-  nova_disable_suspend:
-    file_path:  '/etc/openstack-dashboard/nova_policy.json'
-    key:        'os_compute_api:os-suspend-server:suspend'
-    value:      'role:admin'
-  nova_disable_shelve:
-    file_path:  '/etc/openstack-dashboard/nova_policy.json'
+    value:      'rule:system_admin'
+  nova_compute_shelve:
+    file_path:  '/etc/openstack-dashboard/nova_policy.yaml'
     key:        'os_compute_api:os-shelve:shelve'
+    value:      'rule:system_admin'
+  nova_compute_unshelve:
+    file_path:  '/etc/openstack-dashboard/nova_policy.yaml'
+    key:        'os_compute_api:os-shelve:unshelve'
+    value:      'rule:system_admin'
+  nova_compute_shelve_offload:
+    file_path:  '/etc/openstack-dashboard/nova_policy.yaml'
+    key:        'os_compute_api:os-shelve:shelve_offload'
+    value:      'rule:system_admin_api'
+  nova_compute_resize:
+    file_path:  '/etc/openstack-dashboard/nova_policy.yaml'
+    key:        'os_compute_api:servers:resize'
+    value:      'rule:system_admin'
+  nova_compute_confirm_resize:
+    file_path:  '/etc/openstack-dashboard/nova_policy.yaml'
+    key:        'os_compute_api:servers:confirm_resize'
+    value:      'rule:system_admin'
+  nova_compute_revert_resize:
+    file_path:  '/etc/openstack-dashboard/nova_policy.yaml'
+    key:        'os_compute_api:servers:revert_resize'
+    value:      'rule:system_admin'
+  nova_compute_resume:
+    file_path:  '/etc/openstack-dashboard/nova_policy.yaml'
+    key:        'os_compute_api:os-suspend-server:resume'
+    value:      'rule:system_admin'
+  nova_disable_suspend:
+    file_path:  '/etc/openstack-dashboard/nova_policy.yaml'
+    key:        'os_compute_api:os-suspend-server:suspend'
+    value:      'rule:system_admin'
+  glance_communitize_image:
+    file_path:  '/etc/openstack-dashboard/glance_policy.yaml'
+    key:        'communitize_image'
+    value:      'role:admin'
+  glance_publicize_image:
+    file_path:  '/etc/openstack-dashboard/glance_policy.yaml'
+    key:        'publicize_image'
     value:      'role:admin'
 #  upload_image:
 #    key:        'volume_extension:volume_actions:upload_image'
 #    value:      'role:admin'
-#    file_path:  '/etc/openstack-dashboard/cinder_policy.json'
+#    file_path:  '/etc/openstack-dashboard/cinder_policy.yaml'
 
 # Cache memory usage
 memcached::max_memory: '40%'
