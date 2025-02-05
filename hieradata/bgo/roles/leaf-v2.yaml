@@ -725,10 +725,8 @@ frrouting::frrouting::bgp_ipv6_prefix_list:
 #  - 'iaas-routes-out seq 10 deny any'
 
 frrouting::frrouting::bgp_generic_options:
-  'bgp':
-    'as-path access-list cern permit ^65504'
-  'bgp as-path':
-    'access-list sikt permit ^224'
+  - 'bgp as-path access-list cern permit ^65504'
+  - 'bgp as-path access-list sikt permit ^224'
 
 frrouting::frrouting::bgp_route_maps:
   'netapp-allow permit 10':
