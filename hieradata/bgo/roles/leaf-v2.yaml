@@ -689,14 +689,24 @@ frrouting::frrouting::bgp_accesslist:
   '30':
     - 'seq 10 permit 158.37.64.0/24'
     - 'seq 250 deny 0.0.0.0/0'
+  '40':
+    - 'seq 15 permit 109.105.127.128/26'
+    - 'seq 16 permit 10.1.0.0/20'
+    - 'seq 250 deny 0.0.0.0/0'
 
 frrouting::frrouting::bgp_accesslist6:
   '10':
     - 'seq 10 permit fd00:192:168:224::/64'
     - 'seq 250 deny ::/0'
+  '40':
+    - 'seq 15 permit 2001:948:62:3::/64'
+    - 'seq 16 permit 2001:948:62:4::/64'
+    - 'seq 250 deny ::/0'
 
 frrouting::frrouting::bgp_ip_prefix_list:
   - 'spine-routes-in seq 10 permit 158.37.64.0/24 le 32'
+  - 'spine-routes-in seq 15 permit 109.105.127.128/26 le 32'
+  - 'spine-routes-in seq 16 permit 10.1.0.0/20 le 32'
   - 'spine-routes-in seq 20 deny any'
   - 'spine-routes-out seq 10 permit 192.168.224.0/24'
   - 'spine-routes-out seq 250 deny any'
@@ -704,12 +714,10 @@ frrouting::frrouting::bgp_ip_prefix_list:
   - 'lhc-routes-out seq 10 deny any'
   - 'lhc-routes-in seq 5 permit any'
   - 'lhc-routes-in seq 10 deny any'
-#  - 'iaas-routes-in seq 5 permit 109.105.127.128/26'
-#  - 'iaas-routes-in seq 6 permit 109.105.125.0/26'
-#  - 'iaas-routes-in seq 10 deny any'
-#  - 'iaas-routes-out seq 10 deny any'
 frrouting::frrouting::bgp_ipv6_prefix_list:
   - 'spine-routes6-in seq 10 permit 2001:700:2:8302::/64'
+  - 'spine-routes6-in seq 15 permit 2001:948:62:3::/64'
+  - 'spine-routes6-in seq 16 permit 2001:948:62:4::/64'
   - 'spine-routes6-in seq 20 deny any'
   - 'spine-routes6-out seq 10 permit fd00:192:168:224::/64'
   - 'spine-routes6-out seq 250 deny any'
@@ -718,11 +726,6 @@ frrouting::frrouting::bgp_ipv6_prefix_list:
   - 'lhc-routes6-out seq 10 deny any'
   - 'lhc-routes6-in seq 5 permit any'
   - 'lhc-routes6-in seq 10 deny any'
-#  - 'iaas-routes-in seq 5 permit 2001:948:62:3::/64'
-#  - 'iaas-routes-in seq 6 permit 2001:948:62:4::/64'
-#  - 'iaas-routes-in seq 7 permit 2001:948:62:1::/64'
-#  - 'iaas-routes-in seq 10 deny any'
-#  - 'iaas-routes-out seq 10 deny any'
 
 frrouting::frrouting::bgp_generic_options:
   - 'bgp as-path access-list cern permit ^65504'
@@ -731,6 +734,10 @@ frrouting::frrouting::bgp_generic_options:
 frrouting::frrouting::bgp_route_maps:
   'netapp-allow permit 10':
     - 'match ip address 30'
+  'lhcopn-allow permit 10':
+    - 'match ip address 40'
+  'lhcopn-allow6 permit 10':
+    - 'match ipv6 address 40'
   'failover-lhc-routes permit 10':
     - 'description have less preference for sikt routes from leaf'
     - 'match as-path sikt'
