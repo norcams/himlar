@@ -1425,7 +1425,7 @@ frrouting::frrouting::bgp_ip_prefix_list:
   - 'leaf-v2-routes-in seq 20 deny any'
   - 'leaf-v2-routes-out seq 10 permit 158.37.64.0/24 le 32'
   - 'leaf-v2-routes-out seq 15 permit 109.105.127.128/26 le 32'
-  - 'leaf-v2-routes-out seq 16 permit 10.1.0.0/20 le 32'
+  - 'leaf-v2-routes-out seq 16 permit 10.109.0.0/20 le 32'
   - 'leaf-v2-routes-out seq 20 deny any'
   - 'default-route seq 5 permit 0.0.0.0/0'
 frrouting::frrouting::bgp_ipv6_prefix_list:
@@ -1439,9 +1439,9 @@ frrouting::frrouting::bgp_ipv6_prefix_list:
   - 'uib-routes-out6 seq 10 deny any'
   - 'leaf-v2-routes6-in seq 10 permit fd00:192:168:224::/64'
   - 'leaf-v2-routes6-in seq 20 deny any'
-  - 'leaf-v2-routes6-out seq 10 permit 2001:700:2:8302::/64'
-  - 'leaf-v2-routes6-out seq 15 permit 2001:948:62:3::/64'
-  - 'leaf-v2-routes6-out seq 16 permit 2001:948:62:4::/64'
+  - 'leaf-v2-routes6-out seq 10 permit 2001:700:2:8302::/64 le 128'
+  - 'leaf-v2-routes6-out seq 15 permit 2001:948:62:3::/64 le 128'
+  - 'leaf-v2-routes6-out seq 16 permit 2001:948:62:4::/64 le 128'
   - 'leaf-v2-routes6-out seq 20 deny any'
   - 'default-route6 seq 5 permit ::/0'
 
