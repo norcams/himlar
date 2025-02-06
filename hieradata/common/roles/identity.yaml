@@ -12,6 +12,8 @@ include:
     - profile::openstack::cache
     - profile::webserver::apache::status
 
+openstack_version: 'xena'
+
 profile::base::common::packages:
   # we need newer version of six to avoid breaking requests and openstack cli
   'python3-six.noarch': { ensure: latest }
@@ -21,7 +23,7 @@ profile::base::common::packages:
   'sharutils': {}
   'MariaDB-client': {}
   'openstack-selinux': {}
-  'python2-designateclient': {}
+  'python3-designateclient': {}
   # 'mod_auth_openidc': # FIXME use this when we can set package absent in keystone module
   #   ensure: '2.3'
   #   provider: 'dnfmodule'
