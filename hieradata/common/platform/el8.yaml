@@ -24,6 +24,8 @@ profile::base::yumrepo::repo_hash:
     module_hotfixes: '1'
   "mariadb-%{hiera('mariadb_version')}":  # FIXME: Move when all nodes depending on MariaDB is on EL8
     module_hotfixes: '1'
+  rdo-release:
+    module_hotfixes: '1'
 
 profile::base::common::packages:
   'bash-completion': {}

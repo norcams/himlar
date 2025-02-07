@@ -700,19 +700,56 @@ frrouting::frrouting::bgp_ip_prefix_list:
   - 'spine-routes-in seq 20 deny any'
   - 'spine-routes-out seq 10 permit 192.168.224.0/24'
   - 'spine-routes-out seq 250 deny any'
+#  - 'lhc-routes-out seq 5 permit 109.105.127.128/26'
+  - 'lhc-routes-out seq 10 deny any'
+  - 'lhc-routes-in seq 5 permit any'
+  - 'lhc-routes-in seq 10 deny any'
+#  - 'iaas-routes-in seq 5 permit 109.105.127.128/26'
+#  - 'iaas-routes-in seq 6 permit 109.105.125.0/26'
+#  - 'iaas-routes-in seq 10 deny any'
+#  - 'iaas-routes-out seq 10 deny any'
 frrouting::frrouting::bgp_ipv6_prefix_list:
   - 'spine-routes6-in seq 10 permit 2001:700:2:8302::/64'
   - 'spine-routes6-in seq 20 deny any'
   - 'spine-routes6-out seq 10 permit fd00:192:168:224::/64'
   - 'spine-routes6-out seq 250 deny any'
-
-frrouting::frrouting::bgp_vrf_options:
-  'netapp':
-    'address_family4_unicast':
-      - 'redistribute connected'
-      - 'import vrf route-map netapp-allow'
-      - 'import vrf default'
+#  - 'lhc-routes6-out seq 5 permit 2001:948:62:3::/64'
+#  - 'lhc-routes6-out seq 6 permit 2001:948:62:4::/64'
+  - 'lhc-routes6-out seq 10 deny any'
+  - 'lhc-routes6-in seq 5 permit any'
+  - 'lhc-routes6-in seq 10 deny any'
+#  - 'iaas-routes-in seq 5 permit 2001:948:62:3::/64'
+#  - 'iaas-routes-in seq 6 permit 2001:948:62:4::/64'
+#  - 'iaas-routes-in seq 7 permit 2001:948:62:1::/64'
+#  - 'iaas-routes-in seq 10 deny any'
+#  - 'iaas-routes-out seq 10 deny any'
 
 frrouting::frrouting::bgp_route_maps:
   'netapp-allow permit 10':
     - 'match ip address 30'
+  'failover-lhc-routes permit 10':
+    - 'description routes from leaf-v2 neighbor is last resort'
+    - 'match ip address prefix-list lhc-routes-in'
+    - 'set local-preference 0'
+    - 'set weight 0'
+  'failover-lhc-routes6 permit 10':
+    - 'description routes from leaf-v2 neighbor is last resort'
+    - 'match ipv6 address prefix-list lhc-routes-in'
+    - 'set local-preference 0'
+    - 'set weight 0'
+  'primary-lhc-uplink permit 10':
+    - 'description best uplink'
+    - 'match ip address prefix-list lhc-routes-in'
+    - 'set local-preference 400'
+  'primary-lhc-uplink6 permit 10':
+    - 'description best uplink'
+    - 'match ipv6 address prefix-list lhc-routes-in'
+    - 'set local-preference 400'
+  'secondary-lhc-uplink permit 10':
+    - 'description best uplink'
+    - 'match ip address prefix-list lhc-routes-in'
+    - 'set local-preference 200'
+  'secondary-lhc-uplink6 permit 10':
+    - 'description best uplink'
+    - 'match ipv6 address prefix-list lhc-routes-in'
+    - 'set local-preference 200'
