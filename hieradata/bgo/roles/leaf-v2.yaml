@@ -75,6 +75,7 @@ ntp::interfaces: [ 'eth0' ]
 
 frrouting::zebra:                 true
 frrouting::bgpd:                  true
+frrouting::pbrd:                  true
 frrouting::single_config_file:    true
 frrouting::frrouting::hostname:   'cumulus-test'
 frrouting::frrouting::password:   'pass123'
@@ -585,6 +586,9 @@ frrouting::frrouting::zebra_interfaces:
   'bridge.100':
     - 'link-detect'
     - 'description linux-bridge-100'
+    - 'pbr-policy lhc'
+  'bridge-100-v0':
+    - 'pbr-policy lhc'
   'host17':
     - 'link-detect'
   'host18':
@@ -783,3 +787,14 @@ frrouting::frrouting::bgp_route_maps:
     - 'description best uplink'
     - 'match ipv6 address prefix-list lhc-routes6-in'
     - 'set local-preference 200'
+
+frrouting::frrouting::pbr_maps:
+  'lhc seq 10':
+    - 'match src-ip 109.105.127.128/26'
+    - 'set nexthop bridge.4093 nexthop-vrf lhcopn'
+  'lhc seq 20':
+    - 'match src-ip 2001:948:62:3::/64'
+    - 'set nexthop bridge.4093 nexthop-vrf lhcopn'
+  'lhc seq 30':
+    - 'match src-ip 2001:948:62:4::/64'
+    - 'set nexthop bridge.4093 nexthop-vrf lhcopn'
