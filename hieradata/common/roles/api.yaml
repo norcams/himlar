@@ -168,7 +168,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
         - 'scheme https if !{ ssl_fc } !is_request' # redirect all to https (only port 80)
       - tcp-request:    "%{hiera('block_api_connection')}" # should only block in test01
       # Uncomment this to restrict access to testing network only
-      - use_backend:    'bk_maintenance unless { src -f /etc/haproxy/testing_network.list }'
+      #- use_backend:    'bk_maintenance unless { src -f /etc/haproxy/testing_network.list }'
       #
       - http-request:
         - 'add-header X-Forwarded-Proto https if { ssl_fc }'
