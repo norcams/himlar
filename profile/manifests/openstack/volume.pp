@@ -8,6 +8,7 @@ class profile::openstack::volume(
   include ::cinder::client
   include ::cinder::config
   include ::cinder::logging
+  include ::cinder::keystone::service_user
 
   if $notify_service {
     # This will make sure httpd service will be restarted on config changes

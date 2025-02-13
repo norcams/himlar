@@ -11,16 +11,17 @@ include:
     - profile::webserver::apache::status
     - profile::storage::cephclient
 
+openstack_version: 'xena'
+
 profile::base::common::packages:
   # we need newer version of six to avoid breaking requests and openstack cli
   'python3-six.noarch': { ensure: latest }
-  'python2-oslo-policy': {}
-  'python2-keystonemiddleware': {}
+  'python3-oslo-policy': {}
+  'python3-keystonemiddleware': {}
   'bash-completion': {}
-  'bash-completion-extras': {}
   'jq': {}
   'openstack-selinux': {}
-  'python-memcached': {}
+  'python3-memcached': {}
 
 profile::base::selinux::manage_selinux:   true
 profile::openstack::openrc::password:     "%{hiera('cinder_api_password')}"
@@ -84,14 +85,11 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   ceph-%{hiera('ceph_version')}-noarch:
     ensure: present
-  CentOS-PowerTools: # FIXME: remove when CentOS 8 is gone
-    ensure: present
   AlmaLinux-PowerTools:
     ensure: present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
-    includepkgs: 'thrift htop bash-completion-extras lttng-ust userspace-rcu libbabeltrace leveldb liboath fmt python3-cherrypy python3-zc-lockfile python3-portend python3-cheroot python3-trustme python3-tempora python3-jaraco-functools python3-jaraco'
-    #includepkgs: 'htop bash-completion-extras lttng-ust userspace-rcu libbabeltrace leveldb liboath py-bcrypt python2-bcrypt python36-prettytable python36-requests python36-pyOpenSSL python36-bcrypt python36-six python36-PyYAML python36-dateutil python36-cryptography python36-urllib3 python36-chardet python36-cffi python36-idna python36-pysocks python36-pycparser python36-ply python36-asn1crypto python3-httplib2 fmt python3-cherrypy python3-zc-lockfile python3-portend python3-cheroot python3-trustme python3-tempora python3-jaraco-functools python3-jaraco'
+    includepkgs: 'thrift htop lttng-ust userspace-rcu libbabeltrace leveldb liboath fmt python3-cherrypy python3-zc-lockfile python3-portend python3-cheroot python3-trustme python3-tempora python3-jaraco-functools python3-jaraco'
 
 # Volume nodes need only cinder and glance keys
 ceph::profile::params::client_keys:
