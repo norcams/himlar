@@ -150,6 +150,7 @@ nova::compute::rbd::rbd_keyring:                 'client.cinder'
 nova::compute::rbd::ephemeral_storage:           false
 nova::compute::rbd::manage_ceph_client:          false
 # Update when all computes are upgraded
+
 nova::upgrade_level_compute:                     'wallaby'
 
 # Live Migration settings
