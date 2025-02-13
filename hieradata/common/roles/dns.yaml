@@ -7,9 +7,14 @@ include:
     - profile::openstack::openrc
     - profile::dns::rndc_key
 
+openstack_version: 'xena'
+
+# WSGI config
+# https://github.com/openstack/puppet-designate/blob/unmaintained/xena/manifests/wsgi/apache.pp
+designate::wsgi::apache::workers:   4
+
 profile::network::interface::manage_dummy:         true
 profile::network::interface::create_custom_routes: true
-profile::base::network::manage_dummy:        true # FIXME; remove when el7 is gone
 
 profile::dns::rndc_key::create_admin_key:    false
 profile::dns::rndc_key::create_mdns_key:     true
@@ -39,9 +44,7 @@ profile::openstack::designate::ns_sources_ipv4:
 
 # Some extra packages we want installed
 profile::base::common::packages:
-  'python2-openstackclient': {} # FIXME: remove when el7 is gone
   'python3-openstackclient': {}
-  'python2-designateclient': {} # FIXME: remove when el7 is gone
   'python3-designateclient': {}
   'openstack-utils': {}
   'openstack-selinux': {}

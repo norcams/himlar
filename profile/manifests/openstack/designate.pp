@@ -11,6 +11,7 @@ class profile::openstack::designate (
   include ::designate::worker
   include ::designate::producer
   include ::designate::quota
+  include ::designate::wsgi::apache
 
   $bind_servers = lookup('profile::openstack::designate::bind_servers', Hash, 'first', {})
 
