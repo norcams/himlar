@@ -75,6 +75,7 @@ ntp::interfaces: [ 'eth0' ]
 
 frrouting::zebra:                 true
 frrouting::bgpd:                  true
+frrouting::pbrd:                  true
 frrouting::single_config_file:    true
 frrouting::frrouting::hostname:   'cumulus-test'
 frrouting::frrouting::password:   'pass123'
@@ -575,7 +576,7 @@ profile::base::network::cumulus_bridges:
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'true'
-    'vids': [ '100', '110', '120', '130', '300', ]
+    'vids': [ '100', '110', '120', '130', '300', '4093', ]
     'mtu': '9216'
 
 frrouting::frrouting::zebra_interfaces:
@@ -585,6 +586,9 @@ frrouting::frrouting::zebra_interfaces:
   'bridge.100':
     - 'link-detect'
     - 'description linux-bridge-100'
+    - 'pbr-policy lhc'
+  'bridge-100-v0':
+    - 'pbr-policy lhc'
   'host17':
     - 'link-detect'
   'host18':
@@ -689,30 +693,108 @@ frrouting::frrouting::bgp_accesslist:
   '30':
     - 'seq 10 permit 158.37.64.0/24'
     - 'seq 250 deny 0.0.0.0/0'
+  '40':
+    - 'seq 15 permit 109.105.127.128/26'
+    - 'seq 16 permit 10.109.0.0/20'
+    - 'seq 250 deny 0.0.0.0/0'
 
 frrouting::frrouting::bgp_accesslist6:
   '10':
     - 'seq 10 permit fd00:192:168:224::/64'
     - 'seq 250 deny ::/0'
+  '40':
+    - 'seq 15 permit 2001:948:62:3::/64'
+    - 'seq 16 permit 2001:948:62:4::/64'
+    - 'seq 250 deny ::/0'
+
+frrouting::frrouting::bgp_networks6:
+  - 'fd00:192:268:224::/64'
 
 frrouting::frrouting::bgp_ip_prefix_list:
   - 'spine-routes-in seq 10 permit 158.37.64.0/24 le 32'
+  - 'spine-routes-in seq 15 permit 109.105.127.128/26 le 32'
+  - 'spine-routes-in seq 16 permit 10.109.0.0/20 le 32'
   - 'spine-routes-in seq 20 deny any'
   - 'spine-routes-out seq 10 permit 192.168.224.0/24'
   - 'spine-routes-out seq 250 deny any'
+#  - 'lhc-routes-out seq 5 permit 109.105.127.128/26'
+  - 'lhc-routes-out seq 10 deny any'
+  - 'lhc-routes-in seq 5 permit any'
+  - 'lhc-routes-in seq 10 deny any'
 frrouting::frrouting::bgp_ipv6_prefix_list:
-  - 'spine-routes6-in seq 10 permit 2001:700:2:8302::/64'
+  - 'spine-routes6-in seq 10 permit 2001:700:2:8302::/64 le 128'
+  - 'spine-routes6-in seq 15 permit 2001:948:62:3::/64 le 128'
+  - 'spine-routes6-in seq 16 permit 2001:948:62:4::/64 le 128'
   - 'spine-routes6-in seq 20 deny any'
   - 'spine-routes6-out seq 10 permit fd00:192:168:224::/64'
   - 'spine-routes6-out seq 250 deny any'
+#  - 'lhc-routes6-out seq 5 permit 2001:948:62:3::/64'
+#  - 'lhc-routes6-out seq 6 permit 2001:948:62:4::/64'
+  - 'lhc-routes6-out seq 10 deny any'
+  - 'lhc-routes6-in seq 5 permit any'
+  - 'lhc-routes6-in seq 10 deny any'
 
-frrouting::frrouting::bgp_vrf_options:
-  'netapp':
-    'address_family4_unicast':
-      - 'redistribute connected'
-      - 'import vrf route-map netapp-allow'
-      - 'import vrf default'
+frrouting::frrouting::bgp_generic_options:
+  - 'bgp as-path access-list cern permit ^65504'
+  - 'bgp as-path access-list sikt permit ^224'
 
 frrouting::frrouting::bgp_route_maps:
   'netapp-allow permit 10':
     - 'match ip address 30'
+  'lhcopn-allow permit 10':
+    - 'match ip address 40'
+  'lhcopn-allow6 permit 10':
+    - 'match ipv6 address 40'
+  'failover-lhc-routes permit 10':
+    - 'description have less preference for sikt routes from leaf'
+    - 'match as-path sikt'
+    - 'set local-preference 150'
+    - 'on-match next'
+  'failover-lhc-routes permit 20':
+    - 'description prefer cern routes from leaf neigh more than sikt routes from any source'
+    - 'match as-path cern'
+    - 'set local-preference 300'
+    - 'on-match next'
+  'failover-lhc-routes permit 30':
+    - 'description use routes from leaf-v2 neighbor if a local peering goes down'
+    - 'match ip address prefix-list lhc-routes-in'
+  'failover-lhc-routes6 permit 10':
+    - 'description have less preference for sikt routes from leaf'
+    - 'match as-path sikt'
+    - 'set local-preference 150'
+    - 'on-match next'
+  'failover-lhc-routes6 permit 20':
+    - 'description prefer cern routes from leaf neigh more than sikt routes from any source'
+    - 'match as-path cern'
+    - 'set local-preference 300'
+    - 'on-match next'
+  'failover-lhc-routes6 permit 30':
+    - 'description use routes from leaf-v2 neighbor if a local peering goes down'
+    - 'match ipv6 address prefix-list lhc-routes6-in'
+  'primary-lhc-uplink permit 10':
+    - 'description best uplink'
+    - 'match ip address prefix-list lhc-routes-in'
+    - 'set local-preference 400'
+  'primary-lhc-uplink6 permit 10':
+    - 'description best uplink'
+    - 'match ipv6 address prefix-list lhc-routes6-in'
+    - 'set local-preference 400'
+  'secondary-lhc-uplink permit 10':
+    - 'description best uplink'
+    - 'match ip address prefix-list lhc-routes-in'
+    - 'set local-preference 200'
+  'secondary-lhc-uplink6 permit 10':
+    - 'description best uplink'
+    - 'match ipv6 address prefix-list lhc-routes6-in'
+    - 'set local-preference 200'
+
+frrouting::frrouting::pbr_maps:
+  'lhc seq 10':
+    - 'match src-ip 109.105.127.128/26'
+    - 'set nexthop bridge.4093 nexthop-vrf lhcopn'
+  'lhc seq 20':
+    - 'match src-ip 2001:948:62:3::/64'
+    - 'set nexthop bridge.4093 nexthop-vrf lhcopn'
+  'lhc seq 30':
+    - 'match src-ip 2001:948:62:4::/64'
+    - 'set nexthop bridge.4093 nexthop-vrf lhcopn'

@@ -16,10 +16,6 @@ profile::openstack::volume::type:
     is_public: false
     properties:
       - 'volume_backend_name=mass-storage-ssd'
-  mass-storage-dcache-temp-slow:
-    is_public: false
-    properties:
-      - 'volume_backend_name=mass-storage-dcache8'
   mass-storage-dcache:
     is_public: false
     properties:
@@ -79,20 +75,6 @@ profile::openstack::volume::backend::rbd:
         value: 'False'
       mass-storage-ssd/max_over_subscription_ratio:
         value: '1000.0'
-  mass-storage-dcache8:
-    rbd_pool: 'dcache_hdd_ec_meta8'
-    rbd_user: 'cinder-dcache-hdd-ec8'
-    rbd_flatten_volume_from_snapshot: 'True'
-    rbd_secret_uuid: "%{hiera('libvirt_rbd_secret_uuid')}"
-    extra_options:
-      mass-storage-dcache8/enable_deferred_deletion:
-        value: 'True'
-      mass-storage-dcache8/rbd_exclusive_cinder_pool:
-        value: 'True'
-      mass-storage-dcache8/report_dynamic_total_capacity:
-        value: 'False'
-      mass-storage-dcache8/max_over_subscription_ratio:
-        value: '5600.0'
   dcache-hdd-ec82:
     rbd_pool: 'dcache_hdd_ec82_meta'
     rbd_user: 'cinder-dcache-hdd-ec82'
@@ -115,5 +97,4 @@ cinder::backends::enabled_backends:
   - mass-storage-default
   - mass-storage-dcache
   - mass-storage-ssd
-  - mass-storage-dcache8
   - dcache-hdd-ec82
