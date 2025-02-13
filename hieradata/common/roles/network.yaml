@@ -9,6 +9,8 @@ include:
     - profile::logging::rsyslog::client
     - profile::base::systemd
 
+openstack_version: 'xena'
+
 etcd::proxy: "off"
 etcd::initial_cluster_state: 'new'
 etcd::initial_cluster_token: 'etcd-cluster'
@@ -26,13 +28,11 @@ profile::base::common::packages:
   # we need newer version of six to avoid breaking requests and openstack cli
   'python3-six.noarch': { ensure: latest }
   'bash-completion': {}
-  'bash-completion-extras': {} # FIXME: remove when el7 is gone
   'jq': {}
   'gcc-c++': {}
   'openstack-selinux': {}
-  'python-etcd3gw': {}         # FIXME: remove when el7 is gone
   'python3-etcd3gw': {}
-  'python-memcached': {}       # FIXME: remove when el7 is gone
+  'python3-memcached': {}
   'libibverbs': {}
   'make': {} # for sensu gem
 
@@ -82,15 +82,13 @@ profile::base::yumrepo::repo_hash:
     ensure: absent
   calico%{hiera('calico_version')}:
     ensure: present
-  CentOS-PowerTools: # FIXME: remove when CentOS 8 is gone
-    ensure: present
   CentOs-nfv-Openvswitch:
     ensure: present
   AlmaLinux-PowerTools:
     ensure: present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
-    includepkgs: 'htop bash-completion-extras python2-bcrypt' # FIXME remove non el8 packages when el7 is gone
+    includepkgs: 'htop'
 
 # logrotate
 # 2022-01-07 (mikaeld): some issue on network nodes, especially in OSL, have the effect that one of the nodes
