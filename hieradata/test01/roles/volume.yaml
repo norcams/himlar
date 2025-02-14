@@ -24,6 +24,8 @@ profile::openstack::volume::backend::rbd:
         value: 'True'
       rbd-volumes/rbd_exclusive_cinder_pool:
         value: 'True'
+      rbd-volumes/backend_host:
+        value: 'rbd:volumes'
   mass-storage-default:
     rbd_pool: 'volumes_hdd_ec_meta'
     rbd_user: 'cinder-hdd-ec'
@@ -38,6 +40,8 @@ profile::openstack::volume::backend::rbd:
         value: 'False'
       mass-storage-default/max_over_subscription_ratio:
         value: '2000.0'
+      rbd-volumes/backend_host:
+        value: 'rbd:volumes_hdd_ec_meta'
   mass-storage-ssd:
     rbd_pool: 'volumes_ssd_ec_meta'
     rbd_user: 'cinder-ssd-ec'
@@ -52,6 +56,8 @@ profile::openstack::volume::backend::rbd:
         value: 'False'
       mass-storage-ssd/max_over_subscription_ratio:
         value: '100.0'
+      rbd-volumes/backend_host:
+        value: 'rbd:volumes_ssd_ec_meta'
 
 cinder::api::default_volume_type: 'mass-storage-default'
 
