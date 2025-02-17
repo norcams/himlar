@@ -7,8 +7,6 @@ include:
     - profile::openstack::cache
     - profile::base::systemd
 
-openstack_version: 'xena'
-
 named_interfaces::config:
   mgmt:
     - eth0
