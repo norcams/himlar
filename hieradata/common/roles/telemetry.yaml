@@ -4,8 +4,6 @@ include:
     - profile::openstack::openrc
     - profile::openstack::telemetry
 
-openstack_version: 'xena'
-
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   rdo-release:
