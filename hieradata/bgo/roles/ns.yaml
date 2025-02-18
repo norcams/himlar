@@ -108,9 +108,9 @@ profile::dns::ns::ptr_zones:
     origin: "64.37.158.in-addr.arpa"
     filename: "sz/64.37.158.in-addr.arpa"
   ipv6:
-    cidr: "2001:700:2:83ff::/64"
-    origin: "f.f.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa"
-    filename: "pz/f.f.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa"
+    cidr: "2001:700:2:8300::/56"
+    origin: "0.0.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa"
+    filename: "pz/0.0.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa"
   ipv6_lhc1:
     cidr: "2001:948:62:4::/64"
     origin: "4.0.0.0.2.6.0.0.8.4.9.0.1.0.0.2.ip6.arpa"
@@ -224,6 +224,6 @@ profile::dns::ns::ptr_slave_zones:
     origin: "66.37.158.in-addr.arpa"
     filename: "sz/66.37.158.in-addr.arpa"
   osl_ipv6:
-    cidr: "2001:700:2:82ff::/64"
-    origin: "f.f.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa"
-    filename: "sz/f.f.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa"
+    cidr: "2001:700:2:8200::/56"
+    origin: "0.0.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa"
+    filename: "sz/0.0.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa"
