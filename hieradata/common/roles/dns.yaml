@@ -7,8 +7,6 @@ include:
     - profile::openstack::openrc
     - profile::dns::rndc_key
 
-openstack_version: 'xena'
-
 # WSGI config
 # https://github.com/openstack/puppet-designate/blob/unmaintained/xena/manifests/wsgi/apache.pp
 designate::wsgi::apache::workers:   4
