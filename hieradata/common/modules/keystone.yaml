@@ -2,7 +2,7 @@
 keystone::db::mysql::allowed_hosts:
   - "%{hiera('netcfg_trp_netpart')}.%"
 
-keystone::database_connection:            "mysql+pymysql://keystone:%{hiera('keystone::db::mysql::password')}@%{hiera('service__address__db_global')}/keystone"
+keystone::db::database_connection:        "mysql+pymysql://keystone:%{hiera('keystone::db::mysql::password')}@%{hiera('service__address__db_global')}/keystone"
 keystone::service_name:                   'httpd'
 keystone::admin_password:                 "%{hiera('keystone_admin_password')}"
 keystone::enable_proxy_headers_parsing:   true
