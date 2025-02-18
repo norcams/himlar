@@ -98,6 +98,7 @@ designate::db::mysql::allowed_hosts:
 # Bind9 backend (manifests/backend/bind9.pp)
 #   - runs on the DNS node
 #---------------------------------------------------------------------
+designate::backend::bind9::manage_pool:    true
 designate::backend::bind9::configure_bind: false
 designate::backend::bind9::nameservers:
   - "%{hiera('service__address__ns')}"

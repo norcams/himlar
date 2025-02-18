@@ -20,12 +20,6 @@ class profile::openstack::designate (
     mode         => '0644',
     owner        => 'root',
     group        => 'root',
-    notify       => Exec['fix_designate_pools'],
-  }
-  exec { 'fix_designate_pools':
-    command     => '/usr/bin/designate-manage pool update --file /etc/designate/pools.yaml',
-    refreshonly => true,
-    require     => Class[designate::db::sync],
   }
 
   package { 'bind':
