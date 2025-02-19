@@ -151,11 +151,10 @@ profile::openstack::object::radosgw::keystone:
 
 profile::logging::logrotate::rules:
   ceph:
-    ensure:         absent
-  hourly:
     path:           '/var/log/ceph/*.log'
     rotate:         7
-    size:           500M
+    rotate_every:   'hour'
+    size:           400M
     postrotate:     'killall -q -1 ceph-mon ceph-mgr ceph-mds ceph-osd ceph-fuse radosgw rbd-mirror cephfs-mirror || pkill -1 -x "ceph-mon|ceph-mgr|ceph-mds|ceph-osd|ceph-fuse|radosgw|rbd-mirror|cephfs-mirror" || true'
     sharedscripts:  true
     missingok:      true
