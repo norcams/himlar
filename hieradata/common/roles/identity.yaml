@@ -53,6 +53,7 @@ profile::openstack::identity::keystone_config:
     value:  '900'
   'security_compliance/lockout_failure_attempts':
     value:  '10'
+  # can be configured properly from 2024.2 onwards
   'identity/max_password_length':
     value:  '54'
 
