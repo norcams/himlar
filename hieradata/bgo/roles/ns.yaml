@@ -103,8 +103,12 @@ profile::dns::ns::ptr_zones:
     cidr: "158.39.201.0/24"
     origin: "201.39.158.in-addr.arpa"
     filename: "pz/201.39.158.in-addr.arpa"
-  bgo_public05:
-    cidr: "158.37.64.0/23"
+  public04:
+    cidr: "158.37.65.0/24"
+    origin: "65.37.158.in-addr.arpa"
+    filename: "sz/65.37.158.in-addr.arpa"
+  public05_uib:
+    cidr: "158.37.64.0/24"
     origin: "64.37.158.in-addr.arpa"
     filename: "sz/64.37.158.in-addr.arpa"
   ipv6:
