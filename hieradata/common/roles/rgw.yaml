@@ -151,6 +151,8 @@ profile::openstack::object::radosgw::keystone:
 
 profile::logging::logrotate::rules:
   ceph:
+    ensure:         absent
+  hourly:
     path:           '/var/log/ceph/*.log'
     rotate:         7
     size:           500M
