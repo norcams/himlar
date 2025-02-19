@@ -160,6 +160,7 @@ profile::logging::logrotate::rules:
     missingok:      true
     compress:       true
     su:             true
+    create_mode:    '0640'
     su_group:       'ceph'
 
 # Enable extra yum repo
