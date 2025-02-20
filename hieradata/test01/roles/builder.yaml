@@ -1,5 +1,6 @@
 ---
 profile::base::common::manage_lvm: true
+profile::application::builder::drop_cron: true
 
 # FIXME:sensu-go
 profile::monitoring::sensu::agent::plugins:

@@ -1,5 +1,6 @@
 ---
 profile::application::builder::insecure:  true
+profile::application::builder::drop_cron: true
 profile::application::builder::flavor:    'm1.tiny' #only cirros
 profile::application::builder::images:
   'cirros':

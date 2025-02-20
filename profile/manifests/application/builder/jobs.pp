@@ -23,6 +23,9 @@ define profile::application::builder::jobs(
     $minute        = 0
 ) {
 
+  # Use this to disable all cronjobs for builder
+  $drop_cron = lookup('profile::application::builder::drop_cron', Boolean, 'first', false)
+
   file { "/home/${user}/build_scripts/${name}":
     ensure  => $ensure,
     content => template("${module_name}/application/builder/build_script.erb"),
@@ -32,7 +35,7 @@ define profile::application::builder::jobs(
     require => File["/home/${user}/build_scripts"]
   } ->
   cron { $name:
-    ensure      => $ensure,
+    ensure      => $drop_cron? { true => 'absent', default => $ensure},
     # Write to imagebuilder report
     command     => "/home/${user}/build_scripts/${name} || jq -nc '{\"result\": \"failed\"}' >> /var/log/imagebuilder/${name}-report.jsonl",
     user        => $user,
