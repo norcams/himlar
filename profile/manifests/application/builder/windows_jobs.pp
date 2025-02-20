@@ -12,6 +12,9 @@ define profile::application::builder::windows_jobs (
     $minute        = 0
 ) {
 
+  # Use this to disable all cronjobs for builder
+  $drop_cron = lookup('profile::application::builder::drop_cron', Boolean, 'first', false)
+
   file { "/home/${user}/build_scripts/${name}_wrapper":
     ensure  => $ensure,
     content => template("${module_name}/application/builder/windows_build_script_wrapper.erb"),
@@ -29,7 +32,7 @@ define profile::application::builder::windows_jobs (
     require => File["/home/${user}/build_scripts"]
   } ->
   cron { $name:
-    ensure      => $ensure,
+    ensure      => $drop_cron? { true => 'absent', default => $ensure},
     # Do not run unless it is Wednesday, and Write to imagebuilder report
     command     => "test $(date +\%u) -eq 3 && /home/${user}/build_scripts/${name}_wrapper",
     user        => $user,
