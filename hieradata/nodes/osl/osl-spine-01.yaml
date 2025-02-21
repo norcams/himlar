@@ -95,6 +95,7 @@ frrouting::frrouting::bgp_networks:
   - "%{hiera('netcfg_priv_anycast_net')}/%{hiera('netcfg_priv_anycast_cidr4')}"
 frrouting::frrouting::bgp_networks6:
   - '2001:700:2:8200::/56'
+  - "%{hiera('bgp_loopback_addr6')}/128"
 
 frrouting::frrouting::bgp_options6:
   # spine-02

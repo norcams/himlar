@@ -1086,6 +1086,7 @@ frrouting::frrouting::bgp_accesslist:
 frrouting::frrouting::bgp_accesslist6:
   '10':
     - 'seq 10 permit 2001:700:2:8200::/56'
+    - "seq 36 permit %{hiera('bgp_loopback_addr6')}/128"
   '20':
     - 'seq 250 deny any'
 

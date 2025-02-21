@@ -1407,6 +1407,7 @@ frrouting::frrouting::bgp_accesslist6:
     - 'permit 2001:700:2:8300::/56'
     - 'permit 2001:948:62:3::/64'
     - 'permit 2001:948:62:4::/64'
+    - "permit %{hiera('bgp_loopback_addr6')}/128"
   '20':
     - 'deny any'
 
