@@ -1342,6 +1342,7 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'neighbor elastic_rail_b1p soft-reconfiguration inbound'
     'bgp_listen_range':
       - '10.5.0.0/20'
+      - '2001:700:2:8303::/64'
     'ip_access_list':
       - "158.39.74.253/32"
       - "10.254.253.253/32"
@@ -1360,6 +1361,7 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'neighbor elastic_rail_b1t soft-reconfiguration inbound'
     'bgp_listen_range':
       - '10.5.16.0/27'
+      - '2001:700:2:8302::/122'
     'ip_access_list':
       - "158.39.74.254/32"
       - "10.254.253.254/32"
