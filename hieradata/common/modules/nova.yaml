@@ -78,7 +78,7 @@ nova::scheduler::enabled:                                 true
 nova::scheduler::filter::scheduler_host_subset_size:      '3'
 nova::scheduler::filter::shuffle_best_same_weighed_hosts: true  # Added in stable/victoria
 nova::scheduler::filter::max_instances_per_host:          '150'
-nova::scheduler::filter::scheduler_default_filters:
+nova::scheduler::filter::scheduler_enabled_filters:
   - "NumInstancesFilter"
   - "AvailabilityZoneFilter"
   - "ComputeFilter"
