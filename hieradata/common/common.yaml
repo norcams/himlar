@@ -67,12 +67,15 @@ valid_location_environments:
 profile::base::firewall::purge_firewall: true
 
 # List of network and/or hosts from where it is possible to log in to login nodes
-allow_from_admins_network:            # FIXME: Remove 'everything' line with the commented lines below when finsihing
+allow_from_admins_network:            # FIXME: Replace the 'everything' line with the commented lines below when finishing
   - '0.0.0.0/0'
 #  - '129.177.0.0/16'                                # UiB fastnett
 #  - '129.240.0.0/16'                                # UiO fastnett
 #  - '158.39.75.246/32'                              # osl-login-02
 #  - '158.39.74.246/32'                              # bgo-login-02
+#  - '172.16.0.0/21'                                 # bgo mgmt     - either here or bgo get a full list on its own
+#  - '172.16.32.0/21'                                # osl mgmt     - either here or osl get a full list on its own
+#  - '172.28.0.0/21'                                 # test01 mgmt  - either here or test01 get a full list on its own
 
 allow_from_testing_network: # this do not merge!
   - '129.240.130.12/32'  # trond
