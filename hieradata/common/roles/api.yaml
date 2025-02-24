@@ -289,7 +289,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
   bk_request:
     options:
       - fullconn:     200
-      - redirect:         'location https://skjema.uio.no/iaas-project'
+      - redirect:         'location https://nettskjema.no/a/iaas-project'
   bk_maintenance:
     options:
       - option:       'httplog'
