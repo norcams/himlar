@@ -32,7 +32,7 @@ profile::webserver::apache::mods_enable:
   - alias
 
 profile::application::report::manage_alembic:   true
-profile::application::report::package_url:      "https://download.iaas.uio.no/nrec/rpm/report-app-2.1.1-1.el8.x86_64.rpm"
+profile::application::report::package_url:      "https://download.iaas.uio.no/nrec/rpm/report-app-2.1.2-1.el8.x86_64.rpm"
 profile::application::report::database_uri:     "mysql+pymysql://report:%{hiera('report_db_password')}@%{hiera('service__address__db_global')}/report"
 profile::application::report::debug:            true
 profile::application::report::report_api_url:   "https://%{hiera('public__address__report')}/api/v1/instance"
