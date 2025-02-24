@@ -10,7 +10,7 @@ class profile::application::report(
   $app_downloaddir    = '/opt/report-utils',
   $report_linkname    = 'report',
   $report_utils       = {},
-  $report_utils_url   = 'https://report.nrec.no/api/v1/instance'
+  $report_api_url     = 'https://report.nrec.no/api/v1/instance'
 ) {
 
   if $package_url {

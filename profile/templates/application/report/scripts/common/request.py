@@ -1,4 +1,4 @@
-url = '<%= @report_utils_url %>'
+url = '<%= @report_api_url %>'
 headers = {'Content-Type': 'application/json',
            'Accept': 'application/json'}
 
