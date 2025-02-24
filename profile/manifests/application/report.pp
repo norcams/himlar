@@ -9,7 +9,8 @@ class profile::application::report(
   $app_version        = 'v1',
   $app_downloaddir    = '/opt/report-utils',
   $report_linkname    = 'report',
-  $report_utils       = {}
+  $report_utils       = {},
+  $report_utils_url   = 'https://report.nrec.no/api/v1/instance'
 ) {
 
   if $package_url {
@@ -62,6 +63,7 @@ class profile::application::report(
       }
       # if data for main dist script is entered then make sure script exists
       if ! empty($dist_hash) {
+        # Scripts as files (also create main file!)
         if ( has_key($dist_hash, 'scripts') and ! empty($dist_hash['scripts']) ) {
           $scripts = $dist_hash['scripts']
           # iterate through every script for this distribution
@@ -75,11 +77,28 @@ class profile::application::report(
             }
             # ensure script contains configured fragments
             if ! empty($fragments)  {
-              $fragments.each | Integer $order, String $fragment | {
+              $fragments.each | Integer $index, String $fragment | {
                 concat::fragment { "${distribution}-${script_name}-${fragment}":
                   target => "${app_downloaddir}/${distribution}/${script_name}",
                   source => "puppet:///modules/${module_name}/applications/report/${fragment}",
-                  order  => $order
+                  order  => $index
+                }
+              }
+            }
+          }
+        }
+        # Script as templates
+        if ( has_key($dist_hash, 'templates') and ! empty($dist_hash['templates']) ) {
+          $templates = $dist_hash['templates']
+          # iterate through every script for this distribution
+          $templates.each | String $script_name, Array $fragments | {
+            # ensure script contains configured fragments
+            if ! empty($fragments)  {
+              $fragments.each | Integer $index, String $fragment | {
+                concat::fragment { "${distribution}-${script_name}-${fragment}":
+                  target => "${app_downloaddir}/${distribution}/${script_name}",
+                  content => template("${module_name}/application/report/scripts/${fragment}"),
+                  order  => Integer(90 + $index)
                 }
               }
             }
