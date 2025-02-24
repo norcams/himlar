@@ -21,7 +21,7 @@ profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}
   'python3-libs': {}
-  'python3.12': {}
+#  'python3.12': {}
 
 apache::default_mods:   false
 apache::mod::wsgi::wsgi_python_home: '/opt/report-app/'
