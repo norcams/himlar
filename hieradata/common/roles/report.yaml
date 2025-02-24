@@ -24,7 +24,7 @@ profile::base::common::packages:
 #  'python3.12': {}
 
 apache::default_mods:   false
-apache::mod::wsgi::wsgi_python_home: '/opt/report-app/'
+#apache::mod::wsgi::wsgi_python_home: '/opt/report-app/'
 apache::mod::wsgi::mod_path: /opt/report-app/lib/python3.6/site-packages/mod_wsgi-4.8.0-py3.6-linux-x86_64.egg/mod_wsgi/server/mod_wsgi-py36.cpython-36m-x86_64-linux-gnu.so
 apache::mod::wsgi::package_name: mod_wsgi
 profile::webserver::apache::mods_enable:
