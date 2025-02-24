@@ -21,8 +21,10 @@ profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}
   'python3-libs': {}
+  'python3.12': {}
 
 apache::default_mods:   false
+apache::mod::wsgi::wsgi_python_home: '/opt/report-app/'
 apache::mod::wsgi::mod_path: /opt/report-app/lib/python3.6/site-packages/mod_wsgi-4.8.0-py3.6-linux-x86_64.egg/mod_wsgi/server/mod_wsgi-py36.cpython-36m-x86_64-linux-gnu.so
 apache::mod::wsgi::package_name: mod_wsgi
 profile::webserver::apache::mods_enable:
@@ -36,8 +38,11 @@ profile::application::report::debug:        true
 profile::application::report::report_utils:
   'el':
     scripts:
-      report6: ['el/shebang', 'common/imports.py', 'el/imports.py', 'common/common_functions.py', 'el/check_updates.py', 'common/payload.py', 'el/updates_payload.py', 'common/request.py' ]
-      report8: ['el/shebang_8', 'common/imports.py', 'fedora/imports.py', 'common/common_functions.py', 'fedora/check_updates.py', 'common/payload.py', 'fedora/updates_payload.py', 'common/request.py' ]
+      report6: ['el/shebang', 'common/imports.py', 'el/imports.py', 'common/common_functions.py', 'el/check_updates.py', 'common/payload.py', 'el/updates_payload.py']
+      report8: ['el/shebang_8', 'common/imports.py', 'fedora/imports.py', 'common/common_functions.py', 'fedora/check_updates.py', 'common/payload.py', 'fedora/updates_payload.py' ]
+    templates:
+      report6: ['common/request.py']
+      report8: ['common/request.py']
     versions:
       7: 'report6'
       8: 'report8'
@@ -45,7 +50,9 @@ profile::application::report::report_utils:
       10: 'report8'
   'fedora':
     scripts:
-      report30: ['fedora/shebang', 'common/imports.py', 'fedora/imports.py', 'common/common_functions.py', 'fedora/check_updates.py', 'common/payload.py', 'fedora/updates_payload.py', 'common/request.py' ]
+      report30: ['fedora/shebang', 'common/imports.py', 'fedora/imports.py', 'common/common_functions.py', 'fedora/check_updates.py', 'common/payload.py', 'fedora/updates_payload.py']
+    templates:
+      report30: ['common/request.py']
     versions:
       30: 'report30'
       31: 'report30'
@@ -60,7 +67,9 @@ profile::application::report::report_utils:
       41: 'report30'
   'ubuntu':
     scripts:
-      report17: ['ubuntu/shebang', 'common/imports.py', 'ubuntu/imports.py', 'common/common_functions.py', 'ubuntu/check_updates_functions.py', 'common/payload.py', 'ubuntu/updates_payload.py', 'common/request.py' ]
+      report17: ['ubuntu/shebang', 'common/imports.py', 'ubuntu/imports.py', 'common/common_functions.py', 'ubuntu/check_updates_functions.py', 'common/payload.py', 'ubuntu/updates_payload.py']
+    templates:
+      report17: ['common/request.py']
     versions:
       17: 'report17'
       18: 'report17'
@@ -71,7 +80,9 @@ profile::application::report::report_utils:
       24: 'report17'
   'debian':
     scripts:
-      report9: ['debian/shebang', 'common/imports.py', 'debian/imports.py', 'common/common_functions.py', 'debian/check_updates_functions.py', 'common/payload.py', 'debian/updates_payload.py', 'common/request.py' ]
+      report9: ['debian/shebang', 'common/imports.py', 'debian/imports.py', 'common/common_functions.py', 'debian/check_updates_functions.py', 'common/payload.py', 'debian/updates_payload.py']
+    templates:
+      report9: ['common/request.py']
     versions:
       9:  'report9'
       10: 'report9'
