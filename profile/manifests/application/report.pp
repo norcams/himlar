@@ -6,6 +6,7 @@ class profile::application::report(
   $config_dir         = '/etc/himlar',
   $install_dir        = '/opt/report-app',
   $db_sync            = false,
+  $manage_alembic     = false,
   $app_version        = 'v1',
   $app_downloaddir    = '/opt/report-utils',
   $report_linkname    = 'report',
@@ -33,6 +34,16 @@ class profile::application::report(
     notify  => Class['apache::service']
   }
 
+  # database uri is needed and alembic.ini will be changed on new package
+  if $manage_alembic {
+    file_line { "alembic database uri":
+      ensure => present,
+      path   => "${$install_dir}/alembic.ini",
+      line   => "sqlalchemy.url = ${database_uri}",
+      match  => '^sqlalchemy.url\ \=',
+      notify => Class['apache::service']
+    }
+  }
   if $db_sync {
     exec { 'create api tables in db':
       command => "${install_dir}/bin/python ${install_dir}/db_manage.py create api && touch ${install_dir}/.api.dbsync",
@@ -43,7 +54,6 @@ class profile::application::report(
       command => "${install_dir}/bin/python ${install_dir}/db_manage.py create oauth && touch ${install_dir}/.oauth.dbsync",
       require => File["${config_dir}/production.cfg"],
       creates => "${install_dir}/.oauth.dbsync"
-
     }
   }
 
