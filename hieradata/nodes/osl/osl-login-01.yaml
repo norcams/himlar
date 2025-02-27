@@ -21,7 +21,7 @@ network::interfaces_hash:
     domain:         "%{hiera('netcfg_dns_search')} mgmt.test02.uhdc.no"
     peerdns:        'yes'
     ipv6init:       'yes'
-    ipv6addr:       '2001:700:100:8070::10/64'
+    ipv6addr:       '2001:700:100:8070::45/64'
     ipv6_defaultgw: '2001:700:100:8070::1'
   'p3p2':
     ipaddress:    '172.30.32.10'
