@@ -11,9 +11,9 @@ network::interfaces_hash:
     defroute:     'no'
     onboot:       'yes'
   'p3p1':
-    ipaddress:      '129.240.224.100'
-    netmask:        '255.255.255.224'
-    gateway:        '129.240.224.97'
+    ipaddress:      '129.240.114.45'
+    netmask:        '255.255.255.240'
+    gateway:        '129.240.114.33'
     defroute:       'yes'
     onboot:         'yes'
     dns1:           '129.240.2.3'
@@ -21,8 +21,8 @@ network::interfaces_hash:
     domain:         "%{hiera('netcfg_dns_search')} mgmt.test02.uhdc.no"
     peerdns:        'yes'
     ipv6init:       'yes'
-    ipv6addr:       '2001:700:100:8241::100/64'
-    ipv6_defaultgw: '2001:700:100:8241::1'
+    ipv6addr:       '2001:700:100:8070::45/64'
+    ipv6_defaultgw: '2001:700:100:8070::1'
   'p3p2':
     ipaddress:    '172.30.32.10'
     netmask:      '255.255.255.0'
@@ -102,4 +102,12 @@ profile::base::lvm::logical_volume:
     fs_type:      "xfs"
     mountpath:    "/home"
     size:         '30G'
+
+
+allow_from_admins_network:                # FIXME: Remove this when all login nodes use this (this is the default in common)
+  - '129.177.0.0/16'                                # UiB fastnett
+  - '129.240.0.0/16'                                # UiO fastnett
+  - '172.16.32.0/21'                                # osl mgmt
+  - '158.39.75.246/32'                              # osl-login-02
+  - '158.39.74.246/32'                              # bgo-login-02
 
