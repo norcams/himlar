@@ -205,7 +205,7 @@ sudo::purge: false
 profile::base::lvm::physical_volume:
   '/dev/sda3':
     ensure: present
-    force:  trueFuglevetetinær listen er kanskje ikke 100% oppdatert da det skal være minst en til, men dette er noen så om du ikke har noen der du er kan dem kanskje konta
+    force:  true
 profile::base::lvm::volume_group:
   'vg_ext':
     physical_volumes:
