@@ -1,4 +1,4 @@
-url = 'https://report.nrec.no/api/v1/instance'
+url = '<%= @report_api_url %>'
 headers = {'Content-Type': 'application/json',
            'Accept': 'application/json'}
 
