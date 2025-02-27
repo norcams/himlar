@@ -33,6 +33,7 @@ profile::base::common::packages:
   'python3-memcached': {}
   'libibverbs': {}
   'make': {} # for sensu gem
+  'python3-openstackclient': {}
 
 profile::openstack::openrc::password:     "%{hiera('neutron_api_password')}"
 profile::openstack::openrc::username:     'neutron'

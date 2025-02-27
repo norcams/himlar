@@ -1,10 +1,9 @@
 ---
-profile::application::report::db_sync: true
+profile::application::report::db_sync:        false
 
 # used to build report app package
 profile::base::common::packages:
   'httpd-devel': {}
-  'python39-devel': {}
   'python3-virtualenv': {}
 
 # copy of test01 - DO NOT COMMIT
@@ -20,17 +19,23 @@ profile::base::selinux::boolean:
 profile::webserver::apache::manage_firewall:  true
 profile::webserver::apache::firewall_ports:   80
 
+# Very verbose logging in vagrant
+apache::log_level:                              debug
+
 apache::default_mods:   false
-apache::mod::wsgi::mod_path: /opt/report-app/lib/python3.9/site-packages/mod_wsgi/server/mod_wsgi-py39.cpython-39-x86_64-linux-gnu.so
-apache::mod::wsgi::package_name: python39-mod_wsgi
+apache::mod::wsgi::wsgi_python_home: '/opt/report-app/'
+apache::mod::wsgi::package_name: 'python3.12-mod_wsgi'
+apache::mod::wsgi::mod_path: "/usr/lib64/python3.12/site-packages/mod_wsgi/server/mod_wsgi-py312.cpython-312-x86_64-linux-gnu.so"
 profile::webserver::apache::mods_enable:
   - wsgi
   - dir
   - alias
 
-profile::application::report::package_url:  "https://download.iaas.uio.no/nrec/nrec-internal/%{hiera('repo_dist')}/report-app-2.0.0-1.el8.x86_64.rpm"
-profile::application::report::database_uri: "mysql+pymysql://report:%{hiera('report_db_password')}@%{hiera('service__address__db_global')}/report"
-profile::application::report::debug:        true
+profile::application::report::manage_alembic:   true
+profile::application::report::package_url:      "https://download.iaas.uio.no/nrec/rpm/report-app-2.1.2-1.el8.x86_64.rpm"
+profile::application::report::database_uri:     "mysql+pymysql://report:%{hiera('report_db_password')}@%{hiera('service__address__db_global')}/report"
+profile::application::report::debug:            true
+profile::application::report::report_api_url:   "https://%{hiera('public__address__report')}/api/v1/instance"
 
 profile::webserver::apache::vhosts:
   report-app:
@@ -40,7 +45,7 @@ profile::webserver::apache::vhosts:
      - "%{hiera('public__address__report')}"
      - "report-%{::location}.%{hiera('domain_frontend')}"
      - "report-%{::location}.%{hiera('domain_frontend2')}"
-    port:               '80'
+    port:               80
     manage_docroot:     false
     docroot:            '/var/www/html'
     wsgi_application_group:  '%%{}{GLOBAL}'
@@ -48,7 +53,7 @@ profile::webserver::apache::vhosts:
     wsgi_daemon_process:     'report-app'
     wsgi_daemon_process_options:
       threads:      '4'
-      python-path:  "/opt/report-app:/opt/report-app/lib/python3.9/site-packages"
+      python-path:  "/opt/report-app:/opt/report-app/lib/python3.12/site-packages"
     wsgi_script_aliases:
       '/':   "/opt/report-app/flask.wsgi"
     aliases:

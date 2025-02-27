@@ -149,6 +149,19 @@ profile::openstack::object::radosgw::keystone:
     rgw_keystone_admin_password:      "%{hiera('radosgw_api_password')}"
     rgw_keystone_implicit_tenants:    true
 
+profile::logging::logrotate::rules:
+  ceph:
+    path:           '/var/log/ceph/*.log'
+    rotate:         7
+    rotate_every:   'hour'
+    size:           400M
+    postrotate:     'killall -q -1 ceph-mon ceph-mgr ceph-mds ceph-osd ceph-fuse radosgw rbd-mirror cephfs-mirror || pkill -1 -x "ceph-mon|ceph-mgr|ceph-mds|ceph-osd|ceph-fuse|radosgw|rbd-mirror|cephfs-mirror" || true'
+    sharedscripts:  true
+    missingok:      true
+    compress:       true
+    su:             true
+    su_group:       'ceph'
+
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   ceph-%{hiera('ceph_version')}:

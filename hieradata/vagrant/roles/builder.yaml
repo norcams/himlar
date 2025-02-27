@@ -1,5 +1,6 @@
 ---
 profile::application::builder::insecure:  true
+profile::application::builder::drop_cron: true
 profile::application::builder::flavor:    'm1.tiny' #only cirros
 profile::application::builder::images:
   'cirros':
@@ -39,13 +40,12 @@ profile::monitoring::sensu::agent::checks:
       check-imagebuild/args/centosstream10: "-d centosstream10"
       check-imagebuild/args/debian11: "-d debian11"
       check-imagebuild/args/debian12: "-d debian12"
-      check-imagebuild/args/fedora_40: "-d fedora_40"
       check-imagebuild/args/fedora_41: "-d fedora_41"
       check-imagebuild/args/rockylinux8: "-d rockylinux8"
       check-imagebuild/args/rockylinux9: "-d rockylinux9"
-      check-imagebuild/args/ubuntu_2004: "-d ubuntu_2004"
-      check-imagebuild/args/ubuntu_2004_nv_vgpu: "-d ubuntu_2004_nv_vgpu"
       check-imagebuild/args/ubuntu_2204: "-d ubuntu_2204"
       check-imagebuild/args/ubuntu_2204_nv_vgpu: "-d ubuntu_2204_nv_vgpu"
+      check-imagebuild/args/ubuntu_2404: "-d ubuntu_2404"
+      check-imagebuild/args/ubuntu_2404_nv_vgpu: "-d ubuntu_2404_nv_vgpu"
       check-imagebuild/args/uio_rhel8: "-d uio_rhel8"
       check-imagebuild/args/uio_rhel9: "-d uio_rhel9"
