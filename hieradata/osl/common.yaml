@@ -581,8 +581,8 @@ profile::openstack::resource::subnets:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'uio_IPv6'
     tenant_name: 'openstack'
-  uio1_IPv6:
-    name: 'uio1_IPv6'
+  uio_public1_IPv6:
+    name: 'uio_public1_IPv6'
     cidr: '2001:700:2:8205::/64'
     ip_version: '6'
     allocation_pools:
