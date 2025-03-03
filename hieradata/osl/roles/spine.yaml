@@ -1064,6 +1064,7 @@ frrouting::frrouting::bgp_accesslist:
     - 'seq 10 permit 158.39.48.0 0.0.0.255'
     - 'seq 15 permit 158.39.75.0 0.0.0.255'
     - 'seq 20 permit 158.39.200.0 0.0.0.255'
+    - 'seq 23 permit 78.91.122.0 0.0.1.255'
     - 'seq 25 permit 10.2.0.0 0.0.15.255'
     - 'seq 30 permit 10.4.0.0 0.0.15.255'
     - 'seq 35 permit 10.6.0.0/19'
@@ -1077,6 +1078,7 @@ frrouting::frrouting::bgp_accesslist:
     - 'seq 10 deny 158.39.48.0 0.0.0.255'
     - 'seq 15 deny 158.39.75.0 0.0.0.255'
     - 'seq 20 deny 158.39.200.0 0.0.0.255'
+    - 'seq 23 deny 78.91.122.0 0.0.1.255'
     - 'seq 25 deny 10.2.0.0 0.0.15.255'
     - 'seq 30 deny 10.4.0.0 0.0.15.255'
     - 'seq 35 deny 10.6.0.0/19'
@@ -1086,6 +1088,7 @@ frrouting::frrouting::bgp_accesslist:
 frrouting::frrouting::bgp_accesslist6:
   '10':
     - 'seq 10 permit 2001:700:2:8200::/56'
+    - 'seq 15 permit 2001:700:2:8c00::/59'
     - "seq 36 permit %{hiera('bgp_loopback_addr6')}/128"
   '20':
     - 'seq 250 deny any'
@@ -1095,6 +1098,7 @@ frrouting::frrouting::bgp_ip_prefix_list:
   - 'routes-to-leaf1 seq 5 permit 0.0.0.0/0'
   - 'uninett-routes-in seq 5 permit any'
   - 'uninett-routes-in seq 10 deny any'
+  - 'uninett-routes-out seq 4 permit 78.91.122.0/23'
   - 'uninett-routes-out seq 5 permit 158.37.63.0/24'
   - 'uninett-routes-out seq 6 permit 158.37.66.0/24'
   - 'uninett-routes-out seq 7 permit 158.39.48.0/24'
@@ -1107,6 +1111,7 @@ frrouting::frrouting::bgp_ipv6_prefix_list:
   - 'routes-from-leaf1 seq 5 deny any'
   - 'uninett-routes6-in seq 5 permit any'
   - 'uninett-routes6-in seq 10 deny any'
+  - 'uninett-routes6-out seq 4 permit 2001:700:2:8c00::/59'
   - 'uninett-routes6-out seq 5 permit 2001:700:2:8200::/56'
   - 'uninett-routes6-out seq 10 deny any'
   - 'default-route6 seq 5 permit ::/0'
