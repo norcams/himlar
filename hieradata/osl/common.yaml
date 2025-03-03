@@ -559,8 +559,8 @@ profile::openstack::resource::subnets:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'educloud1'
     tenant_name: 'openstack'
-  educloud1_IPv6:
-    name: 'educloud1_IPv6'
+  educloud_public1_IPv6:
+    name: 'educloud_public1_IPv6'
     cidr: '2001:700:2:8204::/64'
     ip_version: '6'
     allocation_pools:
