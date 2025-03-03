@@ -429,6 +429,12 @@ profile::openstack::resource::networks:
     shared: false
     tenant_name: 'openstack'
     provider_network_type: 'local'
+  uio_dualStack:
+    name: 'uio_IPv6'
+    admin_state_up: true
+    shared: false
+    tenant_name: 'openstack'
+    provider_network_type: 'local'
   uio_IPv6:
     name: 'uio_IPv6'
     admin_state_up: true
@@ -570,6 +576,28 @@ profile::openstack::resource::subnets:
       - "%{hiera('netcfg_anycast_dns6')}"
     network_name: 'educloud_IPv6'
     tenant_name: 'openstack'
+  uio_public1_IPv4:
+    name: 'uio_public1_IPv4'
+    cidr: '78.91.122.0/23'
+    ip_version: '4'
+    allocation_pools:
+      - 'start=78.91.122.4,end=78.91.123.254'
+    gateway_ip: '78.91.122.1'
+    dns_nameservers:
+      - "%{hiera('netcfg_anycast_dns')}"
+    network_name: 'uio_dualStack'
+    tenant_name: 'openstack'
+  uio_public1_IPv6:
+    name: 'uio_public1_IPv6'
+    cidr: '2001:700:2:8c00::/64'
+    ip_version: '6'
+    allocation_pools:
+      - 'start=2001:700:2:8c00::1000,end=2001:700:2:8c00::1fff'
+    gateway_ip: '2001:700:2:8c00::1'
+    dns_nameservers:
+      - "%{hiera('netcfg_anycast_dns6')}"
+    network_name: 'uio_dualStack'
+    tenant_name: 'openstack'
   uio_private1_IPv4:
     name: 'uio_private1_IPv4'
     cidr: '10.6.0.0/20'
@@ -581,13 +609,13 @@ profile::openstack::resource::subnets:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'uio_IPv6'
     tenant_name: 'openstack'
-  uio_public1_IPv6:
-    name: 'uio_public1_IPv6'
-    cidr: '2001:700:2:8205::/64'
+  uio_public2_IPv6:
+    name: 'uio_public2_IPv6'
+    cidr: '2001:700:2:8c01::/64'
     ip_version: '6'
     allocation_pools:
-      - 'start=2001:700:2:8205::1000,end=2001:700:2:8205::4fff'
-    gateway_ip: '2001:700:2:8205::1'
+      - 'start=2001:700:2:8c01::1000,end=2001:700:2:8c01::4fff'
+    gateway_ip: '2001:700:2:8c01::1'
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns6')}"
     network_name: 'uio_IPv6'
