@@ -7,13 +7,13 @@
 profile::base::common::extraswap:         true
 profile::base::common::extraswap_sizegb:  10
 
-# Nover overrides
+# Nova overrides
 #
 # vgpu requirements: 32 GB, 4 vCPU, 20 GB per vGPU installed
 #
-nova::cpu_allocation_ratio:               4
-nova::disk_allocation_ratio:              2
-nova::ram_allocation_ratio:               1.2
+nova::cpu_allocation_ratio:  '4'
+nova::disk_allocation_ratio: '1'
+nova::ram_allocation_ratio:  '1'
 
 # Set trait to empty string by default
 profile::application::create_mdev::trait: ''
