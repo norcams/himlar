@@ -590,8 +590,8 @@ profile::openstack::resource::subnets:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'lhc-IPv6'
     tenant_id: '2eb4ee7df70f4d56999c5945fafb1781'
-  educloud1_IPv4:
-    name: 'educloud1_IPv4'
+  educloud_private1_IPv4:
+    name: 'educloud_private1_IPv4'
     cidr: '10.3.0.0/20'
     ip_version: '4'
     allocation_pools:
@@ -601,13 +601,13 @@ profile::openstack::resource::subnets:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'educloud1'
     tenant_name: 'openstack'
-  educloud1_IPv6:
-    name: 'educloud1_IPv6'
-    cidr: '2001:700:2:8304::/64'
+  educloud_public1_IPv6:
+    name: 'educloud_public1_IPv6'
+    cidr: '2001:700:2:8c24::/64'
     ip_version: '6'
     allocation_pools:
-      - 'start=2001:700:2:8304::1000,end=2001:700:2:8304::4fff'
-    gateway_ip: '2001:700:2:8304::1'
+      - 'start=2001:700:2:8c24::1000,end=2001:700:2:8c24::4fff'
+    gateway_ip: '2001:700:2:8c24::1'
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns6')}"
     network_name: 'educloud1'
