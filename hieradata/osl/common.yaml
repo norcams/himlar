@@ -86,7 +86,7 @@ netcfg_dns_search:        "%{hiera('domain_mgmt')} %{hiera('domain_trp')}"
 netcfg_priv_gateway:      '172.18.32.26'
 netcfg_priv_network:      '10.2.0.0/20'
 netcfg_educloud1_network: '10.4.0.0/20'
-netcfg_uio_priv1_network: '10.6.0.0/20'
+netcfg_uio_priv1_network: '10.8.0.0/20'
 netcfg_pub_natgw:         '158.37.63.248'
 netcfg_pub_natgw2:        '158.39.75.248'
 netcfg_anycast_dns:       '158.37.63.252'
