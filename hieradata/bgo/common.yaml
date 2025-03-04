@@ -631,11 +631,11 @@ profile::openstack::resource::subnets:
     tenant_name: 'openstack'
   uio_public2_IPv6:
     name: 'uio_public2_IPv6'
-    cidr: '2001:700:2:8c01::/64'
+    cidr: '2001:700:2:8c21::/64'
     ip_version: '6'
     allocation_pools:
-      - 'start=2001:700:2:8c01::1000,end=2001:700:2:8c01::4fff'
-    gateway_ip: '2001:700:2:8c01::1'
+      - 'start=2001:700:2:8c21::1000,end=2001:700:2:8c21::4fff'
+    gateway_ip: '2001:700:2:8c21::1'
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns6')}"
     network_name: 'uio-IPv6'
