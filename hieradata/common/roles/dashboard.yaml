@@ -18,13 +18,10 @@ named_interfaces::config:
 profile::base::common::packages:
   # we need newer version of six to avoid breaking requests and openstack cli
   'python3-six.noarch': { ensure: latest }
-  'MySQL-python': {}            # FIXME: remove when el7 is gone
   'python3-mysql': {}
   'bash-completion': {}
-  'bash-completion-extras': {}  # FIXME: remove when el7 is gone
   'jq': {}
   'openstack-selinux': {}
-  'python2-designateclient': {} # FIXME: remove when el7 is gone
   'python3-designateclient': {}
 
 profile::openstack::dashboard::designate_packages:
