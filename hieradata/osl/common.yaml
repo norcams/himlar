@@ -600,11 +600,11 @@ profile::openstack::resource::subnets:
     tenant_name: 'openstack'
   uio_private1_IPv4:
     name: 'uio_private1_IPv4'
-    cidr: '10.6.0.0/20'
+    cidr: '10.8.0.0/20'
     ip_version: '4'
     allocation_pools:
-      - 'start=10.6.0.10,end=10.6.15.254'
-    gateway_ip: '10.6.0.1'
+      - 'start=10.8.0.10,end=10.8.15.254'
+    gateway_ip: '10.8.0.1'
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'uio-IPv6'
