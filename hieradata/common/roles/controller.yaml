@@ -64,10 +64,6 @@ profile::virtualization::libvirt::pools:
     type:                dir
     target:              /var/lib/libvirt/images
 
-libvirt::unix_sock_group:         wheel # FIXME remove when el7 is gone
-libvirt::unix_sock_rw_perms:      0770  # FIXME remove when el7 is gone
-libvirt::listen_tls:              false # FIXME remove when el7 is gone
-libvirt::listen_tcp:              true  # FIXME remove when el7 is gone
 libvirt::auth_tcp:                none
 libvirt::sysconfig:
   LIBVIRTD_ARGS:                  ''
