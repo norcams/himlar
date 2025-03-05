@@ -61,6 +61,12 @@ profile::monitoring::sensu::agent::checks:
     command:      "/usr/local/bin/check_number_of_gpus.sh"
     interval:     60
     subscribers:  ['checks']
+  'metrics-nvidia':
+    type:         'metric'
+    command:      'metrics-nvidia.rb --scheme nvidia.%{::hostname}'
+    interval:     60
+    subscribers:  ['metrics']
+    handlers:     ['graphite_tcp']
 
 profile::base::lvm::physical_volume:
   '/dev/sda4':

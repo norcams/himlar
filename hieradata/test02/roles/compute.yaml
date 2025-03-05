@@ -47,7 +47,6 @@ profile::base::network::routing_tables:
 profile::base::network::rules:
   'em1':
     iprule: [ "from %{hiera('netcfg_priv_network')} lookup private", ]
-profile::base::network::manage_neutron_blackhole:      true # FIXME - remove when el7 is gone
 profile::network::interface::manage_neutron_blackhole: true
 
 # IPv6 is enabled for bgp, bfd

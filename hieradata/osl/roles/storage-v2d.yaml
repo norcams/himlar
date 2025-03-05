@@ -30,4 +30,44 @@ profile::base::network::network_auto_bonding:
       'team_port_config': '{ "prio" : 100 }'
       'mtu': '9000'
 
-profile::storage::cephosd::create_osds:             false
+profile::base::common::manage_lvm: false
+profile::base::lvm::create_lvm: false
+
+profile::storage::cephosd::osds:
+  '/dev/sda':
+    db_device:  false
+    wal_device: false
+    disable_writecache: true
+  '/dev/sdb':
+    db_device:  false
+    wal_device: false
+    disable_writecache: true
+  '/dev/sdc':
+    db_device:  false
+    wal_device: false
+    disable_writecache: true
+  '/dev/sdd':
+    db_device:  false
+    wal_device: false
+    disable_writecache: true
+  '/dev/sde':
+    db_device:  false
+    wal_device: false
+    disable_writecache: true
+  '/dev/sdf':
+    db_device:  false
+    wal_device: false
+    disable_writecache: true
+  '/dev/sdg':
+    db_device:  false
+    wal_device: false
+    disable_writecache: true
+  '/dev/sdh':
+    db_device:  false
+    wal_device: false
+    disable_writecache: true
+  '/dev/sdi':
+    db_device:  false
+    wal_device: false
+    disable_writecache: true
+
