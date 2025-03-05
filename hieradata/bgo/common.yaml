@@ -105,6 +105,7 @@ netcfg_uib_network6:      '2001:700:200::/48'
 netcfg_uib_gateway:       '172.18.7.4'
 netcfg_uib_gateway6:      'fd00::704'
 netcfg_educloud1_network: '10.3.0.0/20'
+netcfg_uio_priv1_network: '10.7.0.0/20'
 netcfg_pub_natgw:         '158.39.77.248'
 netcfg_pub_natgw2:        '158.39.74.248'
 netcfg_lhc_natgw:         '109.105.127.189'
@@ -415,8 +416,14 @@ profile::openstack::resource::networks:
     shared: false
     tenant_name: 'openstack'
     provider_network_type: 'local'
-  educloud1:
-    name: 'educloud1'
+  educloud_IPv6:
+    name: 'educloud-IPv6'
+    admin_state_up: true
+    shared: false
+    tenant_name: 'openstack'
+    provider_network_type: 'local'
+  uio_IPv6:
+    name: 'uio-IPv6'
     admin_state_up: true
     shared: false
     tenant_name: 'openstack'
@@ -590,8 +597,8 @@ profile::openstack::resource::subnets:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'lhc-IPv6'
     tenant_id: '2eb4ee7df70f4d56999c5945fafb1781'
-  educloud1_IPv4:
-    name: 'educloud1_IPv4'
+  educloud_private1_IPv4:
+    name: 'educloud_private1_IPv4'
     cidr: '10.3.0.0/20'
     ip_version: '4'
     allocation_pools:
@@ -599,18 +606,40 @@ profile::openstack::resource::subnets:
     gateway_ip: '10.3.0.1'
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
-    network_name: 'educloud1'
+    network_name: 'educloud-IPv6'
     tenant_name: 'openstack'
-  educloud1_IPv6:
-    name: 'educloud1_IPv6'
-    cidr: '2001:700:2:8304::/64'
+  educloud_public1_IPv6:
+    name: 'educloud_public1_IPv6'
+    cidr: '2001:700:2:8c24::/64'
     ip_version: '6'
     allocation_pools:
-      - 'start=2001:700:2:8304::1000,end=2001:700:2:8304::4fff'
-    gateway_ip: '2001:700:2:8304::1'
+      - 'start=2001:700:2:8c24::1000,end=2001:700:2:8c24::4fff'
+    gateway_ip: '2001:700:2:8c24::1'
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns6')}"
-    network_name: 'educloud1'
+    network_name: 'educloud-IPv6'
+    tenant_name: 'openstack'
+  uio_private1_IPv4:
+    name: 'uio_private1_IPv4'
+    cidr: '10.7.0.0/20'
+    ip_version: '4'
+    allocation_pools:
+      - 'start=10.7.0.10,end=10.7.15.254'
+    gateway_ip: '10.7.0.1'
+    dns_nameservers:
+      - "%{hiera('netcfg_anycast_dns')}"
+    network_name: 'uio-IPv6'
+    tenant_name: 'openstack'
+  uio_public2_IPv6:
+    name: 'uio_public2_IPv6'
+    cidr: '2001:700:2:8c21::/64'
+    ip_version: '6'
+    allocation_pools:
+      - 'start=2001:700:2:8c21::1000,end=2001:700:2:8c21::4fff'
+    gateway_ip: '2001:700:2:8c21::1'
+    dns_nameservers:
+      - "%{hiera('netcfg_anycast_dns6')}"
+    network_name: 'uio-IPv6'
     tenant_name: 'openstack'
   elastic1_IPv4:
     name: 'elastic1_IPv4'

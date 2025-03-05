@@ -24,6 +24,11 @@ profile::base::lvm::logical_volume:
 
 nova::compute::libvirt::cpu_models: ['Cascadelake-Server-noTSX']
 
+profile::base::common::packages:
+  'NVIDIA-vGPU-rhel-aie': {
+#    source: 'http://repo.mgmt.bgo.uhdc.no/NVIDIA-vGPU-rhel-7.8-450.55.x86_64.rpm'
+  }
+
 #kmod::list_of_blacklists:
 #  'nouveau': {}
 kmod::list_of_installs:

@@ -162,17 +162,6 @@ profile::application::builder::images:
     'username':         'debian'
     'hour':             16
     'minute':           45
-  'fedora_40':
-    'image_name':       'IMAGEBUILDER Fedora 40'
-    'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/40/Cloud/x86_64/images/'
-    'latest':           'Fedora-Cloud-Base-Generic.x86_64-40-1.14.qcow2'
-    'checksum_file':    'Fedora-Cloud-40-1.14-x86_64-CHECKSUM'
-    'checksum':         'sha256'
-    'min_ram':          1024
-    'min_disk':         3
-    'efi':              true
-    'username':         'fedora'
-    'hour':             14
   'fedora_41':
     'image_name':       'IMAGEBUILDER Fedora 41'
     'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/41/Cloud/x86_64/images/'
@@ -219,28 +208,6 @@ profile::application::builder::images:
     'efi':              true
     'username':         'rocky'
     'hour':             18
-  'ubuntu_2004':
-    'image_name':       'IMAGEBUILDER Ubuntu 20.04'
-    'url':              'https://cloud-images.ubuntu.com/focal/current/'
-    'latest':           'focal-server-cloudimg-amd64.img'
-    'checksum_file':    'SHA256SUMS'
-    'checksum':         'sha256'
-    'min_ram':          768
-    'min_disk':         3
-    'username':         'ubuntu'
-    'hour':             9
-  'ubuntu_2004_nv_vgpu':
-    'image_name':       'IMAGEBUILDER Ubuntu 20.04 (NVIDIA VGPU)'
-    'url':              'https://cloud-images.ubuntu.com/focal/current/'
-    'latest':           'focal-server-cloudimg-amd64.img'
-    'checksum_file':    'SHA256SUMS'
-    'checksum':         'sha256'
-    'min_ram':          768
-    'min_disk':         8
-    'username':         'ubuntu'
-    'flavor':           'm1.small'
-    'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
-    'hour':             10
   'ubuntu_2204':
     'image_name':       'IMAGEBUILDER Ubuntu 22.04'
     'url':              'https://cloud-images.ubuntu.com/jammy/current/'
@@ -335,13 +302,10 @@ profile::monitoring::sensu::agent::expanded_checks:
   - 'centosstream10'
   - 'debian11'
   - 'debian12'
-  - 'fedora_40'
   - 'fedora_41'
   - 'rockylinux8'
   - 'rockylinux8_uib_puppet'
   - 'rockylinux9'
-  - 'ubuntu_2004'
-  - 'ubuntu_2004_nv_vgpu'
   - 'ubuntu_2204'
   - 'ubuntu_2204_nv_vgpu'
   - 'ubuntu_2404'

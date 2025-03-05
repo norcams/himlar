@@ -103,14 +103,18 @@ profile::dns::ns::ptr_zones:
     cidr: "158.39.201.0/24"
     origin: "201.39.158.in-addr.arpa"
     filename: "pz/201.39.158.in-addr.arpa"
-  bgo_public05:
-    cidr: "158.37.64.0/23"
+  public04:
+    cidr: "158.37.65.0/24"
+    origin: "65.37.158.in-addr.arpa"
+    filename: "sz/65.37.158.in-addr.arpa"
+  public05_uib:
+    cidr: "158.37.64.0/24"
     origin: "64.37.158.in-addr.arpa"
     filename: "sz/64.37.158.in-addr.arpa"
   ipv6:
-    cidr: "2001:700:2:83ff::/64"
-    origin: "f.f.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa"
-    filename: "pz/f.f.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa"
+    cidr: "2001:700:2:83::/56"
+    origin: "3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa"
+    filename: "pz/3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa"
   ipv6_lhc1:
     cidr: "2001:948:62:4::/64"
     origin: "4.0.0.0.2.6.0.0.8.4.9.0.1.0.0.2.ip6.arpa"
@@ -223,7 +227,11 @@ profile::dns::ns::ptr_slave_zones:
     cidr: "158.37.66.0/24"
     origin: "66.37.158.in-addr.arpa"
     filename: "sz/66.37.158.in-addr.arpa"
+  osl_public06:
+    cidr: "158.37.67.0/24"
+    origin: "67.37.158.in-addr.arpa"
+    filename: "sz/67.37.158.in-addr.arpa"
   osl_ipv6:
-    cidr: "2001:700:2:82ff::/64"
-    origin: "f.f.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa"
-    filename: "sz/f.f.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa"
+    cidr: "2001:700:2:82::/56"
+    origin: "2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa"
+    filename: "sz/2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa"

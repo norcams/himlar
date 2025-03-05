@@ -33,7 +33,6 @@ mysql__config__query_cache_size:            '128M'
 mysql__config__query_cache_limit:           '32M'
 
 profile::network::interface::manage_dummy: true
-profile::base::network::manage_dummy: true # FIXME; remove when el7 is gone
 
 profile::database::galera::wsrep_sst_secure_rsync:
   ca:   "%{hiera('db_ssl_ca')}"

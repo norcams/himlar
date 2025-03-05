@@ -166,6 +166,7 @@ frrouting::frrouting::bgp_networks6:
   - '2001:948:62:4::/64'
   - 'fd00:192:168:243::/64'
   - '2001:700:2:8300::/56'
+  - "%{hiera('bgp_loopback_addr6')}/128"
 
 frrouting::frrouting::bgp_options6:
   - 'neighbor fd00:18:229::2 activate'
