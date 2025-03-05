@@ -1342,6 +1342,7 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'neighbor elastic_rail_b1p soft-reconfiguration inbound'
     'bgp_listen_range':
       - '10.5.0.0/20'
+      - '2001:700:2:8303::/64'
     'ip_access_list':
       - "158.39.74.253/32"
       - "10.254.253.253/32"
@@ -1360,6 +1361,7 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'neighbor elastic_rail_b1t soft-reconfiguration inbound'
     'bgp_listen_range':
       - '10.5.16.0/27'
+      - '2001:700:2:8302::/122'
     'ip_access_list':
       - "158.39.74.254/32"
       - "10.254.253.254/32"
@@ -1375,6 +1377,7 @@ frrouting::frrouting::bgp_accesslist:
     - 'seq 25 permit 109.105.125.0 0.0.0.63'
     - 'seq 30 permit 10.1.0.0 0.0.15.255'
     - 'seq 35 permit 10.3.0.0 0.0.15.255'
+    - 'seq 37 permit 10.7.0.0/20'
     - 'seq 40 permit 10.5.0.0/19'
     - "seq 41 permit %{hiera('bgp_loopback_addr')}/32"
     - "seq 42 permit %{hiera('netcfg_priv_anycast_net')}/%{hiera('netcfg_priv_anycast_cidr4')}"
@@ -1391,6 +1394,7 @@ frrouting::frrouting::bgp_accesslist:
     - 'seq 25 deny 109.105.125.0 0.0.0.63'
     - 'seq 30 deny 10.1.0.0 0.0.15.255'
     - 'seq 35 deny 10.3.0.0 0.0.15.255'
+    - 'seq 37 deny 10.7.0.0/20'
     - 'seq 40 deny 10.5.0.0/19'
     - 'seq 45 deny 10.109.0.0 0.0.15.255'
     - 'seq 50 deny 109.105.127.128 0.0.0.63'
@@ -1403,8 +1407,10 @@ frrouting::frrouting::bgp_accesslist6:
     - 'permit fd00:192:168:224::/64'
     - 'permit fd00:192:168:243::/64'
     - 'permit 2001:700:2:8300::/56'
+    - 'permit 2001:700:2:8c20::/59'
     - 'permit 2001:948:62:3::/64'
     - 'permit 2001:948:62:4::/64'
+    - "permit %{hiera('bgp_loopback_addr6')}/128"
   '20':
     - 'deny any'
 
@@ -1433,6 +1439,7 @@ frrouting::frrouting::bgp_ipv6_prefix_list:
   - 'uninett-routes6-in seq 5 permit any'
   - 'uninett-routes6-in seq 10 deny any'
   - 'uninett-routes6-out seq 5 permit 2001:700:2:8300::/56'
+  - 'uninett-routes6-out seq 7 permit 2001:700:2:8c20::/59'
   - 'uninett-routes6-out seq 10 deny any'
   - 'uib-routes-in6 seq 10 deny any'
   - 'uib-routes-out6 seq 5 permit 2001:700:2:8300::/56'
