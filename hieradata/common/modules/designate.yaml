@@ -98,8 +98,8 @@ designate::db::mysql::allowed_hosts:
 # Bind9 backend (manifests/backend/bind9.pp)
 #   - runs on the DNS node
 #---------------------------------------------------------------------
-designate::backend::bind9::manage_pool:    true
-designate::backend::bind9::configure_bind: false
+designate::backend::bind9::manage_pool:      true
+designate::backend::bind9::configure_bind:   false
 designate::backend::bind9::mdns_port:        '5354'
 designate::backend::bind9::dns_port:         '53'
 designate::backend::bind9::rndc_port:        '953'
