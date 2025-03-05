@@ -34,8 +34,6 @@ profile::monitoring::sensu::agent::checks:
     subscribers:  ['metrics']
     handlers:     ['graphite_tcp']
 
-profile::base::network::manage_dummy:                               true # FIXME; remove when el7 is gone
-
 profile::base::selinux::manage_selinux:                             true
 profile::network::interface::manage_dummy:                          true
 profile::highavailability::loadbalancing::haproxy::manage_haproxy:  true
