@@ -100,15 +100,23 @@ designate::db::mysql::allowed_hosts:
 #---------------------------------------------------------------------
 designate::backend::bind9::manage_pool:    true
 designate::backend::bind9::configure_bind: false
-designate::backend::bind9::nameservers:
-  - "%{hiera('service__address__ns')}"
-designate::backend::bind9::bind9_hosts:
-  - "%{hiera('service__address__ns')}"
 designate::backend::bind9::mdns_port:        '5354'
 designate::backend::bind9::dns_port:         '53'
 designate::backend::bind9::rndc_port:        '953'
 designate::backend::bind9::rndc_config_file: '/etc/rndc.conf'
 designate::backend::bind9::rndc_key_file:    '/etc/rndc-mdns.key'
+designate::backend::bind9::nameservers:
+  - '2001:700:2:82ff::251' # ns1.nrec.no (OSL)
+  - '2001:700:2:83ff::251' # ns1.nrec.no (BGO)
+designate::backend::bind9::bind9_hosts:
+  - '2001:700:2:82ff::251' # ns1.nrec.no (OSL)
+  - '2001:700:2:83ff::251' # ns1.nrec.no (BGO)
+designate::backend::bind9::mdns_hosts:
+  - '2001:700:2:82ff::256' # osl-dns-01
+  - '2001:700:2:83ff::256' # bgo-dns-01
+designate::backend::bind9::ns_records:
+  - [ '1', "%{hiera('profile::dns::ns::ns_master1')}." ]
+  - [ '1', "%{hiera('profile::dns::ns::ns_master2')}." ]
 
 #---------------------------------------------------------------------
 # mDNS (manifests/mdns.pp)
