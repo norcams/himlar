@@ -16,6 +16,18 @@ glance::api::enable_proxy_headers_parsing: true
 glance::api::image_member_quota:           -1
 glance::api::multi_store:                  true
 
+#---------------------------------------------------------------------
+# Cache pruner (manifests/cache/pruner.pp)
+#   - runs on the image nodes
+#---------------------------------------------------------------------
+glance::cache::pruner::maxdelay:  600  # random sleep 0-10 minutes
+
+#---------------------------------------------------------------------
+# Cache cleaner (manifests/cache/cleaner.pp)
+#   - runs on the image nodes
+#---------------------------------------------------------------------
+glance::cache::cleaner::maxdelay: 600  # random sleep 0-10 minutes
+
 # logging
 glance::api::logging::log_facility:        'LOG_LOCAL3'
 glance::api::logging::use_syslog:          true
@@ -51,11 +63,25 @@ glance::keystone::auth::admin_url:         "%{hiera('endpoint__image__admin')}"
 glance::keystone::auth::internal_url:      "%{hiera('endpoint__image__internal')}"
 glance::keystone::auth::region:            "%{::location}"
 
-# policy (node: image)
+#---------------------------------------------------------------------
+# Policies (manifests/policy.pp)
+#   - runs on the image nodes
+#---------------------------------------------------------------------
 glance::policy::policies:
   publicize_image:
     key:    'publicize_image'
     value:  'role:superuser or role:admin'
+  # The following image location rules are recommendations from
+  # https://wiki.openstack.org/wiki/OSSN/OSSN-0065
+  set_image_location:
+    key:    'set_image_location'
+    value:  'role:admin'
+  get_image_location:
+    key:    'get_image_location'
+    value:  'role:admin'
+  delete_image_location:
+    key:    'delete_image_location'
+    value:  'role:admin'
 
 # rabbit mq (only for notifications)
 glance::notify::rabbitmq::default_transport_url:  "%{hiera('service__transport__url')}"
