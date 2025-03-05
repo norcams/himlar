@@ -1067,6 +1067,7 @@ frrouting::frrouting::bgp_accesslist:
     - 'seq 23 permit 78.91.122.0/23'
     - 'seq 25 permit 10.2.0.0 0.0.15.255'
     - 'seq 30 permit 10.4.0.0 0.0.15.255'
+    - 'seq 32 permit 10.8.0.0/20'
     - 'seq 35 permit 10.6.0.0/19'
     - "seq 36 permit %{hiera('bgp_loopback_addr')}/32"
     - "seq 37 permit %{hiera('netcfg_priv_anycast_net')}/%{hiera('netcfg_priv_anycast_cidr4')}"
@@ -1081,6 +1082,7 @@ frrouting::frrouting::bgp_accesslist:
     - 'seq 23 deny 78.91.122.0/23'
     - 'seq 25 deny 10.2.0.0 0.0.15.255'
     - 'seq 30 deny 10.4.0.0 0.0.15.255'
+    - 'seq 32 deny 10.8.0.0/20'
     - 'seq 35 deny 10.6.0.0/19'
     - 'seq 40 deny 172.18.32.0 0.0.0.255'
     - 'seq 250 permit 0.0.0.0/0'
