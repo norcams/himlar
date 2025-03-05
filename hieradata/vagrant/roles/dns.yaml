@@ -2,17 +2,3 @@
 # Firewall configuration
 profile::openstack::designate::ns_sources_ipv4:
   - "%{hiera('public__ip__ns')}"
-
-#---------------------------------------------------------------------
-# Bind9 backend (manifests/backend/bind9.pp)
-#   - runs on the DNS node
-#---------------------------------------------------------------------
-designate::backend::bind9::nameservers:
-  - "%{hiera('service__address__ns')}"
-designate::backend::bind9::bind9_hosts:
-  - "%{hiera('service__address__ns')}"
-designate::backend::bind9::mdns_hosts:
-  - '172.31.8.34'
-designate::backend::bind9::ns_records:
-  - [ '1', "ns1.%{hiera('domain_frontend')}." ]
-

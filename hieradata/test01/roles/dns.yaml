@@ -2,16 +2,3 @@
 # Firewall configuration
 profile::openstack::designate::ns_sources_ipv6:
   - '2001:700:200:917::3f17'
-
-#---------------------------------------------------------------------
-# Bind9 backend (manifests/backend/bind9.pp)
-#   - runs on the DNS node
-#---------------------------------------------------------------------
-designate::backend::bind9::nameservers:
-  - '2001:700:200:917::3f17'
-designate::backend::bind9::bind9_hosts:
-  - '2001:700:200:917::3f17'
-designate::backend::bind9::mdns_hosts:
-  - '2001:700:200:917::3f34'
-designate::backend::bind9::ns_records:
-  - [ '1', "ns.test.iaas.uib.no." ]
