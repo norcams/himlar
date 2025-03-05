@@ -104,6 +104,11 @@ designate::backend::bind9::nameservers:
   - "%{hiera('service__address__ns')}"
 designate::backend::bind9::bind9_hosts:
   - "%{hiera('service__address__ns')}"
+designate::backend::bind9::mdns_port:        '5354'
+designate::backend::bind9::dns_port:         '53'
+designate::backend::bind9::rndc_port:        '953'
+designate::backend::bind9::rndc_config_file: '/etc/rndc.conf'
+designate::backend::bind9::rndc_key_file:    '/etc/rndc-mdns.key'
 
 #---------------------------------------------------------------------
 # mDNS (manifests/mdns.pp)
