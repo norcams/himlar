@@ -684,8 +684,11 @@ frrouting::frrouting::bgp_options:
   - 'bgp bestpath as-path multipath-relax'
 
 frrouting::frrouting::bgp_options4:
-  - 'import lhcopn'
+  - 'import vrf lhcopn'
   - 'import vrf netapp'
+
+frrouting::frrouting::bgp_options6:
+  - 'import vrf lhcopn'
 
 frrouting::frrouting::bgp_accesslist:
   '10':
