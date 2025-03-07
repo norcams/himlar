@@ -9,7 +9,6 @@ keystone::enable_proxy_headers_parsing:   true
 keystone::purge_config:                   true
 keystone::enable_bootstrap:               true
 keystone::public_endpoint:                "%{hiera('endpoint__identity__public')}"
-keystone::admin_endpoint:                 "%{hiera('endpoint__identity__admin')}"
 
 # bootstrap keystone
 keystone::bootstrap::username:              'admin'
