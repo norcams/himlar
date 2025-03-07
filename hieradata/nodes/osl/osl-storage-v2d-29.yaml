@@ -1,3 +1,43 @@
 ---
 
-profile::storage::cephosd::create_osds: false
+profile::storage::cephosd::osds:
+  '/dev/sda':
+    db_device:  false
+    wal_device: false
+    disable_writecache: true
+  '/dev/sdb':
+    db_device:  false
+    wal_device: false
+    disable_writecache: true
+  '/dev/sdc':
+    db_device:  false
+    wal_device: false
+    disable_writecache: true
+  '/dev/sdd':
+    db_device:  false
+    wal_device: false
+    disable_writecache: true
+  '/dev/sde':
+    db_device:  false
+    wal_device: false
+    disable_writecache: true
+  '/dev/sdf':
+    db_device:  false
+    wal_device: false
+    disable_writecache: true
+  '/dev/sdg':
+    db_device:  false
+    wal_device: false
+    disable_writecache: true
+  '/dev/sdh':
+    db_device:  false
+    wal_device: false
+    disable_writecache: true
+  '/dev/sdi':
+    db_device:  false
+    wal_device: false
+    disable_writecache: true
+  '/dev/sdj':
+    db_device:  false
+    wal_device: false
+    disable_writecache: true
