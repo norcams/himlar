@@ -67,12 +67,6 @@ horizon::keystone_options:
   can_edit_domain:  false
   can_edit_role:    false
 
-# Network (Neutron)
-horizon::neutron_options:
-  'enable_lb': false
-  'enable_firewall': false
-  'enable_vpn': false
-
 # Image (Glance)
 horizon::image_backend:
   image_formats:
