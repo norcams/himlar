@@ -70,8 +70,8 @@ horizon::keystone_options:
 # Network (Neutron)
 horizon::neutron_options:
   'enable_quotas':      false
-  'enable_rbac_policy': false
-  'enable_router':      false
+  'enable_rbac_policy': false  # not supported by puppet?
+  'enable_router':      false  # not supported by puppet?
 
 # Image (Glance)
 horizon::image_backend:
@@ -79,6 +79,8 @@ horizon::image_backend:
     '':       'Select format'
     'qcow2':  'QCOW2 - QEMU Emulator'
     'raw':    'Raw'
+horizon::create_image_defaults:
+  'image_visibility':   'private'
 
 #---------------------------------------------------------------------
 # WSGI options (manifests/wsgi/apache.pp)
