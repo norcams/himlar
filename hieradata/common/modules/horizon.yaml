@@ -67,6 +67,12 @@ horizon::keystone_options:
   can_edit_domain:  false
   can_edit_role:    false
 
+# Network (Neutron)
+horizon::neutron_options:
+  'enable_quotas':      false
+  'enable_rbac_policy': false
+  'enable_router':      false
+
 # Image (Glance)
 horizon::image_backend:
   image_formats:
