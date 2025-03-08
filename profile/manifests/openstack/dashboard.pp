@@ -9,7 +9,6 @@ class profile::openstack::dashboard(
   $manage_overrides     = false,
   $database             = {},
   $override_template    = "${module_name}/openstack/horizon/local_settings.erb",
-  $site_branding        = 'NREC',
   $image_visibility     = 'private',
   $change_uploaddir     = false,
   $custom_uploaddir     = '/image-upload',

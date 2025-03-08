@@ -9,6 +9,7 @@ horizon::server_aliases:
   - "dashboard-%{::location}.%{hiera('domain_frontend')}"
   - "dashboard.%{hiera('domain_frontend2')}"
 horizon::bind_address:                  "%{ipaddress_public1}"
+horizon::site_branding:                 'NREC'
 
 # SSL options
 horizon::listen_ssl:                    true
