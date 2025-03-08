@@ -54,10 +54,18 @@ horizon::session_timeout:               10800 # 3 hours, default 30 min
 
 # Launch instance wizard
 horizon::instance_options:
-  hide_create_volume: true
-  create_volume: false
-  disable_volume: true
+  hide_create_volume:      true
+  create_volume:           false
+  disable_volume:          true
   disable_volume_snapshot: true
+
+# Identity (Keystone)
+horizon::keystone_options:
+  can_edit_user:    false
+  can_edit_group:   false
+  can_edit_project: false
+  can_edit_domain:  false
+  can_edit_role:    false
 
 # Network (Neutron)
 horizon::neutron_options:

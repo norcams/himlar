@@ -159,14 +159,6 @@ profile::base::selinux::boolean:
 profile::openstack::dashboard::launch_instance_defaults:
   enable_scheduler_hints: 'False'
 
-# Disable admin functionality (use mgmt dashboard for this)
-horizon::keystone_options:
-  can_edit_user:                False
-  can_edit_group:               False
-  can_edit_project:             False
-  can_edit_domain:              False
-  can_edit_role:                False
-
 # Adjust the ulimit (number of open files) for Apache via systemd
 profile::base::systemd::manage_limits: true
 profile::base::systemd::limits:
