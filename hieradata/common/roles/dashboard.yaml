@@ -29,11 +29,10 @@ profile::base::common::packages:
 profile::base::common::manage_cron:                                true
 profile::base::selinux::manage_selinux:                            true
 profile::network::interface::manage_dummy:                         true
-profile::openstack::dashboard::manage_dashboard:                   true
 profile::webserver::apache::manage_firewall:                       false
+profile::openstack::dashboard::manage_dashboard:                   true
 profile::openstack::dashboard::manage_firewall:                    true
 profile::openstack::dashboard::manage_overrides:                   true
-profile::openstack::dashboard::enable_pwd_retrieval:               true
 profile::openstack::dashboard::change_region_selector:             true
 profile::openstack::dashboard::change_login_footer:                true
 profile::openstack::dashboard::customize_logo:                     true
