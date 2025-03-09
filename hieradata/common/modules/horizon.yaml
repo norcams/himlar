@@ -60,6 +60,7 @@ horizon::instance_options:
   create_volume:           false
   disable_volume:          true
   disable_volume_snapshot: true
+  enable_scheduler_hints:  false
 
 # Identity (Keystone)
 horizon::keystone_options:
