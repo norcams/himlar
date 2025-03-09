@@ -75,47 +75,47 @@ class profile::openstack::dashboard(
     }
   }
 
-#  # Designate: Install the Designate plugin (RPM packages) for Horizon
-#  # if "enable_designate" is set to true
-#  if $enable_designate {
+  # Designate: Install the Designate plugin (RPM packages) for Horizon
+  # if "enable_designate" is set to true
+  if $enable_designate {
 #    $designate_packages = lookup('profile::openstack::dashboard::designate_packages', Hash, 'deep', {})
 #    create_resources('profile::base::package', $designate_packages)
-#
-#    # FIXME: Temporary workaround for el8 designate-ui rpm setting wrong permissions
-#    if $::osfamily == 'RedHat' and $::operatingsystemmajrelease == '8' {
-#      $designate_ui_path = '/usr/share/openstack-dashboard/openstack_dashboard/local/enabled/'
-#      file { '_1710_project_dns_panel_group.py':
-#        path   => "${designate_ui_path}_1710_project_dns_panel_group.py",
-#        mode   => '0644',
-#        notify => Service['httpd'],
-#      }
-#      file { '_1721_dns_zones_panel.py':
-#        path   => "${designate_ui_path}_1721_dns_zones_panel.py",
-#        mode   => '0644',
-#        notify => Service['httpd'],
-#      }
-#      file { '_1722_dns_reversedns_panel.py':
-#        path   => "${designate_ui_path}_1722_dns_reversedns_panel.py",
-#        mode   => '0644',
-#        notify => Service['httpd'],
-#      }
-#      file { '_1710_project_dns_panel_group.cpython-36.pyc':
-#        path   => "${designate_ui_path}__pycache__/_1710_project_dns_panel_group.cpython-36.pyc",
-#        mode   => '0644',
-#        notify => Service['httpd'],
-#      }
-#      file { '_1721_dns_zones_panel.cpython-36.pyc':
-#        path   => "${designate_ui_path}__pycache__/_1721_dns_zones_panel.cpython-36.pyc",
-#        mode   => '0644',
-#        notify => Service['httpd'],
-#      }
-#      file { '_1722_dns_reversedns_panel.cpython-36.pyc':
-#        path   => "${designate_ui_path}__pycache__/_1722_dns_reversedns_panel.cpython-36.pyc",
-#        mode   => '0644',
-#        notify => Service['httpd'],
-#      }
-#    }
-#  }
+
+    # FIXME: Temporary workaround for el8 designate-ui rpm setting wrong permissions
+    if $::osfamily == 'RedHat' and $::operatingsystemmajrelease == '8' {
+      $designate_ui_path = '/usr/share/openstack-dashboard/openstack_dashboard/local/enabled/'
+      file { '_1710_project_dns_panel_group.py':
+        path   => "${designate_ui_path}_1710_project_dns_panel_group.py",
+        mode   => '0644',
+        notify => Service['httpd'],
+      }
+      file { '_1721_dns_zones_panel.py':
+        path   => "${designate_ui_path}_1721_dns_zones_panel.py",
+        mode   => '0644',
+        notify => Service['httpd'],
+      }
+      file { '_1722_dns_reversedns_panel.py':
+        path   => "${designate_ui_path}_1722_dns_reversedns_panel.py",
+        mode   => '0644',
+        notify => Service['httpd'],
+      }
+      file { '_1710_project_dns_panel_group.cpython-36.pyc':
+        path   => "${designate_ui_path}__pycache__/_1710_project_dns_panel_group.cpython-36.pyc",
+        mode   => '0644',
+        notify => Service['httpd'],
+      }
+      file { '_1721_dns_zones_panel.cpython-36.pyc':
+        path   => "${designate_ui_path}__pycache__/_1721_dns_zones_panel.cpython-36.pyc",
+        mode   => '0644',
+        notify => Service['httpd'],
+      }
+      file { '_1722_dns_reversedns_panel.cpython-36.pyc':
+        path   => "${designate_ui_path}__pycache__/_1722_dns_reversedns_panel.cpython-36.pyc",
+        mode   => '0644',
+        notify => Service['httpd'],
+      }
+    }
+  }
 
   # Disable the admin dashboard if "disable_admin" is set to true
   if $disable_admin_dashboard {
