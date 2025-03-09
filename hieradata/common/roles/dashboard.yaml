@@ -29,8 +29,6 @@ profile::base::common::packages:
 profile::openstack::dashboard::designate_packages:
   'openstack-designate-ui': {}
 
-profile::base::network::manage_dummy:                              true # FIXME; remove when el7 is gone
-
 profile::base::common::manage_cron:                                true
 profile::base::selinux::manage_selinux:                            true
 profile::network::interface::manage_dummy:                         true
