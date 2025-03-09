@@ -53,8 +53,6 @@ profile::base::cron::crontabs:
 profile::base::yumrepo::repo_hash:
   rdo-release:
     ensure: present
-  CentOS-PowerTools: # FIXME: remove when CentOS 8 is gone
-    ensure: present
   AlmaLinux-PowerTools:
     ensure: present
   epel: # should be absent when using RDO, but whitelist can also work
