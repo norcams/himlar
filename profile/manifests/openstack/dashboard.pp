@@ -25,8 +25,8 @@ class profile::openstack::dashboard(
   if $manage_dashboard {
     include ::horizon
     include ::horizon::dashboards::designate
-    concat::fragment { 'extra-local_settings.py':
-      target  => "${::horizon::params::conf_d_dir}/nrec-extras.py",
+    concat::fragment { '10-nrec-extras.py':
+      target  => "${::horizon::params::conf_d_dir}/10-nrec-extras.py",
       content => template($override_template),
       order   => '99',
       notify  => Service['httpd']
