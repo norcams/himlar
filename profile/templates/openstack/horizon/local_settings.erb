@@ -2,9 +2,6 @@
 <% if @manage_overrides -%>
 HORIZON_CONFIG['customization_module'] = 'openstack_dashboard.overrides'
 <% end -%>
-<% if @use_ssl -%>
-OPENSTACK_USE_SSL = '<%= @use_ssl %>'
-<% end -%>
 <% if @access_control_allow_origin -%>
 OPENSTACK_ACCESS_CONTROL_ALLOW_ORIGIN = '<%= @access_control_allow_origin %>'
 <% end -%>

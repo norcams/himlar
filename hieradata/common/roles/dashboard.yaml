@@ -42,7 +42,6 @@ profile::openstack::dashboard::enable_pwd_retrieval:               true
 profile::openstack::dashboard::change_region_selector:             true
 profile::openstack::dashboard::change_login_footer:                true
 profile::openstack::dashboard::customize_logo:                     true
-profile::openstack::dashboard::use_ssl:                            true
 profile::openstack::dashboard::cutomize_charts_dashboard_overview: true
 profile::openstack::dashboard::access_control_allow_origin:        "console.%{hiera('domain_public')}"
 
