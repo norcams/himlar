@@ -73,7 +73,7 @@ horizon::keystone_options:
 horizon::neutron_options:
   'enable_quotas':      false
   'enable_rbac_policy': false  # not supported by puppet?
-  'enable_router':      false  # not supported by puppet?
+#  'enable_router':      false  # not supported by puppet?
 
 # Image (Glance)
 horizon::image_backend:
