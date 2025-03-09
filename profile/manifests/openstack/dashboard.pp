@@ -20,6 +20,7 @@ class profile::openstack::dashboard(
   $use_ssl = false,
   $cutomize_charts_dashboard_overview = false,
   $launch_instance_defaults = {},
+  $simultaneous_sessions = 'disconnect',
 ) {
 
   if $manage_dashboard {

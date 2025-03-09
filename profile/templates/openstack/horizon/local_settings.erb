@@ -8,6 +8,9 @@ OPENSTACK_USE_SSL = '<%= @use_ssl %>'
 <% if @access_control_allow_origin -%>
 OPENSTACK_ACCESS_CONTROL_ALLOW_ORIGIN = '<%= @access_control_allow_origin %>'
 <% end -%>
+<% if @simultaneous_sessions -%>
+SIMULTANEOUS_SESSIONS = '<%= @simultaneous_sessions %>'
+<% end -%>
 
 <% if @launch_instance_defaults -%>
 LAUNCH_INSTANCE_DEFAULTS = {
