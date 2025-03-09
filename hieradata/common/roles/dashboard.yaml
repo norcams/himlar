@@ -59,7 +59,7 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
-    includepkgs: 'htop bash-completion-extras python3-mysql'
+    includepkgs: 'htop python3-mysql'
 
 # Sensu
 profile::webserver::apache::status::manage_status: true
