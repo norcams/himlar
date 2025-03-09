@@ -2,41 +2,11 @@
 <% if @manage_overrides -%>
 HORIZON_CONFIG['customization_module'] = 'openstack_dashboard.overrides'
 <% end -%>
-<% if @change_uploaddir -%>
-FILE_UPLOAD_TEMP_DIR = '<%= @custom_uploaddir %>'
-<% end -%>
-<% if @enable_pwd_retrieval -%>
-OPENSTACK_ENABLE_PASSWORD_RETRIEVE = '<%= @enable_pwd_retrieval %>'
-<% end -%>
-<% if @session_cookie_httponly -%>
-OPENSTACK_SESSION_COOKIE_HTTPONLY = '<%= @session_cookie_httponly %>'
-<% end -%>
 <% if @use_ssl -%>
 OPENSTACK_USE_SSL = '<%= @use_ssl %>'
 <% end -%>
 <% if @access_control_allow_origin -%>
 OPENSTACK_ACCESS_CONTROL_ALLOW_ORIGIN = '<%= @access_control_allow_origin %>'
-<% end -%>
-<% if @disallow_iframe_embed -%>
-DISALLOW_IFRAME_EMBED = '<%= @disallow_iframe_embed -%>'
-<% end -%>
-<% if @csrf_cookie_secure -%>
-CSRF_COOKIE_SECURE = '<%= @csrf_cookie_secure -%>'
-<% end -%>
-<% if @session_cookie_secure -%>
-SESSION_COOKIE_SECURE = '<%= @session_cookie_secure -%>'
-<% end -%>
-<% if @password_autocomplete -%>
-PASSWORD_AUTOCOMPLETE = '<%= @password_autocomplete -%>'
-<% end -%>
-<% if @disable_password_reveal -%>
-DISABLE_PASSWORD_REVEAL = '<%= @disable_password_reveal -%>'
-<% end -%>
-<% if @enforce_password_check -%>
-ENFORCE_PASSWORD_CHECK = '<%= @enforce_password_check -%>'
-<% end -%>
-<% if @secure_proxy_header -%>
-SECURE_PROXY_SSL_HEADER = <%= @secure_proxy_header -%>
 <% end -%>
 
 <% if @launch_instance_defaults -%>
@@ -71,9 +41,6 @@ DATABASES = {
 <% if @keystone_admin_roles -%>
 OPENSTACK_KEYSTONE_ADMIN_ROLES = <%= @keystone_admin_roles %>
 <% end -%>
-CREATE_IMAGE_DEFAULTS = {
-    'image_visibility': '<%= @image_visibility -%>',
-}
 <% if @user_menu_links -%>
 USER_MENU_LINKS = <%= @user_menu_links %>
 <% end -%>

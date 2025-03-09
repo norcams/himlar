@@ -40,18 +40,9 @@ profile::openstack::dashboard::enable_pwd_retrieval:               true
 profile::openstack::dashboard::change_region_selector:             true
 profile::openstack::dashboard::change_login_footer:                true
 profile::openstack::dashboard::customize_logo:                     true
-profile::openstack::dashboard::image_upload_mode:                  'direct'
-profile::openstack::dashboard::session_cookie_httponly:            true
 profile::openstack::dashboard::use_ssl:                            true
 profile::openstack::dashboard::cutomize_charts_dashboard_overview: true
 profile::openstack::dashboard::access_control_allow_origin:        "console.%{hiera('domain_public')}"
-profile::openstack::dashboard::disallow_iframe_embed:              true
-profile::openstack::dashboard::csrf_cookie_secure:                 true
-profile::openstack::dashboard::session_cookie_secure:              true
-profile::openstack::dashboard::disable_password_reveal:            true
-profile::openstack::dashboard::enforce_password_check:             true
-profile::openstack::dashboard::secure_proxy_header:                '("HTTP_X_FORWARDED_PROTOCOL", "https")'
-profile::openstack::dashboard::password_autocomplete:              "off"
 
 # cronjob to cleanup expired session from db
 profile::base::cron::crontabs:
