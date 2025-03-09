@@ -24,9 +24,8 @@ class profile::openstack::dashboard(
 
   if $manage_dashboard {
     include ::horizon
-    include ::horizon::dashboards::designate
-    concat::fragment { '_10_nrec_extras.py':
-      target  => "${::horizon::params::conf_d_dir}/_10_nrec_extras.py",
+    concat::fragment { 'extra-local_settings.py':
+      target  => $::horizon::params::config_file,
       content => template($override_template),
       order   => '99',
       notify  => Service['httpd']
@@ -39,7 +38,7 @@ class profile::openstack::dashboard(
       command => '/usr/share/openstack-dashboard/manage.py migrate --noinput && touch /usr/share/openstack-dashboard/.migrate',
       user    => 'root',
       creates => '/usr/share/openstack-dashboard/.migrate',
-      require => [Concat::Fragment['_10_nrec_extras.py'], Package['horizon']]
+      require => [Concat::Fragment['extra-local_settings.py'], Package['horizon']]
     }
   }
 
