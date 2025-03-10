@@ -6,16 +6,7 @@ sensu::agent::subscriptions:
   - 'base'
   - 'nodes'
   - 'metrics'
-
-profile::monitoring::sensu::agent::checks:
-  ceph-check:
-    command:                "ceph-health.sh -n client.sensu"
-    interval:               60
-    subscriptions:          ['entity:%{::hostname}']
-    handlers:               ['default']
-    round_robin:            true
-    runtime_assets:
-    - thorko/sensu-check-ceph
+  - 'cephmon'
 
 # FIXME:ceph-metric
 include:

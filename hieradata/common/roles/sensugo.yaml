@@ -94,7 +94,10 @@ sensu::agent::subscriptions:
   - 'metrics'
 # other subsciptions:
   # - 'storage'
+  # - 'opbject'
   # - 'compute'
+  # - 'cephmon'
+  # - 'cephmon-object'
 
 sensu::plugins::plugins:
   sensu-plugins-opsgenie:
@@ -188,6 +191,14 @@ profile::monitoring::sensu::agent::checks:
   #   subscriptions:          ['monitor']
   #   handlers:               ['default']
   #   runtime_assets:         [sensu-plugins/sensu-plugins-http]
+  ceph-check:
+    command:                "ceph-health.sh -n client.sensu"
+    interval:               60
+    subscriptions:          ['cephmon']
+    handlers:               ['default']
+    round_robin:            true
+    runtime_assets:
+    - thorko/sensu-check-ceph
   http-check-multiplex:
     command: sensu-check-multiplexer --command http-check --annotation-prefix "http-check/args" -a "-r"
     stdin: true
