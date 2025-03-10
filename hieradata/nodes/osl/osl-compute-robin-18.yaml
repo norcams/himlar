@@ -17,9 +17,11 @@ profile::base::physical::hugepages:        '245760'
 
 profile::monitoring::netdata::manage_firewall: true
 
-# Nover overrides
-nova::compute::libvirt::cpu_models:             ['EPYC-IBPB']
+# Nova overrides
+nova::compute::libvirt::cpu_models:              ['EPYC-IBPB']
 nova::cpu_allocation_ratio:                      '1'
+nova::disk_allocation_ratio:                     '1'
+nova::ram_allocation_ratio:                      '1'
 nova::scheduler::filter::max_instances_per_host: '32'
 
 # Create and enable more swap
