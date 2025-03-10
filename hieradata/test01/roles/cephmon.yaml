@@ -13,6 +13,7 @@ include:
   default:
     - profile::monitoring::telegraf
 
+profile::monitoring::sensu::agent::checks:          {}
 profile::monitoring::telegraf::enable_telegraf:     true
 profile::monitoring::telegraf::outputs:
   influxdb_v2:
