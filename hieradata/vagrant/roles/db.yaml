@@ -13,11 +13,6 @@ profile::application::openssl::certs:
 
 # FIXME:sensu-go
 
-# Plugins not avaiable as assets for el8
-# sensu::plugins::plugins:
-#   sensu-plugins-mysql:
-#     version: 3.2.0
-
 sensu::agent::subscriptions:
   - 'base'
   - 'nodes'
@@ -29,6 +24,5 @@ profile::monitoring::sensu::agent::checks:
     interval:               60
     subscriptions:          ['entity:%{::hostname}']
     handlers:               ['default']
-#    provider:               'sensu_api'
     runtime_assets:
     - sensu/mysql-check
