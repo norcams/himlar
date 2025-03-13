@@ -222,3 +222,12 @@ nova::policy::policies:
   nova_create_zero_disk_flavor:
     key:   'os_compute_api:servers:create:zero_disk_flavor'
     value: 'role:imagebuilder'
+  nova_compute_resize:
+    key:   'os_compute_api:servers:resize'
+    value: 'role:admin'
+  nova_compute_confirm_resize:
+    key:   'os_compute_api:servers:confirm_resize'
+    value: 'rule:admin'
+  nova_compute_revert_resize:
+    key:   'os_compute_api:servers:revert_resize'
+    value: 'rule:admin'
