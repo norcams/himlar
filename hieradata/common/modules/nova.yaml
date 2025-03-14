@@ -151,7 +151,7 @@ nova::compute::rbd::ephemeral_storage:           false
 nova::compute::rbd::manage_ceph_client:          false
 # Update when all computes are upgraded
 
-nova::upgrade_level_compute:                     'wallaby'
+nova::upgrade_level_compute:                     'xena'
 
 # Live Migration settings
 nova::migration::libvirt::live_migration_inbound_addr:         "%{::ipaddress_live1}"
@@ -173,10 +173,10 @@ nova::compute::live_migration_wait_for_vif_plug:  false
 # console (node: compute)
 # VNC
 nova::compute::vnc_enabled: true
-nova::compute::vncserver_proxyclient_address: "%{ipaddress_mgmt1}"
+nova::compute::server_proxyclient_address: "%{ipaddress_mgmt1}"
 nova::compute::vncproxy_host: "console.%{hiera('domain_public')}"
 nova::compute::vncproxy_protocol: 'https'
-nova::compute::libvirt::vncserver_listen: "%{ipaddress_mgmt1}"
+nova::compute::libvirt::server_listen: "%{ipaddress_mgmt1}"
 # SPICE
 # nova::compute::vnc_enabled:                       false
 # nova::compute::spice::server_proxyclient_address: "%{::ipaddress_trp1}"
