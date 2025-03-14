@@ -7,6 +7,8 @@ include:
     - profile::openstack::cache
     - profile::base::systemd
 
+openstack_version: 'yoga'
+
 named_interfaces::config:
   mgmt:
     - eth0
@@ -24,34 +26,19 @@ profile::base::common::packages:
   'openstack-selinux': {}
   'python3-designateclient': {}
 
-profile::openstack::dashboard::designate_packages:
-  'openstack-designate-ui': {}
-
-profile::base::network::manage_dummy:                              true # FIXME; remove when el7 is gone
-
 profile::base::common::manage_cron:                                true
 profile::base::selinux::manage_selinux:                            true
 profile::network::interface::manage_dummy:                         true
-profile::openstack::dashboard::manage_dashboard:                   true
 profile::webserver::apache::manage_firewall:                       false
+profile::openstack::dashboard::manage_dashboard:                   true
 profile::openstack::dashboard::manage_firewall:                    true
 profile::openstack::dashboard::manage_overrides:                   true
-profile::openstack::dashboard::enable_pwd_retrieval:               true
 profile::openstack::dashboard::change_region_selector:             true
 profile::openstack::dashboard::change_login_footer:                true
 profile::openstack::dashboard::customize_logo:                     true
-profile::openstack::dashboard::image_upload_mode:                  'direct'
-profile::openstack::dashboard::session_cookie_httponly:            true
-profile::openstack::dashboard::use_ssl:                            true
 profile::openstack::dashboard::cutomize_charts_dashboard_overview: true
 profile::openstack::dashboard::access_control_allow_origin:        "console.%{hiera('domain_public')}"
-profile::openstack::dashboard::disallow_iframe_embed:              true
-profile::openstack::dashboard::csrf_cookie_secure:                 true
-profile::openstack::dashboard::session_cookie_secure:              true
-profile::openstack::dashboard::disable_password_reveal:            true
-profile::openstack::dashboard::enforce_password_check:             true
-profile::openstack::dashboard::secure_proxy_header:                '("HTTP_X_FORWARDED_PROTOCOL", "https")'
-profile::openstack::dashboard::password_autocomplete:              "off"
+profile::openstack::dashboard::user_menu_links:                    '[]'
 
 # cronjob to cleanup expired session from db
 profile::base::cron::crontabs:
@@ -65,13 +52,11 @@ profile::base::cron::crontabs:
 profile::base::yumrepo::repo_hash:
   rdo-release:
     ensure: present
-  CentOS-PowerTools: # FIXME: remove when CentOS 8 is gone
-    ensure: present
   AlmaLinux-PowerTools:
     ensure: present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
-    includepkgs: 'htop bash-completion-extras python3-mysql'
+    includepkgs: 'htop python3-mysql'
 
 # Sensu
 profile::webserver::apache::status::manage_status: true
@@ -155,18 +140,6 @@ profile::base::selinux::boolean:
     ensure: 'on'
     persistent: true
 
-# Local modifications to instance launch defaults
-profile::openstack::dashboard::launch_instance_defaults:
-  enable_scheduler_hints: 'False'
-
-# Disable admin functionality (use mgmt dashboard for this)
-horizon::keystone_options:
-  can_edit_user:                False
-  can_edit_group:               False
-  can_edit_project:             False
-  can_edit_domain:              False
-  can_edit_role:                False
-
 # Adjust the ulimit (number of open files) for Apache via systemd
 profile::base::systemd::manage_limits: true
 profile::base::systemd::limits:
@@ -174,8 +147,6 @@ profile::base::systemd::limits:
     limits:
       Service:
         'LimitNOFILE': 32768
-
-profile::openstack::dashboard::user_menu_links: '[]'
 
 apache::mod::ssl::ssl_cipher:   "HIGH:!aNULL:!MD5:!3DES"
 apache::mod::ssl::ssl_protocol: [ 'all', '-SSLv2', '-SSLv3', '-TLSv1', '-TLSv1.1' ]
