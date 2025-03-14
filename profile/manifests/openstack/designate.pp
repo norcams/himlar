@@ -7,6 +7,7 @@ class profile::openstack::designate (
   include ::designate::api
   include ::designate::central
   include ::designate::mdns
+  include ::designate::backend::bind9
   include ::designate::config
   include ::designate::worker
   include ::designate::producer
@@ -14,19 +15,6 @@ class profile::openstack::designate (
   include ::designate::wsgi::apache
 
   $bind_servers = lookup('profile::openstack::designate::bind_servers', Hash, 'first', {})
-
-  file { '/etc/designate/pools.yaml':
-    content      => template("${module_name}/openstack/designate/pools.yaml.erb"),
-    mode         => '0644',
-    owner        => 'root',
-    group        => 'root',
-    notify       => Exec['fix_designate_pools'],
-  }
-  exec { 'fix_designate_pools':
-    command     => '/usr/bin/designate-manage pool update --file /etc/designate/pools.yaml',
-    refreshonly => true,
-    require     => Class[designate::db::sync],
-  }
 
   package { 'bind':
     ensure => installed,
