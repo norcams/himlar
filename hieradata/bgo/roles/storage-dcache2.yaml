@@ -203,57 +203,75 @@ profile::storage::cephosd::osds:
   '/dev/sdb':
     wal_device: false
     db_device:  'vg_ssd1/lv_dbb'
+    disable_writecache: true
   '/dev/sdc':
     wal_device: false
     db_device:  'vg_ssd1/lv_dbc'
+    disable_writecache: true
   '/dev/sdd':
     wal_device: false
     db_device:  'vg_ssd1/lv_dbd'
+    disable_writecache: true
   '/dev/sde':
     wal_device: false
     db_device:  'vg_ssd1/lv_dbe'
+    disable_writecache: true
   '/dev/sdf':
     wal_device: false
     db_device:  'vg_ssd1/lv_dbf'
+    disable_writecache: true
   '/dev/sdg':
     wal_device: false
     db_device:  'vg_ssd1/lv_dbg'
+    disable_writecache: true
   '/dev/sdh':
     wal_device: false
     db_device:  'vg_ssd1/lv_dbh'
+    disable_writecache: true
   '/dev/sdi':
     wal_device: false
     db_device:  'vg_ssd1/lv_dbi'
+    disable_writecache: true
   '/dev/sdj':
     wal_device: false
     db_device:  'vg_ssd2/lv_dbj'
+    disable_writecache: true
   '/dev/sdk':
     wal_device: false
     db_device:  'vg_ssd2/lv_dbk'
+    disable_writecache: true
   '/dev/sdl':
     wal_device: false
     db_device:  'vg_ssd2/lv_dbl'
+    disable_writecache: true
   '/dev/sdm':
     wal_device: false
     db_device:  'vg_ssd2/lv_dbm'
+    disable_writecache: true
   '/dev/sdp':
     wal_device: false
     db_device:  'vg_ssd2/lv_dbp'
+    disable_writecache: true
   '/dev/sdq':
     wal_device: false
     db_device:  'vg_ssd2/lv_dbq'
+    disable_writecache: true
   '/dev/sdr':
     wal_device: false
     db_device:  'vg_ssd2/lv_dbr'
+    disable_writecache: true
   '/dev/sds':
     wal_device: false
     db_device:  'vg_ssd2/lv_dbs'
+    disable_writecache: true
   '/dev/vg_ssd1/lv_ssd_osd1':
     wal_device: false
     db_device:  false
+    disable_writecache: true
   '/dev/vg_ssd2/lv_ssd_osd2':
     wal_device: false
     db_device:  false
+    disable_writecache: true
 
 # Sensu
 sudo::configs:

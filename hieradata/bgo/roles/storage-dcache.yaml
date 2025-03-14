@@ -92,8 +92,8 @@ profile::base::common::extraswap_fileloc: '/var/lib/swap/swapfile'
 # Disable write cache on osd cache disks
 profile::base::disk::manage_hdparm: true
 profile::base::disk::disk_hdparams:
-  '/dev/sdq': { hdparams: '-W0', }
   '/dev/sdr': { hdparams: '-W0', }
+  '/dev/sds': { hdparams: '-W0', }
 
 profile::base::lvm::volume_group:
   'vg_swap':
@@ -187,51 +187,67 @@ profile::storage::cephosd::osds:
   '/dev/sdb':
     wal_device: false
     db_device:  'vg_cache1/lv_dbb'
+    disable_writecache: true
   '/dev/sdc':
     wal_device: false
     db_device:  'vg_cache1/lv_dbc'
+    disable_writecache: true
   '/dev/sdd':
     wal_device: false
     db_device:  'vg_cache1/lv_dbd'
+    disable_writecache: true
   '/dev/sde':
     wal_device: false
     db_device:  'vg_cache1/lv_dbe'
+    disable_writecache: true
   '/dev/sdf':
     wal_device: false
     db_device:  'vg_cache1/lv_dbf'
+    disable_writecache: true
   '/dev/sdg':
     wal_device: false
     db_device:  'vg_cache2/lv_dbg'
+    disable_writecache: true
   '/dev/sdh':
     wal_device: false
     db_device:  'vg_cache2/lv_dbh'
+    disable_writecache: true
   '/dev/sdi':
     wal_device: false
     db_device:  'vg_cache2/lv_dbi'
+    disable_writecache: true
   '/dev/sdj':
     wal_device: false
     db_device:  'vg_cache2/lv_dbj'
+    disable_writecache: true
   '/dev/sdk':
     wal_device: false
     db_device:  'vg_cache2/lv_dbk'
+    disable_writecache: true
   '/dev/sdl':
     wal_device: false
     db_device:  'vg_cache2/lv_dbl'
+    disable_writecache: true
   '/dev/sdm':
     wal_device: false
     db_device:  'vg_cache2/lv_dbm'
+    disable_writecache: true
   '/dev/sdn':
     wal_device: false
     db_device:  'vg_cache2/lv_dbn'
+    disable_writecache: true
   '/dev/sdo':
     wal_device: false
     db_device:  'vg_cache2/lv_dbo'
+    disable_writecache: true
   '/dev/sdp':
     wal_device: false
     db_device:  'vg_cache2/lv_dbp'
+    disable_writecache: true
   '/dev/sdq':
     wal_device: false
     db_device:  'vg_cache2/lv_dbq'
+    disable_writecache: true
 
 # Sensu
 sudo::configs:
