@@ -1,0 +1,5 @@
+---
+# Used for SONiC from version 202311
+
+#FIXME: we cannot replace sudoers file before we can manage everything needed by sonic
+sudo::config_file_replace: false

@@ -108,8 +108,10 @@ bootstrap_puppet()
 
   if command -v apt-get >/dev/null 2>&1; then
 
+    apt-get install -y lsb-release wget
+
     # Assume Debian/CumulusLinux
-    debian_release=$(lsb_release -c | awk '{ print $2 }')
+    debian_release=$(lsb_release -sc)
     wget -O /tmp/puppet7-release-${debian_release}.deb http://apt.puppetlabs.com/puppet7-release-${debian_release}.deb
     dpkg -i /tmp/puppet7-release-${debian_release}.deb
     apt-get update

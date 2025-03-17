@@ -21,6 +21,9 @@ if size($dash_a) == 4 {
   $variant = ''
 }
 
+# Needed to debug module load order
+#info("DEBUG:modulepath=${settings::modulepath}")
+
 # Determine OS and major OS version
 case $::osfamily {
   'RedHat': {
@@ -63,6 +66,9 @@ unless fact('runmode') {
     $runmode='default'
   }
 }
+
+#info("platform=${os_platform}")
+#info("version=${os_version}")
 
 # Query for hash of classes to include
 $runmode_classes = lookup("include.${::runmode}", Array, 'deep', [])
