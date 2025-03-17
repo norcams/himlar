@@ -144,6 +144,7 @@ frrouting::frrouting::bgp_neighbors6:
 
 frrouting::frrouting::zebra_ip6_routes:
   - '2001:700:2:8300::/56 Null0'
+  - '2001:700:2:8c20::/59 Null0'
   - '2001:948:62:3::/64 Null0'
   - '2001:948:62:4::/64 Null0'
   - '2001:700:2:83ff::8/128 fd00::8'
@@ -151,7 +152,6 @@ frrouting::frrouting::zebra_ip6_routes:
   - '2001:700:2:83ff::251/128 fd00::16'
   - '2001:700:2:83ff::256/128 fd00::34'
   - '2001:700:2:83ff::97/128 fd00::97'
-  - '2001:700:2:8c20::/59 Null0'
 frrouting::frrouting::zebra_ip_routes:
   - '10.0.0.0/8 Null0'
   - '192.168.243.0/24 Null0'
