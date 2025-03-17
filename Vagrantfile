@@ -85,6 +85,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         libvirt.cpus   = n['cpus']
         libvirt.memory = n['memory']
         libvirt.qemu_use_session = false
+        libvirt.cpu_mode = "host-model"
+        libvirt.cpu_model = ''
+        libvirt.cpu_fallback = 'allow'
       end
 
       box.vm.provider :virtualbox do |vbox|
