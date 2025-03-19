@@ -7,6 +7,16 @@
 # UH-IaaS internal documentation:
 #   https://iaas.readthedocs.io/en/latest/team/operations/designate.html
 
+# This creates /etc/openstack/puppet/admin-clouds.yaml
+keystone::bootstrap::bootstrap:        false
+keystone::bootstrap::manage_resources: false
+keystone::bootstrap::username:         'designate'
+keystone::bootstrap::password:         "%{hiera('designate_api_password')}"
+keystone::bootstrap::project_name:     "%{hiera('keystone__service__project')}"
+keystone::bootstrap::internal_url:     "%{hiera('endpoint__identity__internal')}"
+keystone::bootstrap::region:           "%{location}"
+keystone::bootstrap::interface:        'internal'
+
 #---------------------------------------------------------------------
 # Logging (manifests/logging.pp)
 #   - runs on the DNS node
