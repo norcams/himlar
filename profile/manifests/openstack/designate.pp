@@ -2,6 +2,7 @@ class profile::openstack::designate (
   $manage_firewall = false
 )
 {
+  include ::keystone::bootstrap
   include ::designate
   include ::designate::db
   include ::designate::api
