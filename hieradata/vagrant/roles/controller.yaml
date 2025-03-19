@@ -24,6 +24,8 @@ named_interfaces::config:
     - br1
   ceph:
     - br1
+  public:
+    - eth3
 
 profile::storage::cephclient::enable: false #FIXME: we need el9 repo
 
