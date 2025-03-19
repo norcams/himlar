@@ -80,19 +80,12 @@ memcached::max_memory: '20%'
 
 openstack_version: 'yoga'
 
-# bootstrap keystone
-keystone::bootstrap::bootstrap:             true
-keystone::bootstrap::manage_resources:      true
-keystone::bootstrap::username:              'admin'
-keystone::bootstrap::password:              "%{hiera('keystone_admin_password')}"
-keystone::bootstrap::email:                 "support@%{hiera('domain_frontend')}"
-keystone::bootstrap::project_name:          "%{hiera('keystone__admin__project')}"
-keystone::bootstrap::service_project_name:  "%{hiera('keystone__service__project')}"
-keystone::bootstrap::service_name:          'keystone'
-keystone::bootstrap::role_name:             'admin'
-keystone::bootstrap::admin_url:             "%{hiera('endpoint__identity__admin')}"
-keystone::bootstrap::public_url:            "%{hiera('endpoint__identity__public')}"
-keystone::bootstrap::internal_url:          "%{hiera('endpoint__identity__internal')}"
-keystone::bootstrap::region:                "%{location}"
-keystone::bootstrap::interface:             'internal'
-
+# This creates /etc/openstack/puppet/admin-clouds.yaml
+keystone::bootstrap::bootstrap:        false
+keystone::bootstrap::manage_resources: false
+keystone::bootstrap::username:         'nova'
+keystone::bootstrap::password:         "%{hiera('nova_api_password')}"
+keystone::bootstrap::project_name:     "%{hiera('keystone__service__project')}"
+keystone::bootstrap::internal_url:     "%{hiera('endpoint__identity__internal')}"
+keystone::bootstrap::region:           "%{location}"
+keystone::bootstrap::interface:        'internal'
