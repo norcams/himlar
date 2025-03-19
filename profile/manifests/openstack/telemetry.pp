@@ -6,6 +6,7 @@ class profile::openstack::telemetry (
   $polling_interval         = '600'
 ) {
 
+  include ::keystone::bootstrap
   include ::ceilometer
   include ::ceilometer::config
   include ::ceilometer::logging

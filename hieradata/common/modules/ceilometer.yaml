@@ -1,80 +1,82 @@
 ---
+openstack_version: 'yoga'
+
 # db setup (node: db)
-ceilometer::db::mysql::dbname:                        'ceilometer'
-ceilometer::db::mysql::user:                          'ceilometer'
+ceilometer::db::mysql::dbname: 'ceilometer'
+ceilometer::db::mysql::user:   'ceilometer'
 ceilometer::db::mysql::allowed_hosts:
   - "%{netpart_trp1}.%"
 
 # keystone setup (node: identity)
-ceilometer::keystone::auth::auth_name:                'ceilometer'
-ceilometer::keystone::auth::password:                 "%{hiera('ceilometer_api_password')}"
-ceilometer::keystone::auth::region:                   "%{::location}"
-ceilometer::keystone::auth::configure_endpoint:       false
+ceilometer::keystone::auth::auth_name:          'ceilometer'
+ceilometer::keystone::auth::password:           "%{hiera('ceilometer_api_password')}"
+ceilometer::keystone::auth::region:             "%{::location}"
+ceilometer::keystone::auth::configure_endpoint: false
 
 # ceilometer agent (node: telemetry, compute)
-ceilometer::agent::service_credentials::password:               "%{hiera('ceilometer_api_password')}"
-ceilometer::agent::service_credentials::auth_url:               "%{hiera('endpoint__identity__internal')}"
-ceilometer::agent::service_credentials::region_name:            "%{::location}"
-ceilometer::agent::service_credentials::project_name:           'services'
-ceilometer::agent::service_credentials::interface:              'internal'
+ceilometer::agent::service_credentials::password:     "%{hiera('ceilometer_api_password')}"
+ceilometer::agent::service_credentials::auth_url:     "%{hiera('endpoint__identity__internal')}"
+ceilometer::agent::service_credentials::region_name:  "%{::location}"
+ceilometer::agent::service_credentials::project_name: 'services'
+ceilometer::agent::service_credentials::interface:    'internal'
 
 # ceilometer notification agent (node: telemetry)
-ceilometer::agent::notification::manage_event_pipeline:         true
-ceilometer::agent::notification::event_pipeline_publishers:     ['gnocchi://?archive_policy=low&filter_service_activity=false']
-ceilometer::agent::notification::messaging_urls:                "%{hiera('service__transport__url')}"
+ceilometer::agent::notification::manage_event_pipeline:     true
+ceilometer::agent::notification::event_pipeline_publishers: ['gnocchi://?archive_policy=low&filter_service_activity=false']
+ceilometer::agent::notification::messaging_urls:            "%{hiera('service__transport__url')}"
 
 # turn on namespace for in role
-ceilometer::agent::polling::central_namespace:                  false
-ceilometer::agent::polling::compute_namespace:                  false
-ceilometer::agent::polling::ipmi_namespace:                     false
-ceilometer::agent::polling::manage_polling:                     true
-ceilometer::agent::polling::polling_interval:                   3600
+ceilometer::agent::polling::central_namespace: false
+ceilometer::agent::polling::compute_namespace: false
+ceilometer::agent::polling::ipmi_namespace:    false
+ceilometer::agent::polling::manage_polling:    true
+ceilometer::agent::polling::polling_interval:  3600
 ceilometer::agent::polling::polling_meters:
-- 'cpu'
-- 'cpu_l3_cache'
-- 'memory.usage'
-- 'network.incoming.bytes'
-- 'network.incoming.packets'
-- 'network.outgoing.bytes'
-- 'network.outgoing.packets'
-- 'disk.device.read.bytes'
-- 'disk.device.read.requests'
-- 'disk.device.write.bytes'
-- 'disk.device.write.requests'
-- 'volume.size'
-- 'volume.snapshot.size'
-- 'volume.backup.size'
-- 'hardware.cpu.util'                                                                                                               
-- 'hardware.cpu.user'
-- 'hardware.cpu.nice'
-- 'hardware.cpu.system'
-- 'hardware.cpu.idle'
-- 'hardware.cpu.wait'
-- 'hardware.cpu.kernel'
-- 'hardware.cpu.interrupt'
-- 'hardware.memory.used'
-- 'hardware.memory.total'
-- 'hardware.memory.buffer'
-- 'hardware.memory.cached'
-- 'hardware.memory.swap.avail'
-- 'hardware.memory.swap.total'
-#- 'hardware.cpu.util'
-#- 'hardware.memory.used'
-#- 'hardware.memory.total'
-#- 'hardware.memory.buffer'
-#- 'hardware.memory.cached'
-#- 'hardware.memory.swap.avail'
-#- 'hardware.memory.swap.total'
-- 'hardware.system_stats.io.outgoing.blocks'
-- 'hardware.system_stats.io.incoming.blocks'
-- 'hardware.network.ip.incoming.datagrams'
-- 'hardware.network.ip.outgoing.datagrams'
+  - 'cpu'
+  - 'cpu_l3_cache'
+  - 'memory.usage'
+  - 'network.incoming.bytes'
+  - 'network.incoming.packets'
+  - 'network.outgoing.bytes'
+  - 'network.outgoing.packets'
+  - 'disk.device.read.bytes'
+  - 'disk.device.read.requests'
+  - 'disk.device.write.bytes'
+  - 'disk.device.write.requests'
+  - 'volume.size'
+  - 'volume.snapshot.size'
+  - 'volume.backup.size'
+  - 'hardware.cpu.util'
+  - 'hardware.cpu.user'
+  - 'hardware.cpu.nice'
+  - 'hardware.cpu.system'
+  - 'hardware.cpu.idle'
+  - 'hardware.cpu.wait'
+  - 'hardware.cpu.kernel'
+  - 'hardware.cpu.interrupt'
+  - 'hardware.memory.used'
+  - 'hardware.memory.total'
+  - 'hardware.memory.buffer'
+  - 'hardware.memory.cached'
+  - 'hardware.memory.swap.avail'
+  - 'hardware.memory.swap.total'
+  #- 'hardware.cpu.util'
+  #- 'hardware.memory.used'
+  #- 'hardware.memory.total'
+  #- 'hardware.memory.buffer'
+  #- 'hardware.memory.cached'
+  #- 'hardware.memory.swap.avail'
+  #- 'hardware.memory.swap.total'
+  - 'hardware.system_stats.io.outgoing.blocks'
+  - 'hardware.system_stats.io.incoming.blocks'
+  - 'hardware.network.ip.incoming.datagrams'
+  - 'hardware.network.ip.outgoing.datagrams'
 
 # ceilometer config (node: telemetry)
-ceilometer::db::sync_db:                                        true
-ceilometer::db::sync::extra_params:                             '--skip-metering-database'
-ceilometer::db::database_connection:                            "mysql://ceilometer:%{hiera('ceilometer::db::mysql::password')}@%{hiera('service__address__db_regional')}/ceilometer"
+ceilometer::db::sync_db:             true
+ceilometer::db::sync::extra_params:  '--skip-metering-database'
+ceilometer::db::database_connection: "mysql://ceilometer:%{hiera('ceilometer::db::mysql::password')}@%{hiera('service__address__db_regional')}/ceilometer"
 
 # rabbit mq (for rabbit_password see secrets)
-ceilometer_rabbit_access:           "ceilometer:%{hiera('ceilometer_rabbit_password')}"
-ceilometer::default_transport_url:  "rabbit://%{hiera('ceilometer_rabbit_access')}@%{hiera('service__address__rabbitmq_01')}:5672/ceilometer"
+ceilometer_rabbit_access:          "ceilometer:%{hiera('ceilometer_rabbit_password')}"
+ceilometer::default_transport_url: "rabbit://%{hiera('ceilometer_rabbit_access')}@%{hiera('service__address__rabbitmq_01')}:5672/ceilometer"
