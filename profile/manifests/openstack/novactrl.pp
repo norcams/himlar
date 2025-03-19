@@ -37,6 +37,7 @@ class profile::openstack::novactrl(
   include ::nova::logging
   include ::nova::placement
   include ::nova::keystone::service_user
+  include ::keystone::bootstrap
 
   include ::placement
   include ::placement::db
