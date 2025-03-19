@@ -72,7 +72,7 @@ profile::application::himlarcli::region_name:            "%{::location}"
 profile::application::himlarcli::tenant_name:            'openstack'
 profile::application::himlarcli::default_domain:         'default'
 profile::application::himlarcli::compute_api_version:    "%{hiera('openstack_compute_api_version')}"
-profile::application::himlarcli::volume_api_version:     '3.50'
+profile::application::himlarcli::volume_api_version:     "%{hiera('openstack_volume_api_version')}"
 profile::application::himlarcli::domain:                 "%{::domain}"
 profile::application::himlarcli::foreman_url:            "https://%{::location}-admin-01.%{::domain}"
 profile::application::himlarcli::foreman_user:           'admin'

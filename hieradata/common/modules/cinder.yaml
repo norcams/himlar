@@ -1,4 +1,6 @@
 ---
+openstack_version: 'yoga'
+
 # db (node: db-02)
 cinder::db::mysql::dbname:   'cinder'
 cinder::db::mysql::user:     'cinder'
@@ -77,4 +79,11 @@ cinder::notification_topics:          'notifications'
 cinder::policy::policies:
   create_volume_backup:
     key:    'backup:create'
+    value:  'role:admin_only'
+  # https://docs.openstack.org/releasenotes/cinder/yoga.html#relnotes-20-0-0-yoga-eom-new-features
+  volume_reimage:
+    key:    'volume:reimage'
+    value:  'role:admin_only'
+  volume_reimage_reserved:
+    key:    'volume:reimage_reserved'
     value:  'role:admin_only'
