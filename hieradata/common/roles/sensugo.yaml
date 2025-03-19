@@ -55,18 +55,22 @@ profile::monitoring::sensu::backend::enable_bash_completion:  true
 #   '%{::location}':  { ensure: present }
 
 profile::monitoring::sensu::backend::bonsai_assets:
+  sensu/sensu-ruby-runtime:
+    version: 0.2.1
   sensu/sensu-slack-handler:
-    version: 1.6.0
+    version: 1.6.2
   sensu/sensu-influxdb-handler:
-    version: 4.0.0
+    version: 4.0.1
   sensu/check-cpu-usage:
-    version: 0.2.2
+    version: 0.2.3
   sensu/check-memory-usage:
     version: 0.2.2
   sensu/check-disk-usage:
     version: 0.7.0
   sensu/http-checks:
     version: 0.8.0
+  sensu/mysql-check:
+    version: 0.0.1
   # sensu/mysql-check:
   #   version: 0.0.1
   sensu/sensu-check-multiplexer:
@@ -75,8 +79,10 @@ profile::monitoring::sensu::backend::bonsai_assets:
     version: 1.0.0
   sensu-plugins/sensu-plugins-http:
     version: 6.0.0
-  sensu-plugins/sensu-plugins-mysql:
-    version: 3.2.0
+  # sensu-plugins/sensu-plugins-mysql:
+  #   version: 3.2.0
+  sensu-plugins/sensu-plugins-rabbitmq:
+    version: 8.1.0
 # useful assets
   # sensu/monitoring-plugins:
   #   version: 2.7.0
@@ -94,7 +100,10 @@ sensu::agent::subscriptions:
   - 'metrics'
 # other subsciptions:
   # - 'storage'
+  # - 'opbject'
   # - 'compute'
+  # - 'cephmon'
+  # - 'cephmon-object'
 
 sensu::plugins::plugins:
   sensu-plugins-opsgenie:
@@ -151,7 +160,7 @@ profile::monitoring::sensu::agent::checks:
     handlers:               ['default']
     runtime_assets:         [sensu/check-disk-usage]
   cpu-checks:
-    command:                'check-cpu-usage -s 5 -w 85 -c 95'
+    command:                'check-cpu-usage -s 15 -w {{ .annotations.cpu.warning | default 85 }} -c {{ .annotations.cpu.critical | default 95 }}'
     interval:               60
     subscriptions:          ['base']
     handlers:               ['default']
@@ -188,6 +197,14 @@ profile::monitoring::sensu::agent::checks:
   #   subscriptions:          ['monitor']
   #   handlers:               ['default']
   #   runtime_assets:         [sensu-plugins/sensu-plugins-http]
+  ceph-check:
+    command:                "ceph-health.sh -n client.sensu"
+    interval:               60
+    subscriptions:          ['cephmon']
+    handlers:               ['default']
+    round_robin:            true
+    runtime_assets:
+    - thorko/sensu-check-ceph
   http-check-multiplex:
     command: sensu-check-multiplexer --command http-check --annotation-prefix "http-check/args" -a "-r"
     stdin: true

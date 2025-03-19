@@ -1,0 +1,4 @@
+---
+network::interfaces_type: 'config_db::main'
+network::use_config_class: true
+network::config_db::main::config_db_file: '/etc/sonic/config_db.json.pending'

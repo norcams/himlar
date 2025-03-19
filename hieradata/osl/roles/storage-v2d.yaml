@@ -33,6 +33,12 @@ profile::base::network::network_auto_bonding:
 profile::base::common::manage_lvm: false
 profile::base::lvm::create_lvm: false
 
+profile::storage::cephclient::create_extraconf: true
+profile::storage::ceph_extraconf::config:
+  osd_memory_target:
+    'config_key'  : "osd/osd_memory_target"
+    'config_value': "53687091200" # 50G (16 disks 1TB ram)
+
 profile::storage::cephosd::osds:
   '/dev/sda':
     db_device:  false

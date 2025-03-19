@@ -24,6 +24,11 @@ class profile::firewall::post(
       proto => 'all',
       jump  => 'LOG',
     }
+    firewall { '998 ipv6 log all':
+      proto => 'all',
+      jump  => 'LOG',
+      provider => 'ip6tables',
+    }
   }
 
   if $debug {

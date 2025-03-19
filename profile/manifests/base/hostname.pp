@@ -1,12 +1,12 @@
 # Class: profile::base::hostname
 #
-# Set hostname 
+# Set hostname
 #
 class profile::base::hostname(
   $manage_hostname = false,
 ) {
 
-  $domain_mgmt = lookup('domain_mgmt', String, 'first', $::domain)
+  $domain_mgmt = lookup('domain_mgmt', String, 'first', $facts['networking']['domain'])
   $hostname = "${::verified_host}.${domain_mgmt}"
   if fact('os.distro.codename') == 'wheezy' {
     file { '/etc/hostname':
@@ -19,7 +19,7 @@ class profile::base::hostname(
       command     => "/bin/hostname ${hostname}",
       refreshonly => true
     }
-  } elsif (fact('os.distro.codename') == 'jessie') or (fact('os.distro.codename') == 'stretch') or (fact('os.distro.codename') == 'buster') {
+  } elsif $::osfamily == 'Debian' {
     exec { 'set debian hostname':
       command => "/usr/bin/hostnamectl set-hostname ${hostname}",
       unless  => "/usr/bin/hostnamectl status | grep 'Static hostname: ${hostname}'",
