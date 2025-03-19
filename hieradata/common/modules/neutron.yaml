@@ -1,6 +1,16 @@
 ---
 openstack_version: 'yoga'
 
+# This creates /etc/openstack/puppet/admin-clouds.yaml
+keystone::bootstrap::bootstrap:        false
+keystone::bootstrap::manage_resources: false
+keystone::bootstrap::username:         'neutron'
+keystone::bootstrap::password:         "%{hiera('neutron_api_password')}"
+keystone::bootstrap::project_name:     "%{hiera('keystone__service__project')}"
+keystone::bootstrap::internal_url:     "%{hiera('endpoint__identity__internal')}"
+keystone::bootstrap::region:           "%{location}"
+keystone::bootstrap::interface:        'internal'
+
 neutron::bind_host:   "%{ipaddress_trp1}"
 neutron::core_plugin: 'calico'
 
