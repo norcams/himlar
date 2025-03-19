@@ -5,6 +5,16 @@ glance::db::mysql::allowed_hosts:
 
 openstack_version: 'yoga'
 
+# This creates /etc/openstack/puppet/admin-clouds.yaml
+keystone::bootstrap::bootstrap:        false
+keystone::bootstrap::manage_resources: false
+keystone::bootstrap::username:         'glance'
+keystone::bootstrap::password:         "%{hiera('glance_api_password')}"
+keystone::bootstrap::project_name:     "%{hiera('keystone__service__project')}"
+keystone::bootstrap::internal_url:     "%{hiera('endpoint__identity__internal')}"
+keystone::bootstrap::region:           "%{location}"
+keystone::bootstrap::interface:        'internal'
+
 # api (node: image)
 glance::api::db::database_connection:      "mysql+pymysql://glance:%{hiera('glance::db::mysql::password')}@%{hiera('service__address__db_regional')}/glance"
 glance::backend::multistore::cinder::cinder_os_region_name:  "%{location}"
