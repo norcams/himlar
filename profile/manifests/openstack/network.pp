@@ -6,6 +6,8 @@ class profile::openstack::network(
   $firewall_extras = {},
   $manage_osprofiler = false,
 ){
+
+  include ::keystone::bootstrap
   include ::neutron
 
 # Use value ml2 for plugin and calico driver for calico v1.3 and older

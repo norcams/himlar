@@ -1,4 +1,6 @@
 ---
+openstack_version: 'yoga'
+
 neutron::bind_host:   "%{ipaddress_trp1}"
 neutron::core_plugin: 'calico'
 
