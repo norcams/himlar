@@ -1,6 +1,7 @@
 ---
 include:
   default:
+
     - profile::openstack::novactrl
     - profile::logging::rsyslog::client
     - profile::openstack::openrc
@@ -78,3 +79,20 @@ profile::base::yumrepo::repo_hash:
 memcached::max_memory: '20%'
 
 openstack_version: 'yoga'
+
+# bootstrap keystone
+keystone::bootstrap::bootstrap:             true
+keystone::bootstrap::manage_resources:      true
+keystone::bootstrap::username:              'admin'
+keystone::bootstrap::password:              "%{hiera('keystone_admin_password')}"
+keystone::bootstrap::email:                 "support@%{hiera('domain_frontend')}"
+keystone::bootstrap::project_name:          "%{hiera('keystone__admin__project')}"
+keystone::bootstrap::service_project_name:  "%{hiera('keystone__service__project')}"
+keystone::bootstrap::service_name:          'keystone'
+keystone::bootstrap::role_name:             'admin'
+keystone::bootstrap::admin_url:             "%{hiera('endpoint__identity__admin')}"
+keystone::bootstrap::public_url:            "%{hiera('endpoint__identity__public')}"
+keystone::bootstrap::internal_url:          "%{hiera('endpoint__identity__internal')}"
+keystone::bootstrap::region:                "%{location}"
+keystone::bootstrap::interface:             'internal'
+
