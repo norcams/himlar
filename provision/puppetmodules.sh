@@ -43,6 +43,9 @@ provision_env_modules()
         --puppetfile /opt/himlar/puppetfiles/$PUPPET_ENV.Puppetfile
     cd /opt/himlar && $R10K --verbose 4 puppetfile install --moduledir $CODE_PATH/$ENV_PATH/modules \
         --puppetfile /opt/himlar/puppetfiles/$PUPPET_ENV.Puppetfile --force
+    if [[ ! -z $HIMLAR_VAGRANT ]] && [[ $HIMLAR_VAGRANT == "true" ]]; then
+      printf "modulepath = \$basemodulepath\n" > $CODE_PATH/$ENV_PATH/environment.conf
+    fi
   fi
 }
 

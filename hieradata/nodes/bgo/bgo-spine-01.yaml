@@ -144,6 +144,7 @@ frrouting::frrouting::bgp_neighbors6:
 
 frrouting::frrouting::zebra_ip6_routes:
   - '2001:700:2:8300::/56 Null0'
+  - '2001:700:2:8c20::/59 Null0'
   - '2001:948:62:3::/64 Null0'
   - '2001:948:62:4::/64 Null0'
   - '2001:700:2:83ff::8/128 fd00::8'
@@ -184,6 +185,7 @@ frrouting::frrouting::bgp_networks6:
   - '2001:948:62:4::/64'
   - 'fd00:192:168:243::/64'
   - '2001:700:2:8300::/56'
+  - '2001:700:2:8c20::/59'
   - "%{hiera('bgp_loopback_addr6')}/128"
 
 frrouting::frrouting::bgp_options6:

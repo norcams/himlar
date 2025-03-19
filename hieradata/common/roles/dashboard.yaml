@@ -93,18 +93,18 @@ profile::openstack::dashboard::policies:
     file_path:  '/etc/openstack-dashboard/nova_policy.yaml'
     key:        'os_compute_api:os-shelve:shelve_offload'
     value:      'rule:system_admin_api'
-  nova_compute_resize:
-    file_path:  '/etc/openstack-dashboard/nova_policy.yaml'
-    key:        'os_compute_api:servers:resize'
-    value:      'rule:system_admin'
-  nova_compute_confirm_resize:
-    file_path:  '/etc/openstack-dashboard/nova_policy.yaml'
-    key:        'os_compute_api:servers:confirm_resize'
-    value:      'rule:system_admin'
-  nova_compute_revert_resize:
-    file_path:  '/etc/openstack-dashboard/nova_policy.yaml'
-    key:        'os_compute_api:servers:revert_resize'
-    value:      'rule:system_admin'
+#  nova_compute_resize:
+#    file_path:  '/etc/openstack-dashboard/nova_policy.yaml'
+#    key:        'os_compute_api:servers:resize'
+#    value:      'rule:system_admin'
+#  nova_compute_confirm_resize:
+#    file_path:  '/etc/openstack-dashboard/nova_policy.yaml'
+#    key:        'os_compute_api:servers:confirm_resize'
+#    value:      'rule:system_admin'
+#  nova_compute_revert_resize:
+#    file_path:  '/etc/openstack-dashboard/nova_policy.yaml'
+#    key:        'os_compute_api:servers:revert_resize'
+#    value:      'rule:system_admin'
   nova_compute_resume:
     file_path:  '/etc/openstack-dashboard/nova_policy.yaml'
     key:        'os_compute_api:os-suspend-server:resume'
