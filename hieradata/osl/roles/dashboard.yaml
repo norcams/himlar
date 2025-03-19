@@ -1,7 +1,7 @@
 ---
 # Enable osl dashboard only from some network
 profile::openstack::dashboard::allow_from_network:
-  - '129.240.224.100/32' # osl-login
+  - '129.240.114.45/32' # osl-login
   - '158.37.63.0/24'     # osl
   - '129.177.10.189/32'  # tor
   - '129.177.10.212/32'  # raymond

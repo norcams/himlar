@@ -18,13 +18,10 @@ named_interfaces::config:
 profile::base::common::packages:
   # we need newer version of six to avoid breaking requests and openstack cli
   'python3-six.noarch': { ensure: latest }
-  'MySQL-python': {}            # FIXME: remove when el7 is gone
   'python3-mysql': {}
   'bash-completion': {}
-  'bash-completion-extras': {}  # FIXME: remove when el7 is gone
   'jq': {}
   'openstack-selinux': {}
-  'python2-designateclient': {} # FIXME: remove when el7 is gone
   'python3-designateclient': {}
 
 profile::openstack::dashboard::designate_packages:
@@ -111,18 +108,18 @@ profile::openstack::dashboard::policies:
     file_path:  '/etc/openstack-dashboard/nova_policy.yaml'
     key:        'os_compute_api:os-shelve:shelve_offload'
     value:      'rule:system_admin_api'
-  nova_compute_resize:
-    file_path:  '/etc/openstack-dashboard/nova_policy.yaml'
-    key:        'os_compute_api:servers:resize'
-    value:      'rule:system_admin'
-  nova_compute_confirm_resize:
-    file_path:  '/etc/openstack-dashboard/nova_policy.yaml'
-    key:        'os_compute_api:servers:confirm_resize'
-    value:      'rule:system_admin'
-  nova_compute_revert_resize:
-    file_path:  '/etc/openstack-dashboard/nova_policy.yaml'
-    key:        'os_compute_api:servers:revert_resize'
-    value:      'rule:system_admin'
+#  nova_compute_resize:
+#    file_path:  '/etc/openstack-dashboard/nova_policy.yaml'
+#    key:        'os_compute_api:servers:resize'
+#    value:      'rule:system_admin'
+#  nova_compute_confirm_resize:
+#    file_path:  '/etc/openstack-dashboard/nova_policy.yaml'
+#    key:        'os_compute_api:servers:confirm_resize'
+#    value:      'rule:system_admin'
+#  nova_compute_revert_resize:
+#    file_path:  '/etc/openstack-dashboard/nova_policy.yaml'
+#    key:        'os_compute_api:servers:revert_resize'
+#    value:      'rule:system_admin'
   nova_compute_resume:
     file_path:  '/etc/openstack-dashboard/nova_policy.yaml'
     key:        'os_compute_api:os-suspend-server:resume'
