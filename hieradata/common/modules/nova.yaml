@@ -141,7 +141,8 @@ profile::openstack::novactrl::default_nova_config:
 # compute (node: compute)
 nova::compute::enabled:                          true
 nova::compute::resume_guests_state_on_host_boot: true
-nova::compute::resize_confirm_window:            '1'
+#nova::compute::resize_confirm_window:            '1'
+nova::compute::resize_confirm_window:            '0'  # temporary (trondham, 2025-03-14)
 nova::compute::reserved_host_memory:             '4096'
 nova::compute::rbd::libvirt_rbd_user:            'cinder'
 nova::compute::rbd::libvirt_rbd_secret_uuid:     "%{hiera('libvirt_rbd_secret_uuid')}"
@@ -149,9 +150,9 @@ nova::compute::rbd::libvirt_images_rbd_pool:     'volumes'
 nova::compute::rbd::rbd_keyring:                 'client.cinder'
 nova::compute::rbd::ephemeral_storage:           false
 nova::compute::rbd::manage_ceph_client:          false
-# Update when all computes are upgraded
 
-nova::upgrade_level_compute:                     'wallaby'
+# Update when all computes are upgraded
+nova::upgrade_level_compute:                     'xena'
 
 # Live Migration settings
 nova::migration::libvirt::live_migration_inbound_addr:         "%{::ipaddress_live1}"
