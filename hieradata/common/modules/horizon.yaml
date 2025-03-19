@@ -1,66 +1,98 @@
 ---
+#---------------------------------------------------------------------
+# General options (manifests/init.pp)
+#   - runs on the dashboard node
+#---------------------------------------------------------------------
 horizon::allowed_hosts:                 '*'
 horizon::servername:                    "%{hiera('public__address__dashboard')}"
 horizon::server_aliases:
   - "dashboard-%{::location}.%{hiera('domain_frontend')}"
   - "dashboard.%{hiera('domain_frontend2')}"
-horizon::wsgi::apache::priority:        '10'
-horizon::wsgi::apache::bind_address:    "%{ipaddress_public1}"
 horizon::bind_address:                  "%{ipaddress_public1}"
+horizon::site_branding:                 'NREC'
+
+# SSL
 horizon::listen_ssl:                    true
 horizon::ssl_ca:                        "/etc/pki/tls/certs/cachain.pem"
 horizon::ssl_cert:                      "/etc/pki/tls/certs/%{hiera('public__address__dashboard')}.cert.pem"
 horizon::ssl_key:                       "/etc/pki/tls/private/%{hiera('public__address__dashboard')}.key.pem"
+horizon::enable_secure_proxy_ssl_header: true
+
+# Logging
 horizon::access_log_format:             undef
+horizon::log_handlers:                  ['syslog']
+
+# Miscellaneous
 horizon::secure_cookies:                true
-horizon::images_panel:                  'angular'
-horizon::horizon_upload_mode:           "'direct'"
 horizon::disable_password_reveal:       true
 horizon::enforce_password_check:        true
-
 horizon::help_url:                      "http://docs.%{hiera('domain_frontend')}"
 horizon::openstack_endpoint_type:       'publicURL'
+horizon::disallow_iframe_embed:         true
+horizon::password_retrieve:             false
+horizon::password_autocomplete:         'off'
+
+# Keystone and API
 horizon::keystone_url:                  "%{hiera('endpoint__identity__public')}/v3"
 horizon::keystone_default_role:         'user'
 horizon::keystone_multidomain_support:  false
 horizon::api_versions:
   'identity': 3
-horizon::wsgi::apache::ssl_verify_client: "none"
 
-# Default for launch instance wizard
-horizon::instance_options:
-  hide_create_volume: true
-  create_volume: false
-  disable_volume: true
-  disable_volume_snapshot: true
-
-horizon::neutron_options:
-  'enable_lb': false
-  'enable_firewall': false
-  'enable_vpn': false
-
-horizon::image_backend:
-  image_formats:
-    '':       'Select format'
-    'qcow2':  'QCOW2 - QEMU Emulator'
-    'raw':    'Raw'
-
-horizon::websso_enabled:        'True'
+# WebSSO
+horizon::websso_enabled:        true
 horizon::websso_initial_choice: openidc
 horizon::websso_choices:
-  - ['openidc', 'Dataporten']
+  - ['openidc', 'Feide']
 horizon::websso_idp_mapping:
   openidc: [ 'dataporten', 'openid' ]
 
-# cache and session
+# Cache and session
 horizon::cache_server_ip:               '127.0.0.1'
 horizon::cache_server_port:             '11211'
 horizon::cache_backend:                 'django.core.cache.backends.memcached.MemcachedCache'
 horizon::django_session_engine:         'django.contrib.sessions.backends.cached_db'
 horizon::session_timeout:               10800 # 3 hours, default 30 min
 
-# logging
-horizon::log_handlers:     ['syslog']
+# Launch instance wizard
+horizon::instance_options:
+  hide_create_volume:      true
+  create_volume:           false
+  disable_volume:          true
+  disable_volume_snapshot: true
+  enable_scheduler_hints:  false
+
+# Identity (Keystone)
+horizon::keystone_options:
+  can_edit_user:    false
+  can_edit_group:   false
+  can_edit_project: false
+  can_edit_domain:  false
+  can_edit_role:    false
+
+# Network (Neutron)
+horizon::neutron_options:
+  enable_quotas:      true
+  enable_rbac_policy: false  # not supported by puppet?
+
+# Image (Glance)
+horizon::image_backend:
+  image_formats:
+    '':       'Select format'
+    'qcow2':  'QCOW2 - QEMU Emulator'
+    'raw':    'Raw'
+horizon::create_image_defaults:
+  'image_visibility':   'private'
+horizon::horizon_upload_mode: 'direct'
+horizon::images_panel:        'angular'
+
+#---------------------------------------------------------------------
+# WSGI options (manifests/wsgi/apache.pp)
+#   - runs on the dashboard node
+#---------------------------------------------------------------------
+horizon::wsgi::apache::priority:        '10'
+horizon::wsgi::apache::bind_address:    "%{ipaddress_public1}"
+horizon::wsgi::apache::ssl_verify_client: "none"
 horizon::wsgi::apache::extra_params:
   error_log_syslog: 'syslog:local1'
   error_log_file:   false

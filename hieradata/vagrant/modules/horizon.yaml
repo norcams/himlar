@@ -1,5 +1,6 @@
 ---
-horizon::log_level:                     'DEBUG'
-horizon::ssl_no_verify:                 true
-horizon::wsgi_processes:  1
-horizon::wsgi_threads:    1
+horizon::log_level:      'DEBUG'
+horizon::ssl_no_verify:  true
+horizon::wsgi_processes: 1
+horizon::wsgi_threads:   1
+horizon::site_branding:  'NREC Development'

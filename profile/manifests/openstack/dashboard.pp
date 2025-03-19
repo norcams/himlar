@@ -9,11 +9,6 @@ class profile::openstack::dashboard(
   $manage_overrides     = false,
   $database             = {},
   $override_template    = "${module_name}/openstack/horizon/local_settings.erb",
-  $site_branding        = 'NREC',
-  $image_visibility     = 'private',
-  $change_uploaddir     = false,
-  $custom_uploaddir     = '/image-upload',
-  $enable_pwd_retrieval = false,
   $enable_designate     = false,
   $disable_admin_dashboard = false,
   $change_region_selector = false,
@@ -21,18 +16,10 @@ class profile::openstack::dashboard(
   $keystone_admin_roles = undef,
   $customize_logo       = false,
   $user_menu_links      = undef,
-  $session_cookie_httponly = false,
   $access_control_allow_origin = false,
-  $use_ssl = false,
   $cutomize_charts_dashboard_overview = false,
-  $disallow_iframe_embed   = false,
-  $csrf_cookie_secure      = false,
-  $session_cookie_secure   = false,
-  $disable_password_reveal = false,
-  $enforce_password_check  = false,
-  $secure_proxy_header     = false,
-  $password_autocomplete   = undef,
   $launch_instance_defaults = {},
+  $simultaneous_sessions = 'disconnect',
 ) {
 
   if $manage_dashboard {
@@ -43,6 +30,11 @@ class profile::openstack::dashboard(
       order   => '99',
       notify  => Service['httpd']
     }
+  }
+
+  # Designate: Load designate class if "enable_designate" is set to true
+  if $enable_designate {
+    include ::horizon::dashboards::designate
   }
 
   if $database {
@@ -84,55 +76,6 @@ class profile::openstack::dashboard(
       source  => "puppet:///modules/${module_name}/openstack/horizon/overrides.py",
       notify  => Service['httpd'],
       require => Class['horizon']
-    }
-  }
-
-  if $change_uploaddir {
-    file { $custom_uploaddir:
-      ensure => 'directory',
-      owner  => 'apache',
-    }
-  }
-
-  # Designate: Install the Designate plugin (RPM packages) for Horizon
-  # if "enable_designate" is set to true
-  if $enable_designate {
-    $designate_packages = lookup('profile::openstack::dashboard::designate_packages', Hash, 'deep', {})
-    create_resources('profile::base::package', $designate_packages)
-
-    # FIXME: Temporary workaround for el8 designate-ui rpm setting wrong permissions
-    if $::osfamily == 'RedHat' and $::operatingsystemmajrelease == '8' {
-      $designate_ui_path = '/usr/share/openstack-dashboard/openstack_dashboard/local/enabled/'
-      file { '_1710_project_dns_panel_group.py':
-        path   => "${designate_ui_path}_1710_project_dns_panel_group.py",
-        mode   => '0644',
-        notify => Service['httpd'],
-      }
-      file { '_1721_dns_zones_panel.py':
-        path   => "${designate_ui_path}_1721_dns_zones_panel.py",
-        mode   => '0644',
-        notify => Service['httpd'],
-      }
-      file { '_1722_dns_reversedns_panel.py':
-        path   => "${designate_ui_path}_1722_dns_reversedns_panel.py",
-        mode   => '0644',
-        notify => Service['httpd'],
-      }
-      file { '_1710_project_dns_panel_group.cpython-36.pyc':
-        path   => "${designate_ui_path}__pycache__/_1710_project_dns_panel_group.cpython-36.pyc",
-        mode   => '0644',
-        notify => Service['httpd'],
-      }
-      file { '_1721_dns_zones_panel.cpython-36.pyc':
-        path   => "${designate_ui_path}__pycache__/_1721_dns_zones_panel.cpython-36.pyc",
-        mode   => '0644',
-        notify => Service['httpd'],
-      }
-      file { '_1722_dns_reversedns_panel.cpython-36.pyc':
-        path   => "${designate_ui_path}__pycache__/_1722_dns_reversedns_panel.cpython-36.pyc",
-        mode   => '0644',
-        notify => Service['httpd'],
-      }
     }
   }
 
