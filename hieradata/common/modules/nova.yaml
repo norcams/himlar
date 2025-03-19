@@ -150,9 +150,9 @@ nova::compute::rbd::libvirt_images_rbd_pool:     'volumes'
 nova::compute::rbd::rbd_keyring:                 'client.cinder'
 nova::compute::rbd::ephemeral_storage:           false
 nova::compute::rbd::manage_ceph_client:          false
-# Update when all computes are upgraded
 
-nova::upgrade_level_compute:                     'wallaby'
+# Update when all computes are upgraded
+nova::upgrade_level_compute:                     'xena'
 
 # Live Migration settings
 nova::migration::libvirt::live_migration_inbound_addr:         "%{::ipaddress_live1}"
