@@ -36,7 +36,7 @@ ceph::profile::params::client_keys:
     cap_mon: 'profile rbd'
     cap_osd: 'profile rbd pool=volumes, profile rbd pool=vms, profile rbd pool=images'
     inject: false # inject will fail in vagrant
-  'monitor.sensu':
+  'client.sensu':
     secret: "%{hiera('ceph_storage_client_sensu_key')}"
     mode: '0600'
     user: 'sensu'
