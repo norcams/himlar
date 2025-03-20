@@ -154,6 +154,7 @@ frrouting::frrouting::zebra_ip6_routes:
   - '2001:700:2:83ff::97/128 fd00::97'
 frrouting::frrouting::zebra_ip_routes:
   - '10.0.0.0/8 Null0'
+  - '109.105.127.128/26 Null0'
   - '192.168.243.0/24 Null0'
   - '158.37.64.0/23 Null0'
   - '158.39.74.0/24 Null0'
@@ -170,7 +171,7 @@ frrouting::frrouting::zebra_ip_routes:
   - '158.39.77.254/32 172.18.0.51'
 
 frrouting::frrouting::bgp_networks:
-  - '109.105.125.0/26'
+  - '109.105.127.128/26'
   - '192.168.243.0/24'
   - '158.37.64.0/23'
   - '158.39.74.0/24'
