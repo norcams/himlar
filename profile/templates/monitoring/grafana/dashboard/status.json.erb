@@ -477,7 +477,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 10,
+        "h": 9,
         "w": 12,
         "x": 0,
         "y": 11
@@ -549,7 +549,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 10,
+        "h": 9,
         "w": 12,
         "x": 12,
         "y": 11
@@ -593,6 +593,276 @@
         "type": "graphite",
         "uid": "P6575522ED8660310"
       },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "stepAfter",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "fieldMinMax": false,
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 20
+      },
+      "hideTimeOverride": false,
+      "id": 23,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.2.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "graphite",
+            "uid": "P6575522ED8660310"
+          },
+          "hide": false,
+          "refCount": 0,
+          "refId": "B",
+          "target": "alias(sumSeries(stats.gauges.uh-iaas.compute.*-central*.vcpus_used), 'Normal Workloads')",
+          "textEditor": true
+        },
+        {
+          "datasource": {
+            "type": "graphite",
+            "uid": "P6575522ED8660310"
+          },
+          "hide": false,
+          "refCount": 0,
+          "refId": "C",
+          "target": "alias(sumSeries(stats.gauges.uh-iaas.compute.*-shpc*.vcpus_used), 'SHPC Workloads')",
+          "textEditor": true
+        },
+        {
+          "datasource": {
+            "type": "graphite",
+            "uid": "P6575522ED8660310"
+          },
+          "hide": false,
+          "refCount": 0,
+          "refId": "D",
+          "target": "alias(sumSeries(stats.gauges.uh-iaas.compute.*-{alice,atlas}*.vcpus_used), 'CERN Alice and ATLAS Workloads')",
+          "textEditor": true
+        },
+        {
+          "datasource": {
+            "type": "graphite",
+            "uid": "P6575522ED8660310"
+          },
+          "hide": false,
+          "refCount": 0,
+          "refId": "E",
+          "target": "alias(sumSeries(stats.gauges.uh-iaas.compute.*-{hpc,vgpu,robin,clarino}*.vcpus_used), 'Speciality Workloads (vGPU etc.)')",
+          "textEditor": true
+        }
+      ],
+      "title": "Virtual CPUs in use (stacked)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "graphite",
+        "uid": "P6575522ED8660310"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "stepAfter",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "mbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 20
+      },
+      "hideTimeOverride": false,
+      "id": 27,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.2.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "graphite",
+            "uid": "P6575522ED8660310"
+          },
+          "hide": false,
+          "refCount": 0,
+          "refId": "B",
+          "target": "alias(sumSeries(stats.gauges.uh-iaas.compute.*-central*.memory_mb_used), 'Normal Workloads')",
+          "textEditor": true
+        },
+        {
+          "datasource": {
+            "type": "graphite",
+            "uid": "P6575522ED8660310"
+          },
+          "hide": false,
+          "refCount": 0,
+          "refId": "C",
+          "target": "alias(sumSeries(stats.gauges.uh-iaas.compute.*-shpc*.memory_mb_used), 'SHPC Workloads')",
+          "textEditor": true
+        },
+        {
+          "datasource": {
+            "type": "graphite",
+            "uid": "P6575522ED8660310"
+          },
+          "hide": false,
+          "refCount": 0,
+          "refId": "D",
+          "target": "alias(sumSeries(stats.gauges.uh-iaas.compute.*-{alice,atlas}*.memory_mb_used), 'CERN Alice and ATLAS Workloads')",
+          "textEditor": true
+        },
+        {
+          "datasource": {
+            "type": "graphite",
+            "uid": "P6575522ED8660310"
+          },
+          "hide": false,
+          "refCount": 0,
+          "refId": "E",
+          "target": "alias(sumSeries(stats.gauges.uh-iaas.compute.*-{hpc,vgpu,robin,clarino}*.memory_mb_used), 'Speciality Workloads (vGPU etc.)')",
+          "textEditor": true
+        }
+      ],
+      "title": "Memory in use (stacked)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "graphite",
+        "uid": "P6575522ED8660310"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -610,7 +880,7 @@
             "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 50,
-            "gradientMode": "scheme",
+            "gradientMode": "opacity",
             "hideFrom": {
               "legend": false,
               "tooltip": false,
@@ -637,10 +907,8 @@
             }
           },
           "decimals": 0,
-          "displayName": "vGPUs in use",
           "fieldMinMax": false,
           "mappings": [],
-          "max": 7,
           "min": 0,
           "thresholds": {
             "mode": "absolute",
@@ -648,10 +916,6 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "dark-red",
-                "value": 6
               }
             ]
           },
@@ -663,7 +927,7 @@
         "h": 10,
         "w": 6,
         "x": 0,
-        "y": 21
+        "y": 29
       },
       "id": 18,
       "options": {
@@ -687,11 +951,11 @@
           },
           "refCount": 0,
           "refId": "A",
-          "target": "aliasByNode(stats.gauges.uh-iaas.compute.bgo-vgpu1.running_vms, 4)",
+          "target": "aliasSub(aliasByNode(stats.gauges.uh-iaas.compute.bgo-vgpu1.running_vms, 4), '(.+?)-vgpu1', '\\1')",
           "textEditor": false
         }
       ],
-      "title": "vGPU BGO",
+      "title": "vGPUs in use: Nvidia V100",
       "type": "timeseries"
     },
     {
@@ -717,7 +981,7 @@
             "barWidthFactor": 0.6,
             "drawStyle": "line",
             "fillOpacity": 50,
-            "gradientMode": "scheme",
+            "gradientMode": "opacity",
             "hideFrom": {
               "legend": false,
               "tooltip": false,
@@ -744,10 +1008,8 @@
             }
           },
           "decimals": 0,
-          "displayName": "vGPUs in use",
           "fieldMinMax": false,
           "mappings": [],
-          "max": 19,
           "min": 0,
           "thresholds": {
             "mode": "absolute",
@@ -755,10 +1017,6 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "dark-red",
-                "value": 18
               }
             ]
           },
@@ -770,7 +1028,107 @@
         "h": 10,
         "w": 6,
         "x": 6,
-        "y": 21
+        "y": 29
+      },
+      "id": 26,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "7.4.5",
+      "targets": [
+        {
+          "datasource": {
+            "type": "graphite",
+            "uid": "P6575522ED8660310"
+          },
+          "refCount": 0,
+          "refId": "A",
+          "target": "aliasSub(aliasByNode(stats.gauges.uh-iaas.compute.osl-vgpu1.running_vms, 4), '(.+?)-vgpu1', '\\1')",
+          "textEditor": false
+        }
+      ],
+      "title": "vGPUs in use: Nvidia P40",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "graphite",
+        "uid": "P6575522ED8660310"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": true,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 50,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "stepBefore",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "dashed"
+            }
+          },
+          "decimals": 0,
+          "fieldMinMax": false,
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "string"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 29
       },
       "id": 24,
       "options": {
@@ -794,226 +1152,11 @@
           },
           "refCount": 0,
           "refId": "A",
-          "target": "aliasByNode(stats.gauges.uh-iaas.compute.osl-vgpu1.running_vms, 4)",
+          "target": "aliasSub(aliasByNode(stats.gauges.uh-iaas.compute.*-vgpu_l40s1.running_vms, 4), '(.+?)-.+', '\\1')",
           "textEditor": false
         }
       ],
-      "title": "vGPU OSL",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "default": true,
-        "type": "graphite",
-        "uid": "P6575522ED8660310"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "stepAfter",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "mbytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 10,
-        "w": 6,
-        "x": 12,
-        "y": 21
-      },
-      "hideTimeOverride": false,
-      "id": 23,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "7.4.5",
-      "targets": [
-        {
-          "datasource": {
-            "type": "graphite",
-            "uid": "P6575522ED8660310"
-          },
-          "refCount": 0,
-          "refId": "A",
-          "target": "alias(stats.gauges.uh-iaas.compute.bgo-central1.memory_mb_used, 'Memory Used')"
-        },
-        {
-          "datasource": {
-            "type": "graphite",
-            "uid": "P6575522ED8660310"
-          },
-          "hide": false,
-          "refCount": 0,
-          "refId": "B",
-          "target": "alias(stats.gauges.uh-iaas.compute.bgo-central1.memory_mb, 'Max Memory')"
-        }
-      ],
-      "title": "Memory Used BGO",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "default": true,
-        "type": "graphite",
-        "uid": "P6575522ED8660310"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "barWidthFactor": 0.6,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "stepAfter",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "fieldMinMax": false,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "mbytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 10,
-        "w": 6,
-        "x": 18,
-        "y": 21
-      },
-      "hideTimeOverride": false,
-      "id": 25,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "7.4.5",
-      "targets": [
-        {
-          "datasource": {
-            "type": "graphite",
-            "uid": "P6575522ED8660310"
-          },
-          "refCount": 0,
-          "refId": "A",
-          "target": "alias(stats.gauges.uh-iaas.compute.osl-central1.memory_mb_used, 'Memory Used')"
-        },
-        {
-          "datasource": {
-            "type": "graphite",
-            "uid": "P6575522ED8660310"
-          },
-          "hide": false,
-          "refCount": 0,
-          "refId": "B",
-          "target": "alias(stats.gauges.uh-iaas.compute.osl-central1.memory_mb, 'Max Memory')"
-        }
-      ],
-      "title": "Memory Used OSL",
+      "title": "vGPUs in use: Nvidia L40S",
       "type": "timeseries"
     }
   ],
@@ -1077,6 +1220,6 @@
   "timezone": "browser",
   "title": "Status",
   "uid": "000000001",
-  "version": 19,
+  "version": 1,
   "weekStart": ""
 }
