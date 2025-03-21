@@ -684,7 +684,7 @@
           "hide": false,
           "refCount": 0,
           "refId": "B",
-          "target": "alias(sumSeries(stats.gauges.uh-iaas.compute.*-central*.vcpus_used), 'Normal Workloads')",
+          "target": "alias(sumSeries(stats.gauges.uh-iaas.compute.*-{central,windows}*.vcpus_used), 'Normal Workloads')",
           "textEditor": true
         },
         {
@@ -695,7 +695,7 @@
           "hide": false,
           "refCount": 0,
           "refId": "C",
-          "target": "alias(sumSeries(stats.gauges.uh-iaas.compute.*-shpc*.vcpus_used), 'SHPC Workloads')",
+          "target": "alias(scale(sumSeries(stats.gauges.uh-iaas.compute.*-shpc*.vcpus_used), 0.6), 'SHPC Workloads')",
           "textEditor": true
         },
         {
@@ -817,7 +817,7 @@
           "hide": false,
           "refCount": 0,
           "refId": "B",
-          "target": "alias(sumSeries(stats.gauges.uh-iaas.compute.*-central*.memory_mb_used), 'Normal Workloads')",
+          "target": "alias(sumSeries(stats.gauges.uh-iaas.compute.*-{central,windows}*.memory_mb_used), 'Normal Workloads')",
           "textEditor": true
         },
         {
@@ -828,7 +828,7 @@
           "hide": false,
           "refCount": 0,
           "refId": "C",
-          "target": "alias(sumSeries(stats.gauges.uh-iaas.compute.*-shpc*.memory_mb_used), 'SHPC Workloads')",
+          "target": "alias(scale(sumSeries(stats.gauges.uh-iaas.compute.*-shpc*.memory_mb_used), 0.6), 'SHPC Workloads')",
           "textEditor": true
         },
         {
@@ -1220,6 +1220,6 @@
   "timezone": "browser",
   "title": "Status",
   "uid": "000000001",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
