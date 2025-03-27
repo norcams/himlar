@@ -15,8 +15,8 @@ include:
 openstack_version: 'yoga'
 
 # bootstrap keystone
-keystone::bootstrap::bootstrap:             true
-keystone::bootstrap::manage_resources:      true
+keystone::bootstrap::bootstrap:             false
+keystone::bootstrap::manage_resources:      false
 keystone::bootstrap::username:              'admin'
 keystone::bootstrap::password:              "%{hiera('keystone_admin_password')}"
 keystone::bootstrap::email:                 "support@%{hiera('domain_frontend')}"
