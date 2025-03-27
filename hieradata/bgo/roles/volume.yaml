@@ -21,6 +21,18 @@ profile::openstack::volume::type:
     properties:
       - 'volume_backend_name=dcache-hdd-ec82'
 
+# Fix backend_host to avoid using default fqdn@<rbd_pool>
+cinder::config::cinder_config:
+  rbd-volumes/backend_host:
+    value: 'rbd:volumes'
+  mass-storage-default/backend_host:
+    value: 'rbd:volumes_hdd_ec_meta'
+  mass-storage-dcache/backend_host:
+    value: 'rbd:dcache_hdd_ec_meta'
+  mass-storage-ssd/backend_host:
+    value: 'rbd:volumes_ssd_ec_meta'
+  dcache-hdd-ec82/backend_host:
+    value: 'rbd:dcache_hdd_ec82_meta'
 
 profile::openstack::volume::backend::rbd:
   rbd-volumes:

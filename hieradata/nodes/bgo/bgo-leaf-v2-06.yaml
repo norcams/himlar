@@ -50,6 +50,12 @@ profile::base::network::cumulus_interfaces:
     'clagd_backup_ip': "%{hiera('netcfg_trp_net_c0')}.5"
     'clagd_sys_mac': '44:38:39:ff:bb:5d'
 
+frrouting::frrouting::zebra_ip6_routes:
+  - '2001:948:62:3::/64 Null0 vrf lhcopn'
+  - '2001:948:62:4::/64 Null0 vrf lhcopn'
+frrouting::frrouting::zebra_ip_routes:
+  - '109.105.127.128/26 Null0 vrf lhcopn'
+
 frrouting::frrouting::bgp_vrf_options:
   'netapp':
     'address_family4_unicast':
