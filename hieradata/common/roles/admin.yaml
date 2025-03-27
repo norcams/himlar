@@ -2,6 +2,7 @@
 include:
   default:
     - profile::application::foreman
+    - profile::bootstrap::repo
     - profile::network::services
     - profile::webserver::apache
     - profile::dns::rndc_key
