@@ -28,23 +28,20 @@ profile::openstack::volume::backend::rbd:
     rbd_user: 'cinder'
     rbd_flatten_volume_from_snapshot: 'True'
     rbd_secret_uuid: "%{hiera('libvirt_rbd_secret_uuid')}"
+    rbd_exclusive_cinder_pool: 'True'
     extra_options:
       rbd-volumes/enable_deferred_deletion:
-        value: 'True'
-      rbd-volumes/rbd_exclusive_cinder_pool:
         value: 'True'
   mass-storage-default:
     rbd_pool: 'volumes_hdd_ec_meta'
     rbd_user: 'cinder-hdd-ec'
     rbd_flatten_volume_from_snapshot: 'True'
     rbd_secret_uuid: "%{hiera('libvirt_rbd_secret_uuid')}"
+    rbd_exclusive_cinder_pool: 'True'
+    report_dynamic_total_capacity: 'False'
     extra_options:
       mass-storage-default/enable_deferred_deletion:
         value: 'True'
-      mass-storage-default/rbd_exclusive_cinder_pool:
-        value: 'True'
-      mass-storage-default/report_dynamic_total_capacity:
-        value: 'False'
       mass-storage-default/max_over_subscription_ratio:
         value: '2000.0'
   mass-storage-dcache:
@@ -52,13 +49,11 @@ profile::openstack::volume::backend::rbd:
     rbd_user: 'cinder-dcache-hdd-ec'
     rbd_flatten_volume_from_snapshot: 'True'
     rbd_secret_uuid: "%{hiera('libvirt_rbd_secret_uuid')}"
+    rbd_exclusive_cinder_pool: 'True'
+    report_dynamic_total_capacity: 'False'
     extra_options:
       mass-storage-dcache/enable_deferred_deletion:
         value: 'True'
-      mass-storage-dcache/rbd_exclusive_cinder_pool:
-        value: 'True'
-      mass-storage-dcache/report_dynamic_total_capacity:
-        value: 'False'
       mass-storage-dcache/max_over_subscription_ratio:
         value: '2500.0'
   mass-storage-ssd:
@@ -66,13 +61,11 @@ profile::openstack::volume::backend::rbd:
     rbd_user: 'cinder-ssd-ec'
     rbd_flatten_volume_from_snapshot: 'True'
     rbd_secret_uuid: "%{hiera('libvirt_rbd_secret_uuid')}"
+    rbd_exclusive_cinder_pool: 'True'
+    report_dynamic_total_capacity: 'False'
     extra_options:
       mass-storage-ssd/enable_deferred_deletion:
         value: 'True'
-      mass-storage-ssd/rbd_exclusive_cinder_pool:
-        value: 'True'
-      mass-storage-ssd/report_dynamic_total_capacity:
-        value: 'False'
       mass-storage-ssd/max_over_subscription_ratio:
         value: '1000.0'
   dcache-hdd-ec82:
@@ -80,13 +73,11 @@ profile::openstack::volume::backend::rbd:
     rbd_user: 'cinder-dcache-hdd-ec82'
     rbd_flatten_volume_from_snapshot: 'True'
     rbd_secret_uuid: "%{hiera('libvirt_rbd_secret_uuid')}"
+    rbd_exclusive_cinder_pool: 'True'
+    report_dynamic_total_capacity: 'False'
     extra_options:
       dcache-hdd-ec82/enable_deferred_deletion:
         value: 'True'
-      dcache-hdd-ec82/rbd_exclusive_cinder_pool:
-        value: 'True'
-      dcache-hdd-ec82/report_dynamic_total_capacity:
-        value: 'False'
       dcache-hdd-ec82/max_over_subscription_ratio:
         value: '2500.0'
 
