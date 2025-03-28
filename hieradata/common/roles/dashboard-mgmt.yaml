@@ -4,9 +4,9 @@ horizon::servername:                    "dashboard.%{hiera('domain_mgmt')}"
 horizon::server_aliases:                "%{::fqdn}"
 horizon::wsgi::apache::bind_address:    "%{ipaddress_mgmt1}"
 horizon::bind_address:                  "%{ipaddress_mgmt1}"
-horizon::horizon_ca:                    "/etc/pki/tls/certs/cachain.pem"
-horizon::horizon_cert:                  "/etc/pki/tls/certs/%{hiera('public__address__dashboardmgmt')}.cert.pem"
-horizon::horizon_key:                   "/etc/pki/tls/private/%{hiera('public__address__dashboardmgmt')}.key.pem"
+horizon::ssl_ca:                        "/etc/pki/tls/certs/cachain.pem"
+horizon::ssl_cert:                      "/etc/pki/tls/certs/%{hiera('public__address__dashboardmgmt')}.cert.pem"
+horizon::ssl_key:                       "/etc/pki/tls/private/%{hiera('public__address__dashboardmgmt')}.key.pem"
 horizon::openstack_endpoint_type:       'internalURL'
 
 horizon::websso_enabled:        false
