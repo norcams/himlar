@@ -5,7 +5,7 @@ include:
     - profile::openstack::compute::pci_passthrough
     - profile::openstack::compute::nvidia_vgpu_createmdev
   default:
-    - nova::compute::vgpu
+    - nova::compute::mdev
     - profile::application::create_mdev
     - profile::openstack::compute::pci_passthrough
     - profile::openstack::compute::nvidia_vgpu_createmdev
@@ -96,7 +96,7 @@ profile::base::common::packages:
 #    Name: NVIDIA L40S-24Q
 #    Description: num_heads=4, frl_config=60, framebuffer=24576M, max_resolution=7680x4320, max_instance=2
 #
-nova::compute::vgpu::vgpu_types_device_addresses_mapping: { 'nvidia-1155', }
+nova::compute::mdev::mdev_types_device_addresses_mapping: { 'nvidia-1155', }
 
 # Max 8 instances per host
 nova::scheduler::filter::max_instances_per_host: '8'
@@ -115,7 +115,7 @@ profile::application::create_mdev::trait:           'CUSTOM_NREC_VGPU_L40S_24G'
 profile::openstack::compute::manage_telemetry: true
 
 
-## Not sure we need this, ref. line 121-123 ## 
+## Not sure we need this, ref. line 121-123 ##
 kmod::list_of_blacklists:
 #  'nouveau': {}
 #kmod::list_of_installs:
