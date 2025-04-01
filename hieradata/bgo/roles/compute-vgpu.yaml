@@ -1,7 +1,7 @@
 ---
 include:
   default:
-    - nova::compute::mdev
+    - nova::compute::vgpu
     - profile::application::create_mdev
 
 named_interfaces::config:
@@ -62,7 +62,7 @@ profile::base::common::packages:
 #
 # Example: 'nvidia-35' or ['nvidia-35', 'nvidia-36']
 #
-nova::compute::mdev::mdev_types_device_addresses_mapping: { 'nvidia-108', }
+nova::compute::vgpu::vgpu_types_device_addresses_mapping: { 'nvidia-108', }
 
 # Configuration values for the "create-mdev" service
 profile::application::create_mdev::enable:                true

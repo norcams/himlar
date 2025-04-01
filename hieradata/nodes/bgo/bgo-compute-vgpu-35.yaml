@@ -25,7 +25,7 @@ profile::base::lvm::logical_volume:
 #
 # Example: 'nvidia-35' or ['nvidia-35', 'nvidia-36']
 #
-nova::compute::mdev::mdev_types_device_addresses_mapping: { 'nvidia-109', }
+nova::compute::vgpu::vgpu_types_device_addresses_mapping: { 'nvidia-109', }
 
 # Configuration values for the "create-mdev" service
 profile::application::create_mdev::enable:                true
