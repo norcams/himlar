@@ -14,7 +14,6 @@ class profile::openstack::compute(
   include ::nova::logging
   include ::nova::placement
   include ::nova::keystone::service_user
-  include ::keystone::bootstrap
 
   if $manage_telemetry {
     include ::profile::openstack::telemetry::polling
