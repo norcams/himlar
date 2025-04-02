@@ -85,7 +85,7 @@ nova::compute::rbd::ephemeral_storage: false
 
 # Configuration items not explicitly supported by the Puppet module
 nova::config::nova_config:
-  libvirt/images_type:
-    value: default
   DEFAULT/metadata_workers:
     value: '4'
+
+nova::compute::libvirt::images_type: 'default'

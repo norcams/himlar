@@ -73,8 +73,6 @@ nova::compute::rbd::ephemeral_storage: false
 
 # Configuration items not explicitly supported by the Puppet module
 nova::config::nova_config:
-  libvirt/images_type:
-    value: default
   DEFAULT/metadata_workers:
     value: '2'
 
@@ -83,3 +81,5 @@ sensu__memory__check:     "check-memory.rb -w 2048 -c 1024"
 # Red Hat Subscription Management (RHSM)
 profile::rhsm::subscription::manage: false
 profile::rhsm::virtwho::manage:      false
+
+nova::compute::libvirt::images_type: 'default'
