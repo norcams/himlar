@@ -125,30 +125,11 @@ nodesets:
     #- role:       "mgmt"
     #  box:        "norcams/net"
     #- role:       'resolver'
-  ha:
-    - role:       'ha'
-      hostid:     '01'
-    - role:       'ha'
-      hostid:     '02'
-  grid:
-    - role:       'ha-grid'
-      hostid:     '01'
-      box:        "norcams/base"
-    - role:       'ha-grid'
-      hostid:     '02'
-      box:        "norcams/base"
   db:
     - role:       'db-global'
       hostid:     '01'
       box:        "norcams/base"
     - role:       'db-global'
-      hostid:     '02'
-      box:        "norcams/base"
-    # galera arbitrator
-    - role:       'ha'
-      hostid:     '01'
-      box:        "norcams/base"
-    - role:       'ha'
       hostid:     '02'
       box:        "norcams/base"
   ceph:
