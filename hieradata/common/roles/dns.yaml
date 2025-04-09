@@ -7,6 +7,18 @@ include:
     - profile::openstack::openrc
     - profile::dns::rndc_key
 
+openstack_version: 'yoga'
+
+# This creates /etc/openstack/puppet/admin-clouds.yaml
+keystone::bootstrap::bootstrap:        false
+keystone::bootstrap::manage_resources: false
+keystone::bootstrap::username:         'designate'
+keystone::bootstrap::password:         "%{hiera('designate_api_password')}"
+keystone::bootstrap::project_name:     "%{hiera('keystone__service__project')}"
+keystone::bootstrap::internal_url:     "%{hiera('endpoint__identity__internal')}"
+keystone::bootstrap::region:           "%{location}"
+keystone::bootstrap::interface:        'internal'
+
 # WSGI config
 # https://github.com/openstack/puppet-designate/blob/unmaintained/xena/manifests/wsgi/apache.pp
 designate::wsgi::apache::workers:   4
@@ -58,7 +70,6 @@ profile::base::yumrepo::repo_hash:
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
     includepkgs: 'htop'
-    #includepkgs: 'htop python3-importlib-metadata python3-amqp python3-colorama python3-contextlib2 python3-eventlet python3-fasteners python3-jeepney python3-keyring python3-kombu python3-logutils python3-migrate python3-monotonic python3-msgpack python3-pecan python3-pyrsistent python3-qpid-proton python3-redis python3-repoze-lru python3-rfc3986 python3-routes python3-secretstorage python3-simplegeneric python3-simplejson python3-singledispatch python3-vine python3-wcwidth python3-wrapt python3-zipp qpid-proton-c'
 
 # Make sure that memcached doesn't too much memory
 memcached::max_memory: '20%'
