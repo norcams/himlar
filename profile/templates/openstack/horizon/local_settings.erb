@@ -1,59 +1,12 @@
 # Extra setting
-SITE_BRANDING = '<%= @site_branding %>'
 <% if @manage_overrides -%>
 HORIZON_CONFIG['customization_module'] = 'openstack_dashboard.overrides'
-<% end -%>
-<% if @change_uploaddir -%>
-FILE_UPLOAD_TEMP_DIR = '<%= @custom_uploaddir %>'
-<% end -%>
-<% if @enable_pwd_retrieval -%>
-OPENSTACK_ENABLE_PASSWORD_RETRIEVE = '<%= @enable_pwd_retrieval %>'
-<% end -%>
-<% if @session_cookie_httponly -%>
-OPENSTACK_SESSION_COOKIE_HTTPONLY = '<%= @session_cookie_httponly %>'
-<% end -%>
-<% if @use_ssl -%>
-OPENSTACK_USE_SSL = '<%= @use_ssl %>'
 <% end -%>
 <% if @access_control_allow_origin -%>
 OPENSTACK_ACCESS_CONTROL_ALLOW_ORIGIN = '<%= @access_control_allow_origin %>'
 <% end -%>
-<% if @disallow_iframe_embed -%>
-DISALLOW_IFRAME_EMBED = '<%= @disallow_iframe_embed -%>'
-<% end -%>
-<% if @csrf_cookie_secure -%>
-CSRF_COOKIE_SECURE = '<%= @csrf_cookie_secure -%>'
-<% end -%>
-<% if @session_cookie_secure -%>
-SESSION_COOKIE_SECURE = '<%= @session_cookie_secure -%>'
-<% end -%>
-<% if @password_autocomplete -%>
-PASSWORD_AUTOCOMPLETE = '<%= @password_autocomplete -%>'
-<% end -%>
-<% if @disable_password_reveal -%>
-DISABLE_PASSWORD_REVEAL = '<%= @disable_password_reveal -%>'
-<% end -%>
-<% if @enforce_password_check -%>
-ENFORCE_PASSWORD_CHECK = '<%= @enforce_password_check -%>'
-<% end -%>
-<% if @secure_proxy_header -%>
-SECURE_PROXY_SSL_HEADER = <%= @secure_proxy_header -%>
-<% end -%>
-
-<% if @launch_instance_defaults -%>
-LAUNCH_INSTANCE_DEFAULTS = {
-    'config_drive': <% if @launch_instance_defaults['config_drive'] %><%=@launch_instance_defaults['config_drive']%><% else %>False<% end %>,
-    'create_volume': <% if @launch_instance_defaults['create_volume'] %><%=@launch_instance_defaults['create_volume']%><% else %>False<% end %>,
-    'disable_image': <% if @launch_instance_defaults['disable_image'] %><%=@launch_instance_defaults['disable_image']%><% else %>False<% end %>,
-    'disable_instance_snapshot': <% if @launch_instance_defaults['disable_instance_snapshot'] %><%=@launch_instance_defaults['disable_instance_snapshot']%><% else %>False<% end %>,
-    'disable_volume': <% if @launch_instance_defaults['disable_volume'] %><%=@launch_instance_defaults['disable_volume']%><% else %>True<% end %>,
-    'disable_volume_snapshot': <% if @launch_instance_defaults['disable_volume_snapshot'] %><%=@launch_instance_defaults['disable_volume_snapshot']%><% else %>True<% end %>,
-    'enable_scheduler_hints': <% if @launch_instance_defaults['enable_scheduler_hints'] %><%=@launch_instance_defaults['enable_scheduler_hints']%><% else %>True<% end %>,
-    'hide_create_volume': <% if @launch_instance_defaults['hide_create_volume'] %><%=@launch_instance_defaults['hide_create_volume']%><% else %>True<% end %>,
-    # available in zed: enable_metadata (default: True)
-    # available in zed: enable_net_ports (default: True)
-    # available in wallaby: default_availability_zone (default: 'Any')
-}
+<% if @simultaneous_sessions -%>
+SIMULTANEOUS_SESSIONS = '<%= @simultaneous_sessions %>'
 <% end -%>
 
 <% if @database -%>
@@ -72,9 +25,6 @@ DATABASES = {
 <% if @keystone_admin_roles -%>
 OPENSTACK_KEYSTONE_ADMIN_ROLES = <%= @keystone_admin_roles %>
 <% end -%>
-CREATE_IMAGE_DEFAULTS = {
-    'image_visibility': '<%= @image_visibility -%>',
-}
 <% if @user_menu_links -%>
 USER_MENU_LINKS = <%= @user_menu_links %>
 <% end -%>
