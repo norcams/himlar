@@ -4,6 +4,16 @@ include:
     - profile::openstack::openrc
     - profile::openstack::telemetry
 
+# This creates /etc/openstack/puppet/admin-clouds.yaml
+keystone::bootstrap::bootstrap:        false
+keystone::bootstrap::manage_resources: false
+keystone::bootstrap::username:         'ceilometer'
+keystone::bootstrap::password:         "%{hiera('ceilometer_api_password')}"
+keystone::bootstrap::project_name:     "%{hiera('keystone__service__project')}"
+keystone::bootstrap::internal_url:     "%{hiera('endpoint__identity__internal')}"
+keystone::bootstrap::region:           "%{location}"
+keystone::bootstrap::interface:        'internal'
+
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   rdo-release:
