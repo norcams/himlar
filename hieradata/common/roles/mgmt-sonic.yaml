@@ -1,20 +1,36 @@
 ---
 # Remove old stuff from mgmt role
-profile::base::network::cumulus_ifs:              false
-network::config_file_per_interface:               false
+profile::base::network::cumulus_ifs: false
 
-profile::base::common::manage_chrony:  false
+profile::base::common::manage_chrony: false
 
 openstack_extras::repo::debian::debian::package_require: false
 
 profile::network::leaf::manage_license: false
 
-openstack_extras::repo::debian::debian::manage_deb:  false
+openstack_extras::repo::debian::debian::manage_deb: false
 openstack_extras::repo::debian::debian::source_hash:
   buster:
     ensure: absent
+
+# remove snmp sudo
+sudo::configs:
+  snmp:
+    ensure: absent
+
+# puppet: increase facts limits for sonic
+puppet::agent_additional_settings:
+  'disable_warnings':           'deprecations'
+  'stringify_facts':            'false'
+  'number_of_facts_soft_limit': 2800
+  'top_level_facts_soft_limit': 800
 
 # Network config
 network::interfaces_type: 'config_db::main'
 network::use_config_class: true
 network::config_db::main::config_db_file: '/etc/sonic/config_db.json.pending'
+
+# named inferfaces
+named_interfaces::config:
+  mgmt:
+    - eth0
