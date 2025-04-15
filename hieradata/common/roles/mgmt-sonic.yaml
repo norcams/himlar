@@ -13,12 +13,15 @@ openstack_extras::repo::debian::debian::source_hash:
   buster:
     ensure: absent
 
+profile::base::common::manage_ntp: false
+
 # remove snmp sudo
 sudo::configs:
   snmp:
     ensure: absent
 
 # puppet: increase facts limits for sonic
+puppet::cron_cmd: 'ip vrf exec mgmt /opt/puppetlabs/bin/puppet agnet -t'
 puppet::agent_additional_settings:
   'disable_warnings':           'deprecations'
   'stringify_facts':            'false'
