@@ -23,7 +23,7 @@ network::default_interfaces_hash:
     localhost:
       bgp_asn: "65100"
       deployment_id: "None"
-      hostname: "%{facts.networking.fqdn}"
+      hostname: "%{::verified_certname}"
       type: LeafRouter
       hwsku: Force10-S6000
       timezone: "%{hiera('timezone::timezone')}"
