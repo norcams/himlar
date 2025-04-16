@@ -1,11 +1,11 @@
 ---
 named_interfaces::config:
   mgmt:
-    - eth0
-  oob:
     - eth1
+  oob:
+    - eth3
   public:
-    - eth2
+    - eth4
 
 network::interfaces_hash:
   'eth0':
