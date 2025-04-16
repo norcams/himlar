@@ -9,15 +9,17 @@ named_interfaces::config:
 
 network::interfaces_hash:
   'eth0':
-    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.10"      # bgo mgmt
-    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
-    defroute:  'no'
-    onboot:        'yes'
+    ipaddress:      "%{hiera('netcfg_mgmt_netpart')}.10"      # bgo mgmt
+    netmask:        "%{hiera('netcfg_mgmt_netmask')}"
+    defroute:       'no'
+    onboot:         'yes'
+    hwaddr:         '00:50:56:ae:bf:8a'
   'eth1':
-    ipaddress:     '172.17.0.10'                         # bgo oob
-    netmask:       '255.255.248.0'
-    defroute:      'no'
-    onboot:        'yes'
+    ipaddress:      '172.17.0.10'                         # bgo oob
+    netmask:        '255.255.248.0'
+    defroute:       'no'
+    onboot:         'yes'
+    hwaddr:         '00:50:56:ae:ed:e4'
   'eth2':
     ipaddress:      '129.177.8.10'                      # public
     netmask:        '255.255.255.128'
@@ -31,16 +33,19 @@ network::interfaces_hash:
     ipv6init:       'yes'
     ipv6addr:       '2001:700:200:8::10/64'
     ipv6_defaultgw: '2001:700:200:8::1'
+    hwaddr:         '00:50:56:ae:26:a6'
   'eth3':
     ipaddress:     '172.31.0.10'                         # uib mgmt
     netmask:       '255.255.248.0'
     defroute:      'no'
     onboot:        'yes'
+    hwaddr:        '00:50:56:ae:ce:58'
   'eth4':
     ipaddress:     '172.28.0.9'                          # test01 mgmt
     netmask:       '255.255.248.0'
     defroute:      'no'
     onboot:        'yes'
+    hwaddr:        '00:50:56:ae:07:ff'
 
 profile::bootstrap::himlar::manage_bootstrap_scripts: true
 
