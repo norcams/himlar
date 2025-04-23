@@ -45,6 +45,9 @@ accounts::ssh_keys:
   'ivarth':
     type:    'ed25519'
     public:  'AAAAC3NzaC1lZDI1NTE5AAAAIEw1EfnNNHH2p+nTEEL18e0MigXwbO/d8UyZBp9jfsTQ'
+  'kristiang':
+    type:    'ed25519'
+    public:  'AAAAC3NzaC1lZDI1NTE5AAAAIPycLZevlsTwvii7R5BU79kCk+FSdb2/OVZKkGFIspfX'
   'norcams':
     type:    'ed25519'
     public:  'AAAAC3NzaC1lZDI1NTE5AAAAIMW4BIpDkX/Ju8Gypn3GDHcTYk3JeIgHHS/5yldEVz8e'
@@ -85,6 +88,9 @@ accounts::users:
     groups: [ 'users', 'wheel']
   'ivarth':
     comment: 'ivarth@norcams'
+    groups: [ 'users', 'wheel', 'norcams' ]
+  'kristiang':
+    comment: 'kristiang@rail'
     groups: [ 'users', 'wheel', 'norcams' ]
   'norcams':
     comment: 'Generic system user'
