@@ -38,10 +38,6 @@ profile::base::network::cumulus_interfaces:
     'ipv6': [ 'fd00:192:268:224::2/64', ]
     'virtual_ip': '192.168.224.1/24 fd00:192:268:224::1/64'
     'virtual_mac': '00:00:5e:00:02:06'
-  'bridge.4093':
-    'vrf': 'lhcopn'
-    'ipv4': [ '172.18.228.5/30', ]
-    'ipv6': [ 'fd00:18:228::5/124', ]
   'peerlink.4094':
     'ipv4': [ '172.18.227.5/24', ]
     'ipv6': [ 'fd00:18:227::5/64', ]
@@ -67,8 +63,6 @@ frrouting::frrouting::bgp_vrf_options:
     'common_cfg':
       - 'bgp router-id 109.105.124.63'
       - 'bgp default local-preference 200'
-      - 'neighbor fd00:18:228::6 remote-as 65503'
-      - 'neighbor fd00:18:228::6 bfd 5 500 500'
       - 'neighbor 109.105.124.62 remote-as 65504'
       - 'neighbor 109.105.124.62 bfd 5 500 500'
       - 'neighbor 128.39.70.176 remote-as 224'
@@ -82,11 +76,6 @@ frrouting::frrouting::bgp_vrf_options:
       - 'import vrf route-map lhcopn-allow'
       - 'import vrf default'
       - 'network 109.105.127.128/26'
-      - 'neighbor fd00:18:228::6 activate'
-      - 'neighbor fd00:18:228::6 soft-reconfiguration inbound'
-      - 'neighbor fd00:18:228::6 prefix-list lhc-routes-in in'
-      - 'neighbor fd00:18:228::6 prefix-list lhc-routes-in out'
-      - 'neighbor fd00:18:228::6 route-map failover-lhc-routes in'
       - 'neighbor 109.105.124.62 soft-reconfiguration inbound'
       - 'neighbor 109.105.124.62 prefix-list lhc-routes-in in'
       - 'neighbor 109.105.124.62 prefix-list lhc-routes-out out'
@@ -101,11 +90,6 @@ frrouting::frrouting::bgp_vrf_options:
       - 'import vrf default'
       - 'network 2001:948:62:3::/64'
       - 'network 2001:948:62:4::/64'
-      - 'neighbor fd00:18:228::6 activate'
-      - 'neighbor fd00:18:228::6 soft-reconfiguration inbound'
-      - 'neighbor fd00:18:228::6 prefix-list lhc-routes6-in in'
-      - 'neighbor fd00:18:228::6 prefix-list lhc-routes6-in out'
-      - 'neighbor fd00:18:228::6 route-map failover-lhc-routes6 in'
       - 'neighbor 2001:700:0:80ae::0 activate'
       - 'neighbor 2001:700:0:80ae::0 soft-reconfiguration inbound'
       - 'neighbor 2001:700:0:80ae::0 prefix-list lhc-routes6-in in'
@@ -118,6 +102,10 @@ frrouting::frrouting::bgp_vrf_options:
       - 'neighbor 2001:948:40:4::88 route-map primary-lhc-uplink6 in'
 
 frrouting::frrouting::bgp_neighbors:
+  - "172.18.0.6 remote-as %{hiera('bgp_as')}"
+  - '172.18.0.6 route-map failover-lhc-routes in'
+  - '172.18.0.6 soft-reconfiguration inbound'
+  - "fd00::5 remote-as %{hiera('bgp_as')}"
   - "172.18.6.1 remote-as %{hiera('bgp_as')}"
   - '172.18.6.1 soft-reconfiguration inbound'
   - '172.18.6.1 prefix-list spine-routes-in in'
@@ -135,6 +123,9 @@ frrouting::frrouting::bgp_neighbors:
   - 'fd00::6:2 prefix-list spine-routes-in in'
   - 'fd00::6:2 prefix-list spine-routes-out out'
 frrouting::frrouting::bgp_neighbors6:
+  - 'fd00::6 activate'
+  - 'fd00::6 soft-reconfiguration inbound'
+  - 'fd00::6 route-map failover-lhc-routes6 in'
   - 'fd00::6:1 activate'
   - 'fd00::6:1 soft-reconfiguration inbound'
   - 'fd00::6:1 prefix-list spine-routes6-in in'
