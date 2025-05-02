@@ -251,9 +251,11 @@ profile::storage::cephosd::osds:
   '/dev/vg_ssd1/lv_ssd_osd1':
     wal_device: false
     db_device:  false
+    disable_writecache: true
   '/dev/vg_ssd2/lv_ssd_osd2':
     wal_device: false
     db_device:  false
+    disable_writecache: true
 
 # Sensu
 sudo::configs:
