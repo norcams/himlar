@@ -16,6 +16,7 @@ profile::base::physical::load_ahci_first_scsidrv: 'megaraid_sas'
 
 # Do not use ceph cluster for instance disk
 nova::compute::rbd::ephemeral_storage: false
+nova::compute::libvirt::images_type: 'default'
 
 # Nova overrides
 nova::compute::libvirt::cpu_models:             ['EPYC']
