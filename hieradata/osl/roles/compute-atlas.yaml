@@ -60,6 +60,7 @@ sensu__memory__check:     "check-memory.rb -w 1536 -c 1024"
 
 # This compute host uses local storage for instances
 nova::compute::rbd::ephemeral_storage:  false
+nova::compute::libvirt::images_type: 'default'
 
 # Configuration items not explicitly supported by the Puppet module
 nova::config::nova_config:
@@ -82,5 +83,3 @@ profile::monitoring::collectd::plugins:
 
 collectd::plugin::virt::hostname_format:        'hostname'
 collectd::plugin::virt::plugin_instance_format: 'uuid'
-
-nova::compute::libvirt::images_type:            'default'

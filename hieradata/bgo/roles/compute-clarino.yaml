@@ -81,6 +81,7 @@ profile::base::network::network_auto_bonding:
 
 # These compute host uses local storage for instances
 nova::compute::rbd::ephemeral_storage: false
+nova::compute::libvirt::images_type: 'default'
 
 # Configuration items not explicitly supported by the Puppet module
 nova::config::nova_config:
@@ -94,4 +95,3 @@ profile::rhsm::virtwho::manage:      false
 sensu__memory__check:     "check-memory.rb -w 2048 -c 1024"
 sensu__disk__ignore:      '-I /var/lib/nova/instances'
 
-nova::compute::libvirt::images_type: 'default'
