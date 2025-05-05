@@ -18,7 +18,6 @@ profile::base::physical::hugepages:        '245760'
 # Nover overrides
 nova::compute::libvirt::cpu_models:       ['EPYC-IBPB']
 nova::cpu_allocation_ratio:                '1'
-nova::compute::libvirt::images_type: 'default'
 
 # Create and enable more swap
 profile::base::common::extraswap:        true
