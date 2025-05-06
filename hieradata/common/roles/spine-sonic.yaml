@@ -1,6 +1,5 @@
 ---
 # Disable stuff
-profile::network::leaf::manage_frrouting:         false
 profile::network::leaf::manage_acls:              false
 profile::network::leaf::manage_switchdconf:       false
 profile::base::network::cumulus_ifs:              false
@@ -39,3 +38,10 @@ network::config_db::main::config_db_file: '/etc/sonic/config_db.json.pending'
 named_interfaces::config:
   mgmt:
     - eth0
+
+# sonic specific implementation
+frrouting::manage_package:  false
+frrouting::sonic_container: true
+frrouting::config_dir:     '/etc/sonic/frr'
+frrouting::config_owner:   '300'
+frrouting::config_grp:     '300'
