@@ -3,6 +3,8 @@ class profile::openstack::volume(
   $notify_service = false,
   $manage_osprofiler = false
 ) {
+
+  include ::keystone::bootstrap
   include ::cinder
   include ::cinder::nova
   include ::cinder::client

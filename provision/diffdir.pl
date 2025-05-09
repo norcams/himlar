@@ -2,20 +2,78 @@
 
 use strict;
 use warnings;
+use Readonly;
 use File::Find;
 use Config::IniFiles;
 use YAML::XS qw(LoadFile);
+use Getopt::Long qw(:config no_ignore_case);
 
+# Usage info
+Readonly my $USAGE => <<"END_USAGE";
+Usage: $0 [OPTION...] <dir1> <dir2>
+END_USAGE
+
+# Help output
+Readonly my $HELP => <<'END_HELP';
+
+OPTIONS:
+  -h, --help               Print help information
+
+END_HELP
+
+# Options with default values
+my %opt
+  = (
+     'help' => 0,
+    );
+
+# Get options
+GetOptions('h|help' => \$opt{help},
+          ) or do { print $USAGE; exit 1 };
+
+# If user requested help
+if ($opt{help}) {
+    print $USAGE, $HELP;
+    exit 0;
+}
+
+# Get directories
 my $dir1 = $ARGV[0];
 my $dir2 = $ARGV[1];
+
+# Handle errors
+if (!defined $dir1 or !defined $dir2) {
+    print $USAGE, $HELP;
+    exit 1;
+}
+if (! -e $dir1) {
+    print "ERROR: $dir1 does not exist\n";
+    exit 1;
+}
+if (! -e $dir2) {
+    print "ERROR: $dir2 does not exist\n";
+    exit 1;
+}
+if (! -d $dir1) {
+    print "ERROR: $dir1 is not a directory\n";
+    exit 1;
+}
+if (! -d $dir2) {
+    print "ERROR: $dir2 is not a directory\n";
+    exit 1;
+}
+
+# Remove trailing slash on directories
 $dir1 =~ s{/\z}{}xms;
 $dir2 =~ s{/\z}{}xms;
 
+# List of files
 my @files_dir1 = ();
 my @files_dir2 = ();
 my @yaml_files_dir1 = ();
 my @yaml_files_dir2 = ();
 
+# Pupulate file lists
 find(
     sub {
 	return unless -f;
@@ -25,7 +83,6 @@ find(
 	}
     },
     $dir1);
-
 find(
     sub {
 	return unless -f;
@@ -36,10 +93,12 @@ find(
     },
     $dir2);
 
+# Data variables
 my @errors = ();
 my %inidiff = ();
 my %yamldiff = ();
 
+# Loop through files and create diff for INI files
 foreach my $file (@files_dir1) {
     $file =~ s{$dir1/}{}xms;
     if (! -f "$dir2/$file") {
@@ -93,6 +152,8 @@ foreach my $file (@files_dir1) {
 	}
     }
 }
+
+# Collect errors
 foreach my $file2 (@files_dir2) {
     $file2 =~ s{$dir2/}{}xms;
     if (! -f "$dir1/$file2") {
@@ -100,6 +161,7 @@ foreach my $file2 (@files_dir2) {
     }
 }
 
+# Loop through files and create diff for YAML files
 foreach my $file (@yaml_files_dir1) {
     $file =~ s{$dir1/}{}xms;
     my $yaml1 = LoadFile "$dir1/$file";
@@ -121,11 +183,13 @@ foreach my $file (@yaml_files_dir1) {
     }
 }
 
+# Print errors
 foreach my $error (@errors) {
     print "FILE EXISTENCE: $error\n";
 }
 print "\n";
 
+# Print YAML diffs
 foreach my $file (keys %yamldiff) {
     print "YAML diff: $file:\n";
     foreach my $msg (@{ $yamldiff{$file} }) {
@@ -134,6 +198,7 @@ foreach my $file (keys %yamldiff) {
     print "\n";
 }
 
+# Print INI diffs
 foreach my $file (keys %inidiff) {
     print "INI sections diff: $file:\n";
     foreach my $msg (@{ $inidiff{$file} }) {
@@ -141,3 +206,6 @@ foreach my $file (keys %inidiff) {
     }
     print "\n";
 }
+
+# Exit gracefully
+exit 0;

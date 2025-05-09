@@ -1,0 +1,15 @@
+---
+network::interfaces_hash:
+  # MGMT_INTERFACE:
+  #   "eth0":
+  #     vrfname: mgmt
+    # "eth1|%{hiera('netcfg_mgmt_net_c1')}.0/21":
+    #   gwaddr: "%{hiera('netcfg_mgmt_gateway')}"
+    #
+  MGMT_PORT:
+    "eth0":
+      alias: "eth0"
+      admin_status: "up"
+#     "%{::interface_mgmt1}":
+#       alias: "%{::interface_mgmt1}"
+#       admin_status: "up"

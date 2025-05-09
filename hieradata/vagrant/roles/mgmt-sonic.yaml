@@ -1,37 +1,37 @@
 ---
-# Remove old stuff from mgmt role
-profile::base::network::cumulus_ifs:              false
-network::config_file_per_interface:               false
-
-profile::base::common::manage_chrony:  false
-
-openstack_extras::repo::debian::debian::package_require: false
-
-profile::network::leaf::manage_license: false
-
-# Apt config
-openstack_extras::repo::debian::debian::manage_deb:  false
-openstack_extras::repo::debian::debian::source_hash:
-  buster:
-    ensure: absent
-
-# NTP (can use normal ntp servie in vagrant)
+# NTP use lo-m in mgmt vrf
 profile::base::common::manage_ntp: true
 ntp::servers:
   - ntp.uio.no
   - ntp2.uio.no
+ntp::interfaces:
+  - "lo-m"
+ntp::interfaces_ignore:
+  - 'lo'
+
+named_interfaces::config:
+  vagrant:
+    - eth0
+  mgmt:
+    - eth0
 
 # Network config (use default sonic config example in vagrant)
 network::reload: false
+network::config_db::main::config_db_file: '/etc/sonic/config_db.json'
 network::default_interfaces_hash:
   DEVICE_METADATA:
     localhost:
       bgp_asn: "65100"
       deployment_id: "None"
-      hostname: "%{facts.networking.fqdn}"
+      hostname: "%{::verified_certname}"
       type: LeafRouter
       hwsku: Force10-S6000
       timezone: "%{hiera('timezone::timezone')}"
+  MGMT_VRF_CONFIG:
+    vrf_global:
+      mgmtVrfEnabled: 'true'
+  DNS_NAMESERVER:
+    "%{hiera('netcfg_dns_mgmt_server2')}": {}
   BGP_PEER_RANGE: {}
   VLAN: {}
   PORT:
@@ -232,7 +232,6 @@ network::default_interfaces_hash:
       name: ARISTA12T2
   PORTCHANNEL_INTERFACE: {}
   PORTCHANNEL: {}
-  MGMT_INTERFACE: {}
   DHCP_SERVER: {}
   NTP_SERVER:
     2.debian.pool.ntp.org: {}

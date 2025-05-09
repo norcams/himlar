@@ -4,9 +4,9 @@ horizon::servername:                    "dashboard.%{hiera('domain_mgmt')}"
 horizon::server_aliases:                "%{::fqdn}"
 horizon::wsgi::apache::bind_address:    "%{ipaddress_mgmt1}"
 horizon::bind_address:                  "%{ipaddress_mgmt1}"
-horizon::horizon_ca:                    "/etc/pki/tls/certs/cachain.pem"
-horizon::horizon_cert:                  "/etc/pki/tls/certs/%{hiera('public__address__dashboardmgmt')}.cert.pem"
-horizon::horizon_key:                   "/etc/pki/tls/private/%{hiera('public__address__dashboardmgmt')}.key.pem"
+horizon::ssl_ca:                        "/etc/pki/tls/certs/cachain.pem"
+horizon::ssl_cert:                      "/etc/pki/tls/certs/%{hiera('public__address__dashboardmgmt')}.cert.pem"
+horizon::ssl_key:                       "/etc/pki/tls/private/%{hiera('public__address__dashboardmgmt')}.key.pem"
 horizon::openstack_endpoint_type:       'internalURL'
 
 horizon::websso_enabled:        false
@@ -23,13 +23,13 @@ profile::openstack::dashboard::firewall_extras:
 profile::openstack::dashboard::keystone_admin_roles:  ["admin"]
 profile::openstack::dashboard::manage_overrides: false
 
-# Disable admin functionality (use mgmt dashboard for this)
+# Enable admin functionality
 horizon::keystone_options:
-  can_edit_user:                True
-  can_edit_group:               True
-  can_edit_project:             True
-  can_edit_domain:              True
-  can_edit_role:                True
+  can_edit_user:    true
+  can_edit_group:   true
+  can_edit_project: true
+  can_edit_domain:  true
+  can_edit_role:    true
 
 profile::openstack::dashboard::allow_from_network:
   - "%{hiera('netcfg_mgmt_netpart')}.0/%{hiera('netcfg_mgmt_netmask')}"  # only allow from mgmt network (including sshuttle through login)

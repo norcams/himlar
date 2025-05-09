@@ -6,6 +6,7 @@ class profile::openstack::image(
   $manage_osprofiler = false,
 ) {
 
+  include ::keystone::bootstrap
   include ::profile::openstack::image::api
 
   if $notify_enabled {

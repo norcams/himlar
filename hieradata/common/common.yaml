@@ -38,11 +38,18 @@ domain_frontend2:     "%{hiera('domain_frontend')}"
 
 openstack_version:    'xena'
 
-# Compute (Nova) API version
+# Nova API version
 # Ref. https://docs.openstack.org/nova/latest/reference/api-microversion-history.html
 openstack_compute_api_version: '2.79'  # train
 #openstack_compute_api_version: '2.88' # wallaby
 #openstack_compute_api_version: '2.90' # xena/yoga
+
+# Cinder API version
+# Ref. https://docs.openstack.org/api-ref/block-storage/api_microversion_history.html
+#openstack_volume_api_version: '3.50' # queens
+#openstack_volume_api_version: '3.66' # xena
+openstack_volume_api_version: '3.68' # yoga
+
 
 ceph_version:         'quincy'
 

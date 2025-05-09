@@ -37,34 +37,34 @@ defaults:
 nodesets:
   default:
     - role:       "db-global"
-      puppet_env: "xena"
+      puppet_env: "yoga"
     - role:       "db-regional"
-      puppet_env: "xena"
+      puppet_env: "yoga"
     - role:       "api"
     - role:       "mq"
     - role:       "identity"
-      puppet_env: "xena"
+      puppet_env: "yoga"
     - role:       "novactrl"
-      puppet_env: "xena"
+      puppet_env: "yoga"
     - role:       "image"
-      puppet_env: "xena"
+      puppet_env: "yoga"
     - role:       "network"
-      puppet_env: "xena"
+      puppet_env: "yoga"
     - role:       "volume"
-      puppet_env: "xena"
+      puppet_env: "yoga"
     - role:       "dashboard"
-      puppet_env: "xena"
+      puppet_env: "yoga"
     - role:       "compute"
       memory:     4096
       cpus:       2
-      puppet_env: "xena"
+      puppet_env: "yoga"
   # The following nodes are optional
     #- role:       "access"
     #- role:       "identity"
     #  hostid:     "02"
-    #  puppet_env: "xena"
+    #  puppet_env: "yoga"
     #- role:       "console"
-    #  puppet_env: "xena"
+    #  puppet_env: "yoga"
     #- role:       "sensugo"
     #  hostid:     "01"
     #  memory:     1536
@@ -85,10 +85,10 @@ nodesets:
     #  puppet_env: "controller"
     #  box:        "norcams/el9"
     #- role:       "metric"
-    #  puppet_env: "xena"
+    #  puppet_env: "yoga"
     #  disk:       "2GB"
     #- role:       "telemetry"
-    #  puppet_env: "xena"
+    #  puppet_env: "yoga"
     #- role:       "dashboard-mgmt"
     #- role:       "report"
     #- role:       "coordinator"
@@ -125,30 +125,21 @@ nodesets:
     #- role:       "mgmt"
     #  box:        "norcams/net"
     #- role:       'resolver'
-  ha:
-    - role:       'ha'
-      hostid:     '01'
-    - role:       'ha'
-      hostid:     '02'
-  grid:
-    - role:       'ha-grid'
-      hostid:     '01'
-      box:        "norcams/base"
-    - role:       'ha-grid'
-      hostid:     '02'
-      box:        "norcams/base"
+    #- role:       'mgmt-sonic'
+    #  box:        'norcams/sonic2411'
+    #  puppet_env: 'sonic'
+    #  memory:     4096
+    #  cpus:       2
+    #- role:       'spine-sonic'
+    #  box:        'norcams/sonic2205'
+    #  puppet_env: 'sonic'
+    #  memory:     4096
+    #  cpus:       2
   db:
     - role:       'db-global'
       hostid:     '01'
       box:        "norcams/base"
     - role:       'db-global'
-      hostid:     '02'
-      box:        "norcams/base"
-    # galera arbitrator
-    - role:       'ha'
-      hostid:     '01'
-      box:        "norcams/base"
-    - role:       'ha'
       hostid:     '02'
       box:        "norcams/base"
   ceph:
@@ -166,29 +157,29 @@ nodesets:
     - role:       "novactrl"
       puppet_env: "xena"
     - role:       "image"
-      puppet_env: "xena"
+      puppet_env: "yoga"
     - role:       "network"
-      puppet_env: "xena"
+      puppet_env: "yoga"
     - role:       "volume"
-      puppet_env: "xena"
+      puppet_env: "yoga"
     - role:       "dashboard"
-      puppet_env: "xena"
+      puppet_env: "yoga"
     - role:       "compute"
       memory:     4096
       cpus:       2
       puppet_env: "xena"
     - role:       "ns"
-      puppet_env: "xena"
+      puppet_env: "yoga"
     - role:       "resolver"
       hostid:     "01"
-      puppet_env: "xena"
+      puppet_env: "yoga"
     - role:       "resolver"
       hostid:     "02"
-      puppet_env: "xena"
+      puppet_env: "yoga"
     - role:       "dns"
-      puppet_env: "xena"
+      puppet_env: "yoga"
     - role:       "telemetry"
-      puppet_env: "xena"
+      puppet_env: "yoga"
   object: # will also need running identity to test anything other than ceph
     - role:       'cephmon-object'
     - role:       'rgw'

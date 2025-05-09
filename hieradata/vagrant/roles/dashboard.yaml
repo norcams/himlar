@@ -13,8 +13,6 @@ profile::application::openssl::certs:
 
 apache::log_level:                              warn
 
-profile::openstack::dashboard::site_branding: 'dev-iaas'
-
 # FIXME:sensu-go
 profile::monitoring::sensu::agent::checks:              {}
 
