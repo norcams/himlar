@@ -31,6 +31,9 @@ include:
 #     value:  'true'
 #
 
+# Make sure we fully bootstrap keystone in vagrant on identity
+keystone::bootstrap::bootstrap:  true
+
 # Project for global image sharing
 profile::openstack::resource::image_sharing::manage: false
 #profile::openstack::resource::image_sharing::domain: 'default'

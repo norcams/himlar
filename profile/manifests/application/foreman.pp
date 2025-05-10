@@ -31,6 +31,9 @@ class profile::application::foreman(
   $repo_mode = '0755'
 ) {
 
+  # FIX: start foreman-proxy after setting correct acl for /etc/dhcpd
+  Class['foreman_proxy::proxydhcp'] -> Class['foreman_proxy::service']
+
   include ::puppet
   include ::foreman
   include ::foreman_proxy
