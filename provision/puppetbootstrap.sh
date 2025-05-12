@@ -30,8 +30,9 @@ dnf_repos()
 
   repo="https://download.iaas.uio.no/nrec/${repo_env}/${repo_dist}"
 
-  # we do not use epel modular
-  rm -f /etc/yum.repos.d/epel-modular.repo
+  # we do not use these EPEL repos
+  [ -f /etc/yum.repos.d/epel-modular.repo ] && rm -f /etc/yum.repos.d/epel-modular.repo
+  [ -f /etc/yum.repos.d/epel-cisco-openh264.repo ] && rm -f /etc/yum.repos.d/epel-cisco-openh264.repo
 
   # Add our epel mirror
   cat > /etc/yum.repos.d/epel.repo <<- EOM
