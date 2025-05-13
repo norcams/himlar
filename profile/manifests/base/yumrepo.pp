@@ -16,7 +16,7 @@ class profile::base::yumrepo(
       }
     }
     # From puppet 6 we use the new yumrepo_core from puppetlabs
-    '8': {
+    '8', '9': {
       create_resources('yumrepo', $repo_hash)
       if $purge_unmanaged {
         resources { 'yumrepo':
