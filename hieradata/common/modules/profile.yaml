@@ -131,6 +131,12 @@ profile::base::yumrepo::repo_hash:
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-AlmaLinux'
     gpgcheck:       1
     ensure:         absent
+  almalinux-crb:
+    descr:          'AlmaLinux-$releasever - CRB'
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/almalinux-CRB/"
+    gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-AlmaLinux'
+    gpgcheck:       1
+    ensure:         absent
   AlmaLinux-HighAvailability:
     descr:          'AlmaLinux-$releasever - HighAvailability'
     baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/almalinux-highavailability/"

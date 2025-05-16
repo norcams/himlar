@@ -8,6 +8,14 @@ include:
     - profile::network::interface
 
 profile::base::yumrepo::repo_hash:
+  puppetlabs7:
+    ensure:         present
+  almalinux-crb:
+    ensure:         present
+  puppetlabs:
+    ensure:         absent
+  AlmaLinux-PowerTools:
+    ensure:         absent
   CentOS-Base:
     ensure:         absent #FIXME: Remove when CentOS 8 is gone
   CentOS-Updates:
@@ -24,6 +32,7 @@ profile::base::yumrepo::repo_hash:
     ensure:         absent
   mariadb-10.3: # FIXME
     module_hotfixes: '1'
+    ensure:         absent
 
 profile::base::common::packages:
   'bash-completion': {}
