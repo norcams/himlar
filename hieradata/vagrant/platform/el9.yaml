@@ -1,0 +1,8 @@
+---
+network::reload: true
+
+# Set this to true to recreate the full network config on each puppet run.
+# This is very useful for debugging network config since puppet only manages
+# lines and not full files.
+network::default_interfaces_hash:
+  force_update: false

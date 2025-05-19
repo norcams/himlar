@@ -30,6 +30,9 @@ mod 'galera_arbitrator', :ref => '2.0.2',                 :git => github + 'jade
 # new network module for el9
 mod 'network',      :ref => 'master',                     :git => github + 'raykrist/puppet-network'
 
+# modules to upgrade for el9
+mod 'yumrepo_core', :ref => 'v1.2.0',                     :git => github + 'puppetlabs/puppetlabs-yumrepo_core'
+
 ##
 ## override common modules
 ##
