@@ -11,3 +11,6 @@ include:
 
 #FIXME: we cannot replace sudoers file before we can manage everything needed by sonic
 sudo::config_file_replace: false
+
+profile::base::common::packages:
+  dnsutils:                     { ensure: installed }
