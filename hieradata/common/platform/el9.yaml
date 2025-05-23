@@ -37,6 +37,7 @@ profile::base::yumrepo::repo_hash:
 profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': { ensure: absent }     # FIXME clean up when el7 is gone
+  'MySQL-python':           { ensure: absent, }    # FIXME clean up when el7 is gone, replaced by python3-mysqlclient
 
 profile::base::common::manage_network: false # the profile::base::network class is deprecated
 profile::base::common::manage_ntp:     false # ntpd has been replaced by chrony in el8
