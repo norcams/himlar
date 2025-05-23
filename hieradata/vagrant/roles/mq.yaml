@@ -9,3 +9,24 @@ rabbitmq::cluster_nodes:
 profile::base::common::packages:
   'gcc-c++': { ensure: absent }
   'make': { ensure: absent }
+
+
+sensu::agent::subscriptions:
+  - 'base'
+  - 'nodes'
+  - 'metrics'
+
+sensu::agent::annotations:
+  'cpu.warning': '90'
+  'cpu.critical': '100'
+
+profile::monitoring::sensu::agent::checks:
+  check-rabbitmq-alive:
+    env_vars:               ["RABBITMQ_PASSWORD=%{hiera('local_rabbit_password')}"]
+    command:                "check-rabbitmq-alive.rb -h %{::ipaddress_trp1} --user local --password ${RABBITMQ_PASSWORD} --vhost himlarcli"
+    interval:               60
+    subscriptions:          ['entity:%{::hostname}']
+    handlers:               ['default']
+    runtime_assets:
+    - sensu/sensu-ruby-runtime
+    - sensu-plugins/sensu-plugins-rabbitmq

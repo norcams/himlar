@@ -20,7 +20,7 @@ class profile::monitoring::sensu::agent (
     $checks  = lookup('profile::monitoring::sensu::agent::checks', Hash, $merge_strategy, {})
 
     create_resources('::sensuclassic::plugin', $plugins)
-    create_resources('::sensuclassic::check', $checks)
+    create_resources('::sensuclassic::check', $checks, { show_diff => false })
     create_resources('package', $gems)
 
     if $expanded_checks {

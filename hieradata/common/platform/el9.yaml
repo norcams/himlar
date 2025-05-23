@@ -42,6 +42,8 @@ profile::base::common::manage_network: false # the profile::base::network class 
 profile::base::common::manage_ntp:     false # ntpd has been replaced by chrony in el8
 profile::base::common::manage_chrony:  true
 
+sensu::plugins::package_ensure: 'absent' # no package for el9
+
 # logrotate
 profile::logging::logrotate::rules:
   syslog: # temp cleanup old rules
