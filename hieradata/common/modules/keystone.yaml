@@ -36,7 +36,7 @@ keystone::enable_credential_setup:        true
 # httpd
 keystone::wsgi::apache::ssl:              false
 keystone::wsgi::apache::bind_host:        "%{ipaddress_trp1}"
-keystone::wsgi::apache::api_port:         ['5000', '35357']
+keystone::wsgi::apache::api_port:         [5000, 35357]
 keystone::wsgi::apache::workers:          4
 keystone::wsgi::apache::threads:          1
 

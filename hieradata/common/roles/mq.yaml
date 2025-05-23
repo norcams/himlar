@@ -64,6 +64,7 @@ profile::messaging::rabbitmq::users:
     password: "%{hiera('himlarcli_rabbit_password')}"
   access:
     password: "%{hiera('access_rabbit_password')}"
+
 #  glance:
 #    password: "%{hiera('glance::rabbit_password')}"
 
@@ -121,6 +122,8 @@ profile::messaging::rabbitmq::user_permissions:
   'local@designate':
     read_permission:      '.*'
   'local@himlarcli':
+    configure_permission: '^aliveness-test$'
+    write_permission:     '^amq\.default$'
     read_permission:      '.*'
 
 # remove old ha seupt

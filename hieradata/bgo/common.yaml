@@ -335,7 +335,7 @@ profile::network::services::dns_records:
     '254.77.39.158.in-addr.arpa':   "dashboard.%{hiera('domain_frontend')}"
     # Customer's PTR records
     "135.%{hiera('reverse_public_c1')}":                                         'elixir.no'
-    "86.%{hiera('reverse_public_c1')}":                                          'ldap.staging.nels.elixir.no'
+    "86.%{hiera('reverse_public_c1')}":                                          'sldap.nels.elixir.no'
     # public IPv6
     '1.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "ns2.%{hiera('domain_frontend')}"
     '2.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "resolver.%{hiera('domain_public')}"
