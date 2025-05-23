@@ -173,7 +173,8 @@ nodesets:
       cpus:       2
       puppet_env: "yoga"
     - role:       "ns"
-      puppet_env: "yoga"
+      puppet_env: "production_el9"
+      box:        "norcams/el9"
     - role:       "resolver"
       hostid:     "01"
       puppet_env: "yoga"
