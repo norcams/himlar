@@ -20,7 +20,7 @@ class profile::monitoring::sensu::agent (
     $checks  = lookup('profile::monitoring::sensu::agent::checks', Hash, $merge_strategy, {})
 
     create_resources('::sensuclassic::plugin', $plugins)
-    create_resources('::sensuclassic::check', $checks, { show_diff => false })
+    create_resources('::sensuclassic::check', $checks)
     create_resources('package', $gems)
 
     if $expanded_checks {
@@ -70,7 +70,7 @@ class profile::monitoring::sensu::agent (
     include ::sensu::plugins
     include ::sensu::cli
 
-    $defaults = { ensure => present, namespace => $namespace }
+    $defaults = { ensure => present, namespace => $namespace, show_diff => false }
     $namespaces = lookup('profile::monitoring::sensu::agent::namespaces', Hash,  'first', {})
     $bonsai_assets = lookup('profile::monitoring::sensu::agent::bonsai_assets', Hash, $merge_strategy, {})
     $checks  = lookup('profile::monitoring::sensu::agent::checks', Hash, $merge_strategy, {})
