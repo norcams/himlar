@@ -60,7 +60,7 @@ profile::application::builder::rc_file:       '/home/imagebuilder/openrc'
 profile::application::builder::images:
   'almalinux8':
     'image_name':       'IMAGEBUILDER AlmaLinux 8'
-    'url':              'https://repo.almalinux.org/almalinux/8/cloud/x86_64/images/'
+    'url':              'https://raw.repo.almalinux.org/almalinux/8/cloud/x86_64/images/'
     'latest':           'AlmaLinux-8-GenericCloud-UEFI-latest.x86_64.qcow2'
     'checksum_file':    'CHECKSUM'
     'checksum':         'sha256'
@@ -73,7 +73,7 @@ profile::application::builder::images:
     'minute':           30
   'almalinux9':
     'image_name':       'IMAGEBUILDER AlmaLinux 9'
-    'url':              'https://repo.almalinux.org/almalinux/9/cloud/x86_64/images/'
+    'url':              'https://raw.repo.almalinux.org/almalinux/9/cloud/x86_64/images/'
     'latest':           'AlmaLinux-9-GenericCloud-latest.x86_64.qcow2'
     'checksum_file':    'CHECKSUM'
     'checksum':         'sha256'
@@ -86,7 +86,7 @@ profile::application::builder::images:
     'minute':           30
   'almalinux8_nv_vgpu':
     'image_name':       'IMAGEBUILDER AlmaLinux 8 (NVIDIA GPU)'
-    'url':              'https://repo.almalinux.org/almalinux/8/cloud/x86_64/images/'
+    'url':              'https://raw.repo.almalinux.org/almalinux/8/cloud/x86_64/images/'
     'latest':           'AlmaLinux-8-GenericCloud-UEFI-latest.x86_64.qcow2'
     'checksum_file':    'CHECKSUM'
     'checksum':         'sha256'
@@ -100,7 +100,7 @@ profile::application::builder::images:
     'minute':           30
   'almalinux9_nv_vgpu':
     'image_name':       'IMAGEBUILDER AlmaLinux 9 (NVIDIA GPU)'
-    'url':              'https://repo.almalinux.org/almalinux/9/cloud/x86_64/images/'
+    'url':              'https://raw.repo.almalinux.org/almalinux/9/cloud/x86_64/images/'
     'latest':           'AlmaLinux-9-GenericCloud-latest.x86_64.qcow2'
     'checksum_file':    'CHECKSUM'
     'checksum':         'sha256'
