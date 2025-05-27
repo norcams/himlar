@@ -70,7 +70,7 @@ class profile::monitoring::sensu::agent (
     include ::sensu::plugins
     include ::sensu::cli
 
-    $defaults = { ensure => present, namespace => $namespace, show_diff => false }
+    $defaults = { ensure => present, namespace => $namespace }
     $namespaces = lookup('profile::monitoring::sensu::agent::namespaces', Hash,  'first', {})
     $bonsai_assets = lookup('profile::monitoring::sensu::agent::bonsai_assets', Hash, $merge_strategy, {})
     $checks  = lookup('profile::monitoring::sensu::agent::checks', Hash, $merge_strategy, {})
