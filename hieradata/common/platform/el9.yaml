@@ -16,6 +16,8 @@ profile::base::yumrepo::repo_hash:
     ensure:         absent
   AlmaLinux-PowerTools:
     ensure:         absent
+  AlmaLinux-AppStream:
+    exclude:        ''
   CentOS-Base:
     ensure:         absent #FIXME: Remove when CentOS 8 is gone
   CentOS-Updates:
@@ -26,6 +28,7 @@ profile::base::yumrepo::repo_hash:
     ensure:         absent #FIXME: Remove when CentOS 8 is gone
   epel:
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-9'
+    includepkgs:    'htop libidn'
   centos-qemu-ev:   # unavailable for el8
     ensure:         absent
   CentOS-Advanced-Virtualization: # FIXME
@@ -33,6 +36,15 @@ profile::base::yumrepo::repo_hash:
   mariadb-10.3: # FIXME
     module_hotfixes: '1'
     ensure:         absent
+  nrec-koji:
+    ensure:         present
+  nrec-internal:
+    ensure:         absent
+  calico326:
+    ensure:         absent
+  calico327:
+    ensure:         absent
+
 
 profile::base::common::packages:
   'bash-completion': {}
