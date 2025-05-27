@@ -209,6 +209,12 @@ profile::base::yumrepo::repo_hash:
     descr:          'NREC internal packages repository'
     baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/nrec-internal/"
     gpgcheck:       0
+  nrec-koji:
+    descr:          'NREC packages for EL $releasever'
+    baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/nrec-koji/"
+    gpgcheck:       1
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/nrec-koji/RPM-GPG-KEY-nrec-el$releasever"
+    ensure:         absent
   sensu:
     ensure:         absent
   sensu-community:
