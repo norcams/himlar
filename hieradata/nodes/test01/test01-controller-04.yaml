@@ -52,4 +52,14 @@ network::interfaces_hash:
     defroute:     'no'
     bridge_stp:   'off'
 
+lvm::volume_groups:
+  vg_ext:
+    physical_volumes:
+      - /dev/sda4
+    logical_volumes:
+      lv_ext:
+        fs_type:   xfs
+        mountpath: "/var/lib/libvirt/images"
+
+
 profile::bootstrap::himlar::manage_bootstrap_scripts: true
