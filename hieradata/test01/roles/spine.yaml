@@ -283,6 +283,14 @@ profile::base::network::cumulus_bonds:
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', '130', ]
     'mtu': '9216'
+  'host14':
+    'slaves': [ 'swp14', ]
+    'clag_id': '14'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
 
 profile::base::network::cumulus_bridges:
   'bridge':
@@ -300,6 +308,7 @@ profile::base::network::cumulus_bridges:
       - host11
       - host12
       - host13
+      - host14
       - peerlink
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
@@ -363,6 +372,7 @@ frrouting::frrouting::bgp_neighbor_groups:
       - '172.30.0.104'
       - '172.30.0.105'
       - '172.30.0.111'
+      - '172.30.0.112'
     'options6':
       - 'neighbor rr-clients route-reflector-client'
       - 'neighbor rr-clients soft-reconfiguration inbound'
@@ -375,6 +385,7 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'fd00::104'
       - 'fd00::105'
       - 'fd00::111'
+      - 'fd00::112'
   'api_peers':
     'options':
       - 'peer-group'
