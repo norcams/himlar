@@ -84,6 +84,19 @@ profile::application::builder::images:
     'username':         'almalinux'
     'hour':             3
     'minute':           30
+  'almalinux10':
+    'image_name':       'IMAGEBUILDER AlmaLinux 10'
+    'url':              'https://raw.repo.almalinux.org/almalinux/10/cloud/x86_64/images/'
+    'latest':           'AlmaLinux-10-GenericCloud-latest.x86_64.qcow2'
+    'checksum_file':    'CHECKSUM'
+    'checksum':         'sha256'
+    'min_ram':          1024
+    'min_disk':         8
+    'flavor':           'm1.small'
+    'efi':              true
+    'username':         'almalinux'
+    'hour':             4
+    'minute':           0
   'almalinux8_nv_vgpu':
     'image_name':       'IMAGEBUILDER AlmaLinux 8 (NVIDIA GPU)'
     'url':              'https://raw.repo.almalinux.org/almalinux/8/cloud/x86_64/images/'
@@ -112,6 +125,20 @@ profile::application::builder::images:
     'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
     'hour':             15
     'minute':           30
+  'almalinux10_nv_vgpu':
+    'image_name':       'IMAGEBUILDER AlmaLinux 10 (NVIDIA GPU)'
+    'url':              'https://raw.repo.almalinux.org/almalinux/10/cloud/x86_64/images/'
+    'latest':           'AlmaLinux-10-GenericCloud-latest.x86_64.qcow2'
+    'checksum_file':    'CHECKSUM'
+    'checksum':         'sha256'
+    'min_ram':          1024
+    'min_disk':         8
+    'flavor':           'm1.small'
+    'efi':              true
+    'username':         'almalinux'
+    'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
+    'hour':             16
+    'minute':           0
   'centosstream9':
     'image_name':       'IMAGEBUILDER CentOS Stream 9'
     'url':              'https://cloud.centos.org/centos/9-stream/x86_64/images/'
@@ -281,8 +308,8 @@ profile::application::builder::images:
   'uio_rhel9':
     'image_name':       'IMAGEBUILDER UIO RHEL 9'
     'url':              'http://download.iaas.uio.no/nrec/nonfree/'
-    'latest':           'rhel-9.4-x86_64-kvm.qcow2'
-    'checksum_file':    'rhel-9.4-x86_64-kvm.sha256sum'
+    'latest':           'rhel-9.6-x86_64-kvm.qcow2'
+    'checksum_file':    'rhel-9.6-x86_64-kvm.sha256sum'
     'checksum':         'sha256'
     'min_ram':          1024
     'min_disk':         8
@@ -310,6 +337,8 @@ profile::monitoring::sensu::agent::expanded_checks:
   - 'almalinux8_nv_vgpu'
   - 'almalinux9'
   - 'almalinux9_nv_vgpu'
+  - 'almalinux10'
+  - 'almalinux10_nv_vgpu'
   - 'centosstream9'
   - 'centosstream10'
   - 'debian11'
