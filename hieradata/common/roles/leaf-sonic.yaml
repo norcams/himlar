@@ -2,6 +2,8 @@
 # Disable stuff
 profile::network::leaf::manage_acls:              false
 profile::network::leaf::manage_switchdconf:       false
+profile::network::leaf::manage_quagga:            false
+profile::network::leaf::manage_frrouting:         true
 profile::base::network::cumulus_ifs:              false
 profile::base::cl_limits::manage_cl_limits:       false
 profile::base::common::manage_ntp:                false
