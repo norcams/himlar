@@ -49,6 +49,7 @@ named_interfaces::config:
     - eth0
 
 # sonic specific implementation
+frrouting::single_config_file:       true
 frrouting::manage_package:           false
 frrouting::sonic_container:          true
 frrouting::config_dir:              '/etc/sonic/frr'
