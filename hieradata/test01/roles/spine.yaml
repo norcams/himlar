@@ -174,6 +174,8 @@ profile::network::leaf::acls:
 profile::base::network::cumulus_interfaces:
   'swp48':
     'mtu':   '9216'
+  'swp54':
+    'mtu':   '9216'
 
 profile::base::network::cumulus_bonds:
   'peerlink':
@@ -340,9 +342,14 @@ frrouting::frrouting::bgp_options:
   - 'aggregate-address 10.0.250.0/24 summary-only'
   - 'aggregate-address 129.177.31.64/27 summary-only'
 #  - 'aggregate-address 129.177.31.96/27 summary-only' # Cannot aggregate network if anycasting addresses from that network
+  - 'neighbor swp54 prefix-list uib-dc-routes-in in'
+  - 'neighbor swp54 prefix-list uib-dc-routes-out out'
 frrouting::frrouting::bgp_options6:
   - 'aggregate-address 2001:700:200:915::/64 summary-only'
 #  - 'aggregate-address 2001:700:200:916::/64 summary-only'
+  - 'neighbor swp54 prefix-list uib-dc-routes6-in in'
+  - 'neighbor swp54 prefix-list uib-dc-routes6-out out'
+  - 'neighbor swp54 activate'
 
 frrouting::frrouting::bgp_networks:
   - '0.0.0.0/0'
@@ -353,6 +360,12 @@ frrouting::frrouting::bgp_networks6:
   - '::/0'
   - 'fd00::/64'
   - '2001:700:200:916::/64'
+
+frrouting::frrouting::bgp_neighbors:
+  - 'swp54 interface remote-as external'
+  - 'swp54 bfd'
+frrouting::frrouting::bgp_neighbors6:
+  - 'swp54 activate'
 
 frrouting::frrouting::bgp_neighbor_groups:
   'rr-clients':
@@ -447,6 +460,11 @@ frrouting::frrouting::bgp_accesslist:
 frrouting::frrouting::bgp_ip_prefix_list:
   - 'routes-from-leaf1 seq 5 deny any'
   - 'routes-to-leaf1 seq 5 permit 0.0.0.0/0'
+  - 'uib-dc-routes-in seq 250 deny any'
+  - 'uib-dc-routes-out seq 250 deny any'
+frrouting::frrouting::bgp_ipv6_prefix_list:
+  - 'uib-dc-routes6-in seq 250 deny any'
+  - 'uib-dc-routes6 out seq 250 deny any'
 
 frrouting::frrouting::bgp_route_maps:
   'rr-client-allow permit 10':
