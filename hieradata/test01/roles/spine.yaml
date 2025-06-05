@@ -364,8 +364,6 @@ frrouting::frrouting::bgp_networks6:
 frrouting::frrouting::bgp_neighbors:
   - 'swp54 interface remote-as external'
   - 'swp54 bfd'
-frrouting::frrouting::bgp_neighbors6:
-  - 'swp54 activate'
 
 frrouting::frrouting::bgp_neighbor_groups:
   'rr-clients':
