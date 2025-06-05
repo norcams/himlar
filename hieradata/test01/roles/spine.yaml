@@ -352,14 +352,14 @@ frrouting::frrouting::bgp_options6:
   - 'neighbor swp54 activate'
 
 frrouting::frrouting::bgp_networks:
-  - '0.0.0.0/0'
   - "%{hiera('bgp_loopback_addr')}/32"
   - '172.30.0.0/21'
   - '129.177.31.96/27'
+  - '129.177.32.0/24'
 frrouting::frrouting::bgp_networks6:
-  - '::/0'
   - 'fd00::/64'
   - '2001:700:200:916::/64'
+  - '2001:700:200:df00::/56'
 
 frrouting::frrouting::bgp_neighbors:
   - 'swp54 interface remote-as external'
@@ -461,9 +461,11 @@ frrouting::frrouting::bgp_ip_prefix_list:
   - 'routes-from-leaf1 seq 5 deny any'
   - 'routes-to-leaf1 seq 5 permit 0.0.0.0/0'
   - 'uib-dc-routes-in seq 250 deny any'
+  - 'uib-dc-routes-out seq 10 permit 129.177.32.0/24'
   - 'uib-dc-routes-out seq 250 deny any'
 frrouting::frrouting::bgp_ipv6_prefix_list:
   - 'uib-dc-routes6-in seq 250 deny any'
+  - 'uib-dc-routes6-out seq 20 permit 2001:700:200:df00::/56'
   - 'uib-dc-routes6 out seq 250 deny any'
 
 frrouting::frrouting::bgp_route_maps:
