@@ -432,13 +432,31 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'neighbor elastic_test activate'
       - 'neighbor elastic_test soft-reconfiguration inbound'
     'bgp_listen_range':
-      - '10.0.240.0/23'
+      - '10.0.240.0/24'
     'ip_access_list':
       - "192.168.100.100/32"
       - "129.177.31.100/31 le 32" # minimum 31 and maximum 32 prefix length
     'ip_access_list6':
       - "2001:700:200:916::4000/127 le 128"
       - "fc00::/64 le 128"
+  'elastic_rail_t01t':
+    'options':
+      - 'peer-group'
+      - "remote-as %{hiera('elasticip_rail_t01t_asn')}" # 8 bytes private AS, set in secrets
+      - "password %{hiera('elasticip_rail_t01t_md5')}" # MD5 bgp password, set in secrets
+      - 'soft-reconfiguration inbound'
+      - 'ebgp-multihop'
+      - 'bfd'
+    'options6':
+      - 'neighbor elastic_rail_t01t activate'
+      - 'neighbor elastic_rail_t01t soft-reconfiguration inbound'
+    'bgp_listen_range':
+      - '10.0.240.1/27'
+    'ip_access_list':
+      - "129.177.31.101/31 le 32" # minimum 31 and maximum 32 prefix length
+      - "10.0.241.253/31 le 32" # minimum 31 and maximum 32 prefix length
+    'ip_access_list6':
+      - "2001:700:200:915::3f65/125 le 128"
 #  'other-clients':
 #    'options':
 #    - 'peer-group'
