@@ -447,12 +447,14 @@ frrouting::frrouting::bgp_accesslist:
     - "seq 10 permit %{hiera('netcfg_elastic_cidr')}"
     - 'seq 15 permit 10.0.250.0/24'
     - 'seq 20 permit 172.30.0.0/21'
+    - 'seq 25 permit 129.177.32.0/24'
     - 'seq 250 deny 0.0.0.0/0'
   '20':
     - 'seq 5 deny 129.177.31.0/24'
     - "seq 10 deny %{hiera('netcfg_elastic_cidr')}"
     - 'seq 15 deny 10.0.250.0/24'
     - 'seq 20 deny 172.30.0.0/21'
+    - 'seq 25 deny 129.177.32.0/24'
     - 'seq 250 permit 0.0.0.0/0'
 
 frrouting::frrouting::bgp_ip_prefix_list:
