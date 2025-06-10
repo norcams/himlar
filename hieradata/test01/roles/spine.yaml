@@ -342,8 +342,6 @@ frrouting::frrouting::bgp_options:
   - 'aggregate-address 10.0.250.0/24 summary-only'
   - 'aggregate-address 129.177.31.64/27 summary-only'
 #  - 'aggregate-address 129.177.31.96/27 summary-only' # Cannot aggregate network if anycasting addresses from that network
-  - 'neighbor swp54 prefix-list uib-dc-routes-in in'
-  - 'neighbor swp54 prefix-list uib-dc-routes-out out'
 frrouting::frrouting::bgp_options6:
   - 'aggregate-address 2001:700:200:915::/64 summary-only'
 #  - 'aggregate-address 2001:700:200:916::/64 summary-only'
@@ -364,6 +362,8 @@ frrouting::frrouting::bgp_networks6:
 frrouting::frrouting::bgp_neighbors:
   - 'swp54 interface remote-as external'
   - 'swp54 bfd'
+  - 'swp54 prefix-list uib-dc-routes-in in'
+  - 'swp54 prefix-list uib-dc-routes-out out'
 
 frrouting::frrouting::bgp_neighbor_groups:
   'rr-clients':
