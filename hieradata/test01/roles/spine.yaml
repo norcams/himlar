@@ -482,12 +482,14 @@ frrouting::frrouting::bgp_accesslist:
 frrouting::frrouting::bgp_ip_prefix_list:
   - 'routes-from-leaf1 seq 5 deny any'
   - 'routes-to-leaf1 seq 5 permit 0.0.0.0/0'
+  - 'uib-dc-routes-in seq 10 permit 0.0.0.0/0'
   - 'uib-dc-routes-in seq 250 deny any'
   - 'uib-dc-routes-out seq 10 permit 129.177.32.0/24'
   - 'uib-dc-routes-out seq 20 permit 129.177.31.64/27'
   - 'uib-dc-routes-out seq 30 permit 129.177.31.96/27'
   - 'uib-dc-routes-out seq 250 deny any'
 frrouting::frrouting::bgp_ipv6_prefix_list:
+  - 'uib-dc-routes6-in seq permit ::/0'
   - 'uib-dc-routes6-in seq 250 deny any'
   - 'uib-dc-routes6-out seq 20 permit 2001:700:200:df00::/56'
   - 'uib-dc-routes6-out seq 30 permit 2001:700:200:915::/64'
