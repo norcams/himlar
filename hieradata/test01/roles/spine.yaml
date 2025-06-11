@@ -172,8 +172,6 @@ profile::network::leaf::acls:
       - "-A $FORWARD_CHAIN -i %{hiera('profile::base::network::uplink_interface')} -p tcp --dport 27017 -j DROP"
 
 profile::base::network::cumulus_interfaces:
-  'swp48':
-    'mtu':   '9216'
   'swp54':
     'mtu':   '9216'
 
@@ -351,11 +349,12 @@ frrouting::frrouting::bgp_options6:
 
 frrouting::frrouting::bgp_networks:
   - "%{hiera('bgp_loopback_addr')}/32"
-  - '172.30.0.0/21'
+  - '129.177.31.64/27'
   - '129.177.31.96/27'
   - '129.177.32.0/24'
 frrouting::frrouting::bgp_networks6:
   - 'fd00::/64'
+  - '2001:700:200:915::/64'
   - '2001:700:200:916::/64'
   - '2001:700:200:df00::/56'
 
@@ -441,6 +440,28 @@ frrouting::frrouting::bgp_neighbor_groups:
 #    'options':
 #    - 'peer-group'
 
+frrouting::frrouting::zebra_ip6_routes:
+  - '2001:700:200:917::3f12/128 fd00::12'
+  - '2001:700:200:917::3f17/128 fd00::16'
+  - '2001:700:200:917::3f34/128 fd00::34'
+  - '2001:700:200:917::3f97/128 fd00::97'
+  - '2001:700:200:915::/64 Null0'
+  - '2001:700:200:916::/64 Null0'
+  - '2001:700:200:917::/64 Null0'
+  - '2001:700:200:df00::/56 Null0'
+frrouting::frrouting::zebra_ip_routes:
+  - '10.0.0.0/8 Null0'
+  - '129.177.31.64/27 Null0'
+  - '129.177.31.96/27 Null0'
+  - '129.177.31.98/32 172.30.0.97'
+  - '129.177.31.117/32 172.30.0.16'
+  - '129.177.31.121/32 172.30.0.26'
+  - '129.177.31.123/32 172.30.0.12'
+  - '129.177.31.124/32 172.30.0.56'
+  - '129.177.31.125/32 172.30.0.61'
+  - '129.177.31.126/32 172.30.0.51'
+  - '129.177.32.0/24 Null0'
+
 frrouting::frrouting::bgp_accesslist:
   '10':
     - 'seq 5 permit 129.177.31.0/24'
@@ -462,10 +483,14 @@ frrouting::frrouting::bgp_ip_prefix_list:
   - 'routes-to-leaf1 seq 5 permit 0.0.0.0/0'
   - 'uib-dc-routes-in seq 250 deny any'
   - 'uib-dc-routes-out seq 10 permit 129.177.32.0/24'
+  - 'uib-dc-routes-out seq 10 permit 129.177.31.64/24'
+  - 'uib-dc-routes-out seq 10 permit 129.177.31.96/24'
   - 'uib-dc-routes-out seq 250 deny any'
 frrouting::frrouting::bgp_ipv6_prefix_list:
   - 'uib-dc-routes6-in seq 250 deny any'
   - 'uib-dc-routes6-out seq 20 permit 2001:700:200:df00::/56'
+  - 'uib-dc-routes6-out seq 30 permit 2001:700:200:915::/64'
+  - 'uib-dc-routes6-out seq 30 permit 2001:700:200:916::/64'
   - 'uib-dc-routes6 out seq 250 deny any'
 
 frrouting::frrouting::bgp_route_maps:
