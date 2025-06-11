@@ -36,6 +36,7 @@ profile::base::network::network_auto_bonding:
       'team_port_config': '{ "prio" : 100 }'
       'mtu': '9000'
 
+profile::base::common::manage_multipath: true
 # IPv6 is enabled for bgp, bfd
 profile::openstack::network::calico::manage_firewall6: true
 

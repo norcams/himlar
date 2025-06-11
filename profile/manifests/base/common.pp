@@ -22,8 +22,10 @@ class profile::base::common (
   $manage_puppet          = false,
   $manage_cron            = false,
   $manage_fake_ssd        = false,
+  $manage_multipath       = false,
   $manage_vm_swappiness   = false,
   $disable_firewalld      = false,
+  $multipath_hash_policy  = 1,         # Layer 4 hash policy (source port, dest port, source addr, dest addr, protocol)
   $vm_swappiness          = '10',
   $include_physical       = false,
   $include_virtual        = false,
@@ -166,6 +168,17 @@ class profile::base::common (
   if $manage_fake_ssd {
     $disk_devices = lookup('profile::storage::fake_ssds', Hash, 'deep', {})
     create_resources('profile::storage::fake_ssd', $disk_devices)
+  }
+
+  if $manage_multipath {
+    sysctl::value {
+      'net.ipv4.fib_multipath_hash_policy':
+        value => $multipath_hash_policy,
+    } ~>
+    sysctl::value {
+      'net.ipv6.fib_multipath_hash_policy':
+        value => $multipath_hash_policy,
+    }
   }
 
   if $manage_vm_swappiness {
