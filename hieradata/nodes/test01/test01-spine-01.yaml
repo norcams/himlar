@@ -54,6 +54,7 @@ frrouting::frrouting::bgp_neighbors:
   - 'swp54 prefix-list uib-dc-routes-out out'
   - "fd00:18:233::2 remote-as %{hiera('bgp_as')}"
   - 'fd00:18:233::2 soft-reconfiguration inbound'
+  - 'fd00:18:233::2 bfd'
 
 frrouting::frrouting::bgp_neighbors6:
   - 'fd00:18:233::2 activate'
