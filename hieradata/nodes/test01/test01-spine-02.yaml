@@ -29,3 +29,27 @@ profile::base::network::cumulus_interfaces:
     'clagd_peer_ip': 'linklocal'
     'clagd_backup_ip': "%{hiera('netcfg_trp_net_c6')}.1"
     'clagd_sys_mac': '44:38:39:ff:bb:2c'
+
+frrouting::frrouting::bgp_options:
+  - "bgp router-id %{ipaddress_trp1}"
+  - 'bgp log-neighbor-changes'
+  - 'bgp default local-preference 200'
+  - 'maximum-paths ibgp 5'
+  - 'bgp bestpath as-path multipath-relax'
+  - 'aggregate-address 10.0.240.0/24 summary-only'
+  - 'aggregate-address 10.0.250.0/24 summary-only'
+  - 'aggregate-address 129.177.31.64/27 summary-only'
+#  - 'aggregate-address 129.177.31.96/27 summary-only' # Cannot aggregate network if anycasting addresses from that network
+frrouting::frrouting::bgp_options6:
+  - 'aggregate-address 2001:700:200:915::/64 summary-only'
+#  - 'aggregate-address 2001:700:200:916::/64 summary-only'
+  - 'neighbor swp54 prefix-list uib-dc-routes6-in in'
+  - 'neighbor swp54 prefix-list uib-dc-routes6-out out'
+  - 'neighbor swp54 activate'
+
+frrouting::frrouting::bgp_neighbors:
+  - 'swp54 interface remote-as external'
+  - 'swp54 bfd'
+  - 'swp54 prefix-list uib-dc-routes-in in'
+  - 'swp54 prefix-list uib-dc-routes-out out'
+
