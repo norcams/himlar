@@ -247,6 +247,18 @@ profile::application::builder::images:
     'efi':              true
     'username':         'rocky'
     'hour':             18
+  'rockylinux10':
+    'image_name':       'IMAGEBUILDER RockyLinux 10'
+    'url':              'https://dl.rockylinux.org/pub/rocky/10/images/x86_64/'
+    'latest':           'Rocky-10-GenericCloud-LVM.latest.x86_64.qcow2'
+    'checksum_file':    'Rocky-10-GenericCloud-LVM.latest.x86_64.qcow2.CHECKSUM'
+    'checksum':         'sha256'
+    'min_ram':          768
+    'min_disk':         8
+    'efi':              true
+    'username':         'rocky'
+    'hour':             18
+    'minute':           30
   'ubuntu_2204':
     'image_name':       'IMAGEBUILDER Ubuntu 22.04'
     'url':              'https://cloud-images.ubuntu.com/jammy/current/'
@@ -348,6 +360,7 @@ profile::monitoring::sensu::agent::expanded_checks:
   - 'rockylinux8'
   - 'rockylinux8_uib_puppet'
   - 'rockylinux9'
+  - 'rockylinux10'
   - 'ubuntu_2204'
   - 'ubuntu_2204_nv_vgpu'
   - 'ubuntu_2404'
