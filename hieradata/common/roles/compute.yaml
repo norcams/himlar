@@ -42,6 +42,10 @@ profile::base::selinux::semodules:
   collectd-compute:
     avc_file:   'collectd_compute.avc'
 
+# To fix problem with file descriptor limits in nova-compute
+# FIXME: Default false in post yoga and it is deprecated in 2025.1 release
+nova::rabbit_heartbeat_in_pthread:                false
+
 # Manage default availability zone
 profile::openstack::compute::manage_az:            true
 
