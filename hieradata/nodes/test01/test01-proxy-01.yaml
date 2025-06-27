@@ -8,7 +8,7 @@ network::interfaces_hash:
      ipv4:
        method:         'manual'
        address1:       "%{hiera('netcfg_trp_netpart')}.12/%{hiera('netcfg_trp_cidr4')}"
-       route1:         "0.0.0.0/0,%{hiera('netcfg_trp_netpart')}.1"
+       route1:         "0.0.0.0/0,%{hiera('netcfg_trp_gateway')}"
        route1_options: 'src=129.177.31.123'
      ipv6:
        method:         'manual'
