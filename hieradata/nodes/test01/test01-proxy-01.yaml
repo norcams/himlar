@@ -32,3 +32,5 @@ named_interfaces::config:
      - eth1
    public:
      - lo
+
+profile::network::interface::manage_dummy:         false #FIXME when all proxies use loopback interface
