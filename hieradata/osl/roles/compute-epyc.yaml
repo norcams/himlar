@@ -19,10 +19,6 @@ nova::compute::rbd::ephemeral_storage: false
 nova::compute::libvirt::images_type: 'default'
 
 # Nova overrides
-nova::compute::libvirt::cpu_models:             ['EPYC']
-nova::cpu_allocation_ratio:                      '8'
-nova::disk_allocation_ratio:                     '1'
-nova::ram_allocation_ratio:                      '1.4'
 nova::scheduler::filter::max_instances_per_host: '32'
 
 profile::base::lvm::physical_volume:
