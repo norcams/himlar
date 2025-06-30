@@ -11,10 +11,3 @@ profile::base::network::network_auto_bonding:
 # Do not use ceph cluster for instance disk
 nova::compute::rbd::ephemeral_storage: false
 nova::compute::libvirt::images_type: 'default'
-
-# Nova overrides
-nova::compute::libvirt::cpu_models:             ['EPYC']
-nova::cpu_allocation_ratio:                      '8'
-nova::disk_allocation_ratio:                     '2'
-nova::ram_allocation_ratio:                      '1.4'
-nova::scheduler::filter::max_instances_per_host: '20'

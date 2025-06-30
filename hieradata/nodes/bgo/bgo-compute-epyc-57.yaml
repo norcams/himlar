@@ -21,5 +21,3 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_instances'
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
-
-nova::ram_allocation_ratio: '1.2'
