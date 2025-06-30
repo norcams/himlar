@@ -23,7 +23,9 @@ profile::base::physical::hugepages:        '503808'
 
 # Nova overrides
 nova::compute::libvirt::cpu_models: ['EPYC']
-nova::cpu_allocation_ratio:                '1'
+nova::cpu_allocation_ratio:         '1'
+nova::disk_allocation_ratio:        '1'
+nova::ram_allocation_ratio:         '1'
 
 # Create and enable more swap
 profile::base::common::extraswap:        true
