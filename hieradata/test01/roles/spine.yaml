@@ -335,6 +335,8 @@ frrouting::frrouting::bgp_networks:
   - '129.177.31.64/27'
   - '129.177.31.96/27'
   - '129.177.32.0/24'
+  - "%{hiera('netcfg_priv_anycast_net')}/%{hiera('netcfg_priv_anycast_cidr4')}"
+
 frrouting::frrouting::bgp_networks6:
   - "%{hiera('bgp_loopback_addr6')}/128"
   - '2001:700:200:915::/64'
@@ -452,6 +454,7 @@ frrouting::frrouting::zebra_ip6_routes:
   - '2001:700:200:df00::/56 Null0'
 frrouting::frrouting::zebra_ip_routes:
   - '10.0.0.0/8 Null0'
+  - '10.0.241.224/27 Null0'
   - '129.177.31.64/27 Null0'
   - '129.177.31.96/27 Null0'
   - '129.177.31.98/32 172.30.0.97'
@@ -470,6 +473,7 @@ frrouting::frrouting::bgp_accesslist:
     - 'seq 15 permit 10.0.250.0/24'
     - 'seq 20 permit 172.30.0.0/21'
     - 'seq 25 permit 129.177.32.0/24'
+    - "seq 30 permit %{hiera('netcfg_priv_anycast_net')}/%{hiera('netcfg_priv_anycast_cidr4')}"
     - 'seq 250 deny 0.0.0.0/0'
   '20':
     - 'seq 5 deny 129.177.31.0/24'
