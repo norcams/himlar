@@ -1,33 +1,36 @@
 ---
 network::interfaces_hash:
-  'eth0':
-    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.12"
-    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
-    mtu:       '1500'
-    peerdns:   'yes'
-    dns1:      "%{hiera('netcfg_dns_mgmt_server1')}"
-    dns2:      "%{hiera('netcfg_dns_trp_server1')}"
-    domain:    "%{hiera('netcfg_dns_search')}"
-    defroute:  'no'
-  'eth1':
-    ipaddress: "%{hiera('netcfg_trp_netpart')}.12"
-    netmask:   "%{hiera('netcfg_trp_netmask')}"
-    gateway:   "%{hiera('netcfg_trp_gateway')}"
-    srcaddr:   '129.177.31.123'
-    ipv6init:  'yes'
-    ipv6addr:  "%{hiera('netcfg_trp_netpart6')}::12/%{hiera('netcfg_trp_netmask6')}"
-    defroute:  'yes'
-  'dummy0':
-    ipaddress: '129.177.31.123'
-    netmask:   '255.255.255.255'
-    ipv6init:  'yes'
-    ipv6addr:  '2001:700:200:917::3f12/128'
-    defroute:  'no'
-profile::base::network::routes:
-  'eth1':
-    'ipaddress': [ '::', ]
-    'netmask':   [ '0', ]
-    'gateway':   [ 'fd00::701', ]
-    'source':    [ '2001:700:200:917::3f12', ]
-    'table':     [ 'main', ]
-    'family':    [ 'inet6', ]
+   eth0:
+     ipv4:
+       method:         'manual'
+       address1:       "%{hiera('netcfg_mgmt_netpart')}.12/%{hiera('netcfg_mgmt_cidr4')}"
+   eth1:
+     ipv4:
+       method:         'manual'
+       address1:       "%{hiera('netcfg_trp_netpart')}.12/%{hiera('netcfg_trp_cidr4')}"
+       route1:         "0.0.0.0/0,%{hiera('netcfg_trp_gateway')}"
+       route1_options: 'src=129.177.31.123'
+     ipv6:
+       method:         'manual'
+       address1:       "%{hiera('netcfg_trp_netpart6')}::12/%{hiera('netcfg_trp_netmask6')}"
+       route1:         "::/0,%{hiera('netcfg_trp_netpart6')}::701"
+       route1_options: 'src=2001:700:200:917::3f12'
+   lo-static:
+     interface_name:   'lo'
+     connection_type:  'loopback'
+     ipv4:
+       method:         'manual'
+       address1:       '129.177.31.123/32'
+     ipv6:
+       method:         'manual'
+       address1:       '2001:700:200:917::3f12/128'
+
+named_interfaces::config:
+   mgmt:
+     - eth0
+   trp:
+     - eth1
+   public:
+     - lo
+
+profile::network::interface::manage_dummy:         false #FIXME when all proxies use loopback interface

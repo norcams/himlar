@@ -98,6 +98,9 @@ class profile::openstack::dashboard(
       '8': {
         $python_version = '3.6'
       }
+      '9': {
+        $python_version = '3.9'
+      }
       default: {
       }
     }
