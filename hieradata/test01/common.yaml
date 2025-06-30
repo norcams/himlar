@@ -124,17 +124,6 @@ profile::network::services::dns_records:
     "ns.%{hiera('domain_frontend')}":                       '129.177.31.117'
     "resolver.%{hiera('domain_public')}":                   '129.177.31.118'
     "api.%{hiera('domain_public')}":                        '129.177.31.122'
-    "identity.api.%{hiera('domain_public')}":               '129.177.31.122'
-    "network.api.%{hiera('domain_public')}":                '129.177.31.122'
-    "image.api.%{hiera('domain_public')}":                  '129.177.31.122'
-    "volume.api.%{hiera('domain_public')}":                 '129.177.31.122'
-    "compute.api.%{hiera('domain_public')}":                '129.177.31.122'
-    "placement.api.%{hiera('domain_public')}":              '129.177.31.122'
-    "dns.api.%{hiera('domain_public')}":                    '129.177.31.122'
-    "status.%{hiera('domain_frontend')}":                   '129.177.31.122'
-    "report.%{hiera('domain_frontend')}":                   '129.177.31.122'
-    "access.%{hiera('domain_frontend')}":                   '129.177.31.122' #124
-    "console.%{hiera('domain_public')}":                    '129.177.31.122' #125
     "dashboard.%{hiera('domain_frontend')}":                '129.177.31.126'
     # mgmt
     "%{::location}-login-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_mgmt_netpart')}.10"
@@ -154,7 +143,8 @@ profile::network::services::dns_records:
     "identity.%{hiera('domain_trp')}":                      "%{hiera('internal__ip__api')}"
     "object.%{hiera('domain_trp')}":                        "%{hiera('internal__ip__api')}"
     "metric.%{hiera('domain_trp')}":                        "%{hiera('internal__ip__api')}"
-#  AAAA:
+  AAAA:
+    "api.%{hiera('domain_public')}":                        "%{hiera('public__ipv6__api')}"
   PTR:
     # Temp. for old login-01
     "199.%{hiera('reverse_mgmt_c0')}":    "%{::location}-login-01old.%{hiera('domain_mgmt')}"
@@ -168,6 +158,17 @@ profile::network::services::dns_records:
     "8.1.f.3.0.0.0.0.0.0.0.0.0.0.0.0.%{hiera('reverse_public6')}":  "resolver.%{hiera('domain_public')}"
   CNAME:
     "%{::location}-leaf-placeholder-01.%{hiera('domain_mgmt')}":    "%{::location}-leaf-01.%{hiera('domain_mgmt')}"
+    "identity.api.%{hiera('domain_public')}":                       "api.%{hiera('domain_public')}"
+    "network.api.%{hiera('domain_public')}":                        "api.%{hiera('domain_public')}"
+    "image.api.%{hiera('domain_public')}":                          "api.%{hiera('domain_public')}"
+    "volume.api.%{hiera('domain_public')}":                         "api.%{hiera('domain_public')}"
+    "compute.api.%{hiera('domain_public')}":                        "api.%{hiera('domain_public')}"
+    "placement.api.%{hiera('domain_public')}":                      "api.%{hiera('domain_public')}"
+    "dns.api.%{hiera('domain_public')}":                            "api.%{hiera('domain_public')}"
+    "status.%{hiera('domain_frontend')}":                           "api.%{hiera('domain_public')}"
+    "report.%{hiera('domain_frontend')}":                           "api.%{hiera('domain_public')}"
+    "access.%{hiera('domain_frontend')}":                           "api.%{hiera('domain_public')}" #124
+    "console.%{hiera('domain_public')}":                            "api.%{hiera('domain_public')}" #125
 
 profile::network::services::dns_options:
   CNAME:
