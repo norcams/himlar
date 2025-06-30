@@ -1,7 +1,7 @@
 ---
 include:
   default:
-    - nova::compute::vgpu
+    - nova::compute::mdev
     - profile::application::create_mdev
 
 named_interfaces::config:
@@ -62,7 +62,7 @@ profile::base::common::packages:
 #
 # Example: 'nvidia-35' or ['nvidia-35', 'nvidia-36']
 #
-nova::compute::vgpu::vgpu_types_device_addresses_mapping: { 'nvidia-108', }
+nova::compute::mdev::mdev_types_device_addresses_mapping: { 'nvidia-108', }
 
 # Configuration values for the "create-mdev" service
 profile::application::create_mdev::enable:                true
@@ -82,10 +82,10 @@ nova::compute::libvirt::cpu_models: ['Skylake-Server-IBRS']
 
 # These compute host uses local storage for instances
 nova::compute::rbd::ephemeral_storage: false
+nova::compute::libvirt::images_type: 'default'
 
 # Configuration items not explicitly supported by the Puppet module
 nova::config::nova_config:
-  libvirt/images_type:
-    value: default
   DEFAULT/metadata_workers:
     value: '4'
+

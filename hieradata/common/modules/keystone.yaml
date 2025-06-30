@@ -2,28 +2,13 @@
 keystone::db::mysql::allowed_hosts:
   - "%{hiera('netcfg_trp_netpart')}.%"
 
-keystone::database_connection:            "mysql+pymysql://keystone:%{hiera('keystone::db::mysql::password')}@%{hiera('service__address__db_global')}/keystone"
+keystone::db::database_connection:        "mysql+pymysql://keystone:%{hiera('keystone::db::mysql::password')}@%{hiera('service__address__db_global')}/keystone"
 keystone::service_name:                   'httpd'
 keystone::admin_password:                 "%{hiera('keystone_admin_password')}"
 keystone::enable_proxy_headers_parsing:   true
 keystone::purge_config:                   true
 keystone::enable_bootstrap:               true
 keystone::public_endpoint:                "%{hiera('endpoint__identity__public')}"
-keystone::admin_endpoint:                 "%{hiera('endpoint__identity__admin')}"
-
-# bootstrap keystone
-keystone::bootstrap::username:              'admin'
-keystone::bootstrap::password:              "%{hiera('keystone_admin_password')}"
-keystone::bootstrap::email:                 "support@%{hiera('domain_frontend')}"
-keystone::bootstrap::project_name:          "%{hiera('keystone__admin__project')}"
-keystone::bootstrap::service_project_name:  "%{hiera('keystone__service__project')}"
-keystone::bootstrap::service_name:          'keystone'
-keystone::bootstrap::role_name:             'admin'
-keystone::bootstrap::admin_url:              "%{hiera('endpoint__identity__admin')}"
-keystone::bootstrap::public_url:            "%{hiera('endpoint__identity__public')}"
-keystone::bootstrap::internal_url:          "%{hiera('endpoint__identity__internal')}"
-keystone::bootstrap::region:                "%{location}"
-keystone::bootstrap::interface:             'internal'
 
 # cache
 keystone::cache::enabled:                  true
@@ -51,7 +36,7 @@ keystone::enable_credential_setup:        true
 # httpd
 keystone::wsgi::apache::ssl:              false
 keystone::wsgi::apache::bind_host:        "%{ipaddress_trp1}"
-keystone::wsgi::apache::api_port:         ['5000', '35357']
+keystone::wsgi::apache::api_port:         [5000, 35357]
 keystone::wsgi::apache::workers:          4
 keystone::wsgi::apache::threads:          1
 

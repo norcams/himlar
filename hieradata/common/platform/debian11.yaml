@@ -1,0 +1,16 @@
+---
+# Used for SONiC before version 202311
+
+include:
+  default:
+    - profile::network::interface
+  kickstart:
+    - profile::network::interface
+  bootstrap:
+    - profile::network::interface
+
+#FIXME: we cannot replace sudoers file before we can manage everything needed by sonic
+sudo::config_file_replace: false
+
+profile::base::common::packages:
+  dnsutils:                     { ensure: installed }

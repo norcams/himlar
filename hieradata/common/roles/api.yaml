@@ -34,8 +34,6 @@ profile::monitoring::sensu::agent::checks:
     subscribers:  ['metrics']
     handlers:     ['graphite_tcp']
 
-profile::base::network::manage_dummy:                               true # FIXME; remove when el7 is gone
-
 profile::base::selinux::manage_selinux:                             true
 profile::network::interface::manage_dummy:                          true
 profile::highavailability::loadbalancing::haproxy::manage_haproxy:  true
@@ -289,7 +287,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_backends:
   bk_request:
     options:
       - fullconn:     200
-      - redirect:         'location https://skjema.uio.no/iaas-project'
+      - redirect:         'location https://nettskjema.no/a/iaas-project'
   bk_maintenance:
     options:
       - option:       'httplog'

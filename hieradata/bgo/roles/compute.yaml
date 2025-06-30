@@ -125,9 +125,8 @@ profile::base::network::routing_tables:
     'table_id':  '243'
 profile::base::network::rules:
   'team1':
-    'iprule':  [ "from %{hiera('netcfg_priv_network')} lookup private", "from %{hiera('netcfg_lhc_network')} lookup lhc", "from %{hiera('netcfg_lhcpriv_network')} lookup lhc-private", "from 158.37.64.0/24 to %{hiera('netcfg_uib_network')} lookup uib", "from %{hiera('netcfg_educloud1_network')} lookup private", "from %{hiera('netcfg_elastic_cidr')} lookup private", ]
+    'iprule':  [ "from %{hiera('netcfg_priv_network')} lookup private", "from %{hiera('netcfg_lhc_network')} lookup lhc", "from %{hiera('netcfg_lhcpriv_network')} lookup lhc-private", "from 158.37.64.0/24 to %{hiera('netcfg_uib_network')} lookup uib", "from %{hiera('netcfg_educloud1_network')} lookup private", "from %{hiera('netcfg_uio_priv1_network')} lookup private", "from %{hiera('netcfg_elastic_cidr')} lookup private", ]
     'iprule6': [ "from %{hiera('netcfg_lhc_network6')} lookup lhc", "from %{hiera('netcfg_lhc2_network6')} lookup lhc", "from 2001:700:2:8302::/64 to %{hiera('netcfg_uib_network6')} lookup uib", ]
-profile::base::network::manage_neutron_blackhole:      true # FIXME - remove when el7 is gone
 profile::network::interface::manage_neutron_blackhole: true
 
 profile::base::physical::configure_bmc_nic:                       true

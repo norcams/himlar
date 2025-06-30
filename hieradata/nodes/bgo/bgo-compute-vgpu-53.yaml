@@ -24,6 +24,11 @@ profile::base::lvm::logical_volume:
 
 nova::compute::libvirt::cpu_models: ['Cascadelake-Server-noTSX']
 
+profile::base::common::packages:
+  'NVIDIA-vGPU-rhel-aie': {
+#    source: 'http://repo.mgmt.bgo.uhdc.no/NVIDIA-vGPU-rhel-7.8-450.55.x86_64.rpm'
+  }
+
 #kmod::list_of_blacklists:
 #  'nouveau': {}
 kmod::list_of_installs:
@@ -56,7 +61,7 @@ profile::base::selinux::semodules:
 #
 # Example: 'nvidia-35' or ['nvidia-35', 'nvidia-36']
 #
-nova::compute::vgpu::vgpu_types_device_addresses_mapping: { 'nvidia-471', }
+nova::compute::mdev::mdev_types_device_addresses_mapping: { 'nvidia-471', }
 
 # Configuration values for the "create-mdev" service
 profile::application::create_mdev::enable:                true

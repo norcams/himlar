@@ -11,3 +11,23 @@ profile::network::services::manage_dns_records: false
 # Bind utils will be installed with foreman::dns
 profile::base::common::packages:
   'bind-utils': { ensure: absent }
+
+# Example ZTP json file for sonic
+# profile::bootstrap::repo::ztp_json:
+#   provision/sonic_ztp.json:
+#     tasks:
+#       firmware:
+#         install:
+#           url: 'http://192.168.240.101/tftpboot/sonic/firmware/Enterprise_SONiC_OS_4.0.0_Enterprise_Premium.bin'
+#           set-default: 'true'
+#         reboot-on-success: 'true'
+#       configdb-json:
+#         url:
+#           source: 'http://192.168.240.101/tftpboot/sonic/config/first_boot_config.json'
+#           destination: /etc/sonic/config_db.json
+#           secure: 'false'
+#         clear-config: 'false'
+#       provisioning-script:
+#         plugin:
+#           url: "http://%{hiera('mgmt__address__repo')}/provision/sonic.sh"
+#         reboot-on-success: 'false'

@@ -61,7 +61,6 @@ profile::base::network::routing_tables:
 profile::base::network::rules:
   'team1':
     iprule: [ "from %{hiera('netcfg_priv_network')} lookup private", "from %{hiera('netcfg_elastic_cidr')} lookup private"  ]
-profile::base::network::manage_neutron_blackhole:      true # FIXME - remove when el7 is gone
 profile::network::interface::manage_neutron_blackhole: true
 
 # FIXME: remove when telemetry/ceilometer is up in all environments and move to common

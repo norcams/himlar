@@ -43,6 +43,7 @@ reverse_trp_c7:         '15.31.172.in-addr.arpa'
 netcfg_mgmt_gateway:    '172.31.0.1'
 netcfg_mgmt_netpart:    '172.31.0'
 netcfg_mgmt_netmask:    '255.255.255.0'
+netcfg_mgmt_cidr4:      '24'
 netcfg_mgmt_net_c0:     '172.31.0'
 netcfg_mgmt_net_c1:     '172.31.1'
 netcfg_mgmt_net_c2:     '172.31.2'
@@ -70,10 +71,12 @@ netcfg_live_netpart:    '172.31.8'
 netcfg_live_netmask:    '255.255.255.0'
 netcfg_public_netpart:  '192.168.0'
 netcfg_public_netmask:  '255.255.255.0'
+netcfg_public_cidr4:    '24'
 netcfg_public_netpart6: 'fc00:700:100:200'
 netcfg_dns_mgmt_server1:     '172.31.0.1'
 netcfg_dns_mgmt_server2:     '8.8.8.8'
 netcfg_dns_search:      "%{hiera('domain_mgmt')} %{hiera('domain_trp')}"
+netcfg_dns_search_nm:   "%{hiera('domain_mgmt')};%{hiera('domain_trp')}"
 netcfg_priv_gateway:    '172.31.8.26'
 netcfg_priv_network:    '10.0.252.0/24'
 netcfg_pub_natgw:       '192.168.0.248'
@@ -215,6 +218,7 @@ ceph_storage_client_glance_key:                    'AQBwgnZc9w2yGxAAhI/FNgEGQ5u9
 ceph_storage_client_cinder_key:                    'AQBwgnZc9w2yGxAAhI/FNgEGQ5u9sXEiNb8LHQ=='
 ceph_storage_client_bootstrap_osd_key:             'AQBwgnZc9w2yGxAAhI/FNgEGQ5u9sXEiNb8LHQ=='
 ceph_storage_client_bootstrap_mds_key:             'AQBwgnZc9w2yGxAAhI/FNgEGQ5u9sXEiNb8LHQ=='
+ceph_storage_client_sensu_key:                     'AQBwgnZc9w2yGxAAhI/FNgEGQ5u9sXEiNb8LHQ=='
 
 # service user api password
 keystone_admin_password:                            'admin_pass'

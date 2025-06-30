@@ -1,0 +1,58 @@
+---
+# Disable stuff
+profile::network::leaf::manage_acls:              false
+profile::network::leaf::manage_switchdconf:       false
+profile::network::leaf::manage_quagga:            false
+profile::network::leaf::manage_frrouting:         true
+profile::base::network::cumulus_ifs:              false
+profile::base::cl_limits::manage_cl_limits:       false
+profile::base::common::manage_ntp:                false
+profile::base::common::manage_chrony:             false
+profile::monitoring::collectd::enable:            false
+profile::monitoring::sensu::agent::enable_agent:  false
+profile::monitoring::collectd::manage_service:    false
+
+openstack_extras::repo::debian::debian::manage_deb: false
+openstack_extras::repo::debian::debian::source_hash:
+  buster:
+    ensure: absent
+  nrec:
+    ensure: absent
+
+# remove snmp sudo
+sudo::configs:
+  snmp:
+    ensure: absent
+
+# overrides
+profile::base::common::packages:
+  'libaugeas-ruby1.9.1': { 'ensure': 'absent', }
+  'augeas-tools': { 'ensure': 'absent', }
+  'cl-mgmtvrf': { 'ensure': 'absent', }
+  'python-apt': { 'ensure': 'absent', }
+
+# puppet: increase facts limits for sonic
+puppet::agent_additional_settings:
+  'disable_warnings':           'deprecations'
+  'stringify_facts':            'false'
+  'number_of_facts_soft_limit': 2800
+  'top_level_facts_soft_limit': 800
+
+# Network config
+network::interfaces_type: 'config_db::main'
+network::use_config_class: true
+network::config_db::main::config_db_file: '/etc/sonic/config_db.json.pending'
+
+# named inferfaces
+named_interfaces::config:
+  mgmt:
+    - eth0
+
+# sonic specific implementation
+frrouting::single_config_file:       true
+frrouting::manage_package:           false
+frrouting::sonic_container:          true
+frrouting::config_dir:              '/etc/sonic/frr'
+frrouting::config_owner:            '300'
+frrouting::config_grp:              '300'
+frrouting::frrouting::frr_defaults: 'datacenter'

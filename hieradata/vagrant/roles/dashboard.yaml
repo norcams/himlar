@@ -13,10 +13,16 @@ profile::application::openssl::certs:
 
 apache::log_level:                              warn
 
-profile::openstack::dashboard::site_branding: 'dev-iaas'
-
 # FIXME:sensu-go
 profile::monitoring::sensu::agent::checks:              {}
 
 profile::openstack::dashboard::manage_dashboard:                   true
 profile::openstack::dashboard::manage_overrides:                   true
+
+profile::base::yumrepo::repo_hash:
+  epel: # should be absent when using RDO, but whitelist can also work
+    includepkgs: 'htop python3-mysqlclient'
+
+profile::base::common::packages:
+  'python3-mysql':       { ensure: absent }
+  'python3-mysqlclient': {}

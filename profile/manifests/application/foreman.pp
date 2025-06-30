@@ -26,7 +26,13 @@ class profile::application::foreman(
   },
   $push_facts      = false,
   Hash $dhcp_classes = {},
+  $repo_owner = 'root',
+  $repo_group = 'root',
+  $repo_mode = '0755'
 ) {
+
+  # FIX: start foreman-proxy after setting correct acl for /etc/dhcpd
+  Class['foreman_proxy::proxydhcp'] -> Class['foreman_proxy::service']
 
   include ::puppet
   include ::foreman
@@ -51,9 +57,13 @@ class profile::application::foreman(
     include ::eyaml
   }
 
+  # future-proof this folder so we can use wheel group
   if $manage_repo_dir {
     file { '/opt/repo':
-      ensure => directory
+      ensure => directory,
+      owner  => $repo_owner,
+      group  => $repo_group,
+      mode   => $repo_mode
     }
   }
 

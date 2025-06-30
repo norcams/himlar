@@ -30,8 +30,9 @@ dnf_repos()
 
   repo="https://download.iaas.uio.no/nrec/${repo_env}/${repo_dist}"
 
-  # we do not use epel modular
-  rm -f /etc/yum.repos.d/epel-modular.repo
+  # we do not use these EPEL repos
+  [ -f /etc/yum.repos.d/epel-modular.repo ] && rm -f /etc/yum.repos.d/epel-modular.repo
+  [ -f /etc/yum.repos.d/epel-cisco-openh264.repo ] && rm -f /etc/yum.repos.d/epel-cisco-openh264.repo
 
   # Add our epel mirror
   cat > /etc/yum.repos.d/epel.repo <<- EOM
@@ -108,8 +109,10 @@ bootstrap_puppet()
 
   if command -v apt-get >/dev/null 2>&1; then
 
+    apt-get install -y lsb-release wget
+
     # Assume Debian/CumulusLinux
-    debian_release=$(lsb_release -c | awk '{ print $2 }')
+    debian_release=$(lsb_release -sc)
     wget -O /tmp/puppet7-release-${debian_release}.deb http://apt.puppetlabs.com/puppet7-release-${debian_release}.deb
     dpkg -i /tmp/puppet7-release-${debian_release}.deb
     apt-get update

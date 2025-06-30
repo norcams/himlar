@@ -74,11 +74,7 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_log'
     fs_type:      "xfs"
     mountpath:    "/opt/log"
-    size:         '20G'
-  'lv_els':
-    volume_group: 'vg_log'
-    fs_type:      "xfs"
-    mountpath:    "/opt/els"
+    size:         '100G'
 
 # logrotate
 profile::logging::logrotate::manage_logrotate:    true

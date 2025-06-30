@@ -60,7 +60,7 @@ profile::application::builder::rc_file:       '/home/imagebuilder/openrc'
 profile::application::builder::images:
   'almalinux8':
     'image_name':       'IMAGEBUILDER AlmaLinux 8'
-    'url':              'https://repo.almalinux.org/almalinux/8/cloud/x86_64/images/'
+    'url':              'https://raw.repo.almalinux.org/almalinux/8/cloud/x86_64/images/'
     'latest':           'AlmaLinux-8-GenericCloud-UEFI-latest.x86_64.qcow2'
     'checksum_file':    'CHECKSUM'
     'checksum':         'sha256'
@@ -73,7 +73,7 @@ profile::application::builder::images:
     'minute':           30
   'almalinux9':
     'image_name':       'IMAGEBUILDER AlmaLinux 9'
-    'url':              'https://repo.almalinux.org/almalinux/9/cloud/x86_64/images/'
+    'url':              'https://raw.repo.almalinux.org/almalinux/9/cloud/x86_64/images/'
     'latest':           'AlmaLinux-9-GenericCloud-latest.x86_64.qcow2'
     'checksum_file':    'CHECKSUM'
     'checksum':         'sha256'
@@ -84,9 +84,22 @@ profile::application::builder::images:
     'username':         'almalinux'
     'hour':             3
     'minute':           30
+  'almalinux10':
+    'image_name':       'IMAGEBUILDER AlmaLinux 10'
+    'url':              'https://raw.repo.almalinux.org/almalinux/10/cloud/x86_64/images/'
+    'latest':           'AlmaLinux-10-GenericCloud-latest.x86_64.qcow2'
+    'checksum_file':    'CHECKSUM'
+    'checksum':         'sha256'
+    'min_ram':          1024
+    'min_disk':         8
+    'flavor':           'm1.small'
+    'efi':              true
+    'username':         'almalinux'
+    'hour':             4
+    'minute':           0
   'almalinux8_nv_vgpu':
     'image_name':       'IMAGEBUILDER AlmaLinux 8 (NVIDIA GPU)'
-    'url':              'https://repo.almalinux.org/almalinux/8/cloud/x86_64/images/'
+    'url':              'https://raw.repo.almalinux.org/almalinux/8/cloud/x86_64/images/'
     'latest':           'AlmaLinux-8-GenericCloud-UEFI-latest.x86_64.qcow2'
     'checksum_file':    'CHECKSUM'
     'checksum':         'sha256'
@@ -100,7 +113,7 @@ profile::application::builder::images:
     'minute':           30
   'almalinux9_nv_vgpu':
     'image_name':       'IMAGEBUILDER AlmaLinux 9 (NVIDIA GPU)'
-    'url':              'https://repo.almalinux.org/almalinux/9/cloud/x86_64/images/'
+    'url':              'https://raw.repo.almalinux.org/almalinux/9/cloud/x86_64/images/'
     'latest':           'AlmaLinux-9-GenericCloud-latest.x86_64.qcow2'
     'checksum_file':    'CHECKSUM'
     'checksum':         'sha256'
@@ -112,6 +125,20 @@ profile::application::builder::images:
     'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
     'hour':             15
     'minute':           30
+  'almalinux10_nv_vgpu':
+    'image_name':       'IMAGEBUILDER AlmaLinux 10 (NVIDIA GPU)'
+    'url':              'https://raw.repo.almalinux.org/almalinux/10/cloud/x86_64/images/'
+    'latest':           'AlmaLinux-10-GenericCloud-latest.x86_64.qcow2'
+    'checksum_file':    'CHECKSUM'
+    'checksum':         'sha256'
+    'min_ram':          1024
+    'min_disk':         8
+    'flavor':           'm1.small'
+    'efi':              true
+    'username':         'almalinux'
+    'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
+    'hour':             16
+    'minute':           0
   'centosstream9':
     'image_name':       'IMAGEBUILDER CentOS Stream 9'
     'url':              'https://cloud.centos.org/centos/9-stream/x86_64/images/'
@@ -162,17 +189,6 @@ profile::application::builder::images:
     'username':         'debian'
     'hour':             16
     'minute':           45
-  'fedora_40':
-    'image_name':       'IMAGEBUILDER Fedora 40'
-    'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/40/Cloud/x86_64/images/'
-    'latest':           'Fedora-Cloud-Base-Generic.x86_64-40-1.14.qcow2'
-    'checksum_file':    'Fedora-Cloud-40-1.14-x86_64-CHECKSUM'
-    'checksum':         'sha256'
-    'min_ram':          1024
-    'min_disk':         3
-    'efi':              true
-    'username':         'fedora'
-    'hour':             14
   'fedora_41':
     'image_name':       'IMAGEBUILDER Fedora 41'
     'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/41/Cloud/x86_64/images/'
@@ -185,6 +201,18 @@ profile::application::builder::images:
     'username':         'fedora'
     'hour':             14
     'minute':           15
+  'fedora_42':
+    'image_name':       'IMAGEBUILDER Fedora 42'
+    'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/42/Cloud/x86_64/images/'
+    'latest':           'Fedora-Cloud-Base-Generic-42-1.1.x86_64.qcow2'
+    'checksum_file':    'Fedora-Cloud-42-1.1-x86_64-CHECKSUM'
+    'checksum':         'sha256'
+    'min_ram':          1024
+    'min_disk':         3
+    'efi':              true
+    'username':         'fedora'
+    'hour':             14
+    'minute':           30
   'rockylinux8':
     'image_name':       'IMAGEBUILDER RockyLinux 8'
     'url':              'https://dl.rockylinux.org/pub/rocky/8/images/x86_64/'
@@ -219,28 +247,18 @@ profile::application::builder::images:
     'efi':              true
     'username':         'rocky'
     'hour':             18
-  'ubuntu_2004':
-    'image_name':       'IMAGEBUILDER Ubuntu 20.04'
-    'url':              'https://cloud-images.ubuntu.com/focal/current/'
-    'latest':           'focal-server-cloudimg-amd64.img'
-    'checksum_file':    'SHA256SUMS'
-    'checksum':         'sha256'
-    'min_ram':          768
-    'min_disk':         3
-    'username':         'ubuntu'
-    'hour':             9
-  'ubuntu_2004_nv_vgpu':
-    'image_name':       'IMAGEBUILDER Ubuntu 20.04 (NVIDIA VGPU)'
-    'url':              'https://cloud-images.ubuntu.com/focal/current/'
-    'latest':           'focal-server-cloudimg-amd64.img'
-    'checksum_file':    'SHA256SUMS'
+  'rockylinux10':
+    'image_name':       'IMAGEBUILDER RockyLinux 10'
+    'url':              'https://dl.rockylinux.org/pub/rocky/10/images/x86_64/'
+    'latest':           'Rocky-10-GenericCloud-Base.latest.x86_64.qcow2'
+    'checksum_file':    'Rocky-10-GenericCloud-Base.latest.x86_64.qcow2.CHECKSUM'
     'checksum':         'sha256'
     'min_ram':          768
     'min_disk':         8
-    'username':         'ubuntu'
-    'flavor':           'm1.small'
-    'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
-    'hour':             10
+    'efi':              true
+    'username':         'rocky'
+    'hour':             18
+    'minute':           30
   'ubuntu_2204':
     'image_name':       'IMAGEBUILDER Ubuntu 22.04'
     'url':              'https://cloud-images.ubuntu.com/jammy/current/'
@@ -302,8 +320,8 @@ profile::application::builder::images:
   'uio_rhel9':
     'image_name':       'IMAGEBUILDER UIO RHEL 9'
     'url':              'http://download.iaas.uio.no/nrec/nonfree/'
-    'latest':           'rhel-9.4-x86_64-kvm.qcow2'
-    'checksum_file':    'rhel-9.4-x86_64-kvm.sha256sum'
+    'latest':           'rhel-9.6-x86_64-kvm.qcow2'
+    'checksum_file':    'rhel-9.6-x86_64-kvm.sha256sum'
     'checksum':         'sha256'
     'min_ram':          1024
     'min_disk':         8
@@ -331,17 +349,18 @@ profile::monitoring::sensu::agent::expanded_checks:
   - 'almalinux8_nv_vgpu'
   - 'almalinux9'
   - 'almalinux9_nv_vgpu'
+  - 'almalinux10'
+  - 'almalinux10_nv_vgpu'
   - 'centosstream9'
   - 'centosstream10'
   - 'debian11'
   - 'debian12'
-  - 'fedora_40'
   - 'fedora_41'
+  - 'fedora_42'
   - 'rockylinux8'
   - 'rockylinux8_uib_puppet'
   - 'rockylinux9'
-  - 'ubuntu_2004'
-  - 'ubuntu_2004_nv_vgpu'
+  - 'rockylinux10'
   - 'ubuntu_2204'
   - 'ubuntu_2204_nv_vgpu'
   - 'ubuntu_2404'

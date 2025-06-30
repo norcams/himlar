@@ -3,6 +3,8 @@
 glance::db::mysql::allowed_hosts:
   - "%{netpart_trp1}.%"
 
+openstack_version: 'yoga'
+
 # api (node: image)
 glance::api::db::database_connection:      "mysql+pymysql://glance:%{hiera('glance::db::mysql::password')}@%{hiera('service__address__db_regional')}/glance"
 glance::backend::multistore::cinder::cinder_os_region_name:  "%{location}"
@@ -13,6 +15,18 @@ glance::api::show_multiple_locations:      true # FIXME: needed for snapshotting
 glance::api::enable_proxy_headers_parsing: true
 glance::api::image_member_quota:           -1
 glance::api::multi_store:                  true
+
+#---------------------------------------------------------------------
+# Cache pruner (manifests/cache/pruner.pp)
+#   - runs on the image nodes
+#---------------------------------------------------------------------
+glance::cache::pruner::maxdelay:  600  # random sleep 0-10 minutes
+
+#---------------------------------------------------------------------
+# Cache cleaner (manifests/cache/cleaner.pp)
+#   - runs on the image nodes
+#---------------------------------------------------------------------
+glance::cache::cleaner::maxdelay: 600  # random sleep 0-10 minutes
 
 # logging
 glance::api::logging::log_facility:        'LOG_LOCAL3'
@@ -49,7 +63,10 @@ glance::keystone::auth::admin_url:         "%{hiera('endpoint__image__admin')}"
 glance::keystone::auth::internal_url:      "%{hiera('endpoint__image__internal')}"
 glance::keystone::auth::region:            "%{::location}"
 
-# policy (node: image)
+#---------------------------------------------------------------------
+# Policies (manifests/policy.pp)
+#   - runs on the image nodes
+#---------------------------------------------------------------------
 glance::policy::policies:
   publicize_image:
     key:    'publicize_image'

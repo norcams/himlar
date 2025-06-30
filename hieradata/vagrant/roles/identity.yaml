@@ -1,7 +1,7 @@
 ---
-include:
-  default:
-    - profile::development::patch
+# include:
+#   default:
+#     - profile::development::patch
 
 # Turn on for debug
 # include:
@@ -30,6 +30,9 @@ include:
 #   'DEFAULT/insecure_debug':
 #     value:  'true'
 #
+
+# Make sure we fully bootstrap keystone in vagrant on identity
+keystone::bootstrap::bootstrap:  true
 
 # Project for global image sharing
 profile::openstack::resource::image_sharing::manage: false

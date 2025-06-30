@@ -16,8 +16,8 @@ accounts::ssh_keys:
     type:    'ed25519'
     public:  'AAAAC3NzaC1lZDI1NTE5AAAAILmS01dwnGoQcxjR0ZNqSP1e5nRK43buD0rqd4sNkmbu'
   'raymond_home':
-    type:    'ssh-rsa'
-    public:  'AAAAB3NzaC1yc2EAAAADAQABAAACAQDGMWzJ2zPqlOxw2lqKnjkPk/E8XsCLRZ/+DWO29KN2qwXurqS8UlN1+bsnpl7E+HP9NtZ8WxzHLOzKjXhSu+mt6qnHWuTZ+iP3yrFpUEOROm/fmfZqf2xmMMiksZWdbGH4I8NnRDEr4s2UqvTXU1r5+e89jbXU2OQPEMNfZ3NhAMXK0FRMeNKo4iakSLokuI0nHkTBtMGCSpjtByhNIAQwL1YYO8kZyDu4MRpm3VzdId6SZ79+6saXS1Jz4wCUruv3nNzD2n59qzwLDOo+ziETlq8BRJ90OnJ36KBBfMdOu2cOnMtOja3TzqhihgWdaK8DYQDZ8aG1aF9cIyszl+HTLqKUyWO72fo7vcbvN76XOHomFuMZisE5qKNSwHI7wbeleg3RWnfzYX/dGgX0PC2iRDjBC8Ae4yplafLkYDQu4HfH/jH+ZkdXsGY4KjJEczX0RtEehFq0V0hqxKz9FOTbRAA4CggBVuDTN/EtYc+tB/TwvCBmpXWdueH+nDxdxJB9xUvLN0mo6rOaLg8DUCjPxx9/TVoutGnJqG3ttt+D8DAZXOoewXg1gK49vChyOYvgwlr3EFp9idBnYsNOccyQ49UkERVdPBJ0U5sXrFBKvlihNK9U+u/MvfoQBezpOE6nqjlfKW9cskHX2yLY0W7ySZFmLzZexUYFWQ6tCYYGow=='
+    type:    'ed25519'
+    public:  'AAAAC3NzaC1lZDI1NTE5AAAAIGh8ABoo3nkFSAlTTiWqcTmqUp98uPJP/wNvQzMTsvJ6'
   'trondham':
     type:    'ssh-rsa'
     public:  'AAAAB3NzaC1yc2EAAAABIwAAAQEAr3c4y9UTQstrocwRDdq8tkb8d33VIX4x07iKYanZmnrcGwQ7efT3rEN2tmJUEQumNSL+ZVdsCH/2pT37L8uyxsRlSdnz5bQbe0Sj2dq4ahpIadrDH7n858EmN+chEwgz5QRyWT4SanC9ce/9EyJbl8C0U34mgJV+pIwSGhFhWKXJ624ja+kMXVd6+5rG+rlukMjolFoxE+ijZqzU1EwUtuKD1oMFGeszdpEChhhGO/9T1L7MyaIcDOUOmMgXjdgRtVmS1QY5HYikvc68wBV1FDRn1pvEd3UJTobU87FA9XircbazvD64ghNWK7dqikUgnW/OQsKLoLfyPEUn39v2wQ=='
@@ -45,6 +45,9 @@ accounts::ssh_keys:
   'ivarth':
     type:    'ed25519'
     public:  'AAAAC3NzaC1lZDI1NTE5AAAAIEw1EfnNNHH2p+nTEEL18e0MigXwbO/d8UyZBp9jfsTQ'
+  'kristiang':
+    type:    'ed25519'
+    public:  'AAAAC3NzaC1lZDI1NTE5AAAAIPycLZevlsTwvii7R5BU79kCk+FSdb2/OVZKkGFIspfX'
   'norcams':
     type:    'ed25519'
     public:  'AAAAC3NzaC1lZDI1NTE5AAAAIMW4BIpDkX/Ju8Gypn3GDHcTYk3JeIgHHS/5yldEVz8e'
@@ -85,6 +88,9 @@ accounts::users:
     groups: [ 'users', 'wheel']
   'ivarth':
     comment: 'ivarth@norcams'
+    groups: [ 'users', 'wheel', 'norcams' ]
+  'kristiang':
+    comment: 'kristiang@rail'
     groups: [ 'users', 'wheel', 'norcams' ]
   'norcams':
     comment: 'Generic system user'

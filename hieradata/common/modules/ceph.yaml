@@ -99,4 +99,5 @@ ceph::rgw::keystone::auth::admin_url:    "%{hiera('endpoint__object__admin')}/sw
 ceph::rgw::keystone::auth::internal_url: "%{hiera('endpoint__object__internal')}/swift/v1"
 ceph::rgw::keystone::auth::region:       '%{::location}'
 ceph::rgw::keystone::auth::tenant:       "%{hiera('keystone__service__project')}"
-ceph::rgw::keystone::auth::rgw_service:  'swift::object-store'
+ceph::rgw::keystone::auth::service_name: 'swift'
+ceph::rgw::keystone::auth::service_type: 'object-store'

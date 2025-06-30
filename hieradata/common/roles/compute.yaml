@@ -42,6 +42,10 @@ profile::base::selinux::semodules:
   collectd-compute:
     avc_file:   'collectd_compute.avc'
 
+# To fix problem with file descriptor limits in nova-compute
+# FIXME: Default false in post yoga and it is deprecated in 2025.1 release
+nova::rabbit_heartbeat_in_pthread:                false
+
 # Manage default availability zone
 profile::openstack::compute::manage_az:            true
 
@@ -98,7 +102,6 @@ profile::base::common::packages:
   'jq': {}
   'openstack-selinux': {}
   'make': {}
-  'OVMF': {} # FIXME: remove when el7 is gone
   'nrec-selinux': {}
 
 # Sensu (needs gcc-c++)
@@ -205,7 +208,7 @@ sudo::purge: false
 profile::base::lvm::physical_volume:
   '/dev/sda3':
     ensure: present
-    force:  trueFuglevetetinær listen er kanskje ikke 100% oppdatert da det skal være minst en til, men dette er noen så om du ikke har noen der du er kan dem kanskje konta
+    force:  true
 profile::base::lvm::volume_group:
   'vg_ext':
     physical_volumes:
@@ -229,8 +232,6 @@ profile::base::yumrepo::repo_hash:
   ceph-%{hiera('ceph_version')}:
     ensure: present
   ceph-%{hiera('ceph_version')}-noarch:
-    ensure: present
-  centos-qemu-ev: # FIXME remove when el7 is gone
     ensure: present
   AlmaLinux-PowerTools:
     ensure: present
@@ -316,3 +317,15 @@ profile::rhsm::subscription::manage: true
 profile::rhsm::virtwho::manage:      true
 
 profile::storage::cephclient::enable: true
+
+openstack_version: 'yoga'
+
+# This creates /etc/openstack/puppet/admin-clouds.yaml
+keystone::bootstrap::bootstrap:        false
+keystone::bootstrap::manage_resources: false
+keystone::bootstrap::username:         'nova'
+keystone::bootstrap::password:         "%{hiera('nova_api_password')}"
+keystone::bootstrap::project_name:     "%{hiera('keystone__service__project')}"
+keystone::bootstrap::internal_url:     "%{hiera('endpoint__identity__internal')}"
+keystone::bootstrap::region:           "%{location}"
+keystone::bootstrap::interface:        'internal'

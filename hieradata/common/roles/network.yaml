@@ -9,6 +9,16 @@ include:
     - profile::logging::rsyslog::client
     - profile::base::systemd
 
+# This creates /etc/openstack/puppet/admin-clouds.yaml
+keystone::bootstrap::bootstrap:        false
+keystone::bootstrap::manage_resources: false
+keystone::bootstrap::username:         'neutron'
+keystone::bootstrap::password:         "%{hiera('neutron_api_password')}"
+keystone::bootstrap::project_name:     "%{hiera('keystone__service__project')}"
+keystone::bootstrap::internal_url:     "%{hiera('endpoint__identity__internal')}"
+keystone::bootstrap::region:           "%{location}"
+keystone::bootstrap::interface:        'internal'
+
 etcd::proxy: "off"
 etcd::initial_cluster_state: 'new'
 etcd::initial_cluster_token: 'etcd-cluster'
@@ -87,7 +97,7 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
-    includepkgs: 'htop'
+    includepkgs: 'htop libidn'
 
 # logrotate
 # 2022-01-07 (mikaeld): some issue on network nodes, especially in OSL, have the effect that one of the nodes
