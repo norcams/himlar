@@ -18,7 +18,7 @@ profile::base::physical::enable_hugepages: true
 profile::base::physical::hugepagesz:       '2M'
 profile::base::physical::hugepages:        '507904'
 
-# Nover overrides
+# Nova overrides
 nova::compute::libvirt::cpu_models:       ['EPYC']
 nova::cpu_allocation_ratio:                '1'
 
