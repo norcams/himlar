@@ -83,6 +83,10 @@ class profile::monitoring::sensu::agent (
     create_resources('sensu_check', $checks, $defaults)
     create_resources('sensu_namespace', $namespaces)
 
+    # custom agent config
+    $config = lookup('profile::monitoring::sensu::agent::config', Hash, $merge_strategy, {})
+    create_resources('sensu::agent::config_entry', $config)
+
     # purge checks will purge everything not defined on this role
     sensu_resources { 'sensu_check':
       purge => $purge_check,

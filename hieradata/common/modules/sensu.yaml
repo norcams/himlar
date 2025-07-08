@@ -43,11 +43,6 @@ sensu::agent::service_env_vars:
 
 # Sensu backend
 sensu::backend::package_name: 'sensu-backend'
-sensu::backend::config_hash:
-  api-listen-address: "%{::ipaddress_mgmt1}:8082"
-  agent-host:         "%{::ipaddress_mgmt1}"
-  agent-port:         8081
-  log-level:          debug
 
 # Sensu cli
 sensu::cli::package_name:     'sensu-cli'

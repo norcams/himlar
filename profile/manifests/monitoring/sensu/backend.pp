@@ -37,6 +37,11 @@ class profile::monitoring::sensu::backend(
     create_resources('sensu_filter', $filters, $defaults)
     create_resources('sensu_check', $checks, $defaults)
 
+    # purge bonsai asset
+    sensu_resources { 'sensu_bonsai_asset':
+      purge => $purge_check,
+    }
+
     # purge checks
     # sensu_resources { 'sensu_check':
     #   purge => $purge_check,
