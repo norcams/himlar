@@ -1,7 +1,16 @@
 ---
 network::interfaces_hash:
-  'eth1':
-    onboot:    'yes'
-    mtu:       '1500'
-    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.22"
-    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
+  eth0: # host nat
+    ipv4:
+      method:     'auto'
+    ipv6:
+      method:     'auto'
+  eth1: # mgmt
+    ipv4:
+      address1:       "%{hiera('netcfg_mgmt_netpart')}.22/%{hiera('netcfg_mgmt_cidr4')}"
+      dns:            "%{hiera('netcfg_dns_mgmt_server1')};%{hiera('netcfg_dns_mgmt_server2')}"
+      dns-search:     "%{hiera('netcfg_dns_search_nm')}"
+      never-default:  'true'
+      method:         'manual'
+  eth2: {} # trp
+  eth3: {} # public
