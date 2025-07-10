@@ -24,8 +24,8 @@ profile::base::common::sysctl_values:
 # Chagne to 'new to bootsrap new cluster:
 sensu_etcd_cluster_state:           'existing' #'new'
 sensu_etcd_cluster_log_level:       'warn'
-sensu_access_token_expiry:          '75m'
-sensu_refresh_token_expiry:         '24h'
+sensu_access_token_expiry:          '24h'
+sensu_refresh_token_expiry:         '48h'
 sensu_default_silenced_expiry_time: '24h'
 sensu_etcd_cluster_node_name:       '%{::hostname}'
 sensu_etcd_cluster: "\
