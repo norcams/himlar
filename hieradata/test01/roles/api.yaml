@@ -160,7 +160,7 @@ image__backend__names:
 image__backend__ips:
   - "%{hiera('netcfg_trp_netpart')}.36"
   - "%{hiera('netcfg_trp_netpart')}.37"
-  - "%{hiera('netcfg_trp_netpart')}.38"
+#  - "%{hiera('netcfg_trp_netpart')}.38"
 volume__backend__names:
   - "%{::location}-volume-01"
   - "%{::location}-volume-02"
