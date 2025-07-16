@@ -86,6 +86,7 @@ profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}
   'jq': {}
+  'qrencode-libs': {}
 #  'python-oslo-log': {}
   'python3': {}
   'python3-virtualenv': {} # used for ca_setup
@@ -172,4 +173,3 @@ profile::base::login::db_servers:
     minute:   '00'
     weekday:  'Monday'
     command:  "/usr/local/sbin/db-longterm-bck.sh -e %{::location} >/dev/null"
-
