@@ -150,9 +150,11 @@ compute__backend__ips:
 identity__backend__names:
   - "%{::location}-identity-01"
   - "%{::location}-identity-02"
+  - "%{::location}-identity-03"
 identity__backend__ips:
   - "%{hiera('netcfg_trp_netpart')}.81"
   - "%{hiera('netcfg_trp_netpart')}.82"
+  - "%{hiera('netcfg_trp_netpart')}.83"
 image__backend__names:
   - '%{::location}-image-01'
   - '%{::location}-image-02'
