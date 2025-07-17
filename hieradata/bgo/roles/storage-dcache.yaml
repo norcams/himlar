@@ -92,8 +92,8 @@ profile::base::common::extraswap_fileloc: '/var/lib/swap/swapfile'
 # Disable write cache on osd cache disks
 profile::base::disk::manage_hdparm: true
 profile::base::disk::disk_hdparams:
-  '/dev/sdq': { hdparams: '-W0', }
   '/dev/sdr': { hdparams: '-W0', }
+  '/dev/sds': { hdparams: '-W0', }
 
 profile::base::lvm::volume_group:
   'vg_swap':
@@ -176,10 +176,10 @@ profile::base::lvm::logical_volume:
     createfs:     false
     size:         80G
 profile::base::lvm::physical_volume:
-  '/dev/sdq':
+  '/dev/sdr':
     ensure: present
     force:  true
-  '/dev/sdr':
+  '/dev/sds':
     ensure: present
     force:  true
 
