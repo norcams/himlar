@@ -7,9 +7,12 @@ dhcp::hosts:
   test01-spine-02:
     mac: '68:4f:64:f1:b5:23'
     ip:  '172.28.6.2'
-  test01-controller-04:
+  test01-controller-04-bmc:
     mac: '6c:2b:59:a0:6c:d6'
     ip:  '172.28.159.114'
-  test01-compute-05:
+  test01-compute-05-bmc:
     mac: '6c:2b:59:a0:65:b0'
     ip:  '172.28.159.112'
+  test01-chassis-01-cmc:
+    mac: '00:1e:c9:f8:b3:b0'
+    ip   '172.28.159.112'
