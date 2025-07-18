@@ -34,3 +34,13 @@ profile::base::common::packages:
   'gcc-c++': { ensure: absent }
   'make': { ensure: absent }
   'openssl-devel': { ensure: absent }
+
+named_interfaces::config:
+  mgmt:
+    - eth0
+  trp:
+    - eth1
+  oob:
+    - eth2
+  public:
+    - dummy0
