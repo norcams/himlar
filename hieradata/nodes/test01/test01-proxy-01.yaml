@@ -4,6 +4,8 @@ network::interfaces_hash:
      ipv4:
        method:         'manual'
        address1:       "%{hiera('netcfg_mgmt_netpart')}.12/%{hiera('netcfg_mgmt_cidr4')}"
+       dns:            "%{hiera('netcfg_dns_mgmt_server1')};%{hiera('netcfg_dns_mgmt_server2')}"
+       dns-search:     "%{hiera('netcfg_dns_search_nm')}"
    eth1:
      ipv4:
        method:         'manual'
@@ -35,6 +37,8 @@ named_interfaces::config:
      - eth0
    trp:
      - eth1
+   oob:
+     - eth2
    public:
      - lo
 
