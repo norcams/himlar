@@ -267,6 +267,9 @@ profile::storage::cephpool_params::pools:
     application_enable: 'rbd'
 
 # Sensu
+
+profile::base::physical::enable_redfish_sensu_check: true
+
 sudo::configs:
   sensu_tty:
     priority: 20
