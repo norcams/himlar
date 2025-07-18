@@ -13,6 +13,6 @@ network::interfaces_hash:
   'eth1':
     onboot:    'yes'
     mtu:       '1500'
-    ipaddress: "172.28.159.11"
-    netmask:   "255.255.255.0"
+    ipaddress: "%{hiera('netcfg_oob_netpart')}.11"
+    netmask:   "%{hiera('netcfg_oob_netmask')}"
     defroute:  'no'

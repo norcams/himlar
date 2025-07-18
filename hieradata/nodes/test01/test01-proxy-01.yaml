@@ -15,6 +15,11 @@ network::interfaces_hash:
        address1:       "%{hiera('netcfg_trp_netpart6')}::12/%{hiera('netcfg_trp_netmask6')}"
        route1:         "::/0,%{hiera('netcfg_trp_netpart6')}::701"
        route1_options: 'src=2001:700:200:917::3f12'
+   eth2:
+     ipv4:
+       method:         'manual'
+       never-default:  'true'
+       address1:       "%{hiera('netcfg_oob_netpart')}.12/21"
    lo-static:
      interface_name:   'lo'
      connection_type:  'loopback'
