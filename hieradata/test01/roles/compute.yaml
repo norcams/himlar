@@ -99,6 +99,11 @@ profile::base::common::packages:
   'gcc-c++': { ensure: absent }
   'make': { ensure: absent }
 
+sensu::agent::subscriptions:
+  - 'base'
+  - 'metrics'
+  - 'redfish'
+
 profile::monitoring::sensu::agent::checks:
   check-metadata-api:
     command:                'http-check --url http://127.0.0.1:8775'
@@ -114,11 +119,6 @@ profile::monitoring::sensu::agent::checks:
     handlers:               ['default']
     runtime_assets:
     - sensu/http-check
-  'redfish-check':
-    command:                '/usr/local/bin/redfish_check.sh'
-    interval:               1800
-    subscriptions:          ['entity:%{::hostname}']
-    handlers:               ['default']
   'dhcp-agent-check':
     command:                '/usr/local/bin/calico_dhcp_agent_check.sh'
     interval:               600
