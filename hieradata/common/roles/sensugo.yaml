@@ -254,6 +254,11 @@ profile::monitoring::sensu::agent::checks:
       check-https-cert/args/api_cert: "-u %{hiera('public__address__api')}"
       check-https-cert/args/identity_cert: "-u %{hiera('endpoint__identity__public')}"
       check-https-cert/args/report_cert: "-u https://%{hiera('public__address__report')}"
+  'redfish-check':
+    command:                '/usr/local/bin/redfish_check.sh'
+    interval:               1800
+    subscriptions:          ['redfish']
+    handlers:               ['default']
 
 # we need nodejs for web gui
 profile::base::common::packages:
