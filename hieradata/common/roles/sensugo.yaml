@@ -96,8 +96,10 @@ profile::monitoring::sensu::backend::bonsai_assets:
   sensu-plugins/sensu-plugins-rabbitmq:
     version: 8.1.0
 # useful assets
-  # sensu/monitoring-plugins:
-  #   version: 2.7.0
+  sensu/monitoring-plugins:
+    version: 2.10.5
+  # jadiunr/check-smart-status:
+  #   version: 0.0.1
 
 # sensu agent
 profile::monitoring::sensu::agent::enable_go_agent:     true
@@ -111,8 +113,10 @@ sensu::agent::subscriptions:
   - 'monitor'
   - 'metrics'
 # other subsciptions:
+  # - 'proxy'
+  # - 'physical'
   # - 'storage'
-  # - 'opbject'
+  # - 'object'
   # - 'compute'
   # - 'cephmon'
   # - 'cephmon-object'
@@ -161,65 +165,76 @@ sensu::resources::filters:
       - 'event.check.occurrences == 1 || event.check.occurrences % (3600 / event.check.interval) == 0'
 
 profile::monitoring::sensu::agent::checks:
-  disk-checks:
-    command:                'check-disk-usage -w 85 -c 95 -E /var/lib/nova/instances,/var/lib/libvirt/images,/cephfs'
-    interval:               60
-    subscriptions:          ['base']
-    handlers:               ['default']
-    runtime_assets:         [sensu/check-disk-usage]
-  cpu-checks:
-    command:                'check-cpu-usage -s 15 -w {{ .annotations.cpu.warning | default 85 }} -c {{ .annotations.cpu.critical | default 95 }}'
-    interval:               60
-    subscriptions:          ['base']
-    handlers:               ['default']
-    runtime_assets:         [sensu/check-cpu-usage]
-  memory-checks:
-    command:                'check-memory-usage -w 85 -c 95'
-    interval:               60
-    subscriptions:          ['nodes']
-    handlers:               ['default']
-    runtime_assets:         [sensu/check-memory-usage]
-  http-perf-identity:
-    command:                "http-perf --url %{hiera('endpoint__identity__public')}/v3/"
-    interval:               600
-    subscriptions:          ['monitor']
-    handlers:               ['metric']
-    runtime_assets:         [sensu/http-check]
-    round_robin:            true
-  http-perf-dashboard:
-    command:                "http-perf --url https://%{hiera('public__address__dashboard')}/dashboard/"
-    interval:               600
-    subscriptions:          ['monitor']
-    handlers:               ['metric']
-    runtime_assets:         [sensu/http-check]
-    round_robin:            true
-  # http-check-network:
-  #   command:                "http-check -r --url %{hiera('endpoint__network__public')}"
-  #   interval:               600
-  #   subscriptions:          ['monitor']
-  #   handlers:               ['default']
-  #   runtime_assets:         [sensu/http-check]
-  # cert-check-console:
-  #   command:                "check-https-cert.rb -c 10 -w 20 -u https://%{hiera('public__address__console')}:6080 %{hiera('sensu_ssl_cachain')}"
-  #   interval:               3600
-  #   subscriptions:          ['monitor']
-  #   handlers:               ['default']
-  #   runtime_assets:         [sensu-plugins/sensu-plugins-http]
-  ceph-check:
-    command:                "ceph-health.sh -n client.sensu"
-    interval:               60
-    subscriptions:          ['cephmon']
-    handlers:               ['default']
-    round_robin:            true
+  'disk-checks':
+    command:        'check-disk-usage -w 85 -c 95 -E /var/lib/nova/instances,/var/lib/libvirt/images,/cephfs'
+    interval:       60
+    subscriptions:  ['base']
+    handlers:       ['default']
+    runtime_assets: [sensu/check-disk-usage]
+  'cpu-checks': #FIXME change to load?
+    command:        'check-cpu-usage -s 15 -w {{ .annotations.cpu.warning | default 85 }} -c {{ .annotations.cpu.critical | default 95 }}'
+    interval:       60
+    subscriptions:  ['base']
+    handlers:       ['default']
+    runtime_assets: [sensu/check-cpu-usage]
+  'dns-check-default': # check that resolving is working based on what is in /etc/resolv.conf
+    command:        'check_dns -H sikt.no'
+    interval:       600
+    subscriptions:  ['base']
+    handlers:       ['default']
     runtime_assets:
-    - thorko/sensu-check-ceph
-  http-check-multiplex:
+    - sensu/monitoring-plugins
+  'check-running-procs':
+    command:        'check_procs'
+    interval:       600
+    subscriptions:  ['base']
+    handlers:       ['default']
+    runtime_assets:
+    - sensu/monitoring-plugins
+  'memory-checks':
+    command:        'check-memory-usage -w 85 -c 95'
+    interval:       60
+    subscriptions:  ['nodes']
+    handlers:       ['default']
+    runtime_assets: [sensu/check-memory-usage]
+  'http-perf-identity':
+    command:        "http-perf --url %{hiera('endpoint__identity__public')}/v3/"
+    interval:       600
+    subscriptions:  ['monitor']
+    handlers:       ['metric']
+    runtime_assets: [sensu/http-check]
+    round_robin:    true
+  'http-perf-dashboard':
+    command:        "http-perf --url https://%{hiera('public__address__dashboard')}/dashboard/"
+    interval:       600
+    subscriptions:  ['monitor']
+    handlers:       ['metric']
+    runtime_assets: [sensu/http-check]
+    round_robin:    true
+  'cert-check-multiplex':
+    command: sensu-check-multiplexer --command check-https-cert.rb --annotation-prefix "check-https-cert/args" -a "-c 10 -w 20 %{hiera('sensu_ssl_cachain')}"
+    stdin:          true # needed for multiplexer to work!
+    interval:       3600
+    subscriptions:  ['monitor']
+    handlers:       ['default']
+    round_robin:    true
+    runtime_assets:
+    - sensu/sensu-check-multiplexer
+    - sensu-plugins/sensu-plugins-http
+    annotations:
+      check-https-cert/args/console_cert: "-u https://%{hiera('public__address__console')}:6080"
+      check-https-cert/args/access_cert: "-u https://%{hiera('public__address__access')}"
+      check-https-cert/args/dashboard_cert: "-u https://%{hiera('public__address__dashboard')}"
+      check-https-cert/args/api_cert: "-u %{hiera('public__address__api')}"
+      check-https-cert/args/identity_cert: "-u %{hiera('endpoint__identity__public')}"
+      check-https-cert/args/report_cert: "-u https://%{hiera('public__address__report')}"
+  'http-check-multiplex':
     command: sensu-check-multiplexer --command http-check --annotation-prefix "http-check/args" -a "-r"
-    stdin: true
-    interval:               600
-    subscriptions:          ['monitor']
-    handlers:               ['default']
-    round_robin:            true
+    stdin:          true
+    interval:       600
+    subscriptions:  ['proxy']
+    handlers:       ['default']
+    round_robin:    true
     runtime_assets:
     - sensu/sensu-check-multiplexer
     - sensu/http-check
@@ -236,30 +251,50 @@ profile::monitoring::sensu::agent::checks:
       http-check/args/report_up: "--url https://%{hiera('public__address__report')}"
       http-check/args/access_up: "--url https://%{hiera('public__address__access')}"
       http-check/args/status_up: "--url https://%{hiera('public__address__status')}"
-      #http-check/args/docs_up: "--url https://%{hiera('public__address__docs')}"
-  cert-check-multiplex:
-    command: sensu-check-multiplexer --command check-https-cert.rb --annotation-prefix "check-https-cert/args" -a "-c 10 -w 20 %{hiera('sensu_ssl_cachain')}"
-    stdin: true
-    interval:               3600
-    subscriptions:          ['monitor']
-    handlers:               ['default']
-    round_robin:            true
+      http-check/args/docs_up: "--url https://%{hiera('public__address__docs')}"
+  'dns-check-anycast':
+    command:        "check_dns -H sikt.no -s %{hiera('netcfg_anycast_dns')}"
+    interval:       600
+    subscriptions:  ['proxy']
+    handlers:       ['default']
+    runtime_assets:
+    - sensu/monitoring-plugins
+  'dns-check-multiplex':
+    command:        sensu-check-multiplexer --command check_dns --annotation-prefix "check-dns/args" -a "-H norid.no"
+    stdin:          true
+    interval:       60
+    subscriptions:  ['proxy']
+    handlers:       ['default']
     runtime_assets:
     - sensu/sensu-check-multiplexer
-    - sensu-plugins/sensu-plugins-http
+    - sensu/monitoring-plugins
     annotations:
-      check-https-cert/args/console_cert: "-u https://%{hiera('public__address__console')}:6080"
-      check-https-cert/args/access_cert: "-u https://%{hiera('public__address__access')}"
-      check-https-cert/args/dashboard_cert: "-u https://%{hiera('public__address__dashboard')}"
-      check-https-cert/args/api_cert: "-u %{hiera('public__address__api')}"
-      check-https-cert/args/identity_cert: "-u %{hiera('endpoint__identity__public')}"
-      check-https-cert/args/report_cert: "-u https://%{hiera('public__address__report')}"
+      check-dns/args/mgmt_server1: "-s %{hiera('netcfg_dns_mgmt_server1')}"
+      check-dns/args/mgmt_server2: "-s %{hiera('netcfg_dns_mgmt_server2')}"
+      check-dns/args/mgmt_server3: "-s %{hiera('netcfg_dns_mgmt_server3')}"
+      check-dns/args/trp_server1: "-s %{hiera('netcfg_dns_trp_server1')}"
+  'ceph-check':
+    command:        "ceph-health.sh -n client.sensu"
+    interval:       60
+    subscriptions:  ['cephmon']
+    handlers:       ['default']
+    round_robin:    true
+    runtime_assets:
+    - thorko/sensu-check-ceph
   'redfish-check':
-    command:                '/usr/local/bin/redfish_check.sh'
-    interval:               1800
-    subscriptions:          ['redfish']
-    handlers:               ['default']
+    command:        '/usr/local/bin/redfish_check.sh'
+    interval:       1800
+    subscriptions:  ['physical']
+    handlers:       ['default']
+  # 'smart-disk-check':
+  #   command:        'check-smart-status'
+  #   interval:       1800
+  #   subscriptions:  ['physical']
+  #   handlers:       ['default']
+  #   runtime_assets:
+  #   - jadiunr/check-smart-status
 
+# profile::dns::ns::ns_master1
 # we need nodejs for web gui
 profile::base::common::packages:
   'ruby': { ensure: 'present' }
