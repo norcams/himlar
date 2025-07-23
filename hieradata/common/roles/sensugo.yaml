@@ -96,11 +96,13 @@ profile::monitoring::sensu::backend::bonsai_assets:
   #   version: 3.2.0
   sensu-plugins/sensu-plugins-rabbitmq:
     version: 8.1.0
-# useful assets
   sensu/monitoring-plugins:
     version: 2.10.5
+# useful assets
   # jadiunr/check-smart-status:
   #   version: 0.0.1
+  # elfranne/check-haproxy-endpoint:
+  #   version: 0.3.2
 
 # sensu agent
 profile::monitoring::sensu::agent::enable_go_agent:     true
@@ -114,6 +116,7 @@ sensu::agent::subscriptions:
   - 'monitor'
   - 'metrics'
 # other subsciptions:
+  # - 'haproxy'
   # - 'proxy'
   # - 'physical'
   # - 'storage'
@@ -166,6 +169,7 @@ sensu::resources::filters:
       - 'event.check.occurrences == 1 || event.check.occurrences % (3600 / event.check.interval) == 0'
 
 profile::monitoring::sensu::agent::checks:
+# BASE
   'disk-checks':
     command:        'check-disk-usage -w 85 -c 95 -E /var/lib/nova/instances,/var/lib/libvirt/images,/cephfs'
     interval:       60
@@ -192,12 +196,14 @@ profile::monitoring::sensu::agent::checks:
     handlers:       ['default']
     runtime_assets:
     - sensu/monitoring-plugins
+# NODES
   'memory-checks':
     command:        'check-memory-usage -w 85 -c 95'
     interval:       60
     subscriptions:  ['nodes']
     handlers:       ['default']
     runtime_assets: [sensu/check-memory-usage]
+# MONITOR
   'http-perf-identity':
     command:        "http-perf --url %{hiera('endpoint__identity__public')}/v3/"
     interval:       600
@@ -229,6 +235,17 @@ profile::monitoring::sensu::agent::checks:
       check-https-cert/args/api_cert: "-u %{hiera('public__address__api')}"
       check-https-cert/args/identity_cert: "-u %{hiera('endpoint__identity__public')}"
       check-https-cert/args/report_cert: "-u https://%{hiera('public__address__report')}"
+# HAPROXY
+  # happroxy-checks:
+  #   command:        'check-haproxy-endpoint --servers'
+  #   interval:       60
+  #   subscriptions:  ['haproxy']
+  #   handlers:       ['default']
+  #   round_robin:    true
+  #   runtime_assets:
+  #   - sensu/haproxy-check
+  #   - elfranne/check-haproxy-endpoint
+# PROXY
   'http-check-multiplex':
     command: sensu-check-multiplexer --command http-check --annotation-prefix "http-check/args" -a "-r"
     stdin:          true
@@ -274,6 +291,7 @@ profile::monitoring::sensu::agent::checks:
       check-dns/args/mgmt_server2: "-s %{hiera('netcfg_dns_mgmt_server2')}"
       check-dns/args/mgmt_server3: "-s %{hiera('netcfg_dns_mgmt_server3')}"
       check-dns/args/trp_server1: "-s %{hiera('netcfg_dns_trp_server1')}"
+# CEPHMON
   'ceph-check':
     command:        "ceph-health.sh -n client.sensu"
     interval:       60
@@ -282,6 +300,27 @@ profile::monitoring::sensu::agent::checks:
     round_robin:    true
     runtime_assets:
     - thorko/sensu-check-ceph
+# COMPUTE
+  check-metadata-api:
+    command:        'http-check --url http://127.0.0.1:8775'
+    interval:       60
+    subscriptions:  ['compute']
+    handlers:       ['default']
+    runtime_assets:
+    - sensu/http-check
+  check-etcd-client-health:
+    command:        'http-check --url http://127.0.0.1:2379/health -s true'
+    interval:       60
+    subscriptions:  ['compute']
+    handlers:       ['default']
+    runtime_assets:
+    - sensu/http-check
+  'dhcp-agent-check':
+    command:        '/usr/local/bin/calico_dhcp_agent_check.sh'
+    interval:        600
+    subscriptions:  ['compute']
+    handlers:       ['default']
+# PHYSICAL
   'redfish-check':
     command:        '/usr/local/bin/redfish_check.sh'
     interval:       1800

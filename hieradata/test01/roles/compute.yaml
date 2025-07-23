@@ -105,28 +105,8 @@ profile::base::common::packages:
 sensu::agent::subscriptions:
   - 'base'
   - 'metrics'
+  - 'compute'
   - 'physical'
-
-profile::monitoring::sensu::agent::checks:
-  check-metadata-api:
-    command:                'http-check --url http://127.0.0.1:8775'
-    interval:               60
-    subscriptions:          ['entity:%{::hostname}']
-    handlers:               ['default']
-    runtime_assets:
-    - sensu/http-check
-  check-etcd-client-health:
-    command:                'http-check --url http://127.0.0.1:2379/health -s true'
-    interval:               60
-    subscriptions:          ['entity:%{::hostname}']
-    handlers:               ['default']
-    runtime_assets:
-    - sensu/http-check
-  'dhcp-agent-check':
-    command:                '/usr/local/bin/calico_dhcp_agent_check.sh'
-    interval:               600
-    subscriptions:          ['entity:%{::hostname}']
-    handlers:               ['default']
 
 sensu::agent::service_env_vars:
   PATH: '/usr/local/bin:/bin:/usr/bin:/opt/puppetlabs/bin:/opt/sensu-plugins-ruby/embedded/bin'
