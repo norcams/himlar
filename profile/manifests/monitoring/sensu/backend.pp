@@ -62,7 +62,7 @@ class profile::monitoring::sensu::backend(
     }
   }
   cron { 'reset-sensu-token-config':
-    ensure  => $manage_token_refresh? { true => 'present', default => 'absent' }
+    ensure  => $manage_token_refresh? { true => 'present', default => 'absent' },
     command => 'rm -f /root/.config/sensu/sensuctl/cluster',
     minute  => '30',
     hour    => '5',
