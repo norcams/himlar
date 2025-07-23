@@ -22,6 +22,7 @@ profile::base::common::sysctl_values:
 
 # sensu cluster setup
 # Chagne to 'new to bootsrap new cluster:
+sensu_slack_channel:                'testvakt'
 sensu_etcd_cluster_state:           'existing' #'new'
 sensu_etcd_cluster_log_level:       'warn'
 sensu_access_token_expiry:          '24h'
@@ -159,6 +160,17 @@ profile::monitoring::sensu::backend::handlers:
       - not_silenced
     runtime_assets:
       - sensu/sensu-influxdb-handler
+  slack:
+    type:           'pipe'
+    env_vars:       ["SLACK_WEBHOOK_URL=%{hiera('sensugo_slack_webhook')}"]
+    command:        "sensu-slack-handler -c %{hiera('sensu_slack_channel')}"
+    filters:
+      - is_incident
+      - not_silenced
+      - hourly
+    timeout: 10
+    runtime_assets:
+      - sensu/sensu-slack-handler
 
 sensu::resources::filters:
   hourly:
