@@ -23,7 +23,7 @@ sensu::agent::subscriptions:
 profile::monitoring::sensu::agent::checks:
   check-rabbitmq-alive:
     env_vars:               ["RABBITMQ_PASSWORD=%{hiera('local_rabbit_password')}"]
-    command:                "check-rabbitmq-alive.rb -h %{::ipaddress_trp1} --user local --password ${RABBITMQ_PASSWORD} --vhost himlarcli"
+    command:                "check-rabbitmq-alive.rb -h %{::ipaddress_mgmt1} --user local --password ${RABBITMQ_PASSWORD} --vhost himlarcli"
     interval:               60
     subscriptions:          ['entity:%{::hostname}']
     handlers:               ['default']
