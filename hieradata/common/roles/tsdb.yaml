@@ -64,21 +64,16 @@ profile::base::lvm::logical_volume:
     mountpath:    "/var/lib/influxdb"
 
 # sensu-go
-# profile::monitoring::sensu::agent::enable_go_agent: true
-# profile::monitoring::sensu::agent::plugins: {}
-# profile::monitoring::sensu::agent::namespaces:
-#   '%{::location}':  { ensure: present }
-# sensu::plugins::plugins: {}
-# sensu::agent::subscriptions:
-#   - 'base'
-#   - 'nodes'
-#   - 'metrics'
+sensu::agent::subscriptions:
+  - 'base'
+  - 'nodes'
+  - 'metrics'
 
 # old sensu client
 profile::monitoring::sensu::agent::enable_agent:    false
 
 profile::base::common::packages:
-  'influxdb2-cli':                { ensure: present }
+  'influxdb2-cli':        { ensure: 'present' }
 
 profile::base::yumrepo::repo_hash:
   influxdb:
