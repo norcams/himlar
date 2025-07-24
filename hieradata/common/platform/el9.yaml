@@ -43,7 +43,8 @@ profile::base::yumrepo::repo_hash:
     ensure:         absent
   calico327:
     ensure:         absent
-
+  influxdb: # FIXME: we do not need to use the compat key for el9
+    gpgkey:         "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/influxdb/influxdata-archive.key"
 
 profile::base::common::packages:
   'bash-completion': {}

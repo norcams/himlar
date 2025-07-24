@@ -1,5 +1,5 @@
 ---
-influxdb::install_from_source:  false
+influxdb::archive_source:       false
 influxdb::manage_setup:         false
 influxdb::manage_repo:          false
 influxdb::host:                 "%{::fqdn}"

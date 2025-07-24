@@ -1,6 +1,0 @@
----
-# we use self cert from vagrant CA instead for puppet certs
-influxdb::ssl_cert_file: '/etc/pki/tls/certs/%{::fqdn}.cert.pem'
-influxdb::ssl_key_file:  '/etc/pki/tls/private/%{::fqdn}.key.pem'
-influxdb::ssl_ca_file:   '/etc/pki/tls/certs/cachain.pem'
-#influxdb::manage_ssl:    false
