@@ -21,7 +21,7 @@ profile::base::common::sysctl_values:
     value: 1
 
 # sensu cluster setup
-# Chagne to 'new to bootsrap new cluster:
+sensu_influxdb_ssl_ca:              '--trusted-ca-file /etc/puppetlabs/puppet/ssl/certs/ca.pem'
 sensu_slack_channel:                'testvakt'
 sensu_etcd_cluster_state:           'existing' #'new'
 sensu_etcd_cluster_log_level:       'warn'
@@ -247,6 +247,14 @@ profile::monitoring::sensu::agent::checks:
       check-https-cert/args/api_cert: "-u %{hiera('public__address__api')}"
       check-https-cert/args/identity_cert: "-u %{hiera('endpoint__identity__public')}"
       check-https-cert/args/report_cert: "-u https://%{hiera('public__address__report')}"
+  influxdb-checks:
+    command:        "http-check --url https://%{hiera('mgmt__address__influx')}:8086/ping %{hiera('sensu_influxdb_ssl_ca')}"
+    interval:       60
+    subscriptions:  ['monitor']
+    handlers:       ['status']
+    round_robin:    true
+    runtime_assets:
+    - sensu/http-check
 # HAPROXY
   # happroxy-checks:
   #   command:        'check-haproxy-endpoint --servers'
