@@ -192,7 +192,7 @@ profile::monitoring::sensu::agent::checks:
     command:        'check-cpu-usage -s 15 -w {{ .annotations.cpu.warning | default 85 }} -c {{ .annotations.cpu.critical | default 95 }}'
     interval:       60
     subscriptions:  ['base']
-    handlers:       ['default']
+    handlers:       ['status'] # do not post to slack
     runtime_assets: [sensu/check-cpu-usage]
   'dns-check-default': # check that resolving is working based on what is in /etc/resolv.conf
     command:        'check_dns -H sikt.no'
