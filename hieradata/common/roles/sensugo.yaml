@@ -22,7 +22,7 @@ profile::base::common::sysctl_values:
 
 # sensu cluster setup
 sensu_influxdb_ssl_ca:              '--trusted-ca-file /etc/puppetlabs/puppet/ssl/certs/ca.pem'
-sensu_slack_channel:                'testvakt'
+sensu_slack_channel:                'vaktnew' #FIXME
 sensu_etcd_cluster_state:           'existing' #'new'
 sensu_etcd_cluster_log_level:       'warn'
 sensu_access_token_expiry:          '24h'
