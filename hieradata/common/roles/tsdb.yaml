@@ -63,6 +63,9 @@ profile::base::lvm::logical_volume:
     fs_type:      "xfs"
     mountpath:    "/var/lib/influxdb"
 
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::enable_go_agent: true
+
 # sensu-go
 sensu::agent::subscriptions:
   - 'base'
