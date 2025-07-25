@@ -36,16 +36,3 @@ named_interfaces::config:
     - eth2
   public:
     - dummy0
-
-# FIXME:sensu-go
-profile::base::common::packages:
-  'gcc': { ensure: absent }
-  'gcc-c++': { ensure: absent }
-  'make': { ensure: absent }
-  'openssl-devel': { ensure: absent }
-
-sensu::agent::subscriptions:
-  - 'base'
-  - 'nodes'
-  - 'metrics'
-  - 'proxy'
