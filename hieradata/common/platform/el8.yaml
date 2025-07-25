@@ -26,6 +26,8 @@ profile::base::yumrepo::repo_hash:
     module_hotfixes: '1'
   rdo-release:
     module_hotfixes: '1'
+  sensu-community:
+    ensure: present
 
 profile::base::common::packages:
   'bash-completion': {}

@@ -365,8 +365,6 @@ profile::base::common::packages:
 profile::base::yumrepo::repo_hash:
   AlmaLinux-PowerTools:
     ensure: present
-  sensu-community:
-    ensure: present
   yarn: #temp repo
     ensure: present
   epel:
