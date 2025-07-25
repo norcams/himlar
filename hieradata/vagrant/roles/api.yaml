@@ -104,17 +104,3 @@ profile::application::openssl::certs:
 #       - "%{hiera('netcfg_trp_netpart')}.34"
 #       - "%{hiera('netcfg_trp_netpart')}.35"
 #       - "%{hiera('netcfg_trp_netpart')}.39"
-
-# FIXME:sensu-go
-profile::monitoring::sensu::agent::merge_strategy:  'first'
-profile::monitoring::sensu::agent::plugins: {}
-
-sensu::validate_namespaces: false
-
-sensu::agent::subscriptions:
-  - 'base'
-  - 'nodes'
-  - 'metrics'
-  - 'haproxy'
-
-profile::monitoring::sensu::agent::checks: {}

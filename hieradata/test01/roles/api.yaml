@@ -170,15 +170,3 @@ volume__backend__names:
 volume__backend__ips:
   - "%{hiera('netcfg_trp_netpart')}.46"
   - "%{hiera('netcfg_trp_netpart')}.47"
-
-# FIXME:sensu-go
-profile::monitoring::sensu::agent::merge_strategy:  'first'
-profile::monitoring::sensu::agent::plugins: {}
-
-sensu::agent::subscriptions:
-  - 'base'
-  - 'nodes'
-  - 'metrics'
-  - 'haproxy'
-
-profile::monitoring::sensu::agent::checks: {}

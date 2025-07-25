@@ -20,19 +20,9 @@ profile::base::common::packages:
   'bash-completion-extras': {}
   'netcat': {}
 
-# Sensu
-profile::monitoring::sensu::agent::plugins:
-  sensu-plugins-haproxy:
-    type:         package
-    pkg_version:  '1.4.0'
-
-profile::monitoring::sensu::agent::checks:
-  'metrics-haproxy-overview':
-    type:         'metric'
-    command:      "metrics-haproxy.rb --scheme haproxy.%{::hostname} --server-metrics -c 127.0.0.1 -P 9000"
-    interval:     60
-    subscribers:  ['metrics']
-    handlers:     ['graphite_tcp']
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::enable_go_agent:   true
+profile::monitoring::sensu::agent::enable_agent:      false
 
 profile::base::selinux::manage_selinux:                             true
 profile::network::interface::manage_dummy:                          true
