@@ -126,7 +126,6 @@ sensu::agent::subscriptions:
   # - 'cephmon'
   # - 'cephmon-object'
 
-profile::monitoring::sensu::agent::plugins: {}
 profile::monitoring::sensu::backend::handlers:
   default:
     type:           'set'
@@ -249,7 +248,7 @@ profile::monitoring::sensu::agent::checks:
       check-https-cert/args/report_cert: "-u https://%{hiera('public__address__report')}"
   influxdb-checks:
     command:        "http-check --url https://%{hiera('mgmt__address__influx')}:8086/ping %{hiera('sensu_influxdb_ssl_ca')}"
-    interval:       60
+    interval:       600
     subscriptions:  ['monitor']
     handlers:       ['status']
     round_robin:    true

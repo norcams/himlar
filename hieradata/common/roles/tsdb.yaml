@@ -67,7 +67,6 @@ profile::base::lvm::logical_volume:
 profile::monitoring::sensu::agent::enable_go_agent:   true
 profile::monitoring::sensu::agent::enable_agent:      false
 profile::monitoring::sensu::agent::merge_strategy:    'first'
-profile::monitoring::sensu::agent::plugins:           {}
 
 # sensu-go
 sensu::agent::subscriptions:
