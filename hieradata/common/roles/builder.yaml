@@ -336,44 +336,54 @@ profile::application::builder::templates:
   'uib_puppet':
     custom_scripts:     ['/opt/imagebuilder/scripts/uib-puppet.sh']
 
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::enable_go_agent:   true
+profile::monitoring::sensu::agent::enable_agent:      false
+
 # Sensu
-profile::monitoring::sensu::agent::plugin_gems:
+sensu::agent::subscriptions:
+  - 'base'
+  - 'nodes'
+  - 'metrics'
+profile::monitoring::sensu::agent::plugins:
   sensu-plugins-himlar:
-    ensure:       '0.6.0'
-    provider:     'sensuclassic_gem'
-    source:       'http://download.iaas.uio.no/nrec/gem'
+    ensure:   present
+    source:   'http://download.iaas.uio.no/nrec/gem'
 
-# metadata imagebuild check
-profile::monitoring::sensu::agent::expanded_checks:
-  - 'almalinux8'
-  - 'almalinux8_nv_vgpu'
-  - 'almalinux9'
-  - 'almalinux9_nv_vgpu'
-  - 'almalinux10'
-  - 'almalinux10_nv_vgpu'
-  - 'centosstream9'
-  - 'centosstream10'
-  - 'debian11'
-  - 'debian12'
-  - 'fedora_41'
-  - 'fedora_42'
-  - 'rockylinux8'
-  - 'rockylinux8_uib_puppet'
-  - 'rockylinux9'
-  - 'rockylinux10'
-  - 'ubuntu_2204'
-  - 'ubuntu_2204_nv_vgpu'
-  - 'ubuntu_2404'
-  - 'ubuntu_2404_nv_vgpu'
-  - 'uio_rhel8'
-  - 'uio_rhel9'
-  - 'winsrv_2022'
-  - 'winsrv_2025'
-
-profile::monitoring::sensu::agent::expanded_defaults:
-    command: "check-imagebuild.rb -d "
-    interval:     600
-    subscribers:  ['checks']
+profile::monitoring::sensu::agent::checks:
+  imagebuild-check-multiplex:
+    command:  sensu-check-multiplexer --command check-imagebuild.rb --annotation-prefix "check-imagebuild/args"
+    stdin: true
+    interval:               600
+    subscriptions:          ['entity:%{::hostname}']
+    handlers:               ['default']
+    runtime_assets:
+    - sensu/sensu-check-multiplexer
+    annotations:
+      check-imagebuild/args/almalinux8: "-d almalinux8"
+      check-imagebuild/args/almalinux8_nv_vgpu: "-d almalinux8_nv_vgpu"
+      check-imagebuild/args/almalinux9: "-d almalinux9"
+      check-imagebuild/args/almalinux9_nv_vgpu: "-d almalinux9_nv_vgpu"
+      check-imagebuild/args/almalinux9: "-d almalinux10"
+      check-imagebuild/args/almalinux9_nv_vgpu: "-d almalinux10_nv_vgpu"
+      check-imagebuild/args/centosstream9: "-d centosstream9"
+      check-imagebuild/args/centosstream10: "-d centosstream10"
+      check-imagebuild/args/debian11: "-d debian11"
+      check-imagebuild/args/debian12: "-d debian12"
+      check-imagebuild/args/fedora_41: "-d fedora_41"
+      check-imagebuild/args/fedora_42: "-d fedora_42"
+      check-imagebuild/args/rockylinux8: "-d rockylinux8"
+      check-imagebuild/args/rockylinux8_uib_puppet: "-d rockylinux8_uib_puppet"
+      check-imagebuild/args/rockylinux9: "-d rockylinux9"
+      check-imagebuild/args/rockylinux10: "-d rockylinux10"
+      check-imagebuild/args/ubuntu_2204: "-d ubuntu_2204"
+      check-imagebuild/args/ubuntu_2204_nv_vgpu: "-d ubuntu_2204_nv_vgpu"
+      check-imagebuild/args/ubuntu_2404: "-d ubuntu_2404"
+      check-imagebuild/args/ubuntu_2404_nv_vgpu: "-d ubuntu_2404_nv_vgpu"
+      check-imagebuild/args/uio_rhel8: "-d uio_rhel8"
+      check-imagebuild/args/uio_rhel9: "-d uio_rhel9"
+      check-imagebuild/args/winsrv_2022: "-d winsrv_2022"
+      check-imagebuild/args/winsrv_2025: "-d winsrv_2025"
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
@@ -383,39 +393,20 @@ profile::base::yumrepo::repo_hash:
     ensure: present
     includepkgs: 'bash-completion-extras htop inotify-tools python-dogpile-core python-linecache2 python2-mimeparse python2-msgpack python2-pbr python34 python34-libs'
 
-# Turn on agant and add common sensu plugins
-profile::monitoring::sensu::agent::enable_agent: true
-# profile::monitoring::sensu::agent::plugins:
-#   sensu-plugins-logs:
-#     type:         package
-
-# # metadata check
+# sudo::configs:
+#   sensu_tty:
+#     priority:   15
+#     content:    'Defaults:sensu !requiretty'
+#   sensu:
+#     priority:   20
+#     content:    'sensu ALL = (root) NOPASSWD: /opt/sensu/embedded/bin/check-log.rb'
+#   sensu_winkey:
+#     priority:   25
+#     content:    'sensu ALL = (root) NOPASSWD: /opt/sensu/embedded/bin/check-file-missing.rb -f /home/imagebuilder/.ssh/windowsbuilder_rsa'
+#
 # profile::monitoring::sensu::agent::checks:
 #   'check-log':
-#     command:      "sudo /opt/sensu/embedded/bin/check-log.rb -f /var/log/cron -w 1 -c 1 -q 'imagebuilder: Failed building' -r"
+#     command:      cat /var/log/imagebuilder/*-report.jsonl | jq -r 'select(.result) | .result'
 #     interval:     60
 #     auto_resolve: false
-#     handlers:     'slack'
 #     subscribers:  ['checks']
-
-# sensu
-sensu__disk__warning:     85
-sensu__disk__crtical:     95
-
-sudo::configs:
-  sensu_tty:
-    priority:   15
-    content:    'Defaults:sensu !requiretty'
-  sensu:
-    priority:   20
-    content:    'sensu ALL = (root) NOPASSWD: /opt/sensu/embedded/bin/check-log.rb'
-  sensu_winkey:
-    priority:   25
-    content:    'sensu ALL = (root) NOPASSWD: /opt/sensu/embedded/bin/check-file-missing.rb -f /home/imagebuilder/.ssh/windowsbuilder_rsa'
-
-profile::monitoring::sensu::agent::checks:
-  'check-log':
-    command:      cat /var/log/imagebuilder/*-report.jsonl | jq -r 'select(.result) | .result'
-    interval:     60
-    auto_resolve: false
-    subscribers:  ['checks']
