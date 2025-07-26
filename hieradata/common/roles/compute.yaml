@@ -102,6 +102,10 @@ profile::base::common::packages:
   'openstack-selinux': {}
   'nrec-selinux': {}
 
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::enable_go_agent:   true
+profile::monitoring::sensu::agent::enable_agent:      false
+
 # Sensu
 sensu::agent::annotations:
   'disk.warning': '90'
