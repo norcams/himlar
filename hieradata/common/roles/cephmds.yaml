@@ -17,12 +17,15 @@ profile::base::common::packages:
   'jq': {}
   'attr': {}
 
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::enable_go_agent:   true
+profile::monitoring::sensu::agent::enable_agent:      false
+
 # Sensu
-profile::monitoring::sensu::agent::plugin_gems:
-  sensu-plugins-himlar:
-    ensure:   '0.4.0'
-    provider:     'sensuclassic_gem'
-    source:   'http://download.iaas.uio.no/nrec/gem'
+sensu::agent::subscriptions:
+  - 'base'
+  - 'nodes'
+  - 'metrics'
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
