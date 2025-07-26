@@ -73,7 +73,7 @@ profile::base::tuned::tuned_profile:      'virtual-host'
 nova::compute::libvirt::hw_machine_type:  'x86_64=q35'
 nova::compute::libvirt::cpu_models:      ['Haswell-noTSX-IBRS']
 
-# collectd
+# collectd # FIXME:monitor
 profile::monitoring::collectd::enable: false
 profile::monitoring::collectd::plugins:
   - collectd::plugin::aggregation
@@ -95,19 +95,3 @@ profile::base::physical::enable_redfish_sensu_check:              true
 profile::base::physical::enable_redfish_http_proxy:               true
 
 calico::compute::felix_mtuIfacePattern: '^team*'
-
-# FIXME:sensu-go
-profile::monitoring::sensu::agent::checks: {}
-profile::base::common::packages:
-  'gcc-c++': { ensure: absent }
-  'make': { ensure: absent }
-
-sensu::agent::subscriptions:
-  - 'base'
-  - 'metrics'
-  - 'compute'
-  - 'physical'
-
-sensu::agent::service_env_vars:
-  PATH: '/usr/local/bin:/bin:/usr/bin:/opt/puppetlabs/bin:/opt/sensu-plugins-ruby/embedded/bin'
-  HTTPS_PROXY: "%{hiera('mgmt__address__proxy')}:8888"

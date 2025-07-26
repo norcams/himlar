@@ -82,38 +82,9 @@ profile::monitoring::collectd::plugins:
   - collectd::plugin::numa
   - collectd::plugin::processes
 
-# FIXME:sensu-go
 profile::base::common::packages:
-  'gcc-c++': { ensure: absent }
-  'make': { ensure: absent }
   'python3-redis': {} # OSProfiler dependency
 
 profile::openstack::compute::manage_osprofiler: true
 
 profile::storage::cephclient::enable: false
-
-profile::monitoring::sensu::agent::checks:
-  check-metadata-api:
-    command:                'http-check --url http://127.0.0.1:8775'
-    interval:               60
-    subscriptions:          ['entity:%{::hostname}']
-    handlers:               ['default']
-    runtime_assets:
-    - sensu/http-check
-  check-etcd-client-health:
-    command:                'http-check --url http://127.0.0.1:2379/health -s true'
-    interval:               60
-    subscriptions:          ['entity:%{::hostname}']
-    handlers:               ['default']
-    runtime_assets:
-    - sensu/http-check
-  'redfish-check':
-    command:                '/usr/local/bin/redfish_check.sh'
-    interval:               1800
-    subscriptions:          ['entity:%{::hostname}']
-    handlers:               ['default']
-  'dhcp-agent-check':
-    command:                '/usr/local/bin/calico_dhcp_agent_check.sh'
-    interval:               600
-    subscriptions:          ['entity:%{::hostname}']
-    handlers:               ['default']

@@ -97,72 +97,26 @@ profile::openstack::network::calico::manage_dhcp_agent:      true
 
 profile::base::common::packages:
   'networking-calico': {}
-  'gcc-c++': {}
   'bash-completion': {}
   'jq': {}
   'openstack-selinux': {}
-  'make': {}
   'nrec-selinux': {}
 
-# Sensu (needs gcc-c++)
-profile::monitoring::sensu::agent::plugins:
-  mime-types:
-    type:         package
-    pkg_version:  '3.4.1'
-  domain_name:
-    type:         package
-    pkg_version:  '0.5.20190701'
-  sensu-plugins-http:
-    type:         package
-    pkg_version:  '2.8.4'
-  sensu-plugins-filesystem-checks:
-    type:         package
-    pkg_version:  '1.0.0'
-  aws-eventstream:
-    type:         package
-    pkg_version:  '1.2.0'
-  aws-sigv4:
-    type:         package
-    pkg_version:  '1.6.1'
+# Sensu
+sensu::agent::annotations:
+  'disk.warning': '90'
+  'disk.critical': '95'
 
-profile::monitoring::sensu::agent::plugin_gems:
-  sensu-plugins-himlar:
-    ensure:   '0.4.0'
-    provider: 'sensuclassic_gem'
-    source:   'http://download.iaas.uio.no/nrec/gem'
+sensu::agent::subscriptions:
+  - 'base'
+  - 'metrics'
+  - 'compute'
+  - 'physical'
 
-# sensu
-sensu__memory__check:     "check-memory.rb -w 4096 -c 1024"
-sensu__disk__warning:     90
-sensu__disk__crtical:     95
+sensu::agent::service_env_vars:
+  PATH: '/usr/local/bin:/bin:/usr/bin:/opt/puppetlabs/bin:/opt/sensu-plugins-ruby/embedded/bin'
+  HTTPS_PROXY: "%{hiera('mgmt__address__proxy')}:8888"
 
-profile::monitoring::sensu::agent::checks:
-  'metadata-api':
-    command:      "check-http.rb -u http://127.0.0.1:8775"
-    interval:     60
-    subscribers:  ['checks']
-  'etcd-client-health':
-    command:      "check-http.rb -u http://127.0.0.1:2379/health -q 'true' --response-code 405"
-    interval:     60
-    subscribers:  ['checks']
-  'nova-ssh-key':
-    command:      "sudo /opt/sensu/embedded/bin/check-file-missing.rb -f /var/lib/nova/.ssh/id_rsa"
-    interval:     60
-    subscribers:  ['checks']
-  # 'first-lease-file-check':
-  #   command:      '/usr/local/bin/check-dhcp-lease-file.sh first 14400 7200' # 4 and 2 hours
-  #   interval:     60
-  #   subscribers:  ['checks']
-  # 'last-lease-file-check':
-  #   command:      '/usr/local/bin/check-dhcp-lease-file.sh last 14400 7200' # 4 and 2 hours
-  #   interval:     60
-  #   subscribers:  ['checks']
-  'metrics-disk':
-    type:         'metric'
-    command:      'metrics-disk-usage.rb --scheme disk.%{::hostname} -f -B G'
-    interval:     60
-    subscribers:  ['metrics']
-    handlers:     ['graphite_tcp']
 
 sudo::configs:
   sensu_tty:
