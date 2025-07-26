@@ -182,7 +182,7 @@ sensu::resources::filters:
 profile::monitoring::sensu::agent::checks:
 # BASE
   'disk-checks':
-    command:        'check-disk-usage -w 85 -c 95 -E /var/lib/nova/instances,/var/lib/libvirt/images,/cephfs'
+    command:        'check-disk-usage -w {{ .annotations.disk.warning | default 85 }} -c {{ .annotations.disk.critical | default 95 }} -E /var/lib/nova/instances,/var/lib/libvirt/images,/cephfs'
     interval:       60
     subscriptions:  ['base']
     handlers:       ['default']
@@ -209,7 +209,7 @@ profile::monitoring::sensu::agent::checks:
     - sensu/monitoring-plugins
 # NODES
   'memory-checks':
-    command:        'check-memory-usage -w 85 -c 95'
+    command:        'check-memory-usage -w {{ .annotations.ram.warning | default 85 }} -c {{ .annotations.ram.critical | default 95 }}'
     interval:       60
     subscriptions:  ['nodes']
     handlers:       ['default']
