@@ -339,12 +339,18 @@ profile::application::builder::templates:
 # FIXME:sensu-go
 profile::monitoring::sensu::agent::enable_go_agent:   true
 profile::monitoring::sensu::agent::enable_agent:      false
+profile::monitoring::sensu::agent::namespaces:
+  "%{hiera('sensu_namespace')}": {}
 
 # Sensu
 sensu::agent::subscriptions:
   - 'base'
   - 'nodes'
   - 'metrics'
+sensu::plugins::dependencies:
+  - make
+  - gcc
+
 profile::monitoring::sensu::agent::plugins:
   sensu-plugins-himlar:
     ensure:   present
