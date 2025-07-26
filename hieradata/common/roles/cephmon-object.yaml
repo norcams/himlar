@@ -78,6 +78,12 @@ ceph::profile::params::client_keys:
     group: 'ceph'
     cap_mon: 'allow rw'
     cap_osd: 'allow rwx'
+  'client.sensu':
+    secret: "%{hiera('ceph_storage_client_sensu_key')}"
+    mode: '0640'
+    user: 'root'
+    group: 'sensu'
+    cap_mon: 'allow r'
 
 profile::storage::cephmon::manage_dashboard:        false
 profile::storage::cephmon::create_crushbuckets:     false
