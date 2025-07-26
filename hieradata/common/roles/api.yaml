@@ -24,6 +24,12 @@ profile::base::common::packages:
 profile::monitoring::sensu::agent::enable_go_agent:   true
 profile::monitoring::sensu::agent::enable_agent:      false
 
+# sensu
+sensu::agent::subscriptions:
+  - 'base'
+  - 'nodes'
+  - 'metrics'
+
 profile::base::selinux::manage_selinux:                             true
 profile::network::interface::manage_dummy:                          true
 profile::highavailability::loadbalancing::haproxy::manage_haproxy:  true
