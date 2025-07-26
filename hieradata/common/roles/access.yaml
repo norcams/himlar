@@ -8,6 +8,12 @@ include:
 # Selinux
 profile::base::selinux::manage_selinux:         true
 
+# sensu
+sensu::agent::subscriptions:
+  - 'base'
+  - 'nodes'
+  - 'metrics'
+
 # Read only admin user
 profile::openstack::openrc::username:           'access'
 profile::openstack::openrc::password:           "%{hiera('access_api_password')}"
