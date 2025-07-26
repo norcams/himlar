@@ -93,7 +93,7 @@ profile::base::network::routes:
       - "%{hiera('netcfg_lhcpriv_gateway')}"
       - "%{hiera('netcfg_lhc_gateway6')}"
       - "%{hiera('netcfg_uib_gateway')}"
-      - "%{hiera('netcfg_uib_gateway6')}" 
+      - "%{hiera('netcfg_uib_gateway6')}"
     table:
       - 'private'
       - 'private'
@@ -133,15 +133,6 @@ profile::base::physical::configure_bmc_nic:                       true
 profile::openstack::compute::hypervisor::enable_dhcp_agent_check: true
 profile::base::physical::enable_redfish_sensu_check:              true
 profile::base::physical::enable_redfish_http_proxy:               true
-profile::monitoring::sensu::agent::checks:
-  'redfish-check':
-    command:      '/usr/local/bin/redfish_check.sh'
-    interval:     1800
-    subscribers:  ['checks']
-  'dhcp-agent-check':
-    command:      '/usr/local/bin/calico_dhcp_agent_check.sh'
-    interval:     600
-    subscribers:  ['checks']
 
 calico::compute::bird_template:  'profile/bird/bird.conf.bgo.%{operatingsystemmajrelease}.erb'
 calico::compute::bird6_template: 'profile/bird/bird6.conf.bgo.erb'
