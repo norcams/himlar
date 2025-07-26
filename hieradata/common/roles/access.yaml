@@ -14,6 +14,10 @@ sensu::agent::subscriptions:
   - 'nodes'
   - 'metrics'
 
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::enable_go_agent:   true
+profile::monitoring::sensu::agent::enable_agent:      false
+
 # Read only admin user
 profile::openstack::openrc::username:           'access'
 profile::openstack::openrc::password:           "%{hiera('access_api_password')}"
