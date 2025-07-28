@@ -188,8 +188,8 @@ profile::monitoring::sensu::agent::checks:
     handlers:       ['default']
     runtime_assets: [sensu/check-disk-usage]
   'cpu-checks': #FIXME change to load?
-    command:        'check-cpu-usage -s 15 -w {{ .annotations.cpu_warning | default 85 }} -c {{ .annotations.cpu_critical | default 95 }}'
-    interval:       60
+    command:        'check-cpu-usage -s 30 -w {{ .annotations.cpu_warning | default 85 }} -c {{ .annotations.cpu_critical | default 95 }}'
+    interval:       600
     subscriptions:  ['base']
     handlers:       ['status'] # do not post to slack
     runtime_assets: [sensu/check-cpu-usage]
