@@ -39,14 +39,14 @@ wsrep_sst_method:       'mariabackup'
 wsrep_cluster_address:  'gcomm://158.39.77.249,158.37.63.249,129.177.6.96'
 wsrep_node_address:     '158.37.63.249'
 
-# sensu
-profile::monitoring::sensu::agent::plugins:
-  sensu-plugins-percona:
-    type:         package
-    pkg_version:  '1.1.0'
-
-profile::monitoring::sensu::agent::checks:
-  'check-wsrep-ready':
-    command:      "check-wsrep-ready.rb -u sensu -h localhost -p %{hiera('sensu_mysql_password')}"
-    interval:     60
-    subscribers:  ['checks']
+# FIXME:sensu-go
+# profile::monitoring::sensu::agent::plugins:
+#   sensu-plugins-percona:
+#     type:         package
+#     pkg_version:  '1.1.0'
+#
+# profile::monitoring::sensu::agent::checks:
+#   'check-wsrep-ready':
+#     command:      "check-wsrep-ready.rb -u sensu -h localhost -p %{hiera('sensu_mysql_password')}"
+#     interval:     60
+#     subscribers:  ['checks']
