@@ -91,7 +91,7 @@ profile::base::common::extraswap_sizegb:  20
 profile::base::common::extraswap_fileloc: '/var/lib/swap/swapfile'
 profile::base::physical::load_ahci_first: true
 
-profile::base::physical::enable_redfish_sensu_check: true
+profile::base::physical::enable_redfish_scripts: true
 profile::monitoring::sensu::agent::checks:
   'redfish-check':
     command:      '/usr/local/bin/redfish_check.sh'

@@ -89,7 +89,7 @@ profile::base::lvm::logical_volume:
 
 profile::base::physical::configure_bmc_nic:                       true
 profile::openstack::compute::hypervisor::enable_dhcp_agent_check: true
-profile::base::physical::enable_redfish_sensu_check:              true
+profile::base::physical::enable_redfish_scripts:                  true
 profile::base::physical::enable_redfish_http_proxy:               true
 
 calico::compute::felix_mtuIfacePattern: '^team*'

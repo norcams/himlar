@@ -10,7 +10,7 @@ profile::bootstrap::himlar::libvirt:
     vm_memory:        16192
 
 profile::base::physical::configure_bmc_nic:          true
-profile::base::physical::enable_redfish_sensu_check: true
+profile::base::physical::enable_redfish_scripts:     true
 profile::monitoring::sensu::agent::checks:
   'redfish-check':
     command:      '/usr/local/bin/redfish_check.sh'

@@ -272,7 +272,7 @@ sensu::agent::subscriptions:
   - 'metrics'
   - 'physical'
 
-profile::base::physical::enable_redfish_sensu_check: true
+profile::base::physical::enable_redfish_scripts: true
 
 sudo::configs:
   sensu_tty:
