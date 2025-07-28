@@ -117,6 +117,7 @@ sensu::agent::subscriptions:
   - 'monitor'
   - 'metrics'
 # other subsciptions:
+  # - 'db'
   # - 'haproxy'
   # - 'proxy'
   # - 'physical'
@@ -319,6 +320,15 @@ profile::monitoring::sensu::agent::checks:
     round_robin:    true
     runtime_assets:
     - thorko/sensu-check-ceph
+# DB
+profile::monitoring::sensu::agent::checks:
+  check-mysql-alive:
+    command:        "mysql-check -s 'unix(/var/lib/mysql/mysql.sock)/'"
+    interval:       60
+    subscriptions:  ['db']
+    handlers:       ['default']
+    runtime_assets:
+    - sensu/mysql-check
 # COMPUTE
   check-metadata-api:
     command:        'http-check --url http://127.0.0.1:8775'
