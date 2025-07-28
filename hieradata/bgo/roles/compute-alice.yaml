@@ -81,6 +81,8 @@ nova::config::nova_config:
 
 # Sensu
 sensu::agent::annotations:
+  'disk_warning': '90'
+  'disk_critical': '95'
   'cpu_warning': '95'
   'cpu_critical': '100'
 
