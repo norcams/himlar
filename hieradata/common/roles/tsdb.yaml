@@ -18,8 +18,9 @@ profile::monitoring::influxdb::user:                "admin"
 
 # extra buckets
 profile::monitoring::influxdb::buckets:
-  "sensu": {}
-  "ceph": {}
+  "sensu": {}   # sensu status
+  "storage": {} # ceph storage
+  "object": {}  # ceph object
 
 # telegraf example
 # profile::monitoring::telegraf::enable_telegraf:     true
