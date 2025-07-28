@@ -60,9 +60,12 @@ profile::base::network::rules:
   'eth2':
     iprule: [ "from %{hiera('netcfg_priv_network')} lookup private", ]
 
-profile::monitoring::sensu::agent::checks:
-  'nova-ssh-key':
-    ensure:       absent
+# sensu
+sensu::agent::subscriptions:
+  - 'base'
+  - 'metrics'
+  - 'compute'
+#  - 'physical'
 
 # Red Hat Subscription Management (RHSM)
 profile::rhsm::subscription::manage: false
