@@ -351,6 +351,10 @@ sensu::plugins::dependencies:
   - make
   - gcc
 
+sensu::agent::annotations:
+  'disk_warning': '90'
+  'disk_critical': '95'
+
 profile::monitoring::sensu::agent::plugins:
   sensu-plugins-himlar:
     ensure:   present
