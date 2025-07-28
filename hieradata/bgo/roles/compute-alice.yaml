@@ -81,8 +81,8 @@ nova::config::nova_config:
 
 # Sensu
 sensu::agent::annotations:
-  'cpu.warning': '95'
-  'cpu.critical': '100'
+  'cpu_warning': '95'
+  'cpu_critical': '100'
 
 # Red Hat Subscription Management (RHSM)
 profile::rhsm::subscription::manage: false

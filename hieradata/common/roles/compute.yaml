@@ -108,8 +108,8 @@ profile::monitoring::sensu::agent::enable_agent:      false
 
 # Sensu
 sensu::agent::annotations:
-  'disk.warning': '90'
-  'disk.critical': '95'
+  'disk_warning': '90'
+  'disk_critical': '95'
 
 sensu::agent::subscriptions:
   - 'base'

@@ -182,13 +182,13 @@ sensu::resources::filters:
 profile::monitoring::sensu::agent::checks:
 # BASE
   'disk-checks':
-    command:        'check-disk-usage -w {{ .annotations.disk.warning | default 85 }} -c {{ .annotations.disk.critical | default 95 }} -E /var/lib/nova/instances,/var/lib/libvirt/images,/cephfs'
+    command:        'check-disk-usage -w {{ .annotations.disk_warning | default 85 }} -c {{ .annotations.disk_critical | default 95 }} -E /var/lib/nova/instances,/var/lib/libvirt/images,/cephfs'
     interval:       60
     subscriptions:  ['base']
     handlers:       ['default']
     runtime_assets: [sensu/check-disk-usage]
   'cpu-checks': #FIXME change to load?
-    command:        'check-cpu-usage -s 15 -w {{ .annotations.cpu.warning | default 85 }} -c {{ .annotations.cpu.critical | default 95 }}'
+    command:        'check-cpu-usage -s 15 -w {{ .annotations.cpu_warning | default 85 }} -c {{ .annotations.cpu_critical | default 95 }}'
     interval:       60
     subscriptions:  ['base']
     handlers:       ['status'] # do not post to slack
@@ -209,7 +209,7 @@ profile::monitoring::sensu::agent::checks:
     - sensu/monitoring-plugins
 # NODES
   'memory-checks':
-    command:        'check-memory-usage -w {{ .annotations.ram.warning | default 85 }} -c {{ .annotations.ram.critical | default 95 }}'
+    command:        'check-memory-usage -w {{ .annotations.ram_warning | default 85 }} -c {{ .annotations.ram_critical | default 95 }}'
     interval:       60
     subscriptions:  ['nodes']
     handlers:       ['default']
