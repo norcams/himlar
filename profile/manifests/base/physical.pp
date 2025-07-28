@@ -251,6 +251,12 @@ class profile::base::physical (
       content => template("${module_name}/monitoring/sensu/redfish_check.sh.erb"),
       mode    => '0755',
     }
+    file { 'redfish_metric.sh':
+      ensure  => file,
+      path    => '/usr/local/bin/redfish_metric.sh',
+      content => template("${module_name}/monitoring/sensu/redfish_metric.sh.erb"),
+      mode    => '0755',
+    }
 
     if $facts['manufacturer'] == 'Dell Inc.' {
       include profile::monitoring::physical::power
