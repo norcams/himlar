@@ -35,9 +35,4 @@ profile::virtualization::libvirt::networks:
 profile::base::tuned::manage_tuned:  true
 profile::base::tuned::tuned_profile: 'virtual-host'
 
-# FIXME:sensu-go
 profile::base::physical::enable_redfish_scripts: true
-sensu::agent::subscriptions:
-  - 'base'
-  - 'metrics'
-  - 'physical'

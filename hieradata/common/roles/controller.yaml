@@ -71,8 +71,19 @@ libvirt::qemu_vnc_listen:         '0.0.0.0'
 libvirt::qemu_vnc_sasl:           false
 libvirt::qemu_vnc_tls:            false
 
-sensu__disk__warning:     80
-sensu__disk__crtical:     90
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::enable_go_agent:   true
+profile::monitoring::sensu::agent::enable_agent:      false
+
+# Sensu
+sensu::agent::annotations:
+  'disk_warning': '90'
+  'disk_critical': '95'
+
+sensu::agent::subscriptions:
+  - 'base'
+  - 'metrics'
+  - 'physical'
 
 profile::base::yumrepo::repo_hash:
   epel:
