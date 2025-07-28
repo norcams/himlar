@@ -342,7 +342,7 @@ profile::monitoring::sensu::agent::checks:
 # PHYSICAL
   'redfish-check':
     command:        '/usr/local/bin/redfish_check.sh'
-    interval:       1800
+    interval:       3600
     subscriptions:  ['physical']
     handlers:       ['default']
   # 'smart-disk-check':
