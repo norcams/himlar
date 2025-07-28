@@ -8,8 +8,5 @@ profile::openstack::dashboard::allow_from_network:
   - '129.240.130.124/32'# mikael
   - '129.240.202.64/32' # mikael
 
-# FIXME:sensu-go
-profile::monitoring::sensu::agent::checks:              {}
-
 # Disable admin dashboard
 profile::openstack::dashboard::disable_admin_dashboard: true
