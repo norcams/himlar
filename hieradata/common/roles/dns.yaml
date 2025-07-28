@@ -62,6 +62,16 @@ profile::base::common::packages:
 # Don't purge sudo stuff
 sudo::purge: false
 
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::enable_go_agent:   true
+profile::monitoring::sensu::agent::enable_agent:      false
+
+# Sensu
+sensu::agent::subscriptions:
+  - 'base'
+  - 'nodes'
+  - 'metrics'
+
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   rdo-release:
