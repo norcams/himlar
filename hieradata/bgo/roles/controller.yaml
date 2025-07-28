@@ -11,11 +11,6 @@ profile::bootstrap::himlar::libvirt:
 
 profile::base::physical::configure_bmc_nic:          true
 profile::base::physical::enable_redfish_scripts:     true
-profile::monitoring::sensu::agent::checks:
-  'redfish-check':
-    command:      '/usr/local/bin/redfish_check.sh'
-    interval:     1800
-    subscribers:  ['checks']
 
 # Cron tabs for power metric
 profile::base::common::manage_cron: true
