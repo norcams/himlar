@@ -356,10 +356,11 @@ profile::monitoring::sensu::agent::checks:
     subscriptions:  ['physical']
     handlers:       ['default']
   'redfish-metric':
-    command:        '/usr/local/bin/redfish_metric.sh'
-    interval:       300
-    subscriptions:  ['physical']
-    handlers:       ['status']
+    # ensure:         'absent'
+    # command:        '/usr/local/bin/redfish_metric.sh'
+    # interval:       300
+    # subscriptions:  ['physical']
+    # handlers:       ['status']
   # 'smart-disk-check':
   #   command:        'check-smart-status'
   #   interval:       1800
