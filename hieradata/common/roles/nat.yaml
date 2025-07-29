@@ -21,8 +21,6 @@ profile::network::nat::enable_snat:              true
 profile::network::nat::outiface:                 "%{::interface_trp1}"
 profile::network::nat::source:                   "!%{::ipaddress_trp1}"
 
-profile::monitoring::sensu::agent::enable_agent: true
-
 # collectd
 collectd::plugin::interface::interfaces:
   - "%{::interface_trp1}"
@@ -36,3 +34,12 @@ profile::monitoring::collectd::plugins:
   - collectd::plugin::interface
   - collectd::plugin::write_graphite
 
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::enable_go_agent:   true
+profile::monitoring::sensu::agent::enable_agent:      false
+
+# Sensu
+sensu::agent::subscriptions:
+  - 'base'
+  - 'nodes'
+  - 'metrics'
