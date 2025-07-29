@@ -77,9 +77,19 @@ accounts::accounts:
   'vagrant':
     ensure: absent
 
-# Sensu (login has larger disks)
-sensu__disk__warning:     85
-sensu__disk__crtical:     95
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::enable_go_agent:   true
+profile::monitoring::sensu::agent::enable_agent:      false
+
+# Sensu
+sensu::agent::subscriptions:
+  - 'base'
+  - 'nodes'
+  - 'metrics'
+
+sensu::agent::annotations:
+  'disk_warning': '90'
+  'disk_critical': '95'
 
 #openstack_extras::repo::redhat::redhat::manage_rdo: true
 profile::base::common::packages:
