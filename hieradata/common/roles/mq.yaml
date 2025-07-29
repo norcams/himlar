@@ -9,42 +9,32 @@ mq__high__watermark:      0.6
 rabbitmq::tcp_recbuf:     32768
 rabbitmq::tcp_sndbuf:     32768
 
-# Make sure we know when memory are low
-sensu__memory__check:     "check-memory-percent.rb -w 45 -c 50"
-
 profile::messaging::rabbitmq::manage_rsyslog: true
 
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::enable_go_agent:   true
+profile::monitoring::sensu::agent::enable_agent:      false
+
 # Sensu
-profile::base::common::packages:
-  'gcc-c++': {}
-  'make': {}
-  'bash-completion': {}
-  'jq': {}
+sensu::agent::subscriptions:
+  - 'base'
+  - 'nodes'
+  - 'metrics'
+# Make sure we know when memory are low
+sensu::agent::annotations:
+  'ram_warning': '45'
+  'ram_critical': '50'
 
-profile::monitoring::sensu::agent::plugins:
-  sensu-plugins-rabbitmq:
-    type:         package
-    pkg_version:  '4.1.1'
-
-# profile::monitoring::sensu::agent::checks:
-#   'metrics-rabbitmq-overview':
-#     type:         'metric'
-#     command:      "metrics-rabbitmq-overview.rb --scheme mq.%{::hostname} --user local --password %{hiera('local_rabbit_password')}"
-#     interval:     60
-#     subscribers:  ['metrics']
-#     handlers:     ['graphite_tcp']
-#   'metrics-rabbitmq-queue':
-#     type:         'metric'
-#     command:      "metrics-rabbitmq-queue.rb --scheme mq.%{::hostname} --user local --password %{hiera('local_rabbit_password')}"
-#     interval:     60
-#     subscribers:  ['metrics']
-#     handlers:     ['graphite_tcp']
-#   'metrics-rabbitmq-exchange':
-#     type:         'metric'
-#     command:      "metrics-rabbitmq-exchange.rb --scheme mq.%{::hostname} --user local --password %{hiera('local_rabbit_password')}"
-#     interval:     60
-#     subscribers:  ['metrics']
-#     handlers: ['graphite_tcp']
+profile::monitoring::sensu::agent::checks:
+  check-rabbitmq-alive:
+    env_vars:               ["RABBITMQ_PASSWORD=%{hiera('local_rabbit_password')}"]
+    command:                "check-rabbitmq-alive.rb -h %{::ipaddress_mgmt1} --user local --password ${RABBITMQ_PASSWORD} --vhost himlarcli"
+    interval:               60
+    subscriptions:          ['entity:%{::hostname}']
+    handlers:               ['default']
+    runtime_assets:
+    - sensu/sensu-ruby-runtime
+    - sensu-plugins/sensu-plugins-rabbitmq
 
 profile::messaging::rabbitmq::users:
   nova:

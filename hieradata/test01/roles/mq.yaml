@@ -4,29 +4,3 @@ rabbitmq::cluster_nodes:
 
 rabbitmq::node_ip_address:        "%{::ipaddress_trp1}" #FIXME move to common
 rabbitmq::management_ip_address:  "%{::ipaddress_mgmt1}" #FIXME move to common
-
-# FIXME:sensu-go
-profile::base::common::packages:
-  'gcc-c++': { ensure: absent }
-  'make': { ensure: absent }
-
-# Plugins not avaiable as assets for el8
-# sensu::plugins::plugins:
-#   sensu-plugins-mysql:
-#     version: 3.2.0
-
-sensu::agent::subscriptions:
-  - 'base'
-  - 'nodes'
-  - 'metrics'
-
-profile::monitoring::sensu::agent::checks:
-  check-rabbitmq-alive:
-    env_vars:               ["RABBITMQ_PASSWORD=%{hiera('local_rabbit_password')}"]
-    command:                "check-rabbitmq-alive.rb -h %{::ipaddress_mgmt1} --user local --password ${RABBITMQ_PASSWORD} --vhost himlarcli"
-    interval:               60
-    subscriptions:          ['entity:%{::hostname}']
-    handlers:               ['default']
-    runtime_assets:
-    - sensu/sensu-ruby-runtime
-    - sensu-plugins/sensu-plugins-rabbitmq
