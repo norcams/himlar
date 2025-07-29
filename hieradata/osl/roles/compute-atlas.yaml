@@ -85,3 +85,10 @@ profile::monitoring::collectd::plugins:
 
 collectd::plugin::virt::hostname_format:        'hostname'
 collectd::plugin::virt::plugin_instance_format: 'uuid'
+
+# Sensu
+sensu::agent::annotations:
+  'disk_warning': '90'
+  'disk_critical': '95'
+  'cpu_warning': '98'
+  'cpu_critical': '100'
