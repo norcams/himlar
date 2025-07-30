@@ -7,6 +7,16 @@ include:
     - profile::highavailability::loadbalancing::haproxy
     - profile::logging::rsyslog::client
 
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::enable_go_agent:   true
+profile::monitoring::sensu::agent::enable_agent:      false
+
+# Sensu
+sensu::agent::subscriptions:
+  - 'base'
+  - 'nodes'
+  - 'metrics'
+
 profile::base::common::packages:
   'python3-openstackclient': {}
   'bash-completion': {}
