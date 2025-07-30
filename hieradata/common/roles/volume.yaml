@@ -69,20 +69,24 @@ cinder::glance::glance_api_servers: "%{hiera('endpoint__image__internal')}"
 # load backend drivers
 sudo::purge: false
 
-# Sensu
-profile::webserver::apache::status::manage_status: true
-profile::monitoring::sensu::agent::plugins:
-  sensu-plugins-apache:
-    type:         package
-    pkg_version:  '3.0.0'
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::enable_go_agent:   true
+profile::monitoring::sensu::agent::enable_agent:      false
 
-profile::monitoring::sensu::agent::checks:
-  'metrics-httpd-overview':
-    type:         'metric'
-    command:      "metrics-apache-graphite.rb --scheme httpd.%{::hostname} -h 127.0.0.1"
-    interval:     60
-    subscribers:  ['metrics']
-    handlers:     ['graphite_tcp']
+# Sensu
+sensu::agent::subscriptions:
+  - 'base'
+  - 'nodes'
+  - 'metrics'
+
+# FIXME:sensu-go old metric
+# profile::monitoring::sensu::agent::checks:
+#   'metrics-httpd-overview':
+#     type:         'metric'
+#     command:      "metrics-apache-graphite.rb --scheme httpd.%{::hostname} -h 127.0.0.1"
+#     interval:     60
+#     subscribers:  ['metrics']
+#     handlers:     ['graphite_tcp']
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
