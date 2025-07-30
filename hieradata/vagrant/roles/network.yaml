@@ -1,9 +1,5 @@
 ---
-# FIXME:sensu-go
-profile::monitoring::sensu::agent::checks:              {}
 profile::base::common::packages:
-  'gcc-c++': { ensure: absent }
-  'make': { ensure: absent }
   'python3-redis': {} # OSProfiler dependency
 
 profile::openstack::network::manage_osprofiler: true

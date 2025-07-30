@@ -117,6 +117,7 @@ sensu::agent::subscriptions:
   - 'monitor'
   - 'metrics'
 # other subsciptions:
+  # - 'network'
   # - 'db'
   # - 'haproxy'
   # - 'proxy'
@@ -337,18 +338,26 @@ profile::monitoring::sensu::agent::checks:
     handlers:       ['default']
     runtime_assets:
     - sensu/http-check
-  check-etcd-client-health:
-    command:        'http-check --url http://127.0.0.1:2379/health -s true'
-    interval:       60
-    subscriptions:  ['compute']
-    handlers:       ['default']
-    runtime_assets:
-    - sensu/http-check
   'dhcp-agent-check':
     command:        '/usr/local/bin/calico_dhcp_agent_check.sh'
     interval:        600
     subscriptions:  ['compute']
     handlers:       ['default']
+# ETCD
+  check-etcd-client-health:
+    command:        'http-check --url http://127.0.0.1:2379/health -s true'
+    interval:       60
+    subscriptions:  ['compute', 'network']
+    handlers:       ['default']
+    runtime_assets:
+    - sensu/http-check
+  check-etcd-client-health:
+    command:        'http-check --url http://127.0.0.1:2380/health -s true'
+    interval:       60
+    subscriptions:  ['network']
+    handlers:       ['default']
+    runtime_assets:
+    - sensu/http-check
 # PHYSICAL
   'redfish-check':
     command:        '/usr/local/bin/redfish_check.sh'
