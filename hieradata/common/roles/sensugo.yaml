@@ -322,8 +322,7 @@ profile::monitoring::sensu::agent::checks:
     runtime_assets:
     - thorko/sensu-check-ceph
 # DB
-profile::monitoring::sensu::agent::checks:
-  check-mysql-alive:
+  'check-mysql-alive':
     command:        "mysql-check -s 'unix(/var/lib/mysql/mysql.sock)/'"
     interval:       60
     subscriptions:  ['db']
@@ -331,7 +330,7 @@ profile::monitoring::sensu::agent::checks:
     runtime_assets:
     - sensu/mysql-check
 # COMPUTE
-  check-metadata-api:
+  'check-metadata-api':
     command:        'http-check --url http://127.0.0.1:8775'
     interval:       60
     subscriptions:  ['compute']
@@ -344,14 +343,14 @@ profile::monitoring::sensu::agent::checks:
     subscriptions:  ['compute']
     handlers:       ['default']
 # ETCD
-  check-etcd-client-health:
+  'check-etcd-client-health':
     command:        'http-check --url http://127.0.0.1:2379/health -s true'
     interval:       60
     subscriptions:  ['compute', 'network']
     handlers:       ['default']
     runtime_assets:
     - sensu/http-check
-  check-etcd-client-health:
+  'check-etcd-peer-health':
     command:        'http-check --url http://127.0.0.1:2380/health -s true'
     interval:       60
     subscriptions:  ['network']
@@ -365,7 +364,7 @@ profile::monitoring::sensu::agent::checks:
     subscriptions:  ['physical']
     handlers:       ['default']
   'redfish-metric':
-    # ensure:         'absent'
+    ensure:         'absent'
     # command:        '/usr/local/bin/redfish_metric.sh'
     # interval:       300
     # subscriptions:  ['physical']
