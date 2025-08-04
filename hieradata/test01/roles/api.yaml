@@ -167,6 +167,8 @@ image__backend__ips:
 volume__backend__names:
   - "%{::location}-volume-01"
   - "%{::location}-volume-02"
+  - "%{::location}-volume-03"
 volume__backend__ips:
   - "%{hiera('netcfg_trp_netpart')}.46"
   - "%{hiera('netcfg_trp_netpart')}.47"
+  - "%{hiera('netcfg_trp_netpart')}.48"
