@@ -100,7 +100,7 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
-    includepkgs: 'thrift htop lttng-ust userspace-rcu libbabeltrace leveldb liboath fmt python3-cherrypy python3-zc-lockfile python3-portend python3-cheroot python3-trustme python3-tempora python3-jaraco-functools python3-jaraco python3-jaraco-collections'
+    includepkgs: 'thrift htop lttng-ust userspace-rcu libbabeltrace leveldb liboath fmt python3-cherrypy python3-zc-lockfile python3-portend python3-cheroot python3-trustme python3-tempora python3-jaraco-functools python3-jaraco python3-jaraco-collections python3-cherrypy'
 
 # Volume nodes need only cinder and glance keys
 ceph::profile::params::client_keys:
