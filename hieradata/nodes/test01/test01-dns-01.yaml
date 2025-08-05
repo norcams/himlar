@@ -21,7 +21,7 @@ network::interfaces_hash:
       address1:       "%{hiera('netcfg_trp_netpart')}.34/%{hiera('netcfg_trp_cidr4')}"
     ipv6:
       method:         'manual'
-      address1:       'fd00::12/64'
+      address1:       'fd00::34/64'
       route1:         '::/0,fd00::701'
       route1_options: 'src=2001:700:200:917::3f34'
   lo-static:
