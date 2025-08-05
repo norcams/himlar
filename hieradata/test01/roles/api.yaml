@@ -159,11 +159,11 @@ identity__backend__ips:
 image__backend__names:
   - '%{::location}-image-01'
   - '%{::location}-image-02'
-  #- '%{::location}-image-03'
+  - '%{::location}-image-03'
 image__backend__ips:
   - "%{hiera('netcfg_trp_netpart')}.36"
   - "%{hiera('netcfg_trp_netpart')}.37"
-#  - "%{hiera('netcfg_trp_netpart')}.38"
+  - "%{hiera('netcfg_trp_netpart')}.38"
 volume__backend__names:
   - "%{::location}-volume-01"
   - "%{::location}-volume-02"
