@@ -27,6 +27,9 @@ network::interfaces_hash:
   lo-static:
     interface_name:   'lo'
     connection_type:  'loopback'
+    ipv4:
+      method:         'manual'
+      address1:       '127.0.0.1/8'
     ipv6:
       method:         'manual'
       address1:       '2001:700:200:917::3f34/128'
