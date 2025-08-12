@@ -1,0 +1,47 @@
+---
+network::interfaces_hash:
+  'em1':
+    ipaddress:    "%{hiera('netcfg_mgmt_netpart')}.3"
+    netmask:      "%{hiera('netcfg_mgmt_netmask')}"
+    defroute:     'no'
+    onboot:       'yes'
+  #'em2':
+  #  ipaddress:    "%{hiera('netcfg_oob_netpart')}.X2"
+  #  netmask:      "%{hiera('netcfg_oob_netmask')}"
+  #  defroute:     'no'
+  #  onboot:       'yes'
+  #'p3p1':
+  #  ipaddress:      '129.240.114.45'
+  #  netmask:        '255.255.255.240'
+  #  gateway:        '129.240.114.33'
+  #  defroute:       'yes'
+  #  onboot:         'yes'
+  #  dns1:           '129.240.2.3'
+  #  dns2:           "%{hiera('netcfg_dns_mgmt_server2')}"
+  #  domain:         "%{hiera('netcfg_dns_search')} mgmt.test02.uhdc.no"
+  #  peerdns:        'yes'
+  #  ipv6init:       'yes'
+  #  ipv6addr:       '2001:700:100:8070::45/64'
+  #  ipv6_defaultgw: '2001:700:100:8070::1'
+  #'p3p2':
+  #  ipaddress:    '172.30.32.10'
+  #  netmask:      '255.255.255.0'
+  #  defroute:     'no'
+  #  onboot:       'yes'
+
+
+
+ssh::server::options:
+  'Match User iaas Address 172.16.32.10':
+    AuthenticationMethods: 'publickey'
+
+accounts::accounts:
+  'iaas':
+    ensure: present
+
+allow_from_admins_network:                # FIXME: Remove this when all login nodes use this (this is the default in common)
+  - '129.177.0.0/16'                                # UiB fastnett
+  - '129.240.0.0/16'                                # UiO fastnett
+  - '172.16.32.0/21'                                # osl mgmt
+  - '158.39.75.246/32'                              # osl-login-02
+  - '158.39.74.246/32'                              # bgo-login-02
