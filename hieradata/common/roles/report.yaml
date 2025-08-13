@@ -16,8 +16,17 @@ profile::base::selinux::boolean:
 profile::webserver::apache::manage_firewall:  true
 profile::webserver::apache::firewall_ports:   80
 
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::enable_go_agent:   true
+profile::monitoring::sensu::agent::enable_agent:      false
+
+# Sensu
+sensu::agent::subscriptions:
+  - 'base'
+  - 'nodes'
+  - 'metrics'
+
 profile::base::common::packages:
-  'gcc': {}
   'bash-completion': {}
   'python3-libs': {}
   'python3.12': {}
