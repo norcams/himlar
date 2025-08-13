@@ -1,35 +1,17 @@
 ---
+
+named_interfaces::config:
+  mgmt:
+    - eth0
+
 network::interfaces_hash:
-  'em1':
-    ipaddress:    "%{hiera('netcfg_mgmt_netpart')}.3"
-    netmask:      "%{hiera('netcfg_mgmt_netmask')}"
-    defroute:     'no'
-    onboot:       'yes'
-  #'em2':
-  #  ipaddress:    "%{hiera('netcfg_oob_netpart')}.X2"
-  #  netmask:      "%{hiera('netcfg_oob_netmask')}"
-  #  defroute:     'no'
-  #  onboot:       'yes'
-  #'p3p1':
-  #  ipaddress:      '129.240.114.45'
-  #  netmask:        '255.255.255.240'
-  #  gateway:        '129.240.114.33'
-  #  defroute:       'yes'
-  #  onboot:         'yes'
-  #  dns1:           '129.240.2.3'
-  #  dns2:           "%{hiera('netcfg_dns_mgmt_server2')}"
-  #  domain:         "%{hiera('netcfg_dns_search')} mgmt.test02.uhdc.no"
-  #  peerdns:        'yes'
-  #  ipv6init:       'yes'
-  #  ipv6addr:       '2001:700:100:8070::45/64'
-  #  ipv6_defaultgw: '2001:700:100:8070::1'
-  #'p3p2':
-  #  ipaddress:    '172.30.32.10'
-  #  netmask:      '255.255.255.0'
-  #  defroute:     'no'
-  #  onboot:       'yes'
-
-
+  eth0:
+    ipv4:
+      method:         'manual'
+      address1:       "%{hiera('netcfg_mgmt_netpart')}.3/21" # TODO test02 network: Replace 21 with %{hiera('netcfg_mgmt_cidr4')}
+      gateway:        "%{hiera('netcfg_mgmt_gateway')}"
+      dns:            "%{hiera('netcfg_dns_mgmt_server1')};%{hiera('netcfg_dns_mgmt_server2')}"
+      dns-search:     "%{hiera('domain_mgmt')}" # TODO test02 network: mgmt.test02.uhdc.no
 
 ssh::server::options:
   'Match User iaas Address 172.16.32.10':
