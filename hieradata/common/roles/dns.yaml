@@ -72,6 +72,9 @@ sensu::agent::subscriptions:
   - 'nodes'
   - 'metrics'
 
+sensu::agent::annotations:
+  'ram_warning': '90'
+
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   rdo-release:
