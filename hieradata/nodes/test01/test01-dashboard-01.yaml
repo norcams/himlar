@@ -1,14 +1,4 @@
 ---
-profile::network::interface::manage_dummy: false
-
-named_interfaces::config:
-  mgmt:
-    - eth0
-  trp:
-    - eth1
-  public:
-    - lo
-
 network::interfaces_hash:
   eth0:
     ipv4:
