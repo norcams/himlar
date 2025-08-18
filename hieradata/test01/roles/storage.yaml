@@ -267,6 +267,13 @@ profile::storage::cephpool_params::pools:
     application_enable: 'rbd'
 
 # Sensu
+sensu::agent::subscriptions:
+  - 'base'
+  - 'metrics'
+  - 'physical'
+
+profile::base::physical::enable_redfish_scripts: true
+
 sudo::configs:
   sensu_tty:
     priority: 20
@@ -276,6 +283,11 @@ sudo::configs:
     content:  'sensu ALL=(ALL) NOPASSWD: /opt/sensu/embedded/bin/check-smart.rb'
 
 profile::monitoring::sensu::agent::checks: {}
+  # 'redfish-check':
+  #   command:                '/usr/local/bin/redfish_check.sh'
+  #   interval:               1800
+  #   subscriptions:          ['entity:%{::hostname}']
+  #   handlers:               ['default']
   # 'check-smart':
   #   command:      "/usr/bin/sudo /opt/sensu/embedded/bin/check-smart.rb"
   #   interval:     3600

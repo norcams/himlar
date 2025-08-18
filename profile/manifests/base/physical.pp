@@ -25,7 +25,7 @@ class profile::base::physical (
   $net_tweak_mtu_probing       = '1',
   $net_tweak_default_qdisc     = 'fq',
   $net_tweak_somaxconn         = '2048',
-  $enable_redfish_sensu_check  = false,
+  $enable_redfish_scripts      = false,
   $enable_redfish_http_proxy   = undef,
   $lldpd_package               = 'lldpd',
   $lldpd_service               = 'lldpd',
@@ -222,7 +222,7 @@ class profile::base::physical (
     enable    => true,
   }
 
-  if ($enable_redfish_sensu_check) and ($::runmode == 'default') {
+  if ($enable_redfish_scripts) and ($::runmode == 'default') {
     $bmc_network  = regsubst($::ipaddress_trp1, '^(\d+)\.(\d+)\.(\d+)\.(\d+)$','\2',) - 1
     $bmc_address  = regsubst($::ipaddress_trp1, '^(\d+)\.(\d+)\.(\d+)\.(\d+)$',"\\1.${bmc_network}.\\3.\\4",)
     $bmc_username = lookup("bmc_username", String, 'first', '')
@@ -249,6 +249,12 @@ class profile::base::physical (
       ensure  => file,
       path    => '/usr/local/bin/redfish_check.sh',
       content => template("${module_name}/monitoring/sensu/redfish_check.sh.erb"),
+      mode    => '0755',
+    }
+    file { 'redfish_metric.sh':
+      ensure  => file,
+      path    => '/usr/local/bin/redfish_metric.sh',
+      content => template("${module_name}/monitoring/sensu/redfish_metric.sh.erb"),
       mode    => '0755',
     }
 

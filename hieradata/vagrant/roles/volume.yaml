@@ -21,9 +21,6 @@ cinder::config::cinder_config:
   lvm/target_ip_address:
     value: "%{hiera('netcfg_trp_netpart')}.46"
 
-# FIXME:sensu-go
-profile::monitoring::sensu::agent::checks:              {}
-
 profile::base::common::packages:
   'python3-redis': {} # OSProfiler dependency
 

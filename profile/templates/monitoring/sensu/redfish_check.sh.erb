@@ -1,4 +1,5 @@
 #!/bin/bash
+sleep $((($RANDOM % 15) + 1))
 result=$(/bin/curl -s https://<%= @bmc_address %><%= @connection_string %> -k -u <%= @bmc_username %>:<%= @bmc_password %><%= @http_proxy_url %> --connect-timeout 20 |jq .Status.Health)
 if [ ! "$result" ]; then
   echo "Error: could not connect to bmc - connection timeout"

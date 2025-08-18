@@ -49,3 +49,5 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_ceph'
     fs_type:      "xfs"
     mountpath:    "/var/lib/ceph"
+
+profile::base::physical::enable_redfish_scripts: true

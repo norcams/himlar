@@ -2,3 +2,9 @@
 # Firewall configuration
 profile::openstack::designate::ns_sources_ipv6:
   - '2001:700:200:917::3f17'
+
+# el9: No dummy interface
+profile::network::interface::manage_dummy: false
+
+# el9: Do not create custom routes
+profile::network::interface::create_custom_routes: false

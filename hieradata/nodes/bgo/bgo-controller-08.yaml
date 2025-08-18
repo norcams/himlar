@@ -56,6 +56,23 @@ network::interfaces_hash:
     defroute:     'no'
     bridge_stp:   'off'
 
+profile::virtualization::libvirt::networks:
+  directnet:
+    ensure:              enabled
+    autostart:           true
+    forward_mode:        bridge
+    bridge:              br0
+  trpnet:
+    ensure:              enabled
+    autostart:           true
+    forward_mode:        bridge
+    bridge:              br1
+  oobnet:
+    ensure:              enabled
+    autostart:           true
+    forward_mode:        bridge
+    bridge:              br3
+
 lvm::volume_groups:
   vg_ext:
     physical_volumes:

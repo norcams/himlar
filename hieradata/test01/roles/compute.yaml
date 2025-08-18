@@ -36,6 +36,7 @@ profile::base::network::network_auto_bonding:
       'team_port_config': '{ "prio" : 100 }'
       'mtu': '9000'
 
+profile::base::common::manage_multipath: true
 # IPv6 is enabled for bgp, bfd
 profile::openstack::network::calico::manage_firewall6: true
 
@@ -51,10 +52,10 @@ chrony::servers:
 # Add custom routing table for private network to NAT
 profile::base::network::routes:
   'team1':
-    'ipaddress': [ '0.0.0.0', '0.0.0.0', ]
-    'netmask':   [ '0.0.0.0', '0.0.0.0', ]
-    'gateway':   [ "%{hiera('netcfg_priv_gateway')}", "%{hiera('netcfg_trp_gateway')}" ]
-    'table':     [ 'private', 'main', ]
+    'ipaddress': [ '0.0.0.0', "%{hiera('netcfg_priv_anycast_net')}", '0.0.0.0', ]
+    'netmask':   [ '0.0.0.0', "%{hiera('netcfg_priv_anycast_cidr4')}", '0.0.0.0', ]
+    'gateway':   [ "%{hiera('netcfg_priv_gateway')}", "%{hiera('netcfg_trp_gateway')}", "%{hiera('netcfg_trp_gateway')}" ]
+    'table':     [ 'private', 'private', 'main', ]
 profile::base::network::routing_tables:
   'private':
     'table_id':  '240'
@@ -72,7 +73,7 @@ profile::base::tuned::tuned_profile:      'virtual-host'
 nova::compute::libvirt::hw_machine_type:  'x86_64=q35'
 nova::compute::libvirt::cpu_models:      ['Haswell-noTSX-IBRS']
 
-# collectd
+# collectd # FIXME:monitor
 profile::monitoring::collectd::enable: false
 profile::monitoring::collectd::plugins:
   - collectd::plugin::aggregation
@@ -90,27 +91,7 @@ collectd::plugin::virt::plugin_instance_format: 'uuid'
 
 profile::base::physical::configure_bmc_nic:                       true
 profile::openstack::compute::hypervisor::enable_dhcp_agent_check: true
-profile::base::physical::enable_redfish_sensu_check:              true
+profile::base::physical::enable_redfish_scripts:                  true
 profile::base::physical::enable_redfish_http_proxy:               true
-
-# FIXME:sensu-go
-profile::monitoring::sensu::agent::checks: {}
-profile::base::common::packages:
-  'gcc-c++': { ensure: absent }
-  'make': { ensure: absent }
-
-# sensuclassic
-# profile::monitoring::sensu::agent::checks:
-#   'redfish-check':
-#     command:      '/usr/local/bin/redfish_check.sh'
-#     interval:     1800
-#     subscribers:  ['checks']
-#   'dhcp-agent-check':
-#     command:      '/usr/local/bin/calico_dhcp_agent_check.sh'
-#     interval:     600
-#     subscribers:  ['checks']
-sensu::agent::service_env_vars:
-  PATH: '/usr/local/bin:/bin:/usr/bin:/opt/puppetlabs/bin:/opt/sensu-plugins-ruby/embedded/bin'
-  HTTPS_PROXY: "%{hiera('mgmt__address__proxy')}:8888"
 
 calico::compute::felix_mtuIfacePattern: '^team*'

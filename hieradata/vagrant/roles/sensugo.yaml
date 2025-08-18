@@ -12,16 +12,24 @@ profile::application::openssl::certs:
       - "%{::fqdn}"
       - "%{hiera('mgmt__address__monitor')}"
 
-sensu_etcd_cluster_state:     'new'
+sensu_etcd_cluster_state:           'new'
+sensu_influxdb_ssl_ca:              '-i'
 
 # Default one node cluster in vagrant. Remove this to run 3 node cluster
 # Provision will fail on first node, run first once on each and rerun the first node after
 sensu_etcd_cluster: "\
   %{::location}-%{hiera('sensu_backend_role')}-01=http://%{hiera('netcfg_mgmt_netpart')}.21:2380"
 
-
 profile::monitoring::sensu::agent::namespaces: {}
 profile::monitoring::sensu::backend::handlers:
   slack:
     type:         'pipe'
     command:      'cat'
+
+sensu::agent::subscriptions:
+  - 'base'
+  - 'nodes'
+  - 'monitor'
+  - 'metrics'
+#  - 'proxy' # # only for testing check
+#  - 'physical' # only for testing check

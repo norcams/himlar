@@ -60,9 +60,12 @@ profile::base::network::rules:
   'eth2':
     iprule: [ "from %{hiera('netcfg_priv_network')} lookup private", ]
 
-profile::monitoring::sensu::agent::checks:
-  'nova-ssh-key':
-    ensure:       absent
+# sensu
+sensu::agent::subscriptions:
+  - 'base'
+  - 'metrics'
+  - 'compute'
+#  - 'physical'
 
 # Red Hat Subscription Management (RHSM)
 profile::rhsm::subscription::manage: false
@@ -82,10 +85,7 @@ profile::monitoring::collectd::plugins:
   - collectd::plugin::numa
   - collectd::plugin::processes
 
-# FIXME:sensu-go
 profile::base::common::packages:
-  'gcc-c++': { ensure: absent }
-  'make': { ensure: absent }
   'python3-redis': {} # OSProfiler dependency
 
 profile::openstack::compute::manage_osprofiler: true

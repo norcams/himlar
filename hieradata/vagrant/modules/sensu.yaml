@@ -3,12 +3,11 @@ sensu::backend::ssl_cert_source: 'file:///etc/pki/tls/certs/%{::fqdn}.cert.pem'
 sensu::backend::ssl_key_source:  'file:///etc/pki/tls/private/%{::fqdn}.key.pem'
 sensu::ssl_ca_source:            'file:///etc/pki/tls/certs/cachain.pem'
 
-# Sensu assets
-sensu::plugins::plugins: {} # FIXME:sensu-go
-sensu::plugins::extensions: {}
-
 sensu::agent::backends:
   - "%{::location}-%{hiera('sensu_backend_role')}-01.%{hiera('domain_mgmt')}:8081"
 # Uncomment these to use multiple sensu-backends for agent in vagrant:
 #  - "%{::location}-%{hiera('sensu_backend_role')}-02.%{hiera('domain_mgmt')}:8081"
 #  - "%{::location}-%{hiera('sensu_backend_role')}-03.%{hiera('domain_mgmt')}:8081"
+
+sensu_etcd_cluster_log_level:   'debug'
+sensu_access_token_expiry:      '168h' # 7 days

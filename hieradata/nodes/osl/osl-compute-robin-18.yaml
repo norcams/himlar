@@ -66,4 +66,9 @@ nova::config::nova_config:
   DEFAULT/metadata_workers:
     value: '1'
 
-sensu__memory__check:     "check-memory.rb -w 1024 -c 512"
+# Sensu
+sensu::agent::annotations:
+  'disk_warning': '90'
+  'disk_critical': '95'
+  'cpu_warning': '99'
+  'cpu_critical': '100'

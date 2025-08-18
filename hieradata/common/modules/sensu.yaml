@@ -43,35 +43,11 @@ sensu::agent::service_env_vars:
 
 # Sensu backend
 sensu::backend::package_name: 'sensu-backend'
-sensu::backend::config_hash:
-  api-listen-address: "%{::ipaddress_mgmt1}:8082"
-  agent-host:         "%{::ipaddress_mgmt1}"
-  agent-port:         8081
-  log-level:          debug
 
 # Sensu cli
 sensu::cli::package_name:     'sensu-cli'
 
-# Sensu plugins
-sensu::plugins::plugins:
-  cpu-checks:
-    version:    '4.1.0'
-  disk-checks:
-    version:    '5.1.4'
-  load-checks:
-    version:    '5.1.0'
-  memory-checks:
-    version:    '4.1.1'
-  network-checks:
-    version:    '5.0.0'
-  process-checks:
-    version:    '4.2.1'
-  vmstats:
-    version:    '2.0.0'
-  systemd:
-    version:    '0.2.1'
-
-sensu::plugins::extensions:
-  graphite: {}
-
+# Sensu plugins and assets
+sensu::plugins::dependencies: []
+sensu::plugins::extensions: {}
 sensu::resources::bonsai_assets: {}

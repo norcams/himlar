@@ -390,10 +390,6 @@ profile::monitoring::sensu::agent::plugins:             {}
 profile::monitoring::sensu::agent::namespaces:
   "%{hiera('sensu_namespace')}": {}
 
-profile::base::yumrepo::repo_hash:
-  sensu-community:
-    ensure: present
-
 # OSProfiler config
 profile::logging::osprofiler::osprofiler_config:
   profiler/enabled:

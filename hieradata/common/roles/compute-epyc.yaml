@@ -35,6 +35,13 @@ profile::monitoring::collectd::plugins:
 collectd::plugin::virt::hostname_format:        'hostname'
 collectd::plugin::virt::plugin_instance_format: 'uuid'
 
+# Sensu
+sensu::agent::annotations:
+  'disk_warning': '90'
+  'disk_critical': '95'
+  'cpu_warning': '95'
+  'cpu_critical': '100'
+
 # Nova overrides
 nova::cpu_allocation_ratio:                      '8'
 nova::disk_allocation_ratio:                     '1'

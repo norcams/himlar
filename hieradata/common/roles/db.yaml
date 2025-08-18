@@ -2,7 +2,6 @@
 include:
   default:
     - profile::openstack::database::sql
-    - profile::monitoring::sensu::mysql
     - profile::logging::logrotate
     - profile::base::systemd
 
@@ -19,26 +18,25 @@ profile::base::common::packages:
   'bash-completion-extras': {}
   'mysqltuner':             {}
 
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::enable_go_agent:   true
+profile::monitoring::sensu::agent::enable_agent:      false
+
 # Sensu
-profile::monitoring::sensu::mysql::password:  "%{hiera('sensu_mysql_password')}"
-profile::monitoring::sensu::mysql::manage_packages: true
+sensu::agent::subscriptions:
+  - 'base'
+  - 'nodes'
+  - 'db'
+  - 'metrics'
 
-profile::monitoring::sensu::agent::plugins:
-  sensu-plugins-mysql:
-    type:         package
-    pkg_version:  '2.3.0'
-
-profile::monitoring::sensu::agent::checks:
-  'metrics-mysql-graphite':
-    type:         'metric'
-    command:      'metrics-mysql-graphite.rb --scheme mysql.%{::hostname} -h localhost -S /var/lib/mysql/mysql.sock --ini /etc/sensu/conf.d/mysql.ini'
-    interval:     60
-    subscribers:  ['metrics']
-    handlers:     ['graphite_tcp']
-  'check-mysql-alive':
-    command:      'check-mysql-alive.rb -h localhost -s /var/lib/mysql/mysql.sock --ini /etc/sensu/conf.d/mysql.ini'
-    interval:     60
-    subscribers:  ['checks']
+# FIXME:sensu-go old metrics
+# profile::monitoring::sensu::agent::checks:
+#   'metrics-mysql-graphite':
+#     type:         'metric'
+#     command:      'metrics-mysql-graphite.rb --scheme mysql.%{::hostname} -h localhost -S /var/lib/mysql/mysql.sock --ini /etc/sensu/conf.d/mysql.ini'
+#     interval:     60
+#     subscribers:  ['metrics']
+#     handlers:     ['graphite_tcp']
 
 # Logrotate
 profile::logging::logrotate::manage_logrotate:   true

@@ -27,10 +27,12 @@ profile::base::cron::crontabs:
     weekday:  '*'
     command: '/opt/himlarcli/bin/delete_expired_demo_instances.sh test01 >/dev/null 2>&1'
 
-
-# FIXME:sensu-go
-profile::base::common::packages:
-  'gcc': { ensure: absent }
-  'gcc-c++': { ensure: absent }
-  'make': { ensure: absent }
-  'openssl-devel': { ensure: absent }
+named_interfaces::config:
+  mgmt:
+    - eth0
+  trp:
+    - eth1
+  oob:
+    - eth2
+  public:
+    - dummy0

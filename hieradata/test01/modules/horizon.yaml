@@ -1,2 +1,3 @@
 ---
 horizon::site_branding:  'NREC Testing'
+horizon::bind_address:   "%{hiera('public__ip__dashboard')}"

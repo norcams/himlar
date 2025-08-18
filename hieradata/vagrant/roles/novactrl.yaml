@@ -13,9 +13,6 @@ profile::openstack::resource::host_aggregate:
     metadata:
       type: 'windows'
 
-# FIXME:sensu-go
-profile::monitoring::sensu::agent::checks:              {}
-
 profile::base::common::packages:
   'python3-redis': {} # OSProfiler dependency
 

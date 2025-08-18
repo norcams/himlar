@@ -47,13 +47,13 @@ mod 'googleauthenticator', :ref => 'norcams-4.0.0-2', :git => github + 'norcams/
 # profile::network::leaf/torack
 #
 mod 'quagga', :ref => '42f883092d',                 :git => github + 'norcams/puppet-quagga'
-mod 'frrouting', :ref => 'v1.1.9',                  :git => github + 'norcams/puppet-frrouting'
+mod 'frrouting', :ref => 'v1.2.2',                  :git => github + 'norcams/puppet-frrouting'
 
 #
 # profile::network::
 #
 mod 'bird', :ref => 'v4.1.0',                       :git => github + 'voxpupuli/puppet-bird'
-mod 'calico', :ref => 'v1.0.14',                    :git => github + 'norcams/puppet-calico'
+mod 'calico', :ref => 'v1.0.15',                    :git => github + 'norcams/puppet-calico'
 mod 'dnsmasq', :ref => 'b04a474295',                :git => github + 'saz/puppet-dnsmasq'
 mod 'ipcalc', :ref => '2.2.0',                      :git => github + 'inkblot/puppet-ipcalc'
 # FIXME: remove tinyproxy when all proxies have el8

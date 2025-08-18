@@ -20,8 +20,9 @@ network::interfaces_hash:
     defroute:       'no'
     onboot:         'yes'
   'eth2':
-    ipaddress:      '172.28.159.9'
-    netmask:        '255.255.255.0'
+    #ipaddress:      '172.28.159.9' # old oob ip
+    ipaddress:      "%{hiera('netcfg_oob_netpart')}.10"
+    netmask:        "%{hiera('netcfg_oob_netmask')}"
     defroute:       'no'
     onboot:         'yes'
 

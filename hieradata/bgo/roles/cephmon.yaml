@@ -12,3 +12,5 @@ profile::storage::ceph_extraconf::config:
   osd_deep_scrub_interval:
     'config_key'  : "mgr/osd_deep_scrub_interval"
     'config_value': "2419200.000000"
+
+profile::base::physical::enable_redfish_scripts: true

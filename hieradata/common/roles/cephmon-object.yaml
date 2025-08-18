@@ -6,6 +6,17 @@ include:
 
 profile::storage::ceph::config::manage_config: true
 
+# Influx
+profile::monitoring::telegraf::outputs:
+  influxdb_v2:
+    options:
+      - urls: ["https://%{hiera('mgmt__address__influx')}:8086"]
+        tls_ca: '/etc/puppetlabs/puppet/ssl/certs/ca.pem'
+        token: "%{hiera('influxdb_admin_token')}"
+        organization: "%{hiera('profile::monitoring::influxdb::org')}"
+        bucket: 'object'
+        insecure_skip_verify: true
+
 # Multisite
 profile::storage::ceph::multisite::manage: true
 profile::storage::ceph::multisite::purge_default: true
@@ -78,6 +89,12 @@ ceph::profile::params::client_keys:
     group: 'ceph'
     cap_mon: 'allow rw'
     cap_osd: 'allow rwx'
+  'client.sensu':
+    secret: "%{hiera('ceph_storage_client_sensu_key')}"
+    mode: '0640'
+    user: 'root'
+    group: 'sensu'
+    cap_mon: 'allow r'
 
 profile::storage::cephmon::manage_dashboard:        false
 profile::storage::cephmon::create_crushbuckets:     false
