@@ -12,6 +12,10 @@ profile::base::yumrepo::repo_hash:
     ensure:         present
   almalinux-crb:
     ensure:         present
+  nrec-koji:
+    ensure:         present
+  nrec-internal:
+    ensure:         present
   puppetlabs:
     ensure:         absent
   AlmaLinux-PowerTools:
@@ -28,17 +32,12 @@ profile::base::yumrepo::repo_hash:
     ensure:         absent #FIXME: Remove when CentOS 8 is gone
   epel:
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-9'
-    includepkgs:    'htop libidn'
   centos-qemu-ev:   # unavailable for el8
     ensure:         absent
   CentOS-Advanced-Virtualization: # FIXME
     ensure:         absent
   mariadb-10.3: # FIXME
     module_hotfixes: '1'
-    ensure:         absent
-  nrec-koji:
-    ensure:         present
-  nrec-internal:
     ensure:         absent
   calico326:
     ensure:         absent
@@ -49,6 +48,9 @@ profile::base::yumrepo::repo_hash:
 profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': { ensure: absent }     # FIXME clean up when el7 is gone
+  'python2-openstackclient': { ensure: absent, }   # FIXME cleun up when el7 is gone
+  'python2-gnocchiclient': { ensure: absent, }     # FIXME cleun up when el7 is gone
+  'python2-osc-placement': { ensure: absent, }     # FIXME cleun up when el7 is gone
   'MySQL-python':           { ensure: absent, }    # FIXME clean up when el7 is gone, replaced by python3-mysqlclient
 
 profile::base::common::manage_network: false # the profile::base::network class is deprecated

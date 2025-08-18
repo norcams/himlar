@@ -35,11 +35,10 @@ profile::monitoring::collectd::plugins:
 collectd::plugin::virt::hostname_format:        'hostname'
 collectd::plugin::virt::plugin_instance_format: 'uuid'
 
-# Nover overrides
-nova::compute::libvirt::cpu_models:             ['EPYC']
+# Nova overrides
 nova::cpu_allocation_ratio:                      '8'
-nova::disk_allocation_ratio:                     '2'
-nova::ram_allocation_ratio:                      '1.4'
+nova::disk_allocation_ratio:                     '1'
+nova::ram_allocation_ratio:                      '1.2'
 nova::scheduler::filter::max_instances_per_host: '20'
 
 # Create and enable more swap

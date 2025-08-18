@@ -7,7 +7,8 @@ class profile::openstack::compute(
   $manage_osprofiler = false,
 ) {
   include ::nova
-  include ::nova::db
+  # we should not need db config on compute
+  # include ::nova::db
   include ::nova::config
   include ::nova::network::neutron
   include ::nova::cinder
