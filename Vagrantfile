@@ -88,6 +88,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         libvirt.cpu_mode = "host-model"
         libvirt.cpu_model = ''
         libvirt.cpu_fallback = 'allow'
+        libvirt.video_type = 'virtio'
       end
 
       box.vm.provider :virtualbox do |vbox|

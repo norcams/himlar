@@ -116,6 +116,16 @@ profile::logging::rsyslog::client::legacy_config:
     key:    'local7.*'
     value:  '/var/log/boot.log'
 
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::enable_go_agent:   true
+profile::monitoring::sensu::agent::enable_agent:      false
+
+# Sensu
+sensu::agent::subscriptions:
+  - 'base'
+  - 'nodes'
+  - 'metrics'
+
 # filebeat for query logging to UiO ELK
 
 profile::logging::filebeat::manage_filebeat: true
@@ -145,4 +155,3 @@ profile::logging::filebeat::outputs:
       'certificate_authorities': ['/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem']
       'certificate':              "/etc/pki/tls/certs/%{::fqdn}.cert.pem"
       'key':                      "/etc/pki/tls/private/%{::fqdn}.key.pem"
-
