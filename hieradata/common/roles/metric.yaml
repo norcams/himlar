@@ -5,7 +5,6 @@ include:
     - profile::openstack::openrc
     - profile::logging::rsyslog::client
     - profile::openstack::database::sql
-    - profile::monitoring::sensu::mysql
     - profile::logging::logrotate
 
 
@@ -85,16 +84,8 @@ profile::monitoring::sensu::agent::enable_agent:      false
 sensu::agent::subscriptions:
   - 'base'
   - 'nodes'
+  - 'db'
   - 'metrics'
-
-profile::monitoring::sensu::agent::checks:
-  check-metric-mysql-alive:
-    command:                "mysql-check -s 'unix(/var/lib/mysql/mysql.sock)/'"
-    interval:               60
-    subscriptions:          ['entity:%{::hostname}']
-    handlers:               ['default']
-    runtime_assets:
-    - sensu/mysql-check
 
 # Logrotate
 profile::logging::logrotate::manage_logrotate:   true
