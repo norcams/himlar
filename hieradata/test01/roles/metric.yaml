@@ -7,18 +7,3 @@ profile::base::lvm::logical_volume:
     fs_type:      "xfs"
     mountpath:    "/var/lib/gnocchi"
     size:         '19.9G'
-
-# FIXME:sensu-go
-sensu::agent::subscriptions:
-  - 'base'
-  - 'nodes'
-  - 'metrics'
-
-profile::monitoring::sensu::agent::checks:
-  check-metric-mysql-alive:
-    command:                "mysql-check -s 'unix(/var/lib/mysql/mysql.sock)/'"
-    interval:               60
-    subscriptions:          ['entity:%{::hostname}']
-    handlers:               ['default']
-    runtime_assets:
-    - sensu/mysql-check
