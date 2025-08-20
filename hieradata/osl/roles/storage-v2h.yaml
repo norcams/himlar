@@ -37,11 +37,6 @@ profile::storage::cephosd::crush_parent_type: 'pod'
 profile::base::physical::load_ahci_last:         true
 profile::base::physical::load_ahci_last_scsidrv: 'megaraid_sas'
 
-# sensu overrides
-sensu__disk__warning:     85
-sensu__disk__crtical:     90
-sensu__memory__check:     "check-memory.rb -w 2048 -c 1024"
-
 profile::storage::cephpool::manage_ec_pools: true
 profile::storage::cephosd::crush_move:       true
 

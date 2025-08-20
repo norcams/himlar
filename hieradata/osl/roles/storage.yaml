@@ -34,12 +34,6 @@ profile::base::physical::disable_intel_cstates: true
 profile::storage::cephpool::manage_cephpool_params:  false
 
 profile::base::physical::configure_bmc_nic:          true
-profile::base::physical::enable_redfish_scripts:     true
-profile::monitoring::sensu::agent::checks:
-  'redfish-check':
-    command:      '/usr/local/bin/redfish_check.sh'
-    interval:     1800
-    subscribers:  ['checks']
 
 profile::storage::ceph_crushrules::rules:
   'hdd-storage':
