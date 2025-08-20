@@ -121,6 +121,10 @@ sensu::agent::subscriptions:
   - 'metrics'
   - 'cephmon'
 
+sensu::agent::annotations:
+  'disk_warning': '90'
+  'disk_critical': '95'
+
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   ceph-%{hiera('ceph_version')}:
