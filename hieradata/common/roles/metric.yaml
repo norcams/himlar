@@ -55,9 +55,9 @@ mysql::server::override_options:
     pid-file:                       "/var/lib/mysql/%{::hostname}.pid"
     bind-address:                   "127.0.0.1"
     ssl:                            "false"
-    ssl-ca:                         "/etc/puppetlabs/puppet/ssl/certs/ca.pem"
-    ssl-key:                        "/etc/puppetlabs/puppet/ssl/private_keys/%{::verified_certname}.pem"
-    ssl-cert:                       "/etc/puppetlabs/puppet/ssl/certs/%{::verified_certname}.pem"
+    ssl-ca:                         ~
+    ssl-key:                        ~
+    ssl-cert:                       ~
     wsrep_sst_auth:                 "root:%{hiera('mysql::server::root_password')}"
 
 # For backup script creation
