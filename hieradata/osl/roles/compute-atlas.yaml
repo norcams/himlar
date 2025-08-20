@@ -58,8 +58,6 @@ profile::base::lvm::logical_volume:
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
 
-sensu__memory__check:     "check-memory.rb -w 1536 -c 1024"
-
 # This compute host uses local storage for instances
 nova::compute::rbd::ephemeral_storage:  false
 nova::compute::libvirt::images_type: 'default'
@@ -85,3 +83,10 @@ profile::monitoring::collectd::plugins:
 
 collectd::plugin::virt::hostname_format:        'hostname'
 collectd::plugin::virt::plugin_instance_format: 'uuid'
+
+# Sensu
+sensu::agent::annotations:
+  'disk_warning': '90'
+  'disk_critical': '95'
+  'cpu_warning': '99'
+  'cpu_critical': '100'

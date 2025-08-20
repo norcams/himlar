@@ -7,9 +7,48 @@ dhcp::hosts:
   test01-spine-02:
     mac: '68:4f:64:f1:b5:23'
     ip:  '172.28.6.2'
-  test01-controller-04:
+  test01-controller-01-bmc:
+    mac: '10:98:36:9c:b3:d1'
+    ip:  '172.29.0.100'
+  test01-controller-02-bmc:
+    mac: '10:98:36:9b:b0:55'
+    ip:  '172.29.0.101'
+  test01-controller-03-bmc:
+    mac: '10:98:36:98:cd:7d'
+    ip:  '172.29.0.102'
+  test01-controller-04-bmc:
     mac: '6c:2b:59:a0:6c:d6'
-    ip:  '172.28.159.114'
-  test01-compute-05:
+    ip:  '172.29.0.114'
+  test01-compute-01-bmc:
+    mac: '10:98:36:9b:7b:b3'
+    ip:  '172.29.0.103'
+  test01-compute-02-bmc:
+    mac: '10:98:36:9b:78:17'
+    ip:  '172.29.0.104'
+  test01-compute-03-bmc:
+    mac: '10:98:36:9c:e5:df'
+    ip:  '172.29.0.105'
+  test01-compute-04-bmc:
+    mac: '10:98:36:9b:cf:1d'
+    ip:  '172.29.0.111'
+  test01-compute-05-bmc:
     mac: '6c:2b:59:a0:65:b0'
-    ip:  '172.28.159.112'
+    ip:  '172.29.0.112'
+  test01-chassis-01-cmc:
+    mac: '00:1e:c9:f8:b3:b0'
+    ip:  '172.29.0.254'
+  test01-storage-01-bmc:
+    mac: '18:fb:7b:a7:6a:5b'
+    ip:  '172.29.0.106'
+  test01-storage-02-bmc:
+    mac: '18:fb:7b:a7:6a:55'
+    ip:  '172.29.0.107'
+  test01-storage-03-bmc:
+    mac: '18:fb:7b:a7:68:81'
+    ip:  '172.29.0.108'
+  test01-storage-04-bmc:
+    mac: '18:fb:7b:a7:69:e1'
+    ip:  '172.29.0.109'
+  test01-storage-05-bmc:
+    mac: 'b0:83:fe:e9:01:a5'
+    ip:  '172.29.0.110'

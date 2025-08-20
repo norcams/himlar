@@ -13,9 +13,15 @@ profile::dns::rndc_key::host_is_bind_server: false
 
 foreman_version: '3.8'
 
-sensu__disk__warning:     80
-sensu__disk__crtical:     90
-sensu__memory__check:     "check-memory-percent.rb -w 85 -c 95"
+# sensu
+sensu::agent::subscriptions:
+  - 'base'
+  - 'nodes'
+  - 'metrics'
+
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::enable_go_agent:   true
+profile::monitoring::sensu::agent::enable_agent:      false
 
 profile::base::common::packages:
   'bash-completion': {}

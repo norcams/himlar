@@ -36,3 +36,13 @@ profile::openstack::openrc::project_name:               'services'
 
 profile::openstack::telemetry::polling::polling_interval: 3600   #FIXME
 profile::openstack::telemetry::polling::manage_polling:   true
+
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::enable_go_agent:   true
+profile::monitoring::sensu::agent::enable_agent:      false
+
+# Sensu
+sensu::agent::subscriptions:
+  - 'base'
+  - 'nodes'
+  - 'metrics'

@@ -126,6 +126,16 @@ profile::storage::ceph::pool::crush_rules:
   'ssd':
     rule_device_type: "ssd"
 
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::enable_go_agent:   true
+profile::monitoring::sensu::agent::enable_agent:      false
+
+# Sensu
+sensu::agent::subscriptions:
+  - 'base'
+  - 'metrics'
+  - 'physical'
+
 # Enable extra yum repo and override epel exclude list
 profile::base::yumrepo::repo_hash:
   ceph-%{hiera('ceph_version')}:

@@ -108,6 +108,16 @@ profile::base::selinux::boolean:
     ensure: 'on'
     persistent: true
 
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::enable_go_agent:   true
+profile::monitoring::sensu::agent::enable_agent:      false
+
+# Sensu
+sensu::agent::subscriptions:
+  - 'base'
+  - 'nodes'
+  - 'metrics'
+
 # local config due to query log suppression (local6)
 profile::logging::rsyslog::client::legacy_config:
   log_everything_to_remote_server:
@@ -164,4 +174,3 @@ profile::logging::filebeat::outputs:
       'certificate_authorities': ['/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem']
       'certificate':              "/etc/pki/tls/certs/%{::fqdn}.cert.pem"
       'key':                      "/etc/pki/tls/private/%{::fqdn}.key.pem"
-

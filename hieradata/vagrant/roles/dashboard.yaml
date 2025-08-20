@@ -13,9 +13,6 @@ profile::application::openssl::certs:
 
 apache::log_level:                              warn
 
-# FIXME:sensu-go
-profile::monitoring::sensu::agent::checks:              {}
-
 profile::openstack::dashboard::manage_dashboard:                   true
 profile::openstack::dashboard::manage_overrides:                   true
 

@@ -10,19 +10,3 @@ profile::application::openssl::certs:
     altnames:
       - "%{::hostname}.%{hiera('domain_trp')}"
       - "%{::fqdn}"
-
-# FIXME:sensu-go
-
-sensu::agent::subscriptions:
-  - 'base'
-  - 'nodes'
-  - 'metrics'
-
-profile::monitoring::sensu::agent::checks:
-  check-mysql-alive:
-    command:                "mysql-check -s 'unix(/var/lib/mysql/mysql.sock)/'"
-    interval:               60
-    subscriptions:          ['entity:%{::hostname}']
-    handlers:               ['default']
-    runtime_assets:
-    - sensu/mysql-check

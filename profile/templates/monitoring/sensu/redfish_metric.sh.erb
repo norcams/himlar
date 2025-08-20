@@ -1,0 +1,11 @@
+#!/bin/bash
+result=$(/bin/curl -o /dev/null -s -w "Name lookup: %{time_namelookup}s\nConnect: %{time_connect}s\nStart transfer: %{time_starttransfer}s\nTotal: %{time_total}s\nDownload size: %{size_download}\n" https://<%= @bmc_address %><%= @connection_string %> -k -u <%= @bmc_username %>:<%= @bmc_password %><%= @http_proxy_url %> --connect-timeout 20)
+if [ ! "$result" ]; then
+  echo "Error: could not connect to bmc - connection timeout"
+  echo "$result"
+  exit 1
+fi
+if [ "$result" ]; then
+    echo "$result"
+    exit 0
+fi

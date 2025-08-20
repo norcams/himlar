@@ -56,21 +56,6 @@ profile::network::nat::outiface:                   'eth1'
 profile::application::himlarservice::package_url:  'https://download.iaas.uio.no/nrec/rpm/himlarservice-2.0-1.el8.x86_64.rpm'
 profile::application::himlarservice::enable:       true
 
-# sensu python2 plugin (depricated)
-# profile::monitoring::sensu::agent::plugin_gems:
-#   sensu-plugins-openstack:
-#     ensure:   '0.2.0'
-#     provider: 'sensuclassic_gem'
-#     source:   'http://download.iaas.uio.no/uh-iaas/gem'
-# nova compute metrics
-# profile::monitoring::sensu::agent::checks:
-#   'nova-compute-metrics':
-#     type:         'metric'
-#     command:      "/opt/sensu/embedded/lib/ruby/gems/2.4.0/gems/sensu-plugins-openstack-0.2.0/bin/nova/nova-hypervisor-metrics.py -s compute -t openstack -d Default -r %{::location} -p %{hiera('keystone_admin_password')} -a %{hiera('public__address__api')}"
-#     interval:     60
-#     subscribers:  ['metrics']
-#     handlers:     ['graphite_tcp']
-
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   rdo-release:
@@ -90,3 +75,14 @@ logrotate::rules:
     dateext:        true
     missingok:      true
     compress:       true
+
+# sensu
+sensu::agent::subscriptions:
+  - 'base'
+  - 'nodes'
+  - 'metrics'
+  - 'proxy'
+
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::enable_go_agent:   true
+profile::monitoring::sensu::agent::enable_agent:      false

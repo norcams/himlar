@@ -29,6 +29,16 @@ profile::base::common::packages:
   'bash-completion':        {}
   'bash-completion-extras': {}
 
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::enable_go_agent:   true
+profile::monitoring::sensu::agent::enable_agent:      false
+
+# Sensu
+sensu::agent::subscriptions:
+  - 'base'
+  - 'nodes'
+  - 'metrics'
+
 # elasticsearch
 profile::logging::elasticsearch::manage_curator:  true
 profile::logging::elasticsearch::instances:

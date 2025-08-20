@@ -31,3 +31,9 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_ext'
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
+
+sensu::agent::subscriptions:
+  - 'base'
+  - 'metrics'
+  - 'compute'
+#  - 'physical' # redfish do not work on this host

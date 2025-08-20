@@ -40,3 +40,13 @@ keystone::bootstrap::project_name:     "%{hiera('keystone__service__project')}"
 keystone::bootstrap::internal_url:     "%{hiera('endpoint__identity__internal')}"
 keystone::bootstrap::region:           "%{location}"
 keystone::bootstrap::interface:        'internal'
+
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::enable_go_agent:   true
+profile::monitoring::sensu::agent::enable_agent:      false
+
+# Sensu
+sensu::agent::subscriptions:
+  - 'base'
+  - 'nodes'
+  - 'metrics'

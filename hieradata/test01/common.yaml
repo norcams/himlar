@@ -67,10 +67,10 @@ netcfg_trp_net_c7:      '172.30.7'
 netcfg_trp_netmask:     '255.255.248.0'
 netcfg_trp_netmask6:    '64'
 netcfg_trp_cidr4:       '21'
-netcfg_oob_gateway:     '172.28.159.10'
-netcfg_oob_netpart:     '172.28.159'
-netcfg_oob_netmask:     '255.255.255.0'
-netcfg_ceph_netpart:    '172.29.0'
+netcfg_oob_gateway:     '172.29.0.10'
+netcfg_oob_netpart:     '172.29.0'
+netcfg_oob_netmask:     '255.255.248.0'
+netcfg_ceph_netpart:    '172.27.0'
 netcfg_ceph_netmask:    '255.255.248.0'
 netcfg_live_netpart:    '172.31.0'
 netcfg_live_netmask:    '255.255.248.0'
@@ -79,12 +79,16 @@ netcfg_dns_mgmt_server1:     '172.28.0.10'
 netcfg_dns_mgmt_server2:     '172.28.0.44'
 netcfg_dns_mgmt_server3:     '172.28.0.45'
 netcfg_dns_search:      "%{hiera('domain_mgmt')} %{hiera('domain_trp')}"
+netcfg_dns_search_nm:   "%{hiera('domain_mgmt')};%{hiera('domain_trp')}"
 netcfg_priv_gateway:    '172.30.0.26'
 netcfg_priv_network:    '10.0.250.0/24'
 netcfg_pub_natgw:       '129.177.31.121'
 netcfg_anycast_dns:     '129.177.31.118'
 netcfg_anycast_dns6:    '2001:700:200:917::3f18'
 netcfg_elastic_cidr:    '10.0.240.0/23'
+netcfg_priv_anycast_net:   '10.0.241.224'
+netcfg_priv_anycast_cidr4: '27'
+
 netcfg_trp_rr:
   rr1:
     peer_ipv4: '172.30.6.1'
@@ -104,6 +108,8 @@ public__ip__ns:                 '129.177.31.117'
 public__ipv6__ns:               '2001:700:200:917::3f17'
 public__ip__resolver:           '129.177.31.118'
 public__ipv6__resolver:         '2001:700:200:917::3f18'
+public__ip__dashboard:          '129.177.31.126'
+public__ipv6__dashboard:        '2001:700:200:917::3f26'
 
 #
 # DNS (merge of common and this)
@@ -121,17 +127,6 @@ profile::network::services::dns_records:
     "ns.%{hiera('domain_frontend')}":                       '129.177.31.117'
     "resolver.%{hiera('domain_public')}":                   '129.177.31.118'
     "api.%{hiera('domain_public')}":                        '129.177.31.122'
-    "identity.api.%{hiera('domain_public')}":               '129.177.31.122'
-    "network.api.%{hiera('domain_public')}":                '129.177.31.122'
-    "image.api.%{hiera('domain_public')}":                  '129.177.31.122'
-    "volume.api.%{hiera('domain_public')}":                 '129.177.31.122'
-    "compute.api.%{hiera('domain_public')}":                '129.177.31.122'
-    "placement.api.%{hiera('domain_public')}":              '129.177.31.122'
-    "dns.api.%{hiera('domain_public')}":                    '129.177.31.122'
-    "status.%{hiera('domain_frontend')}":                   '129.177.31.122'
-    "report.%{hiera('domain_frontend')}":                   '129.177.31.122'
-    "access.%{hiera('domain_frontend')}":                   '129.177.31.122' #124
-    "console.%{hiera('domain_public')}":                    '129.177.31.122' #125
     "dashboard.%{hiera('domain_frontend')}":                '129.177.31.126'
     # mgmt
     "%{::location}-login-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_mgmt_netpart')}.10"
@@ -151,7 +146,9 @@ profile::network::services::dns_records:
     "identity.%{hiera('domain_trp')}":                      "%{hiera('internal__ip__api')}"
     "object.%{hiera('domain_trp')}":                        "%{hiera('internal__ip__api')}"
     "metric.%{hiera('domain_trp')}":                        "%{hiera('internal__ip__api')}"
-#  AAAA:
+  AAAA:
+    "api.%{hiera('domain_public')}":                        "%{hiera('public__ipv6__api')}"
+    "dashboard.%{hiera('domain_frontend')}":                "%{hiera('public__ipv6__dashboard')}"
   PTR:
     # Temp. for old login-01
     "199.%{hiera('reverse_mgmt_c0')}":    "%{::location}-login-01old.%{hiera('domain_mgmt')}"
@@ -165,6 +162,17 @@ profile::network::services::dns_records:
     "8.1.f.3.0.0.0.0.0.0.0.0.0.0.0.0.%{hiera('reverse_public6')}":  "resolver.%{hiera('domain_public')}"
   CNAME:
     "%{::location}-leaf-placeholder-01.%{hiera('domain_mgmt')}":    "%{::location}-leaf-01.%{hiera('domain_mgmt')}"
+    "identity.api.%{hiera('domain_public')}":                       "api.%{hiera('domain_public')}"
+    "network.api.%{hiera('domain_public')}":                        "api.%{hiera('domain_public')}"
+    "image.api.%{hiera('domain_public')}":                          "api.%{hiera('domain_public')}"
+    "volume.api.%{hiera('domain_public')}":                         "api.%{hiera('domain_public')}"
+    "compute.api.%{hiera('domain_public')}":                        "api.%{hiera('domain_public')}"
+    "placement.api.%{hiera('domain_public')}":                      "api.%{hiera('domain_public')}"
+    "dns.api.%{hiera('domain_public')}":                            "api.%{hiera('domain_public')}"
+    "status.%{hiera('domain_frontend')}":                           "api.%{hiera('domain_public')}"
+    "report.%{hiera('domain_frontend')}":                           "api.%{hiera('domain_public')}"
+    "access.%{hiera('domain_frontend')}":                           "api.%{hiera('domain_public')}" #124
+    "console.%{hiera('domain_public')}":                            "api.%{hiera('domain_public')}" #125
 
 profile::network::services::dns_options:
   CNAME:
@@ -230,6 +238,12 @@ profile::openstack::resource::networks:
     tenant_name: 'openstack'
     provider_network_type: 'local'
 #    mtu: '9000' # FIXME: param available in puppet-neutron for Zed. Meanwhile, set once with CLI after creation
+  elastic_rail_uib_it_rail_test_test01:
+    name: elastic_rail_test_test01
+    admin_state_up: true
+    shared: false
+    tenant_name: 'uib-it-rail-test-test01'
+    provider_network_type: 'local'
 
 profile::openstack::resource::subnets:
   public1_IPv4:
@@ -268,6 +282,42 @@ profile::openstack::resource::subnets:
       - '129.177.6.54'
     network_name: 'Elastic_IP_test'
     tenant_name: 'openstack'
+  elastic_rail_uib_it_test_test01_IP4:
+    name: 'elastic_rail_test_test01_IP4'
+    cidr: '10.0.241.0/27'
+    ip_version: '4'
+    allocation_pools:
+      - 'start=10.0.241.2,end=10.0.241.30'
+    gateway_ip: '10.0.241.1'
+    dns_nameservers:
+      - '129.177.31.118'
+      - '129.177.6.54'
+    network_name: 'elastic_rail_test_test01'
+    tenant_name: 'uib-it-rail-test-test01'
+  elastic_rail_uib_it_test_test01_IP6:
+    name: 'elastic_rail_test_test01_IP6'
+    cidr: '2001:700:200:915::3000/116'
+    ip_version: '6'
+    allocation_pools:
+      #- 'start=2001:700:200:915::3002,end=2001:700:200:915::3eff'
+    gateway_ip: '2001:700:200:915::3001'
+    dns_nameservers:
+      - '2001:700:200:917::3f18'
+      - '2001:700:200:6::a1f:a1fa'
+    network_name: 'elastic_rail_test_test01'
+    tenant_name: 'uib-it-rail-test-test01'
+  elastic_rail_uib_it_test_test01_IP6_2:
+    name: 'elastic_rail_test_test01_IP6_2'
+    cidr: '2001:700:200:df32:e1a5:2025::/96'
+    ip_version: '6'
+    allocation_pools: # /98
+      - 'start=2001:700:200:df32:e1a5:2025:0001:2,end=2001:700:200:df32:e1a5:2025:3fff:ffff'
+    gateway_ip: '2001:700:200:df32:e1a5:2025:0001:1'
+    dns_nameservers:
+      - '2001:700:200:917::3f18'
+      - '2001:700:200:6::a1f:a1fa'
+    network_name: 'elastic_rail_test_test01'
+    tenant_name: 'uib-it-rail-test-test01'
   public1_ipv6:
     name: 'public1_IPv6'
     cidr: '2001:700:200:916::/64'

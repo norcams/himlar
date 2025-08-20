@@ -19,6 +19,8 @@ include:
     - profile::base::lvm
     - profile::storage::cephosd_firewall
 
+profile::base::physical::enable_redfish_scripts: true
+
 # collectd
 profile::monitoring::collectd::enable: true
 profile::monitoring::collectd::ceph::enable: true
@@ -141,3 +143,50 @@ profile::storage::cephosd::crush_parent_type: 'pod'
 # SNMP only from mgmt
 profile::base::dell::snmp_firewall_settings:
   source: "%{::network_mgmt1}/%{::netmask_mgmt1}"
+
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::enable_go_agent:   true
+profile::monitoring::sensu::agent::enable_agent:      false
+
+# Sensu
+sensu::agent::subscriptions:
+  - 'base'
+  - 'metrics'
+  - 'physical'
+
+sudo::configs:
+  sensu_tty:
+    priority: 20
+    content:  'Defaults:sensu !requiretty'
+  sensu:
+    priority: 25
+    content:  'sensu ALL=(ALL) NOPASSWD: /opt/sensu/embedded/bin/check-smart.rb'
+
+# profile::monitoring::sensu::agent::checks: # FIXME:sensu-go
+#   'check-smart':
+#     command:      "/usr/bin/sudo /opt/sensu/embedded/bin/check-smart.rb"
+#     interval:     3600
+#     subscribers:  ['checks']
+#   'metrics-netif':
+#     type:         'metric'
+#     command:      'metrics-netif.rb --scheme network.%{::hostname}'
+#     interval:     60
+#     subscribers:  ['metrics']
+#     handlers:     ['graphite_tcp']
+#   'metrics-disk':
+#     type:         'metric'
+#     command:      'metrics-disk.rb --scheme disk.%{::hostname} -I sd[a-z]$'
+#     interval:     60
+#     subscribers:  ['metrics']
+#     handlers:     ['graphite_tcp']
+
+# profile::monitoring::sensu::agent::plugin_gems: # FIXME:sensu-go
+#   sensu-plugins-himlar:
+#     ensure:   '0.4.0'
+#     provider: 'sensuclassic_gem'
+#     source:   'http://download.iaas.uio.no/uh-iaas/gem'
+#
+# profile::monitoring::sensu::agent::plugins: # FIXME:sensu-go
+#   sensu-plugins-network-checks:
+#     type:         package
+#     pkg_version:  '4.1.1'

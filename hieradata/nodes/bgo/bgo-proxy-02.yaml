@@ -17,6 +17,12 @@ network::interfaces_hash:
     ipv6init:  'yes'
     ipv6addr:  "%{hiera('netcfg_trp_netpart6')}::97/%{hiera('netcfg_trp_netmask6')}"
     defroute:  'yes'
+  'eth2':
+    onboot:    'yes'
+    mtu:       '1500'
+    ipaddress: "%{hiera('netcfg_oob_netpart')}.97"
+    netmask:   "%{hiera('netcfg_oob_netmask')}"
+    defroute:  'no'
   'dummy0':
     ipaddress: '158.39.74.247'
     netmask:   '255.255.255.255'
@@ -24,11 +30,11 @@ network::interfaces_hash:
     ipv6addr:  '2001:700:2:83ff::97/128'
     defroute:  'no'
 profile::base::network::routes:
-  'eth0':
-    'ipaddress': [ '172.17.0.0', ]
-    'netmask':   [ '255.255.248.0', ]
-    'gateway':   [ '172.16.0.10', ]
-    'table':     [ 'main', ]
+  # 'eth0':
+  #   'ipaddress': [ '172.17.0.0', ]
+  #   'netmask':   [ '255.255.248.0', ]
+  #   'gateway':   [ '172.16.0.10', ]
+  #   'table':     [ 'main', ]
   'eth1':
     'ipaddress': [ '::', ]
     'netmask':   [ '0', ]

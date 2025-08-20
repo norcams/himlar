@@ -1,5 +1,2 @@
 ---
-profile::base::common::packages:
-  'gcc': { ensure: absent } # FIXME:sensu-go
-
 profile::application::report::debug:            true

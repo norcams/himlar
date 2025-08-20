@@ -1,21 +1,16 @@
 ---
-include:
-  bootstrap:
-    - profile::application::openssl
-    - profile::application::openssl::catrust
-
+#
+# IMPORTANT! influxdb needs certs signed by puppet ca to work!
+# Start admin-01 and run puppet agent -t --noop on tsdb-01,
+# then sign the cert with puppetserver ca sign --certname <certname>
+#
 profile::monitoring::influxdb::run_setup:                 true
 profile::monitoring::influxdb::write_token_file:          true
 
+# Disable extra disk in vagrant
+profile::base::common::manage_lvm:                        false
+
 #profile::development::network::dns::remove_local_hostname: true
-profile::application::openssl::catrust::update_puppet_ca: true
-profile::application::openssl::manage_ca_cert:            true
-profile::application::openssl::certs:
-  "%{::fqdn}":
-    cn:     "%{::fqdn}"
-    altnames:
-      - "%{::fqdn}"
-      - "%{hiera('mgmt__address__influx')}"
 
 profile::base::common::packages:
   'influxdb2-cli':                { ensure: present }

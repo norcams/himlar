@@ -81,7 +81,12 @@ nova::config::nova_config:
   DEFAULT/metadata_workers:
     value: '2'
 
-sensu__memory__check:     "check-memory.rb -w 2048 -c 1024"
+# Sensu
+sensu::agent::annotations:
+  'disk_warning': '90'
+  'disk_critical': '95'
+  'cpu_warning': '99'
+  'cpu_critical': '100'
 
 # Red Hat Subscription Management (RHSM)
 profile::rhsm::subscription::manage: false

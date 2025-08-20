@@ -4,7 +4,8 @@ include:
     - profile::storage::cephmon
     - profile::storage::cephmon_firewall
     - profile::logging::rsyslog::client
-    - profile::monitoring::collectd
+    - profile::monitoring::collectd # FIXME:monitor
+    - profile::monitoring::telegraf
   bootstrap:
     - profile::storage::cephmon_firewall
 
@@ -13,7 +14,7 @@ profile::storage::cephmon::target_max_misplaced_ratio: '0.05'
 profile::storage::cephmon::ceph_balancer_mode:         'upmap'
 profile::storage::cephmon::ceph_balancer_active:       true
 
-# collectd
+# collectd # FIXME:monitor
 profile::monitoring::collectd::enable: true
 collectd::plugin::ceph::daemons:
   - "ceph-mon.%{::hostname}"
@@ -84,28 +85,45 @@ accounts::accounts:
   'glance':
     ensure: present
 
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::enable_go_agent:   true
+profile::monitoring::sensu::agent::enable_agent:      false
+
+# Influx
+profile::monitoring::telegraf::enable_telegraf:     true
+profile::monitoring::telegraf::outputs:
+  influxdb_v2:
+    options:
+      - urls: ["https://%{hiera('mgmt__address__influx')}:8086"]
+        tls_ca: '/etc/puppetlabs/puppet/ssl/certs/ca.pem'
+        token: "%{hiera('influxdb_admin_token')}"
+        organization: "%{hiera('profile::monitoring::influxdb::org')}"
+        bucket: 'storage'
+        insecure_skip_verify: true
+
+profile::monitoring::telegraf::inputs:
+  prometheus:
+    options:
+      - urls: ["http://%{::ipaddress_mgmt1}:9283/metrics"]
+        metric_version: 2
+  # ceph:
+  #   options:
+  #     - interval: '1m'
+  #       socket_dir: "/var/run/ceph"
+  #       ceph_binary: "/usr/bin/ceph"
+  #       socket_suffix: "asok"
+  #       mon_prefix: "ceph-mon"
+
 # Sensu
-profile::monitoring::sensu::agent::plugin_gems:
-  sensu-plugins-himlar:
-    ensure:       '0.4.0'
-    provider:     'sensuclassic_gem'
-    source:       'http://download.iaas.uio.no/nrec/gem'
+sensu::agent::subscriptions:
+  - 'base'
+  - 'nodes'
+  - 'metrics'
+  - 'cephmon'
 
-sudo::configs:
-  sensu_tty:
-    priority: 20
-    content:  'Defaults:sensu !requiretty'
-  sensu:
-    priority: 25
-    content:  'sensu ALL=(ALL) NOPASSWD: /opt/sensu/embedded/bin/check-ceph.rb'
-
-check_ceph_argument:    ''
-
-profile::monitoring::sensu::agent::checks:
-  'check-ceph':
-    command:      "/usr/bin/sudo /opt/sensu/embedded/bin/check-ceph.rb %{hiera('check_ceph_argument')}"
-    interval:     60
-    subscribers:  ['checks']
+sensu::agent::annotations:
+  'disk_warning': '90'
+  'disk_critical': '95'
 
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
@@ -117,6 +135,8 @@ profile::base::yumrepo::repo_hash:
     exclude: 'postgres'
   epel:
     ensure:   present
+  influxdb:
+    ensure: present
 
 ## enable Ceph dashboard
 #profile::storage::cephmon::manage_dashboard:                    true

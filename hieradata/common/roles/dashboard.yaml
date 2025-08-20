@@ -58,20 +58,25 @@ profile::base::yumrepo::repo_hash:
     ensure:   present
     includepkgs: 'htop python3-mysql'
 
-# Sensu
-profile::webserver::apache::status::manage_status: true
-profile::monitoring::sensu::agent::plugins:
-  sensu-plugins-apache:
-    type:         package
-    pkg_version:  '3.0.0'
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::enable_go_agent:   true
+profile::monitoring::sensu::agent::enable_agent:      false
 
-profile::monitoring::sensu::agent::checks:
-  'metrics-httpd-overview':
-    type:         'metric'
-    command:      "metrics-apache-graphite.rb --scheme httpd.%{::hostname} -h 127.0.0.1"
-    interval:     60
-    subscribers:  ['metrics']
-    handlers:     ['graphite_tcp']
+# Sensu
+sensu::agent::subscriptions:
+  - 'base'
+  - 'nodes'
+  - 'metrics'
+
+#  FIXME:sensu-go old metric
+# profile::webserver::apache::status::manage_status: true
+# profile::monitoring::sensu::agent::checks:
+#   'metrics-httpd-overview':
+#     type:         'metric'
+#     command:      "metrics-apache-graphite.rb --scheme httpd.%{::hostname} -h 127.0.0.1"
+#     interval:     60
+#     subscribers:  ['metrics']
+#     handlers:     ['graphite_tcp']
 
 # We should change this to the same as the API services
 # Disable reboot through Horizon (for other than root) until DHCP is fixed upstream (calico)

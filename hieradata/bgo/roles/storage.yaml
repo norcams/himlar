@@ -48,21 +48,15 @@ profile::storage::ceph_crushrules::rules:
 profile::base::physical::disable_intel_cstates: true
 
 profile::base::physical::configure_bmc_nic:          true
-profile::base::physical::enable_redfish_sensu_check: true
-profile::monitoring::sensu::agent::checks:
-  'redfish-check':
-    command:      '/usr/local/bin/redfish_check.sh'
-    interval:     1800
-    subscribers:  ['checks']
 
-# Cron tabs for power metric
-profile::base::common::manage_cron: true
-profile::base::cron::crontabs:
-  power_metric:
-    hour:     '*'
-    minute:   '*/5'
-    weekday:  '*'
-    command:  "/usr/local/bin/power_metric.sh >/dev/null"
+# Cron tabs for power metric FIXME:sensu-go
+# profile::base::common::manage_cron: true
+# profile::base::cron::crontabs:
+#   power_metric:
+#     hour:     '*'
+#     minute:   '*/5'
+#     weekday:  '*'
+#     command:  "/usr/local/bin/power_metric.sh >/dev/null"
 
 profile::storage::ceph::pool::pools:
   'rbd':

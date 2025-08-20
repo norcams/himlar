@@ -114,6 +114,7 @@ profile::highavailability::loadbalancing::haproxy::access_list:
       - '129.177.31.96/27'         # test01
       - '2001:700:200:915::/64'    # test01
       - '2001:700:200:916::/64'    # test01
+      - '2001:700:200:917::/64'    # test01
       - '129.177.0.137/32'         # p1dclogin
       - '129.177.0.138/32'         # p2dclogin
       - '129.177.25.132/32'        # raymond-dev
@@ -121,6 +122,8 @@ profile::highavailability::loadbalancing::haproxy::access_list:
       - '158.39.74.6/32'           # raymond (bgo-mgmt-instance)
       - '129.240.130.12/32'        # trond
       - '129.240.130.124/32'       # mikael
+      - '10.0.240.0/23'            # elastic ip priv
+      - '10.0.250.0/24'            # private range for "IPv6" network
 
 # this will only work for status/access (port 80/443)
 profile::highavailability::loadbalancing::haproxy::allow_from_network:
@@ -148,9 +151,11 @@ compute__backend__ips:
 identity__backend__names:
   - "%{::location}-identity-01"
   - "%{::location}-identity-02"
+  - "%{::location}-identity-03"
 identity__backend__ips:
   - "%{hiera('netcfg_trp_netpart')}.81"
   - "%{hiera('netcfg_trp_netpart')}.82"
+  - "%{hiera('netcfg_trp_netpart')}.83"
 image__backend__names:
   - '%{::location}-image-01'
   - '%{::location}-image-02'
@@ -162,27 +167,8 @@ image__backend__ips:
 volume__backend__names:
   - "%{::location}-volume-01"
   - "%{::location}-volume-02"
+  - "%{::location}-volume-03"
 volume__backend__ips:
   - "%{hiera('netcfg_trp_netpart')}.46"
   - "%{hiera('netcfg_trp_netpart')}.47"
-
-# FIXME:sensu-go
-profile::monitoring::sensu::agent::merge_strategy:  'first'
-profile::monitoring::sensu::agent::plugins: {}
-
-sensu::plugins::plugins:
-  sensu-plugins-haproxy:
-    version: 2.0.2
-
-sensu::agent::subscriptions:
-  - 'base'
-  - 'nodes'
-  - 'metrics'
-
-profile::monitoring::sensu::agent::checks:
-  happroxy-checks:
-    command:                'check-haproxy.rb -S 127.0.0.1 -P 9000 -w 100 -c 50 -B 80 -b 75 -A'
-    interval:               60
-    subscriptions:          ['entity:%{::hostname}']
-    handlers:               ['default']
-    provider:               'sensu_api'
+  - "%{hiera('netcfg_trp_netpart')}.48"

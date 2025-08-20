@@ -34,3 +34,5 @@ profile::virtualization::libvirt::networks:
 # Set tuned profile to "virtual-host"
 profile::base::tuned::manage_tuned:  true
 profile::base::tuned::tuned_profile: 'virtual-host'
+
+profile::base::physical::enable_redfish_scripts: true
