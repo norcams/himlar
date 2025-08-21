@@ -329,18 +329,18 @@ profile::openstack::resource::networks:
     name: 'public'
     admin_state_up: true
     shared: true
-    tenant_name: 'openstack'
+    project_name: 'openstack'
     provider_network_type: 'local'
   imagebuilder:
     name: 'imagebuilder'
     admin_state_up: true
     shared: false
-    tenant_name: 'imagebuilder'
+    project_name: 'imagebuilder'
   private:
     name: 'private'
     admin_state_up: true
     shared: false
-    tenant_name: 'openstack'
+    project_name: 'openstack'
     provider_network_type: 'local'
 
 profile::openstack::resource::subnets:
@@ -355,7 +355,7 @@ profile::openstack::resource::subnets:
       - '129.177.6.54'
       - '129.177.12.31'
     network_name: 'public'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
   imagebuilder:
     name: 'imagebuilder'
     cidr: "%{hiera('netcfg_public_netpart')}.0/24"
@@ -367,7 +367,7 @@ profile::openstack::resource::subnets:
       - '1.1.1.1'
       - '8.8.8.8'
     network_name: 'imagebuilder'
-    tenant_name: 'imagebuilder'
+    project_name: 'imagebuilder'
   private:
     name: 'private'
     cidr: "%{hiera('netcfg_public_netpart')}.0/24"
@@ -378,7 +378,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'private'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
 
 # FIXME:sensu-go
 profile::application::openssl::manage_ca_cert:          true
