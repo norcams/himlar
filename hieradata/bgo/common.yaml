@@ -386,19 +386,19 @@ profile::openstack::resource::networks:
     name: 'dualStack'
     admin_state_up: true
     shared: true
-    tenant_name: 'openstack'
+    project_name: 'openstack'
     provider_network_type: 'local'
   IPv6:
     name: 'IPv6'
     admin_state_up: true
     shared: true
-    tenant_name: 'openstack'
+    project_name: 'openstack'
     provider_network_type: 'local'
   imagebuilder:
     name: 'imagebuilder'
     admin_state_up: true
     shared: false
-    tenant_name: 'imagebuilder'
+    project_name: 'imagebuilder'
     provider_network_type: 'local'
   lhc:
     name: 'lhc-dualStack'
@@ -416,25 +416,25 @@ profile::openstack::resource::networks:
     name: 'uib-dualStack'
     admin_state_up: true
     shared: false
-    tenant_name: 'openstack'
+    project_name: 'openstack'
     provider_network_type: 'local'
   educloud_IPv6:
     name: 'educloud-IPv6'
     admin_state_up: true
     shared: false
-    tenant_name: 'openstack'
+    project_name: 'openstack'
     provider_network_type: 'local'
   uio_IPv6:
     name: 'uio-IPv6'
     admin_state_up: true
     shared: false
-    tenant_name: 'openstack'
+    project_name: 'openstack'
     provider_network_type: 'local'
   elasticIP:
     name: 'elasticIP'
     admin_state_up: true
     shared: false
-    tenant_name: 'openstack'
+    project_name: 'openstack'
     provider_network_type: 'local'
 #    mtu: '9000' # FIXME: param available in puppet-neutron for Zed. Meanwhile, set once with CLI after creation
   elastic_rail_uib_it_rail_test_bgo1:
@@ -455,7 +455,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'dualStack'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
   public2_IPv4:
     name: 'public2_IPv4'
     cidr: '158.39.74.0/24'
@@ -466,7 +466,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'dualStack'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
   public3_IPv4:
     name: 'public3_IPv4'
     cidr: '158.39.77.0/24'
@@ -477,7 +477,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'imagebuilder'
-    tenant_name: 'imagebuilder'
+    project_name: 'imagebuilder'
   public4_IPv4:
     name: 'public4_IPv4'
     cidr: '158.39.201.0/24'
@@ -488,7 +488,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'dualStack'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
   public5_IPv4:
     name: 'public5_IPv4'
     cidr: '158.37.65.0/24'
@@ -499,7 +499,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'dualStack'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
   uib1_IPv4:
     name: 'uib1_IPv4'
     cidr: '158.37.64.0/24'
@@ -510,7 +510,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'uib-dualStack'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
   uib1_ipv6:
     name: 'uib1_IPv6'
     cidr: '2001:700:2:8302::/64'
@@ -521,7 +521,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns6')}"
     network_name: 'uib-dualStack'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
   public1_ipv6:
     name: 'public1_IPv6'
     cidr: '2001:700:2:8301::/64'
@@ -532,7 +532,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns6')}"
     network_name: 'IPv6'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
   public2_ipv6:
     name: 'public2_IPv6'
     cidr: '2001:700:2:8300::/64'
@@ -543,7 +543,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns6')}"
     network_name: 'dualStack'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
   private1_IPv4:
     name: 'private1_IPv4'
     cidr: '10.1.0.0/22'
@@ -554,7 +554,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'IPv6'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
   lhc1_ipv6:
     name: 'lhc1_IPv6'
     cidr: '2001:948:62:3::/64'
@@ -609,7 +609,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'educloud-IPv6'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
   educloud_public1_IPv6:
     name: 'educloud_public1_IPv6'
     cidr: '2001:700:2:8c24::/64'
@@ -620,7 +620,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns6')}"
     network_name: 'educloud-IPv6'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
   uio_private1_IPv4:
     name: 'uio_private1_IPv4'
     cidr: '10.7.0.0/20'
@@ -631,7 +631,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'uio-IPv6'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
   uio_public2_IPv6:
     name: 'uio_public2_IPv6'
     cidr: '2001:700:2:8c21::/64'
@@ -642,7 +642,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns6')}"
     network_name: 'uio-IPv6'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
   elastic1_IPv4:
     name: 'elastic1_IPv4'
     cidr: '10.5.0.0/20'
@@ -653,7 +653,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'elasticIP'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
   elastic1_IPv6:
     name: 'elastic1_IPv6'
     cidr: '2001:700:2:8303::/64'
@@ -664,7 +664,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns6')}"
     network_name: 'elasticIP'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
   elastic_rail_uib_it_test_bgo1_IP4:
     name: 'elastic_rail_test_bgo1_IP4'
     cidr: '10.5.16.0/27'
