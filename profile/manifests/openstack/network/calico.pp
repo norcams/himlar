@@ -128,7 +128,7 @@ class profile::openstack::network::calico(
 #    if is_array($::service_interfaces) {
 #      profile::openstack::network::calico::calico_interface { $::service_interfaces: }
 #    }
-    if is_array($::transport_interfaces) {
+    if defined('::transport_interfaces') and is_array($::transport_interfaces) {
       profile::openstack::network::calico::calico_interface { $::transport_interfaces: }
     }
   }
