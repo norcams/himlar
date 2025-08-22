@@ -20,7 +20,7 @@ mod 'cloudkitty',   :ref => 'zed-eom',                    :git => github + 'open
 mod 'placement',    :ref => 'zed-eom',                    :git => github + 'openstack/puppet-placement'
 mod 'oslo',         :ref => 'zed-eom',                    :git => github + 'openstack/puppet-oslo'
 #mod 'openstacklib', :ref => 'zed-eom',                   :git => github + 'openstack/puppet-openstacklib'
-mod 'openstacklib', :ref => 'yoga',                       :git => github + 'norcams/puppet-openstacklib'
+mod 'openstacklib', :ref => 'zed',                        :git => github + 'norcams/puppet-openstacklib'
 
 mod 'memcached',    :ref => 'v3.4.0',                     :git => github + 'saz/puppet-memcached'
 mod 'rsync',        :ref => '1.2.0',                      :git => github + 'puppetlabs/puppetlabs-rsync'
