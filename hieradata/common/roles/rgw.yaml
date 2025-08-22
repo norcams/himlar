@@ -34,7 +34,7 @@ profile::highavailability::loadbalancing::haproxy::manage_haproxy:      false
 profile::highavailability::loadbalancing::haproxy::manage_firewall:     false
 profile::highavailability::loadbalancing::haproxy::manage_firewall6:    false
 profile::highavailability::loadbalancing::haproxy::firewall_ports:
-  public:    ['443', '8080']
+  public:    ['443']
   internal:  []
   mgmt:      []
   limited:   []
@@ -47,7 +47,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
   frontend_public:
     bind:
       ':::443 v4v6': ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
-      ':::8080 v4v6': ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"] # FIXME remove when nobody uses 8080
     mode: 'http'
     options:
       - default_backend: 'bk_object'
