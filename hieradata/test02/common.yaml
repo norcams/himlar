@@ -202,19 +202,19 @@ profile::openstack::resource::networks:
     name: 'dualStack'
     admin_state_up: true
     shared: true
-    tenant_name: 'openstack'
+    project_name: 'openstack'
     provider_network_type: 'local'
   IPv6:
     name: 'IPv6'
     admin_state_up: true
     shared: true
-    tenant_name: 'openstack'
+    project_name: 'openstack'
     provider_network_type: 'local'
   imagebuilder:
     name: 'imagebuilder'
     admin_state_up: true
     shared: false
-    tenant_name: 'imagebuilder'
+    project_name: 'imagebuilder'
     provider_network_type: 'local'
 
 profile::openstack::resource::subnets:
@@ -229,7 +229,7 @@ profile::openstack::resource::subnets:
       - '129.240.2.40'
       - '129.240.2.3'
     network_name: 'dualStack'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
   private1_IPv4:
     name: 'private1_IPv4'
     cidr: '10.0.244.0/24'
@@ -241,7 +241,7 @@ profile::openstack::resource::subnets:
       - '129.240.2.40'
       - '129.240.2.3'
     network_name: 'IPv6'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
   public1_ipv6:
     name: 'public1_IPv6'
     cidr: 'fd34::/64'
@@ -253,7 +253,7 @@ profile::openstack::resource::subnets:
       - '2001:700:100:2::3'
       - '2001:700:100:425::40'
     network_name: 'IPv6'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
   public2_ipv6:
     name: 'public2_IPv6'
     cidr: 'fd34::/64'
@@ -265,7 +265,7 @@ profile::openstack::resource::subnets:
       - '2001:700:100:2::3'
       - '2001:700:100:425::40'
     network_name: 'dualStack'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
   public3_IPv4:
     name: 'public3_IPv4'
     cidr: '10.100.200.0/24'
@@ -277,4 +277,4 @@ profile::openstack::resource::subnets:
       - '129.240.2.40'
       - '129.240.2.3'
     network_name: 'imagebuilder'
-    tenant_name: 'imagebuilder'
+    project_name: 'imagebuilder'
