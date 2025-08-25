@@ -1,7 +1,17 @@
 ---
-openstack_version: 'yoga'
+# Configuration for Cinder (volume)
+#
+# Uses puppet-cinder:
+#   https://github.com/openstack/puppet-cinder
+#
+# Cinder release notes:
+#   https://docs.openstack.org/releasenotes/cinder/
+#
+# Puppet-cinder release notes:
+#   https://docs.openstack.org/releasenotes/puppet-cinder/
+#
 
-# db (node: db-02)
+# db (node: db-regional)
 cinder::db::mysql::dbname:   'cinder'
 cinder::db::mysql::user:     'cinder'
 cinder::db::mysql::allowed_hosts:
