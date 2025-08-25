@@ -7,7 +7,12 @@ class profile::development::network::dns(
 ) {
 
   if $manage_hosts {
-    $real_merge_strategy = pick($profile::network::services::dns_merge_strategy, $dns_merge_strategy)
+    if defined('profile::network::services::dns_merge_strategy') {
+      $real_merge_strategy = $profile::network::services::dns_merge_strategy
+    }
+    else {
+      $real_merge_strategy = $dns_merge_strategy
+    }
     # Fetch dns records
     $dns = lookup('profile::network::services::dns_records', Hash, $real_merge_strategy, {})
     # Create temp variable
