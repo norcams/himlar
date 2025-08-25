@@ -24,18 +24,6 @@ class profile::openstack::telemetry (
   # pipeline
   include ::profile::openstack::telemetry::pipeline
 
-  if $manage_gnocchi_resources {
-    include ::ceilometer::db::sync
-    file { '/etc/ceilometer/gnocchi_resources.yaml':
-      ensure => file,
-      mode   => '0640',
-      owner  => 'root',
-      group  => 'ceilometer',
-      source => "puppet:///modules/${module_name}/openstack/telemetry/gnocchi_resources.yaml",
-      notify => Exec['ceilometer-upgrade']
-    }
-  }
-
   if $manage_meters {
     file { '/etc/ceilometer/meters.d/meters.yaml':
       ensure => file,
