@@ -3,9 +3,6 @@
 nova::db::database_connection:           "mysql+pymysql://nova:%{hiera('nova::db::mysql::password')}@%{hiera('service__address__db_regional')}/nova"
 nova::db::api_database_connection:       "mysql+pymysql://nova_api:%{hiera('nova::db::mysql_api::password')}@%{hiera('service__address__db_regional')}/nova_api"
 nova::glance_api_endpoint:               "%{hiera('endpoint__image__internal')}"
-nova::cinder_catalog_info:               'volumev3:cinderv3:internalURL'
-nova::os_region_name:                    "%{location}"
-
 
 # logging
 nova::logging::log_facility:              'LOG_LOCAL0'
@@ -111,12 +108,13 @@ nova::network::neutron::user_domain_name:     "%{hiera('keystone__default__domai
 
 # cinder (node: compute and novactrl)
 nova::cinder::auth_url:             "%{hiera('endpoint__identity__admin')}/v3"
-nova::cinder::region_name:          "%{::location}"
+nova::cinder::os_region_name:       "%{::location}"
 nova::cinder::password:             "%{hiera('cinder_api_password')}"
 nova::cinder::username:             'cinder'
 nova::cinder::project_name:         "%{hiera('keystone__service__project')}"
 nova::cinder::project_domain_name:  "%{hiera('keystone__default__domain')}"
 nova::cinder::user_domain_name:     "%{hiera('keystone__default__domain')}"
+nova::cinder::catalog_info:         'volumev3:cinderv3:internalURL'
 
 # shared default nova config (node: compute)
 profile::openstack::compute::default_nova_config:
