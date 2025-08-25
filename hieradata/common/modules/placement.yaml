@@ -34,7 +34,7 @@ placement::keystone::authtoken::service_token_roles_required: true
 
 # placement wsgi
 placement::wsgi::apache::ssl:        false
-placement::wsgi::apache::api_port:   8778
+placement::wsgi::apache::port:       8778
 placement::wsgi::apache::bind_host:  "%{ipaddress_trp1}"
 placement::wsgi::apache::threads:    1
 placement::wsgi::apache::workers:    4
