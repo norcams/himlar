@@ -7,7 +7,7 @@ class profile::base::selinux(
 ) {
 
   if $manage_selinux {
-    warning('NORCAMS: selinux now are enforcing!')
+    info('NORCAMS: SELinux mode is enforcing!')
     include ::selinux
 
     $ports = lookup('profile::base::selinux::ports', Hash, 'deep', {})
