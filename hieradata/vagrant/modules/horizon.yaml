@@ -4,3 +4,7 @@ horizon::ssl_no_verify:  true
 horizon::wsgi_processes: 1
 horizon::wsgi_threads:   1
 horizon::site_branding:  'NREC Development'
+
+# WebSSO
+horizon::websso_enabled:               true
+horizon::websso_choices_hide_keystone: false
