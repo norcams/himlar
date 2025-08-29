@@ -265,10 +265,6 @@ profile::storage::ceph_extraconf::config:
     'config_key'  : "client.cinder-dcache-hdd-ec82/rbd_default_data_pool"
     'config_value': "dcache_hdd_ec82_data"
 
-# Configuration items not explicitly supported by the Puppet module
-nova::config::nova_config:
-  DEFAULT/metadata_workers:
-    value: '4'
 
 # Red Hat Subscription Management (RHSM)
 profile::rhsm::subscription::manage: true

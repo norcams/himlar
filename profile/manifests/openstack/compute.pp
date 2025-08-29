@@ -15,6 +15,8 @@ class profile::openstack::compute(
   include ::nova::logging
   include ::nova::placement
   include ::nova::keystone::service_user
+  include ::nova::metadata
+  include ::nova::wsgi::apache_metadata
   include ::keystone::bootstrap
 
   if $manage_telemetry {

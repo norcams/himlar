@@ -10,6 +10,9 @@ include:
     - profile::development::patch
     - profile::monitoring::collectd
 
+calico::compute::metadata_service_enable: false
+calico::compute::manage_metadata_service: false
+
 # The current vagrant box image do not have vda3 parso switch
 # off lvm for compute on vagrant
 profile::base::common::manage_lvm: false
