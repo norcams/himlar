@@ -383,8 +383,7 @@ profile::monitoring::sensu::agent::checks:
     runtime_assets:
     - sensu/sensu-check-multiplexer
     annotations:
-    - fatigue_check/occurrences: '3' # notify first on the third occurence
-    annotations:
+      fatigue_check/occurrences: '3' # notify first on the third occurence
       check-imagebuild/args/almalinux8: "-d almalinux8"
       check-imagebuild/args/almalinux8_nv_vgpu: "-d almalinux8_nv_vgpu"
       check-imagebuild/args/almalinux9: "-d almalinux9"
