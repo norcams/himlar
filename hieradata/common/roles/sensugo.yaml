@@ -75,6 +75,8 @@ profile::monitoring::sensu::backend::bonsai_assets:
     version: 1.6.2
   sensu/sensu-influxdb-handler:
     version: 4.0.1
+  sensu/sensu-go-fatigue-check-filter:
+    version: 0.8.1
   sensu/check-cpu-usage:
     version: 0.2.3
   sensu/check-memory-usage:
@@ -168,18 +170,27 @@ profile::monitoring::sensu::backend::handlers:
     filters:
       - is_incident
       - not_silenced
-      - hourly
+      - fatigue_check
+#      - hourly
     timeout: 10
     runtime_assets:
       - sensu/sensu-slack-handler
 
 sensu::resources::filters:
-  hourly:
+  fatigue_check:
     ensure: present
     namespace: "%{hiera('sensu_namespace')}"
     action: allow
     expressions:
-      - 'event.check.occurrences == 1 || event.check.occurrences % (3600 / event.check.interval) == 0'
+      - 'fatigue_check(event, 1, 3600)'
+    runtime_assets:
+    - sensu/sensu-go-fatigue-check-filter
+  # hourly:
+  #   ensure: present
+  #   namespace: "%{hiera('sensu_namespace')}"
+  #   action: allow
+  #   expressions:
+  #     - 'event.check.occurrences == 1 || event.check.occurrences % (3600 / event.check.interval) == 0'
 
 profile::monitoring::sensu::agent::checks:
 # BASE
@@ -216,6 +227,8 @@ profile::monitoring::sensu::agent::checks:
     subscriptions:  ['nodes']
     handlers:       ['default']
     runtime_assets: [sensu/check-memory-usage]
+    annotations:
+    - fatigue_check/occurrences: '2' # notify on the second occurence
 # MONITOR
   'http-perf-identity':
     command:        "http-perf --url %{hiera('endpoint__identity__public')}/v3/"
