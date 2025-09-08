@@ -233,6 +233,8 @@ keystone__default__domain:    'Default'
 public__address__api:             "https://api.%{hiera('domain_frontend')}:5000/v3"
 public__address__object:          "https://object.api.%{hiera('domain_public')}"
 public__address__dashboard:       "dashboard.%{hiera('domain_frontend')}"
+public__address__dashboard_bgo:   "dashboard-bgo.%{hiera('domain_frontend')}"
+public__address__dashboard_osl:   "dashboard-osl.%{hiera('domain_frontend')}"
 public__address__access:          "access.%{hiera('domain_frontend')}"
 public__address__console:         "console.%{hiera('domain_public')}"
 public__address__report:          "report.%{hiera('domain_frontend')}"
