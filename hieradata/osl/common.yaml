@@ -325,7 +325,9 @@ profile::network::services::dns_records:
     "resolver.%{hiera('domain_public2')}":             '2001:700:2:82ff::252'
     "%{::location}-dns-01.%{hiera('domain_public2')}": '2001:700:2:82ff::256'
     "object.api.%{hiera('domain_public2')}":           "%{hiera('public__ipv6__object')}"
+    "dashboard.%{hiera('domain_frontend')}":      '2001:700:2:83ff::254'
     "dashboard-osl.%{hiera('domain_frontend')}":  '2001:700:2:82ff::254'
+    "dashboard-bgo.%{hiera('domain_frontend')}":  '2001:700:2:83ff::254'
   PTR:
     "199.%{hiera('reverse_mgmt_c0')}":    "%{::location}-login-01old.%{hiera('domain_mgmt')}"
     # FIXME: override common/common.yaml
