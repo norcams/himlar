@@ -18,6 +18,14 @@ profile::openstack::dashboard::allow_from_network6:
 
 profile::openstack::dashboard::manage_firewall6: true
 
+profile::base::yumrepo::repo_hash:
+  epel: # should be absent when using RDO, but whitelist can also work
+    includepkgs: 'htop python3-mysqlclient'
+
+profile::base::common::packages:
+  'python3-mysql':       { ensure: absent }
+  'python3-mysqlclient': {}
+
 # Disable admin dashboard
 profile::openstack::dashboard::disable_admin_dashboard: true
 
