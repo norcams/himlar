@@ -3,3 +3,5 @@
 horizon::available_regions:
   - [ "%{hiera('endpoint__identity__public')}/v3", "%{location}"]
   - [ "https://identity.api.osl.%{hiera('domain_frontend')}:5000/v3", 'osl']
+
+horizon::bind_address:   ["%{hiera('public__ip__dashboard')}", "%{hiera('public__ipv6__dashboard')}"]

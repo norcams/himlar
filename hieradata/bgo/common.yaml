@@ -134,6 +134,8 @@ public__ip__ns:                '158.39.77.251'
 public__ipv6__ns:              '2001:700:2:83ff::251'
 public__ip__resolver:          '158.39.77.252'
 public__ipv6__resolver:        '2001:700:2:83ff::252'
+public__ip__dashboard:         '158.39.77.254'
+public__ipv6__dashboard:       '2001:700:2:83ff::254'
 
 #
 # DNS (merge of common and this)
@@ -341,6 +343,7 @@ profile::network::services::dns_records:
     # public IPv6
     '1.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "ns2.%{hiera('domain_frontend')}"
     '2.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "resolver.%{hiera('domain_public')}"
+    '4.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "dashboard.%{hiera('domain_frontend')}"
     '6.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "%{::location}-dns-01.%{hiera('domain_public')}"
 
 ntp::servers:
