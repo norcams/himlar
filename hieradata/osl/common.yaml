@@ -118,6 +118,8 @@ public__ip__ns:                '158.37.63.251'
 public__ipv6__ns:              '2001:700:2:82ff::251'
 public__ip__resolver:          '158.37.63.252'
 public__ipv6__resolver:        '2001:700:2:82ff::252'
+public__ip__dashboard:         '158.37.63.254'
+public__ipv6__dashboard:       '2001:700:2:82ff::254'
 
 #
 # DNS (merge of common and this)
@@ -323,6 +325,7 @@ profile::network::services::dns_records:
     "resolver.%{hiera('domain_public2')}":             '2001:700:2:82ff::252'
     "%{::location}-dns-01.%{hiera('domain_public2')}": '2001:700:2:82ff::256'
     "object.api.%{hiera('domain_public2')}":           "%{hiera('public__ipv6__object')}"
+    "dashboard-osl.%{hiera('domain_frontend')}":  '2001:700:2:82ff::254'
   PTR:
     "199.%{hiera('reverse_mgmt_c0')}":    "%{::location}-login-01old.%{hiera('domain_mgmt')}"
     # FIXME: override common/common.yaml
@@ -345,6 +348,7 @@ profile::network::services::dns_records:
     '8.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "osl-login-02.iaas.uio.no"
     '1.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "ns1.%{hiera('domain_frontend')}"
     '2.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "resolver.%{hiera('domain_public')}"
+    '4.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "dashboard-osl.%{hiera('domain_frontend')}"
     '6.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "%{::location}-dns-01.%{hiera('domain_public')}"
     # Customer's PTR records
     "164.%{hiera('reverse_public_c2')}":                                         'smtp.nlpl.eu'
