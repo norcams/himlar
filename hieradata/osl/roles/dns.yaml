@@ -3,3 +3,9 @@
 profile::openstack::designate::ns_sources_ipv6:
   - '2001:700:2:82ff::251'
   - '2001:700:2:83ff::251'
+
+# el9: No dummy interface
+profile::network::interface::manage_dummy: false
+
+# el9: Do not create custom routes
+profile::network::interface::create_custom_routes: false
