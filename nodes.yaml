@@ -207,7 +207,7 @@ nodesets:
       puppet_env: "zed"
       box:        "norcams/el9"
     - role:       "telemetry"
-      puppet_env: "yoga_el9"
+      puppet_env: "zed"
       box:        "norcams/el9"
   object: # will also need running identity to test anything other than ceph
     - role:       'cephmon-object'
