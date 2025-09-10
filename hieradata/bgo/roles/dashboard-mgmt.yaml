@@ -2,7 +2,7 @@
 profile::openstack::dashboard::allow_from_network:
   - '0.0.0.0/0'     # Allow dashboard from everywhere
 
-horizon::bind_address:  '172.16.0.54'
+horizon::bind_address: "%{hiera('netcfg_mgmt_netpart')}.54"
 
 # Disable admin dashboard
 profile::openstack::dashboard::disable_admin_dashboard: false

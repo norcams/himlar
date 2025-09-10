@@ -9,5 +9,5 @@ network::interfaces_hash:
        dns-search:  "%{hiera('netcfg_dns_search_nm')}"
    eth1:
      ipv4:
-       method:         'manual'
-       address1:       "%{hiera('netcfg_trp_netpart')}.54/%{hiera('netcfg_trp_cidr4')}"
+       method:      'manual'
+       address1:    "%{hiera('netcfg_trp_netpart')}.54/%{hiera('netcfg_trp_cidr4')}"
