@@ -142,7 +142,7 @@ profile::openstack::telemetry::polling::polling_interval:  3600 # FIXME
 calico::compute: true
 etcd::mode: 'proxy'
 
-calico::compute::bird_template:  'profile/bird/bird.conf.%{operatingsystemmajrelease}.erb'
+calico::compute::bird_template:  'profile/bird/bird.conf.%{::os.release.major}.erb'
 calico::compute::bird6_template: 'profile/bird/bird6.conf.erb'
 # FIXME workaround that should be fixed upstream in calico-felix
 calico::compute::felix_vxlan_port: '31439'

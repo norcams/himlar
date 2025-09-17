@@ -134,7 +134,7 @@ profile::openstack::compute::hypervisor::enable_dhcp_agent_check: true
 profile::base::physical::enable_redfish_scripts:                  true
 profile::base::physical::enable_redfish_http_proxy:               true
 
-calico::compute::bird_template:  'profile/bird/bird.conf.bgo.%{operatingsystemmajrelease}.erb'
+calico::compute::bird_template:  'profile/bird/bird.conf.bgo.%{::os.release.major}.erb'
 calico::compute::bird6_template: 'profile/bird/bird6.conf.bgo.erb'
 calico::compute::felix_mtuIfacePattern: '^team*'
 
