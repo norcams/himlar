@@ -206,7 +206,7 @@ profile::base::yumrepo::repo_hash:
     gpgcheck:       1
     ensure:         absent
   epel:
-    descr:          "Extra Packages for Enterprise Linux %{operatingsystemmajrelease} - $basearch"
+    descr:          "Extra Packages for Enterprise Linux %{::os.release.major} - $basearch"
     baseurl:        "%{hiera('yum_base_mirror')}/%{hiera('repo_dist')}/epel"
     gpgkey:         'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7'
   nrec-internal:
