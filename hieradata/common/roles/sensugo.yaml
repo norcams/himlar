@@ -61,7 +61,6 @@ profile::monitoring::sensu::backend::manage_firewall:         true
 profile::monitoring::sensu::backend::manage_etcd_firewall:    true
 profile::monitoring::sensu::backend::manage:                  true
 profile::monitoring::sensu::backend::enable_bash_completion:  true
-profile::monitoring::sensu::backend::manage_token_refresh:    true
 
 # profile::monitoring::sensu::backend::namespaces:
 #   '%{::location}':  { ensure: present }
