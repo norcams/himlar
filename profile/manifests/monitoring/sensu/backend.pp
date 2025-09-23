@@ -15,7 +15,7 @@ class profile::monitoring::sensu::backend(
   Integer $dashboard_port         = 3000,
   String $dashboard_api_url       = "https://${::ipaddress_mgmt1}:8082",
   Boolean $enable_bash_completion = false,
-  Boolean $manage_token_refresh   = false
+  Boolean $purge_asset            = false,
 ) {
 
   if $manage {
@@ -40,7 +40,7 @@ class profile::monitoring::sensu::backend(
 
     # purge bonsai asset
     sensu_resources { 'sensu_bonsai_asset':
-      purge => $purge_check,
+      purge => $purge_asset,
     }
 
     # purge checks
@@ -60,12 +60,6 @@ class profile::monitoring::sensu::backend(
       dport  => $firewall_etcd_ports,
       source => $firewall_etcd_source,
     }
-  }
-  cron { 'reset-sensu-token-config':
-    ensure  => $manage_token_refresh? { true => 'present', default => 'absent' },
-    command => 'rm -f /root/.config/sensu/sensuctl/cluster',
-    minute  => '30',
-    hour    => '5',
   }
 
   if $enable_bash_completion {

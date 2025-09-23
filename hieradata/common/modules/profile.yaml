@@ -439,11 +439,12 @@ profile::base::dell::packages:
 # influxdb/telegraf
 profile::monitoring::influxdb::org:                 "NREC"
 
-# Turn on agant and add common sensu plugins
-profile::monitoring::sensu::agent::namespace:       "%{hiera('sensu_namespace')}"
-sensu_ssl_cachain:                                  ''
+# sensugo
+profile::monitoring::sensu::agent::manage_token_refresh:  true
+profile::monitoring::sensu::agent::namespace:             "%{hiera('sensu_namespace')}"
+sensu_ssl_cachain:                                        ''
 
-# old sensu client
+# FIXME:sensu-go old sensu client
 profile::monitoring::sensu::agent::enable_agent:    true
 
 consul::config_hash:
