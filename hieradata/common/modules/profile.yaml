@@ -437,7 +437,28 @@ profile::base::dell::packages:
   'libxml2.i686': {}
 
 # influxdb/telegraf
-profile::monitoring::influxdb::org:                 "NREC"
+profile::monitoring::influxdb::org: "NREC"
+profile::monitoring::telegraf::inputs:
+  socket_listener:
+    options:
+      - service_address: "udp://:25826"
+        data_format: "collectd"
+        collectd_typesdb: ["/usr/share/collectd/types.db"]
+        collectd_parse_multivalue: "split"
+        tags:
+          bucket: "collectd"
+
+profile::monitoring::telegraf::outputs:
+  influxdb_collectd:
+    options:
+      - urls: ["https://%{hiera('mgmt__address__influx')}:8086"]
+        tls_ca: '/etc/puppetlabs/puppet/ssl/certs/ca.pem'
+        token: "%{hiera('influxdb_admin_token')}"
+        organization: "%{hiera('profile::monitoring::influxdb::org')}"
+        bucket: 'collectd'
+        #insecure_skip_verify: true
+        tagpass:
+          bucket: ["collectd"]
 
 # sensugo
 profile::monitoring::sensu::agent::manage_token_refresh:  true
