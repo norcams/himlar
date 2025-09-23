@@ -100,12 +100,16 @@ profile::monitoring::telegraf::outputs:
         organization: "%{hiera('profile::monitoring::influxdb::org')}"
         bucket: 'storage'
         insecure_skip_verify: true
+        tagpass:
+          bucket: ["storage"]
 
 profile::monitoring::telegraf::inputs:
   prometheus:
     options:
       - urls: ["http://%{::ipaddress_mgmt1}:9283/metrics"]
         metric_version: 2
+        tags:
+          bucket: "storage"
   # ceph:
   #   options:
   #     - interval: '1m'
