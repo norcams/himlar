@@ -449,7 +449,7 @@ profile::monitoring::telegraf::inputs:
           bucket: "collectd"
 
 profile::monitoring::telegraf::outputs:
-  influxdb_collectd:
+  influxdb_v2:
     options:
       - urls: ["https://%{hiera('mgmt__address__influx')}:8086"]
         tls_ca: '/etc/puppetlabs/puppet/ssl/certs/ca.pem'
