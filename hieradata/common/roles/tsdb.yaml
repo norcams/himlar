@@ -19,6 +19,7 @@ profile::monitoring::influxdb::user:                "admin"
 # extra buckets
 profile::monitoring::influxdb::buckets:
   "sensu": {}   # sensu status
+  "collectd": {} # collectd metric
   "storage": {} # ceph storage
   "object": {}  # ceph object
 
