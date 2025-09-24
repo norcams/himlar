@@ -1,9 +1,4 @@
 ---
-# collectd
-include:
-  default:
-    - profile::monitoring::collectd
-
 named_interfaces::config:
   mgmt:
   - eth2
@@ -66,23 +61,6 @@ nova::compute::libvirt::images_type: 'default'
 nova::config::nova_config:
   DEFAULT/metadata_workers:
     value: '2'
-
-# collectd
-profile::monitoring::collectd::enable: false
-profile::monitoring::collectd::plugins:
-  - collectd::plugin::aggregation
-  - collectd::plugin::cpu
-  - collectd::plugin::disk
-  - collectd::plugin::load
-  - collectd::plugin::memory
-  - collectd::plugin::interface
-  - collectd::plugin::write_graphite
-  - collectd::plugin::virt
-  - collectd::plugin::processes
-  - collectd::plugin::numa
-
-collectd::plugin::virt::hostname_format:        'hostname'
-collectd::plugin::virt::plugin_instance_format: 'uuid'
 
 # Sensu
 sensu::agent::annotations:
