@@ -47,7 +47,7 @@ profile::monitoring::collectd::plugins:
   - collectd::plugin::disk
   - collectd::plugin::load # require two puppetruns to work with collectd 5.9
   - collectd::plugin::memory
-  - collectd::plugin::ceph
+#  - collectd::plugin::ceph
   - collectd::plugin::python
   - collectd::plugin::interface
   - collectd::plugin::processes
