@@ -40,8 +40,8 @@ collectd::plugin::disk::ignoreselected: false
 collectd::plugin::cpu::reportbycpu:     false
 
 collectd::plugin::virt::connection:             'qemu:///system'
-collectd::plugin::virt::hostname_format:        'name uuid hostname'
-collectd::plugin::virt::plugin_instance_format: 'metadata'
+collectd::plugin::virt::hostname_format:        'name uuid'
+#collectd::plugin::virt::plugin_instance_format: 'metadata'
 collectd::plugin::virt::refresh_interval:       '300'
 collectd::plugin::virt::extra_stats:            'cpu_util disk disk_err'
 
