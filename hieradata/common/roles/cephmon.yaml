@@ -51,7 +51,7 @@ profile::monitoring::collectd::plugins:
   - collectd::plugin::python
   - collectd::plugin::interface
   - collectd::plugin::processes
-  - collectd::plugin::write_graphite
+  - collectd::plugin::network
 
 # ceph config keys
 ceph::profile::params::mon_key:     "%{hiera('ceph_storage_client_mon_key')}"
