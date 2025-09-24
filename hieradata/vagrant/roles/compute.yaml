@@ -8,7 +8,6 @@
 include:
   default:
     - profile::development::patch
-    - profile::monitoring::collectd
 
 # The current vagrant box image do not have vda3 parso switch
 # off lvm for compute on vagrant
@@ -70,20 +69,6 @@ sensu::agent::subscriptions:
 # Red Hat Subscription Management (RHSM)
 profile::rhsm::subscription::manage: false
 profile::rhsm::virtwho::manage:      false
-
-# collectd
-profile::monitoring::collectd::enable: false
-profile::monitoring::collectd::plugins:
-  - collectd::plugin::aggregation
-  - collectd::plugin::cpu
-  - collectd::plugin::disk
-  - collectd::plugin::load
-  - collectd::plugin::memory
-  - collectd::plugin::interface
-  - collectd::plugin::write_graphite
-  - collectd::plugin::virt
-  - collectd::plugin::numa
-  - collectd::plugin::processes
 
 profile::base::common::packages:
   'python3-redis': {} # OSProfiler dependency

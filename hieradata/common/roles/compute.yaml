@@ -12,6 +12,8 @@ include:
     - profile::rhsm::virtwho
     - profile::base::httpproxy
     - profile::storage::cephclient
+    - profile::monitoring::collectd
+    - profile::monitoring::telegraf
   kickstart:
     - profile::virtualization::nested
     - profile::network::yum_proxy
@@ -123,6 +125,25 @@ sensu::agent::service_env_vars:
   PATH: '/usr/local/bin:/bin:/usr/bin:/opt/puppetlabs/bin:/opt/sensu-plugins-ruby/embedded/bin'
   HTTPS_PROXY: "%{hiera('mgmt__address__proxy')}:8888"
 
+# collectd
+profile::monitoring::telegraf::enable_telegraf: true # endpoint for collectd
+profile::monitoring::collectd::enable: true
+collectd::plugin::interface::interfaces:
+  - "%{::interface_trp1}"
+  - "%{::interface_mgmt1}"
+
+profile::monitoring::collectd::plugins:
+  - collectd::plugin::aggregation
+  - collectd::plugin::cpu
+  - collectd::plugin::disk
+  - collectd::plugin::df
+  - collectd::plugin::load
+  - collectd::plugin::memory
+  - collectd::plugin::interface
+  - collectd::plugin::network
+  - collectd::plugin::virt
+#  - collectd::plugin::processes
+  - collectd::plugin::numa
 
 sudo::configs:
   sensu_tty:
