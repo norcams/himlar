@@ -13,6 +13,7 @@ class profile::monitoring::influxdb(
   Boolean $write_token_file = false,
   # Integer $file_limit      = 32768, #not used
   String $log_level         = 'info',
+  Integer $session_length   = 1440,
   String $influxdb_service  = 'influxdb',
   Boolean $manage_firewall  = true,
   Array $firewall_ports     = [8086],
@@ -100,6 +101,15 @@ class profile::monitoring::influxdb(
       path   => '/etc/influxdb/config.toml',
       line   => 'reporting-disabled = true',
       match  => '$reporting-disabled = ',
+      notify => Service[$influxdb_service],
+    }
+
+    # session length is set to 24h
+    file_line { 'influxdb-session-length':
+      ensure => present,
+      path   => '/etc/influxdb/config.toml',
+      line   => "session-length = ${session_length}",
+      match  => '$session-length = ',
       notify => Service[$influxdb_service],
     }
 
