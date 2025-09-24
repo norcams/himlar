@@ -6,6 +6,7 @@ collectd::purge_config:           true
 collectd::fqdnlookup:             false
 collectd::plugin_conf_dir_mode:   '0755'
 collectd::collectd_hostname:      '%{::hostname}'
+collectd::interval:               60 # default interval for all plugins
 
 # plugins
 collectd::plugin::write_graphite::carbons:
