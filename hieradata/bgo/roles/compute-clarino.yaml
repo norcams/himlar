@@ -7,7 +7,6 @@ named_interfaces::config:
   live:
     - team1.120
 
-profile::monitoring::collectd::enable: false
 
 # Turn off nested virtualization
 profile::virtualization::nested::manage: false
@@ -96,4 +95,3 @@ profile::rhsm::virtwho::manage:      false
 
 sensu__memory__check:     "check-memory.rb -w 2048 -c 1024"
 sensu__disk__ignore:      '-I /var/lib/nova/instances'
-
