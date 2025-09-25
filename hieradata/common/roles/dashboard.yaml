@@ -32,6 +32,7 @@ profile::network::interface::manage_dummy:                         true
 profile::webserver::apache::manage_firewall:                       false
 profile::openstack::dashboard::manage_dashboard:                   true
 profile::openstack::dashboard::manage_firewall:                    true
+profile::openstack::dashboard::manage_firewall6:                   true
 profile::openstack::dashboard::manage_overrides:                   true
 profile::openstack::dashboard::change_region_selector:             true
 profile::openstack::dashboard::change_login_footer:                true
