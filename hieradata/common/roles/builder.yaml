@@ -97,20 +97,6 @@ profile::application::builder::images:
     'username':         'almalinux'
     'hour':             4
     'minute':           0
-  'almalinux8_nv_vgpu':
-    'image_name':       'IMAGEBUILDER AlmaLinux 8 (NVIDIA GPU)'
-    'url':              'https://raw.repo.almalinux.org/almalinux/8/cloud/x86_64/images/'
-    'latest':           'AlmaLinux-8-GenericCloud-UEFI-latest.x86_64.qcow2'
-    'checksum_file':    'CHECKSUM'
-    'checksum':         'sha256'
-    'min_ram':          768
-    'min_disk':         8
-    'flavor':           'm1.small'
-    'efi':              true
-    'username':         'almalinux'
-    'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
-    'hour':             14
-    'minute':           30
   'almalinux9_nv_vgpu':
     'image_name':       'IMAGEBUILDER AlmaLinux 9 (NVIDIA GPU)'
     'url':              'https://raw.repo.almalinux.org/almalinux/9/cloud/x86_64/images/'
@@ -202,18 +188,6 @@ profile::application::builder::images:
     'username':         'debian'
     'hour':             17
     'minute':           00
-  'fedora_41':
-    'image_name':       'IMAGEBUILDER Fedora 41'
-    'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/41/Cloud/x86_64/images/'
-    'latest':           'Fedora-Cloud-Base-Generic-41-1.4.x86_64.qcow2'
-    'checksum_file':    'Fedora-Cloud-41-1.4-x86_64-CHECKSUM'
-    'checksum':         'sha256'
-    'min_ram':          1024
-    'min_disk':         3
-    'efi':              true
-    'username':         'fedora'
-    'hour':             14
-    'minute':           15
   'fedora_42':
     'image_name':       'IMAGEBUILDER Fedora 42'
     'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/42/Cloud/x86_64/images/'
@@ -385,7 +359,6 @@ profile::monitoring::sensu::agent::checks:
     annotations:
       fatigue_check/occurrences: '3' # notify first on the third occurence
       check-imagebuild/args/almalinux8: "-d almalinux8"
-      check-imagebuild/args/almalinux8_nv_vgpu: "-d almalinux8_nv_vgpu"
       check-imagebuild/args/almalinux9: "-d almalinux9"
       check-imagebuild/args/almalinux9_nv_vgpu: "-d almalinux9_nv_vgpu"
       check-imagebuild/args/almalinux9: "-d almalinux10"
@@ -395,7 +368,6 @@ profile::monitoring::sensu::agent::checks:
       check-imagebuild/args/debian11: "-d debian11"
       check-imagebuild/args/debian12: "-d debian12"
       check-imagebuild/args/debian13: "-d debian13"
-      check-imagebuild/args/fedora_41: "-d fedora_41"
       check-imagebuild/args/fedora_42: "-d fedora_42"
       check-imagebuild/args/rockylinux8: "-d rockylinux8"
       check-imagebuild/args/rockylinux8_uib_puppet: "-d rockylinux8_uib_puppet"
