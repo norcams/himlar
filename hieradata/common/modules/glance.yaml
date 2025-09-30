@@ -29,7 +29,7 @@ glance::api::multi_store:                  true
 # WSGI configuration
 #---------------------------------------------------------------------
 glance::wsgi::apache::bind_host: "%{::ipaddress_trp1}"
-glance::wsgi::apache::workers:   10
+glance::wsgi::apache::workers:   4
 
 #---------------------------------------------------------------------
 # Cache pruner (manifests/cache/pruner.pp)
