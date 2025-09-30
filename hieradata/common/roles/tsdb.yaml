@@ -23,6 +23,12 @@ profile::monitoring::influxdb::buckets:
   "storage": {} # ceph storage
   "object": {}  # ceph object
 
+# extra users
+profile::monitoring::influxdb::users:
+  grafana:
+    password: "%{hiera('influxdb_grafana_password')}"
+
+
 # telegraf example
 # profile::monitoring::telegraf::enable_telegraf:     true
 # profile::monitoring::telegraf::outputs:
