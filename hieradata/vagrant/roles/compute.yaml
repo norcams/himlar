@@ -66,6 +66,10 @@ sensu::agent::subscriptions:
   - 'compute'
 #  - 'physical'
 
+# collectd
+profile::monitoring::telegraf::enable_telegraf: false # require puppet cert
+profile::monitoring::collectd::enable: false # require telegraf
+
 # Red Hat Subscription Management (RHSM)
 profile::rhsm::subscription::manage: false
 profile::rhsm::virtwho::manage:      false
