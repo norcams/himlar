@@ -392,22 +392,54 @@ profile::monitoring::sensu::agent::checks:
 # profile::dns::ns::ns_master1
 # we need nodejs for web gui
 profile::base::common::packages:
+  'influxdb2-cli': { ensure: 'present' }
   'ruby': { ensure: 'present' }
   'rubygem-sensu-plugin': { ensure: 'present' }
   'nodejs': # version 16 is default in el9
     ensure: 'present'
 #    provider: 'dnfmodule'
 
-profile::base::yumrepo::repo_hash:
-  AlmaLinux-PowerTools:
-    ensure: present
-  yarn: #temp repo
-    ensure: present
-  epel:
-    ensure:   present
-  # influxdb: # need for telegraf
-  #   ensure: present
+# Grafana
+profile::monitoring::grafana::enable:           true
+profile::monitoring::grafana::manage_firewall:  true
 
+grafana::provisioning_datasources:
+  apiVersion: 1
+  datasources:
+  - name: InfluxDB_v2_Flux
+    type: influxdb
+    url: "https://%{hiera('mgmt__address__influx')}:8086"
+    jsonData:
+      version: Flux
+      organization: NREC
+      defaultBucket: metric
+      #tlsSkipVerify: true
+    secureJsonData:
+      token: "%{hiera('influxdb_grafana_token')}"
+  # - name: InfluxDB_v2_InfluxQL
+  #   type: influxdb
+  #   access: proxy
+  #   url: "https://%{hiera('mgmt__address__influx')}:8086"
+  #   jsonData:
+  #     # This database should be mapped to a bucket
+  #     dbName: metric
+  #     #tlsSkipVerify: true
+  #     httpMode: GET
+  #     httpHeaderName1: 'Authorization'
+  #   secureJsonData:
+  #     httpHeaderValue1: "Token %{hiera('influxdb_grafana_token')}"
+
+# selinux
+profile::base::selinux::manage_selinux:   true
+profile::base::selinux::ports:
+  grafana-http:
+    seltype:  'grafana_port_t'
+    protocol: 'tcp'
+    port:     8080
+  influx-http:
+    seltype:  'http_port_t'
+    protocol: 'tcp'
+    port:     8086
 
 # logrotate
 logrotate::rules:
@@ -423,3 +455,13 @@ logrotate::rules:
     missingok:      true
     postrotate:     '/bin/systemctl restart rsyslog'
     dateext:        true
+
+profile::base::yumrepo::repo_hash:
+  AlmaLinux-PowerTools:
+    ensure: present
+  yarn: #temp repo
+    ensure: present
+  epel:
+    ensure:   present
+  influxdb:
+    ensure: present
