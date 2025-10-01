@@ -4,6 +4,10 @@ include:
     - profile::monitoring::grafana
     - profile::monitoring::sensu::backend
     - profile::logging::rsyslog::client
+    - profile::application::openssl::puppetca
+
+# we need to trust puppet ca to connect to influxdb
+profile::application::openssl::puppetca::enable: true
 
 # sensugo only uses mgmt
 named_interfaces::config:
