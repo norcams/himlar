@@ -29,7 +29,7 @@ horizon::enforce_password_check:        true
 horizon::help_url:                      "http://docs.%{hiera('domain_frontend')}"
 horizon::openstack_endpoint_type:       'publicURL'
 horizon::disallow_iframe_embed:         true
-horizon::password_retrieve:             false
+horizon::password_retrieve:             true
 horizon::password_autocomplete:         'off'
 
 # Keystone and API

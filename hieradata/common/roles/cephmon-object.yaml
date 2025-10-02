@@ -7,15 +7,7 @@ include:
 profile::storage::ceph::config::manage_config: true
 
 # Influx
-profile::monitoring::telegraf::outputs:
-  influxdb_v2:
-    options:
-      - urls: ["https://%{hiera('mgmt__address__influx')}:8086"]
-        tls_ca: '/etc/puppetlabs/puppet/ssl/certs/ca.pem'
-        token: "%{hiera('influxdb_admin_token')}"
-        organization: "%{hiera('profile::monitoring::influxdb::org')}"
-        bucket: 'object'
-        insecure_skip_verify: true
+ceph_influxdb_bucket: 'object'
 
 # Multisite
 profile::storage::ceph::multisite::manage: true
