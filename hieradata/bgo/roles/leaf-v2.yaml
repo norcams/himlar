@@ -674,22 +674,6 @@ frrouting::frrouting::zebra_generic_options:
   'ipv6':
     'forwarding'
 
-frrouting::frrouting::bgp_as: "%{hiera('bgp_as')}"
-
-frrouting::frrouting::bgp_options:
-  - "bgp router-id %{ipaddress_trp1}"
-  - 'bgp log-neighbor-changes'
-  - 'bgp default local-preference 200'
-  - 'maximum-paths ibgp 5'
-  - 'bgp bestpath as-path multipath-relax'
-
-frrouting::frrouting::bgp_options4:
-  - 'import vrf lhcopn'
-  - 'import vrf netapp'
-
-frrouting::frrouting::bgp_options6:
-  - 'import vrf lhcopn'
-
 frrouting::frrouting::bgp_accesslist:
   '10':
     - 'seq 10 permit 192.168.224.0/24'
@@ -710,9 +694,6 @@ frrouting::frrouting::bgp_accesslist6:
     - 'seq 15 permit 2001:948:62:3::/64'
     - 'seq 16 permit 2001:948:62:4::/64'
     - 'seq 250 deny ::/0'
-
-frrouting::frrouting::bgp_networks6:
-  - 'fd00:192:268:224::/64'
 
 frrouting::frrouting::bgp_ip_prefix_list:
   - 'spine-routes-in seq 10 permit 158.37.64.0/24 le 32'

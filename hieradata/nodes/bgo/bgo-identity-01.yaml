@@ -1,8 +1,15 @@
 ---
-# All extra identity nodes will need the the openrc file in bootstrap
-# If we bootstrap the keystone database from this node this must be removed first!
-include:
-  bootstrap:
-    - profile::openstack::openrc
+network::interfaces_hash:
+   eth0:
+     ipv4:
+       method:      'manual'
+       address1:    "%{hiera('netcfg_mgmt_netpart')}.81/%{hiera('netcfg_mgmt_cidr4')}"
+       gateway:     "%{hiera('netcfg_mgmt_gateway')}"
+       dns:         "%{hiera('netcfg_dns_mgmt_server1')};%{hiera('netcfg_dns_mgmt_server2')}"
+       dns-search:  "%{hiera('netcfg_dns_search_nm')}"
+   eth1:
+     ipv4:
+       method:         'manual'
+       address1:       "%{hiera('netcfg_trp_netpart')}.81/%{hiera('netcfg_trp_cidr4')}"
 
 profile::openstack::identity::manage_token_rotate:        true

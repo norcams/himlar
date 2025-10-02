@@ -59,10 +59,6 @@ profile::dns::ns::enable_bird6:         false # FIXME: clean up when el7 is gone
 collectd::minimum_version:              '5.9'
 collectd::plugin::disk::manage_package: true
 
-calico::compute::peer_template:  'profile/bird/bird-rr-ipv4.erb' # FIXME This should move to common when el7 is gone
-calico::compute::peer6_template: 'profile/bird/bird-rr-ipv6.erb' # FIXME
-calico::enable_ipv6:  false                                      # The bird daemon handles both ipv4 and ipv6
-
 nova::migration::libvirt::libvirt_version: '7'                   # puppet-nova fails to detect libvirt version on alma and then misconfigures
 
 # logrotate

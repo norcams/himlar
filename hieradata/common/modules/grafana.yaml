@@ -19,9 +19,9 @@ grafana::cfg:
     auto_assign_org:    true
     auto_assign_org_id: 1
 
-grafana::plugins:
-  gnocchixyz-gnocchi-datasource:
-    ensure: present
+# grafana::plugins:
+#   gnocchixyz-gnocchi-datasource:
+#     ensure: present
 
 grafana::provisioning_datasources:
   apiVersion: 1

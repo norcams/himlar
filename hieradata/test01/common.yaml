@@ -311,8 +311,8 @@ profile::openstack::resource::subnets:
     cidr: '2001:700:200:df32:e1a5:2025::/96'
     ip_version: '6'
     allocation_pools: # /98
-      - 'start=2001:700:200:df32:e1a5:2025:0001:2,end=2001:700:200:df32:e1a5:2025:3fff:ffff'
-    gateway_ip: '2001:700:200:df32:e1a5:2025:0001:1'
+      - 'start=2001:700:200:df32:e1a5:2025:1:2,end=2001:700:200:df32:e1a5:2025:3fff:ffff'
+    gateway_ip: '2001:700:200:df32:e1a5:2025:1:1'
     dns_nameservers:
       - '2001:700:200:917::3f18'
       - '2001:700:200:6::a1f:a1fa'

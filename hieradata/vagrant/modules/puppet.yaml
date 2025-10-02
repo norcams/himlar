@@ -3,3 +3,8 @@ puppet::runmode:        'none'
 puppet::server_reports: 'store'
 puppet::server_jvm_min_heap_size:       '512M'
 puppet::server_jvm_max_heap_size:       '512M'
+
+# drop pluginsync to speed up cert generation in vagrant
+# puppet agent is only run manually in certain cases to generate cert
+puppet::agent_additional_settings:
+  'pluginsync':   'false'
