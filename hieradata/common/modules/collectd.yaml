@@ -6,17 +6,26 @@ collectd::purge_config:           true
 collectd::fqdnlookup:             false
 collectd::plugin_conf_dir_mode:   '0755'
 collectd::collectd_hostname:      '%{::hostname}'
+collectd::interval:               60 # default interval for all plugins
 
 # plugins
 collectd::plugin::write_graphite::carbons:
   monitor: {}
 
+# use graphite FIXME: remove when el7 monitor is removed/reinstalled
 collectd::plugin::write_graphite::carbon_defaults:
   graphitehost:   "%{hiera('mgmt__address__monitor')}"
   graphiteport:   2003
   graphiteprefix: 'collectd.'
   protocol:       'udp'
 
+# use telegraf and influxdb to store collectd metric
+collectd::plugin::network::servers:
+  telegraf:
+    name: '127.0.0.1'
+    port: 25826
+
+# plugin config
 collectd::plugin::aggregation::aggregators:
   cpu:
     plugin:           'cpu'
@@ -30,11 +39,11 @@ collectd::plugin::disk::ignoreselected: false
 
 collectd::plugin::cpu::reportbycpu:     false
 
-collectd::plugin::virt::connection:       'qemu:///system'
-# FIXME use metadata for instance name in version 5.9 of collectd
-collectd::plugin::virt::hostname_format:  'hostname uuid'
-collectd::plugin::virt::refresh_interval: '300'
-collectd::plugin::virt::extra_stats:      'cpu_util disk disk_err'
+collectd::plugin::virt::connection:             'qemu:///system'
+collectd::plugin::virt::hostname_format:        'name uuid'
+#collectd::plugin::virt::plugin_instance_format: 'metadata'
+collectd::plugin::virt::refresh_interval:       '300'
+collectd::plugin::virt::extra_stats:            'cpu_util disk disk_err'
 
 collectd::plugin::processes::interval:            120
 collectd::plugin::processes::collect_memory_maps: false
@@ -47,7 +56,6 @@ collectd::plugin::processes::process_matches:
     regex: 'etcd'
 collectd::plugin::processes::processes:
   - collectd
-  - sensu-client
   - nova-compute
   - privsep-helper
   - nova-api-metadata

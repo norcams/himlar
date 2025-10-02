@@ -51,6 +51,8 @@ bird::service_v4_ensure: running
 bird::service_v6_enable: true
 bird::service_v6_ensure: running
 
+calico::enable_ipv6: true
+
 libvirt::sysconfig:
   LIBVIRTD_ARGS: '--listen'
 

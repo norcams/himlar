@@ -2,6 +2,8 @@
 # Calico module default data
 
 calico::debug: false
+# separate IPv6 daemon for bird disappeared in v2.0
+calico::enable_ipv6: false
 
 # Reflector settings
 calico::reflector::client_defaults:
@@ -22,6 +24,8 @@ calico::compute::peer_defaults:
   peer_as: 65535
   local_as: 65535
   local_ipv4: "%{ipaddress_trp1}"
+calico::compute::peer_template:  'profile/bird/bird-rr-ipv4.erb'
+calico::compute::peer6_template: 'profile/bird/bird-rr-ipv6.erb'
 
 # compute node to RR connection (set per location)
 #calico::compute::peers:

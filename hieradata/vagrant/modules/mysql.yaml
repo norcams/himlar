@@ -1,6 +1,6 @@
 ---
 # make sure we do not run out of memory in vagrant
-mysql__config__max_connections:             64
+mysql__config__max_connections:             128
 mysql__config__innodb_buffer_pool_size:     '32M'
 mysql__config__innodb_log_file_size:        '4M'
 mysql__config__query_cache_size:            '0'

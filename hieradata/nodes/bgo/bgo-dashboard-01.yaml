@@ -1,21 +1,28 @@
 ---
 network::interfaces_hash:
-  'eth0':
-    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.51"
-    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
-    mtu:       '1500'
-    peerdns:   'yes'
-    dns1:      "%{hiera('netcfg_dns_mgmt_server1')}"
-    dns2:      "%{hiera('netcfg_dns_mgmt_server2')}"
-    domain:    "%{hiera('netcfg_dns_search')}"
-    defroute:  'no'
-  'eth1':
-    ipaddress: "%{hiera('netcfg_trp_netpart')}.51"
-    netmask:   "%{hiera('netcfg_trp_netmask')}"
-    gateway:   "%{hiera('netcfg_trp_gateway')}"
-    srcaddr:   '158.39.77.254'
-    defroute:  'yes'
-  'dummy0':
-    ipaddress: '158.39.77.254'
-    netmask:   '255.255.255.255'
-    defroute:  'no'
+  eth0:
+    ipv4:
+      method:         'manual'
+      address1:       "%{hiera('netcfg_mgmt_netpart')}.51/%{hiera('netcfg_mgmt_cidr4')}"
+      dns:            "%{hiera('netcfg_dns_mgmt_server1')};%{hiera('netcfg_dns_mgmt_server2')}"
+      dns-search:     "%{hiera('netcfg_dns_search_nm')}"
+  eth1:
+    ipv4:
+      method:         'manual'
+      address1:       "%{hiera('netcfg_trp_netpart')}.51/%{hiera('netcfg_trp_cidr4')}"
+      route1:         "0.0.0.0/0,%{hiera('netcfg_trp_gateway')}"
+      route1_options: "src=%{hiera('public__ip__dashboard')}"
+    ipv6:
+      method:         'manual'
+      address1:       "%{hiera('netcfg_trp_netpart6')}::51/%{hiera('netcfg_trp_netmask6')}"
+      route1:         "::/0,%{hiera('netcfg_trp_netpart6')}::702"
+      route1_options: "src=%{hiera('public__ipv6__dashboard')}"
+  lo-static:
+    interface_name:   'lo'
+    connection_type:  'loopback'
+    ipv4:
+      method:         'manual'
+      address1:       "%{hiera('public__ip__dashboard')}/32"
+    ipv6:
+      method:         'manual'
+      address1:       "%{hiera('public__ipv6__dashboard')}/128"
