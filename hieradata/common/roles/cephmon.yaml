@@ -45,13 +45,14 @@ profile::monitoring::collectd::plugins:
   - collectd::plugin::aggregation
   - collectd::plugin::cpu
   - collectd::plugin::disk
+  - collectd::plugin::df
   - collectd::plugin::load # require two puppetruns to work with collectd 5.9
   - collectd::plugin::memory
-  - collectd::plugin::ceph
-  - collectd::plugin::python
+#  - collectd::plugin::ceph
+#  - collectd::plugin::python
   - collectd::plugin::interface
   - collectd::plugin::processes
-  - collectd::plugin::write_graphite
+  - collectd::plugin::network
 
 # ceph config keys
 ceph::profile::params::mon_key:     "%{hiera('ceph_storage_client_mon_key')}"
@@ -90,6 +91,7 @@ profile::monitoring::sensu::agent::enable_go_agent:   true
 profile::monitoring::sensu::agent::enable_agent:      false
 
 # Influx
+ceph_influxdb_bucket: "storage"
 profile::monitoring::telegraf::enable_telegraf:     true
 profile::monitoring::telegraf::outputs:
   influxdb_v2:
@@ -98,14 +100,18 @@ profile::monitoring::telegraf::outputs:
         tls_ca: '/etc/puppetlabs/puppet/ssl/certs/ca.pem'
         token: "%{hiera('influxdb_admin_token')}"
         organization: "%{hiera('profile::monitoring::influxdb::org')}"
-        bucket: 'storage'
+        bucket: "%{hiera('ceph_influxdb_bucket')}"
         insecure_skip_verify: true
+        tagpass:
+          bucket: ["%{hiera('ceph_influxdb_bucket')}"]
 
 profile::monitoring::telegraf::inputs:
   prometheus:
     options:
       - urls: ["http://%{::ipaddress_mgmt1}:9283/metrics"]
         metric_version: 2
+        tags:
+          bucket: "%{hiera('ceph_influxdb_bucket')}"
   # ceph:
   #   options:
   #     - interval: '1m'

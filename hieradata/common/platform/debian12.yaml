@@ -4,6 +4,7 @@
 include:
   default:
     - profile::network::interface
+    - profile::network::sonic
   kickstart:
     - profile::network::interface
   bootstrap:

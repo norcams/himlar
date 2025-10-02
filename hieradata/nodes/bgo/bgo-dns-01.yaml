@@ -1,34 +1,35 @@
 ---
+named_interfaces::config:
+  mgmt:
+    - eth0
+  trp:
+    - eth1
+  public:
+    - lo
+
 network::interfaces_hash:
-  'eth0':
-    onboot:    'yes'
-    mtu:       '1500'
-    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.34"
-    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
-    gateway:   "%{hiera('netcfg_mgmt_gateway')}"
-    peerdns:   'yes'
-    dns1:      "%{hiera('netcfg_dns_mgmt_server1')}"
-    dns2:      "%{hiera('netcfg_dns_mgmt_server2')}"
-    domain:    "%{hiera('netcfg_dns_search')}"
-    defroute:  'yes'
-  'eth1':
-    onboot:    'yes'
-    mtu:       '1500'
-    ipaddress: "%{hiera('netcfg_trp_netpart')}.34"
-    netmask:   "%{hiera('netcfg_trp_netmask')}"
-    gateway:   "%{hiera('netcfg_trp_gateway')}"
-    ipv6init:  'yes'
-    ipv6addr:  "%{hiera('netcfg_trp_netpart6')}::34/%{hiera('netcfg_trp_netmask6')}"
-    defroute:  'no'
-  'dummy0':
-    ipv6init:  'yes'
-    ipv6addr:  '2001:700:2:83ff::256/128'
-    defroute:  'no'
-profile::base::network::routes:
-  'eth1':
-    'ipaddress': [ '::', ]
-    'netmask':   [ '0', ]
-    'gateway':   [ "%{hiera('netcfg_trp_gateway6')}", ]
-    'source':    [ '2001:700:2:83ff::256', ]
-    'table':     [ 'main', ]
-    'family':    [ 'inet6', ]
+  eth0:
+    ipv4:
+      method:         'manual'
+      address1:       "%{hiera('netcfg_mgmt_netpart')}.34/%{hiera('netcfg_mgmt_cidr4')}"
+      gateway:        "%{hiera('netcfg_mgmt_gateway')}"
+      dns:            "%{hiera('netcfg_dns_mgmt_server1')};%{hiera('netcfg_dns_mgmt_server2')}"
+      dns-search:     "%{hiera('netcfg_dns_search_nm')}"
+  eth1:
+    ipv4:
+      method:         'manual'
+      address1:       "%{hiera('netcfg_trp_netpart')}.34/%{hiera('netcfg_trp_cidr4')}"
+    ipv6:
+      method:         'manual'
+      address1:       "%{hiera('netcfg_trp_netpart6')}::34/%{hiera('netcfg_trp_netmask6')}"
+      route1:         "::/0,%{hiera('netcfg_trp_gateway6')}"
+      route1_options: 'src=2001:700:2:83ff::256'
+  lo-static:
+    interface_name:   'lo'
+    connection_type:  'loopback'
+    ipv4:
+      method:         'manual'
+      address1:       '127.0.0.1/8'
+    ipv6:
+      method:         'manual'
+      address1:       '2001:700:2:83ff::256/128'

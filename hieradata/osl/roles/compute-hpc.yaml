@@ -1,8 +1,4 @@
 ---
-include:
-  default:
-    - profile::monitoring::collectd
-
 # Turn off nested virtualization
 profile::virtualization::nested::manage: false
 
@@ -42,20 +38,3 @@ sensu__memory__check:     "check-memory.rb -w 2048 -c 1024"
 
 # remove when telemetry/ceilometer is up in all environments and move to common
 profile::openstack::compute::manage_telemetry: true
-
-# collectd
-profile::monitoring::collectd::enable: false
-profile::monitoring::collectd::plugins:
-  - collectd::plugin::aggregation
-  - collectd::plugin::cpu
-  - collectd::plugin::disk
-  - collectd::plugin::load
-  - collectd::plugin::memory
-  - collectd::plugin::interface
-  - collectd::plugin::write_graphite
-  - collectd::plugin::virt
-  - collectd::plugin::processes
-  - collectd::plugin::numa
-
-collectd::plugin::virt::hostname_format:        'hostname'
-collectd::plugin::virt::plugin_instance_format: 'uuid'
