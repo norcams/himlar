@@ -3,7 +3,9 @@ class profile::openstack::dashboard(
   $manage_dashboard     = false,
   $ports                = [80, 443],
   $manage_firewall      = false,
+  $manage_firewall6     = false,
   $allow_from_network   = undef,
+  $allow_from_network6  = undef,
   $internal_net         = "${::network_trp1}/${::netmask_trp1}",
   $firewall_extras      = {},
   $manage_overrides     = false,
@@ -67,6 +69,21 @@ class profile::openstack::dashboard(
       dport  => $ports,
       source => $source,
       extras => $firewall_extras,
+    }
+  }
+
+  if $manage_firewall6 {
+    $hiera_allow_from_network6 = lookup('allow_from_network6', Array, 'unique', [])
+    $source6 = $allow_from_network6? {
+      undef   => $hiera_allow_from_network6,
+      ''      => $hiera_allow_from_network6,
+      default => $allow_from_network6,
+    }
+    profile::firewall::rule { '235 public openstack-dashboard accept tcp6':
+      dport  => $ports,
+      source => $source6,
+      extras => $firewall_extras,
+      provider => 'ip6tables',
     }
   }
 

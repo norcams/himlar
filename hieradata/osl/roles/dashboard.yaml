@@ -7,9 +7,39 @@ profile::openstack::dashboard::allow_from_network:
   - '129.177.10.212/32'  # raymond
   - '129.240.130.12/32'  # trond
   - '129.240.130.124/32' # mikaeld
+  - '129.240.130.171/32' # ivar
   - '129.177.6.96/32'    # uib-ha-01
   - '129.177.6.97/32'    # uib-ha-01
-  - '129.177.10.111/32'  # anders
+
+profile::openstack::dashboard::allow_from_network6:
+  - '2001:700:100:4003::43'  # trond
+  - '2001:700:100:4003::17'  # mikael
+  - '2001:700:100:4003::27'  # ivar
+
+profile::openstack::dashboard::manage_firewall6: true
+
+profile::base::yumrepo::repo_hash:
+  epel: # should be absent when using RDO, but whitelist can also work
+    includepkgs: 'htop python3-mysqlclient'
+
+profile::base::common::packages:
+  'python3-mysql':       { ensure: absent }
+  'python3-mysqlclient': {}
 
 # Disable admin dashboard
 profile::openstack::dashboard::disable_admin_dashboard: true
+
+# el9: No dummy interface
+profile::network::interface::manage_dummy: false
+
+# el9: Do not create custom routes
+profile::network::interface::create_custom_routes: false
+
+# el9: Interfaces without dummy
+named_interfaces::config:
+  mgmt:
+    - eth0
+  trp:
+    - eth1
+  public:
+    - lo

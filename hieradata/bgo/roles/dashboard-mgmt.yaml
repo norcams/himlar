@@ -2,5 +2,17 @@
 profile::openstack::dashboard::allow_from_network:
   - '0.0.0.0/0'     # Allow dashboard from everywhere
 
+horizon::bind_address: "%{hiera('netcfg_mgmt_netpart')}.54"
+
 # Disable admin dashboard
 profile::openstack::dashboard::disable_admin_dashboard: false
+
+# el9: No dummy interface
+profile::network::interface::manage_dummy: false
+
+profile::base::yumrepo::repo_hash:
+  epel: # should be absent when using RDO, but whitelist can also work
+    includepkgs: 'htop python3-mysqlclient'
+profile::base::common::packages:
+  'python3-mysql':       { ensure: absent }
+  'python3-mysqlclient': {}

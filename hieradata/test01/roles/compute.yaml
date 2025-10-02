@@ -2,7 +2,6 @@
 include:
   default:
     - profile::base::tuned
-    - profile::monitoring::collectd
 
 named_interfaces::config:
   mgmt:
@@ -73,25 +72,9 @@ profile::base::tuned::tuned_profile:      'virtual-host'
 nova::compute::libvirt::hw_machine_type:  'x86_64=q35'
 nova::compute::libvirt::cpu_models:      ['Haswell-noTSX-IBRS']
 
-# collectd # FIXME:monitor
-profile::monitoring::collectd::enable: false
-profile::monitoring::collectd::plugins:
-  - collectd::plugin::aggregation
-  - collectd::plugin::cpu
-  - collectd::plugin::disk
-  - collectd::plugin::load
-  - collectd::plugin::memory
-  - collectd::plugin::interface
-  - collectd::plugin::write_graphite
-  - collectd::plugin::virt
-  - collectd::plugin::processes
-
-collectd::plugin::virt::hostname_format:        'hostname'
-collectd::plugin::virt::plugin_instance_format: 'uuid'
-
 profile::base::physical::configure_bmc_nic:                       true
 profile::openstack::compute::hypervisor::enable_dhcp_agent_check: true
 profile::base::physical::enable_redfish_scripts:                  true
 profile::base::physical::enable_redfish_http_proxy:               true
 
-calico::compute::felix_mtuIfacePattern: '^team*'
+calico::compute::felix_mtuIfacePattern: "^%{::interface_trp1}*"
