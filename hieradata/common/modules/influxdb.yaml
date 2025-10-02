@@ -4,7 +4,7 @@ influxdb::manage_setup:         false
 influxdb::manage_repo:          false
 influxdb::host:                 "%{::fqdn}"
 influxdb::initial_org:          "NREC"
-influxdb::initial_bucket:       "metric"
+influxdb::initial_bucket:       "metric" # used for sensu metrics
 influxdb::admin_pass:           "%{hiera('influxdb_admin_password')}"
 influxdb::token:                "%{hiera('influxdb_admin_token')}"
 lookup_options:

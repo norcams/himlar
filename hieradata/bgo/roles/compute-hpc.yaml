@@ -7,8 +7,6 @@ named_interfaces::config:
   live:
     - team1.120
 
-profile::monitoring::collectd::enable: false
-
 # Turn off nested virtualization
 profile::virtualization::nested::manage: false
 
