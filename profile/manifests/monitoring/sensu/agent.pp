@@ -10,6 +10,7 @@ class profile::monitoring::sensu::agent (
   Boolean $expanded_transform_md5 = false,
   Boolean $purge_check = false,
   String $namespace = 'default',
+  Boolean $manage_token_refresh = false,
 ) {
 
   if $enable_agent {
@@ -90,6 +91,13 @@ class profile::monitoring::sensu::agent (
     # purge checks will purge everything not defined on this role
     sensu_resources { 'sensu_check':
       purge => $purge_check,
+    }
+
+    cron { 'reset-sensu-token-config':
+      ensure  => $manage_token_refresh? { true => 'present', default => 'absent' },
+      command => 'rm -f /root/.config/sensu/sensuctl/cluster',
+      minute  => '30',
+      hour    => '5',
     }
 
     # this is used for cumulus linux (debian)

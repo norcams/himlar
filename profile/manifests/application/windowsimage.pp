@@ -59,6 +59,7 @@ class profile::application::windowsimage(
       ensure => file,
       source => $virtio_src,
       owner  => $user,
+      backup => false,
       group  => $group
     }
     file{ "${build_root}/OVMF_CODE.fd":

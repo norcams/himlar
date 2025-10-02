@@ -2,8 +2,6 @@
 include:
   kickstart:
     - profile::monitoring::sensu::agent
-  default:
-    - profile::monitoring::collectd
 
 named_interfaces::config:
   mgmt:
@@ -58,22 +56,6 @@ nova::debug: true
 profile::openstack::compute::manage_telemetry: true
 
 nova::compute::libvirt::hw_machine_type: 'x86_64=q35'
-
-# collectd
-profile::monitoring::collectd::enable: false
-profile::monitoring::collectd::plugins:
-  - collectd::plugin::aggregation
-  - collectd::plugin::cpu
-  - collectd::plugin::disk
-  - collectd::plugin::load
-  - collectd::plugin::memory
-  - collectd::plugin::interface
-  - collectd::plugin::write_graphite
-  - collectd::plugin::virt
-  - collectd::plugin::processes
-
-collectd::plugin::virt::hostname_format:        'hostname'
-collectd::plugin::virt::plugin_instance_format: 'uuid'
 
 profile::openstack::compute::hypervisor::enable_dhcp_agent_check: true
 profile::monitoring::sensu::agent::checks:

@@ -99,9 +99,11 @@ profile::dns::ns::allowed_nets:
   - '158.39.75.0/24;        # osl IPv4'
   - '158.39.200.0/24;       # osl IPv4'
   - '158.37.66.0/24;        # osl IPv4'
+  - '78.91.122.0/23;        # osl IPv4'
   - '10.0.0.0/8;            # rfc1918 for ipv6 only instances'
   - '2001:700:2:8300::/56;  # bgo IPv6'
   - '2001:700:2:8200::/56;  # osl IPv6'
+  - '2001:700:2:8c00::/56;  # all regions IPv6'
 
 # Use UiO provided RPZ policy
 profile::dns::ns::enable_rpz: true
