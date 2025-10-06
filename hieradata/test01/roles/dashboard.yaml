@@ -29,6 +29,9 @@ named_interfaces::config:
 profile::base::yumrepo::repo_hash:
   epel: # should be absent when using RDO, but whitelist can also work
     includepkgs: 'htop python3-mysqlclient'
+  nrec-koji: # should be absent when using RDO, but whitelist can also work
+    ensure:   present
+    includepkgs: 'openstack-dashboard-nrec-themes'
 
 profile::base::common::packages:
   'python3-mysql':       { ensure: absent }
