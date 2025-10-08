@@ -22,6 +22,8 @@ profile::monitoring::influxdb::buckets:
   "collectd": {} # collectd metric
   "storage": {} # ceph storage
   "object": {}  # ceph object
+  "gpu": {}  # GPU metrics
+
 
 # extra users
 profile::monitoring::influxdb::users:
