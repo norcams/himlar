@@ -95,6 +95,9 @@ profile::network::leaf::acls:
       - "-A $INGRESS_CHAIN -s %{hiera('netcfg_mgmt_netpart')}.0/%{hiera('netcfg_mgmt_netmask')} -p tcp --dport 22 -j ACCEPT"
       - "-A $INGRESS_CHAIN -s %{hiera('netcfg_trp_netpart')}.0/%{hiera('netcfg_trp_netmask')} -p tcp --dport 22 -j ACCEPT"
       - "-A $INGRESS_CHAIN -p tcp --dport 22 -j DROP"
+      - "-A $FORWARD_CHAIN -s 158.37.43.0/28 -d 192.168.224.0/24 -j ACCEPT"
+      - "-A $FORWARD_CHAIN -s 158.37.64.0/24 -d 192.168.224.0/24 -j ACCEPT"
+      - "-A $FORWARD_CHAIN -d 192.168.224.0/24 -j DROP"
     ip6tables:
       - "-A $INGRESS_CHAIN --in-interface $INGRESS_INTF -s %{hiera('netcfg_trp_netpart6')}::/%{hiera('netcfg_trp_netmask6')} -p tcp -m multiport --dports 22,179 -j ACCEPT"
       - "-A $INGRESS_CHAIN --in-interface $INGRESS_INTF -p tcp  -m multiport --dports 22,179 -j DROP"
@@ -718,7 +721,6 @@ frrouting::frrouting::bgp_ipv6_prefix_list:
   - 'lhc-routes6-out seq 10 deny any'
   - 'lhc-routes6-in seq 5 permit any'
   - 'lhc-routes6-in seq 10 deny any'
-
 frrouting::frrouting::bgp_generic_options:
   - 'bgp as-path access-list cern permit ^65504'
   - 'bgp as-path access-list sikt permit ^224'
