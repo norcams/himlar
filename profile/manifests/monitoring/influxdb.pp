@@ -81,6 +81,29 @@ class profile::monitoring::influxdb(
     $orgs = lookup('profile::monitoring::influxdb::orgs', Hash, $merge_strategy, {})
     create_resources(influxdb_org, $orgs, $org_defaults)
 
+    # users
+    $users = lookup('profile::monitoring::influxdb::users', Hash, $merge_strategy, {})
+    $users.each |String $user, Hash $value| {
+      influxdb_user { $user:
+        ensure   => $value['ensure'] != undef? { true => $value['ensure'], default => 'present' },
+        password => Sensitive($value['password']),
+        token    => $secret_token
+      }
+      influxdb_auth {"${user} read token":
+        ensure      => present,
+        user        => $user,
+        org         => $org,
+        permissions => [{ "action" => "read", "resource" => { "type" => "buckets" }}],
+        token       => $secret_token
+      }
+
+    }
+
+    # influxdb_org { $org:
+    #   ensure  => present,
+    #   members => keys($users)
+    # }
+
     # bash completion
     exec { 'influxdb-cli-bash-completion':
       command => '/bin/influx completion bash > /etc/bash_completion.d/influxdb',
