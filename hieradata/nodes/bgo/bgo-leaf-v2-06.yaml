@@ -16,6 +16,7 @@ profile::base::network::cumulus_interfaces:
   'lo':
     'ipv4': [ "%{hiera('bgp_loopback_addr')}/32", ]
     'ipv6': [ "%{hiera('bgp_loopback_addr6')}/128", ]
+    'clagd_vxlan_anycast_ip': '10.255.253.50'
   'bridge.100':
     'ipv4': [ "%{hiera('netcfg_trp_net_c0')}.6/21", ]
     'ipv6': [ 'fd00::6/64', ]
