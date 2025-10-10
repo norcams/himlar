@@ -78,6 +78,7 @@ frrouting::frrouting::bgp_vrf_options:
       - "neighbor fd00::6:1 remote-as %{hiera('bgp_as')}"
       - "neighbor fd00::6:2 remote-as %{hiera('bgp_as')}"
     'address_family4_unicast':
+      - 'redistribute connected'
       - 'neighbor 172.18.0.5 route-map failover-lhc-routes in'
       - 'neighbor 172.18.0.5 soft-reconfiguration inbound'
       - 'neighbor 172.18.6.1 soft-reconfiguration inbound'
