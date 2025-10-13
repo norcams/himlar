@@ -583,6 +583,7 @@ profile::network::services::dns_records:
     "%{::location}-compute-89.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.150"
     "%{::location}-compute-90.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.151"
     "%{::location}-compute-91.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.152"
+    "%{::location}-compute-92.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.153"
     "%{::location}-mgmt-opx-01.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.1"
     "%{::location}-mgmt-opx-02.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.2"
     "%{::location}-mgmt-opx-03.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.3"
