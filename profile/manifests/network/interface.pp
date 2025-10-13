@@ -244,11 +244,10 @@ class profile::network::interface(
               $ifslaves[$ifrole].each |$slave, $slaveopts| {
               $slave_if =
                 { "$ifname-$slave" =>
-                  { bond_slave =>
-                    { 'port-type'      => 'bond',
-                      'controller'     => $ifname,
-                      'interface-name' => $slave
-                    },
+                  { 'controller'     => $ifname,
+                    'port_type'      => 'bond',
+                    'interface_name' => $slave,
+                    'id'             => "${ifname}-${slave}"
                   },
                 }
                 if ($slaveopts[ethernet]) {
