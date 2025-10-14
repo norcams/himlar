@@ -34,6 +34,14 @@ profile::openstack::resource::host_aggregate:
         e3dcca3452924794a6aebdd21b5da249,
         bf017d42f06c4eb590276eccb9d571dd,
         582a164fc3bb4a19beb749d96a310f90
+  elixir1: # amd
+    availability_zone: "%{::location}-default-1"
+    metadata:
+      type: 'elixir1'
+  elixir2: # intel
+    availability_zone: "%{::location}-default-1"
+    metadata:
+      type: 'elixir2'
   placeholder1:
     availability_zone: "%{::location}-iaas-team-only-1"
     metadata:
