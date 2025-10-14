@@ -77,7 +77,8 @@ profile::application::himlarcli::domain:                 "%{::domain}"
 profile::application::himlarcli::foreman_url:            "https://%{::location}-admin-01.%{::domain}"
 profile::application::himlarcli::foreman_user:           'admin'
 profile::application::himlarcli::foreman_password:       "%{hiera('foreman::admin_password')}"
-profile::application::himlarcli::statsd_server:          "%{hiera('mgmt__address__monitor')}"
+profile::application::himlarcli::statsd_server:          '127.0.0.1'
+profile::application::himlarcli::statsd_prefix:          'nrec'
 profile::application::himlarcli::report_db_uri:          "mysql+pymysql://report:%{hiera('report_db_password')}@%{hiera('service__address__db_global')}/report"
 profile::application::himlarcli::clistate_db_uri:        "mysql+pymysql://clistate:%{hiera('clistate_db_password')}@%{hiera('service__address__db_global')}/clistate"
 profile::application::himlarcli::db_host_nova:           "%{hiera('service__address__db_regional')}"
