@@ -8,6 +8,9 @@
 include:
   default:
     - profile::development::patch
+    - profile::application::openssl
+
+profile::application::openssl::manage_ca_cert:  true
 
 # The current vagrant box image do not have vda3 parso switch
 # off lvm for compute on vagrant
