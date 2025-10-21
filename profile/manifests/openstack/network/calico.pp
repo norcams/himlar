@@ -51,14 +51,14 @@ class profile::openstack::network::calico(
       owner   => root,
       group   => root,
     }
-    file { 'dhcp-agent-override':
-      ensure  => file,
-      path    => '/etc/systemd/system/calico-dhcp-agent.service.d/override.conf',
-      owner   => root,
-      group   => root,
-      content => "[Service]\nUser=neutron\nExecStartPost=+/usr/local/bin/calico_iplink_helper.sh\n",
-      notify  => Service['calico-dhcp-agent']
-    }
+    # file { 'dhcp-agent-override':
+    #   ensure  => file,
+    #   path    => '/etc/systemd/system/calico-dhcp-agent.service.d/override.conf',
+    #   owner   => root,
+    #   group   => root,
+    #   content => "[Service]\nUser=neutron\nExecStartPost=+/usr/local/bin/calico_iplink_helper.sh\n",
+    #   notify  => Service['calico-dhcp-agent']
+    # }
     file { 'calico_iplink_helper.sh':
       ensure  => file,
       path    => '/usr/local/bin/calico_iplink_helper.sh',

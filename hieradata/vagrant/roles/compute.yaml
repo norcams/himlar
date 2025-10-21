@@ -48,19 +48,9 @@ consul::services:
     tags: ["TheForeman"]
     port: 80
 
-# Add custom routing table for private network to NAT
-profile::base::network::routes:
-  'eth2':
-    'ipaddress': [ '0.0.0.0', '0.0.0.0', ]
-    'netmask':   [ '0.0.0.0', '0.0.0.0', ]
-    'gateway':   [ "%{hiera('netcfg_priv_gateway')}", "%{hiera('netcfg_trp_gateway')}" ]
-    'table':     [ 'private', 'main', ]
-profile::base::network::routing_tables:
+network::routing::table::tables:
   'private':
     'table_id':  '240'
-profile::base::network::rules:
-  'eth2':
-    iprule: [ "from %{hiera('netcfg_priv_network')} lookup private", ]
 
 # sensu
 sensu::agent::subscriptions:
