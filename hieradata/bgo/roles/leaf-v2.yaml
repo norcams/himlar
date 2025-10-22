@@ -789,6 +789,7 @@ frrouting::frrouting::bgp_accesslist:
     - 'seq 250 deny 0.0.0.0/0'
   '30':
     - 'seq 10 permit 158.37.64.0/24'
+    - 'seq 20 permit 158.37.43.0/28'
     - 'seq 250 deny 0.0.0.0/0'
   '40':
     - 'seq 15 permit 109.105.127.128/26'
@@ -806,6 +807,7 @@ frrouting::frrouting::bgp_accesslist6:
 
 frrouting::frrouting::bgp_ip_prefix_list:
   - 'spine-routes-in seq 10 permit 158.37.64.0/24 le 32'
+  - 'spine-routes-in seq 13 permit 158.37.43.0/28 le 32'
   - 'spine-routes-in seq 15 permit 109.105.127.128/26 le 32'
   - 'spine-routes-in seq 16 permit 10.109.0.0/20 le 32'
   - 'spine-routes-in seq 20 deny any'
