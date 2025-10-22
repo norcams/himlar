@@ -1443,6 +1443,7 @@ frrouting::frrouting::bgp_ip_prefix_list:
   - 'leaf-v2-routes-in seq 10 permit 192.168.224.0/24'
   - 'leaf-v2-routes-in seq 20 deny any'
   - 'leaf-v2-routes-out seq 10 permit 158.37.64.0/24 le 32'
+  - 'leaf-v2-routes-out seq 12 permit 158.37.43.0/28 le 32'
   - 'leaf-v2-routes-out seq 15 permit 109.105.127.128/26 le 32'
   - 'leaf-v2-routes-out seq 16 permit 10.109.0.0/20 le 32'
   - 'leaf-v2-routes-out seq 20 deny any'
