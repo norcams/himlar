@@ -373,6 +373,13 @@ profile::monitoring::sensu::agent::checks:
     handlers:       ['default']
     runtime_assets:
     - sensu/http-check
+# L40s 
+  profile::monitoring::sensu::agent::checks:
+    'l40s-gpu-pci-check':
+      command:      "/usr/local/bin/check_l40s_pci.sh"
+      interval:     60
+      subscriptions:  ['l40s']
+      handlers:       ['default']
 # PHYSICAL
   'redfish-check':
     command:        '/usr/local/bin/redfish_check.sh'
@@ -392,6 +399,7 @@ profile::monitoring::sensu::agent::checks:
   #   handlers:       ['default']
   #   runtime_assets:
   #   - jadiunr/check-smart-status
+
 
 # profile::dns::ns::ns_master1
 # we need nodejs for web gui

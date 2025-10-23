@@ -49,6 +49,7 @@ sensu::agent::subscriptions:
   - 'metrics'
   - 'compute'
   - 'physical'
+  - 'l40s'
 
 profile::base::physical::enable_l40s_pci_check:  true
 
