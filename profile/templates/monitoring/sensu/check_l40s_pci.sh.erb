@@ -11,7 +11,7 @@ PCI=(
 
 for PCI in ${PCI[*]}
   do
-   if [[ -z $(lspci -s $PCI | grep -i NVIDIA) ]]; then 
+   if [[ -z $(/sbin/lspci -s $PCI | grep -i NVIDIA) ]]; then 
            echo "PCI device" $PCI "missing" 
            exit 2
    fi
