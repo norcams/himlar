@@ -374,12 +374,11 @@ profile::monitoring::sensu::agent::checks:
     runtime_assets:
     - sensu/http-check
 # L40s 
-  profile::monitoring::sensu::agent::checks:
-    'l40s-gpu-pci-check':
-      command:      "/usr/local/bin/check_l40s_pci.sh"
-      interval:     60
-      subscriptions:  ['l40s']
-      handlers:       ['default']
+  'l40s-gpu-pci-check':
+    command:      "/usr/local/bin/check_l40s_pci.sh"
+    interval:     60
+    subscriptions:  ['l40s']
+    handlers:       ['default']
 # PHYSICAL
   'redfish-check':
     command:        '/usr/local/bin/redfish_check.sh'
