@@ -26,6 +26,7 @@ class profile::base::physical (
   $net_tweak_default_qdisc     = 'fq',
   $net_tweak_somaxconn         = '2048',
   $enable_redfish_scripts      = false,
+  $enable_l40s_pci_check       = false,
   $enable_redfish_http_proxy   = undef,
   $lldpd_package               = 'lldpd',
   $lldpd_service               = 'lldpd',
@@ -48,6 +49,16 @@ class profile::base::physical (
     'AddressOrigin' => 'Static',
   },
 ) {
+  
+  if ($enable_l40s_pci_check) and ($::runmode == 'default') {
+    file { 'check_l40s_pci.sh':
+      ensure  => file,
+      path    => '/usr/local/bin/check_l40s_pci.sh',
+      content => template("${module_name}/monitoring/sensu/check_l40s_pci.sh.erb"),
+      mode    => '0755',
+    }
+  }
+ 
 
   # Configure 82599ES SFP+ interface module options
   if ($::lspci_has['intel82599sfp'] or $::lspci_has['intelx520sfp']) and 'ixgbe' in $::kernel_modules {

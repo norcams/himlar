@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -e
+
+PCI=( 
+       00000000:4A:00.0
+       00000000:61:00.0 
+       00000000:CA:00.0
+       00000000:E1:00.0
+)
+
+for PCI in ${PCI[*]}
+  do
+   if [[ -z $(lspci -s $PCI | grep -i NVIDIA) ]]; then 
+           echo "PCI device" $PCI "missing" 
+           exit 2
+   fi
+done
