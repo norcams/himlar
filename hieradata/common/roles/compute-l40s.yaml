@@ -14,3 +14,13 @@ profile::base::common::extraswap_sizegb:  10
 nova::cpu_allocation_ratio:  '4'
 nova::disk_allocation_ratio: '1'
 nova::ram_allocation_ratio:  '1'
+
+## Sensu 
+sensu::agent::subscriptions:
+  - 'base'
+  - 'metrics'
+  - 'compute'
+  - 'physical'
+  - 'l40s'
+
+profile::base::physical::enable_l40s_pci_check:  true
