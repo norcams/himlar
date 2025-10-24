@@ -35,6 +35,15 @@ profile::base::lvm::volume_group:
     physical_volumes:
       - /dev/vda3
 
+profile::openstack::network::calico::manage_dhcp_agent_override: true
+profile::openstack::network::calico::dhcp_agent_config:
+  DEFAULT/dnsmasq_config_file:
+    value: '/dev/null'
+
+nova::config::nova_config:
+  DEFAULT/metadata_workers:
+    value: '2'
+
 # test telemetry polling (require metric and telemetry nodes in vagrant)
 #profile::openstack::compute::manage_telemetry: true
 
