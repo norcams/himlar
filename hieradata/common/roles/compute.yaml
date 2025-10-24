@@ -150,6 +150,11 @@ sudo::configs:
   sensu:
     priority:   25
     content:    'sensu ALL = (root) NOPASSWD: /opt/sensu/embedded/bin/check-file-missing.rb -f /var/lib/nova/.ssh/id_rsa'
+  calico:
+    priority:   25
+    content:
+      - 'neutron ALL = (root) NOPASSWD: /sbin/ip link add calico-dhcp-dmy type dummy'
+      - 'neutron ALL = (root) NOPASSWD: /sbin/ip link del calico-dhcp-dmy type dummy'
   sensu_dhcp:
     priority:   30
     content:
