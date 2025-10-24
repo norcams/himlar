@@ -89,3 +89,29 @@ nova::config::nova_config:
   DEFAULT/metadata_workers:
     value: '4'
 
+# Influx
+ceph_influxdb_bucket: "gpu"
+profile::monitoring::telegraf::enable_telegraf:     true
+profile::monitoring::telegraf::outputs:
+  influxdb_v2:
+    options:
+      - urls: ["https://%{hiera('mgmt__address__influx')}:8086"]
+        tls_ca: '/etc/puppetlabs/puppet/ssl/certs/ca.pem'
+        token: "%{hiera('influxdb_admin_token')}"
+        organization: "%{hiera('profile::monitoring::influxdb::org')}"
+        bucket: "%{hiera('ceph_influxdb_bucket')}"
+        insecure_skip_verify: true
+        tagpass:
+          bucket: ["%{hiera('ceph_influxdb_bucket')}"]
+
+profile::monitoring::telegraf::inputs:
+#  prometheus:
+#    options:
+#      - urls: ["http://%{::ipaddress_mgmt1}:9400/metrics"]
+#        metric_version: 2
+#        tags:
+#          bucket: "%{hiera('ceph_influxdb_bucket')}"
+  nvidia_smi:
+    options:
+      - tags:
+          bucket: "%{hiera('ceph_influxdb_bucket')}"

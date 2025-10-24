@@ -217,6 +217,7 @@ profile::network::services::dns_records:
     "%{::location}-compute-l40s-89.%{hiera('domain_mgmt')}":    "%{::location}-compute-89.%{hiera('domain_mgmt')}"
     "%{::location}-compute-l40s-90.%{hiera('domain_mgmt')}":    "%{::location}-compute-90.%{hiera('domain_mgmt')}"
     "%{::location}-compute-l40s-91.%{hiera('domain_mgmt')}":    "%{::location}-compute-91.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-elixir1-92.%{hiera('domain_mgmt')}": "%{::location}-compute-92.%{hiera('domain_mgmt')}"
     "%{::location}-object-ceph-01.%{hiera('domain_mgmt')}":     "%{::location}-object-01.%{hiera('domain_mgmt')}"
     "%{::location}-object-ceph-02.%{hiera('domain_mgmt')}":     "%{::location}-object-02.%{hiera('domain_mgmt')}"
     "%{::location}-object-ceph-03.%{hiera('domain_mgmt')}":     "%{::location}-object-03.%{hiera('domain_mgmt')}"
@@ -422,6 +423,12 @@ profile::openstack::resource::networks:
     shared: false
     project_name: 'openstack'
     provider_network_type: 'local'
+  elixir_dualStack:
+    name: 'elixir-dualStack'
+    admin_state_up: true
+    shared: false
+    project_name: 'openstack'
+    provider_network_type: 'local'
   educloud_IPv6:
     name: 'educloud-IPv6'
     admin_state_up: true
@@ -525,6 +532,28 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns6')}"
     network_name: 'uib-dualStack'
+    project_name: 'openstack'
+  elixir1_IPv4:
+    name: 'elixir1_IPv4'
+    cidr: '158.37.43.0/28'
+    ip_version: '4'
+    allocation_pools:
+      - 'start=158.37.43.2,end=158.37.43.14'
+    gateway_ip: '158.37.43.1'
+    dns_nameservers:
+      - "%{hiera('netcfg_anycast_dns')}"
+    network_name: 'elixir-dualStack'
+    project_name: 'openstack'
+  elixir1_ipv6:
+    name: 'elixir1_IPv6'
+    cidr: '2001:700:2:8304::/64'
+    ip_version: '6'
+    allocation_pools:
+      - 'start=2001:700:2:8304::2000,end=2001:700:2:8304::2fff'
+    gateway_ip: '2001:700:2:8304::1'
+    dns_nameservers:
+      - "%{hiera('netcfg_anycast_dns6')}"
+    network_name: 'elixir-dualStack'
     project_name: 'openstack'
   public1_ipv6:
     name: 'public1_IPv6'

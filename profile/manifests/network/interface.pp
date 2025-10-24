@@ -56,9 +56,13 @@ class profile::network::interface(
 
   # Create extra routes, tables, rules on ifup
   if $create_custom_routes {
-    create_resources(network::mroute, lookup('profile::base::network::mroute', Hash, 'deep', {}))
-    create_resources(network::routing_table, lookup('profile::base::network::routing_tables', Hash, 'deep', {}))
-    create_resources(network::route, lookup('profile::base::network::routes', Hash, 'first', {}))
+    if Integer($facts['os']['release']['major']) <= 8 {
+      create_resources(network::mroute, lookup('profile::base::network::mroute', Hash, 'deep', {}))
+      create_resources(network::routing_table, lookup('profile::base::network::routing_tables', Hash, 'deep', {}))
+      create_resources(network::route, lookup('profile::base::network::routes', Hash, 'first', {}))
+    }  elsif Integer($facts['os']['release']['major']) >= 9 {
+      include network::routing::table
+    }
   }
   if $create_ip_rules {
     unless $manage_neutron_blackhole {

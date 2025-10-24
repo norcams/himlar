@@ -7,7 +7,7 @@ include:
     - profile::openstack::openrc
     - profile::dns::rndc_key
 
-openstack_version: 'yoga'
+openstack_version: 'zed'
 
 # This creates /etc/openstack/puppet/admin-clouds.yaml
 keystone::bootstrap::bootstrap:        false
