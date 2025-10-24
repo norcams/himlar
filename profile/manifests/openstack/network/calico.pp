@@ -1,13 +1,15 @@
 #
 class profile::openstack::network::calico(
-  $manage_bird               = true,
-  $manage_etcd               = false,
-  $manage_etcd_grpc_proxy    = false,
-  $packagename_etcdgw        = python3-etcd3gw,
-  $manage_firewall           = true,
-  $manage_firewall6          = false,
-  $manage_dhcp_agent         = false,
-  $firewall_extras           = {},
+  $manage_bird                = true,
+  $manage_etcd                = false,
+  $manage_etcd_grpc_proxy     = false,
+  $packagename_etcdgw         = python3-etcd3gw,
+  $manage_firewall            = true,
+  $manage_firewall6           = false,
+  $manage_dhcp_agent          = false,
+  $manage_dhcp_agent_override = false,
+  $dhcp_agent_config          = {},
+  $firewall_extras            = {},
 ) {
   include ::calico
 
@@ -51,14 +53,27 @@ class profile::openstack::network::calico(
       owner   => root,
       group   => root,
     }
-    # file { 'dhcp-agent-override':
-    #   ensure  => file,
-    #   path    => '/etc/systemd/system/calico-dhcp-agent.service.d/override.conf',
-    #   owner   => root,
-    #   group   => root,
-    #   content => "[Service]\nUser=neutron\nExecStartPost=+/usr/local/bin/calico_iplink_helper.sh\n",
-    #   notify  => Service['calico-dhcp-agent']
-    # }
+    unless $manage_dhcp_agent_override {
+      # default override, do not run as root
+      file { 'dhcp-agent-override':
+        ensure  => file,
+        path    => '/etc/systemd/system/calico-dhcp-agent.service.d/override.conf',
+        owner   => root,
+        group   => root,
+        content => "[Service]\nUser=neutron\n",
+        notify  => Service['calico-dhcp-agent']
+      }
+    } else {
+      # also add dhcp_agent.ini as config file for calico-dhcp-agent
+      file { 'dhcp-agent-override':
+        ensure  => file,
+        path    => '/etc/systemd/system/calico-dhcp-agent.service.d/override.conf',
+        owner   => root,
+        group   => root,
+        content => "[Service]\nUser=neutron\nExecStart=\nExecStart=/usr/bin/calico-dhcp-agent --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/dhcp_agent.ini\n",
+        notify  => [Service['calico-dhcp-agent'], Exec['calico_systemctl_daemon_reload']]
+      }
+    }
     file { 'calico_iplink_helper.sh':
       ensure  => file,
       path    => '/usr/local/bin/calico_iplink_helper.sh',
@@ -81,6 +96,15 @@ class profile::openstack::network::calico(
       recurse => true,
       notify  => Service['calico-felix']
     }
+
+    exec { 'calico_systemctl_daemon_reload':
+      command     => '/bin/systemctl daemon-reload',
+      refreshonly => true,
+    }
+
+    # add config options to /etc/neutron/dhcp_agent.ini
+    # NB! profile::openstack::network::dhcp_agent_config is not merged!
+    create_resources('neutron_dhcp_agent_config', $dhcp_agent_config, { notify  => Service['calico-dhcp-agent'] })
   }
 
   if $manage_firewall {
