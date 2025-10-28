@@ -29,7 +29,7 @@ profile::base::yumrepo::repo_hash:
   AlmaLinux-PowerTools:
     ensure: present
 
-openstack_version: 'yoga'
+openstack_version: 'zed'
 
 # This creates /etc/openstack/puppet/admin-clouds.yaml
 keystone::bootstrap::bootstrap:        false
