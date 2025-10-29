@@ -4,6 +4,7 @@ include:
     - profile::network::leaf
     - profile::base::common
     - profile::base::cl_limits
+    - profile::monitoring::telegraf
     - profile::monitoring::collectd
 #    - profile::monitoring::netdata
   bootstrap:
@@ -34,31 +35,24 @@ ntp::service_enable: false
 ntp::service_ensure: 'stopped'
 ntp::interfaces: [ 'eth0' ]
 
-# sensu
-profile::monitoring::sensu::agent::enable_agent:    true
-profile::monitoring::sensu::agent::merge_strategy: 'first'
-profile::monitoring::sensu::agent::run_in_vrf:      true
-profile::monitoring::sensu::agent::plugins:
-  sensu-plugins-network-checks:
-    type:         package
-    pkg_version:  '4.1.1'
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::enable_go_agent:   true
+profile::monitoring::sensu::agent::enable_agent:      false
+profile::monitoring::sensu::agent::run_in_vrf:        true
 
-sensuclassic::checks:
-  'metrics-netif':
-    type:         'metric'
-    command:      'metrics-netif.rb --scheme network.%{::hostname}'
-    interval:     60
-    subscribers:  ['metrics']
-    handlers:     ['graphite_tcp']
-
+# collectd
+profile::monitoring::telegraf::enable_telegraf: true # endpoint for collectd
+profile::monitoring::telegraf::run_in_vrf: true
+profile::monitoring::collectd::enable: true
 collectd::minimum_version: '5.4'
-profile::monitoring::collectd::enable: false
 profile::monitoring::collectd::merge_strategy: 'first'
 profile::monitoring::collectd::plugins:
    - collectd::plugin::interface
-   - collectd::plugin::write_graphite
+   - collectd::plugin::network
+   - collectd::plugin::write_graphite #FIXME:remove with el8 monitor
+
 # The upstream collectd module does not allow setting the service name
-collectd::service_ensure: stopped                                                                       
+collectd::service_ensure: stopped
 collectd::service_enable: false
 profile::monitoring::collectd::manage_service: true
 profile::monitoring::collectd::service_name:   'collectd@mgmt'
@@ -100,13 +94,27 @@ openstack_extras::repo::debian::debian::manage_uca: false
 openstack_extras::repo::debian::debian::manage_whz: false
 openstack_extras::repo::debian::debian::source_hash:
   'buster':
-    'location': 'http://ftp.no.debian.org/debian'
+    'location': 'http://archive.debian.org/debian'
     'repos':    'main'
   'nrec':
     'location': 'https://download.iaas.uio.no/nrec/aptrepo/'
     'repos':    'main'
     'release':  'buster'
     'allow_unsigned': true
+  'puppet7':
+    'location': 'https://apt.puppetlabs.com'
+    'repos':    'puppet7'
+    'release':  'buster'
+    'key':
+      'id':     'D6811ED3ADEEB8441AF5AA8F4528B6CD9E61EF26'
+      'source': 'https://apt.puppetlabs.com/keyring.gpg'
+  'influxdata': # used for telegraf
+    'location': 'https://repos.influxdata.com/debian'
+    'release':  'buster' # also fact os.distro.codename
+    'repos':    'stable'
+    'key':
+      'id':     '24C975CBA61A024EE1B631787C3D57159FC2F927'
+      'source': 'https://repos.influxdata.com/influxdata-archive.key'
 
 profile::base::common::packages:
   'vim-enhanced': { 'ensure': 'absent', }
