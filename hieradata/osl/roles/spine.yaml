@@ -8,9 +8,6 @@ named_interfaces::config:
   trp:
     - bridge.100
 
-# FIXME:sensu-go
-profile::monitoring::sensu::agent::enable_go_agent:     false
-
 profile::network::leaf::switchd_conf:
   'resilient_hash_enable':
     line: 'resilient_hash_enable = TRUE'
