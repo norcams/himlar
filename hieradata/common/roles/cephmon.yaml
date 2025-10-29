@@ -120,6 +120,9 @@ profile::monitoring::telegraf::inputs:
   #       socket_suffix: "asok"
   #       mon_prefix: "ceph-mon"
 
+telegraf::metric_buffer_limit: 50000
+telegraf::metric_batch_size: 2000
+
 # Sensu
 sensu::agent::subscriptions:
   - 'base'
