@@ -40,30 +40,23 @@ profile::base::cl_limits::manage_cl_limits:       true
 profile::base::cl_limits::as_value:               2097152
 
 # sensu
-profile::monitoring::sensu::agent::enable_agent:    true
-profile::monitoring::sensu::agent::merge_strategy: 'first'
-profile::monitoring::sensu::agent::run_in_vrf:      true
-profile::monitoring::sensu::agent::plugins:
-  sensu-plugins-network-checks:
-    type:         package
-    pkg_version:  '4.1.1'
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::enable_go_agent:   true
+profile::monitoring::sensu::agent::enable_agent:      false
+profile::monitoring::sensu::agent::run_in_vrf:        true
 
-sensuclassic::checks:
-  'metrics-netif':
-    type:         'metric'
-    command:      'metrics-netif.rb --scheme network.%{::hostname}'
-    interval:     60
-    subscribers:  ['metrics']
-    handlers:     ['graphite_tcp']
-
-
-profile::monitoring::collectd::enable: false
+# collectd
+profile::monitoring::telegraf::enable_telegraf: true # endpoint for collectd
+profile::monitoring::telegraf::run_in_vrf: true
+profile::monitoring::collectd::enable: true
 profile::monitoring::collectd::merge_strategy: 'first'
 profile::monitoring::collectd::plugins:
    - collectd::plugin::interface
-   - collectd::plugin::write_graphite
+   - collectd::plugin::network
+   - collectd::plugin::write_graphite #FIXME:remove with el8 monitor
+
 # The upstream collectd module does not allow setting the service name
-collectd::service_ensure: stopped                                                                       
+collectd::service_ensure: stopped
 collectd::service_enable: false
 profile::monitoring::collectd::manage_service: true
 profile::monitoring::collectd::service_name:   'collectd@mgmt'
