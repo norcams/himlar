@@ -63,7 +63,8 @@ nodesets:
     - role:       "compute"
       memory:     4096
       cpus:       2
-      puppet_env: "yoga"
+      puppet_env: "yoga_el9"
+      box:        "norcams/el9"
   # The following nodes are optional
     #- role:       "access"
     #- role:       "identity"
