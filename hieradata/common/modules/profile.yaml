@@ -111,7 +111,7 @@ profile::openstack::openrc::username:                    'admin'
 profile::openstack::openrc::project_name:                'openstack'
 profile::openstack::openrc::compute_api_version:         "%{hiera('openstack_compute_api_version')}"
 
-profile::monitoring::physical::power::statsd_server:     "%{hiera('mgmt__address__monitor')}"
+profile::monitoring::physical::power::statsd_server:     '127.0.0.1'
 profile::monitoring::physical::power::http_proxy:        "%{hiera('mgmt__address__proxy')}:8888"
 
 # All yum repos go here
