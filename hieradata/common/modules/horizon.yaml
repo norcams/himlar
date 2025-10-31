@@ -1,4 +1,16 @@
 ---
+# Configuration for Horizon (dashboard)
+#
+# Uses puppet-horizon:
+#   https://github.com/openstack/puppet-horizon
+#
+# Horizon release notes:
+#   https://docs.openstack.org/releasenotes/horizon/
+#
+# Puppet-horizon release notes:
+#   https://docs.openstack.org/releasenotes/puppet-horizon/
+#
+
 #---------------------------------------------------------------------
 # General options (manifests/init.pp)
 #   - runs on the dashboard node
@@ -40,8 +52,9 @@ horizon::api_versions:
   'identity': 3
 
 # WebSSO
-horizon::websso_enabled:        true
-horizon::websso_initial_choice: openidc
+horizon::websso_enabled:               true
+horizon::websso_initial_choice:        openidc
+horizon::websso_choices_hide_keystone: true
 horizon::websso_choices:
   - ['openidc', 'Feide']
 horizon::websso_idp_mapping:
@@ -54,13 +67,14 @@ horizon::cache_backend:                 'django.core.cache.backends.memcached.Me
 horizon::django_session_engine:         'django.contrib.sessions.backends.cached_db'
 horizon::session_timeout:               10800 # 3 hours, default 30 min
 
-# Launch instance wizard
+# Launch instance wizard (LAUNCH_INSTANCE_DEFAULTS)
 horizon::instance_options:
   hide_create_volume:      true
   create_volume:           false
   disable_volume:          true
   disable_volume_snapshot: true
   enable_scheduler_hints:  false
+  enable_net_ports:        false
 
 # Identity (Keystone)
 horizon::keystone_options:
@@ -95,4 +109,4 @@ horizon::wsgi::apache::bind_address:    "%{ipaddress_public1}"
 horizon::wsgi::apache::ssl_verify_client: "none"
 horizon::wsgi::apache::extra_params:
   error_log_syslog: 'syslog:local1'
-  error_log_file:   false
+  error_log_file:   undef
