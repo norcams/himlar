@@ -200,6 +200,18 @@ profile::application::builder::images:
     'username':         'fedora'
     'hour':             14
     'minute':           30
+  'fedora_43':
+    'image_name':       'IMAGEBUILDER Fedora 43'
+    'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/43/Cloud/x86_64/images/'
+    'latest':           'Fedora-Cloud-Base-Generic-43-1.6.x86_64.qcow2'
+    'checksum_file':    'Fedora-Cloud-43-1.6-x86_64-CHECKSUM'
+    'checksum':         'sha256'
+    'min_ram':          1024
+    'min_disk':         3
+    'efi':              true
+    'username':         'fedora'
+    'hour':             14
+    'minute':           45
   'rockylinux8':
     'image_name':       'IMAGEBUILDER RockyLinux 8'
     'url':              'https://dl.rockylinux.org/pub/rocky/8/images/x86_64/'
@@ -369,6 +381,7 @@ profile::monitoring::sensu::agent::checks:
       check-imagebuild/args/debian12: "-d debian12"
       check-imagebuild/args/debian13: "-d debian13"
       check-imagebuild/args/fedora_42: "-d fedora_42"
+      check-imagebuild/args/fedora_43: "-d fedora_43"
       check-imagebuild/args/rockylinux8: "-d rockylinux8"
       check-imagebuild/args/rockylinux8_uib_puppet: "-d rockylinux8_uib_puppet"
       check-imagebuild/args/rockylinux9: "-d rockylinux9"
