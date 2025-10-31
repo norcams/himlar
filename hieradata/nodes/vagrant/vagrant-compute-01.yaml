@@ -1,12 +1,30 @@
 ---
 network::interfaces_hash:
-  'eth1':
-    onboot:    'yes'
-    mtu:       '1500'
-    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.103"
-    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
-  'eth2':
-    onboot:    'yes'
-    mtu:       '1500'
-    ipaddress: "%{hiera('netcfg_trp_netpart')}.103"
-    netmask:   "%{hiera('netcfg_trp_netmask')}"
+  eth0: # host nat
+    ipv4:
+      method:     'auto'
+    ipv6:
+      method:     'auto'
+  eth1: # mgmt
+    ipv4:
+      address1:       "%{hiera('netcfg_mgmt_netpart')}.103/%{hiera('netcfg_mgmt_cidr4')}"
+      dns:            "%{hiera('netcfg_dns_mgmt_server1')};%{hiera('netcfg_dns_mgmt_server2')}"
+      dns-search:     "%{hiera('netcfg_dns_search_nm')}"
+      never-default:  'true'
+      method:         'manual'
+  eth2: # trp
+    ipv4:
+      address1:       "%{hiera('netcfg_trp_netpart')}.103/%{hiera('netcfg_trp_cidr4')}"
+      never-default:  'true'
+      method:         'manual'
+      # route1: ipv4 nat
+      route1:         "0.0.0.0/0,%{hiera('netcfg_priv_gateway')}"
+      route1_options: 'table=240'
+      routing-rule1:  "priority 5 from %{hiera('netcfg_priv_network')} lookup 240"
+      # route2: default dualStack
+      route2:         "0.0.0.0/0,%{hiera('netcfg_trp_gateway')}"
+  eth3: # public
+    ipv4:
+      address1:       "%{hiera('netcfg_public_netpart')}.2/%{hiera('netcfg_public_netmask')}"
+      never-default:  'true'
+      method:         'manual'
