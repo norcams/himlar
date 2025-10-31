@@ -13,6 +13,7 @@ class profile::openstack::image::api(
   include ::glance::api
   include ::glance::config
   include ::glance::api::logging
+  include ::glance::wsgi::apache
 
   if $create_glance_stores and ( $stores_cinder or $stores_rbd or $stores_swift ) {
     if $stores_cinder {
