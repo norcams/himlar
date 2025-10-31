@@ -1,11 +1,15 @@
 ---
-openstack_version: 'yoga'
-
-# db setup (node: db)
-ceilometer::db::mysql::dbname: 'ceilometer'
-ceilometer::db::mysql::user:   'ceilometer'
-ceilometer::db::mysql::allowed_hosts:
-  - "%{netpart_trp1}.%"
+# Configuration for Ceilometer (telemetry)
+#
+# Uses puppet-ceilometer:
+#   https://github.com/openstack/puppet-ceilometer
+#
+# Ceilometer release notes:
+#   https://docs.openstack.org/releasenotes/ceilometer/
+#
+# Puppet-ceilometer release notes:
+#   https://docs.openstack.org/releasenotes/puppet-ceilometer/
+#
 
 # keystone setup (node: identity)
 ceilometer::keystone::auth::auth_name:          'ceilometer'
@@ -29,6 +33,8 @@ ceilometer::agent::notification::messaging_urls:            "%{hiera('service__t
 ceilometer::agent::polling::central_namespace: false
 ceilometer::agent::polling::compute_namespace: false
 ceilometer::agent::polling::ipmi_namespace:    false
+# https://docs.openstack.org/releasenotes/puppet-ceilometer/zed.html
+# ceilometer::agent::polling::tenant_name_discovery: true/false
 ceilometer::agent::polling::manage_polling:    true
 ceilometer::agent::polling::polling_interval:  3600
 ceilometer::agent::polling::polling_meters:
@@ -71,11 +77,6 @@ ceilometer::agent::polling::polling_meters:
   - 'hardware.system_stats.io.incoming.blocks'
   - 'hardware.network.ip.incoming.datagrams'
   - 'hardware.network.ip.outgoing.datagrams'
-
-# ceilometer config (node: telemetry)
-ceilometer::db::sync_db:             true
-ceilometer::db::sync::extra_params:  '--skip-metering-database'
-ceilometer::db::database_connection: "mysql://ceilometer:%{hiera('ceilometer::db::mysql::password')}@%{hiera('service__address__db_regional')}/ceilometer"
 
 # rabbit mq (for rabbit_password see secrets)
 ceilometer_rabbit_access:          "ceilometer:%{hiera('ceilometer_rabbit_password')}"
