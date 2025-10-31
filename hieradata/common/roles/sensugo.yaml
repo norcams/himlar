@@ -442,6 +442,9 @@ grafana::provisioning_datasources:
 
 # selinux
 profile::base::selinux::manage_selinux:   true
+profile::base::selinux::semodules:
+  'grafana':
+    avc_file:   "grafana.avc"
 profile::base::selinux::ports:
   grafana-http:
     seltype:  'grafana_port_t'
@@ -470,9 +473,13 @@ logrotate::rules:
 profile::base::yumrepo::repo_hash:
   AlmaLinux-PowerTools:
     ensure: present
-  yarn: #temp repo
+  AlmaLinux-AppStream:
+    exclude: 'grafana'
+  yarn: # used for sensu dashboard
     ensure: present
   epel:
-    ensure:   present
+    ensure: present
   influxdb:
+    ensure: present
+  grafana-oss:
     ensure: present
