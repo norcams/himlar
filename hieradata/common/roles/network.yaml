@@ -9,6 +9,8 @@ include:
     - profile::logging::rsyslog::client
     - profile::base::systemd
 
+openstack_version: 'zed'
+
 # This creates /etc/openstack/puppet/admin-clouds.yaml
 keystone::bootstrap::bootstrap:        false
 keystone::bootstrap::manage_resources: false
