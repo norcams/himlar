@@ -51,10 +51,11 @@ accounts::accounts:
     authorized_keys: [ 'raymond_uib', 'raymond_home']
   'trondham':
     ensure: present
+    authorized_keys: [ 'trondham', 'trondham_new' ]
   'erikberg':
     ensure: present
-  'sjurher':
-    ensure: present
+#  'sjurher':
+#    ensure: present
   'lennart':
     ensure: present
     authorized_keys: [ 'lennart_uib', 'lennart_home']
