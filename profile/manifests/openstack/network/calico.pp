@@ -60,7 +60,7 @@ class profile::openstack::network::calico(
         path    => '/etc/systemd/system/calico-dhcp-agent.service.d/override.conf',
         owner   => root,
         group   => root,
-        content => "[Service]\nUser=neutron\n",
+        content => "[Service]\nUser=neutron\nExecStartPost=+/usr/local/bin/calico_iplink_helper.sh\n",
         notify  => Service['calico-dhcp-agent']
       }
     } else {
