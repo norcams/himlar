@@ -12,9 +12,6 @@ class profile::monitoring::physical::power(
     $bmc_username = lookup('bmc_username', String, 'first', '')
     $bmc_password = lookup("bmc_password_${::location}", String, 'first', '')
 
-    $bmc_network  = regsubst($::ipaddress_trp1, '^(\d+)\.(\d+)\.(\d+)\.(\d+)$','\2',) - 1
-    $bmc_address  = regsubst($::ipaddress_trp1, '^(\d+)\.(\d+)\.(\d+)\.(\d+)$',"\\1.${bmc_network}.\\3.\\4",)
-
     file { 'power_metric.sh':
       ensure  => file,
       path    => '/usr/local/bin/power_metric.sh',
