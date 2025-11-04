@@ -12,3 +12,89 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_ext'
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
+
+# FIXME: testing el9 network config
+network::interfaces_hash:
+  p1p1: # mgmt
+    ipv4:
+      address1:       "%{hiera('netcfg_mgmt_netpart')}.111/%{hiera('netcfg_mgmt_cidr4')}"
+      dns:            "%{hiera('netcfg_dns_mgmt_server1')};%{hiera('netcfg_dns_mgmt_server2')};"
+      dns-search:     "%{hiera('netcfg_dns_search_nm')}"
+      gateway:        "%{hiera('netcfg_mgmt_gateway')}"
+      method:         'manual'
+      never-default:  'true'
+    ipv6: {}
+  bond0-em1: # trp
+    interface_name:   'em1'
+    controller:       'bond0'
+    port_type:        'bond'
+    ipv4: {}
+    ipv6: {}
+    ethernet:
+      mtu:  9000
+  bond0-em2: # ttrp
+    interface_name:   'em2'
+    controller:       'bond0'
+    port_type:        'bond'
+    ipv4: {}
+    ipv6: {}
+    ethernet:
+      mtu:  9000
+  bond0:
+    connection_type:  'bond'
+    ipv4:
+      address:        "%{hiera('netcfg_trp_netpart')}.111/%{hiera('netcfg_trp_cidr4')}"
+      method:         'manual'
+      route1:         "0.0.0.0/0,%{hiera('netcfg_priv_gateway')}"
+      route1_options: 'table=240'
+      route2:         "10.0.241.224/27,%{hiera('netcfg_trp_gateway')}"
+      route2_options: 'table=240'
+      route3:         "0.0.0.0/0,%{hiera('netcfg_trp_gateway')}"
+      # routing-rule1:  'priority 5 from 10.0.250.0/24 lookup 240'
+      # routing-rule2:  'priority 5 from 10.0.240.0/23 lookup 240'
+      # routing-rule3:  "priority 5 from 129.177.31.64/27 to %{hiera('netcfg_trp_netpart')}.0/%{hiera('netcfg_trp_cidr4')} type blackhole"
+      # routing-rule4:  "priority 5 from 10.0.250.0/24 to %{hiera('netcfg_trp_netpart')}.0/%{hiera('netcfg_trp_cidr4')} type blackhole"
+      # routing-rule5:  "priority 5 from 10.0.240.0/24 to %{hiera('netcfg_trp_netpart')}.0/%{hiera('netcfg_trp_cidr4')} type blackhole"
+      # routing-rule6:  "priority 5 from 10.0.241.0/27 to %{hiera('netcfg_trp_netpart')}.0/%{hiera('netcfg_trp_cidr4')} type blackhole"
+      # routing-rule7:  "priority 5 from 129.177.31.96/27 to %{hiera('netcfg_trp_netpart')}.0/%{hiera('netcfg_trp_cidr4')} type blackhole"
+    ipv6:
+      address:        "%{hiera('netcfg_trp_netpart6')}::111/%{hiera('netcfg_trp_netmask6')}"
+      method:         'manual'
+      route1:         "::/0,%{hiera('netcfg_trp_gateway6')}"
+      # routing-rule1:  "priority 5 from 2001:700:200:915::3000/116 to %{hiera('netcfg_trp_netpart6')}::/%{hiera('netcfg_trp_netmask6')} type blackhole"
+      # routing-rule2:  "priority 5 from 2001:700:200:df32:e1a5:2025::/96 to %{hiera('netcfg_trp_netpart6')}::/%{hiera('netcfg_trp_netmask6')} type blackhole"
+      # routing-rule3:  "priority 5 from 2001:700:200:916::/64 to %{hiera('netcfg_trp_netpart6')}::/%{hiera('netcfg_trp_netmask6')} type blackhole"
+      # routing-rule4:  "priority 5 from 2001:700:200:915::/64 to %{hiera('netcfg_trp_netpart6')}::/%{hiera('netcfg_trp_netmask6')} type blackhole"
+    bond:
+      mode: '802.3ad'              # the best and only supported mode with existing network config
+      xmit_hash_policy: 'layer3+4' # please use this hash policy
+    ethernet:
+      mtu:  9000
+  bond0.120:
+    connection_type:  'vlan'
+    ipv4:
+      address:        "%{hiera('netcfg_live_netpart')}.111/%{hiera('netcfg_trp_cidr4')}"
+      method:         'manual'
+      never-default:  'true'
+    ipv6: {}
+    vlan:
+      parent:         'bond0'
+      id:             120
+      flags:          1
+
+named_interfaces::config:
+  mgmt:
+    - p1p1
+  trp:
+    - bond0
+  live:
+    - bond0.120
+
+profile::base::network::rules: {}
+profile::network::interface::rule_merge_strategy: 'first'
+
+profile::network::interface::manage_neutron_blackhole: false
+
+network::routing::table::tables:
+  'private':
+    'table_id':  '240'
