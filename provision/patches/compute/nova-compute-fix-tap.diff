@@ -1,0 +1,70 @@
+From 5a2ef925f591d4da3216b6e4765a0eaba6807628 Mon Sep 17 00:00:00 2001
+From: Nell Jerram <nell@tigera.io>
+Date: Mon, 08 Sep 2025 11:22:53 +0100
+Subject: [PATCH] Add managed='no' flag to libvirt XML definition for VIF type TAP
+
+libvirt 9.5.0 and later by default doesn't allow using a pre-created
+TAP device; instead it expects to create and manage the TAP device
+itself, which is incompatible with how Nova works.  To restore
+compatibility with Nova we need to add the managed="no" flag to the
+target device section in the XML domain file.
+
+The libvirt change is here[1].  In particular it breaks Calico for
+OpenStack, because the Calico plugin (out of tree[2]) uses VIF type TAP.
+
+1. https://github.com/libvirt/libvirt/commit/a2ae3d299cf
+2. https://github.com/projectcalico/calico/blob/master/networking-calico/networking_calico/plugins/ml2/drivers/calico/mech_calico.py#L217
+
+Many thanks to Masahito Muroi <masahito.muroi@linecorp.com> for
+proposing an earlier version of this fix.
+
+Closes-Bug: #2033681
+Change-Id: I4a7b4ecf69cfe04c5291e5ca2a76db8829d6e592
+Signed-off-by: Nell Jerram <nell@tigera.io>
+---
+
+diff --git a/nova/virt/libvirt/config.py b/nova/virt/libvirt/config.py
+index 43bbdbc..33a5bad 100644
+--- /usr/lib/python3.9/site-packages/nova/virt/libvirt/config.py
++++ /usr/lib/python3.9/site-packages/nova/virt/libvirt/config.py
+@@ -1913,6 +1913,7 @@
+         self.device_addr = None
+         self.mtu = None
+         self.alias = None
++        self.managed = None
+
+     def __eq__(self, other):
+         if not isinstance(other, LibvirtConfigGuestInterface):
+@@ -2019,7 +2020,11 @@
+             dev.append(vlan_elem)
+
+         if self.target_dev is not None:
+-            dev.append(etree.Element("target", dev=self.target_dev))
++            if self.managed is not None:
++                dev.append(etree.Element("target", dev=self.target_dev,
++                                         managed=self.managed))
++            else:
++                dev.append(etree.Element("target", dev=self.target_dev))
+
+         if self.vporttype is not None:
+             vport = etree.Element("virtualport", type=self.vporttype)
+@@ -2105,6 +2110,7 @@
+                     self.source_dev = c.get('bridge')
+             elif c.tag == 'target':
+                 self.target_dev = c.get('dev')
++                self.managed = c.get('managed')
+             elif c.tag == 'script':
+                 self.script = c.get('path')
+             elif c.tag == 'vlan':
+diff --git a/nova/virt/libvirt/vif.py b/nova/virt/libvirt/vif.py
+index 275cb00..cac808e 100644
+--- /usr/lib/python3.9/site-packages/nova/virt/libvirt/vif.py
++++ /usr/lib/python3.9/site-packages/nova/virt/libvirt/vif.py
+@@ -435,6 +435,7 @@
+
+         dev = self.get_vif_devname(vif)
+         designer.set_vif_host_backend_ethernet_config(conf, dev)
++        conf.managed = "no"
+
+         network = vif.get('network')
+         if network and network.get_meta('mtu'):
