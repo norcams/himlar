@@ -9,6 +9,7 @@ class profile::openstack::dashboard(
   $internal_net         = "${::network_trp1}/${::netmask_trp1}",
   $firewall_extras      = {},
   $manage_overrides     = false,
+  $manage_logos         = false,
   $database             = {},
   $override_template    = "${module_name}/openstack/horizon/local_settings.erb",
   $enable_designate     = false,
@@ -161,6 +162,51 @@ class profile::openstack::dashboard(
       ensure  => present,
       path    => '/usr/share/openstack-dashboard/openstack_dashboard/static/dashboard/img/favicon.ico',
       source  => "puppet:///modules/${module_name}/openstack/horizon/img/favicon.ico",
+      replace => true,
+      require => Class['horizon'],
+      notify  => Service['httpd']
+    }
+  }
+
+  if $manage_logos {
+    file { '/var/www/html/logos':
+      ensure => 'directory',
+      mode   => '0755',
+      owner  => 'root',
+      group  => 'root',
+    } ->
+    file { 'uio_emb.png':
+      ensure  => present,
+      path    => '/var/www/html/logos/uio_emb.png',
+      source  => "puppet:///modules/${module_name}/openstack/horizon/img/uio_emb.png",
+      replace => true,
+      require => Class['horizon'],
+    } ->
+    file { 'uib_emb.png':
+      ensure  => present,
+      path    => '/var/www/html/logos/uib_emb.png',
+      source  => "puppet:///modules/${module_name}/openstack/horizon/img/uib_emb.png",
+      replace => true,
+      require => Class['horizon'],
+    } ->
+    file { 'logo_neic.png':
+      ensure  => present,
+      path    => '/var/www/html/logos/logo_neic.png',
+      source  => "puppet:///modules/${module_name}/openstack/horizon/img/logo_neic.png",
+      replace => true,
+      require => Class['horizon'],
+    } ->
+    file { 'logo_naic.svg':
+      ensure  => present,
+      path    => '/var/www/html/logos/logo_naic.svg',
+      source  => "puppet:///modules/${module_name}/openstack/horizon/img/logo_naic.svg",
+      replace => true,
+      require => Class['horizon'],
+    } ->
+    file { 'nrec-logos.conf':
+      ensure  => present,
+      path    => '/etc/httpd/conf.d/nrec-logos.conf',
+      source  => "puppet:///modules/${module_name}/openstack/horizon/httpd.conf.d/nrec-logos.conf",
       replace => true,
       require => Class['horizon'],
       notify  => Service['httpd']
