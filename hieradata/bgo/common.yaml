@@ -341,6 +341,7 @@ profile::network::services::dns_records:
     # Customer's PTR records
     "135.%{hiera('reverse_public_c1')}":                                         'elixir.no'
     "86.%{hiera('reverse_public_c2')}":                                          'sldap.nels.elixir.no'
+    "171.%{hiera('reverse_public_c1')}":                                         'pldap.nels.elixir.no' # RT 7213949
     "114.%{hiera('reverse_public_c2')}":                                         'fmri.uib.no' # RT 7194062
     # public IPv6
     '1.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "ns2.%{hiera('domain_frontend')}"
