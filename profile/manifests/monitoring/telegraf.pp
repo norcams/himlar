@@ -3,7 +3,9 @@
 class profile::monitoring::telegraf(
   $enable_telegraf = false,
   $merge_strategy = 'deep',
-  $run_in_vrf = false
+  $run_in_vrf = false,
+  $use_http_proxy = false,
+  $http_proxy
   ) {
 
   if $enable_telegraf {
@@ -18,7 +20,15 @@ class profile::monitoring::telegraf(
     # outputs
     $outputs = lookup('profile::monitoring::telegraf::outputs', Hash, $merge_strategy, {})
     create_resources(telegraf::output, $outputs, $defaults)
-
+    if $use_http_proxy {
+      file { '/etc/default/telegraf':
+        ensure => present,
+        mode   => '0755',
+        owner  => 'root',
+        source => "puppet:///modules/${module_name}/files/telegraf.default",
+        content => template("${module_name}/monitoring/telegraf/default.erb"),
+      }
+    }
     # this is used for cumulus linux (debian)
     # the override file must be loaded last so we rename it zzoverride.conf
     if $run_in_vrf {
