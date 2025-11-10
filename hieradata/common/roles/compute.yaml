@@ -315,3 +315,46 @@ keystone::bootstrap::project_name:     "%{hiera('keystone__service__project')}"
 keystone::bootstrap::internal_url:     "%{hiera('endpoint__identity__internal')}"
 keystone::bootstrap::region:           "%{location}"
 keystone::bootstrap::interface:        'internal'
+
+
+# Influx
+profile::monitoring::telegraf::enable_telegraf:     true
+profile::monitoring::telegraf::use_http_proxy: true
+
+## Flux: Redfish
+redfish_influxdb_bucket: "redfish"
+system_influxdb_bucket: "system"
+profile::monitoring::telegraf::outputs:
+  influxdb_v2:
+    options:
+      - urls: ["https://%{hiera('mgmt__address__influx')}:8086"]
+        tls_ca: '/etc/puppetlabs/puppet/ssl/certs/ca.pem'
+        token: "%{hiera('influxdb_admin_token')}"
+        organization: "%{hiera('profile::monitoring::influxdb::org')}"
+        bucket: "%{hiera('redfish_influxdb_bucket')}"
+        insecure_skip_verify: true
+        tagpass:
+          bucket: ["%{hiera('redfish_influxdb_bucket')}"]
+      - urls: ["https://%{hiera('mgmt__address__influx')}:8086"]
+        tls_ca: '/etc/puppetlabs/puppet/ssl/certs/ca.pem'
+        token: "%{hiera('influxdb_admin_token')}"
+        organization: "%{hiera('profile::monitoring::influxdb::org')}"
+        bucket: "%{hiera('system_influxdb_bucket')}"
+        insecure_skip_verify: true
+        tagpass:
+          bucket: ["%{hiera('system_influxdb_bucket')}"]
+profile::monitoring::telegraf::inputs:
+  redfish:
+    options:
+      - address:  "https://%{::bmc_address}"
+        username: "%{hiera('bmc_username')}"
+        password: "%{hiera('bmc_password_test01')}"
+        computer_system_id: "System.Embedded.1"
+        timeout: "20s"
+        insecure_skip_verify: true
+        tags:
+         bucket: "%{hiera('redfish_influxdb_bucket')}"
+  system:
+    options:
+      - tags:
+          bucket: "%{hiera('system_influxdb_bucket')}"

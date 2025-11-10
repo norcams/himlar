@@ -104,6 +104,8 @@ profile::application::himlarcli::sensugo_username:       'admin'
 profile::application::himlarcli::sensugo_password:       "%{hiera('sensu_api_password')}"
 profile::application::himlarcli::sensugo_ca_path:        '/etc/puppetlabs/puppet/ssl/certs/ca.pem'
 
+profile::monitoring::telegraf::http_proxy:               "%{hiera('mgmt__address__proxy')}"
+
 profile::openstack::openrc::auth_url:                    "%{hiera('public__address__api')}"
 profile::openstack::openrc::password:                    "%{hiera('keystone_admin_password')}"
 profile::openstack::openrc::region_name:                 "%{::location}"
