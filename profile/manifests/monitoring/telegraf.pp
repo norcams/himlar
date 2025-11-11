@@ -25,7 +25,6 @@ class profile::monitoring::telegraf(
         ensure => present,
         mode   => '0755',
         owner  => 'root',
-        source => "puppet:///modules/${module_name}/files/telegraf.default",
         content => template("${module_name}/monitoring/telegraf/default.erb"),
       }
     }
@@ -41,6 +40,7 @@ class profile::monitoring::telegraf(
         path   => '/etc/systemd/system/telegraf.service.d/zzoverride.conf',
         owner  => root,
         group  => root,
+        source => "puppet:///modules/${module_name}/monitoring/telegraf/systemd/override.conf",
         notify => [Exec['telegraf_debian_systemctl_daemon_reload'], Service['telegraf']]
       }
 
