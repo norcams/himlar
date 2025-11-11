@@ -21,13 +21,25 @@ class profile::monitoring::telegraf(
     $outputs = lookup('profile::monitoring::telegraf::outputs', Hash, $merge_strategy, {})
     create_resources(telegraf::output, $outputs, $defaults)
     if $use_http_proxy {
-      file { '/etc/default/telegraf':
-        ensure => present,
-        mode   => '0755',
-        owner  => 'root',
-        content => template("${module_name}/monitoring/telegraf/default.erb"),
+
+      file { '/etc/systemd/system/telegraf.service.d':
+        ensure => 'directory'
+    }
+      file { 'telegraf-systemd-override':
+        ensure => file,
+        path   => '/etc/systemd/system/telegraf.service.d/override.conf',
+        owner  => root,
+        group  => root,
+        content => template("${module_name}/monitoring/telegraf/systemd/proxy.erb"),
+        notify =>  [Exec['telegraf_proxy_systemctl_daemon_reload'], Service['telegraf']]
+      }
+
+      exec { 'telegraf_proxy_systemctl_daemon_reload':
+        command     => '/bin/systemctl daemon-reload',
+        refreshonly => true,
       }
     }
+
     # this is used for cumulus linux (debian)
     # the override file must be loaded last so we rename it zzoverride.conf
     if $run_in_vrf {
