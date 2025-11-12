@@ -50,8 +50,8 @@ network::interfaces_hash:
       route2:         "10.0.241.224/27,%{hiera('netcfg_trp_gateway')}"
       route2_options: 'table=240'
       route3:         "0.0.0.0/0,%{hiera('netcfg_trp_gateway')}"
-      # routing-rule1:  'priority 5 from 10.0.250.0/24 lookup 240'
-      # routing-rule2:  'priority 5 from 10.0.240.0/23 lookup 240'
+      routing-rule1:  'priority 5 from 10.0.250.0/24 lookup 240'
+      routing-rule2:  'priority 5 from 10.0.240.0/23 lookup 240'
       # routing-rule3:  "priority 5 from 129.177.31.64/27 to %{hiera('netcfg_trp_netpart')}.0/%{hiera('netcfg_trp_cidr4')} type blackhole"
       # routing-rule4:  "priority 5 from 10.0.250.0/24 to %{hiera('netcfg_trp_netpart')}.0/%{hiera('netcfg_trp_cidr4')} type blackhole"
       # routing-rule5:  "priority 5 from 10.0.240.0/24 to %{hiera('netcfg_trp_netpart')}.0/%{hiera('netcfg_trp_cidr4')} type blackhole"
@@ -90,11 +90,18 @@ named_interfaces::config:
   live:
     - bond0.120
 
+#FIXME not needed after PR #1018
 profile::base::network::rules: {}
 profile::network::interface::rule_merge_strategy: 'first'
 
+# FIXME: needs testing before we can set false in production
 profile::network::interface::manage_neutron_blackhole: false
 
 network::routing::table::tables:
   'private':
     'table_id':  '240'
+
+profile::openstack::network::calico::manage_dhcp_agent_override: true
+profile::openstack::network::calico::dhcp_agent_config:
+  DEFAULT/dnsmasq_config_file:
+    value: '/dev/null'
