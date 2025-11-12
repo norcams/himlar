@@ -31,11 +31,11 @@ class profile::monitoring::telegraf(
         owner  => root,
         group  => root,
         content => template("${module_name}/monitoring/telegraf/systemd/proxy.erb"),
-        notify =>  [Exec['telegraf_proxy_systemctl_daemon_reload'], Service['telegraf']]
+        notify =>  Exec['telegraf_proxy_systemctl_daemon_reload']
       }
 
       exec { 'telegraf_proxy_systemctl_daemon_reload':
-        command     => '/bin/systemctl daemon-reload',
+        command     => '/bin/systemctl daemon-reload;/bin/systemctl restart telegraf',
         refreshonly => true,
       }
     }
