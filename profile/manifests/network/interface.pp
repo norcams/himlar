@@ -136,24 +136,6 @@ class profile::network::interface(
         }
       }
     }
-  } elsif Integer($facts['os']['release']['major']) >= 9 {
-    if $manage_neutron_blackhole {
-      $transport_if = $named_interfaces::config[trp][0]
-      $neutron_subnets = lookup('profile::openstack::resource::subnets', Hash, 'first', {})
-      $neutron_subnets.each |$neutron_subnet, $cidr| {
-        if $cidr[cidr] =~ Stdlib::IP::Address::V4::CIDR {
-          exec { "add blackhole from ${neutron_subnet}":
-            command => "/bin/nmcli connection modify ${transport_if} +ipv4.routing-rules \"priority 5 from ${cidr[cidr]} to ${::network_trp1}/${::cidr_trp1} type blackhole\" && echo \"save persistent\" | /bin/nmcli connection edit ${transport_if} || /bin/nmcli connection up ${transport_if}",
-            unless => "/bin/test $(/sbin/ip rule show | grep blackhole | grep ${cidr[cidr]} | cut -d ' ' -f 2)"
-          }
-        } elsif $cidr[cidr] =~ Stdlib::IP::Address::V6::CIDR {
-          exec { "add blackhole from ${neutron_subnet}":
-            command => "/bin/nmcli connection modify ${transport_if} +ipv6.routing-rules \"priority 5 from ${cidr[cidr]} to ${::network6_trp1}/${::cidr6_trp1} type blackhole\" && echo \"save persistent\" | /bin/nmcli connection edit ${transport_if} || /bin/nmcli connection up ${transport_if}",
-            unless => "/bin/test $(/sbin/ip -6 rule show | grep blackhole | grep ${cidr[cidr]} | cut -d ' ' -f 2)"
-          }
-        }
-      }
-    }
   }
 
   #
