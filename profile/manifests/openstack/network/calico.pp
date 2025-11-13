@@ -8,6 +8,7 @@ class profile::openstack::network::calico(
   $manage_firewall6           = false,
   $manage_dhcp_agent          = false,
   $manage_dhcp_agent_override = false,
+  $neutron_network_block      = false,
   $dhcp_agent_config          = {},
   $firewall_extras            = {},
 ) {
@@ -44,6 +45,26 @@ class profile::openstack::network::calico(
     }
   }
 
+  # this will block instance access to everything internal running 172.16.0.0/12
+  if $neutron_network_block {
+
+    file { '/var/lib/calico/block-private-from-workloads.yaml':
+      ensure  => present,
+      owner   => root,
+      group   => root,
+      mode    => '0644',
+      path    => '/var/lib/calico/block-private-from-workloads.yaml',
+      content => template("${module_name}/openstack/network/block-private-from-workloads.yaml.erb"),
+      require => Class['calico'],
+      noticy  => Exec['apply_calico_block_private_from_workloads']
+    }
+
+    exec { 'apply_calico_block_private_from_workloads'
+      command     => 'calicoctl apply -f /var/lib/calico/block-private-from-workloads.yaml',
+      refreshonly => true,
+    }
+
+  }
   # Override ownership of the calico-dhcp-agent process as it should not be root
   # If calico-dhcp-agent was spawned as root, we must ensure correct permissions
   if $manage_dhcp_agent {
