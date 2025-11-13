@@ -339,12 +339,14 @@ profile::network::services::dns_records:
     '251.77.39.158.in-addr.arpa':   "ns2.%{hiera('domain_frontend')}"
     '252.77.39.158.in-addr.arpa':   "resolver.%{hiera('domain_public')}"
     '254.77.39.158.in-addr.arpa':   "dashboard.%{hiera('domain_frontend')}"
-    # Customer's PTR records
+    # Customer's PTR records (IPv4)
     "135.%{hiera('reverse_public_c1')}":                                         'elixir.no'
     "86.%{hiera('reverse_public_c2')}":                                          'sldap.nels.elixir.no'
     "171.%{hiera('reverse_public_c1')}":                                         'pldap.nels.elixir.no' # RT 7213949
     "114.%{hiera('reverse_public_c2')}":                                         'fmri.uib.no' # RT 7194062
     "28.%{hiera('reverse_public_c3')}":                                          'mailer.si.elixir.no' # RT 7222034
+    # Customer's PTR records (IPv6)
+    'f.4.1.2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  'mailer.si.elixir.no' # RT 7222034
     # public IPv6
     '1.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "ns2.%{hiera('domain_frontend')}"
     '2.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "resolver.%{hiera('domain_public')}"
