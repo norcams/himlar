@@ -48,6 +48,15 @@ class profile::openstack::network::calico(
   # this will block instance access to everything internal running 172.16.0.0/12
   if $neutron_network_block {
 
+    file { '/etc/calico/calicoctl.cfg':
+      ensure  => present,
+      owner   => root,
+      group   => root,
+      mode    => '0644',
+      path    => '/etc/calico/calicoctl.cfg',
+      content => template("${module_name}/openstack/network/calicoctl.cfg.erb"),
+      require => Class['calico'],
+    }
     file { '/var/lib/calico/block-private-from-workloads.yaml':
       ensure  => present,
       owner   => root,
