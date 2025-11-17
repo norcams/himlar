@@ -53,6 +53,9 @@ class profile::openstack::network::calico(
     package { $packagename_calicoctl:
       ensure => installed
     }
+    file { '/etc/calico':
+      ensure => directory
+    }
     file { '/etc/calico/calicoctl.cfg':
       ensure  => present,
       owner   => root,
@@ -62,19 +65,19 @@ class profile::openstack::network::calico(
       content => template("${module_name}/openstack/network/calicoctl.cfg.erb"),
       require => Class['calico'],
     }
-    file { '/var/lib/calico/block-private-from-workloads.yaml':
+    file { '/etc/calico/block-private-from-workloads.yaml':
       ensure  => present,
       owner   => root,
       group   => root,
       mode    => '0644',
-      path    => '/var/lib/calico/block-private-from-workloads.yaml',
+      path    => '/etc/calico//block-private-from-workloads.yaml',
       content => template("${module_name}/openstack/network/block-private-from-workloads.yaml.erb"),
       require => Class['calico'],
       notify  => Exec['apply_calico_block_private_from_workloads']
     }
 
     exec { 'apply_calico_block_private_from_workloads':
-      command     => '/bin/calicoctl apply -f /var/lib/calico/block-private-from-workloads.yaml',
+      command     => '/bin/calicoctl apply -f /etc/calico/block-private-from-workloads.yaml',
       refreshonly => true,
     }
 
