@@ -70,7 +70,7 @@ class profile::openstack::network::calico(
       path    => '/var/lib/calico/block-private-from-workloads.yaml',
       content => template("${module_name}/openstack/network/block-private-from-workloads.yaml.erb"),
       require => Class['calico'],
-      noticy  => Exec['apply_calico_block_private_from_workloads']
+      notify  => Exec['apply_calico_block_private_from_workloads']
     }
 
     exec { 'apply_calico_block_private_from_workloads':
