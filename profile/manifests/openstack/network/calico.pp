@@ -4,6 +4,7 @@ class profile::openstack::network::calico(
   $manage_etcd                = false,
   $manage_etcd_grpc_proxy     = false,
   $packagename_etcdgw         = python3-etcd3gw,
+  $packagename_calicoctl      = 'calicoctl',
   $manage_firewall            = true,
   $manage_firewall6           = false,
   $manage_dhcp_agent          = false,
@@ -48,6 +49,10 @@ class profile::openstack::network::calico(
   # this will block instance access to everything internal running 172.16.0.0/12
   if $neutron_network_block {
 
+    # FIXME: calicoctl mgmt should be moved to puppet-calico
+    package { $packagename_calicoctl:
+      ensure => installed
+    }
     file { '/etc/calico/calicoctl.cfg':
       ensure  => present,
       owner   => root,
