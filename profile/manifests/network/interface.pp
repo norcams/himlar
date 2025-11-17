@@ -64,74 +64,76 @@ class profile::network::interface(
       include network::routing::table
     }
   }
-  if $create_ip_rules {
-    unless $manage_neutron_blackhole {
-      create_resources(network::rule, lookup('profile::base::network::rules', Hash, $rule_merge_strategy, {}))
-    } else {
-      $named_interface_hash = lookup('named_interfaces::config', Hash, 'first', {})
-      $transport_if = $named_interface_hash["trp"][0] # FIXME should cater for many interfaces
-      $rules_hash = lookup('profile::base::network::rules', Hash, 'deep', {})
-      $trp_rules = $rules_hash["${transport_if}"]['iprule']
-      if $rules_hash["${transport_if}"]['iprule6'] {
-        $trp_rules6 = $rules_hash["${transport_if}"]['iprule6']
-      }
-      $neutron_subnets = lookup('profile::openstack::resource::subnets', Hash, 'first', {})
-      file { "rule-${transport_if}":
-        ensure  => present,
-        owner   => root,
-        group   => root,
-        mode    => '0644',
-        path    => "/etc/sysconfig/network-scripts/rule-${transport_if}",
-        content => template("${module_name}/network/rule4-interface.erb"),
-      }
-      file { "rule6-${transport_if}":
-        ensure  => present,
-        owner   => root,
-        group   => root,
-        mode    => '0644',
-        path    => "/etc/sysconfig/network-scripts/rule6-${transport_if}",
-        content => template("${module_name}/network/rule6-interface.erb"),
-      }
-      file { '/opt/rule-checks/':
-        ensure  => directory,
-      } ~>
-      file { "rule4-rulecheck.sh":
-        ensure  => present,
-        owner   => root,
-        group   => root,
-        mode    => '0755',
-        path    => "/opt/rule-checks/rule4-check.sh",
-        content => template("${module_name}/network/rule4-rulecheck.erb"),
-      } ~>
-      file { "rule6-rulecheck.sh":
-        ensure  => present,
-        owner   => root,
-        group   => root,
-        mode    => '0755',
-        path    => "/opt/rule-checks/rule6-check.sh",
-        content => template("${module_name}/network/rule6-rulecheck.erb"),
-      } ~>
-      file { "rule4-enforce.sh":
-        ensure  => present,
-        owner   => root,
-        group   => root,
-        mode    => '0755',
-        path    => "/opt/rule-checks/rule4-enforce.sh",
-        content => template("${module_name}/network/rule4-enforce.erb"),
-      } ~>
-      file { "rule6-enforce.sh":
-        ensure  => present,
-        owner   => root,
-        group   => root,
-        mode    => '0755',
-        path    => "/opt/rule-checks/rule6-enforce.sh",
-        content => template("${module_name}/network/rule6-enforce.erb"),
-      } ~>
-      exec { '/opt/rule-checks/rule4-enforce.sh':
-        unless  => '/opt/rule-checks/rule4-check.sh',
-      } ->
-      exec { '/opt/rule-checks/rule6-enforce.sh':
-        unless  => '/opt/rule-checks/rule6-check.sh',
+  if Integer($facts['os']['release']['major']) <= 8 {
+    if $create_ip_rules {
+      unless $manage_neutron_blackhole {
+        create_resources(network::rule, lookup('profile::base::network::rules', Hash, $rule_merge_strategy, {}))
+      } else {
+        $named_interface_hash = lookup('named_interfaces::config', Hash, 'first', {})
+        $transport_if = $named_interface_hash["trp"][0] # FIXME should cater for many interfaces
+        $rules_hash = lookup('profile::base::network::rules', Hash, 'deep', {})
+        $trp_rules = $rules_hash["${transport_if}"]['iprule']
+        if $rules_hash["${transport_if}"]['iprule6'] {
+          $trp_rules6 = $rules_hash["${transport_if}"]['iprule6']
+        }
+        $neutron_subnets = lookup('profile::openstack::resource::subnets', Hash, 'first', {})
+        file { "rule-${transport_if}":
+          ensure  => present,
+          owner   => root,
+          group   => root,
+          mode    => '0644',
+          path    => "/etc/sysconfig/network-scripts/rule-${transport_if}",
+          content => template("${module_name}/network/rule4-interface.erb"),
+        }
+        file { "rule6-${transport_if}":
+          ensure  => present,
+          owner   => root,
+          group   => root,
+          mode    => '0644',
+          path    => "/etc/sysconfig/network-scripts/rule6-${transport_if}",
+          content => template("${module_name}/network/rule6-interface.erb"),
+        }
+        file { '/opt/rule-checks/':
+          ensure  => directory,
+        } ~>
+        file { "rule4-rulecheck.sh":
+          ensure  => present,
+          owner   => root,
+          group   => root,
+          mode    => '0755',
+          path    => "/opt/rule-checks/rule4-check.sh",
+          content => template("${module_name}/network/rule4-rulecheck.erb"),
+        } ~>
+        file { "rule6-rulecheck.sh":
+          ensure  => present,
+          owner   => root,
+          group   => root,
+          mode    => '0755',
+          path    => "/opt/rule-checks/rule6-check.sh",
+          content => template("${module_name}/network/rule6-rulecheck.erb"),
+        } ~>
+        file { "rule4-enforce.sh":
+          ensure  => present,
+          owner   => root,
+          group   => root,
+          mode    => '0755',
+          path    => "/opt/rule-checks/rule4-enforce.sh",
+          content => template("${module_name}/network/rule4-enforce.erb"),
+        } ~>
+        file { "rule6-enforce.sh":
+          ensure  => present,
+          owner   => root,
+          group   => root,
+          mode    => '0755',
+          path    => "/opt/rule-checks/rule6-enforce.sh",
+          content => template("${module_name}/network/rule6-enforce.erb"),
+        } ~>
+        exec { '/opt/rule-checks/rule4-enforce.sh':
+          unless  => '/opt/rule-checks/rule4-check.sh',
+        } ->
+        exec { '/opt/rule-checks/rule6-enforce.sh':
+          unless  => '/opt/rule-checks/rule6-check.sh',
+        }
       }
     }
   }
@@ -160,7 +162,11 @@ class profile::network::interface(
       $addrdiff = $ouraddr-$addrbase
       # Find which interfaces to configure and their options
       $named_interfaces_hash = lookup('named_interfaces::config', Hash, 'first', {})
-      $ifopts = lookup('profile::base::network::network_auto_opts', Hash, 'deep', {})
+      if Integer($facts['os']['release']['major']) <= 8 {
+        $ifopts = lookup('profile::base::network::network_auto_opts', Hash, 'deep', {})
+      } elsif Integer($facts['os']['release']['major']) >= 9 {
+        $ifopts = lookup('profile::base::network::nm_auto_opts', Hash, 'deep', {})
+      }
       # Configure each interface
       $named_interfaces_hash.each |$ifrole, $ifnamed| {
         $ifname = String($ifnamed[0])
@@ -174,6 +180,7 @@ class profile::network::interface(
           $netrole= regsubst($ipnetpart, '^(\d+)\.(\d+)\.(\d+)$','\2',)
           $newipaddr = regsubst($mgmtaddress, '^(\d+)\.(\d+)\.(\d+)\.(\d+)$',"\\1.${netrole}.${cnet}.\\4",)
           $ifmask = lookup("netcfg_${ifrole}_netmask", String, 'first', '')
+          $ifcidr = extlib::netmask_to_cidr("$ifmask")
           $ifgw = lookup("netcfg_${ifrole}_gateway", String, 'first', '')
 
           # check for IPv6 configuration in options for this interface
@@ -200,17 +207,44 @@ class profile::network::interface(
             }
           }
 
-
           # Check for teaming or bonding
           if (($ifname[0,4] == 'team') or ($ifname[0,4] == 'bond')) and !('.' in $ifname) {
             # Determine type and create slave interfaces
             $iftype = $ifname[0,4]
-            $ifslaves = lookup('profile::base::network::network_auto_bonding', Hash, 'first', {})
-            $ifslaves[$ifrole].each |$slave, $slaveopts| {
-              file { "ifcfg-${slave})":
-                ensure  => file,
-                content => template("${module_name}/network/auto-if-${iftype}slave.erb"),
-                path    => "/etc/sysconfig/network-scripts/ifcfg-${slave}",
+            if Integer($facts['os']['release']['major']) <= 8 {
+              $ifslaves = lookup('profile::base::network::network_auto_bonding', Hash, 'first', {})
+              $ifslaves[$ifrole].each |$slave, $slaveopts| {
+                file { "ifcfg-${slave})":
+                  ensure  => file,
+                  content => template("${module_name}/network/auto-if-${iftype}slave.erb"),
+                  path    => "/etc/sysconfig/network-scripts/ifcfg-${slave}",
+                }
+              }
+            } elsif Integer($facts['os']['release']['major']) >= 9 {
+              $connection_type = 'bond'
+              $ifslaves = lookup('profile::base::network::nm_network_auto_bonding', Hash, 'first', {})
+              $ifslaves[$ifrole].each |$slave, $slaveopts| {
+              $slave_if =
+                { "$ifname-$slave" =>
+                  { 'controller'     => $ifname,
+                    'port_type'      => 'bond',
+                    'interface_name' => $slave,
+                    'id'             => "${ifname}-${slave}"
+                  },
+                }
+                if ($slaveopts[ethernet]) {
+                  $slave_if_opts_ethernet = { "${ifname}-${slave}" => { ethernet => $slaveopts[ethernet]}}
+                } else {
+                  $slave_if_opts_ethernet = {}
+                }
+                if ($slaveopts[bond-port]) {
+                  $slave_if_opts_bond_port = { "${ifname}-${slave}" => { bond-port => $slaveopts[bond-port]}}
+                } else {
+                  $slave_if_opts_bond_port = {}
+                }
+
+                $slave_if_final = deep_merge($slave_if, $slave_if_opts_ethernet, $slave_if_opts_bond_port)
+                create_resources ('network::nm::connection',$slave_if_final)
               }
             }
           }
@@ -221,10 +255,106 @@ class profile::network::interface(
           }
 
           # Write interface file
-          file { "ifcfg-${ifname})":
-            ensure  => file,
-            content => template("${module_name}/network/auto-if.erb"),
-            path    => "/etc/sysconfig/network-scripts/ifcfg-${ifname}",
+          if Integer($facts['os']['release']['major']) <= 8 {
+            file { "ifcfg-${ifname})":
+              ensure  => file,
+              content => template("${module_name}/network/auto-if.erb"),
+              path    => "/etc/sysconfig/network-scripts/ifcfg-${ifname}",
+            }
+          } elsif Integer($facts['os']['release']['major']) >= 9 {
+
+            if $newipaddr6 {
+              $nm_ipv6 =
+                { 'method'   => 'manual',
+                  'address1' => "$newipaddr6/$ifmask6",
+                  'gateway'  => "$ifgw6",
+                }
+            } else {
+              $nm_ipv6 = {}
+            }
+
+            # NetworkManger will not accept an empty gateway statement
+            if $ifgw =~ String[1] {
+              $nm_interface =
+                { "$ifname" =>
+                  { ipv4 =>
+                    { 'method'   => 'manual',
+                      'address1' => "$newipaddr/$ifcidr",
+                      'gateway'  => "$ifgw"
+                    },
+                    ipv6 => $nm_ipv6,
+                  },
+                }
+            } else {
+              $nm_interface =
+                { "$ifname" =>
+                  { ipv4 =>
+                    { 'method'   => 'manual',
+                      'address1' => "$newipaddr/$ifcidr",
+                    },
+                  ipv6 => $nm_ipv6,
+                },
+              }             
+            }
+
+            # routes for NM
+            if $create_custom_routes {
+              $ifroutes = lookup('profile::base::network::nm_auto_routes', Hash, 'first', {})
+              if ($ifroutes[$ifrole]) {
+                $nm_interfaces_routes = { $ifname => $ifroutes[$ifrole] }
+              } else {
+                $nm_interfaces_routes = {}
+              }
+            } else {
+              $nm_interfaces_routes = {}
+            }
+
+            if $connection_type == 'bond' {
+              $conn_type = { $ifname => { connection_type => 'bond' }}
+            } elsif $ifvlan {
+              $conn_type = { $ifname => { connection_type => 'vlan' }}
+            } else {
+              $conn_type = {}
+            }
+
+            if $ifvlan {
+              $nm_interface_vlan =
+              { "$ifname" =>
+                { vlan =>
+                  { 'id'     => "${split($ifname, '\.')[1]}",
+                    'parent' => "${split($ifname, '\.')[0]}",
+                    'flags'  => '1'
+                  }
+                }
+              }
+            } else {
+              $nm_interface_vlan = {}
+            }
+
+            if ($ifopts[$ifrole][ipv4]) {
+              $nm_interface_ipv4 = { $ifname => { ipv4 => $ifopts[$ifrole][ipv4] }}
+            } else {
+              $nm_interface_ipv4 = {}
+            }
+            if ($ifopts[$ifrole][ipv6]) {
+              $nm_interface_ipv6 = { $ifname => { ipv6 => $ifopts[$ifrole][ipv6] }}
+            } else {
+              $nm_interface_ipv6 = {}
+            }
+            if ($ifopts[$ifrole][ethernet]) {
+              $nm_interface_ethernet = { $ifname => { ethernet => $ifopts[$ifrole][ethernet] }}
+            } else {
+              $nm_interface_ethernet = {}
+            }
+            if ($ifopts[$ifrole][bond]) {
+              $nm_interface_bond = { $ifname => { bond => $ifopts[$ifrole][bond] }}
+            } else {
+              $nm_interface_bond = {}
+            }
+
+            $nm_interface_final = deep_merge($nm_interface, $nm_interface_ipv4, $nm_interface_ipv6, $nm_interfaces_routes, $nm_interface_ethernet, $nm_interface_bond, $nm_interface_vlan, $conn_type)
+
+            create_resources ('network::nm::connection',$nm_interface_final)
           }
         }
       }
