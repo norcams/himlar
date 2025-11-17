@@ -16,11 +16,6 @@ network::routing::table::tables:
   'private':
     'table_id':  '240'
 
-# only used if also profile::openstack::network::calico::manage_dhcp_agent_override is true
-profile::openstack::network::calico::dhcp_agent_config:
-  DEFAULT/dnsmasq_config_file:
-    value: '/dev/null'
-
 profile::base::network::nm_auto_routes:
   trp:
     ipv4:
