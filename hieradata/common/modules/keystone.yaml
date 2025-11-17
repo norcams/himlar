@@ -53,7 +53,10 @@ keystone::wsgi::apache::workers:          4
 keystone::wsgi::apache::threads:          1
 
 # Federation
-keystone::federation::trusted_dashboards:  ["https://%{hiera('public__address__dashboard')}/dashboard/auth/websso/"]
+keystone::federation::trusted_dashboards:
+  - "https://%{hiera('public__address__dashboard')}/dashboard/auth/websso/"
+  - "https://%{hiera('public__address__dashboard_bgo')}/dashboard/auth/websso/"
+  - "https://%{hiera('public__address__dashboard_osl')}/dashboard/auth/websso/"
 keystone::federation::openidc::idp_name:   'dataporten'
 keystone::federation::openidc::methods:
   - 'password'

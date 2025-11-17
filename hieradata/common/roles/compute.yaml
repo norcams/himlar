@@ -351,6 +351,7 @@ profile::monitoring::telegraf::inputs:
         password: "%{hiera('bmc_password_test01')}"
         computer_system_id: "System.Embedded.1"
         timeout: "20s"
+        interval: "600s"
         insecure_skip_verify: true
         tags:
          bucket: "%{hiera('redfish_influxdb_bucket')}"
