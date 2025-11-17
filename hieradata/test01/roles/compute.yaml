@@ -37,8 +37,9 @@ profile::base::network::nm_auto_routes:
 profile::base::network::nm_auto_opts:
   mgmt:
     ipv4:
-      'never-default': 'true'
-      'dns': "%{hiera('netcfg_dns_trp_server1')};%{hiera('netcfg_dns_mgmt_server1')};" # FIXME; define in common/roles/compute
+      never-default: 'true'
+      dns-search: "%{hiera('netcfg_dns_search_nm')}"
+      dns: "%{hiera('netcfg_dns_trp_server1')};%{hiera('netcfg_dns_mgmt_server1')};" # FIXME; define in common/roles/compute
   trp:
     ipv6init: 'yes' # NOTE: this is not NM syntax, rather interface.pp config
     bond:                          # Teaming driver is no longer available
