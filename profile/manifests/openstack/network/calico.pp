@@ -73,7 +73,7 @@ class profile::openstack::network::calico(
       noticy  => Exec['apply_calico_block_private_from_workloads']
     }
 
-    exec { 'apply_calico_block_private_from_workloads'
+    exec { 'apply_calico_block_private_from_workloads':
       command     => 'calicoctl apply -f /var/lib/calico/block-private-from-workloads.yaml',
       refreshonly => true,
     }
