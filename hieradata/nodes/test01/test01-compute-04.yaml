@@ -20,6 +20,3 @@ named_interfaces::config:
     - bond0
   live:
     - bond0.120
-
-# only needed for el9
-profile::openstack::network::calico::manage_dhcp_agent_override: true
