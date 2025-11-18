@@ -1,7 +1,7 @@
 apiVersion: projectcalico.org/v3
 kind: NetworkPolicy
 metadata:
-  name: nrec-deny-management
+  name: <%= @neutron_network_block_name %>
   namespace: openstack
 spec:
   order: 100

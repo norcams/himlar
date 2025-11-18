@@ -10,6 +10,7 @@ class profile::openstack::network::calico(
   $manage_dhcp_agent          = false,
   $manage_dhcp_agent_override = false,
   $neutron_network_block      = false,
+  $neutron_network_block_name = 'nrec-deny-management',
   $dhcp_agent_config          = {},
   $firewall_extras            = {},
 ) {
@@ -77,8 +78,9 @@ class profile::openstack::network::calico(
     }
 
     exec { 'apply_calico_block_private_from_workloads':
-      command     => '/bin/calicoctl apply -f /etc/calico/block-private-from-workloads.yaml',
-      refreshonly => true,
+      command => '/bin/calicoctl apply -f /etc/calico/block-private-from-workloads.yaml',
+      unless  => "/bin/calicoctl get np -n openstack -oyaml ${neutron_network_block_name}"
+#      refreshonly => true,
     }
 
   }
