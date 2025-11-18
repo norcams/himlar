@@ -3,6 +3,3 @@ profile::base::common::packages:
   'python3-redis': {} # OSProfiler dependency
 
 profile::openstack::network::manage_osprofiler: true
-
-# FIXME: move to common after testing
-profile::openstack::network::calico::neutron_network_block: true
