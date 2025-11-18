@@ -17,7 +17,6 @@ include:
   kickstart:
     - profile::virtualization::nested
     - profile::network::yum_proxy
-    - profile::monitoring::sensu::agent
     - profile::base::httpproxy
   bootstrap:
     - profile::network::yum_proxy

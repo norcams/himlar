@@ -6,6 +6,7 @@ include:
     - profile::base::firewall
     - profile::base::selinux
     - profile::logging::logrotate
+    - profile::monitoring::sensu::agent
   kickstart:
     - profile::base::common
     - profile::base::hostname
