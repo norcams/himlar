@@ -581,7 +581,9 @@ profile::network::services::dns_records:
     "%{::location}-compute-82.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.143"
     "%{::location}-compute-83.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.144"
     "%{::location}-compute-84.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.145"
-    # TODO compute-85-87
+    "%{::location}-compute-85.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.146"
+    "%{::location}-compute-86.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.147"
+    "%{::location}-compute-87.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.148"
     "%{::location}-compute-88.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.149"
     "%{::location}-compute-89.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.150"
     "%{::location}-compute-90.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.151"
@@ -846,7 +848,9 @@ profile::network::services::dns_records:
     "143.%{hiera('reverse_mgmt_c1')}":    "%{::location}-compute-82.%{hiera('domain_mgmt')}"
     "144.%{hiera('reverse_mgmt_c1')}":    "%{::location}-compute-83.%{hiera('domain_mgmt')}"
     "145.%{hiera('reverse_mgmt_c1')}":    "%{::location}-compute-84.%{hiera('domain_mgmt')}"
-    # TODO compute-85..87
+    "146.%{hiera('reverse_mgmt_c1')}":    "%{::location}-compute-85.%{hiera('domain_mgmt')}"
+    "147.%{hiera('reverse_mgmt_c1')}":    "%{::location}-compute-86.%{hiera('domain_mgmt')}"
+    "148.%{hiera('reverse_mgmt_c1')}":    "%{::location}-compute-87.%{hiera('domain_mgmt')}"
     "149.%{hiera('reverse_mgmt_c1')}":    "%{::location}-compute-88.%{hiera('domain_mgmt')}"
     "150.%{hiera('reverse_mgmt_c1')}":    "%{::location}-compute-89.%{hiera('domain_mgmt')}"
     "151.%{hiera('reverse_mgmt_c1')}":    "%{::location}-compute-90.%{hiera('domain_mgmt')}"
