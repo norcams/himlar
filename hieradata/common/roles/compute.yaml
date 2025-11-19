@@ -186,6 +186,8 @@ profile::base::network::network_auto_opts:
     'dns1':     "%{hiera('netcfg_dns_trp_server1')}"
     'dns2':     "%{hiera('netcfg_dns_mgmt_server1')}"
 
+profile::base::network::nm_exclude_calico_ifs: true
+
 sudo::purge: false
 
 profile::base::lvm::physical_volume:

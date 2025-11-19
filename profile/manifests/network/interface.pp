@@ -10,6 +10,8 @@ class profile::network::interface(
   $create_ip_rules          = false,
   $rule_merge_strategy      = 'deep',
   $manage_neutron_blackhole = false,
+  $nm_exclude_calico_ifs    = false,
+  $nm_disable_autoconfig    = true, # This refers to NetworkManager autoconfig, not himlar autoconfig
   $manage_dummy             = false,
   $no_of_dummies            = 1,
 ) {
@@ -135,6 +137,23 @@ class profile::network::interface(
           unless  => '/opt/rule-checks/rule6-check.sh',
         }
       }
+    }
+  }
+
+  # On compute nodes with NetworkManager it's prudent to exclude calico managed interfaces like tap and ns
+  # from NetworkManager. Mechanism should be enabled on all compute nodes.
+  if Integer($facts['os']['release']['major']) >= 9 and $nm_exclude_calico_ifs {
+    file { '/etc/NetworkManager/conf.d/20-calico.conf':
+      ensure  => file,
+      content => template("${module_name}/network/nm_exclude_calico_ifs.erb"),
+    }
+  }
+
+  # We don't want NetworkManager to try configuring unused interfaces
+  if Integer($facts['os']['release']['major']) >= 9 and $nm_disable_autoconfig {
+    file { '/etc/NetworkManager/conf.d/10-noauto.conf':
+      ensure  => file,
+      content => template("${module_name}/network/nm_disable_autoconfig.erb"),
     }
   }
 
