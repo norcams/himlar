@@ -370,6 +370,7 @@ profile::monitoring::sensu::agent::checks:
     - sensu/sensu-check-multiplexer
     annotations:
       fatigue_check/occurrences: '3' # notify first on the third occurence
+      fatigue_check/interval: '86400' # once per day notification
       check-imagebuild/args/almalinux8: "-d almalinux8"
       check-imagebuild/args/almalinux9: "-d almalinux9"
       check-imagebuild/args/almalinux9_nv_vgpu: "-d almalinux9_nv_vgpu"
