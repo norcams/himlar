@@ -22,6 +22,8 @@ include:
     - profile::network::yum_proxy
     - profile::base::httpproxy
 
+openstack_version: 'yoga'
+
 # Set SELinux mode to enforcing
 profile::base::selinux::manage_selinux: true
 
@@ -304,8 +306,6 @@ profile::rhsm::subscription::manage: true
 profile::rhsm::virtwho::manage:      true
 
 profile::storage::cephclient::enable: true
-
-openstack_version: 'yoga'
 
 # This creates /etc/openstack/puppet/admin-clouds.yaml
 keystone::bootstrap::bootstrap:        false
