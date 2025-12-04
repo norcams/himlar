@@ -187,6 +187,24 @@ profile::base::network::network_auto_opts:
     'dns2':     "%{hiera('netcfg_dns_mgmt_server1')}"
 
 profile::base::network::nm_exclude_calico_ifs: true
+profile::base::network::nm_unnumbered_ifs:
+  trp:
+    em1:
+      ethernet:
+        'mtu': '9216'
+      ipv4:
+        'method': 'disabled'
+      ipv6:
+        'method': 'link-local'
+        'addr-gen-mode': 'eui64'
+    em2:
+      ethernet:
+        'mtu': '9216'
+      ipv4:
+        'method': 'disabled'
+      ipv6:
+        'method': 'link-local'
+        'addr-gen-mode': 'eui64'
 
 sudo::purge: false
 
