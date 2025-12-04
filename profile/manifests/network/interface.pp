@@ -186,6 +186,7 @@ class profile::network::interface(
       } elsif Integer($facts['os']['release']['major']) >= 9 {
         $ifopts = lookup('profile::base::network::nm_auto_opts', Hash, 'deep', {})
       }
+      $nm_unnumbered = lookup('profile::base::network::nm_unnumbered_ifs', Hash, 'deep', {})
       # Configure each interface
       $named_interfaces_hash.each |$ifrole, $ifnamed| {
         $ifname = String($ifnamed[0])
@@ -194,9 +195,14 @@ class profile::network::interface(
         # Make interface files only for interfaces defined with network_auto_opts
         if $ifopts[$ifrole] {
           # Calculate ip address pr interface based on mgmt address, get gw and mask
-          $ipnetpart = lookup("netcfg_${ifrole}_netpart", String, 'first', '')
+          # Loopback interfaces have their own ip ranges
+          if ($ifname[0,2] == 'lo') {
+            $ipnetpart = lookup("netcfg_${ifrole}_l3_netpart", String, 'first', '')
+          } else {
+            $ipnetpart = lookup("netcfg_${ifrole}_netpart", String, 'first', '')
+          }
           $cnet = regsubst($ipnetpart, '^(\d+)\.(\d+)\.(\d+)$','\3',) + $addrdiff
-          $netrole= regsubst($ipnetpart, '^(\d+)\.(\d+)\.(\d+)$','\2',)
+          $netrole = regsubst($ipnetpart, '^(\d+)\.(\d+)\.(\d+)$','\2',)
           $newipaddr = regsubst($mgmtaddress, '^(\d+)\.(\d+)\.(\d+)\.(\d+)$',"\\1.${netrole}.${cnet}.\\4",)
           $ifmask = lookup("netcfg_${ifrole}_netmask", String, 'first', '')
           $ifcidr = extlib::netmask_to_cidr("$ifmask")
@@ -205,7 +211,11 @@ class profile::network::interface(
           # check for IPv6 configuration in options for this interface
           if $ifopts[$ifrole]['ipv6init'] == 'yes' {
             # Find network and diff from base
-            $ipnetpart6 = lookup("netcfg_${ifrole}_netpart6", String, 'first', '')
+            if ($ifname[0,2] == 'lo') {
+              $ipnetpart6 = lookup("netcfg_${ifrole}_l3_netpart6", String, 'first', '')
+            } else {
+              $ipnetpart6 = lookup("netcfg_${ifrole}_netpart6", String, 'first', '')
+            }
             if String($addrdiff) != '0' {
               $newipaddr6 = "${ipnetpart6}::${addrdiff}:${ipbyte}"
             }
@@ -214,6 +224,14 @@ class profile::network::interface(
             }
             $ifmask6 = lookup("netcfg_${ifrole}_netmask6", String, 'first', '')
             $ifgw6 = lookup("netcfg_${ifrole}_gateway6", String, 'first', '')
+          }
+
+          # Check for unnumbered interfaces associated with this interface
+          if $nm_unnumbered[$ifrole] {
+            $nm_unnumbered[$ifrole].each |$unnumbered_if, $unnumbered_opts| {
+              $unnumbered_final = { "${unnumbered_if}" => $unnumbered_opts + { 'interface_name' => $unnumbered_if }}
+              create_resources ('network::nm::connection',$unnumbered_final)
+            }
           }
 
           # Type in ifcg-file must be set according to actual type of interface
@@ -281,99 +299,133 @@ class profile::network::interface(
               path    => "/etc/sysconfig/network-scripts/ifcfg-${ifname}",
             }
           } elsif Integer($facts['os']['release']['major']) >= 9 {
-
-            if $newipaddr6 {
-              $nm_ipv6 =
-                { 'method'   => 'manual',
-                  'address1' => "$newipaddr6/$ifmask6",
-                  'gateway'  => "$ifgw6",
-                }
-            } else {
-              $nm_ipv6 = {}
-            }
-
-            # NetworkManger will not accept an empty gateway statement
-            if $ifgw =~ String[1] {
+            if ($ifname[0,2] == 'lo') {
+              if $newipaddr6 {
+                $nm_ipv6 =
+                  { 'method'   => 'manual',
+                    'address1' => "${newipaddr6}/128",
+                  }
+              } else {
+                $nm_ipv6 = {}
+              }
               $nm_interface =
-                { "$ifname" =>
+                { "virt-${ifname}" =>
                   { ipv4 =>
                     { 'method'   => 'manual',
-                      'address1' => "$newipaddr/$ifcidr",
-                      'gateway'  => "$ifgw"
-                    },
-                    ipv6 => $nm_ipv6,
-                  },
-                }
-            } else {
-              $nm_interface =
-                { "$ifname" =>
-                  { ipv4 =>
-                    { 'method'   => 'manual',
-                      'address1' => "$newipaddr/$ifcidr",
+                      'address1' => "${newipaddr}/32",
                     },
                   ipv6 => $nm_ipv6,
-                },
-              }             
-            }
-
-            # routes for NM
-            if $create_custom_routes {
-              $ifroutes = lookup('profile::base::network::nm_auto_routes', Hash, 'first', {})
-              if ($ifroutes[$ifrole]) {
-                $nm_interfaces_routes = { $ifname => $ifroutes[$ifrole] }
+                }
+              }
+              # routes for NM
+              if $create_custom_routes {
+                $ifroutes = lookup('profile::base::network::nm_auto_routes', Hash, 'first', {})
+                if ($ifroutes[$ifrole]) {
+                  $nm_interfaces_routes = { "virt-${ifname}" => $ifroutes[$ifrole] }
+                } else {
+                  $nm_interfaces_routes = {}
+                }
               } else {
                 $nm_interfaces_routes = {}
               }
-            } else {
-              $nm_interfaces_routes = {}
-            }
+              $conn_type = { "virt-${ifname}" => { connection_type => 'loopback', interface_name => $ifname }}
 
-            if $connection_type == 'bond' {
-              $conn_type = { $ifname => { connection_type => 'bond' }}
-            } elsif $ifvlan {
-              $conn_type = { $ifname => { connection_type => 'vlan' }}
-            } else {
-              $conn_type = {}
-            }
+              $nm_interface_final = deep_merge($nm_interface, $nm_interfaces_routes, $conn_type)
+              create_resources ('network::nm::connection',$nm_interface_final)
 
-            if $ifvlan {
-              $nm_interface_vlan =
-              { "$ifname" =>
-                { vlan =>
-                  { 'id'     => "${split($ifname, '\.')[1]}",
-                    'parent' => "${split($ifname, '\.')[0]}",
-                    'flags'  => '1'
+            } else {
+              if $newipaddr6 {
+                $nm_ipv6 =
+                  { 'method'   => 'manual',
+                    'address1' => "$newipaddr6/$ifmask6",
+                    'gateway'  => "$ifgw6",
+                  }
+              } else {
+                $nm_ipv6 = {}
+              }
+
+              # NetworkManger will not accept an empty gateway statement
+              if $ifgw =~ String[1] {
+                $nm_interface =
+                  { "$ifname" =>
+                    { ipv4 =>
+                      { 'method'   => 'manual',
+                        'address1' => "$newipaddr/$ifcidr",
+                        'gateway'  => "$ifgw"
+                      },
+                      ipv6 => $nm_ipv6,
+                    },
+                  }
+              } else {
+                $nm_interface =
+                  { "$ifname" =>
+                    { ipv4 =>
+                      { 'method'   => 'manual',
+                        'address1' => "$newipaddr/$ifcidr",
+                      },
+                    ipv6 => $nm_ipv6,
+                  },
+                }             
+              }
+
+              # routes for NM
+              if $create_custom_routes {
+                $ifroutes = lookup('profile::base::network::nm_auto_routes', Hash, 'first', {})
+                if ($ifroutes[$ifrole]) {
+                  $nm_interfaces_routes = { $ifname => $ifroutes[$ifrole] }
+                } else {
+                  $nm_interfaces_routes = {}
+                }
+              } else {
+                $nm_interfaces_routes = {}
+              }
+
+              if $connection_type == 'bond' {
+                $conn_type = { $ifname => { connection_type => 'bond' }}
+              } elsif $ifvlan {
+                $conn_type = { $ifname => { connection_type => 'vlan' }}
+              } else {
+                $conn_type = {}
+              }
+
+              if $ifvlan {
+                $nm_interface_vlan =
+                { "$ifname" =>
+                  { vlan =>
+                    { 'id'     => "${split($ifname, '\.')[1]}",
+                      'parent' => "${split($ifname, '\.')[0]}",
+                      'flags'  => '1'
+                    }
                   }
                 }
+              } else {
+                $nm_interface_vlan = {}
               }
-            } else {
-              $nm_interface_vlan = {}
-            }
 
-            if ($ifopts[$ifrole][ipv4]) {
-              $nm_interface_ipv4 = { $ifname => { ipv4 => $ifopts[$ifrole][ipv4] }}
-            } else {
-              $nm_interface_ipv4 = {}
-            }
-            if ($ifopts[$ifrole][ipv6]) {
-              $nm_interface_ipv6 = { $ifname => { ipv6 => $ifopts[$ifrole][ipv6] }}
-            } else {
-              $nm_interface_ipv6 = {}
-            }
-            if ($ifopts[$ifrole][ethernet]) {
-              $nm_interface_ethernet = { $ifname => { ethernet => $ifopts[$ifrole][ethernet] }}
-            } else {
-              $nm_interface_ethernet = {}
-            }
-            if ($ifopts[$ifrole][bond]) {
-              $nm_interface_bond = { $ifname => { bond => $ifopts[$ifrole][bond] }}
-            } else {
-              $nm_interface_bond = {}
-            }
+              if ($ifopts[$ifrole][ipv4]) {
+                $nm_interface_ipv4 = { $ifname => { ipv4 => $ifopts[$ifrole][ipv4] }}
+              } else {
+                $nm_interface_ipv4 = {}
+              }
+              if ($ifopts[$ifrole][ipv6]) {
+                $nm_interface_ipv6 = { $ifname => { ipv6 => $ifopts[$ifrole][ipv6] }}
+              } else {
+                $nm_interface_ipv6 = {}
+              }
+              if ($ifopts[$ifrole][ethernet]) {
+                $nm_interface_ethernet = { $ifname => { ethernet => $ifopts[$ifrole][ethernet] }}
+              } else {
+                $nm_interface_ethernet = {}
+              }
+              if ($ifopts[$ifrole][bond]) {
+                $nm_interface_bond = { $ifname => { bond => $ifopts[$ifrole][bond] }}
+              } else {
+                $nm_interface_bond = {}
+              }
 
-            $nm_interface_final = deep_merge($nm_interface, $nm_interface_ipv4, $nm_interface_ipv6, $nm_interfaces_routes, $nm_interface_ethernet, $nm_interface_bond, $nm_interface_vlan, $conn_type)
-
-            create_resources ('network::nm::connection',$nm_interface_final)
+              $nm_interface_final = deep_merge($nm_interface, $nm_interface_ipv4, $nm_interface_ipv6, $nm_interfaces_routes, $nm_interface_ethernet, $nm_interface_bond, $nm_interface_vlan, $conn_type)
+              create_resources ('network::nm::connection',$nm_interface_final)
+            }
           }
         }
       }
