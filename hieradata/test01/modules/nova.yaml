@@ -30,30 +30,30 @@ nova::policy::policies:
     key:   'os_compute_api:servers:create:zero_disk_flavor'
     value: 'role:imagebuilder'
   # The below policies enable additional features for
-  # all users or
   # iaas-team project (project_id: 8664497aa1224161bb1ed3bd88a65858)
+  # or all users
   nova_enable_shelve:
     key:   'os_compute_api:os-shelve:shelve'
   #  value: 'project_id:8664497aa1224161bb1ed3bd88a65858'
-    value: 'role:member'
+    value: 'role:user'
   nova_enable_shelve_offload:
     key:   'os_compute_api:os-shelve:shelve_offload'
   #  value: 'project_id:8664497aa1224161bb1ed3bd88a65858'
-    value: 'role:member'
+    value: 'role:user'
   # unshelve is enabled by default for project member and admin
   nova_enable_unshelve_to_host:
     key:   'os_compute_api:os-shelve:unshelve_to_host'
   #  value: 'project_id:8664497aa1224161bb1ed3bd88a65858'
-    value: 'role:member'
+    value: 'role:user'
   # This allows specifying hypervisor with --host <FQDN>
   nova_enable_specify_host:
     key: "compute:servers:create:requested_destination"
   #  value: 'project_id:8664497aa1224161bb1ed3bd88a65858'
-    value: 'role:member'
+    value: 'role:user'
   # This allows specifying hypervisor with --availability-zone nova:<FQDN>
   # (old method)
   nova_enable_forced_host:
     key: "compute:servers:create:forced_host"
   #  value: 'project_id:8664497aa1224161bb1ed3bd88a65858'
-    value: 'role:member'
+    value: 'role:user'
 
