@@ -10,6 +10,20 @@ include:
     - profile::webserver::apache::status
 #    - profile::openstack::compute::placement # FIXME: remove after upgrade
 
+profile::network::interface::create_custom_routes: true
+profile::base::network::nm_auto_routes:
+  trp:
+    ipv4:
+      route1: "%{hiera('netcfg_trp_l3_netpart')}.0/%{hiera('netcfg_trp_l3_cidr4')},%{hiera('netcfg_trp_gateway')}"
+profile::base::network::nm_auto_opts:
+  mgmt:
+    ipv4:
+      dns:         "%{hiera('netcfg_dns_mgmt_server1')};%{hiera('netcfg_dns_mgmt_server2')}"
+      dns-search:  "%{hiera('netcfg_dns_search_nm')}"
+  trp:
+    ipv4:
+      'never-default': 'true'
+
 profile::base::selinux::manage_selinux:             true
 profile::openstack::novactrl::manage_firewall:      true
 profile::openstack::novactrl::enable_api:           true
