@@ -3,7 +3,6 @@ profile::application::himlarcli::smtp:          'smtp.uio.no'
 profile::application::himlarcli::from_addr:     'noreply@nrec.no'
 profile::application::himlarcli::ldap_server:   'ldap.uib.no'
 profile::application::himlarcli::ldap_base_dn:  'dc=uib,dc=no'
-profile::application::himlarcli::slack_channel: '#iaas'
 
 # Enable designate in bgo
 profile::openstack::identity::designate_enabled:  true

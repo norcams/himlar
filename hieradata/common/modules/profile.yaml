@@ -77,7 +77,8 @@ profile::application::himlarcli::domain:                 "%{::domain}"
 profile::application::himlarcli::foreman_url:            "https://%{::location}-admin-01.%{::domain}"
 profile::application::himlarcli::foreman_user:           'admin'
 profile::application::himlarcli::foreman_password:       "%{hiera('foreman::admin_password')}"
-profile::application::himlarcli::statsd_server:          "%{hiera('mgmt__address__monitor')}"
+profile::application::himlarcli::statsd_server:          '127.0.0.1'
+profile::application::himlarcli::statsd_prefix:          'nrec'
 profile::application::himlarcli::report_db_uri:          "mysql+pymysql://report:%{hiera('report_db_password')}@%{hiera('service__address__db_global')}/report"
 profile::application::himlarcli::clistate_db_uri:        "mysql+pymysql://clistate:%{hiera('clistate_db_password')}@%{hiera('service__address__db_global')}/clistate"
 profile::application::himlarcli::db_host_nova:           "%{hiera('service__address__db_regional')}"
@@ -87,8 +88,8 @@ profile::application::himlarcli::mq_username:            'himlarcli'
 profile::application::himlarcli::mq_password:             "%{hiera('himlarcli_rabbit_password')}"
 profile::application::himlarcli::mq_vhost:               'himlarcli'
 profile::application::himlarcli::slack_webhook_url:      "%{hiera('himlarcli_slack_webhook')}"
-profile::application::himlarcli::slack_user:             'iaas-status'
-profile::application::himlarcli::slack_channel:          '#devtest'
+profile::application::himlarcli::slack_user:             'sensu'
+profile::application::himlarcli::slack_channel:          '#vakt'
 profile::application::himlarcli::twitter_api_key:        "%{hiera('himlarcli_twitter_apikey')}"
 profile::application::himlarcli::twitter_api_secret_key: "%{hiera('himlarcli_twitter_secretkey')}"
 profile::application::himlarcli::twitter_access_token:   "%{hiera('himlarcli_twitter_accesstoken')}"
@@ -103,6 +104,8 @@ profile::application::himlarcli::sensugo_username:       'admin'
 profile::application::himlarcli::sensugo_password:       "%{hiera('sensu_api_password')}"
 profile::application::himlarcli::sensugo_ca_path:        '/etc/puppetlabs/puppet/ssl/certs/ca.pem'
 
+profile::monitoring::telegraf::http_proxy:               "%{hiera('mgmt__address__proxy')}"
+
 profile::openstack::openrc::auth_url:                    "%{hiera('public__address__api')}"
 profile::openstack::openrc::password:                    "%{hiera('keystone_admin_password')}"
 profile::openstack::openrc::region_name:                 "%{::location}"
@@ -110,7 +113,7 @@ profile::openstack::openrc::username:                    'admin'
 profile::openstack::openrc::project_name:                'openstack'
 profile::openstack::openrc::compute_api_version:         "%{hiera('openstack_compute_api_version')}"
 
-profile::monitoring::physical::power::statsd_server:     "%{hiera('mgmt__address__monitor')}"
+profile::monitoring::physical::power::statsd_server:     '127.0.0.1'
 profile::monitoring::physical::power::http_proxy:        "%{hiera('mgmt__address__proxy')}:8888"
 
 # All yum repos go here

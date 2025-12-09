@@ -1,0 +1,4 @@
+type=AVC msg=audit(1759299406.604:62213): avc:  denied  { name_bind } for  pid=4002304 comm="grafana" src=8080 scontext=system_u:system_r:grafana_t:s0 tcontext=system_u:object_r:http_cache_port_t:s0 tclass=tcp_socket permissive=0
+type=AVC msg=audit(1761822111.641:82852): avc:  denied  { read } for  pid=2567893 comm="grafana" name="netstat" dev="proc" ino=4026532056 scontext=system_u:system_r:grafana_t:s0 tcontext=system_u:object_r:proc_net_t:s0 tclass=file permissive=0
+type=AVC msg=audit(1761821894.262:82809): avc:  denied  { search } for  pid=2566487 comm="grafana" name="/" dev="cgroup2" ino=1 scontext=system_u:system_r:grafana_t:s0 tcontext=system_u:object_r:cgroup_t:s0 tclass=dir permissive=0
+type=AVC msg=audit(1761821894.300:82810): avc:  denied  { execmem } for  pid=2566487 comm="grafana" scontext=system_u:system_r:grafana_t:s0 tcontext=system_u:system_r:grafana_t:s0 tclass=process permissive=0

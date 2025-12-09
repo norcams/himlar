@@ -36,6 +36,7 @@ password=<%= @db_password_nova %>
 [statsd]
 server=<%= @statsd_server %>
 port = 8125
+prefix = <%= @statsd_prefix %>
 
 [state]
 db=db/state.db

@@ -373,6 +373,12 @@ profile::monitoring::sensu::agent::checks:
     handlers:       ['default']
     runtime_assets:
     - sensu/http-check
+# L40s 
+  'l40s-gpu-pci-check':
+    command:      "/usr/local/bin/check_l40s_pci.sh"
+    interval:     60
+    subscriptions:  ['l40s']
+    handlers:       ['default']
 # PHYSICAL
   'redfish-check':
     command:        '/usr/local/bin/redfish_check.sh'
@@ -392,6 +398,7 @@ profile::monitoring::sensu::agent::checks:
   #   handlers:       ['default']
   #   runtime_assets:
   #   - jadiunr/check-smart-status
+
 
 # profile::dns::ns::ns_master1
 # we need nodejs for web gui
@@ -435,6 +442,9 @@ grafana::provisioning_datasources:
 
 # selinux
 profile::base::selinux::manage_selinux:   true
+profile::base::selinux::semodules:
+  'grafana':
+    avc_file:   "grafana.avc"
 profile::base::selinux::ports:
   grafana-http:
     seltype:  'grafana_port_t'
@@ -463,9 +473,13 @@ logrotate::rules:
 profile::base::yumrepo::repo_hash:
   AlmaLinux-PowerTools:
     ensure: present
-  yarn: #temp repo
+  AlmaLinux-AppStream:
+    exclude: 'grafana'
+  yarn: # used for sensu dashboard
     ensure: present
   epel:
-    ensure:   present
+    ensure: present
   influxdb:
+    ensure: present
+  grafana-oss:
     ensure: present

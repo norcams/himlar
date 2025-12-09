@@ -48,3 +48,6 @@ sensu::agent::subscriptions:
   # - 'compute'
   # - 'cephmon'
   # - 'cephmon-object'
+
+# we do not have puppet ca in vagrant
+profile::application::openssl::puppetca::enable: false

@@ -53,13 +53,14 @@ accounts::accounts:
     ensure: present
   'erikberg':
     ensure: present
-  'sjurher':
-    ensure: present
+#  'sjurher':
+#    ensure: present
   'lennart':
     ensure: present
     authorized_keys: [ 'lennart_uib', 'lennart_home']
   'terjef':
     ensure: present
+    authorized_keys: [ 'terjef', 'terjef_basement']
   'torldre':
     ensure: present
   'erlenboh':

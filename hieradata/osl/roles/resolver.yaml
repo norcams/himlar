@@ -90,6 +90,7 @@ profile::dns::ns::ptr_zones:
 
 profile::dns::ns::allowed_nets:
   - '172.16.0.0/12;         # internal rfc1918'
+  - '158.37.43.0/28;        # bgo IPv4'
   - '158.37.64.0/23;        # bgo IPv4'
   - '158.39.77.0/24;        # bgo IPv4'
   - '158.39.74.0/24;        # bgo IPv4'
@@ -101,6 +102,7 @@ profile::dns::ns::allowed_nets:
   - '158.37.66.0/24;        # osl IPv4'
   - '78.91.122.0/23;        # osl IPv4'
   - '10.0.0.0/8;            # rfc1918 for ipv6 only instances'
+  - '2001:700:2:8304::/64;  # bgo IPv6'
   - '2001:700:2:8300::/56;  # bgo IPv6'
   - '2001:700:2:8200::/56;  # osl IPv6'
   - '2001:700:2:8c00::/56;  # all regions IPv6'

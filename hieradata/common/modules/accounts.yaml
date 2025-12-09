@@ -19,11 +19,11 @@ accounts::ssh_keys:
     type:    'ed25519'
     public:  'AAAAC3NzaC1lZDI1NTE5AAAAIGh8ABoo3nkFSAlTTiWqcTmqUp98uPJP/wNvQzMTsvJ6'
   'trondham':
-    type:    'ssh-rsa'
-    public:  'AAAAB3NzaC1yc2EAAAABIwAAAQEAr3c4y9UTQstrocwRDdq8tkb8d33VIX4x07iKYanZmnrcGwQ7efT3rEN2tmJUEQumNSL+ZVdsCH/2pT37L8uyxsRlSdnz5bQbe0Sj2dq4ahpIadrDH7n858EmN+chEwgz5QRyWT4SanC9ce/9EyJbl8C0U34mgJV+pIwSGhFhWKXJ624ja+kMXVd6+5rG+rlukMjolFoxE+ijZqzU1EwUtuKD1oMFGeszdpEChhhGO/9T1L7MyaIcDOUOmMgXjdgRtVmS1QY5HYikvc68wBV1FDRn1pvEd3UJTobU87FA9XircbazvD64ghNWK7dqikUgnW/OQsKLoLfyPEUn39v2wQ=='
-  'sjurher':
-    type:    'ssh-rsa'
-    public:  'AAAAB3NzaC1yc2EAAAABIwAAAQEAuZMUpykDgxpTP3z8Ge2gC5UBStWtI6juvWICb+/vSUrvXDcvlztX0uThobj40obBTE0sKxQkDgVx2IyHUFGMWXYqWs3EStkOUQAMaW5Gva/FmMfsIyspvlO/TYpeglzFPHwDBc6IeVGSIhKZySQnj4F6kvwEBnZfhXf+gX9iW5+MOl+4R9ZWttc0x3xfKv5Jhyl7Wfx3YHlOKWXJtuJf3ZZZHY31pzwjbREGuOscLw9ATlOJu6bk94aVAafFRUnuIIV3ec195gddcjIS9ea84Q/ExElpBWO8W3aO68ejZ6TG4qm+ieKWpbQaHxk+bFp+zkjomAZisFvwmgaIQJnj9Q=='
+    type:    'ed25519'
+    public:  'AAAAC3NzaC1lZDI1NTE5AAAAIMHL81TUzKP/SfmmOrmJ3lK+VgEu4pl/1pvTJjVfpE28'
+#  'sjurher':
+#    type:    'ssh-rsa'
+#    public:  'AAAAB3NzaC1yc2EAAAABIwAAAQEAuZMUpykDgxpTP3z8Ge2gC5UBStWtI6juvWICb+/vSUrvXDcvlztX0uThobj40obBTE0sKxQkDgVx2IyHUFGMWXYqWs3EStkOUQAMaW5Gva/FmMfsIyspvlO/TYpeglzFPHwDBc6IeVGSIhKZySQnj4F6kvwEBnZfhXf+gX9iW5+MOl+4R9ZWttc0x3xfKv5Jhyl7Wfx3YHlOKWXJtuJf3ZZZHY31pzwjbREGuOscLw9ATlOJu6bk94aVAafFRUnuIIV3ec195gddcjIS9ea84Q/ExElpBWO8W3aO68ejZ6TG4qm+ieKWpbQaHxk+bFp+zkjomAZisFvwmgaIQJnj9Q=='
   'erikberg':
     type:    'ecdsa-sha2-nistp384'
     public:  'AAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzODQAAABhBIBDkDbOgeJHXOM9PZo2Nok5MB5AoRPndSLDIbE22mb743KFJpY4WRvDLoSUc0zTXu5yLv8lQ+8301KaBatCFaHCbEG7z4AWIv4VQEao5bu/qK6xnXwEAUmwGHddZky74A=='
@@ -31,14 +31,17 @@ accounts::ssh_keys:
     type:    'ed25519'
     public:  'AAAAC3NzaC1lZDI1NTE5AAAAIPuHnEBp2/VdrTk5UDWRfTpB0hRLb8x7lcZzeAImQdnR'
   'lennart_home':
-    type:    'ssh-rsa'
-    public:  'AAAAB3NzaC1yc2EAAAADAQABAAABAQCqvQyzfAGDH/sd9qNXELuvrgnnRASr4t8hSoqLBYt3Zatn4iieCHZvJ2gElejl2h2hgsAS5QZvBiTKRlFsGPW9lc3IaMU0Obb23y4AYf0PGE9XfZT6pruUwYqGMLhjuI/yG+bQmhvkvI/cwaCmeUS0gXOi1CnfnH20KWS6qZyWbBD+oEVqrvY5PFLkM1dqi6zuuFUv/q8gcfgeT1gANkKNv4VVrZT40I2Mx2ZWSmAangfTmAcd4G2++WN2MLAlzBvQvMK47XS2r1BAaQMaTM7Gk9JzhDRgSsFgs+wPPaUaR5RpxGvIWMUNXw+O5gIGZDX45j4n6drmn70hmJgZzeyT'
+    type:    'ed25519'
+    public:  'AAAAC3NzaC1lZDI1NTE5AAAAIHrN0QHVGbQiRiPK0guJb3p74HQ/G2KAMm1BNImFRBdu'
   'terjef':
     type:    'ed25519'
     public:  'AAAAC3NzaC1lZDI1NTE5AAAAILtIkNQcV9wDYpk1BrpzpBtU03pauD/oOQOdgJncOJqp'
+  'terjef_basement':
+    type:    'ed25519'
+    public:  'AAAAC3NzaC1lZDI1NTE5AAAAID8YxgXjVmP3v5W1JK1fHP9DJfAxIMxauoNbjk9PZMoT'
   'torldre':
-    type:    'ssh-rsa'
-    public:  'AAAAB3NzaC1yc2EAAAADAQABAAACAQCz7W4kR0Zz/A1ARqiGO5AcYoRuRaRJIPBnE/eTINBM2u262JCkvpclKyE1o+ytJFRafYno4sVE6KysklRgeFJBdWE6zQx5MSwte+C+alnq7oFEbF0nNeHRNeEvnWcfQmVUcxsgkMtYXvQ30Znwd/zd8wBuG/7RJaS7F35kYQDKRaS2Q5dAl3LPcC3ewKIWlSHe0xNJUJNyAf1AtH6TJb+m7aAellW5YgtJdsBMTcBLm/XD+fCuO1Se3kUBLzXOIqK5i/7y4AQmDBvKNYhr9WuAiTcwNNBpdiyEeCFb+S+SSspS/CUX5ZSRtsRJj3jgYwC+77M5TSJjLRgRdcM2wvnFJQWl0vz5P5S8o2cCXuMiLDnRiVtElq488yfggA1bykd5MX7cuJq1HcZZY5qP5p2PHayMQ7tat8+I3fmkRhOQk+qUavZXMkBQpHYIlJXxmOGA9Uksn6v1p/CG5q54sCMkswQNqXEpIc/ivholFeAeg0vWfJ81b9n/2LK17vUVPdy2hRT0cVADX4+fQ1a8ABKZie4lTs3naENi+V1yXYFlSXSI4U3/MNABvJNNdACgKBlymKPmAPmk0BGQ4i9S65yAoapVpVajJGzCUYhVyx+jDj9ohGd6ysjUy+QyGPLlz7EbAULv4X0Eyyf+/bHmRg5pAs4/kZ+LFe4A0XA2rYHjfw=='
+    type:    'ed25519'
+    public:  'AAAAC3NzaC1lZDI1NTE5AAAAIF0rUoiVM7pUDSu+0W2qHny+GY+bDg/3U3MItUjUSr5g'
   'erlenboh':
     type:    'ed25519'
     public:   'AAAAC3NzaC1lZDI1NTE5AAAAILYmDUyTznpIW30/oy5cjbEybnyLUJQLqHT58JoTbY1B'
@@ -68,9 +71,9 @@ accounts::users:
   'trondham':
     comment: 'trondham@norcams'
     groups:  [ 'users', 'wheel', 'norcams' ]
-  'sjurher':
-    comment: 'sjurher@norcams'
-    groups: [ 'users', 'wheel' ]
+#  'sjurher':
+#    comment: 'sjurher@norcams'
+#    groups: [ 'users', 'wheel' ]
   'erikberg':
     comment: 'erikberg@norcams'
     groups: [ 'users', 'wheel', 'norcams' ]

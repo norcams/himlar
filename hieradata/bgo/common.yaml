@@ -1,8 +1,4 @@
 ---
-include:
-  default:
-    - profile::monitoring::sensu::agent
-
 location_environment:     'prod'
 location_description:     'Production environment in Bergen'
 
@@ -41,6 +37,7 @@ reverse_trp_c7:           '7.18.172.in-addr.arpa'
 reverse_public_c0:        '77.39.158.in-addr.arpa'
 reverse_public_c1:        '74.39.158.in-addr.arpa'
 reverse_public_c2:        '201.39.158.in-addr.arpa'
+reverse_public_c3:        '65.37.158.in-addr.arpa'
 
 bgp_as:                   '65501'
 
@@ -213,10 +210,13 @@ profile::network::services::dns_records:
     "%{::location}-compute-vgpu-52.%{hiera('domain_mgmt')}":    "%{::location}-compute-52.%{hiera('domain_mgmt')}"
     "%{::location}-compute-vgpu-53.%{hiera('domain_mgmt')}":    "%{::location}-compute-53.%{hiera('domain_mgmt')}"
     "%{::location}-compute-vgpu-54.%{hiera('domain_mgmt')}":    "%{::location}-compute-54.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-epyc-86.%{hiera('domain_mgmt')}":    "%{::location}-compute-86.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-epyc-87.%{hiera('domain_mgmt')}":    "%{::location}-compute-87.%{hiera('domain_mgmt')}"
     "%{::location}-compute-l40s-88.%{hiera('domain_mgmt')}":    "%{::location}-compute-88.%{hiera('domain_mgmt')}"
     "%{::location}-compute-l40s-89.%{hiera('domain_mgmt')}":    "%{::location}-compute-89.%{hiera('domain_mgmt')}"
     "%{::location}-compute-l40s-90.%{hiera('domain_mgmt')}":    "%{::location}-compute-90.%{hiera('domain_mgmt')}"
     "%{::location}-compute-l40s-91.%{hiera('domain_mgmt')}":    "%{::location}-compute-91.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-elixir1-92.%{hiera('domain_mgmt')}": "%{::location}-compute-92.%{hiera('domain_mgmt')}"
     "%{::location}-object-ceph-01.%{hiera('domain_mgmt')}":     "%{::location}-object-01.%{hiera('domain_mgmt')}"
     "%{::location}-object-ceph-02.%{hiera('domain_mgmt')}":     "%{::location}-object-02.%{hiera('domain_mgmt')}"
     "%{::location}-object-ceph-03.%{hiera('domain_mgmt')}":     "%{::location}-object-03.%{hiera('domain_mgmt')}"
@@ -337,9 +337,14 @@ profile::network::services::dns_records:
     '251.77.39.158.in-addr.arpa':   "ns2.%{hiera('domain_frontend')}"
     '252.77.39.158.in-addr.arpa':   "resolver.%{hiera('domain_public')}"
     '254.77.39.158.in-addr.arpa':   "dashboard.%{hiera('domain_frontend')}"
-    # Customer's PTR records
+    # Customer's PTR records (IPv4)
     "135.%{hiera('reverse_public_c1')}":                                         'elixir.no'
-    "86.%{hiera('reverse_public_c1')}":                                          'sldap.nels.elixir.no'
+    "86.%{hiera('reverse_public_c2')}":                                          'sldap.nels.elixir.no'
+    "171.%{hiera('reverse_public_c1')}":                                         'pldap.nels.elixir.no' # RT 7213949
+    "114.%{hiera('reverse_public_c2')}":                                         'fmri.uib.no' # RT 7194062
+    "28.%{hiera('reverse_public_c3')}":                                          'mailer.si.elixir.no' # RT 7222034
+    # Customer's PTR records (IPv6)
+    'f.4.1.2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  'mailer.si.elixir.no' # RT 7222034
     # public IPv6
     '1.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "ns2.%{hiera('domain_frontend')}"
     '2.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "resolver.%{hiera('domain_public')}"
@@ -418,6 +423,12 @@ profile::openstack::resource::networks:
     provider_network_type: 'local'
   uib_dualStack:
     name: 'uib-dualStack'
+    admin_state_up: true
+    shared: false
+    project_name: 'openstack'
+    provider_network_type: 'local'
+  elixir_dualStack:
+    name: 'elixir-dualStack'
     admin_state_up: true
     shared: false
     project_name: 'openstack'
@@ -525,6 +536,28 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns6')}"
     network_name: 'uib-dualStack'
+    project_name: 'openstack'
+  elixir1_IPv4:
+    name: 'elixir1_IPv4'
+    cidr: '158.37.43.0/28'
+    ip_version: '4'
+    allocation_pools:
+      - 'start=158.37.43.2,end=158.37.43.14'
+    gateway_ip: '158.37.43.1'
+    dns_nameservers:
+      - "%{hiera('netcfg_anycast_dns')}"
+    network_name: 'elixir-dualStack'
+    project_name: 'openstack'
+  elixir1_ipv6:
+    name: 'elixir1_IPv6'
+    cidr: '2001:700:2:8304::/64'
+    ip_version: '6'
+    allocation_pools:
+      - 'start=2001:700:2:8304::2000,end=2001:700:2:8304::2fff'
+    gateway_ip: '2001:700:2:8304::1'
+    dns_nameservers:
+      - "%{hiera('netcfg_anycast_dns6')}"
+    network_name: 'elixir-dualStack'
     project_name: 'openstack'
   public1_ipv6:
     name: 'public1_IPv6'

@@ -5,7 +5,6 @@ include:
     - profile::application::openssl
   default:
     - profile::development::network::dns
-    - profile::monitoring::sensu::agent
     - profile::application::openssl::catrust
     - profile::application::openssl
 

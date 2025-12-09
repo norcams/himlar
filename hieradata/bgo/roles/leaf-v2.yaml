@@ -40,30 +40,23 @@ profile::base::cl_limits::manage_cl_limits:       true
 profile::base::cl_limits::as_value:               2097152
 
 # sensu
-profile::monitoring::sensu::agent::enable_agent:    true
-profile::monitoring::sensu::agent::merge_strategy: 'first'
-profile::monitoring::sensu::agent::run_in_vrf:      true
-profile::monitoring::sensu::agent::plugins:
-  sensu-plugins-network-checks:
-    type:         package
-    pkg_version:  '4.1.1'
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::enable_go_agent:   true
+profile::monitoring::sensu::agent::enable_agent:      false
+profile::monitoring::sensu::agent::run_in_vrf:        true
 
-sensuclassic::checks:
-  'metrics-netif':
-    type:         'metric'
-    command:      'metrics-netif.rb --scheme network.%{::hostname}'
-    interval:     60
-    subscribers:  ['metrics']
-    handlers:     ['graphite_tcp']
-
-
-profile::monitoring::collectd::enable: false
+# collectd
+profile::monitoring::telegraf::enable_telegraf: true # endpoint for collectd
+profile::monitoring::telegraf::run_in_vrf: true
+profile::monitoring::collectd::enable: true
 profile::monitoring::collectd::merge_strategy: 'first'
 profile::monitoring::collectd::plugins:
    - collectd::plugin::interface
-   - collectd::plugin::write_graphite
+   - collectd::plugin::network
+   - collectd::plugin::write_graphite #FIXME:remove with el8 monitor
+
 # The upstream collectd module does not allow setting the service name
-collectd::service_ensure: stopped                                                                       
+collectd::service_ensure: stopped
 collectd::service_enable: false
 profile::monitoring::collectd::manage_service: true
 profile::monitoring::collectd::service_name:   'collectd@mgmt'
@@ -95,6 +88,9 @@ profile::network::leaf::acls:
       - "-A $INGRESS_CHAIN -s %{hiera('netcfg_mgmt_netpart')}.0/%{hiera('netcfg_mgmt_netmask')} -p tcp --dport 22 -j ACCEPT"
       - "-A $INGRESS_CHAIN -s %{hiera('netcfg_trp_netpart')}.0/%{hiera('netcfg_trp_netmask')} -p tcp --dport 22 -j ACCEPT"
       - "-A $INGRESS_CHAIN -p tcp --dport 22 -j DROP"
+      - "-A $FORWARD_CHAIN -s 158.37.43.0/28 -d 192.168.224.0/24 -j ACCEPT"
+      - "-A $FORWARD_CHAIN -s 158.37.64.0/24 -d 192.168.224.0/24 -j ACCEPT"
+      - "-A $FORWARD_CHAIN -d 192.168.224.0/24 -j DROP"
     ip6tables:
       - "-A $INGRESS_CHAIN --in-interface $INGRESS_INTF -s %{hiera('netcfg_trp_netpart6')}::/%{hiera('netcfg_trp_netmask6')} -p tcp -m multiport --dports 22,179 -j ACCEPT"
       - "-A $INGRESS_CHAIN --in-interface $INGRESS_INTF -p tcp  -m multiport --dports 22,179 -j DROP"
@@ -258,6 +254,110 @@ profile::base::network::cumulus_bonds:
   'host59':
     'slaves': [ 'swp15s2', ]
     'clag_id': '59'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host60':
+    'slaves': [ 'swp15s3', ]
+    'clag_id': '60'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host61':
+    'slaves': [ 'swp16s0', ]
+    'clag_id': '61'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host62':
+    'slaves': [ 'swp16s1', ]
+    'clag_id': '62'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host63':
+    'slaves': [ 'swp16s2', ]
+    'clag_id': '62'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host64':
+    'slaves': [ 'swp16s3', ]
+    'clag_id': '64'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host65':
+    'slaves': [ 'swp17s0', ]
+    'clag_id': '65'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host66':
+    'slaves': [ 'swp17s1', ]
+    'clag_id': '66'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host67':
+    'slaves': [ 'swp17s2', ]
+    'clag_id': '67'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host68':
+    'slaves': [ 'swp17s3', ]
+    'clag_id': '68'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host69':
+    'slaves': [ 'swp18s0', ]
+    'clag_id': '69'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host70':
+    'slaves': [ 'swp18s1', ]
+    'clag_id': '70'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host71':
+    'slaves': [ 'swp18s2', ]
+    'clag_id': '71'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host72':
+    'slaves': [ 'swp18s3', ]
+    'clag_id': '72'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
@@ -455,22 +555,6 @@ profile::base::network::cumulus_bonds:
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', '130', ]
     'mtu': '9216'
-  'netapp27':
-    'slaves': [ 'swp27', ]
-    'clag_id': '1027'
-    'pvid': '300'
-    'mstpctl_portadminedge': true
-    'mstpctl_bpduguard': true
-    'vids': [ '300', ]
-    'mtu': '9216'
-  'netapp28':
-    'slaves': [ 'swp28', ]
-    'clag_id': '1028'
-    'pvid': '300'
-    'mstpctl_portadminedge': true
-    'mstpctl_bpduguard': true
-    'vids': [ '300', ]
-    'mtu': '9216'
   'uplink':
     'slaves': [ 'swp29', 'swp30', ]
     'clag_id': '1004'
@@ -502,6 +586,12 @@ profile::network::leaf::cumulus_portconfigs:
     line:  "14=4x25G"
   15:
     line:  "15=4x25G"
+  16:
+    line:  "16=4x25G"
+  17:
+    line:  "17=4x25G"
+  18:
+    line:  "18=4x25G"
   19:
     line:  "19=4x25G"
   20:
@@ -545,6 +635,18 @@ profile::base::network::cumulus_bridges:
       - host57
       - host58
       - host59
+      - host60
+      - host61
+      - host62
+      - host63
+      - host64
+      - host65
+      - host66
+      - host67
+      - host68
+      - host69
+      - host71
+      - host72
       - host73
       - host74
       - host75
@@ -569,8 +671,8 @@ profile::base::network::cumulus_bridges:
       - host98
       - host99
       - host100
-      - netapp27
-      - netapp28
+      - swp27
+      - swp28
       - peerlink
       - uplink
     'alias_name': 'Transport L2 if'
@@ -680,6 +782,7 @@ frrouting::frrouting::bgp_accesslist:
     - 'seq 250 deny 0.0.0.0/0'
   '30':
     - 'seq 10 permit 158.37.64.0/24'
+    - 'seq 20 permit 158.37.43.0/28'
     - 'seq 250 deny 0.0.0.0/0'
   '40':
     - 'seq 15 permit 109.105.127.128/26'
@@ -697,6 +800,7 @@ frrouting::frrouting::bgp_accesslist6:
 
 frrouting::frrouting::bgp_ip_prefix_list:
   - 'spine-routes-in seq 10 permit 158.37.64.0/24 le 32'
+  - 'spine-routes-in seq 13 permit 158.37.43.0/28 le 32'
   - 'spine-routes-in seq 15 permit 109.105.127.128/26 le 32'
   - 'spine-routes-in seq 16 permit 10.109.0.0/20 le 32'
   - 'spine-routes-in seq 20 deny any'
@@ -718,7 +822,6 @@ frrouting::frrouting::bgp_ipv6_prefix_list:
   - 'lhc-routes6-out seq 10 deny any'
   - 'lhc-routes6-in seq 5 permit any'
   - 'lhc-routes6-in seq 10 deny any'
-
 frrouting::frrouting::bgp_generic_options:
   - 'bgp as-path access-list cern permit ^65504'
   - 'bgp as-path access-list sikt permit ^224'

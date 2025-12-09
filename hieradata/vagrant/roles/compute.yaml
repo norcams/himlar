@@ -8,6 +8,9 @@
 include:
   default:
     - profile::development::patch
+    - profile::application::openssl
+
+profile::application::openssl::manage_ca_cert:  true
 
 # The current vagrant box image do not have vda3 parso switch
 # off lvm for compute on vagrant
@@ -32,6 +35,15 @@ profile::base::lvm::volume_group:
     physical_volumes:
       - /dev/vda3
 
+profile::openstack::network::calico::manage_dhcp_agent_override: true
+profile::openstack::network::calico::dhcp_agent_config:
+  DEFAULT/dnsmasq_config_file:
+    value: '/dev/null'
+
+nova::config::nova_config:
+  DEFAULT/metadata_workers:
+    value: '2'
+
 # test telemetry polling (require metric and telemetry nodes in vagrant)
 #profile::openstack::compute::manage_telemetry: true
 
@@ -45,19 +57,9 @@ consul::services:
     tags: ["TheForeman"]
     port: 80
 
-# Add custom routing table for private network to NAT
-profile::base::network::routes:
-  'eth2':
-    'ipaddress': [ '0.0.0.0', '0.0.0.0', ]
-    'netmask':   [ '0.0.0.0', '0.0.0.0', ]
-    'gateway':   [ "%{hiera('netcfg_priv_gateway')}", "%{hiera('netcfg_trp_gateway')}" ]
-    'table':     [ 'private', 'main', ]
-profile::base::network::routing_tables:
+network::routing::table::tables:
   'private':
     'table_id':  '240'
-profile::base::network::rules:
-  'eth2':
-    iprule: [ "from %{hiera('netcfg_priv_network')} lookup private", ]
 
 # sensu
 sensu::agent::subscriptions:

@@ -12,3 +12,5 @@ profile::openstack::dashboard::enable_designate:  true
 
 profile::monitoring::physical::power::statsd_server:     '127.0.0.1'
 profile::monitoring::physical::power::enable:            true
+
+profile::application::himlarcli::slack_channel:          '#testvakt'

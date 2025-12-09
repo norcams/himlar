@@ -35,14 +35,14 @@ class profile::monitoring::sflow::server (
     file { 'sflowtool':
       ensure => file,
       path   => '/usr/local/bin/sflowtool',
-      source => 'https://iaas-repo.uio.no/uh-iaas/rpm/sflowtool',
+      source => 'https://iaas-repo.uio.no/nrec/rpm/sflowtool',
       owner  => 'root',
       mode   => '0755',
     }
     file { 'sflow2graphite.pl':
       ensure => file,
       path   => '/usr/sbin/sflow2graphite.pl',
-      source => 'https://iaas-repo.uio.no/uh-iaas/rpm/sflow2graphite.pl',
+      source => 'https://iaas-repo.uio.no/nrec/rpm/sflow2graphite.pl',
       owner  => 'root',
       mode   => '0755',
     }

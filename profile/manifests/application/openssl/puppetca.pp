@@ -4,8 +4,10 @@ class profile::application::openssl::puppetca(
   $ca_path = '/etc/pki/tls/certs/'
 ) {
 
-  exec { 'trust puppet_localcacert':
-    command => "/bin/trust anchor ${::puppet_localcacert}",
-    unless => "/bin/openssl verify -CApath ${ca_path} ${::puppet_localcacert}"
+  if $enable {
+    exec { 'trust puppet_localcacert':
+      command => "/bin/trust anchor ${::puppet_localcacert}",
+      unless => "/bin/openssl verify -CApath ${ca_path} ${::puppet_localcacert}"
+    }
   }
 }
