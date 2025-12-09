@@ -4,7 +4,13 @@
 # Uses puppet-designate:
 #   https://github.com/openstack/puppet-designate
 #
-# UH-IaaS internal documentation:
+# Designate release notes:
+#   https://docs.openstack.org/releasenotes/designate/
+#
+# Puppet-designate release notes:
+#   https://docs.openstack.org/releasenotes/puppet-designate/
+#
+# NREC internal documentation:
 #   https://iaas.readthedocs.io/en/latest/team/operations/designate.html
 
 #---------------------------------------------------------------------
@@ -16,11 +22,23 @@ designate::logging::use_journal: true
 designate::logging::use_json:    false
 
 #---------------------------------------------------------------------
-# RabbitMQ (manifests/init.pp)
+# Various configuration (manifests/init.pp)
 #   - runs on the DNS node
 #---------------------------------------------------------------------
 designate::default_transport_url:       "%{hiera('service__transport__url')}"
 designate::notification_transport_url:  "%{hiera('service__transport__url')}"
+designate::supported_record_type:
+  - 'A'
+  - 'AAAA'
+  - 'CNAME'
+  - 'MX'
+  - 'SRV'
+  - 'TXT'
+  - 'SPF'
+  - 'NS'
+  - 'SSHFP'
+  - 'SOA'
+  - 'CERT'
 
 #---------------------------------------------------------------------
 # Authentication (manifests/keystone/auth.pp)
@@ -141,12 +159,3 @@ designate::backend::bind9::ns_records:
 #---------------------------------------------------------------------
 #designate::sink::enabled_notification_handlers:
 #  - "nova_fixed"
-
-#---------------------------------------------------------------------
-# Extra config (manifests/config.pp)
-#   - runs on the DNS node
-#---------------------------------------------------------------------
-# FIXME: designate/init.pp includes this from zed onwards
-designate::config::designate_config:
-  DEFAULT/supported_record_type:
-    value: 'A,AAAA,CNAME,MX,SRV,TXT,SPF,NS,SSHFP,SOA,CERT'
