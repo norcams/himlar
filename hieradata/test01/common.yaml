@@ -1,8 +1,4 @@
 ---
-include:
-  default:
-    - profile::monitoring::sensu::agent
-
 location_environment:   'test01'
 location_description:   'Test environment physically in Bergen'
 
@@ -67,6 +63,17 @@ netcfg_trp_net_c7:      '172.30.7'
 netcfg_trp_netmask:     '255.255.248.0'
 netcfg_trp_netmask6:    '64'
 netcfg_trp_cidr4:       '21'
+netcfg_trp_l3_netpart:  '172.30.8'
+netcfg_trp_l3_netpart6: 'fd00:0:20'
+netcfg_trp_l3_c0:       '172.30.8'
+netcfg_trp_l3_c1:       '172.30.9'
+netcfg_trp_l3_c2:       '172.30.10'
+netcfg_trp_l3_c3:       '172.30.11'
+netcfg_trp_l3_c4:       '172.30.12'
+netcfg_trp_l3_c5:       '172.30.13'
+netcfg_trp_l3_c6:       '172.30.14'
+netcfg_trp_l3_c7:       '172.30.15'
+netcfg_trp_l3_cidr4:    '21'
 netcfg_oob_gateway:     '172.29.0.10'
 netcfg_oob_netpart:     '172.29.0'
 netcfg_oob_netmask:     '255.255.248.0'
@@ -311,8 +318,8 @@ profile::openstack::resource::subnets:
     cidr: '2001:700:200:df32:e1a5:2025::/96'
     ip_version: '6'
     allocation_pools: # /98
-      - 'start=2001:700:200:df32:e1a5:2025:0001:2,end=2001:700:200:df32:e1a5:2025:3fff:ffff'
-    gateway_ip: '2001:700:200:df32:e1a5:2025:0001:1'
+      - 'start=2001:700:200:df32:e1a5:2025:1:2,end=2001:700:200:df32:e1a5:2025:3fff:ffff'
+    gateway_ip: '2001:700:200:df32:e1a5:2025:1:1'
     dns_nameservers:
       - '2001:700:200:917::3f18'
       - '2001:700:200:6::a1f:a1fa'

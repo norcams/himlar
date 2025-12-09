@@ -1,4 +1,16 @@
 ---
+# Configuration for Keystone (identity)
+#
+# Uses puppet-keystone:
+#   https://github.com/openstack/puppet-keystone
+#
+# Keystone release notes:
+#   https://docs.openstack.org/releasenotes/keystone/
+#
+# Puppet-keystone release notes:
+#   https://docs.openstack.org/releasenotes/puppet-keystone/
+#
+
 keystone::db::mysql::allowed_hosts:
   - "%{hiera('netcfg_trp_netpart')}.%"
 
@@ -36,12 +48,15 @@ keystone::enable_credential_setup:        true
 # httpd
 keystone::wsgi::apache::ssl:              false
 keystone::wsgi::apache::bind_host:        "%{ipaddress_trp1}"
-keystone::wsgi::apache::api_port:         [5000, 35357]
+keystone::wsgi::apache::port:             [5000, 35357]
 keystone::wsgi::apache::workers:          4
 keystone::wsgi::apache::threads:          1
 
 # Federation
-keystone::federation::trusted_dashboards:  ["https://%{hiera('public__address__dashboard')}/dashboard/auth/websso/"]
+keystone::federation::trusted_dashboards:
+  - "https://%{hiera('public__address__dashboard')}/dashboard/auth/websso/"
+  - "https://%{hiera('public__address__dashboard_bgo')}/dashboard/auth/websso/"
+  - "https://%{hiera('public__address__dashboard_osl')}/dashboard/auth/websso/"
 keystone::federation::openidc::idp_name:   'dataporten'
 keystone::federation::openidc::methods:
   - 'password'

@@ -2,7 +2,6 @@
 include:
   default:
     - profile::base::tuned
-    - profile::monitoring::collectd
 
 named_interfaces::config:
   mgmt:
@@ -12,6 +11,51 @@ named_interfaces::config:
   live:
     - team1.120
 
+# EL9 config
+network::routing::table::tables:
+  'private':
+    'table_id':  '240'
+
+profile::base::network::nm_auto_routes:
+  trp:
+    ipv4:
+      route1: "0.0.0.0/0,%{hiera('netcfg_priv_gateway')}"
+      route1_options: 'table=240'
+      routing-rule1: "priority 5 from %{hiera('netcfg_priv_network')} lookup 240"
+      route2: "%{hiera('netcfg_priv_anycast_net')}/%{hiera('netcfg_priv_anycast_cidr4')},%{hiera('netcfg_trp_gateway')}"
+      route2_options: 'table=240'
+      routing-rule2: "priority 5 from %{hiera('netcfg_elastic_cidr')} lookup 240"
+      route3: "0.0.0.0/0,%{hiera('netcfg_trp_gateway')}"
+    ipv6:
+      route1: "::/0,%{hiera('netcfg_trp_gateway6')}"
+
+profile::base::network::nm_auto_opts:
+  mgmt:
+    ipv4:
+      never-default: 'true'
+      dns-search: "%{hiera('netcfg_dns_search_nm')}"
+      dns: "%{hiera('netcfg_dns_trp_server1')};%{hiera('netcfg_dns_mgmt_server1')};" # FIXME; define in common/roles/compute
+  trp:
+    ipv6init: 'yes' # NOTE: this is not NM syntax, rather interface.pp config
+    bond:                          # Teaming driver is no longer available
+      mode: '802.3ad'              # the best and only supported mode with existing network config
+      xmit_hash_policy: 'layer3+4' # please use this hash policy
+    ethernet:
+      mtu: '9000'
+  live:
+    ipv4:
+      'never-default': 'true'
+
+profile::base::network::nm_network_auto_bonding:
+  trp:
+    em1:
+      ethernet:
+        'mtu': '9000' # the MTU size must be set also on the slave interfaces
+    em2:
+      ethernet:
+        'mtu': '9000'
+
+# EL8 config
 profile::base::network::network_auto_opts:
   mgmt:
     'defroute': 'no'
@@ -36,19 +80,6 @@ profile::base::network::network_auto_bonding:
       'team_port_config': '{ "prio" : 100 }'
       'mtu': '9000'
 
-profile::base::common::manage_multipath: true
-# IPv6 is enabled for bgp, bfd
-profile::openstack::network::calico::manage_firewall6: true
-
-ntp::servers:
-  - 172.28.0.100
-  - 172.28.0.101
-  - 172.28.0.102
-chrony::servers:
-  - "%{hiera('netcfg_mgmt_netpart')}.100"
-  - "%{hiera('netcfg_mgmt_netpart')}.101"
-  - "%{hiera('netcfg_mgmt_netpart')}.102"
-
 # Add custom routing table for private network to NAT
 profile::base::network::routes:
   'team1':
@@ -62,7 +93,23 @@ profile::base::network::routing_tables:
 profile::base::network::rules:
   'team1':
     iprule: [ "from %{hiera('netcfg_priv_network')} lookup private", "from %{hiera('netcfg_elastic_cidr')} lookup private"  ]
+
+# this will only have effect on el8
 profile::network::interface::manage_neutron_blackhole: true
+
+
+profile::base::common::manage_multipath: true
+# IPv6 is enabled for bgp, bfd
+profile::openstack::network::calico::manage_firewall6: true
+
+ntp::servers:
+  - 172.28.0.100
+  - 172.28.0.101
+  - 172.28.0.102
+chrony::servers:
+  - "%{hiera('netcfg_mgmt_netpart')}.100"
+  - "%{hiera('netcfg_mgmt_netpart')}.101"
+  - "%{hiera('netcfg_mgmt_netpart')}.102"
 
 # FIXME: remove when telemetry/ceilometer is up in all environments and move to common
 profile::openstack::compute::manage_telemetry: true
@@ -73,25 +120,9 @@ profile::base::tuned::tuned_profile:      'virtual-host'
 nova::compute::libvirt::hw_machine_type:  'x86_64=q35'
 nova::compute::libvirt::cpu_models:      ['Haswell-noTSX-IBRS']
 
-# collectd # FIXME:monitor
-profile::monitoring::collectd::enable: false
-profile::monitoring::collectd::plugins:
-  - collectd::plugin::aggregation
-  - collectd::plugin::cpu
-  - collectd::plugin::disk
-  - collectd::plugin::load
-  - collectd::plugin::memory
-  - collectd::plugin::interface
-  - collectd::plugin::write_graphite
-  - collectd::plugin::virt
-  - collectd::plugin::processes
-
-collectd::plugin::virt::hostname_format:        'hostname'
-collectd::plugin::virt::plugin_instance_format: 'uuid'
-
 profile::base::physical::configure_bmc_nic:                       true
 profile::openstack::compute::hypervisor::enable_dhcp_agent_check: true
 profile::base::physical::enable_redfish_scripts:                  true
 profile::base::physical::enable_redfish_http_proxy:               true
 
-calico::compute::felix_mtuIfacePattern: '^team*'
+calico::compute::felix_mtuIfacePattern: "^%{::interface_trp1}*"

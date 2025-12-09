@@ -19,8 +19,19 @@ profile::monitoring::influxdb::user:                "admin"
 # extra buckets
 profile::monitoring::influxdb::buckets:
   "sensu": {}   # sensu status
+  "collectd": {} # collectd metric
   "storage": {} # ceph storage
   "object": {}  # ceph object
+  "gpu": {}  # GPU metrics
+  "redfish": {}  # Redfish metrics
+  "system": {}  # System basic metrics
+
+
+# extra users
+profile::monitoring::influxdb::users:
+  grafana:
+    password: "%{hiera('influxdb_grafana_password')}"
+
 
 # telegraf example
 # profile::monitoring::telegraf::enable_telegraf:     true

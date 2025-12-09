@@ -1,0 +1,145 @@
+
+router id <%= @router_id %>;
+
+<% if @debug %>debug protocols all;
+<% end -%>
+# We are only going to export routes from Calico interfaces.
+# Currently, 'tap*' is used by the OpenStack implimentation
+# and 'cali*' is used by the docker implimentation.
+# dummy1 is the interface that bare metal "service" addresses
+# should be bound to if they should be exported.
+# This will need to be updated as we add new interface names.
+#
+# Also filter out default, just in case.
+#
+# We should automate the build of this out of variables when
+# we have time.
+
+# Configure logging. For debug purposes, either specify more elements in a separate file like
+# log "/var/log/bird.log" { debug, trace, info, remote, warning, error, auth, fatal, bug };
+# Please note that the file you are logging to needs to be created and owned by bird.
+# Or, log everything to syslog;
+# log syslog all;
+log syslog { info,fatal };
+
+filter export_bgp {
+  if ( (ifname ~ "tap*") || (ifname ~ "atap*") || (ifname ~ "cali*") || (ifname ~ "dummy1") ) then {
+    if  net != 0.0.0.0/0 then accept;
+  }
+  reject;
+}
+
+filter import_kernel {
+  if  net != 0.0.0.0/0 then {
+    accept;
+  }
+  reject;
+}
+
+filter import_bgp {
+  if  net != 0.0.0.0/0 then {
+    if net !=<%= scope().call_function('hiera',['netcfg_anycast_dns']) %>/32 then {
+      accept;
+    }
+  }
+  reject;
+}
+
+filter import_peer {
+  if dest = RTD_UNREACHABLE then {
+    reject;
+  }
+  accept;
+}
+
+filter export_bgp6 {
+  if ( (ifname ~ "tap*") || (ifname ~ "atap*") || (ifname ~ "cali*") || (ifname ~ "dummy1") ) then {
+    if  net != ::/0 then accept;
+  }
+  reject;
+}
+
+filter import_kernel6 {
+  if  (ifname ~ "tap*") || (net = ::/0) then {
+    accept;
+  }
+  reject;
+}
+
+filter import_bgp6 {
+  if  net != ::/0 then {
+    if net !=<%= scope().call_function('hiera',['netcfg_anycast_dns6']) %>/128 then {
+      accept;
+    }
+  }
+  reject;
+}
+
+ipv4 table private4;
+
+protocol kernel {
+  ipv4 {                      # Connect protocol to IPv4 table by channel
+    table master4;            # Default IPv4 table is master4
+    export filter import_bgp; # Export to protocol. default is export none
+    import all;
+  };
+  merge paths yes;
+  kernel table ipt_main;
+  graceful restart;
+  persist;                    # Don't remove routes on bird shutdown
+  scan time 2;                # Scan kernel routing table every 2 seconds
+  learn;                      # Learn all alien routes from the kernel
+}
+
+protocol kernel {
+  ipv6 {
+    table master6;
+    import filter import_kernel6;
+    export filter import_bgp6;
+  };
+  merge paths yes;
+  graceful restart;
+  persist;                    # Don't remove routes on bird shutdown
+  scan time 2;                # Scan kernel routing table every 2 seconds
+  learn;                      # Learn all alien routes from the kernel
+}
+
+protocol pipe {               # learn routes from main and insert to private
+  table master4;
+  peer table private4;
+  import filter import_kernel;
+  export filter import_bgp;
+}
+
+protocol kernel {
+  ipv4 {
+    table private4;
+    export all;
+    import filter import_kernel;
+  };
+  merge paths yes;
+  kernel table ipt_private;
+  learn;
+  scan time 2;
+}
+
+protocol bfd {
+<% scope().call_function('hiera',['netcfg_trp_rr']).each do |name| %><%if name[1]['peer_ipv4'] %>  neighbor <%= name[1]['peer_ipv4'] %>;
+<% end %><% end -%>
+<% scope().call_function('hiera',['netcfg_trp_rr']).each do |name| %><%if name[1]['peer_ipv6'] %>  neighbor <%= name[1]['peer_ipv6'] %>;
+<% end %><% end %>}
+
+# Watch interface up/down events.
+protocol device {
+  scan time 2;    # Scan interfaces every 2 seconds
+}
+
+protocol direct {
+   ipv4;
+   ipv6;
+   debug all;
+   interface "-dummy*", "eth*", "em*", "en*", "br-mgmt", "bond*", "team*";
+}
+
+# Include
+include "/etc/bird/bird.conf.d/*.conf";

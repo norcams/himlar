@@ -1,8 +1,4 @@
 ---
-include:
-  default:
-    - profile::monitoring::sensu::agent
-
 location_environment:     'prod'
 location_description:     'Production environment in Bergen'
 
@@ -41,6 +37,7 @@ reverse_trp_c7:           '7.18.172.in-addr.arpa'
 reverse_public_c0:        '77.39.158.in-addr.arpa'
 reverse_public_c1:        '74.39.158.in-addr.arpa'
 reverse_public_c2:        '201.39.158.in-addr.arpa'
+reverse_public_c3:        '65.37.158.in-addr.arpa'
 
 bgp_as:                   '65501'
 
@@ -92,6 +89,7 @@ netcfg_dns_mgmt_server1:       '172.16.0.10'
 netcfg_dns_mgmt_server2:       '172.16.0.44'
 netcfg_dns_mgmt_server3:       '172.16.0.45'
 netcfg_dns_search:        "%{hiera('domain_mgmt')} %{hiera('domain_trp')}"
+netcfg_dns_search_nm:     "%{hiera('domain_mgmt')};%{hiera('domain_trp')}"
 netcfg_priv_gateway:      '172.18.0.26'
 netcfg_priv_network:      '10.1.0.0/20'
 netcfg_lhc_gateway:       '172.18.6.5'
@@ -133,6 +131,8 @@ public__ip__ns:                '158.39.77.251'
 public__ipv6__ns:              '2001:700:2:83ff::251'
 public__ip__resolver:          '158.39.77.252'
 public__ipv6__resolver:        '2001:700:2:83ff::252'
+public__ip__dashboard:         '158.39.77.254'
+public__ipv6__dashboard:       '2001:700:2:83ff::254'
 
 #
 # DNS (merge of common and this)
@@ -210,10 +210,13 @@ profile::network::services::dns_records:
     "%{::location}-compute-vgpu-52.%{hiera('domain_mgmt')}":    "%{::location}-compute-52.%{hiera('domain_mgmt')}"
     "%{::location}-compute-vgpu-53.%{hiera('domain_mgmt')}":    "%{::location}-compute-53.%{hiera('domain_mgmt')}"
     "%{::location}-compute-vgpu-54.%{hiera('domain_mgmt')}":    "%{::location}-compute-54.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-epyc-86.%{hiera('domain_mgmt')}":    "%{::location}-compute-86.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-epyc-87.%{hiera('domain_mgmt')}":    "%{::location}-compute-87.%{hiera('domain_mgmt')}"
     "%{::location}-compute-l40s-88.%{hiera('domain_mgmt')}":    "%{::location}-compute-88.%{hiera('domain_mgmt')}"
     "%{::location}-compute-l40s-89.%{hiera('domain_mgmt')}":    "%{::location}-compute-89.%{hiera('domain_mgmt')}"
     "%{::location}-compute-l40s-90.%{hiera('domain_mgmt')}":    "%{::location}-compute-90.%{hiera('domain_mgmt')}"
     "%{::location}-compute-l40s-91.%{hiera('domain_mgmt')}":    "%{::location}-compute-91.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-elixir1-92.%{hiera('domain_mgmt')}": "%{::location}-compute-92.%{hiera('domain_mgmt')}"
     "%{::location}-object-ceph-01.%{hiera('domain_mgmt')}":     "%{::location}-object-01.%{hiera('domain_mgmt')}"
     "%{::location}-object-ceph-02.%{hiera('domain_mgmt')}":     "%{::location}-object-02.%{hiera('domain_mgmt')}"
     "%{::location}-object-ceph-03.%{hiera('domain_mgmt')}":     "%{::location}-object-03.%{hiera('domain_mgmt')}"
@@ -334,12 +337,18 @@ profile::network::services::dns_records:
     '251.77.39.158.in-addr.arpa':   "ns2.%{hiera('domain_frontend')}"
     '252.77.39.158.in-addr.arpa':   "resolver.%{hiera('domain_public')}"
     '254.77.39.158.in-addr.arpa':   "dashboard.%{hiera('domain_frontend')}"
-    # Customer's PTR records
+    # Customer's PTR records (IPv4)
     "135.%{hiera('reverse_public_c1')}":                                         'elixir.no'
-    "86.%{hiera('reverse_public_c1')}":                                          'sldap.nels.elixir.no'
+    "86.%{hiera('reverse_public_c2')}":                                          'sldap.nels.elixir.no'
+    "171.%{hiera('reverse_public_c1')}":                                         'pldap.nels.elixir.no' # RT 7213949
+    "114.%{hiera('reverse_public_c2')}":                                         'fmri.uib.no' # RT 7194062
+    "28.%{hiera('reverse_public_c3')}":                                          'mailer.si.elixir.no' # RT 7222034
+    # Customer's PTR records (IPv6)
+    'f.4.1.2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  'mailer.si.elixir.no' # RT 7222034
     # public IPv6
     '1.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "ns2.%{hiera('domain_frontend')}"
     '2.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "resolver.%{hiera('domain_public')}"
+    '4.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "dashboard.%{hiera('domain_frontend')}"
     '6.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "%{::location}-dns-01.%{hiera('domain_public')}"
 
 ntp::servers:
@@ -386,62 +395,68 @@ profile::openstack::resource::networks:
     name: 'dualStack'
     admin_state_up: true
     shared: true
-    tenant_name: 'openstack'
+    project_name: 'openstack'
     provider_network_type: 'local'
   IPv6:
     name: 'IPv6'
     admin_state_up: true
     shared: true
-    tenant_name: 'openstack'
+    project_name: 'openstack'
     provider_network_type: 'local'
   imagebuilder:
     name: 'imagebuilder'
     admin_state_up: true
     shared: false
-    tenant_name: 'imagebuilder'
+    project_name: 'imagebuilder'
     provider_network_type: 'local'
   lhc:
     name: 'lhc-dualStack'
     admin_state_up: true
     shared: false
-    tenant_id: '2eb4ee7df70f4d56999c5945fafb1781'
+    project_id: '2eb4ee7df70f4d56999c5945fafb1781'
     provider_network_type: 'local'
   lhc_IPv6:
     name: 'lhc-IPv6'
     admin_state_up: true
     shared: false
-    tenant_id: '2eb4ee7df70f4d56999c5945fafb1781'
+    project_id: '2eb4ee7df70f4d56999c5945fafb1781'
     provider_network_type: 'local'
   uib_dualStack:
     name: 'uib-dualStack'
     admin_state_up: true
     shared: false
-    tenant_name: 'openstack'
+    project_name: 'openstack'
+    provider_network_type: 'local'
+  elixir_dualStack:
+    name: 'elixir-dualStack'
+    admin_state_up: true
+    shared: false
+    project_name: 'openstack'
     provider_network_type: 'local'
   educloud_IPv6:
     name: 'educloud-IPv6'
     admin_state_up: true
     shared: false
-    tenant_name: 'openstack'
+    project_name: 'openstack'
     provider_network_type: 'local'
   uio_IPv6:
     name: 'uio-IPv6'
     admin_state_up: true
     shared: false
-    tenant_name: 'openstack'
+    project_name: 'openstack'
     provider_network_type: 'local'
   elasticIP:
     name: 'elasticIP'
     admin_state_up: true
     shared: false
-    tenant_name: 'openstack'
+    project_name: 'openstack'
     provider_network_type: 'local'
 #    mtu: '9000' # FIXME: param available in puppet-neutron for Zed. Meanwhile, set once with CLI after creation
   elastic_rail_uib_it_rail_test_bgo1:
     name: 'elastic_rail_test_bgo1'
     admin_state_up: true
     shared: false
-    tenant_id: 'c1a76edd5a0a459388613b7a80c5f63d'
+    project_id: 'c1a76edd5a0a459388613b7a80c5f63d'
     provider_network_type: 'local'
 
 profile::openstack::resource::subnets:
@@ -455,7 +470,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'dualStack'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
   public2_IPv4:
     name: 'public2_IPv4'
     cidr: '158.39.74.0/24'
@@ -466,7 +481,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'dualStack'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
   public3_IPv4:
     name: 'public3_IPv4'
     cidr: '158.39.77.0/24'
@@ -477,7 +492,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'imagebuilder'
-    tenant_name: 'imagebuilder'
+    project_name: 'imagebuilder'
   public4_IPv4:
     name: 'public4_IPv4'
     cidr: '158.39.201.0/24'
@@ -488,7 +503,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'dualStack'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
   public5_IPv4:
     name: 'public5_IPv4'
     cidr: '158.37.65.0/24'
@@ -499,7 +514,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'dualStack'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
   uib1_IPv4:
     name: 'uib1_IPv4'
     cidr: '158.37.64.0/24'
@@ -510,7 +525,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'uib-dualStack'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
   uib1_ipv6:
     name: 'uib1_IPv6'
     cidr: '2001:700:2:8302::/64'
@@ -521,7 +536,29 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns6')}"
     network_name: 'uib-dualStack'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
+  elixir1_IPv4:
+    name: 'elixir1_IPv4'
+    cidr: '158.37.43.0/28'
+    ip_version: '4'
+    allocation_pools:
+      - 'start=158.37.43.2,end=158.37.43.14'
+    gateway_ip: '158.37.43.1'
+    dns_nameservers:
+      - "%{hiera('netcfg_anycast_dns')}"
+    network_name: 'elixir-dualStack'
+    project_name: 'openstack'
+  elixir1_ipv6:
+    name: 'elixir1_IPv6'
+    cidr: '2001:700:2:8304::/64'
+    ip_version: '6'
+    allocation_pools:
+      - 'start=2001:700:2:8304::2000,end=2001:700:2:8304::2fff'
+    gateway_ip: '2001:700:2:8304::1'
+    dns_nameservers:
+      - "%{hiera('netcfg_anycast_dns6')}"
+    network_name: 'elixir-dualStack'
+    project_name: 'openstack'
   public1_ipv6:
     name: 'public1_IPv6'
     cidr: '2001:700:2:8301::/64'
@@ -532,7 +569,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns6')}"
     network_name: 'IPv6'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
   public2_ipv6:
     name: 'public2_IPv6'
     cidr: '2001:700:2:8300::/64'
@@ -543,7 +580,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns6')}"
     network_name: 'dualStack'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
   private1_IPv4:
     name: 'private1_IPv4'
     cidr: '10.1.0.0/22'
@@ -554,7 +591,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'IPv6'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
   lhc1_ipv6:
     name: 'lhc1_IPv6'
     cidr: '2001:948:62:3::/64'
@@ -565,7 +602,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns6')}"
     network_name: 'lhc-dualStack'
-    tenant_id: '2eb4ee7df70f4d56999c5945fafb1781'
+    project_id: '2eb4ee7df70f4d56999c5945fafb1781'
   lhc2_ipv6:
     name: 'lhc2_IPv6'
     cidr: '2001:948:62:4::/64'
@@ -576,7 +613,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns6')}"
     network_name: 'lhc-IPv6'
-    tenant_id: '2eb4ee7df70f4d56999c5945fafb1781'
+    project_id: '2eb4ee7df70f4d56999c5945fafb1781'
   lhc1_IPv4:
     name: 'lhc1_IPv4'
     cidr: '109.105.127.128/26'
@@ -587,7 +624,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'lhc-dualStack'
-    tenant_id: '2eb4ee7df70f4d56999c5945fafb1781'
+    project_id: '2eb4ee7df70f4d56999c5945fafb1781'
   lhc2_IPv4:
     name: 'lhc2_IPv4'
     cidr: '10.109.0.0/22'
@@ -598,7 +635,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'lhc-IPv6'
-    tenant_id: '2eb4ee7df70f4d56999c5945fafb1781'
+    project_id: '2eb4ee7df70f4d56999c5945fafb1781'
   educloud_private1_IPv4:
     name: 'educloud_private1_IPv4'
     cidr: '10.3.0.0/20'
@@ -609,7 +646,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'educloud-IPv6'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
   educloud_public1_IPv6:
     name: 'educloud_public1_IPv6'
     cidr: '2001:700:2:8c24::/64'
@@ -620,7 +657,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns6')}"
     network_name: 'educloud-IPv6'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
   uio_private1_IPv4:
     name: 'uio_private1_IPv4'
     cidr: '10.7.0.0/20'
@@ -631,7 +668,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'uio-IPv6'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
   uio_public2_IPv6:
     name: 'uio_public2_IPv6'
     cidr: '2001:700:2:8c21::/64'
@@ -642,7 +679,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns6')}"
     network_name: 'uio-IPv6'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
   elastic1_IPv4:
     name: 'elastic1_IPv4'
     cidr: '10.5.0.0/20'
@@ -653,7 +690,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'elasticIP'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
   elastic1_IPv6:
     name: 'elastic1_IPv6'
     cidr: '2001:700:2:8303::/64'
@@ -664,7 +701,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns6')}"
     network_name: 'elasticIP'
-    tenant_name: 'openstack'
+    project_name: 'openstack'
   elastic_rail_uib_it_test_bgo1_IP4:
     name: 'elastic_rail_test_bgo1_IP4'
     cidr: '10.5.16.0/27'
@@ -675,7 +712,7 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns')}"
     network_name: 'elastic_rail_test_bgo1'
-    tenant_id: 'c1a76edd5a0a459388613b7a80c5f63d'
+    project_id: 'c1a76edd5a0a459388613b7a80c5f63d'
   elastic_rail_uib_it_test_bgo1_IP6:
     name: 'elastic_rail_test_bgo1_IP6'
     cidr: '2001:700:2:8302::/122'
@@ -686,4 +723,4 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns6')}"
     network_name: 'elastic_rail_test_bgo1'
-    tenant_id: 'c1a76edd5a0a459388613b7a80c5f63d'
+    project_id: 'c1a76edd5a0a459388613b7a80c5f63d'

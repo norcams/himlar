@@ -67,6 +67,12 @@ unless fact('runmode') {
   }
 }
 
+# BMC variables (only run on physical machines and not on kickstart run)
+unless $::is_virtual == true or $runmode == 'kickstart'  {
+  $bmc_network  = Integer(regsubst($::ipaddress_mgmt1, '^(\d+)\.(\d+)\.(\d+)\.(\d+)$','\2',)) + 1
+  $bmc_address  = regsubst($::ipaddress_mgmt1, '^(\d+)\.(\d+)\.(\d+)\.(\d+)$',"\\1.${bmc_network}.\\3.\\4",)
+}
+
 #info("platform=${os_platform}")
 #info("version=${os_version}")
 

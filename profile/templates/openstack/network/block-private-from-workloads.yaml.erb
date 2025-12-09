@@ -1,0 +1,19 @@
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: <%= @neutron_network_block_name %>
+  namespace: openstack
+spec:
+  order: 100
+  types:
+    - Egress
+  egress:
+  - action: Deny
+    destination:
+      nets:
+      - '172.16.0.0/12'
+  - action: Deny
+    destination:
+      nets:
+      - 'fd00::/8'
+  selector: "projectcalico.org/orchestrator == 'openstack'"

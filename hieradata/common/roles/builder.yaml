@@ -97,20 +97,6 @@ profile::application::builder::images:
     'username':         'almalinux'
     'hour':             4
     'minute':           0
-  'almalinux8_nv_vgpu':
-    'image_name':       'IMAGEBUILDER AlmaLinux 8 (NVIDIA GPU)'
-    'url':              'https://raw.repo.almalinux.org/almalinux/8/cloud/x86_64/images/'
-    'latest':           'AlmaLinux-8-GenericCloud-UEFI-latest.x86_64.qcow2'
-    'checksum_file':    'CHECKSUM'
-    'checksum':         'sha256'
-    'min_ram':          768
-    'min_disk':         8
-    'flavor':           'm1.small'
-    'efi':              true
-    'username':         'almalinux'
-    'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
-    'hour':             14
-    'minute':           30
   'almalinux9_nv_vgpu':
     'image_name':       'IMAGEBUILDER AlmaLinux 9 (NVIDIA GPU)'
     'url':              'https://raw.repo.almalinux.org/almalinux/9/cloud/x86_64/images/'
@@ -189,18 +175,19 @@ profile::application::builder::images:
     'username':         'debian'
     'hour':             16
     'minute':           45
-  'fedora_41':
-    'image_name':       'IMAGEBUILDER Fedora 41'
-    'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/41/Cloud/x86_64/images/'
-    'latest':           'Fedora-Cloud-Base-Generic-41-1.4.x86_64.qcow2'
-    'checksum_file':    'Fedora-Cloud-41-1.4-x86_64-CHECKSUM'
-    'checksum':         'sha256'
+  'debian13':
+    'image_name':       'IMAGEBUILDER Debian 13'
+    'url':              'https://cdimage.debian.org/cdimage/cloud/trixie/latest/'
+    'latest':           'debian-13-genericcloud-amd64.qcow2'
+    'checksum_file':    'SHA512SUMS'
+    'checksum':         'sha512'
     'min_ram':          1024
     'min_disk':         3
+    'flavor':           'm1.small'
     'efi':              true
-    'username':         'fedora'
-    'hour':             14
-    'minute':           15
+    'username':         'debian'
+    'hour':             17
+    'minute':           00
   'fedora_42':
     'image_name':       'IMAGEBUILDER Fedora 42'
     'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/42/Cloud/x86_64/images/'
@@ -213,6 +200,18 @@ profile::application::builder::images:
     'username':         'fedora'
     'hour':             14
     'minute':           30
+  'fedora_43':
+    'image_name':       'IMAGEBUILDER Fedora 43'
+    'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/43/Cloud/x86_64/images/'
+    'latest':           'Fedora-Cloud-Base-Generic-43-1.6.x86_64.qcow2'
+    'checksum_file':    'Fedora-Cloud-43-1.6-x86_64-CHECKSUM'
+    'checksum':         'sha256'
+    'min_ram':          1024
+    'min_disk':         3
+    'efi':              true
+    'username':         'fedora'
+    'hour':             14
+    'minute':           45
   'rockylinux8':
     'image_name':       'IMAGEBUILDER RockyLinux 8'
     'url':              'https://dl.rockylinux.org/pub/rocky/8/images/x86_64/'
@@ -370,8 +369,9 @@ profile::monitoring::sensu::agent::checks:
     runtime_assets:
     - sensu/sensu-check-multiplexer
     annotations:
+      fatigue_check/occurrences: '3' # notify first on the third occurence
+      fatigue_check/interval: '86400' # once per day notification
       check-imagebuild/args/almalinux8: "-d almalinux8"
-      check-imagebuild/args/almalinux8_nv_vgpu: "-d almalinux8_nv_vgpu"
       check-imagebuild/args/almalinux9: "-d almalinux9"
       check-imagebuild/args/almalinux9_nv_vgpu: "-d almalinux9_nv_vgpu"
       check-imagebuild/args/almalinux9: "-d almalinux10"
@@ -380,8 +380,9 @@ profile::monitoring::sensu::agent::checks:
       check-imagebuild/args/centosstream10: "-d centosstream10"
       check-imagebuild/args/debian11: "-d debian11"
       check-imagebuild/args/debian12: "-d debian12"
-      check-imagebuild/args/fedora_41: "-d fedora_41"
+      check-imagebuild/args/debian13: "-d debian13"
       check-imagebuild/args/fedora_42: "-d fedora_42"
+      check-imagebuild/args/fedora_43: "-d fedora_43"
       check-imagebuild/args/rockylinux8: "-d rockylinux8"
       check-imagebuild/args/rockylinux8_uib_puppet: "-d rockylinux8_uib_puppet"
       check-imagebuild/args/rockylinux9: "-d rockylinux9"

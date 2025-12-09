@@ -25,11 +25,29 @@ profile::monitoring::sensu::backend::handlers:
   slack:
     type:         'pipe'
     command:      'cat'
+  status: # Remove this to get status to tsdb-01
+    type:         'pipe'
+    command:      'cat'
+  metric: # Remove this to get metric to tsdb-01
+    type:         'pipe'
+    command:      'cat'
 
 sensu::agent::subscriptions:
   - 'base'
   - 'nodes'
   - 'monitor'
   - 'metrics'
-#  - 'proxy' # # only for testing check
-#  - 'physical' # only for testing check
+# to test other subsciptions on sensugo node
+  # - 'network'
+  # - 'db'
+  # - 'haproxy'
+  # - 'proxy'
+  # - 'physical'
+  # - 'storage'
+  # - 'object'
+  # - 'compute'
+  # - 'cephmon'
+  # - 'cephmon-object'
+
+# we do not have puppet ca in vagrant
+profile::application::openssl::puppetca::enable: false

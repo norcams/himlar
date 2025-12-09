@@ -8,9 +8,6 @@ named_interfaces::config:
   trp:
     - bridge.100
 
-# FIXME:sensu-go
-profile::monitoring::sensu::agent::enable_go_agent:     false
-
 profile::network::leaf::switchd_conf:
   'resilient_hash_enable':
     line: 'resilient_hash_enable = TRUE'
@@ -823,7 +820,7 @@ profile::base::network::cumulus_bridges:
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'false'
-    'vids': [ '100', '109', '110', '120', ]
+    'vids': [ '100', '109', '110', '120', '130', ]
     'mtu': '9216'
 
 frrouting::frrouting::zebra_interfaces:

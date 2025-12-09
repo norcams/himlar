@@ -161,9 +161,9 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
         - 'code 301 location https://www.%[hdr(host)] if !has_subdomain'
         - 'scheme https if !{ ssl_fc } !is_request' # redirect all to https (only port 80)
       - tcp-request:    "%{hiera('block_api_connection')}" # should only block in test01
-      # Uncomment this to restrict access to testing network only
+      # Uncomment ONE of these to restrict access to testing network only (last one also allow keystone)
       #- use_backend:    'bk_maintenance unless { src -f /etc/haproxy/testing_network.list }'
-      #
+      #- use_backend:    'bk_maintenance unless { src -f /etc/haproxy/testing_network.list } || { dst_port 5000 }'
       - http-request:
         - 'add-header X-Forwarded-Proto https if { ssl_fc }'
         - 'set-header X-Forwarded-Port %[dst_port]'

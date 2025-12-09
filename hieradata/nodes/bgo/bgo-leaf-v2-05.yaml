@@ -2,16 +2,21 @@
 # The uplink interface
 #profile::base::network::uplink_interface: 'swp28s0'
 
-network::interfaces_hash:
-  'eth0':
-    'ipaddress': "%{hiera('netcfg_mgmt_net_c0')}.5/21"
-    'gateway':   "%{hiera('netcfg_mgmt_gateway')}"
-    'vrf':       'mgmt'
-  'mgmt':
-    'ipaddress': '127.0.0.1/8'
-    'vrf_table': 'auto'
+bgp_loopback_addr: '10.255.253.5' # IP for elastic IP and vtep
+bgp_loopback_addr6: 'fcfd::6:5'   # Needed for BGP-MP to work
 
 profile::base::network::cumulus_interfaces:
+  'eth0':
+    'ipv4': "%{hiera('netcfg_mgmt_net_c0')}.5/21"
+    'gateway': "%{hiera('netcfg_mgmt_gateway')}"
+    'vrf': 'mgmt'
+  'mgmt':
+    'ipv4': '127.0.0.1/8'
+    'vrf_table': 'auto'
+  'lo':
+    'ipv4': [ "%{hiera('bgp_loopback_addr')}/32", ]
+    'ipv6': [ "%{hiera('bgp_loopback_addr6')}/128", ]
+    'clagd_vxlan_anycast_ip': '10.255.253.50'
   'bridge.100':
     'ipv4': [ "%{hiera('netcfg_trp_net_c0')}.5/21", ]
     'ipv6': [ 'fd00::5/64', ]
@@ -32,8 +37,15 @@ profile::base::network::cumulus_interfaces:
     'vrf': 'lhcopn'
     'ipv4': [ '109.105.124.63/31', ]
     'ipv6': [ '2001:948:40:4::89/127', ]
+  'swp27':
+    'mtu': '9216'
+    'pvid': '300'
+    'vids': [ '300', ]
+  'swp28':
+    'mtu': '9216'
+    'pvid': '300'
+    'vids': [ '300', ]
   'bridge.300':
-    'vrf': 'netapp'
     'ipv4': [ '192.168.224.2/24', ]
     'ipv6': [ 'fd00:192:268:224::2/64', ]
     'virtual_ip': '192.168.224.1/24 fd00:192:268:224::1/64'
@@ -52,7 +64,57 @@ frrouting::frrouting::zebra_ip6_routes:
 frrouting::frrouting::zebra_ip_routes:
   - '109.105.127.128/26 Null0 vrf lhcopn'
 
+frrouting::frrouting::bgp_in_default_vrf: false
 frrouting::frrouting::bgp_vrf_options:
+  'default':
+    'bgp_as': "%{hiera('bgp_as')}"
+    'common_cfg':
+      - "bgp router-id %{ipaddress_trp1}"
+      - 'bgp log-neighbor-changes'
+      - 'bgp default local-preference 200'
+      - 'bgp bestpath as-path multipath-relax'
+      - "neighbor 172.18.0.6 remote-as %{hiera('bgp_as')}"
+      - "neighbor 172.18.6.1 remote-as %{hiera('bgp_as')}"
+      - "neighbor 172.18.6.2 remote-as %{hiera('bgp_as')}"
+      - "neighbor fd00::6 remote-as %{hiera('bgp_as')}"
+      - "neighbor fd00::6:2 remote-as %{hiera('bgp_as')}"
+      - "neighbor fd00::6:1 remote-as %{hiera('bgp_as')}"
+    'address_family4_unicast':
+      - 'redistribute connected'
+      - 'neighbor 172.18.0.6 route-map failover-lhc-routes in'
+      - 'neighbor 172.18.0.6 soft-reconfiguration inbound'
+      - 'neighbor 172.18.6.1 soft-reconfiguration inbound'
+      - 'neighbor 172.18.6.1 prefix-list spine-routes-in in'
+      - 'neighbor 172.18.6.1 prefix-list spine-routes-out out'
+      - 'neighbor fd00::6:1 soft-reconfiguration inbound'
+      - 'neighbor fd00::6:1 prefix-list spine-routes-in in'
+      - 'neighbor fd00::6:1 prefix-list spine-routes-out out'
+      - 'neighbor 172.18.6.2 soft-reconfiguration inbound'
+      - 'neighbor 172.18.6.2 prefix-list spine-routes-in in'
+      - 'neighbor 172.18.6.2 prefix-list spine-routes-out out'
+      - 'neighbor fd00::6:2 soft-reconfiguration inbound'
+      - 'neighbor fd00::6:2 prefix-list spine-routes-in in'
+      - 'neighbor fd00::6:2 prefix-list spine-routes-out out'
+      - 'no neighbor fd00::6 activate'
+      - "network %{hiera('bgp_loopback_addr')}/32"
+      - 'maximum-paths ibgp 5'
+      - 'import vrf lhcopn'
+      - 'import vrf netapp'
+    'address_family6_unicast':
+      - 'neighbor fd00::6 activate'
+      - 'neighbor fd00::6 soft-reconfiguration inbound'
+      - 'neighbor fd00::6 route-map failover-lhc-routes6 in'
+      - 'neighbor fd00::6:1 activate'
+      - 'neighbor fd00::6:1 soft-reconfiguration inbound'
+      - 'neighbor fd00::6:1 prefix-list spine-routes6-in in'
+      - 'neighbor fd00::6:1 prefix-list spine-routes6-out out'
+      - 'neighbor fd00::6:2 activate'
+      - 'neighbor fd00::6:2 soft-reconfiguration inbound'
+      - 'neighbor fd00::6:2 prefix-list spine-routes6-in in'
+      - 'neighbor fd00::6:2 prefix-list spine-routes6-out out'
+      - 'network fd00:192:268:224::/64'
+      - "network %{hiera('bgp_loopback_addr6')}/128"
+      - 'import vrf lhcopn'
   'netapp':
     'address_family4_unicast':
       - 'redistribute connected'
@@ -84,6 +146,8 @@ frrouting::frrouting::bgp_vrf_options:
       - 'neighbor 128.39.70.176 prefix-list lhc-routes-in in'
       - 'neighbor 128.39.70.176 prefix-list lhc-routes-out out'
       - 'neighbor 128.39.70.176 route-map secondary-lhc-uplink in'
+      - 'no neighbor 2001:700:0:80ae::0 activate'
+      - 'no neighbor 2001:948:40:4::88 activate'
     'address_family6_unicast':
       - 'redistribute connected'
       - 'import vrf route-map lhcopn-allow6'
@@ -100,37 +164,3 @@ frrouting::frrouting::bgp_vrf_options:
       - 'neighbor 2001:948:40:4::88 prefix-list lhc-routes6-in in'
       - 'neighbor 2001:948:40:4::88 prefix-list lhc-routes6-out out'
       - 'neighbor 2001:948:40:4::88 route-map primary-lhc-uplink6 in'
-
-frrouting::frrouting::bgp_neighbors:
-  - "172.18.0.6 remote-as %{hiera('bgp_as')}"
-  - '172.18.0.6 route-map failover-lhc-routes in'
-  - '172.18.0.6 soft-reconfiguration inbound'
-  - "fd00::6 remote-as %{hiera('bgp_as')}"
-  - "172.18.6.1 remote-as %{hiera('bgp_as')}"
-  - '172.18.6.1 soft-reconfiguration inbound'
-  - '172.18.6.1 prefix-list spine-routes-in in'
-  - '172.18.6.1 prefix-list spine-routes-out out'
-  - "fd00::6:1 remote-as %{hiera('bgp_as')}"
-  - 'fd00::6:1 soft-reconfiguration inbound'
-  - 'fd00::6:1 prefix-list spine-routes-in in'
-  - 'fd00::6:1 prefix-list spine-routes-out out'
-  - "172.18.6.2 remote-as %{hiera('bgp_as')}"
-  - '172.18.6.2 soft-reconfiguration inbound'
-  - '172.18.6.2 prefix-list spine-routes-in in'
-  - '172.18.6.2 prefix-list spine-routes-out out'
-  - "fd00::6:2 remote-as %{hiera('bgp_as')}"
-  - 'fd00::6:2 soft-reconfiguration inbound'
-  - 'fd00::6:2 prefix-list spine-routes-in in'
-  - 'fd00::6:2 prefix-list spine-routes-out out'
-frrouting::frrouting::bgp_neighbors6:
-  - 'fd00::6 activate'
-  - 'fd00::6 soft-reconfiguration inbound'
-  - 'fd00::6 route-map failover-lhc-routes6 in'
-  - 'fd00::6:1 activate'
-  - 'fd00::6:1 soft-reconfiguration inbound'
-  - 'fd00::6:1 prefix-list spine-routes6-in in'
-  - 'fd00::6:1 prefix-list spine-routes6-out out'
-  - 'fd00::6:2 activate'
-  - 'fd00::6:2 soft-reconfiguration inbound'
-  - 'fd00::6:2 prefix-list spine-routes6-in in'
-  - 'fd00::6:2 prefix-list spine-routes6-out out'

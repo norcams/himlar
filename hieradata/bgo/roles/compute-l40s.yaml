@@ -43,6 +43,15 @@ profile::base::network::network_auto_opts:
   live:
     'defroute': 'no'
 
+## Sensu 
+sensu::agent::subscriptions:
+  - 'base'
+  - 'metrics'
+  - 'compute'
+  - 'physical'
+  - 'l40s'
+
+profile::base::physical::enable_l40s_pci_check:  true
 
 # Enable extra yum repo vGPU drivers
 profile::base::yumrepo::repo_hash:

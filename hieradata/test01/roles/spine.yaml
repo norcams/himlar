@@ -8,12 +8,6 @@ named_interfaces::config:
   trp:
     - bridge.100
 
-# FIXME:sensu-go
-profile::monitoring::sensu::agent::enable_go_agent:     true
-
-profile::monitoring::sensu::agent::enable_agent: false
-
-profile::monitoring::collectd::enable: true
 profile::base::common::manage_ntp:     false
 profile::base::common::manage_chrony:  true
 chrony::service_name: 'chrony@mgmt'
@@ -507,18 +501,3 @@ frrouting::frrouting::bgp_route_maps:
     - 'match ip address 10'
   'peer-deny deny 10':
     - 'match ip address 10'
-
-# disable broken sensu-checks
-sensuclassic::checks:
-  'metrics-vmstat':
-    ensure: absent
-  'metrics-load':
-    ensure: absent
-  'metrics-memory':
-    ensure: absent
-  'check-disk-usage':
-    ensure: absent
-  'check-load':
-    ensure: absent
-  'check-memory-percent':
-    ensure: absent
