@@ -10,6 +10,8 @@ include:
     - profile::webserver::apache::status
 #    - profile::openstack::compute::placement # FIXME: remove after upgrade
 
+openstack_version: 'zed'
+
 profile::base::selinux::manage_selinux:             true
 profile::openstack::novactrl::manage_firewall:      true
 profile::openstack::novactrl::enable_api:           true
@@ -82,8 +84,6 @@ profile::base::yumrepo::repo_hash:
     ensure: present
 
 memcached::max_memory: '20%'
-
-openstack_version: 'yoga'
 
 # This creates /etc/openstack/puppet/admin-clouds.yaml
 keystone::bootstrap::bootstrap:        false
