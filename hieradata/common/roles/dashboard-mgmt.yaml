@@ -1,4 +1,6 @@
 ---
+openstack_version: 'zed'
+
 horizon::allowed_hosts:                 '*'
 horizon::servername:                    "dashboard.%{hiera('domain_mgmt')}"
 horizon::server_aliases:                "%{::fqdn}"
@@ -9,7 +11,9 @@ horizon::ssl_cert:                      "/etc/pki/tls/certs/%{hiera('public__add
 horizon::ssl_key:                       "/etc/pki/tls/private/%{hiera('public__address__dashboardmgmt')}.key.pem"
 horizon::openstack_endpoint_type:       'internalURL'
 
-horizon::websso_enabled:        false
+# WebSSO
+horizon::websso_enabled:               false
+horizon::websso_choices_hide_keystone: false
 
 # Session database
 profile::openstack::dashboard::database:
