@@ -25,6 +25,7 @@ profile::base::common::packages:
   'jq': {}
   'openstack-selinux': {}
   'python3-designateclient': {}
+  'openstack-dashboard-nrec-themes': { ensure: present }
 
 profile::base::common::manage_cron:                                true
 profile::base::selinux::manage_selinux:                            true
