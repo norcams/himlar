@@ -7,6 +7,8 @@ include:
     - profile::openstack::cache
     - profile::storage::cephclient
 
+openstack_version: 'zed'
+
 # This creates /etc/openstack/puppet/admin-clouds.yaml
 keystone::bootstrap::bootstrap:        false
 keystone::bootstrap::manage_resources: false
