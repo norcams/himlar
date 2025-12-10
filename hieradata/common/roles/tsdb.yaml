@@ -70,6 +70,7 @@ profile::base::lvm::volume_group:
   'vg_metric':
     physical_volumes:
       - /dev/vdb
+      - /dev/vdc
 profile::base::lvm::logical_volume:
   'lv_influx':
     volume_group: 'vg_metric'
