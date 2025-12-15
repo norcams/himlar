@@ -37,9 +37,9 @@ defaults:
 nodesets:
   default:
     - role:       "db-global"
-      puppet_env: "yoga"
+      puppet_env: "yoga_db_el9"
     - role:       "db-regional"
-      puppet_env: "yoga"
+      puppet_env: "yoga_db_el9"
     - role:       "api"
     - role:       "mq"
     - role:       "identity"
