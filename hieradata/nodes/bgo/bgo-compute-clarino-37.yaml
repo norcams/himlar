@@ -1,17 +1,17 @@
 profile::base::lvm::physical_volume:
-  '/dev/sda4':
+  '/dev/sdb4':
     ensure: present
     force:  true
-  '/dev/nvme0n1':
+  '/dev/sda':
     ensure: present
     force:  true
 profile::base::lvm::volume_group:
   'vg_instances':
     physical_volumes:
-      - /dev/sdb
+      - /dev/sda
   'vg_swap':
     physical_volumes:
-      - /dev/sda4
+      - /dev/sdb4
 profile::base::lvm::logical_volume:
   'lv_instances':
     volume_group: 'vg_instances'
