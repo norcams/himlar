@@ -1,43 +1,52 @@
 ---
+---
 network::interfaces_hash:
-  'eth0':
-    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.12"
-    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
-    mtu:       '1500'
-    peerdns:   'yes'
-    dns1:      "%{hiera('netcfg_dns_mgmt_server1')}"
-    dns2:      "%{hiera('netcfg_dns_trp_server1')}"
-    domain:    "%{hiera('netcfg_dns_search')}"
-    defroute:  'no'
-  'eth1':
-    ipaddress: "%{hiera('netcfg_trp_netpart')}.12"
-    netmask:   "%{hiera('netcfg_trp_netmask')}"
-    gateway:   "%{hiera('netcfg_trp_gateway')}"
-    srcaddr:   "%{hiera('public__ip__proxy')}"
-    ipv6init:  'yes'
-    ipv6addr:  "%{hiera('netcfg_trp_netpart6')}::12/%{hiera('netcfg_trp_netmask6')}"
-    defroute:  'yes'
-  'dummy0':
-    ipaddress: "%{hiera('public__ip__proxy')}"
-    netmask:   '255.255.255.255'
-    ipv6init:  'yes'
-    ipv6addr:  '2001:700:2:83ff::12/128'
-    defroute:  'no'
-profile::base::network::routes:
-  'eth0':
-    'ipaddress': [ '172.17.0.0', ]
-    'netmask':   [ '255.255.248.0', ]
-    'gateway':   [ '172.16.0.10', ]
-    'table':     [ 'main', ]
-  'eth1':
-    'ipaddress': [ '::', ]
-    'netmask':   [ '0', ]
-    'gateway':   [ "%{hiera('netcfg_trp_gateway6')}", ]
-    'source':    [ '2001:700:2:83ff::12', ]
-    'table':     [ 'main', ]
-    'family':    [ 'inet6', ]
+   eth0:
+     ipv4:
+       method:         'manual'
+       address1:       "%{hiera('netcfg_mgmt_netpart')}.12/%{hiera('netcfg_mgmt_cidr4')}"
+       dns:            "%{hiera('netcfg_dns_mgmt_server1')};%{hiera('netcfg_dns_mgmt_server2')}"
+       dns-search:     "%{hiera('netcfg_dns_search_nm')}"
+   eth1:
+     ipv4:
+       method:         'manual'
+       address1:       "%{hiera('netcfg_trp_netpart')}.12/%{hiera('netcfg_trp_cidr4')}"
+       route1:         "0.0.0.0/0,%{hiera('netcfg_trp_gateway')}"
+       route1_options: 'src=129.177.31.123'
+     ipv6:
+       method:         'manual'
+       address1:       "%{hiera('netcfg_trp_netpart6')}::12/%{hiera('netcfg_trp_netmask6')}"
+       route1:         "::/0,%{hiera('netcfg_trp_netpart6')}::701"
+       route1_options: 'src=2001:700:200:917::3f12'
+   eth2:
+     ipv4:
+       method:         'manual'
+       never-default:  'true'
+       address1:       "%{hiera('netcfg_oob_netpart')}.12/21"
+   lo-static:
+     interface_name:   'lo'
+     connection_type:  'loopback'
+     ipv4:
+       method:         'manual'
+       address1:       '158.39.77.253/32'
+     ipv6:
+       method:         'manual'
+       address1:       '2001:700:2:83ff::12/128'
 
-profile::base::common::manage_cron:       true
+named_interfaces::config:
+   mgmt:
+     - eth0
+   trp:
+     - eth1
+   oob:
+     - eth2
+   public:
+     - lo
+
+profile::network::interface::manage_dummy: false #FIXME when all proxies use loopback interface
+profile::application::himlarservice::enable: false #FIXME: move himlar to proxy-01
+
+profile::base::common::manage_cron: true
 profile::base::cron::crontabs:
   logrotate:
     hour:     '4'
