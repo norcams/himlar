@@ -11,12 +11,12 @@ network::interfaces_hash:
        method:         'manual'
        address1:       "%{hiera('netcfg_trp_netpart')}.12/%{hiera('netcfg_trp_cidr4')}"
        route1:         "0.0.0.0/0,%{hiera('netcfg_trp_gateway')}"
-       route1_options: 'src=129.177.31.123'
+       route1_options: 'src=158.37.63.253'
      ipv6:
        method:         'manual'
        address1:       "%{hiera('netcfg_trp_netpart6')}::12/%{hiera('netcfg_trp_netmask6')}"
-       route1:         "::/0,%{hiera('netcfg_trp_netpart6')}::701"
-       route1_options: 'src=2001:700:200:917::3f12'
+       route1:         "::/0,%{hiera('netcfg_trp_gateway6')}"
+       route1_options: 'src=2001:700:2:82ff::12'
    eth2:
      ipv4:
        method:         'manual'
@@ -27,7 +27,7 @@ network::interfaces_hash:
      connection_type:  'loopback'
      ipv4:
        method:         'manual'
-       address1:       "%{hiera('public__ip__proxy')}/32"
+       address1:       '158.37.63.253/32'
      ipv6:
        method:         'manual'
        address1:       '2001:700:2:82ff::12/128'
