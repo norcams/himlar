@@ -105,6 +105,7 @@ netcfg_trp_rr:
     peer_ipv6: 'fd00::6:2'
 
 public__ip__object:             '129.177.31.122'
+public__address__object:        "https://object.api.%{hiera('domain_public')}:8080"
 #public__ipv6__object:           ''
 internal__ip__api:              '10.255.10.122'
 internal__ipv6__api:            'fd00:ffff:ffff::122'
@@ -133,6 +134,7 @@ profile::network::services::dns_records:
     # public
     "ns.%{hiera('domain_frontend')}":                       '129.177.31.117'
     "resolver.%{hiera('domain_public')}":                   '129.177.31.118'
+    "object.api.%{hiera('domain_public')}":                 '129.177.31.122'
     "api.%{hiera('domain_public')}":                        '129.177.31.122'
     "dashboard.%{hiera('domain_frontend')}":                '129.177.31.126'
     # mgmt
