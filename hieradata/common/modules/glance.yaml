@@ -16,7 +16,6 @@ glance::db::mysql::allowed_hosts:
   - "%{netpart_trp1}.%"
 
 # api (node: image)
-glance::api::service_name:                 'httpd'
 glance::api::db::database_connection:      "mysql+pymysql://glance:%{hiera('glance::db::mysql::password')}@%{hiera('service__address__db_regional')}/glance"
 glance::backend::multistore::cinder::cinder_os_region_name:  "%{location}"
 glance::api::show_image_direct_url:        true
@@ -25,11 +24,9 @@ glance::api::enable_proxy_headers_parsing: true
 glance::api::image_member_quota:           -1
 glance::api::multi_store:                  true
 
-#---------------------------------------------------------------------
-# WSGI configuration
-#---------------------------------------------------------------------
-glance::wsgi::apache::bind_host: "%{::ipaddress_trp1}"
-glance::wsgi::apache::workers:   4
+glance::api::bind_host:                    "%{::ipaddress_trp1}"
+glance::api::workers:                      10
+
 
 #---------------------------------------------------------------------
 # Cache pruner (manifests/cache/pruner.pp)
