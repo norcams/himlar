@@ -63,6 +63,10 @@ profile::base::cron::crontabs:
     hour:     '*/6'
     minute:   '30'
     command:  '/opt/himlarcli/bin/sync_owners.sh >/dev/null 2>&1'
+  sync_owners:
+    hour:     '9'
+    minute:   '0'
+    command:  '/opt/himlarcli/bin/uib_net_report.sh >/dev/null 2>&1'
   logrotate:
     hour:     '4'
     minute:   '25'
