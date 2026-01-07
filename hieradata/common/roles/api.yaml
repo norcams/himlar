@@ -146,6 +146,8 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
     options:
       - capture:        'request header Host len 64' #for debug
       - acl:
+        - 'restricted_methods method TRACE TRACK'
+      - acl:
         - 'keystone_admin_endpoint path -i -m beg /v3/projects'
         - 'keystone_admin_endpoint path -i -m beg /v3/groups'
         - 'keystone_admin_endpoint path -i -m beg /v3/domains'
@@ -167,6 +169,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       - http-request:
         - 'add-header X-Forwarded-Proto https if { ssl_fc }'
         - 'set-header X-Forwarded-Port %[dst_port]'
+        - 'deny if restricted_methods'
         # Returns 403 for all keystone admin endpoints on port 5000
         # using http methods not whitelisted (e.g. POST, PATCH, DELETE)
         - 'deny if { dst_port 5000 } !valid_method keystone_admin_endpoint'
