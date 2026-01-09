@@ -9,8 +9,6 @@ profile::base::dell::manage_openmanage: false
 
 domain_frontend:          "%{hiera('profile::dns::ns::frontend_zone')}"
 domain_public:            "bgo.%{hiera('profile::dns::ns::frontend_zone')}"
-domain_frontend2:         "%{hiera('profile::dns::ns::frontend_zone2')}"
-domain_public2:           "bgo.%{hiera('profile::dns::ns::frontend_zone2')}"
 domain_trp:               'bgo.uhdc.no'
 domain_mgmt:              'mgmt.bgo.uhdc.no'
 domain_oob:               'oob.bgo.uhdc.no'
@@ -302,20 +300,6 @@ profile::network::services::dns_records:
 
     "resolver.%{hiera('domain_public')}":         '158.39.77.252'
 
-    # Public records (<foo>.<location>.uh-iaas.no)
-    "console.%{hiera('domain_public2')}":         '158.39.77.250'
-    "compute.api.%{hiera('domain_public2')}":     '158.39.77.250'
-    "identity.api.%{hiera('domain_public2')}":    '158.39.77.250'
-    "network.api.%{hiera('domain_public2')}":     '158.39.77.250'
-    "image.api.%{hiera('domain_public2')}":       '158.39.77.250'
-    "volume.api.%{hiera('domain_public2')}":      '158.39.77.250'
-    "placement.api.%{hiera('domain_public2')}":   '158.39.77.250'
-    "metric.api.%{hiera('domain_public2')}":      '158.39.77.250'
-    "dns.api.%{hiera('domain_public2')}":         '158.39.77.250'
-    "object.api.%{hiera('domain_public2')}":      "%{hiera('public__ip__object')}"
-
-    "resolver.%{hiera('domain_public2')}":        '158.39.77.252'
-
     # Management network (entries that differ from common/common.yaml)
     "%{::location}-login-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_netpart')}.10"
     "%{::location}-login-01old.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_net_c0')}.199"
@@ -326,10 +310,6 @@ profile::network::services::dns_records:
     "resolver.%{hiera('domain_public')}":              '2001:700:2:83ff::252'
     "%{::location}-dns-01.%{hiera('domain_public')}":  '2001:700:2:83ff::256'
     "object.api.%{hiera('domain_public')}":            "%{hiera('public__ipv6__object')}"
-    # Public records (<foo>.<location>.uh-iaas.no)
-    "resolver.%{hiera('domain_public2')}":             '2001:700:2:83ff::252'
-    "%{::location}-dns-01.%{hiera('domain_public2')}": '2001:700:2:83ff::256'
-    "object.api.%{hiera('domain_public2')}":           "%{hiera('public__ipv6__object')}"
   PTR:
     # Management network (entries that differ from common/common.yaml)
     "8.%{hiera('reverse_mgmt_c2')}":   "%{::location}-mgmt-08.%{hiera('domain_mgmt')}"
