@@ -41,13 +41,12 @@ profile::highavailability::loadbalancing::haproxy::firewall_ports:
 
 # HAproxy
 star_api_ssl_pem:         "star.api.%{hiera('domain_public')}.pem"
-star_api_ssl_pem2:        "star.api.%{hiera('domain_public2')}.pem"
 
 profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
   frontend_public:
     bind:
-      ':::443 v4v6': ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
-      ':::8080 v4v6': ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"] # FIXME remove when nobody uses 8080
+      ':::443 v4v6': ['ssl', "crt %{hiera('star_api_ssl_pem')}"]
+      ':::8080 v4v6': ['ssl', "crt %{hiera('star_api_ssl_pem')}"] # FIXME remove when nobody uses 8080
     mode: 'http'
     options:
       - acl:
