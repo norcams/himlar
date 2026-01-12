@@ -36,6 +36,7 @@ class profile::monitoring::telegraf(
 
       exec { 'telegraf_proxy_systemctl_daemon_reload':
         command     => '/bin/systemctl daemon-reload;/bin/systemctl restart telegraf',
+        require     => Class['telegraf'],
         refreshonly => true,
       }
     }
