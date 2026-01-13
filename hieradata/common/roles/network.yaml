@@ -35,6 +35,7 @@ calico_version:     '327' # FIXME: move to common when versions on compute have 
 profile::openstack::network::manage_quotas: true
 
 profile::openstack::network::controller::manage_neutron_policies: true
+profile::openstack::network::calico::neutron_network_block: true
 
 profile::base::common::packages:
   # we need newer version of six to avoid breaking requests and openstack cli

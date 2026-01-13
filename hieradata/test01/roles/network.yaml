@@ -1,7 +1,4 @@
 ---
-# FIXME: move to common after testing
-profile::openstack::network::calico::neutron_network_block: true
-
 profile::network::interface::create_custom_routes: true
 
 profile::base::network::nm_auto_routes:
