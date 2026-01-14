@@ -1,5 +1,6 @@
 ---
 calico::enable_ipv6: false
+calico::debug: true
 
 # Reflector clients (must be set per location)
 # On vagrant, we use the service network for this
@@ -13,7 +14,7 @@ calico::reflector::clients:
 calico::compute::peer_defaults:
   peer_as: 65535
   local_as: 65535
-  local_ipv4: "%{ipaddress}"
+  local_ipv4: "%{ipaddress_trp1}"
 
 # compute node to RR connection (set per location)
 # In vagrant, we run a test route reflector on the master service IP
@@ -24,4 +25,3 @@ calico::compute::peers:
     peer_ipv4: '172.31.32.1'
   rr2:
     peer_ipv4: '172.31.33.1'
-
