@@ -24,7 +24,7 @@ class profile::monitoring::telegraf(
 
       file { '/etc/systemd/system/telegraf.service.d':
         ensure => 'directory'
-    }
+      }
       file { 'telegraf-systemd-override':
         ensure => file,
         path   => '/etc/systemd/system/telegraf.service.d/override.conf',
