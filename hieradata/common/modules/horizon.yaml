@@ -19,7 +19,6 @@ horizon::allowed_hosts:                 '*'
 horizon::servername:                    "%{hiera('public__address__dashboard')}"
 horizon::server_aliases:
   - "dashboard-%{::location}.%{hiera('domain_frontend')}"
-  - "dashboard.%{hiera('domain_frontend2')}"
 horizon::bind_address:                  "%{ipaddress_public1}"
 horizon::site_branding:                 'NREC'
 

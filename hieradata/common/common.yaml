@@ -34,8 +34,6 @@ domain_public:        "%{::domain}"
 domain_trp:           "%{::domain}"
 domain_mgmt:          "%{::domain}"
 domain_oob:           "%{::domain}"
-domain_public2:       "%{hiera('domain_public')}"
-domain_frontend2:     "%{hiera('domain_frontend')}"
 
 openstack_version:    'yoga'
 
