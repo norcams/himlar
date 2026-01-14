@@ -166,6 +166,17 @@ named_interfaces::config:
   trp:
     - eth1
 
+# el9 network auto config
+profile::base::network::nm_auto_routes:
+  mgmt:
+    ipv4:
+      dns:         "%{hiera('netcfg_dns_mgmt_server1')};%{hiera('netcfg_dns_mgmt_server2')}"
+      dns-search:  "%{hiera('netcfg_dns_search_nm')}"
+  trp:
+    ipv4:
+      never-default:  'true'
+
+# el8 network auto config
 profile::base::network::network_auto_opts:
   mgmt:
     'dns1':     "%{hiera('netcfg_dns_mgmt_server1')}"
