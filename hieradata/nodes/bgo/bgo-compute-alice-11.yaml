@@ -1,10 +1,10 @@
 ---
 profile::base::network::nm_network_auto_bonding:
   trp:
-    p1p1:
+    p2p1:
       ethernet:
         'mtu': '9000' # the MTU size must be set also on the slave interfaces
-    p1p2:
+    p2p2:
       ethernet:
         'mtu': '9000'
 
