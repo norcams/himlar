@@ -29,32 +29,6 @@ profile::base::network::nm_auto_routes:
     ipv6:
       route1: "::/0,%{hiera('netcfg_trp_gateway6')}"
 
-profile::base::network::nm_auto_opts:
-  mgmt:
-    ipv4:
-      never-default: 'true'
-      dns-search: "%{hiera('netcfg_dns_search_nm')}"
-      dns: "%{hiera('netcfg_dns_trp_server1')};%{hiera('netcfg_dns_mgmt_server1')};" # FIXME; define in common/roles/compute
-  trp:
-    ipv6init: 'yes' # NOTE: this is not NM syntax, rather interface.pp config
-    bond:                          # Teaming driver is no longer available
-      mode: '802.3ad'              # the best and only supported mode with existing network config
-      xmit_hash_policy: 'layer3+4' # please use this hash policy
-    ethernet:
-      mtu: '9000'
-  live:
-    ipv4:
-      'never-default': 'true'
-
-profile::base::network::nm_network_auto_bonding:
-  trp:
-    em1:
-      ethernet:
-        'mtu': '9000' # the MTU size must be set also on the slave interfaces
-    em2:
-      ethernet:
-        'mtu': '9000'
-
 # EL8 config
 profile::base::network::network_auto_opts:
   mgmt:
