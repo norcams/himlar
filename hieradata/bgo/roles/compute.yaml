@@ -8,6 +8,63 @@ chrony::servers:
   - "%{hiera('netcfg_mgmt_netpart')}.127"
   - "%{hiera('netcfg_mgmt_netpart')}.128"
 
+# EL9 routing for this region
+network::routing::table::tables:
+  'private':
+    'table_id':  '240'
+  'lhc':
+    'table_id':  '241'
+  'lhc-private':
+    'table_id':  '242'
+  'uib':
+    'table_id':  '243'
+
+profile::base::network::nm_auto_routes:
+  trp:
+    ipv4: # 7 ipv4 routes in bgo
+      # default NAT
+      route1: "0.0.0.0/0,%{hiera('netcfg_priv_gateway')}"
+      route1_options: 'table=240'
+      # Elastic IP
+      route2: "%{hiera('netcfg_priv_anycast_net')}/%{hiera('netcfg_priv_anycast_cidr4')},%{hiera('netcfg_trp_gateway')}"
+      route2_options: 'table=240'
+      # TSM cern
+      route3: "192.168.243.0/24,%{hiera('netcfg_trp_gateway')}"
+      route3_options: 'table=241'
+      # LHC network
+      route4: "0.0.0.0/0,%{hiera('netcfg_lhc_gateway')}"
+      route4_options: 'table=241'
+      # LHC priv network
+      route5: "0.0.0.0/0,%{hiera('netcfg_lhcpriv_gateway')}"
+      route5_options: 'table=242'
+      # uib-dualStack
+      route6: "129.177.0.0/16,%{hiera('netcfg_uib_gateway')}"
+      route6_options: 'table=243'
+      # default route
+      route7: "0.0.0.0/0,%{hiera('netcfg_trp_gateway')}"
+      # IPv4 Rules
+      routing-rule1: "priority 5 from %{hiera('netcfg_priv_network')} lookup 240"
+      routing-rule2: "priority 5 from %{hiera('netcfg_elastic_cidr')} lookup 240"
+      routing-rule3: "priority 5 from %{hiera('netcfg_uio_priv1_network')} lookup 240"
+      routing-rule4: "priority 5 from %{hiera('netcfg_educloud1_network')} lookup 240"
+      routing-rule5: "priority 5 from %{hiera('netcfg_lhc_network')} lookup 241"
+      routing-rule6: "priority 5 from %{hiera('netcfg_lhcpriv_network')} lookup 242"
+      routing-rule7: "priority 5 from 158.37.64.0/24 to %{hiera('netcfg_uib_network')} lookup 243"
+    ipv6: # 3 ipv6 routes in bgo
+      # LHC
+      route1: "::/0,%{hiera('netcfg_lhc_gateway6')}"
+      route1_options: 'table=241'
+      # UiB
+      route2: "2001:700:200::/48,%{hiera('netcfg_uib_gateway6')}"
+      route2_options: 'table=243'
+      # default route
+      route3: "::/0,%{hiera('netcfg_trp_gateway6')}"
+      # IPv6 Rules
+      routing-rule1: "priority 5 from %{hiera('netcfg_lhc_network6')} lookup 241"
+      routing-rule2: "priority 5 from %{hiera('netcfg_lhc2_network6')} lookup 241"
+      routing-rule3: "priority 5 from 2001:700:2:8302::/64 to %{hiera('netcfg_uib_network6')} lookup 243"
+
+# el8 auto config
 profile::base::network::network_auto_opts:
   mgmt:
     'defroute': 'no'
