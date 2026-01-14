@@ -12,3 +12,11 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_ext'
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
+
+named_interfaces::config:
+  mgmt:
+    - p1p1
+  trp:
+    - bond0
+  live:
+    - bond0.120
