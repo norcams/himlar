@@ -13,6 +13,8 @@ profile::base::lvm::logical_volume:
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
 
+#FIXME:el9 move to common after all computes are el9 with zed
+openstack_version: "zed"
 named_interfaces::config:
   mgmt:
     - p1p1
