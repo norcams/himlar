@@ -8,6 +8,8 @@ profile::base::network::nm_network_auto_bonding:
       ethernet:
         'mtu': '9000'
 
+#FIXME:el9 move to common after all computes are el9 with zed
+openstack_version: "zed"
 named_interfaces::config:
   mgmt:
   - em3
