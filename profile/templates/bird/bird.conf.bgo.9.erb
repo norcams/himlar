@@ -37,10 +37,10 @@ filter import_kernel {
 }
 
 filter import_bgp {
-  if  net != 0.0.0.0/0 then {
-    if net !=<%= scope().call_function('hiera',['netcfg_anycast_dns']) %>/32 then {
-      accept;
-    }
+  prefix netcfg_anycast_dns = <%= scope().call_function('hiera',['netcfg_anycast_dns']) %>/32;
+  if dest = RTD_UNREACHABLE then { reject; }
+  if net != 0.0.0.0/0 && net != netcfg_anycast_dns then {
+    accept;
   }
   reject;
 }
