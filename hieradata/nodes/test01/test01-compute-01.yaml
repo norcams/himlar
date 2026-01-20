@@ -8,3 +8,13 @@ nova::config::nova_config:
     value: '2'
 
 nova::compute::libvirt::images_type: 'default'
+
+#FIXME:el9 move to common after all computes are el9 with zed
+openstack_version: "zed"
+named_interfaces::config:
+  mgmt:
+    - p1p1
+  trp:
+    - bond0
+  live:
+    - bond0.120
