@@ -8,6 +8,11 @@ profile::openstack::dashboard::allow_from_network:
   - '129.240.130.124/32'# mikael
   - '129.240.202.64/32' # mikael
 
+profile::openstack::dashboard::manage_firewall6: true
+profile::openstack::dashboard::allow_from_network6:
+  - '2001:700:200:8::9/128'  # test01-login-01
+  - '2001:700:200:8::10/128' # bgo-login-01
+
 # Disable admin dashboard
 profile::openstack::dashboard::disable_admin_dashboard: true
 
