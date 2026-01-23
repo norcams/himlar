@@ -8,3 +8,11 @@ nova::config::nova_config:
     value: '2'
 
 nova::compute::libvirt::images_type: 'default'
+
+profile::base::common::packages:
+  'numactl': {}
+
+# Nova overrides
+nova::cpu_allocation_ratio:         '1'
+nova::disk_allocation_ratio:        '1'
+nova::ram_allocation_ratio:         '1'
