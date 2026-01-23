@@ -4,6 +4,10 @@ profile::openstack::resource::host_aggregate:
     availability_zone: "%{::location}-default-1"
     metadata:
       type: 'standard'
+  shpc_cpu1:
+    availability_zone: "%{::location}-default-1"
+    metadata:
+      type: 'shpc_cpu'
   local1:
     availability_zone: "%{::location}-default-1"
     metadata:
