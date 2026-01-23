@@ -156,6 +156,7 @@ nova::compute::resize_confirm_window:            '0'  # temporary (trondham, 202
 nova::compute::reserved_host_memory:             '4096'
 nova::compute::rbd::libvirt_rbd_user:            'cinder'
 nova::compute::rbd::libvirt_rbd_secret_uuid:     "%{hiera('libvirt_rbd_secret_uuid')}"
+nova::compute::rbd::libvirt_rbd_secret_key:      "%{hiera('ceph_storage_client_cinder_key')}"
 nova::compute::rbd::libvirt_images_rbd_pool:     'volumes'
 nova::compute::rbd::rbd_keyring:                 'client.cinder'
 nova::compute::rbd::ephemeral_storage:           false
