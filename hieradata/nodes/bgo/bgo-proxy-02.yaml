@@ -73,7 +73,7 @@ profile::base::cron::crontabs:
     monthday: '*'
     weekday:  '*'
     command:  '/opt/himlarcli/bin/logrotate.sh >/dev/null 2>&1'
- neutron_agent_check:
+  neutron_agent_check:
     hour:     '*'
     minute:   '*/5'
     command:  '/root/neutron_agent_check/check_neutron_agents.sh >/dev/null 2>&1'
