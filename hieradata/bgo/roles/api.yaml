@@ -4,7 +4,6 @@
 #console_ssl_pem:  "console.uh-iaas.no.pem"
 #access_ssl_pem:   "access.uh-iaas.no.pem"
 frontend_star_ssl_pem:    "star.%{hiera('domain_frontend')}.pem"
-frontend_star_ssl_pem2:   "star.%{hiera('domain_frontend2')}.pem"
 
 #profile::network::interface::create_ip_rules:      true
 #profile::network::interface::create_custom_routes: true
