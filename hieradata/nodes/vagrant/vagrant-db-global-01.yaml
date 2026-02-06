@@ -1,39 +1,13 @@
 ---
 network::interfaces_hash:
-  'eth1':
-    onboot:    'yes'
-    mtu:       '1500'
-    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.41"
-    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
-  'eth2':
-    onboot:    'yes'
-    mtu:       '1500'
-    ipaddress: "%{hiera('netcfg_trp_netpart')}.41"
-    netmask:   "%{hiera('netcfg_trp_netmask')}"
-
-# Galera
-# See galera setup at https://iaas.readthedocs.io/team/development/vagrant/galera.html
-#
-# profile::database::galera::firewall_rules:
-#   '211 galera accept tcp db-global-02':
-#     'proto':  'tcp'
-#     'dport':  ['4567', '4568']
-#     'source': "%{hiera('netcfg_trp_netpart')}.42/32"
-#   '212 galera accept udp db-global-02':
-#     'proto':  'udp'
-#     'dport':  ['4567', '4568']
-#     'source': "%{hiera('netcfg_trp_netpart')}.42/32"
-#   '213 wsrep sst accept tcp for db-global-02':
-#     'proto':  'tcp'
-#     'dport':  '4444'
-#     'source': "%{hiera('netcfg_trp_netpart')}.42/32"
-#   '211 galera accept tcp ha-01':
-#     'proto':  'tcp'
-#     'dport':  ['4567', '4568']
-#     'source': "%{hiera('netcfg_trp_netpart')}.16/32"
-#   '212 galera accept udp ha-01':
-#     'proto':  'udp'
-#     'dport':  ['4567', '4568']
-#     'source': "%{hiera('netcfg_trp_netpart')}.16/32"
-#
-# mysql::server::restart: false
+  eth1:
+    ipv4:
+      method:      'manual'
+      address1:    "%{hiera('netcfg_mgmt_netpart')}.41/%{hiera('netcfg_mgmt_cidr4')}"
+      gateway:     "%{hiera('netcfg_mgmt_gateway')}"
+      dns:         "%{hiera('netcfg_dns_mgmt_server1')};%{hiera('netcfg_dns_mgmt_server2')}"
+      dns-search:  "%{hiera('netcfg_dns_search_nm')}"
+  eth2:
+    ipv4:
+      method:      'manual'
+      address1:    "%{hiera('netcfg_trp_netpart')}.41/%{hiera('netcfg_trp_cidr4')}"
