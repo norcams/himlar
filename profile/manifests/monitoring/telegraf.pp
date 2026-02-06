@@ -24,7 +24,7 @@ class profile::monitoring::telegraf(
 
       file { '/etc/systemd/system/telegraf.service.d':
         ensure => 'directory'
-    }
+      }
       file { 'telegraf-systemd-override':
         ensure => file,
         path   => '/etc/systemd/system/telegraf.service.d/override.conf',
@@ -36,6 +36,7 @@ class profile::monitoring::telegraf(
 
       exec { 'telegraf_proxy_systemctl_daemon_reload':
         command     => '/bin/systemctl daemon-reload;/bin/systemctl restart telegraf',
+        require     => Class['telegraf'],
         refreshonly => true,
       }
     }

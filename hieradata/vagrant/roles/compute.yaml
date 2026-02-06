@@ -57,10 +57,6 @@ consul::services:
     tags: ["TheForeman"]
     port: 80
 
-network::routing::table::tables:
-  'private':
-    'table_id':  '240'
-
 # sensu
 sensu::agent::subscriptions:
   - 'base'

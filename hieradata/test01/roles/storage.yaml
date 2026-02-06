@@ -186,6 +186,14 @@ profile::storage::cephosd::osds:
 profile::storage::ceph::pool::pools:
   'rbd':
     ensure: absent
+  'metrics':
+    size:    3
+    tag:     'metrics'
+    pg_num:  8
+    custom:
+      crush_rule: 'ssd-storage'
+      nodelete:   'true'
+      min_size:   '2'
   'volumes':
     size:    3
     tag:     'rbd'

@@ -45,11 +45,8 @@ profile::highavailability::loadbalancing::haproxy::anycast_service_ip6: "%{hiera
 
 # HAproxy
 star_api_ssl_pem:         "star.api.%{hiera('domain_public')}.pem"
-star_api_ssl_pem2:        "star.api.%{hiera('domain_public2')}.pem"
 console_ssl_pem:          "console.%{hiera('domain_public')}.pem"
-console_ssl_pem2:         "console.%{hiera('domain_public2')}.pem"
 frontend_star_ssl_pem:    "star.%{hiera('domain_public')}.pem"
-frontend_star_ssl_pem2:   "star.%{hiera('domain_public2')}.pem"
 
 haproxy::defaults_options:
   mode:         'http'
@@ -75,9 +72,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
   public_domains:
     ensure: present
     mappings:
-      - "dashboard.%{hiera('domain_frontend2')}":           'bk_dashboard'
       - "api.%{hiera('domain_frontend')}:5000":             'bk_identity'
-      - "api.%{hiera('domain_frontend2')}:5000":            'bk_identity'
       - "identity.api.%{hiera('domain_public')}:5000":      'bk_identity'
       - "network.api.%{hiera('domain_public')}:9696":       'bk_network'
       - "metric.api.%{hiera('domain_public')}:8041":        'bk_metric'
@@ -95,24 +90,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
       - "access-%{::location}.%{hiera('domain_frontend')}": 'bk_access'
       - "report.%{hiera('domain_frontend')}":               'bk_report'
       - "report-%{::location}.%{hiera('domain_frontend')}": 'bk_report'
-      - "identity.api.%{hiera('domain_public2')}:5000":     'bk_identity'
-      - "network.api.%{hiera('domain_public2')}:9696":      'bk_network'
-      - "metric.api.%{hiera('domain_public2')}:8041":       'bk_metric'
-      - "compute.api.%{hiera('domain_public2')}:8774":      'bk_compute'
-      - "placement.api.%{hiera('domain_public2')}:8778":    'bk_placement'
-      - "volume.api.%{hiera('domain_public2')}:8776":       'bk_volume'
-      - "image.api.%{hiera('domain_public2')}:9292":        'bk_image'
-      - "object.api.%{hiera('domain_public2')}:8080":       'bk_object'
-      - "dns.api.%{hiera('domain_public2')}:9001":          'bk_dns'
-      - "status.%{hiera('domain_frontend2')}":              'bk_status'
-      - "status-%{::location}.%{hiera('domain_frontend2')}": 'bk_status'
-      - "request.%{hiera('domain_frontend2')}":             'bk_request'
-      - "console.%{hiera('domain_public2')}:6080":          'bk_console'
-      - "access.%{hiera('domain_frontend2')}":              'bk_access'
-      - "access-%{::location}.%{hiera('domain_frontend2')}": 'bk_access'
-      - "report.%{hiera('domain_frontend2')}":              'bk_report'
-      - "report-%{::location}.%{hiera('domain_frontend2')}": 'bk_report'
-      - "www.%{hiera('domain_frontend2')}":                 'bk_www'
   internal_domains:
     ensure: present
     mappings:
@@ -131,20 +108,22 @@ profile::highavailability::loadbalancing::haproxy::haproxy_mapfile:
 profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
   frontend_public:
     bind:
-      "%{::ipaddress_public1}:5000":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}", "crt %{hiera('frontend_star_ssl_pem')}", "crt %{hiera('frontend_star_ssl_pem2')}"]
-      "%{::ipaddress_public1}:8041":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
-      "%{::ipaddress_public1}:8080":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
-      "%{::ipaddress_public1}:8778":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
-      "%{::ipaddress_public1}:8774":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
-      "%{::ipaddress_public1}:8776":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
-      "%{::ipaddress_public1}:9292":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
-      "%{::ipaddress_public1}:9696":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
-      "%{::ipaddress_public1}:9001":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('star_api_ssl_pem2')}"]
-      "%{::ipaddress_public1}:443":   ['ssl', "crt %{hiera('frontend_star_ssl_pem')}", "crt %{hiera('frontend_star_ssl_pem2')}"]
+      "%{::ipaddress_public1}:5000":  ['ssl', "crt %{hiera('star_api_ssl_pem')}", "crt %{hiera('frontend_star_ssl_pem')}"]
+      "%{::ipaddress_public1}:8041":  ['ssl', "crt %{hiera('star_api_ssl_pem')}"]
+      "%{::ipaddress_public1}:8080":  ['ssl', "crt %{hiera('star_api_ssl_pem')}"]
+      "%{::ipaddress_public1}:8778":  ['ssl', "crt %{hiera('star_api_ssl_pem')}"]
+      "%{::ipaddress_public1}:8774":  ['ssl', "crt %{hiera('star_api_ssl_pem')}"]
+      "%{::ipaddress_public1}:8776":  ['ssl', "crt %{hiera('star_api_ssl_pem')}"]
+      "%{::ipaddress_public1}:9292":  ['ssl', "crt %{hiera('star_api_ssl_pem')}"]
+      "%{::ipaddress_public1}:9696":  ['ssl', "crt %{hiera('star_api_ssl_pem')}"]
+      "%{::ipaddress_public1}:9001":  ['ssl', "crt %{hiera('star_api_ssl_pem')}"]
+      "%{::ipaddress_public1}:443":   ['ssl', "crt %{hiera('frontend_star_ssl_pem')}"]
       "%{::ipaddress_public1}:80":    []
-      "%{::ipaddress_public1}:6080":  ['ssl', "crt %{hiera('console_ssl_pem')}", "crt %{hiera('console_ssl_pem2')}"]
+      "%{::ipaddress_public1}:6080":  ['ssl', "crt %{hiera('console_ssl_pem')}"]
     options:
       - capture:        'request header Host len 64' #for debug
+      - acl:
+        - 'restricted_methods method TRACE TRACK'
       - acl:
         - 'keystone_admin_endpoint path -i -m beg /v3/projects'
         - 'keystone_admin_endpoint path -i -m beg /v3/groups'
@@ -167,6 +146,7 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
       - http-request:
         - 'add-header X-Forwarded-Proto https if { ssl_fc }'
         - 'set-header X-Forwarded-Port %[dst_port]'
+        - 'deny if restricted_methods'
         # Returns 403 for all keystone admin endpoints on port 5000
         # using http methods not whitelisted (e.g. POST, PATCH, DELETE)
         - 'deny if { dst_port 5000 } !valid_method keystone_admin_endpoint'
@@ -201,7 +181,6 @@ profile::highavailability::loadbalancing::haproxy::haproxy_frontends:
 
 # HAproxy backend, one for each API and one for status
 profile::highavailability::loadbalancing::haproxy::haproxy_backends:
-  # this will redirect domain_frontend2 to domain_frontend
   bk_dashboard:
     mode:             'http'
     options:

@@ -15,6 +15,8 @@ network::interfaces_hash:
       address:        "%{hiera('netcfg_trp_netpart')}.100/%{hiera('netcfg_trp_cidr4')}"
       never-default:  'true'
       method:         'manual'
+    bridge:
+      stp:            'false'
   eth0:
     ipv4:
       method:         'auto'
@@ -24,7 +26,27 @@ network::interfaces_hash:
     controller:       'br0'
   eth2:
     controller:       'br1'
-  eth3: {}
+# bond example:
+  # bond-eth3:
+  #   interface_name:   'eth3'
+  #   controller:       'bond0'
+  #   port_type:        'bond'
+  #   ipv4: {}
+  #   ipv6: {}
+  #   ethernet:
+  #     mtu:  9000
+  # bond0:
+  #   connection_type:  'bond'
+  #   ipv4:
+  #     address1:       "%{hiera('netcfg_public_netpart')}.240/%{hiera('netcfg_public_netmask')}"
+  #     never-default:  'true'
+  #     method:         'manual'
+  #   ipv6:
+  #     method:         'disabled'
+  #   bond:
+  #     mode:           'active-backup'
+
+
 
 
 network::reload: true

@@ -264,6 +264,7 @@ profile::monitoring::sensu::agent::checks:
       check-https-cert/args/api_cert: "-u %{hiera('public__address__api')}"
       check-https-cert/args/identity_cert: "-u %{hiera('endpoint__identity__public')}"
       check-https-cert/args/report_cert: "-u https://%{hiera('public__address__report')}"
+      check-https-cert/args/object_cert: "-u %{hiera('public__address__object')}"
   influxdb-checks:
     command:        "http-check --url https://%{hiera('mgmt__address__influx')}:8086/ping %{hiera('sensu_influxdb_ssl_ca')}"
     interval:       600

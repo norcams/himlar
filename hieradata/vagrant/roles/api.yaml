@@ -14,7 +14,6 @@ object__backend__ips:      ["%{hiera('netcfg_trp_netpart')}.84"]
 #profile::logging::rsyslog::client::manage_rsyslog:                        false
 
 frontend_star_ssl_pem:    "star.%{hiera('domain_frontend')}.pem"
-frontend_star_ssl_pem2:   "star.%{hiera('domain_frontend2')}.pem"
 
 profile::application::openssl::certs:
   "star.%{hiera('domain_frontend')}":

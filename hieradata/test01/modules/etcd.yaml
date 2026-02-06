@@ -6,3 +6,6 @@ etcd::initial_cluster:
   - "%{::location}-network-03=http://%{hiera('netcfg_trp_netpart')}.73:2380"
 
 etcd_endpoints: "%{hiera('netcfg_trp_netpart')}.71:2379,%{hiera('netcfg_trp_netpart')}.72:2379,%{hiera('netcfg_trp_netpart')}.73:2379"
+
+etcd::election_timeout:   1000 # must be 5-10 times heartbeat_interval
+etcd::heartbeat_interval: 200

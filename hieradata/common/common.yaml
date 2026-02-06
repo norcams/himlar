@@ -34,8 +34,6 @@ domain_public:        "%{::domain}"
 domain_trp:           "%{::domain}"
 domain_mgmt:          "%{::domain}"
 domain_oob:           "%{::domain}"
-domain_public2:       "%{hiera('domain_public')}"
-domain_frontend2:     "%{hiera('domain_frontend')}"
 
 openstack_version:    'yoga'
 
@@ -166,6 +164,17 @@ named_interfaces::config:
   trp:
     - eth1
 
+# el9 network auto config
+profile::base::network::nm_auto_routes:
+  mgmt:
+    ipv4:
+      dns:         "%{hiera('netcfg_dns_mgmt_server1')};%{hiera('netcfg_dns_mgmt_server2')}"
+      dns-search:  "%{hiera('netcfg_dns_search_nm')}"
+  trp:
+    ipv4:
+      never-default:  'true'
+
+# el8 network auto config
 profile::base::network::network_auto_opts:
   mgmt:
     'dns1':     "%{hiera('netcfg_dns_mgmt_server1')}"
@@ -589,6 +598,8 @@ profile::network::services::dns_records:
     "%{::location}-compute-90.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.151"
     "%{::location}-compute-91.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.152"
     "%{::location}-compute-92.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.153"
+    "%{::location}-compute-93.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.154"
+    "%{::location}-compute-94.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c1')}.155"
     "%{::location}-mgmt-opx-01.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.1"
     "%{::location}-mgmt-opx-02.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.2"
     "%{::location}-mgmt-opx-03.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.3"
@@ -856,6 +867,8 @@ profile::network::services::dns_records:
     "151.%{hiera('reverse_mgmt_c1')}":    "%{::location}-compute-90.%{hiera('domain_mgmt')}"
     "152.%{hiera('reverse_mgmt_c1')}":    "%{::location}-compute-91.%{hiera('domain_mgmt')}"
     "153.%{hiera('reverse_mgmt_c1')}":    "%{::location}-compute-92.%{hiera('domain_mgmt')}"
+    "154.%{hiera('reverse_mgmt_c1')}":    "%{::location}-compute-93.%{hiera('domain_mgmt')}"
+    "155.%{hiera('reverse_mgmt_c1')}":    "%{::location}-compute-94.%{hiera('domain_mgmt')}"
     "1.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-opx-01.%{hiera('domain_mgmt')}"
     "2.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-opx-02.%{hiera('domain_mgmt')}"
     "3.%{hiera('reverse_mgmt_c2')}":      "%{::location}-mgmt-opx-03.%{hiera('domain_mgmt')}"

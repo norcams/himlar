@@ -10,7 +10,7 @@ class profile::openstack::network::calico(
   $manage_dhcp_agent          = false,
   $manage_dhcp_agent_override = false,
   $neutron_network_block      = false,
-  $neutron_network_block_name = 'nrec-deny-management',
+  $neutron_network_block_name = 'nrec-deny-internal',
   $dhcp_agent_config          = {},
   $firewall_extras            = {},
 ) {

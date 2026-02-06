@@ -42,4 +42,5 @@ named_interfaces::config:
    public:
      - lo
 
-profile::network::interface::manage_dummy:         false #FIXME when all proxies use loopback interface
+profile::application::himlarservice::enable:      false #FIXME: move himlar to proxy-01
+profile::network::interface::manage_dummy:        false #FIXME when all proxies use loopback interface

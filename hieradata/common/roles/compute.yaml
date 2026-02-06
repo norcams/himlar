@@ -126,6 +126,7 @@ sensu::agent::service_env_vars:
 
 # collectd
 profile::monitoring::telegraf::enable_telegraf: true # endpoint for collectd
+profile::monitoring::telegraf::use_http_proxy: true
 profile::monitoring::collectd::enable: true
 collectd::plugin::interface::interfaces:
   - "%{::interface_trp1}"
@@ -182,11 +183,42 @@ named_interfaces::config:
   live:
     - team1.120
 
+# el8 auto config
 # compute hosts should have resolving alternatives in case mgmt is down etc
 profile::base::network::network_auto_opts:
   mgmt:
     'dns1':     "%{hiera('netcfg_dns_trp_server1')}"
     'dns2':     "%{hiera('netcfg_dns_mgmt_server1')}"
+
+# el9 auto config
+network::routing::table::tables:
+  'private':
+    'table_id':  '240'
+
+profile::base::network::nm_auto_opts:
+  mgmt:
+    ipv4:
+      'never-default': 'true'
+      'dns': "%{hiera('netcfg_dns_trp_server1')};%{hiera('netcfg_dns_mgmt_server1')};"
+  trp:
+    ipv6init: 'yes' # NOTE: this is not NM syntax, rather interface.pp config
+    bond:                          # Teaming driver is no longer available
+      mode: '802.3ad'              # the best and only supported mode with existing network config
+      xmit_hash_policy: 'layer3+4' # please use this hash policy
+    ethernet:
+      mtu: '9000'
+  live:
+    ipv4:
+      'never-default': 'true'
+
+profile::base::network::nm_network_auto_bonding:
+  trp:
+    em1:
+      ethernet:
+        'mtu': '9000' # the MTU size must be set also on the slave interfaces
+    em2:
+      ethernet:
+        'mtu': '9000'
 
 profile::base::network::nm_exclude_calico_ifs: true
 
@@ -316,11 +348,6 @@ keystone::bootstrap::project_name:     "%{hiera('keystone__service__project')}"
 keystone::bootstrap::internal_url:     "%{hiera('endpoint__identity__internal')}"
 keystone::bootstrap::region:           "%{location}"
 keystone::bootstrap::interface:        'internal'
-
-
-# Influx
-profile::monitoring::telegraf::enable_telegraf:     true
-profile::monitoring::telegraf::use_http_proxy: true
 
 ## Flux: Redfish
 redfish_influxdb_bucket: "redfish"
