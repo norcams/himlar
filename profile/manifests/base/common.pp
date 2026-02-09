@@ -123,7 +123,6 @@ class profile::base::common (
 
   if $manage_sudo {
     include ::sudo
-    include ::sudo::configs
   }
 
   if $manage_authconfig {

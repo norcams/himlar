@@ -142,7 +142,7 @@ class profile::network::interface(
 
   # On compute nodes with NetworkManager it's prudent to exclude calico managed interfaces like tap and ns
   # from NetworkManager. Mechanism should be enabled on all compute nodes.
-  if Integer($facts['os']['release']['major']) >= 9 and $nm_exclude_calico_ifs {
+  if ($facts['os']['family'] == 'RedHat' and Integer($facts['os']['release']['major']) >= 9) and $nm_exclude_calico_ifs {
     file { '/etc/NetworkManager/conf.d/20-calico.conf':
       ensure  => file,
       content => template("${module_name}/network/nm_exclude_calico_ifs.erb"),
@@ -150,7 +150,7 @@ class profile::network::interface(
   }
 
   # We don't want NetworkManager to try configuring unused interfaces
-  if Integer($facts['os']['release']['major']) >= 9 and $nm_disable_autoconfig {
+  if ($facts['os']['family'] == 'RedHat' and Integer($facts['os']['release']['major']) >= 9) and $nm_disable_autoconfig {
     file { '/etc/NetworkManager/conf.d/10-noauto.conf':
       ensure  => file,
       content => template("${module_name}/network/nm_disable_autoconfig.erb"),
