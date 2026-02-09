@@ -25,18 +25,18 @@ if size($dash_a) == 4 {
 #info("DEBUG:modulepath=${settings::modulepath}")
 
 # Determine OS and major OS version
-case $::osfamily {
+case ($facts['os']['family']) {
   'RedHat': {
     $os_platform = 'el'
-    $os_version  = $::operatingsystemmajrelease
+    $os_version  = $facts['os']['release']['major']
     }
   'Debian': {
     if $variant == 'opx' {
       $os_platform = $variant
       $os_version  = '3'
     } else {
-      $os_platform = downcase(regsubst($::operatingsystem, 'Linux', ''))
-      $os_version  = regsubst($::operatingsystemmajrelease, '\.', '')
+      $os_platform = downcase($facts['os']['family'])
+      $os_version  = $facts['os']['release']['major']
     }
   }
   default: {
