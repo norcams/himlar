@@ -18,6 +18,7 @@ class profile::openstack::dashboard(
   $change_login_footer  = false,
   $keystone_admin_roles = undef,
   $customize_logo       = false,
+  $maintenance_page     = false,
   $user_menu_links      = undef,
   $access_control_allow_origin = false,
   $cutomize_charts_dashboard_overview = false,
@@ -208,6 +209,28 @@ class profile::openstack::dashboard(
       path    => '/etc/httpd/conf.d/nrec-logos.conf',
       source  => "puppet:///modules/${module_name}/openstack/horizon/httpd.conf.d/nrec-logos.conf",
       replace => true,
+      require => Class['horizon'],
+      notify  => Service['httpd']
+    }
+  }
+
+  # To use this:
+  # - enable this block with $maintenance_page = true (this can be done permanently)
+  # - touch /var/www/maintenance to show page
+  # - rm /var/www/maintenance to remove the page
+  if $maintenance_page {
+    file { 'horizon_maintenance.html':
+      ensure  => present,
+      path    => '/var/www/maintenance.html',
+      source  => "puppet:///modules/${module_name}/openstack/horizon/maintenance.html",
+      require => Class['horizon'],
+      notify  => Service['httpd']
+    }
+
+    file { 'horizon_maintenance.conf':
+      ensure  => present,
+      path    => '/etc/httpd/vhosts.d/maintenance.conf',
+      source  => "puppet:///modules/${module_name}/openstack/horizon/vhosts.d/maintenance.conf",
       require => Class['horizon'],
       notify  => Service['httpd']
     }

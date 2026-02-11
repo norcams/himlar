@@ -38,6 +38,7 @@ profile::openstack::dashboard::manage_logos:                       true
 profile::openstack::dashboard::change_region_selector:             true
 profile::openstack::dashboard::change_login_footer:                true
 profile::openstack::dashboard::customize_logo:                     true
+profile::openstack::dashboard::maintenance_page:                   true
 profile::openstack::dashboard::cutomize_charts_dashboard_overview: true
 profile::openstack::dashboard::access_control_allow_origin:        "console.%{hiera('domain_public')}"
 profile::openstack::dashboard::user_menu_links:                    '[]'
