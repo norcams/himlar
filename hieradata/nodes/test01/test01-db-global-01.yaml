@@ -3,14 +3,15 @@ network::interfaces_hash:
    eth0:
      ipv4:
        method:         'manual'
-       address1:       "%{hiera('netcfg_mgmt_netpart')}.41/%{hiera('netcfg_mgmt_cidr')}"
+       address1:       "%{hiera('netcfg_mgmt_netpart')}.41/%{hiera('netcfg_mgmt_cidr4')}"
+       gateway:        "%{hiera('netcfg_mgmt_gateway')}"
        dns:            "%{hiera('netcfg_dns_mgmt_server1')};%{hiera('netcfg_dns_mgmt_server2')}"
        dns-search:     "%{hiera('netcfg_dns_search_nm')}"
    eth1:
      ipv4:
        method:         'manual'
-       address1:       "%{hiera('netcfg_trp_netpart')}.41/%{hiera('netcfg_trp_cidr')}"
-       route1:         "0.0.0.0/0,%{hiera('netcfg_trp_gateway')}"
+       address1:       "%{hiera('netcfg_trp_netpart')}.41/%{hiera('netcfg_trp_cidr4')}"
+       #route1:         "0.0.0.0/0,%{hiera('netcfg_trp_gateway')}"
      ipv6:
        method:         'manual'
        address1:       "%{hiera('netcfg_trp_netpart6')}::41/%{hiera('netcfg_trp_netmask6')}"
