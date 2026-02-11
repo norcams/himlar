@@ -32,8 +32,6 @@ mysql__config__max_connections:             '128'
 mysql__config__query_cache_size:            '128M'
 mysql__config__query_cache_limit:           '32M'
 
-profile::network::interface::manage_dummy: true
-
 profile::database::galera::wsrep_sst_secure_rsync:
   ca:   "%{hiera('db_ssl_ca')}"
   key:  "%{hiera('db_ssl_key')}"
