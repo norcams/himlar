@@ -9,7 +9,7 @@ named_interfaces::config:
   trp:
     - eth1
   public:
-    - dummy0
+    - lo
 
 mysql::server::restart:         false
 

@@ -26,13 +26,3 @@ network::interfaces_hash:
     # ipv6:
     #   method:         'manual'
     #   address1:       '2001:700:2:83ff::41/128'
-
-named_interfaces::config:
-   mgmt:
-     - eth0
-   trp:
-     - eth1
-   oob:
-     - eth2
-   public:
-     - lo
