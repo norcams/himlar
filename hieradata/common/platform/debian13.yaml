@@ -1,0 +1,36 @@
+---
+include:
+  default:
+    - profile::network::interface
+  kickstart:
+    - profile::network::interface
+  bootstrap:
+    - profile::network::interface
+
+#FIXME: we cannot replace sudoers file before we can manage everything needed by sonic
+sudo::config_file_replace: false
+
+profile::base::common::packages:
+  dnsutils:                     { ensure: installed }
+
+puppet::client_package: openvox-agent
+
+profile::base::common::manage_ntp: false
+profile::base::common::manage_chrony: true
+profile::base::common::manage_yumrepo: false
+
+accounts::groups:
+  'wheel':
+    ensure: 'present'
+
+profile::base::common::packages:
+  'tcpdump': {}
+  'tree': {}
+  'htop': {}
+  'vim-enhanced': { ensure: absent, }
+  'bind-utils': { ensure: absent, }
+  'nano': {}
+  'yum-utils': { ensure: absent, }
+  'strace': {}
+  'lsof': {}
+
