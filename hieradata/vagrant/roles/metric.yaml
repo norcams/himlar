@@ -22,15 +22,7 @@ profile::openstack::metric::firewall_extras:
   source: '0.0.0.0/0'
 
 # disks
-lvm::manage_pkg: true
-profile::base::common::manage_lvm: true
-
-profile::base::lvm::logical_volume:
-  'lv_gnocchi':
-    volume_group: 'vg_metric'
-    fs_type:      "xfs"
-    mountpath:    "/var/lib/gnocchi"
-    size:         '1.5G'
+profile::base::common::manage_lvm: false
 
 # Set SELinux mode to enforcing
 profile::base::selinux::manage_selinux: true
