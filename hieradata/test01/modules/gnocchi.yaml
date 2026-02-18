@@ -1,0 +1,68 @@
+---
+# keystone setup (node: identity)
+gnocchi::keystone::auth::password:            "%{hiera('gnocchi_api_password')}"
+gnocchi::keystone::auth::public_url:          "%{hiera('endpoint__metric__internal')}" #FIXME can be open for public later
+gnocchi::keystone::auth::admin_url:           "%{hiera('endpoint__metric__admin')}"
+gnocchi::keystone::auth::internal_url:        "%{hiera('endpoint__metric__internal')}"
+gnocchi::keystone::auth::region:              "%{::location}"
+
+# keystone auth (node: metric)
+gnocchi::keystone::authtoken::password:             "%{hiera('gnocchi_api_password')}"
+gnocchi::keystone::authtoken::www_authenticate_uri: "%{hiera('endpoint__identity__public')}"
+gnocchi::keystone::authtoken::auth_url:             "%{hiera('endpoint__identity__admin')}/v3"
+gnocchi::keystone::authtoken::region_name:          "%{::location}"
+gnocchi::keystone::authtoken::project_domain_name:  "%{hiera('keystone__default__domain')}"
+gnocchi::keystone::authtoken::user_domain_name:     "%{hiera('keystone__default__domain')}"
+gnocchi::keystone::authtoken::project_name:         "%{hiera('keystone__service__project')}"
+
+# keystone middleware cache
+gnocchi::keystone::authtoken::memcached_servers:  '127.0.0.1:11211'
+gnocchi::keystone::authtoken::token_cache_time:   300
+
+# db (node: metric)
+gnocchi::db::database_connection: "mysql://gnocchi:%{hiera('gnocchi::db::mysql::password')}@localhost/gnocchi"
+gnocchi::db::mysql::dbname:   'gnocchi'
+gnocchi::db::mysql::user:     'gnocchi'
+gnocchi::db::mysql::allowed_hosts:
+  - "%{netpart_trp1}.%"
+
+# api (node: metric)
+gnocchi::api::enabled:                        false
+gnocchi::api::manage_service:                 false
+gnocchi::api::sync_db:                        true
+gnocchi::api::enable_proxy_headers_parsing:   true
+
+gnocchi::wsgi::apache::servername:            "%{::location}-metric-01.%{hiera('domain_trp')}"
+gnocchi::wsgi::apache::bind_host:             "%{::ipaddress_trp1}"
+gnocchi::wsgi::apache::port:                  8041
+gnocchi::wsgi::apache::workers:               4
+gnocchi::wsgi::apache::threads:               1
+gnocchi::wsgi::apache::ssl:                   false
+
+# metricd
+gnocchi::metricd::metric_processing_delay:    120
+gnocchi::metricd::metric_reporting_delay:     180
+gnocchi::metricd::metric_cleanup_delay:       300
+
+# storage
+gnocchi::storage::ceph::ceph_username:        'gnocchi'
+gnocchi::storage::ceph::ceph_secret:          "%{hiera('ceph_storage_client_metrics_key')}"
+gnocchi::storage::ceph::ceph_pool:            'metrics'
+gnocchi::storage::incoming::redis::redis_url: 'redis://localhost:6379/'
+
+# statsd
+gnocchi::statsd::manage_service:              false #FIXME
+gnocchi::statsd::enabled:                     false #FIXME
+gnocchi::statsd::resource_id:                 577a85b8-1f77-47e7-ac6f-742b475657b9
+gnocchi::statsd::flush_delay:                 60
+gnocchi::statsd::archive_policy_name:         'medium'
+
+# Depricated after pike (only used for metadata tags, but are mandatory)
+gnocchi::statsd::user_id:                     'gnocchi'
+gnocchi::statsd::project_id:                  'service'
+
+# Cors
+gnocchi::cors::allowed_origin:      "http://%{hiera('mgmt__address__monitor')}:8080"
+
+# Use redis here for multinode setup
+gnocchi::coordination_url: 'file:///var/lib/gnocchi'

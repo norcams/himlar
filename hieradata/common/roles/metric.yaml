@@ -12,6 +12,10 @@ memcached::max_memory: '20%'
 
 profile::openstack::metric::manage_firewall:  true
 profile::openstack::metric::manage_wsgi:      true
+profile::openstack::metric::manage_redis:     false
+profile::openstack::metric::manage_storage_file: true
+profile::openstack::metric::manage_storage_ceph: false
+profile::openstack::metric::manage_storage_incoming_redis: false
 profile::openstack::metric::firewall_extras:
   source: "%{::network_trp1}/%{::netmask_trp1}"
 
