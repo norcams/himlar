@@ -4,6 +4,10 @@ profile::openstack::resource::host_aggregate:
     availability_zone: "%{::location}-default-1"
     metadata:
       type: 'standard'
+  shpc_cpu1:
+    availability_zone: "%{::location}-default-1"
+    metadata:
+      type: 'shpc_cpu'
   local1:
     availability_zone: "%{::location}-default-1"
     metadata:
@@ -18,3 +22,8 @@ profile::openstack::resource::host_aggregate:
         9edeba0543ac4824a0aa95f947528c02,
         2ce04b3aaf3e45378f4f00072ceb5f20,
         8664497aa1224161bb1ed3bd88a65858
+
+nova::config::nova_config:
+  # Enable Placement-based quota counting (this enables freeing up resources when VM is shelved_offloaded)
+  "quota/count_usage_from_placement":
+    value: "true"

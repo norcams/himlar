@@ -3,8 +3,6 @@ include:
   default:
     - profile::dns::ns
     - profile::logging::rsyslog::client
-# Do not enable following line until every environment is set up to log to UiO ELK
-#    - profile::logging::filebeat
 
 named_interfaces::config:
   mgmt:
@@ -126,32 +124,3 @@ sensu::agent::subscriptions:
   - 'nodes'
   - 'metrics'
 
-# filebeat for query logging to UiO ELK
-
-profile::logging::filebeat::manage_filebeat: true
-
-profile::base::yumrepo::repo_hash:
-  elk6:
-    ensure: present
-
-profile::base::common::packages:
-  'filebeat': {}
-
-profile::logging::filebeat::inputs:
-  'querylog':
-    log:  '/var/named/data/querylog'
-    logowner: 'usit-hostmaster'
-    application: 'dns-resolv'
-    log_type: 'dns-resolv'
-    data_processor: 'usit-hostmaster-processor'
-    tags: 'nrec-dns'
-
-
-profile::logging::filebeat::outputs:
-  logstash:
-    'hosts': [ 'log-receiver.uio.no:5044' ]
-    'ssl':
-      'verification_mode':        full
-      'certificate_authorities': ['/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem']
-      'certificate':              "/etc/pki/tls/certs/%{::fqdn}.cert.pem"
-      'key':                      "/etc/pki/tls/private/%{::fqdn}.key.pem"

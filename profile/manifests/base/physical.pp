@@ -26,6 +26,7 @@ class profile::base::physical (
   $net_tweak_default_qdisc     = 'fq',
   $net_tweak_somaxconn         = '2048',
   $enable_redfish_scripts      = false,
+  $enable_l40s_pci_check       = false,
   $enable_redfish_http_proxy   = undef,
   $lldpd_package               = 'lldpd',
   $lldpd_service               = 'lldpd',
@@ -48,6 +49,16 @@ class profile::base::physical (
     'AddressOrigin' => 'Static',
   },
 ) {
+
+  if ($enable_l40s_pci_check) and ($::runmode == 'default') {
+    file { 'check_l40s_pci.sh':
+      ensure  => file,
+      path    => '/usr/local/bin/check_l40s_pci.sh',
+      content => template("${module_name}/monitoring/sensu/check_l40s_pci.sh.erb"),
+      mode    => '0755',
+    }
+  }
+
 
   # Configure 82599ES SFP+ interface module options
   if ($::lspci_has['intel82599sfp'] or $::lspci_has['intelx520sfp']) and 'ixgbe' in $::kernel_modules {
@@ -223,8 +234,6 @@ class profile::base::physical (
   }
 
   if ($enable_redfish_scripts) and ($::runmode == 'default') {
-    $bmc_network  = regsubst($::ipaddress_trp1, '^(\d+)\.(\d+)\.(\d+)\.(\d+)$','\2',) - 1
-    $bmc_address  = regsubst($::ipaddress_trp1, '^(\d+)\.(\d+)\.(\d+)\.(\d+)$',"\\1.${bmc_network}.\\3.\\4",)
     $bmc_username = lookup("bmc_username", String, 'first', '')
     $bmc_password = lookup("bmc_password_${::location}", String, 'first', '')
     if $enable_redfish_http_proxy {
@@ -275,8 +284,6 @@ class profile::base::physical (
     }
     # Configure only if this nodes network seems to be properly configured to avoid snafus
     if ($mgmtaddress) == ($::ipaddress_mgmt1) {
-      $bmc_network_set  = regsubst($::ipaddress_trp1, '^(\d+)\.(\d+)\.(\d+)\.(\d+)$','\2',) - 1
-      $bmc_address_set  = regsubst($::ipaddress_trp1, '^(\d+)\.(\d+)\.(\d+)\.(\d+)$',"\\1.${bmc_network_set}.\\3.\\4",)
       $bmc_username_set = lookup("bmc_username", String, 'first', '')
       $bmc_password_set = lookup("bmc_password_${::location}", String, 'first', '')
       if $enable_redfish_http_proxy {
@@ -288,13 +295,13 @@ class profile::base::physical (
           unless $facts['productname'] =~ '(FC|[RTM])[1-9][1-3]\d.*' {
             $bmc_idrac_attributes.each |$attribute, $value| {
               if ($attribute == 'IPv4Static.1.Address') and (!$value) {
-                $attr_value = $bmc_address_set
+                $attr_value = $::bmc_address
               }
               else {
                 $attr_value = $value
               }
               exec { "Set bmc static configuration - ${attribute}":
-                command     => "/bin/curl -f -s https://${bmc_address_set}/redfish/v1/Managers/iDRAC.Embedded.1/Attributes -k -u ${bmc_username_set}:${bmc_password_set} ${http_proxy_url_set} --connect-timeout 20 -X PATCH -H \"Content-Type: application/json\" -d \'{\"Attributes\" : {\"${attribute}\":\"${attr_value}\"}}\' && /bin/touch /etc/.bmc_configured-${attribute}",
+                command     => "/bin/curl -f -s https://${::bmc_address}/redfish/v1/Managers/iDRAC.Embedded.1/Attributes -k -u ${bmc_username_set}:${bmc_password_set} ${http_proxy_url_set} --connect-timeout 20 -X PATCH -H \"Content-Type: application/json\" -d \'{\"Attributes\" : {\"${attribute}\":\"${attr_value}\"}}\' && /bin/touch /etc/.bmc_configured-${attribute}",
                 creates     => "/etc/.bmc_configured-${attribute}",
               }
             }
@@ -303,13 +310,13 @@ class profile::base::physical (
         'Supermicro': {
           $bmc_generic_attributes.each |$attribute, $value| {
             if ($attribute == 'Address') and (!$value) {
-              $attr_value = $bmc_address_set
+              $attr_value = $::bmc_address
             }
             else {
               $attr_value = $value
             }
             exec { "Set bmc static configuration - ${attribute}":
-              command     => "/bin/curl -f -s https://${bmc_address_set}/redfish/v1/Managers/1/EthernetInterfaces/1 -k -u ${bmc_username_set}:${bmc_password_set} ${http_proxy_url_set} --connect-timeout 20 -X PATCH -H \"Content-Type: application/json\" -d \'{\"IPv4Addresses\" : {\"${attribute}\":\"${attr_value}\"}}\' && /bin/touch /etc/.bmc_configured-${attribute}",
+              command     => "/bin/curl -f -s https://${::bmc_address}/redfish/v1/Managers/1/EthernetInterfaces/1 -k -u ${bmc_username_set}:${bmc_password_set} ${http_proxy_url_set} --connect-timeout 20 -X PATCH -H \"Content-Type: application/json\" -d \'{\"IPv4Addresses\" : {\"${attribute}\":\"${attr_value}\"}}\' && /bin/touch /etc/.bmc_configured-${attribute}",
               creates     => "/etc/.bmc_configured-${attribute}",
             }
           }

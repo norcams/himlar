@@ -92,4 +92,4 @@ profile::openstack::compute::hypervisor::enable_dhcp_agent_check: true
 profile::base::physical::enable_redfish_scripts:                  true
 profile::base::physical::enable_redfish_http_proxy:               true
 
-calico::compute::felix_mtuIfacePattern: '^team*'
+calico::compute::felix_mtuIfacePattern: "^%{::interface_trp1}*"

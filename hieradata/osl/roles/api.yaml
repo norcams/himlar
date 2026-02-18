@@ -1,6 +1,5 @@
 ---
 frontend_star_ssl_pem:    "star.%{hiera('domain_frontend')}.pem"
-frontend_star_ssl_pem2:   "star.%{hiera('domain_frontend2')}.pem"
 # api_ssl_pem:                "api.uh-iaas.no.pem"
 # status_ssl_pem:             "status.uh-iaas.no.pem"
 # console_ssl_pem:  "console.uh-iaas.no.pem"
@@ -65,6 +64,7 @@ volume__backend__names:
 volume__backend__ips:
   - "%{hiera('netcfg_trp_netpart')}.46"
   - "%{hiera('netcfg_trp_netpart')}.47"
+  - "%{hiera('netcfg_trp_netpart')}.48"
 object__backend__names:
   - '%{::location}-rgw-01'
   - '%{::location}-rgw-02'

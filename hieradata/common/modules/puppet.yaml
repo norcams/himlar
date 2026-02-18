@@ -7,8 +7,9 @@ puppet::client_certname:        "%{::verified_certname}"
 puppet::classfile:              '$statedir/classes.txt'
 puppet::agent_server_hostname:  "puppet.%{hiera('domain_mgmt')}"
 puppet::agent_additional_settings:
-  'disable_warnings':   'deprecations'
-  'stringify_facts':    'false'
+  'disable_warnings':           'deprecations'
+  'stringify_facts':            'false'
+  'top_level_facts_soft_limit': 630
 
 puppet::server_common_modules_path:
 #  - "/etc/puppetlabs/code/environments/%{::environment}/modules"

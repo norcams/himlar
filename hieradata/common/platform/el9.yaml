@@ -26,6 +26,8 @@ profile::base::yumrepo::repo_hash:
     ensure:         absent #FIXME: Remove when CentOS 8 is gone
   CentOS-Updates:
     ensure:         absent #FIXME: Remove when CentOS 8 is gone
+  CentOS-AppStream:
+    ensure:         absent #FIXME: Remove when CentOS 8 is gone
   CentOS-PowerTools:
     ensure:         absent #FIXME: Remove when CentOS 8 is gone
   CentOS-Extras:
@@ -59,6 +61,15 @@ profile::base::common::manage_ntp:     false # ntpd has been replaced by chrony 
 profile::base::common::manage_chrony:  true
 
 sensu::plugins::package_ensure: 'absent' # no package for el9
+
+# the virt-who package is not available in el9
+profile::rhsm::virtwho::manage: false
+
+# this part of profile::openstack::network::calico is only active for compute role
+profile::openstack::network::calico::manage_dhcp_agent_override: true
+profile::openstack::network::calico::dhcp_agent_config:
+  DEFAULT/dnsmasq_config_file:
+    value: '/dev/null'
 
 # logrotate
 profile::logging::logrotate::rules:

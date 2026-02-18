@@ -43,6 +43,15 @@ profile::base::network::network_auto_opts:
   live:
     'defroute': 'no'
 
+## Sensu 
+sensu::agent::subscriptions:
+  - 'base'
+  - 'metrics'
+  - 'compute'
+  - 'physical'
+  - 'l40s'
+
+profile::base::physical::enable_l40s_pci_check:  true
 
 # Enable extra yum repo vGPU drivers
 profile::base::yumrepo::repo_hash:
@@ -109,7 +118,7 @@ profile::base::common::packages:
 #    Name: NVIDIA L40S-24Q
 #    Description: num_heads=4, frl_config=60, framebuffer=24576M, max_resolution=7680x4320, max_instance=2
 #
-nova::compute::mdev::mdev_types_device_addresses_mapping: { 'nvidia-1155', }
+nova::compute::mdev::mdev_types: { 'nvidia-1155', }
 
 # Max 8 instances per host
 nova::scheduler::filter::max_instances_per_host: '8'

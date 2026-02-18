@@ -1,4 +1,16 @@
 ---
+# Configuration for Nova (compute)
+#
+# Uses puppet-nova:
+#   https://github.com/openstack/puppet-nova
+#
+# Nova release notes:
+#   https://docs.openstack.org/releasenotes/nova/
+#
+# Puppet-nova release notes:
+#   https://docs.openstack.org/releasenotes/puppet-nova/
+#
+
 # Shared config (nodes: novactrl, compute)
 nova::db::database_connection:           "mysql+pymysql://nova:%{hiera('nova::db::mysql::password')}@%{hiera('service__address__db_regional')}/nova"
 nova::db::api_database_connection:       "mysql+pymysql://nova_api:%{hiera('nova::db::mysql_api::password')}@%{hiera('service__address__db_regional')}/nova_api"

@@ -3,6 +3,9 @@
 class profile::monitoring::telegraf(
   $enable_telegraf = false,
   $merge_strategy = 'deep',
+  $run_in_vrf = false,
+  $use_http_proxy = false,
+  $http_proxy
   ) {
 
   if $enable_telegraf {
@@ -17,7 +20,48 @@ class profile::monitoring::telegraf(
     # outputs
     $outputs = lookup('profile::monitoring::telegraf::outputs', Hash, $merge_strategy, {})
     create_resources(telegraf::output, $outputs, $defaults)
+    if $use_http_proxy {
 
+      file { '/etc/systemd/system/telegraf.service.d':
+        ensure => 'directory'
+      }
+      file { 'telegraf-systemd-override':
+        ensure => file,
+        path   => '/etc/systemd/system/telegraf.service.d/override.conf',
+        owner  => root,
+        group  => root,
+        content => template("${module_name}/monitoring/telegraf/systemd/proxy.erb"),
+        notify =>  Exec['telegraf_proxy_systemctl_daemon_reload']
+      }
+
+      exec { 'telegraf_proxy_systemctl_daemon_reload':
+        command     => '/bin/systemctl daemon-reload;/bin/systemctl restart telegraf',
+        require     => Class['telegraf'],
+        refreshonly => true,
+      }
+    }
+
+    # this is used for cumulus linux (debian)
+    # the override file must be loaded last so we rename it zzoverride.conf
+    if $run_in_vrf {
+
+      file { '/etc/systemd/system/telegraf.service.d':
+        ensure => 'directory'
+      }
+      file { 'telegraf-systemd-override':
+        ensure => file,
+        path   => '/etc/systemd/system/telegraf.service.d/zzoverride.conf',
+        owner  => root,
+        group  => root,
+        source => "puppet:///modules/${module_name}/monitoring/telegraf/systemd/override.conf",
+        notify => [Exec['telegraf_debian_systemctl_daemon_reload'], Service['telegraf']]
+      }
+
+      exec { 'telegraf_debian_systemctl_daemon_reload':
+        command     => '/bin/systemctl daemon-reload',
+        refreshonly => true,
+      }
+    }
   }
 
 }

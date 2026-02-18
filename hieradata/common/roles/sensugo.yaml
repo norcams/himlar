@@ -4,6 +4,10 @@ include:
     - profile::monitoring::grafana
     - profile::monitoring::sensu::backend
     - profile::logging::rsyslog::client
+    - profile::application::openssl::puppetca
+
+# we need to trust puppet ca to connect to influxdb
+profile::application::openssl::puppetca::enable: true
 
 # sensugo only uses mgmt
 named_interfaces::config:
@@ -61,7 +65,6 @@ profile::monitoring::sensu::backend::manage_firewall:         true
 profile::monitoring::sensu::backend::manage_etcd_firewall:    true
 profile::monitoring::sensu::backend::manage:                  true
 profile::monitoring::sensu::backend::enable_bash_completion:  true
-profile::monitoring::sensu::backend::manage_token_refresh:    true
 
 # profile::monitoring::sensu::backend::namespaces:
 #   '%{::location}':  { ensure: present }
@@ -75,6 +78,8 @@ profile::monitoring::sensu::backend::bonsai_assets:
     version: 1.6.2
   sensu/sensu-influxdb-handler:
     version: 4.0.1
+  sensu/sensu-go-fatigue-check-filter:
+    version: 0.8.1
   sensu/check-cpu-usage:
     version: 0.2.3
   sensu/check-memory-usage:
@@ -168,18 +173,27 @@ profile::monitoring::sensu::backend::handlers:
     filters:
       - is_incident
       - not_silenced
-      - hourly
+      - fatigue_check
+#      - hourly
     timeout: 10
     runtime_assets:
       - sensu/sensu-slack-handler
 
 sensu::resources::filters:
-  hourly:
+  fatigue_check:
     ensure: present
     namespace: "%{hiera('sensu_namespace')}"
     action: allow
     expressions:
-      - 'event.check.occurrences == 1 || event.check.occurrences % (3600 / event.check.interval) == 0'
+      - 'fatigue_check(event, 1, 3600)'
+    runtime_assets:
+    - sensu/sensu-go-fatigue-check-filter
+  # hourly:
+  #   ensure: present
+  #   namespace: "%{hiera('sensu_namespace')}"
+  #   action: allow
+  #   expressions:
+  #     - 'event.check.occurrences == 1 || event.check.occurrences % (3600 / event.check.interval) == 0'
 
 profile::monitoring::sensu::agent::checks:
 # BASE
@@ -216,6 +230,8 @@ profile::monitoring::sensu::agent::checks:
     subscriptions:  ['nodes']
     handlers:       ['default']
     runtime_assets: [sensu/check-memory-usage]
+    annotations:
+    - fatigue_check/occurrences: '2' # notify on the second occurence
 # MONITOR
   'http-perf-identity':
     command:        "http-perf --url %{hiera('endpoint__identity__public')}/v3/"
@@ -248,6 +264,7 @@ profile::monitoring::sensu::agent::checks:
       check-https-cert/args/api_cert: "-u %{hiera('public__address__api')}"
       check-https-cert/args/identity_cert: "-u %{hiera('endpoint__identity__public')}"
       check-https-cert/args/report_cert: "-u https://%{hiera('public__address__report')}"
+      check-https-cert/args/object_cert: "-u %{hiera('public__address__object')}"
   influxdb-checks:
     command:        "http-check --url https://%{hiera('mgmt__address__influx')}:8086/ping %{hiera('sensu_influxdb_ssl_ca')}"
     interval:       600
@@ -357,6 +374,12 @@ profile::monitoring::sensu::agent::checks:
     handlers:       ['default']
     runtime_assets:
     - sensu/http-check
+# L40s 
+  'l40s-gpu-pci-check':
+    command:      "/usr/local/bin/check_l40s_pci.sh"
+    interval:     60
+    subscriptions:  ['l40s']
+    handlers:       ['default']
 # PHYSICAL
   'redfish-check':
     command:        '/usr/local/bin/redfish_check.sh'
@@ -377,25 +400,61 @@ profile::monitoring::sensu::agent::checks:
   #   runtime_assets:
   #   - jadiunr/check-smart-status
 
+
 # profile::dns::ns::ns_master1
 # we need nodejs for web gui
 profile::base::common::packages:
+  'influxdb2-cli': { ensure: 'present' }
   'ruby': { ensure: 'present' }
   'rubygem-sensu-plugin': { ensure: 'present' }
   'nodejs': # version 16 is default in el9
     ensure: 'present'
 #    provider: 'dnfmodule'
 
-profile::base::yumrepo::repo_hash:
-  AlmaLinux-PowerTools:
-    ensure: present
-  yarn: #temp repo
-    ensure: present
-  epel:
-    ensure:   present
-  # influxdb: # need for telegraf
-  #   ensure: present
+# Grafana
+profile::monitoring::grafana::enable:           true
+profile::monitoring::grafana::manage_firewall:  true
 
+grafana::provisioning_datasources:
+  apiVersion: 1
+  datasources:
+  - name: InfluxDB_v2_Flux
+    type: influxdb
+    url: "https://%{hiera('mgmt__address__influx')}:8086"
+    jsonData:
+      version: Flux
+      organization: NREC
+      defaultBucket: metric
+      #tlsSkipVerify: true
+    secureJsonData:
+      token: "%{hiera('influxdb_grafana_token')}"
+  # - name: InfluxDB_v2_InfluxQL
+  #   type: influxdb
+  #   access: proxy
+  #   url: "https://%{hiera('mgmt__address__influx')}:8086"
+  #   jsonData:
+  #     # This database should be mapped to a bucket
+  #     dbName: metric
+  #     #tlsSkipVerify: true
+  #     httpMode: GET
+  #     httpHeaderName1: 'Authorization'
+  #   secureJsonData:
+  #     httpHeaderValue1: "Token %{hiera('influxdb_grafana_token')}"
+
+# selinux
+profile::base::selinux::manage_selinux:   true
+profile::base::selinux::semodules:
+  'grafana':
+    avc_file:   "grafana.avc"
+profile::base::selinux::ports:
+  grafana-http:
+    seltype:  'grafana_port_t'
+    protocol: 'tcp'
+    port:     8080
+  influx-http:
+    seltype:  'http_port_t'
+    protocol: 'tcp'
+    port:     8086
 
 # logrotate
 logrotate::rules:
@@ -411,3 +470,17 @@ logrotate::rules:
     missingok:      true
     postrotate:     '/bin/systemctl restart rsyslog'
     dateext:        true
+
+profile::base::yumrepo::repo_hash:
+  AlmaLinux-PowerTools:
+    ensure: present
+  AlmaLinux-AppStream:
+    exclude: 'grafana'
+  yarn: # used for sensu dashboard
+    ensure: present
+  epel:
+    ensure: present
+  influxdb:
+    ensure: present
+  grafana-oss:
+    ensure: present

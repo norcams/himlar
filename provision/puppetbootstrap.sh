@@ -109,7 +109,7 @@ bootstrap_puppet()
 
   if command -v apt-get >/dev/null 2>&1; then
 
-    apt-get install -y lsb-release wget
+    apt-get install -y lsb-release wget apt-utils
 
     # Assume Debian/CumulusLinux
     debian_release=$(lsb_release -sc)
@@ -125,6 +125,9 @@ bootstrap_puppet()
     /opt/puppetlabs/puppet/bin/gem install -N faraday -v 2.8.1
     /opt/puppetlabs/puppet/bin/gem install -N r10k -v 4.1.0
     ln -sf /opt/puppetlabs/puppet/bin/wrapper.sh /opt/puppetlabs/bin/r10k
+
+    # for the sanity of anybody using vim!
+    echo 'set mouse -=a' >> /root/.vimrc
 
   fi
 

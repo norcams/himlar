@@ -1,0 +1,18 @@
+---
+# This compute host uses local storage for instances
+nova::compute::rbd::ephemeral_storage:            false
+
+# Configuration items not explicitly supported by the Puppet module
+nova::config::nova_config:
+  DEFAULT/metadata_workers:
+    value: '2'
+
+nova::compute::libvirt::images_type: 'default'
+
+profile::base::common::packages:
+  'numactl': {}
+
+# Nova overrides
+nova::cpu_allocation_ratio:         '1'
+nova::disk_allocation_ratio:        '1'
+nova::ram_allocation_ratio:         '1'

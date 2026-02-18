@@ -76,7 +76,7 @@ profile::base::common::packages:
 #
 # Example: 'nvidia-35' or ['nvidia-35', 'nvidia-36']
 #
-nova::compute::mdev::mdev_types_device_addresses_mapping: { 'nvidia-52', }
+nova::compute::mdev::mdev_types: { 'nvidia-52', }
 
 # Configuration values for the "create-mdev" service
 profile::application::create_mdev::enable:                true

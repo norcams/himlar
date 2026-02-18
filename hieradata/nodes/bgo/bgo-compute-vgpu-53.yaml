@@ -61,9 +61,18 @@ profile::base::selinux::semodules:
 #
 # Example: 'nvidia-35' or ['nvidia-35', 'nvidia-36']
 #
-nova::compute::mdev::mdev_types_device_addresses_mapping: { 'nvidia-471', }
+#nova::compute::mdev::mdev_types_device_addresses_mapping: { 'nvidia-471', }
+
+nova::compute::mdev::enabled_mdev_types:
+  - 'nvidia-478'
+
+nova::compute::mdev::mdev_types_device_addresses_mapping:
+  'nvidia-478':
+    device_addresses:
+      - '0000:b1:00.4'
+    max_instances: 1
 
 # Configuration values for the "create-mdev" service
-profile::application::create_mdev::enable:                true
+profile::application::create_mdev::enable:                false
 profile::application::create_mdev::nvidia_gpu_type:       'nvidia-471'
 profile::application::create_mdev::max_instances_per_gpu: 4

@@ -8,9 +8,6 @@ named_interfaces::config:
   trp:
     - bridge.100
 
-# FIXME:sensu-go
-profile::monitoring::sensu::agent::enable_go_agent:     false
-
 profile::network::leaf::switchd_conf:
   'resilient_hash_enable':
     line: 'resilient_hash_enable = TRUE'
@@ -1081,7 +1078,7 @@ profile::base::network::cumulus_bridges:
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
     'stp': 'true'
-    'vids': [ '100', '109', '110', '120', '924', '927', ]
+    'vids': [ '100', '109', '110', '120', '130', '924', '927', ]
     'mtu': '9216'
 
 frrouting::frrouting::zebra_interfaces:
@@ -1210,10 +1207,16 @@ frrouting::frrouting::bgp_neighbor_groups:
       - '172.18.1.143'
       - '172.18.1.144'
       - '172.18.1.145'
+      - '172.18.1.146'
+      - '172.18.1.147'
+      - '172.18.1.148'
       - '172.18.1.149'
       - '172.18.1.150'
       - '172.18.1.151'
       - '172.18.1.152'
+      - '172.18.1.153'
+      - '172.18.1.154'
+      - '172.18.1.155'
     'options6':
       - 'neighbor rr-clients route-reflector-client'
       - 'neighbor rr-clients soft-reconfiguration inbound'
@@ -1308,10 +1311,16 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'fd00::1:143'
       - 'fd00::1:144'
       - 'fd00::1:145'
+      - 'fd00::1:146'
+      - 'fd00::1:147'
+      - 'fd00::1:148'
       - 'fd00::1:149'
       - 'fd00::1:150'
       - 'fd00::1:151'
-      - 'fd00::1:151'
+      - 'fd00::1:152'
+      - 'fd00::1:153'
+      - 'fd00::1:154'
+      - 'fd00::1:155'
   'object_rgw':
     'options':
       - 'peer-group'
@@ -1382,6 +1391,7 @@ frrouting::frrouting::bgp_accesslist:
     - 'seq 10 permit 158.39.74.0 0.0.0.255'
     - 'seq 15 permit 158.39.77.0 0.0.0.255'
     - 'seq 20 permit 158.39.201.0 0.0.0.255'
+    - 'seq 22 permit 158.37.43.0/24'
     - 'seq 25 permit 109.105.125.0 0.0.0.63'
     - 'seq 30 permit 10.1.0.0 0.0.15.255'
     - 'seq 35 permit 10.3.0.0 0.0.15.255'
@@ -1399,6 +1409,7 @@ frrouting::frrouting::bgp_accesslist:
     - 'seq 10 deny 158.39.74.0 0.0.0.255'
     - 'seq 15 deny 158.39.77.0 0.0.0.255'
     - 'seq 20 deny 158.39.201.0 0.0.0.255'
+    - 'seq 22 deny 158.37.43.0/24'
     - 'seq 25 deny 109.105.125.0 0.0.0.63'
     - 'seq 30 deny 10.1.0.0 0.0.15.255'
     - 'seq 35 deny 10.3.0.0 0.0.15.255'
@@ -1427,6 +1438,7 @@ frrouting::frrouting::bgp_ip_prefix_list:
   - 'routes-to-leaf1 seq 5 permit 0.0.0.0/0'
   - 'uninett-routes-in seq 5 permit any'
   - 'uninett-routes-in seq 10 deny any'
+  - 'uninett-routes-out seq 3 permit 158.37.43.0/24'
   - 'uninett-routes-out seq 4 permit 158.37.64.0/23'
   - 'uninett-routes-out seq 5 permit 158.39.74.0/24'
   - 'uninett-routes-out seq 6 permit 158.39.77.0/24'
@@ -1438,6 +1450,7 @@ frrouting::frrouting::bgp_ip_prefix_list:
   - 'leaf-v2-routes-in seq 10 permit 192.168.224.0/24'
   - 'leaf-v2-routes-in seq 20 deny any'
   - 'leaf-v2-routes-out seq 10 permit 158.37.64.0/24 le 32'
+  - 'leaf-v2-routes-out seq 12 permit 158.37.43.0/28 le 32'
   - 'leaf-v2-routes-out seq 15 permit 109.105.127.128/26 le 32'
   - 'leaf-v2-routes-out seq 16 permit 10.109.0.0/20 le 32'
   - 'leaf-v2-routes-out seq 20 deny any'

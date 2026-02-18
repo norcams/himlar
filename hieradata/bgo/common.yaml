@@ -1,8 +1,4 @@
 ---
-include:
-  default:
-    - profile::monitoring::sensu::agent
-
 location_environment:     'prod'
 location_description:     'Production environment in Bergen'
 
@@ -13,8 +9,6 @@ profile::base::dell::manage_openmanage: false
 
 domain_frontend:          "%{hiera('profile::dns::ns::frontend_zone')}"
 domain_public:            "bgo.%{hiera('profile::dns::ns::frontend_zone')}"
-domain_frontend2:         "%{hiera('profile::dns::ns::frontend_zone2')}"
-domain_public2:           "bgo.%{hiera('profile::dns::ns::frontend_zone2')}"
 domain_trp:               'bgo.uhdc.no'
 domain_mgmt:              'mgmt.bgo.uhdc.no'
 domain_oob:               'oob.bgo.uhdc.no'
@@ -41,6 +35,7 @@ reverse_trp_c7:           '7.18.172.in-addr.arpa'
 reverse_public_c0:        '77.39.158.in-addr.arpa'
 reverse_public_c1:        '74.39.158.in-addr.arpa'
 reverse_public_c2:        '201.39.158.in-addr.arpa'
+reverse_public_c3:        '65.37.158.in-addr.arpa'
 
 bgp_as:                   '65501'
 
@@ -92,6 +87,7 @@ netcfg_dns_mgmt_server1:       '172.16.0.10'
 netcfg_dns_mgmt_server2:       '172.16.0.44'
 netcfg_dns_mgmt_server3:       '172.16.0.45'
 netcfg_dns_search:        "%{hiera('domain_mgmt')} %{hiera('domain_trp')}"
+netcfg_dns_search_nm:     "%{hiera('domain_mgmt')};%{hiera('domain_trp')}"
 netcfg_priv_gateway:      '172.18.0.26'
 netcfg_priv_network:      '10.1.0.0/20'
 netcfg_lhc_gateway:       '172.18.6.5'
@@ -133,6 +129,8 @@ public__ip__ns:                '158.39.77.251'
 public__ipv6__ns:              '2001:700:2:83ff::251'
 public__ip__resolver:          '158.39.77.252'
 public__ipv6__resolver:        '2001:700:2:83ff::252'
+public__ip__dashboard:         '158.39.77.254'
+public__ipv6__dashboard:       '2001:700:2:83ff::254'
 
 #
 # DNS (merge of common and this)
@@ -210,10 +208,15 @@ profile::network::services::dns_records:
     "%{::location}-compute-vgpu-52.%{hiera('domain_mgmt')}":    "%{::location}-compute-52.%{hiera('domain_mgmt')}"
     "%{::location}-compute-vgpu-53.%{hiera('domain_mgmt')}":    "%{::location}-compute-53.%{hiera('domain_mgmt')}"
     "%{::location}-compute-vgpu-54.%{hiera('domain_mgmt')}":    "%{::location}-compute-54.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-epyc-86.%{hiera('domain_mgmt')}":    "%{::location}-compute-86.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-epyc-87.%{hiera('domain_mgmt')}":    "%{::location}-compute-87.%{hiera('domain_mgmt')}"
     "%{::location}-compute-l40s-88.%{hiera('domain_mgmt')}":    "%{::location}-compute-88.%{hiera('domain_mgmt')}"
     "%{::location}-compute-l40s-89.%{hiera('domain_mgmt')}":    "%{::location}-compute-89.%{hiera('domain_mgmt')}"
     "%{::location}-compute-l40s-90.%{hiera('domain_mgmt')}":    "%{::location}-compute-90.%{hiera('domain_mgmt')}"
     "%{::location}-compute-l40s-91.%{hiera('domain_mgmt')}":    "%{::location}-compute-91.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-elixir1-92.%{hiera('domain_mgmt')}": "%{::location}-compute-92.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-l40s-93.%{hiera('domain_mgmt')}":    "%{::location}-compute-93.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-l40s-94.%{hiera('domain_mgmt')}":    "%{::location}-compute-94.%{hiera('domain_mgmt')}"
     "%{::location}-object-ceph-01.%{hiera('domain_mgmt')}":     "%{::location}-object-01.%{hiera('domain_mgmt')}"
     "%{::location}-object-ceph-02.%{hiera('domain_mgmt')}":     "%{::location}-object-02.%{hiera('domain_mgmt')}"
     "%{::location}-object-ceph-03.%{hiera('domain_mgmt')}":     "%{::location}-object-03.%{hiera('domain_mgmt')}"
@@ -297,20 +300,6 @@ profile::network::services::dns_records:
 
     "resolver.%{hiera('domain_public')}":         '158.39.77.252'
 
-    # Public records (<foo>.<location>.uh-iaas.no)
-    "console.%{hiera('domain_public2')}":         '158.39.77.250'
-    "compute.api.%{hiera('domain_public2')}":     '158.39.77.250'
-    "identity.api.%{hiera('domain_public2')}":    '158.39.77.250'
-    "network.api.%{hiera('domain_public2')}":     '158.39.77.250'
-    "image.api.%{hiera('domain_public2')}":       '158.39.77.250'
-    "volume.api.%{hiera('domain_public2')}":      '158.39.77.250'
-    "placement.api.%{hiera('domain_public2')}":   '158.39.77.250'
-    "metric.api.%{hiera('domain_public2')}":      '158.39.77.250'
-    "dns.api.%{hiera('domain_public2')}":         '158.39.77.250'
-    "object.api.%{hiera('domain_public2')}":      "%{hiera('public__ip__object')}"
-
-    "resolver.%{hiera('domain_public2')}":        '158.39.77.252'
-
     # Management network (entries that differ from common/common.yaml)
     "%{::location}-login-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_netpart')}.10"
     "%{::location}-login-01old.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_net_c0')}.199"
@@ -321,10 +310,6 @@ profile::network::services::dns_records:
     "resolver.%{hiera('domain_public')}":              '2001:700:2:83ff::252'
     "%{::location}-dns-01.%{hiera('domain_public')}":  '2001:700:2:83ff::256'
     "object.api.%{hiera('domain_public')}":            "%{hiera('public__ipv6__object')}"
-    # Public records (<foo>.<location>.uh-iaas.no)
-    "resolver.%{hiera('domain_public2')}":             '2001:700:2:83ff::252'
-    "%{::location}-dns-01.%{hiera('domain_public2')}": '2001:700:2:83ff::256'
-    "object.api.%{hiera('domain_public2')}":           "%{hiera('public__ipv6__object')}"
   PTR:
     # Management network (entries that differ from common/common.yaml)
     "8.%{hiera('reverse_mgmt_c2')}":   "%{::location}-mgmt-08.%{hiera('domain_mgmt')}"
@@ -334,12 +319,18 @@ profile::network::services::dns_records:
     '251.77.39.158.in-addr.arpa':   "ns2.%{hiera('domain_frontend')}"
     '252.77.39.158.in-addr.arpa':   "resolver.%{hiera('domain_public')}"
     '254.77.39.158.in-addr.arpa':   "dashboard.%{hiera('domain_frontend')}"
-    # Customer's PTR records
+    # Customer's PTR records (IPv4)
     "135.%{hiera('reverse_public_c1')}":                                         'elixir.no'
-    "86.%{hiera('reverse_public_c1')}":                                          'sldap.nels.elixir.no'
+    "86.%{hiera('reverse_public_c2')}":                                          'sldap.nels.elixir.no'
+    "171.%{hiera('reverse_public_c1')}":                                         'pldap.nels.elixir.no' # RT 7213949
+    "114.%{hiera('reverse_public_c2')}":                                         'fmri.uib.no' # RT 7194062
+    "28.%{hiera('reverse_public_c3')}":                                          'mailer.si.elixir.no' # RT 7222034
+    # Customer's PTR records (IPv6)
+    'f.4.1.2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  'mailer.si.elixir.no' # RT 7222034
     # public IPv6
     '1.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "ns2.%{hiera('domain_frontend')}"
     '2.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "resolver.%{hiera('domain_public')}"
+    '4.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "dashboard.%{hiera('domain_frontend')}"
     '6.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "%{::location}-dns-01.%{hiera('domain_public')}"
 
 ntp::servers:
@@ -414,6 +405,12 @@ profile::openstack::resource::networks:
     provider_network_type: 'local'
   uib_dualStack:
     name: 'uib-dualStack'
+    admin_state_up: true
+    shared: false
+    project_name: 'openstack'
+    provider_network_type: 'local'
+  elixir_dualStack:
+    name: 'elixir-dualStack'
     admin_state_up: true
     shared: false
     project_name: 'openstack'
@@ -521,6 +518,28 @@ profile::openstack::resource::subnets:
     dns_nameservers:
       - "%{hiera('netcfg_anycast_dns6')}"
     network_name: 'uib-dualStack'
+    project_name: 'openstack'
+  elixir1_IPv4:
+    name: 'elixir1_IPv4'
+    cidr: '158.37.43.0/28'
+    ip_version: '4'
+    allocation_pools:
+      - 'start=158.37.43.2,end=158.37.43.14'
+    gateway_ip: '158.37.43.1'
+    dns_nameservers:
+      - "%{hiera('netcfg_anycast_dns')}"
+    network_name: 'elixir-dualStack'
+    project_name: 'openstack'
+  elixir1_ipv6:
+    name: 'elixir1_IPv6'
+    cidr: '2001:700:2:8304::/64'
+    ip_version: '6'
+    allocation_pools:
+      - 'start=2001:700:2:8304::2000,end=2001:700:2:8304::2fff'
+    gateway_ip: '2001:700:2:8304::1'
+    dns_nameservers:
+      - "%{hiera('netcfg_anycast_dns6')}"
+    network_name: 'elixir-dualStack'
     project_name: 'openstack'
   public1_ipv6:
     name: 'public1_IPv6'

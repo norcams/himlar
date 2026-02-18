@@ -8,6 +8,10 @@ include:
     - profile::openstack::cache
     - profile::logging::rsyslog::client
     - profile::base::systemd
+    - profile::monitoring::telegraf
+
+
+openstack_version: 'zed'
 
 # This creates /etc/openstack/puppet/admin-clouds.yaml
 keystone::bootstrap::bootstrap:        false
@@ -31,6 +35,7 @@ calico_version:     '327' # FIXME: move to common when versions on compute have 
 profile::openstack::network::manage_quotas: true
 
 profile::openstack::network::controller::manage_neutron_policies: true
+profile::openstack::network::calico::neutron_network_block: true
 
 profile::base::common::packages:
   # we need newer version of six to avoid breaking requests and openstack cli
@@ -79,6 +84,8 @@ profile::base::yumrepo::repo_hash:
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
     includepkgs: 'htop libidn'
+  influxdb:
+    ensure: present
 
 # logrotate
 # 2022-01-07 (mikaeld): some issue on network nodes, especially in OSL, have the effect that one of the nodes
@@ -112,3 +119,32 @@ profile::base::systemd::limits:
       Service:
         'LimitNOFILE': 32768
         'LimitNOFILESoft': 32768
+
+# Influx
+profile::monitoring::telegraf::enable_telegraf:     true
+#profile::monitoring::telegraf::use_http_proxy: true
+
+## Flux: ETCD
+etcd_influxdb_bucket: "etcd"
+
+profile::monitoring::telegraf::outputs:
+  influxdb_v2:
+    options:
+      - urls: ["https://%{hiera('mgmt__address__influx')}:8086"]
+        tls_ca: '/etc/puppetlabs/puppet/ssl/certs/ca.pem'
+        token: "%{hiera('influxdb_admin_token')}"
+        organization: "%{hiera('profile::monitoring::influxdb::org')}"
+        bucket: "%{hiera('etcd_influxdb_bucket')}"
+        insecure_skip_verify: true
+        tagpass:
+          bucket: ["%{hiera('etcd_influxdb_bucket')}"]
+
+profile::monitoring::telegraf::inputs:
+  socket_listener:
+    ensure: absent
+  prometheus:
+    options:
+      - urls: ["http://localhost:2379/metrics"]
+        metric_version: 2
+        tags:
+          bucket: "%{hiera('etcd_influxdb_bucket')}"

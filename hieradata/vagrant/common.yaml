@@ -5,7 +5,6 @@ include:
     - profile::application::openssl
   default:
     - profile::development::network::dns
-    - profile::monitoring::sensu::agent
     - profile::application::openssl::catrust
     - profile::application::openssl
 
@@ -298,9 +297,11 @@ local_rabbit_password:                              'local'
 # node: ts
 influxdb_admin_password:                            'influx_pass'
 influxdb_admin_token:                               'HaNpptM_3oRozR_MseRe-GmL1OIszJ5J-5I1flfOq86We198t7hJ-kzKphZtpa7aLE1bU37Jg-DuQJ_Vq7Eypg=='
+influxdb_grafana_password:                          'grafana_pass'
+influxdb_grafana_token:                             'HaNpptM_3oRozR_MseRe-GmL1OIszJ5J-5I1flfOq86We198t7hJ-kzKphZtpa7aLE1bU37Jg-DuQJ_Vq7Eypg=='
+
 # telemetry/metrics
 gnocchi::db::mysql::password:                       'gnocchi_pass'
-ceilometer::db::mysql::password:                    'ceilometer_pass'
 ceilometer::telemetry_secret:                       'ceilometer'
 ceilometer_rabbit_password:                         'ceilometer'
 status_metric_password:                             'status_pass'

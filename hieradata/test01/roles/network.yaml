@@ -1,0 +1,18 @@
+---
+profile::network::interface::create_custom_routes: true
+
+profile::base::network::nm_auto_routes:
+  trp:
+    ipv4:
+      route1: "%{hiera('netcfg_trp_l3_netpart')}.0/%{hiera('netcfg_trp_l3_cidr4')},%{hiera('netcfg_trp_gateway')}"
+
+profile::base::network::nm_auto_opts:
+  mgmt:
+    mtu: '1500'
+    ipv4:
+      dns:         "%{hiera('netcfg_dns_mgmt_server1')};%{hiera('netcfg_dns_mgmt_server2')}"
+      dns-search:  "%{hiera('netcfg_dns_search_nm')}"
+  trp:
+    mtu: '1500'
+    ipv4:
+      'never-default': 'true'

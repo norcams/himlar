@@ -1,56 +1,65 @@
 ---
 network::interfaces_hash:
-  'em1':
-    onboot:        'yes'
-    devicetype:    'TeamPort'
-    team_master:   'team1'
-    team_port_config: '{ "prio" : 100 }'
-  'em2':
-    onboot:        'yes'
-    devicetype:    'TeamPort'
-    team_master:   'team1'
-    team_port_config: '{ "prio" : 100 }'
-  'p1p1':
-    onboot:        'yes'
-    bridge:        'br0'
-  'p1p1.913':
-    onboot:        'yes'
-    bridge:        'br2'
-    vlan:          'yes'
-    defroute:      'no'
-  'team1':
-    onboot:        'yes'
-    bridge:        'br1'
-    devicetype:    'Team'
-    mtu:           '9000'
-    team_config: >-
-                   { "runner" : {  "name" : "lacp",  "active": true, "fast_rate" : true,
-                   "tx_hash": ["eth", "ipv4", "ipv6"], "tx_balancer": { "name": "basic" } },
-                   "link_watch" : {  "name" : "ethtool" } }
-  'br0':
-    ipaddress:    "%{hiera('netcfg_mgmt_netpart')}.114"
-    netmask:      "%{hiera('netcfg_mgmt_netmask')}"
-    gateway:      "%{hiera('netcfg_mgmt_gateway')}"
-    defroute:     'yes'
-    onboot:       'yes'
-    type:         'Bridge'
-    peerdns:      'yes'
-    dns1:         "%{hiera('netcfg_dns_mgmt_server1')}"
-    dns2:         "%{hiera('netcfg_dns_mgmt_server2')}"
-    domain:       "%{hiera('netcfg_dns_search')}"
-  'br1':
-    onboot:       'yes'
-    type:         'Bridge'
-    ipaddress:    "%{hiera('netcfg_trp_netpart')}.114"
-    netmask:      "%{hiera('netcfg_trp_netmask')}"
-    defroute:     'no'
-    bridge_stp:   'off'
-    mtu:           '9000'
-  'br2':
-    onboot:       'yes'
-    type:         'Bridge'
-    defroute:     'no'
-    bridge_stp:   'off'
+  br0: # mgmt
+    connection_type:  'bridge'
+    ipv4:
+      address1:       "%{hiera('netcfg_mgmt_netpart')}.114/%{hiera('netcfg_mgmt_cidr4')}"
+      dns:            "%{hiera('netcfg_dns_mgmt_server1')};%{hiera('netcfg_dns_mgmt_server2')};"
+      dns-search:     "%{hiera('netcfg_dns_search_nm')}"
+      gateway:        "%{hiera('netcfg_mgmt_gateway')}"
+      method:         'manual'
+  br1: # trp
+    connection_type:  'bridge'
+    bridge:
+      stp:            'false'
+    ipv4:
+      address:        "%{hiera('netcfg_trp_netpart')}.114/%{hiera('netcfg_trp_cidr4')}"
+      never-default:  'true'
+      method:         'manual'
+  br2:
+    connection_type:  'bridge'
+    ipv4: {}
+    ipv6: {}
+  p1p1: # mgmt
+    controller:       'br0'
+    ipv4: {}
+    ipv6: {}
+  p1p1.913: # oob
+    connection_type:  'vlan'
+    controller:       'br2'
+    ipv4: {}
+    ipv6: {}
+    vlan:
+      parent:         'p1p1'
+      id:             913
+      flags:          1
+  p1p2: {} # not in use
+  bond0-em1: # trp
+    interface_name:   'em1'
+    controller:       'bond0'
+    port_type:        'bond'
+    ipv4: {}
+    ipv6: {}
+    ethernet:
+      mtu:  9000
+  bond0-em2: # ttrp
+    interface_name:   'em2'
+    controller:       'bond0'
+    port_type:        'bond'
+    ipv4: {}
+    ipv6: {}
+    ethernet:
+      mtu:  9000
+  bond0:
+    connection_type:  'bond'
+    controller:       'br1'
+    ipv4: {}
+    ipv6: {}
+    bond:
+      mode: '802.3ad'              # the best and only supported mode with existing network config
+      xmit_hash_policy: 'layer3+4' # please use this hash policy
+    ethernet:
+      mtu:  9000
 
 lvm::volume_groups:
   vg_ext:
@@ -60,6 +69,3 @@ lvm::volume_groups:
       lv_ext:
         fs_type:   xfs
         mountpath: "/var/lib/libvirt/images"
-
-
-profile::bootstrap::himlar::manage_bootstrap_scripts: true

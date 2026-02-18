@@ -8,7 +8,9 @@
 include:
   default:
     - profile::development::patch
-    - profile::monitoring::collectd
+    - profile::application::openssl
+
+profile::application::openssl::manage_ca_cert:  true
 
 calico::compute::metadata_service_enable: false
 calico::compute::manage_metadata_service: false
@@ -36,6 +38,15 @@ profile::base::lvm::volume_group:
     physical_volumes:
       - /dev/vda3
 
+profile::openstack::network::calico::manage_dhcp_agent_override: true
+profile::openstack::network::calico::dhcp_agent_config:
+  DEFAULT/dnsmasq_config_file:
+    value: '/dev/null'
+
+nova::config::nova_config:
+  DEFAULT/metadata_workers:
+    value: '2'
+
 # test telemetry polling (require metric and telemetry nodes in vagrant)
 #profile::openstack::compute::manage_telemetry: true
 
@@ -49,20 +60,6 @@ consul::services:
     tags: ["TheForeman"]
     port: 80
 
-# Add custom routing table for private network to NAT
-profile::base::network::routes:
-  'eth2':
-    'ipaddress': [ '0.0.0.0', '0.0.0.0', ]
-    'netmask':   [ '0.0.0.0', '0.0.0.0', ]
-    'gateway':   [ "%{hiera('netcfg_priv_gateway')}", "%{hiera('netcfg_trp_gateway')}" ]
-    'table':     [ 'private', 'main', ]
-profile::base::network::routing_tables:
-  'private':
-    'table_id':  '240'
-profile::base::network::rules:
-  'eth2':
-    iprule: [ "from %{hiera('netcfg_priv_network')} lookup private", ]
-
 # sensu
 sensu::agent::subscriptions:
   - 'base'
@@ -70,23 +67,13 @@ sensu::agent::subscriptions:
   - 'compute'
 #  - 'physical'
 
+# collectd
+profile::monitoring::telegraf::enable_telegraf: false # require puppet cert
+profile::monitoring::collectd::enable: false # require telegraf
+
 # Red Hat Subscription Management (RHSM)
 profile::rhsm::subscription::manage: false
 profile::rhsm::virtwho::manage:      false
-
-# collectd
-profile::monitoring::collectd::enable: false
-profile::monitoring::collectd::plugins:
-  - collectd::plugin::aggregation
-  - collectd::plugin::cpu
-  - collectd::plugin::disk
-  - collectd::plugin::load
-  - collectd::plugin::memory
-  - collectd::plugin::interface
-  - collectd::plugin::write_graphite
-  - collectd::plugin::virt
-  - collectd::plugin::numa
-  - collectd::plugin::processes
 
 profile::base::common::packages:
   'python3-redis': {} # OSProfiler dependency

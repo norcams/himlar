@@ -1,11 +1,20 @@
 ---
-openstack_version: 'yoga'
+# Configuration for Neutron (network)
+#
+# Uses puppet-neutron:
+#   https://github.com/openstack/puppet-neutron
+#
+# Neutron release notes:
+#   https://docs.openstack.org/releasenotes/neutron/
+#
+# Puppet-neutron release notes:
+#   https://docs.openstack.org/releasenotes/puppet-neutron/
+#
 
 neutron::bind_host:   "%{ipaddress_trp1}"
 neutron::core_plugin: 'calico'
 
 neutron::server::sync_db: true
-#neutron::server::database_connection: "mysql+pymysql://neutron:%{hiera('neutron::db::mysql::password')}@%{hiera('service__address__db_regional')}/neutron"
 neutron::db::database_connection: "mysql+pymysql://neutron:%{hiera('neutron::db::mysql::password')}@%{hiera('service__address__db_regional')}/neutron"
 
 neutron::keystone::authtoken::www_authenticate_uri: "%{hiera('endpoint__identity__internal')}"
@@ -78,4 +87,7 @@ neutron::policy::policies:
     value:  'role:admin_only'
   create_address_scope:
     key:    'create_address_scope'
+    value:  'role:admin_only'
+  allowed_address_pairs:
+    key:    'update_port:allowed_address_pairs'
     value:  'role:admin_only'

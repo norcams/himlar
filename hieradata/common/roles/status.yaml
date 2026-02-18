@@ -2,6 +2,10 @@
 include:
   default:
     - profile::monitoring::grafana
+    - profile::application::openssl::puppetca
+
+# we need to trust puppet ca to connect to influxdb
+profile::application::openssl::puppetca::enable: true
 
 profile::base::common::packages:
   'bash-completion': {}
@@ -36,6 +40,12 @@ grafana::cfg:
   auth.anonymous:
     enabled:        true
     org_name:       'norcams'
+  auth:
+    disable_login_form: true
+    disable_login: true
+    disable_signout_menu: true
+  auth.basic:
+    enabled: false
   users:
     allow_sign_up:    false
     allow_org_create: false

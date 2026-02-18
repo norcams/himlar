@@ -7,7 +7,7 @@ include:
     - profile::openstack::cache
     - profile::base::systemd
 
-openstack_version: 'yoga'
+openstack_version: 'zed'
 
 named_interfaces::config:
   mgmt:
@@ -25,6 +25,7 @@ profile::base::common::packages:
   'jq': {}
   'openstack-selinux': {}
   'python3-designateclient': {}
+  'openstack-dashboard-nrec-themes': { ensure: present }
 
 profile::base::common::manage_cron:                                true
 profile::base::selinux::manage_selinux:                            true
@@ -33,6 +34,7 @@ profile::webserver::apache::manage_firewall:                       false
 profile::openstack::dashboard::manage_dashboard:                   true
 profile::openstack::dashboard::manage_firewall:                    true
 profile::openstack::dashboard::manage_overrides:                   true
+profile::openstack::dashboard::manage_logos:                       true
 profile::openstack::dashboard::change_region_selector:             true
 profile::openstack::dashboard::change_login_footer:                true
 profile::openstack::dashboard::customize_logo:                     true
@@ -98,6 +100,10 @@ profile::openstack::dashboard::policies:
     file_path:  '/etc/openstack-dashboard/nova_policy.yaml'
     key:        'os_compute_api:os-shelve:shelve_offload'
     value:      'rule:system_admin_api'
+  neutron_allowed_address_pairs:
+    file_path:  '/etc/openstack-dashboard/neutron_policy.yaml'
+    key:        'update_port:allowed_address_pairs'
+    value:      'role:admin'
 #  nova_compute_resize:
 #    file_path:  '/etc/openstack-dashboard/nova_policy.yaml'
 #    key:        'os_compute_api:servers:resize'

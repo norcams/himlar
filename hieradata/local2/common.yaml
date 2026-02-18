@@ -1,7 +1,4 @@
 ---
-#include:
-#  default:
-#    - profile::monitoring::sensu::agent
 profile::monitoring::sensu::agent::enable_agent: false
 
 location_environment: 'local2'
@@ -207,7 +204,6 @@ local_rabbit_password:                              'local'
 
 # telemetry/metrics
 gnocchi::db::mysql::password:                       'gnocchi_pass'
-ceilometer::db::mysql::password:                    'ceilometer_pass'
 ceilometer::telemetry_secret:                       'ceilometer'
 ceilometer_rabbit_password:                         'ceilometer'
 status_metric_password:                             'status_pass'

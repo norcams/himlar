@@ -1,10 +1,8 @@
 ---
 # Frontend certs
 frontend_wildcard_ssl_pem:  "star.%{hiera('domain_frontend')}.pem"
-frontend_wildcard_ssl_pem2: "star.%{hiera('domain_frontend2')}.pem"
 
 frontend_star_ssl_pem:      "status.%{hiera('domain_frontend')}.pem"
-frontend_star_ssl_pem2:     "status.%{hiera('domain_frontend2')}.pem"
 
 identity__backend__names:
   - "%{::location}-identity-01"

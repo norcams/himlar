@@ -1,0 +1,24 @@
+profile::base::lvm::physical_volume:
+  '/dev/sdb4':
+    ensure: present
+    force:  true
+  '/dev/sda':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_instances':
+    physical_volumes:
+      - /dev/sda
+  'vg_swap':
+    physical_volumes:
+      - /dev/sdb4
+profile::base::lvm::logical_volume:
+  'lv_instances':
+    volume_group: 'vg_instances'
+    fs_type:    "xfs"
+    mountpath:    "/var/lib/nova/instances"
+  'lv_swap2':
+    volume_group: 'vg_swap'
+    fs_type:    xfs
+    size:         100G
+    mountpath:    "/var/lib/swap"

@@ -1,8 +1,4 @@
 ---
-include:
-  default:
-    - profile::monitoring::sensu::agent
-
 location_environment:   'test01'
 location_description:   'Test environment physically in Bergen'
 
@@ -67,6 +63,17 @@ netcfg_trp_net_c7:      '172.30.7'
 netcfg_trp_netmask:     '255.255.248.0'
 netcfg_trp_netmask6:    '64'
 netcfg_trp_cidr4:       '21'
+netcfg_trp_l3_netpart:  '172.30.8'
+netcfg_trp_l3_netpart6: 'fd00:0:20'
+netcfg_trp_l3_c0:       '172.30.8'
+netcfg_trp_l3_c1:       '172.30.9'
+netcfg_trp_l3_c2:       '172.30.10'
+netcfg_trp_l3_c3:       '172.30.11'
+netcfg_trp_l3_c4:       '172.30.12'
+netcfg_trp_l3_c5:       '172.30.13'
+netcfg_trp_l3_c6:       '172.30.14'
+netcfg_trp_l3_c7:       '172.30.15'
+netcfg_trp_l3_cidr4:    '21'
 netcfg_oob_gateway:     '172.29.0.10'
 netcfg_oob_netpart:     '172.29.0'
 netcfg_oob_netmask:     '255.255.248.0'
@@ -98,6 +105,7 @@ netcfg_trp_rr:
     peer_ipv6: 'fd00::6:2'
 
 public__ip__object:             '129.177.31.122'
+public__address__object:        "https://object.api.%{hiera('domain_public')}:8080"
 #public__ipv6__object:           ''
 internal__ip__api:              '10.255.10.122'
 internal__ipv6__api:            'fd00:ffff:ffff::122'
@@ -126,6 +134,7 @@ profile::network::services::dns_records:
     # public
     "ns.%{hiera('domain_frontend')}":                       '129.177.31.117'
     "resolver.%{hiera('domain_public')}":                   '129.177.31.118'
+    "object.api.%{hiera('domain_public')}":                 '129.177.31.122'
     "api.%{hiera('domain_public')}":                        '129.177.31.122'
     "dashboard.%{hiera('domain_frontend')}":                '129.177.31.126'
     # mgmt
@@ -173,6 +182,8 @@ profile::network::services::dns_records:
     "report.%{hiera('domain_frontend')}":                           "api.%{hiera('domain_public')}"
     "access.%{hiera('domain_frontend')}":                           "api.%{hiera('domain_public')}" #124
     "console.%{hiera('domain_public')}":                            "api.%{hiera('domain_public')}" #125
+    "%{::location}-compute-shpc-01.%{hiera('domain_mgmt')}":        "%{::location}-compute-01.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-shpc-02.%{hiera('domain_mgmt')}":        "%{::location}-compute-02.%{hiera('domain_mgmt')}"
 
 profile::network::services::dns_options:
   CNAME:

@@ -19,6 +19,10 @@ sensu::agent::subscriptions:
   - 'nodes'
   - 'metrics'
 
+sensu::agent::annotations:
+  'disk_warning': '90'
+  'disk_critical': '95'
+
 # FIXME:sensu-go
 profile::monitoring::sensu::agent::enable_go_agent:   true
 profile::monitoring::sensu::agent::enable_agent:      false

@@ -13,6 +13,7 @@ class profile::monitoring::influxdb(
   Boolean $write_token_file = false,
   # Integer $file_limit      = 32768, #not used
   String $log_level         = 'info',
+  Integer $session_length   = 1440,
   String $influxdb_service  = 'influxdb',
   Boolean $manage_firewall  = true,
   Array $firewall_ports     = [8086],
@@ -80,6 +81,29 @@ class profile::monitoring::influxdb(
     $orgs = lookup('profile::monitoring::influxdb::orgs', Hash, $merge_strategy, {})
     create_resources(influxdb_org, $orgs, $org_defaults)
 
+    # users
+    $users = lookup('profile::monitoring::influxdb::users', Hash, $merge_strategy, {})
+    $users.each |String $user, Hash $value| {
+      influxdb_user { $user:
+        ensure   => $value['ensure'] != undef? { true => $value['ensure'], default => 'present' },
+        password => Sensitive($value['password']),
+        token    => $secret_token
+      }
+      influxdb_auth {"${user} read token":
+        ensure      => present,
+        user        => $user,
+        org         => $org,
+        permissions => [{ "action" => "read", "resource" => { "type" => "buckets" }}],
+        token       => $secret_token
+      }
+
+    }
+
+    # influxdb_org { $org:
+    #   ensure  => present,
+    #   members => keys($users)
+    # }
+
     # bash completion
     exec { 'influxdb-cli-bash-completion':
       command => '/bin/influx completion bash > /etc/bash_completion.d/influxdb',
@@ -100,6 +124,15 @@ class profile::monitoring::influxdb(
       path   => '/etc/influxdb/config.toml',
       line   => 'reporting-disabled = true',
       match  => '$reporting-disabled = ',
+      notify => Service[$influxdb_service],
+    }
+
+    # session length is set to 24h
+    file_line { 'influxdb-session-length':
+      ensure => present,
+      path   => '/etc/influxdb/config.toml',
+      line   => "session-length = ${session_length}",
+      match  => '$session-length = ',
       notify => Service[$influxdb_service],
     }
 
