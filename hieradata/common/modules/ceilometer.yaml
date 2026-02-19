@@ -39,7 +39,7 @@ ceilometer::agent::polling::manage_polling:    true
 ceilometer::agent::polling::polling_interval:  3600
 ceilometer::agent::polling::polling_meters:
   - 'cpu'
-  - 'cpu_util'
+  - 'compute.node.cpu.percent'
   - 'memory.usage'
   - 'memory.resident'
   - 'network.incoming.bytes'
