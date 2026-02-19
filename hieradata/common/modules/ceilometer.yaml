@@ -30,7 +30,7 @@ ceilometer::agent::notification::event_pipeline_publishers: ['gnocchi://?archive
 ceilometer::agent::notification::messaging_urls:            "%{hiera('service__transport__url')}"
 
 # turn on namespace for in role
-ceilometer::agent::polling::central_namespace: false
+ceilometer::agent::polling::central_namespace: true
 ceilometer::agent::polling::compute_namespace: false
 ceilometer::agent::polling::ipmi_namespace:    false
 # https://docs.openstack.org/releasenotes/puppet-ceilometer/zed.html

@@ -30,6 +30,11 @@ profile::base::selinux::manage_selinux: true
 # Turn on nested virtualization as default
 profile::virtualization::nested::manage: true
 
+# turn on namespace for in role
+ceilometer::agent::polling::central_namespace: false
+ceilometer::agent::polling::compute_namespace: true
+ceilometer::agent::polling::ipmi_namespace:    false
+
 # Fix SELinux file context for Nova's .ssh
 profile::base::selinux::fcontext:
   nova-dot-ssh:
