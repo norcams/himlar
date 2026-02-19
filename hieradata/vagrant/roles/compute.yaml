@@ -78,3 +78,6 @@ profile::base::common::packages:
 profile::openstack::compute::manage_osprofiler: true
 
 profile::storage::cephclient::enable: false
+
+# FIXME: remove when telemetry/ceilometer is up in all environments and move to common
+profile::openstack::compute::manage_telemetry: true
