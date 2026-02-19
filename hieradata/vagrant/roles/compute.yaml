@@ -12,9 +12,6 @@ include:
 
 profile::application::openssl::manage_ca_cert:  true
 
-calico::compute::metadata_service_enable: false
-calico::compute::manage_metadata_service: false
-
 # The current vagrant box image do not have vda3 parso switch
 # off lvm for compute on vagrant
 profile::base::common::manage_lvm: false
@@ -81,3 +78,10 @@ profile::base::common::packages:
 profile::openstack::compute::manage_osprofiler: true
 
 profile::storage::cephclient::enable: false
+
+# Ensure calico module doesn't handle nova metadata api
+calico::compute::metadata_service_enable: false
+calico::compute::manage_metadata_service: false
+
+# Set up nova metadata api with wsgi
+profile::openstack::compute::manage_nova_metadata_api: true
