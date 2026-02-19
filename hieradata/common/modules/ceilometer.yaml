@@ -26,7 +26,7 @@ ceilometer::agent::service_credentials::interface:    'internal'
 
 # ceilometer notification agent (node: telemetry)
 ceilometer::agent::notification::manage_event_pipeline:     true
-ceilometer::agent::notification::event_pipeline_publishers: ['gnocchi://?archive_policy=low&filter_service_activity=false']
+ceilometer::agent::notification::event_pipeline_publishers: ['gnocchi://?archive_policy=ceilometer-low&filter_service_activity=false']
 ceilometer::agent::notification::messaging_urls:            "%{hiera('service__transport__url')}"
 
 # turn on namespace for in role
