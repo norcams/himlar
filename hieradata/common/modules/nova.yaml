@@ -56,6 +56,13 @@ nova::api::enabled:                     true
 nova::api::service_name:                'httpd'
 nova::api::allow_resize_to_same_host:   true
 
+# metadata (node: compute)
+#nova::api::metadata_service_name:        'httpd'
+#nova::wsgi::apache_metadata::ssl:        false
+#nova::wsgi::apache_metadata::bind_host:  "%{ipaddress_trp1}"
+#nova::wsgi::apache_metadata::threads:    1
+#nova::wsgi::apache_metadata::workers:    4
+
 # nova wsgi
 nova::wsgi::apache_api::ssl:        false
 nova::wsgi::apache_api::bind_host:  "%{ipaddress_trp1}"

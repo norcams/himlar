@@ -100,3 +100,10 @@ profile::base::physical::enable_redfish_scripts:                  true
 profile::base::physical::enable_redfish_http_proxy:               true
 
 calico::compute::felix_mtuIfacePattern: "^%{::interface_trp1}*"
+
+# Ensure calico module doesn't handle nova metadata api
+calico::compute::metadata_service_enable: false
+calico::compute::manage_metadata_service: false
+
+# Set up nova metadata api with wsgi
+profile::openstack::compute::manage_nova_metadata_api: true

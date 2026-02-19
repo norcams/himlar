@@ -4,7 +4,8 @@ class profile::openstack::compute(
   $manage_telemetry             = false,
   $manage_nova_config           = false,
   $manage_check_dhcp_lease_file = false,
-  $manage_osprofiler = false,
+  $manage_osprofiler            = false,
+  $manage_nova_metadata_api     = false,
 ) {
   include ::nova
   # we should not need db config on compute
@@ -16,6 +17,11 @@ class profile::openstack::compute(
   include ::nova::placement
   include ::nova::keystone::service_user
   include ::keystone::bootstrap
+
+  if $manage_nova_metadata_api {
+    include ::nova::metadata
+    include ::nova::wsgi::apache_metadata
+  }
 
   if $manage_telemetry {
     include ::profile::openstack::telemetry::polling

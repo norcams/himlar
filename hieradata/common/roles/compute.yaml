@@ -329,6 +329,7 @@ profile::storage::ceph_extraconf::config:
     'config_value': "dcache_hdd_ec82_data"
 
 # Configuration items not explicitly supported by the Puppet module
+# FIXME: remove after wsgi
 nova::config::nova_config:
   DEFAULT/metadata_workers:
     value: '4'
