@@ -40,6 +40,7 @@ ceilometer::agent::polling::polling_interval:  3600
 ceilometer::agent::polling::polling_meters:
   - 'cpu'
   - 'memory.usage'
+  - 'memory.resident'
   - 'network.incoming.bytes'
   - 'network.incoming.packets'
   - 'network.outgoing.bytes'
