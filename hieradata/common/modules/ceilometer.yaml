@@ -33,10 +33,11 @@ ceilometer::agent::notification::messaging_urls:            "%{hiera('service__t
 ceilometer::agent::polling::central_namespace: true
 ceilometer::agent::polling::compute_namespace: false
 ceilometer::agent::polling::ipmi_namespace:    false
-# https://docs.openstack.org/releasenotes/puppet-ceilometer/zed.html
-# ceilometer::agent::polling::tenant_name_discovery: true/false
+ceilometer::agent::polling::tenant_name_discovery: true
 ceilometer::agent::polling::manage_polling:    true
 ceilometer::agent::polling::polling_interval:  3600
+
+# https://docs.openstack.org/ceilometer/zed/admin/telemetry-measurements.html
 ceilometer::agent::polling::polling_meters:
   - 'memory'
   - 'memory.usage'
