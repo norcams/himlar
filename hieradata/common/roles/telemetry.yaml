@@ -27,10 +27,6 @@ profile::base::yumrepo::repo_hash:
     ensure:   present
     includepkgs: 'htop bash-completion'
 
-# Packages
-profile::base::common::packages:
-  'python3-memcached': {}
-
 # telemetry runs the central polling
 ceilometer::agent::polling::central_namespace: true
 ceilometer::agent::polling::compute_namespace: false
