@@ -18,6 +18,9 @@ class profile::openstack::telemetry (
   # polling
   include ::ceilometer::agent::polling
 
+  # cache
+  include ::ceilometer::cache
+
   # gnocchi
   include ::gnocchi::client
 

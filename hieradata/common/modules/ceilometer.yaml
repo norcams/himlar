@@ -29,11 +29,17 @@ ceilometer::agent::notification::manage_event_pipeline:     true
 ceilometer::agent::notification::event_pipeline_publishers: ['gnocchi://?archive_policy=ceilometer-low&filter_service_activity=false']
 ceilometer::agent::notification::messaging_urls:            "%{hiera('service__transport__url')}"
 
+# Cache (node: telemetry)
+ceilometer::cache::backend:             'oslo_cache.memcache_pool'
+ceilometer::cache::memcached_servers:   '127.0.0.1:11211'
+
+# Polling
 ceilometer::agent::polling::tenant_name_discovery: true
 ceilometer::agent::polling::manage_polling:    true
 ceilometer::agent::polling::polling_interval:  3600
 
-# https://docs.openstack.org/ceilometer/zed/admin/telemetry-measurements.html
+# Polling meters
+# Ref. https://docs.openstack.org/ceilometer/zed/admin/telemetry-measurements.html
 ceilometer::agent::polling::polling_meters:
   - 'memory'
   - 'memory.usage'
