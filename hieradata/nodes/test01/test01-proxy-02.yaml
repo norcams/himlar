@@ -62,3 +62,21 @@ profile::base::cron::crontabs:
     monthday: '*'
     weekday:  '*'
     command:  '/opt/himlarcli/bin/logrotate.sh >/dev/null 2>&1'
+  stats:
+    hour:     '*'
+    minute:   [14,29,44,59]
+    command:  '/opt/himlarcli/bin/gen_stats.sh >/dev/null 2>&1'
+  checks:
+    hour:     '*'
+    minute:   '*/5'
+    command:  '/opt/himlarcli/bin/check_services.sh >/dev/null 2>&1'
+#  update_images:
+#    hour:     '7'
+#    minute:   '15'
+#    monthday: '1'
+#    weekday:  '*'
+#    command:  '/opt/himlarcli/bin/image_update.sh >/dev/null 2>&1'
+  sync_owners:
+    hour:     '*/6'
+    minute:   '30'
+    command:  '/opt/himlarcli/bin/sync_owners.sh >/dev/null 2>&1'

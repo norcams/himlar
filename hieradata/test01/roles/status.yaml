@@ -1,0 +1,14 @@
+---
+grafana::provisioning_datasources:
+  apiVersion: 1
+  datasources:
+  - name: InfluxDB_v2_Flux
+    type: influxdb
+    url: "https://%{hiera('mgmt__address__influx')}:8086"
+    jsonData:
+      version: Flux
+      organization: NREC
+      defaultBucket: metric
+      #tlsSkipVerify: true
+    secureJsonData:
+      token: "%{hiera('influxdb_grafana_token')}"

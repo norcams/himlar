@@ -2,6 +2,10 @@
 include:
   default:
     - profile::monitoring::grafana
+    - profile::application::openssl::puppetca
+
+# we need to trust puppet ca to connect to influxdb
+profile::application::openssl::puppetca::enable: true
 
 profile::base::common::packages:
   'bash-completion': {}
