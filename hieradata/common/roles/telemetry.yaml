@@ -2,6 +2,7 @@
 include:
   default:
     - profile::openstack::openrc
+    - profile::openstack::cache
     - profile::openstack::telemetry
 
 openstack_version: 'zed'
