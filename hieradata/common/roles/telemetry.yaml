@@ -25,7 +25,9 @@ profile::base::yumrepo::repo_hash:
     includepkgs: 'htop bash-completion'
 
 # telemetry runs the central polling
-ceilometer::agent::polling::central_namespace:            true
+ceilometer::agent::polling::central_namespace: true
+ceilometer::agent::polling::compute_namespace: false
+ceilometer::agent::polling::ipmi_namespace:    false
 
 profile::openstack::telemetry::manage_firewall:           true
 profile::openstack::telemetry::manage_gnocchi_resources:  true

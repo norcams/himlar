@@ -29,10 +29,6 @@ ceilometer::agent::notification::manage_event_pipeline:     true
 ceilometer::agent::notification::event_pipeline_publishers: ['gnocchi://?archive_policy=ceilometer-low&filter_service_activity=false']
 ceilometer::agent::notification::messaging_urls:            "%{hiera('service__transport__url')}"
 
-# turn on namespace for in role
-ceilometer::agent::polling::central_namespace: true
-ceilometer::agent::polling::compute_namespace: false
-ceilometer::agent::polling::ipmi_namespace:    false
 ceilometer::agent::polling::tenant_name_discovery: true
 ceilometer::agent::polling::manage_polling:    true
 ceilometer::agent::polling::polling_interval:  3600
