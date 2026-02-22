@@ -2,9 +2,13 @@
 include:
   default:
     - profile::openstack::openrc
+    - profile::openstack::cache
     - profile::openstack::telemetry
 
 openstack_version: 'zed'
+
+# Memcache
+memcached::max_memory: '20%'
 
 # This creates /etc/openstack/puppet/admin-clouds.yaml
 keystone::bootstrap::bootstrap:        false
@@ -25,12 +29,14 @@ profile::base::yumrepo::repo_hash:
     includepkgs: 'htop bash-completion'
 
 # telemetry runs the central polling
-ceilometer::agent::polling::central_namespace:            true
+ceilometer::agent::polling::central_namespace: true
+ceilometer::agent::polling::compute_namespace: false
+ceilometer::agent::polling::ipmi_namespace:    false
 
 profile::openstack::telemetry::manage_firewall:           true
 profile::openstack::telemetry::manage_gnocchi_resources:  true
 profile::openstack::telemetry::manage_meters:             true
-profile::openstack::telemetry::pipeline::pipeline_publishers: ['gnocchi://?archive_policy=low&filter_service_activity=false']
+profile::openstack::telemetry::pipeline::pipeline_publishers: ['gnocchi://?archive_policy=ceilometer-low&filter_service_activity=false']
 
 profile::openstack::openrc::password:                   "%{hiera('ceilometer_api_password')}"
 profile::openstack::openrc::username:                   'ceilometer'

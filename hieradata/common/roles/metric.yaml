@@ -12,6 +12,10 @@ memcached::max_memory: '20%'
 
 profile::openstack::metric::manage_firewall:  true
 profile::openstack::metric::manage_wsgi:      true
+profile::openstack::metric::manage_redis:     false
+profile::openstack::metric::manage_storage_file: true
+profile::openstack::metric::manage_storage_ceph: false
+profile::openstack::metric::manage_storage_incoming_redis: false
 profile::openstack::metric::firewall_extras:
   source: "%{::network_trp1}/%{::netmask_trp1}"
 
@@ -120,3 +124,16 @@ profile::base::lvm::logical_volume:
     fs_type:      "xfs"
     mountpath:    "/var/lib/gnocchi"
     size:         '149.9G'
+
+# Set SELinux mode to enforcing
+profile::base::selinux::manage_selinux: true
+
+# Fix SELinux file context for Gnocchi httpd/wsgi
+profile::base::selinux::fcontext:
+  gnocchi-wsgi:
+    seltype:  'httpd_var_lib_t'
+    pathspec: '/var/lib/gnocchi(/.*)?'
+profile::base::selinux::exec_restorecon:
+  gnocchi-wsgi:
+    path:    '/var/lib/gnocchi'
+    recurse: true

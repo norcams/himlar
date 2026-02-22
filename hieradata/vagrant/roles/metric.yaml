@@ -4,6 +4,11 @@ keystone::resource::authtoken::insecure:    true
 
 memcached::max_memory: '10%'
 
+profile::openstack::metric::manage_redis:        true
+profile::openstack::metric::manage_storage_file: true
+profile::openstack::metric::manage_storage_ceph: false
+profile::openstack::metric::manage_storage_incoming_redis: true
+
 profile::application::openssl::manage_ca_cert:  true
 profile::application::openssl::certs:
   "%{::hostname}.%{hiera('domain_trp')}":
@@ -16,16 +21,8 @@ profile::application::openssl::certs:
 profile::openstack::metric::firewall_extras:
   source: '0.0.0.0/0'
 
-# disks
-lvm::manage_pkg: true
-profile::base::common::manage_lvm: true
-
-profile::base::lvm::logical_volume:
-  'lv_gnocchi':
-    volume_group: 'vg_metric'
-    fs_type:      "xfs"
-    mountpath:    "/var/lib/gnocchi"
-    size:         '1.5G'
+# Override LVM disks
+profile::base::common::manage_lvm: false
 
 mysql::server::override_options:
   mysqld:

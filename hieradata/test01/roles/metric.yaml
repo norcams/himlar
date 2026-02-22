@@ -1,9 +1,23 @@
 ---
+include:
+  default:
+    - profile::storage::cephclient
 
-# Smaller disk for gnocchi data in test
-profile::base::lvm::logical_volume:
-  'lv_gnocchi':
-    volume_group: 'vg_metric'
-    fs_type:      "xfs"
-    mountpath:    "/var/lib/gnocchi"
-    size:         '19.9G'
+profile::storage::cephclient::enable: true
+
+profile::base::yumrepo::repo_hash:
+  ceph-%{hiera('ceph_version')}:
+    ensure: present
+  ceph-%{hiera('ceph_version')}-noarch:
+    ensure: present
+
+profile::base::common::packages:
+  'python3-rados': {}
+
+profile::openstack::metric::manage_storage_file: false
+profile::openstack::metric::manage_storage_ceph: true
+profile::openstack::metric::manage_storage_incoming_redis: true
+profile::openstack::metric::manage_redis: true
+
+# Override LVM disks
+profile::base::common::manage_lvm: false
