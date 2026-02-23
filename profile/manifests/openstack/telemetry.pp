@@ -1,8 +1,6 @@
 #
 class profile::openstack::telemetry (
-  $manage_gnocchi_resources = false,
-  $manage_meters            = false,
-  $manage_polling           = false,
+#  $manage_meters            = false,
   $polling_interval         = '600'
 ) {
 
