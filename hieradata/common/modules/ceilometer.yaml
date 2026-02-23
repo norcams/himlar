@@ -62,6 +62,7 @@ ceilometer::agent::polling::polling_meters:
   - 'volume.provider.pool.capacity.allocated'
   - 'volume.provider.pool.capacity.provisioned'
   - 'volume.provider.pool.capacity.virtual_free'
+  - 'identity.authenticate.failure'
 
 # rabbit mq (for rabbit_password see secrets)
 ceilometer_rabbit_access:          "ceilometer:%{hiera('ceilometer_rabbit_password')}"
