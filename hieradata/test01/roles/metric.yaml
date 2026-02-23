@@ -1,9 +1,19 @@
 ---
-#include:
-#  default:
-#    - profile::storage::cephclient
-#
-#profile::storage::cephclient::enable: true
+include:
+  default:
+    - profile::storage::cephclient
+
+profile::storage::cephclient::enable: true
+
+ceph::profile::params::client_keys:
+  'client.admin':
+    secret: "%{hiera('ceph_storage_client_admin_key')}"
+    mode: '0600'
+    user: 'ceph'
+    group: 'ceph'
+    cap_mon: 'allow *'
+    cap_osd: 'allow *'
+    cap_mds: 'allow *'
 
 profile::openstack::metric::manage_storage_file: false
 profile::openstack::metric::manage_storage_ceph: true
