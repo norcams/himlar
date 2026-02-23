@@ -32,7 +32,7 @@ profile::base::yumrepo::repo_hash:
     exclude:  'mariadb*'
   epel: # should be absent when using RDO, but whitelist can also work
     ensure: present
-    includepkgs: 'htop mysqltuner'
+    includepkgs: 'htop mysqltuner python3-cherrypy'
   postgres-10:
     ensure: absent
   "mariadb-%{hiera('mariadb_version')}":
