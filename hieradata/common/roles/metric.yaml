@@ -37,6 +37,10 @@ profile::base::yumrepo::repo_hash:
     ensure: absent
   "mariadb-%{hiera('mariadb_version')}":
     ensure: present
+  ceph-%{hiera('ceph_version')}:
+    ensure: present
+  ceph-%{hiera('ceph_version')}-noarch:
+    ensure: present
 
 profile::openstack::database::sql::gnocchi_enabled:   true
 profile::base::systemd::manage_limits: true
@@ -79,6 +83,7 @@ profile::base::common::packages:
   'bash-completion-extras': {}
   'mysqltuner':             {}
   'bzip2':                  {} # For mysql/mariadb backup
+  'python3-rados':          {}
 
 # FIXME:sensu-go
 profile::monitoring::sensu::agent::enable_go_agent:   true
