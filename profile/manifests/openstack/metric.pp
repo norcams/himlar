@@ -32,6 +32,7 @@ class profile::openstack::metric (
   }
 
   if $manage_storage_ceph {
+    include ::ceph::conf
     include ::gnocchi::storage::ceph
   }
 

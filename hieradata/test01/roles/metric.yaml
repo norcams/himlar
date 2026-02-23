@@ -1,9 +1,9 @@
 ---
-include:
-  default:
-    - profile::storage::cephclient
-
-profile::storage::cephclient::enable: true
+#include:
+#  default:
+#    - profile::storage::cephclient
+#
+#profile::storage::cephclient::enable: true
 
 profile::openstack::metric::manage_storage_file: false
 profile::openstack::metric::manage_storage_ceph: true
