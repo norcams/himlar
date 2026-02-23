@@ -13,7 +13,6 @@ class profile::openstack::metric (
   $gnocchi_path                  = '/var/lib/gnocchi',
   $gnocchi_owner                 = 'gnocchi',
   $gnocchi_group                 = 'gnocchi',
-  $ceph_config                   = {},
 )  {
 
   include ::gnocchi
@@ -34,8 +33,6 @@ class profile::openstack::metric (
 
   if $manage_storage_ceph {
     include ::gnocchi::storage::ceph
-    include ::ceph::profile::client
-    create_resources('ceph_config', $ceph_config)
   }
 
   if $manage_storage_incoming_redis {
