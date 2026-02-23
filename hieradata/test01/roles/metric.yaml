@@ -1,16 +1,4 @@
 ---
-include:
-  default:
-    - profile::storage::cephclient
-
-profile::storage::cephclient::enable: true
-
-profile::base::yumrepo::repo_hash:
-  ceph-%{hiera('ceph_version')}:
-    ensure: present
-  ceph-%{hiera('ceph_version')}-noarch:
-    ensure: present
-
 profile::openstack::metric::manage_storage_file: false
 profile::openstack::metric::manage_storage_ceph: true
 profile::openstack::metric::manage_storage_incoming_redis: true
