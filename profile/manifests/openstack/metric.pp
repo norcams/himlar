@@ -34,8 +34,8 @@ class profile::openstack::metric (
 
   if $manage_storage_ceph {
     include ::gnocchi::storage::ceph
-    create_resources('ceph_config', $ceph_config)
     include ::ceph::profile::client
+    create_resources('ceph_config', $ceph_config)
   }
 
   if $manage_storage_incoming_redis {
