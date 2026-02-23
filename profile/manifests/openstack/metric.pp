@@ -33,6 +33,7 @@ class profile::openstack::metric (
 
   if $manage_storage_ceph {
     include ::gnocchi::storage::ceph
+    include ::ceph::profile::client
   }
 
   if $manage_storage_incoming_redis {
