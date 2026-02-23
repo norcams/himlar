@@ -24,22 +24,22 @@ class profile::openstack::telemetry (
   # gnocchi
   include ::gnocchi::client
 
-  # pipeline
-  include ::profile::openstack::telemetry::pipeline
-
-  if $manage_meters {
-    file { '/etc/ceilometer/meters.d/meters.yaml':
-      ensure => file,
-      mode   => '0640',
-      owner  => 'root',
-      group  => 'ceilometer',
-      source => "puppet:///modules/${module_name}/openstack/telemetry/meters.d/meters.yaml",
-      notify => Service['ceilometer-agent-notification', 'ceilometer-polling']
-    }
-    # Remove old file
-    file { '/etc/ceilometer/meters.yaml':
-      ensure => absent,
-    }
-  }
+#  # pipeline
+#  include ::profile::openstack::telemetry::pipeline
+#
+#  if $manage_meters {
+#    file { '/etc/ceilometer/meters.d/meters.yaml':
+#      ensure => file,
+#      mode   => '0640',
+#      owner  => 'root',
+#      group  => 'ceilometer',
+#      source => "puppet:///modules/${module_name}/openstack/telemetry/meters.d/meters.yaml",
+#      notify => Service['ceilometer-agent-notification', 'ceilometer-polling']
+#    }
+#    # Remove old file
+#    file { '/etc/ceilometer/meters.yaml':
+#      ensure => absent,
+#    }
+#  }
 
 }
