@@ -1,7 +1,7 @@
 #
 class profile::openstack::telemetry (
 #  $manage_meters            = false,
-  $polling_interval         = '600'
+#  $polling_interval         = '600'
 ) {
 
   include ::keystone::bootstrap
