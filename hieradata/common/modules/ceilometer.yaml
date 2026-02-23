@@ -36,7 +36,7 @@ ceilometer::cache::memcached_servers:   '127.0.0.1:11211'
 # Polling
 ceilometer::agent::polling::tenant_name_discovery: true
 ceilometer::agent::polling::manage_polling:    true
-ceilometer::agent::polling::polling_interval:  3600
+ceilometer::agent::polling::polling_interval:  600
 
 # Polling meters
 # Ref. https://docs.openstack.org/ceilometer/zed/admin/telemetry-measurements.html
