@@ -83,7 +83,7 @@ profile::base::common::packages:
   'bash-completion-extras': {}
   'mysqltuner':             {}
   'bzip2':                  {} # For mysql/mariadb backup
-  'python3-rados':          {}
+#  'python3-rados':          {}
 
 # FIXME:sensu-go
 profile::monitoring::sensu::agent::enable_go_agent:   true
