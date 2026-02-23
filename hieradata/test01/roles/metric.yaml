@@ -11,9 +11,6 @@ profile::base::yumrepo::repo_hash:
   ceph-%{hiera('ceph_version')}-noarch:
     ensure: present
 
-profile::base::common::packages:
-  'python3-rados': {}
-
 profile::openstack::metric::manage_storage_file: false
 profile::openstack::metric::manage_storage_ceph: true
 profile::openstack::metric::manage_storage_incoming_redis: true
