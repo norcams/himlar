@@ -74,10 +74,10 @@ profile::base::network::network_auto_bonding:
 # el9
 profile::base::network::nm_network_auto_bonding:
   trp:
-    p2p1:
+    em3:
       ethernet:
         'mtu': '9000' # the MTU size must be set also on the slave interfaces
-    p2p2:
+    em4:
       ethernet:
         'mtu': '9000'
 
