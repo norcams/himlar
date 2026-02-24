@@ -28,10 +28,10 @@ profile::base::lvm::physical_volume:
 profile::base::lvm::volume_group:
   'vg_instances':
     physical_volumes:
-      - /dev/sda
+      - /dev/sdb
   'vg_ext':
     physical_volumes:
-      - /dev/sdb4
+      - /dev/sda4
 profile::base::lvm::logical_volume:
   'lv_instances':
     volume_group: 'vg_instances'
