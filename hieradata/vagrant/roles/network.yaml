@@ -3,3 +3,7 @@ profile::base::common::packages:
   'python3-redis': {} # OSProfiler dependency
 
 profile::openstack::network::manage_osprofiler: true
+
+# will not work in vagrant without admin-01 and puppet certs
+# on tsdb-01 and all telegraf clients
+profile::monitoring::telegraf::enable_telegraf: false
