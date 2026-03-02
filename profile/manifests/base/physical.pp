@@ -51,14 +51,25 @@ class profile::base::physical (
 ) {
 
   if ($enable_l40s_pci_check) and ($::runmode == 'default') {
-    file { 'check_l40s_pci.sh':
-      ensure  => file,
-      path    => '/usr/local/bin/check_l40s_pci.sh',
-      content => template("${module_name}/monitoring/sensu/check_l40s_pci.sh.erb"),
-      mode    => '0755',
+      case $facts['manufacturer'] {
+        'Dell Inc.': {
+          file { 'check_l40s_pci.sh':
+          ensure  => file,
+          path    => '/usr/local/bin/check_l40s_pci.sh',
+          content => template("${module_name}/monitoring/sensu/check_l40s_pci.sh.erb"),
+          mode    => '0755',
+          }
+        }
+        'Lenovo': {
+          file { 'check_l40s_pci.sh':
+          ensure  => file,
+          path    => '/usr/local/bin/check_l40s_pci.sh',
+          content => template("${module_name}/monitoring/sensu/check_l40s_pci_lenovo.sh.erb"),
+          mode    => '0755',
+        }
+      }
     }
   }
-
 
   # Configure 82599ES SFP+ interface module options
   if ($::lspci_has['intel82599sfp'] or $::lspci_has['intelx520sfp']) and 'ixgbe' in $::kernel_modules {
