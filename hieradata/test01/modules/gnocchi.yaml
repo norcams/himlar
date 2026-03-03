@@ -1,0 +1,7 @@
+---
+
+# storage
+gnocchi::storage::ceph::ceph_username:        'gnocchi'
+gnocchi::storage::ceph::ceph_secret:          "%{hiera('ceph_storage_client_metrics_key')}"
+gnocchi::storage::ceph::ceph_pool:            'metrics'
+gnocchi::storage::incoming::redis::redis_url: 'redis://localhost:6379/'

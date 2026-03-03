@@ -1,9 +1,24 @@
 ---
+include:
+  default:
+    - profile::storage::cephclient
 
-# Smaller disk for gnocchi data in test
-profile::base::lvm::logical_volume:
-  'lv_gnocchi':
-    volume_group: 'vg_metric'
-    fs_type:      "xfs"
-    mountpath:    "/var/lib/gnocchi"
-    size:         '19.9G'
+profile::storage::cephclient::enable: true
+
+ceph::profile::params::client_keys:
+  'client.admin':
+    secret: "%{hiera('ceph_storage_client_admin_key')}"
+    mode: '0600'
+    user: 'ceph'
+    group: 'ceph'
+    cap_mon: 'allow *'
+    cap_osd: 'allow *'
+    cap_mds: 'allow *'
+
+profile::openstack::metric::manage_storage_file: false
+profile::openstack::metric::manage_storage_ceph: true
+profile::openstack::metric::manage_storage_incoming_redis: true
+profile::openstack::metric::manage_redis: true
+
+# Override LVM disks
+profile::base::common::manage_lvm: false
