@@ -16,6 +16,7 @@ class profile::base::common (
   $manage_timezones       = false,
   $manage_keyboard        = false,
   $manage_packages        = false,
+  $manage_remove_packages = false,
   $manage_gems            = false,
   $manage_yumrepo         = false,
   $manage_sysctl          = false,
@@ -205,6 +206,11 @@ class profile::base::common (
   if $manage_packages {
     $packages = lookup('profile::base::common::packages', Hash, 'deep', {})
     create_resources('profile::base::package', $packages)
+  }
+
+  if $manage_remove_packages {
+    $remove_packages = lookup('profile::base::common::remove_packages', Hash, 'deep', {})
+    create_resources('profile::base::remove_package', $remove_packages)
   }
 
   if $manage_gems {
