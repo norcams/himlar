@@ -22,7 +22,7 @@ profile::base::lvm::physical_volume:
   '/dev/disk/by-id/wwn-0x6c4efbb170828000307214035298f9fe-part4':
     ensure: present
     force:  true
-  '/dev/disk/by-id/wwn-0x600062b2216365c030cecc050f12782a:
+  '/dev/disk/by-id/wwn-0x600062b2216365c030cecc050f12782a':
     ensure: present
     force:  true
 profile::base::lvm::volume_group:
