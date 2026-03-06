@@ -15,5 +15,4 @@ define profile::base::package (
       enable_only => $enable_only
     }
   }
-
 }
