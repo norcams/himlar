@@ -19,4 +19,4 @@ profile::base::common::packages:
 
 # will not work in vagrant without admin-01 and puppet certs
 # on tsdb-01 and all telegraf clients
-profile::monitoring::telegraf::enable_telegraf: true
+profile::monitoring::telegraf::enable_telegraf: false
