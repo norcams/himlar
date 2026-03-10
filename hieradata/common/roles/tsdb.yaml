@@ -3,6 +3,10 @@ include:
   default:
     - profile::monitoring::influxdb
     - profile::monitoring::telegraf
+    - profile::application::openssl::puppetca
+
+# we need to trust puppet ca to connect to influxdb
+profile::application::openssl::puppetca::enable: true
 
 # tsdb only uses mgmt
 named_interfaces::config:
