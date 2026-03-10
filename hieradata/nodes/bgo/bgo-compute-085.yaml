@@ -1,10 +1,10 @@
 ---
 profile::base::network::nm_network_auto_bonding:
   trp:
-    p6p1:
+    em3:
       ethernet:
         'mtu': '9000' # the MTU size must be set also on the slave interfaces
-    p6p2:
+    em4:
       ethernet:
         'mtu': '9000'
 
@@ -12,33 +12,23 @@ profile::base::network::nm_network_auto_bonding:
 openstack_version: "zed"
 named_interfaces::config:
   mgmt:
-  - p13p1
+  - em1
   trp:
   - bond0
   live:
   - bond0.120
 
+
 profile::base::lvm::physical_volume:
   '/dev/sda4':
     ensure: present
     force:  true
-  '/dev/sdb':
-    ensure: present
-    force:  true
 profile::base::lvm::volume_group:
-  'vg_instances':
-    physical_volumes:
-      - /dev/sdb
   'vg_ext':
     physical_volumes:
       - /dev/sda4
 profile::base::lvm::logical_volume:
   'lv_instances':
-    volume_group: 'vg_instances'
+    volume_group: 'vg_ext'
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
-
-## GPU ##
-nova::compute::mdev::mdev_types:
-  nvidia-1155: {}
-

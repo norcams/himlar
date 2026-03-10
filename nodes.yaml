@@ -38,8 +38,10 @@ nodesets:
   default:
     - role:       "db-global"
       puppet_env: "zed"
+      box:        "norcams/el9"
     - role:       "db-regional"
       puppet_env: "zed"
+      box:        "norcams/el9"
     - role:       "api"
     - role:       "mq"
     - role:       "identity"
@@ -94,6 +96,8 @@ nodesets:
     #- role:       "status"
     #- role:       "builder"
     #- role:       "proxy"
+    #  box:        "norcams/el9"
+    #  puppet_env: "el9"
     #- role:       "login"
     #- role:       "controller"
     #  memory:     4096

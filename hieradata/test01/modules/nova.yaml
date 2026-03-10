@@ -8,7 +8,7 @@ nova::compute::libvirt::images_type:              'rbd'
 # metadata (node: compute)
 nova::api::metadata_service_name:        'httpd'
 nova::wsgi::apache_metadata::ssl:        false
-nova::wsgi::apache_metadata::bind_host:  "%{ipaddress_trp1}"
+nova::wsgi::apache_metadata::bind_host:  '127.0.0.1'
 nova::wsgi::apache_metadata::threads:    1
 nova::wsgi::apache_metadata::workers:    4
 

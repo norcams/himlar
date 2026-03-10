@@ -61,6 +61,7 @@ named_interfaces::config:
   live:
     - team1.120
 
+# el8
 profile::base::network::network_auto_bonding:
   trp:
     em3:
@@ -69,6 +70,16 @@ profile::base::network::network_auto_bonding:
     em4:
       'team_port_config': '{ "prio" : 100 }'
       'mtu': '9000'
+
+# el9
+profile::base::network::nm_network_auto_bonding:
+  trp:
+    em3:
+      ethernet:
+        'mtu': '9000' # the MTU size must be set also on the slave interfaces
+    em4:
+      ethernet:
+        'mtu': '9000'
 
 # These compute host uses local storage for instances
 nova::compute::rbd::ephemeral_storage: false

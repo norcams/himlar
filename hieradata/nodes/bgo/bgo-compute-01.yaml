@@ -19,3 +19,16 @@ profile::base::common::extraswap_sizegb: 10
 
 # This compute host uses local storage for instances
 # nova::compute::rbd::ephemeral_storage:            false
+
+
+# TEST nova-api-metadata wsgi [trondham, 2026-02-25]
+nova::api::metadata_service_name:        'httpd'
+nova::wsgi::apache_metadata::ssl:        false
+nova::wsgi::apache_metadata::bind_host:  '127.0.0.1'
+nova::wsgi::apache_metadata::threads:    1
+nova::wsgi::apache_metadata::workers:    4
+
+calico::compute::metadata_service_enable: false
+calico::compute::manage_metadata_service: false
+
+profile::openstack::compute::manage_nova_metadata_api: true

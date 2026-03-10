@@ -404,6 +404,7 @@ profile::monitoring::sensu::agent::checks:
 # profile::dns::ns::ns_master1
 # we need nodejs for web gui
 profile::base::common::packages:
+  'grafana-selinux': { ensure: present } # only need if we run grafana dashboard on sensugo
   'influxdb2-cli': { ensure: 'present' }
   'ruby': { ensure: 'present' }
   'rubygem-sensu-plugin': { ensure: 'present' }
