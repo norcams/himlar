@@ -80,7 +80,7 @@ logrotate::rules:
     compress:       true
 
 # telegraf
-profile::monitoring::telegraf::enable_telegraf:     true
+#profile::monitoring::telegraf::enable_telegraf:     true
 openstack_influxdb_bucket: "openstack"
 
 profile::monitoring::telegraf::outputs:
