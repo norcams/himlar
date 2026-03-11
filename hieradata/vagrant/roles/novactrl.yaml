@@ -2,6 +2,7 @@
 profile::openstack::resource::host_aggregate:
   group1:
     availability_zone: "%{::location}-default-1"
+    filter_hosts: true # will not fail if host does not yet exist
     hosts:
       - "%{::location}-compute-01.%{hiera('domain_mgmt')}"
   group2:
