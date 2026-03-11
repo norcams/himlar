@@ -7,3 +7,16 @@ network::interfaces_hash:
        gateway:     "%{hiera('netcfg_mgmt_gateway')}"
        dns:         "%{hiera('netcfg_dns_mgmt_server1')};%{hiera('netcfg_dns_mgmt_server2')}"
        dns-search:  "%{hiera('netcfg_dns_search_nm')}"
+
+profile::base::lvm::physical_volume:
+  '/dev/vda':
+    ensure: present
+    force:  true
+  '/dev/vdc':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_metric':
+    physical_volumes:
+      - /dev/vda
+      - /dev/vdc
