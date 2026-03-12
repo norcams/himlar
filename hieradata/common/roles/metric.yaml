@@ -10,12 +10,12 @@ include:
 
 memcached::max_memory: '20%'
 
-profile::openstack::metric::manage_firewall:  true
-profile::openstack::metric::manage_wsgi:      true
-profile::openstack::metric::manage_redis:     false
-profile::openstack::metric::manage_storage_file: true
-profile::openstack::metric::manage_storage_ceph: false
-profile::openstack::metric::manage_storage_incoming_redis: false
+profile::openstack::metric::manage_firewall:               true
+profile::openstack::metric::manage_wsgi:                   true
+profile::openstack::metric::manage_redis:                  true
+profile::openstack::metric::manage_storage_file:           false
+profile::openstack::metric::manage_storage_ceph:           true
+profile::openstack::metric::manage_storage_incoming_redis: true
 profile::openstack::metric::firewall_extras:
   source: "%{::network_trp1}/%{::netmask_trp1}"
 
@@ -112,22 +112,7 @@ logrotate::rules:
     compress:       true
 
 # LVM setup for gnocchi data
-profile::base::common::manage_lvm: true
-
-profile::base::lvm::physical_volume:
-  '/dev/vdb':
-    ensure: present
-    force:  true
-profile::base::lvm::volume_group:
-  'vg_metric':
-    physical_volumes:
-      - /dev/vdb
-profile::base::lvm::logical_volume:
-  'lv_gnocchi':
-    volume_group: 'vg_metric'
-    fs_type:      "xfs"
-    mountpath:    "/var/lib/gnocchi"
-    size:         '149.9G'
+profile::base::common::manage_lvm: false
 
 # Set SELinux mode to enforcing
 profile::base::selinux::manage_selinux: true
