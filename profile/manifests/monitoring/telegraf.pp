@@ -1,12 +1,11 @@
 # Profile code to enable telegraf
-
 class profile::monitoring::telegraf(
+  $http_proxy,
   $enable_telegraf = false,
   $merge_strategy = 'deep',
   $run_in_vrf = false,
   $use_http_proxy = false,
-  $http_proxy
-  ) {
+) {
 
   if $enable_telegraf {
     include ::telegraf
@@ -22,16 +21,16 @@ class profile::monitoring::telegraf(
     create_resources(telegraf::output, $outputs, $defaults)
     if $use_http_proxy {
 
-      file { '/etc/systemd/system/telegraf.service.d':
+      file { '/etc/systemd/system/telegraf.service.d':
         ensure => 'directory'
       }
       file { 'telegraf-systemd-override':
-        ensure => file,
-        path   => '/etc/systemd/system/telegraf.service.d/override.conf',
-        owner  => root,
-        group  => root,
+        ensure  => file,
+        path    => '/etc/systemd/system/telegraf.service.d/override.conf',
+        owner   => root,
+        group   => root,
         content => template("${module_name}/monitoring/telegraf/systemd/proxy.erb"),
-        notify =>  Exec['telegraf_proxy_systemctl_daemon_reload']
+        notify  =>  Exec['telegraf_proxy_systemctl_daemon_reload']
       }
 
       exec { 'telegraf_proxy_systemctl_daemon_reload':
@@ -45,7 +44,7 @@ class profile::monitoring::telegraf(
     # the override file must be loaded last so we rename it zzoverride.conf
     if $run_in_vrf {
 
-      file { '/etc/systemd/system/telegraf.service.d':
+      file { '/etc/systemd/system/telegraf.service.d':
         ensure => 'directory'
       }
       file { 'telegraf-systemd-override':

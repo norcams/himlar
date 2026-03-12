@@ -44,3 +44,6 @@ named_interfaces::config:
 
 profile::application::himlarservice::enable:      false #FIXME: move himlar to proxy-01
 profile::network::interface::manage_dummy:        false #FIXME when all proxies use loopback interface
+
+# FIXME: move to roles when we only have one proxy
+profile::monitoring::telegraf::enable_telegraf:   true

@@ -4,6 +4,8 @@
 # Start admin-01 and run puppet agent -t --noop on tsdb-01,
 # then sign the cert with puppetserver ca sign --certname <certname>
 #
+# profile::application::openssl::puppetca::enable:          true
+
 profile::monitoring::influxdb::run_setup:                 true
 profile::monitoring::influxdb::write_token_file:          true
 

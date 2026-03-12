@@ -16,3 +16,7 @@ profile::firewall::rules::custom_rules:
     action:       'accept'
 profile::base::common::packages:
   'graphviz': {} # OSProfiler dependency
+
+# will not work in vagrant without admin-01 and puppet certs
+# on tsdb-01 and all telegraf clients
+profile::monitoring::telegraf::enable_telegraf: false

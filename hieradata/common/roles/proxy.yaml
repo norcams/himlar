@@ -8,6 +8,7 @@ include:
     - profile::network::services
     - profile::network::nat
     - profile::application::rngd
+    - profile::monitoring::telegraf
 
 
 named_interfaces::config:
@@ -66,6 +67,8 @@ profile::base::yumrepo::repo_hash:
   calico%{hiera('calico_version')}:
     ensure: present
     includepkgs: 'dnsmasq'
+  influxdb:
+     ensure: present
 
 logrotate::rules:
   himlarcli:
@@ -75,6 +78,51 @@ logrotate::rules:
     dateext:        true
     missingok:      true
     compress:       true
+
+# telegraf
+#profile::monitoring::telegraf::enable_telegraf:     true
+openstack_influxdb_bucket: "openstack"
+
+profile::monitoring::telegraf::outputs:
+  influxdb_v2:
+    options:
+      - urls: ["https://%{hiera('mgmt__address__influx')}:8086"]
+        tls_ca: '/etc/puppetlabs/puppet/ssl/certs/ca.pem'
+        token: "%{hiera('influxdb_admin_token')}"
+        organization: "%{hiera('profile::monitoring::influxdb::org')}"
+        bucket: "%{hiera('openstack_influxdb_bucket')}"
+        insecure_skip_verify: true
+        tagpass:
+          bucket: ["%{hiera('openstack_influxdb_bucket')}"]
+
+profile::monitoring::telegraf::inputs:
+  socket_listener:
+    ensure: absent
+  openstack:
+    options:
+      - authentication_endpoint: "%{hiera('endpoint__identity__public')}"
+        interval:   '10m'
+        username:   'admin'
+        password:   "%{hiera('keystone_admin_password')}"
+        #domain:     'Default'
+        project:    "%{hiera('keystone__admin__project')}"
+        enabled_services:
+          #- 'servers'
+          #- 'storage_pools'
+          - 'projects'
+          - 'hypervisors'
+          #- 'subnets'
+          #- 'aggregates'
+          #- 'flavors'
+          #- 'networks'
+          #- 'volumes'
+        tagexclude:    ["cpu_*"]
+        fieldexclude:  ["cpu_*"]
+#        tag_prefix: "openstack_tag_"
+#        tag_value:  true
+        tags:
+          bucket: "%{hiera('openstack_influxdb_bucket')}"
+
 
 # sensu
 sensu::agent::subscriptions:
