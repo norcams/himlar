@@ -44,6 +44,9 @@ gnocchi::metricd::metric_processing_delay:    120
 gnocchi::metricd::metric_reporting_delay:     180
 gnocchi::metricd::metric_cleanup_delay:       300
 
+# redis for incoming metrics
+gnocchi::storage::incoming::redis::redis_url: 'redis://localhost:6379/'
+
 # statsd
 gnocchi::statsd::manage_service:              false #FIXME
 gnocchi::statsd::enabled:                     false #FIXME

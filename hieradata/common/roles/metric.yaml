@@ -10,8 +10,12 @@ include:
 
 memcached::max_memory: '20%'
 
-profile::openstack::metric::manage_firewall:  true
-profile::openstack::metric::manage_wsgi:      true
+profile::openstack::metric::manage_firewall:               true
+profile::openstack::metric::manage_wsgi:                   true
+profile::openstack::metric::manage_redis:                  true
+profile::openstack::metric::manage_storage_file:           false
+profile::openstack::metric::manage_storage_ceph:           true
+profile::openstack::metric::manage_storage_incoming_redis: true
 profile::openstack::metric::firewall_extras:
   source: "%{::network_trp1}/%{::netmask_trp1}"
 
@@ -28,10 +32,14 @@ profile::base::yumrepo::repo_hash:
     exclude:  'mariadb*'
   epel: # should be absent when using RDO, but whitelist can also work
     ensure: present
-    includepkgs: 'htop mysqltuner'
+    includepkgs: 'mysqltuner thrift htop bash-completion-extras lttng-ust userspace-rcu libbabeltrace leveldb liboath fmt python3-cherrypy python3-zc-lockfile python3-portend python3-cheroot python3-trustme python3-tempora python3-jaraco-functools python3-jaraco python3-jaraco-collections python3-jaraco-text python3-jaraco-classes python3-jaraco-context python3-autocommand python3-backports-tarfile'
   postgres-10:
     ensure: absent
   "mariadb-%{hiera('mariadb_version')}":
+    ensure: present
+  ceph-%{hiera('ceph_version')}:
+    ensure: present
+  ceph-%{hiera('ceph_version')}-noarch:
     ensure: present
 
 profile::openstack::database::sql::gnocchi_enabled:   true
@@ -104,19 +112,17 @@ logrotate::rules:
     compress:       true
 
 # LVM setup for gnocchi data
-profile::base::common::manage_lvm: true
+profile::base::common::manage_lvm: false
 
-profile::base::lvm::physical_volume:
-  '/dev/vdb':
-    ensure: present
-    force:  true
-profile::base::lvm::volume_group:
-  'vg_metric':
-    physical_volumes:
-      - /dev/vdb
-profile::base::lvm::logical_volume:
-  'lv_gnocchi':
-    volume_group: 'vg_metric'
-    fs_type:      "xfs"
-    mountpath:    "/var/lib/gnocchi"
-    size:         '149.9G'
+# Set SELinux mode to enforcing
+profile::base::selinux::manage_selinux: true
+
+# Fix SELinux file context for Gnocchi httpd/wsgi
+profile::base::selinux::fcontext:
+  gnocchi-wsgi:
+    seltype:  'httpd_var_lib_t'
+    pathspec: '/var/lib/gnocchi(/.*)?'
+profile::base::selinux::exec_restorecon:
+  gnocchi-wsgi:
+    path:    '/var/lib/gnocchi'
+    recurse: true

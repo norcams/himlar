@@ -2,13 +2,17 @@
 # Setup metric role with gnocchi
 #
 class profile::openstack::metric (
-  $manage_firewall   = false,
-  $manage_wsgi       = false,
-  $metric_ports      = ['8041'],
-  $firewall_extras   = {},
-  $gnocchi_path      = '/var/lib/gnocchi',
-  $gnocchi_owner     = 'gnocchi',
-  $gnocchi_group     = 'gnocchi',
+  $manage_firewall               = false,
+  $manage_wsgi                   = false,
+  $manage_storage_file           = false,
+  $manage_storage_ceph           = false,
+  $manage_storage_incoming_redis = false,
+  $manage_redis                  = false,
+  $metric_ports                  = ['8041'],
+  $firewall_extras               = {},
+  $gnocchi_path                  = '/var/lib/gnocchi',
+  $gnocchi_owner                 = 'gnocchi',
+  $gnocchi_group                 = 'gnocchi',
 )  {
 
   include ::gnocchi
@@ -20,12 +24,28 @@ class profile::openstack::metric (
   include ::gnocchi::client
   include ::gnocchi::metricd
   include ::gnocchi::storage
-  include ::gnocchi::storage::file
   include ::gnocchi::statsd
   include ::gnocchi::cors
 
+  if $manage_storage_file {
+    include ::gnocchi::storage::file
+  }
+
+  if $manage_storage_ceph {
+    include ::gnocchi::storage::ceph
+  }
+
+  if $manage_storage_incoming_redis {
+    include ::gnocchi::storage::incoming::redis
+  }
+
   if $manage_wsgi {
     include ::gnocchi::wsgi::apache
+  }
+
+  if $manage_redis {
+    include ::profile::database::redis
+    Service['redis'] -> Service['httpd'] -> Service['gnocchi-metricd']
   }
 
   # This will make sure httpd service will be restarted on config changes
