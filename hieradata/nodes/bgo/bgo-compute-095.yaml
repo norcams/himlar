@@ -26,7 +26,7 @@ profile::base::lvm::physical_volume:
 profile::base::lvm::volume_group:
   'vg_ext':
     physical_volumes:
-      - /dev/sda4
+      - /dev/nvme0n1p4
 profile::base::lvm::logical_volume:
   'lv_instances':
     volume_group: 'vg_ext'
