@@ -8,6 +8,44 @@ chrony::servers:
   - "%{hiera('netcfg_mgmt_netpart')}.127"
   - "%{hiera('netcfg_mgmt_netpart')}.128"
 
+# EL9 routing for this region
+network::routing::table::tables:
+  'private':
+    'table_id':  '240'
+
+profile::base::network::nm_auto_routes:
+  trp:
+    ipv4: # 7 ipv4 routes in bgo
+      # default NAT
+      route1: "0.0.0.0/0,%{hiera('netcfg_priv_gateway')}"
+      route1_options: 'table=240'
+      # Elastic IP
+      route2: "%{hiera('netcfg_priv_anycast_net')}/%{hiera('netcfg_priv_anycast_cidr4')},%{hiera('netcfg_trp_gateway')}"
+      route2_options: 'table=240'
+      # default route
+      route3: "0.0.0.0/0,%{hiera('netcfg_trp_gateway')}"
+      # IPv4 Rules
+      routing-rule1: "priority 5 from %{hiera('netcfg_priv_network')} lookup 240"
+      routing-rule2: "priority 5 from %{hiera('netcfg_elastic_cidr')} lookup 240"
+      routing-rule3: "priority 5 from %{hiera('netcfg_uio_priv1_network')} lookup 240"
+      routing-rule4: "priority 5 from %{hiera('netcfg_educloud1_network')} lookup 240"
+    ipv6: # 3 ipv6 routes in bgo
+      # default route
+      route1: "::/0,%{hiera('netcfg_trp_gateway6')}"
+      # no IPv6 Rules
+
+# Must be overridden in roles variation or node when we have
+# other interface names for trp than em1 and em2
+profile::base::network::nm_network_auto_bonding:
+  trp:
+    em1:
+      ethernet:
+        'mtu': '9000' # the MTU size must be set also on the slave interfaces
+    em2:
+      ethernet:
+        'mtu': '9000'
+
+# el8 auto config
 profile::base::network::network_auto_opts:
   mgmt:
     'defroute': 'no'
