@@ -20,3 +20,9 @@ profile::dns::ns::ptr_zones:
   ipv6:
     cidr:     "fc00::/7"
     origin:   "c.f.ip6.arpa"
+
+# Enable lookup of the proper frontend (nrec.no)
+# This is due to unable to properly undefine a hash
+profile::dns::ns::fw_zones:
+  test:
+    zone: "ignore.invalid"

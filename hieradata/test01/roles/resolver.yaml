@@ -65,3 +65,9 @@ profile::dns::ns::allowed_nets:
   - '2001:700:200:915::/64; # test01 IPv6'
   - '2001:700:200:916::/64; # test01 IPv6'
   - 'fd34::/64;             # test02 IPv6'
+
+# Enable lookup of the proper frontend (nrec.no)
+# This is due to unable to properly undefine a hash
+profile::dns::ns::fw_zones:
+  test:
+    zone: "ignore.invalid"
