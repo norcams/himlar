@@ -15,7 +15,7 @@ network::routing::table::tables:
 
 profile::base::network::nm_auto_routes:
   trp:
-    ipv4: # 7 ipv4 routes in bgo
+    ipv4: # 3 ipv4 routes in osl
       # default NAT
       route1: "0.0.0.0/0,%{hiera('netcfg_priv_gateway')}"
       route1_options: 'table=240'
@@ -29,7 +29,7 @@ profile::base::network::nm_auto_routes:
       routing-rule2: "priority 5 from %{hiera('netcfg_elastic_cidr')} lookup 240"
       routing-rule3: "priority 5 from %{hiera('netcfg_uio_priv1_network')} lookup 240"
       routing-rule4: "priority 5 from %{hiera('netcfg_educloud1_network')} lookup 240"
-    ipv6: # 3 ipv6 routes in bgo
+    ipv6: # 1 ipv6 routes in osl
       # default route
       route1: "::/0,%{hiera('netcfg_trp_gateway6')}"
       # no IPv6 Rules
