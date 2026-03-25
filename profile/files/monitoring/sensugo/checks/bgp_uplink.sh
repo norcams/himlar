@@ -5,7 +5,6 @@ peer=$1
 json_file="/tmp/${peer}.json"
 
 #vrf info
-echo $#
 if [ $# -eq 2 ]; then
     vrf="vrf ${2}"
 else
