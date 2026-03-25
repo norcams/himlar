@@ -25,9 +25,12 @@ class profile::network::leaf(
   }
 
   if $manage_sensu_script {
-    file { '/usr/local/bin/bgp_check.sh':
+    file { '/usr/local/bin/bgp_uplink_check.sh':
       ensure => file,
-      source => "puppet:///modules/${module_name}/monitoring/sensugo/checks/bgp_check.sh",
+      owner  => 'root',
+      mode   => '0755',
+      source => "puppet:///modules/${module_name}/monitoring/sensugo/checks/bgp_uplink.sh",
+    }
   }
 
   if $manage_quagga {
