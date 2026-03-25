@@ -11,7 +11,7 @@ else
     vrf=""
 fi
 
-vtysh -c "show ip bgp ${vrf} neighbors ${peer} json" > $json_file
+sudo vtysh -c "show ip bgp ${vrf} neighbors ${peer} json" > $json_file
 
 if [ $(wc -l < ${json_file}) -gt 10 ]; then
     # First check bgp state
