@@ -312,7 +312,7 @@ class profile::base::physical (
       case $facts['manufacturer'] {
         'Dell Inc.': {
           unless $facts['productname'] =~ '(FC|[RTM])[1-9][1-3]\d.*' {
-            if $facts['productname'] =~ '^PowerEdge ([R])[4-9][7-9]\d.*' {
+            if fact('dmi.product.name') =~ '^PowerEdge ([R])[4-9][7-9]\d.*' {
               $bmc_idrac10_attributes.each |$attribute, $value| {
                 if ($attribute == 'IPv4.1.StaticAddress') and (!$value) {
                   $attr_value = $::bmc_address
