@@ -1,15 +1,16 @@
 #
 #
 class profile::network::leaf(
-  $manage_license     = false,
-  $cumulus_license    = "user@example.com|00000000000000000000000000000000000000000000000000\n",
-  $manage_quagga      = false,
-  $manage_frrouting   = false,
-  $manage_acls        = false,
-  $manage_switchdconf = false,
-  $manage_portconfig  = false,
-  $cumulus_portconfig = {},
-  $switchd_config     = {},
+  $manage_license       = false,
+  $cumulus_license      = "user@example.com|00000000000000000000000000000000000000000000000000\n",
+  $manage_quagga        = false,
+  $manage_frrouting     = false,
+  $manage_acls          = false,
+  $manage_switchdconf   = false,
+  $manage_portconfig    = false,
+  $cumulus_portconfig   = {},
+  $switchd_config       = {},
+  $manage_sensu_script  = false,
 ) {
 
   if $manage_acls {
@@ -21,6 +22,12 @@ class profile::network::leaf(
       ensure  => file,
       content => $cumulus_license,
     }
+  }
+
+  if $manage_sensu_script {
+    file { '/usr/local/bin/bgp_check.sh':
+      ensure => file,
+      source => "puppet:///modules/${module_name}/monitoring/sensugo/checks/bgp_check.sh",
   }
 
   if $manage_quagga {
