@@ -2,6 +2,8 @@
 # The uplink interface
 #profile::base::network::uplink_interface: 'swp28s0'
 
+bgp_lhc_peer: '109.105.124.38'
+
 bgp_loopback_addr: '10.255.253.6' # IP for elastic IP and vtep
 bgp_loopback_addr6: 'fcfd::6:6'   # Needed for BGP-MP to work
 

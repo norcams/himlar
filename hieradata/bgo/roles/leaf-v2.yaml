@@ -41,9 +41,19 @@ profile::base::cl_limits::as_value:               2097152
 
 # sensu
 # FIXME:sensu-go
+profile::network::leaf::manage_sensu_script:          true
 profile::monitoring::sensu::agent::enable_go_agent:   true
 profile::monitoring::sensu::agent::enable_agent:      false
 profile::monitoring::sensu::agent::run_in_vrf:        true
+profile::monitoring::sensu::agent::namespaces:
+  "%{hiera('sensu_namespace')}": {}
+
+profile::monitoring::sensu::agent::checks:
+  'uplink-check-lhc-%{role}-%{::hostid}':
+    command:        "/usr/local/bin/bgp_uplink_check.sh %{hiera('bgp_lhc_peer')} lhcopn"
+    interval:       300
+    handlers:       ['default']
+    subscriptions:  ['entity:%{::hostname}']
 
 # collectd
 profile::monitoring::telegraf::enable_telegraf: true # endpoint for collectd
@@ -123,6 +133,10 @@ profile::base::common::packages:
   'augeas-tools': {}
 
 sudo::configs:
+  sensu:
+    content:
+      - '# sensu needs to run vtysh'
+      - 'sensu ALL = NOPASSWD: /usr/bin/vtysh'
   snmp:
     content:
       - '# SNMP needs access to the bcmcmd to serve up some of the MIBs.'
