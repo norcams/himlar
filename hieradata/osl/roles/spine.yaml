@@ -203,13 +203,13 @@ profile::network::leaf::cumulus_portconfigs:
   16:
     line:  "16=4x25G"
   17:
-    line:  "17=4x25G" # atlas-069
+    line:  "17=4x25G" # atlas-069-072
   18:
-    line:  "18=4x25G" # atlas-070
+    line:  "18=4x25G"
   19:
-    line:  "19=4x25G" # atlas-071
+    line:  "19=4x25G"
   20:
-    line:  "20=4x25G" # atlas-072
+    line:  "20=4x25G"
   28:
     line:  "28=100G" # uplink sikt
   29:
@@ -747,6 +747,38 @@ profile::base::network::cumulus_bonds:
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', '130', ]
     'mtu': '9216'
+  'host65':
+    'slaves': [ 'swp17s0', ]
+    'clag_id': '65'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host66':
+    'slaves': [ 'swp17s1', ]
+    'clag_id': '66'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host67':
+    'slaves': [ 'swp17s2', ]
+    'clag_id': '67'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host68':
+    'slaves': [ 'swp17s3', ]
+    'clag_id': '68'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
 
 profile::base::network::cumulus_bridges:
   'bridge':
@@ -815,6 +847,10 @@ profile::base::network::cumulus_bridges:
       - host62
       - host63
       - host64
+      - host65
+      - host66
+      - host67
+      - host68
       - peerlink
       - downlink
     'alias_name': 'Transport L2 if'
