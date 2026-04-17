@@ -203,13 +203,13 @@ profile::network::leaf::cumulus_portconfigs:
   16:
     line:  "16=4x25G"
   17:
-    line:  "17=4x25G"
+    line:  "17=4x25G" # atlas-069
   18:
-    line:  "18=4x25G"
+    line:  "18=4x25G" # atlas-070
   19:
-    line:  "19=4x25G"
+    line:  "19=4x25G" # atlas-071
   20:
-    line:  "20=4x25G"
+    line:  "20=4x25G" # atlas-072
   28:
     line:  "28=100G" # uplink sikt
   29:
@@ -915,6 +915,10 @@ frrouting::frrouting::bgp_neighbor_groups:
       - '172.18.33.127' # compute-66
       - '172.18.33.128' # compute-l40s-67
       - '172.18.33.129' # compute-l40s-68
+      - '172.18.33.130' # atlas-069
+      - '172.18.33.131' # atlas-070
+      - '172.18.33.132' # atlas-071
+      - '172.18.33.133' # atlas-072
     'options6':
       - 'neighbor rr-clients route-reflector-client'
       - 'neighbor rr-clients soft-reconfiguration inbound'
@@ -991,6 +995,10 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'fd32::1:127' # compute-66
       - 'fd32::1:128' # compute-l40s-67
       - 'fd32::1:129' # compute-l40s-68
+      - 'fd32::1:130' # atlas-069
+      - 'fd32::1:131' # atlas-070
+      - 'fd32::1:132' # atlas-071
+      - 'fd32::1:133' # atlas-072
   'object_rgw':
     'options':
       - 'peer-group'
