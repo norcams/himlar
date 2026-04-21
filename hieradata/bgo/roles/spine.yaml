@@ -1403,6 +1403,27 @@ frrouting::frrouting::bgp_neighbor_groups:
     'ip_access_list6':
       - "2001:700:2:83f0::2000/118"
       - "2001:700:2:83f0::1345/128"
+  'elastic_rail_mgmt':
+    'options':
+      - 'peer-group'
+      - "remote-as %{hiera('elasticip_rail_mgmt_asn')}"
+      - "password %{hiera('elasticip_rail_mgmt_md5')}"
+      - 'soft-reconfiguration inbound'
+      - 'ebgp-multihop'
+      - 'bfd'
+    'options6':
+      - 'neighbor elastic_rail_mgmt activate'
+      - 'neighbor elastic_rail_mgmt soft-reconfiguration inbound'
+    'bgp_listen_range':
+      - '10.5.17.0/24'
+      - '2001:700:2:8302::100/120'
+    'ip_access_list':
+      - "10.254.228.0/22"
+      - "10.254.253.235/32"
+      - "10.254.253.245/32"
+    'ip_access_list6':
+      - "2001:700:2:83f0::3000/118"
+      - "2001:700:2:83f0::1346/128"
 
 frrouting::frrouting::bgp_accesslist:
   '10':
