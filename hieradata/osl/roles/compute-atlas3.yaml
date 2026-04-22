@@ -1,0 +1,35 @@
+---
+profile::base::lvm::physical_volume:
+  '/dev/sda4':
+    ensure: present
+    force:  true
+  '/dev/sdb':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_ext':
+    physical_volumes:
+      - /dev/sda4
+      - /dev/sdb
+
+#FIXME:el9 move to common after all computes are el9 with zed
+openstack_version: "zed"
+
+#FIXME: We dont know the interface names before OS install
+#profile::base::network::nm_network_auto_bonding:
+#  trp:
+#    em1:
+#      enp34s0f0np0:
+#        'mtu': '9000' # the MTU size must be set also on the slave interfaces
+#    em2:
+#      enp34s0f1np1:
+#        'mtu': '9000'
+#
+#named_interfaces::config:
+#  mgmt:
+#  - enp33s0f0
+#  trp:
+#  - bond0
+#  live:
+#  - bond0.120
+
