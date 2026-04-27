@@ -488,6 +488,13 @@ profile::openstack::resource::networks:
     shared: false
     project_id: 'c1a76edd5a0a459388613b7a80c5f63d'
     provider_network_type: 'local'
+  elastic_rail_uib_it_rail_test_nor1:
+    name: 'elastic_rail_test_nor1'
+    admin_state_up: true
+    shared: false
+    project_id: 'bea5fa28856443af8e89db21ed145ff6'
+    provider_network_type: 'local'
+    mtu: '9000'
   elastic_rail_uib_it_rail_mgmt:
     name: 'elastic_rail_mgmt'
     admin_state_up: true
@@ -768,6 +775,28 @@ profile::openstack::resource::subnets:
       - "%{hiera('netcfg_anycast_dns6')}"
     network_name: 'elastic_rail_test_bgo1'
     project_id: 'c1a76edd5a0a459388613b7a80c5f63d'
+  elastic_rail_uib_it_test_nor1_IP4:
+    name: 'elastic_rail_test_nor1_IP4'
+    cidr: '10.5.16.32/27'
+    ip_version: '4'
+    allocation_pools:
+      - 'start=10.5.16.34,end=10.5.16.62'
+    gateway_ip: '10.5.16.33'
+    dns_nameservers:
+      - "%{hiera('netcfg_anycast_dns')}"
+    network_name: 'elastic_rail_test_nor1'
+    project_id: 'bea5fa28856443af8e89db21ed145ff6'
+  elastic_rail_uib_it_test_nor1_IP6:
+    name: 'elastic_rail_test_nor1_IP6'
+    cidr: '2001:700:2:8302::40/122'
+    ip_version: '6'
+    allocation_pools:
+      - 'start=2001:700:2:8302::42,end=2001:700:2:8302::7f'
+    gateway_ip: '2001:700:2:8302::41'
+    dns_nameservers:
+      - "%{hiera('netcfg_anycast_dns6')}"
+    network_name: 'elastic_rail_test_nor1'
+    project_id: 'bea5fa28856443af8e89db21ed145ff6'
   elastic_rail_uib_it_mgmt_IP4:
     name: 'elastic_rail_mgmt_IP4'
     cidr: '10.5.17.0/24'
