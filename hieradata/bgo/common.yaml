@@ -495,6 +495,13 @@ profile::openstack::resource::networks:
     project_id: '231eb24afeae4cec904e43a7cbcf5524'
     provider_network_type: 'local'
     mtu: '9000'
+  elastic_rail_uib_it_rail_prod_nor1:
+    name: 'elastic_rail_prod_nor1'
+    admin_state_up: true
+    shared: false
+    project_id: 'b2ece082b63146938292a93987ee8ddb'
+    provider_network_type: 'local'
+    mtu: '9000'
 
 profile::openstack::resource::subnets:
   public1_IPv4:
@@ -783,3 +790,25 @@ profile::openstack::resource::subnets:
       - "%{hiera('netcfg_anycast_dns6')}"
     network_name: 'elastic_rail_mgmt'
     project_id: '231eb24afeae4cec904e43a7cbcf5524'
+  elastic_rail_uib_it_prod_nor1_IP4:
+    name: 'elastic_rail_prod_nor1_IP4'
+    cidr: '10.5.18.0/24'
+    ip_version: '4'
+    allocation_pools:
+      - 'start=10.5.18.2,end=10.5.18.254'
+    gateway_ip: '10.5.18.1'
+    dns_nameservers:
+      - "%{hiera('netcfg_anycast_dns')}"
+    network_name: 'elastic_rail_prod_nor1'
+    project_id: 'b2ece082b63146938292a93987ee8ddb'
+  elastic_rail_uib_it_prod_nor1_IP6:
+    name: 'elastic_rail_prod_nor1_IP6'
+    cidr: '2001:700:2:8302::200/120'
+    ip_version: '6'
+    allocation_pools:
+      - 'start=2001:700:2:8302::202,end=2001:700:2:8302::2ff'
+    gateway_ip: '2001:700:2:8302::201'
+    dns_nameservers:
+      - "%{hiera('netcfg_anycast_dns6')}"
+    network_name: 'elastic_rail_prod_nor1'
+    project_id: 'b2ece082b63146938292a93987ee8ddb'
