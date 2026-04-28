@@ -5,9 +5,7 @@ Facter.add(:manufacturer) do
     if product && product =~ /AS[- ]?2115GT-HNTR/i
       'Supermicro_atlas3'
     else
-      Facter.value(:dmi_manufacturer) ||
-      Facter.value(:bios_vendor) ||
-      nil
+      false
     end
   end
 end
