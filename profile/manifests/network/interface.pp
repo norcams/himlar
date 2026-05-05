@@ -186,7 +186,7 @@ class profile::network::interface(
       } elsif Integer($facts['os']['release']['major']) >= 9 {
         $ifopts = lookup('profile::base::network::nm_auto_opts', Hash, 'deep', {})
       }
-      $nm_unnumbered = lookup('profile::base::network::nm_unnumbered_ifs', Hash, 'deep', {})
+      $nm_unnumbered = lookup('profile::base::network::nm_unnumbered_ifs', Hash, 'first', {})
       # Configure each interface
       $named_interfaces_hash.each |$ifrole, $ifnamed| {
         $ifname = String($ifnamed[0])
@@ -227,7 +227,7 @@ class profile::network::interface(
           }
 
           # Check for unnumbered interfaces associated with this interface
-          if $nm_unnumbered[$ifrole] {
+          if $nm_unnumbered[$ifrole] and ($ifname[0,2] == 'lo') {
             $nm_unnumbered[$ifrole].each |$unnumbered_if, $unnumbered_opts| {
               $unnumbered_final = { "${unnumbered_if}" => $unnumbered_opts + { 'interface_name' => $unnumbered_if }}
               create_resources ('network::nm::connection',$unnumbered_final)
@@ -308,6 +308,8 @@ class profile::network::interface(
               } else {
                 $nm_ipv6 = {}
               }
+              # NetworkManager will not accept a connection called lo and will overwrite at boot.
+              # The lo connection must given a unique name in order for the options to applied
               $nm_interface =
                 { "virt-${ifname}" =>
                   { ipv4 =>
