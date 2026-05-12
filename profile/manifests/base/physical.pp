@@ -343,53 +343,55 @@ class profile::base::physical (
           }
         }
         'Supermicro': {
-          $bmc_generic_attributes.each |$attribute, $value| {
-            if ($attribute == 'Address') and (!$value) {
-              $attr_value = $::bmc_address
+          if fact('dmi.product.name') =~ /AS-2115GT-HNTR/i {
+            # New Atlas3-based servers (AS-2115GT-HNTR)
+            $address     = $::bmc_address
+            $subnet_mask = $bmc_generic_attributes['SubnetMask']
+            $gateway     = $bmc_generic_attributes['Gateway']
+            if empty($subnet_mask) or empty($gateway) {
+              fail("bmc_generic_attributes is missing SubnetMask or Gateway for node ${::clientcert}")
             }
-            else {
-              $attr_value = $value
-            }
-            exec { "Set bmc static configuration - ${attribute}":
-              command     => "/bin/curl -f -s https://${::bmc_address}/redfish/v1/Managers/1/EthernetInterfaces/1 -k -u ${bmc_username_set}:${bmc_password_set} ${http_proxy_url_set} --connect-timeout 20 -X PATCH -H \"Content-Type: application/json\" -d \'{\"IPv4Addresses\" : {\"${attribute}\":\"${attr_value}\"}}\' && /bin/touch /etc/.bmc_configured-${attribute}",
-              creates     => "/etc/.bmc_configured-${attribute}",
-            }
-          }
-        }
-        'Supermicro_atlas3': {
-          # New Atlas3-based servers (AS-2115GT-HNTR)
-          $address     = $::bmc_address
-          $subnet_mask = $bmc_generic_attributes['SubnetMask']
-          $gateway     = $bmc_generic_attributes['Gateway']
-          if empty($subnet_mask) or empty($gateway) {
-            fail("bmc_generic_attributes is missing SubnetMask or Gateway for node ${::clientcert}")
-          }
-          exec { 'Set bmc static IP configuration - Supermicro_atlas3':
-            command => @("EOF"/L)
-              /bin/curl -f -s \
-                https://${address}/redfish/v1/Managers/1/EthernetInterfaces/1 \
-                -k -u ${bmc_username_set}:${bmc_password_set} \
-                ${http_proxy_url_set} \
-                --connect-timeout 20 \
-                -X PATCH \
-                -H "Content-Type: application/json" \
-                -d '{
-                  "DHCPv4": {"DHCPEnabled": false},
-                  "IPv4StaticAddresses": [
-                    {
-                      "Address": "${address}",
-                      "SubnetMask": "${subnet_mask}",
-                      "Gateway": "${gateway}"
-                    }
-                  ]
-                }' \
-                && /bin/touch /etc/.bmc_configured-supermicro_atlas3-static
+            exec { 'Set bmc static IP configuration - Supermicro_atlas3':
+              command => @("EOF"/L)
+                /bin/curl -f -s \
+                  https://${address}/redfish/v1/Managers/1/EthernetInterfaces/1 \
+                  -k -u ${bmc_username_set}:${bmc_password_set} \
+                  ${http_proxy_url_set} \
+                  --connect-timeout 20 \
+                  -X PATCH \
+                  -H "Content-Type: application/json" \
+                  -d '{
+                    "DHCPv4": {"DHCPEnabled": false},
+                    "IPv4StaticAddresses": [
+                      {
+                        "Address": "${address}",
+                        "SubnetMask": "${subnet_mask}",
+                        "Gateway": "${gateway}"
+                      }
+                    ]
+                  }' \
+                  && /bin/touch /etc/.bmc_configured-supermicro_atlas3-static
               | EOF
             ,
-            creates     => '/etc/.bmc_configured-supermicro_atlas3-static',
-            logoutput   => true,
-            tries       => 3,
-            try_sleep   => 10,
+              creates     => '/etc/.bmc_configured-supermicro_atlas3-static',
+              logoutput   => true,
+              tries       => 3,
+              try_sleep   => 10,
+            }
+          }
+          else {
+            $bmc_generic_attributes.each |$attribute, $value| {
+              if ($attribute == 'Address') and (!$value) {
+                $attr_value = $::bmc_address
+              }
+              else {
+                $attr_value = $value
+              }
+              exec { "Set bmc static configuration - ${attribute}":
+                command     => "/bin/curl -f -s https://${::bmc_address}/redfish/v1/Managers/1/EthernetInterfaces/1 -k -u ${bmc_username_set}:${bmc_password_set} ${http_proxy_url_set} --connect-timeout 20 -X PATCH -H \"Content-Type: application/json\" -d \'{\"IPv4Addresses\" : {\"${attribute}\":\"${attr_value}\"}}\' && /bin/touch /etc/.bmc_configured-${attribute}",
+                creates     => "/etc/.bmc_configured-${attribute}",
+              }
+            }
           }
         }
         'Huawei': {
