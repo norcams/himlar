@@ -343,7 +343,7 @@ class profile::base::physical (
           }
         }
         'Supermicro': {
-          if fact('dmi.product.name') =~ /AS-2115GT-HNTR/i {
+          if fact('dmi.product.name') =~ '(?i:AS *- *2115GT-HNTR)' {
             # New Atlas3-based servers (AS-2115GT-HNTR)
             $address     = $::bmc_address
             $subnet_mask = $bmc_generic_attributes['SubnetMask']
@@ -352,27 +352,7 @@ class profile::base::physical (
               fail("bmc_generic_attributes is missing SubnetMask or Gateway for node ${::clientcert}")
             }
             exec { 'Set bmc static IP configuration - Supermicro_atlas3':
-              command => @("EOF"/L)
-                /bin/curl -f -s \
-                  https://${address}/redfish/v1/Managers/1/EthernetInterfaces/1 \
-                  -k -u ${bmc_username_set}:${bmc_password_set} \
-                  ${http_proxy_url_set} \
-                  --connect-timeout 20 \
-                  -X PATCH \
-                  -H "Content-Type: application/json" \
-                  -d '{
-                    "DHCPv4": {"DHCPEnabled": false},
-                    "IPv4StaticAddresses": [
-                      {
-                        "Address": "${address}",
-                        "SubnetMask": "${subnet_mask}",
-                        "Gateway": "${gateway}"
-                      }
-                    ]
-                  }' \
-                  && /bin/touch /etc/.bmc_configured-supermicro_atlas3-static
-              | EOF
-            ,
+              command     => "/bin/curl -f -s https://${address}/redfish/v1/Managers/1/EthernetInterfaces/1 -k -u ${bmc_username_set}:${bmc_password_set} ${http_proxy_url_set} --connect-timeout 20 -X PATCH -H \"Content-Type: application/json\" -d '{\"DHCPv4\":{\"DHCPEnabled\":false},\"IPv4StaticAddresses\":[{\"Address\":\"${address}\",\"SubnetMask\":\"${subnet_mask}\",\"Gateway\":\"${gateway}\"}]}' && /bin/touch /etc/.bmc_configured-supermicro_atlas3-static",
               creates     => '/etc/.bmc_configured-supermicro_atlas3-static',
               logoutput   => true,
               tries       => 3,
@@ -404,3 +384,4 @@ class profile::base::physical (
     }
   }
 }
+
