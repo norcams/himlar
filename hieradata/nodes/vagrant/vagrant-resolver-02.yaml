@@ -20,3 +20,12 @@ network::interfaces_hash:
       dns-search: "%{hiera('netcfg_dns_search_nm')}"
       method:     'manual'
   eth3: {}
+  lo-static:
+    interface_name:   'lo'
+    connection_type:  'loopback'
+    ipv4:
+      method:         'manual'
+      address1:       "%{hiera('public__ip__resolver')}/32"
+    ipv6:
+      method:         'manual'
+      address1:       "%{hiera('public__ipv6__resolver')}/128"
