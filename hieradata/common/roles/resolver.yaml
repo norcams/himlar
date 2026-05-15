@@ -125,9 +125,10 @@ sensu::agent::subscriptions:
   - 'nodes'
   - 'metrics'
 
-#profile::logging::fluentbit::manage_fluentbit:    true
-#profile::logging::fluentbit::manage_dns_data:     true
-#profile::logging::fluentbit::manage_parsers_file: true
-#profile::base::yumrepo::repo_hash:
-#  fluentbit:
-#    ensure: present
+# For dns logging to DataOPS
+profile::logging::fluentbit::manage_fluentbit:    true
+profile::logging::fluentbit::manage_dns_data:     true
+profile::logging::fluentbit::manage_parsers_file: true
+profile::base::yumrepo::repo_hash:
+  fluentbit:
+    ensure: present
