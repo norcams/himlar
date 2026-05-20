@@ -3,7 +3,7 @@
 profile::base::lvm::volume_group:
   'vg_swap':
     physical_volumes:
-      - /dev/sdq4
+      - /dev/sdp4 # this will be wrong when a new disk is installed
   'vg_nvme1':
     physical_volumes:
       - /dev/nvme0n1
@@ -29,7 +29,7 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_nvme1'
     createfs:     false
     size:         32G
-  'lv_db_nn': # for the new sdn ... sadface
+  'lv_db_nm': # for the New sdM ... sadface
     volume_group: 'vg_nvme1'
     createfs:     false
     size:         32G
@@ -96,16 +96,18 @@ profile::storage::cephosd::osds:
     db_device:  'vg_nvme1/lv_dbl'
   '/dev/sdm':
     wal_device: false
-    db_device:  'vg_nvme1/lv_dbm'
+    db_device:  'vg_nvme1/lv_db_nm'
   '/dev/sdn':
     wal_device: false
-    db_device:  'vg_nvme1/lv_db_nn'
+    db_device:  false
+    disable_writecache: true
   '/dev/sdo':
     wal_device: false
     db_device:  false
-  '/dev/sdp':
-    wal_device: false
-    db_device:  false
+    disable_writecache: true
+#  '/dev/sdp': uncomment when new disk is installed
+#    wal_device: false
+#    db_device:  false
   '/dev/vg_nvme1/lv_nvmeosd':
     wal_device: false
     db_device:  false
