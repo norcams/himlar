@@ -13,7 +13,7 @@
     tls On
     tls.verify On
     tls.ca_file /etc/pki/tls/certs/ca-bundle.crt
-    tls.crt_file /etc/pki/tls/certs/resolver.vagrant.iaas.intern.cert.pem
-    tls.key_file /etc/pki/tls/private/resolver.vagrant.iaas.intern.key.pem
+    tls.crt_file /etc/pki/tls/certs/<%= @fqdn -%>.cert.pem
+    tls.key_file /etc/pki/tls/private/<%= @fqdn -%>.key.pem
     #tls.debug 4
 

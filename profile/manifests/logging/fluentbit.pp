@@ -49,6 +49,15 @@ class profile::logging::fluentbit(
       mode   => '0755',
       notify => Service["$service_name"],
     }
+    # ... and create remaining ones from templates
+    file { "$config_dir/fluent-bit.conf.d/$config_file_uio_output" :
+      content=> template("${module_name}/logging/fluentbit/${config_file_uio_output}.erb"),
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0755',
+      notify => Service["$service_name"],
+    }
+
     file { "$config_dir/pipelines" :
       ensure => 'directory',
       source => "puppet:///modules/${module_name}/logging/fluentbit/pipelines",
