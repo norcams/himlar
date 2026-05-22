@@ -65,6 +65,9 @@ sensu::plugins::package_ensure: 'absent' # no package for el9
 # the virt-who package is not available in el9
 profile::rhsm::virtwho::manage: false
 
+# dummy0 interface isn't used in el9
+profile::dns::ns::bird_source_interface: lo
+
 # this part of profile::openstack::network::calico is only active for compute role
 profile::openstack::network::calico::manage_dhcp_agent_override: true
 profile::openstack::network::calico::dhcp_agent_config:

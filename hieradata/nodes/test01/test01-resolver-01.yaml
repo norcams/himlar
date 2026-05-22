@@ -7,6 +7,9 @@ network::interfaces_hash:
       dns:        "%{hiera('netcfg_dns_mgmt_server1')};%{hiera('netcfg_dns_mgmt_server2')}"
       dns-search: "%{hiera('netcfg_dns_search_nm')}"
       method:     'manual'
+    ipv6:
+      method:     'manual'
+      address1:   "%{hiera('netcfg_mgmt_netpart6')}::44/%{hiera('netcfg_mgmt_netmask6')}"
   eth1:
     ipv4:
       address1:   "%{hiera('netcfg_trp_netpart')}.44/%{hiera('netcfg_trp_cidr4')}"
@@ -14,6 +17,9 @@ network::interfaces_hash:
       dns:        "%{hiera('netcfg_dns_trp_server1')}"
       dns-search: "%{hiera('netcfg_dns_search_nm')}"
       method:     'manual'
+    ipv6:
+      method:     'manual'
+      address1:   "%{hiera('netcfg_trp_netpart6')}::44/%{hiera('netcfg_trp_netmask6')}"
   lo-static:
     interface_name:   'lo'
     connection_type:  'loopback'
