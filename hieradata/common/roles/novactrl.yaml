@@ -52,9 +52,9 @@ apache::mod::prefork::maxrequestworkers:  1024
 profile::logging::logrotate::rules:
   httpd:
     path:           '/var/log/httpd/*log'
-    rotate:         10
+    rotate:         7
     rotate_every:   'hour'
-    size:           500M
+    size:           400M
     postrotate:     '/bin/systemctl reload httpd.service > /dev/null 2>/dev/null || true'
     sharedscripts:  true
     missingok:      true
