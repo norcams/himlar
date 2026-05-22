@@ -1,6 +1,7 @@
 #
-# For NVIDIA vGPU cards utilizing SR-IOV, like Ampere, the mdevs are not created
-# at boot time. We need to create the mdevs at every boot
+# For NVIDIA vGPU cards utilizing SR-IOV, the SR-IOV VFs are not enabled
+# automatically at boot. This service runs sriov-manage before the separate
+# create-mdev service creates mediated devices.
 #
 
 class profile::openstack::compute::nvidia_vgpu_createmdev(
