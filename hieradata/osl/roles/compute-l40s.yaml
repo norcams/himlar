@@ -3,7 +3,6 @@
 include:
   kickstart:
     - profile::openstack::compute::pci_passthrough
-    - profile::openstack::compute::nvidia_vgpu_createmdev
   default:
     - nova::compute::mdev
     - profile::application::create_mdev
