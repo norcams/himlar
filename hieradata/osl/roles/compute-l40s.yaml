@@ -1,5 +1,8 @@
 ---
 # NVIDIA SR-IOV-based vGPU hosts need SR-IOV enabled and mdevs created
+# FIXME: profile::application::create_mdev is not needed for L40s, should be removed
+# (This one is needed: profile::openstack::compute::nvidia_vgpu_createmdev)
+# FIXME: remove profile::application::create_mdev
 include:
   kickstart:
     - profile::openstack::compute::pci_passthrough
@@ -105,6 +108,8 @@ nova::scheduler::filter::max_instances_per_host: '8'
 profile::openstack::compute::pci_passthrough::configure_intel_iommu: true
 
 # Configuration values for the "create-mdev" service
+# FIXME: This service is not needed for L40s. Should be removed
+# FIXME: profile::application::create_mdev config not needed
 profile::application::create_mdev::enable:          true
 profile::application::create_mdev::nvidia_gpu_type: 'nvidia-1155'
 profile::application::create_mdev::trait:           'CUSTOM_NREC_VGPU_L40S_24G'
