@@ -210,8 +210,9 @@ network::routing::table::tables:
 profile::base::network::nm_auto_opts:
   mgmt:
     ipv4:
-      'never-default': 'true'
-      'dns': "%{hiera('netcfg_dns_trp_server1')};%{hiera('netcfg_dns_mgmt_server1')};"
+      never-default: 'true'
+      dns: "%{hiera('netcfg_dns_trp_server1')};%{hiera('netcfg_dns_mgmt_server1')};"
+      dns-search: "%{hiera('netcfg_dns_search_nm')}"
   trp:
     ipv6init: 'yes' # NOTE: this is not NM syntax, rather interface.pp config
     bond:                          # Teaming driver is no longer available

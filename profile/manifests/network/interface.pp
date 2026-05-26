@@ -184,7 +184,7 @@ class profile::network::interface(
       if Integer($facts['os']['release']['major']) <= 8 {
         $ifopts = lookup('profile::base::network::network_auto_opts', Hash, 'deep', {})
       } elsif Integer($facts['os']['release']['major']) >= 9 {
-        $ifopts = lookup('profile::base::network::nm_auto_opts', Hash, 'deep', {})
+        $ifopts = lookup('profile::base::network::nm_auto_opts', Hash, 'first', {})
       }
       $nm_unnumbered = lookup('profile::base::network::nm_unnumbered_ifs', Hash, 'first', {})
       # Configure each interface
