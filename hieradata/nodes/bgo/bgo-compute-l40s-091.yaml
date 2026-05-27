@@ -20,21 +20,25 @@ named_interfaces::config:
 
 
 profile::base::lvm::physical_volume:
-  '/dev/sda4':
+  '/dev/disk/by-id/wwn-0x6f4ee0806d8a7c002ef2ee3fa721a84a-part4':
     ensure: present
     force:  true
-  '/dev/sdb':
+  '/dev/disk/by-id/wwn-0x6f4ee0806d8a7c002db263a30a03f4d8':
     ensure: present
     force:  true
 profile::base::lvm::volume_group:
   'vg_instances':
+    followsymlinks: true
     physical_volumes:
-      - /dev/sdb
+      - /dev/disk/by-id/wwn-0x6f4ee0806d8a7c002db263a30a03f4d8
   'vg_ext':
+    followsymlinks: true
     physical_volumes:
-      - /dev/sda4
+      - /dev/disk/by-id/wwn-0x6f4ee0806d8a7c002ef2ee3fa721a84a-part4
 profile::base::lvm::logical_volume:
   'lv_instances':
     volume_group: 'vg_instances'
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
+
+nova::compute::libvirt::cpu_models: ['Broadwell-noTSX-IBRS','SapphireRapids-v3']
