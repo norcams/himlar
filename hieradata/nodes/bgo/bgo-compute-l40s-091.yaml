@@ -30,11 +30,11 @@ profile::base::lvm::volume_group:
   'vg_instances':
     followsymlinks: true
     physical_volumes:
-      - /dev/disk/by-id/wwn-0x6f4ee0806d8a7c002db263a30a03f4d8
+      - /dev/disk/by-id/wwn-0x6f4ee0806d8a7c002ef2ee3fa721a84a
   'vg_ext':
     followsymlinks: true
     physical_volumes:
-      - /dev/disk/by-id/wwn-0x6f4ee0806d8a7c002ef2ee3fa721a84a-part4
+      - /dev/disk/by-id/wwn-0x6f4ee0806d8a7c002db263a30a03f4d8-part4
 profile::base::lvm::logical_volume:
   'lv_instances':
     volume_group: 'vg_instances'
