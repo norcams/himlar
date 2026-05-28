@@ -20,10 +20,10 @@ profile::base::network::nm_network_auto_bonding:
         'mtu': '9000'
 
 profile::base::lvm::physical_volume:
-  '/dev/sda4':
+  '/dev/sda5':
     ensure: present
     force:  true
 profile::base::lvm::volume_group:
   'vg_ext':
     physical_volumes:
-      - /dev/sda4
+      - /dev/sda5
