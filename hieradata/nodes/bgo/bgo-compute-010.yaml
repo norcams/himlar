@@ -1,11 +1,22 @@
 ---
+profile::base::network::nm_network_auto_bonding:
+  trp:
+    em1:
+      ethernet:
+        'mtu': '9000' # the MTU size must be set also on the slave interfaces
+    em2:
+      ethernet:
+        'mtu': '9000'
+
+#FIXME:el9 move to common after all computes are el9 with zed
+openstack_version: "zed"
 named_interfaces::config:
   mgmt:
   - p2p2
   trp:
-  - team1
+  - bond0
   live:
-  - team1.120
+  - bond0.120
 
 profile::base::lvm::physical_volume:
   '/dev/sda3':
