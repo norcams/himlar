@@ -41,6 +41,6 @@ profile::base::lvm::logical_volume:
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
 
-nova::compute::libvirt::cpu_models: ['SapphireRapids-v2','Broadwell-noTSX-IBRS']
+nova::compute::libvirt::cpu_models: ['SapphireRapids','Broadwell-noTSX-IBRS']
 #kernel has disabled TSX (hle and rtm) as a security mitigation for the TAA vulnerability
 nova::compute::libvirt::cpu_model_extra_flags: ['-hle', '-rtm']
