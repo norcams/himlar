@@ -8,9 +8,6 @@ profile::dns::ns::mdns_public_addr:
 profile::dns::ns::rndc_sources_ipv6:
   - '2001:700:200:917::3f34/128'
 
-# login node in test01 has an unstandard address (others use value from common)
-profile::dns::ns::login_mgmt_addr:          "%{hiera('netcfg_mgmt_netpart')}.9"
-
 # Forward zones, for which the name server is authoritative
 profile::dns::ns::fw_zones:
   internal:
