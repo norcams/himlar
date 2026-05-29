@@ -1,27 +1,32 @@
 ---
+node_addr_public6: '2001:700:200:917::3f18'
 network::interfaces_hash:
-  'eth0':
-    onboot:    'yes'
-    mtu:       '1500'
-    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.45"
-    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
-    peerdns:   'yes'
-    dns1:      "%{hiera('netcfg_dns_mgmt_server2')}"
-    dns2:      "%{hiera('netcfg_dns_mgmt_server1')}"
-    domain:    "%{hiera('netcfg_dns_search')}"
-    defroute:  'no'
-  'eth1':
-    onboot:    'yes'
-    mtu:       '1500'
-    ipaddress: "%{hiera('netcfg_trp_netpart')}.45"
-    netmask:   "%{hiera('netcfg_trp_netmask')}"
-    gateway:   "%{hiera('netcfg_trp_netpart')}.26"
-    ipv6init:  'yes'
-    ipv6addr:  "%{hiera('netcfg_trp_netpart6')}::45/%{hiera('netcfg_trp_netmask6')}"
-    defroute:  'yes'
-  'dummy0':
-    ipaddress: '129.177.31.118'
-    netmask:   '255.255.255.255'
-    ipv6init:  'yes'
-    ipv6addr:  '2001:700:200:917::3f18/128'
-    defroute:  'no'
+  eth0:
+    ipv4:
+      address1:   "%{hiera('netcfg_mgmt_netpart')}.45/%{hiera('netcfg_mgmt_cidr4')}"
+      gateway:    "%{hiera('netcfg_mgmt_gateway')}"
+      dns:        "%{hiera('netcfg_dns_mgmt_server1')};%{hiera('netcfg_dns_mgmt_server2')}"
+      dns-search: "%{hiera('netcfg_dns_search_nm')}"
+      method:     'manual'
+  eth1:
+    ipv4:
+      address1:   "%{hiera('netcfg_trp_netpart')}.45/%{hiera('netcfg_trp_cidr4')}"
+      gateway:    "%{hiera('netcfg_trp_gateway')}"
+      dns:        "%{hiera('netcfg_dns_trp_server1')}"
+      dns-search: "%{hiera('netcfg_dns_search_nm')}"
+      method:     'manual'
+    ipv6:
+      method:         'manual'
+      address1:       "%{hiera('netcfg_trp_netpart6')}::45/%{hiera('netcfg_trp_netmask6')}"
+      route1:         "::/0,%{hiera('netcfg_trp_netpart6')}::701"
+      route1_options: "src=%{hiera('node_addr_public6')}"
+  lo-static:
+    interface_name:   'lo'
+    connection_type:  'loopback'
+    ipv4:
+      method:         'manual'
+      address1:       "%{hiera('public__ip__resolver')}/32"
+    ipv6:
+      method:         'manual'
+      address1:       "%{hiera('public__ipv6__resolver')}/128"
+      address2:       "%{hiera('node_addr_public6')}/128"
