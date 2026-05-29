@@ -18,6 +18,8 @@ network::interfaces_hash:
       method:         'manual'
   br2:
     connection_type:  'bridge'
+    bridge:
+      stp:            'false'
     ipv4: {}
     ipv6: {}
   p1p1: # mgmt
