@@ -31,12 +31,13 @@ profile::base::physical::enable_hugepages: true
 profile::base::physical::hugepagesz:       '2M'
 profile::base::physical::hugepages:        '376832'
 
-
 # Nova overrides
 nova::compute::libvirt::cpu_models: ['EPYC']
 nova::cpu_allocation_ratio:         '1'
 nova::disk_allocation_ratio:        '1'
 nova::ram_allocation_ratio:         '1'
+nova::compute::cpu_dedicated_set:
+  - '0-191'
 
 # Create and enable more swap
 profile::base::common::extraswap:        true

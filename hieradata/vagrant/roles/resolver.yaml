@@ -49,11 +49,3 @@ profile::application::openssl::certs:
   "vagrant-resolver-01.%{hiera('domain_public')}":
     cn:     "vagrant-resolver-01.%{hiera('domain_public')}"
     concat: true
-
-# Remove (and activate in common) when deployed to production
-profile::logging::fluentbit::manage_fluentbit:    true
-profile::logging::fluentbit::manage_dns_data:     true
-profile::logging::fluentbit::manage_parsers_file: true
-profile::base::yumrepo::repo_hash:
-  fluentbit:
-    ensure: present

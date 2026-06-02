@@ -71,7 +71,7 @@ profile::dns::ns::allowed_nets:
 # For anycast
 profile::dns::ns::enable_bird:           true
 profile::dns::ns::manage_bird_firewall:  true
-profile::dns::ns::enable_bird6:          true
+profile::dns::ns::enable_bird6:          false
 profile::dns::ns::manage_bird6_firewall: true
 profile::dns::ns::check_named_health:    true
 
@@ -125,9 +125,10 @@ sensu::agent::subscriptions:
   - 'nodes'
   - 'metrics'
 
-#profile::logging::fluentbit::manage_fluentbit:    true
-#profile::logging::fluentbit::manage_dns_data:     true
-#profile::logging::fluentbit::manage_parsers_file: true
-#profile::base::yumrepo::repo_hash:
-#  fluentbit:
-#    ensure: present
+# For dns logging to DataOPS
+profile::logging::fluentbit::manage_fluentbit:    true
+profile::logging::fluentbit::manage_dns_data:     true
+profile::logging::fluentbit::manage_parsers_file: true
+profile::base::yumrepo::repo_hash:
+  fluentbit:
+    ensure: present

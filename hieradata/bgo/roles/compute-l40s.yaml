@@ -1,5 +1,5 @@
 ---
-# NVIDIA Ampere cards need SR-IOV and creation of mdevs
+# NVIDIA SR-IOV-based vGPU hosts need SR-IOV enabled and mdevs created
 include:
   kickstart:
     - profile::openstack::compute::pci_passthrough
@@ -58,7 +58,7 @@ profile::base::yumrepo::repo_hash:
   nrec-nonfree:
     ensure: present
 
-# NVIDIA Ampere cards need to create mediated devices at every boot
+# NVIDIA SR-IOV-based vGPU hosts need sriov-manage at boot before mdev creation
 profile::openstack::compute::nvidia_vgpu_createmdev::enable: true
 profile::base::selinux::semodules:
   sriov_manage:

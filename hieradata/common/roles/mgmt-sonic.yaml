@@ -21,7 +21,7 @@ sudo::configs:
     ensure: absent
 
 # puppet: increase facts limits for sonic
-puppet::cron_cmd: 'ip vrf exec mgmt /opt/puppetlabs/bin/puppet agnet -t'
+puppet::cron_cmd: 'ip vrf exec mgmt /opt/puppetlabs/bin/puppet agent -t'
 puppet::agent_additional_settings:
   'disable_warnings':           'deprecations'
   'stringify_facts':            'false'

@@ -61,20 +61,19 @@ profile::dns::ns::ptr_zones:
     origin: "6.1.9.0.0.0.2.0.0.0.7.0.1.0.0.2.ip6.arpa"
 
 profile::dns::ns::allowed_nets:
-  - '172.28.0.0/12;         # internal rfc1918'
-  - '10.0.0.0/8;            # rfc1918 for ipv6 only instances'
-  - '129.177.31.64/27;      # test01 IPv4'
-  - '129.177.31.96/27;      # test01 IPv4'
-  - '129.177.8.10/32;       # bgologin'
-  - '2001:700:200:915::/64; # test01 IPv6'
-  - '2001:700:200:916::/64; # test01 IPv6'
-  - 'fd34::/64;             # test02 IPv6'
+  - '172.16.0.0/12;          # internal rfc1918'
+  - '10.0.0.0/8;             # rfc1918 for ipv6 only instances'
+  - '129.177.31.64/27;       # test01 IPv4'
+  - '129.177.31.96/27;       # test01 IPv4'
+  - '129.177.8.10/32;        # bgologin'
+  - '2001:700:200:915::/64;  # test01 IPv6'
+  - '2001:700:200:916::/64;  # test01 IPv6'
+  - '2001:700:200:df00::/56; # test01 IPv6'
+  - 'fd34::/64;              # test02 IPv6'
 
 # Enable lookup of the proper frontend (nrec.no)
 # This is due to unable to properly undefine a hash
-profile::dns::ns::fw_zones:
-  test:
-    zone: "ignore.invalid"
+profile::dns::ns::frontend_zone: "ignore.invalid"
 
 # Remove (and activate in common) when deployed to production
 profile::logging::fluentbit::manage_fluentbit:    true

@@ -1,4 +1,6 @@
 ---
+profile::monitoring::sensu::agent::enable_go_agent:     false #FIXME
+
 network::default_interfaces_hash:
   DEVICE_METADATA:
     localhost:
@@ -845,11 +847,15 @@ network::default_interfaces_hash:
       tagging_mode: untagged
     "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet43":
       tagging_mode: untagged
-    "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet44":
-      tagging_mode: untagged
-    "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet45":
-      tagging_mode: untagged
     # trunk
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet44":
+      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet44":
+      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet45":
+      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet45":
+      tagging_mode: tagged
     "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet46":
       tagging_mode: tagged
     "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet46":

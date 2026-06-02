@@ -29,6 +29,7 @@ class profile::dns::ns (
   $hostmaster = {},
   $ns_master = {},
   $enable_rpz = false,
+  $bird_source_interface = "dummy0",
   )
 {
 
@@ -169,6 +170,10 @@ class profile::dns::ns (
       source   => $rndc_sources_ipv6,
       provider => 'ip6tables'
     }
+  }
+
+  if ($facts['os']['family'] == 'RedHat' and Integer($facts['os']['release']['major']) >= 9) {
+    include network::routing::table
   }
 
   # Use BGP for anycast

@@ -13,6 +13,12 @@ include:
 
 openstack_version: 'zed'
 
+profile::network::interface::create_custom_routes: true
+profile::base::network::nm_auto_routes:
+  trp:
+    ipv4:
+      route1: "%{hiera('netcfg_trp_l3_netpart')}.0/%{hiera('netcfg_trp_l3_cidr4')},%{hiera('netcfg_trp_gateway')}"
+
 # This creates /etc/openstack/puppet/admin-clouds.yaml
 keystone::bootstrap::bootstrap:        false
 keystone::bootstrap::manage_resources: false

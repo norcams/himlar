@@ -1,0 +1,106 @@
+---
+
+profile::base::lvm::logical_volume:
+  'lv_swap2':
+    volume_group: 'vg_swap'
+    fs_type:      xfs
+    size:         35G
+    mountpath:    "/var/lib/swap"
+  'lv_dbg': # is for a replaced hdd and the reason for this file to exist
+    volume_group: 'vg_nvme1'
+    createfs:     false
+    size:         32G
+  'lv_dbi':
+    volume_group: 'vg_nvme1'
+    createfs:     false
+    size:         32G
+  'lv_dbj':
+    volume_group: 'vg_nvme1'
+    createfs:     false
+    size:         32G
+  'lv_dbk':
+    volume_group: 'vg_nvme1'
+    createfs:     false
+    size:         32G
+  'lv_dbl':
+    volume_group: 'vg_nvme1'
+    createfs:     false
+    size:         32G
+  'lv_dbm':
+    volume_group: 'vg_nvme1'
+    createfs:     false
+    size:         32G
+  'lv_dbn':
+    volume_group: 'vg_nvme1'
+    createfs:     false
+    size:         32G
+  'lv_nvmeosd':
+    volume_group: 'vg_nvme1'
+    createfs:     false
+    size:         1200G
+profile::base::lvm::physical_volume:
+  '/dev/nvme0n1':
+    ensure: present
+    force:  true
+
+profile::storage::cephosd::osds:
+  '/dev/sda':
+    wal_device: false
+    db_device:  false
+    disable_writecache: true
+  '/dev/sdb':
+    wal_device: false
+    db_device:  false
+    disable_writecache: true
+  '/dev/sdc':
+    wal_device: false
+    db_device:  false
+    disable_writecache: true
+  '/dev/sdd':
+    wal_device: false
+    db_device:  false
+    disable_writecache: true
+  '/dev/sde':
+    wal_device: false
+    db_device:  false
+    disable_writecache: true
+  '/dev/sdf':
+    wal_device: false
+    db_device:  false
+    disable_writecache: true
+  # all db_device: probably references the wrong lv_dbX
+  # the trouth is in /var/lib/ceph/osd/ceph-*/block.db
+  '/dev/sdg':
+    wal_device: false
+    db_device:  'vg_nvme1/lv_dbg'
+  '/dev/sdh':
+    wal_device: false
+    db_device:  'vg_nvme1/lv_dbh'
+  '/dev/sdi':
+    wal_device: false
+    db_device:  'vg_nvme1/lv_dbi'
+  '/dev/sdj':
+    wal_device: false
+    db_device:  'vg_nvme1/lv_dbj'
+  '/dev/sdk':
+    wal_device: false
+    db_device:  'vg_nvme1/lv_dbk'
+  '/dev/sdl':
+    wal_device: false
+    db_device:  'vg_nvme1/lv_dbl'
+  '/dev/sdm':
+    wal_device: false
+    db_device:  'vg_nvme1/lv_dbm'
+  '/dev/sdn':
+    wal_device: false
+    db_device:  'vg_nvme1/lv_dbn'
+  '/dev/sdo':
+    wal_device: false
+    db_device:  false
+  '/dev/sdp':
+    wal_device: false
+    db_device:  false
+  '/dev/vg_nvme1/lv_nvmeosd':
+    wal_device: false
+    db_device:  false
+    dev_class:  'nvme'

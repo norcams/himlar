@@ -2,6 +2,8 @@
 class profile::logging::fluentbit(
   $manage_fluentbit         = false,
   $manage_dns_data          = false,
+  $manage_data_dir          = false,
+  $manage_parsers_file      = false,
   $config_dir               = '/etc/fluent-bit',
   $config_file              = 'fluent-bit.conf',
   $config_file_uio_dns      = 'UIO_input_tail-dns-bind9-hostmaster.conf',
@@ -11,7 +13,9 @@ class profile::logging::fluentbit(
 
 
   if $manage_fluentbit  {
-    class { 'fluentbit': manage_parsers_file => $manage_parsers_file, }
+    class { 'fluentbit': manage_parsers_file => $manage_parsers_file,
+                         manage_data_dir     => $manage_data_dir,
+    }
 
     $service_name = $fluentbit::service_name
 
@@ -45,6 +49,15 @@ class profile::logging::fluentbit(
       mode   => '0755',
       notify => Service["$service_name"],
     }
+    # ... and create remaining ones from templates
+    file { "$config_dir/fluent-bit.conf.d/$config_file_uio_output" :
+      content=> template("${module_name}/logging/fluentbit/${config_file_uio_output}.erb"),
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0755',
+      notify => Service["$service_name"],
+    }
+
     file { "$config_dir/pipelines" :
       ensure => 'directory',
       source => "puppet:///modules/${module_name}/logging/fluentbit/pipelines",

@@ -150,6 +150,8 @@ nodesets:
     #- role:       "mgmt"
     #  box:        "norcams/net"
     #- role:       'resolver'
+    #  puppet_env: "zed_bind"
+    #  box:        "norcams/el9"
     #- role:       'mgmt-sonic'
     #  box:        'norcams/sonic2411'
     #  puppet_env: 'sonic'
@@ -204,11 +206,11 @@ nodesets:
       box:        "norcams/el9"
     - role:       "resolver"
       hostid:     "01"
-      puppet_env: "production_el9"
+      puppet_env: "zed_bind"
       box:        "norcams/el9"
     - role:       "resolver"
       hostid:     "02"
-      puppet_env: "production_el9"
+      puppet_env: "zed_bind"
       box:        "norcams/el9"
     - role:       "dns"
       puppet_env: "zed"

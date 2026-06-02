@@ -2,9 +2,9 @@
 
 _term() {
   echo "Caught SIGTERM signal!"
-    /sbin/ip route del <%= scope().call_function('hiera',['netcfg_anycast_dns']) %>/32 dev dummy0 > /dev/null
-    /sbin/ip -6 route del <%= scope().call_function('hiera',['netcfg_anycast_dns6']) %> dev dummy0 > /dev/null
-    /sbin/ip -6 route del <%= scope().call_function('hiera',['netcfg_anycast_dns6']) %> dev dummy0 > /dev/null
+    /sbin/ip route del <%= scope().call_function('hiera',['netcfg_anycast_dns']) %>/32 dev <%= @bird_source_interface %> > /dev/null
+    /sbin/ip -6 route del <%= scope().call_function('hiera',['netcfg_anycast_dns6']) %> dev <%= @bird_source_interface %> > /dev/null
+    /sbin/ip -6 route del <%= scope().call_function('hiera',['netcfg_anycast_dns6']) %> dev <%= @bird_source_interface %> > /dev/null
   /bin/sleep 3
   exit 0
 #  kill -TERM "$child" 2>/dev/null
@@ -20,20 +20,20 @@ DNSUP=`/usr/bin/dig @<%= scope().call_function('hiera',['netcfg_anycast_dns']) %
 if [ "$DNSUP" != "127.0.0.1" ];
 then
   if /sbin/ip route | grep <%= scope().call_function('hiera',['netcfg_anycast_dns']) %> > /dev/null ; then
-    /sbin/ip route del <%= scope().call_function('hiera',['netcfg_anycast_dns']) %>/32 dev dummy0 > /dev/null
+    /sbin/ip route del <%= scope().call_function('hiera',['netcfg_anycast_dns']) %>/32 dev <%= @bird_source_interface %> > /dev/null
   fi
   if /sbin/ip -6 route | grep <%= scope().call_function('hiera',['netcfg_anycast_dns6']) %> | grep -v kernel > /dev/null ; then
-    /sbin/ip -6 route del <%= scope().call_function('hiera',['netcfg_anycast_dns6']) %> dev dummy0 > /dev/null
+    /sbin/ip -6 route del <%= scope().call_function('hiera',['netcfg_anycast_dns6']) %> dev <%= @bird_source_interface %> > /dev/null
   fi
   if /sbin/ip -6 route | grep <%= scope().call_function('hiera',['netcfg_anycast_dns6']) %> | grep -v kernel > /dev/null ; then
-    /sbin/ip -6 route del <%= scope().call_function('hiera',['netcfg_anycast_dns6']) %> dev dummy0 > /dev/null
+    /sbin/ip -6 route del <%= scope().call_function('hiera',['netcfg_anycast_dns6']) %> dev <%= @bird_source_interface %> > /dev/null
   fi
 else
   if ! /sbin/ip route | grep <%= scope().call_function('hiera',['netcfg_anycast_dns']) %> > /dev/null ; then
-    /sbin/ip route add <%= scope().call_function('hiera',['netcfg_anycast_dns']) %>/32 dev dummy0 > /dev/null
+    /sbin/ip route add <%= scope().call_function('hiera',['netcfg_anycast_dns']) %>/32 dev <%= @bird_source_interface %> > /dev/null
   fi
   if ! /sbin/ip -6 route | grep <%= scope().call_function('hiera',['netcfg_anycast_dns6']) %> | grep -v kernel > /dev/null ; then
-    /sbin/ip -6 route add <%= scope().call_function('hiera',['netcfg_anycast_dns6']) %>/128 dev dummy0 > /dev/null
+    /sbin/ip -6 route add <%= scope().call_function('hiera',['netcfg_anycast_dns6']) %>/128 dev <%= @bird_source_interface %> > /dev/null
   fi
 fi
 sleep 2

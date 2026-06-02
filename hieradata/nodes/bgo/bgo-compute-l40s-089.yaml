@@ -20,21 +20,21 @@ named_interfaces::config:
 
 
 profile::base::lvm::physical_volume:
-  '/dev/disk/by-id/wwn-0x6f4ee0806d8a7c002db263a30a03f4d8-part4':
+  '/dev/disk/by-id/wwn-0x6f4ee0806d8ad2002e8d62e9ca910e9b-part4':
     ensure: present
     force:  true
-  '/dev/disk/by-id/wwn-0x6f4ee0806d8a7c002ef2ee3fa721a84a':
+  '/dev/disk/by-id/wwn-0x6f4ee0806d8ad2002ef2ee99d918b27f':
     ensure: present
     force:  true
 profile::base::lvm::volume_group:
   'vg_instances':
     followsymlinks: true
     physical_volumes:
-      - /dev/disk/by-id/wwn-0x6f4ee0806d8a7c002ef2ee3fa721a84a
+      - /dev/disk/by-id/wwn-0x6f4ee0806d8ad2002ef2ee99d918b27f
   'vg_ext':
     followsymlinks: true
     physical_volumes:
-      - /dev/disk/by-id/wwn-0x6f4ee0806d8a7c002db263a30a03f4d8-part4
+      - /dev/disk/by-id/wwn-0x6f4ee0806d8ad2002e8d62e9ca910e9b-part4
 profile::base::lvm::logical_volume:
   'lv_instances':
     volume_group: 'vg_instances'
