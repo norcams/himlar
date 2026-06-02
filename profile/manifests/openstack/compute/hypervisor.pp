@@ -32,19 +32,22 @@ class profile::openstack::compute::hypervisor (
       path   => '/etc/libvirt/virtproxyd.conf',
       line   => 'auth_tcp = "none"',
       match  => '^#auth_tcp = "sasl"',
-      before => Service['virtproxyd-tcp.socket']
+      before => Service['virtproxyd-tcp.socket'],
+      notify => Service['virtproxyd-tcp.socket']
     }
     file_line { 'disable tls for virtproxyd tcp socket':
       path   => '/etc/libvirt/virtproxyd.conf',
       line   => 'listen_tls = 0',
       match  => '^#listen_tls = 0',
-      before => Service['virtproxyd-tcp.socket']
+      before => Service['virtproxyd-tcp.socket'],
+      notify => Service['virtproxyd-tcp.socket']
     }
     file_line { 'enable tcp for virtproxyd tcp socket':
       path   => '/etc/libvirt/virtproxyd.conf',
       line   => 'listen_tcp = 1',
       match  => '^#listen_tcp = 1',
-      before => Service['virtproxyd-tcp.socket']
+      before => Service['virtproxyd-tcp.socket'],
+      notify => Service['virtproxyd-tcp.socket']
     }
     service { 'virtproxyd-tcp.socket':
       ensure => running,
