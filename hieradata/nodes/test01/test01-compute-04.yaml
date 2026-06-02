@@ -30,8 +30,9 @@ profile::virtualization::libvirt::moduler_daemons:        true
 nova::compute::libvirt::manage_libvirt_services:          false
 nova::compute::libvirt::modular_libvirt:                  true
 nova::compute::libvirt::services::modular_libvirt:        true
+nova::migration::libvirt::modular_libvirt:                true
 
-libvirt::service::modular_services:
-  virtproxyd-tcp.socket:
-    ensure: 'running'
-    enable: true
+#libvirt::service::modular_services:
+#  virtproxyd-tcp.socket:
+#    ensure: 'running'
+#    enable: true
