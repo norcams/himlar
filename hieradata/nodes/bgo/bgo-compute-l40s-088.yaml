@@ -1,0 +1,46 @@
+---
+profile::base::network::nm_network_auto_bonding:
+  trp:
+    em3:
+      ethernet:
+        'mtu': '9000' # the MTU size must be set also on the slave interfaces
+    em4:
+      ethernet:
+        'mtu': '9000'
+
+#FIXME:el9 move to common after all computes are el9 with zed
+openstack_version: "zed"
+named_interfaces::config:
+  mgmt:
+  - em1
+  trp:
+  - bond0
+  live:
+  - bond0.120
+
+
+profile::base::lvm::physical_volume:
+  '/dev/disk/by-id/wwn-0x6f4ee0806d8ace002e8d5db287658928-part4':
+    ensure: present
+    force:  true
+  '/dev/disk/by-id/wwn-0x6f4ee0806d8ace002ef2ee889a7e8d79':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_instances':
+    followsymlinks: true
+    physical_volumes:
+      - /dev/disk/by-id/wwn-0x6f4ee0806d8ace002ef2ee889a7e8d79
+  'vg_ext':
+    followsymlinks: true
+    physical_volumes:
+      - /dev/disk/by-id/wwn-0x6f4ee0806d8ace002e8d5db287658928-part4
+profile::base::lvm::logical_volume:
+  'lv_instances':
+    volume_group: 'vg_instances'
+    fs_type:      "xfs"
+    mountpath:    "/var/lib/nova/instances"
+
+nova::compute::libvirt::cpu_models: ['SapphireRapids','Broadwell-noTSX-IBRS']
+#kernel has disabled TSX (hle and rtm) as a security mitigation for the TAA vulnerability
+nova::compute::libvirt::cpu_model_extra_flags: ['-hle', '-rtm']
