@@ -1,0 +1,61 @@
+---
+profile::base::network::nm_network_auto_bonding:
+  trp:
+    XXXX:
+      ethernet:
+        'mtu': '9000' # the MTU size must be set also on the slave interfaces
+    XXXX:
+      ethernet:
+        'mtu': '9000'
+
+#FIXME:el9 move to common after all computes are el9 with zed
+openstack_version: "zed"
+named_interfaces::config:
+  mgmt:
+  - XXXX
+  trp:
+  - bond0
+  live:
+  - bond0.120
+
+
+
+
+profile::base::lvm::physical_volume:
+  '/dev/disk/by-id/wwn-XXXXXXXXXXXXXXXXXXXXXXX-part4':
+    ensure: present
+    force:  true
+  '/dev/disk/by-id/wwn-XXXXXXXXXXXXXXXXXXXXXXXx':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_instances':
+    followsymlinks: true
+    physical_volumes:
+      - /dev/disk/by-id/wwn-xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  'vg_ext':
+    followsymlinks: true
+    physical_volumes:
+      - /dev/disk/by-id/wwn-xxxxxxxxxxxxxxxxxxxxxxxxxxxxx-part4
+profile::base::lvm::logical_volume:
+  'lv_instances':
+    volume_group: 'vg_instances'
+    fs_type:      "xfs"
+    mountpath:    "/var/lib/nova/instances"
+
+## GPU ##
+
+profile::openstack::compute::pci_passthrough::configure_intel_iommu: true
+profile::openstack::compute::pci_passthrough::manage_pcipassthrough: true
+profile::openstack::compute::pci_passthrough::manage_pci_whitelist:  true
+profile::openstack::compute::pci_passthrough::report_in_placement:  false
+# 
+nova::compute::pci::passthrough:
+  - 'vendor_id':  '0x10de'
+    'product_id': 'XXXX'
+nova::pci::aliases:
+  - 'vendor_id':   '0x10de'
+    'product_id':  'XXXX'
+    'device_type': 'type-PCI'
+    'name':        'nv_h200'
+
