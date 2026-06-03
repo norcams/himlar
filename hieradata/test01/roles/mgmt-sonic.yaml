@@ -630,6 +630,7 @@ network::default_interfaces_hash:
       mtu: '1500'
       speed: '1000'
       subport: '0'
+      description: 'controller with oob'
     Ethernet45:
       admin_status: up
       alias: Eth46/1
@@ -641,6 +642,7 @@ network::default_interfaces_hash:
       mtu: '1500'
       speed: '1000'
       subport: '0'
+      description: 'controller with oob'
     Ethernet46:
       admin_status: up
       alias: Eth47/1
@@ -652,6 +654,7 @@ network::default_interfaces_hash:
       mtu: '1500'
       speed: '1000'
       subport: '0'
+      description: 'chassis oob'
     Ethernet47:
       admin_status: up
       alias: Eth48/1
@@ -663,6 +666,7 @@ network::default_interfaces_hash:
       mtu: '1500'
       speed: '1000'
       subport: '0'
+      description: 'uplink'
     Ethernet48:
       admin_status: up
       alias: Eth49/1
@@ -849,15 +853,15 @@ network::default_interfaces_hash:
       tagging_mode: untagged
     # trunk
     "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet44":
-      tagging_mode: tagged
+      tagging_mode: untagged
     "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet44":
       tagging_mode: tagged
     "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet45":
-      tagging_mode: tagged
+      tagging_mode: untagged
     "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet45":
       tagging_mode: tagged
-    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet46":
-      tagging_mode: tagged
+#    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet46":
+#      tagging_mode: tagged
     "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet46":
       tagging_mode: tagged
     "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet47":
