@@ -22,3 +22,11 @@ named_interfaces::config:
     - bond0
   live:
     - bond0.120
+
+# Trond libvirt test
+profile::openstack::compute::hypervisor::modular_libvirt: true
+
+nova::compute::libvirt::manage_libvirt_services:          false
+nova::compute::libvirt::modular_libvirt:                  true
+nova::compute::libvirt::services::modular_libvirt:        true
+nova::migration::libvirt::modular_libvirt:                true
