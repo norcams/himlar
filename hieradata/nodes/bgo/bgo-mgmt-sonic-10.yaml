@@ -1,7 +1,7 @@
 ---
 network::interfaces_hash:
   MGMT_INTERFACE:
-    "eth0|%{hiera('netcfg_mgmt_net_c2')}.1/%{hiera('netcfg_mgmt_cidr4')}":
+    "eth0|%{hiera('netcfg_mgmt_net_c2')}.10/%{hiera('netcfg_mgmt_cidr4')}":
       gwaddr: "%{hiera('netcfg_mgmt_gateway')}"
   MGMT_PORT:
     "eth0":
@@ -9,4 +9,4 @@ network::interfaces_hash:
       admin_status: "up"
   DEVICE_METADATA:
     "localhost":
-      mac: "06:de:ad:0a:00:01" # should not be same as eth0 and unique
+      mac: "06:de:ad:ab:00:10"

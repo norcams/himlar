@@ -9,4 +9,136 @@ network::interfaces_hash:
       admin_status: "up"
   DEVICE_METADATA:
     "localhost":
-      mac: "b4:db:91:f9:d8:28"
+      mac: "06:de:ad:ab:00:00"
+  VLAN_MEMBER:
+    # ib
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet0":
+      tagging_mode: untagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet1":
+      tagging_mode: untagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet2":
+      tagging_mode: untagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet3":
+      tagging_mode: untagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet4":
+      tagging_mode: untagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet5":
+      tagging_mode: untagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet6":
+      tagging_mode: untagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet7":
+      tagging_mode: untagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet8":
+      tagging_mode: untagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet9":
+      tagging_mode: untagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet10":
+      tagging_mode: untagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet11":
+      tagging_mode: untagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet12":
+      tagging_mode: untagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet13":
+      tagging_mode: untagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet14":
+      tagging_mode: untagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet15":
+      tagging_mode: untagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet16":
+      tagging_mode: untagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet17":
+      tagging_mode: untagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet18":
+      tagging_mode: untagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet19":
+      tagging_mode: untagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet20":
+      tagging_mode: untagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet21":
+      tagging_mode: untagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet22":
+      tagging_mode: untagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet23":
+      tagging_mode: untagged
+    # oob
+    "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet24":
+      tagging_mode: untagged
+    "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet25":
+      tagging_mode: untagged
+    "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet26":
+      tagging_mode: untagged
+    "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet27":
+      tagging_mode: untagged
+    "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet28":
+      tagging_mode: untagged
+    "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet29":
+      tagging_mode: untagged
+    "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet30":
+      tagging_mode: untagged
+    "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet31":
+      tagging_mode: untagged
+    # downlink trunk
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet32":
+      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet32":
+      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet33":
+      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet33":
+      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet34":
+      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet34":
+      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet35":
+      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet35":
+      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet36":
+      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet36":
+      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet37":
+      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet37":
+      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet38":
+      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet38":
+      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet39":
+      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet39":
+      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet40":
+      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet40":
+      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet41":
+      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet41":
+      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet42":
+      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet42":
+      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet43":
+      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet43":
+      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet44":
+      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet44":
+      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet45":
+      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet45":
+      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet46":
+      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet46":
+      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet47":
+      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet47":
+      tagging_mode: tagged
