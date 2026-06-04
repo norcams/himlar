@@ -105,9 +105,9 @@ profile::storage::cephosd::osds:
     wal_device: false
     db_device:  false
     disable_writecache: true
-#  '/dev/sdp': uncomment when new disk is installed
-#    wal_device: false
-#    db_device:  false
+  '/dev/sdp':
+    wal_device: false
+    db_device:  false
   '/dev/vg_nvme1/lv_nvmeosd':
     wal_device: false
     db_device:  false
