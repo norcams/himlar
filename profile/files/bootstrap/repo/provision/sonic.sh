@@ -12,14 +12,17 @@ echo 'set mouse -=a' >> /root/.vimrc
 # Set time
 release=$(cat /etc/debian_version | awk -F'.' '{ print $1 }')
 if [ "${release}" -eq 12 ]; then # bookworm
-  # ntpdate installed
-  ntpdate ntp.uio.no
+  # chrony installed
+  systemctl stop chronyd
+  chronyd -q 'server ntp.uio.no iburst'
+  /usr/sbin/hwclock --systohc
+  systemctl start chronyd
 else
   systemctl stop ntp
   ntpd -qg ntp.uio.no
+  /usr/sbin/hwclock --systohc
   systemctl start ntp
 fi
-/usr/sbin/hwclock --systohc
 
 apt-get update
 apt-get install -y lsb-release wget mlocate apt-utils locales-all
