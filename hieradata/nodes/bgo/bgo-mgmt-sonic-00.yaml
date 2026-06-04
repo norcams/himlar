@@ -117,7 +117,7 @@ network::interfaces_hash:
     "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet41":
       tagging_mode: tagged
     "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet41":
-      tagging_mode: taggedi
+      tagging_mode: tagged
     "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet42":
       tagging_mode: tagged
     "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet42":
