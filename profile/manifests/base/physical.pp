@@ -115,10 +115,18 @@ class profile::base::physical (
       content => "install ${load_ahci_first_scsidrv} /sbin/modprobe ahci; /sbin/modprobe --ignore-install ${load_ahci_first_scsidrv}\n",
       notify  => Exec['rebuild initramfs_first']
     }
-    exec { 'rebuild initramfs_first':
-      command     => 'dracut -f --kver $(rpm -qa kernel | sort -V -r | head -n 1 | sed \'s|kernel-||\')',
-      path        => '/sbin:/usr/bin:/usr/sbin',
-      refreshonly => true
+    if $facts['os']['family'] == 'Debian' {
+      exec { 'rebuild initramfs_first':
+        command     => 'update-initramfs -u',
+        path        => '/sbin:/usr/bin:/usr/sbin',
+        refreshonly => true
+      }
+    } else {
+      exec { 'rebuild initramfs_first':
+        command     => 'dracut -f --kver $(rpm -qa kernel | sort -V -r | head -n 1 | sed \'s|kernel-||\')',
+        path        => '/sbin:/usr/bin:/usr/sbin',
+        refreshonly => true
+      }
     }
   }
 
@@ -129,10 +137,18 @@ class profile::base::physical (
       content => "install ahci /sbin/modprobe ${load_ahci_last_scsidrv}; /sbin/modprobe --ignore-install ahci\n",
       notify  => Exec['rebuild initramfs_last']
     }
-    exec { 'rebuild initramfs_last':
-      command     => 'dracut -f --kver $(rpm -qa kernel | sort -V -r | head -n 1 | sed \'s|kernel-||\')',
-      path        => '/sbin:/usr/bin:/usr/sbin',
-      refreshonly => true
+    if $facts['os']['family'] == 'Debian' {
+      exec { 'rebuild initramfs_last':
+        command     => 'update-initramfs -u',
+        path        => '/sbin:/usr/bin:/usr/sbin',
+        refreshonly => true
+      }
+    } else {
+      exec { 'rebuild initramfs_last':
+        command     => 'dracut -f --kver $(rpm -qa kernel | sort -V -r | head -n 1 | sed \'s|kernel-||\')',
+        path        => '/sbin:/usr/bin:/usr/sbin',
+        refreshonly => true
+      }
     }
   }
 
