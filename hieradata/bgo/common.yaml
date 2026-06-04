@@ -383,6 +383,8 @@ profile::network::services::dns_records:
     "%{::location}-mgmt-opx-07.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.7"
     "%{::location}-mgmt-opx-08.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.8"
     "%{::location}-mgmt-opx-09.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.9"
+    "%{::location}-mgmt-sonic-10.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_net_c2')}.10"
+    "%{::location}-mgmt-sonic-11.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_net_c2')}.11"
 
     # Management network (entries that differ from common/common.yaml)
     "%{::location}-login-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_netpart')}.10"
