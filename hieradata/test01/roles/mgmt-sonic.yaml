@@ -860,8 +860,8 @@ network::default_interfaces_hash:
       tagging_mode: untagged
     "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet45":
       tagging_mode: tagged
-#    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet46":
-#      tagging_mode: tagged
+    "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet46":
+      tagging_mode: tagged
     "Vlan%{hiera('netcfg_oob_vlan')}|Ethernet46":
       tagging_mode: tagged
     "Vlan%{hiera('netcfg_ib_vlan')}|Ethernet47":
