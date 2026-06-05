@@ -217,6 +217,38 @@ profile::base::network::cumulus_bonds:
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', '130', ]
     'mtu': '9216'
+  'host21':
+    'slaves': [ 'swp6s0', ]
+    'clag_id': '21'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host22':
+    'slaves': [ 'swp6s1', ]
+    'clag_id': '22'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host23':
+    'slaves': [ 'swp6s2', ]
+    'clag_id': '23'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host24':
+    'slaves': [ 'swp6s3', ]
+    'clag_id': '24'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
   'host49':
     'slaves': [ 'swp13s0', ]
     'clag_id': '49'
@@ -714,6 +746,9 @@ profile::base::network::cumulus_bridges:
       - host18
       - host19
       - host20
+      - host21
+      - host22
+      - host23
       - host49
       - host50
       - host51
@@ -801,6 +836,14 @@ frrouting::frrouting::zebra_interfaces:
   'host19':
     - 'link-detect'
   'host20':
+    - 'link-detect'
+  'host21':
+    - 'link-detect'
+  'host22':
+    - 'link-detect'
+  'host23':
+    - 'link-detect'
+  'host24':
     - 'link-detect'
   'host49':
     - 'link-detect'
