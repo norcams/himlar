@@ -20,10 +20,10 @@ named_interfaces::config:
     - bond0.120
 
 profile::base::lvm::physical_volume:
-  '/dev/nvm0n1':
+  '/dev/nvm0n1p4':
     ensure: present
     force:  true
 profile::base::lvm::volume_group:
   'vg_ext':
     physical_volumes:
-      - /dev/nvm0n1
+      - /dev/nvm0n1p4
