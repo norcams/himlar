@@ -1,0 +1,17 @@
+---
+
+profile::base::network::cumulus_interfaces:
+  'eth0':
+    'ipv4': "%{hiera('netcfg_mgmt_net_c0')}.7/21"
+    'gateway': "%{hiera('netcfg_mgmt_gateway')}"
+    'vrf': 'mgmt'
+  'mgmt':
+    'ipv4': '127.0.0.1/8'
+    'vrf_table': 'auto'
+  'peerlink.4094':
+    'ipv4': [ '172.18.227.7/24', ]
+    'ipv6': [ 'fd00:18:227::7/64', ]
+    'clagd_enable': true
+    'clagd_peer_ip': 'linklocal'
+    'clagd_backup_ip': "%{hiera('netcfg_trp_net_c0')}.8"
+    'clagd_sys_mac': '44:38:39:ff:bb:ad'

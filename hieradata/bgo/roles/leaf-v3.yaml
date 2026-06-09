@@ -1,0 +1,270 @@
+---
+include:
+  default:
+    - profile::network::leaf
+    - profile::base::common
+    - profile::base::cl_limits
+    - profile::monitoring::collectd
+  bootstrap:
+    - profile::base::common
+
+named_interfaces::config:
+  mgmt:
+    - eth0
+  trp:
+    - bridge.100
+
+profile::base::common::classes:
+  - puppet
+  - openstack_extras::repo::debian::debian
+
+profile::base::common::manage_ntp:     false
+profile::base::common::manage_chrony:  true
+chrony::service_name: 'chrony@mgmt'
+
+profile::base::common::manage_keyboard:           false
+profile::base::common::include_virtual:           false
+profile::base::common::include_physical:          false
+profile::base::common::manage_yumrepo:            false
+profile::base::common::disable_firewalld:         false
+profile::base::firewall::manage_firewall:         false
+profile::base::network::net_ifnames:              false
+profile::network::leaf::manage_quagga:            false
+profile::network::leaf::manage_frrouting:         true
+profile::network::leaf::manage_acls:              true
+profile::network::leaf::manage_portconfig:        true
+profile::base::network::cumulus_ifs:              true
+network::config_file_per_interface:               true
+profile::logging::logrotate::manage_logrotate:    false
+profile::base::cl_limits::manage_cl_limits:       true
+profile::base::cl_limits::as_value:               2097152
+
+# sensu
+# FIXME:sensu-go
+profile::network::leaf::manage_sensu_script:          true
+profile::monitoring::sensu::agent::enable_go_agent:   true
+profile::monitoring::sensu::agent::enable_agent:      false
+profile::monitoring::sensu::agent::run_in_vrf:        true
+profile::monitoring::sensu::agent::namespaces:
+  "%{hiera('sensu_namespace')}": {}
+
+# collectd
+profile::monitoring::telegraf::enable_telegraf: true # endpoint for collectd
+profile::monitoring::telegraf::run_in_vrf: true
+profile::monitoring::collectd::enable: true
+profile::monitoring::collectd::merge_strategy: 'first'
+profile::monitoring::collectd::plugins:
+   - collectd::plugin::interface
+   - collectd::plugin::network
+   - collectd::plugin::write_graphite #FIXME:remove with el8 monitor
+
+# The upstream collectd module does not allow setting the service name
+collectd::service_ensure: stopped
+collectd::service_enable: false
+profile::monitoring::collectd::manage_service: true
+profile::monitoring::collectd::service_name:   'collectd@mgmt'
+
+# ntp service managed by profile because of mgmt VRF
+ntp::service_enable: false
+ntp::service_ensure: 'stopped'
+ntp::interfaces: [ 'eth0' ]
+
+
+frrouting::zebra:                 true
+frrouting::bgpd:                  true
+frrouting::pbrd:                  true
+frrouting::single_config_file:    true
+frrouting::frrouting::hostname:   'cumulus-test'
+frrouting::frrouting::password:   'pass123'
+frrouting::frrouting::bgp_as:     "%{hiera('bgp_as')}"
+
+profile::network::leaf::acls:
+  '02control_plane_custom.rules':
+    rule_vars:
+      - "INGRESS_CHAIN = INPUT"
+      - "INGRESS_INTF = swp+"
+      - "FORWARD_CHAIN = FORWARD"
+    iptables:
+      - "-A $INGRESS_CHAIN -s %{hiera('netcfg_mgmt_netpart')}.0/%{hiera('netcfg_mgmt_netmask')} -p tcp --dport 19999 -j ACCEPT"
+      - "-A $INGRESS_CHAIN -p tcp --dport 19999 -j DROP"
+      - "-A $INGRESS_CHAIN -s %{hiera('netcfg_trp_netpart')}.0/%{hiera('netcfg_trp_netmask')} -p tcp --dport 179 -j ACCEPT"
+      - "-A $INGRESS_CHAIN -p tcp --dport 179 -j DROP"
+      - "-A $INGRESS_CHAIN -s %{hiera('netcfg_mgmt_netpart')}.0/%{hiera('netcfg_mgmt_netmask')} -p tcp --dport 22 -j ACCEPT"
+      - "-A $INGRESS_CHAIN -s %{hiera('netcfg_trp_netpart')}.0/%{hiera('netcfg_trp_netmask')} -p tcp --dport 22 -j ACCEPT"
+      - "-A $INGRESS_CHAIN -p tcp --dport 22 -j DROP"
+      - "-A $FORWARD_CHAIN -s 158.37.43.0/28 -d 192.168.224.0/24 -j ACCEPT"
+      - "-A $FORWARD_CHAIN -s 158.37.64.0/24 -d 192.168.224.0/24 -j ACCEPT"
+      - "-A $FORWARD_CHAIN -d 192.168.224.0/24 -j DROP"
+    ip6tables:
+      - "-A $INGRESS_CHAIN --in-interface $INGRESS_INTF -s %{hiera('netcfg_trp_netpart6')}::/%{hiera('netcfg_trp_netmask6')} -p tcp -m multiport --dports 22,179 -j ACCEPT"
+      - "-A $INGRESS_CHAIN --in-interface $INGRESS_INTF -p tcp  -m multiport --dports 22,179 -j DROP"
+
+accounts::groups:
+  'wheel':
+    ensure: 'present'
+
+openstack_extras::repo::debian::debian::package_require: true
+openstack_extras::repo::debian::debian::manage_uca: false
+openstack_extras::repo::debian::debian::manage_whz: false
+openstack_extras::repo::debian::debian::manage_deb: false
+openstack_extras::repo::debian::debian::source_hash:
+  'buster':
+    'location': 'https://archive.debian.org/debian'
+    'repos':    'main'
+  'nrec':
+    'location': 'https://download.iaas.uio.no/nrec/aptrepo/'
+    'repos':    'main'
+    'release':  'buster'
+    'allow_unsigned': true
+
+profile::base::common::packages:
+  'vim-enhanced': { 'ensure': 'absent', }
+  'bind-utils': { 'ensure': 'absent', }
+  'yum-utils': { 'ensure': 'absent', }
+  'libaugeas-ruby1.9.1': { 'ensure': 'absent', }
+  'cl-mgmtvrf': { 'ensure': 'absent', }
+  'sysstat': {} # needed for sensu network plugin
+  'augeas-tools': {}
+
+sudo::configs:
+  sensu:
+    content:
+      - '# sensu needs to run vtysh'
+      - 'sensu ALL = NOPASSWD: /usr/bin/vtysh'
+  snmp:
+    content:
+      - '# SNMP needs access to the bcmcmd to serve up some of the MIBs.'
+      - 'snmp ALL = NOPASSWD: /usr/lib/cumulus/bcmcmd'
+      - 'snmp ALL = NOPASSWD: /usr/cumulus/bin/cl-resource-query'
+      - 'snmp ALL=(root) NOPASSWD: /sbin/ethtool -S *'
+      - 'snmp ALL=(root) NOPASSWD: /sbin/ip'
+
+profile::base::network::cumulus_interfaces:
+  'lo':
+    'addr_method': 'loopback'
+
+profile::base::network::cumulus_bonds:
+  'peerlink':
+    'slaves': [ 'swp31-32', ]
+    'mtu':   '9216'
+  'host61':
+    'slaves': [ 'swp16s0', ]
+    'clag_id': '61'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host62':
+    'slaves': [ 'swp16s1', ]
+    'clag_id': '62'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host63':
+    'slaves': [ 'swp16s2', ]
+    'clag_id': '63'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host64':
+    'slaves': [ 'swp16s3', ]
+    'clag_id': '64'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'uplink':
+    'slaves': [ 'swp30', ]
+    'clag_id': '1005'
+    'pvid': '100'
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+
+# Edgecore as7726 needs explicit config
+profile::network::leaf::cumulus_portconfigs:
+  1:
+    line:  "1=4x25G"
+  2:
+    line:  "2=4x25G"
+  3:
+    line:  "3=4x25G"
+  5:
+    line:  "5=4x25G"
+  6:
+    line:  "6=4x25G"
+  7:
+    line:  "7=4x25G"
+  8:
+    line:  "8=4x25G"
+  9:
+    line:  "9=4x25G"
+  10:
+    line:  "10=4x25G"
+  11:
+    line:  "11=4x25G"
+  12:
+    line:  "12=4x25G"
+  13:
+    line:  "13=4x25G"
+  14:
+    line:  "14=4x25G"
+  15:
+    line:  "15=4x25G"
+  16:
+    line:  "16=4x25G"
+  17:
+    line:  "17=4x25G"
+  18:
+    line:  "18=4x25G"
+  19:
+    line:  "19=4x25G"
+  20:
+    line:  "20=4x25G"
+  21:
+    line:  "21=4x25G"
+  22:
+    line:  "22=4x25G"
+  23:
+    line:  "23=4x25G"
+  24:
+    line:  "24=4x25G"
+  25:
+    line:  "25=4x25G"
+  30:
+    line:  "30=100G" # spine 01-02
+  31:
+    line:  "31=100G" # peerlink
+  32:
+    line:  "32=100G" # peerlink
+
+profile::base::network::cumulus_bridges:
+  'bridge':
+    'ports':
+      - host61
+      - host62
+      - peerlink
+      - uplink
+    'alias_name': 'Transport L2 if'
+    'vlan_aware': 'true'
+    'stp': 'true'
+    'vids': [ '100', '110', '120', '130', '300', ]
+    'mtu': '9216'
+
+frrouting::frrouting::zebra_interfaces:
+  'bridge':
+    - 'link-detect'
+    - 'description linux-bridge'
+#  'bridge.100':
+#    - 'link-detect'
+#    - 'description linux-bridge-100'
+#    - 'pbr-policy lhc'
+  'host61':
+    - 'link-detect'
+  'host62':
+    - 'link-detect'
