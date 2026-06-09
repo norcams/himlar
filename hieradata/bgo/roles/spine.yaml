@@ -200,7 +200,7 @@ profile::network::leaf::cumulus_portconfigs:
   15:
     line:  "15=4x25G"
   16:
-    line:  "16=4x25G"
+    line:  "16=100G" # leaf-07-08
   17:
     line:  "17=4x25G"
   18:
@@ -280,6 +280,12 @@ profile::base::network::cumulus_bonds:
   'downlinkl0506':
     'slaves': [ 'swp29-30', ]
     'clag_id': '1004'
+    'pvid': '100'
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'downlinkl0708':
+    'slaves': [ 'swp16', ]
+    'clag_id': '1005'
     'pvid': '100'
     'vids': [ '100', '110', '120', '130', ]
     'mtu': '9216'
@@ -739,38 +745,6 @@ profile::base::network::cumulus_bonds:
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', '130', ]
     'mtu': '9216'
-  'host61':
-    'slaves': [ 'swp16s0', ]
-    'clag_id': '61'
-    'pvid': '100'
-    'mstpctl_portadminedge': true
-    'mstpctl_bpduguard': true
-    'vids': [ '100', '110', '120', '130', ]
-    'mtu': '9216'
-  'host62':
-    'slaves': [ 'swp16s1', ]
-    'clag_id': '62'
-    'pvid': '100'
-    'mstpctl_portadminedge': true
-    'mstpctl_bpduguard': true
-    'vids': [ '100', '110', '120', '130', ]
-    'mtu': '9216'
-  'host63':
-    'slaves': [ 'swp16s2', ]
-    'clag_id': '63'
-    'pvid': '100'
-    'mstpctl_portadminedge': true
-    'mstpctl_bpduguard': true
-    'vids': [ '100', '110', '120', '130', ]
-    'mtu': '9216'
-  'host64':
-    'slaves': [ 'swp16s3', ]
-    'clag_id': '64'
-    'pvid': '100'
-    'mstpctl_portadminedge': true
-    'mstpctl_bpduguard': true
-    'vids': [ '100', '110', '120', '130', ]
-    'mtu': '9216'
   'host65':
     'slaves': [ 'swp17s0', ]
     'clag_id': '65'
@@ -1040,10 +1014,6 @@ profile::base::network::cumulus_bridges:
       - host58
       - host59
       - host60
-      - host61
-      - host62
-      - host63
-      - host64
       - host65
       - host66
       - host67
@@ -1074,6 +1044,7 @@ profile::base::network::cumulus_bridges:
       - downlinkl0102
       - downlinkl0304
       - downlinkl0506
+      - downlinkl0708
       - uib_dc
     'alias_name': 'Transport L2 if'
     'vlan_aware': 'true'
