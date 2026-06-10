@@ -29,8 +29,6 @@ profile::base::common::manage_yumrepo:            false
 profile::base::common::disable_firewalld:         false
 profile::base::firewall::manage_firewall:         false
 profile::base::network::net_ifnames:              false
-profile::network::leaf::manage_quagga:            false
-profile::network::leaf::manage_frrouting:         true
 profile::network::leaf::manage_acls:              true
 profile::network::leaf::manage_portconfig:        true
 profile::base::network::cumulus_ifs:              true
@@ -68,15 +66,6 @@ profile::monitoring::collectd::service_name:   'collectd@mgmt'
 ntp::service_enable: false
 ntp::service_ensure: 'stopped'
 ntp::interfaces: [ 'eth0' ]
-
-
-frrouting::zebra:                 true
-frrouting::bgpd:                  true
-frrouting::pbrd:                  true
-frrouting::single_config_file:    true
-frrouting::frrouting::hostname:   'cumulus-test'
-frrouting::frrouting::password:   'pass123'
-frrouting::frrouting::bgp_as:     "%{hiera('bgp_as')}"
 
 profile::network::leaf::acls:
   '02control_plane_custom.rules':
@@ -179,12 +168,12 @@ profile::base::network::cumulus_bonds:
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', '130', ]
     'mtu': '9216'
-  'uplink':
-    'slaves': [ 'swp30', ]
-    'clag_id': '1005'
-    'pvid': '100'
-    'vids': [ '100', '110', '120', '130', ]
-    'mtu': '9216'
+  # 'uplink':
+  #   'slaves': [ 'swp30', ]
+  #   'clag_id': '1005'
+  #   'pvid': '100'
+  #   'vids': [ '100', '110', '120', '130', ]
+  #   'mtu': '9216'
 
 # Edgecore as7726 needs explicit config
 profile::network::leaf::cumulus_portconfigs:
@@ -255,16 +244,3 @@ profile::base::network::cumulus_bridges:
     'stp': 'true'
     'vids': [ '100', '110', '120', '130', '300', ]
     'mtu': '9216'
-
-frrouting::frrouting::zebra_interfaces:
-  'bridge':
-    - 'link-detect'
-    - 'description linux-bridge'
-#  'bridge.100':
-#    - 'link-detect'
-#    - 'description linux-bridge-100'
-#    - 'pbr-policy lhc'
-  'host61':
-    - 'link-detect'
-  'host62':
-    - 'link-detect'
