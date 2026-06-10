@@ -1,0 +1,143 @@
+---
+# NVIDIA 
+include:
+  kickstart:
+    - profile::openstack::compute::pci_passthrough
+  default:
+    - profile::openstack::compute::pci_passthrough
+
+
+profile::base::network::nm_network_auto_bonding:
+  trp:
+    p2817p1:
+      ethernet:
+        'mtu': '9000' # the MTU size must be set also on the slave interfaces
+    p2817p2:
+      ethernet:
+        'mtu': '9000'
+
+#FIXME:el9 move to common after all computes are el9 with zed
+openstack_version: "zed"
+named_interfaces::config:
+  mgmt:
+  - p1793p1
+  trp:
+  - bond0
+  live:
+  - bond0.120
+
+
+## Sensu 
+sensu::agent::subscriptions:
+  - 'base'
+  - 'metrics'
+  - 'compute'
+  - 'physical'
+
+
+# Enable extra yum repo vGPU drivers
+profile::base::yumrepo::repo_hash:
+  nrec-nonfree:
+    ensure: present
+
+
+
+## Custom Sensu checks FIXME:sensu-go
+# profile::monitoring::sensu::agent::checks:
+#   'num-gpus-check':
+#     command:      "/usr/local/bin/check_number_of_gpus.sh"
+#     interval:     60
+#     subscribers:  ['checks']
+#   'metrics-nvidia':
+#     type:         'metric'
+#     command:      'metrics-nvidia.rb --scheme nvidia.%{::hostname}'
+#     interval:     60
+#     subscribers:  ['metrics']
+#     handlers:     ['graphite_tcp']
+
+profile::base::lvm::physical_volume:
+  '/dev/sda4':
+    ensure: present
+    force:  true
+  '/dev/sdb':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_instances':
+    physical_volumes:
+      - /dev/sdb
+  'vg_ext':
+    physical_volumes:
+      - /dev/sda4
+profile::base::lvm::logical_volume:
+  'lv_instances':
+    volume_group: 'vg_instances'
+    fs_type:      "xfs"
+    mountpath:    "/var/lib/nova/instances"
+
+
+profile::base::common::packages:
+  'wget': {}
+  'kernel-devel': {}
+  'kernel-headers': {}
+  'unzip': {}
+ 
+
+# This is currently a singel instance setup
+nova::scheduler::filter::max_instances_per_host: '1'
+
+#yum_base_mirror:    'https://download.iaas.uio.no/uh-iaas/vgpu'
+
+# remove when telemetry/ceilometer is up in all environments and move to common
+profile::openstack::compute::manage_telemetry: true
+
+
+# ## Not sure we need this, ref. line 121-123 ##
+# kmod::list_of_blacklists:
+# #  'nouveau': {}
+# #kmod::list_of_installs:
+# #  'nouveau':
+# #    command: '/bin/false'
+# kmod::list_of_options:
+#   'nouveau modeset':
+#     module: 'nouveau'
+#     option: 'modeset'
+#     value: '0'
+
+# profile::base::physical::blacklist_drv: true
+# profile::base::physical::blacklist_drv_list:
+#   'nouveau': {}
+
+
+## GPU ##
+
+profile::openstack::compute::pci_passthrough::configure_amd_iommu: true
+profile::openstack::compute::pci_passthrough::manage_pcipassthrough: true
+profile::openstack::compute::pci_passthrough::manage_pci_whitelist:  true
+profile::openstack::compute::pci_passthrough::report_in_placement:  false
+# 
+
+# Nova overrides
+nova::compute::libvirt::cpu_mode:   'custom'
+nova::compute::libvirt::cpu_models: ['EPYC-Genoa']
+nova::cpu_allocation_ratio:         '1'
+nova::disk_allocation_ratio:        '1'
+nova::ram_allocation_ratio:         '1'
+# Nova PCI passthrough
+nova::compute::pci::passthrough:
+  - 'vendor_id':  '10de'
+    'product_id': '233b'
+nova::pci::aliases:
+  - 'vendor_id':   '10de'
+    'product_id':  '233b'
+    'device_type': 'type-PCI'
+    'name':        'h200nvl'
+
+# These compute host uses local storage for instances
+nova::compute::rbd::ephemeral_storage: false
+nova::compute::libvirt::images_type: 'default'
+
+# Configuration items not explicitly supported by the Puppet module
+nova::config::nova_config:
+  DEFAULT/metadata_workers:
+    value: '2'
