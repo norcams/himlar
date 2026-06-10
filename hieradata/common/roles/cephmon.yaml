@@ -154,9 +154,9 @@ profile::base::yumrepo::repo_hash:
 profile::logging::logrotate::rules:
   ceph:
     path:           '/var/log/ceph/*.log'
-    rotate:         7
+    rotate:         5
     rotate_every:   'hour'
-    size:           250M
+    size:           200M
     postrotate:     'killall -q -1 ceph-mon ceph-mgr ceph-mds ceph-osd ceph-fuse radosgw rbd-mirror cephfs-mirror || pkill -1 -x "ceph-mon|ceph-mgr|ceph-mds|ceph-osd|ceph-fuse|radosgw|rbd-mirror|cephfs-mirror" || true'
     sharedscripts:  true
     missingok:      true
