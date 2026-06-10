@@ -1,5 +1,4 @@
 ---
-
 profile::base::network::cumulus_interfaces:
   'eth0':
     'ipv4': "%{hiera('netcfg_mgmt_net_c0')}.8/21"
@@ -8,6 +7,11 @@ profile::base::network::cumulus_interfaces:
   'mgmt':
     'ipv4': '127.0.0.1/8'
     'vrf_table': 'auto'
+  'bridge.100':
+    'ipv4': [ "%{hiera('netcfg_trp_net_c0')}.8/21", ]
+    'ipv6': [ 'fd00::8/64', ]
+    'virtual_ip': "%{hiera('netcfg_trp_net_c6')}.6/21 fd00::706/64"
+    'virtual_mac': '00:00:5e:00:02:07'
   'peerlink.4094':
     'ipv4': [ '172.18.227.8/24', ]
     'ipv6': [ 'fd00:18:227::8/64', ]
