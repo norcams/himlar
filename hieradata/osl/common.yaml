@@ -181,7 +181,7 @@ profile::network::services::dns_records:
     "%{::location}-compute-vgpu-19.%{hiera('domain_mgmt')}": "%{::location}-compute-19.%{hiera('domain_mgmt')}"
     "%{::location}-compute-vgpu-20.%{hiera('domain_mgmt')}": "%{::location}-compute-20.%{hiera('domain_mgmt')}"
     "%{::location}-compute-vgpu-42.%{hiera('domain_mgmt')}": "%{::location}-compute-42.%{hiera('domain_mgmt')}"
-    "%{::location}-compute-l40s-67.%{hiera('domain_mgmt')}": "%{::location}-compute-67.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-l40s-067.%{hiera('domain_mgmt')}": "%{::location}-compute-67.%{hiera('domain_mgmt')}"
     "%{::location}-compute-l40s-068.%{hiera('domain_mgmt')}": "%{::location}-compute-68.%{hiera('domain_mgmt')}"
     # General compute (temporary wrt. el9)
     "%{::location}-compute-010.%{hiera('domain_mgmt')}":     "%{::location}-compute-10.%{hiera('domain_mgmt')}"
