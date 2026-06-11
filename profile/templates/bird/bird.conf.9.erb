@@ -67,10 +67,10 @@ filter import_kernel6 {
 }
 
 filter import_bgp6 {
-  if  net != ::/0 then {
-    if net !=<%= scope().call_function('hiera',['netcfg_anycast_dns6']) %>/128 then {
+  prefix netcfg_anycast_dns6 = <%= scope().call_function('hiera',['netcfg_anycast_dns6']) %>/128;
+  if dest = RTD_UNREACHABLE then { reject; }
+  if net != ::/0 && net != netcfg_anycast_dns6 then {
       accept;
-    }
   }
   reject;
 }
