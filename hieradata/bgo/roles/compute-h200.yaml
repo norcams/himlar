@@ -92,18 +92,7 @@ nova::scheduler::filter::max_instances_per_host: '1'
 profile::openstack::compute::manage_telemetry: true
 
 
-## Blacklist nouveau  ##
-kmod::list_of_blacklists:
-#  'nouveau': {}
-#kmod::list_of_installs:
-#  'nouveau':
-#    command: '/bin/false'
-kmod::list_of_options:
-  'nouveau modeset':
-    module: 'nouveau'
-    option: 'modeset'
-    value: '0'
-
+# Kmod blacklist
 profile::base::physical::blacklist_drv: true
 profile::base::physical::blacklist_drv_list:
   'nouveau': {}
