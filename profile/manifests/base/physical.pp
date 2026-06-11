@@ -6,6 +6,8 @@ class profile::base::physical (
   $hugepages                   = '245760',
   $enable_isolcpus             = false,
   $isolcpus                    = [],
+  $enable_vfio_pci = false,
+  $vfio_pci_ids    = undef,   # e.g. '10de:233b'
   $blacklist_drv               = false,
   $blacklist_drv_list          = undef,
   $disable_intel_cstates       = false,
@@ -149,6 +151,27 @@ class profile::base::physical (
         path        => '/sbin:/usr/bin:/usr/sbin',
         refreshonly => true
       }
+    }
+  }
+
+  # to ensure pci devices bind vfio_pci at boot. This use case is the H200 pci passthrough 
+  if $enable_vfio_pci {
+    file { '/etc/modprobe.d/vfio.conf':
+      ensure  => file,
+      content => "options vfio-pci ids=${vfio_pci_ids}\n",
+      notify  => Exec['rebuild initramfs_vfio'],
+    }
+
+    file { '/etc/dracut.conf.d/vfio.conf':
+      ensure  => file,
+      content => "add_drivers+=\" vfio vfio_iommu_type1 vfio-pci \"\n",
+      notify  => Exec['rebuild initramfs_vfio'],
+    }
+
+    exec { 'rebuild initramfs_vfio':
+      command     => 'dracut -f --kver $(rpm -qa kernel | sort -V -r | head -n 1 | sed \'s|kernel-||\')',
+      path        => '/sbin:/usr/bin:/usr/sbin',
+      refreshonly => true,
     }
   }
 
