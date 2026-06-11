@@ -32,3 +32,8 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_ext'
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
+  'lv_swap2':
+    volume_group: 'vg_ext'
+    fs_type:      xfs
+    size:         40G
+    mountpath:    "/var/lib/swap"
