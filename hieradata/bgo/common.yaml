@@ -144,6 +144,8 @@ profile::network::services::dns_records:
   CNAME:
     "%{::location}-leaf-05.%{hiera('domain_mgmt')}":            "%{::location}-leaf-v2-05.%{hiera('domain_mgmt')}"
     "%{::location}-leaf-06.%{hiera('domain_mgmt')}":            "%{::location}-leaf-v2-06.%{hiera('domain_mgmt')}"
+    "%{::location}-leaf-v3-07.%{hiera('domain_mgmt')}":         "%{::location}-leaf-07.%{hiera('domain_mgmt')}"
+    "%{::location}-leaf-v3-08.%{hiera('domain_mgmt')}":         "%{::location}-leaf-08.%{hiera('domain_mgmt')}"
     "%{::location}-compute-007.%{hiera('domain_mgmt')}":        "%{::location}-compute-07.%{hiera('domain_mgmt')}"
     "%{::location}-compute-008.%{hiera('domain_mgmt')}":        "%{::location}-compute-08.%{hiera('domain_mgmt')}"
     "%{::location}-compute-009.%{hiera('domain_mgmt')}":        "%{::location}-compute-09.%{hiera('domain_mgmt')}"
@@ -375,7 +377,7 @@ profile::network::services::dns_records:
 
     "resolver.%{hiera('domain_public')}":         '158.39.77.252'
 
-    # mgmt switchs needs A records to bootstrap
+    # switches with subrole needs A records to bootstrap
     "%{::location}-mgmt-sonic-00.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_net_c2')}.100"
     "%{::location}-mgmt-opx-01.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.1"
     "%{::location}-mgmt-opx-02.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.2"
@@ -388,6 +390,8 @@ profile::network::services::dns_records:
     "%{::location}-mgmt-opx-09.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c2')}.9"
     "%{::location}-mgmt-sonic-10.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_net_c2')}.10"
     "%{::location}-mgmt-sonic-11.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_net_c2')}.11"
+    "%{::location}-leaf-v3-07.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c6')}.7"
+    "%{::location}-leaf-v3-08.%{hiera('domain_mgmt')}":     "%{hiera('netcfg_mgmt_net_c6')}.8"
 
     # Management network (entries that differ from common/common.yaml)
     "%{::location}-login-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_netpart')}.10"

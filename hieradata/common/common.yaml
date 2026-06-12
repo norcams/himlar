@@ -585,6 +585,8 @@ profile::network::services::dns_records:
     "%{::location}-leaf-02.%{hiera('domain_mgmt')}":        "%{hiera('netcfg_mgmt_net_c3')}.2"
     "%{::location}-spine-01.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_mgmt_net_c6')}.1"
     "%{::location}-spine-02.%{hiera('domain_mgmt')}":       "%{hiera('netcfg_mgmt_net_c6')}.2"
+    "%{::location}-leaf-07.%{hiera('domain_mgmt')}":        "%{hiera('netcfg_mgmt_net_c6')}.7"
+    "%{::location}-leaf-08.%{hiera('domain_mgmt')}":        "%{hiera('netcfg_mgmt_net_c6')}.8"
     # mgmt nodes
     "foreman.%{hiera('domain_mgmt')}":                      "%{hiera('netcfg_mgmt_net_c0')}.11"
     "puppet.%{hiera('domain_mgmt')}":                       "%{hiera('netcfg_mgmt_net_c0')}.11"
@@ -871,3 +873,5 @@ profile::network::services::dns_records:
     "2.%{hiera('reverse_mgmt_c3')}":      "%{::location}-leaf-02.%{hiera('domain_mgmt')}"
     "1.%{hiera('reverse_mgmt_c6')}":      "%{::location}-spine-01.%{hiera('domain_mgmt')}"
     "2.%{hiera('reverse_mgmt_c6')}":      "%{::location}-spine-02.%{hiera('domain_mgmt')}"
+    "7.%{hiera('reverse_mgmt_c6')}":      "%{::location}-leaf-07.%{hiera('domain_mgmt')}"
+    "8.%{hiera('reverse_mgmt_c6')}":      "%{::location}-leaf-08.%{hiera('domain_mgmt')}"
