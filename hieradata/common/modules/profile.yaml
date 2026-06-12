@@ -90,6 +90,10 @@ profile::application::himlarcli::mq_vhost:               'himlarcli'
 profile::application::himlarcli::slack_webhook_url:      "%{hiera('himlarcli_slack_webhook')}"
 profile::application::himlarcli::slack_user:             'sensu'
 profile::application::himlarcli::slack_channel:          '#vakt'
+profile::application::himlarcli::slack_publish_token:        "%{hiera('himlarcli_slack_publish_token')}"
+profile::application::himlarcli::slack_publish_channel:      '#iaas'
+profile::application::himlarcli::slack_publish_test_token:   "%{hiera('himlarcli_slack_publish_test_token')}"
+profile::application::himlarcli::slack_publish_test_channel: '#test'
 profile::application::himlarcli::twitter_api_key:        "%{hiera('himlarcli_twitter_apikey')}"
 profile::application::himlarcli::twitter_api_secret_key: "%{hiera('himlarcli_twitter_secretkey')}"
 profile::application::himlarcli::twitter_access_token:   "%{hiera('himlarcli_twitter_accesstoken')}"
