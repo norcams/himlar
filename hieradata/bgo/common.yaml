@@ -144,8 +144,6 @@ profile::network::services::dns_records:
   CNAME:
     "%{::location}-leaf-05.%{hiera('domain_mgmt')}":            "%{::location}-leaf-v2-05.%{hiera('domain_mgmt')}"
     "%{::location}-leaf-06.%{hiera('domain_mgmt')}":            "%{::location}-leaf-v2-06.%{hiera('domain_mgmt')}"
-    "%{::location}-leaf-v3-07.%{hiera('domain_mgmt')}":         "%{::location}-leaf-07.%{hiera('domain_mgmt')}"
-    "%{::location}-leaf-v3-08.%{hiera('domain_mgmt')}":         "%{::location}-leaf-08.%{hiera('domain_mgmt')}"
     "%{::location}-compute-007.%{hiera('domain_mgmt')}":        "%{::location}-compute-07.%{hiera('domain_mgmt')}"
     "%{::location}-compute-008.%{hiera('domain_mgmt')}":        "%{::location}-compute-08.%{hiera('domain_mgmt')}"
     "%{::location}-compute-009.%{hiera('domain_mgmt')}":        "%{::location}-compute-09.%{hiera('domain_mgmt')}"

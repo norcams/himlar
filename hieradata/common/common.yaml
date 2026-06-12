@@ -873,5 +873,3 @@ profile::network::services::dns_records:
     "2.%{hiera('reverse_mgmt_c3')}":      "%{::location}-leaf-02.%{hiera('domain_mgmt')}"
     "1.%{hiera('reverse_mgmt_c6')}":      "%{::location}-spine-01.%{hiera('domain_mgmt')}"
     "2.%{hiera('reverse_mgmt_c6')}":      "%{::location}-spine-02.%{hiera('domain_mgmt')}"
-    "7.%{hiera('reverse_mgmt_c6')}":      "%{::location}-leaf-07.%{hiera('domain_mgmt')}"
-    "8.%{hiera('reverse_mgmt_c6')}":      "%{::location}-leaf-08.%{hiera('domain_mgmt')}"
