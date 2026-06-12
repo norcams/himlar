@@ -1,21 +1,21 @@
 ---
 profile::base::network::cumulus_interfaces:
   'eth0':
-    'ipv4': "%{hiera('netcfg_mgmt_net_c0')}.7/21"
+    'ipv4': "%{hiera('netcfg_mgmt_net_c6')}.7/21"
     'gateway': "%{hiera('netcfg_mgmt_gateway')}"
     'vrf': 'mgmt'
   'mgmt':
     'ipv4': '127.0.0.1/8'
     'vrf_table': 'auto'
   'bridge.100':
-    'ipv4': [ "%{hiera('netcfg_trp_net_c0')}.7/21", ]
-    'ipv6': [ 'fd00::7/64', ]
-    'virtual_ip': "%{hiera('netcfg_trp_net_c6')}.6/21 fd00::706/64"
-    'virtual_mac': '00:00:5e:00:02:07'
+    'ipv4': [ "%{hiera('netcfg_trp_net_c6')}.7/21", ]
+    'ipv6': [ 'fd00::6:7/64', ]
+    'virtual_ip': "%{hiera('netcfg_trp_net_c7')}.8/21 fd00::708/64"
+    'virtual_mac': '00:00:5e:00:07:08'
   'peerlink.4094':
-    'ipv4': [ '172.18.227.7/24', ]
-    'ipv6': [ 'fd00:18:227::7/64', ]
+    'ipv4': [ '172.18.231.7/24', ]
+    'ipv6': [ 'fd00:18:231::6:7/64', ]
     'clagd_enable': true
     'clagd_peer_ip': 'linklocal'
-    'clagd_backup_ip': "%{hiera('netcfg_trp_net_c0')}.8"
+    'clagd_backup_ip': "%{hiera('netcfg_trp_net_c6')}.8"
     'clagd_sys_mac': '44:38:39:ff:bb:ad'
