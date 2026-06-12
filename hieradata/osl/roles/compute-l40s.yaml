@@ -1,49 +1,33 @@
 ---
 # NVIDIA SR-IOV-based vGPU hosts need SR-IOV enabled and mdevs created
-# FIXME: profile::application::create_mdev is not needed for L40s, should be removed
-# (This one is needed: profile::openstack::compute::nvidia_vgpu_createmdev)
-# FIXME: remove profile::application::create_mdev
 include:
   kickstart:
     - profile::openstack::compute::pci_passthrough
   default:
     - nova::compute::mdev
-    - profile::application::create_mdev
     - profile::openstack::compute::pci_passthrough
     - profile::openstack::compute::nvidia_vgpu_createmdev
 
+#FIXME:el9 move to common after all computes are el9 with zed
+openstack_version: "zed"
+
+# Configure network
 named_interfaces::config:
   mgmt:
   - em1
   trp:
-  - team1
+  - bond0
   live:
-  - team1.120
+  - bond0.120
 
-profile::base::network::network_auto_bonding:
+profile::base::network::nm_network_auto_bonding:
   trp:
     p8p1:
-      'team_port_config': '{ "prio" : 100 }'
-      'mtu': '9000'
+      ethernet:
+        'mtu': '9000' # the MTU size must be set also on the slave interfaces
     p8p2:
-      'team_port_config': '{ "prio" : 100 }'
-      'mtu': '9000'
-
-profile::base::network::network_auto_opts:
-  mgmt:
-    'defroute': 'no'
-  trp:
-    'defroute': 'no'
-    'ipv6init': 'yes'
-    'devicetype': 'Team'
-    'mtu': '9000'
-    'team_config': >-
-                   { "runner" : {  "name" : "lacp",  "active": true, "fast_rate" : true,
-                   "tx_hash": ["eth", "ipv4", "ipv6"], "tx_balancer": { "name": "basic" } },
-                   "link_watch" : {  "name" : "ethtool" } }
-  live:
-    'defroute': 'no'
-
+      ethernet:
+        'mtu': '9000'
 
 # Enable extra yum repo vGPU drivers
 profile::base::yumrepo::repo_hash:
@@ -56,7 +40,7 @@ profile::base::selinux::semodules:
   sriov_manage:
     avc_file:   'sriov_manage.avc'
 
-
+# Configure storage
 profile::base::lvm::physical_volume:
   '/dev/nvme0n1p4':
     ensure: present
@@ -77,17 +61,15 @@ profile::base::lvm::logical_volume:
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
 
-
+# Install GPU driver
 profile::base::common::packages:
   'wget': {}
   'kernel-devel': {}
   'kernel-headers': {}
   'unzip': {}
-  'NVIDIA-vGPU-rhel': {
-#    source: 'http://repo.mgmt.bgo.uhdc.no/NVIDIA-vGPU-rhel-7.8-450.55.x86_64.rpm'
-  }
+  'NVIDIA-vGPU-rhel': {}
 
-
+# Configure GPU
 # NVIDIA L40S partitioned into 1x vGPUs, with CUDA support
 #
 # From "mdevctl types":
@@ -107,20 +89,10 @@ nova::scheduler::filter::max_instances_per_host: '8'
 # NVIDIA newer generation cards need SR-IOV
 profile::openstack::compute::pci_passthrough::configure_intel_iommu: true
 
-# Configuration values for the "create-mdev" service
-# FIXME: This service is not needed for L40s. Should be removed
-# FIXME: profile::application::create_mdev config not needed
-profile::application::create_mdev::enable:          true
-profile::application::create_mdev::nvidia_gpu_type: 'nvidia-1155'
-profile::application::create_mdev::trait:           'CUSTOM_NREC_VGPU_L40S_24G'
-
-#yum_base_mirror:    'https://download.iaas.uio.no/uh-iaas/vgpu'
-
-# remove when telemetry/ceilometer is up in all environments and move to common
+# FIXME: remove when telemetry/ceilometer is up in all environments and move to common
 profile::openstack::compute::manage_telemetry: true
 
-
-## Not sure we need this, ref. line 121-123 ##
+# Blacklist the open source GPU driver
 kmod::list_of_blacklists:
 #  'nouveau': {}
 #kmod::list_of_installs:
@@ -131,15 +103,19 @@ kmod::list_of_options:
     module: 'nouveau'
     option: 'modeset'
     value: '0'
-
 profile::base::physical::blacklist_drv: true
 profile::base::physical::blacklist_drv_list:
   'nouveau': {}
 
+# Configure CPU
+# FIXME: We want to have only SapphireRapids once all hodsts run EL9 and all VMs run on EL9 hosts
+nova::compute::libvirt::cpu_models: ['SapphireRapids','Broadwell-noTSX-IBRS']
+# Set extra cpu flags:
+# * -hle, -rtm: disable TSX for all cpu_models. Kernel has disabled TSX (hle and rtm) as a security mitigation for the TAA vulnerability
+# * vmx: Enable nested virtualization support
+nova::compute::libvirt::cpu_model_extra_flags: ['vmx', '-hle', '-rtm']
 
-nova::compute::libvirt::cpu_models: ['Broadwell-noTSX-IBRS']
-
-# These compute host uses local storage for instances
+# These compute hosts use local storage for instances
 nova::compute::rbd::ephemeral_storage: false
 nova::compute::libvirt::images_type: 'default'
 
