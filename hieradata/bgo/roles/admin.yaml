@@ -26,11 +26,11 @@ dhcp::hosts:
     mac: '3c:2c:30:49:27:80'
     ip:  "%{hiera('netcfg_mgmt_net_c6')}.2"
   bgo-leaf-v3-07:
-    mac: '94:ef:97:a0:11:6e'
+    mac: '94:ef:97:a3:c8:ea'
     ip:  "%{hiera('netcfg_mgmt_net_c6')}.7"
-  # bgo-leaf-v3-08:
-  #   mac: ''
-  #   ip:  "%{hiera('netcfg_mgmt_net_c6')}.8"
+  bgo-leaf-v3-08:
+    mac: '94:ef:97:a0:11:6e'
+    ip:  "%{hiera('netcfg_mgmt_net_c6')}.8"
   bgo-torack-01:
     mac: '68:4f:64:b2:3c:11'
     ip:  '172.16.0.1'
