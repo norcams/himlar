@@ -141,6 +141,10 @@ profile::application::foreman::dhcp_classes:
     parameters:
       - 'match if (substring(option vendor-class-identifier, 0, 19) = "onie_vendor:powerpc")'
       - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/images/cumuluslinux/onie-installer-powerpc\""
+  onie_edgecore_as7726:
+    parameters:
+      - 'match if (substring(option vendor-class-identifier, 0, 39) = "onie_vendor:x86_64-accton_as7726_32x-r0")'
+      - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/images/cumuluslinux/onie-installer-amd64\""
   onie_edgecore_as4610:
     parameters:
       - 'match if (substring(option vendor-class-identifier, 0, 35) = "onie_vendor:arm-accton_as4610_54-r0")'
