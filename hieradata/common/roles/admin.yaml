@@ -144,7 +144,7 @@ profile::application::foreman::dhcp_classes:
   onie_edgecore_as7726:
     parameters:
       - 'match if (substring(option vendor-class-identifier, 0, 39) = "onie_vendor:x86_64-accton_as7726_32x-r0")'
-      - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/images/cumuluslinux/onie-installer-amd64\""
+      - "option cumulus-provision-url \"http://repo.mgmt.%{location}.uhdc.no/provision/switch.sh\""
   onie_edgecore_as4610:
     parameters:
       - 'match if (substring(option vendor-class-identifier, 0, 35) = "onie_vendor:arm-accton_as4610_54-r0")'
