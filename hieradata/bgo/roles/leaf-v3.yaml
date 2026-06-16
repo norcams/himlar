@@ -2,11 +2,8 @@
 include:
   default:
     - profile::network::leaf
-    - profile::base::common
     - profile::base::cl_limits
     - profile::monitoring::collectd
-  bootstrap:
-    - profile::base::common
 
 named_interfaces::config:
   mgmt:
