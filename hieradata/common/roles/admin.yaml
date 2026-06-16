@@ -144,7 +144,7 @@ profile::application::foreman::dhcp_classes:
   onie_edgecore_as7726:
     parameters:
       - 'match if (substring(option vendor-class-identifier, 0, 39) = "onie_vendor:x86_64-accton_as7726_32x-r0")'
-      - "option cumulus-provision-url \"http://repo.mgmt.%{location}.uhdc.no/provision/switch.sh\""
+      - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/images/cumuluslinux/onie-installer-amd64\""
   onie_edgecore_as4610:
     parameters:
       - 'match if (substring(option vendor-class-identifier, 0, 35) = "onie_vendor:arm-accton_as4610_54-r0")'
@@ -157,7 +157,7 @@ profile::application::foreman::dhcp_classes:
     parameters:
       - 'match if (substring(option vendor-class-identifier, 0, 32) = "onie_vendor:x86_64-cel_ds1000-r0")'
       - "option default-url = \"http://%{hiera('mgmt__address__repo')}/images/sonic/sonic-broadcom-mgmt.bin\""
-  cumulus_s4810:
+  cumulus_provision:
     parameters:
       - 'match if (substring(option host-name,0,7) = "cumulus")'
       - "option cumulus-provision-url \"http://repo.mgmt.%{location}.uhdc.no/provision/switch.sh\""
