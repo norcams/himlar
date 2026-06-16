@@ -118,11 +118,11 @@ openstack_extras::repo::debian::debian::source_hash:
       'source': 'https://repos.influxdata.com/influxdata-archive.key'
   'cumulus-linux':
     'location:  'https://download.nvidia.com/cumulus/apt.cumulusnetworks.com/repo/'
-    'release':  'CumulusLinux-4-latest'
+    'release':  'CumulusLinux-4.3.1'
     'repo':     'cumulus upstream'
     'key':
-      'id':     ''
-      'source': 'https://download.nvidia.com/cumulus/apt.cumulusnetworks.com/repo/dists/CumulusLinux-4.3.1/Release.gpg'
+      'id':     '5DE5D7CDC095CEF4480D144F6A7FCF5D9FFFB250'
+      'source': 'https://download.nvidia.com/cumulus/repo3.cumulusnetworks.com/public-key/repo3-2024-key'
 
 profile::base::common::packages:
   'vim-enhanced': { 'ensure': 'absent', }
