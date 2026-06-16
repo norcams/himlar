@@ -102,6 +102,20 @@ openstack_extras::repo::debian::debian::source_hash:
     'repos':    'main'
     'release':  'buster'
     'allow_unsigned': true
+  'puppet7':
+    'location': 'https://apt.puppetlabs.com'
+    'repos':    'puppet7'
+    'release':  'buster'
+    'key':
+      'id':     'D6811ED3ADEEB8441AF5AA8F4528B6CD9E61EF26'
+      'source': 'https://apt.puppetlabs.com/keyring.gpg'
+  'influxdata': # used for telegraf
+    'location': 'https://repos.influxdata.com/debian'
+    'release':  'buster' # also fact os.distro.codename
+    'repos':    'stable'
+    'key':
+      'id':     '24C975CBA61A024EE1B631787C3D57159FC2F927'
+      'source': 'https://repos.influxdata.com/influxdata-archive.key'
 
 profile::base::common::packages:
   'vim-enhanced': { 'ensure': 'absent', }
