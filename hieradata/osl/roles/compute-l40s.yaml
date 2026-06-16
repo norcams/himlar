@@ -93,16 +93,6 @@ profile::openstack::compute::pci_passthrough::configure_intel_iommu: true
 profile::openstack::compute::manage_telemetry: true
 
 # Blacklist the open source GPU driver
-kmod::list_of_blacklists:
-#  'nouveau': {}
-#kmod::list_of_installs:
-#  'nouveau':
-#    command: '/bin/false'
-kmod::list_of_options:
-  'nouveau modeset':
-    module: 'nouveau'
-    option: 'modeset'
-    value: '0'
 profile::base::physical::blacklist_drv: true
 profile::base::physical::blacklist_drv_list:
   'nouveau': {}
