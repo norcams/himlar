@@ -336,10 +336,10 @@ profile::application::builder::images:
 #    'latest':           'resolute-server-cloudimg-amd64v3.img'
 #    'checksum_file':    'SHA256SUMS'
 #    'checksum':         'sha256'
-#    'min_ram':          768
+#    'min_ram':          1024
 #    'min_disk':         8
 #    'username':         'ubuntu'
-#    'flavor':           'm1.small'
+#    'flavor':           'm1.large'
 #    'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
 #    'hour':             10
 #    'minute':           10
