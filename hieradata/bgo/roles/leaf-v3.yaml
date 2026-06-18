@@ -26,6 +26,7 @@ profile::base::common::manage_yumrepo:            false
 profile::base::common::disable_firewalld:         false
 profile::base::firewall::manage_firewall:         false
 profile::base::network::net_ifnames:              false
+profile::network::leaf::manage_quagga:            false
 profile::network::leaf::manage_acls:              true
 profile::network::leaf::manage_portconfig:        true
 profile::base::network::cumulus_ifs:              true
