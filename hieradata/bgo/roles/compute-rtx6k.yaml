@@ -127,7 +127,8 @@ profile::application::create_mdev::trait:           'CUSTOM_NREC_VGPU_RTX6K_24G'
 # remove when telemetry/ceilometer is up in all environments and move to common
 profile::openstack::compute::manage_telemetry: true
 
-
+profile::virtualization::nested::manage: false
+profile::virtualization::nested::module: 'kvm-amd'
 profile::base::physical::blacklist_drv: true
 profile::base::physical::blacklist_drv_list:
   'nouveau': {}
