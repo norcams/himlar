@@ -139,7 +139,7 @@ profile::base::network::cumulus_interfaces:
 
 profile::base::network::cumulus_bonds:
   'peerlink':
-    'slaves': [ 'swp31-32', ]
+    'slaves': [ 'swp30', ]
     'mtu':   '9216'
   'host61':
     'slaves': [ 'swp16s0', ]
@@ -173,12 +173,12 @@ profile::base::network::cumulus_bonds:
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', '130', ]
     'mtu': '9216'
-  # 'uplink':
-  #   'slaves': [ 'swp30', ]
-  #   'clag_id': '1005'
-  #   'pvid': '100'
-  #   'vids': [ '100', '110', '120', '130', ]
-  #   'mtu': '9216'
+  'uplink':
+    'slaves': [ 'swp31-32', ]
+    'clag_id': '1005'
+    'pvid': '100'
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
 
 # Edgecore as7726 needs explicit config
 profile::network::leaf::cumulus_portconfigs:
@@ -231,11 +231,11 @@ profile::network::leaf::cumulus_portconfigs:
   25:
     line:  "25=4x25G"
   30:
-    line:  "30=100G" # spine 01-02
+    line:  "30=100G" # peerlink
   31:
-    line:  "31=100G" # peerlink
+    line:  "31=100G" # spine
   32:
-    line:  "32=100G" # peerlink
+    line:  "32=100G" # spine
 
 profile::base::network::cumulus_bridges:
   'bridge':

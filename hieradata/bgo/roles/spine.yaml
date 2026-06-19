@@ -283,12 +283,12 @@ profile::base::network::cumulus_bonds:
     'pvid': '100'
     'vids': [ '100', '110', '120', '130', ]
     'mtu': '9216'
-  # 'downlinkl0708':
-  #   'slaves': [ 'swp16', ]
-  #   'clag_id': '1005'
-  #   'pvid': '100'
-  #   'vids': [ '100', '110', '120', '130', ]
-  #   'mtu': '9216'
+  'downlinkl0708':
+    'slaves': [ 'swp16', ] # futureware swp32
+    'clag_id': '1005'
+    'pvid': '100'
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
   'host1':
     'slaves': [ 'swp1s0', ]
     'clag_id': '1'
