@@ -91,7 +91,8 @@ nova::scheduler::filter::max_instances_per_host: '1'
 # remove when telemetry/ceilometer is up in all environments and move to common
 profile::openstack::compute::manage_telemetry: true
 
-
+profile::virtualization::nested::manage: false
+profile::virtualization::nested::module: 'kvm-amd'
 # Kmod blacklist
 profile::base::physical::blacklist_drv: true
 profile::base::physical::blacklist_drv_list:
