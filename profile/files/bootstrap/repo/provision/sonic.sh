@@ -9,6 +9,11 @@ echo 'set mouse -=a' >> /root/.vimrc
 
 #echo "Acquire::ForceIPv4 \"true\";" > /etc/apt/apt.conf.d/99force-ipv4
 
+# Remove edge-core http proxy leftover
+if grep 'edge-core' /etc/apt/apt.conf.d/01proxy; then
+    rm -f /etc/apt/apt.conf.d/01proxy
+fi
+
 # Set time
 release=$(cat /etc/debian_version | awk -F'.' '{ print $1 }')
 if [ "${release}" -eq 12 ]; then # bookworm
