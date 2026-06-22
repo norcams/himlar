@@ -250,7 +250,7 @@ profile::base::network::cumulus_interfaces:
 
 profile::base::network::cumulus_bonds:
   'peerlink':
-    'slaves': [ 'swp31-32', ]
+    'slaves': [ 'swp31', ]
     'mtu':   '9216'
 #  'downlink':
 #    'slaves': [ 'swp29-30', ]
