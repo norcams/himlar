@@ -120,7 +120,7 @@ nova::compute::pci::passthrough:
 nova::pci::aliases:
   - 'vendor_id':   '10de'
     'product_id':  '233b'
-    'device_type': 'type-PCI'
+    'device_type': 'type-PF'
     'name':        'h200nvl'
 
 # These compute host uses local storage for instances
