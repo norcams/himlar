@@ -227,6 +227,9 @@ nova::keystone::service_user::project_domain_name:     "%{hiera('keystone__defau
 nova::keystone::service_user::user_domain_name:        "%{hiera('keystone__default__domain')}"
 nova::keystone::service_user::send_service_user_token: true
 
+# Avoid sending novalocal to the instances
+nova::metadata::dhcp_domain: ""
+
 # Disable reboot through api until DHCP is fixed upstream (calico)
 nova::policy::policies:
   nova_disable_reboot:
