@@ -91,12 +91,6 @@ profile::openstack::resource::host_aggregate:
       type: 'vgpul40s'
       filter_tenant_id: >-
         e3dcca3452924794a6aebdd21b5da249
-  placeholder_vgpu_h2001:
-    availability_zone: "%{::location}-iaas-team-only-1"
-    metadata:
-      type: 'h200nvl'
-      filter_tenant_id: >-
-        e3dcca3452924794a6aebdd21b5da249
   vgpu1:
     availability_zone: "%{::location}-default-1"
     metadata:
@@ -109,7 +103,11 @@ profile::openstack::resource::host_aggregate:
     availability_zone: "%{::location}-default-1"
     metadata:
       type: 'vgpul40s'
-      
+  gpu_nvl1:
+    availability_zone: "%{::location}-default-1"
+    metadata:
+      type: 'h200nvl'
+
 profile::openstack::compute::pci_passthrough::manage_pcipassthrough: true
 
 # QLogic Corp ISP2532-based 8Gb Fibre Channel to PCI Express HBA
