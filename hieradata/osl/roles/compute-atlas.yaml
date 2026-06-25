@@ -1,20 +1,23 @@
 ---
+#FIXME:el9 move to common after all computes are el9 with zed
+openstack_version: "zed"
+
 named_interfaces::config:
   mgmt:
-  - eth2
+  - p2049p1
   trp:
-  - team1
+  - bond0
   live:
-  - team1.120
+  - bond0.120
 
-profile::base::network::network_auto_bonding:
+profile::base::network::nm_network_auto_bonding:
   trp:
     eth0:
-      'team_port_config': '{ "prio" : 100 }'
-      'mtu': '9000'
-    eth1:
-      'team_port_config': '{ "prio" : 100 }'
-      'mtu': '9000'
+      ethernet:
+        'mtu': '9000' # the MTU size must be set also on the slave interfaces
+    eth2:
+      ethernet:
+        'mtu': '9000'
 
 # Turn off nested virtualization
 profile::virtualization::nested::manage: false
@@ -22,14 +25,18 @@ profile::virtualization::nested::manage: false
 profile::base::common::packages:
   'numactl': {}
 
-# Enable hugepages to prevent OOM-killer when using NUMA
+# Enable static hugepages to prevent OOM-killer when using NUMA
 profile::base::physical::enable_hugepages: true
 # Number and size of hugepages, based on 512GB - 32 GB (4GB free pr node)
 profile::base::physical::hugepagesz:       '2M'
 profile::base::physical::hugepages:        '245760'
 
-
 # Nova overrides
+#| CERN Compute Load | Physical CPU   | Architecture            | Optimal Model               |
+#|-------------------|----------------|-------------------------|-----------------------------|
+#| ATLAS1            | AMD EPYC 7551  | Naples (Zen 1, 1st Gen) | EPYC or EPYC-v5             |
+#| ATLAS2            | AMD EPYC 7552  | Rome (Zen 2, 2nd Gen)   | EPYC-Rome or EPYC-Rome-v5   |
+#| ATLAS3            | AMD EPYC 9654P | Genoa (Zen 4, 4th Gen)  | EPYC-Genoa or EPYC-Genoa-v2 |
 nova::compute::libvirt::cpu_models: ['EPYC']
 nova::cpu_allocation_ratio:         '1'
 nova::disk_allocation_ratio:        '1'
