@@ -398,6 +398,9 @@ class profile::base::physical (
               try_sleep   => 10,
             }
           }
+          elsif fact('dmi.product.name') =~ '(?i:AS *- *5126GS-TNRT2)' {
+            notice('Skip H200 rigg for now')
+          }
           else {
             $bmc_generic_attributes.each |$attribute, $value| {
               if ($attribute == 'Address') and (!$value) {
