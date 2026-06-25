@@ -1,0 +1,23 @@
+<%- | String $default_layout, Hash $gpu_overrides, Boolean $enable_sriov | -%>
+# /etc/nvidia-mig-layout.conf
+#
+# Managed by Puppet (profile::vgpu_host::mig). DO NOT EDIT ON THE HOST.
+# Shell-sourced by /usr/local/sbin/nvidia-mig-setup.sh at boot.
+#
+# Discover the valid GPU-instance profiles/IDs for THIS card with:
+#     nvidia-smi mig -lgip
+# On the RTX PRO 6000 Blackwell Server Edition the card splits into four equal
+# 24 GB slices, so the usual layout is four "1g.24gb" instances per GPU.
+
+# Default layout applied to every GPU (comma-separated GPU-instance profiles).
+MIG_LAYOUT_DEFAULT="<%= $default_layout %>"
+
+<% if !$gpu_overrides.empty { -%>
+# Per-GPU overrides (by physical GPU index). Override the default above.
+<% $gpu_overrides.each |$idx, $layout| { -%>
+MIG_LAYOUT_GPU_<%= $idx %>="<%= $layout %>"
+<% } -%>
+<% } -%>
+
+# Enable SR-IOV virtual functions (1 = yes). Required for vGPU on Blackwell.
+ENABLE_SRIOV="<%= $enable_sriov ? { true => '1', default => '0' } %>"
