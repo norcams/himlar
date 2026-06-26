@@ -15,7 +15,7 @@ class profile::application::create_mig (
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => epp('profile/application/nvidia-mig-layout.conf.epp', {
+    content => epp('profile/manifests/application/nvidia-mig-layout.conf.epp', {
       'default_layout' => $mig_default_layout,
       'gpu_overrides'  => $mig_gpu_overrides,
       'enable_sriov'   => $enable_sriov,
