@@ -46,11 +46,7 @@ profile::base::yumrepo::repo_hash:
   nrec-nonfree:
     ensure: present
 
-# NVIDIA SR-IOV-based vGPU hosts need sriov-manage at boot before mdev creation
-profile::openstack::compute::nvidia_vgpu_createmdev::enable: true
-profile::base::selinux::semodules:
-  sriov_manage:
-    avc_file:   'sriov_manage.avc'
+
 
 ## Custom Sensu checks FIXME:sensu-go
 # profile::monitoring::sensu::agent::checks:
@@ -93,34 +89,65 @@ profile::base::common::packages:
   'kernel-devel': {}
   'kernel-headers': {}
   'unzip': {}
-  'NVIDIA-vGPU-rhel': {
+#  'NVIDIA-vGPU-rhel': { ## FIXME: There is currently no RPM for EL9.8, use run file for now
 #    source: 'http://repo.mgmt.bgo.uhdc.no/NVIDIA-vGPU-rhel-7.8-450.55.x86_64.rpm'
-  }
+#  }
 
+## GPU ##
 
-# NVIDIA L40S partitioned into 1x vGPUs, with CUDA support
+profile::base::physical::blacklist_drv: true
+profile::base::physical::blacklist_drv_list:
+  'nouveau': {}
+
+# NVIDIA SR-IOV-based vGPU hosts need sriov-manage at boot before mdev creation
+profile::openstack::compute::nvidia_vgpu_createmdev::enable: true
+profile::base::selinux::semodules:
+  sriov_manage:
+    avc_file:   'sriov_manage.avc'
+
+# NVIDIA RTX PRO 6000 Blackwell x4
 #
 # From "mdevctl types":
-#
-#  nvidia-1155
-#    Available instances: 1
-#    Device API: vfio-pci
-#    Name: NVIDIA L40S-24Q
-#    Description: num_heads=4, frl_config=60, framebuffer=24576M, max_resolution=7680x4320, max_instance=2
-#
-nova::compute::mdev::mdev_types:
-  nvidia-1155: {}
+  # nvidia-1573                                                                                                                                
+  #   Available instances: 0                                                                                                                   
+  #   Device API: vfio-pci                                                                                                                     
+  #   Name: NVIDIA RTX Pro 6000 Blackwell DC-2-48Q                                                                                             
+  #   Description: num_heads=4, frl_config=60, framebuffer=49152M, max_resolution=7680x4320, max_instance=2
 
-# Max 8 instances per host
-nova::scheduler::filter::max_instances_per_host: '8'
 
 # NVIDIA newer generation cards need SR-IOV
 #profile::openstack::compute::pci_passthrough::configure_amd_iommu: true
 
 # Configuration values for the "create-mdev" service
-profile::application::create_mdev::enable:          true
-profile::application::create_mdev::nvidia_gpu_type: 'nvidia-1155'
-profile::application::create_mdev::trait:           'CUSTOM_NREC_VGPU_RTX6K_24G'
+#profile::application::create_mdev::enable:          true
+#profile::application::create_mdev::nvidia_gpu_type: 'nvidia-1573'
+#profile::application::create_mdev::trait:           'CUSTOM_NREC_VGPU_RTX6K_48G'
+
+# Two equal 48 GB slices per GPU 
+profile::application::mig::mig_default_layout: '2g.48gb,2g.48gb,2g.48gb,2g.48gb'
+profile::application::mig::enable_sriov: true
+
+# Optional, per physical GPU index:
+# profile::application::mig::mig_gpu_overrides:
+#   0: '2g.48gb,1g.24gb'
+
+# Only on hosts with no tenants you mind disrupting (see Safety):
+# profile::application::mig::apply_live: false
+
+
+# Max 8 instances with default MIG setup
+nova::scheduler::filter::max_instances_per_host: '8'
+
+nova::compute::mdev::enabled_mdev_types:
+  - 'nvidia-1573'
+
+# nova::compute::mdev::mdev_types_device_addresses_mapping:
+#   'nvidia-478':
+#     device_addresses:
+#       - '0000:b1:00.4'
+#     max_instances: 1
+
+## VIRT ## 
 
 #yum_base_mirror:    'https://download.iaas.uio.no/uh-iaas/vgpu'
 
@@ -129,10 +156,6 @@ profile::openstack::compute::manage_telemetry: true
 
 profile::virtualization::nested::manage: false
 profile::virtualization::nested::module: 'kvm-amd'
-profile::base::physical::blacklist_drv: true
-profile::base::physical::blacklist_drv_list:
-  'nouveau': {}
-
 
 nova::compute::libvirt::cpu_mode:   'custom'
 nova::compute::libvirt::cpu_models: ['EPYC-Genoa']
