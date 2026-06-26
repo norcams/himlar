@@ -1,4 +1,4 @@
-class profile::application::mig (
+class profile::application::create_mig (
   String[1]                $mig_default_layout = '2g.48gb,2g.48gb,2g.48gb,2g.48gb',
   Hash[Integer, String[1]] $mig_gpu_overrides  = {},
   Boolean                  $enable_sriov       = true,

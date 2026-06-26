@@ -124,8 +124,8 @@ profile::base::selinux::semodules:
 #profile::application::create_mdev::trait:           'CUSTOM_NREC_VGPU_RTX6K_48G'
 
 # Two equal 48 GB slices per GPU 
-profile::application::mig::mig_default_layout: '2g.48gb,2g.48gb,2g.48gb,2g.48gb'
-profile::application::mig::enable_sriov: true
+profile::application::create_mig::mig_default_layout: '2g.48gb,2g.48gb,2g.48gb,2g.48gb'
+profile::application::create_mig::enable_sriov: true
 
 # Optional, per physical GPU index:
 # profile::application::mig::mig_gpu_overrides:
