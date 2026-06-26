@@ -382,24 +382,21 @@ class profile::base::physical (
           }
         }
         'Supermicro': {
-          if fact('dmi.product.name') =~ '(?i:AS *- *2115GT-HNTR)' {
-            # New Atlas3-based servers (AS-2115GT-HNTR)
+          if fact('dmi.product.name') =~ /(?i:AS *- *(2115GT-HNTR|5126GS-TNRT2))/ {
+            # New Supermicro servers (AS-2115GT-HNTR 5126GS-TNRT2)
             $address     = $::bmc_address
             $subnet_mask = $bmc_generic_attributes['SubnetMask']
             $gateway     = $bmc_generic_attributes['Gateway']
             if empty($subnet_mask) or empty($gateway) {
               fail("bmc_generic_attributes is missing SubnetMask or Gateway for node ${::clientcert}")
             }
-            exec { 'Set bmc static IP configuration - Supermicro_atlas3':
-              command     => "/bin/curl -f -s https://${address}/redfish/v1/Managers/1/EthernetInterfaces/1 -k -u ${bmc_username_set}:${bmc_password_set} ${http_proxy_url_set} --connect-timeout 20 -X PATCH -H \"Content-Type: application/json\" -d '{\"DHCPv4\":{\"DHCPEnabled\":false},\"IPv4StaticAddresses\":[{\"Address\":\"${address}\",\"SubnetMask\":\"${subnet_mask}\",\"Gateway\":\"${gateway}\"}]}' && /bin/touch /etc/.bmc_configured-supermicro_atlas3-static",
-              creates     => '/etc/.bmc_configured-supermicro_atlas3-static',
+            exec { 'Set bmc static IP configuration - Newer Supermicro':
+              command     => "/bin/curl -f -s https://${address}/redfish/v1/Managers/1/EthernetInterfaces/1 -k -u ${bmc_username_set}:${bmc_password_set} ${http_proxy_url_set} --connect-timeout 20 -X PATCH -H \"Content-Type: application/json\" -d '{\"DHCPv4\":{\"DHCPEnabled\":false},\"IPv4StaticAddresses\":[{\"Address\":\"${address}\",\"SubnetMask\":\"${subnet_mask}\",\"Gateway\":\"${gateway}\"}]}' && /bin/touch /etc/.bmc_configured-${attribute}",
+              creates     => '/etc/.bmc_configured-${attribute}',
               logoutput   => true,
               tries       => 3,
               try_sleep   => 10,
             }
-          }
-          elsif fact('dmi.product.name') =~ '(?i:AS *- *5126GS-TNRT2)' {
-            notice('Skip H200 rigg for now')
           }
           else {
             $bmc_generic_attributes.each |$attribute, $value| {
