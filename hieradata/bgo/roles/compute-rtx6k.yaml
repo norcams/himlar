@@ -100,7 +100,7 @@ profile::base::physical::blacklist_drv_list:
   'nouveau': {}
 
 # NVIDIA SR-IOV-based vGPU hosts need sriov-manage at boot before mdev creation
-profile::openstack::compute::nvidia_vgpu_createmdev::enable: true
+#profile::openstack::compute::nvidia_vgpu_createmdev::enable: true
 profile::base::selinux::semodules:
   sriov_manage:
     avc_file:   'sriov_manage.avc'
