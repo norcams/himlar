@@ -10,15 +10,6 @@ named_interfaces::config:
   live:
   - bond0.120
 
-profile::base::network::nm_network_auto_bonding:
-  trp:
-    eth0:
-      ethernet:
-        'mtu': '9000' # the MTU size must be set also on the slave interfaces
-    eth2:
-      ethernet:
-        'mtu': '9000'
-
 # Turn off nested virtualization
 profile::virtualization::nested::manage: false
 
