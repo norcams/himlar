@@ -23,12 +23,6 @@ profile::base::physical::hugepagesz:       '2M'
 profile::base::physical::hugepages:        '245760'
 
 # Nova overrides
-#| CERN Compute Load | Physical CPU   | Architecture            | Optimal Model               |
-#|-------------------|----------------|-------------------------|-----------------------------|
-#| ATLAS1            | AMD EPYC 7551  | Naples (Zen 1, 1st Gen) | EPYC or EPYC-v5             |
-#| ATLAS2            | AMD EPYC 7552  | Rome (Zen 2, 2nd Gen)   | EPYC-Rome or EPYC-Rome-v5   |
-#| ATLAS3            | AMD EPYC 9654P | Genoa (Zen 4, 4th Gen)  | EPYC-Genoa or EPYC-Genoa-v2 |
-nova::compute::libvirt::cpu_models: ['EPYC']
 nova::cpu_allocation_ratio:         '1'
 nova::disk_allocation_ratio:        '1'
 nova::ram_allocation_ratio:         '1'

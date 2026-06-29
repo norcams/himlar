@@ -14,6 +14,13 @@ sensu::agent::subscriptions:
   - 'compute'
 #  - 'physical' # redfish do not work on this host
 
+#| CERN Compute Load | Physical CPU   | Architecture            | Optimal Model               |
+#|-------------------|----------------|-------------------------|-----------------------------|
+#| ATLAS1            | AMD EPYC 7551  | Naples (Zen 1, 1st Gen) | EPYC or EPYC-v5             |
+#| ATLAS2            | AMD EPYC 7552  | Rome (Zen 2, 2nd Gen)   | EPYC-Rome or EPYC-Rome-v5   |
+#| ATLAS3            | AMD EPYC 9654P | Genoa (Zen 4, 4th Gen)  | EPYC-Genoa or EPYC-Genoa-v2 |
+nova::compute::libvirt::cpu_models: ['EPYC-Rome']
+
 # CPU Pinning (PCPU). This option replaces the deprecated nova::compute::vcpu_pin_set
 # https://docs.openstack.org/nova/zed/configuration/config.html#compute.cpu_dedicated_set
 nova::compute::cpu_dedicated_set:

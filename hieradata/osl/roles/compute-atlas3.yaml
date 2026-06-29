@@ -25,14 +25,19 @@ profile::virtualization::nested::manage: false
 profile::base::common::packages:
   'numactl': {}
 
-# Enable hugepages to prevent OOM-killer when using NUMA. 
+# Enable static hugepages to prevent OOM-killer when using NUMA. 
 profile::base::physical::enable_hugepages: true
 # Number and size of hugepages, based on 768GB - 32 GB (4GB free pr node)
 profile::base::physical::hugepagesz:       '2M'
 profile::base::physical::hugepages:        '376832'
 
 # Nova overrides
-nova::compute::libvirt::cpu_models: ['EPYC']
+#| CERN Compute Load | Physical CPU   | Architecture            | Optimal Model               |
+#|-------------------|----------------|-------------------------|-----------------------------|
+#| ATLAS1            | AMD EPYC 7551  | Naples (Zen 1, 1st Gen) | EPYC or EPYC-v5             |
+#| ATLAS2            | AMD EPYC 7552  | Rome (Zen 2, 2nd Gen)   | EPYC-Rome or EPYC-Rome-v5   |
+#| ATLAS3            | AMD EPYC 9654P | Genoa (Zen 4, 4th Gen)  | EPYC-Genoa or EPYC-Genoa-v2 |
+nova::compute::libvirt::cpu_models: ['EPYC-Genoa']
 nova::cpu_allocation_ratio:         '1'
 nova::disk_allocation_ratio:        '1'
 nova::ram_allocation_ratio:         '1'
