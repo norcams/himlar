@@ -39,3 +39,20 @@ profile::base::lvm::logical_volume:
     volume_group: 'vg_instances'
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
+
+
+
+## If needed be, currently works without. Guess it would give us more control over which 
+## devices Nova serves and what to expect. Should correlate to the custom trait. 
+# nova::compute::mdev::mdev_types_device_addresses_mapping:
+#   'nvidia-1573':
+#     device_addresses:
+#       - '0000:01:00.4'   # card @01 — 2 VFs, one per 2g.48gb instance
+#       - '0000:01:00.5'
+#       - '0000:11:00.4'   # card @11
+#       - '0000:11:00.5'
+#       - '0000:61:00.4'   # card @61
+#       - '0000:61:00.5'
+#       - '0000:71:00.4'   # card @71
+#       - '0000:71:00.5'
+#     max_instances: 1
