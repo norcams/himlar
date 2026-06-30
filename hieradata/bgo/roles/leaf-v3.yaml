@@ -141,6 +141,73 @@ profile::base::network::cumulus_bonds:
   'peerlink':
     'slaves': [ 'swp30', ]
     'mtu':   '9216'
+
+  'host25':
+    'slaves': [ 'swp7s0', ]
+    'clag_id': '25'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host26':
+    'slaves': [ 'swp7s1', ]
+    'clag_id': '26'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host27':
+    'slaves': [ 'swp7s2', ]
+    'clag_id': '27'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host28':
+    'slaves': [ 'swp7s4', ]
+    'clag_id': '28'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+    
+  'host53':
+    'slaves': [ 'swp14s0', ]
+    'clag_id': '53'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host54':
+    'slaves': [ 'swp14s1', ]
+    'clag_id': '54'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host55':
+    'slaves': [ 'swp14s2', ]
+    'clag_id': '55'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host56':
+    'slaves': [ 'swp14s3', ]
+    'clag_id': '56'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+    
   'host61':
     'slaves': [ 'swp16s0', ]
     'clag_id': '61'
@@ -168,6 +235,70 @@ profile::base::network::cumulus_bonds:
   'host64':
     'slaves': [ 'swp16s3', ]
     'clag_id': '64'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host65':
+    'slaves': [ 'swp17s0', ]
+    'clag_id': '65'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host66':
+    'slaves': [ 'swp17s1', ]
+    'clag_id': '66'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host67':
+    'slaves': [ 'swp17s2', ]
+    'clag_id': '67'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host68':
+    'slaves': [ 'swp17s3', ]
+    'clag_id': '68'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host69':
+    'slaves': [ 'swp18s0', ]
+    'clag_id': '69'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host70':
+    'slaves': [ 'swp18s1', ]
+    'clag_id': '70'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host71':
+    'slaves': [ 'swp18s2', ]
+    'clag_id': '71'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host72':
+    'slaves': [ 'swp18s3', ]
+    'clag_id': '72'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
@@ -240,8 +371,26 @@ profile::network::leaf::cumulus_portconfigs:
 profile::base::network::cumulus_bridges:
   'bridge':
     'ports':
+      - host25
+      - host26
+      - host27
+      - host28
+      - host53
+      - host54
+      - host55
+      - host56
       - host61
       - host62
+      - host63
+      - host64
+      - host65
+      - host66
+      - host67
+      - host68
+      - host69
+      - host70
+      - host71
+      - host72
       - peerlink
       - uplink
     'alias_name': 'Transport L2 if'
