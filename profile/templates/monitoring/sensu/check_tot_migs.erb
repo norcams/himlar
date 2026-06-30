@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -e
+
+source /etc/nvidia-mig-layout.conf
+
+split=$(echo $MIG_LAYOUT_DEFAULT | awk -F, '{print NF}')
+totexpected=$(( $split * 4  ))
+avail=$(nvidia-smi -L | grep MIG | wc -l)
+
+#echo split $split
+#echo totexpected $totexpected
+#echo avail $avail
+
+if [ $avail -ne $totexpected ]; then
+   echo "Missing MIG devcies, expected" $totexpected "but got" $avail
+   exit 1
+else
+   echo "All good"
+   exit 0
+fi
