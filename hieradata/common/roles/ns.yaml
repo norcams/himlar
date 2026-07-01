@@ -5,6 +5,14 @@ include:
     - profile::dns::rndc_key
     - profile::logging::rsyslog::client
 
+# Switch to this when all are on el9 (and delete from node files)
+#named_interfaces::config:
+#  mgmt:
+#    - eth0
+#  trp:
+#    - eth1
+#  public:
+#    - lo
 named_interfaces::config:
   mgmt:
     - eth0

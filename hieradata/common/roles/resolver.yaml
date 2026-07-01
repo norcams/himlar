@@ -5,6 +5,14 @@ include:
     - profile::logging::rsyslog::client
 #    - profile::logging::fluentbit
 
+# switch to this when all resolvers on el9 (and delete from node files)
+#named_interfaces::config:
+#  mgmt:
+#    - eth0
+#  trp:
+#    - eth1
+#  public:
+#    - lo
 named_interfaces::config:
   mgmt:
     - eth0

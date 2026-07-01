@@ -5,7 +5,6 @@ network::interfaces_hash:
   eth0:
     ipv4:
       address1:   "%{hiera('netcfg_mgmt_netpart')}.16/%{hiera('netcfg_mgmt_cidr4')}"
-      gateway:    "%{hiera('netcfg_mgmt_gateway')}"
       dns:        "%{hiera('netcfg_dns_mgmt_server1')};%{hiera('netcfg_dns_mgmt_server2')}"
       dns-search: "%{hiera('netcfg_dns_search_nm')}"
       method:     'manual'
@@ -32,3 +31,11 @@ network::interfaces_hash:
       address1:       "%{hiera('public__ipv6__ns')}/128"
       address2:       "%{hiera('node_addr_public6')}/128"
 
+# delete when every ns is on el9
+named_interfaces::config:
+  mgmt:
+    - eth0
+  trp:
+    - eth1
+  public:
+    - lo
