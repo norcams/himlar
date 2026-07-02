@@ -1,0 +1,73 @@
+---
+
+# Turn off nested virtualization
+profile::virtualization::nested::manage: false
+
+profile::base::common::packages:
+  'numactl': {}
+
+# Nova overrides
+nova::compute::libvirt::cpu_models: ['EPYC']
+nova::cpu_allocation_ratio:         '1'
+nova::disk_allocation_ratio:        '1'
+nova::ram_allocation_ratio:         '1'
+
+# Create and enable more swap
+profile::base::common::extraswap:        true
+profile::base::common::extraswap_sizegb: 10
+
+profile::base::lvm::physical_volume:
+  '/dev/sda4':
+    ensure: present
+    force:  true
+  '/dev/nvme0n1':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_ext':
+    physical_volumes:
+      - /dev/nvme0n1
+profile::base::lvm::logical_volume:
+  'lv_instances':
+    volume_group: 'vg_ext'
+    fs_type:      "xfs"
+    mountpath:    "/var/lib/nova/instances"
+
+#FIXME:el9 move to common after all computes are el9 with zed
+openstack_version: "zed"
+named_interfaces::config:
+  mgmt:
+  - em1
+  trp:
+  - bond0
+  live:
+  - bond0.120
+
+profile::base::network::nm_network_auto_bonding:
+  trp:
+    em3:
+      ethernet:
+        'mtu': '9000' # the MTU size must be set also on the slave interfaces
+    em4:
+      ethernet:
+        'mtu': '9000'
+
+# These compute host uses local storage for instances
+nova::compute::rbd::ephemeral_storage: false
+nova::compute::libvirt::images_type: 'default'
+
+# Configuration items not explicitly supported by the Puppet module
+nova::config::nova_config:
+  DEFAULT/metadata_workers:
+    value: '2'
+
+# Sensu
+sensu::agent::annotations:
+  'disk_warning': '90'
+  'disk_critical': '95'
+  'cpu_warning': '99'
+  'cpu_critical': '100'
+
+# Red Hat Subscription Management (RHSM)
+profile::rhsm::subscription::manage: false
+profile::rhsm::virtwho::manage:      false
