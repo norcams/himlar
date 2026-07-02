@@ -1205,6 +1205,9 @@ frrouting::frrouting::bgp_neighbor_groups:
       - '172.18.1.170'
       - '172.18.1.171'
       - '172.18.1.172'
+      - '172.18.1.173'
+      - '172.18.1.174'
+      - '172.18.1.175'
     'options6':
       - 'neighbor rr-clients route-reflector-client'
       - 'neighbor rr-clients soft-reconfiguration inbound'
@@ -1326,6 +1329,9 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'fd00::1:170'
       - 'fd00::1:171'
       - 'fd00::1:172'
+      - 'fd00::1:173'
+      - 'fd00::1:174'
+      - 'fd00::1:175'
   'object_rgw':
     'options':
       - 'peer-group'
