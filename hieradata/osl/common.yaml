@@ -202,6 +202,7 @@ profile::network::services::dns_records:
     "%{::location}-compute-060.%{hiera('domain_mgmt')}":     "%{::location}-compute-60.%{hiera('domain_mgmt')}"
     "%{::location}-compute-061.%{hiera('domain_mgmt')}":     "%{::location}-compute-61.%{hiera('domain_mgmt')}"
     "%{::location}-compute-046.%{hiera('domain_mgmt')}":     "%{::location}-compute-46.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-062.%{hiera('domain_mgmt')}":     "%{::location}-compute-62.%{hiera('domain_mgmt')}"
     # object store with ceph
     "%{::location}-object-ceph-01.%{hiera('domain_mgmt')}":  "%{::location}-object-01.%{hiera('domain_mgmt')}"
     "%{::location}-object-ceph-02.%{hiera('domain_mgmt')}":  "%{::location}-object-02.%{hiera('domain_mgmt')}"
