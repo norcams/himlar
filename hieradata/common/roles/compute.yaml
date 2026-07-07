@@ -27,6 +27,10 @@ openstack_version: 'yoga'
 # Set SELinux mode to enforcing
 profile::base::selinux::manage_selinux: true
 
+# disable nested virtualization
+profile::virtualization::nested::manage: true
+profile::virtualization::nested::value: 'n'
+
 # Use compute namespace for ceilometer
 ceilometer::agent::polling::central_namespace: false
 ceilometer::agent::polling::compute_namespace: true
