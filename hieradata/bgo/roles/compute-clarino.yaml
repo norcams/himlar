@@ -8,9 +8,6 @@ named_interfaces::config:
     - team1.120
 
 
-# Turn off nested virtualization
-profile::virtualization::nested::manage: false
-
 profile::base::common::packages:
   'numactl': {}
 

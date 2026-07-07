@@ -182,7 +182,6 @@ nova::compute::mdev::mdev_types:
 # remove when telemetry/ceilometer is up in all environments and move to common
 profile::openstack::compute::manage_telemetry: true
 
-profile::virtualization::nested::manage: false
 profile::virtualization::nested::module: 'kvm-amd'
 
 nova::compute::libvirt::cpu_mode:   'custom'

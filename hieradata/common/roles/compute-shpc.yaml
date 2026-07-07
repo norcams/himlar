@@ -7,9 +7,6 @@ named_interfaces::config:
   live:
     - team1.120
 
-# Turn off nested virtualization
-profile::virtualization::nested::manage: false
-
 # Sensu
 sensu::agent::annotations:
   'disk_warning': '90'

@@ -11,6 +11,9 @@ named_interfaces::config:
   live:
     - team1.120
 
+# Enable nested virtualization for testing
+profile::virtualization::nested::manage: true
+
 # EL9 routing for this region
 profile::base::network::nm_auto_routes:
   trp:

@@ -1,8 +1,5 @@
 ---
 
-# Turn off nested virtualization
-profile::virtualization::nested::manage: false
-
 profile::base::common::packages:
   'numactl': {}
 

@@ -40,9 +40,6 @@ profile::base::lvm::logical_volume:
 nova::compute::rbd::ephemeral_storage: false
 nova::compute::libvirt::images_type: 'default'
 
-# Turn off nested virtualization
-profile::virtualization::nested::manage: false
-
 profile::base::common::packages:
   'numactl': {}
 
