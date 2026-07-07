@@ -14,6 +14,7 @@ include:
     - profile::storage::cephclient
     - profile::monitoring::collectd
     - profile::monitoring::telegraf
+    - profile::virtualization::nested
   kickstart:
     - profile::virtualization::nested
     - profile::network::yum_proxy
@@ -30,6 +31,9 @@ profile::base::selinux::manage_selinux: true
 # disable nested virtualization
 profile::virtualization::nested::manage: true
 profile::virtualization::nested::value: 'n'
+
+profile::virtualization::nested::manage: true
+
 
 # Use compute namespace for ceilometer
 ceilometer::agent::polling::central_namespace: false
