@@ -32,9 +32,6 @@ profile::base::selinux::manage_selinux: true
 profile::virtualization::nested::manage: true
 profile::virtualization::nested::value: 'n'
 
-profile::virtualization::nested::manage: true
-
-
 # Use compute namespace for ceilometer
 ceilometer::agent::polling::central_namespace: false
 ceilometer::agent::polling::compute_namespace: true
