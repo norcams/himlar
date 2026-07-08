@@ -11,6 +11,8 @@ named_interfaces::config:
   live:
     - bond0.120
 
+openstack_version: "zed" #FIXME
+
 # EL9 routing for this region
 profile::base::network::nm_auto_routes:
   trp:
