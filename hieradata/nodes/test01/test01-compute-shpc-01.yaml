@@ -8,3 +8,8 @@ named_interfaces::config:
     - bond0
   live:
     - bond0.120
+
+profile::base::lvm::volume_group:
+  'vg_ext':
+    physical_volumes:
+      - /dev/sda3
