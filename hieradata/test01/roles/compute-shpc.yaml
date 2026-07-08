@@ -19,7 +19,7 @@ nova::ram_allocation_ratio:         '1'
 
 # do not use uefi on test01-compute-shpc
 profile::base::lvm::physical_volume:
-  '/dev/sda4':
+  '/dev/sda3':
     ensure: present
     force:  true
 profile::base::lvm::volume_group:
