@@ -16,3 +16,13 @@ profile::base::common::packages:
 nova::cpu_allocation_ratio:         '1'
 nova::disk_allocation_ratio:        '1'
 nova::ram_allocation_ratio:         '1'
+
+# do not use uefi on test01-compute-shpc
+profile::base::lvm::physical_volume:
+  '/dev/sda3':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_ext':
+    physical_volumes:
+      - /dev/sda3
