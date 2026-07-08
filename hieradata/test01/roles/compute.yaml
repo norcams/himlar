@@ -13,6 +13,9 @@ named_interfaces::config:
 
 openstack_version: "zed" #FIXME
 
+# allow nested
+profile::virtualization::nested::value: 'y'
+
 # EL9 routing for this region
 profile::base::network::nm_auto_routes:
   trp:
