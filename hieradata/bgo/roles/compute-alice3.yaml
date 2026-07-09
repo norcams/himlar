@@ -14,9 +14,6 @@ profile::base::common::extraswap:        true
 profile::base::common::extraswap_sizegb: 10
 
 profile::base::lvm::physical_volume:
-  '/dev/nvme0n1p4':
-    ensure: present
-    force:  true
   '/dev/sda':
     ensure: present
     force:  true
