@@ -16,6 +16,10 @@ profile::base::network::nm_network_auto_bonding:
       ethernet:
         'mtu': '9000'
 
+# cpu module used by kvm (default is to disable nested virtualization)
+profile::virtualization::nested::module: 'kvm_amd'
+profile::virtualization::nested::value:  '0'
+
 # Sensu
 sensu::agent::annotations:
   'disk_warning': '90'
