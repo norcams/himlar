@@ -1,13 +1,4 @@
 ---
-profile::base::network::network_auto_bonding:
-  trp:
-    em3:
-      'team_port_config': '{ "prio" : 100 }'
-      'mtu': '9000'
-    em4:
-      'team_port_config': '{ "prio" : 100 }'
-      'mtu': '9000'
-
 profile::base::common::extraswap_fileloc: '/var/lib/swap/swapfile'
 
 # Ensure that the BOSS device is the first device
