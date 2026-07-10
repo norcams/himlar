@@ -2,6 +2,10 @@
 profile::base::common::packages:
   'numactl': {}
 
+# cpu module used by kvm (default is to disable nested virtualization)
+profile::virtualization::nested::module: 'kvm_amd'
+profile::virtualization::nested::value:  '0'
+
 # Enable hugepages to prevent OOM-killer when using NUMA
 profile::base::physical::enable_hugepages: true
 # Number and size of hugepages, based on 512GB - 32 GB (4GB free pr node)
