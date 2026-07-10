@@ -38,13 +38,13 @@ profile::base::common::extraswap:        true
 profile::base::common::extraswap_sizegb: 30
 
 profile::base::lvm::physical_volume:
-  '/dev/sda4':
+  '/dev/sdb':
     ensure: present
     force:  true
 profile::base::lvm::volume_group:
   'vg_ext':
     physical_volumes:
-      - /dev/sda4
+      - /dev/sdb
 profile::base::lvm::logical_volume:
   'lv_instances':
     volume_group: 'vg_ext'
