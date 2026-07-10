@@ -226,6 +226,11 @@ class profile::base::common (
       line  => 'ip_resolve=4',
       match => '^ip_resolve='
     }
+    file_line { 'drop weak dnf deps':
+      path  => '/etc/dnf/dnf.conf',
+      line  => 'install_weak_deps=False',
+      match => '^install_weak_deps',
+    }
   }
 
   if $manage_puppet {
