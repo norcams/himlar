@@ -13,6 +13,7 @@ profile::base::common::packages:
   'numactl': {}
 
 # Nova overrides
+nova::compute::libvirt::cpu_models: ['Haswell-noTSX-IBRS']
 nova::cpu_allocation_ratio:         '8'
 nova::disk_allocation_ratio:        '2'
 nova::ram_allocation_ratio:         '1.2'
