@@ -1,11 +1,20 @@
 ---
 named_interfaces::config:
   mgmt:
-    - em1
+    - em3
   trp:
-    - team1
+    - bond1
   live:
-    - team1.120
+    - bond1.120
+
+profile::base::network::nm_network_auto_bonding:
+  trp:
+    em1:
+      ethernet:
+        'mtu': '9000' # the MTU size must be set also on the slave interfaces
+    em2:
+      ethernet:
+        'mtu': '9000'
 
 # Sensu
 sensu::agent::annotations:
