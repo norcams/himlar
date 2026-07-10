@@ -1,7 +1,7 @@
 ---
 named_interfaces::config:
   mgmt:
-    - em3
+    - em1
   trp:
     - bond1
   live:
@@ -9,10 +9,10 @@ named_interfaces::config:
 
 profile::base::network::nm_network_auto_bonding:
   trp:
-    em1:
+    em3:
       ethernet:
         'mtu': '9000' # the MTU size must be set also on the slave interfaces
-    em2:
+    em4:
       ethernet:
         'mtu': '9000'
 
