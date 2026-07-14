@@ -21,6 +21,6 @@ profile::base::lvm::physical_volume:
     ensure: present
     force:  true
 profile::base::lvm::volume_group:
-  'vg_instances':
+  'vg_ext':
     physical_volumes:
       - /dev/sda
