@@ -8,3 +8,7 @@ openstack_version: "zed"
 
 #FIXME: should not be needed here!
 nova::compute::libvirt::cpu_models:              ['EPYC']
+
+# These compute host uses local storage for instances
+nova::compute::rbd::ephemeral_storage: false
+nova::compute::libvirt::images_type: 'default'
