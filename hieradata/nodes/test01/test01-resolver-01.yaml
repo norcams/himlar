@@ -10,7 +10,7 @@ network::interfaces_hash:
   eth1:
     ipv4:
       address1:   "%{hiera('netcfg_trp_netpart')}.44/%{hiera('netcfg_trp_cidr4')}"
-      gateway:    "%{hiera('netcfg_trp_gateway')}"
+      gateway:    "%{hiera('netcfg_trp_netpart')}.26" # nat-01
       dns:        "%{hiera('netcfg_dns_trp_server1')}"
       dns-search: "%{hiera('netcfg_dns_search_nm')}"
       method:     'manual'
