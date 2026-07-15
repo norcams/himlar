@@ -1,0 +1,10 @@
+---
+profile::base::lvm::physical_volume:
+  '/dev/disk/by-id/wwn-0x62cea7f07f0863002d32a01b2f09fc4a':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_ext':
+    followsymlinks: true
+    physical_volumes:
+      - '/dev/disk/by-id/wwn-0x62cea7f07f0863002d32a01b2f09fc4a'
