@@ -782,6 +782,10 @@ profile::base::network::cumulus_bridges:
       - host2
       - host3
       - host4
+      - host9
+      - host10
+      - host11
+      - host12
       - host17
       - host18
       - host19
@@ -869,6 +873,14 @@ frrouting::frrouting::zebra_interfaces:
   'host3':
     - 'link-detect'
   'host4':
+    - 'link-detect'
+  'host9':
+    - 'link-detect'
+  'host10':
+    - 'link-detect'
+  'host11':
+    - 'link-detect'
+  'host12':
     - 'link-detect'
   'host17':
     - 'link-detect'
