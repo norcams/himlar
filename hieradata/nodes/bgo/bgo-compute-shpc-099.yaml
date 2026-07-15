@@ -16,6 +16,9 @@ profile::base::network::nm_network_auto_bonding:
       ethernet:
         'mtu': '9000'
 
+# we do not have any issues with disk order
+profile::base::physical::load_ahci_first: false
+
 profile::base::lvm::physical_volume:
   '/dev/sda':
     ensure: present
