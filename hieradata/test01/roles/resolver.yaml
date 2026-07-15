@@ -71,6 +71,9 @@ profile::dns::ns::allowed_nets:
   - '2001:700:200:df00::/56; # test01 IPv6'
   - 'fd34::/64;              # test02 IPv6'
 
+# FIXME: remove from common and here when all resovlers run el9
+profile::network::interface::manage_dummy: true
+
 # Enable lookup of the proper frontend (nrec.no)
 # This is due to unable to properly undefine a hash
 profile::dns::ns::frontend_zone: "ignore.invalid"
@@ -82,4 +85,3 @@ profile::logging::fluentbit::manage_parsers_file: true
 profile::base::yumrepo::repo_hash:
   fluentbit:
     ensure: present
-
