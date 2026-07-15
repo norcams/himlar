@@ -185,6 +185,46 @@ profile::base::network::cumulus_bonds:
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', '130', ]
     'mtu': '9216'
+# host5: swp3s0
+# host6: swp3s1
+# host7: swp3s2
+# host8: swp3s3
+  'host9':
+    'slaves': [ 'swp3s0', ]
+    'clag_id': '9'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host10':
+    'slaves': [ 'swp3s1', ]
+    'clag_id': '10'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host11':
+    'slaves': [ 'swp3s2', ]
+    'clag_id': '11'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host12':
+    'slaves': [ 'swp3s3', ]
+    'clag_id': '12'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+# host13: swp4s0
+# host14: swp4s1
+# host15: swp4s2
+# host16: swp4s3
   'host17':
     'slaves': [ 'swp5s0', ]
     'clag_id': '17'
