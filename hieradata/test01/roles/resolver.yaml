@@ -72,7 +72,7 @@ profile::dns::ns::allowed_nets:
   - 'fd34::/64;              # test02 IPv6'
 
 # FIXME: remove from common and here when all resovlers run el9
-profile::network::interface::manage_dummy: true
+profile::network::interface::manage_dummy: false
 
 # Enable lookup of the proper frontend (nrec.no)
 # This is due to unable to properly undefine a hash
