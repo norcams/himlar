@@ -8,7 +8,7 @@ profile::virtualization::nested::module: 'kvm_amd'
 profile::virtualization::nested::value:  '0'
 
 # Nova overrides
-nova::compute::libvirt::cpu_models: ['EPYC']
+nova::compute::libvirt::cpu_models: ['EPYC-Turin']
 nova::cpu_allocation_ratio:         '1'
 nova::disk_allocation_ratio:        '1'
 nova::ram_allocation_ratio:         '1'
