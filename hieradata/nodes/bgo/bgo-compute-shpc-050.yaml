@@ -1,0 +1,10 @@
+---
+profile::base::lvm::physical_volume:
+  '/dev/sda4':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_ext':
+    followsymlinks: true
+    physical_volumes:
+      - '/dev/sda4'
