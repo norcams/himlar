@@ -167,14 +167,13 @@ profile::base::network::cumulus_bonds:
     'vids': [ '100', '110', '120', '130', ]
     'mtu': '9216'
   'host28':
-    'slaves': [ 'swp7s4', ]
+    'slaves': [ 'swp7s3', ]
     'clag_id': '28'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', '130', ]
     'mtu': '9216'
-    
   'host53':
     'slaves': [ 'swp14s0', ]
     'clag_id': '53'
@@ -207,7 +206,7 @@ profile::base::network::cumulus_bonds:
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', '130', ]
     'mtu': '9216'
-    
+
   'host61':
     'slaves': [ 'swp16s0', ]
     'clag_id': '61'
