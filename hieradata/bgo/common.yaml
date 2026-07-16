@@ -209,6 +209,7 @@ profile::network::services::dns_records:
     "%{::location}-compute-epyc-42.%{hiera('domain_mgmt')}":    "%{::location}-compute-42.%{hiera('domain_mgmt')}"
     "%{::location}-compute-epyc-43.%{hiera('domain_mgmt')}":    "%{::location}-compute-43.%{hiera('domain_mgmt')}"
     "%{::location}-compute-epyc-44.%{hiera('domain_mgmt')}":    "%{::location}-compute-44.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-shpc-044.%{hiera('domain_mgmt')}":   "%{::location}-compute-44.%{hiera('domain_mgmt')}"
     "%{::location}-compute-epyc-45.%{hiera('domain_mgmt')}":    "%{::location}-compute-45.%{hiera('domain_mgmt')}"
     "%{::location}-compute-epyc-46.%{hiera('domain_mgmt')}":    "%{::location}-compute-46.%{hiera('domain_mgmt')}"
     "%{::location}-compute-epyc-47.%{hiera('domain_mgmt')}":    "%{::location}-compute-47.%{hiera('domain_mgmt')}"
