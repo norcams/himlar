@@ -1,0 +1,37 @@
+---
+profile::base::common::packages:
+  'numactl': {}
+
+# Enable hugepages to prevent OOM-killer when using NUMA
+profile::base::physical::enable_hugepages: true
+# Number and size of hugepages, based on 512GB - 32 GB (4GB free pr node)
+profile::base::physical::hugepagesz:       '2M'
+profile::base::physical::hugepages:        '245760'
+
+# Nova overrides
+nova::compute::libvirt::cpu_models: ['EPYC-IBPB']
+nova::cpu_allocation_ratio:         '1'
+nova::ram_allocation_ratio:         '1'
+
+# Create and enable more swap
+profile::base::common::extraswap:        true
+profile::base::common::extraswap_sizegb: 10
+
+profile::base::lvm::physical_volume:
+  '/dev/sda4':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_ext':
+    physical_volumes:
+      - /dev/sda4
+profile::base::lvm::logical_volume:
+  'lv_instances':
+    volume_group: 'vg_ext'
+    fs_type:      "xfs"
+    mountpath:    "/var/lib/nova/instances"
+
+sensu__memory__check:     "check-memory.rb -w 2048 -c 1024"
+
+# remove when telemetry/ceilometer is up in all environments and move to common
+profile::openstack::compute::manage_telemetry: true
