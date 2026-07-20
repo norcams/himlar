@@ -779,6 +779,38 @@ profile::base::network::cumulus_bonds:
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', '130', ]
     'mtu': '9216'
+  'host69':
+    'slaves': [ 'swp18s0', ]
+    'clag_id': '69'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host70':
+    'slaves': [ 'swp18s1', ]
+    'clag_id': '70'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host71':
+    'slaves': [ 'swp18s2', ]
+    'clag_id': '71'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host72':
+    'slaves': [ 'swp18s3', ]
+    'clag_id': '72'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
 
 profile::base::network::cumulus_bridges:
   'bridge':
@@ -851,6 +883,10 @@ profile::base::network::cumulus_bridges:
       - host66
       - host67
       - host68
+      - host69
+      - host70
+      - host71
+      - host72
       - peerlink
       - downlink
     'alias_name': 'Transport L2 if'
@@ -955,6 +991,14 @@ frrouting::frrouting::bgp_neighbor_groups:
       - '172.18.33.131' # atlas-070
       - '172.18.33.132' # atlas-071
       - '172.18.33.133' # atlas-072
+      - '172.18.33.134' # shpc-073
+      - '172.18.33.135' # shpc-074
+      - '172.18.33.136' # shpc-075
+      - '172.18.33.137' # shpc-076
+      - '172.18.33.138' # FIXME: test
+      - '172.18.33.139' # FIXME: test
+      - '172.18.33.140' # FIXME: test
+      - '172.18.33.141' # FIXME: test
     'options6':
       - 'neighbor rr-clients route-reflector-client'
       - 'neighbor rr-clients soft-reconfiguration inbound'
@@ -1035,6 +1079,14 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'fd32::1:131' # atlas-070
       - 'fd32::1:132' # atlas-071
       - 'fd32::1:133' # atlas-072
+      - 'fd32::1:134' # shpc-073
+      - 'fd32::1:135' # shpc-074
+      - 'fd32::1:136' # shpc-075
+      - 'fd32::1:137' # shpc-076
+      - 'fd32::1:138' # FIXME: test
+      - 'fd32::1:139' # FIXME: test
+      - 'fd32::1:140' # FIXME: test
+      - 'fd32::1:141' # FIXME: test
   'object_rgw':
     'options':
       - 'peer-group'
