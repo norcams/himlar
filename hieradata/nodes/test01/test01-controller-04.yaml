@@ -68,6 +68,10 @@ lvm::volume_groups:
         fs_type:   xfs
         mountpath: "/var/lib/libvirt/images"
 
+include:
+  default:
+    - profile::application::windowsimage
+
 # FIXME: libvirt overrides for el9, move to roles/modules later
 profile::virtualization::libvirt::moduler_daemons:    true
 profile::virtualization::libvirt::merge_strategy:     'first'
