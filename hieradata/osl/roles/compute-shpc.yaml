@@ -13,27 +13,25 @@ nova::compute::libvirt::images_type: 'default'
 nova::compute::libvirt::cpu_models:              ['EPYC']
 nova::scheduler::filter::max_instances_per_host: '32'
 
+# Do not create swap file
+profile::base::common::extraswap: false
+
 profile::base::lvm::physical_volume:
-  '/dev/sda4':
-    ensure: present
-    force:  true
   '/dev/sdb':
     ensure: present
     force:  true
 profile::base::lvm::volume_group:
-  'vg_instances':
-    physical_volumes:
-      - /dev/sdb
-  'vg_ext':
+  'vg_swap':
     physical_volumes:
       - /dev/sda4
+  'vg_ext':
+    physical_volumes:
+      - /dev/sdb
 profile::base::lvm::logical_volume:
+  'lv_swap2':
+    volume_group: 'vg_swap'
+    fs_type:      'swap'
   'lv_instances':
-    volume_group: 'vg_instances'
+    volume_group: 'vg_ext'
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
-  'lv_swap2':
-    volume_group: 'vg_ext'
-    fs_type:      xfs
-    size:         40G
-    mountpath:    "/var/lib/swap"

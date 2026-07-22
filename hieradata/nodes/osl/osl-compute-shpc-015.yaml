@@ -20,18 +20,15 @@ named_interfaces::config:
   - bond0.120
 
 profile::base::lvm::physical_volume:
-  '/dev/disk/by-id/wwn-0x64cd98f03d4d3c00239d100f1b6a58f1-part4': # /dev/sda4
-    ensure: present
-    force:  true
   '/dev/disk/by-id/wwn-0x64cd98f03d4d3c002d00a102fe7fea78': # /dev/sdb
     ensure: present
     force:  true
 profile::base::lvm::volume_group:
-  'vg_ext':
+  'vg_swap':
     followsymlinks: true
     physical_volumes:
       - '/dev/disk/by-id/wwn-0x64cd98f03d4d3c00239d100f1b6a58f1-part4' # /dev/sda4
-  'vg_instances':
+  'vg_ext':
     followsymlinks: true
     physical_volumes:
       - '/dev/disk/by-id/wwn-0x64cd98f03d4d3c002d00a102fe7fea78' # /dev/sdb
