@@ -111,3 +111,9 @@ libvirt::service::modular_services:
   virtnetworkd.service:
     ensure: 'running'
     enable: true
+
+profile::application::windowsimage::enable: true
+profile::application::windowsimage::manage_firewall: true
+profile::base::yumrepo::repo_hash:
+  hashicorp:
+    ensure: present
