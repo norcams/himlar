@@ -39,14 +39,24 @@ profile::base::common::extraswap:        true
 profile::base::common::extraswap_sizegb: 30
 
 profile::base::lvm::physical_volume:
+  '/dev/sda4':
+    ensure: present
+    force:  true
   '/dev/sdb':
     ensure: present
     force:  true
 profile::base::lvm::volume_group:
+  'vg_swap':
+    physical_volumes:
+      - /dev/sda4
   'vg_ext':
     physical_volumes:
       - /dev/sdb
 profile::base::lvm::logical_volume:
+  'lv_swap2':
+    volume_group: 'vg_swap'
+    fs_type:      xfs
+    mountpath:    "/var/lib/swap"
   'lv_instances':
     volume_group: 'vg_ext'
     fs_type:      "xfs"
