@@ -1,0 +1,44 @@
+---
+#FIXME:el9 move to common after all computes are el9 with zed
+openstack_version: "zed"
+
+profile::base::network::nm_network_auto_bonding:
+  trp:
+    em1:
+      ethernet:
+        'mtu': '9000' # the MTU size must be set also on the slave interfaces
+    em2:
+      ethernet:
+        'mtu': '9000'
+
+named_interfaces::config:
+  mgmt:
+  - em3
+  trp:
+  - bond0
+  live:
+  - bond0.120
+
+profile::base::lvm::physical_volume:
+  '/dev/disk/by-id/wwn-0x64cd98f03d4d82002d00a034fd604d3b': # /dev/sdb
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_swap':
+    followsymlinks: true
+    physical_volumes:
+      - '/dev/disk/by-id/wwn-0x64cd98f03d4d8200239d0ff21b8a0940-part4' # /dev/sda4
+  'vg_ext':
+    followsymlinks: true
+    physical_volumes:
+      - '/dev/disk/by-id/wwn-0x64cd98f03d4d82002d00a034fd604d3b' # /dev/sdb
+
+#---------------------------------------------------------------------
+# Configure to use modular libvirt
+# (The old monolithic libvirt is deprecated)
+#---------------------------------------------------------------------
+profile::openstack::compute::hypervisor::modular_libvirt: true
+nova::compute::libvirt::manage_libvirt_services:          false
+nova::compute::libvirt::modular_libvirt:                  true
+nova::compute::libvirt::services::modular_libvirt:        true
+nova::migration::libvirt::modular_libvirt:                true
