@@ -34,9 +34,8 @@ nova::disk_allocation_ratio:                     '1'
 nova::ram_allocation_ratio:                      '1.2'
 nova::scheduler::filter::max_instances_per_host: '20'
 
-# Create and enable more swap
-profile::base::common::extraswap:        true
-profile::base::common::extraswap_sizegb: 30
+# Do not create swap file
+profile::base::common::extraswap: false
 
 profile::base::lvm::physical_volume:
   '/dev/sdb':
@@ -52,8 +51,7 @@ profile::base::lvm::volume_group:
 profile::base::lvm::logical_volume:
   'lv_swap2':
     volume_group: 'vg_swap'
-    fs_type:      xfs
-    mountpath:    "/var/lib/swap"
+    fs_type:      'swap'
   'lv_instances':
     volume_group: 'vg_ext'
     fs_type:      "xfs"
