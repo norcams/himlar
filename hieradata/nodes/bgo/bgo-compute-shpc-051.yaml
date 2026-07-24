@@ -14,3 +14,7 @@ profile::base::lvm::logical_volume: # make sure we do not create lv_swap2
     volume_group: 'vg_ext'
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
+
+# We do not have a dedicated swap partition on this host
+profile::base::common::extraswap:        true
+profile::base::common::extraswap_sizegb: 30
