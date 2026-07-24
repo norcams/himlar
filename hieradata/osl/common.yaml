@@ -155,9 +155,8 @@ profile::network::services::dns_records:
     "%{::location}-compute-atlas3-070.%{hiera('domain_mgmt')}": "%{::location}-compute-70.%{hiera('domain_mgmt')}"
     "%{::location}-compute-atlas3-071.%{hiera('domain_mgmt')}": "%{::location}-compute-71.%{hiera('domain_mgmt')}"
     "%{::location}-compute-atlas3-072.%{hiera('domain_mgmt')}": "%{::location}-compute-72.%{hiera('domain_mgmt')}"
-    # HPC
-    "%{::location}-compute-hpc-25.%{hiera('domain_mgmt')}": "%{::location}-compute-25.%{hiera('domain_mgmt')}"
-    # DED (new HPC)
+    # DEDICATED (previously HPC)
+    "%{::location}-compute-ded-025.%{hiera('domain_mgmt')}": "%{::location}-compute-25.%{hiera('domain_mgmt')}"
     "%{::location}-compute-ded-026.%{hiera('domain_mgmt')}": "%{::location}-compute-26.%{hiera('domain_mgmt')}"
     "%{::location}-compute-ded-027.%{hiera('domain_mgmt')}": "%{::location}-compute-27.%{hiera('domain_mgmt')}"
     "%{::location}-compute-ded-028.%{hiera('domain_mgmt')}": "%{::location}-compute-28.%{hiera('domain_mgmt')}"
