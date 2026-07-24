@@ -9,3 +9,8 @@ profile::base::lvm::volume_group:
     followsymlinks: true
     physical_volumes:
       - '/dev/sda4'
+profile::base::lvm::logical_volume: # make sure we do not create lv_swap2
+  'lv_instances':
+    volume_group: 'vg_ext'
+    fs_type:      "xfs"
+    mountpath:    "/var/lib/nova/instances"
