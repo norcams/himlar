@@ -72,7 +72,7 @@ profile::dns::ns::bird_source_interface: lo
 profile::openstack::network::calico::manage_dhcp_agent_override: true
 profile::openstack::network::calico::dhcp_agent_config:
   DEFAULT/dnsmasq_config_file:
-    value: '/dev/null'
+    value: '/etc/neutron/dnsmasq.conf'
 
 # logrotate
 profile::logging::logrotate::rules:
