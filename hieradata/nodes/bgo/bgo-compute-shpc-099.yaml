@@ -27,3 +27,6 @@ profile::base::lvm::volume_group:
   'vg_ext':
     physical_volumes:
       - /dev/sda
+  'vg_swap':
+    physical_volumes:
+      - /dev/nvme0n1p4
