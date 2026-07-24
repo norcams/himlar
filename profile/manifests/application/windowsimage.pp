@@ -20,6 +20,9 @@ class profile::application::windowsimage(
     package { 'packer':
       ensure   => installed
     }
+    package { 'xorriso':
+      ensure   => installed
+    }
     group { $group:
       ensure => present
     } ->
