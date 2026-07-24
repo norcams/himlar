@@ -1,10 +1,14 @@
 ---
 profile::base::lvm::physical_volume:
-  '/dev/disk/by-id/wwn-0x62cea7f07f0852002d32a032497698bf':
+  '/dev/disk/by-id/wwn-0x62cea7f07f0852002d32a032497698bf': # replace sdb
     ensure: present
     force:  true
 profile::base::lvm::volume_group:
   'vg_ext':
     followsymlinks: true
     physical_volumes:
-      - '/dev/disk/by-id/wwn-0x62cea7f07f0852002d32a032497698bf'
+      - '/dev/disk/by-id/wwn-0x62cea7f07f0852002d32a032497698bf' # replace sdb
+  'vg_swap':
+    followsymlinks: true
+    physical_volumes:
+      - '/dev/disk/by-id/wwn-0x62cea7f07f085200276bf9f1d61707c0-part4' # replace /dev/sda4
