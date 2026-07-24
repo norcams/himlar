@@ -12,6 +12,7 @@ class profile::openstack::network::calico(
   $neutron_network_block      = false,
   $neutron_network_block_name = 'nrec-deny-internal',
   $dhcp_agent_config          = {},
+  $default_dnsmasq_options    = "",
   $firewall_extras            = {},
 ) {
   include ::calico
@@ -84,6 +85,17 @@ class profile::openstack::network::calico(
     }
 
   }
+
+  # use this to set extra dnsmasq options that calico do not set for you
+  file { 'default dnsmasq.conf':
+    ensure  => file,
+    path    => '/etc/neutron/dnsmasq.conf'',
+    owner   => root,
+    group   => root,
+    content => $default_dnsmasq_options,
+    notify  => [Service['calico-dhcp-agent']]
+  }
+
   # Override ownership of the calico-dhcp-agent process as it should not be root
   # If calico-dhcp-agent was spawned as root, we must ensure correct permissions
   if $manage_dhcp_agent {
