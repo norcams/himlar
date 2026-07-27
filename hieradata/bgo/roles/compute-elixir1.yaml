@@ -30,9 +30,17 @@ profile::base::lvm::logical_volume:
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
 
+# cpu module used by kvm (default is to disable nested virtualization)
+profile::virtualization::nested::module: 'kvm_amd'
+profile::virtualization::nested::value:  '0'
+
 # Do not use ceph cluster for instance disk
 nova::compute::rbd::ephemeral_storage: false
 nova::compute::libvirt::images_type: 'default'
 
 # Nova overrides
-nova::compute::libvirt::cpu_models:              ['EPYC']
+nova::compute::libvirt::cpu_models:              ['EPYC'] # ['EPYC-Turin']
+nova::cpu_allocation_ratio:                      '2'
+nova::disk_allocation_ratio:                     '1'
+nova::ram_allocation_ratio:                      '1.1'
+nova::scheduler::filter::max_instances_per_host: '31'
