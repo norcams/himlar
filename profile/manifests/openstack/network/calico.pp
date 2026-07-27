@@ -89,11 +89,11 @@ class profile::openstack::network::calico(
   # use this to set extra dnsmasq options that calico do not set for you
   file { 'default dnsmasq.conf':
     ensure  => file,
-    path    => '/etc/neutron/dnsmasq.conf'',
+    path    => '/etc/neutron/dnsmasq.conf',
     owner   => root,
     group   => root,
     content => $default_dnsmasq_options,
-    notify  => [Service['calico-dhcp-agent']]
+    #notify  => Service['calico-dhcp-agent']
   }
 
   # Override ownership of the calico-dhcp-agent process as it should not be root
