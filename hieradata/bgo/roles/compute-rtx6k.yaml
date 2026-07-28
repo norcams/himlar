@@ -151,8 +151,8 @@ profile::base::selinux::semodules:
 #profile::application::create_mdev::nvidia_gpu_type: 'nvidia-1573'
 #profile::application::create_mdev::trait:           'CUSTOM_NREC_VGPU_RTX6K_48G'
 
-# Two equal 48 GB slices per GPU 
-profile::application::create_mig::mig_default_layout: '2g.48gb+gfx,2g.48gb+gfx'
+# One GPU 96GB slive per instance
+profile::application::create_mig::mig_default_layout: '4g.96gb+gfx'
 profile::application::create_mig::enable_sriov: true
 
 # Optional, per physical GPU index:
@@ -164,7 +164,7 @@ profile::application::create_mig::enable_sriov: true
 
 
 # Max 8 instances with default MIG setup
-nova::scheduler::filter::max_instances_per_host: '8'
+nova::scheduler::filter::max_instances_per_host: '4'
 
 nova::compute::mdev::mdev_types:
   nvidia-1573: {}
@@ -187,6 +187,9 @@ profile::virtualization::nested::value:  '0'
 
 nova::compute::libvirt::cpu_mode:   'custom'
 nova::compute::libvirt::cpu_models: ['EPYC-Genoa']
+nova::cpu_allocation_ratio:         '1.1'
+nova::disk_allocation_ratio:        '1.1'
+nova::ram_allocation_ratio:         '1.1'
 
 # These compute host uses local storage for instances
 nova::compute::rbd::ephemeral_storage: false

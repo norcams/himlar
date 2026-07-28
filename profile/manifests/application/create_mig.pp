@@ -1,5 +1,5 @@
 class profile::application::create_mig (
-  String[1]                $mig_default_layout = '2g.48gb,2g.48gb,2g.48gb,2g.48gb',
+  String[1]                $mig_default_layout = '4g.96gb+gfx',
   Hash[Integer, String[1]] $mig_gpu_overrides  = {},
   Boolean                  $enable_sriov       = true,
   String[1]                $package_ensure     = 'installed',  # or pin '1.0.0'
