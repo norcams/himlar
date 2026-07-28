@@ -3,7 +3,8 @@ profile::openstack::dashboard::allow_from_network:
   - '129.177.8.10/32'   # bgo-login
   - '129.177.8.9/32'    # test01-login
   - '129.177.31.96/27'  # test01
-  - '129.177.25.132/32' # raymond
+  - '129.177.25.132/32' # raymond-old
+  - '129.177.25.132/36' # raymond-new
   - '129.240.130.12/32' # trond
   - '129.240.130.124/32'# mikael
   - '129.240.202.64/32' # mikael

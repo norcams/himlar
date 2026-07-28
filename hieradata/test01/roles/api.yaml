@@ -120,8 +120,10 @@ profile::highavailability::loadbalancing::haproxy::access_list:
       - '2001:700:200:917::/64'    # test01
       - '129.177.0.137/32'         # p1dclogin
       - '129.177.0.138/32'         # p2dclogin
-      - '129.177.25.132/32'        # raymond-dev
-      - '2001:700:200:334::132/128' # raymond-dev
+      - '129.177.25.132/32'        # raymond-old
+      - '2001:700:200:334::132/128' # raymond-old
+      - '129.177.25.136/32'        # raymond-new
+      - '2001:700:200:334::136/128' # raymond-new
       - '158.39.74.6/32'           # raymond (bgo-mgmt-instance)
       - '129.240.130.12/32'        # trond
       - '129.240.130.124/32'       # mikael
@@ -133,7 +135,8 @@ profile::highavailability::loadbalancing::haproxy::allow_from_network:
   - '129.177.8.10/32'   # bgo-login
   - '129.177.31.64/27'  # test01
   - '129.177.31.96/27'  # test01
-  - '129.177.25.132/32' # raymond
+  - '129.177.25.132/32' # raymond-old
+  - '129.177.25.136/32' # raymond-new
   - '129.240.130.12/32' # trond
   - '129.240.130.124/32' # mikael
 
