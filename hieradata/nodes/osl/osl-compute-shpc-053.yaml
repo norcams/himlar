@@ -19,6 +19,20 @@ named_interfaces::config:
   live:
   - bond0.120
 
+profile::base::lvm::physical_volume:
+  '/dev/disk/by-id/wwn-0x6f4ee0802b5c2c0029fe9eb6d4a32075': # /dev/sdb
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_swap':
+    followsymlinks: true
+    physical_volumes:
+      - '/dev/disk/by-id/scsi-SATA_DELLBOSS_VD_4129379089450010-part4' # /dev/sda4
+  'vg_ext':
+    followsymlinks: true
+    physical_volumes:
+      - '/dev/disk/by-id/wwn-0x6f4ee0802b5c2c0029fe9eb6d4a32075' # /dev/sdb
+
 #---------------------------------------------------------------------
 # Configure to use modular libvirt
 # (The old monolithic libvirt is deprecated)
