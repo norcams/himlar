@@ -103,9 +103,10 @@ profile::base::common::packages:
   'kernel-devel': {}
   'kernel-headers': {}
   'unzip': {}
-  'NVIDIA-vGPU-rhel': {
+  #'NVIDIA-vGPU-rhel': { ## Use the runfile on el9.8 since there is no rpm for el.9.8
 #    source: 'http://repo.mgmt.bgo.uhdc.no/NVIDIA-vGPU-rhel-7.8-450.55.x86_64.rpm'
-  }
+  #} 
+## Runfile: https://iaas-repo.uio.no/nrec/vgpu/nvidia/19.5/el9/Host_Drivers/NVIDIA-Linux-x86_64-580.159.01-vgpu-kvm.run
 
 
 # NVIDIA L40S partitioned into 1x vGPUs, with CUDA support
