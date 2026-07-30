@@ -33,9 +33,9 @@ profile::base::lvm::logical_volume:
     mountpath:    "/var/lib/nova/instances"
 
 profile::base::common::packages:
-  'NVIDIA-vGPU-rhel-9.7-570.211.01': {
+  #'NVIDIA-vGPU-rhel-9.7-570.211.01': {
 #    source: 'http://repo.mgmt.bgo.uhdc.no/NVIDIA-vGPU-rhel-7.8-450.55.x86_64.rpm'
-  }
+  #}
 
 # NVIDIA V100 16GB partitioned into 1x vGPUs, with CUDA support
 #
