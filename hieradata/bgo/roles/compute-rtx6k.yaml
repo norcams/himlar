@@ -121,81 +121,53 @@ profile::base::common::packages:
 #    source: 'http://repo.mgmt.bgo.uhdc.no/NVIDIA-vGPU-rhel-7.8-450.55.x86_64.rpm'
 #  }
 
-## GPU ##
+## GPU passthrough host ##
 
+# Blacklist nouveau (still required so the cards are free to bind vfio-pci)
 profile::base::physical::blacklist_drv: true
 profile::base::physical::blacklist_drv_list:
   'nouveau': {}
 
-# NVIDIA SR-IOV-based vGPU hosts need sriov-manage at boot before mdev creation
-#profile::openstack::compute::nvidia_vgpu_createmdev::enable: true
-profile::base::selinux::semodules:
-  sriov_manage:
-    avc_file:   'sriov_manage.avc'
+# Bind the four RTX PRO 6000 PFs to vfio-pci at boot (this profile handles the
+# modprobe.d + dracut + initramfs wiring). This is the RIGHT use of the vfio
+# profile — the one to AVOID on a vGPU host, correct on a passthrough host.
+profile::base::physical::enable_vfio_pci: true
+profile::base::physical::vfio_pci_ids: '10de:2bb5'
 
-# NVIDIA RTX PRO 6000 Blackwell x4
-#
-# From "mdevctl types":
-  # nvidia-1573                                                                                                                                
-  #   Available instances: 0                                                                                                                   
-  #   Device API: vfio-pci                                                                                                                     
-  #   Name: NVIDIA RTX Pro 6000 Blackwell DC-2-48Q                                                                                             
-  #   Description: num_heads=4, frl_config=60, framebuffer=49152M, max_resolution=7680x4320, max_instance=2
+# IMPORTANT: do NOT install the NVIDIA vGPU manager on this host.
+# Passthrough needs no host NVIDIA driver at all — the guest owns the GPU.
 
+# Nova PCI passthrough (OpenStack Zed / Nova 26)
+profile::openstack::compute::pci_passthrough::manage_pcipassthrough: true
+profile::openstack::compute::pci_passthrough::manage_pci_whitelist: true
 
-# NVIDIA newer generation cards need SR-IOV
-#profile::openstack::compute::pci_passthrough::configure_amd_iommu: true
+nova::compute::pci::passthrough:
+  - vendor_id: '10de'
+    product_id: '2bb5'
 
-# Configuration values for the "create-mdev" service
-#profile::application::create_mdev::enable:          true
-#profile::application::create_mdev::nvidia_gpu_type: 'nvidia-1573'
-#profile::application::create_mdev::trait:           'CUSTOM_NREC_VGPU_RTX6K_48G'
+nova::pci::aliases:
+  - vendor_id: '10de'
+    product_id: '2bb5'
+    device_type: 'type-PF'    # whole physical function
+    name: 'rtx6k'
 
-# One GPU 96GB slive per instance
-profile::application::create_mig::mig_default_layout: '4g.96gb+gfx'
-profile::application::create_mig::enable_sriov: true
-
-# Optional, per physical GPU index:
-# profile::application::mig::mig_gpu_overrides:
-#   0: '2g.48gb,1g.24gb'
-
-# Only on hosts with no tenants you mind disrupting (see Safety):
-# profile::application::mig::apply_live: false
-
-
-# Max 8 instances with default MIG setup
+# 4 GPUs => at most 4 GPU instances on this host
 nova::scheduler::filter::max_instances_per_host: '4'
 
-nova::compute::mdev::mdev_types:
-  nvidia-1573: {}
-
-# nova::compute::mdev::mdev_types_device_addresses_mapping:
-#   'nvidia-478':
-#     device_addresses:
-#       - '0000:b1:00.4'
-#     max_instances: 1
-
-## VIRT ## 
-
-#yum_base_mirror:    'https://download.iaas.uio.no/uh-iaas/vgpu'
-
-# remove when telemetry/ceilometer is up in all environments and move to common
-profile::openstack::compute::manage_telemetry: true
-
+## Virt / CPU ##
 profile::virtualization::nested::module: 'kvm_amd'
-profile::virtualization::nested::value:  '0'
+profile::virtualization::nested::value: '0'
 
-nova::compute::libvirt::cpu_mode:   'custom'
-nova::compute::libvirt::cpu_models: ['EPYC-Genoa']
-nova::cpu_allocation_ratio:         '1.1'
-nova::disk_allocation_ratio:        '1.1'
-nova::ram_allocation_ratio:         '1.1'
+nova::compute::libvirt::cpu_mode: 'custom'
+nova::compute::libvirt::cpu_models: ['EPYC-Genoa']   # safe floor for EPYC 9355 (Turin)
+nova::cpu_allocation_ratio: '1.1'
+nova::disk_allocation_ratio: '1.1'
+nova::ram_allocation_ratio: '1.1'   # NB: passthrough guests pin RAM; ratio is moot for them
 
-# These compute host uses local storage for instances
+# Local storage for instances
 nova::compute::rbd::ephemeral_storage: false
 nova::compute::libvirt::images_type: 'default'
 
-# Configuration items not explicitly supported by the Puppet module
 nova::config::nova_config:
   DEFAULT/metadata_workers:
     value: '4'
