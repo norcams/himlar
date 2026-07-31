@@ -57,10 +57,7 @@ profile::monitoring::telegraf::inputs:
 #        metric_version: 2
 #        tags:
 #          bucket: "%{hiera('ceph_influxdb_bucket')}"
-  nvidia_smi:
-    options:
-      - tags:
-          bucket: "%{hiera('gpu_influxdb_bucket')}"
+#
 
 
 # Enable extra yum repo vGPU drivers
