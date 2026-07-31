@@ -139,7 +139,7 @@ nova::compute::pci::passthrough:
 nova::pci::aliases:
   - vendor_id: '10de'
     product_id: '2bb5'
-    device_type: 'type-PF'    # whole physical function
+    device_type: 'type-PCI'    # whole physical function
     name: 'rtx6k'
 
 # 4 GPUs => at most 4 GPU instances on this host
