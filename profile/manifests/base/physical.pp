@@ -167,9 +167,19 @@ class profile::base::physical (
       content => "add_drivers+=\" vfio vfio_iommu_type1 vfio-pci \"\n",
       notify  => Exec['rebuild initramfs_vfio'],
     }
-
+    # Explicitly load vfio-pci at boot. add_drivers only makes the module AVAILABLE
+    # in the initramfs; it does not guarantee it is loaded. On EL9.7 it loaded
+    # implicitly, but on EL9.8 it does not, leaving passthrough GPUs unbound. This
+    # makes the load deterministic across kernel versions; modprobe.d supplies ids=.
+    file { '/etc/modules-load.d/vfio-pci.conf':
+      ensure  => file,
+      content => "vfio-pci\n",
+      notify  => Exec['rebuild initramfs_vfio'],
+    }
+    # Regenerate ALL installed kernels' initramfs, not just the newest — so a kernel
+    # update can never leave a passthrough host with a stale/unconfigured initramfs.
     exec { 'rebuild initramfs_vfio':
-      command     => 'dracut -f --kver $(rpm -qa kernel | sort -V -r | head -n 1 | sed \'s|kernel-||\')',
+      command     => 'dracut --regenerate-all --force',
       path        => '/sbin:/usr/bin:/usr/sbin',
       refreshonly => true,
     }

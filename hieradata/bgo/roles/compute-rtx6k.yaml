@@ -3,14 +3,8 @@
 include:
   kickstart:
     - profile::openstack::compute::pci_passthrough
-    #- profile::openstack::compute::nvidia_vgpu_createmdev
   default:
-    - nova::compute::mdev
-    - profile::application::create_mig
     - profile::openstack::compute::pci_passthrough
-    #- profile::openstack::compute::nvidia_vgpu_createmdev
-
-## I think the creation of mdev gpu devices are is nowdays handeld by the nvidia-vgpud and nvidia-vgpu-mmgr services
 
 profile::base::network::nm_network_auto_bonding:
   trp:
@@ -63,10 +57,7 @@ profile::monitoring::telegraf::inputs:
 #        metric_version: 2
 #        tags:
 #          bucket: "%{hiera('ceph_influxdb_bucket')}"
-  nvidia_smi:
-    options:
-      - tags:
-          bucket: "%{hiera('gpu_influxdb_bucket')}"
+#
 
 
 # Enable extra yum repo vGPU drivers
@@ -148,7 +139,7 @@ nova::compute::pci::passthrough:
 nova::pci::aliases:
   - vendor_id: '10de'
     product_id: '2bb5'
-    device_type: 'type-PF'    # whole physical function
+    device_type: 'type-PCI'    # whole physical function
     name: 'rtx6k'
 
 # 4 GPUs => at most 4 GPU instances on this host

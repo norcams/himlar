@@ -107,7 +107,11 @@ profile::openstack::resource::host_aggregate:
     availability_zone: "%{::location}-default-1"
     metadata:
       type: 'h200nvl'
-
+  gpu_rtx1:
+    availability_zone: "%{::location}-default-1"
+    metadata:
+      type: 'rtx6k'
+      
 profile::openstack::compute::pci_passthrough::manage_pcipassthrough: true
 
 # QLogic Corp ISP2532-based 8Gb Fibre Channel to PCI Express HBA
@@ -126,3 +130,8 @@ nova::pci::aliases:
     'product_id':  '233b'
     'device_type': 'type-PF'
     'name':        'h200nvl'
+  # NVIDIA  RTX PRO 6000
+  - 'vendor_id':   '10de'
+    'product_id':  '2bb5'
+    'device_type': 'type-PF'
+    'name':        'rtx6k'
