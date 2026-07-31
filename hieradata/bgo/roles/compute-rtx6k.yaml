@@ -3,14 +3,8 @@
 include:
   kickstart:
     - profile::openstack::compute::pci_passthrough
-    #- profile::openstack::compute::nvidia_vgpu_createmdev
   default:
-    - nova::compute::mdev
-    - profile::application::create_mig
     - profile::openstack::compute::pci_passthrough
-    #- profile::openstack::compute::nvidia_vgpu_createmdev
-
-## I think the creation of mdev gpu devices are is nowdays handeld by the nvidia-vgpud and nvidia-vgpu-mmgr services
 
 profile::base::network::nm_network_auto_bonding:
   trp:
