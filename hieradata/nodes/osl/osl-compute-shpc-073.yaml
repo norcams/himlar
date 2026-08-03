@@ -37,9 +37,6 @@ profile::base::lvm::logical_volume:
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
 
-# This compute host uses Ceph storage for instances
-nova::compute::rbd::ephemeral_storage: true
-
 #---------------------------------------------------------------------
 # Configure to use modular libvirt
 # (The old monolithic libvirt is deprecated)
