@@ -147,7 +147,7 @@ nova::scheduler::filter::max_instances_per_host: '4'
 
 ## Virt / CPU ##
 profile::virtualization::nested::module: 'kvm_amd'
-profile::virtualization::nested::value: 'n'
+profile::virtualization::nested::value: '0'
 
 nova::compute::libvirt::cpu_mode: 'custom'
 nova::compute::libvirt::cpu_models: ['EPYC-Genoa']   # safe floor for EPYC 9355 (Turin)
