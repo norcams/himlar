@@ -28,12 +28,21 @@ profile::base::lvm::volume_group:
     physical_volumes:
       - /dev/nvme0n1p4
 profile::base::lvm::logical_volume:
+  'lv_swap2':
+    volume_group: 'vg_ext'
+    fs_type:      'swap'
+    size:         40G
   'lv_instances':
     volume_group: 'vg_ext'
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
-  'lv_swap2':
-    volume_group: 'vg_ext'
-    fs_type:      xfs
-    size:         40G
-    mountpath:    "/var/lib/swap"
+
+#---------------------------------------------------------------------
+# Configure to use modular libvirt
+# (The old monolithic libvirt is deprecated)
+#---------------------------------------------------------------------
+profile::openstack::compute::hypervisor::modular_libvirt: true
+nova::compute::libvirt::manage_libvirt_services:          false
+nova::compute::libvirt::modular_libvirt:                  true
+nova::compute::libvirt::services::modular_libvirt:        true
+nova::migration::libvirt::modular_libvirt:                true
