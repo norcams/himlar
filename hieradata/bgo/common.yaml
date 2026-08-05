@@ -223,6 +223,8 @@ profile::network::services::dns_records:
     "%{::location}-compute-elixir1-100.%{hiera('domain_mgmt')}": "%{::location}-compute-100.%{hiera('domain_mgmt')}"
     "%{::location}-compute-elixir1-101.%{hiera('domain_mgmt')}": "%{::location}-compute-101.%{hiera('domain_mgmt')}"
     "%{::location}-compute-elixir1-102.%{hiera('domain_mgmt')}": "%{::location}-compute-102.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-elixir2-103.%{hiera('domain_mgmt')}": "%{::location}-compute-103.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-elixir2-104.%{hiera('domain_mgmt')}": "%{::location}-compute-104.%{hiera('domain_mgmt')}"
     "%{::location}-compute-elixir2-105.%{hiera('domain_mgmt')}": "%{::location}-compute-105.%{hiera('domain_mgmt')}"
     "%{::location}-compute-elixir2-106.%{hiera('domain_mgmt')}": "%{::location}-compute-106.%{hiera('domain_mgmt')}"
     "%{::location}-compute-elixir2-107.%{hiera('domain_mgmt')}": "%{::location}-compute-107.%{hiera('domain_mgmt')}"
