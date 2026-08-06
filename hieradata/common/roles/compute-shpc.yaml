@@ -37,6 +37,7 @@ nova::scheduler::filter::max_instances_per_host: '20'
 # Do not create swap file
 profile::base::common::extraswap: false
 
+# LVM setup for 2 disks
 profile::base::lvm::physical_volume:
   '/dev/sdb':
     ensure: present
@@ -57,12 +58,11 @@ profile::base::lvm::logical_volume:
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
 
-# These compute host uses local storage for instances
+# These compute hosts use local storage for instances
 nova::compute::rbd::ephemeral_storage: false
+nova::compute::libvirt::images_type:   'default'
 
 # Configuration items not explicitly supported by the Puppet module
 nova::config::nova_config:
   DEFAULT/metadata_workers:
     value: '2'
-
-nova::compute::libvirt::images_type: 'default'
