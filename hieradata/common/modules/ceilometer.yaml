@@ -25,8 +25,35 @@ ceilometer::agent::service_credentials::project_name: 'services'
 ceilometer::agent::service_credentials::interface:    'internal'
 
 # ceilometer notification agent (node: telemetry)
+#
+# Only ceilometer-agent-notification reads the pipeline files. ceilometer-polling
+# publishes its samples to the message bus via the oslo notifier and never reads
+# pipeline.yaml, so these only take effect on the telemetry node.
+#   pipeline.yaml       -> polled meters -> gnocchi
+#   event_pipeline.yaml -> events -> gnocchi resource lifecycle
+#
+# The archive_policy option is an override: it replaces the per-metric policies
+# from ceilometer's own gnocchi_resources.yaml (ceilometer-low/-low-rate) for
+# every metric. The policy must already exist in gnocchi, or metric creation
+# fails. See hieradata/common/modules/gnocchi.yaml for the definition.
+#
+# filter_project is deliberately left at its default and therefore inactive.
+# It drops every sample owned by the project gnocchi runs as, so that gnocchi
+# does not meter its own storage activity, and it defaults to a project named
+# 'service'. Ours is 'services' (keystone__service__project), so ceilometer
+# logs
+#   Filtered project [service] not found in keystone, ignoring the
+#   filter_project option
+# once per notification agent start and switches the filter off. That is what
+# we want here: gnocchi stores in ceph rather than swift, so it owns no metered
+# resources for the filter to catch, and turning it on would silently drop
+# every sample belonging to the services project. Append filter_project=services
+# to the publisher URLs below to enable it. An empty value does not disable it,
+# parse_qs discards blank values and the default applies.
+ceilometer::agent::notification::manage_pipeline:           true
+ceilometer::agent::notification::pipeline_publishers:       ['gnocchi://?archive_policy=nrec-telemetry']
 ceilometer::agent::notification::manage_event_pipeline:     true
-ceilometer::agent::notification::event_pipeline_publishers: ['gnocchi://?archive_policy=low&filter_service_activity=false']
+ceilometer::agent::notification::event_pipeline_publishers: ['gnocchi://?archive_policy=nrec-telemetry']
 ceilometer::agent::notification::messaging_urls:            "%{hiera('service__transport__url')}"
 
 # Cache (node: telemetry)
@@ -34,34 +61,28 @@ ceilometer::cache::backend:             'oslo_cache.memcache_pool'
 ceilometer::cache::memcached_servers:   '127.0.0.1:11211'
 
 # Polling
+#
+# polling_interval is tied to the finest granularity of the nrec-telemetry
+# archive policy, 10 minutes (see modules/gnocchi.yaml). Polling less often
+# than the granularity leaves empty points between the ones we do get. Polling
+# more often is not wrong, it just averages several measures into the same
+# point, at the cost of extra samples through rabbit and the notification
+# agent. Change either of the two and reconsider the other.
 ceilometer::agent::polling::manage_polling:   true
 ceilometer::agent::polling::polling_interval: 600
 
 # Polling meters
 # Ref. https://docs.openstack.org/ceilometer/zed/admin/telemetry-measurements.html
-ceilometer::agent::polling::polling_meters:
-  - 'memory'
-  - 'memory.usage'
-  - 'memory.resident'
-  - 'cpu'
-  - 'vcpus'
-  - 'disk.device.read.requests'
-  - 'disk.device.write.requests'
-  - 'disk.device.write.bytes'
-  - 'disk.device.read.bytes'
-  - 'disk.device.iops'
-  - 'network.incoming.bytes'
-  - 'network.incoming.packets'
-  - 'network.outgoing.bytes'
-  - 'network.outgoing.packets'
-  - 'volume.size'
-  - 'snapshot.size'
-  - 'volume.provider.pool.capacity.total'
-  - 'volume.provider.pool.capacity.free'
-  - 'volume.provider.pool.capacity.allocated'
-  - 'volume.provider.pool.capacity.provisioned'
-  - 'volume.provider.pool.capacity.virtual_free'
-  - 'identity.authenticate.failure'
+#
+# polling_meters is set per role, not here: the compute role polls the compute
+# namespace and the telemetry role polls the central namespace, and a pollster
+# only exists in one of them. See the namespace flags in
+# common/roles/compute.yaml and common/roles/telemetry.yaml.
+#
+# Only names with a ceilometer.poll.<namespace> entry point belong in these
+# lists. Notification-derived meters (memory, vcpus, snapshot.size,
+# volume.provider.pool.capacity.*, identity.authenticate.*) are collected by
+# the notification agent from meters.d/meters.yaml and are never polled.
 
 # rabbit mq (for rabbit_password see secrets)
 ceilometer_rabbit_access:          "ceilometer:%{hiera('ceilometer_rabbit_password')}"

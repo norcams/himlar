@@ -33,16 +33,18 @@ ceilometer::agent::polling::central_namespace: true
 ceilometer::agent::polling::compute_namespace: false
 ceilometer::agent::polling::ipmi_namespace:    false
 
-#profile::openstack::telemetry::manage_firewall:           true
-#profile::openstack::telemetry::manage_meters:             true
-#profile::openstack::telemetry::pipeline::pipeline_publishers: ['gnocchi://?archive_policy=low&filter_service_activity=false']
+# Meters polled in the central namespace (ceilometer.poll.central)
+#
+# volume.snapshot.size and volume.backup.size are available here too, if we
+# ever want them polled. Snapshot sizes already arrive as the notification
+# meter snapshot.size, which is what the old shared list was reaching for with
+# that name.
+ceilometer::agent::polling::polling_meters:
+  - 'volume.size'
 
 profile::openstack::openrc::password:                   "%{hiera('ceilometer_api_password')}"
 profile::openstack::openrc::username:                   'ceilometer'
 profile::openstack::openrc::project_name:               'services'
-
-#profile::openstack::telemetry::polling::polling_interval: 3600   #FIXME
-#profile::openstack::telemetry::polling::manage_polling:   true
 
 # FIXME:sensu-go
 profile::monitoring::sensu::agent::enable_go_agent:   true
