@@ -52,29 +52,16 @@ ceilometer::agent::polling::polling_interval: 600
 
 # Polling meters
 # Ref. https://docs.openstack.org/ceilometer/zed/admin/telemetry-measurements.html
-ceilometer::agent::polling::polling_meters:
-  - 'memory'
-  - 'memory.usage'
-  - 'memory.resident'
-  - 'cpu'
-  - 'vcpus'
-  - 'disk.device.read.requests'
-  - 'disk.device.write.requests'
-  - 'disk.device.write.bytes'
-  - 'disk.device.read.bytes'
-  - 'disk.device.iops'
-  - 'network.incoming.bytes'
-  - 'network.incoming.packets'
-  - 'network.outgoing.bytes'
-  - 'network.outgoing.packets'
-  - 'volume.size'
-  - 'snapshot.size'
-  - 'volume.provider.pool.capacity.total'
-  - 'volume.provider.pool.capacity.free'
-  - 'volume.provider.pool.capacity.allocated'
-  - 'volume.provider.pool.capacity.provisioned'
-  - 'volume.provider.pool.capacity.virtual_free'
-  - 'identity.authenticate.failure'
+#
+# polling_meters is set per role, not here: the compute role polls the compute
+# namespace and the telemetry role polls the central namespace, and a pollster
+# only exists in one of them. See the namespace flags in
+# common/roles/compute.yaml and common/roles/telemetry.yaml.
+#
+# Only names with a ceilometer.poll.<namespace> entry point belong in these
+# lists. Notification-derived meters (memory, vcpus, snapshot.size,
+# volume.provider.pool.capacity.*, identity.authenticate.*) are collected by
+# the notification agent from meters.d/meters.yaml and are never polled.
 
 # rabbit mq (for rabbit_password see secrets)
 ceilometer_rabbit_access:          "ceilometer:%{hiera('ceilometer_rabbit_password')}"
