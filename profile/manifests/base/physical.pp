@@ -318,7 +318,7 @@ class profile::base::physical (
       'Huawei': {
         $connection_string = '/redfish/v1/Systems/1'
       }
-      'ASUSTeK': {
+      'ASUSTeK COMPUTER INC.': {
         $connection_string = '/redfish/v1/Systems/Self'
       }
       default: {
