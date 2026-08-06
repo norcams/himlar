@@ -47,6 +47,13 @@ ceilometer::cache::backend:             'oslo_cache.memcache_pool'
 ceilometer::cache::memcached_servers:   '127.0.0.1:11211'
 
 # Polling
+#
+# polling_interval is tied to the finest granularity of the nrec-telemetry
+# archive policy, 10 minutes (see modules/gnocchi.yaml). Polling less often
+# than the granularity leaves empty points between the ones we do get. Polling
+# more often is not wrong, it just averages several measures into the same
+# point, at the cost of extra samples through rabbit and the notification
+# agent. Change either of the two and reconsider the other.
 ceilometer::agent::polling::manage_polling:   true
 ceilometer::agent::polling::polling_interval: 600
 
