@@ -36,6 +36,20 @@ ceilometer::agent::service_credentials::interface:    'internal'
 # from ceilometer's own gnocchi_resources.yaml (ceilometer-low/-low-rate) for
 # every metric. The policy must already exist in gnocchi, or metric creation
 # fails. See hieradata/common/modules/gnocchi.yaml for the definition.
+#
+# filter_project is deliberately left at its default and therefore inactive.
+# It drops every sample owned by the project gnocchi runs as, so that gnocchi
+# does not meter its own storage activity, and it defaults to a project named
+# 'service'. Ours is 'services' (keystone__service__project), so ceilometer
+# logs
+#   Filtered project [service] not found in keystone, ignoring the
+#   filter_project option
+# once per notification agent start and switches the filter off. That is what
+# we want here: gnocchi stores in ceph rather than swift, so it owns no metered
+# resources for the filter to catch, and turning it on would silently drop
+# every sample belonging to the services project. Append filter_project=services
+# to the publisher URLs below to enable it. An empty value does not disable it,
+# parse_qs discards blank values and the default applies.
 ceilometer::agent::notification::manage_pipeline:           true
 ceilometer::agent::notification::pipeline_publishers:       ['gnocchi://?archive_policy=nrec-telemetry']
 ceilometer::agent::notification::manage_event_pipeline:     true
