@@ -61,8 +61,20 @@ gnocchi::statsd::project_id:                  'service'
 # Cors
 gnocchi::cors::allowed_origin:                "http://%{hiera('mgmt__address__monitor')}:8080"
 
-# Use redis here for multinode setup
-gnocchi::coordination_url:                    'file:///var/lib/gnocchi'
+# Coordination (node: metric)
+#
+# metricd splits the sacks between its workers with a partitioned group and a
+# hash ring, so the coordination backend decides who processes what. This uses
+# the node-local redis, same as the incoming storage above, which binds to
+# 127.0.0.1 (see modules/redis.yaml). Correct for the single metric node per
+# location that we run.
+#
+# A second metric node needs more than a change here: redis reachable off-host
+# (redis::bind and a firewall rule) with both nodes pointing at the same
+# instance. Getting that wrong with redis fails loudly on connect. The previous
+# file:// backend would have failed silently, each host forming its own one-node
+# ring and both processing every sack.
+gnocchi::coordination_url:                    'redis://localhost:6379/'
 
 # storage
 gnocchi::storage::ceph::ceph_username:        'gnocchi'
