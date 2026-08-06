@@ -1,7 +1,6 @@
 #
 class profile::openstack::telemetry (
 #  $manage_meters            = false,
-#  $polling_interval         = '600'
 ) {
 
   include ::keystone::bootstrap
@@ -22,9 +21,6 @@ class profile::openstack::telemetry (
   # gnocchi
   include ::gnocchi::client
 
-#  # pipeline
-#  include ::profile::openstack::telemetry::pipeline
-#
 #  if $manage_meters {
 #    file { '/etc/ceilometer/meters.d/meters.yaml':
 #      ensure => file,
