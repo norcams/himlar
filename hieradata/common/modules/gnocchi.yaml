@@ -68,3 +68,24 @@ gnocchi::coordination_url:                    'file:///var/lib/gnocchi'
 gnocchi::storage::ceph::ceph_username:        'gnocchi'
 gnocchi::storage::ceph::ceph_secret:          "%{hiera('ceph_storage_client_metrics_key')}"
 gnocchi::storage::ceph::ceph_pool:            'metrics'
+
+# Archive policy
+#
+# puppet-gnocchi has no archive policy resource type, and ceilometer only
+# auto-creates the policies listed in its own gnocchi_resources.yaml. The
+# policy below is therefore created by hand, once per location, and is only
+# documented here. It is referenced from ceilometer.yaml as the publisher's
+# archive_policy override.
+#
+#   gnocchi archive-policy create nrec-telemetry \
+#     -b 0 -m mean -m rate:mean \
+#     -d granularity:10m,timespan:30d \
+#     -d granularity:1h,timespan:365d \
+#     -d granularity:1d,timespan:3650d
+#
+# back_window is counted in units of the coarsest granularity (24h here), and
+# gnocchi adds 1 automatically when a rate:* aggregate is present, so 0 already
+# yields 24-48h of tolerance for late-arriving measures.
+#
+# A metric's archive policy is fixed at creation and stored in the gnocchi
+# index, not in ceph. Changing this affects new metrics only.

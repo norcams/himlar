@@ -25,8 +25,21 @@ ceilometer::agent::service_credentials::project_name: 'services'
 ceilometer::agent::service_credentials::interface:    'internal'
 
 # ceilometer notification agent (node: telemetry)
+#
+# Only ceilometer-agent-notification reads the pipeline files. ceilometer-polling
+# publishes its samples to the message bus via the oslo notifier and never reads
+# pipeline.yaml, so these only take effect on the telemetry node.
+#   pipeline.yaml       -> polled meters -> gnocchi
+#   event_pipeline.yaml -> events -> gnocchi resource lifecycle
+#
+# The archive_policy option is an override: it replaces the per-metric policies
+# from ceilometer's own gnocchi_resources.yaml (ceilometer-low/-low-rate) for
+# every metric. The policy must already exist in gnocchi, or metric creation
+# fails. See hieradata/common/modules/gnocchi.yaml for the definition.
+ceilometer::agent::notification::manage_pipeline:           true
+ceilometer::agent::notification::pipeline_publishers:       ['gnocchi://?archive_policy=nrec-telemetry']
 ceilometer::agent::notification::manage_event_pipeline:     true
-ceilometer::agent::notification::event_pipeline_publishers: ['gnocchi://?archive_policy=low&filter_service_activity=false']
+ceilometer::agent::notification::event_pipeline_publishers: ['gnocchi://?archive_policy=nrec-telemetry']
 ceilometer::agent::notification::messaging_urls:            "%{hiera('service__transport__url')}"
 
 # Cache (node: telemetry)
