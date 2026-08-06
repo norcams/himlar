@@ -1,7 +1,9 @@
+# Ceilometer notification and central polling agents, for the telemetry role
 #
-class profile::openstack::telemetry (
-#  $manage_meters            = false,
-) {
+# meters.d/meters.yaml and gnocchi_resources.yaml are left as the packaged
+# files. Both were vendored here once and had rotted; the resource definitions
+# especially need to track the ceilometer release.
+class profile::openstack::telemetry {
 
   include ::keystone::bootstrap
   include ::ceilometer
@@ -20,20 +22,5 @@ class profile::openstack::telemetry (
 
   # gnocchi
   include ::gnocchi::client
-
-#  if $manage_meters {
-#    file { '/etc/ceilometer/meters.d/meters.yaml':
-#      ensure => file,
-#      mode   => '0640',
-#      owner  => 'root',
-#      group  => 'ceilometer',
-#      source => "puppet:///modules/${module_name}/openstack/telemetry/meters.d/meters.yaml",
-#      notify => Service['ceilometer-agent-notification', 'ceilometer-polling']
-#    }
-#    # Remove old file
-#    file { '/etc/ceilometer/meters.yaml':
-#      ensure => absent,
-#    }
-#  }
 
 }

@@ -42,9 +42,6 @@ ceilometer::agent::polling::ipmi_namespace:    false
 ceilometer::agent::polling::polling_meters:
   - 'volume.size'
 
-#profile::openstack::telemetry::manage_firewall:           true
-#profile::openstack::telemetry::manage_meters:             true
-
 profile::openstack::openrc::password:                   "%{hiera('ceilometer_api_password')}"
 profile::openstack::openrc::username:                   'ceilometer'
 profile::openstack::openrc::project_name:               'services'
