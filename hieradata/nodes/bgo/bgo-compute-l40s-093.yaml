@@ -44,3 +44,6 @@ profile::base::lvm::logical_volume:
 nova::compute::mdev::mdev_types:
   nvidia-1155: {}
 
+nova::compute::libvirt::cpu_models: ['SapphireRapids','Broadwell-noTSX-IBRS']
+#kernel has disabled TSX (hle and rtm) as a security mitigation for the TAA vulnerability
+nova::compute::libvirt::cpu_model_extra_flags: ['-hle', '-rtm']
