@@ -46,9 +46,9 @@ profile::base::common::packages:
   'kernel-devel': {}
   'kernel-headers': {}
   'unzip': {}
-  'NVIDIA-vGPU-rhel': {
+  #'NVIDIA-vGPU-rhel': { ## Need to install driver using runfile on el.9.8
 #    source: 'http://repo.mgmt.bgo.uhdc.no/NVIDIA-vGPU-rhel-7.8-450.55.x86_64.rpm'
-  }
+  #}
 
 # NVIDIA V100 16GB partitioned into 2x vGPUs, with CUDA support
 #
