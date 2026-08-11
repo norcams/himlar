@@ -3,7 +3,8 @@
 dhcp::hosts:
 # osl-login-01 oob link: 10
 # osl-login-02 oob link:  8
-#
+
+   ### Network hosts ###
 #  osl-leaf-01:
 #    mac: '00:01:e8:d8:3f:d7'
 #    ip:  '172.16.32.1'
@@ -49,14 +50,30 @@ dhcp::hosts:
   osl-mgmt-06:
     mac: '68:21:5f:6a:d7:80'
     ip: '172.16.34.6'
+
+  ### Dummy for test installations ###
+  osl-dummy-01-bmc:
+    mac: 'b4:a9:fc:58:be:97'
+    ip:  '172.17.32.142'
+#  osl-dummy-02-bmc:
+#    mac: ''
+#    ip:  '172.17.32.143'
+#  osl-dummy-03-bmc:
+#    mac: ''
+#    ip:  '172.17.32.144'
+#  osl-dummy-04-bmc:
+#    mac: ''
+#    ip:  '172.17.32.145'
+
+   ### Start regular hosts ###
 #  osl-compute-01-bmc:
-#    mac: 'b8:2a:72:fc:77:28'
+#    mac: ''
 #    ip:  '172.17.32.103'
 #  osl-compute-02-bmc:
-#    mac: 'b8:2a:72:fc:64:08'
+#    mac: ''
 #    ip:  '172.17.32.104'
 #  osl-compute-03-bmc:
-#    mac: 'b8:2a:72:fc:6f:cc'
+#    mac: ''
 #    ip:  '172.17.32.105'
   osl-compute-04-bmc:
     mac: '84:7b:eb:d7:04:4a'
@@ -301,9 +318,9 @@ dhcp::hosts:
   osl-object-05-bmc:
     mac: '18:66:da:bd:65:03'
     ip:  '172.17.32.123'
-  osl-object-06-bmc:
-    mac: 'b4:a9:fc:58:be:97'
-    ip:  '172.17.32.134'
+#  osl-object-06-bmc:
+#    mac: 'b4:a9:fc:58:be:97'
+#    ip:  '172.17.32.134'
 #  osl-object-07-bmc:
 #    mac: ''
 #    ip:  '172.17.32.135'
