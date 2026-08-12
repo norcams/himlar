@@ -1,0 +1,134 @@
+---
+# Configuration for Skyline (the new OpenStack dashboard)
+#
+# Skyline has no puppet module upstream, so this file is the Skyline
+# counterpart of modules/horizon.yaml and feeds profile::openstack::skyline.
+#
+# Skyline docs:
+#   https://docs.openstack.org/skyline-console/latest/
+#   https://docs.openstack.org/skyline-apiserver/latest/
+#
+# Our console fork (menu/branding customisations, see
+# provision/skyline/README.md):
+#   https://github.com/caleno/skyline-console
+#
+# The goal of this setup is to give the same user experience as our Horizon
+# dashboard: the same policy overrides, the same set of visible panels and
+# the same login flow (Feide/dataporten).
+
+#---------------------------------------------------------------------
+# General options
+#   - runs on the skyline node
+#---------------------------------------------------------------------
+profile::openstack::skyline::server_name:  "%{hiera('public__address__skyline')}"
+profile::openstack::skyline::region:       "%{::location}"
+profile::openstack::skyline::nginx_prefix: 'api/openstack'
+
+# nginx listens on the public interface, same as the horizon vhost
+profile::openstack::skyline::nginx_listen_address: "%{ipaddress_public1}:443"
+
+# SSL
+profile::openstack::skyline::ssl_cert: "/etc/pki/tls/certs/%{hiera('public__address__skyline')}.cert.pem"
+profile::openstack::skyline::ssl_key:  "/etc/pki/tls/private/%{hiera('public__address__skyline')}.key.pem"
+
+# The api server listens on localhost only, nginx is the only thing in front
+profile::openstack::skyline::bind_address: '127.0.0.1'
+profile::openstack::skyline::bind_port:    28000
+profile::openstack::skyline::workers:      4
+
+# Wheels built from our own fork, see provision/skyline/README.md.
+# Set the urls (or a version) in the location hieradata.
+profile::openstack::skyline::install_method: 'pip'
+profile::openstack::skyline::pip_packages:
+  'skyline-apiserver': {}
+  'skyline-console':   {}
+
+#---------------------------------------------------------------------
+# Reverse proxy (nginx -> openstack apis)
+#
+# skyline-apiserver tells the browser to talk to
+# /api/openstack/<region>/<service>/, so nginx must have a matching
+# location for every service in "service_mapping" below. Upstream
+# generates this with "skyline-nginx-generator" from the keystone
+# catalog, we take the endpoints from hiera instead so a puppet run
+# does not depend on keystone being reachable.
+#---------------------------------------------------------------------
+profile::openstack::skyline::proxy_endpoints:
+  keystone:  "%{hiera('endpoint__identity__public')}"
+  nova:      "%{hiera('endpoint__compute__public')}"
+  placement: "%{hiera('endpoint__placement__public')}"
+  glance:    "%{hiera('endpoint__image__public')}"
+  neutron:   "%{hiera('endpoint__network__public')}"
+  cinder:    "%{hiera('endpoint__volume__public')}"
+  # radosgw is registered as <endpoint>/swift/v1/AUTH_$(tenant_id)s, the
+  # console adds the /v1 itself so we proxy to /swift
+  swift:     "%{hiera('endpoint__object__public')}/swift/v1"
+  designate: "%{hiera('endpoint__designate__public')}"
+
+#---------------------------------------------------------------------
+# /etc/skyline/skyline.yaml
+#
+# This hash is written verbatim as yaml. It is deep merged, so a
+# location only has to override the keys it cares about.
+#---------------------------------------------------------------------
+profile::openstack::skyline::config:
+  default:
+    # 3 hours, same as horizon::session_timeout
+    access_token_expire:  10800
+    access_token_renew:   1800
+    cafile:               '/etc/pki/tls/certs/cachain.pem'
+    cors_allow_origins:   []
+    database_url:         "mysql+pymysql://skyline:%{hiera('skyline_db_password')}@%{hiera('service__address__db_regional')}:3306/skyline"
+    debug:                false
+    log_dir:              '/var/log/skyline'
+    log_file:             'skyline.log'
+    policy_file_path:     '/etc/skyline/policy'
+    policy_file_suffix:   'policy.yaml'
+    secret_key:           "%{hiera('skyline_secret_key')}"
+    session_name:         'session'
+    ssl_enabled:          true
+  openstack:
+    base_domains:         []
+    default_region:       "%{::location}"
+    # Our services still run with the old policy defaults
+    enforce_new_defaults: false
+    interface_type:       'public'
+    keystone_url:         "%{hiera('endpoint__identity__public')}/v3/"
+    nginx_prefix:         '/api/openstack'
+    reclaim_instance_interval: 604800
+    system_project:        "%{hiera('keystone__service__project')}"
+    system_project_domain: "%{hiera('keystone__default__domain')}"
+    system_user_domain:    "%{hiera('keystone__default__domain')}"
+    system_user_name:      'skyline'
+    system_user_password:  "%{hiera('skyline_api_password')}"
+    user_default_domain:   "%{hiera('keystone__default__domain')}"
+    system_admin_roles:
+      - 'admin'
+    system_reader_roles:
+      - 'admin_view'
+
+    # Feide/dataporten. Keystone must trust the callback url, see
+    # keystone::federation::trusted_dashboards in modules/keystone.yaml.
+    sso_enabled:   true
+    sso_region:    "%{::location}"
+    sso_protocols:
+      - 'openid'
+
+    # Only the services we actually run. Menu entries for everything else
+    # are hidden by skyline because the endpoint is missing, which is how
+    # we get the same panel list as horizon without patching the console.
+    # (cinder is registered as "volumev3" by puppet-cinder)
+    service_mapping:
+      identity:      'keystone'
+      compute:       'nova'
+      placement:     'placement'
+      image:         'glance'
+      network:       'neutron'
+      volumev3:      'cinder'
+      block-storage: 'cinder'
+      object-store:  'swift'
+      dns:           'designate'
+
+    # Empty on purpose: hides QoS policies, VPN, Firewalls and floating ip
+    # port forwarding from the network menu, none of which we offer.
+    extension_mapping: {}

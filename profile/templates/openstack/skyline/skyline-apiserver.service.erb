@@ -1,0 +1,19 @@
+# This file is managed by puppet (profile::openstack::skyline)
+[Unit]
+Description=Skyline APIServer
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=<%= @user %>
+Group=<%= @group %>
+Environment=OS_CONFIG_DIR=<%= @config_dir %>
+ExecStart=/usr/local/bin/gunicorn -c <%= @config_dir %>/gunicorn.py skyline_apiserver.main:app
+ExecReload=/bin/kill -s HUP $MAINPID
+Restart=on-failure
+RestartSec=5
+LimitNOFILE=32768
+
+[Install]
+WantedBy=multi-user.target

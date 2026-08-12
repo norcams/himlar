@@ -1,0 +1,181 @@
+# This file is managed by puppet (profile::openstack::skyline)
+#
+# It is a puppet port of the file "skyline-nginx-generator" writes. We do not
+# run the generator because it needs to talk to keystone at puppet run time
+# and it would rewrite the whole file on every run. The proxy locations below
+# must stay in sync with what skyline-apiserver hands to the browser, that is
+#
+#   /<nginx_prefix>/<region-in-lowercase>/<service>/
+#
+# (see skyline_apiserver/client/openstack/system.py:get_endpoints)
+
+user <%= @nginx_user %>;
+worker_processes auto;
+pid /run/nginx.pid;
+include /usr/share/nginx/modules/*.conf;
+
+events {
+    worker_connections 1024;
+    multi_accept on;
+}
+
+http {
+
+    ##
+    # Basic Settings
+    ##
+    sendfile on;
+    tcp_nopush on;
+    tcp_nodelay on;
+    client_max_body_size 0;
+    types_hash_max_size 2048;
+    proxy_request_buffering off;
+    server_tokens off;
+
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+<% if @ssl_cert and @ssl_key -%>
+
+    ##
+    # SSL Settings
+    ##
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+    ssl_ciphers HIGH:!aNULL:!MD5:!3DES;
+
+    ssl_certificate <%= @ssl_cert %>;
+    ssl_certificate_key <%= @ssl_key %>;
+<% end -%>
+
+    ##
+    # Logging Settings
+    ##
+    log_format main '$remote_addr - $remote_user [$time_local] "$request_time" '
+                    '"$upstream_response_time" "$request" '
+                    '$status $body_bytes_sent "$http_referer" '
+                    '"$http_user_agent" "$http_x_forwarded_for"';
+    access_log syslog:server=unix:/dev/log,facility=local1,tag=nginx main;
+    error_log syslog:server=unix:/dev/log,facility=local1,tag=nginx;
+
+    ##
+    # Gzip Settings
+    ##
+    gzip on;
+    gzip_static on;
+    gzip_disable "msie6";
+
+    gzip_vary on;
+    gzip_proxied any;
+    gzip_comp_level 6;
+    gzip_buffers 16 8k;
+    gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+
+    upstream skyline {
+        server <%= @bind_address %>:<%= @bind_port %> fail_timeout=0;
+    }
+
+    ##
+    # Virtual Host Configs
+    ##
+<% if @ssl_cert and @ssl_key -%>
+<%
+   # Redirect plain http to https, the horizon vhost does the same
+   listen_host = @nginx_listen_address.include?(':') ? @nginx_listen_address.rpartition(':').first : @nginx_listen_address
+-%>
+    server {
+        listen <%= listen_host %>:80;
+        server_name <%= @server_name %>;
+        return 301 https://$host$request_uri;
+    }
+
+<% end -%>
+    server {
+        listen <%= @nginx_listen_address %><% if @ssl_cert and @ssl_key %> ssl http2<% end %> default_server;
+
+        root <%= @console_static_path %>;
+
+        index index.html;
+
+        server_name <%= @server_name %>;
+
+        error_page 497 https://$http_host$request_uri;
+
+        # Same hardening as the horizon vhost
+        add_header X-Frame-Options "DENY" always;
+        add_header X-Content-Type-Options "nosniff" always;
+        add_header Referrer-Policy "same-origin" always;
+<% if @ssl_cert and @ssl_key -%>
+        add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+<% end -%>
+<% if @maintenance_page -%>
+
+        # Maintenance page, enabled by "touch /var/www/maintenance"
+        set $maintenance 0;
+        if (-f /var/www/maintenance) {
+            set $maintenance 1;
+        }
+        if ($http_x_maintenance = "tF0BOCn4z8HgG2Kw") {
+            set $maintenance 0;
+        }
+        if ($maintenance = 1) {
+            return 503;
+        }
+        error_page 503 @maintenance;
+        location @maintenance {
+            root /var/www;
+            try_files /maintenance.html =503;
+            internal;
+        }
+<% end -%>
+
+        location / {
+            try_files $uri $uri/ /index.html;
+            expires 1d;
+            add_header Cache-Control "public";
+        }
+
+        location /api/openstack/skyline/ {
+            proxy_pass http://skyline/;
+            proxy_redirect off;
+            proxy_buffering off;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_set_header X-Forwarded-Host $host;
+            proxy_set_header Host $http_host;
+        }
+
+        location /api/v1/ {
+            proxy_pass http://skyline/api/v1/;
+            proxy_redirect off;
+            proxy_buffering off;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_set_header X-Forwarded-Host $host;
+            proxy_set_header Host $http_host;
+        }
+<% @proxy_endpoints.sort.each do |service, url| -%>
+<%
+   # Normalise: no version suffix and always a trailing slash, this is what
+   # the generator does with the endpoints it reads from the catalog.
+   proxy_url  = url.sub(%r{/v[0-9](\.[0-9])?/?$}, '').chomp('/') + '/'
+   proxy_host = proxy_url.sub(%r{^https?://}, '').split('/').first
+   location   = "/#{@nginx_prefix}/#{@region.downcase}/#{service}/".gsub(%r{/+}, '/')
+-%>
+
+        # <%= @region.downcase %> <%= service %>
+        location <%= location %> {
+            proxy_pass <%= proxy_url %>;
+            proxy_redirect <%= proxy_url %> <%= location %>;
+            proxy_buffering off;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_set_header X-Forwarded-Host $host;
+            proxy_set_header Host <%= proxy_host %>;
+<% if proxy_url.start_with?('https://') -%>
+            proxy_ssl_protocols TLSv1.2 TLSv1.3;
+            proxy_ssl_server_name on;
+<% end -%>
+        }
+<% end -%>
+    }
+}

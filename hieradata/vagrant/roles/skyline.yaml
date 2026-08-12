@@ -1,0 +1,30 @@
+---
+include:
+  default:
+    - profile::application::openssl
+    - profile::development::patch
+
+profile::application::openssl::manage_ca_cert:  true
+profile::application::openssl::certs:
+  "skyline.%{hiera('domain_frontend')}":
+    cn:     "skyline.%{hiera('domain_frontend')}"
+    altnames:
+      - "skyline.%{hiera('domain_frontend')}"
+
+profile::openstack::skyline::allow_from_network:
+  - '0.0.0.0/0'
+
+# In vagrant we install the upstream wheels from pypi, there is no build
+# of our own console fork available. See provision/skyline/README.md.
+profile::openstack::skyline::pip_packages:
+  'skyline-apiserver': {}
+  'skyline-console':   {}
+
+profile::openstack::skyline::config:
+  default:
+    debug: true
+    # Self signed CA in vagrant
+    cafile: '/etc/pki/tls/certs/cachain.pem'
+  openstack:
+    # No dataporten in vagrant, log in with a local keystone user
+    sso_enabled: false

@@ -1,0 +1,244 @@
+#
+# Skyline dashboard (skyline-apiserver + skyline-console)
+#
+# This profile is the Skyline counterpart of profile::openstack::dashboard
+# and is meant to give the same user experience as our Horizon setup:
+#
+#   * the same set of policy overrides (/etc/skyline/policy/*_policy.yaml)
+#   * the same firewall/network restrictions
+#   * the same session database backend (MariaDB on the regional db)
+#   * WebSSO (Feide/dataporten) as the default login method
+#
+# Skyline has no puppet module upstream, so everything is managed here.
+#
+# Install methods:
+#   'pip'     - install wheels (built from our own skyline-console fork)
+#   'package' - install rpms, packages are listed in $packages
+#
+class profile::openstack::skyline (
+  $manage_skyline       = false,
+  $manage_nginx         = true,
+  $manage_firewall      = false,
+  $manage_firewall6     = false,
+  $ports                = [80, 443],
+  $allow_from_network   = undef,
+  $allow_from_network6  = undef,
+  $firewall_extras      = {},
+  $install_method       = 'pip',
+  $packages             = {},
+  $pip_packages         = {},
+  $pip_provider         = 'pip3',
+  $config_dir           = '/etc/skyline',
+  $log_dir              = '/var/log/skyline',
+  $run_dir              = '/var/lib/skyline',
+  $user                 = 'skyline',
+  $group                = 'skyline',
+  $bind_address         = '127.0.0.1',
+  $bind_port            = 28000,
+  $workers              = 4,
+  $gunicorn_extra       = {},
+  $nginx_listen_address = '0.0.0.0:443',
+  $nginx_config_file    = '/etc/nginx/nginx.conf',
+  $nginx_user           = 'nginx',
+  $server_name          = $::fqdn,
+  $ssl_cert             = undef,
+  $ssl_key              = undef,
+  $region               = $::location,
+  $nginx_prefix         = 'api/openstack',
+  $proxy_endpoints      = {},
+  $manage_db_sync       = false,
+  $maintenance_page     = false,
+  # Where the console wheel unpacks its static files. This is the pip
+  # location on el9, an rpm install would put it in /usr/lib instead.
+  $console_static_path  = '/usr/local/lib/python3.9/site-packages/skyline_console/static',
+) {
+
+  # /etc/skyline/skyline.yaml. Looked up with a deep merge (and not as a class
+  # parameter) so a location or a role variant only has to override the single
+  # keys it cares about, the same way we do with the policy hash below.
+  $config = lookup('profile::openstack::skyline::config', Hash, 'deep', {})
+
+  if $manage_skyline {
+
+    case $install_method {
+      'pip': {
+        ensure_packages(['python3-pip'], { 'ensure' => 'present' })
+        $pip_defaults = {
+          'ensure'   => 'present',
+          'provider' => $pip_provider,
+          'require'  => Package['python3-pip'],
+        }
+        create_resources('package', $pip_packages, $pip_defaults)
+      }
+      'package': {
+        create_resources('package', $packages, { 'ensure' => 'present' })
+      }
+      default: {
+        fail("invalid install_method '${install_method}': choose from pip or package")
+      }
+    }
+
+    group { $group:
+      ensure => present,
+      system => true,
+    } ->
+    user { $user:
+      ensure => present,
+      gid    => $group,
+      shell  => '/sbin/nologin',
+      home   => $run_dir,
+      system => true,
+    }
+
+    file { [$config_dir, "${config_dir}/policy", $log_dir, $run_dir]:
+      ensure  => directory,
+      owner   => $user,
+      group   => $group,
+      mode    => '0750',
+      require => User[$user],
+    }
+
+    # /etc/skyline/skyline.yaml is built from the "config" hash. The hash is
+    # deep merged in hiera so a location can override single keys only.
+    file { "${config_dir}/skyline.yaml":
+      ensure    => file,
+      owner     => $user,
+      group     => $group,
+      mode      => '0640',
+      show_diff => false,
+      content   => to_yaml($config),
+      require   => File[$config_dir],
+      notify    => Service['skyline-apiserver'],
+    }
+
+    file { "${config_dir}/gunicorn.py":
+      ensure  => file,
+      owner   => $user,
+      group   => $group,
+      mode    => '0644',
+      content => template("${module_name}/openstack/skyline/gunicorn.py.erb"),
+      require => File[$config_dir],
+      notify  => Service['skyline-apiserver'],
+    }
+
+    file { '/etc/systemd/system/skyline-apiserver.service':
+      ensure  => file,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      content => template("${module_name}/openstack/skyline/skyline-apiserver.service.erb"),
+      notify  => [Exec['skyline systemd daemon-reload'], Service['skyline-apiserver']],
+    }
+
+    exec { 'skyline systemd daemon-reload':
+      command     => '/bin/systemctl daemon-reload',
+      refreshonly => true,
+      before      => Service['skyline-apiserver'],
+    }
+
+    # Populate the skyline database. Only needed once, and only when we use
+    # a real database backend (the regional MariaDB). Upstream runs this as
+    # "make db_sync" from a source checkout, we ship the alembic config
+    # ourselves instead (script_location is a package path, not a directory).
+    if $manage_db_sync {
+      file { "${config_dir}/alembic.ini":
+        ensure  => file,
+        owner   => $user,
+        group   => $group,
+        mode    => '0644',
+        content => template("${module_name}/openstack/skyline/alembic.ini.erb"),
+        require => File[$config_dir],
+      } ->
+      exec { 'skyline db sync':
+        command     => "alembic -c ${config_dir}/alembic.ini upgrade head && touch ${run_dir}/.db_sync",
+        path        => ['/usr/local/bin', '/usr/bin', '/bin'],
+        user        => 'root',
+        environment => ["OS_CONFIG_DIR=${config_dir}"],
+        creates     => "${run_dir}/.db_sync",
+        require     => File["${config_dir}/skyline.yaml"],
+        before      => Service['skyline-apiserver'],
+      }
+    }
+
+    service { 'skyline-apiserver':
+      ensure  => running,
+      enable  => true,
+      require => File["${config_dir}/skyline.yaml"],
+    }
+
+    if $manage_nginx {
+      ensure_packages(['nginx'], { 'ensure' => 'present' })
+
+      file { $nginx_config_file:
+        ensure  => file,
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0644',
+        content => template("${module_name}/openstack/skyline/nginx.conf.erb"),
+        require => Package['nginx'],
+        notify  => Service['nginx'],
+      }
+
+      # To use this:
+      # - enable this block with $maintenance_page = true (this can be done permanently)
+      # - touch /var/www/maintenance to show page
+      # - rm /var/www/maintenance to remove the page
+      if $maintenance_page {
+        file { 'skyline_maintenance.html':
+          ensure  => file,
+          path    => '/var/www/maintenance.html',
+          source  => "puppet:///modules/${module_name}/openstack/horizon/maintenance.html",
+          require => Package['nginx'],
+          notify  => Service['nginx'],
+        }
+      }
+
+      service { 'nginx':
+        ensure  => running,
+        enable  => true,
+        require => Package['nginx'],
+      }
+    }
+
+    # Policy overrides, same pattern as profile::openstack::dashboard. Files
+    # are named <service>_policy.yaml and are re-read by the api server when
+    # they change, so no service restart is needed.
+    $policy_defaults = {
+      require     => File["${config_dir}/policy"],
+      file_mode   => '0644',
+      file_format => 'yaml',
+    }
+    $policies = lookup('profile::openstack::skyline::policies', Hash, 'deep', {})
+    create_resources('openstacklib::policy::base', $policies, $policy_defaults)
+  }
+
+  if $manage_firewall {
+    $hiera_allow_from_network = lookup('allow_from_network', Array, 'unique', undef)
+    $source = $allow_from_network? {
+      undef   => $hiera_allow_from_network,
+      ''      => $hiera_allow_from_network,
+      default => $allow_from_network
+    }
+    profile::firewall::rule { '236 public openstack-skyline accept tcp':
+      dport  => $ports,
+      source => $source,
+      extras => $firewall_extras,
+    }
+  }
+
+  if $manage_firewall6 {
+    $hiera_allow_from_network6 = lookup('allow_from_network6', Array, 'unique', [])
+    $source6 = $allow_from_network6? {
+      undef   => $hiera_allow_from_network6,
+      ''      => $hiera_allow_from_network6,
+      default => $allow_from_network6,
+    }
+    profile::firewall::rule { '236 public openstack-skyline accept tcp6':
+      dport    => $ports,
+      source   => $source6,
+      extras   => $firewall_extras,
+      provider => 'ip6tables',
+    }
+  }
+
+}

@@ -58,6 +58,10 @@ keystone::federation::trusted_dashboards:
   - "https://%{hiera('public__address__dashboard')}/dashboard/auth/websso/"
   - "https://%{hiera('public__address__dashboard_bgo')}/dashboard/auth/websso/"
   - "https://%{hiera('public__address__dashboard_osl')}/dashboard/auth/websso/"
+  # skyline builds its origin as <base_url>/<nginx_prefix>/skyline/api/v1/websso
+  - "https://%{hiera('public__address__skyline')}/api/openstack/skyline/api/v1/websso"
+  - "https://%{hiera('public__address__skyline_bgo')}/api/openstack/skyline/api/v1/websso"
+  - "https://%{hiera('public__address__skyline_osl')}/api/openstack/skyline/api/v1/websso"
 keystone::federation::openidc::idp_name:   'dataporten'
 keystone::federation::openidc::methods:
   - 'password'

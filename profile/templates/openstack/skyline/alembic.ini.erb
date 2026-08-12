@@ -1,0 +1,9 @@
+# This file is managed by puppet (profile::openstack::skyline)
+#
+# Used by "alembic -c <%= @config_dir %>/alembic.ini upgrade head" to create
+# and upgrade the skyline session database. The sqlalchemy url is left empty
+# on purpose, skyline_apiserver/db/alembic/env.py sets it from
+# <%= @config_dir %>/skyline.yaml (default.database_url).
+[alembic]
+script_location = skyline_apiserver.db:alembic
+sqlalchemy.url =

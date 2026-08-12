@@ -1,0 +1,40 @@
+---
+# Internal skyline dashboard for operators
+#
+# Same idea as roles/dashboard-mgmt.yaml: reachable from the mgmt network
+# only, no Feide login and with the admin console enabled. Keys not set here
+# are inherited from roles/skyline.yaml, including the policy overrides.
+
+openstack_version: 'zed'
+
+profile::openstack::skyline::server_name:          "skyline.%{hiera('domain_mgmt')}"
+profile::openstack::skyline::nginx_listen_address: "%{ipaddress_mgmt1}:443"
+
+profile::openstack::skyline::ssl_cert: "/etc/pki/tls/certs/%{hiera('public__address__skylinemgmt')}.cert.pem"
+profile::openstack::skyline::ssl_key:  "/etc/pki/tls/private/%{hiera('public__address__skylinemgmt')}.key.pem"
+
+profile::openstack::skyline::firewall_extras:
+  iniface: "%{::interface_mgmt1}"
+
+profile::openstack::skyline::allow_from_network:
+  - "%{hiera('netcfg_mgmt_netpart')}.0/%{hiera('netcfg_mgmt_netmask')}"  # only allow from mgmt network (including sshuttle through login)
+
+# Talk to the internal endpoints, and use its own session database
+profile::openstack::skyline::proxy_endpoints:
+  keystone:  "%{hiera('endpoint__identity__internal')}"
+  nova:      "%{hiera('endpoint__compute__internal')}"
+  placement: "%{hiera('endpoint__placement__internal')}"
+  glance:    "%{hiera('endpoint__image__internal')}"
+  neutron:   "%{hiera('endpoint__network__internal')}"
+  cinder:    "%{hiera('endpoint__volume__internal')}"
+  swift:     "%{hiera('endpoint__object__internal')}/swift/v1"
+  designate: "%{hiera('endpoint__designate__internal')}"
+
+profile::openstack::skyline::config:
+  default:
+    database_url: "mysql+pymysql://skyline:%{hiera('skyline_db_password')}@%{hiera('service__address__db_regional')}:3306/skyline-mgmt"
+  openstack:
+    interface_type: 'internal'
+    keystone_url:   "%{hiera('endpoint__identity__internal')}/v3/"
+    # No Feide here, operators log in with their keystone credentials
+    sso_enabled:    false
