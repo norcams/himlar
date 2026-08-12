@@ -37,6 +37,22 @@ ceilometer::agent::polling::central_namespace: false
 ceilometer::agent::polling::compute_namespace: true
 ceilometer::agent::polling::ipmi_namespace:    false
 
+# Meters polled in the compute namespace (ceilometer.poll.compute)
+# Ref. https://docs.openstack.org/ceilometer/zed/admin/telemetry-measurements.html
+ceilometer::agent::polling::polling_meters:
+  - 'cpu'
+  - 'memory.usage'
+  - 'memory.resident'
+  - 'disk.device.read.requests'
+  - 'disk.device.write.requests'
+  - 'disk.device.read.bytes'
+  - 'disk.device.write.bytes'
+  - 'disk.device.iops'
+  - 'network.incoming.bytes'
+  - 'network.incoming.packets'
+  - 'network.outgoing.bytes'
+  - 'network.outgoing.packets'
+
 # Fix SELinux file context for Nova's .ssh
 profile::base::selinux::fcontext:
   nova-dot-ssh:
