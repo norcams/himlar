@@ -92,7 +92,7 @@ http {
     server {
         listen <%= @nginx_listen_address %><% if @ssl_cert and @ssl_key %> ssl http2<% end %> default_server;
 
-        root <%= @console_static_path %>;
+        root <%= @console_static_path_real %>;
 
         index index.html;
 

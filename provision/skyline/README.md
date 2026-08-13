@@ -35,6 +35,7 @@ Skyline is two pieces:
 The profile manages, on the skyline node:
 
 ```
+/opt/skyline                               virtualenv with both wheels installed
 /etc/skyline/skyline.yaml                  from profile::openstack::skyline::config (hiera, deep merged)
 /etc/skyline/gunicorn.py                   bind = <bind_address>:<bind_port>
 /etc/skyline/alembic.ini                   only used by the one-off db sync
@@ -42,6 +43,29 @@ The profile manages, on the skyline node:
 /etc/systemd/system/skyline-apiserver.service
 /etc/nginx/nginx.conf
 ```
+
+### Why a virtualenv
+
+Skyline requires python >= 3.10 and el9 still ships 3.9 as the system python,
+so the install guide's `python3 -m pip install` does not work for us. The
+profile builds a virtualenv from the `python3.11` appstream package instead,
+which also keeps skyline's pinned fastapi/pydantic/sqlalchemy out of the
+system python where the openstack clients live.
+
+Wheels are declared in `profile::openstack::skyline::wheels`:
+
+```yaml
+profile::openstack::skyline::wheels:
+  skyline-apiserver:
+    source:  'skyline-apiserver==8.0.0'    # pypi name, url or local path
+    version: '8.0.0'                       # drop to stop checking the version
+  skyline-console:
+    source:  'https://repo.example/skyline_console-8.0.0-py3-none-any.whl'
+    version: '8.0.0'
+```
+
+Puppet installs a wheel when `pip show <name>` does not report `version`, so
+rolling out a new build is a matter of bumping `version` in hiera.
 
 The install guide tells you to run `skyline-nginx-generator` to produce
 `nginx.conf`. We do not: it needs to talk to keystone on every puppet run and
@@ -121,10 +145,46 @@ do not.
 Clones the fork, applies `nrec-console.patch`, drops in the NREC logos from
 `profile/files/openstack/horizon/img/` and runs `make package`. Upload the
 resulting wheel to the package repo and point
-`profile::openstack::skyline::pip_packages` at it.
+`profile::openstack::skyline::wheels` at it.
+
+The build host needs node 16 (lts/gallium) and yarn, which is why this is not
+done on the skyline node itself.
 
 When rebasing the fork on a new upstream release, re-apply the patch by hand
 if it conflicts and regenerate it with `git diff > nrec-console.patch`.
+
+## Trying it in vagrant
+
+The skyline node is part of the default nodeset, so:
+
+```
+# build the console wheel and put it where the vm can see it
+./provision/skyline/build-console.sh
+cp /tmp/skyline-build/skyline-console/dist/*.whl provision/skyline/dist/
+
+# the whole repo is rsynced to /opt/himlar in the vm, and
+# provision/skyline/dist/ is gitignored
+vagrant up vagrant-skyline-01
+```
+
+Check the wheel file name matches `profile::openstack::skyline::wheels` in
+`hieradata/vagrant/roles/skyline.yaml`, then browse to
+<https://skyline.iaas.intern/> (vagrant's `domain_frontend`). Log in with a
+local keystone user, vagrant has no dataporten so `sso_enabled` is false
+there.
+
+It depends on `vagrant-identity-01` (creates the skyline service user) and
+`vagrant-db-regional-01` (creates the database), so bring those up first if
+you are starting from scratch.
+
+Useful on the node:
+
+```
+systemctl status skyline-apiserver
+journalctl -u skyline-apiserver -f
+tail -f /var/log/skyline/skyline*.log
+/opt/skyline/bin/pip list | grep skyline
+```
 
 ## Adding a skyline node
 

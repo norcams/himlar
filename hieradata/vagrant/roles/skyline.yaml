@@ -2,7 +2,6 @@
 include:
   default:
     - profile::application::openssl
-    - profile::development::patch
 
 profile::application::openssl::manage_ca_cert:  true
 profile::application::openssl::certs:
@@ -14,11 +13,20 @@ profile::application::openssl::certs:
 profile::openstack::skyline::allow_from_network:
   - '0.0.0.0/0'
 
-# In vagrant we install the upstream wheels from pypi, there is no build
-# of our own console fork available. See provision/skyline/README.md.
-profile::openstack::skyline::pip_packages:
-  'skyline-apiserver': {}
-  'skyline-console':   {}
+# The whole repo is rsynced to /opt/himlar in the vm, so drop the wheels you
+# built with provision/skyline/build-console.sh into provision/skyline/dist/
+# and they are there when puppet runs. The directory is gitignored.
+#
+# Leave the apiserver on pypi unless you build that as well. Remove the
+# "version" key to make puppet stop checking which version is installed,
+# handy while iterating on a build.
+profile::openstack::skyline::wheels:
+  skyline-apiserver:
+    source:  'skyline-apiserver==8.0.0'
+    version: '8.0.0'
+  skyline-console:
+    source:  '/opt/himlar/provision/skyline/dist/skyline_console-8.0.0-py3-none-any.whl'
+    version: '8.0.0'
 
 profile::openstack::skyline::config:
   default:

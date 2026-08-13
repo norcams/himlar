@@ -12,7 +12,12 @@
 # Skyline has no puppet module upstream, so everything is managed here.
 #
 # Install methods:
-#   'pip'     - install wheels (built from our own skyline-console fork)
+#   'venv'    - install wheels (built from our own skyline-console fork) into
+#               a virtualenv. Skyline needs python >= 3.10 while el9 still
+#               ships 3.9 as the system python, so we build the venv from the
+#               python3.11 appstream package. It also keeps skyline's pinned
+#               fastapi/pydantic/sqlalchemy away from the system python where
+#               the openstack clients live.
 #   'package' - install rpms, packages are listed in $packages
 #
 class profile::openstack::skyline (
@@ -24,10 +29,13 @@ class profile::openstack::skyline (
   $allow_from_network   = undef,
   $allow_from_network6  = undef,
   $firewall_extras      = {},
-  $install_method       = 'pip',
+  $install_method       = 'venv',
   $packages             = {},
-  $pip_packages         = {},
-  $pip_provider         = 'pip3',
+  # name => { source => <wheel path, url or pypi name>, version => <optional> }
+  $wheels               = {},
+  $python_package       = 'python3.11',
+  $venv_dir             = '/opt/skyline',
+  $bin_dir              = undef,
   $config_dir           = '/etc/skyline',
   $log_dir              = '/var/log/skyline',
   $run_dir              = '/var/lib/skyline',
@@ -48,10 +56,19 @@ class profile::openstack::skyline (
   $proxy_endpoints      = {},
   $manage_db_sync       = false,
   $maintenance_page     = false,
-  # Where the console wheel unpacks its static files. This is the pip
-  # location on el9, an rpm install would put it in /usr/lib instead.
-  $console_static_path  = '/usr/local/lib/python3.9/site-packages/skyline_console/static',
+  # Where the console wheel unpacks its static files. Defaults to the venv,
+  # an rpm install would put it under /usr/lib instead.
+  $console_static_path  = undef,
 ) {
+
+  $bin_dir_real = $bin_dir? {
+    undef   => "${venv_dir}/bin",
+    default => $bin_dir,
+  }
+  $console_static_path_real = $console_static_path? {
+    undef   => "${venv_dir}/lib/${python_package}/site-packages/skyline_console/static",
+    default => $console_static_path,
+  }
 
   # /etc/skyline/skyline.yaml. Looked up with a deep merge (and not as a class
   # parameter) so a location or a role variant only has to override the single
@@ -61,22 +78,49 @@ class profile::openstack::skyline (
   if $manage_skyline {
 
     case $install_method {
-      'pip': {
-        ensure_packages(['python3-pip'], { 'ensure' => 'present' })
-        $pip_defaults = {
-          'ensure'   => 'present',
-          'provider' => $pip_provider,
-          'require'  => Package['python3-pip'],
+      'venv': {
+        ensure_packages([$python_package], { 'ensure' => 'present' })
+
+        exec { 'skyline venv':
+          command => "/usr/bin/${python_package} -m venv ${venv_dir}",
+          creates => "${venv_dir}/bin/python",
+          require => Package[$python_package],
         }
-        create_resources('package', $pip_packages, $pip_defaults)
+
+        # Upgrading is a matter of bumping "version" in hiera. Without a
+        # version we only check that the wheel is installed at all, which is
+        # what you want when tracking a moving "latest" build.
+        $wheels.each |String $wheel, Hash $opts| {
+          $source  = $opts['source']? { undef => $wheel, default => $opts['source'] }
+          $version = $opts['version']
+          $check   = $version? {
+            undef   => "${venv_dir}/bin/pip show ${wheel}",
+            default => "${venv_dir}/bin/pip show ${wheel} | grep -qx 'Version: ${version}'",
+          }
+          exec { "skyline pip install ${wheel}":
+            command  => "${venv_dir}/bin/pip install --upgrade ${source}",
+            unless   => $check,
+            path     => ['/usr/bin', '/bin'],
+            provider => 'shell',
+            timeout  => 900,
+            tag      => 'skyline_install',
+            require  => Exec['skyline venv'],
+            notify   => Service['skyline-apiserver'],
+          }
+        }
       }
       'package': {
-        create_resources('package', $packages, { 'ensure' => 'present' })
+        create_resources('package', $packages, { 'ensure' => 'present', 'tag' => 'skyline_install' })
       }
       default: {
-        fail("invalid install_method '${install_method}': choose from pip or package")
+        fail("invalid install_method '${install_method}': choose from venv or package")
       }
     }
+
+    # Whatever the install method, skyline has to be on disk before we try to
+    # run alembic or start the service
+    Exec <| tag == 'skyline_install' |>    -> Service['skyline-apiserver']
+    Package <| tag == 'skyline_install' |> -> Service['skyline-apiserver']
 
     group { $group:
       ensure => present,
@@ -150,14 +194,17 @@ class profile::openstack::skyline (
         require => File[$config_dir],
       } ->
       exec { 'skyline db sync':
-        command     => "alembic -c ${config_dir}/alembic.ini upgrade head && touch ${run_dir}/.db_sync",
-        path        => ['/usr/local/bin', '/usr/bin', '/bin'],
+        command     => "${bin_dir_real}/alembic -c ${config_dir}/alembic.ini upgrade head && touch ${run_dir}/.db_sync",
+        path        => [$bin_dir_real, '/usr/bin', '/bin'],
         user        => 'root',
         environment => ["OS_CONFIG_DIR=${config_dir}"],
         creates     => "${run_dir}/.db_sync",
         require     => File["${config_dir}/skyline.yaml"],
         before      => Service['skyline-apiserver'],
       }
+
+      Exec <| tag == 'skyline_install' |>    -> Exec['skyline db sync']
+      Package <| tag == 'skyline_install' |> -> Exec['skyline db sync']
     }
 
     service { 'skyline-apiserver':
@@ -198,6 +245,12 @@ class profile::openstack::skyline (
         enable  => true,
         require => Package['nginx'],
       }
+
+      # nginx resolves the proxy_pass hostnames when it reads the config and
+      # refuses to start if one of them is unknown. In vagrant the api names
+      # come from /etc/hosts (profile::development::network::dns), so make
+      # sure they are in place first. No-op everywhere else.
+      Host <| |> -> Service['nginx']
     }
 
     # Policy overrides, same pattern as profile::openstack::dashboard. Files

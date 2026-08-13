@@ -9,7 +9,7 @@ Type=simple
 User=<%= @user %>
 Group=<%= @group %>
 Environment=OS_CONFIG_DIR=<%= @config_dir %>
-ExecStart=/usr/local/bin/gunicorn -c <%= @config_dir %>/gunicorn.py skyline_apiserver.main:app
+ExecStart=<%= @bin_dir_real %>/gunicorn -c <%= @config_dir %>/gunicorn.py skyline_apiserver.main:app
 ExecReload=/bin/kill -s HUP $MAINPID
 Restart=on-failure
 RestartSec=5

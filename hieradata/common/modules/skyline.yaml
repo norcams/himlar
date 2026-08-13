@@ -36,12 +36,22 @@ profile::openstack::skyline::bind_address: '127.0.0.1'
 profile::openstack::skyline::bind_port:    28000
 profile::openstack::skyline::workers:      4
 
-# Wheels built from our own fork, see provision/skyline/README.md.
-# Set the urls (or a version) in the location hieradata.
-profile::openstack::skyline::install_method: 'pip'
-profile::openstack::skyline::pip_packages:
-  'skyline-apiserver': {}
-  'skyline-console':   {}
+# Skyline needs python >= 3.10 and el9 ships 3.9, so everything goes into a
+# virtualenv built from the python3.11 appstream package.
+#
+# The console wheel is built from our own fork, see
+# provision/skyline/README.md. Set "source" to the wheel url in the location
+# hieradata and bump "version" to roll out a new build.
+profile::openstack::skyline::install_method: 'venv'
+profile::openstack::skyline::python_package: 'python3.11'
+profile::openstack::skyline::venv_dir:       '/opt/skyline'
+profile::openstack::skyline::wheels:
+  skyline-apiserver:
+    source:  'skyline-apiserver==8.0.0'
+    version: '8.0.0'
+  skyline-console:
+    source:  'skyline-console==8.0.0'
+    version: '8.0.0'
 
 #---------------------------------------------------------------------
 # Reverse proxy (nginx -> openstack apis)
