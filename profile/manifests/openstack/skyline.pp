@@ -93,9 +93,11 @@ class profile::openstack::skyline (
         $wheels.each |String $wheel, Hash $opts| {
           $source  = $opts['source']? { undef => $wheel, default => $opts['source'] }
           $version = $opts['version']
+          # No "grep -q" here: it closes the pipe early and pip then logs a
+          # broken pipe error. Plain grep reads all of it and stays quiet.
           $check   = $version? {
             undef   => "${venv_dir}/bin/pip show ${wheel}",
-            default => "${venv_dir}/bin/pip show ${wheel} | grep -qx 'Version: ${version}'",
+            default => "${venv_dir}/bin/pip show ${wheel} | grep -x 'Version: ${version}' > /dev/null",
           }
           exec { "skyline pip install ${wheel}":
             command  => "${venv_dir}/bin/pip install --upgrade ${source}",

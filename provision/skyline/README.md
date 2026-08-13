@@ -65,7 +65,14 @@ profile::openstack::skyline::wheels:
 ```
 
 Puppet installs a wheel when `pip show <name>` does not report `version`, so
-rolling out a new build is a matter of bumping `version` in hiera.
+rolling out a new build is a matter of bumping `version` in hiera. Pointing
+`source` at an explicit wheel installs exactly that file, even when its
+version sorts below what is already installed.
+
+Note on versions: the fork has no release tags, so pbr falls back to
+`0.1.0.dev<commits>` and both the file name and the version change on every
+build. Tag the fork (`git tag 8.0.0.nrec1`) before building if you want
+something you can reason about in hiera.
 
 The install guide tells you to run `skyline-nginx-generator` to produce
 `nginx.conf`. We do not: it needs to talk to keystone on every puppet run and
@@ -167,8 +174,10 @@ cp /tmp/skyline-build/skyline-console/dist/*.whl provision/skyline/dist/
 vagrant up vagrant-skyline-01
 ```
 
-Check the wheel file name matches `profile::openstack::skyline::wheels` in
-`hieradata/vagrant/roles/skyline.yaml`, then browse to
+Check the wheel file name *and* version match
+`profile::openstack::skyline::wheels` in
+`hieradata/vagrant/roles/skyline.yaml` (they both change on every build, see
+above), then browse to
 <https://skyline.iaas.intern/> (vagrant's `domain_frontend`). Log in with a
 local keystone user, vagrant has no dataporten so `sso_enabled` is false
 there.
