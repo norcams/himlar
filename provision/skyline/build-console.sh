@@ -52,13 +52,22 @@ fi
 echo "== applying ${PATCH_FILE}"
 git apply --verbose "${PATCH_FILE}"
 
-echo "== replacing logos"
-# These four are emitted with a stable file name by config/webpack.common.js,
-# everything else gets a content hash.
+echo "== installing logos"
+# In-app header. cloud-logo.svg and cloud-logo-white.svg are emitted with a
+# stable file name by config/webpack.common.js, everything else is hashed.
 cp "${LOGO_DIR}/logo.svg"         src/asset/image/cloud-logo.svg
 cp "${LOGO_DIR}/logo.svg"         src/asset/image/cloud-logo-white.svg
-cp "${LOGO_DIR}/logo_neic.png"    src/asset/image/logo.png
 cp "${LOGO_DIR}/favicon.ico"      src/asset/image/favicon.ico
+
+# Login page, imported by the patched src/layouts/Auth/index.jsx. Note these
+# are NREC logos - logo_neic.png is NeIC, one of the partners, and does not
+# belong anywhere but in the partner row below.
+cp "${LOGO_DIR}/logo.svg"         src/asset/image/nrec-logo.svg
+cp "${LOGO_DIR}/logo-splash.svg"  src/asset/image/nrec-logo-splash.svg
+cp "${LOGO_DIR}/uio_emb.png"      src/asset/image/nrec-partner-uio.png
+cp "${LOGO_DIR}/uib_emb.png"      src/asset/image/nrec-partner-uib.png
+cp "${LOGO_DIR}/logo_neic.png"    src/asset/image/nrec-partner-neic.png
+cp "${LOGO_DIR}/logo_naic.svg"    src/asset/image/nrec-partner-naic.svg
 
 echo "== building wheel"
 make package

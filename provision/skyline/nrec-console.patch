@@ -1,3 +1,89 @@
+diff --git a/src/layouts/Auth/index.jsx b/src/layouts/Auth/index.jsx
+index 9625f28..8011ad7 100644
+--- a/src/layouts/Auth/index.jsx
++++ b/src/layouts/Auth/index.jsx
+@@ -17,11 +17,26 @@ import { inject, observer } from 'mobx-react';
+ import renderRoutes from 'utils/RouterConfig';
+ import SelectLang from 'components/SelectLang';
+ 
+-import logo from 'asset/image/logo.png';
++// NREC: our own logos, dropped in by provision/skyline/build-console.sh in
++// himlar. logo.svg is the horizontal wordmark, logo-splash.svg the square one.
++import logo from 'asset/image/nrec-logo.svg';
+ import loginFullImage from 'asset/image/login-full.png';
+-import loginRightLogo from 'asset/image/loginRightLogo.png';
++import loginRightLogo from 'asset/image/nrec-logo-splash.svg';
++import partnerUio from 'asset/image/nrec-partner-uio.png';
++import partnerUib from 'asset/image/nrec-partner-uib.png';
++import partnerNeic from 'asset/image/nrec-partner-neic.png';
++import partnerNaic from 'asset/image/nrec-partner-naic.svg';
+ import styles from './index.less';
+ 
++// NREC: same content as the horizon login footer, see
++// profile/files/openstack/horizon/_login_form_footer.html in himlar
++const nrecPartners = [
++  { href: 'https://uio.no/', src: partnerUio, alt: 'uio', height: 55 },
++  { href: 'https://uib.no/', src: partnerUib, alt: 'uib', height: 55 },
++  { href: 'https://neic.no/', src: partnerNeic, alt: 'neic', height: 20 },
++  { href: 'https://www.naic.no/', src: partnerNaic, alt: 'naic', height: 40 },
++];
++
+ export class AuthLayout extends Component {
+   constructor(props) {
+     super(props);
+@@ -47,6 +62,44 @@ export class AuthLayout extends Component {
+     );
+   }
+ 
++  // NREC: the links and partner logos horizon shows below the login form
++  renderFooter() {
++    return (
++      <footer style={{ marginTop: 32, textAlign: 'center', fontSize: 12 }}>
++        <hr />
++        <p>
++          First-time login? Click{' '}
++          <a href="https://access.nrec.no/">here</a>.
++        </p>
++        <p>
++          <a href="https://docs.nrec.no/">Read more about NREC</a>
++        </p>
++        <p>
++          <a href="https://docs.nrec.no/terms-of-service.html">
++            Terms of Service
++          </a>
++        </p>
++        <hr />
++        <div
++          style={{
++            display: 'flex',
++            flexWrap: 'wrap',
++            alignItems: 'center',
++            justifyContent: 'center',
++            gap: 16,
++            marginTop: 16,
++          }}
++        >
++          {nrecPartners.map((it) => (
++            <a key={it.alt} href={it.href}>
++              <img src={it.src} alt={it.alt} height={it.height} />
++            </a>
++          ))}
++        </div>
++      </footer>
++    );
++  }
++
+   render() {
+     return (
+       <div className={styles.container}>
+@@ -61,6 +114,7 @@ export class AuthLayout extends Component {
+               </div>
+             </div>
+             {renderRoutes(this.routes)}
++            {this.renderFooter()}
+           </div>
+         </div>
+         {this.renderRight()}
 diff --git a/src/layouts/Base/index.jsx b/src/layouts/Base/index.jsx
 index 703d850..2caa6fe 100644
 --- a/src/layouts/Base/index.jsx

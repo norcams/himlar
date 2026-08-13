@@ -154,6 +154,25 @@ Clones the fork, applies `nrec-console.patch`, drops in the NREC logos from
 resulting wheel to the package repo and point
 `profile::openstack::skyline::wheels` at it.
 
+### Branding
+
+The console is a webpack bundle, so logos are decided at build time. The
+script copies ours over the upstream ones and the patch points the login page
+at them:
+
+| skyline asset | ours | where it shows |
+| --- | --- | --- |
+| `cloud-logo.svg`, `cloud-logo-white.svg` | `logo.svg` | header, once logged in |
+| `nrec-logo.svg` | `logo.svg` | login page, above the form |
+| `nrec-logo-splash.svg` | `logo-splash.svg` | login page, right hand panel |
+| `nrec-partner-{uio,uib,neic,naic}.*` | `uio_emb.png`, `uib_emb.png`, `logo_neic.png`, `logo_naic.svg` | login page footer |
+| `favicon.ico` | `favicon.ico` | browser tab |
+
+`logo_neic.png` is NeIC, one of the partners - it is not the NREC logo and
+belongs only in the partner row. The login footer carries the same links and
+the same four partner logos, at the same heights, as horizon's
+`_login_form_footer.html`.
+
 The build host needs node 16 (lts/gallium) and yarn, which is why this is not
 done on the skyline node itself.
 
