@@ -43,7 +43,8 @@ http {
     ssl_prefer_server_ciphers on;
     ssl_ciphers HIGH:!aNULL:!MD5:!3DES;
 
-    ssl_certificate <%= @ssl_cert %>;
+    # leaf + intermediate, see profile::openstack::skyline::ssl_chain
+    ssl_certificate <%= @nginx_ssl_cert %>;
     ssl_certificate_key <%= @ssl_key %>;
 <% end -%>
 

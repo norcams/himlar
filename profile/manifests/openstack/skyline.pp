@@ -51,6 +51,12 @@ class profile::openstack::skyline (
   $server_name          = $::fqdn,
   $ssl_cert             = undef,
   $ssl_key              = undef,
+  # Our leaf certs are signed by the intermediate CA. Apache takes the chain
+  # as a separate file (horizon::ssl_ca), nginx has no such directive and
+  # wants the intermediate concatenated after the leaf in ssl_certificate,
+  # so we build a bundle. Set to undef to serve the bare cert.
+  $ssl_chain            = undef,
+  $ssl_bundle           = undef,
   $region               = $::location,
   $nginx_prefix         = 'api/openstack',
   $proxy_endpoints      = {},
@@ -68,6 +74,17 @@ class profile::openstack::skyline (
   $console_static_path_real = $console_static_path? {
     undef   => "${venv_dir}/lib/${python_package}/site-packages/skyline_console/static",
     default => $console_static_path,
+  }
+
+  # What nginx actually serves as ssl_certificate: the leaf on its own, or the
+  # leaf with the intermediate appended when we have a chain.
+  $ssl_bundle_real = $ssl_bundle? {
+    undef   => "/etc/pki/tls/certs/${server_name}.chained.pem",
+    default => $ssl_bundle,
+  }
+  $nginx_ssl_cert = ($ssl_cert and $ssl_chain)? {
+    true    => $ssl_bundle_real,
+    default => $ssl_cert,
   }
 
   # /etc/skyline/skyline.yaml. Looked up with a deep merge (and not as a class
@@ -217,6 +234,22 @@ class profile::openstack::skyline (
 
     if $manage_nginx {
       ensure_packages(['nginx'], { 'ensure' => 'present' })
+
+      # nginx sends whatever is in ssl_certificate and nothing else, so a leaf
+      # signed by our intermediate has to be shipped with the intermediate
+      # appended or the browser cannot build a path to the root. Rebuilt
+      # whenever either input is newer than the bundle.
+      if $ssl_cert and $ssl_chain {
+        exec { 'skyline ssl bundle':
+          command  => "cat ${ssl_cert} ${ssl_chain} > ${ssl_bundle_real}",
+          onlyif   => "test -f ${ssl_cert} && test -f ${ssl_chain}",
+          unless   => "test -f ${ssl_bundle_real} && test ${ssl_bundle_real} -nt ${ssl_cert} && test ${ssl_bundle_real} -nt ${ssl_chain}",
+          path     => ['/usr/bin', '/bin'],
+          provider => 'shell',
+          before   => Service['nginx'],
+          notify   => Service['nginx'],
+        }
+      }
 
       file { $nginx_config_file:
         ensure  => file,
