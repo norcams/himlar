@@ -233,6 +233,14 @@ class profile::openstack::skyline (
       # - touch /var/www/maintenance to show page
       # - rm /var/www/maintenance to remove the page
       if $maintenance_page {
+        # Unlike the horizon node there is no apache here to create /var/www,
+        # nginx serves out of /usr/share/nginx/html
+        file { '/var/www':
+          ensure => directory,
+          owner  => 'root',
+          group  => 'root',
+          mode   => '0755',
+        } ->
         file { 'skyline_maintenance.html':
           ensure  => file,
           path    => '/var/www/maintenance.html',
