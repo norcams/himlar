@@ -240,6 +240,21 @@ class profile::openstack::skyline (
       # appended or the browser cannot build a path to the root. Rebuilt
       # whenever either input is newer than the bundle.
       if $ssl_cert and $ssl_chain {
+        # The bundle is written with "cat a b > bundle", and the shell
+        # truncates the target before cat reads anything. If the bundle were
+        # one of the inputs we would destroy it - cachain.pem in particular is
+        # also the cafile skyline uses to reach keystone. Refuse rather than
+        # eat it.
+        if $ssl_bundle_real in [$ssl_cert, $ssl_chain] {
+          fail("profile::openstack::skyline: ssl_bundle (${ssl_bundle_real}) must differ from ssl_cert and ssl_chain, it is overwritten with their contents")
+        }
+
+        # In vagrant the leaf is signed by profile::application::openssl::cert
+        # in this same run. Without this the bundle can be built before the
+        # cert exists, silently skip, and leave nginx pointing at a file that
+        # is never created. Matches nothing when certs are pre-placed.
+        Exec <| title == "sign ${server_name}" |> -> Exec['skyline ssl bundle']
+
         exec { 'skyline ssl bundle':
           command  => "cat ${ssl_cert} ${ssl_chain} > ${ssl_bundle_real}",
           onlyif   => "test -f ${ssl_cert} && test -f ${ssl_chain}",
