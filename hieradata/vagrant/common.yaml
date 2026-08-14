@@ -171,7 +171,6 @@ profile::network::services::dns_records:
     "ns.%{hiera('domain_frontend')}":                     "%{hiera('netcfg_public_netpart')}.251"
     "resolver.%{hiera('domain_frontend')}":               "%{hiera('netcfg_public_netpart')}.252"
     "dashboard.%{hiera('domain_frontend')}":              "%{hiera('netcfg_public_netpart')}.254"
-    "skyline.%{hiera('domain_frontend')}":                "%{hiera('netcfg_public_netpart')}.253"
     "console.%{hiera('domain_public')}":                  "%{hiera('netcfg_public_netpart')}.250"
     "identity.api.%{hiera('domain_public')}":             "%{hiera('netcfg_public_netpart')}.250"
     "image.api.%{hiera('domain_public')}":                "%{hiera('netcfg_public_netpart')}.250"
@@ -253,11 +252,6 @@ glance::db::mysql::password:                        'glance_pass'
 # horizon.yaml
 horizon::secret_key:                                'horizon_secret'
 horizon_db_password:                                'horizon_pass'
-
-# skyline.yaml
-skyline_api_password:                               'skyline_pass'
-skyline_db_password:                                'skyline_pass'
-skyline_secret_key:                                 'skyline_secret'
 
 # keystone.yaml
 keystone::db::mysql::password:                      'key_pass'
