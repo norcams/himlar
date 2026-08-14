@@ -1,0 +1,57 @@
+# This file is managed by puppet (profile::openstack::skyline)
+#
+# Upstream ships etc/gunicorn.py with a unix socket bind. We bind to a tcp
+# port instead, the same way the install guide tells you to sed it, so nginx
+# can proxy to it (see the "upstream skyline" block in nginx.conf).
+
+bind = ["<%= @bind_address %>:<%= @bind_port %>"]
+reuse_port = True
+workers = <%= @workers %>
+worker_class = "uvicorn.workers.UvicornWorker"
+timeout = <%= @gunicorn_extra['timeout'] || 300 %>
+keepalive = <%= @gunicorn_extra['keepalive'] || 5 %>
+proc_name = "skyline"
+
+logconfig_dict = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "root": {"level": "INFO", "handlers": ["console"]},
+    "loggers": {
+        "gunicorn.error": {
+            "level": "INFO",
+            "handlers": ["error_file"],
+            "propagate": 0,
+            "qualname": "gunicorn_error",
+        },
+        "gunicorn.access": {
+            "level": "INFO",
+            "handlers": ["access_file"],
+            "propagate": 0,
+            "qualname": "access",
+        },
+    },
+    "handlers": {
+        "error_file": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "formatter": "generic",
+            "filename": "<%= @log_dir %>/skyline-error.log",
+        },
+        "access_file": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "formatter": "generic",
+            "filename": "<%= @log_dir %>/skyline-access.log",
+        },
+        "console": {
+            "class": "logging.StreamHandler",
+            "level": "INFO",
+            "formatter": "generic",
+        },
+    },
+    "formatters": {
+        "generic": {
+            "format": "%(asctime)s.%(msecs)03d %(process)d %(levelname)s [-] %(message)s",
+            "datefmt": "[%Y-%m-%d %H:%M:%S %z]",
+            "class": "logging.Formatter",
+        }
+    },
+}

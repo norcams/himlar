@@ -62,6 +62,9 @@ nodesets:
     - role:       "dashboard"
       puppet_env: "zed"
       box:        "norcams/el9"
+    - role:       "skyline"
+      puppet_env: "zed"
+      box:        "norcams/el9"
     - role:       "compute"
       memory:     4096
       cpus:       2

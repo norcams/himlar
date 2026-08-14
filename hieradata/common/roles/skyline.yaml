@@ -1,0 +1,307 @@
+---
+# Skyline dashboard node
+#
+# This role is the Skyline equivalent of roles/dashboard.yaml. It is meant to
+# be deployed side by side with the horizon dashboard so we can move users
+# over gradually. Everything that is user visible should behave the same way
+# as in horizon, see hieradata/common/modules/skyline.yaml and
+# provision/skyline/README.md.
+
+include:
+  default:
+    - profile::openstack::skyline
+    - profile::logging::rsyslog::client
+    - profile::base::systemd
+
+openstack_version: 'zed'
+
+named_interfaces::config:
+  mgmt:
+    - eth0
+  trp:
+    - eth1
+  public:
+    - lo
+
+# nginx and python3-pip are declared by profile::openstack::skyline, do not
+# list them here or they end up declared twice
+profile::base::common::packages:
+  'python3-six.noarch': { ensure: latest }
+  'bash-completion': {}
+  'jq': {}
+  'openstack-selinux': {}
+
+profile::base::common::manage_cron:                 true
+profile::base::selinux::manage_selinux:             true
+profile::network::interface::manage_dummy:          false
+profile::network::interface::create_custom_routes:  false
+
+profile::openstack::skyline::manage_skyline:        true
+profile::openstack::skyline::manage_nginx:          true
+profile::openstack::skyline::manage_firewall:       true
+profile::openstack::skyline::manage_db_sync:        true
+profile::openstack::skyline::maintenance_page:      true
+
+# Enable extra yum repo
+profile::base::yumrepo::repo_hash:
+  rdo-release:
+    ensure: present
+  AlmaLinux-PowerTools:
+    ensure: present
+  epel: # should be absent when using RDO, but whitelist can also work
+    ensure:   present
+    includepkgs: 'htop'
+
+profile::base::selinux::boolean:
+  'httpd_can_network_connect':
+    ensure: 'on'
+    persistent: true
+
+# nginx serves the console straight out of the virtualenv
+profile::base::selinux::fcontext:
+  skyline-console:
+    seltype:  'httpd_sys_content_t'
+    pathspec: '/opt/skyline/lib/python3\.11/site-packages/skyline_console/static(/.*)?'
+profile::base::selinux::exec_restorecon:
+  skyline-console:
+    path:    '/opt/skyline/lib/python3.11/site-packages/skyline_console/static'
+
+# gunicorn keeps its log files open, so reload the service after a rotate
+profile::logging::logrotate::rules:
+  skyline:
+    path:           '/var/log/skyline/*.log'
+    rotate:         10
+    rotate_every:   'day'
+    size:           100M
+    postrotate:     '/bin/systemctl reload skyline-apiserver.service > /dev/null 2>/dev/null || true'
+    sharedscripts:  true
+    missingok:      true
+    compress:       true
+    delaycompress:  true
+
+# Adjust the ulimit (number of open files) for nginx via systemd
+profile::base::systemd::manage_limits: true
+profile::base::systemd::limits:
+  nginx:
+    limits:
+      Service:
+        'LimitNOFILE': 32768
+
+# FIXME:sensu-go
+profile::monitoring::sensu::agent::enable_go_agent:   true
+profile::monitoring::sensu::agent::enable_agent:      false
+
+# Sensu
+sensu::agent::subscriptions:
+  - 'base'
+  - 'nodes'
+  - 'metrics'
+
+#---------------------------------------------------------------------
+# Policy overrides
+#
+# These are the dashboard side policy files, the same idea as
+# /etc/openstack-dashboard/*_policy.yaml for horizon: skyline asks the api
+# server which rules the logged in user passes and hides the buttons and
+# pages it would not be allowed to use anyway.
+#
+# The list below is a straight port of
+# profile::openstack::dashboard::policies. Where horizon used
+# "rule:system_admin" to mean "nobody, we do not have system scoped tokens
+# in the dashboard" we use "!" here, because skyline does not register a
+# system_admin rule and an unknown rule would only be denied by accident.
+#---------------------------------------------------------------------
+profile::openstack::skyline::policies:
+  # Disable reboot through the dashboard until DHCP is fixed upstream (calico)
+  nova_compute_reboot:
+    file_path:  '/etc/skyline/policy/nova_policy.yaml'
+    key:        'os_compute_api:servers:reboot'
+    value:      '!'
+  # Shelve is broken (instances are not unshelved successfully)
+  nova_compute_shelve:
+    file_path:  '/etc/skyline/policy/nova_policy.yaml'
+    key:        'os_compute_api:os-shelve:shelve'
+    value:      '!'
+  nova_compute_unshelve:
+    file_path:  '/etc/skyline/policy/nova_policy.yaml'
+    key:        'os_compute_api:os-shelve:unshelve'
+    value:      '!'
+  nova_compute_shelve_offload:
+    file_path:  '/etc/skyline/policy/nova_policy.yaml'
+    key:        'os_compute_api:os-shelve:shelve_offload'
+    value:      '!'
+  nova_compute_resume:
+    file_path:  '/etc/skyline/policy/nova_policy.yaml'
+    key:        'os_compute_api:os-suspend-server:resume'
+    value:      '!'
+  nova_disable_suspend:
+    file_path:  '/etc/skyline/policy/nova_policy.yaml'
+    key:        'os_compute_api:os-suspend-server:suspend'
+    value:      '!'
+  # horizon: tables.AssociateIP.allowed = NO (overrides.py)
+  nova_disable_add_floating_ip:
+    file_path:  '/etc/skyline/policy/nova_policy.yaml'
+    key:        'os_compute_api:os-floating-ips:add'
+    value:      '!'
+  nova_disable_remove_floating_ip:
+    file_path:  '/etc/skyline/policy/nova_policy.yaml'
+    key:        'os_compute_api:os-floating-ips:remove'
+    value:      '!'
+  neutron_allowed_address_pairs:
+    file_path:  '/etc/skyline/policy/neutron_policy.yaml'
+    key:        'update_port:allowed_address_pairs'
+    value:      'role:admin'
+  glance_communitize_image:
+    file_path:  '/etc/skyline/policy/glance_policy.yaml'
+    key:        'communitize_image'
+    value:      'role:admin'
+  glance_publicize_image:
+    file_path:  '/etc/skyline/policy/glance_policy.yaml'
+    key:        'publicize_image'
+    value:      'role:admin'
+
+  # These are not restrictions but the opposite: their default check needs a
+  # target key skyline never sends to its own policy engine (owner, member_id,
+  # zone_type, ...), so the rule can never pass and the button disappears for
+  # everyone. We keep the role requirement and drop the resource specific
+  # part - this file only decides what the dashboard draws, glance and
+  # designate still enforce the real rule on the api call. Without this our
+  # users lose image upload, image sharing and dns records, all of which they
+  # have in horizon today.
+  glance_add_image:
+    file_path:  '/etc/skyline/policy/glance_policy.yaml'
+    key:        'add_image'
+    value:      'role:admin or role:member or role:_member_'
+  glance_modify_member:
+    file_path:  '/etc/skyline/policy/glance_policy.yaml'
+    key:        'modify_member'
+    value:      'role:admin or role:member or role:_member_'
+  designate_create_recordset:
+    file_path:  '/etc/skyline/policy/designate_policy.yaml'
+    key:        'create_recordset'
+    value:      'role:admin or role:member'
+  designate_update_recordset:
+    file_path:  '/etc/skyline/policy/designate_policy.yaml'
+    key:        'update_recordset'
+    value:      'role:admin or role:member'
+  designate_delete_recordset:
+    file_path:  '/etc/skyline/policy/designate_policy.yaml'
+    key:        'delete_recordset'
+    value:      'role:admin or role:member'
+
+  # horizon unregisters the Networks / Routers / Floating IPs / Network
+  # Topology panels (overrides.py). We keep the read rules so the launch
+  # instance wizard still works, but nobody gets the create/edit/delete
+  # buttons.
+  neutron_create_network:
+    file_path:  '/etc/skyline/policy/neutron_policy.yaml'
+    key:        'create_network'
+    value:      'role:admin'
+  neutron_update_network:
+    file_path:  '/etc/skyline/policy/neutron_policy.yaml'
+    key:        'update_network'
+    value:      'role:admin'
+  neutron_delete_network:
+    file_path:  '/etc/skyline/policy/neutron_policy.yaml'
+    key:        'delete_network'
+    value:      'role:admin'
+  neutron_create_subnet:
+    file_path:  '/etc/skyline/policy/neutron_policy.yaml'
+    key:        'create_subnet'
+    value:      'role:admin'
+  neutron_update_subnet:
+    file_path:  '/etc/skyline/policy/neutron_policy.yaml'
+    key:        'update_subnet'
+    value:      'role:admin'
+  neutron_delete_subnet:
+    file_path:  '/etc/skyline/policy/neutron_policy.yaml'
+    key:        'delete_subnet'
+    value:      'role:admin'
+  neutron_create_router:
+    file_path:  '/etc/skyline/policy/neutron_policy.yaml'
+    key:        'create_router'
+    value:      'role:admin'
+  neutron_update_router:
+    file_path:  '/etc/skyline/policy/neutron_policy.yaml'
+    key:        'update_router'
+    value:      'role:admin'
+  neutron_delete_router:
+    file_path:  '/etc/skyline/policy/neutron_policy.yaml'
+    key:        'delete_router'
+    value:      'role:admin'
+  neutron_create_floatingip:
+    file_path:  '/etc/skyline/policy/neutron_policy.yaml'
+    key:        'create_floatingip'
+    value:      'role:admin'
+  neutron_update_floatingip:
+    file_path:  '/etc/skyline/policy/neutron_policy.yaml'
+    key:        'update_floatingip'
+    value:      'role:admin'
+  neutron_delete_floatingip:
+    file_path:  '/etc/skyline/policy/neutron_policy.yaml'
+    key:        'delete_floatingip'
+    value:      'role:admin'
+
+  # horizon: can_edit_user / can_edit_group / can_edit_project /
+  # can_edit_domain / can_edit_role are all false, and the Identity->Users
+  # panel is unregistered.
+  keystone_create_user:
+    file_path:  '/etc/skyline/policy/keystone_policy.yaml'
+    key:        'identity:create_user'
+    value:      '!'
+  keystone_update_user:
+    file_path:  '/etc/skyline/policy/keystone_policy.yaml'
+    key:        'identity:update_user'
+    value:      '!'
+  keystone_delete_user:
+    file_path:  '/etc/skyline/policy/keystone_policy.yaml'
+    key:        'identity:delete_user'
+    value:      '!'
+  keystone_create_project:
+    file_path:  '/etc/skyline/policy/keystone_policy.yaml'
+    key:        'identity:create_project'
+    value:      '!'
+  keystone_update_project:
+    file_path:  '/etc/skyline/policy/keystone_policy.yaml'
+    key:        'identity:update_project'
+    value:      '!'
+  keystone_delete_project:
+    file_path:  '/etc/skyline/policy/keystone_policy.yaml'
+    key:        'identity:delete_project'
+    value:      '!'
+  keystone_create_role:
+    file_path:  '/etc/skyline/policy/keystone_policy.yaml'
+    key:        'identity:create_role'
+    value:      '!'
+  keystone_update_role:
+    file_path:  '/etc/skyline/policy/keystone_policy.yaml'
+    key:        'identity:update_role'
+    value:      '!'
+  keystone_delete_role:
+    file_path:  '/etc/skyline/policy/keystone_policy.yaml'
+    key:        'identity:delete_role'
+    value:      '!'
+  keystone_create_domain:
+    file_path:  '/etc/skyline/policy/keystone_policy.yaml'
+    key:        'identity:create_domain'
+    value:      '!'
+  keystone_update_domain:
+    file_path:  '/etc/skyline/policy/keystone_policy.yaml'
+    key:        'identity:update_domain'
+    value:      '!'
+  keystone_delete_domain:
+    file_path:  '/etc/skyline/policy/keystone_policy.yaml'
+    key:        'identity:delete_domain'
+    value:      '!'
+  # horizon removes Identity->Application Credentials, our users are
+  # federated and get their credentials from the access portal instead.
+  # (skyline has no "change password" panel, so there is nothing to
+  # disable for horizon's settings->password panel)
+  keystone_create_application_credential:
+    file_path:  '/etc/skyline/policy/keystone_policy.yaml'
+    key:        'identity:create_application_credential'
+    value:      '!'
+  keystone_delete_application_credential:
+    file_path:  '/etc/skyline/policy/keystone_policy.yaml'
+    key:        'identity:delete_application_credential'
+    value:      '!'
