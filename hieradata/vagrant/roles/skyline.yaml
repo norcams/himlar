@@ -17,10 +17,10 @@ profile::openstack::skyline::allow_from_network:
 # built with provision/skyline/build-console.sh into provision/skyline/dist/
 # and they are there when puppet runs. The directory is gitignored.
 #
-# The console version is the one pbr made up for the build: the fork has no
-# release tags, so it falls back to 0.1.0.dev<commits>. Both the file name
-# and "version" change every time you rebuild - update them together, or drop
-# "version" to make puppet stop checking and only install once.
+# build-console.sh pins the console version (PBR_VERSION), so the file name
+# below stays the same from build to build and there is nothing to edit here
+# when you rebuild. Puppet spots a new build from the wheel checksum, so no
+# "version" key for a wheel we build ourselves.
 #
 # Leave the apiserver on pypi unless you build that as well.
 profile::openstack::skyline::wheels:
@@ -28,8 +28,7 @@ profile::openstack::skyline::wheels:
     source:  'skyline-apiserver==8.0.0'
     version: '8.0.0'
   skyline-console:
-    source:  '/opt/himlar/provision/skyline/dist/skyline_console-0.1.0.dev1781-py3-none-any.whl'
-    version: '0.1.0.dev1781'
+    source:  '/opt/himlar/provision/skyline/dist/skyline_console-8.0.0.post1-py3-none-any.whl'
 
 profile::openstack::skyline::config:
   default:

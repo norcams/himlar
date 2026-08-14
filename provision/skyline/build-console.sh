@@ -70,6 +70,14 @@ cp "${LOGO_DIR}/logo_neic.png"    src/asset/image/nrec-partner-neic.png
 cp "${LOGO_DIR}/logo_naic.svg"    src/asset/image/nrec-partner-naic.svg
 
 echo "== building wheel"
+# pbr takes the version from git. Our changes live in the working tree and are
+# never committed, so without this every build of the same upstream commit
+# produces the same version - and pip then refuses to replace what is already
+# installed. Pin an explicit version instead: the file name stays stable so
+# hiera does not need editing per build, and puppet notices a new build from
+# the wheel checksum rather than the version.
+export PBR_VERSION="${NREC_CONSOLE_VERSION:-8.0.0.post1}"
+echo "   PBR_VERSION=${PBR_VERSION}"
 make package
 
 echo

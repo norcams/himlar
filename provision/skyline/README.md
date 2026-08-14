@@ -64,15 +64,25 @@ profile::openstack::skyline::wheels:
     version: '8.0.0'
 ```
 
-Puppet installs a wheel when `pip show <name>` does not report `version`, so
-rolling out a new build is a matter of bumping `version` in hiera. Pointing
-`source` at an explicit wheel installs exactly that file, even when its
-version sorts below what is already installed.
+How puppet decides to (re)install depends on where the wheel comes from:
 
-Note on versions: the fork has no release tags, so pbr falls back to
-`0.1.0.dev<commits>` and both the file name and the version change on every
-build. Tag the fork (`git tag 8.0.0.nrec1`) before building if you want
-something you can reason about in hiera.
+* **A path** (a wheel we built): the wheel checksum is recorded in
+  `/opt/skyline/.wheel-<name>.sha256` and it is reinstalled, forcibly,
+  whenever the file contents change. The version is irrelevant, which matters
+  because ours does not change between builds - see below.
+* **Anything else** (a pypi name or url): `pip show <name>` has to report
+  `version`, so rolling out a new release means bumping `version` in hiera.
+
+Note on versions: pbr takes the version from git, and `build-console.sh`
+applies our patch to the working tree without committing it. Two builds of
+the same upstream commit therefore carry the *same* version even though the
+bundle differs, and pip will not replace a wheel whose version is already
+installed. Renaming the file does not help either - the version lives in the
+wheel metadata, not the file name, and pip reads the metadata.
+
+So the script pins `PBR_VERSION` (default `8.0.0.post1`, override with
+`NREC_CONSOLE_VERSION`). The file name is then stable, hiera needs no edit
+per build, and the checksum above is what actually triggers the reinstall.
 
 The install guide tells you to run `skyline-nginx-generator` to produce
 `nginx.conf`. We do not: it needs to talk to keystone on every puppet run and

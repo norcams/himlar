@@ -110,14 +110,30 @@ class profile::openstack::skyline (
         $wheels.each |String $wheel, Hash $opts| {
           $source  = $opts['source']? { undef => $wheel, default => $opts['source'] }
           $version = $opts['version']
-          # No "grep -q" here: it closes the pipe early and pip then logs a
-          # broken pipe error. Plain grep reads all of it and stays quiet.
-          $check   = $version? {
-            undef   => "${venv_dir}/bin/pip show ${wheel}",
-            default => "${venv_dir}/bin/pip show ${wheel} | grep -x 'Version: ${version}' > /dev/null",
+
+          if $source =~ /^\// {
+            # A wheel we built ourselves. Its version does not have to change
+            # between builds (pbr derives it from git, and our changes are not
+            # committed), and pip skips a wheel whose version is already
+            # installed - so track the file checksum instead and force the
+            # reinstall when the contents differ. Renaming the file does not
+            # help: the version lives in the wheel metadata, not the name.
+            $stamp   = "${venv_dir}/.wheel-${wheel}.sha256"
+            $command = "${venv_dir}/bin/pip install --upgrade --force-reinstall ${source} && sha256sum ${source} > ${stamp}"
+            $check   = "test -f ${stamp} && sha256sum --check --status ${stamp}"
+          } else {
+            # Something resolved from an index, where the version is the whole
+            # story. No "grep -q": it closes the pipe early and pip logs a
+            # broken pipe error for it.
+            $command = "${venv_dir}/bin/pip install --upgrade ${source}"
+            $check   = $version? {
+              undef   => "${venv_dir}/bin/pip show ${wheel}",
+              default => "${venv_dir}/bin/pip show ${wheel} | grep -x 'Version: ${version}' > /dev/null",
+            }
           }
+
           exec { "skyline pip install ${wheel}":
-            command  => "${venv_dir}/bin/pip install --upgrade ${source}",
+            command  => $command,
             unless   => $check,
             path     => ['/usr/bin', '/bin'],
             provider => 'shell',
