@@ -162,19 +162,6 @@ profile::application::builder::images:
     'username':         'cloud-user'
     'hour':             6
     'minute':           45
-  'debian11':
-    'image_name':       'IMAGEBUILDER Debian 11'
-    'url':              'https://cdimage.debian.org/cdimage/cloud/bullseye/latest/'
-    'latest':           'debian-11-generic-amd64.qcow2'
-    'checksum_file':    'SHA512SUMS'
-    'checksum':         'sha512'
-    'min_ram':          768
-    'min_disk':         3
-    'flavor':           'm1.small'
-    'efi':              true
-    'username':         'debian'
-    'hour':             16
-    'minute':           30
   'debian12':
     'image_name':       'IMAGEBUILDER Debian 12'
     'url':              'https://cdimage.debian.org/cdimage/cloud/bookworm/latest/'
@@ -415,7 +402,6 @@ profile::monitoring::sensu::agent::checks:
       check-imagebuild/args/almalinux10_nv_vgpu: "-d almalinux10_nv_vgpu"
       check-imagebuild/args/centosstream9: "-d centosstream9"
       check-imagebuild/args/centosstream10: "-d centosstream10"
-      check-imagebuild/args/debian11: "-d debian11"
       check-imagebuild/args/debian12: "-d debian12"
       check-imagebuild/args/debian13: "-d debian13"
       check-imagebuild/args/fedora_43: "-d fedora_43"
