@@ -271,6 +271,13 @@ profile::base::lvm::logical_volume:
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
 
+# Nova instance storage: ceph (rbd) is the default for all compute nodes.
+# Region base roles set the region-specific cpu_models; non-ceph environments
+# (local1/2/3, vagrant) override these back to local. Kept in the role hierarchy
+# so it is not shadowed by <region>/modules/nova.yaml.
+nova::compute::libvirt::images_type:   'rbd'
+nova::compute::rbd::ephemeral_storage: true
+
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
   rdo-release:

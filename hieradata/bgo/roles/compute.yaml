@@ -160,6 +160,10 @@ profile::base::network::rules:
     'iprule6': [ "from %{hiera('netcfg_lhc_network6')} lookup lhc", "from %{hiera('netcfg_lhc2_network6')} lookup lhc", "from 2001:700:2:8302::/64 to %{hiera('netcfg_uib_network6')} lookup uib", ]
 profile::network::interface::manage_neutron_blackhole: true
 
+# Nova: region cpu_models (lowest common denominator for live migration).
+# images_type/ephemeral_storage come from common/roles/compute.yaml.
+nova::compute::libvirt::cpu_models: ['Haswell-noTSX']
+
 profile::base::physical::configure_bmc_nic:                       true
 profile::base::physical::enable_redfish_scripts:                  true
 profile::base::physical::enable_redfish_http_proxy:               true

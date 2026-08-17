@@ -79,6 +79,11 @@ profile::openstack::compute::manage_osprofiler: true
 
 profile::storage::cephclient::enable: false
 
+# Non-ceph environment: use local instance storage
+# (overrides the ceph default in common/roles/compute.yaml)
+nova::compute::libvirt::images_type:   'default'
+nova::compute::rbd::ephemeral_storage: false
+
 # Ensure calico module doesn't handle nova metadata api
 calico::compute::metadata_service_enable: false
 calico::compute::manage_metadata_service: false
