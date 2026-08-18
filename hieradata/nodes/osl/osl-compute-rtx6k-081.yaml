@@ -4,20 +4,34 @@ openstack_version: "zed"
 
 profile::base::network::nm_network_auto_bonding:
   trp:
-    em3:
+    em1:
       ethernet:
         'mtu': '9000' # the MTU size must be set also on the slave interfaces
-    em4:
+    em2:
       ethernet:
         'mtu': '9000'
 
 named_interfaces::config:
   mgmt:
-  - em1
+  - em3
   trp:
   - bond0
   live:
   - bond0.120
+
+profile::base::lvm::physical_volume:
+  '/dev/disk/by-id/wwn-0x5002538b105fc5a0': # /dev/sdb
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_swap':
+    followsymlinks: true
+    physical_volumes:
+      - '/dev/disk/by-id/scsi-SATA_DELLBOSS_VD_0163bdafa0a90010-part4' # /dev/sda4
+  'vg_ext':
+    followsymlinks: true
+    physical_volumes:
+      - '/dev/disk/by-id/wwn-0x5002538b105fc5a0' # /dev/sdb
 
 #---------------------------------------------------------------------
 # Configure to use modular libvirt
