@@ -1,0 +1,94 @@
+---
+include:
+  default:
+    - nova::compute::mdev
+    - profile::application::create_mdev
+
+profile::base::network::nm_network_auto_bonding:
+  trp:
+    em3:
+      ethernet:
+        'mtu': '9000' # the MTU size must be set also on the slave interfaces
+    em4:
+      ethernet:
+        'mtu': '9000'
+
+named_interfaces::config:
+  mgmt:
+  - em1
+  trp:
+  - bond0
+  live:
+  - bond0.120
+
+profile::base::lvm::physical_volume:
+  '/dev/sdb': # /dev/sdb
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_swap':
+    followsymlinks: true
+    physical_volumes:
+      - '/dev/sda4' # /dev/sda4
+  'vg_ext':
+    followsymlinks: true
+    physical_volumes:
+      - '/dev/sdb' # /dev/sdb
+profile::base::lvm::logical_volume:
+  'lv_instances':
+    volume_group: 'vg_ext'
+    fs_type:      "xfs"
+    mountpath:    "/var/lib/nova/instances"
+
+# Enable extra yum repo vGPU drivers
+profile::base::yumrepo::repo_hash:
+  nrec-nonfree:
+    ensure: present
+
+#profile::base::common::packages:
+#  'wget': {}
+#  'kernel-devel': {}
+#  'kernel-headers': {}
+#  'unzip': {}
+#  'NVIDIA-vGPU-rhel': {
+#    source: 'http://repo.mgmt.bgo.uhdc.no/NVIDIA-vGPU-rhel-7.8-450.55.x86_64.rpm'
+#  }
+
+# NVIDIA P40 partitioned into 2x vGPUs, with CUDA support (Q type)
+#
+# From "mdevctl types":
+#
+#  nvidia-52
+#    Available instances: 1
+#    Device API: vfio-pci
+#    Name: GRID P40-12Q
+#    Description: num_heads=4, frl_config=60, framebuffer=12288M, max_resolution=7680x4320, max_instance=2
+#
+# Example: 'nvidia-35' or ['nvidia-35', 'nvidia-36']
+#
+#nova::compute::mdev::mdev_types:
+#  nvidia-52: {}
+
+# Configuration values for the "create-mdev" service
+#profile::application::create_mdev::enable:                true
+#profile::application::create_mdev::nvidia_gpu_type:       'nvidia-52'
+#profile::application::create_mdev::max_instances_per_gpu: 2
+
+# remove when telemetry/ceilometer is up in all environments and move to common
+profile::openstack::compute::manage_telemetry: true
+
+profile::base::physical::blacklist_drv: true
+profile::base::physical::blacklist_drv_list:
+  'nouveau': {}
+
+nova::compute::libvirt::cpu_models: ['Cascadelake-Server-noTSX']
+
+# These compute hosts use local storage for instances
+nova::compute::rbd::ephemeral_storage: false
+nova::compute::libvirt::images_type: 'default'
+
+# Configuration items not explicitly supported by the Puppet module
+nova::config::nova_config:
+  DEFAULT/metadata_workers:
+    value: '4'
+
