@@ -70,14 +70,14 @@ profile::base::common::packages:
 #
 # From "mdevctl types":
 #
-#  nvidia-1155
-#    Available instances: 1
+#  nvidia-381
+#    Available instances: 2
 #    Device API: vfio-pci
-#    Name: NVIDIA L40S-24Q
-#    Description: num_heads=4, frl_config=60, framebuffer=24576M, max_resolution=7680x4320, max_instance=2
+#    Name: GRID RTX6000P-12Q
+#    Description: num_heads=4, frl_config=60, framebuffer=12288M, max_resolution=7680x4320, max_instance=2
 #
-#nova::compute::mdev::mdev_types:
-#  nvidia-1155: {}
+nova::compute::mdev::mdev_types:
+  nvidia-381: {}
 
 # Max 6 instances per host
 nova::scheduler::filter::max_instances_per_host: '6'
