@@ -1,10 +1,18 @@
 ---
-## Temporarily setting to be able to host a clarino instance
+## Temporarily setting to be able to host a clarino instance ##
+profile::base::common::packages:
+  'numactl': {}
 # Enable hugepages to prevent OOM-killer when using NUMA
 profile::base::physical::enable_hugepages: true
 # Number and size of hugepages, based on 1024GB - 40 GB (10GB free pr node)
 profile::base::physical::hugepagesz:       '2M'
 profile::base::physical::hugepages:        '503808'
+
+# These compute host uses local storage for instances
+nova::compute::rbd::ephemeral_storage: false
+nova::compute::libvirt::images_type: 'default'
+
+## Temporarily setting to be able to host a clarino instance ##
 
 # Nova overrides
 nova::compute::libvirt::cpu_models: ['EPYC']
