@@ -56,9 +56,6 @@ profile::base::lvm::logical_volume:
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
 
-# Install Dell repos
-profile::base::dell::manage_repos: true
-
 # Install GPU driver
 profile::base::common::packages:
   'wget': {}
