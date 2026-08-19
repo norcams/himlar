@@ -1,4 +1,17 @@
 ---
+## Temporarily setting to be able to host a clarino instance
+# Enable hugepages to prevent OOM-killer when using NUMA
+profile::base::physical::enable_hugepages: true
+# Number and size of hugepages, based on 1024GB - 40 GB (10GB free pr node)
+profile::base::physical::hugepagesz:       '2M'
+profile::base::physical::hugepages:        '503808'
+
+# Nova overrides
+nova::compute::libvirt::cpu_models: ['EPYC']
+nova::cpu_allocation_ratio:         '1'
+nova::disk_allocation_ratio:        '1'
+nova::ram_allocation_ratio:         '1'
+
 profile::base::lvm::physical_volume:
   '/dev/disk/by-id/wwn-0x64cd98f09c7cdf002d54a3fcf4e16415': # replace sdb
     ensure: present
