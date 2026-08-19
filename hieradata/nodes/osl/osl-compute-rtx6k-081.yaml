@@ -20,7 +20,7 @@ named_interfaces::config:
   - bond0.120
 
 profile::base::lvm::physical_volume:
-  '/dev/disk/by-id/wwn-0x5002538b105fc5a0': # /dev/sdb
+  '/dev/md0':
     ensure: present
     force:  true
 profile::base::lvm::volume_group:
@@ -31,7 +31,7 @@ profile::base::lvm::volume_group:
   'vg_ext':
     followsymlinks: true
     physical_volumes:
-      - '/dev/disk/by-id/wwn-0x5002538b105fc5a0' # /dev/sdb
+      - '/dev/md0'
 
 #---------------------------------------------------------------------
 # Configure to use modular libvirt
