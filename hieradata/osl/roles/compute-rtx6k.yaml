@@ -1,8 +1,20 @@
 ---
 include:
   default:
-    - nova::compute::mdev
-    - profile::application::create_mdev
+    - profile::openstack::compute::pci_passthrough
+    - profile::openstack::compute::nvidia_vgpu_createmdev
+
+#FIXME:el9 move to common after all computes are el9 with zed
+openstack_version: "zed"
+
+# Configure network
+named_interfaces::config:
+  mgmt:
+  - em1
+  trp:
+  - bond0
+  live:
+  - bond0.120
 
 profile::base::network::nm_network_auto_bonding:
   trp:
@@ -13,14 +25,18 @@ profile::base::network::nm_network_auto_bonding:
       ethernet:
         'mtu': '9000'
 
-named_interfaces::config:
-  mgmt:
-  - em1
-  trp:
-  - bond0
-  live:
-  - bond0.120
+# Enable extra yum repo vGPU drivers
+profile::base::yumrepo::repo_hash:
+  nrec-nonfree:
+    ensure: present
 
+# NVIDIA SR-IOV-based vGPU hosts need sriov-manage at boot before mdev creation
+profile::openstack::compute::nvidia_vgpu_createmdev::enable: true
+profile::base::selinux::semodules:
+  sriov_manage:
+    avc_file:   'sriov_manage.avc'
+
+# Configure storage
 profile::base::lvm::physical_volume:
   '/dev/sdb': # /dev/sdb
     ensure: present
@@ -40,43 +56,39 @@ profile::base::lvm::logical_volume:
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
 
-# Enable extra yum repo vGPU drivers
-profile::base::yumrepo::repo_hash:
-  nrec-nonfree:
-    ensure: present
+# Install GPU driver
+profile::base::common::packages:
+  'wget': {}
+  'kernel-devel': {}
+  'kernel-headers': {}
+  'unzip': {}
+#  'NVIDIA-vGPU-rhel': {} # use runfile instead, until a package for el9.8 is available
 
-#profile::base::common::packages:
-#  'wget': {}
-#  'kernel-devel': {}
-#  'kernel-headers': {}
-#  'unzip': {}
-#  'NVIDIA-vGPU-rhel': {
-#    source: 'http://repo.mgmt.bgo.uhdc.no/NVIDIA-vGPU-rhel-7.8-450.55.x86_64.rpm'
-#  }
-
-# NVIDIA P40 partitioned into 2x vGPUs, with CUDA support (Q type)
+# Configure GPU
+# TODO
+# NVIDIA Quadro RTX partitioned into 2 x vGPUs, with CUDA support
 #
 # From "mdevctl types":
 #
-#  nvidia-52
+#  nvidia-1155
 #    Available instances: 1
 #    Device API: vfio-pci
-#    Name: GRID P40-12Q
-#    Description: num_heads=4, frl_config=60, framebuffer=12288M, max_resolution=7680x4320, max_instance=2
-#
-# Example: 'nvidia-35' or ['nvidia-35', 'nvidia-36']
+#    Name: NVIDIA L40S-24Q
+#    Description: num_heads=4, frl_config=60, framebuffer=24576M, max_resolution=7680x4320, max_instance=2
 #
 #nova::compute::mdev::mdev_types:
-#  nvidia-52: {}
+#  nvidia-1155: {}
 
-# Configuration values for the "create-mdev" service
-#profile::application::create_mdev::enable:                true
-#profile::application::create_mdev::nvidia_gpu_type:       'nvidia-52'
-#profile::application::create_mdev::max_instances_per_gpu: 2
+# Max 6 instances per host
+nova::scheduler::filter::max_instances_per_host: '6'
 
-# remove when telemetry/ceilometer is up in all environments and move to common
+# NVIDIA newer generation cards need SR-IOV
+profile::openstack::compute::pci_passthrough::configure_intel_iommu: true
+
+# FIXME: remove when telemetry/ceilometer is up in all environments and move to common
 profile::openstack::compute::manage_telemetry: true
 
+# Blacklist the open source GPU driver
 profile::base::physical::blacklist_drv: true
 profile::base::physical::blacklist_drv_list:
   'nouveau': {}
