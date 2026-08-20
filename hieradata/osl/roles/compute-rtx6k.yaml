@@ -10,7 +10,7 @@ openstack_version: "zed"
 # Configure network
 named_interfaces::config:
   mgmt:
-  - em1
+  - em3
   trp:
   - bond0
   live:
@@ -18,10 +18,10 @@ named_interfaces::config:
 
 profile::base::network::nm_network_auto_bonding:
   trp:
-    em3:
+    p3p1:
       ethernet:
         'mtu': '9000' # the MTU size must be set also on the slave interfaces
-    em4:
+    p3p2:
       ethernet:
         'mtu': '9000'
 
@@ -38,18 +38,13 @@ profile::base::selinux::semodules:
 
 # Configure storage
 profile::base::lvm::physical_volume:
-  '/dev/sdb': # /dev/sdb
+  '/dev/sda4':
     ensure: present
     force:  true
 profile::base::lvm::volume_group:
-  'vg_swap':
-    followsymlinks: true
-    physical_volumes:
-      - '/dev/sda4' # /dev/sda4
   'vg_ext':
-    followsymlinks: true
     physical_volumes:
-      - '/dev/sdb' # /dev/sdb
+      - '/dev/sda4'
 profile::base::lvm::logical_volume:
   'lv_instances':
     volume_group: 'vg_ext'
