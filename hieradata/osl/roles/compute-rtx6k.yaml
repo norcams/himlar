@@ -56,6 +56,11 @@ profile::base::lvm::logical_volume:
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
 
+# Nova overrides
+nova::cpu_allocation_ratio:  '4'
+nova::disk_allocation_ratio: '1'
+nova::ram_allocation_ratio:  '1'
+
 # Install GPU driver
 profile::base::common::packages:
   'wget': {}
