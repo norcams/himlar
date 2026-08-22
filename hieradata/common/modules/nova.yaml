@@ -154,6 +154,8 @@ profile::openstack::compute::default_nova_config:
 profile::openstack::novactrl::default_nova_config:
   glance/region_name:
     value: "%{::location}"
+  "quota/count_usage_from_placement":
+    value: "true"
 
 # compute (node: compute)
 nova::compute::enabled:                          true
