@@ -186,6 +186,7 @@ profile::network::services::dns_records:
     "%{::location}-compute-rtx6k-081.%{hiera('domain_mgmt')}": "%{::location}-compute-81.%{hiera('domain_mgmt')}"
     "%{::location}-compute-rtx6k-019.%{hiera('domain_mgmt')}": "%{::location}-compute-19.%{hiera('domain_mgmt')}"
     "%{::location}-compute-rtx6k-017.%{hiera('domain_mgmt')}": "%{::location}-compute-17.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-rtx6k-020.%{hiera('domain_mgmt')}": "%{::location}-compute-20.%{hiera('domain_mgmt')}"
     # General compute (temporary wrt. el9)
     "%{::location}-compute-010.%{hiera('domain_mgmt')}":     "%{::location}-compute-10.%{hiera('domain_mgmt')}"
     "%{::location}-compute-057.%{hiera('domain_mgmt')}":     "%{::location}-compute-57.%{hiera('domain_mgmt')}"

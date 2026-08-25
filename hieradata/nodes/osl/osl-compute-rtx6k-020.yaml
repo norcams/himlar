@@ -1,0 +1,13 @@
+---
+#FIXME:el9 move to common after all computes are el9 with zed
+openstack_version: "zed"
+
+#---------------------------------------------------------------------
+# Configure to use modular libvirt
+# (The old monolithic libvirt is deprecated)
+#---------------------------------------------------------------------
+profile::openstack::compute::hypervisor::modular_libvirt: true
+nova::compute::libvirt::manage_libvirt_services:          false
+nova::compute::libvirt::modular_libvirt:                  true
+nova::compute::libvirt::services::modular_libvirt:        true
+nova::migration::libvirt::modular_libvirt:                true
