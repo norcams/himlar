@@ -33,6 +33,23 @@ profile::base::lvm::volume_group:
     physical_volumes:
       - '/dev/md0'
 
+# Configure GPU
+# TODO
+# NVIDIA Quadro RTX partitioned into 2 x vGPUs, with CUDA support
+#
+# From "mdevctl types":
+#
+#  nvidia-382
+#    Available instances: 1
+#    Device API: vfio-pci
+#    Name: GRID RTX6000P-24Q
+#    Description: num_heads=4, frl_config=60, framebuffer=24576M, max_resolution=7680x4320, max_instance=1
+nova::compute::mdev::mdev_types:
+  nvidia-382: {}
+
+# Max 3 instances per host
+nova::scheduler::filter::max_instances_per_host: '3'
+
 #---------------------------------------------------------------------
 # Configure to use modular libvirt
 # (The old monolithic libvirt is deprecated)
