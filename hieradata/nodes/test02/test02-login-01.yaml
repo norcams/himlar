@@ -26,3 +26,9 @@ named_interfaces::config:
     - eno1
 
 profile::bootstrap::himlar::manage_bootstrap_scripts: true
+
+ssh::server::options: # FIXME: disable MFA for now
+  # Need this for 2FA (saz-ssh-module disables by default)
+  ChallengeResponseAuthentication: 'no'
+  # The second publickey is until the pam files are fixed
+  AuthenticationMethods: 'publickey'
