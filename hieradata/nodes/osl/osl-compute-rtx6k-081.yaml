@@ -59,3 +59,22 @@ nova::compute::libvirt::manage_libvirt_services:          false
 nova::compute::libvirt::modular_libvirt:                  true
 nova::compute::libvirt::services::modular_libvirt:        true
 nova::migration::libvirt::modular_libvirt:                true
+
+#---------------------------------------------------------------------
+# Disk health, first host on the new smartctl check
+#
+# The class and the 'smart' subscription have to be set together, see
+# profile::monitoring::smart. Subscriptions resolve with 'first', so the list
+# from the compute role is restated in full here.
+#
+# Defaults are left alone. The two SAS SSDs come back healthy, the Dell BOSS
+# volume has no SMART of its own and is reported as skipped, not as a problem.
+#---------------------------------------------------------------------
+profile::monitoring::smart::enable: true
+
+sensu::agent::subscriptions:
+  - 'base'
+  - 'metrics'
+  - 'compute'
+  - 'physical'
+  - 'smart'
