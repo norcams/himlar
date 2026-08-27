@@ -60,6 +60,10 @@ class profile::base::physical (
   },
 ) {
 
+  # disk health monitoring, opt-in per host or role with
+  # profile::monitoring::smart::enable
+  include ::profile::monitoring::smart
+
   if ($enable_l40s_pci_check) and ($::runmode == 'default') {
       case $facts['manufacturer'] {
         'Dell Inc.': {

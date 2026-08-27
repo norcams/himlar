@@ -105,8 +105,6 @@ profile::monitoring::sensu::backend::bonsai_assets:
   sensu/monitoring-plugins:
     version: 2.10.5
 # useful assets
-  # jadiunr/check-smart-status:
-  #   version: 0.0.1
   # elfranne/check-haproxy-endpoint:
   #   version: 0.3.2
 
@@ -127,6 +125,7 @@ sensu::agent::subscriptions:
   # - 'haproxy'
   # - 'proxy'
   # - 'physical'
+  # - 'smart'
   # - 'storage'
   # - 'object'
   # - 'compute'
@@ -397,13 +396,32 @@ profile::monitoring::sensu::agent::checks:
     # interval:       300
     # subscriptions:  ['physical']
     # handlers:       ['status']
-  # 'smart-disk-check':
-  #   command:        'check-smart-status'
-  #   interval:       1800
-  #   subscriptions:  ['physical']
-  #   handlers:       ['default']
-  #   runtime_assets:
-  #   - jadiunr/check-smart-status
+# SMART
+# Runs on hosts subscribing to 'smart'. The node side (smartmontools, the
+# script and the sudo rule) comes from profile::monitoring::smart. Everything
+# is tunable per host with sensu::agent::annotations, see that class.
+  'smart-check':
+    command: >-
+      sudo /usr/local/bin/check_smart.py
+      --temp-warning {{ .annotations.smart_temp_warning | default 55 }}
+      --temp-critical {{ .annotations.smart_temp_critical | default 65 }}
+      --wear-warning {{ .annotations.smart_wear_warning | default 85 }}
+      --wear-critical {{ .annotations.smart_wear_critical | default 95 }}
+      --reallocated-warning {{ .annotations.smart_reallocated_warning | default 1 }}
+      --reallocated-critical {{ .annotations.smart_reallocated_critical | default 100 }}
+      --pending-warning {{ .annotations.smart_pending_warning | default 1 }}
+      --pending-critical {{ .annotations.smart_pending_critical | default 10 }}
+      --defects-warning {{ .annotations.smart_defects_warning | default 10 }}
+      --defects-critical {{ .annotations.smart_defects_critical | default 100 }}
+      {{ .annotations.smart_extra_args | default "" }}
+    interval:       1800
+    timeout:        600 # a node with many spinning disks needs a while
+    subscriptions:  ['smart']
+    handlers:       ['default']
+    annotations:
+    - fatigue_check/occurrences: '2' # a single bad read should not page us
+    # add '--perfdata' to smart_extra_args together with
+    # output_metric_format: 'nagios_perfdata' to also graph temperature and wear
 
 
 # profile::dns::ns::ns_master1
