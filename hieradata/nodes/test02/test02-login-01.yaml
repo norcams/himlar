@@ -1,10 +1,15 @@
 ---
 network::interfaces_hash:
+  eno1:
+    ipv4:
+      method:         'manual'
+      address1:       '129.240.114.20/29'
+      gateway:        '129.240.114.17'
   eno2:
     ipv4:
       method:         'manual'
       address1:       "%{hiera('netcfg_mgmt_netpart')}.10/%{hiera('netcfg_mgmt_cidr4')}" 
-      gateway:        "%{hiera('netcfg_mgmt_gateway')}"
+      never-default:  'true'
       dns:            "%{hiera('netcfg_dns_mgmt_server1')};%{hiera('netcfg_dns_mgmt_server2')}"
       dns-search:     "%{hiera('domain_mgmt')}"
   eno3:
