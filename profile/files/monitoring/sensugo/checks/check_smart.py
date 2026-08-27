@@ -109,6 +109,29 @@ class DeviceStatus(object):
         return '%s %s: %s' % (STATUS_TEXT[self.status], self.label(), detail)
 
 
+def extract_json(output):
+    """Pull the JSON document out of smartctl's stdout, or return None.
+
+    smartmontools 7.2, the version in EL9, prints "Pending defect count:"
+    with a plain printf() in scsiprint.cpp, so it escapes onto stdout ahead
+    of the JSON on every SAS drive that supports log page 0x15. It became a
+    jout() in 7.4. Rather than require the whole of stdout to be JSON, find
+    the document inside it.
+    """
+    try:
+        return json.loads(output)
+    except ValueError:
+        pass
+    decoder = json.JSONDecoder()
+    start = output.find('{')
+    while start >= 0:
+        try:
+            return decoder.raw_decode(output, start)[0]
+        except ValueError:
+            start = output.find('{', start + 1)
+    return None
+
+
 def run_smartctl(binary, args, timeout):
     """Run smartctl with JSON output. Returns (exit status, parsed json)."""
     cmd = [binary, '--json=c'] + args
@@ -124,9 +147,8 @@ def run_smartctl(binary, args, timeout):
         raise SmartctlError('could not run %s: %s' % (binary, exc))
 
     output = stdout.decode('utf-8', 'replace')
-    try:
-        data = json.loads(output)
-    except ValueError:
+    data = extract_json(output)
+    if data is None:
         detail = stderr.decode('utf-8', 'replace').strip() or output.strip()
         raise SmartctlError('no JSON from "%s" (smartmontools >= 7.0 required): %s'
                             % (' '.join(cmd), detail[:200]))
@@ -272,6 +294,13 @@ def check_scsi(opts, dev, data):
         dev.perfdata.append(('%s_uncorrected' % dev.name, uncorrected, None))
         threshold_check(dev, uncorrected, opts.media_warning, opts.media_critical,
                         'uncorrected errors')
+
+    # the SAS counterpart of ATA Current_Pending_Sector, so share its thresholds
+    pending = (data.get('pending_defects') or {}).get('count')
+    if isinstance(pending, int):
+        dev.perfdata.append(('%s_pending' % dev.name, pending, None))
+        threshold_check(dev, pending, opts.pending_warning, opts.pending_critical,
+                        'pending defects')
 
     used = data.get('scsi_percentage_used_endurance_indicator')
     if isinstance(used, int):
