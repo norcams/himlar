@@ -7,6 +7,12 @@ profile::base::common::packages:
 profile::virtualization::nested::module: 'kvm_amd'
 profile::virtualization::nested::value:  '0'
 
+# Enable static hugepages to prevent OOM-killer when using NUMA.
+profile::base::physical::enable_hugepages: true
+# Number and size of hugepages, based on 768GB - 32 GB (4GB free pr node)
+profile::base::physical::hugepagesz:       '2M'
+profile::base::physical::hugepages:        '376832'
+
 # Nova overrides
 nova::compute::libvirt::cpu_models: ['EPYC-Turin']
 nova::cpu_allocation_ratio:         '1'
