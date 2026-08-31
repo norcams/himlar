@@ -317,19 +317,19 @@ profile::application::builder::images:
     'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
     'hour':             9
     'minute':           50
-#  'ubuntu_2604_nv_vgpu':
-#    'image_name':       'IMAGEBUILDER Ubuntu 26.04 (NVIDIA GPU)'
-#    'url':              'https://cloud-images.ubuntu.com/resolute/current/'
-#    'latest':           'resolute-server-cloudimg-amd64v3.img'
-#    'checksum_file':    'SHA256SUMS'
-#    'checksum':         'sha256'
-#    'min_ram':          1024
-#    'min_disk':         8
-#    'username':         'ubuntu'
-#    'flavor':           'm1.large'
-#    'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
-#    'hour':             10
-#    'minute':           10
+  'ubuntu_2604_nv_vgpu':
+    'image_name':       'IMAGEBUILDER Ubuntu 26.04 (NVIDIA GPU)'
+    'url':              'https://cloud-images.ubuntu.com/resolute/current/'
+    'latest':           'resolute-server-cloudimg-amd64v3.img'
+    'checksum_file':    'SHA256SUMS'
+    'checksum':         'sha256'
+    'min_ram':          1024
+    'min_disk':         8
+    'username':         'ubuntu'
+    'flavor':           'm1.medium'
+    'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
+    'hour':             10
+    'minute':           10
   'uio_rhel8':
     'image_name':       'IMAGEBUILDER UIO RHEL 8'
     'url':              'http://download.iaas.uio.no/nrec/nonfree/'
