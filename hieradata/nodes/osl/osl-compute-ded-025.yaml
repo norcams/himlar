@@ -24,6 +24,21 @@ profile::base::network::nm_network_auto_bonding:
 nova::compute::cpu_dedicated_set:
   - '0-127'
 
+profile::base::lvm::physical_volume:
+  '/dev/disk/by-id/wwn-0x55cd2e41508e56dd-part4':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_ext':
+    followsymlinks: true
+    physical_volumes:
+      - '/dev/disk/by-id/wwn-0x55cd2e41508e56dd-part4'
+profile::base::lvm::logical_volume:
+  'lv_instances':
+    volume_group: 'vg_ext'
+    fs_type:      "xfs"
+    mountpath:    "/var/lib/nova/instances"
+
 #---------------------------------------------------------------------
 # Configure to use modular libvirt
 # (The old monolithic libvirt is deprecated)
