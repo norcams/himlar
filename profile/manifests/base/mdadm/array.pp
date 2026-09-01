@@ -42,7 +42,7 @@
 define profile::base::mdadm::array (
   Array[String[1]]             $devices,
   Variant[Integer, String[1]]  $level,
-  Enum['present', 'stopped', 'absent'] $ensure = 'present',
+  Enum['present', 'absent'] $ensure            = 'present',
   Boolean                      $manage        = true,
   String[1]                    $device        = $name,
   Optional[Integer]            $raid_devices  = undef,
@@ -160,17 +160,16 @@ define profile::base::mdadm::array (
         }
       }
 
-      'stopped': {
-        exec { "mdadm-stop-${device}":
-          command  => "mdadm --stop ${device}",
-          path     => $path,
-          provider => shell,
-          onlyif   => $is_running,
-        }
-      }
-
       # Destroys the array and the md metadata on its members. Nothing guards
       # this beyond having written it in hiera, so be sure.
+      #
+      # There is no 'stopped' on purpose. Stopping without zeroing does not
+      # stick, 64-md-raid-assembly.rules runs 'mdadm --incremental' on every
+      # block device event and puts the array straight back, so puppet would
+      # stop it again on the next run forever. It also fails outright while
+      # the array is a mounted filesystem or an lvm pv, which is what we build
+      # these for. To hand an array back to manual control, drop it from hiera
+      # and it keeps running untouched.
       'absent': {
         exec { "mdadm-stop-${device}":
           command  => "mdadm --stop ${device}",
