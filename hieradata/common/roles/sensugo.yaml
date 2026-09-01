@@ -422,6 +422,19 @@ profile::monitoring::sensu::agent::checks:
     - fatigue_check/occurrences: '2' # a single bad read should not page us
     # add '--perfdata' to smart_extra_args together with
     # output_metric_format: 'nagios_perfdata' to also graph temperature and wear
+# MDRAID
+# Runs on hosts subscribing to 'mdraid'. The node side (the check script) comes
+# from profile::monitoring::mdraid, which follows
+# profile::base::common::manage_mdadm but can also be enabled on its own for
+# arrays built at install time, the root disk mirror for instance. Degraded and
+# rebuilding is a warning, degraded and idle is critical, see the script.
+  'mdraid-check':
+    command:        '/usr/local/bin/check_mdraid.sh'
+    interval:       300
+    subscriptions:  ['mdraid']
+    handlers:       ['default']
+    annotations:
+    - fatigue_check/occurrences: '2'
 
 
 # profile::dns::ns::ns_master1
