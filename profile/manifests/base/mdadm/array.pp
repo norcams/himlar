@@ -40,168 +40,164 @@
 # block the rest of the catalog.
 #
 define profile::base::mdadm::array (
-  Array[String[1]]             $devices,
-  Variant[Integer, String[1]]  $level,
-  Enum['present', 'absent'] $ensure            = 'present',
-  Boolean                      $manage        = true,
-  String[1]                    $device        = $name,
-  Optional[Integer]            $raid_devices  = undef,
-  Optional[Integer]            $spare_devices = undef,
-  Optional[String[1]]          $chunk         = undef,
-  Optional[String[1]]          $layout        = undef,
-  Optional[String[1]]          $array_name    = undef,
-  Optional[String[1]]          $bitmap        = undef,
-  String[1]                    $metadata      = '1.2',
-  Boolean                      $force         = false,
-  Boolean                      $manage_conf   = true,
-  String[1]                    $conf_file     = '/etc/mdadm.conf',
+  Array[String[1]]            $devices,
+  Variant[Integer, String[1]] $level,
+  Enum['present', 'absent']   $ensure        = 'present',
+  String[1]                   $device        = $name,
+  Optional[Integer]           $raid_devices  = undef,
+  Optional[Integer]           $spare_devices = undef,
+  Optional[String[1]]         $chunk         = undef,
+  Optional[String[1]]         $layout        = undef,
+  Optional[String[1]]         $array_name    = undef,
+  Optional[String[1]]         $bitmap        = undef,
+  String[1]                   $metadata      = '1.2',
+  Boolean                     $force         = false,
+  Boolean                     $manage_conf   = true,
+  String[1]                   $conf_file     = '/etc/mdadm.conf',
 ) {
 
-  if $manage {
-    $path       = '/usr/bin:/usr/sbin:/bin:/sbin'
-    $member_str = join($devices, ' ')
+  $path       = '/usr/bin:/usr/sbin:/bin:/sbin'
+  $member_str = join($devices, ' ')
 
-    # True when at least one member already holds md metadata, ie the array
-    # exists on disk even if it is not currently assembled
-    $has_superblock = join($devices.map |$dev| { "mdadm --examine ${dev} > /dev/null 2>&1" }, ' || ')
+  # True when at least one member already holds md metadata, ie the array
+  # exists on disk even if it is not currently assembled
+  $has_superblock = join($devices.map |$dev| { "mdadm --examine ${dev} > /dev/null 2>&1" }, ' || ')
 
-    # True when every member is present as a block device
-    $members_present = join($devices.map |$dev| { "test -b ${dev}" }, ' && ')
+  # True when every member is present as a block device
+  $members_present = join($devices.map |$dev| { "test -b ${dev}" }, ' && ')
 
-    # True when the array is assembled and running
-    $is_running = "mdadm --detail ${device} > /dev/null 2>&1"
+  # True when the array is assembled and running
+  $is_running = "mdadm --detail ${device} > /dev/null 2>&1"
 
-    case $ensure {
-      'present': {
-        $_spares = $spare_devices ? {
-          undef   => 0,
-          default => $spare_devices,
-        }
-        $_actives = $raid_devices ? {
-          undef   => length($devices) - $_spares,
-          default => $raid_devices,
-        }
-
-        $opt_spares = $_spares ? {
-          0       => '',
-          default => " --spare-devices=${_spares}",
-        }
-        $opt_chunk = $chunk ? {
-          undef   => '',
-          default => " --chunk=${chunk}",
-        }
-        $opt_layout = $layout ? {
-          undef   => '',
-          default => " --layout=${layout}",
-        }
-        $opt_bitmap = $bitmap ? {
-          undef   => '',
-          default => " --bitmap=${bitmap}",
-        }
-        $opt_name = $array_name ? {
-          undef   => '',
-          default => " --name=${array_name}",
-        }
-        $opt_force = $force ? {
-          true    => ' --force',
-          default => '',
-        }
-
-        # --run answers the 'Continue creating array?' prompt, without it
-        # mdadm blocks forever on a puppet run
-        $create_cmd = join([
-          "mdadm --create ${device} --run${opt_force}",
-          "--level=${level} --raid-devices=${_actives}${opt_spares}",
-          "--metadata=${metadata}${opt_chunk}${opt_layout}${opt_bitmap}${opt_name}",
-          $member_str,
-        ], ' ')
-
-        # Assemble first, so the create guard below sees a running array.
-        # Deliberately not gated on every member being present, and --run so
-        # an array that lost a disk still comes up degraded rather than not
-        # at all.
-        exec { "mdadm-assemble-${device}":
-          command  => "mdadm --assemble --run ${device} ${member_str}",
-          path     => $path,
-          provider => shell,
-          onlyif   => $has_superblock,
-          unless   => $is_running,
-        }
-
-        exec { "mdadm-create-${device}":
-          command  => $create_cmd,
-          path     => $path,
-          provider => shell,
-          onlyif   => $members_present,
-          unless   => "${is_running} || ${has_superblock}",
-          require  => Exec["mdadm-assemble-${device}"],
-        }
-
-        if $manage_conf {
-          # Match on the UUID rather than the device name. mdadm --detail
-          # --brief prints whatever name the array was created with, which is
-          # not always the title we were given here.
-          #
-          # The first grep is not redundant: 'grep -qFf -' with an empty
-          # pattern list matches everything and returns 0, so without it a
-          # lookup that came back empty would look like 'already in the file'
-          # and we would never write the ARRAY line.
-          $brief = "mdadm --detail --brief ${device}"
-          $uuid  = "${brief} | grep -oE 'UUID=[^[:space:]]+'"
-
-          exec { "mdadm-conf-${device}":
-            command  => "${brief} >> ${conf_file}",
-            path     => $path,
-            provider => shell,
-            onlyif   => $is_running,
-            unless   => "${uuid} | grep -q . && ${uuid} | grep -qFf - ${conf_file}",
-            require  => Exec["mdadm-create-${device}"],
-          }
-        }
+  case $ensure {
+    'present': {
+      $_spares = $spare_devices ? {
+        undef   => 0,
+        default => $spare_devices,
+      }
+      $_actives = $raid_devices ? {
+        undef   => length($devices) - $_spares,
+        default => $raid_devices,
       }
 
-      # Destroys the array and the md metadata on its members. Nothing guards
-      # this beyond having written it in hiera, so be sure.
-      #
-      # There is no 'stopped' on purpose. Stopping without zeroing does not
-      # stick, 64-md-raid-assembly.rules runs 'mdadm --incremental' on every
-      # block device event and puts the array straight back, so puppet would
-      # stop it again on the next run forever. It also fails outright while
-      # the array is a mounted filesystem or an lvm pv, which is what we build
-      # these for. To hand an array back to manual control, drop it from hiera
-      # and it keeps running untouched.
-      'absent': {
-        exec { "mdadm-stop-${device}":
-          command  => "mdadm --stop ${device}",
+      $opt_spares = $_spares ? {
+        0       => '',
+        default => " --spare-devices=${_spares}",
+      }
+      $opt_chunk = $chunk ? {
+        undef   => '',
+        default => " --chunk=${chunk}",
+      }
+      $opt_layout = $layout ? {
+        undef   => '',
+        default => " --layout=${layout}",
+      }
+      $opt_bitmap = $bitmap ? {
+        undef   => '',
+        default => " --bitmap=${bitmap}",
+      }
+      $opt_name = $array_name ? {
+        undef   => '',
+        default => " --name=${array_name}",
+      }
+      $opt_force = $force ? {
+        true    => ' --force',
+        default => '',
+      }
+
+      # --run answers the 'Continue creating array?' prompt, without it mdadm
+      # blocks forever on a puppet run
+      $create_cmd = join([
+        "mdadm --create ${device} --run${opt_force}",
+        "--level=${level} --raid-devices=${_actives}${opt_spares}",
+        "--metadata=${metadata}${opt_chunk}${opt_layout}${opt_bitmap}${opt_name}",
+        $member_str,
+      ], ' ')
+
+      # Assemble first, so the create guard below sees a running array.
+      # Deliberately not gated on every member being present, and --run so an
+      # array that lost a disk still comes up degraded rather than not at all.
+      exec { "mdadm-assemble-${device}":
+        command  => "mdadm --assemble --run ${device} ${member_str}",
+        path     => $path,
+        provider => shell,
+        onlyif   => $has_superblock,
+        unless   => $is_running,
+      }
+
+      exec { "mdadm-create-${device}":
+        command  => $create_cmd,
+        path     => $path,
+        provider => shell,
+        onlyif   => $members_present,
+        unless   => "${is_running} || ${has_superblock}",
+        require  => Exec["mdadm-assemble-${device}"],
+      }
+
+      if $manage_conf {
+        # Match on the UUID rather than the device name. mdadm --detail
+        # --brief prints whatever name the array was created with, which is
+        # not always the title we were given here.
+        #
+        # The first grep is not redundant: 'grep -qFf -' with an empty pattern
+        # list matches everything and returns 0, so without it a lookup that
+        # came back empty would look like 'already in the file' and we would
+        # never write the ARRAY line.
+        $brief = "mdadm --detail --brief ${device}"
+        $uuid  = "${brief} | grep -oE 'UUID=[^[:space:]]+'"
+
+        exec { "mdadm-conf-${device}":
+          command  => "${brief} >> ${conf_file}",
           path     => $path,
           provider => shell,
           onlyif   => $is_running,
-        }
-
-        exec { "mdadm-zero-${device}":
-          command  => "mdadm --zero-superblock ${member_str}",
-          path     => $path,
-          provider => shell,
-          onlyif   => "${members_present} && ( ${has_superblock} )",
-          require  => Exec["mdadm-stop-${device}"],
-        }
-
-        if $manage_conf {
-          # Matched on the device, not the UUID as above, since there is no
-          # array left to ask. An ARRAY line written under a different name
-          # has to be removed by hand.
-          file_line { "mdadm.conf remove ${device}":
-            ensure            => absent,
-            path              => $conf_file,
-            match             => "^ARRAY[[:space:]]+${device}([[:space:]]|\$)",
-            match_for_absence => true,
-          }
+          unless   => "${uuid} | grep -q . && ${uuid} | grep -qFf - ${conf_file}",
+          require  => Exec["mdadm-create-${device}"],
         }
       }
+    }
 
-      default: {
-        fail("Unsupported ensure '${ensure}' for profile::base::mdadm::array")
+    # Destroys the array and the md metadata on its members. Nothing guards
+    # this beyond having written it in hiera, so be sure.
+    #
+    # There is no 'stopped' on purpose. Stopping without zeroing does not
+    # stick, 64-md-raid-assembly.rules runs 'mdadm --incremental' on every
+    # block device event and puts the array straight back, so puppet would
+    # stop it again on the next run forever. It also fails outright while the
+    # array is a mounted filesystem or an lvm pv, which is what we build these
+    # for. To hand an array back to manual control, drop it from hiera and it
+    # keeps running untouched.
+    'absent': {
+      exec { "mdadm-stop-${device}":
+        command  => "mdadm --stop ${device}",
+        path     => $path,
+        provider => shell,
+        onlyif   => $is_running,
       }
+
+      exec { "mdadm-zero-${device}":
+        command  => "mdadm --zero-superblock ${member_str}",
+        path     => $path,
+        provider => shell,
+        onlyif   => "${members_present} && ( ${has_superblock} )",
+        require  => Exec["mdadm-stop-${device}"],
+      }
+
+      if $manage_conf {
+        # Matched on the device, not the UUID as above, since there is no
+        # array left to ask. An ARRAY line written under a different name has
+        # to be removed by hand.
+        file_line { "mdadm.conf remove ${device}":
+          ensure            => absent,
+          path              => $conf_file,
+          match             => "^ARRAY[[:space:]]+${device}([[:space:]]|\$)",
+          match_for_absence => true,
+        }
+      }
+    }
+
+    default: {
+      fail("Unsupported ensure '${ensure}' for profile::base::mdadm::array")
     }
   }
 }
