@@ -34,6 +34,20 @@
 # Creation is deliberately one-shot and conservative, see
 # profile::base::mdadm::array for what is and is not touched on later runs.
 #
+# The arrays are built in the kickstart run, the same as lvm. Anaconda only
+# ever touches the install device, everything else on the host is ours, and
+# the foreman kickstart does a full catalog apply from inside the %post chroot
+# ('run-puppet-in-installer' is a global parameter). Building the array there
+# is what lets profile::base::lvm put vg_ext on top of it in the same run, so
+# the host comes out of provisioning with /var/lib/nova/instances mounted
+# rather than with a failed pv and a second run to fix it.
+#
+# The service and the initramfs rebuild are the exceptions and stay out of
+# kickstart. In the installer chroot systemctl talks to the installer's
+# systemd, which knows nothing of the units under /mnt/sysimage, and dracut
+# would build against the anaconda kernel rather than the installed one.
+# Neither is needed before the first boot.
+#
 # Alerting is sensu, through profile::monitoring::mdraid. That class is kept
 # independent of this one, since an array built by the installer needs
 # watching whether or not puppet manages it. It does default to on wherever
@@ -64,37 +78,37 @@ class profile::base::mdadm (
     }
   }
 
-  # Everything below writes to disk or to a running array, so keep it out of
-  # the kickstart run where anaconda owns the disks
+  if $manage_conf {
+    # Content is not managed, only appended to. The ARRAY lines come from
+    # 'mdadm --detail --brief' as each array is created, MAILADDR from here.
+    file { $conf_file:
+      ensure => present,
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0644',
+    }
+
+    if $mailaddr {
+      file_line { 'mdadm.conf mailaddr':
+        path  => $conf_file,
+        line  => "MAILADDR ${mailaddr}",
+        match => '^MAILADDR',
+      }
+    }
+  }
+
+  if $create_arrays {
+    $arrays = lookup('profile::base::mdadm::array', Hash, 'first', {})
+
+    create_resources('profile::base::mdadm::array', $arrays, {
+      'conf_file'   => $conf_file,
+      'manage_conf' => $manage_conf,
+    })
+  }
+
+  # What is left needs a systemd that owns the root we are installing to, or a
+  # running kernel that matches it, so it waits for the first real boot
   if $::runmode != 'kickstart' {
-
-    if $manage_conf {
-      # Content is not managed, only appended to. The ARRAY lines come from
-      # 'mdadm --detail --brief' as each array is created, MAILADDR from here.
-      file { $conf_file:
-        ensure => present,
-        owner  => 'root',
-        group  => 'root',
-        mode   => '0644',
-      }
-
-      if $mailaddr {
-        file_line { 'mdadm.conf mailaddr':
-          path  => $conf_file,
-          line  => "MAILADDR ${mailaddr}",
-          match => '^MAILADDR',
-        }
-      }
-    }
-
-    if $create_arrays {
-      $arrays = lookup('profile::base::mdadm::array', Hash, 'first', {})
-
-      create_resources('profile::base::mdadm::array', $arrays, {
-        'conf_file'   => $conf_file,
-        'manage_conf' => $manage_conf,
-      })
-    }
 
     # Only needed when the root filesystem sits on an array, off by default
     if $update_initramfs {
@@ -148,19 +162,17 @@ class profile::base::mdadm (
     Package[$package_name] -> Profile::Base::Mdadm::Array <| |>
   }
 
-  if $::runmode != 'kickstart' {
-    if $manage_conf {
-      File[$conf_file] -> Profile::Base::Mdadm::Array <| |>
-    }
+  if $manage_conf {
+    File[$conf_file] -> Profile::Base::Mdadm::Array <| |>
+  }
 
-    if $manage_service {
-      if $manage_package {
-        Package[$package_name] -> Service[$service_name]
-      }
-      if $manage_conf {
-        File[$conf_file] -> Service[$service_name]
-      }
-      Profile::Base::Mdadm::Array <| |> -> Service[$service_name]
+  if ($::runmode != 'kickstart') and $manage_service {
+    if $manage_package {
+      Package[$package_name] -> Service[$service_name]
     }
+    if $manage_conf {
+      File[$conf_file] -> Service[$service_name]
+    }
+    Profile::Base::Mdadm::Array <| |> -> Service[$service_name]
   }
 }
