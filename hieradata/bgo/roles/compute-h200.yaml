@@ -97,6 +97,7 @@ profile::virtualization::nested::value:  '0'
 profile::base::physical::blacklist_drv: true
 profile::base::physical::blacklist_drv_list:
   'nouveau': {}
+  'bnxt_re': {} # disabling RoCE features
 
 ## GPU ##
 profile::base::physical::enable_vfio_pci: true
