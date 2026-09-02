@@ -88,6 +88,6 @@ profile::rhsm::virtwho::manage:      false
 profile::base::cron::crontabs:
   restart_bird:
     hour:     '8'
-    minute:   '55'
+    minute:   '50'
     weekday:  '5'
     command:  "sleep $((($RANDOM % 15) + 1));/bin/systemctl restart bird.service >/dev/null"
