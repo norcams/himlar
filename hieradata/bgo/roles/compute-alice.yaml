@@ -90,4 +90,4 @@ profile::base::cron::crontabs:
     hour:     '8'
     minute:   '55'
     weekday:  '5'
-    command:  "/bin/systemctl restart bird.service >/dev/null"
+    command:  "sleep $((($RANDOM % 15) + 1));/bin/systemctl restart bird.service >/dev/null"

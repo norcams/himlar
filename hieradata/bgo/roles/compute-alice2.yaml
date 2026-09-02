@@ -77,3 +77,11 @@ sensu::agent::annotations:
 # Red Hat Subscription Management (RHSM)
 profile::rhsm::subscription::manage: false
 profile::rhsm::virtwho::manage:      false
+
+# Temp fix for bird issues
+profile::base::cron::crontabs:
+  restart_bird:
+    hour:     '8'
+    minute:   '55'
+    weekday:  '5'
+    command:  "sleep $((($RANDOM % 15) + 1));/bin/systemctl restart bird.service >/dev/null"
