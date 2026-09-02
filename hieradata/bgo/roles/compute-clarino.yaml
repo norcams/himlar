@@ -1,13 +1,4 @@
 ---
-named_interfaces::config:
-  mgmt:
-    - em1
-  trp:
-    - team1
-  live:
-    - team1.120
-
-
 profile::base::common::packages:
   'numactl': {}
 
