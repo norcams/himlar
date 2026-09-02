@@ -61,6 +61,36 @@ nova::compute::libvirt::services::modular_libvirt:        true
 nova::migration::libvirt::modular_libvirt:                true
 
 #---------------------------------------------------------------------
+# Configure storage
+# LVM volume on top of software raid
+#---------------------------------------------------------------------
+
+# Configure software raid
+profile::base::common::manage_mdadm: true
+profile::base::mdadm::array:
+  '/dev/md/instances':
+    level: '1'
+    devices:
+      - '/dev/disk/by-id/wwn-0x5002538b105fc5a0'
+      - '/dev/disk/by-id/wwn-0x5002538b105fc5b0'
+
+# Configure LVM
+profile::base::lvm::physical_volume:
+  '/dev/md/instances':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_ext':
+    followsymlinks: true
+    physical_volumes:
+      - '/dev/md/instances'
+profile::base::lvm::logical_volume:
+  'lv_instances':
+    volume_group: 'vg_ext'
+    fs_type:      "xfs"
+    mountpath:    "/var/lib/nova/instances"
+
+#---------------------------------------------------------------------
 # Disk health monitoring
 #
 # The class and the 'smart' subscription have to be set together, see
@@ -75,3 +105,4 @@ sensu::agent::subscriptions:
   - 'compute'
   - 'physical'
   - 'smart'
+  - 'mdraid'
