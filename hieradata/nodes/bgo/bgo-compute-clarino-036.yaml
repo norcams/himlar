@@ -29,7 +29,7 @@ profile::base::lvm::physical_volume:
 profile::base::lvm::volume_group:
   'vg_instances':
     physical_volumes:
-      - /dev/sda
+      - /dev/nvme0n1
   'vg_swap':
     physical_volumes:
       - /dev/sdb4
