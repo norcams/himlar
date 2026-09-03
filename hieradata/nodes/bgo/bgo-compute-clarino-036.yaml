@@ -18,6 +18,10 @@ named_interfaces::config:
   live:
   - bond0.120
 
+# cpu module used by kvm (default is to disable nested virtualization)
+profile::virtualization::nested::module: 'kvm_amd'
+profile::virtualization::nested::value:  '0'
+
 
 profile::base::lvm::physical_volume:
   '/dev/sda4':
