@@ -8,3 +8,27 @@ nova::compute::libvirt::manage_libvirt_services:          false
 nova::compute::libvirt::modular_libvirt:                  true
 nova::compute::libvirt::services::modular_libvirt:        true
 nova::migration::libvirt::modular_libvirt:                true
+
+# Do not install host GPU driver package
+# (use manual runfile for host GPU driver installation instead)
+profile::base::common::packages:
+  'NVIDIA-vGPU-rhel': { ensure: absent }
+
+# PCI-specific mdev configuration for mixed whole + half GPU slots
+# Only this node (osl-compute-l40s-068) has GPUs 3-4 (0000:ca, 0000:e1)
+# for whole-GPU (nvidia-1156 / 48Q) slots
+#
+# From "mdevctl types":
+#
+#  nvidia-1156
+#    Available instances: 1
+#    Device API: vfio-pci
+#    Name: NVIDIA L40S-48Q
+#    Description: num_heads=4, frl_config=60, framebuffer=49152M, max_resolution=7680x4320, max_instance=1
+#
+# Merged with role-level mdev_types to add device_addresses
+nova::compute::mdev::mdev_types:
+  nvidia-1155:
+    device_addresses: '0000:4a:01.1,0000:61:01.1,0000:4a:01.2,0000:61:01.2'
+  nvidia-1156:
+    device_addresses: '0000:ca:01.1,0000:e1:01.1'
