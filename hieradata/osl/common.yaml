@@ -176,6 +176,7 @@ profile::network::services::dns_records:
     "%{::location}-compute-shpc-056.%{hiera('domain_mgmt')}": "%{::location}-compute-56.%{hiera('domain_mgmt')}"
     "%{::location}-compute-shpc-055.%{hiera('domain_mgmt')}": "%{::location}-compute-55.%{hiera('domain_mgmt')}"
     "%{::location}-compute-shpc-077.%{hiera('domain_mgmt')}": "%{::location}-compute-77.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-shpc-018.%{hiera('domain_mgmt')}": "%{::location}-compute-18.%{hiera('domain_mgmt')}"
     # GPU
     "%{::location}-compute-vgpu-17.%{hiera('domain_mgmt')}": "%{::location}-compute-17.%{hiera('domain_mgmt')}"
     "%{::location}-compute-vgpu-19.%{hiera('domain_mgmt')}": "%{::location}-compute-19.%{hiera('domain_mgmt')}"
@@ -219,8 +220,6 @@ profile::network::services::dns_records:
     "%{::location}-object-ceph-03.%{hiera('domain_mgmt')}":  "%{::location}-object-03.%{hiera('domain_mgmt')}"
     "%{::location}-object-ceph-04.%{hiera('domain_mgmt')}":  "%{::location}-object-04.%{hiera('domain_mgmt')}"
     "%{::location}-object-ceph-05.%{hiera('domain_mgmt')}":  "%{::location}-object-05.%{hiera('domain_mgmt')}"
-    # Dedicated
-    "%{::location}-compute-robin-18.%{hiera('domain_mgmt')}": "%{::location}-compute-18.%{hiera('domain_mgmt')}"
     # Huawei ceph nodes
     "%{::location}-storage-v2h-13.%{hiera('domain_mgmt')}":  "%{::location}-storage-13.%{hiera('domain_mgmt')}"
     "%{::location}-storage-v2h-14.%{hiera('domain_mgmt')}":  "%{::location}-storage-14.%{hiera('domain_mgmt')}"
