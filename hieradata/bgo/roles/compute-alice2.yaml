@@ -83,5 +83,5 @@ profile::base::cron::crontabs:
   restart_bird:
     hour:     '8'
     minute:   '55'
-    weekday:  '5'
+    weekday:  '4'
     command:  "sleep $(awk 'BEGIN{srand(); print int(rand()*15)+1}');/bin/systemctl restart bird.service >/dev/null"
