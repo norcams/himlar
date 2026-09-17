@@ -1,0 +1,39 @@
+---
+network::interfaces_hash:
+   eth0:
+     ipv4:
+       method:         'manual'
+       address1:       "%{hiera('netcfg_mgmt_netpart')}.98/%{hiera('netcfg_mgmt_cidr4')}"
+       dns:            "%{hiera('netcfg_dns_mgmt_server1')};%{hiera('netcfg_dns_mgmt_server2')}"
+       dns-search:     "%{hiera('netcfg_dns_search_nm')}"
+
+named_interfaces::config:
+   mgmt:
+     - eth0
+
+profile::application::builder::fetch_windows_images: true
+
+profile::application::builder::windows_images:
+  'winsrv_2022':
+    'version':          '2022'
+    'buildhost':        "osl-controller-08.mgmt.osl.uhdc.no"
+    'weekday':          '*'
+    'monthday':         '8-14'
+    'hour':             6
+    'minute':           0
+  'winsrv_2025':
+    'version':          '2025'
+    'buildhost':        "osl-controller-08.mgmt.osl.uhdc.no"
+    'weekday':          '*'
+    'monthday':         '8-14'
+    'hour':             3
+    'minute':           0
+
+profile::base::lvm::physical_volume:
+  '/dev/sda':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_images':
+    physical_volumes:
+      - /dev/sda
