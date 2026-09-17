@@ -46,4 +46,4 @@ profile::base::yumrepo::repo_hash:
     ensure: present
 
 # Temporary: Don't manage cron
-profile::base::common::manage_cron: false
+profile::application::builder::drop_cron: true
