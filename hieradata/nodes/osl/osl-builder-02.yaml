@@ -44,3 +44,6 @@ profile::base::lvm::volume_group:
 profile::base::yumrepo::repo_hash:
   hashicorp:
     ensure: present
+
+# Temporary: Don't manage cron
+profile::base::common::manage_cron: false
