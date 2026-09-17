@@ -1,9 +1,4 @@
 ---
-# Remove these two when it is reinstalled as EL9
-manage_firewall: false
-puppet_runmode: 'none'
-# ----------------------------------------------
-
 network::interfaces_hash:
   eth0:
     ipv4:
