@@ -37,3 +37,7 @@ profile::base::lvm::volume_group:
   'vg_images':
     physical_volumes:
       - /dev/vdb
+
+profile::base::yumrepo::repo_hash:
+  hashicorp:
+    ensure: present
