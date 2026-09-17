@@ -1,37 +1,42 @@
 ---
+# Remove these two when it is reinstalled as EL9
+manage_firewall: false
+puppet_runmode: 'none'
+# ----------------------------------------------
+
 network::interfaces_hash:
-  'eth0':
-    onboot:    'yes'
-    mtu:       '1500'
-    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.16"
-    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
-    gateway:   "%{hiera('netcfg_mgmt_gateway')}"
-    peerdns:   'yes'
-    dns1:      "%{hiera('netcfg_dns_mgmt_server1')}"
-    dns2:      "%{hiera('netcfg_dns_mgmt_server2')}"
-    domain:    "%{hiera('netcfg_dns_search')}"
-    defroute:  'no'
-  'eth1':
-    onboot:    'yes'
-    mtu:       '1500'
-    ipaddress: "%{hiera('netcfg_trp_netpart')}.16"
-    netmask:   "%{hiera('netcfg_trp_netmask')}"
-    gateway:   "%{hiera('netcfg_trp_gateway')}"
-    srcaddr:   '158.39.77.251'
-    ipv6init:  'yes'
-    ipv6addr:  "%{hiera('netcfg_trp_netpart6')}::16/%{hiera('netcfg_trp_netmask6')}"
-    defroute:  'yes'
-  'dummy0':
-    ipaddress: '158.39.77.251'
-    netmask:   '255.255.255.255'
-    ipv6init:  'yes'
-    ipv6addr:  '2001:700:2:83ff::251/128'
-    defroute:  'no'
-profile::base::network::routes:
-  'eth1':
-    'ipaddress': [ '::', ]
-    'netmask':   [ '0', ]
-    'gateway':   [ "%{hiera('netcfg_trp_gateway6')}", ]
-    'source':    [ '2001:700:2:83ff::251', ]
-    'table':     [ 'main', ]
-    'family':    [ 'inet6', ]
+  eth0:
+    ipv4:
+      address1:   "%{hiera('netcfg_mgmt_netpart')}.16/%{hiera('netcfg_mgmt_cidr4')}"
+      dns:        "%{hiera('netcfg_dns_mgmt_server1')};%{hiera('netcfg_dns_mgmt_server2')}"
+      dns-search: "%{hiera('netcfg_dns_search_nm')}"
+      method:     'manual'
+  eth1:
+    ipv4:
+      method:         'manual'
+      address1:       "%{hiera('netcfg_trp_netpart')}.16/%{hiera('netcfg_trp_cidr4')}"
+      route1:         "0.0.0.0/0,%{hiera('netcfg_trp_gateway')}"
+      route1_options: "src=%{hiera('public__ip__ns')}"
+    ipv6:
+      method:         'manual'
+      address1:       "%{hiera('netcfg_trp_netpart6')}::16/%{hiera('netcfg_trp_netmask6')}"
+      route1:         "::/0,%{hiera('netcfg_trp_netpart6')}::701"
+      route1_options: "src=%{hiera('public__ipv6__ns')}"
+  lo-static:
+    interface_name:   'lo'
+    connection_type:  'loopback'
+    ipv4:
+      method:         'manual'
+      address1:       "%{hiera('public__ip__ns')}/32"
+    ipv6:
+      method:         'manual'
+      address1:       "%{hiera('public__ipv6__ns')}/128"
+
+# delete when every ns is on el9
+named_interfaces::config:
+  mgmt:
+    - eth0
+  trp:
+    - eth1
+  public:
+    - lo
