@@ -30,10 +30,10 @@ profile::application::builder::windows_images:
     'minute':           0
 
 profile::base::lvm::physical_volume:
-  '/dev/sda':
+  '/dev/vdb':
     ensure: present
     force:  true
 profile::base::lvm::volume_group:
   'vg_images':
     physical_volumes:
-      - /dev/sda
+      - /dev/vdb
