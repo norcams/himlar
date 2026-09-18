@@ -41,7 +41,7 @@ profile::base::lvm::logical_volume:
 #FIXME:el9 move to common after all computes are el9 with zed
 named_interfaces::config:
   mgmt:
-  - p5p1
+  - p2817p1
   trp:
   - bond0
   live:
@@ -49,10 +49,10 @@ named_interfaces::config:
 
 profile::base::network::nm_network_auto_bonding:
   trp:
-    p1p1:
+    p2818p1:
       ethernet:
         'mtu': '9000' # the MTU size must be set also on the slave interfaces
-    p1p2:
+    p2818p2:
       ethernet:
         'mtu': '9000'
 
