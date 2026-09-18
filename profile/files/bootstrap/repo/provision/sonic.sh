@@ -29,6 +29,7 @@ else
   systemctl start ntp
 fi
 
+apt install -y bind9-host bind9-utils
 apt-get update
 apt-get install -y lsb-release wget mlocate apt-utils locales-all
 updatedb
