@@ -1,0 +1,15 @@
+---
+profile::base::lvm::physical_volume:
+  '/dev/disk/by-id/wwn-0x600304802484b0f2318b5e96c3056969':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_instances':
+    followsymlinks: true
+    physical_volumes:
+      - /dev/disk/by-id/wwn-0x600304802484b0f2318b5e96c3056969
+profile::base::lvm::logical_volume:
+  'lv_instances':
+    volume_group: 'vg_instances'
+    fs_type:      "xfs"
+    mountpath:    "/var/lib/nova/instances"
