@@ -45,5 +45,8 @@ profile::base::yumrepo::repo_hash:
   hashicorp:
     ensure: present
 
+# FIXME: temporary disable sensu
+profile::monitoring::sensu::agent::enable_go_agent: false
+
 # Temporary: Don't manage cron
 profile::application::builder::drop_cron: true
