@@ -66,7 +66,6 @@ profile::application::builder::images:
     'checksum':         'sha256'
     'min_ram':          768
     'min_disk':         8
-    'flavor':           'm1.small'
     'efi':              true
     'username':         'almalinux'
     'hour':             13
@@ -79,7 +78,6 @@ profile::application::builder::images:
     'checksum':         'sha256'
     'min_ram':          1024
     'min_disk':         8
-    'flavor':           'm1.small'
     'efi':              true
     'username':         'almalinux'
     'hour':             3
@@ -92,7 +90,6 @@ profile::application::builder::images:
     'checksum':         'sha256'
     'min_ram':          1024
     'min_disk':         8
-    'flavor':           'm1.small'
     'efi':              true
     'username':         'almalinux'
     'hour':             4
@@ -105,7 +102,6 @@ profile::application::builder::images:
     'checksum':         'sha256'
     'min_ram':          1024
     'min_disk':         8
-    'flavor':           'm1.small'
     'efi':              true
     'username':         'almalinux'
     'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
@@ -119,7 +115,6 @@ profile::application::builder::images:
     'checksum':         'sha256'
     'min_ram':          1024
     'min_disk':         8
-    'flavor':           'm1.small'
     'efi':              true
     'username':         'almalinux'
     'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
@@ -133,7 +128,6 @@ profile::application::builder::images:
     'checksum':         'sha256'
     'min_ram':          768
     'min_disk':         8
-    'flavor':           'm1.small'
     'username':         'almalinux'
     'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/uib_puppet' ]
     'hour':             5
@@ -157,7 +151,6 @@ profile::application::builder::images:
     'checksum':         'sha256'
     'min_ram':          768
     'min_disk':         8
-    'flavor':           'm1.small'
     'efi':              true
     'username':         'cloud-user'
     'hour':             6
@@ -170,7 +163,6 @@ profile::application::builder::images:
     'checksum':         'sha512'
     'min_ram':          1024
     'min_disk':         3
-    'flavor':           'm1.small'
     'efi':              true
     'username':         'debian'
     'hour':             16
@@ -183,7 +175,6 @@ profile::application::builder::images:
     'checksum':         'sha512'
     'min_ram':          1024
     'min_disk':         3
-    'flavor':           'm1.small'
     'efi':              true
     'username':         'debian'
     'hour':             17
