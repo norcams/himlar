@@ -141,7 +141,40 @@ profile::base::network::cumulus_bonds:
   'peerlink':
     'slaves': [ 'swp30', ]
     'mtu':   '9216'
-
+    
+  'host8':
+    'slaves': [ 'swp2s3', ]
+    'clag_id': '8'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host9':
+    'slaves': [ 'swp3s0', ]
+    'clag_id': '9'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host10':
+    'slaves': [ 'swp3s1', ]
+    'clag_id': '10'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host11':
+    'slaves': [ 'swp3s2', ]
+    'clag_id': '11'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+    
   'host25':
     'slaves': [ 'swp7s0', ]
     'clag_id': '25'
