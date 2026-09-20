@@ -57,6 +57,12 @@ profile::application::builder::flavor:        'img.zerodisk'
 profile::application::builder::template_dir:  '/etc/imagebuilder'
 profile::application::builder::download_dir:  '/opt/images/public_builds'
 profile::application::builder::rc_file:       '/home/imagebuilder/openrc'
+
+# Run every image in sequence from /opt/imagebuilder/build-images.sh rather
+# than a cron job per image. Off everywhere until a node opts in, so the old
+# and the new scheme can run side by side on different builders
+profile::application::builder::build_script:  false
+
 profile::application::builder::images:
   'almalinux8':
     'image_name':       'IMAGEBUILDER AlmaLinux 8'

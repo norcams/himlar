@@ -13,6 +13,17 @@ class profile::application::builder (
   $custom_scriptdir = "/home/${user}/custom_scripts",
   $resolver_address = hiera('netcfg_anycast_dns', '1.1.1.1'),
   $fetch_windows_images = false,
+  # Run every image from one script, in sequence, instead of a cron job per
+  # image. Where this is true the per-image jobs are removed, so a node uses
+  # one scheme or the other and never both.
+  # The script itself comes from the imagebuilder repo, which ansible dists to
+  # /opt/imagebuilder, so there is nothing to deploy here
+  $build_script = false,
+  $build_script_path = '/opt/imagebuilder/build-images.sh',
+  $build_script_options = '-S -B -G',
+  $build_script_weekday = 6,
+  $build_script_hour = 2,
+  $build_script_minute = 0,
 ) {
 
 
@@ -83,6 +94,19 @@ class profile::application::builder (
     group   => $group,
     mode    => '0755',
     content => template("${module_name}/application/builder/resolver.sh.erb")
+  }
+
+  # One job for every image, run in sequence. Declared either way rather than
+  # only when enabled, so that turning it back off removes the cron entry
+  $build_script_ensure = $build_script ? { true => present, default => absent }
+
+  cron { 'build-images':
+    ensure  => $build_script_ensure,
+    command => "${build_script_path} ${build_script_options}",
+    user    => $user,
+    weekday => $build_script_weekday,
+    hour    => $build_script_hour,
+    minute  => $build_script_minute
   }
 
   create_resources('profile::application::builder::jobs', lookup('profile::application::builder::images', Hash, 'deep', {}))
