@@ -26,6 +26,14 @@ define profile::application::builder::jobs(
   # Use this to disable all cronjobs for builder
   $drop_cron = lookup('profile::application::builder::drop_cron', Boolean, 'first', false)
 
+  # build-images.sh runs every image in sequence from a single cron job, so
+  # where it is enabled the per-image jobs would be a second, competing
+  # schedule. The script takes a lock, so they would not corrupt each other,
+  # but one of them would simply fail
+  $build_script = lookup('profile::application::builder::build_script', Boolean, 'first', false)
+
+  $no_cron = ($drop_cron or $build_script)
+
   file { "/home/${user}/build_scripts/${name}":
     ensure  => $ensure,
     content => template("${module_name}/application/builder/build_script.erb"),
@@ -35,7 +43,7 @@ define profile::application::builder::jobs(
     require => File["/home/${user}/build_scripts"]
   } ->
   cron { $name:
-    ensure      => $drop_cron? { true => 'absent', default => $ensure},
+    ensure      => $no_cron? { true => 'absent', default => $ensure},
     # Write to imagebuilder report
     command     => "/home/${user}/build_scripts/${name} || jq -nc '{\"result\": \"failed\"}' >> /var/log/imagebuilder/${name}-report.jsonl",
     user        => $user,
