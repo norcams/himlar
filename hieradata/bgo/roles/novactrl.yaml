@@ -46,6 +46,10 @@ profile::openstack::resource::host_aggregate:
     availability_zone: "%{::location}-default-1"
     metadata:
       type: 'elixir2'
+  geov1: # intel
+    availability_zone: "%{::location}-default-1"
+    metadata:
+      type: 'geov1'
   placeholder1:
     availability_zone: "%{::location}-iaas-team-only-1"
     metadata:
