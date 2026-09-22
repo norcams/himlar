@@ -1,6 +1,8 @@
 ---
 openstack_version: "zed"
 
+profile::base::common::packages:
+  'numactl': {}
 
 # cpu module used by kvm (default is to disable nested virtualization)
 profile::virtualization::nested::module: 'kvm_amd'
