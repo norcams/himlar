@@ -153,6 +153,10 @@ profile::application::foreman::dhcp_classes:
     parameters:
       - 'match if (substring(option vendor-class-identifier, 0, 33) = "onie_vendor:x86_64-dellemc_s5232f")'
       - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/images/cumuluslinux/onie-installer-amd64\""
+  onie_dell_s5248f:
+    parameters:
+      - 'match if (substring(option vendor-class-identifier, 0, 33) = "onie_vendor:x86_64-dellemc_s5248f")'
+      - "option default-url = \"http://repo.mgmt.%{location}.uhdc.no/images/cumuluslinux/onie-installer-amd64\""
   onie_celestica_ds1000:
     parameters:
       - 'match if (substring(option vendor-class-identifier, 0, 32) = "onie_vendor:x86_64-cel_ds1000-r0")'
