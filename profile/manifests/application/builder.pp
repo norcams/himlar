@@ -22,8 +22,10 @@ class profile::application::builder (
   $build_script_path = '/opt/imagebuilder/build-images.sh',
   # -s sweeps temporary security groups and keypairs left behind by builds
   # that were killed outright, which only this scheduled run is in a position
-  # to notice. Note the case: -S selects the standard images, -s is the sweep
-  $build_script_options = '-S -B -G -s',
+  # to notice. Note the case: -S selects the standard images, -s is the sweep.
+  # -t bounds a single build: the images are built one after another, so
+  # without it one that hangs blocks every image behind it for the week
+  $build_script_options = '-S -B -G -s -t 4h',
   $build_script_weekday = 6,
   $build_script_hour = 2,
   $build_script_minute = 0,
