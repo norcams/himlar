@@ -188,6 +188,9 @@ profile::network::services::dns_records:
     "console.%{hiera('domain_public')}":                            "api.%{hiera('domain_public')}" #125
     "%{::location}-compute-shpc-01.%{hiera('domain_mgmt')}":        "%{::location}-compute-01.%{hiera('domain_mgmt')}"
     "%{::location}-compute-shpc-02.%{hiera('domain_mgmt')}":        "%{::location}-compute-02.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-cern-006.%{hiera('domain_mgmt')}":       "%{::location}-storage-06.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-cern-007.%{hiera('domain_mgmt')}":       "%{::location}-storage-07.%{hiera('domain_mgmt')}"
+    "%{::location}-storage-cern-008.%{hiera('domain_mgmt')}":       "%{::location}-storage-08.%{hiera('domain_mgmt')}"
 
 profile::network::services::dns_options:
   CNAME:
