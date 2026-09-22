@@ -207,6 +207,33 @@ profile::base::network::cumulus_bonds:
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', '130', ]
     'mtu': '9216'
+
+  'host44':
+    'slaves': [ 'swp11s0', ]
+    'clag_id': '44'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host45':
+    'slaves': [ 'swp11s1', ]
+    'clag_id': '45'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host46':
+    'slaves': [ 'swp11s2', ]
+    'clag_id': '46'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+
+
   'host53':
     'slaves': [ 'swp14s0', ]
     'clag_id': '53'
@@ -411,6 +438,9 @@ profile::base::network::cumulus_bridges:
       - host26
       - host27
       - host28
+      - host44
+      - host45
+      - host46
       - host53
       - host54
       - host55
