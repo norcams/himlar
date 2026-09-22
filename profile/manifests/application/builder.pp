@@ -20,7 +20,10 @@ class profile::application::builder (
   # /opt/imagebuilder, so there is nothing to deploy here
   $build_script = false,
   $build_script_path = '/opt/imagebuilder/build-images.sh',
-  $build_script_options = '-S -B -G',
+  # -s sweeps temporary security groups and keypairs left behind by builds
+  # that were killed outright, which only this scheduled run is in a position
+  # to notice. Note the case: -S selects the standard images, -s is the sweep
+  $build_script_options = '-S -B -G -s',
   $build_script_weekday = 6,
   $build_script_hour = 2,
   $build_script_minute = 0,
