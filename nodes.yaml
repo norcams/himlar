@@ -3,8 +3,10 @@
 #  These settings can be overridden per node in the
 #  nodeset configurations
 #
+# Default box_url will be https://download.iaas.uio.no/nrec/vagrant/metadata/<box>.json
+#
 defaults:
-  box:         "norcams/el8"
+  box:         "el8"
   box_version: ">0"
   autostart:   true
   primary:     false
@@ -38,82 +40,82 @@ nodesets:
   default:
     - role:       "db-global"
       puppet_env: "zed"
-      box:        "norcams/el9"
+      box:        "el9"
     - role:       "db-regional"
       puppet_env: "zed"
-      box:        "norcams/el9"
+      box:        "el9"
     - role:       "api"
     - role:       "mq"
     - role:       "identity"
       puppet_env: "zed"
-      box:        "norcams/el9"
+      box:        "el9"
     - role:       "novactrl"
       puppet_env: "zed"
-      box:        "norcams/el9"
+      box:        "el9"
     - role:       "image"
       puppet_env: "zed"
-      box:        "norcams/el9"
+      box:        "el9"
     - role:       "network"
       puppet_env: "zed"
-      box:        "norcams/el9"
+      box:        "el9"
     - role:       "volume"
       puppet_env: "zed"
-      box:        "norcams/el9"
+      box:        "el9"
     - role:       "dashboard"
       puppet_env: "zed"
-      box:        "norcams/el9"
+      box:        "el9"
     - role:       "compute"
       memory:     4096
       cpus:       2
       puppet_env: "zed"
-      box:        "norcams/el9"
+      box:        "el9"
   # The following nodes are optional
     #- role:       "access"
     #- role:       "identity"
     #  hostid:     "02"
     #  puppet_env: "yoga"
     #- role:       "console"
-    #  box:        "norcams/el9"
+    #  box:        "el9"
     #  puppet_env: "zed"
     #- role:       "sensugo"
-    #  box:        "norcams/el9"
+    #  box:        "el9"
     #  puppet_env: "monitor"
     #  hostid:     "01"
     #  memory:     1536
     #- role:       "sensugo"
-    #  box:        "norcams/el9"
+    #  box:        "el9"
     #  puppet_env: "monitor"
     #  hostid:     "02"
     #  memory:     1536
     #- role:       "sensugo"
-    #  box:        "norcams/el9"
+    #  box:        "el9"
     #  puppet_env: "monitor"
     #  hostid:     "03"
     #  memory:     1536
     #- role:       "tsdb"
-    #  box:        "norcams/el9"
+    #  box:        "el9"
     #  puppet_env: "monitor"
     #- role:       "status"
     #- role:       "builder"
     #- role:       "proxy"
-    #  box:        "norcams/el9"
+    #  box:        "el9"
     #  puppet_env: "el9"
     #- role:       "login"
     #- role:       "controller"
     #  memory:     4096
     #  cpus:       2
     #  puppet_env: "controller"
-    #  box:        "norcams/el9"
+    #  box:        "el9"
     #- role:       "portal"
-    #  box:        "norcams/el9"
+    #  box:        "el9"
     #  puppet_env: "controller"
     #- role:       "metric"
     #  puppet_env: "zed"
-    #  box:        "norcams/el9"
+    #  box:        "el9"
     #  disk:       "2GB"
     #- role:       "telemetry"
     #  puppet_env: "zed"
-    #  box:        "norcams/el9"
+    #  box:        "el9"
     #- role:       "dashboard-mgmt"
     #- role:       "report"
     #- role:       "coordinator"
@@ -127,10 +129,10 @@ nodesets:
     #- role:       "object"
     #  hostid:     '03'
     #- role:       "mgmt-opx"
-    #  box:        "norcams/opx"
+    #  box:        "opx"
     #  memory:     1024
     #- role:       "nat"
-    #  box:        "norcams/freebsd"
+    #  box:        "freebsd"
     #- role:       "admin"
     #  puppet_env: "admin"
     #  memory:     2048
@@ -151,76 +153,76 @@ nodesets:
     #  box:        "norcams/net"
     #- role:       'resolver'
     #  puppet_env: "zed_bind"
-    #  box:        "norcams/el9"
+    #  box:        "el9"
     #- role:       'mgmt-sonic'
-    #  box:        'norcams/sonic2411'
+    #  box:        'sonic2411'
     #  puppet_env: 'sonic'
     #  memory:     4096
     #  cpus:       2
     #- role:       'spine-sonic'
-    #  box:        'norcams/sonic2205'
+    #  box:        'sonic2205'
     #  puppet_env: 'sonic'
     #  memory:     4096
     #  cpus:       2
   db:
     - role:       'db-global'
       hostid:     '01'
-      box:        "norcams/base"
+      box:        "base"
     - role:       'db-global'
       hostid:     '02'
-      box:        "norcams/base"
+      box:        "base"
   ceph:
     - role:       "cephmon"
     - role:       "storage"
   dns:
     - role:       "db-global"
       puppet_env: "zed"
-      box:        "norcams/el9"
+      box:        "el9"
     - role:       "db-regional"
       puppet_env: "zed"
-      box:        "norcams/el9"
+      box:        "el9"
     - role:       "api"
     - role:       "mq"
     - role:       "identity"
       puppet_env: "zed"
-      box:        "norcams/el9"
+      box:        "el9"
     - role:       "novactrl"
       puppet_env: "zed"
-      box:        "norcams/el9"
+      box:        "el9"
     - role:       "image"
       puppet_env: "zed"
-      box:        "norcams/el9"
+      box:        "el9"
     - role:       "network"
       puppet_env: "zed"
-      box:        "norcams/el9"
+      box:        "el9"
     - role:       "volume"
       puppet_env: "zed"
-      box:        "norcams/el9"
+      box:        "el9"
     - role:       "dashboard"
       puppet_env: "zed"
-      box:        "norcams/el9"
+      box:        "el9"
     - role:       "compute"
       memory:     4096
       cpus:       2
       puppet_env: "zed"
-      box:        "norcams/el9"
+      box:        "el9"
     - role:       "ns"
       puppet_env: "production_el9"
-      box:        "norcams/el9"
+      box:        "el9"
     - role:       "resolver"
       hostid:     "01"
       puppet_env: "zed_bind"
-      box:        "norcams/el9"
+      box:        "el9"
     - role:       "resolver"
       hostid:     "02"
       puppet_env: "zed_bind"
-      box:        "norcams/el9"
+      box:        "el9"
     - role:       "dns"
       puppet_env: "zed"
-      box:        "norcams/el9"
+      box:        "el9"
     - role:       "telemetry"
       puppet_env: "zed"
-      box:        "norcams/el9"
+      box:        "el9"
   object: # will also need running identity to test anything other than ceph
     - role:       'cephmon-object'
     - role:       'rgw'
@@ -232,12 +234,12 @@ nodesets:
       hostid:     '03'
   network:
     - role:       'mgmt-sonic'
-      box:        'norcams/sonic2411'
+      box:        'sonic2411'
       puppet_env: 'sonic'
       memory:     4096
       cpus:       2
     - role:       'spine-sonic'
-      box:        'norcams/sonic2205'
+      box:        'sonic2205'
       puppet_env: 'sonic'
       memory:     4096
       cpus:       2
