@@ -26,12 +26,3 @@ network::interfaces_hash:
     ipv6:
       method:         'manual'
       address1:       "%{hiera('public__ipv6__ns')}/128"
-
-# delete when every ns is on el9
-named_interfaces::config:
-  mgmt:
-    - eth0
-  trp:
-    - eth1
-  public:
-    - lo

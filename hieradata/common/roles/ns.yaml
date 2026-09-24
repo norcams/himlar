@@ -5,21 +5,13 @@ include:
     - profile::dns::rndc_key
     - profile::logging::rsyslog::client
 
-# Switch to this when all are on el9 (and delete from node files)
-#named_interfaces::config:
-#  mgmt:
-#    - eth0
-#  trp:
-#    - eth1
-#  public:
-#    - lo
 named_interfaces::config:
   mgmt:
     - eth0
   trp:
     - eth1
   public:
-    - dummy0
+    - lo
 
 profile::dns::rndc_key::create_admin_key:         true
 profile::dns::rndc_key::create_mdns_key:          true
@@ -27,7 +19,6 @@ profile::dns::rndc_key::create_cert_key:          true
 profile::dns::rndc_key::host_is_bind_server:      true
 
 # Authoritative name servers must have a public interface
-profile::network::interface::manage_dummy: true
 profile::network::interface::create_custom_routes: true
 
 # Name servers in zone file
