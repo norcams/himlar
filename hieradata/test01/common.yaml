@@ -147,8 +147,8 @@ profile::network::services::dns_records:
     "%{::location}-mgmt-sonic-01.%{hiera('domain_mgmt')}":  "%{hiera('netcfg_mgmt_net_c2')}.1"
     # oob nodes
     "repo.%{hiera('domain_oob')}":                          "%{hiera('netcfg_oob_netpart')}.11"
-    # Temp. for old login-01
-    "%{::location}-login-01old.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c0')}.199"
+    # Temp. new login-01
+    "%{::location}-login-03.%{hiera('domain_mgmt')}":    "%{hiera('netcfg_mgmt_net_c0')}.199"
     # trp api services
     "dns.%{hiera('domain_trp')}":                           "%{hiera('internal__ip__api')}"
     "image.%{hiera('domain_trp')}":                         "%{hiera('internal__ip__api')}"
@@ -163,8 +163,8 @@ profile::network::services::dns_records:
     "api.%{hiera('domain_public')}":                        "%{hiera('public__ipv6__api')}"
     "dashboard.%{hiera('domain_frontend')}":                "%{hiera('public__ipv6__dashboard')}"
   PTR:
-    # Temp. for old login-01
-    "199.%{hiera('reverse_mgmt_c0')}":    "%{::location}-login-01old.%{hiera('domain_mgmt')}"
+    # Temp. new login-01
+    "199.%{hiera('reverse_mgmt_c0')}":    "%{::location}-login-03.%{hiera('domain_mgmt')}"
     # public IPv4
     "117.%{hiera('reverse_public')}":  "ns.%{hiera('domain_frontend')}"
     "118.%{hiera('reverse_public')}":  "resolver.%{hiera('domain_public')}"

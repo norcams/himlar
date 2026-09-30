@@ -366,7 +366,7 @@ profile::network::services::dns_records:
 
     # Management network (entries that differ from common/common.yaml)
     "%{::location}-login-01.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_netpart')}.10"
-    "%{::location}-login-01old.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_net_c0')}.199"
+    "%{::location}-login-03.%{hiera('domain_mgmt')}": "%{hiera('netcfg_mgmt_net_c0')}.199"
     # oob nodes
     "repo.%{hiera('domain_oob')}":                          "%{hiera('netcfg_oob_netpart')}.9"
   AAAA:
@@ -379,6 +379,7 @@ profile::network::services::dns_records:
     "8.%{hiera('reverse_mgmt_c2')}":   "%{::location}-mgmt-08.%{hiera('domain_mgmt')}"
     "100.%{hiera('reverse_mgmt_c2')}": "%{::location}-mgmt-sonic-00.%{hiera('domain_mgmt')}"
     "10.%{hiera('reverse_mgmt')}":     "%{::location}-login-01.%{hiera('domain_mgmt')}"
+    "199.%{hiera('reverse_mgmt')}":     "%{::location}-login-03.%{hiera('domain_mgmt')}"
     # public IPv4
     '250.77.39.158.in-addr.arpa':   "api.%{hiera('domain_frontend')}"
     '251.77.39.158.in-addr.arpa':   "ns2.%{hiera('domain_frontend')}"
