@@ -393,6 +393,9 @@ profile::network::services::dns_records:
     "28.%{hiera('reverse_public_c3')}":                                          'mailer.si.elixir.no' # RT 7222034
     # Customer's PTR records (IPv6)
     'f.4.1.2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  'mailer.si.elixir.no' # RT 7222034
+    '4.0.0.2.0.0.0.0.0.0.0.0.0.0.0.0.3.0.0.0.2.6.0.0.8.4.9.0.1.0.0.2.ip6.arpa':  'tape001.dcache.lhc.uib.no' # RT 7692727
+    'e.3.3.2.0.0.0.0.0.0.0.0.0.0.0.0.3.0.0.0.2.6.0.0.8.4.9.0.1.0.0.2.ip6.arpa':  'tape002.dcache.lhc.uib.no' # RT 7692727
+    '3.6.3.2.0.0.0.0.0.0.0.0.0.0.0.0.3.0.0.0.2.6.0.0.8.4.9.0.1.0.0.2.ip6.arpa':  'tape003.dcache.lhc.uib.no' # RT 7692727
     # public IPv6
     '1.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "ns2.%{hiera('domain_frontend')}"
     '2.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.f.f.3.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  "resolver.%{hiera('domain_public')}"
