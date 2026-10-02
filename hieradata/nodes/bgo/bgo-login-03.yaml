@@ -1,0 +1,93 @@
+---
+# network::interfaces_hash:
+#   'eth0':
+#     ipaddress:      '129.177.8.9'
+#     netmask:        '255.255.255.128'
+#     gateway:        '129.177.8.1'
+#     defroute:       'yes'
+#     onboot:         'yes'
+#     dns1:           '129.177.6.54'
+#     dns2:           "%{hiera('netcfg_dns_mgmt_server2')}"
+#     domain:         "%{hiera('netcfg_dns_search')}"
+#     peerdns:        'yes'
+#     ipv6init:       'yes'
+#     ipv6addr:       '2001:700:200:8::9/64'
+#     ipv6_defaultgw: '2001:700:200:8::1'
+#     mtu:            '1500'
+#   'eth1':
+#     ipaddress:      "%{hiera('netcfg_mgmt_netpart')}.10"
+#     netmask:        "%{hiera('netcfg_mgmt_netmask')}"
+#     defroute:       'no'
+#     onboot:         'yes'
+#   'eth2':
+#     #ipaddress:      '172.28.159.9' # old oob ip
+#     ipaddress:      "%{hiera('netcfg_oob_netpart')}.10"
+#     netmask:        "%{hiera('netcfg_oob_netmask')}"
+#     defroute:       'no'
+#     onboot:         'yes'
+
+named_interfaces::config:
+  mgmt:
+    - em1
+  trp:
+    - em3
+  oob:
+    - em2
+  public:
+    - em4
+
+network::interfaces_hash:
+  'em1':
+    ipaddress:     "%{hiera('netcfg_mgmt_netpart')}.199"
+    netmask:       "%{hiera('netcfg_mgmt_netmask')}"
+    defroute:      'no'
+    onboot:        'yes'
+
+#profile::network::interface::manage_dummy:         true
+#profile::network::interface::create_custom_routes: true
+
+#profile::network::nat::enable_masquerade:          false
+#profile::network::nat::enable_snat:                true
+#profile::network::nat::source:                     "%{::network_mgmt1}/%{::netmask_mgmt1}"
+#profile::network::nat::outiface:                   'eth1'
+
+# puppet will not run until eth2 is created through virt-manager or something similar (connected to br3)
+#profile::base::login::oob_outiface:                "%{::interface_oob1}"
+
+
+# extra disk for local repository (synced with other login nodes)
+profile::base::common::manage_lvm: true
+
+profile::base::lvm::physical_volume:
+  '/dev/sda4':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_misc':
+    physical_volumes:
+      - /dev/sda4
+profile::base::lvm::logical_volume:
+  'lv_repo':
+    volume_group: 'vg_misc'
+    fs_type:      "xfs"
+    mountpath:    "/opt/repo"
+    size:         '50G'
+  'lv_home':
+    volume_group: 'vg_misc'
+    fs_type:      "xfs"
+    mountpath:    "/home"
+    size:         '200G'
+
+# Enable db backup on 01
+profile::base::login::manage_db_backup: true
+
+# enable iaas account, but only make it available in the normal fashion
+# from bgo-login-01
+ssh::server::options:
+  # No 2FA if coming from bgo-login-01
+  'Match User iaas Address 172.28.0.9':
+    AuthenticationMethods: 'publickey'
+
+accounts::accounts:
+  'iaas':
+    ensure: present
