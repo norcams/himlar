@@ -5,6 +5,9 @@ include:
     - profile::openstack::compute::consoleauth
     - profile::logging::rsyslog::client
 
+# Used when upgrading Openstack
+#openstack_version: "FIXME"
+
 profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}
@@ -28,8 +31,6 @@ profile::base::yumrepo::repo_hash:
     ensure:  present
   AlmaLinux-PowerTools:
     ensure: present
-
-openstack_version: 'zed'
 
 # This creates /etc/openstack/puppet/admin-clouds.yaml
 keystone::bootstrap::bootstrap:        false

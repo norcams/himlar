@@ -7,7 +7,8 @@ include:
     - profile::openstack::cache
     - profile::storage::cephclient
 
-openstack_version: 'zed'
+# Used when upgrading Openstack
+#openstack_version: "FIXME"
 
 # This creates /etc/openstack/puppet/admin-clouds.yaml
 keystone::bootstrap::bootstrap:        false

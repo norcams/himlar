@@ -17,8 +17,8 @@ profile::base::lvm::logical_volume:
 profile::base::common::extraswap:        true
 profile::base::common::extraswap_sizegb: 10
 
-#FIXME:el9 move to common after all computes are el9 with zed
-openstack_version: "zed"
+# Used when upgrading Openstack
+#openstack_version: "FIXME"
 named_interfaces::config:
   mgmt:
   - em3

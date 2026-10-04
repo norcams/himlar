@@ -5,7 +5,8 @@ include:
     - profile::openstack::cache
     - profile::openstack::telemetry
 
-openstack_version: 'zed'
+# Used when upgrading Openstack
+#openstack_version: "FIXME"
 
 # Memcache
 memcached::max_memory: '20%'

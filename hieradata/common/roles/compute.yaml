@@ -22,7 +22,8 @@ include:
     - profile::network::yum_proxy
     - profile::base::httpproxy
 
-openstack_version: 'yoga'
+# Used when upgrading Openstack
+#openstack_version: "FIXME"
 
 # Set SELinux mode to enforcing
 profile::base::selinux::manage_selinux: true
