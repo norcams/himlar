@@ -15,7 +15,7 @@ class profile::network::frrouting(
       name   => $package_name,
       ensure => installed,
     }
-  } ~>
+  }
 
   if $enable {
     include ::frrouting
