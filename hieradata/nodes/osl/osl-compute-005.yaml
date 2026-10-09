@@ -6,8 +6,6 @@ profile::base::common::extraswap_sizegb: 10
 # This compute host uses local storage for instances
 #nova::compute::rbd::ephemeral_storage:            false
 
-# Used when upgrading Openstack
-#openstack_version: "FIXME"
 named_interfaces::config:
   mgmt:
   - em3

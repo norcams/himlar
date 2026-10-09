@@ -8,8 +8,6 @@ profile::base::network::nm_network_auto_bonding:
       ethernet:
         'mtu': '9000'
 
-# Used when upgrading Openstack
-#openstack_version: "FIXME"
 named_interfaces::config:
   mgmt:
   - p2p1

@@ -21,8 +21,6 @@ profile::base::common::extraswap_sizegb: 10
 profile::base::physical::load_ahci_last:    true
 profile::base::physical::scsidrv:           'megaraid_sas'
 
-# Used when upgrading Openstack
-#openstack_version: "FIXME"
 named_interfaces::config:
   mgmt:
   - em3
