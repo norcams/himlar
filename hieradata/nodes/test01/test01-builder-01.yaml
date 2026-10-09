@@ -1,40 +1,22 @@
 ---
 network::interfaces_hash:
-  'eth0':
-    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.15"
-    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
-    gateway:   "%{hiera('netcfg_mgmt_gateway')}"
-    mtu:       '1500'
-    peerdns:   'yes'
-    dns1:      "%{hiera('netcfg_dns_mgmt_server1')}"
-    dns2:      "%{hiera('netcfg_dns_mgmt_server2')}"
-    domain:    "%{hiera('netcfg_dns_search')}"
-    defroute:  'yes'
+   eth0:
+     ipv4:
+       method:         'manual'
+       address1:       "%{hiera('netcfg_mgmt_netpart')}.15/%{hiera('netcfg_mgmt_cidr4')}"
+       gateway:        "%{hiera('netcfg_mgmt_gateway')}"
+       dns:            "%{hiera('netcfg_dns_mgmt_server1')};%{hiera('netcfg_dns_mgmt_server2')}"
+       dns-search:     "%{hiera('netcfg_dns_search_nm')}"
 
-profile::application::builder::fetch_windows_images: true
-
-profile::application::builder::windows_images:
-  'winsrv_2022':
-    'version':          '2022'
-    'buildhost':        "test01-controller-04.mgmt.test01.uhdc.no"
-    'weekday':          '*'
-    'monthday':         '8-14'
-    'hour':             6
-    'minute':           0
-  'winsrv_2025':
-    'version':          '2025'
-    'buildhost':        "test01-controller-04.mgmt.test01.uhdc.no"
-    'weekday':          '*'
-    'monthday':         '8-14'
-    'hour':             3
-    'minute':           0
+named_interfaces::config:
+   mgmt:
+     - eth0
 
 profile::base::lvm::physical_volume:
-  '/dev/sda':
+  '/dev/vdb':
     ensure: present
     force:  true
 profile::base::lvm::volume_group:
   'vg_images':
     physical_volumes:
-      - /dev/sda
-
+      - /dev/vdb

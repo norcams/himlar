@@ -1,3 +1,25 @@
 ---
 profile::base::common::manage_lvm: true
-profile::application::builder::drop_cron: true
+
+profile::base::yumrepo::repo_hash:
+  hashicorp:
+    ensure: present
+
+#profile::application::builder::drop_cron:            true
+profile::application::builder::build_script:         true
+profile::application::builder::fetch_windows_images: true
+profile::application::builder::windows_images:
+  'winsrv_2022':
+    'version':          '2022'
+    'buildhost':        "test01-controller-04.mgmt.test01.uhdc.no"
+    'weekday':          '*'
+    'monthday':         '8-14'
+    'hour':             6
+    'minute':           0
+  'winsrv_2025':
+    'version':          '2025'
+    'buildhost':        "test01-controller-04.mgmt.test01.uhdc.no"
+    'weekday':          '*'
+    'monthday':         '8-14'
+    'hour':             3
+    'minute':           0
