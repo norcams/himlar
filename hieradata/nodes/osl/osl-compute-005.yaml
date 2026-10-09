@@ -6,8 +6,6 @@ profile::base::common::extraswap_sizegb: 10
 # This compute host uses local storage for instances
 #nova::compute::rbd::ephemeral_storage:            false
 
-#FIXME:el9 move to common after all computes are el9 with zed
-openstack_version: "zed"
 named_interfaces::config:
   mgmt:
   - em3

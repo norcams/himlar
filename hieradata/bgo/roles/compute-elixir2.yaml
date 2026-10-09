@@ -17,8 +17,8 @@ named_interfaces::config:
   live:
   - bond0.120
 
-#FIXME:el9 move to common after all computes are el9 with zed
-openstack_version: "zed"
+# Used when upgrading Openstack
+#openstack_version: "FIXME"
 
 profile::base::lvm::physical_volume:
   '/dev/sda':

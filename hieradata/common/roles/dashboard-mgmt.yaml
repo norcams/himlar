@@ -1,5 +1,6 @@
 ---
-openstack_version: 'zed'
+# Used when upgrading Openstack
+#openstack_version: "FIXME"
 
 horizon::allowed_hosts:                 '*'
 horizon::servername:                    "dashboard.%{hiera('domain_mgmt')}"

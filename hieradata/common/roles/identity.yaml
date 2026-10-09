@@ -12,7 +12,8 @@ include:
     - profile::openstack::cache
     - profile::webserver::apache::status
 
-openstack_version: 'zed'
+# Used when upgrading Openstack
+#openstack_version: "FIXME"
 
 # bootstrap keystone
 keystone::bootstrap::bootstrap:             false

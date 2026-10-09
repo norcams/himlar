@@ -4,8 +4,8 @@ include:
     - profile::openstack::compute::pci_passthrough
     - profile::openstack::compute::nvidia_vgpu_createmdev
 
-#FIXME:el9 move to common after all computes are el9 with zed
-openstack_version: "zed"
+# Used when upgrading Openstack
+#openstack_version: "FIXME"
 
 # Configure network
 named_interfaces::config:
