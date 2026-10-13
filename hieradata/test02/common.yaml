@@ -6,6 +6,9 @@ location_description:   'Test environment physically in OSL'
 profile::base::dell::manage_repos:      true
 profile::base::dell::manage_openmanage: false
 
+# while the environment is being bootstrapped
+profile::monitoring::sensu::agent::enable_go_agent:     false
+
 domain_frontend:        'test.iaas.uio.no'
 domain_public:          'test.iaas.uio.no'
 domain_trp:             'test02.uhdc.no'
