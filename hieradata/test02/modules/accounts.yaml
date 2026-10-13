@@ -1,0 +1,47 @@
+---
+# FIXME: need this until we can remove iaas user
+accounts::ssh_keys:
+  'iaas':
+    type:    'ssh-ed25519'
+    public:  'AAAAC3NzaC1lZDI1NTE5AAAAIIyWfu4wVf+G1tvnD6JYDNm+asG3Mg+Z6qSHkudmDp8i'
+  'mikaeld':
+    type:    'ssh-rsa'
+    public:  'AAAAB3NzaC1yc2EAAAABIwAAAQEAu6LmtQMkPIpHmUeHbfdA0425xDSRZpArCq7KuTYRurQOWssrPhMIpAa6OV2LPkpRLF0YIbzoHEXSqkgNwo6F1Qhy7E0l8TnKO5JtuctJtWUzvdesVniUszsXOg7543ZuEaA4qr2EPZSaASOemcMhUgr29wiUKaZF1h8LOXb3za7OORuWR/FW++HfUlPssmWA3R0KtC7OLhkum7c2+59rCaNYFIBUuepKURxDOqYI9sm7TdMw6+dbRUSsqUX2ITlcHhOYp2ehpnG/PpfIN/WFChudhAIDFFgTBImDtJ3Rx1oG45PB1f+r+IIZ6hzndkjqxdlTWpaY4q3ZOeGSFgCJVw=='
+  'raymond_uib':
+    type:    'ed25519'
+    public:  'AAAAC3NzaC1lZDI1NTE5AAAAILmS01dwnGoQcxjR0ZNqSP1e5nRK43buD0rqd4sNkmbu'
+  'raymond_home':
+    type:    'ed25519'
+    public:  'AAAAC3NzaC1lZDI1NTE5AAAAIGh8ABoo3nkFSAlTTiWqcTmqUp98uPJP/wNvQzMTsvJ6'
+  'trondham':
+    type:    'ed25519'
+    public:  'AAAAC3NzaC1lZDI1NTE5AAAAIMHL81TUzKP/SfmmOrmJ3lK+VgEu4pl/1pvTJjVfpE28'
+  'erikberg':
+    type:    'ecdsa-sha2-nistp384'
+    public:  'AAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzODQAAABhBIBDkDbOgeJHXOM9PZo2Nok5MB5AoRPndSLDIbE22mb743KFJpY4WRvDLoSUc0zTXu5yLv8lQ+8301KaBatCFaHCbEG7z4AWIv4VQEao5bu/qK6xnXwEAUmwGHddZky74A=='
+  'lennart_uib':
+    type:    'ed25519'
+    public:  'AAAAC3NzaC1lZDI1NTE5AAAAIPuHnEBp2/VdrTk5UDWRfTpB0hRLb8x7lcZzeAImQdnR'
+  'lennart_home':
+    type:    'ed25519'
+    public:  'AAAAC3NzaC1lZDI1NTE5AAAAIHrN0QHVGbQiRiPK0guJb3p74HQ/G2KAMm1BNImFRBdu'
+  'lennart_uib_dc':
+    type:    'ed25519'
+    public:  'AAAAC3NzaC1lZDI1NTE5AAAAIDzsLk4frEQdw3CR7BD7Im+P6hSsCDDgsEqba+ekOi8F'
+  'terjef':
+    type:    'ed25519'
+    public:  'AAAAC3NzaC1lZDI1NTE5AAAAILtIkNQcV9wDYpk1BrpzpBtU03pauD/oOQOdgJncOJqp'
+  'terjef_basement':
+    type:    'ed25519'
+    public:  'AAAAC3NzaC1lZDI1NTE5AAAAID8YxgXjVmP3v5W1JK1fHP9DJfAxIMxauoNbjk9PZMoT'
+  'torldre':
+    type:    'ed25519'
+    public:  'AAAAC3NzaC1lZDI1NTE5AAAAIF0rUoiVM7pUDSu+0W2qHny+GY+bDg/3U3MItUjUSr5g'
+  'ivarth':
+    type:    'ed25519'
+    public:  'AAAAC3NzaC1lZDI1NTE5AAAAIEw1EfnNNHH2p+nTEEL18e0MigXwbO/d8UyZBp9jfsTQ'
+  'norcams':
+    type:    'ed25519'
+    public:  'AAAAC3NzaC1lZDI1NTE5AAAAIMW4BIpDkX/Ju8Gypn3GDHcTYk3JeIgHHS/5yldEVz8e'
+
+accounts::users:
