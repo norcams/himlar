@@ -1,47 +1,49 @@
 ---
-# network::interfaces_hash:
-#   'eth0':
-#     ipaddress:      '129.177.8.9'
-#     netmask:        '255.255.255.128'
-#     gateway:        '129.177.8.1'
-#     defroute:       'yes'
-#     onboot:         'yes'
-#     dns1:           '129.177.6.54'
-#     dns2:           "%{hiera('netcfg_dns_mgmt_server2')}"
-#     domain:         "%{hiera('netcfg_dns_search')}"
-#     peerdns:        'yes'
-#     ipv6init:       'yes'
-#     ipv6addr:       '2001:700:200:8::9/64'
-#     ipv6_defaultgw: '2001:700:200:8::1'
-#     mtu:            '1500'
-#   'eth1':
-#     ipaddress:      "%{hiera('netcfg_mgmt_netpart')}.10"
-#     netmask:        "%{hiera('netcfg_mgmt_netmask')}"
-#     defroute:       'no'
-#     onboot:         'yes'
-#   'eth2':
-#     #ipaddress:      '172.28.159.9' # old oob ip
-#     ipaddress:      "%{hiera('netcfg_oob_netpart')}.10"
-#     netmask:        "%{hiera('netcfg_oob_netmask')}"
-#     defroute:       'no'
-#     onboot:         'yes'
+network::interfaces_hash:
+  em1:
+    ipv4:
+      method:         'manual'
+      address1:       "%{hiera('netcfg_mgmt_netpart')}.199/%{hiera('netcfg_mgmt_cidr4')}"
+      dns:            "%{hiera('netcfg_dns_mgmt_server1')};%{hiera('netcfg_dns_mgmt_server2')}"
+      dns-search:     "%{hiera('netcfg_dns_search_nm')}"
+  em2:
+    ipv4:
+      method:         'manual'
+      never-default:  'true'
+      address1:       "%{hiera('netcfg_oob_netpart')}.199/21"
+  bond0-p1p1: # public
+    interface_name:   'p1p2'
+    controller:       'bond0'
+    port_type:        'bond'
+    ipv4: {}
+    ipv6: {}
+#    ethernet:
+#       mtu:  9000
+  bond0-p1p2: # public
+    interface_name:   'p1p2'
+    controller:       'bond0'
+    port_type:        'bond'
+    ipv4: {}
+    ipv6: {}
+    #ethernet:
+    #  mtu:  9000
+  bond0:
+    connection_type:  'bond'
+    ipv4: {}
+    ipv6: {}
+    bond:
+      mode: '802.3ad'              # the best and only supported mode with existing network config
+      xmit_hash_policy: 'layer3+4' # please use this hash policy
+    #ethernet:
+    #  mtu:  9000
 
 named_interfaces::config:
   mgmt:
     - em1
-  trp:
-    - p1p1
   oob:
     - em2
   public:
-    - p1p2
-
-network::interfaces_hash:
-  'em1':
-    ipaddress:     "%{hiera('netcfg_mgmt_netpart')}.199"
-    netmask:       "%{hiera('netcfg_mgmt_netmask')}"
-    defroute:      'no'
-    onboot:        'yes'
+    - bond0
 
 #profile::network::interface::manage_dummy:         true
 #profile::network::interface::create_custom_routes: true
@@ -79,13 +81,13 @@ profile::base::lvm::logical_volume:
     size:         '200G'
 
 # Enable db backup on 01
-profile::base::login::manage_db_backup: true
+profile::base::login::manage_db_backup: false
 
 # enable iaas account, but only make it available in the normal fashion
 # from bgo-login-01
 ssh::server::options:
-  # No 2FA if coming from bgo-login-01
-  'Match User iaas Address 172.28.0.9':
+  # No 2FA if coming from test01-login-01
+  'Match User iaas Address 172.28.0.10':
     AuthenticationMethods: 'publickey'
 
 accounts::accounts:
