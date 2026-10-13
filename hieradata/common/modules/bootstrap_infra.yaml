@@ -5,3 +5,7 @@ bootstrap_infra::host_interface:  "%{interface_mgmt1}"
 # use el9 for controller
 bootstrap_infra::mirror:          'https://download.iaas.uio.no/nrec/prod/el9/almalinux-base'
 bootstrap_infra::epelrepo:        'https://download.iaas.uio.no/nrec/prod/el9/epel'
+
+bootstrap_infra::kickstart_defaults:
+  allow_ssh:          true # allow root login with ssh
+  custom_template:    "bootstrap_infra/kickstart/el9.erb"
