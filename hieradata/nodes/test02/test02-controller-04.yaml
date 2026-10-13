@@ -61,7 +61,7 @@ network::interfaces_hash:
 lvm::volume_groups:
   vg_ext:
     physical_volumes:
-      - /dev/sdb
+      - /dev/disk/wwn-0x61866da08064a4003260e96019d126c7
     logical_volumes:
       lv_ext:
         fs_type:   xfs
