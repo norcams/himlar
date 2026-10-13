@@ -13,6 +13,9 @@
 
 neutron::bind_host:   "%{ipaddress_trp1}"
 neutron::core_plugin: 'calico'
+neutron::plugins::ml2::extension_drivers:
+  - "port_security"
+  - "subnet_dns_publish_fixed_ip"
 
 neutron::server::sync_db: true
 neutron::db::database_connection: "mysql+pymysql://neutron:%{hiera('neutron::db::mysql::password')}@%{hiera('service__address__db_regional')}/neutron"
@@ -66,6 +69,20 @@ neutron::keystone::auth::internal_url:  "%{hiera('endpoint__network__internal')}
 neutron::keystone::auth::admin_url:     "%{hiera('endpoint__network__admin')}"
 neutron::keystone::auth::region:        "%{::location}"
 neutron::keystone::auth::password:      "%{hiera('neutron_api_password')}"
+
+neutron::designate::url:                  "%{hiera('endpoint__designate__admin')}/v2"
+neutron::designate::auth_type:            "password"
+neutron::designate::auth_url:             "%{hiera('endpoint__identity__admin')}/v3"
+neutron::designate::username:             "designate"
+neutron::designate::password:             "%{hiera('designate_api_password')}"
+neutron::designate::user_domain_name:     "%{hiera('keystone__default__domain')}"
+neutron::designate::project_name:         "%{hiera('keystone__service__project')}"
+neutron::designate::project_domain_name:  "%{hiera('keystone__default__domain')}"
+neutron::designate::region_name:          "%{::location}"
+
+
+# Needs to be non-empty and different from openstacklocal to activate the dns integration
+neutron::dns_domain: "instances.nrec.no."
 
 neutron::config::server_config:
   neutron/region_name:

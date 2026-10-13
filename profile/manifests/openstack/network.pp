@@ -5,6 +5,7 @@ class profile::openstack::network(
   $manage_quotas   = false,
   $firewall_extras = {},
   $manage_osprofiler = false,
+  $manage_dns_integration = false,
 ){
 
   include ::keystone::bootstrap
@@ -57,5 +58,9 @@ class profile::openstack::network(
     include ::neutron::deps
     $osprofiler_config = lookup('profile::logging::osprofiler::osprofiler_config', Hash, 'first', {})
     create_resources('neutron_config', $osprofiler_config)
+  }
+
+  if $manage_dns_integration {
+    include neutron::designate
   }
 }
