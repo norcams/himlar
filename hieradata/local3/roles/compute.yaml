@@ -28,3 +28,8 @@ profile::base::network::rules:
 # Red Hat Subscription Management (RHSM)
 profile::rhsm::subscription::manage: false
 profile::rhsm::virtwho::manage:      false
+
+# Non-ceph environment: use local instance storage
+# (overrides the ceph default in common/roles/compute.yaml)
+nova::compute::libvirt::images_type:   'default'
+nova::compute::rbd::ephemeral_storage: false
