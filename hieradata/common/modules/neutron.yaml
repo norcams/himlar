@@ -13,6 +13,7 @@
 
 neutron::bind_host:   "%{ipaddress_trp1}"
 neutron::core_plugin: 'calico'
+neutron::plugins::ml2::extension_drivers: ["port_security"]
 
 neutron::server::sync_db: true
 neutron::db::database_connection: "mysql+pymysql://neutron:%{hiera('neutron::db::mysql::password')}@%{hiera('service__address__db_regional')}/neutron"
