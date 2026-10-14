@@ -425,6 +425,7 @@ profile::base::yumrepo::repo_hash:
   epel:
     ensure: present
     includepkgs: 'bash-completion-extras htop inotify-tools python-dogpile-core python-linecache2 python2-mimeparse python2-msgpack python2-pbr python34 python34-libs'
+    ### FIXME(el9) ### includepkgs: 'htop inotify-tools'
 
 # sudo::configs:
 #   sensu_tty:
