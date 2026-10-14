@@ -9,3 +9,4 @@ bootstrap_infra::epelrepo:        'https://download.iaas.uio.no/nrec/prod/el9/ep
 bootstrap_infra::kickstart_defaults:
   allow_ssh:          true # allow root login with ssh
   custom_template:    "bootstrap_infra/kickstart/el9.erb"
+  kernel_opts:        'net.ifnames=0 biosdevnames=1'
