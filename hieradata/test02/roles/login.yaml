@@ -11,4 +11,4 @@ profile::bootstrap::himlar::tftp:
     # node_netmask:     "%{hiera('netcfg_mgmt_netmask')}"
     # node_gateway:     "%{hiera('netcfg_mgmt_netpart')}.10"
     use_dhcp:         true
-    allow_ssh:        true
+    kernel_opts:        'net.ifnames=0 biosdevnames=1'
