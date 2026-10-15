@@ -44,4 +44,30 @@ accounts::ssh_keys:
     type:    'ed25519'
     public:  'AAAAC3NzaC1lZDI1NTE5AAAAIMW4BIpDkX/Ju8Gypn3GDHcTYk3JeIgHHS/5yldEVz8e'
 
-accounts::users:
+# no deep merge of accounts hashes!
+accounts::instances::merge_strategy: 'first'
+
+accounts::accounts:
+  'iaas': # FIXME: this should be removed
+    ensure: present
+  'mikaeld':
+    ensure: present
+  'raymond':
+    ensure: present
+    authorized_keys: [ 'raymond_uib', 'raymond_home']
+  'trondham':
+    ensure: present
+  'erikberg':
+    ensure: present
+  'lennart':
+    ensure: present
+    authorized_keys: [ 'lennart_uib', 'lennart_home']
+  'terjef':
+    ensure: present
+    authorized_keys: [ 'terjef', 'terjef_basement']
+  'torldre':
+    ensure: present
+  'erlenboh':
+    ensure: present
+  'ivarth':
+    ensure: present
