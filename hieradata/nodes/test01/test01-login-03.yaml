@@ -6,6 +6,7 @@ network::interfaces_hash:
       address1:       "%{hiera('netcfg_mgmt_netpart')}.199/%{hiera('netcfg_mgmt_cidr4')}"
       dns:            "%{hiera('netcfg_dns_mgmt_server1')};%{hiera('netcfg_dns_mgmt_server2')}"
       dns-search:     "%{hiera('netcfg_dns_search_nm')}"
+      never-default:  'true'
   em2:
     ipv4:
       method:         'manual'
@@ -29,8 +30,14 @@ network::interfaces_hash:
     #  mtu:  9000
   bond0:
     connection_type:  'bond'
-    ipv4: {}
-    ipv6: {}
+    ipv4:
+      method:         'manual'
+      address1:       '129.177.8.13/25'
+      gateway:        '129.177.8.1'
+    ipv6:
+      method:         'manual'
+      address1:       '2001:700:200:8::13/64'
+      route1:         '::/0,2001:700:200:8::1'
     bond:
       mode: '802.3ad'              # the best and only supported mode with existing network config
       xmit_hash_policy: 'layer3+4' # please use this hash policy
