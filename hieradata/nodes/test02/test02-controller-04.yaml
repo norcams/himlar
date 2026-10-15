@@ -16,31 +16,31 @@ network::interfaces_hash:
       address:        "%{hiera('netcfg_trp_netpart')}.114/%{hiera('netcfg_trp_cidr4')}"
       never-default:  'true'
       method:         'manual'
-  br2:
+  br2: # oob
     connection_type:  'bridge'
-  eno1: # mgmt
+  eth0: # mgmt
     controller:       'br0'
     ipv4: {}
     ipv6: {}
-  eno1.3378: # oob
+  eth0.3378: # oob
     connection_type:  'vlan'
     controller:       'br2'
     ipv4: {}
     ipv6: {}
     vlan:
-      parent:         'p1p1'
+      parent:         'eth0'
       id:             3378
       flags:          1
-  bond0-eno3: # trp
-    interface_name:   'eno3'
+  bond0-eth2: # trp
+    interface_name:   'eth2'
     controller:       'bond0'
     port_type:        'bond'
     ipv4: {}
     ipv6: {}
     ethernet:
       mtu:  9000
-  bond0-eno4: # ttrp
-    interface_name:   'eno4'
+  bond0-eth3: # ttrp
+    interface_name:   'eth3'
     controller:       'bond0'
     port_type:        'bond'
     ipv4: {}
@@ -61,7 +61,7 @@ network::interfaces_hash:
 lvm::volume_groups:
   vg_ext:
     physical_volumes:
-      - /dev/disk/by-id/wwn-0x61866da08064a4003260e96019d126c7
+      - /dev/disk/by-id/wwn-0x61866da08064a4003260e96019d126c7 # FIXME: wrong wwn
     logical_volumes:
       lv_ext:
         fs_type:   xfs
