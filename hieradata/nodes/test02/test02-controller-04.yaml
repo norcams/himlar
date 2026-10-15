@@ -31,32 +31,32 @@ network::interfaces_hash:
       parent:         'eth0'
       id:             3378
       flags:          1
-  bond0-eth2: # trp
-    interface_name:   'eth2'
-    controller:       'bond0'
-    port_type:        'bond'
-    ipv4: {}
-    ipv6: {}
-    ethernet:
-      mtu:  9000
-  bond0-eth3: # ttrp
-    interface_name:   'eth3'
-    controller:       'bond0'
-    port_type:        'bond'
-    ipv4: {}
-    ipv6: {}
-    ethernet:
-      mtu:  9000
-  bond0:
-    connection_type:  'bond'
-    controller:       'br1'
-    ipv4: {}
-    ipv6: {}
-    bond:
-      mode: '802.3ad'              # the best and only supported mode with existing network config
-      xmit_hash_policy: 'layer3+4' # please use this hash policy
-    ethernet:
-      mtu:  9000
+  #bond0-eth2: # trp
+  #  interface_name:   'eth2'
+  #  controller:       'bond0'
+  #  port_type:        'bond'
+  #  ipv4: {}
+  #  ipv6: {}
+  #  ethernet:
+  #    mtu:  9000
+  #bond0-eth3: # trp
+  #  interface_name:   'eth3'
+  #  controller:       'bond0'
+  #  port_type:        'bond'
+  #  ipv4: {}
+  #  ipv6: {}
+  #  ethernet:
+  #    mtu:  9000
+  #bond0:
+  #  connection_type:  'bond'
+  #  controller:       'br1'
+  #  ipv4: {}
+  #  ipv6: {}
+  #  bond:
+  #    mode: '802.3ad'              # the best and only supported mode with existing network config
+  #    xmit_hash_policy: 'layer3+4' # please use this hash policy
+  #  ethernet:
+  #    mtu:  9000
 
 lvm::volume_groups:
   vg_ext:
