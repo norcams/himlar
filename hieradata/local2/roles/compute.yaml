@@ -36,3 +36,8 @@ profile::rhsm::virtwho::manage:      false
 # Create and enable more swap
 profile::base::common::extraswap:        true
 profile::base::common::extraswap_sizegb: 10
+
+# Non-ceph environment: use local instance storage
+# (overrides the ceph default in common/roles/compute.yaml)
+nova::compute::libvirt::images_type:   'default'
+nova::compute::rbd::ephemeral_storage: false
