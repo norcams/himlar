@@ -31,11 +31,6 @@ profile::base::lvm::volume_group:
     physical_volumes:
       - '/dev/md0'
 
-# Do not install host GPU driver package
-# (use manual runfile for host GPU driver installation instead)
-profile::base::common::packages:
-  'NVIDIA-vGPU-rhel': { ensure: absent }
-
 # Configure GPU
 # TODO
 # NVIDIA Quadro RTX partitioned into 2 x vGPUs, with CUDA support
