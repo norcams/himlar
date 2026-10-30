@@ -1,17 +1,17 @@
 ---
 network::interfaces_hash:
-  'eth0':
-    ipaddress: "%{hiera('netcfg_mgmt_netpart')}.40"
-    netmask:   "%{hiera('netcfg_mgmt_netmask')}"
-    gateway:   "%{hiera('netcfg_mgmt_gateway')}"
-    mtu:       '1500'
-    peerdns:   'yes'
-    dns1:      "%{hiera('netcfg_dns_mgmt_server1')}"
-    dns2:      "%{hiera('netcfg_dns_mgmt_server2')}"
-    domain:    "%{hiera('netcfg_dns_search')}"
-    defroute:  'yes'
-  'eth1':
-    ipaddress: "%{hiera('netcfg_trp_netpart')}.40"
-    netmask:   "%{hiera('netcfg_trp_netmask')}"
-    defroute:  'no'
-    mtu:       '1500'
+  eth0: # mgmt
+    ipv4:
+      address1:       "%{hiera('netcfg_mgmt_netpart')}.40/%{hiera('netcfg_mgmt_cidr4')}"
+      gateway:        "%{hiera('netcfg_mgmt_gateway')}"
+      dns:            "%{hiera('netcfg_dns_mgmt_server1')};%{hiera('netcfg_dns_mgmt_server2')}"
+      dns-search:     "%{hiera('netcfg_dns_search_nm')}"
+      method:         'manual'
+  eth1: # trp
+    ipv4:
+      address1:       "%{hiera('netcfg_trp_netpart')}.40/%{hiera('netcfg_trp_cidr4')}"
+      never-default:  'true'
+      method:         'manual'
+
+# FIXME: remove when this is in common roles
+profile::application::report::package_url:      "https://download.iaas.uio.no/nrec/rpm/report-app-2.2.0-1.el9.x86_64.rpm"
