@@ -81,5 +81,5 @@ profile::base::cron::crontabs:
   restart_bird:
     hour:     '9'
     minute:   '0'
-    weekday:  '1,4'
+    weekday:  ['1','4']
     command:  "sleep $(awk 'BEGIN{srand(); print int(rand()*15)+1}');birdc restart pipe5; birdc restart pipe6; birdc restart kernel6 >/dev/null"
