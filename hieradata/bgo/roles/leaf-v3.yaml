@@ -226,7 +226,7 @@ profile::base::network::cumulus_bonds:
     'mtu': '9216'
   'host23':
     'slaves': [ 'swp6s2', ]
-    'clag_id': '22'
+    'clag_id': '23'
     'pvid': '100'
     'mstpctl_portadminedge': true
     'mstpctl_bpduguard': true
@@ -501,6 +501,14 @@ profile::base::network::cumulus_bridges:
       - host9
       - host10
       - host11
+      - host17
+      - host18
+      - host19
+      - host20
+      - host21
+      - host22
+      - host23
+      - host24  
       - host25
       - host26
       - host27
