@@ -8,3 +8,8 @@ nova::compute::libvirt::manage_libvirt_services:          false # FIXME: No effe
 nova::compute::libvirt::modular_libvirt:                  true # FIXME: No effect after Zed
 nova::compute::libvirt::services::modular_libvirt:        true
 nova::migration::libvirt::modular_libvirt:                true
+
+# Do not install host GPU driver package
+# (use manual runfile for host GPU driver installation instead)
+profile::base::common::packages:
+  'NVIDIA-vGPU-rhel': { ensure: absent }

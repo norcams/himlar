@@ -56,7 +56,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.define instance_name, autostart: n['autostart'], primary: n['primary'] do |box|
       box.vm.hostname = "%s-%s-%s.%s" % [ n['location'],n['role'],n['hostid'],n['domain'] ]
       box.vm.box = n['box']
-      box.vm.box_url = n['box_url']
+      if n.key?('box_url') && !n['box_url'].nil? && !n['box_url'].empty?
+        box.vm.box_url = n['box_url']
+      else
+        box.vm.box_url = 'https://download.iaas.uio.no/nrec/vagrant/metadata/' + n['box'] + '.json'
+      end
       box.vm.box_version = n['box_version']
       n['networks'].each do |net|
         ip = settings['networks'][net]['net'] + ".#{i+11}"
