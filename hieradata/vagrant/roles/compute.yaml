@@ -91,5 +91,6 @@ profile::openstack::compute::manage_nova_metadata_api: true
 # (The old monolithic libvirt is deprecated)
 #---------------------------------------------------------------------
 profile::openstack::compute::hypervisor::modular_libvirt: true
+nova::compute::libvirt::manage_libvirt_services:          false # the services class is included by the hypervisor profile
 nova::compute::libvirt::services::modular_libvirt:        true
 nova::migration::libvirt::modular_libvirt:                true

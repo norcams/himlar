@@ -22,7 +22,6 @@ profile::base::lvm::volume_group:
 # (The old monolithic libvirt is deprecated)
 #---------------------------------------------------------------------
 profile::openstack::compute::hypervisor::modular_libvirt: true
-nova::compute::libvirt::manage_libvirt_services:          false # FIXME: No effect after Zed
-nova::compute::libvirt::modular_libvirt:                  true # FIXME: No effect after Zed
+nova::compute::libvirt::manage_libvirt_services:          false # the services class is included by the hypervisor profile
 nova::compute::libvirt::services::modular_libvirt:        true
 nova::migration::libvirt::modular_libvirt:                true
