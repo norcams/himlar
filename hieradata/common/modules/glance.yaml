@@ -79,6 +79,13 @@ glance::keystone::auth::region:            "%{::location}"
 # Policies (manifests/policy.pp)
 #   - runs on the image nodes
 #---------------------------------------------------------------------
+# Glance enables the new RBAC defaults from 2023.1, where the legacy
+# rules allowed any authenticated user to read images. We still use
+# our own roles (user, superuser) rather than member/reader, so keep
+# the pre-2023.1 policy behaviour.
+glance::policy::enforce_scope:             false
+glance::policy::enforce_new_defaults:      false
+
 glance::policy::policies:
   publicize_image:
     key:    'publicize_image'
