@@ -69,7 +69,6 @@ keystone::federation::openidc::openidc_response_type:         'code'
 keystone::federation::openidc::openidc_provider_metadata_url: 'https://auth.dataporten.no/.well-known/openid-configuration'
 keystone::federation::openidc::openidc_client_id:             '00000000-0000-0000-0000-000000000000'
 keystone::federation::openidc::openidc_client_secret:         '00000000-0000-0000-0000-000000000000'
-keystone::federation::openidc::module_plugin:                 'keystone.auth.plugins.mapped.Mapped'
 keystone::federation::openidc::keystone_url:                  "%{hiera('endpoint__identity__public')}"
 keystone::federation::openidc::remote_id_attribute:           'OIDC-iss'
 keystone::federation::openidc::memcached_servers:             '127.0.0.1:11211'
