@@ -225,6 +225,13 @@ nova::keystone::service_user::project_domain_name:     "%{hiera('keystone__defau
 nova::keystone::service_user::user_domain_name:        "%{hiera('keystone__default__domain')}"
 nova::keystone::service_user::send_service_user_token: true
 
+# Nova enables the new RBAC defaults (enforce_scope and
+# enforce_new_defaults) from 2023.1. We still use our own roles
+# (user, superuser, admin_view) rather than member/reader, so keep
+# the pre-2023.1 policy behaviour.
+nova::policy::enforce_scope:                           false
+nova::policy::enforce_new_defaults:                    false
+
 # Disable reboot through api until DHCP is fixed upstream (calico)
 nova::policy::policies:
   nova_disable_reboot:
