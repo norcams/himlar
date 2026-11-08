@@ -64,6 +64,7 @@ profile::base::yumrepo::repo_hash:
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
     includepkgs: 'tinyproxy htop bash-completion-extras privoxy' # FIXME: Remove tinyproxy when el7 is gone
+    ### FIXME(el9) ### includepkgs: 'htop privoxy'
   calico%{hiera('calico_version')}:
     ensure: present
     includepkgs: 'dnsmasq'
