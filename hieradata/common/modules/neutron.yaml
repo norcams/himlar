@@ -57,8 +57,11 @@ neutron::notification_transport_url:    "%{hiera('service__transport__url')}"
 neutron::default_transport_url:         "rabbit://neutron:%{hiera('neutron_rabbit_password')}@%{hiera('service__address__rabbitmq_01')}:5672/neutron"
 
 # logging
-neutron::logging:log_facility:  'LOG_LOCAL5'
-neutron::logging:use_syslog:    true
+# NB: neutron names this parameter syslog_log_facility, where the other
+# openstack modules use log_facility. Rsyslog routes local5 to
+# /opt/log/neutron.log, see modules/rsyslog.yaml
+neutron::logging::use_syslog:           true
+neutron::logging::syslog_log_facility:  'LOG_LOCAL5'
 
 # keystone auth (node: identity)
 neutron::keystone::auth::public_url:    "%{hiera('endpoint__network__public')}"
