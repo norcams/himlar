@@ -31,7 +31,9 @@ ceilometer::agent::notification::messaging_urls:            "%{hiera('service__t
 
 # Cache (node: telemetry)
 ceilometer::cache::backend:             'oslo_cache.memcache_pool'
-ceilometer::cache::memcached_servers:   '127.0.0.1:11211'
+# NB: the cache classes take memcache_servers (oslo.cache), while the
+# authtoken classes take memcached_servers (keystonemiddleware)
+ceilometer::cache::memcache_servers:    '127.0.0.1:11211'
 
 # Polling
 ceilometer::agent::polling::manage_polling:   true
