@@ -68,7 +68,6 @@ designate::keystone::authtoken::project_name:         "%{hiera('keystone__servic
 # Central (manifests/central.pp)
 #   - runs on the DNS node
 #---------------------------------------------------------------------
-designate::central::backend_driver:             'bind9'
 designate::central::managed_resource_email:     'iaas-core@usit.uio.no'
 designate::central::min_ttl:                    '300'
 
@@ -78,7 +77,6 @@ designate::central::min_ttl:                    '300'
 #---------------------------------------------------------------------
 designate::api::service_name:      'httpd'
 designate::api::auth_strategy:     'keystone'
-designate::api::enable_api_v1:     false
 designate::api::enable_api_v2:     true
 designate::api::enabled_extensions_v2:
   - 'quotas'
