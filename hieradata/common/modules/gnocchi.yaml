@@ -61,10 +61,43 @@ gnocchi::statsd::project_id:                  'service'
 # Cors
 gnocchi::cors::allowed_origin:                "http://%{hiera('mgmt__address__monitor')}:8080"
 
-# Use redis here for multinode setup
-gnocchi::coordination_url:                    'file:///var/lib/gnocchi'
+# Coordination (node: metric)
+#
+# metricd splits the sacks between its workers with a partitioned group and a
+# hash ring, so the coordination backend decides who processes what. This uses
+# the node-local redis, same as the incoming storage above, which binds to
+# 127.0.0.1 (see modules/redis.yaml). Correct for the single metric node per
+# location that we run.
+#
+# A second metric node needs more than a change here: redis reachable off-host
+# (redis::bind and a firewall rule) with both nodes pointing at the same
+# instance. Getting that wrong with redis fails loudly on connect. The previous
+# file:// backend would have failed silently, each host forming its own one-node
+# ring and both processing every sack.
+gnocchi::coordination_url:                    'redis://localhost:6379/'
 
 # storage
 gnocchi::storage::ceph::ceph_username:        'gnocchi'
 gnocchi::storage::ceph::ceph_secret:          "%{hiera('ceph_storage_client_metrics_key')}"
 gnocchi::storage::ceph::ceph_pool:            'metrics'
+
+# Archive policy
+#
+# puppet-gnocchi has no archive policy resource type, and ceilometer only
+# auto-creates the policies listed in its own gnocchi_resources.yaml. The
+# policy below is therefore created by hand, once per location, and is only
+# documented here. It is referenced from ceilometer.yaml as the publisher's
+# archive_policy override.
+#
+#   gnocchi archive-policy create nrec-telemetry \
+#     -b 0 -m mean -m rate:mean \
+#     -d granularity:10m,timespan:30d \
+#     -d granularity:1h,timespan:365d \
+#     -d granularity:1d,timespan:3650d
+#
+# back_window is counted in units of the coarsest granularity (24h here), and
+# gnocchi adds 1 automatically when a rate:* aggregate is present, so 0 already
+# yields 24-48h of tolerance for late-arriving measures.
+#
+# A metric's archive policy is fixed at creation and stored in the gnocchi
+# index, not in ceph. Changing this affects new metrics only.
