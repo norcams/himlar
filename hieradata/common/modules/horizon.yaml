@@ -87,6 +87,8 @@ horizon::keystone_options:
 horizon::neutron_options:
   enable_quotas:      true
   enable_rbac_policy: false  # not supported by puppet?
+  supported_vnic_types: "None" # hides the option
+  enable_router:        false  # hides routers and floating ips tab
 
 # Image (Glance)
 horizon::image_backend:

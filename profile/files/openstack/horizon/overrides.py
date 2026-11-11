@@ -15,14 +15,8 @@ settings_dashboard = horizon.get_dashboard("settings")
 
 project_panels = list()
 
-# Network->Routers
-project_panels.append(project_dashboard.get_panel("routers"))
-# Network->Networks
-project_panels.append(project_dashboard.get_panel("networks"))
 # Network->Network Topology
 project_panels.append(project_dashboard.get_panel("network_topology"))
-# Network->Floating IPs
-project_panels.append(project_dashboard.get_panel("floating_ips"))
 # Compute->API
 project_panels.append(project_dashboard.get_panel("api_access"))
 # Volumes-> Consistency Groups
