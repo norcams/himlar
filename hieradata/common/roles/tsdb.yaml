@@ -20,12 +20,15 @@ profile::monitoring::influxdb::token:               "%{hiera('influxdb_admin_tok
 profile::monitoring::influxdb::password:            "%{hiera('influxdb_admin_password')}"
 profile::monitoring::influxdb::user:                "admin"
 
-# extra buckets
+# extra buckets, default 90d retention
 profile::monitoring::influxdb::buckets:
-  "sensu": {}   # sensu status
+  "sensu":  # sensu status 360d retention
+    retention_rules: [{"type":"expire", "everySeconds": 31104000, "shardGroupDurationSeconds": 604800}]
   "collectd": {} # collectd metric
-  "storage": {} # ceph storage
-  "object": {}  # ceph object
+  "storage": # ceph storage 60d retention
+    retention_rules: [{"type":"expire", "everySeconds": 5184000, "shardGroupDurationSeconds": 604800}]
+  "object":  # ceph object 60d retention
+    retention_rules: [{"type":"expire", "everySeconds": 5184000, "shardGroupDurationSeconds": 604800}]
   "gpu": {}  # GPU metrics
   "redfish": {}  # Redfish metrics
   "system": {}  # System basic metrics
