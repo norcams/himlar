@@ -62,15 +62,6 @@ network::interfaces_hash:
   #  ethernet:
   #    mtu:  9000
 
-lvm::volume_groups:
-  vg_ext:
-    physical_volumes:
-      - /dev/disk/by-id/wwn-0x61866da0b060fc00326220fd33fcabc2
-    logical_volumes:
-      lv_ext:
-        fs_type:   xfs
-        mountpath: "/var/lib/libvirt/images"
-
 include:
   default:
     - profile::application::windowsimage

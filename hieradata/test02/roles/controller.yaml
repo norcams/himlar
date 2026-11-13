@@ -10,6 +10,17 @@ profile::bootstrap::himlar::libvirt:
     vm_console:       false
     use_dhcp:         false
 
-profile::base::yumrepo::repo_hash:
-  elrepo:
+lvm::volume_groups: {} # override config in common
+profile::base::lvm::physical_volume:
+  '/dev/sda':
     ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_ext':
+    physical_volumes:
+      - /dev/sda
+profile::base::lvm::logical_volume:
+  'lv_instances':
+    volume_group: 'vg_ext'
+    fs_type:      "xfs"
+    mountpath: "/var/lib/libvirt/images"
