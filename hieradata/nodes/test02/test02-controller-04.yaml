@@ -8,6 +8,8 @@ network::interfaces_hash:
       dns-search:     "%{hiera('netcfg_dns_search_nm')}"
       gateway:        "%{hiera('netcfg_mgmt_gateway')}"
       method:         'manual'
+      bridge:
+        stp:            'false'
   br1: # trp
     connection_type:  'bridge'
     bridge:
@@ -16,21 +18,21 @@ network::interfaces_hash:
       address:        "%{hiera('netcfg_trp_netpart')}.114/%{hiera('netcfg_trp_cidr4')}"
       never-default:  'true'
       method:         'manual'
-  br2: # oob
-    connection_type:  'bridge'
+  #br2: # oob
+  #  connection_type:  'bridge'
   eth0: # mgmt
     controller:       'br0'
     ipv4: {}
     ipv6: {}
-  eth0.3378: # oob
-    connection_type:  'vlan'
-    controller:       'br2'
-    ipv4: {}
-    ipv6: {}
-    vlan:
-      parent:         'eth0'
-      id:             3378
-      flags:          1
+  #eth0.3378: # oob
+  #  connection_type:  'vlan'
+  #  controller:       'br2'
+  #  ipv4: {}
+  #  ipv6: {}
+  #  vlan:
+  #    parent:         'eth0'
+  #    id:             3378
+  #    flags:          1
   #bond0-eth2: # trp
   #  interface_name:   'eth2'
   #  controller:       'bond0'
