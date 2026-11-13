@@ -8,8 +8,8 @@ network::interfaces_hash:
       dns-search:     "%{hiera('netcfg_dns_search_nm')}"
       gateway:        "%{hiera('netcfg_mgmt_gateway')}"
       method:         'manual'
-      bridge:
-        stp:            'false'
+    bridge:
+      stp:            'false'
   br1: # trp
     connection_type:  'bridge'
     bridge:
