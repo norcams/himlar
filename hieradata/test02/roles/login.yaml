@@ -10,8 +10,8 @@ profile::bootstrap::himlar::tftp:
     # node_ip:          "%{hiera('netcfg_mgmt_netpart')}.100"
     # node_netmask:     "%{hiera('netcfg_mgmt_netmask')}"
     # node_gateway:     "%{hiera('netcfg_mgmt_netpart')}.10"
-    use_dhcp:         true
-    kernel_opts:        'net.ifnames=0 biosdevnames=1'
+    kernel_opts:      'net.ifnames=0 biosdevnames=1'
+    maxsize:          15360
 
 # we disable deep merge in test02/modules/accounts.yaml
 # so we need all here not only iaas absent
