@@ -23,3 +23,6 @@ profile::application::builder::windows_images:
     'monthday':         '8-14'
     'hour':             3
     'minute':           0
+
+# FIXME: temporary disable sensu
+profile::monitoring::sensu::agent::enable_go_agent: false
