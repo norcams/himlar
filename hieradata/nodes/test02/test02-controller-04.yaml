@@ -76,6 +76,9 @@ include:
   default:
     - profile::application::windowsimage
 
+# bootstrap test02-admin-01 from this controller
+profile::bootstrap::himlar::manage_bootstrap_scripts: true
+
 # FIXME: libvirt overrides for el9, move to roles/modules later
 profile::virtualization::libvirt::moduler_daemons:    true
 profile::virtualization::libvirt::merge_strategy:     'first'
