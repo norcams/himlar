@@ -155,21 +155,21 @@ profile::application::builder::images:
     'min_disk':         3
     'efi':              true
     'username':         'debian'
-  'fedora_43':
-    'image_name':       'IMAGEBUILDER Fedora 43'
-    'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/43/Cloud/x86_64/images/'
-    'latest':           'Fedora-Cloud-Base-Generic-43-1.6.x86_64.qcow2'
-    'checksum_file':    'Fedora-Cloud-43-1.6-x86_64-CHECKSUM'
-    'checksum':         'sha256'
-    'min_ram':          1024
-    'min_disk':         3
-    'efi':              true
-    'username':         'fedora'
   'fedora_44':
     'image_name':       'IMAGEBUILDER Fedora 44'
     'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/44/Cloud/x86_64/images/'
     'latest':           'Fedora-Cloud-Base-Generic-44-1.7.x86_64.qcow2'
     'checksum_file':    'Fedora-Cloud-44-1.7-x86_64-CHECKSUM'
+    'checksum':         'sha256'
+    'min_ram':          1024
+    'min_disk':         3
+    'efi':              true
+    'username':         'fedora'
+  'fedora_45':
+    'image_name':       'IMAGEBUILDER Fedora 45'
+    'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/45/Cloud/x86_64/images/'
+    'latest':           'Fedora-Cloud-Base-Generic-45-1.4.x86_64.qcow2'
+    'checksum_file':    'Fedora-Cloud-45-1.4-x86_64-CHECKSUM'
     'checksum':         'sha256'
     'min_ram':          1024
     'min_disk':         3
@@ -343,8 +343,8 @@ profile::monitoring::sensu::agent::checks:
       check-imagebuild/args/centosstream10: "-d centosstream10"
       check-imagebuild/args/debian12: "-d debian12"
       check-imagebuild/args/debian13: "-d debian13"
-      check-imagebuild/args/fedora_43: "-d fedora_43"
       check-imagebuild/args/fedora_44: "-d fedora_44"
+      check-imagebuild/args/fedora_45: "-d fedora_45"
       check-imagebuild/args/rockylinux8: "-d rockylinux8"
       check-imagebuild/args/rockylinux8_uib_puppet: "-d rockylinux8_uib_puppet"
       check-imagebuild/args/almalinux10_uib_puppet: "-d almalinux10_uib_puppet"
