@@ -4,7 +4,6 @@ profile::bootstrap::himlar::libvirt:
     libvirt_pool:     'dirpool'
     libvirt_network:  'directnet'
     puppet_env:       'admin-el9' #FIXME change to admin after all run el9
-    allow_ssh:        true
     node_ip:          "%{hiera('netcfg_mgmt_netpart')}.11"
     node_netmask:     '%{::netmask_mgmt1}'
     node_gateway:     "%{hiera('netcfg_mgmt_netpart')}.10"
