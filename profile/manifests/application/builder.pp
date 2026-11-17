@@ -12,12 +12,6 @@ class profile::application::builder (
   $custom_scriptdir = "/home/${user}/custom_scripts",
   $resolver_address = hiera('netcfg_anycast_dns', '1.1.1.1'),
   $fetch_windows_images = false,
-  # Run every image from one script, in sequence, instead of a cron job per
-  # image. Where this is true the per-image jobs are removed, so a node uses
-  # one scheme or the other and never both.
-  # The script itself comes from the imagebuilder repo, which ansible dists to
-  # /opt/imagebuilder, so there is nothing to deploy here
-  $build_script = false,
   $build_script_path = '/opt/imagebuilder/build-images.sh',
   # -s sweeps temporary security groups and keypairs left behind by builds
   # that were killed outright, which only this scheduled run is in a position
@@ -30,6 +24,8 @@ class profile::application::builder (
   $build_script_minute = 0,
 ) {
 
+  # Use this to disable all cronjobs for builder
+  $drop_cron = lookup('profile::application::builder::drop_cron', Boolean, 'first', false)
 
   if $az {
     $real_az = $az
@@ -92,12 +88,8 @@ class profile::application::builder (
     content => template("${module_name}/application/builder/resolver.sh.erb")
   }
 
-  # One job for every image, run in sequence. Declared either way rather than
-  # only when enabled, so that turning it back off removes the cron entry
-  $build_script_ensure = $build_script ? { true => present, default => absent }
-
   cron { 'build-images':
-    ensure  => $build_script_ensure,
+    ensure  => $drop_cron? { true => 'absent', default => 'present'},
     command => "${build_script_path} ${build_script_options}",
     user    => $user,
     weekday => $build_script_weekday,

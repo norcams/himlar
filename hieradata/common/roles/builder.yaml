@@ -50,16 +50,11 @@ profile::openstack::openrc::project_name:     'imagebuilder'
 profile::openstack::openrc::password:         "%{hiera('imagebuilder_password')}"
 profile::openstack::openrc::interface:        'public'
 
-
 profile::application::builder::ipv6:          true
 profile::application::builder::flavor:        'img.zerodisk'
 profile::application::builder::template_dir:  '/etc/imagebuilder'
 profile::application::builder::download_dir:  '/opt/images/public_builds'
 profile::application::builder::rc_file:       '/home/imagebuilder/openrc'
-
-# Run every image in sequence from /opt/imagebuilder/build-images.sh rather
-# than a cron job per image.
-profile::application::builder::build_script:  true
 
 profile::application::builder::images:
   'almalinux8':
@@ -72,8 +67,6 @@ profile::application::builder::images:
     'min_disk':         8
     'efi':              true
     'username':         'almalinux'
-    'hour':             13
-    'minute':           30
   'almalinux9':
     'image_name':       'IMAGEBUILDER AlmaLinux 9'
     'url':              'https://raw.repo.almalinux.org/almalinux/9/cloud/x86_64/images/'
@@ -84,8 +77,6 @@ profile::application::builder::images:
     'min_disk':         8
     'efi':              true
     'username':         'almalinux'
-    'hour':             3
-    'minute':           30
   'almalinux10':
     'image_name':       'IMAGEBUILDER AlmaLinux 10'
     'url':              'https://raw.repo.almalinux.org/almalinux/10/cloud/x86_64/images/'
@@ -96,8 +87,6 @@ profile::application::builder::images:
     'min_disk':         8
     'efi':              true
     'username':         'almalinux'
-    'hour':             4
-    'minute':           0
   'almalinux9_nv_vgpu':
     'image_name':       'IMAGEBUILDER AlmaLinux 9 (NVIDIA GPU)'
     'url':              'https://raw.repo.almalinux.org/almalinux/9/cloud/x86_64/images/'
@@ -108,9 +97,6 @@ profile::application::builder::images:
     'min_disk':         8
     'efi':              true
     'username':         'almalinux'
-    'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
-    'hour':             15
-    'minute':           30
   'almalinux10_nv_vgpu':
     'image_name':       'IMAGEBUILDER AlmaLinux 10 (NVIDIA GPU)'
     'url':              'https://raw.repo.almalinux.org/almalinux/10/cloud/x86_64/images/'
@@ -121,9 +107,6 @@ profile::application::builder::images:
     'min_disk':         8
     'efi':              true
     'username':         'almalinux'
-    'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
-    'hour':             16
-    'minute':           0
   'almalinux10_uib_puppet':
     'image_name':       'IMAGEBUILDER AlmaLinux 10 (UIB)'
     'url':              'https://raw.repo.almalinux.org/almalinux/10/cloud/x86_64/images/'
@@ -133,9 +116,6 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         8
     'username':         'almalinux'
-    'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/uib_puppet' ]
-    'hour':             5
-    'minute':           0
   'centosstream9':
     'image_name':       'IMAGEBUILDER CentOS Stream 9'
     'url':              'https://cloud.centos.org/centos/9-stream/x86_64/images/'
@@ -145,8 +125,6 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         8
     'username':         'cloud-user'
-    'hour':             6
-    'minute':           30
   'centosstream10':
     'image_name':       'IMAGEBUILDER CentOS Stream 10'
     'url':              'https://cloud.centos.org/centos/10-stream/x86_64/images/'
@@ -157,8 +135,6 @@ profile::application::builder::images:
     'min_disk':         8
     'efi':              true
     'username':         'cloud-user'
-    'hour':             6
-    'minute':           45
   'debian12':
     'image_name':       'IMAGEBUILDER Debian 12'
     'url':              'https://cdimage.debian.org/cdimage/cloud/bookworm/latest/'
@@ -169,8 +145,6 @@ profile::application::builder::images:
     'min_disk':         3
     'efi':              true
     'username':         'debian'
-    'hour':             16
-    'minute':           45
   'debian13':
     'image_name':       'IMAGEBUILDER Debian 13'
     'url':              'https://cdimage.debian.org/cdimage/cloud/trixie/latest/'
@@ -181,8 +155,6 @@ profile::application::builder::images:
     'min_disk':         3
     'efi':              true
     'username':         'debian'
-    'hour':             17
-    'minute':           00
   'fedora_43':
     'image_name':       'IMAGEBUILDER Fedora 43'
     'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/43/Cloud/x86_64/images/'
@@ -193,8 +165,6 @@ profile::application::builder::images:
     'min_disk':         3
     'efi':              true
     'username':         'fedora'
-    'hour':             14
-    'minute':           45
   'fedora_44':
     'image_name':       'IMAGEBUILDER Fedora 44'
     'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/44/Cloud/x86_64/images/'
@@ -205,8 +175,6 @@ profile::application::builder::images:
     'min_disk':         3
     'efi':              true
     'username':         'fedora'
-    'hour':             14
-    'minute':           30
   'rockylinux8':
     'image_name':       'IMAGEBUILDER RockyLinux 8'
     'url':              'https://dl.rockylinux.org/pub/rocky/8/images/x86_64/'
@@ -216,8 +184,6 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         8
     'username':         'rocky'
-    'hour':             18
-    'minute':           30
   'rockylinux8_uib_puppet':
     'image_name':       'IMAGEBUILDER RockyLinux 8 (UIB)'
     'url':              'https://dl.rockylinux.org/pub/rocky/8/images/x86_64/'
@@ -227,9 +193,6 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         8
     'username':         'rocky'
-    'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/uib_puppet' ]
-    'hour':             17
-    'minute':           30
   'rockylinux9':
     'image_name':       'IMAGEBUILDER RockyLinux 9'
     'url':              'https://dl.rockylinux.org/pub/rocky/9/images/x86_64/'
@@ -240,7 +203,6 @@ profile::application::builder::images:
     'min_disk':         8
     'efi':              true
     'username':         'rocky'
-    'hour':             18
   'rockylinux10':
     'image_name':       'IMAGEBUILDER RockyLinux 10'
     'url':              'https://dl.rockylinux.org/pub/rocky/10/images/x86_64/'
@@ -251,8 +213,6 @@ profile::application::builder::images:
     'min_disk':         8
     'efi':              true
     'username':         'rocky'
-    'hour':             18
-    'minute':           30
   'ubuntu_2204':
     'image_name':       'IMAGEBUILDER Ubuntu 22.04'
     'url':              'https://cloud-images.ubuntu.com/jammy/current/'
@@ -263,8 +223,6 @@ profile::application::builder::images:
     'min_disk':         3
     'username':         'ubuntu'
     'flavor':           'm1.small'
-    'hour':             9
-    'minute':           30
   'ubuntu_2404':
     'image_name':       'IMAGEBUILDER Ubuntu 24.04'
     'url':              'https://cloud-images.ubuntu.com/noble/current/'
@@ -274,8 +232,6 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         3
     'username':         'ubuntu'
-    'hour':             9
-    'minute':           40
   'ubuntu_2604':
     'image_name':       'IMAGEBUILDER Ubuntu 26.04'
     'url':              'https://cloud-images.ubuntu.com/resolute/current/'
@@ -285,8 +241,6 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         3
     'username':         'ubuntu'
-    'hour':             10
-    'minute':           00
   'ubuntu_2204_nv_vgpu':
     'image_name':       'IMAGEBUILDER Ubuntu 22.04 (NVIDIA GPU)'
     'url':              'https://cloud-images.ubuntu.com/jammy/current/'
@@ -297,9 +251,6 @@ profile::application::builder::images:
     'min_disk':         8
     'username':         'ubuntu'
     'flavor':           'm1.small'
-    'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
-    'hour':             9
-    'minute':           30
   'ubuntu_2404_nv_vgpu':
     'image_name':       'IMAGEBUILDER Ubuntu 24.04 (NVIDIA GPU)'
     'url':              'https://cloud-images.ubuntu.com/noble/current/'
@@ -310,9 +261,6 @@ profile::application::builder::images:
     'min_disk':         8
     'username':         'ubuntu'
     'flavor':           'm1.small'
-    'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
-    'hour':             9
-    'minute':           50
   'ubuntu_2604_nv_vgpu':
     'image_name':       'IMAGEBUILDER Ubuntu 26.04 (NVIDIA GPU)'
     'url':              'https://cloud-images.ubuntu.com/resolute/current/'
@@ -323,9 +271,6 @@ profile::application::builder::images:
     'min_disk':         8
     'username':         'ubuntu'
     'flavor':           'm1.large'
-    'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
-    'hour':             10
-    'minute':           10
   'uio_rhel8':
     'image_name':       'IMAGEBUILDER UIO RHEL 8'
     'url':              'http://download.iaas.uio.no/nrec/nonfree/'
@@ -335,7 +280,6 @@ profile::application::builder::images:
     'min_ram':          1024
     'min_disk':         8
     'username':         'cloud-user'
-    'hour':             12
   'uio_rhel9':
     'image_name':       'IMAGEBUILDER UIO RHEL 9'
     'url':              'http://download.iaas.uio.no/nrec/nonfree/'
@@ -345,7 +289,6 @@ profile::application::builder::images:
     'min_ram':          1024
     'min_disk':         8
     'username':         'cloud-user'
-    'hour':             13
 
 profile::application::builder::templates:
   'default':
