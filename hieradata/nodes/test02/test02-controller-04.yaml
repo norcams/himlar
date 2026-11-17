@@ -62,6 +62,16 @@ network::interfaces_hash:
   #  ethernet:
   #    mtu:  9000
 
+profile::base::lvm::physical_volume:
+  '/dev/disk/by-id/wwn-0x61866da0b060fc00326220fd33fcabc2':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_ext':
+    followsymlinks: true
+    physical_volumes:
+      - /dev/disk/by-id/wwn-0x61866da0b060fc00326220fd33fcabc2
+
 include:
   default:
     - profile::application::windowsimage
