@@ -3,7 +3,6 @@ class profile::application::builder (
   $template_dir,
   $download_dir,
   $az    = undef,
-  $package_url = false,
   $user  = 'imagebuilder',
   $group = 'imagebuilder',
   $flavor = 'm1.small',
@@ -36,14 +35,6 @@ class profile::application::builder (
     $real_az = $az
   } else {
     $real_az = "${::location}-default-1"
-  }
-
-  if $package_url {
-    package { 'imagebuilder':
-      ensure   => installed,
-      provider => 'rpm',
-      source   => $package_url
-    }
   }
 
   file { '/opt/images':
