@@ -48,8 +48,8 @@ accounts::ssh_keys:
 accounts::instances::merge_strategy: 'first'
 
 accounts::accounts:
-  'iaas': # FIXME: this should be removed
-    ensure: present
+  'iaas':
+    ensure: absent
   'mikaeld':
     ensure: present
   'raymond':
@@ -71,3 +71,39 @@ accounts::accounts:
     ensure: present
   'ivarth':
     ensure: present
+
+accounts::users:
+  'iaas':
+    ensure:  'absent'
+  'mikaeld':
+    comment: 'mikaeld@norcams'
+    groups:  [ 'users', 'wheel' ]
+  'raymond':
+    comment: 'raymond@norcams'
+    groups:  [ 'users', 'wheel' ]
+  'trondham':
+    comment: 'trondham@norcams'
+    groups:  [ 'users', 'wheel' ]
+  'erikberg':
+    comment: 'erikberg@norcams'
+    groups: [ 'users', 'wheel' ]
+  'lennart':
+    comment: 'lennart@norcams'
+    groups: [ 'users', 'wheel' ]
+  'terjef':
+    comment: 'terjef@norcams'
+    groups: [ 'users', 'wheel' ]
+  'torldre':
+    comment: 'torldre@norcams'
+    groups: [ 'users', 'wheel' ]
+  'erlenboh':
+    comment: 'erlenboh@norcams'
+    groups: [ 'users', 'wheel']
+  'ivarth':
+    comment: 'ivarth@norcams'
+    groups: [ 'users', 'wheel' ]
+  'kristiang':
+    comment: 'kristiang@rail'
+    groups: [ 'users', 'wheel']
+  'norcams':
+    comment: 'Generic system user'
