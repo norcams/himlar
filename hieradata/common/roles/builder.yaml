@@ -59,9 +59,8 @@ profile::application::builder::download_dir:  '/opt/images/public_builds'
 profile::application::builder::rc_file:       '/home/imagebuilder/openrc'
 
 # Run every image in sequence from /opt/imagebuilder/build-images.sh rather
-# than a cron job per image. Off everywhere until a node opts in, so the old
-# and the new scheme can run side by side on different builders
-profile::application::builder::build_script:  false
+# than a cron job per image.
+profile::application::builder::build_script:  true
 
 profile::application::builder::images:
   'almalinux8':

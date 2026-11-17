@@ -1,8 +1,6 @@
 ---
 profile::base::common::manage_lvm: true
 
-#profile::application::builder::drop_cron:            true
-profile::application::builder::build_script:         true
 profile::application::builder::fetch_windows_images: true
 profile::application::builder::windows_images:
   'winsrv_2022':
