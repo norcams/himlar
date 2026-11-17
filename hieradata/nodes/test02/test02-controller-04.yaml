@@ -63,15 +63,14 @@ network::interfaces_hash:
   #    mtu:  9000
 
 profile::base::lvm::physical_volume:
-  '/dev/disk/by-id/wwn-0x61866da0b060fc00326220fd33fcabc2':
+  '/dev/disk/by-id/wwn-0x61866da0b060fc00326220e732b403f1':
     ensure: present
     force:  true
 profile::base::lvm::volume_group:
   'vg_ext':
     followsymlinks: true
     physical_volumes:
-      - /dev/disk/by-id/wwn-0x61866da0b060fc00326220fd33fcabc2
-
+      - /dev/disk/by-id/wwn-0x61866da0b060fc00326220e732b403f1
 include:
   default:
     - profile::application::windowsimage
