@@ -18,7 +18,7 @@ class profile::application::builder (
   # to notice. Note the case: -S selects the standard images, -s is the sweep.
   # -t bounds a single build: the images are built one after another, so
   # without it one that hangs blocks every image behind it for the week
-  $build_script_options = '-S -B -G -s -t 4h',
+  $build_script_options = '-S -B -G -s -j -t 4h',
   $build_script_weekday = 6,
   $build_script_hour = 2,
   $build_script_minute = 0,
