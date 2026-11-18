@@ -10,6 +10,9 @@ profile::bootstrap::himlar::libvirt:
     os_variant:       'almalinux9'
     root_size:        30
     maxsize:          18240
+    vm_vcpus:         4
+    vm_memory:        16192
+    vm_console:       'ttyS0'
 
 lvm::volume_groups: {} # override config in common
 profile::base::lvm::physical_volume:
