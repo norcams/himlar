@@ -131,6 +131,8 @@ sensu::agent::subscriptions:
   # - 'compute'
   # - 'cephmon'
   # - 'cephmon-object'
+  # - 'builder'
+  # - 'db_dump'
 
 profile::monitoring::sensu::backend::handlers:
   default:
@@ -345,6 +347,23 @@ profile::monitoring::sensu::agent::checks:
     handlers:       ['default']
     runtime_assets:
     - sensu/mysql-check
+  'check-db-backup':
+    command:        '/usr/local/bin/check-db-backup.sh'
+    interval:       3600
+    subscriptions:  ['db']
+    handlers:       ['default']
+# LOGIN
+  'check-db-dump':
+    command:        'sensu-check-multiplexer -c /usr/local/bin/check-db-backup.sh --annotation-prefix "check-db-dump/args"'
+    stdin:          true
+    interval:       3600
+    subscriptions:  ['db_dump']
+    handlers:       ['default']
+    runtime_assets:
+    - sensu/sensu-check-multiplexer
+    annotations:
+      check-db-dump/args/db_global: "/opt/repo/secrets/dumps %{::location}-db-global-01.%{hiera('domain_mgmt')}"
+      check-db-dump/args/db_regional: "/opt/repo/secrets/dumps %{::location}-db-regional-01.%{hiera('domain_mgmt')}"
 # COMPUTE
   'check-metadata-api':
     command:        'http-check --url http://127.0.0.1:8775'
