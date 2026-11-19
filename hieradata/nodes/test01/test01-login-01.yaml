@@ -57,3 +57,10 @@ ssh::server::options:
 accounts::accounts:
   'iaas':
     ensure: present
+
+# Sensu
+sensu::agent::subscriptions:
+  - 'base'
+  - 'nodes'
+  - 'metrics'
+  - 'db_dump'
