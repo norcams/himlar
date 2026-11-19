@@ -378,7 +378,7 @@ profile::monitoring::sensu::agent::checks:
     handlers:       ['default']
     runtime_assets:
     - sensu/http-check
-# L40s 
+# L40s
   'l40s-gpu-pci-check':
     command:      "/usr/local/bin/check_l40s_pci.sh"
     interval:     60
@@ -396,6 +396,12 @@ profile::monitoring::sensu::agent::checks:
     # interval:       300
     # subscriptions:  ['physical']
     # handlers:       ['status']
+  # BUILDER
+  'check-images':
+    command:        '/usr/local/bin/check-images.sh'
+    cron:           "0 8 * * 1-5"
+    subscriptions:  ['builder']
+    handlers:       ['default']
 # SMART
 # Runs on hosts subscribing to 'smart'. The node side (smartmontools, the
 # script and the sudo rule) comes from profile::monitoring::smart. Everything
