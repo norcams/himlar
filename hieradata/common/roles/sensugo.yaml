@@ -364,6 +364,7 @@ profile::monitoring::sensu::agent::checks:
     annotations:
       check-db-dump/args/db_global: "/opt/repo/secrets/dumps %{::location}-db-global-01.%{hiera('domain_mgmt')}"
       check-db-dump/args/db_regional: "/opt/repo/secrets/dumps %{::location}-db-regional-01.%{hiera('domain_mgmt')}"
+      check-db-dump/args/db_metric: "/opt/repo/secrets/dumps %{::location}-metric-01.%{hiera('domain_mgmt')}"
 # COMPUTE
   'check-metadata-api':
     command:        'http-check --url http://127.0.0.1:8775'
