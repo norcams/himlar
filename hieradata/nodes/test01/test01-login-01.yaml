@@ -45,6 +45,7 @@ profile::base::lvm::logical_volume:
 
 # Enable db backup on 01
 profile::base::login::manage_db_backup: true
+profile::base::login::manage_db_monitor_script: true
 
 # enable iaas account, but only make it available in the normal fashion
 # from bgo-login-01
