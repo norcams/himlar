@@ -18,7 +18,7 @@ JSON_FILE="${1:-/var/log/imagebuilder/result.json}"
 
 if [[ ! -f "$JSON_FILE" ]]; then
     echo "error: file not found: $JSON_FILE"
-    exit 1
+    exit 2
 fi
 
 # -----------------------------------------------------------------
@@ -40,7 +40,7 @@ date_value=$(jq -er '
     | select(type == "string")
 ' "$JSON_FILE") || {
     echo "error: missing or non‑string \"date\" field"
-    exit 1
+    exit 2
 }
 
 #   b) failed_images (as an array, count only)
@@ -49,7 +49,7 @@ failed_count=$(jq -er '
     | if type == "array" then length else error end
 ' "$JSON_FILE") || {
     echo "error: \"failed_images\" must be an array"
-    exit 1
+    exit 2
 }
 
 #   c) skipped_images (as an array, count only)
@@ -58,7 +58,7 @@ skipped_count=$(jq -er '
     | if type == "array" then length else error end
 ' "$JSON_FILE") || {
     echo "error: \"skipped_images\" must be an array"
-    exit 1
+    exit 2
 }
 
 # -----------------------------------------------------------------
@@ -66,7 +66,7 @@ skipped_count=$(jq -er '
 # -----------------------------------------------------------------
 if ! date -u -d "$date_value" "+%F" >/dev/null 2>&1; then
     echo "error: invalid date value \"$date_value\""
-    exit 1
+    exit 2
 fi
 
 # The oldest acceptable date is 7 calendar days ago (inclusive)
@@ -80,7 +80,7 @@ if (( failed_count > 0 )); then
     echo "critical"
     echo "Failed images:"
     jq -r '(.failed_images // [])[]' "$JSON_FILE"
-    exit 1
+    exit 2
 fi
 
 # 5.2 Date older than 7 days -> error
@@ -88,7 +88,7 @@ if [[ "$date_value" < "$cutoff_date" ]]; then
     echo "critical"
     echo "Last run date is too old: $date_value"
     echo "Expected a date on or after: $cutoff_date"
-    exit 1
+    exit 2
 fi
 
 # 5.3 Skipped images (only reached if no failures) -> warning
@@ -96,7 +96,7 @@ if (( skipped_count > 0 )); then
     echo "warning"
     echo "Skipped images:"
     jq -r '(.skipped_images // [])[]' "$JSON_FILE"
-    exit 2
+    exit 1
 fi
 
 # 5.4 All checks passed -> success
