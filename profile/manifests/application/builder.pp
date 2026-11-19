@@ -107,7 +107,7 @@ class profile::application::builder (
 
   # monitor script for sensu
   if $manage_monitor_script {
-    file { '/usr/local/sbin/check_images.sh':
+    file { '/usr/local/bin/check-images.sh':
       ensure  => present,
       owner   => $user,
       group   => $group,
