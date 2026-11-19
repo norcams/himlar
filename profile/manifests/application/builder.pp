@@ -12,6 +12,7 @@ class profile::application::builder (
   $custom_scriptdir = "/home/${user}/custom_scripts",
   $resolver_address = hiera('netcfg_anycast_dns', '1.1.1.1'),
   $fetch_windows_images = false,
+  $manage_monitor_script = false,
   $build_script_path = '/opt/imagebuilder/build-images.sh',
   # -s sweeps temporary security groups and keypairs left behind by builds
   # that were killed outright, which only this scheduled run is in a position
@@ -102,6 +103,17 @@ class profile::application::builder (
 
   if $fetch_windows_images {
     create_resources('profile::application::builder::windows_jobs', lookup('profile::application::builder::windows_images', Hash, 'deep', {}))
+  }
+
+  # monitor script for sensu
+  if $manage_monitor_script {
+    file { '/usr/local/sbin/check_images.sh':
+      ensure  => present,
+      owner   => $user,
+      group   => $group,
+      mode    => '0755',
+      source => "puppet:///modules/${module_name}/monitoring/sensu/check_images.sh",
+    }
   }
 
   # report custom script
