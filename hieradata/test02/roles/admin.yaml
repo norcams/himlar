@@ -11,6 +11,22 @@ foreman_version: '3.12'
 # postgresql 13 is default in el9
 postgresql::globals::version: '13'
 
+
+profile::base::common::manage_lvm: true
+profile::base::lvm::physical_volume:
+  '/dev/vda3':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_repo':
+    physical_volumes:
+      - /dev/vda3
+profile::base::lvm::logical_volume:
+  'lv_repo':
+    volume_group: 'vg_repo'
+    fs_type:      "xfs"
+    mountpath:    "/opt/repo"
+
 dhcp::hosts:
   test02-controller-01-bmc:
     mac: '18:66:da:81:6d:3e'
