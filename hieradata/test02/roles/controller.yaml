@@ -10,7 +10,7 @@ profile::bootstrap::himlar::libvirt:
     node_netmask:     '%{::netmask_mgmt1}'
     node_gateway:     "%{hiera('netcfg_mgmt_netpart')}.10"
     os_variant:       'almalinux9'
-    root_size:        30
+    root_size:        40
     maxsize:          18240
     vm_vcpus:         4
     vm_memory:        16192
