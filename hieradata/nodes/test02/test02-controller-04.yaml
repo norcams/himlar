@@ -78,46 +78,7 @@ include:
 # bootstrap test02-admin-01 from this controller
 profile::bootstrap::himlar::manage_bootstrap_scripts: true
 
-# FIXME: libvirt overrides for el9, move to roles/modules later
-profile::virtualization::libvirt::moduler_daemons:    true
-profile::virtualization::libvirt::merge_strategy:     'first'
-profile::virtualization::libvirt::networks:
-  directnet:
-    ensure:              present
-    autostart:           true
-    forward_mode:        bridge
-    bridge:              br0
-  trpnet:
-    ensure:              present
-    autostart:           true
-    forward_mode:        bridge
-    bridge:              br1
-  oobnet:
-    ensure:              present
-    autostart:           true
-    forward_mode:        bridge
-    bridge:              br2
-
-libvirt::service_name:      'virtqemud.service'
-libvirt::purge_network:     'purge'
-libvirt::qemu_conf:
-  vnc_listen: "%{::ipaddress_mgmt1}"
-  vnc_tls:    '0'
-  vnc_sasl:   '0'
-libvirt::service::modular_services:
-  virtqemud.service:
-    ensure: 'running'
-    enable: true
-  virtproxyd-tcp.socket:
-    ensure: 'running'
-    enable: true
-  virtstoraged.socket:
-    ensure: 'running'
-    enable: true
-  virtnetworkd.service:
-    ensure: 'running'
-    enable: true
-
+# build windows only on this controller
 profile::application::windowsimage::enable: true
 profile::application::windowsimage::manage_firewall: true
 profile::base::yumrepo::repo_hash:
