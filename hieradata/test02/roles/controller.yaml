@@ -3,7 +3,7 @@ profile::bootstrap::himlar::libvirt:
   '%{::location}-admin-01':
     libvirt_pool:     'dirpool'
     libvirt_networks:
-      - 'directnet'
+      - 'mgmtnet'
       - 'oobnet'
     puppet_env:       'admin_el9' #FIXME change to admin after all run el9
     node_ip:          "%{hiera('netcfg_mgmt_netpart')}.11"
@@ -20,7 +20,7 @@ profile::bootstrap::himlar::libvirt:
 profile::virtualization::libvirt::moduler_daemons:    true
 profile::virtualization::libvirt::merge_strategy:     'first'
 profile::virtualization::libvirt::networks:
-  directnet:
+  mgmtnet:
     ensure:              present
     autostart:           true
     forward_mode:        bridge
