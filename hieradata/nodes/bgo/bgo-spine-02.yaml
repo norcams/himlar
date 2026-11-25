@@ -71,6 +71,7 @@ frrouting::frrouting::bgp_vrf_options:
       - "neighbor 172.18.0.5 remote-as %{hiera('bgp_as')}"
       - 'neighbor 172.18.0.5 soft-reconfiguration inbound'
       - "neighbor fd00::5 remote-as %{hiera('bgp_as')}"
+      - "neighbor fd00:18:229::1 remote-as %{hiera('bgp_as')}"
       - "neighbor 172.18.0.6 remote-as %{hiera('bgp_as')}"
       - "neighbor fd00::6 remote-as %{hiera('bgp_as')}"
       - 'neighbor 172.18.3.1 remote-as 65503'
@@ -86,7 +87,6 @@ frrouting::frrouting::bgp_vrf_options:
       - 'neighbor 172.18.6.1 soft-reconfiguration inbound'
       - 'neighbor 172.18.6.1 default-originate'
       - 'neighbor 172.18.6.1 route-map failover-default-route in'
-      - "neighbor fd00:18:229::1 remote-as %{hiera('bgp_as')}"
       - 'neighbor fd00:18:229::1 soft-reconfiguration inbound'
       - 'neighbor 172.18.0.5 prefix-list leaf-v2-routes-in in'
       - 'neighbor 172.18.0.5 prefix-list leaf-v2-routes-out out'
