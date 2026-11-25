@@ -8,3 +8,8 @@ network::interfaces_hash:
       gateway:      "%{hiera('netcfg_mgmt_gateway')}"
       mtu:           1500
       method:       'manual'
+  eth1: # oob
+    ipv4:
+      address1:       "%{hiera('netcfg_oob_netpart')}.12/21"
+      method:         'manual'
+      never-default:  'true'
