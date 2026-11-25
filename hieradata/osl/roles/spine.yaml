@@ -1003,6 +1003,7 @@ frrouting::frrouting::bgp_neighbor_groups:
       - '172.18.33.141' # FIXME: test
       - '172.18.33.142' # compute-rtx6k-081
     'options6':
+      - 'neighbor rr-clients activate'
       - 'neighbor rr-clients route-reflector-client'
       - 'neighbor rr-clients soft-reconfiguration inbound'
       - 'neighbor rr-clients addpath-tx-all-paths'
