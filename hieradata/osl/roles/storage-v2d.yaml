@@ -2,8 +2,6 @@
 named_interfaces::config:
   mgmt:
     - em3
-  transport:
-    - team1
   trp:
     - team1
   ceph:
@@ -76,4 +74,3 @@ profile::storage::cephosd::osds:
     db_device:  false
     wal_device: false
     disable_writecache: true
-

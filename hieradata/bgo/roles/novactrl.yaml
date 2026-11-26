@@ -26,6 +26,10 @@ profile::openstack::resource::host_aggregate:
     availability_zone: "%{::location}-default-1"
     metadata:
       type: 'alice'
+  alice3:
+    availability_zone: "%{::location}-default-1"
+    metadata:
+      type: 'alice'
   clarino1:
     availability_zone: "%{::location}-default-1"
     metadata:
@@ -42,6 +46,10 @@ profile::openstack::resource::host_aggregate:
     availability_zone: "%{::location}-default-1"
     metadata:
       type: 'elixir2'
+  geov1: # intel
+    availability_zone: "%{::location}-default-1"
+    metadata:
+      type: 'geov1'
   placeholder1:
     availability_zone: "%{::location}-iaas-team-only-1"
     metadata:
@@ -111,7 +119,7 @@ profile::openstack::resource::host_aggregate:
     availability_zone: "%{::location}-default-1"
     metadata:
       type: 'rtx6k'
-      
+
 profile::openstack::compute::pci_passthrough::manage_pcipassthrough: true
 
 # QLogic Corp ISP2532-based 8Gb Fibre Channel to PCI Express HBA

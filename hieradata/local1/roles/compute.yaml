@@ -13,8 +13,6 @@ chrony::servers:
 named_interfaces::config:
   mgmt:
     - eth0
-  transport:
-    - eth0.100
   trp:
     - eth0.100
   live:

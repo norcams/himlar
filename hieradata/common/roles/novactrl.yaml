@@ -10,7 +10,8 @@ include:
     - profile::webserver::apache::status
 #    - profile::openstack::compute::placement # FIXME: remove after upgrade
 
-openstack_version: 'zed'
+# Used when upgrading Openstack
+#openstack_version: "FIXME"
 
 profile::network::interface::create_custom_routes: true
 profile::base::network::nm_auto_routes:
@@ -98,7 +99,7 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure: present
-    includepkgs: 'htop bash-completion-extras python2-bcrypt'
+    includepkgs: 'htop'
   CentOs-nfv-Openvswitch:
     ensure: present
 

@@ -75,6 +75,10 @@ profile::application::report::report_utils:
       39: 'report30'
       40: 'report30'
       41: 'report30'
+      42: 'report30'
+      43: 'report30'
+      44: 'report30'
+      45: 'report30'
   'ubuntu':
     scripts:
       report17: ['ubuntu/shebang', 'common/imports.py', 'ubuntu/imports.py', 'common/common_functions.py', 'ubuntu/check_updates_functions.py', 'common/payload.py', 'ubuntu/updates_payload.py']
@@ -88,6 +92,7 @@ profile::application::report::report_utils:
       21: 'report17'
       22: 'report17'
       24: 'report17'
+      26: 'report17'
   'debian':
     scripts:
       report9: ['debian/shebang', 'common/imports.py', 'debian/imports.py', 'common/common_functions.py', 'debian/check_updates_functions.py', 'common/payload.py', 'debian/updates_payload.py']
@@ -98,6 +103,7 @@ profile::application::report::report_utils:
       10: 'report9'
       11: 'report9'
       12: 'report9'
+      13: 'report9'
   'windows':
     scripts:
       report2016: ['windows/full_script' ]

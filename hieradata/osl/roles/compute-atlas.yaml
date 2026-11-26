@@ -1,6 +1,6 @@
 ---
-#FIXME:el9 move to common after all computes are el9 with zed
-openstack_version: "zed"
+# Used when upgrading Openstack
+#openstack_version: "FIXME"
 
 named_interfaces::config:
   mgmt:
@@ -55,5 +55,5 @@ nova::config::nova_config:
 sensu::agent::annotations:
   'disk_warning': '90'
   'disk_critical': '95'
-  'cpu_warning': '99'
-  'cpu_critical': '100'
+  'cpu_warning': '100'
+  'cpu_critical': '101'

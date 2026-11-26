@@ -5,6 +5,7 @@ class profile::base::login (
   $manage_db_backup         = false,
   $manage_repo_incoming_dir = false,
   $manage_db_sync_cron      = false,
+  $manage_db_monitor_script = false,
   $region_db_sync           = {},
   $forward_oobnet           = false,
   $oob_net                  = '10.0.0.0/24',
@@ -108,6 +109,16 @@ class profile::base::login (
     # cron job for sync of database dumps to other regions
     if $manage_db_sync_cron  {
       create_resources('cron', $region_db_sync)
+    }
+
+    if $manage_db_monitor_script {
+      file { '/usr/local/bin/check-db-backup.sh':
+        ensure => present,
+        owner  => root,
+        group  => root,
+        mode   => '0755',
+        source => "puppet:///modules/${module_name}/monitoring/sensu/check_db_backup.sh",
+      }
     }
 
   }

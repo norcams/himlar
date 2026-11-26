@@ -432,7 +432,7 @@ frrouting::frrouting::bgp_neighbor_groups:
       - "10.0.241.254/32"
     'ip_access_list6':
       - "2001:700:200:915::3f65/125 le 128"
-      - "2001:700:200:df32:e1a5:2025:8000::0/98"
+      - "2001:700:200:df32:e1a5:2025:8000:0/98 le 128"
 #  'other-clients':
 #    'options':
 #    - 'peer-group'

@@ -45,6 +45,7 @@ profile::base::lvm::logical_volume:
 
 # Enable db backup on 01
 profile::base::login::manage_db_backup: true
+profile::base::login::manage_db_monitor_script: true
 
 # enable iaas account, but only make it available in the normal fashion
 # from bgo-login-01
@@ -57,7 +58,9 @@ accounts::accounts:
   'iaas':
     ensure: present
 
-allow_from_admins_network:            # FIXME: Remove this when all login nodes use this (this is the default in common)
-  - '129.177.0.0/16'                                # UiB fastnett
-  - '129.240.0.0/16'                                # UiO fastnett
-  - '172.28.0.0/21'                                 # test01 mgmt
+# Sensu
+sensu::agent::subscriptions:
+  - 'base'
+  - 'nodes'
+  - 'metrics'
+  - 'db_dump'

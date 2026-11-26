@@ -153,20 +153,26 @@ sensu::agent::subscriptions:
   - 'base'
   - 'metrics'
   - 'physical'
+#  - 'smart' # see below
+
+# Disk health, see profile::monitoring::smart. Rolled out per host first, so
+# this stays off until we trust the check on the whole role. Both lines and the
+# 'smart' subscription above must be enabled together: the subscription alone
+# makes the backend run 'smart-check' on a node that has no script.
+# smartmontools is already in the package list above, so let the class leave it
+# alone rather than declare the package twice.
+#profile::monitoring::smart::enable: true
+#profile::monitoring::smart::manage_package: false
 
 sudo::configs:
   sensu_tty:
     priority: 20
     content:  'Defaults:sensu !requiretty'
-  sensu:
+  sensu: # left over from sensu classic
+    ensure:   absent
     priority: 25
-    content:  'sensu ALL=(ALL) NOPASSWD: /opt/sensu/embedded/bin/check-smart.rb'
 
 # profile::monitoring::sensu::agent::checks: # FIXME:sensu-go
-#   'check-smart':
-#     command:      "/usr/bin/sudo /opt/sensu/embedded/bin/check-smart.rb"
-#     interval:     3600
-#     subscribers:  ['checks']
 #   'metrics-netif':
 #     type:         'metric'
 #     command:      'metrics-netif.rb --scheme network.%{::hostname}'

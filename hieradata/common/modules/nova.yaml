@@ -154,6 +154,8 @@ profile::openstack::compute::default_nova_config:
 profile::openstack::novactrl::default_nova_config:
   glance/region_name:
     value: "%{::location}"
+  "quota/count_usage_from_placement":
+    value: "true"
 
 # compute (node: compute)
 nova::compute::enabled:                          true
@@ -170,7 +172,7 @@ nova::compute::rbd::ephemeral_storage:           false
 nova::compute::rbd::manage_ceph_client:          false
 
 # Update when all computes are upgraded
-nova::upgrade_level_compute:                     'yoga'
+nova::upgrade_level_compute:                     'zed'
 
 # Live Migration settings
 nova::migration::libvirt::live_migration_inbound_addr:         "%{::ipaddress_live1}"

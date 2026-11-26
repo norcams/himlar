@@ -13,6 +13,7 @@ class profile::base::common (
   $manage_authconfig      = false,
   $manage_network         = false,
   $manage_lvm             = false,
+  $manage_mdadm           = false,
   $manage_timezones       = false,
   $manage_keyboard        = false,
   $manage_packages        = false,
@@ -134,8 +135,24 @@ class profile::base::common (
     include ::profile::base::network
   }
 
+  if $manage_mdadm {
+    include ::profile::base::mdadm
+  }
+
+  # Not guarded by manage_mdadm: arrays built by the installer, the root disk
+  # mirror in particular, are never managed here but still need watching. The
+  # class is off unless manage_mdadm is set or it is enabled on its own, see
+  # profile::monitoring::mdraid.
+  include ::profile::monitoring::mdraid
+
   if $manage_lvm {
     include ::profile::base::lvm
+  }
+
+  # An md array is normally the physical volume below LVM, so it has to exist
+  # before profile::base::lvm goes looking for it
+  if $manage_mdadm and $manage_lvm {
+    Class['profile::base::mdadm'] -> Class['profile::base::lvm']
   }
 
   if $manage_timezones {

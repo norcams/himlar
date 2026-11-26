@@ -17,6 +17,13 @@ filter export_bgp6 {
   reject;
 }
 
+filter export_anycast {
+  if net = <%= scope().call_function('hiera',['netcfg_anycast_dns']) %>/32 then {
+    accept;
+  }
+  reject;
+}
+
 filter export_anycast6 {
   if net =<%= scope().call_function('hiera',['netcfg_anycast_dns6']) %>/128 || net = <%= scope().call_function('hiera',['node_addr_public6']) %>/128 then {
     accept;
@@ -100,7 +107,7 @@ protocol direct {
   neighbor <%= values["peer_ipv4"] %> as <%= scope().call_function('hiera',['bgp_as']) %>;
   ipv4 {
     import filter import_bgp;
-    export filter export_bgp;
+    export filter export_anycast;
   };
   multihop;
   graceful restart;

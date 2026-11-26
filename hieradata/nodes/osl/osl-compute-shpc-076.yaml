@@ -1,6 +1,4 @@
 ---
-#FIXME:el9 move to common after all computes are el9 with zed
-openstack_version: "zed"
 
 profile::base::network::nm_network_auto_bonding:
   trp:
@@ -46,3 +44,19 @@ nova::compute::libvirt::manage_libvirt_services:          false
 nova::compute::libvirt::modular_libvirt:                  true
 nova::compute::libvirt::services::modular_libvirt:        true
 nova::migration::libvirt::modular_libvirt:                true
+
+#---------------------------------------------------------------------
+# Disk health monitoring
+#
+# The class and the 'smart' subscription have to be set together, see
+# profile::monitoring::smart. Subscriptions resolve with 'first', so the list
+# from the compute role is restated in full here.
+#---------------------------------------------------------------------
+profile::monitoring::smart::enable: true
+
+sensu::agent::subscriptions:
+  - 'base'
+  - 'metrics'
+  - 'compute'
+  - 'physical'
+  - 'smart'

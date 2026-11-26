@@ -1,1 +1,45 @@
 ---
+# FIXME: this can be removed when all admin run same version on el9
+profile::base::common::packages:
+  'ruby': #FIXME: remove from common to avoid this override when all admin run el9
+    ensure: present
+    provider: 'dnf'
+    enable_only: false
+
+foreman_version: '3.12'
+
+# postgresql 13 is default in el9
+postgresql::globals::version: '13'
+
+
+profile::base::common::manage_lvm: true
+profile::base::lvm::physical_volume:
+  '/dev/vda3':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_repo':
+    physical_volumes:
+      - /dev/vda3
+profile::base::lvm::logical_volume:
+  'lv_repo':
+    volume_group: 'vg_repo'
+    fs_type:      "xfs"
+    mountpath:    "/opt/repo"
+
+dhcp::hosts:
+  test02-controller-01-bmc:
+    mac: '18:66:da:81:6d:3e'
+    ip:  '172.29.32.100'
+  test02-controller-02-bmc:
+    mac: '18:66:da:81:8d:6e'
+    ip:  '172.29.32.101'
+  test02-controller-03-bmc:
+    mac: '84:7b:eb:f8:c3:90'
+    ip:  '172.29.32.102'
+  test02-controller-04-bmc:
+    mac: '84:7b:eb:f8:bf:2a'
+    ip:  '172.29.32.114'
+  test02-login-01-bmc:
+    mac: '50:9a:4c:b3:0f:de'
+    ip:  '172.29.32.1'

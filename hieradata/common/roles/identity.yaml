@@ -12,7 +12,8 @@ include:
     - profile::openstack::cache
     - profile::webserver::apache::status
 
-openstack_version: 'zed'
+# Used when upgrading Openstack
+#openstack_version: "FIXME"
 
 # bootstrap keystone
 keystone::bootstrap::bootstrap:             false
@@ -196,7 +197,7 @@ profile::base::yumrepo::repo_hash:
     ensure:     present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
-    includepkgs: 'htop bash-completion-extras'
+    includepkgs: 'htop'
 
 profile::base::selinux::boolean:
   'httpd_can_network_connect':

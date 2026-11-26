@@ -8,8 +8,6 @@ profile::base::network::nm_network_auto_bonding:
       ethernet:
         'mtu': '9000'
 
-#FIXME:el9 move to common after all computes are el9 with zed
-openstack_version: "zed"
 named_interfaces::config:
   mgmt:
   - p13p1
@@ -44,3 +42,6 @@ profile::base::lvm::logical_volume:
 nova::compute::mdev::mdev_types:
   nvidia-1155: {}
 
+nova::compute::libvirt::cpu_models: ['SapphireRapids','Broadwell-noTSX-IBRS']
+#kernel has disabled TSX (hle and rtm) as a security mitigation for the TAA vulnerability
+nova::compute::libvirt::cpu_model_extra_flags: ['-hle', '-rtm']

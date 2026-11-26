@@ -5,6 +5,9 @@ include:
     - profile::openstack::compute::consoleauth
     - profile::logging::rsyslog::client
 
+# Used when upgrading Openstack
+#openstack_version: "FIXME"
+
 profile::base::common::packages:
   'bash-completion': {}
   'bash-completion-extras': {}
@@ -23,13 +26,11 @@ profile::base::yumrepo::repo_hash:
     ensure: present
   epel: # should be absent when using RDO, but whitelist can also work
     ensure:   present
-    includepkgs: 'htop bash-completion-extras python2-bcrypt'
+    includepkgs: 'htop'
   CentOs-nfv-Openvswitch:
     ensure:  present
   AlmaLinux-PowerTools:
     ensure: present
-
-openstack_version: 'zed'
 
 # This creates /etc/openstack/puppet/admin-clouds.yaml
 keystone::bootstrap::bootstrap:        false

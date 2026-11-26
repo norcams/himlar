@@ -1,0 +1,106 @@
+---
+
+profile::base::network::nm_network_auto_bonding:
+  trp:
+    em1:
+      ethernet:
+        'mtu': '9000' # the MTU size must be set also on the slave interfaces
+    em2:
+      ethernet:
+        'mtu': '9000'
+
+named_interfaces::config:
+  mgmt:
+  - em3
+  trp:
+  - bond0
+  live:
+  - bond0.120
+
+profile::base::lvm::physical_volume:
+  '/dev/md0':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_swap':
+    followsymlinks: true
+    physical_volumes:
+      - '/dev/disk/by-id/scsi-SATA_DELLBOSS_VD_0163bdafa0a90010-part4' # /dev/sda4
+  'vg_ext':
+    followsymlinks: true
+    physical_volumes:
+      - '/dev/md0'
+
+# Configure GPU
+# TODO
+# NVIDIA Quadro RTX partitioned into 2 x vGPUs, with CUDA support
+#
+# From "mdevctl types":
+#
+#  nvidia-382
+#    Available instances: 1
+#    Device API: vfio-pci
+#    Name: GRID RTX6000P-24Q
+#    Description: num_heads=4, frl_config=60, framebuffer=24576M, max_resolution=7680x4320, max_instance=1
+nova::compute::mdev::mdev_types:
+  nvidia-382: {}
+
+# Max 3 instances per host
+nova::scheduler::filter::max_instances_per_host: '3'
+
+#---------------------------------------------------------------------
+# Configure to use modular libvirt
+# (The old monolithic libvirt is deprecated)
+#---------------------------------------------------------------------
+profile::openstack::compute::hypervisor::modular_libvirt: true
+nova::compute::libvirt::manage_libvirt_services:          false
+nova::compute::libvirt::modular_libvirt:                  true
+nova::compute::libvirt::services::modular_libvirt:        true
+nova::migration::libvirt::modular_libvirt:                true
+
+#---------------------------------------------------------------------
+# Configure storage
+# LVM volume on top of software raid
+#---------------------------------------------------------------------
+
+# Configure software raid
+profile::base::common::manage_mdadm: true
+profile::base::mdadm::array:
+  '/dev/md/instances':
+    level: '1'
+    devices:
+      - '/dev/disk/by-id/wwn-0x5002538b105fc5a0'
+      - '/dev/disk/by-id/wwn-0x5002538b105fc5b0'
+
+# Configure LVM
+profile::base::lvm::physical_volume:
+  '/dev/md/instances':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_ext':
+    followsymlinks: true
+    physical_volumes:
+      - '/dev/md/instances'
+profile::base::lvm::logical_volume:
+  'lv_instances':
+    volume_group: 'vg_ext'
+    fs_type:      "xfs"
+    mountpath:    "/var/lib/nova/instances"
+
+#---------------------------------------------------------------------
+# Disk health monitoring
+#
+# The class and the 'smart' subscription have to be set together, see
+# profile::monitoring::smart. Subscriptions resolve with 'first', so the list
+# from the compute role is restated in full here.
+#---------------------------------------------------------------------
+profile::monitoring::smart::enable: true
+
+sensu::agent::subscriptions:
+  - 'base'
+  - 'metrics'
+  - 'compute'
+  - 'physical'
+  - 'smart'
+  - 'mdraid'

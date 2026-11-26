@@ -8,7 +8,8 @@ include:
     - profile::logging::logrotate
     - profile::storage::cephclient
 
-openstack_version: 'zed'
+# Used when upgrading Openstack
+#openstack_version: "FIXME"
 
 memcached::max_memory: '20%'
 
@@ -47,7 +48,7 @@ profile::base::yumrepo::repo_hash:
     exclude:  'mariadb*'
   epel: # should be absent when using RDO, but whitelist can also work
     ensure: present
-    includepkgs: 'mysqltuner thrift htop bash-completion-extras lttng-ust userspace-rcu libbabeltrace leveldb liboath fmt python3-cherrypy python3-zc-lockfile python3-portend python3-cheroot python3-trustme python3-tempora python3-jaraco-functools python3-jaraco python3-jaraco-collections python3-jaraco-text python3-jaraco-classes python3-jaraco-context python3-autocommand python3-backports-tarfile'
+    includepkgs: 'mysqltuner thrift htop userspace-rcu libbabeltrace leveldb liboath fmt python3-cherrypy python3-zc-lockfile python3-portend python3-cheroot python3-trustme python3-tempora python3-jaraco-functools python3-jaraco python3-jaraco-collections python3-jaraco-text python3-jaraco-classes python3-jaraco-context python3-autocommand python3-backports-tarfile'
   postgres-10:
     ensure: absent
   "mariadb-%{hiera('mariadb_version')}":
@@ -95,6 +96,7 @@ profile::database::mariadb::backuppassword_unsensitive:   "%{hiera('mysql::serve
 profile::database::mariadb::postscript:                   "date >  %{hiera('profile::database::mariadb::backuptopdir')}/$(hostname)-backupflag"
 profile::database::mariadb::file_per_database:            true
 profile::database::mariadb::backuprotate:                 2
+profile::database::mariadb::manage_db_monitor_script:     true
 
 profile::base::common::packages:
   'openstack-selinux':      {}

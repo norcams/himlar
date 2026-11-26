@@ -908,9 +908,11 @@ frrouting::frrouting::zebra_generic_options:
     'forwarding'
 
 frrouting::frrouting::bgp_as: "%{hiera('bgp_as')}"
+frrouting::frrouting::bgp_in_default_vrf: false
 
 frrouting::frrouting::bgp_neighbor_groups:
   'rr-clients':
+    'vrf': 'default'
     'options':
       - 'peer-group'
       - "remote-as %{hiera('bgp_as')}"
@@ -999,7 +1001,9 @@ frrouting::frrouting::bgp_neighbor_groups:
       - '172.18.33.139' # FIXME: test
       - '172.18.33.140' # FIXME: test
       - '172.18.33.141' # FIXME: test
+      - '172.18.33.142' # compute-rtx6k-081
     'options6':
+      - 'neighbor rr-clients activate'
       - 'neighbor rr-clients route-reflector-client'
       - 'neighbor rr-clients soft-reconfiguration inbound'
       - 'neighbor rr-clients addpath-tx-all-paths'
@@ -1087,7 +1091,9 @@ frrouting::frrouting::bgp_neighbor_groups:
       - 'fd32::1:139' # FIXME: test
       - 'fd32::1:140' # FIXME: test
       - 'fd32::1:141' # FIXME: test
+      - 'fd32::1:142' # compute-rtx6k-081
   'object_rgw':
+    'vrf': 'default'
     'options':
       - 'peer-group'
       - "remote-as %{hiera('bgp_as')}"
@@ -1105,6 +1111,7 @@ frrouting::frrouting::bgp_neighbor_groups:
       - '172.18.32.85'  # rgw-02
       - '172.18.32.87'  # rgw-03
   'elastic_rail_o1p':
+    'vrf': 'default'
     'options':
       - 'peer-group'
       - "remote-as %{hiera('elasticip_rail_o1p_asn')}"
@@ -1122,14 +1129,15 @@ frrouting::frrouting::bgp_neighbor_groups:
       - "158.39.75.250/32"
       - "158.39.75.251/32"
       - "158.39.75.253/32"
-      - "10.254.236.0/22"
+      - "10.254.236.0/22 le 32"
       - "10.254.252.233/32"
       - "10.254.252.243/32"
       - "10.254.252.253/32"
     'ip_access_list6':
-      - "2001:700:2:82f0::1000/118"
+      - "2001:700:2:82f0::1000/118 le 128"
       - "2001:700:2:82f0::1344/128"
   'elastic_rail_o1t':
+    'vrf': 'default'
     'options':
       - 'peer-group'
       - "remote-as %{hiera('elasticip_rail_o1t_asn')}"
@@ -1147,14 +1155,15 @@ frrouting::frrouting::bgp_neighbor_groups:
       - "158.37.66.253/32"
       - "158.37.66.254/32"
       - "158.39.75.254/32"
-      - "10.254.240.0/22"
+      - "10.254.240.0/22 le 32"
       - "10.254.252.234/32"
       - "10.254.252.244/32"
       - "10.254.252.254/32"
     'ip_access_list6':
-      - "2001:700:2:82f0::2000/118"
+      - "2001:700:2:82f0::2000/118 le 128"
       - "2001:700:2:82f0::1345/128"
   'elastic_rail_n1t':
+    'vrf': 'default'
     'options':
       - 'peer-group'
       - "remote-as %{hiera('elasticip_rail_n1t_asn')}"
@@ -1169,13 +1178,14 @@ frrouting::frrouting::bgp_neighbor_groups:
       - '10.6.16.32/27'
       - '2001:700:2:8202::40/122'
     'ip_access_list':
-      - "10.254.216.0/22"
+      - "10.254.216.0/22 le 32"
       - "10.254.252.237/32"
       - "10.254.252.247/32"
     'ip_access_list6':
-      - "2001:700:2:82f0::5000/118"
+      - "2001:700:2:82f0::5000/118 le 128"
       - "2001:700:2:82f0::1348/128"
   'elastic_rail_mgmt':
+    'vrf': 'default'
     'options':
       - 'peer-group'
       - "remote-as %{hiera('elasticip_rail_mgmt_asn')}"
@@ -1190,13 +1200,14 @@ frrouting::frrouting::bgp_neighbor_groups:
       - '10.6.17.0/24'
       - '2001:700:2:8202::100/120'
     'ip_access_list':
-      - "10.254.232.0/22"
+      - "10.254.232.0/22 le 32"
       - "10.254.252.235/32"
       - "10.254.252.245/32"
     'ip_access_list6':
-      - "2001:700:2:82f0::3000/118"
+      - "2001:700:2:82f0::3000/118 le 128"
       - "2001:700:2:82f0::1346/128"
   'elastic_rail_n1p':
+    'vrf': 'default'
     'options':
       - 'peer-group'
       - "remote-as %{hiera('elasticip_rail_n1p_asn')}"
@@ -1211,19 +1222,12 @@ frrouting::frrouting::bgp_neighbor_groups:
       - '10.6.18.0/24'
       - '2001:700:2:8202::200/120'
     'ip_access_list':
-      - "10.254.224.0/22"
+      - "10.254.224.0/22 le 32"
       - "10.254.252.236/32"
       - "10.254.252.246/32"
     'ip_access_list6':
-      - "2001:700:2:82f0::4000/118"
+      - "2001:700:2:82f0::4000/118 le 128"
       - "2001:700:2:82f0::1347/128"
-
-frrouting::frrouting::bgp_options:
-  - "bgp router-id %{ipaddress_trp1}"
-  - 'bgp log-neighbor-changes'
-  - 'bgp default local-preference 200'
-  - 'maximum-paths ibgp 5'
-  - 'bgp bestpath as-path multipath-relax'
 
 frrouting::frrouting::bgp_accesslist:
   '10':
@@ -1285,6 +1289,37 @@ frrouting::frrouting::bgp_ipv6_prefix_list:
   - 'uninett-routes6-out seq 5 permit 2001:700:2:8200::/56'
   - 'uninett-routes6-out seq 10 deny any'
   - 'default-route6 seq 5 permit ::/0'
+
+frrouting::frrouting::zebra_ip6_routes:
+#  - '::/0 fd32::701'
+#  - '::/0 fd32:18:230::2 50'
+  - '2001:700:2:8200::/56 Null0'
+  - '2001:700:2:8c00::/59 Null0'
+  - '2001:700:2:82ff::8/128 fd32::8'
+  - '2001:700:2:82ff::12/128 fd32::12'
+  - '2001:700:2:82ff::251/128 fd32::16'
+  - '2001:700:2:82ff::256/128 fd32::34'
+  - '2001:700:2:82ff::254/128 fd32::51'
+  - '2001:700:2:82ff::97/128 fd32::97'
+frrouting::frrouting::zebra_ip_routes:
+#  - '0.0.0.0/0 172.18.39.1'
+#  - '0.0.0.0/0 172.18.230.1 50'
+  - '10.0.0.0/8 Null0'
+  - '78.91.122.0/23 Null0'
+  - '158.37.63.0/24 Null0'
+  - '158.37.66.0/24 Null0'
+  - '158.39.48.0/24 Null0'
+  - '158.39.75.0/24 Null0'
+  - '158.39.200.0/24 Null0'
+  - '158.39.75.246/32 172.18.32.8'  # login-02
+  - '158.37.63.248/32 172.18.32.26' # nat-01
+  - '158.39.75.248/32 172.18.32.27' # nat-02
+  - '158.37.63.249/32 172.18.32.41' # db-global-01
+  - '158.37.63.250/32 172.18.32.86' # api-01
+  - '158.37.63.251/32 172.18.32.16' # ns-01
+  - '158.37.63.253/32 172.18.32.12' # proxy-01
+  - '158.37.63.254/32 172.18.32.51' # dashboard
+  - '158.39.75.247/32 172.18.32.97' # proxy-02
 
 frrouting::frrouting::bgp_route_maps:
   'rr-client-allow permit 10':

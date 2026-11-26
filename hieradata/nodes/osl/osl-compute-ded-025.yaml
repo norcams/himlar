@@ -7,8 +7,6 @@ named_interfaces::config:
   live:
   - bond0.120
 
-#FIXME:el9 move to common after all computes are el9 with zed
-openstack_version: "zed"
 
 profile::base::network::nm_network_auto_bonding:
   trp:
@@ -23,6 +21,21 @@ profile::base::network::nm_network_auto_bonding:
 # https://docs.openstack.org/nova/zed/configuration/config.html#compute.cpu_dedicated_set
 nova::compute::cpu_dedicated_set:
   - '0-127'
+
+profile::base::lvm::physical_volume:
+  '/dev/disk/by-id/wwn-0x55cd2e41508e56dd-part4':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_ext':
+    followsymlinks: true
+    physical_volumes:
+      - '/dev/disk/by-id/wwn-0x55cd2e41508e56dd-part4'
+profile::base::lvm::logical_volume:
+  'lv_instances':
+    volume_group: 'vg_ext'
+    fs_type:      "xfs"
+    mountpath:    "/var/lib/nova/instances"
 
 #---------------------------------------------------------------------
 # Configure to use modular libvirt

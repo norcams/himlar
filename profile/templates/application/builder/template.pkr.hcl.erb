@@ -1,0 +1,117 @@
+packer {
+  required_plugins {
+    openstack = {
+      version = "~> 1.1"
+      source  = "github.com/hashicorp/openstack"
+    }
+  }
+}
+
+# imagebuilder passes all of these on every build. An HCL2 template must
+# declare every -var it is given, or packer stops with "Undefined -var
+# variable" before doing anything -- so provision_script is declared here even
+# though the scripts list below does not use it.
+variable "image_name" {
+  type        = string
+  description = "Name of the resulting image in Glance"
+}
+
+variable "source_image" {
+  type        = string
+  description = "ID of the image to build from"
+}
+
+variable "flavor" {
+  type        = string
+  description = "Flavor of the build instance"
+}
+
+variable "network" {
+  type        = string
+  description = "ID of the network to attach the build instance to"
+}
+
+variable "security_group" {
+  type        = string
+  description = "Name of the temporary security group"
+}
+
+variable "ssh_username" {
+  type        = string
+  description = "User created by cloud-init in the source image"
+}
+
+variable "ssh_keypair_name" {
+  type        = string
+  description = "Name of the temporary keypair as stored in OpenStack"
+}
+
+variable "ssh_key_path" {
+  type        = string
+  description = "Path to the private key matching ssh_keypair_name"
+}
+
+variable "availability_zone" {
+  type        = string
+  description = "Availability zone to build in"
+}
+
+variable "manifest_path" {
+  type        = string
+  description = "Where the manifest post-processor writes the build result"
+}
+
+variable "provision_script" {
+  type        = string
+  description = "User supplied provision script, from imagebuilder -p"
+  default     = "/bin/true"
+}
+
+source "openstack" "image" {
+  image_name           = var.image_name
+  source_image         = var.source_image
+  flavor               = var.flavor
+  networks             = [var.network]
+  tenant_name          = "imagebuilder"
+  domain_name          = "Default"
+<% if @insecure -%>
+  insecure             = true
+<% end -%>
+  security_groups      = [var.security_group]
+  ssh_username         = var.ssh_username
+  ssh_keypair_name     = var.ssh_keypair_name
+  ssh_private_key_file = var.ssh_key_path
+  ssh_pty              = true
+  availability_zone    = var.availability_zone
+}
+
+build {
+  sources = ["source.openstack.image"]
+
+  provisioner "shell" {
+    # HCL2 permits a trailing comma, so every entry can end in one and the
+    # loops below need no special case for the last element
+    scripts = [
+<% @custom_scripts.each do |script| -%>
+      "<%= script %>",
+<% end -%>
+      "/opt/imagebuilder/scripts/uio-rhel.sh",
+<% if @ipv6 -%>
+      "/opt/imagebuilder/scripts/enable_ipv6.sh",
+<% end -%>
+      "/opt/imagebuilder/scripts/fstrim.sh",
+      "/opt/imagebuilder/scripts/upgrade.sh",
+      "/opt/imagebuilder/scripts/qemu_guest_agent.sh",
+      "/opt/imagebuilder/scripts/autopatch.sh",
+      "<%= @custom_scriptdir %>/report.sh",
+      "/opt/imagebuilder/scripts/sshd_hardening.sh",
+      "/opt/imagebuilder/scripts/grub.sh",
+      "/opt/imagebuilder/scripts/cleanup.sh",
+      "/opt/imagebuilder/scripts/uio-cleanup.sh",
+    ]
+  }
+
+  post-processor "manifest" {
+    output = var.manifest_path
+  }
+}

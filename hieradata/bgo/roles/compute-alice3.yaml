@@ -7,6 +7,12 @@ profile::base::common::packages:
 profile::virtualization::nested::module: 'kvm_amd'
 profile::virtualization::nested::value:  '0'
 
+# Enable static hugepages to prevent OOM-killer when using NUMA.
+profile::base::physical::enable_hugepages: true
+# Number and size of hugepages, based on 768GB - 32 GB (4GB free pr node)
+profile::base::physical::hugepagesz:       '2M'
+profile::base::physical::hugepages:        '376832'
+
 # Nova overrides
 nova::compute::libvirt::cpu_models: ['EPYC-Turin']
 nova::cpu_allocation_ratio:         '1'
@@ -31,8 +37,8 @@ profile::base::lvm::logical_volume:
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
 
-#FIXME:el9 move to common after all computes are el9 with zed
-openstack_version: "zed"
+# Used when upgrading Openstack
+#openstack_version: "FIXME"
 named_interfaces::config:
   mgmt:
   - p5p1
@@ -69,3 +75,11 @@ sensu::agent::annotations:
 # Red Hat Subscription Management (RHSM)
 profile::rhsm::subscription::manage: false
 profile::rhsm::virtwho::manage:      false
+
+# Temp fix for bird issues
+profile::base::cron::crontabs:
+  restart_bird:
+    hour:     '9'
+    minute:   '0'
+    weekday:  ['1','4']
+    command:  "sleep $(awk 'BEGIN{srand(); print int(rand()*15)+1}');/sbin/birdc restart pipe5; /sbin/birdc restart pipe6; /sbin/birdc restart kernel6 >/dev/null"

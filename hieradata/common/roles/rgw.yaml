@@ -7,6 +7,8 @@ include:
     - profile::highavailability::loadbalancing::haproxy
     - profile::logging::rsyslog::client
 
+openstack_version: "yoga" #FIXME: need to upgrade rgw to el9 and zed
+
 # FIXME:sensu-go
 profile::monitoring::sensu::agent::enable_go_agent:   true
 profile::monitoring::sensu::agent::enable_agent:      false

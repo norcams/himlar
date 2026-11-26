@@ -105,8 +105,6 @@ profile::monitoring::sensu::backend::bonsai_assets:
   sensu/monitoring-plugins:
     version: 2.10.5
 # useful assets
-  # jadiunr/check-smart-status:
-  #   version: 0.0.1
   # elfranne/check-haproxy-endpoint:
   #   version: 0.3.2
 
@@ -127,11 +125,14 @@ sensu::agent::subscriptions:
   # - 'haproxy'
   # - 'proxy'
   # - 'physical'
+  # - 'smart'
   # - 'storage'
   # - 'object'
   # - 'compute'
   # - 'cephmon'
   # - 'cephmon-object'
+  # - 'builder'
+  # - 'db_dump'
 
 profile::monitoring::sensu::backend::handlers:
   default:
@@ -346,6 +347,24 @@ profile::monitoring::sensu::agent::checks:
     handlers:       ['default']
     runtime_assets:
     - sensu/mysql-check
+  'check-db-backup':
+    command:        '/usr/local/bin/check-db-backup.sh'
+    interval:       3600
+    subscriptions:  ['db']
+    handlers:       ['default']
+# LOGIN
+  'check-db-dump':
+    command:        'sensu-check-multiplexer -c /usr/local/bin/check-db-backup.sh --annotation-prefix "check-db-dump/args"'
+    stdin:          true
+    interval:       3600
+    subscriptions:  ['db_dump']
+    handlers:       ['default']
+    runtime_assets:
+    - sensu/sensu-check-multiplexer
+    annotations:
+      check-db-dump/args/db_global: "/opt/repo/secrets/dumps %{::location}-db-global-01.%{hiera('domain_mgmt')}"
+      check-db-dump/args/db_regional: "/opt/repo/secrets/dumps %{::location}-db-regional-01.%{hiera('domain_mgmt')}"
+      check-db-dump/args/db_metric: "/opt/repo/secrets/dumps %{::location}-metric-01.%{hiera('domain_mgmt')}"
 # COMPUTE
   'check-metadata-api':
     command:        'http-check --url http://127.0.0.1:8775'
@@ -379,7 +398,7 @@ profile::monitoring::sensu::agent::checks:
     handlers:       ['default']
     runtime_assets:
     - sensu/http-check
-# L40s 
+# L40s
   'l40s-gpu-pci-check':
     command:      "/usr/local/bin/check_l40s_pci.sh"
     interval:     60
@@ -397,13 +416,51 @@ profile::monitoring::sensu::agent::checks:
     # interval:       300
     # subscriptions:  ['physical']
     # handlers:       ['status']
-  # 'smart-disk-check':
-  #   command:        'check-smart-status'
-  #   interval:       1800
-  #   subscriptions:  ['physical']
-  #   handlers:       ['default']
-  #   runtime_assets:
-  #   - jadiunr/check-smart-status
+  # BUILDER
+  'check-images':
+    command:        '/usr/local/bin/check-images.sh'
+    cron:           "0 8 * * 1-5"
+    subscriptions:  ['builder']
+    handlers:       ['default']
+# SMART
+# Runs on hosts subscribing to 'smart'. The node side (smartmontools, the
+# script and the sudo rule) comes from profile::monitoring::smart. Everything
+# is tunable per host with sensu::agent::annotations, see that class.
+  'smart-check':
+    command: >-
+      sudo /usr/local/bin/check_smart.py
+      --temp-warning {{ .annotations.smart_temp_warning | default 55 }}
+      --temp-critical {{ .annotations.smart_temp_critical | default 65 }}
+      --wear-warning {{ .annotations.smart_wear_warning | default 85 }}
+      --wear-critical {{ .annotations.smart_wear_critical | default 95 }}
+      --reallocated-warning {{ .annotations.smart_reallocated_warning | default 1 }}
+      --reallocated-critical {{ .annotations.smart_reallocated_critical | default 100 }}
+      --pending-warning {{ .annotations.smart_pending_warning | default 1 }}
+      --pending-critical {{ .annotations.smart_pending_critical | default 10 }}
+      --defects-warning {{ .annotations.smart_defects_warning | default 10 }}
+      --defects-critical {{ .annotations.smart_defects_critical | default 100 }}
+      {{ .annotations.smart_extra_args | default "" }}
+    interval:       1800
+    timeout:        600 # a node with many spinning disks needs a while
+    subscriptions:  ['smart']
+    handlers:       ['default']
+    annotations:
+    - fatigue_check/occurrences: '2' # a single bad read should not page us
+    # add '--perfdata' to smart_extra_args together with
+    # output_metric_format: 'nagios_perfdata' to also graph temperature and wear
+# MDRAID
+# Runs on hosts subscribing to 'mdraid'. The node side (the check script) comes
+# from profile::monitoring::mdraid, which follows
+# profile::base::common::manage_mdadm but can also be enabled on its own for
+# arrays built at install time, the root disk mirror for instance. Degraded and
+# rebuilding is a warning, degraded and idle is critical, see the script.
+  'mdraid-check':
+    command:        '/usr/local/bin/check_mdraid.sh'
+    interval:       300
+    subscriptions:  ['mdraid']
+    handlers:       ['default']
+    annotations:
+    - fatigue_check/occurrences: '2'
 
 
 # profile::dns::ns::ns_master1

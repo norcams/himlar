@@ -175,6 +175,8 @@ profile::network::services::dns_records:
     "%{::location}-compute-shpc-054.%{hiera('domain_mgmt')}": "%{::location}-compute-54.%{hiera('domain_mgmt')}"
     "%{::location}-compute-shpc-056.%{hiera('domain_mgmt')}": "%{::location}-compute-56.%{hiera('domain_mgmt')}"
     "%{::location}-compute-shpc-055.%{hiera('domain_mgmt')}": "%{::location}-compute-55.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-shpc-077.%{hiera('domain_mgmt')}": "%{::location}-compute-77.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-shpc-018.%{hiera('domain_mgmt')}": "%{::location}-compute-18.%{hiera('domain_mgmt')}"
     # GPU
     "%{::location}-compute-vgpu-17.%{hiera('domain_mgmt')}": "%{::location}-compute-17.%{hiera('domain_mgmt')}"
     "%{::location}-compute-vgpu-19.%{hiera('domain_mgmt')}": "%{::location}-compute-19.%{hiera('domain_mgmt')}"
@@ -182,6 +184,10 @@ profile::network::services::dns_records:
     "%{::location}-compute-vgpu-42.%{hiera('domain_mgmt')}": "%{::location}-compute-42.%{hiera('domain_mgmt')}"
     "%{::location}-compute-l40s-067.%{hiera('domain_mgmt')}": "%{::location}-compute-67.%{hiera('domain_mgmt')}"
     "%{::location}-compute-l40s-068.%{hiera('domain_mgmt')}": "%{::location}-compute-68.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-rtx6k-081.%{hiera('domain_mgmt')}": "%{::location}-compute-81.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-rtx6k-019.%{hiera('domain_mgmt')}": "%{::location}-compute-19.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-rtx6k-017.%{hiera('domain_mgmt')}": "%{::location}-compute-17.%{hiera('domain_mgmt')}"
+    "%{::location}-compute-rtx6k-020.%{hiera('domain_mgmt')}": "%{::location}-compute-20.%{hiera('domain_mgmt')}"
     # General compute (temporary wrt. el9)
     "%{::location}-compute-010.%{hiera('domain_mgmt')}":     "%{::location}-compute-10.%{hiera('domain_mgmt')}"
     "%{::location}-compute-057.%{hiera('domain_mgmt')}":     "%{::location}-compute-57.%{hiera('domain_mgmt')}"
@@ -214,8 +220,6 @@ profile::network::services::dns_records:
     "%{::location}-object-ceph-03.%{hiera('domain_mgmt')}":  "%{::location}-object-03.%{hiera('domain_mgmt')}"
     "%{::location}-object-ceph-04.%{hiera('domain_mgmt')}":  "%{::location}-object-04.%{hiera('domain_mgmt')}"
     "%{::location}-object-ceph-05.%{hiera('domain_mgmt')}":  "%{::location}-object-05.%{hiera('domain_mgmt')}"
-    # Dedicated
-    "%{::location}-compute-robin-18.%{hiera('domain_mgmt')}": "%{::location}-compute-18.%{hiera('domain_mgmt')}"
     # Huawei ceph nodes
     "%{::location}-storage-v2h-13.%{hiera('domain_mgmt')}":  "%{::location}-storage-13.%{hiera('domain_mgmt')}"
     "%{::location}-storage-v2h-14.%{hiera('domain_mgmt')}":  "%{::location}-storage-14.%{hiera('domain_mgmt')}"
@@ -344,6 +348,8 @@ profile::network::services::dns_records:
     "110.%{hiera('reverse_public_c2')}":                                         'portalto1.uit.no'
     "204.%{hiera('reverse_public_c3')}":                                         'portalto2.uit.no'
     "233.%{hiera('reverse_public_c4')}":                                         'mail.meshr.org'
+    "65.%{hiera('reverse_public_c1')}":                                          'annotation.flares.uit.no'
+    "46.%{hiera('reverse_public_c1')}":                                          'nextcloud.flares.uit.no'
     # Dette nettet er IKKE delegert til oss! (mikaeld 9/2 2021)
     #'0.f.5.2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  'atlas-db-squid1.grid.uiocloud.no'
     #'c.6.0.2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.8.2.0.0.0.0.0.7.0.1.0.0.2.ip6.arpa':  'oncotools.elixir.no'

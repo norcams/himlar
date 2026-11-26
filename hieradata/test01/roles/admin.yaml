@@ -10,6 +10,9 @@ dhcp::hosts:
   test01-mgmt-sonic-01:
     mac: 'b4:db:91:f9:f7:1b'
     ip:  '172.28.2.1'
+  test01-login-03-bmc:
+    mac: '2c:ea:7f:f1:66:a0'
+    ip:  '172.29.0.199'
   test01-pdu-01:
     mac: '28:29:86:11:96:50'
     ip:  '172.29.0.99'
@@ -58,12 +61,12 @@ dhcp::hosts:
   test01-storage-05-bmc:
     mac: 'b0:83:fe:e9:01:a5'
     ip:  '172.29.0.110'
-  test01-object-01-bmc:
+  test01-storage-cern-006-bmc:
     mac: '18:fb:7b:99:3b:a6'
-    ip:  '172.29.0.119'
-  test01-object-02-bmc:
+    ip:  '172.29.0.113'
+  test01-storage-cern-007-bmc:
     mac: '18:fb:7b:99:4f:50'
-    ip:  '172.29.0.120'
-  test01-object-03-bmc:
+    ip:  '172.29.0.115'
+  test01-storage-cern-008-bmc:
     mac: '18:fb:7b:99:4f:be'
-    ip:  '172.29.0.121'
+    ip:  '172.29.0.116'

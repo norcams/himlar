@@ -39,8 +39,8 @@ profile::base::lvm::logical_volume:
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
 
-#FIXME:el9 move to common after all computes are el9 with zed
-openstack_version: "zed"
+# Used when upgrading Openstack
+#openstack_version: "FIXME"
 named_interfaces::config:
   mgmt:
   - em1
@@ -77,3 +77,11 @@ sensu::agent::annotations:
 # Red Hat Subscription Management (RHSM)
 profile::rhsm::subscription::manage: false
 profile::rhsm::virtwho::manage:      false
+
+# Temp fix for bird issues
+profile::base::cron::crontabs:
+  restart_bird:
+    hour:     '8'
+    minute:   '55'
+    weekday:  ['1','4']
+    command:  "sleep $(awk 'BEGIN{srand(); print int(rand()*15)+1}');/sbin/birdc restart pipe5; /sbin/birdc restart pipe6; /sbin/birdc restart kernel6 >/dev/null"

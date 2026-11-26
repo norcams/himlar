@@ -17,8 +17,8 @@ named_interfaces::config:
   live:
   - bond0.120
 
-#FIXME:el9 move to common after all computes are el9 with zed
-openstack_version: "zed"
+# Used when upgrading Openstack
+#openstack_version: "FIXME"
 
 profile::base::lvm::physical_volume:
   '/dev/sda':
@@ -39,7 +39,9 @@ nova::compute::rbd::ephemeral_storage: false
 nova::compute::libvirt::images_type: 'default'
 
 # Nova overrides
-nova::compute::libvirt::cpu_models: ['GraniteRapids']
+nova::compute::libvirt::cpu_models: ['SapphireRapids','Broadwell-noTSX-IBRS']
+#kernel has disabled TSX (hle and rtm) as a security mitigation for the TAA vulnerability
+nova::compute::libvirt::cpu_model_extra_flags: ['-hle', '-rtm']
 nova::cpu_allocation_ratio:                      '2'
 nova::disk_allocation_ratio:                     '1'
 nova::ram_allocation_ratio:                      '1.1'

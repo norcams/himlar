@@ -141,7 +141,107 @@ profile::base::network::cumulus_bonds:
   'peerlink':
     'slaves': [ 'swp30', ]
     'mtu':   '9216'
+    
+  'host8':
+    'slaves': [ 'swp2s3', ]
+    'clag_id': '8'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host9':
+    'slaves': [ 'swp3s0', ]
+    'clag_id': '9'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host10':
+    'slaves': [ 'swp3s1', ]
+    'clag_id': '10'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host11':
+    'slaves': [ 'swp3s2', ]
+    'clag_id': '11'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
 
+  'host17':
+    'slaves': [ 'swp5s0', ]
+    'clag_id': '17'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host18':
+    'slaves': [ 'swp5s1', ]
+    'clag_id': '18'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host19':
+    'slaves': [ 'swp5s2', ]
+    'clag_id': '19'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host20':
+    'slaves': [ 'swp5s3', ]
+    'clag_id': '20'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+
+  'host21':
+    'slaves': [ 'swp6s0', ]
+    'clag_id': '21'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host22':
+    'slaves': [ 'swp6s1', ]
+    'clag_id': '22'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host23':
+    'slaves': [ 'swp6s2', ]
+    'clag_id': '23'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host24':
+    'slaves': [ 'swp6s3', ]
+    'clag_id': '24'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+
+    
   'host25':
     'slaves': [ 'swp7s0', ]
     'clag_id': '25'
@@ -174,6 +274,33 @@ profile::base::network::cumulus_bonds:
     'mstpctl_bpduguard': true
     'vids': [ '100', '110', '120', '130', ]
     'mtu': '9216'
+
+  'host41':
+    'slaves': [ 'swp11s0', ]
+    'clag_id': '41'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host42':
+    'slaves': [ 'swp11s1', ]
+    'clag_id': '42'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+  'host43':
+    'slaves': [ 'swp11s2', ]
+    'clag_id': '43'
+    'pvid': '100'
+    'mstpctl_portadminedge': true
+    'mstpctl_bpduguard': true
+    'vids': [ '100', '110', '120', '130', ]
+    'mtu': '9216'
+
+
   'host53':
     'slaves': [ 'swp14s0', ]
     'clag_id': '53'
@@ -370,10 +497,25 @@ profile::network::leaf::cumulus_portconfigs:
 profile::base::network::cumulus_bridges:
   'bridge':
     'ports':
+      - host8
+      - host9
+      - host10
+      - host11
+      - host17
+      - host18
+      - host19
+      - host20
+      - host21
+      - host22
+      - host23
+      - host24  
       - host25
       - host26
       - host27
       - host28
+      - host41
+      - host42
+      - host43
       - host53
       - host54
       - host55
