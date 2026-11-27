@@ -131,6 +131,8 @@ sensu::agent::subscriptions:
   # - 'compute'
   # - 'cephmon'
   # - 'cephmon-object'
+  # - 'builder'
+  # - 'db_dump'
 
 profile::monitoring::sensu::backend::handlers:
   default:
@@ -249,7 +251,7 @@ profile::monitoring::sensu::agent::checks:
   'cert-check-multiplex':
     command: sensu-check-multiplexer --command check-https-cert.rb --annotation-prefix "check-https-cert/args" -a "-c 10 -w 20 %{hiera('sensu_ssl_cachain')}"
     stdin:          true # needed for multiplexer to work!
-    interval:       3600
+    cron:           "0 8 * * 1-5"
     subscriptions:  ['monitor']
     handlers:       ['default']
     round_robin:    true
@@ -264,6 +266,7 @@ profile::monitoring::sensu::agent::checks:
       check-https-cert/args/identity_cert: "-u %{hiera('endpoint__identity__public')}"
       check-https-cert/args/report_cert: "-u https://%{hiera('public__address__report')}"
       check-https-cert/args/object_cert: "-u %{hiera('public__address__object')}"
+      check-https-cert/args/docs_cert: "-u %{hiera('public__address__docs')}"
   influxdb-checks:
     command:        "http-check --url https://%{hiera('mgmt__address__influx')}:8086/ping %{hiera('sensu_influxdb_ssl_ca')}"
     interval:       600
@@ -345,6 +348,24 @@ profile::monitoring::sensu::agent::checks:
     handlers:       ['default']
     runtime_assets:
     - sensu/mysql-check
+  'check-db-backup':
+    command:        '/usr/local/bin/check-db-backup.sh'
+    interval:       3600
+    subscriptions:  ['db']
+    handlers:       ['default']
+# LOGIN
+  'check-db-dump':
+    command:        'sensu-check-multiplexer -c /usr/local/bin/check-db-backup.sh --annotation-prefix "check-db-dump/args"'
+    stdin:          true
+    interval:       3600
+    subscriptions:  ['db_dump']
+    handlers:       ['default']
+    runtime_assets:
+    - sensu/sensu-check-multiplexer
+    annotations:
+      check-db-dump/args/db_global: "/opt/repo/secrets/dumps %{::location}-db-global-01.%{hiera('domain_mgmt')}"
+      check-db-dump/args/db_regional: "/opt/repo/secrets/dumps %{::location}-db-regional-01.%{hiera('domain_mgmt')}"
+      check-db-dump/args/db_metric: "/opt/repo/secrets/dumps %{::location}-metric-01.%{hiera('domain_mgmt')}"
 # COMPUTE
   'check-metadata-api':
     command:        'http-check --url http://127.0.0.1:8775'
@@ -378,7 +399,7 @@ profile::monitoring::sensu::agent::checks:
     handlers:       ['default']
     runtime_assets:
     - sensu/http-check
-# L40s 
+# L40s
   'l40s-gpu-pci-check':
     command:      "/usr/local/bin/check_l40s_pci.sh"
     interval:     60
@@ -396,6 +417,12 @@ profile::monitoring::sensu::agent::checks:
     # interval:       300
     # subscriptions:  ['physical']
     # handlers:       ['status']
+  # BUILDER
+  'check-images':
+    command:        '/usr/local/bin/check-images.sh'
+    cron:           "0 8 * * 1-5"
+    subscriptions:  ['builder']
+    handlers:       ['default']
 # SMART
 # Runs on hosts subscribing to 'smart'. The node side (smartmontools, the
 # script and the sudo rule) comes from profile::monitoring::smart. Everything

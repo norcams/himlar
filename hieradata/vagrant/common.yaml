@@ -8,6 +8,15 @@ include:
     - profile::application::openssl::catrust
     - profile::application::openssl
 
+# change from puppetlabs to openvox
+puppet::client_package: 'openvox-agent'
+puppet::server_package: 'openvox-server'
+profile::base::yumrepo::repo_hash:
+  puppetlabs7:
+    ensure: absent
+  openvox7:
+    ensure: present
+
 # Location setting
 location_environment: vagrant
 location_description: Local full development environment using vagrant
