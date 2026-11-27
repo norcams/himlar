@@ -1,15 +1,72 @@
 ---
 profile::bootstrap::himlar::libvirt:
-  '%{location}-admin-01':
-    domain:          '%{domain}'
-    libvirt_pool:    'dirpool'
-    libvirt_network: 'directnet'
-    install_ip:      '172.28.32.11'
-    install_netmask: '255.255.255.0'
-    install_gateway: '172.28.32.10'
-    vm_console:       false
-    use_dhcp:         false
+  '%{::location}-admin-01':
+    libvirt_pool:     'dirpool'
+    libvirt_networks:
+      - 'mgmtnet'
+      - 'oobnet'
+    puppet_env:       'admin_el9' #FIXME change to admin after all run el9
+    node_ip:          "%{hiera('netcfg_mgmt_netpart')}.11"
+    node_netmask:     '%{::netmask_mgmt1}'
+    node_gateway:     "%{hiera('netcfg_mgmt_netpart')}.10"
+    os_variant:       'almalinux9'
+    root_size:        40
+    maxsize:          18240
+    vm_vcpus:         4
+    vm_memory:        16192
+    vm_console:       'ttyS0'
 
-profile::base::yumrepo::repo_hash:
-  elrepo:
+# FIXME: libvirt overrides for el9, move to common/roles later
+profile::virtualization::libvirt::moduler_daemons:    true
+profile::virtualization::libvirt::merge_strategy:     'first'
+profile::virtualization::libvirt::networks:
+  mgmtnet:
+    ensure:              present
+    autostart:           true
+    forward_mode:        bridge
+    bridge:              br0
+  trpnet:
+    ensure:              present
+    autostart:           true
+    forward_mode:        bridge
+    bridge:              br1
+  oobnet:
+    ensure:              present
+    autostart:           true
+    forward_mode:        bridge
+    bridge:              br2
+
+libvirt::service_name:      'virtqemud.service'
+libvirt::purge_network:     'purge'
+libvirt::qemu_conf:
+  vnc_listen: "%{::ipaddress_mgmt1}"
+  vnc_tls:    '0'
+  vnc_sasl:   '0'
+libvirt::service::modular_services:
+  virtqemud.service:
+    ensure: 'running'
+    enable: true
+  virtproxyd-tcp.socket:
+    ensure: 'running'
+    enable: true
+  virtstoraged.socket:
+    ensure: 'running'
+    enable: true
+  virtnetworkd.service:
+    ensure: 'running'
+    enable: true
+
+lvm::volume_groups: {} # override config in common
+profile::base::lvm::physical_volume:
+  '/dev/sda':
     ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_ext':
+    physical_volumes:
+      - /dev/sda
+profile::base::lvm::logical_volume:
+  'lv_instances':
+    volume_group: 'vg_ext'
+    fs_type:      "xfs"
+    mountpath: "/var/lib/libvirt/images"

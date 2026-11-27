@@ -11,6 +11,15 @@ profile::network::services::manage_dns_records: false
 # Bind utils will be installed with foreman::dns
 profile::base::common::packages:
   'bind-utils': { ensure: absent }
+  'ruby': #FIXME: remove from common to avoid this override when all admin run el9
+    ensure: present
+    provider: 'dnf'
+    enable_only: false
+
+foreman_version: '3.12'
+
+# postgresql 13 is default in el9
+postgresql::globals::version: '13'
 
 # Example ZTP json file for sonic
 # profile::bootstrap::repo::ztp_json:

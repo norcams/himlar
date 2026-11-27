@@ -74,8 +74,8 @@ ssh::server::options:
   # internal mgmt network osl
   'Match User git,norcams Address 172.16.32.0/21':
     AuthenticationMethods: 'publickey'
-  # internal mgmt network test02
-  'Match User git Address 172.28.32.0/24':
+  # test02-login-01 (FIXME: temp access only)
+  'Match User git Address 129.240.114.20':
     AuthenticationMethods: 'publickey'
   # download/repo-server
   'Match User git Address 129.240.121.86':

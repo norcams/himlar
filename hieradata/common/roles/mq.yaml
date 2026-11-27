@@ -4,6 +4,8 @@ include:
     - profile::messaging::rabbitmq
     - profile::logging::rsyslog::client
 
+openstack_version: "yoga" #FIXME: need to upgrade mq to el9 and zed
+
 # Memory tuning
 mq__high__watermark:      0.6
 rabbitmq::tcp_recbuf:     32768

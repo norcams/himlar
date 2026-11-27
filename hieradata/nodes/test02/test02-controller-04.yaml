@@ -8,6 +8,8 @@ network::interfaces_hash:
       dns-search:     "%{hiera('netcfg_dns_search_nm')}"
       gateway:        "%{hiera('netcfg_mgmt_gateway')}"
       method:         'manual'
+    bridge:
+      stp:            'false'
   br1: # trp
     connection_type:  'bridge'
     bridge:
@@ -18,6 +20,8 @@ network::interfaces_hash:
       method:         'manual'
   br2: # oob
     connection_type:  'bridge'
+    bridge:
+      stp:            'false'
   eth0: # mgmt
     controller:       'br0'
     ipv4: {}
@@ -58,59 +62,23 @@ network::interfaces_hash:
   #  ethernet:
   #    mtu:  9000
 
-lvm::volume_groups:
-  vg_ext:
+profile::base::lvm::physical_volume:
+  '/dev/disk/by-id/wwn-0x61866da0b060fc00328f25b013a2dbcf':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_ext':
+    followsymlinks: true
     physical_volumes:
-      - /dev/disk/by-id/wwn-0x61866da08064a4003260e96019d126c7 # FIXME: wrong wwn
-    logical_volumes:
-      lv_ext:
-        fs_type:   xfs
-        mountpath: "/var/lib/libvirt/images"
-
+      - /dev/disk/by-id/wwn-0x61866da0b060fc00328f25b013a2dbcf
 include:
   default:
     - profile::application::windowsimage
 
-# FIXME: libvirt overrides for el9, move to roles/modules later
-profile::virtualization::libvirt::moduler_daemons:    true
-profile::virtualization::libvirt::merge_strategy:     'first'
-profile::virtualization::libvirt::networks:
-  directnet:
-    ensure:              present
-    autostart:           true
-    forward_mode:        bridge
-    bridge:              br0
-  trpnet:
-    ensure:              present
-    autostart:           true
-    forward_mode:        bridge
-    bridge:              br1
-  oobnet:
-    ensure:              present
-    autostart:           true
-    forward_mode:        bridge
-    bridge:              br2
+# bootstrap test02-admin-01 from this controller
+profile::bootstrap::himlar::manage_bootstrap_scripts: true
 
-libvirt::service_name:      'virtqemud.service'
-libvirt::purge_network:     'purge'
-libvirt::qemu_conf:
-  vnc_listen: "%{::ipaddress_mgmt1}"
-  vnc_tls:    '0'
-  vnc_sasl:   '0'
-libvirt::service::modular_services:
-  virtqemud.service:
-    ensure: 'running'
-    enable: true
-  virtproxyd-tcp.socket:
-    ensure: 'running'
-    enable: true
-  virtstoraged.socket:
-    ensure: 'running'
-    enable: true
-  virtnetworkd.service:
-    ensure: 'running'
-    enable: true
-
+# build windows only on this controller
 profile::application::windowsimage::enable: true
 profile::application::windowsimage::manage_firewall: true
 profile::base::yumrepo::repo_hash:
