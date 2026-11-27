@@ -1,9 +1,22 @@
 ---
 profile::base::common::manage_lvm: true
 
-# FIXME:sensu-go
-# profile::monitoring::sensu::agent::checks:
-#   'windowsbuilder_key':
-#     command:      "sudo /opt/sensu/embedded/bin/check-file-missing.rb -f /home/imagebuilder/.ssh/windowsbuilder_rsa"
-#     interval:     60
-#     subscribers:  ['checks']
+profile::application::builder::fetch_windows_images: true
+profile::application::builder::windows_images:
+  'winsrv_2022':
+    'version':          '2022'
+    'buildhost':        "bgo-controller-08.mgmt.bgo.uhdc.no"
+    'weekday':          '*'
+    'monthday':         '8-14'
+    'hour':             6
+    'minute':           0
+  'winsrv_2025':
+    'version':          '2025'
+    'buildhost':        "bgo-controller-08.mgmt.bgo.uhdc.no"
+    'weekday':          '*'
+    'monthday':         '8-14'
+    'hour':             3
+    'minute':           0
+
+# FIXME: temporary disable sensu
+profile::monitoring::sensu::agent::enable_go_agent: false

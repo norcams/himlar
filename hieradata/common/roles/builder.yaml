@@ -50,18 +50,11 @@ profile::openstack::openrc::project_name:     'imagebuilder'
 profile::openstack::openrc::password:         "%{hiera('imagebuilder_password')}"
 profile::openstack::openrc::interface:        'public'
 
-
-#profile::application::builder::package_url:   "https://download.iaas.uio.no/nrec/nrec-internal/%{hiera('repo_dist')}/imagebuilder-1.39-1.el8.x86_64.rpm"
 profile::application::builder::ipv6:          true
 profile::application::builder::flavor:        'img.zerodisk'
 profile::application::builder::template_dir:  '/etc/imagebuilder'
 profile::application::builder::download_dir:  '/opt/images/public_builds'
 profile::application::builder::rc_file:       '/home/imagebuilder/openrc'
-
-# Run every image in sequence from /opt/imagebuilder/build-images.sh rather
-# than a cron job per image. Off everywhere until a node opts in, so the old
-# and the new scheme can run side by side on different builders
-profile::application::builder::build_script:  false
 
 profile::application::builder::images:
   'almalinux8':
@@ -74,8 +67,6 @@ profile::application::builder::images:
     'min_disk':         8
     'efi':              true
     'username':         'almalinux'
-    'hour':             13
-    'minute':           30
   'almalinux9':
     'image_name':       'IMAGEBUILDER AlmaLinux 9'
     'url':              'https://raw.repo.almalinux.org/almalinux/9/cloud/x86_64/images/'
@@ -86,8 +77,6 @@ profile::application::builder::images:
     'min_disk':         8
     'efi':              true
     'username':         'almalinux'
-    'hour':             3
-    'minute':           30
   'almalinux10':
     'image_name':       'IMAGEBUILDER AlmaLinux 10'
     'url':              'https://raw.repo.almalinux.org/almalinux/10/cloud/x86_64/images/'
@@ -98,8 +87,6 @@ profile::application::builder::images:
     'min_disk':         8
     'efi':              true
     'username':         'almalinux'
-    'hour':             4
-    'minute':           0
   'almalinux9_nv_vgpu':
     'image_name':       'IMAGEBUILDER AlmaLinux 9 (NVIDIA GPU)'
     'url':              'https://raw.repo.almalinux.org/almalinux/9/cloud/x86_64/images/'
@@ -110,9 +97,6 @@ profile::application::builder::images:
     'min_disk':         8
     'efi':              true
     'username':         'almalinux'
-    'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
-    'hour':             15
-    'minute':           30
   'almalinux10_nv_vgpu':
     'image_name':       'IMAGEBUILDER AlmaLinux 10 (NVIDIA GPU)'
     'url':              'https://raw.repo.almalinux.org/almalinux/10/cloud/x86_64/images/'
@@ -123,9 +107,6 @@ profile::application::builder::images:
     'min_disk':         8
     'efi':              true
     'username':         'almalinux'
-    'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
-    'hour':             16
-    'minute':           0
   'almalinux10_uib_puppet':
     'image_name':       'IMAGEBUILDER AlmaLinux 10 (UIB)'
     'url':              'https://raw.repo.almalinux.org/almalinux/10/cloud/x86_64/images/'
@@ -135,9 +116,6 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         8
     'username':         'almalinux'
-    'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/uib_puppet' ]
-    'hour':             5
-    'minute':           0
   'centosstream9':
     'image_name':       'IMAGEBUILDER CentOS Stream 9'
     'url':              'https://cloud.centos.org/centos/9-stream/x86_64/images/'
@@ -147,8 +125,6 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         8
     'username':         'cloud-user'
-    'hour':             6
-    'minute':           30
   'centosstream10':
     'image_name':       'IMAGEBUILDER CentOS Stream 10'
     'url':              'https://cloud.centos.org/centos/10-stream/x86_64/images/'
@@ -159,8 +135,6 @@ profile::application::builder::images:
     'min_disk':         8
     'efi':              true
     'username':         'cloud-user'
-    'hour':             6
-    'minute':           45
   'debian12':
     'image_name':       'IMAGEBUILDER Debian 12'
     'url':              'https://cdimage.debian.org/cdimage/cloud/bookworm/latest/'
@@ -171,8 +145,6 @@ profile::application::builder::images:
     'min_disk':         3
     'efi':              true
     'username':         'debian'
-    'hour':             16
-    'minute':           45
   'debian13':
     'image_name':       'IMAGEBUILDER Debian 13'
     'url':              'https://cdimage.debian.org/cdimage/cloud/trixie/latest/'
@@ -183,20 +155,6 @@ profile::application::builder::images:
     'min_disk':         3
     'efi':              true
     'username':         'debian'
-    'hour':             17
-    'minute':           00
-  'fedora_43':
-    'image_name':       'IMAGEBUILDER Fedora 43'
-    'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/43/Cloud/x86_64/images/'
-    'latest':           'Fedora-Cloud-Base-Generic-43-1.6.x86_64.qcow2'
-    'checksum_file':    'Fedora-Cloud-43-1.6-x86_64-CHECKSUM'
-    'checksum':         'sha256'
-    'min_ram':          1024
-    'min_disk':         3
-    'efi':              true
-    'username':         'fedora'
-    'hour':             14
-    'minute':           45
   'fedora_44':
     'image_name':       'IMAGEBUILDER Fedora 44'
     'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/44/Cloud/x86_64/images/'
@@ -207,8 +165,16 @@ profile::application::builder::images:
     'min_disk':         3
     'efi':              true
     'username':         'fedora'
-    'hour':             14
-    'minute':           30
+  'fedora_45':
+    'image_name':       'IMAGEBUILDER Fedora 45'
+    'url':              'https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/fedora/linux/releases/45/Cloud/x86_64/images/'
+    'latest':           'Fedora-Cloud-Base-Generic-45-1.4.x86_64.qcow2'
+    'checksum_file':    'Fedora-Cloud-45-1.4-x86_64-CHECKSUM'
+    'checksum':         'sha256'
+    'min_ram':          1024
+    'min_disk':         3
+    'efi':              true
+    'username':         'fedora'
   'rockylinux8':
     'image_name':       'IMAGEBUILDER RockyLinux 8'
     'url':              'https://dl.rockylinux.org/pub/rocky/8/images/x86_64/'
@@ -218,8 +184,6 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         8
     'username':         'rocky'
-    'hour':             18
-    'minute':           30
   'rockylinux8_uib_puppet':
     'image_name':       'IMAGEBUILDER RockyLinux 8 (UIB)'
     'url':              'https://dl.rockylinux.org/pub/rocky/8/images/x86_64/'
@@ -229,9 +193,6 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         8
     'username':         'rocky'
-    'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/uib_puppet' ]
-    'hour':             17
-    'minute':           30
   'rockylinux9':
     'image_name':       'IMAGEBUILDER RockyLinux 9'
     'url':              'https://dl.rockylinux.org/pub/rocky/9/images/x86_64/'
@@ -242,7 +203,6 @@ profile::application::builder::images:
     'min_disk':         8
     'efi':              true
     'username':         'rocky'
-    'hour':             18
   'rockylinux10':
     'image_name':       'IMAGEBUILDER RockyLinux 10'
     'url':              'https://dl.rockylinux.org/pub/rocky/10/images/x86_64/'
@@ -253,8 +213,6 @@ profile::application::builder::images:
     'min_disk':         8
     'efi':              true
     'username':         'rocky'
-    'hour':             18
-    'minute':           30
   'ubuntu_2204':
     'image_name':       'IMAGEBUILDER Ubuntu 22.04'
     'url':              'https://cloud-images.ubuntu.com/jammy/current/'
@@ -265,8 +223,6 @@ profile::application::builder::images:
     'min_disk':         3
     'username':         'ubuntu'
     'flavor':           'm1.small'
-    'hour':             9
-    'minute':           30
   'ubuntu_2404':
     'image_name':       'IMAGEBUILDER Ubuntu 24.04'
     'url':              'https://cloud-images.ubuntu.com/noble/current/'
@@ -276,8 +232,6 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         3
     'username':         'ubuntu'
-    'hour':             9
-    'minute':           40
   'ubuntu_2604':
     'image_name':       'IMAGEBUILDER Ubuntu 26.04'
     'url':              'https://cloud-images.ubuntu.com/resolute/current/'
@@ -287,8 +241,6 @@ profile::application::builder::images:
     'min_ram':          768
     'min_disk':         3
     'username':         'ubuntu'
-    'hour':             10
-    'minute':           00
   'ubuntu_2204_nv_vgpu':
     'image_name':       'IMAGEBUILDER Ubuntu 22.04 (NVIDIA GPU)'
     'url':              'https://cloud-images.ubuntu.com/jammy/current/'
@@ -299,9 +251,6 @@ profile::application::builder::images:
     'min_disk':         8
     'username':         'ubuntu'
     'flavor':           'm1.small'
-    'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
-    'hour':             9
-    'minute':           30
   'ubuntu_2404_nv_vgpu':
     'image_name':       'IMAGEBUILDER Ubuntu 24.04 (NVIDIA GPU)'
     'url':              'https://cloud-images.ubuntu.com/noble/current/'
@@ -312,9 +261,6 @@ profile::application::builder::images:
     'min_disk':         8
     'username':         'ubuntu'
     'flavor':           'm1.small'
-    'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
-    'hour':             9
-    'minute':           50
   'ubuntu_2604_nv_vgpu':
     'image_name':       'IMAGEBUILDER Ubuntu 26.04 (NVIDIA GPU)'
     'url':              'https://cloud-images.ubuntu.com/resolute/current/'
@@ -325,9 +271,6 @@ profile::application::builder::images:
     'min_disk':         8
     'username':         'ubuntu'
     'flavor':           'm1.large'
-    'environment':      [ 'IMAGEBUILDER_REPORT=true', 'IB_TEMPLATE_DIR=/etc/imagebuilder/nv_vgpu' ]
-    'hour':             10
-    'minute':           10
   'uio_rhel8':
     'image_name':       'IMAGEBUILDER UIO RHEL 8'
     'url':              'http://download.iaas.uio.no/nrec/nonfree/'
@@ -337,17 +280,15 @@ profile::application::builder::images:
     'min_ram':          1024
     'min_disk':         8
     'username':         'cloud-user'
-    'hour':             12
   'uio_rhel9':
     'image_name':       'IMAGEBUILDER UIO RHEL 9'
     'url':              'http://download.iaas.uio.no/nrec/nonfree/'
-    'latest':           'rhel-9.6-x86_64-kvm.qcow2'
-    'checksum_file':    'rhel-9.6-x86_64-kvm.sha256sum'
+    'latest':           'rhel-9.9-x86_64-kvm.qcow2'
+    'checksum_file':    'rhel-9.9-x86_64-kvm.sha256sum'
     'checksum':         'sha256'
     'min_ram':          1024
     'min_disk':         8
     'username':         'cloud-user'
-    'hour':             13
 
 profile::application::builder::templates:
   'default':
@@ -364,83 +305,23 @@ profile::monitoring::sensu::agent::namespaces:
   "%{hiera('sensu_namespace')}": {}
 
 # Sensu
+profile::application::builder::manage_monitor_script: true
 sensu::agent::subscriptions:
   - 'base'
   - 'nodes'
   - 'metrics'
-sensu::plugins::dependencies:
-  - make
-  - gcc
+  - 'builder'
 
 sensu::agent::annotations:
   'disk_warning': '90'
   'disk_critical': '95'
 
-profile::monitoring::sensu::agent::plugins:
-  sensu-plugins-himlar:
-    ensure:   present
-    source:   'http://download.iaas.uio.no/nrec/gem'
-
-profile::monitoring::sensu::agent::checks:
-  imagebuild-check-multiplex:
-    command:  sensu-check-multiplexer --command check-imagebuild.rb --annotation-prefix "check-imagebuild/args"
-    stdin: true
-    interval:               600
-    subscriptions:          ['entity:%{::hostname}']
-    handlers:               ['default']
-    runtime_assets:
-    - sensu/sensu-check-multiplexer
-    annotations:
-      fatigue_check/occurrences: '3' # notify first on the third occurence
-      fatigue_check/interval: '86400' # once per day notification
-      check-imagebuild/args/almalinux8: "-d almalinux8"
-      check-imagebuild/args/almalinux9: "-d almalinux9"
-      check-imagebuild/args/almalinux9_nv_vgpu: "-d almalinux9_nv_vgpu"
-      check-imagebuild/args/almalinux10: "-d almalinux10"
-      check-imagebuild/args/almalinux10_nv_vgpu: "-d almalinux10_nv_vgpu"
-      check-imagebuild/args/centosstream9: "-d centosstream9"
-      check-imagebuild/args/centosstream10: "-d centosstream10"
-      check-imagebuild/args/debian12: "-d debian12"
-      check-imagebuild/args/debian13: "-d debian13"
-      check-imagebuild/args/fedora_43: "-d fedora_43"
-      check-imagebuild/args/fedora_44: "-d fedora_44"
-      check-imagebuild/args/rockylinux8: "-d rockylinux8"
-      check-imagebuild/args/rockylinux8_uib_puppet: "-d rockylinux8_uib_puppet"
-      check-imagebuild/args/almalinux10_uib_puppet: "-d almalinux10_uib_puppet"
-      check-imagebuild/args/rockylinux9: "-d rockylinux9"
-      check-imagebuild/args/rockylinux10: "-d rockylinux10"
-      check-imagebuild/args/ubuntu_2204: "-d ubuntu_2204"
-      check-imagebuild/args/ubuntu_2204_nv_vgpu: "-d ubuntu_2204_nv_vgpu"
-      check-imagebuild/args/ubuntu_2404: "-d ubuntu_2404"
-      check-imagebuild/args/ubuntu_2404_nv_vgpu: "-d ubuntu_2404_nv_vgpu"
-      check-imagebuild/args/uio_rhel8: "-d uio_rhel8"
-      check-imagebuild/args/uio_rhel9: "-d uio_rhel9"
-      check-imagebuild/args/winsrv_2022: "-d winsrv_2022"
-      check-imagebuild/args/winsrv_2025: "-d winsrv_2025"
-
 # Enable extra yum repo
 profile::base::yumrepo::repo_hash:
+  hashicorp:
+    ensure: present
   rdo-release:
     ensure: present
   epel:
     ensure: present
-    includepkgs: 'bash-completion-extras htop inotify-tools python-dogpile-core python-linecache2 python2-mimeparse python2-msgpack python2-pbr python34 python34-libs'
-    ### FIXME(el9) ### includepkgs: 'htop inotify-tools'
-
-# sudo::configs:
-#   sensu_tty:
-#     priority:   15
-#     content:    'Defaults:sensu !requiretty'
-#   sensu:
-#     priority:   20
-#     content:    'sensu ALL = (root) NOPASSWD: /opt/sensu/embedded/bin/check-log.rb'
-#   sensu_winkey:
-#     priority:   25
-#     content:    'sensu ALL = (root) NOPASSWD: /opt/sensu/embedded/bin/check-file-missing.rb -f /home/imagebuilder/.ssh/windowsbuilder_rsa'
-#
-# profile::monitoring::sensu::agent::checks:
-#   'check-log':
-#     command:      cat /var/log/imagebuilder/*-report.jsonl | jq -r 'select(.result) | .result'
-#     interval:     60
-#     auto_resolve: false
-#     subscribers:  ['checks']
+    includepkgs: 'htop inotify-tools'
