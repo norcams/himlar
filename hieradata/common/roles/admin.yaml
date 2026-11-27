@@ -35,6 +35,7 @@ profile::base::common::packages:
   'bash-completion-extras': {}
   'python3.11-requests': {} # needed for ansible-forman
   'python3.11-pyyaml': {} # needed for ansible-foreman
+  'rsync': {}
   'ruby':
     ensure: '2.7'
     provider: 'dnfmodule'
