@@ -1,6 +1,10 @@
 ---
 # FIXME: this can be removed when all admin run same version on el9
 profile::base::common::packages:
+  'python3.14-requests': {} # needed for ansible-forman
+  'python3.14-pyyaml': {} # needed for ansible-foreman
+  'python3.11-requests': { ensure: absent } # FIXME: remove from common
+  'python3.11-pyyaml': { ensure: absent } # FIXME: remove from common
   'ruby': #FIXME: remove from common to avoid this override when all admin run el9
     ensure: present
     provider: 'dnf'
