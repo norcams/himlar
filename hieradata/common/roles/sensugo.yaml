@@ -251,7 +251,7 @@ profile::monitoring::sensu::agent::checks:
   'cert-check-multiplex':
     command: sensu-check-multiplexer --command check-https-cert.rb --annotation-prefix "check-https-cert/args" -a "-c 10 -w 20 %{hiera('sensu_ssl_cachain')}"
     stdin:          true # needed for multiplexer to work!
-    interval:       3600
+    cron:           "0 8 * * 1-5"
     subscriptions:  ['monitor']
     handlers:       ['default']
     round_robin:    true
@@ -266,6 +266,7 @@ profile::monitoring::sensu::agent::checks:
       check-https-cert/args/identity_cert: "-u %{hiera('endpoint__identity__public')}"
       check-https-cert/args/report_cert: "-u https://%{hiera('public__address__report')}"
       check-https-cert/args/object_cert: "-u %{hiera('public__address__object')}"
+      check-https-cert/args/docs_cert: "-u %{hiera('public__address__docs')}"
   influxdb-checks:
     command:        "http-check --url https://%{hiera('mgmt__address__influx')}:8086/ping %{hiera('sensu_influxdb_ssl_ca')}"
     interval:       600
