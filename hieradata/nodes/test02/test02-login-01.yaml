@@ -27,6 +27,7 @@ named_interfaces::config:
 
 profile::bootstrap::himlar::manage_bootstrap_scripts: true
 
+profile::base::common::manage_lvm: true
 profile::base::lvm::physical_volume:
   '/dev/sdb':
     ensure: present
