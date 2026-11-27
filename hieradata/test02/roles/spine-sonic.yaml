@@ -1,0 +1,653 @@
+---
+#network::config_db::main::config_db_file: '/etc/sonic/config_db.json' # FIXME
+profile::base::common::manage_ssh: false
+
+network::default_interfaces_hash:
+  DEVICE_METADATA:
+    localhost:
+      type: LeafRouter #SpineRouter
+      hwsku: DellEMC-S5248f-P-25G-DPB
+      platform: x86_64-dellemc_s5248f_c3538-r0
+      hostname: "%{::verified_certname}"
+      timezone: "%{hiera('timezone::timezone')}"
+      docker_routing_config_mode: split
+      frr_mgmt_framework_config: 'true'
+  MGMT_VRF_CONFIG:
+    vrf_global:
+      mgmtVrfEnabled: 'true'
+  LOGIN_ATTRIBUTES:
+    global:
+      login_session_timeout: '0'
+  VRF:
+    default:
+      enabled: 'true'
+  NTP_SERVER:
+    129.240.2.6: {}
+    129.240.2.42: {}
+  DNS_NAMESERVER:
+    "%{hiera('netcfg_dns_mgmt_server1')}": {}
+  BREAKOUT_CFG:
+    Ethernet16:
+      breakout_owner: MANUAL
+      brkout_mode: 4x10G
+      port: 1/5
+    Ethernet20:
+      breakout_owner: MANUAL
+      brkout_mode: 4x25G
+      port: 1/6
+    Ethernet24:
+      breakout_owner: MANUAL
+      brkout_mode: 4x25G
+      port: 1/7
+    Ethernet28:
+      breakout_owner: MANUAL
+      brkout_mode: 4x25G
+      port: 1/8
+    Ethernet32:
+      breakout_owner: MANUAL
+      brkout_mode: 4x25G
+      port: 1/9
+    Ethernet36:
+      breakout_owner: MANUAL
+      brkout_mode: 4x25G
+      port: 1/10
+    Ethernet40:
+      breakout_owner: MANUAL
+      brkout_mode: 4x25G
+      port: 1/11
+    Ethernet44:
+      breakout_owner: MANUAL
+      brkout_mode: 4x25G
+      port: 1/12
+    Ethernet48:
+      breakout_owner: MANUAL
+      brkout_mode: 4x25G
+      port: 1/13
+    Ethernet52:
+      breakout_owner: MANUAL
+      brkout_mode: 4x10G
+      port: 1/14
+    Ethernet56:
+      breakout_owner: MANUAL
+      brkout_mode: 4x25G
+      port: 1/15
+    Ethernet60:
+      breakout_owner: MANUAL
+      brkout_mode: 4x25G
+      port: 1/16
+    Ethernet120:
+      breakout_owner: MANUAL
+      brkout_mode: 4x10G
+      port: 1/31
+#  INTERFACE:
+#    Ethernet0:
+#      ipv6_use_link_local_only: 'enable'
+#    Ethernet4:
+#      ipv6_use_link_local_only: 'enable'
+  FEATURE:
+    dhcp_relay:
+      auto_restart: enabled
+      check_up_status: 'True'
+      has_global_scope: 'True'
+      has_per_asic_scope: 'False'
+      has_timer: 'False'
+      state: enabled
+    iccpd:
+      auto_restart: disabled
+      check_up_status: 'True'
+      has_global_scope: 'True'
+      has_per_asic_scope: 'False'
+      has_timer: 'False'
+      state: disabled
+    nat:
+      auto_restart: disabled
+      check_up_status: 'True'
+      has_global_scope: 'True'
+      has_per_asic_scope: 'False'
+      has_timer: 'False'
+      state: disabled
+    stp:
+      auto_restart: disabled
+      check_up_status: 'True'
+      has_global_scope: 'True'
+      has_per_asic_scope: 'False'
+      has_timer: 'False'
+      state: disabled
+    udld:
+      auto_restart: disabled
+      check_up_status: 'True'
+      has_global_scope: 'True'
+      has_per_asic_scope: 'False'
+      has_timer: 'False'
+      state: disabled
+    vrrp:
+      auto_restart: disabled
+      check_up_status: 'True'
+      has_global_scope: 'True'
+      has_per_asic_scope: 'False'
+      has_timer: 'False'
+      state: disabled
+  PORT:
+    Ethernet0:
+      lanes: "1,2,3,4"
+      alias: Eth1
+      index: '1'
+      speed: '100000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet4:
+      lanes: "5,6,7,8"
+      alias: Eth2
+      index: '2'
+      speed: '100000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet8:
+      lanes: "9,10,11,12"
+      alias: Eth3
+      index: '3'
+      speed: '100000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet12:
+      lanes: "13,14,15,16"
+      alias: Eth4
+      index: '4'
+      speed: '100000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet16:
+      lanes: "17"
+      alias: 'Eth5/1'
+      index: '5'
+      speed: '10000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet17:
+      lanes: "18"
+      alias: 'Eth5/2'
+      index: '5'
+      speed: '10000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet18:
+      lanes: "19"
+      alias: 'Eth5/3'
+      index: '5'
+      speed: '10000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet19:
+      lanes: "20"
+      alias: 'Eth5/4'
+      index: '5'
+      speed: '10000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet20:
+      lanes: "21"
+      alias: 'Eth6/1'
+      index: '6'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet21:
+      lanes: "22"
+      alias: 'Eth6/2'
+      index: '6'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet22:
+      lanes: "23"
+      alias: 'Eth6/3'
+      index: '6'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet23:
+      lanes: "24"
+      alias: 'Eth6/4'
+      index: '6'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet24:
+      lanes: "25"
+      alias: 'Eth7/1'
+      index: '7'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet25:
+      lanes: "26"
+      alias: 'Eth7/2'
+      index: '7'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet26:
+      lanes: "27"
+      alias: 'Eth7/3'
+      index: '7'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet27:
+      lanes: "28"
+      alias: 'Eth7/4'
+      index: '7'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet28:
+      lanes: "29"
+      alias: 'Eth8/1'
+      index: '8'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet29:
+      lanes: "30"
+      alias: 'Eth8/2'
+      index: '8'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet30:
+      lanes: "31"
+      alias: 'Eth8/3'
+      index: '8'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet31:
+      lanes: "32"
+      alias: 'Eth8/4'
+      index: '8'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet32:
+      lanes: "33"
+      alias: 'Eth9/1'
+      index: '9'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet33:
+      lanes: "34"
+      alias: 'Eth9/2'
+      index: '9'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet34:
+      lanes: "35"
+      alias: 'Eth9/3'
+      index: '9'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet35:
+      lanes: "36"
+      alias: 'Eth9/4'
+      index: '9'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet36:
+      lanes: "37"
+      alias: 'Eth10/1'
+      index: '10'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet37:
+      lanes: "38"
+      alias: 'Eth10/2'
+      index: '10'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet38:
+      lanes: "39"
+      alias: 'Eth10/3'
+      index: '10'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet39:
+      lanes: "40"
+      alias: 'Eth10/4'
+      index: '10'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet40:
+      lanes: "41"
+      alias: 'Eth11/1'
+      index: '11'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet41:
+      lanes: "42"
+      alias: 'Eth11/2'
+      index: '11'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet42:
+      lanes: "43"
+      alias: 'Eth11/3'
+      index: '11'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet43:
+      lanes: "44"
+      alias: 'Eth11/4'
+      index: '11'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet44:
+      lanes: "45"
+      alias: 'Eth12/1'
+      index: '12'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet45:
+      lanes: "46"
+      alias: 'Eth12/2'
+      index: '12'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet46:
+      lanes: "47"
+      alias: 'Eth12/3'
+      index: '12'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet47:
+      lanes: "48"
+      alias: 'Eth12/4'
+      index: '12'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet48:
+      lanes: "49"
+      alias: 'Eth13/1'
+      index: '13'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet49:
+      lanes: "50"
+      alias: 'Eth13/2'
+      index: '13'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet50:
+      lanes: "51"
+      alias: 'Eth13/3'
+      index: '13'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet51:
+      lanes: "52"
+      alias: 'Eth13/4'
+      index: '13'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet52:
+      lanes: "53"
+      alias: 'Eth14/1'
+      index: '14'
+      speed: '10000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet53:
+      lanes: "54"
+      alias: 'Eth14/2'
+      index: '14'
+      speed: '10000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet54:
+      lanes: "55"
+      alias: 'Eth14/3'
+      index: '14'
+      speed: '10000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet55:
+      lanes: "56"
+      alias: 'Eth14/4'
+      index: '14'
+      speed: '10000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet56:
+      lanes: "57"
+      alias: 'Eth15/1'
+      index: '15'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet57:
+      lanes: "58"
+      alias: 'Eth15/2'
+      index: '15'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet58:
+      lanes: "59"
+      alias: 'Eth15/3'
+      index: '15'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet59:
+      lanes: "60"
+      alias: 'Eth15/4'
+      index: '15'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet60:
+      lanes: "61"
+      alias: 'Eth16/1'
+      index: '16'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet61:
+      lanes: "62"
+      alias: 'Eth16/2'
+      index: '16'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet62:
+      lanes: "63"
+      alias: 'Eth16/3'
+      index: '16'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet63:
+      lanes: "64"
+      alias: 'Eth16/4'
+      index: '16'
+      speed: '25000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet64:
+      lanes: "65,66,67,68"
+      alias: Eth17
+      index: '17'
+      speed: '100000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet68:
+      lanes: "69,70,71,72"
+      alias: Eth18
+      index: '18'
+      speed: '100000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet72:
+      lanes: "73,74,75,76"
+      alias: Eth19
+      index: '19'
+      speed: '100000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet76:
+      lanes: "77,78,79,80"
+      alias: Eth20
+      index: '20'
+      speed: '100000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet80:
+      lanes: "81,82,83,84"
+      alias: Eth21
+      index: '21'
+      speed: '100000'
+      admin_status: up
+      autoneg: 'off'
+      mtu: '9216'
+    Ethernet84:
+      lanes: "85,86,87,88"
+      alias: Eth22
+      index: '22'
+      speed: '100000'
+      admin_status: up
+      autoneg: 'off'
+      mtu: '9216'
+    Ethernet88:
+      lanes: "89,90,91,92"
+      alias: Eth23
+      index: '23'
+      speed: '40000'
+      admin_status: up
+      autoneg: 'off'
+      mtu: '9216'
+    Ethernet92:
+      lanes: "93,94,95,96"
+      alias: Eth24
+      index: '24'
+      speed: '100000'
+      admin_status: up
+      autoneg: 'off'
+      mtu: '9216'
+    Ethernet96:
+      lanes: "97,98,99,100"
+      alias: Eth25
+      index: '25'
+      speed: '100000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet100:
+      lanes: "101,102,103,104"
+      alias: Eth26
+      index: '26'
+      speed: '100000'
+      admin_status: up
+      autoneg: 'off'
+      mtu: '9216'
+    Ethernet104:
+      lanes: "105,106,107,108"
+      alias: Eth27
+      index: '27'
+      speed: '100000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet108:
+      lanes: "109,110,111,112"
+      alias: Eth28
+      index: '28'
+      speed: '100000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet112:
+      lanes: "113,114,115,116"
+      alias: Eth29
+      index: '29'
+      speed: '100000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet116:
+      lanes: "117,118,119,120"
+      alias: Eth30
+      index: '30'
+      speed: '100000'
+      admin_status: up
+      mtu: '9216'
+    Ethernet120:
+      lanes: "121"
+      alias: 'Eth31/1'
+      index: '31'
+      speed: '10000'
+      admin_status: up
+      mtu: '9184'
+      autoneg: 'off'
+    Ethernet121:
+      lanes: "122"
+      alias: 'Eth31/2'
+      index: '31'
+      speed: '10000'
+      admin_status: up
+      mtu: '9184'
+      autoneg: 'off'
+    Ethernet122:
+      lanes: "123"
+      alias: 'Eth31/3'
+      index: '31'
+      speed: '10000'
+      admin_status: up
+      mtu: '9184'
+    Ethernet123:
+      lanes: "124"
+      alias: 'Eth31/4'
+      index: '31'
+      speed: '10000'
+      admin_status: up
+      mtu: '9184'
+    Ethernet124:
+      lanes: "125,126,127,128"
+      alias: Eth32
+      index: '32'
+      speed: '100000'
+      admin_status: up
+      autoneg: 'off'
+      mtu: '9184'
+    Ethernet125:
+      lanes: "129"
+      alias: 'Eth33'
+      index: '33'
+      speed: '10000'
+      admin_status: down
+      mtu: '9216'
+    Ethernet126:
+      lanes: "128"
+      alias: 'Eth34'
+      index: '34'
+      speed: '10000'
+      admin_status: down
+      mtu: '9216'
+
+  SWITCH_RESOURCE_TABLE:
+    ROUTE_SCALE:
+      routes: MAX

@@ -40,7 +40,12 @@ class profile::application::foreman(
 
   include ::foreman::cli
   include ::foreman::compute::libvirt
-  include ::foreman::plugin::hooks
+
+  # Only include this plugin for foreman 3.11 and lower
+  $foreman_version = lookup('foreman_version', String)
+  if versioncmp($foreman_version, '3.12') < 0 {
+    include ::foreman::plugin::hooks
+  }
   include ::foreman::plugin::discovery
   include ::foreman::plugin::templates
   include ::foreman::plugin::puppet
