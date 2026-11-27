@@ -1,8 +1,8 @@
 ---
-# Use ceph cluster for instance disk
-nova::compute::rbd::ephemeral_storage:            true
+# Ceph pool for instance disk. images_type/ephemeral_storage are set in the role
+# hierarchy (common/roles/compute.yaml) and cpu_models in test01/roles/compute.yaml,
+# so they are not shadowed by this module-level file.
 nova::compute::rbd::libvirt_images_rbd_pool:      'vms'
-nova::compute::libvirt::images_type:              'rbd'
 #nova::compute::rbd::libvirt_images_rbd_ceph_conf: '/etc/ceph/ceph.conf'
 
 # metadata (node: compute)
@@ -18,7 +18,6 @@ nova::compute::libvirt::disk_cachemodes:
 
 # set lowest common denominator for live migration compat
 nova::compute::libvirt::cpu_mode:    'custom'
-nova::compute::libvirt::cpu_models: ['IvyBridge-IBRS']
 
 # TEST: console over TRP [trondham, 2023-02-15]
 nova::compute::vncserver_proxyclient_address: "%{ipaddress_trp1}"

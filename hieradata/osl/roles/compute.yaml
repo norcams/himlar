@@ -125,6 +125,10 @@ profile::base::lvm::logical_volume:
     fs_type:      "xfs"
     mountpath:    "/var/lib/nova/instances"
 
+# Nova: region cpu_models (lowest common denominator for live migration; override
+# per variant/node). images_type/ephemeral_storage come from common/roles/compute.yaml.
+nova::compute::libvirt::cpu_models:    ['Haswell-noTSX']
+
 profile::base::physical::configure_bmc_nic:                       true
 profile::base::physical::enable_redfish_scripts:                  true
 profile::base::physical::enable_redfish_http_proxy:               true

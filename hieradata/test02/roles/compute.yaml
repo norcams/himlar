@@ -53,6 +53,9 @@ profile::openstack::compute::manage_telemetry: true
 
 nova::compute::libvirt::hw_machine_type: 'x86_64=q35'
 
+# Nova: region cpu_models (images_type/ephemeral_storage from common/roles/compute.yaml)
+nova::compute::libvirt::cpu_models:      ['Nehalem']
+
 profile::monitoring::sensu::agent::checks:
   'dhcp-agent-check':
     command:      '/usr/local/bin/calico_dhcp_agent_check.sh'

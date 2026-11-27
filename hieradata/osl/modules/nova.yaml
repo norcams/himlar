@@ -1,17 +1,17 @@
 ---
-# Use ceph cluster for instance disk
-nova::compute::rbd::ephemeral_storage:            true
+# Ceph pool for instance disk. images_type/ephemeral_storage are set in the role
+# hierarchy (common/roles/compute.yaml) and cpu_models in osl/roles/compute.yaml,
+# so they are not shadowed by this module-level file, which outranks 'Common roles'.
 nova::compute::rbd::libvirt_images_rbd_pool:      'vms'
-nova::compute::libvirt::images_type:              'rbd'
 #nova::compute::rbd::libvirt_images_rbd_ceph_conf: '/etc/ceph/ceph.conf'
 
 # Optimize cache mode for ceph
 nova::compute::libvirt::disk_cachemodes:
   - '"network=writeback"'
 
-# set lowest common denominator for live migration compat
+# set lowest common denominator for live migration compat.
+# cpu_models is set in the role hierarchy (base 'compute' role + variants).
 nova::compute::libvirt::cpu_mode:    'custom'
-nova::compute::libvirt::cpu_models: ['Haswell-noTSX']
 
 # Disable audits
 nova::compute::instance_usage_audit:        false
