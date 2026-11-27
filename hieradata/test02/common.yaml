@@ -7,7 +7,17 @@ profile::base::dell::manage_repos:      true
 profile::base::dell::manage_openmanage: false
 
 # while the environment is being bootstrapped
-profile::monitoring::sensu::agent::enable_go_agent:     false
+profile::monitoring::sensu::agent::enable_go_agent: false
+profile::network::services::manage_dns_records: false
+
+# change from puppetlabs to openvox
+puppet::client_package: 'openvox-agent'
+puppet::server_package: 'openvox-server'
+profile::base::yumrepo::repo_hash:
+  puppetlabs7:
+    ensure: absent
+  openvox7:
+    ensure: present
 
 domain_frontend:        'test.iaas.uio.no'
 domain_public:          'test.iaas.uio.no'

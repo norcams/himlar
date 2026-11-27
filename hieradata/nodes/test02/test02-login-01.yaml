@@ -27,8 +27,17 @@ named_interfaces::config:
 
 profile::bootstrap::himlar::manage_bootstrap_scripts: true
 
-ssh::server::options: # FIXME: disable MFA for now
-  # Need this for 2FA (saz-ssh-module disables by default)
-  ChallengeResponseAuthentication: 'no'
-  # The second publickey is until the pam files are fixed
-  AuthenticationMethods: 'publickey'
+profile::base::common::manage_lvm: true
+profile::base::lvm::physical_volume:
+  '/dev/sdb':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_repo':
+    physical_volumes:
+      - /dev/sdb
+profile::base::lvm::logical_volume:
+  'lv_repo':
+    volume_group: 'vg_repo'
+    fs_type:      "xfs"
+    mountpath:    "/opt/repo"

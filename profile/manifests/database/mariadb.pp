@@ -28,6 +28,7 @@ class profile::database::mariadb (
   $backupdirowner              = 'root',
   $backupdirgroup              = 'root',
   $backupcompress              = true,
+  $manage_db_monitor_script    = false,
   $compression_command         = 'bzcat -zc',
   $compression_extension       = '.bz2',
   $backuprotate                = 5,
@@ -93,5 +94,15 @@ class profile::database::mariadb (
 
   file { '/var/db/dumps':
     ensure => 'directory',
+  }
+
+  if $manage_db_monitor_script {
+    file { '/usr/local/bin/check-db-backup.sh':
+      ensure => present,
+      owner  => root,
+      group  => root,
+      mode   => '0755',
+      source => "puppet:///modules/${module_name}/monitoring/sensu/check_db_backup.sh",
+    }
   }
 }

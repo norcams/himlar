@@ -39,6 +39,14 @@ profile::bootstrap::himlar::manage_bootstrap_scripts: true
 
 # Enable backup explicitly on 01 only
 profile::base::login::manage_db_backup: true
+profile::base::login::manage_db_monitor_script: true
+
+# Sensu monitor db dumps
+sensu::agent::subscriptions:
+  - 'base'
+  - 'nodes'
+  - 'metrics'
+  - 'db_dump'
 
 named_interfaces::config:
   mgmt:
@@ -102,4 +110,3 @@ profile::base::lvm::logical_volume:
     fs_type:      "xfs"
     mountpath:    "/home"
     size:         '30G'
-
