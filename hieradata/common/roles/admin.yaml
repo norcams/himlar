@@ -53,6 +53,8 @@ apache::mod::passenger::manage_repo: false
 profile::application::foreman::manage_eyaml:    false
 profile::application::foreman::manage_firewall: true
 profile::application::foreman::manage_repo_dir: true
+profile::application::foreman::repo_group:      'wheel'
+profile::application::foreman::repo_mode:       '2775'
 profile::application::foreman::manage_r10k:     false
 profile::application::foreman::push_facts:      true
 
