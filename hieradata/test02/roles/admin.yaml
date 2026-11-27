@@ -1,4 +1,36 @@
 ---
+# FIXME: this can be removed when all admin run same version on el9
+profile::base::common::packages:
+  'python3.14-requests': {} # needed for ansible-forman
+  'python3.14-pyyaml': {} # needed for ansible-foreman
+  'python3.11-requests': { ensure: absent } # FIXME: remove from common
+  'python3.11-pyyaml': { ensure: absent } # FIXME: remove from common
+  'ruby': #FIXME: remove from common to avoid this override when all admin run el9
+    ensure: present
+    provider: 'dnf'
+    enable_only: false
+
+foreman_version: '3.12'
+
+# postgresql 13 is default in el9
+postgresql::globals::version: '13'
+
+
+profile::base::common::manage_lvm: true
+profile::base::lvm::physical_volume:
+  '/dev/vda3':
+    ensure: present
+    force:  true
+profile::base::lvm::volume_group:
+  'vg_repo':
+    physical_volumes:
+      - /dev/vda3
+profile::base::lvm::logical_volume:
+  'lv_repo':
+    volume_group: 'vg_repo'
+    fs_type:      "xfs"
+    mountpath:    "/opt/repo"
+
 dhcp::hosts:
   test02-controller-01-bmc:
     mac: '18:66:da:81:6d:3e'
@@ -15,3 +47,6 @@ dhcp::hosts:
   test02-login-01-bmc:
     mac: '50:9a:4c:b3:0f:de'
     ip:  '172.29.32.1'
+  test02-spine-01:
+    mac: '8c:47:be:60:68:80'
+    ip:  '172.28.38.1'

@@ -1,0 +1,23 @@
+---
+network::interfaces_hash:
+  DEVICE_METADATA:
+    localhost:
+      "mac": "8c:47:be:60:68:81"
+#  LOOPBACK_INTERFACE:
+#    "Loopback0": {}
+#    "Loopback0|%{hiera('netcfg_lo_net_c2')}.1/32": {}
+#    "Loopback0|%{hiera('netcfg_lo_netpart6')}:2::1/128": {}
+#    "Loopback1":
+#      vrf_name: "Vrf_main"
+#    "Loopback1|%{hiera('netcfg_lo_main_net_c2')}.1/32": {}
+  MGMT_INTERFACE:
+    "eth0|%{hiera('netcfg_mgmt_net_c6')}.1/21":
+#      gwaddr: "%{hiera('netcfg_mgmt_gateway')}"
+      gwaddr: '172.28.32.10'
+  MGMT_PORT:
+    "eth0":
+      alias: "eth0"
+      admin_status: "up"
+#  VXLAN_TUNNEL:
+#    vtep1:
+#      src_ip: "%{hiera('netcfg_lo_net_c2')}.1"
