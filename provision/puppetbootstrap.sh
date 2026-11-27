@@ -47,9 +47,9 @@ EOM
   # Add our puppetlabs mirror
 cat > /etc/yum.repos.d/puppetlabs.repo <<- EOM
 [puppetlabs]
-name=Puppet 7 Yum Repo
-baseurl=$repo/puppetlabs7/
-gpgkey=$repo/puppetlabs7/RPM-GPG-KEY-puppet-20250406
+name=OpenVox 7 Yum Repo
+baseurl=$repo/openvox7/
+gpgkey=$repo/openvox7/GPG-KEY-openvox.pub
 enabled=1
 gpgcheck=1
 EOM
@@ -74,7 +74,7 @@ bootstrap_puppet()
     dnf install --refresh -y epel-release # to get gpgkey for epel
     dnf_repos
     dnf -y upgrade
-    dnf install -y puppet-agent git-core vim gcc make
+    dnf install -y openvox-agent git-core vim gcc make
 
     if [[ $repo_dist == "el8" ]]; then
       dnf install -y network-scripts
